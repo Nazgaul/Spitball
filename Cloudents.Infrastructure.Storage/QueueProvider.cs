@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core.Message.Email;
 using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
-using JetBrains.Annotations;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
@@ -11,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Storage
 {
-    [UsedImplicitly]
     public class QueueProvider : IQueueProvider
     {
         private readonly CloudQueueClient _queueClient;

@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.Enum;
-using JetBrains.Annotations;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
@@ -23,7 +22,6 @@ namespace Cloudents.Core.Entities
         public virtual ChatRoom ChatRoom { get; protected set; }
 
 
-        [CanBeNull]
-        public virtual Lead Lead { get; set; }
+        public virtual Lead? Lead { get; set; }
     }
 }

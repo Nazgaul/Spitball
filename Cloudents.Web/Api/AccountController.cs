@@ -230,6 +230,14 @@ namespace Cloudents.Web.Api
             }
         }
 
+        [HttpGet("coupon")]
+        public async Task<IEnumerable<CouponDto>> GetUserCouponsAsync(CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new UserCouponsQuery(userId);
+            return await _queryBus.QueryAsync(query, token);
+        }
+
         [HttpGet("sales")]
         public async Task<IEnumerable<SaleDto>> GetUserSalesAsync([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {

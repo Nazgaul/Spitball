@@ -31,7 +31,7 @@ namespace Cloudents.Query.General
                 return await _session.Query<UserLocation>()
                     .Fetch(f => f.User)
                     .Where(w => w.Ip == query.Ip).Select(s => s.Country)
-                    .SingleOrDefaultAsync(token);
+                    .FirstOrDefaultAsync(token);
             }
         }
     }

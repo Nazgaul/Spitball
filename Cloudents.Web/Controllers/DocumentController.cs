@@ -50,21 +50,9 @@ namespace Cloudents.Web.Controllers
         }
 
         [Route("d/{id}", Name = "ShortDocumentLink2")]
-        public async Task<IActionResult> ShortUrl2Async(long id,
+        public async Task<IActionResult> ShortUrl2Async(long id, string theme,
             CancellationToken token)
         {
-            //if (string.IsNullOrEmpty(base62))
-            //{
-            //    return NotFound();
-            //}
-
-            ////if (!long.TryParse(base62, out var id))
-            ////{
-            //if (!Base62.TryParse(base62, out var id))
-            //{
-            //    return NotFound();
-            //}
-
             _userManager.TryGetLongUserId(User, out var userId);
             var query = new DocumentById(id, userId);
             var model = await _queryBus.QueryAsync(query, token);
@@ -76,6 +64,7 @@ namespace Cloudents.Web.Controllers
             {
                 courseName = FriendlyUrlHelper.GetFriendlyTitle(model.Document.Course),
                 id,
+                theme,
                 name = FriendlyUrlHelper.GetFriendlyTitle(model.Document.Title)
             });
             return t;
@@ -137,7 +126,7 @@ namespace Cloudents.Web.Controllers
         [Route("document/{courseName}/{name}/{id:long}",
              Name = SeoTypeString.Document)]
         [ActionName("Index"), SignInWithToken]
-        public async Task<IActionResult> IndexAsync(string courseName, string name, long id, CancellationToken token)
+        public async Task<IActionResult> IndexAsync([FromQuery]string theme, long id, CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
             var query = new DocumentById(id, userId);
@@ -159,17 +148,21 @@ namespace Cloudents.Web.Controllers
 
             ViewBag.title = _localizer["Title", model.Document.Course, model.Document.Title];
             ViewBag.metaDescription = _localizer["Description", model.Document.Course];
+            Country country = model.Document.User.Country;
+
             if (model.Document.DocumentType == DocumentType.Video && !string.IsNullOrEmpty(model.Document.Snippet))
             {
                 var jsonLd = new VideoObject()
                 {
                     Description = model.Document.Snippet,
                     Name = model.Document.Title,
-                    ThumbnailUrl = new Uri(_urlBuilder.BuildDocumentThumbnailEndpoint(model.Document.Id, new
+                    ThumbnailUrl = new Uri(_urlBuilder.BuildDocumentImageShareEndpoint(model.Document.Id, new
                     {
                         width = 703,
                         height = 395,
-                        mode = "crop"
+                        mode = "crop",
+                        theme,
+                        rtl = country.MainLanguage.Info.TextInfo.IsRightToLeft.ToString()
                     })),
                     UploadDate = model.Document.DateTime,
                     Duration = model.Document.Duration,
@@ -177,12 +170,12 @@ namespace Cloudents.Web.Controllers
                 };
                 ViewBag.jsonLd = jsonLd;
             }
-            Country country = model.Document.User.Country;
-            ViewBag.ogImage = new Uri(_urlBuilder.BuildDocumentThumbnailEndpoint(model.Document.Id, new
+            ViewBag.ogImage = new Uri(_urlBuilder.BuildDocumentImageShareEndpoint(model.Document.Id, new
             {
                 width = 1200,
                 height = 630,
                 mode = "crop",
+                theme,
                 rtl = country.MainLanguage.Info.TextInfo.IsRightToLeft.ToString()
             }));
             ViewBag.ogTitle = model.Document.Title;

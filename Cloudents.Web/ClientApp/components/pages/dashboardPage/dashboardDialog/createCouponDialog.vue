@@ -179,10 +179,14 @@ export default {
     })
   },
     beforeDestroy(){
-      storeService.unregisterModule(this.$store, 'couponStore');
+      if(!this.$store.state.hasOwnProperty('couponStore')) {
+        storeService.unregisterModule(this.$store, 'couponStore');
+      }
      },
     created() {
-      storeService.registerModule(this.$store, 'couponStore', couponStore);
+      if(!this.$store.state.hasOwnProperty('couponStore')) {
+        storeService.registerModule(this.$store, 'couponStore', couponStore);
+      }
     },
 };
 </script>

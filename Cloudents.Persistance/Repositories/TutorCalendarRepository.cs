@@ -15,9 +15,9 @@ namespace Cloudents.Persistence.Repositories
         {
         }
 
-        public async Task<IEnumerable<TutorCalendar>> GetTutorCalendarsAsync(long TutorId, CancellationToken token)
+        public async Task<IEnumerable<TutorCalendar>> GetTutorCalendarsAsync(long tutorId, CancellationToken token)
         {
-            return await Session.Query<TutorCalendar>().Where(w => w.Tutor.Id == TutorId).ToListAsync(token);
+            return await Session.Query<TutorCalendar>().Where(w => w.Tutor.Id == tutorId).ToListAsync(token);
         }
     }
 }

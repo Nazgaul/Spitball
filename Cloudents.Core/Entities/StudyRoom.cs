@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
 
 [assembly: InternalsVisibleTo("Cloudents.Persistence")]
 namespace Cloudents.Core.Entities
@@ -47,8 +46,7 @@ namespace Cloudents.Core.Entities
         public virtual IEnumerable<StudyRoomSession> Sessions => _sessions;
 
 
-        [CanBeNull]
-        public virtual StudyRoomSession GetCurrentSession()
+        public virtual StudyRoomSession? GetCurrentSession()
         {
 
             var result = Sessions.AsQueryable().Where(w => w.Ended == null).OrderBy(o => o.Id).ToList();

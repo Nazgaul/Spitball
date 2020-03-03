@@ -11,7 +11,7 @@ namespace Cloudents.Command.CommandHandler
         private readonly ITutorRepository _tutorRepository;
         private readonly IRepository<Coupon> _couponRepository;
 
-        const string description = "DashboardCoupon";
+        const string Description = "DashboardCoupon";
 
         public CreateCouponCommandHandler(ITutorRepository tutorRepository, IRepository<Coupon> couponRepository)
         {
@@ -23,7 +23,7 @@ namespace Cloudents.Command.CommandHandler
         {
             var tutor = await _tutorRepository.LoadAsync(message.TutorId, token);
             var coupon = new Coupon(message.Code, message.CouponType, tutor, message.Value,
-                null, 1, message.Expiration, description, null);
+                null, 1, message.Expiration, Description, null);
 
             await _couponRepository.AddAsync(coupon, token);
         }

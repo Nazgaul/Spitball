@@ -21,8 +21,8 @@ export default {
         return {
             dialogsPremissions: {
                 login: [],
-                exitRegister: [],
-                becomeTutor: [],
+                exitRegisterDialog: [],
+                becomeTutor: ["auth"],
                 upload: ["auth","courses"],
                 createCoupon: ["auth","tutor"],
                 payment:["auth"]
@@ -43,7 +43,7 @@ export default {
                 return this[dialogChekerName](dialogNameFromRoute);
         },
         check_auth(){
-            if(!this.getUserLoggedInStatus && !global.isAuth){
+            if(!this.getUserLoggedInStatus){
                 this.component = dialogNames.Login;
             }
         },

@@ -29,7 +29,7 @@ export default {
     methods: {
         nextStep() {
             if(this.$route.name == RegisterCourseCollege) {
-                global.isAuth = true;
+                this.$store.dispatch('updateLoginStatus',true)
             }
             this.$router.push({name: this.$route.meta.nextStep})
         },

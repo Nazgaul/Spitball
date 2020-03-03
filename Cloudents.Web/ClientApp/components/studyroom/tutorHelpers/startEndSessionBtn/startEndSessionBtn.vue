@@ -39,6 +39,7 @@
         methods: {
             ...mapActions(["updateEndDialog"]),
             endSession() {
+                this.$ga.event("tutoringRoom", "endSession");
                 this.updateEndDialog(true);
             },
         },

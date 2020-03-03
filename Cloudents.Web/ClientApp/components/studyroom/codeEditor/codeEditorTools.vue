@@ -67,6 +67,7 @@ export default {
             return require(`${src}`)
         },
         selectLang(lang){
+            this.$ga.event("tutoringRoom", `selectLang:${lang}`);
             this.updateLang(lang)
             this.show = false
         },
