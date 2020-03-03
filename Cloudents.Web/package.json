@@ -52,7 +52,7 @@
     "optimize-css-assets-webpack-plugin": "5.0.3",
     "purify-css": "1.2.6",
     "purifycss-webpack": "0.7.0",
-    "query-string": "^5.0.1",
+    "query-string": "^6.11.1",
     "rtl-css-loader": "1.0.1",
     "sass": "^1.23.1",
     "sass-loader": "^8.0.0",
