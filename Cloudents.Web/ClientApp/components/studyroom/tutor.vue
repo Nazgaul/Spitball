@@ -418,12 +418,14 @@ watch: {
   getIsRoomNeedPayment:{
     immediate:true,
     handler(newVal){
+      // note: we need the immediate cuz no one listen to getIsRoomNeedPayment and can 
+      // getStudyRoomData empty
       if(newVal !== null){
         this.handleNeedPayment(newVal)
       }
     }
   },
-  getStudyRoomData(val){
+  getStudyRoomData(){
     if(!this.getIsRoomNeedPayment){
       this.initStartSession();
     }
