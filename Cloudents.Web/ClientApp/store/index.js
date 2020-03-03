@@ -33,7 +33,7 @@ import profile from './profile.js';
 
 import tutoringMain from './studyRoomStore/tutoringMain.js';
 import studyroomSettings_store from './studyRoomStore/studyroomSettings_store.js';
-import maor_studyRoomStore from './studyRoomStore/maor_studyRoomStore.js'
+import studyRoomStore from './studyRoomStore/studyRoomStore.js'
 
 
 // const onModuleAValueChange= (store) => {
@@ -103,7 +103,7 @@ const store = new Vuex.Store({
 
         tutoringMain,
         studyroomSettings_store,
-        maor_studyRoomStore,
+        studyRoomStore,
     },
    // plugins: [onModuleAValueChange]
 });

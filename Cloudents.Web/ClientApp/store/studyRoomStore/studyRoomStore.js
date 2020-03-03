@@ -1,4 +1,4 @@
-import maor_studyRoomService from '../../services/maor_studyRoomService.js';
+import studyRoomService from '../../services/studyRoomService.js';
 
 function _checkPayment(context){
    let data = context.getters.getStudyRoomData;
@@ -19,17 +19,17 @@ const getters = {
    
 }
 const actions = {
-   maor_updateStudyRoomInformation({getters,dispatch},roomId){
+   updateStudyRoomInformation({getters,dispatch},roomId){
       if(getters.getStudyRoomData){
-         return dispatch('maor_studyRoomMiddleWare')
+         return dispatch('studyRoomMiddleWare')
       }else{
-         return maor_studyRoomService.getRoomInformation(roomId).then((roomProps)=>{
+         return studyRoomService.getRoomInformation(roomId).then((roomProps)=>{
             dispatch('updateStudyRoomProps',roomProps);
-            return dispatch('maor_studyRoomMiddleWare')
+            return dispatch('studyRoomMiddleWare')
          })
       }
    },
-   maor_studyRoomMiddleWare(context){
+   studyRoomMiddleWare(context){
       let arr = [_checkPayment];
       arr.forEach(async (d) => {
          await d(context).catch(() => {
@@ -38,8 +38,8 @@ const actions = {
       })
       return Promise.resolve();
    },
-   maor_endTutoringSession(context,roomId){
-      return maor_studyRoomService.endTutoringSession(roomId);
+   endTutoringSession(context,roomId){
+      return studyRoomService.endTutoringSession(roomId);
    }
 }
 export default {

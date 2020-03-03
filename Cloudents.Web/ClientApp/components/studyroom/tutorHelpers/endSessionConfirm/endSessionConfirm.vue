@@ -61,7 +61,7 @@
             },
             endSession(){
                 let self = this;
-                this.$store.dispatch('maor_endTutoringSession',this.getRoomId)
+                this.$store.dispatch('endTutoringSession',this.getRoomId)
                     .then(() => {
                         self.closeDialog();
                     }, (error) => {

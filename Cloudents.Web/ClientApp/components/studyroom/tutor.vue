@@ -658,7 +658,7 @@ watch: {
 
     if(this.id){
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null) 
-      this.$store.dispatch('maor_updateStudyRoomInformation',this.id).catch((err)=>{
+      this.$store.dispatch('updateStudyRoomInformation',this.id).catch((err)=>{
           if(err?.response){
             insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_RoomProps', err, null)
             this.$router.push('/')

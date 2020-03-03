@@ -278,7 +278,7 @@ const connectToRoom = function (token, options) {
 
             });
 };
-// TODO: move to maor_studyroom service
+// TODO: move to studyroom service
 
 const enterRoom = function (roomId) {
     
