@@ -56,7 +56,7 @@
     "rtl-css-loader": "1.0.1",
     "sass": "^1.26.2",
     "sass-loader": "^8.0.2",
-    "stylelint": "^12.0.1",
+    "stylelint": "^13.2.0",
     "stylelint-config-recommended": "^3.0.0",
     "stylus": "^0.54.5",
     "stylus-loader": "3.0.2",
