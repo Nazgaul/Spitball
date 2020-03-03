@@ -61,6 +61,15 @@ const getters = {
     getSessionTimeEnd: state => state.sessionTimeEnd,
     getShowUserConsentDialog: state => state.showUserConsentDialog,
     getSnapshotDialog: state => state.snapshotDialog,
+    getIsRoomNeedPayment: state => {
+        if (!state.studyRoomData) {
+            return null;
+        }
+        if (state.studyRoomData.isTutor) {
+            return false;
+        }
+        return state.studyRoomData.needPayment;
+    }
 };
 
 const mutations = {

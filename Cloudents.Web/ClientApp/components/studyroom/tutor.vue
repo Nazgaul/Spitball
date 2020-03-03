@@ -381,15 +381,9 @@ export default {
       "getShowAudioRecordingError",
       "getVisitedSettingPage",
       "getShowUserConsentDialog",
-      "getSnapshotDialog"
+      "getSnapshotDialog",
+      "getIsRoomNeedPayment"
     ]),
-    isNeedPayment(){
-      if(this.getStudyRoomData){
-        return this.getStudyRoomData.needPayment;
-      }else{
-        return null
-      }
-    },
     activeItem() {
       return this.activeNavItem;
     },
@@ -421,22 +415,17 @@ export default {
   },
 
 watch: {
-  isNeedPayment:{
+  getIsRoomNeedPayment:{
     immediate:true,
     handler(newVal){
-      if(this.id && newVal !== null){
+      if(newVal !== null){
         this.handleNeedPayment(newVal)
       }
     }
   },
   getStudyRoomData(val){
-    if(!!val){
-      if(!val.isTutor && !val.needPayment){
-        this.initStartSession();
-      }
-      if(val.isTutor){
-        this.initStartSession();
-      }
+    if(!this.getIsRoomNeedPayment){
+      this.initStartSession();
     }
   }
 },
@@ -461,19 +450,15 @@ watch: {
       "setSnapshotDialog",
       "stopTracks"
     ]),
-    handleNeedPayment(newVal){
-      if(this.getStudyRoomData.isTutor){
-        this.setStudyRoom(this.id);
-      }else{
-        if(newVal){
-          this.$openDialog(dialogNames.Payment)
-        }else{
-          if(this.$route.query.dialog === dialogNames.Payment){
-            this.$closeDialog()
-          }
-          this.setStudyRoom(this.id);
-        }
+    handleNeedPayment(needPayment){
+      if(needPayment){
+        this.$openDialog(dialogNames.Payment)
+        return;
       }
+      if(this.$route.query.dialog === dialogNames.Payment){
+        this.$closeDialog()
+      }
+      this.setStudyRoom(this.id);
     },
     initMathjax(){
       this.$loadScript("https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG")
@@ -678,6 +663,7 @@ watch: {
           }
         })
     }else{
+      //TODO - we need one place to invoke this.
       this.initMathjax()
     }
 
