@@ -66,8 +66,8 @@ namespace Cloudents.Core
 
     public enum SignalRType
     {
-        Question,
-        Answer,
+       //Question,
+       // Answer,
         //Document,
         User,
         System,
