@@ -21,7 +21,7 @@ export default {
         return {
             dialogsPremissions: {
                 login: ["notAuth"],
-                exitRegisterDialog: [],
+                exitRegister: [],
                 becomeTutor: ["auth"],
                 payment:["auth"],
                 upload: ["auth","courses"],
