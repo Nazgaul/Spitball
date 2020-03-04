@@ -19,7 +19,7 @@ export default {
     ...mapGetters(['getProfile','getUserLoggedInStatus'])
   },
   methods: {
-    ...mapActions(['toggleProfileFollower','updateLoginDialogState']),
+    ...mapActions(['toggleProfileFollower']),
     followToggler(){
       
       if(this.getUserLoggedInStatus){
@@ -30,7 +30,7 @@ export default {
           self.isLoading = false;
         })
       }else{
-        this.updateLoginDialogState(true);
+        this.$openDialog('login')
       }
     }
   },

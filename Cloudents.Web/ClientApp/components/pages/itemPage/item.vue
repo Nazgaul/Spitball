@@ -165,7 +165,7 @@ export default {
         }
     },
     watch:{
-        '$route'(){
+        '$route.params.id'(){
             this.clearDocument();
             this.documentRequest(this.id);        
             this.getStudyDocuments({course: this.$route.params.courseName , id: this.id})

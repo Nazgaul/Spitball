@@ -82,7 +82,6 @@ export default {
     methods: {
         ...mapActions([
             'updateCouponDialog',
-            'updateLoginDialogState',
             'updateCoupon',
             'updateCurrTutor',
             'setTutorRequestAnalyticsOpenedFrom',
@@ -109,7 +108,7 @@ export default {
                 }
             }
             } else {
-            this.updateLoginDialogState(true);
+            this.$openDialog('login')
             }
         },
         applyCoupon() {
@@ -184,7 +183,7 @@ export default {
             if(!!this.accountUser) {
                 this.activeTab = 5;
             } else {
-                this.updateLoginDialogState(true);
+                this.$openDialog('login')
                 setTimeout(()=>{
                     document.getElementById(`tab-${this.activeTab}`).lastChild.click();
                 },200);

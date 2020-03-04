@@ -54,9 +54,9 @@ export default {
     },  
   },
   methods: {
-    ...mapActions(['updateLoginDialogState','updateNewQuestionDialogState']),
+    ...mapActions(['updateNewQuestionDialogState']),
     helpAction(){
-      (this.accountUser == null)? this.updateLoginDialogState(true) : this.updateNewQuestionDialogState(true);
+      (this.accountUser == null)? this.$openDialog('login') : this.updateNewQuestionDialogState(true);
     }
   },
 };
