@@ -148,7 +148,7 @@
     <value>+</value>
   </data>
   <data name="calendar_hour_subtitle" xml:space="preserve">
-    <value>ניתן לציין מועדים ספציפיים בהם לא תהיו זמינים ביומן שלכם בגוגל</value>
+    <value>במידה והשעות מפוצלות במהלך אותו יום, ציינו את טווח השעות הראשון, לחצו על כפתור "הוספה" וציינו את טווח השעות הנוסף בחלון שנפתח.</value>
   </data>
   <data name="calendar_hour_title" xml:space="preserve">
     <value>ציינו את שעות העבודה הקבועות שלכם</value>
