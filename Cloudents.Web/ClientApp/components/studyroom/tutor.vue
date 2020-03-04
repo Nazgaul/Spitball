@@ -63,7 +63,7 @@
 
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px;" vertical></v-divider>
             
-            <v-btn class="tutoringNavigationBtn" text icon @click="changeSettingsDialogState(true)" sel="setting_draw">
+            <v-btn class="tutoringNavigationBtn" text icon @click="openSettingsDialog" sel="setting_draw">
               <v-icon class="white-btn">sbf-settings</v-icon>
             </v-btn>
             
@@ -467,6 +467,10 @@ watch: {
       "setSnapshotDialog",
       "stopTracks"
     ]),
+    openSettingsDialog(){
+      this.$ga.event("tutoringRoom", "openSettingsDialog");
+      this.changeSettingsDialogState(true)
+    },
     initStartSession(){
         console.warn('DEBUG: 29 store: initStartSession')
 
@@ -505,6 +509,9 @@ watch: {
     },
     updateActiveNav(value) {
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_navigation', {'roomId': this.id, 'userId': this.userId, 'navigatedTo': value}, null)
+      
+      this.$ga.event("tutoringRoom", `updateActiveNav:${value}`);
+
       this.activeNavItem = value;
       let activeNavData = {
           activeNav: value,
@@ -515,6 +522,7 @@ watch: {
       };
       let normalizedData = JSON.stringify(transferDataObj);
       tutorService.dataTrack.send(normalizedData);
+
       // {{singleNav.value}}
       console.log(this.activeItem);
     },
@@ -524,6 +532,8 @@ watch: {
     },
     
     selectViewOption(param) {
+      this.$ga.event("tutoringRoom", `selectViewOption:${param}`);
+
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_selectViewOption', {'roomId': this.id, 'userId': this.userId, 'viewOption': param}, null)
       this.activeViewOption = param;
       if (this.activeViewOption === this.enumViewOptions.videoChat) {
@@ -628,14 +638,17 @@ watch: {
     },
     resetItems(){
       let isExit = confirm(LanguageService.getValueByKey("login_are_you_sure_you_want_to_exit"),)
-      if(isExit){
+      if(isExit){   
+        this.$ga.event("tutoringRoom", 'resetItems');
         this.$router.push('/');
       }
     },
     showIntercom(){
+      this.$ga.event("tutoringRoom", 'showIntercom');
       intercomSettings.showDialog();
     },
     toggleRecord(){
+      this.$ga.event("tutoringRoom", 'toggleRecord');
       studyRoomRecordingService.toggleRecord(this.isTutor);
     },
     closeUserConsentDialog(){

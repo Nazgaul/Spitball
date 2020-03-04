@@ -99,6 +99,7 @@
                 videoStreamService.enterRoom();
             },
             endSession() {
+                this.$ga.event("tutoringRoom", "endSession");
                 this.updateEndDialog(true);
             },
             addDevicesToTrack() {

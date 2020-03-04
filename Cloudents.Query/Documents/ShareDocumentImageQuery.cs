@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs.Tutors;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
@@ -20,6 +22,7 @@ namespace Cloudents.Query.Documents
         private long Id { get; }
 
 
+
         internal sealed class ShareDocumentImageQueryHandler : IQueryHandler<ShareDocumentImageQuery, ShareDocumentImageDto>
         {
             private readonly IStatelessSession _statelessSession;
@@ -29,6 +32,7 @@ namespace Cloudents.Query.Documents
                 _statelessSession = statelessSession.StatelessSession;
             }
 
+            [Cache(TimeConst.Minute * 10, "share-document", false)]
             public async Task<ShareDocumentImageDto> GetAsync(ShareDocumentImageQuery query, CancellationToken token)
             {
                 return await _statelessSession.Query<Document>()

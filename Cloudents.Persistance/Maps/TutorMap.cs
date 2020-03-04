@@ -1,11 +1,9 @@
 ﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
-using JetBrains.Annotations;
 
 namespace Cloudents.Persistence.Maps
 {
-    [UsedImplicitly]
     public class TutorMap : ClassMap<Tutor>
     {
         public TutorMap()
@@ -38,7 +36,7 @@ namespace Cloudents.Persistence.Maps
 
             Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
             Map(e => e.Created).Insert().Not.Update();
-            Map(x => x.ManualBoost).LazyLoad().Nullable();
+            //Map(x => x.ManualBoost).LazyLoad().Nullable();
             Map(e => e.IsShownHomePage);
             HasMany(x => x.AdminUsers).Inverse().Cascade.AllDeleteOrphan();
             DynamicUpdate();

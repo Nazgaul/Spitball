@@ -67,8 +67,13 @@ export default {
         showError: false
     }),
     methods: {
-        sendRegisterType(regType, route) {            
+        sendRegisterType(regType, route) { 
             this.$store.dispatch('updateRegisterType', regType).then(() => {
+                if(regType === 'Teacher'){
+                    // NOTE: updating login status here before BecomeTutor dialog opened 
+                    // cuz we cant open BecomeTutor dialog with unLoggedIn user 
+                    this.$store.dispatch('updateLoginStatus',true)
+                }
                 this.showError = false
             }).catch(() => {
                 this.showError = true

@@ -1,12 +1,10 @@
 ﻿using Autofac;
-using JetBrains.Annotations;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Query
 {
-    [UsedImplicitly]
     public sealed class QueryBus : IQueryBus//, IDisposable
     {
         public QueryBus(ILifetimeScope container)

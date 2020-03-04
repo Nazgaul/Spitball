@@ -44,6 +44,9 @@ const actions = {
     },
     createCoupon(context,paramObj){
         return couponService.createCoupon(paramObj)
+    },
+    getUserCoupons() {
+        return accountService.getCoupons();
     }
 };
 

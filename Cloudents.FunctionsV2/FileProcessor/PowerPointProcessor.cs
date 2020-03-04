@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -8,7 +9,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.FunctionsV2.Binders;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
+using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Model;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
 using SixLabors.ImageSharp;
@@ -18,71 +21,77 @@ namespace Cloudents.FunctionsV2.FileProcessor
 {
     public class PowerPointProcessor : IFileProcessor
     {
+        private readonly ConvertDocumentApi _convertDocumentApi;
+        static PowerPointProcessor()
+        {
+            Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "07af4ce1-40eb-4e97-84e0-c02b4974b190");
+            Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.Configuration.Default.Timeout = 300000; //base on support
+        }
+
+        public PowerPointProcessor()
+        {
+            _convertDocumentApi = new ConvertDocumentApi();
+        }
+
+
         public async Task ProcessFileAsync(long id, CloudBlockBlob blob, IBinder binder, ILogger log, CancellationToken token)
         {
-            Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "86afd89a-207c-4e7a-9ffc-da23fcb9d5b7");
-            Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.Configuration.Default.Timeout = 300000; //base on support
+            await using var sr = await blob.OpenReadAsync();
 
-            var apiInstance = new ConvertDocumentApi();
+            var directory = blob.Parent;
+            var textBlob = directory.GetBlockBlobReference("text.txt");
+            textBlob.Properties.ContentType = "text/plain";
+            var text2 = await _convertDocumentApi.ConvertDocumentPptxToTxtAsync(sr);
 
-            using (var sr = await blob.OpenReadAsync())
+            //if (!text2.Successful.GetValueOrDefault())
+            //{
+            //    //textBlob.UploadTextAsync(string.Empty);
+            //}
+
+            var text = text2.TextResult;
+            text = StripUnwantedChars(text);
+
+            await textBlob.UploadTextAsync(text ?? string.Empty);
+            sr.Seek(0, SeekOrigin.Begin);
+            var result = await _convertDocumentApi.ConvertDocumentAutodetectToPngArrayAsync(sr);
+
+
+
+            //var text = text2.TextResult;
+            if (result.Successful == false)
             {
-                //var pageCount2 = await apiInstance.ConvertDocumentAutodetectGetInfoAsync(sr);
-                //sr.Seek(0, SeekOrigin.Begin);
-                var text2 = await apiInstance.ConvertDocumentPptxToTxtAsync(sr);
-                sr.Seek(0, SeekOrigin.Begin);
-
-                var result = await apiInstance.ConvertDocumentAutodetectToPngArrayAsync(sr);
-
-                var directory = blob.Parent;
-
-
-                var text = text2.TextResult;
-                if (result.Successful == false)
-                {
-                    throw new ArgumentException($"ConvertDocumentAutodetectToPngArrayAsync return false in id {id}");
-                }
-                var imagesResult = result.PngResultPages;
-                //var imageUrls = imagesResult.Select(s => s.URL);
-
-                var pageCount = imagesResult.Count;
-
-                var textBlob = directory.GetBlockBlobReference("text.txt");
-                textBlob.Properties.ContentType = "text/plain";
-                text = StripUnwantedChars(text);
-                textBlob.Metadata["PageCount"] = pageCount.ToString();
-                await textBlob.UploadTextAsync(text ?? string.Empty);
-
-
-                var httpClient = await binder.BindAsync<HttpClient>(new HttpClientFactoryAttribute(), token);
-                foreach (var imageResult in imagesResult)
-                {
-                    var previewBlob = directory.GetBlockBlobReference($"preview-{imageResult.PageNumber - 1}.jpg");
-                    previewBlob.Properties.ContentType = "image/jpeg";
-                    using (var imageStream = await httpClient.GetStreamAsync(imageResult.URL))
-                    using (var input = Image.Load<Rgba32>(imageStream))
-                    using (var blobWriteStream = await previewBlob.OpenWriteAsync())
-                    {
-
-                        input.SaveAsJpeg(blobWriteStream);
-                        // ResizeImage(input, imageSmall, ImageSize.Small, format);
-                    }
-                    //{
-
-                    //await previewBlob.UploadFromStreamAsync(imageStream);
-                    //}
-                }
-
-
-
-                //apiInstance.ConvertDocumentAutodetectGetInfo()
-                //var result = apiInstance.ConvertDocumentAutodetectToPngArray(inputFile);
-
-                // Word DOCX to PDF
-                //Object result = apiInstance.ConvertDocumentDocxToPdf(inputFile);
-
-
+                throw new ArgumentException($"ConvertDocumentAutodetectToPngArrayAsync return false in id {id}");
             }
+
+            var imagesResult = result.PngResultPages;
+            var pageCount = imagesResult.Count;
+
+
+            textBlob.Metadata["PageCount"] = pageCount.ToString();
+            await textBlob.SetMetadataAsync();
+
+            var starter = await binder.BindAsync<IDurableOrchestrationClient>(new DurableClientAttribute(), token);
+
+
+            await starter.PurgeInstanceHistoryAsync($"ProcessPowerPoint-{id}");
+            await starter.StartNewAsync("ProcessPowerPoint", $"ProcessPowerPoint-{id}", new PowerPointOrchestrationInput
+            {
+                Id = id,
+                Images = imagesResult
+            });
+
+            //var httpClient = await binder.BindAsync<HttpClient>(new HttpClientFactoryAttribute(), token);
+            //var listOfTasks = imagesResult.Select(async imageResult =>
+            //{
+            //    var previewBlob = directory.GetBlockBlobReference($"preview-{imageResult.PageNumber - 1}.jpg");
+            //    previewBlob.Properties.ContentType = "image/jpeg";
+            //    await using var imageStream = await httpClient.GetStreamAsync(imageResult.URL);
+            //    using var input = Image.Load<Rgba32>(imageStream);
+            //    await using var blobWriteStream = await previewBlob.OpenWriteAsync();
+            //    input.SaveAsJpeg(blobWriteStream);
+            //});
+            //await Task.WhenAll(listOfTasks);
+
         }
 
 
@@ -107,5 +116,17 @@ namespace Cloudents.FunctionsV2.FileProcessor
             sb.Replace("בס\"ד", string.Empty);
             return sb.Replace("find more resources at oneclass.com", string.Empty).ToString();
         }
+    }
+
+    public class PowerPointOrchestrationInput
+    {
+        public long Id { get; set; }
+        public List<ConvertedPngPage> Images { get; set; }
+    }
+
+    public class PowerPointActivityInput
+    {
+        public long Id { get; set; }
+        public ConvertedPngPage Image { get; set; }
     }
 }

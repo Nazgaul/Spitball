@@ -177,7 +177,8 @@ namespace Cloudents.Infrastructure.Google
 
 
 
-        public async Task<IEnumerable<GoogleAppointmentDto>> ReadCalendarEventsAsync(long userId, [NotNull] IEnumerable<string> calendarsIds,
+        public async Task<IEnumerable<GoogleAppointmentDto>> ReadCalendarEventsAsync(long userId, 
+            [NotNull] IEnumerable<string> calendarsIds,
             DateTime from, DateTime max,
             CancellationToken cancellationToken)
         {

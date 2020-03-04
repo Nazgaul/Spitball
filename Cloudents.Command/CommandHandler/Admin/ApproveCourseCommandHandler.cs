@@ -23,7 +23,8 @@ namespace Cloudents.Command.CommandHandler.Admin
             var subject = await _subjectRepository.GetCourseSubjectByName(message.Subject
                     , token);
             course.SetShcoolType(message.SchoolType);
-            course.Approve(subject);
+            course.Approve();
+            course.SetSubject(subject);
         }
     }
 }

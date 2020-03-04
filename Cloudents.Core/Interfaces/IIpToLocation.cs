@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.Models;
-using JetBrains.Annotations;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,8 +7,7 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IIpToLocation
     {
-        [ItemCanBeNull]
-        Task<Location> GetAsync(IPAddress ipAddress, CancellationToken token);
+        Task<Location?> GetAsync(IPAddress ipAddress, CancellationToken token);
     }
 
     public interface ICountryProvider
