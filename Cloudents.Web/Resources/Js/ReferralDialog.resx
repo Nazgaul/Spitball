@@ -171,6 +171,12 @@
   <data name="spread" xml:space="preserve">
     <value>Spread the Word</value>
   </data>
+  <data name="terms_link_text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="terms_link" xml:space="preserve">
+    <value></value>
+  </data>
   <data name="title_document" xml:space="preserve">
     <value>I just uploaded some of my academic notes to Spitball.</value>
   </data>

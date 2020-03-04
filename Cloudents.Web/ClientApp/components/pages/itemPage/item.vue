@@ -137,7 +137,7 @@ import whyUsDesktop from './components/whyUs/whyUsDesktop.vue';
 import whyUs from './components/whyUs/whyUs.vue';
 import mobileUnlockDownload from './components/mobileUnlockDownload/mobileUnlockDownload.vue';
 import unlockDialog from './components/dialog/unlockDialog.vue';
-import shareContent from '../global/shareContent/shareContent.vue';
+const shareContent = () => import(/* webpackChunkName: "shareContent" */'../global/shareContent/shareContent.vue');
 export default {
     name: 'itemPage',
     components: {

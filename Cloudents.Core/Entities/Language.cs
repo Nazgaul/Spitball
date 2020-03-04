@@ -16,7 +16,8 @@ namespace Cloudents.Core.Entities
         public static readonly Language English = new Language(new CultureInfo("en"));
         public static readonly Language Hebrew = new Language(new CultureInfo("he"));
         public static readonly Language EnglishIndia = new Language(new CultureInfo("en-IN"));
-        public static readonly Language EnglishIsrael = new Language(new CultureInfo("en-IL"));
+        public static readonly Language EnglishUsa = new Language(new CultureInfo("en-US"));
+        //public static readonly Language EnglishIsrael = new Language(new CultureInfo("en-IL"));
 
 
         public static IEnumerable<Language> SystemSupportLanguage()
@@ -24,7 +25,8 @@ namespace Cloudents.Core.Entities
             yield return English;
             yield return Hebrew;
             yield return EnglishIndia;
-            yield return EnglishIsrael;
+            yield return EnglishUsa;
+            // yield return EnglishIsrael;
 
         }
 
@@ -124,7 +126,7 @@ namespace Cloudents.Core.Entities
 
         public static readonly Country Israel = new Country(1, "IL", 1 / 25M, Language.Hebrew);
         public static readonly Country India = new Country(2, "IN", 1, Language.EnglishIndia);
-        public static readonly Country UnitedStates = new Country(3, "US", 1 / 100M, Language.English);
+        public static readonly Country UnitedStates = new Country(3, "US", 1 / 100M, Language.EnglishUsa);
 
         //    public static Country Palestine = new Country("PS", CountryGroup.Israel);
 

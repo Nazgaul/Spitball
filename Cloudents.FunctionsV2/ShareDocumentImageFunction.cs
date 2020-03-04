@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -10,6 +11,7 @@ using Cloudents.Core.Extension;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.FunctionsV2.Di;
 using Cloudents.FunctionsV2.Extensions;
+using Cloudents.FunctionsV2.Services;
 using Cloudents.Query;
 using Cloudents.Query.Documents;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +21,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Advanced;
 using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Primitives;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
@@ -71,11 +75,18 @@ namespace Cloudents.FunctionsV2
 
             using var logoImage = await ShareProfileImageFunction.GetImageFromBlobAsync("logo.png");
 
+
+            
+
             await using var bgBlobStream = await bgBlob.OpenReadAsync();
             var image = Image.Load<Rgba32>(bgBlobStream);
 
             image.Mutate(context =>
             {
+                if (dbResult.Type == DocumentType.Video)
+                {
+                    logoImage.Mutate(m => m.ApplyProcessors(new ChangeLogoProcessorCreator()));
+                }
                 var logoPointX = 24;
                 if (isRtl)
                 {
@@ -94,11 +105,14 @@ namespace Cloudents.FunctionsV2
                     height = 471,
                     anchorPosition = AnchorPositionMode.Top.ToString("G")
                 });
+                await using var documentPreviewStream = await client.GetStreamAsync(uriBuilder.Uri);
+                using var documentImage = Image.Load<Rgba32>(documentPreviewStream);
 
                 image.Mutate(context =>
                 {
                     context.DrawText(dbResult.Name, 30, "#FFFFFF", new Size(860, 40), new Point(170, 66));
                     context.DrawText(dbResult.CourseName, 26, "#ffffff", new Size(860, 40), new Point(170, 107));
+                    context.DrawImage(documentImage, new Point(170, 159), GraphicsOptions.Default);
                 });
             }
             else
@@ -114,7 +128,7 @@ namespace Cloudents.FunctionsV2
                 using var playerImage = await ShareProfileImageFunction.GetImageFromBlobAsync("video-player.png");
                 image.Mutate(context =>
                 {
-
+                    
                     // ReSharper disable AccessToDisposedClosure mutation happens right await
                     context.DrawImage(documentImage, new Point(305, 62), GraphicsOptions.Default);
                     context.DrawImage(playerImage, new Point(520, 159), GraphicsOptions.Default);
@@ -122,13 +136,14 @@ namespace Cloudents.FunctionsV2
 
                 });
             }
+           
 
             if (width > 0 && height > 0)
             {
                 image.Mutate(m => m.Resize(width, height));
             }
 
-            return new ImageResult(image, TimeSpan.FromDays(365));
+            return new ImageResult(image, TimeSpan.FromDays(30));
         }
     }
 }

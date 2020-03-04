@@ -8,7 +8,7 @@ namespace Cloudents.Command.Command
             DocumentId = documentId;
             UserId = userId;
         }
-        public long DocumentId { get; set; }
-        public long UserId { get; set; }
+        public long DocumentId { get;  }
+        public long UserId { get;  }
     }
 }

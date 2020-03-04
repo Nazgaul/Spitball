@@ -9,11 +9,13 @@ import {feedRoutes} from './routes/feedRoutes.js';
 import {courseRoutes} from './routes/courseRoutes.js';
 import {universityRoutes} from './routes/universityRoutes.js';
 import {globalRoutes} from './routes/globalRoutes.js';
+import {marketingRoutes} from './routes/marketingRoutes.js';
 
 let routes2 = [
     ...landingRoutes,
     ...registrationRoutes,
     ...studyRoomRoutes,
+    ...marketingRoutes,
     ...profileRoutes,
     ...dashboardRoutes,
     ...questionRoutes,

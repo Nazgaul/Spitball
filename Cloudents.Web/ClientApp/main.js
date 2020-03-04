@@ -99,7 +99,7 @@ if (document.documentMode || /Edge/.test(navigator.userAgent)) {
 router.beforeEach((to, from, next) => {
     store.dispatch('setRouteStack', to.name);
     store.dispatch('sendQueryToAnalytic', to);
-    let isLogged = store.getters.getUserLoggedInStatus2;
+    let isLogged = store.getters.getUserLoggedInStatus;
     
     if (!isLogged && to.meta && to.meta.requiresAuth) {
         next("/signin");

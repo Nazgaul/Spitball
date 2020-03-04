@@ -53,41 +53,62 @@ namespace Cloudents.Query.Stuff
         // rows iterator
         public object TransformTuple(object[] tuple, string[] aliases)
         {
-            if (_aliasToTupleMap is null)
+            var list = new List<string>(aliases);
+
+            var propertyAliases = new List<string>(list);
+            var complexAliases = new List<string>();
+
+            for (var i = 0; i < list.Count; i++)
             {
-                MapProperties(tuple, aliases);
+                var alias = list[i];
+                // Aliase with the '.' represents complex IPersistentEntity chain
+                if (alias.Contains(_complexChar))
+                {
+                    complexAliases.Add(alias);
+                    propertyAliases[i] = null;
+                }
             }
 
             // be smart use what is already available
             // the standard properties string, valueTypes
-            var result = _baseTransformer.TransformTuple(tuple, aliases);
+            var result = _baseTransformer.TransformTuple(tuple, propertyAliases.ToArray());
 
-            TransformPersistentChain(result);
+            TransformPersistentChain(tuple, complexAliases, result, list);
 
             return result;
         }
 
         /// <summary>Iterates the Path Client.Address.City.Code </summary>
-        protected virtual void TransformPersistentChain(
-               object result)
+        protected virtual void TransformPersistentChain(object[] tuple
+            , List<string> complexAliases, object result, List<string> list)
         {
             if (!(result is TEntity entity))
             {
                 return;
             }
-            foreach (var keyValue in _aliasToTupleMap)
+            foreach (var aliase in complexAliases)
             {
-                var value = keyValue.Value;
+                // the value in a tuple by index of current Aliase
+                var index = list.IndexOf(aliase);
+                var value = tuple[index];
                 if (value == null)
                 {
                     continue;
                 }
-                var aliase = keyValue.Key;
+
                 // split the Path into separated parts
                 var parts = aliase.Split(_complexChar);
                 var name = parts[0];
 
-                var propertyInfo = _resultClassProperties[name];
+                var propertyInfo = entity.GetType()
+                    .GetProperty(name, BindingFlags.NonPublic
+                                       | BindingFlags.Instance
+                                       | BindingFlags.Public);
+
+                if (propertyInfo == null)
+                {
+                    throw new ArgumentNullException($"propery infor of type {entity.GetType().Name} - name {name}");
+                }
 
                 object currentObject = entity;
 
@@ -101,12 +122,10 @@ namespace Cloudents.Query.Stuff
                         instance = Activator.CreateInstance(propertyInfo.PropertyType);
                         propertyInfo.SetValue(currentObject, instance);
                     }
-                    
-                    current++;
-                    propertyInfo = propertyInfo.PropertyType.GetProperty(name,
-                        BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-                   
+
+                    propertyInfo = propertyInfo.PropertyType.GetProperty(name, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
                     currentObject = instance;
+                    current++;
                 }
 
                 // even dynamic objects could be injected this way

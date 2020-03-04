@@ -2,14 +2,12 @@
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler
 {
-    [UsedImplicitly]
     public class DeleteQuestionCommandHandler : ICommandHandler<DeleteQuestionCommand>
     {
         private readonly IRepository<Question> _repository;

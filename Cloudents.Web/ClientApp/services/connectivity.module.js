@@ -1,6 +1,6 @@
 import axios from "axios";
 import qs from "query-string";
-import * as signalR from '@aspnet/signalr';
+import * as signalR from '@microsoft/signalr';
 import analyticsService from './analytics.service'
 
 axios.defaults.paramsSerializer = params => qs.stringify(params, {indices: false});
