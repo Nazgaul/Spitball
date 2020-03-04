@@ -2,7 +2,7 @@
     <div class="buy-dialog-wrap">
         <div class="buy-tokens-overlay" :class="{'visible': showOverlay}"></div>
         <div class="close-buy-dialog">
-            <v-icon @click="closeModal">sbf-close</v-icon>
+            <v-icon class="closeIcon" color="#000" size="14" @click="closeModal">sbf-close</v-icon>
         </div>
         <div class="buy-tokens-wrap">
             <v-container pa-4 pt-6 pb-6 class="buy-tokens-top-container">
