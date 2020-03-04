@@ -129,11 +129,8 @@
 
                 <v-layout class="buymebtn">
                     <v-flex text-center>
-                        <div id="paypal-button-container"></div>
-                        <!-- <v-btn class="buyme-button white--text" depressed color="#4452fc" id="buyme-button" @click="openPaymeDialog">
-                        <span class="mr-2 d-flex"><v-icon size="16">sbf-lock-icon</v-icon></span>
-                        <span class="font-weight-bold" v-html="$Ph('buyTokens_secure_payment', products[selectedProduct].pts)"></span>
-                        </v-btn> -->
+                        <v-skeleton-loader class="mb-4" v-show="isLoading" width="100%" height="44" type="button"></v-skeleton-loader>
+                        <div v-show="!isLoading" id="paypal-button-container"></div>
                     </v-flex>
                 </v-layout>
 
@@ -142,13 +139,13 @@
     </div>
 </template>
 <script>
-import {mapGetters, mapActions} from 'vuex';
 import analyticsService from '../../../../../../../services/analytics.service';
 
 export default {
   name:'buyPointsUS',
   data() {
     return {
+      isLoading:false,
       selectedProduct: 'inter',
       showOverlay: false,
       transactionId: 750,
@@ -173,7 +170,6 @@ export default {
             currency: 'USD'
         }
       },
-      user: this.accountUser()
     };
   },
   computed:{
@@ -188,22 +184,12 @@ export default {
     }
   },
   methods: {
-    ...mapGetters(['accountUser']),
-    ...mapActions(['updateToasterParams', 'buyToken']),
-
     selectProduct(val) {
       if (this.selectedProduct !== val) {
         this.selectedProduct = val;
         this.transactionId = this.products[val].pts;
       }
     },
-
-    openPaymeDialog() {
-      let transactionId = this.transactionId;
-      analyticsService.sb_unitedEvent("BUY_POINTS", "PRODUCT_SELECTED", transactionId);
-        this.buyToken({points : transactionId});
-        this.$closeDialog()
-    }
   },
   mounted() {
     let self = this;
@@ -213,6 +199,8 @@ export default {
             window.paypal
             .Buttons({
                 createOrder: function(data, actions) {
+                    self.isLoading = true;
+                    analyticsService.sb_unitedEvent("BUY_POINTS", "PRODUCT_SELECTED", self.transactionId);
                     return actions.order.create({
                         purchase_units: [
                             {
@@ -226,7 +214,9 @@ export default {
                     });
                 },
                 onApprove: function(data, actions) {
-                    self.$store.dispatch('updatePaypalBuyTokens',data.orderID)
+                    self.$store.dispatch('updatePaypalBuyTokens',data.orderID).then(()=>{
+                        self.isLoading = false
+                    })
                 }
             })
             .render('#paypal-button-container');
