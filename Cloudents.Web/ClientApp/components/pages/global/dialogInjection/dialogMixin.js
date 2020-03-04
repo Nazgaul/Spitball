@@ -25,7 +25,7 @@ export default {
                 becomeTutor: ["auth"],
                 upload: ["auth","courses"],
                 createCoupon: ["auth","tutor"],
-                payment:["auth","notPayment"]
+                payment:["auth"]
             }
         }
     },
@@ -66,12 +66,12 @@ export default {
         //         // TODO: do something
         //     }
         // },
-        check_notPayment(){
-            if(this.accountUser.needPayment){
-                // TODO: do something
-                return 'break'
-            }
-        }
+        // check_notPayment(){
+        //     if(this.accountUser.needPayment){
+        //         // TODO: do something
+        //         return 'break'
+        //     }
+        // }
     },
     watch: {
         '$route.query.dialog':function(val){
