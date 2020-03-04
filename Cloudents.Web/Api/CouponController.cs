@@ -1,8 +1,10 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Query;
+using Cloudents.Query.Users;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -10,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -60,6 +63,43 @@ namespace Cloudents.Web.Api
                 return BadRequest("Value can not be more then 100%");
             }
             return Ok();
+        }
+
+
+
+        [HttpPost("apply")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> ApplyCouponAsync(ApplyCouponRequest model, CancellationToken token)
+        {
+            try
+            {
+                var userId = _userManager.GetLongUserId(User);
+                var command = new ApplyCouponCommand(model.Coupon, userId, model.TutorId);
+                await _commandBus.DispatchAsync(command, token);
+                return Ok(new
+                {
+                    Price = command.NewPrice
+                });
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest("Invalid Coupon");
+            }
+            catch (DuplicateRowException)
+            {
+                return BadRequest("This coupon already in use");
+
+            }
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<CouponDto>> GetUserCouponsAsync(CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new UserCouponsQuery(userId);
+            return await _queryBus.QueryAsync(query, token);
         }
     }
 }
