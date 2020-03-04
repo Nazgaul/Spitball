@@ -71,6 +71,9 @@ const actions = {
     },
     updateIsBuyPoints({commit},val){
         commit('setIsBuyPoints',val)
+    },
+    updatePaypalBuyTokens(context,id){
+        return walletService.paypalBuyTokens(id)
     }
 };
 

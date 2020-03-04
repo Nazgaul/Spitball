@@ -1,6 +1,5 @@
 <template>
     <div class="buy-dialog-wrap">
-       im US!
         <div class="buy-tokens-overlay" :class="{'visible': showOverlay}"></div>
         <div class="close-buy-dialog">
             <v-icon v-closeDialog>sbf-close</v-icon>
@@ -214,8 +213,6 @@ export default {
             window.paypal
             .Buttons({
                 createOrder: function(data, actions) {
-                    // Set up the transaction
-                    //need to get from user click
                     return actions.order.create({
                         purchase_units: [
                             {
@@ -229,19 +226,8 @@ export default {
                     });
                 },
                 onApprove: function(data, actions) {
-                    const response = fetch("api/wallet/PayPal/buyTokens", {
-                        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    
-                        headers: {
-                        'Content-Type': 'application/json'
-                        // 'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        redirect: 'follow', // manual, *follow, error
-                        body: JSON.stringify({id : data.orderID}) // body data type must match "Content-Type" header
-                    });
-                    response.then(()=>{
-                    })
-                    }
+                    self.$store.dispatch('updatePaypalBuyTokens',data.orderID)
+                }
             })
             .render('#paypal-button-container');
         });
