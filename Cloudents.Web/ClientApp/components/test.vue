@@ -14,21 +14,52 @@ export default {
         .Buttons({
           createOrder: function(data, actions) {
             // Set up the transaction
+
+            //need to get  from user click
             return actions.order.create({
               purchase_units: [
-                {
-                  reference_id: "PUHF",
+                  {
+                  reference_id: "points_1",
                   amount: {
-                    value: "100",
-                    currency_code: "USD"
+                    value:1.5,
+                    currency: 'USD'
                   }
-                }
+                },
+                // {
+                //   reference_id: "points_2",
+                //   amount: {
+                //     value:6,
+                //     currency: 'USD'
+                //   }
+                // },
+                // {
+                //   reference_id: "points_3",
+                //   amount: {
+                //     value:10,
+                //     currency: 'USD'
+                //   }
+                // }
               ]
             });
           },
           onApprove: function(data, actions) {
               debugger;
-               const response = fetch("api/wallet", {
+            //    const response = fetch("api/wallet/", {
+            //         method: 'POST', // *GET, POST, PUT, DELETE, etc.
+   
+            //         headers: {
+            //         'Content-Type': 'application/json'
+            //         // 'Content-Type': 'application/x-www-form-urlencoded',
+            //         },
+            //         redirect: 'follow', // manual, *follow, error
+            //         body: JSON.stringify({orderId : data.orderID}) // body data type must match "Content-Type" header
+            //     });
+            //     response.then(() => {
+            //         debugger;
+            //     });
+
+
+const response = fetch("api/wallet/PayPal/buyTokens", {
                     method: 'POST', // *GET, POST, PUT, DELETE, etc.
    
                     headers: {
@@ -36,7 +67,7 @@ export default {
                     // 'Content-Type': 'application/x-www-form-urlencoded',
                     },
                     redirect: 'follow', // manual, *follow, error
-                    body: JSON.stringify({orderId : data.orderID}) // body data type must match "Content-Type" header
+                    body: JSON.stringify({id : data.orderID}) // body data type must match "Content-Type" header
                 });
                 response.then(() => {
                     debugger;

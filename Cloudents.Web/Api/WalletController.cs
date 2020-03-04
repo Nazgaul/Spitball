@@ -227,6 +227,18 @@ namespace Cloudents.Web.Api
            await payPalService.PathOrderAsync(model.OrderId, token);
            return Ok();
         }
+
+
+        [HttpPost("PayPal/BuyTokens")]
+        public async Task<IActionResult> BuyTokensAsync(PayPalTransactionRequest model,
+            [FromServices] IPayPal payPal, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var result = await payPal.GetPaymentAsync(model.Id);
+            var command = new TransferMoneyToPointsCommand(userId, result.Amount, result.PayPalId);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
         #endregion
     }
 }

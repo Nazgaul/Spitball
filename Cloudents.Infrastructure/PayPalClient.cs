@@ -37,33 +37,22 @@ namespace Cloudents.Infrastructure
         //{
         //    var request = new OrdersGetRequest();
         //}
-        public async Task<PayPalDto> GetPaymentAsync(string transactionId)
+        public async Task<PayPalDto> GetPaymentAsync(string orderId)
         {
-            // // var client = new PayPalHttpClient(_environment);
-//            var t = new PayPalCheckoutSdk.Payments.AuthorizationsGetRequest(transactionId);
-            var request = new PayPalCheckoutSdk.Payments.CapturesGetRequest(transactionId);
-            //var t = new PaymentsGetRequest(transactionId);
-            var response = await _client.Execute(request);
-            var payment = response.Result<PayPalCheckoutSdk.Payments.Capture>();
-            Sku sku = Sku.PaymentThree;
-            return new PayPalDto(transactionId,  sku.Amount);
+
+            var captureRequest = new OrdersCaptureRequest(orderId);
+            captureRequest.RequestBody(new OrderActionRequest());
+            var response3 = await _client.Execute(captureRequest);
+            var result = response3.Result<Order>();
+            Sku sku = result.PurchaseUnits[0].ReferenceId;
+            return new PayPalDto(orderId,  sku.Amount);
         }
 
         public async Task PathOrderAsync(string orderId, CancellationToken token)
         {
-            //var get = new OrdersGetRequest(orderId);
-            //var response = await _client.Execute(get);
-            //var result = response.Result<Order>();
             var request = new OrdersPatchRequest<AmountWithBreakdown>(orderId);
-
             request.RequestBody(BuildPatchRequest());
-            var response = await _client.Execute(request);
-
-            var request2 = new OrdersPatchRequest<string>(orderId);
-
-            //request2.RequestBody(BuildPatchesRequest2());
-            //var response2 = await _client.Execute(request2);
-
+            await _client.Execute(request);
             var captureRequest = new OrdersCaptureRequest(orderId);
             captureRequest.RequestBody(new OrderActionRequest());
             var response3 = await _client.Execute(captureRequest);
