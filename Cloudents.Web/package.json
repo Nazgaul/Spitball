@@ -42,6 +42,7 @@
     "less-loader": "5.0.0",
     "lodash": "4.17.15",
     "optimize-css-assets-webpack-plugin": "5.0.3",
+    "purgecss-webpack-plugin": "^2.1.0",
     "query-string": "^6.11.1",
     "rtl-css-loader": "1.0.1",
     "sass": "^1.26.2",
