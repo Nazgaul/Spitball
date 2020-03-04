@@ -47,7 +47,7 @@ export default {
         closeDialog(){
             let isStudyRoom = this.$store.getters.getStudyRoomData?.roomId && this.$route.name === routeNames.StudyRoom.name;
             if(isStudyRoom){
-                let isExit = confirm(this.$t("login_are_you_sure_you_want_to_exit"))
+                let isExit = confirm(this.$t("payme_are_you_sure_exit"))
                 if(isExit){
                     this.$router.push('/');
                 }
