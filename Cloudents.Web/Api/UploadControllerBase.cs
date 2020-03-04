@@ -137,7 +137,7 @@ namespace Cloudents.Web.Api
             }
 
             //original file name can only have ascii chars. hebrew not supported. remove that
-            await BlobProvider.CommitBlockListAsync(tempData2.BlobName, tempData2.MimeType, null, indexes, token);
+            await BlobProvider.CommitBlockListAsync(tempData2.BlobName, tempData2.MimeType, null, indexes, null, token);
             var result = tempData2.BlobName;
             await FinishUploadAsync(model, result, token);
             return new UploadStartResponse(result);

@@ -16,18 +16,20 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Admin2.Api
 {
+    [Route("api/[controller]"), ApiController]
+    [Authorize]
     public class AdminUploadController : ControllerBase
     {
         protected readonly IAdminDirectoryBlobProvider BlobProvider;
         private readonly ITempDataDictionaryFactory _tempDataDictionaryFactory;
-        internal const double BlockSize = 3.5e+6;
+
         public AdminUploadController(IAdminDirectoryBlobProvider blobProvider, ITempDataDictionaryFactory tempDataDictionaryFactory)
         {
             BlobProvider = blobProvider;
             _tempDataDictionaryFactory = tempDataDictionaryFactory;
         }
 
-        [HttpPost("upload"), FormContentType, ApiExplorerSettings(IgnoreApi = true), Authorize]
+        [HttpPost("upload"), FormContentType, ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<UploadStartResponse>> BatchUploadAsync(
             [FromForm] UploadRequestForm model,
             CancellationToken token)
@@ -61,12 +63,29 @@ namespace Cloudents.Admin2.Api
             {
                 name = DateTimeOffset.UtcNow.ToUnixTimeSeconds() + name;
             }
-            return $"video-{sessionId}-{name.Replace("/", string.Empty)}";
+            return $"{sessionId}-{name.Replace("/", string.Empty)}";
         }
 
 
-        [HttpPost("upload"), ApiExplorerSettings(IgnoreApi = true), Authorize]
-        public Task<UploadStartResponse> Upload(UploadRequestStart model, CancellationToken token)
+
+        [HttpPost("upload"), ApiExplorerSettings(IgnoreApi = true)]
+        public async Task<ActionResult<UploadStartResponse>> Upload([FromBody] UploadRequestBase model,
+            CancellationToken token)
+        {
+            try
+            {
+                var result = await Upload(model as dynamic, token);
+                return result;
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest(ModelState);
+
+            }
+        }
+
+        
+        private Task<UploadStartResponse> Upload(UploadRequestStart model, CancellationToken token)
         {
 
 
@@ -92,8 +111,8 @@ namespace Cloudents.Admin2.Api
             return Task.FromResult(response);
         }
 
-        [HttpPost("upload"), ApiExplorerSettings(IgnoreApi = true), Authorize]
-        public async Task<Uri> Upload(UploadRequestFinish model, CancellationToken token)
+        //[HttpPost("upload"), ApiExplorerSettings(IgnoreApi = true)]
+        private async Task<UploadEndResponce> Upload(UploadRequestFinish model, CancellationToken token)
         {
             var tempDataProvider = _tempDataDictionaryFactory.GetTempData(HttpContext);
             var tempData2 = tempDataProvider.Get<TempData>($"update-{model.SessionId}");
@@ -107,8 +126,11 @@ namespace Cloudents.Admin2.Api
             }
 
             //original file name can only have ascii chars. hebrew not supported. remove that
-            await BlobProvider.CommitBlockListAsync(tempData2.BlobName, tempData2.MimeType, null, indexes, token);
-            return BlobProvider.GetBlobUrl(tempData2.BlobName);
+            await BlobProvider.CommitBlockListAsync(tempData2.BlobName, tempData2.MimeType, null, indexes, TimeSpan.FromDays(365), token);
+            var bolobUri = BlobProvider.GetBlobUrl(tempData2.BlobName);
+            //var preview = BlobProvider.GeneratePreviewLink(bolobUri,
+            //                TimeSpan.FromDays(30));
+            return new UploadEndResponce(bolobUri);
         }
 
 

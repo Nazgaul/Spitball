@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Cloudents.Admin2.Binders;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -6,6 +7,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Admin2.Models
 {
+
+    [JsonConverter(typeof(UploadRequestJsonConverter))]
+    public class UploadRequestBase
+    {
+
+    }
+
     public class UploadStartResponse
     {
         public UploadStartResponse(Guid sessionId)
@@ -28,6 +36,15 @@ namespace Cloudents.Admin2.Models
 
         public string FileName { get; set; }
     }
+
+    public class UploadEndResponce : UploadStartResponse
+    {
+        public UploadEndResponce(Uri url)
+        {
+            Url = url;
+        }
+        public Uri Url { get; set; }
+    }
     public class UploadInnerResponse
     {
         internal const double BlockSize = 3.5e+6;
@@ -44,7 +61,7 @@ namespace Cloudents.Admin2.Models
         public double EndOffset => BlockSize;
     }
 
-    public class UploadRequestStart
+    public class UploadRequestStart : UploadRequestBase
     {
         public UploadPhase Phase { get; set; }
 
@@ -54,7 +71,7 @@ namespace Cloudents.Admin2.Models
         public string Name { get; set; }
     }
 
-    public class UploadRequestFinish
+    public class UploadRequestFinish : UploadRequestBase
     {
         public UploadPhase Phase { get; set; }
 

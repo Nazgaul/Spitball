@@ -107,13 +107,33 @@ namespace Cloudents.Infrastructure.Storage
 
         public Task CommitBlockListAsync(string blobName, string mimeType, IList<int> indexes, CancellationToken token)
         {
-            return CommitBlockListAsync(blobName, mimeType, null, indexes, token);
+            return CommitBlockListAsync(blobName, mimeType, null, indexes, null, token);
         }
 
-        public Task CommitBlockListAsync(string blobName, string mimeType, string originalFileName, IList<int> indexes,
-            CancellationToken token)
+        //public Task CommitBlockListAsync(string blobName, string mimeType, string originalFileName, IList<int> indexes,
+        //    CancellationToken token)
+        //{
+        //    var blob = GetBlob(blobName);
+        //    blob.Properties.ContentType = mimeType;
+        //    if (!string.IsNullOrEmpty(originalFileName))
+        //    {
+        //        blob.Metadata["fileName"] = originalFileName;
+        //    }
+
+        //    return blob.PutBlockListAsync(indexes.Select(ToBase64), AccessCondition.GenerateEmptyCondition(), new BlobRequestOptions()
+        //    {
+        //        StoreBlobContentMD5 = true
+        //    }, null, token);
+        //}
+
+        public Task CommitBlockListAsync(string blobName, string mimeType, string originalFileName, IList<int> indexes, TimeSpan? cacheControlTime = null, CancellationToken token = default)
         {
             var blob = GetBlob(blobName);
+            if (cacheControlTime.HasValue)
+            {
+                blob.Properties.CacheControl = "max-age=" + cacheControlTime.Value.TotalSeconds;
+            }
+            
             blob.Properties.ContentType = mimeType;
             if (!string.IsNullOrEmpty(originalFileName))
             {
