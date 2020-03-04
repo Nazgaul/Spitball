@@ -50,15 +50,10 @@ namespace Cloudents.Core.Entities
         {
 
             var result = Sessions.AsQueryable().Where(w => w.Ended == null).OrderBy(o => o.Id).ToList();
-
-            //if (result.Count > 1)
-            //{
-            for (int i = 0; i < result.Count - 1; i++)
+            for (var i = 0; i < result.Count - 1; i++)
             {
                 result[i].EndSession();
             }
-
-            //}
             return result.SingleOrDefault(w => w.Ended == null);
         }
 

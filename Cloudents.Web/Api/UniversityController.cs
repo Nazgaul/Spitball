@@ -74,7 +74,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new UserJoinUniversityCommand(userId, model.Id.Value);
+            var command = new UserJoinUniversityCommand(userId, model.Id!.Value);
             await _commandBus.DispatchAsync(command, token);
             var user = await _userManager.GetUserAsync(User);
             await _signInManager.RefreshSignInAsync(user);

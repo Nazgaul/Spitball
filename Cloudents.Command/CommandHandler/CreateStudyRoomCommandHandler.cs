@@ -26,12 +26,7 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(CreateStudyRoomCommand message, CancellationToken token)
         {
             var userTutor = await _userRepository.LoadAsync(message.TutorId, token);
-            if (userTutor.Tutor == null)
-            {
-                throw new InvalidOperationException("user is not a tutor");
-            }
-
-            if (userTutor.Tutor.State != ItemState.Ok)
+            if (userTutor.Tutor?.State != ItemState.Ok)
             {
                 throw new InvalidOperationException("user is not a tutor");
             }
@@ -45,8 +40,7 @@ namespace Cloudents.Command.CommandHandler
                 throw new InvalidOperationException("no active conversation");
             }
 
-            var url = await _googleDocument.CreateOnlineDocAsync(chatRoomIdentifier
-                , token);
+            var url = await _googleDocument.CreateOnlineDocAsync(chatRoomIdentifier, token);
            
             userTutor.AddFollower(student);
             
