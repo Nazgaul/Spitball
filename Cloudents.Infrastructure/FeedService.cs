@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Core.Query.Feed;
 using Cloudents.Query;
@@ -13,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Autofac.Features.Indexed;
 using Cloudents.Core.Enum;
+using Cloudents.Core.DTOs.Feed;
 
 namespace Cloudents.Infrastructure
 {

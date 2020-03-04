@@ -73,15 +73,6 @@
           <buy-token-frymo v-if="isFrymo && getShowBuyDialog" popUpType="buyTokensFrymo"></buy-token-frymo>
         </sb-dialog>
 
-        <sb-dialog
-          :isPersistent="true"
-          :showDialog="getShowPaymeDialog"
-          :popUpType="'payme'"
-          :content-class="'payme-popup'"
-          maxWidth="840px"
-        >
-          <payment-dialog v-if="getShowPaymeDialog" />
-        </sb-dialog>
 
       <mobile-footer v-if="showMobileFooter" />
     </v-content>
@@ -113,7 +104,6 @@ const buyTokens = () => import("../dialogs/buyTokens/buyTokens.vue");
 const buyTokenFrymo = () => import("../dialogs/buyTokenFrymo/buyTokenFrymo.vue");
 const chat = () => import("../chat/chat.vue");
 const tutorRequest = () => import("../tutorRequestNEW/tutorRequest.vue");
-const paymentDialog = () => import("../studyroom/tutorHelpers/paymentDIalog/paymentDIalog.vue");
 const referralDialog = () => import("../question/helpers/referralDialog/referral-dialog.vue");
 
 export default {
@@ -127,7 +117,6 @@ export default {
     buyTokens,
     buyTokenFrymo,
     tutorRequest,
-    paymentDialog,
     dialogInjection
   },
   data() {
@@ -151,7 +140,6 @@ export default {
       // "showMobileFeed",
       "getShowBuyDialog",
       "getRequestTutorDialog",
-      "getShowPaymeDialog",
       "isFrymo",
       "getShowSchoolBlock",
       "getIsChatVisible",
@@ -211,13 +199,6 @@ export default {
     }
   },
   watch: {
-    getShowPaymeDialog: function(val) {
-      if (val) {
-        setTimeout(function() {
-          document.querySelector(".payme-popup").parentNode.style.zIndex = 999;
-        }, 1000);
-      }
-    },
     getShowToaster: function(val) {
       let self = this;
       if (val) {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Core.DTOs
+namespace Cloudents.Core.DTOs.Users
 {
     public abstract class UserContentDto
     {

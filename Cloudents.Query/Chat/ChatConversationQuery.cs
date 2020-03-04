@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs.Users;
 using Dapper;
 using System.Threading;
 using System.Threading.Tasks;

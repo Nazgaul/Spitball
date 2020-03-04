@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs.Documents;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Dapper;

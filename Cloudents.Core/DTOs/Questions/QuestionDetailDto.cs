@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Cloudents.Core.DTOs.Feed;
+using Cloudents.Core.DTOs.Users;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Cloudents.Core.DTOs
+namespace Cloudents.Core.DTOs.Questions
 {
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class")]
     public class QuestionDetailDto

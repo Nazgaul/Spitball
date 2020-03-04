@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs.Feed;
 using Cloudents.Core.Interfaces;
 using Dapper;
 using System.Collections.Generic;

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 
-namespace Cloudents.Core.DTOs
+namespace Cloudents.Core.DTOs.Email
 {
     public class EmailObjectDto
     {

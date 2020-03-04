@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs.Tutors;
 using Dapper;
 using System.Collections.Generic;
 using System.Threading;
