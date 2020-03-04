@@ -18,12 +18,13 @@ const actions = {
         }else{
             let bannerId = state.bannerParams.id;
             let localStorageList = JSON.parse(global.localStorage.getItem(BANNER_STORAGE_NAME));
-            if(localStorageList == null){
-                localStorageList = JSON.stringify([bannerId]);
-                global.localStorage.setItem(BANNER_STORAGE_NAME,localStorageList);  
-            }else{
+
+            if(Array.isArray(localStorageList) && localStorageList.length){
                 localStorageList = JSON.stringify(localStorageList.push(bannerId));
                 global.localStorage.setItem(BANNER_STORAGE_NAME,localStorageList); 
+            }else{
+                localStorageList = JSON.stringify([bannerId]);
+                global.localStorage.setItem(BANNER_STORAGE_NAME,localStorageList);  
             }
             commit('setBannerParams',null);
         }
@@ -33,10 +34,11 @@ const actions = {
             params = params || {};
             if(params.id){
                 let localStorageList = JSON.parse(global.localStorage.getItem(BANNER_STORAGE_NAME));
-                if(localStorageList && localStorageList.includes(params.id)){
-                    commit('setBannerParams',null);
+                if(Array.isArray(localStorageList)){
+                    params = localStorageList.includes(params.id)? null : params;
+                    commit('setBannerParams', params)
                 }else{
-                    commit('setBannerParams',params);
+                    global.localStorage.removeItem(BANNER_STORAGE_NAME)
                 }
             }else{
                 commit('setBannerParams',null);

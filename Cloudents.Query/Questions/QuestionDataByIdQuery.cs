@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+using Cloudents.Core.DTOs.Feed;
+using Cloudents.Core.DTOs.Questions;
+using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using NHibernate;

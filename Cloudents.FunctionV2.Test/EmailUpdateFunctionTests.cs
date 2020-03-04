@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs.Email;
 using Cloudents.FunctionsV2.Services;
 using Cloudents.Query;
 using Cloudents.Query.Email;

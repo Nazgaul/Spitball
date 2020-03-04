@@ -5,6 +5,7 @@ const exitRegisterDialog = () => import('../../authenticationPage/login/exitRegi
 const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue');
 const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
 const login = () => import('./globalDialogs/login/login.vue');
+const payment = () => import('./globalDialogs/payment/payment.vue');
 
 
 export default {
@@ -14,15 +15,17 @@ export default {
         upload,
         createCoupon,
         login,
+        payment
     },
     data() {
         return {
             dialogsPremissions: {
-                login: ["isNotAuth"],
+                login: ["notAuth"],
                 exitRegisterDialog: [],
-                becomeTutor: [],
-                upload: ["isAuth","isCourses"],
-                createCoupon: ["isAuth","isTutor"]
+                becomeTutor: ["auth"],
+                payment:["auth"],
+                upload: ["auth","courses"],
+                createCoupon: ["auth","tutor"],
             }
         }
     },
@@ -39,29 +42,50 @@ export default {
             // TODO make it Promise!!
                 return this[dialogChekerName](dialogNameFromRoute);
         },
-        check_isAuth(){
-            if(!this.getUserLoggedInStatus && !global.isAuth){
+        check_auth(){
+            if(!this.getUserLoggedInStatus){
                 this.component = 'login';
             }
         },
-        check_isNotAuth(){
+        check_notAuth(){
             if(this.getUserLoggedInStatus && global.isAuth){
                 this.component = '';
                 this.$closeDialog()
                 return 'break'
             }
         },
-        check_isTutor(){
+        check_tutor(){
             if(!this.accountUser.isTutor){
                 this.component = '';
                 this.$closeDialog()
                 return 'break'
             } 
         },
-        check_isCourses(){
+        check_courses(){
             if(this.getSelectedClasses.length === 0){
                 this.$router.push({name: "addCourse"})
                 return 'break'
+            }
+        },
+        // check_payment(){
+        //     if(!this.accountUser.needPayment){
+        //         this.component = 'payment';
+        //         // TODO: do something
+        //     }
+        // },
+        // check_notPayment(){
+        //     if(this.accountUser.needPayment){
+        //         // TODO: do something
+        //         return 'break'
+        //     }
+        // }
+    },
+    watch: {
+        '$route.query.dialog':function(val){
+            if(val === 'payment'){
+                setTimeout(function() {
+                    document.querySelector(".payme-popup").parentNode.style.zIndex = 999;
+                }, 1000);
             }
         }
     },

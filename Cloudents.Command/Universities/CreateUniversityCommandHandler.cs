@@ -1,12 +1,10 @@
 ﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Command.Universities
 {
-    [UsedImplicitly]
     public class CreateUniversityCommandHandler : ICommandHandler<CreateUniversityCommand>
     {
         private readonly IRepository<User> _userRepository;

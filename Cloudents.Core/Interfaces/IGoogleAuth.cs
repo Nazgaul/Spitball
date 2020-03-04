@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
-using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -10,8 +9,7 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IGoogleAuth
     {
-        [ItemCanBeNull]
-        Task<ExternalAuthDto> LogInAsync(string token, CancellationToken cancellationToken);
+        Task<ExternalAuthDto?> LogInAsync(string token, CancellationToken cancellationToken);
     }
 
     public interface IGoogleAnalytics

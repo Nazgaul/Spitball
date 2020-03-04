@@ -1,5 +1,4 @@
 import questionService from '../services/questionService'
-import searchService from '../services/searchService'
 
 const state = {
     deletedAnswer: false,
@@ -74,19 +73,6 @@ const actions = {
         }).catch(ex => {
             console.log(ex);
         });
-    },
-    updateQuestionItemCorrect({commit, state}, question){
-        if(!!state.question && state.question.id == question.questionId){
-            commit('markAsCorrect', question.answerId);
-        }
-    },
-    answerAdded({commit, state}, notifyObj){
-        let questionId = notifyObj.questionId;
-        let answerObj = searchService.createAnswerItem(notifyObj.answer);
-        //update question in case user is in the question page
-        if(!!state.question && state.question.id === questionId){
-           commit('addAnswer', answerObj);
-        }
     },
     answerRemoved({commit}, notifyObj){
         let questionId = notifyObj.questionId;

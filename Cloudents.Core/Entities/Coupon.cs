@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Extension;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities
 {

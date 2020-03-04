@@ -30,6 +30,9 @@ using static Microsoft.AspNetCore.Http.StatusCodes;
 using Cloudents.Query.Users;
 using Cloudents.Query.Tutor;
 using Cloudents.Query.Questions;
+using Cloudents.Core.DTOs.Users;
+using Cloudents.Core.DTOs.Tutors;
+using Cloudents.Core.DTOs.Questions;
 
 namespace Cloudents.Web.Api
 {
@@ -228,6 +231,14 @@ namespace Cloudents.Web.Api
                 return BadRequest("This coupon already in use");
 
             }
+        }
+
+        [HttpGet("coupon")]
+        public async Task<IEnumerable<CouponDto>> GetUserCouponsAsync(CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new UserCouponsQuery(userId);
+            return await _queryBus.QueryAsync(query, token);
         }
 
         [HttpGet("sales")]

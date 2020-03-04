@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs.Questions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query.Stuff;
 using NHibernate;
@@ -51,7 +51,7 @@ namespace Cloudents.Query.Questions
                                 join sb.[user] u
 	                                on u.Id = q.UserId
                                 ,cte
-                                where not exists (select Id from sb.Answer where QuestionId = q.Id and State = 'Ok'and UserId = :userid) 
+                                where not exists (select Id from sb.Answer where QuestionId = q.Id and State = 'Ok' and UserId = :userid) 
                                 and q.Updated > GETUTCDATE() - 182
                                 and q.State = 'Ok'
                                 and q.userId != :userid

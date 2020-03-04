@@ -163,7 +163,7 @@ const actions = {
     updateRegisterType(context, regType) {
         return registrationService.updateUserRegisterType({ userType: regType })
     },
-    googleSigning({commit, state}) {
+    googleSigning({commit, state,dispatch}) {
         if (window.Android) {
             Android.onLogin();
             return;
@@ -178,7 +178,7 @@ const actions = {
                     router.push({name: routeNames.RegisterSetPhone});
                 } else {
                     _analytics(['Login', 'Start Google']);
-                    global.isAuth = true;
+                    dispatch('updateLoginStatus',true)
                     router.push(state.toUrl)     
                 }
                 return Promise.reject();
@@ -287,7 +287,7 @@ const actions = {
                 commit('setErrorMessages',{email: error.response.data["Email"] ? error.response.data["Email"][0] : ''});
             });
     },
-    logIn({commit, state}, password) {
+    logIn({commit, state,dispatch}, password) {
         let data = {
             email: state.email,
             password: password,
@@ -301,8 +301,8 @@ const actions = {
                 registrationService.signIn(data)
                     .then(response => {
                         _analytics(['Login', 'Start']);
-                        global.isAuth = true;
                         global.country = response.data.country;
+                        dispatch('updateLoginStatus',true)
                         router.push(state.toUrl);
                     },error =>{
                         commit('setErrorMessages',{email: error.response.data["Password"] ? error.response.data["Password"][0] : ''});
@@ -328,13 +328,13 @@ const actions = {
                 });
             });
     },
-    changePassword({commit},params) {
+    changePassword({commit,dispatch},params) {
         let {id, code, password, confirmPassword} = params;
         let isValid = (password === confirmPassword);
         if(isValid){
             registrationService.updatePassword(password, confirmPassword, id, code) //TODO: send object instead
                 .then(() => {
-                    global.isAuth = true;
+                    dispatch('updateLoginStatus',true)
                     _analytics(['Forgot Password', 'Updated password']);
                     router.push(state.toUrl);
                 }, (error) => {
@@ -350,25 +350,24 @@ const actions = {
     exit({commit}){
         commit('setResetState');
         router.push(state.toUrl);
-        // router.push({name: routeNames.Feed});
     },
-    updateStudentGrade({ commit }) {
+    updateStudentGrade({ commit ,dispatch}) {
         let grade = state.grade
         if(grade) {
             return registrationService.updateGrade({ grade }).then(() => {
-                global.isAuth = true;
+                dispatch('updateLoginStatus',true)
                 commit('setStudentGrade', grade);
-                router.push({name: routeNames.Feed});
+                router.push('/');
             })
         }
     },
-    updateParentStudent({state}) {
+    updateParentStudent({state,dispatch}) {
         let parentObj = {
             grade: state.grade,
             name: state.studentParentFullName
         }
         return registrationService.updateParentStudentName(parentObj).then(() => {
-            global.isAuth = true;
+            dispatch('updateLoginStatus',true)
             return
         }).catch(ex => {
             console.log(ex);

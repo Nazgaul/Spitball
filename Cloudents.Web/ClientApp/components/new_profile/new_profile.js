@@ -21,12 +21,7 @@ import calendarTab from '../calendar/calendarTab.vue';
 
 
 
-
-
-// import questionCard from "../question/helpers/new-question-card/new-question-card.vue";
-// import resultNote from "../results/ResultNote.vue";
-// import userBlock from '../helpers/user-block/user-block.vue';
-import shareContent from '../pages/global/shareContent/shareContent.vue';
+const shareContent = () => import(/* webpackChunkName: "shareContent" */'../pages/global/shareContent/shareContent.vue');
 export default {
     name: "new_profile",
     components: {
@@ -105,8 +100,8 @@ export default {
             this.updateCouponDialog(false);
         },
         openCoupon(){
-            if(global.isAuth) {
-            if(this.accountUser) {      
+            if(this.getUserLoggedInStatus) {
+            if(this.accountUser) {          
                 if(this.$route.params.id != this.accountUser.id) {
                     this.updateCouponDialog(true)
                     analyticsService.sb_unitedEvent('Tutor_Engagement', 'Click_Redeem_Coupon', `${this.$route.path}`);
@@ -204,7 +199,8 @@ export default {
             'getCouponDialog',
             'getCouponError',
             "getProfile",
-        'getBannerParams']),
+            'getBannerParams',
+            'getUserLoggedInStatus']),
         shareContentParams(){
             let urlLink = `${global.location.origin}/p/${this.$route.params.id}?t=${Date.now()}` ;
             let userName = this.getProfile.user?.name;
