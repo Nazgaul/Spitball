@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Exceptions;
 using System;
@@ -11,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Persistence
 {
-    [UsedImplicitly]
     public sealed class UnitOfWork : IUnitOfWork
     {
         private readonly ITransaction _transaction;

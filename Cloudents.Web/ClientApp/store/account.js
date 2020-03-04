@@ -1,7 +1,6 @@
 import accountService from "../services/accountService";
 import { dollarCalculate } from "./constants";
 import analyticsService from '../services/analytics.service';
-import initSignalRService from '../services/signalR/signalrEventService';
 import insightService from '../services/insightService';
 import { LanguageService } from '../services/language/languageService';
 import intercomeService from '../services/intercomService';
@@ -44,7 +43,8 @@ const getters = {
             return false;
         }
     },
-    getUserLoggedInStatus: state => state.isUserLoggedIn,
+    //TODO need to change this to accountretive
+    getUserLoggedInStatus: state => state.isUserLoggedIn || global.isAuth,
     usersReffered: state => state.usersReferred,
     accountUser: (state) => {
         return state.user;
@@ -93,25 +93,25 @@ const actions = {
         dispatch("getAllConversations");
         analyticsService.sb_setUserId(userAccount.id);
         insightService.authenticate.set(userAccount.id);
-        initSignalRService();
-        commit("changeLoginStatus", true);
+        dispatch('updateLoginStatus',true)
     },
-    userStatus({state,dispatch, commit}) {
+    userStatus({state,dispatch,getters}) {
         if(state.user !== null && state.user.hasOwnProperty('id')){
-            return
+            return Promise.resolve()
         }
-        
-        if (global.isAuth) {
-            accountService.getAccount().then((userAccount) => {
-                dispatch('updateAccountUser',userAccount)
+        if (getters.getUserLoggedInStatus) {
+           return accountService.getAccount().then((userAccount) => {
+                dispatch('updateAccountUser',userAccount);
+                return Promise.resolve(userAccount)
             }, () => {
                 //TODO what is that....
                 intercomeService.restrartService();
-                commit("changeLoginStatus", false);
+                dispatch('updateLoginStatus',false)
             });
         }
         else {
             intercomeService.startService();
+            return Promise.resolve()
         }
     },
     signalR_SetBalance({ commit, state, dispatch, getters }, newBalance) {
@@ -132,6 +132,9 @@ const actions = {
     },
     updateUserStats(context, lastDays) {
         return accountService.getAccountStats(lastDays)
+    },
+    updateLoginStatus({commit},val){
+        commit("changeLoginStatus", val);
     }
 };
 

@@ -8,20 +8,23 @@
         <spitballTips v-if="$vuetify.breakpoint.mdAndUp"></spitballTips>
         <answerStudent v-if="$vuetify.breakpoint.smAndDown"></answerStudent>
       </div>
-      <div class="dashboardSide" v-if="$vuetify.breakpoint.mdAndUp">
-        <img class="mb-2 blockImage" src="./images/group-16.png" alt="image">
+
+      <div class="dashboardSide" v-if="$vuetify.breakpoint.lgAndUp">
+        <img class="mb-2 blockImage" :src="require(`${showBanner}.png`)" alt="image" @click="startIntercom">
         <teacherTasks v-if="$vuetify.breakpoint.mdAndUp"></teacherTasks>
         <answerStudent v-if="$vuetify.breakpoint.mdAndUp"></answerStudent>
-    </div>
+      </div>
   </div>
 </template>
 <script>
-import analyticOverview from '../../global/analyticOverview/analyticOverview.vue';
-import marketingTools from './marketingTools.vue';
-import uploadContent from './uploadContent.vue';
-import spitballTips from './spitballTips.vue';
-import answerStudent from './answerStudent.vue';
-import teacherTasks from './teacherTasks.vue';
+import intercomService from "../../../../services/intercomService";
+
+const analyticOverview = () => import(/* webpackChunkName: "analyticsOverview" */'../../global/analyticOverview/analyticOverview.vue');
+const marketingTools = () => import('./marketingTools.vue');
+const uploadContent = () => import('./uploadContent.vue');
+const spitballTips = () => import('./spitballTips.vue');
+const answerStudent = () => import('./answerStudent.vue');
+const teacherTasks = () => import('./teacherTasks.vue');
 
 export default {
   components: {
@@ -31,30 +34,56 @@ export default {
     spitballTips,
     answerStudent,
     teacherTasks
-  }
+  },
+  watch: {
+    isTutor(newVal) {
+        if(!newVal) {
+          this.$router.push({name: 'feed'});
+        }
+    }
+  },
+  computed: {
+    isTutor() {
+      let user = this.$store.getters.accountUser
+      return user && user.isTutor;
+    },
+    showBanner() {
+      if(this.$store.getters.isFrymo) {
+        return './images/banner-in';
+      }
+      return global.lang !== 'he' ? './images/group-16' : './images/banner-he';
+    }
+  },
+  methods: {
+    startIntercom() {
+      intercomService.showDialog();
+    },  
+  },
 }
 </script>
 <style lang="less">
   @import '../../../../styles/mixin.less';
-
+  @mainBlock: 670px;
+  @sideBlock: 410px;
   #dashboard {
     margin: 24px 34px;
     display: flex;
     @media (max-width: @screen-xs) {
       margin: 0
     }
-    @media (max-width: @screen-sm) {
+    @media (max-width: @screen-md) {
       justify-content: center;
     }
     .dashboardMain {
       width: 100%;
-      max-width: 670px;
+      max-width: @mainBlock;
     }
     .dashboardSide {
       width: 100%;
-      max-width: 408px;
+      max-width: @sideBlock;
       .blockImage {
-        width: inherit;
+        width: 100%;
+        cursor: pointer;
       }
     }
   }

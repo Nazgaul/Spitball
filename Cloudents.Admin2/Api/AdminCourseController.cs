@@ -3,6 +3,7 @@ using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Query;
 using Cloudents.Query.Admin;
@@ -172,7 +173,14 @@ namespace Cloudents.Admin2.Api
                 CancellationToken token)
         {
             var command = new DeleteCourseCommand(name);
-            await _commandBus.DispatchAsync(command, token);
+            try
+            {
+                await _commandBus.DispatchAsync(command, token);
+            }
+            catch(SqlConstraintViolationException e)
+            {
+                return BadRequest(e.Message);
+            }
             return Ok();
         }
     }

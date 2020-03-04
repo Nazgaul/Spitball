@@ -3,6 +3,10 @@
         <profileDialogs/>
         <div class="profilePage_main profile-page-container">
             <profileUserBox/>
+            <shareContent :link="shareContentParams.link"
+              :twitter="shareContentParams.twitter"
+              :whatsApp="shareContentParams.whatsApp"
+              :email="shareContentParams.email"  class="mb-2 mb-sm-3" v-if="getProfile && !$vuetify.breakpoint.lgAndUp"/>
             <calendarTab v-if="showProfileCalendar" class="mb-6" :globalFunctions="globalFunctions"/>
             <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" :globalFunctions="globalFunctions"/>
             <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" :globalFunctions="globalFunctions"/>
@@ -12,14 +16,14 @@
             <profileReviewsBox v-if="showReviewBox"/>
             <profileUserStickyMobile :globalFunctions="globalFunctions" v-if="$vuetify.breakpoint.mdAndDown"/>
         </div>
-        
-        <profileUserSticky :globalFunctions="globalFunctions" v-if="$vuetify.breakpoint.lgAndUp && !isTutorPending"/>
-
-
-
-
-
-
+        <div :class="['profile-sticky',{'profileUserSticky_bannerActive':getBannerParams}]">
+          <profileUserSticky class="mb-2" :globalFunctions="globalFunctions" v-if="$vuetify.breakpoint.lgAndUp && !isTutorPending"/>
+          <shareContent 
+              :link="shareContentParams.link"
+              :twitter="shareContentParams.twitter"
+              :whatsApp="shareContentParams.whatsApp"
+              :email="shareContentParams.email" v-if="getProfile && $vuetify.breakpoint.lgAndUp"/>
+        </div>
         <sb-dialog
             :onclosefn="closeCouponDialog"
             :activateOverlay="false"
@@ -72,6 +76,14 @@
         margin-bottom: 40px;
         display: block;
     }
+    .profile-sticky{
+      position: sticky;
+      height: fit-content;
+      top: 80px;
+      &.profileUserSticky_bannerActive{
+        top: 150px;
+      }
+    }
     .profilePage_main {
         max-width: 720px;
         width: 100%;
@@ -116,6 +128,7 @@
     max-width: 760px;
   }
 }
+
 
 
 

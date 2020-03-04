@@ -119,7 +119,6 @@ export default {
     methods: {
         ...mapActions([
             'deleteQuestion',
-            // 'correctAnswer',
             'updateToasterParams',
             'removeQuestionItemAction',
         ]),

@@ -16,7 +16,8 @@ namespace Cloudents.Core.Entities
         public static readonly Language English = new Language(new CultureInfo("en"));
         public static readonly Language Hebrew = new Language(new CultureInfo("he"));
         public static readonly Language EnglishIndia = new Language(new CultureInfo("en-IN"));
-        public static readonly Language EnglishIsrael = new Language(new CultureInfo("en-IL"));
+        public static readonly Language EnglishUsa = new Language(new CultureInfo("en-US"));
+        //public static readonly Language EnglishIsrael = new Language(new CultureInfo("en-IL"));
 
 
         public static IEnumerable<Language> SystemSupportLanguage()
@@ -24,7 +25,8 @@ namespace Cloudents.Core.Entities
             yield return English;
             yield return Hebrew;
             yield return EnglishIndia;
-            yield return EnglishIsrael;
+            yield return EnglishUsa;
+            // yield return EnglishIsrael;
 
         }
 
@@ -90,6 +92,7 @@ namespace Cloudents.Core.Entities
 
         public RegionInfo RegionInfo { get; }
         public decimal ConversationRate { get; }
+        public Language MainLanguage { get; }
 
         /// <summary>
         /// Taken from https://www.twilio.com/blog/2017/12/introducing-gll-for-group-rooms.html
@@ -102,11 +105,12 @@ namespace Cloudents.Core.Entities
         }
 
 
-        private Country(string info, decimal conversationRate, int id) : base(id, info)
+        private Country(int id, string info, decimal conversationRate, Language language) : base(id, info)
         {
             ConversationRate = conversationRate;
-           // TwilioMediaRegion = twilioMediaRegion;
+            // TwilioMediaRegion = twilioMediaRegion;
             RegionInfo = new RegionInfo(info.ToUpperInvariant());
+            MainLanguage = language;
         }
 
         public static implicit operator Country(string tb)
@@ -119,9 +123,10 @@ namespace Cloudents.Core.Entities
             return result;
         }
 
-        public static readonly Country Israel = new Country("IL", 1 / 25M, 1);
-        public static readonly Country India = new Country("IN", 1, 2);
-        public static readonly Country UnitedStates = new Country("US",1/100M,3);
+
+        public static readonly Country Israel = new Country(1, "IL", 1 / 25M, Language.Hebrew);
+        public static readonly Country India = new Country(2, "IN", 1, Language.EnglishIndia);
+        public static readonly Country UnitedStates = new Country(3, "US", 1 / 100M, Language.EnglishUsa);
 
         //    public static Country Palestine = new Country("PS", CountryGroup.Israel);
 

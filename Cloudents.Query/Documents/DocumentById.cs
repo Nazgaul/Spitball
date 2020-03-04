@@ -75,6 +75,7 @@ namespace Cloudents.Query.Documents
                             .WithAlias($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Snippet)}"))
                             .Select(Projections.Property(() => userAlias.Id).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.User)}.{nameof(DocumentUserDto.Id)}"))
                             .Select(Projections.Property(() => userAlias.Name).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.User)}.{nameof(DocumentUserDto.Name)}"))
+                            .Select(Projections.Property(() => userAlias.Country).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.User)}.{nameof(DocumentUserDto.Country)}"))
                             .Select(Projections.Property(() => userAlias.ImageName).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.User)}.{nameof(DocumentUserDto.Image)}"))
                             .Select(Projections.Property(() => documentAlias.DocumentType).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.DocumentType)}"))
                             .Select(Projections.Property(() => tutorAlias.Id).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.UserId)}"))

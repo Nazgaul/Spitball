@@ -88,6 +88,7 @@
 import {mapActions, mapGetters} from 'vuex';
 import {LanguageChange } from "../../../../services/language/languageService";
 import languagesLocales from "../../../../services/language/localeLanguage";
+import * as routeNames from '../../../../routes/routeNames.js';
 
 const searchCMP = () => import('../../global/search/search.vue');
 import menuList from '../menuList/menuList.vue';
@@ -137,21 +138,22 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTuto
             return this.getTotalUnread;
         },
         isHideHeader(){
-            let filteredRoutes = ['profile'];
+            let filteredRoutes = [routeNames.Profile];
             return filteredRoutes.indexOf(this.$route.name) > -1 && this.$vuetify.breakpoint.xsOnly;
         },
         searchPlaceholder(){
             return this.isTablet ? this.$t(`header_placeholder_search`) : this.$t(`header_placeholder_search_m`);
         },
         showSearch(){
-            let showRoutes = ['feed'];
+            let showRoutes = [routeNames.Feed,routeNames.Dashboard];
             return showRoutes.includes(this.currentRoute)
         },
         isHomePage(){
             return this.currentRoute === undefined;
         },
         shouldShowFindTutor(){ 
-            let hiddenRoutes = ['tutorLandingPage']
+            if(this.accountUser?.isTutor) return false
+            let hiddenRoutes = [routeNames.TutorList]
             return !hiddenRoutes.includes(this.currentRoute)
         },
         showChangeLanguage() {

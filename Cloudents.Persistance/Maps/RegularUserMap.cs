@@ -1,11 +1,9 @@
 ﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
-using JetBrains.Annotations;
 
 namespace Cloudents.Persistence.Maps
 {
-    [UsedImplicitly]
     public class UserMap : SubclassMap<User>
     {
         public UserMap()
@@ -64,7 +62,7 @@ namespace Cloudents.Persistence.Maps
                 .Cascade.AllDeleteOrphan()
                 .KeyColumn("UserId").Inverse().AsSet();
 
-            HasOne(x => x.Tutor).Cascade.All();
+            HasOne(x => x.Tutor).Cascade.None();
             HasMany(x => x.UserCoupon).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan()
                 .KeyColumn("UserId").Inverse().AsSet();

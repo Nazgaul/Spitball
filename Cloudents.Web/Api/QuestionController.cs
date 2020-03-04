@@ -1,18 +1,15 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Item.Commands.FlagItem;
-using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Query;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Hubs;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Threading;
@@ -20,6 +17,9 @@ using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query.Questions;
 using Cloudents.Core.DTOs.Questions;
+using Microsoft.AspNetCore.SignalR;
+using Cloudents.Web.Hubs;
+using Cloudents.Core;
 
 namespace Cloudents.Web.Api
 {

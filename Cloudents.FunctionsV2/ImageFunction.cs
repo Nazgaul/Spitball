@@ -49,12 +49,10 @@ namespace Cloudents.FunctionsV2
                 try
                 {
 
-                    await GetCenterCordsFromBlob(blob, mutation);
-                    using (var sr = await blob.OpenReadAsync())
-                    {
-                        var image = ProcessImage(sr, mutation);
-                        return new ImageResult(image, TimeSpan.FromDays(365));
-                    }
+                    mutation.CenterCords = await GetCenterCordsFromBlob(blob);
+                    await using var sr = await blob.OpenReadAsync();
+                    var image = ProcessImage(sr, mutation);
+                    return new ImageResult(image, TimeSpan.FromDays(365));
                 }
                 catch (ImageFormatException ex)
                 {
@@ -99,12 +97,9 @@ namespace Cloudents.FunctionsV2
 
             try
             {
-                using (var sr = await blob.OpenReadAsync())
-                {
-                    var image = ProcessImage(sr, mutation);
-                    return new ImageResult(image, TimeSpan.FromDays(365));
-                }
-
+                await using var sr = await blob.OpenReadAsync();
+                var image = ProcessImage(sr, mutation);
+                return new ImageResult(image, TimeSpan.FromDays(365));
             }
             catch (ImageFormatException ex)
             {
@@ -185,7 +180,7 @@ namespace Cloudents.FunctionsV2
 
                 using (var sr = await blob.OpenReadAsync())
                 {
-                    await GetCenterCordsFromBlob(blob, mutation);
+                    mutation.CenterCords = await GetCenterCordsFromBlob(blob);
                     var image = ProcessImage(sr, mutation);
                     return new ImageResult(image, TimeSpan.FromDays(365));
                 }
@@ -221,7 +216,7 @@ namespace Cloudents.FunctionsV2
         }
 
 
-        private static async Task GetCenterCordsFromBlob(CloudBlob blob, ImageMutation mutation)
+        private static async Task<float[]> GetCenterCordsFromBlob(CloudBlob blob)
         {
             await blob.FetchAttributesAsync();
             if (blob.Metadata.TryGetValue("face", out var faceStr))
@@ -234,11 +229,12 @@ namespace Cloudents.FunctionsV2
 
                 if (arr.Length != 2)
                 {
-                    return;
+                    return null;
                 }
-                mutation.CenterCords = new float[] { arr[0].result, arr[1].result };
+                return new float[] { arr[0].result, arr[1].result };
+                //mutation.CenterCords = new float[] { arr[0].result, arr[1].result };
             }
-
+            return null;
 
 
 

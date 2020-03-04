@@ -19,6 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -33,9 +36,12 @@ using Cloudents.Command.Courses;
 using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Extension;
 using Cloudents.Query.Sync;
+using Cloudents.Query.Users;
 using Cloudents.Search.Document;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
+using Cloudmersive.APIClient.NETCore.ImageRecognition.Api;
+using Cloudmersive.APIClient.NETCore.ImageRecognition.Model;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -59,7 +65,7 @@ namespace ConsoleApp
                 case EnvironmentSettings.Dev:
                     return new ConfigurationKeys
                     {
-                        SiteEndPoint = { SpitballSite = "https://dev.spitball.co" },
+                        SiteEndPoint = { SpitballSite = "https://dev.spitball.co", FunctionSite = "https://spitball-dev-function.azureedge.net" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                             ConfigurationManager.AppSettings["Redis"],
                             DbConnectionString.DataBaseIntegration.None),
@@ -147,11 +153,24 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            
-            var searchWrite = _container.Resolve<ICommandBus>();
-            await searchWrite.DispatchAsync(new UserRemoveCourseCommand(638, "Statistics" ), default);
-            Console.WriteLine("add");
-            await searchWrite.DispatchAsync(new UserJoinCoursesCommand(new[] {"Statistics" }, 638),default);
+
+
+            // var sr = new MemoryStream();
+            //myBitmap.Save(sr,ImageFormat.Jpeg);
+            //File.WriteAllBytes(@"C:\Users\Ram\Download\blank.bmp",sr.ToArray());
+
+            //myBitmap.S
+
+            // await Convert();
+            await ReduPreviewProcessingAsync();
+            //var user = await queryBus.QueryAsync(query, default);
+            // user = await queryBus.QueryAsync(query, default);
+            // user = await queryBus.QueryAsync(query, default);
+            // user = await queryBus.QueryAsync(query, default);
+            // user = await queryBus.QueryAsync(query, default);
+            //await searchWrite.DispatchAsync(new UserRemoveCourseCommand(638, "Statistics" ), default);
+            //Console.WriteLine("add");
+            //await searchWrite.DispatchAsync(new UserJoinCoursesCommand(new[] {"Statistics" }, 638),default);
 
             //var i = 0;
             //while (true)
@@ -215,37 +234,62 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
             // Configure API key authorization: Apikey
             //Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "86afd89a-207c-4e7a-9ffc-da23fcb9d5b7");
-            Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "c80224f2-2aa9-4a06-9a1c-6930141c446a");
+            Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "07af4ce1-40eb-4e97-84e0-c02b4974b190");
+            Cloudmersive.APIClient.NETCore.ImageRecognition.Client.Configuration.Default.AddApiKey("Apikey", "07af4ce1-40eb-4e97-84e0-c02b4974b190");
             //Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.Timeout = 300000;
-
+            var apiInstance3 = new EditApi();
             var apiInstance = new ConvertDocumentApi();
             var apiInstance2 = new ConvertImageApi();
 
             var inputFile = new FileStream("C:\\Users\\Ram\\Downloads\\file-52936bce-e08a-4138-9639-4971c22640ba-142339.pptx", System.IO.FileMode.Open); // System.IO.Stream | Input file to perform the operation on.
 
-            try
-            {
-                var sw = new Stopwatch();
-                sw.Start();
-                //var v = apiInstance.ConvertDocumentDocxToTxt(inputFile);
-                //inputFile.Seek(0, SeekOrigin.Begin);
+            //var image = new Image<Rgba32>(500, 500);
+            //image.Mutate(c=>c.BackgroundColor(Color.Aqua));
+            //var ms = new MemoryStream();
+            //image.SaveAsJpeg(ms);
+            //try
+            //{
 
-                //var f = apiInstance.ConvertDocumentAutodetectGetInfo(inputFile);
-                var result = apiInstance.ConvertDocumentAutodetectToPngArray(inputFile);
+            //    //var request = new DrawTextRequest();
+            //    //byte[] result2 = apiInstance3.EditDrawText(request);
+            //    var sw = new Stopwatch();
+            //    sw.Start();
+            //    var bytes = ms.ToArray();
+            //    //apiInstance3.EditDrawText(new DrawTextRequest())
+            //    var result = apiInstance3.EditDrawText(
+            //        new DrawTextRequest(
+            //            BaseImageBytes: bytes,
+            //            TextToDraw: new List<DrawTextInstance>()
+            //    {
+                    
+            //        new DrawTextInstance(
+            //            "בקרוב תראו תוצאות וציונים שיעלו לכם חיוך על הפנים :) (אפילו אם כרגע זה נראה בלתי אפשרי). בעל ניסיון של 6 שנים!",
+            //            FontFamilyName: "Georgia",
+            //            FontSize:32,
+            //            Color:"black",0,0,500,500
+            //            )
+            //    }));
 
-                //apiInstance.ConvertDocumentAutodetectGetInfo()
-                //var result = apiInstance.ConvertDocumentAutodetectToPngArray(inputFile);
+            //    File.WriteAllBytes(@"c:\Users\Ram\Downloads\ram1.jpg",result);
+            //    //var v = apiInstance.ConvertDocumentDocxToTxt(inputFile);
+            //    //inputFile.Seek(0, SeekOrigin.Begin);
 
-                // Word DOCX to PDF
-                //Object result = apiInstance.ConvertDocumentDocxToPdf(inputFile);
-                sw.Stop();
+            //    //var f = apiInstance.ConvertDocumentAutodetectGetInfo(inputFile);
+            //   // var result = apiInstance.ConvertDocumentAutodetectToPngArray(inputFile);
 
-                Debug.WriteLine(result);
-            }
-            catch (Exception e)
-            {
-                Debug.Print("Exception when calling ConvertDocumentApi.ConvertDocumentDocxToPdf: " + e.Message);
-            }
+            //    //apiInstance.ConvertDocumentAutodetectGetInfo()
+            //    //var result = apiInstance.ConvertDocumentAutodetectToPngArray(inputFile);
+
+            //    // Word DOCX to PDF
+            //    //Object result = apiInstance.ConvertDocumentDocxToPdf(inputFile);
+            //    sw.Stop();
+
+            //    Debug.WriteLine(result);
+            //}
+            //catch (Exception e)
+            //{
+            //    Debug.Print("Exception when calling ConvertDocumentApi.ConvertDocumentDocxToPdf: " + e.Message);
+            //}
         }
 
         private static async Task ResetVideo()
@@ -341,6 +385,17 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
                     var fileItem = (CloudBlockBlob)blobs.First(a => a.Uri.AbsoluteUri.Contains("file-"));
                     var extension = Path.GetExtension(fileItem.Name);
+
+                    var blurFiles = blobs.Where(a => a.Uri.AbsoluteUri.Contains("blur-")).ToList();
+
+                    if (blurFiles.Count > 0)
+                    {
+                        foreach (var listBlobItem in blurFiles)
+                        {
+                            var blobToDelete = (CloudBlockBlob)listBlobItem;
+                            await blobToDelete.DeleteAsync();
+                        }
+                    }
 
                     if (!FileTypesExtension.PowerPoint.Extensions.Contains(extension, StringComparer.OrdinalIgnoreCase))
                     {
@@ -546,13 +601,15 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
         private static async Task HadarMethod()
         {
+            //var t = new PlaylistUpdates();
+            //t.Create();
 
-            var dapper = _container.Resolve<DapperRepository>();
-            var client = _container.Resolve<HttpClient>();
-            var deleteUni = new DeleteUniversityImage(dapper, client);
-            await deleteUni.DeleteBrokenUniversityImageAsync(default);
+            var s = new UploadVideo();
+            s.Upload();
             //var queryBus = _container.Resolve<IQueryBus>();
 
+            //var query = new UserStudyRoomQuery(159039);
+            //var t = await queryBus.QueryAsync(query, default);
             //var query = new UserStudyRoomQuery(159039);
             //var t = await queryBus.QueryAsync(query, default);
             //await PopulateUsersImageName();

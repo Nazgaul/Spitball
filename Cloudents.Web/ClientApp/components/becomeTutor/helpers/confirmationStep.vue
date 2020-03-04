@@ -46,7 +46,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateTutorDialog','updateAccountUserToTutor','sendBecomeTutorData','updateTeachingClasses','updateToasterParams']),
+        ...mapActions(['updateAccountUserToTutor','sendBecomeTutorData','updateTeachingClasses','updateToasterParams']),
         goToPreviousStep() {
             this.$root.$emit('becomeTutorStep', 3);
         },
@@ -62,7 +62,6 @@ export default {
                     });
 
                     if(self.$route.name === routeNames.RegisterType){
-                        global.isAuth = true;
                         self.$router.push({name: routeNames.Feed,query:{filter:'Question'}})
                         self.updateAccountUserToTutor(true);
                     }else{
@@ -78,7 +77,7 @@ export default {
                             showToaster: true,
                             toasterTimeout: 5000
                         });
-                        self.updateTutorDialog(false);
+                        self.$closeDialog();
                     }
                 }).finally(() => {                      
                     self.isLoading = false;

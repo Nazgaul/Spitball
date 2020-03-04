@@ -1,19 +1,20 @@
 <template>
     <v-flex class="information-box">
         <div class="information-box-mobile-wrap">
-            <v-icon v-show="$vuetify.breakpoint.xsOnly" class="gamburger-icon" @click="setNavigationDrawerState()">sbf-menu</v-icon>
+            <v-icon v-show="showHamburger" class="gamburger-icon" @click="setNavigationDrawerState()">sbf-menu</v-icon>
             <span class="information-box-text" :class="{'mobile': isMobile}">{{informationBlockText}}</span>
         </div>
     </v-flex>
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import {LanguageService} from "../../../../../services/language/languageService"
 
 export default {
     name: "verticals-tabs",
     computed: {
+      ...mapGetters(['getUserLoggedInStatus','accountUser']),
         isMobile(){
             return this.$vuetify.breakpoint.mdAndDown
         },
@@ -25,6 +26,17 @@ export default {
             } else{
                 return LanguageService.getValueByKey("schoolBlock_all_courses");
             }
+        },
+        showHamburger(){
+          if(this.$vuetify.breakpoint.xsOnly){
+            if(this.getUserLoggedInStatus && this.accountUser?.userType !== 'Parent'){
+              return true
+            }else{
+              return false;
+            }
+          }else{
+            return false;
+          }
         }
     },
     methods: {

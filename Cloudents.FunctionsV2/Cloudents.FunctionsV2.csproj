@@ -8,9 +8,10 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Cloudmersive.APIClient.NETCore.DocumentAndDataConvert" Version="1.8.9" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.10.0" />
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.DataProtection.AzureStorage" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.DataProtection.Extensions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.DurableTask" Version="1.8.3" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.DurableTask" Version="2.1.1" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.SendGrid" Version="3.0.0" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.ServiceBus" Version="3.1.1" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.SignalRService" Version="1.0.2" />

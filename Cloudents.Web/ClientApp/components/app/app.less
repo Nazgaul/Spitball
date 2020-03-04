@@ -64,6 +64,14 @@ html[dir="rtl"] {
   @media (max-width: @screen-xs) {
     background-color: #E6E6E6;
   }
+  &.hidden-sideMenu{
+    // width="220" mini-variant-width="62"
+    padding-left: 220px !important;
+    @media (max-width: @screen-md) {
+      // padding-left: 62px !important;
+      padding-left: 0px !important;
+    }
+  }
 }
 
 .loader {

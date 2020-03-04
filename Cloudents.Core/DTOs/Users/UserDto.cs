@@ -74,7 +74,7 @@ namespace Cloudents.Core.DTOs.Users
         public string Currency => new RegionInfo(TutorCountry).ISOCurrencySymbol;
 
         [EntityBind(nameof(ReadTutor.Country))]
-        internal string TutorCountry { get; set; }
+        public string TutorCountry { get; set; }
 
         public decimal? DiscountPrice { get; set; }
 
@@ -119,6 +119,11 @@ namespace Cloudents.Core.DTOs.Users
         public long Id { get; set; }
         [EntityBind(nameof(User.Name))]
         public string Name { get; set; }
+        [EntityBind(nameof(User.FirstName))]
+        public string FirstName { get; set; }
+        [EntityBind(nameof(User.LastName))]
+        public string LastName { get; set; }
+
         [EntityBind(nameof(User.ImageName))]
         public string Image { get; set; }
         
@@ -127,8 +132,28 @@ namespace Cloudents.Core.DTOs.Users
         [EntityBind(nameof(User.PaymentExists), nameof(User.Country))]
         public bool NeedPayment { get; set; }
 
-        public bool HaveDocs { get; set; }
-        public UserType? UserType { get; set; }
+        public bool HaveContent { get; set; }
+        public bool HaveDocsWithPrice { get; set; }
+        public bool IsPurchased { get; set; }
+        public bool IsSold { get; set; }
+        public bool HaveStudyRoom { get; set; }
+        public bool HaveFollowers { get; set; }
+        private UserType? _userType;
+        public UserType? UserType 
+        {
+            get
+            {
+
+                if (_userType == Enum.UserType.Teacher 
+                    && IsTutor.GetValueOrDefault(ItemState.Deleted) != ItemState.Ok)
+                    return Enum.UserType.UniversityStudent;
+                return _userType;
+            }
+            set
+            {
+                _userType = value;
+            }
+        }
         public string Country { get; set; }
 
         public IEnumerable<CourseDto> Courses { get; set; }

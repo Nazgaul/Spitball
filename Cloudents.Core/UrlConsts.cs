@@ -1,13 +1,11 @@
 ﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
 using System;
 using System.Collections.Specialized;
 
 namespace Cloudents.Core
 {
-    [UsedImplicitly]
     public class UrlConst : IUrlBuilder
     {
         private readonly Uri _webSiteEndPoint;
@@ -125,6 +123,8 @@ namespace Cloudents.Core
         }
 
 
+
+
         public const string ImageFunctionUserRoute = "image/user/{id}/{file}";
         public string BuildUserImageEndpoint(long id, string imageName, string userName, object parameters = null)
         {
@@ -153,6 +153,36 @@ namespace Cloudents.Core
             }
 
             return BuildUserImageEndpoint(id, imageName, null);
+        }
+
+
+        private const string ImageFunctionUserProfileShareRoute = "share/profile/{id}";
+
+        public string BuildUserImageProfileShareEndpoint(long id, object parameters = null)
+        {
+            var injectionObj = new
+            {
+                id,
+            };
+            var path = ImageFunctionUserProfileShareRoute.Inject(injectionObj);
+            var builder = new UriBuilder(_functionEndPoint) { Path = $"api/{path}" };
+            builder.AddQuery(parameters);
+            return builder.ToString();
+        }
+
+
+        private const string ImageFunctionDocumentShareRoute = "share/document/{id}";
+
+        public string BuildDocumentImageShareEndpoint(long id, object parameters = null)
+        {
+            var injectionObj = new
+            {
+                id,
+            };
+            var path = ImageFunctionDocumentShareRoute.Inject(injectionObj);
+            var builder = new UriBuilder(_functionEndPoint) { Path = $"api/{path}" };
+            builder.AddQuery(parameters);
+            return builder.ToString();
         }
     }
 }

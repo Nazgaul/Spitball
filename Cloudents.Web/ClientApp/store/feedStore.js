@@ -128,13 +128,6 @@ const actions = {
             return
         });
     },
-    addQuestionItemAction({commit, getters}, notificationQuestionObject) {
-        let questionToSend = {
-            user: getters.accountUser,
-            question: searchService.createQuestionItem(notificationQuestionObject)
-        };
-        commit('Feeds_AddQuestion', questionToSend);
-    },
     removeQuestionItemAction({commit, state}, notificationQuestionObject) {
         if (!!state.items && !!state.items.data && state.items.data.length > 0) {
             for (let questionIndex = 0; questionIndex < state.items.data.length; questionIndex++) {
@@ -146,39 +139,11 @@ const actions = {
         }
     },
     removeDocItemAction({commit, state}, notificationDocItemObject) {
-        let documentToRemove = searchService.createDocumentItem(notificationDocItemObject);
         if (!!state.items && !!state.items.data && state.items.data.length > 0) {
             for (let documentIndex = 0; documentIndex < state.items.data.length; documentIndex++) {
                 let currentDocument = state.items.data[documentIndex];
-                if (currentDocument.id === documentToRemove.id) {
+                if (currentDocument.id === notificationDocItemObject.id) {
                     commit('Feeds_removeDocItem',documentIndex);
-                }
-            }
-        }
-    },
-    updateQuestionCorrect({commit, state}, notificationQuestionObject) {
-        let questionObj = {
-            questionId: notificationQuestionObject.questionId,
-            answerId: notificationQuestionObject.answerId
-        };
-        if (!!state.items && !!state.items.data && state.items.data.length > 0) {
-            for (let questionIndex = 0; questionIndex < state.items.data.length; questionIndex++) {
-                let currentQuestion = state.items.data[questionIndex];
-                if (currentQuestion.id === questionObj.questionId) {
-                    commit('Feeds_markQuestionAsCorrect', {answerId: questionObj.answerId, questionIndex});
-                }
-            }
-        }
-    },
-    Feeds_updateCounter({commit, state}, actionObj) {
-        let questionId = actionObj.questionId;
-        let addAnswersCounter = actionObj.addCounter;
-        if (!!state.items && !!state.items.data && state.items.data.length > 0) {
-            for (let questionIndex = 0; questionIndex < state.items.data.length; questionIndex++) {
-                let currentQuestion = state.items.data[questionIndex];
-                if (currentQuestion.id === questionId) {
-                    let counter = (addAnswersCounter) ? 1 : -1;
-                    commit('Feeds_updateAnswersCounter', {counter,questionIndex});
                 }
             }
         }

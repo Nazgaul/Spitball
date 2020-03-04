@@ -40,7 +40,14 @@ namespace Cloudents.Core.Extension
 
             obj.GetType().GetProperties()
                 .ToList()
-                .ForEach(pi => formFields.Add(pi.Name, pi.GetValue(obj, null).ToString()));
+                .ForEach(pi =>
+                {
+                    var val = pi.GetValue(obj, null);
+                    if (val != null)
+                    {
+                        formFields.Add(pi.Name, val.ToString());
+                    }
+                });
 
             return builder.AddQuery(formFields);
             //var properties = from p in obj.GetType().GetProperties()

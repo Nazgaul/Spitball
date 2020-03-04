@@ -1,5 +1,5 @@
 <template>
-    <v-row class="analyticOverview mt-sm-0 mt-2 mb-2 mb-sm-4 pb-2 pb-sm-0" dense>
+    <v-row class="analyticOverview mt-sm-0 mt-2 mb-2 mb-sm-4 pb-2 pb-sm-0">
         <v-col class="space pa-0 mb-2 mb-sm-0" cols="7">
             <div class="text">{{$t('dashboardTeacher_analytic_title')}}</div>
         </v-col>
@@ -27,14 +27,14 @@
               :key="index"
               :cols="isMobile ? 6 : 3"
               class="box pa-0 text-center">
-                <div class="boxWrap mb-0 mb-sm-2 ma-2 ma-sm-0 py-2 py-sm-0" :class="[isMobile ? 'fullBorder' : 'borderSide']">
+                <router-link :to="{name: navigation[key]}" class="boxWrap d-block mb-0 mb-sm-2 ma-2 ma-sm-0 py-2 py-sm-0" :class="[isMobile ? 'fullBorder' : 'borderSide']">
                   <div class="type">{{ $t(`dashboardTeacher_${key}`) }}</div>
                   <div class="result my-0 my-sm-1">{{$n(Math.round(val), key === 'revenue' ? 'currency' : '')}}</div>
                   <div class="rate font-weight-bold">
                       <arrowDownIcon class="arrow" v-show="percentage(key)" :class="[showIcon(key) ? 'arrowDown' : 'arrowUp']" />
                       <bdi class="precent mr-1" :class="{'down': showIcon(key)}">{{percentage(key)}} <span v-show="percentage(key)">&#37;</span></bdi>
                   </div>
-                </div>
+                </router-link>
             </v-col>
         </template>
         <template v-else>
@@ -42,7 +42,7 @@
               v-for="n in 4"
               :key="n"
               :cols="isMobile ? 6 : 3"
-              class="analyticLoader mb-2">
+              class="analyticLoader mb-5">
                 <v-skeleton-loader
                   class="mx-auto load "
                   height=""
@@ -63,6 +63,12 @@ export default {
   data: () => ({
     selectedItem: {title: 'Last 7 days', value: 7, key: '7days'},
     results: [],
+    navigation: {
+      revenue: 'mySales',
+      sales: 'myContent',
+      views: 'myContent',
+      followers: 'myFollowers'
+    },
     items: [
       { title: 'Last 7 days', value: 7,  key: '7days' },
       { title: 'Last 30 Day', value: 30,  key: '30days' },
@@ -118,7 +124,8 @@ export default {
     background: white;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
     border-radius: 8px;
-
+    width: 100%;
+    margin: 0 auto;
     @media (max-width: @screen-xs) {
       box-shadow: none;
       padding: 14px;
@@ -186,7 +193,7 @@ export default {
         .result {
           font-size: 28px;
           color: @global-purple;
-          font-weight: 600;
+          font-weight: 600 /*rtl:500*/;
           @media (max-width: @screen-md) {
             font-size: 24px;
           }

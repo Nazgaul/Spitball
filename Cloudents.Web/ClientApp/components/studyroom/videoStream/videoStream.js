@@ -115,9 +115,11 @@ export default {
             'setIsAudioActive'
         ]),
         toggleAudio(){
+            this.$ga.event("tutoringRoom", "toggleAudio");
             this.toggleAudioTrack();
         },
         toggleVideo(){
+            this.$ga.event("tutoringRoom", "toggleVideo");
             this.toggleVideoTrack();
         }
     }

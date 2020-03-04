@@ -136,7 +136,7 @@
     <value>על מנת לאפשר הקלטה של שיעורים מקוונים נא לפעול על פי הצעדים הבאים</value>
   </data>
   <data name="error_with_video_and_audio" xml:space="preserve">
-    <value>שנה את הגדרות הדפדפן</value>
+    <value>שנה את הגדרות הדפדפן.</value>
   </data>
   <data name="refresh" xml:space="preserve">
     <value>נא לרענן את הדף לאחר נתינת אישור.</value>
@@ -178,7 +178,7 @@
     <value>לא ניתן להתחבר למצלמת הווידאו או למיקרופון שלך</value>
   </data>
   <data name="watch-middle" xml:space="preserve">
-    <value>כעת תוכלו להקליט ולצפות באופן אוטומטי בשיעורים המקוונים שלכם חינם. השיעורים הפרטיים שלכם יאוחסנו בחשבון ספיטבול, אליו יש לכם גישה מכל דפדפן.</value>
+    <value>כעת תוכלו להקליט ולצפות בשיעורים המקוונים שלכם חינם. עם סיום השיעור, יש ללחוץ על כפתור 'סיום', ההקלטה ההקלטה תרד באופן אוטומטי לתיקיית ההורדות במחשב שלכם.</value>
   </data>
   <data name="watch_actions_no" xml:space="preserve">
     <value>לא, תודה</value>
@@ -187,7 +187,7 @@
     <value>תנאי השימוש שלנו?</value>
   </data>
   <data name="watch_actions_txt" xml:space="preserve">
-    <value>האם אתם מסכימים להקליט את השיעורים שלכם ומסכימים ל</value>
+    <value>האם אתם מסכימים להקליט את השיעורים שלכם ומסכימים לכל</value>
   </data>
   <data name="watch_actions_yes" xml:space="preserve">
     <value>כן, אני מסכים/ה</value>

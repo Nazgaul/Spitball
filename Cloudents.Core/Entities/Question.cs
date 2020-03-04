@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
-using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -85,7 +84,6 @@ namespace Cloudents.Core.Entities
         {
             var answer = new Answer(this, text, user);
             _answers.Add(answer);
-            AddEvent(new AnswerCreatedEvent(answer));
             return answer;
         }
 
@@ -106,22 +104,19 @@ namespace Cloudents.Core.Entities
             if (Status == null || Status == Pending)
             {
                 Status = Public;
-                AddEvent(new QuestionCreatedEvent(this));
+                //AddEvent(new QuestionCreatedEvent(this));
             }
         }
 
         public virtual void DeleteQuestionAdmin()
         {
             Delete();
-
-            AddEvent(new QuestionDeletedAdminEvent(this));
         }
 
         public virtual void Delete()
         {
             Status = ItemStatus.Delete();
             _answers.Clear();
-            AddEvent(new QuestionDeletedEvent(this));
 
         }
 

@@ -98,9 +98,9 @@ export default {
             this.dialog = true
         },
         deleteItem(item) {
-            confirm(`Are you sure you want to delete this ${item.id}?`) && 
+            confirm(`Are you sure you want to delete ${item.heName} - ${item.enName}?`) && 
             subjectService.deleteSubject(item.id).then(res => {
-                this.showSnackBar(true, `Success: delete ${item.id}`)
+                this.showSnackBar(false, `Success: delete ${item.id}`)
                 this.getSubjects()
             }).catch(ex => {
                 this.showSnackBar(true, `Error: delete ${item.id}`)
@@ -118,7 +118,7 @@ export default {
                 //edit item
                 sendToServerObj.subjectId = this.editedItem.id
                 subjectService.editSubject(sendToServerObj).then(res => {      
-                    this.showSnackBar(true, `Success: edit ${this.editedItem.id}`)
+                    this.showSnackBar(false, `Success: edit ${this.editedItem.id}`)
                     this.getSubjects()
                 }).catch(ex => {
                     this.showSnackBar(true, `Error: edit ${this.editedItem.id}`)
@@ -128,7 +128,7 @@ export default {
             } else {
                 //add item
                 subjectService.addSubject(sendToServerObj).then(() => {
-                    this.showSnackBar(true, `Success: add ${this.editedItem.id}`)
+                    this.showSnackBar(false, `Success: add ${this.editedItem.id}`)
                     this.getSubjects()
                 }).catch(ex => {
                     this.showSnackBar(true, `Error: add ${this.editedItem.id}`)
@@ -156,7 +156,7 @@ export default {
             })
         },
         showSnackBar(err, text) {
-            this.snackColor = !err ? 'red' : 'green';
+            this.snackColor = err ? 'red' : 'green';
             this.snackbar = true;
             this.snackText = text
         }

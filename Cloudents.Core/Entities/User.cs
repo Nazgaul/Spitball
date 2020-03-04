@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities
 {
@@ -185,6 +184,7 @@ namespace Cloudents.Core.Entities
 
             Tutor = new Tutor(bio, this, price);
             Description = description;
+            UserType2 = UserType.Teacher;
             ChangeName(firstName, lastName);
             foreach (var userCourse in UserCourses)
             {
@@ -206,7 +206,7 @@ namespace Cloudents.Core.Entities
         public virtual string FirstName { get; protected set; }
         public virtual string LastName { get; protected set; }
         public virtual string Description { get; set; }
-        public virtual Tutor Tutor { get; set; }
+        public virtual Tutor Tutor { get; protected set; }
 
         public virtual BuyerPayment BuyerPayment { get; protected set; }
 
@@ -245,7 +245,7 @@ namespace Cloudents.Core.Entities
         //    LastName = null;
         //}
 
-        public virtual void ChangeName(string firstName, [CanBeNull] string lastName)
+        public virtual void ChangeName(string firstName, string? lastName)
         {
             FirstName = firstName;
             LastName = lastName;

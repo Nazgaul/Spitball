@@ -21,12 +21,7 @@ import calendarTab from '../calendar/calendarTab.vue';
 
 
 
-
-
-// import questionCard from "../question/helpers/new-question-card/new-question-card.vue";
-// import resultNote from "../results/ResultNote.vue";
-// import userBlock from '../helpers/user-block/user-block.vue';
-
+const shareContent = () => import(/* webpackChunkName: "shareContent" */'../pages/global/shareContent/shareContent.vue');
 export default {
     name: "new_profile",
     components: {
@@ -42,6 +37,7 @@ export default {
         profileItemsEmpty,
         calendarTab,
         sbDialog,
+        shareContent,
     },
     props: {
         id: {
@@ -57,7 +53,6 @@ export default {
                 closeCalendar: this.closeCalendar,
                 openBecomeTutor: this.openBecomeTutor,
                 goTutorList: this.goTutorList,
-                openUpload: this.openUpload,
                 getItems: this.getItems,
                 scrollTo: this.scrollToElementId,
             },
@@ -94,8 +89,6 @@ export default {
             'updateRequestDialog',
             'setActiveConversationObj',
             'openChatInterface',
-            'setReturnToUpload',
-            'updateDialogState',
             'updateProfileItemsByType',
 
 
@@ -108,7 +101,7 @@ export default {
             this.updateCouponDialog(false);
         },
         openCoupon(){
-            if(global.isAuth) {
+            if(this.getUserLoggedInStatus) {
             if(this.accountUser) {          
                 if(this.$route.params.id != this.accountUser.id) {
                     this.updateCouponDialog(true)
@@ -165,21 +158,6 @@ export default {
         goTutorList(){
             this.$router.push({name:'tutorLandingPage'})
         },
-        openUpload() {
-            let schoolName = this.getSchoolName;
-            if (this.accountUser == null) {
-              this.updateLoginDialogState(true);
-            } else if (!schoolName.length) {
-              this.$router.push({ name: "addUniversity" });
-              this.setReturnToUpload(true);
-            } else if (!this.getSelectedClasses.length) {
-              this.$router.push({ name: "addCourse" });
-              this.setReturnToUpload(true);
-            } else if (schoolName.length > 0 && this.getSelectedClasses.length > 0) {
-              this.updateDialogState(true);
-              this.setReturnToUpload(false);
-            }
-        },
         getItems(type,params){
             let dataObj = {
                 id: this.id,
@@ -221,9 +199,23 @@ export default {
             "accountUser",
             'getCouponDialog',
             'getCouponError',
-            'getSchoolName',
-            'getSelectedClasses',
-            "getProfile"]),
+            "getProfile",
+            'getBannerParams',
+            'getUserLoggedInStatus']),
+        shareContentParams(){
+            let urlLink = `${global.location.origin}/p/${this.$route.params.id}?t=${Date.now()}` ;
+            let userName = this.getProfile.user?.name;
+            let paramObJ = {
+                link: urlLink,
+                twitter: this.$t('shareContent_share_profile_twitter',[userName,urlLink]),
+                whatsApp: this.$t('shareContent_share_profile_whatsapp',[userName,urlLink]),
+                email: {
+                    subject: this.$t('shareContent_share_profile_email_subject',[userName]),
+                    body: this.$t('shareContent_share_profile_email_body',[userName,urlLink]),
+                }
+            }
+            return paramObJ
+        },
         isShowCouponDialog(){
             if(this.getCouponDialog){
                 setTimeout(() => {
@@ -274,21 +266,6 @@ export default {
         showFindTutor(){
             return (!this.isMyProfile && !this.isTutor)
         },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         profileData() {
             if (!!this.getProfile) {
                 return this.getProfile;
@@ -340,6 +317,9 @@ export default {
             setTimeout(() => {
                 this.openCoupon();
             },200)
+        }
+        if(this.$route.params.openCalendar) {
+            this.openCalendar();
         }
     },
     mounted() {

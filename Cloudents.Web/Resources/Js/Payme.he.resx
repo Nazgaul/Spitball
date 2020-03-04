@@ -124,10 +124,10 @@
     <value>אם לא מרוצים מהשיעור, נתקו את השיעור תוך 10 דקות ולא תחויבו</value>
   </data>
   <data name="content_txt_sheild" xml:space="preserve">
-    <value>המערכת מעבדת </value>
+    <value>המערכת מעבדת</value>
   </data>
   <data name="content_txt_time" xml:space="preserve">
-    <value>החיוב יבוצע רק בסיום השיעור </value>
+    <value>החיוב יבוצע רק בסיום השיעור</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>התשלום עבור שיעור פרטי עם המורה {1}  יבוצע לאחר השיעור, חשבונית תשלח לאימייל שבו נרשמת למערכת.</value>

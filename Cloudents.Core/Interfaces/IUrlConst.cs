@@ -24,6 +24,8 @@ namespace Cloudents.Core.Interfaces
         string BuildDocumentThumbnailEndpoint(long id, object parameters = null);
         string BuildUserImageEndpoint(long id, string imageName, string userName, object parameters = null);
         string BuildUserImageEndpoint(long id, string imageName);
+        string BuildUserImageProfileShareEndpoint(long id, object parameters = null);
+        string BuildDocumentImageShareEndpoint(long id, object parameters = null);
     }
 
 }
