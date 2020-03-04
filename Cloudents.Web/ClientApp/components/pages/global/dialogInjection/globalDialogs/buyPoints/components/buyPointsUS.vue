@@ -213,7 +213,7 @@ export default {
                         ]
                     });
                 },
-                onApprove: function(data, actions) {
+                onApprove: function(data) {
                     self.$store.dispatch('updatePaypalBuyTokens',data.orderID).then(()=>{
                         self.isLoading = false
                     })
