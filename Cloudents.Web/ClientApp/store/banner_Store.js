@@ -18,12 +18,13 @@ const actions = {
         }else{
             let bannerId = state.bannerParams.id;
             let localStorageList = JSON.parse(global.localStorage.getItem(BANNER_STORAGE_NAME));
-            if(localStorageList.length === 0 ){
-                localStorageList = JSON.stringify([bannerId]);
-                global.localStorage.setItem(BANNER_STORAGE_NAME,localStorageList);  
-            }else{
+
+            if(Array.isArray(localStorageList) && localStorageList.length){
                 localStorageList = JSON.stringify(localStorageList.push(bannerId));
                 global.localStorage.setItem(BANNER_STORAGE_NAME,localStorageList); 
+            }else{
+                localStorageList = JSON.stringify([bannerId]);
+                global.localStorage.setItem(BANNER_STORAGE_NAME,localStorageList);  
             }
             commit('setBannerParams',null);
         }
