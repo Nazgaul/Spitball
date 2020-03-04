@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs.Email;
 using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Linq;

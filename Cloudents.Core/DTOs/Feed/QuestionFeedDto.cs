@@ -1,9 +1,10 @@
 ﻿using Cloudents.Core.Attributes;
+using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using System;
 
-namespace Cloudents.Core.DTOs
+namespace Cloudents.Core.DTOs.Feed
 {
     public abstract class FeedDto
     {

@@ -1,5 +1,6 @@
 ﻿using Autofac.Extras.Moq;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.DTOs.Documents;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Users;
