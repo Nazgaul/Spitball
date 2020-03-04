@@ -75,13 +75,12 @@ export default {
   methods: {
     ...mapActions([
       "updateNewQuestionDialogState",
-      "updateLoginDialogState",
       "updateRequestDialog",
       "setTutorRequestAnalyticsOpenedFrom"
     ]),
     openAskQuestion() {
       if (this.accountUser == null) {
-        this.updateLoginDialogState(true);
+        this.$openDialog('login');
       } else {
         this.updateNewQuestionDialogState(true);
       }

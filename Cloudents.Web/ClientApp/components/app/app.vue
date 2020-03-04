@@ -19,15 +19,6 @@
         </div>
 
         <dialogInjection class="dialogInjection" />
-
-        <sb-dialog
-          :showDialog="loginDialogState"
-          :popUpType="'loginPop'"
-          :content-class="'login-popup'"
-          :max-width="'550px'"
-        >
-          <login-to-answer v-if="loginDialogState"></login-to-answer>
-        </sb-dialog>
         <sb-dialog
           :isPersistent="true"
           :showDialog="newQuestionDialogSate"
@@ -84,7 +75,6 @@ import { LanguageService } from "../../services/language/languageService";
 
 const dialogInjection = () => import('../pages/global/dialogInjection/dialogInjection.vue');
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
-const loginToAnswer = () => import("../question/helpers/loginToAnswer/login-answer.vue");
 const AddQuestion = () => import("../question/askQuestion/askQuestion.vue");
 const walletService = () => import("../../services/walletService");
 const mobileFooter = () => import("../pages/layouts/mobileFooter/mobileFooter.vue");
@@ -97,7 +87,6 @@ export default {
     referralDialog,
     AddQuestion,
     sbDialog,
-    loginToAnswer,
     chat,
     mobileFooter,
     tutorRequest,
@@ -113,7 +102,6 @@ export default {
     ...mapGetters([
       "getReferralDialog",
       "accountUser",
-      "loginDialogState",
       "newQuestionDialogSate",
       "getShowToaster",
       "getShowToasterType",
@@ -209,9 +197,6 @@ export default {
       }, this.getToasterTimeout);
     },
     $route() {
-      if (this.loginDialogState) {
-        this.updateLoginDialogState(false);
-      }
       this.$nextTick(() => {
         this.fireOptimizeActivate();
       });
@@ -231,8 +216,6 @@ export default {
     ...mapActions([
       "updateReferralDialog",
       "updateToasterParams",
-      "updateLoginDialogState",
-      "updateNewQuestionDialogState",
       "setCookieAccepted",
       "updateRequestDialog",
       "openChatInterface",
@@ -289,17 +272,6 @@ export default {
         }
       }
     }
-
-    this.$root.$on("closePopUp", name => {
-      if (name === "suggestions") {
-        this.showDialogSuggestQuestion = false;
-      } else if (name === "newQuestionDialog") {
-        this.updateNewQuestionDialogState(false);
-      } else {
-        this.updateLoginDialogState(false);
-      }
-    });
-
     this.acceptedCookies = this.getCookieAccepted();
     if (global.isMobileAgent) {
       global.addEventListener("resize", () => {

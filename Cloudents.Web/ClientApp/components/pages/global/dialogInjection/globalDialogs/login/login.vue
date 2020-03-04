@@ -1,11 +1,44 @@
-@import "../../../../styles/mixin.less";
+<template>
+    <v-dialog :value="true" persistent max-width="550px" :fullscreen="$vuetify.breakpoint.xsOnly">
+        <v-card class="login-popup">
+            <div class="dialog-wrapp">
+                <button class="close-btn text-md-right" v-closeDialog>
+                    <v-icon>sbf-close</v-icon>
+                </button>
+                <div class="ml-1 wrap-text">
+                    <h2 class="text-md-center" v-language:inner="'profileData_generalProfile_modal_heading'"></h2>
+                    <div class="wrapper-body-text">
+                        <p class="dialog-body-text" v-language:inner="'profileData_generalProfile_modal_text'"></p>
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <a  class="login-btns" @click="goToSignIn()" v-language:inner>loginAnswer_login</a>
+                    <a  class="login-btns" @click="goToRegister()" v-language:inner>loginAnswer_Sign_Up</a>
+                </div>
+            </div>
+        </v-card>
+    </v-dialog>
+</template>
+
+<script>
+export default {
+    methods: {
+        goToRegister(){
+            this.$router.push({name: 'register', query:{returnUrl : this.$route.path}});
+        },
+        goToSignIn(){
+            this.$router.push({name: 'login', query:{returnUrl : this.$route.path}});
+        }
+    },
+}
+</script>
+
+<style lang="less">
+@import "../../../../../../styles/mixin.less";
 
 div.login-popup {
   border-radius: 6px;
   font-size: 16px;
-  @media (max-width: @screen-xs) {
-
-  }
   .close-btn {
     position: absolute;
     right: 16px;
@@ -107,3 +140,5 @@ div.login-popup {
       }
   }
 }
+
+</style>

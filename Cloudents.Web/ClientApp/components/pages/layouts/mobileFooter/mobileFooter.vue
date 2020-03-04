@@ -87,10 +87,10 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateLoginDialogState','openChatInterface']),
+        ...mapActions(['openChatInterface']),
         openChat(){
             if (this.accountUser == null) {
-                this.updateLoginDialogState(true);
+                this.$openDialog('login');
             }else{
                 this.openChatInterface();
             }
@@ -104,7 +104,7 @@ export default {
             }
             if(tabName === 'profile' && this.activeTab !== tabName){
                 if(this.accountUser == null) {
-                    this.updateLoginDialogState(true);
+                    this.$openDialog('login');
                 }else{
                     this.$router.push({name:'profile',params:{id: this.accountUser.id,name: this.accountUser.name}})
                 }
