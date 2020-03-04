@@ -106,6 +106,7 @@
     "vue-flicking": "0.0.1",
     "vue-i18n": "^8.15.3",
     "vue-numeric": "^2.3.0",
+    "vue-paypal-checkout": "^3.2.0",
     "vuex-router-sync": "^5.0.0",
     "webpack-retry-chunk-load-plugin": "^1.2.0"
   }

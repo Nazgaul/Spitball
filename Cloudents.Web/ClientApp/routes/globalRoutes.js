@@ -1,6 +1,6 @@
 export const globalRoutes = [
     {
-        path: "test",
+        path: "/test",
         component: () => import('./../components/test.vue')
     },
     {

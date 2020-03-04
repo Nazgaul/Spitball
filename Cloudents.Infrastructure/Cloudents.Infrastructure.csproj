@@ -32,7 +32,8 @@
     <PackageReference Include="GoogleMeasurementProtocol" Version="2.1.0" />
     <!--<PackageReference Include="Microsoft.Azure.CognitiveServices.Language.TextAnalytics" Version="4.0.0" />-->
     <PackageReference Include="Nager.Country" Version="1.0.4" />
-    <PackageReference Include="PayPal" Version="2.0.0-rc2" />
+    <PackageReference Include="PayPalHttp" Version="1.0.0" />
+    <PackageReference Include="PayPalCheckoutSdk" Version="1.0.3" />
     <PackageReference Include="protobuf-net" Version="2.4.0" />
     <PackageReference Include="Twilio" Version="5.37.1" />
     <PackageReference Include="protobuf-net" Version="2.4.4" />
