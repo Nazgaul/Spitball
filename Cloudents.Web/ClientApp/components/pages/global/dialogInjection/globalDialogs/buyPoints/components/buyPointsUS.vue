@@ -130,10 +130,11 @@
 
                 <v-layout class="buymebtn">
                     <v-flex text-center>
-                        <v-btn class="buyme-button white--text" depressed color="#4452fc" id="buyme-button" @click="openPaymeDialog">
+                        <div id="paypal-button-container"></div>
+                        <!-- <v-btn class="buyme-button white--text" depressed color="#4452fc" id="buyme-button" @click="openPaymeDialog">
                         <span class="mr-2 d-flex"><v-icon size="16">sbf-lock-icon</v-icon></span>
                         <span class="font-weight-bold" v-html="$Ph('buyTokens_secure_payment', products[selectedProduct].pts)"></span>
-                        </v-btn>
+                        </v-btn> -->
                     </v-flex>
                 </v-layout>
 
@@ -153,21 +154,24 @@ export default {
       showOverlay: false,
       transactionId: 750,
       products:{
-        currency: '₪',
+        currency: '$',
         basic:{
-            pts: 250,
-            price: 10,
-            currency: 'ILS'
+            id:1,
+            pts:100,
+            price:1.5,
+            currency: 'USD'
         },
         inter:{
-            pts: 750,
-            price: 30,
-            currency: 'ILS'
+            id:2,
+            pts:500,
+            price:6,
+            currency: 'USD'
         },
         pro:{
-            pts: 1500,
-            price: 60,
-            currency: 'ILS'
+            id:3,
+            pts:1000,
+            price:10,
+            currency: 'USD'
         }
       },
       user: this.accountUser()
@@ -201,7 +205,47 @@ export default {
         this.buyToken({points : transactionId});
         this.$closeDialog()
     }
-  }
+  },
+  mounted() {
+    let self = this;
+    let paypalUrl = `https://www.paypal.com/sdk/js?client-id=${window.paypalClientId}&commit=false`;
+    this.$loadScript(paypalUrl)
+        .then(() => {
+            window.paypal
+            .Buttons({
+                createOrder: function(data, actions) {
+                    // Set up the transaction
+                    //need to get from user click
+                    return actions.order.create({
+                        purchase_units: [
+                            {
+                                reference_id: "points_" + self.products[self.selectedProduct].id,
+                                amount: {
+                                    value: self.products[self.selectedProduct].price,
+                                    currency: self.products[self.selectedProduct].currency
+                                }
+                            },
+                        ]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    const response = fetch("api/wallet/PayPal/buyTokens", {
+                        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    
+                        headers: {
+                        'Content-Type': 'application/json'
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        redirect: 'follow', // manual, *follow, error
+                        body: JSON.stringify({id : data.orderID}) // body data type must match "Content-Type" header
+                    });
+                    response.then(()=>{
+                    })
+                    }
+            })
+            .render('#paypal-button-container');
+        });
+  },
 };
 </script>
 

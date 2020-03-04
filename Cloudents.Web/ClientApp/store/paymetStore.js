@@ -68,6 +68,9 @@ const actions = {
     },
     updatePaymentLink({commit},link){
         commit('setPaymentURL',link);
+    },
+    updateIsBuyPoints({commit},val){
+        commit('setIsBuyPoints',val)
     }
 };
 

@@ -26,6 +26,12 @@ export default {
          return !this.$store.getters.isFrymo ? 'buy-tokens-popup' : 'buy-tokens-frymo-popup';
       }
    },
+   created() {
+      this.$store.dispatch('updateIsBuyPoints',true);
+   },
+   beforeDestroy() {
+      this.$store.dispatch('updateIsBuyPoints',false);
+   },
 
 }
 </script>
