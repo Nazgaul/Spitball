@@ -4,6 +4,7 @@ import analyticsService from '../services/analytics.service';
 import insightService from '../services/insightService';
 import { LanguageService } from '../services/language/languageService';
 import intercomeService from '../services/intercomService';
+import { router } from "../main";
 
 const state = {
     isUserLoggedIn:false,
@@ -115,7 +116,7 @@ const actions = {
         }
     },
     signalR_SetBalance({ commit, state, dispatch, getters }, newBalance) {
-        dispatch('updatePaymentDialogState', false);
+        router.push({query:{...router.currentRoute.query,dialog:undefined}})
         if (getters.getShowBuyDialog || state.user.balance > newBalance) {
             dispatch('updateShowBuyDialog', false);
             dispatch('updateToasterParams', {

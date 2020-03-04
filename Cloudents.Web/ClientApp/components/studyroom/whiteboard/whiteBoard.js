@@ -89,7 +89,6 @@ export default {
     },
     computed: {
         ...mapGetters([
-            'isRoomCreated',
             'getDragData',
             'getZoom', 
             'selectedOptionString',

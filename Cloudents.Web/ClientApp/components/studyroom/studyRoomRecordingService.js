@@ -89,13 +89,6 @@ const handleRecording = function(e){
     const recordingData = new Blob(recordingChunks, options);
         if(store.getters.getRoomId && recordingData.size < 209715199){
           downloadRecording(e, recordingData);
-          // let formData = new FormData();
-          // formData.append('file', recordingData);
-          // tutorService.uploadRecording(formData, store.getters.getRoomId).then(success=>{
-          //   console.log('Upload Success');
-          // }, err=>{
-          //   downloadRecording(e, recordingData);
-          // });
         }else{
           downloadRecording(e, recordingData);
         }

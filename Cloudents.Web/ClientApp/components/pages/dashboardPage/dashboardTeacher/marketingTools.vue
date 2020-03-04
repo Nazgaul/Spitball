@@ -21,18 +21,17 @@
             <div class="rightBlogs d-flex-column d-sm-flex pa-0 mr-md-8">
                 <img :src="marketingImage" alt="">
             </div>
-
         </div>
     </div>
 </template>
 <script>
-import * as routeNames from '../../../../routes/routeNames';
+import * as dialogNames from '../../global/dialogInjection/dialogNames.js';
 
 export default {
   name: "marketingTools",
   data() {
     return {
-      routeNames
+      createCouponDialog: dialogNames.CreateCoupon
     }
   },
   computed: {
