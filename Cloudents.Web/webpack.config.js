@@ -10,7 +10,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin");
 var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const { RetryChunkLoadPlugin } = require('webpack-retry-chunk-load-plugin');
-const glob = require('glob');
+const glob = require('glob-all');
 const PurgecssPlugin = require('purgecss-webpack-plugin');
 
 module.exports = (env) => {
@@ -205,7 +205,7 @@ module.exports = (env) => {
         },
         devtool: false,
         optimization: {
-            minimize: !isDevBuild,
+            minimize: false,
             //splitChunks: {
             //    chunks: 'all'
             //},
@@ -276,8 +276,15 @@ module.exports = (env) => {
                     minify: false
                 }),
                 new PurgecssPlugin({
-                    paths: glob.sync(`${path.join(__dirname, 'ClientApp/**/*.vue')}`,  { nodir: true }),
+                    paths: glob.sync([ 
+                        path.join(__dirname, './ClientApp/**/*.vue'),
+                        path.join(__dirname, './ClientApp/**/*.js'),
+                        path.join(__dirname, './node_modules/vuetify/src/**/*.ts')
+                    ])
                 })
+                // new PurgecssPlugin({
+                //     paths: glob.sync(`${path.join(__dirname, 'ClientApp/**/*.vue')}`,  { nodir: true }),
+                // })
             ]),
         mode: mode,
         entry: { main: ["@babel/polyfill", "./ClientApp/client.js"] },
