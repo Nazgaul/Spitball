@@ -5,6 +5,7 @@ const exitRegisterDialog = () => import('../../authenticationPage/login/exitRegi
 const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue');
 const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
 const login = () => import('../../authenticationPage/dialogs/loginToAnswer/login-answer.vue');
+const payment = () => import('./globalDialogs/payment/payment.vue');
 
 
 export default {
@@ -14,6 +15,7 @@ export default {
         upload,
         createCoupon,
         login,
+        payment
     },
     data() {
         return {
@@ -22,7 +24,8 @@ export default {
                 exitRegisterDialog: [],
                 becomeTutor: ["auth"],
                 upload: ["auth","courses"],
-                createCoupon: ["auth","tutor"]
+                createCoupon: ["auth","tutor"],
+                payment:["auth","notPayment"]
             }
         }
     },
@@ -55,6 +58,27 @@ export default {
             if(this.getSelectedClasses.length === 0){
                 this.$router.push({name: "addCourse"})
                 return 'break'
+            }
+        },
+        // check_payment(){
+        //     if(!this.accountUser.needPayment){
+        //         this.component = 'payment';
+        //         // TODO: do something
+        //     }
+        // },
+        check_notPayment(){
+            if(this.accountUser.needPayment){
+                // TODO: do something
+                return 'break'
+            }
+        }
+    },
+    watch: {
+        '$route.query.dialog':function(val){
+            if(val === 'payment'){
+                setTimeout(function() {
+                    document.querySelector(".payme-popup").parentNode.style.zIndex = 999;
+                }, 1000);
             }
         }
     },

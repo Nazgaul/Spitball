@@ -1,20 +1,16 @@
 import walletService from '../services/walletService.js';
 import { LanguageService } from '../services/language/languageService';
+import { router } from '../main.js';
 
 const state = {
-    showPaymentDialog: false,
     paymentURL: '',
     tutorName: '',
     transactionId: null,
-    dictionaryTitle: '',
 };
 
 const mutations = {
     setTutorName(state, name) {
         state.tutorName = name;
-    },
-    setPaymentDialogState(state,val){
-        state.showPaymentDialog = val;
     },
     setPaymentURL(state,url){
         state.paymentURL = url;
@@ -22,15 +18,10 @@ const mutations = {
     setIdTransaction(state, id) {
         state.transactionId = id;
     },
-     setDictionaryTitle(state, val) {
-         state.dictionaryTitle = val;
-     }
 };
 
 const getters = {
     getTutorName: state => state.tutorName,
-    getDictionaryTitle: state => state.dictionaryTitle,
-    getShowPaymeDialog: state => state.showPaymentDialog,
     getPaymentURL:state => state.paymentURL,
     getTransactionId: state => state.transactionId,
 };
@@ -52,7 +43,6 @@ const actions = {
     },
     requestPaymentURL({commit,dispatch}, paymeObj ){
         dispatch('updateTutorName', paymeObj.name);
-        dispatch('updateDictionaryTitle', paymeObj.title);
         walletService.getPaymeLink().then(({ data }) => {
             commit('setPaymentURL',data.link);
             dispatch('updatePaymentDialogState',true);
@@ -65,11 +55,12 @@ const actions = {
             dispatch('updatePaymentDialogState',false);
         });
     },
-    updatePaymentDialogState({commit}, val){
-        commit('setPaymentDialogState', val);
-    },
-    updateDictionaryTitle({commit}, title) {
-        commit('setDictionaryTitle', title);
+    updatePaymentDialogState(context, val){
+        if(val){
+            router.push({query:{...router.currentRoute.query,dialog:'payment'}})
+        }else{
+            router.push({query:{...router.currentRoute.query,dialog:undefined}})
+        }
     },
     updateTutorName({commit}, name) {
         commit('setTutorName', name);
