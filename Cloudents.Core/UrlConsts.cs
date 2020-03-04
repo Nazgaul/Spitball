@@ -1,13 +1,11 @@
 ﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
 using System;
 using System.Collections.Specialized;
 
 namespace Cloudents.Core
 {
-    [UsedImplicitly]
     public class UrlConst : IUrlBuilder
     {
         private readonly Uri _webSiteEndPoint;

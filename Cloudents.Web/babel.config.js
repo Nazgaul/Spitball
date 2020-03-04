@@ -3,12 +3,11 @@ module.exports = function (api) {
   
     const presets = [ 
             [
-                "@babel/preset-env"
+              "@babel/preset-env"
             ]
         ];
     const plugins = [ 
         "@babel/plugin-syntax-dynamic-import",
-        "transform-object-rest-spread",
         "@babel/plugin-proposal-optional-chaining",
         [
             "transform-imports",

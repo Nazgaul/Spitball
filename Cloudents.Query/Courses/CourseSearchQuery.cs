@@ -50,13 +50,6 @@ select distinct CourseId
 		join sb.University un
 			on un.Id = u1.UniversityId2
 		where un.Country = @Country
-union all
-select distinct Name as CourseId
-from sb.Course c 
-where name not in (select courseId 
-					from sb.UsersCourses 
-					where courseId = c.name)
-		and c.State = 'ok'
 )
 
 select Name,
@@ -75,9 +68,9 @@ where State = 'OK'
 and ( @schoolType is null
 	or (@schoolType = 'University' and c.SchoolType is null)
 	or c.SchoolType = @schoolType  )
-and c.Name in (select CourseId from cte where CourseId = c.Name)
-and c.Name not in (select uc.CourseId from sb.UsersCourses uc where c.Name = uc.CourseId and uc.UserId = @Id)
-and (c.Country is null or c.Country = (select COuntry from sb.[user] where Id = @Id))
+and exists (select CourseId from cte where CourseId = c.Name)
+and not exists (select uc.CourseId from sb.UsersCourses uc where c.Name = uc.CourseId and uc.UserId = @Id)
+and (c.Country is null or c.Country = @Country)
 order by IsFollowing desc,
 		c.count desc
 OFFSET @PageSize * @Page ROWS

@@ -21,12 +21,7 @@ import calendarTab from '../calendar/calendarTab.vue';
 
 
 
-
-
-// import questionCard from "../question/helpers/new-question-card/new-question-card.vue";
-// import resultNote from "../results/ResultNote.vue";
-// import userBlock from '../helpers/user-block/user-block.vue';
-import shareContent from '../pages/global/shareContent/shareContent.vue';
+const shareContent = () => import(/* webpackChunkName: "shareContent" */'../pages/global/shareContent/shareContent.vue');
 export default {
     name: "new_profile",
     components: {

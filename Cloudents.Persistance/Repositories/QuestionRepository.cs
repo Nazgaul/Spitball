@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Linq;
 using System;
@@ -12,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Persistence.Repositories
 {
-    [UsedImplicitly]
     public class QuestionRepository : NHibernateRepository<Question>, IQuestionRepository
     {
         public QuestionRepository(ISession session) : base(session)

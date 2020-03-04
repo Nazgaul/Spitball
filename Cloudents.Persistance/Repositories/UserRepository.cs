@@ -26,7 +26,6 @@ namespace Cloudents.Persistence.Repositories
         }
     }
 
-    [UsedImplicitly]
     public class RegularUserRepository : NHibernateRepository<User>, IRegularUserRepository
     {
         public RegularUserRepository(ISession session) : base(session)

@@ -12,7 +12,7 @@ namespace Cloudents.Core.Entities
         }
         protected AdminNote()
         {
-            TimeStamp = new DomainTimeStamp();
+            TimeStamp ??= new DomainTimeStamp();
         }
         public virtual string  Text { get; protected set; }
         public virtual DomainTimeStamp TimeStamp { get; protected set; }

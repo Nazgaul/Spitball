@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities
 {
@@ -246,7 +245,7 @@ namespace Cloudents.Core.Entities
         //    LastName = null;
         //}
 
-        public virtual void ChangeName(string firstName, [CanBeNull] string lastName)
+        public virtual void ChangeName(string firstName, string? lastName)
         {
             FirstName = firstName;
             LastName = lastName;
