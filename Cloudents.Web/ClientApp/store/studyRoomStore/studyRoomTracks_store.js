@@ -39,7 +39,6 @@ const getters = {
     getLocalVideoTrack:state => state.localVideoTrack,
     getLocalAudioTrack:state => state.localAudioTrack,
     releaseFullVideoButton:state => state.isRemote,
-    getLastActiveLocalVideoTrack: state => state.lastActiveLocalVideoTrack,
     getIsVideoActive: state => state.isVideoActive,
     getIsAudioActive: state => state.isAudioActive,
     getLocalDisplayMedia: state => state.localDisplayMedia,
@@ -245,17 +244,13 @@ const actions = {
             let currentTrack = _getLocalTrack(getters,'video');
             if(currentTrack){
                 //first Unpublish the current track
-                //dispatch('setIsVideoActive', false);
                 dispatch('destroyLocalVideoTrack',currentTrack.track);
                 //create and publish new track
-                //dispatch('setIsVideoActive', true);
                 dispatch('createLocalVideoTrack_Store', newTrackId);
             }else{
-                //dispatch('setIsVideoActive', true);
                 dispatch('createLocalVideoTrack_Store', newTrackId);
             }
         }else{
-            //dispatch('setIsVideoActive', true);
             dispatch('createLocalVideoTrack_Store', newTrackId);
         }
     },
@@ -264,17 +259,13 @@ const actions = {
             let currentTrack = _getLocalTrack(getters,'audio');
             if(currentTrack){
                 //first Unpublish the current track
-                // dispatch('setIsAudioActive', false);
                 dispatch('destroyLocalAudioTrack',currentTrack.track);
                 //create and publish new track
-                // dispatch('setIsAudioActive', true);
                 dispatch('createLocalAudioTrack_store', newTrackId);
             }else{
-                // dispatch('setIsAudioActive', true);
                 dispatch('createLocalAudioTrack_store', newTrackId);
             }
         }else{
-            // dispatch('setIsAudioActive', true);
             dispatch('createLocalAudioTrack_store', newTrackId);
         }
     },

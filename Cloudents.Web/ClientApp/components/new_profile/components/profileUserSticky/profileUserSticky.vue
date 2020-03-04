@@ -107,6 +107,7 @@ import exams from './images/exams.svg';
 import secure from './images/secure.svg';
 import chatIcon from './images/chatIcon.svg';
 import calendarIcon from './images/calendarIcon.svg';
+import * as dialogNames from '../../../pages/global/dialogInjection/dialogNames.js'
 
 import { mapGetters, mapActions } from 'vuex';
 
@@ -164,7 +165,7 @@ export default {
          return reviews === 0 ? reviews.toString() : reviews;
       },
       openBecomeTutor(){
-         this.$openDialog('becomeTutor')
+         this.$openDialog(dialogNames.BecomeTutor)
       },
       goTutorList(){
          this.$router.push({name:'tutorLandingPage'})
