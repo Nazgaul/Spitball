@@ -300,6 +300,7 @@ export default {
                                 max-height: 150px;
                                 overflow: auto;
                                 line-height: 16px;
+                                padding: 7px 0;
                             }
                       }
                     }
