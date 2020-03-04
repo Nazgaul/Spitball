@@ -11,7 +11,6 @@ import newQuestionDialog from './newQuestionDialog'
 import uploadFiles from  "./uploadFiles";
 import University from "./university";
 import mobileFooter from './mobileFooter';
-import buyTokens from './buyTokens';
 import chatStore from './chatStore';
 import becomeTutor from './becomeTutor';
 import userOnlineStatus from './userOnlineStatus';
@@ -80,7 +79,6 @@ const store = new Vuex.Store({
         //leaderBoard,
         mobileFooter,
         //onBoardGuide,
-        buyTokens,
         chatStore,
         becomeTutor,
         leaveReview,

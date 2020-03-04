@@ -1,6 +1,6 @@
 <template>
     <div class="buyTokenFrymo">
-        <v-icon class="buyTokenFrymo__close" @click="closeModal">sbf-close</v-icon>
+        <v-icon class="buyTokenFrymo__close" v-closeDialog>sbf-close</v-icon>
         <h2 class="buyTokenFrymo__h2">Buy Points</h2>
         <h4 class="buyTokenFrymo__h4">Points help you access teachers, documents. </h4>
         <h3 class="buyTokenFrymo__h3">Points Packs</h3>
@@ -29,16 +29,9 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 
 export default {
     name: "buyTokenFrymo",
-    methods: {
-        ...mapActions(['updateShowBuyDialog']),
-        closeModal(){
-            this.updateShowBuyDialog(false);
-        },
-    }
 } 
 </script>
 

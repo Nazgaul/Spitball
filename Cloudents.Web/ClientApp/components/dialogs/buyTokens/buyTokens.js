@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     ...mapGetters(['accountUser']),
-    ...mapActions(['updateShowBuyDialog', 'updateToasterParams', 'buyToken']),
+    ...mapActions(['updateToasterParams', 'buyToken']),
 
     selectProduct(val) {
       if (this.selectedProduct !== val) {
@@ -50,14 +50,12 @@ export default {
         this.transactionId = this.products[val].pts;
       }
     },
-    closeModal(){
-      this.updateShowBuyDialog(false);
-    },
 
     openPaymeDialog() {
       let transactionId = this.transactionId;
       analyticsService.sb_unitedEvent("BUY_POINTS", "PRODUCT_SELECTED", transactionId);
         this.buyToken({points : transactionId});
+        this.$closeDialog()
     }
   }
 };

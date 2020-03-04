@@ -62,18 +62,6 @@
             :popUpType="'referralPop'"
           ></referral-dialog>
         </sb-dialog>
-        <sb-dialog
-          :showDialog="getShowBuyDialog"
-          :popUpType="'buyTokens'"
-          :content-class="!isFrymo ? 'buy-tokens-popup' : 'buy-tokens-frymo-popup'"
-          :onclosefn="closeSblToken"
-          maxWidth="840px"
-        >
-          <buy-tokens v-if="!isFrymo && getShowBuyDialog" popUpType="buyTokens"></buy-tokens>
-          <buy-token-frymo v-if="isFrymo && getShowBuyDialog" popUpType="buyTokensFrymo"></buy-token-frymo>
-        </sb-dialog>
-
-
       <mobile-footer v-if="showMobileFooter" />
     </v-content>
     <v-snackbar
@@ -100,8 +88,6 @@ const loginToAnswer = () => import("../question/helpers/loginToAnswer/login-answ
 const AddQuestion = () => import("../question/askQuestion/askQuestion.vue");
 const walletService = () => import("../../services/walletService");
 const mobileFooter = () => import("../pages/layouts/mobileFooter/mobileFooter.vue");
-const buyTokens = () => import("../dialogs/buyTokens/buyTokens.vue");
-const buyTokenFrymo = () => import("../dialogs/buyTokenFrymo/buyTokenFrymo.vue");
 const chat = () => import("../chat/chat.vue");
 const tutorRequest = () => import("../tutorRequestNEW/tutorRequest.vue");
 const referralDialog = () => import("../question/helpers/referralDialog/referral-dialog.vue");
@@ -114,8 +100,6 @@ export default {
     loginToAnswer,
     chat,
     mobileFooter,
-    buyTokens,
-    buyTokenFrymo,
     tutorRequest,
     dialogInjection
   },
@@ -138,7 +122,6 @@ export default {
       "getMobileFooterState",
       "showLeaderBoard",
       // "showMobileFeed",
-      "getShowBuyDialog",
       "getRequestTutorDialog",
       "isFrymo",
       "getShowSchoolBlock",
@@ -251,7 +234,6 @@ export default {
       "updateLoginDialogState",
       "updateNewQuestionDialogState",
       "setCookieAccepted",
-      "updateShowBuyDialog",
       "updateRequestDialog",
       "openChatInterface",
       "setTutorRequestAnalyticsOpenedFrom",
@@ -262,9 +244,6 @@ export default {
 
     closeReferralDialog() {
       this.updateReferralDialog(false);
-    },
-    closeSblToken() {
-      this.updateShowBuyDialog(false);
     },
     removeCookiesPopup: function() {
       this.setCookieAccepted();
