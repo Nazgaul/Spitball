@@ -56,9 +56,12 @@ namespace Cloudents.Infrastructure
             var captureRequest = new OrdersCaptureRequest(orderId);
             captureRequest.RequestBody(new OrderActionRequest());
             var response3 = await _client.Execute(captureRequest);
-            //var approvePayment = new OrdersAuthorizeRequest(orderId);
-            //await _client.Execute(approvePayment);
-            //3. Call PayPal to patch the transaction
+            var result = response3.Result<Order>();
+
+            //TODO - get receipt
+            ////var approvePayment = new OrdersAuthorizeRequest(orderId);
+            ////await _client.Execute(approvePayment);
+            ////3. Call PayPal to patch the transaction
         }
 
         //private static List<Patch<string>> BuildPatchesRequest2()

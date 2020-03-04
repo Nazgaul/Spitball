@@ -7,7 +7,7 @@ namespace Cloudents.Core.Extension
 {
     public static class UriBuilderExtensions
     {
-        public static UriBuilder AddQuery(this UriBuilder builder, NameValueCollection nvc)
+        public static UriBuilder AddQuery(this UriBuilder builder, NameValueCollection? nvc)
         {
             if (nvc == null)
             {
@@ -29,7 +29,7 @@ namespace Cloudents.Core.Extension
             return builder;
         }
 
-        public static UriBuilder AddQuery(this UriBuilder builder, object obj)
+        public static UriBuilder AddQuery(this UriBuilder builder, object? obj)
         {
             if (obj == null)
             {
@@ -50,24 +50,6 @@ namespace Cloudents.Core.Extension
                 });
 
             return builder.AddQuery(formFields);
-            //var properties = from p in obj.GetType().GetProperties()
-            //    where p.GetValue(obj, null) != null
-            //    select formFields.Add(p.Name, WebUtility.UrlEncode(p.GetValue(obj, null).ToString()));
-
-            //var query = string.Join("&", properties.ToArray());
-            
-            //if (builder.Query.Length > 1)
-            //{
-            //    builder.Query = builder.Query.Substring(1) + "&" + query;
-            //}
-            //else
-            //{
-            //    builder.Query = query;
-            //}
-            //return builder;
-            //return string.Join("&", properties.ToArray());
         }
-
-        //public string void BuildUrl(this UriBuilder builder, string )
     }
 }

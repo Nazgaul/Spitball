@@ -42,10 +42,14 @@ namespace Cloudents.Core.Entities
 
         public virtual bool VideoExists { get; protected set; }
 
+
+        //public virtual IPayment Payment { get; set; }
         public virtual DateTime? PaymentApproved { get; protected set; }
         public virtual long? AdminDuration { get; protected set; }
         public virtual decimal? StudentPay { get; protected set; }
         public virtual decimal? SpitballPay { get; protected set; }
+
+
 
         public virtual void UpdateVideo()
         {
@@ -109,4 +113,25 @@ namespace Cloudents.Core.Entities
             SpitballPay = spitballPay;
         }
     }
+
+    //public interface IPayment
+    //{
+    //    DateTime? PaymentApproved { get; }
+    //}
+
+    //public class Payme : Entity<Guid>, IPayment
+    //{
+    //    public virtual DateTime? PaymentApproved { get; protected set; }
+    //    public virtual long? AdminDuration { get; protected set; }
+    //    public virtual decimal? StudentPay { get; protected set; }
+    //    public virtual decimal? SpitballPay { get; protected set; }
+    //}
+
+    //public class PayPal : Entity<Guid>, IPayment
+    //{
+    //    public string Token { get; set; }
+    //    public virtual DateTime? PaymentApproved { get; protected set; }
+
+
+    //}
 }

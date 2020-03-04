@@ -219,13 +219,14 @@ namespace Cloudents.Web.Api
 
         #region PayPal
 
-        [HttpPost]
+        [HttpPost("PayPal/StudyRoom")]
         public async Task<IActionResult> PayPal(PayPalOrderRequest model,
             [FromServices] IPayPal payPalService,
             CancellationToken token)
         {
-           await payPalService.PathOrderAsync(model.OrderId, token);
-           return Ok();
+            //Command to save the token
+            await payPalService.PathOrderAsync(model.OrderId, token);
+            return Ok();
         }
 
 
