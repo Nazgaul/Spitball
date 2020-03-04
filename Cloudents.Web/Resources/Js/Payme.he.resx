@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="are_you_sure_exit" xml:space="preserve">
-    <value>יציאה מחלון הכנס פרטי אשראי תפנה אותך לעמוד הראשי, אתה בטוח?</value>
+    <value>יציאה מחלון הכנסת פרטי אשראי תפנה אותך לעמוד הראשי, אתה בטוח?</value>
   </data>
   <data name="bottom" xml:space="preserve">
     <value>אנחנו לא שומרים בשרתים שלנו פרטי כרטיס אשראי של לקוחות. כרטיס אשראי מוזן ישירות במערכת PayMe המתמחה בתחום, שם הם נשמרים. כאשר יסתיים השיעור, אנחנו מורים לחברת PayMe לחייב את כרטיס האשראי (בלי לדעת את פרטי הכרטיס).</value>
