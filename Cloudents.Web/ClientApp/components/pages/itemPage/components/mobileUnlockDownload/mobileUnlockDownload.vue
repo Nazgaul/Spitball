@@ -109,13 +109,13 @@ export default {
         },
     },
     methods: {
-        ...mapActions(['downloadDocument', 'updatePurchaseConfirmation', 'updateLoginDialogState']),
+        ...mapActions(['downloadDocument', 'updatePurchaseConfirmation']),
 
         openPurchaseDialog() {
             if(this.accountUser) {
                 this.updatePurchaseConfirmation(true)
             } else {
-                this.updateLoginDialogState(true);
+                this.$openDialog('login')
             }
         },
         downloadDoc(e) {

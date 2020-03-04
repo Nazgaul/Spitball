@@ -4,7 +4,7 @@ const becomeTutor = () => import('../../../becomeTutor/becomeTutor.vue');
 const exitRegister = () => import('../../authenticationPage/login/exitRegisterDialog.vue');
 const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue');
 const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
-const login = () => import('../../authenticationPage/dialogs/loginToAnswer/login-answer.vue');
+const login = () => import('./globalDialogs/login/login.vue');
 const payment = () => import('./globalDialogs/payment/payment.vue');
 
 
@@ -20,12 +20,12 @@ export default {
     data() {
         return {
             dialogsPremissions: {
-                login: [],
+                login: ["notAuth"],
                 exitRegisterDialog: [],
                 becomeTutor: ["auth"],
+                payment:["auth"],
                 upload: ["auth","courses"],
                 createCoupon: ["auth","tutor"],
-                payment:["auth"]
             }
         }
     },
@@ -47,6 +47,13 @@ export default {
                 this.component = dialogNames.Login;
             }
         },
+        check_notAuth(){
+            if(this.getUserLoggedInStatus && global.isAuth){
+                this.component = '';
+                this.$closeDialog()
+                return 'break'
+            }
+        },
         check_tutor(){
             if(!this.accountUser.isTutor){
                 this.component = '';
@@ -66,12 +73,12 @@ export default {
         //         // TODO: do something
         //     }
         // },
-        check_notPayment(){
-            if(this.accountUser.needPayment){
-                // TODO: do something
-                return 'break'
-            }
-        }
+        // check_notPayment(){
+        //     if(this.accountUser.needPayment){
+        //         // TODO: do something
+        //         return 'break'
+        //     }
+        // }
     },
     watch: {
         '$route.query.dialog':function(val){

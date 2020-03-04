@@ -1,5 +1,4 @@
 ﻿using System;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Criterion;
@@ -9,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.DTOs.Tutors;
 
 namespace Cloudents.Query.Tutor
 {

@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
+using Cloudents.Core.DTOs.Tutors;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Microsoft.Azure.Search;

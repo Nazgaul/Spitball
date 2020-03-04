@@ -1,10 +1,11 @@
-﻿using Cloudents.Core.Enum;
+﻿using Cloudents.Core.DTOs.Feed;
+using Cloudents.Core.Enum;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
-namespace Cloudents.Core.DTOs
+namespace Cloudents.Core.DTOs.Tutors
 {
     public class TutorCardDto : FeedDto
     {

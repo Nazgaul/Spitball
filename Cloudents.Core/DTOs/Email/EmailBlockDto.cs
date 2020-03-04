@@ -1,4 +1,4 @@
-﻿namespace Cloudents.Core.DTOs
+﻿namespace Cloudents.Core.DTOs.Email
 {
     public class EmailBlockDto
     {

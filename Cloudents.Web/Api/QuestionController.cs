@@ -1,7 +1,6 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Item.Commands.FlagItem;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Query;
@@ -17,6 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query.Questions;
+using Cloudents.Core.DTOs.Questions;
 using Microsoft.AspNetCore.SignalR;
 using Cloudents.Web.Hubs;
 using Cloudents.Core;

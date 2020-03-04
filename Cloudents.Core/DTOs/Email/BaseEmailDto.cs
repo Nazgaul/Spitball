@@ -4,7 +4,7 @@ using System;
 using System.Globalization;
 using Cloudents.Core.Enum;
 
-namespace Cloudents.Core.DTOs
+namespace Cloudents.Core.DTOs.Email
 {
     public class EmailDto
     {

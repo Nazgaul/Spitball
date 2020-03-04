@@ -1,6 +1,7 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;

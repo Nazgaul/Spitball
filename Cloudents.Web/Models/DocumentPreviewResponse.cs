@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs.Documents;
 
 namespace Cloudents.Web.Models
 {

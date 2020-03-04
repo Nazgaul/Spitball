@@ -1,4 +1,4 @@
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
     props: {
@@ -43,9 +43,6 @@ export default {
         };
     },
     computed: {
-        ...mapGetters({
-            loginDialogState: 'loginDialogState',
-        }),
         OverlayActive() {
             if (this.$vuetify.breakpoint.xs) {
                 if (this.activateOverlay) {
@@ -77,15 +74,13 @@ export default {
                 if (!!this.onclosefn) {
                     this.onclosefn();
                 }
-                this.updateLoginDialogState(false);
                 this.updateNewQuestionDialogState(false);
-                // this.$root.$emit('closePopUp', this.popUpType);
             }
         }
     },
 
     methods: {
-        ...mapActions(['updateLoginDialogState', 'updateNewQuestionDialogState']),
+        ...mapActions(['updateNewQuestionDialogState']),
     },
 
 

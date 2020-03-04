@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Query.Chat;
 using Cloudents.Query.Documents;
 using Cloudents.Query.Email;
@@ -17,6 +16,7 @@ using Cloudents.Query.Users;
 using Cloudents.Query.Courses;
 using Cloudents.Query.Questions;
 using Cloudents.Query.General;
+using Cloudents.Core.DTOs.Feed;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
