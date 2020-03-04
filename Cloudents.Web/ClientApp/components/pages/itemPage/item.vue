@@ -131,8 +131,8 @@ import mainItem from './components/mainItem/mainItem.vue';
 import resultNote from '../../results/ResultNote.vue';
 import sbCarousel from '../../sbCarousel/sbCarousel.vue';
 import itemCard from '../../carouselCards/itemCard.vue'
-import tutorResultCard from '../../results/tutorCards/tutorResultCard/tutorResultCard.vue';
-import tutorResultCardMobile from '../../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
+const tutorResultCard = () => import(/* webpackChunkName: "tutorResultCard" */ '../../results/tutorCards/tutorResultCard/tutorResultCard.vue');
+const tutorResultCardMobile = () => import(/* webpackChunkName: "tutorResultCardMobile" */ '../../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue');
 import whyUsDesktop from './components/whyUs/whyUsDesktop.vue';
 import whyUs from './components/whyUs/whyUs.vue';
 import mobileUnlockDownload from './components/mobileUnlockDownload/mobileUnlockDownload.vue';
