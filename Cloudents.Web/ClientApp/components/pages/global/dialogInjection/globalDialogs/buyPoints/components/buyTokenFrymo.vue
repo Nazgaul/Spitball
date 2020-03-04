@@ -5,7 +5,7 @@
         <h4 class="buyTokenFrymo__h4">Points help you access teachers, documents. </h4>
         <h3 class="buyTokenFrymo__h3">Points Packs</h3>
         <div class="buyTokenFrymo__box">
-            <img v-if="$vuetify.breakpoint.xsOnly" src="./images/group-2-price.png" alt="">
+            <img v-if="$vuetify.breakpoint.xsOnly" src="./img/group-2-price.png" alt="">
             <template v-else>
                 <div class="buyTokenFrymo__box--100"></div>
                 <div class="buyTokenFrymo__box--500"></div>
@@ -14,7 +14,7 @@
             </template>
         </div>
         <div class="buyTokenFrymo__warn">
-            <img class="buyTokenFrymo__warn--img" src="../buyTokens/img/warning.png" alt=""/>
+            <img class="buyTokenFrymo__warn--img" src="./img/warning.png" alt=""/>
             <p class="buyTokenFrymo__warn--p">Please try with smaller packs we do not offer any refunds</p>
         </div>
         <div class="buyTokenFrymo__payCard">
@@ -36,9 +36,7 @@ export default {
 </script>
 
 <style lang="less">
-    
-    @import '../../../styles/mixin';
-
+@import "../../../../../../../styles/mixin.less";
     .buyTokenFrymo {
         width: 100%;
         margin: 0 auto;
@@ -108,7 +106,7 @@ export default {
             }
             }
             &--100 {
-                background-image: url(./images/group-6.png);
+                background-image: url(./img/group-6.png);
                 background-position: center;
                 width: 220px;
                 height: 140px;
@@ -122,7 +120,7 @@ export default {
             }
 
             &--500 {
-                background-image: url(./images/group-7.png);
+                background-image: url(./img/group-7.png);
                 background-position: center;
                 width: 220px;
                 height: 140px;
@@ -136,7 +134,7 @@ export default {
             }
 
             &--1000 {
-                background-image: url(./images/group-8.png);
+                background-image: url(./img/group-8.png);
                 background-position: center;
                 width: 220px;
                 height: 140px;
@@ -196,13 +194,13 @@ export default {
                 margin-bottom: 0;
             }
             &--phone {
-                background-image: url(./images/group-9.png);
+                background-image: url(./img/group-9.png);
                 background-position: center;
                 width: 270px;
                 height: 186px;
                 background-size: 100%;
                 @media (max-width: @screen-xs) {
-                    background-image: url(./images/group-9-mobile.png);
+                    background-image: url(./img/group-9-mobile.png);
                     background-size: 240px;
                     height: 160px;
                 }
@@ -226,13 +224,13 @@ export default {
                 }
             }
             &--scan {
-                background-image: url(./images/scanAndPlay.png);
+                background-image: url(./img/scanAndPlay.png);
                 background-position: center;
                 width: 270px;
                 height: 186px;
                 background-size: 100%;
                 @media (max-width: @screen-xs) {
-                    background-image: url(./images/scanAndPlay-mobile.png);
+                    background-image: url(./img/scanAndPlay-mobile.png);
                     background-size: 240px;
                     // height: 160px;
                 }

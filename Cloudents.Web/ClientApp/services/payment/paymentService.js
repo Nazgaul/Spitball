@@ -15,7 +15,7 @@ class CountryPayment {
       return this.buyPointsComponent
    }
 }
-const IL = new CountryPayment('IL', require('./images/redeemPointsIL.jpg'),'buyPoints');
+const IL = new CountryPayment('IL', require('./images/redeemPointsIL.jpg'),'buyPointsIL');
 const IN = new CountryPayment('IN', require('./images/redeemPointsFRYMO.jpg'),'buyPointsFrymo');
 const US = new CountryPayment('US', require('./images/redeemPointsUS.png'),'buyPointsUS');
 const services = [US, IL, IN]

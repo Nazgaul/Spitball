@@ -6,19 +6,22 @@
 
 <script>
 import paymentService from '../../../../../../services/payment/paymentService.js';
-import buyPointsFrymo from '../../../../../dialogs/buyTokenFrymo/buyTokenFrymo.vue';
-import buyPoints from '../../../../../dialogs/buyTokens/buyTokens.vue';
+const buyPointsFrymo = () => import('./components/buyTokenFrymo.vue');
+const buyPointsIL = () => import('./components/buyPointsIL.vue');
+const buyPointsUS = () => import('./components/buyPointsUS.vue');
 
 export default {
    name:'buyPointsWrapper',
    components:{
       buyPointsFrymo,
-      buyPoints
+      buyPointsIL,
+      buyPointsUS
    },
    computed: {
       selectedBuyPointsComponent(){
          return paymentService.getBuyPointsComponent()
       },
+      //TEMP
       selectedBuyPointsClass(){
          return !this.$store.getters.isFrymo ? 'buy-tokens-popup' : 'buy-tokens-frymo-popup';
       }

@@ -1,5 +1,6 @@
 <template>
     <div class="buy-dialog-wrap">
+       im US!
         <div class="buy-tokens-overlay" :class="{'visible': showOverlay}"></div>
         <div class="close-buy-dialog">
             <v-icon v-closeDialog>sbf-close</v-icon>
@@ -140,7 +141,69 @@
         </div>
     </div>
 </template>
+<script>
+import {mapGetters, mapActions} from 'vuex';
+import analyticsService from '../../../../../../../services/analytics.service';
 
-<script src="./buyTokens.js"></script>
+export default {
+  name:'buyPointsUS',
+  data() {
+    return {
+      selectedProduct: 'inter',
+      showOverlay: false,
+      transactionId: 750,
+      products:{
+        currency: '₪',
+        basic:{
+            pts: 250,
+            price: 10,
+            currency: 'ILS'
+        },
+        inter:{
+            pts: 750,
+            price: 30,
+            currency: 'ILS'
+        },
+        pro:{
+            pts: 1500,
+            price: 60,
+            currency: 'ILS'
+        }
+      },
+      user: this.accountUser()
+    };
+  },
+  computed:{
+    basicConversionRate(){
+        return this.products.basic.price / this.products.basic.pts;
+    },
+    interConversionRate(){
+        return this.products.inter.price / this.products.inter.pts;
+    },
+    proConversionRate(){
+        return (this.products.pro.price / this.products.pro.pts).toFixed(2);
+    }
+  },
+  methods: {
+    ...mapGetters(['accountUser']),
+    ...mapActions(['updateToasterParams', 'buyToken']),
 
-<style lang="less" src="./buyTokens.less"></style>
+    selectProduct(val) {
+      if (this.selectedProduct !== val) {
+        this.selectedProduct = val;
+        this.transactionId = this.products[val].pts;
+      }
+    },
+
+    openPaymeDialog() {
+      let transactionId = this.transactionId;
+      analyticsService.sb_unitedEvent("BUY_POINTS", "PRODUCT_SELECTED", transactionId);
+        this.buyToken({points : transactionId});
+        this.$closeDialog()
+    }
+  }
+};
+</script>
+
+
+<style lang="less" src="./buyPoints.less"></style>

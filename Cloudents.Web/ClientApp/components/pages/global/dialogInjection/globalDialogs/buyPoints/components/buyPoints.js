@@ -1,8 +1,8 @@
 import {mapGetters, mapActions} from 'vuex';
-// import {LanguageService} from '../../../services/language/languageService';
-import analyticsService from '../../../services/analytics.service';
+import analyticsService from '../../../../../../../services/analytics.service';
 
 export default {
+  name:'buyPointsIL',
   data() {
     return {
       selectedProduct: 'inter',
