@@ -1,5 +1,6 @@
 import calendarService from "../services/calendarService";
 import utilitiesService from '../services/utilities/utilitiesService.js'
+import paymentService from '../services/payment/paymentService.js';
 import {router} from '../main.js';
 
 const state = {
@@ -77,7 +78,7 @@ const mutations ={
 
 const getters ={
     getCalendarEvents:state => state.calendarEvents,
-    getNeedPayment:state => state.needPayment,
+    getNeedPayment:state => paymentService.getIsCalendarNeedPayment() && state.needPayment,
     getShowCalendar:state => state.showCalendar,
     getCalendarsList: state => state.calendarsList,
     getSelectedCalendarList: state => state.selectedCalendarList,
