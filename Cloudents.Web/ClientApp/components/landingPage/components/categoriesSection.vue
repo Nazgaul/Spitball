@@ -195,6 +195,7 @@ export default {
     }
       // height: 316px;
     .categories-banner {
+      font-weight: 600;
       width: 519px;
       background-color: #f9f9fa;
       padding: 12px 18px;
@@ -227,7 +228,7 @@ export default {
           margin-bottom: 10px;
         }
         display: inline-flex;
-        font-size: 14px;
+        font-size: 18px;
         color: #43425d;
         align-items: center;
         :last-child {
