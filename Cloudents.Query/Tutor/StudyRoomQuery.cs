@@ -47,7 +47,7 @@ u1.Id as StudentId, u1.Name as StudentName, u1.ImageName as StudentImage,
  coalesce (
 	case when t.price = 0 then 0 else null end,
 	case when u1.PaymentExists = 1 then 0 else null end,
-    case when u1.Country != 'IL' then 0 else null end,
+    case when u1.Country = 'IN' then 0 else null end,
 	1
 ) as NeedPayment
 from sb.StudyRoom sr 
