@@ -7,13 +7,13 @@
             <v-menu offset-y>
                 <template v-slot:activator="{ on }">
                     <div v-on="on" class="menuDropDown">
-                        <span class="pr-2 selectedItem">{{$t(`dashboardTeacher_${selectedItem.key}`)}}</span>
+                        <span class="pr-2 selectedItem">{{$t(`dashboardTeacher_lastDays`, [selectedItem.value])}}</span>
                         <div class="arrow-down"></div>
                     </div>
                 </template>
                 <v-list>
                     <v-list-item v-for="(item, index) in items" :key="index" @click="changeDays(item)">
-                      <v-list-item-title>{{ $t(`dashboardTeacher_${item.key}`) }}</v-list-item-title>
+                      <v-list-item-title>{{ $t(`dashboardTeacher_lastDays`, [item.value]) }}</v-list-item-title>
                     </v-list-item>
                 </v-list>
             </v-menu>
@@ -61,7 +61,7 @@ export default {
     arrowDownIcon
   },
   data: () => ({
-    selectedItem: {title: 'Last 7 days', value: 7, key: '7days'},
+    selectedItem: {title: 'Last 7 days', value: 7},
     results: [],
     navigation: {
       revenue: 'mySales',
@@ -70,9 +70,9 @@ export default {
       followers: 'myFollowers'
     },
     items: [
-      { title: 'Last 7 days', value: 7,  key: '7days' },
-      { title: 'Last 30 Day', value: 30,  key: '30days' },
-      { title: 'Last 90 Day', value: 90,  key: '90days' },
+      { title: 'Last 7 days', value: 7 },
+      { title: 'Last 30 Day', value: 30 },
+      { title: 'Last 90 Day', value: 90 },
     ],
   }),
   computed: {
