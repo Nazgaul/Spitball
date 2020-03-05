@@ -3,8 +3,6 @@ using Cloudents.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Net.Http;
-using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using PayPalCheckoutSdk.Core;
@@ -109,7 +107,7 @@ namespace Cloudents.Infrastructure
 
         private sealed class Sku
         {
-            public static readonly Sku PaymentThree = new Sku("points_3", 1400);
+            public static readonly Sku PaymentThree = new Sku("points_3", 1000);
             private static readonly Sku PaymentTwo = new Sku("points_2", 500);
             private static readonly Sku PaymentOne = new Sku("points_1", 100);
 

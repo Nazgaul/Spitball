@@ -55,6 +55,7 @@ namespace Cloudents.Query.Questions
                                 and q.Updated > GETUTCDATE() - 182
                                 and q.State = 'Ok'
                                 and q.userId != :userid
+                                and cte.country = u.country
                                 order by
                                 case when q.CourseId in (select courseId from sb.usersCourses where userid = cte.userid) then 4 else 0 end +
                                 case when q.UniversityId = cte.UniversityId then 3 else 0 end  +

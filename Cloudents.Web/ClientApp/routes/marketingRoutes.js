@@ -1,6 +1,7 @@
 
 import { staticComponents } from './routesUtils.js';
 import * as routeName from "./routeNames.js";
+import store from '../store';
 
 export const marketingRoutes = [
     {
@@ -33,6 +34,14 @@ export const marketingRoutes = [
                 ]
             }
         ],
+        beforeEnter: (to, from, next) => {
+            if(store.getters.getUserLoggedInStatus && store.getters.accountUser.isTutor){
+                next()
+                return
+            }
+            // Redirect to root
+            next('/')
+        },
         meta: {
             requiresAuth: true
         }

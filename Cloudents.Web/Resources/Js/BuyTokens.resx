@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="answer" xml:space="preserve">
-    <value>Answer</value>
-  </data>
   <data name="bottom_1" xml:space="preserve">
     <value>Please note, private lessons can not be paid with points.</value>
   </data>
@@ -127,31 +124,16 @@
     <value>Purchasing of points is solely to access documents on the Spitball platform.</value>
   </data>
   <data name="choose" xml:space="preserve">
-    <value>Choose</value>
-  </data>
-  <data name="earn_answer" xml:space="preserve">
-    <value>Provide correct answers</value>
-  </data>
-  <data name="earn_invite" xml:space="preserve">
-    <value>Invite your friends &amp; classmates</value>
-  </data>
-  <data name="earn_upload" xml:space="preserve">
-    <value>Upload your resources</value>
+    <value>Select</value>
   </data>
   <data name="failed_transaction" xml:space="preserve">
     <value>Transaction failed please refresh the page!</value>
   </data>
   <data name="get_points" xml:space="preserve">
-    <value>Get Points</value>
-  </data>
-  <data name="invite" xml:space="preserve">
-    <value>Invite</value>
+    <value>Buy Points</value>
   </data>
   <data name="most_popular" xml:space="preserve">
     <value>MOST POPULAR</value>
-  </data>
-  <data name="need_points" xml:space="preserve">
-    <value>Need points now?</value>
   </data>
   <data name="per_point" xml:space="preserve">
     <value>/ point</value>
@@ -164,8 +146,5 @@
   </data>
   <data name="success_transaction" xml:space="preserve">
     <value>Your purchase was processed successfully</value>
-  </data>
-  <data name="upload" xml:space="preserve">
-    <value>Upload</value>
   </data>
 </root>
