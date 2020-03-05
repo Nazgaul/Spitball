@@ -45,9 +45,9 @@ namespace Cloudents.Command.CommandHandler.Admin
             }
 
             //session.SetReceipt(receipt);
-            var payme = new Payme(message.AdminDuration, message.StudentPay, message.SpitballPay);
+            var payme = new Payme(message.StudentPay, message.SpitballPay);
             session.SetPyment(payme);
-            session.SetReceiptAndAdminDate(receipt);
+            session.SetReceiptAndAdminDate(receipt, message.AdminDuration);
             user.UseCoupon(tutor);
             
             await _studyRoomSessionRepository.UpdateAsync(session, token);

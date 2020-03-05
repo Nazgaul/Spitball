@@ -46,7 +46,7 @@ namespace Cloudents.Core.Entities
 
         public virtual IPaymentProvider Payment { get; protected set; }
         public virtual DateTime? PaymentApproved { get; protected set; }
-        //public virtual long? AdminDuration { get; protected set; }
+        public virtual long? AdminDuration { get; protected set; }
         //public virtual decimal? StudentPay { get; protected set; }
         //public virtual decimal? SpitballPay { get; protected set; }
 
@@ -101,7 +101,7 @@ namespace Cloudents.Core.Entities
             Receipt = receipt;
         }
 
-        public virtual void SetReceiptAndAdminDate(string receipt)
+        public virtual void SetReceiptAndAdminDate(string receipt, long adminDuration)
         {
             if (string.IsNullOrEmpty(receipt))
             {
@@ -109,6 +109,7 @@ namespace Cloudents.Core.Entities
             }
             Receipt = receipt;
             PaymentApproved = DateTime.UtcNow;
+            AdminDuration = adminDuration;
             //AdminDuration = adminDuration;
             //StudentPay = studentPay;
             //SpitballPay = spitballPay;

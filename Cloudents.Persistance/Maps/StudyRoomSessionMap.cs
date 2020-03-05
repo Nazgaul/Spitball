@@ -23,7 +23,7 @@ namespace Cloudents.Persistence.Maps
                .KeyColumn("SessionId")
                .Inverse().Cascade.AllDeleteOrphan();
             Map(m => m.PaymentApproved).Nullable();
-
+            Map(x => x.AdminDuration).Nullable();
             ReferencesAny(x => x.Payment).Cascade.All()
             .AddMetaValue<Payme>("Payme")
             .AddMetaValue<PayPal>("PayPal")
