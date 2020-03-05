@@ -5,8 +5,11 @@ const exitRegister = () => import('../../authenticationPage/login/exitRegisterDi
 const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue');
 const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
 const login = () => import('./globalDialogs/login/login.vue');
-const payment = () => import('./globalDialogs/payment/payment.vue');
 const buyPoints = () => import('./globalDialogs/buyPoints/buyPointsWrapper.vue');
+
+// const payment = () => import('./globalDialogs/payment/payment.vue');
+const payment = () => import('./globalDialogs/payment/paymentWrapper.vue');
+
 
 
 export default {
@@ -25,7 +28,7 @@ export default {
                 login: ["notAuth"],
                 exitRegister: [],
                 becomeTutor: ["auth"],
-                payment:["auth"],
+                payment:["auth",'notFrymo'],
                 upload: ["auth","courses"],
                 createCoupon: ["auth","tutor"],
                 buyPoints:["auth"]
@@ -37,6 +40,7 @@ export default {
             'getUserLoggedInStatus',
             'accountUser',
             'getSelectedClasses',
+            'isFrymo'
         ])
     },
     methods: {
@@ -69,6 +73,13 @@ export default {
                 this.$router.push({name: "addCourse"})
                 return 'break'
             }
+        },
+        check_notFrymo(){
+            if(this.isFrymo){
+                this.component = '';
+                this.$closeDialog()
+                return 'break'
+            } 
         },
         // check_payment(){
         //     if(!this.accountUser.needPayment){
