@@ -129,8 +129,8 @@
 
                 <v-layout class="buymebtn">
                     <v-flex text-center>
-                        <v-skeleton-loader class="mb-4" v-show="isLoading" width="100%" height="44" type="button"></v-skeleton-loader>
-                        <div v-show="!isLoading" id="paypal-button-container" style="width:400px; margin: 0 auto;"></div>
+                        <!-- <v-skeleton-loader class="mb-4" v-show="isLoading" width="100%" height="44" type="button"></v-skeleton-loader> -->
+                        <div  id="paypal-button-container" style="width:400px; margin: 0 auto;"></div>
                     </v-flex>
                 </v-layout>
 
@@ -145,7 +145,6 @@ export default {
   name:'buyPointsUS',
   data() {
     return {
-      isLoading:false,
       selectedProduct: 'inter',
       showOverlay: false,
       transactionId: 750,
@@ -205,7 +204,6 @@ export default {
                    // tagline : false
                 },
                 createOrder: function(data, actions) {
-                  //  self.isLoading = true;
                     analyticsService.sb_unitedEvent("BUY_POINTS", "PRODUCT_SELECTED", self.transactionId);
                     return actions.order.create({
                         purchase_units: [
@@ -221,10 +219,8 @@ export default {
                 },
                 onApprove: function(data) {
                     self.$closeDialog();
-                    self.$store.dispatch('updatePaypalBuyTokens',data.orderID).then(()=>{
-                        //self.isLoading = false
-                      
-                    })
+                    self.$store.dispatch('updatePaypalBuyTokens',data.orderID);
+                    //TODO happy go lucky - update the balance of the user
                 }
             })
             .render('#paypal-button-container');
