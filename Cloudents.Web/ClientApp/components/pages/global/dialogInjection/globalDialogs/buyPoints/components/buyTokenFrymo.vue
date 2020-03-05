@@ -42,6 +42,7 @@ export default {
         margin: 0 auto;
         text-align: center;
         background: #fff;
+        overflow: hidden;
 
         @media (max-width: @screen-xs) {
             padding: 6px;
