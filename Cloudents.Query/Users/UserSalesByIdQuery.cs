@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
 using PaymentStatus = Cloudents.Core.DTOs.PaymentStatus;
+using System;
 
 namespace Cloudents.Query.Users
 {
@@ -79,7 +80,7 @@ namespace Cloudents.Query.Users
                         Date = s.Created,
                         Price = s.Price ?? 0,
                         StudentName = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Name).FirstOrDefault(),
-                        Duration = s.Duration,
+                        Duration = s.AdminDuration != null? TimeSpan.FromMinutes(Convert.ToDouble(s.AdminDuration)) : s.Duration,
                         StudentImage = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.ImageName).FirstOrDefault(),
                         StudentId = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Id).FirstOrDefault()
                     }).ToFuture<SaleDto>();
