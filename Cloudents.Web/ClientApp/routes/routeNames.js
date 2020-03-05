@@ -52,7 +52,6 @@ export const EditUniversity = 'addUniversity';
 export const StudyRoom = {
    name:'tutoring',
    path:'study-room',
-   alias: '/studyroom'
 };
 
 // Study Room Settings:
@@ -60,8 +59,6 @@ export const StudyRoomSettings = {
    name: 'roomSettings',
    path: 'studyroom-settings'
 }
-
-
 
 // Document:
 export const Document = 'document';
