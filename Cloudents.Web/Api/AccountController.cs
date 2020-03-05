@@ -25,7 +25,6 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Exceptions;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 using Cloudents.Query.Users;
 using Cloudents.Query.Tutor;
@@ -205,41 +204,6 @@ namespace Cloudents.Web.Api
             }
         }
 
-
-        [HttpPost("coupon")]
-        [ProducesResponseType(Status200OK)]
-        [ProducesResponseType(typeof(string), Status400BadRequest)]
-        [ProducesDefaultResponseType]
-        public async Task<IActionResult> ApplyCouponAsync(ApplyCouponRequest model, CancellationToken token)
-        {
-            try
-            {
-                var userId = _userManager.GetLongUserId(User);
-                var command = new ApplyCouponCommand(model.Coupon, userId, model.TutorId);
-                await _commandBus.DispatchAsync(command, token);
-                return Ok(new
-                {
-                    Price = command.NewPrice
-                });
-            }
-            catch (ArgumentException)
-            {
-                return BadRequest("Invalid Coupon");
-            }
-            catch (DuplicateRowException)
-            {
-                return BadRequest("This coupon already in use");
-
-            }
-        }
-
-        [HttpGet("coupon")]
-        public async Task<IEnumerable<CouponDto>> GetUserCouponsAsync(CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var query = new UserCouponsQuery(userId);
-            return await _queryBus.QueryAsync(query, token);
-        }
 
         [HttpGet("sales")]
         public async Task<IEnumerable<SaleDto>> GetUserSalesAsync([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
