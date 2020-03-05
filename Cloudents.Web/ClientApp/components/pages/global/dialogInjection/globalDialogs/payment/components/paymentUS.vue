@@ -17,10 +17,7 @@
                     <span class="payme-content-txt pt-0 pt-sm-2" v-language:inner="'payme_content_txt_hands'"/>
                 </v-flex>
             </v-layout>
-            <!-- <div class="payme-top-desc pb-4" v-language:inner="'payme_top_desc'"/> -->
-            <div class="payme-top-desc pb-4 px-sm-4">
-               Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure velit nisi, fugiat necessitatibus optio in provident nesciunt eveniet! Laborum aspernatur vero non quasi reiciendis aperiam omnis quas culpa quia perspiciatis!
-            </div>
+            <div class="payme-top-desc pb-4" v-language:inner="'payme_top_desc'"/>
             <div id="paypal-button-container"></div>
         </div>
          <div class="payme-popup-bottom">
