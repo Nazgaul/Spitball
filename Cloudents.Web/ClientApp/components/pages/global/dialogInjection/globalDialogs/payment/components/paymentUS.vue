@@ -55,28 +55,26 @@ export default {
             window.paypal
             .Buttons({
                 createOrder: function(data, actions) {
-                  debugger
-                  self.isLoading = true;
-                  return actions.order.create({
-                     purchase_units: [
-                           {
-                              reference_id: "PUHF",
-                              amount: {
-                                 value: 10,
-                                 currency: 'USD'
-                              }
-                           },
-                     ]
-                  });
+                    self.isLoading = true;
+                    return actions.order.create({
+                        purchase_units: [
+                            {
+                                reference_id: "PUHF",
+                                amount: {
+                                    value: 10,
+                                    currency: 'USD'
+                                }
+                            },
+                        ]
+                    });
                 },
                 onApprove: function(data) {
-                  let params = {
-                     id: data.orderID,
-                     roomId: self.$store.getters.getStudyRoomData.roomId,
-                  }
-                  self.$store.dispatch('updatePaypalStudyRoom',params).then(()=>{
-                     debugger
-                  })
+                    let params = {
+                        orderId: data.orderID,
+                        roomId: self.$store.getters.getStudyRoomData.roomId,
+                    }
+                    self.$store.dispatch('updatePaypalStudyRoom',params).then(()=>{
+                    })
                 }
             })
             .render('#paypal-button-container');
