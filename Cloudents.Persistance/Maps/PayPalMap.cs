@@ -9,7 +9,6 @@ namespace Cloudents.Persistence.Maps
         {
             Id(x => x.Id).GeneratedBy.GuidComb();
             Map(m => m.Token).Not.Nullable();
-            Map(m => m.PaymentApproved).Not.Nullable();
         }
     }
 }

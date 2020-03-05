@@ -224,7 +224,7 @@ namespace Cloudents.Web.Api
             [FromServices] IPayPal payPalService,
             CancellationToken token)
         {
-            var command = new AddPayPalOrderCommand(model.OrderId);
+            var command = new AddPayPalOrderCommand(model.OrderId, model.RoomId);
             await _commandBus.DispatchAsync(command, token);
             await payPalService.PathOrderAsync(model.OrderId, token);
             return Ok();
