@@ -5,41 +5,45 @@
             <v-flex xs12>
                 <div class="report-head">
                     <v-icon class="flag-icon">sbf-flag</v-icon>
-                    <span class="text-head" v-language:inner>reportItem_report_title</span>
+                    <span class="text-head">{{$t('reportItem_report_title')}}</span>
                     <v-icon class="report-close-icon" @click.prevent="closeReportPop()">sbf-close</v-icon>
                 </div>
                 <div class="reasons-wrap">
                     <div class="heading-container">
-                        <span class="report-heading-text" v-language:inner>reportItem_report_subtitle</span>
+                        <span class="report-heading-text">{{$t('reportItem_report_subtitle')}}</span>
                     </div>
                     <v-list>
                        <v-list-item-group>
-                            <v-list-item  v-for="(reason, i) in reasons"  :key="i">
-                                <v-list-item-content >
-                                    <v-list-item-title @click="selectReason(reason.title)">{{
-                                        reason.title }}
-                                    </v-list-item-title>
+                            <v-list-item v-for="(reason, i) in reasons" :key="i" @click="selectReason(reason.title)">
+                                <v-list-item-content>
+                                    <v-list-item-title>{{ reason.title }}</v-list-item-title>
                                 </v-list-item-content>
                             </v-list-item>
                        
-                        <v-list-item class="reason-item" @click="toogleOtherInput()">
-                            <v-list-item-content class="reason-item-content">
-                                <v-list-item-title class="reason-name" v-language:inner>reportItem_report_other
-                                </v-list-item-title>
-                            </v-list-item-content>
-                        </v-list-item>
-</v-list-item-group>
+                            <v-list-item class="reason-item" @click="toogleOtherInput()">
+                                <v-list-item-content class="reason-item-content">
+                                    <v-list-item-title class="reason-name">{{$t('reportItem_report_other')}}</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-list-item-group>
                     </v-list>
                     <transition name="slide-y-transition">
-                        <v-text-field autofocus solo v-show="isOtherInputVisible" class="mx-2"
-                                      v-model="customReason"></v-text-field>
+                        <v-text-field
+                            autofocus
+                            solo
+                            v-show="isOtherInputVisible"
+                            class="mx-2"
+                            v-model="customReason"
+                        >
+                        </v-text-field>
                     </transition>
-
                 </div>
             </v-flex>
             <div class="report-footer text-center">
-                <div v-if="errorText" class="red--text" v-text="errorText"/>
-                <button class="report-submit" @click="sendItemReport()" v-language:inner="'reportItem_report_btn'"/>
+                <div v-if="errorText" class="red--text" v-text="errorText"></div>
+                <button class="report-submit" @click="sendItemReport()">
+                    {{$t('reportItem_report_btn')}}
+                </button>
             </div> 
         </v-layout>
     </div>
@@ -49,10 +53,6 @@
 
 <script>
     import { mapActions } from 'vuex';
-    import { LanguageService } from "../../../../services/language/languageService";
-    
-    import storeService from "../../../../services/store/storeService";
-    import feedStore from '../../../../store/feedStore';
 
     export default {
         name: "reportItem",
@@ -62,19 +62,19 @@
                 errorText: false,
                 reasons: [
                     {
-                        title: LanguageService.getValueByKey("reportItem_reason_inappropriateContent"),
+                        title: this.$t("reportItem_reason_inappropriateContent"),
                         id: "inappropriateContent"
                     },
                     {
-                        title: LanguageService.getValueByKey("reportItem_reason_inappropriateLanguage"),
+                        title: this.$t("reportItem_reason_inappropriateLanguage"),
                         id: "inappropriateLanguage"
                     },
                     {
-                        title: LanguageService.getValueByKey("reportItem_reason_plagiarism"),
+                        title: this.$t("reportItem_reason_plagiarism"),
                         id: "plagiarism"
                     },
                     {
-                        title: LanguageService.getValueByKey("reportItem_reason_spam"),
+                        title: this.$t("reportItem_reason_spam"),
                         id: "spam"
                     },
                 ],
@@ -132,6 +132,7 @@
                 this.isOtherInputVisible = false;
                 this.customReason = '';
                 this.preDefinedReason = reason;
+                
             },
             toogleOtherInput() {
                 this.preDefinedReason = '';
@@ -139,8 +140,8 @@
             },
             sendItemReport() {
                 let reasonToSend = this.preDefinedReason !== '' ? this.preDefinedReason : this.customReason;
-                if(!reasonToSend){
-                    this.errorText = LanguageService.getValueByKey("formErrors_unselected")
+                if(reasonToSend){
+                    this.errorText = this.$t("formErrors_unselected")
                     return
                 }
                 let data = {
@@ -148,14 +149,14 @@
                     "flagReason": reasonToSend
                 };                
                 let self = this;
-                this.callRelevantAction(this.itemType, data).then(() => {                    
+                this.callRelevantAction(this.itemType, data).then(() => {
                     //in case answer is flaged
                     if (self.itemType === "answer") {
                         //after successfull flag remove answer from client side
                         self.answerRemoved(this.answerDelData);
                     }
                     self.closeReportPop()
-                    self.$router.push({name : 'feed' });
+                    self.$router.push({name : 'feed' }).catch(ex => console.log(ex))
                 })
 
             },
@@ -163,9 +164,6 @@
                 this.errorText = false;
                 this.closeReport();
             }
-        },
-        created() {
-            storeService.lazyRegisterModule(this.$store, 'feeds', feedStore);
         }
     }
 </script>
@@ -224,7 +222,6 @@
                     background-color: rgba(0, 0, 0, 0.04);
                 }
                 &.selected {
-                    // background-color: @color-blue-new;
                     .v-list__tile {
                         .reason-item-content {
                             .reason-name {
@@ -249,18 +246,6 @@
                     }
                 }
             }
-            // .input-reason {
-            //     padding-top: 30px;
-            //     padding-left: 16px;
-            //     padding-right: 16px;
-            //     font-size: 13px;
-            //     color: @textColor;
-            //     .v-input__slot {
-            //         box-shadow: none;
-            //         border: 1px solid fade(@color-black, 12%);
-            //         border-radius: 4px;
-            //     }
-            // }
         }
         .report-submit {
             .sb-rounded-medium-btn();
@@ -279,6 +264,4 @@
             margin: 0 auto;
         }
     }
-
-    //content end
 </style>
