@@ -107,8 +107,9 @@ import exams from './images/exams.svg';
 import secure from './images/secure.svg';
 import chatIcon from './images/chatIcon.svg';
 import calendarIcon from './images/calendarIcon.svg';
+import * as dialogNames from '../../../pages/global/dialogInjection/dialogNames.js'
 
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 import userRating from '../../profileHelpers/profileBio/bioParts/userRating.vue';
 
@@ -159,12 +160,11 @@ export default {
       },
    },
    methods: {
-      ...mapActions(['updateLoginDialogState']),
       reviewsPlaceHolder(reviews) {
          return reviews === 0 ? reviews.toString() : reviews;
       },
       openBecomeTutor(){
-         this.$openDialog('becomeTutor')
+         this.$openDialog(dialogNames.BecomeTutor)
       },
       goTutorList(){
          this.$router.push({name:'tutorLandingPage'})

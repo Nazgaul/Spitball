@@ -203,12 +203,6 @@ export default {
     this.languageChoisesAval = languagesLocales.filter(lan => {
       return lan.locale !== currentLocHTML;
     });
-    // this.$root.$on('closePopUp', (name) => {
-    //     if (name === "referralPop") {
-    //         console.log('fsdf')
-    //         this.updateReferralDialog(false)
-    //     }
-    // });
     if (
       !!this.$route.query &&
       !!this.$route.query.open &&

@@ -17,7 +17,7 @@
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_tutors'"/>
                 <v-icon class="mF_icon" v-html="'sbf-account-group'"/>
             </v-btn>
-            <v-btn :ripple="false" class="mF_btns" text value='upload' v-openDialog="'upload'">
+            <v-btn :ripple="false" class="mF_btns" text value='upload' v-openDialog="uploadDialog">
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_upload'"/>
                 <v-icon class="mF_icon" v-html="'sbf-button-add'" />
             </v-btn> -->
@@ -38,11 +38,13 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import * as dialogNames from '../../global/dialogInjection/dialogNames.js'
 export default {
     name: "mobileFooter",
     data() {
         return {
             currentActiveTab:this.$route.name,
+            uploadDialog: dialogNames.Upload,
         }
     },
     computed: {
@@ -85,10 +87,10 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateLoginDialogState','openChatInterface']),
+        ...mapActions(['openChatInterface']),
         openChat(){
             if (this.accountUser == null) {
-                this.updateLoginDialogState(true);
+                this.$openDialog('login');
             }else{
                 this.openChatInterface();
             }
@@ -102,7 +104,7 @@ export default {
             }
             if(tabName === 'profile' && this.activeTab !== tabName){
                 if(this.accountUser == null) {
-                    this.updateLoginDialogState(true);
+                    this.$openDialog('login');
                 }else{
                     this.$router.push({name:'profile',params:{id: this.accountUser.id,name: this.accountUser.name}})
                 }

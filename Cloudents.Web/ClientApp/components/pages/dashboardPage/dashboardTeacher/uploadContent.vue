@@ -4,14 +4,20 @@
             <img src="./images/upload.png" class="mb-3 uploadIcon" alt="">
             <div class="text1">{{$t('dashboardTeacher_upload_content')}}</div>
             <div class="text2 mb-3">{{$t('dashboardTeacher_earn_money')}}</div>
-            <v-btn class="uploadBtn" color="#4c59ff" v-openDialog="'upload'" outlined rounded>{{$t('dashboardTeacher_upload')}}</v-btn>
+            <v-btn class="uploadBtn" color="#4c59ff" v-openDialog="uploadDialog" outlined rounded>{{$t('dashboardTeacher_upload')}}</v-btn>
         </v-col>
     </v-row>
 </template>
 <script>
 
+import * as dialogNames from '../../global/dialogInjection/dialogNames.js'
 export default {
   name: "uploadContent",
+  data() {
+    return {
+      uploadDialog: dialogNames.Upload
+    }
+  },
 }
 </script>
 <style lang="less">

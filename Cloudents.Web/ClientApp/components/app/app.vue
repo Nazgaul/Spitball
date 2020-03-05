@@ -19,15 +19,6 @@
         </div>
 
         <dialogInjection class="dialogInjection" />
-
-        <sb-dialog
-          :showDialog="loginDialogState"
-          :popUpType="'loginPop'"
-          :content-class="'login-popup'"
-          :max-width="'550px'"
-        >
-          <login-to-answer v-if="loginDialogState"></login-to-answer>
-        </sb-dialog>
         <sb-dialog
           :isPersistent="true"
           :showDialog="newQuestionDialogSate"
@@ -62,18 +53,6 @@
             :popUpType="'referralPop'"
           ></referral-dialog>
         </sb-dialog>
-        <sb-dialog
-          :showDialog="getShowBuyDialog"
-          :popUpType="'buyTokens'"
-          :content-class="!isFrymo ? 'buy-tokens-popup' : 'buy-tokens-frymo-popup'"
-          :onclosefn="closeSblToken"
-          maxWidth="840px"
-        >
-          <buy-tokens v-if="!isFrymo && getShowBuyDialog" popUpType="buyTokens"></buy-tokens>
-          <buy-token-frymo v-if="isFrymo && getShowBuyDialog" popUpType="buyTokensFrymo"></buy-token-frymo>
-        </sb-dialog>
-
-
       <mobile-footer v-if="showMobileFooter" />
     </v-content>
     <v-snackbar
@@ -96,12 +75,9 @@ import { LanguageService } from "../../services/language/languageService";
 
 const dialogInjection = () => import('../pages/global/dialogInjection/dialogInjection.vue');
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
-const loginToAnswer = () => import("../question/helpers/loginToAnswer/login-answer.vue");
 const AddQuestion = () => import("../question/askQuestion/askQuestion.vue");
 const walletService = () => import("../../services/walletService");
 const mobileFooter = () => import("../pages/layouts/mobileFooter/mobileFooter.vue");
-const buyTokens = () => import("../dialogs/buyTokens/buyTokens.vue");
-const buyTokenFrymo = () => import("../dialogs/buyTokenFrymo/buyTokenFrymo.vue");
 const chat = () => import("../chat/chat.vue");
 const tutorRequest = () => import("../tutorRequestNEW/tutorRequest.vue");
 const referralDialog = () => import("../question/helpers/referralDialog/referral-dialog.vue");
@@ -111,11 +87,8 @@ export default {
     referralDialog,
     AddQuestion,
     sbDialog,
-    loginToAnswer,
     chat,
     mobileFooter,
-    buyTokens,
-    buyTokenFrymo,
     tutorRequest,
     dialogInjection
   },
@@ -129,7 +102,6 @@ export default {
     ...mapGetters([
       "getReferralDialog",
       "accountUser",
-      "loginDialogState",
       "newQuestionDialogSate",
       "getShowToaster",
       "getShowToasterType",
@@ -138,7 +110,6 @@ export default {
       "getMobileFooterState",
       "showLeaderBoard",
       // "showMobileFeed",
-      "getShowBuyDialog",
       "getRequestTutorDialog",
       "isFrymo",
       "getShowSchoolBlock",
@@ -226,9 +197,6 @@ export default {
       }, this.getToasterTimeout);
     },
     $route() {
-      if (this.loginDialogState) {
-        this.updateLoginDialogState(false);
-      }
       this.$nextTick(() => {
         this.fireOptimizeActivate();
       });
@@ -248,10 +216,7 @@ export default {
     ...mapActions([
       "updateReferralDialog",
       "updateToasterParams",
-      "updateLoginDialogState",
-      "updateNewQuestionDialogState",
       "setCookieAccepted",
-      "updateShowBuyDialog",
       "updateRequestDialog",
       "openChatInterface",
       "setTutorRequestAnalyticsOpenedFrom",
@@ -262,9 +227,6 @@ export default {
 
     closeReferralDialog() {
       this.updateReferralDialog(false);
-    },
-    closeSblToken() {
-      this.updateShowBuyDialog(false);
     },
     removeCookiesPopup: function() {
       this.setCookieAccepted();
@@ -310,17 +272,6 @@ export default {
         }
       }
     }
-
-    this.$root.$on("closePopUp", name => {
-      if (name === "suggestions") {
-        this.showDialogSuggestQuestion = false;
-      } else if (name === "newQuestionDialog") {
-        this.updateNewQuestionDialogState(false);
-      } else {
-        this.updateLoginDialogState(false);
-      }
-    });
-
     this.acceptedCookies = this.getCookieAccepted();
     if (global.isMobileAgent) {
       global.addEventListener("resize", () => {

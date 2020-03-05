@@ -91,6 +91,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import {LanguageService} from '../../services/language/languageService.js'
 import Schedule from './images/schedule.svg'
+import * as dialogNames from '../pages/global/dialogInjection/dialogNames.js'
 export default {
     components:{
       Schedule
@@ -193,7 +194,7 @@ export default {
       }
     },
     methods: {
-        ...mapActions(['updateToasterParams','btnClicked','insertEvent','updateNeedPayment','requestPaymentURL']),
+        ...mapActions(['updateToasterParams','btnClicked','insertEvent','updateNeedPayment']),
         format(dateFormat){
           let date = new Date(dateFormat.year,dateFormat.month - 1,dateFormat.day,0,0,0);
           //let options = { weekday: this.isMobile? 'narrow':'short'};
@@ -291,7 +292,7 @@ export default {
           this.isLoading = false;
         },
         goPayment(){
-          this.requestPaymentURL({ title: 'payme_title', name: this.tutorName });
+          this.$openDialog(dialogNames.Payment)
         },
         isSelected(date,time){
           if(date === this.selectedDate && time === this.selectedTime){

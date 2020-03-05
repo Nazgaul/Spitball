@@ -12,7 +12,7 @@
         </v-btn>
       </v-flex>
       <v-flex xs4 class="rA_btn">
-        <v-btn :ripple="false" text block v-openDialog="'upload'" sel="upload">
+        <v-btn :ripple="false" text block v-openDialog="uploadDialog" sel="upload">
           <uStudy class="rA_i mr-1" />
           <span v-language:inner="$vuetify.breakpoint.smAndDown ?'requestActions_btn_upload_mob':'requestActions_btn_upload'"/>
         </v-btn>
@@ -30,6 +30,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import analyticsService from "../../../../../services/analytics.service";
+import * as dialogNames from '../../../global/dialogInjection/dialogNames.js'
 
 import aQuestion from "./image/aQuestion.svg";
 import rTutor from "./image/rTutor.svg";
@@ -38,6 +39,11 @@ import uStudy from "./image/uStudy.svg";
 export default {
   name: "requestActions",
   components: {uStudy, rTutor, aQuestion },
+  data() {
+    return {
+      uploadDialog: dialogNames.Upload
+    }
+  },
   computed: {
     ...mapGetters(["accountUser", "getSelectedClasses",'getUserLoggedInStatus']),
     userImageUrl() {
@@ -69,13 +75,12 @@ export default {
   methods: {
     ...mapActions([
       "updateNewQuestionDialogState",
-      "updateLoginDialogState",
       "updateRequestDialog",
       "setTutorRequestAnalyticsOpenedFrom"
     ]),
     openAskQuestion() {
       if (this.accountUser == null) {
-        this.updateLoginDialogState(true);
+        this.$openDialog('login');
       } else {
         this.updateNewQuestionDialogState(true);
       }

@@ -386,7 +386,6 @@ export default {
   },
   methods: {
     ...mapActions([
-      "updateLoginDialogState",
       "updateToasterParams",
       "documentVote",
       "removeItemFromList",
@@ -486,7 +485,7 @@ export default {
     isAuthUser() {
       let user = this.accountUser();
       if (user == null) {
-        this.updateLoginDialogState(true);
+        this.$openDialog('login')
         return false;
       }
       return true;

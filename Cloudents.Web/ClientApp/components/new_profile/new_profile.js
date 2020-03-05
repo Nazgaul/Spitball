@@ -18,6 +18,7 @@ import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileItemsEmpty from './components/profileItemsEmpty/profileItemsEmpty.vue';
 import calendarTab from '../calendar/calendarTab.vue';
+import * as dialogNames from '../pages/global/dialogInjection/dialogNames.js'
 
 
 
@@ -82,7 +83,6 @@ export default {
     methods: {
         ...mapActions([
             'updateCouponDialog',
-            'updateLoginDialogState',
             'updateCoupon',
             'updateCurrTutor',
             'setTutorRequestAnalyticsOpenedFrom',
@@ -109,7 +109,7 @@ export default {
                 }
             }
             } else {
-            this.updateLoginDialogState(true);
+            this.$openDialog('login')
             }
         },
         applyCoupon() {
@@ -153,7 +153,7 @@ export default {
             }
         },
         openBecomeTutor(){
-            this.$router.push({query:{dialog:'becomeTutor'}})
+            this.$router.push({query:{dialog:dialogNames.BecomeTutor}})
         },
         goTutorList(){
             this.$router.push({name:'tutorLandingPage'})
@@ -184,7 +184,7 @@ export default {
             if(!!this.accountUser) {
                 this.activeTab = 5;
             } else {
-                this.updateLoginDialogState(true);
+                this.$openDialog('login')
                 setTimeout(()=>{
                     document.getElementById(`tab-${this.activeTab}`).lastChild.click();
                 },200);

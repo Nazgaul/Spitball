@@ -79,7 +79,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["updateLoginDialogState","toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
+    ...mapActions(["toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
     checkRoutes(){
       let isCourseRoute = [routeNames.EditCourse,routeNames.AddCourse,routeNames.SetCourse].find(route=> route === this.$route.name);
       let dashboardRoutes = [routeNames.Dashboard,routeNames.MySales,routeNames.MyFollowers,routeNames.MyPurchases,routeNames.MyContent,routeNames.MyStudyRooms];
@@ -97,7 +97,8 @@ export default {
     },
     goTo(name){
       if (this.accountUser == null) {
-        this.updateLoginDialogState(true);
+        // TODO: check if we needed
+        this.$openDialog('login')
         return
       }
       if(name === "myQuestions"){

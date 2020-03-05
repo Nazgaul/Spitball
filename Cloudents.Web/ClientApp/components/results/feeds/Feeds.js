@@ -3,11 +3,9 @@ import feedFaqBlock from '../../pages/feedPage/components/feedFaqBlock/feedFaqBl
 import scrollList from '../../helpers/infinateScroll.vue';
 
 // cards:
-import tutorResultCardMobile from '../tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
 import resultItem from '../ResultItem.vue';
 import resultAsk from "../ResultAsk.vue";
 import resultNote from "../ResultNote.vue";
-import tutorResultCard from '../tutorCards/tutorResultCard/tutorResultCard.vue';
 import suggestCard from '../suggestCard.vue';
 import emptyStateCard from '../emptyStateCard/emptyStateCard.vue';
 import { mapActions, mapGetters } from 'vuex';
@@ -15,6 +13,9 @@ import resultFilter from '../helpers/resultFilter/resultFilter.vue';
 import requestBox from '../../pages/feedPage/components/requestActions/requestActions.vue';
 import coursesTab from "../../pages/feedPage/components/coursesTab/coursesTab.vue";
 import generalPage from '../../helpers/generalPage.vue';
+
+const tutorResultCardMobile = () => import( /* webpackChunkName: "tutorResultCardMobile" */ '../tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue');
+const tutorResultCard = () => import( /* webpackChunkName: "tutorResultCard" */ '../tutorCards/tutorResultCard/tutorResultCard.vue');
 const analyticOverview = () => import(/* webpackChunkName: "analyticsOverview" */'../../pages/global/analyticOverview/analyticOverview.vue');
 
 import buyPointsLayout from '../../pages/dashboardPage/mySales/buyPointsLayout/buyPointsLayout.vue'
@@ -26,10 +27,10 @@ export default {
         feedSkeleton,
         feedFaqBlock,
         scrollList,
-        tutorResultCardMobile,
         ResultItem: resultItem,
         ResultAsk: resultAsk,
         ResultNote: resultNote,
+        tutorResultCardMobile,
         tutorResultCard,
         SuggestCard: suggestCard,
         emptyState,

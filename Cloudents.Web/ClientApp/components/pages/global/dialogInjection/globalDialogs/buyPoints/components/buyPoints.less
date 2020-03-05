@@ -1,6 +1,9 @@
-@import "../../../styles/mixin.less";
-@import '../../../styles//colors.less';
+@import "../../../../../../../styles/mixin.less";
+@import '../../../../../../../styles/colors.less';
 
+.buy-tokens-frymo-popup {
+    background: #fff;
+}
 .buy-tokens-popup {
     box-shadow: none;
     justify-content: center;
@@ -32,12 +35,10 @@
         }
       }
       .close-buy-dialog{
-          i{
-            font-size: 14px;
+          .closeIcon {
             position: absolute;
             right: 10px;
             top: 10px;
-            color: #000000;
             opacity: 0.54;
           }
       }
@@ -208,6 +209,10 @@
                 padding: 0 20px;
                 height: 40px;
                 margin: 6px 8px;
+            }
+            .v-skeleton-loader__button {
+                width: inherit;
+                height: inherit;
             }
         }
         .buy-tokens-price-container2{

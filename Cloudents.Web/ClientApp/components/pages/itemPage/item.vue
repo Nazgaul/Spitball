@@ -117,6 +117,7 @@
 import { mapActions, mapGetters } from 'vuex';
 
 //services
+import * as dialogNames from '../global/dialogInjection/dialogNames.js';
 import { LanguageService } from "../../../services/language/languageService";
 import analyticsService from '../../../services/analytics.service';
 import chatService from '../../../services/chatService';
@@ -131,8 +132,8 @@ import mainItem from './components/mainItem/mainItem.vue';
 import resultNote from '../../results/ResultNote.vue';
 import sbCarousel from '../../sbCarousel/sbCarousel.vue';
 import itemCard from '../../carouselCards/itemCard.vue'
-import tutorResultCard from '../../results/tutorCards/tutorResultCard/tutorResultCard.vue';
-import tutorResultCardMobile from '../../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
+const tutorResultCard = () => import(/* webpackChunkName: "tutorResultCard" */ '../../results/tutorCards/tutorResultCard/tutorResultCard.vue');
+const tutorResultCardMobile = () => import(/* webpackChunkName: "tutorResultCardMobile" */ '../../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue');
 import whyUsDesktop from './components/whyUs/whyUsDesktop.vue';
 import whyUs from './components/whyUs/whyUs.vue';
 import mobileUnlockDownload from './components/mobileUnlockDownload/mobileUnlockDownload.vue';
@@ -165,7 +166,7 @@ export default {
         }
     },
     watch:{
-        '$route'(){
+        '$route.params.id'(){
             this.clearDocument();
             this.documentRequest(this.id);        
             this.getStudyDocuments({course: this.$route.params.courseName , id: this.id})
@@ -264,7 +265,6 @@ export default {
             'setActiveConversationObj',
             'openChatInterface',
             'updateItemToaster',
-            'updateShowBuyDialog',
         ]),
         
         enterItemCard(vueElm){
@@ -323,7 +323,7 @@ export default {
         },
         openBuyTokenDialog() {
             this.updateItemToaster(false);
-            this.updateShowBuyDialog(true)
+            this.$openDialog(dialogNames.BuyPoints);
         }
     },
     beforeDestroy(){
