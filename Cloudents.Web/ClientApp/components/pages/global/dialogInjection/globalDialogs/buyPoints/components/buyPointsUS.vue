@@ -94,7 +94,7 @@
                 <v-layout class="buymebtn">
                     <v-flex text-center>
                         <v-skeleton-loader class="mb-4" v-show="isLoading" width="100%" height="44" type="button"></v-skeleton-loader>
-                        <div v-show="!isLoading" id="paypal-button-container"></div>
+                        <div v-show="!isLoading" id="paypal-button-container" style="width:400px; margin: 0 auto;"></div>
                     </v-flex>
                 </v-layout>
 
@@ -161,8 +161,14 @@ export default {
         .then(() => {
             window.paypal
             .Buttons({
+                 style: {
+                    //layout:  'horizontal',
+                   // color:   'blue',
+                    shape:   'pill',
+                   // tagline : false
+                },
                 createOrder: function(data, actions) {
-                    self.isLoading = true;
+                  //  self.isLoading = true;
                     analyticsService.sb_unitedEvent("BUY_POINTS", "PRODUCT_SELECTED", self.transactionId);
                     return actions.order.create({
                         purchase_units: [
@@ -177,8 +183,10 @@ export default {
                     });
                 },
                 onApprove: function(data) {
+                    self.$closeDialog();
                     self.$store.dispatch('updatePaypalBuyTokens',data.orderID).then(()=>{
-                        self.isLoading = false
+                        //self.isLoading = false
+                      
                     })
                 }
             })

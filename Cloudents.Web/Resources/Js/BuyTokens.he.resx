@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="answer" xml:space="preserve">
-    <value>תשובה</value>
-  </data>
   <data name="bottom_1" xml:space="preserve">
     <value>שים לב, לא ניתן לשלם בנקודות לשיעורים פרטיים.</value>
   </data>
@@ -129,29 +126,14 @@
   <data name="choose" xml:space="preserve">
     <value>בחר</value>
   </data>
-  <data name="earn_answer" xml:space="preserve">
-    <value>תן תשובות נכונות</value>
-  </data>
-  <data name="earn_invite" xml:space="preserve">
-    <value>הזמן חברים לספסל הלימודים</value>
-  </data>
-  <data name="earn_upload" xml:space="preserve">
-    <value>העלה מסמכים שלך</value>
-  </data>
   <data name="failed_transaction" xml:space="preserve">
     <value>הפעולה נכשלה, נסה לרענן את הדף!</value>
   </data>
   <data name="get_points" xml:space="preserve">
     <value>קבל נקודות</value>
   </data>
-  <data name="invite" xml:space="preserve">
-    <value>הזמן</value>
-  </data>
   <data name="most_popular" xml:space="preserve">
     <value>הכי פופולארי</value>
-  </data>
-  <data name="need_points" xml:space="preserve">
-    <value>זקוק לעוד נקודות?</value>
   </data>
   <data name="per_point" xml:space="preserve">
     <value>/ נקודה</value>
@@ -163,9 +145,6 @@
     <value>לרכישת {1} נקודות</value>
   </data>
   <data name="success_transaction" xml:space="preserve">
-    <value>הקנייה הצליחה!</value>
-  </data>
-  <data name="upload" xml:space="preserve">
-    <value>העלה</value>
+    <value>הקנייה הצליחה</value>
   </data>
 </root>
