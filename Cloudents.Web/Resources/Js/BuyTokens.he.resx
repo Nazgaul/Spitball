@@ -145,6 +145,6 @@
     <value>לרכישת {1} נקודות</value>
   </data>
   <data name="success_transaction" xml:space="preserve">
-    <value>הקנייה הצליחה!</value>
+    <value>הקנייה הצליחה</value>
   </data>
 </root>
