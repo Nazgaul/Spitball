@@ -7,6 +7,12 @@ const accountInstance = axios.create({
     baseURL:'/api/account'
 })
 
+
+//TODO: move this shit to couponServices! ny : HopoG
+const couponInstance = axios.create({
+    baseURL:'/api/coupon'
+})
+
 export default {
     async getAccount(){ 
         let {data} = await accountInstance.get()
@@ -25,14 +31,14 @@ export default {
         return await accountInstance.post('/image',params)
     },
     async applyCoupon(params){ 
-        return await accountInstance.post('/coupon',params)
+        return await couponInstance.post('/apply',params)
     },
     async getAccountStats(days){
         let {data} = await accountInstance.get('/stats', {params: {days}})
         return data.map(stats => new User.Stats(stats))
     },  
     async getCoupons() {
-        let { data } = await accountInstance.get('/coupon');
+        let { data } = await couponInstance.get();
         return data.map(coupon => new Coupon.Default(coupon))
     },
     async getQuestions(){

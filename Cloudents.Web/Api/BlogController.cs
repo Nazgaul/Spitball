@@ -7,13 +7,14 @@ using Cloudents.Core.Models;
 using Cloudents.Core.Query;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Cloudents.Web.Api
 {
-    [Route("api/[controller]"), ApiController]
+    [Route("api/[controller]"), ApiController, Authorize]
     public class BlogController : ControllerBase
     {
         private readonly IBlogProvider _blogProvider;
