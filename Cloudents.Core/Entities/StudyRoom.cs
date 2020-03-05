@@ -14,7 +14,6 @@ namespace Cloudents.Core.Entities
     {
         public StudyRoom(Tutor tutor, User user, string onlineDocumentUrl)
         {
-
             _users = new[] { new StudyRoomUser(tutor.User, this), new StudyRoomUser(user, this) };
             Tutor = tutor;
             Identifier = ChatRoom.BuildChatRoomIdentifier(new[] { tutor.Id, user.Id });
@@ -48,7 +47,6 @@ namespace Cloudents.Core.Entities
 
         public virtual StudyRoomSession? GetCurrentSession()
         {
-
             var result = Sessions.AsQueryable().Where(w => w.Ended == null).OrderBy(o => o.Id).ToList();
             for (var i = 0; i < result.Count - 1; i++)
             {
