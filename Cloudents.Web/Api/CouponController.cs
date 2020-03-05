@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Query;
 
 namespace Cloudents.Web.Api
 {
@@ -24,11 +25,13 @@ namespace Cloudents.Web.Api
     {
         private readonly ICommandBus _commandBus;
         private readonly UserManager<User> _userManager;
+        private readonly IQueryBus _queryBus;
 
-        public CouponController(ICommandBus commandBus,  UserManager<User> userManager)
+        public CouponController(ICommandBus commandBus,  UserManager<User> userManager, IQueryBus queryBus)
         {
             _commandBus = commandBus;
             _userManager = userManager;
+            _queryBus = queryBus;
         }
 
         [HttpPost]

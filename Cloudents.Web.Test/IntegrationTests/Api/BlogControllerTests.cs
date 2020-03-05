@@ -23,7 +23,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         {
             await _client.LogInAsync();
             var response = await _client.GetAsync(api);
-            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
     }
 }
