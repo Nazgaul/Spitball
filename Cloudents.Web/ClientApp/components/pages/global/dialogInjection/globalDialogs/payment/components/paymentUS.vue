@@ -21,8 +21,7 @@
             <div class="payme-top-desc pb-4 px-sm-4">
                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure velit nisi, fugiat necessitatibus optio in provident nesciunt eveniet! Laborum aspernatur vero non quasi reiciendis aperiam omnis quas culpa quia perspiciatis!
             </div>
-            <v-skeleton-loader class="mb-4 px-sm-4" v-show="isLoading" width="100%" height="44" type="button"></v-skeleton-loader>
-            <div v-show="!isLoading" id="paypal-button-container"></div>
+            <div id="paypal-button-container"></div>
         </div>
          <div class="payme-popup-bottom">
                <p v-language:inner="'payme_bottom'"/>
@@ -35,11 +34,6 @@
 import * as routeNames from '../../../dialogNames.js';
 export default {
    name:'paymentUS',
-   data() {
-      return {
-         isLoading:false,
-      }
-   },
    methods: {
       closeDialog(){
          let isStudyRoom = this.$store.getters.getStudyRoomData?.roomId && this.$route.name === routeNames.StudyRoom.name;
@@ -82,7 +76,6 @@ export default {
                   }
                   self.$store.dispatch('updatePaypalStudyRoom',params).then(()=>{
                      debugger
-                     self.isLoading = false
                   })
                 }
             })
