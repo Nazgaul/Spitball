@@ -4,7 +4,6 @@ import analyticsService from '../services/analytics.service';
 import insightService from '../services/insightService';
 import { LanguageService } from '../services/language/languageService';
 import intercomeService from '../services/intercomService';
-import { router } from "../main";
 
 const state = {
     isUserLoggedIn:false,
