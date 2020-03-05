@@ -1,5 +1,5 @@
 <template>
-    <v-dialog :value="true" persistent max-width="840px" :content-class="selectedBuyPointsClass">
+    <v-dialog :value="true" persistent max-width="840px" :content-class="selectedBuyPointsClass" :fullscreen="$vuetify.breakpoint.xsOnly">
        <component :is="selectedBuyPointsComponent"></component>
     </v-dialog>
 </template>
@@ -35,3 +35,8 @@ export default {
 
 }
 </script>
+<style lang="less">
+.buy-tokens-frymo-popup{
+   background-color: white;
+}
+</style>
