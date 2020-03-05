@@ -40,6 +40,7 @@ namespace Cloudents.Core.DTOs
 
     public enum PaymentStatus
     {
+        PendingApproval,
         Pending,
         Paid
     }
