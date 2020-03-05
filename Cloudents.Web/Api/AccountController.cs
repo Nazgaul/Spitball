@@ -204,29 +204,6 @@ namespace Cloudents.Web.Api
             }
         }
 
-
-        [HttpGet("sales")]
-        public async Task<IEnumerable<SaleDto>> GetUserSalesAsync([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var query = new UserSalesByIdQuery(userId);
-            var result = await _queryBus.QueryAsync(query, token);
-
-            return result.Select(s =>
-            {
-                if (s is DocumentSaleDto d)
-                {
-                    d.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
-                    d.Url = Url.DocumentUrl(d.Course, d.Id, d.Name);
-                }
-                if (s is SessionSaleDto ss)
-                {
-                    ss.StudentImage = urlBuilder.BuildUserImageEndpoint(ss.StudentId, ss.StudentImage, ss.StudentName);
-                }
-                return s;
-            });
-        }
-
         [HttpGet("content")]
         public async Task<IEnumerable<UserContentDto>> GetUserContentAsync([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {

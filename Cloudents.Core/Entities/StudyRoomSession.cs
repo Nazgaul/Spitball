@@ -112,6 +112,11 @@ namespace Cloudents.Core.Entities
             StudentPay = studentPay;
             SpitballPay = spitballPay;
         }
+
+        public virtual void SetRealDuration(TimeSpan realDuration)
+        {
+            RealDuration = realDuration;
+        }
     }
 
     //public interface IPayment

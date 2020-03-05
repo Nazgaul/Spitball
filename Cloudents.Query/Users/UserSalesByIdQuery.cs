@@ -75,6 +75,7 @@ namespace Cloudents.Query.Users
                     .Where(w => w.StudyRoom.Tutor.Id == query.Id && w.Ended != null)
                     .Select(s => new SessionSaleDto()
                     {
+                        SessionId = s.Id,
                         PaymentStatus = string.IsNullOrEmpty(s.Receipt) && s.RealDuration == null ? PaymentStatus.PendingApproval :
                                         string.IsNullOrEmpty(s.Receipt) ? PaymentStatus.Pending : PaymentStatus.Paid,
                         Date = s.Created,
