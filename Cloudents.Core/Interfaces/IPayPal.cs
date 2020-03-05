@@ -7,6 +7,6 @@ namespace Cloudents.Core.Interfaces
     public interface IPayPal
     {
         Task<PayPalDto> GetPaymentAsync(string transactionId);
-        Task PathOrderAsync(string modelOrderId, CancellationToken token);
+        Task UpdateAndConfirmOrderAsync(string orderId, decimal charge, CancellationToken token);
     }
 }
