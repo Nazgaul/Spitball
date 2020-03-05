@@ -163,9 +163,6 @@
   <data name="greets" xml:space="preserve">
     <value>{1}</value>
   </data>
-  <data name="points" xml:space="preserve">
-    <value>Get Points</value>
-  </data>
   <data name="txt_out" xml:space="preserve">
     <value>Get access to thousands of online study materials and tutors</value>
   </data>
