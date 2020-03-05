@@ -51,13 +51,14 @@ export const EditUniversity = 'addUniversity';
 // Study Room:
 export const StudyRoom = {
    name:'tutoring',
-   path:'studyroom'
+   path:'study-room',
+   alias: '/studyroom'
 };
 
 // Study Room Settings:
 export const StudyRoomSettings = {
    name: 'roomSettings',
-   path: 'studyroomSettings'
+   path: 'studyroom-settings'
 }
 
 

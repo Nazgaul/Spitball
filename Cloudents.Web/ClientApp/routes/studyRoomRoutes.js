@@ -14,7 +14,8 @@ export const studyRoomRoutes = [
             default: (route) => ({
                 id: route.params.id
             })
-        }
+        },
+        alias: 'studyroomSettings'
     },
     {
         path: `/${routeName.StudyRoom.path}/:id?`,
@@ -26,6 +27,10 @@ export const studyRoomRoutes = [
             default: (route) => ({
                 id: route.params.id
             })
-        }
+        },
     },
+    { 
+        path: routeName.StudyRoom.alias, 
+        redirect: routeName.StudyRoom.path 
+    }
 ]
