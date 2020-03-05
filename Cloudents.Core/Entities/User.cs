@@ -214,10 +214,19 @@ namespace Cloudents.Core.Entities
         public virtual PaymentStatus PaymentExists { get; protected set; }
 
         public virtual UserType? UserType2 { get; protected set; }
+        private readonly ICollection<UserToken> _userTokens = new List<UserToken>();
+
+        public virtual IEnumerable<UserToken> UserTokens => _userTokens;
 
         public virtual void CreditCardReceived()
         {
             PaymentExists = PaymentStatus.Done;
+            AddEvent(new StudentPaymentReceivedEvent(this));
+        }
+
+        public virtual void AddToken(UserToken userToken)
+        {
+            _userTokens.Add(userToken);
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
 

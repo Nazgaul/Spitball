@@ -81,6 +81,10 @@ namespace Cloudents.Persistence.Maps
 
 
             HasMany(x => x.UserComponents).Inverse().Cascade.AllDeleteOrphan();//.Inverse();
+
+            HasMany(x => x.UserTokens)
+                .Inverse()
+                .Cascade.AllDeleteOrphan();
             //Component(x => x.UserComponent);
         }
     }
