@@ -71,8 +71,6 @@
 </template>
 
 <script>
-import analyticService from '../../../../services/analytics.service'
-
 import emailSVG from "./images/email.svg";
 import facebookSVG from "./images/facebook.svg";
 import whatsappSVG from "./images/whatsapp.svg";
@@ -121,7 +119,7 @@ export default {
       }
 
       function socialShareEvent(linkLabel) {
-        analyticService.sb_unitedEvent('Share', socialMediaName, linkLabel);
+        self.$ga.event('Share', socialMediaName, linkLabel);
       }
 
       let mediaUrl = {
