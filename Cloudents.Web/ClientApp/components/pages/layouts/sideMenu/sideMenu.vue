@@ -102,10 +102,14 @@ export default {
         return
       }
       if(name === "myQuestions"){
-        this.$router.push({name: routeNames.Feed,query:{filter:feedFilters.Question}})
+        this.$router.push({name: routeNames.Feed,query:{filter:feedFilters.Question}}).catch(() => {
+        return
+      })
         return
       }
-      this.$router.push({name})
+      this.$router.push({name}).catch(() => {
+        return
+      })
       this.closeSideMenu();
     },
     toggleMiniSideMenu(){
