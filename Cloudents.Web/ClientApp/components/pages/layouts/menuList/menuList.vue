@@ -14,7 +14,9 @@
         <div class="userMenu_top" v-if="isLoggedIn">
           <userAvatar size="80" :userImageUrl="user.image" :user-name="user.name" :user-id="user.id"/>
           <div class="uM_top_txts">
-            <h1 class="uM_title" v-html="$Ph('menuList_greets', user.name)"/>
+            <router-link class="uM_title" :to="{name:'profile', params:{id:user.id, name:user.name}}">
+              <h1 class="uM_title">{{user.name}}</h1>
+            </router-link>
             <h2 class="uM_subtitle" v-html="$Ph('menuList_balance', userBalance(user.balance))"/>
           </div>
         </div>
