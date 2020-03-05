@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Cloudents.Query.Stuff;
 using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.Enum;
+using System;
 
 namespace Cloudents.Query.Users
 {
@@ -68,6 +69,22 @@ namespace Cloudents.Query.Users
                 var coursesSqlQuery = _session.CreateSQLQuery(coursesSql);
                 coursesSqlQuery.SetInt64("Id", query.Id);
                 var coursesFuture = coursesSqlQuery.SetResultTransformer(Transformers.AliasToBean<CourseDto>()).Future<CourseDto>();
+
+                const string pendingSessionsPaymentsSql = @"select count(1)
+                                                        from sb.StudyRoom sr
+                                                        join sb.StudyRoomSession srs
+	                                                        on sr.Id = srs.StudyRoomId
+                                                        where sr.TutorId = :Id
+                                                        and RealDuration is null
+                                                        and Receipt is null
+                                                        and DurationInMinutes > 10
+                                                        and price > 0";
+
+                var pendingSessionsPaymentsSqlQuery = _session.CreateSQLQuery(pendingSessionsPaymentsSql);
+                pendingSessionsPaymentsSqlQuery.SetInt64("Id", query.Id);
+
+                var pendingSessionsPaymentsFuture = pendingSessionsPaymentsSqlQuery.FutureValue<int>();
+
 
                 var universityFuture = _session.Query<User>()
                     .Fetch(f => f.University)
@@ -154,6 +171,8 @@ namespace Cloudents.Query.Users
                     .Take(1)
                     .ToFuture();
 
+                
+
 
 
                 var result = await userFuture.GetValueAsync(token);
@@ -179,6 +198,7 @@ namespace Cloudents.Query.Users
                                 || (await isSoldSessionFuture.GetEnumerableAsync(token)).Any();
 
                 result.HaveFollowers = (await haveFollowersFuture.GetEnumerableAsync(token)).Any();
+                result.PendingSessionsPayments = await pendingSessionsPaymentsFuture.GetValueAsync(token);
                 return result;
             }
         }

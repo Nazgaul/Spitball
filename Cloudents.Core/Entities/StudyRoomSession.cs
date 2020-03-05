@@ -48,7 +48,7 @@ namespace Cloudents.Core.Entities
         public virtual long? AdminDuration { get; protected set; }
         public virtual decimal? StudentPay { get; protected set; }
         public virtual decimal? SpitballPay { get; protected set; }
-
+        public virtual TimeSpan? RealDuration { get; protected set; }
 
 
         public virtual void UpdateVideo()

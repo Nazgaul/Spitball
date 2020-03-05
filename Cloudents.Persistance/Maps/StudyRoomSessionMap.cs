@@ -14,6 +14,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.RejoinCount);
             Map(x => x.Duration);
             Map(x => x.DurationInMinutes).CustomType<MinuteTimeSpanType>();
+            Map(x => x.RealDuration);
             Map(x => x.SessionId).Not.Nullable();
             Map(x => x.Receipt);
             Map(x => x.Price).CustomSqlType("smallMoney").Nullable();

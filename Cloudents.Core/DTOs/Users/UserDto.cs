@@ -158,6 +158,7 @@ namespace Cloudents.Core.DTOs.Users
 
         public IEnumerable<CourseDto> Courses { get; set; }
         public UniversityDto University { get; set; }
+        public int PendingSessionsPayments { get; set; }
 
         public string CurrencySymbol
         {
