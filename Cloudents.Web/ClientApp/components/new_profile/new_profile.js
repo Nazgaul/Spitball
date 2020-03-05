@@ -282,6 +282,7 @@ export default {
         "$route.params.id": function(val, oldVal){ 
             let old = Number(oldVal,10);
             let newVal = Number(val,10);
+            this.activeTab = 1;
             if (newVal !== old) {
                 this.resetProfileData();
                 if((newVal == this.accountUser.id) && this.accountUser.isTutorState === "pending"){
