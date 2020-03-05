@@ -183,6 +183,11 @@ export default {
                 onApprove: function(data) {
                     self.$closeDialog();
                     self.$store.dispatch('updatePaypalBuyTokens',data.orderID);
+                    self.$store.dispatch('updateToasterParams', {
+                        toasterText: self.$t("buyTokens_success_transaction"),
+                        showToaster: true,
+                        toasterTimeout: 5000
+                    });
                     //TODO happy go lucky - update the balance of the user
                 }
             })
