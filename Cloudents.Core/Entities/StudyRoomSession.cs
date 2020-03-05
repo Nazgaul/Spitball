@@ -101,18 +101,22 @@ namespace Cloudents.Core.Entities
             Receipt = receipt;
         }
 
-        public virtual void SetReceiptAndAdminDate(string receipt, long adminDuration, decimal studentPay, decimal spitballPay)
+        public virtual void SetReceiptAndAdminDate(string receipt)
         {
             if (string.IsNullOrEmpty(receipt))
             {
                 throw new ArgumentException();
             }
             Receipt = receipt;
-            Payment = new Payme(adminDuration, studentPay, spitballPay);
             PaymentApproved = DateTime.UtcNow;
             //AdminDuration = adminDuration;
             //StudentPay = studentPay;
             //SpitballPay = spitballPay;
+        }
+
+        public virtual void SetPyment(IPaymentProvider payment)
+        {
+            Payment = payment;
         }
     }
 }
