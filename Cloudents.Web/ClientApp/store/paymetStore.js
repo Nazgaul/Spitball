@@ -75,8 +75,8 @@ const actions = {
     updatePaypalBuyTokens(context,id){
         return walletService.paypalBuyTokens(id)
     },
-    updatePaypalStudyRoom(context,params){
-        return walletService.paypalStudyRoom(params)
+    updatePaypalStudyRoom(context,orderId){
+        return walletService.paypalStudyRoom(orderId)
     }
 };
 

@@ -69,11 +69,8 @@ export default {
                     });
                 },
                 onApprove: function(data) {
-                    let params = {
-                        orderId: data.orderID,
-                        roomId: self.$store.getters.getStudyRoomData.roomId,
-                    }
-                    self.$store.dispatch('updatePaypalStudyRoom',params).then(()=>{
+                    self.$store.dispatch('updatePaypalStudyRoom',{orderId: data.orderID}).then(()=>{
+                        debugger
                     })
                 }
             })
