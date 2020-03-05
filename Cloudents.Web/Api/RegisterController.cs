@@ -64,7 +64,7 @@ namespace Cloudents.Web.Api
         [ProducesDefaultResponseType]
         public async Task<ActionResult<ReturnSignUserResponse>> PostAsync(
             [FromBody] RegisterRequest model,
-            [CanBeNull] ReturnUrlRequest returnUrl,
+            ReturnUrlRequest? returnUrl,
             CancellationToken token)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
@@ -97,7 +97,7 @@ namespace Cloudents.Web.Api
 
         private async Task<ReturnSignUserResponse> MakeDecisionAsync(User user,
             bool isExternal,
-            [CanBeNull] ReturnUrlRequest returnUrl,
+            ReturnUrlRequest? returnUrl,
             CancellationToken token)
         {
 
@@ -144,8 +144,8 @@ namespace Cloudents.Web.Api
             [FromBody] GoogleTokenRequest model,
             [FromServices] IGoogleAuth service,
             [FromServices] IUserDirectoryBlobProvider blobProvider,
-           
-           
+
+
             [FromServices] TelemetryClient logClient,
             [FromServices] IHttpClientFactory clientFactory,
             CancellationToken cancellationToken)
@@ -237,7 +237,7 @@ namespace Cloudents.Web.Api
 
 
 
-        private async Task GenerateEmailAsync(User user, [CanBeNull] ReturnUrlRequest returnUrl, CancellationToken token)
+        private async Task GenerateEmailAsync(User user, ReturnUrlRequest? returnUrl, CancellationToken token)
         {
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             code = UrlEncoder.Default.Encode(code);

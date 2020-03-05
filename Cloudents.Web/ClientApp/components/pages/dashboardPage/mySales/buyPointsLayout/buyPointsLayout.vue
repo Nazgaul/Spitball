@@ -16,14 +16,13 @@
 
 <script>
 import analyticsService from '../../../../../services/analytics.service';
-import { mapActions } from 'vuex';
+import * as dialogNames from '../../../global/dialogInjection/dialogNames.js'; 
 export default {
    name:"buyPointsLayout",
    methods: {
-      ...mapActions(['updateShowBuyDialog']),
       openSblToken(){
          analyticsService.sb_unitedEvent("BUY_POINTS", "ENTER");
-         this.updateShowBuyDialog(true);
+         this.$openDialog(dialogNames.BuyPoints)
       },   
    },
 }

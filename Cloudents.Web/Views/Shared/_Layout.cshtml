@@ -74,6 +74,7 @@
         window.isAuth = @isAuth.ToString().ToLower();
         window.siteName = '@VersionService.GetSiteName().ToString("G").ToLowerInvariant()';
         window.applicationId = '@JavaScriptSnippetTelemetry.InstrumentationKey';
+        window.paypalClientId = '@Configuration["PayPal:ClientId"]';
     </script>
     @await Component.InvokeAsync("Country")
     @await RenderSectionAsync("scripts", required: false)

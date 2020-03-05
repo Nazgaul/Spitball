@@ -106,7 +106,6 @@ namespace Cloudents.FunctionsV2
         /// <param name="token"></param>
         /// <returns></returns>
         [FunctionName("DocumentDeleteOld")]
-        [UsedImplicitly]
         public static async Task DeleteOldDocument([TimerTrigger("0 0 0 1 * *")] TimerInfo timer,
             [Blob("spitball-files/files")]CloudBlobDirectory directory,
             ILogger log,

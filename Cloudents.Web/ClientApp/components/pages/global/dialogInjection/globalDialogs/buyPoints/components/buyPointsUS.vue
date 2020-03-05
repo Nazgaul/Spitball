@@ -2,7 +2,7 @@
     <div class="buy-dialog-wrap">
         <div class="buy-tokens-overlay" :class="{'visible': showOverlay}"></div>
         <div class="close-buy-dialog">
-            <v-icon class="closeIcon" color="#000" size="14" @click="closeModal">sbf-close</v-icon>
+            <v-icon class="closeIcon" color="#000" size="14" v-closeDialog>sbf-close</v-icon>
         </div>
         <div class="buy-tokens-wrap">
             <v-container pa-4 pt-6 pb-6 class="buy-tokens-top-container">
@@ -129,10 +129,8 @@
 
                 <v-layout class="buymebtn">
                     <v-flex text-center>
-                        <v-btn class="buyme-button white--text" depressed color="#4452fc" id="buyme-button" @click="openPaymeDialog">
-                        <span class="mr-2 d-flex"><v-icon size="16">sbf-lock-icon</v-icon></span>
-                        <span class="font-weight-bold" v-html="$Ph('buyTokens_secure_payment', products[selectedProduct].pts)"></span>
-                        </v-btn>
+                        <v-skeleton-loader class="mb-4" v-show="isLoading" width="100%" height="44" type="button"></v-skeleton-loader>
+                        <div v-show="!isLoading" id="paypal-button-container"></div>
                     </v-flex>
                 </v-layout>
 
@@ -140,7 +138,92 @@
         </div>
     </div>
 </template>
+<script>
+import analyticsService from '../../../../../../../services/analytics.service';
 
-<script src="./buyTokens.js"></script>
+export default {
+  name:'buyPointsUS',
+  data() {
+    return {
+      isLoading:false,
+      selectedProduct: 'inter',
+      showOverlay: false,
+      transactionId: 750,
+      products:{
+        currency: '$',
+        basic:{
+            id:1,
+            pts:100,
+            price:1.5,
+            currency: 'USD'
+        },
+        inter:{
+            id:2,
+            pts:500,
+            price:6,
+            currency: 'USD'
+        },
+        pro:{
+            id:3,
+            pts:1000,
+            price:10,
+            currency: 'USD'
+        }
+      },
+    };
+  },
+  computed:{
+    basicConversionRate(){
+        return this.products.basic.price / this.products.basic.pts;
+    },
+    interConversionRate(){
+        return this.products.inter.price / this.products.inter.pts;
+    },
+    proConversionRate(){
+        return (this.products.pro.price / this.products.pro.pts).toFixed(2);
+    }
+  },
+  methods: {
+    selectProduct(val) {
+      if (this.selectedProduct !== val) {
+        this.selectedProduct = val;
+        this.transactionId = this.products[val].pts;
+      }
+    },
+  },
+  mounted() {
+    let self = this;
+    let paypalUrl = `https://www.paypal.com/sdk/js?client-id=${window.paypalClientId}&commit=false`;
+    this.$loadScript(paypalUrl)
+        .then(() => {
+            window.paypal
+            .Buttons({
+                createOrder: function(data, actions) {
+                    self.isLoading = true;
+                    analyticsService.sb_unitedEvent("BUY_POINTS", "PRODUCT_SELECTED", self.transactionId);
+                    return actions.order.create({
+                        purchase_units: [
+                            {
+                                reference_id: "points_" + self.products[self.selectedProduct].id,
+                                amount: {
+                                    value: self.products[self.selectedProduct].price,
+                                    currency: self.products[self.selectedProduct].currency
+                                }
+                            },
+                        ]
+                    });
+                },
+                onApprove: function(data) {
+                    self.$store.dispatch('updatePaypalBuyTokens',data.orderID).then(()=>{
+                        self.isLoading = false
+                    })
+                }
+            })
+            .render('#paypal-button-container');
+        });
+  },
+};
+</script>
 
-<style lang="less" src="./buyTokens.less"></style>
+
+<style lang="less" src="./buyPoints.less"></style>

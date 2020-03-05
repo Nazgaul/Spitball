@@ -3,7 +3,6 @@ using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
-using Cloudents.Query;
 using Cloudents.Query.Users;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
@@ -15,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Query;
 
 namespace Cloudents.Web.Api
 {
@@ -24,14 +24,14 @@ namespace Cloudents.Web.Api
     public class CouponController : ControllerBase
     {
         private readonly ICommandBus _commandBus;
-        private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
+        private readonly IQueryBus _queryBus;
 
-        public CouponController(ICommandBus commandBus, IQueryBus queryBus, UserManager<User> userManager)
+        public CouponController(ICommandBus commandBus,  UserManager<User> userManager, IQueryBus queryBus)
         {
             _commandBus = commandBus;
-            _queryBus = queryBus;
             _userManager = userManager;
+            _queryBus = queryBus;
         }
 
         [HttpPost]

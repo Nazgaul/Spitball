@@ -25,7 +25,7 @@ namespace ConsoleApp
                             where ImageUrl is not null";
 
             const string updateSql = @"update sb.University set ImageUrl = null where Id = @Id";
-            IEnumerable<UniImage> res = null;
+            IEnumerable<UniImage> res;
 
             using (var conn = _dapper.OpenConnection())
             {
@@ -36,7 +36,7 @@ namespace ConsoleApp
             {
                 try
                 {
-                    var test = await _client.GetAsync(university.ImageUrl);
+                    var test = await _client.GetAsync(university.ImageUrl, token);
                     test.EnsureSuccessStatusCode();
                 }
 
@@ -51,7 +51,7 @@ namespace ConsoleApp
             }
         }
 
-        internal class UniImage
+        private class UniImage
         {
             public Guid Id { get; set; }
             public string ImageUrl { get; set; }

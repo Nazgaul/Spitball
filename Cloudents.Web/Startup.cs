@@ -108,6 +108,7 @@ namespace Cloudents.Web
                     ),
                 Storage = Configuration["Storage"],
                 ServiceBus = Configuration["ServiceBus"],
+                PayPal = new PayPalCredentials(Configuration["PayPal:ClientId"], Configuration["PayPal:ClientSecret"], !HostingEnvironment.IsProduction())
             };
 
 
@@ -148,7 +149,6 @@ namespace Cloudents.Web
             //return new AutofacServiceProvider(container);
         }
 
-        [UsedImplicitly]
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
@@ -304,7 +304,6 @@ namespace Cloudents.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        [UsedImplicitly]
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             AutofacContainer = app.ApplicationServices.GetAutofacRoot();

@@ -21,12 +21,11 @@ namespace Cloudents.Core
         public string Redis { get; set; }
         public string Storage { get; set; }
 
-
+        public PayPalCredentials PayPal { get; set; }
 
         public LocalStorageData LocalStorageData { get; set; }
         //public string FunctionEndpoint { get; set; }
 
-        public string BlockChainNetwork { get; set; }
 
         public SiteEndPoints SiteEndPoint { get; set; }
         public string ServiceBus { get; set; }
@@ -116,6 +115,23 @@ namespace Cloudents.Core
             Validate,
             Update
         }
+    }
+
+    public class PayPalCredentials
+    {
+        public string ClientId { get; }
+        public string ClientSecret { get; }
+        public bool IsDevelop { get; }
+
+
+        public PayPalCredentials(string clientId, string clientSecret, bool isDevelop)
+        {
+            ClientId = clientId;
+            ClientSecret = clientSecret;
+            IsDevelop = isDevelop;
+        }
+        public string SpitballSite { get; set; }
+        public string FunctionSite { get; set; }
     }
 
     public class LocalStorageData

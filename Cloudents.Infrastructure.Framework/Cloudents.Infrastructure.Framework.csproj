@@ -31,7 +31,6 @@
     <PackageReference Include="Aspose.Slides.NET" Version="15.6.0" />
     <PackageReference Include="Aspose.Words" Version="15.6.0" />
     <PackageReference Include="Autofac" Version="4.9.4" />
-    <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <!--<ItemGroup>

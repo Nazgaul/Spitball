@@ -117,6 +117,7 @@
 import { mapActions, mapGetters } from 'vuex';
 
 //services
+import * as dialogNames from '../global/dialogInjection/dialogNames.js';
 import { LanguageService } from "../../../services/language/languageService";
 import analyticsService from '../../../services/analytics.service';
 import chatService from '../../../services/chatService';
@@ -264,7 +265,6 @@ export default {
             'setActiveConversationObj',
             'openChatInterface',
             'updateItemToaster',
-            'updateShowBuyDialog',
         ]),
         
         enterItemCard(vueElm){
@@ -323,7 +323,7 @@ export default {
         },
         openBuyTokenDialog() {
             this.updateItemToaster(false);
-            this.updateShowBuyDialog(true)
+            this.$openDialog(dialogNames.BuyPoints);
         }
     },
     beforeDestroy(){

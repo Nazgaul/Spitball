@@ -55,14 +55,14 @@ namespace Cloudents.Core
         }
 
         public string BuildQuestionEndPoint
-            (long id, object parameters = null)
+            (long id, object? parameters = null)
         {
             var builder = new UriBuilder(_webSiteEndPoint) { Path = $"question/{id}" };
             builder.AddQuery(parameters);
             return builder.ToString();
         }
 
-        public Uri BuildChatEndpoint(string token, object parameters = null)
+        public Uri BuildChatEndpoint(string token, object? parameters = null)
         {
             var nvc = new NameValueCollection();
 
@@ -97,14 +97,14 @@ namespace Cloudents.Core
 
        
 
-        public Uri BuildShortUrlEndpoint(string identifier,  object parameters = null)
+        public Uri BuildShortUrlEndpoint(string identifier,  object? parameters = null)
         {
             var builder = new UriBuilder(_webSiteEndPoint) { Path = $"go/{identifier}" };
             builder.AddQuery(parameters);
             return builder.Uri;
         }
 
-        public string BuildDocumentEndPoint(long id, object parameters = null)
+        public string BuildDocumentEndPoint(long id, object? parameters = null)
         {
             var base62 = new Base62(id);
             var builder = new UriBuilder(_webSiteEndPoint) { Path = $"document/{base62.ToString()}" };
@@ -114,7 +114,7 @@ namespace Cloudents.Core
 
 
         public const string ImageFunctionDocumentRoute = "image/document/{id}";
-        public string BuildDocumentThumbnailEndpoint(long id, object parameters = null)
+        public string BuildDocumentThumbnailEndpoint(long id, object? parameters = null)
         {
             var path = ImageFunctionDocumentRoute.InjectSingleValue("id", id);
             var builder = new UriBuilder(_functionEndPoint) { Path = $"api/{path}" };
@@ -126,7 +126,7 @@ namespace Cloudents.Core
 
 
         public const string ImageFunctionUserRoute = "image/user/{id}/{file}";
-        public string BuildUserImageEndpoint(long id, string imageName, string userName, object parameters = null)
+        public string BuildUserImageEndpoint(long id, string imageName, string? userName, object? parameters = null)
         {
             
             var injectionObj = new 
@@ -140,7 +140,7 @@ namespace Cloudents.Core
             return builder.ToString();
         }
 
-        public string BuildUserImageEndpoint(long id, string imageName)
+        public string? BuildUserImageEndpoint(long id, string? imageName)
         {
             if (imageName is null)
             {
@@ -158,7 +158,7 @@ namespace Cloudents.Core
 
         private const string ImageFunctionUserProfileShareRoute = "share/profile/{id}";
 
-        public string BuildUserImageProfileShareEndpoint(long id, object parameters = null)
+        public string BuildUserImageProfileShareEndpoint(long id, object? parameters = null)
         {
             var injectionObj = new
             {
@@ -173,7 +173,7 @@ namespace Cloudents.Core
 
         private const string ImageFunctionDocumentShareRoute = "share/document/{id}";
 
-        public string BuildDocumentImageShareEndpoint(long id, object parameters = null)
+        public string BuildDocumentImageShareEndpoint(long id, object? parameters = null)
         {
             var injectionObj = new
             {

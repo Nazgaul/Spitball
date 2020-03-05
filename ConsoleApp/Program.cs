@@ -7,8 +7,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Infrastructure.Video;
 using Cloudents.Persistence;
-using Cloudents.Query;
-using Cloudents.Query.Tutor;
 using Cloudents.Search.Tutor;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
@@ -18,30 +16,16 @@ using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
-using System.ServiceModel.Syndication;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml;
 using Cloudents.Command;
-using Cloudents.Command.Command;
-using Cloudents.Command.Courses;
-using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Core.Extension;
-using Cloudents.Query.Sync;
-using Cloudents.Query.Users;
-using Cloudents.Search.Document;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 using Cloudmersive.APIClient.NETCore.ImageRecognition.Api;
-using Cloudmersive.APIClient.NETCore.ImageRecognition.Model;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -77,7 +61,6 @@ namespace ConsoleApp
                         Redis = ConfigurationManager.AppSettings["Redis"],
                         Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                         LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
-                        BlockChainNetwork = "http://localhost:8545",
                         ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
                     };
                 case EnvironmentSettings.Prod:
@@ -94,7 +77,6 @@ namespace ConsoleApp
                         Redis = ConfigurationManager.AppSettings["Redis"],
                         Storage = ConfigurationManager.AppSettings["StorageConnectionStringProd"],
                         LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
-                        BlockChainNetwork = "http://localhost:8545",
                         ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
                     };
                 default:

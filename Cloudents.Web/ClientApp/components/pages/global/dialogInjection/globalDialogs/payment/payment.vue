@@ -2,7 +2,7 @@
    <v-dialog :value="true" persistent :maxWidth="'840'" :fullscreen="$vuetify.breakpoint.xsOnly">
     <v-layout column class="payme-popup">
         <v-icon class="exit-btn cursor-pointer" @click="closeDialog">sbf-close</v-icon>
-        <div class="payme-popup-top pt-4" v-if="!getShowBuyDialog">
+        <div class="payme-popup-top pt-4" v-if="!getIsBuyPoints">
             <div class="payme-top-title" v-language:inner="'payme_top_title'"/>
             <v-layout wrap :class="['payme-content',isMobile? 'pt-4 pb-2':'pt-5 pb-4']">
                 <v-flex xs12 sm3 :class="['payme-content-div']">
@@ -20,7 +20,7 @@
             </v-layout>
             <div class="payme-top-desc pb-4" v-language:inner="'payme_top_desc'"/>
         </div>
-        <iframe :class="['payment-iframe',{'mt-4':getShowBuyDialog}]" width="100%" height="475" :src="paymentUrl"></iframe>
+        <iframe :class="['payment-iframe',{'mt-4':getIsBuyPoints}]" width="100%" height="475" :src="paymentUrl"></iframe>
         <div class="payme-popup-bottom">
             <p v-language:inner="'payme_bottom'"/>
             <img src="./images/card.png" alt="">
@@ -35,7 +35,7 @@ import * as routeNames from '../../../../../../routes/routeNames.js';
 export default {
     name: 'paymentDIalog',
     computed: {
-        ...mapGetters(['getPaymentURL','getShowBuyDialog']),
+        ...mapGetters(['getPaymentURL','getIsBuyPoints']),
         paymentUrl(){
             return this.getPaymentURL
         },

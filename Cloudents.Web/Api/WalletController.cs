@@ -215,5 +215,31 @@ namespace Cloudents.Web.Api
 
 
         #endregion
+
+
+        #region PayPal
+
+        [HttpPost("PayPal/StudyRoom")]
+        public async Task<IActionResult> PayPal(PayPalOrderRequest model,
+            [FromServices] IPayPal payPalService,
+            CancellationToken token)
+        {
+            //Command to save the token
+            await payPalService.PathOrderAsync(model.OrderId, token);
+            return Ok();
+        }
+
+
+        [HttpPost("PayPal/BuyTokens")]
+        public async Task<IActionResult> BuyTokensAsync(PayPalTransactionRequest model,
+            [FromServices] IPayPal payPal, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var result = await payPal.GetPaymentAsync(model.Id);
+            var command = new TransferMoneyToPointsCommand(userId, result.Amount, result.PayPalId);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+        #endregion
     }
 }

@@ -4,7 +4,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Query;
 using Cloudents.Query.General;
-using JetBrains.Annotations;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
@@ -15,7 +14,6 @@ using ICountryProvider = Cloudents.Core.Interfaces.ICountryProvider;
 
 namespace Cloudents.Infrastructure
 {
-    [UsedImplicitly]
     public class IpToLocation : IIpToLocation
     {
         private readonly IRestClient _restClient;

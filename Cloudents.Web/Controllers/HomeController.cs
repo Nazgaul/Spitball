@@ -40,8 +40,8 @@ namespace Cloudents.Web.Controllers
         [SignInWithToken]
         [ApiNotFoundFilter]
         public IActionResult Index(
-            [FromQuery, CanBeNull] string referral,
-            [FromQuery] string open
+            [FromQuery] string? referral,
+            [FromQuery] string? open
             )
         {
             if (!string.IsNullOrEmpty(referral))

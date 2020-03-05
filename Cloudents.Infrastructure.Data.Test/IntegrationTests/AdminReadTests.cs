@@ -34,7 +34,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task AdminConversationDetailsQuery_Ok(string id, string country)
         {
             var query = new ConversationDetailsQuery(id, country);
-            var res = await _fixture.QueryBus.QueryAsync(query, default);
+            await _fixture.QueryBus.QueryAsync(query, default);
             //res.Should().HaveCount(2);
         }
 

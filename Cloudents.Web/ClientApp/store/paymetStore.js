@@ -6,27 +6,28 @@ import { router } from '../main.js';
 
 const state = {
     paymentURL: null,
-    transactionId: null,
+    isBuyPoints: null
 };
 
 const mutations = {
     setPaymentURL(state,url){
         state.paymentURL = url;
     },
-    setIdTransaction(state, id) {
-        state.transactionId = id;
+    setIsBuyPoints(state,val){
+        state.isBuyPoints = val;
     },
 };
 
 const getters = {
     getPaymentURL:state => state.paymentURL,
-    getTransactionId: state => state.transactionId,
+    getIsBuyPoints:state => state.isBuyPoints,
 };
 
 const actions = {
-    buyToken({dispatch}, points) {
+    buyToken({dispatch ,commit}, points) {
         walletService.buyTokens(points).then(({ data }) => {
             dispatch('updatePaymentLink',data.link)
+            commit('setIsBuyPoints',true)
             router.push({query:{...router.currentRoute.query,dialog: dialogNames.Payment}})
         }).catch(() => {
             dispatch('updateToasterParams', {
@@ -54,11 +55,9 @@ const actions = {
             });
         } 
     },
-    updateIdTransaction({commit}, id) {
-        commit('setIdTransaction', id);
-    },
-    signalR_ReleasePaymeStatus({getters,dispatch}){
+    signalR_ReleasePaymeStatus({getters,dispatch,commit}){
         let isStudyRoom = getters.getStudyRoomData;
+        commit('setIsBuyPoints',false)
         if(!!isStudyRoom){
             dispatch('releasePaymeStatus_studyRoom');
             router.push({query:{...router.currentRoute.query,dialog:undefined}})
@@ -69,6 +68,12 @@ const actions = {
     },
     updatePaymentLink({commit},link){
         commit('setPaymentURL',link);
+    },
+    updateIsBuyPoints({commit},val){
+        commit('setIsBuyPoints',val)
+    },
+    updatePaypalBuyTokens(context,id){
+        return walletService.paypalBuyTokens(id)
     }
 };
 

@@ -63,7 +63,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var count = result.Count;
             result.Count.Should().Be(result.Result.Count());
 
-            var query2 = new TutorListQuery(userId, "IL", 0, 20);
+            var query2 = new TutorListQuery(userId, "IL", 0);
             var result2 = await _fixture.QueryBus.QueryAsync(query2, default);
             result2.Count.Should().Be(count);
         }

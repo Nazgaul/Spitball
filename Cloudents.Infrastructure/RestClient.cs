@@ -2,7 +2,6 @@
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
-using JetBrains.Annotations;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,7 +15,6 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure
 {
-    [UsedImplicitly]
     public sealed class RestClient : IRestClient
     {
         private readonly HttpClient _client;
@@ -32,16 +30,15 @@ namespace Cloudents.Infrastructure
             _client = client;
         }
 
-        [CanBeNull]
         [Log]
-        public Task<string> GetAsync(Uri url, NameValueCollection queryString, CancellationToken token)
+        public Task<string?> GetAsync(Uri url, NameValueCollection queryString, CancellationToken token)
         {
             return GetAsync(url, queryString, null, token);
         }
 
         [Log]
-        public async Task<string> GetAsync(Uri url, NameValueCollection queryString,
-            IEnumerable<KeyValuePair<string, string>> headers,
+        public async Task<string?> GetAsync(Uri url, NameValueCollection queryString,
+            IEnumerable<KeyValuePair<string, string>>? headers,
             CancellationToken token)
         {
             _client.DefaultRequestHeaders.Clear();

@@ -4,13 +4,11 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Google;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search.Document;
-using JetBrains.Annotations;
 using System.Diagnostics.CodeAnalysis;
 using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure
 {
-    [UsedImplicitly]
     public sealed class ModuleRead : Module
     {
         [SuppressMessage("Microsoft.Design", "RCS1163:Unused parameter")]

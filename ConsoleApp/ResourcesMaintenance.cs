@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core;
-using Cloudents.Core.Extension;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,7 +11,7 @@ namespace ConsoleApp
 {
     public static class ResourcesMaintenance
     {
-        private static readonly Dictionary<string, string[]> _fileContentCache = new Dictionary<string, string[]>();
+        private static readonly Dictionary<string, string[]> FileContentCache = new Dictionary<string, string[]>();
         private static void DeleteUnusedResources()
         {
             //TODO: :// we need to think about landing page and other instances of resources string interpolation!
@@ -113,10 +112,10 @@ namespace ConsoleApp
 
                     foreach (string file in jsFiles)
                     {
-                        if (!_fileContentCache.TryGetValue(file, out var lines))
+                        if (!FileContentCache.TryGetValue(file, out var lines))
                         {
                             lines = File.ReadAllLines(file);
-                            _fileContentCache[file] = lines;
+                            FileContentCache[file] = lines;
                         }
                         //string[] lines = File.ReadAllLines(file); 
                         occurrence = lines.Any(l => l.Contains(resourceString, StringComparison.OrdinalIgnoreCase));
@@ -176,10 +175,10 @@ namespace ConsoleApp
                 string firstOccurrence = null;
                 foreach (string file in allFiles)
                 {
-                    if (!_fileContentCache.TryGetValue(file, out var lines))
+                    if (!FileContentCache.TryGetValue(file, out var lines))
                     {
                         lines = File.ReadAllLines(file);
-                        _fileContentCache[file] = lines;
+                        FileContentCache[file] = lines;
                     }
                     firstOccurrence = lines.FirstOrDefault(l => l.Contains(image));
                     if (!string.IsNullOrEmpty(firstOccurrence))
@@ -221,10 +220,10 @@ namespace ConsoleApp
 
             foreach (string file in jsFiles)
             {
-                if (!_fileContentCache.TryGetValue(file, out var lines))
+                if (!FileContentCache.TryGetValue(file, out var lines))
                 {
                     lines = File.ReadAllLines(file);
-                    _fileContentCache[file] = lines;
+                    FileContentCache[file] = lines;
                 }
 
                 foreach (Match match in blocks.Matches(string.Join(Environment.NewLine, lines)))
@@ -261,10 +260,10 @@ namespace ConsoleApp
                 var exists = false;
                 foreach (string file in jsFiles)
                 {
-                    if (!_fileContentCache.TryGetValue(file, out var lines))
+                    if (!FileContentCache.TryGetValue(file, out var lines))
                     {
                         lines = File.ReadAllLines(file);
-                        _fileContentCache[file] = lines;
+                        FileContentCache[file] = lines;
                     }
                     //string[] lines = File.ReadAllLines(file); 
                     if (lines.Any(l => l.Contains($"sbf-{Path.GetFileNameWithoutExtension(svgFileInfo.Name)}")))

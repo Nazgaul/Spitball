@@ -117,8 +117,7 @@ const actions = {
     },
     signalR_SetBalance({ commit, state, dispatch, getters }, newBalance) {
         router.push({query:{...router.currentRoute.query,dialog:undefined}})
-        if (getters.getShowBuyDialog || state.user.balance > newBalance) {
-            dispatch('updateShowBuyDialog', false);
+        if (getters.getIsBuyPoints || state.user.balance > newBalance) {
             dispatch('updateToasterParams', {
                 toasterText: LanguageService.getValueByKey("buyTokens_success_transaction"),
                 showToaster: true,

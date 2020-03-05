@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -21,9 +20,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
 using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Advanced;
 using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Primitives;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
@@ -85,6 +82,7 @@ namespace Cloudents.FunctionsV2
             {
                 if (dbResult.Type == DocumentType.Video)
                 {
+                    // ReSharper disable AccessToDisposedClosure mutation happens right await
                     logoImage.Mutate(m => m.ApplyProcessors(new ChangeLogoProcessorCreator()));
                 }
                 var logoPointX = 24;

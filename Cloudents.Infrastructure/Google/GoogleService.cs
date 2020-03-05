@@ -28,7 +28,6 @@ using User = Cloudents.Core.Entities.User;
 
 namespace Cloudents.Infrastructure.Google
 {
-    [UsedImplicitly]
     public sealed class GoogleService :
         IGoogleAuth,
         IGoogleDocument,
@@ -178,7 +177,7 @@ namespace Cloudents.Infrastructure.Google
 
 
         public async Task<IEnumerable<GoogleAppointmentDto>> ReadCalendarEventsAsync(long userId, 
-            [NotNull] IEnumerable<string> calendarsIds,
+            IEnumerable<string> calendarsIds,
             DateTime from, DateTime max,
             CancellationToken cancellationToken)
         {

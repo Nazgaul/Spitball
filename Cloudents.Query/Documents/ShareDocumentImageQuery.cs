@@ -6,7 +6,6 @@ using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs.Tutors;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Query.Tutor;
 using NHibernate;
 using NHibernate.Linq;
 

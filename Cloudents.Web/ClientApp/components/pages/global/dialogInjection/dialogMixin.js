@@ -6,6 +6,7 @@ const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue'
 const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
 const login = () => import('./globalDialogs/login/login.vue');
 const payment = () => import('./globalDialogs/payment/payment.vue');
+const buyPoints = () => import('./globalDialogs/buyPoints/buyPointsWrapper.vue');
 
 
 export default {
@@ -15,7 +16,8 @@ export default {
         upload,
         createCoupon,
         login,
-        payment
+        payment,
+        buyPoints
     },
     data() {
         return {
@@ -26,6 +28,7 @@ export default {
                 payment:["auth"],
                 upload: ["auth","courses"],
                 createCoupon: ["auth","tutor"],
+                buyPoints:["auth"]
             }
         }
     },

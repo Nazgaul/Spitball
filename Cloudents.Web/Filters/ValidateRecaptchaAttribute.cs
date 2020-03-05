@@ -132,7 +132,6 @@ namespace Cloudents.Web.Filters
         }
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Local", Justification = "Json.net need to familiar with this")]
-        [UsedImplicitly]
         public class RecaptchaResponse
         {
             public bool Success { get; set; }

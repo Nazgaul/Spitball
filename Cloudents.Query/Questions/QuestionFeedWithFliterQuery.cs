@@ -149,8 +149,8 @@ FETCH NEXT @pageSize ROWS ONLY";
                 var sql = query.Course == null ? sqlWithoutCourse : sqlWithCourse;
 
                 var result = new List<QuestionFeedDto>();
-                using (var conn = _dapperRepository.OpenConnection())
-                using (var reader = await conn.ExecuteReaderAsync(sql, new
+                using var conn = _dapperRepository.OpenConnection();
+                using var reader = await conn.ExecuteReaderAsync(sql, new
                 {
                     query.Page,
                     query.UserId,
@@ -158,20 +158,17 @@ FETCH NEXT @pageSize ROWS ONLY";
                     query.Course,
                     query.PageSize
 
-                }))
+                });
+                if (reader.Read())
                 {
-                    if (reader.Read())
+                    var colJson = reader.GetOrdinal("JsonArray");
+                    do
                     {
-                        var col = reader.GetOrdinal("type");
-                        var colJson = reader.GetOrdinal("JsonArray");
-                        do
-                        {
-                            var v = reader.GetString(colJson);
-                            var questions = _jsonSerializer.Deserialize<IEnumerable<QuestionFeedDto>>(v);
-                            result.Add(questions.First());
+                        var v = reader.GetString(colJson);
+                        var questions = _jsonSerializer.Deserialize<IEnumerable<QuestionFeedDto>>(v);
+                        result.Add(questions.First());
                             
-                        } while (reader.Read());
-                    }
+                    } while (reader.Read());
                 }
 
                 return result;

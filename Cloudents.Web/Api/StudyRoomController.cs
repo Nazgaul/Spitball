@@ -98,7 +98,8 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<StudyRoomDto>> GetStudyRoomAsync(Guid id, [FromServices] IUrlBuilder urlBuilder, CancellationToken token)
+        public async Task<ActionResult<StudyRoomDto>> GetStudyRoomAsync(Guid id, 
+            [FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new StudyRoomQuery(id, userId);
@@ -115,12 +116,7 @@ namespace Cloudents.Web.Api
             return result;
         }
 
-        //private async Task<StudyRoomDto> GetStudyRoomAsync(Guid id, long userId, CancellationToken token)
-        //{
-        //    var query = new StudyRoomQuery(id, userId);
-        //    var result = await _queryBus.QueryAsync(query, token);
-        //    return result;
-        //}
+      
 
         [HttpPost("upload"), AllowAnonymous]
         public async Task<IActionResult> UploadAsync([Required] IFormFile file,
