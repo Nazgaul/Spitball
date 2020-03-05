@@ -18,7 +18,17 @@ const state = {
     isCalendarShared:null,
 };
 
-const mutations ={
+const mutations = {
+    setResetCalendar(state){
+        state.calendarEvents = [];
+        state.needPayment = true;
+        state.showCalendar = false;
+        state.intervalFirst = 8;
+        state.isCalendarShared = null;
+        state.tutorId = null;
+        state.fromDate = new Date().toISOString();
+        state.toDate = null;
+    },
     setIsCalendarShared(state,val){
         state.isCalendarShared = val;
     },
@@ -222,6 +232,9 @@ const actions ={
                 })
             }
         })
+    },
+    resetCalendar({commit}){
+        commit('setResetCalendar')
     }
 };
 

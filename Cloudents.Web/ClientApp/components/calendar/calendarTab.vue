@@ -50,6 +50,9 @@ export default {
     methods: {
         ...mapActions(['updateCalendarStatus'])
     },
+    beforeDestroy() {
+        this.$store.dispatch('resetCalendar')
+    },
     created() {
         let self = this;
         this.$loadScript("https://apis.google.com/js/api.js").then(() => {
