@@ -9,12 +9,10 @@ namespace Cloudents.Command.CommandHandler
     public class AddPayPalOrderCommandHandler : ICommandHandler<AddPayPalOrderCommand>
     {
         
-        private readonly IRepository<UserToken> _userTokenRepository;
         private readonly IRepository<User> _userRepository;
         
-        public AddPayPalOrderCommandHandler(IRepository<UserToken> userTokenRepository, IRepository<User> userRepository)
+        public AddPayPalOrderCommandHandler(IRepository<User> userRepository)
         {
-            _userTokenRepository = userTokenRepository;
             _userRepository = userRepository;
         }
 
@@ -23,7 +21,8 @@ namespace Cloudents.Command.CommandHandler
             var user = await _userRepository.LoadAsync(message.UserId, token);
             
             var userToken = new UserToken(user, message.Token);
-            await _userTokenRepository.AddAsync(userToken, token);
+            user.AddToken(userToken);
+            await _userRepository.UpdateAsync(user, token);
         }
     }
 }
