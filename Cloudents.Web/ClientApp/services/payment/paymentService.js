@@ -18,6 +18,9 @@ class CountryPayment {
    getPaymentComponent() {
       return this.paymentComponent
    }
+   getIsCalendarNeedPayment(){
+      return this.countryCode !== 'US'
+   }
 }
 const IL = new CountryPayment('IL', require('./images/redeemPointsIL.jpg'),'buyPointsIL','paymentIL');
 const IN = new CountryPayment('IN', require('./images/redeemPointsFRYMO.jpg'),'buyPointsFrymo');
@@ -47,9 +50,13 @@ function getBuyPointsComponent(){
 function getPaymentComponent(){
    return getTheRightService().getPaymentComponent()
 }
+function getIsCalendarNeedPayment(){
+   return getTheRightService().getIsCalendarNeedPayment()
+}
 
 export default {
    getRedeemImg,
    getBuyPointsComponent,
-   getPaymentComponent
+   getPaymentComponent,
+   getIsCalendarNeedPayment
 }
