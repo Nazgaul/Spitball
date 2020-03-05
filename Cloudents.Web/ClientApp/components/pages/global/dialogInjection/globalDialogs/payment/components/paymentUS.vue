@@ -69,9 +69,7 @@ export default {
                     });
                 },
                 onApprove: function(data) {
-                    self.$store.dispatch('updatePaypalStudyRoom',{orderId: data.orderID}).then(()=>{
-                        debugger
-                    })
+                    self.$store.dispatch('updatePaypalStudyRoom',{orderId: data.orderID})
                 }
             })
             .render('#paypal-button-container');
