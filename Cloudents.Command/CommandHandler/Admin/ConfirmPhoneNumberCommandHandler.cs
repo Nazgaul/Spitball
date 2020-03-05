@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler.Admin
 {
-    public class ConfirmePhoneNumberCommandHandler : ICommandHandler<ConfirmPhoneNumberCommand>
+    public class ConfirmPhoneNumberCommandHandler : ICommandHandler<ConfirmPhoneNumberCommand>
     {
         private readonly IRepository<User> _userRepository;
 
-        public ConfirmePhoneNumberCommandHandler(IRepository<User> userRepository)
+        public ConfirmPhoneNumberCommandHandler(IRepository<User> userRepository)
         {
             _userRepository = userRepository;
         }

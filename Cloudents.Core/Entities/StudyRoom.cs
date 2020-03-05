@@ -14,12 +14,24 @@ namespace Cloudents.Core.Entities
     {
         public StudyRoom(Tutor tutor, User user, string onlineDocumentUrl)
         {
-            _users = new[] { new StudyRoomUser(tutor.User, this), new StudyRoomUser(user, this) };
+            _users = new[]
+            {
+                new StudyRoomUser(tutor.User, this),
+                new StudyRoomUser(user, this)
+            };
             Tutor = tutor;
             Identifier = ChatRoom.BuildChatRoomIdentifier(new[] { tutor.Id, user.Id });
             OnlineDocumentUrl = onlineDocumentUrl;
             Type = StudyRoomType.PeerToPeer;
             DateTime = new DomainTimeStamp();
+
+            var userToken = user.UserTokens.AsQueryable().FirstOrDefault(w => w.State == UserTokenState.NotUsed);
+            if (userToken != null)
+            {
+                userToken.State = UserTokenState.Reserved;
+            }
+
+
             AddEvent(new StudyRoomCreatedEvent(this));
         }
 
