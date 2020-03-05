@@ -35,6 +35,7 @@ import studyroomSettings_store from './studyRoomStore/studyroomSettings_store.js
 import studyRoomStore from './studyRoomStore/studyRoomStore.js'
 import signalRPlugin from '../plugins/signalRPlugin';
 
+import couponStore from '../store/couponStore'
 // const onModuleAValueChange= (store) => {
 //     store.watch(
 //         state => state.route,
@@ -102,6 +103,7 @@ const store = new Vuex.Store({
         tutoringMain,
         studyroomSettings_store,
         studyRoomStore,
+        couponStore
     },
     plugins: [signalRPlugin({hubPath:'/sbhub'})]
    // plugins: [onModuleAValueChange]

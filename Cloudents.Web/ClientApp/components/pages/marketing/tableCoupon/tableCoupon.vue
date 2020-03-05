@@ -57,8 +57,8 @@
 </template>
 
 <script>
-import storeService from '../../../../services/store/storeService';
-import couponStore from '../../../../store/couponStore';
+// import storeService from '../../../../services/store/storeService';
+// import couponStore from '../../../../store/couponStore';
 
 export default {
     name: "tableCoupon",
@@ -111,11 +111,11 @@ export default {
         })
       }
     },
-    beforeDestroy(){
-      storeService.unregisterModule(this.$store, 'couponStore');
-    },
+    // beforeDestroy(){
+    //   storeService.unregisterModule(this.$store, 'couponStore');
+    // },
     created() {
-      storeService.registerModule(this.$store, 'couponStore', couponStore);
+    //   storeService.registerModule(this.$store, 'couponStore', couponStore);
       this.getCoupons();
     }
 }

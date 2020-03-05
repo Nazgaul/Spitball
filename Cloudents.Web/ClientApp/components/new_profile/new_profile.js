@@ -3,8 +3,8 @@ import { mapActions, mapGetters } from 'vuex';
 import analyticsService from '../../services/analytics.service';
 import { LanguageService } from "../../services/language/languageService";
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
-import storeService from '../../services/store/storeService';
-import couponStore from '../../store/couponStore';
+// import storeService from '../../services/store/storeService';
+// import couponStore from '../../store/couponStore';
 import chatService from '../../services/chatService.js';
 
 import profileUserBox from './components/profileUserBox/profileUserBox.vue';
@@ -308,11 +308,11 @@ export default {
     },
     beforeDestroy(){
         this.closeCouponDialog();
-        storeService.unregisterModule(this.$store, 'couponStore');
+        // storeService.unregisterModule(this.$store, 'couponStore');
      },
     created() {
         this.fetchData();
-        storeService.registerModule(this.$store, 'couponStore', couponStore);
+        // storeService.registerModule(this.$store, 'couponStore', couponStore);
         if(!!this.$route.query.coupon) {
             setTimeout(() => {
                 this.openCoupon();
