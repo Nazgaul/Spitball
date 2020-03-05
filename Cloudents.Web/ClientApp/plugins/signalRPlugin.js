@@ -22,6 +22,9 @@ export default ({hubPath}) => {
     connection.onreconnecting(() => {
       store.dispatch('setIsSignalRConnected', false);
     });
+    connection.onreconnected(() => {
+      store.dispatch('setIsSignalRConnected', true);
+    });
 
     store.subscribe((mutation) => {
       switch(mutation.type) {
