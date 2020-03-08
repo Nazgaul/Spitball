@@ -74,7 +74,7 @@
         },
         computed: {
             ...mapState(['tutoringMain', 'studyRoomTracks_store']),
-            ...mapGetters(["activeRoom", "accountUser", "getStudyRoomData", "getCurrentRoomState", "getLocalVideoTrack","activeRoom"]),
+            ...mapGetters(["accountUser", "getStudyRoomData", "getCurrentRoomState", "getLocalVideoTrack","activeRoom"]),
             localVideoTrack(){
                 return this.getLocalVideoTrack
             },

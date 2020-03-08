@@ -19,6 +19,9 @@ const getters = {
    
 }
 const actions = {
+   updateTwilioConnection(context,{token, connectOptions}){
+
+   },
    updateStudyRoomInformation({getters,dispatch},roomId){
       if(getters.getStudyRoomData){
          return dispatch('studyRoomMiddleWare')
