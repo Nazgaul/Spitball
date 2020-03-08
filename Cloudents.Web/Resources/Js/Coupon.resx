@@ -172,7 +172,7 @@
     <value>Claim your discount</value>
   </data>
   <data name="toaster_copy" xml:space="preserve">
-    <value>Link copied to clipboard</value>
+    <value>Coupon code copied to clipboard</value>
   </data>
   <data name="type_flat" xml:space="preserve">
     <value>Flat discount</value>
