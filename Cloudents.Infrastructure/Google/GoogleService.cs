@@ -294,19 +294,20 @@ namespace Cloudents.Infrastructure.Google
                 HttpClientInitializer = cred
             }))
             {
-               var t = _tokenHandler.ReadJwtToken(tutorToken).Payload.Where(w => w.Key == "email").SingleOrDefault();
+               var tutorCalendarEmail = _tokenHandler.ReadJwtToken(tutorToken).Payload.Where(w => w.Key == "email").SingleOrDefault();
 
-                var attendees = new List<EventAttendee>()
+
+                var attendees = new[] { tutor, student }.Select(s => new EventAttendee()
                 {
-                    new EventAttendee()
-                    {
-                        Email = t.Value.ToString()
-                    },
-                    new EventAttendee()
-                    {
-                        Email = student.Email
-                    }
-                };
+                    Email = s.Email
+
+                }).ToList();
+
+                attendees.Add(new EventAttendee()
+                {
+                    Email = tutorCalendarEmail.Value.ToString()
+                });
+
                 var event2 = service.Events.Insert(new Event()
                 {
                     Attendees = attendees,
