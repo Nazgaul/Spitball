@@ -172,7 +172,7 @@
     <value>ממש את הקופון שלך</value>
   </data>
   <data name="toaster_copy" xml:space="preserve">
-    <value>קישור הועתק ללוח</value>
+    <value>קוד קופון הועתק ללוח</value>
   </data>
   <data name="type_flat" xml:space="preserve">
     <value>הנחה קבועה</value>
