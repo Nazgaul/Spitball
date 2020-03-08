@@ -4,12 +4,14 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
+using Cloudents.Query.Session;
 using Cloudents.Query.Users;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -62,6 +64,13 @@ namespace Cloudents.Web.Api
             var command = new SetSessionDurationCommand(userId, model.SessionId, model.RealDuration);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
+        }
+
+        [HttpGet("session")]
+        public async Task<PaymentDetailDto> GetPaymentAsync([FromQuery] Guid id, CancellationToken token)
+        {
+            var query = new PaymentBySessionIdQuery(id);
+            return await _queryBus.QueryAsync(query, token);
         }
     }
 }
