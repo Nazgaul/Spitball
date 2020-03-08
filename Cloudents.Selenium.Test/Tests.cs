@@ -410,13 +410,29 @@ namespace Cloudents.Selenium.Test
 
                 // Make sure this element is exist
                 driver.FindElementByWait(By.XPath("//*[contains(@class, 'exitRegisterDialog')]"));
-
+                
                 LoginTest();
+
+                // Wait until this element is showing
+                driver.FindElementByWait(By.XPath("//*[@sel='menu']"));
+
                 url = $"{_driver.SiteUrl.TrimEnd('/')}?dialog=upload";
                 driver.Navigate().GoToUrl(url);
 
                 // Make sure this element is exist
                 driver.FindElementByWait(By.XPath("//*[contains(@class, 'upload-dialog')]"));
+
+                url = $"{_driver.SiteUrl.TrimEnd('/')}?dialog=createCoupon";
+                driver.Navigate().GoToUrl(url);
+
+                // Make sure this element is exist
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'createCouponDialog')]"));
+
+                url = $"{_driver.SiteUrl.TrimEnd('/')}?dialog=becomeTutor";
+                driver.Navigate().GoToUrl(url);
+
+                // Make sure this element is exist
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'become-tutor-wrap')]"));
             }
         }
     }
