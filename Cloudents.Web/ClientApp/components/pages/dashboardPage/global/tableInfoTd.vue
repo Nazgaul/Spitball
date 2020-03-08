@@ -1,6 +1,11 @@
 <template functional>
    <td class="tableInfo text-xs-left text-truncate">
-      <router-link class="tableInfo_router" :to="props.globalFunctions.router(props.item)">
+      <template v-if="props.item.type === 'BuyPoints'">
+         <div class="text-truncate">
+            <span>BuyPoints</span>
+         </div>
+      </template>
+      <router-link v-else class="tableInfo_router" :to="props.globalFunctions.router(props.item)">
          <template v-if="props.item.type === 'TutoringSession'">
             <div class="text-truncate">
                <span v-html="props.globalFunctions.$Ph('dashboardPage_session',props.item.name)"/>
