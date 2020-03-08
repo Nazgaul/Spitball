@@ -5,7 +5,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace Cloudents.Web.Framework
+namespace Cloudents.Admin2.Framework
 {
     public class FormContentTypeAttribute : Attribute, IActionConstraint
     {
@@ -28,7 +28,8 @@ namespace Cloudents.Web.Framework
     //        }
 
     //        var reader = new HttpRequestStreamReader(context.RouteContext.HttpContext.Request.Body, Encoding.UTF8);
-    //        var parser = JObject.Parse(reader.ReadToEnd());
+    //        var data = reader.ReadToEnd();
+    //        var parser = JObject.Parse(data);
 
     //        var t = string.Equals(parser.GetValue("phase", StringComparison.OrdinalIgnoreCase).Value<string>(), "start", StringComparison.OrdinalIgnoreCase);
     //        context.RouteContext.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);

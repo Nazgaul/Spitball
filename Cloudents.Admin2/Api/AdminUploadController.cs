@@ -1,42 +1,35 @@
-﻿using Cloudents.Core;
+﻿using Cloudents.Admin2.Extensions;
+using Cloudents.Admin2.Framework;
+using Cloudents.Admin2.Models;
+using Cloudents.Core;
 using Cloudents.Core.Storage;
-using Cloudents.Web.Extensions;
-using Cloudents.Web.Framework;
-using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace Cloudents.Web.Api
+namespace Cloudents.Admin2.Api
 {
-
-    public abstract class UploadControllerBase : ControllerBase
+    [Route("api/[controller]"), ApiController]
+    [Authorize]
+    public class AdminUploadController : ControllerBase
     {
-
-        protected readonly IBlobProvider BlobProvider;
+        protected readonly IAdminDirectoryBlobProvider BlobProvider;
         private readonly ITempDataDictionaryFactory _tempDataDictionaryFactory;
-        private readonly IStringLocalizer<UploadControllerBase> _localizer;
 
-        protected UploadControllerBase(IBlobProvider blobProvider, ITempDataDictionaryFactory tempDataDictionaryFactory, IStringLocalizer<UploadControllerBase> localizer)
+        public AdminUploadController(IAdminDirectoryBlobProvider blobProvider, ITempDataDictionaryFactory tempDataDictionaryFactory)
         {
             BlobProvider = blobProvider;
             _tempDataDictionaryFactory = tempDataDictionaryFactory;
-            _localizer = localizer;
         }
 
-        // GET: api/<controller>2
-        [HttpPost("upload"), FormContentType, ApiExplorerSettings(IgnoreApi = true), Authorize]
+        [HttpPost("upload"), FormContentType, ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<UploadStartResponse>> BatchUploadAsync(
             [FromForm] UploadRequestForm model,
             CancellationToken token)
@@ -54,12 +47,28 @@ namespace Cloudents.Web.Api
 
             tempDataProvider.Put($"update-{model.SessionId}", tempData);
             return new UploadStartResponse();
+        }
 
+        [NonAction]
+        private IEnumerable<string> GetSupportedExtensions()
+        {
+            return FileTypesExtensions.GetFormats();
+        }
+
+        private string BlobFileName(Guid sessionId, string name)
+        {
+            Regex rgx = new Regex(@"[^\x00-\x7F]+|\s+");
+            name = rgx.Replace(name, string.Empty);
+            if (name.StartsWith('.'))
+            {
+                name = DateTimeOffset.UtcNow.ToUnixTimeSeconds() + name;
+            }
+            return $"{sessionId}-{name.Replace("/", string.Empty)}";
         }
 
 
-        //1
-        [HttpPost("upload"), ApiExplorerSettings(IgnoreApi = true), Authorize]
+
+        [HttpPost("upload"), ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<UploadStartResponse>> Upload([FromBody] UploadRequestBase model,
             CancellationToken token)
         {
@@ -70,20 +79,12 @@ namespace Cloudents.Web.Api
             }
             catch (ArgumentException)
             {
-                ModelState.AddModelError(nameof(model), string.Format(_localizer["Upload"], string.Join(", ", GetSupportedExtensions())));
                 return BadRequest(ModelState);
 
             }
         }
 
-        [NonAction]
-        protected virtual IEnumerable<string> GetSupportedExtensions()
-        {
-            return FileTypesExtensions.GetFormats();
-        }
-
-
-        [SuppressMessage("ReSharper", "UnusedParameter.Local", Justification = "need the same method signature")]
+        
         private Task<UploadStartResponse> Upload(UploadRequestStart model, CancellationToken token)
         {
 
@@ -110,20 +111,8 @@ namespace Cloudents.Web.Api
             return Task.FromResult(response);
         }
 
-
-
-        protected virtual string BlobFileName(Guid sessionId, string name)
-        {
-            Regex rgx = new Regex(@"[^\x00-\x7F]+|\s+");
-            name = rgx.Replace(name, string.Empty);
-            if (name.StartsWith('.'))
-            {
-                name = DateTimeOffset.UtcNow.ToUnixTimeSeconds() + name;
-            }
-            return $"file-{sessionId}-{name.Replace("/", string.Empty)}";
-        }
-
-        private async Task<UploadStartResponse> Upload(UploadRequestFinish model, CancellationToken token)
+        //[HttpPost("upload"), ApiExplorerSettings(IgnoreApi = true)]
+        private async Task<UploadEndResponce> Upload(UploadRequestFinish model, CancellationToken token)
         {
             var tempDataProvider = _tempDataDictionaryFactory.GetTempData(HttpContext);
             var tempData2 = tempDataProvider.Get<TempData>($"update-{model.SessionId}");
@@ -137,12 +126,14 @@ namespace Cloudents.Web.Api
             }
 
             //original file name can only have ascii chars. hebrew not supported. remove that
-            await BlobProvider.CommitBlockListAsync(tempData2.BlobName, tempData2.MimeType, null, indexes, null, token);
-            var result = tempData2.BlobName;
-            await FinishUploadAsync(model, result, token);
-            return new UploadStartResponse(result);
+            await BlobProvider.CommitBlockListAsync(tempData2.BlobName, tempData2.MimeType, null, indexes, TimeSpan.FromDays(365), token);
+            var bolobUri = BlobProvider.GetBlobUrl(tempData2.BlobName);
+            //var preview = BlobProvider.GeneratePreviewLink(bolobUri,
+            //                TimeSpan.FromDays(30));
+            return new UploadEndResponce(bolobUri);
         }
 
-        public abstract Task FinishUploadAsync(UploadRequestFinish model, string blobName, CancellationToken token);
+
     }
+
 }

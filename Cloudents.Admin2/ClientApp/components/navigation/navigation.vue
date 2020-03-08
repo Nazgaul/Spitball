@@ -145,6 +145,12 @@
                             path: '/subjects',
                         }
                     },
+                    {
+                        setting: {
+                            title: 'upload',
+                            path: '/upload',
+                        }
+                    },
                 ]
             }
         },
