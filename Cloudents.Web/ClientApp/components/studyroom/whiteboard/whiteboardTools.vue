@@ -220,6 +220,7 @@ export default {
     methods:{
         ...mapActions(['setShowPickColorInterface', 'setCurrentOptionSelected', 'setSelectedOptionString', 'setUndoClicked', 'setClearAllClicked', 'setSnapshotDialog']),
         showColorPicker() {
+            this.$ga.event("tutoringRoom", "showColorPicker");
             this.setShowPickColorInterface(true);
         },
         hideColorPicker() {
@@ -229,6 +230,8 @@ export default {
             this.setOptionType(this.enumOptions.select);
         },
         setOptionType(e,selectedOption) {
+            this.$ga.event("tutoringRoom", selectedOption);
+
             this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, selectedOption)());
             this.setSelectedOptionString(selectedOption);
             // if(selectedOption === 'textDraw'){
@@ -254,12 +257,15 @@ export default {
             this.hideColorPicker();
         },
         undo(){
+            this.$ga.event("tutoringRoom", "undo");
             this.setUndoClicked();
         },
         clearCanvas(){
+            this.$ga.event("tutoringRoom", "clearCanvas");
             this.setClearAllClicked();
         },
         takeSnapshot(){
+            this.$ga.event("tutoringRoom", "takeSnapshot");
             this.setSnapshotDialog(true);
         }
     },

@@ -1,5 +1,5 @@
 <template>
-   <div :class="['profileUserSticky',{'profileUserSticky_bannerActive':getBannerParams}]" v-if="!!getProfile">
+   <div class="profileUserSticky" v-if="!!getProfile">
       <template v-if="isTutor">
          <transition name="fade">
             <div v-if="showScrollHeader" class="profileUserSticky_scrollHeader">
@@ -107,8 +107,9 @@ import exams from './images/exams.svg';
 import secure from './images/secure.svg';
 import chatIcon from './images/chatIcon.svg';
 import calendarIcon from './images/calendarIcon.svg';
+import * as dialogNames from '../../../pages/global/dialogInjection/dialogNames.js'
 
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 import userRating from '../../profileHelpers/profileBio/bioParts/userRating.vue';
 
@@ -134,7 +135,7 @@ export default {
       }
    },
    computed: {
-      ...mapGetters(['getBannerParams','getProfile','accountUser','getCouponDialog','getCouponError']),
+      ...mapGetters(['getProfile','accountUser','getCouponDialog','getCouponError']),
       isTutor(){
          return !!this.getProfile && this.getProfile.user.isTutor
       },
@@ -159,25 +160,11 @@ export default {
       },
    },
    methods: {
-      ...mapActions([
-         'updateLoginDialogState',
-         'updateTutorDialog']),
       reviewsPlaceHolder(reviews) {
          return reviews === 0 ? reviews.toString() : reviews;
       },
-
-
-      openCalendar(){
-         if(global.isAuth) {
-            if(this.isMyProfile) {
-               return
-            }
-         }else{
-            this.updateLoginDialogState(true);
-         }
-      },
       openBecomeTutor(){
-         this.updateTutorDialog(true)
+         this.$openDialog(dialogNames.BecomeTutor)
       },
       goTutorList(){
          this.$router.push({name:'tutorLandingPage'})
@@ -206,8 +193,6 @@ export default {
 @import '../../../../styles/mixin.less';
 .profileUserSticky{
    padding: 12px;
-   position: sticky;
-   top: 80px;
    min-width: 292px;
    width: 292px;
    height: max-content;
@@ -223,9 +208,6 @@ export default {
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
-   &.profileUserSticky_bannerActive{
-      top: 150px;
-   }
    .profileUserSticky_scrollHeader{
       display: flex;
       text-align: initial;

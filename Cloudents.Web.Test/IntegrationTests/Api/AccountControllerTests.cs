@@ -15,10 +15,10 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         private readonly object _settings = new
         {
-            firstName = "Skyler",
-            description = "Nice to meet you",
-            lastName = "White",
-            bio = "I have a lot of experience",
+            firstName = "Tester",
+            description = "I am a user for testing only",
+            lastName = "User",
+            bio = "Do not use this user for manual testing",
             price = 55
         };
 
@@ -34,8 +34,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("api/account")]
-        [InlineData("api/account/courses")]
-        [InlineData("api/account/university")]
         [InlineData("api/account/referrals")]
         public async Task AccountApiTestGet_NotLogIn_UnauthorizedAsync(string api)
         {
@@ -45,8 +43,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("api/account")]
-        [InlineData("api/account/courses")]
-        [InlineData("api/account/university")]
         [InlineData("api/account/referrals")]
         [InlineData("api/account/sales")]
         [InlineData("api/account/content")]
@@ -96,8 +92,8 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var price = tutor["price"]?.Value<decimal>();
 
 
-            firstName.Should().Be("Skyler");
-            lastName.Should().Be("White");
+            firstName.Should().Be("Tester");
+            lastName.Should().Be("User");
             price.Should().Be(55M);
         }
 

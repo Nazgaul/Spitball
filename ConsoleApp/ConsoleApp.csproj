@@ -1,23 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net471</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.4" />
-    <PackageReference Include="Cloudmersive.APIClient.NET.DocumentAndDataConvert" Version="3.1.4" />
     <PackageReference Include="Dapper" Version="2.0.30" />
     <PackageReference Include="Google.Apis.Sheets.v4" Version="1.37.0.1478" />
+    <PackageReference Include="Google.Apis.YouTube.v3" Version="1.43.0.1834" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.Face" Version="2.5.0-preview.1" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.0" />
-    <PackageReference Include="SimMetrics" Version="1.1.4118.23231" />
+    <PackageReference Include="Cloudmersive.APIClient.NETCore.DocumentAndDataConvert" Version="1.8.9" />
+    <PackageReference Include="Cloudmersive.APIClient.NETCore.ImageRecognition" Version="1.7.3" />
+    
     <!--Do not remove this-->
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <!--<PackageReference Include="windowsazure.mediaservices.extensions" Version="4.2.0" />-->
     <PackageReference Include="Microsoft.Azure.Management.Media" Version="2.0.4" />
     <PackageReference Include="Microsoft.ML.Recommender" Version="0.17.0-preview" />
+
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -28,7 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
-    <ProjectReference Include="..\Cloudents.Infrastructure.Framework\Cloudents.Infrastructure.Framework.csproj" />
+    <!--<ProjectReference Include="..\Cloudents.Infrastructure.Framework\Cloudents.Infrastructure.Framework.csproj" />-->
     <ProjectReference Include="..\Cloudents.Infrastructure.Storage\Cloudents.Infrastructure.Storage.csproj" />
     <ProjectReference Include="..\Cloudents.Infrastructure\Cloudents.Infrastructure.csproj" />
     <ProjectReference Include="..\Cloudents.Persistance\Cloudents.Persistence.csproj" />

@@ -9,7 +9,9 @@ Note you need to implement  start stop showdialog
 
 function ctor() {
     intercom.start = function (settings) {
-        settings.user_id = typeof (settings.id) === "number" ? "Sb_" + settings.id : null;
+        let id = {
+            user_id: typeof (settings.id) === "number" ? "Sb_" + settings.id : null 
+        }
         let globalSettings = {
             app_id: "njmpgayv",
             hide_default_launcher: true,
@@ -17,7 +19,7 @@ function ctor() {
             language_override: global.lang,
         };
         if (global.Intercom) {
-            global.Intercom('boot', { ...globalSettings, ...settings });
+            global.Intercom('boot', { ...globalSettings, ...settings ,...id});
         }
     }
     intercom.stop = function () {

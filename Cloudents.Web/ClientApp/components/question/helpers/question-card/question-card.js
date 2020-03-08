@@ -117,12 +117,9 @@ export default {
         ...mapActions({
             'delete': 'deleteQuestion',
             correctAnswer: 'correctAnswer',
-            updateBalance: 'updateUserBalance',
             updateToasterParams: 'updateToasterParams',
             removeQuestionItemAction: 'removeQuestionItemAction',
             manualAnswerRemove: 'answerRemoved',
-            answerVote: 'answerVote',
-            updateLoginDialogState: 'updateLoginDialogState'
         }),
         ...mapGetters(['accountUser']),
 
@@ -160,40 +157,6 @@ export default {
         },
         closeReportDialog() {
             this.showReport = false;
-        },
-        isAuthUser() {
-            let user = this.accountUser();
-            if (user == null) {
-                this.updateLoginDialogState(true);
-                return false;
-            }
-            return true;
-        },
-        upvoteAnswer() {
-            if (this.isAuthUser()) {
-                let type = "up";
-                if (!!this.cardData.upvoted) {
-                    type = "none";
-                }
-                let data = {
-                    type,
-                    id: this.cardData.id
-                };
-                this.answerVote(data);
-            }
-        },
-        downvoteAnswer() {
-            if (this.isAuthUser()) {
-                let type = "down";
-                if (!!this.cardData.downvoted) {
-                    type = "none";
-                }
-                let data = {
-                    type,
-                    id: this.cardData.id
-                };
-                this.answerVote(data);
-            }
         },
         getQuestionColor() {
             if (!!this.cardData && !this.cardData.color) {

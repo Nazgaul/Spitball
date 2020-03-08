@@ -77,8 +77,7 @@
             showButton(){
                 let statesToShow = [
                     this.tutoringMain.startSessionDialogStateEnum.start,
-                    this.tutoringMain.startSessionDialogStateEnum.waiting,
-                    this.tutoringMain.startSessionDialogStateEnum.needPayment
+                    this.tutoringMain.startSessionDialogStateEnum.waiting
                 ]
                 return statesToShow.indexOf(this.getTutorDialogState) > -1
             },
@@ -87,8 +86,6 @@
                     return LanguageService.getValueByKey('tutor_stream_btn_start_tutor')
                 }else if(this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.waiting){
                     return LanguageService.getValueByKey('tutor_stream_btn_waiting_tutor')
-                }else if(this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.needPayment){
-                    return LanguageService.getValueByKey('tutor_stream_btn_needPayment_tutor')
                 }else if(this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.disconnected){
                     return LanguageService.getValueByKey('tutor_stream_btn_disconnected_tutor')
                 }else if(this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.finished){
@@ -105,14 +102,13 @@
             }
         },
         methods: {
-            ...mapActions(['updateTutorStartDialog', 'setSesionClickedOnce', 'UPDATE_SEARCH_LOADING']),
+            ...mapActions(['setSesionClickedOnce']),
             startSession(){
                 videoStreamService.enterRoom();
             },
             closeDialog() {
                 let isExit = confirm(LanguageService.getValueByKey("login_are_you_sure_you_want_to_exit"),)
                 if(isExit){
-                    this.UPDATE_SEARCH_LOADING(true);
                     this.$router.push('/');
                 }
             },

@@ -155,16 +155,13 @@
     <value>Change</value>
   </data>
   <data name="my_study_rooms" xml:space="preserve">
-    <value>Test study room</value>
+    <value>Test Study Room</value>
   </data>
   <data name="balance" xml:space="preserve">
     <value>Your balance: {1} Pts</value>
   </data>
   <data name="greets" xml:space="preserve">
     <value>{1}</value>
-  </data>
-  <data name="points" xml:space="preserve">
-    <value>Get Points</value>
   </data>
   <data name="txt_out" xml:space="preserve">
     <value>Get access to thousands of online study materials and tutors</value>

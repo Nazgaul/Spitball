@@ -75,7 +75,8 @@
             </template>
             
             <template v-slot:interval="{date,time,past}">
-              <div :class="['my-event',past? 'without-time-past':'without-time', {'cursor-none': isSelfTutor},{'selectedEvent': isSelected(date,time)}]">
+              <div :class="['my-event',checkDateCell(past,date)? 'without-time-past':'without-time', {'cursor-none': isSelfTutor},{'selectedEvent': isSelected(date,time)}]">
+              <!-- <div :class="['my-event',past? 'without-time-past':'without-time', {'cursor-none': isSelfTutor},{'selectedEvent': isSelected(date,time)}]"> -->
                 <button @click="addEvent($event, date,time)" v-html="cellTime(date,time)"></button> 
               </div>
           </template>
@@ -88,14 +89,11 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-//import paymentDialog from '../studyroom/tutorHelpers/paymentDIalog/paymentDIalog.vue'
-//import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
 import {LanguageService} from '../../services/language/languageService.js'
 import Schedule from './images/schedule.svg'
+import * as dialogNames from '../pages/global/dialogInjection/dialogNames.js'
 export default {
     components:{
-     // paymentDialog,
-     // sbDialog,
       Schedule
     },
     data() {
@@ -182,9 +180,11 @@ export default {
         return this.$vuetify.breakpoint.xsOnly;
       },
       isNeedPayment(){
-        let price = this.getProfile.user.tutorData.price + ''
-        price.slice(1, this.getProfile.user.tutorData.price.length);        
-        return this.getNeedPayment && Number(price) > 0;
+        // debugger
+        // let price = this.getProfile.user.tutorData.price + ''
+        // price.slice(1, this.getProfile.user.tutorData.price.length);        
+        // return this.getNeedPayment && Number(price) > 0;
+        return this.getNeedPayment;
       },
       isSelfTutor() {
         if((this.$route.name == 'myCalendar') || (!!this.getProfile && !!this.accountUser) && this.getProfile.user.id == this.accountUser.id) {
@@ -194,10 +194,34 @@ export default {
       }
     },
     methods: {
-        ...mapActions(['updateToasterParams','btnClicked','insertEvent','updateNeedPayment','requestPaymentURL']),
-        format(day){
-          let options = { weekday: this.isMobile? 'narrow':'short' };
-          return new Date(day.date).toLocaleDateString(this.calendarLocale, options);
+        ...mapActions(['updateToasterParams','btnClicked','insertEvent','updateNeedPayment']),
+        format(dateFormat){
+          let date = new Date(dateFormat.year,dateFormat.month - 1,dateFormat.day,0,0,0);
+          //let options = { weekday: this.isMobile? 'narrow':'short'};
+          let v = this.isMobile? 'calendarMobile': 'calendarDesktop';
+          return this._i18n.d(date,v);
+          //return  date.toLocaleDateString('en-us', options);
+        },
+        checkDateCell(past,date){
+          if(past) {
+            return true;
+          }else{
+            let lastDate = Object.keys(this.eventsMap).map((key)=>key)
+            lastDate = lastDate[lastDate.length-1]
+            let lastDateStemp = new Date(`${lastDate}`).getTime()
+
+            if(new Date(date).getTime() >= lastDateStemp){
+              // let lastHour = this.eventsMap[lastDate];
+              // lastHour = lastHour[lastHour.length - 1].time
+              // if(+time.slice(0,2) <= +lastHour.slice(0,2)){
+              return true;
+              // }else{
+                // return true;
+              // }
+            
+            }
+            return false;
+          }
         },
         insertNewEvent(){
           this.isLoading = true;
@@ -232,19 +256,29 @@ export default {
           return (this.eventsMap[date] && this.eventsMap[date].find(e =>e.time === time))? '': time;
         },
         formatDateString(){
+          let year = this.selectedDate.slice(0,4);
+          let month = this.selectedDate.slice(5,7);
+          let day = this.selectedDate.slice(8,11);
           if(global.isRtl){
             let options = { weekday: 'long', month: 'short', day: 'numeric' };
-            let dateStr = new Date(this.selectedDate).toLocaleDateString(`${global.lang}-${global.country}`, options).split(' ')
-            let dayNumber = new Date(this.selectedDate).getDate()
+            let dateStr = new Date(year,month - 1,day,0,0,0,0).toLocaleDateString(`${global.lang}-${global.country}`, options).split(' ');
+            // let dateStr = new Date(this.selectedDate).toLocaleDateString(`${global.lang}-${global.country}`, options).split(' ')
+            let dayNumber = new Date(year,month - 1,day,0,0,0,0).getDate()
+            // let dayNumber = new Date(this.selectedDate).getDate()
             return `${dateStr[0]} ${dateStr[1]} ${dayNumber} ${dateStr[3]}`
           } else{
-            let dateStr = new Date(this.selectedDate).toDateString().split(' ');
-            let dayNumber = new Date(this.selectedDate).getDate()
+            let dateStr = new Date(year,month - 1,day,0,0,0,0).toDateString().split(' ');
+            // let dateStr = new Date(this.selectedDate).toDateString().split(' ');
+            let dayNumber = new Date(year,month - 1,day,0,0,0,0).getDate()
+            // let dayNumber = new Date(this.selectedDate).getDate()
             return `${dateStr[0]}, ${dateStr[1]} ${dayNumber}`
           }
         },
         formatTimeString(){
-          let endTime = new Date(`${this.selectedDate} ${this.selectedTime}`).getHours()+1;
+          let hour = +this.selectedTime.split(':')[0];
+          let dateHour = new Date(this.selectedDate)
+          dateHour.setHours(hour)
+          let endTime = dateHour.getHours()+1;
           let ampm = endTime < 12? 'am' : 'pm'
           if(endTime < 10) {endTime = `0${endTime}:00`}
           else {endTime = `${endTime}:00`;}
@@ -258,7 +292,7 @@ export default {
           this.isLoading = false;
         },
         goPayment(){
-          this.requestPaymentURL({ title: 'payme_title', name: this.tutorName });
+          this.$openDialog(dialogNames.Payment)
         },
         isSelected(date,time){
           if(date === this.selectedDate && time === this.selectedTime){
@@ -472,9 +506,14 @@ display: flex;
     }
    }
 }
-
+    .theme--light{
+      .v-calendar-daily{
+        border: none !important;
+      }
+    }
 
   .v-calendar{
+
     .v-calendar-daily__head{
       pointer-events: none;
 

@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Web.Identity
 {
-    [UsedImplicitly]
     public class AppClaimsPrincipalFactory : UserClaimsPrincipalFactory<User>
     {
         public const string Country = "country";

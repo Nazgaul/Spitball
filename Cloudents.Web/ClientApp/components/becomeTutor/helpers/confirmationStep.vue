@@ -30,7 +30,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { LanguageService } from "../../../services/language/languageService";
+import * as routeNames from '../../../routes/routeNames.js';
 
 export default {
     name: "confirmationStep",
@@ -46,7 +46,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateTutorDialog','updateAccountUserToTutor','sendBecomeTutorData','updateTeachingClasses','updateToasterParams']),
+        ...mapActions(['updateAccountUserToTutor','sendBecomeTutorData','updateTeachingClasses','updateToasterParams']),
         goToPreviousStep() {
             this.$root.$emit('becomeTutorStep', 3);
         },
@@ -55,23 +55,29 @@ export default {
             this.isLoading = true;
             this.sendBecomeTutorData().then(
                 () => {
-                    self.$root.$emit('becomeTutorStep', 5);
-                    self.updateAccountUserToTutor(true);
                     self.updateToasterParams({
-                        toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
+                        toasterText: this.$t("becomeTutor_already_submitted"),
                         showToaster: true,
                         toasterTimeout: 5000
                     });
-                    self.updateTeachingClasses();
+
+                    if(self.$route.name === routeNames.RegisterType){
+                        self.$router.push({name: routeNames.Feed,query:{filter:'Question'}})
+                        self.updateAccountUserToTutor(true);
+                    }else{
+                        self.$root.$emit('becomeTutorStep', 5);
+                        self.updateAccountUserToTutor(true);
+                        self.updateTeachingClasses();
+                    }
                 },(error) => {
                     let isConflict = error.response.status === 409;
                     if(isConflict) {
                         self.updateToasterParams({
-                            toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
+                            toasterText: this.$t("becomeTutor_already_submitted"),
                             showToaster: true,
                             toasterTimeout: 5000
                         });
-                        self.updateTutorDialog(false);
+                        self.$closeDialog();
                     }
                 }).finally(() => {                      
                     self.isLoading = false;

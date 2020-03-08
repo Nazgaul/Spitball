@@ -72,6 +72,8 @@ function UserInfo(objInit) {
          buttonText: "delete"
 
     };
+
+    this.userType = { value: objInit.userType ? objInit.userType : '', label: 'User Type' };
 }
 
 function createUserInfoItem(data) {
@@ -201,6 +203,7 @@ function createNotesItem(objInit){
     return new NotesItem(objInit);
 };
 
+
 export default {
     getUserData: (id) => {
         let path = `AdminUser/info?userIdentifier=${encodeURIComponent(id)}`;
@@ -312,6 +315,16 @@ export default {
         }, (err) => {
             return err;
         });
+    },
+    getUserTypes: (id) => {
+        let path = `AdminUser/types`;
+        return connectivityModule.http.get(path).then((newTypesList) => {
+            return newTypesList;  
+        });
+    },
+    updateUserType:(data) => {
+        let path = `AdminUser/type`;
+        return connectivityModule.http.post(path, data);
     },
     verifyPhone: (data) => {
         let path = `AdminUser/verify`;

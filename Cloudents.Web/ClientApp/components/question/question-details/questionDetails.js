@@ -1,10 +1,9 @@
-import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import questionThread from "./questionThread.vue";
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionCard from "./../helpers/new-question-card/new-question-card.vue";
 import answerCard from "./../helpers/question-card/question-card.vue";
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
-import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue';
 import questionService from "../../../services/questionService";
 import disableForm from "../../mixins/submitDisableMixin.js";
 import analyticsService from '../../../services/analytics.service';
@@ -12,7 +11,7 @@ import { LanguageService } from "../../../services/language/languageService";
 
 export default {
     mixins: [disableForm],
-    components: {questionThread, questionCard, answerCard, extendedTextArea, sbDialog, loginToAnswer},
+    components: {questionThread, questionCard, answerCard, extendedTextArea, sbDialog},
     props: {
         id: {Number}, // got it from route
         questionId: {Number}
@@ -43,13 +42,10 @@ export default {
             "resetQuestion",
             "removeDeletedAnswer",
             "updateToasterParams",
-            "updateLoginDialogState",
             'setQuestion'
         ]),
-        ...mapMutations({updateLoading: "UPDATE_LOADING", updateSearchLoading:'UPDATE_SEARCH_LOADING'}),
         ...mapGetters(["getQuestion"]),
         resetSearch(){
-            this.updateSearchLoading(true);
             this.$router.push({name: "feed"});
         },
         submitAnswer() {
@@ -68,7 +64,6 @@ export default {
                 };
                 return;
             }
-            // this.updateLoading(true);
             var self = this;
             if(this.hasDuplicatiedAnswer(self.textAreaValue, self.questionData.answers)) {
                 console.log("duplicated answer detected");
@@ -85,13 +80,13 @@ export default {
                     .then(function () {                       
                         analyticsService.sb_unitedEvent("Submit_answer", "Homwork help");
                         self.textAreaValue = "";
-                        // self.updateLoading(false);
+                    
                         //self.getData(true);//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
                     }, (error) => {
                         console.log(error);
                         // self.errorHasAnswer = error.response.data["Text"] ? error.response.data["Text"][0] : '';
                         self.submitForm(false);
-                        // self.updateLoading(true);
+                      
                     }).finally(()=>{
                         this.submitLoader = false;
                     });
@@ -129,25 +124,30 @@ export default {
             }
             else {
                 this.dialogType = '';
-                this.updateLoginDialogState(true);
+                this.$openDialog('login')
             }
         },
-
+        goToAnswer(hash) {
+            this.$vuetify.goTo(hash)
+            // let elem = this.$refs.answers;
+            // elem.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }
     },
     watch: {
         textAreaValue(){
             this.errorLength = {};
         },
         hasData(val) {
-            if(this.$route.hash && val) {
-                this.goToAnswer();
+            let hash = this.$route.hash
+            if(hash && val) {
+                this.goToAnswer(hash);
             }
         },
         //watch route(url query) update, and het question data from server
         '$route': 'getData'
     },
     computed: {
-        ...mapGetters(["accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer", "loginDialogState", "isCardOwner"]),
+        ...mapGetters(["accountUser", "chatAccount", "getCorrectAnswer", "isCardOwner"]),
         questionData(){
             return this.getQuestion();
         },
@@ -163,21 +163,8 @@ export default {
             }
             return null;
         },
-        goToAnswer() {            
-            let elem = this.$refs.answers;
-            elem.scrollIntoView({ behavior: 'smooth', block: 'center' })
-        }
     },
     created() {               
         this.getData();
-
-        this.$root.$on('closePopUp', (name) => {
-            if (name === 'suggestions') {
-                this.showDialogSuggestQuestion = false;
-            } else {
-                this.updateLoginDialogState(false);
-            }
-        });
-
     },
 }

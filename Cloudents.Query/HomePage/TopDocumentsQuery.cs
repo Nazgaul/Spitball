@@ -1,6 +1,6 @@
 ﻿using Cloudents.Core;
 using Cloudents.Core.Attributes;
-using Cloudents.Core.DTOs;
+using Cloudents.Core.DTOs.Documents;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using NHibernate;

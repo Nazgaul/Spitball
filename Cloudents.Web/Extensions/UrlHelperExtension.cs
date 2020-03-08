@@ -130,26 +130,26 @@ namespace Cloudents.Web.Extensions
         }
     }
 
-    public static class UriExtensions
-    {
-        public static string RemoveQueryStringByKey(this Uri uri, string key)
-        {
+    //public static class UriExtensions
+    //{
+    //    public static string RemoveQueryStringByKey(this Uri uri, string key)
+    //    {
 
-            var newQueryString = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query);
-            // this gets all the query string key value pairs as a collection
-            //var newQueryString = HttpUtility.ParseQueryString(uri.Query);
+    //        var newQueryString = QueryHelpers.ParseQuery(uri.Query);
+    //        // this gets all the query string key value pairs as a collection
+    //        //var newQueryString = HttpUtility.ParseQueryString(uri.Query);
 
-            // this removes the key if exists
-            newQueryString.Remove(key);
+    //        // this removes the key if exists
+    //        newQueryString.Remove(key);
 
-            // this gets the page path from root without QueryString
-            string pagePathWithoutQueryString = uri.GetLeftPart(UriPartial.Path);
+    //        // this gets the page path from root without QueryString
+    //        string pagePathWithoutQueryString = uri.GetLeftPart(UriPartial.Path);
 
-            return newQueryString.Count > 0
-                ? String.Format("{0}?{1}", pagePathWithoutQueryString, newQueryString)
-                : pagePathWithoutQueryString;
-        }
-    }
+    //        return newQueryString.Count > 0
+    //            ? String.Format("{0}?{1}", pagePathWithoutQueryString, newQueryString)
+    //            : pagePathWithoutQueryString;
+    //    }
+    //}
 
     public sealed class IgnoreNextPageLinkAttribute : Attribute
     {

@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Payment;
-using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -19,7 +18,7 @@ namespace Cloudents.Infrastructure
         private readonly HttpClient _client;
         private readonly PayMeCredentials _credentials;
 
-        public PayMePaymentProvider(HttpClient client, [NotNull] PayMeCredentials credentials)
+        public PayMePaymentProvider(HttpClient client,  PayMeCredentials credentials)
         {
             _client = client;
             _credentials = credentials ?? throw new ArgumentNullException(nameof(credentials));

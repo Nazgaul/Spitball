@@ -1,12 +1,10 @@
 ﻿using Autofac;
-using JetBrains.Annotations;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Query
 {
-    [UsedImplicitly]
     public sealed class QueryBus : IQueryBus//, IDisposable
     {
         public QueryBus(ILifetimeScope container)
@@ -32,6 +30,11 @@ namespace Cloudents.Query
                 catch (InvalidOperationException e) //db return this type of exception and not cancellation token
                 {
                     if (token.IsCancellationRequested)
+                    {
+                        throw new OperationCanceledException("on query", e);
+                    }
+
+                    if (e.Message.Contains("Operation cancelled by user."))
                     {
                         throw new OperationCanceledException("on query", e);
                     }

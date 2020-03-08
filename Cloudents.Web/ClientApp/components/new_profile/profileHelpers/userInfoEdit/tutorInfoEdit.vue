@@ -138,7 +138,6 @@
                 },
                 valid: false,
                 btnLoading: false
-
             };
         },
         computed: {
@@ -200,7 +199,14 @@
                         description: this.editedDescription
                     };
                     this.btnLoading = true;
-                    accountService.saveTutorInfo(editsData)
+                    let serverFormat = {
+                        firstName,
+                        description: this.editedDescription,
+                        lastName,
+                        bio: this.editedBio,
+                        price: this.editedPrice || this.price,
+                    };
+                    accountService.saveUserInfo(serverFormat)
                         .then(() => {
                             //update profile store
                             this.updateEditedProfile(editsData);

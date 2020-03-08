@@ -1,130 +1,51 @@
-﻿using Cloudents.Core.Extension;
+﻿using System;
+using Cloudents.Core.Extension;
 using NHibernate.Transform;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
-using NHibernate;
-using NHibernate.Criterion;
-using NHibernate.Impl;
 
 namespace Cloudents.Query.Stuff
 {
-
-    public class SbAliasToBeanResultTransformer<T> : IResultTransformer
-    {
-        private readonly Type _resultClass;
-
-        public SbAliasToBeanResultTransformer()
-        {
-            _resultClass = typeof(T);
-
-        }
-
-        public object TransformTuple(object[] tuple, string[] aliases)
-        {
-            var retVal = Activator.CreateInstance(_resultClass);
-
-            for (int i = 0; i < aliases.Length; i++)
-            {
-                SetValues(aliases[i], tuple[i], retVal);
-            }
-
-            return retVal;
-        }
-
-        public IList TransformList(IList collection)
-        {
-            return collection;
-        }
-
-
-        private void SetValues(string alias, object value, object x)
-        {
-            //if (!dic.TryGetValue(propertyInfo.Name, out var value)) return;
-
-            if (value == null) return;
-            var propertyInfo = _resultClass.GetProperties().FirstOrDefault(w => string.Equals(w.Name, alias, StringComparison.OrdinalIgnoreCase));
-            if (propertyInfo == null)
-            {
-                return;
-            }
-            if (propertyInfo.PropertyType.IsEnum)
-            {
-                if (HandleEnum(propertyInfo, propertyInfo.PropertyType, x, value)) return;
-            }
-            if (value is Guid g && propertyInfo.PropertyType == typeof(string))
-            {
-                propertyInfo.SetValue(x, g.ToString());
-                return;
-
-            }
-
-            if (HandleTicksTimeSpan(value, x, propertyInfo)) return;
-            var nullableType = Nullable.GetUnderlyingType(propertyInfo.PropertyType);
-            if (nullableType != null)
-            {
-                if (nullableType.IsEnum && HandleEnum(propertyInfo, nullableType, x, value))
-                {
-                    return;
-                }
-                if (HandleTicksTimeSpan(value, x, propertyInfo)) return;
-                var z = Convert.ChangeType(value, nullableType);
-                propertyInfo.SetValue(x, z);
-                return;
-            }
-            var y = Convert.ChangeType(value, propertyInfo.PropertyType);
-            propertyInfo.SetValue(x, y);
-        }
-
-        private static bool HandleTicksTimeSpan(object value, object x, PropertyInfo propertyInfo)
-        {
-            var type = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
-            if (type == typeof(TimeSpan) && value is long l)
-            {
-                propertyInfo.SetValue(x, new TimeSpan(l));
-                return true;
-            }
-
-            return false;
-        }
-
-        private static bool HandleEnum(PropertyInfo propertyInfo, Type property, object x, object value)
-        {
-            if (value is string str)
-            {
-                var e = Enum.Parse(property, str, true);
-                propertyInfo.SetValue(x, e);
-                return true;
-            }
-
-            if (value is int i)
-            {
-                var t = Enum.ToObject(property, i);
-                propertyInfo.SetValue(x, t);
-                return true;
-            }
-
-            return false;
-        }
-    }
-
     public class DeepTransformer<TEntity> : IResultTransformer
         where TEntity : class
     {
         private readonly char _complexChar;
         private readonly IResultTransformer _baseTransformer;
-        public DeepTransformer(char complexChar = '.') : this(complexChar, Transformers.AliasToBean<TEntity>())
-        {
+        private readonly Dictionary<string, PropertyInfo> _resultClassProperties;
 
+        public DeepTransformer(char complexChar = '.') :
+            this(complexChar, Transformers.AliasToBean<TEntity>())
+        {
+          
+               
         }
 
         public DeepTransformer(char complexChar, IResultTransformer transformer)
         {
             _baseTransformer = transformer;
             _complexChar = complexChar;
+            _resultClassProperties = typeof(TEntity).GetProperties(BindingFlags.NonPublic
+                                                                   | BindingFlags.Instance
+                                                                   | BindingFlags.Public).ToDictionary(x => x.Name, z => z);
+        }
+
+        private Dictionary<string, object> _aliasToTupleMap;
+
+        private void MapProperties(object[] tuple, string[] aliases)
+        {
+            _aliasToTupleMap = new Dictionary<string, object>();
+
+            for (var i = 0; i < aliases.Length; i++)
+            {
+                var alias = aliases[i];
+                if (alias.Contains(_complexChar))
+                {
+                    _aliasToTupleMap.Add(alias, tuple[i]);
+                    aliases[i] = null;
+                }
+            }
         }
 
         // rows iterator
@@ -157,7 +78,7 @@ namespace Cloudents.Query.Stuff
 
         /// <summary>Iterates the Path Client.Address.City.Code </summary>
         protected virtual void TransformPersistentChain(object[] tuple
-              , List<string> complexAliases, object result, List<string> list)
+            , List<string> complexAliases, object result, List<string> list)
         {
             if (!(result is TEntity entity))
             {
@@ -245,35 +166,6 @@ namespace Cloudents.Query.Stuff
         public override int GetHashCode()
         {
             return _complexChar.GetHashCode() * 23 ^ _baseTransformer.GetHashCode() * 73;
-        }
-    }
-
-
-    public static class CustomProjections
-    {
-        static CustomProjections()
-        {
-            ExpressionProcessor.RegisterCustomProjection(() => IfNull(null, ""), ProcessIfNull);
-            ExpressionProcessor.RegisterCustomProjection(() => IfNull(null, 0), ProcessIfNull);
-        }
-
-        public static void Register() { }
-
-        public static T IfNull<T>(this T objectProperty, T replaceValueIfIsNull)
-        {
-            throw new Exception("Not to be used directly - use inside QueryOver expression");
-        }
-
-        public static T? IfNull<T>(this T? objectProperty, T replaceValueIfIsNull) where T : struct
-        {
-            throw new Exception("Not to be used directly - use inside QueryOver expression");
-        }
-
-        private static IProjection ProcessIfNull(MethodCallExpression mce)
-        {
-            var arg0 = ExpressionProcessor.FindMemberProjection(mce.Arguments[0]).AsProjection();
-            var arg1 = ExpressionProcessor.FindMemberProjection(mce.Arguments[1]).AsProjection();
-            return Projections.SqlFunction("coalesce", NHibernateUtil.Object, arg0, arg1);
         }
     }
 }

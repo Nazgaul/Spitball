@@ -30,6 +30,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Web.Services;
 using SbUserManager = Cloudents.Web.Identity.SbUserManager;
+using Cloudents.Core.DTOs.Tutors;
 
 namespace Cloudents.Web.Api
 {
@@ -105,11 +106,11 @@ namespace Cloudents.Web.Api
             {
                 var query = new TutorListTabSearchQuery(term, profile.Country, page, pageSize);
                 var result = await tutorSearch.SearchAsync(query, token);
-                result.Result = result.Result.Select(s =>
-                {
-                    s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
-                    return s;
-                });
+                //result.Result = result.Result.Select(s =>
+                //{
+                //    s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
+                //    return s;
+                //});
                
                 return new WebResponseWithFacet<TutorCardDto>
                 {
@@ -125,29 +126,6 @@ namespace Cloudents.Web.Api
 
 
 
-        /// <summary>
-        /// Return relevant tutors base on user courses -on all courses tab - feed
-        /// </summary>
-        /// <param name="profile"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [ResponseCache(Duration = TimeConst.Minute * 5, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { "*" })]
-        public async Task<ListWithCountDto<TutorCardDto>> GetTutorsAsync(
-            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
-            CancellationToken token)
-        {
-            _userManager.TryGetLongUserId(User, out var userId);
-            var query = new TutorListQuery(userId, profile.Country, 0);
-            var result = await _queryBus.QueryAsync(query, token);
-            result.Result = result.Result.Select(s =>
-            {
-                s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
-                return s;
-            });
-           
-            return result;
-        }
 
         /// <summary>
         /// Return relevant tutors base on user course - on specific course tab - feed

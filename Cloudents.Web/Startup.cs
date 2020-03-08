@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
@@ -80,19 +81,25 @@ namespace Cloudents.Web
 
 
 
-           // var containerBuilder = new ContainerBuilder();
+            // var containerBuilder = new ContainerBuilder();
             containerBuilder.Register(c =>
             {
                 var val = c.Resolve<IOptionsMonitor<PayMeCredentials>>();
                 return val.CurrentValue;
             }).AsSelf();
-           
+
+            var dbActionStr = Configuration["DbAction"];
+            
+            if (!Enum.TryParse(dbActionStr, true, out DbConnectionString.DataBaseIntegration dbAction))
+            {
+                dbAction = DbConnectionString.DataBaseIntegration.Validate;
+            }
 
             var keys = new ConfigurationKeys()
             {
                 SiteEndPoint = { SpitballSite = Configuration["Site"], FunctionSite = Configuration["functionCdnEndpoint"] },
                 Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"),
-                    Configuration["Redis"], DbConnectionString.DataBaseIntegration.Validate)
+                    Configuration["Redis"], dbAction)
                ,
                 Redis = Configuration["Redis"],
                 Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
@@ -101,6 +108,7 @@ namespace Cloudents.Web
                     ),
                 Storage = Configuration["Storage"],
                 ServiceBus = Configuration["ServiceBus"],
+                PayPal = new PayPalCredentials(Configuration["PayPal:ClientId"], Configuration["PayPal:ClientSecret"], !HostingEnvironment.IsProduction())
             };
 
 
@@ -141,7 +149,6 @@ namespace Cloudents.Web
             //return new AutofacServiceProvider(container);
         }
 
-        [UsedImplicitly]
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
@@ -150,13 +157,13 @@ namespace Cloudents.Web
 
             services.Configure<ForwardedHeadersOptions>(options =>
             {
-                
+
                 options.ForwardedHeaders =
-                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto 
-                                                   |ForwardedHeaders.XForwardedHost;
+                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+                                                   | ForwardedHeaders.XForwardedHost;
                 options.KnownNetworks.Clear(); //TODO: need to do
                 options.KnownProxies.Clear();//TODO: need to do
-                
+
             });
             services.AddLocalization(x => x.ResourcesPath = "Resources");
             services.AddDataProtection(o =>
@@ -193,7 +200,7 @@ namespace Cloudents.Web
                 .AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                options.SerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { NamingStrategy = new CamelCaseNamingStrategy()});
+                options.SerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { NamingStrategy = new CamelCaseNamingStrategy() });
                 options.SerializerSettings.Converters.Add(new RequestCultureConverter());
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
 
@@ -215,7 +222,7 @@ namespace Cloudents.Web
                 .ConfigureApiBehaviorOptions(o =>
                 {
                     o.SuppressMapClientErrors = true; //https://github.com/aspnet/AspNetCore/issues/4792#issuecomment-454164457
-                   // o.SuppressUseValidationProblemDetailsForInvalidModelStateResponses = false;
+                                                      // o.SuppressUseValidationProblemDetailsForInvalidModelStateResponses = false;
                     o.InvalidModelStateResponseFactory = actionContext =>
                     {
                         var telemetryClient = actionContext.HttpContext.RequestServices.GetService<TelemetryClient>();
@@ -236,14 +243,14 @@ namespace Cloudents.Web
 
             var t = services.AddSignalR().AddNewtonsoftJsonProtocol(o =>
             {
-                    o.PayloadSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                    o.PayloadSerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-                    o.PayloadSerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter 
-                        {  NamingStrategy = new CamelCaseNamingStrategy()});
-                });
+                o.PayloadSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                o.PayloadSerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                o.PayloadSerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter
+                { NamingStrategy = new CamelCaseNamingStrategy() });
+            });
             //if (UseAzureSignalR)
             //{
-                t.AddAzureSignalR();
+            t.AddAzureSignalR();
             //}
             services.AddResponseCompression();
             services.AddResponseCaching();
@@ -297,7 +304,6 @@ namespace Cloudents.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        [UsedImplicitly]
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             AutofacContainer = app.ApplicationServices.GetAutofacRoot();
@@ -328,24 +334,10 @@ namespace Cloudents.Web
 
             app.UseRewriter(reWriterOptions);
 
-           
+
             app.UseResponseCaching();
 
-            app.UseRequestLocalization(o =>
-            {
-                o.DefaultRequestCulture = new RequestCulture(Language.English);
-                o.SupportedUICultures = o.SupportedCultures = Language.SystemSupportLanguage().Select(s => (CultureInfo)s).ToList();// SupportedCultures;
-
-                o.RequestCultureProviders.Clear();
-                o.RequestCultureProviders.Add(new FrymoCultureProvider());
-                o.RequestCultureProviders.Add(new QueryStringRequestCultureProvider());
-                o.RequestCultureProviders.Add(new FacebookQueryStringRequestCultureProvider());
-                o.RequestCultureProviders.Add(new CookieRequestCultureProvider());
-                o.RequestCultureProviders.Add(new AuthorizedUserCultureProvider());
-                o.RequestCultureProviders.Add(new CountryCultureProvider());
-                o.RequestCultureProviders.Add(new AcceptLanguageHeaderRequestCultureProvider());
-
-            });
+           
             app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = ctx =>
@@ -359,7 +351,7 @@ namespace Cloudents.Web
             });
 
             app.UseWebMarkupMin();
-           
+
             if (env.IsDevelopment() || env.IsStaging())
             {
                 app.UseSwagger();
@@ -376,17 +368,33 @@ namespace Cloudents.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseRequestLocalization(o =>
+            {
+                o.DefaultRequestCulture = new RequestCulture(Language.English);
+                o.SupportedUICultures = o.SupportedCultures = Language.SystemSupportLanguage().Select(s => (CultureInfo)s).ToList();// SupportedCultures;
+
+                o.RequestCultureProviders.Clear();
+                o.RequestCultureProviders.Add(new FrymoCultureProvider());
+                o.RequestCultureProviders.Add(new QueryStringRequestCultureProvider());
+                o.RequestCultureProviders.Add(new FacebookQueryStringRequestCultureProvider());
+                o.RequestCultureProviders.Add(new CookieRequestCultureProvider());
+                o.RequestCultureProviders.Add(new AuthorizedUserCultureProvider());
+                o.RequestCultureProviders.Add(new CountryCultureProvider());
+                o.RequestCultureProviders.Add(new AcceptLanguageHeaderRequestCultureProvider());
+
+            });
+
             //if (UseAzureSignalR)
             //{
-                app.UseAzureSignalR(routes =>
-                {
-                    routes.MapHub<SbHub>("/SbHub");
-                    routes.MapHub<StudyRoomHub>("/StudyRoomHub");
-                });
+            app.UseAzureSignalR(routes =>
+            {
+                routes.MapHub<SbHub>("/SbHub");
+                routes.MapHub<StudyRoomHub>("/StudyRoomHub");
+            });
             //}
             //else
             //{
-                
+
             //    //app.UseSignalR(routes =>
             //    //{
             //    //    routes.MapHub<SbHub>("/SbHub");
@@ -404,7 +412,7 @@ namespace Cloudents.Web
                 endpoints.MapControllerRoute(
                     name: SeoTypeString.Static,
                     pattern: "{id}",
-                    defaults: new {controller = "Home", action = "Index"}
+                    defaults: new { controller = "Home", action = "Index" }
                 );
                 endpoints.MapControllerRoute(
                     name: "default",

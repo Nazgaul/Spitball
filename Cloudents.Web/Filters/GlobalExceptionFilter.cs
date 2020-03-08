@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Cloudents.Web.Filters
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Mvc Filter")]
-    public class GlobalExceptionFilter : ExceptionFilterAttribute
+    public sealed class GlobalExceptionFilter : ExceptionFilterAttribute
     {
         public GlobalExceptionFilter()
         {

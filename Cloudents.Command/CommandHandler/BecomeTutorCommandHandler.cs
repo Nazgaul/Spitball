@@ -1,4 +1,5 @@
 ﻿using Cloudents.Command.Command;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System;
 using System.Threading;
@@ -10,10 +11,12 @@ namespace Cloudents.Command.CommandHandler
     {
 
         private readonly IRegularUserRepository _userRepository;
+        private readonly IRepository<Tutor> _tutorRepository;
 
-        public BecomeTutorCommandHandler(IRegularUserRepository userRepository)
+        public BecomeTutorCommandHandler(IRegularUserRepository userRepository, IRepository<Tutor> tutorRepository)
         {
             _userRepository = userRepository;
+            _tutorRepository = tutorRepository;
         }
 
         public async Task ExecuteAsync(BecomeTutorCommand message, CancellationToken token)
@@ -24,7 +27,7 @@ namespace Cloudents.Command.CommandHandler
                 throw new ArgumentException("user is already a tutor");
             }
             user.BecomeTutor(message.Bio, message.Price, message.Description, message.FirstName, message.LastName);
-
+            await _tutorRepository.AddAsync(user.Tutor, token);
             await _userRepository.UpdateAsync(user, token);
         }
     }

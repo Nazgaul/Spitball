@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities
 {
@@ -11,9 +10,6 @@ namespace Cloudents.Core.Entities
     {
         public TutorCalendar(GoogleCalendar calendar, Tutor tutor)
         {
-            //GoogleId = googleId ?? throw new ArgumentNullException(nameof(googleId));
-            //Name = name ?? throw new ArgumentNullException(nameof(name));
-
             Calendar = calendar;
             Tutor = tutor;
         }
@@ -24,34 +20,10 @@ namespace Cloudents.Core.Entities
 
         public virtual GoogleCalendar Calendar { get; protected set; }
 
-        // public virtual string GoogleId { get; protected set; }
-        // public virtual string Name { get; protected set; }
         public virtual Tutor Tutor { get; protected set; }
 
 
-        //protected bool Equals(TutorCalendar other)
-        //{
-        //    return base.Equals(other) && GoogleId == other.GoogleId && Tutor.Id.Equals(other.Tutor.Id);
-        //}
-
-        //public override bool Equals(object obj)
-        //{
-        //    if (ReferenceEquals(null, obj)) return false;
-        //    if (ReferenceEquals(this, obj)) return true;
-        //    if (obj.GetType() != this.GetType()) return false;
-        //    return Equals((TutorCalendar)obj);
-        //}
-
-        //public override int GetHashCode()
-        //{
-        //    unchecked
-        //    {
-        //        int hashCode = base.GetHashCode();
-        //        hashCode = (hashCode * 397) ^ GoogleId.GetHashCode();
-        //        hashCode = (hashCode * 397) ^ Tutor.Id.GetHashCode();
-        //        return hashCode;
-        //    }
-        //}
+       
         protected bool Equals(TutorCalendar other)
         {
             return Calendar.Equals(other.Calendar) &&

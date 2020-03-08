@@ -1,4 +1,5 @@
 import { connectivityModule } from "./connectivity.module";
+import { Blogs } from './Dto/blogs'
 
 function itemTypeChcker(type){
    if(type.toLowerCase() === 'document' || type.toLowerCase() === 'video'){
@@ -122,6 +123,23 @@ function createFollowersItems({data}) {
    data.map(item => followersItems.push(new FollowersItem(item)));
    return followersItems;
 }
+
+function TutorActions(objInit) {
+   this.calendarShared = objInit.calendarShared;
+   this.haveHours = objInit.haveHours;
+   this.bookedSession = objInit.bookedSession;
+}
+
+function createTutorActions({data}) {
+   return new TutorActions(data);
+}
+
+function createBlogs({data}) {
+   return data.map(item => new Blogs.Default(item))
+}
+
+
+
 function getSalesItems(){
    return connectivityModule.http.get('/Account/sales').then(createSalesItems).catch(ex => ex);
 }
@@ -131,17 +149,31 @@ function getContentItems(){
 function getPurchasesItems(){
    return connectivityModule.http.get('/Account/purchases').then(createPurchasesItems).catch(ex => ex);
 }
+// TODO: move to studyroom service
 function getStudyRoomItems(){
    return connectivityModule.http.get('StudyRoom').then(createStudyRoomItems).catch(ex => ex);
 }
 function getFollowersItems(){
    return connectivityModule.http.get('/Account/followers').then(createFollowersItems).catch(ex => ex);
 }
+function getTutorActions(){
+   return connectivityModule.http.get('/Account/tutorActions').then(createTutorActions).catch(ex => ex);
+}
+function getSpitballBlogs(){
+   return connectivityModule.http.get('/blog').then(createBlogs).catch(ex => ex);
+}
+function getMarketingBlogs() {
+   return connectivityModule.http.get('/blog/marketing').then(createBlogs).catch(ex => ex);
+}
+
 
 export default {
    getSalesItems,
    getContentItems,
    getPurchasesItems,
    getStudyRoomItems,
-   getFollowersItems
+   getFollowersItems,
+   getTutorActions,
+   getSpitballBlogs,
+   getMarketingBlogs
 }

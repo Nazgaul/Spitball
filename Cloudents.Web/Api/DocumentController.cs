@@ -7,7 +7,7 @@ using Cloudents.Command.Documents.PurchaseDocument;
 using Cloudents.Command.Item.Commands.FlagItem;
 using Cloudents.Command.Votes.Commands.AddVoteDocument;
 using Cloudents.Core;
-using Cloudents.Core.DTOs;
+using Cloudents.Core.DTOs.Documents;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
@@ -18,7 +18,6 @@ using Cloudents.Query;
 using Cloudents.Query.Documents;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
-using Cloudents.Web.Resources;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -38,6 +37,8 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]"), ApiController]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "this is what we want")]
+
     public class DocumentController : UploadControllerBase
     {
         private readonly IQueryBus _queryBus;
@@ -144,7 +145,6 @@ namespace Cloudents.Web.Api
         [ProducesDefaultResponseType]
         public async Task<IActionResult> VoteAsync([FromBody]
             AddVoteDocumentRequest model,
-            [FromServices] IStringLocalizer<SharedResource> resource,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
@@ -159,12 +159,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), "Cannot vote twice");
                 return BadRequest(ModelState);
             }
-            catch (NoEnoughScoreException)
-            {
-                string voteMessage = resource[$"{model.VoteType:G}VoteError"];
-                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), voteMessage);
-                return BadRequest(ModelState);
-            }
+          
             catch (UnauthorizedAccessException)
             {
                 ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteCantVote"]);
@@ -266,7 +261,7 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("dropBox"), Authorize]
-        public async Task<UploadStartResponse> UploadDropBox([FromBody] DropBoxRequest model,
+        public async Task<UploadStartResponse> UploadDropBoxAsync([FromBody] DropBoxRequest model,
            [FromServices] IRestClient client,
            [FromServices] IDocumentDirectoryBlobProvider documentDirectoryBlobProvider,
            CancellationToken token)
@@ -281,15 +276,13 @@ namespace Cloudents.Web.Api
 
         [HttpGet("similar")]
         public async Task<IEnumerable<DocumentFeedDto>> GetSimilarDocumentsAsync([FromQuery] SimilarDocumentsRequest request,
-            [FromServices] IUrlBuilder urlBuilder, CancellationToken token)
+             CancellationToken token)
         {
             var query = new SimilarDocumentsQuery(request.DocumentId);
             var res = await _queryBus.QueryAsync(query, token);
             return res.Select(s =>
             {
                 s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
-                s.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
-                //s.Title = Path.GetFileNameWithoutExtension(s.Title);
                 return s;
             });
         }

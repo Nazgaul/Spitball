@@ -2,20 +2,16 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import Search from "./search";
 import User from "./User";
 import Question from "./question";
 import Account from "./account";
 import Toaster from "./Toaster";
-import loginDialog from './loginDialog'
 import newQuestionDialog from './newQuestionDialog'
 import uploadFiles from  "./uploadFiles";
 import University from "./university";
 import mobileFooter from './mobileFooter';
-import buyTokens from './buyTokens';
 import chatStore from './chatStore';
 import becomeTutor from './becomeTutor';
-import tutorList from './tutorList';
 import userOnlineStatus from './userOnlineStatus';
 import leaveReview from './leaveReview';
 import requestTutor from './requestTutor';
@@ -30,20 +26,50 @@ import dialog_Store from './dialogStore/dialog_Store.js'
 import utils_Store from './utils_Store'
 import banner_Store from './banner_Store.js'
 import dashboard_Store from './dashboard_Store.js'
+import feed from './feedStore.js'
+import profile from './profile.js';
+
+import tutoringMain from './studyRoomStore/tutoringMain.js';
+import studyroomSettings_store from './studyRoomStore/studyroomSettings_store.js';
+import studyRoomStore from './studyRoomStore/studyRoomStore.js'
+import signalRPlugin from '../plugins/signalRPlugin';
+
+// const onModuleAValueChange= (store) => {
+//     store.watch(
+//         state => state.route,
+//         (val, oldVal) => {
+//             // Don't do anything on init state
+//             if (!oldVal) return;
+// console.log(val,oldVal);
+//             // // This will trigger all refresh actions on all store. But you can add anything here
+//             // // Essentially does: 
+//             // // store.dispatch(`moduleA/refresh`); 
+//             // // store.dispatch(`moduleB/refresh`); 
+//             // // store.dispatch(`moduleC/refresh`);
+//             // for (let state in store.state) {
+//             //     const action = `${state}/refresh`;
+//             //     // If the store does not have an refresh action ignore
+//             //     if (store._actions[action]) store.dispatch(`${state}/refresh`);
+//             // }
+
+//             // // Additional action 
+//             // store.dispatch(`moduleC/moduleC_Action`);
+//         }
+//     );
+// };
+
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
     modules: {
-        Search,
         User,
-        // LuisData,
         Account,
         Question,
         Toaster,
-        loginDialog,
         newQuestionDialog,
         University,
         uploadFiles,
+        feed,
         // document,
         // homeLanding,
         // homeworkHelpStore,
@@ -51,10 +77,8 @@ const store = new Vuex.Store({
         //leaderBoard,
         mobileFooter,
         //onBoardGuide,
-        buyTokens,
         chatStore,
         becomeTutor,
-        tutorList,
         leaveReview,
         userOnlineStatus,
         requestTutor,
@@ -71,7 +95,14 @@ const store = new Vuex.Store({
         utils_Store,
         banner_Store,
         dashboard_Store,
-    }
+        profile,
+
+        tutoringMain,
+        studyroomSettings_store,
+        studyRoomStore,
+    },
+    plugins: [signalRPlugin({hubPath:'/sbhub'})]
+   // plugins: [onModuleAValueChange]
 });
 
 export default store;

@@ -142,7 +142,7 @@
     <value>בבקשה בצע התקנה ואישור שימוש בתוסף לדפדפן כרום בכדי לאפשר שיתוף מסך במחשב שלך.</value>
   </data>
   <data name="chrome_ext_text" xml:space="preserve">
-    <value>ברגע שהתוסף מותקן, בבקשה בצע רענון כדי שתוכל להשתמש בתוסף שיתוף המסך</value>
+    <value>ברגע שהתוסף מותקן, בבקשה בצע רענון כדי שתוכל להשתמש בתוסף שיתוף המסך.</value>
   </data>
   <data name="chrome_ext_title" xml:space="preserve">
     <value>התקנת תוסף לדפדפן כרום</value>
@@ -359,5 +359,8 @@
   </data>
   <data name="size_label" xml:space="preserve">
     <value>גודל</value>
+  </data>
+  <data name="microphone_blocked" xml:space="preserve">
+    <value>כדי להקליט, עליך לאפשר לדפדפן גישה למיקרופון שלך.</value>
   </data>
 </root>

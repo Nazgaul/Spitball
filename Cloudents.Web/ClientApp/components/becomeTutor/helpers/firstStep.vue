@@ -31,7 +31,6 @@
                             v-model="firstName"
                             :rules="[rules.required, rules.notSpaces, rules.minimumChars]"
                             class="become-tutor-edit-firstname"
-                            :placeholder="placeFirstName" 
                             :label="placeFirstName"/>
                         </v-flex>
                         <v-flex xs12 class="mb-2">
@@ -39,7 +38,6 @@
                                 v-model="lastName"
                                 :rules="[rules.required, rules.notSpaces, rules.minimumChars]"
                                 class="become-tutor-edit-lastname"
-                                :placeholder="placeLastName" 
                                 :label="placeLastName"/>
                         </v-flex>
                         <v-flex xs12 class="mt-2 first-selects" v-if="!isFrymo">
@@ -47,9 +45,13 @@
                                 class="font-weight-bold price-input"
                                 :rules="[rules.required, rules.minimum, rules.maximum,rules.integer]"
                                 v-model="price"
-                                type="number"
-                                :label="$Ph('becomeTutor_placeholder_price', currencySymbol)"/>
+                                type="number">
 
+                                <template v-slot:label>
+                                    <span>{{$t('becomeTutor_placeholder_price', {'0' : getSymbol})}}</span>
+                                </template>
+                            </v-text-field>
+                           
                             <!-- <v-select
                                 v-model="gender"
                                 :items="genderItems"
@@ -66,7 +68,7 @@
         <v-layout class="mt-4 px-1 btns-first"
                   :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
 
-            <v-btn @click="closeDialog()" class="cancel-btn elevation-0" rounded outlined text>
+            <v-btn v-closeDialog  class="cancel-btn elevation-0" rounded outlined text>
                 <span v-language:inner>becomeTutor_btn_cancel</span>
             </v-btn>
 
@@ -96,8 +98,8 @@
                 placeFirstName: LanguageService.getValueByKey("becomeTutor_placeholder_first_name"),
                 placeLastName: LanguageService.getValueByKey("becomeTutor_placeholder_last_name"),
                 selectGender: LanguageService.getValueByKey("becomeTutor_placeholder_select_gender"),
-                firstName: '',
-                lastName: '',
+                firstname: '',
+                lastname: '',
                 price: 50,
                 imageAdded: false,
                 errorUpload: false,
@@ -116,6 +118,10 @@
             };
         },
         computed: {
+            getSymbol() {
+              let v =   this.$n(1,'currency');
+              return v.replace(/\d|[.,]/g,'').trim();
+            },
             ...mapGetters(['becomeTutorData', 'accountUser', 'isFrymo']),
             btnDisabled() {
                 return false
@@ -132,12 +138,25 @@
             isMobile(){
                 return this.$vuetify.breakpoint.xsOnly;
             },
-            currencySymbol() {
-                return this.accountUser.currencySymbol
+            firstName: {
+                get() {
+                    return this.$store.getters.accountUser?.firstName || "";
+                },
+                set(firstName) {
+                    this.saveFirstName(firstName);
+                }
             },
+            lastName: {
+                get() {
+                    return this.$store.getters.accountUser?.lastName || "";
+                },
+                set(lastName) {
+                    this.saveLastName(lastName);
+                }
+            }
         },
         methods: {
-            ...mapActions(['updateTutorInfo', 'uploadAccountImage', 'updateTutorDialog', 'updateToasterParams']),
+            ...mapActions(['updateTutorInfo', 'uploadAccountImage', 'updateToasterParams']),
             loaded() {
                 this.isLoaded = true;
             },
@@ -172,16 +191,19 @@
                     
                     let data = {
                         image: this.userImage,
-                        firstName: this.firstName,
-                        lastName: this.lastName,
+                        firstName: this.firstname || this.firstName,
+                        lastName: this.lastname || this.lastName,
                         price: this.price
                     };
                     this.updateTutorInfo(data);
                     this.$root.$emit('becomeTutorStep', 2);
                 }
             },
-            closeDialog() {
-                this.updateTutorDialog(false);
+            saveFirstName(name) {
+                this.firstname = name || '';
+            },
+            saveLastName(name) {
+                this.lastname = name || '';
             }
         },
     };

@@ -1,49 +1,51 @@
 <template>
-    <v-flex xs12>         
-        <v-icon @click="closeUpload()" class="uf-close" v-html="'sbf-close'" />
-        <v-card class="uf-main elevation-0">
-            <v-stepper class="uf-mStepper elevation-0" v-model="currentStep" >
-                
-                <v-stepper-header :class="['uf-mHeader','elevation-0',isMobile?'pt-2' :'pl-4']">
-                    <template>
-                        <img v-if="!isMobile" class="uf-mImg" :src="userImage" alt="">
-                        <h2 :class="['uf-mTitle',{'ml-4':!isMobile}]" v-language:inner="'upload_uf_mTitle'"/>
-                    </template>
-                </v-stepper-header>
+    <v-dialog :value="true" persistent :maxWidth="'716'" :fullscreen="$vuetify.breakpoint.xsOnly" :content-class="'upload-dialog'">
+        <v-flex xs12>
+            <v-icon v-closeDialog class="uf-close" v-html="'sbf-close'" />
+            <v-card class="uf-main elevation-0">
+                <v-stepper class="uf-mStepper elevation-0" v-model="currentStep" >
+                    
+                    <v-stepper-header :class="['uf-mHeader','elevation-0',isMobile?'pt-2' :'pl-4']">
+                        <template>
+                            <img v-if="!isMobile" class="uf-mImg" :src="userImage" alt="">
+                            <h2 :class="['uf-mTitle',{'ml-4':!isMobile}]" v-language:inner="'upload_uf_mTitle'"/>
+                        </template>
+                    </v-stepper-header>
 
-                <v-stepper-items class="uf-items">
-                    <div v-if="errorFile && errorFile.name" class="px-4">
-                        <fileCardError :fileItem="errorFile" :singleFileIndex="0"/>
-                    </div>
-                    <v-stepper-content :class="['uf-mStepper-content', `step-${n}`]"
-                                       v-for="n in steps"
-                                       :key="`${n}-content`"
-                                       :step="n">
+                    <v-stepper-items class="uf-items">
+                        <div v-if="errorFile && errorFile.name" class="px-4">
+                            <fileCardError :fileItem="errorFile" :singleFileIndex="0"/>
+                        </div>
+                        <v-stepper-content :class="['uf-mStepper-content', `step-${n}`]"
+                                        v-for="n in steps"
+                                        :key="`${n}-content`"
+                                        :step="n">
 
-                        <upload-files-start 
-                            v-show="n===1" 
-                            :curStep="1" 
-                            :callBackmethods="callBackmethods">
-                        </upload-files-start>
-                            <transition name="slide">
-                                <uploadStep_2 :chackValidation="chackValidation" v-show="n===2" :curStep="2" :callBackmethods="callBackmethods"></uploadStep_2>
-                            </transition>
-                    </v-stepper-content>
-                </v-stepper-items>
-            </v-stepper>
-        <div class="uf-sEdit-bottm pb-4 pt-4" v-if="currentStep == 2">
-            <v-btn :loading="loading" @click="send()" class="uf-sEdit-bottm-btn" depressed rounded color="#4452fc">
-                <span v-language:inner="'upload_uf_sEdit_bottm_btn'"/>
-            </v-btn>             
-            <span class="uf-sEdit-terms">
-                <span v-language:inner="'upload_uf_sEdit_terms_by'"/>
-                <a :href="termsLink" target="_blank">  
-                    <span class="uf-sEdit-terms-link" v-language:inner="'upload_uf_sEdit_terms_link'"/>
-                </a>
-            </span>
-        </div>
-        </v-card>  
-    </v-flex>
+                            <upload-files-start 
+                                v-show="n===1" 
+                                :curStep="1" 
+                                :callBackmethods="callBackmethods">
+                            </upload-files-start>
+                                <transition name="slide">
+                                    <uploadStep_2 :chackValidation="chackValidation" v-show="n===2" :curStep="2" :callBackmethods="callBackmethods"></uploadStep_2>
+                                </transition>
+                        </v-stepper-content>
+                    </v-stepper-items>
+                </v-stepper>
+            <div class="uf-sEdit-bottm pb-4 pt-4" v-if="currentStep == 2">
+                <v-btn :loading="loading" @click="send()" class="uf-sEdit-bottm-btn" depressed rounded color="#4452fc">
+                    <span v-language:inner="'upload_uf_sEdit_bottm_btn'"/>
+                </v-btn>             
+                <span class="uf-sEdit-terms">
+                    <span v-language:inner="'upload_uf_sEdit_terms_by'"/>
+                    <a :href="termsLink" target="_blank">  
+                        <span class="uf-sEdit-terms-link" v-language:inner="'upload_uf_sEdit_terms_link'"/>
+                    </a>
+                </span>
+            </div>
+            </v-card>  
+        </v-flex>
+    </v-dialog>
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex';
@@ -60,12 +62,12 @@ import fileCardError from './components/fileCardError.vue';
 import satelliteServie from "../../services/satelliteService";
 
 export default {
+    name: "uploadMultipleFiles",
     components: {
         uploadFilesStart,
         uploadStep_2,
         fileCardError
     },
-    name: "uploadMultipleFiles",
     data() {
         return {
             selectCoursePlaceholder: LanguageService.getValueByKey("upload_multiple_select_course_placeholder"),
@@ -90,11 +92,9 @@ export default {
     },
     computed: {
         ...mapGetters({
-            getIsValid: 'getIsValid',
             accountUser: 'accountUser',
             getSelectedClasses: 'getSelectedClasses',
             getFileData: 'getFileData',
-            getDialogState: 'getDialogState',
         }),
         isError(){
             return this.getFileData.every(item=>item.error)
@@ -121,9 +121,6 @@ export default {
         lastStep() {
             return this.currentStep === this.steps;
         },
-        showUploadDialog() {
-            return this.getDialogState
-        },
         isNameExists(){
             let result = this.getFileData.every((item) => {
                 return item.name && item.name.length > 0
@@ -140,13 +137,10 @@ export default {
     },
     methods: {
         ...mapActions([
-            'changeSelectPopUpUniState',
-            'updateDialogState',
             'resetUploadData',
-            'setReturnToUpload',
             'updateStep',
             'setCourse',
-            'updateToasterParams'
+            'updateToasterParams',
         ]),
         goToNextStep() {
             if (!this.nextStepCalled) {
@@ -176,7 +170,6 @@ export default {
                             showToaster: true
                         });
                         this.closeUpload()
-                        // self.goToNextStep()
                     },
                         () => {
                             fileObj.error = true;
@@ -191,10 +184,7 @@ export default {
         },
         closeUpload() {
             this.resetUploadData();
-            //reset return to upload
-            this.setReturnToUpload(false);
-            //close
-            this.updateDialogState(false);
+            this.$closeDialog()
         },
         nextStep() {
             if (this.currentStep === this.steps) {

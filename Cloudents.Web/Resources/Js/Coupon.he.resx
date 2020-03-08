@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="already_exists" xml:space="preserve">
+    <value>קוד קופון קיים כבר</value>
+  </data>
   <data name="apply_btn" xml:space="preserve">
     <value>אישור</value>
   </data>
@@ -126,10 +129,55 @@
   <data name="apply_error" xml:space="preserve">
     <value>קוד הקופון אינו תקין. יתכן והזנת קוד קופון שגוי?</value>
   </data>
+  <data name="btn_calendar_cancel" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="btn_calendar_ok" xml:space="preserve">
+    <value>אישור</value>
+  </data>
+  <data name="btn_cancel" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="btn_copy" xml:space="preserve">
+    <value>העתקה ללוח</value>
+  </data>
+  <data name="btn_exit" xml:space="preserve">
+    <value>יציאה</value>
+  </data>
+  <data name="btn_submit" xml:space="preserve">
+    <value>אישור</value>
+  </data>
+  <data name="create_succes" xml:space="preserve">
+    <value>יצרתם את הקופון בהצלחה</value>
+  </data>
+  <data name="create_title" xml:space="preserve">
+    <value>צרו קופון חדש</value>
+  </data>
+  <data name="label_code" xml:space="preserve">
+    <value>קוד קופון</value>
+  </data>
+  <data name="label_date" xml:space="preserve">
+    <value>קופון תקף עד:</value>
+  </data>
+  <data name="label_type" xml:space="preserve">
+    <value>סוג קופון</value>
+  </data>
+  <data name="label_value" xml:space="preserve">
+    <value>הנחה</value>
+  </data>
   <data name="placeholder" xml:space="preserve">
     <value>הכניסו קוד קופון</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>ממש את הקופון שלך</value>
+  </data>
+  <data name="toaster_copy" xml:space="preserve">
+    <value>קוד קופון הועתק ללוח</value>
+  </data>
+  <data name="type_flat" xml:space="preserve">
+    <value>הנחה קבועה</value>
+  </data>
+  <data name="type_percentage" xml:space="preserve">
+    <value>הנחה כאחוז מהמחיר</value>
   </data>
 </root>

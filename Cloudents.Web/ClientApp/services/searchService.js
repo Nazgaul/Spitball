@@ -1,21 +1,14 @@
 ﻿import { connectivityModule } from "./connectivity.module"
+import {Item} from './Dto/item.js';
 
 const getFeeds = (params) => {
     return connectivityModule.http.get("/feed", { params });
-};
-
-const getTutor = (params) => {
-    return connectivityModule.http.get("tutor/search", { params });
 };
 
 const getNextPage = ({ url }) => {
     return connectivityModule.http.get(url, { baseURL: "" });
 };
 
-const getTutorsByCourse = (courseName) => {
-    let path = courseName ? `tutor?course=${encodeURIComponent(courseName)}` : 'tutor';
-    return connectivityModule.http.get(path);
-};
 
 function FirstAnswerItem(objInit) {
     this.date = objInit.dateTime || null;
@@ -81,41 +74,8 @@ function createTutorItem(objInit) {
     return new TutorItem(objInit);
 }
 
-function DocumentItemUser(objInit){
-    this.id = objInit.id;
-    this.image = objInit.image || '';
-    this.name = objInit.name || '';
-}
-
-function createDocumentItemUser(objInit) {
-    return new DocumentItemUser(objInit);
-}
-
-function DocumentItem(objInit) {
-    this.id = objInit.id || null; 
-    this.course = objInit.course; 
-    this.dateTime = objInit.dateTime; 
-    this.downloads = objInit.downloads; 
-    this.purchased = objInit.purchased; 
-    this.snippet = objInit.snippet;
-    this.title = objInit.title;
-    this.university = objInit.university;
-    this.url = objInit.url;
-    this.user = objInit.user ? createDocumentItemUser(objInit.user) : '';
-    this.views = objInit.views;
-    this.template = 'result-note';
-    this.price = objInit.price;
-    this.votes = !!objInit.vote ? objInit.vote.votes : null;
-    this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
-    this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
-    this.preview = objInit.preview;
-    this.type = objInit.type || 'Document';
-    this.documentType = objInit.documentType;
-    this.itemDuration = objInit.duration;
-}
-
 function createDocumentItem(objInit) {
-    return new DocumentItem(objInit);
+    return new Item[objInit.documentType](objInit)
 }
 
 
@@ -146,10 +106,8 @@ let transferResult = ({data}) => {
     });
 
     return {
-        sort: data.sort || '',
         filters: data.filters,
         data: documents,
-        nextPage: data.nextPageLink
     };
 };
 
@@ -157,62 +115,17 @@ let transferNextPage = (res) => {
     return transferResult(res);    
 };
 
-const transferAnswerItem = ({ data }) => {    
-    return data.map(createTutorItem);
-};
-
-
-function FilterItem(objInit) {
-    this.key = objInit.key;
-    this.value = objInit.value;
-}
-
-function FilterChunk(objInit) {
-    this.id = objInit.id;
-    this.title = objInit.title;
-    this.data = [];
-    this.dictionaryData = {};
-    objInit.data.forEach((filterItem) => {
-        if(filterItem.key !== null){
-            this.data.push(new FilterItem(filterItem));
-            this.dictionaryData[filterItem.key] = filterItem.value;
-        }
-    });
-}
-
-function Filters(objInit) {
-    this.filterChunkList = [];
-    this.filterChunkDictionary = [];
-    objInit.forEach((filterChunk) => {
-        let createdFilterChunk = new FilterChunk(filterChunk);
-        this.filterChunkList.push(createdFilterChunk);
-        this.filterChunkDictionary[createdFilterChunk.id] = createdFilterChunk;
-    });
-}
-
-function createFilters (objInit) {
-    return new Filters(objInit);
-}
-
 export default {
     activateFunction: {
         feed(params) {
             return getFeeds(params).then(transferResult);
         },
-        tutor(params) {          
-            return getTutor(params).then(transferResult);
-        },
-        getTutors(params) {
-            return getTutorsByCourse(params).then(transferAnswerItem);
-        }
     },
     nextPage: (params) => {
         return getNextPage(params).then(transferNextPage);
     },
-    getTutorsByCourse, 
     createQuestionItem,
     createAnswerItem,
-    createFilters,
     createTutorItem,
     createDocumentItem,
 }

@@ -33,11 +33,12 @@
 </template>
 
 <script>
-import {mapGetters, mapActions, mapMutations} from 'vuex';
+import {mapGetters, mapActions} from 'vuex';
 
 import studyroomSettingsUtils from './studyroomSettingsUtils';
 import tutorService from '../studyroom/tutorService';
-import logo from '../../components/app/logo/logo-spitball.svg';
+// import logo from '../../components/app/logo/logo-spitball.svg';
+import logo from '../../components/app/logo/logo.vue'
 import intercomSVG from './image/icon-1-2.svg'
 
 import unableToConnetStep from './components/unableToConnetStep.vue';
@@ -52,6 +53,7 @@ import storeService from '../../services/store/storeService';
 import tutoringMain from '../../store/studyRoomStore/tutoringMain.js';
 import studyroomSettings_store from '../../store/studyRoomStore/studyroomSettings_store.js';
 import intercomSettings from '../../services/intercomService';
+import studyRoomService from '../../services/studyRoomService';
 
 
 export default {
@@ -87,11 +89,9 @@ export default {
     },
   },
   methods:{
-    ...mapMutations(['UPDATE_SEARCH_LOADING']),
     ...mapActions(['setStepHistory', 'reOrderStepHistory', 'pushHistoryState', 'replaceHistoryState', 'setVisitedSettingPage', 'updateStudyRoomProps']),
     resetItems(){
-            this.UPDATE_SEARCH_LOADING(true);
-            this.$router.push('/');
+      this.$router.push('/');
     },
     orderStepHistory(){
       let newStepHistory = this.stepHistory.slice(0, this.currentPageIndex+1);
@@ -136,7 +136,7 @@ export default {
       this.goStep(event.state)
     }; 
     if(!!this.id){
-      await tutorService.getRoomInformation(this.id).then((RoomProps) => {
+      await studyRoomService.getRoomInformation(this.id).then((RoomProps) => {
         this.updateStudyRoomProps(RoomProps)
       })
     }
@@ -173,7 +173,9 @@ export default {
     .settingsTopLogoWrap{
       display: flex;
       .settingsTopLogo{
-        fill: white;
+        svg {
+          fill: white;
+        }
       }
     }
     .settingsTopIntercom{

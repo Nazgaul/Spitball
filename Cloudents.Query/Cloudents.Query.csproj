@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.4" />
     <PackageReference Include="Dapper" Version="2.0.30" />
-    <PackageReference Include="NHibernate" Version="5.2.6" />
+    <PackageReference Include="NHibernate" Version="5.2.7" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />

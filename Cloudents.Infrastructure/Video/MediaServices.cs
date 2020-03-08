@@ -13,7 +13,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
-using Microsoft.Rest.Azure.OData;
 
 namespace Cloudents.Infrastructure.Video
 {
@@ -369,7 +368,6 @@ namespace Cloudents.Infrastructure.Video
         private async Task RemoveUnusedStreamingLocatorAsync(long videoId, CancellationToken token)
         {
             var client = await _context;
-            var str = videoId.ToString();
 
             var assetName = BuildAssetName(videoId.ToString(), AssetType.Long);
 

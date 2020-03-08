@@ -19,6 +19,7 @@ namespace Cloudents.Core.Storage
         public static readonly StorageContainer Chat = new StorageContainer("spitball-user", "chat");
         public static readonly StorageContainer File = new StorageContainer("spitball-files", "files");
         public static readonly StorageContainer User = new StorageContainer("spitball-user", "profile");
+        public static readonly StorageContainer Admin = new StorageContainer("spitball-admin", "");
 
         public bool Equals(StorageContainer other)
         {

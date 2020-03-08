@@ -25,10 +25,10 @@ using GoogleMeasurementProtocol;
 using GoogleMeasurementProtocol.Parameters.User;
 using Document = Google.Apis.Docs.v1.Data.Document;
 using User = Cloudents.Core.Entities.User;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Cloudents.Infrastructure.Google
 {
-    [UsedImplicitly]
     public sealed class GoogleService :
         IGoogleAuth,
         IGoogleDocument,
@@ -38,15 +38,16 @@ namespace Cloudents.Infrastructure.Google
         private const string PrimaryGoogleCalendarId = "primary";
         private readonly ILifetimeScope _container;
         private GoogleAnalyticsRequestFactory _factory;
-
+        private readonly JwtSecurityTokenHandler _tokenHandler;
 
         public GoogleService(ILifetimeScope container)
         {
             _container = container;
             _factory = new GoogleAnalyticsRequestFactory("UA-100723645-2");
+            _tokenHandler = new JwtSecurityTokenHandler();
         }
 
-        
+
 
 
         //public GoogleService(GoogleDataStore googleDataStore)
@@ -59,31 +60,43 @@ namespace Cloudents.Infrastructure.Google
 
             var settings = new GoogleJsonWebSignature.ValidationSettings
             {
-                Audience = new[] { "341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com" }
+                Audience = new[]
+                {
+                    "341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com", // Web site
+                   // "99716345448-jpnpb70puka5m3fiuu12rc7cgqrd52kc.apps.googleusercontent.com",
+                    "99716345448-73b697k11joufrvkqtc18ep2j36trgci.apps.googleusercontent.com" // Android
+                }
             };
-            var result = await GoogleJsonWebSignature.ValidateAsync(jwt, settings);
+            try
+            {
+                var result = await GoogleJsonWebSignature.ValidateAsync(jwt, settings);
 
 
-            if (result == null)
+                if (result == null)
+                {
+                    return null;
+                }
+
+                if (!result.EmailVerified)
+                {
+                    return null;
+                }
+
+                return new ExternalAuthDto()
+                {
+                    Id = result.Subject,
+                    FirstName = result.GivenName,
+                    LastName = result.FamilyName,
+                    Email = result.Email,
+                    Language = result.Locale,
+                    Name = result.Name,
+                    Picture = result.Picture
+                };
+            }
+            catch (InvalidJwtException)
             {
                 return null;
             }
-
-            if (!result.EmailVerified)
-            {
-                return null;
-            }
-
-            return new ExternalAuthDto()
-            {
-                Id = result.Subject,
-                FirstName = result.GivenName,
-                LastName = result.FamilyName,
-                Email = result.Email,
-                Language = result.Locale,
-                Name = result.Name,
-                Picture = result.Picture
-            };
         }
 
 
@@ -165,7 +178,8 @@ namespace Cloudents.Infrastructure.Google
 
 
 
-        public async Task<IEnumerable<GoogleAppointmentDto>> ReadCalendarEventsAsync(long userId, [NotNull] IEnumerable<string> calendarsIds,
+        public async Task<IEnumerable<GoogleAppointmentDto>> ReadCalendarEventsAsync(long userId, 
+            IEnumerable<string> calendarsIds,
             DateTime from, DateTime max,
             CancellationToken cancellationToken)
         {
@@ -266,7 +280,7 @@ namespace Cloudents.Infrastructure.Google
         }
 
 
-        public async Task BookCalendarEventAsync(User tutor, User student,
+        public async Task BookCalendarEventAsync(User tutor, User student, string tutorToken,
              DateTime from, DateTime to,
             CancellationToken cancellationToken)
         {
@@ -279,12 +293,19 @@ namespace Cloudents.Infrastructure.Google
                 HttpClientInitializer = cred
             }))
             {
+               var tutorCalendarEmail = _tokenHandler.ReadJwtToken(tutorToken).Payload.Where(w => w.Key == "email").SingleOrDefault();
+
+
                 var attendees = new[] { tutor, student }.Select(s => new EventAttendee()
                 {
                     Email = s.Email
 
                 }).ToList();
 
+                attendees.Add(new EventAttendee()
+                {
+                    Email = tutorCalendarEmail.Value.ToString()
+                });
 
                 var event2 = service.Events.Insert(new Event()
                 {

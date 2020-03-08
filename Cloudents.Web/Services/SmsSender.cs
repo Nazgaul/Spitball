@@ -1,14 +1,12 @@
 ﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Web.Services
 {
-    [UsedImplicitly]
     public class SmsSender : ISmsSender
     {
         private readonly IServiceBusProvider _serviceBusProvider;

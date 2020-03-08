@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
+using Cloudents.Core.DTOs.Tutors;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Microsoft.Azure.Search;
@@ -13,11 +14,12 @@ namespace Cloudents.Search.Tutor
     public class AzureTutorSearch : ITutorSearch
     {
         private readonly ISearchIndexClient _client;
+        private readonly IUrlBuilder _urlBuilder;
 
-        public AzureTutorSearch(ISearchService client)
+        public AzureTutorSearch(ISearchService client, IUrlBuilder urlBuilder)
         {
+            _urlBuilder = urlBuilder;
             _client = client.GetClient(TutorSearchWrite.IndexName);
-
         }
 
         public async Task<Microsoft.Azure.Search.Models.Document> GetByIdAsync(long id)
@@ -57,10 +59,14 @@ namespace Cloudents.Search.Tutor
             var obj = new ListWithCountDto<TutorCardDto>()
             {
                 Result = result.Results.Where(w => w.Document.Data != null).Select(s =>
-               {
+                {
+                    var tutor = s.Document.Data;
                    var courses = (s.Highlights?[nameof(Entities.Tutor.Courses)] ?? Enumerable.Empty<string>()).Union(
                        s.Document.Data.Courses).Take(3).Distinct(StringComparer.OrdinalIgnoreCase);
-
+                   if (tutor.Image != null)
+                   {
+                       s.Document.Data.Image = _urlBuilder.BuildUserImageEndpoint(tutor.UserId, tutor.Image);
+                   }
                    s.Document.Data.Courses = courses;
                    s.Document.Data.Subjects = s.Document.Data.Subjects?.Take(3);
                    return s.Document.Data;

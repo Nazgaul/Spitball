@@ -1,9 +1,9 @@
-﻿// import { help } from './resources';
-// import { connectivityModule } from "./connectivity.module";
+﻿// import { connectivityModule } from "./connectivity.module";
 import {LanguageService} from './language/languageService';
 import store from '../store/index';
 // let cacheControl = `?v=${global.version}&l=${global.lang}`;
 const isFrymo = store.getters['isFrymo'];
+
 
 
 
@@ -69,6 +69,13 @@ const sattelites = {
          url:{
             en: urlForEnglishUsers('contact'),
             he:"https://help.spitball.co/he/contact"
+        } 
+    },
+    blog:{
+        title: LanguageService.getValueByKey('tutorListLanding_footer_links_blog'),
+         url:{
+            en:'https://www.blog.spitball.co/blog/categories/english',
+            he:"https://www.blog.spitball.co/blog/categories/hebrew"
         } 
     }
 };

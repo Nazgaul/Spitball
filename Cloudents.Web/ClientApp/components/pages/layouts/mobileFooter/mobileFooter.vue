@@ -17,10 +17,10 @@
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_tutors'"/>
                 <v-icon class="mF_icon" v-html="'sbf-account-group'"/>
             </v-btn>
-            <v-btn :ripple="false" class="mF_btns" text value='upload' @click="openUpload">
+            <v-btn :ripple="false" class="mF_btns" text value='upload' v-openDialog="uploadDialog">
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_upload'"/>
                 <v-icon class="mF_icon" v-html="'sbf-button-add'" />
-            </v-btn>
+            </v-btn> -->
             <v-btn :ripple="false" class="mF_btns" text value="chat" @click="openChat">
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_chat'"/>
                 <span class="mF_chat">
@@ -38,15 +38,17 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import * as dialogNames from '../../global/dialogInjection/dialogNames.js'
 export default {
     name: "mobileFooter",
     data() {
         return {
             currentActiveTab:this.$route.name,
+            uploadDialog: dialogNames.Upload,
         }
     },
     computed: {
-        ...mapGetters(['getSelectedClasses','getTotalUnread', 'accountUser','getSchoolName']),
+        ...mapGetters(['getTotalUnread', 'accountUser']),
         totalUnread(){
             return this.getTotalUnread
         },
@@ -85,27 +87,12 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateDialogState','setReturnToUpload', 'updateLoginDialogState','openChatInterface']),
+        ...mapActions(['openChatInterface']),
         openChat(){
             if (this.accountUser == null) {
-                this.updateLoginDialogState(true);
+                this.$openDialog('login');
             }else{
                 this.openChatInterface();
-            }
-        },
-        openUpload(){
-            let schoolName = this.getSchoolName;
-            if(this.accountUser == null) {
-                this.updateLoginDialogState(true);
-            } else if(!schoolName.length) {
-                this.$router.push({name: 'addUniversity'});
-                this.setReturnToUpload(true);
-            } else if(!this.getSelectedClasses.length) {
-                this.$router.push({name: 'addCourse'});
-                this.setReturnToUpload(true);
-            } else if(schoolName.length > 0 && this.getSelectedClasses.length > 0) {
-                this.updateDialogState(true);
-                this.setReturnToUpload(false);
             }
         },
         changeActiveTab(tabName){
@@ -117,7 +104,7 @@ export default {
             }
             if(tabName === 'profile' && this.activeTab !== tabName){
                 if(this.accountUser == null) {
-                    this.updateLoginDialogState(true);
+                    this.$openDialog('login');
                 }else{
                     this.$router.push({name:'profile',params:{id: this.accountUser.id,name: this.accountUser.name}})
                 }

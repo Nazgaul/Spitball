@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
@@ -12,8 +11,7 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IRestClient
     {
-        [ItemCanBeNull]
-        Task<string> GetAsync(Uri url, NameValueCollection queryString, CancellationToken token);
+       // Task<string?> GetAsync(Uri url, NameValueCollection queryString, CancellationToken token);
 
         //[ItemCanBeNull]
         //Task<string> GetAsync(Uri url, NameValueCollection queryString,
@@ -28,10 +26,8 @@ namespace Cloudents.Core.Interfaces
 
         //Task<Uri> UrlRedirectAsync(Uri url);
 
-        [ItemCanBeNull]
         Task<T> GetAsync<T>(Uri url, NameValueCollection queryString, CancellationToken token);
 
-        [ItemCanBeNull]
         Task<T> GetAsync<T>(Uri url, NameValueCollection queryString,
             IEnumerable<KeyValuePair<string, string>> headers,
             CancellationToken token);

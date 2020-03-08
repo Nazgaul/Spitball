@@ -20,16 +20,4 @@ namespace Cloudents.Core.DTOs
             return $"{nameof(FirstName)}: {FirstName}, {nameof(LastName)}: {LastName}, {nameof(Email)}: {Email}, {nameof(Id)}: {Id}, {nameof(Language)}: {Language}";
         }
     }
-
-    public sealed class PayPalDto
-    {
-        public PayPalDto(string payPalId, decimal amount)
-        {
-            Amount = amount;
-            PayPalId = payPalId;
-        }
-
-        public decimal Amount { get; }
-        public string PayPalId { get; }
-    }
 }

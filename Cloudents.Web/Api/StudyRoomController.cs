@@ -98,7 +98,8 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<StudyRoomDto>> GetStudyRoomAsync(Guid id, [FromServices] IUrlBuilder urlBuilder, CancellationToken token)
+        public async Task<ActionResult<StudyRoomDto>> GetStudyRoomAsync(Guid id, 
+            [FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new StudyRoomQuery(id, userId);
@@ -115,12 +116,7 @@ namespace Cloudents.Web.Api
             return result;
         }
 
-        //private async Task<StudyRoomDto> GetStudyRoomAsync(Guid id, long userId, CancellationToken token)
-        //{
-        //    var query = new StudyRoomQuery(id, userId);
-        //    var result = await _queryBus.QueryAsync(query, token);
-        //    return result;
-        //}
+      
 
         [HttpPost("upload"), AllowAnonymous]
         public async Task<IActionResult> UploadAsync([Required] IFormFile file,
@@ -254,11 +250,11 @@ namespace Cloudents.Web.Api
             }
         }
 
-       
+
         [HttpPost("{id:guid}/Video")]
         [RequestFormLimits(MultipartBodyLengthLimit = int.MaxValue)]
         [RequestSizeLimit(209715200)]
-        public async Task<IActionResult> UploadStudyRoomVideo(Guid id, 
+        public async Task<IActionResult> UploadStudyRoomVideo(Guid id,
             IFormFile file,
             CancellationToken token)
         {
@@ -267,11 +263,9 @@ namespace Cloudents.Web.Api
                 return BadRequest();
             }
             var userId = _userManager.GetLongUserId(User);
-            using (var stream = file.OpenReadStream())
-            {
-                var command = new UploadStudyRoomVideoCommand(id, userId, stream);
-                await _commandBus.DispatchAsync(command, token);
-            }
+            await using var stream = file.OpenReadStream();
+            var command = new UploadStudyRoomVideoCommand(id, userId, stream);
+            await _commandBus.DispatchAsync(command, token);
 
             return Ok();
         }
@@ -286,8 +280,6 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = userManager.GetLongUserId(User);
-
-
             var command = new AddTutorReviewCommand(model.RoomId, model.Review, model.Rate, userId);
             try
             {
@@ -303,25 +295,5 @@ namespace Cloudents.Web.Api
             }
             return Ok();
         }
-
-
-
-
-        //[HttpPost("Money")]
-        //public async Task<IActionResult> PayMeCallbackAsync([FromServices] IPayment payment,
-        //    CancellationToken token)
-        //{
-        //    var result = await payment.TransferPaymentAsync("MPL15546-31186SKB-53ES24ZG-WGVCBKO2",
-        //        "BUYER155-6007037T-PTSXP1TO-AZ5ULFC9", 100, token);
-        //    if (result.StatusCode == 0)
-        //    {
-        //        return Ok();
-        //    }
-
-        //    return BadRequest();
-        //}
-
-
-
     }
 }

@@ -1,7 +1,10 @@
-﻿using Cloudents.Core.DTOs;
+﻿using System.Linq;
+using Cloudents.Core.DTOs;
 using Dapper;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.DTOs.Tutors;
 
 namespace Cloudents.Query.Tutor
 {
@@ -24,10 +27,12 @@ namespace Cloudents.Query.Tutor
         internal sealed class TutorListQueryHandler : IQueryHandler<TutorListQuery, ListWithCountDto<TutorCardDto>>
         {
             private readonly IDapperRepository _dapper;
+            private readonly IUrlBuilder _urlBuilder;
 
-            public TutorListQueryHandler(IDapperRepository dapper)
+            public TutorListQueryHandler(IDapperRepository dapper, IUrlBuilder urlBuilder)
             {
                 _dapper = dapper;
+                _urlBuilder = urlBuilder;
             }
 
             public async Task<ListWithCountDto<TutorCardDto>> GetAsync(TutorListQuery query, CancellationToken token)
@@ -68,7 +73,11 @@ and rt.Id != @userid;";
                     return new ListWithCountDto<TutorCardDto>()
                     {
                         Count = count,
-                        Result = tutor
+                        Result = tutor.Select(s =>
+                        {
+                            s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId,s.Image);
+                            return s;
+                        })
                     };
                 }
             }

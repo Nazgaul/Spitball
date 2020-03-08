@@ -139,6 +139,18 @@
                             { name: 'Create', link: '/coupon', icon: 'ticket-percent' },
                         ]
                     },
+                    {
+                        setting: {
+                            title: 'subjects',
+                            path: '/subjects',
+                        }
+                    },
+                    {
+                        setting: {
+                            title: 'upload',
+                            path: '/upload',
+                        }
+                    },
                 ]
             }
         },

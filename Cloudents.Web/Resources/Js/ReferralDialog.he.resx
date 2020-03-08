@@ -121,10 +121,10 @@
     <value>הועתק</value>
   </data>
   <data name="copy" xml:space="preserve">
-    <value>העתק</value>
+    <value>העתקה ללוח</value>
   </data>
   <data name="copy_link" xml:space="preserve">
-    <value>העתק קישור</value>
+    <value>העתקת קישור</value>
   </data>
   <data name="dialog_bottom_text" xml:space="preserve">
     <value>ככל שתשיגו יותר חברים בספיטבול, ככה הציונים של כולם יהיו יותר טובים!</value>
@@ -142,7 +142,7 @@
     <value>הפיצו את השמועה ב- </value>
   </data>
   <data name="get_document_text" xml:space="preserve">
-    <value>! לחצו על הלינק הזה כדי להעיף מבט, אני בטוח/ה שזה יחסוך לכם זמן ויעזור לכם בלימודים</value>
+    <value>לחצו על הלינק הזה כדי להעיף מבט, אני בטוח/ה שזה יחסוך לכם זמן ויעזור לכם בלימודים!</value>
   </data>
   <data name="get_your_homework" xml:space="preserve">
     <value>הצטרפו אלי לספיטבול, שם תמצאו את כל חומרי הלימוד וקבלו 50 ש"ח מתנה על השיעור הפרטי הראשון עם המורים הכי מומלצים:</value>
@@ -172,6 +172,6 @@
     <value>הפיצו את השמועה</value>
   </data>
   <data name="title_document" xml:space="preserve">
-    <value>.הרגע העליתי חלק מהסיכומים האקדמיים שלי לספיטבול</value>
+    <value>הרגע העליתי חלק מהסיכומים האקדמיים שלי לספיטבול.</value>
   </data>
 </root>

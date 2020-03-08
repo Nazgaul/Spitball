@@ -22,6 +22,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 
 namespace Cloudents.Admin2
 {
@@ -40,7 +41,7 @@ namespace Cloudents.Admin2
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-
+            services.AddApplicationInsightsTelemetry();
             services.AddAuthorization();
             services.AddAuthentication(o =>
                 {
@@ -92,7 +93,7 @@ namespace Cloudents.Admin2
                 {
                     options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                     options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-                    options.SerializerSettings.Converters.Add(new StringEnumConverter {CamelCaseText = true});
+                    options.SerializerSettings.Converters.Add(new StringEnumConverter { NamingStrategy = new CamelCaseNamingStrategy() });
                 })
                 .AddDataAnnotationsLocalization();
 
@@ -183,7 +184,6 @@ namespace Cloudents.Admin2
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(routes =>
             {
                 routes.MapControllerRoute(

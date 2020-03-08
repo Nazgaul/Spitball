@@ -27,7 +27,21 @@ html {
   background-color: #2196f3 !important;
   border-color: #2196f3 !important;
 }
-
+ //we have an issue with fieldset and labels on input on vuetify on rtl - this solve the issue
+html[dir="rtl"] {
+  .v-text-field__slot >  label, .v-select__slot > label { 
+    /*rtl:ignore */
+    left: unset !important;
+  }
+   fieldset+.v-text-field__slot > label  {
+    /*rtl:ignore */
+    left :unset !important ;
+  }
+  .v-input__prepend-inner+fieldset+.v-text-field__slot>label {
+     /*rtl:ignore */
+    right: -27px !important;
+  }
+}
 
 
 
@@ -50,6 +64,14 @@ html {
   @media (max-width: @screen-xs) {
     background-color: #E6E6E6;
   }
+  &.hidden-sideMenu{
+    // width="220" mini-variant-width="62"
+    padding-left: 220px !important;
+    @media (max-width: @screen-md) {
+      // padding-left: 62px !important;
+      padding-left: 0px !important;
+    }
+  }
 }
 
 .loader {
@@ -69,12 +91,6 @@ html {
   overflow-x: hidden;
   overflow-y: hidden;
   width: 100%;
-}
-
-.loading {
-  .left-side-bar, .side-bar {
-    opacity: 0;
-  }
 }
 
 .flex-fix {
@@ -237,15 +253,6 @@ html {
   }
 }
 
-//label on inputs rtl support
-.v-input__slot {
-    .v-text-field__slot {
-        label {
-            left: unset !important;
-            right: unset !important;
-        }
-    }
-}
 
 
 //fab animation

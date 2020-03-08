@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
+using Cloudents.Core.DTOs.Documents;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using NHibernate;
@@ -39,7 +40,7 @@ namespace Cloudents.Query.Users
             {
                 var r = _session.Query<Document>()
                     .Fetch(f => f.User)
-                    .ThenFetch(f => f.University)
+                    .Fetch(f => f.University)
                     .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok);
 
                 var count = _session.Query<Document>().Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok);
@@ -72,7 +73,7 @@ namespace Cloudents.Query.Users
                     Title = s.Name,
                     Views = s.Views,
                     Downloads = s.Downloads,
-                    University = s.User.University.Name,
+                    University = s.University.Name,
                     Snippet = s.Description ?? s.MetaContent,
                     Price = s.Price,
                     Vote = new VoteDto

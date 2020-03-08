@@ -119,10 +119,8 @@ export default {
     methods: {
         ...mapActions([
             'deleteQuestion',
-            // 'correctAnswer',
             'updateToasterParams',
             'removeQuestionItemAction',
-            'removeItemFromProfile'
         ]),
 
         isDisabled() {
@@ -153,11 +151,6 @@ export default {
             this.showDialog = true;
             this.selectedImage = src;
         },
-        updateProfile(objToDelete){
-            if(this.$route.name === "profile"){
-                this.removeItemFromProfile(objToDelete);
-            }
-        },
         removeQuestion() {
             let questionId = this.cardData.id;
             this.deleteQuestion({id: questionId, type: 'Question'}).then(() => {
@@ -174,8 +167,6 @@ export default {
                     //redirect only if question got deleted from the question page
                     this.$router.push('/');
                 }
-                //if profile refresh profile data
-                this.updateProfile(objToDelete);
             },
             (error) => {
                 console.error(error);

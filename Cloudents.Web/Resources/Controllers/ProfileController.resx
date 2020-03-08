@@ -119,10 +119,11 @@
   </resheader>
   <data name="Description" xml:space="preserve">
     <value>{0}</value>
-    
+  </data>
+  <data name="OgDescription" xml:space="preserve">
+    <value>Subjects: {0}</value>
   </data>
   <data name="TitleNoUniversity" xml:space="preserve">
     <value>{0} | Spitball</value>
-    
   </data>
 </root>

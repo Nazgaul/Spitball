@@ -1,41 +1,43 @@
 <template>
-    <div class="become-tutor-wrap" >
-        <v-stepper v-model="currentStep" class="elevation-0 stepper" :class="{'back-image': isLastStep}">
-            <v-layout align-center justify-center class="become-header" v-show="!isLastStep">
-                <v-flex xs12 sm12  class="text-center">
-                    <v-icon class="face-icon mr-2">sbf-face-icon</v-icon>
-                    <span class="become-title" v-language:inner>becomeTutor_title_become</span>
-                </v-flex>
-            </v-layout>
-            <v-stepper-header class="sb-box" v-show="!isLastStep" v-if="$vuetify.breakpoint.smAndUp">
-                <v-stepper-step class="step-control justify-center"
-                                color="#4452FC"
-                                :complete="currentStep > 1"
-                                :complete-icon="'sbf-checkmark'" step="1">
-                    <span v-language:inner>becomeTutor_personal_details</span>
-                </v-stepper-step>
-                <v-stepper-step class="step-control justify-center who" color="#4452FC"
-                                :complete="currentStep > 2"
-                                :complete-icon="'sbf-checkmark'" step="2">
-                    <span v-language:inner>becomeTutor_who</span>
-                </v-stepper-step>
-                <v-stepper-step class="step-control justify-center" color="#4452FC"
-                                :complete="currentStep > 3"
-                                :complete-icon="'sbf-checkmark'" step="3">
-                    <span v-language:inner>becomeTutor_calendar</span>
-                </v-stepper-step>
-            </v-stepper-header>
-            <v-stepper-items>
-                <v-stepper-content v-for="n in steps" 
-                                   :key="`step_${n}`"
-                                   :step="n">
-                    <keep-alive>
-                        <component :is="`step_${currentStep}`"></component>
-                    </keep-alive>
-                </v-stepper-content>
-            </v-stepper-items>
-        </v-stepper>
-    </div>
+    <v-dialog :value="true" persistent max-width="840px">
+        <div class="become-tutor-wrap" >
+            <v-stepper v-model="currentStep" class="elevation-0 stepper" :class="{'back-image': isLastStep}">
+                <v-layout align-center justify-center class="become-header" v-show="!isLastStep">
+                    <v-flex xs12 sm12  class="text-center">
+                        <v-icon class="face-icon mr-2">sbf-face-icon</v-icon>
+                        <span class="become-title" v-language:inner>becomeTutor_title_become</span>
+                    </v-flex>
+                </v-layout>
+                <v-stepper-header class="sb-box" v-show="!isLastStep" v-if="$vuetify.breakpoint.smAndUp">
+                    <v-stepper-step class="step-control justify-center"
+                                    color="#4452FC"
+                                    :complete="currentStep > 1"
+                                    :complete-icon="'sbf-checkmark'" step="1">
+                        <span v-language:inner>becomeTutor_personal_details</span>
+                    </v-stepper-step>
+                    <v-stepper-step class="step-control justify-center who" color="#4452FC"
+                                    :complete="currentStep > 2"
+                                    :complete-icon="'sbf-checkmark'" step="2">
+                        <span v-language:inner>becomeTutor_who</span>
+                    </v-stepper-step>
+                    <v-stepper-step class="step-control justify-center" color="#4452FC"
+                                    :complete="currentStep > 3"
+                                    :complete-icon="'sbf-checkmark'" step="3">
+                        <span v-language:inner>becomeTutor_calendar</span>
+                    </v-stepper-step>
+                </v-stepper-header>
+                <v-stepper-items>
+                    <v-stepper-content v-for="n in steps" 
+                                    :key="`step_${n}`"
+                                    :step="n">
+                        <keep-alive>
+                            <component :is="`step_${currentStep}`"></component>
+                        </keep-alive>
+                    </v-stepper-content>
+                </v-stepper-items>
+            </v-stepper>
+        </div>
+    </v-dialog>
 </template>
 
 <script>

@@ -1,7 +1,7 @@
 <template>
   <div class="requestActions">
     <div class="rA_top text-truncate">
-      <userAvatar :size="'34'" :userImageUrl="userImageUrl" :user-name="userName" :user-id="userID"/>
+      <userAvatar :size="'34'" :userImageUrl="userImageUrl" :user-name="previewName" :user-id="userID"/>
       <span @click="openAskQuestion()" class="rA_txt text-truncate" v-html="$Ph('requestActions_title',userName)" />
     </div>
     <v-layout class="rA_bottom">
@@ -12,7 +12,7 @@
         </v-btn>
       </v-flex>
       <v-flex xs4 class="rA_btn">
-        <v-btn :ripple="false" text block @click="openUpload()" sel="upload">
+        <v-btn :ripple="false" text block v-openDialog="uploadDialog" sel="upload">
           <uStudy class="rA_i mr-1" />
           <span v-language:inner="$vuetify.breakpoint.smAndDown ?'requestActions_btn_upload_mob':'requestActions_btn_upload'"/>
         </v-btn>
@@ -30,6 +30,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import analyticsService from "../../../../../services/analytics.service";
+import * as dialogNames from '../../../global/dialogInjection/dialogNames.js'
 
 import aQuestion from "./image/aQuestion.svg";
 import rTutor from "./image/rTutor.svg";
@@ -38,58 +39,50 @@ import uStudy from "./image/uStudy.svg";
 export default {
   name: "requestActions",
   components: {uStudy, rTutor, aQuestion },
+  data() {
+    return {
+      uploadDialog: dialogNames.Upload
+    }
+  },
   computed: {
-    ...mapGetters(["accountUser", "getSchoolName", "getSelectedClasses"]),
+    ...mapGetters(["accountUser", "getSelectedClasses",'getUserLoggedInStatus']),
     userImageUrl() {
-      if (this.accountUser && this.accountUser.image.length > 1) {
+      if(this.getUserLoggedInStatus && this.accountUser.image.length > 1) {
         return `${this.accountUser.image}`;
       }
       return "";
     },
+    previewName(){
+      if(this.getUserLoggedInStatus){
+        return this.accountUser.name;
+      }else{
+        return ''
+      }
+    },
     userName() {
-      if (this.accountUser && this.accountUser.name.length > 1) {
-        return `, ${this.accountUser.name}?`;
-      } 
-      //Ram dont want John doe
-      return '?';//LanguageService.getValueByKey('requestActions_anonymous')
-      
+      if(this.getUserLoggedInStatus){
+          return `, ${this.accountUser.name}?`;
+      }
+      return '?';
     },
     userID() {
-      if (this.accountUser && this.accountUser.id) {
+      if(this.getUserLoggedInStatus){
         return this.accountUser.id;
       }
-      return null
+      return null;
     }
   },
   methods: {
     ...mapActions([
       "updateNewQuestionDialogState",
-      "updateLoginDialogState",
-      "setReturnToUpload",
-      "updateDialogState",
       "updateRequestDialog",
       "setTutorRequestAnalyticsOpenedFrom"
     ]),
     openAskQuestion() {
       if (this.accountUser == null) {
-        this.updateLoginDialogState(true);
+        this.$openDialog('login');
       } else {
         this.updateNewQuestionDialogState(true);
-      }
-    },
-    openUpload() {
-      let schoolName = this.getSchoolName;
-      if (this.accountUser == null) {
-        this.updateLoginDialogState(true);
-      } else if (!schoolName.length) {
-        this.$router.push({ name: "addUniversity" });
-        this.setReturnToUpload(true);
-      } else if (!this.getSelectedClasses.length) {
-        this.$router.push({ name: "addCourse" });
-        this.setReturnToUpload(true);
-      } else if (schoolName.length > 0 && this.getSelectedClasses.length > 0) {
-        this.updateDialogState(true);
-        this.setReturnToUpload(false);
       }
     },
     openRequestTutor() {
@@ -101,15 +94,11 @@ export default {
         });
         this.updateRequestDialog(true);
       } else {
-        // if (this.getSelectedClasses.length) {
         this.setTutorRequestAnalyticsOpenedFrom({
           component: "actionBox",
           path: this.$route.path
         });
         this.updateRequestDialog(true);
-        // } else {
-        //   this.$router.push({ name: "addCourse" });
-        // }
       }
     }
   }

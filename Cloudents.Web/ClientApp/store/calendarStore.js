@@ -18,7 +18,17 @@ const state = {
     isCalendarShared:null,
 };
 
-const mutations ={
+const mutations = {
+    setResetCalendar(state){
+        state.calendarEvents = [];
+        state.needPayment = true;
+        state.showCalendar = false;
+        state.intervalFirst = 8;
+        state.isCalendarShared = null;
+        state.tutorId = null;
+        state.fromDate = new Date().toISOString();
+        state.toDate = null;
+    },
     setIsCalendarShared(state,val){
         state.isCalendarShared = val;
     },
@@ -101,7 +111,7 @@ const actions ={
         commit('setSelectedCalendarList',selectedCalendarList);
     },
     updateSelectedCalendarList({state}){
-        if(state.selectedCalendarList){
+        if(state.selectedCalendarList.length){
             return calendarService.postCalendarsList(state.selectedCalendarList);
         }else{
             return Promise.resolve();
@@ -169,14 +179,19 @@ const actions ={
         }
     },
     insertEvent({state},{date,time}){
-        let from = new Date(`${date} ${time}`).toISOString();
-        let isodate = new Date(`${date} ${time}`);
-        isodate.setHours(isodate.getHours() + 1);
-        let to = isodate.toISOString();
-      
+
+        let dateTime = new Date(date);
+        let hour = +time.split(':')[0];
+
+        let from = new Date(dateTime.setHours(hour));
+        let fromISO = from.toISOString();
+
+        let to = new Date(dateTime.setHours(hour + 1))
+        let toISO = to.toISOString();
+
         let insertEventObj = {
-            from,
-            to,
+            from: fromISO,
+            to: toISO,
             tutorId: state.tutorId
         };
 
@@ -217,6 +232,9 @@ const actions ={
                 })
             }
         })
+    },
+    resetCalendar({commit}){
+        commit('setResetCalendar')
     }
 };
 

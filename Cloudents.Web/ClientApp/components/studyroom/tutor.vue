@@ -63,7 +63,7 @@
 
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px;" vertical></v-divider>
             
-            <v-btn class="tutoringNavigationBtn" text icon @click="changeSettingsDialogState(true)" sel="setting_draw">
+            <v-btn class="tutoringNavigationBtn" text icon @click="openSettingsDialog" sel="setting_draw">
               <v-icon class="white-btn">sbf-settings</v-icon>
             </v-btn>
             
@@ -258,12 +258,10 @@ import shareScreenBtn from "./tutorHelpers/shareScreenBtn.vue";
 import logoComponent from '../app/logo/logo.vue';
 import testIcon from "./images/eq-system.svg";
 import chatIcon from "../../font-icon/message-icon.svg";
-import networkLevel from "./tutorHelpers/networkLevel.vue";
 import noSupportTop from "./images/not_supported_top.svg";
 import noSupportBottom from "./images/not_supported_bottom.svg";
 import tutorService from "./tutorService";
 import chatService from "../../services/chatService";
-import { LanguageService } from "../../services/language/languageService";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import leaveReview from "./tutorHelpers/leaveReview/leaveReview.vue";
 import startSessionTutor from "./tutorHelpers/startSession-popUp-tutor/startSession-popUp-Tutor.vue";
@@ -274,7 +272,6 @@ import endSessionConfirm from "./tutorHelpers/endSessionConfirm/endSessionConfir
 import browserSupport from "./tutorHelpers/browserSupport/browserSupport.vue";
 import insightService from '../../services/insightService.js';
 import studyRoomSettingsDialog from "./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue";
-import paymentDialog from './tutorHelpers/paymentDIalog/paymentDIalog.vue'
 import intercomSVG from './images/icon-1-2.svg'
 import studyRoomRecordingService from './studyRoomRecordingService.js';
 import errorWithAudioRecording from './tutorHelpers/errorWithAudioRecording/errorWithAudioRecording.vue';
@@ -295,6 +292,7 @@ import roomRecording_store from '../../store/studyRoomStore/roomRecording_store.
 import studyroomSettings_store from '../../store/studyRoomStore/studyroomSettings_store';
 
 import studyroomSettingsUtils from '../studyroomSettings/studyroomSettingsUtils';
+import * as dialogNames from '../pages/global/dialogInjection/dialogNames.js';
 
 export default {
   components: {
@@ -306,7 +304,6 @@ export default {
     logoComponent,
     testIcon,
     chatIcon,
-    networkLevel,
     sbDialog,
     leaveReview,
     noSupportTop,
@@ -318,7 +315,6 @@ export default {
     endSessionConfirm,
     browserSupport,
     studyRoomSettingsDialog,
-    paymentDialog,
     codeEditorTools,
     intercomSVG,
     errorWithAudioRecording,
@@ -331,22 +327,19 @@ export default {
   data() {
     return {      
       activeNavItem: "white-board",
-      showSupportBrowser: false,
-      showQualityDialog: false,
-      showContent: false,
       navs: [
         {
-          name: LanguageService.getValueByKey("tutor_nav_canvas"),
+          name: this.$t("tutor_nav_canvas"),
           value: "white-board",
           icon: "sbf-canvas"
         },
         {
-          name: LanguageService.getValueByKey("tutor_nav_code"),
+          name: this.$t("tutor_nav_code"),
           value: "code-editor",
           icon: "sbf-code-editor"
         },
         {
-          name: LanguageService.getValueByKey("tutor_nav_text"),
+          name: this.$t("tutor_nav_text"),
           value: "shared-document",
           icon: "sbf-text-icon"
         }
@@ -372,9 +365,6 @@ export default {
   computed: {
     ...mapGetters([
       "getStudyRoomSettingsDialog",
-      // "qualityDialog",
-      "localNetworkQuality",
-      "isRoomCreated",
       "getZoom",
       "getPanX",
       "getPanY",
@@ -384,17 +374,15 @@ export default {
       "getEndDialog",
       "getBrowserSupportDialog",
       "accountUser",
-      "getShowPaymentDialog",
       "getStudyRoomData",
       "releaseFullVideoButton",
       "getActiveNavIndicator",
-      "getRecorder",
-      "getRecorderStream",
       "getIsRecording",
       "getShowAudioRecordingError",
       "getVisitedSettingPage",
       "getShowUserConsentDialog",
-      "getSnapshotDialog"
+      "getSnapshotDialog",
+      "getIsRoomNeedPayment"
     ]),
     activeItem() {
       return this.activeNavItem;
@@ -415,24 +403,11 @@ export default {
     isMobile() {
       return this.$vuetify.breakpoint.xsOnly;
     },
-    browserSupportDialog(){
-      return this.getBrowserSupportDialog;
-    },
-    needPayment() {
-      if(!this.isTutor){
-        return this.getStudyRoomData ? this.getStudyRoomData.needPayment : true;
-      }else{
-        return false
-      }
-    },
     isTutor() {
         return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
     },
     openStartSessionDialog(){
         return this.getTutorStartDialog
-    },
-    showPaymentDialog(){
-      return this.getShowPaymentDialog
     },
     isCodeEditorActive(){
       return this.activeItem === "code-editor"
@@ -440,23 +415,30 @@ export default {
   },
 
 watch: {
-  getStudyRoomData(val){
-    if(!!val){
+  getIsRoomNeedPayment:{
+    immediate:true,
+    handler(newVal){
+      // note: we need the immediate cuz no one listen to getIsRoomNeedPayment and can 
+      // getStudyRoomData empty
+      if(newVal !== null){
+        this.handleNeedPayment(newVal)
+      }
+    }
+  },
+  getStudyRoomData(){
+    if(!this.getIsRoomNeedPayment){
       this.initStartSession();
     }
   }
 },
-
   methods: {
     ...mapActions([
       "setStudyRoomSettingsDialog",
       "setActiveConversationObj",
       "getChatById",
       "lockChat",
-      "updateStudyRoomProps",
       "updateReviewDialog",
       "updateReview",
-      "submitReview",
       "updateTutorStartDialog",
       "updateStudentStartDialog",
       "closeChat",
@@ -464,16 +446,54 @@ watch: {
       "updateEndDialog",
       "setBrowserSupportDialog",
       "setRoomId",
-      "setVideoDevice",
-      "setAudioDevice",
-      "initLocalMediaTracks",
-      "UPDATE_SEARCH_LOADING",
       "setShowAudioRecordingError",
       "hideRoomToasterMessage",
       "setShowUserConsentDialog",
       "setSnapshotDialog",
       "stopTracks"
     ]),
+    handleNeedPayment(needPayment){
+      if(needPayment){
+        this.$openDialog(dialogNames.Payment)
+        return;
+      }
+      if(this.$route.query.dialog === dialogNames.Payment){
+        this.$closeDialog()
+      }
+      this.setStudyRoom(this.id);
+    },
+    initMathjax(){
+      this.$loadScript("https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG")
+        .then(() => {
+          MathJax.Hub.Config({
+            showMathMenu: false,
+            SVG: {
+              useGlobalCache: false,
+              useFontCache: false
+            }
+          });
+          MathJax.AuthorInit = function(texstring, callback) {
+            var input = texstring;
+            var wrapper = document.createElement("div");
+            wrapper.innerHTML = input;
+            var output = { svg: "" };
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub, wrapper]);
+            MathJax.Hub.Queue(function() {
+              var mjOut = wrapper.getElementsByTagName("svg")[0];
+              if (!mjOut) {
+                return null;
+              }
+              mjOut.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+              output.svg = mjOut.outerHTML;
+              callback(output);
+            });
+          };
+      });
+    },
+    openSettingsDialog(){
+      this.$ga.event("tutoringRoom", "openSettingsDialog");
+      this.changeSettingsDialogState(true)
+    },
     initStartSession(){
         console.warn('DEBUG: 29 store: initStartSession')
 
@@ -486,7 +506,6 @@ watch: {
         }
       }
     },
-    // ...mapGetters(['getDevicesObj']),
     closeFullScreen(){
       if(!document.fullscreenElement || !document.webkitFullscreenElement || document.mozFullScreenElement){
        this.selectViewOption(this.enumViewOptions.videoChat)
@@ -512,6 +531,9 @@ watch: {
     },
     updateActiveNav(value) {
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_navigation', {'roomId': this.id, 'userId': this.userId, 'navigatedTo': value}, null)
+      
+      this.$ga.event("tutoringRoom", `updateActiveNav:${value}`);
+
       this.activeNavItem = value;
       let activeNavData = {
           activeNav: value,
@@ -522,15 +544,15 @@ watch: {
       };
       let normalizedData = JSON.stringify(transferDataObj);
       tutorService.dataTrack.send(normalizedData);
-      // {{singleNav.value}}
       console.log(this.activeItem);
     },
     changeSettingsDialogState(val) {
       this.setStudyRoomSettingsDialog(val);
-      // this.updateTestDialogState(val);
     },
     
     selectViewOption(param) {
+      this.$ga.event("tutoringRoom", `selectViewOption:${param}`);
+
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_selectViewOption', {'roomId': this.id, 'userId': this.userId, 'viewOption': param}, null)
       this.activeViewOption = param;
       if (this.activeViewOption === this.enumViewOptions.videoChat) {
@@ -560,90 +582,37 @@ watch: {
         video.msRequestFullscreen();
       }
     },
-    async setStudyRoom(id) {
+    setStudyRoom(id) {
+      this.setRoomId(id);
+      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_RoomProps', this.getStudyRoomData, null)
+      initSignalRService(`studyRoomHub?studyRoomId=${id}`);
+      setTimeout(()=>{this.initStartSession();})
+      this.initMathjax()
+      
       let self = this;
-      let _roomProps = this.getStudyRoomData;
-      if(_roomProps){
-        initSignalRService(`studyRoomHub?studyRoomId=${id}`);
-        setTimeout(()=>{
-          this.initStartSession();
-        })
-        
-      }else{
-        await tutorService.getRoomInformation(id).then((RoomProps) => {
-          _roomProps = RoomProps;
-          insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_RoomProps', _roomProps, null)
-          initSignalRService(`studyRoomHub?studyRoomId=${id}`);
-          this.updateStudyRoomProps(_roomProps);
-        }, err => {
-          insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_RoomProps', err, null)
-        });
-      }
-      self.getChatById(_roomProps.conversationId).then(({ data }) => {
+      this.getChatById(this.getStudyRoomData.conversationId).then(({ data }) => {
         insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_ChatById', data, null)
         let currentConversationObj = chatService.createActiveConversationObj(data);
         self.setActiveConversationObj(currentConversationObj);
         self.lockChat();
       });
     },
-    // closeWin() {
-    //   global.close();
-    // },
     closeBrowserSupportDialog(){ 
       this.setBrowserSupportDialog(false);
     },
-    async initDevicesToStore(){
-        let availableDevices = [];
-        if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
-            console.log("enumerateDevices() not supported.");
-            return;
-        }
-
-        // List cameras and microphones.
-        let devices = await navigator.mediaDevices.enumerateDevices();
-        devices.forEach(function (device) {
-            console.log(device.kind + ": " + device.label +
-                " id = " + device.deviceId);
-            availableDevices.push(device.kind);
-        });
-        //create local track with custom names
-        let audioTrackName = `audio_${this.isTutor ? 'tutor' : 'student'}_${this.accountUser.id}`;
-        let videoTrackName = `video_${this.isTutor ? 'tutor' : 'student'}_${this.accountUser.id}`;
-        let audioSetObj = {
-            audio: availableDevices.includes('audioinput'),
-            name: audioTrackName
-        };
-        let videoSetObj = {
-            video: availableDevices.includes('videoinput'),
-            name: videoTrackName
-        };
-        let constraint = {
-            video: videoSetObj.video ? true : false, 
-            audio: audioSetObj.audio ? true : false
-        }
-        let ready = await navigator.mediaDevices.getUserMedia(constraint).then(() => {
-            let audioDevice = audioSetObj.audio ? audioSetObj : false;
-            let videoDevice = videoSetObj.video ? videoSetObj : false;
-            this.setVideoDevice(videoDevice);
-            this.setAudioDevice(audioDevice);
-            return true;
-        }, ()=>{
-          return false;
-        })
-
-        return ready;
-    },
     resetItems(){
-      let isExit = confirm(LanguageService.getValueByKey("login_are_you_sure_you_want_to_exit"),)
+      let isExit = confirm(this.$t("login_are_you_sure_you_want_to_exit"),)
       if(isExit){
-        this.UPDATE_SEARCH_LOADING(true);
+        this.$ga.event("tutoringRoom", 'resetItems');
         this.$router.push('/');
       }
     },
     showIntercom(){
+      this.$ga.event("tutoringRoom", 'showIntercom');
       intercomSettings.showDialog();
     },
     toggleRecord(){
+      this.$ga.event("tutoringRoom", 'toggleRecord');
       studyRoomRecordingService.toggleRecord(this.isTutor);
     },
     closeUserConsentDialog(){
@@ -689,8 +658,7 @@ watch: {
     storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
   },
   async created() {
-    // let ready = this.initDevicesToStore();
-    
+    this.userId = this.accountUser?.id || 'GUEST';
     if (!studyroomSettingsUtils.isBrowserSupport()) {
       this.$nextTick(()=>{
         this.setBrowserSupportDialog(true)
@@ -699,6 +667,20 @@ watch: {
       })
       return;
     }
+
+    if(this.id){
+      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null) 
+      this.$store.dispatch('updateStudyRoomInformation',this.id).catch((err)=>{
+          if(err?.response){
+            insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_RoomProps', err, null)
+            this.$router.push('/')
+          }
+        })
+    }else{
+      //TODO - we need one place to invoke this.
+      this.initMathjax()
+    }
+
     
     // in case refresh was made in studyRoom page, make sure to init local media tracks. (to be able to share video/audio)
 
@@ -711,43 +693,6 @@ watch: {
     //this line will init the tracks to show local medias
     studyroomSettingsUtils.validateMedia();
 
-
-
-    this.userId = !!this.accountUser ? this.accountUser.id : 'GUEST';
-    if(!!this.id){
-      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null)
-      this.setRoomId(this.id);
-      this.setStudyRoom(this.id);
-    }
-    this.$loadScript(
-      "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG"
-    ).then(() => {
-      MathJax.Hub.Config({
-        showMathMenu: false,
-        SVG: {
-          useGlobalCache: false,
-          useFontCache: false
-        }
-      });
-      MathJax.AuthorInit = function(texstring, callback) {
-        var input = texstring;
-        var wrapper = document.createElement("div");
-        wrapper.innerHTML = input;
-        var output = { svg: "" };
-        MathJax.Hub.Queue(["Typeset", MathJax.Hub, wrapper]);
-        MathJax.Hub.Queue(function() {
-          var mjOut = wrapper.getElementsByTagName("svg")[0];
-          if (!mjOut) {
-            return null;
-          }
-          mjOut.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-          output.svg = mjOut.outerHTML;
-          callback(output);
-        });
-      };
-      //MathJax.Message.Log()
-    });
-    console.log("ID Tutor!!", this.id);
     global.onbeforeunload = function() {     
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_beforeUnloadTriggered', {'roomId': this.id, 'userId': this.userId}, null)
       return "Are you sure you want to close the window?";

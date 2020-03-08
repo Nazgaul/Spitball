@@ -204,12 +204,14 @@ export default {
         },
         approve() {
             let item = this.sessionPayment;
+            debugger;
             let itemObj = {
                 studentPay : Number(this.studentPayPerHour),
                 spitballPay: Number(this.spitballPayPerHour),
                 userId: item.userId,
                 tutorId: item.tutorId,
-                StudyRoomSessionId: item.studyRoomSessionId
+                StudyRoomSessionId: item.studyRoomSessionId,
+                adminDuration: item.duration
             }
 
             approvePayment(itemObj).then((resp) => {
@@ -245,7 +247,7 @@ export default {
                 this.editedIndex = -1;
             },
                 (error) => {
-                    this.$toaster.error(`Error can't approve the payment`);
+                    this.$toaster.error(`Error can't decline the payment`);
                 }
             )
                 

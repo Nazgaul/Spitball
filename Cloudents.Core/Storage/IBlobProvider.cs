@@ -18,7 +18,8 @@ namespace Cloudents.Core.Storage
 
         Task UploadBlockFileAsync(string blobName, Stream fileContent, int index, CancellationToken token);
         //Task CommitBlockListAsync(string blobName, string mimeType, IList<int> indexes, CancellationToken token);
-        Task CommitBlockListAsync(string blobName, string mimeType, string originalFileName, IList<int> indexes, CancellationToken token);
+        //Task CommitBlockListAsync(string blobName, string mimeType, string originalFileName, IList<int> indexes, CancellationToken token);
+        Task CommitBlockListAsync(string blobName, string mimeType, string originalFileName, IList<int> indexes, TimeSpan? cacheControlTime = null, CancellationToken token = default);
 
 
 
@@ -53,6 +54,10 @@ namespace Cloudents.Core.Storage
     {
         Task<Uri> UploadImageAsync(long userId, string file,
             Stream stream, string contentType, CancellationToken token = default);
+    }
+
+    public interface IAdminDirectoryBlobProvider : IBlobProvider
+    {
     }
 
     public interface IChatDirectoryBlobProvider : IBlobProvider

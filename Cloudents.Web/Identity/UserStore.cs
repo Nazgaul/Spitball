@@ -52,7 +52,7 @@ namespace Cloudents.Web.Identity
             return Task.FromResult(user.Name);
         }
 
-        public Task SetUserNameAsync(User user, [NotNull] string userName, CancellationToken cancellationToken)
+        public Task SetUserNameAsync(User user, string userName, CancellationToken cancellationToken)
         {
             if (userName == null) throw new ArgumentNullException(nameof(userName));
             var splitUserName = userName.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
@@ -121,7 +121,7 @@ namespace Cloudents.Web.Identity
         public Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
             var p = long.Parse(userId);
-            return _queryBus.QueryAsync<User>(new UserDataByIdQuery(p), cancellationToken);
+            return _queryBus.QueryAsync(new UserDataByIdQuery(p), cancellationToken);
             //return _session.LoadAsync<RegularUser>(p, cancellationToken);
         }
 
@@ -206,13 +206,13 @@ namespace Cloudents.Web.Identity
 
         public Task SetTwoFactorEnabledAsync(User user, bool enabled, CancellationToken cancellationToken)
         {
-            user.TwoFactorEnabled = enabled;
+            //user.TwoFactorEnabled = enabled;
             return Task.CompletedTask;
         }
 
         public Task<bool> GetTwoFactorEnabledAsync(User user, CancellationToken cancellationToken)
         {
-            return Task.FromResult(user.TwoFactorEnabled);
+            return Task.FromResult(true);
         }
 
         public Task SetAuthenticatorKeyAsync(User user, string key, CancellationToken cancellationToken)

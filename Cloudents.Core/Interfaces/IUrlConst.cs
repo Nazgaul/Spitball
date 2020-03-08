@@ -11,19 +11,21 @@ namespace Cloudents.Core.Interfaces
 
         string BuildCourseEndPoint(string courseName);
 
-        string BuildQuestionEndPoint(long id, object parameters = null);
+        string BuildQuestionEndPoint(long id, object? parameters = null);
         // string BuildPayMeBuyerEndPoint(string token);
 
-        Uri BuildChatEndpoint(string token, object parameters = null);
+        Uri BuildChatEndpoint(string token, object? parameters = null);
 
-        Uri BuildShortUrlEndpoint(string identifier, object parameters = null);
+        Uri BuildShortUrlEndpoint(string identifier, object? parameters = null);
         Uri BuildShortUrlEndpoint(string identifier, string country);
 
 
-        string BuildDocumentEndPoint(long id, object parameters = null);
-        string BuildDocumentThumbnailEndpoint(long id, object parameters = null);
-        string BuildUserImageEndpoint(long id, string imageName, string userName, object parameters = null);
-        string BuildUserImageEndpoint(long id, string imageName);
+        string BuildDocumentEndPoint(long id, object? parameters = null);
+        string BuildDocumentThumbnailEndpoint(long id, object? parameters = null);
+        string BuildUserImageEndpoint(long id, string imageName, string userName, object? parameters = null);
+        string BuildUserImageProfileShareEndpoint(long id, object? parameters = null);
+        string BuildDocumentImageShareEndpoint(long id, object? parameters = null);
+        string? BuildUserImageEndpoint(long id, string? imageName);
     }
 
 }

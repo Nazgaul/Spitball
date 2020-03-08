@@ -1,69 +1,60 @@
 <template>
-    <general-page :mdAndDown="$vuetify.breakpoint.mdAndDown" :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
+    <general-page :mdAndDown="$vuetify.breakpoint.mdAndDown" :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="$route.name">
         <div slot="main" class="feedWrap">
-            <coursesTab/>
-            <div class="request-box mb-0">
-                <request-box></request-box>
-            </div>
-             <v-flex v-if="filterCondition" class="filter-container"></v-flex>
-            <v-snackbar class="question-toaster" @click="loadNewQuestions()" :top="true" :timeout="0" :value="showQuestionToaster">
-                <div class="text-wrap">
-                    <v-icon class="refresh-style">sbf-arrow-upward</v-icon> &nbsp;&nbsp; <span v-language:inner>result_new_questions</span>
-                </div>
-            </v-snackbar>
-            <div class="results-section mt-5" v-if="items">
-                <scroll-list v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
+            <template v-if="showRequestBox">
+                <coursesTab/>
+                <request-box class="request-box mb-0"/>
+            </template>
+            <v-flex xs12 class="mt-3 analyticWrapper" v-if="showAnalyticStats">
+                <analyticOverview/>
+            </v-flex>
+            <v-flex xs12 sm4 class="select-feed mt-3">
+                <v-select class=" filters_select"
+                    sel="feed_filter"
+                    :append-icon="'sbf-arrow-fill'"
+                    v-model="query.filter"
+                    :value="Feeds_getCurrentQuery.filter"
+                    :items="filters"
+                    :item-text="getSelectedName"
+                    @change="handleSelects()"
+                    :height="$vuetify.breakpoint.xsOnly? 42 : 36" hide-details solo>
+                    <template v-slot:item="{item}">
+                        {{dictionary[item.key]}}
+                    </template>
+                </v-select>
+            </v-flex>
+            <div class="results-section mt-3 mt-sm-5" v-if="items">
+                <scrollList v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
                     <v-container class="ma-0 results-wrapper pa-0">
-                        <v-layout column>
-                            <slot name="resultData" :items="items">                                
-                                <v-flex class="result-cell" xs-12 v-for="(item,index) in items" :key="index"
-                                    :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
-                                        <component 
-                                            :id="index == 1 ? 'tour_vote' : ''"
-                                            :is="setTemplate(item.template)"
-                                            :item="item" 
-                                            :key="index"
-                                            :index="index"
-                                            :tutorData="item"
-                                            class="cell">
-                                        </component>
-                                </v-flex>
-                                <v-flex class="suggestCard result-cell mb-4 xs-12 order-xs4">
-                                    <suggest-card :name="currentSuggest" @click.native="openRequestTutor()"></suggest-card>   
-                                </v-flex>
-                            </slot>
+                        <v-layout column>              
+                            <v-flex class="result-cell" xs-12 v-for="(item,index) in items" :key="index"
+                                :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
+                                    <component 
+                                        :id="index == 1 ? 'tour_vote' : ''"
+                                        :is="setTemplate(item.template)"
+                                        :item="item" 
+                                        :key="index"
+                                        :index="index"
+                                        :tutorData="item"
+                                        class="cell">
+                                    </component>
+                            </v-flex>
+                            <v-flex class="suggestCard result-cell mb-4 xs-12 order-xs4">
+                                <suggestCard/>   
+                            </v-flex>
                         </v-layout>
                     </v-container>
-                </scroll-list>
-                <div v-else>
-                    <empty-state-card :userText="userText" :helpAction="goToAskQuestion"></empty-state-card>
-                </div>
+                </scrollList>
+                <emptyStateCard v-else/>
             </div>
-            <v-sheet color="#fff" class="mt-5 skeletonWarp" v-else v-for="n in 5" :key="n">
-                <v-skeleton-loader type="list-item-avatar-two-line" max-width="250"></v-skeleton-loader>
-                <v-skeleton-loader type="list-item-three-line"></v-skeleton-loader>
-                <v-skeleton-loader type="actions"></v-skeleton-loader>
-            </v-sheet>
+            <feedSkeleton v-else v-for="n in 5" :key="n"/>
         </div>
-        <template slot="sideBar" v-if="filterCondition">
-            <component 
-                :is="'mobile-sort-and-filter'"
-                :sortOptions="page.sort"
-                :sortVal="sort"
-                v-model="showFilters"
-                :filterOptions="getFilters"
-                :filterVal="filterSelection">
-                <img :src="universityImage" slot="courseTitlePrefix" width="24" height="24" v-if="universityImage"/>
-            </component>
+        <template slot="rightSide">
+            <div :class="['feed-sticky',{'feed-sticky_bannerActive':getBannerParams}]">
+                <feedFaqBlock v-if="showAdBlock" class="mb-4"/>
+                <buyPointsLayout v-if="getUserLoggedInStatus" class="buyPointsFeed"/>
+            </div>
         </template>
-        <template slot="rightSide" v-if="showAdBlock">
-            <slot name="rightSide">
-                <faq-block :isAsk="true" :isNotes="false" :name="currentSuggest" :text="userText"></faq-block>
-            </slot>
-        </template>
-            <v-flex class="result-cell mb-2 xs-12 order-xs3">
-                <suggest-card :name="currentSuggest" @click.native="openRequestTutor()"></suggest-card>   
-            </v-flex>
     </general-page>
 </template>
 
@@ -72,6 +63,50 @@
 <style lang="less">
 @import "../../../styles/mixin.less";
 
+.feed-sticky{
+    position: sticky;
+    height: fit-content;
+    top: 80px;
+    &.feed-sticky_bannerActive{
+        top: 150px;
+    }
+    .buyPointsFeed{
+        max-width: 304px;
+        .buyPointsLayout{
+            max-width: 100%;
+            @media (max-width: @screen-md-plus) {
+                max-width: 100%;
+                max-height: inherit;
+                padding: 10px; 
+                margin: inherit;
+            }
+            .buyPointsLayout_img{
+                @media (max-width: @screen-md-plus) {
+                    max-width: inherit;
+                    height: 90px;
+                }
+            }
+            .buyPointsLayout_action{
+                @media (max-width: @screen-md-plus) {
+                    margin-left: inherit;
+                    width: 100%;
+                }
+                .buyPointsLayout_title{
+                    @media (max-width: @screen-md-plus) {
+                        font-size: 16px;
+                    }
+                }
+                .buyPointsLayout_btn{
+                    @media (max-width: @screen-md-plus) {
+                        margin-top: 10px;
+                        min-width: inherit;
+                        max-width: inherit;
+                    }
+                }
+            }
+        }
+    }
+}
 .feedWrap {
     .results-section{
         .results-wrapper{
@@ -82,39 +117,61 @@
             }
         }
     }
-    .skeletonWarp {
-        border-radius: 12px;
-        .v-skeleton-loader__avatar {
-            border-radius: 50%;
-        }
+    .analyticWrapper {
+        .analyticOverview {
+            max-width: 720px;
+            margin: auto;
+        }   
     }
-    .question-toaster{
-        margin-top: 122px;
-        cursor: pointer;
-        z-index:122;
-        .v-snack__wrapper{
-            box-shadow: none;
-            background-color: transparent;
-            margin: 0 auto;
-            width: unset;
-            .v-snack__content{
-                width: unset;
-                border-radius: 50px;
-                height: 32px;
-                background-color: #0091ca;
-                padding: 14px 20px;
-                box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.26);
+    .select-feed{
+      @media (max-width: @screen-xs) {
+         padding: 8px 12px 8px 14px;
+         background: white;
+      }
+      .filters_select{
+         color: #4d4b69;
+         .responsive-property(height, 36px, null, 42px);
+         .v-input__control{
+            min-height: auto !important;
+            display: unset;
+            .responsive-property(height, 36px, null, 42px);
+            .v-input__slot{
+               border-radius: 8px;
+               box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+               margin: 0;
+               @media (max-width: @screen-xs) {
+                  box-shadow: none;
+                  border: solid 1px #ced0dc;
+               }
+               .v-select__slot{
+                  font-size: 14px;
+                  .v-select__selections{
+                     ::placeholder{
+                        font-size: 14px;
+                        color: #4d4b69;
+                     }
+                  }
+                  .v-input__append-inner{
+                     .v-input__icon{
+                        &.v-input__icon--append{
+                           i{
+                              font-size: 6px;
+                              color: #43425d;
+                           }
+                        }
+                        &.v-input__icon--clear{
+                           i{
+                              font-size: 10px;
+                              color: #43425d;
+                           }
+                        }
+                     }
+                  }
+               }
             }
-        }
-        .refresh-style {
-            color: #fff;
-            width: 0px;
-            height: 19px;
-            font-size: 14px;
-        }
-        @media (max-width: @screen-xs) {
-            margin-top: 25px;
-        }
+         }
+      }
     }
+
 }
 </style>

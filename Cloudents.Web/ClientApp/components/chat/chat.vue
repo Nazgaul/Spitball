@@ -1,7 +1,7 @@
 <template>
   <div class="sb-chat-container px-0 py-0" :class="[ $route.name == 'tutoring' ?  'chat-studyRoom': '', {'minimized': isMinimized}]">
     <v-layout @click="toggleMinimizeChat" class="chat-header" :class="{'new-messages': hasUnread}">
-      <v-icon @click.stop="OriginalChatState" v-html="inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'" />
+      <v-icon class="mr-2" size="18" color="#fff" @click.stop="OriginalChatState" v-html="inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'" />
         <template v-if="state === 'messages'">
           <user-avatar :size="'32'" :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/> 
           <div class="chat-header-name text-truncate pl-4">{{activeConversationObj.name}}</div>
@@ -12,10 +12,13 @@
         
         <span class="other-side">
           <v-icon
+            class="minimizeIcon"
             v-show="!isMobile"
             @click.stop="toggleMinimizeChat"
+            size="18"
+            color="#fff"
           >{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
-          <v-icon v-if="!isLocked" @click.stop="closeChatWindow">sbf-close-chat</v-icon>
+          <v-icon size="18" color="#fff" class="closeIcon" v-if="!isLocked" @click.stop="closeChatWindow">sbf-close-chat</v-icon>
         </span>
 
     </v-layout>
@@ -141,6 +144,7 @@ export default {
   &.chat-studyRoom {
     right: 0 ;
     left: unset;
+    z-index: 201;
   }
   @media (max-width: @screen-xs) {
     width: 100%;
@@ -182,17 +186,13 @@ export default {
       white-space: nowrap;
       overflow: hidden;
     }
-    i {
-      color: #ffffff;
-      font-size: 18px;
+    .sbf-message-icon {
       margin: 4px 10px 0 4px;
       z-index: 2;
-      &.sbf-arrow-back-chat {
-        transform: scaleX(1) /*rtl:append:scaleX(-1)*/;
-        width: 24px;
-        height: 24px;
-        display: flex;
-      }
+    }
+    .sbf-arrow-back-chat {
+      transform: scaleX(1) /*rtl:append:scaleX(-1)*/;
+      display: flex;
     }
     .chat-header-name, .other-side {
       align-self: center;
@@ -200,9 +200,9 @@ export default {
     .other-side {
       display: flex;
       margin-left: auto;
-      i {
+      .minimizeIcon, .closeIcon {
         margin-right: 0;
-        margin-left: 14px;
+        margin-left: 14px;        
       }
       .theme--light.v-btn-toggle {
         background: #393850 !important;

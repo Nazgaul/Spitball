@@ -11,18 +11,20 @@
     "plugin:css-modules/recommended"
   ],
     "parser": "vue-eslint-parser",
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly",
-        "global": "readonly",
-        "Intercom": "readonly",
-        "MathJax": "readonly",
-        "require": "readonly",
-        "gapi": "readonly",
-        "describe": "readonly",
-        "it": "readonly",
-        "expect": "readonly"
-    },
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly",
+    "global": "readonly",
+    "Intercom": "readonly",
+    "MathJax": "readonly",
+    "require": "readonly",
+    "gapi": "readonly",
+    "describe": "readonly",
+    "it": "readonly",
+    "expect": "readonly",
+    "Android": "readonly",
+    "process": "readonly" 
+  },
     "parserOptions": {
         "parser": "babel-eslint",
         "ecmaVersion": 2018,

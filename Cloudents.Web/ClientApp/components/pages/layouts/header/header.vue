@@ -10,6 +10,9 @@
             </div>
             <v-spacer v-else></v-spacer>
             <div class="globalHeader_items_right">
+                <div v-if="$route.meta.headerSlot">
+                    <component :is="$route.meta.headerSlot"/>
+                </div>
                 <router-link v-show="!isMobile && shouldShowFindTutor" :to="{name:'tutorLandingPage'}" class="gH_i_r_findTutor" >
                     <findSVG/>
                     <span v-language:inner="'header_find_tutors'"/>
@@ -17,7 +20,7 @@
                 <template v-if="!isMobile" >
                     <v-tooltip bottom>
                         <template v-slot:activator="{on}">
-                            <v-icon @click="startIntercom" v-on="on" v-if="!$vuetify.breakpoint.smAndDown" class="gH_i_r_intercom" :class="{'gH_i_r_intercom--margin': !loggedIn}" v-html="'sbf-help'"/>
+                            <helpIcon @click="startIntercom" v-on="on" v-if="!$vuetify.breakpoint.smAndDown" class="gH_i_r_intercom" :class="{'gH_i_r_intercom--margin': !loggedIn}" />
                         </template>
                         <span v-language:inner="'header_tooltip_help'"/>
                     </v-tooltip>
@@ -25,7 +28,7 @@
                     <v-tooltip bottom v-if="loggedIn">
                         <template v-slot:activator="{on}">
                             <div v-on="on" class="gH_i_r_chat">
-                                <v-icon class="gH_i_r_chat_i" @click="openChatWindow" v-html="'sbf-forum-icon'"/>
+                                <chatIcon class="gH_i_r_chat_i" @click="openChatWindow"/>
                                 <span @click="openChatWindow" class="unread_circle_nav" v-show="totalUnread > 0" :class="[totalUnread > 9 ? 'longer_nav' :'']">{{totalUnread}}</span>
                             </div>
                         </template>
@@ -33,8 +36,8 @@
                     </v-tooltip>
                 </template>
                 <template v-if="!$vuetify.breakpoint.smAndDown && !loggedIn">
-                    <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$router.push({path:'/signin'})" v-language:inner="'tutorListLanding_topnav_btn_login'"/>
-                    <button class="gH_i_r_btns gH_i_r_btn_up mr-4" @click="$router.push({path:'/register'})" v-language:inner="'tutorListLanding_topnav_btn_signup'"/>
+                    <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$router.push({name :'login'})" v-language:inner="'tutorListLanding_topnav_btn_login'"/>
+                    <button class="gH_i_r_btns gH_i_r_btn_up mr-4" @click="$router.push({name :'register'})" v-language:inner="'tutorListLanding_topnav_btn_signup'"/>
                     <a class="gH_i_lang" @click="changeLanguage()" v-if="showChangeLanguage" sel="language" v-html="currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''"/>
                 </template>
                 <v-menu fixed close-on-content-click bottom offset-y :content-class="getBannerParams? 'fixed-content-banner':'fixed-content'">
@@ -52,13 +55,13 @@
                                     <span class="ur_greets" v-html="$Ph('header_greets', accountUser.name)"/>
                                     <div class="ur_balance">
                                         <span v-html="$Ph('header_balance', userBalance(accountUser.balance))"/>
-                                        <v-icon v-if="!isMobile" class="ur_balance_drawer ml-2" color="#43425d" v-html="'sbf-arrow-fill'"/>
+                                        <arrowDownIcon v-if="!isMobile" class="ur_balance_drawer ml-2"/>
                                     </div>
                                 </div>
                             </template>
                             <template>
                                 <v-btn :class="[{'hidden-md-and-up': isHomePage},{'d-none':!isHomePage && loggedIn}]" :ripple="false" icon @click.native="drawer = !drawer">
-                                    <v-icon small v-html="'sbf-menu'"/>
+                                    <hamburgerIcon class="hamburgerIcon"/>
                                 </v-btn>
                             </template>
                         </div>
@@ -73,27 +76,34 @@
             </div>
         </template>
     </v-app-bar>
-            <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
-                             fixed app v-if="$vuetify.breakpoint.xsOnly" class="drawerIndex"
-                             width="280">
+        <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
+                        fixed app v-if="$vuetify.breakpoint.xsOnly" class="drawerIndex"
+                        width="280">
             <menuList @closeMenu="closeDrawer"/>
         </v-navigation-drawer>
     </div>
 </template>
 
 <script>
-import {mapActions, mapGetters, mapMutations} from 'vuex';
-import {LanguageChange, LanguageService } from "../../../../services/language/languageService";
+import {mapActions, mapGetters} from 'vuex';
+import {LanguageChange } from "../../../../services/language/languageService";
 import languagesLocales from "../../../../services/language/localeLanguage";
+import * as routeNames from '../../../../routes/routeNames.js';
 
 const searchCMP = () => import('../../global/search/search.vue');
 import menuList from '../menuList/menuList.vue';
 import intercomService from "../../../../services/intercomService";
 import logoComponent from '../../../app/logo/logo.vue';
 import findSVG from './images/findSVG.svg'
+import helpIcon from './images/helpIcon.svg';
+import chatIcon from './images/chatIcon.svg';
+import arrowDownIcon from './images/arrowDownIcon.svg';
+import hamburgerIcon from './images/hamburgerIcon.svg';
+const phoneNumberSlot = () => import('./headerSlots/phoneNumberSlot.vue');
+const becomeTutorSlot = () => import('./headerSlots/becomeTutorSlot.vue');
 
 export default {
-    components: {searchCMP,menuList,logoComponent,findSVG},
+components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTutorSlot,helpIcon,chatIcon,arrowDownIcon,hamburgerIcon},
     data() {
         return {
             drawer: false,
@@ -108,7 +118,10 @@ export default {
         layoutClass: {}
     },
     computed: {
-        ...mapGetters(['accountUser','getTotalUnread','getBannerParams']),
+        ...mapGetters(['accountUser','getTotalUnread','getBannerParams','getUserLoggedInStatus']),
+        loggedIn() {
+            return this.getUserLoggedInStatus;
+        },
         isTablet(){
             return this.$vuetify.breakpoint.smAndDown;
         },
@@ -116,33 +129,31 @@ export default {
             return this.$vuetify.breakpoint.xsOnly;
         },
         userImageUrl(){
-            return this.accountUser && this.accountUser.image.length > 1 ? this.accountUser.image : '';
+            return this.loggedIn && this.accountUser.image.length > 1 ? this.accountUser.image : '';
         },
         userName(){
-            return this.accountUser && this.accountUser.name ? this.accountUser.name : '';
-        },
-        loggedIn() {
-            return this.accountUser !== null;
+            return this.loggedIn && this.accountUser.name ? this.accountUser.name : '';
         },
         totalUnread(){
             return this.getTotalUnread;
         },
         isHideHeader(){
-            let filteredRoutes = ['profile'];
+            let filteredRoutes = [routeNames.Profile];
             return filteredRoutes.indexOf(this.$route.name) > -1 && this.$vuetify.breakpoint.xsOnly;
         },
         searchPlaceholder(){
-            return this.isTablet ? LanguageService.getValueByKey(`header_placeholder_search`) : LanguageService.getValueByKey(`header_placeholder_search_m`);
+            return this.isTablet ? this.$t(`header_placeholder_search`) : this.$t(`header_placeholder_search_m`);
         },
         showSearch(){
-            let showRoutes = ['feed'];
+            let showRoutes = [routeNames.Feed,routeNames.Dashboard];
             return showRoutes.includes(this.currentRoute)
         },
         isHomePage(){
             return this.currentRoute === undefined;
         },
         shouldShowFindTutor(){ 
-            let hiddenRoutes = ['tutorLandingPage']
+            if(this.accountUser?.isTutor) return false
+            let hiddenRoutes = [routeNames.TutorList]
             return !hiddenRoutes.includes(this.currentRoute)
         },
         showChangeLanguage() {
@@ -159,12 +170,10 @@ export default {
     },
     methods: {
         ...mapActions(['openChatInterface']),
-        ...mapMutations(['UPDATE_SEARCH_LOADING']),
         openChatWindow(){
             this.openChatInterface();
         },
         resetItems(){
-            this.UPDATE_SEARCH_LOADING(true);
             this.$router.push('/');
         },
         closeDrawer() {
@@ -188,6 +197,9 @@ export default {
             }
         );
         },
+        goLogin(){
+            this.$router.push({path:'/signin'});
+        }
     },
     created() {
         this.$root.$on("closeDrawer", ()=>{
@@ -388,8 +400,8 @@ export default {
             }
             .gH_i_r_intercom{
                 cursor: pointer;
-                color: #bdc0d1;
-                font-size: 22px;
+                fill: #bdc0d1;
+                width: 22px;
                 padding-top: 4px;
                 margin-right: 26px;
 
@@ -399,12 +411,14 @@ export default {
                 }
             }
             .gH_i_r_chat{
+                cursor: pointer;
                 position: relative;
                 margin-right: 26px;
                 .gH_i_r_chat_i{
-                    color: #bdc0d1;
-                    font-size: 22px;
+                    fill: #bdc0d1;
+                    width: 22px;
                     padding-top: 8px;
+                    vertical-align: bottom;
                 }
                 .unread_circle_nav{
                     position: absolute;
@@ -432,6 +446,9 @@ export default {
                     }
                 }
             }
+            .hamburgerIcon{
+                fill: rgba(0, 0, 0, 0.54)
+            }
             .gh_i_r_userInfo{
                 margin-left: 12px;
                 color: #43425d;
@@ -452,9 +469,8 @@ export default {
                         top: 50px !important;
                     }
                     .ur_balance_drawer{
-                        font-size: 6px;
-                        vertical-align: baseline;
                         cursor: pointer;
+                        width: 11px;
                     }
                 }
             }

@@ -12,7 +12,6 @@ namespace Cloudents.Infrastructure.Interceptor
     {
         private readonly ILogger _logger;
 
-        [UsedImplicitly]
         public LogInterceptor(ILogger logger)
         {
             _logger = logger;

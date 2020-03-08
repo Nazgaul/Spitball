@@ -13,13 +13,13 @@ namespace Cloudents.FunctionsV2
     public static class ResourceWrapper
     {
         private static readonly ConcurrentDictionary<CultureInfo, ResourceSet> ResourceSets = new ConcurrentDictionary<CultureInfo, ResourceSet>();
-        private static readonly ResourceManager ProjectManager;// = new ResourceManager();
+        private static readonly ResourceManager ProjectManager = new ResourceManager(typeof(App));
         static ResourceWrapper()
         {
 
             LoadLocalizationAssemblies();
 
-            ProjectManager = new ResourceManager(typeof(App));
+          //  ProjectManager = new ResourceManager(typeof(App));
 
         }
 

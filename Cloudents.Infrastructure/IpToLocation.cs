@@ -4,7 +4,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Query;
 using Cloudents.Query.General;
-using JetBrains.Annotations;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
@@ -15,7 +14,6 @@ using ICountryProvider = Cloudents.Core.Interfaces.ICountryProvider;
 
 namespace Cloudents.Infrastructure
 {
-    [UsedImplicitly]
     public class IpToLocation : IIpToLocation
     {
         private readonly IRestClient _restClient;
@@ -85,8 +83,15 @@ namespace Cloudents.Infrastructure
         private static readonly Nager.Country.ICountryProvider Item = new Nager.Country.CountryProvider();
         public string GetCallingCode(string countryCode)
         {
+            
             var country = Item.GetCountry(countryCode);
             return country.CallingCodes.First();
+        }
+
+        public bool ValidateCountryCode(string countryCode)
+        {
+            var country = Item.GetCountry(countryCode);
+            return country != null;
         }
 
         //public decimal ConvertPointsToLocalCurrency(string countryCode, decimal points)

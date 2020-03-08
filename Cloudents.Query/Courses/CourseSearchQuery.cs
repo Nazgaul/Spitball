@@ -31,19 +31,25 @@ namespace Cloudents.Query.Courses
 
             public async Task<IEnumerable<CourseDto>> GetAsync(CourseSearchQuery query, CancellationToken token)
             {
-                const int pageSize = 50;
+                const int pageSize = 30;
                 const string sql =
                             @"declare @country nvarchar(2) = (select country from sb.[user] where id = @Id);
+
+declare @schoolType nvarchar(50) = (select case when UserType = 'UniversityStudent' then 'University'
+										when UserType in ('HighSchoolStudent', 'Parent') then 'HighSchool'  
+										else null end
+                                        from sb.[user] where Id = @Id);
+
+
 with cte as 
 (
-select CourseId, count(1) as Students
+select distinct CourseId
 		from sb.UsersCourses uc1 
 		join sb.[user] u1 
 			on u1.Id = uc1.UserId 
 		join sb.University un
 			on un.Id = u1.UniversityId2
 		where un.Country = @Country
-		group by CourseId
 )
 
 select Name,
@@ -59,8 +65,12 @@ select Name,
 	c.count as Students
 from sb.Course c
 where State = 'OK'
-and c.Name in (select CourseId from cte where CourseId = c.Name)
-and c.Name not in (select uc.CourseId from sb.UsersCourses uc where c.Name = uc.CourseId and uc.UserId = @Id)
+and ( @schoolType is null
+	or (@schoolType = 'University' and c.SchoolType is null)
+	or c.SchoolType = @schoolType  )
+and exists (select CourseId from cte where CourseId = c.Name)
+and not exists (select uc.CourseId from sb.UsersCourses uc where c.Name = uc.CourseId and uc.UserId = @Id)
+and (c.Country is null or c.Country = @Country)
 order by IsFollowing desc,
 		c.count desc
 OFFSET @PageSize * @Page ROWS

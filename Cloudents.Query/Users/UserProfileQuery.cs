@@ -1,5 +1,4 @@
 ﻿using System;
-using Cloudents.Core.DTOs;
 using Cloudents.Query.Stuff;
 using NHibernate;
 using System.Diagnostics.CodeAnalysis;
@@ -10,6 +9,7 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using NHibernate.Transform;
 using NHibernate.Linq;
+using Cloudents.Core.DTOs.Users;
 
 namespace Cloudents.Query.Users
 {
@@ -94,16 +94,15 @@ and uc.tutorId =  :profileId";
                 var couponSqlQuery = _session.CreateSQLQuery(couponSql);
                 couponSqlQuery.SetInt64("profileId", query.Id);
                 couponSqlQuery.SetInt64("userid", query.UserId);
-                // couponSqlQuery.AddScalar("Type", NHibernateUtil.Enum(typeof(CouponType)));
                 couponSqlQuery.SetResultTransformer(Transformers.AliasToBean<CouponDto>());
                 var couponValue = couponSqlQuery.FutureValue<CouponDto>();
 
 
                 var future = _session.Query<ReadTutor>().Where(t => t.Id == query.Id)
-                    .Select(s => s.AllSubjects).ToFutureValue();
+                    .Select(s => s.Subjects).ToFutureValue();
 
                 var coursesFuture = _session.Query<Document>()
-                    .Fetch(f => f.User).Fetch(f => f.Course)
+                    .Fetch(f => f.User)
                     .Where(w => w.User.Id == query.Id && w.Status.State == Core.Enum.ItemState.Ok)
                     .Select(s => s.Course.Id).Distinct()
                     .ToFuture();
@@ -113,7 +112,7 @@ and uc.tutorId =  :profileId";
                 var result = await profileValue.GetValueAsync(token);
 
                 var couponResult = couponValue.Value;
-                var coursesRedult = await coursesFuture.GetEnumerableAsync(token);
+                var coursesResult = await coursesFuture.GetEnumerableAsync(token);
 
                 if (result is null)
                 {
@@ -131,11 +130,11 @@ and uc.tutorId =  :profileId";
                     }
                 }
 
-                result.Courses = coursesRedult;
+                result.Courses = coursesResult;
 
                 result.Image = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Image);
 
-                if (result.Tutor?.CouponValue.HasValue == true && result.Tutor?.CouponType.HasValue == true)
+                if (result.Tutor?.CouponValue != null && result.Tutor?.CouponType != null)
                 {
                     result.Tutor.HasCoupon = true;
                     result.Tutor.DiscountPrice = Coupon.CalculatePrice(result.Tutor.CouponType.Value, result.Tutor.Price,

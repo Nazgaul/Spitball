@@ -9,8 +9,8 @@
             FileName = fileName;
         }
 
-        public long UserId { get; private set; }
-        public string ImagePath { get; private set; }
-        public string FileName { get; private set; }
+        public long UserId { get; }
+        public string ImagePath { get; }
+        public string FileName { get; }
     }
 }

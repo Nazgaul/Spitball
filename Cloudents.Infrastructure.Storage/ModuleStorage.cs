@@ -1,11 +1,9 @@
 ﻿using Autofac;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
-using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Storage
 {
-    [UsedImplicitly]
     public class ModuleStorage : Module
     {
         protected override void Load(ContainerBuilder builder)
@@ -37,6 +35,10 @@ namespace Cloudents.Infrastructure.Storage
             builder.RegisterType<UserDirectoryBlobProvider>()
                 .As<IUserDirectoryBlobProvider>()
                 .Keyed<IBlobProvider>(StorageContainer.User);
+
+            builder.RegisterType<AdminDirectoryBlobProvider>()
+                .As<IAdminDirectoryBlobProvider>()
+                .Keyed<IBlobProvider>(StorageContainer.Admin);
 
 
             builder.RegisterType<QueueProvider>().AsImplementedInterfaces();

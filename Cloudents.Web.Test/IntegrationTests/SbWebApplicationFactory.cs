@@ -19,13 +19,16 @@ namespace Cloudents.Web.Test.IntegrationTests
         // ICollectionFixture<> interfaces.
     }
 
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "XUnit")]
     public class SbWebApplicationFactory : WebApplicationFactory<Startup>
     {
         public const string WebCollection = "WebCollection";
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            //builder.UseEnvironment(Startup.IntegrationTestEnvironmentName);
+            builder.UseEnvironment(Startup.IntegrationTestEnvironmentName);
+            //builder.ConfigureAppConfiguration(x=> x.Configuration["xxx"] = "Validate")
+            //builder.UseEnvironment("Staging");
             //builder.ConfigureAppConfiguration()
         }
 
@@ -49,7 +52,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             {
                 try
                 {
-                    var obj = JToken.Parse(value);
+                    JToken.Parse(value);
                     return true;
                 }
                 catch (JsonReaderException)

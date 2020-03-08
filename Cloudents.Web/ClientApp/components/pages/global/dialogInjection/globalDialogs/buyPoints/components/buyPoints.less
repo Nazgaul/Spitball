@@ -1,0 +1,195 @@
+@import "../../../../../../../styles/mixin.less";
+@import '../../../../../../../styles/colors.less';
+
+.buy-tokens-frymo-popup {
+    background: #fff;
+}
+.buy-tokens-popup {
+    box-shadow: none;
+    justify-content: center;
+    background: #FFF;
+    width: 840px;
+    border-radius: 6px;
+
+    &.buy-tokens-frymo-popup {
+        background: #fff;
+    }
+    @media (max-width: @screen-xs) {
+        width: 100%;
+        height: 100%;
+    }
+    .buy-dialog-wrap {
+      width: 100%;
+      @media (max-width: @screen-xs) {
+        height: 100%;
+        }
+      position: relative;
+      .close-buy-dialog{
+          .closeIcon {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            opacity: 0.54;
+          }
+      }
+      .buy-tokens-wrap{
+          display: flex;
+          flex-direction: column;
+          @media (max-width: @screen-xs) {
+            height: 100%;
+            }
+        .buy-tokens-top-container{
+            .buy-tokens-title-text{
+                font-size: 24px;
+                font-weight: 600;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: normal;
+                letter-spacing: -0.41px;
+                color: #43425d;
+                @media (max-width: @screen-xs) {
+                    font-size: 18px;
+                }
+            }
+        }
+        .buy-tokens-bottom-container{
+            background-color:#FFF;
+            padding-top: 0;
+            padding-bottom: 0;
+            @media (max-width: @screen-xs) {
+                padding:12px;
+            }
+            .buy-tokens-price-container{
+                flex-flow: wrap-reverse;
+                .buy-tokens-details-container{
+                    max-width: 196px;
+                    min-height: 170px;
+                    max-height: 170px;
+                    border-radius: 4px;
+                    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.46);
+                    background-color: #ffffff;
+                    margin: 6px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-around;
+                    font-weight: bold;
+                    padding-bottom: 17px;
+                    background-image: url(./img/box-background.png);
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    background-position-y: bottom;
+                    @media (max-width: @screen-xs) {
+                        max-width: 105px;
+                    }
+                    &.middle-box{
+                        max-height: 183px;
+                        height: 183px;
+                        position: relative;
+                        padding-top: 12px;
+                        .buy-tokens-text-absolute{
+                            position:absolute;
+                            top:5px;
+                            right:5px;
+                            font-size: 12px;
+                            letter-spacing: -0.2px;
+                            text-align: center;
+                            color: @lightBtnIconColor;
+                            @media (max-width: @screen-xs) {
+                                right: 0;
+                                left: 0;
+                            }
+                        }
+                    }
+                    .buy-tokens-center-price-title{
+                        display: flex;
+                        justify-content: center;
+                        align-items: baseline;
+                    }
+                    .buy-tokens-points-num{
+                        font-size: 30px;
+                    }
+                    .buy-tokens-text-small{
+                        font-size: 12px;
+                        letter-spacing: -0.1px;
+                        text-align: center;
+                        color: rgba(0, 0, 0, 0.54);
+                        font-weight: normal;
+                    }
+                    .buy-tokens-choose-button{
+                        border-radius: 20px;
+                        box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.61);
+                        background-color: #ffffff;
+                        font-size: 16px;
+                        letter-spacing: -0.2px;
+                        color: @lightBtnIconColor;
+                        padding: 10px 50px;
+                        max-width: 175px;
+                        outline: none;
+                        font-weight: normal;
+                        @media (max-width: @screen-xs) {
+                            padding: 5px 15px;
+                        }
+                        &.middle-box{
+                            font-weight: bold;
+                        }
+                    }
+                    &.item-selected{
+                        box-shadow: 0px 0px 0px 2px rgba(62,69,160,1);
+                        color: #3e45a0;
+                        .buy-tokens-choose-button{
+                            background-color: #3e45a0;
+                            color: #FFF;
+                        }
+                    }
+                }
+            }
+        }
+      }
+      .buy-tokens-bottom-container{
+        background-color:#FFF;
+        @media (max-width: @screen-xs) {
+            padding:12px;
+        }
+        .buymebtn {
+            margin-top: 12px;
+            .buyme-button {
+                text-transform: capitalize;
+                border-radius: 20px;
+                padding: 0 20px;
+                height: 40px;
+                margin: 6px 8px;
+            }
+            .v-skeleton-loader__button {
+                width: inherit;
+                height: inherit;
+            }
+        }
+        .buy-tokens-price-container2{
+            padding-top: 10px;
+            flex-flow: wrap-reverse;
+            .buy-tokens-details-container{
+                border-radius: 4px;
+                border: solid 1px rgba(132, 139, 188, 0.39);
+                max-width: 78%;
+                display: flex;
+                align-items: center;
+                padding: 10px;
+                .txt-buy-tokens{
+                    p{
+                        margin: 0px;
+                    }
+                    font-size: 12px;
+                    font-weight: bold;
+                    line-height: 1.43;
+                    color: #7a798c;
+                }
+                .img-warning{
+                    object-fit: contain;
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+        
+    }
+}

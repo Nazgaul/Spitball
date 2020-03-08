@@ -2,6 +2,8 @@ import store from '../../store/index';
 // import tutorService from './tutorService';
 import {Decoder, tools, Reader} from 'ts-ebml';
 import insightService from '../../services/insightService';
+import { LanguageService } from '../../services/language/languageService';
+
 
 const MIME_TYPE = getBestMimeType();
 
@@ -87,13 +89,6 @@ const handleRecording = function(e){
     const recordingData = new Blob(recordingChunks, options);
         if(store.getters.getRoomId && recordingData.size < 209715199){
           downloadRecording(e, recordingData);
-          // let formData = new FormData();
-          // formData.append('file', recordingData);
-          // tutorService.uploadRecording(formData, store.getters.getRoomId).then(success=>{
-          //   console.log('Upload Success');
-          // }, err=>{
-          //   downloadRecording(e, recordingData);
-          // });
         }else{
           downloadRecording(e, recordingData);
         }
@@ -202,6 +197,14 @@ function stopRecord(cancelled){
 
 async function toggleRecord(isTutor){
     if(!store.getters.getIsRecording){
+      if(global.location.pathname === '/studyroom'){
+        let userMedia = await getUserMedia();
+        if(!userMedia){
+          let msg = LanguageService.getValueByKey('tutor_microphone_blocked')
+          alert(msg)
+          return
+        }  
+      }
       if(isTutor){
         store.dispatch('setShowUserConsentDialog', true);
       }else{

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="college" xml:space="preserve">
+    <value>מכללות או אוניברסיטאות</value>
+  </data>
   <data name="congrats_bottom" xml:space="preserve">
     <value>קבל שיעורים פרטיים ממיטב המורים, מצא חומרי לימוד וקבל תשובות לשאלות על החומר</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="congrats_title" xml:space="preserve">
     <value>מזל טוב!</value>
+  </data>
+  <data name="countryCode" xml:space="preserve">
+    <value>קוד מדינה</value>
   </data>
   <data name="emailconfirm_bottom" xml:space="preserve">
     <value>רק לאחר אישור האימייל תוכל להרשם לספיטבול</value>
@@ -187,7 +193,7 @@
     <value>כניסה</value>
   </data>
   <data name="getstarted_signin_text" xml:space="preserve">
-    <value>כבר נרשמת? </value>
+    <value>כבר נרשמת?</value>
   </data>
   <data name="getstarted_signup_link" xml:space="preserve">
     <value>יצירת חשבון</value>
@@ -199,13 +205,13 @@
     <value>הרשמה ללא תשלום. 100% חינם.</value>
   </data>
   <data name="getstarted_terms_and" xml:space="preserve">
-    <value>ו </value>
+    <value>וגם את</value>
   </data>
   <data name="getstarted_terms_i_agree" xml:space="preserve">
     <value>אני מקבל את </value>
   </data>
   <data name="getstarted_terms_privacy" xml:space="preserve">
-    <value>ומדיניות הפרטיות</value>
+    <value>מדיניות הפרטיות</value>
   </data>
   <data name="getstarted_terms_terms" xml:space="preserve">
     <value>תנאי השימוש </value>
@@ -216,8 +222,20 @@
   <data name="getstarted_title_login" xml:space="preserve">
     <value>ברוכים השבים. התחברו בבקשה</value>
   </data>
+  <data name="google_signin_error" xml:space="preserve">
+    <value>נראה כי הדפדפן שלך לא מאפשר שימוש בעוגיות אינטרנט (Cookies). יש לאפשר את השימוש כדי להירשם עם גוגל</value>
+  </data>
+  <data name="highSchool" xml:space="preserve">
+    <value>בתי ספר</value>
+  </data>
+  <data name="know_better" xml:space="preserve">
+    <value>אנחנו רוצים להכיר אותך טוב יותר</value>
+  </data>
   <data name="main_txt" xml:space="preserve">
     <value>להצליח במבחנים בעזרת מיטב הסיכומים והמורים הפרטיים</value>
+  </data>
+  <data name="parent" xml:space="preserve">
+    <value>הורים</value>
   </data>
   <data name="resetpass_btn" xml:space="preserve">
     <value>המשך</value>
@@ -234,23 +252,29 @@
   <data name="setemailpass_btn" xml:space="preserve">
     <value>המשך</value>
   </data>
+  <data name="setemailpass_female" xml:space="preserve">
+    <value>נקבה</value>
+  </data>
   <data name="setemailpass_first" xml:space="preserve">
-    <value>הכנס שם פרטי</value>
+    <value>שם פרטי</value>
   </data>
   <data name="setemailpass_input_email" xml:space="preserve">
     <value>אימייל </value>
   </data>
   <data name="setemailpass_input_pass" xml:space="preserve">
-    <value>בחר סיסמא (לפחות 8 תווים)</value>
+    <value>סיסמה</value>
   </data>
   <data name="setemailpass_input_passconfirm" xml:space="preserve">
     <value>אשר סיסמא</value>
   </data>
   <data name="setemailpass_last" xml:space="preserve">
-    <value>הכנס שם משפחה</value>
+    <value>שם משפחה</value>
+  </data>
+  <data name="setemailpass_male" xml:space="preserve">
+    <value>זכר</value>
   </data>
   <data name="setemailpass_title" xml:space="preserve">
-    <value>הכנס פרטים אישיים</value>
+    <value>פרטים אישיים</value>
   </data>
   <data name="setemail_btn" xml:space="preserve">
     <value>כניסה</value>
@@ -304,9 +328,18 @@
     <value>נא לנסות שוב</value>
   </data>
   <data name="smsconfirm_subtitle" xml:space="preserve">
-    <value>נא לשלוח למספר הזה</value>
+    <value>נשלח למספר הזה:</value>
   </data>
   <data name="smsconfirm_title" xml:space="preserve">
     <value>הכנסת קוד כניסה</value>
+  </data>
+  <data name="student" xml:space="preserve">
+    <value>תלמידים</value>
+  </data>
+  <data name="teacher" xml:space="preserve">
+    <value>מורים</value>
+  </data>
+  <data name="welcome" xml:space="preserve">
+    <value>ברוך הבא לספיטבול</value>
   </data>
 </root>

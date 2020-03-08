@@ -1,9 +1,11 @@
-import { connectivityModule } from "./connectivity.module";
+import axios from 'axios'
 
-function applyCoupon(couponObj) {
-    return connectivityModule.http.post('/Account/coupon', couponObj);
-}
+const couponInstance = axios.create({
+   baseURL: '/api/coupon'
+})
 
 export default {
-    applyCoupon,
+   async createCoupon(params) {
+      return await couponInstance.post('',params)
+   },
 }

@@ -5,12 +5,12 @@ namespace Cloudents.Core.Models
 {
     public class UserProfile
     {
-        public IEnumerable<string> Courses { get; set; }
+        public IEnumerable<string>? Courses { get; set; }
 
 
         public Guid? UniversityId { get; set; }
 
-        public string Country { get; set; }
+        public string? Country { get; set; }
 
     }
 

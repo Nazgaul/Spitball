@@ -1,4 +1,3 @@
-// Imports
 import Vue from "vue";
 import vuetify from './plugins/vuetify';
 import { sync } from 'vuex-router-sync';
@@ -9,28 +8,32 @@ import VueAnalytics from "vue-analytics";
 import LoadScript from 'vue-plugin-load-script';
 import VueClipboard from 'vue-clipboard2';
 import VueAppInsights from 'vue-application-insights';
-import { VLazyImagePlugin } from "v-lazy-image"; // TODO: check if need it
 import VueFlicking from "@egjs/vue-flicking";
-import '../ClientApp/myFont.font.js';
-if(!window.IntersectionObserver){ // Intersection observer support
-    import('intersection-observer')   
-}
+import {i18n, loadLanguageAsync } from './plugins/t-i18n';
 
 // Global Components
 import App from "./components/app/app.vue";
-import scrollComponent from './components/helpers/infinateScroll.vue';
 import UserAvatar from './components/helpers/UserAvatar/UserAvatar.vue';
 
 // Global Services
 import { Language } from "./services/language/langDirective";
-import { LanguageService } from './services/language/languageService';
 import utilitiesService from './services/utilities/utilitiesService';
+
+// Fonts
+import '../ClientApp/myFont.font.js'; 
+
+// Vue Prototypes
+import './prototypes/prototypes.js'; 
 
 // Filters
 import './filters/filters';
 
+// Directives
+import { openDialog,closeDialog } from './directives/dialog.js';
 
-
+if(!window.IntersectionObserver){ // Intersection observer support
+    import('intersection-observer');
+}
 
 const router = new VueRouter({
     mode: "history",
@@ -59,11 +62,8 @@ const router = new VueRouter({
 Vue.use(VueFlicking);
 Vue.use(VueRouter);
 Vue.use(LoadScript);
-Vue.use(VLazyImagePlugin);
 Vue.use(VueClipboard);
 
-
-Vue.component("scroll-list", scrollComponent);
 Vue.component("UserAvatar",UserAvatar);
 
 //this need to be below the configuration of vue router
@@ -85,8 +85,8 @@ Vue.use(VueAnalytics, {
 });
 
 Vue.directive('language', Language);
-
-
+Vue.directive('openDialog',openDialog);
+Vue.directive('closeDialog',closeDialog);
 
 global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
 global.isEdgeRtl = false;
@@ -96,96 +96,31 @@ if (document.documentMode || /Edge/.test(navigator.userAgent)) {
     }
 }
 
-Vue.prototype.$loadStyle = function(url,id){
-    return new Promise((resolve) => {
-        if (document.querySelector(id)) return resolve();
-        let linkTag = document.createElement('link');
-        linkTag.id = id;
-        linkTag.rel = 'stylesheet';
-        linkTag.href = url;
-        document.head.insertBefore(linkTag, document.head.firstChild);
-        return resolve();
-    });
-};
-
-Vue.prototype.$proccessImageUrl = function(url, width, height, mode){
-    let usedMode = mode ? mode : 'crop';
-    if(url){
-        let returnedUrl = `${url}?&width=${width}&height=${height}&mode=${usedMode}`;
-        return returnedUrl;
-    }else{
-        return '';
-    }
-  };
-
-Vue.prototype.$Ph = function (key, placeholders) {
-    let rawKey = LanguageService.getValueByKey(key);
-    //if no placeholders return the Key without the replace
-    if (!placeholders) {
-        //console.error(`${key} have no placeholders to replace`)
-        return rawKey;
-    }
-
-    let argumentsToSend = [];
-    //placeholders must be an array
-    if (Array.isArray(placeholders)) {
-        argumentsToSend = placeholders;
-    } else {
-        argumentsToSend = [placeholders];
-    }
-    return LanguageService.changePlaceHolders(rawKey, argumentsToSend);
-};
-
-Vue.prototype.$chatMessage = function (message) {
-    if(message.type === 'text'){
-        //text and convert links to url's
-        let linkTest = /(ftp:\/\/|www\.|https?:\/\/){1}[a-zA-Z0-9u00a1-\\uffff0-]{2,}\.[a-zA-Z0-9u00a1-\\uffff0-]{2,}(\S*)/g;
-        let modifiedText = message.text;
-        let matchedResults = modifiedText.match(linkTest);
-
-        if(!!matchedResults){
-            matchedResults.forEach(result=>{
-                let prefix = result.toLowerCase().indexOf('http') === -1 &&
-                result.toLowerCase().indexOf('ftp') === -1 ? '//' : '';
-                modifiedText = modifiedText.replace(result, `<a href="${prefix}${result}" target="_blank">${result}</a>`);
-            });
-        } 
-        return modifiedText;
-    }else{
-        let src = utilitiesService.proccessImageURL(message.src, 190, 140, 'crop');
-        return `<a href="${message.href}" target="_blank"><img src="${src}"/></a>`;
-    }
-};
-
 router.beforeEach((to, from, next) => {
     store.dispatch('setRouteStack', to.name);
-    if (!to.query || !to.query.university) {
-        if (!!from.query && !!from.query.university) {
-            store.dispatch('closeSelectUniFromNav');
-        }
-    } 
-
     store.dispatch('sendQueryToAnalytic', to);
-    store.dispatch('changeLastActiveRoute', from);
-    checkUserStatus(to, next);
-
+    let isLogged = store.getters.getUserLoggedInStatus;
+    
+    if (!isLogged && to.meta && to.meta.requiresAuth) {
+        next("/signin");
+        return;
+    }
+    let getAccountUser = store.dispatch('userStatus');
+    Promise.all([getAccountUser,loadLanguageAsync()]).then(() => {
+       next();
+    });
 });
+
+sync(store, router);
+
 const app = new Vue({
     //el: "#app",
     router: router,
     store,
     vuetify,
+    i18n,
     render: h => h(App),
 });
-
-function checkUserStatus(to, next) {
-    store.dispatch('userStatus', {isRequireAuth: to.meta.requiresAuth, to});
-    if (!store.getters.loginStatus && to.meta && to.meta.requiresAuth) {
-        next("/signin");
-    } else {
-        next();
-    }
-}
 
 global.isMobileAgent = function () {
     let check = false;
@@ -221,9 +156,8 @@ if(touchSupported){
 //This is for cdn fallback do not touch
 
 //injects the route to the store via the rootState.route
-sync(store, router);
-utilitiesService.init();
 
+utilitiesService.init();
 
 Vue.use(VueAppInsights, {
     //appInsights: global.appInsights,

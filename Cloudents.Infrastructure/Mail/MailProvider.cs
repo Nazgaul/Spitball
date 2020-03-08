@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Specialized;
@@ -11,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Mail
 {
-    [UsedImplicitly]
     public class MailProvider : IMailProvider
     {
         private readonly HttpClient _client;
@@ -31,33 +29,28 @@ namespace Cloudents.Infrastructure.Mail
                 ["ip_address"] = ""
             };
 
-            using (var c = new CancellationTokenSource(TimeSpan.FromSeconds(2)))
-            using (var source = CancellationTokenSource.CreateLinkedTokenSource(token, c.Token))
+            using var c = new CancellationTokenSource(TimeSpan.FromSeconds(4));
+            using var source = CancellationTokenSource.CreateLinkedTokenSource(token, c.Token);
+            try
             {
+                var uriBuilder = new UriBuilder(uri);
+                uriBuilder.AddQuery(nvc);
 
-                try
-                {
-                    var uriBuilder = new UriBuilder(uri);
-                    uriBuilder.AddQuery(nvc);
+                var result = await _client.GetAsync(uriBuilder.Uri, source.Token);
+                result.EnsureSuccessStatusCode();
+                using var s = await result.Content.ReadAsStreamAsync();
+                var w = s.ToJsonReader<VerifyEmail>();
 
-                    var result = await _client.GetAsync(uriBuilder.Uri, source.Token);
-                    result.EnsureSuccessStatusCode();
-                    using (var s = await result.Content.ReadAsStreamAsync())
-                    {
-                        var w = s.ToJsonReader<VerifyEmail>();
-
-                        var validStats = new[] { "valid", "catch-all" };
-                        if (validStats.Contains(w.Status, StringComparer.OrdinalIgnoreCase))
-                        {
-                            return true;
-                        }
-                        return false;
-                    }
-                }
-                catch (OperationCanceledException)
+                var validStats = new[] { "valid", "catch-all" };
+                if (validStats.Contains(w.Status, StringComparer.OrdinalIgnoreCase))
                 {
                     return true;
                 }
+                return false;
+            }
+            catch (OperationCanceledException)
+            {
+                return true;
             }
         }
 

@@ -115,4 +115,7 @@ export default {
             });
         });
     },
+    beforeDestroy() {
+        this.myPlayer.dispose()
+    },
 }

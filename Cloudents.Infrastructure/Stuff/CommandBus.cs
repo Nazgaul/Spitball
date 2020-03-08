@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Stuff
 {
-    [UsedImplicitly]
     public sealed class CommandBus : ICommandBus//, IDisposable
     {
         public CommandBus(ILifetimeScope container)

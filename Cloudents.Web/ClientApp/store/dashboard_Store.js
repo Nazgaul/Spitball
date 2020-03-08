@@ -1,5 +1,6 @@
 import dashboardService from '../services/dashboardService.js';
 import walletService from '../services/walletService.js';
+import accountService from '../services/accountService';
 
 const state = {
    salesItems: [],
@@ -113,6 +114,24 @@ const actions = {
          });
          return;
       }
+   },
+   updateStudentsAnswersQuestion() {
+      return accountService.getQuestions().then((data) => {
+         return data;
+      }, (err) => {
+         return Promise.reject(err);
+      }).finally(()=>{
+         return
+      });
+   },
+   updateTutorActions() {
+      return dashboardService.getTutorActions()
+   },
+   updateSpitballBlogs() {
+      return dashboardService.getSpitballBlogs()
+   },
+   updateMarketingBlogs() {
+      return dashboardService.getMarketingBlogs()
    }
 };
 

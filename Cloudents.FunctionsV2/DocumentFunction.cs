@@ -106,7 +106,6 @@ namespace Cloudents.FunctionsV2
         /// <param name="token"></param>
         /// <returns></returns>
         [FunctionName("DocumentDeleteOld")]
-        [UsedImplicitly]
         public static async Task DeleteOldDocument([TimerTrigger("0 0 0 1 * *")] TimerInfo timer,
             [Blob("spitball-files/files")]CloudBlobDirectory directory,
             ILogger log,
@@ -195,6 +194,9 @@ namespace Cloudents.FunctionsV2
                     }
 
                 }
+
+                originalBlob.Metadata["ErrorProcessCloudmersive"] = ex.Message;
+                await originalBlob.SetMetadataAsync();
             }
             catch (Exception ex)
             {
@@ -208,7 +210,7 @@ namespace Cloudents.FunctionsV2
 
 
         [FunctionName("RemoveOldLocatorsVideo")]
-        public static async Task CalculateMd5Async(
+        public static async Task RemoveOldLocatorsVideoAsync(
             [TimerTrigger("0 0 1 * * *")] TimerInfo timer,
             [Inject] IVideoService videoService,
             CancellationToken token
@@ -255,12 +257,10 @@ namespace Cloudents.FunctionsV2
                     if (string.IsNullOrEmpty(md5))
                     {
                         log.LogInformation("no md5 calculating");
-                        using (var sr = await blob.OpenReadAsync())
-                        {
-                            md5 = CalculateMd5(sr);
-                            blob.Properties.ContentMD5 = md5;
-                            await blob.SetPropertiesAsync();
-                        }
+                        await using var sr = await blob.OpenReadAsync();
+                        md5 = CalculateMd5(sr);
+                        blob.Properties.ContentMD5 = md5;
+                        await blob.SetPropertiesAsync();
 
                     }
 
@@ -274,12 +274,10 @@ namespace Cloudents.FunctionsV2
 
         private static string CalculateMd5(Stream stream)
         {
-            using (var md5 = MD5.Create())
-            {
-                var hash = md5.ComputeHash(stream);
-                var base64String = Convert.ToBase64String(hash);
-                return base64String;
-            }
+            using var md5 = MD5.Create();
+            var hash = md5.ComputeHash(stream);
+            var base64String = Convert.ToBase64String(hash);
+            return base64String;
         }
 
 

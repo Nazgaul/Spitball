@@ -58,7 +58,6 @@
     import castIcon from "../images/cast.svg";
     import insightService from '../../../services/insightService';
     import store from '../../../store/index.js';
-    import { LanguageService } from "../../../services/language/languageService.js";
     export default {
         name: "shareScreenBtn",
         components: {castIcon},
@@ -120,9 +119,13 @@
             },
             //screen share start
             showScreen() {
+                this.$ga.event("tutoringRoom", 'screen share start');
+
                 let self = this;
+                insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_ShareScreenBtn_Click', {id: self.getStudyRoomData.roomId}, null);
                 videoService.getUserScreen().then(
                     stream => {
+                        insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_ShareScreenBtn_Accepted', {id: self.getStudyRoomData.roomId}, null);
                         stream.removeEventListener('ended', () => self.stopSharing());
                         stream.addEventListener('ended', () => self.stopSharing());
                         store.dispatch('setLocalVideoTrack', stream);
@@ -132,34 +135,52 @@
                     },
                     error => {
                         error = error || {};
+                        let d = {...{
+                            errorMessage:error.message,
+                            errorname:  error.name},
+                             ...{id: self.getStudyRoomData.roomId}};
+                        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_ShareScreenBtn_showScreen', d, null);
                         if(error === "noExtension") {
                             self.extensionDialog = true;
                             return;
                         }
                         if(error === "notBrowser") {
                             self.updateToasterParams({
-                                toasterText: LanguageService.getValueByKey("studyRoom_not_browser"),
+                                toasterText: this.$t("studyRoom_not_browser"),
                                 showToaster: true,
                                 toasterType: "error-toaster" //c
                             });
                             return;
                         }
                         if(error.name === "NotAllowedError") {
-                            //user press cancel.
-                            return;
+                            if (error.message === "Permission denied") {
+                                //user press cancel.
+                                return;
+                            }
+                            if (error.message === "Permission denied by system") {
+                                 let url = 'https://support.apple.com/en-il/guide/mac-help/mchld6aa7d23/mac'
+                                 self.updateToasterParams({
+                                    toasterText: self.$t('studyRoom_premission_denied',[url]),
+                                    toasterTimeout: 30000,
+                                    showToaster: true,
+                                    toasterType: "error-toaster" //c
+                                });
+                            }
+                            return
+
+                           
                         }
                         self.updateToasterParams({
-                                                     toasterText: LanguageService.getValueByKey("studyRoom_not_screen"),
-                                                     showToaster: true,
-                                                     toasterType: "error-toaster" //c
-                                                 });
-
-                        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_ShareScreenBtn_showScreen', error, null);
+                            toasterText: this.$t("studyRoom_not_screen"),
+                            showToaster: true,
+                            toasterType: "error-toaster" //c
+                        });
                         console.error("error sharing screen", error);
                     }
                 );
             },
             stopSharing() {
+                this.$ga.event("tutoringRoom", 'screen stopSharing');
                 if(this.screenShareTrack){
                     this.screenShareTrack.stop();
                 }

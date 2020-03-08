@@ -1,98 +1,48 @@
-import { connectivityModule } from "./connectivity.module";
-import searchService from "../services/searchService.js";
+import axios from 'axios'
+import {User} from './Dto/user.js';
+import {Coupon} from './Dto/coupon.js';
+import searchService from './searchService';
 
-function AccountUser(objInit){
-    this.id= objInit.id;
-    this.name= objInit.name;
-    this.image = objInit.image || '';
+const accountInstance = axios.create({
+    baseURL:'/api/account'
+})
 
-    this.online = objInit.online || false;
-    
-    this.balance= objInit.balance;
-    this.email= objInit.email;
-    this.token= objInit.token;
-    this.universityExists= objInit.universityExists;
-    this.score = objInit.score;
-    this.phoneNumber = objInit.phoneNumber;
-    this.isTutor = objInit.isTutor && objInit.isTutor.toLowerCase() === 'ok';
-    this.isTutorState =  createIsTutorState(objInit.isTutor);// state of become tutor request, possible options ok, pending;
-    this.needPayment = objInit.needPayment || false;
-    this.currencySymbol = objInit.currencySymbol;
-}
-function createIsTutorState(str){
-    if(str && str.toLowerCase() === 'ok'){
-        return 'ok';
-    }else if(str && str.toLowerCase() === 'pending'){
-        return 'pending';
-    }else{
-        return null;
-    }
-}
-function ProfileQuestionData(arrInit){
-    return arrInit.data.map(searchService.createQuestionItem) || [];
-}
-function ProfileAnswerData(arrInit){
-    return arrInit.data.map(searchService.createQuestionItem) || [];
-}
+
+//TODO: move this shit to couponServices! ny : HopoG
+const couponInstance = axios.create({
+    baseURL:'/api/coupon'
+})
+
 export default {
-    getAccount:() => {
-       return connectivityModule.http.get("/Account").then(({data})=>{
-           let userAccount = new AccountUser(data);
-           return userAccount;
-       },(err)=>{
-           return err;
-       });
+    async getAccount(){ 
+        let {data} = await accountInstance.get()
+        return new User.Account(data)
     },
-    setUserName: (data) => {
-        return connectivityModule.http.post("/Account/userName", {name: data});
+    async getNumberReffered(){ 
+        return await accountInstance.get('/referrals')
     },
-    getUserName: () => {
-        return connectivityModule.http.get("/Account/userName");
+    async saveUserInfo(params){ 
+        return await accountInstance.post('/settings',params)
     },
-    uploadImage: (formData) => {
-        return connectivityModule.http.post("/Account/image", formData);
+    async becomeTutor(params){ 
+        return await accountInstance.post('/becomeTutor',params)
     },
-    getNumberReffered:() => {
-        return connectivityModule.http.get(`/Account/referrals`);
+    async uploadImage(params){ 
+        return await accountInstance.post('/image',params)
     },
-    getProfileQuestions:(id, page) => {
-        let strPage = page ? `?page=${page}` : "";
-        return connectivityModule.http.get(`Profile/${id}/questions/${strPage}`);
+    async applyCoupon(params){ 
+        return await couponInstance.post('/apply',params)
     },
-    getProfileAnswers:(id, page) => {
-        let strPage = page ? `?page=${page}` : "";
-        return connectivityModule.http.get(`/Profile/${id}/answers/${strPage}`);
+    async getAccountStats(days){
+        let {data} = await accountInstance.get('/stats', {params: {days}})
+        return data.map(stats => new User.Stats(stats))
+    },  
+    async getCoupons() {
+        let { data } = await couponInstance.get();
+        return data.map(coupon => new Coupon.Default(coupon))
     },
-    getProfilePurchasedDocuments:(id, page)=>{
-        let strPage = page ? `?page=${page}` : "";
-        return connectivityModule.http.get(`/Profile/${id}/purchaseDocuments/${strPage}`);
-    },
-    saveTutorInfo: (data)=> {
-        let serverFormat= {
-            firstName: data.firstName,
-            description: data.description,
-            lastName: data.lastName,
-            bio: data.bio,
-            price: data.price
-        };
-        return connectivityModule.http.post("/Account/settings", serverFormat);
-    },
-    saveUserInfo: (data)=> {
-        let serverFormat= {
-                firstName: data.firstName,
-                lastName: data.lastName,
-                description: data.description
-
-        };
-        return connectivityModule.http.post("/Account/settings", serverFormat);
-    },
-    becomeTutor: (data) => {
-        return connectivityModule.http.post("/Account/becomeTutor", data);
-    },
-    createProfileQuestionData: (arrInit)=>{
-        return new ProfileQuestionData(arrInit);
-    },
-    createProfileAnswerData: (arrInit)=>{
-        return new ProfileAnswerData(arrInit);
-    },
+    async getQuestions(){
+        let {data} = await accountInstance.get('/questions')
+        return data.map(question => searchService.createQuestionItem(question))
+    }
 }

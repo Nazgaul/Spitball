@@ -13,5 +13,7 @@
 
         string ServiceBus { get; }
 
+        PayPalCredentials PayPal { get; }
+
     }
 }

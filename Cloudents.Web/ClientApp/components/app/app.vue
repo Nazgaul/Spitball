@@ -2,12 +2,9 @@
   <v-app>
     <router-view name="banner"></router-view>
     <router-view name="header"></router-view>
-    <router-view v-if="showSideMenu" name="sideMenu"></router-view>
-
-      <v-content class="site-content" :class="{'loading':getIsLoading}">
+    <router-view name="sideMenu" v-if="showSideMenu && !hideSideMenu"></router-view>
+    <v-content :class="['site-content',{'hidden-sideMenu':hideSideMenu}]">
         <chat v-if="visible"/>
-
-        <router-view name="verticals"></router-view>
         <router-view class="main-container"></router-view>
       
         <div class="s-cookie-container" v-if="!cookiesShow">
@@ -21,25 +18,7 @@
           </span>
         </div>
 
-        <sb-dialog
-          :showDialog="loginDialogState"
-          :popUpType="'loginPop'"
-          :content-class="'login-popup'"
-          :max-width="'550px'"
-        >
-          <login-to-answer v-if="loginDialogState"></login-to-answer>
-        </sb-dialog>
-
-        <sb-dialog
-          :showDialog="universitySelectPopup"
-          :popUpType="'universitySelectPopup'"
-          :onclosefn="closeUniPopDialog"
-          :activateOverlay="true"
-          :content-class="'pop-uniselect-container'"
-        >
-          <uni-Select-pop v-if="universitySelectPopup" :showDialog="universitySelectPopup" :popUpType="'universitySelectPopup'"></uni-Select-pop>
-        </sb-dialog>
-
+        <dialogInjection class="dialogInjection" />
         <sb-dialog
           :isPersistent="true"
           :showDialog="newQuestionDialogSate"
@@ -47,7 +26,7 @@
           :max-width="'510px'"
           :content-class="'question-request-dialog'"
         >
-          <Add-Question v-if="newQuestionDialogSate"></Add-Question>
+          <AddQuestion v-if="newQuestionDialogSate"></AddQuestion>
         </sb-dialog>
 
         <sb-dialog
@@ -58,19 +37,6 @@
           :content-class="'tutor-request-dialog'"
         >
           <tutor-request v-if="getRequestTutorDialog"></tutor-request>
-        </sb-dialog>
-
-        <sb-dialog
-          :showDialog="getDialogState"
-          :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
-          :popUpType="'uploadDialog'"
-          :maxWidth="'716'"
-          :onclosefn="setUploadDialogState"
-          :activateOverlay="false"
-          :isPersistent="$vuetify.breakpoint.smAndUp"
-          :content-class="'upload-dialog'"
-        >
-          <upload-multiple-files v-if="getDialogState"></upload-multiple-files>
         </sb-dialog>
 
         <sb-dialog
@@ -87,42 +53,6 @@
             :popUpType="'referralPop'"
           ></referral-dialog>
         </sb-dialog>
-
-        <sb-dialog
-          :showDialog="becomeTutorDialog"
-          :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
-          :popUpType="'becomeTutorDialog'"
-          :maxWidth="'840'"
-          :maxHeight="'588'"
-          :onclosefn="setUploadDialogState"
-          :activateOverlay="false"
-          :isPersistent="$vuetify.breakpoint.smAndUp"
-          :content-class="'become-tutor'"
-        >
-          <become-tutor v-if="becomeTutorDialog"></become-tutor>
-        </sb-dialog>
-
-        <sb-dialog
-          :showDialog="getShowBuyDialog"
-          :popUpType="'buyTokens'"
-          :content-class="!isFrymo ? 'buy-tokens-popup' : 'buy-tokens-frymo-popup'"
-          :onclosefn="closeSblToken"
-          maxWidth="840px"
-        >
-          <buy-tokens v-if="!isFrymo && getShowBuyDialog" popUpType="buyTokens"></buy-tokens>
-          <buy-token-frymo v-if="isFrymo && getShowBuyDialog" popUpType="buyTokensFrymo"></buy-token-frymo>
-        </sb-dialog>
-
-        <sb-dialog
-          :isPersistent="true"
-          :showDialog="getShowPaymeDialog"
-          :popUpType="'payme'"
-          :content-class="'payme-popup'"
-          maxWidth="840px"
-        >
-          <payment-dialog v-if="getShowPaymeDialog" />
-        </sb-dialog>
-
       <mobile-footer v-if="showMobileFooter" />
     </v-content>
     <v-snackbar
@@ -143,18 +73,13 @@
 import { mapGetters, mapActions } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
 
+const dialogInjection = () => import('../pages/global/dialogInjection/dialogInjection.vue');
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
-const loginToAnswer = () => import("../question/helpers/loginToAnswer/login-answer.vue");
 const AddQuestion = () => import("../question/askQuestion/askQuestion.vue");
-const uploadMultipleFiles = () => import("../uploadFilesDialog/uploadMultipleFiles.vue");
 const walletService = () => import("../../services/walletService");
 const mobileFooter = () => import("../pages/layouts/mobileFooter/mobileFooter.vue");
-const buyTokens = () => import("../dialogs/buyTokens/buyTokens.vue");
-const buyTokenFrymo = () => import("../dialogs/buyTokenFrymo/buyTokenFrymo.vue");
 const chat = () => import("../chat/chat.vue");
-const becomeTutor = () => import("../becomeTutor/becomeTutor.vue");
 const tutorRequest = () => import("../tutorRequestNEW/tutorRequest.vue");
-const paymentDialog = () => import("../studyroom/tutorHelpers/paymentDIalog/paymentDIalog.vue");
 const referralDialog = () => import("../question/helpers/referralDialog/referral-dialog.vue");
 
 export default {
@@ -162,15 +87,10 @@ export default {
     referralDialog,
     AddQuestion,
     sbDialog,
-    loginToAnswer,
     chat,
     mobileFooter,
-    uploadMultipleFiles,
-    buyTokens,
-    buyTokenFrymo,
-    becomeTutor,
     tutorRequest,
-    paymentDialog
+    dialogInjection
   },
   data() {
     return {
@@ -181,12 +101,8 @@ export default {
   computed: {
     ...mapGetters([
       "getReferralDialog",
-      "getIsLoading",
       "accountUser",
-      "loginDialogState",
       "newQuestionDialogSate",
-      "getShowSelectUniPopUpInterface",
-      "getDialogState",
       "getShowToaster",
       "getShowToasterType",
       "getToasterTimeout",
@@ -194,14 +110,20 @@ export default {
       "getMobileFooterState",
       "showLeaderBoard",
       // "showMobileFeed",
-      "getShowBuyDialog",
-      "becomeTutorDialog",
       "getRequestTutorDialog",
-      "getShowPaymeDialog",
       "isFrymo",
       "getShowSchoolBlock",
       "getIsChatVisible",
+      'getUserLoggedInStatus'
     ]),
+    hideSideMenu(){
+      if(this.getUserLoggedInStatus && this.accountUser?.userType !== 'Parent'){
+        return false;
+      }else{
+        let routesNames = ['feed','document','question','profile']
+        return routesNames.some(route => this.$route.name === route)
+      }
+    },
     showSideMenu() {
       if (this.$vuetify.breakpoint.xsOnly) {
         return this.getShowSchoolBlock;
@@ -219,9 +141,6 @@ export default {
       } else {
         return true;
       }
-    },
-    universitySelectPopup() {
-      return this.getShowSelectUniPopUpInterface;
     },
     showMobileFooter() {
       return this.$vuetify.breakpoint.xsOnly && this.getMobileFooterState && !this.hideFooter && this.$route.name !== 'tutorLandingPage';
@@ -251,13 +170,6 @@ export default {
     }
   },
   watch: {
-    getShowPaymeDialog: function(val) {
-      if (val) {
-        setTimeout(function() {
-          document.querySelector(".payme-popup").parentNode.style.zIndex = 999;
-        }, 1000);
-      }
-    },
     getShowToaster: function(val) {
       let self = this;
       if (val) {
@@ -285,9 +197,6 @@ export default {
       }, this.getToasterTimeout);
     },
     $route() {
-      if (this.loginDialogState) {
-        this.updateLoginDialogState(false);
-      }
       this.$nextTick(() => {
         this.fireOptimizeActivate();
       });
@@ -307,12 +216,7 @@ export default {
     ...mapActions([
       "updateReferralDialog",
       "updateToasterParams",
-      "updateLoginDialogState",
-      "updateNewQuestionDialogState",
-      "changeSelectPopUpUniState",
-      "updateDialogState",
       "setCookieAccepted",
-      "updateShowBuyDialog",
       "updateRequestDialog",
       "openChatInterface",
       "setTutorRequestAnalyticsOpenedFrom",
@@ -324,17 +228,8 @@ export default {
     closeReferralDialog() {
       this.updateReferralDialog(false);
     },
-    closeSblToken() {
-      this.updateShowBuyDialog(false);
-    },
     removeCookiesPopup: function() {
       this.setCookieAccepted();
-    },
-    closeUniPopDialog() {
-      this.changeSelectPopUpUniState(false);
-    },
-    setUploadDialogState() {
-      this.updateDialogState(false);
     },
     tryBuyTokens(transactionObjectError) {
       walletService.buyTokens(transactionObjectError).then(
@@ -377,17 +272,6 @@ export default {
         }
       }
     }
-
-    this.$root.$on("closePopUp", name => {
-      if (name === "suggestions") {
-        this.showDialogSuggestQuestion = false;
-      } else if (name === "newQuestionDialog") {
-        this.updateNewQuestionDialogState(false);
-      } else {
-        this.updateLoginDialogState(false);
-      }
-    });
-
     this.acceptedCookies = this.getCookieAccepted();
     if (global.isMobileAgent) {
       global.addEventListener("resize", () => {
