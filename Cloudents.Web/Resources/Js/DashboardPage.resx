@@ -154,6 +154,9 @@
     <value>Product
 </value>
   </data>
+  <data name="info_buy_points" xml:space="preserve">
+    <value>info_buy_points</value>
+  </data>
   <data name="joined" xml:space="preserve">
     <value>Joined</value>
   </data>

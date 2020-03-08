@@ -51,7 +51,7 @@ export default {
                'Document': LanguageService.getValueByKey('dashboardPage_document'),
                'Video': LanguageService.getValueByKey('dashboardPage_video'),
                'TutoringSession': LanguageService.getValueByKey('dashboardPage_tutor_session'),
-               'BuyPoints':'BuyPoints'
+               'BuyPoints': this.$t('dashboardPage_type_buy_points')
             },
             headers:{
                'preview': {text: '', align:'left', sortable: false, value:'preview'},
