@@ -94,7 +94,16 @@ const actions = {
         dispatch("getAllConversations");
         analyticsService.sb_setUserId(userAccount.id);
         insightService.authenticate.set(userAccount.id);
-        dispatch('updateLoginStatus',true)
+        dispatch('updateLoginStatus',true);
+
+        // if user is tutor and have pending session payments
+        if(userAccount.isTutor && userAccount.pendingSessionsPayments) {
+            dispatch('updateToasterParams', {
+                toasterText: LanguageService.getValueByKey("dashboard_teacher_approval", userAccount.pendingSessionsPayments),
+                showToaster: true,
+                toasterTimeout: 5000
+            })
+        }
     },
     userStatus({state,dispatch,getters}) {
         if(state.user !== null && state.user.hasOwnProperty('id')){
