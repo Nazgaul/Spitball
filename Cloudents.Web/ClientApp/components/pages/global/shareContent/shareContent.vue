@@ -135,22 +135,22 @@ export default {
         email: () => {
           linkLabel = `mailto:?subject=${encodeURIComponent(self.email.subject)}&body=${encodeURIComponent(self.email.body)}`
           openLink(linkLabel)
-          socialShareEvent(linkLabel)
+          socialShareEvent(self.link)
         },
         facebook: () => {
           linkLabel = `https://www.facebook.com/sharer.php?u=${self.link}`,
           openLink(linkLabel)
-          socialShareEvent(linkLabel)
+          socialShareEvent(self.link)
         },
         whatsApp: () => {
           linkLabel = `https://wa.me/?text=${encodeURIComponent(self.whatsApp)}`
           openLink(linkLabel)
-          socialShareEvent(linkLabel)
+          socialShareEvent(self.link)
         },
         twitter: () => {
           linkLabel = `https://twitter.com/intent/tweet?text=${encodeURIComponent(self.twitter)}`
           openLink(linkLabel)
-          socialShareEvent(linkLabel)
+          socialShareEvent(self.link)
         }
       };
 
