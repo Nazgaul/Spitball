@@ -46,6 +46,10 @@ namespace Cloudents.Command.CommandHandler.Admin
             //session.SetReceipt(receipt);
             session.SetReceiptAndAdminDate(receipt, message.AdminDuration, message.StudentPay, message.SpitballPay);
             user.UseCoupon(tutor);
+
+            SessionTransaction.MakerTransaction(user, tutor, session);
+
+            await _tutorRepository.UpdateAsync(tutor, token);
             await _studyRoomSessionRepository.UpdateAsync(session, token);
         }
     }
