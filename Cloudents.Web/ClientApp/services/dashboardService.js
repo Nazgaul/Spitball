@@ -134,7 +134,7 @@ function createBlogs({data}) {
 
 
 function getSalesItems(){
-   return connectivityModule.http.get('/Account/sales').then(createSalesItems).catch(ex => ex);
+   return connectivityModule.http.get('/Sales/sales').then(createSalesItems).catch(ex => ex);
 }
 function getContentItems(){
    return connectivityModule.http.get('/Account/content').then(createContentItems).catch(ex => ex);
