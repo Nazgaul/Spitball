@@ -142,11 +142,10 @@
     <value>Your message was sent to</value>
   </data>
   <data name="message_success_tutor_2" xml:space="preserve">
-    <value>He will respond to you through SMS and Email, 
-but it might take him some time to respond.</value>
+    <value>You will hear back through SMS and Email, but it may take some time.</value>
   </data>
   <data name="message_success_tutor_3" xml:space="preserve">
-    <value>Would you like to contact him directly on WhatsApp?</value>
+    <value>Would you like to contact the tutor directly on WhatsApp?</value>
   </data>
   <data name="message_success_yaniv_1" xml:space="preserve">
     <value>Your message was sent.
@@ -193,7 +192,7 @@ but it might take him some time to respond.</value>
     <value>Submit</value>
   </data>
   <data name="tell_tutor" xml:space="preserve">
-    <value>Tell {1} how he can reach you</value>
+    <value>Tell {1} how to reach you</value>
   </data>
   <data name="type_legend" xml:space="preserve">
     <value>What can i help you with?</value>
