@@ -241,6 +241,9 @@
   <data name="type" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="type_buy_points" xml:space="preserve">
+    <value>type_buy_points</value>
+  </data>
   <data name="video" xml:space="preserve">
     <value>Video</value>
   </data>

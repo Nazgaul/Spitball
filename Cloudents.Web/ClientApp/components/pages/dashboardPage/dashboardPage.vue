@@ -80,6 +80,7 @@ export default {
             formatPrice: this.formatPrice,
             router: this.dynamicRouter,
             '$Ph': this.$Ph,
+            't':this.t,
             strToACII: this.strToACII
          },
          snackbar:{
@@ -105,6 +106,9 @@ export default {
       ...mapGetters(['accountUser'])
    },
    methods: {
+      t(resx){
+         return this.$t(resx)
+      },
       closeDialog() {
          this.currentDialog = '';
          this.dialogData = '';
