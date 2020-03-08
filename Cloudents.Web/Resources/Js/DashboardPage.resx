@@ -155,7 +155,7 @@
 </value>
   </data>
   <data name="info_buy_points" xml:space="preserve">
-    <value>info_buy_points</value>
+    <value>Points</value>
   </data>
   <data name="joined" xml:space="preserve">
     <value>Joined</value>
@@ -242,7 +242,7 @@
     <value>Type</value>
   </data>
   <data name="type_buy_points" xml:space="preserve">
-    <value>type_buy_points</value>
+    <value>Buy</value>
   </data>
   <data name="video" xml:space="preserve">
     <value>Video</value>
