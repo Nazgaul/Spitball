@@ -99,7 +99,10 @@
                   <td class="text-left" v-html="dictionary.types[props.item.type]"/>
                   <td class="text-left" v-html="formatItemStatus(props.item.paymentStatus)"/>
                   <td class="text-left">{{ props.item.date | dateFromISO }}</td>
-                  <td class="text-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"></td>
+                  <td class="text-left">
+                     <div>{{globalFunctions.formatPrice(props.item.price, props.item.type)}}</div>
+                     <v-btn color="primary" width="120" depressed @click="$openDialog('teacherApproval', props.item)" >{{$t('mySales_btn_approve')}}</v-btn>
+                  </td>
                </tr>
             </template>
 
