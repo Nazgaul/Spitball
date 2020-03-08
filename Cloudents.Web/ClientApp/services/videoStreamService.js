@@ -56,6 +56,7 @@ import insightService from './insightService.js'
               }
         };
         tutorService.connectToRoom(token, connectOptions);
+        // store.dispatch('updateTwilioConnection',{token, connectOptions})
         if (!store.getters['getStudyRoomData'].isTutor) {
             store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.active);            
         }
