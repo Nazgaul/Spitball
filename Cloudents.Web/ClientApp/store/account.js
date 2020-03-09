@@ -95,6 +95,16 @@ const actions = {
         analyticsService.sb_setUserId(userAccount.id);
         insightService.authenticate.set(userAccount.id);
         dispatch('updateLoginStatus',true)
+
+        // TODO: need to make it only when user login
+        // When user is logged in the user data is not ready availlable
+        if(userAccount.isTutor && userAccount.isTutorState === 'pending') {
+            dispatch('updateToasterParams', {
+                toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
+                showToaster: true,
+                toasterTimeout: 3600000
+            });
+        }
     },
     userStatus({state,dispatch,getters}) {
         if(state.user !== null && state.user.hasOwnProperty('id')){
