@@ -28,16 +28,8 @@ namespace Cloudents.Query.Session
             public async Task<PaymentDetailDto> GetAsync(PaymentBySessionIdQuery query, CancellationToken token)
             {
                 //This query will not work in case there will be more then one student in a room.
-                const string sql = @"select srs.Id as StudyRoomSessionId,
-                    case when t.Price is null then tr.Price else t.Price end as TutorPricePerHour,
-                    case when tr.SellerKey is null then 1 else 0 end as cantPay,
-		                    tr.Id as TutorId, 
-		                    tu.Name as TutorName, 
-		                    u.Id as UserId,
-		                    u.Name as UserName,
-		                    srs.Created,
-							datediff(MINUTE, srs.Created, srs.Ended) as Duration,
-							
+                const string sql = @"select case when t.Price is null then tr.Price else t.Price end as TutorPricePerHour,
+							datediff(MINUTE, srs.Created, srs.Ended) as Duration,							
 							x.CouponCode as CouponCode,
 							x.couponType,
 							x.CouponValue as CouponValue,
@@ -70,24 +62,6 @@ namespace Cloudents.Query.Session
                 using (var conn = _repository.OpenConnection())
                 {
                     var result = await conn.QuerySingleAsync<PaymentDetailDto>(sql, new { id = query.SessionId });
-
-                    if (result.CouponType is null)
-                    {
-                        //no coupon
-                        return result;
-                    }
-
-                    if (result.CouponTutor.HasValue && result.CouponTutor.Value != result.TutorId)
-                    {
-                        return result;
-                    }
-
-                    result.StudentPayPerHour = Coupon.CalculatePrice(result.CouponType.Value, result.TutorPricePerHour, result.CouponValue.GetValueOrDefault());
-
-                    if (result.CouponTutor is null)
-                    {
-                        result.SpitballPayPerHour = result.TutorPricePerHour - result.StudentPayPerHour;
-                    }
 
                     return result;
                 }
