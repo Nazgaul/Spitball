@@ -405,7 +405,13 @@ namespace Cloudents.Selenium.Test
             {
                 driver.Manage().Window.Maximize();
 
-                var url = $"{_driver.SiteUrl.TrimEnd('/')}?dialog=exitRegister";
+                var url = $"{_driver.SiteUrl.TrimEnd('/')}?dialog=login";
+                driver.Navigate().GoToUrl(url);
+
+                // Make sure this element is exist
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'login-popup')]"));
+
+                url = $"{_driver.SiteUrl.TrimEnd('/')}?dialog=exitRegister";
                 driver.Navigate().GoToUrl(url);
 
                 // Make sure this element is exist
