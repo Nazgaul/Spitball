@@ -44,7 +44,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [Theory]
         [InlineData("api/account")]
         [InlineData("api/account/referrals")]
-        [InlineData("api/account/sales")]
         [InlineData("api/account/content")]
         [InlineData("api/account/purchases")]
         [InlineData("api/account/followers")]
