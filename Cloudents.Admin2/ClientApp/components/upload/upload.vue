@@ -25,17 +25,15 @@
           <v-btn color="blue">Select files</v-btn>
         </file-upload>
 
-          <template v-if="loader">
-              <div class="uf-uploading-container">
-                  <div class="uf-uploading-text">
-                      <span class="uf-bold">Uploading...</span>
-                      <span>it may take a few minutes</span>
-                      <span>{{files[0].progress}}%</span>
-                  </div>
-                  <v-progress-linear color="success" v-model="files[0].progress"></v-progress-linear>
-              </div>
-          </template>
-          
+        <div v-if="loader" class="uf-uploading-container">
+            <div class="uf-uploading-text">
+                <span class="uf-bold">Uploading...</span>
+                <span>it may take a few minutes</span>
+                <span>{{files[0].progress}}%</span>
+            </div>
+            <v-progress-linear color="success" v-model="files[0].progress"></v-progress-linear>
+        </div>
+         
         <ul>
           <li v-for="item in uploadedUrl" :key="item">
             {{ item }}
@@ -44,6 +42,21 @@
         </v-layout>
    </div>
 </template>
+
+<style lang="less">
+ .uf-uploading-container{
+        .uf-uploading-text{
+            color: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .uf-bold{
+                font-weight: bold;
+                font-size:18px;
+            }
+        }
+ }
+</style>
 
 
 <script>
