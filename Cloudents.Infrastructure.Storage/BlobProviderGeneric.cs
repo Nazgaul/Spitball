@@ -270,6 +270,14 @@ namespace Cloudents.Infrastructure.Storage
             return result.Results.Select(s => s.Uri);
         }
 
+        public async Task<IEnumerable<Uri>> FilesInContainerAsync(CancellationToken token)
+        {
+            var destinationContainer = _blobDirectory.Container;
+            var result = await destinationContainer.ListBlobsSegmentedAsync(null, true, BlobListingDetails.None,
+                1000, null, null, null, token);
+            return result.Results.Select(s => s.Uri);
+        }
+
 
 
 

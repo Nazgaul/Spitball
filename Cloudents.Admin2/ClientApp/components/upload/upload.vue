@@ -23,7 +23,23 @@
           ref="upload">
           <v-btn color="blue">Select files</v-btn>
         </file-upload>
-        <div v-show="showUrl">{{uploadedUrl}}</div>
+
+        <div class="d-flex justify-center align-center" v-if="loader">
+                        <div class="text-xs-center">
+                        <v-progress-circular :size="100"
+                                            :width="5"
+                                             color="primary"
+                                             indeterminate>
+                            Uploading...
+                        </v-progress-circular>
+                        </div>
+                    </div>
+        <!-- <div v-show="showUrl">{{uploadedUrl}}</div> -->
+        <ul>
+          <li v-for="item in uploadedUrl" :key="item">
+            {{ item }}
+          </li>
+        </ul>
         </v-layout>
    </div>
 </template>
@@ -31,6 +47,8 @@
 
 <script>
 import FileUpload from 'vue-upload-component'
+import { getBlobs } from './uploadService.js'
+
 export default {
   components: {
     FileUpload,
@@ -38,12 +56,13 @@ export default {
   data() {
     return {
       files: [],
-      // 1MB by default
+      // 0MB by default
       chunkMinSize: 0,
       chunkMaxActive: 3,
       chunkMaxRetries: 5,
-      uploadedUrl: '',
-      showUrl: false
+      uploadedUrl: [],
+      showUrl: false,
+      loader : false
     }
   },
   methods: {
@@ -52,13 +71,14 @@ export default {
         // add
         console.log('add', newFile)
         this.$refs.upload.active = true
+        this.loader = true
       }
       if (newFile && oldFile) {
         // update
-        debugger
         if(newFile.response.hasOwnProperty("url")) {
-        this.uploadedUrl = newFile.response.url
+        this.uploadedUrl.unshift(newFile.response.url)
         this.showUrl = true
+        this.loader = false
         }
         console.log('update', newFile)
       }
@@ -67,6 +87,11 @@ export default {
         console.log('remove', oldFile)
       }
     }
+  },
+  created() {
+    getBlobs().then((list) => {
+      this.uploadedUrl = list
+    })
   }
 }
 </script>
