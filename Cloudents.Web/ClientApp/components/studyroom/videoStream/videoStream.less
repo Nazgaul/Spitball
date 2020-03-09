@@ -159,6 +159,12 @@
     video {
       width: 100%;
       background-repeat: no-repeat;
+      pointer-events: none;
+    }
+    //https://css-tricks.com/custom-controls-in-html5-video-full-screen/
+    video::-webkit-media-controls-enclosure {
+      display: none !important;
+     
     }
   }
   #localTrack {
