@@ -28,8 +28,7 @@ namespace Cloudents.Query.Session
             public async Task<PaymentDetailDto> GetAsync(PaymentBySessionIdQuery query, CancellationToken token)
             {
                 //This query will not work in case there will be more then one student in a room.
-                const string sql = @"select case when t.Price is null then tr.Price else t.Price end as TutorPricePerHour,
-							datediff(MINUTE, srs.Created, srs.Ended) as Duration,							
+                const string sql = @"select case when t.Price is null then tr.Price else t.Price end as TutorPricePerHour,						
 							x.CouponCode as CouponCode,
 							x.couponType,
 							x.CouponValue as CouponValue,
