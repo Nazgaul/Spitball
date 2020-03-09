@@ -246,7 +246,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("purchases")]
-        public async Task<IEnumerable<UserPurchasDto>> GetUserPurchasesAsync([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
+        public async Task<IEnumerable<UserPurchaseDto>> GetUserPurchasesAsync([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserPurchasesByIdQuery(userId);
