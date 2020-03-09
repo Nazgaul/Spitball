@@ -221,11 +221,13 @@ namespace Cloudents.Web.Api
 
         [HttpPost("PayPal/StudyRoom")]
         public async Task<IActionResult> PayPal(PayPalOrderRequest model,
-            [FromServices] IPayPal payPalService,
+            //[FromServices] IPayPal payPalService,
             CancellationToken token)
         {
-            //Command to save the token
-            await payPalService.PathOrderAsync(model.OrderId, token);
+            var userId = _userManager.GetLongUserId(User);
+            var command = new AddPayPalOrderCommand(userId, model.OrderId);
+            await _commandBus.DispatchAsync(command, token);
+            //await payPalService.PathOrderAsync(model.OrderId, token);
             return Ok();
         }
 

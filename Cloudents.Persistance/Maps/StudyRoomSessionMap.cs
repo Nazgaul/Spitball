@@ -1,5 +1,6 @@
 ﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
+using System;
 
 namespace Cloudents.Persistence.Maps
 {
@@ -21,10 +22,16 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.ParticipantDisconnections).Access.CamelCaseField(Prefix.Underscore)
                .KeyColumn("SessionId")
                .Inverse().Cascade.AllDeleteOrphan();
-            Map(x => x.PaymentApproved).Nullable();
+            Map(m => m.PaymentApproved).Nullable();
             Map(x => x.AdminDuration).Nullable();
-            Map(x => x.StudentPay).CustomSqlType("smallMoney").Nullable();
-            Map(x => x.SpitballPay).CustomSqlType("smallMoney").Nullable();
+            ReferencesAny(x => x.Payment).Cascade.All()
+            .AddMetaValue<Payme>("Payme")
+            .AddMetaValue<PayPal>("PayPal")
+            .EntityTypeColumn("Type")
+            .EntityIdentifierColumn("PaymentId")
+            .IdentityType<Guid>()
+            .MetaType<string>();
+
             Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
         }
     }

@@ -41,7 +41,12 @@ namespace ConsoleApp
             Prod
         }
 
-
+        /*
+         *  "PayPal": {
+    "ClientId": "AcaET-3DaTqu01QZ0Ad7-5C52pMZ5s4nx59TmbCqdn8gZpfJoM3UPLYCnZmDELZfc-22N_yhmaGEjS3e",
+    "ClientSecret": "EPBamUk7w8Ibrld_eNRV18FYp1zqcYBqx8gCpBBUU9_W5h4tBf8_PhqYS9rzyBBjXJhZ0elFoXoLvdk8"
+  }
+         */
         public static ConfigurationKeys GetSettings(EnvironmentSettings dev)
         {
             switch (dev)
@@ -62,6 +67,10 @@ namespace ConsoleApp
                         Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                         LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                         ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
+                        PayPal = new PayPalCredentials(
+                            "AcaET-3DaTqu01QZ0Ad7-5C52pMZ5s4nx59TmbCqdn8gZpfJoM3UPLYCnZmDELZfc-22N_yhmaGEjS3e",
+                            "EPBamUk7w8Ibrld_eNRV18FYp1zqcYBqx8gCpBBUU9_W5h4tBf8_PhqYS9rzyBBjXJhZ0elFoXoLvdk8",
+                            true)
                     };
                 case EnvironmentSettings.Prod:
                     return new ConfigurationKeys
@@ -135,58 +144,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            var s = _container.Resolve<IPayPal>(); 
+            await s.UpdateAndConfirmOrderAsync("3GA82316L4352280A", 500, default);
 
 
-            // var sr = new MemoryStream();
-            //myBitmap.Save(sr,ImageFormat.Jpeg);
-            //File.WriteAllBytes(@"C:\Users\Ram\Download\blank.bmp",sr.ToArray());
-
-            //myBitmap.S
-
-            // await Convert();
-            await ReduPreviewProcessingAsync();
-            //var user = await queryBus.QueryAsync(query, default);
-            // user = await queryBus.QueryAsync(query, default);
-            // user = await queryBus.QueryAsync(query, default);
-            // user = await queryBus.QueryAsync(query, default);
-            // user = await queryBus.QueryAsync(query, default);
-            //await searchWrite.DispatchAsync(new UserRemoveCourseCommand(638, "Statistics" ), default);
-            //Console.WriteLine("add");
-            //await searchWrite.DispatchAsync(new UserJoinCoursesCommand(new[] {"Statistics" }, 638),default);
-
-            //var i = 0;
-            //while (true)
-            //{
-            //    var query = new SyncAzureQuery(0, i);
-            //    var z = await x.QueryAsync<(IEnumerable<DocumentSearchDto>, IEnumerable<string>, long)>(query, default);
-
-            //    var document = z.Item1.FirstOrDefault(w => w.ItemId == 6897);
-            //    if (document != null)
-            //    {
-            //        Console.WriteLine("here");
-            //       var item = Cloudents.Search.Entities.Document.FromDto(document);
-            //       await searchWrite.UpdateDataAsync(new[] {item}, default);
-            //    }
-
-            //    _container.Resolve<DocumentSearchWrite>();
-
-            //    i++;
-            //}
-            //var commandBus = _container.Resolve<ICommandBus>();
-
-            //var command = new SetUserTypeCommand(638,UserType.HighSchoolStudent);
-            //await commandBus.DispatchAsync(command, default);
-
-            //await x.RemoveUnusedStreamingLocatorAsync(default);
-            //await Convert();
-
-
-            //await ReduPreviewProcessingAsync();
-
-            //var queryBus = _container.Resolve<IQueryBus>();
-
-            //var query = new SiteMapQuery(true);
-            //var result = await queryBus.QueryAsync(query, default);
 
 
         }

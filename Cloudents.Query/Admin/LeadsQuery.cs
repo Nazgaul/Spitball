@@ -18,10 +18,10 @@ namespace Cloudents.Query.Admin
             Country = country;
         }
 
-        internal sealed class LeadsQueryHandler : IQueryHandler<LeadsQuery, IEnumerable<LeadDto>>
+        internal sealed class LeadsQueryHandler :
+            IQueryHandler<LeadsQuery, IEnumerable<LeadDto>>
         {
             private readonly IStatelessSession _session;
-
 
             public LeadsQueryHandler(QuerySession session)
             {
@@ -30,17 +30,7 @@ namespace Cloudents.Query.Admin
 
             public async Task<IEnumerable<LeadDto>> GetAsync(LeadsQuery query, CancellationToken token)
             {
-                //User userAlias = null;
-                //Lead leadAlias = null;
-                
-
-                //_session.QueryOver<Lead>(() => leadAlias)
-                //    .JoinAlias(f => f.User, () => userAlias)
-                //    .JoinEntityAlias(() => userCourseAlias, () => leadAlias.Id == viewTutorAlias.Id)
-
-                //    .JoinQueryOver(x=>x.Id,)
-
-                IQueryable<Lead> leads = _session.Query<Lead>()
+                var leads = _session.Query<Lead>()
                     .Fetch(f => f.User)
                     .Where(w=> !_session.Query<ChatRoomAdmin>().Any(w2=>w2.Lead.Id == w.Id));
 
@@ -59,21 +49,7 @@ namespace Cloudents.Query.Admin
                     Course = s.Course,
                     University = s.User.University.Name,
                     DateTime = s.CreationTime 
-                    //Referer = s.UtmSource,
-                    //Status = s.Status
                 }).OrderByDescending(o=>o.Id).ToListAsync(token);
-
-                //                const string sql = @"select l.Id, l.Name, Email, Phone, Text, CourseId as Course, u.Name as University, UtmSource as Referer, l.Status
-                //from sb.Lead l
-                //left join sb.University u
-                //	on l.UniversityId = u.Id
-                //where l.Status = @Status or @Status = ''";
-                //                using (var connection = _dapper.OpenConnection())
-                //                {
-                //                    var res = await connection.QueryAsync<LeadDto>(sql, new { Status = query.Status.ToString() });
-
-                //                    return res;
-                //                }
             }
         }
     }

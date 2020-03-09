@@ -2,6 +2,7 @@
 using Cloudents.Core.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using PayPalCheckoutSdk.Core;
@@ -46,10 +47,10 @@ namespace Cloudents.Infrastructure
             return new PayPalDto(orderId,  sku.Amount);
         }
 
-        public async Task PathOrderAsync(string orderId, CancellationToken token)
+        public async Task UpdateAndConfirmOrderAsync(string orderId, decimal charge, CancellationToken token) 
         {
             var request = new OrdersPatchRequest<AmountWithBreakdown>(orderId);
-            request.RequestBody(BuildPatchRequest());
+            request.RequestBody(BuildPatchRequest(charge));
             await _client.Execute(request);
             var captureRequest = new OrdersCaptureRequest(orderId);
             captureRequest.RequestBody(new OrderActionRequest());
@@ -76,31 +77,17 @@ namespace Cloudents.Infrastructure
         //    };
         //}
 
-        private static List<Patch<AmountWithBreakdown>> BuildPatchRequest()
+        private static List<Patch<AmountWithBreakdown>> BuildPatchRequest(decimal charge)
         {
             var patches = new List<Patch<AmountWithBreakdown>>
             {
-                //new Patch<object>
-                //{
-                //    Op= "replace",
-                //    Path= "/intent",
-                //    Value= "CAPTURE"
-
-                //},
-                //new Patch<object>
-                //{
-                //    Op= "add",
-                //    Path= "/purchase_units/@reference_id=='PUHF'/description",
-                //    Value= "Physical Goods"
-
-                //},
                 new Patch<AmountWithBreakdown>
                 {
                     Op= "replace",
                     Path= "/purchase_units/@reference_id=='PUHF'/amount",
                     Value= new AmountWithBreakdown
                     {
-                        Value = "500",
+                        Value = charge.ToString(CultureInfo.InvariantCulture),
                         CurrencyCode = "USD"
                     }
 

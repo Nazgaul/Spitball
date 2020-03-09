@@ -14,7 +14,7 @@ namespace Cloudents.Query.Tutor
             UserId = userId;
         }
 
-        private Guid Id { get; set; }
+        private Guid Id { get; }
 
         private long UserId { get; }
 
@@ -33,9 +33,8 @@ namespace Cloudents.Query.Tutor
             public async Task<StudyRoomDto> GetAsync(StudyRoomQuery query, CancellationToken token)
             {
                 //TODO: make it better
-                using (var conn = _repository.OpenConnection())
-                {
-                    return await conn.QuerySingleOrDefaultAsync<StudyRoomDto>(@"
+                using var conn = _repository.OpenConnection();
+                return await conn.QuerySingleOrDefaultAsync<StudyRoomDto>(@"
 Select 
 onlineDocumentUrl as OnlineDocument, 
 sr.identifier as ConversationId,
@@ -47,7 +46,7 @@ u1.Id as StudentId, u1.Name as StudentName, u1.ImageName as StudentImage,
  coalesce (
 	case when t.price = 0 then 0 else null end,
 	case when u1.PaymentExists = 1 then 0 else null end,
-    case when u1.Country != 'IL' then 0 else null end,
+    case when u1.Country = 'IN' then 0 else null end,
 	1
 ) as NeedPayment
 from sb.StudyRoom sr 
@@ -57,12 +56,7 @@ join sb.StudyRoomUser sru1 on sr.Id = sru1.StudyRoomId and sru1.UserId != sr.Tut
 join sb.StudyRoomUser sru2 on sr.Id = sru2.StudyRoomId and sru2.UserId = @UserId
 join sb.[user] u1 on sru1.UserId = u1.Id
 where sr.id = @Id;",
-                        new { query.Id, query.UserId });
-
-
-
-                }
-
+                    new { query.Id, query.UserId });
             }
         }
     }
