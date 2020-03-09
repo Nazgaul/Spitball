@@ -98,7 +98,7 @@ const actions = {
 
         // TODO: need to make it only when user login
         // When user is logged in the user data is not ready availlable
-        if(userAccount.isTutor && userAccount.isTutorState === 'pending') {
+        if(userAccount.isTutor && userAccount.isTutorState === 'Pending') {
             dispatch('updateToasterParams', {
                 toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
                 showToaster: true,
