@@ -13,7 +13,8 @@
             action: 'api/adminUpload/upload',
             minSize: chunkMinSize,
             maxActive: chunkMaxActive,
-            maxRetries: chunkMaxRetries
+            maxRetries: chunkMaxRetries,
+            progress: progressHandler
           }"
           extensions="gif,jpg,jpeg,png,webp,mp4"
           accept="image/png,image/gif,image/jpeg,image/webp,video/mp4"
@@ -24,17 +25,17 @@
           <v-btn color="blue">Select files</v-btn>
         </file-upload>
 
-        <div class="d-flex justify-center align-center" v-if="loader">
-                        <div class="text-xs-center">
-                        <v-progress-circular :size="100"
-                                            :width="5"
-                                             color="primary"
-                                             indeterminate>
-                            Uploading...
-                        </v-progress-circular>
-                        </div>
-                    </div>
-        <!-- <div v-show="showUrl">{{uploadedUrl}}</div> -->
+          <template v-if="loader">
+              <div class="uf-uploading-container">
+                  <div class="uf-uploading-text">
+                      <span class="uf-bold">Uploading...</span>
+                      <span>it may take a few minutes</span>
+                      <span>{{files[0].progress}}%</span>
+                  </div>
+                  <v-progress-linear color="success" v-model="files[0].progress"></v-progress-linear>
+              </div>
+          </template>
+          
         <ul>
           <li v-for="item in uploadedUrl" :key="item">
             {{ item }}
@@ -61,6 +62,7 @@ export default {
       chunkMaxActive: 3,
       chunkMaxRetries: 5,
       uploadedUrl: [],
+      // progress: 0,
       showUrl: false,
       loader : false
     }
@@ -86,7 +88,10 @@ export default {
         // remove
         console.log('remove', oldFile)
       }
-    }
+    },
+    progressHandler(progress){
+            this.progress = progress;            
+        }
   },
   created() {
     getBlobs().then((list) => {
