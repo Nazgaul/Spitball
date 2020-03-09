@@ -104,6 +104,12 @@ namespace Cloudents.Query.Users
                     .Take(1)
                     .ToFuture();
 
+                var buyPointsFuture = _session.Query<BuyPointsTransaction>()
+                    .Where(w => w.User.Id == query.Id)
+                    .Select(s => s.Id)
+                    .Take(1)
+                    .ToFuture();
+
                 var purchasedSessionsFuture = _session.Query<StudyRoomSession>()
                     .Fetch(f => f.StudyRoom)
                     .ThenFetch(f => f.Users)
@@ -170,7 +176,8 @@ namespace Cloudents.Query.Users
                 result.HaveDocsWithPrice = (await haveDocsWithPriceFuture.GetEnumerableAsync(token)).Any();
 
                 result.IsPurchased = (await purchasedDocsFuture.GetEnumerableAsync(token)).Any()
-                                     || (await purchasedSessionsFuture.GetEnumerableAsync(token)).Any();
+                                     || (await purchasedSessionsFuture.GetEnumerableAsync(token)).Any()
+                                     || (await buyPointsFuture.GetEnumerableAsync(token)).Any();
 
                 result.HaveStudyRoom = (await haveStudyRoomFuture.GetEnumerableAsync(token)).Any();
 

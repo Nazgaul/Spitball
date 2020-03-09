@@ -206,7 +206,7 @@ namespace Cloudents.Core.Entities
         public virtual string FirstName { get; protected set; }
         public virtual string LastName { get; protected set; }
         public virtual string Description { get; set; }
-        public virtual Tutor Tutor { get; protected set; }
+        public virtual Tutor? Tutor { get; protected set; }
 
         public virtual BuyerPayment BuyerPayment { get; protected set; }
 

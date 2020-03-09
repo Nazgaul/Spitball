@@ -51,7 +51,7 @@ export default {
                'Document': LanguageService.getValueByKey('dashboardPage_document'),
                'Video': LanguageService.getValueByKey('dashboardPage_video'),
                'TutoringSession': LanguageService.getValueByKey('dashboardPage_tutor_session'),
-               'BuyPoints':'BuyPoints'
+               'BuyPoints': LanguageService.getValueByKey('dashboardPage_type_buy_points')
             },
             headers:{
                'preview': {text: '', align:'left', sortable: false, value:'preview'},
@@ -80,6 +80,7 @@ export default {
             formatPrice: this.formatPrice,
             router: this.dynamicRouter,
             '$Ph': this.$Ph,
+            't':this.t,
             strToACII: this.strToACII
          },
          snackbar:{
@@ -105,6 +106,9 @@ export default {
       ...mapGetters(['accountUser'])
    },
    methods: {
+      t(resx){
+         return this.$t(resx)
+      },
       closeDialog() {
          this.currentDialog = '';
          this.dialogData = '';
@@ -143,17 +147,12 @@ export default {
             return require(`./images/qs.png`) 
          }
       },      
-      formatPrice(price,type){
+      formatPrice(price){
          if(price < 0){
             price = Math.abs(price)
          }
          price = Math.round(+price).toLocaleString();
-         if(type === 'Document' || type === 'Video' || type === 'BuyPoints'){
-            return `${price} ${LanguageService.getValueByKey('dashboardPage_pts')}`
-         }
-         if(type === 'TutoringSession'){
-            return `${price} ${this.accountUser.currencySymbol}`
-         }
+         return `${price} ${this.accountUser.currencySymbol}`;
       },
       strToACII(name) {
          let sum = 0;

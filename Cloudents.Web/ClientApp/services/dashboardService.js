@@ -109,9 +109,7 @@ function createContentItems({data}) {
    return contentItems;
 }
 function createPurchasesItems({data}) {
-   let purchasesItems = [];
-   data.map(item => purchasesItems.push(new PurchasesItem(item)));
-   return purchasesItems;
+   return data.map(item=> new PurchasesItem(item));
 }
 function createStudyRoomItems({data}) {
    let studyRoomItems = [];

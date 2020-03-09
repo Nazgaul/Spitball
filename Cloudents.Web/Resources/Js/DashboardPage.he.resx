@@ -151,6 +151,9 @@
     <value>מוצר
 </value>
   </data>
+  <data name="info_buy_points" xml:space="preserve">
+    <value>רכישת נקודות</value>
+  </data>
   <data name="joined" xml:space="preserve">
     <value>תאריך הצטרפות</value>
   </data>
@@ -234,6 +237,9 @@
   </data>
   <data name="type" xml:space="preserve">
     <value>סוג</value>
+  </data>
+  <data name="type_buy_points" xml:space="preserve">
+    <value>נקודות</value>
   </data>
   <data name="video" xml:space="preserve">
     <value>וידאו</value>

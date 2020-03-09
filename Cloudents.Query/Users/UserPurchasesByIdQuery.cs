@@ -11,15 +11,16 @@ using Cloudents.Core.DTOs.Users;
 
 namespace Cloudents.Query.Users
 {
-    public class UserPurchasesByIdQuery : IQuery<IEnumerable<UserPurchasDto>>
+    public class UserPurchasesByIdQuery : IQuery<IEnumerable<UserPurchaseDto>>
     {
         public UserPurchasesByIdQuery(long id)
         {
             Id = id;
         }
-        public long Id { get; set; }
 
-        internal sealed class UserPurchasesByIdQueryHandler : IQueryHandler<UserPurchasesByIdQuery, IEnumerable<UserPurchasDto>>
+        private long Id { get; }
+
+        internal sealed class UserPurchasesByIdQueryHandler : IQueryHandler<UserPurchasesByIdQuery, IEnumerable<UserPurchaseDto>>
         {
             private readonly IStatelessSession _session;
             private readonly IUrlBuilder _urlBuilder;
@@ -30,7 +31,7 @@ namespace Cloudents.Query.Users
                 _urlBuilder = urlBuilder;
             }
 
-            public async Task<IEnumerable<UserPurchasDto>> GetAsync(UserPurchasesByIdQuery query, CancellationToken token)
+            public async Task<IEnumerable<UserPurchaseDto>> GetAsync(UserPurchasesByIdQuery query, CancellationToken token)
             {
 
                 //TODO: need to return Document with state = archive
@@ -51,8 +52,8 @@ namespace Cloudents.Query.Users
                         Date = s.Created,
                         Price = s.Price
 
-                    }).ToFuture<UserPurchasDto>();
-
+                    }).ToFuture<UserPurchaseDto>();
+                //TODO: Please check if the ended and price happens in the same place
                 var sessionFuture = _session.Query<StudyRoomSession>()
                     .Fetch(f => f.StudyRoom)
                     .ThenFetch(f => f.Users)
@@ -61,12 +62,12 @@ namespace Cloudents.Query.Users
                     .Select(s => new PurchasedSessionDto()
                     {
                         Date = s.Created,
-                        Price = s.Price,
+                        Price = s.Price.GetValueOrDefault(),
                         Duration = s.Duration,
                         TutorName = s.StudyRoom.Tutor.User.Name,
                         TutorId = s.StudyRoom.Tutor.Id,
                         TutorImage = _urlBuilder.BuildUserImageEndpoint(s.StudyRoom.Tutor.Id, s.StudyRoom.Tutor.User.ImageName, s.StudyRoom.Tutor.User.Name, null)
-                    }).ToFuture<UserPurchasDto>();
+                    }).ToFuture<UserPurchaseDto>();
 
                 var buyPointsFuture = _session.Query<BuyPointsTransaction>()
                     .Fetch(s => s.User)
@@ -75,12 +76,13 @@ namespace Cloudents.Query.Users
                     { 
                         Id = s.Id,
                         Price = s.Price,
+                        Country =  s.User.Country,
                         Date = s.Created
-                    }).ToFuture<UserPurchasDto>();
+                    }).ToFuture<UserPurchaseDto>();
 
-                IEnumerable<UserPurchasDto> documentResult = await documentFuture.GetEnumerableAsync(token);
-                IEnumerable<UserPurchasDto> sessionResult = await sessionFuture.GetEnumerableAsync(token);
-                IEnumerable<UserPurchasDto> buyPointsResult = await buyPointsFuture.GetEnumerableAsync(token);
+                var documentResult = await documentFuture.GetEnumerableAsync(token);
+                var sessionResult = await sessionFuture.GetEnumerableAsync(token);
+                var buyPointsResult = await buyPointsFuture.GetEnumerableAsync(token);
 
                 return documentResult.Union(sessionResult).Union(buyPointsResult).OrderByDescending(o => o.Date);
             }

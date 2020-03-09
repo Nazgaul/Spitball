@@ -9,7 +9,7 @@
         name: "finishBtn",
         methods: {
             finish(){
-                this.$router.push({name: 'feed'})
+                this.$router.push('/')
             }
         },
     }
