@@ -113,8 +113,12 @@ namespace Cloudents.Core.Entities
             MainLanguage = language;
         }
 
-        public static implicit operator Country(string tb)
+        public static implicit operator Country(string? tb)
         {
+            if (tb is null)
+            {
+                return UnitedStates;
+            }
             var result = FromDisplayName<Country>(tb);
             if (result is null)
             {
