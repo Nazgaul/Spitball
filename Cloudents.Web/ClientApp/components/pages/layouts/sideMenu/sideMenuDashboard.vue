@@ -65,27 +65,27 @@ export default {
       }
    },
    computed: {
-      ...mapGetters(['accountUser']),
+      ...mapGetters(['accountUser', 'getIsTeacher']),
       showOverview(){
-         return this.accountUser?.isTutor;
+         return this.getIsTeacher;
       },
       showMySales(){
-         return this.accountUser?.isSold;
+         return this.accountUser.isSold;
       },
       showMyFollowers(){
-         return this.accountUser?.haveFollowers;
+         return this.accountUser.haveFollowers;
       },
       showMyContent(){
-         return this.accountUser?.haveContent;
+         return this.accountUser.haveContent;
       },
       showMyPurchases(){
-         return this.accountUser?.isPurchased;
+         return this.accountUser.isPurchased;
       },
       showMyStudyRooms(){
-         return this.accountUser?.haveStudyRoom;
+         return this.accountUser.haveStudyRoom;
       },
       hideDashboardGroup(){
-         let itemList = [this.showOverview,this.showMySales,this.showMyFollowers,this.showMyContent,this.showMyPurchases,this.showMyPurchases,this.showMyStudyRooms]
+         let itemList = [this.showOverview,this.showMySales,this.showMyFollowers,this.showMyContent,this.showMyPurchases,this.showMyStudyRooms]
          return itemList.every(item=>(!item))
       }
    },

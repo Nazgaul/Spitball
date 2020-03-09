@@ -99,7 +99,7 @@ export const dashboardRoutes = [
             ...staticComponents(['banner', 'header', 'sideMenu'])
         },
         beforeEnter: (to, from, next) => {
-            if(store.getters.getUserLoggedInStatus && store.getters.accountUser.userType === 'Teacher'){
+            if(store.getters.getIsTeacher){
                 next()
                 return
             }
