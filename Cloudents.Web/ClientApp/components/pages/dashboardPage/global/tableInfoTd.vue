@@ -2,7 +2,7 @@
    <td class="tableInfo text-xs-left text-truncate">
       <template v-if="props.item.type === 'BuyPoints'">
          <div class="text-truncate">
-            <span>BuyPoints</span>
+            <span>{{props.globalFunctions.t('dashboardPage_info_buy_points')}}</span>
          </div>
       </template>
       <router-link v-else class="tableInfo_router" :to="props.globalFunctions.router(props.item)">

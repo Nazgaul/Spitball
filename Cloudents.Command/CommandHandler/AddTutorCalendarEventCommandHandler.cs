@@ -14,16 +14,15 @@ namespace Cloudents.Command.CommandHandler
         private readonly IRegularUserRepository _userRepository;
         private readonly ICalendarService _calendarService;
         private readonly IRepository<GoogleTokens> _googleTokenRepository;
-        private readonly IJsonSerializer _jsonSerializer;
+        
 
         public AddTutorCalendarEventCommandHandler(IRegularUserRepository userRepository, ITutorRepository tutorRepository, 
-            ICalendarService calendarService, IRepository<GoogleTokens> googleTokenRepository, IJsonSerializer jsonSerializer)
+            ICalendarService calendarService, IRepository<GoogleTokens> googleTokenRepository)
         {
             _userRepository = userRepository;
             _tutorRepository = tutorRepository;
             _calendarService = calendarService;
             _googleTokenRepository = googleTokenRepository;
-            _jsonSerializer = jsonSerializer;
         }
 
         public async Task ExecuteAsync(AddTutorCalendarEventCommand message, CancellationToken token)
@@ -58,10 +57,10 @@ namespace Cloudents.Command.CommandHandler
             }
 
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            var tutorToken = _jsonSerializer.Deserialize<GoogleTokensValue>((await _googleTokenRepository.GetAsync(message.TutorId.ToString(), token)).Value);
-            //var userToken = await _googleTokenRepository.LoadAsync(message.UserId, token);
+          
+            var googleTokens = await _googleTokenRepository.GetAsync(message.TutorId.ToString(), token);
 
-            await _calendarService.BookCalendarEventAsync(tutor.User, user, tutorToken.Id_token,
+            await _calendarService.BookCalendarEventAsync(tutor.User, user, googleTokens,
                 message.From, message.To, token);
 
         }
@@ -69,19 +68,6 @@ namespace Cloudents.Command.CommandHandler
         private static bool IsBetween(DateTime dateToCheck, DateTime startDate, DateTime endDate)
         {
             return dateToCheck > startDate && dateToCheck < endDate;
-        }
-
-        private class GoogleTokensValue
-        {
-
-            public string Access_token { get; set; }
-            public string Token_type { get; set; }
-            public string Expires_in { get; set; }
-            public string Refresh_token { get; set; }
-            public string Scope { get; set; }
-            public string Id_token { get; set; }
-            public string Issued { get; set; }
-            public string IssuedUtc { get; set; }
         }
     }
 }

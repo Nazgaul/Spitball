@@ -26,6 +26,7 @@ using GoogleMeasurementProtocol.Parameters.User;
 using Document = Google.Apis.Docs.v1.Data.Document;
 using User = Cloudents.Core.Entities.User;
 using System.IdentityModel.Tokens.Jwt;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Infrastructure.Google
 {
@@ -39,12 +40,14 @@ namespace Cloudents.Infrastructure.Google
         private readonly ILifetimeScope _container;
         private GoogleAnalyticsRequestFactory _factory;
         private readonly JwtSecurityTokenHandler _tokenHandler;
+        private readonly IJsonSerializer _jsonSerializer;
 
-        public GoogleService(ILifetimeScope container)
+        public GoogleService(ILifetimeScope container, IJsonSerializer jsonSerializer)
         {
             _container = container;
             _factory = new GoogleAnalyticsRequestFactory("UA-100723645-2");
             _tokenHandler = new JwtSecurityTokenHandler();
+            _jsonSerializer = jsonSerializer;
         }
 
 
@@ -280,7 +283,7 @@ namespace Cloudents.Infrastructure.Google
         }
 
 
-        public async Task BookCalendarEventAsync(User tutor, User student, string tutorToken,
+        public async Task BookCalendarEventAsync(User tutor, User student, GoogleTokens googleTokens,
              DateTime from, DateTime to,
             CancellationToken cancellationToken)
         {
@@ -288,12 +291,13 @@ namespace Cloudents.Infrastructure.Google
             var x = new System.Resources.ResourceManager(typeof(CalendarResources));
             var eventName = x.GetString("TutorCalendarMessage", CultureInfo.CurrentUICulture) ?? "Tutor Session In Spitball";
             eventName = string.Format(eventName, tutor.Name, student.Name);
+            var tutorToken = _jsonSerializer.Deserialize<GoogleTokensValue>(googleTokens.Value);
             using (var service = new CalendarService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = cred
             }))
             {
-               var tutorCalendarEmail = _tokenHandler.ReadJwtToken(tutorToken).Payload.Where(w => w.Key == "email").SingleOrDefault();
+               var tutorCalendarEmail = _tokenHandler.ReadJwtToken(tutorToken.Id_token).Payload.Where(w => w.Key == "email").SingleOrDefault();
 
 
                 var attendees = new[] { tutor, student }.Select(s => new EventAttendee()
@@ -413,6 +417,19 @@ namespace Cloudents.Infrastructure.Google
 
             //Make a Post request which will contain all information from above
             return request.PostAsync(clientId);
+        }
+
+        private class GoogleTokensValue
+        {
+
+            public string Access_token { get; set; }
+            public string Token_type { get; set; }
+            public string Expires_in { get; set; }
+            public string Refresh_token { get; set; }
+            public string Scope { get; set; }
+            public string Id_token { get; set; }
+            public string Issued { get; set; }
+            public string IssuedUtc { get; set; }
         }
     }
 }

@@ -16,7 +16,7 @@ export const landingRoutes = [
         beforeEnter: (to, from, next) => {    
             if(store.getters.getUserLoggedInStatus){
                 let nextRoute = {name: routeNames.Feed};
-                if(store.getters.accountUser.userType === 'Teacher' && store.getters.accountUser.isTutor){
+                if(store.getters.accountUser.userType === 'Teacher'){
                     nextRoute = {name: routeNames.Dashboard};
                 }
                 if(store.getters.accountUser.userType === 'Parent'){

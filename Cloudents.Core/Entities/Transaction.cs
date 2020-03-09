@@ -75,9 +75,8 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public BuyPointsTransaction(decimal price, string transactionId, decimal localCurrencyPrice)
         {
-            price = Math.Abs(price);
             TransactionId = transactionId;
-            Price = price;
+            Price = Math.Abs(price);
             LocalCurrencyPrice = localCurrencyPrice;
             Action = TransactionActionType.Buy;
             Type = TransactionType.Earned;
@@ -88,7 +87,6 @@ namespace Cloudents.Core.Entities
 
         protected BuyPointsTransaction()
         {
-
         }
 
         //public override int AwardScore => 0;
