@@ -76,6 +76,7 @@ namespace Cloudents.Query.Users
                     { 
                         Id = s.Id,
                         Price = s.Price,
+                        Country =  s.User.Country,
                         Date = s.Created
                     }).ToFuture<UserPurchaseDto>();
 
