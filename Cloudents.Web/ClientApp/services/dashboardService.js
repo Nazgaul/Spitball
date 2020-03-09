@@ -39,7 +39,6 @@ const Item = {
       this.answerText = objInit.answerText || '';
    },
    Session:function(objInit){
-      debugger;
       this.duration = objInit.duration;
       this.price = objInit.price;
       this.name = objInit.tutorName || objInit.studentName;
