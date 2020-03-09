@@ -38,6 +38,7 @@ namespace Cloudents.Persistence.Maps
         public BuyPointsTransactionMap()
         {
             DiscriminatorValue("BuyPoints");
+            Map(x => x.LocalCurrencyPrice).CustomSqlType("smallmoney");
             Map(x => x.TransactionId).Column("PayPalTransactionId").Not.Nullable();
         }
     }

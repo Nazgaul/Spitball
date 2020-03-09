@@ -137,7 +137,7 @@ namespace Cloudents.Web.Controllers
         {
             if (model.Status.Equals("success", StringComparison.OrdinalIgnoreCase))
             {
-                var command = new TransferMoneyToPointsCommand(model.UserId, points, model.TransactionId);
+                var command = new TransferMoneyToPointsCommand(model.UserId, points, model.TransactionId, model.Price/100);
                 await commandBus.DispatchAsync(command, token);
             }
             else

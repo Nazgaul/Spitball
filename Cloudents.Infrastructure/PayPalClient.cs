@@ -43,7 +43,9 @@ namespace Cloudents.Infrastructure
             var response3 = await _client.Execute(captureRequest);
             var result = response3.Result<Order>();
             Sku sku = result.PurchaseUnits[0].ReferenceId;
-            return new PayPalDto(orderId,  sku.Amount);
+            var localCurrencyPrice = decimal.Parse(result.PurchaseUnits[0].Payments.Captures[0].Amount.Value);
+
+            return new PayPalDto(orderId,  sku.Amount, localCurrencyPrice);
         }
 
         public async Task PathOrderAsync(string orderId, CancellationToken token)

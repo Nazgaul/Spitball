@@ -236,7 +236,7 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var result = await payPal.GetPaymentAsync(model.Id);
-            var command = new TransferMoneyToPointsCommand(userId, result.Amount, result.PayPalId);
+            var command = new TransferMoneyToPointsCommand(userId, result.Amount, result.PayPalId, result.LocalCurrencyAmount);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }

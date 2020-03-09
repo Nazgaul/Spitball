@@ -18,7 +18,7 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(TransferMoneyToPointsCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            var t = new BuyPointsTransaction(message.Amount, message.PayPalTransactionId);
+            var t = new BuyPointsTransaction(message.Amount, message.PayPalTransactionId, message.LocalCurrencyPrice);
             user.MakeTransaction(t);
 
             await _userRepository.UpdateAsync(user, token);
