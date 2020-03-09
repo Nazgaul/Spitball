@@ -397,6 +397,50 @@ namespace Cloudents.Selenium.Test
                 driver.FindElementByWait(By.XPath("//*[contains(@class, 'analyticOverview')]"));
             }
         }
+
+        [Fact]
+        public void PopupWindowsTest()
+        {
+            foreach (var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+
+                var url = $"{_driver.SiteUrl.TrimEnd('/')}?dialog=login";
+                driver.Navigate().GoToUrl(url);
+
+                // Make sure this element is exist
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'login-popup')]"));
+
+                url = $"{_driver.SiteUrl.TrimEnd('/')}?dialog=exitRegister";
+                driver.Navigate().GoToUrl(url);
+
+                // Make sure this element is exist
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'exitRegisterDialog')]"));
+                
+                LoginTest();
+
+                // Wait until this element is showing
+                driver.FindElementByWait(By.XPath("//*[@sel='menu']"));
+
+                url = $"{_driver.SiteUrl.TrimEnd('/')}?dialog=upload";
+                driver.Navigate().GoToUrl(url);
+
+                // Make sure this element is exist
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'upload-dialog')]"));
+
+                url = $"{_driver.SiteUrl.TrimEnd('/')}?dialog=createCoupon";
+                driver.Navigate().GoToUrl(url);
+
+                // Make sure this element is exist
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'createCouponDialog')]"));
+
+                url = $"{_driver.SiteUrl.TrimEnd('/')}?dialog=becomeTutor";
+                driver.Navigate().GoToUrl(url);
+
+                // Make sure this element is exist
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'become-tutor-wrap')]"));
+            }
+        }
     }
 
     public static class SeleniumExtensions
