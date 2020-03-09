@@ -264,7 +264,7 @@
                 if(this.localSelectedClasses.length) {
                     this.$router.push({name: 'editCourse'});
                 } else {
-                    this.$router.push({name: 'feed'});
+                    this.$router.push('/');
                 }
             },
             // submitAndGo() {
