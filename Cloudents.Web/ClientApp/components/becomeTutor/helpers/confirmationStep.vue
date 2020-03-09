@@ -62,7 +62,7 @@ export default {
                     });
 
                     if(self.$route.name === routeNames.RegisterType){
-                        self.$router.push({name: routeNames.Feed,query:{filter:'Question'}})
+                        self.$router.push({name: routeNames.AddCourse,query:{filter:'Question'}})
                         self.updateAccountUserToTutor(true);
                     }else{
                         self.$root.$emit('becomeTutorStep', 5);
