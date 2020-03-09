@@ -147,17 +147,12 @@ export default {
             return require(`./images/qs.png`) 
          }
       },      
-      formatPrice(price,type){
+      formatPrice(price){
          if(price < 0){
             price = Math.abs(price)
          }
          price = Math.round(+price).toLocaleString();
-         if(type === 'Document' || type === 'Video' || type === 'BuyPoints'){
-            return `${price} ${LanguageService.getValueByKey('dashboardPage_pts')}`
-         }
-         if(type === 'TutoringSession'){
-            return `${price} ${this.accountUser.currencySymbol}`
-         }
+         return `${price} ${this.accountUser.currencySymbol}`;
       },
       strToACII(name) {
          let sum = 0;
