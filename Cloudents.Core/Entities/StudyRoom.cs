@@ -25,11 +25,7 @@ namespace Cloudents.Core.Entities
             Type = StudyRoomType.PeerToPeer;
             DateTime = new DomainTimeStamp();
 
-            var userToken = user.UserTokens.AsQueryable().FirstOrDefault(w => w.State == UserTokenState.NotUsed);
-            if (userToken != null)
-            {
-                userToken.State = UserTokenState.Reserved;
-            }
+            
 
 
             AddEvent(new StudyRoomCreatedEvent(this));

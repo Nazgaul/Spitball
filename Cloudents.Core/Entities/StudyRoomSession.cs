@@ -3,6 +3,7 @@ using Cloudents.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
@@ -14,6 +15,14 @@ namespace Cloudents.Core.Entities
             StudyRoom = studyRoom;
             Created = DateTime.UtcNow;
             SessionId = sessionId;
+
+            var user = studyRoom.Users.First(f => f.User.Id != studyRoom.Tutor.Id).User;
+            var userToken = user.UserTokens.AsQueryable().FirstOrDefault(w => w.State == UserTokenState.NotUsed);
+            if (userToken != null)
+            {
+                userToken.State = UserTokenState.Reserved;
+            }
+
             AddEvent(new StudyRoomSessionCreatedEvent(this));
         }
         protected StudyRoomSession()
