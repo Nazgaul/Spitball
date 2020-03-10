@@ -4,11 +4,10 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Query.Tutor
 {
-    public class StudyRoomQuery : IQuery<StudyRoomDto>
+    public class StudyRoomQuery : IQuery<StudyRoomDto?>
     {
         public StudyRoomQuery(Guid id, long userId)
         {
@@ -20,7 +19,7 @@ namespace Cloudents.Query.Tutor
 
         private long UserId { get; }
 
-        internal sealed class StudyRoomQueryHandler : IQueryHandler<StudyRoomQuery, StudyRoomDto>
+        internal sealed class StudyRoomQueryHandler : IQueryHandler<StudyRoomQuery, StudyRoomDto?>
         {
             private readonly IDapperRepository _repository;
 
@@ -29,7 +28,7 @@ namespace Cloudents.Query.Tutor
                 _repository = repository;
             }
 
-            public async Task<StudyRoomDto> GetAsync(StudyRoomQuery query, CancellationToken token)
+            public async Task<StudyRoomDto?> GetAsync(StudyRoomQuery query, CancellationToken token)
             {
                 //TODO: make it better
                 using var conn = _repository.OpenConnection();
@@ -42,7 +41,7 @@ t.Price as TutorPrice,
 u.Name as TutorName,
 u.ImageName as TutorImage,
 u1.Id as StudentId, u1.Name as StudentName, u1.ImageName as StudentImage,
-
+x.*,
  coalesce (
 	case when t.price = 0 then 0 else null end,
 	case when u1.PaymentExists = 1 then 0 else null end,
@@ -62,7 +61,7 @@ outer apply (
 							c.Value as CouponValue
                            	from  sb.userCoupon uc 
 							join sb.coupon c on uc.couponId = c.id and uc.UsedAmount < c.AmountOfUsePerUser
-								 where u.id = uc.userid and t.id = uc.tutorId
+								 where @UserId = uc.userid and t.id = uc.tutorId
 					) x
 where sr.id = @Id;",
                     new { query.Id, query.UserId });

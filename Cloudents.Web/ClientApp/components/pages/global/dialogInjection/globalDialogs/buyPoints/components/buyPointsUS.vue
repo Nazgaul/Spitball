@@ -155,7 +155,7 @@ export default {
   },
   mounted() {
     let self = this;
-    let paypalUrl = `https://www.paypal.com/sdk/js?client-id=${window.paypalClientId}&commit=false`;
+    let paypalUrl = `https://www.paypal.com/sdk/js?client-id=${window.paypalClientId}`;
     this.$loadScript(paypalUrl)
         .then(() => {
             window.paypal
@@ -180,14 +180,17 @@ export default {
                         ]
                     });
                 },
-                onApprove: function(data) {
-                    self.$closeDialog();
-                    self.$store.dispatch('updatePaypalBuyTokens',data.orderID);
-                    self.$store.dispatch('updateToasterParams', {
+                onApprove: function(data,actions) {
+                    actions.order.capture().then(() => {
+                        self.$closeDialog();
+                        self.$store.dispatch('updatePaypalBuyTokens',data.orderID);
+                        self.$store.dispatch('updateToasterParams', {
                         toasterText: self.$t("buyTokens_success_transaction"),
                         showToaster: true,
                         toasterTimeout: 5000
                     });
+                });
+                    
                     //TODO happy go lucky - update the balance of the user
                 }
             })

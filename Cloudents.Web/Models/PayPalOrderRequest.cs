@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
@@ -6,5 +7,7 @@ namespace Cloudents.Web.Models
     {
         [Required]
         public string OrderId { get; set; }
+
+        public Guid SessionId { get; set; }
     }
 }

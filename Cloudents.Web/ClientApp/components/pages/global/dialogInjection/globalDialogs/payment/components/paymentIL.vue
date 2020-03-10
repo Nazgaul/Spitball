@@ -17,7 +17,7 @@
                     <span :class="['payme-content-txt',{'pt-2':!isMobile}]" v-language:inner="'payme_content_txt_hands'"/>
                 </v-flex>
             </v-layout>
-            <div class="payme-top-desc pb-4" v-language:inner="'payme_top_desc'"/>
+            <!-- <div class="payme-top-desc pb-4" v-language:inner="'payme_top_desc'"/> -->
         </div>
         <iframe :class="['payment-iframe',{'mt-4':getIsBuyPoints}]" width="100%" height="475" :src="paymentUrl"></iframe>
         <div class="payme-popup-bottom">
@@ -99,16 +99,16 @@ export default {
                 font-size: 18px;
             }
         }
-        .payme-top-desc{
-            font-size: 14px;
-            font-weight: 600;
-            line-height: 1.5;
-            letter-spacing: -0.17px;
-            color:@global-purple; 
-            @media (max-width: @screen-xs) {
-                padding: 0 24px;
-            }
-        }
+        // .payme-top-desc{
+        //     font-size: 14px;
+        //     font-weight: 600;
+        //     line-height: 1.5;
+        //     letter-spacing: -0.17px;
+        //     color:@global-purple; 
+        //     @media (max-width: @screen-xs) {
+        //         padding: 0 24px;
+        //     }
+        // }
         .payme-content{
             @media (max-width: @screen-xs) {
                 padding-left: 12px;

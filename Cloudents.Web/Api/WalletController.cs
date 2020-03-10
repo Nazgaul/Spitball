@@ -225,9 +225,8 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new AddPayPalOrderCommand(userId, model.OrderId);
+            var command = new AddPayPalOrderCommand(userId, model.OrderId, model.SessionId);
             await _commandBus.DispatchAsync(command, token);
-            //await payPalService.PathOrderAsync(model.OrderId, token);
             return Ok();
         }
 

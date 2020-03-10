@@ -118,12 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="content_txt_hands" xml:space="preserve">
-    <value>Love your lesson, or stop it within 10 mins at no charge</value>
+    <value>If you abandon your lesson
+in the first 10 minutes you
+will not be charged</value>
   </data>
   <data name="content_txt_sheild" xml:space="preserve">
-    <value>Transactions will be finalized after your lesson</value>
+    <value>Transactions will be
+finalized after your lesson
+is complete</value>
   </data>
   <data name="content_txt_time" xml:space="preserve">
-    <value>We will reserve 1 hour of the tutoring fee</value>
+    <value>Spitball will authorize
+payment for one hour at the
+start of your lesson</value>
   </data>
 </root>
