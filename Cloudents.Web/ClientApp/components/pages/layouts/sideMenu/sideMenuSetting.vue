@@ -31,7 +31,7 @@ export default {
          myUniversityItem:{name: this.$t('menuList_changeUniversity'),route: routeNames.EditUniversity, icon:'sbf-university',sel:'sd_studyroom'},
          myCoursesItem:{name: this.$t('schoolBlock_courses'),route: routeNames.EditCourse, icon:'sbf-classes-icon', sel:'sd_edit_course'},
          myCalendarItem:{name: this.$t('schoolBlock_calendar'),route: routeNames.MyCalendar, icon:'sbf-calendar', sel:'sd_calendar'},
-         testStudyRoomItem:{name: this.$t('menuList_my_study_rooms'),route: routeNames.StudyRoom.name, icon:'sbf-pc',sel:'menu_row'},
+         testStudyRoomItem:{name: this.$t('menuList_my_study_rooms'),route: routeNames.StudyRoom, icon:'sbf-pc',sel:'menu_row'},
       }
    },
    props:{

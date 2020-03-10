@@ -25,6 +25,7 @@ namespace Cloudents.Core.Entities
             Type = StudyRoomType.PeerToPeer;
             DateTime = new DomainTimeStamp();
 
+           
             
 
 

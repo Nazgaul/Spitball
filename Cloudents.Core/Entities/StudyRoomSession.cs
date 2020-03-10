@@ -17,10 +17,10 @@ namespace Cloudents.Core.Entities
             SessionId = sessionId;
 
             var user = studyRoom.Users.First(f => f.User.Id != studyRoom.Tutor.Id).User;
-            var userToken = user.UserTokens.AsQueryable().FirstOrDefault(w => w.State == UserTokenState.NotUsed);
+            var userToken = user.UserTokens.FirstOrDefault(w => w.State == UserTokenState.NotUsed);
             if (userToken != null)
             {
-                userToken.State = UserTokenState.Reserved;
+                userToken.State = UserTokenState.Used;
             }
 
             AddEvent(new StudyRoomSessionCreatedEvent(this));

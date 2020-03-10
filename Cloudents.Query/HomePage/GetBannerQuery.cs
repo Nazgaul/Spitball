@@ -63,23 +63,7 @@ namespace Cloudents.Query.HomePage
                 }
 
                 return null;
-                //var res = _session.Query<BannerBar>().Where(w => w.ExpirationDate > DateTime.UtcNow)
-                //    .Where(w => query.Culture.Equals(new CultureInfo("he")) ? w.HeTitle != null :
-                //     query.Culture.Equals(new CultureInfo("en-in"))? w.EnInTitle != null : w.EnTitle != null
-                //    ).Select(s => new BannerDto()
-                //{ 
-                //Id = s.Id,
-                //Title = query.Culture.Equals(new CultureInfo("he")) ? s.HeTitle :
-                //query.Culture.Equals(new CultureInfo("en-in")) ? s.EnInTitle : s.EnTitle,
-                //SubTitle = query.Culture.Equals(new CultureInfo("he")) ? s.HeSubTitle :
-                //query.Culture.Equals(new CultureInfo("en-in")) ? s.EnInSubTitle : s.EnSubTitle,
-                //ExpirationDate = s.ExpirationDate,
-                //Coupon = s.Coupon.Code
-                //    })
-                //    .OrderBy(o => o.ExpirationDate).Take(1)
-                //.SingleOrDefaultAsync(token);
-
-                //return res;
+             
             }
         }
     }

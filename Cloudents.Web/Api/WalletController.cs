@@ -234,11 +234,22 @@ namespace Cloudents.Web.Api
 
         [HttpPost("PayPal/BuyTokens")]
         public async Task<IActionResult> BuyTokensAsync(PayPalTransactionRequest model,
-            [FromServices] IPayPal payPal, CancellationToken token)
+            [FromServices] IPayPalService payPal, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var result = await payPal.GetPaymentAsync(model.Id);
-            var command = new TransferMoneyToPointsCommand(userId, result.Amount, result.PayPalId);
+            var result = await payPal.GetPaymentAsync(model.Id, token);
+
+
+            var amount = result.ReferenceId switch
+            {
+                "points_1" => 100,
+                "points_2" => 500,
+                "points_3" => 1000,
+                _ => throw new ArgumentException(message: "invalid value")
+            };
+
+
+            var command = new TransferMoneyToPointsCommand(userId, amount, model.Id);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }

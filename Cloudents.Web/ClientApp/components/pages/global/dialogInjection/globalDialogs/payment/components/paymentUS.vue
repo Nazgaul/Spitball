@@ -28,12 +28,12 @@
 </template>
 
 <script>
-import * as routeNames from '../../../dialogNames.js';
+import * as routeNames from '../../../../../../../routes/routeNames';
 export default {
    name:'paymentUS',
    methods: {
       closeDialog(){
-         let isStudyRoom = this.$store.getters.getStudyRoomData?.roomId && this.$route.name === routeNames.StudyRoom.name;
+         let isStudyRoom = this.$store.getters.getStudyRoomData?.roomId && this.$route.name === routeNames.StudyRoom;
          if(isStudyRoom){
                let isExit = confirm(this.$t("payme_are_you_sure_exit"))
                if(isExit){
@@ -46,7 +46,8 @@ export default {
    },
   mounted() {
       let self = this;
-      let paypalUrl = `https://www.paypal.com/sdk/js?client-id=${window.paypalClientId}&commit=false`;
+      let paypalUrl = `https://www.paypal.com/sdk/js?client-id=${window.paypalClientId}`;
+      let priceToCharge = this.$store.getters.getStudyRoomData.tutorPrice;
       this.$loadScript(paypalUrl)
          .then(() => {
             window.paypal
@@ -58,15 +59,19 @@ export default {
                             {
                                 reference_id: "PUHF",
                                 amount: {
-                                    value: 10,
+                                    value: priceToCharge,
                                     currency: 'USD'
                                 }
                             },
                         ]
                     });
                 },
-                onApprove: function(data) {
-                    self.$store.dispatch('updatePaypalStudyRoom',{orderId: data.orderID})
+                onApprove: function(data,actions) {
+                    actions.order.capture().then((details) => {
+                        console.log(details)
+                         self.$store.dispatch('updatePaypalStudyRoom',{orderId: data.orderID})
+                    })
+                   
                 }
             })
             .render('#paypal-button-container');

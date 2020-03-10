@@ -23,6 +23,8 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
+using Cloudents.Query;
+using Cloudents.Query.Tutor;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 using Cloudmersive.APIClient.NETCore.ImageRecognition.Api;
@@ -144,8 +146,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var s = _container.Resolve<IPayPal>(); 
-            await s.UpdateAndConfirmOrderAsync("3GA82316L4352280A", 500, default);
+            var s = _container.Resolve<IPayPalService>();
+            var result = await s.GetPaymentAsync("4J34525079381873W", default);
+            //var x = await s.QueryAsync(new StudyRoomQuery(Guid.Parse("9f54280c-103e-46a6-8184-aabf00801beb"), 638), default);
 
 
 
@@ -204,7 +207,7 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
             //            BaseImageBytes: bytes,
             //            TextToDraw: new List<DrawTextInstance>()
             //    {
-                    
+
             //        new DrawTextInstance(
             //            "בקרוב תראו תוצאות וציונים שיעלו לכם חיוך על הפנים :) (אפילו אם כרגע זה נראה בלתי אפשרי). בעל ניסיון של 6 שנים!",
             //            FontFamilyName: "Georgia",
@@ -323,8 +326,8 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
                         continue;
                     }
                     var fileDir = container.GetDirectoryReference($"files/{id}");
-                    
-                    var blobs = (await fileDir.ListBlobsSegmentedAsync(false, BlobListingDetails.Metadata,null,null,null,null)).Results.ToList();
+
+                    var blobs = (await fileDir.ListBlobsSegmentedAsync(false, BlobListingDetails.Metadata, null, null, null, null)).Results.ToList();
 
                     var fileItem = (CloudBlockBlob)blobs.First(a => a.Uri.AbsoluteUri.Contains("file-"));
                     var extension = Path.GetExtension(fileItem.Name);

@@ -49,16 +49,12 @@ export const SetCourse = 'setCourse';
 export const EditUniversity = 'addUniversity';
 
 // Study Room:
-export const StudyRoom = {
-   name:'tutoring',
-   path:'studyroom'
-};
+export const StudyRoom = 'tutoring';
+
 
 // Study Room Settings:
-export const StudyRoomSettings = {
-   name: 'roomSettings',
-   path: 'studyroomSettings'
-}
+export const StudyRoomSettings ='roomSettings'
+
 
 
 

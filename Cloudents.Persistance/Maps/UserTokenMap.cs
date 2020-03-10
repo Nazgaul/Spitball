@@ -1,5 +1,9 @@
-﻿using Cloudents.Core.Entities;
+﻿using System.Data;
+using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
+using NHibernate;
+using NHibernate.SqlTypes;
+using NHibernate.Type;
 
 namespace Cloudents.Persistence.Maps
 {
@@ -7,12 +11,12 @@ namespace Cloudents.Persistence.Maps
     {
         public UserTokenMap()
         {
+
             Id(x => x.Id).GeneratedBy.GuidComb();
-            //References(r => r.User).Column("UserId");
             Map(m => m.TokenId).Not.Nullable();
             Map(m => m.Created).Insert().Not.Update();
             Map(x => x.State).Not.Nullable();
-
+            Map(x => x.Amount).CustomSqlType("Money");
             Table("UserToken");
         }
     }
