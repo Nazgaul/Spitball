@@ -135,6 +135,9 @@
   <data name="lesson_per_hour" xml:space="preserve">
     <value>Lesson rate per hour:</value>
   </data>
+  <data name="minutes" xml:space="preserve">
+    <value>minutes</value>
+  </data>
   <data name="session_duration" xml:space="preserve">
     <value>Session duration (min):</value>
   </data>

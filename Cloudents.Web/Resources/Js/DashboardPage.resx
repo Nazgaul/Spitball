@@ -126,6 +126,9 @@
   <data name="answer" xml:space="preserve">
     <value>Answer:</value>
   </data>
+  <data name="btn_approve" xml:space="preserve">
+    <value>Approve</value>
+  </data>
   <data name="course" xml:space="preserve">
     <value>Course:</value>
   </data>
