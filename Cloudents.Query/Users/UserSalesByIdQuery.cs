@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
 using PaymentStatus = Cloudents.Core.DTOs.PaymentStatus;
+using System;
 
 namespace Cloudents.Query.Users
 {
@@ -81,7 +82,7 @@ namespace Cloudents.Query.Users
                         Date = s.Created,
                         Price = s.Price ?? 0,
                         StudentName = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Name).FirstOrDefault(),
-                        Duration = s.Duration,
+                        Duration = s.Duration.HasValue ? s.Duration.Value : TimeSpan.Zero,
                         StudentImage = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.ImageName).FirstOrDefault(),
                         StudentId = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Id).FirstOrDefault()
                     }).ToFuture<SaleDto>();
@@ -90,6 +91,7 @@ namespace Cloudents.Query.Users
                 var documentResult = await documentFuture.GetEnumerableAsync(token);
                 var questionResult = await questionFuture.GetEnumerableAsync(token);
                 var sessionResult = await sessionFuture.GetEnumerableAsync(token);
+
 
                 return documentResult.Union(questionResult).Union(sessionResult).OrderByDescending(o => o.Date);               
             }

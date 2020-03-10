@@ -33,7 +33,11 @@ namespace Cloudents.Core.DTOs
     {
         public Guid SessionId { get; set; }
         public string StudentName { get; set; }
-        public TimeSpan? Duration { get; set; }
+        public TimeSpan Duration { get; set; }
+
+        public bool ShouldSerializeDuration() => false;
+
+        public double TotalMinutes => Duration.TotalMinutes;
         public string StudentImage { get; set; }
         public long StudentId { get; set; }
         public override ContentType Type => ContentType.TutoringSession;
