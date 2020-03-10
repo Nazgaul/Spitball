@@ -95,13 +95,19 @@
                <tr class="mySales_table_tr">
                   <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
                   <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
-
                   <td class="text-left" v-html="dictionary.types[props.item.type]"/>
                   <td class="text-left" v-html="formatItemStatus(props.item.paymentStatus)"/>
                   <td class="text-left">{{ props.item.date | dateFromISO }}</td>
                   <td class="text-left">
                      <div>{{globalFunctions.formatPrice(props.item.price, props.item.type)}}</div>
-                     <v-btn color="primary" width="120" depressed @click="$openDialog('teacherApproval', props.item)" >{{$t('mySales_btn_approve')}}</v-btn>
+                     <v-btn 
+                     color="primary"
+                     width="120"
+                     depressed
+                     v-if="props.item.paymentStatus === 'PendingApproval' && props.item.type === 'TutoringSession'"
+                     @click="$openDialog('teacherApproval', {item: props.item})">
+                        {{$t('mySales_btn_approve')}}
+                     </v-btn>
                   </td>
                </tr>
             </template>
@@ -176,10 +182,13 @@ export default {
       },
       formatItemStatus(paymentStatus){
          if(paymentStatus === 'Pending'){
-            return LanguageService.getValueByKey('dashboardPage_pending')
+            return this.$t('dashboardPage_pending')
          }
          if(paymentStatus === 'Paid'){
-            return LanguageService.getValueByKey('dashboardPage_paid')
+            return this.$t('dashboardPage_paid')
+         }
+         if(paymentStatus === 'PendingApproval') {
+            return this.$t('dashboardPage_pending_approve')
          }
       },
       changeSort(sortBy){
