@@ -1,5 +1,5 @@
 <template>
-   <v-dialog :value="true" persistent :maxWidth="'840'" :fullscreen="$vuetify.breakpoint.xsOnly">
+   <v-dialog :value="true" persistent :maxWidth="getMaxWith" :fullscreen="$vuetify.breakpoint.xsOnly">
       <component :is="selectedPaymentComponent"></component>
    </v-dialog>
 </template>
@@ -19,6 +19,13 @@ export default {
       selectedPaymentComponent(){
          return paymentService.getPaymentComponent()
       },
+      getMaxWith() {
+         if (this.selectedPaymentComponent == 'paymentUS') {
+            return 670;
+
+         }
+         return 840;
+      }
    },
 }
 </script>

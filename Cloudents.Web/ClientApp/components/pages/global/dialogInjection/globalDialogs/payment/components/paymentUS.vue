@@ -3,19 +3,19 @@
     <v-icon class="exit-btn cursor-pointer" @click="closeDialog">sbf-close</v-icon>
     <div class="payme-popup-top pt-4">
       <div class="payme-top-title" v-language:inner="'payme_top_title'" />
-      <v-layout wrap class="payme-content pt-4 pt-sm-5 pb-2 pb-sm-4">
-        <v-flex xs12 sm3 class="payme-content-div">
+      <v-layout justify-space-between wrap class="payme-content pt-4 pt-sm-8 pb-2 pb-sm-8 mx-sm-8">
+        <v-flex class="payme-content-div">
           <img class="payme-content-img" src="./images/timer.png" />
           <span class="payme-content-txt pt-0 pt-sm-2" v-language:inner="'payme_content_txt_time'" />
         </v-flex>
-        <v-flex xs12 sm3 class="payme-content-div mx-0 mx-sm-4">
+        <v-flex  class="payme-content-div mx-0 ">
           <img class="payme-content-img" src="./images/sheild.png" />
           <span
             class="payme-content-txt pt-0 pt-sm-2"
             v-language:inner="'payme_content_txt_sheild'"
           />
         </v-flex>
-        <v-flex xs12 sm3 class="payme-content-div">
+        <v-flex  class="payme-content-div">
           <img class="payme-content-img" src="./images/hands.png" />
           <span
             class="payme-content-txt pt-0 pt-sm-2"
@@ -137,6 +137,7 @@ export default {
           flex-direction: row;
           padding-bottom: 12px;
         }
+        .flexSameSize();
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -156,6 +157,7 @@ export default {
           line-height: 1.5;
           letter-spacing: -0.17px;
           color: @global-purple;
+          white-space: pre-line;
         }
       }
     }
