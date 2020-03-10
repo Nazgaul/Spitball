@@ -9,7 +9,7 @@ namespace Cloudents.Core.Entities
     public class Lead : Entity<Guid>
     {
         public Lead(string course, string text, string referer,
-            User? user, Tutor tutor, string utmSource)
+            User user, Tutor? tutor, string utmSource)
         {
             Course = course;
             Text = text;
@@ -27,14 +27,14 @@ namespace Cloudents.Core.Entities
         {
         }
 
-        public virtual User? User { get; protected set; }
+        public virtual User User { get; protected set; }
         public virtual string Course { get; protected set; }
 
         public virtual string Text { get; protected set; }
-        public virtual string Referer { get; protected set; }
+        public virtual string? Referer { get; protected set; }
         public virtual Tutor? Tutor { get; protected set; }
 
-        public virtual string UtmSource { get; protected set; }
+        public virtual string? UtmSource { get; protected set; }
 
         public virtual DateTime? CreationTime { get; set; }
   

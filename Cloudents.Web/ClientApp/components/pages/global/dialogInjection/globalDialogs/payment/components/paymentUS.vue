@@ -75,7 +75,8 @@ export default {
           onApprove: function(data, actions) {
             actions.order.capture().then(() => {
               self.$store.dispatch("updatePaypalStudyRoom", {
-                orderId: data.orderID
+                orderId: data.orderID,
+                sessionId: self.$store.getters.getStudyRoomData.roomId
               });
             });
           }

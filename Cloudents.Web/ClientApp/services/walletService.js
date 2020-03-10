@@ -28,7 +28,7 @@ export default {
     async paypalBuyTokens(id){ 
         return await walletInstance.post('PayPal/buyTokens',{id})
     },
-    async paypalStudyRoom(orderId){ 
-        return await walletInstance.post('PayPal/StudyRoom',orderId)
+    async paypalStudyRoom(model){ 
+        return await walletInstance.post('PayPal/StudyRoom',model)
     },
 }
