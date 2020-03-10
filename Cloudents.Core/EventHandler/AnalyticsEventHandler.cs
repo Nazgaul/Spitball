@@ -20,9 +20,18 @@ namespace Cloudents.Core.EventHandler
             return _googleAnalytics.TrackEventAsync("Tutor funnel", "Tutor approved", eventMessage.UserId.ToString(), token);
         }
 
-        public async Task HandleAsync(StudyRoomSessionCreatedEvent eventMessage, CancellationToken token)
+        public Task HandleAsync(StudyRoomSessionCreatedEvent eventMessage, CancellationToken token)
         {
-           //eventMessage.StudyRoomSession.StudyRoom.Identifier
+            if (eventMessage.StudyRoomSession.StudyRoom.Tutor.AdminUser != null)
+            {
+                return Task.CompletedTask;
+            }
+
+            var tutorId = eventMessage.StudyRoomSession.StudyRoom.Tutor.Id;
+            var identifier = eventMessage.StudyRoomSession.StudyRoom.Identifier;
+            return _googleAnalytics.TrackEventAsync("Tutor funnel", "Tutor session", $"{tutorId}-{identifier}", token);
+
+            //eventMessage.StudyRoomSession.StudyRoom.Identifier
         }
     }
 }
