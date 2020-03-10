@@ -106,7 +106,7 @@
                      depressed
                      v-if="props.item.paymentStatus === 'PendingApproval' && props.item.type === 'TutoringSession'"
                      @click="$openDialog('teacherApproval', {item: props.item})">
-                        {{$t('mySales_btn_approve')}}
+                        {{$t('dashboardPage_btn_approve')}}
                      </v-btn>
                   </td>
                </tr>
