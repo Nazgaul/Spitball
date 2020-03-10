@@ -8,7 +8,7 @@
                     {{$t('teacherApproval_title')}}
                 </div>
 
-                <div class="v-alert error tableEmptyState text-left mb-5 pa-2 align-start" v-if="modifyDurationError">
+                <div class="v-alert error tableEmptyState text-left mb-5 pa-2 align-start align-sm-center" v-if="modifyDurationError">
                     <img class="image mr-2" src="../../../../dashboardPage/images/warning.png" alt="" />
                     <span class="white--text">{{$t('teacherApproval_error')}}</span>
                 </div>
