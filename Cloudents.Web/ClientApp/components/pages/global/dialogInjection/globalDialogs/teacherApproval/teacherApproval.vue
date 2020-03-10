@@ -139,11 +139,12 @@ export default {
             intercomService.showDialog();
         }
     },
-    created() {
+    mounted() {
+        let self = this;
         let item = this.$route.params.item
-        this.$store.dispatch('updateSalesSessions', item.sessionId).then(session => {
-            this.session = {...session, ...item};
-            this.updateTotalPrice(item.totalMinutes)
+        this.$store.dispatch('updateSalesSessions', item?.sessionId).then(session => {
+            self.session = {...session, ...item};
+            self.updateTotalPrice(item.totalMinutes)
         })
     }
 }
