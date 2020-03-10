@@ -23,7 +23,7 @@
           />
         </v-flex>
       </v-layout>
-      <div id="paypal-button-container"></div>
+      <v-flex sm4 id="paypal-button-container2"></v-flex>
     </div>
   </v-layout>
 </template>
@@ -32,6 +32,12 @@
 import * as routeNames from "../../../../../../../routes/routeNames";
 export default {
   name: "paymentUS",
+//   computed: {
+//       tutorPrice() {
+//           return this.$store.getters.getStudyRoomData?.tutorPrice
+//       }
+//   },
+  
   methods: {
     closeDialog() {
       let isStudyRoom =
@@ -50,19 +56,16 @@ export default {
   mounted() {
     let self = this;
     let paypalUrl = `https://www.paypal.com/sdk/js?client-id=${window.paypalClientId}`;
-    
     this.$loadScript(paypalUrl).then(() => {
-        let priceToCharge = self.$store.getters.getStudyRoomData.tutorPrice;
       window.paypal
         .Buttons({
           createOrder: function(data, actions) {
-            self.isLoading = true;
             return actions.order.create({
               purchase_units: [
                 {
                   reference_id: "PUHF",
                   amount: {
-                    value: priceToCharge,
+                    value: self.$store.getters.getStudyRoomData.tutorPrice,
                     currency: "USD"
                   }
                 }
@@ -78,7 +81,7 @@ export default {
             });
           }
         })
-        .render("#paypal-button-container");
+        .render("#paypal-button-container2");
     });
   }
 };
@@ -157,6 +160,7 @@ export default {
       }
     }
   }
+
   .payme-popup-bottom {
     @media (max-width: @screen-xs) {
       .flexSameSize();
@@ -188,6 +192,9 @@ export default {
       }
       height: 54px;
     }
+  }
+  #paypal-button-container2 {
+      margin:0 auto;
   }
 }
 </style>
