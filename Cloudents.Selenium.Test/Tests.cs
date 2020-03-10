@@ -28,7 +28,7 @@ namespace Cloudents.Selenium.Test
 
             var applicationPath = Path.Combine(directoryName, "Cloudents.Web");
             ChromeOptions options = new ChromeOptions();
-            //options.AddArgument("--headless");
+            options.AddArgument("--headless");
             options.AcceptInsecureCertificates = true;
 
 
@@ -133,9 +133,18 @@ namespace Cloudents.Selenium.Test
 
         private static readonly IEnumerable<string> SignedPaths = new[]
         {
-            "wallet",
+            //"wallet",
             "university",
-            "courses"
+            "courses",
+            "dashboard",
+            "feed",
+            "my-content",
+            "study-rooms",
+            "my-sales",
+            "my-followers",
+            "my-purchases",
+            "my-calendar",
+            "tutor-list"
         };
 
         private static readonly IEnumerable<string> UserTypeAccounts = new[]
@@ -205,6 +214,7 @@ namespace Cloudents.Selenium.Test
                     foreach (var site in RelativePaths.Union(GetProfileUrls()))
                     {
                         var url = $"{_driver.SiteUrl.TrimEnd('/')}/{site}?culture={culture}";
+                        driver.Manage().Window.Maximize();
                         driver.Navigate().GoToUrl(url);
 
                         var htmlAttr = driver.FindElement(By.TagName("html"));
@@ -509,6 +519,30 @@ namespace Cloudents.Selenium.Test
 
                     index++;
                 }
+            }
+        }
+
+        [Fact]
+        public void WixLinkTest()
+        {
+            var wixLink = "https://www.teach.spitball.co/";
+
+            foreach (var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+
+                var url = $"{_driver.SiteUrl.TrimEnd('/')}?culture=en-US";
+                driver.Navigate().GoToUrl(url);
+
+                var teachLink = driver.FindElementByWait(By.XPath("//*[contains(@class, 'becomeTutorSlot')]"));
+
+                teachLink.Click();
+
+                teachLink.GetAttribute("href").Should().Be(wixLink);
+
+                var earnButton = driver.FindElementByWait(By.XPath("//*[contains(@class, 'btn-earn')]"));
+
+                earnButton.GetAttribute("href").Should().Be(wixLink);
             }
         }
     }
