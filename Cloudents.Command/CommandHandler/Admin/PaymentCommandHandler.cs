@@ -50,9 +50,8 @@ namespace Cloudents.Command.CommandHandler.Admin
             session.SetReceiptAndAdminDate(receipt, message.AdminDuration);
             user.UseCoupon(tutor);
             
-            SessionTransaction.MakerTransaction(user, tutor, session);
+            //SessionTransaction.MakerTransaction(user, tutor, session);
 
-            await _tutorRepository.UpdateAsync(tutor, token);
             await _studyRoomSessionRepository.UpdateAsync(session, token);
         }
     }

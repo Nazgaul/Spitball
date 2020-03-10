@@ -91,12 +91,12 @@ namespace Cloudents.Persistence.Maps
         }
     }
 
-    public class SessionTransactionMap : SubclassMap<SessionTransaction>
-    {
-        public SessionTransactionMap()
-        {
-            DiscriminatorValue("Session");
-            References(x => x.Session).Column("SessionId").ForeignKey("Transaction_Session").Nullable();
-        }
-    }
+    //public class SessionTransactionMap : SubclassMap<SessionTransaction>
+    //{
+    //    public SessionTransactionMap()
+    //    {
+    //        DiscriminatorValue("Session");
+    //        References(x => x.Session).Column("SessionId").ForeignKey("Transaction_Session").Nullable();
+    //    }
+    //}
 }
