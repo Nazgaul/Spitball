@@ -30,6 +30,7 @@ namespace Cloudents.Core.Storage
         Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token);
 
         Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token);
+        Task<IEnumerable<Uri>> FilesInContainerAsync(CancellationToken token);
         Task<IEnumerable<Uri>> FilesInDirectoryAsync(string prefix, string directory, CancellationToken token);
 
         /// <summary>

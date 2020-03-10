@@ -133,7 +133,11 @@ namespace Cloudents.Admin2.Api
             return new UploadEndResponce(bolobUri);
         }
 
+        [HttpGet]
+        public async Task<IEnumerable<Uri>> GetBlobsAsync(CancellationToken token)
+        {
+            return await BlobProvider.FilesInContainerAsync(token);
+        }
 
     }
-
 }
