@@ -149,9 +149,9 @@ namespace Cloudents.Selenium.Test
 
         private static readonly IEnumerable<string> UserTypeAccounts = new[]
         {
-            "teacher@spitball.co",
-            "student@spitball.co",
-            "parent@spitball.co"
+            "elad+444@spitball.co",
+            "elad+111@spitball.co",
+            "elad+222@spitball.co"
         };
 
         private static readonly IEnumerable<string> UserTypeRoot = new[]
