@@ -74,6 +74,7 @@ namespace Cloudents.Query.Users
                     .Fetch(f => f.StudyRoom)
                     .ThenFetch(f => f.Users)
                     .Where(w => w.StudyRoom.Tutor.Id == query.Id && w.Ended != null)
+                    .Where(w => w.Duration.Value > TimeSpan.FromMinutes(10))
                     .Select(s => new SessionSaleDto()
                     {
                         SessionId = s.Id,
