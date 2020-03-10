@@ -1,56 +1,62 @@
 <template>
    <v-dialog :value="true" persistent :maxWidth="'580'" :content-class="'teacherApproval'" :fullscreen="$vuetify.breakpoint.xsOnly">
-        <div class="pa-4 text-center">
-            <div class="mainTitle text-center" :class="[modifyDurationError ? 'mb-3' : 'mb-12']">{{$t('teacherApproval_title')}}</div>
+        <div class="py-4 pa-sm-4 text-center wrapper">
+            <div class="">
+                <div class="text-right pr-4 pr-sm-0"><v-icon size="12" v-closeDialog>sbf-close</v-icon></div>
 
-            <div class="v-alert error tableEmptyState mb-5" v-if="modifyDurationError">
-                <img src="../../../../dashboardPage/images/warning.png" alt="" />
-                <span class="tableEmptyState_text">{{$t('teacherApproval_error')}}</span>
-            </div>
-
-            <div class="main">
-                <div class="d-flex justify-space-between align-center mb-3">
-                    <div>{{$t('teacherApproval_date')}}</div>
-                    <div>{{formatDate}}</div>
-                </div>
-                <div class="d-flex justify-space-between align-center mb-10">
-                    <div>{{$t('teacherApproval_student')}}</div>
-                    <div>{{session.name}}</div>
+                <div class="mainTitle text-center" :class="[modifyDurationError ? 'mb-3' : 'mb-12']">
+                    {{$t('teacherApproval_title')}}
                 </div>
 
-                <div class="d-flex justify-space-between align-center mb-3">
-                    <div>{{$t('teacherApproval_session_duration')}}</div>
-                    <div class="d-flex align-center">
-                        <input type="text" class="durationInput text-center" v-model="sessionDuration" />
-                        <span class="ml-2">{{$t('teacherApproval_minutes')}}</span>
+                <div class="v-alert error tableEmptyState text-left mb-5 pa-2 align-start" v-if="!modifyDurationError">
+                    <img class="image mr-2" src="../../../../dashboardPage/images/warning.png" alt="" />
+                    <span class="white--text">{{$t('teacherApproval_error')}}</span>
+                </div>
+
+                <div class="main px-4 px-sm-0">
+                    <div class="d-flex justify-space-between align-center mb-3">
+                        <div>{{$t('teacherApproval_date')}}</div>
+                        <div>{{formatDate}}</div>
+                    </div>
+                    <div class="d-flex justify-space-between align-center mb-10">
+                        <div>{{$t('teacherApproval_student')}}</div>
+                        <div>{{session.name}}</div>
+                    </div>
+
+                    <div class="d-flex justify-space-between align-center mb-3">
+                        <div>{{$t('teacherApproval_session_duration')}}</div>
+                        <div class="d-flex align-center">
+                            <input type="text" class="durationInput text-center" v-model="sessionDuration" />
+                            <span class="ml-2">{{$t('teacherApproval_minutes')}}</span>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-space-between align-center mb-3">
+                        <div>{{$t('teacherApproval_lesson_per_hour')}}</div>
+                        <div>{{$n(session.tutorPricePerHour, 'currency')}}</div>
+                    </div>
+                    <div class="d-flex justify-space-between align-center mb-3" v-if="session.couponTutor">
+                        <div>{{$t('teacherApproval_coupon_discount')}}</div>
+                        <div>- {{$n(session.couponValue, 'currency')}} ({{session.couponCode}})</div>
+                    </div>
+
+                    <v-divider></v-divider>
+                    
+                    <div class="totalSession d-flex justify-space-between align-center mt-3">
+                        <div>{{$t('teacherApproval_total_session')}}</div>
+                        <div>{{$n(totalPrice, 'currency')}}</div>
                     </div>
                 </div>
-                <div class="d-flex justify-space-between align-center mb-3">
-                    <div>{{$t('teacherApproval_lesson_per_hour')}}</div>
-                    <div>{{$n(session.tutorPricePerHour, 'currency')}}</div>
-                </div>
-                <div class="d-flex justify-space-between align-center mb-3" v-if="session.couponTutor">
-                    <div>{{$t('teacherApproval_coupon_discount')}}</div>
-                    <div>- {{$n(session.couponValue, 'currency')}} ({{session.couponCode}})</div>
-                </div>
-
-                <v-divider></v-divider>
-                
-                <div class="totalSession d-flex justify-space-between align-center mt-3">
-                    <div>{{$t('teacherApproval_total_session')}}</div>
-                    <div>{{$n(totalPrice, 'currency')}}</div>
-                </div>
             </div>
 
-
-            <div class="d-flex bottom">
+            <div class="d-flex bottom px-4 px-sm-0">
                 <v-btn icon color="#5A66FF" @click="openIntercom" :ripples="false" depressed><needHelpIcon/></v-btn>
 
-                <div class="bottomActions text-center">
-                    <v-btn width="140" height="40" color="#4452fc" rounded outlined v-closeDialog>{{$t('teacherApproval_btn_cancel')}}</v-btn>
-                    <v-btn width="140" height="40" color="#4452fc" @click="approveSession" rounded class="white--text ml-3" depressed>{{$t('teacherApproval_btn_approve')}}</v-btn>
+                <div class="bottomActions d-flex text-center">
+                    <v-btn width="140" height="40" color="#4452fc" class="d-none d-sm-block mr-3" rounded outlined v-closeDialog>{{$t('teacherApproval_btn_cancel')}}</v-btn>
+                    <v-btn width="140" height="40" color="#4452fc" @click="approveSession" rounded class="white--text" depressed>{{$t('teacherApproval_btn_approve')}}</v-btn>
                 </div>
             </div>
+
         </div>
     </v-dialog>
 </template>
@@ -149,14 +155,31 @@ export default {
 .teacherApproval{
     background: #fff;
 
+    .wrapper {
+        @media (max-width: @screen-xs) {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }  
+    }
     .mainTitle {
         color: @global-purple;
         font-size: 20px;
         font-weight: 600;
     }
 
-    .error {
+    .tableEmptyState {
         font-size: 14px;
+        @media (max-width: @screen-xs) {
+            border-radius: 0;
+            font-size: 12px !important;
+        }  
+        .image {
+            @media (max-width: @screen-xs) {
+                width: 20px;
+            }                
+        }
     }
 
     .main {
@@ -164,6 +187,10 @@ export default {
         max-width: 350px;
         margin: 0 auto;
         color: @global-purple;
+
+        @media (max-width: @screen-xs) {
+            font-size: 14px;
+        }
         .left, .right {
             display: flex;
             flex-direction: column;
@@ -185,6 +212,7 @@ export default {
         margin-top: 70px;
         .bottomActions {
             width: 100%;
+            justify-content: center;
         }
     }
 }
