@@ -56,8 +56,6 @@ namespace Cloudents.Core.Entities
         public virtual IPaymentProvider Payment { get; protected set; }
         public virtual DateTime? PaymentApproved { get; protected set; }
         public virtual long? AdminDuration { get; protected set; }
-        //public virtual decimal? StudentPay { get; protected set; }
-        //public virtual decimal? SpitballPay { get; protected set; }
 
 
 

@@ -4,6 +4,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Query.Tutor
 {
@@ -66,6 +67,10 @@ outer apply (
 where sr.id = @Id;",
                     new { query.Id, query.UserId });
 
+                if (result is null)
+                {
+                    return null;
+                }
                 if (result.CouponType is null)
                 {
                     //no coupon
