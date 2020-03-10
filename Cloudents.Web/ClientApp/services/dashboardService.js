@@ -162,7 +162,6 @@ function getSalesSessions(id){
    return connectivityModule.http.get('/Sales/session', {params: { id }}).then(createSalesSession).catch(ex => ex);
 }
 function updateSessionDuration(session){
-   debugger
    return connectivityModule.http.post('/Sales/duration', session).then(res => res).catch(ex => ex);
 }
 function getContentItems(){
