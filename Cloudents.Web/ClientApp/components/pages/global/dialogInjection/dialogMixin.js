@@ -7,7 +7,6 @@ const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCou
 const login = () => import('./globalDialogs/login/login.vue');
 const buyPoints = () => import('./globalDialogs/buyPoints/buyPointsWrapper.vue');
 
-// const payment = () => import('./globalDialogs/payment/payment.vue');
 const payment = () => import('./globalDialogs/payment/paymentWrapper.vue');
 
 
