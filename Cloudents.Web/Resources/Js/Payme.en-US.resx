@@ -117,52 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActionTypeAnswerCorrect" xml:space="preserve">
-    <value>Answer correct</value>
+  <data name="content_txt_hands" xml:space="preserve">
+    <value>Love your lesson, or stop it within 10 mins at no charge</value>
   </data>
-  <data name="ActionTypeAwarded" xml:space="preserve">
-    <value>Awarded</value>
+  <data name="content_txt_sheild" xml:space="preserve">
+    <value>Transactions will be finalized after your lesson</value>
   </data>
-  <data name="ActionTypeBuy" xml:space="preserve">
-    <value>Buy</value>
-  </data>
-  <data name="ActionTypeCashOut" xml:space="preserve">
-    <value>Cash out</value>
-  </data>
-  <data name="ActionTypeCommission" xml:space="preserve">
-    <value>Commission</value>
-  </data>
-  <data name="ActionTypeDeleteQuestion" xml:space="preserve">
-    <value>Delete question</value>
-  </data>
-  <data name="ActionTypeNone" xml:space="preserve">
-    <value>None</value>
-  </data>
-  <data name="ActionTypePurchaseDocument" xml:space="preserve">
-    <value>Purchased Document</value>
-  </data>
-  <data name="ActionTypePurchaseSession" xml:space="preserve">
-    <value>Purchase Session</value>
-  </data>
-  <data name="ActionTypeQuestion" xml:space="preserve">
-    <value>Question</value>
-  </data>
-  <data name="ActionTypeReferringUser" xml:space="preserve">
-    <value>Referring user</value>
-  </data>
-  <data name="ActionTypeSignUp" xml:space="preserve">
-    <value>Sign up</value>
-  </data>
-  <data name="ActionTypeSoldDocument" xml:space="preserve">
-    <value>Sold Document</value>
-  </data>
-  <data name="ActionTypeSoldSession" xml:space="preserve">
-    <value>Sold Session</value>
-  </data>
-  <data name="TransactionTypeEarned" xml:space="preserve">
-    <value>Earned</value>
-  </data>
-  <data name="TransactionTypeSpent" xml:space="preserve">
-    <value>Spent</value>
+  <data name="content_txt_time" xml:space="preserve">
+    <value>We will reserve 1 hour of the tutoring fee</value>
   </data>
 </root>

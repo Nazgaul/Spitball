@@ -1,7 +1,9 @@
 ﻿using Cloudents.Core.Event;
+using Cloudents.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
@@ -13,6 +15,14 @@ namespace Cloudents.Core.Entities
             StudyRoom = studyRoom;
             Created = DateTime.UtcNow;
             SessionId = sessionId;
+
+            var user = studyRoom.Users.First(f => f.User.Id != studyRoom.Tutor.Id).User;
+            var userToken = user.UserTokens.FirstOrDefault(w => w.State == UserTokenState.NotUsed);
+            if (userToken != null)
+            {
+                userToken.State = UserTokenState.Used;
+            }
+
             AddEvent(new StudyRoomSessionCreatedEvent(this));
         }
         protected StudyRoomSession()
@@ -43,11 +53,9 @@ namespace Cloudents.Core.Entities
         public virtual bool VideoExists { get; protected set; }
 
 
-        //public virtual IPayment Payment { get; set; }
+        public virtual IPaymentProvider Payment { get; protected set; }
         public virtual DateTime? PaymentApproved { get; protected set; }
         public virtual long? AdminDuration { get; protected set; }
-        public virtual decimal? StudentPay { get; protected set; }
-        public virtual decimal? SpitballPay { get; protected set; }
 
 
 
@@ -100,7 +108,7 @@ namespace Cloudents.Core.Entities
             Receipt = receipt;
         }
 
-        public virtual void SetReceiptAndAdminDate(string receipt, long adminDuration, decimal studentPay, decimal spitballPay)
+        public virtual void SetReceiptAndAdminDate(string receipt, long adminDuration)
         {
             if (string.IsNullOrEmpty(receipt))
             {
@@ -109,29 +117,14 @@ namespace Cloudents.Core.Entities
             Receipt = receipt;
             PaymentApproved = DateTime.UtcNow;
             AdminDuration = adminDuration;
-            StudentPay = studentPay;
-            SpitballPay = spitballPay;
+            //AdminDuration = adminDuration;
+            //StudentPay = studentPay;
+            //SpitballPay = spitballPay;
+        }
+
+        public virtual void SetPyment(IPaymentProvider payment)
+        {
+            Payment = payment;
         }
     }
-
-    //public interface IPayment
-    //{
-    //    DateTime? PaymentApproved { get; }
-    //}
-
-    //public class Payme : Entity<Guid>, IPayment
-    //{
-    //    public virtual DateTime? PaymentApproved { get; protected set; }
-    //    public virtual long? AdminDuration { get; protected set; }
-    //    public virtual decimal? StudentPay { get; protected set; }
-    //    public virtual decimal? SpitballPay { get; protected set; }
-    //}
-
-    //public class PayPal : Entity<Guid>, IPayment
-    //{
-    //    public string Token { get; set; }
-    //    public virtual DateTime? PaymentApproved { get; protected set; }
-
-
-    //}
 }

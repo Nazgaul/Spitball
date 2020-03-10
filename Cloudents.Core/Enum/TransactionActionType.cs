@@ -32,6 +32,10 @@ namespace Cloudents.Core.Enum
 
         [ResourceDescription(typeof(EnumResources), "ActionTypeBuy")]
         Buy,
+        [ResourceDescription(typeof(EnumResources), "ActionTypePurchaseSession")]
+        PurchaseSession,
+        [ResourceDescription(typeof(EnumResources), "ActionTypeSoldSession")]
+        SoldSession
     }
 
 

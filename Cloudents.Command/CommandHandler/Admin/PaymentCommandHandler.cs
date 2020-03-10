@@ -15,7 +15,8 @@ namespace Cloudents.Command.CommandHandler.Admin
         private readonly IRegularUserRepository _userRepository;
         
         public PaymentCommandHandler(IPayment payment,
-            IRepository<StudyRoomSession> studyRoomSessionRepository, ITutorRepository tutorRepository, IRegularUserRepository userRepository)
+            IRepository<StudyRoomSession> studyRoomSessionRepository, ITutorRepository tutorRepository, 
+            IRegularUserRepository userRepository)
         {
             _payment = payment;
             _studyRoomSessionRepository = studyRoomSessionRepository;
@@ -44,8 +45,14 @@ namespace Cloudents.Command.CommandHandler.Admin
             }
 
             //session.SetReceipt(receipt);
-            session.SetReceiptAndAdminDate(receipt, message.AdminDuration, message.StudentPay, message.SpitballPay);
+            var payme = new Payme(message.StudentPay, message.SpitballPay);
+            session.SetPyment(payme);
+            session.SetReceiptAndAdminDate(receipt, message.AdminDuration);
             user.UseCoupon(tutor);
+            
+            SessionTransaction.MakerTransaction(user, tutor, session);
+
+            await _tutorRepository.UpdateAsync(tutor, token);
             await _studyRoomSessionRepository.UpdateAsync(session, token);
         }
     }

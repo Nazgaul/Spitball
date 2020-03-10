@@ -67,33 +67,28 @@ namespace Cloudents.Query.Admin
 	                    on tr.Id = tu.Id
                     where srs.id = @id";
 
-                using (var conn = _repository.OpenConnection())
+                using var conn = _repository.OpenConnection();
+                var result = await conn.QuerySingleAsync<PaymentDetailDto>(sql, new { id = query.SessionId });
+
+                if (result.CouponType is null)
                 {
-                    var result = await conn.QuerySingleAsync<PaymentDetailDto>(sql, new { id = query.SessionId });
-
-                    if (result.CouponType is null)
-                    {
-                        //no coupon
-                        return result;
-                    }
-
-                    if (result.CouponTutor.HasValue && result.CouponTutor.Value != result.TutorId)
-                    {
-                        return result;
-                    }
-
-                    result.StudentPayPerHour = Coupon.CalculatePrice(result.CouponType.Value, result.TutorPricePerHour, result.CouponValue.GetValueOrDefault());
-
-                    if (result.CouponTutor is null)
-                    {
-                        result.SpitballPayPerHour = result.TutorPricePerHour - result.StudentPayPerHour;
-                    }
-
+                    //no coupon
                     return result;
-                    //  public decimal StudentPay { get; set; }
-                    //public decimal SpitballPay { get; set; }
-
                 }
+
+                if (result.CouponTutor.HasValue && result.CouponTutor.Value != result.TutorId)
+                {
+                    return result;
+                }
+
+                result.StudentPayPerHour = Coupon.CalculatePrice(result.CouponType.Value, result.TutorPricePerHour, result.CouponValue.GetValueOrDefault());
+
+                if (result.CouponTutor is null)
+                {
+                    result.SpitballPayPerHour = result.TutorPricePerHour - result.StudentPayPerHour;
+                }
+
+                return result;
             }
         }
     }

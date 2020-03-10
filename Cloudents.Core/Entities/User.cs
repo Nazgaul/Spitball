@@ -208,16 +208,33 @@ namespace Cloudents.Core.Entities
         public virtual string Description { get; set; }
         public virtual Tutor? Tutor { get; protected set; }
 
-        public virtual BuyerPayment BuyerPayment { get; protected set; }
+        public virtual BuyerPayment? BuyerPayment { get; protected set; }
 
         public virtual Gender Gender { get; protected set; }
         public virtual PaymentStatus PaymentExists { get; protected set; }
 
         public virtual UserType? UserType2 { get; protected set; }
+        private readonly ICollection<UserPayPalToken> _userTokens = new List<UserPayPalToken>();
+
+
+        public virtual IEnumerable<UserPayPalToken> UserTokens => _userTokens;
 
         public virtual void CreditCardReceived()
         {
             PaymentExists = PaymentStatus.Done;
+            AddEvent(new StudentPaymentReceivedEvent(this));
+        }
+
+        public virtual void AddToken(string userToken, decimal amount)
+        {
+            if (userToken == null) throw new ArgumentNullException(nameof(userToken));
+            Country country = Country;
+
+            if (country != Entities.Country.UnitedStates)
+            {
+                throw new ArgumentException("Only usa country can use paypal");
+            }
+            _userTokens.Add(new UserPayPalToken(userToken, amount));
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
 
@@ -395,26 +412,6 @@ namespace Cloudents.Core.Entities
         }
     }
 
-    public abstract class UserComponent
-    {
-
-
-        protected UserComponent(UserType type, User user)
-        {
-            Type = type;
-            User = user;
-        }
-
-        protected UserComponent()
-        {
-
-        }
-        public virtual Guid Id { get; set; }
-        public virtual UserType Type { get; protected set; }
-
-        public virtual User User { get; set; }
-    }
-
     public class Parent : UserComponent
     {
         public Parent(User user)
@@ -495,7 +492,6 @@ namespace Cloudents.Core.Entities
         }
         public override UserType Type { get; protected set; }
     }
-    //public virtual Tutor Tutor { get; set; }
 
 
 }

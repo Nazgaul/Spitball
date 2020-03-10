@@ -14,7 +14,7 @@ namespace Cloudents.Query.Admin
             Country = country;
         }
         public string Country { get; }
-        public long TutorId { get; }
+        private long TutorId { get; }
 
         internal sealed class TutorSessionsQueryHandler : IQueryHandler<TutorSessionsQuery, IEnumerable<SessionBillDto>>
         {
@@ -27,7 +27,9 @@ namespace Cloudents.Query.Admin
 
             public async Task<IEnumerable<SessionBillDto>> GetAsync(TutorSessionsQuery query, CancellationToken token)
             {
-                var sql = @"select u.Name, u.PhoneNumberHash, u.Email, srs.Created, srs.Ended, 
+
+                //TODO make in nhibernate
+                const string sql = @"select u.Name, u.PhoneNumberHash, u.Email, srs.Created, srs.Ended, 
                             DATEDIFF(MINUTE, srs.Created, srs.Ended) as 'Minutes',
                             cast(DATEDIFF(MINUTE, srs.Created, srs.Ended) as float)*t.Price/60 as Cost,
                         case when Receipt is null then 0 else 1 end as IsPayed
@@ -42,10 +44,8 @@ namespace Cloudents.Query.Admin
 	                        on t.Id = sr.TutorId
                         where sr.TutorId = @TutorId and (u.Country = @Country or @Country is null)";
 
-                using (var connection = _dapper.OpenConnection())
-                {
-                    return await connection.QueryAsync<SessionBillDto>(sql, new { query.TutorId, query.Country });
-                }
+                using var connection = _dapper.OpenConnection();
+                return await connection.QueryAsync<SessionBillDto>(sql, new { query.TutorId, query.Country });
             }
 
         }

@@ -90,4 +90,13 @@ namespace Cloudents.Persistence.Maps
             References(x => x.Document).Column("DocumentId").ForeignKey("Transaction_Document").Nullable();
         }
     }
+
+    public class SessionTransactionMap : SubclassMap<SessionTransaction>
+    {
+        public SessionTransactionMap()
+        {
+            DiscriminatorValue("Session");
+            References(x => x.Session).Column("SessionId").ForeignKey("Transaction_Session").Nullable();
+        }
+    }
 }

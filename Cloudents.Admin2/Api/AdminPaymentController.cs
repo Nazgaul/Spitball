@@ -87,7 +87,7 @@ namespace Cloudents.Admin2.Api
         }
 
         /// <summary>
-        /// Delete user pay method 
+        /// Delete user pay method - payme token
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="token"></param>
@@ -110,5 +110,7 @@ namespace Cloudents.Admin2.Api
 
             return Ok();
         }
+
+        
     }
 }

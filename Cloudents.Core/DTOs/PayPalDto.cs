@@ -2,13 +2,13 @@
 {
     public sealed class PayPalDto
     {
-        public PayPalDto(string payPalId, decimal amount)
+        public PayPalDto(string referenceId, decimal amount)
         {
             Amount = amount;
-            PayPalId = payPalId;
+            ReferenceId = referenceId;
         }
 
         public decimal Amount { get; }
-        public string PayPalId { get; }
+        public string ReferenceId { get; }
     }
 }
