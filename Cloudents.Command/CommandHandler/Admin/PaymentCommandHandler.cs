@@ -45,8 +45,8 @@ namespace Cloudents.Command.CommandHandler.Admin
             }
 
             //session.SetReceipt(receipt);
-            var payme = new Payme(message.StudentPay, message.SpitballPay);
-            session.SetPyment(payme);
+            //var payme = new Payme(message.StudentPay, message.SpitballPay);
+            //session.SetPyment(payme);
             session.SetReceiptAndAdminDate(receipt, message.AdminDuration);
             user.UseCoupon(tutor);
             

@@ -53,7 +53,7 @@ namespace Cloudents.Core.Entities
         public virtual bool VideoExists { get; protected set; }
 
 
-        public virtual IPaymentProvider Payment { get; protected set; }
+        //public virtual IPaymentProvider Payment { get; protected set; }
         public virtual DateTime? PaymentApproved { get; protected set; }
         public virtual long? AdminDuration { get; protected set; }
 
@@ -122,9 +122,9 @@ namespace Cloudents.Core.Entities
             //SpitballPay = spitballPay;
         }
 
-        public virtual void SetPyment(IPaymentProvider payment)
-        {
-            Payment = payment;
-        }
+        //public virtual void SetPyment(IPaymentProvider payment)
+        //{
+        //    Payment = payment;
+        //}
     }
 }

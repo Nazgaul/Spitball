@@ -24,13 +24,13 @@ namespace Cloudents.Persistence.Maps
                .Inverse().Cascade.AllDeleteOrphan();
             Map(m => m.PaymentApproved).Nullable();
             Map(x => x.AdminDuration).Nullable();
-            ReferencesAny(x => x.Payment).Cascade.All()
-            .AddMetaValue<Payme>("Payme")
-            .AddMetaValue<PayPal>("PayPal")
-            .EntityTypeColumn("Type")
-            .EntityIdentifierColumn("PaymentId")
-            .IdentityType<Guid>()
-            .MetaType<string>();
+            //ReferencesAny(x => x.Payment).Cascade.All()
+            //.AddMetaValue<Payme>("Payme")
+            //.AddMetaValue<PayPal>("PayPal")
+            //.EntityTypeColumn("Type")
+            //.EntityIdentifierColumn("PaymentId")
+            //.IdentityType<Guid>()
+            //.MetaType<string>();
 
             Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
         }
