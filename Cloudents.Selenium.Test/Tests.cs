@@ -149,9 +149,9 @@ namespace Cloudents.Selenium.Test
 
         private static readonly IEnumerable<string> UserTypeAccounts = new[]
         {
-            "elad+444@spitball.co",
-            "elad+111@spitball.co",
-            "elad+222@spitball.co"
+            "elad+444@cloudents.com",
+            "elad+111@cloudents.com",
+            "elad+333@cloudents.com"
         };
 
         private static readonly IEnumerable<string> UserTypeRoot = new[]
@@ -239,6 +239,8 @@ namespace Cloudents.Selenium.Test
                         body.Text.Should().NotContain("###");
                     }
                 }
+
+                Logout(driver);
             }
         }
 
@@ -444,6 +446,8 @@ namespace Cloudents.Selenium.Test
 
                 // Make sure this element is exist
                 driver.FindElementByWait(By.XPath("//*[contains(@class, 'analyticOverview')]"));
+
+                Logout(driver);
             }
         }
 
