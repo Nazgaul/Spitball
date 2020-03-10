@@ -2,7 +2,7 @@
    <v-dialog :value="true" persistent :maxWidth="'580'" :content-class="'teacherApproval'" :fullscreen="$vuetify.breakpoint.xsOnly">
         <div class="py-4 pa-sm-4 text-center wrapper">
             <div class="">
-                <div class="text-right pr-4 pr-sm-0"><v-icon size="12" v-closeDialog>sbf-close</v-icon></div>
+                <div class="text-right pr-4 pr-sm-0 d-sm-none"><v-icon size="12" v-closeDialog>sbf-close</v-icon></div>
 
                 <div class="mainTitle text-center" :class="[modifyDurationError ? 'mb-3' : 'mb-12']">
                     {{$t('teacherApproval_title')}}
