@@ -54,6 +54,7 @@ import teacherIcon from '../../images/teacher.svg';
 import collegeIcon from '../../images/college.svg';
 import highSchoolIcon from '../../images/highSchool.svg';
 import * as dialogNames from '../../../global/dialogInjection/dialogNames.js';
+import analyticsService from '../../../../../services/analytics.service.js';
 
 export default {
     components: {
@@ -82,7 +83,10 @@ export default {
             }).catch(() => {
                 this.showError = true
             }).finally(() => {
-                this.$router.push(route)
+                this.$router.push(route);
+                if(route.query?.dialog === this.becomeTutorDialog){
+                    analyticsService.sb_unitedEvent('teacher-registration', 'start');
+                }
             })
         },
         resetGradeField() {

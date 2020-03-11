@@ -53,6 +53,7 @@
 
 <script>
 import { LanguageService } from '../../../../../services/language/languageService';
+import analyticsService from '../../../../../services/analytics.service.js';
 
 import { validationRules } from '../../../../../services/utilities/formValidationRules'
 
@@ -147,6 +148,7 @@ export default {
             if(this.$refs.form.validate()) {
                 let self = this
                 this.$store.dispatch('updateParentStudent').then(()=>{
+                    analyticsService.sb_unitedEvent('parent-registration', 'complete');
                     self.$router.push(self.$route.meta.nextStep)
                 });
             }
