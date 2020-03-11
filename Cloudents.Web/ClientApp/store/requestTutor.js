@@ -12,7 +12,7 @@ const state = {
     currentTutorReqStep:'tutorRequestCourseInfo',
     courseDescription:'',
     selectedCourse:'',
-    moreTutors:true,
+    moreTutors:false,
     currentTutorPhoneNumber: null,
     guestName: '',
     guestMail: '',
@@ -57,7 +57,7 @@ const mutations = {
         state.currentTutorReqStep = 'tutorRequestCourseInfo';
         state.courseDescription = '';
         state.selectedCourse = '';
-        state.moreTutors = true;
+        state.moreTutors = false;
         state.currentTutorPhoneNumber = null;
         state.guestName = '';
         state.guestMail = '';
