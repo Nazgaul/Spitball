@@ -15,6 +15,8 @@ function PaymentRequestItem(objInit) {
     this.duration = objInit.duration;
     this.totalPrice = this.price*this.duration/60;
     this.subsidizing = (subsidizingPrice(this.price)*this.duration/60).toFixed(2);
+    this.isRealDurationExitsts = objInit.isRealDurationExitsts;
+    this.realDuration = objInit.realDuration || 0;
 }
 
 function createPaymentRequestItem(objInit) {
