@@ -14,7 +14,7 @@ namespace Cloudents.Core.Interfaces
 
     public interface IGoogleAnalytics
     {
-        Task TrackEventAsync(string category, string action, string label);
+        Task TrackEventAsync(string category, string action, string label, CancellationToken token);
     }
 
 
