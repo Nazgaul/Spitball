@@ -24,7 +24,7 @@
         </v-flex>
       </v-layout>
       <v-flex v-show="isLoading" xs12>
-        <v-skeleton-loader class="mb-4" width="100%" height="44" type="button"></v-skeleton-loader>
+        <v-progress-circular class="mb-4" size="80" width="2" indeterminate color="info"></v-progress-circular>
       </v-flex>
       <v-flex v-show="!isLoading" sm4 id="paypal-button-container2"></v-flex>
     </div>
