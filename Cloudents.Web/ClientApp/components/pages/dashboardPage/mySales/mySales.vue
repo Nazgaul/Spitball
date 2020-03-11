@@ -93,8 +93,8 @@
             </template> -->
             <template v-slot:item="props">
                <tr class="mySales_table_tr">
-                  <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
-                  <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
+                  <tablePreviewTd :item="props.item"/>
+                  <tableInfoTd :item="props.item"/>
 
                   <td class="text-left" v-html="dictionary.types[props.item.type]"/>
                   <td class="text-left" v-html="formatItemStatus(props.item.paymentStatus)"/>

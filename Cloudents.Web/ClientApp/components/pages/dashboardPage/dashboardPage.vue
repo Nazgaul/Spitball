@@ -5,17 +5,6 @@
             <tableEmptyState/>
          </template>
       </component>
-      <sb-dialog 
-         :showDialog="isDialog"
-         :isPersistent="true"
-         :popUpType="'dashboardDialog'"
-         :onclosefn="closeDialog"
-         :activateOverlay="true"
-         :max-width="'fit-content'"
-         :content-class="'pop-dashboard-container'">
-            <changeNameDialog v-if="currentDialog === 'rename'" :dialogData="dialogData" @closeDialog="closeDialog"/>
-            <changePriceDialog v-if="currentDialog === 'changePrice'" :dialogData="dialogData" @closeDialog="closeDialog"/>
-      </sb-dialog>
    </div>
 </template>
 
@@ -29,10 +18,6 @@ import myFollowers from './myFollowers/myFollowers.vue';
 
 import tableEmptyState from './global/tableEmptyState.vue';
 
-import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
-import changeNameDialog from './dashboardDialog/changeNameDialog.vue';
-import changePriceDialog from './dashboardDialog/changePriceDialog.vue';
-
 import { LanguageService } from '../../../services/language/languageService';
 import { mapGetters } from 'vuex';
 
@@ -41,9 +26,6 @@ export default {
    props:['component'],
    data() {
       return {
-         currentDialog:'',
-         isDialog:false,
-         dialogData:'',
          dictionary:{
             types:{
                'Question': LanguageService.getValueByKey('dashboardPage_qa'),
@@ -75,18 +57,7 @@ export default {
             }
          },
          globalFunctions:{
-            openDialog: this.openDialog,
-            formatImg: this.formatImg,
             formatPrice: this.formatPrice,
-            router: this.dynamicRouter,
-            '$Ph': this.$Ph,
-            't':this.t,
-            strToACII: this.strToACII
-         },
-         snackbar:{
-            isOn:false,
-            color:'info',
-            dictionary:''
          },
       }
    },
@@ -97,75 +68,24 @@ export default {
       myStudyRooms,
       myCalendar,
       myFollowers,
-      changeNameDialog,
-      changePriceDialog,
-      sbDialog,
       tableEmptyState,
    },
    computed: {
       ...mapGetters(['accountUser'])
    },
    methods: {
-      t(resx){
-         return this.$t(resx)
-      },
-      closeDialog() {
-         this.currentDialog = '';
-         this.dialogData = '';
-         this.isDialog = false;
-      },
-      openDialog(dialogName,itemData){
-         this.currentDialog = dialogName;
-         this.dialogData = itemData;
-         this.isDialog = true;
-      },
-      dynamicRouter(item){
-         if(item.url){
-            return item.url;
-         }
-         if(item.type === 'Question' || item.type === 'Answer'){
-            return {path:'/question/'+item.id}
-         }
-         if(item.type === 'TutoringSession'){
-            return {name: 'profile',params: {id: item.id, name: item.name}}
-         }
-         if(item.conversationId){
-            return {name: 'profile',params: {id: item.userId, name: item.name}}
-         }
-         if(item.userId && !item.conversationId && !item.type){
-            return {name: 'profile',params: {id: item.userId, name: item.name}}
-         }
-      },
-      formatImg(item){
-         if(item.preview){
-            return this.$proccessImageUrl(item.preview,80,80)
-         }
-         if(item.image){
-            return this.$proccessImageUrl(item.image,80,80)
-         }
-         if(item.type === 'Question' || item.type === 'Answer'){
-            return require(`./images/qs.png`) 
-         }
-      },      
-      formatPrice(price){
+      formatPrice(price,type){
          if(price < 0){
             price = Math.abs(price)
          }
          price = Math.round(+price).toLocaleString();
-         return `${price} ${this.accountUser.currencySymbol}`;
-      },
-      strToACII(name) {
-         let sum = 0;
-         for (let i in name) {
-            sum += name.charCodeAt(i);
+         if(type === 'Document' || type === 'Video' ){
+            return `${price} ${this.$t('dashboardPage_pts')}`
          }
-         return sum % 11
+         if(type === 'TutoringSession' || type === 'BuyPoints'){
+            return `${price} ${this.accountUser.currencySymbol}`
+         }
       },
-      updateSnackbar({isOn,color,dictionary}){
-         this.snackbar.isOn = isOn;
-         this.snackbar.color = color;
-         this.snackbar.dictionary = dictionary;
-      }
    }
 
 }
@@ -184,9 +104,6 @@ export default {
    .v-snack__content{
       justify-content: center;
    }
-}
-.pop-dashboard-container {
-   background: #fff;
 }
 
 </style>

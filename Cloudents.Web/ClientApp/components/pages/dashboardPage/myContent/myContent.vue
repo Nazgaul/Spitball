@@ -34,8 +34,8 @@
          </template>
             <template v-slot:item="props">
                <tr class="myContent_table_tr">
-                  <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
-                  <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
+                  <tablePreviewTd :item="props.item"/>
+                  <tableInfoTd :item="props.item"/>
 
                   <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
                   <td class="text-xs-left">{{props.item.likes}}</td>
@@ -51,8 +51,8 @@
                         </template>
                      
                         <v-list v-if="props.index == currentItemIndex">
-                           <v-list-item style="cursor:pointer;" @click="globalFunctions.openDialog('rename',props.item)">{{rename}}</v-list-item>
-                           <v-list-item style="cursor:pointer;" @click="globalFunctions.openDialog('changePrice',props.item)">{{changePrice}}</v-list-item>
+                           <v-list-item style="cursor:pointer;" @click="openChangeNameDialog(props.item)">{{rename}}</v-list-item>
+                           <v-list-item style="cursor:pointer;" @click="openChangePriceDialog(props.item)">{{changePrice}}</v-list-item>
                         </v-list>
                      </v-menu>
                   </td>
@@ -61,6 +61,26 @@
 
             <slot slot="no-data" name="tableEmptyState"/>
       </v-data-table>
+      <sb-dialog 
+         :showDialog="isChangeNameDialog"
+         :isPersistent="true"
+         :popUpType="'dashboardDialog'"
+         :onclosefn="closeDialog"
+         :activateOverlay="true"
+         :max-width="'fit-content'"
+         :content-class="'pop-dashboard-container'">
+            <changeNameDialog :dialogData="currentItem" @closeDialog="closeDialog"/>
+      </sb-dialog>
+      <sb-dialog 
+         :showDialog="isChangePriceDialog"
+         :isPersistent="true"
+         :popUpType="'dashboardDialog'"
+         :onclosefn="closeDialog"
+         :activateOverlay="true"
+         :max-width="'fit-content'"
+         :content-class="'pop-dashboard-container'">
+            <changePriceDialog :dialogData="currentItem" @closeDialog="closeDialog"/>
+      </sb-dialog>
    </div>
 </template>
 
@@ -69,10 +89,13 @@ import { mapActions, mapGetters } from 'vuex';
 import { LanguageService } from '../../../../services/language/languageService';
 import tablePreviewTd from '../global/tablePreviewTd.vue';
 import tableInfoTd from '../global/tableInfoTd.vue';
+import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
+import changeNameDialog from '../dashboardDialog/changeNameDialog.vue';
+import changePriceDialog from '../dashboardDialog/changePriceDialog.vue';
 
 export default {
    name:'myContent',
-   components:{tablePreviewTd,tableInfoTd},
+   components:{tablePreviewTd,tableInfoTd,sbDialog,changeNameDialog,changePriceDialog},
    props:{
       globalFunctions: {
          type: Object,
@@ -84,6 +107,9 @@ export default {
    },
    data() {
       return {
+         currentItem:'',
+         isChangeNameDialog:false,
+         isChangePriceDialog:false,
          paginationModel:{
             page:1
          },
@@ -107,13 +133,26 @@ export default {
       }
    },
    computed: {
-      ...mapGetters(['getContentItems']),
+      ...mapGetters(['getContentItems','accountUser']),
       contentItems(){
          return this.getContentItems
       },
    },
    methods: {
       ...mapActions(['updateContentItems','dashboard_sort']),
+      openChangeNameDialog(item){
+         this.currentItem = item;
+         this.isChangeNameDialog = true;
+      },
+      openChangePriceDialog(item){
+         this.currentItem = item;
+         this.isChangePriceDialog = true;
+      },
+      closeDialog(){
+         this.isChangeNameDialog = false;
+         this.isChangePriceDialog = false;
+         this.currentItem = '';
+      },
       checkIsQuestion(prop){
          return prop === 'Question' || prop === 'Answer';
       },
@@ -138,6 +177,9 @@ export default {
 
 <style lang="less">
 @import "../../../../styles/mixin.less";
+.pop-dashboard-container {
+   background: #fff;
+}
 .myContent{
    max-width: 1366px;
    .myContent_title{

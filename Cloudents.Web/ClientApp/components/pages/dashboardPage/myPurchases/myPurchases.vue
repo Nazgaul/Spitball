@@ -34,8 +34,8 @@
 
             <template v-slot:item="props">
                <tr class="myPurchases_table_tr">
-                  <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
-                  <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
+                  <tablePreviewTd :item="props.item"/>
+                  <tableInfoTd :item="props.item"/>
                   <td class="text-left" v-html="dictionary.types[props.item.type]"/>
                   <td class="text-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"/>
                   <td class="text-left">{{ props.item.date | dateFromISO }}</td> 
