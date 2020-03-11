@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
@@ -52,15 +53,16 @@ namespace Cloudents.Web.Controllers
                     Name = retVal.Text,
                     Text = retVal.Text,
                     AnswerCount = retVal.Answers.Count(),
-                    SuggestedAnswer = new Values<IAnswer, IItemList>(retVal.Answers.Select(s =>
+                    SuggestedAnswer = new Values<IAnswer, IItemList>(retVal.Answers.Select((s, i) =>
                         new Answer
                         {
-                            Text = s.Text,
+                            //Text = s.Text,
                             DateCreated = s.Create,
                             Author = new Person
                             {
                                 Name = s.User.Name
-                            }
+                            },
+                            Url = new Uri(Url.RouteUrl(SeoTypeString.Question, new { id }, "https", null, $"answer-{i}"))
                         })),
 
                 }
