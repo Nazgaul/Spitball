@@ -93,8 +93,8 @@
 
                 <v-layout class="buymebtn">
                     <v-flex text-center>
-                        <!-- <v-skeleton-loader class="mb-4" v-show="isLoading" width="100%" height="44" type="button"></v-skeleton-loader> -->
-                        <div  id="paypal-button-container" style="width:400px; margin: 0 auto;"></div>
+                        <v-progress-circular v-show="isLoading" class="mb-4" size="80" width="2" indeterminate color="info"></v-progress-circular>
+                        <div v-show="!isLoading" id="paypal-button-container" style="width:400px; margin: 0 auto;"></div>
                     </v-flex>
                 </v-layout>
 
@@ -109,6 +109,7 @@ export default {
   name:'buyPointsUS',
   data() {
     return {
+      isLoading: false,
       selectedProduct: 'inter',
       transactionId: 750,
       products:{
@@ -181,6 +182,7 @@ export default {
                     });
                 },
                 onApprove: function(data,actions) {
+                    self.isLoading = true;
                     actions.order.capture().then(() => {
                         self.$closeDialog();
                         self.$store.dispatch('updatePaypalBuyTokens',data.orderID);
