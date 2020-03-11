@@ -25,7 +25,7 @@ namespace Cloudents.Command.CommandHandler
             var v = await _payPalService.GetPaymentAsync(message.Token, token);
             var user = await _userRepository.LoadAsync(message.UserId, token);
             user.AddToken(message.Token, v.Amount, studyRoom);
-            user.UseCoupon(studyRoom.Tutor);
+           
             await _userRepository.UpdateAsync(user, token);
         }
     }

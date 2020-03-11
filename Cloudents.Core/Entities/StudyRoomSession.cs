@@ -16,18 +16,20 @@ namespace Cloudents.Core.Entities
             Created = DateTime.UtcNow;
             SessionId = sessionId;
 
-            var user = studyRoom.Users.First(f => f.User.Id != studyRoom.Tutor.Id).User;
-            var userToken = user.UserTokens.FirstOrDefault(w => w.State == UserTokenState.NotUsed);
-            if (userToken != null)
-            {
-                userToken.State = UserTokenState.Used;
-            }
+            UseUserToken();
 
             AddEvent(new StudyRoomSessionCreatedEvent(this));
         }
         protected StudyRoomSession()
         {
 
+        }
+
+        protected virtual void UseUserToken()
+        {
+            var user = StudyRoom.Users.First(f => f.User.Id != StudyRoom.Tutor.Id).User;
+            user.UseToken(StudyRoom.Tutor);
+          
         }
 
         public virtual StudyRoom StudyRoom { get; protected set; }
@@ -40,7 +42,7 @@ namespace Cloudents.Core.Entities
 
         public virtual int RejoinCount { get; protected set; }
         public virtual string SessionId { get; protected set; }
-        public virtual string Receipt { get; protected set; }
+        public virtual string? Receipt { get; protected set; }
         public virtual decimal? Price { get; protected set; }
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]

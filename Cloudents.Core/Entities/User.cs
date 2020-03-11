@@ -216,6 +216,7 @@ namespace Cloudents.Core.Entities
         public virtual UserType? UserType2 { get; protected set; }
         private readonly ICollection<UserPayPalToken> _userTokens = new List<UserPayPalToken>();
 
+        
 
         public virtual IEnumerable<UserPayPalToken> UserTokens => _userTokens;
 
@@ -223,6 +224,24 @@ namespace Cloudents.Core.Entities
         {
             PaymentExists = PaymentStatus.Done;
             AddEvent(new StudentPaymentReceivedEvent(this));
+        }
+
+        public virtual void UseToken(Tutor tutor)
+        {
+            Country country = Country;
+
+            if (country != Entities.Country.UnitedStates)
+            {
+                return;
+            }
+
+            var userToken = UserTokens.FirstOrDefault(w => w.State == UserTokenState.NotUsed);
+            if (userToken != null)
+            {
+                userToken.State = UserTokenState.Used;
+            }
+
+            UseCoupon(tutor);
         }
 
         public virtual void AddToken(string userToken, decimal amount, StudyRoom studyRoom)
