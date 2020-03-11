@@ -114,14 +114,17 @@ export default {
    },
    methods: {
       ...mapActions(['updateContentItems','dashboard_sort']),
-      formatPrice(price){
+      formatPrice(price,type){
          if(isNaN(price)) return;
-         else{
-            if(price < 0){
-               price = Math.abs(price)
-            }
-            price = Math.round(+price).toLocaleString();
-            return `${price} ${this.accountUser.currencySymbol}`;
+         if(price < 0){
+            price = Math.abs(price)
+         }
+         price = Math.round(+price).toLocaleString();
+         if(type === 'Document' || type === 'Video' || type === 'BuyPoints'){
+            return `${price} ${LanguageService.getValueByKey('dashboardPage_pts')}`
+         }
+         if(type === 'TutoringSession'){
+            return `${price} ${this.accountUser.currencySymbol}`
          }
       },
       checkIsQuestion(prop){
