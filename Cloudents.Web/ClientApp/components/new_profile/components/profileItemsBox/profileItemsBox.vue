@@ -151,11 +151,19 @@ export default {
             course: this.query.course,
          }
          Object.keys(params).forEach((key) => (params[key] === '') && delete params[key]);
-         this.globalFunctions.getItems(type,params).then(()=>{
+         this.getItems(type,params).then(()=>{
             let scrollDiv = document.getElementById("profileItemsBox").offsetTop;
             window.scrollTo({ top: scrollDiv, behavior: 'smooth'});
          })
 
+      },
+      getItems(type,params){
+         let dataObj = {
+               id: this.$route.params.id,
+               type,
+               params
+         }
+         return this.$store.dispatch('updateProfileItemsByType',dataObj)
       },
       selectChecker(item){
          if(item.value === this.selectedModel.itemType){
