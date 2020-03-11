@@ -225,16 +225,17 @@ namespace Cloudents.Core.Entities
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
 
-        public virtual void AddToken(string userToken, decimal amount)
+        public virtual void AddToken(string userToken, decimal amount, StudyRoom studyRoom)
         {
             if (userToken == null) throw new ArgumentNullException(nameof(userToken));
+            if (studyRoom == null) throw new ArgumentNullException(nameof(studyRoom));
             Country country = Country;
 
             if (country != Entities.Country.UnitedStates)
             {
                 throw new ArgumentException("Only usa country can use paypal");
             }
-            _userTokens.Add(new UserPayPalToken(userToken, amount));
+            _userTokens.Add(new UserPayPalToken(userToken, amount, studyRoom));
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
 

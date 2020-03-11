@@ -4,13 +4,14 @@ namespace Cloudents.Core.Entities
 {
     public class UserPayPalToken : Entity<Guid>
     {
-        public UserPayPalToken(string tokenId, decimal amount)
+        public UserPayPalToken(string tokenId, decimal amount, StudyRoom studyRoom)
         {
             //User = user;
             TokenId = tokenId ?? throw new ArgumentNullException(nameof(tokenId));
             Created = DateTime.UtcNow;
             State = UserTokenState.NotUsed;
             Amount = amount;
+            StudyRoom = studyRoom;
         }
         protected UserPayPalToken()
         { 
@@ -22,7 +23,7 @@ namespace Cloudents.Core.Entities
 
         public virtual decimal Amount { get;  }
 
-        //public virtual StudyRoom StudyRoomId { get; set; }
+        public virtual StudyRoom StudyRoom { get; set; }
 
         public virtual UserTokenState State { get; set; }
     }

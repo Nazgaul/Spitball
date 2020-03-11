@@ -1,6 +1,5 @@
 import analyticsService from '../services/analytics.service.js';
 import tutorService from '../services/tutorService.js'
-import {LanguageService} from '../services/language/languageService.js'
 
 const state = {
     requestDialog: false,
@@ -117,13 +116,13 @@ const actions = {
                 }).catch((err)=>{
                    
                     //Same converntaion as the server
-                    let serverResponse = err.response.data || { error : [LanguageService.getValueByKey("tutorRequest_request_error")]};
-                    let errorMsg = serverResponse[Object.keys(serverResponse)[0]][0];
-                    dispatch('updateToasterParams',{
-                        toasterText: errorMsg,
-                        showToaster: true,
-                        toasterType: 'error-toaster'
-                    });
+                    // let serverResponse = err.response.data || { error : [LanguageService.getValueByKey("tutorRequest_request_error")]};
+                    // let errorMsg = serverResponse[Object.keys(serverResponse)[0]][0];
+                    // dispatch('updateToasterParams',{
+                    //     toasterText: errorMsg,
+                    //     showToaster: true,
+                    //     toasterType: 'error-toaster'
+                    // });
                    throw err;
                 });
     },

@@ -91,6 +91,7 @@ export default {
    methods: {
       ...mapActions(['updatePurchasesItems','dashboard_sort']),
       formatPrice(price,type){
+         if(isNaN(price)) return;
          if(price < 0){
             price = Math.abs(price)
          }

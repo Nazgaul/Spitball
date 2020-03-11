@@ -95,7 +95,7 @@ namespace Cloudents.Core
 
     public class DbConnectionString
     {
-        public DbConnectionString(string db, string redis, DataBaseIntegration dataBaseIntegration)
+        public DbConnectionString(string db, string? redis, DataBaseIntegration dataBaseIntegration)
         {
             Db = db;
             Redis = redis;
@@ -104,7 +104,7 @@ namespace Cloudents.Core
 
         public string Db { get; }
 
-        public string Redis { get; }
+        public string? Redis { get; }
 
         public DataBaseIntegration Integration { get; set; }
 

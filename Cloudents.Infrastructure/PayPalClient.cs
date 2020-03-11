@@ -1,8 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using PayPalCheckoutSdk.Core;
@@ -32,10 +29,7 @@ namespace Cloudents.Infrastructure
             }
         }
 
-        //public async Test()
-        //{
-        //    var request = new OrdersGetRequest();
-        //}
+      
         public async Task<PayPalDto> GetPaymentAsync(string orderId, CancellationToken token)
         {
 
@@ -46,8 +40,6 @@ namespace Cloudents.Infrastructure
             var result = response3.Result<Order>();
             var purchaseUnit = result.PurchaseUnits[0];
 
-            //return decimal.Parse(result.PurchaseUnits[0].Payments.Captures[0].Amount.Value);
-            //Sku sku = result.PurchaseUnits[0].ReferenceId;
             return new PayPalDto(purchaseUnit.ReferenceId, decimal.Parse(purchaseUnit.Payments.Captures[0].Amount.Value));
         }
 

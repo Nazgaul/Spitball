@@ -169,7 +169,7 @@ namespace Cloudents.FunctionsV2
                     Enable = true
                 }
             };
-            message.AddTo("jaron@spitball.co");
+            message.AddTo(user.ToEmailAddress);
             await emailProvider.AddAsync(message, token);
             await emailProvider.FlushAsync(token);
         }
