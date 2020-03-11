@@ -63,6 +63,10 @@ const connectToRoom = function (token, options) {
     store.dispatch('leaveRoomIfJoined');
     Twilio.connect(token, options)
         .then((room) => {
+            store.dispatch('updateTwilioConnection',room); // to start plugin listening
+
+
+
             console.warn('DEBUG: 28 tutorService: Twilio.connect')
 
             store.dispatch('setSessionTimeStart');
@@ -71,8 +75,6 @@ const connectToRoom = function (token, options) {
             console.log('Successfully joined a Room: ', room);
             let localIdentity = room.localParticipant && room.localParticipant.identity ? room.localParticipant.identity : '';
             store.dispatch('updateUserIdentity', localIdentity);
-            //set local participant in store
-            store.dispatch('updateLocalParticipant', room.localParticipant);
 
             // Print the initial Network Quality Level
             if (!store.getters['getStudyRoomData'].isTutor) {
@@ -100,8 +102,8 @@ const connectToRoom = function (token, options) {
                 }           
             
             
-            //event of network quality change
-            store.getters['localParticipant'].on('networkQualityLevelChanged', printNetworkQuality);
+            // //event of network quality change
+            // store.getters['localParticipant'].on('networkQualityLevelChanged', printNetworkQuality);
             
             // Attach the Tracks of all the remote Participants.
             store.getters['activeRoom'].participants.forEach((participant) => {
@@ -152,13 +154,13 @@ const connectToRoom = function (token, options) {
                 });
 
             });
-            //reconnecting room
-            store.getters['activeRoom'].on('reconnecting', () => {
-                console.warn('DEBUG: 28.7 tutorService: reconnecting room')
+            // // //reconnecting room
+            // store.getters['activeRoom'].on('reconnecting', () => {
+            //     console.warn('DEBUG: 28.7 tutorService: reconnecting room')
 
-                insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioReconnecting', null, null);
-                console.log("ROOM - RECONNECTING");
-            });
+            //     insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioReconnecting', null, null);
+            //     console.log("ROOM - RECONNECTING");
+            // });
             
             // Attach the Participant's Media to a <div> element.
             store.getters['activeRoom'].on('participantConnected', participant => {

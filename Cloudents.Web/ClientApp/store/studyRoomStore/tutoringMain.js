@@ -6,7 +6,6 @@ const state = {
     identity: '',
     roomId: '',
     currentActiveRoom: null,
-    localParticipant: null,
     browserSupportDialog: false,
     studyRoomData: null,
     roomStateEnum: {
@@ -40,7 +39,6 @@ const state = {
 };
 const getters = {
     activeRoom: state => state.currentActiveRoom,
-    localParticipant: state => state.localParticipant,
     userIdentity: state => state.identity,
     getCurrentRoomState: state => state.currentRoomState,
     getStudyRoomData: state => state.studyRoomData,
@@ -88,9 +86,6 @@ const mutations = {
     setStudyRoomProps(state, val) {
         val.isTutor = this.getters.accountUser.id == val.tutorId;
         state.studyRoomData = val;
-    },
-    setlocalParticipantObj(state, val) {
-        state.localParticipant = val;
     },
     setUserIdentity(state, val) {
         state.identity = val;
@@ -159,9 +154,6 @@ const actions = {
         console.warn('DEBUG: 7 store: updateStudyRoomProps')
         dispatch('updateAllowReview',  val.allowReview);
         commit('setStudyRoomProps', val);
-    },
-    updateLocalParticipant({commit}, val) {
-        commit('setlocalParticipantObj', val);
     },
     leaveRoomIfJoined({commit}) {
         console.warn('DEBUG: 9 store: leaveRoomIfJoined')

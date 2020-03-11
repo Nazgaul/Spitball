@@ -19,7 +19,7 @@ const getters = {
    
 }
 const actions = {
-   updateTwilioConnection(context,{token, connectOptions}){
+   updateTwilioConnection(context){
 
    },
    updateStudyRoomInformation({getters,dispatch},roomId){
