@@ -132,6 +132,12 @@ const actions = {
    },
    updateMarketingBlogs() {
       return dashboardService.getMarketingBlogs()
+   },
+   updateSalesSessions(context, id) {
+      return dashboardService.getSalesSessions(id);
+   },
+   updateSessionDuration(context, session) {
+      return dashboardService.updateSessionDuration(session)
    }
 };
 

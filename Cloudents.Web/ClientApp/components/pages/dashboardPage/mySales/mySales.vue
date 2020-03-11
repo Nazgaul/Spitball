@@ -95,11 +95,24 @@
                <tr class="mySales_table_tr">
                   <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
                   <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
-
                   <td class="text-left" v-html="dictionary.types[props.item.type]"/>
                   <td class="text-left" v-html="formatItemStatus(props.item.paymentStatus)"/>
                   <td class="text-left">{{ props.item.date | dateFromISO }}</td>
-                  <td class="text-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"></td>
+                  <td class="text-left">
+                     <div>{{globalFunctions.formatPrice(props.item.price, props.item.type)}}</div>
+                  </td>
+                  <td>
+                     <v-btn 
+                        color="#555CFD"
+                        class="white--text"
+                        width="120"
+                        depressed
+                        rounded
+                        v-if="props.item.paymentStatus === 'PendingApproval' && props.item.type === 'TutoringSession'"
+                        @click="$openDialog('teacherApproval', {item: props.item})">
+                           {{$t('dashboardPage_btn_approve')}}
+                     </v-btn>
+                  </td>
                </tr>
             </template>
 
@@ -143,6 +156,7 @@ export default {
             this.dictionary.headers['status'],
             this.dictionary.headers['date'],
             this.dictionary.headers['price'],
+            '',
          ],
          balancesHeaders:[
             this.dictionary.headers['preview'],
@@ -173,10 +187,13 @@ export default {
       },
       formatItemStatus(paymentStatus){
          if(paymentStatus === 'Pending'){
-            return LanguageService.getValueByKey('dashboardPage_pending')
+            return this.$t('dashboardPage_pending')
          }
          if(paymentStatus === 'Paid'){
-            return LanguageService.getValueByKey('dashboardPage_paid')
+            return this.$t('dashboardPage_paid')
+         }
+         if(paymentStatus === 'PendingApproval') {
+            return this.$t('dashboardPage_pending_approve')
          }
       },
       changeSort(sortBy){
