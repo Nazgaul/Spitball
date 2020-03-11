@@ -29,7 +29,6 @@ using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 using Cloudmersive.APIClient.NETCore.ImageRecognition.Api;
 
-[assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
 namespace ConsoleApp
 {
