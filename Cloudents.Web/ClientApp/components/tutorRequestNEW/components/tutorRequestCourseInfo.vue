@@ -59,7 +59,7 @@ export default {
             isReady:false,
             isFromMounted: false,
             isFromQuery:false,
-            moreTutors:true,
+            moreTutors:false,
             isLoading:false,
             validRequestTutorForm: false,
             checkbox:false,
