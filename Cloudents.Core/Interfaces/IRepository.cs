@@ -12,7 +12,7 @@ namespace Cloudents.Core.Interfaces
         Task AddAsync(IEnumerable<T> entities, CancellationToken token);
 
         Task<T> LoadAsync(object id, CancellationToken token);
-        Task<T> GetAsync(object id, CancellationToken token);
+        Task<T?> GetAsync(object id, CancellationToken token);
 
         T Load(object id);
 
