@@ -28,18 +28,18 @@ namespace Cloudents.Core.Entities
             return EqualityComparer<T>.Default.Equals(Id, other.Id);
         }
 
-        public static bool operator ==(Entity<T> a, Entity<T> b)
+        public static bool operator ==(Entity<T>? a, Entity<T>? b)
         {
-            if (ReferenceEquals(a, null) && ReferenceEquals(b, null))
+            if (a is null && b is null)
                 return true;
 
-            if (ReferenceEquals(a, null) || ReferenceEquals(b, null))
+            if (a is null || b is null)
                 return false;
 
             return a.Equals(b);
         }
 
-        public static bool operator !=(Entity<T> a, Entity<T> b)
+        public static bool operator !=(Entity<T>? a, Entity<T>? b)
         {
             return !(a == b);
         }
