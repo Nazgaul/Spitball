@@ -36,7 +36,7 @@ namespace Cloudents.Query.Admin
 		                    u.Id as UserId,
 		                    u.Name as UserName,
 		                    srs.Created,
-							datediff(MINUTE, srs.Created, srs.Ended) as Duration,
+							COALESCE (srs.RealDuration, srs.Duration) as DurationInTicks,
 							
 							x.CouponCode as CouponCode,
 							x.couponType,
