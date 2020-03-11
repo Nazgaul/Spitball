@@ -18,4 +18,7 @@ export default {
    async uploadCanvasImage(formData){ 
       return await studyRoomInstance.post("upload",formData)
    },
+   async enterRoom(roomId){ 
+      return await studyRoomInstance.post(`${roomId}/enter`)
+   },
 }

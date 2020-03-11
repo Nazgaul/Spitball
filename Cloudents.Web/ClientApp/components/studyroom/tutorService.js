@@ -280,17 +280,6 @@ const connectToRoom = function (token, options) {
 
             });
 };
-// TODO: move to studyroom service
-
-const enterRoom = function (roomId) {
-    
-    return connectivityModule.http.post(`StudyRoom/${roomId}/enter`)
-    .then(() => {
-        console.warn('DEBUG: 29 tutorService: enterRoom')
-
-            return true;
-        });
-};
 
 function DevicesObject(){
     this.hasAudio= false,
@@ -345,7 +334,6 @@ export default {
     dataTrack,
     detachTracks,
     connectToRoom,
-    enterRoom,
     validateUserMedia,
     createDevicesObj,
     isRecordingSupported
