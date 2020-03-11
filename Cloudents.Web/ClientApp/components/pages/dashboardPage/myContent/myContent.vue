@@ -42,7 +42,7 @@
                   <td class="text-xs-left">{{props.item.views}}</td>
                   <td class="text-xs-left">{{props.item.downloads}}</td>
                   <td class="text-xs-left">{{props.item.purchased}}</td>
-                  <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"/>
+                  <td class="text-xs-left" v-text="formatPrice(props.item.price,props.item.type)"/>
                   <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
                   <td class="text-xs-center">
                      <v-menu bottom left v-model="showMenu" v-if="!checkIsQuestion(props.item.type)">
@@ -107,13 +107,23 @@ export default {
       }
    },
    computed: {
-      ...mapGetters(['getContentItems']),
+      ...mapGetters(['getContentItems','accountUser']),
       contentItems(){
          return this.getContentItems
       },
    },
    methods: {
       ...mapActions(['updateContentItems','dashboard_sort']),
+      formatPrice(price){
+         if(isNaN(price)) return;
+         else{
+            if(price < 0){
+               price = Math.abs(price)
+            }
+            price = Math.round(+price).toLocaleString();
+            return `${price} ${this.accountUser.currencySymbol}`;
+         }
+      },
       checkIsQuestion(prop){
          return prop === 'Question' || prop === 'Answer';
       },
