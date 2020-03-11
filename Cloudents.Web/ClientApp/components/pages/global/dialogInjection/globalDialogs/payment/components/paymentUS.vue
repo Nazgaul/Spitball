@@ -23,7 +23,10 @@
           />
         </v-flex>
       </v-layout>
-      <v-flex sm4 id="paypal-button-container2"></v-flex>
+      <v-flex v-show="isLoading" xs12>
+        <v-skeleton-loader class="mb-4" width="100%" height="44" type="button"></v-skeleton-loader>
+      </v-flex>
+      <v-flex v-show="!isLoading" sm4 id="paypal-button-container2"></v-flex>
     </div>
   </v-layout>
 </template>
@@ -32,6 +35,11 @@
 import * as routeNames from "../../../../../../../routes/routeNames";
 export default {
   name: "paymentUS",
+  data() {
+    return {
+      isLoading:false,
+    }
+  },
 //   computed: {
 //       tutorPrice() {
 //           return this.$store.getters.getStudyRoomData?.tutorPrice
@@ -73,6 +81,7 @@ export default {
             });
           },
           onApprove: function(data, actions) {
+            self.isLoading = true;
             actions.order.capture().then(() => {
               self.$store.dispatch("updatePaypalStudyRoom", {
                 orderId: data.orderID,
