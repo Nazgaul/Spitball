@@ -1,6 +1,5 @@
 import analyticsService from '../services/analytics.service.js';
 import tutorService from '../services/tutorService.js'
-import {LanguageService} from '../services/language/languageService.js'
 
 const state = {
     requestDialog: false,
