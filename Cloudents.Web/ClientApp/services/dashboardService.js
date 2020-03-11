@@ -17,11 +17,7 @@ function itemTypeChcker(type){
 function buildSessionDuration(totalMinutes) {
    let hours = Math.floor(totalMinutes / 60)
    let minutes = Math.floor(totalMinutes % 60)
-   return `${addZero(hours)}:${addZero(minutes)}`;
-}
-
-function addZero(num) {
-   return num < 10 ? `0${num}` : num;
+   return `${hours.toString().padStart(2,0)}:${minutes.toString().padStart(2,0)}:00`;
 }
 
 const Item = {
