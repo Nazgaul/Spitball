@@ -20,12 +20,6 @@ export default {
          becomeTutorDialog: dialogNames.BecomeTutor,
       }
    },
-   props:{
-      globalFunctions:{
-         type: Object,
-         required:true
-      }
-   },
 }
 </script>
 

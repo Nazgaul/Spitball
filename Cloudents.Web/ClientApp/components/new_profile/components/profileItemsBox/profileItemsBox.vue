@@ -71,12 +71,6 @@ export default {
       itemCard,
       resultNote
    },
-   props:{
-      globalFunctions:{
-         type: Object,
-         required:true
-      }
-   },
    data() {
       return {
          selectPlaceholder: LanguageService.getValueByKey('profile_select_course'),

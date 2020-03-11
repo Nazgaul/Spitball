@@ -19,12 +19,6 @@ export default {
          uploadDialog: dialogNames.Upload
       }
    },
-   props:{
-      globalFunctions:{
-         type: Object,
-         required:true
-      }
-   },
 }
 </script>
 

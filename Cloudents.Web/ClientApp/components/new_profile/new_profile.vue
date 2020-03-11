@@ -8,10 +8,10 @@
               :whatsApp="shareContentParams.whatsApp"
               :email="shareContentParams.email"  class="mb-2 mb-sm-3" v-if="getProfile && !$vuetify.breakpoint.lgAndUp"/>
             <calendarTab v-if="showProfileCalendar" class="mb-6" :globalFunctions="globalFunctions"/>
-            <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" :globalFunctions="globalFunctions"/>
-            <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" :globalFunctions="globalFunctions"/>
-            <profileItemsBox v-if="showItems" :globalFunctions="globalFunctions"/>
-            <profileEarnMoney class="mt-0 mt-sm-5" v-if="showEarnMoney" :globalFunctions="globalFunctions"/>
+            <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none"/>
+            <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none"/>
+            <profileItemsBox v-if="showItems"/>
+            <profileEarnMoney class="mt-0 mt-sm-5" v-if="showEarnMoney"/>
             <profileItemsEmpty class="mt-0 mt-sm-5 mb-2 mb-sm-4" v-show="showItemsEmpty"/>
             <profileReviewsBox v-if="showReviewBox"/>
             <profileUserStickyMobile :globalFunctions="globalFunctions" v-if="$vuetify.breakpoint.mdAndDown"/>

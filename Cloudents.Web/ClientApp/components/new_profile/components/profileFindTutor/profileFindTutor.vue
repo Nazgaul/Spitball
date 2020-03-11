@@ -33,12 +33,6 @@ import * as routeNames from '../../../../routes/routeNames.js';
 export default {
    name:'profileFindTutor',
    components:{sheild,exams,secure},
-   props:{
-      globalFunctions:{
-         type: Object,
-         required:true
-      }
-   },
    methods: {
       goTutorList(){
          this.$router.push({name: routeNames.TutorList})
