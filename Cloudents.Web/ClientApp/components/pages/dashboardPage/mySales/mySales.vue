@@ -100,13 +100,17 @@
                   <td class="text-left">{{ props.item.date | dateFromISO }}</td>
                   <td class="text-left">
                      <div>{{globalFunctions.formatPrice(props.item.price, props.item.type)}}</div>
+                  </td>
+                  <td>
                      <v-btn 
-                     color="primary"
-                     width="120"
-                     depressed
-                     v-if="props.item.paymentStatus === 'PendingApproval' && props.item.type === 'TutoringSession'"
-                     @click="$openDialog('teacherApproval', {item: props.item})">
-                        {{$t('dashboardPage_btn_approve')}}
+                        color="#555CFD"
+                        class="white--text"
+                        width="120"
+                        depressed
+                        rounded
+                        v-if="props.item.paymentStatus === 'PendingApproval' && props.item.type === 'TutoringSession'"
+                        @click="$openDialog('teacherApproval', {item: props.item})">
+                           {{$t('dashboardPage_btn_approve')}}
                      </v-btn>
                   </td>
                </tr>
@@ -152,6 +156,7 @@ export default {
             this.dictionary.headers['status'],
             this.dictionary.headers['date'],
             this.dictionary.headers['price'],
+            '',
          ],
          balancesHeaders:[
             this.dictionary.headers['preview'],
