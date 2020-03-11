@@ -1,5 +1,4 @@
 import store from  "../../store/index";
-import tutorService from '../studyroom/tutorService';
 
 const isBrowserSupport = function(){
     let agent = navigator.userAgent;
@@ -56,7 +55,9 @@ const determinFirstPage = function(){
     
   }
   //else recording instruction page
-  if(tutorService.isRecordingSupported()){
+
+  let isRecordingSupported = store.getters.getStudyRoomData ? !store.getters.getStudyRoomData.isTutor : true;
+  if(isRecordingSupported){
     return new firstPageObj("watchRecordedStep");
   }else{
     return new firstPageObj("studyRoom");

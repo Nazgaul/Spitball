@@ -323,18 +323,10 @@ const validateUserMedia = async function() {
     });
 };
 
-
-function isRecordingSupported(){
-     return store.getters.getStudyRoomData ? !store.getters.getStudyRoomData.isTutor : true;
-}
-
 export default {
-    attachTracks, // remove from here cuz no one using outside this service.
-
     dataTrack,
     detachTracks,
     connectToRoom,
     validateUserMedia,
     createDevicesObj,
-    isRecordingSupported
 };
