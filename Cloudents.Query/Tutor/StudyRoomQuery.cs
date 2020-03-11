@@ -84,6 +84,10 @@ where sr.id = @Id;",
                 result.TutorPrice = Coupon.CalculatePrice(result.CouponType.Value, 
                     result.TutorPrice, result.CouponValue.GetValueOrDefault());
 
+                if (result.TutorPrice == 0)
+                {
+                    result.NeedPayment = false;
+                }
                 
                 return result;
             }
