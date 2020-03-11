@@ -84,9 +84,6 @@ export default {
       }
    },
    props:{
-      globalFunctions: {
-         type: Object,
-      },
       dictionary:{
          type: Object,
          required: true

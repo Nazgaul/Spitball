@@ -1,6 +1,6 @@
 <template>
    <div class="dashboardPage">
-      <component v-if="!!accountUser" :dictionary="dictionary" :globalFunctions="globalFunctions" :is="component">
+      <component v-if="!!accountUser" :dictionary="dictionary" :is="component">
          <template slot="tableEmptyState">
             <tableEmptyState/>
          </template>
@@ -56,9 +56,6 @@ export default {
                'name': {text: LanguageService.getValueByKey('dashboardPage_name'), align:'left', sortable: true, value:'name'},
             }
          },
-         globalFunctions:{
-            formatPrice: this.formatPrice,
-         },
       }
    },
    components:{
@@ -73,21 +70,6 @@ export default {
    computed: {
       ...mapGetters(['accountUser'])
    },
-   methods: {
-      formatPrice(price,type){
-         if(price < 0){
-            price = Math.abs(price)
-         }
-         price = Math.round(+price).toLocaleString();
-         if(type === 'Document' || type === 'Video' ){
-            return `${price} ${this.$t('dashboardPage_pts')}`
-         }
-         if(type === 'TutoringSession' || type === 'BuyPoints'){
-            return `${price} ${this.accountUser.currencySymbol}`
-         }
-      },
-   }
-
 }
 </script>
 

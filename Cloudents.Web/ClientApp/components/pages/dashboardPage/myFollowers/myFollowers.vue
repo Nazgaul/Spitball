@@ -65,9 +65,6 @@ export default {
    name:'myFollowers',
    components:{tablePreviewTd},
    props:{
-      globalFunctions: {
-         type: Object,
-      },
       dictionary:{
          type: Object,
          required: true
