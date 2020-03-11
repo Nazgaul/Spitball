@@ -17,7 +17,7 @@
                <span class="cont-text" v-language:inner="'documentPage_prepared_exams'"></span>
             </div>
          </div>
-         <v-btn class="profileFindTutor_action white--text mt-4" depressed rounded color="#4452fc" @click="globalFunctions.goTutorList()">
+         <v-btn class="profileFindTutor_action white--text mt-4" depressed rounded color="#4452fc" @click="goTutorList()">
             <div class="profileFindTutor_action_txt" v-language:inner="'profile_find_tutors'"/>
          </v-btn>
       </div>
@@ -28,15 +28,15 @@
 import sheild from './images/sheild.svg';
 import exams from './images/exams.svg';
 import secure from './images/secure.svg';
+import * as routeNames from '../../../../routes/routeNames.js';
 
 export default {
    name:'profileFindTutor',
    components:{sheild,exams,secure},
-   props:{
-      globalFunctions:{
-         type: Object,
-         required:true
-      }
+   methods: {
+      goTutorList(){
+         this.$router.push({name: routeNames.TutorList})
+      },
    },
 }
 </script>

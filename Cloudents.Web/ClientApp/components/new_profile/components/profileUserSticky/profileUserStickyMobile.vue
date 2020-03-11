@@ -36,7 +36,7 @@
       </div>
      </template>
      <template v-if="!getProfile.user.isTutor">
-         <v-btn class="profileUserSticky_btn profileUserSticky_btn_find white--text" depressed rounded color="#4452fc" @click="isMyProfile? globalFunctions.openBecomeTutor() : globalFunctions.goTutorList()">
+         <v-btn class="profileUserSticky_btn profileUserSticky_btn_find white--text" depressed rounded color="#4452fc" @click="isMyProfile? openBecomeTutor() : goTutorList()">
             <div class="profileUserSticky_btn_txt" v-language:inner="isMyProfile? 'profile_become_tutor_btn':'profile_find_tutors'"/>
          </v-btn>
      </template>
@@ -45,6 +45,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import * as routeNames from '../../../../routes/routeNames.js';
+import * as dialogNames from '../../../pages/global/dialogInjection/dialogNames.js';
 import chatIcon from './images/chatIcon_mobile.svg';
 import calendarIcon from './images/calendarIcon_mobile.svg';
 
@@ -82,6 +84,14 @@ export default {
       isTutor(){
          return !!this.getProfile && this.getProfile.user.isTutor
       },
+   },
+   methods: {
+      goTutorList(){
+         this.$router.push({name: routeNames.TutorList})
+      },
+      openBecomeTutor(){
+         this.$openDialog(dialogNames.BecomeTutor)
+      }
    },
 
 }

@@ -93,13 +93,13 @@
             </template> -->
             <template v-slot:item="props">
                <tr class="mySales_table_tr">
-                  <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
-                  <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
+                  <tablePreviewTd :item="props.item"/>
+                  <tableInfoTd :item="props.item"/>
 
-                  <td class="text-left" v-html="dictionary.types[props.item.type]"/>
-                  <td class="text-left" v-html="formatItemStatus(props.item.paymentStatus)"/>
+                  <td class="text-left" v-text="dictionary.types[props.item.type]"/>
+                  <td class="text-left" v-text="formatItemStatus(props.item.paymentStatus)"/>
                   <td class="text-left">{{ props.item.date | dateFromISO }}</td>
-                  <td class="text-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"></td>
+                  <td class="text-left" v-text="formatPrice(props.item.price,props.item.type)"></td>
                </tr>
             </template>
 
@@ -122,9 +122,6 @@ export default {
    name:'mySales',
    components:{tablePreviewTd,tableInfoTd,buyPointsLayout,redeemPointsLayout},
    props:{
-      globalFunctions: {
-         type: Object,
-      },
       dictionary:{
          type: Object,
          required: true
@@ -167,6 +164,19 @@ export default {
    },
    methods: {
       ...mapActions(['updateSalesItems','dashboard_sort']),
+      formatPrice(price,type){
+         if(isNaN(price)) return;
+         if(price < 0){
+            price = Math.abs(price)
+         }
+         price = Math.round(+price).toLocaleString();
+         if(type === 'Document' || type === 'Video' ){
+            return `${price} ${this.$t('dashboardPage_pts')}`
+         }
+         if(type === 'TutoringSession' || type === 'BuyPoints'){
+            return `${price} ${this.accountUser.currencySymbol}`
+         }
+      },
       formatBalancePts(pts){
          pts = Math.round(+pts).toLocaleString(`${global.lang}-${global.country}`);
          return `${pts} ${LanguageService.getValueByKey('dashboardPage_pts')}`
