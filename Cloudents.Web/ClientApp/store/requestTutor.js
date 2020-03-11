@@ -117,13 +117,13 @@ const actions = {
                 }).catch((err)=>{
                    
                     //Same converntaion as the server
-                    let serverResponse = err.response.data || { error : [LanguageService.getValueByKey("tutorRequest_request_error")]};
-                    let errorMsg = serverResponse[Object.keys(serverResponse)[0]][0];
-                    dispatch('updateToasterParams',{
-                        toasterText: errorMsg,
-                        showToaster: true,
-                        toasterType: 'error-toaster'
-                    });
+                    // let serverResponse = err.response.data || { error : [LanguageService.getValueByKey("tutorRequest_request_error")]};
+                    // let errorMsg = serverResponse[Object.keys(serverResponse)[0]][0];
+                    // dispatch('updateToasterParams',{
+                    //     toasterText: errorMsg,
+                    //     showToaster: true,
+                    //     toasterType: 'error-toaster'
+                    // });
                    throw err;
                 });
     },
