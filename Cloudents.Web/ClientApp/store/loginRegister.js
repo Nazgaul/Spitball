@@ -357,6 +357,7 @@ const actions = {
             return registrationService.updateGrade({ grade }).then(() => {
                 dispatch('updateLoginStatus',true)
                 commit('setStudentGrade', grade);
+                _analytics(['highschool-registration', 'complete']);
                 router.push('/');
             })
         }
