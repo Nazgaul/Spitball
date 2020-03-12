@@ -19,7 +19,7 @@
                             <div class="pb-3">{{$t('teacherApproval_date')}}</div>
                         </td>
                         <td>
-                            <div class="mb-3">{{formatDate}}</div>
+                            <div class="mb-3 pl-2">{{formatDate}}</div>
                         </td>
                     </tr>
 
@@ -28,7 +28,7 @@
                             <div class="pb-9">{{$t('teacherApproval_student')}}</div>
                         </td>
                         <td>
-                            <div class="mb-9 userName">{{session.name}}</div>
+                            <div class="mb-9  pl-2 userName">{{session.name}}</div>
                         </td>
                     </tr>
 
@@ -38,7 +38,7 @@
                         </td>
                         <td>
                             <div class="d-flex align-center">
-                                <input type="number" class="durationInput text-center" v-model="sessionDuration" />
+                                <input type="number" class="durationInput" v-model="sessionDuration" />
                                 <span class="ml-2">{{$t('teacherApproval_minutes')}}</span>
                             </div>
                         </td>
@@ -49,7 +49,7 @@
                             <div class="py-4">{{$t('teacherApproval_lesson_per_hour')}}</div>
                         </td>
                         <td>
-                            <div class="py-4">{{$n(session.tutorPricePerHour, 'currency')}}</div>
+                            <div class="py-4 pl-2">{{$n(session.tutorPricePerHour, 'currencyNoFraction')}}</div>
                         </td>
                     </tr>
 
@@ -58,13 +58,13 @@
                             <div>{{$t('teacherApproval_coupon_discount')}}</div>
                         </td>
                         <td class="pb-4">
-                            <div>- {{$n(session.couponValue, 'currency')}} ({{session.couponCode}})</div>
+                            <div class="pl-2">- {{$n(session.couponValue, 'currency')}} ({{session.couponCode}})</div>
                         </td>
                     </tr>
 
                     <tr class="bordeTop font-weight-bold">
                         <td class="pt-4"><div class="totalText">{{$t('teacherApproval_total_session')}}</div></td>
-                        <td class="pt-4"><div class="totalNumber">{{$n(totalPrice, 'currency')}}</div></td>
+                        <td class="pt-4 pl-2"><div class="totalNumber">{{$n(totalPrice, 'currency')}}</div></td>
                     </tr>
                 </table>
             </div>
@@ -217,9 +217,10 @@ export default {
         }
         .durationInput {
             background: rgba(184, 192, 209, .2);
-            width: 60px;
+            width: 55px;
             padding: 6px 8px;
             outline: none;
+            text-align: left;
             &::-webkit-inner-spin-button, 
             &::-webkit-outer-spin-button { 
                 -webkit-appearance: none;
