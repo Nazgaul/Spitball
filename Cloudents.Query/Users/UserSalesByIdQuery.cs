@@ -39,13 +39,13 @@ namespace Cloudents.Query.Users
                     .Fetch(f => f.Document)
                     .Where(w => w.User.Id == query.Id)
                     .Where(w => w.Type == TransactionType.Earned)
-                    .Where(w=>w.Document.Status.State == ItemState.Ok)
+                    .Where(w => w.Document.Status.State == ItemState.Ok)
                     .Select(s => new DocumentSaleDto()
                     {
                         Id = s.Document.Id,
                         Name = s.Document.Name,
                         Course = s.Document.Course.Id,
-                        Type = s.Document.DocumentType != null ? 
+                        Type = s.Document.DocumentType != null ?
                             (ContentType)s.Document.DocumentType :
                             ContentType.Document,
                         Date = s.Created,
@@ -56,7 +56,7 @@ namespace Cloudents.Query.Users
                 var questionFuture = _session.Query<QuestionTransaction>()
                     .Fetch(f => f.Answer)
                     .Fetch(f => f.Question)
-                    .Where(w=> w.Question != null)
+                    .Where(w => w.Question != null)
                     .Where(w => w.User.Id == query.Id)
                     .Where(w => w.Type == TransactionType.Earned)
                     .Select(s => new QuestionSaleDto()
@@ -74,7 +74,7 @@ namespace Cloudents.Query.Users
                     .Fetch(f => f.StudyRoom)
                     .ThenFetch(f => f.Users)
                     .Where(w => w.StudyRoom.Tutor.Id == query.Id && w.Ended != null)
-                    .Where(w => w.Duration.Value > TimeSpan.FromMinutes(10))
+                    .Where(w => w.Duration!.Value > TimeSpan.FromMinutes(10))
                     .Select(s => new SessionSaleDto()
                     {
                         SessionId = s.Id,
@@ -83,8 +83,8 @@ namespace Cloudents.Query.Users
                         Date = s.Created,
                         Price = s.Price ?? 0,
                         StudentName = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Name).FirstOrDefault(),
-                        Duration = s.Duration.HasValue ? s.Duration.Value : TimeSpan.Zero,
-                        Duration = s.AdminDuration != null? TimeSpan.FromMinutes(Convert.ToDouble(s.AdminDuration)) : s.Duration,
+                        //Duration = s.Duration.HasValue ? s.Duration.Value : TimeSpan.Zero,
+                        Duration = s.RealDuration.GetValueOrDefault(s.Duration!.Value),
                         StudentImage = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.ImageName).FirstOrDefault(),
                         StudentId = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Id).FirstOrDefault()
                     }).ToFuture<SaleDto>();
@@ -95,7 +95,7 @@ namespace Cloudents.Query.Users
                 var sessionResult = await sessionFuture.GetEnumerableAsync(token);
 
 
-                return documentResult.Union(questionResult).Union(sessionResult).OrderByDescending(o => o.Date);               
+                return documentResult.Union(questionResult).Union(sessionResult).OrderByDescending(o => o.Date);
             }
         }
     }
