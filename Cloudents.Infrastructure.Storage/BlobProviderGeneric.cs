@@ -241,7 +241,7 @@ namespace Cloudents.Infrastructure.Storage
 
         }
 
-        public async Task UndeleteDirectoryAsync(string id, CancellationToken token)
+        public async Task UnDeleteDirectoryAsync(string id, CancellationToken token)
         {
             var directory = _blobDirectory.GetDirectoryReference(id);
             var blobs = await directory.ListBlobsSegmentedAsync(useFlatBlobListing: true, blobListingDetails: BlobListingDetails.Deleted, null, new BlobContinuationToken(), new BlobRequestOptions(),
