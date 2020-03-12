@@ -34,6 +34,7 @@ const mutations = {
     setAccountPicture(state, imageUrl) {
         state.user = { ...state.user, image: imageUrl };
     },
+    // setPendingPayment(state, )
 };
 
 const getters = {
@@ -96,11 +97,6 @@ const actions = {
         analyticsService.sb_setUserId(userAccount.id);
         insightService.authenticate.set(userAccount.id);
         dispatch('updateLoginStatus',true);
-
-        // if user is tutor and have pending session payments or need to register with payme or paypal
-        if(!userAccount.pendingSessionsPayments > 0) {
-            commit('setToaster', 'linkToaster')
-        }
     },
     userStatus({state,dispatch,getters}) {
         if(state.user !== null && state.user.hasOwnProperty('id')){
