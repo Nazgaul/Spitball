@@ -98,7 +98,7 @@ const actions = {
         dispatch('updateLoginStatus',true);
 
         // if user is tutor and have pending session payments or need to register with payme or paypal
-        if(userAccount.pendingSessionsPayments > 0) {
+        if(!userAccount.pendingSessionsPayments > 0) {
             commit('setToaster', 'linkToaster')
         }
     },
