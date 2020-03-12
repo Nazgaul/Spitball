@@ -26,7 +26,7 @@ namespace Cloudents.Web.Controllers
 
         // GET: /<controller>/
         [Route("go/{identifier}")]
-        public async Task<RedirectResult> Index(string identifier, [FromQuery]string site,
+        public async ValueTask<RedirectResult> Index(string identifier, [FromQuery]string site,
             [FromQuery]string eventCategory,
             [FromQuery]string eventAction,
             [FromQuery]string eventLabel,
@@ -41,7 +41,7 @@ namespace Cloudents.Web.Controllers
             }
             if (eventCategory != null && eventAction != null && eventLabel != null)
             {
-                await _googleAnalytics.TrackEventAsync(eventCategory, eventAction, eventLabel);
+                await _googleAnalytics.TrackEventAsync(eventCategory, eventAction, eventLabel, token);
             }
             if (!Uri.TryCreate(result.Destination, UriKind.RelativeOrAbsolute, out var uri))
             {

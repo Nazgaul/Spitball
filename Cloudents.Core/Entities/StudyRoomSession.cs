@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
@@ -13,11 +14,21 @@ namespace Cloudents.Core.Entities
             StudyRoom = studyRoom;
             Created = DateTime.UtcNow;
             SessionId = sessionId;
+
+            UseUserToken();
+
             AddEvent(new StudyRoomSessionCreatedEvent(this));
         }
         protected StudyRoomSession()
         {
 
+        }
+
+        protected virtual void UseUserToken()
+        {
+            var user = StudyRoom.Users.First(f => f.User.Id != StudyRoom.Tutor.Id).User;
+            user.UseToken(StudyRoom.Tutor);
+          
         }
 
         public virtual StudyRoom StudyRoom { get; protected set; }
@@ -30,7 +41,7 @@ namespace Cloudents.Core.Entities
 
         public virtual int RejoinCount { get; protected set; }
         public virtual string SessionId { get; protected set; }
-        public virtual string Receipt { get; protected set; }
+        public virtual string? Receipt { get; protected set; }
         public virtual decimal? Price { get; protected set; }
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
@@ -43,12 +54,10 @@ namespace Cloudents.Core.Entities
         public virtual bool VideoExists { get; protected set; }
 
 
-        //public virtual IPayment Payment { get; set; }
+        //public virtual IPaymentProvider Payment { get; protected set; }
         public virtual DateTime? PaymentApproved { get; protected set; }
-        public virtual long? AdminDuration { get; protected set; }
-        public virtual decimal? StudentPay { get; protected set; }
-        public virtual decimal? SpitballPay { get; protected set; }
-
+        public virtual TimeSpan? AdminDuration { get; protected set; }
+        public virtual TimeSpan? RealDuration { get; protected set; }
 
 
         public virtual void UpdateVideo()
@@ -100,7 +109,7 @@ namespace Cloudents.Core.Entities
             Receipt = receipt;
         }
 
-        public virtual void SetReceiptAndAdminDate(string receipt, long adminDuration, decimal studentPay, decimal spitballPay)
+        public virtual void SetReceiptAndAdminDate(string receipt, int adminDuration)
         {
             if (string.IsNullOrEmpty(receipt))
             {
@@ -108,30 +117,19 @@ namespace Cloudents.Core.Entities
             }
             Receipt = receipt;
             PaymentApproved = DateTime.UtcNow;
-            AdminDuration = adminDuration;
-            StudentPay = studentPay;
-            SpitballPay = spitballPay;
+            AdminDuration = new TimeSpan(0, adminDuration, 0);
+            //AdminDuration = adminDuration;
+            //StudentPay = studentPay;
         }
+
+        public virtual void SetRealDuration(TimeSpan realDuration)
+        {
+            RealDuration = realDuration;
+        }
+
+        //public virtual void SetPyment(IPaymentProvider payment)
+        //{
+        //    Payment = payment;
+        //}
     }
-
-    //public interface IPayment
-    //{
-    //    DateTime? PaymentApproved { get; }
-    //}
-
-    //public class Payme : Entity<Guid>, IPayment
-    //{
-    //    public virtual DateTime? PaymentApproved { get; protected set; }
-    //    public virtual long? AdminDuration { get; protected set; }
-    //    public virtual decimal? StudentPay { get; protected set; }
-    //    public virtual decimal? SpitballPay { get; protected set; }
-    //}
-
-    //public class PayPal : Entity<Guid>, IPayment
-    //{
-    //    public string Token { get; set; }
-    //    public virtual DateTime? PaymentApproved { get; protected set; }
-
-
-    //}
 }

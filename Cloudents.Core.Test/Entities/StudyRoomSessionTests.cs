@@ -10,27 +10,34 @@ namespace Cloudents.Core.Test.Entities
     [SuppressMessage("ReSharper", "PossibleNullReferenceException", Justification = "unit test")]
     public class StudyRoomSessionTests
     {
+        private readonly Mock<Tutor> _tutorMoq;
+        private readonly Mock<StudyRoom> _studyRoom;
+        public StudyRoomSessionTests()
+        {
+            
+            _tutorMoq = new Mock<Tutor>();
+            
+            _studyRoom = new Mock<StudyRoom>();
+
+            _tutorMoq.Setup(s => s.User.Id).Returns(2);
+            _studyRoom.Setup(s => s.Tutor).Returns(_tutorMoq.Object);
+            var mockUser = new Mock<StudyRoomUser>();
+            mockUser.Setup(s => s.User.Id).Returns(1);
+            _studyRoom.Setup(s => s.Users).Returns(new[] { mockUser.Object, mockUser.Object });
+        }
         [Fact]
         public void EndSession_WithSubsidizedPrice_Ok()
         {
-            
-            var studyRoom = new Mock<StudyRoom>();
-            var user = new User("hadar@cloudents.com", "firstName", "lastName", Language.Hebrew,"IN");
-            var tutor = new Tutor("this is bio", user, 100);
-
-            var prop = tutor.Price.GetType().GetProperty("SubsidizedPrice");
-            prop.SetValue(tutor.Price, 10M);
-
-            studyRoom.SetupAllProperties();
-            prop = studyRoom.Object.GetType().GetProperty("Tutor");
-            prop.SetValue(studyRoom.Object, tutor);
            
-            var studyRoomSession = new StudyRoomSession(studyRoom.Object, "testId");
-            prop = studyRoomSession.GetType().GetProperty("Created");
+
+
+            _tutorMoq.Setup(s => s.Price).Returns(new TutorPrice(10,5));
+            var studyRoomSession = new StudyRoomSession(_studyRoom.Object, "testId");
+            var prop = studyRoomSession.GetType().GetProperty("Created");
             prop.SetValue(studyRoomSession, DateTime.UtcNow.AddHours(-1));
             studyRoomSession.EndSession();
             studyRoomSession.Price.Should().NotBeNull();
-            studyRoomSession.Price.Should().Be(10M);
+            studyRoomSession.Price.Should().Be(5M);
 
 
         }
@@ -39,20 +46,13 @@ namespace Cloudents.Core.Test.Entities
         public void EndSession_WithoutSubsidizedPrice_Ok()
         {
 
-            var studyRoom = new Mock<StudyRoom>();
-            var user = new User("hadar@cloudents.com", "firstName", "lastName", Language.Hebrew,"IL");
-            var tutor = new Tutor("this is bio", user, 10);
-
-            studyRoom.SetupAllProperties();
-            var prop = studyRoom.Object.GetType().GetProperty("Tutor");
-            prop.SetValue(studyRoom.Object, tutor);
-
-            var studyRoomSession = new StudyRoomSession(studyRoom.Object, "testId");
-            prop = studyRoomSession.GetType().GetProperty("Created");
+            _tutorMoq.Setup(s => s.Price).Returns(new TutorPrice(10, 5));
+            var studyRoomSession = new StudyRoomSession(_studyRoom.Object, "testId");
+            var prop = studyRoomSession.GetType().GetProperty("Created");
             prop.SetValue(studyRoomSession, DateTime.UtcNow.AddHours(-1));
             studyRoomSession.EndSession();
             studyRoomSession.Price.Should().NotBeNull();
-            studyRoomSession.Price.Should().Be(10M);
+            studyRoomSession.Price.Should().Be(5M);
 
         }
     }

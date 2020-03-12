@@ -1,5 +1,4 @@
 <template>
-   <v-dialog :value="true" persistent :maxWidth="'840'" :fullscreen="$vuetify.breakpoint.xsOnly">
     <v-layout column class="payme-popup">
         <v-icon class="exit-btn cursor-pointer" @click="closeDialog">sbf-close</v-icon>
         <div class="payme-popup-top pt-4" v-if="!getIsBuyPoints">
@@ -18,7 +17,7 @@
                     <span :class="['payme-content-txt',{'pt-2':!isMobile}]" v-language:inner="'payme_content_txt_hands'"/>
                 </v-flex>
             </v-layout>
-            <div class="payme-top-desc pb-4" v-language:inner="'payme_top_desc'"/>
+            <!-- <div class="payme-top-desc pb-4" v-language:inner="'payme_top_desc'"/> -->
         </div>
         <iframe :class="['payment-iframe',{'mt-4':getIsBuyPoints}]" width="100%" height="475" :src="paymentUrl"></iframe>
         <div class="payme-popup-bottom">
@@ -26,14 +25,14 @@
             <img src="./images/card.png" alt="">
         </div>
     </v-layout>
-    </v-dialog>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import * as routeNames from '../../../../../../routes/routeNames.js';
+
+import * as routeNames from '../../../../../../../routes/routeNames';
 export default {
-    name: 'paymentDIalog',
+   name:'paymentIL',
     computed: {
         ...mapGetters(['getPaymentURL','getIsBuyPoints']),
         paymentUrl(){
@@ -45,7 +44,7 @@ export default {
     },
     methods: {
         closeDialog(){
-            let isStudyRoom = this.$store.getters.getStudyRoomData?.roomId && this.$route.name === routeNames.StudyRoom.name;
+            let isStudyRoom = this.$store.getters.getStudyRoomData?.roomId && this.$route.name === routeNames.StudyRoom;
             if(isStudyRoom){
                 let isExit = confirm(this.$t("payme_are_you_sure_exit"))
                 if(isExit){
@@ -54,7 +53,6 @@ export default {
             }else{
                 this.$closeDialog()
             }
-            
         }
     },
     beforeCreate() {
@@ -69,7 +67,8 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../../../../../styles/mixin.less';
+
+@import '../../../../../../../styles/mixin.less';
 .payme-popup{
     position: relative;
     border-radius: 4px;
@@ -100,16 +99,16 @@ export default {
                 font-size: 18px;
             }
         }
-        .payme-top-desc{
-            font-size: 14px;
-            font-weight: 600;
-            line-height: 1.5;
-            letter-spacing: -0.17px;
-            color:@global-purple; 
-            @media (max-width: @screen-xs) {
-                padding: 0 24px;
-            }
-        }
+        // .payme-top-desc{
+        //     font-size: 14px;
+        //     font-weight: 600;
+        //     line-height: 1.5;
+        //     letter-spacing: -0.17px;
+        //     color:@global-purple; 
+        //     @media (max-width: @screen-xs) {
+        //         padding: 0 24px;
+        //     }
+        // }
         .payme-content{
             @media (max-width: @screen-xs) {
                 padding-left: 12px;

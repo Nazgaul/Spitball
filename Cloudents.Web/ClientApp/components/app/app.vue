@@ -19,6 +19,8 @@
         </div>
 
         <dialogInjection class="dialogInjection" />
+        <toasterInjection class="toasterInjection" />
+
         <sb-dialog
           :isPersistent="true"
           :showDialog="newQuestionDialogSate"
@@ -55,6 +57,7 @@
         </sb-dialog>
       <mobile-footer v-if="showMobileFooter" />
     </v-content>
+    
     <v-snackbar
       absolute
       top
@@ -74,6 +77,8 @@ import { mapGetters, mapActions } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
 
 const dialogInjection = () => import('../pages/global/dialogInjection/dialogInjection.vue');
+const toasterInjection = () => import('../pages/global/toasterInjection/toasterInjection.vue');
+
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
 const AddQuestion = () => import("../question/askQuestion/askQuestion.vue");
 const walletService = () => import("../../services/walletService");
@@ -90,7 +95,8 @@ export default {
     chat,
     mobileFooter,
     tutorRequest,
-    dialogInjection
+    dialogInjection,
+    toasterInjection
   },
   data() {
     return {

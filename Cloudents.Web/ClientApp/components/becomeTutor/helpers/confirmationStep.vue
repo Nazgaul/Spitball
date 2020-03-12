@@ -31,6 +31,7 @@
 <script>
 import { mapActions } from 'vuex';
 import * as routeNames from '../../../routes/routeNames.js';
+import analyticsService from '../../../services/analytics.service.js';
 
 export default {
     name: "confirmationStep",
@@ -62,7 +63,8 @@ export default {
                     });
 
                     if(self.$route.name === routeNames.RegisterType){
-                        self.$router.push({name: routeNames.Feed,query:{filter:'Question'}})
+                        analyticsService.sb_unitedEvent('teacher-registration', 'complete');
+                        self.$router.push({name: routeNames.AddCourse,query:{filter:'Question'}})
                         self.updateAccountUserToTutor(true);
                     }else{
                         self.$root.$emit('becomeTutorStep', 5);

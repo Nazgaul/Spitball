@@ -17,6 +17,7 @@
                     flat hide-no-data
                     :append-icon="''"
                     v-model="tutorCourse"
+                    :rules="[rules.required]"
                     :items="suggestsCourses"/>
                     <v-combobox 
                     v-else
@@ -25,6 +26,7 @@
                     :append-icon="''"
                     @keyup="onCourseChange"
                     v-model="tutorCourse"
+                    :rules="[rules.required]"
                     :items="getSelectedClasses"/>
             </fieldset>
             <v-checkbox v-if="isTutor" :ripple="false" class="checkbox-userinfo"
@@ -59,7 +61,7 @@ export default {
             isReady:false,
             isFromMounted: false,
             isFromQuery:false,
-            moreTutors:true,
+            moreTutors:false,
             isLoading:false,
             validRequestTutorForm: false,
             checkbox:false,

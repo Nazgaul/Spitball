@@ -126,6 +126,9 @@
   <data name="answer" xml:space="preserve">
     <value>Answer:</value>
   </data>
+  <data name="btn_approve" xml:space="preserve">
+    <value>Approve</value>
+  </data>
   <data name="course" xml:space="preserve">
     <value>Course:</value>
   </data>
@@ -153,6 +156,9 @@
   <data name="info" xml:space="preserve">
     <value>Product
 </value>
+  </data>
+  <data name="info_buy_points" xml:space="preserve">
+    <value>Points purchase</value>
   </data>
   <data name="joined" xml:space="preserve">
     <value>Joined</value>
@@ -193,8 +199,15 @@
   <data name="paid" xml:space="preserve">
     <value>Paid</value>
   </data>
+  <data name="payment_pluralize" xml:space="preserve">
+    <value>payment | payments</value>
+  </data>
   <data name="pending" xml:space="preserve">
     <value>Pending</value>
+  </data>
+  <data name="pending_payment" xml:space="preserve">
+    <value>You have {0} {1} that need
+ your {2} to be processed</value>
   </data>
   <data name="price" xml:space="preserve">
     <value>Price</value>
@@ -237,6 +250,9 @@
   </data>
   <data name="type" xml:space="preserve">
     <value>Type</value>
+  </data>
+  <data name="type_buy_points" xml:space="preserve">
+    <value>Points</value>
   </data>
   <data name="video" xml:space="preserve">
     <value>Video</value>

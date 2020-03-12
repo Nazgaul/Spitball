@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Cloudents.Query.Stuff;
 using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.Enum;
+using System;
 
 namespace Cloudents.Query.Users
 {
@@ -69,6 +70,22 @@ namespace Cloudents.Query.Users
                 coursesSqlQuery.SetInt64("Id", query.Id);
                 var coursesFuture = coursesSqlQuery.SetResultTransformer(Transformers.AliasToBean<CourseDto>()).Future<CourseDto>();
 
+                const string pendingSessionsPaymentsSql = @"select count(1)
+                                                        from sb.StudyRoom sr
+                                                        join sb.StudyRoomSession srs
+	                                                        on sr.Id = srs.StudyRoomId
+                                                        where sr.TutorId = :Id
+                                                        and RealDuration is null
+                                                        and Receipt is null
+                                                        and DurationInMinutes > 10
+                                                        and price > 0";
+
+                var pendingSessionsPaymentsSqlQuery = _session.CreateSQLQuery(pendingSessionsPaymentsSql);
+                pendingSessionsPaymentsSqlQuery.SetInt64("Id", query.Id);
+
+                var pendingSessionsPaymentsFuture = pendingSessionsPaymentsSqlQuery.FutureValue<int>();
+
+
                 var universityFuture = _session.Query<User>()
                     .Fetch(f => f.University)
                     .Where(w => w.Id == query.Id && w.University != null)
@@ -100,6 +117,12 @@ namespace Cloudents.Query.Users
                     .Where(w => w.User.Id == query.Id)
                     .Where(w => w.Document.Status.State == ItemState.Ok)
                     .Where(w => w.Type == TransactionType.Spent)
+                    .Select(s => s.Id)
+                    .Take(1)
+                    .ToFuture();
+
+                var buyPointsFuture = _session.Query<BuyPointsTransaction>()
+                    .Where(w => w.User.Id == query.Id)
                     .Select(s => s.Id)
                     .Take(1)
                     .ToFuture();
@@ -154,6 +177,8 @@ namespace Cloudents.Query.Users
                     .Take(1)
                     .ToFuture();
 
+                
+
 
 
                 var result = await userFuture.GetValueAsync(token);
@@ -170,7 +195,8 @@ namespace Cloudents.Query.Users
                 result.HaveDocsWithPrice = (await haveDocsWithPriceFuture.GetEnumerableAsync(token)).Any();
 
                 result.IsPurchased = (await purchasedDocsFuture.GetEnumerableAsync(token)).Any()
-                                     || (await purchasedSessionsFuture.GetEnumerableAsync(token)).Any();
+                                     || (await purchasedSessionsFuture.GetEnumerableAsync(token)).Any()
+                                     || (await buyPointsFuture.GetEnumerableAsync(token)).Any();
 
                 result.HaveStudyRoom = (await haveStudyRoomFuture.GetEnumerableAsync(token)).Any();
 
@@ -179,6 +205,7 @@ namespace Cloudents.Query.Users
                                 || (await isSoldSessionFuture.GetEnumerableAsync(token)).Any();
 
                 result.HaveFollowers = (await haveFollowersFuture.GetEnumerableAsync(token)).Any();
+                result.PendingSessionsPayments = await pendingSessionsPaymentsFuture.GetValueAsync(token);
                 return result;
             }
         }

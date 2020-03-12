@@ -22,7 +22,7 @@ namespace Cloudents.Command.StudyRooms
             var room = await _studyRoomRepository.LoadAsync(message.StudyRoomId, token);
             if (room.Tutor.Id != message.UserId) //only tutor can open a session
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Only tutor can open study room");
             }
 
             var lastSession = room.GetCurrentSession();
