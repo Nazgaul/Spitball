@@ -18,7 +18,6 @@
           }"
           extensions="gif,jpg,jpeg,png,webp,mp4"
           accept="image/png,image/gif,image/jpeg,image/webp,video/mp4"
-          :size="1024 * 1024 * 10"
           v-model="files"
           @input-file="inputFile"
           ref="upload">
