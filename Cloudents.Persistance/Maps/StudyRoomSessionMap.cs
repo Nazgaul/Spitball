@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
-using System;
 
 namespace Cloudents.Persistence.Maps
 {

@@ -1,6 +1,4 @@
-﻿using System.Net;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using System.Threading.Tasks;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests.Api
