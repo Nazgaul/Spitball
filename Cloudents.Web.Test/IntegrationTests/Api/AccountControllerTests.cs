@@ -101,7 +101,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         {
             await _client.LogInAsync();
 
-            var response = await _client.GetAsync("api/account/sales");
+            var response = await _client.GetAsync("api/Sales/sales");
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
 
