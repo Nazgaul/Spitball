@@ -199,6 +199,9 @@
   <data name="pending" xml:space="preserve">
     <value>ממתין לתשלום</value>
   </data>
+  <data name="pending_approve" xml:space="preserve">
+    <value>ממתין לאישור</value>
+  </data>
   <data name="price" xml:space="preserve">
     <value>מחיר</value>
   </data>
