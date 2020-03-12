@@ -9,6 +9,7 @@
     >
         <i18n path="dashboardPage_pending_payment" tag="div">
             <span>{{pendingPayment}}</span>
+            <span>{{ $tc('dashboardPage_payment_pluralize', showPaymentText) }}</span>
             <router-link :to="{name: routeNames.MySales}">{{ $t('dashboardPage_btn_approve') }}</router-link>
         </i18n>
     </v-snackbar>
@@ -23,6 +24,9 @@ export default {
     computed: {
         pendingPayment() {
             return this.$store.getters.getPendingPayment
+        },
+        showPaymentText() {
+            return this.pendingPayment > 1 ? 2 : 1;
         }
     },
     data() {
