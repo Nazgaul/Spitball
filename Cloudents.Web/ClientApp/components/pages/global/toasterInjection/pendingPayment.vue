@@ -2,8 +2,7 @@
     <v-snackbar
         absolute
         top
-        color="#02C8BF"
-        :timeout="3000"
+        :timeout="0"
         :value="showToaster"
         @input="onCloseToaster"
     >

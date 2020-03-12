@@ -99,7 +99,8 @@ export default {
             session: {},
             totalPrice: 0,
             newSessionDuration: null,
-            modifyDurationError: false
+            modifyDurationError: false,
+            MAX_MINUTES: "10"
         }
     },
     computed: {
@@ -128,7 +129,7 @@ export default {
             this.updateTotalPrice(duration)
         },
         approveSession() {
-            if(this.newSessionDuration > this.session.totalMinutes) {
+            if(this.newSessionDuration > this.session.totalMinutes || this.newSessionDuration < this.MAX_MINUTES) {
                 this.modifyDurationError = true;
                 return
             }
@@ -137,13 +138,13 @@ export default {
                 sessionId: this.session.sessionId,
                 realDuration: this.newSessionDuration
             }
-
+            let self = this
             this.$store.dispatch('updateSessionDuration', newSessionDuration).then(res => {
                 console.log(res);
             }).catch(ex => {
-                console.log(ex);
+                self.$appInsights.trackException({exception: new Error(ex)});
             }).finally(() => {
-                this.$closeDialog()
+                self.$closeDialog()
             })
         },
         updateTotalPrice(duration) {
