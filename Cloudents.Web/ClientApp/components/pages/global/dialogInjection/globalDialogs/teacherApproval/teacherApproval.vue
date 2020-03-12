@@ -9,7 +9,7 @@
                 </div>
 
                 <div class="v-alert error tableEmptyState text-left mb-5 pa-2 align-start align-sm-center" v-if="modifyDurationError">
-                    <whiteWarn class="mr-2 mr-sm-4 pt-1 pt-sm-0" width="60"/>
+                    <whiteWarn class="image mr-2 mr-sm-4 pt-1 pt-sm-0" width="50" />
                     <span class="white--text">{{$t('teacherApproval_error')}}</span>
                 </div>
 
@@ -203,7 +203,7 @@ export default {
         }  
         .image {
             @media (max-width: @screen-xs) {
-                width: 20px;
+                width: 60px;
             }                
         }
     }
