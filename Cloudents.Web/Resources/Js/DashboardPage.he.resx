@@ -196,6 +196,9 @@
   <data name="paid" xml:space="preserve">
     <value>שולם</value>
   </data>
+  <data name="payment_pluralize" xml:space="preserve">
+    <value>תשלום | תשלומים</value>
+  </data>
   <data name="pending" xml:space="preserve">
     <value>ממתין לתשלום</value>
   </data>
