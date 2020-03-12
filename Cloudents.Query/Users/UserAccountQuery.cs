@@ -77,11 +77,12 @@ namespace Cloudents.Query.Users
                                                         where sr.TutorId = :Id
                                                         and RealDuration is null
                                                         and Receipt is null
-                                                        and DurationInMinutes > 10
+                                                        and Duration > :Ticks
                                                         and price > 0";
 
                 var pendingSessionsPaymentsSqlQuery = _session.CreateSQLQuery(pendingSessionsPaymentsSql);
                 pendingSessionsPaymentsSqlQuery.SetInt64("Id", query.Id);
+                pendingSessionsPaymentsSqlQuery.SetInt64("Ticks", TimeSpan.FromMinutes(10).Ticks);
 
                 var pendingSessionsPaymentsFuture = pendingSessionsPaymentsSqlQuery.FutureValue<int>();
 
