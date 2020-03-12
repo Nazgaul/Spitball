@@ -139,7 +139,7 @@
     <value>minutes</value>
   </data>
   <data name="session_duration" xml:space="preserve">
-    <value>Session duration (min):</value>
+    <value>Session duration:</value>
   </data>
   <data name="student" xml:space="preserve">
     <value>Student:</value>

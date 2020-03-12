@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using Cloudents.Query.Stuff;
 using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.Enum;
-using System;
 
 namespace Cloudents.Query.Users
 {

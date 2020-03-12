@@ -196,11 +196,17 @@
   <data name="paid" xml:space="preserve">
     <value>שולם</value>
   </data>
+  <data name="payment_pluralize" xml:space="preserve">
+    <value>תשלום | תשלומים</value>
+  </data>
   <data name="pending" xml:space="preserve">
     <value>ממתין לתשלום</value>
   </data>
   <data name="pending_approve" xml:space="preserve">
     <value>ממתין לאישור</value>
+  </data>
+  <data name="pending_payment" xml:space="preserve">
+    <value>יש לך {0} {1} אשר זקוקים ל{2}</value>
   </data>
   <data name="price" xml:space="preserve">
     <value>מחיר</value>

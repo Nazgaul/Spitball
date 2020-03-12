@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
