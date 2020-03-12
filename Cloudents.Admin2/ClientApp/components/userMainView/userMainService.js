@@ -186,7 +186,7 @@ function SessionsItem(objInit) {
     this.created = new Date(objInit.created);
     this.tutor = objInit.tutor;
     this.student = objInit.student;
-    this.duration = objInit.duration;
+    this.duration = Math.round(objInit.duration);
 }
 
 function createSessionsItem(objInit){

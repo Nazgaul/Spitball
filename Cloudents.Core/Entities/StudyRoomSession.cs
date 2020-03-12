@@ -64,13 +64,13 @@ namespace Cloudents.Core.Entities
                       ((decimal)Math.Floor(Duration.Value.TotalMinutes) / 60) * StudyRoom.Tutor.Price.Price;
         }
 
-        public virtual void EditDuration(int duration)
+        public virtual void EditDuration(int minutes)
         {
             if (Ended == null)
             {
                 throw new ArgumentException();
             }
-            Ended = Created.AddMinutes(duration);
+            Ended = Created.AddMinutes(minutes);
             CalculatePriceAndDuration();
         }
 

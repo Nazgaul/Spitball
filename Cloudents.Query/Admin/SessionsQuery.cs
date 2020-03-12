@@ -29,7 +29,7 @@ namespace Cloudents.Query.Admin
             public async Task<IEnumerable<SessionDto>> GetAsync(SessionsQuery query, CancellationToken token)
             {
                 string sql = @"select cast (S.created as date) as Created,
-		                                    sum(s.DurationInMinutes) as Duration,
+		                                    sum(s.Duration) as DurationInTicks,
 		                                    T.Name as Tutor,
 		                                    U.Name as Student
                                     from [sb].[StudyRoomSession] S 
