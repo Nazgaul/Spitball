@@ -199,6 +199,10 @@
   <data name="pending" xml:space="preserve">
     <value>Pending</value>
   </data>
+  <data name="pending_payment" xml:space="preserve">
+    <value>You have {0} payments that need
+ your {1} to be processed</value>
+  </data>
   <data name="price" xml:space="preserve">
     <value>Price</value>
   </data>
