@@ -9,7 +9,7 @@
                 </div>
 
                 <div class="v-alert error tableEmptyState text-left mb-5 pa-2 align-start align-sm-center" v-if="modifyDurationError">
-                    <whiteWarn class="mr-2 mr-sm-4 pt-1 pt-sm-0" width="60"/>
+                    <whiteWarn class="image mr-2 mr-sm-4 pt-1 pt-sm-0" width="50" />
                     <span class="white--text">{{$t('teacherApproval_error')}}</span>
                 </div>
 
@@ -19,7 +19,7 @@
                             <div class="pb-3">{{$t('teacherApproval_date')}}</div>
                         </td>
                         <td>
-                            <div class="mb-3">{{formatDate}}</div>
+                            <div class="mb-3 pl-2">{{formatDate}}</div>
                         </td>
                     </tr>
 
@@ -28,7 +28,7 @@
                             <div class="pb-9">{{$t('teacherApproval_student')}}</div>
                         </td>
                         <td>
-                            <div class="mb-9 userName">{{session.name}}</div>
+                            <div class="mb-9  pl-2 userName">{{session.name}}</div>
                         </td>
                     </tr>
 
@@ -38,9 +38,8 @@
                         </td>
                         <td>
                             <div class="d-flex align-center">
-                                <input type="text" class="durationInput text-center" v-model="sessionDuration" />
+                                <input type="number" class="durationInput" v-model="sessionDuration" />
                                 <span class="ml-2">{{$t('teacherApproval_minutes')}}</span>
-
                             </div>
                         </td>
                     </tr>
@@ -50,7 +49,7 @@
                             <div class="py-4">{{$t('teacherApproval_lesson_per_hour')}}</div>
                         </td>
                         <td>
-                            <div class="py-4">{{$n(session.tutorPricePerHour, 'currency')}}</div>
+                            <div class="py-4 pl-2">{{$n(session.tutorPricePerHour, 'currencyNoFraction')}}</div>
                         </td>
                     </tr>
 
@@ -59,13 +58,13 @@
                             <div>{{$t('teacherApproval_coupon_discount')}}</div>
                         </td>
                         <td class="pb-4">
-                            <div>- {{$n(session.couponValue, 'currency')}} ({{session.couponCode}})</div>
+                            <div class="pl-2">- {{$n(session.couponValue, 'currency')}} ({{session.couponCode}})</div>
                         </td>
                     </tr>
 
                     <tr class="bordeTop font-weight-bold">
                         <td class="pt-4"><div class="totalText">{{$t('teacherApproval_total_session')}}</div></td>
-                        <td class="pt-4"><div class="totalNumber">{{$n(totalPrice, 'currency')}}</div></td>
+                        <td class="pt-4 pl-2"><div class="totalNumber">{{$n(totalPrice, 'currency')}}</div></td>
                     </tr>
                 </table>
             </div>
@@ -124,9 +123,9 @@ export default {
     },
     methods: {
         updateNewSessionDuration(duration) {
-            this.modifyDurationError = false;
             this.newSessionDuration = duration;
-            this.updateTotalPrice(duration)
+            this.modifyDurationError = false;
+            this.updateTotalPrice(this.newSessionDuration)
         },
         approveSession() {
             if(this.newSessionDuration > this.session.totalMinutes || this.newSessionDuration < this.MAX_MINUTES) {
@@ -203,7 +202,7 @@ export default {
         }  
         .image {
             @media (max-width: @screen-xs) {
-                width: 20px;
+                width: 60px;
             }                
         }
     }
@@ -218,8 +217,17 @@ export default {
         }
         .durationInput {
             background: rgba(184, 192, 209, .2);
-            width: 50px;
+            width: 55px;
             padding: 6px 8px;
+            outline: none;
+            text-align: left;
+            &::-webkit-inner-spin-button, 
+            &::-webkit-outer-spin-button { 
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                margin: 0; 
+            }
         }
         .bordeTop td{
             border-top: 1px solid #898899;
@@ -236,7 +244,7 @@ export default {
             }
         }
         tr td:first-child {
-            padding-right: 10px;
+            padding-right: 14px;
         }
     }
     .bottom {
