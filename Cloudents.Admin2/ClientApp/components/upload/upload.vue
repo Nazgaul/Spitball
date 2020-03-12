@@ -32,8 +32,8 @@
             </div>
             <v-progress-linear color="success" v-model="files[0].progress"></v-progress-linear>
         </div>
-         
-        <ul>
+        
+        <ul class="mt-4">
           <li v-for="item in uploadedUrl" :key="item">
             {{ item }}
           </li>
