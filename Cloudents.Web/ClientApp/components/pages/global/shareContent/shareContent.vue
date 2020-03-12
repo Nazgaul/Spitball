@@ -110,6 +110,7 @@ export default {
   methods: {
     shareOnSocialMedia(socialMediaName) {
       let self = this;
+      let linkLabel = '';
       const windowSizes =
         "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=583";
 
@@ -117,31 +118,40 @@ export default {
         global.open(url, "", windowSizes);
       }
 
+      function socialShareEvent(linkLabel) {
+        self.$ga.event('Share', socialMediaName, linkLabel);
+      }
+
       let mediaUrl = {
         link: () => {
-          self.$copyText(self.link).then(() => {
+          self.$copyText(self.link).then(({text}) => {
             self.showCopyToolTip = true;
+            socialShareEvent(text);
             setTimeout(() => {
               self.showCopyToolTip = false;
             }, 2000);
           });
         },
-        email: () =>
-          openLink(
-            `mailto:?subject=${encodeURIComponent(
-              self.email.subject
-            )}&body=${encodeURIComponent(self.email.body)}`
-          ),
-        facebook: () =>
-          openLink(`https://www.facebook.com/sharer.php?u=${self.link}`),
-        whatsApp: () =>
-          openLink(`https://wa.me/?text=${encodeURIComponent(self.whatsApp)}`),
-        twitter: () =>
-          openLink(
-            `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-              self.twitter
-            )}`
-          )
+        email: () => {
+          linkLabel = `mailto:?subject=${encodeURIComponent(self.email.subject)}&body=${encodeURIComponent(self.email.body)}`
+          openLink(linkLabel)
+          socialShareEvent(self.link)
+        },
+        facebook: () => {
+          linkLabel = `https://www.facebook.com/sharer.php?u=${self.link}`,
+          openLink(linkLabel)
+          socialShareEvent(self.link)
+        },
+        whatsApp: () => {
+          linkLabel = `https://wa.me/?text=${encodeURIComponent(self.whatsApp)}`
+          openLink(linkLabel)
+          socialShareEvent(self.link)
+        },
+        twitter: () => {
+          linkLabel = `https://twitter.com/intent/tweet?text=${encodeURIComponent(self.twitter)}`
+          openLink(linkLabel)
+          socialShareEvent(self.link)
+        }
       };
 
       let funcToInvoke = mediaUrl[socialMediaName];

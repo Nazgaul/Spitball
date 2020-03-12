@@ -1,5 +1,6 @@
 import calendarService from "../services/calendarService";
 import utilitiesService from '../services/utilities/utilitiesService.js'
+import paymentService from '../services/payment/paymentService.js';
 import {router} from '../main.js';
 
 const state = {
@@ -18,7 +19,17 @@ const state = {
     isCalendarShared:null,
 };
 
-const mutations ={
+const mutations = {
+    setResetCalendar(state){
+        state.calendarEvents = [];
+        state.needPayment = true;
+        state.showCalendar = false;
+        state.intervalFirst = 8;
+        state.isCalendarShared = null;
+        state.tutorId = null;
+        state.fromDate = new Date().toISOString();
+        state.toDate = null;
+    },
     setIsCalendarShared(state,val){
         state.isCalendarShared = val;
     },
@@ -77,7 +88,7 @@ const mutations ={
 
 const getters ={
     getCalendarEvents:state => state.calendarEvents,
-    getNeedPayment:state => state.needPayment,
+    getNeedPayment:state => paymentService.getIsCalendarNeedPayment() && state.needPayment,
     getShowCalendar:state => state.showCalendar,
     getCalendarsList: state => state.calendarsList,
     getSelectedCalendarList: state => state.selectedCalendarList,
@@ -222,6 +233,9 @@ const actions ={
                 })
             }
         })
+    },
+    resetCalendar({commit}){
+        commit('setResetCalendar')
     }
 };
 

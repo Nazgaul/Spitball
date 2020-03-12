@@ -6,7 +6,6 @@ export default {
   data() {
     return {
       selectedProduct: 'inter',
-      showOverlay: false,
       transactionId: 750,
       products:{
         currency: '₪',

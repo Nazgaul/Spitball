@@ -54,6 +54,7 @@ namespace Cloudents.Core.DTOs
         Document,
         Video,
         TutoringSession,
-        Question
+        Question,
+        BuyPoints
     }
 }

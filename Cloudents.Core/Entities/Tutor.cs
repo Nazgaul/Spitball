@@ -12,7 +12,7 @@ namespace Cloudents.Core.Entities
     {
         public const int MaximumPrice = 214748;
         public const int MinimumPrice = 50;
-        public Tutor(string bio, [NotNull] User user, decimal? price) : this()
+        public Tutor(string bio, User user, decimal? price) : this()
         {
             User = user ?? throw new ArgumentNullException(nameof(user));
             State = ItemState.Pending;

@@ -2,8 +2,8 @@ import * as routeName from "./routeNames.js";
 
 export const studyRoomRoutes = [
     {
-        path: `/${routeName.StudyRoomSettings.path}/:id?`, 
-        name: routeName.StudyRoomSettings.name,
+        path: `/studyroomSettings/:id?`, 
+        name: routeName.StudyRoomSettings,
         components: {
             default: () => import(`../components/studyroomSettings/studyroomSettings.vue`),
         },
@@ -17,8 +17,8 @@ export const studyRoomRoutes = [
         }
     },
     {
-        path: `/${routeName.StudyRoom.path}/:id?`,
-        name: routeName.StudyRoom.name,
+        path: `/studyroom/:id?`,
+        name: routeName.StudyRoom,
         components: {
             default: () => import(`../components/studyroom/tutor.vue`),
         },

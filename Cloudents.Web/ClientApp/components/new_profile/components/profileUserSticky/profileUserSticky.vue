@@ -92,7 +92,7 @@
          </div>
          <div class="profileUserSticky_title_become_text" v-else v-language:inner="'profile_become_txt'"/>
          <div class="profileUserSticky_btns why_learn_user_btn mt-3">
-            <v-btn class="profileUserSticky_btn profileUserSticky_btn_find white--text" depressed rounded color="#4452fc" @click="isMyProfile? globalFunctions.openBecomeTutor() : globalFunctions.goTutorList()">
+            <v-btn class="profileUserSticky_btn profileUserSticky_btn_find white--text" depressed rounded color="#4452fc" @click="isMyProfile? openBecomeTutor() : goTutorList()">
                <div class="profileUserSticky_btn_txt" v-language:inner="isMyProfile? 'profile_become_tutor_btn':'profile_find_tutors'"/>
             </v-btn>
          </div>
@@ -108,6 +108,7 @@ import secure from './images/secure.svg';
 import chatIcon from './images/chatIcon.svg';
 import calendarIcon from './images/calendarIcon.svg';
 import * as dialogNames from '../../../pages/global/dialogInjection/dialogNames.js'
+import * as routeNames from '../../../../routes/routeNames.js';
 
 import { mapGetters } from 'vuex';
 
@@ -167,7 +168,7 @@ export default {
          this.$openDialog(dialogNames.BecomeTutor)
       },
       goTutorList(){
-         this.$router.push({name:'tutorLandingPage'})
+         this.$router.push({name: routeNames.TutorList})
       },
       handleScroll(){
          let scrollHeight = window.pageYOffset;

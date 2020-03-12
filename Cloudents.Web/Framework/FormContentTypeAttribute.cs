@@ -17,24 +17,24 @@ namespace Cloudents.Web.Framework
         public int Order => 0;
     }
 
-    public class StartUploadingAttribute : Attribute, IActionConstraint
-    {
-        public bool Accept(ActionConstraintContext context)
-        {
-            //var sr = context.RouteContext.HttpContext.Request.Body;
-            if (context.RouteContext.HttpContext.Request.HasFormContentType)
-            {
-                return false;
-            }
+    //public class StartUploadingAttribute : Attribute, IActionConstraint
+    //{
+    //    public bool Accept(ActionConstraintContext context)
+    //    {
+    //        //var sr = context.RouteContext.HttpContext.Request.Body;
+    //        if (context.RouteContext.HttpContext.Request.HasFormContentType)
+    //        {
+    //            return false;
+    //        }
 
-            var reader = new HttpRequestStreamReader(context.RouteContext.HttpContext.Request.Body, Encoding.UTF8);
-            var parser = JObject.Parse(reader.ReadToEnd());
+    //        var reader = new HttpRequestStreamReader(context.RouteContext.HttpContext.Request.Body, Encoding.UTF8);
+    //        var parser = JObject.Parse(reader.ReadToEnd());
 
-            var t = string.Equals(parser.GetValue("phase", StringComparison.OrdinalIgnoreCase).Value<string>(), "start", StringComparison.OrdinalIgnoreCase);
-            context.RouteContext.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
-            return t;
-        }
+    //        var t = string.Equals(parser.GetValue("phase", StringComparison.OrdinalIgnoreCase).Value<string>(), "start", StringComparison.OrdinalIgnoreCase);
+    //        context.RouteContext.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
+    //        return t;
+    //    }
 
-        public int Order => 1;
-    }
+    //    public int Order => 1;
+    //}
 }

@@ -47,6 +47,7 @@ const getters = {
     },
     //TODO need to change this to accountretive
     getUserLoggedInStatus: state => state.isUserLoggedIn || global.isAuth,
+    getIsTeacher: state => getters.getUserLoggedInStatus && state.user.userType === 'Teacher',
     usersReffered: state => state.usersReferred,
     accountUser: (state) => {
         return state.user;
@@ -118,7 +119,9 @@ const actions = {
         }
     },
     signalR_SetBalance({ commit, state, dispatch, getters }, newBalance) {
-        router.push({query:{...router.currentRoute.query,dialog:undefined}})
+        if(router.currentRoute.query?.dialog){
+            router.push({query:{...router.currentRoute.query,dialog:undefined}})
+        }
         if (getters.getIsBuyPoints || state.user.balance > newBalance) {
             dispatch('updateToasterParams', {
                 toasterText: LanguageService.getValueByKey("buyTokens_success_transaction"),

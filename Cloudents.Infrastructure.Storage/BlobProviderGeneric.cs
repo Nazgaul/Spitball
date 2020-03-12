@@ -107,13 +107,33 @@ namespace Cloudents.Infrastructure.Storage
 
         public Task CommitBlockListAsync(string blobName, string mimeType, IList<int> indexes, CancellationToken token)
         {
-            return CommitBlockListAsync(blobName, mimeType, null, indexes, token);
+            return CommitBlockListAsync(blobName, mimeType, null, indexes, null, token);
         }
 
-        public Task CommitBlockListAsync(string blobName, string mimeType, string originalFileName, IList<int> indexes,
-            CancellationToken token)
+        //public Task CommitBlockListAsync(string blobName, string mimeType, string originalFileName, IList<int> indexes,
+        //    CancellationToken token)
+        //{
+        //    var blob = GetBlob(blobName);
+        //    blob.Properties.ContentType = mimeType;
+        //    if (!string.IsNullOrEmpty(originalFileName))
+        //    {
+        //        blob.Metadata["fileName"] = originalFileName;
+        //    }
+
+        //    return blob.PutBlockListAsync(indexes.Select(ToBase64), AccessCondition.GenerateEmptyCondition(), new BlobRequestOptions()
+        //    {
+        //        StoreBlobContentMD5 = true
+        //    }, null, token);
+        //}
+
+        public Task CommitBlockListAsync(string blobName, string mimeType, string originalFileName, IList<int> indexes, TimeSpan? cacheControlTime = null, CancellationToken token = default)
         {
             var blob = GetBlob(blobName);
+            if (cacheControlTime.HasValue)
+            {
+                blob.Properties.CacheControl = "max-age=" + cacheControlTime.Value.TotalSeconds;
+            }
+            
             blob.Properties.ContentType = mimeType;
             if (!string.IsNullOrEmpty(originalFileName))
             {
@@ -246,6 +266,14 @@ namespace Cloudents.Infrastructure.Storage
         {
             var destinationDirectory = _blobDirectory.GetDirectoryReference(directory);
             var result = await destinationDirectory.ListBlobsSegmentedAsync(true, BlobListingDetails.None,
+                1000, null, null, null, token);
+            return result.Results.Select(s => s.Uri);
+        }
+
+        public async Task<IEnumerable<Uri>> FilesInContainerAsync(CancellationToken token)
+        {
+            var destinationContainer = _blobDirectory.Container;
+            var result = await destinationContainer.ListBlobsSegmentedAsync(null, true, BlobListingDetails.None,
                 1000, null, null, null, token);
             return result.Results.Select(s => s.Uri);
         }

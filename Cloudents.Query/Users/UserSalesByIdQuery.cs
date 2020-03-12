@@ -84,6 +84,7 @@ namespace Cloudents.Query.Users
                         Price = s.Price ?? 0,
                         StudentName = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Name).FirstOrDefault(),
                         Duration = s.Duration.HasValue ? s.Duration.Value : TimeSpan.Zero,
+                        Duration = s.AdminDuration != null? TimeSpan.FromMinutes(Convert.ToDouble(s.AdminDuration)) : s.Duration,
                         StudentImage = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.ImageName).FirstOrDefault(),
                         StudentId = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Id).FirstOrDefault()
                     }).ToFuture<SaleDto>();

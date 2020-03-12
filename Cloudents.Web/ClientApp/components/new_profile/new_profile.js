@@ -18,7 +18,6 @@ import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileItemsEmpty from './components/profileItemsEmpty/profileItemsEmpty.vue';
 import calendarTab from '../calendar/calendarTab.vue';
-import * as dialogNames from '../pages/global/dialogInjection/dialogNames.js'
 
 
 
@@ -52,10 +51,6 @@ export default {
                 sendMessage: this.sendMessage,
                 openCalendar: this.openCalendar,
                 closeCalendar: this.closeCalendar,
-                openBecomeTutor: this.openBecomeTutor,
-                goTutorList: this.goTutorList,
-                getItems: this.getItems,
-                scrollTo: this.scrollToElementId,
             },
             coupon: '',
             couponPlaceholder: LanguageService.getValueByKey('coupon_placeholder'),
@@ -89,7 +84,6 @@ export default {
             'updateRequestDialog',
             'setActiveConversationObj',
             'openChatInterface',
-            'updateProfileItemsByType',
 
 
             'syncProfile',
@@ -151,23 +145,6 @@ export default {
                this.setActiveConversationObj(currentConversationObj);
                this.openChatInterface();                    
             }
-        },
-        openBecomeTutor(){
-            this.$router.push({query:{dialog:dialogNames.BecomeTutor}})
-        },
-        goTutorList(){
-            this.$router.push({name:'tutorLandingPage'})
-        },
-        getItems(type,params){
-            let dataObj = {
-                id: this.id,
-                type,
-                params
-            }
-            return this.updateProfileItemsByType(dataObj)
-        },
-        scrollToElementId(elementId){
-            document.getElementById(elementId).scrollIntoView({behavior: 'smooth',block: 'start'});
         },
         fetchData() {
             let syncObj = {
@@ -282,6 +259,7 @@ export default {
         "$route.params.id": function(val, oldVal){ 
             let old = Number(oldVal,10);
             let newVal = Number(val,10);
+            this.activeTab = 1;
             if (newVal !== old) {
                 this.resetProfileData();
                 if((newVal == this.accountUser.id) && this.accountUser.isTutorState === "pending"){

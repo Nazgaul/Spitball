@@ -1,53 +1,17 @@
 <template>
     <div class="buy-dialog-wrap">
-        <div class="buy-tokens-overlay" :class="{'visible': showOverlay}"></div>
         <div class="close-buy-dialog">
             <v-icon class="closeIcon" color="#000" size="14" v-closeDialog>sbf-close</v-icon>
         </div>
         <div class="buy-tokens-wrap">
-            <v-container pa-4 pt-6 pb-6 class="buy-tokens-top-container">
+            <v-container px-4 pt-6 pb-0 class="buy-tokens-top-container">
                 <v-layout>
                     <v-flex text-center xs12>
                         <span class="buy-tokens-title-text" v-language:inner="'buyTokens_get_points'"></span>
                     </v-flex>
                 </v-layout>
-                <v-layout pt-6 ml-2 mr-2 :class="{'column': $vuetify.breakpoint.xsOnly}">
-                    <v-flex class="flex-buy-tokens" text-center column xs4 :class="$vuetify.breakpoint.xsOnly ? 'pl-12 pr-12' : 'pl-6 pr-6'">
-                        <div class="buy-tokens-icon">
-                            <v-icon>sbf-answer-icon</v-icon>
-                        </div>
-                        <div class="buy-tokens-bold-text mt-4" v-language:inner="'buyTokens_answer'"></div>
-                        <div class="buy-tokens-normal-text mt-1" v-language:inner="'buyTokens_earn_answer'"></div>
-                        <div class="line-buy-tokens"></div>
-                    </v-flex>
-                    <v-flex class="flex-buy-tokens" text-center column xs4 pl-4 pr-4
-                            :class="$vuetify.breakpoint.xsOnly ? 'mt-12 pl-12 pr-12' : 'pl-6 pr-6'">
-                        <div class="buy-tokens-icon">
-                            <v-icon>sbf-upload-icon</v-icon>
-                        </div>
-                        <div class="buy-tokens-bold-text mt-4" v-language:inner="'buyTokens_upload'"></div>
-                        <div class="buy-tokens-normal-text mt-1" v-language:inner="'buyTokens_earn_upload'"></div>
-                        <div class="line-buy-tokens"></div>
-
-                    </v-flex>
-                    <v-flex class="flex-buy-tokens" text-center column xs4 pl-4 pr-4
-                            :class="$vuetify.breakpoint.xsOnly ? 'mt-12 pl-12 pr-12' : 'pl-6 pr-6'">
-                        <div class="buy-tokens-icon">
-                            <v-icon>sbf-invite-icon</v-icon>
-                        </div>
-                        <div class="buy-tokens-bold-text mt-4" v-language:inner="'buyTokens_invite'"></div>
-                        <div class="buy-tokens-normal-text mt-1" v-language:inner="'buyTokens_earn_invite'"></div>
-                        <div class="line-buy-tokens"></div>
-
-                    </v-flex>
-                </v-layout>
             </v-container>
             <v-container class="buy-tokens-bottom-container px-6" :class="{'pt-4': $vuetify.breakpoint.xsOnly}">
-                <v-layout>
-                    <v-flex text-center>
-                        <span class="buy-tokens-title-text" v-language:inner="'buyTokens_need_points'"></span>
-                    </v-flex>
-                </v-layout>
                 <v-layout pt-6 justify-center class="buy-tokens-price-container">
                     <v-flex
                             class="buy-tokens-details-container"
@@ -129,8 +93,8 @@
 
                 <v-layout class="buymebtn">
                     <v-flex text-center>
-                        <v-skeleton-loader class="mb-4" v-show="isLoading" width="100%" height="44" type="button"></v-skeleton-loader>
-                        <div v-show="!isLoading" id="paypal-button-container"></div>
+                        <v-progress-circular v-show="isLoading" class="mb-4" size="80" width="2" indeterminate color="info"></v-progress-circular>
+                        <div v-show="!isLoading" id="paypal-button-container" style="width:400px; margin: 0 auto;"></div>
                     </v-flex>
                 </v-layout>
 
@@ -145,9 +109,8 @@ export default {
   name:'buyPointsUS',
   data() {
     return {
-      isLoading:false,
+      isLoading: false,
       selectedProduct: 'inter',
-      showOverlay: false,
       transactionId: 750,
       products:{
         currency: '$',
@@ -193,13 +156,18 @@ export default {
   },
   mounted() {
     let self = this;
-    let paypalUrl = `https://www.paypal.com/sdk/js?client-id=${window.paypalClientId}&commit=false`;
+    let paypalUrl = `https://www.paypal.com/sdk/js?client-id=${window.paypalClientId}`;
     this.$loadScript(paypalUrl)
         .then(() => {
             window.paypal
             .Buttons({
+                 style: {
+                    //layout:  'horizontal',
+                   // color:   'blue',
+                    shape:   'pill',
+                   // tagline : false
+                },
                 createOrder: function(data, actions) {
-                    self.isLoading = true;
                     analyticsService.sb_unitedEvent("BUY_POINTS", "PRODUCT_SELECTED", self.transactionId);
                     return actions.order.create({
                         purchase_units: [
@@ -213,10 +181,19 @@ export default {
                         ]
                     });
                 },
-                onApprove: function(data) {
-                    self.$store.dispatch('updatePaypalBuyTokens',data.orderID).then(()=>{
-                        self.isLoading = false
-                    })
+                onApprove: function(data,actions) {
+                    self.isLoading = true;
+                    actions.order.capture().then(() => {
+                        self.$closeDialog();
+                        self.$store.dispatch('updatePaypalBuyTokens',data.orderID);
+                        self.$store.dispatch('updateToasterParams', {
+                        toasterText: self.$t("buyTokens_success_transaction"),
+                        showToaster: true,
+                        toasterTimeout: 5000
+                    });
+                });
+                    
+                    //TODO happy go lucky - update the balance of the user
                 }
             })
             .render('#paypal-button-container');

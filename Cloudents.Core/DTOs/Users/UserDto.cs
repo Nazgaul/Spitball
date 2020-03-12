@@ -4,6 +4,7 @@ using Cloudents.Core.Enum;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace Cloudents.Core.DTOs.Users
 {
@@ -143,10 +144,18 @@ namespace Cloudents.Core.DTOs.Users
         {
             get
             {
-
-                if (_userType == Enum.UserType.Teacher 
-                    && IsTutor.GetValueOrDefault(ItemState.Deleted) != ItemState.Ok)
-                    return Enum.UserType.UniversityStudent;
+                var statesOfTutor = new[] {ItemState.Ok, ItemState.Pending};
+                if (_userType == Enum.UserType.Teacher)
+                {
+                    if (statesOfTutor.All(a => a != IsTutor.GetValueOrDefault(ItemState.Deleted)))
+                    {
+                        return Enum.UserType.UniversityStudent;
+                    }
+                }
+                //if (_userType == Enum.UserType.Teacher 
+                //    && statesOfTutor.Any()
+                //IsTutor.GetValueOrDefault(ItemState.Deleted) != ItemState.Ok)
+                //    return Enum.UserType.UniversityStudent;
                 return _userType;
             }
             set

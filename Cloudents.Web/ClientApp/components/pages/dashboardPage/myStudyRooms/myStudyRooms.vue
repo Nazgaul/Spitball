@@ -35,8 +35,8 @@
          </template>
          <template v-slot:item="props">
             <tr class="myStudyRooms_table_tr">
-               <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
-               <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
+               <tablePreviewTd :item="props.item"/>
+               <tableInfoTd :item="props.item"/>
                <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
                <td class="text-xs-left">{{ props.item.lastSession | dateFromISO }}</td>
                <td>
@@ -84,9 +84,6 @@ export default {
       }
    },
    props:{
-      globalFunctions: {
-         type: Object,
-      },
       dictionary:{
          type: Object,
          required: true

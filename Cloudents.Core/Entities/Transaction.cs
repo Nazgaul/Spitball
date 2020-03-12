@@ -75,9 +75,8 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public BuyPointsTransaction(decimal price, string transactionId)
         {
-            price = Math.Abs(price);
             TransactionId = transactionId;
-            Price = price;
+            Price = Math.Abs(price);
             Action = TransactionActionType.Buy;
             Type = TransactionType.Earned;
         }
@@ -86,7 +85,6 @@ namespace Cloudents.Core.Entities
 
         protected BuyPointsTransaction()
         {
-
         }
 
         //public override int AwardScore => 0;
@@ -245,5 +243,55 @@ namespace Cloudents.Core.Entities
         public decimal Price { get; }
     }
 
+
+
+    //public class SessionTransaction : Transaction
+    //{
+    //    private SessionTransaction(StudyRoomSession session)
+    //    {
+    //        Session = session;
+
+
+    //    }
+
+    //    protected SessionTransaction()
+    //    {
+
+    //    }
+
+    //    public virtual StudyRoomSession Session { get; protected set; }
+
+    //    private static Transaction Buyer(StudyRoomSession session, Country country)
+    //    {
+    //        return new SessionTransaction(session)
+    //        {
+    //            Action = TransactionActionType.PurchaseSession,
+    //            Price = -session.Price / country.ConversationRate ?? 0,
+    //            Type = TransactionType.Spent
+    //        };
+    //    }
+
+    //    private static Transaction Seller(StudyRoomSession session, Country country)
+    //    {
+    //        return new SessionTransaction(session)
+    //        {
+    //            Action = TransactionActionType.SoldSession,
+    //            Price = session.Price / country.ConversationRate ?? 0,
+    //            Type = TransactionType.Earned
+    //        };
+    //    }
+
+    //    public static void MakerTransaction(User buyer, Tutor seller, StudyRoomSession s)
+    //    {
+    //        if (s.Price != null)
+    //        {
+    //            Country country = seller.User.Country;
+    //            buyer.MakeTransaction(Buyer(s, country));
+    //            seller.User.MakeTransaction(Seller(s, country));
+    //            seller.User.MakeTransaction(new CommissionTransaction((decimal)s.Price / country.ConversationRate));
+    //        }
+    //    }
+
+    //}
 
 }
