@@ -59,15 +59,15 @@ const printNetworkQuality = function (networkQualityLevel,networkQualityStats) {
 const connectToRoom = function (token, options) {
     console.warn('DEBUG: 27 tutorService: connectToRoom')
     // disconnect the user from room if they already joined
-    insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_connectToRoom', {'token': token}, null);
     store.dispatch('leaveRoomIfJoined');
+    insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_connectToRoom', {'token': token}, null);
+    
     Twilio.connect(token, options)
         .then((room) => {
             store.dispatch('updateTwilioConnection',room); // to start plugin listening
 
 
 
-            console.warn('DEBUG: 28 tutorService: Twilio.connect')
 
             store.dispatch('setSessionTimeStart');
             insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioConnect', room, null);
@@ -157,33 +157,32 @@ const connectToRoom = function (token, options) {
             // // //reconnecting room
             // store.getters['activeRoom'].on('reconnecting', () => {
             //     console.warn('DEBUG: 28.7 tutorService: reconnecting room')
-
             //     insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioReconnecting', null, null);
             //     console.log("ROOM - RECONNECTING");
             // });
             
             // Attach the Participant's Media to a <div> element.
-            store.getters['activeRoom'].on('participantConnected', participant => {
-                console.warn('DEBUG: 28.9 tutorService: Attach the Participant Media to a <div> element.')
+            // store.getters['activeRoom'].on('participantConnected', participant => {
+            //     console.warn('DEBUG: 28.9 tutorService: Attach the Participant Media to a <div> element.')
 
-                insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioParticipantConnected', participant, null);
-                console.log(`Participant "${participant.identity}" connected`);
+            //     insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioParticipantConnected', participant, null);
+            //     console.log(`Participant "${participant.identity}" connected`);
 
-                console.warn('DEBUG: 36 : tutorService updateCurrentRoomState before ')
-                store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.active);
-                console.warn('DEBUG: 37 : tutorService updateCurrentRoomState after ')
+            //     console.warn('DEBUG: 36 : tutorService updateCurrentRoomState before ')
+            //     store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.active);
+            //     console.warn('DEBUG: 37 : tutorService updateCurrentRoomState after ')
         
-                if (store.getters['getStudyRoomData'].isTutor) {
-                    console.warn('DEBUG: 40 : tutorService store.getters[getStudyRoomData].isTutor')
-                    store.dispatch('hideRoomToasterMessage');
-                    let studentName = !!store.getters['getStudyRoomData'] ? store.getters['getStudyRoomData'].studentName : '';
-                    let studentId = !!store.getters['getStudyRoomData'] ? store.getters['getStudyRoomData'].studentId : '';
-                    analyticsService.sb_unitedEvent('study_room', 'session_started', `studentName: ${studentName} studentId: ${studentId}`);
-                    if (store.getters['getTutorStartDialog']) {
-                        store.dispatch('updateTutorStartDialog', false);
-                    }
-                }
-            });
+            //     if (store.getters['getStudyRoomData'].isTutor) {
+            //         console.warn('DEBUG: 40 : tutorService store.getters[getStudyRoomData].isTutor')
+            //         store.dispatch('hideRoomToasterMessage');
+            //         let studentName = !!store.getters['getStudyRoomData'] ? store.getters['getStudyRoomData'].studentName : '';
+            //         let studentId = !!store.getters['getStudyRoomData'] ? store.getters['getStudyRoomData'].studentId : '';
+            //         analyticsService.sb_unitedEvent('study_room', 'session_started', `studentName: ${studentName} studentId: ${studentId}`);
+            //         if (store.getters['getTutorStartDialog']) {
+            //             store.dispatch('updateTutorStartDialog', false);
+            //         }
+            //     }
+            // });
             // When a Participant adds a Track, attach it to the DOM.
             store.getters['activeRoom'].on('trackSubscribed', (track) => {
                 insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioTrackSubscribed', track, null);
