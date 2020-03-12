@@ -139,7 +139,7 @@
     <value>דקות</value>
   </data>
   <data name="session_duration" xml:space="preserve">
-    <value>משך השיעור (דקות):</value>
+    <value>משך השיעור:</value>
   </data>
   <data name="student" xml:space="preserve">
     <value>סטודנט:</value>

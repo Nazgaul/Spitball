@@ -9,7 +9,7 @@
                 </div>
 
                 <div class="v-alert error tableEmptyState text-left mb-5 pa-2 align-start align-sm-center" v-if="modifyDurationError">
-                    <whiteWarn class="mr-2 mr-sm-4 pt-1 pt-sm-0" width="60"/>
+                    <whiteWarn class="image mr-2 mr-sm-4 pt-1 pt-sm-0" width="50" />
                     <span class="white--text">{{$t('teacherApproval_error')}}</span>
                 </div>
 
@@ -38,9 +38,8 @@
                         </td>
                         <td>
                             <div class="d-flex align-center">
-                                <input type="text" class="durationInput text-center" v-model="sessionDuration" />
+                                <input type="number" class="durationInput text-center" v-model="sessionDuration" />
                                 <span class="ml-2">{{$t('teacherApproval_minutes')}}</span>
-
                             </div>
                         </td>
                     </tr>
@@ -124,9 +123,9 @@ export default {
     },
     methods: {
         updateNewSessionDuration(duration) {
-            this.modifyDurationError = false;
             this.newSessionDuration = duration;
-            this.updateTotalPrice(duration)
+            this.modifyDurationError = false;
+            this.updateTotalPrice(this.newSessionDuration)
         },
         approveSession() {
             if(this.newSessionDuration > this.session.totalMinutes || this.newSessionDuration < this.MAX_MINUTES) {
@@ -203,7 +202,7 @@ export default {
         }  
         .image {
             @media (max-width: @screen-xs) {
-                width: 20px;
+                width: 60px;
             }                
         }
     }
@@ -218,8 +217,16 @@ export default {
         }
         .durationInput {
             background: rgba(184, 192, 209, .2);
-            width: 50px;
+            width: 60px;
             padding: 6px 8px;
+            outline: none;
+            &::-webkit-inner-spin-button, 
+            &::-webkit-outer-spin-button { 
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                margin: 0; 
+            }
         }
         .bordeTop td{
             border-top: 1px solid #898899;
@@ -236,7 +243,7 @@ export default {
             }
         }
         tr td:first-child {
-            padding-right: 10px;
+            padding-right: 14px;
         }
     }
     .bottom {
