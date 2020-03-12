@@ -447,7 +447,6 @@ watch: {
       "setBrowserSupportDialog",
       "setRoomId",
       "setShowAudioRecordingError",
-      "hideRoomToasterMessage",
       "setShowUserConsentDialog",
       "setSnapshotDialog",
       "stopTracks"
@@ -630,7 +629,6 @@ watch: {
   },
   beforeDestroy(){
     this.stopTracks();
-    this.hideRoomToasterMessage();
     
     console.warn('DEBUG: 30 : beforeDestroy before updateTutorStartDialog(false)')
     this.updateTutorStartDialog(false);

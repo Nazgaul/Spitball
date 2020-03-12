@@ -9,10 +9,22 @@ export default () => {
       store.subscribeAction((action) => {
          if (action.type === 'updateTwilioConnection') {
             let room = action.payload;
-            
+            let {isTutor,studentName,studentId} = store.getters.getStudyRoomData;
+            _insightEvent('StudyRoom_tutorService_TwilioConnect', room, null);
+            store.dispatch('setSessionTimeStart');
+
+            //close start dialogs after reload page (by refresh).
+            if (isTutor) {
+               if(room.participants.size > 0){
+                  store.dispatch('updateTutorStartDialog', false);
+               }
+            } else {
+                  store.dispatch('updateStudentStartDialog', false);
+            } 
+
             //reconnecting room
             room.on('reconnecting', () => {
-               _insightEvent('StudyRoom_tutorService_TwilioReconnecting', null, null)
+               _insightEvent('StudyRoom_tutorService_TwilioReconnecting', null, null);
             });
             
             // event of network quality change
@@ -22,11 +34,10 @@ export default () => {
 
             // Attach the Participant's Media to a <div> element.
             room.on('participantConnected', participant => {
-               _insightEvent('StudyRoom_tutorService_TwilioParticipantConnected', participant, null)
+               _insightEvent('StudyRoom_tutorService_TwilioParticipantConnected', participant, null);
+
                store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.active);
-               if (store.getters.getStudyRoomData.isTutor) {
-                  store.dispatch('hideRoomToasterMessage');
-                  let {studentName,studentId} = store.getters.getStudyRoomData;
+               if (isTutor) {
                   analyticsService.sb_unitedEvent('study_room', 'session_started', `studentName: ${studentName} studentId: ${studentId}`);
                   if (store.getters.getTutorStartDialog) {
                      store.dispatch('updateTutorStartDialog', false);

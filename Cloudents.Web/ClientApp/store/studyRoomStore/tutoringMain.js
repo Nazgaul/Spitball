@@ -3,7 +3,6 @@ import tutorService from '../../components/studyroom/tutorService';
 
 
 const state = {
-    identity: '',
     roomId: '',
     currentActiveRoom: null,
     browserSupportDialog: false,
@@ -39,7 +38,6 @@ const state = {
 };
 const getters = {
     activeRoom: state => state.currentActiveRoom,
-    userIdentity: state => state.identity,
     getCurrentRoomState: state => state.currentRoomState,
     getStudyRoomData: state => state.studyRoomData,
     getJwtToken: state => state.jwtToken,
@@ -86,9 +84,6 @@ const mutations = {
     setStudyRoomProps(state, val) {
         val.isTutor = this.getters.accountUser.id == val.tutorId;
         state.studyRoomData = val;
-    },
-    setUserIdentity(state, val) {
-        state.identity = val;
     },
     leaveIfJoinedRoom(state) {
         if(state.currentActiveRoom) {
@@ -163,20 +158,9 @@ const actions = {
     updateRoomInstance({commit}, data) {
         commit('setRoomInstance', data);
     },
-    updateUserIdentity({commit}, val) {
-        commit('setUserIdentity', val);
-    },
-    updateCurrentRoomState({commit, state, dispatch}, val) {
+    updateCurrentRoomState({commit}, val) {
         console.warn('DEBUG: 13 store: updateCurrentRoomState')
-
         commit('setCurrentRoomState', val);
-        if(state.roomStateEnum[val] === state.roomStateEnum['active']){
-            
-            setTimeout(()=>{
-                console.warn('DEBUG: 13.1 store: state.roomStateEnum[val] === state.roomStateEnum[1active1]')
-                dispatch('hideRoomToasterMessage');
-            }, 3000);
-        }
     },
     updateStudentStartDialog({commit}, val) {
         console.warn('DEBUG: 14 store: updateStudentStartDialog')
@@ -262,12 +246,6 @@ const actions = {
         }
         }
     },
-    hideRoomToasterMessage({dispatch}) {
-        let toasterObj = {
-            showToaster: false,
-        };
-        dispatch('updateToasterParams', toasterObj);
-    },
     signalR_SetJwtToken({commit, dispatch, state}, sessionInformation) {
         console.warn('DEBUG: 18 store: signalR_SetJwtToken')
 
@@ -282,7 +260,6 @@ const actions = {
             setTimeout(()=>{
                 dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
                 dispatch("setStudentDialogState", state.startSessionDialogStateEnum.start);
-                dispatch('hideRoomToasterMessage');
             }, 3000);
         }else{
             console.warn('DEBUG: 18.2 store: if(isTutor)')
