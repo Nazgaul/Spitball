@@ -199,7 +199,7 @@
   <data name="paid" xml:space="preserve">
     <value>Paid</value>
   </data>
-  <data name="payment" xml:space="preserve">
+  <data name="payment_pluralize" xml:space="preserve">
     <value>payment | payments</value>
   </data>
   <data name="pending" xml:space="preserve">

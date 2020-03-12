@@ -9,7 +9,7 @@
     >
         <i18n path="dashboardPage_pending_payment" tag="div">
             <span>{{pendingPayment}}</span>
-            <span>{{ $tc('dashboardPage_payment', showPaymentText) }}</span>
+            <span>{{ $tc('dashboardPage_payment_pluralize', showPaymentText) }}</span>
             <router-link :to="{name: routeNames.MySales}">{{ $t('dashboardPage_btn_approve') }}</router-link>
         </i18n>
     </v-snackbar>
