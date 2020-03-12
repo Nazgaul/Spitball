@@ -100,6 +100,18 @@
                   <td class="text-left" v-text="formatItemStatus(props.item.paymentStatus)"/>
                   <td class="text-left">{{ props.item.date | dateFromISO }}</td>
                   <td class="text-left" v-text="formatPrice(props.item.price,props.item.type)"></td>
+                  <td>
+                     <v-btn 
+                        color="#555CFD"
+                        class="white--text"
+                        width="120"
+                        depressed
+                        rounded
+                        v-if="props.item.paymentStatus === 'PendingApproval' && props.item.type === 'TutoringSession'"
+                        @click="$openDialog('teacherApproval', {item: props.item})">
+                           {{$t('dashboardPage_btn_approve')}}
+                     </v-btn>
+                  </td>
                </tr>
             </template>
 
@@ -140,6 +152,7 @@ export default {
             this.dictionary.headers['status'],
             this.dictionary.headers['date'],
             this.dictionary.headers['price'],
+            '', // this is for empty th cell action approve button
          ],
          balancesHeaders:[
             this.dictionary.headers['preview'],
@@ -183,10 +196,13 @@ export default {
       },
       formatItemStatus(paymentStatus){
          if(paymentStatus === 'Pending'){
-            return LanguageService.getValueByKey('dashboardPage_pending')
+            return this.$t('dashboardPage_pending')
          }
          if(paymentStatus === 'Paid'){
-            return LanguageService.getValueByKey('dashboardPage_paid')
+            return this.$t('dashboardPage_paid')
+         }
+         if(paymentStatus === 'PendingApproval') {
+            return this.$t('dashboardPage_pending_approve')
          }
       },
       changeSort(sortBy){

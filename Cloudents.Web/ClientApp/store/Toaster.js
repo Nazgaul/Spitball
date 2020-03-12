@@ -10,7 +10,8 @@ const state = {
         showToaster:false,
         toasterType: '', //class name
         toasterTimeout: 5000
-    }
+    },
+    value: '',
 };
 const mutations = {
     [TOASTER.UPDATE_PARAMS](state,val) {
@@ -25,12 +26,19 @@ const mutations = {
             state.params.toasterType = '';
         }
     },
+    getPendingPayment: (state) => {
+        return state.user.pendingSessionsPayments
+    },
+    setToaster(state, type) {
+        state.value = type
+    },
 };
 const getters = {
     getShowToaster:  state => state.params.showToaster,
     getToasterText: state => state.params.toasterText,
     getShowToasterType: state => state.params.toasterType,
-    getToasterTimeout: state => state.params.toasterTimeout
+    getToasterTimeout: state => state.params.toasterTimeout,
+    getIsShowToaster: state => state.value
 };
 const actions = {
     updateToasterParams({commit}, val){

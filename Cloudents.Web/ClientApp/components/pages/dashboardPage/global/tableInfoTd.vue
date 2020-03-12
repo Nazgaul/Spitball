@@ -11,7 +11,7 @@
                <span v-text="$Ph('dashboardPage_session',item.name)"/>
                <div class="text-truncate">
                   <span class="font-weight-bold" v-language:inner="'dashboardPage_duration'"/> 
-                  <span v-if="item.duration">{{item.duration | sessionDuration}}</span>
+                  <span v-if="item.duration">{{item.duration}}</span>
                   <span v-else v-language:inner="'dashboardPage_session_on'"/>
                </div>
             </div>

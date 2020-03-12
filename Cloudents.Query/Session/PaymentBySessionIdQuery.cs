@@ -1,11 +1,11 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs.Admin;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Dapper;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace Cloudents.Query.Admin
+namespace Cloudents.Query.Session
 {
     public class PaymentBySessionIdQuery : IQuery<PaymentDetailDto>
     {
@@ -28,16 +28,7 @@ namespace Cloudents.Query.Admin
             public async Task<PaymentDetailDto> GetAsync(PaymentBySessionIdQuery query, CancellationToken token)
             {
                 //This query will not work in case there will be more then one student in a room.
-                const string sql = @"select srs.Id as StudyRoomSessionId,
-                    case when t.Price is null then tr.Price else t.Price end as TutorPricePerHour,
-                    case when tr.SellerKey is null then 1 else 0 end as cantPay,
-		                    tr.Id as TutorId, 
-		                    tu.Name as TutorName, 
-		                    u.Id as UserId,
-		                    u.Name as UserName,
-		                    srs.Created,
-							COALESCE (srs.RealDuration, srs.Duration) as DurationInTicks,
-							
+                const string sql = @"select case when t.Price is null then tr.Price else t.Price end as TutorPricePerHour,						
 							x.CouponCode as CouponCode,
 							x.couponType,
 							x.CouponValue as CouponValue,
@@ -67,28 +58,12 @@ namespace Cloudents.Query.Admin
 	                    on tr.Id = tu.Id
                     where srs.id = @id";
 
-                using var conn = _repository.OpenConnection();
-                var result = await conn.QuerySingleAsync<PaymentDetailDto>(sql, new { id = query.SessionId });
-
-                if (result.CouponType is null)
+                using (var conn = _repository.OpenConnection())
                 {
-                    //no coupon
+                    var result = await conn.QuerySingleAsync<PaymentDetailDto>(sql, new { id = query.SessionId });
+
                     return result;
                 }
-
-                if (result.CouponTutor.HasValue && result.CouponTutor.Value != result.TutorId)
-                {
-                    return result;
-                }
-
-                result.StudentPayPerHour = Coupon.CalculatePrice(result.CouponType.Value, result.TutorPricePerHour, result.CouponValue.GetValueOrDefault());
-
-                if (result.CouponTutor is null)
-                {
-                    result.SpitballPayPerHour = result.TutorPricePerHour - result.StudentPayPerHour;
-                }
-
-                return result;
             }
         }
     }

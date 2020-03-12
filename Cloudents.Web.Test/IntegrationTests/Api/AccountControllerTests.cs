@@ -44,7 +44,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [Theory]
         [InlineData("api/account")]
         [InlineData("api/account/referrals")]
-        [InlineData("api/account/sales")]
         [InlineData("api/account/content")]
         [InlineData("api/account/purchases")]
         [InlineData("api/account/followers")]
@@ -102,7 +101,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         {
             await _client.LogInAsync();
 
-            var response = await _client.GetAsync("api/account/sales");
+            var response = await _client.GetAsync("api/Sales/sales");
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
 

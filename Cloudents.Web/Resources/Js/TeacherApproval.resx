@@ -117,147 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="action_download" xml:space="preserve">
-    <value>Download</value>
-  </data>
-  <data name="action_watch" xml:space="preserve">
-    <value>Watch</value>
-  </data>
-  <data name="answer" xml:space="preserve">
-    <value>Answer:</value>
-  </data>
   <data name="btn_approve" xml:space="preserve">
     <value>Approve</value>
   </data>
-  <data name="course" xml:space="preserve">
-    <value>Course:</value>
+  <data name="btn_cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="coupon_discount" xml:space="preserve">
+    <value>Coupon Discount:</value>
   </data>
   <data name="date" xml:space="preserve">
-    <value>Date</value>
+    <value>Date:</value>
   </data>
-  <data name="default_message" xml:space="preserve">
-    <value />
+  <data name="error" xml:space="preserve">
+    <value>You have increased the session duration above the duration that was recorded. Payments process will require an approval from support.</value>
   </data>
-  <data name="document" xml:space="preserve">
-    <value>Doc</value>
+  <data name="lesson_per_hour" xml:space="preserve">
+    <value>Lesson rate per hour:</value>
   </data>
-  <data name="downloads" xml:space="preserve">
-    <value>Downloads</value>
+  <data name="minutes" xml:space="preserve">
+    <value>minutes</value>
   </data>
-  <data name="duration" xml:space="preserve">
-    <value>Duration:</value>
+  <data name="session_duration" xml:space="preserve">
+    <value>Session duration (min):</value>
   </data>
-  <data name="empty" xml:space="preserve">
-    <value>Sorry, nothing to display here :(</value>
+  <data name="student" xml:space="preserve">
+    <value>Student:</value>
   </data>
-  <data name="enter_room" xml:space="preserve">
-    <value>Enter the room</value>
+  <data name="title" xml:space="preserve">
+    <value>Teacher Approval Form</value>
   </data>
-  <data name="info" xml:space="preserve">
-    <value>Product
-</value>
-  </data>
-  <data name="info_buy_points" xml:space="preserve">
-    <value>Points purchase</value>
-  </data>
-  <data name="joined" xml:space="preserve">
-    <value>Joined</value>
-  </data>
-  <data name="last_date" xml:space="preserve">
-    <value>Last Session</value>
-  </data>
-  <data name="likes" xml:space="preserve">
-    <value>Likes</value>
-  </data>
-  <data name="my_content_title" xml:space="preserve">
-    <value>My Content</value>
-  </data>
-  <data name="my_followers_title" xml:space="preserve">
-    <value>My Followers</value>
-  </data>
-  <data name="my_purchases_title" xml:space="preserve">
-    <value>My Purchases</value>
-  </data>
-  <data name="my_sales_action_need" xml:space="preserve">
-    <value>Need more points?</value>
-  </data>
-  <data name="my_sales_action_need_btn" xml:space="preserve">
-    <value>Buy Points</value>
-  </data>
-  <data name="my_sales_action_redeem" xml:space="preserve">
-    <value>You have {1} Pts</value>
-  </data>
-  <data name="my_sales_action_redeem_btn" xml:space="preserve">
-    <value>Redeem 1,000 Pts</value>
-  </data>
-  <data name="my_sales_title" xml:space="preserve">
-    <value>My Sales</value>
-  </data>
-  <data name="name" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="paid" xml:space="preserve">
-    <value>Paid</value>
-  </data>
-  <data name="payment_pluralize" xml:space="preserve">
-    <value>payment | payments</value>
-  </data>
-  <data name="pending" xml:space="preserve">
-    <value>Pending</value>
-  </data>
-  <data name="pending_payment" xml:space="preserve">
-    <value>You have {0} {1} that need
- your {2} to be processed</value>
-  </data>
-  <data name="price" xml:space="preserve">
-    <value>Price</value>
-  </data>
-  <data name="pts" xml:space="preserve">
-    <value>Pts</value>
-  </data>
-  <data name="purchased" xml:space="preserve">
-    <value>Purchased</value>
-  </data>
-  <data name="qa" xml:space="preserve">
-    <value>Q&amp;A</value>
-  </data>
-  <data name="question" xml:space="preserve">
-    <value>Question:</value>
-  </data>
-  <data name="rename" xml:space="preserve">
-    <value>Rename</value>
-  </data>
-  <data name="send_email" xml:space="preserve">
-    <value>send email</value>
-  </data>
-  <data name="send_whatsapp" xml:space="preserve">
-    <value>send whatsapp</value>
-  </data>
-  <data name="session" xml:space="preserve">
-    <value>Tutoring session with {1}</value>
-  </data>
-  <data name="session_on" xml:space="preserve">
-    <value>Ongoing</value>
-  </data>
-  <data name="status" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="student_tutor" xml:space="preserve">
-    <value>Student / tutor</value>
-  </data>
-  <data name="tutor_session" xml:space="preserve">
-    <value>Tutoring Session</value>
-  </data>
-  <data name="type" xml:space="preserve">
-    <value>Type</value>
-  </data>
-  <data name="type_buy_points" xml:space="preserve">
-    <value>Points</value>
-  </data>
-  <data name="video" xml:space="preserve">
-    <value>Video</value>
-  </data>
-  <data name="views" xml:space="preserve">
-    <value>Views</value>
+  <data name="total_session" xml:space="preserve">
+    <value>Total Session Payout</value>
   </data>
 </root>

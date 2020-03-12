@@ -17,6 +17,7 @@ using Cloudents.Query.Courses;
 using Cloudents.Query.Questions;
 using Cloudents.Query.General;
 using Cloudents.Core.DTOs.Feed;
+using Cloudents.Query.Session;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
@@ -619,6 +620,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task AccountQuestionsQuery_Ok()
         {
             var query = new AccountQuestionsQuery(159039, "IL");
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+            result.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task PaymentBySessionIdQuery_Ok()
+        {
+            var query = new PaymentBySessionIdQuery(Guid.Parse("29FA48E7-65E0-4E4F-9916-AB1E00A8BC8B"));
             var result = await fixture.QueryBus.QueryAsync(query, default);
             result.Should().NotBeNull();
         }

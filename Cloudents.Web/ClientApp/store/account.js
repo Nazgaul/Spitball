@@ -34,6 +34,7 @@ const mutations = {
     setAccountPicture(state, imageUrl) {
         state.user = { ...state.user, image: imageUrl };
     },
+    // setPendingPayment(state, )
 };
 
 const getters = {
@@ -51,6 +52,7 @@ const getters = {
     accountUser: (state) => {
         return state.user;
     },
+    getPendingPayment: state => state.user.pendingSessionsPayments
 };
 
 const actions = {
@@ -95,16 +97,7 @@ const actions = {
         dispatch("getAllConversations");
         analyticsService.sb_setUserId(userAccount.id);
         insightService.authenticate.set(userAccount.id);
-        dispatch('updateLoginStatus',true)
-
-
-        if(userAccount.isTutorState === 'pending') {
-            dispatch('updateToasterParams', {
-                toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
-                showToaster: true,
-                toasterTimeout: 5000
-            });
-        }
+        dispatch('updateLoginStatus',true);
     },
     userStatus({state,dispatch,getters}) {
         if(state.user !== null && state.user.hasOwnProperty('id')){
