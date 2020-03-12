@@ -102,7 +102,7 @@
                   <td class="text-left" v-text="formatPrice(props.item.price,props.item.type)"></td>
                   <td>
                      <v-btn 
-                        color="#555CFD"
+                        color="#02C8BF"
                         class="white--text"
                         width="120"
                         depressed
