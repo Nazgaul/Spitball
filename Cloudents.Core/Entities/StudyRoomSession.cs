@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.Event;
-using Cloudents.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -57,7 +56,7 @@ namespace Cloudents.Core.Entities
 
         //public virtual IPaymentProvider Payment { get; protected set; }
         public virtual DateTime? PaymentApproved { get; protected set; }
-        public virtual long? AdminDuration { get; protected set; }
+        public virtual TimeSpan? AdminDuration { get; protected set; }
         public virtual TimeSpan? RealDuration { get; protected set; }
 
 
@@ -110,7 +109,7 @@ namespace Cloudents.Core.Entities
             Receipt = receipt;
         }
 
-        public virtual void SetReceiptAndAdminDate(string receipt, long adminDuration)
+        public virtual void SetReceiptAndAdminDate(string receipt, int adminDuration)
         {
             if (string.IsNullOrEmpty(receipt))
             {
@@ -118,7 +117,7 @@ namespace Cloudents.Core.Entities
             }
             Receipt = receipt;
             PaymentApproved = DateTime.UtcNow;
-            AdminDuration = adminDuration;
+            AdminDuration = new TimeSpan(0, adminDuration, 0);
             //AdminDuration = adminDuration;
             //StudentPay = studentPay;
         }
