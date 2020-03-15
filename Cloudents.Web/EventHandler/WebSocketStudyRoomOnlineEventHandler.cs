@@ -38,8 +38,8 @@ namespace Cloudents.Web.EventHandler
                 ["onlineCount"] = onlineCount,
                 ["totalOnline"] = totalOnline
             });
-            if (onlineCount == totalOnline)
-            {
+            //if (onlineCount == totalOnline)
+            //{
                 var session = studyRoom.GetCurrentSession();
                 if (session != null)
                 {
@@ -65,18 +65,18 @@ namespace Cloudents.Web.EventHandler
                         return;
                     }
                 }
-            }
-            var message = new SignalRTransportType(SignalRType.StudyRoom,
-                SignalRAction.Update, new
-                {
-                    onlineCount,
-                    totalOnline,
-                    users = studyRoom.Users.Where(f=>f.Online).Select(s=>s.User.Id).ToArray(),
-                    allUsers = studyRoom.Users.Select(s=>s.User.Id).ToArray()
-                });
+            //}
+            //var message = new SignalRTransportType(SignalRType.StudyRoom,
+            //    SignalRAction.Update, new
+            //    {
+            //        onlineCount,
+            //        totalOnline,
+            //        users = studyRoom.Users.Where(f=>f.Online).Select(s=>s.User.Id).ToArray(),
+            //        allUsers = studyRoom.Users.Select(s=>s.User.Id).ToArray()
+            //    });
 
 
-            await _hubContext.Clients.Group(studyRoom.Id.ToString()).SendAsync(SbHub.MethodName, message, token);
+            //await _hubContext.Clients.Group(studyRoom.Id.ToString()).SendAsync(SbHub.MethodName, message, token);
 
 
         

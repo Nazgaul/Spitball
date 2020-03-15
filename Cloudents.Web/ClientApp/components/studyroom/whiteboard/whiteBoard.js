@@ -359,7 +359,8 @@ export default {
                     data: tabData
                 };
                 let normalizedData = JSON.stringify(transferDataObj);
-                tutorService.dataTrack.send(normalizedData);
+                this.$store.dispatch('sendDataTrack',normalizedData)
+                // tutorService.dataTrack.send(normalizedData);
                 
                 this.changeSelectedTab(tab);
                 whiteBoardService.hideHelper();

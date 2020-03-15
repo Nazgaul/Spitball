@@ -50,7 +50,7 @@ namespace Cloudents.Web
     public class Startup
     {
         public const string IntegrationTestEnvironmentName = "Integration-Test";
-        //private const bool UseAzureSignalR = true;
+        private const bool UseAzureSignalR = false;
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
@@ -248,10 +248,10 @@ namespace Cloudents.Web
                 o.PayloadSerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter
                 { NamingStrategy = new CamelCaseNamingStrategy() });
             });
-            //if (UseAzureSignalR)
-            //{
-            t.AddAzureSignalR();
-            //}
+            if (UseAzureSignalR)
+            {
+                t.AddAzureSignalR();
+            }
             services.AddResponseCompression();
             services.AddResponseCaching();
             var physicalProvider = HostingEnvironment.ContentRootFileProvider;
@@ -384,23 +384,23 @@ namespace Cloudents.Web
 
             });
 
-            //if (UseAzureSignalR)
-            //{
-            app.UseAzureSignalR(routes =>
+            if (UseAzureSignalR)
             {
-                routes.MapHub<SbHub>("/SbHub");
-                routes.MapHub<StudyRoomHub>("/StudyRoomHub");
-            });
-            //}
-            //else
-            //{
+                app.UseAzureSignalR(routes =>
+                {
+                    routes.MapHub<SbHub>("/SbHub");
+                    routes.MapHub<StudyRoomHub>("/StudyRoomHub");
+                });
+            }
+            else
+            {
 
-            //    //app.UseSignalR(routes =>
-            //    //{
-            //    //    routes.MapHub<SbHub>("/SbHub");
-            //    //    routes.MapHub<StudyRoomHub>("/StudyRoomHub");
-            //    //});
-            //}
+                app.UseSignalR(routes =>
+                {
+                    routes.MapHub<SbHub>("/SbHub");
+                    routes.MapHub<StudyRoomHub>("/StudyRoomHub");
+                });
+            }
             app.UseMiddleware<ApplicationInsightMiddleware>();
             app.UseEndpoints(endpoints =>
             {

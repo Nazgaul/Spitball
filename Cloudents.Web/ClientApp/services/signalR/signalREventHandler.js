@@ -71,12 +71,21 @@ export const signlaREvents = {
         },
         update:function(arrEventObj){
             arrEventObj.forEach((roomStatusInformation)=>{
-                store.dispatch("signalR_UpdateState", roomStatusInformation);
+                debugger
+                if(!store.getters.getJwtToken){
+                    store.dispatch('updateJwtToken',roomStatusInformation.jwtToken)
+                }
+                // store.dispatch("signalR_UpdateState", roomStatusInformation);
             });
         },
         action:function(arrEventObj){
             arrEventObj.forEach((sessionInformation)=>{
-                store.dispatch("signalR_SetJwtToken", sessionInformation);
+                debugger
+                if(!store.getters.getJwtToken){
+                    store.dispatch('updateJwtToken',sessionInformation.data.jwtToken)
+                }
+
+                // store.dispatch("signalR_SetJwtToken", sessionInformation);
             });
         }
     }
