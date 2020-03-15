@@ -101,6 +101,11 @@ export default {
             modifyDurationError: false,
         }
     },
+    watch: {
+        newSessionDuration(val) {
+            this.updateTotalPrice(val)
+        }
+    },
     computed: {
         formatDate() {
             if(this.session.date) {
