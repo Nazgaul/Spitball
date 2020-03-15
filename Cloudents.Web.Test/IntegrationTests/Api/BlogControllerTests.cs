@@ -20,7 +20,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         public async Task ChatApiTestGet_NotLogIn_UnauthorizedAsync(string api)
         {
             await _client.LogInAsync();
-            var response = await _client.GetAsync(api);
+            var _ = await _client.GetAsync(api);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.DTOs;
+﻿using System;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Linq;
@@ -12,7 +13,7 @@ using Cloudents.Core.Enum;
 
 namespace Cloudents.Query.Users
 {
-    public class UserAccountQuery : IQuery<UserAccountDto>
+    public class UserAccountQuery : IQuery<UserAccountDto?>
     {
         public UserAccountQuery(long id)
         {
@@ -22,7 +23,7 @@ namespace Cloudents.Query.Users
         private long Id { get; }
 
 
-        internal sealed class UserAccountDataQueryHandler : IQueryHandler<UserAccountQuery, UserAccountDto>
+        internal sealed class UserAccountDataQueryHandler : IQueryHandler<UserAccountQuery, UserAccountDto?>
         {
             private readonly IStatelessSession _session;
 
@@ -31,7 +32,7 @@ namespace Cloudents.Query.Users
                 _session = session.StatelessSession;
             }
 
-            public async Task<UserAccountDto> GetAsync(UserAccountQuery query, CancellationToken token)
+            public async Task<UserAccountDto?> GetAsync(UserAccountQuery query, CancellationToken token)
             {
                 //TODO: to nhibernate
                 const string sql = @"select u.Id, U.Balance, u.Name, u.FirstName, u.LastName, u.ImageName as Image, u.Email, 
@@ -89,7 +90,14 @@ namespace Cloudents.Query.Users
                 var universityFuture = _session.Query<User>()
                     .Fetch(f => f.University)
                     .Where(w => w.Id == query.Id && w.University != null)
-                    .Select(s => new UniversityDto(s.University.Id, s.University.Name, s.University.Country, s.University.Image, s.University.UsersCount))
+                    .Select(s => 
+                        new UniversityDto(
+                            s.University!.Id,
+                            s.University.Name,
+                            s.University.Country,
+                            s.University.Image,
+                            s.University.UsersCount)
+                    )
                     .ToFutureValue();
 
                 var haveDocsFuture = _session.Query<Document>()
