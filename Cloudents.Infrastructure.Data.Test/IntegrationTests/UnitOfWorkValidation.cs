@@ -32,7 +32,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             }
             catch (FluentNHibernate.Cfg.FluentConfigurationException ex) when (ex.InnerException?.GetType() == typeof(NHibernate.SchemaValidationException))
             {
-                var innerEx = ex.InnerException as NHibernate.SchemaValidationException;
+                var innerEx = (NHibernate.SchemaValidationException)ex.InnerException;
                 Assert.False(true, string.Join(Environment.NewLine, innerEx.ValidationErrors));
 
             }

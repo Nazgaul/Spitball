@@ -264,7 +264,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("stats")]
-        [ResponseCache(Duration = TimeConst.Month, Location = ResponseCacheLocation.Client)]
+        [ResponseCache(Duration = TimeConst.Day, Location = ResponseCacheLocation.Client)]
         public async Task<IEnumerable<UserStatsDto>> GetTutorStatsAsync([FromQuery] UserStatsRequest request, CancellationToken token) 
         {
             var userId = _userManager.GetLongUserId(User);
@@ -290,13 +290,6 @@ namespace Cloudents.Web.Api
             return await _queryBus.QueryAsync(query, token);
         }
 
-        //[HttpGet("recording")]
-        //public async Task<IEnumerable<SessionRecordingDto>> GetSessionRecordingAsync(CancellationToken token)
-        //{
-        //    var userId = _userManager.GetLongUserId(User);
-        //    var query = new SessionRecordingQuery(userId);
 
-        //    return await _queryBus.QueryAsync(query, token);
-        //}
     }
 }
