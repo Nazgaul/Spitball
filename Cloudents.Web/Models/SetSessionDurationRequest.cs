@@ -14,7 +14,7 @@ namespace Cloudents.Web.Models
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
 
-            if (RealDuration < 10)
+            if (RealDuration < 1)
             {
                 yield return new ValidationResult("Invalid input");
             }
