@@ -142,7 +142,7 @@
     <value>Session duration:</value>
   </data>
   <data name="student" xml:space="preserve">
-    <value>Student:</value>
+    <value>Student name:</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>Teacher Approval Form</value>
