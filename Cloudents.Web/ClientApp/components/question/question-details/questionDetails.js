@@ -80,8 +80,7 @@ export default {
                     .then(function () {                       
                         analyticsService.sb_unitedEvent("Submit_answer", "Homwork help");
                         self.textAreaValue = "";
-                    
-                        //self.getData(true);//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
+                        self.getData(true); //TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
                     }, (error) => {
                         console.log(error);
                         // self.errorHasAnswer = error.response.data["Text"] ? error.response.data["Text"][0] : '';
