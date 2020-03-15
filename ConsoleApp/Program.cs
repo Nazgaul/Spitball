@@ -23,9 +23,9 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
+using Cloudents.Core.Storage;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
-using Cloudmersive.APIClient.NETCore.ImageRecognition.Api;
 
 
 namespace ConsoleApp
@@ -143,9 +143,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var s = Container.Resolve<IPayPalService>();
-            var result = await s.GetPaymentAsync("4J34525079381873W", default);
-            //var x = await s.QueryAsync(new StudyRoomQuery(Guid.Parse("9f54280c-103e-46a6-8184-aabf00801beb"), 638), default);
+            await Convert();
+            //var s = Container.Resolve<IPayPalService>();
+            //var result = await s.GetPaymentAsync("4J34525079381873W", default);
+            ////var x = await s.QueryAsync(new StudyRoomQuery(Guid.Parse("9f54280c-103e-46a6-8184-aabf00801beb"), 638), default);
 
 
 
@@ -173,19 +174,27 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
         private static async Task Convert()
         {
 
-
-
-            // Configure API key authorization: Apikey
-            //Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "86afd89a-207c-4e7a-9ffc-da23fcb9d5b7");
             Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "07af4ce1-40eb-4e97-84e0-c02b4974b190");
-            Cloudmersive.APIClient.NETCore.ImageRecognition.Client.Configuration.Default.AddApiKey("Apikey", "07af4ce1-40eb-4e97-84e0-c02b4974b190");
-            //Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.Timeout = 300000;
-            var apiInstance3 = new EditApi();
-            var apiInstance = new ConvertDocumentApi();
-            var apiInstance2 = new ConvertImageApi();
+            Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.Configuration.Default.Timeout = 300000; //base on support
+            var _convertDocumentApi = new ConvertDocumentApi();
+            var id = 104135;
+            var storage = Container.Resolve<ICloudStorageProvider>();
+            var client = storage.GetBlobClient();
+            var container = client.GetContainerReference("spitball-files");
+            var dir1 = container.GetDirectoryReference("files");
+            var dir2 = dir1.GetDirectoryReference($"{id}");
+            var blobs = await dir2.ListBlobsSegmentedAsync(null);
+            var blob = (CloudBlockBlob)blobs.Results.FirstOrDefault(f => ((CloudBlockBlob) f).Name.Contains("file-"));
 
-            var inputFile = new FileStream("C:\\Users\\Ram\\Downloads\\file-52936bce-e08a-4138-9639-4971c22640ba-142339.pptx", System.IO.FileMode.Open); // System.IO.Stream | Input file to perform the operation on.
 
+            var sr = await blob.OpenReadAsync();
+            
+           // var sr = new FileStream("C:\\Users\\Ram\\Downloads\\xxx\\file-52936bce-e08a-4138-9639-4971c22640ba-142339.pptx", System.IO.FileMode.Open); // System.IO.Stream | Input file to perform the operation on.
+            var text2 = await _convertDocumentApi.ConvertDocumentPptxToTxtAsync(sr);
+            sr.Seek(0, SeekOrigin.Begin);
+            var result = await _convertDocumentApi.ConvertDocumentAutodetectToPngArrayAsync(sr);
+
+            Console.WriteLine("here");
             //var image = new Image<Rgba32>(500, 500);
             //image.Mutate(c=>c.BackgroundColor(Color.Aqua));
             //var ms = new MemoryStream();
