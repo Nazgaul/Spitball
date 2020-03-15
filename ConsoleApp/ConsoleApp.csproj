@@ -12,7 +12,6 @@
     <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.Face" Version="2.5.0-preview.1" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.0" />
     <PackageReference Include="Cloudmersive.APIClient.NETCore.DocumentAndDataConvert" Version="1.9.1" />
-    <PackageReference Include="Cloudmersive.APIClient.NETCore.ImageRecognition" Version="1.7.3" />
     
     <!--Do not remove this-->
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
