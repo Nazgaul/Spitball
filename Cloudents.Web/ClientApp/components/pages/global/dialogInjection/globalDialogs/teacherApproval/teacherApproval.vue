@@ -38,7 +38,7 @@
                         </td>
                         <td>
                             <div class="d-flex align-center">
-                                <input type="number" class="durationInput" v-model="newSessionDuration" />
+                                <input type="number" class="durationInput" v-model.number="newSessionDuration" />
                                 <span class="ml-2">{{$t('teacherApproval_minutes')}}</span>
                             </div>
                         </td>
@@ -120,8 +120,7 @@ export default {
     methods: {
         approveSession() {
             this.modifyDurationError = false;
-
-            if(this.newSessionDuration == 0 || this.newSessionDuration > this.session.totalMinutes) {
+            if(this.newSessionDuration <= 0 || this.newSessionDuration > this.session.totalMinutes) {
                 this.modifyDurationError = true;
                 return
             }
@@ -145,6 +144,7 @@ export default {
             })
         },
         updateTotalPrice(duration) {
+            
             let total;
             if(this.session.couponCode) {
                 if(this.session.couponType === 'Flat') {
