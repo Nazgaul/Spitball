@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="btn_approve" xml:space="preserve">
-    <value>Approve</value>
+    <value>Submit</value>
   </data>
   <data name="btn_cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -130,10 +130,10 @@
     <value>Date:</value>
   </data>
   <data name="error" xml:space="preserve">
-    <value>You have exceeded the session duration that was recorded. Payments process will require an approval from support.</value>
+    <value>You have stated a session duration that is bigger than the actual time recorded. To process this payment, someone at Spitball will need to review this it be approved.</value>
   </data>
   <data name="lesson_per_hour" xml:space="preserve">
-    <value>Lesson rate per hour:</value>
+    <value>Lesson rate (per hour):</value>
   </data>
   <data name="minutes" xml:space="preserve">
     <value>minutes</value>

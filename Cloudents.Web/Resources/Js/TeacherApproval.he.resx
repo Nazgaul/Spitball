@@ -130,10 +130,10 @@
     <value>תאריך:</value>
   </data>
   <data name="error" xml:space="preserve">
-    <value>משך השיעור חורג מהרישומים. תהליך התשלום נדרש לעבור אישור ממחלקת התמיכה</value>
+    <value>משך השיעור שדווח הינו גבוה מהזמן שנרשם בפועל. כדי לאשר את התשלום, מחלקת התמיכה תצטרך לאשר זאת.</value>
   </data>
   <data name="lesson_per_hour" xml:space="preserve">
-    <value>תשלום לשעה:</value>
+    <value>מחיר לשעה:</value>
   </data>
   <data name="minutes" xml:space="preserve">
     <value>דקות</value>
@@ -142,7 +142,7 @@
     <value>משך השיעור:</value>
   </data>
   <data name="student" xml:space="preserve">
-    <value>שם הסטודנט:</value>
+    <value>תלמיד:</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>אישור תשלום למורה</value>
