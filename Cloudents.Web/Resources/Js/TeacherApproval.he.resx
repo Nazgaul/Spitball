@@ -142,7 +142,7 @@
     <value>משך השיעור:</value>
   </data>
   <data name="student" xml:space="preserve">
-    <value>סטודנט:</value>
+    <value>שם הסטודנט:</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>אישור תשלום למורה</value>
