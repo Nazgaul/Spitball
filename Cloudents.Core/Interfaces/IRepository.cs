@@ -75,6 +75,10 @@ namespace Cloudents.Core.Interfaces
         Task<decimal> GetBalanceAsync(long userId, CancellationToken token);
 
     }
+    public interface IReferUserTransactionRepository : IRepository<ReferUserTransaction>
+    {
+        Task<int> GetReferUserCountAsync(long userId, CancellationToken token);
+    }
     public interface ICourseSubjectRepository : IRepository<CourseSubject>
     {
         Task<CourseSubject> GetCourseSubjectByName(string name, CancellationToken token);
