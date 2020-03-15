@@ -107,7 +107,7 @@
                         width="120"
                         depressed
                         rounded
-                        v-if="props.item.paymentStatus === 'PendingApproval' && props.item.type === 'TutoringSession'"
+                        v-if="pendingPayments && props.item.paymentStatus === 'PendingApproval' && props.item.type === 'TutoringSession'"
                         @click="$openDialog('teacherApproval', {item: props.item})">
                            {{$t('dashboardPage_btn_approve')}}
                      </v-btn>
@@ -174,6 +174,9 @@ export default {
       balancesItems(){
          return this.getBalancesItems;
       },
+      pendingPayments() {
+         return this.$store.getters.getPendingPayment
+      }
    },
    methods: {
       ...mapActions(['updateSalesItems','dashboard_sort']),

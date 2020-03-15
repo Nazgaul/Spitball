@@ -119,6 +119,9 @@ export default {
             set(newVal) {
                 this.updateNewSessionDuration(newVal);
             }
+        },
+        pendingPayments() {
+            return this.$store.getters.getPendingPayment
         }
     },
     methods: {
@@ -137,9 +140,13 @@ export default {
                 sessionId: this.session.sessionId,
                 realDuration: this.newSessionDuration
             }
+
             let self = this
             this.$store.dispatch('updateSessionDuration', newSessionDuration).then(() => {
                 self.$store.commit('setSaleItem', self.session.sessionId)
+                if(self.pendingPayments <= 0) {
+                    self.$store.commit('setToaster', '')
+                }
             }).catch(ex => {
                 self.$appInsights.trackException({exception: new Error(ex)});
             }).finally(() => {
