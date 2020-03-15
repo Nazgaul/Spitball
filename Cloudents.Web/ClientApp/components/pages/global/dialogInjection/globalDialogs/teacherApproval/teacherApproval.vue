@@ -138,8 +138,8 @@ export default {
                 realDuration: this.newSessionDuration
             }
             let self = this
-            this.$store.dispatch('updateSessionDuration', newSessionDuration).then(res => {
-                console.log(res);
+            this.$store.dispatch('updateSessionDuration', newSessionDuration).then(() => {
+                self.$store.commit('setSaleItem', self.session.sessionId)
             }).catch(ex => {
                 self.$appInsights.trackException({exception: new Error(ex)});
             }).finally(() => {
