@@ -626,6 +626,7 @@ watch: {
     document.addEventListener("fullscreenchange",this.closeFullScreen);
   },
   destroyed(){
+    this.$store.commit('setToaster', 'linkToaster') 
     global.onbeforeunload = function() { };
   },
   beforeDestroy(){
@@ -658,6 +659,7 @@ watch: {
     storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
   },
   async created() {
+    this.$store.commit('setToaster', '')
     this.userId = this.accountUser?.id || 'GUEST';
     if (!studyroomSettingsUtils.isBrowserSupport()) {
       this.$nextTick(()=>{
