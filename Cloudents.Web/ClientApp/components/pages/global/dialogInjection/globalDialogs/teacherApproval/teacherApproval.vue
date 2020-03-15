@@ -144,6 +144,7 @@ export default {
             let self = this
             this.$store.dispatch('updateSessionDuration', newSessionDuration).then(() => {
                 self.$store.commit('setSaleItem', self.session.sessionId)
+                self.$store.commit('setUserPendingPayment', self.pendingPayments-1)
                 if(self.pendingPayments <= 0) {
                     self.$store.commit('setToaster', '')
                 }
