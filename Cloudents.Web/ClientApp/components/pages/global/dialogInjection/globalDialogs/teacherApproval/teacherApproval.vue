@@ -99,7 +99,6 @@ export default {
             totalPrice: 0,
             newSessionDuration: null,
             modifyDurationError: false,
-            MAX_MINUTES: "10"
         }
     },
     computed: {
@@ -131,14 +130,15 @@ export default {
             this.updateTotalPrice(this.newSessionDuration)
         },
         approveSession() {
-            if(this.newSessionDuration > this.session.totalMinutes || this.newSessionDuration < this.MAX_MINUTES) {
-                this.modifyDurationError = true;
-                return
+            if(this.newSessionDuration) {
+                if(this.newSessionDuration == 0 || this.newSessionDuration > this.session.totalMinutes) {
+                    this.modifyDurationError = true;
+                    return
+                }
             }
-            
             let newSessionDuration = {
                 sessionId: this.session.sessionId,
-                realDuration: this.newSessionDuration
+                realDuration: this.newSessionDuration || this.session.totalMinutes
             }
 
             let self = this
