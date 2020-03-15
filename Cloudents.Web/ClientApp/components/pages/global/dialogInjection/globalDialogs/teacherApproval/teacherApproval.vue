@@ -38,7 +38,7 @@
                         </td>
                         <td>
                             <div class="d-flex align-center">
-                                <input type="number" class="durationInput" v-model="sessionDuration" />
+                                <input type="number" class="durationInput" v-model="newSessionDuration" />
                                 <span class="ml-2">{{$t('teacherApproval_minutes')}}</span>
                             </div>
                         </td>
@@ -108,37 +108,22 @@ export default {
             }
             return ''
         },
-        sessionDuration: {
-            get() {
-                if(this.newSessionDuration) {
-                    return this.newSessionDuration
-                }
-                return this.session.totalMinutes
-            },
-            set(newVal) {
-                this.updateNewSessionDuration(newVal);
-            }
-        },
         pendingPayments() {
             return this.$store.getters.getPendingPayment
         }
     },
     methods: {
-        updateNewSessionDuration(duration) {
-            this.newSessionDuration = duration;
-            this.modifyDurationError = false;
-            this.updateTotalPrice(this.newSessionDuration)
-        },
         approveSession() {
-            if(this.newSessionDuration) {
-                if(this.newSessionDuration == 0 || this.newSessionDuration > this.session.totalMinutes) {
-                    this.modifyDurationError = true;
-                    return
-                }
+            this.modifyDurationError = false;
+
+            if(this.newSessionDuration == 0 || this.newSessionDuration > this.session.totalMinutes) {
+                this.modifyDurationError = true;
+                return
             }
+
             let newSessionDuration = {
                 sessionId: this.session.sessionId,
-                realDuration: this.newSessionDuration || this.session.totalMinutes
+                realDuration: this.newSessionDuration
             }
 
             let self = this
@@ -177,6 +162,7 @@ export default {
         this.$store.dispatch('updateSalesSessions', item?.sessionId).then(session => {
             self.session = {...session, ...item};
             self.updateTotalPrice(item.totalMinutes)
+            self.newSessionDuration = self.session.totalMinutes
         })
     }
 }
