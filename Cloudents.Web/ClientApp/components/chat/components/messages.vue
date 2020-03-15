@@ -108,6 +108,11 @@ export default {
             return (route.name === 'tutoring' || route.name === 'roomSettings') && route.params?.id;
         }
     },
+    mounted: function() {
+        //this is due vuetify issue 6892
+        // dialog always take the focus once he is opened - need to diasble this.
+         this.$refs.chatTextArea.$el.querySelector('textarea').addEventListener('focusin', e=>e.stopPropagation());
+    },
     methods:{
         ...mapActions(['sendChatMessage', 'createStudyRoom']),
         sendMessage(){     
