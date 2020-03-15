@@ -130,7 +130,7 @@
     <value>Date:</value>
   </data>
   <data name="error" xml:space="preserve">
-    <value>You have increased the session duration above the duration that was recorded. Payments process will require an approval from support.</value>
+    <value>You have exceeded the session duration that was recorded. Payments process will require an approval from support.</value>
   </data>
   <data name="lesson_per_hour" xml:space="preserve">
     <value>Lesson rate per hour:</value>

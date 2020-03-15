@@ -38,7 +38,7 @@
                         </td>
                         <td>
                             <div class="d-flex align-center">
-                                <input type="number" class="durationInput" v-model="sessionDuration" />
+                                <input type="number" class="durationInput" v-model="newSessionDuration" />
                                 <span class="ml-2">{{$t('teacherApproval_minutes')}}</span>
                             </div>
                         </td>
@@ -99,7 +99,6 @@ export default {
             totalPrice: 0,
             newSessionDuration: null,
             modifyDurationError: false,
-            MAX_MINUTES: "10"
         }
     },
     computed: {
@@ -109,33 +108,19 @@ export default {
             }
             return ''
         },
-        sessionDuration: {
-            get() {
-                if(this.newSessionDuration) {
-                    return this.newSessionDuration
-                }
-                return this.session.totalMinutes
-            },
-            set(newVal) {
-                this.updateNewSessionDuration(newVal);
-            }
-        },
         pendingPayments() {
             return this.$store.getters.getPendingPayment
         }
     },
     methods: {
-        updateNewSessionDuration(duration) {
-            this.newSessionDuration = duration;
-            this.modifyDurationError = false;
-            this.updateTotalPrice(this.newSessionDuration)
-        },
         approveSession() {
-            if(this.newSessionDuration > this.session.totalMinutes || this.newSessionDuration < this.MAX_MINUTES) {
+            this.modifyDurationError = false;
+
+            if(this.newSessionDuration == 0 || this.newSessionDuration > this.session.totalMinutes) {
                 this.modifyDurationError = true;
                 return
             }
-            
+
             let newSessionDuration = {
                 sessionId: this.session.sessionId,
                 realDuration: this.newSessionDuration
@@ -144,6 +129,7 @@ export default {
             let self = this
             this.$store.dispatch('updateSessionDuration', newSessionDuration).then(() => {
                 self.$store.commit('setSaleItem', self.session.sessionId)
+                self.$store.commit('setUserPendingPayment', self.pendingPayments-1)
                 if(self.pendingPayments <= 0) {
                     self.$store.commit('setToaster', '')
                 }
@@ -176,6 +162,7 @@ export default {
         this.$store.dispatch('updateSalesSessions', item?.sessionId).then(session => {
             self.session = {...session, ...item};
             self.updateTotalPrice(item.totalMinutes)
+            self.newSessionDuration = self.session.totalMinutes
         })
     }
 }
