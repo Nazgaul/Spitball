@@ -49,7 +49,7 @@
                             <div class="py-4">{{$t('teacherApproval_lesson_per_hour')}}</div>
                         </td>
                         <td>
-                            <div class="py-4 pl-2">{{$n(session.tutorPricePerHour, 'currencyNoFraction')}}</div>
+                            <div class="py-4 pl-2">{{$n(session.tutorPricePerHour, 'currency')}}</div>
                         </td>
                     </tr>
 
