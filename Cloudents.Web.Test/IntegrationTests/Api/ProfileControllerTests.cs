@@ -47,7 +47,8 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var str = await response.Content.ReadAsStringAsync();
             dynamic json = JToken.Parse(str);
             string image = json.image;
-            var uri = new Uri(image);
+            var r = Uri.TryCreate(image, UriKind.RelativeOrAbsolute, out _);
+            r.Should().BeTrue();
 
         }
 
