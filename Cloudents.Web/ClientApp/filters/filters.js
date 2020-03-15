@@ -68,25 +68,6 @@ Vue.filter('fullMonthDate', function (value) {
     return date.toLocaleDateString(languageDate, options);
 });
 
-// filter for numbers, format numbers to local formats. Read more: 'toLocaleString'
-Vue.filter('currencyLocalyFilter', function (value, hideCurrrency) {
-    let amount = Number(value);
-    let sblCurrency = LanguageService.getValueByKey('wallet_SBL');
-    let result = amount && amount.toLocaleString(undefined, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    }) || '0';
-    if (hideCurrrency) {
-        return result;
-    } else {
-        if (amount < 0 && global.isRtl) {
-          return `${result.substr(1,result.length)}${result.slice(0,1)} ${sblCurrency}`;
-        }
-        return result + " " + sblCurrency;
-    }
-
-});
-
 Vue.filter('commasFilter', function (value) {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 });
