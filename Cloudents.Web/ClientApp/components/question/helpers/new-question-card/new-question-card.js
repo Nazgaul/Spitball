@@ -1,6 +1,5 @@
 import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
 import reportItem from "../../../results/helpers/reportItem/reportItem.vue"
-import { LanguageService } from "../../../../services/language/languageService";
 import { mapGetters, mapActions } from 'vuex';
 import questionNote from './question-note.svg';
 
@@ -14,14 +13,14 @@ export default {
         return {
             actions: [
                 {
-                    title: LanguageService.getValueByKey("questionCard_Report"),
+                    title: this.$t("questionCard_Report"),
                     action: this.reportItem,
                     isDisabled: this.isDisabled,
                     isVisible: true,
                     icon: 'sbf-flag'
                 },
                 {
-                    title: LanguageService.getValueByKey("questionCard_Delete"),
+                    title: this.$t("questionCard_Delete"),
                     action: this.removeQuestion,
                     isDisabled: this.canDelete,
                     isVisible: true,
@@ -58,19 +57,6 @@ export default {
                 return `${this.cardData.user.image}`;
             }
             return '';
-        },
-        uploadDate() {
-            if (this.cardData && this.cardData.dateTime) {
-                return this.$options.filters.fullMonthDate(this.cardData.dateTime);
-            }
-            return "";
-        },
-        uploadDateAnswer() {
-            if (this.cardData.firstAnswer && this.cardData.firstAnswer.date) {
-                
-                return this.$options.filters.fullMonthDate(this.cardData.firstAnswer.date);
-            }
-            return "";
         },
         hideAnswerInput() {           
             return this.detailedView;
@@ -155,7 +141,7 @@ export default {
             let questionId = this.cardData.id;
             this.deleteQuestion({id: questionId, type: 'Question'}).then(() => {
                 this.updateToasterParams({
-                    toasterText: LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_question"),
+                    toasterText: this.$t("helpers_questionCard_toasterDeleted_question"),
                     showToaster: true
                 });
                 let objToDelete = {
@@ -171,7 +157,7 @@ export default {
             (error) => {
                 console.error(error);
                 this.updateToasterParams({
-                    toasterText: LanguageService.getValueByKey("questionCard_error_delete"),
+                    toasterText: this.$t("questionCard_error_delete"),
                     showToaster: true
                 });
             });
