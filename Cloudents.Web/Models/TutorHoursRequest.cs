@@ -21,6 +21,8 @@ namespace Cloudents.Web.Models
         public TimeSpan From { get; set; }
         public TimeSpan To { get; set; }
 
+        public int Offset { get; set; }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (From > To)

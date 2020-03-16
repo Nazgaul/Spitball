@@ -4,7 +4,7 @@ namespace Cloudents.Core
 {
     public struct TutorAvailabilitySlot
     {
-        public TutorAvailabilitySlot(DayOfWeek day, TimeSpan @from, TimeSpan to)
+        public TutorAvailabilitySlot(DayOfWeek day, DateTimeOffset @from, DateTimeOffset to)
         {
             Day = day;
             From = @from;
@@ -34,8 +34,8 @@ namespace Cloudents.Core
 
         public DayOfWeek Day { get; }
 
-        public TimeSpan From { get; }
-        public TimeSpan To { get; }
+        public DateTimeOffset From { get; }
+        public DateTimeOffset To { get; }
 
         public static bool operator ==(TutorAvailabilitySlot left, TutorAvailabilitySlot right)
         {

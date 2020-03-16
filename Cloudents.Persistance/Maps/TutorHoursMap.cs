@@ -9,14 +9,14 @@ namespace Cloudents.Persistence.Maps
         public TutorHoursMap()
         {
             Id(x => x.Id).GeneratedBy.GuidComb();
-            References(x => x.Tutor).Column("TutorId").ForeignKey("Tutor_Hours").Not.Nullable().UniqueKey("tutor_day");
+            References(x => x.Tutor).Column("TutorId").ForeignKey("Tutor_Hours2").Not.Nullable().UniqueKey("tutor_day2");
             Component(x => x.AvailabilitySlot, z => {
-                z.Map(x => x.Day).Column("WeekDay").CustomType<GenericEnumStringType<DayOfWeek>>().UniqueKey("tutor_day");
-                z.Map(x => x.From).Column("From").Not.Nullable().CustomType<NHibernate.Type.TimeAsTimeSpanType>().UniqueKey("tutor_day");
-                z.Map(x => x.To).Column("To").Not.Nullable().CustomType<NHibernate.Type.TimeAsTimeSpanType>().UniqueKey("tutor_day");
+                z.Map(x => x.Day).Column("WeekDay").CustomType<GenericEnumStringType<DayOfWeek>>().UniqueKey("tutor_day2");
+                z.Map(x => x.From).Column("From").Not.Nullable().CustomType<NHibernate.Type.DateTimeOffsetType>().UniqueKey("tutor_day2");
+                z.Map(x => x.To).Column("To").Not.Nullable().CustomType<NHibernate.Type.DateTimeOffsetType>().UniqueKey("tutor_day2");
             });
             Map(x => x.CreateTime).Not.Update();
-            Table("TutorHours");
+            Table("TutorHours2");
             SchemaAction.Update();
         }
     }

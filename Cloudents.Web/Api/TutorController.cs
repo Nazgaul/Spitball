@@ -406,7 +406,14 @@ namespace Cloudents.Web.Api
         {
 
             var userId = _userManager.GetLongUserId(User);
-            var command = new UpdateTutorHoursCommand(userId, model.TutorDailyHours.Select(s => new TutorAvailabilitySlot(s.Day, s.From, s.To)));
+
+            var command = new UpdateTutorHoursCommand(userId,
+                model.TutorDailyHours.Select(s => 
+                    new TutorAvailabilitySlot(
+                        s.Day, 
+                        new DateTimeOffset(new DateTime(1950, 1, (int)s.Day + 1, s.From.Hours, s.From.Minutes, s.From.Seconds), TimeSpan.FromHours(s.Offset)),
+                        new DateTimeOffset(new DateTime(1950, 1, (int)s.Day + 1, s.To.Hours, s.To.Minutes, s.To.Seconds), TimeSpan.FromHours(s.Offset)))
+                    ));
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
