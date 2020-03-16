@@ -28,7 +28,7 @@ namespace Cloudents.Selenium.Test
 
             var applicationPath = Path.Combine(directoryName, "Cloudents.Web");
             ChromeOptions options = new ChromeOptions();
-            options.AddArgument("--headless");
+            //options.AddArgument("--headless");
             options.AcceptInsecureCertificates = true;
 
 
@@ -540,8 +540,6 @@ namespace Cloudents.Selenium.Test
 
                 var teachLink = driver.FindElementByWait(By.XPath("//*[contains(@class, 'becomeTutorSlot')]"));
 
-                teachLink.Click();
-
                 teachLink.GetAttribute("href").Should().Be(wixLink);
 
                 var earnButton = driver.FindElementByWait(By.XPath("//*[contains(@class, 'btn-earn')]"));
@@ -610,7 +608,7 @@ namespace Cloudents.Selenium.Test
                 // Wait until this element is showing
                 driver.FindElementByWait(By.XPath("//*[@class='sec-result']"));
 
-                var buyPointsBox = driver.FindElement(By.XPath("//*[contains(@class, 'buyPointsFeed')"));
+                var buyPointsBox = driver.FindElement(By.XPath("//*[contains(@class, 'buyPointsFeed')]"));
                 buyPointsBox.Click();
 
                 var buyPointsButton = driver.FindElementByWait(By.XPath("//*[contains(@class, 'buyPointsLayout_btn')]"));
