@@ -23,12 +23,3 @@ Vue.filter('ellipsis', function (value, characters, detailedView) {
 
     }
 });
-
-Vue.filter('bolder', function (value, query) {
-    if (query.length) {
-        query.map((item) => {
-            value = value.replace(item, '<span class="bolder">' + item + '</span>');
-        });
-    }
-    return value;
-});
