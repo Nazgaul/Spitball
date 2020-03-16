@@ -1,13 +1,10 @@
 import userBlock from "./../../../helpers/user-block/user-block.vue";
 import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 import reportItem from "../../../results/helpers/reportItem/reportItem.vue"
-import disableForm from "../../../mixins/submitDisableMixin"
 import { mapGetters, mapActions } from 'vuex'
-// import timeago from 'timeago.js';
 import timeAgoService from '../../../../services/language/timeAgoService';
 
 export default {
-    mixins: [disableForm],
     components: {
         userBlock,
         sbDialog,
