@@ -32,9 +32,3 @@ Vue.filter('bolder', function (value, query) {
     }
     return value;
 });
-
-Vue.filter('fixedPoints', function (value) {
-    if (!value) return 0;
-    if (value.toString().indexOf('.') === -1) return value;
-    return parseFloat(value).toFixed(2);
-});
