@@ -38,8 +38,3 @@ Vue.filter('fixedPoints', function (value) {
     if (value.toString().indexOf('.') === -1) return value;
     return parseFloat(value).toFixed(2);
 });
-
-Vue.filter('dollarVal', function (value) {
-    if (!value) return 0;
-    return parseFloat(value / 100).toFixed(2);
-});
