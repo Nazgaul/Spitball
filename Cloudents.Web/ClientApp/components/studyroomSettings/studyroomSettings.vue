@@ -83,9 +83,12 @@ export default {
     }
   },
   computed:{
-    ...mapGetters(['getStepHistory']),
+    ...mapGetters(['getStepHistory', 'getStudyRoomData']),
     isMobile() {
       return this.$vuetify.breakpoint.xsOnly;
+    },
+    isTutor() {
+      return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
     },
   },
   methods:{
@@ -126,7 +129,14 @@ export default {
       intercomSettings.showDialog();
     },
   },
+  destroyed() {
+    // show payment toaster if user is teacher and is not continue to studyroom
+    if(this.isTutor && this.$route.name !== 'tutoring') {
+      this.$store.commit('setToaster', 'linkToaster') 
+    }
+  },
   async created(){
+    this.$store.commit('setToaster', '')
     storeService.lazyRegisterModule(this.$store,'studyroomSettings_store',studyroomSettings_store);
     storeService.lazyRegisterModule(this.$store,'tutoringMain',tutoringMain);
     if(this.isMobile){
