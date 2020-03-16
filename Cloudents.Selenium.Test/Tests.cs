@@ -623,6 +623,37 @@ namespace Cloudents.Selenium.Test
                 Logout(driver);
             }
         }
+
+        [Fact]
+        public void MarketingTest()
+        {
+            foreach (var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+
+                Login(driver, UserTypeAccounts.ElementAt(0));
+
+                // Make sure those elements exist
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'uploadContent')]"));
+                driver.FindElementByWait(By.XPath("//button[contains(@class, 'uploadBtn')]"));
+                driver.FindElementByWait(By.XPath("//div[contains(@class, 'spitballTips')]"));
+                driver.FindElementByWait(By.XPath("//*[@class='dashboardSide']"));
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'teacherTasks')]"));
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'answerStudent')]"));
+
+                var letsGo = driver.FindElementByWait(By.XPath("//*[contains(@class, 'marketingTools')]//a"));
+
+                letsGo.Click();
+
+                // Making sure those elements display
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'marketingActions')]"));
+                driver.FindElementByWait(By.XPath("//*[@class='spitballBlogs']"));
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'tableCoupon')]"));
+
+                // Make sure those buttons exist
+                driver.FindElements(By.XPath("//button[contains(@class, 'marketingbtn')]"));
+            }
+        }
     }
 
     public static class SeleniumExtensions
