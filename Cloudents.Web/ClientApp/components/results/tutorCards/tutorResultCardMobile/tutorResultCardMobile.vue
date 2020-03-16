@@ -20,7 +20,7 @@
 
               <template>
                   <div class="user-rate align-center" v-if="tutorData.reviews > 0">
-                    <user-rating :rating="tutorData.rating" :showRateNumber="false" :size="'18'" class="mr-2" />
+                    <user-rating :rating="tutorData.rating" :showRateNumber="false" :size="'18'" class="flex-grow-0 mr-2" />
                     <span class="reviews" v-html="$Ph(tutorData.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></span>
                   </div>
                   <div class="user-rate align-center" v-else>
