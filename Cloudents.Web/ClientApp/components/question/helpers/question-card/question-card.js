@@ -5,7 +5,6 @@ import disableForm from "../../../mixins/submitDisableMixin"
 import { mapGetters, mapActions } from 'vuex'
 // import timeago from 'timeago.js';
 import timeAgoService from '../../../../services/language/timeAgoService';
-import { LanguageService } from "../../../../services/language/languageService";
 
 export default {
     mixins: [disableForm],
@@ -52,13 +51,13 @@ export default {
         return {
             actions: [
                 {
-                    title: LanguageService.getValueByKey("questionCard_Report"),
+                    title: this.$t("questionCard_Report"),
                     action: this.reportItem,
                     isDisabled: this.isDisabled,
                     isVisible: true
                 },
                 {
-                    title: LanguageService.getValueByKey("questionCard_Delete"),
+                    title: this.$t("questionCard_Delete"),
                     action: this.deleteQuestion,
                     isDisabled: this.isDeleteDisabled,
                     isVisible: true
@@ -150,7 +149,7 @@ export default {
             this.delete({id: this.cardData.id, type: (this.typeAnswer ? 'Answer' : 'Question')})
                 .then(() => {
                     this.updateToasterParams({
-                        toasterText: this.typeAnswer ? LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_answer") : LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_question"),
+                        toasterText: this.typeAnswer ? this.$t("helpers_questionCard_toasterDeleted_answer") : this.$t("helpers_questionCard_toasterDeleted_question"),
                         showToaster: true
                     });
                     if (!this.typeAnswer) {
