@@ -25,7 +25,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [Theory]
         [InlineData("api/profile/159489")]
         [InlineData("api/profile/159489/about")]
-        [InlineData("api/profile/159489/questions")]
+        //[InlineData("api/profile/159489/questions")]
         //[InlineData("api/profile/159489/answers")]
         [InlineData("api/profile/159489/documents")]
         //[InlineData("api/profile/159489/purchaseDocuments")]
