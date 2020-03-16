@@ -13,7 +13,6 @@ using Google.Apis.Docs.v1;
 using Google.Apis.Drive.v3;
 using Google.Apis.Drive.v3.Data;
 using Google.Apis.Services;
-using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -27,7 +26,6 @@ using Document = Google.Apis.Docs.v1.Data.Document;
 using User = Cloudents.Core.Entities.User;
 using System.IdentityModel.Tokens.Jwt;
 using Cloudents.Core.Entities;
-using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Google
 {

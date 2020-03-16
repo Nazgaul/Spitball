@@ -5,7 +5,6 @@ using Cloudents.Core.Entities;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
 using Cloudents.Web.Models;
-using JetBrains.Annotations;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

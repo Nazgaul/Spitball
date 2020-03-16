@@ -148,7 +148,7 @@
     <value>Submit</value>
   </data>
   <data name="create_succes" xml:space="preserve">
-    <value>You have succesesfuly created a coupon code</value>
+    <value>You have successfully created a coupon code</value>
   </data>
   <data name="create_title" xml:space="preserve">
     <value>Create a special offer</value>
