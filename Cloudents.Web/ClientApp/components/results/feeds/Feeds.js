@@ -11,7 +11,7 @@ import emptyStateCard from '../emptyStateCard/emptyStateCard.vue';
 import { mapActions, mapGetters } from 'vuex';
 import resultFilter from '../helpers/resultFilter/resultFilter.vue';
 import requestBox from '../../pages/feedPage/components/requestActions/requestActions.vue';
-import coursesTab from "../../pages/feedPage/components/coursesTab/coursesTab.vue";
+// import coursesTab from "../../pages/feedPage/components/coursesTab/coursesTab.vue";
 import generalPage from '../../helpers/generalPage.vue';
 
 const tutorResultCardMobile = () => import( /* webpackChunkName: "tutorResultCardMobile" */ '../tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue');
@@ -37,7 +37,7 @@ export default {
         resultFilter,
         emptyStateCard,
         requestBox,
-        coursesTab,
+        // coursesTab,
         generalPage,
         analyticOverview,
         buyPointsLayout

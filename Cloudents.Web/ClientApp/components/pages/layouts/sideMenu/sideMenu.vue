@@ -11,12 +11,7 @@
         
         <v-list class="sideMenu_list_cont" dense>
           <template v-if="showHome" >
-            <sideMenuHome :homeProps="{
-                              model:coursesModel,
-                              toggleMiniSideMenu:toggleMiniSideMenu,
-                              getShowSchoolBlock:getShowSchoolBlock,
-                              openSideMenu:openSideMenu,
-                            }"/>
+            <sideMenuHome />
           </template>
 
           <sideMenuDashboard :dashboardProps="{
