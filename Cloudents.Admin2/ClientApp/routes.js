@@ -18,7 +18,7 @@ import uToken from './components/user/token/tokenUser.vue';
 import uCashout from './components/user/cashout/cashoutUser.vue';
 import uSuspend from './components/user/suspend/suspendUser.vue';
 import activeUsers from './components/user/activeUsers/activeUsers.vue';
-import payments from './components/user/payments/paymentUser.vue';
+import payments from './components/user/payments/PaymentUser.vue';
 import changeCountry from './components/user/changeCountry/changeCountry.vue';
 
 import document from './components/document/document.vue';
@@ -45,7 +45,7 @@ import shortUrl from './components/management/shortUrl/shortUrl.vue';
 
 import conversation from './components/conversation/conversation.vue';
 import conversations from './components/conversation/conversationComponent/conversationDetalis/conversationDetails.vue';
-import startConversations from './components/conversation/startconversation.vue';
+import startConversations from './components/conversation/startConversation.vue';
 // import conversationMessages from './components/conversation/conversationComponent/conversationMessages/conversationMessages.vue';
 
 import tutors from './components/tutor/tutor.vue';

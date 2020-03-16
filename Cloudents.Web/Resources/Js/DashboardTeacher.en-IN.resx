@@ -117,15 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="30days" xml:space="preserve">
-    <value>Last 30 days</value>
-  </data>
-  <data name="7days" xml:space="preserve">
-    <value>Last 7 days</value>
-  </data>
-  <data name="90days" xml:space="preserve">
-    <value>Last 90 days</value>
-  </data>
   <data name="analytic_title" xml:space="preserve">
     <value>Your Analytics Overview</value>
   </data>
@@ -138,56 +129,23 @@
   <data name="book_session" xml:space="preserve">
     <value>Book an onboarding session</value>
   </data>
-  <data name="coming_soon" xml:space="preserve">
-    <value>Coming soon</value>
-  </data>
   <data name="connect_btn" xml:space="preserve">
     <value>Connect</value>
   </data>
   <data name="connect_calendar" xml:space="preserve">
     <value>Connect your calendar</value>
   </data>
-  <data name="costume_coupon" xml:space="preserve">
-    <value>Create your own custom coupon</value>
-  </data>
-  <data name="create_coupon" xml:space="preserve">
-    <value>Create a coupon</value>
-  </data>
   <data name="earn_money" xml:space="preserve">
     <value>Earn money by selling education content</value>
-  </data>
-  <data name="followers" xml:space="preserve">
-    <value>Followers</value>
-  </data>
-  <data name="get_started" xml:space="preserve">
-    <value>Get started</value>
-  </data>
-  <data name="lets_go" xml:space="preserve">
-    <value>Let’s go</value>
-  </data>
-  <data name="marketing_title" xml:space="preserve">
-    <value>Marketing Tools</value>
   </data>
   <data name="no_task" xml:space="preserve">
     <value>You’re all caught up</value>
   </data>
-  <data name="revenue" xml:space="preserve">
-    <value>Revenue</value>
-  </data>
-  <data name="sales" xml:space="preserve">
-    <value>Sales</value>
-  </data>
   <data name="see_all" xml:space="preserve">
     <value>See all</value>
   </data>
-  <data name="share_post" xml:space="preserve">
-    <value>Share a social post</value>
-  </data>
   <data name="spitball_tips" xml:space="preserve">
     <value>Tips from Frymo blog</value>
-  </data>
-  <data name="stand_out" xml:space="preserve">
-    <value>Stand out on Facebook &amp; Instagram</value>
   </data>
   <data name="task_completed" xml:space="preserve">
     <value>Task completed</value>
@@ -197,9 +155,6 @@
   </data>
   <data name="upload_content" xml:space="preserve">
     <value>Upload content</value>
-  </data>
-  <data name="views" xml:space="preserve">
-    <value>Views</value>
   </data>
   <data name="works_btn" xml:space="preserve">
     <value>Update</value>
