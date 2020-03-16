@@ -67,7 +67,3 @@ Vue.filter('fullMonthDate', function (value) {
     let languageDate = `${global.lang.toLowerCase()}-${global.country.toUpperCase()}`;
     return date.toLocaleDateString(languageDate, options);
 });
-
-Vue.filter('commasFilter', function (value) {
-    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-});

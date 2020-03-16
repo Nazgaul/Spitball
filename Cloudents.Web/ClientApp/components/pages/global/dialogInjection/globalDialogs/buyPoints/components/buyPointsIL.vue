@@ -67,7 +67,7 @@
                             @click="selectProduct('pro')"
                     >
                         <div class="buy-tokens-center-price-title">
-                            <span class="buy-tokens-points-num">{{products.pro.pts | commasFilter}}</span>&nbsp;
+                            <span class="buy-tokens-points-num">{{$n(products.pro.pts)}}</span>&nbsp;
                             <span v-language:inner="'buyTokens_points'"></span>
                         </div>
                         <div>{{products.currency}}{{products.pro.price}}</div>
