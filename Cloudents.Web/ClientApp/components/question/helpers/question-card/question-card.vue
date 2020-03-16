@@ -48,16 +48,16 @@
         </div>
 
         <sb-dialog
-                :showDialog="showReport"
-                :maxWidth="'438px'"
-                :popUpType="'reportDialog'"
-                :content-class="`reportDialog`"
+            :showDialog="showReport"
+            :maxWidth="'438px'"
+            :popUpType="'reportDialog'"
+            :content-class="`reportDialog`"
         >
             <report-item
-                    :closeReport="closeReportDialog"
-                    :itemType="'answer'"
-                    :answerDelData="answerToDeletObj"
-                    :itemId="itemId"
+                :closeReport="closeReportDialog"
+                :itemType="'answer'"
+                :answerDelData="answerToDeletObj"
+                :itemId="itemId"
             ></report-item>
         </sb-dialog>
 

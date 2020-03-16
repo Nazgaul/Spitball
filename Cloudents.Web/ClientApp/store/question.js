@@ -63,9 +63,6 @@ const actions = {
             }
         });
     },
-    correctAnswer(context, id) {
-        return questionService.markAsCorrectAnswer(id);
-    },
     setQuestion({commit}, id){
         return questionService.getQuestion(id)
         .then((response) => {

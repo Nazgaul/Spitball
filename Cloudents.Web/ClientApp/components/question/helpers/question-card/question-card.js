@@ -69,7 +69,6 @@ export default {
             answerToDeletObj: {},
             isDeleted: false,
             showActionToaster: false,
-            localMarkedAsCorrect: false,
             toasterText: '',
             timeoutID: null,
             action: null,
@@ -108,7 +107,6 @@ export default {
     methods: {
         ...mapActions({
             'delete': 'deleteQuestion',
-            correctAnswer: 'correctAnswer',
             updateToasterParams: 'updateToasterParams',
             removeQuestionItemAction: 'removeQuestionItemAction',
             manualAnswerRemove: 'answerRemoved',
@@ -147,10 +145,6 @@ export default {
         },
         closeReportDialog() {
             this.showReport = false;
-        },
-        markAsCorrect() {
-            this.localMarkedAsCorrect = true;
-            this.correctAnswer(this.cardData.id);
         },
         deleteQuestion() {
             this.delete({id: this.cardData.id, type: (this.typeAnswer ? 'Answer' : 'Question')})
