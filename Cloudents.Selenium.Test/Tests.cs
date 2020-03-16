@@ -654,6 +654,36 @@ namespace Cloudents.Selenium.Test
                 driver.FindElements(By.XPath("//button[contains(@class, 'marketingbtn')]"));
             }
         }
+
+        [Fact]
+        public void ProfileTest()
+        {
+            foreach (var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+
+                var url = $"{_driver.SiteUrl.TrimEnd('/')}/profile/159489";
+                driver.Navigate().GoToUrl(url);
+
+                // Make sure those elements exist
+                driver.FindElementByWait(By.XPath("//*[@class='profile-sticky']"));
+                driver.FindElementByWait(By.XPath("//*[@class='shareContent']"));
+                driver.FindElementByWait(By.XPath("//*[@class='profileUserBox']"));
+                driver.FindElementByWait(By.Id("profileItemsBox"));
+                driver.FindElementByWait(By.XPath("//*[@class='profileReviewsBox']"));
+                driver.FindElementByWait(By.XPath("//*[@class='profileUserSticky_btns']//button"));
+                driver.FindElementByWait(By.XPath("//button[contains(@class, 'followBtn')]"));
+                driver.FindElementByWait(By.XPath("//*[@sel='coupon']"));
+
+                var comboBoxes = driver.FindElements(By.XPath("//*[@class='v-input__control']"));
+
+                foreach(var comboBox in comboBoxes)
+                {
+                    comboBox.Click();
+                }
+            }
+
+        }
     }
 
     public static class SeleniumExtensions
