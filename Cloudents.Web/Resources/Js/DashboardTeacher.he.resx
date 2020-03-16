@@ -117,15 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="30days" xml:space="preserve">
-    <value>30 הימים האחרונים</value>
-  </data>
-  <data name="7days" xml:space="preserve">
-    <value>7 הימים האחרונים</value>
-  </data>
-  <data name="90days" xml:space="preserve">
-    <value>90 הימים האחרונים</value>
-  </data>
   <data name="analytic_title" xml:space="preserve">
     <value>סקירה כללית</value>
   </data>
@@ -138,56 +129,23 @@
   <data name="book_session" xml:space="preserve">
     <value>קבעו פגישת הדרכה על המערכת</value>
   </data>
-  <data name="coming_soon" xml:space="preserve">
-    <value>בקרוב</value>
-  </data>
   <data name="connect_btn" xml:space="preserve">
     <value>התחברו</value>
   </data>
   <data name="connect_calendar" xml:space="preserve">
     <value>סנכרנו את יומן הפגישות שלכם</value>
   </data>
-  <data name="costume_coupon" xml:space="preserve">
-    <value>צרו קופון עבור התלמידים שלכם</value>
-  </data>
-  <data name="create_coupon" xml:space="preserve">
-    <value>יצירת קופון</value>
-  </data>
   <data name="earn_money" xml:space="preserve">
     <value>הרוויחו כסף מחומרי הלימוד שלכם</value>
-  </data>
-  <data name="followers" xml:space="preserve">
-    <value>עוקבים</value>
-  </data>
-  <data name="get_started" xml:space="preserve">
-    <value>צרו קופון</value>
-  </data>
-  <data name="lets_go" xml:space="preserve">
-    <value>שתפו עכשיו</value>
-  </data>
-  <data name="marketing_title" xml:space="preserve">
-    <value>כלי שיווק</value>
   </data>
   <data name="no_task" xml:space="preserve">
     <value>השלמתם את כל המשימות</value>
   </data>
-  <data name="revenue" xml:space="preserve">
-    <value>הכנסות</value>
-  </data>
-  <data name="sales" xml:space="preserve">
-    <value>מכירות</value>
-  </data>
   <data name="see_all" xml:space="preserve">
     <value>ראו הכל</value>
   </data>
-  <data name="share_post" xml:space="preserve">
-    <value>שתפו פוסט בסושיאל</value>
-  </data>
   <data name="spitball_tips" xml:space="preserve">
     <value>טיפים מספיטבול</value>
-  </data>
-  <data name="stand_out" xml:space="preserve">
-    <value>תבלטו בפייסבוק ובאינסטגרם</value>
   </data>
   <data name="task_completed" xml:space="preserve">
     <value>משימות שהושלמו</value>
@@ -197,9 +155,6 @@
   </data>
   <data name="upload_content" xml:space="preserve">
     <value>העלאת תכנים</value>
-  </data>
-  <data name="views" xml:space="preserve">
-    <value>צפיות</value>
   </data>
   <data name="works_btn" xml:space="preserve">
     <value>עדכון</value>

@@ -184,23 +184,8 @@ Try connecting from a computer browser</value>
   <data name="start_to_share" xml:space="preserve">
     <value>Available while session is active</value>
   </data>
-  <data name="stream_btn_add_payment" xml:space="preserve">
-    <value>Add payment details</value>
-  </data>
   <data name="stream_btn_end_session" xml:space="preserve">
     <value>End Session</value>
-  </data>
-  <data name="stream_btn_join_session" xml:space="preserve">
-    <value>Join Session</value>
-  </data>
-  <data name="stream_btn_needPayment_student" xml:space="preserve">
-    <value>Add payment details</value>
-  </data>
-  <data name="stream_btn_needPayment_tutor" xml:space="preserve">
-    <value>Waiting for student</value>
-  </data>
-  <data name="stream_btn_pending_tutor" xml:space="preserve">
-    <value>Waiting for student</value>
   </data>
   <data name="stream_btn_start_session" xml:space="preserve">
     <value>Start Session</value>
