@@ -626,7 +626,9 @@ watch: {
     document.addEventListener("fullscreenchange",this.closeFullScreen);
   },
   destroyed(){
-    this.$store.commit('setToaster', 'linkToaster') 
+    if(this.isTutor) {
+      this.$store.commit('setToaster', 'linkToaster') 
+    }
     global.onbeforeunload = function() { };
   },
   beforeDestroy(){
