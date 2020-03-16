@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.DTOs;
+﻿using System;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Linq;
@@ -9,11 +10,10 @@ using System.Threading.Tasks;
 using Cloudents.Query.Stuff;
 using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.Enum;
-using System;
 
 namespace Cloudents.Query.Users
 {
-    public class UserAccountQuery : IQuery<UserAccountDto>
+    public class UserAccountQuery : IQuery<UserAccountDto?>
     {
         public UserAccountQuery(long id)
         {
@@ -23,7 +23,7 @@ namespace Cloudents.Query.Users
         private long Id { get; }
 
 
-        internal sealed class UserAccountDataQueryHandler : IQueryHandler<UserAccountQuery, UserAccountDto>
+        internal sealed class UserAccountDataQueryHandler : IQueryHandler<UserAccountQuery, UserAccountDto?>
         {
             private readonly IStatelessSession _session;
 
@@ -32,7 +32,7 @@ namespace Cloudents.Query.Users
                 _session = session.StatelessSession;
             }
 
-            public async Task<UserAccountDto> GetAsync(UserAccountQuery query, CancellationToken token)
+            public async Task<UserAccountDto?> GetAsync(UserAccountQuery query, CancellationToken token)
             {
                 //TODO: to nhibernate
                 const string sql = @"select u.Id, U.Balance, u.Name, u.FirstName, u.LastName, u.ImageName as Image, u.Email, 
@@ -77,11 +77,12 @@ namespace Cloudents.Query.Users
                                                         where sr.TutorId = :Id
                                                         and RealDuration is null
                                                         and Receipt is null
-                                                        and DurationInMinutes > 10
+                                                        and Duration > :Ticks
                                                         and price > 0";
 
                 var pendingSessionsPaymentsSqlQuery = _session.CreateSQLQuery(pendingSessionsPaymentsSql);
                 pendingSessionsPaymentsSqlQuery.SetInt64("Id", query.Id);
+                pendingSessionsPaymentsSqlQuery.SetInt64("Ticks", TimeSpan.FromMinutes(10).Ticks);
 
                 var pendingSessionsPaymentsFuture = pendingSessionsPaymentsSqlQuery.FutureValue<int>();
 
@@ -89,7 +90,14 @@ namespace Cloudents.Query.Users
                 var universityFuture = _session.Query<User>()
                     .Fetch(f => f.University)
                     .Where(w => w.Id == query.Id && w.University != null)
-                    .Select(s => new UniversityDto(s.University.Id, s.University.Name, s.University.Country, s.University.Image, s.University.UsersCount))
+                    .Select(s => 
+                        new UniversityDto(
+                            s.University!.Id,
+                            s.University.Name,
+                            s.University.Country,
+                            s.University.Image,
+                            s.University.UsersCount)
+                    )
                     .ToFutureValue();
 
                 var haveDocsFuture = _session.Query<Document>()

@@ -117,40 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="copy" xml:space="preserve">
-    <value>העתק</value>
+  <data name="btn_approve" xml:space="preserve">
+    <value>אישור</value>
   </data>
-  <data name="copy_tool" xml:space="preserve">
-    <value>הקישור הועתק</value>
+  <data name="btn_cancel" xml:space="preserve">
+    <value>ביטול</value>
   </data>
-  <data name="share_item_email_body" xml:space="preserve">
-    <value>הי,
-מצאתי חומר לימודי טוב  לקורס -  {1} ב {2}</value>
+  <data name="coupon_discount" xml:space="preserve">
+    <value>הנחת קופון:</value>
   </data>
-  <data name="share_item_email_subject" xml:space="preserve">
-    <value>חומר לימודי לקורס - {0}</value>
+  <data name="date" xml:space="preserve">
+    <value>תאריך:</value>
   </data>
-  <data name="share_item_twitter" xml:space="preserve">
-    <value>מצאתי חומר לימודי טוב  לקורס -  {0} ב {1}</value>
+  <data name="error" xml:space="preserve">
+    <value>משך השיעור שדווח הינו גבוה מהזמן שנרשם בפועל. כדי לאשר את התשלום, מחלקת התמיכה תצטרך לאשר זאת.</value>
   </data>
-  <data name="share_item_whatsapp" xml:space="preserve">
-    <value>מצאתי חומר לימודי טוב  לקורס -  {0} ב {1}</value>
+  <data name="lesson_per_hour" xml:space="preserve">
+    <value>מחיר לשעה:</value>
   </data>
-  <data name="share_profile_email_body" xml:space="preserve">
-    <value>הי,
-משתף איתך מורה פרטי. תסתכל על האתר שלו
-{1}</value>
+  <data name="minutes" xml:space="preserve">
+    <value>דקות</value>
   </data>
-  <data name="share_profile_email_subject" xml:space="preserve">
-    <value>המורה הפרטי {0} - מומלץ</value>
+  <data name="session_duration" xml:space="preserve">
+    <value>משך השיעור:</value>
   </data>
-  <data name="share_profile_twitter" xml:space="preserve">
-    <value>מצאתי מורה מצוין {0} ב {1}</value>
-  </data>
-  <data name="share_profile_whatsapp" xml:space="preserve">
-    <value>מצאתי מורה מצוין {0} ב {1}</value>
+  <data name="student" xml:space="preserve">
+    <value>תלמיד:</value>
   </data>
   <data name="title" xml:space="preserve">
-    <value>שיתוף</value>
+    <value>אישור תשלום למורה</value>
+  </data>
+  <data name="total_session" xml:space="preserve">
+    <value>סך הכל לתשלום</value>
   </data>
 </root>

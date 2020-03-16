@@ -4,7 +4,6 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Query;
 using Cloudents.Query.Users;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;

@@ -23,18 +23,16 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
-using Cloudents.Query;
-using Cloudents.Query.Tutor;
+using Cloudents.Core.Storage;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
-using Cloudmersive.APIClient.NETCore.ImageRecognition.Api;
 
 
 namespace ConsoleApp
 {
     internal static class Program
     {
-        public static IContainer _container;
+        public static IContainer Container;
 
         public enum EnvironmentSettings
         {
@@ -120,7 +118,7 @@ namespace ConsoleApp
 
 
 
-            _container = builder.Build();
+            Container = builder.Build();
 
             if (Environment.UserName == "Ram")
             {
@@ -145,9 +143,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var s = _container.Resolve<IPayPalService>();
-            var result = await s.GetPaymentAsync("4J34525079381873W", default);
-            //var x = await s.QueryAsync(new StudyRoomQuery(Guid.Parse("9f54280c-103e-46a6-8184-aabf00801beb"), 638), default);
+            await Convert();
+            //var s = Container.Resolve<IPayPalService>();
+            //var result = await s.GetPaymentAsync("4J34525079381873W", default);
+            ////var x = await s.QueryAsync(new StudyRoomQuery(Guid.Parse("9f54280c-103e-46a6-8184-aabf00801beb"), 638), default);
 
 
 
@@ -155,9 +154,9 @@ namespace ConsoleApp
         }
         private static async Task ResyncTutorRead()
         {
-            var session = _container.Resolve<IStatelessSession>();
-            var bus = _container.Resolve<ICommandBus>();
-            var eventHandler = _container.Resolve<IEventPublisher>();
+            var session = Container.Resolve<IStatelessSession>();
+            var bus = Container.Resolve<ICommandBus>();
+            var eventHandler = Container.Resolve<IEventPublisher>();
 
             var x = await session.CreateSQLQuery(@"
 Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
@@ -175,19 +174,27 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
         private static async Task Convert()
         {
 
-
-
-            // Configure API key authorization: Apikey
-            //Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "86afd89a-207c-4e7a-9ffc-da23fcb9d5b7");
             Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "07af4ce1-40eb-4e97-84e0-c02b4974b190");
-            Cloudmersive.APIClient.NETCore.ImageRecognition.Client.Configuration.Default.AddApiKey("Apikey", "07af4ce1-40eb-4e97-84e0-c02b4974b190");
-            //Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.Timeout = 300000;
-            var apiInstance3 = new EditApi();
-            var apiInstance = new ConvertDocumentApi();
-            var apiInstance2 = new ConvertImageApi();
+            Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.Configuration.Default.Timeout = 300000; //base on support
+            var _convertDocumentApi = new ConvertDocumentApi();
+            var id = 104135;
+            var storage = Container.Resolve<ICloudStorageProvider>();
+            var client = storage.GetBlobClient();
+            var container = client.GetContainerReference("spitball-files");
+            var dir1 = container.GetDirectoryReference("files");
+            var dir2 = dir1.GetDirectoryReference($"{id}");
+            var blobs = await dir2.ListBlobsSegmentedAsync(null);
+            var blob = (CloudBlockBlob)blobs.Results.FirstOrDefault(f => ((CloudBlockBlob) f).Name.Contains("file-"));
 
-            var inputFile = new FileStream("C:\\Users\\Ram\\Downloads\\file-52936bce-e08a-4138-9639-4971c22640ba-142339.pptx", System.IO.FileMode.Open); // System.IO.Stream | Input file to perform the operation on.
 
+            var sr = await blob.OpenReadAsync();
+            
+           // var sr = new FileStream("C:\\Users\\Ram\\Downloads\\xxx\\file-52936bce-e08a-4138-9639-4971c22640ba-142339.pptx", System.IO.FileMode.Open); // System.IO.Stream | Input file to perform the operation on.
+            var text2 = await _convertDocumentApi.ConvertDocumentPptxToTxtAsync(sr);
+            sr.Seek(0, SeekOrigin.Begin);
+            var result = await _convertDocumentApi.ConvertDocumentAutodetectToPngArrayAsync(sr);
+
+            Console.WriteLine("here");
             //var image = new Image<Rgba32>(500, 500);
             //image.Mutate(c=>c.BackgroundColor(Color.Aqua));
             //var ms = new MemoryStream();
@@ -239,10 +246,10 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
         private static async Task ResetVideo()
         {
-            var bus = _container.Resolve<ICloudStorageProvider>();
-            var d = _container.Resolve<DapperRepository>();
+            var bus = Container.Resolve<ICloudStorageProvider>();
+            var d = Container.Resolve<DapperRepository>();
             IEnumerable<long> ids; // 49538
-            var mediaServices = _container.Resolve<MediaServices>();
+            var mediaServices = Container.Resolve<MediaServices>();
             var queueClient = bus.GetQueueClient();
             using (var con = d.OpenConnection())
             {
@@ -267,17 +274,17 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
             //await c.CreateOrUpdateAsync(default);
 
 
-            var c2 = _container.Resolve<TutorSearchWrite>();
+            var c2 = Container.Resolve<TutorSearchWrite>();
             await c2.CreateOrUpdateAsync(default);
 
-            var session = _container.Resolve<ISession>();
+            var session = Container.Resolve<ISession>();
             foreach (var tutorId in session.Query<Tutor>().Where(w => w.State == ItemState.Ok).Select(s => s.Id).AsEnumerable())
             {
-                var eventHandler = _container.Resolve<IEventHandler<SetUniversityEvent>>();
+                var eventHandler = Container.Resolve<IEventHandler<SetUniversityEvent>>();
                 await eventHandler.HandleAsync(new SetUniversityEvent(tutorId), default);
             }
 
-            var storageProvider = _container.Resolve<ICloudStorageProvider>();
+            var storageProvider = Container.Resolve<ICloudStorageProvider>();
             var blobClient = storageProvider.GetBlobClient();
             var container = blobClient.GetContainerReference("spitball");
             var directory = container.GetDirectoryReference("AzureSearch");
@@ -295,7 +302,7 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
 
 
-            var bus = _container.Resolve<ICloudStorageProvider>();
+            var bus = Container.Resolve<ICloudStorageProvider>();
             var blobClient = bus.GetBlobClient();
             var queueClient = bus.GetQueueClient();
 
@@ -1009,7 +1016,7 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
 
 
-            var keyNew = _container.Resolve<IConfigurationKeys>().Storage;
+            var keyNew = Container.Resolve<IConfigurationKeys>().Storage;
             var storageAccount = CloudStorageAccount.Parse(keyNew);
             var blobClient = storageAccount.CreateCloudBlobClient();
 

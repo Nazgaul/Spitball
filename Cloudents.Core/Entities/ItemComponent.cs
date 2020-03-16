@@ -9,8 +9,8 @@ namespace Cloudents.Core.Entities
         public ItemState State { get; }
         public DateTime? DeletedOn { get; }
 
-        public string FlagReason { get; }
-        public BaseUser FlaggedUser { get; }
+        public string? FlagReason { get; }
+        public BaseUser? FlaggedUser { get; }
 
 
         private const int MaxReasonLength = 255;
@@ -42,7 +42,7 @@ namespace Cloudents.Core.Entities
         {
 
         }
-        private ItemStatus(ItemState state, DateTime? deletedOn, string flagReason, BaseUser flaggedUser) : this()
+        private ItemStatus(ItemState state, DateTime? deletedOn, string? flagReason, BaseUser? flaggedUser) : this()
         {
             State = state;
             DeletedOn = deletedOn;

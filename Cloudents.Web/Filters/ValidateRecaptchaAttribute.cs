@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

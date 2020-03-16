@@ -28,7 +28,7 @@ namespace Cloudents.Selenium.Test
 
             var applicationPath = Path.Combine(directoryName, "Cloudents.Web");
             ChromeOptions options = new ChromeOptions();
-            options.AddArgument("--headless");
+            //options.AddArgument("--headless");
             options.AcceptInsecureCertificates = true;
 
 
@@ -306,14 +306,16 @@ namespace Cloudents.Selenium.Test
                 driver.Navigate().GoToUrl(url);
                 var body = driver.FindElement(By.TagName("body"));
 
+                // Waiting for this element to display
+                driver.FindElementByWait(By.XPath(css));
 
-                var amountOfCards = driver.FindElements(By.XPath(css)).Count;
+                //var amountOfCards = driver.FindElements(By.XPath(css)).Count;                
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 30; i++)
                     body.SendKeys(Keys.PageDown);
-                Thread.Sleep(1000);
+                //Thread.Sleep(1000);
                 var amountOfCardsAfterPaging = driver.FindElements(By.XPath(css)).Count;
-                amountOfCardsAfterPaging.Should().BeGreaterThan(amountOfCards);
+                amountOfCardsAfterPaging.Should().BeGreaterThan(21);
             }
         }
 
@@ -540,13 +542,85 @@ namespace Cloudents.Selenium.Test
 
                 var teachLink = driver.FindElementByWait(By.XPath("//*[contains(@class, 'becomeTutorSlot')]"));
 
-                teachLink.Click();
-
                 teachLink.GetAttribute("href").Should().Be(wixLink);
 
                 var earnButton = driver.FindElementByWait(By.XPath("//*[contains(@class, 'btn-earn')]"));
 
                 earnButton.GetAttribute("href").Should().Be(wixLink);
+            }
+        }
+
+        [Fact]
+        public void TutorRequestTest()
+        {
+            foreach (var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+
+                Login(driver, UserTypeAccounts.ElementAt(1));
+
+                //var url = $"{_driver.SiteUrl.TrimEnd('/')}/feed?culture=en-US";
+                //driver.Navigate().GoToUrl(url);
+
+                var tutorRequest = driver.FindElementByWait(By.XPath("//*[@sel='request']"));
+
+                tutorRequest.Click();
+
+                var submitRequest = driver.FindElementByWait(By.XPath("//*[@sel='submit_tutor_request']"));
+
+                submitRequest.Click();
+
+                // Wait until this element is showing
+                driver.FindElementByWait(By.XPath("//*[@class='v-messages__message']"));
+
+                var errorMessages = driver.FindElements(By.XPath("//*[@class='v-messages__message']"));
+
+                errorMessages.Count.Should().Be(2);
+
+                foreach (var error in errorMessages)
+                {
+                    error.Text.Should().NotBeEmpty();
+                }
+
+                var freeText = driver.FindElement(By.XPath("//*[@sel='free_text']"));
+                freeText.SendKeys("Hi");
+
+                var courseSelection = driver.FindElement(By.XPath("//*[@sel='course_request']"));
+                courseSelection.SendKeys("Temp");
+                courseSelection.SendKeys(Keys.Tab);
+
+                submitRequest.Click();
+                
+                // Make sure this element is showing
+                driver.FindElementByWait(By.XPath("//*[@class='tutorRequest-success-middle']"));
+
+                Logout(driver);
+            }
+        }
+
+        [Fact]
+        public void BuyPointsTest()
+        {
+            foreach (var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+
+                Login(driver, UserTypeAccounts.ElementAt(1));
+                
+                // Wait until this element is showing
+                driver.FindElementByWait(By.XPath("//*[@class='sec-result']"));
+
+                var buyPointsBox = driver.FindElement(By.XPath("//*[contains(@class, 'buyPointsFeed')]"));
+                buyPointsBox.Click();
+
+                var buyPointsButton = driver.FindElementByWait(By.XPath("//*[contains(@class, 'buyPointsLayout_btn')]"));
+
+                buyPointsButton.Click();
+
+                // Check that this element exist
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'buy-dialog-wrap')]"));
+
+                Logout(driver);
             }
         }
     }
@@ -569,6 +643,6 @@ namespace Cloudents.Selenium.Test
             });
 
             //return driver.FindElement(by);
-        }
+        }       
     }
 }
