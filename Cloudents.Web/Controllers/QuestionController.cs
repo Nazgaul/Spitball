@@ -56,7 +56,7 @@ namespace Cloudents.Web.Controllers
                     SuggestedAnswer = new Values<IAnswer, IItemList>(retVal.Answers.Select((s, i) =>
                         new Answer
                         {
-                            //Text = s.Text,
+                            Text = s.Text,
                             DateCreated = s.Create,
                             Author = new Person
                             {

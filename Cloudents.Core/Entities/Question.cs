@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -20,7 +19,8 @@ namespace Cloudents.Core.Entities
             [NotNull] Course course, University university)
         : this()
         {
-            Text = text?.Trim();
+            if (text == null) throw new ArgumentNullException(nameof(text));
+            Text = text.Trim();
             User = user;
             Updated = Created = DateTime.UtcNow;
 
@@ -40,8 +40,9 @@ namespace Cloudents.Core.Entities
              University university)
             : this()
         {
+            if (text == null) throw new ArgumentNullException(nameof(text));
             Course = course;
-            Text = text?.Trim();
+            Text = text.Trim();
             User = user;
             Updated = Created = DateTime.UtcNow;
 
@@ -52,7 +53,7 @@ namespace Cloudents.Core.Entities
 
         protected Question()
         {
-            _answers = _answers ?? new List<Answer>();
+            _answers ??= new List<Answer>();
             //_votes = _votes ?? new List<Vote>();
         }
 
@@ -68,17 +69,11 @@ namespace Cloudents.Core.Entities
 
         [NotNull]
         public virtual Course Course { get; set; }
-        public virtual University University { get; set; }
-
-        //public virtual Answer CorrectAnswer { get; set; }
+        public virtual University? University { get; set; }
 
         private readonly IList<Answer> _answers = new List<Answer>();
 
         public virtual IReadOnlyList<Answer> Answers => _answers.ToList();
-
-
-        //public virtual IList<QuestionTransaction> Transactions { get; protected set; }
-
 
         public virtual Answer AddAnswer(string text, User user)
         {
@@ -101,7 +96,7 @@ namespace Cloudents.Core.Entities
         public virtual void MakePublic()
         {
             //TODO: maybe put an event to that
-            if (Status == null || Status == Pending)
+            if (Status == Pending)
             {
                 Status = Public;
                 //AddEvent(new QuestionCreatedEvent(this));

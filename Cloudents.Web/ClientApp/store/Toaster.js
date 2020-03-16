@@ -26,9 +26,6 @@ const mutations = {
             state.params.toasterType = '';
         }
     },
-    getPendingPayment: (state) => {
-        return state.user.pendingSessionsPayments
-    },
     setToaster(state, type) {
         state.value = type
     },

@@ -6,7 +6,7 @@ namespace Cloudents.Core
 {
     public class Logger : ILogger
     {
-        public void Exception(Exception ex, IDictionary<string, string> properties = null)
+        public void Exception(Exception ex, IDictionary<string, string>? properties = null)
         {
             if (ex == null) throw new ArgumentNullException(nameof(ex));
             System.Diagnostics.Trace.TraceError(ex.ToString());
@@ -33,10 +33,10 @@ namespace Cloudents.Core
             System.Diagnostics.Trace.TraceError(message);
         }
 
-        public void TrackMetric(string name, double value)
-        {
-            Info($"{name} metric value {value}");
-        }
+        //public void TrackMetric(string name, double value)
+        //{
+        //    Info($"{name} metric value {value}");
+        //}
 
         //        public void Exception(string info, Exception ex)
         //        {

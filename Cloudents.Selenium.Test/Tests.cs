@@ -306,14 +306,16 @@ namespace Cloudents.Selenium.Test
                 driver.Navigate().GoToUrl(url);
                 var body = driver.FindElement(By.TagName("body"));
 
+                // Waiting for this element to display
+                driver.FindElementByWait(By.XPath(css));
 
-                var amountOfCards = driver.FindElements(By.XPath(css)).Count;
+                //var amountOfCards = driver.FindElements(By.XPath(css)).Count;                
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 30; i++)
                     body.SendKeys(Keys.PageDown);
-                Thread.Sleep(1000);
+                //Thread.Sleep(1000);
                 var amountOfCardsAfterPaging = driver.FindElements(By.XPath(css)).Count;
-                amountOfCardsAfterPaging.Should().BeGreaterThan(amountOfCards);
+                amountOfCardsAfterPaging.Should().BeGreaterThan(21);
             }
         }
 

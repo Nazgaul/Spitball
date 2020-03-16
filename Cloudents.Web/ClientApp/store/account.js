@@ -34,7 +34,9 @@ const mutations = {
     setAccountPicture(state, imageUrl) {
         state.user = { ...state.user, image: imageUrl };
     },
-    // setPendingPayment(state, )
+    setUserPendingPayment(state, payments) {
+        state.user.pendingSessionsPayments = payments
+    }
 };
 
 const getters = {

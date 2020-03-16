@@ -64,8 +64,8 @@ namespace ConsoleApp
             ValueRange response = request.Execute();
             var values = response.Values;
 
-            var session = Program._container.Resolve<IStatelessSession>();
-            var bus = Program._container.Resolve<ICommandBus>();
+            var session = Program.Container.Resolve<IStatelessSession>();
+            var bus = Program.Container.Resolve<ICommandBus>();
 
             if (values != null && values.Count > 0)
             {

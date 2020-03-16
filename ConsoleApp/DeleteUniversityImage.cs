@@ -25,11 +25,11 @@ namespace ConsoleApp
                             where ImageUrl is not null";
 
             const string updateSql = @"update sb.University set ImageUrl = null where Id = @Id";
-            IEnumerable<UniImage> res;
+            IEnumerable<UniversityImage> res;
 
             using (var conn = _dapper.OpenConnection())
             {
-                res = await conn.QueryAsync<UniImage>(sql);
+                res = await conn.QueryAsync<UniversityImage>(sql);
             }
 
             foreach (var university in res)
@@ -40,7 +40,7 @@ namespace ConsoleApp
                     test.EnsureSuccessStatusCode();
                 }
 
-                catch (Exception e)
+                catch (Exception)
                 {
                     Console.WriteLine($"delete ImageUrl from university : {university.Id}");
                     using (var conn = _dapper.OpenConnection())
@@ -51,7 +51,7 @@ namespace ConsoleApp
             }
         }
 
-        private class UniImage
+        private class UniversityImage
         {
             public Guid Id { get; set; }
             public string ImageUrl { get; set; }

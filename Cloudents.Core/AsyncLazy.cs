@@ -33,7 +33,7 @@ namespace Cloudents.Core
     /// Provides support for asynchronous lazy initialization. This type is fully threadsafe.
     /// </summary>
     /// <typeparam name="T">The type of object that is being asynchronously initialized.</typeparam>
-    [DebuggerDisplay("Id = {Id}, State = {GetStateForDebugger}")]
+    [DebuggerDisplay("State = {" + nameof(GetStateForDebugger) + "}")]
     [DebuggerTypeProxy(typeof(AsyncLazy<>.DebugView))]
     public sealed class AsyncLazy<T>
     {
@@ -55,7 +55,7 @@ namespace Cloudents.Core
         /// <summary>
         /// The semi-unique identifier for this instance. This is 0 if the id has not yet been created.
         /// </summary>
-        private int _id;
+       // private int _id;
 
         [DebuggerNonUserCode]
         internal LazyState GetStateForDebugger
@@ -77,9 +77,7 @@ namespace Cloudents.Core
         /// <param name="flags">Flags to influence async lazy semantics.</param>
         public AsyncLazy(Func<Task<T>> factory, AsyncLazyFlags flags = AsyncLazyFlags.None)
         {
-            if (factory == null)
-                throw new ArgumentNullException(nameof(factory));
-            _factory = factory;
+            _factory = factory ?? throw new ArgumentNullException(nameof(factory));
             if ((flags & AsyncLazyFlags.RetryOnFailure) == AsyncLazyFlags.RetryOnFailure)
                 _factory = RetryOnFailure(_factory);
             if ((flags & AsyncLazyFlags.ExecuteOnCallingThread) != AsyncLazyFlags.ExecuteOnCallingThread)

@@ -58,7 +58,7 @@ namespace Cloudents.Core
             return GetTypes().Select(s => s.Extensions).SelectMany(z => z);
         }
 
-        public static IEnumerable<FileTypesExtension> GetTypes()
+        private static IEnumerable<FileTypesExtension> GetTypes()
         {
             return typeof(FileTypesExtension).GetFields(BindingFlags.Public | BindingFlags.Static)
                 .Where(w => !w.IsLiteral).Select(s => (FileTypesExtension)s.GetValue(null)).Where(w => w != null);
@@ -75,77 +75,7 @@ namespace Cloudents.Core
                     thumbnail = parent
                 }).ToDictionary(x => x.extension, z => z.thumbnail, StringComparer.OrdinalIgnoreCase);
         }
-
     }
 
-    //public static class FormatDocumentExtensions
-    //{
-
-
-    //    public const string ImageDefaultImage = "Icons_720_image.png";
-
-    //    //[DefaultThumbnail("Icons_720_excel.png")]
-    //    //public static readonly string[] Excel = { ".xls", ".xlsx", ".xlsm", ".xltx", ".ods", ".csv" };
-    //    //[DefaultThumbnail(ImageDefaultImage)]
-    //    //public static readonly string[] Image = { ".jpg", ".gif", ".png", ".jpeg", ".bmp" };
-    //    //[DefaultThumbnail("Icons_720_pdf.png")]
-    //    //public static readonly string[] Pdf = { ".pdf" };
-    //    //[DefaultThumbnail("Icons_720_power.png")]
-    //    //public static readonly string[] PowerPoint = { ".ppt", ".pot", ".pps", ".pptx", ".potx", ".ppsx", ".odp", ".pptm" };
-    //    //[DefaultThumbnail("Icons_720_txt.png")]
-    //    //public static readonly string[] Text = { ".txt", ".cpp", ".c", ".h", ".manifest", ".vcproj", ".java", ".sql", ".cs", ".css", ".less", ".log", ".vpp", ".xaml", ".xml", ".ini", ".suo", ".sln", ".php", ".js", ".config", ".htm", ".svg", ".html" };
-    //    //[DefaultThumbnail(ImageDefaultImage)]
-    //    //public static readonly string[] Tiff = { ".tiff", ".tif" };
-    //    //[DefaultThumbnail("Icons_720_doc.png")]
-    //    //public static readonly string[] Word = { ".rtf", ".docx", ".doc", ".odt" };
-    //    //[DefaultThumbnail("Icons_720_video.png")]
-    //    //public static readonly string[] Video =
-    //    //{
-    //    //    ".flv", ".mxf", ".gxf", ".ts", ".ps", ".3gp", ".3gpp", ".mpg", ".wmv", ".asf", ".avi", ".mp4", ".m4a",
-    //    //    ".m4v",  ".ismv", ".dvr-ms", ".mkv", ".mov"
-    //    //};
-
-    //    [DefaultThumbnail("Icons_720_sound.png")]
-    //    public static readonly string[] Music =
-    //    {
-    //        ".wav",".isma"
-    //    };
-
-    //    public static IEnumerable<string> GetFormats()
-    //    {
-    //        var b = GetTypes().Select(s => (string[]) s.GetValue(null));
-    //        var t = b.SelectMany(z => z);
-    //        return GetTypes().Select(s => (string[]) s.GetValue(null)).SelectMany(s => s);
-    //    }
-
-    //    public static IEnumerable<FieldInfo> GetTypes()
-    //    {
-    //        return typeof(FormatDocumentExtensions).GetFields(BindingFlags.Public | BindingFlags.Static)
-    //            .Where(w => !w.IsLiteral);
-    //    }
-
-    //    public static void XXX<T>() where  T : Attribute
-    //    {
-    //        FormatDocumentExtensions.GetTypes().Select(s => new
-    //        {
-    //            extensions = (string[])s.GetValue(null),
-    //            thumbnail = s.GetCustomAttribute<DefaultThumbnailAttribute>()?.Name ?? "doc-preview-empty.png"
-    //        }).SelectMany(v => v.extensions, (parent, child) => new
-    //        {
-    //            extension = child,
-    //            parent.thumbnail
-    //        }).ToDictionary(x => x.extension, z => z.thumbnail);
-    //    }
-
-    //}
-
-    //public class DefaultThumbnailAttribute : Attribute
-    //{
-    //    public DefaultThumbnailAttribute(string name)
-    //    {
-    //        Name = name;
-    //    }
-
-    //    public string Name { get; }
-    //}
+   
 }
