@@ -7,6 +7,10 @@ const mutations = {
    },
    setDataTrack(state,data){
    },
+   setVideoToggle(state,val){
+   },
+   setAudioToggle(state,val){
+   },
 }
 const getters = {
    getJwtToken: (state) => state.jwtToken,
@@ -18,7 +22,12 @@ const actions = {
    sendDataTrack({commit},data){
       commit('setDataTrack',data)
    },
-   
+   updateVideoToggle({commit},val){
+      commit('setVideoToggle',val)
+   },
+   updateAudioToggle({commit},val){
+      commit('setAudioToggle',val)
+   }
 }
 export default {
    state,

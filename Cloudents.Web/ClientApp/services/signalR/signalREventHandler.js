@@ -71,7 +71,6 @@ export const signlaREvents = {
         },
         update:function(arrEventObj){
             arrEventObj.forEach((roomStatusInformation)=>{
-                debugger
                 if(!store.getters.getJwtToken){
                     store.dispatch('updateJwtToken',roomStatusInformation.jwtToken)
                 }
