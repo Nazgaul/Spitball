@@ -36,7 +36,16 @@ import signalRPlugin from '../plugins/signalRPlugin';
 import componentPlugin from '../plugins/componentPlugin';
 import twilioPlugin from '../plugins/twilioPlugin';
 import twilioStore from './studyRoomStore/twilioStore.js'
+// import logger from 'vuex/dist/logger.js'
+const plugins = [
+    signalRPlugin({hubPath:'/sbhub'}), 
+    componentPlugin(),
+    twilioPlugin()
+]
 
+// if(process.env.NODE_ENV !== "production"){
+//     plugins.push(logger())
+// }
 // const onModuleAValueChange= (store) => {
 //     store.watch(
 //         state => state.route,
@@ -105,8 +114,7 @@ const store = new Vuex.Store({
         studyRoomStore,
         twilioStore,
     },
-    plugins: [signalRPlugin({hubPath:'/sbhub'}), componentPlugin(),twilioPlugin()]
+    plugins,
    // plugins: [onModuleAValueChange]
 });
-
 export default store;

@@ -19,7 +19,9 @@
                                     <castIcon class="placeholder-svg"></castIcon>
                                 </div>
                             </div>
-                            <div v-show="isVideoActive" id="localTrack"></div>                            
+                            <!-- TODO: dont forget to fix it! -->
+                            <div id="localTrack"></div>          
+                                <!-- <div v-show="isVideoActive" id="localTrack"></div> -->
                         </div>
                         <div class="control-panel">
                             <v-tooltip top>
