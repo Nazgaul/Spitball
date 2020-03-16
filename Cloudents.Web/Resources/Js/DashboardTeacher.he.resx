@@ -117,15 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="30days" xml:space="preserve">
-    <value>30 הימים האחרונים</value>
-  </data>
-  <data name="7days" xml:space="preserve">
-    <value>7 הימים האחרונים</value>
-  </data>
-  <data name="90days" xml:space="preserve">
-    <value>90 הימים האחרונים</value>
-  </data>
   <data name="analytic_title" xml:space="preserve">
     <value>סקירה כללית</value>
   </data>
@@ -161,6 +152,9 @@
   </data>
   <data name="get_started" xml:space="preserve">
     <value>צרו קופון</value>
+  </data>
+  <data name="last_days" xml:space="preserve">
+    <value>{0} הימים האחרונים</value>
   </data>
   <data name="lets_go" xml:space="preserve">
     <value>שתפו עכשיו</value>
