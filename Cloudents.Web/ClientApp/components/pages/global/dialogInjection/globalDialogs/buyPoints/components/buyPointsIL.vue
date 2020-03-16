@@ -1,7 +1,7 @@
 <template>
     <div class="buy-dialog-wrap">
         <div class="close-buy-dialog">
-            <v-icon class="closeIcon" color="#000" size="14" v-closeDialog>sbf-close</v-icon>
+            <v-icon class="closeIcon" @click="''" color="#000" size="14" v-closeDialog>sbf-close</v-icon>
         </div>
         <div class="buy-tokens-wrap">
             <v-container px-4 pt-6 pb-0 class="buy-tokens-top-container">
