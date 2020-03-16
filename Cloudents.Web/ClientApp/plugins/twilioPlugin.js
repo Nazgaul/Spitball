@@ -7,9 +7,10 @@ function _insightEvent(...args) {
 }
 
 function _twilioListeners(room,store) {
-   _insightEvent('StudyRoom_tutorService_TwilioConnect', room, null);
    debugger
+   _insightEvent('StudyRoom_tutorService_TwilioConnect', room, null);
    room.on('participantConnected', (participant) => {
+      _insightEvent('StudyRoom_tutorService_TwilioParticipantConnected', participant, null);
       debugger
    })
    room.on('participantDisconnected', (participant) => {
@@ -23,9 +24,8 @@ function _twilioListeners(room,store) {
    room.on('disconnected', (dRoom, error) => {
       if (error?.code) {
          _insightEvent('StudyRoom_tutorService_TwilioDisconnected', {'errorCode': error.code}, null);
+         debugger
          console.error(`Twilio Error: Code: ${error.code}, Message: ${error.message}`)
-      }else{
-         return;
       }
    })
 
@@ -136,8 +136,6 @@ export default () => {
 
       //    // // Attach the Participant's Media to a <div> element.
       //    // room.on('participantConnected', participant => {
-      //    //    _insightEvent('StudyRoom_tutorService_TwilioParticipantConnected', participant, null);
-
       //    //    store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.active);
       //    //    if (isTutor) {
       //    //       analyticsService.sb_unitedEvent('study_room', 'session_started', `studentName: ${studentName} studentId: ${studentId}`);

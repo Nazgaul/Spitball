@@ -1,5 +1,4 @@
 import store from '../../store/index';
-// import tutorService from './tutorService';
 import {Decoder, tools, Reader} from 'ts-ebml';
 import insightService from '../../services/insightService';
 import { LanguageService } from '../../services/language/languageService';

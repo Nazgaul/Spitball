@@ -35,7 +35,7 @@ import studyRoomStore from './studyRoomStore/studyRoomStore.js'
 import signalRPlugin from '../plugins/signalRPlugin';
 import componentPlugin from '../plugins/componentPlugin';
 import twilioPlugin from '../plugins/twilioPlugin';
-
+import twilioStore from './studyRoomStore/twilioStore.js'
 
 // const onModuleAValueChange= (store) => {
 //     store.watch(
@@ -103,6 +103,7 @@ const store = new Vuex.Store({
         tutoringMain,
         studyroomSettings_store,
         studyRoomStore,
+        twilioStore,
     },
     plugins: [signalRPlugin({hubPath:'/sbhub'}), componentPlugin(),twilioPlugin()]
    // plugins: [onModuleAValueChange]

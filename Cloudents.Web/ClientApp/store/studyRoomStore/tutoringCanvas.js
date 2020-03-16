@@ -187,7 +187,6 @@ const mutations = {
 const actions = {
     dispatchDataTrackJunk({commit},data){
         // TODO: clean it!
-        debugger
         let parsedData = data.data;
         if (data.type === 'passData') {
             whiteBoardService.passData(parsedData.canvasContext, parsedData.dataContext);

@@ -1,6 +1,13 @@
 // import videoStreamService from '../../services/videoStreamService';
-// import tutorService from '../../components/studyroom/tutorService';
 
+// function DevicesObject(){
+//    this.hasAudio= false,
+//    this.hasVideo= false,
+//    this.errors= {
+//        video: [],
+//        audio: []
+//    };
+// }
 
 // const state = {
 //     roomId: '',
@@ -30,7 +37,7 @@
 //     settingsDialogState: false,
 //     activeNavIndicator: 'white-board',
 //     deviceValidationError:false,
-//     DevicesObject: tutorService.createDevicesObj(),
+//     DevicesObject: new DevicesObject(),
 //     sessionTimeStart: null,
 //     sessionTimeEnd: null,
 //     showUserConsentDialog: false,
