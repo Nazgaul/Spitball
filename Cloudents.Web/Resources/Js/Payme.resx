@@ -132,9 +132,6 @@
   <data name="content_txt_time" xml:space="preserve">
     <value>Pay only once your lesson is complete</value>
   </data>
-  <data name="title" xml:space="preserve">
-    <value>The payment for the tutoring session with {1}  will be done after the session ends, and an invoice will be sent via email to you.</value>
-  </data>
   <data name="top_title" xml:space="preserve">
     <value>Convenient, cashless payments</value>
   </data>

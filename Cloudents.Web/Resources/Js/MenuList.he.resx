@@ -126,9 +126,6 @@
   <data name="Change" xml:space="preserve">
     <value>עריכה</value>
   </data>
-  <data name="changeCourse" xml:space="preserve">
-    <value>קורסים</value>
-  </data>
   <data name="changeUniversity" xml:space="preserve">
     <value>מוסד לימוד</value>
   </data>

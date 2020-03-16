@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const bundleOutputDir = './wwwroot/dist';
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
@@ -48,6 +49,7 @@ module.exports = (env) => {
         devtool: isDevBuild ? 'inline-source-map' : 'source-map',
         plugins: [
             new VueLoaderPlugin(),
+            new CaseSensitivePathsPlugin(),
             new webpack.DefinePlugin({
                 'process.env': {
                     NODE_ENV: JSON.stringify(isDevBuild ? 'development' : 'production')
