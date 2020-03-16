@@ -134,49 +134,6 @@
       .giveEllipsisUpdated(20px, 1.35, 3);
     }
   }
-  .gallery {
-    padding: 16px;
-    margin: 16px;
-    .v-carousel {
-      cursor: pointer;
-      .v-jumbotron__wrapper {
-        .v-jumbotron__image {
-          height: auto;
-          width: 100%;
-          cursor: pointer;
-        }
-      }
-      @media (max-width: @screen-xs) {
-        height: 238px;
-        padding: 25px;
-      }
-      box-shadow: none;
-      button {
-        width: 40px;
-        height: @btnHeight;
-        &:before {
-          opacity: 0.2;
-          background-color: #000000;
-        }
-        .v-icon {
-          font-size: 20px !important;
-          &.left {
-            transform: scale(-1, 1);
-            margin-right: 3px;
-          }
-          &.right {
-            transform: scale(1, 1);
-            margin-left: 4px;
-          }
-        }
-      }
-      .v-carousel__item {
-        .v-image__image--cover {
-          background-size: contain;
-        }
-      }
-    }
-  }
 
   .q-user-info {
     bottom: 0;
@@ -287,16 +244,6 @@
     outline: none;
     background-color: #FF006B;
      .cellActionBtnMixinAnswer();
-  }
-  .v-dialog.zoom-image {
-    overflow-y: hidden;
-    width: auto !important;
-    border: 1px solid red;
-  }
-  .zoomed-image {
-    height: auto;
-    width: 100%;
-    max-height: 720px;
   }
 
   .question-card-answer {

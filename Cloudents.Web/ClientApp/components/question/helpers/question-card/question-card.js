@@ -75,14 +75,9 @@ export default {
             action: null,
             path: '',
             src: '',
-            selectedImage: '',
-            showDialog: false,
         };
     },
     computed: {
-        gallery() {
-            return this.cardData.files;
-        },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
@@ -153,15 +148,6 @@ export default {
         closeReportDialog() {
             this.showReport = false;
         },
-        getQuestionColor() {
-            if (!!this.cardData && !this.cardData.color) {
-                return this.cardData.color = 'default';
-            }
-        },
-        showBigImage(src) {
-            this.showDialog = true;
-            this.selectedImage = src;
-        },
         markAsCorrect() {
             this.localMarkedAsCorrect = true;
             this.correctAnswer(this.cardData.id);
@@ -169,72 +155,33 @@ export default {
         deleteQuestion() {
             this.delete({id: this.cardData.id, type: (this.typeAnswer ? 'Answer' : 'Question')})
                 .then(() => {
-                        this.updateToasterParams({
-                            toasterText: this.typeAnswer ? LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_answer") : LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_question"),
-                            showToaster: true
-                        });
-                        if (!this.typeAnswer) {
-                            let objToDelete = {
-                                id: parseInt(this.$route.params.id)
-                            };
-                            this.$ga.event("Delete_question", "Homework help");
-                            //ToDO change to router link use and not text URL
-                            this.removeQuestionItemAction(objToDelete);
-                            this.$router.push('/ask');
-                        } else {
-                            //emit to root to update array of answers
-                            this.$ga.event("Delete_answer", "Homework help");
+                    this.updateToasterParams({
+                        toasterText: this.typeAnswer ? LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_answer") : LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_question"),
+                        showToaster: true
+                    });
+                    if (!this.typeAnswer) {
+                        let objToDelete = {
+                            id: parseInt(this.$route.params.id)
+                        };
+                        this.$ga.event("Delete_question", "Homework help");
+                        //ToDO change to router link use and not text URL
+                        this.removeQuestionItemAction(objToDelete);
+                        this.$router.push('/ask');
+                    } else {
+                        //emit to root to update array of answers
+                        this.$ga.event("Delete_answer", "Homework help");
 
-                            //delete object Manually
-                            let answerToRemove = {
-                                questionId: parseInt(this.$route.params.id),
-                                answer: {
-                                    id: this.cardData.id
-                                }
-                            };
-                            this.manualAnswerRemove(answerToRemove);
-                            this.isDeleted = true;
-                        }
+                        //delete object Manually
+                        let answerToRemove = {
+                            questionId: parseInt(this.$route.params.id),
+                            answer: {
+                                id: this.cardData.id
+                            }
+                        };
+                        this.manualAnswerRemove(answerToRemove);
+                        this.isDeleted = true;
                     }
-                );
-        },
-        // renderQuestionTime(className) {
-        //     const hebrewLang = function (number, index) {
-        //         return [
-        //             ['זה עתה', 'עכשיו'],
-        //             ['לפני %s שניות', 'בעוד %s שניות'],
-        //             ['לפני דקה', 'בעוד דקה'],
-        //             ['לפני %s דקות', 'בעוד %s דקות'],
-        //             ['לפני שעה', 'בעוד שעה'],
-        //             ['לפני %s שעות', 'בעוד %s שעות'],
-        //             ['אתמול', 'מחר'],
-        //             ['לפני %s ימים', 'בעוד %s ימים'],
-        //             ['לפני שבוע', 'בעוד שבוע'],
-        //             ['לפני %s שבועות', 'בעוד %s שבועות'],
-        //             ['לפני חודש', 'בעוד חודש'],
-        //             ['לפני %s חודשים', 'בעוד %s חודשים'],
-        //             ['לפני שנה', 'בעוד שנה'],
-        //             ['לפני %s שנים', 'בעוד %s שנים']
-        //         ][index];
-        //     };
-        //     timeago.register('he', hebrewLang);
-        //     let timeAgoRef = timeago();
-        //     let locale = global.lang.toLowerCase() === 'he' ? 'he' : '';
-        //     timeAgoRef.render(document.querySelectorAll(className), locale);
-        // }
-    },
-    created() {
-        this.getQuestionColor();
-    },
-    mounted() {
-        // use render method to render nodes in real time
-        // this.renderQuestionTime('.timeago');
-    },
-    updated() {
-        // when signalR adds a question we want the time to be rerendered to show correct time
-        // thats why we have same function on mounted and updated
-        // this.renderQuestionTime('.timeago');
-
-
+                });
+        }
     }
 }
