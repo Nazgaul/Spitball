@@ -652,6 +652,8 @@ namespace Cloudents.Selenium.Test
 
                 // Make sure those buttons exist
                 driver.FindElements(By.XPath("//button[contains(@class, 'marketingbtn')]"));
+
+                Logout(driver);
             }
         }
 
