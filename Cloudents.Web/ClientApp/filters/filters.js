@@ -43,14 +43,3 @@ Vue.filter('dollarVal', function (value) {
     if (!value) return 0;
     return parseFloat(value / 100).toFixed(2);
 });
-
-
-// 10/12/2018
-Vue.filter('dateFromISO', function (value) {
-    let d = new Date(value);
-    //return load if no data
-    if (!value) {
-        return LanguageService.getValueByKey('wallet_Loading');
-    }
-    return `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
-});
