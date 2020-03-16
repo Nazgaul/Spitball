@@ -7,14 +7,7 @@ function _insightEvent(...args) {
 }
 
 function _twilioListeners(room,store) {
-
-
-
-
-
-
-
-
+   _insightEvent('StudyRoom_tutorService_TwilioConnect', room, null);
    debugger
    room.on('participantConnected', (participant) => {
       debugger

@@ -7,7 +7,6 @@ import canvasFinder from "./utils/canvasFinder";
 import equationMapper from "./innerComponents/equationMapper.vue";
 // import iinkDrawer from "./innerComponents/iinkDrawer.vue";
 const iinkDrawer = () => import("./innerComponents/iinkDrawer.vue");
-import tutorService from "../tutorService";
 import { LanguageService } from '../../../services/language/languageService';
 import imageDraw from './options/imageDraw';
 import pencilSVG from '../images/noun-edit-684936.svg';
@@ -215,7 +214,7 @@ export default {
                     data: tabData
                 };
                 let normalizedData = JSON.stringify(transferDataObj);
-                tutorService.dataTrack.send(normalizedData);
+                this.$store.dispatch('sendDataTrack',normalizedData)
     
                 let tab = document.getElementById(this.currentTabId);
                 let selection = global.getSelection();
@@ -283,7 +282,7 @@ export default {
                     data: data
                 };
                 let normalizedData = JSON.stringify(transferDataObj);
-                tutorService.dataTrack.send(normalizedData);
+                this.$store.dispatch('sendDataTrack',normalizedData)
                 if (this.returnToDefaultState(dragObj)) {
                     this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, this.enumOptions.select)());
                     this.setSelectedOptionString(this.enumOptions.select);
@@ -299,7 +298,7 @@ export default {
                 tab: this.getCurrentSelectedTab,
             };
             let normalizedData = JSON.stringify(transferDataObj);
-            tutorService.dataTrack.send(normalizedData);
+            this.$store.dispatch('sendDataTrack',normalizedData)
             whiteBoardService.undo(this.canvasData);
 
         },
@@ -312,7 +311,7 @@ export default {
                 tab: this.getCurrentSelectedTab,
             };
             let normalizedData = JSON.stringify(transferDataObj);
-            tutorService.dataTrack.send(normalizedData);
+            this.$store.dispatch('sendDataTrack',normalizedData)
             whiteBoardService.clearData(this.canvasData, this.getCurrentSelectedTab);
             helperUtil.HelperObj.isActive = false;
         },
@@ -360,7 +359,6 @@ export default {
                 };
                 let normalizedData = JSON.stringify(transferDataObj);
                 this.$store.dispatch('sendDataTrack',normalizedData)
-                // tutorService.dataTrack.send(normalizedData);
                 
                 this.changeSelectedTab(tab);
                 whiteBoardService.hideHelper();

@@ -548,7 +548,7 @@ watch: {
           data: activeNavData
       };
       let normalizedData = JSON.stringify(transferDataObj);
-      tutorService.dataTrack.send(normalizedData);
+      this.$store.dispatch('sendDataTrack',normalizedData)
       console.log(this.activeItem);
     },
     changeSettingsDialogState(val) {

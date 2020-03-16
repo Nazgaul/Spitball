@@ -1,5 +1,3 @@
-// import tutorService from '../../components/studyroom/tutorService.js';
-
 // const state = {
 //     isDarkTheme: true,
 //     currentLang: {langName: 'C', langMode: 'text/x-c++src', langIcon:'./images/c.png'},
@@ -48,9 +46,9 @@
 //             dispatch('sendEditorData', editorEvent);
 //         }
 //     },
-//     sendEditorData(context, {subject, val}){
+//     sendEditorData({dispatch}, {subject, val}){
 //         let normalizedData = JSON.stringify({type: subject,data: val});
-//         tutorService.dataTrack.send(normalizedData);
+//         dispatch('sendDataTrack',normalizedData)
 //     }
 // };
 // export default {
