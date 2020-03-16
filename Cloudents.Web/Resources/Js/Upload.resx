@@ -123,9 +123,6 @@
   <data name="multiple_error_upload_something_wrong" xml:space="preserve">
     <value>File is not supported</value>
   </data>
-  <data name="files_file_upload" xml:space="preserve">
-    <value>Upload a file</value>
-  </data>
   <data name="CreateOk" xml:space="preserve">
     <value>Your file was uploaded successfully! You will be able to view shortly.</value>
   </data>

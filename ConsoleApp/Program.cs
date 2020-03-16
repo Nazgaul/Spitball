@@ -143,7 +143,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await Convert();
+            ResourcesMaintenance.DeleteStuffFromJs();
             //var s = Container.Resolve<IPayPalService>();
             //var result = await s.GetPaymentAsync("4J34525079381873W", default);
             ////var x = await s.QueryAsync(new StudyRoomQuery(Guid.Parse("9f54280c-103e-46a6-8184-aabf00801beb"), 638), default);

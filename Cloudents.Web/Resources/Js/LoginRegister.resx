@@ -117,22 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="congrats_bottom" xml:space="preserve">
-    <value>Get private lessons from top rated teachers, find study resources, and get answers to your study related questions</value>
-    <comment>1</comment>
-  </data>
-  <data name="congrats_btn" xml:space="preserve">
-    <value>Let’s Start</value>
-    <comment>1</comment>
-  </data>
-  <data name="congrats_subtitle" xml:space="preserve">
-    <value>You’r ready to start</value>
-    <comment>1</comment>
-  </data>
-  <data name="congrats_title" xml:space="preserve">
-    <value>CONGRATS!</value>
-    <comment>1</comment>
-  </data>
   <data name="emailconfirm_bottom" xml:space="preserve">
     <value>Once you verify your email address, you'll be able to access Spitball's services</value>
     <comment>1</comment>
@@ -332,30 +316,12 @@
     <value>Confirmation code</value>
     <comment>1</comment>
   </data>
-  <data name="smsconfirm_phone_error" xml:space="preserve">
-    <value>This phone number is linked to another email address</value>
-    <comment>1</comment>
-  </data>
-  <data name="smsconfirm_phone_error_invalid" xml:space="preserve">
-    <value>Invalid Phone Number</value>
-    <comment>1</comment>
-  </data>
-  <data name="smsconfirm_phone_error_tryagain" xml:space="preserve">
-    <value>Please try again</value>
-    <comment>1</comment>
-  </data>
   <data name="smsconfirm_subtitle" xml:space="preserve">
     <value>A verification code was sent to your phone:</value>
     <comment>1</comment>
   </data>
   <data name="smsconfirm_title" xml:space="preserve">
     <value>Confirm your phone number!</value>
-    <comment>1</comment>
-  </data>
-  <data name="main_txt" xml:space="preserve">
-    <value>Ace your exams with the
-best study tools and 
-tutors</value>
     <comment>1</comment>
   </data>
   <data name="getstarted_title_login" xml:space="preserve">

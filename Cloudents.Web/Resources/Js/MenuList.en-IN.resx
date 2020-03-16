@@ -126,9 +126,6 @@
   <data name="Change" xml:space="preserve">
     <value>Change</value>
   </data>
-  <data name="changeCourse" xml:space="preserve">
-    <value>Courses</value>
-  </data>
   <data name="changeUniversity" xml:space="preserve">
     <value>School</value>
   </data>

@@ -138,11 +138,11 @@
   <data name="connect_calendar" xml:space="preserve">
     <value>סנכרנו את יומן הפגישות שלכם</value>
   </data>
-  <data name="costume_coupon" xml:space="preserve">
-    <value>צרו קופון עבור התלמידים שלכם</value>
-  </data>
   <data name="create_coupon" xml:space="preserve">
     <value>יצירת קופון</value>
+  </data>
+  <data name="custome_coupon" xml:space="preserve">
+    <value>צרו קופון עבור התלמידים שלכם</value>
   </data>
   <data name="earn_money" xml:space="preserve">
     <value>הרוויחו כסף מחומרי הלימוד שלכם</value>
