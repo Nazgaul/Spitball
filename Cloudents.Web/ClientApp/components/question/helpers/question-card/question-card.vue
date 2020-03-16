@@ -1,18 +1,14 @@
 <template>
     <!-- ********************** THIS IS THE ANSWER CARD ********************** -->
-    <v-flex
-            v-if="cardData && !isDeleted "
-            class="question-card"
-            :class="[{'highlight':flaggedAsCorrect}]"
-    >
-        <div class="question-card-answer transparent">
+    <v-flex v-if="cardData && !isDeleted" class="question-card">
+        <div class="question-card-answer">
             <!-- answer Card -->
             <div class="full-width-flex">
                 <div>
                     <user-block class="q-user-block" :cardData="cardData" :user="cardData.user"></user-block>
                 </div>
 
-                <div class="full-width-flex" :class="{'column-direction': gallery && gallery.length}">
+                <div class="full-width-flex">
                     <div class="full-width-flex calc-Margin answer-block">
                         <div class="triangle"></div>
                         <div class="text-container">
@@ -20,9 +16,6 @@
                                 <div class="answer-header-left-container">
                                     <!-- <span class="user-date" v-language:inner>questionCard_Answer</span> -->
                                     <span class="timeago ml-2" :datetime="cardData.dateTime||cardData.create">{{date}}</span>
-                                    <span class="choosen-answer right" v-if="flaggedAsCorrect">
-                                        <v-icon>sbf-check-circle</v-icon>
-                                    </span>
                                 </div>
                                 <v-spacer></v-spacer>
                                 <div class="menu-area">

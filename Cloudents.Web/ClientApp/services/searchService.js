@@ -24,7 +24,6 @@ function AnswerItem(objInit) {
     this.id = objInit.id;
     this.text = objInit.text;
     this.create = objInit.create;
-    this.files = objInit.files;
     this.user = objInit.user;
 }
 

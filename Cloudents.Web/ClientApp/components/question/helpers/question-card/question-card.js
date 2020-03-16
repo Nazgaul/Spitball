@@ -97,9 +97,6 @@ export default {
                 return this.cardData.answers.length > 3 ? this.cardData.answers.slice(0, 3) : this.cardData.answers.slice();
             }
         },
-        flaggedAsCorrect() {
-            return this.isCorrectAnswer || this.localMarkedAsCorrect;
-        },
         isSold() {
             return !this.cardData.hasCorrectAnswer && !this.cardData.correctAnswerId;
         },
@@ -131,9 +128,7 @@ export default {
             return false;
         },
         isDeleteDisabled(){
-            let isDeleteble = this.canDelete();
-            return !isDeleteble;
-
+            return !this.cardOwner();
         },
         isDisabled() {
             let isOwner, account;
@@ -166,12 +161,6 @@ export default {
         showBigImage(src) {
             this.showDialog = true;
             this.selectedImage = src;
-        },
-
-        canDelete() {
-           let isOwner = this.cardOwner();
-           return !this.flaggedAsCorrect && isOwner;
-
         },
         markAsCorrect() {
             this.localMarkedAsCorrect = true;
