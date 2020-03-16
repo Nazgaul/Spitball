@@ -32,7 +32,7 @@
                      </td> 
                      <td class="text-center">
                         <span class="font-weight-bold">
-                           {{ props.item.value | currencyFormat(props.item.symbol)}}
+                           {{$n(props.item.value, 'currency')}}
                         </span>
                      </td> 
                   </tr>

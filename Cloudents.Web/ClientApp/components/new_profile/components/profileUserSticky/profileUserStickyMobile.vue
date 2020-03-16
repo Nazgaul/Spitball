@@ -15,10 +15,10 @@
                </h6>
                <div class="profileUserStickyMobile_user_info_pricing">
                   <v-flex class="profileUserStickyMobile_pricing_price">
-                     <span class="profileUserStickyMobile_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? tutorDiscountPrice : tutorPrice | currencyFormat(getProfile.user.tutorData.currency)}}</span>/<span class="profileUserStickyMobile_pricing_price_hour" v-language:inner="'profile_points_hour'"/>
+                     <span class="profileUserStickyMobile_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserStickyMobile_pricing_price_hour" v-language:inner="'profile_points_hour'"/>
                   </v-flex>
                   <v-flex class="profileUserStickyMobile_pricing_discount" :class="[{'pl-4':$vuetify.breakpoint.xsOnly}]" v-if="isDiscount">
-                     {{tutorPrice ? tutorPrice : tutorDiscountPrice | currencyFormat(getProfile.user.tutorData.currency)}}
+                     {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
                   </v-flex>
                </div>
                <button :class="{'isMyProfileCoupon':isMyProfile}" class="profileUserStickyMobile_coupon" @click="globalFunctions.openCoupon" v-language:inner="'coupon_apply_coupon'"/>

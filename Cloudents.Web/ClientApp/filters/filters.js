@@ -71,7 +71,3 @@ Vue.filter('fullMonthDate', function (value) {
 Vue.filter('commasFilter', function (value) {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 });
-
-Vue.filter('currencyFormat', function(number, currency) {
-    return new Intl.NumberFormat(`${global.lang}-${global.country}`, { style: 'currency', currency: currency, minimumFractionDigits: 0  }).format(number);
-});
