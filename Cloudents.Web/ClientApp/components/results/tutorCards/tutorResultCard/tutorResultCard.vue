@@ -49,7 +49,7 @@
 
             <template>
               <div class="user-rank align-center" v-if="isReviews">
-                <user-rating :rating="tutorData.rating" :showRateNumber="false"/>
+                <user-rating size="18" class="ratingIcon" :rating="tutorData.rating" :showRateNumber="false"/>
                 <div class="reviews" v-html="$Ph(tutorData.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></div>
               </div>
               <div v-else class="user-rank align-center">
@@ -305,11 +305,8 @@ export default {
         }
       }
       .user-rank {
-        display: -webkit-box;
+        display: flex;
         margin-bottom: -20px;
-        i{
-          font-size: 18px !important;
-        }
         .reviews {
           font-size: 12px;
           color: #4452fc;
