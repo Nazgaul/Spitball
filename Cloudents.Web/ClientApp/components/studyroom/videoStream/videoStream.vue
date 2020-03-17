@@ -1,5 +1,7 @@
 <template>
     <v-container class="videos-wrapper py-0 px-0">
+        {{getIsVideoActive}}
+        {{getIsAudioActive}}
         <v-layout column align-end>
             <div class="video-holder">
                 <v-flex class="px-3 video-con-controls">
@@ -9,7 +11,7 @@
                         <div id="remoteTrack"></div>
 
                         <div class="local-video-holder" :class="{'extended-video-window': extandLocalVideoScreen}">
-                            <div v-show="!isVideoActive" class="localTrack-placeholder">
+                            <!-- <div v-show="!isVideoActive" class="localTrack-placeholder">
                                 <div class="placeholder-back">
                                     <videoCameraImageIgnore2 class="placeholder-svg" />
                                 </div>
@@ -18,10 +20,10 @@
                                 <div class="placeholder-back share-screen">
                                     <castIcon class="placeholder-svg"></castIcon>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- TODO: dont forget to fix it! -->
-                            <div id="localTrack"></div>          
-                                <!-- <div v-show="isVideoActive" id="localTrack"></div> -->
+                            <div style="width:104px" id="localTrack"></div>          
+                            <!-- <div v-show="isVideoActive" id="localTrack"></div> -->
                         </div>
                         <div class="control-panel">
                             <v-tooltip top>
@@ -35,11 +37,24 @@
                             </v-tooltip>
                             <v-tooltip top>
                                 <template v-slot:activator="{ on }">
-                                    <button sel="video_enabling" v-on="on" :class="['video-image-btn', localVideoTrack && activeRoom ? 'dynamicBackground-dark': 'dynamicBackground-light', !isVideoActive ? 'camIgnore':'']" @click="toggleVideo">              
+                                    <button 
+                                    sel="video_enabling" v-on="on" 
+                                    :class="[
+                                        'video-image-btn', 
+                                        localVideoTrack && activeRoom ? 'dynamicBackground-dark': 'dynamicBackground-light', 
+                                        !isVideoActive ? 'camIgnore':''
+                                    ]" 
+                                    @click="toggleVideo">              
                                         <videoCameraImage v-if="isVideoActive" class="video-image-svg"/>
                                         <videoCameraImageIgnore v-else class="cam-ignore"/>
                                     </button>
                                 </template>
+                                <!-- <template v-slot:activator="{ on }">
+                                    <button sel="video_enabling" v-on="on" :class="['video-image-btn', localVideoTrack && activeRoom ? 'dynamicBackground-dark': 'dynamicBackground-light', !isVideoActive ? 'camIgnore':'']" @click="toggleVideo">              
+                                        <videoCameraImage v-if="isVideoActive" class="video-image-svg"/>
+                                        <videoCameraImageIgnore v-else class="cam-ignore"/>
+                                    </button>
+                                </template> -->
                                 <span v-language:inner="isVideoActive ? 'tutor_tooltip_video_pause':'tutor_tooltip_video_resume'"/>
                             </v-tooltip>
                         </div>

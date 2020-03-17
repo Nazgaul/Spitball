@@ -17,21 +17,25 @@ function _insightEvent(...args) {
 }
 
 function _twilioListeners(room,store) {
+   _insightEvent('StudyRoom_tutorService_TwilioConnect', room, null);
+
    debugger
-   
    room.on('participantConnected', (participant) => {
       debugger
       _insightEvent('StudyRoom_tutorService_TwilioParticipantConnected', participant, null);
    })
    room.on('participantDisconnected', (participant) => {
+      debugger
       _insightEvent('StudyRoom_tutorService_TwilioParticipantDisconnected', participant, null);
       _detachTracks(Array.from(participant.tracks.values()))
    })
    room.on('trackSubscribed', (track) => {
+      debugger
       _insightEvent('StudyRoom_tutorService_TwilioTrackSubscribed', track, null);
       _detachTracks([track])
    })
    room.on('disconnected', (dRoom, error) => {
+      debugger
       if (error?.code) {
          _insightEvent('StudyRoom_tutorService_TwilioDisconnected', {'errorCode': error.code}, null);
          console.error(`Twilio Error: Code: ${error.code}, Message: ${error.message}`)
@@ -67,7 +71,12 @@ function _twilioListeners(room,store) {
    room.on('trackPublishPriorityChanged', () => {
       debugger
    })
+   room.on('trackRemoved',()=>{
+      debugger
+   })
    room.on('trackStarted', (track) => {
+      debugger
+
       let previewContainer = document.getElementById('remoteTrack');
       if(track.kind === 'video'){
          let videoTag = previewContainer.querySelector("video");
@@ -96,11 +105,36 @@ function _twilioListeners(room,store) {
       _insightEvent('StudyRoom_tutorService_TwilioTrackUnsubscribed', RemoteDataTrack, null)
       debugger
    })
-
+   room.localParticipant.on('trackDimensionsChanged',()=>{
+      debugger
+   })
+   room.localParticipant.on('trackDisabled',()=>{
+      debugger
+   })
+   room.localParticipant.on('trackEnabled',()=>{
+      debugger
+   })
+   room.localParticipant.on('trackPublicationFailed',()=>{
+      debugger
+   })
+   room.localParticipant.on('trackPublished',()=>{
+      debugger
+   })
+   room.localParticipant.on('trackStopped',(track)=>{
+      if(track.kind === 'video'){
+         store.commit('setIsVideoAvailable',false)
+      }
+      if(track.kind === 'audio'){
+         store.commit('setIsAudioAvailable',false)
+      }
+   })
    room.localParticipant.on('networkQualityLevelChanged', (networkQualityLevel,networkQualityStats) => {
+      debugger
       _insightEvent('StudyRoom_tutorService_networkQuality',networkQualityStats, networkQualityLevel)
    });
    room.on('trackMessage', (message) => {
+      debugger
+
       let data = JSON.parse(message)
       store.dispatch('dispatchDataTrackJunk',data)
    })
@@ -127,9 +161,11 @@ export default () => {
                            const localMediaContainer = document.getElementById('localTrack');
                            localMediaContainer.appendChild(value.attach());
                            mediaTracks.push(value);
+                           store.commit('setIsVideoAvailable',true)
                         }
                         if(value.kind === 'audio'){                         
                            mediaTracks.push(value);
+                           store.commit('setIsAudioAvailable',true)
                         }
                      }
                   })
@@ -147,7 +183,6 @@ export default () => {
                }
             };
             twillioClient.connect(jwtToken, options).then((room) => {
-               _insightEvent('StudyRoom_tutorService_TwilioConnect', room, null);
                _twilioListeners(room,store);
             })
          }

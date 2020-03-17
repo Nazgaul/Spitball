@@ -83,11 +83,13 @@ export default {
         ]),
         toggleAudio(){
             this.$ga.event("tutoringRoom", "toggleAudio");
-            this.toggleAudioTrack();
+            this.$store.dispatch('updateAudioToggle')
+            // this.toggleAudioTrack();
         },
         toggleVideo(){
             this.$ga.event("tutoringRoom", "toggleVideo");
-            this.toggleVideoTrack();
+            this.$store.dispatch('updateVideoToggle')
+            // this.toggleVideoTrack();
         }
     }
 };

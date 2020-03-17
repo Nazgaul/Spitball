@@ -6,9 +6,6 @@
     :class="{'gridBackground': $route.name === 'tutoring', 'mobile-no-support': isMobile}"
   >
   <v-btn @click="enterRoomTest()" color="success">ENTER ROOM</v-btn>
-  <v-btn @click="$store.dispatch('updateVideoToggle',true)" color="error">TOGGLE VIDEO</v-btn>
-  <v-btn @click="$store.dispatch('updateAudioToggle',true)" color="info">TOGGLE AUDIO</v-btn>
-  
     <div v-show="isMobile" class="mobile-no-support-container">
       <noSupportTop></noSupportTop>
       <div class="no-support-text" v-language:inner="'tutor_not_supported'"></div>
