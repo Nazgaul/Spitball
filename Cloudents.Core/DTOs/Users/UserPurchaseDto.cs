@@ -23,7 +23,12 @@ namespace Cloudents.Core.DTOs.Users
     public class PurchasedSessionDto : UserPurchaseDto
     {
         public string TutorName { get; set; }
+        public double TotalMinutes => Duration.GetValueOrDefault().TotalMinutes;
+
         public TimeSpan? Duration { get; set; }
+
+        public bool ShouldSerializeDuration => false;
+
         public string TutorImage { get; set; }
         public long TutorId { get; set; }
         public override ContentType Type => ContentType.TutoringSession;
