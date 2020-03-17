@@ -15,26 +15,8 @@ namespace Cloudents.Web.Identity
             services.AddScoped<IUserClaimsPrincipalFactory<User>, AppClaimsPrincipalFactory>();
             services.AddScoped<IUserStore<User>, UserStore>();
 
-
-
-            //services.Configure<IdentityOptions>(options =>
-            //{
-            //    options.SignIn.RequireConfirmedEmail = false;
-            //    options.SignIn.RequireConfirmedPhoneNumber = true;
-            //    options.User.AllowedUserNameCharacters = null;
-
-            //    options.User.RequireUniqueEmail = true;
-
-            //    options.Password.RequiredLength = PasswordRequiredLength;
-            //    options.Password.RequireDigit = false;
-            //    options.Password.RequireLowercase = false;
-            //    options.Password.RequireNonAlphanumeric = false;
-            //    options.Password.RequireUppercase = false;
-            //    options.Password.RequiredUniqueChars = 0;
-            //    options.Lockout.MaxFailedAccessAttempts = 3;
-            //});
-           services.AddIdentity< User, UserRole>(options =>
-           {
+            services.AddIdentity<User, UserRole>(options =>
+            {
                options.SignIn.RequireConfirmedEmail = false;
                options.SignIn.RequireConfirmedPhoneNumber = true;
                options.User.AllowedUserNameCharacters = null;
@@ -48,30 +30,11 @@ namespace Cloudents.Web.Identity
                options.Password.RequireUppercase = false;
                options.Password.RequiredUniqueChars = 0;
                options.Lockout.MaxFailedAccessAttempts = 3;
-           }).AddDefaultTokenProviders()
-               .AddClaimsPrincipalFactory<AppClaimsPrincipalFactory>()
-               .AddUserManager<SbUserManager>()
-               .AddSignInManager<SbSignInManager>();
-            //RoleStore
-            //services.AddDefaultIdentity<User>(options =>
-            //    {
-            //        options.SignIn.RequireConfirmedEmail = false;
-            //        options.SignIn.RequireConfirmedPhoneNumber = true;
-            //        options.User.AllowedUserNameCharacters = null;
+            }).AddDefaultTokenProviders()
+                .AddClaimsPrincipalFactory<AppClaimsPrincipalFactory>()
+                .AddUserManager<SbUserManager>()
+                .AddSignInManager<SbSignInManager>();
 
-            //        options.User.RequireUniqueEmail = true;
-
-            //        options.Password.RequiredLength = PasswordRequiredLength;
-            //        options.Password.RequireDigit = false;
-            //        options.Password.RequireLowercase = false;
-            //        options.Password.RequireNonAlphanumeric = false;
-            //        options.Password.RequireUppercase = false;
-            //        options.Password.RequiredUniqueChars = 0;
-            //        options.Lockout.MaxFailedAccessAttempts = 3;
-            //    }).AddDefaultTokenProviders()
-            //    .AddClaimsPrincipalFactory<AppClaimsPrincipalFactory>()
-            //    .AddUserManager<SbUserManager>()
-            //    .AddSignInManager<SbSignInManager>();
         }
     }
 }

@@ -4,8 +4,8 @@ import { LanguageService } from '../services/language/languageService';
 import utilitiesService from '../services/utilities/utilitiesService';
 
 
-Vue.prototype.$openDialog = function(dialogName){
-    router.push({query:{...router.currentRoute.query,dialog:dialogName}}).catch(()=>{})
+Vue.prototype.$openDialog = function(dialogName, params){
+    router.push({query:{...router.currentRoute.query,dialog:dialogName}, params: {...params}}).catch(()=>{})
 }
 Vue.prototype.$closeDialog = function(){
     router.push({query:{...router.currentRoute.query,dialog:undefined}}).catch(()=>{})

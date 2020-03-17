@@ -17,7 +17,7 @@
                 <UserAvatar :size="'34'" :user-name="item.user.name" :user-id="item.user.id" :userImageUrl="item.user.image"/> 
                 <div class="ml-2 user-info">
                     <div class="text-truncate" >{{item.user.name}}</div>
-                    <div>{{$options.filters.fullMonthDate(item.dateTime)}}</div>
+                    <div>{{$d(new Date(item.dateTime), 'short')}}</div>
                 </div>
             </div>
             <div class="itemCard-bottom">

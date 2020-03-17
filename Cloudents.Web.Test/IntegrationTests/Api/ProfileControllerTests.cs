@@ -25,7 +25,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [Theory]
         [InlineData("api/profile/159489")]
         [InlineData("api/profile/159489/about")]
-        [InlineData("api/profile/159489/questions")]
+        //[InlineData("api/profile/159489/questions")]
         //[InlineData("api/profile/159489/answers")]
         [InlineData("api/profile/159489/documents")]
         //[InlineData("api/profile/159489/purchaseDocuments")]
@@ -47,7 +47,8 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var str = await response.Content.ReadAsStringAsync();
             dynamic json = JToken.Parse(str);
             string image = json.image;
-            var uri = new Uri(image);
+            var r = Uri.TryCreate(image, UriKind.RelativeOrAbsolute, out _);
+            r.Should().BeTrue();
 
         }
 

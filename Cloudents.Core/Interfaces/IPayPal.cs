@@ -4,9 +4,9 @@ using Cloudents.Core.DTOs;
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface IPayPal
+    public interface IPayPalService
     {
-        Task<PayPalDto> GetPaymentAsync(string transactionId);
-        Task PathOrderAsync(string modelOrderId, CancellationToken token);
+        Task<PayPalDto> GetPaymentAsync(string transactionId, CancellationToken token);
+        //Task UpdateAndConfirmOrderAsync(string orderId, decimal charge, CancellationToken token);
     }
 }

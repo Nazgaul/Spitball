@@ -14,7 +14,7 @@ namespace Cloudents.Core.Interfaces
 
     public interface IGoogleAnalytics
     {
-        Task TrackEventAsync(string category, string action, string label);
+        Task TrackEventAsync(string category, string action, string label, CancellationToken token);
     }
 
 
@@ -29,7 +29,7 @@ namespace Cloudents.Core.Interfaces
 
         Task<IEnumerable<GoogleAppointmentDto>> ReadCalendarEventsAsync(long userId, IEnumerable<string> calendars, DateTime @from,
             DateTime to, CancellationToken cancellationToken);
-        Task BookCalendarEventAsync(User tutor, User student, DateTime from, DateTime to, CancellationToken cancellationToken);
+        Task BookCalendarEventAsync(User tutor, User student, GoogleTokens googleTokens, DateTime from, DateTime to, CancellationToken cancellationToken);
         Task DeleteDeclinedEventCalendarAsync(CancellationToken cancellationToken);
         Task<IEnumerable<CalendarDto>> GetUserCalendarsAsync(long userId, CancellationToken cancellationToken);
     }

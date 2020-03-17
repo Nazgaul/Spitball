@@ -23,7 +23,8 @@
 </template>
 
 <script>
-import { RegisterCourseCollege } from '../../../../../routes/routeNames'
+import { RegisterCourseCollege } from '../../../../../routes/routeNames';
+import analyticsService from '../../../../../services/analytics.service.js';
 
 export default {
     methods: {
@@ -31,7 +32,8 @@ export default {
             if(this.$route.name == RegisterCourseCollege) {
                 this.$store.dispatch('updateLoginStatus',true)
             }
-            this.$router.push({name: this.$route.meta.nextStep})
+            analyticsService.sb_unitedEvent('student-registration', 'complete');
+            this.$router.push({name: this.$route.meta.nextStep});
         },
         prevStep() {
             this.$router.push({name: this.$route.meta.backStep})

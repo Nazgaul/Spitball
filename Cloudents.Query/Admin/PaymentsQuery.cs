@@ -71,7 +71,17 @@ namespace Cloudents.Query.Admin
                 .Select(s => studentAlias.Id).WithAlias(() => resultDto.UserId)
                 .Select(s => studentAlias.Name).WithAlias(() => resultDto.UserName)
                 .Select(s => s.Created).WithAlias(() => resultDto.Created)
-                .Select(s => s.Duration.Value).WithAlias(() => resultDto.Duration)
+                .Select(s => s.Duration.Value).WithAlias(() => resultDto.Duration).WithAlias(() => resultDto.Duration)
+                .Select(s => s.RealDuration.Value).WithAlias(() => resultDto.RealDuration).WithAlias(() => resultDto.RealDuration)
+                //.Select(Projections.SqlFunction("COALESCE", NHibernateUtil.TimeSpan
+                //               , Projections.Property<StudyRoomSession>(s => s.RealDuration.Value)
+                //               , Projections.Property<StudyRoomSession>(s => s.Duration.Value))
+                //).WithAlias(() => resultDto.Duration)
+                  .Select(Projections.Conditional(
+                    Restrictions.IsNull(Projections.Property<StudyRoomSession>(s => s.RealDuration)),
+                    Projections.Constant(false),
+                    Projections.Constant(true)
+                    )).WithAlias(() => resultDto.IsRealDurationExitsts)
                 ).TransformUsing(Transformers.AliasToBean<PaymentDto>())
                     .ListAsync<PaymentDto>();
             }

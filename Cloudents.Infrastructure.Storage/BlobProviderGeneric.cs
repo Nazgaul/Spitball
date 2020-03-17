@@ -99,21 +99,22 @@ namespace Cloudents.Infrastructure.Storage
             }, null, token);
         }
 
-        //public Task CommitBlockListAsync(string blobName, IList<int> indexes, CancellationToken token)
+
+        //public Task CommitBlockListAsync(string blobName, string mimeType, IList<int> indexes, CancellationToken token)
         //{
-        //    var blob = GetBlob(blobName);
-        //    return blob.PutBlockListAsync(indexes.Select(ToBase64));
+        //    return CommitBlockListAsync(blobName, mimeType, null, indexes, null, token);
         //}
 
-        public Task CommitBlockListAsync(string blobName, string mimeType, IList<int> indexes, CancellationToken token)
-        {
-            return CommitBlockListAsync(blobName, mimeType, null, indexes, token);
-        }
 
-        public Task CommitBlockListAsync(string blobName, string mimeType, string originalFileName, IList<int> indexes,
-            CancellationToken token)
+
+        public Task CommitBlockListAsync(string blobName, string mimeType, string originalFileName, IList<int> indexes, TimeSpan? cacheControlTime = null, CancellationToken token = default)
         {
             var blob = GetBlob(blobName);
+            if (cacheControlTime.HasValue)
+            {
+                blob.Properties.CacheControl = "max-age=" + cacheControlTime.Value.TotalSeconds;
+            }
+            
             blob.Properties.ContentType = mimeType;
             if (!string.IsNullOrEmpty(originalFileName))
             {
@@ -131,29 +132,6 @@ namespace Cloudents.Infrastructure.Storage
             var blockId = blockIndex.ToString("D10");
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(blockId));
         }
-
-
-
-
-
-        //public async Task<string> DownloadTextAsync(string name, string directory, CancellationToken token)
-        //{
-        //    try
-        //    {
-        //        var destinationDirectory = _blobDirectory.GetDirectoryReference(directory);
-        //        var blob = destinationDirectory.GetBlockBlobReference(name);
-
-        //        return await blob.DownloadTextAsync();
-        //    }
-        //    catch (StorageException e)
-        //    {
-        //        if (e.RequestInformation.HttpStatusCode == (int)HttpStatusCode.NotFound)
-        //        {
-        //            return null;
-        //        }
-        //        throw;
-        //    }
-        //}
 
         public Task<bool> ExistsAsync(string blobName, CancellationToken token)
         {
@@ -182,24 +160,6 @@ namespace Cloudents.Infrastructure.Storage
             await sourceBlob.DeleteAsync();
         }
 
-
-        //public async Task MoveBlobAsync(MoveBlob source, MoveBlob destination, CancellationToken token)
-        //{
-        //    var sourceContainer = _client.GetContainerReference(source.ContainerName);
-        //    var sourceBlob = sourceContainer.GetBlockBlobReference(source.FileName);
-        //    var link = this.GenerateDownloadLink(sourceBlob.Uri, TimeSpan.FromDays(1));
-
-        //    var destinationContainer = _client.GetContainerReference(destination.ContainerName);
-        //    var destinationBlob = destinationContainer.GetBlockBlobReference(destination.FileName);
-
-        //    await destinationBlob.StartCopyAsync(link);
-        //    while (destinationBlob.CopyState.Status != CopyStatus.Success)
-        //    {
-        //        await Task.Delay(TimeSpan.FromSeconds(0.2), token);
-        //        await destinationBlob.ExistsAsync();
-        //    }
-        //}
-
         public async Task DeleteDirectoryAsync(string id, CancellationToken token)
         {
             var directory = _blobDirectory.GetDirectoryReference(id);
@@ -207,11 +167,8 @@ namespace Cloudents.Infrastructure.Storage
             var l = new List<Task>();
             foreach (var blob in blobs.Results)
             {
-
-
                 if (blob is CloudBlockBlob p)
                 {
-
                     var t = p.DeleteAsync(DeleteSnapshotsOption.IncludeSnapshots, AccessCondition.GenerateEmptyCondition(), new BlobRequestOptions(), new OperationContext(), token);
                     l.Add(t);
                 }
@@ -221,7 +178,7 @@ namespace Cloudents.Infrastructure.Storage
 
         }
 
-        public async Task UndeleteDirectoryAsync(string id, CancellationToken token)
+        public async Task UnDeleteDirectoryAsync(string id, CancellationToken token)
         {
             var directory = _blobDirectory.GetDirectoryReference(id);
             var blobs = await directory.ListBlobsSegmentedAsync(useFlatBlobListing: true, blobListingDetails: BlobListingDetails.Deleted, null, new BlobContinuationToken(), new BlobRequestOptions(),
@@ -246,6 +203,14 @@ namespace Cloudents.Infrastructure.Storage
         {
             var destinationDirectory = _blobDirectory.GetDirectoryReference(directory);
             var result = await destinationDirectory.ListBlobsSegmentedAsync(true, BlobListingDetails.None,
+                1000, null, null, null, token);
+            return result.Results.Select(s => s.Uri);
+        }
+
+        public async Task<IEnumerable<Uri>> FilesInContainerAsync(CancellationToken token)
+        {
+            var destinationContainer = _blobDirectory.Container;
+            var result = await destinationContainer.ListBlobsSegmentedAsync(null, true, BlobListingDetails.None,
                 1000, null, null, null, token);
             return result.Results.Select(s => s.Uri);
         }

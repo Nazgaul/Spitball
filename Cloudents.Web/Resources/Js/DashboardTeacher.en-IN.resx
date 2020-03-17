@@ -136,7 +136,7 @@
     <value>Book</value>
   </data>
   <data name="book_session" xml:space="preserve">
-    <value>Book an onbording session</value>
+    <value>Book an onboarding session</value>
   </data>
   <data name="coming_soon" xml:space="preserve">
     <value>Coming soon</value>
@@ -147,11 +147,11 @@
   <data name="connect_calendar" xml:space="preserve">
     <value>Connect your calendar</value>
   </data>
-  <data name="costume_coupon" xml:space="preserve">
-    <value>Create your own custom coupon</value>
-  </data>
   <data name="create_coupon" xml:space="preserve">
     <value>Create a coupon</value>
+  </data>
+  <data name="custome_coupon" xml:space="preserve">
+    <value>Create your own custom coupon</value>
   </data>
   <data name="earn_money" xml:space="preserve">
     <value>Earn money by selling education content</value>
@@ -163,13 +163,13 @@
     <value>Get started</value>
   </data>
   <data name="lets_go" xml:space="preserve">
-    <value>Let’s go</value>
+    <value>Let's go</value>
   </data>
   <data name="marketing_title" xml:space="preserve">
     <value>Marketing Tools</value>
   </data>
   <data name="no_task" xml:space="preserve">
-    <value>You’re all cought up</value>
+    <value>You’re all caught up</value>
   </data>
   <data name="revenue" xml:space="preserve">
     <value>Revenue</value>
@@ -187,7 +187,7 @@
     <value>Tips from Frymo blog</value>
   </data>
   <data name="stand_out" xml:space="preserve">
-    <value>Stand out on Facebook &amp; Instagram</value>
+    <value>Stand out on Facebook &amp;amp; Instagram</value>
   </data>
   <data name="task_completed" xml:space="preserve">
     <value>Task completed</value>

@@ -35,7 +35,7 @@ namespace Cloudents.Core.Message.Email
         public abstract UnsubscribeGroup UnsubscribeGroup { get; }
         protected abstract IDictionary<CultureInfo, string>? Templates { get; }
 
-        private string AssignTemplate(CultureInfo info)
+        private string? AssignTemplate(CultureInfo info)
         {
             if (Templates == null)
             {
@@ -65,7 +65,7 @@ namespace Cloudents.Core.Message.Email
 
     public sealed class UnsubscribeGroup
     {
-        public static readonly UnsubscribeGroup Update = new UnsubscribeGroup(10926);
+        public static readonly UnsubscribeGroup Update = new UnsubscribeGroup(16556);
         public static readonly UnsubscribeGroup System = new UnsubscribeGroup(13505);
         private UnsubscribeGroup(int groupId)
         {

@@ -148,7 +148,7 @@
     <value>Submit</value>
   </data>
   <data name="create_succes" xml:space="preserve">
-    <value>You have succesesfuly created a coupon code</value>
+    <value>You have successfully created a coupon code</value>
   </data>
   <data name="create_title" xml:space="preserve">
     <value>Create a special offer</value>
@@ -172,7 +172,7 @@
     <value>Claim your discount</value>
   </data>
   <data name="toaster_copy" xml:space="preserve">
-    <value>Link copied to clipboard</value>
+    <value>Coupon code copied to clipboard</value>
   </data>
   <data name="type_flat" xml:space="preserve">
     <value>Flat discount</value>

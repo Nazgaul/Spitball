@@ -132,18 +132,6 @@
   <data name="error_general" xml:space="preserve">
     <value>Something went wrong, try again.</value>
   </data>
-  <data name="error_minimum_chars" xml:space="preserve">
-    <value>There is a minimum of 15 characters for a question</value>
-  </data>
-  <data name="error_select_class" xml:space="preserve">
-    <value>Don’t forget to select the class for your question</value>
-  </data>
-  <data name="no_class" xml:space="preserve">
-    <value>There are no courses</value>
-  </data>
-  <data name="select_subject_placeholder" xml:space="preserve">
-    <value>Select the subject</value>
-  </data>
   <data name="title" xml:space="preserve">
     <value>Create a post</value>
   </data>

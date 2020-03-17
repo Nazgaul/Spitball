@@ -113,8 +113,12 @@ namespace Cloudents.Core.Entities
             MainLanguage = language;
         }
 
-        public static implicit operator Country(string tb)
+        public static implicit operator Country(string? tb)
         {
+            if (tb is null)
+            {
+                return UnitedStates;
+            }
             var result = FromDisplayName<Country>(tb);
             if (result is null)
             {
@@ -123,10 +127,12 @@ namespace Cloudents.Core.Entities
             return result;
         }
 
-
-        public static readonly Country Israel = new Country(1, "IL", 1 / 25M, Language.Hebrew);
-        public static readonly Country India = new Country(2, "IN", 1, Language.EnglishIndia);
-        public static readonly Country UnitedStates = new Country(3, "US", 1 / 100M, Language.EnglishUsa);
+        public const string IsraelStr = "IL";
+        public const string IndiaStr = "IN";
+        public const string UsStr = "US";
+        public static readonly Country Israel = new Country(1, IsraelStr, 1 / 25M, Language.Hebrew);
+        public static readonly Country India = new Country(2, IndiaStr, 1, Language.EnglishIndia);
+        public static readonly Country UnitedStates = new Country(3, UsStr, 1 / 100M, Language.EnglishUsa);
 
         //    public static Country Palestine = new Country("PS", CountryGroup.Israel);
 

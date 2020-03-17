@@ -35,10 +35,10 @@
          </template>
          <template v-slot:item="props">
             <tr class="myStudyRooms_table_tr">
-               <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
-               <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
-               <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
-               <td class="text-xs-left">{{ props.item.lastSession | dateFromISO }}</td>
+               <tablePreviewTd :item="props.item"/>
+               <tableInfoTd :item="props.item"/>
+               <td class="text-xs-left">{{ $d(new Date(props.item.date)) }}</td>
+               <td class="text-xs-left">{{ $d(new Date(props.item.lastSession)) }}</td>
                <td>
                   <v-btn class="myStudyRooms_btns white--text" depressed rounded color="#4452fc" @click="sendMessage(props.item)">
                      <iconChat class="myStudyRooms_btn_icon"/>
@@ -84,9 +84,6 @@ export default {
       }
    },
    props:{
-      globalFunctions: {
-         type: Object,
-      },
       dictionary:{
          type: Object,
          required: true

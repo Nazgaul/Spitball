@@ -11,14 +11,15 @@ namespace Cloudents.Core.Storage
     {
         Uri GeneratePreviewLink(Uri blobUrl, TimeSpan expirationTime);
         Uri GenerateDownloadLink(Uri blobUrl, TimeSpan expirationTime,
-            string contentDisposition = null);
+            string? contentDisposition = null);
 
         Task UploadStreamAsync(string blobName, Stream fileContent,
-            string mimeType = null, TimeSpan? cacheControlTime = null, CancellationToken token = default);
+            string? mimeType = null, TimeSpan? cacheControlTime = null, CancellationToken token = default);
 
         Task UploadBlockFileAsync(string blobName, Stream fileContent, int index, CancellationToken token);
         //Task CommitBlockListAsync(string blobName, string mimeType, IList<int> indexes, CancellationToken token);
-        Task CommitBlockListAsync(string blobName, string mimeType, string originalFileName, IList<int> indexes, CancellationToken token);
+        //Task CommitBlockListAsync(string blobName, string mimeType, string originalFileName, IList<int> indexes, CancellationToken token);
+        Task CommitBlockListAsync(string blobName, string mimeType, string originalFileName, IList<int> indexes, TimeSpan? cacheControlTime = null, CancellationToken token = default);
 
 
 
@@ -28,7 +29,8 @@ namespace Cloudents.Core.Storage
 
         Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token);
 
-        Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token);
+       // Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token);
+        Task<IEnumerable<Uri>> FilesInContainerAsync(CancellationToken token);
         Task<IEnumerable<Uri>> FilesInDirectoryAsync(string prefix, string directory, CancellationToken token);
 
         /// <summary>
@@ -40,7 +42,7 @@ namespace Cloudents.Core.Storage
         Task<bool> ExistsAsync(string blobName, CancellationToken token);
 
         Task DeleteDirectoryAsync(string id, CancellationToken token);
-        Task UndeleteDirectoryAsync(string id, CancellationToken token);
+        Task UnDeleteDirectoryAsync(string id, CancellationToken token);
     }
 
     public interface IDocumentDirectoryBlobProvider : IBlobProvider
@@ -53,6 +55,10 @@ namespace Cloudents.Core.Storage
     {
         Task<Uri> UploadImageAsync(long userId, string file,
             Stream stream, string contentType, CancellationToken token = default);
+    }
+
+    public interface IAdminDirectoryBlobProvider : IBlobProvider
+    {
     }
 
     public interface IChatDirectoryBlobProvider : IBlobProvider

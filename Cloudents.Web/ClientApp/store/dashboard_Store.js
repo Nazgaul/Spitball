@@ -44,6 +44,11 @@ const mutations = {
          }
       });
    },
+   setSaleItem(state, sessionId) {
+      //update on the fly in my-sales approve button
+      let index = state.salesItems.findIndex(item => item.sessionId === sessionId)
+      state.salesItems[index].paymentStatus = "Pending";
+   }
 };
 
 const getters = {
@@ -132,6 +137,12 @@ const actions = {
    },
    updateMarketingBlogs() {
       return dashboardService.getMarketingBlogs()
+   },
+   updateSalesSessions(context, id) {
+      return dashboardService.getSalesSessions(id);
+   },
+   updateSessionDuration(context, session) {
+      return dashboardService.updateSessionDuration(session)
    }
 };
 

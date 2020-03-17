@@ -33,7 +33,7 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(RequestTutorCommand message, CancellationToken token)
         {
 
-            Tutor tutor = null;
+            Tutor? tutor = null;
             if (message.TutorId.HasValue)
             {
                 if (message.UserId == message.TutorId.Value)

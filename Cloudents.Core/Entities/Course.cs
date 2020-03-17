@@ -28,14 +28,14 @@ namespace Cloudents.Core.Entities
             Created = DateTime.UtcNow;
         }
 
-        protected bool Equals(Course other)
+        protected bool Equals(Course? other)
         {
-            return string.Equals(Id, other.Id, StringComparison.OrdinalIgnoreCase);
+            return string.Equals(Id, other?.Id, StringComparison.OrdinalIgnoreCase);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
             return Equals((Course)obj);
@@ -48,15 +48,15 @@ namespace Cloudents.Core.Entities
         }
 
 
-        public static bool operator ==(Course left, Course right)
-        {
-            return Equals(left, right);
-        }
+        //public static bool operator ==(Course? left, Course? right)
+        //{
+        //    return Equals(left, right);
+        //}
 
-        public static bool operator !=(Course left, Course right)
-        {
-            return !Equals(left, right);
-        }
+        //public static bool operator !=(Course? left, Course? right)
+        //{
+        //    return !Equals(left, right);
+        //}
 
         public virtual void Approve()
         {
@@ -72,7 +72,7 @@ namespace Cloudents.Core.Entities
             Subject = subject;
         }
 
-        public virtual void SetShcoolType(SchoolType schoolType)
+        public virtual void SetSchoolType(SchoolType schoolType)
         {
             SchoolType = schoolType;
         }

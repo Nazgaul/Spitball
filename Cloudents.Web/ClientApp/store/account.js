@@ -34,6 +34,9 @@ const mutations = {
     setAccountPicture(state, imageUrl) {
         state.user = { ...state.user, image: imageUrl };
     },
+    setUserPendingPayment(state, payments) {
+        state.user.pendingSessionsPayments = payments
+    }
 };
 
 const getters = {
@@ -46,10 +49,12 @@ const getters = {
     },
     //TODO need to change this to accountretive
     getUserLoggedInStatus: state => state.isUserLoggedIn || global.isAuth,
+    getIsTeacher: state => getters.getUserLoggedInStatus && state.user.userType === 'Teacher',
     usersReffered: state => state.usersReferred,
     accountUser: (state) => {
         return state.user;
     },
+    getPendingPayment: state => state.user.pendingSessionsPayments
 };
 
 const actions = {
@@ -94,7 +99,7 @@ const actions = {
         dispatch("getAllConversations");
         analyticsService.sb_setUserId(userAccount.id);
         insightService.authenticate.set(userAccount.id);
-        dispatch('updateLoginStatus',true)
+        dispatch('updateLoginStatus',true);
     },
     userStatus({state,dispatch,getters}) {
         if(state.user !== null && state.user.hasOwnProperty('id')){

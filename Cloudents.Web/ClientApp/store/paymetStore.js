@@ -74,6 +74,9 @@ const actions = {
     },
     updatePaypalBuyTokens(context,id){
         return walletService.paypalBuyTokens(id)
+    },
+    updatePaypalStudyRoom(context,model){
+        return walletService.paypalStudyRoom(model)
     }
 };
 

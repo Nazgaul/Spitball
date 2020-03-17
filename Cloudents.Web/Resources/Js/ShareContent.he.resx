@@ -145,10 +145,10 @@
     <value>המורה הפרטי {0} - מומלץ</value>
   </data>
   <data name="share_profile_twitter" xml:space="preserve">
-    <value>מצאתי מורה מצויין {0} ב {1}</value>
+    <value>מצאתי מורה מצוין {0} ב {1}</value>
   </data>
   <data name="share_profile_whatsapp" xml:space="preserve">
-    <value>מצאתי מורה מצויין {0} ב {1}</value>
+    <value>מצאתי מורה מצוין {0} ב {1}</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>שיתוף</value>
