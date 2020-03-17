@@ -105,21 +105,6 @@ function _twilioListeners(room,store) {
       _insightEvent('StudyRoom_tutorService_TwilioTrackUnsubscribed', RemoteDataTrack, null)
       debugger
    })
-   room.localParticipant.on('trackDimensionsChanged',()=>{
-      debugger
-   })
-   room.localParticipant.on('trackDisabled',()=>{
-      debugger
-   })
-   room.localParticipant.on('trackEnabled',()=>{
-      debugger
-   })
-   room.localParticipant.on('trackPublicationFailed',()=>{
-      debugger
-   })
-   room.localParticipant.on('trackPublished',()=>{
-      debugger
-   })
    room.localParticipant.on('trackStopped',(track)=>{
       if(track.kind === 'video'){
          store.commit('setIsVideoAvailable',false)
