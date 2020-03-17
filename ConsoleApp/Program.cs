@@ -23,6 +23,8 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
+using Cloudents.Command.Documents.PurchaseDocument;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Storage;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
@@ -143,8 +145,17 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            ResourcesMaintenance.DeleteStuffFromJs();
-            //var s = Container.Resolve<IPayPalService>();
+            //ResourcesMaintenance.DeleteStuffFromJs();
+            var s = Container.Resolve<ICommandBus>();
+            try
+            {
+                var command = new PurchaseDocumentCommand(7491, 638);
+                await s.DispatchAsync(command, default);
+            }
+            catch (DuplicateRowException)
+            {
+
+            }
             //var result = await s.GetPaymentAsync("4J34525079381873W", default);
             ////var x = await s.QueryAsync(new StudyRoomQuery(Guid.Parse("9f54280c-103e-46a6-8184-aabf00801beb"), 638), default);
 

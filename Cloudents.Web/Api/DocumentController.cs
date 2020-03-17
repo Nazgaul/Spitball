@@ -214,6 +214,10 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(string.Empty, _localizer["InSufficientFunds"]);
                 return BadRequest(ModelState);
             }
+            catch (DuplicateRowException)
+            {
+                return BadRequest();
+            }
 
             return Ok();
         }

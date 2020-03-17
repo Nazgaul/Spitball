@@ -55,7 +55,7 @@ namespace Cloudents.Core.Entities
         // public virtual long Id { get; set; }
         public virtual string Name { get; protected set; }
 
-        public virtual University University { get; protected set; }
+        public virtual University? University { get; protected set; }
 
         public virtual Course Course { get; protected set; }
 
@@ -192,6 +192,21 @@ namespace Cloudents.Core.Entities
         public virtual void Rename(string name)
         {
             Name = Path.GetFileNameWithoutExtension(name);
+        }
+
+        public virtual void PurchaseDocument(User buyer)
+        {
+            var t = buyer.Transactions.TransactionsReadOnly.AsQueryable().Where(w => w is DocumentTransaction)
+                .Any(f => ((DocumentTransaction)f).Document.Id == Id);
+
+            if (t)
+            {
+                throw new DuplicateRowException();
+            }
+
+            buyer.MakeTransaction(DocumentTransaction.Buyer(this));
+            User.MakeTransaction(DocumentTransaction.Seller(this));
+            User.MakeTransaction(new CommissionTransaction(Price));
         }
 
         public virtual DocumentType? DocumentType { get; set; }
