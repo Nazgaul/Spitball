@@ -1,3 +1,5 @@
+import {SETTERS} from '../constants/twilioConstants.js';
+
 const state = {
    jwtToken: null,
    isVideoActive: true,
@@ -6,22 +8,13 @@ const state = {
    isAudioActive: true,
 }
 const mutations = {
-   setJwtToken(state,token){
-      state.jwtToken = token;
-   },
-   setDataTrack(){},
-   setIsVideoAvailable(state,val){
-      state.isVideoAvailable = val;
-   },
-   setVideoToggle(state,val){
-      state.isVideoActive = val;
-   },
-   setIsAudioAvailable(state,val){
-      state.isAudioAvailable = val;
-   },
-   setAudioToggle(state,val){
-      state.isAudioActive = val;
-   },
+   [SETTERS.JWT_TOKEN]: (state,token) => state.jwtToken = token,
+   [SETTERS.DATA_TRACK]: () => {},
+   [SETTERS.VIDEO_AVAILABLE]: (state,val) => state.isVideoAvailable = val,
+   [SETTERS.VIDEO_TOGGLE]: (state,val) => state.isVideoActive = val,
+   [SETTERS.AUDIO_AVAILABLE]: (state,val) => state.isAudioAvailable = val,
+   [SETTERS.AUDIO_TOGGLE]: (state,val) => state.isAudioActive = val,
+   [SETTERS.SCREEN_SHARE]: () => {},
 }
 const getters = {
    getJwtToken: (state) => state.jwtToken,
@@ -30,20 +23,23 @@ const getters = {
 }
 const actions = {
    updateJwtToken({commit},token){
-      commit('setJwtToken',token)
+      commit(SETTERS.JWT_TOKEN,token)
    },
    sendDataTrack({commit},data){
-      commit('setDataTrack',data)
+      commit(SETTERS.DATA_TRACK,data)
    },
    updateVideoToggle({commit,state}){
       if(state.isVideoAvailable){
-         commit('setVideoToggle',!state.isVideoActive);
+         commit(SETTERS.VIDEO_TOGGLE,!state.isVideoActive);
       }
    },
    updateAudioToggle({commit,state}){
       if(state.isAudioAvailable){
-         commit('setAudioToggle',!state.isAudioActive);
+         commit(SETTERS.AUDIO_TOGGLE,!state.isAudioActive);
       }
+   },
+   updateShareScreen({commit}){
+      commit(SETTERS.SCREEN_SHARE)
    }
 }
 export default {

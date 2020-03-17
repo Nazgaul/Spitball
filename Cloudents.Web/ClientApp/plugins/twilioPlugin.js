@@ -1,6 +1,10 @@
 import insightService from '../services/insightService';
 import analyticsService from '../services/analytics.service.js';
 import * as routeNames from '../routes/routeNames.js';
+import {SETTERS} from '../store/constants/twilioConstants.js';
+
+const REMOTE_TRACK = 'remoteTrack';
+const LOCAL_TRACK = 'localTrack';
 
 function _detachTracks(tracks){
    tracks.forEach((track) => {
@@ -11,33 +15,54 @@ function _detachTracks(tracks){
       }
    });
 }
-
+function _attachTracks(tracks,container){
+   tracks.forEach((track) => {
+      if (track.attach) {
+         container.appendChild(track.attach());
+      }
+   });
+}
 function _insightEvent(...args) {
    insightService.track.event(insightService.EVENT_TYPES.LOG, ...args);
 }
 
 function _twilioListeners(room,store) {
-   _insightEvent('StudyRoom_tutorService_TwilioConnect', room, null);
+   _insightEvent('TwilioConnect', room, null);
 
    debugger
+
+   room.participants.forEach((participant) => {
+      let previewContainer = document.getElementById(REMOTE_TRACK);
+      let tracks = Array.from(participant.tracks.values());
+      _attachTracks(tracks, previewContainer)
+   });
+
+
+
+
+
+
+
+
+
    room.on('participantConnected', (participant) => {
       debugger
-      _insightEvent('StudyRoom_tutorService_TwilioParticipantConnected', participant, null);
+      _insightEvent('TwilioParticipantConnected', participant, null);
    })
    room.on('participantDisconnected', (participant) => {
       debugger
-      _insightEvent('StudyRoom_tutorService_TwilioParticipantDisconnected', participant, null);
+      _insightEvent('TwilioParticipantDisconnected', participant, null);
       _detachTracks(Array.from(participant.tracks.values()))
    })
    room.on('trackSubscribed', (track) => {
       debugger
-      _insightEvent('StudyRoom_tutorService_TwilioTrackSubscribed', track, null);
+      _insightEvent('TwilioTrackSubscribed', track, null);
       _detachTracks([track])
    })
    room.on('disconnected', (dRoom, error) => {
       debugger
       if (error?.code) {
-         _insightEvent('StudyRoom_tutorService_TwilioDisconnected', {'errorCode': error.code}, null);
+         _insightEvent('TwilioDisconnected', {'errorCode': error.code}, null);
          console.error(`Twilio Error: Code: ${error.code}, Message: ${error.message}`)
       }
       dRoom.localParticipant.tracks.forEach(function (track) {
@@ -56,9 +81,9 @@ function _twilioListeners(room,store) {
    room.on('recordingStopped', () => {
       debugger
    })
-   room.on('trackDimensionsChanged', () => {
-      debugger
-   })
+   // room.on('trackDimensionsChanged', () => {
+   //    debugger
+   // })
    room.on('trackDisabled', () => {
       debugger
    })
@@ -77,7 +102,7 @@ function _twilioListeners(room,store) {
    room.on('trackStarted', (track) => {
       debugger
 
-      let previewContainer = document.getElementById('remoteTrack');
+      let previewContainer = document.getElementById(REMOTE_TRACK);
       if(track.kind === 'video'){
          let videoTag = previewContainer.querySelector("video");
          if (videoTag) {
@@ -102,30 +127,28 @@ function _twilioListeners(room,store) {
       debugger
    })
    room.on('trackUnsubscribed', (RemoteDataTrack,RemoteDataTrackPublication,RemoteParticipant) => {
-      _insightEvent('StudyRoom_tutorService_TwilioTrackUnsubscribed', RemoteDataTrack, null)
       debugger
+      _insightEvent('TwilioTrackUnsubscribed', RemoteDataTrack, null);
+      _detachTracks([RemoteDataTrack]);
    })
    room.localParticipant.on('trackStopped',(track)=>{
       if(track.kind === 'video'){
-         store.commit('setIsVideoAvailable',false)
+         store.commit(SETTERS.VIDEO_AVAILABLE,false)
       }
       if(track.kind === 'audio'){
-         store.commit('setIsAudioAvailable',false)
+         store.commit(SETTERS.AUDIO_AVAILABLE,false)
       }
    })
    room.localParticipant.on('networkQualityLevelChanged', (networkQualityLevel,networkQualityStats) => {
-      debugger
-      _insightEvent('StudyRoom_tutorService_networkQuality',networkQualityStats, networkQualityLevel)
+      _insightEvent('networkQuality',networkQualityStats, networkQualityLevel)
    });
-   room.on('trackMessage', (message) => {
-      debugger
-
+   room.on('trackMessage', (message,RemoteDataTrack,RemoteParticipant) => {
       let data = JSON.parse(message)
+      _insightEvent('trackMessage', data, null);
       store.dispatch('dispatchDataTrackJunk',data)
    })
-   room.on('reconnecting', () => {
-      debugger
-      _insightEvent('StudyRoom_tutorService_TwilioReconnecting', null, null);
+   room.on('reconnecting', (reconnectingError) => {
+      _insightEvent('reconnecting', null, null);
    })
 }
 export default () => {
@@ -133,9 +156,10 @@ export default () => {
       let twillioClient;
       let dataTrack;
       let mediaTracks = [];
+      let _room = null;
       store.subscribe((mutation) => {
          if (mutation.type === 'setRouteStack' && mutation.payload === routeNames.StudyRoom) {
-            import('twilio-video').then(Twilio => { 
+            import('twilio-video').then(async (Twilio) => { 
                twillioClient = Twilio;
                let {LocalDataTrack,createLocalVideoTrack,createLocalAudioTrack} = Twilio; 
                dataTrack = new LocalDataTrack();
@@ -143,21 +167,21 @@ export default () => {
                   tracks.forEach(({value}) => {
                      if(value){
                         if(value.kind === 'video'){
-                           const localMediaContainer = document.getElementById('localTrack');
+                           const localMediaContainer = document.getElementById(LOCAL_TRACK);
                            localMediaContainer.appendChild(value.attach());
                            mediaTracks.push(value);
-                           store.commit('setIsVideoAvailable',true)
+                           store.commit(SETTERS.VIDEO_AVAILABLE,true)
                         }
                         if(value.kind === 'audio'){                         
                            mediaTracks.push(value);
-                           store.commit('setIsAudioAvailable',true)
+                           store.commit(SETTERS.AUDIO_AVAILABLE,true)
                         }
                      }
                   })
                })
             });
          }
-         if (mutation.type === 'setJwtToken') {
+         if (mutation.type === SETTERS.JWT_TOKEN) {
             let jwtToken = mutation.payload;
             let options = {
                logLevel: 'debug',
@@ -167,14 +191,16 @@ export default () => {
                   remote: 3
                }
             };
+            _insightEvent('connectToRoom', {'token': jwtToken}, null);
             twillioClient.connect(jwtToken, options).then((room) => {
+               _room = room;
                _twilioListeners(room,store);
             })
          }
-         if (mutation.type === 'setDataTrack'){
+         if (mutation.type === SETTERS.DATA_TRACK){
             dataTrack.send(mutation.payload);
          }
-         if (mutation.type === 'setVideoToggle'){
+         if (mutation.type === SETTERS.VIDEO_TOGGLE){
             let videoTrack = mediaTracks.find(track=>track.kind === 'video');
             if(videoTrack){
                if(videoTrack.isEnabled){
@@ -184,7 +210,7 @@ export default () => {
                }
             }
          }
-         if (mutation.type === 'setAudioToggle'){
+         if (mutation.type === SETTERS.AUDIO_TOGGLE){
             let audioTrack = mediaTracks.find(track=>track.kind === 'audio');
             if(audioTrack){
                if(audioTrack.isEnabled){
@@ -194,13 +220,21 @@ export default () => {
                }
             }
          }
+         if (mutation.type === SETTERS.SCREEN_SHARE){
+            const share = async()=>{
+               let stream = await navigator.mediaDevices.getDisplayMedia();
+               const screenTrack = new twillioClient.LocalVideoTrack(stream.getTracks()[0]);
+               _room.localParticipant.publishTrack(screenTrack);
+            }
+            share()
+         }
       })
 
 
       // store.subscribeAction((action) => {
       //    // let room = action.payload;
       //    // let {isTutor,studentName,studentId} = store.getters.getStudyRoomData;
-      //    // _insightEvent('StudyRoom_tutorService_TwilioConnect', room, null);
+      //    // _insightEvent('TwilioConnect', room, null);
       //    // store.dispatch('setSessionTimeStart');
 
       //    // //close start dialogs after reload page (by refresh).
