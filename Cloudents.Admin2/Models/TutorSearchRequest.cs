@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.Enum;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Admin2.Models
 {
@@ -6,5 +7,6 @@ namespace Cloudents.Admin2.Models
     {
         public string Term { get; set; }
         public ItemState? State { get; set; }
+        public string Country { get; set; }
     }
 }

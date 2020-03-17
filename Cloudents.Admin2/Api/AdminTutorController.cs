@@ -93,7 +93,17 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<TutorDto>> GetAsync([FromQuery] TutorSearchRequest model,
            CancellationToken token)
         {
-            var query = new TutorSearchQuery(model.Term, model.State, 0, User.GetCountryClaim());
+            var adminCountry = User.GetCountryClaim();
+            var country = model.Country ?? string.Empty;
+            if (string.IsNullOrEmpty(country) && !string.IsNullOrEmpty(adminCountry))
+            {
+                return null;
+            }
+            if (!country.Equals(adminCountry) && !string.IsNullOrEmpty(adminCountry))
+            {
+                return null;
+            }
+            var query = new TutorSearchQuery(model.Term, model.State, 0, country);
             var result = await _queryBus.QueryAsync(query, token);
             return result;
         }

@@ -34,19 +34,31 @@ namespace Cloudents.Query.Admin
 
             public async Task<IEnumerable<TutorDto>> GetAsync(TutorSearchQuery query, CancellationToken token)
             {
-                const int pageSize = 50;
+                const int pageSize = 200;
 
-                var sql = @"Select @Term = case when @Term is null then '""""' else '""' + @Term+ '*""' end 
+                var sqlWithTerm = @"Select @Term = case when @Term is null then '""""' else '""' + @Term+ '*""' end 
                             select u.Id, u.Name, u.Email, u.PhoneNumberHash as PhoneNumber, u.Country, t.State 
                             from sb.Tutor t
                             join sb.[User] u
 	                            on u.Id = t.Id
                             where CONTAINS(([Name], Email, PhoneNumberHash) , @Term)
-                                and (u.Country = @Country or @Country is null)
+                                and (u.Country = @Country or @Country = '')
                                 and (t.State = @State or @State = '')
                             order by u.Id
                             OFFSET @PageSize * @Page ROWS
                             FETCH NEXT @PageSize ROWS ONLY;";
+
+                var sqlWithoutTerm = @"select u.Id, u.Name, u.Email, u.PhoneNumberHash as PhoneNumber, u.Country, t.State 
+                            from sb.Tutor t
+                            join sb.[User] u
+	                            on u.Id = t.Id
+                            where (u.Country = @Country or @Country = '')
+                                and (t.State = @State or @State = '')
+                            order by u.Id
+                            OFFSET @PageSize * @Page ROWS
+                            FETCH NEXT @PageSize ROWS ONLY;";
+
+                var sql = string.IsNullOrEmpty(query.Term) ? sqlWithoutTerm : sqlWithTerm;
 
                 using (var conn = _dapperRepository.OpenConnection())
                 {
