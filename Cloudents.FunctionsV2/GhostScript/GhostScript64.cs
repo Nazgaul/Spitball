@@ -1,24 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 
-namespace GhostscriptSharp.API
+namespace Cloudents.FunctionsV2.GhostScript
 {
     internal class GhostScript64
     {
         #region Hooks into Ghostscript DLL
-        [DllImport("gsdll64.dll", EntryPoint = "gsapi_new_instance")]
+        [DllImport("../GhostScript/gsdll64.dll", EntryPoint = "gsapi_new_instance")]
         private static extern int CreateAPIInstance(out IntPtr pinstance, IntPtr caller_handle);
 
-        [DllImport("gsdll64.dll", EntryPoint = "gsapi_init_with_args")]
+        [DllImport("../GhostScript/gsdll64.dll", EntryPoint = "gsapi_init_with_args")]
         private static extern int InitAPI(IntPtr instance, int argc, string[] argv);
 
-        [DllImport("gsdll64.dll", EntryPoint = "gsapi_exit")]
+        [DllImport("../GhostScript/gsdll64.dll", EntryPoint = "gsapi_exit")]
         private static extern int ExitAPI(IntPtr instance);
 
-        [DllImport("gsdll64.dll", EntryPoint = "gsapi_delete_instance")]
+        [DllImport("../GhostScript/gsdll64.dll", EntryPoint = "gsapi_delete_instance")]
         private static extern void DeleteAPIInstance(IntPtr instance);
         #endregion
 

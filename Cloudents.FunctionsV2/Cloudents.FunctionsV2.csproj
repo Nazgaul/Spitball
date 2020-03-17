@@ -34,15 +34,15 @@
     <ProjectReference Include="..\Cloudents.Query\Cloudents.Query.csproj" />
     <ProjectReference Include="..\Cloudents.Search\Cloudents.Search.csproj" />
   </ItemGroup>
+  
   <ItemGroup>
     <None Update="GhostScript\gsdll32.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="GhostScript\gsdll64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+   
     <None Update="host.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
