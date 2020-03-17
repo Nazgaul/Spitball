@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using System.Collections.Generic;
-using System.Linq;
 
 //[assembly: InternalsVisibleTo("Cloudents.Persistance")]
 namespace Cloudents.Core.Entities
@@ -10,10 +9,10 @@ namespace Cloudents.Core.Entities
     {
         public UserTransactions()
         {
-            Transactions = Transactions ?? new List<Transaction>();
+            Transactions ??= new List<Transaction>();
         }
         internal ICollection<Transaction> Transactions { get; private set; }
-        public IReadOnlyCollection<Transaction> TransactionsReadOnly => Transactions.ToList();
+        public IEnumerable<Transaction> TransactionsReadOnly => Transactions;
         public decimal Balance { get; private set; }
 
         public int Score { get; private set; }

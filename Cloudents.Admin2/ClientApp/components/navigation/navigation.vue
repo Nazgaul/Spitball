@@ -111,6 +111,7 @@
                         },
                         childrens: [
                             { name: 'Study rooms', link: '/reports', icon: '' },
+                            { name: 'Tutor List', link: '/tutor/tutorList', icon: '' }
                         ]
                     },
                     {
