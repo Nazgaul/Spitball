@@ -27,7 +27,7 @@ namespace Cloudents.Core.DTOs.Users
 
         public TimeSpan? Duration { get; set; }
 
-        public bool ShouldSerializeDuration => false;
+        public bool ShouldSerializeDuration() => false;
 
         public string TutorImage { get; set; }
         public long TutorId { get; set; }
