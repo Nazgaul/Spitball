@@ -51,7 +51,6 @@ import startConversations from './components/conversation/startConversation.vue'
 import tutors from './components/tutor/tutor.vue';
 import pendingTutors from './components/tutor/pendingTutors/pendingTutor.vue';
 import deleteTutors from './components/tutor/tutorDelete/tutorDelete.vue';
-import paymentSession from './components/tutor/paymentSession/paymentSession.vue';
 import studyRoom from './components/studyRoom/studyRoom.vue';
 import studyRoomSession from './components/studyRoom/studyRoomComponents/sessions/studyRoomsSessions.vue';
 
@@ -134,10 +133,6 @@ export const routes = [
             {
               path: 'deleteTutors',
               component: deleteTutors
-            },
-            {
-              path: 'paymentSession',
-              component: paymentSession
             }
         ]
     },
