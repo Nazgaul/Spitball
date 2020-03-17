@@ -365,9 +365,9 @@ namespace Cloudents.Core.Entities
             MakeTransaction(t);
         }
 
-        public virtual void ReferUser(User user)
+        public virtual void ReferUser(User user, int price)
         {
-            MakeTransaction(new ReferUserTransaction(user));
+            MakeTransaction(new ReferUserTransaction(user, price));
         }
 
         public virtual void FinishRegistration()

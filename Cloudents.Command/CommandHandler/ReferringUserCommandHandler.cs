@@ -22,14 +22,14 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(ReferringUserCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.InvitingUserId, token);
-            var referCount = await _referUserTransactionRepository.GetReferUserCountAsync(user.Id, token);
+           
 
-            if (user.Id != message.RegisteredUserId && 
-                user.Country != Country.India.Name &&
-                referCount < MaxRefer)
+            if (user.Id != message.RegisteredUserId)
             {
+                var referCount = await _referUserTransactionRepository.GetReferUserCountAsync(user.Id, token);
                 var register = await _userRepository.LoadAsync(message.RegisteredUserId, token);
-                user.ReferUser(register);
+                var price = referCount > MaxRefer || user.Country == Country.India.Name  ? 0 : 10;
+                user.ReferUser(register, price);
                 await _userRepository.UpdateAsync(user, token);
             }
          

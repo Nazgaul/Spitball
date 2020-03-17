@@ -165,11 +165,11 @@ namespace Cloudents.Core.Entities
         public virtual User InvitedUser { get; protected set; }
 
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public ReferUserTransaction(User invitedUser)
+        public ReferUserTransaction(User invitedUser, int price)
         {
             InvitedUser = invitedUser;
             Action = TransactionActionType.ReferringUser;
-            Price = 10;
+            Price = price;
             Type = TransactionType.Earned;
         }
 
