@@ -43,7 +43,7 @@
                   <td class="text-xs-left">{{props.item.downloads}}</td>
                   <td class="text-xs-left">{{props.item.purchased}}</td>
                   <td class="text-xs-left" v-text="formatPrice(props.item.price,props.item.type)"/>
-                  <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
+                  <td class="text-xs-left">{{ $d(new Date(props.item.date)) }}</td>
                   <td class="text-xs-center">
                      <v-menu bottom left v-model="showMenu" v-if="!checkIsQuestion(props.item.type)">
                         <template v-slot:activator="{ on }">

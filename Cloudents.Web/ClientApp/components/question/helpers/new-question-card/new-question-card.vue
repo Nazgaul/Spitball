@@ -7,7 +7,7 @@
                         <user-avatar class="mr-1" size="34" :userImageUrl="cardData.user.image" :user-name="cardData.user.name" :user-id="cardData.user.id"/>
                         <div class="user-question">
                             <div class="user-question-name text-truncate">{{cardData.user.name}}</div>
-                            <div class="user-question-date">{{uploadDate}}</div>
+                            <div class="user-question-date">{{$d(new Date(cardData.dateTime), 'short')}}</div>
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                                 />
                                 <div class="user_answer_info">
                                     <div class="user_answer_info_name text-truncate">{{answers.user.name}}</div>
-                                    <div class="user_answer_info_date text-truncate">{{uploadDateAnswer}}</div>
+                                    <div class="user_answer_info_date text-truncate">{{$d(new Date(cardData.firstAnswer.date), 'short')}}</div>
                                 </div>
                             </div>
                         </div>
