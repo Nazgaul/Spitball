@@ -17,7 +17,7 @@ namespace Cloudents.FunctionsV2
     {
         [FunctionName("GhostscriptFunction")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "api/ghostscript/{id}")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "ghostscript/{id}")] HttpRequest req,
             string id,
             [Blob("spitball-files/files/{id}")]CloudBlobDirectory directory,
             ILogger log)
