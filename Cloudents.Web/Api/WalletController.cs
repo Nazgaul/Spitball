@@ -248,7 +248,7 @@ namespace Cloudents.Web.Api
             };
 
 
-            var command = new TransferMoneyToPointsCommand(userId, amount, model.Id);
+            var command = new TransferMoneyToPointsCommand(userId, amount, model.Id, result.LocalCurrencyAmount);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
