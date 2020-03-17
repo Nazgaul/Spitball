@@ -38,7 +38,7 @@ namespace Cloudents.FunctionsV2
             var z = Path.Combine(Path.GetTempPath(), id);
             var outputPath = Path.Combine(z, "%d.jpg");
             Directory.CreateDirectory(z);
-            GhostscriptWrapper.GeneratePageThumbs(inputFile, outputPath, 1, 1000, 300, 300);
+            GhostscriptWrapper.GeneratePageThumbs(inputFile, outputPath, 1, 1000, 150, 150);
 
             foreach (var file in Directory.GetFiles(z))
             {
