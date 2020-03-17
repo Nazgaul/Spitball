@@ -22,7 +22,7 @@ namespace Cloudents.Web.Identity
         }
 
 
-        private ClaimsPrincipal StoreTwoFactorInfo(string userId, string loginProvider)
+        private static ClaimsPrincipal StoreTwoFactorInfo(string userId, string loginProvider)
         {
             var identity = new ClaimsIdentity(IdentityConstants.TwoFactorUserIdScheme);
             identity.AddClaim(new Claim(ClaimTypes.Name, userId));

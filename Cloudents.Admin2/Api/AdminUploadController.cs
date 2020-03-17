@@ -20,12 +20,12 @@ namespace Cloudents.Admin2.Api
     [Authorize]
     public class AdminUploadController : ControllerBase
     {
-        protected readonly IAdminDirectoryBlobProvider BlobProvider;
+        private readonly IAdminDirectoryBlobProvider _blobProvider;
         private readonly ITempDataDictionaryFactory _tempDataDictionaryFactory;
 
         public AdminUploadController(IAdminDirectoryBlobProvider blobProvider, ITempDataDictionaryFactory tempDataDictionaryFactory)
         {
-            BlobProvider = blobProvider;
+            _blobProvider = blobProvider;
             _tempDataDictionaryFactory = tempDataDictionaryFactory;
         }
 
@@ -42,7 +42,7 @@ namespace Cloudents.Admin2.Api
                 return BadRequest(ModelState);
             }
             var index = (int)(model.StartOffset / UploadInnerResponse.BlockSize);
-            await BlobProvider.UploadBlockFileAsync(tempData.BlobName, model.Chunk.OpenReadStream(),
+            await _blobProvider.UploadBlockFileAsync(tempData.BlobName, model.Chunk.OpenReadStream(),
                 index, token);
 
             tempDataProvider.Put($"update-{model.SessionId}", tempData);
@@ -50,7 +50,7 @@ namespace Cloudents.Admin2.Api
         }
 
         [NonAction]
-        private IEnumerable<string> GetSupportedExtensions()
+        private static IEnumerable<string> GetSupportedExtensions()
         {
             return FileTypesExtensions.GetFormats();
         }
@@ -126,14 +126,18 @@ namespace Cloudents.Admin2.Api
             }
 
             //original file name can only have ascii chars. hebrew not supported. remove that
-            await BlobProvider.CommitBlockListAsync(tempData2.BlobName, tempData2.MimeType, null, indexes, TimeSpan.FromDays(365), token);
-            var bolobUri = BlobProvider.GetBlobUrl(tempData2.BlobName);
+            await _blobProvider.CommitBlockListAsync(tempData2.BlobName, tempData2.MimeType, null, indexes, TimeSpan.FromDays(365), token);
+            var bolobUri = _blobProvider.GetBlobUrl(tempData2.BlobName);
             //var preview = BlobProvider.GeneratePreviewLink(bolobUri,
             //                TimeSpan.FromDays(30));
             return new UploadEndResponce(bolobUri);
         }
 
+        [HttpGet]
+        public async Task<IEnumerable<Uri>> GetBlobsAsync(CancellationToken token)
+        {
+            return await _blobProvider.FilesInContainerAsync(token);
+        }
 
     }
-
 }

@@ -1,7 +1,7 @@
 <template>
     <div class="buy-dialog-wrap">
         <div class="close-buy-dialog">
-            <v-icon class="closeIcon" color="#000" size="14" v-closeDialog>sbf-close</v-icon>
+            <v-icon class="closeIcon" @click="''" color="#000" size="14" v-closeDialog>sbf-close</v-icon>
         </div>
         <div class="buy-tokens-wrap">
             <v-container px-4 pt-6 pb-0 class="buy-tokens-top-container">
@@ -67,7 +67,7 @@
                             @click="selectProduct('pro')"
                     >
                         <div class="buy-tokens-center-price-title">
-                            <span class="buy-tokens-points-num">{{products.pro.pts | commasFilter}}</span>&nbsp;
+                            <span class="buy-tokens-points-num">{{$n(products.pro.pts)}}</span>&nbsp;
                             <span v-language:inner="'buyTokens_points'"></span>
                         </div>
                         <div>{{products.currency}}{{products.pro.price}}</div>

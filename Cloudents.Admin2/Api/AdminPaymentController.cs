@@ -51,7 +51,9 @@ namespace Cloudents.Admin2.Api
                 UserId = s.UserId,
                 UserName = s.UserName,
                 Created = s.Created,
-                Duration = s.Duration.TotalMinutes
+                Duration = s.Duration.TotalMinutes,
+                IsRealDurationExitsts = s.IsRealDurationExitsts,
+                RealDuration = s.RealDuration.TotalMinutes
             });
         }
 
@@ -87,7 +89,7 @@ namespace Cloudents.Admin2.Api
         }
 
         /// <summary>
-        /// Delete user pay method 
+        /// Delete user pay method - payme token
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="token"></param>
@@ -110,5 +112,7 @@ namespace Cloudents.Admin2.Api
 
             return Ok();
         }
+
+        
     }
 }

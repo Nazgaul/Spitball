@@ -15,10 +15,10 @@
                </h6>
                <div class="profileUserStickyMobile_user_info_pricing">
                   <v-flex class="profileUserStickyMobile_pricing_price">
-                     <span class="profileUserStickyMobile_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? tutorDiscountPrice : tutorPrice | currencyFormat(getProfile.user.tutorData.currency)}}</span>/<span class="profileUserStickyMobile_pricing_price_hour" v-language:inner="'profile_points_hour'"/>
+                     <span class="profileUserStickyMobile_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserStickyMobile_pricing_price_hour" v-language:inner="'profile_points_hour'"/>
                   </v-flex>
                   <v-flex class="profileUserStickyMobile_pricing_discount" :class="[{'pl-4':$vuetify.breakpoint.xsOnly}]" v-if="isDiscount">
-                     {{tutorPrice ? tutorPrice : tutorDiscountPrice | currencyFormat(getProfile.user.tutorData.currency)}}
+                     {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
                   </v-flex>
                </div>
                <button :class="{'isMyProfileCoupon':isMyProfile}" class="profileUserStickyMobile_coupon" @click="globalFunctions.openCoupon" v-language:inner="'coupon_apply_coupon'"/>
@@ -36,7 +36,7 @@
       </div>
      </template>
      <template v-if="!getProfile.user.isTutor">
-         <v-btn class="profileUserSticky_btn profileUserSticky_btn_find white--text" depressed rounded color="#4452fc" @click="isMyProfile? globalFunctions.openBecomeTutor() : globalFunctions.goTutorList()">
+         <v-btn class="profileUserSticky_btn profileUserSticky_btn_find white--text" depressed rounded color="#4452fc" @click="isMyProfile? openBecomeTutor() : goTutorList()">
             <div class="profileUserSticky_btn_txt" v-language:inner="isMyProfile? 'profile_become_tutor_btn':'profile_find_tutors'"/>
          </v-btn>
      </template>
@@ -45,6 +45,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import * as routeNames from '../../../../routes/routeNames.js';
+import * as dialogNames from '../../../pages/global/dialogInjection/dialogNames.js';
 import chatIcon from './images/chatIcon_mobile.svg';
 import calendarIcon from './images/calendarIcon_mobile.svg';
 
@@ -82,6 +84,14 @@ export default {
       isTutor(){
          return !!this.getProfile && this.getProfile.user.isTutor
       },
+   },
+   methods: {
+      goTutorList(){
+         this.$router.push({name: routeNames.TutorList})
+      },
+      openBecomeTutor(){
+         this.$openDialog(dialogNames.BecomeTutor)
+      }
    },
 
 }

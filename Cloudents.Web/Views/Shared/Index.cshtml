@@ -1,4 +1,5 @@
-﻿@using Cloudents.Web.Services
+﻿@using System.Text.Encodings.Web
+@using Cloudents.Web.Services
 @using Cloudents.Web.Views
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Microsoft.Extensions.Configuration
@@ -50,9 +51,16 @@
         <script src="~/dist/@main.Js"></script>
     </environment>
     <environment exclude="Development">
-        <script src="@Constants.GetCdnEndpoint(Environment)/dist/@main.Js" crossorigin="anonymous"
-                asp-fallback-src="~/dist/@main.Js"
-                asp-fallback-test="window.mainCdn">
+        <script src="@Constants.GetCdnEndpoint(Environment)/dist/@main.Js" crossorigin="anonymous"></script>
+        <script>
+            if (!window.mainCdn) {
+                @{
+                    var c2 = @Url.Content($"~/dist/{main.Js}");
+                }
+                window.publicPath = '/dist';
+                document.write(
+                    '@JavaScriptEncoder.Default.Encode($"<script src='{c2}' crossorigin='anonymous'></script>")')
+            }
         </script>
     </environment>
 }

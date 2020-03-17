@@ -22,7 +22,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             var course = await _courseRepository.LoadAsync(message.Course, token);
             var subject = await _subjectRepository.GetCourseSubjectByName(message.Subject
                     , token);
-            course.SetShcoolType(message.SchoolType);
+            course.SetSchoolType(message.SchoolType);
             course.Approve();
             course.SetSubject(subject);
         }

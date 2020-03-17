@@ -129,9 +129,6 @@
   <data name="get_help" xml:space="preserve">
     <value>קבל עזרה</value>
   </data>
-  <data name="new_questions" xml:space="preserve">
-    <value>שאלות חדשות</value>
-  </data>
   <data name="no_result_found_for" xml:space="preserve">
     <value>לא נמצאו תוצאות עבור</value>
   </data>
@@ -140,18 +137,6 @@
   </data>
   <data name="still_cant_find" xml:space="preserve">
     <value>עדיין לא מוצא את מה שחיפשת?</value>
-  </data>
-  <data name="suggestions" xml:space="preserve">
-    <value>הצעות:</value>
-  </data>
-  <data name="suggestions_ask" xml:space="preserve">
-    <value>יש לך שאלה ואתה חייב תשובה? נסה אותנו.</value>
-  </data>
-  <data name="suggestions_note" xml:space="preserve">
-    <value>מחפש מסמכי לימוד לשיעורים שלך? הגעת למקום הנכון.</value>
-  </data>
-  <data name="suggestions_tutor" xml:space="preserve">
-    <value>עדיין זקוק לעזרה? צור קשר עם מורה פרטי כדי להבטיח שתצליח בשיעור.</value>
   </data>
   <data name="no_result_found" xml:space="preserve">
     <value>לא נמצאו תוצאות</value>

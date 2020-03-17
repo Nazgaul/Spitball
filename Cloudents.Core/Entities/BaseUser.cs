@@ -32,17 +32,14 @@ namespace Cloudents.Core.Entities
         public virtual string ImageName { get; protected set; }
 
         //TODO: should fictive user need to have university
-        public virtual University University { get; protected set; }
+        public virtual University? University { get; protected set; }
 
 
-       // public virtual bool TwoFactorEnabled { get; set; }
 
         public virtual string AuthenticatorKey { get; set; }
 
         public virtual bool? OldUser { get; set; }
 
-
-        //public virtual int Score { get; protected set; }
 
 
         /// <summary>
@@ -66,9 +63,6 @@ namespace Cloudents.Core.Entities
         public virtual IReadOnlyList<Question> Questions => _questions.ToList();
 
 
-
-
-
         public virtual DateTime Created { get; protected set; }
 
         public virtual string Email { get; set; }
@@ -82,8 +76,6 @@ namespace Cloudents.Core.Entities
         public abstract int Score { get; protected set; }
 
         public abstract void MakeTransaction(Transaction transaction);
-
-
 
         public virtual CultureInfo Language { get; protected set; }
 

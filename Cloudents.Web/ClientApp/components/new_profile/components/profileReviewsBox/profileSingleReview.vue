@@ -19,7 +19,7 @@
                   </div>
                </div>
                <div class="profileSingleReview_content_info_date">
-                  <span>{{$options.filters.fullMonthDate(review.date)}}</span>
+                  <span>{{$d(new Date(review.date), 'short')}}</span>
                </div>
             </div>
             <div class="profileSingleReview_content_txt">

@@ -141,6 +141,9 @@
   <data name="ActionTypePurchaseDocument" xml:space="preserve">
     <value>Purchased Document</value>
   </data>
+  <data name="ActionTypePurchaseSession" xml:space="preserve">
+    <value>Purchase Session</value>
+  </data>
   <data name="ActionTypeQuestion" xml:space="preserve">
     <value>Question</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="ActionTypeSoldDocument" xml:space="preserve">
     <value>Sold Document</value>
+  </data>
+  <data name="ActionTypeSoldSession" xml:space="preserve">
+    <value>Sold Session</value>
   </data>
   <data name="TransactionTypeEarned" xml:space="preserve">
     <value>Earned</value>

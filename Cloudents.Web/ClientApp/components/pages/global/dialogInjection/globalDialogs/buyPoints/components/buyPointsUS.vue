@@ -1,7 +1,7 @@
 <template>
     <div class="buy-dialog-wrap">
         <div class="close-buy-dialog">
-            <v-icon class="closeIcon" color="#000" size="14" v-closeDialog>sbf-close</v-icon>
+            <v-icon class="closeIcon" @click="''" color="#000" size="14" v-closeDialog>sbf-close</v-icon>
         </div>
         <div class="buy-tokens-wrap">
             <v-container px-4 pt-6 pb-0 class="buy-tokens-top-container">
@@ -67,7 +67,7 @@
                             @click="selectProduct('pro')"
                     >
                         <div class="buy-tokens-center-price-title">
-                            <span class="buy-tokens-points-num">{{products.pro.pts | commasFilter}}</span>&nbsp;
+                            <span class="buy-tokens-points-num">{{$n(products.pro.pts)}}</span>&nbsp;
                             <span v-language:inner="'buyTokens_points'"></span>
                         </div>
                         <div>{{products.currency}}{{products.pro.price}}</div>
@@ -93,8 +93,8 @@
 
                 <v-layout class="buymebtn">
                     <v-flex text-center>
-                        <!-- <v-skeleton-loader class="mb-4" v-show="isLoading" width="100%" height="44" type="button"></v-skeleton-loader> -->
-                        <div  id="paypal-button-container" style="width:400px; margin: 0 auto;"></div>
+                        <v-progress-circular v-show="isLoading" class="mb-4" size="80" width="2" indeterminate color="info"></v-progress-circular>
+                        <div v-show="!isLoading" id="paypal-button-container" style="width:400px; margin: 0 auto;"></div>
                     </v-flex>
                 </v-layout>
 
@@ -109,6 +109,7 @@ export default {
   name:'buyPointsUS',
   data() {
     return {
+      isLoading: false,
       selectedProduct: 'inter',
       transactionId: 750,
       products:{
@@ -155,7 +156,7 @@ export default {
   },
   mounted() {
     let self = this;
-    let paypalUrl = `https://www.paypal.com/sdk/js?client-id=${window.paypalClientId}&commit=false`;
+    let paypalUrl = `https://www.paypal.com/sdk/js?client-id=${window.paypalClientId}`;
     this.$loadScript(paypalUrl)
         .then(() => {
             window.paypal
@@ -180,14 +181,18 @@ export default {
                         ]
                     });
                 },
-                onApprove: function(data) {
-                    self.$closeDialog();
-                    self.$store.dispatch('updatePaypalBuyTokens',data.orderID);
-                    self.$store.dispatch('updateToasterParams', {
+                onApprove: function(data,actions) {
+                    self.isLoading = true;
+                    actions.order.capture().then(() => {
+                        self.$closeDialog();
+                        self.$store.dispatch('updatePaypalBuyTokens',data.orderID);
+                        self.$store.dispatch('updateToasterParams', {
                         toasterText: self.$t("buyTokens_success_transaction"),
                         showToaster: true,
                         toasterTimeout: 5000
                     });
+                });
+                    
                     //TODO happy go lucky - update the balance of the user
                 }
             })

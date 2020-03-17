@@ -28,7 +28,7 @@ namespace Cloudents.Selenium.Test
 
             var applicationPath = Path.Combine(directoryName, "Cloudents.Web");
             ChromeOptions options = new ChromeOptions();
-            options.AddArgument("--headless");
+            //options.AddArgument("--headless");
             options.AcceptInsecureCertificates = true;
 
 
@@ -70,7 +70,7 @@ namespace Cloudents.Selenium.Test
                 webDriver.Close();
                 webDriver.Quit();
                 webDriver.Dispose();
-
+                
                 //_process.CloseMainWindow();
                 //_process.Close();
                 //_process.Dispose();
@@ -133,9 +133,32 @@ namespace Cloudents.Selenium.Test
 
         private static readonly IEnumerable<string> SignedPaths = new[]
         {
-            "wallet",
+            //"wallet",
             "university",
-            "courses"
+            "courses",
+            "dashboard",
+            "feed",
+            "my-content",
+            "study-rooms",
+            "my-sales",
+            "my-followers",
+            "my-purchases",
+            "my-calendar",
+            "tutor-list"
+        };
+
+        private static readonly IEnumerable<string> UserTypeAccounts = new[]
+        {
+            "elad+444@cloudents.com",
+            "elad+111@cloudents.com",
+            "elad+333@cloudents.com"
+        };
+
+        private static readonly IEnumerable<string> UserTypeRoot = new[]
+        {
+            "dashboard",
+            "feed",
+            "tutor-list"
         };
 
         private IEnumerable<string> GetProfileUrls()
@@ -158,6 +181,29 @@ namespace Cloudents.Selenium.Test
             }
         }
 
+        private void Login(IWebDriver driver, String user)
+        {
+            var url = $"{_driver.SiteUrl.TrimEnd('/')}/Signin";
+            driver.Navigate().GoToUrl(url);
+            var emailButton = driver.FindElementByWait(By.XPath("//*[@sel='email']"));
+            emailButton.Click();
+
+            var emailInput = driver.FindElementByWait(By.Name("email"));
+            emailInput.SendKeys(user);
+            var loginButton = driver.FindElement(By.XPath("//*[@type='submit']"));
+            loginButton.Click();
+
+            var passwordInput = driver.FindElementByWait(By.XPath("//*[@type='password']"));
+            loginButton = driver.FindElement(By.XPath("//*[@type='submit']"));
+            passwordInput.SendKeys("123456789");
+            loginButton.Click();
+        }
+
+        private void Logout(IWebDriver driver)
+        {
+            driver.Navigate().GoToUrl("https://dev.spitball.co/logout");
+        }
+
         [Fact]
         public void MissingResource()
         {
@@ -168,6 +214,7 @@ namespace Cloudents.Selenium.Test
                     foreach (var site in RelativePaths.Union(GetProfileUrls()))
                     {
                         var url = $"{_driver.SiteUrl.TrimEnd('/')}/{site}?culture={culture}";
+                        driver.Manage().Window.Maximize();
                         driver.Navigate().GoToUrl(url);
 
                         var htmlAttr = driver.FindElement(By.TagName("html"));
@@ -192,6 +239,8 @@ namespace Cloudents.Selenium.Test
                         body.Text.Should().NotContain("###");
                     }
                 }
+
+                Logout(driver);
             }
         }
 
@@ -257,14 +306,16 @@ namespace Cloudents.Selenium.Test
                 driver.Navigate().GoToUrl(url);
                 var body = driver.FindElement(By.TagName("body"));
 
+                // Waiting for this element to display
+                driver.FindElementByWait(By.XPath(css));
 
-                var amountOfCards = driver.FindElements(By.XPath(css)).Count;
+                //var amountOfCards = driver.FindElements(By.XPath(css)).Count;                
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 30; i++)
                     body.SendKeys(Keys.PageDown);
-                Thread.Sleep(1000);
+                //Thread.Sleep(1000);
                 var amountOfCardsAfterPaging = driver.FindElements(By.XPath(css)).Count;
-                amountOfCardsAfterPaging.Should().BeGreaterThan(amountOfCards);
+                amountOfCardsAfterPaging.Should().BeGreaterThan(21);
             }
         }
 
@@ -299,7 +350,7 @@ namespace Cloudents.Selenium.Test
             foreach (var driver in this._driver.Drivers)
             {
                 driver.Manage().Window.Maximize();
-                LoginTest();
+                Login(driver, "elad13@cloudents.com");
 
                 var menu = driver.FindElementByWait(By.XPath("//*[@sel='menu']"));
                 menu.Click();
@@ -308,6 +359,8 @@ namespace Cloudents.Selenium.Test
                 //_wait.Until(driver => driver.FindElement(By.XPath("//*[@sel='menu']")));
 
                 listItems.Count.Should().Be(8);
+
+                Logout(driver);
             }
 
             /*for(int i = 0; i < 5; i++)
@@ -345,7 +398,7 @@ namespace Cloudents.Selenium.Test
             foreach (var driver in this._driver.Drivers)
             {
                 driver.Manage().Window.Maximize();
-                LoginTest();
+                Login(driver, "elad13@cloudents.com");
 
                 // Wait for element to load, so we know that the page was loaded
                 driver.FindElementByWait(By.XPath("//*[@sel='all_courses']"));
@@ -378,7 +431,7 @@ namespace Cloudents.Selenium.Test
                 // Make sure this element is exist for unregistered user
                 driver.FindElementByWait(By.XPath("//a[contains(@class,'phoneNumberSlot')]"));
 
-                LoginTest();
+                Login(driver, "elad13@cloudents.com");
                 driver.Navigate().GoToUrl(url);
                 // Make sure this element is exist for registered user
                 driver.FindElementByWait(By.XPath("//a[contains(@class, 'phoneNumberSlot')]"));
@@ -391,10 +444,12 @@ namespace Cloudents.Selenium.Test
             foreach (var driver in this._driver.Drivers)
             {
                 driver.Manage().Window.Maximize();
-                LoginTest();
+                Login(driver, "elad13@cloudents.com");
 
                 // Make sure this element is exist
                 driver.FindElementByWait(By.XPath("//*[contains(@class, 'analyticOverview')]"));
+
+                Logout(driver);
             }
         }
 
@@ -416,8 +471,8 @@ namespace Cloudents.Selenium.Test
 
                 // Make sure this element is exist
                 driver.FindElementByWait(By.XPath("//*[contains(@class, 'exitRegisterDialog')]"));
-                
-                LoginTest();
+
+                Login(driver, "elad13@cloudents.com");
 
                 // Wait until this element is showing
                 driver.FindElementByWait(By.XPath("//*[@sel='menu']"));
@@ -439,6 +494,133 @@ namespace Cloudents.Selenium.Test
 
                 // Make sure this element is exist
                 driver.FindElementByWait(By.XPath("//*[contains(@class, 'become-tutor-wrap')]"));
+
+                Logout(driver);
+            }
+
+        }
+
+        [Fact]
+        public void UserTypesTest()
+        {
+            foreach(var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+
+                int index = 0;
+
+                foreach (var user in UserTypeAccounts)
+                {
+                    Login(driver, user);
+
+                    // Wait until this element is visible
+                    driver.FindElementByWait(By.XPath("//*[@sel='menu']"));
+
+                    driver.Url.Should().Contain(UserTypeRoot.ElementAt(index));
+
+                    Logout(driver);
+
+                    // Wait until this element is visible
+                    driver.FindElementByWait(By.XPath("//*[@class='headlineSection']"));
+
+                    index++;
+                }
+            }
+        }
+
+        [Fact]
+        public void WixLinkTest()
+        {
+            var wixLink = "https://www.teach.spitball.co/";
+
+            foreach (var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+
+                var url = $"{_driver.SiteUrl.TrimEnd('/')}?culture=en-US";
+                driver.Navigate().GoToUrl(url);
+
+                var teachLink = driver.FindElementByWait(By.XPath("//*[contains(@class, 'becomeTutorSlot')]"));
+
+                teachLink.GetAttribute("href").Should().Be(wixLink);
+
+                var earnButton = driver.FindElementByWait(By.XPath("//*[contains(@class, 'btn-earn')]"));
+
+                earnButton.GetAttribute("href").Should().Be(wixLink);
+            }
+        }
+
+        [Fact]
+        public void TutorRequestTest()
+        {
+            foreach (var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+
+                Login(driver, UserTypeAccounts.ElementAt(1));
+
+                //var url = $"{_driver.SiteUrl.TrimEnd('/')}/feed?culture=en-US";
+                //driver.Navigate().GoToUrl(url);
+
+                var tutorRequest = driver.FindElementByWait(By.XPath("//*[@sel='request']"));
+
+                tutorRequest.Click();
+
+                var submitRequest = driver.FindElementByWait(By.XPath("//*[@sel='submit_tutor_request']"));
+
+                submitRequest.Click();
+
+                // Wait until this element is showing
+                driver.FindElementByWait(By.XPath("//*[@class='v-messages__message']"));
+
+                var errorMessages = driver.FindElements(By.XPath("//*[@class='v-messages__message']"));
+
+                errorMessages.Count.Should().Be(2);
+
+                foreach (var error in errorMessages)
+                {
+                    error.Text.Should().NotBeEmpty();
+                }
+
+                var freeText = driver.FindElement(By.XPath("//*[@sel='free_text']"));
+                freeText.SendKeys("Hi");
+
+                var courseSelection = driver.FindElement(By.XPath("//*[@sel='course_request']"));
+                courseSelection.SendKeys("Temp");
+                courseSelection.SendKeys(Keys.Tab);
+
+                submitRequest.Click();
+                
+                // Make sure this element is showing
+                driver.FindElementByWait(By.XPath("//*[@class='tutorRequest-success-middle']"));
+
+                Logout(driver);
+            }
+        }
+
+        [Fact]
+        public void BuyPointsTest()
+        {
+            foreach (var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+
+                Login(driver, UserTypeAccounts.ElementAt(1));
+                
+                // Wait until this element is showing
+                driver.FindElementByWait(By.XPath("//*[@class='sec-result']"));
+
+                var buyPointsBox = driver.FindElement(By.XPath("//*[contains(@class, 'buyPointsFeed')]"));
+                buyPointsBox.Click();
+
+                var buyPointsButton = driver.FindElementByWait(By.XPath("//*[contains(@class, 'buyPointsLayout_btn')]"));
+
+                buyPointsButton.Click();
+
+                // Check that this element exist
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'buy-dialog-wrap')]"));
+
+                Logout(driver);
             }
         }
     }
@@ -461,6 +643,6 @@ namespace Cloudents.Selenium.Test
             });
 
             //return driver.FindElement(by);
-        }
+        }       
     }
 }

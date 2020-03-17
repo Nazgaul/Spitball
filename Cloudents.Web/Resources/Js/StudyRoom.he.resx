@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="alone_in_room" xml:space="preserve">
-    <value>ממתין לצד השני שיכנס לחדר הלימוד</value>
-  </data>
   <data name="boxs_bottom_add" xml:space="preserve">
     <value>להוספת מסמכים ללוח, גרור ושחרר את הקבצים כאן</value>
   </data>
@@ -147,22 +144,7 @@
   <data name="premission_denied" xml:space="preserve">
     <value>בכדי לאשר שיתוף מסך, יש לעדכן את ההגדרות - &lt;a style="color:black" href="{0}" target="_Blank"&gt;למידע נוסף&lt;/a&gt;</value>
   </data>
-  <data name="session_ended" xml:space="preserve">
-    <value>השיעור הסתיים</value>
-  </data>
-  <data name="student_entered_room" xml:space="preserve">
-    <value>הסטודנט נכנס לחדר הלימוד</value>
-  </data>
-  <data name="tutor_entered_room" xml:space="preserve">
-    <value>המורה הפרטי נכנס לחדר הלימוד</value>
-  </data>
   <data name="video" xml:space="preserve">
     <value>וידאו</value>
-  </data>
-  <data name="waiting_for_student_toaster" xml:space="preserve">
-    <value>ממתין לסטודנט שיצטרף לשיעור</value>
-  </data>
-  <data name="waiting_for_tutor_toaster" xml:space="preserve">
-    <value>ממתין למורה שיתחיל את השיעור</value>
   </data>
 </root>

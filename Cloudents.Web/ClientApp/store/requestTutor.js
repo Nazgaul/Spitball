@@ -1,6 +1,6 @@
 import analyticsService from '../services/analytics.service.js';
 import tutorService from '../services/tutorService.js'
-import {LanguageService} from '../services/language/languageService.js'
+import { LanguageService } from '../services/language/languageService';
 
 const state = {
     requestDialog: false,
@@ -12,7 +12,7 @@ const state = {
     currentTutorReqStep:'tutorRequestCourseInfo',
     courseDescription:'',
     selectedCourse:'',
-    moreTutors:true,
+    moreTutors:false,
     currentTutorPhoneNumber: null,
     guestName: '',
     guestMail: '',
@@ -57,7 +57,7 @@ const mutations = {
         state.currentTutorReqStep = 'tutorRequestCourseInfo';
         state.courseDescription = '';
         state.selectedCourse = '';
-        state.moreTutors = true;
+        state.moreTutors = false;
         state.currentTutorPhoneNumber = null;
         state.guestName = '';
         state.guestMail = '';
@@ -116,7 +116,7 @@ const actions = {
                     dispatch('updateTutorReqStep','tutorRequestSuccess');
                 }).catch((err)=>{
                    
-                    //Same converntaion as the server
+                    // Same converntaion as the server
                     let serverResponse = err.response.data || { error : [LanguageService.getValueByKey("tutorRequest_request_error")]};
                     let errorMsg = serverResponse[Object.keys(serverResponse)[0]][0];
                     dispatch('updateToasterParams',{

@@ -3,28 +3,30 @@
     <v-form v-model="validRequestTutorForm" ref="tutorRequestForm" :class="{'tutorProfile':isTutor}">
             <fieldset class="fieldset-textArea mb-6 px-2 py-1">
                 <legend v-language:inner="'tutorRequest_type_legend'"/>
-                  <v-textarea 
+                  <v-textarea sel="free_text"
                     :rows="isMobile?6:3"
                     v-model="description"
                     :rules="[rules.required, rules.maximumChars,rules.notSpaces]"/>
             </fieldset>
             <fieldset  class="fieldset-select px-2">
                 <legend v-language:inner="'tutorRequest_select_course_placeholder'"/>
-                <v-combobox 
+                <v-combobox sel="course_request"
                     v-if="!isLoggedIn"
                     class="text-truncate"
                     @keyup="searchCourses"
                     flat hide-no-data
                     :append-icon="''"
                     v-model="tutorCourse"
+                    :rules="[rules.required]"
                     :items="suggestsCourses"/>
-                    <v-combobox 
+                    <v-combobox sel="course_request"
                     v-else
                     class="text-truncate"
                     flat hide-no-data
                     :append-icon="''"
                     @keyup="onCourseChange"
                     v-model="tutorCourse"
+                    :rules="[rules.required]"
                     :items="getSelectedClasses"/>
             </fieldset>
             <v-checkbox v-if="isTutor" :ripple="false" class="checkbox-userinfo"
@@ -59,7 +61,7 @@ export default {
             isReady:false,
             isFromMounted: false,
             isFromQuery:false,
-            moreTutors:true,
+            moreTutors:false,
             isLoading:false,
             validRequestTutorForm: false,
             checkbox:false,

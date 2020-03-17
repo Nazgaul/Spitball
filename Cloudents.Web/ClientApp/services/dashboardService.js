@@ -17,6 +17,12 @@ function itemTypeChcker(type){
    return console.error('type:',type,'is not defined');
 }
 
+function buildSessionDuration(totalMinutes) {
+   let hours = Math.floor(totalMinutes / 60)
+   let minutes = Math.floor(totalMinutes % 60)
+   return `${hours.toString().padStart(2,0)}:${minutes.toString().padStart(2,0)}:00`;
+}
+
 const Item = {
    Default:function(objInit){
       this.type = objInit.type;
@@ -39,10 +45,12 @@ const Item = {
       this.answerText = objInit.answerText || '';
    },
    Session:function(objInit){
-      this.duration = objInit.duration;
+      this.sessionId = objInit.sessionId
       this.price = objInit.price;
       this.name = objInit.tutorName || objInit.studentName;
       this.image = objInit.tutorImage || objInit.studentImage;
+      this.totalMinutes = Math.floor(objInit.totalMinutes)
+      this.duration = buildSessionDuration(objInit.totalMinutes)
    },
    StudyRoom:function(objInit){
       this.online = objInit.online;
@@ -63,6 +71,13 @@ const Item = {
    Follower:function(objInit){
       this.email = objInit.email;
       this.phoneNumber = objInit.phoneNumber;
+   },
+   SaleSession: function(objInit) {
+      this.tutorPricePerHour = objInit.tutorPricePerHour;
+      this.couponCode = objInit.couponCode;
+      this.couponType = objInit.couponType;
+      this.couponValue = objInit.couponValue;
+      this.couponTutor = objInit.couponTutor;
    }
 };
 function StudyRoomItem(objInit){
@@ -103,6 +118,9 @@ function createSalesItems({data}) {
    data.forEach(item => salesItems.push(new SalesItem(item)));
    return salesItems;
 }
+function createSalesSession({data}) {
+   return new Item.SaleSession(data);
+}
 function createContentItems({data}) {
    let contentItems = [];
    data.map(item => contentItems.push(new ContentItem(item)));
@@ -139,7 +157,13 @@ function createBlogs({data}) {
 
 
 function getSalesItems(){
-   return connectivityModule.http.get('/Account/sales').then(createSalesItems).catch(ex => ex);
+   return connectivityModule.http.get('/Sales/sales').then(createSalesItems).catch(ex => ex);
+}
+function getSalesSessions(id){
+   return connectivityModule.http.get('/Sales/session', {params: { id }}).then(createSalesSession).catch(ex => ex);
+}
+function updateSessionDuration(session){
+   return connectivityModule.http.post('/Sales/duration', session)
 }
 function getContentItems(){
    return connectivityModule.http.get('/Account/content').then(createContentItems).catch(ex => ex);
@@ -167,6 +191,8 @@ function getMarketingBlogs() {
 
 export default {
    getSalesItems,
+   getSalesSessions,
+   updateSessionDuration,
    getContentItems,
    getPurchasesItems,
    getStudyRoomItems,

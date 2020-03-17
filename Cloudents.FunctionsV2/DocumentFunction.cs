@@ -5,7 +5,6 @@ using Cloudents.Core.Extension;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.FunctionsV2.FileProcessor;
 using Cloudents.Search.Document;
-using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage;

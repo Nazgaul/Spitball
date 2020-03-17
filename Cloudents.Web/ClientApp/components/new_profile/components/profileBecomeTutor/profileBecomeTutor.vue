@@ -3,7 +3,7 @@
       <div class="profileBecomeTutor_wrapper">
          <div class="profileBecomeTutor_title" v-language:inner="'profile_become_title'"/>
          <div class="profileBecomeTutor_desc" v-language:inner="'profile_become_txt'"/>
-         <v-btn class="profileBecomeTutor_action white--text" depressed rounded color="#4452fc" @click="globalFunctions.openBecomeTutor()">
+         <v-btn class="profileBecomeTutor_action white--text" depressed rounded color="#4452fc" v-openDialog="becomeTutorDialog">
             <div class="profileBecomeTutor_action_txt" v-language:inner="'profile_become_tutor_btn'"/>
          </v-btn>
       </div>
@@ -11,12 +11,13 @@
 </template>
 
 <script>
+import * as dialogNames from '../../../pages/global/dialogInjection/dialogNames.js'
+
 export default {
    name:'profileBecomeTutor',
-   props:{
-      globalFunctions:{
-         type: Object,
-         required:true
+   data() {
+      return {
+         becomeTutorDialog: dialogNames.BecomeTutor,
       }
    },
 }

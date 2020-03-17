@@ -35,9 +35,9 @@
       </template>
          <template v-slot:item="props">
             <tr class="myFollowers_table_tr">
-               <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
+               <tablePreviewTd :item="props.item"/>
                <td class="text-xs-left">{{props.item.name}}</td>
-               <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
+               <td class="text-xs-left">{{ $d(new Date(props.item.date)) }}</td>
                <td class="text-xs-left actions">
                   <v-btn icon @click="sendWhatsapp(props.item)" depressed rounded color="#4caf50">
                      <v-icon v-text="'sbf-whatsup-share'"/>
@@ -65,9 +65,6 @@ export default {
    name:'myFollowers',
    components:{tablePreviewTd},
    props:{
-      globalFunctions: {
-         type: Object,
-      },
       dictionary:{
          type: Object,
          required: true

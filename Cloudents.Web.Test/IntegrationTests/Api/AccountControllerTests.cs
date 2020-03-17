@@ -44,11 +44,15 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [Theory]
         [InlineData("api/account")]
         [InlineData("api/account/referrals")]
-        [InlineData("api/account/sales")]
         [InlineData("api/account/content")]
         [InlineData("api/account/purchases")]
         [InlineData("api/account/followers")]
         [InlineData("api/account/calendar")]
+        [InlineData("api/account/stats?days=7")]
+        [InlineData("api/account/stats?days=30")]
+        [InlineData("api/account/stats?days=90")]
+        [InlineData("api/account/tutorActions")]
+        [InlineData("api/account/questions")]
         public async Task AccountApiTestGet_LogIn_OkAsync(string api)
         {
             await _client.LogInAsync();
@@ -102,7 +106,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         {
             await _client.LogInAsync();
 
-            var response = await _client.GetAsync("api/account/sales");
+            var response = await _client.GetAsync("api/Sales/sales");
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
 
