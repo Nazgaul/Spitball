@@ -60,6 +60,7 @@ import coupon from './components/coupon/coupon.vue';
 import subjects from './components/subjects/subjects.vue';
 import upload from './components/upload/upload.vue';
 
+import tutorList from './components/tutor/tutorList/tutorList.vue';
 
 export const routes = [
     {
@@ -138,6 +139,10 @@ export const routes = [
             {
               path: 'paymentSession',
               component: paymentSession
+            },
+            {
+              path: 'tutorList',
+              component: tutorList
             }
         ]
     },
