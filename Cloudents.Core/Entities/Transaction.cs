@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Core.Entities
 {
@@ -198,7 +200,7 @@ namespace Cloudents.Core.Entities
 
         public virtual Document Document { get; protected set; }
 
-        private static Transaction Buyer(Document document)
+        public static Transaction Buyer(Document document)
         {
             return new DocumentTransaction(document)
             {
@@ -208,7 +210,7 @@ namespace Cloudents.Core.Entities
             };
         }
 
-        private static Transaction Seller(Document document)
+        public static Transaction Seller(Document document)
         {
             return new DocumentTransaction(document)
             {
@@ -220,12 +222,20 @@ namespace Cloudents.Core.Entities
             };
         }
 
-        public static void MakerTransaction(BaseUser buyer, BaseUser seller, Document d)
-        {
-            buyer.MakeTransaction(Buyer(d));
-            seller.MakeTransaction(Seller(d));
-            seller.MakeTransaction(new CommissionTransaction(d.Price));
-        }
+        //public static void MakerTransaction(User buyer, BaseUser seller, Document d)
+        //{
+        //    var t = buyer.Transactions.TransactionsReadOnly.AsQueryable().Where(w => w is DocumentTransaction)
+        //        .Any(f => ((DocumentTransaction) f).Document.Id == d.Id);
+
+        //    if (t)
+        //    {
+        //        throw new DuplicateRowException();
+        //    }
+
+        //    buyer.MakeTransaction(Buyer(d));
+        //    seller.MakeTransaction(Seller(d));
+        //    seller.MakeTransaction(new CommissionTransaction(d.Price));
+        //}
 
         //private int _awardScore ;
 
