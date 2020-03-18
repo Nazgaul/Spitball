@@ -1,14 +1,14 @@
 <template>
     <div class="courses-list-wrap">
-        <div v-if="!isEmpty">
+        <div>
             <v-layout class="py-6 pl-6 pr-4" align-center justify-center>
                 <v-flex grow>
                     <div class="d-inline-flex justify-center shrink courses-list-wrap-title">
-                        <span class="font-weight-bold" v-language:inner>courses_my_courses</span>
+                        <span class="font-weight-bold">{{$t('courses_my_courses')}}</span>
                         <span class="font-weight-bold" v-if="coursesQuantaty">&nbsp;({{coursesQuantaty}})</span>
                     </div>
                 </v-flex>
-                <v-flex xs2 shrink class="text-center hidden-xs-only" >
+                <v-flex xs2 shrink class="text-center hidden-xs-only">
                     <finishBtn></finishBtn>
                 </v-flex>
                 <v-flex shrink class="d-flex justify-start">
@@ -16,7 +16,7 @@
                            :class="{'mr-2': $vuetify.breakpoint.xsOnly }"
                            @click="goToAddMore()">
                         <v-icon class="mr-1 vicon">sbf-plus-regular</v-icon>
-                        <span v-language:inner>courses_add</span>
+                        <span>{{$t('courses_add')}}</span>
                     </v-btn>
                 </v-flex>
             </v-layout>
@@ -27,7 +27,7 @@
                              v-for="(singleClass, index) in classesSelected" :key="index">
                             <v-layout column class="pl-6 limit-width">
                                 <v-flex shrink class="text-truncate course-name-wrap">
-                                    {{ singleClass.text }}
+                                    {{ singleClass.name }}
                                 </v-flex>
                                 <v-flex class="label-text pt-1" v-if="singleClass.isPending">
                                     <span v-language:inner>courses_pending</span>
@@ -85,18 +85,14 @@
                 </v-flex>
             </v-layout>
         </div>
-        <div v-else>
-            <courses-empty-state></courses-empty-state>
-        </div>
     </div>
 </template>
 <script>
     import { mapActions, mapGetters } from 'vuex';
-    import coursesEmptyState from '../coursesEmptyState/coursesEmptyState.vue';
     import finishBtn from  '../helpers/finishBtn.vue';
     export default {
         name: "selectedCourses",
-        components: {coursesEmptyState, finishBtn},
+        components: {finishBtn},
         data() {
             return {
                 btnLoading: false,
@@ -114,9 +110,7 @@
             },
             isEmpty() {
                 if(!this.getIsSelectedClassLocked){
-                    if(this.getSelectedClasses.length < 1){
-                        this.goToAddMore();
-                    }
+                    return true
                 }
                 return false;
             },
@@ -130,12 +124,13 @@
                               "deleteClass",
                               "updateSelectedClasses",
                               "pushClassToSelectedClasses",
-                              'updateTeachCourse'
+                              'updateTeachCourse',
+                              'getManageCourses'
                           ]),
             teachCourseToggle(course) {
                 this.teachingActive = true;
                 course.isLoading = true;
-                this.updateTeachCourse(course.text).then(() => {
+                this.updateTeachCourse(course.name).then(() => {
                     course.isLoading = false;
                     this.teachingActive = false;
                     return course.isTeaching = !course.isTeaching;
@@ -147,9 +142,8 @@
             removeClass(classDelete) {
                 classDelete.isLoading = true;
                 this.removingActive = true;
-                this.deleteClass(classDelete.text).then(() => {
+                this.deleteClass(classDelete.name).then(() => {
                     classDelete.isLoading = false;
-
                 }, () => {
                     classDelete.isLoading = false;
                     this.removingActive = false;
@@ -161,8 +155,13 @@
             goToAddMore() {
                 this.$router.push({name: 'addCourse'});
             }
+            
         },
-
+        created() {
+            this.getManageCourses().then(courses => {
+                if(!courses.length) this.goToAddMore();
+            })
+        }
     };
 </script>
 

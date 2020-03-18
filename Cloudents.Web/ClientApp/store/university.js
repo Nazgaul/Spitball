@@ -271,8 +271,14 @@ const actions = {
     },
     setLock_selectedClass({commit}, val){
         commit('setLock_selectedClass', val);
+    },
+    getManageCourses({commit, dispatch}) {
+        return courseService.getEditManageCourse().then(({data}) => {
+            // dispatch('setLock_selectedClass', true);
+            commit('setSelectedClasses', data)
+            return data
+        })
     }
-
 };
 
 export default {

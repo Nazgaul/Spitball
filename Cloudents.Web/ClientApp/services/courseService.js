@@ -43,5 +43,9 @@ export default {
       }, (err) => {
           return Promise.reject(err);
       });
+   },
+   getEditManageCourse() {
+      return axios.get('/Account/courses')
+      // return courseInstance.get()
    }
 }
