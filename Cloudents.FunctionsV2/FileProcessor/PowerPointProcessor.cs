@@ -72,6 +72,7 @@ namespace Cloudents.FunctionsV2.FileProcessor
                 {
                     var fileName = int.Parse(Path.GetFileNameWithoutExtension(file));
                     var blobToUpload = directory.GetBlockBlobReference($"preview-{--fileName}.jpg");
+                    blob.Properties.ContentType = "image/jpeg";
                     var t = blobToUpload.UploadFromFileAsync(file);
                     tasks.Add(t);
                     //File.Delete(file);
