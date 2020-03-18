@@ -11,7 +11,7 @@ namespace Cloudents.Command.CommandHandler
         private readonly IRepository<User> _userRepository;
         private readonly IReferUserTransactionRepository _referUserTransactionRepository;
 
-        private const int MaxRefer = 5;
+        //private const int MaxRefer = 5;
 
         public ReferringUserCommandHandler(IRepository<User> userRepository, IReferUserTransactionRepository referUserTransactionRepository)
         {
@@ -21,18 +21,18 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(ReferringUserCommand message, CancellationToken token)
         {
-            var user = await _userRepository.LoadAsync(message.InvitingUserId, token);
-           
-
-            if (user.Id != message.RegisteredUserId)
+            if (message.InvitingUserId == message.RegisteredUserId)
             {
-                var referCount = await _referUserTransactionRepository.GetReferUserCountAsync(user.Id, token);
-                var register = await _userRepository.LoadAsync(message.RegisteredUserId, token);
-                var price = referCount > MaxRefer || user.Country == Country.India.Name  ? 0 : 10;
-                user.ReferUser(register, price);
-                await _userRepository.UpdateAsync(user, token);
+                return;
             }
-         
+            var user = await _userRepository.LoadAsync(message.InvitingUserId, token);
+            var register = await _userRepository.LoadAsync(user.Id, token);
+
+            //var referCount = await _referUserTransactionRepository.GetReferUserCountAsync(register.Id, token);
+           // var price = referCount > MaxRefer || user.Country == Country.India.Name ? 0 : 10;
+            user.ReferUser(register);
+            await _userRepository.UpdateAsync(user, token);
+
         }
     }
 }

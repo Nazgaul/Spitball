@@ -33,6 +33,8 @@ namespace Cloudents.Infrastructure.Storage
             {
                 throw new ArgumentException();
             }
+
+            string z;
             var extension = Path.GetExtension(file);
             if (string.IsNullOrEmpty(extension))
             {
