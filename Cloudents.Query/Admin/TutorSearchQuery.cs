@@ -58,12 +58,11 @@ namespace Cloudents.Query.Admin
                             FETCH NEXT @PageSize ROWS ONLY;";
 
                 var sql = string.IsNullOrEmpty(query.Term) ? sqlWithoutTerm : sqlWithTerm;
-
                 using var conn = _dapperRepository.OpenConnection();
                 return await conn.QueryAsync<TutorDto>(sql, new
                 {
                     query.Term,
-                    State = query.State.ToString(),
+                    State = query.State?.ToString(),
                     query.Country,
                     PageSize = pageSize,
                     query.Page
