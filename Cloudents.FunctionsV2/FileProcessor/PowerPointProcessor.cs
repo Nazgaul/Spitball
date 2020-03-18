@@ -51,8 +51,17 @@ namespace Cloudents.FunctionsV2.FileProcessor
 
                 await textBlob.UploadTextAsync(text ?? string.Empty);
                 sr.Seek(0, SeekOrigin.Begin);
-               
-                var bytes = await _convertDocumentApi.ConvertDocumentPptxToPdfAsync(sr);
+
+                var powerPointExtension = Path.GetExtension(blob.Name);
+                byte[] bytes;
+                if (powerPointExtension.Equals(".ppt", StringComparison.OrdinalIgnoreCase))
+                {
+                    bytes = await _convertDocumentApi.ConvertDocumentPptToPdfAsync(sr);
+                }
+                else
+                {
+                    bytes = await _convertDocumentApi.ConvertDocumentPptxToPdfAsync(sr);
+                }
 
                 var inputFileNamePath = Path.Combine(tempDirectory, "in.pdf");
 
