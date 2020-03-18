@@ -6,12 +6,10 @@ import User from "./User";
 import Question from "./question";
 import Account from "./account";
 import Toaster from "./Toaster";
-import loginDialog from './loginDialog'
 import newQuestionDialog from './newQuestionDialog'
 import uploadFiles from  "./uploadFiles";
 import University from "./university";
 import mobileFooter from './mobileFooter';
-import buyTokens from './buyTokens';
 import chatStore from './chatStore';
 import becomeTutor from './becomeTutor';
 import userOnlineStatus from './userOnlineStatus';
@@ -31,7 +29,11 @@ import dashboard_Store from './dashboard_Store.js'
 import feed from './feedStore.js'
 import profile from './profile.js';
 
-
+import tutoringMain from './studyRoomStore/tutoringMain.js';
+import studyroomSettings_store from './studyRoomStore/studyroomSettings_store.js';
+import studyRoomStore from './studyRoomStore/studyRoomStore.js'
+import signalRPlugin from '../plugins/signalRPlugin';
+import componentPlugin from '../plugins/componentPlugin';
 
 // const onModuleAValueChange= (store) => {
 //     store.watch(
@@ -65,7 +67,6 @@ const store = new Vuex.Store({
         Account,
         Question,
         Toaster,
-        loginDialog,
         newQuestionDialog,
         University,
         uploadFiles,
@@ -77,7 +78,6 @@ const store = new Vuex.Store({
         //leaderBoard,
         mobileFooter,
         //onBoardGuide,
-        buyTokens,
         chatStore,
         becomeTutor,
         leaveReview,
@@ -97,7 +97,12 @@ const store = new Vuex.Store({
         banner_Store,
         dashboard_Store,
         profile,
+
+        tutoringMain,
+        studyroomSettings_store,
+        studyRoomStore,
     },
+    plugins: [signalRPlugin({hubPath:'/sbhub'}), componentPlugin()]
    // plugins: [onModuleAValueChange]
 });
 

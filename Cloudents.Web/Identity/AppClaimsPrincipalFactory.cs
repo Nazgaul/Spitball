@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Entities;
 using Cloudents.Query;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
@@ -8,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Web.Identity
 {
-    [UsedImplicitly]
     public class AppClaimsPrincipalFactory : UserClaimsPrincipalFactory<User>
     {
         public const string Country = "country";

@@ -23,22 +23,22 @@ const lang = `${global.lang}-${global.country}`;
 const numberFormats = {
   'en': {
     currency: {
-      style: 'currency', currency: 'USD', minimumFractionDigits: 0
+      style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0
     },
   },
   'en-IL': {
     currency: {
-      style: 'currency', currency: 'ILS', minimumFractionDigits: 0
+      style: 'currency', currency: 'ILS', minimumFractionDigits: 0, maximumFractionDigits: 0
     },
   },
   'he-IL': {
     currency: {
-      style: 'currency', currency: 'ILS', minimumFractionDigits: 0
+      style: 'currency', currency: 'ILS', minimumFractionDigits: 0, maximumFractionDigits: 0
     },
   },
   'en-IN': {
     currency: {
-      style: 'currency', currency: 'INR', minimumFractionDigits: 0
+      style: 'currency', currency: 'INR', minimumFractionDigits: 0, maximumFractionDigits: 0
     },
   }
 }
@@ -48,29 +48,55 @@ const dateTimeFormats = {
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
     },
+    tableDate: {
+      month: 'short', day: 'numeric'
+    },
+    justDay: {
+      weekday:'short'
+    },
+    calendarDesktop: {
+      weekday:'short'
+    },
+    calendarMobile: {
+      weekday:'narrow'
+    }
   },
   'en-IL': {
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
     },
+    tableDate: {
+      month: 'short', day: 'numeric'
+    }
   },
   'he-IL': {
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
     },
+    tableDate: {
+      month: 'short', day: 'numeric'
+    },
+    calendarDesktop: {
+      weekday:'short'
+    },
+    calendarMobile: {
+      weekday:'narrow'
+    }
   },
   'en-IN': {
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
     },
+    tableDate: {
+      month: 'short', day: 'numeric'
+    }
   }
 }
-
 
 export const i18n =  new VueI18n({
   locale:  lang,
   fallbackLocale: 'en',
-  messages : {},
+  messages:{},
   numberFormats,
   dateTimeFormats
   //messages: loadLocaleMessages()

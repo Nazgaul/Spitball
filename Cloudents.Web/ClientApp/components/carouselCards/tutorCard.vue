@@ -38,14 +38,14 @@
 
                 <div class="ts-price">
                     <template>
-                        <span v-if="isDiscount" class="ts-price-discount font-weight-bold">{{tutor.discountPrice | currencyFormat(tutor.currency)}}</span>
-                        <span class="ts-price-original font-weight-bold" v-else>{{tutor.price | currencyFormat(tutor.currency)}}</span>
+                        <span v-if="isDiscount" class="ts-price-discount font-weight-bold">{{$n(tutor.discountPrice, 'currency')}}</span>
+                        <span class="ts-price-original font-weight-bold" v-else>{{$n(tutor.price, 'currency')}}</span>
                     </template>
                     <span>
                         <span>/</span>
                         <span v-language:inner="'tutorCardCarousel_hour'"></span>
                     </span>
-                    <div class="striked ml-2" v-if="isDiscount">{{tutor.price | currencyFormat(tutor.currency)}}</div>
+                    <div class="striked ml-2" v-if="isDiscount">{{$n(tutor.price, 'currency')}}</div>
                 </div>
 
 

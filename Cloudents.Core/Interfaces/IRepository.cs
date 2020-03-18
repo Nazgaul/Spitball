@@ -12,7 +12,7 @@ namespace Cloudents.Core.Interfaces
         Task AddAsync(IEnumerable<T> entities, CancellationToken token);
 
         Task<T> LoadAsync(object id, CancellationToken token);
-        Task<T> GetAsync(object id, CancellationToken token);
+        Task<T?> GetAsync(object id, CancellationToken token);
 
         T Load(object id);
 
@@ -75,6 +75,10 @@ namespace Cloudents.Core.Interfaces
         Task<decimal> GetBalanceAsync(long userId, CancellationToken token);
 
     }
+    public interface IReferUserTransactionRepository : IRepository<ReferUserTransaction>
+    {
+        Task<int> GetReferUserCountAsync(long userId, CancellationToken token);
+    }
     public interface ICourseSubjectRepository : IRepository<CourseSubject>
     {
         Task<CourseSubject> GetCourseSubjectByName(string name, CancellationToken token);
@@ -97,12 +101,12 @@ namespace Cloudents.Core.Interfaces
 
     public interface ITutorCalendarRepository : IRepository<TutorCalendar>
     {
-        Task<IEnumerable<TutorCalendar>> GetTutorCalendarsAsync(long TutorId, CancellationToken token);
+        Task<IEnumerable<TutorCalendar>> GetTutorCalendarsAsync(long tutorId, CancellationToken token);
     }
 
     public interface ITutorHoursRepository : IRepository<TutorHours>
     {
-        Task<IEnumerable<TutorHours>> GetTutorHoursAsync(long TutorId, CancellationToken token);
+        Task<IEnumerable<TutorHours>> GetTutorHoursAsync(long tutorId, CancellationToken token);
     }
 
     public interface IUniversityRepository : IRepository<University>

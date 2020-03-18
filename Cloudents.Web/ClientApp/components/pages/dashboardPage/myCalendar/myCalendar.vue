@@ -41,9 +41,6 @@ export default {
       calendarHours,
    },
    props:{
-      globalFunctions: {
-         type: Object,
-      },
       dictionary:{
          type: Object,
          required: true

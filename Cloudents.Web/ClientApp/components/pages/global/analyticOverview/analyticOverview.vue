@@ -1,5 +1,5 @@
 <template>
-    <v-row class="analyticOverview mt-sm-0 mt-2 mb-2 mb-sm-4 pb-2 pb-sm-0" dense>
+    <v-row class="analyticOverview mt-sm-0 mt-2 mb-2 mb-sm-4 pb-2 pb-sm-0">
         <v-col class="space pa-0 mb-2 mb-sm-0" cols="7">
             <div class="text">{{$t('dashboardTeacher_analytic_title')}}</div>
         </v-col>
@@ -7,13 +7,13 @@
             <v-menu offset-y>
                 <template v-slot:activator="{ on }">
                     <div v-on="on" class="menuDropDown">
-                        <span class="pr-2 selectedItem">{{$t(`dashboardTeacher_${selectedItem.key}`)}}</span>
+                        <span class="pr-2 selectedItem">{{$t(`dashboardTeacher_last_days`, [selectedItem.value])}}</span>
                         <div class="arrow-down"></div>
                     </div>
                 </template>
                 <v-list>
                     <v-list-item v-for="(item, index) in items" :key="index" @click="changeDays(item)">
-                      <v-list-item-title>{{ $t(`dashboardTeacher_${item.key}`) }}</v-list-item-title>
+                      <v-list-item-title>{{ $t(`dashboardTeacher_last_days`, [item.value]) }}</v-list-item-title>
                     </v-list-item>
                 </v-list>
             </v-menu>
@@ -28,7 +28,7 @@
               :cols="isMobile ? 6 : 3"
               class="box pa-0 text-center">
                 <router-link :to="{name: navigation[key]}" class="boxWrap d-block mb-0 mb-sm-2 ma-2 ma-sm-0 py-2 py-sm-0" :class="[isMobile ? 'fullBorder' : 'borderSide']">
-                  <div class="type">{{ $t(`dashboardTeacher_${key}`) }}</div>
+                  <div class="type">{{ $t(analyticTypeResource(key)) }}</div>
                   <div class="result my-0 my-sm-1">{{$n(Math.round(val), key === 'revenue' ? 'currency' : '')}}</div>
                   <div class="rate font-weight-bold">
                       <arrowDownIcon class="arrow" v-show="percentage(key)" :class="[showIcon(key) ? 'arrowDown' : 'arrowUp']" />
@@ -42,7 +42,7 @@
               v-for="n in 4"
               :key="n"
               :cols="isMobile ? 6 : 3"
-              class="analyticLoader mb-2">
+              class="analyticLoader mb-5">
                 <v-skeleton-loader
                   class="mx-auto load "
                   height=""
@@ -61,7 +61,7 @@ export default {
     arrowDownIcon
   },
   data: () => ({
-    selectedItem: {title: 'Last 7 days', value: 7, key: '7days'},
+    selectedItem: { title: 'Last 7 days', value: 7 },
     results: [],
     navigation: {
       revenue: 'mySales',
@@ -70,9 +70,9 @@ export default {
       followers: 'myFollowers'
     },
     items: [
-      { title: 'Last 7 days', value: 7,  key: '7days' },
-      { title: 'Last 30 Day', value: 30,  key: '30days' },
-      { title: 'Last 90 Day', value: 90,  key: '90days' },
+      { title: 'Last 7 days', value: 7 },
+      { title: 'Last 30 Day', value: 30 },
+      { title: 'Last 90 Day', value: 90 },
     ],
   }),
   computed: {
@@ -108,6 +108,15 @@ export default {
     showIcon(key) {
       let delta = this.deltaCalc(key);
       return (isNaN(delta) || delta <= 0);
+    },
+    analyticTypeResource(key) {
+      let resource = {
+        revenue: 'dashboardTeacher_revenue',
+        sales: 'dashboardTeacher_sales',
+        views: 'dashboardTeacher_views',
+        followers: 'dashboardTeacher_followers'
+      }
+      return resource[key]
     }
   },
   created() {
@@ -124,7 +133,8 @@ export default {
     background: white;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
     border-radius: 8px;
-
+    width: 100%;
+    margin: 0 auto;
     @media (max-width: @screen-xs) {
       box-shadow: none;
       padding: 14px;

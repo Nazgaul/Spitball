@@ -16,7 +16,8 @@
                 <td :class="{ 'no-userPayme': !props.item.userPayme }">{{ props.item.userId }}</td>
                 <td >{{ props.item.userName }}</td>
                 <td>{{ props.item.created }}</td>
-                <td>{{ props.item.duration }}</td>
+                <td>{{ props.item.realDuration }}</td>
+                <td :class="{ 'realDurationExitsts': props.item.isRealDurationExitsts }">{{ props.item.duration }}</td>
                
                 <td>{{ props.item.price }}</td>
                 <td>{{ props.item.totalPrice.toFixed(2) }}</td>
@@ -112,11 +113,13 @@ export default {
             get() {
                 let session = this.sessionPayment;
                 if(session.studentPayPerHour) {
+                    debugger
                     return ((session.studentPayPerHour * session.duration) / 60).toFixed(2);
                 }
                 return 0;
             },
             set(val) {
+                debugger
                 this.sessionPayment.studentPayPerHour = (( val / this.sessionPayment.duration) * 60).toFixed(2);
             }
         },
@@ -163,6 +166,7 @@ export default {
                 { text: 'User Id', value: 'userId' },
                 { text: 'User Name', value: 'userName' },
                 { text: 'Date', value: 'created' },
+                { text: 'RealDuration (min)', value : 'realDuration' },
                 { text: 'Duration (min)', value: 'duration' },
                 { text: 'Tutor Price', value: 'price' },
                 { text: 'Lessons Price', value: 'totalPrice' },
@@ -204,12 +208,14 @@ export default {
         },
         approve() {
             let item = this.sessionPayment;
+            debugger;
             let itemObj = {
                 studentPay : Number(this.studentPayPerHour),
                 spitballPay: Number(this.spitballPayPerHour),
                 userId: item.userId,
                 tutorId: item.tutorId,
-                StudyRoomSessionId: item.studyRoomSessionId
+                StudyRoomSessionId: item.studyRoomSessionId,
+                adminDuration: item.duration
             }
 
             approvePayment(itemObj).then((resp) => {
@@ -245,7 +251,7 @@ export default {
                 this.editedIndex = -1;
             },
                 (error) => {
-                    this.$toaster.error(`Error can't approve the payment`);
+                    this.$toaster.error(`Error can't decline the payment`);
                 }
             )
                 
@@ -288,5 +294,8 @@ export default {
         background: purple;
     }
     
+    .realDurationExitsts {
+        background: green;
+    }
   
 </style>

@@ -2,8 +2,8 @@
   <v-app>
     <router-view name="banner"></router-view>
     <router-view name="header"></router-view>
-    <router-view name="sideMenu" v-if="showSideMenu"></router-view>
-    <v-content class="site-content">
+    <router-view name="sideMenu" v-if="showSideMenu && !hideSideMenu"></router-view>
+    <v-content :class="['site-content',{'hidden-sideMenu':hideSideMenu}]">
         <chat v-if="visible"/>
         <router-view class="main-container"></router-view>
       
@@ -19,15 +19,8 @@
         </div>
 
         <dialogInjection class="dialogInjection" />
+        <toasterInjection class="toasterInjection" />
 
-        <sb-dialog
-          :showDialog="loginDialogState"
-          :popUpType="'loginPop'"
-          :content-class="'login-popup'"
-          :max-width="'550px'"
-        >
-          <login-to-answer v-if="loginDialogState"></login-to-answer>
-        </sb-dialog>
         <sb-dialog
           :isPersistent="true"
           :showDialog="newQuestionDialogSate"
@@ -62,29 +55,9 @@
             :popUpType="'referralPop'"
           ></referral-dialog>
         </sb-dialog>
-        <sb-dialog
-          :showDialog="getShowBuyDialog"
-          :popUpType="'buyTokens'"
-          :content-class="!isFrymo ? 'buy-tokens-popup' : 'buy-tokens-frymo-popup'"
-          :onclosefn="closeSblToken"
-          maxWidth="840px"
-        >
-          <buy-tokens v-if="!isFrymo && getShowBuyDialog" popUpType="buyTokens"></buy-tokens>
-          <buy-token-frymo v-if="isFrymo && getShowBuyDialog" popUpType="buyTokensFrymo"></buy-token-frymo>
-        </sb-dialog>
-
-        <sb-dialog
-          :isPersistent="true"
-          :showDialog="getShowPaymeDialog"
-          :popUpType="'payme'"
-          :content-class="'payme-popup'"
-          maxWidth="840px"
-        >
-          <payment-dialog v-if="getShowPaymeDialog" />
-        </sb-dialog>
-
       <mobile-footer v-if="showMobileFooter" />
     </v-content>
+    
     <v-snackbar
       absolute
       top
@@ -104,16 +77,14 @@ import { mapGetters, mapActions } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
 
 const dialogInjection = () => import('../pages/global/dialogInjection/dialogInjection.vue');
+const toasterInjection = () => import('../pages/global/toasterInjection/toasterInjection.vue');
+
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
-const loginToAnswer = () => import("../question/helpers/loginToAnswer/login-answer.vue");
 const AddQuestion = () => import("../question/askQuestion/askQuestion.vue");
 const walletService = () => import("../../services/walletService");
 const mobileFooter = () => import("../pages/layouts/mobileFooter/mobileFooter.vue");
-const buyTokens = () => import("../dialogs/buyTokens/buyTokens.vue");
-const buyTokenFrymo = () => import("../dialogs/buyTokenFrymo/buyTokenFrymo.vue");
 const chat = () => import("../chat/chat.vue");
 const tutorRequest = () => import("../tutorRequestNEW/tutorRequest.vue");
-const paymentDialog = () => import("../studyroom/tutorHelpers/paymentDIalog/paymentDIalog.vue");
 const referralDialog = () => import("../question/helpers/referralDialog/referral-dialog.vue");
 
 export default {
@@ -121,14 +92,11 @@ export default {
     referralDialog,
     AddQuestion,
     sbDialog,
-    loginToAnswer,
     chat,
     mobileFooter,
-    buyTokens,
-    buyTokenFrymo,
     tutorRequest,
-    paymentDialog,
-    dialogInjection
+    dialogInjection,
+    toasterInjection
   },
   data() {
     return {
@@ -140,7 +108,6 @@ export default {
     ...mapGetters([
       "getReferralDialog",
       "accountUser",
-      "loginDialogState",
       "newQuestionDialogSate",
       "getShowToaster",
       "getShowToasterType",
@@ -149,13 +116,20 @@ export default {
       "getMobileFooterState",
       "showLeaderBoard",
       // "showMobileFeed",
-      "getShowBuyDialog",
       "getRequestTutorDialog",
-      "getShowPaymeDialog",
       "isFrymo",
       "getShowSchoolBlock",
       "getIsChatVisible",
+      'getUserLoggedInStatus'
     ]),
+    hideSideMenu(){
+      if(this.getUserLoggedInStatus && this.accountUser?.userType !== 'Parent'){
+        return false;
+      }else{
+        let routesNames = ['feed','document','question','profile']
+        return routesNames.some(route => this.$route.name === route)
+      }
+    },
     showSideMenu() {
       if (this.$vuetify.breakpoint.xsOnly) {
         return this.getShowSchoolBlock;
@@ -202,13 +176,6 @@ export default {
     }
   },
   watch: {
-    getShowPaymeDialog: function(val) {
-      if (val) {
-        setTimeout(function() {
-          document.querySelector(".payme-popup").parentNode.style.zIndex = 999;
-        }, 1000);
-      }
-    },
     getShowToaster: function(val) {
       let self = this;
       if (val) {
@@ -236,9 +203,6 @@ export default {
       }, this.getToasterTimeout);
     },
     $route() {
-      if (this.loginDialogState) {
-        this.updateLoginDialogState(false);
-      }
       this.$nextTick(() => {
         this.fireOptimizeActivate();
       });
@@ -258,10 +222,7 @@ export default {
     ...mapActions([
       "updateReferralDialog",
       "updateToasterParams",
-      "updateLoginDialogState",
-      "updateNewQuestionDialogState",
       "setCookieAccepted",
-      "updateShowBuyDialog",
       "updateRequestDialog",
       "openChatInterface",
       "setTutorRequestAnalyticsOpenedFrom",
@@ -272,9 +233,6 @@ export default {
 
     closeReferralDialog() {
       this.updateReferralDialog(false);
-    },
-    closeSblToken() {
-      this.updateShowBuyDialog(false);
     },
     removeCookiesPopup: function() {
       this.setCookieAccepted();
@@ -320,17 +278,6 @@ export default {
         }
       }
     }
-
-    this.$root.$on("closePopUp", name => {
-      if (name === "suggestions") {
-        this.showDialogSuggestQuestion = false;
-      } else if (name === "newQuestionDialog") {
-        this.updateNewQuestionDialogState(false);
-      } else {
-        this.updateLoginDialogState(false);
-      }
-    });
-
     this.acceptedCookies = this.getCookieAccepted();
     if (global.isMobileAgent) {
       global.addEventListener("resize", () => {

@@ -35,7 +35,7 @@
                 </v-expansion-panel-header>
             </v-expansion-panel>
 
-            <v-expansion-panel class="panel panel_teacher" readonly @click="sendRegisterType('Teacher', {query: {dialog: 'becomeTutor'}})">
+            <v-expansion-panel class="panel panel_teacher" readonly @click="sendRegisterType('Teacher', {query: {dialog: becomeTutorDialog}})">
                 <v-expansion-panel-header class="px-4 py-2" expand-icon="">
                     <span class="flex-grow-0 mr-4"><teacherIcon/></span>
                     <v-divider class="mr-4" vertical></v-divider>
@@ -53,6 +53,8 @@ import parentIcon from '../../images/parent.svg';
 import teacherIcon from '../../images/teacher.svg';
 import collegeIcon from '../../images/college.svg';
 import highSchoolIcon from '../../images/highSchool.svg';
+import * as dialogNames from '../../../global/dialogInjection/dialogNames.js';
+import analyticsService from '../../../../../services/analytics.service.js';
 
 export default {
     components: {
@@ -62,18 +64,29 @@ export default {
         collegeIcon,
         highSchoolIcon
     },
-    data:() => ({
-        panel: [],
-        showError: false
-    }),
+    data() {
+        return {
+            panel: [],
+            showError: false,
+            becomeTutorDialog: dialogNames.BecomeTutor   
+        }
+    },
     methods: {
-        sendRegisterType(regType, route) {            
+        sendRegisterType(regType, route) { 
             this.$store.dispatch('updateRegisterType', regType).then(() => {
+                if(regType === 'Teacher'){
+                    // NOTE: updating login status here before BecomeTutor dialog opened 
+                    // cuz we cant open BecomeTutor dialog with unLoggedIn user 
+                    this.$store.dispatch('updateLoginStatus',true)
+                }
                 this.showError = false
             }).catch(() => {
                 this.showError = true
             }).finally(() => {
-                this.$router.push(route)
+                this.$router.push(route);
+                if(route.query?.dialog === this.becomeTutorDialog){
+                    analyticsService.sb_unitedEvent('teacher-registration', 'start');
+                }
             })
         },
         resetGradeField() {

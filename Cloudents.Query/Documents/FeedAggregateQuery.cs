@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs.Documents;
+using Cloudents.Core.DTOs.Feed;
 using Cloudents.Core.Interfaces;
 using Dapper;
 using System.Collections.Generic;
@@ -49,7 +50,8 @@ namespace Cloudents.Query.Documents
                 _urlBuilder = urlBuilder;
             }
 
-
+            // If you chnage enything in the sql query tou need to take care to 
+            // QuestionFeedWithFliterQuery and DocumentFeedWithFilterQuery as well
             public async Task<IEnumerable<FeedDto>> GetAsync(FeedAggregateQuery query, CancellationToken token)
             {
                 const string sqlWithCourse = @"with cte as (
@@ -128,14 +130,13 @@ case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @use
 FROM sb.[Question] q
 join sb.[user] u
 	on q.UserId = u.Id
-join sb.University un on q.UniversityId = un.Id
 outer apply (
 select top 1 text, u.id, u.name, u.ImageName, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
 ) as x
 ,cte
 where
- un.country = cte.country
+ u.country = cte.country
 and q.courseId = @course
 
 and q.State = 'Ok'
@@ -222,17 +223,16 @@ case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @use
 FROM sb.[Question] q
 join sb.[user] u
 	on q.UserId = u.Id
-join sb.University un on q.UniversityId = un.Id
+left join sb.University un on q.UniversityId = un.Id
 outer apply (
 select  top 1 text,u.id,u.name,u.ImageName, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
 
 ) as x
-,cte
+join cte on un.country = cte.country or u.country = cte.country
 
 where
     q.Updated > GETUTCDATE() - 182
-and un.country = cte.country
 
 and q.State = 'Ok'
 and (q.CourseId in (select courseId from sb.usersCourses where userid = cte.userid) or @userid <= 0)

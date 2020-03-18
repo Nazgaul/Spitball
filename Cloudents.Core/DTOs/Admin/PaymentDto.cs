@@ -23,11 +23,12 @@ namespace Cloudents.Core.DTOs.Admin
         public string UserName { get; set; }
         [EntityBind(nameof(StudyRoomSession.Created))]
         public DateTime Created { get; set; }
-        [EntityBind(nameof(StudyRoomSession.Created), nameof(StudyRoomSession.Ended))]
         public TimeSpan Duration { get; set; }
+        public TimeSpan RealDuration { get; set; }
         [EntityBind(nameof(User.PaymentExists))]
         public bool IsPaymentKeyExists { get; set; }
-    }
+        public bool IsRealDurationExitsts { get; set; }
+}
 
     public class PaymentDetailDto
     {
@@ -53,8 +54,9 @@ namespace Cloudents.Core.DTOs.Admin
         public string UserName { get; set; }
         [EntityBind(nameof(StudyRoomSession.Created))]
         public DateTime Created { get; set; }
-        [EntityBind(nameof(StudyRoomSession.Created), nameof(StudyRoomSession.Ended))]
-        public int Duration { get; set; }
+        public long DurationInTicks { get; set; }
+        public bool ShouldSerializeDurationInTicks() => false;
+        public double Duration => TimeSpan.FromTicks(DurationInTicks).TotalMinutes;
 
         [EntityBind(nameof(Coupon.Code))]
         public string CouponCode { get; set; }

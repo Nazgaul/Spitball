@@ -1,9 +1,12 @@
 ﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.DTOs
 {
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Dapper")]
+    [SuppressMessage("Style", "CS8618", Justification = "Dapper")]
     public class StudyRoomDto
     {
 
@@ -14,7 +17,7 @@ namespace Cloudents.Core.DTOs
         [EntityBind(nameof(Tutor.Id))]
         public long TutorId { get; set; }
         [EntityBind(nameof(User.ImageName))]
-        public string TutorImage { get; set; }
+        public string? TutorImage { get; set; }
         [EntityBind(nameof(User.Name))]
         public string TutorName { get; set; }
         [EntityBind(nameof(User.Id))]
@@ -27,6 +30,15 @@ namespace Cloudents.Core.DTOs
 
         [EntityBind(nameof(User.PaymentExists), nameof(User.BuyerPayment.PaymentKeyExpiration))]
         public bool NeedPayment { get; set; }
+
+        public CouponType? CouponType { get; set; }
+
+        public bool ShouldSerializeCouponType() => false;
+        public bool ShouldSerializeCouponValue() => false;
+
+        public decimal? CouponValue { get; set; }
+
+        public decimal TutorPrice { get; set; }
     };
 
 
@@ -34,7 +46,7 @@ namespace Cloudents.Core.DTOs
     public class UserStudyRoomDto
     {
         public string Name { get; set; }
-        public string Image { get; set; }
+        public string? Image { get; set; }
         public long UserId { get; set; }
         public bool Online { get; set; }
         public Guid Id { get; set; }

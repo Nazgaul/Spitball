@@ -1,7 +1,6 @@
 ﻿using Castle.DynamicProxy;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,7 +16,6 @@ namespace Cloudents.Infrastructure.Interceptor
         private readonly ICacheProvider _cacheProvider;
         private readonly ILogger _logger;
 
-        [UsedImplicitly]
         public CacheResultInterceptor(ICacheProvider cacheProvider, ILogger logger)
         {
             _cacheProvider = cacheProvider;
@@ -103,7 +101,6 @@ namespace Cloudents.Infrastructure.Interceptor
             return GetCacheKey(invocation.TargetType, invocation.Method.Name, invocation.Arguments);
         }
 
-        [UsedImplicitly]
         private static Task<T> ConvertAsync<T>(T data)
         {
             return Task.FromResult(data);

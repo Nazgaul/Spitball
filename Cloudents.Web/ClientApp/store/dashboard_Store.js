@@ -1,6 +1,6 @@
 import dashboardService from '../services/dashboardService.js';
 import walletService from '../services/walletService.js';
-import searchService from '../services/searchService';
+import accountService from '../services/accountService';
 
 const state = {
    salesItems: [],
@@ -44,6 +44,11 @@ const mutations = {
          }
       });
    },
+   setSaleItem(state, sessionId) {
+      //update on the fly in my-sales approve button
+      let index = state.salesItems.findIndex(item => item.sessionId === sessionId)
+      state.salesItems[index].paymentStatus = "Pending";
+   }
 };
 
 const getters = {
@@ -116,19 +121,28 @@ const actions = {
       }
    },
    updateStudentsAnswersQuestion() {
-      return searchService.activateFunction.feed({filter: "Question"}).then((data) => {
+      return accountService.getQuestions().then((data) => {
          return data;
-     }, (err) => {
+      }, (err) => {
          return Promise.reject(err);
-     }).finally(()=>{
+      }).finally(()=>{
          return
-     });
+      });
    },
    updateTutorActions() {
       return dashboardService.getTutorActions()
    },
    updateSpitballBlogs() {
       return dashboardService.getSpitballBlogs()
+   },
+   updateMarketingBlogs() {
+      return dashboardService.getMarketingBlogs()
+   },
+   updateSalesSessions(context, id) {
+      return dashboardService.getSalesSessions(id);
+   },
+   updateSessionDuration(context, session) {
+      return dashboardService.updateSessionDuration(session)
    }
 };
 

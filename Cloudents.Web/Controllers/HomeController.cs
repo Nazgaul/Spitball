@@ -5,7 +5,6 @@ using Cloudents.Core.Entities;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
 using Cloudents.Web.Models;
-using JetBrains.Annotations;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -40,8 +39,8 @@ namespace Cloudents.Web.Controllers
         [SignInWithToken]
         [ApiNotFoundFilter]
         public IActionResult Index(
-            [FromQuery, CanBeNull] string referral,
-            [FromQuery] string open
+            [FromQuery] string? referral,
+            [FromQuery] string? open
             )
         {
             if (!string.IsNullOrEmpty(referral))

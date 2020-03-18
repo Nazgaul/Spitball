@@ -1,5 +1,5 @@
 <template>
-    <v-layout class="calendar-section mt-4">
+    <v-layout class="calendar-section mt-2 mt-sm-4">
         <v-icon v-if="!isMyProfile" @click="globalFunctions.closeCalendar()" class="close-btn">sbf-close</v-icon>
         <v-flex xs12>
             <v-progress-circular class="progress-calendar" v-show="!isReady && !studentEmptyState" indeterminate :size="150" width="3" color="info"/>
@@ -49,6 +49,9 @@ export default {
     },
     methods: {
         ...mapActions(['updateCalendarStatus'])
+    },
+    beforeDestroy() {
+        this.$store.dispatch('resetCalendar')
     },
     created() {
         let self = this;

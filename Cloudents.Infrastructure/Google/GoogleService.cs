@@ -13,7 +13,6 @@ using Google.Apis.Docs.v1;
 using Google.Apis.Drive.v3;
 using Google.Apis.Drive.v3.Data;
 using Google.Apis.Services;
-using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -25,10 +24,11 @@ using GoogleMeasurementProtocol;
 using GoogleMeasurementProtocol.Parameters.User;
 using Document = Google.Apis.Docs.v1.Data.Document;
 using User = Cloudents.Core.Entities.User;
+using System.IdentityModel.Tokens.Jwt;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Infrastructure.Google
 {
-    [UsedImplicitly]
     public sealed class GoogleService :
         IGoogleAuth,
         IGoogleDocument,
@@ -37,13 +37,16 @@ namespace Cloudents.Infrastructure.Google
     {
         private const string PrimaryGoogleCalendarId = "primary";
         private readonly ILifetimeScope _container;
-        private GoogleAnalyticsRequestFactory _factory;
+        private readonly GoogleAnalyticsRequestFactory _factory;
+        private readonly JwtSecurityTokenHandler _tokenHandler;
+        private readonly IJsonSerializer _jsonSerializer;
 
-
-        public GoogleService(ILifetimeScope container)
+        public GoogleService(ILifetimeScope container, IJsonSerializer jsonSerializer)
         {
             _container = container;
             _factory = new GoogleAnalyticsRequestFactory("UA-100723645-2");
+            _tokenHandler = new JwtSecurityTokenHandler();
+            _jsonSerializer = jsonSerializer;
         }
 
 
@@ -54,7 +57,7 @@ namespace Cloudents.Infrastructure.Google
         //    _googleDataStore = googleDataStore;
         //}
 
-        public async Task<ExternalAuthDto> LogInAsync(string jwt, CancellationToken cancellationToken)
+        public async Task<ExternalAuthDto?> LogInAsync(string jwt, CancellationToken cancellationToken)
         {
 
             var settings = new GoogleJsonWebSignature.ValidationSettings
@@ -62,7 +65,6 @@ namespace Cloudents.Infrastructure.Google
                 Audience = new[]
                 {
                     "341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com", // Web site
-                   // "99716345448-jpnpb70puka5m3fiuu12rc7cgqrd52kc.apps.googleusercontent.com",
                     "99716345448-73b697k11joufrvkqtc18ep2j36trgci.apps.googleusercontent.com" // Android
                 }
             };
@@ -143,120 +145,104 @@ namespace Cloudents.Infrastructure.Google
 
         private static GoogleClientSecrets GetGoogleClientSecrets()
         {
-            using (var stream = Assembly.GetExecutingAssembly()
-                .GetManifestResourceStream("Cloudents.Infrastructure.Google.calendar.json"))
-            {
-                return GoogleClientSecrets.Load(stream);
-            }
+            using var stream = Assembly.GetExecutingAssembly()
+                .GetManifestResourceStream("Cloudents.Infrastructure.Google.calendar.json");
+            return GoogleClientSecrets.Load(stream);
         }
 
 
         public async Task<IEnumerable<CalendarDto>> GetUserCalendarsAsync(long userId, CancellationToken cancellationToken)
         {
-            using (var child = _container.BeginLifetimeScope())
+            using var child = _container.BeginLifetimeScope();
+            var credential = await GetCredential(userId, child, cancellationToken);
+
+
+            using var service = new CalendarService(new BaseClientService.Initializer()
             {
-                var credential = await GetCredential(userId, child, cancellationToken);
+                HttpClientInitializer = credential
 
+            });
+            var request = service.CalendarList.List();
+            request.MaxResults = 250;
+            var result = await request.ExecuteAsync(cancellationToken);
 
-                using (var service = new CalendarService(new BaseClientService.Initializer()
-                {
-                    HttpClientInitializer = credential
-
-                }))
-                {
-                    var request = service.CalendarList.List();
-                    request.MaxResults = 250;
-                    var result = await request.ExecuteAsync(cancellationToken);
-
-                    return result.Items.Where(w => !w.Primary.GetValueOrDefault(false) && !w.Summary.Equals("Contacts", StringComparison.OrdinalIgnoreCase))
-                        .Select(s => new CalendarDto(s.Id, s.Summary, false));
-                }
-
-            }
+            return result.Items.Where(w => !w.Primary.GetValueOrDefault(false) && !w.Summary.Equals("Contacts", StringComparison.OrdinalIgnoreCase))
+                .Select(s => new CalendarDto(s.Id, s.Summary, false));
         }
 
 
 
-        public async Task<IEnumerable<GoogleAppointmentDto>> ReadCalendarEventsAsync(long userId, [NotNull] IEnumerable<string> calendarsIds,
+        public async Task<IEnumerable<GoogleAppointmentDto>> ReadCalendarEventsAsync(long userId, 
+            IEnumerable<string> calendarsIds,
             DateTime from, DateTime max,
             CancellationToken cancellationToken)
         {
             if (calendarsIds == null) throw new ArgumentNullException(nameof(calendarsIds));
-            using (var child = _container.BeginLifetimeScope())
+            using var child = _container.BeginLifetimeScope();
+            var credential = await GetCredential(userId, child, cancellationToken);
+
+
+            using var service = new CalendarService(new BaseClientService.Initializer()
             {
-                var credential = await GetCredential(userId, child, cancellationToken);
+                HttpClientInitializer = credential
 
-
-                using (var service = new CalendarService(new BaseClientService.Initializer()
+            });
+            if (@from < DateTime.UtcNow)
+            {
+                @from = DateTime.UtcNow;
+            }
+            try
+            {
+                var requestsTask = calendarsIds.Union(new[] { PrimaryGoogleCalendarId }).Select(s =>
                 {
-                    HttpClientInitializer = credential
+                    // ReSharper disable once AccessToDisposedClosure we await down below
+                    var request = service.Events.List(s);
 
-                }))
+
+                    request.SingleEvents = true;
+                    request.TimeMin = @from;
+                    request.TimeMax = max;
+
+
+                    return request.ExecuteAsync(cancellationToken);
+                });
+                var result = await Task.WhenAll(requestsTask);
+
+                return result.SelectMany(s => s.Items).Select(s =>
                 {
-                    if (from < DateTime.UtcNow)
+                    if (s.Start.DateTime.HasValue)
                     {
-                        from = DateTime.UtcNow;
-                    }
-                    try
-                    {
-                        var requestsTask = calendarsIds.Union(new[] { PrimaryGoogleCalendarId }).Select(s =>
-                          {
-                              // ReSharper disable once AccessToDisposedClosure we await down below
-                              var request = service.Events.List(s);
-
-
-                              request.SingleEvents = true;
-                              request.TimeMin = from;
-                              request.TimeMax = max;
-
-
-                              return request.ExecuteAsync(cancellationToken);
-                          });
-                        var result = await Task.WhenAll(requestsTask);
-
-                        return result.SelectMany(s => s.Items).Select(s =>
+                        var startAppointmentTime = s.Start.DateTime.Value.ToUniversalTime();
+                        startAppointmentTime = startAppointmentTime.AddMinutes(-s.Start.DateTime.Value.Minute);
+                        var endAppointmentTime = s.End.DateTime.GetValueOrDefault().ToUniversalTime();
+                        if (endAppointmentTime.Minute > 0)
                         {
-                            if (s.Start.DateTime.HasValue)
-                            {
-                                var startAppointmentTime = s.Start.DateTime.Value.ToUniversalTime();
-                                startAppointmentTime = startAppointmentTime.AddMinutes(-s.Start.DateTime.Value.Minute);
-                                var endAppointmentTime = s.End.DateTime.GetValueOrDefault().ToUniversalTime();
-                                if (endAppointmentTime.Minute > 0)
-                                {
-                                    endAppointmentTime = endAppointmentTime.AddHours(1)
-                                        .AddMinutes(-endAppointmentTime.Minute);
-                                }
+                            endAppointmentTime = endAppointmentTime.AddHours(1)
+                                .AddMinutes(-endAppointmentTime.Minute);
+                        }
 
-                                return new GoogleAppointmentDto
-                                {
-                                    From = startAppointmentTime,
-                                    To = endAppointmentTime
-                                };
-
-                                // return DateTimeHelpers.EachHour(startAppointmentTime, endAppointmentTime);
-                                //return new CalendarEventDto(startAppointmentTime,
-                                //endAppointmentTime);
-                            }
-
-
-                            var start = DateTime.ParseExact(s.Start.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                            var end = DateTime.ParseExact(s.End.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-
-                            return new GoogleAppointmentDto
-                            {
-                                From = start,
-                                To = end
-                            };
-                            //return DateTimeHelpers.EachHour(start, end);
-                            //return new CalendarEventDto(start, end);
-
-                        }); //.SelectMany(s => s));
+                        return new GoogleAppointmentDto
+                        {
+                            From = startAppointmentTime,
+                            To = endAppointmentTime
+                        };
                     }
-                    catch (TokenResponseException e)
+
+
+                    var start = DateTime.ParseExact(s.Start.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                    var end = DateTime.ParseExact(s.End.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+                    return new GoogleAppointmentDto
                     {
-                        throw new NotFoundException("Google token invalid", e);
-                    }
-                }
+                        From = start,
+                        To = end
+                    };
+
+                }); 
+            }
+            catch (TokenResponseException e)
+            {
+                throw new NotFoundException("Google token invalid", e);
             }
         }
 
@@ -278,7 +264,7 @@ namespace Cloudents.Infrastructure.Google
         }
 
 
-        public async Task BookCalendarEventAsync(User tutor, User student,
+        public async Task BookCalendarEventAsync(User tutor, User student, GoogleTokens googleTokens,
              DateTime from, DateTime to,
             CancellationToken cancellationToken)
         {
@@ -286,35 +272,40 @@ namespace Cloudents.Infrastructure.Google
             var x = new System.Resources.ResourceManager(typeof(CalendarResources));
             var eventName = x.GetString("TutorCalendarMessage", CultureInfo.CurrentUICulture) ?? "Tutor Session In Spitball";
             eventName = string.Format(eventName, tutor.Name, student.Name);
-            using (var service = new CalendarService(new BaseClientService.Initializer()
+            var tutorToken = _jsonSerializer.Deserialize<GoogleTokensValue>(googleTokens.Value);
+            using var service = new CalendarService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = cred
-            }))
+            });
+            var tutorCalendarEmail = _tokenHandler.ReadJwtToken(tutorToken.Id_token).Payload.SingleOrDefault(w => w.Key == "email");
+
+
+            var attendees = new[] { tutor, student }.Select(s => new EventAttendee()
             {
-                var attendees = new[] { tutor, student }.Select(s => new EventAttendee()
+                Email = s.Email
+
+            }).ToList();
+
+            attendees.Add(new EventAttendee()
+            {
+                Email = tutorCalendarEmail.Value.ToString()
+            });
+
+            var event2 = service.Events.Insert(new Event()
+            {
+                Attendees = attendees,
+                Summary = eventName,
+                Start = new EventDateTime()
                 {
-                    Email = s.Email
-
-                }).ToList();
-
-
-                var event2 = service.Events.Insert(new Event()
+                    DateTime = @from
+                },
+                End = new EventDateTime()
                 {
-                    Attendees = attendees,
-                    Summary = eventName,
-                    Start = new EventDateTime()
-                    {
-                        DateTime = from
-                    },
-                    End = new EventDateTime()
-                    {
-                        DateTime = to
-                    }
-                }, PrimaryGoogleCalendarId);
-                event2.SendUpdates = EventsResource.InsertRequest.SendUpdatesEnum.All;
-                await event2.ExecuteAsync(cancellationToken);
-            }
-
+                    DateTime = to
+                }
+            }, PrimaryGoogleCalendarId);
+            event2.SendUpdates = EventsResource.InsertRequest.SendUpdatesEnum.All;
+            await event2.ExecuteAsync(cancellationToken);
         }
 
         private static ServiceAccountCredential SpitballCalendarCred
@@ -333,77 +324,72 @@ namespace Cloudents.Infrastructure.Google
 
         public async Task DeleteDeclinedEventCalendarAsync(CancellationToken cancellationToken)
         {
-            using (var service = new CalendarService(new BaseClientService.Initializer()
+            using var service = new CalendarService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = SpitballCalendarCred
 
-            }))
+            });
+            var request = service.Events.List(PrimaryGoogleCalendarId);
+            request.TimeMin = DateTime.UtcNow;
+            request.TimeMax = DateTime.UtcNow.AddMonths(1);
+            request.MaxResults = 2500;
+            request.SingleEvents = true;
+            var result = await request.ExecuteAsync(cancellationToken);
+            var declinedEvent = result.Items.Where(w => w.Attendees.Any(w2 => w2.ResponseStatus == "declined"));//.Select(s => s.Id);
+            var tasks = declinedEvent.Select(s =>
             {
-                var request = service.Events.List(PrimaryGoogleCalendarId);
-                request.TimeMin = DateTime.UtcNow;
-                request.TimeMax = DateTime.UtcNow.AddMonths(1);
-                request.MaxResults = 2500;
-                request.SingleEvents = true;
-                var result = await request.ExecuteAsync(cancellationToken);
-                var declinedEvent = result.Items.Where(w => w.Attendees.Any(w2 => w2.ResponseStatus == "declined"));//.Select(s => s.Id);
-                var tasks = declinedEvent.Select(s =>
-                {
-                    // ReSharper disable once AccessToDisposedClosure There is await in using
-                    var request2 = service.Events.Delete(PrimaryGoogleCalendarId, s.Id);
-                    request2.SendUpdates = EventsResource.DeleteRequest.SendUpdatesEnum.All;
-                    return request2.ExecuteAsync(cancellationToken);
+                // ReSharper disable once AccessToDisposedClosure There is await in using
+                var request2 = service.Events.Delete(PrimaryGoogleCalendarId, s.Id);
+                request2.SendUpdates = EventsResource.DeleteRequest.SendUpdatesEnum.All;
+                return request2.ExecuteAsync(cancellationToken);
 
-                });
-                await Task.WhenAll(tasks);
-            }
+            });
+            await Task.WhenAll(tasks);
         }
 
         public async Task SaveTokenAsync(string token, long userId, string uri,
             CancellationToken cancellationToken)
         {
-            using (var child = _container.BeginLifetimeScope())
+            using var child = _container.BeginLifetimeScope();
+            var initializer = new GoogleAuthorizationCodeFlow.Initializer
             {
+                ClientSecrets = GetGoogleClientSecrets().Secrets,
+                Scopes = new[] { CalendarService.Scope.CalendarReadonly },
+                DataStore = child.Resolve<GoogleDataStore>()
 
-                var initializer = new GoogleAuthorizationCodeFlow.Initializer
-                {
-                    ClientSecrets = GetGoogleClientSecrets().Secrets,
-                    Scopes = new[] { CalendarService.Scope.CalendarReadonly },
-                    DataStore = child.Resolve<GoogleDataStore>()
+            };
 
-                };
-
-                using (var flow = new GoogleAuthorizationCodeFlow(initializer))
-                {
-                    await flow.ExchangeCodeForTokenAsync(userId.ToString(), token,
-                        uri, // need to be in from google console
-                          cancellationToken);
-                }
-            }
+            using var flow = new GoogleAuthorizationCodeFlow(initializer);
+            await flow.ExchangeCodeForTokenAsync(userId.ToString(), token,
+                uri, // need to be in from google console
+                cancellationToken);
         }
 
 
-        public Task TrackEventAsync(string category, string action, string label)
+        public Task TrackEventAsync(string category, string action, string label, CancellationToken token)
         {
-            //var factory = new GoogleAnalyticsRequestFactory("UA-100723645-2");
-
-            //Create a PageView request by specifying request type
             var request = _factory.CreateRequest(HitTypes.Event);
-
             request.Parameters.Add(new GoogleMeasurementProtocol.Parameters.EventTracking.EventAction(action));
             request.Parameters.Add(new GoogleMeasurementProtocol.Parameters.EventTracking.EventCategory(category));
             request.Parameters.Add(new GoogleMeasurementProtocol.Parameters.EventTracking.EventLabel(label));
-            //new GoogleMeasurementProtocol.Parameters.EventTracking.EventAction("x")//Add parameters to your request, each parameter has a corresponding class which has name = parameter name from google reference docs
-            //request.Parameters.Add(new DocumentHostName("test.com"));
-            //request.Parameters.Add(new DocumentPath("/test/testPath2"));
-            //request.Parameters.Add(new DocumentTitle("test title2"));
 
             var clientId = new ClientId((Guid.NewGuid()));
-
-            //Make a get request which will contain all information from above
-            //await request.GetAsync(clientId);
-
-            //Make a Post request which will contain all information from above
+            token.ThrowIfCancellationRequested();
             return request.PostAsync(clientId);
+        }
+
+        private class GoogleTokensValue
+        {
+
+          //  public string Access_token { get; set; }
+          //  public string Token_type { get; set; }
+          //  public string Expires_in { get; set; }
+          //  public string Refresh_token { get; set; }
+          //  public string Scope { get; set; }
+          
+            public string Id_token { get; set; }
+           // public string Issued { get; set; }
+           // public string IssuedUtc { get; set; }
         }
     }
 }

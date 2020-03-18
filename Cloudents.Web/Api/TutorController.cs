@@ -30,6 +30,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Web.Services;
 using SbUserManager = Cloudents.Web.Identity.SbUserManager;
+using Cloudents.Core.DTOs.Tutors;
 
 namespace Cloudents.Web.Api
 {

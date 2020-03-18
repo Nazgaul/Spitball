@@ -59,19 +59,6 @@ export default {
             }
             return '';
         },
-        uploadDate() {
-            if (this.cardData && this.cardData.dateTime) {
-                return this.$options.filters.fullMonthDate(this.cardData.dateTime);
-            }
-            return "";
-        },
-        uploadDateAnswer() {
-            if (this.cardData.firstAnswer && this.cardData.firstAnswer.date) {
-                
-                return this.$options.filters.fullMonthDate(this.cardData.firstAnswer.date);
-            }
-            return "";
-        },
         hideAnswerInput() {           
             return this.detailedView;
         },

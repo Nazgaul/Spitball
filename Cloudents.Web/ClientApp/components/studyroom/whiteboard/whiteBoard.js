@@ -89,7 +89,6 @@ export default {
     },
     computed: {
         ...mapGetters([
-            'isRoomCreated',
             'getDragData',
             'getZoom', 
             'selectedOptionString',
@@ -346,6 +345,8 @@ export default {
             return (e.which == keyCode || e.keyCode == keyCode);
         },
         changeTab(tab) {
+            this.$ga.event("tutoringRoom", `changeTab:${tab}`);
+
             this.currentTabId = tab.id;
 
             if (tab.id !== this.getCurrentSelectedTab.id) {

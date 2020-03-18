@@ -35,21 +35,21 @@
               <router-link class="applyCoupon" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name},  query: {coupon: true}}" v-language:inner="'resultTutor_apply_coupon'"></router-link>
               <div class="user-rates-top">
                 <template>
-                    <span v-if="isDiscount" class="tutor-card-price font-weight-bold">{{tutorData.discountPrice | currencyFormat(tutorData.currency)}}</span>
-                    <span class="tutor-card-price font-weight-bold" v-else>{{tutorData.price | currencyFormat(tutorData.currency)}}</span>
+                    <span v-if="isDiscount" class="tutor-card-price font-weight-bold">{{$n(tutorData.discountPrice, 'currency')}}</span>
+                    <span class="tutor-card-price font-weight-bold" v-else>{{$n(tutorData.price, 'currency')}}</span>
                 </template>
                 <span class="caption">
                   <span class="tutor-card-price-divider font-weight-bold">/</span>
                   <span class="tutor-card-price-divider font-weight-bold" v-language:inner="'resultTutor_hour'"></span>
                 </span>
-                <div class="striked mr-1" v-if="isDiscount">{{tutorData.price | currencyFormat(tutorData.currency)}}</div>
+                <div class="striked mr-1" v-if="isDiscount">{{$n(tutorData.price, 'currency')}}</div>
                 <div class="striked no-discount" v-else></div>
               </div>
             </div>
 
             <template>
               <div class="user-rank align-center" v-if="isReviews">
-                <user-rating :rating="tutorData.rating" :showRateNumber="false"/>
+                <user-rating size="18" class="ratingIcon" :rating="tutorData.rating" :showRateNumber="false"/>
                 <div class="reviews" v-html="$Ph(tutorData.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></div>
               </div>
               <div v-else class="user-rank align-center">
@@ -305,11 +305,8 @@ export default {
         }
       }
       .user-rank {
-        display: -webkit-box;
+        display: flex;
         margin-bottom: -20px;
-        i{
-          font-size: 18px !important;
-        }
         .reviews {
           font-size: 12px;
           color: #4452fc;

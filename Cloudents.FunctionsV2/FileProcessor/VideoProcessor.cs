@@ -3,7 +3,6 @@ using Cloudents.Command.Command;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Video;
-using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Newtonsoft.Json.Linq;
@@ -152,7 +151,7 @@ namespace Cloudents.FunctionsV2.FileProcessor
 
     public static class BlockBlobExtensions
     {
-        public static Uri GetDownloadLink([NotNull] this CloudBlockBlob blob, TimeSpan expirationTime)
+        public static Uri GetDownloadLink(this CloudBlockBlob blob, TimeSpan expirationTime)
         {
             if (blob == null) throw new ArgumentNullException(nameof(blob));
             var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy

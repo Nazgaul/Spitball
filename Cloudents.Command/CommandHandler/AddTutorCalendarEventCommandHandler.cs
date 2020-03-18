@@ -1,4 +1,5 @@
 ﻿using Cloudents.Command.Command;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System;
 using System.Linq;
@@ -12,12 +13,16 @@ namespace Cloudents.Command.CommandHandler
         private readonly ITutorRepository _tutorRepository;
         private readonly IRegularUserRepository _userRepository;
         private readonly ICalendarService _calendarService;
+        private readonly IRepository<GoogleTokens> _googleTokenRepository;
+        
 
-        public AddTutorCalendarEventCommandHandler(IRegularUserRepository userRepository, ITutorRepository tutorRepository, ICalendarService calendarService)
+        public AddTutorCalendarEventCommandHandler(IRegularUserRepository userRepository, ITutorRepository tutorRepository, 
+            ICalendarService calendarService, IRepository<GoogleTokens> googleTokenRepository)
         {
             _userRepository = userRepository;
             _tutorRepository = tutorRepository;
             _calendarService = calendarService;
+            _googleTokenRepository = googleTokenRepository;
         }
 
         public async Task ExecuteAsync(AddTutorCalendarEventCommand message, CancellationToken token)
@@ -27,8 +32,8 @@ namespace Cloudents.Command.CommandHandler
             //TODO : need to check if user have payment detail
             var tutor = await _tutorRepository.LoadAsync(message.TutorId, token);
             if (!tutor.TutorHours.Any(a => a.AvailabilitySlot.Day == message.From.DayOfWeek
-                                           && a.AvailabilitySlot.From < message.From.TimeOfDay
-                                           && message.To.TimeOfDay < a.AvailabilitySlot.To))
+                                           && a.AvailabilitySlot.From <= message.From.TimeOfDay
+                                           && message.To.TimeOfDay <= a.AvailabilitySlot.To))
             {
                 throw new ArgumentException("Slot is booked");
             }
@@ -52,8 +57,10 @@ namespace Cloudents.Command.CommandHandler
             }
 
             var user = await _userRepository.LoadAsync(message.UserId, token);
+          
+            var googleTokens = await _googleTokenRepository.GetAsync(message.TutorId.ToString(), token);
 
-            await _calendarService.BookCalendarEventAsync(tutor.User, user,
+            await _calendarService.BookCalendarEventAsync(tutor.User, user, googleTokens,
                 message.From, message.To, token);
 
         }

@@ -1,6 +1,7 @@
 import documentService from "../services/documentService";
 import analyticsService from '../services/analytics.service';
 import { LanguageService } from "../services/language/languageService";
+import { router } from '../main.js';
 
 const state = {
     document: {},
@@ -23,9 +24,11 @@ const getters = {
 const mutations = {
     resetState(state){
         state.document = {};
-        state.btnLoading = false;
+        state.itemsList = [];
+        state.btnLoading = false;    
         state.showPurchaseConfirmation = false;
         state.documentLoaded = false;
+        state.toaster = false;
     },
     setPurchaseConfirmation(state,val){
         state.showPurchaseConfirmation = val;
@@ -60,10 +63,10 @@ const actions = {
             return err;
         });
     },
-    downloadDocument({getters, dispatch}, item) {
+    downloadDocument({getters}, item) {
         let user = getters.accountUser;
 
-        if(!user) return dispatch('updateLoginDialogState', true);
+        if(!user) return router.push({query:{...router.currentRoute.query,dialog:'login'}});
 
         let {id, course} = item;     
 

@@ -25,11 +25,13 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Exceptions;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 using Cloudents.Query.Users;
 using Cloudents.Query.Tutor;
 using Cloudents.Query.Questions;
+using Cloudents.Core.DTOs.Users;
+using Cloudents.Core.DTOs.Tutors;
+using Cloudents.Core.DTOs.Questions;
 
 namespace Cloudents.Web.Api
 {
@@ -202,56 +204,6 @@ namespace Cloudents.Web.Api
             }
         }
 
-
-        [HttpPost("coupon")]
-        [ProducesResponseType(Status200OK)]
-        [ProducesResponseType(typeof(string), Status400BadRequest)]
-        [ProducesDefaultResponseType]
-        public async Task<IActionResult> ApplyCouponAsync(ApplyCouponRequest model, CancellationToken token)
-        {
-            try
-            {
-                var userId = _userManager.GetLongUserId(User);
-                var command = new ApplyCouponCommand(model.Coupon, userId, model.TutorId);
-                await _commandBus.DispatchAsync(command, token);
-                return Ok(new
-                {
-                    Price = command.NewPrice
-                });
-            }
-            catch (ArgumentException)
-            {
-                return BadRequest("Invalid Coupon");
-            }
-            catch (DuplicateRowException)
-            {
-                return BadRequest("This coupon already in use");
-
-            }
-        }
-
-        [HttpGet("sales")]
-        public async Task<IEnumerable<SaleDto>> GetUserSalesAsync([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var query = new UserSalesByIdQuery(userId);
-            var result = await _queryBus.QueryAsync(query, token);
-
-            return result.Select(s =>
-            {
-                if (s is DocumentSaleDto d)
-                {
-                    d.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
-                    d.Url = Url.DocumentUrl(d.Course, d.Id, d.Name);
-                }
-                if (s is SessionSaleDto ss)
-                {
-                    ss.StudentImage = urlBuilder.BuildUserImageEndpoint(ss.StudentId, ss.StudentImage, ss.StudentName);
-                }
-                return s;
-            });
-        }
-
         [HttpGet("content")]
         public async Task<IEnumerable<UserContentDto>> GetUserContentAsync([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
@@ -271,7 +223,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("purchases")]
-        public async Task<IEnumerable<UserPurchasDto>> GetUserPurchasesAsync([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
+        public async Task<IEnumerable<UserPurchaseDto>> GetUserPurchasesAsync([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserPurchasesByIdQuery(userId);
@@ -312,7 +264,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("stats")]
-        [ResponseCache(Duration = TimeConst.Month, Location = ResponseCacheLocation.Client)]
+        [ResponseCache(Duration = TimeConst.Day, Location = ResponseCacheLocation.Client)]
         public async Task<IEnumerable<UserStatsDto>> GetTutorStatsAsync([FromQuery] UserStatsRequest request, CancellationToken token) 
         {
             var userId = _userManager.GetLongUserId(User);
@@ -338,13 +290,6 @@ namespace Cloudents.Web.Api
             return await _queryBus.QueryAsync(query, token);
         }
 
-        //[HttpGet("recording")]
-        //public async Task<IEnumerable<SessionRecordingDto>> GetSessionRecordingAsync(CancellationToken token)
-        //{
-        //    var userId = _userManager.GetLongUserId(User);
-        //    var query = new SessionRecordingQuery(userId);
 
-        //    return await _queryBus.QueryAsync(query, token);
-        //}
     }
 }

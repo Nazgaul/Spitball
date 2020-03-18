@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Extension;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities
 {
@@ -116,18 +115,12 @@ namespace Cloudents.Core.Entities
 
         public static decimal CalculatePrice(CouponType type, decimal price, decimal couponValue)
         {
-            decimal result;
-            switch (type)
+            var result = type switch
             {
-                case CouponType.Flat:
-                    result = price - couponValue;
-                    break;
-                case CouponType.Percentage:
-                    result = price * ((100 - couponValue) / 100);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                CouponType.Flat => (price - couponValue),
+                CouponType.Percentage => (price * ((100 - couponValue) / 100)),
+                _ => throw new ArgumentOutOfRangeException()
+            };
 
             return Math.Max(result, 0);
         }

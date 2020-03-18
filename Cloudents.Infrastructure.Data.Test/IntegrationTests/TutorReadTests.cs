@@ -3,6 +3,7 @@ using Cloudents.Query.Tutor;
 using FluentAssertions;
 using System.Threading.Tasks;
 using Xunit;
+using Cloudents.Query.Users;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
@@ -62,19 +63,27 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var count = result.Count;
             result.Count.Should().Be(result.Result.Count());
 
-            var query2 = new TutorListQuery(userId, "IL", 0, 20);
+            var query2 = new TutorListQuery(userId, "IL", 0);
             var result2 = await _fixture.QueryBus.QueryAsync(query2, default);
             result2.Count.Should().Be(count);
         }
 
         [Theory]
         [InlineData(159039)]
+        [InlineData(162107)]
         [InlineData(638)]
         public async Task TutorActionsQuery_Ok(long userId)
         {
             var query = new TutorActionsQuery(userId);
             var result = await _fixture.QueryBus.QueryAsync(query, default);
             result.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task UserCouponsQuery_Ok()
+        {
+            var query = new UserCouponsQuery(159039);
+            var _ = await _fixture.QueryBus.QueryAsync(query, default);
         }
     }
 

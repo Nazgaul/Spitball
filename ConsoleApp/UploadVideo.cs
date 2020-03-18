@@ -81,7 +81,7 @@ namespace ConsoleApp
             }
         }
 
-        void videosInsertRequest_ProgressChanged(Google.Apis.Upload.IUploadProgress progress)
+        void videosInsertRequest_ProgressChanged(IUploadProgress progress)
         {
             switch (progress.Status)
             {

@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
-using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -13,7 +12,7 @@ namespace Cloudents.Core.Entities
     {
         public const int MaximumPrice = 214748;
         public const int MinimumPrice = 50;
-        public Tutor(string bio, [NotNull] User user, decimal? price) : this()
+        public Tutor(string bio, User user, decimal? price) : this()
         {
             User = user ?? throw new ArgumentNullException(nameof(user));
             State = ItemState.Pending;
@@ -118,7 +117,7 @@ namespace Cloudents.Core.Entities
         public virtual DateTime Created { get; protected set; }
         //protected internal  virtual ICollection<TutorReview> Reviews { get; protected set; }
 
-        public virtual DateTime ManualBoost { get; protected set; }
+        //public virtual DateTime ManualBoost { get; protected set; }
         public virtual byte[] Version { get; protected set; }
         public virtual void AddReview(string review, float rate, User user)
         {
@@ -137,25 +136,13 @@ namespace Cloudents.Core.Entities
             var newSet = new HashSet<TutorHours>(tutorHours.Select(s => new TutorHours(this, s)));
             _tutorHours.IntersectWith(newSet);
 
-            //newSet.ExceptWith(_tutorHours);
             foreach (var hours in newSet)
             {
                 _tutorHours.Add(hours);
             }
 
-            //_tutorHours.Add(new TutorHours(this, tutorHour.Day, tutorHour.From, tutorHour.To));
         }
 
-        //public virtual void DeleteTutorHours()
-        //{
-        //    //var itemToRemove = _tutorHours.Where(w => w.WeekDay == weekDay).FirstOrDefault();
-        //    //if (itemToRemove != null)
-        //    //{
-        //    //    _tutorHours.Remove(itemToRemove);
-        //    //}
-        //    _tutorHours.Clear();
-
-        //}
 
 
         // ReSharper disable once InconsistentNaming Need to have due to mapping
@@ -166,6 +153,20 @@ namespace Cloudents.Core.Entities
         private readonly ISet<TutorHours> _tutorHours = new HashSet<TutorHours>();
         public virtual IEnumerable<TutorHours> TutorHours => _tutorHours;
         public virtual bool IsShownHomePage { get; protected set; }
+
+
+        protected internal virtual ICollection<AdminTutor> AdminUsers { get; set; }
+
+        public virtual AdminTutor AdminUser
+        {
+            get => AdminUsers.SingleOrDefault();
+            set
+            {
+                AdminUsers.Clear();
+                AdminUsers.Add(value);
+            }
+        }
+
 
         public virtual void UpdateCalendar(IEnumerable<GoogleCalendar> calendars)
         {

@@ -1,6 +1,6 @@
-﻿using Cloudents.Core.Extension;
+﻿using System;
+using Cloudents.Core.Extension;
 using NHibernate.Transform;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,15 +13,39 @@ namespace Cloudents.Query.Stuff
     {
         private readonly char _complexChar;
         private readonly IResultTransformer _baseTransformer;
-        public DeepTransformer(char complexChar = '.') : this(complexChar, Transformers.AliasToBean<TEntity>())
-        {
+        private readonly Dictionary<string, PropertyInfo> _resultClassProperties;
 
+        public DeepTransformer(char complexChar = '.') :
+            this(complexChar, Transformers.AliasToBean<TEntity>())
+        {
+          
+               
         }
 
         public DeepTransformer(char complexChar, IResultTransformer transformer)
         {
             _baseTransformer = transformer;
             _complexChar = complexChar;
+            _resultClassProperties = typeof(TEntity).GetProperties(BindingFlags.NonPublic
+                                                                   | BindingFlags.Instance
+                                                                   | BindingFlags.Public).ToDictionary(x => x.Name, z => z);
+        }
+
+        private Dictionary<string, object> _aliasToTupleMap;
+
+        private void MapProperties(object[] tuple, string[] aliases)
+        {
+            _aliasToTupleMap = new Dictionary<string, object>();
+
+            for (var i = 0; i < aliases.Length; i++)
+            {
+                var alias = aliases[i];
+                if (alias.Contains(_complexChar))
+                {
+                    _aliasToTupleMap.Add(alias, tuple[i]);
+                    aliases[i] = null;
+                }
+            }
         }
 
         // rows iterator
@@ -54,7 +78,7 @@ namespace Cloudents.Query.Stuff
 
         /// <summary>Iterates the Path Client.Address.City.Code </summary>
         protected virtual void TransformPersistentChain(object[] tuple
-              , List<string> complexAliases, object result, List<string> list)
+            , List<string> complexAliases, object result, List<string> list)
         {
             if (!(result is TEntity entity))
             {

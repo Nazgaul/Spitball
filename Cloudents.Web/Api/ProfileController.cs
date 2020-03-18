@@ -1,7 +1,6 @@
 ﻿using System;
 using Cloudents.Command;
 using Cloudents.Command.Command;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
@@ -16,6 +15,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Cloudents.Web.Models;
 using Cloudents.Query.Users;
+using Cloudents.Core.DTOs.Users;
+using Cloudents.Core.DTOs.Documents;
+using Cloudents.Core.DTOs.Feed;
 
 namespace Cloudents.Web.Api
 {
@@ -80,26 +82,6 @@ namespace Cloudents.Web.Api
 
         }
 
-        // GET
-        //[Obsolete]
-
-        //[HttpGet("{id:long}/answers")]
-        //[ProducesResponseType(200)]
-
-        //public async Task<IEnumerable<QuestionFeedDto>> GetAnswersAsync(long id, int page, CancellationToken token)
-        //{
-        //    var query = new UserAnswersByIdQuery(id, page);
-        //    var res = await _queryBus.QueryAsync(query, token);
-        //    return res.Select(item =>
-        //    {
-        //        item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
-        //        item.FirstAnswer.User.Image =
-        //            _urlBuilder.BuildUserImageEndpoint(item.FirstAnswer.User.Id, item.FirstAnswer.User.Image);
-        //        return item;
-        //    });
-           
-        //}
-
         [HttpGet("{id:long}/documents")]
         [ProducesResponseType(200)]
 
@@ -143,44 +125,7 @@ namespace Cloudents.Web.Api
                 Count = retValTask.Result.Count
             };
         }
-
-        //[Obsolete]
-        //[HttpGet("{id:long}/purchaseDocuments")]
-        //[ProducesResponseType(200)]
-
-        //public async Task<IEnumerable<DocumentFeedDto>> GetPurchaseDocumentsAsync(long id, int page, CancellationToken token)
-        //{
-        //    var query = new UserPurchaseDocumentByIdQuery(id, page);
-        //    var retValTask = _queryBus.QueryAsync(query, token);
-
-        //    var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        var userId = _userManager.GetLongUserId(User);
-        //        var queryTags = new UserVotesByCategoryQuery(userId);
-        //        votesTask = _queryBus.QueryAsync(queryTags, token)
-        //            .ContinueWith(
-        //                t2 => { return t2.Result.ToDictionary(x => x.Id, s => s.Vote); }, token);
-        //    }
-
-        //    await Task.WhenAll(retValTask, votesTask);
-
-        //    foreach (var item in retValTask.Result)
-        //    {
-        //        item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
-        //    }
-
-        //    return retValTask.Result.Select(s =>
-        //    {
-        //        s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
-        //        s.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
-        //        if (votesTask.Result != null && votesTask.Result.TryGetValue(s.Id, out var p))
-        //        {
-        //            s.Vote.Vote = p;
-        //        }
-        //        return s;
-        //    });
-        //}
+        
 
         [HttpPost("follow"), Authorize]
         [ProducesResponseType(200)]

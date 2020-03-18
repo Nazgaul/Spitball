@@ -4,7 +4,6 @@ import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue
 import questionCard from "./../helpers/new-question-card/new-question-card.vue";
 import answerCard from "./../helpers/question-card/question-card.vue";
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
-import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue';
 import questionService from "../../../services/questionService";
 import disableForm from "../../mixins/submitDisableMixin.js";
 import analyticsService from '../../../services/analytics.service';
@@ -12,7 +11,7 @@ import { LanguageService } from "../../../services/language/languageService";
 
 export default {
     mixins: [disableForm],
-    components: {questionThread, questionCard, answerCard, extendedTextArea, sbDialog, loginToAnswer},
+    components: {questionThread, questionCard, answerCard, extendedTextArea, sbDialog},
     props: {
         id: {Number}, // got it from route
         questionId: {Number}
@@ -43,7 +42,6 @@ export default {
             "resetQuestion",
             "removeDeletedAnswer",
             "updateToasterParams",
-            "updateLoginDialogState",
             'setQuestion'
         ]),
         ...mapGetters(["getQuestion"]),
@@ -82,8 +80,7 @@ export default {
                     .then(function () {                       
                         analyticsService.sb_unitedEvent("Submit_answer", "Homwork help");
                         self.textAreaValue = "";
-                    
-                        //self.getData(true);//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
+                        self.getData(true); //TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
                     }, (error) => {
                         console.log(error);
                         // self.errorHasAnswer = error.response.data["Text"] ? error.response.data["Text"][0] : '';
@@ -126,7 +123,7 @@ export default {
             }
             else {
                 this.dialogType = '';
-                this.updateLoginDialogState(true);
+                this.$openDialog('login')
             }
         },
         goToAnswer(hash) {
@@ -149,7 +146,7 @@ export default {
         '$route': 'getData'
     },
     computed: {
-        ...mapGetters(["accountUser", "chatAccount", "getCorrectAnswer", "loginDialogState", "isCardOwner"]),
+        ...mapGetters(["accountUser", "chatAccount", "getCorrectAnswer", "isCardOwner"]),
         questionData(){
             return this.getQuestion();
         },
@@ -168,14 +165,5 @@ export default {
     },
     created() {               
         this.getData();
-
-        this.$root.$on('closePopUp', (name) => {
-            if (name === 'suggestions') {
-                this.showDialogSuggestQuestion = false;
-            } else {
-                this.updateLoginDialogState(false);
-            }
-        });
-
     },
 }

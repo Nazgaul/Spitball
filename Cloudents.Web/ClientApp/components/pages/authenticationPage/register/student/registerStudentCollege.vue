@@ -23,15 +23,17 @@
 </template>
 
 <script>
-import { RegisterCourseCollege } from '../../../../../routes/routeNames'
+import { RegisterCourseCollege } from '../../../../../routes/routeNames';
+import analyticsService from '../../../../../services/analytics.service.js';
 
 export default {
     methods: {
         nextStep() {
             if(this.$route.name == RegisterCourseCollege) {
-                global.isAuth = true;
+                this.$store.dispatch('updateLoginStatus',true)
             }
-            this.$router.push({name: this.$route.meta.nextStep})
+            analyticsService.sb_unitedEvent('student-registration', 'complete');
+            this.$router.push({name: this.$route.meta.nextStep});
         },
         prevStep() {
             this.$router.push({name: this.$route.meta.backStep})

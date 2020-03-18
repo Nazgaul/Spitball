@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Specialized;
@@ -11,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Mail
 {
-    [UsedImplicitly]
     public class MailProvider : IMailProvider
     {
         private readonly HttpClient _client;

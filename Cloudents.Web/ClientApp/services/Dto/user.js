@@ -19,6 +19,7 @@ export const User = {
         this.lessons = objInit.lessons || 0;
         this.discountPrice = objInit.discountPrice;
         this.subjects = objInit.subjects || [];
+        this.pendingSessionsPayments = objInit.pendingSessionsPayments || null;
     },
     Tutor: function (objInit) {
         return Object.assign(
@@ -65,7 +66,13 @@ export const User = {
                 isTutorState: _createIsTutorState(objInit.isTutor),
                 university: new School.University(objInit.university),
                 courses: objInit.courses.map((course) => new School.Course(course)),
-                haveDocs: objInit.haveDocs,
+                haveDocsWithPrice: objInit.haveDocsWithPrice,
+                haveContent: objInit.haveContent,
+                isPurchased: objInit.isPurchased,
+                isSold: objInit.isSold,
+                haveStudyRoom: objInit.haveStudyRoom,
+                haveFollowers: objInit.haveFollowers,
+                pendingSessionsPayments: objInit.pendingSessionsPayments
             }
         )
     },

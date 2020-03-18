@@ -58,8 +58,8 @@
 </template>
 
 <script>
-const tutorResultCard = () => import('../results/tutorCards/tutorResultCard/tutorResultCard.vue');
-const tutorResultCardMobile = () => import('../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue');
+const tutorResultCard = () => import(/* webpackChunkName: "tutorResultCard" */ '../results/tutorCards/tutorResultCard/tutorResultCard.vue');
+const tutorResultCardMobile = () => import(/* webpackChunkName: "tutorResultCardMobile" */ '../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue');
 const tutorSearchComponent = () => import('./components/tutorSearchInput/tutorSearchInput.vue');
 const suggestCard = () => import('../results/suggestCard.vue');
 const sbCarousel = () => import('../sbCarousel/sbCarousel.vue');

@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities
 {
@@ -207,18 +206,55 @@ namespace Cloudents.Core.Entities
         public virtual string FirstName { get; protected set; }
         public virtual string LastName { get; protected set; }
         public virtual string Description { get; set; }
-        public virtual Tutor Tutor { get; protected set; }
+        public virtual Tutor? Tutor { get; protected set; }
 
-        public virtual BuyerPayment BuyerPayment { get; protected set; }
+        public virtual BuyerPayment? BuyerPayment { get; protected set; }
 
         public virtual Gender Gender { get; protected set; }
         public virtual PaymentStatus PaymentExists { get; protected set; }
 
         public virtual UserType? UserType2 { get; protected set; }
+        private readonly ICollection<UserPayPalToken> _userTokens = new List<UserPayPalToken>();
+
+        
+
+        public virtual IEnumerable<UserPayPalToken> UserTokens => _userTokens;
 
         public virtual void CreditCardReceived()
         {
             PaymentExists = PaymentStatus.Done;
+            AddEvent(new StudentPaymentReceivedEvent(this));
+        }
+
+        public virtual void UseToken(Tutor tutor)
+        {
+            Country country = Country;
+
+            if (country != Entities.Country.UnitedStates)
+            {
+                return;
+            }
+
+            var userToken = UserTokens.FirstOrDefault(w => w.State == UserTokenState.NotUsed);
+            if (userToken != null)
+            {
+                userToken.State = UserTokenState.Used;
+            }
+
+            UseCoupon(tutor);
+        }
+
+        public virtual void AddToken(string userToken, decimal amount, StudyRoom studyRoom)
+        {
+            if (userToken == null) throw new ArgumentNullException(nameof(userToken));
+            if (studyRoom == null) throw new ArgumentNullException(nameof(studyRoom));
+            Country country = Country;
+
+            if (country != Entities.Country.UnitedStates)
+            {
+                throw new ArgumentException("Only usa country can use paypal");
+            }
+            _userTokens.Add(new UserPayPalToken(userToken, amount, studyRoom));
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
 
@@ -246,7 +282,7 @@ namespace Cloudents.Core.Entities
         //    LastName = null;
         //}
 
-        public virtual void ChangeName(string firstName, [CanBeNull] string lastName)
+        public virtual void ChangeName(string firstName, string? lastName)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -329,9 +365,9 @@ namespace Cloudents.Core.Entities
             MakeTransaction(t);
         }
 
-        public virtual void ReferUser(User user)
+        public virtual void ReferUser(User user, int price)
         {
-            MakeTransaction(new ReferUserTransaction(user));
+            MakeTransaction(new ReferUserTransaction(user, price));
         }
 
         public virtual void FinishRegistration()
@@ -394,26 +430,6 @@ namespace Cloudents.Core.Entities
 
             }
         }
-    }
-
-    public abstract class UserComponent
-    {
-
-
-        protected UserComponent(UserType type, User user)
-        {
-            Type = type;
-            User = user;
-        }
-
-        protected UserComponent()
-        {
-
-        }
-        public virtual Guid Id { get; set; }
-        public virtual UserType Type { get; protected set; }
-
-        public virtual User User { get; set; }
     }
 
     public class Parent : UserComponent
@@ -496,7 +512,6 @@ namespace Cloudents.Core.Entities
         }
         public override UserType Type { get; protected set; }
     }
-    //public virtual Tutor Tutor { get; set; }
 
 
 }

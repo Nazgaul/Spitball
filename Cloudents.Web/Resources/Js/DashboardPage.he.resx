@@ -126,6 +126,9 @@
   <data name="answer" xml:space="preserve">
     <value>תשובה:</value>
   </data>
+  <data name="btn_approve" xml:space="preserve">
+    <value>אישורכם</value>
+  </data>
   <data name="course" xml:space="preserve">
     <value>קורס:</value>
   </data>
@@ -150,6 +153,9 @@
   <data name="info" xml:space="preserve">
     <value>מוצר
 </value>
+  </data>
+  <data name="info_buy_points" xml:space="preserve">
+    <value>רכישת נקודות</value>
   </data>
   <data name="joined" xml:space="preserve">
     <value>תאריך הצטרפות</value>
@@ -190,8 +196,17 @@
   <data name="paid" xml:space="preserve">
     <value>שולם</value>
   </data>
+  <data name="payment_pluralize" xml:space="preserve">
+    <value>הפקדה | הפקדות</value>
+  </data>
   <data name="pending" xml:space="preserve">
     <value>ממתין לתשלום</value>
+  </data>
+  <data name="pending_approve" xml:space="preserve">
+    <value>ממתין לאישור</value>
+  </data>
+  <data name="pending_payment" xml:space="preserve">
+    <value>יש לכם {0} {1} ל{2}</value>
   </data>
   <data name="price" xml:space="preserve">
     <value>מחיר</value>
@@ -234,6 +249,9 @@
   </data>
   <data name="type" xml:space="preserve">
     <value>סוג</value>
+  </data>
+  <data name="type_buy_points" xml:space="preserve">
+    <value>נקודות</value>
   </data>
   <data name="video" xml:space="preserve">
     <value>וידאו</value>

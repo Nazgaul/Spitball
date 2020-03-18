@@ -7,7 +7,7 @@ using Cloudents.Command.Documents.PurchaseDocument;
 using Cloudents.Command.Item.Commands.FlagItem;
 using Cloudents.Command.Votes.Commands.AddVoteDocument;
 using Cloudents.Core;
-using Cloudents.Core.DTOs;
+using Cloudents.Core.DTOs.Documents;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
@@ -213,6 +213,10 @@ namespace Cloudents.Web.Api
             {
                 ModelState.AddModelError(string.Empty, _localizer["InSufficientFunds"]);
                 return BadRequest(ModelState);
+            }
+            catch (DuplicateRowException)
+            {
+                return BadRequest();
             }
 
             return Ok();

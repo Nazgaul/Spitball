@@ -1,10 +1,10 @@
 import accountService from "../services/accountService";
 import { dollarCalculate } from "./constants";
 import analyticsService from '../services/analytics.service';
-import initSignalRService from '../services/signalR/signalrEventService';
 import insightService from '../services/insightService';
 import { LanguageService } from '../services/language/languageService';
 import intercomeService from '../services/intercomService';
+import { router } from "../main";
 
 const state = {
     isUserLoggedIn:false,
@@ -34,6 +34,9 @@ const mutations = {
     setAccountPicture(state, imageUrl) {
         state.user = { ...state.user, image: imageUrl };
     },
+    setUserPendingPayment(state, payments) {
+        state.user.pendingSessionsPayments = payments
+    }
 };
 
 const getters = {
@@ -45,13 +48,13 @@ const getters = {
         }
     },
     //TODO need to change this to accountretive
-    getUserLoggedInStatus: state => state.isUserLoggedIn,
-    getUserLoggedInStatus2: state=> state.isUserLoggedIn || global.isAuth,
-
+    getUserLoggedInStatus: state => state.isUserLoggedIn || global.isAuth,
+    getIsTeacher: state => getters.getUserLoggedInStatus && state.user.userType === 'Teacher',
     usersReffered: state => state.usersReferred,
     accountUser: (state) => {
         return state.user;
     },
+    getPendingPayment: state => state.user.pendingSessionsPayments
 };
 
 const actions = {
@@ -96,22 +99,20 @@ const actions = {
         dispatch("getAllConversations");
         analyticsService.sb_setUserId(userAccount.id);
         insightService.authenticate.set(userAccount.id);
-        initSignalRService();
-        commit("changeLoginStatus", true);
+        dispatch('updateLoginStatus',true);
     },
-    userStatus({state,dispatch, commit}) {
+    userStatus({state,dispatch,getters}) {
         if(state.user !== null && state.user.hasOwnProperty('id')){
             return Promise.resolve()
         }
-        
-        if (global.isAuth) {
+        if (getters.getUserLoggedInStatus) {
            return accountService.getAccount().then((userAccount) => {
                 dispatch('updateAccountUser',userAccount);
                 return Promise.resolve(userAccount)
             }, () => {
                 //TODO what is that....
                 intercomeService.restrartService();
-                commit("changeLoginStatus", false);
+                dispatch('updateLoginStatus',false)
             });
         }
         else {
@@ -120,9 +121,10 @@ const actions = {
         }
     },
     signalR_SetBalance({ commit, state, dispatch, getters }, newBalance) {
-        dispatch('updatePaymentDialogState', false);
-        if (getters.getShowBuyDialog || state.user.balance > newBalance) {
-            dispatch('updateShowBuyDialog', false);
+        if(router.currentRoute.query?.dialog){
+            router.push({query:{...router.currentRoute.query,dialog:undefined}})
+        }
+        if (getters.getIsBuyPoints || state.user.balance > newBalance) {
             dispatch('updateToasterParams', {
                 toasterText: LanguageService.getValueByKey("buyTokens_success_transaction"),
                 showToaster: true,
@@ -137,6 +139,9 @@ const actions = {
     },
     updateUserStats(context, lastDays) {
         return accountService.getAccountStats(lastDays)
+    },
+    updateLoginStatus({commit},val){
+        commit("changeLoginStatus", val);
     }
 };
 

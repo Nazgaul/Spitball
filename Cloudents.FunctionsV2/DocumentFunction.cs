@@ -5,7 +5,6 @@ using Cloudents.Core.Extension;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.FunctionsV2.FileProcessor;
 using Cloudents.Search.Document;
-using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage;
@@ -106,7 +105,6 @@ namespace Cloudents.FunctionsV2
         /// <param name="token"></param>
         /// <returns></returns>
         [FunctionName("DocumentDeleteOld")]
-        [UsedImplicitly]
         public static async Task DeleteOldDocument([TimerTrigger("0 0 0 1 * *")] TimerInfo timer,
             [Blob("spitball-files/files")]CloudBlobDirectory directory,
             ILogger log,
@@ -195,6 +193,9 @@ namespace Cloudents.FunctionsV2
                     }
 
                 }
+
+                originalBlob.Metadata["ErrorProcessCloudmersive"] = ex.Message;
+                await originalBlob.SetMetadataAsync();
             }
             catch (Exception ex)
             {

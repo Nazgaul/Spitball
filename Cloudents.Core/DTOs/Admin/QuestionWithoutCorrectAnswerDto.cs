@@ -1,11 +1,9 @@
-﻿using JetBrains.Annotations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Cloudents.Core.DTOs.Admin
 {
-    [UsedImplicitly]
     public class QuestionWithoutCorrectAnswerDto
     {
 

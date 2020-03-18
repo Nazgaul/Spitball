@@ -21,12 +21,7 @@ import calendarTab from '../calendar/calendarTab.vue';
 
 
 
-
-
-// import questionCard from "../question/helpers/new-question-card/new-question-card.vue";
-// import resultNote from "../results/ResultNote.vue";
-// import userBlock from '../helpers/user-block/user-block.vue';
-
+const shareContent = () => import(/* webpackChunkName: "shareContent" */'../pages/global/shareContent/shareContent.vue');
 export default {
     name: "new_profile",
     components: {
@@ -42,6 +37,7 @@ export default {
         profileItemsEmpty,
         calendarTab,
         sbDialog,
+        shareContent,
     },
     props: {
         id: {
@@ -55,10 +51,6 @@ export default {
                 sendMessage: this.sendMessage,
                 openCalendar: this.openCalendar,
                 closeCalendar: this.closeCalendar,
-                openBecomeTutor: this.openBecomeTutor,
-                goTutorList: this.goTutorList,
-                getItems: this.getItems,
-                scrollTo: this.scrollToElementId,
             },
             coupon: '',
             couponPlaceholder: LanguageService.getValueByKey('coupon_placeholder'),
@@ -86,14 +78,12 @@ export default {
     methods: {
         ...mapActions([
             'updateCouponDialog',
-            'updateLoginDialogState',
             'updateCoupon',
             'updateCurrTutor',
             'setTutorRequestAnalyticsOpenedFrom',
             'updateRequestDialog',
             'setActiveConversationObj',
             'openChatInterface',
-            'updateProfileItemsByType',
 
 
             'syncProfile',
@@ -105,7 +95,7 @@ export default {
             this.updateCouponDialog(false);
         },
         openCoupon(){
-            if(global.isAuth) {
+            if(this.getUserLoggedInStatus) {
             if(this.accountUser) {          
                 if(this.$route.params.id != this.accountUser.id) {
                     this.updateCouponDialog(true)
@@ -113,7 +103,7 @@ export default {
                 }
             }
             } else {
-            this.updateLoginDialogState(true);
+            this.$openDialog('login')
             }
         },
         applyCoupon() {
@@ -156,23 +146,6 @@ export default {
                this.openChatInterface();                    
             }
         },
-        openBecomeTutor(){
-            this.$router.push({query:{dialog:'becomeTutor'}})
-        },
-        goTutorList(){
-            this.$router.push({name:'tutorLandingPage'})
-        },
-        getItems(type,params){
-            let dataObj = {
-                id: this.id,
-                type,
-                params
-            }
-            return this.updateProfileItemsByType(dataObj)
-        },
-        scrollToElementId(elementId){
-            document.getElementById(elementId).scrollIntoView({behavior: 'smooth',block: 'start'});
-        },
         fetchData() {
             let syncObj = {
                 id: this.id,
@@ -188,7 +161,7 @@ export default {
             if(!!this.accountUser) {
                 this.activeTab = 5;
             } else {
-                this.updateLoginDialogState(true);
+                this.$openDialog('login')
                 setTimeout(()=>{
                     document.getElementById(`tab-${this.activeTab}`).lastChild.click();
                 },200);
@@ -203,7 +176,23 @@ export default {
             "accountUser",
             'getCouponDialog',
             'getCouponError',
-            "getProfile"]),
+            "getProfile",
+            'getBannerParams',
+            'getUserLoggedInStatus']),
+        shareContentParams(){
+            let urlLink = `${global.location.origin}/p/${this.$route.params.id}?t=${Date.now()}` ;
+            let userName = this.getProfile.user?.name;
+            let paramObJ = {
+                link: urlLink,
+                twitter: this.$t('shareContent_share_profile_twitter',[userName,urlLink]),
+                whatsApp: this.$t('shareContent_share_profile_whatsapp',[userName,urlLink]),
+                email: {
+                    subject: this.$t('shareContent_share_profile_email_subject',[userName]),
+                    body: this.$t('shareContent_share_profile_email_body',[userName,urlLink]),
+                }
+            }
+            return paramObJ
+        },
         isShowCouponDialog(){
             if(this.getCouponDialog){
                 setTimeout(() => {
@@ -270,6 +259,7 @@ export default {
         "$route.params.id": function(val, oldVal){ 
             let old = Number(oldVal,10);
             let newVal = Number(val,10);
+            this.activeTab = 1;
             if (newVal !== old) {
                 this.resetProfileData();
                 if((newVal == this.accountUser.id) && this.accountUser.isTutorState === "pending"){

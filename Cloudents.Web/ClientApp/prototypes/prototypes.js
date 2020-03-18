@@ -4,13 +4,12 @@ import { LanguageService } from '../services/language/languageService';
 import utilitiesService from '../services/utilities/utilitiesService';
 
 
-Vue.prototype.$openDialog = function(dialogName){
-    router.push({query:{...router.currentRoute.query,dialog:dialogName}}).catch(()=>{})
+Vue.prototype.$openDialog = function(dialogName, params){
+    router.push({query:{...router.currentRoute.query,dialog:dialogName}, params: {...params}}).catch(()=>{})
 }
 Vue.prototype.$closeDialog = function(){
     router.push({query:{...router.currentRoute.query,dialog:undefined}}).catch(()=>{})
 }
-
 Vue.prototype.$loadStyle = function(url,id){
     return new Promise((resolve) => {
         if (document.querySelector(id)) return resolve();
@@ -22,7 +21,6 @@ Vue.prototype.$loadStyle = function(url,id){
         return resolve();
     });
 };
-
 Vue.prototype.$proccessImageUrl = function(url, width, height, mode){
     let usedMode = mode ? mode : 'crop';
     if(url){
@@ -31,8 +29,7 @@ Vue.prototype.$proccessImageUrl = function(url, width, height, mode){
     }else{
         return '';
     }
-  };
-
+};
 Vue.prototype.$Ph = function (key, placeholders) {
     let rawKey = LanguageService.getValueByKey(key);
     //if no placeholders return the Key without the replace
@@ -50,7 +47,6 @@ Vue.prototype.$Ph = function (key, placeholders) {
     }
     return LanguageService.changePlaceHolders(rawKey, argumentsToSend);
 };
-
 Vue.prototype.$chatMessage = function (message) {
     if(message.type === 'text'){
         //text and convert links to url's

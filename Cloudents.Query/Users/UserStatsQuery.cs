@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.Entities;
 using NHibernate;
 using System;
@@ -15,8 +15,9 @@ namespace Cloudents.Query.Users
             UserId = userId;
             Days = days;
         }
-        public long UserId { get; }
-        public int Days { get; }
+
+        private long UserId { get; }
+        private int Days { get; }
 
 
         internal sealed class UserStatsQueryHandler : IQueryHandler<UserStatsQuery, IEnumerable<UserStatsDto>>
@@ -28,50 +29,50 @@ namespace Cloudents.Query.Users
             }
 
 
-            const string tRevenue = "tRevenue";
-            const string sRevenue = "sRevenue";
-            const string tSales = "tSales";
-            const string sSales = "sSales";
-            const string followers = "followers";
-            const string views = "views";
+            private const string TRevenue = "tRevenue";
+            private const string SRevenue = "sRevenue";
+            private const string TSales = "tSales";
+            private const string SSales = "sSales";
+            private const string Followers = "followers";
+            private const string Views = "views";
                 
 
             public async Task<IEnumerable<UserStatsDto>> GetAsync(UserStatsQuery query, CancellationToken token)
             {
                 
 
-            const string tRevenueSQL = @"select cast(isnull(sum(price), 0) as int) as price
+            const string tRevenueSql = @"select cast(isnull(sum(price), 0) as int) as price
                                     from sb.[Transaction] t
                                     where [user_Id] = :UserId and [action] in ('SoldDocument','ReferringUser')
                                     and Created between :from and :to;";
 
-                const string sRevenueSQL = @"select cast(isnull(sum(Price), 0) as int) as price
+                const string sRevenueSql = @"select cast(isnull(sum(Price), 0) as int) as price
                                             from sb.StudyRoom sr
                                             join sb.StudyRoomSession srs
                                                 on sr.Id = srs.StudyRoomId
                                             where sr.TutorId = :UserId and srs.Ended is not null 
                                             and srs.Created between :from and :to;";
 
-                const string tSalesSQL = @"select count(1) as Sales
+                const string tSalesSql = @"select count(1) as Sales
                                     from sb.[Transaction] t
                                     where [user_Id] = :UserId and [action] in ('SoldDocument','ReferringUser')
                                     and Created between :from and :to;";
 
-                const string sSalesSQL = @"select count(1) as Sales
+                const string sSalesSql = @"select count(1) as Sales
                                             from sb.StudyRoom sr
                                             join sb.StudyRoomSession srs
                                                 on sr.Id = srs.StudyRoomId
                                             where sr.TutorId = :UserId and srs.Ended is not null 
                                             and srs.Created between :from and :to;";
 
-                const string followersSQL = @"select count(1) as Followers
+                const string followersSql = @"select count(1) as Followers
                                             from sb.UsersRelationship
                                             where UserId = :UserId and Created < :to;";
 
 
 
 
-                const string viewsSQL = @"with cte as (
+                const string viewsSql = @"with cte as (
                                             select d.Id, max(dh.[Views]) as [MaxViews], min(dh.[Views]) as [MinViews]
                                             from [sb].[DocumentHistory] dh
                                             join sb.Document d
@@ -82,26 +83,26 @@ namespace Cloudents.Query.Users
                                             )
                                             select cast(isnull(sum([MaxViews]), 0) - isnull(sum(MinViews), 0) as int) as [Views] from cte;";
 
-                const string countrySQL = @"select country from sb.[user] where Id = :UserId";
+                const string countrySql = @"select country from sb.[user] where Id = :UserId";
 
                 var period = new Period(query.Days, query.UserId);
 
                 
                 var sqlQueries = new Dictionary<string, string>
                 {
-                    { tRevenue, tRevenueSQL },
-                    { sRevenue, sRevenueSQL },
-                    { tSales, tSalesSQL },
-                    { sSales, sSalesSQL },
-                    { followers, followersSQL },
-                    { views, viewsSQL }
+                    { TRevenue, tRevenueSql },
+                    { SRevenue, sRevenueSql },
+                    { TSales, tSalesSql },
+                    { SSales, sSalesSql },
+                    { Followers, followersSql },
+                    { Views, viewsSql }
                 };
 
                 var futureQueries = new Dictionary<string, (IFutureValue<int> current, IFutureValue<int> previous)>();
 
                 foreach (var sql in sqlQueries)
                 {
-                    if (sql.Key == followers)
+                    if (sql.Key == Followers)
                     {
                         futureQueries.Add(sql.Key, CreateSqlFollowersQuery(sql.Value, period));
                     }
@@ -110,16 +111,16 @@ namespace Cloudents.Query.Users
                         futureQueries.Add(sql.Key, CreateSqlQuery(sql.Value, period));
                     }
                 }
-                var countryFuture = _session.CreateSQLQuery(countrySQL)
+                var countryFuture = _session.CreateSQLQuery(countrySql)
                     .SetInt64("UserId", query.UserId)
                     .FutureValue<string>();
                 var resDictionary = new Dictionary<string, (int current, int previous)>();
 
                 foreach (var item in futureQueries)
                 {
-                    var cueerntRes = await item.Value.current.GetValueAsync(token);
+                    var currentRes = await item.Value.current.GetValueAsync(token);
                     var previousRes = await item.Value.previous.GetValueAsync(token);
-                    resDictionary.Add(item.Key, (cueerntRes, previousRes));
+                    resDictionary.Add(item.Key, (currentRes, previousRes));
                 }
 
                 var countryRes = await countryFuture.GetValueAsync(token);
@@ -128,15 +129,15 @@ namespace Cloudents.Query.Users
                 var currentResult = new UserStatsDto();
                 var previousResult = new UserStatsDto();
 
-                currentResult.Revenue = country.ConversationRate * resDictionary[tRevenue].current + resDictionary[sRevenue].current;
-                currentResult.Sales = resDictionary[tSales].current + resDictionary[sSales].current;
-                currentResult.Followers = resDictionary[followers].current;
-                currentResult.Views = resDictionary[views].current;
+                currentResult.Revenue = country.ConversationRate * resDictionary[TRevenue].current + resDictionary[SRevenue].current;
+                currentResult.Sales = resDictionary[TSales].current + resDictionary[SSales].current;
+                currentResult.Followers = resDictionary[Followers].current;
+                currentResult.Views = resDictionary[Views].current;
 
                 previousResult.Revenue = country.ConversationRate * resDictionary["tRevenue"].previous + resDictionary["sRevenue"].previous;
-                previousResult.Sales = resDictionary[tSales].previous + resDictionary[sSales].previous;
-                previousResult.Followers = resDictionary[followers].previous;
-                previousResult.Views = resDictionary[views].previous;
+                previousResult.Sales = resDictionary[TSales].previous + resDictionary[SSales].previous;
+                previousResult.Followers = resDictionary[Followers].previous;
+                previousResult.Views = resDictionary[Views].previous;
 
                 return new List<UserStatsDto>()
                 {

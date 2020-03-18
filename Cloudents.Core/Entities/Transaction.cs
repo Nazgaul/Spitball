@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Core.Entities
 {
@@ -75,9 +77,8 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public BuyPointsTransaction(decimal price, string transactionId)
         {
-            price = Math.Abs(price);
             TransactionId = transactionId;
-            Price = price;
+            Price = Math.Abs(price);
             Action = TransactionActionType.Buy;
             Type = TransactionType.Earned;
         }
@@ -86,7 +87,6 @@ namespace Cloudents.Core.Entities
 
         protected BuyPointsTransaction()
         {
-
         }
 
         //public override int AwardScore => 0;
@@ -167,11 +167,11 @@ namespace Cloudents.Core.Entities
         public virtual User InvitedUser { get; protected set; }
 
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public ReferUserTransaction(User invitedUser)
+        public ReferUserTransaction(User invitedUser, int price)
         {
             InvitedUser = invitedUser;
             Action = TransactionActionType.ReferringUser;
-            Price = 10;
+            Price = price;
             Type = TransactionType.Earned;
         }
 
@@ -200,7 +200,7 @@ namespace Cloudents.Core.Entities
 
         public virtual Document Document { get; protected set; }
 
-        private static Transaction Buyer(Document document)
+        public static Transaction Buyer(Document document)
         {
             return new DocumentTransaction(document)
             {
@@ -210,7 +210,7 @@ namespace Cloudents.Core.Entities
             };
         }
 
-        private static Transaction Seller(Document document)
+        public static Transaction Seller(Document document)
         {
             return new DocumentTransaction(document)
             {
@@ -222,12 +222,20 @@ namespace Cloudents.Core.Entities
             };
         }
 
-        public static void MakerTransaction(BaseUser buyer, BaseUser seller, Document d)
-        {
-            buyer.MakeTransaction(Buyer(d));
-            seller.MakeTransaction(Seller(d));
-            seller.MakeTransaction(new CommissionTransaction(d.Price));
-        }
+        //public static void MakerTransaction(User buyer, BaseUser seller, Document d)
+        //{
+        //    var t = buyer.Transactions.TransactionsReadOnly.AsQueryable().Where(w => w is DocumentTransaction)
+        //        .Any(f => ((DocumentTransaction) f).Document.Id == d.Id);
+
+        //    if (t)
+        //    {
+        //        throw new DuplicateRowException();
+        //    }
+
+        //    buyer.MakeTransaction(Buyer(d));
+        //    seller.MakeTransaction(Seller(d));
+        //    seller.MakeTransaction(new CommissionTransaction(d.Price));
+        //}
 
         //private int _awardScore ;
 
@@ -245,5 +253,55 @@ namespace Cloudents.Core.Entities
         public decimal Price { get; }
     }
 
+
+
+    //public class SessionTransaction : Transaction
+    //{
+    //    private SessionTransaction(StudyRoomSession session)
+    //    {
+    //        Session = session;
+
+
+    //    }
+
+    //    protected SessionTransaction()
+    //    {
+
+    //    }
+
+    //    public virtual StudyRoomSession Session { get; protected set; }
+
+    //    private static Transaction Buyer(StudyRoomSession session, Country country)
+    //    {
+    //        return new SessionTransaction(session)
+    //        {
+    //            Action = TransactionActionType.PurchaseSession,
+    //            Price = -session.Price / country.ConversationRate ?? 0,
+    //            Type = TransactionType.Spent
+    //        };
+    //    }
+
+    //    private static Transaction Seller(StudyRoomSession session, Country country)
+    //    {
+    //        return new SessionTransaction(session)
+    //        {
+    //            Action = TransactionActionType.SoldSession,
+    //            Price = session.Price / country.ConversationRate ?? 0,
+    //            Type = TransactionType.Earned
+    //        };
+    //    }
+
+    //    public static void MakerTransaction(User buyer, Tutor seller, StudyRoomSession s)
+    //    {
+    //        if (s.Price != null)
+    //        {
+    //            Country country = seller.User.Country;
+    //            buyer.MakeTransaction(Buyer(s, country));
+    //            seller.User.MakeTransaction(Seller(s, country));
+    //            seller.User.MakeTransaction(new CommissionTransaction((decimal)s.Price / country.ConversationRate));
+    //        }
+    //    }
+
+    //}
 
 }

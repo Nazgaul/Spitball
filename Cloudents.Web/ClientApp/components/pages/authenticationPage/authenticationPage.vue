@@ -1,12 +1,10 @@
 <template>
   <div class="authenticationPage">
-    <router-link class="backButton" :to="{query: {dialog: 'exitRegisterDialog'}}">
+    <router-link class="backButton" :to="{query: {dialog: exitRegisterDialog}}">
       <close class="closeIcon" />
     </router-link>
 
     <div class="leftSection d-none d-sm-none d-md-none d-lg-flex" :class="{'reg_frymo': isFrymo}">
-      <logo class="logo" />
-      <p class="text text-center white--text">{{$t('loginRegister_main_txt')}}</p>
     </div>
 
     <div class="stepsSections">
@@ -20,19 +18,21 @@
 
 <script>
 import { mapGetters } from "vuex";
-
+import * as dialogNames from '../global/dialogInjection/dialogNames.js'
 //STORE
 import storeService from "../../../services/store/storeService";
 import loginRegister from "../../../store/loginRegister";
 
-const logo = () => import("../../app/logo/logo.vue");
 const close = () => import("../../../font-icon/close.svg");
 
 export default {
-  components: { logo, close },
-  data: () => ({
-    from: ""
-  }),
+  components: { close },
+  data() {
+    return {
+      from: "", 
+      exitRegisterDialog: dialogNames.ExitRegister
+    }
+  },
   computed: {
     ...mapGetters(["isFrymo"]),
     
@@ -67,7 +67,7 @@ export default {
     background-color: #ffffff !important; //main-container class overide color in general page
     height: 100%;
     .leftSection{
-      width: 508px;
+      width: 570px;
       height: 100vh;
       background-image: url('./images/side-image.jpg');
       background-repeat: no-repeat;
@@ -78,16 +78,6 @@ export default {
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      .logo{
-        width: 174px;
-        height: 40px;
-        text-shadow: 0 2px 21px #ffffff;
-        fill: #43425d;
-      }
-      .text{
-        font-size: 26px;
-        font-weight: 600;
-      }
 
       @media (max-width: @screen-sm) {
         width: 100%

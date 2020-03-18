@@ -4,9 +4,12 @@ $btn-font-sizes: (
 );
 $body-font-family: 'Open Sans', sans-serif !default;
 $btn-letter-spacing: normal !default;
+$btn-text-transform: capitalize !default;
 $font-size-root: 14px !default;
 $line-height-root: normal !default;
+// $textarea-padding: 7px 0;
 
-
+$snackbar-font-size:16px;
+$snackbar-background-color: #3293f6;
 // @import '../node_modules/vuetify/src/components/VBtn/_variables.scss';
 // @import '../node_modules/vuetify/src/styles/settings/_variables.scss';

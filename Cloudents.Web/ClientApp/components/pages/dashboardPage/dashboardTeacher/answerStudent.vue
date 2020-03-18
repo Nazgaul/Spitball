@@ -28,8 +28,8 @@ export default {
   methods: {
     getStudentsAnswers() {
       let self = this;
-      this.$store.dispatch('updateStudentsAnswersQuestion').then(({data}) => {
-        self.answers = data
+      this.$store.dispatch('updateStudentsAnswersQuestion').then((answers) => {
+        self.answers = answers
       }).catch(ex => {
         self.$appInsights.trackException({exception: new Error(ex)});
       })
@@ -48,7 +48,8 @@ export default {
   background: white;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
   border-radius: 8px;
-
+  width: 100%;
+  margin: 0 auto;
   @media (max-width: @screen-xs) {
     box-shadow: none;
     border-radius: 0;
@@ -90,6 +91,10 @@ export default {
       }
       &:last-child .middle {
         border-bottom: none;
+        padding-bottom: 0 !important;
+      }
+      &:last-child{
+        padding-bottom: 0 !important;
       }
     }
   }

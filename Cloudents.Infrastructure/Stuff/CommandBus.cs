@@ -1,12 +1,10 @@
 ﻿using Autofac;
 using Cloudents.Command;
-using JetBrains.Annotations;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Stuff
 {
-    [UsedImplicitly]
     public sealed class CommandBus : ICommandBus//, IDisposable
     {
         public CommandBus(ILifetimeScope container)

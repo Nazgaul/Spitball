@@ -1,90 +1,82 @@
 import walletService from '../services/walletService.js';
 import { LanguageService } from '../services/language/languageService';
+import * as dialogNames from '../components/pages/global/dialogInjection/dialogNames.js'
+
+import { router } from '../main.js';
 
 const state = {
-    showPaymentDialog: false,
-    paymentURL: '',
-    tutorName: '',
-    transactionId: null,
-    dictionaryTitle: '',
+    paymentURL: null,
+    isBuyPoints: null
 };
 
 const mutations = {
-    setTutorName(state, name) {
-        state.tutorName = name;
-    },
-    setPaymentDialogState(state,val){
-        state.showPaymentDialog = val;
-    },
     setPaymentURL(state,url){
         state.paymentURL = url;
     },
-    setIdTransaction(state, id) {
-        state.transactionId = id;
+    setIsBuyPoints(state,val){
+        state.isBuyPoints = val;
     },
-     setDictionaryTitle(state, val) {
-         state.dictionaryTitle = val;
-     }
 };
 
 const getters = {
-    getTutorName: state => state.tutorName,
-    getDictionaryTitle: state => state.dictionaryTitle,
-    getShowPaymeDialog: state => state.showPaymentDialog,
     getPaymentURL:state => state.paymentURL,
-    getTransactionId: state => state.transactionId,
+    getIsBuyPoints:state => state.isBuyPoints,
 };
 
 const actions = {
-    buyToken({commit, dispatch}, points) {
+    buyToken({dispatch ,commit}, points) {
         walletService.buyTokens(points).then(({ data }) => {
-            commit('setPaymentURL',data.link);
-            dispatch('updatePaymentDialogState',true);
+            dispatch('updatePaymentLink',data.link)
+            commit('setIsBuyPoints',true)
+            router.push({query:{...router.currentRoute.query,dialog: dialogNames.Payment}})
         }).catch(() => {
             dispatch('updateToasterParams', {
                 toasterText: LanguageService.getValueByKey("buyTokens_failed_transaction"),
                 showToaster: true,
                 toasterTimeout: 5000
             });
-            dispatch('updatePaymentDialogState',false);
             global.localStorage.setItem("sb_transactionError", points);
         });
     },
-    requestPaymentURL({commit,dispatch}, paymeObj ){
-        dispatch('updateTutorName', paymeObj.name);
-        dispatch('updateDictionaryTitle', paymeObj.title);
-        walletService.getPaymeLink().then(({ data }) => {
-            commit('setPaymentURL',data.link);
-            dispatch('updatePaymentDialogState',true);
-        }).catch(() => {
-            dispatch('updateToasterParams', {
-                toasterText: LanguageService.getValueByKey("buyTokens_failed_transaction"),
-                showToaster: true,
-                toasterTimeout: 5000
+    requestPaymentURL({dispatch,getters}){
+        if(getters.getPaymentURL){
+            return Promise.resolve()
+        }else{
+            return walletService.getPaymeLink().then(({ data }) => {
+                dispatch('updatePaymentLink',data.link)
+                return Promise.resolve()
+            }).catch(() => {
+                dispatch('updateToasterParams', {
+                    toasterText: LanguageService.getValueByKey("buyTokens_failed_transaction"),
+                    showToaster: true,
+                    toasterTimeout: 5000
+                });
+                return Promise.reject()
             });
-            dispatch('updatePaymentDialogState',false);
-        });
+        } 
     },
-    updatePaymentDialogState({commit}, val){
-        commit('setPaymentDialogState', val);
-    },
-    updateDictionaryTitle({commit}, title) {
-        commit('setDictionaryTitle', title);
-    },
-    updateTutorName({commit}, name) {
-        commit('setTutorName', name);
-    },
-    updateIdTransaction({commit}, id) {
-        commit('setIdTransaction', id);
-    },
-    signalR_ReleasePaymeStatus({getters,dispatch}){
+    signalR_ReleasePaymeStatus({getters,dispatch,commit}){
         let isStudyRoom = getters.getStudyRoomData;
+        commit('setIsBuyPoints',false)
         if(!!isStudyRoom){
             dispatch('releasePaymeStatus_studyRoom');
+            router.push({query:{...router.currentRoute.query,dialog:undefined}})
         } else{
-            dispatch('updatePaymentDialogState',false);
             dispatch('updateNeedPayment',false);
+            router.push({query:{...router.currentRoute.query,dialog:undefined}})
         }
+    },
+    updatePaymentLink({commit},link){
+        commit('setPaymentURL',link);
+    },
+    updateIsBuyPoints({commit},val){
+        commit('setIsBuyPoints',val)
+    },
+    updatePaypalBuyTokens(context,id){
+        return walletService.paypalBuyTokens(id)
+    },
+    updatePaypalStudyRoom(context,model){
+        return walletService.paypalStudyRoom(model)
     }
 };
 

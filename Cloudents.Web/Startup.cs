@@ -13,7 +13,6 @@ using Cloudents.Web.Identity;
 using Cloudents.Web.Middleware;
 using Cloudents.Web.Resources;
 using Cloudents.Web.Services;
-using JetBrains.Annotations;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Builder;
@@ -108,6 +107,7 @@ namespace Cloudents.Web
                     ),
                 Storage = Configuration["Storage"],
                 ServiceBus = Configuration["ServiceBus"],
+                PayPal = new PayPalCredentials(Configuration["PayPal:ClientId"], Configuration["PayPal:ClientSecret"], !HostingEnvironment.IsProduction())
             };
 
 
@@ -148,7 +148,6 @@ namespace Cloudents.Web
             //return new AutofacServiceProvider(container);
         }
 
-        [UsedImplicitly]
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
@@ -304,7 +303,6 @@ namespace Cloudents.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        [UsedImplicitly]
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             AutofacContainer = app.ApplicationServices.GetAutofacRoot();
@@ -338,21 +336,7 @@ namespace Cloudents.Web
 
             app.UseResponseCaching();
 
-            app.UseRequestLocalization(o =>
-            {
-                o.DefaultRequestCulture = new RequestCulture(Language.English);
-                o.SupportedUICultures = o.SupportedCultures = Language.SystemSupportLanguage().Select(s => (CultureInfo)s).ToList();// SupportedCultures;
-
-                o.RequestCultureProviders.Clear();
-                o.RequestCultureProviders.Add(new FrymoCultureProvider());
-                o.RequestCultureProviders.Add(new QueryStringRequestCultureProvider());
-                o.RequestCultureProviders.Add(new FacebookQueryStringRequestCultureProvider());
-                o.RequestCultureProviders.Add(new CookieRequestCultureProvider());
-                o.RequestCultureProviders.Add(new AuthorizedUserCultureProvider());
-                o.RequestCultureProviders.Add(new CountryCultureProvider());
-                o.RequestCultureProviders.Add(new AcceptLanguageHeaderRequestCultureProvider());
-
-            });
+           
             app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = ctx =>
@@ -382,6 +366,22 @@ namespace Cloudents.Web
             //});
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseRequestLocalization(o =>
+            {
+                o.DefaultRequestCulture = new RequestCulture(Language.English);
+                o.SupportedUICultures = o.SupportedCultures = Language.SystemSupportLanguage().Select(s => (CultureInfo)s).ToList();// SupportedCultures;
+
+                o.RequestCultureProviders.Clear();
+                o.RequestCultureProviders.Add(new FrymoCultureProvider());
+                o.RequestCultureProviders.Add(new QueryStringRequestCultureProvider());
+                o.RequestCultureProviders.Add(new FacebookQueryStringRequestCultureProvider());
+                o.RequestCultureProviders.Add(new CookieRequestCultureProvider());
+                o.RequestCultureProviders.Add(new AuthorizedUserCultureProvider());
+                o.RequestCultureProviders.Add(new CountryCultureProvider());
+                o.RequestCultureProviders.Add(new AcceptLanguageHeaderRequestCultureProvider());
+
+            });
 
             //if (UseAzureSignalR)
             //{

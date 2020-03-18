@@ -1,43 +1,78 @@
-<template functional>
+<template>
    <td class="tableInfo text-xs-left text-truncate">
-      <router-link class="tableInfo_router" :to="props.globalFunctions.router(props.item)">
-         <template v-if="props.item.type === 'TutoringSession'">
+      <template v-if="item.type === 'BuyPoints'">
+         <div class="text-truncate">
+            <span>{{$t('dashboardPage_info_buy_points')}}</span>
+         </div>
+      </template>
+      <router-link v-else class="tableInfo_router" :to="dynamicRouter(item)">
+         <template v-if="item.type === 'TutoringSession'">
             <div class="text-truncate">
-               <span v-html="props.globalFunctions.$Ph('dashboardPage_session',props.item.name)"/>
+               <span v-text="$Ph('dashboardPage_session',item.name)"/>
                <div class="text-truncate">
                   <span class="font-weight-bold" v-language:inner="'dashboardPage_duration'"/> 
-                  <span v-if="props.item.duration">{{props.item.duration | sessionDuration}}</span>
+                  <span v-if="item.duration">{{item.duration}}</span>
                   <span v-else v-language:inner="'dashboardPage_session_on'"/>
                </div>
             </div>
          </template>
-         <template v-if="props.item.type === 'Document' || props.item.type === 'Video'">
+         <template v-if="item.type === 'Document' || item.type === 'Video'">
             <div class="text-truncate">
-               <span>{{props.item.name}}</span>
+               <span>{{item.name}}</span>
             </div>
          </template>
-         <template v-if="props.item.type === 'Question' || props.item.type === 'Answer'">
+         <template v-if="item.type === 'Question' || item.type === 'Answer'">
             <div class="text-truncate">
                <span class="font-weight-bold" v-language:inner="'dashboardPage_question'"/>
-               <span class="text-truncate">{{props.item.text}}</span>
+               <span class="text-truncate">{{item.text}}</span>
             </div>
-            <div class="text-truncate" v-if="props.item.answerText">
+            <div class="text-truncate" v-if="item.answerText">
                <span class="font-weight-bold" v-language:inner="'dashboardPage_answer'"/>
-               <span>{{props.item.answerText}}</span>
+               <span>{{item.answerText}}</span>
             </div>
          </template>
-         <template v-if="props.item.conversationId">
+         <template v-if="item.conversationId">
             <div class="text-truncate">
-               <span>{{props.item.name}}</span>
+               <span>{{item.name}}</span>
             </div>
          </template>
-         <div class="text-truncate" v-if="props.item.course">
+         <div class="text-truncate" v-if="item.course">
             <span class="font-weight-bold" v-language:inner="'dashboardPage_course'"></span>
-            <span>{{props.item.course}}</span>
+            <span>{{item.course}}</span>
          </div>
       </router-link>
    </td>
 </template>
+<script>
+export default {
+   props:{
+      item:{
+         type:Object,
+         required:true
+      }
+   },
+   methods: {
+      dynamicRouter(item){
+         if(item.url){
+            return item.url;
+         }
+         if(item.type === 'Question' || item.type === 'Answer'){
+            return {path:'/question/'+item.id}
+         }
+         if(item.type === 'TutoringSession'){
+            return {name: 'profile',params: {id: item.id, name: item.name}}
+         }
+         if(item.conversationId){
+            return {name: 'profile',params: {id: item.userId, name: item.name}}
+         }
+         if(item.userId && !item.conversationId && !item.type){
+            return {name: 'profile',params: {id: item.userId, name: item.name}}
+         }
+      },   
+   },
+   
+}
+</script>
 
 <style lang="less">
 .tableInfo{

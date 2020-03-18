@@ -123,9 +123,6 @@
   <data name="multiple_error_upload_something_wrong" xml:space="preserve">
     <value>File is not supported</value>
   </data>
-  <data name="files_file_upload" xml:space="preserve">
-    <value>Upload a file</value>
-  </data>
   <data name="CreateOk" xml:space="preserve">
     <value>Your file was uploaded successfully! You will be able to view shortly.</value>
   </data>
@@ -160,7 +157,7 @@
     <value>By uploading this materials you agree to</value>
   </data>
   <data name="uf_sEdit_terms_link" xml:space="preserve">
-    <value>spitball’s terms and conditions</value>
+    <value>Spitball’s terms and conditions</value>
   </data>
   <data name="uf_sEdit_top_btn" xml:space="preserve">
     <value>Apply to all</value>

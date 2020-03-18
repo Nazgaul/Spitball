@@ -4,7 +4,6 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Query;
 using Cloudents.Query.Users;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -52,7 +51,7 @@ namespace Cloudents.Web.Identity
             return Task.FromResult(user.Name);
         }
 
-        public Task SetUserNameAsync(User user, [NotNull] string userName, CancellationToken cancellationToken)
+        public Task SetUserNameAsync(User user, string userName, CancellationToken cancellationToken)
         {
             if (userName == null) throw new ArgumentNullException(nameof(userName));
             var splitUserName = userName.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);

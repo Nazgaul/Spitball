@@ -4,7 +4,6 @@ using Cloudents.Core.Query;
 using Cloudents.Query;
 using Cloudents.Query.Documents;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
 using Xunit;

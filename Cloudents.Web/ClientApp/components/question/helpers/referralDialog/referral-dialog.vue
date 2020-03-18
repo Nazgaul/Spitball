@@ -80,6 +80,9 @@
                     <div>
                         <div class="bottom-sub" v-html="text.dialog.bottomText"></div>
                         <div class="bottom-sub bottom-sub-small" v-html="text.dialog.bottomTextSm"></div>
+                        <a class="bottom-sub termsLink" :href="$t('referralDialog_terms_link')" target="_blank" v-if="termOfServiceLink">
+                            {{$t('referralDialog_terms_link_text')}}
+                        </a>
                     </div>
                 </v-flex>
             </v-layout>
@@ -175,8 +178,13 @@
             userReferralLink() {
             let site = this.isFrymo ? 'frymo.com' : 'spitball.co';
             return `http://www.${site}/?referral=${Base62.encode(this.accountUser.id)}&promo=referral`;
+            },
+            termOfServiceLink() {
+                if(global.country === 'US') {
+                    return true
+                }
+                return false
             }
-
         },
         watch: {
             showDialog() {
@@ -189,7 +197,6 @@
             ...mapActions(['getRefferedUsersNum']),
             requestDialogClose() {
                 this.isCopied = false;
-                // this.$root.$emit('closePopUp', this.popUpType);
                 if(this.onclosefn) this.onclosefn()
 
             },

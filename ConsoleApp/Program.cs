@@ -7,8 +7,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Infrastructure.Video;
 using Cloudents.Persistence;
-using Cloudents.Query;
-using Cloudents.Query.Tutor;
 using Cloudents.Search.Tutor;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
@@ -18,37 +16,25 @@ using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
-using System.ServiceModel.Syndication;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml;
 using Cloudents.Command;
-using Cloudents.Command.Command;
-using Cloudents.Command.Courses;
-using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Core.Extension;
-using Cloudents.Query.Sync;
-using Cloudents.Search.Document;
+using Cloudents.Command.Documents.PurchaseDocument;
+using Cloudents.Core.Exceptions;
+using Cloudents.Core.Storage;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
-using Cloudmersive.APIClient.NETCore.ImageRecognition.Api;
-using Cloudmersive.APIClient.NETCore.ImageRecognition.Model;
 
-[assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
 namespace ConsoleApp
 {
     internal static class Program
     {
-        public static IContainer _container;
+        public static IContainer Container;
 
         public enum EnvironmentSettings
         {
@@ -56,7 +42,12 @@ namespace ConsoleApp
             Prod
         }
 
-
+        /*
+         *  "PayPal": {
+    "ClientId": "AcaET-3DaTqu01QZ0Ad7-5C52pMZ5s4nx59TmbCqdn8gZpfJoM3UPLYCnZmDELZfc-22N_yhmaGEjS3e",
+    "ClientSecret": "EPBamUk7w8Ibrld_eNRV18FYp1zqcYBqx8gCpBBUU9_W5h4tBf8_PhqYS9rzyBBjXJhZ0elFoXoLvdk8"
+  }
+         */
         public static ConfigurationKeys GetSettings(EnvironmentSettings dev)
         {
             switch (dev)
@@ -64,7 +55,7 @@ namespace ConsoleApp
                 case EnvironmentSettings.Dev:
                     return new ConfigurationKeys
                     {
-                        SiteEndPoint = { SpitballSite = "https://dev.spitball.co" },
+                        SiteEndPoint = { SpitballSite = "https://dev.spitball.co", FunctionSite = "https://spitball-dev-function.azureedge.net" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                             ConfigurationManager.AppSettings["Redis"],
                             DbConnectionString.DataBaseIntegration.None),
@@ -76,8 +67,11 @@ namespace ConsoleApp
                         Redis = ConfigurationManager.AppSettings["Redis"],
                         Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                         LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
-                        BlockChainNetwork = "http://localhost:8545",
                         ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
+                        PayPal = new PayPalCredentials(
+                            "AcaET-3DaTqu01QZ0Ad7-5C52pMZ5s4nx59TmbCqdn8gZpfJoM3UPLYCnZmDELZfc-22N_yhmaGEjS3e",
+                            "EPBamUk7w8Ibrld_eNRV18FYp1zqcYBqx8gCpBBUU9_W5h4tBf8_PhqYS9rzyBBjXJhZ0elFoXoLvdk8",
+                            true)
                     };
                 case EnvironmentSettings.Prod:
                     return new ConfigurationKeys
@@ -93,7 +87,6 @@ namespace ConsoleApp
                         Redis = ConfigurationManager.AppSettings["Redis"],
                         Storage = ConfigurationManager.AppSettings["StorageConnectionStringProd"],
                         LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
-                        BlockChainNetwork = "http://localhost:8545",
                         ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
                     };
                 default:
@@ -127,7 +120,7 @@ namespace ConsoleApp
 
 
 
-           // _container = builder.Build();
+            Container = builder.Build();
 
             if (Environment.UserName == "Ram")
             {
@@ -152,61 +145,29 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-           
+            //ResourcesMaintenance.DeleteStuffFromJs();
+            var s = Container.Resolve<ICommandBus>();
+            try
+            {
+                var command = new PurchaseDocumentCommand(7491, 638);
+                await s.DispatchAsync(command, default);
+            }
+            catch (DuplicateRowException)
+            {
 
-           // var sr = new MemoryStream();
-            //myBitmap.Save(sr,ImageFormat.Jpeg);
-            //File.WriteAllBytes(@"C:\Users\Ram\Download\blank.bmp",sr.ToArray());
-
-            //myBitmap.S
-           
-            // await Convert();
-            //var searchWrite = _container.Resolve<ICommandBus>();
-            //await searchWrite.DispatchAsync(new UserRemoveCourseCommand(638, "Statistics" ), default);
-            //Console.WriteLine("add");
-            //await searchWrite.DispatchAsync(new UserJoinCoursesCommand(new[] {"Statistics" }, 638),default);
-
-            //var i = 0;
-            //while (true)
-            //{
-            //    var query = new SyncAzureQuery(0, i);
-            //    var z = await x.QueryAsync<(IEnumerable<DocumentSearchDto>, IEnumerable<string>, long)>(query, default);
-
-            //    var document = z.Item1.FirstOrDefault(w => w.ItemId == 6897);
-            //    if (document != null)
-            //    {
-            //        Console.WriteLine("here");
-            //       var item = Cloudents.Search.Entities.Document.FromDto(document);
-            //       await searchWrite.UpdateDataAsync(new[] {item}, default);
-            //    }
-
-            //    _container.Resolve<DocumentSearchWrite>();
-
-            //    i++;
-            //}
-            //var commandBus = _container.Resolve<ICommandBus>();
-
-            //var command = new SetUserTypeCommand(638,UserType.HighSchoolStudent);
-            //await commandBus.DispatchAsync(command, default);
-
-            //await x.RemoveUnusedStreamingLocatorAsync(default);
-            //await Convert();
+            }
+            //var result = await s.GetPaymentAsync("4J34525079381873W", default);
+            ////var x = await s.QueryAsync(new StudyRoomQuery(Guid.Parse("9f54280c-103e-46a6-8184-aabf00801beb"), 638), default);
 
 
-            //await ReduPreviewProcessingAsync();
-
-            //var queryBus = _container.Resolve<IQueryBus>();
-
-            //var query = new SiteMapQuery(true);
-            //var result = await queryBus.QueryAsync(query, default);
 
 
         }
         private static async Task ResyncTutorRead()
         {
-            var session = _container.Resolve<IStatelessSession>();
-            var bus = _container.Resolve<ICommandBus>();
-            var eventHandler = _container.Resolve<IEventPublisher>();
+            var session = Container.Resolve<IStatelessSession>();
+            var bus = Container.Resolve<ICommandBus>();
+            var eventHandler = Container.Resolve<IEventPublisher>();
 
             var x = await session.CreateSQLQuery(@"
 Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
@@ -224,19 +185,27 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
         private static async Task Convert()
         {
 
-
-
-            // Configure API key authorization: Apikey
-            //Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "86afd89a-207c-4e7a-9ffc-da23fcb9d5b7");
             Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "07af4ce1-40eb-4e97-84e0-c02b4974b190");
-            Cloudmersive.APIClient.NETCore.ImageRecognition.Client.Configuration.Default.AddApiKey("Apikey", "07af4ce1-40eb-4e97-84e0-c02b4974b190");
-            //Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.Timeout = 300000;
-            var apiInstance3 = new EditApi();
-            var apiInstance = new ConvertDocumentApi();
-            var apiInstance2 = new ConvertImageApi();
+            Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.Configuration.Default.Timeout = 300000; //base on support
+            var _convertDocumentApi = new ConvertDocumentApi();
+            var id = 104135;
+            var storage = Container.Resolve<ICloudStorageProvider>();
+            var client = storage.GetBlobClient();
+            var container = client.GetContainerReference("spitball-files");
+            var dir1 = container.GetDirectoryReference("files");
+            var dir2 = dir1.GetDirectoryReference($"{id}");
+            var blobs = await dir2.ListBlobsSegmentedAsync(null);
+            var blob = (CloudBlockBlob)blobs.Results.FirstOrDefault(f => ((CloudBlockBlob) f).Name.Contains("file-"));
 
-            var inputFile = new FileStream("C:\\Users\\Ram\\Downloads\\file-52936bce-e08a-4138-9639-4971c22640ba-142339.pptx", System.IO.FileMode.Open); // System.IO.Stream | Input file to perform the operation on.
 
+            var sr = await blob.OpenReadAsync();
+            
+           // var sr = new FileStream("C:\\Users\\Ram\\Downloads\\xxx\\file-52936bce-e08a-4138-9639-4971c22640ba-142339.pptx", System.IO.FileMode.Open); // System.IO.Stream | Input file to perform the operation on.
+            var text2 = await _convertDocumentApi.ConvertDocumentPptxToTxtAsync(sr);
+            sr.Seek(0, SeekOrigin.Begin);
+            var result = await _convertDocumentApi.ConvertDocumentAutodetectToPngArrayAsync(sr);
+
+            Console.WriteLine("here");
             //var image = new Image<Rgba32>(500, 500);
             //image.Mutate(c=>c.BackgroundColor(Color.Aqua));
             //var ms = new MemoryStream();
@@ -255,7 +224,7 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
             //            BaseImageBytes: bytes,
             //            TextToDraw: new List<DrawTextInstance>()
             //    {
-                    
+
             //        new DrawTextInstance(
             //            "בקרוב תראו תוצאות וציונים שיעלו לכם חיוך על הפנים :) (אפילו אם כרגע זה נראה בלתי אפשרי). בעל ניסיון של 6 שנים!",
             //            FontFamilyName: "Georgia",
@@ -288,10 +257,10 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
         private static async Task ResetVideo()
         {
-            var bus = _container.Resolve<ICloudStorageProvider>();
-            var d = _container.Resolve<DapperRepository>();
+            var bus = Container.Resolve<ICloudStorageProvider>();
+            var d = Container.Resolve<DapperRepository>();
             IEnumerable<long> ids; // 49538
-            var mediaServices = _container.Resolve<MediaServices>();
+            var mediaServices = Container.Resolve<MediaServices>();
             var queueClient = bus.GetQueueClient();
             using (var con = d.OpenConnection())
             {
@@ -316,17 +285,17 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
             //await c.CreateOrUpdateAsync(default);
 
 
-            var c2 = _container.Resolve<TutorSearchWrite>();
+            var c2 = Container.Resolve<TutorSearchWrite>();
             await c2.CreateOrUpdateAsync(default);
 
-            var session = _container.Resolve<ISession>();
+            var session = Container.Resolve<ISession>();
             foreach (var tutorId in session.Query<Tutor>().Where(w => w.State == ItemState.Ok).Select(s => s.Id).AsEnumerable())
             {
-                var eventHandler = _container.Resolve<IEventHandler<SetUniversityEvent>>();
+                var eventHandler = Container.Resolve<IEventHandler<SetUniversityEvent>>();
                 await eventHandler.HandleAsync(new SetUniversityEvent(tutorId), default);
             }
 
-            var storageProvider = _container.Resolve<ICloudStorageProvider>();
+            var storageProvider = Container.Resolve<ICloudStorageProvider>();
             var blobClient = storageProvider.GetBlobClient();
             var container = blobClient.GetContainerReference("spitball");
             var directory = container.GetDirectoryReference("AzureSearch");
@@ -344,7 +313,7 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
 
 
-            var bus = _container.Resolve<ICloudStorageProvider>();
+            var bus = Container.Resolve<ICloudStorageProvider>();
             var blobClient = bus.GetBlobClient();
             var queueClient = bus.GetQueueClient();
 
@@ -374,11 +343,22 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
                         continue;
                     }
                     var fileDir = container.GetDirectoryReference($"files/{id}");
-                    
-                    var blobs = (await fileDir.ListBlobsSegmentedAsync(false, BlobListingDetails.Metadata,null,null,null,null)).Results.ToList();
+
+                    var blobs = (await fileDir.ListBlobsSegmentedAsync(false, BlobListingDetails.Metadata, null, null, null, null)).Results.ToList();
 
                     var fileItem = (CloudBlockBlob)blobs.First(a => a.Uri.AbsoluteUri.Contains("file-"));
                     var extension = Path.GetExtension(fileItem.Name);
+
+                    var blurFiles = blobs.Where(a => a.Uri.AbsoluteUri.Contains("blur-")).ToList();
+
+                    if (blurFiles.Count > 0)
+                    {
+                        foreach (var listBlobItem in blurFiles)
+                        {
+                            var blobToDelete = (CloudBlockBlob)listBlobItem;
+                            await blobToDelete.DeleteAsync();
+                        }
+                    }
 
                     if (!FileTypesExtension.PowerPoint.Extensions.Contains(extension, StringComparer.OrdinalIgnoreCase))
                     {
@@ -1047,7 +1027,7 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
 
 
-            var keyNew = _container.Resolve<IConfigurationKeys>().Storage;
+            var keyNew = Container.Resolve<IConfigurationKeys>().Storage;
             var storageAccount = CloudStorageAccount.Parse(keyNew);
             var blobClient = storageAccount.CreateCloudBlobClient();
 

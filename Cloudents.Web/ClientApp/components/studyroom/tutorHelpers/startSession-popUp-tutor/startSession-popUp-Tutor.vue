@@ -10,7 +10,7 @@
             <v-progress-circular v-if="isStudentImage && studentImage" :width="2" indeterminate v-bind:size="35" color="#514f7d"/>
             <userAvatar v-else :user-name="studentName"  :userImageUrl="studentImage" :user-id="studentId" :size="'58'"/>
         </v-flex>
-        <v-flex xs12 class="pt-3">
+        <v-flex xs12 class="pt-3 px-5 text-truncate">
             <span class="tutor-start-wrap_title font-weight-bold" v-language:inner>tutor_start_dialog_your_student</span>
             <span class="tutor-start-wrap_title font-weight-bold">&nbsp;{{studentName}}</span>
         </v-flex>
@@ -77,8 +77,7 @@
             showButton(){
                 let statesToShow = [
                     this.tutoringMain.startSessionDialogStateEnum.start,
-                    this.tutoringMain.startSessionDialogStateEnum.waiting,
-                    this.tutoringMain.startSessionDialogStateEnum.needPayment
+                    this.tutoringMain.startSessionDialogStateEnum.waiting
                 ]
                 return statesToShow.indexOf(this.getTutorDialogState) > -1
             },
@@ -87,8 +86,6 @@
                     return LanguageService.getValueByKey('tutor_stream_btn_start_tutor')
                 }else if(this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.waiting){
                     return LanguageService.getValueByKey('tutor_stream_btn_waiting_tutor')
-                }else if(this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.needPayment){
-                    return LanguageService.getValueByKey('tutor_stream_btn_needPayment_tutor')
                 }else if(this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.disconnected){
                     return LanguageService.getValueByKey('tutor_stream_btn_disconnected_tutor')
                 }else if(this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.finished){
@@ -105,7 +102,7 @@
             }
         },
         methods: {
-            ...mapActions(['updateTutorStartDialog', 'setSesionClickedOnce']),
+            ...mapActions(['setSesionClickedOnce']),
             startSession(){
                 videoStreamService.enterRoom();
             },

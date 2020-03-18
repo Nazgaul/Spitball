@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
 
 [assembly: InternalsVisibleTo("Cloudents.Persistence")]
 namespace Cloudents.Core.Entities
@@ -15,13 +14,21 @@ namespace Cloudents.Core.Entities
     {
         public StudyRoom(Tutor tutor, User user, string onlineDocumentUrl)
         {
-
-            _users = new[] { new StudyRoomUser(tutor.User, this), new StudyRoomUser(user, this) };
+            _users = new[]
+            {
+                new StudyRoomUser(tutor.User, this),
+                new StudyRoomUser(user, this)
+            };
             Tutor = tutor;
             Identifier = ChatRoom.BuildChatRoomIdentifier(new[] { tutor.Id, user.Id });
             OnlineDocumentUrl = onlineDocumentUrl;
             Type = StudyRoomType.PeerToPeer;
             DateTime = new DomainTimeStamp();
+
+           
+            
+
+
             AddEvent(new StudyRoomCreatedEvent(this));
         }
 
@@ -47,20 +54,13 @@ namespace Cloudents.Core.Entities
         public virtual IEnumerable<StudyRoomSession> Sessions => _sessions;
 
 
-        [CanBeNull]
-        public virtual StudyRoomSession GetCurrentSession()
+        public virtual StudyRoomSession? GetCurrentSession()
         {
-
             var result = Sessions.AsQueryable().Where(w => w.Ended == null).OrderBy(o => o.Id).ToList();
-
-            //if (result.Count > 1)
-            //{
-            for (int i = 0; i < result.Count - 1; i++)
+            for (var i = 0; i < result.Count - 1; i++)
             {
                 result[i].EndSession();
             }
-
-            //}
             return result.SingleOrDefault(w => w.Ended == null);
         }
 

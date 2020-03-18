@@ -142,7 +142,7 @@
     <value>בבקשה בצע התקנה ואישור שימוש בתוסף לדפדפן כרום בכדי לאפשר שיתוף מסך במחשב שלך.</value>
   </data>
   <data name="chrome_ext_text" xml:space="preserve">
-    <value>ברגע שהתוסף מותקן, בבקשה בצע רענון כדי שתוכל להשתמש בתוסף שיתוף המסך</value>
+    <value>ברגע שהתוסף מותקן, בבקשה בצע רענון כדי שתוכל להשתמש בתוסף שיתוף המסך.</value>
   </data>
   <data name="chrome_ext_title" xml:space="preserve">
     <value>התקנת תוסף לדפדפן כרום</value>
@@ -210,9 +210,6 @@
   <data name="start_to_share" xml:space="preserve">
     <value>זמין במהלך השיעור</value>
   </data>
-  <data name="stream_btn_add_payment" xml:space="preserve">
-    <value>הוסף פרטי כרטיס אשראי</value>
-  </data>
   <data name="stream_btn_disconnected_student" xml:space="preserve">
     <value>הקשר נותק. אנחנו מנסים להתחבר חזרה</value>
   </data>
@@ -227,18 +224,6 @@
   </data>
   <data name="stream_btn_finished_tutor" xml:space="preserve">
     <value>השיעור הסתיים</value>
-  </data>
-  <data name="stream_btn_join_session" xml:space="preserve">
-    <value>התחל שיעור</value>
-  </data>
-  <data name="stream_btn_needPayment_student" xml:space="preserve">
-    <value>הוסף פרטי כרטיס אשראי</value>
-  </data>
-  <data name="stream_btn_needPayment_tutor" xml:space="preserve">
-    <value>ממתין לסטודנט</value>
-  </data>
-  <data name="stream_btn_pending_tutor" xml:space="preserve">
-    <value>ממתין לסטודנט</value>
   </data>
   <data name="stream_btn_start_session" xml:space="preserve">
     <value>התחל שיעור</value>

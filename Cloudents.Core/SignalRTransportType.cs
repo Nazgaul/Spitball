@@ -1,11 +1,10 @@
-﻿using JetBrains.Annotations;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core
 {
     public class SignalRTransportType
     {
-        public SignalRTransportType(SignalRType type, SignalRAction action, object[] data)
+        private SignalRTransportType(SignalRType type, SignalRAction action, object[] data)
         {
             Type = type;
             Action = action;
@@ -38,10 +37,10 @@ namespace Cloudents.Core
 
 
 
-        public SignalRType Type { [UsedImplicitly] get; }
-        public SignalRAction Action { [UsedImplicitly] get; set; }
+        public SignalRType Type {  get; }
+        public SignalRAction Action {  get; set; }
 
-        public object[] Data { [UsedImplicitly] get; }
+        public object[] Data {  get; }
     }
 
 
@@ -49,7 +48,6 @@ namespace Cloudents.Core
     public enum SignalRAction
     {
         Add,
-        Delete,
         Update,
         Action
     }
@@ -57,7 +55,6 @@ namespace Cloudents.Core
     public enum SignalREventAction
     {
         Logout,
-        //MarkAsCorrect,
         Toaster,
         OnlineStatus,
         StartSession,
@@ -67,9 +64,6 @@ namespace Cloudents.Core
 
     public enum SignalRType
     {
-        Question,
-        Answer,
-        //Document,
         User,
         System,
         Chat,

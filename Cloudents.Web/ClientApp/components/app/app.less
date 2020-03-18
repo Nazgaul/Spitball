@@ -64,6 +64,14 @@ html[dir="rtl"] {
   @media (max-width: @screen-xs) {
     background-color: #E6E6E6;
   }
+  &.hidden-sideMenu{
+    // width="220" mini-variant-width="62"
+    padding-left: 220px !important;
+    @media (max-width: @screen-md) {
+      // padding-left: 62px !important;
+      padding-left: 0px !important;
+    }
+  }
 }
 
 .loader {
@@ -180,14 +188,7 @@ html[dir="rtl"] {
 }
 
 .v-snack__content {
-  // width: 616px;
-  height: 48px;
-  background-image: linear-gradient(93deg, #4b8ffe, #4452fc);
-  font-size: 16px;
-  line-height: 1.35;
-  letter-spacing: -0.4px;
-  color: #ffffff;
-  
+  justify-content: center;
   .text-wrap {
     padding: 0 20px;
     width: 100%;

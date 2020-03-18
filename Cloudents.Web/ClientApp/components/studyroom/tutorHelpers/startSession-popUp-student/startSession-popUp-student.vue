@@ -10,7 +10,7 @@
             <v-progress-circular v-if="!tutorImage" :width="2" indeterminate v-bind:size="35" color="#514f7d"/>
             <userAvatar v-else :user-name="tutorName" :userImageUrl="tutorImage" :user-id="tutorId" :size="'58'"/>
             </v-flex>
-            <v-flex xs12 class="pt-3">
+            <v-flex xs12 class="pt-3 px-5 text-truncate">
                 <span class="student-start-wrap_title font-weight-bold" v-language:inner>tutor_start_dialog_your_tutor</span>
                 <span class="student-start-wrap_title font-weight-bold">&nbsp;{{tutorName}}</span>
             </v-flex>
@@ -78,9 +78,8 @@
             showButton(){
                 let statesToShow = [
                     this.tutoringMain.startSessionDialogStateEnum.start,
-                    this.tutoringMain.startSessionDialogStateEnum.waiting,
-                    this.tutoringMain.startSessionDialogStateEnum.needPayment
-                ]
+                    this.tutoringMain.startSessionDialogStateEnum.waiting
+                    ]
                 return statesToShow.indexOf(this.getStudentDialogState) > -1
             },
             roomStateText(){
@@ -88,8 +87,6 @@
                     return LanguageService.getValueByKey('tutor_stream_btn_start_session_student')
                 }else if(this.getStudentDialogState === this.tutoringMain.startSessionDialogStateEnum.waiting){
                     return LanguageService.getValueByKey('tutor_stream_btn_waiting_student')
-                }else if(this.getStudentDialogState === this.tutoringMain.startSessionDialogStateEnum.needPayment){
-                    return LanguageService.getValueByKey('tutor_stream_btn_needPayment_student')
                 }else if(this.getStudentDialogState === this.tutoringMain.startSessionDialogStateEnum.disconnected){
                     return LanguageService.getValueByKey('tutor_stream_btn_disconnected_student')
                 }else if(this.getStudentDialogState === this.tutoringMain.startSessionDialogStateEnum.finished){
@@ -99,11 +96,11 @@
                 }
             },
             buttonState() {
-                return this.getStudentDialogState !== this.tutoringMain.startSessionDialogStateEnum.start && this.getStudentDialogState !== this.tutoringMain.startSessionDialogStateEnum.needPayment
+                return this.getStudentDialogState !== this.tutoringMain.startSessionDialogStateEnum.start
             }
         },
         methods: {
-            ...mapActions(['updateStudentStartDialog', 'setSesionClickedOnce']),
+            ...mapActions(['setSesionClickedOnce']),
             joinSession() {
                 videoStreamService.enterRoom();
             },

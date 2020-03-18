@@ -68,8 +68,7 @@ namespace Cloudents.Web.Binders
                         }
 
                         break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                       // throw new ArgumentOutOfRangeException();
                 }
             }
             bindingContext.Result = ModelBindingResult.Success(profile);

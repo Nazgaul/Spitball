@@ -16,13 +16,13 @@ export default {
   },
   components: { followSVG },
   computed: {
-    ...mapGetters(['getProfile'])
+    ...mapGetters(['getProfile','getUserLoggedInStatus'])
   },
   methods: {
-    ...mapActions(['toggleProfileFollower','updateLoginDialogState']),
+    ...mapActions(['toggleProfileFollower']),
     followToggler(){
       
-      if(global.isAuth){
+      if(this.getUserLoggedInStatus){
         if(this.isLoading) return
         let self = this;
         this.isLoading = true;
@@ -30,7 +30,7 @@ export default {
           self.isLoading = false;
         })
       }else{
-        this.updateLoginDialogState(true);
+        this.$openDialog('login')
       }
     }
   },

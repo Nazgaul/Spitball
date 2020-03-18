@@ -31,8 +31,13 @@ namespace Cloudents.Core.DTOs
     }
     public class SessionSaleDto : SaleDto
     {
+        public Guid SessionId { get; set; }
         public string StudentName { get; set; }
-        public TimeSpan? Duration { get; set; }
+        public TimeSpan Duration { get; set; }
+
+        public bool ShouldSerializeDuration() => false;
+
+        public double TotalMinutes => Duration.TotalMinutes;
         public string StudentImage { get; set; }
         public long StudentId { get; set; }
         public override ContentType Type => ContentType.TutoringSession;
@@ -40,6 +45,7 @@ namespace Cloudents.Core.DTOs
 
     public enum PaymentStatus
     {
+        PendingApproval,
         Pending,
         Paid
     }
@@ -48,6 +54,7 @@ namespace Cloudents.Core.DTOs
         Document,
         Video,
         TutoringSession,
-        Question
+        Question,
+        BuyPoints
     }
 }

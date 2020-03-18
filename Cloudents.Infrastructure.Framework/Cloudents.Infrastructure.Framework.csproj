@@ -11,6 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="..\Cloudents.Core\Enum\DocumentType.cs" Link="DocumentType.cs" />
+    <Compile Include="..\Cloudents.Core\FormatDocumentExtensions.cs" Link="FormatDocumentExtensions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Aspose.Total.lic">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -26,10 +31,9 @@
     <PackageReference Include="Aspose.Slides.NET" Version="15.6.0" />
     <PackageReference Include="Aspose.Words" Version="15.6.0" />
     <PackageReference Include="Autofac" Version="4.9.4" />
-    <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
-  <ItemGroup>
+  <!--<ItemGroup>
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
-  </ItemGroup>
+  </ItemGroup>-->
 </Project>
