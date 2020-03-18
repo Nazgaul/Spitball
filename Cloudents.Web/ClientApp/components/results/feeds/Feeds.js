@@ -44,9 +44,11 @@ export default {
     },
     data() {
         return {
+            courses: [],
             showAdBlock: global.country === 'IL',
             query:{
                 filter:this.$route.query.filter,
+                course:this.$route.query.course
             },
             scrollBehaviour:{
                 isLoading: false,
@@ -59,11 +61,16 @@ export default {
                 'Question':this.$t('feed_select_question'),
                 'Tutor':this.$t('feed_select_tutor'),
                 'Empty':this.$t('feed_select_all'),
-            }
+            },
+            selectCoursePlaceholder: this.$t('profile_select_course'),
         };
     },
     computed: {
-        ...mapGetters(['getBannerParams','accountUser','Feeds_getItems','Feeds_getFilters','Feeds_getCurrentQuery','getUserLoggedInStatus']),
+        ...mapGetters([
+            'getBannerParams','accountUser','Feeds_getItems',
+            'Feeds_getFilters','Feeds_getCurrentQuery',
+            'getUserLoggedInStatus', 'getProfile'
+        ]),
         items(){
             return this.Feeds_getItems
         },
@@ -88,6 +95,7 @@ export default {
             handler(newVal,oldVal){
                 this.scrollBehaviour.page = 1;
                 this.query.filter = this.Feeds_getCurrentQuery.filter
+                this.query.course = this.Feeds_getCurrentQuery.course
                 if(JSON.stringify(newVal) !== JSON.stringify(oldVal)){
                     this.scrollBehaviour.isComplete = true;
                     this.fetchData({params:newVal}).finally(()=>{
@@ -137,12 +145,27 @@ export default {
                 ...this.$route.query,
                 ...this.query,
             }
-            Object.keys(objParams).forEach((key) => (objParams[key] === '') && delete objParams[key]);
+            Object.keys(objParams).forEach((key) => {
+                let isInArray = [undefined, ''].indexOf(objParams[key]) !== -1;
+                let isInObj = typeof objParams.filter === 'object'
+                if (isInArray || isInObj) {
+                    delete objParams[key]
+                }
+            });
+             
             this.$router.push({name:'feed',query:{...objParams}})
             this.scrollBehaviour.page = 1;
         },
         getSelectedName(item){
             return this.dictionary[item.key]
+        },
+        getCourses() {
+            this.$store.dispatch('updateFeedCourses').then(({data}) => {
+                this.courses = data
+            })
         }
     },
+    created() {
+        this.getCourses()
+    }
 };
