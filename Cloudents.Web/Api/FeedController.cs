@@ -1,14 +1,18 @@
-﻿using Cloudents.Core.DTOs.Documents;
+﻿using Cloudents.Core.DTOs;
+using Cloudents.Core.DTOs.Documents;
 using Cloudents.Core.DTOs.Feed;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query.Feed;
+using Cloudents.Query;
+using Cloudents.Query.Users;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Framework;
 using Cloudents.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -139,6 +143,16 @@ namespace Cloudents.Web.Api
                     FeedType.Video.ToString("G"),
                     FeedType.Tutor.ToString("G")
                 });
+        }
+
+        [HttpGet("courses")]
+        [Authorize]
+        //CourseDto?
+        public async Task<IEnumerable<string>> GetUserCoursesAync([FromServices] IQueryBus queryBus, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new UserCoursesNamesQuery(userId);
+            return await queryBus.QueryAsync(query, token);
         }
 
     }
