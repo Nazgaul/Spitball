@@ -19,7 +19,6 @@
 //     currentAudioTrack: null,
 //     localVideoTrack: null,
 //     localAudioTrack: null,
-//     isRemote: false,
 //     lastActiveLocalVideoTrack: null,
 //     videoDevice: null,
 //     audioDevice: null,
@@ -38,7 +37,6 @@
 //     getCurrentAudioTrack:state => state.currentAudioTrack,
 //     getLocalVideoTrack:state => state.localVideoTrack,
 //     getLocalAudioTrack:state => state.localAudioTrack,
-//     releaseFullVideoButton:state => state.isRemote,
 //     getIsVideoActive: state => state.isVideoActive,
 //     getIsAudioActive: state => state.isAudioActive,
 //     getLocalDisplayMedia: state => state.localDisplayMedia,
@@ -60,9 +58,6 @@
 //     },
 //     setLocalAudioTrack(state, track){
 //         state.localAudioTrack = track;
-//     },
-//     releaseFullVideoButton(state,val){
-//         state.isRemote = val;
 //     },
 //     setIsVideoActive(state, val){
 //         state.isVideoActive  = val;
@@ -202,24 +197,24 @@
 //             container.appendChild(track.attach());
 //         }
 //     },
-//     toggleVideoTrack({getters,dispatch, state}){
-//         if(!getters['activeRoom']){
-//             if(state.isVideoActive){
-//                 dispatch('setIsVideoActive', false);
-//             }else{
-//                 dispatch('setIsVideoActive', true);
-//             }
-//         }else{
-//             let currentTrack = _getLocalTrack(getters,'video');
-//             if(currentTrack){
-//                 dispatch('setIsVideoActive', false);
-//                 dispatch('destroyLocalVideoTrack',currentTrack.track);
-//             } else{
-//                 dispatch('setIsVideoActive', true);
-//                 dispatch('initLocalVideoTrack');
-//             }
-//         } 
-//     },
+   //  toggleVideoTrack({getters,dispatch, state}){
+   //      if(!getters['activeRoom']){
+   //          if(state.isVideoActive){
+   //              dispatch('setIsVideoActive', false);
+   //          }else{
+   //              dispatch('setIsVideoActive', true);
+   //          }
+   //      }else{
+   //          let currentTrack = _getLocalTrack(getters,'video');
+   //          if(currentTrack){
+   //              dispatch('setIsVideoActive', false);
+   //              dispatch('destroyLocalVideoTrack',currentTrack.track);
+   //          } else{
+   //              dispatch('setIsVideoActive', true);
+   //              dispatch('initLocalVideoTrack');
+   //          }
+   //      } 
+   //  },
 //     toggleAudioTrack({getters,dispatch, state}){
 //         if(!getters['activeRoom']){
 //             if(state.isAudioActive){

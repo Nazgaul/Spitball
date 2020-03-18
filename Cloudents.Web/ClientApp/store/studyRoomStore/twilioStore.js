@@ -6,6 +6,8 @@ const state = {
    isVideoAvailable: false,
    isAudioAvailable: false,
    isAudioActive: true,
+   isFullScreenAvailable:false,
+   isShareScreen:false,
 }
 const mutations = {
    [SETTERS.JWT_TOKEN]: (state,token) => state.jwtToken = token,
@@ -14,12 +16,16 @@ const mutations = {
    [SETTERS.VIDEO_TOGGLE]: (state,val) => state.isVideoActive = val,
    [SETTERS.AUDIO_AVAILABLE]: (state,val) => state.isAudioAvailable = val,
    [SETTERS.AUDIO_TOGGLE]: (state,val) => state.isAudioActive = val,
-   [SETTERS.SCREEN_SHARE]: () => {},
+   [SETTERS.FULL_SCREEN_AVAILABLE]: (state,val) => state.isFullScreenAvailable = val,
+   [SETTERS.SCREEN_SHARE]: (state,val) => state.isShareScreen = val,
 }
+
 const getters = {
    getJwtToken: (state) => state.jwtToken,
    getIsVideoActive: (state) => state.isVideoAvailable && state.isVideoActive,
    getIsAudioActive: (state) => state.isAudioAvailable && state.isAudioActive,
+   getIsFullScreenAvailable: (state) => state.isFullScreenAvailable,
+   getIsShareScreen: (state) => state.isShareScreen,
 }
 const actions = {
    updateJwtToken({commit},token){
@@ -39,7 +45,7 @@ const actions = {
       }
    },
    updateShareScreen({commit}){
-      commit(SETTERS.SCREEN_SHARE)
+      commit(SETTERS.SCREEN_SHARE,true)
    }
 }
 export default {

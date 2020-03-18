@@ -36,6 +36,9 @@ export default {
     },
     computed: {
         ...mapGetters([
+            'getIsShareScreen',
+
+
             'getLocalVideoTrack',
             'getLocalAudioTrack',
             'getIsVideoActive',

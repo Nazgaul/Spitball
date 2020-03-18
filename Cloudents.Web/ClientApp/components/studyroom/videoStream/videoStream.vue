@@ -1,7 +1,5 @@
 <template>
     <v-container class="videos-wrapper py-0 px-0">
-        {{getIsVideoActive}}
-        {{getIsAudioActive}}
         <v-layout column align-end>
             <div class="video-holder">
                 <v-flex class="px-3 video-con-controls">
@@ -11,19 +9,17 @@
                         <div id="remoteTrack"></div>
 
                         <div class="local-video-holder" :class="{'extended-video-window': extandLocalVideoScreen}">
-                            <!-- <div v-show="!isVideoActive" class="localTrack-placeholder">
+                            <div v-show="!isVideoActive && !getIsShareScreen" class="localTrack-placeholder">
                                 <div class="placeholder-back">
                                     <videoCameraImageIgnore2 class="placeholder-svg" />
                                 </div>
                             </div>
-                            <div v-show="isVideoActive && isSharing" class="localTrack-placeholder share-screen">
+                            <div v-show="getIsShareScreen" class="localTrack-placeholder share-screen">
                                 <div class="placeholder-back share-screen">
                                     <castIcon class="placeholder-svg"></castIcon>
                                 </div>
-                            </div> -->
-                            <!-- TODO: dont forget to fix it! -->
-                            <div style="width:104px" id="localTrack"></div>          
-                            <!-- <div v-show="isVideoActive" id="localTrack"></div> -->
+                            </div>
+                            <div v-show="isVideoActive && !getIsShareScreen" style="width:104px;height:80px" id="localTrack"></div>          
                         </div>
                         <div class="control-panel">
                             <v-tooltip top>

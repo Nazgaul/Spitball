@@ -1,25 +1,24 @@
 <template>
     <div class="share-screen-btn-wrap">
         <v-flex class="text-center">
-            <div v-if="!isSharing" >
+            <div v-if="!getIsShareScreen" >
                 <v-tooltip top >
                     <template v-slot:activator="{on}">
-                        <!--keep this div, due to tooltip not appearing on disabled btn bug of vuetify-->
                         <div v-on="on">
-                            <button @click="showScreen" class="outline-btn-share" :disabled="(!roomIsActive && !isSafari) || (!roomIsActive && isSafari)">
+                            <button @click="showScreen" class="outline-btn-share">
                                 <castIcon class="cast-icon"></castIcon>
                                 <span v-language:inner="'tutor_btn_share_screen'"></span>
                             </button>
                         </div>
                     </template>
-                    <span v-language:inner="isSafari? 'tutor_browser_not':'tutor_start_to_share'"/>
+                    <span v-language:inner="'tutor_start_to_share'"/>
                 </v-tooltip>
             </div>
-            <button class="outline-btn-share" v-else @click="stopSharing" :disabled="!localVideoTrack && !activeRoom">
+            <button class="outline-btn-share" v-else @click="stopSharing">
                 <span v-language:inner="'tutor_btn_stop_sharing'"></span>
             </button>
         </v-flex>
-        <v-dialog class="install-extension-dialog" v-model="extensionDialog" max-width="290">
+        <!-- <v-dialog class="install-extension-dialog" v-model="extensionDialog" max-width="290">
             <v-card>
                 <v-card-title class="headline">
                     <span v-language:inner="'tutor_chrome_ext_title'"></span>
@@ -48,7 +47,7 @@
                     </v-btn>
                 </v-card-actions>
             </v-card>
-        </v-dialog>
+        </v-dialog> -->
     </div>
 </template>
 
@@ -74,7 +73,7 @@
         },
         computed: {
             ...mapState(['tutoringMain', 'studyRoomTracks_store']),
-            ...mapGetters(["accountUser", "getStudyRoomData", "getCurrentRoomState", "getLocalVideoTrack","activeRoom"]),
+            ...mapGetters(['getIsShareScreen',"accountUser", "getStudyRoomData", "getCurrentRoomState", "getLocalVideoTrack","activeRoom"]),
             localVideoTrack(){
                 return this.getLocalVideoTrack
             },
@@ -86,7 +85,8 @@
                 }
             },
             roomIsActive() {
-                return this.getCurrentRoomState === this.tutoringMain.roomStateEnum.active;
+                return true
+                // return this.getCurrentRoomState === this.tutoringMain.roomStateEnum.active;
             },
             isTutor() {
                 return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
@@ -120,73 +120,74 @@
             //screen share start
             showScreen() {
                 this.$ga.event("tutoringRoom", 'screen share start');
+                insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_ShareScreenBtn_Click', {id: this.$route.params.id}, null);
+                this.$store.dispatch('updateShareScreen')
 
-                let self = this;
-                insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_ShareScreenBtn_Click', {id: self.getStudyRoomData.roomId}, null);
-                videoService.getUserScreen().then(
-                    stream => {
-                        insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_ShareScreenBtn_Accepted', {id: self.getStudyRoomData.roomId}, null);
-                        stream.removeEventListener('ended', () => self.stopSharing());
-                        stream.addEventListener('ended', () => self.stopSharing());
-                        store.dispatch('setLocalVideoTrack', stream);
-                        self.screenShareTrack = stream; //stream.getVideoTracks()[0];
-                        self.publishTrackToRoom(self.screenShareTrack);
-                        self.isSharing = true;
-                    },
-                    error => {
-                        error = error || {};
-                        let d = {...{
-                            errorMessage:error.message,
-                            errorname:  error.name},
-                             ...{id: self.getStudyRoomData.roomId}};
-                        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_ShareScreenBtn_showScreen', d, null);
-                        if(error === "noExtension") {
-                            self.extensionDialog = true;
-                            return;
-                        }
-                        if(error === "notBrowser") {
-                            self.updateToasterParams({
-                                toasterText: this.$t("studyRoom_not_browser"),
-                                showToaster: true,
-                                toasterType: "error-toaster" //c
-                            });
-                            return;
-                        }
-                        if(error.name === "NotAllowedError") {
-                            if (error.message === "Permission denied") {
-                                //user press cancel.
-                                return;
-                            }
-                            if (error.message === "Permission denied by system") {
-                                 let url = 'https://support.apple.com/en-il/guide/mac-help/mchld6aa7d23/mac'
-                                 self.updateToasterParams({
-                                    toasterText: self.$t('studyRoom_premission_denied',[url]),
-                                    toasterTimeout: 30000,
-                                    showToaster: true,
-                                    toasterType: "error-toaster" //c
-                                });
-                            }
-                            return
+                // videoService.getUserScreen().then(
+                //     stream => {
+                //         insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_ShareScreenBtn_Accepted', {id: self.getStudyRoomData.roomId}, null);
+                //         stream.removeEventListener('ended', () => self.stopSharing());
+                //         stream.addEventListener('ended', () => self.stopSharing());
+                //         store.dispatch('setLocalVideoTrack', stream);
+                //         self.screenShareTrack = stream; //stream.getVideoTracks()[0];
+                //         self.publishTrackToRoom(self.screenShareTrack);
+                //         self.isSharing = true;
+                //     },
+                //     error => {
+                //         error = error || {};
+                //         let d = {...{
+                //             errorMessage:error.message,
+                //             errorname:  error.name},
+                //              ...{id: self.getStudyRoomData.roomId}};
+                //         insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_ShareScreenBtn_showScreen', d, null);
+                //         if(error === "noExtension") {
+                //             self.extensionDialog = true;
+                //             return;
+                //         }
+                //         if(error === "notBrowser") {
+                //             self.updateToasterParams({
+                //                 toasterText: this.$t("studyRoom_not_browser"),
+                //                 showToaster: true,
+                //                 toasterType: "error-toaster" //c
+                //             });
+                //             return;
+                //         }
+                //         if(error.name === "NotAllowedError") {
+                //             if (error.message === "Permission denied") {
+                //                 //user press cancel.
+                //                 return;
+                //             }
+                //             if (error.message === "Permission denied by system") {
+                //                  let url = 'https://support.apple.com/en-il/guide/mac-help/mchld6aa7d23/mac'
+                //                  self.updateToasterParams({
+                //                     toasterText: self.$t('studyRoom_premission_denied',[url]),
+                //                     toasterTimeout: 30000,
+                //                     showToaster: true,
+                //                     toasterType: "error-toaster" //c
+                //                 });
+                //             }
+                //             return
 
                            
-                        }
-                        self.updateToasterParams({
-                            toasterText: this.$t("studyRoom_not_screen"),
-                            showToaster: true,
-                            toasterType: "error-toaster" //c
-                        });
-                        console.error("error sharing screen", error);
-                    }
-                );
+                //         }
+                //         self.updateToasterParams({
+                //             toasterText: this.$t("studyRoom_not_screen"),
+                //             showToaster: true,
+                //             toasterType: "error-toaster" //c
+                //         });
+                //         console.error("error sharing screen", error);
+                //     }
+                // );
             },
             stopSharing() {
                 this.$ga.event("tutoringRoom", 'screen stopSharing');
-                if(this.screenShareTrack){
-                    this.screenShareTrack.stop();
-                }
-                let videoDeviceId = global.localStorage.getItem(this.studyRoomTracks_store.storageENUM.video);
-                this.changeVideoTrack(videoDeviceId);
-                this.isSharing = false;
+
+                // if(this.screenShareTrack){
+                //     this.screenShareTrack.stop();
+                // }
+                // let videoDeviceId = global.localStorage.getItem(this.studyRoomTracks_store.storageENUM.video);
+                // this.changeVideoTrack(videoDeviceId);
+                // this.isSharing = false;
             }
         },
         created() {
