@@ -32,9 +32,19 @@ function _twilioListeners(room,store) {
    debugger
 
    room.participants.forEach((participant) => {
+         participant.on('trackUnpublished',(track)=>{
+            debugger
+         })
+      
+      
       let previewContainer = document.getElementById(REMOTE_TRACK);
       let tracks = Array.from(participant.tracks.values());
       _attachTracks(tracks, previewContainer)
+
+
+
+
+
    });
 
 
@@ -90,9 +100,6 @@ function _twilioListeners(room,store) {
    room.on('trackEnabled', () => {
       debugger
    })
-   room.on('trackPublished', () => {
-      debugger
-   })
    room.on('trackPublishPriorityChanged', () => {
       debugger
    })
@@ -121,6 +128,9 @@ function _twilioListeners(room,store) {
       debugger
    })
    room.on('trackSwitchedOn', () => {
+      debugger
+   })
+   room.on('trackPublished', () => {
       debugger
    })
    room.on('trackUnpublished', () => {
