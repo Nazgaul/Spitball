@@ -821,6 +821,67 @@ namespace Cloudents.Selenium.Test
                 driver.SwitchTo().Alert().Accept();
             }
         }
+
+        [Fact]
+        public void ChatTest()
+        {
+            foreach (var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+                Login(driver, "elad13@cloudents.com");
+
+                var chatIcon = driver.FindElementByWait(By.XPath("//*[@class='gH_i_r_chat']"));
+                chatIcon.Click();
+
+                // Check for this element
+                var chatHeader = driver.FindElementByWait(By.XPath("//*[@class='layout chat-header']"));
+
+                // Check for this element
+                driver.FindElementByWait(By.XPath("//*[@class='layout general-chat-style']"));
+                driver.FindElements(By.XPath("//*[@class='flex avatar-container']"));
+                driver.FindElements(By.XPath("//*[@class='flex user-detail-container']"));
+
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'minimizeIcon')]")).Click();
+                chatHeader.Click();
+
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'sbf-close-chat')]")).Click();
+                chatIcon.Click();
+
+                driver.FindElementByWait(By.XPath("//*[@class='flex avatar-container']")).Click();
+
+                // Check for those elements exist
+                driver.FindElementByWait(By.XPath("//*[@class='messages-header']"));
+                driver.FindElementByWait(By.XPath("//*[@class='messages-body']"));
+                driver.FindElementByWait(By.XPath("//*[@class='messages-input']"));
+                driver.FindElementByWait(By.XPath("//*[@class='chat-upload-image']"));
+                driver.FindElementByWait(By.XPath("//*[@class='chat-upload-file']"));
+
+                var input = driver.FindElementByWait(By.XPath("//*[@class='v-text-field__slot']//textarea"));
+                input.SendKeys("Testing");
+                input.SendKeys(Keys.Enter);
+
+                Logout(driver);
+            }
+        }
+
+        [Fact]
+        public void HeaderTest()
+        {
+            foreach (var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+                Login(driver, "elad13@cloudents.com");
+
+                var findTutors = driver.FindElementByWait(By.XPath("//*[@class='gH_i_r_findTutor']"));
+                findTutors.GetAttribute("href").Should().Be("https://dev.spitball.co/tutor-list");
+                driver.FindElementByWait(By.XPath("//*[@class='gH_i_r_intercom']")).Click();
+                driver.FindElementByWait(By.XPath("//*[@class='gH_i_r_chat']")).Click();
+                driver.FindElementByWait(By.XPath("//*[@class='gH_i_r_menuList']")).Click();
+                driver.FindElementByWait(By.XPath("//*[@class='globalHeader_logo router-link-active']")).GetAttribute("href").Should().Be("https://dev.spitball.co/");
+
+                Logout(driver);
+            }
+        }
     }
 
     public static class SeleniumExtensions
