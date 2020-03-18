@@ -42,6 +42,7 @@ namespace Cloudents.FunctionsV2.FileProcessor
 
                 var directory = blob.Parent;
                 var textBlob = directory.GetBlockBlobReference("text.txt");
+                
                 textBlob.Properties.ContentType = "text/plain";
                 var text2 = await _convertDocumentApi.ConvertDocumentPptxToTxtAsync(sr);
 
@@ -53,8 +54,12 @@ namespace Cloudents.FunctionsV2.FileProcessor
                 var bytes = await _convertDocumentApi.ConvertDocumentAutodetectToPdfAsync(sr);
 
                 var inputFileNamePath = Path.Combine(tempDirectory, "in.pdf");
+
                 await File.WriteAllBytesAsync(inputFileNamePath, bytes, token);
+                log.LogInformation($"location of file is {inputFileNamePath}");
                 var outputPath = Path.Combine(tempDirectory, "output");
+                Directory.CreateDirectory(outputPath);
+                log.LogInformation($"location of output is {outputPath}");
                 GhostscriptWrapper.GeneratePageThumbs(inputFileNamePath, Path.Combine(outputPath, "%d.jpg"), 1, 1000,
                     150, 150);
 
