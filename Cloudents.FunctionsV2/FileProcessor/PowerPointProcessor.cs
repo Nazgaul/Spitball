@@ -51,7 +51,8 @@ namespace Cloudents.FunctionsV2.FileProcessor
 
                 await textBlob.UploadTextAsync(text ?? string.Empty);
                 sr.Seek(0, SeekOrigin.Begin);
-                var bytes = await _convertDocumentApi.ConvertDocumentAutodetectToPdfAsync(sr);
+               
+                var bytes = await _convertDocumentApi.ConvertDocumentPptxToPdfAsync(sr);
 
                 var inputFileNamePath = Path.Combine(tempDirectory, "in.pdf");
 
