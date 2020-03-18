@@ -50,9 +50,9 @@ namespace Cloudents.FunctionsV2.GhostScript
         public static void GeneratePageThumbs(string inputPath, string outputPath, int firstPage, int lastPage, int dpix, int dpiy, int width = 0, int height = 0)
         {
             if (IntPtr.Size == 4)
-                GhostScript32.CallAPI(GetArgs(inputPath, outputPath, firstPage, lastPage, dpix, dpiy, width, height));
+                GhostScript32.CallApi(GetArgs(inputPath, outputPath, firstPage, lastPage, dpix, dpiy, width, height));
             else
-                GhostScript64.CallAPI(GetArgs(inputPath, outputPath, firstPage, lastPage, dpix, dpiy, width, height));
+                GhostScript64.CallApi(GetArgs(inputPath, outputPath, firstPage, lastPage, dpix, dpiy, width, height));
         }
 
         /// <summary>
@@ -64,9 +64,9 @@ namespace Cloudents.FunctionsV2.GhostScript
         public static void GenerateOutput(string inputPath, string outputPath, GhostscriptSettings settings)
         {
             if (IntPtr.Size == 4)
-                GhostScript32.CallAPI(GetArgs(inputPath, outputPath, settings));
+                GhostScript32.CallApi(GetArgs(inputPath, outputPath, settings));
             else
-                GhostScript64.CallAPI(GetArgs(inputPath, outputPath, settings));
+                GhostScript64.CallApi(GetArgs(inputPath, outputPath, settings));
         }
 
         /// <summary>

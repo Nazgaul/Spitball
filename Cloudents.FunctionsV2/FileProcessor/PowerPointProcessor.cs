@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.FunctionsV2.GhostScript;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Model;
 using Microsoft.Azure.WebJobs;
@@ -32,49 +33,74 @@ namespace Cloudents.FunctionsV2.FileProcessor
 
         public async Task ProcessFileAsync(long id, CloudBlockBlob blob, IBinder binder, ILogger log, CancellationToken token)
         {
-            await using var sr = await blob.OpenReadAsync();
+            var tempDirectory = Path.Combine(Path.GetTempPath(), id.ToString());
+            try
+            {
+                Directory.CreateDirectory(tempDirectory);
 
-            var directory = blob.Parent;
-            var textBlob = directory.GetBlockBlobReference("text.txt");
-            textBlob.Properties.ContentType = "text/plain";
-            var text2 = await _convertDocumentApi.ConvertDocumentPptxToTxtAsync(sr);
+                await using var sr = await blob.OpenReadAsync();
 
-            //if (!text2.Successful.GetValueOrDefault())
+                var directory = blob.Parent;
+                var textBlob = directory.GetBlockBlobReference("text.txt");
+                textBlob.Properties.ContentType = "text/plain";
+                var text2 = await _convertDocumentApi.ConvertDocumentPptxToTxtAsync(sr);
+
+                var text = text2.TextResult;
+                text = StripUnwantedChars(text);
+
+                await textBlob.UploadTextAsync(text ?? string.Empty);
+                sr.Seek(0, SeekOrigin.Begin);
+                var bytes = await _convertDocumentApi.ConvertDocumentAutodetectToPdfAsync(sr);
+
+                var inputFileNamePath = Path.Combine(tempDirectory, "in.pdf");
+                await File.WriteAllBytesAsync(inputFileNamePath, bytes, token);
+                var outputPath = Path.Combine(tempDirectory, "output");
+                GhostscriptWrapper.GeneratePageThumbs(inputFileNamePath, Path.Combine(outputPath, "%d.jpg"), 1, 1000,
+                    150, 150);
+
+                var files = Directory.GetFiles(outputPath);
+                textBlob.Metadata["PageCount"] = files.Length.ToString();
+                await textBlob.SetMetadataAsync();
+
+                var tasks = new List<Task>();
+                foreach (var file in files)
+                {
+                    var fileName = int.Parse(Path.GetFileNameWithoutExtension(file));
+                    var blobToUpload = directory.GetBlockBlobReference($"preview-{--fileName}.jpg");
+                    var t = blobToUpload.UploadFromFileAsync(file);
+                    tasks.Add(t);
+                    //File.Delete(file);
+                }
+
+                await Task.WhenAll(tasks);
+
+            }
+            finally
+            {
+                Directory.Delete(tempDirectory, true);
+            }
+            //var text = text2.TextResult;
+            //if (result.Successful == false)
             //{
-            //    //textBlob.UploadTextAsync(string.Empty);
+            //    throw new ArgumentException($"ConvertDocumentAutodetectToPngArrayAsync return false in id {id}");
             //}
 
-            var text = text2.TextResult;
-            text = StripUnwantedChars(text);
-
-            await textBlob.UploadTextAsync(text ?? string.Empty);
-            sr.Seek(0, SeekOrigin.Begin);
-            var result = await _convertDocumentApi.ConvertDocumentAutodetectToPngArrayAsync(sr);
+            //var imagesResult = result.PngResultPages;
+            //var pageCount = imagesResult.Count;
 
 
+            //textBlob.Metadata["PageCount"] = pageCount.ToString();
+            //await textBlob.SetMetadataAsync();
 
-            //var text = text2.TextResult;
-            if (result.Successful == false)
-            {
-                throw new ArgumentException($"ConvertDocumentAutodetectToPngArrayAsync return false in id {id}");
-            }
-
-            var imagesResult = result.PngResultPages;
-            var pageCount = imagesResult.Count;
+            //var starter = await binder.BindAsync<IDurableOrchestrationClient>(new DurableClientAttribute(), token);
 
 
-            textBlob.Metadata["PageCount"] = pageCount.ToString();
-            await textBlob.SetMetadataAsync();
-
-            var starter = await binder.BindAsync<IDurableOrchestrationClient>(new DurableClientAttribute(), token);
-
-
-            await starter.PurgeInstanceHistoryAsync($"ProcessPowerPoint-{id}");
-            await starter.StartNewAsync("ProcessPowerPoint", $"ProcessPowerPoint-{id}", new PowerPointOrchestrationInput
-            {
-                Id = id,
-                Images = imagesResult
-            });
+            //await starter.PurgeInstanceHistoryAsync($"ProcessPowerPoint-{id}");
+            //await starter.StartNewAsync("ProcessPowerPoint", $"ProcessPowerPoint-{id}", new PowerPointOrchestrationInput
+            //{
+            //    Id = id,
+            //    Images = imagesResult
+            //});
 
             //var httpClient = await binder.BindAsync<HttpClient>(new HttpClientFactoryAttribute(), token);
             //var listOfTasks = imagesResult.Select(async imageResult =>

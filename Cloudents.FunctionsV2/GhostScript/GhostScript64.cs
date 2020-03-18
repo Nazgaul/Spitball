@@ -22,16 +22,15 @@ namespace Cloudents.FunctionsV2.GhostScript
         /// <summary>
         /// Calls the Ghostscript API with a collection of arguments to be passed to it
         /// </summary>
-        public static void CallAPI(string[] args)
+        public static void CallApi(string[] args)
         {
             // Get a pointer to an instance of the Ghostscript API and run the API with the current arguments
-            IntPtr gsInstancePtr;
             lock (resourceLock)
             {
-                CreateAPIInstance(out gsInstancePtr, IntPtr.Zero);
+                CreateAPIInstance(out var gsInstancePtr, IntPtr.Zero);
                 try
                 {
-                    int result = InitAPI(gsInstancePtr, args.Length, args);
+                    var result = InitAPI(gsInstancePtr, args.Length, args);
 
                     if (result < 0)
                     {
