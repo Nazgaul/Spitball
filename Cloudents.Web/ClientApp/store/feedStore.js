@@ -25,7 +25,7 @@ const getters = {
         }
         return filters;
     },
-    Feeds_getCurrentQuery (state, getters, rootState)   {
+    Feeds_getCurrentQuery (state, getters, rootState) {
         let route = rootState.route;
         function getFilter(){
             if(route.query.filter === 'Question' && route.query.term){
@@ -36,7 +36,7 @@ const getters = {
         }
         return {
             filter : getFilter(),
-            course : route.query.Course,
+            course : route.query.course,
             term: route.query.term
         };
     }
@@ -112,7 +112,6 @@ const actions = {
         dispatch('Feeds_updateDataLoaded', false);
         dispatch('Feeds_UpdateLoading',true)
         commit('Feeds_ResetQue');
-        
         let paramsList = {...params};
         if(paramsList.filter?.key || paramsList.filter === 'Question' && paramsList.term){
             delete paramsList.filter;
@@ -161,6 +160,9 @@ const actions = {
         }, (error) => {
             console.log(error, 'error report answer');
         });
+    },
+    updateFeedCourses() {
+        return searchService.getFeedCourses()
     }
 };
 
