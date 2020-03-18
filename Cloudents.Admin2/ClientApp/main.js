@@ -12,7 +12,6 @@ import store from "./store";
 import vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import vueClipboard from 'vue-clipboard2'
-//import vueJsonToCsv from 'vue-json-to-csv'
 
 const vueUploadComponent = require('vue-upload-component');
 Vue.component('file-upload', vueUploadComponent);
