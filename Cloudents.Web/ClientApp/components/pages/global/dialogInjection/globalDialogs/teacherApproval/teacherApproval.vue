@@ -38,7 +38,7 @@
                         </td>
                         <td>
                             <div class="d-flex align-center">
-                                <input type="number" class="durationInput" v-model.number="newSessionDuration" />
+                                <input type="number" class="durationInput" maxlength="4"  @keypress="inputRestriction" v-model.number="newSessionDuration" />
                                 <span class="ml-2">{{$t('teacherApproval_minutes')}}</span>
                             </div>
                         </td>
@@ -74,7 +74,7 @@
 
                 <div class="bottomActions d-flex text-center">
                     <v-btn width="140" height="40" color="#4452fc" class="d-none d-sm-block mr-3" rounded outlined v-closeDialog>{{$t('teacherApproval_btn_cancel')}}</v-btn>
-                    <v-btn width="140" height="40" color="#4452fc" class="pb-1 white--text" @click="approveSession" rounded depressed>{{$t('teacherApproval_btn_approve')}}</v-btn>
+                    <v-btn width="140" height="40" color="#4452fc" class="white--text" @click="approveSession" rounded depressed>{{$t('teacherApproval_btn_approve')}}</v-btn>
                 </div>
             </div>
 
@@ -99,6 +99,7 @@ export default {
             totalPrice: 0,
             newSessionDuration: null,
             modifyDurationError: false,
+            MAX_DIGITS: 9999
         }
     },
     watch: {
@@ -129,7 +130,6 @@ export default {
                 sessionId: this.session.sessionId,
                 realDuration: this.newSessionDuration
             }
-
             let self = this
             this.$store.dispatch('updateSessionDuration', newSessionDuration).then(() => {
                 self.$store.commit('setSaleItem', self.session.sessionId)
@@ -144,7 +144,6 @@ export default {
             })
         },
         updateTotalPrice(duration) {
-            
             let total;
             if(this.session.couponCode) {
                 if(this.session.couponType === 'Flat') {
@@ -156,6 +155,21 @@ export default {
                 total = this.session.tutorPricePerHour * duration / 60
             }            
             this.totalPrice = total;
+        },
+        inputRestriction(e) {
+            this.modifyDurationError = false;
+            if (!/\d/.test(e.key)) {
+                e.preventDefault();
+            }
+            var x = parseInt(this.newSessionDuration + e.key,10);
+            if (x >= this.MAX_DIGITS) {
+                e.preventDefault();
+                
+            }
+            
+            // if(this.newSessionDuration >= this.MAX_DIGITS || !()) {
+            //     e.preventDefault();
+            // }
         },
         openIntercom() {
             intercomService.showDialog();
@@ -220,13 +234,14 @@ export default {
             padding: 6px 8px;
             outline: none;
             text-align: left;
+            -moz-appearance: none;
+             appearance: none;
             &::-webkit-inner-spin-button, 
             &::-webkit-outer-spin-button { 
                 -webkit-appearance: none;
-                -moz-appearance: none;
-                appearance: none;
                 margin: 0; 
             }
+
         }
         .bordeTop td{
             border-top: 1px solid #898899;
