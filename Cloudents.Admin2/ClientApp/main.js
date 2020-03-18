@@ -12,9 +12,13 @@ import store from "./store";
 import vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import vueClipboard from 'vue-clipboard2'
+//import vueJsonToCsv from 'vue-json-to-csv'
 
 const vueUploadComponent = require('vue-upload-component');
 Vue.component('file-upload', vueUploadComponent);
+
+const vueJsonToCsv = require('vue-json-to-csv');
+Vue.component('json-to-csv', vueJsonToCsv);
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
@@ -26,6 +30,7 @@ Vue.use(vuetify,
         }
     });
 Vue.use(vueClipboard);
+
 // 10/12/2018
 Vue.filter('dateFromISO', function (value) {
     let d = new Date(value);

@@ -11,21 +11,27 @@
                           v-model="state"
                           @change="getTutors(country, state, search)"></v-select>
             </v-flex>   
-            <v-flex xs3 offset-xs2>
+            <v-flex xs3 offset-xs1>
                 <v-select :items="countries"
                           label="country"
                           v-model="country"
                           @change="getTutors(country, state, search)"></v-select>
             </v-flex>
-                <v-flex xs4 sm4 md4 offset-xs2>
-                    <v-text-field v-model="search"
-                                  append-icon="search"
-                                  label="Search"
-                                  single-line
-                                  hide-details
-                                  @keyup.enter.native="getTutors(country, state, search)">
-                    </v-text-field>
-                </v-flex>
+            <v-flex xs4 sm4 md4 offset-xs1>
+                <v-text-field v-model="search"
+                                append-icon="search"
+                                label="Search"
+                                single-line
+                                hide-details
+                                @keyup.enter.native="getTutors(country, state, search)">
+                </v-text-field>
+            </v-flex>
+            <v-flex xs1 offset-xs1>
+                <v-btn color="blue">
+                <json-to-csv :json-data="tutorList">
+                </json-to-csv>
+                </v-btn>
+            </v-flex>
 
 </v-layout>
 
@@ -71,6 +77,7 @@
 <script>
     import { getTutorList } from './tutorListService'
     import searchComponent from '../../helpers/search.vue'
+    import JsonToCsv from 'vue-json-to-csv'
 
     export default {
         data() {
