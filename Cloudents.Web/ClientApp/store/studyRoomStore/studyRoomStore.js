@@ -13,13 +13,34 @@ function _checkPayment(context){
 
 const state = {
    activeNavIndicator: 'white-board',
+   roomOnlineDocument: null,
+   
+   roomProps: null,
 }
 
 const mutations = {
    [SETTERS.ACTIVE_NAV_TAB_INDICATOR]: (state,{activeNav}) => state.activeNavIndicator = activeNav,
+   [SETTERS.ROOM_PROPS](state,props){
+      state.roomOnlineDocument = props.onlineDocument;
+
+      props.isTutor = this.getters.accountUser.id == props.tutorId;
+      state.roomProps = props;
+      /*
+      conversationId: "162074_162085"
+needPayment: false
+studentId: 162074
+studentImage: "https://spitball-dev-function.azureedge.net:443/api/image/user/162074/1575207545.png"
+studentName: "maor Student IL"
+tutorId: 162085
+tutorImage: "https://spitball-dev-function.azureedge.net:443/api/image/user/162085/1584346344.jpg"
+tutorName: "Maor Tutor IL"
+tutorPrice: 50
+      */ 
+   }
 }
 const getters = {
    getActiveNavIndicator: state => state.activeNavIndicator,
+   getRoomOnlineDocument: state => state.roomOnlineDocument,
 }
 const actions = {
    updateActiveNavTab({commit},val){
@@ -38,12 +59,13 @@ const actions = {
 
 
 
-   updateStudyRoomInformation({getters,dispatch},roomId){
+   updateStudyRoomInformation({getters,dispatch,commit},roomId){
       if(getters.getStudyRoomData){
          return dispatch('studyRoomMiddleWare')
       }else{
          return studyRoomService.getRoomInformation(roomId).then((roomProps)=>{
-            dispatch('updateStudyRoomProps',roomProps);
+            commit(SETTERS.ROOM_PROPS,roomProps)
+            // dispatch('updateStudyRoomProps',roomProps);
             return dispatch('studyRoomMiddleWare')
          })
       }

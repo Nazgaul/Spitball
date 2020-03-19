@@ -148,7 +148,6 @@
 //         commit('updateSessionClickedOnce', val);
 //     },
 //     updateStudyRoomProps({dispatch,commit}, val) {
-//         console.warn('DEBUG: 7 store: updateStudyRoomProps')
 //         dispatch('updateAllowReview',  val.allowReview);
 //         commit('setStudyRoomProps', val);
 //     },
