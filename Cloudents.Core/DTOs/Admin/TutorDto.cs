@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.Enum;
+using System;
 
 namespace Cloudents.Core.DTOs.Admin
 {
@@ -10,5 +11,6 @@ namespace Cloudents.Core.DTOs.Admin
         public string PhoneNumber { get; set; }
         public string Country { get; set; }
         public ItemState State { get; set; }
+        public DateTime Created { get; set; }
     }
 }

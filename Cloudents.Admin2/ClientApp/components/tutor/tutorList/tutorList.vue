@@ -61,6 +61,12 @@
                      </router-link>   
                 </td>
 
+                 <td class="text-xs-center">
+                     <router-link :to="{name: `userConversations`, params: {userId: props.item.id}}">
+                        {{ props.item.created }}
+                     </router-link>   
+                </td>
+
                 
 
             </template>
@@ -84,11 +90,12 @@
                 states: ["All", "Pending", "Ok"],
                 state: 'All',
                 headers: [
-                    { text: 'Name', value: 'name' },
-                    { text: 'Email', value: 'email' },
-                    { text: 'Phone Number', value: 'phoneNumber' },
-                    { text: 'Country', value: 'county' },
-                    { text: 'State', value: 'state' },
+                    { align: 'center', text: 'Name', value: 'name' },
+                    { align: 'center', text: 'Email', value: 'email' },
+                    { align: 'center', text: 'Phone Number', value: 'phoneNumber' },
+                    { align: 'center', text: 'Country', value: 'county' },
+                    { align: 'center', text: 'State', value: 'state' },
+                    { align: 'center', text: 'Created', value: 'created' }
                 ]
             }
         },

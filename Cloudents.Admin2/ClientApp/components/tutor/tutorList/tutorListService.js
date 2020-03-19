@@ -8,6 +8,7 @@ function TutorItem(objInit) {
     this.phoneNumber = objInit.phoneNumber;
     this.country = objInit.country;
     this.state = objInit.state;
+    this.created = new Date(objInit.created).toISOString().substr(0, 10);
 }
 function createTutorItem(objInit) {
     return new TutorItem(objInit);

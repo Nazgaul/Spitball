@@ -36,7 +36,7 @@ namespace Cloudents.Query.Admin
                 const int pageSize = 200;
 
                 const string sqlWithTerm = @"Select @Term = case when @Term is null then '""""' else '""' + @Term+ '*""' end 
-                            select u.Id, u.Name, u.Email, u.PhoneNumberHash as PhoneNumber, u.Country, t.State 
+                            select u.Id, u.Name, u.Email, u.PhoneNumberHash as PhoneNumber, u.Country, t.State, t.Created
                             from sb.Tutor t
                             join sb.[User] u
 	                            on u.Id = t.Id
@@ -47,7 +47,8 @@ namespace Cloudents.Query.Admin
                             OFFSET @PageSize * @Page ROWS
                             FETCH NEXT @PageSize ROWS ONLY;";
 
-                const string sqlWithoutTerm = @"select u.Id, u.Name, u.Email, u.PhoneNumberHash as PhoneNumber, u.Country, t.State 
+                const string sqlWithoutTerm = @"select u.Id, u.Name, u.Email, u.PhoneNumberHash as PhoneNumber, u.Country, 
+                                    t.State, t.Created
                             from sb.Tutor t
                             join sb.[User] u
 	                            on u.Id = t.Id
