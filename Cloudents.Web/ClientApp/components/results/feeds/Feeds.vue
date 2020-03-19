@@ -39,6 +39,7 @@
                         sel="filter_course"
                         :append-icon="'sbf-arrow-fill'"
                         clearable
+                        :disabled="!getUserLoggedInStatus"
                         :clear-icon="'sbf-close'"
                         v-model="query.course"
                         :value="Feeds_getCurrentQuery.course"
