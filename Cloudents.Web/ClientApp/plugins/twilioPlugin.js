@@ -242,9 +242,14 @@ export default () => {
                      _unPublishTrack(_activeRoom,_localVideoTrack)
                   }
                   _publishTrack(_activeRoom,_localScreenTrack);
+                  store.commit(SETTERS.VIDEO_AVAILABLE,true)
                   _localScreenTrack.on('stopped',(track)=>{
                      _unPublishTrack(_activeRoom,track)
-                     if(_localVideoTrack){_publishTrack(_activeRoom,_localVideoTrack)} 
+                     if(_localVideoTrack){
+                        _publishTrack(_activeRoom,_localVideoTrack)
+                     }else{
+                        store.commit(SETTERS.VIDEO_AVAILABLE,false)
+                     }
                      store.commit(SETTERS.SCREEN_SHARE,false);
                   })
                })
