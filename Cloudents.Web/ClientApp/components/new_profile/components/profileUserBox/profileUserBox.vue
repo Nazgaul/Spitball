@@ -64,6 +64,9 @@
                     </div>
                 </div>
             </v-flex>
+
+
+
             <v-flex xs4 class="pUb_top_tutorState" v-if="currentProfileUser.isTutor">
                 <div class="pUb_top_tS_list">
                     <starSVG/>
@@ -83,15 +86,44 @@
                 </div>
             </v-flex>
         </div>
-        <v-flex v-if="currentProfileUser.description" sm9 xs12 class="profileUserBox_middle">
-            <h3 class="pUb_middle_AboutMe" v-text="currentProfileUser.description"/>
-            <template v-if="currentProfileUser.isTutor">
-                <h4 v-if="currentProfileTutor.bio" class="pUb_middle_bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}<span class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</span><span sel="bio_more" v-if="readMoreVisible" @click="isOpen = !isOpen" class="pUb_middle_bio_readMore" v-language:inner="isOpen?'profile_read_less':'profile_read_more'"/></h4>
-            </template>
-        </v-flex>
-        <div class="profileUserBox_bottom" v-if="currentProfileUser.isTutor && currentProfileTutor.subjects.length">
-            <span class="profileUserBox_bottom_title mr-1" v-language:inner="'profile_study'"/>
-            <span v-for="(subject, index) in currentProfileTutor.subjects" :key="index">{{subject}}{{index + 1 == currentProfileTutor.subjects.length? '':' ,'}}</span>
+
+
+        <div class="d-flex align-center">
+
+            <!-- description -->
+            <div class="flex-grow-1">
+                <v-flex v-if="currentProfileUser.description" sm9 xs12 class="profileUserBox_middle">
+                    <h3 class="pUb_middle_AboutMe" v-text="currentProfileUser.description"/>
+                    <div class="d-flex justify-space-between" v-if="currentProfileUser.isTutor">
+                        <h4 v-if="currentProfileTutor.bio" class="pUb_middle_bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}
+                            <span class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</span>
+                            <span sel="bio_more" v-if="readMoreVisible" @click="isOpen = !isOpen" class="pUb_middle_bio_readMore" v-language:inner="isOpen?'profile_read_less':'profile_read_more'"></span>
+                        </h4>
+                    </div>
+                </v-flex>
+
+
+                <!-- subjects -->
+                <div class="profileUserBox_bottom" v-if="currentProfileUser.isTutor && currentProfileTutor.subjects.length">
+                    <span class="profileUserBox_bottom_title mr-1" v-language:inner="'profile_study'"/>
+                    <span v-for="(subject, index) in currentProfileTutor.subjects" :key="index">{{subject}}{{index + 1 == currentProfileTutor.subjects.length? '':' ,'}}</span>
+                </div>
+
+
+                <!-- courses -->
+                <div class="profileUserBox_bottom course mt-2" v-if="!currentProfileUser.isTutor && currentProfileUser.courses.length">
+                    <span class="profileUserBox_bottom_title mr-1">{{$t('profile_my_courses')}}:</span>
+                    <span v-for="(course, index) in currentProfileUser.courses" :key="index">
+                        {{course}}{{index + 1 == currentProfileUser.courses.length ? '' : ', '}}
+                    </span>
+                </div>
+            
+            </div>
+
+            <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="!currentProfileUser.isTutor">
+                <editSVG class="mr-1" v-if="!isMobile && isCurrentProfileUser" />
+            </v-btn>
+
         </div>
     </div>
 </template>
@@ -110,7 +142,7 @@ import { LanguageService } from "../../../../services/language/languageService";
 import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
 import uploadImage from '../../profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue';
 import followBtn from '../followBtn/followBtn.vue';
-
+import * as routeNames from '../../../../routes/routeNames';
 
 export default {
     name:'profileUserBox',
@@ -129,6 +161,7 @@ export default {
     data() {
         return {
             defOpen:false,
+            routeNames
         }
     },
     computed: {
@@ -516,6 +549,9 @@ export default {
         font-size: 14px;
         .profileUserBox_bottom_title{
             font-weight: bold;
+        }
+        &.course {
+          .giveMeEllipsis(2, 18);
         }
         @media (max-width: @screen-xs) {
             padding: 0 14px 12px;

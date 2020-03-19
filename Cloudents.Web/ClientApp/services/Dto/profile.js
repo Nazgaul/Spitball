@@ -6,8 +6,8 @@ export const Profile = {
       return Object.assign(
          new User.Default(objInit),
          {
-            courses: objInit.documentCourses, 
-            //Add courses - for the list  profile box
+            documentCourses: objInit.documentCourses,
+            courses: objInit.courses,  
             online: objInit.online || false,
             description: objInit.tutor?.description || '', // remove that moved to objInit.tutor
             calendarShared: objInit.calendarShared || false,
