@@ -67,10 +67,10 @@ import insightService from './insightService.js'
 
         let audioSetObj = store.getters['getLocalAudioTrack'];
         let videoSetObj = store.getters['getLocalVideoTrack'];
-        let isVideoActive = store.getters['getIsVideoActive'];
+        // let isVideoActive = store.getters['getIsVideoActive']; maor
         let isAudioActive = store.getters['getIsAudioActive'];
         let audioDevice = audioSetObj && isAudioActive ? audioSetObj : false;
-        let videoDevice = videoSetObj && isVideoActive ? videoSetObj : false;
+        // let videoDevice = videoSetObj && isVideoActive ? videoSetObj : false; maor
         createTwillioTracks(audioDevice, videoDevice);
     }
 

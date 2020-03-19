@@ -9,7 +9,7 @@
 //    };
 // }
 
-// const state = {
+const state = {
 //     roomId: '',
 //     currentActiveRoom: null,
 //     browserSupportDialog: false,
@@ -34,15 +34,14 @@
 //     studentStartDialog: false,
 //     tutorStartDialog: false,
 //     endDialog: false,
-//     settingsDialogState: false,
 //     deviceValidationError:false,
 //     DevicesObject: new DevicesObject(),
 //     sessionTimeStart: null,
 //     sessionTimeEnd: null,
 //     showUserConsentDialog: false,
 //     snapshotDialog: false,    
-// };
-// const getters = {
+};
+const getters = {
 //     activeRoom: state => state.currentActiveRoom,
 //     getCurrentRoomState: state => state.currentRoomState,
 //     getStudyRoomData: state => state.studyRoomData,
@@ -53,7 +52,6 @@
 //     getSessionStartClickedOnce: state => state.sessionStartClickedOnce,
 //     getEndDialog: state => state.endDialog,
 //     getBrowserSupportDialog: state => state.browserSupportDialog,
-//     getStudyRoomSettingsDialog: state => state.settingsDialogState,
 //     showDeviceValidationError: state => state.deviceValidationError,
 //     getDevicesObj: state=> state.DevicesObject,
 //     getTutorDialogState: state => state.tutorDialogState,
@@ -71,9 +69,9 @@
 //         }
 //         return state.studyRoomData.needPayment;
 //     }
-// };
+};
 
-// const mutations = {
+const mutations = {
 //     setEndDialog(state, val) {
 //         state.endDialog = val;
 //     },
@@ -112,9 +110,6 @@
 //     setBrowserSupportDialog(state, val){
 //       state.browserSupportDialog = val;
 //     },
-//     setStudyRoomSettingsDialog(state, val){
-//         state.settingsDialogState = val;
-//     },
 //     setDeviceValidationError(state, val){
 //         state.deviceValidationError = val;
 //     },
@@ -136,9 +131,9 @@
 //     setSnapshotDialog(state, val){
 //         state.snapshotDialog = val;
 //     },
-// };
+};
 
-// const actions = {
+const actions = {
 //     updateEndDialog({commit}, val){
 //         console.warn('DEBUG: 4 store: updateEndDialog')
 //         commit('setEndDialog', val);
@@ -286,9 +281,6 @@
 //     setBrowserSupportDialog({commit}, val){
 //       commit('setBrowserSupportDialog', val);
 //     },
-//     setStudyRoomSettingsDialog({commit}, val){
-//         commit('setStudyRoomSettingsDialog', val);
-//     },
 //     setDeviceValidationError({commit}, val){
 //         commit('setDeviceValidationError', val);
 //     },
@@ -313,10 +305,10 @@
 //     setSnapshotDialog({commit}, val){
 //         commit('setSnapshotDialog', val);
 //     },
-// };
-// export default {
-//     state,
-//     mutations,
-//     getters,
-//     actions
-// };
+};
+export default {
+    state,
+    mutations,
+    getters,
+    actions
+};

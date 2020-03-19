@@ -14,7 +14,7 @@
 //     }
 // };
 
-// const state = {
+const state = {
 //     currentVideoTrack: null,
 //     currentAudioTrack: null,
 //     localVideoTrack: null,
@@ -22,28 +22,22 @@
 //     lastActiveLocalVideoTrack: null,
 //     videoDevice: null,
 //     audioDevice: null,
-//     storageENUM:{
-//         video:'sb-videoTrackId',
-//         audio:'sb-audioTrackId'
-//     },
-//     isVideoActive: false,
 //     isAudioActive: false,
 //     localDisplayMedia: null,
 //     localUserMedia: null
-// };
+};
 
-// const getters = {
+const getters = {
 //     getCurrentVideoTrack:state => state.currentVideoTrack,
 //     getCurrentAudioTrack:state => state.currentAudioTrack,
 //     getLocalVideoTrack:state => state.localVideoTrack,
 //     getLocalAudioTrack:state => state.localAudioTrack,
-//     getIsVideoActive: state => state.isVideoActive,
 //     getIsAudioActive: state => state.isAudioActive,
 //     getLocalDisplayMedia: state => state.localDisplayMedia,
 //     getLocalUserMedia: state => state.localUserMedia,
-// };
+};
 
-// const mutations = {
+const mutations = {
 //     setCurrentVideoTrack(state, track){
 //         state.currentVideoTrack = track;
 //     },
@@ -59,9 +53,6 @@
 //     setLocalAudioTrack(state, track){
 //         state.localAudioTrack = track;
 //     },
-//     setIsVideoActive(state, val){
-//         state.isVideoActive  = val;
-//     },
 //     setIsAudioActive(state, val){
 //         state.isAudioActive  = val;
 //     },
@@ -71,11 +62,10 @@
 //     setLocalUserMedia(state, val){
 //         state.localUserMedia  = val;
 //     },
-// };
+};
 
-// const actions = {
+const actions = {
 //     initLocalMediaTracks({dispatch}){
-//         dispatch('setIsVideoActive', true);
 //         dispatch('initLocalVideoTrack');
 //         dispatch('setIsAudioActive', true);
 //         dispatch('initLocalAudioTrack');
@@ -87,7 +77,7 @@
 //         }
 //     },
 //     initLocalVideoTrack({getters,dispatch,state}){
-//         let deviceId = global.localStorage.getItem(state.storageENUM.video);
+//         let deviceId = global.localStorage.getItem('sb-videoTrackId');
 //         let mediaStreamTrack = state.lastActiveLocalVideoTrack;
 //         if(mediaStreamTrack){
 //             //after changing the 
@@ -97,27 +87,26 @@
 //             dispatch('createLocalVideoTrack_Store', deviceId);
 //         }
 //     },
-//     createLocalVideoTrack_Store({getters, dispatch, state}, id){
-//         let param = id ? {deviceId: {exact: id}} : {};
-//         createLocalVideoTrack(param).then(videoTrack => {
-//             if(getters['activeRoom'] && state.isVideoActive){
-//                 getters['activeRoom'].localParticipant.publishTrack(videoTrack.mediaStreamTrack);  
-//             }
-//                 dispatch('setLocalVideoTrack',videoTrack);
-//         },()=>{
-//                 createLocalVideoTrack().then(videoTrack => {
-//                     if(getters['activeRoom'] && state.isVideoActive){
-//                         getters['activeRoom'].localParticipant.publishTrack(videoTrack.mediaStreamTrack);  
-//                     }
-//                         dispatch('setLocalVideoTrack',videoTrack);
-//                 },()=>{
-//                         dispatch('setIsVideoActive', false);
-//                         dispatch('setLocalVideoTrack', null);
-//                 });
-//         });
-//     },
+   //  createLocalVideoTrack_Store({getters, dispatch, state}, id){
+   //      let param = id ? {deviceId: {exact: id}} : {};
+   //      createLocalVideoTrack(param).then(videoTrack => {
+   //          if(getters['activeRoom']){
+   //              getters['activeRoom'].localParticipant.publishTrack(videoTrack.mediaStreamTrack);  
+   //          }
+   //              dispatch('setLocalVideoTrack',videoTrack);
+   //      },()=>{
+   //              createLocalVideoTrack().then(videoTrack => {
+   //                  if(getters['activeRoom']){
+   //                      getters['activeRoom'].localParticipant.publishTrack(videoTrack.mediaStreamTrack);  
+   //                  }
+   //                      dispatch('setLocalVideoTrack',videoTrack);
+   //              },()=>{
+   //                      dispatch('setLocalVideoTrack', null);
+   //              });
+   //      });
+   //  },
 //     initLocalAudioTrack({dispatch}){
-//         let deviceId = global.localStorage.getItem(state.storageENUM.audio);
+//         let deviceId = global.localStorage.getItem('sb-audioTrackId');
 //         dispatch('createLocalAudioTrack_store', deviceId);
 //     },
 //     createLocalAudioTrack_store({getters, commit, dispatch}, id){
@@ -199,18 +188,12 @@
 //     },
    //  toggleVideoTrack({getters,dispatch, state}){
    //      if(!getters['activeRoom']){
-   //          if(state.isVideoActive){
-   //              dispatch('setIsVideoActive', false);
-   //          }else{
-   //              dispatch('setIsVideoActive', true);
-   //          }
+
    //      }else{
    //          let currentTrack = _getLocalTrack(getters,'video');
    //          if(currentTrack){
-   //              dispatch('setIsVideoActive', false);
    //              dispatch('destroyLocalVideoTrack',currentTrack.track);
    //          } else{
-   //              dispatch('setIsVideoActive', true);
    //              dispatch('initLocalVideoTrack');
    //          }
    //      } 
@@ -233,40 +216,6 @@
 //             } 
 //         } 
 //     },
-
-//     changeVideoTrack({getters,dispatch}, newTrackId){
-//         if(getters['activeRoom']){
-//             let currentTrack = _getLocalTrack(getters,'video');
-//             if(currentTrack){
-//                 //first Unpublish the current track
-//                 dispatch('destroyLocalVideoTrack',currentTrack.track);
-//                 //create and publish new track
-//                 dispatch('createLocalVideoTrack_Store', newTrackId);
-//             }else{
-//                 dispatch('createLocalVideoTrack_Store', newTrackId);
-//             }
-//         }else{
-//             dispatch('createLocalVideoTrack_Store', newTrackId);
-//         }
-//     },
-//     changeAudioTrack({getters,dispatch}, newTrackId){
-//         if(getters['activeRoom']){
-//             let currentTrack = _getLocalTrack(getters,'audio');
-//             if(currentTrack){
-//                 //first Unpublish the current track
-//                 dispatch('destroyLocalAudioTrack',currentTrack.track);
-//                 //create and publish new track
-//                 dispatch('createLocalAudioTrack_store', newTrackId);
-//             }else{
-//                 dispatch('createLocalAudioTrack_store', newTrackId);
-//             }
-//         }else{
-//             dispatch('createLocalAudioTrack_store', newTrackId);
-//         }
-//     },
-//     setIsVideoActive({commit}, val){
-//         commit('setIsVideoActive', val);
-//     },
 //     setIsAudioActive({commit}, val){
 //         commit('setIsAudioActive', val);
 //     },
@@ -287,11 +236,11 @@
 //             dispatch('destroyLocalAudioTrack',currentAudioTrack.track);
 //         }      
 //     }
-// };
+};
 
-// export default {
-//     state,
-//     mutations,
-//     getters,
-//     actions
-// }
+export default {
+    state,
+    mutations,
+    getters,
+    actions
+}

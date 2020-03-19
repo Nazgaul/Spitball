@@ -173,6 +173,7 @@ export default () => {
       let dataTrack;
       let _activeRoom = null;
       let _localVideoTrack = null;
+      let _localAudioTrack = null;
       let _localScreenTrack = null;
       store.subscribe((mutation) => {
          if (mutation.type === 'setRouteStack' && mutation.payload === routeNames.StudyRoom) {
@@ -197,8 +198,14 @@ export default () => {
                _insightEvent('TwilioConnect', _activeRoom, null);
                _twilioListeners(_activeRoom,store); // start listen to twilio events;
 
-               // get user media tracks (video/audio) and connect to the room
                let {createLocalVideoTrack,createLocalAudioTrack} = twillioClient;
+
+               // TODO: fix it audio & video
+               // let videoDeviceId = localStorage.getItem('sb-videoTrackId');
+               // let videoParams = videoDeviceId ? {deviceId: {exact: videoDeviceId}} : {};
+
+
+               
                Promise.allSettled([
                   createLocalVideoTrack({name:VIDEO_TRACK_NAME}),
                   createLocalAudioTrack({name:AUDIO_TRACK_NAME})
@@ -213,6 +220,7 @@ export default () => {
                            store.commit(SETTERS.VIDEO_AVAILABLE,true)
                         }
                         if(value.name === AUDIO_TRACK_NAME){  
+                           _localAudioTrack = value;
                            _publishTrack(_activeRoom,value)
                            store.commit(SETTERS.AUDIO_AVAILABLE,true)
                         }
@@ -258,6 +266,37 @@ export default () => {
             }else{
                _localScreenTrack.stop()
             }
+         }
+         if (mutation.type === SETTERS.VIDEO_TRACK){
+            if(_localVideoTrack){
+               _unPublishTrack(_activeRoom,_localVideoTrack)
+            }
+            let params = {deviceId: {exact: mutation.payload},name:VIDEO_TRACK_NAME}
+            twillioClient.createLocalVideoTrack(params).then(track=>{
+               _localVideoTrack = track;
+               _publishTrack(_activeRoom,_localVideoTrack)
+
+               const localMediaContainer = document.getElementById(LOCAL_TRACK_DOM_ELEMENT);
+               let videoTag = localMediaContainer.querySelector("video");
+               if (videoTag) {
+                  localMediaContainer.removeChild(videoTag);
+               }
+               localMediaContainer.appendChild(track.attach());
+
+               store.commit(SETTERS.FULL_SCREEN_AVAILABLE,true);
+               store.commit(SETTERS.VIDEO_AVAILABLE,true)
+            })
+         }
+         if (mutation.type === SETTERS.AUDIO_TRACK){
+            if(_localAudioTrack){
+               _unPublishTrack(_activeRoom,_localAudioTrack)
+            }
+            let params = {deviceId: {exact: mutation.payload},name:AUDIO_TRACK_NAME}
+            twillioClient.createLocalAudioTrack(params).then(track=>{
+               _localAudioTrack = track;
+               _publishTrack(_activeRoom,_localAudioTrack)
+               store.commit(SETTERS.AUDIO_AVAILABLE,true)
+            })
          }
       })
    }

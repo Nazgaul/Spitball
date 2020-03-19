@@ -14,6 +14,7 @@ function _checkPayment(context){
 const state = {
    activeNavIndicator: 'white-board',
    roomOnlineDocument: null,
+   dialogRoomSettings: false,
    
    roomProps: null,
 }
@@ -23,8 +24,8 @@ const mutations = {
    [SETTERS.ROOM_PROPS](state,props){
       state.roomOnlineDocument = props.onlineDocument;
 
-      props.isTutor = this.getters.accountUser.id == props.tutorId;
-      state.roomProps = props;
+      // props.isTutor = this.getters.accountUser.id == props.tutorId;
+      // state.roomProps = props;
       /*
       conversationId: "162074_162085"
 needPayment: false
@@ -36,17 +37,21 @@ tutorImage: "https://spitball-dev-function.azureedge.net:443/api/image/user/1620
 tutorName: "Maor Tutor IL"
 tutorPrice: 50
       */ 
-   }
+   },
+   [SETTERS.DIALOG_ROOM_SETTINGS]: (state,val) => state.dialogRoomSettings = val,
 }
 const getters = {
    getActiveNavIndicator: state => state.activeNavIndicator,
    getRoomOnlineDocument: state => state.roomOnlineDocument,
+   getDialogRoomSettings: state => state.dialogRoomSettings,
 }
 const actions = {
    updateActiveNavTab({commit},val){
       commit(SETTERS.ACTIVE_NAV_TAB,val)
    },
-
+   updateDialogRoomSettings({commit},val){
+      commit(SETTERS.DIALOG_ROOM_SETTINGS,val)
+   },
 
 
 

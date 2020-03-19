@@ -63,7 +63,6 @@
         data() {
             return {
                 isSafari: false,
-                isSharing: false,
                 extensionDialog: false,
                 extensionLink: `https://chrome.google.com/webstore/detail/${
                     videoService.extensionId
@@ -72,7 +71,7 @@
             };
         },
         computed: {
-            ...mapState(['tutoringMain', 'studyRoomTracks_store']),
+            ...mapState(['tutoringMain']),
             ...mapGetters(['getIsShareScreen',"accountUser", "getStudyRoomData", "getCurrentRoomState", "getLocalVideoTrack","activeRoom"]),
             localVideoTrack(){
                 return this.getLocalVideoTrack
@@ -93,7 +92,7 @@
             }
         },
         methods: {
-            ...mapActions(["updateToasterParams", 'changeVideoTrack', 'setIsVideoActive']),
+            ...mapActions(["updateToasterParams"]),
             ...mapState(["Toaster"]),
             reloadPage() {
                 global.reloadPage();
@@ -108,7 +107,6 @@
                             this.accountUserID
                             }`
                     });
-                    this.setIsVideoActive(true);
                 }
             },
              unPublishTrackfromRoom(track) {
@@ -125,13 +123,8 @@
 
                 // videoService.getUserScreen().then(
                 //     stream => {
-                //         insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_ShareScreenBtn_Accepted', {id: self.getStudyRoomData.roomId}, null);
-                //         stream.removeEventListener('ended', () => self.stopSharing());
-                //         stream.addEventListener('ended', () => self.stopSharing());
                 //         store.dispatch('setLocalVideoTrack', stream);
-                //         self.screenShareTrack = stream; //stream.getVideoTracks()[0];
                 //         self.publishTrackToRoom(self.screenShareTrack);
-                //         self.isSharing = true;
                 //     },
                 //     error => {
                 //         error = error || {};
@@ -182,14 +175,6 @@
             stopSharing() {
                 this.$ga.event("tutoringRoom", 'screen stopSharing');
                 this.$store.dispatch('updateShareScreen',false)
-
-
-                // if(this.screenShareTrack){
-                //     this.screenShareTrack.stop();
-                // }
-                // let videoDeviceId = global.localStorage.getItem(this.studyRoomTracks_store.storageENUM.video);
-                // this.changeVideoTrack(videoDeviceId);
-                // this.isSharing = false;
             }
         },
         created() {

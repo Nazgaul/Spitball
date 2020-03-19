@@ -142,7 +142,7 @@
       </sb-dialog>
 
       <sb-dialog
-        :showDialog="getStudyRoomSettingsDialog"
+        :showDialog="getDialogRoomSettings"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'tutor-settings'"
         :maxWidth="'800'"
@@ -168,7 +168,7 @@
       </sb-dialog>
       <!--show only if not avaliable devices dialog is closed by user-->
       <sb-dialog
-        :showDialog="openStartSessionDialog && !getStudyRoomSettingsDialog"
+        :showDialog="openStartSessionDialog && !getDialogRoomSettings"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'startSessionTutor'"
         :maxWidth="'356'"
@@ -194,7 +194,7 @@
       </sb-dialog>
       <!--show only if not avaliable devices dialog is closed by user-->
       <sb-dialog
-        :showDialog="getStudentStartDialog && !getStudyRoomSettingsDialog"
+        :showDialog="getStudentStartDialog && !getDialogRoomSettings"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'startSessionStudent'"
         :maxWidth="'356'"
@@ -369,7 +369,7 @@ export default {
       "getIsFullScreenAvailable",
 
       
-      "getStudyRoomSettingsDialog",
+      "getDialogRoomSettings",
       "getZoom",
       "getPanX",
       "getPanY",
@@ -437,7 +437,6 @@ watch: {
 },
   methods: {
     ...mapActions([
-      "setStudyRoomSettingsDialog",
       "setActiveConversationObj",
       "getChatById",
       "lockChat",
@@ -499,7 +498,7 @@ watch: {
     },
     openSettingsDialog(){
       this.$ga.event("tutoringRoom", "openSettingsDialog");
-      this.changeSettingsDialogState(true)
+      this.$store.dispatch('updateDialogRoomSettings',true)
     },
     initStartSession(){
         console.warn('DEBUG: 29 store: initStartSession')
@@ -522,7 +521,7 @@ watch: {
       this.updateReviewDialog(false);
     },
     closeStudyRoomSettingsDialog(){
-      this.setStudyRoomSettingsDialog(false);
+      this.$store.dispatch('updateDialogRoomSettings',false)
     },
     closeEndDialog() {
       this.updateEndDialog(false);
@@ -552,10 +551,6 @@ watch: {
       let normalizedData = JSON.stringify(transferDataObj);
       this.$store.dispatch('sendDataTrack',normalizedData)
     },
-    changeSettingsDialogState(val) {
-      this.setStudyRoomSettingsDialog(val);
-    },
-    
     selectViewOption(param) {
       this.$ga.event("tutoringRoom", `selectViewOption:${param}`);
 
