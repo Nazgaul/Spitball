@@ -46,8 +46,7 @@ export default {
    },
    getEditManageCourse() {
       return axios.get('/Account/courses').then(({data}) => {
-          data.map(course => new School.Course(course));
-          return data;
+         return data.map(course => new School.Course(course));
       });
    }
 }
