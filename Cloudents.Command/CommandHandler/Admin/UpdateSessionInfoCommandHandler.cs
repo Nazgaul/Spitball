@@ -17,7 +17,7 @@ namespace Cloudents.Command.CommandHandler.Admin
         public async Task ExecuteAsync(UpdateSessionInfoCommand command, CancellationToken token)
         {
             var session = await _repository.GetAsync(command.SessionId, token);
-            session.EditDuration(command.DurationInMinutes);
+            session.EditDuration(command.Minutes);
 
         }
     }

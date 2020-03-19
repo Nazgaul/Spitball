@@ -37,7 +37,7 @@ namespace Cloudents.Core.Entities
         public virtual TimeSpan? Duration { get; protected set; }
 
         //TODO remove this
-        public virtual TimeSpan? DurationInMinutes { get; protected set; }
+        //public virtual TimeSpan? DurationInMinutes { get; protected set; }
 
         public virtual int RejoinCount { get; protected set; }
         public virtual string SessionId { get; protected set; }
@@ -67,19 +67,19 @@ namespace Cloudents.Core.Entities
 
         protected virtual void CalculatePriceAndDuration()
         {
-            Duration = DurationInMinutes = Ended - Created;
+            Duration = Ended - Created;
 
-            Price = ((decimal)Math.Floor(DurationInMinutes.Value.TotalMinutes) / 60) * StudyRoom.Tutor.Price.SubsidizedPrice ??
-                      ((decimal)Math.Floor(DurationInMinutes.Value.TotalMinutes) / 60) * StudyRoom.Tutor.Price.Price;
+            Price = ((decimal)Math.Floor(Duration.Value.TotalMinutes) / 60) * StudyRoom.Tutor.Price.SubsidizedPrice ??
+                      ((decimal)Math.Floor(Duration.Value.TotalMinutes) / 60) * StudyRoom.Tutor.Price.Price;
         }
 
-        public virtual void EditDuration(int duration)
+        public virtual void EditDuration(int minutes)
         {
             if (Ended == null)
             {
                 throw new ArgumentException();
             }
-            Ended = Created.AddMinutes(duration);
+            Ended = Created.AddMinutes(minutes);
             CalculatePriceAndDuration();
         }
 
