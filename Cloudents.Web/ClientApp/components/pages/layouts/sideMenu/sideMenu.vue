@@ -10,14 +10,8 @@
         <div @click="toggleMiniSideMenu" v-if="!isMiniSideMenu && $vuetify.breakpoint.mdAndDown" class="sideMenu_btn"/>
         
         <v-list class="sideMenu_list_cont" dense>
-          <template v-if="showHome" >
-            <sideMenuHome :homeProps="{
-                              model:coursesModel,
-                              toggleMiniSideMenu:toggleMiniSideMenu,
-                              getShowSchoolBlock:getShowSchoolBlock,
-                              openSideMenu:openSideMenu,
-                            }"/>
-          </template>
+
+          <sideMenuHome />
 
           <sideMenuDashboard :dashboardProps="{
                               model:dashboardModel,

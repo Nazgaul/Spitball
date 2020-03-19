@@ -2,27 +2,53 @@
     <general-page :mdAndDown="$vuetify.breakpoint.mdAndDown" :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="$route.name">
         <div slot="main" class="feedWrap">
             <template v-if="showRequestBox">
-                <coursesTab/>
                 <request-box class="request-box mb-0"/>
             </template>
             <v-flex xs12 class="mt-3 analyticWrapper" v-if="showAnalyticStats">
-                <analyticOverview/>
+                <analyticOverview />
             </v-flex>
-            <v-flex xs12 sm4 class="select-feed mt-3">
-                <v-select class=" filters_select"
-                    sel="feed_filter"
-                    :append-icon="'sbf-arrow-fill'"
-                    v-model="query.filter"
-                    :value="Feeds_getCurrentQuery.filter"
-                    :items="filters"
-                    :item-text="getSelectedName"
-                    @change="handleSelects()"
-                    :height="$vuetify.breakpoint.xsOnly? 42 : 36" hide-details solo>
-                    <template v-slot:item="{item}">
-                        {{dictionary[item.key]}}
-                    </template>
-                </v-select>
-            </v-flex>
+
+            <div class="feed_filters pa-3 pa-sm-0">
+                <v-flex xs2 sm4 class="pr-0 pr-sm-4 d-flex d-sm-block" justify-end>
+                    <v-menu offset-y sel="filter_type">
+                        <template v-slot:activator="{ on }">
+                            <v-btn icon v-on="on" class="filters_menu_btn d-block d-sm-none">
+                                <v-icon class="icon">sbf-sort</v-icon>
+                            </v-btn>
+                        </template>
+                        <v-list class="px-2">
+                            <v-list-item v-for="(item, index) in filters" :key="index" @click="menuSelect(item.value)">
+                                <v-list-item-title>{{dictionary[item.key]}}</v-list-item-title>
+                            </v-list-item>
+                        </v-list>
+                    </v-menu>
+
+                    <v-select class="profileItemsBox_filters_select d-none d-sm-flex"
+                        sel="feed_filter"
+                        :append-icon="'sbf-arrow-fill'"
+                        v-model="query.filter"
+                        :value="Feeds_getCurrentQuery.filter"
+                        :items="filters"
+                        :item-text="getSelectedName"
+                        @change="handleSelects()"
+                        :height="$vuetify.breakpoint.xsOnly ? 42 : 36" hide-details solo>
+                    </v-select>
+                </v-flex>
+                <v-flex xs10 sm9 class="pr-4 pr-sm-0">
+                    <v-select class="profileItemsBox_filters_select"
+                        sel="filter_course"
+                        :append-icon="'sbf-arrow-fill'"
+                        clearable
+                        :clear-icon="'sbf-close'"
+                        v-model="query.course"
+                        :value="Feeds_getCurrentQuery.course"
+                        :items="courses"
+                        @change="handleSelects()"
+                        :placeholder="selectCoursePlaceholder" :height="$vuetify.breakpoint.xsOnly? 42 : 36" solo>
+                    </v-select>
+                </v-flex>
+            </div>
+
             <div class="results-section mt-3 mt-sm-5" v-if="items">
                 <scrollList v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
                     <v-container class="ma-0 results-wrapper pa-0">
@@ -173,5 +199,73 @@
       }
     }
 
+    .feed_filters{
+        display: flex;
+        justify-content: space-between;
+         @media (max-width: @screen-xs) {
+            flex-direction: row-reverse;
+            background: white;
+        }
+        .filtercourse{
+            max-width: 100%;
+            flex-grow: 1;
+        }
+        .filters_menu_btn{
+            max-width: 44px;
+            max-height: 42px;
+            width: 44px;
+            height: 42px;
+            border-radius: 8px;
+            border: solid 1px #ced0dc;
+            background-color: white;
+            color: #6f6e82;
+            .icon{
+                font-size: 16px;
+            }
+        }
+        .profileItemsBox_filters_select{
+            color: #4d4b69;
+            .responsive-property(height, 36px, null, 42px);
+            .v-input__control{
+                min-height: auto !important;
+                display: unset;
+                .responsive-property(height, 36px, null, 42px);
+                .v-input__slot{
+                border-radius: 8px;
+                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+                margin: 0;
+                @media (max-width: @screen-xs) {
+                    box-shadow: none;
+                    border: solid 1px #ced0dc;
+                }
+                .v-select__slot{
+                    font-size: 14px;
+                    .v-select__selections{
+                        ::placeholder{
+                            font-size: 14px;
+                            color: #4d4b69;
+                        }
+                    }
+                    .v-input__append-inner{
+                        .v-input__icon{
+                            &.v-input__icon--append{
+                            i{
+                                font-size: 6px;
+                                color: #43425d;
+                            }
+                            }
+                            &.v-input__icon--clear{
+                            button{
+                                font-size: 10px;
+                                color: #43425d;
+                            }
+                            }
+                        }
+                    }
+                }
+                }
+            }
+        }
+    }
 }
 </style>

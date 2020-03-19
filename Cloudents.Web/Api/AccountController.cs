@@ -290,6 +290,13 @@ namespace Cloudents.Web.Api
             return await _queryBus.QueryAsync(query, token);
         }
 
+        [HttpGet("courses")]
+        public async Task<IEnumerable<CourseDto>> GetCoursesAsync(CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new UserCoursesQuery(userId);
+            return await _queryBus.QueryAsync(query, token);
+        }
 
     }
 }
