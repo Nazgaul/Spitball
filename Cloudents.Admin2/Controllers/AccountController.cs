@@ -102,15 +102,16 @@ namespace Cloudents.Admin2.Controllers
         }
 
         [HttpGet]
-        public IActionResult SignedOut()
+        public async Task<IActionResult> LogOut()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                // Redirect to home page if the user is authenticated.
-                return RedirectToAction(nameof(HomeController.Index), "Home");
-            }
+            // if (User.Identity.IsAuthenticated)
+            //{
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            // Redirect to home page if the user is authenticated.
+            // return RedirectToAction(nameof(HomeController.Index), "Home");
+            //}
 
-            return View();
+            return View("SignedOut");
         }
 
         [HttpGet]
