@@ -90,7 +90,7 @@
 
         <div class="d-flex align-center">
             <div class="flex-grow-1">
-                <v-flex v-if="currentProfileUser.description" sm9 xs12 class="profileUserBox_middle">
+                <v-flex v-if="currentProfileUser.tutorData.description" sm9 xs12 class="profileUserBox_middle">
                     
                     <div class="d-flex justify-space-between" v-if="currentProfileUser.isTutor">
                         <h4 v-if="currentProfileTutor.bio" class="pUb_middle_bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}

@@ -9,7 +9,6 @@ export const Profile = {
             documentCourses: objInit.documentCourses,
             courses: objInit.courses,  
             online: objInit.online || false,
-            description: objInit.tutor?.description || '', // remove that moved to objInit.tutor
             calendarShared: objInit.calendarShared || false,
             tutorData: objInit.tutor ? new User.Tutor(objInit.tutor) : '',
             isTutor: objInit.hasOwnProperty('tutor') || false,
