@@ -140,6 +140,10 @@ export default {
         fetchData(objParams){
             return this.Feeds_fetchingData(objParams)
         },
+        menuSelect(itemType) {
+            this.query.filter = itemType;
+            this.handleSelects()
+        },
         handleSelects(){
             let objParams = {
                 ...this.$route.query,
@@ -147,7 +151,7 @@ export default {
             }
             Object.keys(objParams).forEach((key) => {
                 let isInArray = [undefined, ''].indexOf(objParams[key]) !== -1;
-                let isInObj = typeof objParams.filter === 'object'
+                let isInObj = typeof objParams[key] === 'object'
                 if (isInArray || isInObj) {
                     delete objParams[key]
                 }

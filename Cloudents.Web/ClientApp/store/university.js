@@ -17,6 +17,7 @@ const state = {
     uniCreationVerified: false,
     lock_selectedClass:true,
     searchedCourse: '',
+    isCourseRequestQuery: false
 };
 
 const getters = {
@@ -51,7 +52,7 @@ const mutations = {
     },
     //end dialogs mutations
     deleteCourse(state, val) {
-        let index = state.selectedClasses.filter(v => v.name !== val);
+        let index = state.selectedClasses.filter(v => v.text !== val);
         state.selectedClasses = index
     },
     
@@ -272,12 +273,17 @@ const actions = {
     setLock_selectedClass({commit}, val){
         commit('setLock_selectedClass', val);
     },
-    getManageCourses({commit}) {
-        return courseService.getEditManageCourse().then(({data}) => {
-            commit('setSelectedClasses', data)
-            return data
-        })
-    }
+    getManageCourses({commit, getters, state}) {
+        let isRequest = state.isCourseRequestQuery
+        if(!isRequest) {
+            return courseService.getEditManageCourse().then((data) => {
+                commit('setSelectedClasses', data);
+                state.isCourseRequestQuery = true;
+                return getters.getSelectedClasses
+            })
+        }
+        return Promise.resolve( getters.getSelectedClasses)
+    },
 };
 
 export default {
