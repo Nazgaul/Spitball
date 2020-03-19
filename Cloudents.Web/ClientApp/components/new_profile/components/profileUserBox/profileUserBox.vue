@@ -114,6 +114,7 @@
                     <span v-for="(subject, index) in currentProfileTutor.subjects" :key="index">{{subject}}{{index + 1 == currentProfileTutor.subjects.length? '':' ,'}}</span>
                 </div>
 
+
                 <!-- courses student -->
                 <div class="profileUserBox_bottom course mt-2" v-if="!currentProfileUser.isTutor && currentProfileUser.courses.length">
                     <span class="profileUserBox_bottom_title mr-1">{{$t('profile_my_courses')}}:</span>
