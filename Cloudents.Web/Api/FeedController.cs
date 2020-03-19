@@ -147,7 +147,7 @@ namespace Cloudents.Web.Api
 
         [HttpGet("courses")]
         [Authorize]
-        public async Task<IEnumerable<string>> GetUserCoursesAync([FromServices] IQueryBus queryBus, CancellationToken token)
+        public async Task<IEnumerable<string>> GetUserCoursesAsync([FromServices] IQueryBus queryBus, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserCoursesNamesQuery(userId);
