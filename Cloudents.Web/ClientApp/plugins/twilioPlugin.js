@@ -17,9 +17,6 @@ function _detachTracks(tracks){
       }
    });
 }
-// function _attachTracks(tracks,container){
-  
-// }
 function _insightEvent(...args) {
    //use https://www.npmjs.com/package/vue-application-insights
    insightService.track.event(insightService.EVENT_TYPES.LOG, ...args);
@@ -50,7 +47,6 @@ function _twilioListeners(room,store) {
             previewContainer.appendChild(track.attach());
          }
       });
-     // _attachTracks(tracks, previewContainer)
    });
 
    // local participant events
@@ -177,17 +173,19 @@ export default () => {
       let _localVideoTrack = null;
       let _localAudioTrack = null;
       let _localScreenTrack = null;
+      let _debugMode;
       store.subscribe((mutation) => {
-         if (mutation.type === 'setRouteStack' && mutation.payload === routeNames.StudyRoom) {
+         if (mutation.type === 'setRouteStack' && mutation.payload.name === routeNames.StudyRoom) {
             import('twilio-video').then(async (Twilio) => { 
                twillioClient = Twilio;
                dataTrack = new twillioClient.LocalDataTrack();
             });
+            _debugMode = mutation.payload.query?.debug ? 'debug' : 'off';
          }
          if (mutation.type === SETTERS.JWT_TOKEN) {
             let jwtToken = mutation.payload;
             let options = {
-               logLevel: 'debug', // from query string
+               logLevel: _debugMode,
                tracks: [dataTrack],
                networkQuality: { // this is reserved down the road
                   local: 3,
