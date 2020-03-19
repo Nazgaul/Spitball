@@ -35,9 +35,9 @@ namespace Cloudents.FunctionsV2.Sync
                 switch (SyncType)
                 {
                     case SyncType.University:
-                        return "UniversitySearchSync3";
+                        return "UniversitySearchSync4";
                     case SyncType.Document:
-                        return "DocumentSearchSync1";
+                        return "DocumentSearchSync2";
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
