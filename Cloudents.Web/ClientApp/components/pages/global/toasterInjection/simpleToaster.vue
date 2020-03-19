@@ -2,10 +2,10 @@
     <v-snackbar
         absolute
         top
-        :timeout="toasterObj.timeout || 3000"
+        :timeout="params.timeout || 3000"
         :value="true"
     >
-       {{toasterObj.text}}
+       {{params.text}}
     </v-snackbar>
 </template>
 
@@ -14,9 +14,9 @@
 export default {
     name: '',
     props: {
-        toasterObj: {
-            type: Object,
-            required: true
+        params: {
+            type:Object,
+            required:true
         }
     }
 }

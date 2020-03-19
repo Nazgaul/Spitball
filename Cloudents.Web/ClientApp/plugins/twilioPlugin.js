@@ -1,7 +1,7 @@
 import insightService from '../services/insightService';
 import * as routeNames from '../routes/routeNames.js';
 import {SETTERS} from '../store/constants/twilioConstants.js';
-
+//https://media.twiliocdn.com/sdk/js/video/releases/2.2.0/docs
 const REMOTE_TRACK_DOM_ELEMENT = 'remoteTrack';
 const LOCAL_TRACK_DOM_ELEMENT = 'localTrack';
 const AUDIO_TRACK_NAME = 'audioTrack';
@@ -17,14 +17,11 @@ function _detachTracks(tracks){
       }
    });
 }
-function _attachTracks(tracks,container){
-   tracks.forEach((track) => {
-      if (track.attach) {
-         container.appendChild(track.attach());
-      }
-   });
-}
+// function _attachTracks(tracks,container){
+  
+// }
 function _insightEvent(...args) {
+   //use https://www.npmjs.com/package/vue-application-insights
    insightService.track.event(insightService.EVENT_TYPES.LOG, ...args);
 }
 function _publishTrack(activeRoom,track){
@@ -48,7 +45,12 @@ function _twilioListeners(room,store) {
    room.participants.forEach((participant) => {
       let previewContainer = document.getElementById(REMOTE_TRACK_DOM_ELEMENT);
       let tracks = Array.from(participant.tracks.values());
-      _attachTracks(tracks, previewContainer)
+      tracks.forEach((track) => {
+         if (track.attach) {
+            previewContainer.appendChild(track.attach());
+         }
+      });
+     // _attachTracks(tracks, previewContainer)
    });
 
    // local participant events
@@ -185,14 +187,15 @@ export default () => {
          if (mutation.type === SETTERS.JWT_TOKEN) {
             let jwtToken = mutation.payload;
             let options = {
-               logLevel: 'debug',
+               logLevel: 'debug', // from query string
                tracks: [dataTrack],
-               networkQuality: {
+               networkQuality: { // this is reserved down the road
                   local: 3,
                   remote: 3
                }
             };
             _insightEvent('connectToRoom', {'token': jwtToken}, null);
+            //do the end session
             twillioClient.connect(jwtToken, options).then((room) => {
                _activeRoom = room; // for global using in this plugin
                _insightEvent('TwilioConnect', _activeRoom, null);
@@ -213,6 +216,7 @@ export default () => {
                   tracks.forEach(({value}) => {
                      if(value){
                         if(value.name === VIDEO_TRACK_NAME){
+                           //#1 why not the same code
                            const localMediaContainer = document.getElementById(LOCAL_TRACK_DOM_ELEMENT);
                            localMediaContainer.appendChild(value.attach());
                            _localVideoTrack = value;
@@ -244,8 +248,11 @@ export default () => {
             _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
             _toggleTrack(tracks,'audio');
          }
+         //screen share broadcast toggle
          if (mutation.type === SETTERS.SCREEN_SHARE){
-            if(mutation.payload){
+            if(mutation.payload){ 
+               //copy the logic from the previous to add toaster
+               // remove the tooltip
                navigator.mediaDevices.getDisplayMedia({video:true,audio: false}).then(stream=>{
                   _localScreenTrack = new twillioClient.LocalVideoTrack(stream.getTracks()[0],{name:SCREEN_TRACK_NAME});
                   if(_localVideoTrack){
@@ -255,24 +262,27 @@ export default () => {
                   store.commit(SETTERS.VIDEO_AVAILABLE,true)
                   _localScreenTrack.on('stopped',(track)=>{
                      _unPublishTrack(_activeRoom,track)
+                     store.commit(SETTERS.SCREEN_SHARE,false);
                      if(_localVideoTrack){
                         _publishTrack(_activeRoom,_localVideoTrack)
                      }else{
+                        //why it is not all the time
                         store.commit(SETTERS.VIDEO_AVAILABLE,false)
                      }
-                     store.commit(SETTERS.SCREEN_SHARE,false);
                   })
                })
             }else{
                _localScreenTrack.stop()
             }
          }
+         //change video devices
          if (mutation.type === SETTERS.VIDEO_TRACK){
             if(_localVideoTrack){
                _unPublishTrack(_activeRoom,_localVideoTrack)
             }
             let params = {deviceId: {exact: mutation.payload},name:VIDEO_TRACK_NAME}
             twillioClient.createLocalVideoTrack(params).then(track=>{
+               //#1 why not the same code
                _localVideoTrack = track;
                _publishTrack(_activeRoom,_localVideoTrack)
 

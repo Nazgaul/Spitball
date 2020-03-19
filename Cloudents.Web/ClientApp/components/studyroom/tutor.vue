@@ -659,7 +659,7 @@ watch: {
     storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
   },
   async created() {
-    this.$store.commit('setToaster', '')
+    this.$store.commit('clearToaster')
     this.userId = this.accountUser?.id || 'GUEST';
     if (!studyroomSettingsUtils.isBrowserSupport()) {
       this.$nextTick(()=>{

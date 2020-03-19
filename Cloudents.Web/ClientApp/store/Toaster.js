@@ -14,6 +14,7 @@ const state = {
     value: '',
 };
 const mutations = {
+    //OLD CODE IGNORE!!!!
     [TOASTER.UPDATE_PARAMS](state,val) {
         if(!val.hasOwnProperty('toasterTimeout')){
             val.toasterTimeout = 5000;
@@ -29,6 +30,9 @@ const mutations = {
     setToaster(state, type) {
         state.value = type
     },
+    clearToaster(state) {
+        state.value = '';
+    }
 };
 const getters = {
     getShowToaster:  state => state.params.showToaster,
