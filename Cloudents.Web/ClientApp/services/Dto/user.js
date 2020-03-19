@@ -20,6 +20,8 @@ export const User = {
         this.discountPrice = objInit.discountPrice;
         this.subjects = objInit.subjects || [];
         this.pendingSessionsPayments = objInit.pendingSessionsPayments || null;
+        this.description = objInit.description || ''
+
     },
     Tutor: function (objInit) {
         return Object.assign(

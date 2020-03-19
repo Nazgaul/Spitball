@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Stuff
 {
-    public sealed class CommandBus : ICommandBus//, IDisposable
+    public sealed class CommandBus : ICommandBus
     {
         public CommandBus(ILifetimeScope container)
         {
@@ -14,20 +14,19 @@ namespace Cloudents.Infrastructure.Stuff
 
         private readonly ILifetimeScope _container;
 
-        public async Task DispatchAsync<TCommand>(TCommand command, CancellationToken token) where TCommand : ICommand
+        public async Task<TCommandResult> DispatchAsync<TCommand, TCommandResult>(TCommand command, CancellationToken token) where TCommand : ICommand where TCommandResult : ICommandResult
         {
-            using (var child = _container.BeginLifetimeScope())
-            {
-                // var unitOfWork = child.Resolve<IUnitOfWork>();
-                var obj = child.Resolve<ICommandHandler<TCommand>>();
-                await obj.ExecuteAsync(command, token);
-                //await unitOfWork.CommitAsync(token);
-            }
+            using var child = _container.BeginLifetimeScope();
+            var obj = child.Resolve<ICommandHandler<TCommand, TCommandResult>>();
+            return await obj.ExecuteAsync(command, token);
+
         }
 
-        //public void Dispose()
-        //{
-        //    _container?.Dispose();
-        //}
+        public async Task DispatchAsync<TCommand>(TCommand command, CancellationToken token) where TCommand : ICommand
+        {
+            using var child = _container.BeginLifetimeScope();
+            var obj = child.Resolve<ICommandHandler<TCommand>>();
+            await obj.ExecuteAsync(command, token);
+        }
     }
 }

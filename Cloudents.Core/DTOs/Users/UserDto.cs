@@ -38,9 +38,8 @@ namespace Cloudents.Core.DTOs.Users
         public string Name { get; set; }
         [EntityBind(nameof(User.ImageName))]
         public string? Image { get; set; }
-        public string UniversityName { get; set; }
-        [EntityBind(nameof(User.Description))]
-        public string Description { get; set; }
+        //public string UniversityName { get; set; }
+      
         [EntityBind(nameof(User.Online))]
         public bool Online { get; set; }
         [EntityBind(nameof(GoogleTokens))]
@@ -58,6 +57,7 @@ namespace Cloudents.Core.DTOs.Users
 
         public bool IsFollowing { get; set; }
 
+        public IEnumerable<string>? DocumentCourses { get; set; }
         public IEnumerable<string>? Courses { get; set; }
 
         //If the user is a tutor and then delete then the first name and the last name stays
@@ -84,7 +84,6 @@ namespace Cloudents.Core.DTOs.Users
         [EntityBind(nameof(ReadTutor.RateCount))]
         public int ReviewCount { get; set; }
        
-
         public bool HasCoupon { get; set; }
 
         public decimal? CouponValue { get; set; }
@@ -102,8 +101,8 @@ namespace Cloudents.Core.DTOs.Users
         public int ContentCount { get; set; }
         public int Students { get; set; }
 
-        // public int ResponseTime { get; set; }
-
+        [EntityBind(nameof(User.Description))]
+        public string Description { get; set; }
     }
 
     public class UserAccountDto

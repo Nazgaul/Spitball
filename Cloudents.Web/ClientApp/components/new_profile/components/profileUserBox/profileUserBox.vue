@@ -12,7 +12,6 @@
                         <span v-if="currentProfileUser.isTutor" v-language:inner="'profile_tutor'"/>
                         {{currentProfileUser.name}}
                     </h1>
-                    <h2 class="profileUserBox_top_mobile_userUniversity text-truncate" v-text="currentProfileUser.universityName"/>
                 </div>
                 <div class="profileUserBox_top_mobile_left">
                     <followBtn v-if="!isCurrentProfileUser"/>
@@ -44,10 +43,9 @@
                 <div class="pUb_defaultState_content text-truncate hidden-xs-only">
                     <div>
                         <h1 class="pUb_dS_c_userName text-truncate">
-                        <span v-if="currentProfileUser.isTutor" class="mr-1" v-language:inner="'profile_tutor'"/> 
-                        {{currentProfileUser.name}}
+                            <span v-if="currentProfileUser.isTutor" class="mr-1" v-language:inner="'profile_tutor'"/> 
+                            {{currentProfileUser.name}}
                         </h1>
-                        <h2 class="pUb_dS_c_userUniversity text-truncate" v-text="currentProfileUser.universityName"/>
                         <template v-if="currentProfileUser.isTutor">
                             <div class="pUb_dS_c_rating" v-if="currentProfileTutor.reviewCount">
                                 <userRating class="c_rating" :showRateNumber="false" :rating="currentProfileTutor.rate" :size="'18'" />
@@ -66,6 +64,9 @@
                     </div>
                 </div>
             </v-flex>
+
+
+
             <v-flex xs4 class="pUb_top_tutorState" v-if="currentProfileUser.isTutor">
                 <div class="pUb_top_tS_list">
                     <starSVG/>
@@ -85,15 +86,46 @@
                 </div>
             </v-flex>
         </div>
-        <v-flex v-if="currentProfileUser.description" sm9 xs12 class="profileUserBox_middle">
-            <h3 class="pUb_middle_AboutMe" v-text="currentProfileUser.description"/>
-            <template v-if="currentProfileUser.isTutor">
-                <h4 v-if="currentProfileTutor.bio" class="pUb_middle_bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}<span class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</span><span sel="bio_more" v-if="readMoreVisible" @click="isOpen = !isOpen" class="pUb_middle_bio_readMore" v-language:inner="isOpen?'profile_read_less':'profile_read_more'"/></h4>
-            </template>
-        </v-flex>
-        <div class="profileUserBox_bottom" v-if="currentProfileUser.isTutor && currentProfileTutor.subjects.length">
-            <span class="profileUserBox_bottom_title mr-1" v-language:inner="'profile_study'"/>
-            <span v-for="(subject, index) in currentProfileTutor.subjects" :key="index">{{subject}}{{index + 1 == currentProfileTutor.subjects.length? '':' ,'}}</span>
+
+
+        <div class="d-flex align-center">
+            <div class="flex-grow-1">
+                <v-flex v-if="currentProfileUser.tutorData.description" sm9 xs12 class="profileUserBox_middle">
+                    
+                    <div class="d-flex justify-space-between" v-if="currentProfileUser.isTutor">
+                        <h4 v-if="currentProfileTutor.bio" class="pUb_middle_bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}
+                            <span class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</span>
+                            <span sel="bio_more" v-if="readMoreVisible" @click="isOpen = !isOpen" class="pUb_middle_bio_readMore" v-language:inner="isOpen?'profile_read_less':'profile_read_more'"></span>
+                        </h4>
+                    </div>
+
+                    <!-- courses teacher -->
+                    <div class="profileUserBox_bottom course mt-2" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
+                        <span class="profileUserBox_bottom_title mr-1">{{$t('profile_my_courses')}}:</span>
+                        <span v-for="(course, index) in currentProfileUser.courses" :key="index">
+                            {{course}}{{index + 1 == currentProfileUser.courses.length ? '' : ', '}}
+                        </span>
+                    </div>
+                </v-flex>
+
+                <!-- subjects -->
+                <div class="profileUserBox_bottom" v-if="currentProfileUser.isTutor && currentProfileTutor.subjects.length">
+                    <span class="profileUserBox_bottom_title mr-1" v-language:inner="'profile_study'"/>
+                    <span v-for="(subject, index) in currentProfileTutor.subjects" :key="index">{{subject}}{{index + 1 == currentProfileTutor.subjects.length? '':' ,'}}</span>
+                </div>
+
+
+                <!-- courses student -->
+                <div class="profileUserBox_bottom course mt-2" v-if="!currentProfileUser.isTutor && currentProfileUser.courses.length">
+                    <span class="profileUserBox_bottom_title mr-1">{{$t('profile_my_courses')}}:</span>
+                    <span v-for="(course, index) in currentProfileUser.courses" :key="index">
+                        {{course}}{{index + 1 == currentProfileUser.courses.length ? '' : ', '}}
+                    </span>
+                </div>
+            </div>
+            <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="!currentProfileUser.isTutor">
+                <editSVG class="mr-1" v-if="!isMobile && isCurrentProfileUser" />
+            </v-btn>
         </div>
     </div>
 </template>
@@ -112,7 +144,7 @@ import { LanguageService } from "../../../../services/language/languageService";
 import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
 import uploadImage from '../../profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue';
 import followBtn from '../followBtn/followBtn.vue';
-
+import * as routeNames from '../../../../routes/routeNames';
 
 export default {
     name:'profileUserBox',
@@ -131,6 +163,7 @@ export default {
     data() {
         return {
             defOpen:false,
+            routeNames
         }
     },
     computed: {
@@ -299,10 +332,6 @@ export default {
                 letter-spacing: normal;
                 line-height: 1.4;
             }
-            .profileUserBox_top_mobile_userUniversity{
-                font-size: 14px;
-                font-weight: normal;
-            }
         }
         .profileUserBox_top_mobile_left{
             text-align: end;
@@ -402,12 +431,6 @@ export default {
                     line-height: 1;
                     padding-bottom: 6px;
                 }
-                .pUb_dS_c_userUniversity{
-                    font-size: 14px;
-                    font-weight: normal;
-                    line-height: 1.64;
-                    padding-bottom: 6px;
-                }
                 .pUb_dS_c_rating{
                     display: inline-flex;
                     align-items: center;
@@ -488,19 +511,6 @@ export default {
         }
 
         color: #43425d;
-        .pUb_middle_AboutMe{
-            font-size: 18px;
-            font-weight: 600;
-            font-stretch: normal;
-            font-style: normal;
-            letter-spacing: normal;
-                word-break: break-word;
-            @media (max-width: @screen-xs) {
-                font-size: 16px;
-                line-height: 1.4;
-            }
-            padding-bottom: 12px;
-        }
         .pUb_middle_bio{
             margin: 0;
             padding: 0;
@@ -528,6 +538,9 @@ export default {
         font-size: 14px;
         .profileUserBox_bottom_title{
             font-weight: bold;
+        }
+        &.course {
+          .giveMeEllipsis(2, 18);
         }
         @media (max-width: @screen-xs) {
             padding: 0 14px 12px;

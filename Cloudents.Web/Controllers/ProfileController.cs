@@ -70,12 +70,11 @@ namespace Cloudents.Web.Controllers
             }
             
             ViewBag.title = _localizer["TitleNoUniversity", retVal.Name];
-            ViewBag.metaDescription = _localizer["Description", retVal.Description];
+            ViewBag.metaDescription = _localizer["Description", retVal.Tutor.Description];
             if (retVal.Image != null)
             {
                 Country country = retVal.Tutor.TutorCountry;
 
-                //ViewBag.ogImage = $"{retVal.Image}?width=1200&height=630";
                 ViewBag.ogImage = _urlBuilder.BuildUserImageProfileShareEndpoint(retVal.Id, new
                 {
                     width = 1200,
@@ -85,7 +84,7 @@ namespace Cloudents.Web.Controllers
                 ViewBag.ogImageWidth = 1200;
                 ViewBag.ogImageHeight = 630;
                 ViewBag.ogTitle = retVal.Name;
-                if (retVal.Tutor?.Subjects?.Any() == true)
+                if (retVal.Tutor.Subjects?.Any() == true)
                 {
                     ViewBag.ogDescription =
                         _localizer.WithCulture(country.MainLanguage)["OgDescription",
@@ -93,25 +92,7 @@ namespace Cloudents.Web.Controllers
                 }
 
             }
-
-            //var jsonLd = new ProfilePage()
-            //{
-            //    SourceOrganization = new Organization
-            //    {
-            //        Logo = new Uri($"{_configuration["site"].TrimEnd('/')}/images/favicons/android-icon-192x192.png"),
-            //        Url = Request.GetUri()
-            //    },
-            //    About = new Person()
-            //    {
-            //        Name = retVal.Name,
-            //        GivenName = retVal.FirstName,
-            //        FamilyName = retVal.LastName,
-            //        Image = new Uri($"{_configuration["site"].TrimEnd('/')}{retVal.Image}"), // TODO should be fixed
-            //        Description = retVal.Description,
-            //    },
-            //    Url = Request.GetUri()
-            //};
-            //ViewBag.jsonLd = jsonLd;
+          
             return View("Index");
         }
     }
