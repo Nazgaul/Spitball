@@ -77,12 +77,12 @@ namespace Cloudents.Core
             return matchingItem;
         }
 
-        public static bool operator ==(Enumeration left, Enumeration right)
+        public static bool operator ==(Enumeration? left, Enumeration? right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(Enumeration left, Enumeration right)
+        public static bool operator !=(Enumeration? left, Enumeration? right)
         {
             return !Equals(left, right);
         }
