@@ -511,19 +511,6 @@ export default {
         }
 
         color: #43425d;
-        .pUb_middle_AboutMe{
-            font-size: 18px;
-            font-weight: 600;
-            font-stretch: normal;
-            font-style: normal;
-            letter-spacing: normal;
-                word-break: break-word;
-            @media (max-width: @screen-xs) {
-                font-size: 16px;
-                line-height: 1.4;
-            }
-            padding-bottom: 12px;
-        }
         .pUb_middle_bio{
             margin: 0;
             padding: 0;
