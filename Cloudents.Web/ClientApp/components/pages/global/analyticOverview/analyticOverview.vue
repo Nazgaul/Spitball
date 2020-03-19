@@ -26,7 +26,7 @@
               v-for="(val, key, index) in results[0]"
               :key="index"
               :cols="isMobile ? 6 : 3"
-              class="box pa-0 text-center">
+              class="analyticBox pa-0 text-center">
                 <router-link :to="{name: navigation[key]}" class="boxWrap d-block mb-0 mb-sm-2 ma-2 ma-sm-0 py-2 py-sm-0" :class="[isMobile ? 'fullBorder' : 'borderSide']">
                   <div class="type">{{ $t(analyticTypeResource(key)) }}</div>
                   <div class="result my-0 my-sm-1">{{$n(Math.round(val), key === 'revenue' ? 'currency' : '')}}</div>
@@ -184,7 +184,7 @@ export default {
         }
       }
     }
-    .box {
+    .analyticBox {
       .boxWrap {
         &.borderSide {
           border-right: 1px solid #dddddd;
