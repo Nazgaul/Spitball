@@ -72,7 +72,7 @@
         },
         computed: {
             ...mapState(['tutoringMain']),
-            ...mapGetters(['getIsShareScreen',"accountUser", "getStudyRoomData", "getCurrentRoomState", "getLocalVideoTrack","activeRoom"]),
+            ...mapGetters(['getIsShareScreen',"accountUser", "getStudyRoomData", "getLocalVideoTrack","activeRoom"]),
             localVideoTrack(){
                 return this.getLocalVideoTrack
             },
@@ -85,7 +85,6 @@
             },
             roomIsActive() {
                 return true
-                // return this.getCurrentRoomState === this.tutoringMain.roomStateEnum.active;
             },
             isTutor() {
                 return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;

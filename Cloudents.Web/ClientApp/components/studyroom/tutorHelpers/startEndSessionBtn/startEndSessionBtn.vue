@@ -1,12 +1,6 @@
 <template>
     <div class="btn-wrapper">
         <v-flex v-show="isTutor">
-            <button v-show="roomIsActive && !waitingStudent" class="end-session" @click="endSession()">
-                <stopIcon class="stop-icon mr-2"></stopIcon>
-                <span v-language:inner>tutor_stream_btn_end_session</span>
-            </button>
-        </v-flex>
-        <v-flex v-show="!isTutor">
             <button v-show="roomIsActive" class="end-session" @click="endSession()">
                 <stopIcon class="stop-icon mr-2"></stopIcon>
                 <span v-language:inner>tutor_stream_btn_end_session</span>
@@ -16,7 +10,7 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions, mapState} from 'vuex';
+    import {mapActions} from 'vuex';
     import stopIcon from '../../images/stop-icon.svg';
     export default {
         name: "startEndSessionBtn",
@@ -24,16 +18,11 @@
             stopIcon
         },
         computed: {
-            ...mapState(['tutoringMain']),
-            ...mapGetters(['getCurrentRoomState','getStudyRoomData']),
-            roomIsActive() {
-                return this.getCurrentRoomState === this.tutoringMain.roomStateEnum.active;
-            },
-            waitingStudent() {
-                return this.getCurrentRoomState === this.tutoringMain.roomStateEnum.loading;
+            isRoomActive(){
+                return this.$store.getters.getRoomIsActive;
             },
             isTutor() {
-                return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
+                return this.$store.getters.getRoomIsTutor;
             },
         },
         methods: {

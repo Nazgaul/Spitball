@@ -14,6 +14,9 @@ function _checkPayment(context){
 const state = {
    activeNavIndicator: 'white-board',
    roomOnlineDocument: null,
+   roomIsTutor:false,
+   roomIsActive:false,
+
    dialogRoomSettings: false,
    
    roomProps: null,
@@ -23,8 +26,8 @@ const mutations = {
    [SETTERS.ACTIVE_NAV_TAB_INDICATOR]: (state,{activeNav}) => state.activeNavIndicator = activeNav,
    [SETTERS.ROOM_PROPS](state,props){
       state.roomOnlineDocument = props.onlineDocument;
+      state.roomIsTutor = this.getters.accountUser.id == props.tutorId;
 
-      // props.isTutor = this.getters.accountUser.id == props.tutorId;
       // state.roomProps = props;
       /*
       conversationId: "162074_162085"
@@ -39,10 +42,13 @@ tutorPrice: 50
       */ 
    },
    [SETTERS.DIALOG_ROOM_SETTINGS]: (state,val) => state.dialogRoomSettings = val,
+   [SETTERS.ROOM_ACTIVE]: (state,val) => state.roomIsActive = val,
 }
 const getters = {
    getActiveNavIndicator: state => state.activeNavIndicator,
    getRoomOnlineDocument: state => state.roomOnlineDocument,
+   getRoomIsTutor: state => state.roomIsTutor,
+   getRoomIsActive: state => state.roomIsActive,
    getDialogRoomSettings: state => state.dialogRoomSettings,
 }
 const actions = {

@@ -12,14 +12,14 @@ const state = {
 const mutations = {
    [SETTERS.JWT_TOKEN]: (state,token) => state.jwtToken = token,
    [SETTERS.DATA_TRACK]: () => {},
-   [SETTERS.VIDEO_TRACK]: () => {},
+   [SETTERS.CHANGE_VIDEO_DEVICE]: () => {},
    [SETTERS.VIDEO_AVAILABLE]: (state,val) => state.isVideoAvailable = val,
    [SETTERS.VIDEO_TOGGLE]: (state,val) => state.isVideoActive = val,
-   [SETTERS.AUDIO_TRACK]: () => {},
+   [SETTERS.CHANGE_AUDIO_DEVICE]: () => {},
    [SETTERS.AUDIO_AVAILABLE]: (state,val) => state.isAudioAvailable = val,
    [SETTERS.AUDIO_TOGGLE]: (state,val) => state.isAudioActive = val,
    [SETTERS.FULL_SCREEN_AVAILABLE]: (state,val) => state.isFullScreenAvailable = val,
-   [SETTERS.SCREEN_SHARE]: (state,val) => state.isShareScreen = val,
+   [SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE]: (state,val) => state.isShareScreen = val,
 }
 
 const getters = {
@@ -38,14 +38,14 @@ const actions = {
    },
    updateVideoTrack({commit},trackId){
       global.localStorage.setItem('sb-videoTrackId',trackId);
-      commit(SETTERS.VIDEO_TRACK,trackId);
+      commit(SETTERS.CHANGE_VIDEO_DEVICE,trackId);
    },
    updateAudioTrack({commit},trackId){
       global.localStorage.setItem('sb-audioTrackId',trackId);
-      commit(SETTERS.AUDIO_TRACK,trackId);
+      commit(SETTERS.CHANGE_AUDIO_DEVICE,trackId);
    },
    updateShareScreen({commit},val){
-      commit(SETTERS.SCREEN_SHARE,val)
+      commit(SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE,val)
    },
    updateVideoToggle({commit,state}){
       if(state.isVideoAvailable){

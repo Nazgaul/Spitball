@@ -206,7 +206,6 @@ export default () => {
                // let videoParams = videoDeviceId ? {deviceId: {exact: videoDeviceId}} : {};
 
 
-               
                Promise.allSettled([
                   createLocalVideoTrack({name:VIDEO_TRACK_NAME}),
                   createLocalAudioTrack({name:AUDIO_TRACK_NAME})
@@ -214,41 +213,33 @@ export default () => {
                   tracks.forEach(({value}) => {
                      if(value){
                         if(value.name === VIDEO_TRACK_NAME){
-                           //#1 why not the same code
-                           const localMediaContainer = document.getElementById(LOCAL_TRACK_DOM_ELEMENT);
-                           localMediaContainer.appendChild(value.attach());
-                           _localVideoTrack = value;
-                           _publishTrack(_activeRoom,value)
-                           store.commit(SETTERS.VIDEO_AVAILABLE,true)
+                           _setLocalVideoTrack(value)
                         }
-                        if(value.name === AUDIO_TRACK_NAME){  
-                           _localAudioTrack = value;
-                           _publishTrack(_activeRoom,value)
-                           store.commit(SETTERS.AUDIO_AVAILABLE,true)
+                        if(value.name === AUDIO_TRACK_NAME){
+                           _setLocalAudioTrack(value);
                         }
                      }
                   })
                })
             })
          }
-         if (mutation.type === SETTERS.DATA_TRACK){
-            if(_activeRoom){
+         if(_activeRoom){
+            if (mutation.type === SETTERS.DATA_TRACK){
                dataTrack.send(mutation.payload);
             }
+            if (mutation.type === SETTERS.VIDEO_TOGGLE){
+               let tracks = [];
+               _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
+               _toggleTrack(tracks,'video');
+            }
+            if (mutation.type === SETTERS.AUDIO_TOGGLE){
+               let tracks = [];
+               _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
+               _toggleTrack(tracks,'audio');
+            }
          }
-         if (mutation.type === SETTERS.VIDEO_TOGGLE){
-            let tracks = [];
-            _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
-            _toggleTrack(tracks,'video');
-         }
-         if (mutation.type === SETTERS.AUDIO_TOGGLE){
-            let tracks = [];
-            _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
-            _toggleTrack(tracks,'audio');
-         }
-         //screen share broadcast toggle
-         if (mutation.type === SETTERS.SCREEN_SHARE){
-            if(mutation.payload){ 
+         if (mutation.type === SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE){
+            if(mutation.payload && !_localScreenTrack){ 
                //copy the logic from the previous to add toaster
                // remove the tooltip
                navigator.mediaDevices.getDisplayMedia({video:true,audio: false}).then(stream=>{
@@ -260,7 +251,7 @@ export default () => {
                   store.commit(SETTERS.VIDEO_AVAILABLE,true)
                   _localScreenTrack.on('stopped',(track)=>{
                      _unPublishTrack(_activeRoom,track)
-                     store.commit(SETTERS.SCREEN_SHARE,false);
+                     store.commit(SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE,false);
                      if(_localVideoTrack){
                         _publishTrack(_activeRoom,_localVideoTrack)
                      }else{
@@ -273,39 +264,40 @@ export default () => {
                _localScreenTrack.stop()
             }
          }
-         //change video devices
-         if (mutation.type === SETTERS.VIDEO_TRACK){
+         if (mutation.type === SETTERS.CHANGE_VIDEO_DEVICE){
             if(_localVideoTrack){
                _unPublishTrack(_activeRoom,_localVideoTrack)
             }
             let params = {deviceId: {exact: mutation.payload},name:VIDEO_TRACK_NAME}
             twillioClient.createLocalVideoTrack(params).then(track=>{
-               //#1 why not the same code
-               _localVideoTrack = track;
-               _publishTrack(_activeRoom,_localVideoTrack)
-
-               const localMediaContainer = document.getElementById(LOCAL_TRACK_DOM_ELEMENT);
-               let videoTag = localMediaContainer.querySelector("video");
-               if (videoTag) {
-                  localMediaContainer.removeChild(videoTag);
-               }
-               localMediaContainer.appendChild(track.attach());
-
-               store.commit(SETTERS.FULL_SCREEN_AVAILABLE,true);
-               store.commit(SETTERS.VIDEO_AVAILABLE,true)
+               _setLocalVideoTrack(track);
             })
          }
-         if (mutation.type === SETTERS.AUDIO_TRACK){
+         if (mutation.type === SETTERS.CHANGE_AUDIO_DEVICE){
             if(_localAudioTrack){
                _unPublishTrack(_activeRoom,_localAudioTrack)
             }
             let params = {deviceId: {exact: mutation.payload},name:AUDIO_TRACK_NAME}
             twillioClient.createLocalAudioTrack(params).then(track=>{
-               _localAudioTrack = track;
-               _publishTrack(_activeRoom,_localAudioTrack)
-               store.commit(SETTERS.AUDIO_AVAILABLE,true)
+               _setLocalAudioTrack(track);
             })
          }
       })
+
+      // plugin functions:
+      function _setLocalVideoTrack(track){
+         const localMediaContainer = document.getElementById(LOCAL_TRACK_DOM_ELEMENT);
+         let videoTag = localMediaContainer.querySelector("video");
+         if (videoTag) {localMediaContainer.removeChild(videoTag)}
+         localMediaContainer.appendChild(track.attach());
+         _localVideoTrack = track;
+         _publishTrack(_activeRoom,track)
+         store.commit(SETTERS.VIDEO_AVAILABLE,true)
+      }
+      function _setLocalAudioTrack(track){
+         _localAudioTrack = track;
+         _publishTrack(_activeRoom,_localAudioTrack)
+         store.commit(SETTERS.AUDIO_AVAILABLE,true)
+      }
    }
 }
