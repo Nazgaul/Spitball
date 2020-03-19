@@ -10,8 +10,6 @@ import VueClipboard from 'vue-clipboard2';
 import VueAppInsights from 'vue-application-insights';
 import VueFlicking from "@egjs/vue-flicking";
 import {i18n, loadLanguageAsync } from './plugins/t-i18n';
-    VSheet,
-    VCalendar,
 
 // Global Components
 import App from "./components/app/app.vue";
