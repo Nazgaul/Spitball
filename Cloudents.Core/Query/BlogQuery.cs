@@ -32,7 +32,7 @@ namespace Cloudents.Core.Query
 
             };
         }
-        public string Category  { get; private set; }
+        public string? Category  { get; private set; }
         public string BlogName { get;  }
 
         public int Amount { get; private set; }
