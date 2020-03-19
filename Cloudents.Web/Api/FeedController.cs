@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.DTOs.Documents;
+﻿using Cloudents.Core.DTOs.Documents;
 using Cloudents.Core.DTOs.Feed;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
@@ -12,7 +11,6 @@ using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Framework;
 using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -146,10 +144,13 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("courses")]
-        [Authorize]
-        public async Task<IEnumerable<string>> GetUserCoursesAync([FromServices] IQueryBus queryBus, CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
+       // [Authorize]
+        public async Task<IEnumerable<string>> GetUserCoursesAsync([FromServices] IQueryBus queryBus, CancellationToken token)
+       {
+           if (!_userManager.TryGetLongUserId(User, out var userId))
+           {
+               return Enumerable.Empty<string>();
+           }
             var query = new UserCoursesNamesQuery(userId);
             return await queryBus.QueryAsync(query, token);
         }
