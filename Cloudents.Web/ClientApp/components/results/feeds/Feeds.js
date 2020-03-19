@@ -140,6 +140,10 @@ export default {
         fetchData(objParams){
             return this.Feeds_fetchingData(objParams)
         },
+        menuSelect(itemType) {
+            this.query.filter = itemType;
+            this.handleSelects()
+        },
         handleSelects(){
             let objParams = {
                 ...this.$route.query,
