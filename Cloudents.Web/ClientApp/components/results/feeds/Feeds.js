@@ -147,7 +147,7 @@ export default {
             }
             Object.keys(objParams).forEach((key) => {
                 let isInArray = [undefined, ''].indexOf(objParams[key]) !== -1;
-                let isInObj = typeof objParams.filter === 'object'
+                let isInObj = typeof objParams[key] === 'object'
                 if (isInArray || isInObj) {
                     delete objParams[key]
                 }
