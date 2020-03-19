@@ -107,6 +107,7 @@ and uc.tutorId =  :profileId";
 
                 var userCoursesFuture = _session.Query<UserCourse>()
                     .Where(w => w.User.Id == query.UserId)
+                    .Take(20)
                     .Select(s => s.Course.Id).ToFuture();
 
 
