@@ -222,7 +222,9 @@ export default () => {
             })
          }
          if (mutation.type === SETTERS.DATA_TRACK){
-            dataTrack.send(mutation.payload);
+            if(_activeRoom){
+               dataTrack.send(mutation.payload);
+            }
          }
          if (mutation.type === SETTERS.VIDEO_TOGGLE){
             let tracks = [];

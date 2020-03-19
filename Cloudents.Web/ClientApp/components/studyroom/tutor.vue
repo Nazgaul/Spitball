@@ -551,7 +551,6 @@ watch: {
       };
       let normalizedData = JSON.stringify(transferDataObj);
       this.$store.dispatch('sendDataTrack',normalizedData)
-      console.log(this.activeItem);
     },
     changeSettingsDialogState(val) {
       this.setStudyRoomSettingsDialog(val);

@@ -185,7 +185,7 @@ const mutations = {
     };
 
 const actions = {
-    dispatchDataTrackJunk({commit},data){
+    dispatchDataTrackJunk({commit,dispatch},data){
         // TODO: clean it!
         let parsedData = data.data;
         if (data.type === 'passData') {
@@ -202,7 +202,7 @@ const actions = {
             commit('setTab',parsedData);
         } 
         else if(data.type === 'updateActiveNav'){
-            commit('setActiveNavIndicator',parsedData);
+            commit('ACTIVE_NAV_TAB_INDICATOR',parsedData);
         } 
         else if(data.type === 'codeEditor_code'){
             commit('setCode',parsedData);

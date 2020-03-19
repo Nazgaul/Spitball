@@ -35,7 +35,6 @@
 //     tutorStartDialog: false,
 //     endDialog: false,
 //     settingsDialogState: false,
-//     activeNavIndicator: 'white-board',
 //     deviceValidationError:false,
 //     DevicesObject: new DevicesObject(),
 //     sessionTimeStart: null,
@@ -57,7 +56,6 @@
 //     getStudyRoomSettingsDialog: state => state.settingsDialogState,
 //     showDeviceValidationError: state => state.deviceValidationError,
 //     getDevicesObj: state=> state.DevicesObject,
-//     getActiveNavIndicator: state => state.activeNavIndicator,
 //     getTutorDialogState: state => state.tutorDialogState,
 //     getStudentDialogState: state => state.studentDialogState,
 //     getSessionTimeStart: state => state.sessionTimeStart,
@@ -116,9 +114,6 @@
 //     },
 //     setStudyRoomSettingsDialog(state, val){
 //         state.settingsDialogState = val;
-//     },
-//     setActiveNavIndicator(state,{activeNav}){
-//         state.activeNavIndicator = activeNav;
 //     },
 //     setDeviceValidationError(state, val){
 //         state.deviceValidationError = val;
