@@ -4,70 +4,52 @@
         <v-layout class="header pa-4 pt-3 mb-4">
             <v-flex>
                 <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
-                <span v-language:inner>profile_edit_user_profile_title</span>
+                <span>{{$t('profile_edit_user_profile_title')}}</span>
             </v-flex>
         </v-layout>
-    
-            <v-layout class="px-3 mt-3" wrap>
-                <v-flex xs12 sm6 :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
-                    <v-layout column>
-                        <v-flex xs12 sm6  class="pl-2 mb-2">
-                            <span class="subtitle" v-language:inner>profile_personal_details</span>
-                        </v-flex>
-                        <v-flex xs12>
-                            <v-text-field
-                                    :rules="[rules.required, rules.minimumChars]"
-                                    :label="firstNameLabel"
-                                    class="tutor-edit-firstname"
-                                    v-model.trim="firstName"
-                                    outline
-                            ></v-text-field>
-                        </v-flex>
-                    </v-layout>
-                </v-flex>
-                <v-flex xs12 sm6 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'pr-2']">
-                    <v-layout column>
-                        <v-flex v-if="$vuetify.breakpoint.smAndUp" xs12 sm6  class="mb-2 pl-2" grow>
-                            <span class="subtitle" style="visibility: hidden">hidden</span>
-                        </v-flex>
-                        <v-flex>
-                            <v-text-field
-                                    :rules="[rules.required, rules.minimumChars]"
-                                    :label="lastNameLabel"
-                                    class="tutor-edit-lastname"
-                                    v-model.trim="lastName"
-                                    outline
-                            ></v-text-field>
-                        </v-flex>
-                    </v-layout>
-                </v-flex>
-            </v-layout>
-
-        <v-layout class="px-3 prev-grow" column>
-            <v-flex class="mb-2 pl-2">
-                <span class="subtitle" v-language:inner>profile_aboutme</span>
+        <v-layout class="px-3 mt-3" wrap>
+            <v-flex xs12 sm6 :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
+                <v-layout column>
+                    <v-flex xs12 sm6  class="pl-2 mb-2">
+                        <span class="subtitle">{{$t('profile_personal_details')}}</span>
+                    </v-flex>
+                    <v-flex xs12>
+                        <v-text-field
+                                :rules="[rules.required, rules.minimumChars]"
+                                :label="firstNameLabel"
+                                class="tutor-edit-firstname"
+                                v-model.trim="firstName"
+                                outline
+                        ></v-text-field>
+                    </v-flex>
+                </v-layout>
             </v-flex>
-            <v-flex>
-                <v-textarea
-                        rows="2"
-                        outline
-                        :rules="[rules.maximumChars, rules.descriptionMinChars]"
-                        v-model="userDescription"
-                        class="user-edit-description"
-                        name="input-about"
-                        :label="titleLabel"
-                ></v-textarea>
+            <v-flex xs12 sm6 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'pr-2']">
+                <v-layout column>
+                    <v-flex v-if="$vuetify.breakpoint.smAndUp" xs12 sm6  class="mb-2 pl-2" grow>
+                        <span class="subtitle" style="visibility: hidden">hidden</span>
+                    </v-flex>
+                    <v-flex>
+                        <v-text-field
+                                :rules="[rules.required, rules.minimumChars]"
+                                :label="lastNameLabel"
+                                class="tutor-edit-lastname"
+                                v-model.trim="lastName"
+                                outline
+                        ></v-text-field>
+                    </v-flex>
+                </v-layout>
             </v-flex>
         </v-layout>
-        <v-layout  align-center class="px-3" :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between ' : 'justify-end']">
+        <v-layout  align-center class="bottomActions px-3" :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between ' : 'justify-end']">
             <v-flex xs5 sm2  >
                 <v-btn class="shallow-blue ml-0" rounded outline primary @click="closeDialog">
-                    <span v-language:inner>profile_btn_cancel</span>
+                    <span>{{$t('profile_btn_cancel')}}</span>
                 </v-btn>
             </v-flex>
             <v-flex xs5 sm2  :class="{'mr-4': $vuetify.breakpoint.smAndUp}">
                 <v-btn class="blue-btn  ml-0" rounded @click="saveChanges()" :loading="btnLoading">
-                    <span v-language:inner>profile_btn_save_changes</span>
+                    <span>{{$t('profile_btn_save_changes')}}</span>
                 </v-btn>
             </v-flex>
         </v-layout>
@@ -78,24 +60,19 @@
 <script>
     import accountService from '../../../../services/accountService';
     import { mapGetters, mapActions } from 'vuex';
-    import { LanguageService } from "../../../../services/language/languageService";
     import { validationRules } from "../../../../services/utilities/formValidationRules";
 
     export default {
         name: "userInfoEdit",
         data() {
             return {
-                firstNameLabel: LanguageService.getValueByKey("profile_firstName_label"),
-                lastNameLabel: LanguageService.getValueByKey("profile_lastName_label"),
-                titleLabel: LanguageService.getValueByKey("profile_description_label"),
-                editedDescription: '',
+                firstNameLabel: this.$t("profile_firstName_label"),
+                lastNameLabel: this.$t("profile_lastName_label"),
                 editedLastName:'',
                 editedFirstName:'',
                 rules: {
                     required:(value)=> validationRules.required(value),
-                    maximumChars:(value) => validationRules.maximumChars(value, 255),
                     minimumChars: (value) => validationRules.minimumChars(value, 2),
-                    descriptionMinChars: (value) => validationRules.minimumChars(value, 15),
                 },
                 validUserForm: false,
                 btnLoading: false,
@@ -127,15 +104,6 @@
                   this.editedLastName = newVal;
               }
             },
-            userDescription: {
-                get() {
-                    return this.getProfile.user.description
-                },
-                set(newVal) {
-                    console.log('new val::', newVal)
-                    this.editedDescription = newVal;
-                }
-            }
         },
         methods: {
             ...mapActions(['updateEditedProfile','updateEditDialog']),
@@ -145,12 +113,10 @@
                    let lastName = this.editedLastName|| this.lastName
                     let editsData = {
                         name: `${firstName} ${lastName}` ,
-                        description: this.editedDescription,
                         firstName,
                         lastName,
                         };
                     let serverFormat = {
-                        description: this.editedDescription,
                         firstName,
                         lastName
                     };
@@ -166,9 +132,6 @@
                 this.updateEditDialog(false);
             },
         },
-        created(){
-            this.editedDescription =  this.getProfile.user.description || ''
-        }
     }
 </script>
 
@@ -178,17 +141,6 @@
     .user-edit-wrap {
         @media(max-width: @screen-xs){
             overflow-x: hidden;
-        }
-        .prev-grow{
-            .user-edit-name, .user-edit-description {
-                .v-messages__message {
-                    line-height: normal;
-                }
-            }
-            
-            @media(max-width: @screen-xs){
-                flex-grow: 0;
-            }
         }
         .disabled-background{
             .v-input__slot{
@@ -239,6 +191,9 @@
             &:hover {
                 border: 1px solid rgba(0, 0, 0, 0.19) !important;
             }
+        }
+        .bottomActions {
+            margin-top: 60px;
         }
     }
 
