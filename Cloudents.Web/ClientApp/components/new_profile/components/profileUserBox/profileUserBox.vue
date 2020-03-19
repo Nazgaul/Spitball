@@ -12,7 +12,6 @@
                         <span v-if="currentProfileUser.isTutor" v-language:inner="'profile_tutor'"/>
                         {{currentProfileUser.name}}
                     </h1>
-                    <h2 class="profileUserBox_top_mobile_userUniversity text-truncate" v-text="currentProfileUser.universityName"/>
                 </div>
                 <div class="profileUserBox_top_mobile_left">
                     <followBtn v-if="!isCurrentProfileUser"/>
@@ -44,10 +43,9 @@
                 <div class="pUb_defaultState_content text-truncate hidden-xs-only">
                     <div>
                         <h1 class="pUb_dS_c_userName text-truncate">
-                        <span v-if="currentProfileUser.isTutor" class="mr-1" v-language:inner="'profile_tutor'"/> 
-                        {{currentProfileUser.name}}
+                            <span v-if="currentProfileUser.isTutor" class="mr-1" v-language:inner="'profile_tutor'"/> 
+                            {{currentProfileUser.name}}
                         </h1>
-                        <h2 class="pUb_dS_c_userUniversity text-truncate" v-text="currentProfileUser.universityName"/>
                         <template v-if="currentProfileUser.isTutor">
                             <div class="pUb_dS_c_rating" v-if="currentProfileTutor.reviewCount">
                                 <userRating class="c_rating" :showRateNumber="false" :rating="currentProfileTutor.rate" :size="'18'" />
@@ -299,10 +297,6 @@ export default {
                 letter-spacing: normal;
                 line-height: 1.4;
             }
-            .profileUserBox_top_mobile_userUniversity{
-                font-size: 14px;
-                font-weight: normal;
-            }
         }
         .profileUserBox_top_mobile_left{
             text-align: end;
@@ -400,12 +394,6 @@ export default {
                     display: flex;
                     flex-wrap: wrap;
                     line-height: 1;
-                    padding-bottom: 6px;
-                }
-                .pUb_dS_c_userUniversity{
-                    font-size: 14px;
-                    font-weight: normal;
-                    line-height: 1.64;
                     padding-bottom: 6px;
                 }
                 .pUb_dS_c_rating{
