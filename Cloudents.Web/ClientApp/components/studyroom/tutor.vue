@@ -6,7 +6,6 @@
     :class="{'gridBackground': $route.name === 'tutoring', 'mobile-no-support': isMobile}"
   >
   <v-btn @click="enterRoomTest()" color="success">ENTER ROOM</v-btn>
-  <v-btn @click="shareScreenTest()" color="error">SHARE SCREEN</v-btn>
     <div v-show="isMobile" class="mobile-no-support-container">
       <noSupportTop></noSupportTop>
       <div class="no-support-text" v-language:inner="'tutor_not_supported'"></div>
@@ -459,9 +458,6 @@ watch: {
     enterRoomTest(){
       studyRoomService.enterRoom(this.id).then(()=>{
       })
-    },
-    shareScreenTest(){
-      this.$store.dispatch('updateShareScreen')
     },
     handleNeedPayment(needPayment){
       if(needPayment){

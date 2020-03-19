@@ -18,7 +18,7 @@
                 <span v-language:inner="'tutor_btn_stop_sharing'"></span>
             </button>
         </v-flex>
-        <!-- <v-dialog class="install-extension-dialog" v-model="extensionDialog" max-width="290">
+        <v-dialog class="install-extension-dialog" v-model="extensionDialog" max-width="290">
             <v-card>
                 <v-card-title class="headline">
                     <span v-language:inner="'tutor_chrome_ext_title'"></span>
@@ -47,7 +47,7 @@
                     </v-btn>
                 </v-card-actions>
             </v-card>
-        </v-dialog> -->
+        </v-dialog>
     </div>
 </template>
 
@@ -121,7 +121,7 @@
             showScreen() {
                 this.$ga.event("tutoringRoom", 'screen share start');
                 insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_ShareScreenBtn_Click', {id: this.$route.params.id}, null);
-                this.$store.dispatch('updateShareScreen')
+                this.$store.dispatch('updateShareScreen',true)
 
                 // videoService.getUserScreen().then(
                 //     stream => {
@@ -181,6 +181,8 @@
             },
             stopSharing() {
                 this.$ga.event("tutoringRoom", 'screen stopSharing');
+                this.$store.dispatch('updateShareScreen',false)
+
 
                 // if(this.screenShareTrack){
                 //     this.screenShareTrack.stop();

@@ -44,8 +44,8 @@ const actions = {
          commit(SETTERS.AUDIO_TOGGLE,!state.isAudioActive);
       }
    },
-   updateShareScreen({commit}){
-      commit(SETTERS.SCREEN_SHARE,true)
+   updateShareScreen({commit},val){
+      commit(SETTERS.SCREEN_SHARE,val)
    }
 }
 export default {

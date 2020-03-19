@@ -173,6 +173,7 @@ export default () => {
       let dataTrack;
       let _activeRoom = null;
       let _localVideoTrack = null;
+      let _localScreenTrack = null;
       store.subscribe((mutation) => {
          if (mutation.type === 'setRouteStack' && mutation.payload === routeNames.StudyRoom) {
             import('twilio-video').then(async (Twilio) => { 
@@ -236,15 +237,19 @@ export default () => {
          if (mutation.type === SETTERS.SCREEN_SHARE){
             if(mutation.payload){
                navigator.mediaDevices.getDisplayMedia({video:true,audio: false}).then(stream=>{
-                  const screenTrack = new twillioClient.LocalVideoTrack(stream.getTracks()[0],{name:SCREEN_TRACK_NAME});
-                  if(_localVideoTrack){_unPublishTrack(_activeRoom,_localVideoTrack)}
-                  _publishTrack(_activeRoom,screenTrack);
-                  screenTrack.on('stopped',(track)=>{
+                  _localScreenTrack = new twillioClient.LocalVideoTrack(stream.getTracks()[0],{name:SCREEN_TRACK_NAME});
+                  if(_localVideoTrack){
+                     _unPublishTrack(_activeRoom,_localVideoTrack)
+                  }
+                  _publishTrack(_activeRoom,_localScreenTrack);
+                  _localScreenTrack.on('stopped',(track)=>{
                      _unPublishTrack(_activeRoom,track)
                      if(_localVideoTrack){_publishTrack(_activeRoom,_localVideoTrack)} 
                      store.commit(SETTERS.SCREEN_SHARE,false);
                   })
                })
+            }else{
+               _localScreenTrack.stop()
             }
          }
       })
