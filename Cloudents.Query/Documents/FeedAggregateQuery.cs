@@ -54,7 +54,8 @@ namespace Cloudents.Query.Documents
             // QuestionFeedWithFliterQuery and DocumentFeedWithFilterQuery as well
             public async Task<IEnumerable<FeedDto>> GetAsync(FeedAggregateQuery query, CancellationToken token)
             {
-                const string sqlWithCourse = @"with cte as (
+                const string sqlWithCourse = @"
+with cte as (
 select top 1 * from(select 1 as o, u2.Id as UniversityId, COALESCE(u2.country, u.country) as Country, u.id as userid
  from sb.[user] u
  left
@@ -97,7 +98,7 @@ case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @use
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
 left join sb.University un on un.Id = d.UniversityId
-join cte on un.country = cte.country or u.country = cte.country
+join cte on coalesce(un.country, u.country) = cte.country 
 where
 
 d.State = 'Ok'
@@ -130,13 +131,14 @@ case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @use
 FROM sb.[Question] q
 join sb.[user] u
 	on q.UserId = u.Id
+left join sb.University un on un.Id = q.UniversityId
 outer apply (
 select top 1 text, u.id, u.name, u.ImageName, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
 ) as x
 ,cte
 where
- u.country = cte.country
+ coalesce(un.country, u.country) = cte.country
 and q.courseId = @course
 
 and q.State = 'Ok'
@@ -190,7 +192,7 @@ case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @use
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
 left join sb.University un on un.Id = d.UniversityId
-join cte on un.country = cte.country or u.country = cte.country
+join cte on coalesce(un.country, u.country) = cte.country 
 where
     d.UpdateTime > GETUTCDATE() - 182
 and d.State = 'Ok'
@@ -229,7 +231,7 @@ select  top 1 text,u.id,u.name,u.ImageName, a.Created from sb.Answer a join sb.[
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
 
 ) as x
-join cte on un.country = cte.country or u.country = cte.country
+join cte on coalesce(un.country, u.country) = cte.country 
 
 where
     q.Updated > GETUTCDATE() - 182
