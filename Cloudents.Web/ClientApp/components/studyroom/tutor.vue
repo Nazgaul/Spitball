@@ -37,7 +37,10 @@
           <div
             style="display: flex; align-items: center; max-height: 48px; justify-content: space-between;"
           >
+
+          <template v-if="isRoomActive && isRoomTutor">
             <startEndSessionBtn :id="id"></startEndSessionBtn>
+          </template>
           
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px; margin-left:30px;" vertical></v-divider>
 
@@ -128,7 +131,8 @@
           </keep-alive>
         </transition>
       </v-flex>
-      
+    <template>
+
       <sb-dialog
         :showDialog="getBrowserSupportDialog"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
@@ -140,7 +144,6 @@
       >
           <browserSupport></browserSupport>
       </sb-dialog>
-
       <sb-dialog
         :showDialog="getDialogRoomSettings"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
@@ -151,20 +154,6 @@
         :content-class="'tutor-settings-dialog'"
       >
         <studyRoomSettingsDialog></studyRoomSettingsDialog>
-      </sb-dialog>
-
-
-      <sb-dialog
-        :showDialog="getReviewDialogState"
-        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
-        :popUpType="'reviewDilaog'"
-        :maxWidth="'523'"
-        :onclosefn="closeReviewDialog"
-        :activateOverlay="false"
-        :isPersistent="$vuetify.breakpoint.smAndUp"
-        :content-class="'review-dialog'"
-      >
-        <leave-review></leave-review>
       </sb-dialog>
       <!--show only if not avaliable devices dialog is closed by user-->
       <sb-dialog
@@ -181,7 +170,7 @@
       </sb-dialog>
       <!--end session confirmation-->
       <sb-dialog
-        :showDialog="getEndDialog"
+        :showDialog="getDialogRoomEnd"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'endSessionConfirm'"
         :maxWidth="'356'"
@@ -206,7 +195,7 @@
         <startSessionStudent :id="id"></startSessionStudent>
       </sb-dialog>
 
-      <sb-dialog
+            <sb-dialog
         :showDialog="getShowAudioRecordingError"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'errorWithAudioRecording'"
@@ -217,7 +206,6 @@
       >
         <errorWithAudioRecording></errorWithAudioRecording>
       </sb-dialog>
-
       <sb-dialog
         :showDialog="getShowUserConsentDialog"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
@@ -229,7 +217,7 @@
       >
           <studentConsentDialog></studentConsentDialog>
       </sb-dialog>
-      
+
       <sb-dialog
         :showDialog="getSnapshotDialog"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
@@ -241,6 +229,8 @@
       >
           <snapshotDialog></snapshotDialog>
       </sb-dialog>
+  </template>
+
     </div>
   </v-layout>
 </template>
@@ -376,7 +366,7 @@ export default {
       "getReviewDialogState",
       "getStudentStartDialog",
       "getTutorStartDialog",
-      "getEndDialog",
+      "getDialogRoomEnd",
       "getBrowserSupportDialog",
       "accountUser",
       "getStudyRoomData",
@@ -388,6 +378,23 @@ export default {
       "getSnapshotDialog",
       "getIsRoomNeedPayment"
     ]),
+    isRoomTutor(){
+      return this.$store.getters.getRoomIsTutor;
+    },
+    isRoomActive(){
+      return this.$store.getters.getRoomIsActive;
+    },
+
+
+
+
+
+
+
+
+
+
+
     activeItem() {
       return this.activeNavItem;
     },

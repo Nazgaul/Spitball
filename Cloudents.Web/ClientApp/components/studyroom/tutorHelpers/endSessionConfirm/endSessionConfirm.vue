@@ -26,7 +26,7 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions} from 'vuex';
+    import {mapGetters} from 'vuex';
     import stopIcon from '../../images/stop-icon.svg';
     export default {
         name: "endSessionConfirm",
@@ -55,18 +55,11 @@
             }
         },
         methods: {
-            ...mapActions(['updateEndDialog']),
             closeDialog() {
-                this.updateEndDialog(false)
+                this.$store.dispatch('updateEndDialog',false)
             },
             endSession(){
-                let self = this;
-                this.$store.dispatch('endTutoringSession',this.getRoomId)
-                    .then(() => {
-                        self.closeDialog();
-                    }, (error) => {
-                        console.log('error', error);
-                    });
+                this.$store.dispatch('updateEndTutorSession');
             }
         },
     };

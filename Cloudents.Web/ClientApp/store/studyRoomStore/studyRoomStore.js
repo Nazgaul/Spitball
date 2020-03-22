@@ -1,5 +1,5 @@
 import studyRoomService from '../../services/studyRoomService.js';
-import {SETTERS} from '../constants/studyRoomConstants.js';
+import {studyRoom_SETTERS} from '../constants/studyRoomConstants.js';
 
 function _checkPayment(context){
    let data = context.getters.getStudyRoomData;
@@ -16,17 +16,22 @@ const state = {
    roomOnlineDocument: null,
    roomIsTutor:false,
    roomIsActive:false,
+   // TODO: change it to roomId after u clean all
+   studyRoomId: null,
 
    dialogRoomSettings: false,
+   dialogENDSession:false,
    
    roomProps: null,
 }
 
 const mutations = {
-   [SETTERS.ACTIVE_NAV_TAB_INDICATOR]: (state,{activeNav}) => state.activeNavIndicator = activeNav,
-   [SETTERS.ROOM_PROPS](state,props){
+   [studyRoom_SETTERS.ACTIVE_NAV_TAB_INDICATOR]: (state,{activeNav}) => state.activeNavIndicator = activeNav,
+   [studyRoom_SETTERS.ROOM_PROPS](state,props){
       state.roomOnlineDocument = props.onlineDocument;
       state.roomIsTutor = this.getters.accountUser.id == props.tutorId;
+      // TODO: change it to roomId after u clean all
+      state.studyRoomId = props.roomId;
 
       // state.roomProps = props;
       /*
@@ -41,8 +46,9 @@ tutorName: "Maor Tutor IL"
 tutorPrice: 50
       */ 
    },
-   [SETTERS.DIALOG_ROOM_SETTINGS]: (state,val) => state.dialogRoomSettings = val,
-   [SETTERS.ROOM_ACTIVE]: (state,val) => state.roomIsActive = val,
+   [studyRoom_SETTERS.DIALOG_ROOM_SETTINGS]: (state,val) => state.dialogRoomSettings = val,
+   [studyRoom_SETTERS.DIALOG_END_SESSION]: (state,val) => state.dialogENDSession = val,
+   [studyRoom_SETTERS.ROOM_ACTIVE]: (state,val) => state.roomIsActive = val,
 }
 const getters = {
    getActiveNavIndicator: state => state.activeNavIndicator,
@@ -50,13 +56,17 @@ const getters = {
    getRoomIsTutor: state => state.roomIsTutor,
    getRoomIsActive: state => state.roomIsActive,
    getDialogRoomSettings: state => state.dialogRoomSettings,
+   getDialogRoomEnd: state => state.roomIsActive && state.roomIsTutor && state.dialogENDSession,
 }
 const actions = {
+   updateEndDialog({commit}, val){
+      commit(studyRoom_SETTERS.DIALOG_END_SESSION, val);
+   },
    updateActiveNavTab({commit},val){
-      commit(SETTERS.ACTIVE_NAV_TAB,val)
+      commit(studyRoom_SETTERS.ACTIVE_NAV_TAB,val)
    },
    updateDialogRoomSettings({commit},val){
-      commit(SETTERS.DIALOG_ROOM_SETTINGS,val)
+      commit(studyRoom_SETTERS.DIALOG_ROOM_SETTINGS,val)
    },
 
 
@@ -75,7 +85,7 @@ const actions = {
          return dispatch('studyRoomMiddleWare')
       }else{
          return studyRoomService.getRoomInformation(roomId).then((roomProps)=>{
-            commit(SETTERS.ROOM_PROPS,roomProps)
+            commit(studyRoom_SETTERS.ROOM_PROPS,roomProps)
             // dispatch('updateStudyRoomProps',roomProps);
             return dispatch('studyRoomMiddleWare')
          })
@@ -90,8 +100,11 @@ const actions = {
       })
       return Promise.resolve();
    },
-   endTutoringSession(context,roomId){
-      return studyRoomService.endTutoringSession(roomId);
+   updateEndTutorSession({commit,state}){
+      commit(studyRoom_SETTERS.ROOM_ACTIVE,false);
+      studyRoomService.endTutoringSession(state.studyRoomId).then(()=>{
+         commit(studyRoom_SETTERS.DIALOG_END_SESSION,false)
+      })
    }
 }
 export default {

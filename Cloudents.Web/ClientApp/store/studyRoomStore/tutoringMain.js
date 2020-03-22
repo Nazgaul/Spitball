@@ -33,7 +33,6 @@ const state = {
 //     jwtToken: null,
 //     studentStartDialog: false,
 //     tutorStartDialog: false,
-//     endDialog: false,
 //     deviceValidationError:false,
 //     DevicesObject: new DevicesObject(),
 //     sessionTimeStart: null,
@@ -50,7 +49,6 @@ const getters = {
 //     getStudentStartDialog: state => state.studentStartDialog,
 //     getTutorStartDialog: state => state.tutorStartDialog,
 //     getSessionStartClickedOnce: state => state.sessionStartClickedOnce,
-//     getEndDialog: state => state.endDialog,
 //     getBrowserSupportDialog: state => state.browserSupportDialog,
 //     showDeviceValidationError: state => state.deviceValidationError,
 //     getDevicesObj: state=> state.DevicesObject,
@@ -72,9 +70,6 @@ const getters = {
 };
 
 const mutations = {
-//     setEndDialog(state, val) {
-//         state.endDialog = val;
-//     },
 //     updateSessionClickedOnce(state, val) {
 //         state.sessionStartClickedOnce = val;
 //     },
@@ -134,10 +129,6 @@ const mutations = {
 };
 
 const actions = {
-//     updateEndDialog({commit}, val){
-//         console.warn('DEBUG: 4 store: updateEndDialog')
-//         commit('setEndDialog', val);
-//     },
 //     setSesionClickedOnce({commit}, val) {
 //         console.warn('DEBUG: 5 store: setSesionClickedOnce VAL:',val)
 //         commit('updateSessionClickedOnce', val);

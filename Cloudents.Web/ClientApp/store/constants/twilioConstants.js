@@ -1,4 +1,4 @@
-export const SETTERS = {
+export const twilio_SETTERS = {
    JWT_TOKEN: 'JWT_TOKEN',
    DATA_TRACK: 'DATA_TRACK',
    VIDEO_AVAILABLE: 'VIDEO_AVAILABLE',

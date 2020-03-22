@@ -1,6 +1,7 @@
 import insightService from '../services/insightService';
 import * as routeNames from '../routes/routeNames.js';
-import {SETTERS} from '../store/constants/twilioConstants.js';
+import {twilio_SETTERS} from '../store/constants/twilioConstants.js';
+import {studyRoom_SETTERS} from '../store/constants/studyRoomConstants.js';
 //https://media.twiliocdn.com/sdk/js/video/releases/2.2.0/docs
 const REMOTE_TRACK_DOM_ELEMENT = 'remoteTrack';
 const LOCAL_TRACK_DOM_ELEMENT = 'localTrack';
@@ -52,10 +53,10 @@ function _twilioListeners(room,store) {
    // local participant events
    room.localParticipant.on('trackStopped',(track)=>{
       if(track.trackName === VIDEO_TRACK_NAME){
-         store.commit(SETTERS.VIDEO_AVAILABLE,false)
+         store.commit(twilio_SETTERS.VIDEO_AVAILABLE,false)
       }
       if(track.trackName === AUDIO_TRACK_NAME){
-         store.commit(SETTERS.AUDIO_AVAILABLE,false)
+         store.commit(twilio_SETTERS.AUDIO_AVAILABLE,false)
       }
    })
    room.localParticipant.on('networkQualityLevelChanged', (networkQualityLevel,networkQualityStats) => {
@@ -75,7 +76,7 @@ function _twilioListeners(room,store) {
    room.on('trackUnsubscribed', (track, publication, participant) => {
       debugger
       if(track.kind === 'video'){
-         store.commit(SETTERS.FULL_SCREEN_AVAILABLE,false);
+         store.commit(twilio_SETTERS.FULL_SCREEN_AVAILABLE,false);
      }
       _insightEvent('TwilioTrackUnsubscribed', track, null);
       _detachTracks([track]);
@@ -104,7 +105,7 @@ function _twilioListeners(room,store) {
             previewContainer.removeChild(videoTag);
          }
          previewContainer.appendChild(track.attach());
-         store.commit(SETTERS.FULL_SCREEN_AVAILABLE,true);
+         store.commit(twilio_SETTERS.FULL_SCREEN_AVAILABLE,true);
       }
       if(track.kind === 'audio'){   
          track.detach().forEach((detachedElement) => {
@@ -155,7 +156,6 @@ function _twilioListeners(room,store) {
       _insightEvent('reconnecting', null, null);
    })
    room.on('disconnected', (dRoom, error) => {
-      debugger
       if (error?.code) {
          _insightEvent('TwilioDisconnected', {'errorCode': error.code}, null);
          console.error(`Twilio Error: Code: ${error.code}, Message: ${error.message}`)
@@ -182,7 +182,7 @@ export default () => {
             });
             _debugMode = mutation.payload.query?.debug ? 'debug' : 'off';
          }
-         if (mutation.type === SETTERS.JWT_TOKEN) {
+         if (mutation.type === twilio_SETTERS.JWT_TOKEN) {
             let jwtToken = mutation.payload;
             let options = {
                logLevel: _debugMode,
@@ -198,6 +198,7 @@ export default () => {
                _activeRoom = room; // for global using in this plugin
                _insightEvent('TwilioConnect', _activeRoom, null);
                _twilioListeners(_activeRoom,store); // start listen to twilio events;
+               store.commit(studyRoom_SETTERS.ROOM_ACTIVE,true)
 
                let {createLocalVideoTrack,createLocalAudioTrack} = twillioClient;
 
@@ -224,21 +225,21 @@ export default () => {
             })
          }
          if(_activeRoom){
-            if (mutation.type === SETTERS.DATA_TRACK){
+            if (mutation.type === twilio_SETTERS.DATA_TRACK){
                dataTrack.send(mutation.payload);
             }
-            if (mutation.type === SETTERS.VIDEO_TOGGLE){
+            if (mutation.type === twilio_SETTERS.VIDEO_TOGGLE){
                let tracks = [];
                _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
                _toggleTrack(tracks,'video');
             }
-            if (mutation.type === SETTERS.AUDIO_TOGGLE){
+            if (mutation.type === twilio_SETTERS.AUDIO_TOGGLE){
                let tracks = [];
                _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
                _toggleTrack(tracks,'audio');
             }
          }
-         if (mutation.type === SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE){
+         if (mutation.type === twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE){
             if(mutation.payload && !_localScreenTrack){ 
                //copy the logic from the previous to add toaster
                // remove the tooltip
@@ -248,15 +249,15 @@ export default () => {
                      _unPublishTrack(_activeRoom,_localVideoTrack)
                   }
                   _publishTrack(_activeRoom,_localScreenTrack);
-                  store.commit(SETTERS.VIDEO_AVAILABLE,true)
+                  store.commit(twilio_SETTERS.VIDEO_AVAILABLE,true)
                   _localScreenTrack.on('stopped',(track)=>{
                      _unPublishTrack(_activeRoom,track)
-                     store.commit(SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE,false);
+                     store.commit(twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE,false);
                      if(_localVideoTrack){
                         _publishTrack(_activeRoom,_localVideoTrack)
                      }else{
                         //why it is not all the time
-                        store.commit(SETTERS.VIDEO_AVAILABLE,false)
+                        store.commit(twilio_SETTERS.VIDEO_AVAILABLE,false)
                      }
                   })
                })
@@ -264,7 +265,7 @@ export default () => {
                _localScreenTrack.stop()
             }
          }
-         if (mutation.type === SETTERS.CHANGE_VIDEO_DEVICE){
+         if (mutation.type === twilio_SETTERS.CHANGE_VIDEO_DEVICE){
             if(_localVideoTrack){
                _unPublishTrack(_activeRoom,_localVideoTrack)
             }
@@ -273,7 +274,7 @@ export default () => {
                _setLocalVideoTrack(track);
             })
          }
-         if (mutation.type === SETTERS.CHANGE_AUDIO_DEVICE){
+         if (mutation.type === twilio_SETTERS.CHANGE_AUDIO_DEVICE){
             if(_localAudioTrack){
                _unPublishTrack(_activeRoom,_localAudioTrack)
             }
@@ -281,6 +282,18 @@ export default () => {
             twillioClient.createLocalAudioTrack(params).then(track=>{
                _setLocalAudioTrack(track);
             })
+         }
+         if (mutation.type === studyRoom_SETTERS.ROOM_ACTIVE){
+            if(!mutation.payload && _activeRoom){
+               _activeRoom.disconnect()
+               _localVideoTrack = null;
+               _localAudioTrack = null;
+               _localScreenTrack = null;
+
+               store.commit(twilio_SETTERS.VIDEO_AVAILABLE,false);
+               store.commit(twilio_SETTERS.AUDIO_AVAILABLE,false)
+               store.commit(twilio_SETTERS.FULL_SCREEN_AVAILABLE,false);
+            }
          }
       })
 
@@ -292,12 +305,12 @@ export default () => {
          localMediaContainer.appendChild(track.attach());
          _localVideoTrack = track;
          _publishTrack(_activeRoom,track)
-         store.commit(SETTERS.VIDEO_AVAILABLE,true)
+         store.commit(twilio_SETTERS.VIDEO_AVAILABLE,true)
       }
       function _setLocalAudioTrack(track){
          _localAudioTrack = track;
          _publishTrack(_activeRoom,_localAudioTrack)
-         store.commit(SETTERS.AUDIO_AVAILABLE,true)
+         store.commit(twilio_SETTERS.AUDIO_AVAILABLE,true)
       }
    }
 }

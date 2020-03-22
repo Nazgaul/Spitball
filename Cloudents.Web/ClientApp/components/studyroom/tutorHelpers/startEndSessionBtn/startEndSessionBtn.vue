@@ -1,7 +1,7 @@
 <template>
     <div class="btn-wrapper">
-        <v-flex v-show="isTutor">
-            <button v-show="roomIsActive" class="end-session" @click="endSession()">
+        <v-flex>
+            <button class="end-session" @click="endSession()">
                 <stopIcon class="stop-icon mr-2"></stopIcon>
                 <span v-language:inner>tutor_stream_btn_end_session</span>
             </button>
@@ -10,27 +10,17 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex';
     import stopIcon from '../../images/stop-icon.svg';
     export default {
         name: "startEndSessionBtn",
         components:{
             stopIcon
         },
-        computed: {
-            isRoomActive(){
-                return this.$store.getters.getRoomIsActive;
-            },
-            isTutor() {
-                return this.$store.getters.getRoomIsTutor;
-            },
-        },
         methods: {
-            ...mapActions(["updateEndDialog"]),
             endSession() {
                 this.$ga.event("tutoringRoom", "endSession");
-                this.updateEndDialog(true);
-            },
+                this.$store.dispatch('updateEndDialog',true)
+            }
         },
 
 
