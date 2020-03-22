@@ -40,7 +40,7 @@
 // };
 
 // const validateUserMedia = async function() {
-//     let devicesObj = store.getters['getDevicesObj'];
+//     let devicesObj = store.getters['getDev icesObj'];
 //     await navigator.mediaDevices.getUserMedia({ video: true }).then((y) => {
 //         console.log(y);
 //         devicesObj.hasVideo = true;

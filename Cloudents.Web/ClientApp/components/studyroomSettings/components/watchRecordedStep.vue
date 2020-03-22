@@ -48,14 +48,13 @@ export default {
       return satelliteService.getSatelliteUrlByName('faq');
     },
     isTutor() {
-        return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
+      return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
     },
   },
   methods:{
     gotoNextPage(){
       studyRoomRecordingService.toggleRecord();
       this.nextStep('studyRoom')
-      //this.nextStep('enableScreenStep')
     },
     skipToStudyRoom(){
       this.nextStep('studyRoom')

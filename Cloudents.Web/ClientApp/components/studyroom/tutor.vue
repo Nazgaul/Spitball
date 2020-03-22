@@ -5,7 +5,7 @@
     :style="{'background-size': zoom, 'background-position-x': panX, 'background-position-y': panY}"
     :class="{'gridBackground': $route.name === 'tutoring', 'mobile-no-support': isMobile}"
   >
-  <v-btn @click="enterRoomTest()" color="success">ENTER ROOM</v-btn>
+  <v-btn v-if="isRoomTutor" @click="enterRoomTest()" color="success">ENTER ROOM</v-btn>
     <div v-show="isMobile" class="mobile-no-support-container">
       <noSupportTop></noSupportTop>
       <div class="no-support-text" v-language:inner="'tutor_not_supported'"></div>
@@ -698,9 +698,9 @@ watch: {
     // this code will create an error object to know what is the cause of the problem in case there is one.
     // settings page is running this code, but we should run this code in case refresh was made in the study room page.
     // run this code only if refresh was made in the study room 
-    if(!this.getVisitedSettingPage){
-      await tutorService.validateUserMedia(true, true); 
-    }
+    // if(!this.getVisitedSettingPage){
+    //   await studyroomSettingsUtils.validateUserMedia(true, true); 
+    // }
     //this line will init the tracks to show local medias
     studyroomSettingsUtils.validateMedia();
 

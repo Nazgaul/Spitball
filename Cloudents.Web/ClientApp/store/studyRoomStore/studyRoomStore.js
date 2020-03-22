@@ -86,7 +86,6 @@ const actions = {
       }else{
          return studyRoomService.getRoomInformation(roomId).then((roomProps)=>{
             commit(studyRoom_SETTERS.ROOM_PROPS,roomProps)
-            // dispatch('updateStudyRoomProps',roomProps);
             return dispatch('studyRoomMiddleWare')
          })
       }

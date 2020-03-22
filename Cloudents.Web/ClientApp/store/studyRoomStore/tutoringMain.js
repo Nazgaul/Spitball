@@ -1,13 +1,5 @@
 // import videoStreamService from '../../services/videoStreamService';
 
-// function DevicesObject(){
-//    this.hasAudio= false,
-//    this.hasVideo= false,
-//    this.errors= {
-//        video: [],
-//        audio: []
-//    };
-// }
 
 const state = {
 //     roomId: '',
@@ -33,8 +25,6 @@ const state = {
 //     jwtToken: null,
 //     studentStartDialog: false,
 //     tutorStartDialog: false,
-//     deviceValidationError:false,
-//     DevicesObject: new DevicesObject(),
 //     sessionTimeStart: null,
 //     sessionTimeEnd: null,
 //     showUserConsentDialog: false,
@@ -50,8 +40,6 @@ const getters = {
 //     getTutorStartDialog: state => state.tutorStartDialog,
 //     getSessionStartClickedOnce: state => state.sessionStartClickedOnce,
 //     getBrowserSupportDialog: state => state.browserSupportDialog,
-//     showDeviceValidationError: state => state.deviceValidationError,
-//     getDevicesObj: state=> state.DevicesObject,
 //     getTutorDialogState: state => state.tutorDialogState,
 //     getStudentDialogState: state => state.studentDialogState,
 //     getSessionTimeStart: state => state.sessionTimeStart,
@@ -79,10 +67,6 @@ const mutations = {
 //     setTutorStartDialog(state, val) {
 //         state.tutorStartDialog = val;
 //     },
-//     setStudyRoomProps(state, val) {
-//         val.isTutor = this.getters.accountUser.id == val.tutorId;
-//         state.studyRoomData = val;
-//     },
 //     leaveIfJoinedRoom(state) {
 //         if(state.currentActiveRoom) {
 //             state.currentActiveRoom.disconnect();
@@ -104,9 +88,6 @@ const mutations = {
 //     },
 //     setBrowserSupportDialog(state, val){
 //       state.browserSupportDialog = val;
-//     },
-//     setDeviceValidationError(state, val){
-//         state.deviceValidationError = val;
 //     },
 //     setTutorDialogState(state, val){
 //         state.tutorDialogState = val;
@@ -132,10 +113,6 @@ const actions = {
 //     setSesionClickedOnce({commit}, val) {
 //         console.warn('DEBUG: 5 store: setSesionClickedOnce VAL:',val)
 //         commit('updateSessionClickedOnce', val);
-//     },
-//     updateStudyRoomProps({dispatch,commit}, val) {
-//         dispatch('updateAllowReview',  val.allowReview);
-//         commit('setStudyRoomProps', val);
 //     },
 //     leaveRoomIfJoined({commit}) {
 //         console.warn('DEBUG: 9 store: leaveRoomIfJoined')
@@ -271,9 +248,6 @@ const actions = {
 //     },
 //     setBrowserSupportDialog({commit}, val){
 //       commit('setBrowserSupportDialog', val);
-//     },
-//     setDeviceValidationError({commit}, val){
-//         commit('setDeviceValidationError', val);
 //     },
 //     setTutorDialogState({commit}, val){
 //         console.warn('DEBUG: 19 store: setTutorDialogState, VAL:',val)

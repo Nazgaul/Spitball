@@ -23,8 +23,6 @@ const state = {
 //     videoDevice: null,
 //     audioDevice: null,
 //     isAudioActive: false,
-//     localDisplayMedia: null,
-//     localUserMedia: null
 };
 
 const getters = {
@@ -33,8 +31,6 @@ const getters = {
 //     getLocalVideoTrack:state => state.localVideoTrack,
 //     getLocalAudioTrack:state => state.localAudioTrack,
 //     getIsAudioActive: state => state.isAudioActive,
-//     getLocalDisplayMedia: state => state.localDisplayMedia,
-//     getLocalUserMedia: state => state.localUserMedia,
 };
 
 const mutations = {
@@ -55,12 +51,6 @@ const mutations = {
 //     },
 //     setIsAudioActive(state, val){
 //         state.isAudioActive  = val;
-//     },
-//     setLocalDisplayMedia(state, val){
-//         state.localDisplayMedia  = val;
-//     },
-//     setLocalUserMedia(state, val){
-//         state.localUserMedia  = val;
 //     },
 };
 
@@ -188,12 +178,6 @@ const actions = {
 //     },
 //     setIsAudioActive({commit}, val){
 //         commit('setIsAudioActive', val);
-//     },
-//     setLocalDisplayMedia({commit}, val){
-//         commit('setLocalDisplayMedia', val);
-//     },
-//     setLocalUserMedia({commit}, val){
-//         commit('setLocalUserMedia', val);
 //     },
 //     stopTracks({state, dispatch}){
 //         let currentVideoTrack = _getLocalTrack(getters,'video');

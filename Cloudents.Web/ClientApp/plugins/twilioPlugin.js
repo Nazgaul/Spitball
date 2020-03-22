@@ -237,87 +237,87 @@ export default () => {
                _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
                _toggleTrack(tracks,'audio');
             }
-         }
-         if (mutation.type === twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE){
-            if(mutation.payload && !_localScreenTrack){ 
-               navigator.mediaDevices.getDisplayMedia({video:true,audio: false}).then(stream=>{
-                  _localScreenTrack = new twillioClient.LocalVideoTrack(stream.getTracks()[0],{name:SCREEN_TRACK_NAME});
-                  if(_localVideoTrack){
-                     _unPublishTrack(_activeRoom,_localVideoTrack)
-                  }
-                  _publishTrack(_activeRoom,_localScreenTrack);
-                  store.commit(twilio_SETTERS.VIDEO_AVAILABLE,true)
-                  _localScreenTrack.on('stopped',(track)=>{
-                     _unPublishTrack(_activeRoom,track)
-                     store.commit(twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE,false);
+            if (mutation.type === twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE){
+               if(mutation.payload && !_localScreenTrack){ 
+                  navigator.mediaDevices.getDisplayMedia({video:true,audio: false}).then(stream=>{
+                     _localScreenTrack = new twillioClient.LocalVideoTrack(stream.getTracks()[0],{name:SCREEN_TRACK_NAME});
                      if(_localVideoTrack){
-                        _publishTrack(_activeRoom,_localVideoTrack)
-                     }else{
-                        //why it is not all the time
-                        store.commit(twilio_SETTERS.VIDEO_AVAILABLE,false)
+                        _unPublishTrack(_activeRoom,_localVideoTrack)
                      }
-                  })
-               }).catch( error =>{
-                  error = error || {};
-                  let d = {...{
-                     errorMessage:error.message,
-                     errorname:error.name},
-                     ...{id: _activeRoom.name}
-                  };
-                  _insightEvent('StudyRoom_ShareScreenBtn_showScreen', d, null);
-                  if(error === "notBrowser") {
-                     store.commit('setToaster', 'errorToaster_notBrowser');
-                     return;
-                  }
-                  if(error.name === "NotAllowedError") {
-                     if (error.message === "Permission denied") {
+                     _publishTrack(_activeRoom,_localScreenTrack);
+                     store.commit(twilio_SETTERS.VIDEO_AVAILABLE,true)
+                     _localScreenTrack.on('stopped',(track)=>{
+                        _unPublishTrack(_activeRoom,track)
                         store.commit(twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE,false);
                         if(_localVideoTrack){
                            _publishTrack(_activeRoom,_localVideoTrack)
+                        }else{
+                           //why it is not all the time
+                           store.commit(twilio_SETTERS.VIDEO_AVAILABLE,false)
                         }
+                     })
+                  }).catch( error =>{
+                     error = error || {};
+                     let d = {...{
+                        errorMessage:error.message,
+                        errorname:error.name},
+                        ...{id: _activeRoom.name}
+                     };
+                     _insightEvent('StudyRoom_ShareScreenBtn_showScreen', d, null);
+                     if(error === "notBrowser") {
+                        store.commit('setToaster', 'errorToaster_notBrowser');
                         return;
                      }
-                     if (error.message === "Permission denied by system") {
-                        store.commit('setToaster', 'errorToaster_permissionDenied');
+                     if(error.name === "NotAllowedError") {
+                        if (error.message === "Permission denied") {
+                           store.commit(twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE,false);
+                           if(_localVideoTrack){
+                              _publishTrack(_activeRoom,_localVideoTrack)
+                           }
+                           return;
+                        }
+                        if (error.message === "Permission denied by system") {
+                           store.commit('setToaster', 'errorToaster_permissionDenied');
+                        }
+                        return
                      }
-                     return
+                     store.commit('setToaster', 'errorToaster_notScreen');
+                  })
+               }else{
+                  if(_localScreenTrack){
+                     _localScreenTrack.stop()
                   }
-                  store.commit('setToaster', 'errorToaster_notScreen');
-               })
-            }else{
-               if(_localScreenTrack){
-                  _localScreenTrack.stop()
                }
             }
-         }
-         if (mutation.type === twilio_SETTERS.CHANGE_VIDEO_DEVICE){
-            if(_localVideoTrack){
-               _unPublishTrack(_activeRoom,_localVideoTrack)
+            if (mutation.type === twilio_SETTERS.CHANGE_VIDEO_DEVICE){
+               if(_localVideoTrack){
+                  _unPublishTrack(_activeRoom,_localVideoTrack)
+               }
+               let params = {deviceId: {exact: mutation.payload},name:VIDEO_TRACK_NAME}
+               twillioClient.createLocalVideoTrack(params).then(track=>{
+                  _setLocalVideoTrack(track);
+               })
             }
-            let params = {deviceId: {exact: mutation.payload},name:VIDEO_TRACK_NAME}
-            twillioClient.createLocalVideoTrack(params).then(track=>{
-               _setLocalVideoTrack(track);
-            })
-         }
-         if (mutation.type === twilio_SETTERS.CHANGE_AUDIO_DEVICE){
-            if(_localAudioTrack){
-               _unPublishTrack(_activeRoom,_localAudioTrack)
+            if (mutation.type === twilio_SETTERS.CHANGE_AUDIO_DEVICE){
+               if(_localAudioTrack){
+                  _unPublishTrack(_activeRoom,_localAudioTrack)
+               }
+               let params = {deviceId: {exact: mutation.payload},name:AUDIO_TRACK_NAME}
+               twillioClient.createLocalAudioTrack(params).then(track=>{
+                  _setLocalAudioTrack(track);
+               })
             }
-            let params = {deviceId: {exact: mutation.payload},name:AUDIO_TRACK_NAME}
-            twillioClient.createLocalAudioTrack(params).then(track=>{
-               _setLocalAudioTrack(track);
-            })
-         }
-         if (mutation.type === studyRoom_SETTERS.ROOM_ACTIVE){
-            if(!mutation.payload && _activeRoom){
-               _activeRoom.disconnect()
-               _localVideoTrack = null;
-               _localAudioTrack = null;
-               _localScreenTrack = null;
-
-               store.commit(twilio_SETTERS.VIDEO_AVAILABLE,false);
-               store.commit(twilio_SETTERS.AUDIO_AVAILABLE,false)
-               store.commit(twilio_SETTERS.FULL_SCREEN_AVAILABLE,false);
+            if (mutation.type === studyRoom_SETTERS.ROOM_ACTIVE){
+               if(!mutation.payload && _activeRoom){
+                  _activeRoom.disconnect()
+                  _localVideoTrack = null;
+                  _localAudioTrack = null;
+                  _localScreenTrack = null;
+   
+                  store.commit(twilio_SETTERS.VIDEO_AVAILABLE,false);
+                  store.commit(twilio_SETTERS.AUDIO_AVAILABLE,false)
+                  store.commit(twilio_SETTERS.FULL_SCREEN_AVAILABLE,false);
+               }
             }
          }
       })
