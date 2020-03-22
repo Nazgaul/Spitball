@@ -27,7 +27,7 @@
                              v-for="(singleClass, index) in classesSelected" :key="index">
                             <v-layout column class="pl-6 limit-width">
                                 <v-flex shrink class="text-truncate course-name-wrap">
-                                    {{ singleClass.name }}
+                                    {{ singleClass.text }}
                                 </v-flex>
                                 <v-flex class="label-text pt-1" v-if="singleClass.isPending">
                                     <span>{{$t('courses_pending')}}</span>
@@ -115,7 +115,7 @@
             teachCourseToggle(course) {
                 this.teachingActive = true;
                 this.$set(course, 'isLoading', true);                
-                this.updateTeachCourse(course.name).finally(() => {
+                this.updateTeachCourse(course.text).finally(() => {
                     course.isLoading = false;
                     this.teachingActive = false;
                     return course.isTeaching = !course.isTeaching;
@@ -125,7 +125,7 @@
                 // https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats
                 // add isLoading prop to the object classesSelected, for render loading
                 this.$set(classDelete, 'isLoading', true);                
-                this.deleteClass(classDelete.name).finally(() => {
+                this.deleteClass(classDelete.text).finally(() => {
                     classDelete.isLoading = false;
                 });
             },

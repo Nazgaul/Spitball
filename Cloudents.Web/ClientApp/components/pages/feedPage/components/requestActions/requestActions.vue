@@ -1,5 +1,5 @@
 <template>
-  <div class="requestActions">
+  <div class="requestActions mb-4">
     <div class="rA_top text-truncate">
       <userAvatar :size="'34'" :userImageUrl="userImageUrl" :user-name="previewName" :user-id="userID"/>
       <span @click="openAskQuestion()" class="rA_txt text-truncate" v-html="$Ph('requestActions_title',userName)" />

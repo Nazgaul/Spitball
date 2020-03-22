@@ -4,11 +4,11 @@
             <template v-if="showRequestBox">
                 <request-box class="request-box mb-0"/>
             </template>
-            <v-flex xs12 class="mt-3 analyticWrapper" v-if="showAnalyticStats">
+            <v-flex xs12 class="analyticWrapper" v-if="showAnalyticStats">
                 <analyticOverview />
             </v-flex>
 
-            <div class="feed_filters pa-3 pa-sm-0">
+            <div class="feed_filters pa-3 pa-sm-0 my-4">
                 <v-flex xs2 sm4 class="pr-0 pr-sm-4 d-flex d-sm-block" justify-end>
                     <v-menu offset-y sel="filter_type">
                         <template v-slot:activator="{ on }">
@@ -39,6 +39,7 @@
                         sel="filter_course"
                         :append-icon="'sbf-arrow-fill'"
                         clearable
+                        :disabled="!getUserLoggedInStatus"
                         :clear-icon="'sbf-close'"
                         v-model="query.course"
                         :value="Feeds_getCurrentQuery.course"
