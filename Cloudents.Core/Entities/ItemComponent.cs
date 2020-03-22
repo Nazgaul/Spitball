@@ -71,7 +71,7 @@ namespace Cloudents.Core.Entities
         }
         public static ItemStatus GetInitState(User user)
         {
-            if (user.Transactions.Score < Privileges.Post)
+            if (user.Country.Equals(Country.IndiaStr, StringComparison.OrdinalIgnoreCase))
             {
                 return Pending;
             }

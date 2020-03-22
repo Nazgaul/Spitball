@@ -326,9 +326,10 @@ namespace Cloudents.Core.Entities
             AddEvent(new UserUnSuspendEvent(this));
         }
 
-        public virtual void UpdateUserBalance(decimal balance, int score)
+        public virtual void UpdateUserBalance()
         {
-            Transactions.UpdateBalance(balance, score);
+            var balance = Transactions.Balance;
+            Transactions.UpdateBalance(balance);
         }
 
         public virtual void UpdateUserImage(string image, string imageName)
@@ -388,7 +389,7 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public override int Score { get; protected set; }  //=> Transactions.Score;
+       // public override int Score { get; protected set; }  //=> Transactions.Score;
         public override decimal Balance => Transactions.Balance;
 
 

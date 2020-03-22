@@ -41,7 +41,7 @@ namespace Cloudents.Command.CommandHandler
 
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
-            if (user.Transactions.Score < Privileges.Post)
+            if (user.Country.Equals(Country.IsraelStr, StringComparison.OrdinalIgnoreCase))
             {
                 var pendingAnswers = await _answerRepository.GetNumberOfPendingAnswer(user.Id, token);
                 var pendingAnswerAfterThisInsert = pendingAnswers + 1;

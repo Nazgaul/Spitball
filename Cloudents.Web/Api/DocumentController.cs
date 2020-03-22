@@ -113,8 +113,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<CreateDocumentResponse>> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
-            [ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
+        public async Task<IActionResult> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
@@ -131,7 +130,7 @@ namespace Cloudents.Web.Api
             //{
             //    base62 = new Base62(command.Id).ToString()
             //});
-            return new CreateDocumentResponse(score >= Privileges.Post);
+            return Ok();
         }
 
 

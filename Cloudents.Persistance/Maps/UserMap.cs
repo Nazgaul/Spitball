@@ -43,7 +43,7 @@ namespace Cloudents.Persistence.Maps
                 .Cascade.AllDeleteOrphan()
                 .KeyColumn("UserId").Inverse().AsSet();
 
-            Map(x => x.Score).ReadOnly();
+            //Map(x => x.Score).ReadOnly();
             Table("User"); //if not there is sql error
 
             DynamicUpdate();
