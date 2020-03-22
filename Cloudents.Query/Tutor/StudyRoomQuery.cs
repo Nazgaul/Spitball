@@ -48,6 +48,7 @@ namespace Cloudents.Query.Tutor
 
 
                 var sqlQuery = _statelessSession.CreateSQLQuery(@"
+DECLARE @True bit = 1, @False bit = 0;
 Select 
 onlineDocumentUrl as OnlineDocument, 
 sr.identifier as ConversationId,
@@ -58,11 +59,11 @@ u.ImageName as TutorImage,
 u1.Id as StudentId, u1.Name as StudentName, u1.ImageName as StudentImage,
 x.*,
  coalesce (
-	case when t.price = 0 then 0 else null end,
-	case when u1.PaymentExists = 1 then 0 else null end,
-    case when u1.Country = 'IN' then 0 else null end,
-    case when EXISTS (select top 1 * from sb.UserToken where userid = :UserId and state = 'NotUsed') then 0 else null end,
-	1
+	case when t.price = 0 then @False else null end,
+	case when u1.PaymentExists = 1 then @False else null end,
+    case when u1.Country = 'IN' then @False else null end,
+    case when EXISTS (select top 1 * from sb.UserToken where userid = :UserId and state = 'NotUsed') then @False else null end,
+	@True
 ) as NeedPayment
 from sb.StudyRoom sr 
 join sb.Tutor t on t.Id = sr.TutorId
