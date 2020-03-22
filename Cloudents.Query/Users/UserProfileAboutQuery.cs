@@ -39,7 +39,7 @@ namespace Cloudents.Query.Users
                        .Fetch(f => f.User)
                        .Where(w => w.Tutor.Id == query.UserId)
                        .Where(w => w.Review != null && w.Review != string.Empty)
-                       .OrderByDescending(x=>x.DateTime)
+                       .OrderByDescending(x => x.DateTime)
                        .Select(s => new TutorReviewDto()
                        {
                            Id = s.User.Id,
@@ -71,38 +71,7 @@ namespace Cloudents.Query.Users
                     }),
                     Rates = await rates.GetEnumerableAsync(token)
                 };
-                //                using (var conn = _repository.OpenConnection())
-                //                {
-                //                    using (var grid = await conn.QueryMultipleAsync(@"
-                //select  CourseId as Name from sb.UsersCourses uc
-                //where UserId = @id
-                //and ( 1 = case when exists (  select * from sb.Tutor t where t.Id = uc.UserId) 
-                //	then   uc.canTeach
-                //	else  1
-                //end);
 
-                //select t.bio
-                //from sb.Tutor t
-                //where t.Id = @id;
-
-                //select tr.Review as ReviewText, tr.Rate, tr.DateTime as Created, u.Name, u.Image, u.Score,u.Id
-                //from sb.Tutor t
-                //join sb.TutorReview tr
-                //	on tr.TutorId = t.Id
-                //join sb.[user] u
-                //	on tr.UserId = U.Id
-                //where t.Id = @id", new { id = query.UserId }))
-                //                    {
-                //                        var retVal = new UserProfileAboutDto
-                //                        {
-                //                            Courses = await grid.ReadAsync<CourseDto>(),
-                //                            Bio = await grid.ReadSingleOrDefaultAsync<string>(),
-                //                            Reviews = await grid.ReadAsync<TutorReviewDto>()
-                //                        };
-
-                //                        return retVal;
-                //                    }
-                //                }
             }
         }
     }

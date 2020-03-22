@@ -29,7 +29,7 @@ namespace Cloudents.Core
                                              BindingFlags.Static |
                                              BindingFlags.DeclaredOnly);
 
-            return fields.Select(f => f.GetValue(null)).Cast<T>();
+            return fields.Where(w=> !w.IsLiteral).Select(f => f.GetValue(null)).Cast<T>();
         }
 
         public override bool Equals(object obj)
@@ -70,18 +70,19 @@ namespace Cloudents.Core
 
         private static T Parse<T>(Func<T, bool> predicate) where T : Enumeration
         {
-            var matchingItem = GetAll<T>().FirstOrDefault(predicate);
-           ;
+            var all = GetAll<T>();
+            var matchingItem = all.FirstOrDefault(predicate);
+           
 
             return matchingItem;
         }
 
-        public static bool operator ==(Enumeration left, Enumeration right)
+        public static bool operator ==(Enumeration? left, Enumeration? right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(Enumeration left, Enumeration right)
+        public static bool operator !=(Enumeration? left, Enumeration? right)
         {
             return !Equals(left, right);
         }
