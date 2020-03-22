@@ -12,5 +12,6 @@ export const StudyRoom = {
       this.tutorName = objInit.tutorName;
       this.roomId = roomId;
       this.tutorPrice = objInit.tutorPrice;
+      this.jwt = objInit.jwt || null;
    }
 }

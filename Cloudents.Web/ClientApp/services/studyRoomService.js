@@ -18,6 +18,7 @@ export default {
       return await studyRoomInstance.post("upload",formData)
    },
    async enterRoom(roomId){ 
-      return await studyRoomInstance.post(`${roomId}/enter`)
+      let {data} = await studyRoomInstance.post(`${roomId}/enter`)
+      return data.jwtToken;
    },
 }

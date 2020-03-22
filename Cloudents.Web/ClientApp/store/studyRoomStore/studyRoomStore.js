@@ -1,5 +1,6 @@
 import studyRoomService from '../../services/studyRoomService.js';
 import {studyRoom_SETTERS} from '../constants/studyRoomConstants.js';
+import {twilio_SETTERS} from '../constants/twilioConstants.js';
 import studyRoomRecordingService from '../../components/studyroom/studyRoomRecordingService.js'
 
 function _checkPayment(context){
@@ -69,6 +70,11 @@ const actions = {
    updateDialogRoomSettings({commit},val){
       commit(studyRoom_SETTERS.DIALOG_ROOM_SETTINGS,val)
    },
+   updateEnterRoom({commit},roomId){
+      studyRoomService.enterRoom(roomId).then((jwtToken)=>{
+         commit(twilio_SETTERS.JWT_TOKEN,jwtToken)
+      })
+   },
 
 
 
@@ -87,6 +93,9 @@ const actions = {
       }else{
          return studyRoomService.getRoomInformation(roomId).then((roomProps)=>{
             commit(studyRoom_SETTERS.ROOM_PROPS,roomProps)
+            if(roomProps.jwt){
+               commit(twilio_SETTERS.JWT_TOKEN,roomProps.jwt)
+            }
             return dispatch('studyRoomMiddleWare')
          })
       }

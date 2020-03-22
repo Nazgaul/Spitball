@@ -462,8 +462,7 @@ watch: {
       "stopTracks"
     ]),
     enterRoomTest(){
-      studyRoomService.enterRoom(this.id).then(()=>{
-      })
+      this.$store.dispatch('updateEnterRoom',this.id)
     },
     handleNeedPayment(needPayment){
       if(needPayment){
