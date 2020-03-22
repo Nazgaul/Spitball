@@ -5,7 +5,7 @@
                 <!-- <v-tooltip top >
                     <template v-slot:activator="{on}">
                         <div v-on="on"> -->
-                            <button @click="showScreen" class="outline-btn-share">
+                            <button :disabled="!isRoomActive" @click="showScreen" class="outline-btn-share">
                                 <castIcon class="cast-icon"></castIcon>
                                 <span v-language:inner="'tutor_btn_share_screen'"></span>
                             </button>
@@ -30,6 +30,9 @@
         components: {castIcon},
         computed: {
             ...mapGetters(['getIsShareScreen']),
+            isRoomActive(){
+                return this.$store.getters.getRoomIsActive;
+            }
         },
         methods: {
             showScreen() {
