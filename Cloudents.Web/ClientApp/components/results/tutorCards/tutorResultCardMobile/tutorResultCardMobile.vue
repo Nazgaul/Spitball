@@ -20,7 +20,7 @@
 
               <template>
                   <div class="user-rate align-center" v-if="tutorData.reviews > 0">
-                    <user-rating :rating="tutorData.rating" :showRateNumber="false" :size="'18'" class="mr-2" />
+                    <user-rating :rating="tutorData.rating" :showRateNumber="false" :size="'18'" class="flex-grow-0 mr-2" />
                     <span class="reviews" v-html="$Ph(tutorData.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></span>
                   </div>
                   <div class="user-rate align-center" v-else>
@@ -32,13 +32,13 @@
               <div class="price align-center">
                   <div class="price_oneline">
                       <template>
-                          <span v-if="isDiscount" class="price_oneline--count font-weight-bold">{{tutorData.discountPrice | currencyFormat(tutorData.currency)}}</span>
-                          <span v-else class="price_oneline--count font-weight-bold">{{tutorData.price | currencyFormat(tutorData.currency)}}</span>
+                          <span v-if="isDiscount" class="price_oneline--count font-weight-bold">{{$n(tutorData.discountPrice, 'currency')}}</span>
+                          <span v-else class="price_oneline--count font-weight-bold">{{$n(tutorData.price, 'currency')}}</span>
                           <span>/</span>
                       </template>
                       <span class="caption" v-language:inner="'resultTutor_hour'"></span>
                   </div>
-                  <div class="striked ml-3" v-if="isDiscount">{{tutorData.price | currencyFormat(tutorData.currency)}}</div>
+                  <div class="striked ml-3" v-if="isDiscount">{{$n(tutorData.price, 'currency')}}</div>
               </div>
 
               <router-link class="applyCoupon" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name},  query: {coupon: true}}" v-language:inner="'resultTutor_apply_coupon'"></router-link>

@@ -14,7 +14,7 @@
           <span class="document-header-name text-truncate">
             <span>{{authorName}}</span>
           </span>
-          <span class="date-area">{{uploadDate}}</span>
+          <span class="date-area">{{$d(new Date(item.dateTime), 'short')}}</span>
         </div>
       </div>
       <div class="document-header-small-sagment">
@@ -338,13 +338,6 @@ export default {
         return this.item.purchased;
       }else{
         return null;
-      }
-    },
-    uploadDate() {
-      if (this.item && this.item.dateTime) {
-        return this.$options.filters.fullMonthDate(this.item.dateTime);
-      } else {
-        return "";
       }
     },
     url() {

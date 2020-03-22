@@ -25,9 +25,6 @@ import '../ClientApp/myFont.font.js';
 // Vue Prototypes
 import './prototypes/prototypes.js'; 
 
-// Filters
-import './filters/filters';
-
 // Directives
 import { openDialog,closeDialog } from './directives/dialog.js';
 

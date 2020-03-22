@@ -23,10 +23,10 @@
          </transition>
          <div class="profileUserSticky_pricing">
             <v-flex class="profileUserSticky_pricing_discount" v-if="isDiscount">
-               {{tutorPrice ? tutorPrice : tutorDiscountPrice | currencyFormat(getProfile.user.tutorData.currency)}}
+               {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
             </v-flex>
             <v-flex class="profileUserSticky_pricing_price">
-               <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? tutorDiscountPrice : tutorPrice | currencyFormat(getProfile.user.tutorData.currency)}}</span>/<span class="profileUserSticky_pricing_price_hour" v-language:inner="'profile_points_hour'"/>
+               <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserSticky_pricing_price_hour" v-language:inner="'profile_points_hour'"/>
             </v-flex>
          </div>
          <div class="profileUserSticky_btns">

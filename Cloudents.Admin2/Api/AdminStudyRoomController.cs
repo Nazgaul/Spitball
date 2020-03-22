@@ -34,22 +34,7 @@ namespace Cloudents.Admin2.Api
             return retVal;
         }
 
-        [HttpGet("tutors")]
-        public async Task<IEnumerable<TutorInfoDto>> TutorsAsync(CancellationToken token)
-        {
-            var query = new TutorsWithStudyRoomsQuery(User.GetCountryClaim());
-            var retVal = await _queryBus.QueryAsync(query, token);
-            return retVal;
-        }
-
-        [HttpGet("bills")]
-        public async Task<IEnumerable<SessionBillDto>> BillsAsync(long id, CancellationToken token)
-        {
-            var query = new TutorSessionsQuery(id, User.GetCountryClaim());
-            var retVal = await _queryBus.QueryAsync(query, token);
-            return retVal;
-        }
-
+     
         [HttpPost("update")]
         public async Task<IActionResult> UpdateSessionAsync([FromBody] UpdateSessionDurationRequest model, 
             [FromServices] ICommandBus commandBus,

@@ -14,17 +14,15 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             _client = factory.CreateClient();
         }
 
-        [Fact]
-        public async Task SalesTestGet_OkAsync()
+        [Theory]
+        [InlineData("api/Sales/sales")]
+        public async Task SalesTestGet_OkAsync(string url)
         {
             await _client.LogInAsync();
-            var response = await _client.GetAsync("api/sales/sales");
+            var response = await _client.GetAsync(url);
             response.EnsureSuccessStatusCode();
-            if (response.StatusCode != HttpStatusCode.NoContent)
-            {
-                var str = await response.Content.ReadAsStringAsync();
-                str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
-            }
+            var str = await response.Content.ReadAsStringAsync();
+            str.IsValidJson().Should().BeTrue();
         }
 
         [Fact]

@@ -43,5 +43,10 @@ export default {
       }, (err) => {
           return Promise.reject(err);
       });
+   },
+   getEditManageCourse() {
+      return axios.get('/Account/courses').then(({data}) => {
+         return data.map(course => new School.Course(course));
+      });
    }
 }

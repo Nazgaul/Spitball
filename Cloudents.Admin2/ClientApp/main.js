@@ -4,7 +4,7 @@ import Vue from "vue";
 
 import VueRouter from "vue-router"
 // ReSharper disable once InconsistentNaming
-import App from './App.vue'
+import App from './app.vue'
 import { routes } from './routes'
 import toaster from 'v-toaster'
 import 'v-toaster/dist/v-toaster.css'

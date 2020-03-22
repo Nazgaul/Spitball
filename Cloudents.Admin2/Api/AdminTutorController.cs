@@ -34,7 +34,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<PendingTutorsDto>> GetPendingTutorsAsync([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
             var query = new PendingTutorsQuery(User.GetCountryClaim());
-            var res =  await _queryBus.QueryAsync(query, token);
+            var res = await _queryBus.QueryAsync(query, token);
             return res.Select(item =>
             {
                 item.Image = urlBuilder.BuildUserImageEndpoint(item.Id, item.Image);
@@ -85,6 +85,20 @@ namespace Cloudents.Admin2.Api
             var command = new UnSuspendTutorCommand(model.TutorId);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
+        }
+
+        [Route("search")]
+        [HttpGet]
+        //[Authorize(Policy = Policy.IsraelUser)]
+        public async Task<IEnumerable<TutorDto>> GetAsync([FromQuery] TutorSearchRequest model,
+           CancellationToken token)
+        {
+            var adminCountry = User.GetCountryClaim();
+            var country = adminCountry ?? model.Country;
+            
+            var query = new TutorSearchQuery(model.Term, model.State, 0, country);
+            var result = await _queryBus.QueryAsync(query, token);
+            return result;
         }
     }
 }

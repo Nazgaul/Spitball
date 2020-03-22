@@ -49,7 +49,7 @@
                                 <button class="mainItem__item__wrap__paging__actions--left"  @click="prevDoc()" v-if="showDesktopButtons">
                                     <v-icon class="mainItem__item__wrap__paging__actions--img" v-html="'sbf-arrow-left-carousel'"/>
                                 </button>
-                                <div class="mx-4 mainItem__item__wrap__paging--text" v-html="$Ph('documentPage_docPage', [docPage + 1, docPreview.length])"></div>            
+                                <div class="mx-4 mainItem__item__wrap__paging--text justify-center" v-html="$Ph('documentPage_docPage', [docPage + 1, docPreview.length])"></div>            
                                 <button class="mainItem__item__wrap__paging__actions--right" @click="nextDoc()" v-if="showDesktopButtons">
                                     <v-icon class="mainItem__item__wrap__paging__actions--img" v-html="'sbf-arrow-right-carousel'"/>
                                 </button>

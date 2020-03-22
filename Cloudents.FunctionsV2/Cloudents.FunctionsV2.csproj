@@ -18,7 +18,7 @@
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Storage" Version="3.0.1" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Twilio" Version="3.0.0" />
     <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="4.3.0" />
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.3" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.5" />
     <PackageReference Include="Sendgrid" Version="9.12.0" />
     <PackageReference Include="shortid" Version="2.0.0" />
     <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0007" />
@@ -34,7 +34,15 @@
     <ProjectReference Include="..\Cloudents.Query\Cloudents.Query.csproj" />
     <ProjectReference Include="..\Cloudents.Search\Cloudents.Search.csproj" />
   </ItemGroup>
+  
   <ItemGroup>
+    <None Update="GhostScript\gsdll32.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="GhostScript\gsdll64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+   
     <None Update="host.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

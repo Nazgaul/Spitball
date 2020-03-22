@@ -71,10 +71,12 @@ export default {
             } 
         },
         check_courses(){
-            if(this.getSelectedClasses.length === 0){
-                this.$router.push({name: "addCourse"})
-                return 'break'
-            }
+            this.$store.dispatch('getManageCourses').then(courses => {
+                if(courses.length === 0){
+                    this.$router.push({name: "addCourse"})
+                    return 'break'
+                }
+            })
         },
         check_params() {
             if(!Object.keys(this.$route.params).length) {

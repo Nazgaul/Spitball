@@ -18,7 +18,7 @@ import uToken from './components/user/token/tokenUser.vue';
 import uCashout from './components/user/cashout/cashoutUser.vue';
 import uSuspend from './components/user/suspend/suspendUser.vue';
 import activeUsers from './components/user/activeUsers/activeUsers.vue';
-import payments from './components/user/payments/paymentUser.vue';
+import payments from './components/user/payments/PaymentUser.vue';
 import changeCountry from './components/user/changeCountry/changeCountry.vue';
 
 import document from './components/document/document.vue';
@@ -45,13 +45,12 @@ import shortUrl from './components/management/shortUrl/shortUrl.vue';
 
 import conversation from './components/conversation/conversation.vue';
 import conversations from './components/conversation/conversationComponent/conversationDetalis/conversationDetails.vue';
-import startConversations from './components/conversation/startconversation.vue';
+import startConversations from './components/conversation/startConversation.vue';
 // import conversationMessages from './components/conversation/conversationComponent/conversationMessages/conversationMessages.vue';
 
 import tutors from './components/tutor/tutor.vue';
 import pendingTutors from './components/tutor/pendingTutors/pendingTutor.vue';
 import deleteTutors from './components/tutor/tutorDelete/tutorDelete.vue';
-import paymentSession from './components/tutor/paymentSession/paymentSession.vue';
 import studyRoom from './components/studyRoom/studyRoom.vue';
 import studyRoomSession from './components/studyRoom/studyRoomComponents/sessions/studyRoomsSessions.vue';
 
@@ -60,6 +59,7 @@ import coupon from './components/coupon/coupon.vue';
 import subjects from './components/subjects/subjects.vue';
 import upload from './components/upload/upload.vue';
 
+import tutorList from './components/tutor/tutorList/tutorList.vue';
 
 export const routes = [
     {
@@ -136,8 +136,8 @@ export const routes = [
               component: deleteTutors
             },
             {
-              path: 'paymentSession',
-              component: paymentSession
+              path: 'tutorList',
+              component: tutorList
             }
         ]
     },

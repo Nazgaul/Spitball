@@ -52,14 +52,15 @@
           </v-list-item>
         </template>
           
-          <v-list-item v-for="link in satelliteLinks" :key="link.title" sel="menu_row">
-            <v-list-item-action>
-              <a :href="link.url"><v-icon class="userMenu_icons">{{link.icon}}</v-icon></a>
-            </v-list-item-action>
-            <v-list-item-content>
-              <a :href="link.url" class="v-list__tile__title subheading userMenu_titles">{{link.title}}</a>
-            </v-list-item-content>
-          </v-list-item>
+        <v-list-item v-for="link in satelliteLinks" :key="link.title" sel="menu_row" class="v-list-item--link">
+          <v-list-item-action>
+            <a :href="link.url"><v-icon class="userMenu_icons">{{link.icon}}</v-icon></a>
+          </v-list-item-action>
+          <v-list-item-content>
+            <a :href="link.url" class="v-list__tile__title subheading userMenu_titles">{{link.title}}</a>
+          </v-list-item-content>
+        </v-list-item>
+
          <v-list-item @click="openReferralDialog" v-if="isLoggedIn" sel="menu_row">
             <v-list-item-action>
                 <v-icon class="userMenu_icons">sbf-user</v-icon>

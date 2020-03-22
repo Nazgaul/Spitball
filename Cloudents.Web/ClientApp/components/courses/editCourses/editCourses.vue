@@ -1,14 +1,14 @@
 <template>
     <div class="courses-list-wrap">
-        <div v-if="!isEmpty">
+        <div>
             <v-layout class="py-6 pl-6 pr-4" align-center justify-center>
                 <v-flex grow>
                     <div class="d-inline-flex justify-center shrink courses-list-wrap-title">
-                        <span class="font-weight-bold" v-language:inner>courses_my_courses</span>
+                        <span class="font-weight-bold">{{$t('courses_my_courses')}}</span>
                         <span class="font-weight-bold" v-if="coursesQuantaty">&nbsp;({{coursesQuantaty}})</span>
                     </div>
                 </v-flex>
-                <v-flex xs2 shrink class="text-center hidden-xs-only" >
+                <v-flex xs2 shrink class="text-center hidden-xs-only">
                     <finishBtn></finishBtn>
                 </v-flex>
                 <v-flex shrink class="d-flex justify-start">
@@ -16,7 +16,7 @@
                            :class="{'mr-2': $vuetify.breakpoint.xsOnly }"
                            @click="goToAddMore()">
                         <v-icon class="mr-1 vicon">sbf-plus-regular</v-icon>
-                        <span v-language:inner>courses_add</span>
+                        <span>{{$t('courses_add')}}</span>
                     </v-btn>
                 </v-flex>
             </v-layout>
@@ -30,16 +30,14 @@
                                     {{ singleClass.text }}
                                 </v-flex>
                                 <v-flex class="label-text pt-1" v-if="singleClass.isPending">
-                                    <span v-language:inner>courses_pending</span>
-                                    <span class="d-inline-flex badge font-weight-bold px-2 align-center justify-center ml-1"
-                                          v-language:inner>courses_new</span>
+                                    <span>{{$t('courses_pending')}}</span>
+                                    <span class="d-inline-flex badge font-weight-bold px-2 align-center justify-center ml-1">{{$t('courses_new')}}</span>
                                 </v-flex>
                                 <v-flex class="label-text  pt-1" v-else>
                                     {{singleClass.students}}
-                                    <span class="label-text" v-language:inner>courses_students</span>
+                                    <span class="label-text">{{$t('courses_students')}}</span>
                                 </v-flex>
                             </v-layout>
-
                             <v-layout align-center justify-end class="pr-2 grow">
                                 <v-flex shrink class="d-flex align-center" v-if="!singleClass.isLoading">
                                     <div v-show="isUserTutor">
@@ -51,7 +49,6 @@
                                             <span class="purple-text caption" v-html="$Ph('courses_teach')"></span>
                                         </span>
                                     </v-btn>
-
                                     <v-btn v-else rounded @click="teachCourseToggle(singleClass)"
                                            class="solid-btn elevation-0 text-none align-center justify-center rounded-btn">
                                         <span>
@@ -71,7 +68,6 @@
                                             :size="24"
                                             color="primary"
                                             v-show="singleClass.isLoading"
-
                                     ></v-progress-circular>
                                 </v-flex>
                             </v-layout>
@@ -85,40 +81,28 @@
                 </v-flex>
             </v-layout>
         </div>
-        <div v-else>
-            <courses-empty-state></courses-empty-state>
-        </div>
     </div>
 </template>
 <script>
     import { mapActions, mapGetters } from 'vuex';
-    import coursesEmptyState from '../coursesEmptyState/coursesEmptyState.vue';
     import finishBtn from  '../helpers/finishBtn.vue';
+
     export default {
         name: "selectedCourses",
-        components: {coursesEmptyState, finishBtn},
+        components: { finishBtn },
         data() {
             return {
-                btnLoading: false,
-                removingActive: false,
                 teachingActive: false
-            };
+            }
         },
         computed: {
-            ...mapGetters(['getSelectedClasses', 'accountUser', 'getIsTutorState', 'getIsSelectedClassLocked']),
+            ...mapGetters(['getSelectedClasses', 'getIsTeacher', 'getIsTutorState']),
+            
             classesSelected() {
                 return this.getSelectedClasses;
             },
             isUserTutor(){
-                return this.accountUser.isTutor || (this.getIsTutorState && this.getIsTutorState === 'pending');            
-            },
-            isEmpty() {
-                if(!this.getIsSelectedClassLocked){
-                    if(this.getSelectedClasses.length < 1){
-                        this.goToAddMore();
-                    }
-                }
-                return false;
+                return this.getIsTeacher || (this.getIsTutorState && this.getIsTutorState === 'pending');            
             },
             coursesQuantaty() {
                 return this.getSelectedClasses.length;
@@ -126,43 +110,34 @@
 
         },
         methods: {
-            ...mapActions(["updateClasses",
-                              "deleteClass",
-                              "updateSelectedClasses",
-                              "pushClassToSelectedClasses",
-                              'updateTeachCourse'
-                          ]),
+            ...mapActions(['deleteClass', 'updateTeachCourse', 'getManageCourses']),
+
             teachCourseToggle(course) {
                 this.teachingActive = true;
-                course.isLoading = true;
-                this.updateTeachCourse(course.text).then(() => {
+                this.$set(course, 'isLoading', true);                
+                this.updateTeachCourse(course.text).finally(() => {
                     course.isLoading = false;
                     this.teachingActive = false;
                     return course.isTeaching = !course.isTeaching;
-                }).finally(() => {
-                    course.isLoading = false;
-                    this.teachingActive = false;
                 });
             },
             removeClass(classDelete) {
-                classDelete.isLoading = true;
-                this.removingActive = true;
-                this.deleteClass(classDelete.text).then(() => {
+                // https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats
+                // add isLoading prop to the object classesSelected, for render loading
+                this.$set(classDelete, 'isLoading', true);                
+                this.deleteClass(classDelete.text).finally(() => {
                     classDelete.isLoading = false;
-
-                }, () => {
-                    classDelete.isLoading = false;
-                    this.removingActive = false;
-                }).finally(() => {
-                    classDelete.isLoading = false;
-                    this.removingActive = false;                   
                 });
             },
             goToAddMore() {
                 this.$router.push({name: 'addCourse'});
             }
         },
-
+        created() {
+            this.getManageCourses().then(courses => {
+                if(!courses.length) this.goToAddMore();
+            })
+        }
     };
 </script>
 

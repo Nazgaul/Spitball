@@ -5,6 +5,8 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query.Feed;
+using Cloudents.Query;
+using Cloudents.Query.Users;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Framework;
@@ -139,6 +141,18 @@ namespace Cloudents.Web.Api
                     FeedType.Video.ToString("G"),
                     FeedType.Tutor.ToString("G")
                 });
+        }
+
+        [HttpGet("courses")]
+       // [Authorize]
+        public async Task<IEnumerable<string>> GetUserCoursesAsync([FromServices] IQueryBus queryBus, CancellationToken token)
+       {
+           if (!_userManager.TryGetLongUserId(User, out var userId))
+           {
+               return Enumerable.Empty<string>();
+           }
+            var query = new UserCoursesNamesQuery(userId);
+            return await queryBus.QueryAsync(query, token);
         }
 
     }

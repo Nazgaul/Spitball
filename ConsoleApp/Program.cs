@@ -23,7 +23,11 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
+using Cloudents.Command.Documents.PurchaseDocument;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Storage;
+using Cloudents.Query;
+using Cloudents.Query.Users;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 
@@ -53,7 +57,7 @@ namespace ConsoleApp
                 case EnvironmentSettings.Dev:
                     return new ConfigurationKeys
                     {
-                        SiteEndPoint = { SpitballSite = "https://dev.spitball.co", FunctionSite = "https://spitball-dev-function.azureedge.net" },
+                        SiteEndPoint = { SpitballSite = "https://dev.spitball.co", FunctionSite = "https://spitball-function.azureedge.net" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                             ConfigurationManager.AppSettings["Redis"],
                             DbConnectionString.DataBaseIntegration.None),
@@ -74,7 +78,7 @@ namespace ConsoleApp
                 case EnvironmentSettings.Prod:
                     return new ConfigurationKeys
                     {
-                        SiteEndPoint = { SpitballSite = "https://www.spitball.co" },
+                        SiteEndPoint = { SpitballSite = "https://www.spitball.co", FunctionSite = "https://spitball-dev-function.azureedge.net" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
                             ConfigurationManager.AppSettings["Redis"], DbConnectionString.DataBaseIntegration.None),
                         MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
@@ -143,8 +147,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await Convert();
-            //var s = Container.Resolve<IPayPalService>();
+            Country country = "BD";
+            //ResourcesMaintenance.DeleteStuffFromJs();
+            //await Convert();
             //var result = await s.GetPaymentAsync("4J34525079381873W", default);
             ////var x = await s.QueryAsync(new StudyRoomQuery(Guid.Parse("9f54280c-103e-46a6-8184-aabf00801beb"), 638), default);
 

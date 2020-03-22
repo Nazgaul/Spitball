@@ -132,9 +132,6 @@
   <data name="content_txt_time" xml:space="preserve">
     <value>החיוב יבוצע רק בסיום השיעור</value>
   </data>
-  <data name="title" xml:space="preserve">
-    <value>התשלום עבור שיעור פרטי עם המורה {1}  יבוצע לאחר השיעור, חשבונית תשלח לאימייל שבו נרשמת למערכת.</value>
-  </data>
   <data name="top_title" xml:space="preserve">
     <value>נוחות, תשלום ללא מזומן</value>
   </data>

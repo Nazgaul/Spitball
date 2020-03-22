@@ -216,7 +216,7 @@ namespace Cloudents.Core.Entities
         public virtual UserType? UserType2 { get; protected set; }
         private readonly ICollection<UserPayPalToken> _userTokens = new List<UserPayPalToken>();
 
-        
+
 
         public virtual IEnumerable<UserPayPalToken> UserTokens => _userTokens;
 
@@ -367,7 +367,12 @@ namespace Cloudents.Core.Entities
 
         public virtual void ReferUser(User user)
         {
-            MakeTransaction(new ReferUserTransaction(user));
+            const int maxRefer = 5;
+
+            Country country = user.Country;
+            var referCount = Transactions.TransactionsReadOnly.AsQueryable().Count(w => w is ReferUserTransaction);
+            var price = referCount > maxRefer || country == Entities.Country.India ? 0 : 10;
+            MakeTransaction(new ReferUserTransaction(user, price));
         }
 
         public virtual void FinishRegistration()
@@ -439,7 +444,7 @@ namespace Cloudents.Core.Entities
         {
 
         }
-        public Parent(User user, string name,  short grade)
+        public Parent(User user, string name, short grade)
             : base(UserType.Parent, user)
         {
             Name = name;
@@ -456,7 +461,7 @@ namespace Cloudents.Core.Entities
 
 
 
-        public virtual void SetChildData(string name,  short grade)
+        public virtual void SetChildData(string name, short grade)
         {
             Name = name;
             Grade = grade;
@@ -470,7 +475,7 @@ namespace Cloudents.Core.Entities
     {
         public HighSchoolStudent(User user) : base(UserType.HighSchoolStudent, user)
         {
-            
+
         }
 
         protected HighSchoolStudent()

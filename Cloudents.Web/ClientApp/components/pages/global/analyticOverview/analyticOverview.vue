@@ -7,13 +7,13 @@
             <v-menu offset-y>
                 <template v-slot:activator="{ on }">
                     <div v-on="on" class="menuDropDown">
-                        <span class="pr-2 selectedItem">{{$t(`dashboardTeacher_${selectedItem.key}`)}}</span>
+                        <span class="pr-2 selectedItem">{{$t(`dashboardTeacher_last_days`, [selectedItem.value])}}</span>
                         <div class="arrow-down"></div>
                     </div>
                 </template>
                 <v-list>
                     <v-list-item v-for="(item, index) in items" :key="index" @click="changeDays(item)">
-                      <v-list-item-title>{{ $t(`dashboardTeacher_${item.key}`) }}</v-list-item-title>
+                      <v-list-item-title>{{ $t(`dashboardTeacher_last_days`, [item.value]) }}</v-list-item-title>
                     </v-list-item>
                 </v-list>
             </v-menu>
@@ -26,9 +26,9 @@
               v-for="(val, key, index) in results[0]"
               :key="index"
               :cols="isMobile ? 6 : 3"
-              class="box pa-0 text-center">
+              class="analyticBox pa-0 text-center">
                 <router-link :to="{name: navigation[key]}" class="boxWrap d-block mb-0 mb-sm-2 ma-2 ma-sm-0 py-2 py-sm-0" :class="[isMobile ? 'fullBorder' : 'borderSide']">
-                  <div class="type">{{ $t(`dashboardTeacher_${key}`) }}</div>
+                  <div class="type">{{ $t(analyticTypeResource(key)) }}</div>
                   <div class="result my-0 my-sm-1">{{$n(Math.round(val), key === 'revenue' ? 'currency' : '')}}</div>
                   <div class="rate font-weight-bold">
                       <arrowDownIcon class="arrow" v-show="percentage(key)" :class="[showIcon(key) ? 'arrowDown' : 'arrowUp']" />
@@ -61,7 +61,7 @@ export default {
     arrowDownIcon
   },
   data: () => ({
-    selectedItem: {title: 'Last 7 days', value: 7, key: '7days'},
+    selectedItem: { title: 'Last 7 days', value: 7 },
     results: [],
     navigation: {
       revenue: 'mySales',
@@ -70,9 +70,9 @@ export default {
       followers: 'myFollowers'
     },
     items: [
-      { title: 'Last 7 days', value: 7,  key: '7days' },
-      { title: 'Last 30 Day', value: 30,  key: '30days' },
-      { title: 'Last 90 Day', value: 90,  key: '90days' },
+      { title: 'Last 7 days', value: 7 },
+      { title: 'Last 30 Day', value: 30 },
+      { title: 'Last 90 Day', value: 90 },
     ],
   }),
   computed: {
@@ -108,6 +108,15 @@ export default {
     showIcon(key) {
       let delta = this.deltaCalc(key);
       return (isNaN(delta) || delta <= 0);
+    },
+    analyticTypeResource(key) {
+      let resource = {
+        revenue: 'dashboardTeacher_revenue',
+        sales: 'dashboardTeacher_sales',
+        views: 'dashboardTeacher_views',
+        followers: 'dashboardTeacher_followers'
+      }
+      return resource[key]
     }
   },
   created() {
@@ -175,7 +184,7 @@ export default {
         }
       }
     }
-    .box {
+    .analyticBox {
       .boxWrap {
         &.borderSide {
           border-right: 1px solid #dddddd;

@@ -10,7 +10,7 @@
             <v-progress-circular v-if="isStudentImage && studentImage" :width="2" indeterminate v-bind:size="35" color="#514f7d"/>
             <userAvatar v-else :user-name="studentName"  :userImageUrl="studentImage" :user-id="studentId" :size="'58'"/>
         </v-flex>
-        <v-flex xs12 class="pt-3">
+        <v-flex xs12 class="pt-3 px-5 text-truncate">
             <span class="tutor-start-wrap_title font-weight-bold" v-language:inner>tutor_start_dialog_your_student</span>
             <span class="tutor-start-wrap_title font-weight-bold">&nbsp;{{studentName}}</span>
         </v-flex>

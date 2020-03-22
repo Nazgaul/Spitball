@@ -38,7 +38,7 @@
                   <tableInfoTd :item="props.item"/>
                   <td class="text-left" v-text="dictionary.types[props.item.type]"/>
                   <td class="text-left" v-text="formatPrice(props.item.price,props.item.type)"/>
-                  <td class="text-left">{{ props.item.date | dateFromISO }}</td> 
+                  <td class="text-left">{{ $d(new Date(props.item.date)) }}</td> 
                   
                   
                   <td class="text-center">

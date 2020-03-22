@@ -9,7 +9,7 @@ const state = {
     selectedClassesCache: [],
     resultLockForSchoolNameChange: false,
     resultLockForClassesChange: false,
-    selectForTheFirstTime: false,
+    // selectForTheFirstTime: false,
     reflectChangeToPage: 0,
     createDialog: false,
     creationVerified: false,
@@ -17,6 +17,7 @@ const state = {
     uniCreationVerified: false,
     lock_selectedClass:true,
     searchedCourse: '',
+    isCourseRequestQuery: false
 };
 
 const getters = {
@@ -25,12 +26,12 @@ const getters = {
     getClasses: state => state.classes,
     // the sorting is moved to the cmp
     getSelectedClasses: state => state.selectedClasses,
-    getSelectedClassesCache: state => state.selectedClassesCache,
+    // getSelectedClassesCache: state => state.selectedClassesCache,
     createDialogVisibility: state => state.createDialog,
     creationVerified: state => state.creationVerified,
     getCreateDialogVisibility: state => state.createUniDialog,
     uniCreationVerified: state => state.uniCreationVerified,
-    getIsSelectedClassLocked: state => state.lock_selectedClass,
+    // getIsSelectedClassLocked: state => state.lock_selectedClass,
     getSearchedCourse: state => state.searchedCourse,
 };
 
@@ -96,9 +97,9 @@ const mutations = {
     openResultLockForClassesChange(state) {
         state.resultLockForClassesChange = true;
     },
-    setSelectForTheFirstTime(state, val) {
-        state.selectForTheFirstTime = val;
-    },
+    // setSelectForTheFirstTime(state, val) {
+    //     state.selectForTheFirstTime = val;
+    // },
     setReflectChangeToPage(state) {
         state.reflectChangeToPage++;
     },
@@ -250,9 +251,9 @@ const actions = {
         }
 
     },
-    updateSelectForTheFirstTime({commit}, val) {
-        commit('setSelectForTheFirstTime', val);
-    },
+    // updateSelectForTheFirstTime({commit}, val) {
+    //     commit('setSelectForTheFirstTime', val);
+    // },
     changeCreateDialogState({commit}, val) {
         commit('updateCreateDialogState', val);
     },
@@ -271,8 +272,18 @@ const actions = {
     },
     setLock_selectedClass({commit}, val){
         commit('setLock_selectedClass', val);
-    }
-
+    },
+    getManageCourses({commit, getters, state}) {
+        let isRequest = state.isCourseRequestQuery
+        if(!isRequest) {
+            return courseService.getEditManageCourse().then((data) => {
+                commit('setSelectedClasses', data);
+                state.isCourseRequestQuery = true;
+                return getters.getSelectedClasses
+            })
+        }
+        return Promise.resolve( getters.getSelectedClasses)
+    },
 };
 
 export default {

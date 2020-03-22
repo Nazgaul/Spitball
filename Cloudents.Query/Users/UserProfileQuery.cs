@@ -13,7 +13,7 @@ using Cloudents.Core.DTOs.Users;
 
 namespace Cloudents.Query.Users
 {
-    public class UserProfileQuery : IQuery<UserProfileDto>
+    public class UserProfileQuery : IQuery<UserProfileDto?>
     {
         //TODO split to two queries
         public UserProfileQuery(long id, long userId)
@@ -28,7 +28,7 @@ namespace Cloudents.Query.Users
 
 
         [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
-        internal sealed class UserProfileQueryHandler : IQueryHandler<UserProfileQuery, UserProfileDto>
+        internal sealed class UserProfileQueryHandler : IQueryHandler<UserProfileQuery, UserProfileDto?>
         {
 
             private readonly IStatelessSession _session;
@@ -40,17 +40,15 @@ namespace Cloudents.Query.Users
                 _session = session.StatelessSession;
             }
 
-            public async Task<UserProfileDto> GetAsync(UserProfileQuery query, CancellationToken token)
+            public async Task<UserProfileDto?> GetAsync(UserProfileQuery query, CancellationToken token)
             {
 
                 const string sql = @"select u.id,
 u.ImageName as Image,
 u.Name,
-u2.name as universityName,
-u.description,
+u.description as Tutor_Description,
 u.online,
 cast ((select count(*) from sb.GoogleTokens gt where u.Id = gt.Id) as bit) as CalendarShared,
-
 u.FirstName as FirstName,
 u.LastName as LastName,
 t.price as Tutor_Price, 
@@ -69,7 +67,6 @@ where sr.TutorId = :profileId and sru.UserId != :profileId) as Tutor_Students,
 (select count(1) from sb.UsersRelationship where UserId = u.Id) as Followers,
 case when exists (select * from sb.UsersRelationship ur where ur.UserId = :profileId and ur.FollowerId = :userid) then cast(1 as bit) else cast(0 as bit) end as IsFollowing
 from sb.[user] u 
-left join sb.[University] u2 on u.UniversityId2 = u2.Id
 left join sb.readTutor t 
 	on U.Id = t.Id 
 where u.id = :profileId
@@ -98,21 +95,26 @@ and uc.tutorId =  :profileId";
                 var couponValue = couponSqlQuery.FutureValue<CouponDto>();
 
 
-                var future = _session.Query<ReadTutor>().Where(t => t.Id == query.Id)
+                var futureSubject = _session.Query<ReadTutor>().Where(t => t.Id == query.Id)
                     .Select(s => s.Subjects).ToFutureValue();
 
-                var coursesFuture = _session.Query<Document>()
+                var documentCoursesFuture = _session.Query<Document>()
                     .Fetch(f => f.User)
                     .Where(w => w.User.Id == query.Id && w.Status.State == Core.Enum.ItemState.Ok)
                     .Select(s => s.Course.Id).Distinct()
                     .ToFuture();
 
 
-               
+                var userCoursesFuture = _session.Query<UserCourse>()
+                    .Where(w => w.User.Id == query.UserId)
+                    .Take(20)
+                    .Select(s => s.Course.Id).ToFuture();
+
+
+
                 var result = await profileValue.GetValueAsync(token);
 
                 var couponResult = couponValue.Value;
-                var coursesResult = await coursesFuture.GetEnumerableAsync(token);
 
                 if (result is null)
                 {
@@ -121,7 +123,7 @@ and uc.tutorId =  :profileId";
 
                 if (result.Tutor != null)
                 {
-                    result.Tutor.Subjects = future.Value;
+                    result.Tutor.Subjects = futureSubject.Value;
                     if (couponResult != null)
                     {
                         result.Tutor.CouponType = couponResult.TypeEnum;
@@ -130,8 +132,8 @@ and uc.tutorId =  :profileId";
                     }
                 }
 
-                result.Courses = coursesResult;
-
+                result.DocumentCourses = documentCoursesFuture.GetEnumerable();
+                result.Courses = userCoursesFuture.GetEnumerable();
                 result.Image = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Image);
 
                 if (result.Tutor?.CouponValue != null && result.Tutor?.CouponType != null)

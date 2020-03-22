@@ -124,6 +124,9 @@ export default {
     nextPage: (params) => {
         return getNextPage(params).then(transferNextPage);
     },
+    getFeedCourses() {
+        return connectivityModule.http.get("feed/courses")
+    },
     createQuestionItem,
     createAnswerItem,
     createTutorItem,
