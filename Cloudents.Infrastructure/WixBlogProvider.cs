@@ -4,6 +4,8 @@ using System.ServiceModel.Syndication;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
+using Cloudents.Core;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
@@ -13,15 +15,10 @@ namespace Cloudents.Infrastructure
 {
     public class WixBlogProvider : IBlogProvider
     {
+        [Cache(TimeConst.Hour, "Blog", false)]
         public Task<IEnumerable<DashboardBlogDto>> GetBlogAsync(BlogQuery query,
             CancellationToken token)
         {
-            //var blogName = "English";
-            //if (country == Country.Israel)
-            //{
-            //    blogName = "Hebrew";
-            //}
-
             using var reader = XmlReader.Create("https://www.blog.spitball.co/blog-feed.xml");
             var formatter = new Rss20FeedFormatter();
             formatter.ReadFrom(reader);
@@ -29,7 +26,8 @@ namespace Cloudents.Infrastructure
             token.ThrowIfCancellationRequested();
 
             var result = items
-                .Where(w => w.Categories.Any(a => a.Name == query.Category) && w.Categories.Any(a => a.Name == query.BlogName))
+                .Where(w => w.Categories.Any(a => a.Name == query.Category)
+                            && w.Categories.Any(a => a.Name == query.BlogName))
                 .Select(s => new DashboardBlogDto
                 {
                     Image = s.Links.Where(w => w.RelationshipType == "enclosure").Select(s2 => s2.Uri).First()
@@ -41,8 +39,6 @@ namespace Cloudents.Infrastructure
                     Create = s.PublishDate
                 }).OrderByDescending(o => o.Create).Take(query.Amount);
             return Task.FromResult(result);
-
-
         }
     }
 }

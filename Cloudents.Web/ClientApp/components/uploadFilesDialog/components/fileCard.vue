@@ -147,8 +147,8 @@ export default {
         },
     },
     mounted() {
-        if((this.$route.query && this.$route.query.Course)){
-            let courseName = this.$route.query.Course;
+        if((this.$route.query && this.$route.query.course)){
+            let courseName = this.$route.query.course;
             this.course = this.getSelectedClasses.filter((course)=>{
                 return course.text === courseName;
             })[0];
