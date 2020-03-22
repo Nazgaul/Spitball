@@ -193,7 +193,6 @@ export default () => {
                }
             };
             _insightEvent('connectToRoom', {'token': jwtToken}, null);
-            //do the end session
             twillioClient.connect(jwtToken, options).then((room) => {
                _activeRoom = room; // for global using in this plugin
                _insightEvent('TwilioConnect', _activeRoom, null);
@@ -241,8 +240,6 @@ export default () => {
          }
          if (mutation.type === twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE){
             if(mutation.payload && !_localScreenTrack){ 
-               //copy the logic from the previous to add toaster
-               // remove the tooltip
                navigator.mediaDevices.getDisplayMedia({video:true,audio: false}).then(stream=>{
                   _localScreenTrack = new twillioClient.LocalVideoTrack(stream.getTracks()[0],{name:SCREEN_TRACK_NAME});
                   if(_localVideoTrack){
@@ -260,9 +257,37 @@ export default () => {
                         store.commit(twilio_SETTERS.VIDEO_AVAILABLE,false)
                      }
                   })
+               }).catch( error =>{
+                  error = error || {};
+                  let d = {...{
+                     errorMessage:error.message,
+                     errorname:error.name},
+                     ...{id: _activeRoom.name}
+                  };
+                  _insightEvent('StudyRoom_ShareScreenBtn_showScreen', d, null);
+                  if(error === "notBrowser") {
+                     store.commit('setToaster', 'errorToaster_notBrowser');
+                     return;
+                  }
+                  if(error.name === "NotAllowedError") {
+                     if (error.message === "Permission denied") {
+                        store.commit(twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE,false);
+                        if(_localVideoTrack){
+                           _publishTrack(_activeRoom,_localVideoTrack)
+                        }
+                        return;
+                     }
+                     if (error.message === "Permission denied by system") {
+                        store.commit('setToaster', 'errorToaster_permissionDenied');
+                     }
+                     return
+                  }
+                  store.commit('setToaster', 'errorToaster_notScreen');
                })
             }else{
-               _localScreenTrack.stop()
+               if(_localScreenTrack){
+                  _localScreenTrack.stop()
+               }
             }
          }
          if (mutation.type === twilio_SETTERS.CHANGE_VIDEO_DEVICE){

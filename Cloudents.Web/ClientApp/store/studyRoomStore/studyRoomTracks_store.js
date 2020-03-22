@@ -186,36 +186,6 @@ const actions = {
 //             container.appendChild(track.attach());
 //         }
 //     },
-   //  toggleVideoTrack({getters,dispatch, state}){
-   //      if(!getters['activeRoom']){
-
-   //      }else{
-   //          let currentTrack = _getLocalTrack(getters,'video');
-   //          if(currentTrack){
-   //              dispatch('destroyLocalVideoTrack',currentTrack.track);
-   //          } else{
-   //              dispatch('initLocalVideoTrack');
-   //          }
-   //      } 
-   //  },
-//     toggleAudioTrack({getters,dispatch, state}){
-//         if(!getters['activeRoom']){
-//             if(state.isAudioActive){
-//                 dispatch('setIsAudioActive', false);
-//             }else{
-//                 dispatch('setIsAudioActive', true);
-//             }
-//         }else{
-//             let currentTrack = _getLocalTrack(getters,'audio');
-//             if(currentTrack){
-//                 dispatch('setIsAudioActive', false);
-//                 dispatch('destroyLocalAudioTrack',currentTrack.track);
-//             } else{
-//                 dispatch('setIsAudioActive', true);
-//                 dispatch('initLocalAudioTrack');  
-//             } 
-//         } 
-//     },
 //     setIsAudioActive({commit}, val){
 //         commit('setIsAudioActive', val);
 //     },

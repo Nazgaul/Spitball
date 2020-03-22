@@ -1,4 +1,4 @@
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 import timerIcon from '../images/timer.svg';
 import stopIcon from '../images/stop-icon.svg';
 import fullScreenIcon from '../images/fullscreen.svg';
@@ -24,7 +24,6 @@ export default {
     data() {
         return {
             videoEl: null,
-            isSharing: false,
             visible: {
                 'local_player': true,
                 'remote_player': true
@@ -64,15 +63,12 @@ export default {
     },
     watch:{
         localVideoTrack(videoTrack){
-            this.isSharing = false;
             if(videoTrack){
                 insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_VideoStream_localVideoCreated', videoTrack, null);
                 this.videoEl = document.getElementById('localTrack');
                 this.videoEl.innerHTML = "";
                 if(videoTrack.attach){
                     this.videoEl.appendChild(videoTrack.attach());
-                }else{
-                    this.isSharing = true;
                 }                
             }else{
                 insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoStream_localVideoFailed', '', null);
@@ -80,19 +76,13 @@ export default {
         }
     },
     methods: {
-        ...mapActions([
-            'toggleVideoTrack',
-            'toggleAudioTrack',
-        ]),
         toggleAudio(){
             this.$ga.event("tutoringRoom", "toggleAudio");
             this.$store.dispatch('updateAudioToggle')
-            // this.toggleAudioTrack();
         },
         toggleVideo(){
             this.$ga.event("tutoringRoom", "toggleVideo");
             this.$store.dispatch('updateVideoToggle')
-            // this.toggleVideoTrack();
         }
     }
 };
