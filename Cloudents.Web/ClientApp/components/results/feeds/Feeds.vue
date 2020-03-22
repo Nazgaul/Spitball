@@ -34,7 +34,7 @@
                         :height="$vuetify.breakpoint.xsOnly ? 42 : 36" hide-details solo>
                     </v-select>
                 </v-flex>
-                <v-flex xs10 sm9 class="pr-4 pr-sm-0">
+                <v-flex xs10 sm9 class="pr-4 pr-sm-0" v-if="!getUserLoggedInStatus">
                     <v-select class="profileItemsBox_filters_select"
                         sel="filter_course"
                         :append-icon="'sbf-arrow-fill'"
