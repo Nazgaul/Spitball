@@ -27,7 +27,7 @@ namespace Cloudents.FunctionsV2.Test
         private readonly Mock<IUrlBuilder> _mockUriBuilder = new Mock<IUrlBuilder>();
 
 
-        private readonly TestAsyncCollector<CreateMessageOptions> _mockedResultSms = new TestAsyncCollector<CreateMessageOptions>();
+        //private readonly TestAsyncCollector<CreateMessageOptions> _mockedResultSms = new TestAsyncCollector<CreateMessageOptions>();
         private readonly TestAsyncCollector<SendGridMessage> _mockedResultEmail = new TestAsyncCollector<SendGridMessage>();
         //private readonly TestAsyncCollector<SmsUnread.RequestTutorEmailDto> _mockedEmailResult = new TestAsyncCollector<SmsUnread.RequestTutorEmailDto>();
         private readonly Mock<IQueryBus> _queryBusStub = new Mock<IQueryBus>();
@@ -84,10 +84,12 @@ namespace Cloudents.FunctionsV2.Test
             _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
 
             await SmsUnread.SmsUnreadAsync(null, _mockBlob.Object,
-                _mockedResultSms, _mockedResultEmail, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
+               // _mockedResultSms,
+                _mockedResultEmail,
+                _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
                 _mockUriBuilder.Object, _logger, default);
 
-            _mockedResultSms.Result.Should().HaveCount(1);
+         //   _mockedResultSms.Result.Should().HaveCount(1);
         }
 
 
@@ -113,10 +115,11 @@ namespace Cloudents.FunctionsV2.Test
             _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
 
             await SmsUnread.SmsUnreadAsync(null, _mockBlob.Object,
-                _mockedResultSms, _mockedResultEmail, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
+               // _mockedResultSms,
+                _mockedResultEmail, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
                 _mockUriBuilder.Object, _logger, default);
 
-            _mockedResultSms.Result.Should().HaveCount(0);
+           // _mockedResultSms.Result.Should().HaveCount(0);
             _mockedResultEmail.Result.Should().HaveCount(1);
 
             _mockedResultEmail.Result.First().From.Name.Should().BeEquivalentTo("frymo");
@@ -144,10 +147,11 @@ namespace Cloudents.FunctionsV2.Test
             _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
 
             await SmsUnread.SmsUnreadAsync(null, _mockBlob.Object,
-                _mockedResultSms, _mockedResultEmail, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
+               // _mockedResultSms,
+                _mockedResultEmail, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
                 _mockUriBuilder.Object, _logger, default);
 
-            _mockedResultSms.Result.Should().HaveCount(1);
+           // _mockedResultSms.Result.Should().HaveCount(1);
             _mockedResultEmail.Result.Should().HaveCount(1);
 
 
@@ -180,13 +184,14 @@ namespace Cloudents.FunctionsV2.Test
             _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
 
             await SmsUnread.SmsUnreadAsync(null, _mockBlob.Object,
-                _mockedResultSms, _mockedResultEmail, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
+               // _mockedResultSms,
+                _mockedResultEmail, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
                 _mockUriBuilder.Object, _logger, default);
 
-            var body = _mockedResultSms.Result.Single().Body;
+          //  var body = _mockedResultSms.Result.Single().Body;
             CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture = new CultureInfo(culture);
             var expectedResult = ResourceWrapper.GetString("unread_message_first_message_tutor").InjectSingleValue("link", _shortUrl);
-            body.Should().BeEquivalentTo(expectedResult);
+           // body.Should().BeEquivalentTo(expectedResult);
             var emailExpectedResult = ResourceWrapper.GetString("unread_message_first_message_tutor_email").InjectSingleValue("link", _shortUrl);
             _mockedResultEmail.Result.Single().Contents.First().Value.Should().Contain(emailExpectedResult);
         }
@@ -213,7 +218,8 @@ namespace Cloudents.FunctionsV2.Test
             _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
 
             await SmsUnread.SmsUnreadAsync(null, _mockBlob.Object,
-                _mockedResultSms, _mockedResultEmail, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
+                //_mockedResultSms,
+                _mockedResultEmail, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
                 _mockUriBuilder.Object, _logger, default);
 
             var emailExpectedResult = ResourceWrapper.GetString("unread_message_first_message_tutor_email").InjectSingleValue("link", _shortUrlIndia);

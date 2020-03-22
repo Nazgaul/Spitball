@@ -8,7 +8,7 @@ namespace Cloudents.Core.Entities
         {
             //User = user;
             TokenId = tokenId ?? throw new ArgumentNullException(nameof(tokenId));
-            Created = DateTime.UtcNow;
+            Created = Updated = DateTime.UtcNow;
             State = UserTokenState.NotUsed;
             Amount = amount;
             StudyRoom = studyRoom;
@@ -25,7 +25,15 @@ namespace Cloudents.Core.Entities
 
         public virtual StudyRoom StudyRoom { get; set; }
 
-        public virtual UserTokenState State { get; set; }
+        public virtual UserTokenState State { get; protected set; }
+        public virtual DateTime Updated { get; set; }
+
+        public virtual void ChangeToUsedState()
+        {
+            State = UserTokenState.Used;
+            Updated = DateTime.UtcNow;
+            
+        }
     }
 
     public enum UserTokenState
