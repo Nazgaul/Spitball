@@ -18,6 +18,7 @@ const state = {
    roomOnlineDocument: null,
    roomIsTutor:false,
    roomIsActive:false,
+   roomTutor:{},
    // TODO: change it to roomId after u clean all
    studyRoomId: null,
 
@@ -32,6 +33,12 @@ const mutations = {
    [studyRoom_SETTERS.ROOM_PROPS](state,props){
       state.roomOnlineDocument = props.onlineDocument;
       state.roomIsTutor = this.getters.accountUser.id == props.tutorId;
+      state.roomTutor = {
+         tutorId: props.tutorId,
+         tutorName: props.tutorName,
+         tutorImage: props.tutorImage,
+         tutorPrice: props.tutorPrice,
+      }
       // TODO: change it to roomId after u clean all
       state.studyRoomId = props.roomId;
 
@@ -42,10 +49,6 @@ needPayment: false
 studentId: 162074
 studentImage: "https://spitball-dev-function.azureedge.net:443/api/image/user/162074/1575207545.png"
 studentName: "maor Student IL"
-tutorId: 162085
-tutorImage: "https://spitball-dev-function.azureedge.net:443/api/image/user/162085/1584346344.jpg"
-tutorName: "Maor Tutor IL"
-tutorPrice: 50
       */ 
    },
    [studyRoom_SETTERS.DIALOG_ROOM_SETTINGS]: (state,val) => state.dialogRoomSettings = val,
@@ -59,6 +62,8 @@ const getters = {
    getRoomIsActive: state => state.roomIsActive,
    getDialogRoomSettings: state => state.dialogRoomSettings,
    getDialogRoomEnd: state => state.roomIsActive && state.roomIsTutor && state.dialogENDSession,
+   getRoomTutor: state => state.roomTutor,
+   getRoomIdSession: state => state.studyRoomId,
 }
 const actions = {
    updateEndDialog({commit}, val){

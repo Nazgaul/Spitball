@@ -110,20 +110,24 @@
         },
         computed: {
             ...mapState(['tutoringMain']),
-            ...mapGetters(['getReview', 'getStudyRoomData']),
+            ...mapGetters(['getReview']),
+            tutorInfo(){
+                return this.$store.getters.getRoomTutor;
+            },
 
             tutorImg() {
+
                 let size = [this.imgSize, this.imgSize];
-                if(this.getStudyRoomData && this.getStudyRoomData.tutorImage){
-                    return utilitiesService.proccessImageURL(this.getStudyRoomData.tutorImage, ...size);
+                if(this.tutorInfo?.tutorImage){
+                    return utilitiesService.proccessImageURL(this.tutorInfo.tutorImage, ...size);
                 }
                 return '';
             },
             tutorId() {
-                return this.getStudyRoomData ?  this.getStudyRoomData.tutorId : '';
+                return this.tutorInfo?.tutorId;
             },
             tutorName() {
-                return this.getStudyRoomData ?  this.getStudyRoomData.tutorName : '';
+                return this.tutorInfo?.tutorName
             },
             ratingRate() {
                 if(this.ratingScore === -1 && this.rating !== 0){
@@ -158,7 +162,6 @@
             sendPost() {
                 this.btnLoading = true;
                 if(!this.$refs.validReviewForm.validate()) {
-                    // this.setReviewError('leaveReview_emptyStarError');
                     this.btnLoading = false;
                 } else {
                     this.sendReview();
@@ -179,7 +182,7 @@
             },
             sendReview() {
                 this.submitReview({
-                    roomId: this.getStudyRoomData.roomId,
+                    roomId: this.$store.getters.getRoomIdSession,
                     review: this.reviewText,
                     rate: this.getReview.rate,
                     tutor: this.tutorId
@@ -203,11 +206,11 @@
             },
             closeReviewDialog() {
                 this.updateReviewDialog(false);
-                let self = this;
-                setTimeout(()=>{
-                    self.setStudentDialogState(this.tutoringMain.startSessionDialogStateEnum.finished);
-                    self.updateStudentStartDialog(true);
-                }, 400);
+                // let self = this;
+                // setTimeout(()=>{
+                //     self.setStudentDialogState(this.tutoringMain.startSessionDialogStateEnum.finished);
+                //     self.updateStudentStartDialog(true);
+                // }, 400);
             }
         },
         mounted(){
