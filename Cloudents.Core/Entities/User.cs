@@ -238,7 +238,7 @@ namespace Cloudents.Core.Entities
             var userToken = UserTokens.FirstOrDefault(w => w.State == UserTokenState.NotUsed);
             if (userToken != null)
             {
-                userToken.State = UserTokenState.Used;
+                userToken.ChangeToUsedState();
             }
 
             UseCoupon(tutor);
@@ -423,6 +423,7 @@ namespace Cloudents.Core.Entities
             UserType2 = userType;
         }
 
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Nhibernate")] 
         protected internal virtual ICollection<UserComponent> UserComponents { get; set; }
 
         public virtual UserComponent Extend
