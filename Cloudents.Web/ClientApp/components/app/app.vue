@@ -123,7 +123,7 @@ export default {
       'getUserLoggedInStatus'
     ]),
     hideSideMenu(){
-      if(this.getUserLoggedInStatus && this.accountUser?.userType !== 'Parent'){
+      if(this.getUserLoggedInStatus && this.accountUser?.userType === 'Teacher'){
         return false;
       }else{
         let routesNames = ['feed','document','question','profile']
