@@ -41,7 +41,21 @@ export default {
                         text: this.$t('studyRoom_premission_denied',['https://support.apple.com/en-il/guide/mac-help/mchld6aa7d23/mac']),
                         timeout: 30000,
                     }
-                }
+                },
+                simpleToaster_userConnected:{
+                    name:'simpleToaster',
+                    params: {
+                        text: `new student is connected to the room`,
+                        timeout: 4000,
+                    }
+                },
+                simpleToaster_userLeft:{
+                    name:'simpleToaster',
+                    params: {
+                        text: `a student is left the room`,
+                        timeout: 4000,
+                    }
+                },
 
             }
         }
