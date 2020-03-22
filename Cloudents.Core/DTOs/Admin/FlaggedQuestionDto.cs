@@ -6,7 +6,7 @@ namespace Cloudents.Core.DTOs.Admin
     {
         public long Id { get; set; }
         public string Text { get; set; }
-        public string Reason { get; set; }
+        public string? Reason { get; set; }
         public string FlaggedUserEmail { get; set; }
     }
 

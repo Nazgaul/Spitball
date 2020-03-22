@@ -249,7 +249,7 @@ export default {
                            }
                         }
                         &.v-input__icon--clear{
-                           i{
+                           button{
                               font-size: 10px;
                               color: #43425d;
                            }

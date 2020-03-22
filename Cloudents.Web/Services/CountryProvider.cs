@@ -22,7 +22,8 @@ namespace Cloudents.Web.Services
         private const string CookieName = "country";
 
         public CountryService(IIpToLocation ipToLocation, IHttpContextAccessor httpContext,
-            ILogger<CountryService> logger, ConfigurationService configurationService, ICountryProvider conCountryProvider)
+            ILogger<CountryService> logger, 
+            ConfigurationService configurationService, ICountryProvider conCountryProvider)
         {
             _ipToLocation = ipToLocation;
             _httpContext = httpContext;

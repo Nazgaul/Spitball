@@ -26,11 +26,11 @@ namespace Cloudents.Core.Interfaces
 
         //Task<Uri> UrlRedirectAsync(Uri url);
 
-        Task<T> GetAsync<T>(Uri url, NameValueCollection queryString, CancellationToken token);
+        Task<T> GetAsync<T>(Uri url, NameValueCollection? queryString, CancellationToken token);
 
-        Task<T> GetAsync<T>(Uri url, NameValueCollection queryString,
-            IEnumerable<KeyValuePair<string, string>> headers,
-            CancellationToken token);
+        //Task<T> GetAsync<T>(Uri url, NameValueCollection queryString,
+        //    IEnumerable<KeyValuePair<string, string>> headers,
+        //    CancellationToken token);
 
         //Task<bool> PostAsync(Uri url, HttpContent body, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token);
 
@@ -40,8 +40,8 @@ namespace Cloudents.Core.Interfaces
         //Task<TU> PostJsonAsync<TU>(Uri url, string body, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token);
 
 
-        Task<HttpResponseMessage> PostAsync(Uri url, HttpContent body,
-            IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token);
+        //Task<HttpResponseMessage> PostAsync(Uri url, HttpContent body,
+        //    IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token);
 
         //Task<bool> PutJsonAsync<T>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers,
         //CancellationToken token);
