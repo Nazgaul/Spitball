@@ -11,16 +11,16 @@ namespace Cloudents.Command
     //{
     //}
 
-    //public interface ICommandResult
-    //{
-    //}
+    public interface ICommandResult
+    {
+    }
 
-    //public interface ICommandHandler<in TCommand, TCommandResult>
-    //    where TCommand : ICommand
-    //    where TCommandResult : ICommandResult
-    //{
-    //    Task<TCommandResult> ExecuteAsync(TCommand command, CancellationToken token);
-    //}
+    public interface ICommandHandler<in TCommand, TCommandResult>
+        where TCommand : ICommand
+        where TCommandResult : ICommandResult
+    {
+        Task<TCommandResult> ExecuteAsync(TCommand command, CancellationToken token);
+    }
 
     public interface ICommandHandler<in TCommand> where TCommand : ICommand
     {
@@ -29,9 +29,9 @@ namespace Cloudents.Command
 
     public interface ICommandBus
     {
-        //Task<TCommandResult> DispatchAsync<TCommand, TCommandResult>(TCommand command, CancellationToken token)
-        //    where TCommand : ICommand
-        //    where TCommandResult : ICommandResult;
+        Task<TCommandResult> DispatchAsync<TCommand, TCommandResult>(TCommand command, CancellationToken token)
+            where TCommand : ICommand
+            where TCommandResult : ICommandResult;
 
         Task DispatchAsync<TCommand>(TCommand command, CancellationToken token)
             where TCommand : ICommand;

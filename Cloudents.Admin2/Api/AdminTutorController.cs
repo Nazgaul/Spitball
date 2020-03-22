@@ -95,16 +95,7 @@ namespace Cloudents.Admin2.Api
         {
             var adminCountry = User.GetCountryClaim();
             var country = adminCountry ?? model.Country;
-
-
-            //if (string.IsNullOrEmpty(country) && !string.IsNullOrEmpty(adminCountry))
-            //{
-            //    return null;
-            //}
-            //if (!country.Equals(adminCountry) && !string.IsNullOrEmpty(adminCountry))
-            //{
-            //    return null;
-            //}
+            
             var query = new TutorSearchQuery(model.Term, model.State, 0, country);
             var result = await _queryBus.QueryAsync(query, token);
             return result;

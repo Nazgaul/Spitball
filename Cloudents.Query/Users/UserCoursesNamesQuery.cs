@@ -14,7 +14,8 @@ namespace Cloudents.Query.Users
         {
             UserId = userId;
         }
-        public long UserId { get; }
+
+        private long UserId { get; }
 
         internal sealed class UserCoursesNamesQueryHandler : IQueryHandler<UserCoursesNamesQuery, IEnumerable<string>>
         {

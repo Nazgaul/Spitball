@@ -6,10 +6,9 @@ export const Profile = {
       return Object.assign(
          new User.Default(objInit),
          {
-            courses: objInit.courses,
+            documentCourses: objInit.documentCourses,
+            courses: objInit.courses,  
             online: objInit.online || false,
-            universityName: objInit.universityName,
-            description: objInit.description || '',
             calendarShared: objInit.calendarShared || false,
             tutorData: objInit.tutor ? new User.Tutor(objInit.tutor) : '',
             isTutor: objInit.hasOwnProperty('tutor') || false,

@@ -2,7 +2,9 @@
 {
     public class UpdateUserSettingsCommand : ICommand
     {
-        public UpdateUserSettingsCommand(long userId, string firstName, string lastName, string description,
+        public UpdateUserSettingsCommand(long userId, 
+            string firstName, string lastName,
+            string description,
             string bio, decimal? price)
         {
             UserId = userId;
