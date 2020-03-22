@@ -1,7 +1,6 @@
 
 // import Twilio, { LocalDataTrack } from 'twilio-video';
 // import store from '../../store/index.js';
-// import insightService from '../../services/insightService';
 
 // import studyRoomRecordingService from './studyRoomRecordingService';
 
@@ -38,39 +37,8 @@
 //                 console.error(error, 'error cant connect');
 //             });
 // };
-
-// const validateUserMedia = async function() {
-//     let devicesObj = store.getters['getDev icesObj'];
-//     await navigator.mediaDevices.getUserMedia({ video: true }).then((y) => {
-//         console.log(y);
-//         devicesObj.hasVideo = true;
-//     }, err => {
-//         let insightErrorObj={
-//             error: err,
-//             userId: this.userId
-//         };
-//         insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_validationDialog_getUserMedia_VIDEO', insightErrorObj, null);
-//         console.error(err.name + ":VIDEO!!!!!!!!!!!!!!!! " + err.message, err);
-//         devicesObj.errors.video.push(err.name);
-//     });
-
-//     await navigator.mediaDevices.getUserMedia({ audio: true }).then((y) => {
-//         console.log(y);
-//         devicesObj.hasAudio = true;
-//     }, err => {
-//         let insightErrorObj={
-//             error: err,
-//             userId: this.userId
-//         };
-//         insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_validationDialog_getUserMedia_AUDIO', insightErrorObj, null);
-//         console.error(err.name + ":AUDIO!!!!!!!!!!!!!!!! " + err.message, err);
-//         devicesObj.errors.audio.push(err.name);
-//     });
-// };
-
 // export default {
 //     dataTrack,
 //     detachTracks,
 //     connectToRoom,
-//     validateUserMedia,
 // };

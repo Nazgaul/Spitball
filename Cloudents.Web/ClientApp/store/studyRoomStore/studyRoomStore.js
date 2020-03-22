@@ -1,5 +1,6 @@
 import studyRoomService from '../../services/studyRoomService.js';
 import {studyRoom_SETTERS} from '../constants/studyRoomConstants.js';
+import studyRoomRecordingService from '../../components/studyroom/studyRoomRecordingService.js'
 
 function _checkPayment(context){
    let data = context.getters.getStudyRoomData;
@@ -101,6 +102,7 @@ const actions = {
    },
    updateEndTutorSession({commit,state}){
       commit(studyRoom_SETTERS.ROOM_ACTIVE,false);
+      studyRoomRecordingService.stopRecord();
       studyRoomService.endTutoringSession(state.studyRoomId).then(()=>{
          commit(studyRoom_SETTERS.DIALOG_END_SESSION,false)
       })
