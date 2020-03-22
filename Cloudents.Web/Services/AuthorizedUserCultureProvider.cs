@@ -44,15 +44,23 @@ namespace Cloudents.Web.Services
     {
         public async Task<ProviderCultureResult> DetermineProviderCultureResult(HttpContext httpContext)
         {
-            var countryService = httpContext.RequestServices.GetService<ICountryService>();
-
-            var country = await countryService.GetUserCountryAsync(httpContext.RequestAborted);
-
-            if (country?.Equals("IL",StringComparison.OrdinalIgnoreCase) == true)
+            try
             {
-                return new ProviderCultureResult(new StringSegment("he-IL")); 
+                var countryService = httpContext.RequestServices.GetService<ICountryService>();
+
+                var country = await countryService.GetUserCountryAsync(httpContext.RequestAborted);
+
+                if (country?.Equals("IL", StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    return new ProviderCultureResult(new StringSegment("he-IL"));
+                }
+
+                return null;
             }
-            return null;
+            catch
+            {
+                return null;
+            }
         }
     }
 }

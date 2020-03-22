@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Entities;
+﻿using System;
+using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Linq;
 using System.Linq;
@@ -30,7 +31,8 @@ namespace Cloudents.Query.General
 
                 return await _session.Query<UserLocation>()
                     .Fetch(f => f.User)
-                    .Where(w => w.Ip == query.Ip).Select(s => s.Country)
+                    .Where(w => w.Ip == query.Ip && w.TimeStamp.CreationTime > DateTime.UtcNow.AddDays(-15))
+                    .Select(s => s.Country)
                     .FirstOrDefaultAsync(token);
             }
         }

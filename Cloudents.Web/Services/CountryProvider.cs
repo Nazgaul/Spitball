@@ -17,17 +17,17 @@ namespace Cloudents.Web.Services
         private readonly IIpToLocation _ipToLocation;
         private readonly IHttpContextAccessor _httpContext;
         private readonly ICountryProvider _conCountryProvider;
-        //private readonly ILogger<CountryService> _logger;
+        private readonly ILogger<CountryService> _logger;
         private readonly ConfigurationService _configurationService;
         private const string CookieName = "country";
 
         public CountryService(IIpToLocation ipToLocation, IHttpContextAccessor httpContext,
-           // ILogger<CountryService> logger, 
+            ILogger<CountryService> logger, 
             ConfigurationService configurationService, ICountryProvider conCountryProvider)
         {
             _ipToLocation = ipToLocation;
             _httpContext = httpContext;
-           // _logger = logger;
+            _logger = logger;
             _configurationService = configurationService;
             _conCountryProvider = conCountryProvider;
         }
@@ -79,13 +79,13 @@ namespace Cloudents.Web.Services
                 }
                 catch (Exception e)
                 {
-                    //_logger.LogError(e, $"on ip location service ip is: {_httpContext.HttpContext.GetIpAddress()}");
+                    _logger.LogError(e, $"on ip location service ip is: {_httpContext.HttpContext.GetIpAddress()}");
                 }
 
 
                 if (cookieValue == null)
                 {
-                   // _logger.LogError("failed to extract country code");
+                    _logger.LogError("failed to extract country code");
                     return null;
                 }
                 

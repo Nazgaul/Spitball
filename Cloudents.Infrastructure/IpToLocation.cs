@@ -27,8 +27,8 @@ namespace Cloudents.Infrastructure
             _countryProvider = countryProvider;
         }
 
-        [Cache(TimeConst.Month, nameof(IpToLocation) + "3", true), Log]
-        public async Task<Location> GetAsync(IPAddress ipAddress, CancellationToken token)
+        [Cache(TimeConst.Hour, nameof(IpToLocation) + "3", true)]
+        public async Task<Location?> GetAsync(IPAddress ipAddress, CancellationToken token)
         {
             var query = new CountryByIpQuery(ipAddress.ToString());
             var result = await _queryBus.QueryAsync(query, token);
