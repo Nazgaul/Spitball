@@ -6411,6 +6411,11 @@
       "integrity": "sha512-2j/t+wIbyVMP5NvctQoSUvLkYKoWAAk2QlQiilrM2a6/ulzFgdcLUJfTvs4XQ/3eZhHiBmmEojbjmM4AzZj8JA==",
       "dev": true
     },
+    "vue-json-to-csv": {
+      "version": "1.1.8",
+      "resolved": "https://registry.npmjs.org/vue-json-to-csv/-/vue-json-to-csv-1.1.8.tgz",
+      "integrity": "sha512-xdV2cUyLQYPnG6ChjLJn3+PYnP8zxZG5u6QtFjAMzcsUtGvLFrTvMN4XnD/he4M67Y14nXE0i/20xeyaVfhylQ=="
+    },
     "vue-loader": {
       "version": "15.4.2",
       "resolved": "https://registry.npmjs.org/vue-loader/-/vue-loader-15.4.2.tgz",
