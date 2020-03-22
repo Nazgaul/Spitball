@@ -144,10 +144,16 @@ function _twilioListeners(room,store) {
    // room connections events:
    room.on('participantConnected', (participant) => {
       debugger
+      if(store.getters.getRoomIsTutor){
+         store.commit('setToaster', 'simpleToaster_userConnected');
+      }
       _insightEvent('TwilioParticipantConnected', participant, null);
    })
    room.on('participantDisconnected', (participant) => {
       debugger
+      if(store.getters.getRoomIsTutor){
+         store.commit('setToaster', 'simpleToaster_userLeft');
+      }
       _insightEvent('TwilioParticipantDisconnected', participant, null);
       _detachTracks(Array.from(participant.tracks.values()))
    })
