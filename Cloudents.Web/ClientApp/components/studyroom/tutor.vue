@@ -132,7 +132,18 @@
         </transition>
       </v-flex>
     <template>
-
+      <sb-dialog
+        :showDialog="getReviewDialogState"
+        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
+        :popUpType="'reviewDilaog'"
+        :maxWidth="'596'"
+        :onclosefn="closeReviewDialog"
+        :activateOverlay="false"
+        :isPersistent="$vuetify.breakpoint.smAndUp"
+        :content-class="'review-dialog'"
+      >
+        <leave-review></leave-review>
+      </sb-dialog>
       <sb-dialog
         :showDialog="getBrowserSupportDialog"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"

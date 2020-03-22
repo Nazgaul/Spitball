@@ -169,6 +169,11 @@ function _twilioListeners(room,store) {
       dRoom.localParticipant.tracks.forEach(function (track) {
          _detachTracks([track]);
       });
+      debugger
+      // connect the room things
+      if(!store.getters.getRoomIsTutor){
+         store.dispatch('updateReviewDialog',true)
+      }
    })
 }
 export default () => {
