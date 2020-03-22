@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -19,17 +20,23 @@ namespace Cloudents.Core
 
         public override string ToString() => Name;
 
-       
+
+        private static readonly ConcurrentDictionary<Type, IEnumerable<object>> Cache =
+            new ConcurrentDictionary<Type, IEnumerable<object>>();
 
         public static IEnumerable<T> GetAll<T>() where T : Enumeration
         {
-           // var type = typeof(T);
-           //TODO need to cache this
-            var fields = typeof(T).GetFields(BindingFlags.Public |
-                                             BindingFlags.Static |
-                                             BindingFlags.DeclaredOnly);
+            var type = typeof(T);
+            var value = Cache.GetOrAdd(type, type1 =>
+            {
+                var fields = typeof(T).GetFields(BindingFlags.Public |
+                                                 BindingFlags.Static |
+                                                 BindingFlags.DeclaredOnly).Where(w => !w.IsLiteral)
+                    .Select(f => f.GetValue(null));
+                return fields.ToList();
+            });
 
-            return fields.Where(w=> !w.IsLiteral).Select(f => f.GetValue(null)).Cast<T>();
+            return value.Cast<T>();
         }
 
         public override bool Equals(object obj)
@@ -45,7 +52,7 @@ namespace Cloudents.Core
             return typeMatches && valueMatches;
         }
 
-        
+
 
         public override int GetHashCode()
         {
@@ -72,7 +79,7 @@ namespace Cloudents.Core
         {
             var all = GetAll<T>();
             var matchingItem = all.FirstOrDefault(predicate);
-           
+
 
             return matchingItem;
         }
@@ -87,5 +94,5 @@ namespace Cloudents.Core
             return !Equals(left, right);
         }
     }
-   
+
 }
