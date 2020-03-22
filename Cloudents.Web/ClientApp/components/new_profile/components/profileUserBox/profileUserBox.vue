@@ -114,7 +114,6 @@
                     <span v-for="(subject, index) in currentProfileTutor.subjects" :key="index">{{subject}}{{index + 1 == currentProfileTutor.subjects.length? '':' ,'}}</span>
                 </div>
 
-
                 <!-- courses student -->
                 <div class="profileUserBox_bottom course mt-2" v-if="!currentProfileUser.isTutor && currentProfileUser.courses.length">
                     <span class="profileUserBox_bottom_title mr-1">{{$t('profile_my_courses')}}:</span>
@@ -123,7 +122,7 @@
                     </span>
                 </div>
             </div>
-            <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="!currentProfileUser.isTutor">
+            <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="isLogged && !currentProfileUser.isTutor">
                 <editSVG class="mr-1" v-if="!isMobile && isCurrentProfileUser" />
             </v-btn>
         </div>
@@ -167,7 +166,10 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getProfile','accountUser','getUserStatus']),
+        ...mapGetters(['getProfile','accountUser','getUserStatus', 'getUserLoggedInStatus']),
+        isLogged() {
+            return this.getUserLoggedInStatus
+        },
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
         },
