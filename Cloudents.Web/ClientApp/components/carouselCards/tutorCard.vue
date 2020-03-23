@@ -15,11 +15,12 @@
                     <template>
                         <div class="user-rate-ts" v-if="tutor.reviews > 0">
                             <userRating :rating="tutor.rating" :showRateNumber="false" :size="'14'" />
-                            <span class="reviews-ts ml-1" v-html="$Ph(tutor.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutor.reviews))"/>
+                            <span class="reviews-ts ml-1">{{$tc('resultTutor_review_one',tutor.reviews)}}</span>
+                            
                         </div>
                         <div class="user-rate-ts align-center" v-else>
                             <star class="mr-1 icon-star" />
-                            <span class="reviews-ts" v-html="$Ph(`resultTutor_collecting_review`, reviewsPlaceHolder(tutor.reviews))"/>
+                            <span class="reviews-ts">{{$tc('resultTutor_review_one',tutor.reviews)}}</span> v-html="$Ph(`resultTutor_collecting_review`, reviewsPlaceHolder(tutor.reviews))"/>
                         </div>
                     </template>
                 </div>
@@ -123,9 +124,9 @@ export default {
             });
             this.updateRequestDialog(true);
         },
-        reviewsPlaceHolder(reviews) {
-            return reviews === 0 ? reviews.toString() : reviews;
-        },
+        // reviewsPlaceHolder(reviews) {
+        //     return reviews === 0 ? reviews.toString() : reviews;
+        // },
         goToProfile(event){
             if(this.fromCarousel){
                     this.flagLocalClick = true;

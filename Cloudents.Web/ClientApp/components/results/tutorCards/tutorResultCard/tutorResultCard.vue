@@ -50,7 +50,7 @@
             <template>
               <div class="user-rank align-center" v-if="isReviews">
                 <user-rating size="18" class="ratingIcon" :rating="tutorData.rating" :showRateNumber="false"/>
-                <div class="reviews" v-html="$Ph(tutorData.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></div>
+                <div class="reviews">{{$tc('resultTutor_review_one',tutorData.reviews)}}</div>
               </div>
               <div v-else class="user-rank align-center">
                 <star class="user-rank-star"/>
@@ -119,9 +119,9 @@ export default {
           analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
       }
     },
-    reviewsPlaceHolder(reviews) {
-      return reviews === 0 ? reviews.toString() : reviews
-    },
+    // reviewsPlaceHolder(reviews) {
+    //   return reviews === 0 ? reviews.toString() : reviews
+    // },
     sendMessage(user) {
       if (this.accountUser == null) {
           analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);

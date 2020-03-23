@@ -49,7 +49,8 @@
                         <template v-if="currentProfileUser.isTutor">
                             <div class="pUb_dS_c_rating" v-if="currentProfileTutor.reviewCount">
                                 <userRating class="c_rating" :showRateNumber="false" :rating="currentProfileTutor.rate" :size="'18'" />
-                                <span @click="scrollToReviews" class="pUb_dS_c_r_span ml-1" v-text="$Ph(currentProfileTutor.reviewCount === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(currentProfileTutor.reviewCount))"/>
+                                <span @click="scrollToReviews" class="pUb_dS_c_r_span ml-1">{{$tc('resultTutor_review_one',currentProfileTutor.reviewCount)}}</span>
+                               
                             </div>
                             <div v-else class="pUb_dS_c_rating">
                                 <starEmptySVG class="pUb_dS_c_rating_star"/>
@@ -229,9 +230,9 @@ export default {
     },
     methods: {
         ...mapActions(['updateEditDialog']),
-        reviewsPlaceHolder(reviews) {
-            return reviews === 0 ? reviews.toString() : reviews;
-        },
+        // reviewsPlaceHolder(reviews) {
+        //     return reviews === 0 ? reviews.toString() : reviews;
+        // },
         tutorStateRate(tutorData){
             let rate = tutorData.rate.toFixed(1);
             let reviews = tutorData.reviewCount;

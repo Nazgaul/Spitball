@@ -21,11 +21,11 @@
               <template>
                   <div class="user-rate align-center" v-if="tutorData.reviews > 0">
                     <user-rating :rating="tutorData.rating" :showRateNumber="false" :size="'18'" class="flex-grow-0 mr-2" />
-                    <span class="reviews" v-html="$Ph(tutorData.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></span>
+                    <span class="reviews">{{$tc('resultTutor_review_one',tutorData.reviews)}}</span> 
                   </div>
                   <div class="user-rate align-center" v-else>
                     <star class="mr-1 icon-star" />
-                    <span class="reviews" v-html="$Ph(`resultTutor_collecting_review`, reviewsPlaceHolder(tutorData.reviews))"></span>
+                    <span class="reviews">{{$tc('resultTutor_review_one',tutorData.reviews)}}</span>
                   </div>
               </template>
 
@@ -118,9 +118,9 @@ export default {
           analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
       }
     },
-    reviewsPlaceHolder(reviews) {
-      return reviews === 0 ? reviews.toString() : reviews
-    },
+    // reviewsPlaceHolder(reviews) {
+    //   return reviews === 0 ? reviews.toString() : reviews
+    // },
     sendMessage(user) {
       if (this.accountUser == null) {
           analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
