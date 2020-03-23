@@ -123,7 +123,7 @@
                 </div>
             </div>
             <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="isLogged && !currentProfileUser.isTutor">
-                <editSVG class="mr-1" v-if="!isMobile && isCurrentProfileUser" />
+                <editSVG class="mr-1" v-if="isCurrentProfileUser" />
             </v-btn>
         </div>
     </div>
