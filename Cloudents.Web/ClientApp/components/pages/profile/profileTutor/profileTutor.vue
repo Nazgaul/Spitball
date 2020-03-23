@@ -1,7 +1,10 @@
 <template>
-    <div id="profileTutot">
+    <div id="profileTutor">
 
         <profileTabs />
+
+        <div class="bgImage"></div>
+
         <profileTutorBox />
         <profileBookSession />
         <profileVideo />
@@ -35,7 +38,15 @@ export default {
 </script>
 
 <style lang="less">
-   #profileTutot {
+   #profileTutor {
 
-   } 
+
+       .bgImage {
+            background-image: url('../../../landingPage/images/earn.png');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+       }
+
+   }
 </style>
