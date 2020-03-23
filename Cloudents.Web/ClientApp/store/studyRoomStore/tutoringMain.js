@@ -24,7 +24,6 @@ const state = {
 //     currentRoomState: "pending",
 //     jwtToken: null,
 //     studentStartDialog: false,
-//     tutorStartDialog: false,
 //     sessionTimeStart: null,
 //     sessionTimeEnd: null,
 //     showUserConsentDialog: false,
@@ -37,7 +36,6 @@ const getters = {
 //     getJwtToken: state => state.jwtToken,
 //     getRoomId: state => state.roomId,
 //     getStudentStartDialog: state => state.studentStartDialog,
-//     getTutorStartDialog: state => state.tutorStartDialog,
 //     getSessionStartClickedOnce: state => state.sessionStartClickedOnce,
 //     getBrowserSupportDialog: state => state.browserSupportDialog,
 //     getTutorDialogState: state => state.tutorDialogState,
@@ -63,9 +61,6 @@ const mutations = {
 //     },
 //     setStudentStartDialog(state, val) {
 //         state.studentStartDialog = val;
-//     },
-//     setTutorStartDialog(state, val) {
-//         state.tutorStartDialog = val;
 //     },
 //     leaveIfJoinedRoom(state) {
 //         if(state.currentActiveRoom) {
@@ -130,10 +125,6 @@ const actions = {
 //         console.warn('DEBUG: 14 store: updateStudentStartDialog')
 //         commit('setStudentStartDialog', val);
 //     },
-//     updateTutorStartDialog({commit}, val) {
-//         console.warn('DEBUG: 15 store: updateTutorStartDialog, VAL:',val)
-//         commit('setTutorStartDialog', val);
-//     },
 //     signalR_UpdateState({commit, dispatch, state, getters}, notificationObj) {
 //         console.warn('DEBUG: 16 store: signalR_UpdateState')
 
@@ -175,7 +166,6 @@ const actions = {
 
 //                         dispatch("setTutorDialogState", state.startSessionDialogStateEnum.disconnected);
 //                     }
-//                     dispatch('updateTutorStartDialog', true);
 //                     dispatch("updateCurrentRoomState", state.roomStateEnum.pending);
 //                 }
 //             } else {

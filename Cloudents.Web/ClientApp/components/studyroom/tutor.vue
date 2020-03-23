@@ -5,7 +5,6 @@
     :style="{'background-size': zoom, 'background-position-x': panX, 'background-position-y': panY}"
     :class="{'gridBackground': $route.name === 'tutoring', 'mobile-no-support': isMobile}"
   >
-  <v-btn v-if="isRoomTutor" @click="enterRoomTest()" color="success">ENTER ROOM</v-btn>
     <div v-show="isMobile" class="mobile-no-support-container">
       <noSupportTop></noSupportTop>
       <div class="no-support-text" v-language:inner="'tutor_not_supported'"></div>
@@ -133,6 +132,19 @@
       </v-flex>
     <template>
       <sb-dialog
+        :showDialog="getDialogTutorStart"
+        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
+        :popUpType="'startSessionTutor'"
+        :maxWidth="'356'"
+        :onclosefn="closeStartSessionTutor"
+        :activateOverlay="false"
+        :isPersistent="true"
+        :content-class="'session-start-tutor-dialog'"
+      >
+        <startSessionTutor :id="id"></startSessionTutor>
+      </sb-dialog>
+
+      <sb-dialog
         :showDialog="getReviewDialogState"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'reviewDilaog'"
@@ -144,6 +156,28 @@
       >
         <leave-review></leave-review>
       </sb-dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       <sb-dialog
         :showDialog="getBrowserSupportDialog"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
@@ -167,8 +201,8 @@
         <studyRoomSettingsDialog></studyRoomSettingsDialog>
       </sb-dialog>
       <!--show only if not avaliable devices dialog is closed by user-->
-      <sb-dialog
-        :showDialog="openStartSessionDialog && !getDialogRoomSettings"
+      <!-- <sb-dialog
+        :showDialog=" && !getDialogRoomSettings"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'startSessionTutor'"
         :maxWidth="'356'"
@@ -178,7 +212,7 @@
         :content-class="'session-start-tutor-dialog'"
       >
         <startSessionTutor :id="id"></startSessionTutor>
-      </sb-dialog>
+      </sb-dialog> -->
       <!--end session confirmation-->
       <sb-dialog
         :showDialog="getDialogRoomEnd"
@@ -262,7 +296,6 @@ import testIcon from "./images/eq-system.svg";
 import chatIcon from "../../font-icon/message-icon.svg";
 import noSupportTop from "./images/not_supported_top.svg";
 import noSupportBottom from "./images/not_supported_bottom.svg";
-import tutorService from "./tutorService";
 import chatService from "../../services/chatService";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import leaveReview from "./tutorHelpers/leaveReview/leaveReview.vue";
@@ -295,7 +328,6 @@ import studyroomSettings_store from '../../store/studyRoomStore/studyroomSetting
 
 import studyroomSettingsUtils from '../studyroomSettings/studyroomSettingsUtils';
 import * as dialogNames from '../pages/global/dialogInjection/dialogNames.js';
-import studyRoomService from '../../services/studyRoomService.js'
 
 export default {
   components: {
@@ -368,7 +400,7 @@ export default {
   computed: {
     ...mapGetters([
       "getIsFullScreenAvailable",
-
+      "getDialogTutorStart",
       
       "getDialogRoomSettings",
       "getZoom",
@@ -376,7 +408,6 @@ export default {
       "getPanY",
       "getReviewDialogState",
       "getStudentStartDialog",
-      "getTutorStartDialog",
       "getDialogRoomEnd",
       "getBrowserSupportDialog",
       "accountUser",
@@ -428,9 +459,6 @@ export default {
     isTutor() {
         return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
     },
-    openStartSessionDialog(){
-        return this.getTutorStartDialog
-    },
     isCodeEditorActive(){
       return this.activeItem === "code-editor"
     },
@@ -448,9 +476,6 @@ watch: {
     }
   },
   getStudyRoomData(){
-    if(!this.getIsRoomNeedPayment){
-      this.initStartSession();
-    }
   }
 },
   methods: {
@@ -460,7 +485,6 @@ watch: {
       "lockChat",
       "updateReviewDialog",
       "updateReview",
-      "updateTutorStartDialog",
       "updateStudentStartDialog",
       "closeChat",
       "openChatInterface",
@@ -472,9 +496,6 @@ watch: {
       "setSnapshotDialog",
       "stopTracks"
     ]),
-    enterRoomTest(){
-      this.$store.dispatch('updateEnterRoom',this.id)
-    },
     handleNeedPayment(needPayment){
       if(needPayment){
         this.$openDialog(dialogNames.Payment)
@@ -517,18 +538,6 @@ watch: {
       this.$ga.event("tutoringRoom", "openSettingsDialog");
       this.$store.dispatch('updateDialogRoomSettings',true)
     },
-    initStartSession(){
-        console.warn('DEBUG: 29 store: initStartSession')
-
-      let isNotStudyRoomTest = this.$route.params ? this.$route.params.id : null;
-      if(isNotStudyRoomTest) {
-        if(this.isTutor){
-          this.updateTutorStartDialog(true);
-        }else{
-          this.updateStudentStartDialog(true);
-        }
-      }
-    },
     closeFullScreen(){
       if(!document.fullscreenElement || !document.webkitFullscreenElement || document.mozFullScreenElement){
        this.selectViewOption(this.enumViewOptions.videoChat)
@@ -544,7 +553,6 @@ watch: {
       this.updateEndDialog(false);
     },
     closeStartSessionTutor() {
-      this.updateTutorStartDialog(false);
     },
     closeStartSessionStudent() {
       this.updateStudentStartDialog(false);
@@ -604,7 +612,6 @@ watch: {
       this.setRoomId(id);
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_RoomProps', this.getStudyRoomData, null)
       initSignalRService(`studyRoomHub?studyRoomId=${id}`);
-      setTimeout(()=>{this.initStartSession();})
       this.initMathjax()
       
       let self = this;
@@ -652,9 +659,6 @@ watch: {
   beforeDestroy(){
     this.stopTracks();
     
-    console.warn('DEBUG: 30 : beforeDestroy before updateTutorStartDialog(false)')
-    this.updateTutorStartDialog(false);
-    console.warn('DEBUG: 31 : beforeDestroy after updateTutorStartDialog(false)')
 
     this.updateStudentStartDialog(false);
     document.removeEventListener('fullscreenchange',this.closeFullScreen);

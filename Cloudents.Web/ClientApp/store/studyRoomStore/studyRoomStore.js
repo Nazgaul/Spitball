@@ -19,11 +19,12 @@ const state = {
    roomIsTutor:false,
    roomIsActive:false,
    roomTutor:{},
+   roomStudent:{},
    // TODO: change it to roomId after u clean all
    studyRoomId: null,
 
    dialogRoomSettings: false,
-   dialogENDSession:false,
+   dialogEndSession:false,
    
    roomProps: null,
 }
@@ -39,6 +40,11 @@ const mutations = {
          tutorImage: props.tutorImage,
          tutorPrice: props.tutorPrice,
       }
+      state.roomStudent = {
+         studentId: props.studentId,
+         studentImage: props.studentImage,
+         studentName: props.studentName,
+      }
       // TODO: change it to roomId after u clean all
       state.studyRoomId = props.roomId;
 
@@ -46,13 +52,10 @@ const mutations = {
       /*
       conversationId: "162074_162085"
 needPayment: false
-studentId: 162074
-studentImage: "https://spitball-dev-function.azureedge.net:443/api/image/user/162074/1575207545.png"
-studentName: "maor Student IL"
       */ 
    },
    [studyRoom_SETTERS.DIALOG_ROOM_SETTINGS]: (state,val) => state.dialogRoomSettings = val,
-   [studyRoom_SETTERS.DIALOG_END_SESSION]: (state,val) => state.dialogENDSession = val,
+   [studyRoom_SETTERS.DIALOG_END_SESSION]: (state,val) => state.dialogEndSession = val,
    [studyRoom_SETTERS.ROOM_ACTIVE]: (state,val) => state.roomIsActive = val,
 }
 const getters = {
@@ -60,10 +63,12 @@ const getters = {
    getRoomOnlineDocument: state => state.roomOnlineDocument,
    getRoomIsTutor: state => state.roomIsTutor,
    getRoomIsActive: state => state.roomIsActive,
-   getDialogRoomSettings: state => state.dialogRoomSettings,
-   getDialogRoomEnd: state => state.roomIsActive && state.roomIsTutor && state.dialogENDSession,
    getRoomTutor: state => state.roomTutor,
+   getRoomStudent: state => state.roomStudent,
    getRoomIdSession: state => state.studyRoomId,
+   getDialogRoomSettings: state => state.dialogRoomSettings,
+   getDialogRoomEnd: state => state.roomIsActive && state.roomIsTutor && state.dialogEndSession,
+   getDialogTutorStart: state => !state.roomIsActive && state.roomIsTutor,
 }
 const actions = {
    updateEndDialog({commit}, val){

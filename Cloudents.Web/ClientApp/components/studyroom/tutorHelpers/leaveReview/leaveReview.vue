@@ -70,7 +70,7 @@
 </template>
 
 <script>
-    import { mapActions, mapGetters, mapState } from 'vuex';
+    import { mapActions, mapGetters } from 'vuex';
 
     import { LanguageService } from "../../../../services/language/languageService";
     import utilitiesService from "../../../../services/utilities/utilitiesService";
@@ -109,7 +109,6 @@
             };
         },
         computed: {
-            ...mapState(['tutoringMain']),
             ...mapGetters(['getReview']),
             tutorInfo(){
                 return this.$store.getters.getRoomTutor;
@@ -153,7 +152,7 @@
             },
         },
         methods: {
-            ...mapActions(['submitReview', 'updateReviewDialog', 'updateReviewStars', 'updateReview', 'updateStudentStartDialog', 'setStudentDialogState']),
+            ...mapActions(['submitReview', 'updateReviewDialog', 'updateReviewStars', 'updateReview']),
 
             noThanks() {
                 this.btnLoadingNoThx = true;
@@ -192,7 +191,6 @@
                     this.closeReviewDialog();
                 },
                 (error) => {
-                    console.log('error sending review', error);
                     this.setReviewError('leaveReview_sendReviewError')
                 }
                 ).finally(() => {
@@ -206,11 +204,6 @@
             },
             closeReviewDialog() {
                 this.updateReviewDialog(false);
-                // let self = this;
-                // setTimeout(()=>{
-                //     self.setStudentDialogState(this.tutoringMain.startSessionDialogStateEnum.finished);
-                //     self.updateStudentStartDialog(true);
-                // }, 400);
             }
         },
         mounted(){
