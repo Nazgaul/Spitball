@@ -162,4 +162,13 @@
   <data name="txt_out" xml:space="preserve">
     <value>Get access to thousands of online study materials and tutors</value>
   </data>
+  <data name="account_setting" xml:space="preserve">
+    <value>Account Settings</value>
+  </data>
+  <data name="my_purchases" xml:space="preserve">
+    <value>My Purchases</value>
+  </data>
+  <data name="my_studyroom" xml:space="preserve">
+    <value>My Study rooms</value>
+  </data>
 </root>
