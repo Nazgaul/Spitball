@@ -106,9 +106,10 @@ export default {
             }
             i {
             position: absolute;
-            left: 16px;
-            top: 17px;
-            font-size: 18px;
+            left: 12px;
+            top: 10px;
+            font-size: 31px;
+    
             }
         }
         button{
