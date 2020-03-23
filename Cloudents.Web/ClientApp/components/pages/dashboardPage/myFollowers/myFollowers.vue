@@ -1,24 +1,24 @@
 <template>
 <div class="myFollowers">
-<div class="myFollowers_title" v-language:inner="'dashboardPage_my_followers_title'"/>
+   <!-- <div class="myFollowers_title">{{$t('dashboardPage_my_followers_title')}}</div> -->
    <v-data-table 
+   calculate-widths
          :page.sync="paginationModel.page"
          :headers="headers"
          :items="followersItems"
-         :items-per-page="5"
-         hide-default-header
+         :items-per-page="20"
          sort-by
          :item-key="'date'"
-         class="elevation-1 myFollowers_table"
+         class="elevation-1"
          :footer-props="{
             showFirstLastPage: false,
             firstIcon: '',
             lastIcon: '',
             prevIcon: 'sbf-arrow-left-carousel',
             nextIcon: 'sbf-arrow-right-carousel',
-            itemsPerPageOptions: [5]
+            itemsPerPageOptions: [20]
          }">
-      <template v-slot:header="{props}">
+      <!-- <template v-slot:header="{props}">
          <thead>
             <tr>
                <th class="text-xs-left"
@@ -32,24 +32,66 @@
                </th>
             </tr>
          </thead>
+      </template> -->
+       <!-- <tablePreviewTd :item="props.item"/> -->
+                 <!-- <v-avatar :tile="true" tag="v-avatar" :class="'tablePreview_img tablePreview_no_image userColor' + strToACII(props.item.name)" 
+                 :style="{width: `80px`, height: `80px`, fontSize: `22px`}">
+                     <span class="white--text">{{item.name.slice(0,2).toUpperCase()}}</span>
+               </v-avatar> -->
+         <template v-slot:top >
+            <div class="myFollowers_title">
+                  {{$t('dashboardPage_my_followers_title')}}
+                  </div>
+         </template>
+      <template v-slot:item.preview="{item}">
+           <user-avatar :user-id="item.userId" 
+               :user-image-url="item.image" 
+               :size="'40'" 
+               :user-name="item.name" >
+               </user-avatar>
+          
+           
       </template>
-         <template v-slot:item="props">
-            <tr class="myFollowers_table_tr">
-               <tablePreviewTd :item="props.item"/>
+      <!-- <template v-slot:item.name="{item}">
+           <user-avatar :user-id="item.userId" 
+               :user-image-url="item.image" 
+               :size="'40'" 
+               :user-name="item.name" >
+               </user-avatar>
+                <span>{{item.name}}</span>
+      </template>" -->
+      <template v-slot:item.date="{item}">
+           {{ $d(new Date(item.date)) }}
+           
+      </template>
+        <template v-slot:item.action="{item}">
+         <v-btn class="mr-1" icon @click="sendWhatsapp(item)" depressed rounded color="#4caf50" x-small>
+            <v-icon v-text="'sbf-whatsup-share'"/>
+         </v-btn>
+         <v-btn link icon :href="`mailto:${item.email}`" depressed rounded  color="#69687d" x-small>
+            <v-icon v-text="'sbf-email'"/>
+         </v-btn>
+      </template>
+         <!-- <template v-slot:item="props">
+            <tr>
+               <user-avatar :user-id="props.item.userId" 
+               :user-image-url="props.item.image" 
+               :size="'80'" 
+               :user-name="props.item.name" >
+               </user-avatar>
+              
                <td class="text-xs-left">{{props.item.name}}</td>
                <td class="text-xs-left">{{ $d(new Date(props.item.date)) }}</td>
                <td class="text-xs-left actions">
                   <v-btn icon @click="sendWhatsapp(props.item)" depressed rounded color="#4caf50">
                      <v-icon v-text="'sbf-whatsup-share'"/>
-                     <!-- <span v-language:inner="'dashboardPage_send_whatsapp'"/> -->
                   </v-btn>
                   <v-btn link icon :href="`mailto:${props.item.email}`" depressed rounded  color="#69687d">
                      <v-icon size="18" v-text="'sbf-email'"/>
-                     <!-- <span v-language:inner="'dashboardPage_send_email'"/> -->
                   </v-btn>
                </td>
             </tr>
-         </template>
+         </template> -->
 
          <slot slot="no-data" name="tableEmptyState"/>
    </v-data-table>
@@ -58,12 +100,10 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import tablePreviewTd from '../global/tablePreviewTd.vue';
 import { LanguageService } from '../../../../services/language/languageService';
 
 export default {
    name:'myFollowers',
-   components:{tablePreviewTd},
    props:{
       dictionary:{
          type: Object,
@@ -121,49 +161,58 @@ export default {
 @import "../../../../styles/mixin.less";
 .myFollowers{
    max-width: 1334px;
-   .myFollowers_title{
+   .myFollowers_title {
       font-size: 22px;
       color: #43425d;
       font-weight: 600;
       padding: 30px;
       background-color: #fff;
       line-height: 1.3px;
-      box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)!important;
+    //  box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)!important;
    }
-   .myFollowers_table{
-      thead{
-         tr{
-            height: auto;
-            th{
-               color: #43425d !important;
-               font-size: 14px;
-               padding-top: 14px;
-               padding-bottom: 14px;
-               font-weight: normal;
-               min-width: 100px;
-            }
-            
-         }
-         color: #43425d !important;
+   td:first-child {
+      width:1%;
+      white-space: nowrap;
+   }
+   tr:nth-of-type(2n) {
+      td {
+         background-color: #f5f5f5;
       }
-      .actions{
-         .v-btn{
-            text-transform: none;
-         }
-      }
-      .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
-         transform: none /*rtl:rotate(180deg)*/;
-         color: #43425d !important;
-         height: inherit;
-         font-size: 14px;
-      }
-      .v-data-footer {
-         padding: 6px 0;
-         .v-data-footer__pagination {
+   }
+  // .myFollowers_table{
+   thead{
+      tr{
+         // height: auto;
+         th{
+            color: #43425d !important;
             font-size: 14px;
-            color: #43425d;
+            padding-top: 14px;
+            padding-bottom: 14px;
+            font-weight: normal;
+            min-width: 100px;
          }
+         
+      }
+      color: #43425d !important;
+   }
+   .actions{
+      .v-btn{
+         text-transform: none;
       }
    }
+   .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
+      transform: none /*rtl:rotate(180deg)*/;
+      color: #43425d !important;
+      height: inherit;
+      font-size: 14px !important;
+   }
+   .v-data-footer {
+      padding: 6px 0;
+      .v-data-footer__pagination {
+         font-size: 14px;
+         color: #43425d;
+      }
+   }
+  // }
 }
 </style>

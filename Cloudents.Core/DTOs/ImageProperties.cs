@@ -9,7 +9,7 @@ namespace Cloudents.Core.DTOs
         public enum BlurEffect
         {
             None,
-            Part,
+           // Part,
             All
         }
         public ImageProperties(Uri path, BlurEffect blur)
