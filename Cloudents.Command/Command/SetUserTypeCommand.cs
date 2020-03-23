@@ -9,7 +9,7 @@ namespace Cloudents.Command.Command
             UserId = userId;
             UserType = userType;
         }
-        public long UserId { get; set; }
-        public UserType UserType { get; set; }
+        public long UserId { get;  }
+        public UserType UserType { get; }
     }
 }

@@ -18,7 +18,7 @@ namespace Cloudents.Core.Entities
             State = ItemState.Pending;
             Created = DateTime.UtcNow;
             Bio = bio;
-
+            //User.SetUserType(UserType.Teacher);
             Country country = user.Country;
             if (country == Country.India)
             {
