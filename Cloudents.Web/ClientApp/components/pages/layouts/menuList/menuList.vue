@@ -60,7 +60,15 @@
 
         <!-- Not Logged User -->
         <template v-if="!isLoggedIn">
-          <v-list-item v-for="link in satelliteLinksNotLogged" :to="{name: link.url}" :key="link.title" sel="menu_row" link exact>
+            <v-list-item 
+                v-for="link in satelliteLinksNotLogged" 
+                :key="link.title" 
+                :href="link.url" 
+                target="_blank"
+                link 
+                exact
+                sel="menu_row" 
+            >
             <v-list-item-action>
                 <v-icon class="userMenu_icons">{{link.icon}}</v-icon>
             </v-list-item-action>
@@ -166,12 +174,12 @@ export default {
         {
           title: this.$t('menuList_referral_spitball'),
           icon: 'sbf-user',
-          url: satelliteService.getSatelliteUrlByName('privacy') 
+          action: this.openReferralDialog
         },
         {
           title: this.$t('menuList_feedback'),
           icon: 'sbf-feedbackNew',
-          url: satelliteService.getSatelliteUrlByName('privacy') 
+          action: this.startIntercom 
         },
       ],
       satelliteLinksStudent: [
