@@ -53,13 +53,14 @@ function VideoPreview(objInit){
 }
 function DocumentObject(objInit){
     this.details = createDocumentItem(objInit.details);
+    this.content = objInit.content;
     this.preview = objInit.details.document.documentType === 'Video'? createVideoPreview(objInit.preview):createDocumentPreview(objInit.preview);
     this.documentType = objInit.details.document.documentType || '';
 }
 
-function createDocumentObj(ObjInit) {
-    return new DocumentObject(ObjInit);
-}
+//function createDocumentObj(ObjInit) {
+    //return new DocumentObject(ObjInit);
+//}
 export default {
     async voteDocument(id, voteType){ 
         return await documentInstance.post('vote',{id,voteType})
@@ -85,6 +86,7 @@ export default {
     },
     async getDocument(id){ 
         let {data} = await documentInstance.get(`${id}`)
-        return new createDocumentObj(data)
+
+        return new DocumentObject(data);
     },
 }
