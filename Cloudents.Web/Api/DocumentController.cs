@@ -98,7 +98,7 @@ namespace Cloudents.Web.Api
 
             var tQueue = queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
             var textTask = Task;
-            if (crawlerResolver.Crawler != null)
+            if (crawlerResolver.Crawler != null && model.Document.DocumentType == DocumentType.Document )
             {
                 textTask = _blobProvider.DownloadTextAsync("text.txt", query.Id.ToString(), token);
             }
@@ -279,9 +279,15 @@ namespace Cloudents.Web.Api
 
 
         [HttpGet("similar")]
-        public async Task<IEnumerable<DocumentFeedDto>> GetSimilarDocumentsAsync([FromQuery] SimilarDocumentsRequest request,
+        public async Task<IEnumerable<DocumentFeedDto>> GetSimilarDocumentsAsync(
+            [FromQuery] SimilarDocumentsRequest request,
+            [FromServices] ICrawlerResolver crawlerResolver,
              CancellationToken token)
         {
+            if (crawlerResolver.Crawler != null)
+            {
+                return Enumerable.Empty<DocumentFeedDto>();
+            }
             var query = new SimilarDocumentsQuery(request.DocumentId);
             var res = await _queryBus.QueryAsync(query, token);
             return res.Select(s =>

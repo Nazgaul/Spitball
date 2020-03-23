@@ -91,11 +91,11 @@
           <div class="content-wrap">
             <h1 class="item-title text-truncate">{{item.title}}</h1>
             <span class="item-course text-truncate">
-              <span class="item-course" v-language:inner="'resultNote_course'"/>
+              <span class="item-course">{{$t('resultNote_course')}}</span>
               <h2 class="item-course">{{item.course}}</h2>
             </span>
             <span v-if="item.university" class="item-university text-truncate">
-              <span class="item-university" v-language:inner="'resultNote_university'"/>
+              <span class="item-university" >{{$t('resultNote_university')}}</span>
               <h3 class="item-university">{{item.university}}</h3>
             </span>
           </div>
@@ -110,25 +110,25 @@
     <v-flex grow class="bottom-row">
       <div class="left">
         <span v-if="docViews" class="views-cont">
-          <span>{{docViews}}</span>
-          <span
+          <span>{{ $tc('resultNote_view',docViews)}}</span>
+          <!-- <span
             class="views"
             v-language:inner="docViews > 1 ? 'resultNote_views' : 'resultNote_view'"
-          />
+          /> -->
         </span>
         <span v-if="docDownloads && !item.price">
-          <span>{{docDownloads}}</span>
-          <span
+          <span>{{ $tc('resultNote_download',docDownloads)}}</span>
+          <!-- <span
             class="downloads"
             v-language:inner="docDownloads > 1 ? 'resultNote_downloads' : 'resultNote_download'"
-          />
+          /> -->
         </span>
         <span v-if="docPurchased && item.price">
-          <span>{{docPurchased}}</span>
-          <span
+          <span>{{ $tc('resultNote_purchased',docPurchased)}}</span>
+          <!-- <span
             class="downloads"
             v-language:inner="docPurchased > 1 ? 'resultNote_purchaseds' : 'resultNote_purchased'"
-          />
+          /> -->
         </span>
       </div>
       <span class="right" style="cursor:pointer">

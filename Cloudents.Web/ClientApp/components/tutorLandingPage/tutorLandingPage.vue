@@ -62,7 +62,7 @@ const tutorResultCard = () => import(/* webpackChunkName: "tutorResultCard" */ '
 const tutorResultCardMobile = () => import(/* webpackChunkName: "tutorResultCardMobile" */ '../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue');
 const tutorSearchComponent = () => import('./components/tutorSearchInput/tutorSearchInput.vue');
 const suggestCard = () => import('../results/suggestCard.vue');
-const sbCarousel = () => import('../sbCarousel/sbCarousel.vue');
+const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */'../sbCarousel/sbCarousel.vue');
 
 import testimonialCard from '../carouselCards/testimonialCard.vue'; // cant make it async ASK MAOR
 import tutorLandingPageService from './tutorLandingPageService';

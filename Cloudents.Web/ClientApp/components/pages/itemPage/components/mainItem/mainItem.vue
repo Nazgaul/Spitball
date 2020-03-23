@@ -40,7 +40,7 @@
                                 :height="dynamicWidthAndHeight.height" 
                                 v-model="docPage">
                                 <v-carousel-item v-for="(doc, index) in docPreview" :key="index">
-                                    <img :src="doc" draggable="false" class="mainItem__item__wrap--img">
+                                    <img :src="doc" draggable="false" class="mainItem__item__wrap--img" :alt="index === 0 ? document.content : ''">
                                 </v-carousel-item>
                             </v-carousel>
                         </div>

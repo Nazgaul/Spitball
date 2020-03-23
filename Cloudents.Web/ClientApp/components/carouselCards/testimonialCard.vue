@@ -15,7 +15,8 @@
             <template>
                 <div class="user-rate-testimonialCard mt-1">
                     <userRating :rating="item.tutorCount? item.tutorReviews : item.tutorCount" :showRateNumber="false" :size="'14'" />
-                    <span class="reviews-ts ml-1" v-html="$Ph(item.tutorCount === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(item.tutorCount))"/>
+                    <span class="reviews-ts ml-1">{{$tc('resultTutor_review_one', item.tutorCount)}}</span>
+                   
                 </div>
             </template>
         </div>
@@ -35,9 +36,9 @@ export default {
         }
     },
     methods: {
-        reviewsPlaceHolder(reviews) {
-            return reviews === 0 ? Math.round(reviews).toString() : Math.round(reviews);
-        },
+        // reviewsPlaceHolder(reviews) {
+        //     return reviews === 0 ? Math.round(reviews).toString() : Math.round(reviews);
+        // },
     },
 }
 </script>

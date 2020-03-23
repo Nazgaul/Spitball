@@ -121,15 +121,12 @@
     <value>Course:</value>
   </data>
   <data name="pts" xml:space="preserve">
-    <value>Pts</value>
+    <value>Free | {n} Pts |  {n} Pts</value>
   </data>
   <data name="university" xml:space="preserve">
     <value>College:</value>
   </data>
   <data name="view" xml:space="preserve">
-    <value>View</value>
-  </data>
-  <data name="views" xml:space="preserve">
-    <value>Views</value>
+    <value>View | Views</value>
   </data>
 </root>

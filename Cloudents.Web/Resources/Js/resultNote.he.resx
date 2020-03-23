@@ -139,19 +139,13 @@
     <value>הקובץ נמחק</value>
   </data>
   <data name="download" xml:space="preserve">
-    <value>הורדה</value>
-  </data>
-  <data name="downloads" xml:space="preserve">
-    <value>הורדות</value>
+    <value>{n} הורדה | {n} הורדות</value>
   </data>
   <data name="error_delete" xml:space="preserve">
     <value>לא ניתן למחוק מסמך, נסה שנית מאוחר יותר</value>
   </data>
   <data name="purchased" xml:space="preserve">
-    <value>רכישה</value>
-  </data>
-  <data name="purchaseds" xml:space="preserve">
-    <value>רכישות</value>
+    <value>{n} רכישה | {n} רכישות</value>
   </data>
   <data name="university" xml:space="preserve">
     <value>מוסד לימוד:</value>
@@ -160,10 +154,7 @@
     <value>אין מספיק נקודות</value>
   </data>
   <data name="view" xml:space="preserve">
-    <value>צפייה</value>
-  </data>
-  <data name="views" xml:space="preserve">
-    <value>צפיות</value>
+    <value>{n} צפייה | {n} צפיות</value>
   </data>
   <data name="action_apply_name" xml:space="preserve">
     <value>שנה שם</value>
