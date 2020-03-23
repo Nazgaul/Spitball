@@ -14,7 +14,12 @@
 <script>
 export default {
     props: {
-        satelliteLinksTeacher: {}
+        satelliteLinksTeacher: {
+            required: true
+        },
+        satelliteLinksStudent: {
+            required: false
+        }
     }
 }
 </script>
