@@ -90,8 +90,8 @@
 
         <div class="d-flex align-center">
             <div class="flex-grow-1">
-                <v-flex v-if="currentProfileUser.tutorData.description" sm9 xs12 class="profileUserBox_middle">
-                    
+                <v-flex sm9 xs12 class="profileUserBox_middle">
+                    <h3 class="pUb_middle_AboutMe" v-if="currentProfileUser.tutorData.description">{{currentProfileUser.tutorData.description}}</h3>
                     <div class="d-flex justify-space-between" v-if="currentProfileUser.isTutor">
                         <h4 v-if="currentProfileTutor.bio" class="pUb_middle_bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}
                             <span class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</span>
@@ -513,6 +513,19 @@ export default {
         }
 
         color: #43425d;
+        .pUb_middle_AboutMe{
+            font-size: 18px;
+            font-weight: 600;
+            font-stretch: normal;
+            font-style: normal;
+            letter-spacing: normal;
+                word-break: break-word;
+            @media (max-width: @screen-xs) {
+                font-size: 16px;
+                line-height: 1.4;
+            }
+            padding-bottom: 12px;
+        }
         .pUb_middle_bio{
             margin: 0;
             padding: 0;
