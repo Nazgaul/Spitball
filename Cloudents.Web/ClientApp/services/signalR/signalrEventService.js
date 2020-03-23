@@ -1,6 +1,7 @@
 import { connectivityModule } from '../connectivity.module'
 import { signlaREvents } from './signalREventHandler'
 import store from '../../store/index'
+import {twilio_SETTERS} from '../../store/constants/twilioConstants.js'
 
 
 function ConnectionObj(objInit){
@@ -51,6 +52,9 @@ function startConnection(connectionInstance, messageString) {
         //connection ready register the main Events
         store.dispatch('setIsSignalRConnected', true);
         connectionOn(connectionInstance.connection, messageString, messageHandler);
+        connectionOn(connectionInstance.connection, "studyRoomToken", (jwtToken) => {
+            store.commit(twilio_SETTERS.JWT_TOKEN,jwtToken)
+        });
         console.log("signal-R Conected", connectionInstance);
         connectionInstance.isConnected = true;
 
