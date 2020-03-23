@@ -26,6 +26,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.FunctionsV2.Extensions;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using Path = System.IO.Path;
 
@@ -48,7 +49,6 @@ namespace Cloudents.FunctionsV2
             {
                 try
                 {
-
                     mutation.CenterCords = await GetCenterCordsFromBlob(blob);
                     await using var sr = await blob.OpenReadAsync();
                     var image = ProcessImage(sr, mutation);
@@ -127,7 +127,7 @@ namespace Cloudents.FunctionsV2
                 var t2 = binder.BindAsync<Stream>(new BlobAttribute(blobPath, FileAccess.Read),
                     token);
                 await Task.WhenAll(t1, t2);
-                using (t2.Result)
+                await using (t2.Result)
                 {
                     var image = ProcessImage(t2.Result, mutation);
                     return new ImageResult(image, TimeSpan.Zero);
@@ -177,13 +177,10 @@ namespace Cloudents.FunctionsV2
             mutation.BlurEffect = properties.Blur.GetValueOrDefault();
             try
             {
-
-                using (var sr = await blob.OpenReadAsync())
-                {
-                    mutation.CenterCords = await GetCenterCordsFromBlob(blob);
-                    var image = ProcessImage(sr, mutation);
-                    return new ImageResult(image, TimeSpan.FromDays(365));
-                }
+                await using var sr = await blob.OpenReadAsync();
+                mutation.CenterCords = await GetCenterCordsFromBlob(blob);
+                var image = ProcessImage(sr, mutation);
+                return new ImageResult(image, TimeSpan.FromDays(365));
             }
             catch (ImageFormatException ex)
             {
@@ -202,7 +199,7 @@ namespace Cloudents.FunctionsV2
                     var t2 = binder.BindAsync<Stream>(new BlobAttribute(blobPath, FileAccess.Read),
                         token);
                     await Task.WhenAll(t1, t2);
-                    using (t2.Result)
+                    await using (t2.Result)
                     {
                         var image = ProcessImage(t2.Result, mutation);
                         return new ImageResult(image, TimeSpan.Zero);
@@ -216,7 +213,7 @@ namespace Cloudents.FunctionsV2
         }
 
 
-        private static async Task<float[]> GetCenterCordsFromBlob(CloudBlob blob)
+        private static async Task<(float x, float y)?> GetCenterCordsFromBlob(CloudBlob blob)
         {
             await blob.FetchAttributesAsync();
             if (blob.Metadata.TryGetValue("face", out var faceStr))
@@ -231,23 +228,11 @@ namespace Cloudents.FunctionsV2
                 {
                     return null;
                 }
-                return new float[] { arr[0].result, arr[1].result };
+
+                return (arr[0].result, arr[1].result);// new float[] { arr[0].result, arr[1].result };
                 //mutation.CenterCords = new float[] { arr[0].result, arr[1].result };
             }
             return null;
-
-
-
-            //if (blob.Metadata.TryGetValue("face-top", out var faceTopStr) &&
-            //    int.TryParse(faceTopStr, out var faceTop))
-            //{
-            //    centerPoint.Y = faceTop;
-            //}
-
-            //if (!centerPoint.IsEmpty)
-            //{
-            //    mutation.CenterCords = new float[] { centerPoint.X, centerPoint.Y };
-            //}
         }
 
         private static Image ProcessImage(Stream input, ImageMutation mutation)
@@ -264,20 +249,22 @@ namespace Cloudents.FunctionsV2
                     Position = mutation.Position,
 
                 };
-                if (mutation.CenterCords?.Length == 2)
+                if (mutation.CenterCords.HasValue)
+                {
                     v.CenterCoordinates = new[]
-                        {mutation.CenterCords[0] / image.Width, mutation.CenterCords[1] / image.Height};
+                        {mutation.CenterCords.Value.x / image.Width, mutation.CenterCords.Value.y / image.Height};
+                }
                 x.Resize(v);
+                if (mutation.RoundCorner > 0)
+                {
+                    x.ApplyRoundedCorners(mutation.RoundCorner);
+                }
             });
 
-            image.Mutate(x => x.BackgroundColor(Rgba32.White));
+            //image.Mutate(x => x.BackgroundColor(Rgba32.White));
             switch (mutation.BlurEffect)
             {
                 case ImageProperties.BlurEffect.None:
-                    break;
-                case ImageProperties.BlurEffect.Part:
-                    image.Mutate(x => x.BoxBlur(5,
-                        new Rectangle(0, mutation.Height / 2, mutation.Width, mutation.Height / 2)));
                     break;
                 case ImageProperties.BlurEffect.All:
                     image.Mutate(x => x.BoxBlur(5));
@@ -317,7 +304,7 @@ namespace Cloudents.FunctionsV2
 
         private static Image GenerateImageFromText(string text, Size targetSize)
         {
-            var fam = SystemFonts.Find("Arial");
+            var fam = SystemFonts.Find("Calibri");
             var font = new Font(fam, 100); // size doesn't matter too much as we will be scaling shortly anyway
             var style = new RendererOptions(font, 72); // again dpi doesn't overlay matter as this code genreates a vector
 
@@ -344,7 +331,6 @@ namespace Cloudents.FunctionsV2
             img.Mutate(i => i.BackgroundColor(Colors[v]));
 
             img.Mutate(i => i.Fill(new GraphicsOptions(true), Rgba32.White, glyphs));
-            //       img.SaveAsJpeg(streamSaveLocation);
             return img;
         }
 
@@ -363,6 +349,7 @@ namespace Cloudents.FunctionsV2
                 mode = ResizeMode.Crop;
             }
 
+            int.TryParse(query["round"], out var round);
             Enum.TryParse(query["anchorPosition"], true, out AnchorPositionMode position);
 
             if (width == 0)
@@ -377,22 +364,26 @@ namespace Cloudents.FunctionsV2
 
             //var centerCords = query["center"].ToArray()?.Select(s => float.Parse(s));
 
-            return new ImageMutation(width, height, mode, position/*, centerCords?.ToArray()*/);
+            return new ImageMutation(width, height, mode, position, round);
         }
 
-        private ImageMutation(int width, int height, ResizeMode mode, AnchorPositionMode position/*, float[] centerCords*/)
+        private ImageMutation(int width, int height, 
+            ResizeMode mode, AnchorPositionMode position, int roundCorner)
         {
             Width = width;
             Height = height;
             Mode = mode;
             Position = position;
+            RoundCorner = roundCorner;
             //CenterCords = centerCords ?? Array.Empty<float>();
 
         }
 
-        public float[] CenterCords { get; set; } = Array.Empty<float>();
+        public (float x,float y)? CenterCords { get; set; }
         public int Width { get; }
         public int Height { get; }
+
+        public int RoundCorner { get; }
 
         public ResizeMode Mode { get; }
 
