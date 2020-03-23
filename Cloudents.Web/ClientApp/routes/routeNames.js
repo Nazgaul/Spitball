@@ -22,6 +22,7 @@ export const RegisterCourseParent = 'registerCourseParent';
 
 // Profile:
 export const Profile = 'profile';
+export const ProfileT = 'profileT';
 
 // Feed:
 export const Feed = 'feed';

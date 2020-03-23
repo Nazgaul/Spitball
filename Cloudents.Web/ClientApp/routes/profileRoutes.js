@@ -32,4 +32,12 @@ export const profileRoutes = [
             })
         }
     },
+    {
+        path: "/profilet/",
+        name: routeName.ProfileT,
+        components: {
+            default: () => import(`../components/pages/profile/profileTutor/profileTutor.vue`),
+            ...staticComponents(['banner', 'header', 'sideMenu'])
+        }
+    },
 ]
