@@ -194,6 +194,9 @@ export default () => {
             _debugMode = mutation.payload.query?.debug ? 'debug' : 'off';
          }
          if (mutation.type === twilio_SETTERS.JWT_TOKEN) {
+            let isRoomNeedPayment = store.getters.getRoomIsNeedPayment;
+            let isRoomStudent = !store.getters.getRoomIsTutor;
+            if(isRoomStudent && isRoomNeedPayment){return}
             let jwtToken = mutation.payload;
             let options = {
                logLevel: _debugMode,

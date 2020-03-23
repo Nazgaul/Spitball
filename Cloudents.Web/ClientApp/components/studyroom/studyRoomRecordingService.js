@@ -87,7 +87,7 @@ const handleRecording = function(e){
   if(!wasCancelled){
     let options = {mimeType: MIME_TYPE};
     const recordingData = new Blob(recordingChunks, options);
-        if(store.getters.getRoomId && recordingData.size < 209715199){
+        if(store.getters.getRoomIdSession && recordingData.size < 209715199){
           downloadRecording(e, recordingData);
         }else{
           downloadRecording(e, recordingData);
@@ -122,7 +122,7 @@ function createRemoteAudioStream(){
 }
 
 async function activateRecord(){
-  let roomId = store.getters.getRoomId ? store.getters.getRoomId : 'testRoom';
+  let roomId = store.getters.getRoomIdSession || 'testRoom';
   let userId = store.getters.accountUser ? store.getters.accountUser.id : 'GUEST';
   insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_Recording_Start', {'roomId': roomId, 'userId': userId}, null);
   recordingChunks = [];
@@ -170,7 +170,7 @@ function createMediaRecorder (){
 }
 
 function stopRecord(cancelled){
-  let roomId = store.getters.getRoomId ? store.getters.getRoomId : 'testRoom';
+  let roomId = store.getters.getRoomIdSession || 'testRoom';
   let userId = store.getters.accountUser ? store.getters.accountUser.id : 'GUEST';
   insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_Recording_End', {'roomId': roomId, 'userId': userId}, null);
   if(cancelled){

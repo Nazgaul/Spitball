@@ -401,6 +401,8 @@ export default {
     ...mapGetters([
       "getIsFullScreenAvailable",
       "getDialogTutorStart",
+      "getRoomIsNeedPayment",
+
       
       "getDialogRoomSettings",
       "getZoom",
@@ -411,14 +413,12 @@ export default {
       "getDialogRoomEnd",
       "getBrowserSupportDialog",
       "accountUser",
-      "getStudyRoomData",
       "getActiveNavIndicator",
       "getIsRecording",
       "getShowAudioRecordingError",
       "getVisitedSettingPage",
       "getShowUserConsentDialog",
       "getSnapshotDialog",
-      "getIsRoomNeedPayment"
     ]),
     isRoomTutor(){
       return this.$store.getters.getRoomIsTutor;
@@ -457,7 +457,7 @@ export default {
       return this.$vuetify.breakpoint.xsOnly;
     },
     isTutor() {
-        return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
+      return this.$store.getters.getRoomIsTutor;
     },
     isCodeEditorActive(){
       return this.activeItem === "code-editor"
@@ -465,18 +465,16 @@ export default {
   },
 
 watch: {
-  getIsRoomNeedPayment:{
+  getRoomIsNeedPayment:{
     immediate:true,
     handler(newVal){
-      // note: we need the immediate cuz no one listen to getIsRoomNeedPayment and can 
+      // note: we need the immediate cuz no one listen to getRoomIsNeedPayment and can 
       // getStudyRoomData empty
       if(newVal !== null){
         this.handleNeedPayment(newVal)
       }
     }
   },
-  getStudyRoomData(){
-  }
 },
   methods: {
     ...mapActions([
@@ -490,7 +488,6 @@ watch: {
       "openChatInterface",
       "updateEndDialog",
       "setBrowserSupportDialog",
-      "setRoomId",
       "setShowAudioRecordingError",
       "setShowUserConsentDialog",
       "setSnapshotDialog",
@@ -609,13 +606,11 @@ watch: {
       }
     },
     setStudyRoom(id) {
-      this.setRoomId(id);
-      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_RoomProps', this.getStudyRoomData, null)
-      initSignalRService(`studyRoomHub?studyRoomId=${id}`);
+      // initSignalRService(`studyRoomHub?studyRoomId=${id}`);
       this.initMathjax()
       
       let self = this;
-      this.getChatById(this.getStudyRoomData.conversationId).then(({ data }) => {
+      this.getChatById(this.$store.getters.getRoomConversationId).then(({ data }) => {
         insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_ChatById', data, null)
         let currentConversationObj = chatService.createActiveConversationObj(data);
         self.setActiveConversationObj(currentConversationObj);
@@ -657,6 +652,10 @@ watch: {
     global.onbeforeunload = function() { };
   },
   beforeDestroy(){
+    this.$store.dispatch('updateResetRoom');
+
+
+
     this.stopTracks();
     
 
@@ -684,6 +683,7 @@ watch: {
   async created() {
     this.$store.commit('clearToaster')
     this.userId = this.accountUser?.id || 'GUEST';
+
     if (!studyroomSettingsUtils.isBrowserSupport()) {
       this.$nextTick(()=>{
         this.setBrowserSupportDialog(true)
@@ -694,6 +694,7 @@ watch: {
     }
 
     if(this.id){
+      initSignalRService(`studyRoomHub?studyRoomId=${this.id}`);
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null) 
       this.$store.dispatch('updateStudyRoomInformation',this.id).catch((err)=>{
           if(err?.response){

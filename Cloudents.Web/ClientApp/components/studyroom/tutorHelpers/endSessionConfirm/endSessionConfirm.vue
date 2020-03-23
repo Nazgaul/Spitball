@@ -40,7 +40,7 @@
             },
         },
         computed: {
-            ...mapGetters(['getStudyRoomData', 'accountUser', 'getRoomId']),
+            ...mapGetters(['accountUser']),
             userImageUrl(){
                 if(this.accountUser.image.length > 1){
                     return `${this.accountUser.image}`

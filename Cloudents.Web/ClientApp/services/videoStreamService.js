@@ -22,17 +22,10 @@ import insightService from './insightService.js'
         store.dispatch('setSesionClickedOnce', true);
         console.warn('DEBUG: 44.1 videoStreamService: setSesionClickedOnce,true after ')
             if (store.getters['getStudyRoomData'].isTutor) {
-                console.warn('DEBUG: 44.2 videoStreamService: (store.getters[getStudyRoomData].isTutor) ')
-                console.warn('DEBUG: 44.3 videoStreamService: updateCurrentRoomState before')
                 store.dispatch('updateCurrentRoomState', 'loading');
-                console.warn('DEBUG: 44.4 videoStreamService: updateCurrentRoomState after')
-                console.warn('DEBUG: 44.5 videoStreamService: tutorService.enterRoom(store.getters[getRoomId]) before')
                 studyRoomService.enterRoom(store.getters['getRoomId']).then(() => {
-                    console.warn('DEBUG: 44.6 videoStreamService: tutorService.enterRoom(store.getters[getRoomId]) then')
                     setTimeout(() => {
-                        console.warn('DEBUG: 44.7 videoStreamService: tutorService.enterRoom(store.getters[getRoomId]) Settimeout')
                         this.createVideoSession();
-                        console.warn('DEBUG: 44.8 videoStreamService: tutorService.enterRoom(store.getters[getRoomId]) Settimeout after')
                     }, 1000);
                 });
             } else {

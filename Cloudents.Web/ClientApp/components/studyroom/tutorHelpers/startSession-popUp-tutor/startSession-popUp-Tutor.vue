@@ -57,7 +57,7 @@
         },
         computed: {
             ...mapState(['tutoringMain']),
-            ...mapGetters(['getStudyRoomData', 'getSessionStartClickedOnce', 'getTutorDialogState', 'getSessionTimeStart', 'getSessionTimeEnd']),
+            ...mapGetters(['getSessionStartClickedOnce', 'getTutorDialogState', 'getSessionTimeStart', 'getSessionTimeEnd']),
             roomStudent(){
                 return this.$store.getters.getRoomStudent;
             },

@@ -34,7 +34,7 @@ export default {
 // },
 methods:{
   nextPage(){
-    let isRecordingSupported = this.$store.getters.getStudyRoomData ? !this.$store.getters.getStudyRoomData.isTutor : true;
+    let isRecordingSupported = !this.$store.getters.getRoomIsTutor || true;
     if(isRecordingSupported){
     this.nextStep('watchRecordedStep', true);
   }else{

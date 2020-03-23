@@ -2,7 +2,6 @@
 
 
 const state = {
-//     roomId: '',
 //     currentActiveRoom: null,
 //     browserSupportDialog: false,
 //     studyRoomData: null,
@@ -34,7 +33,6 @@ const getters = {
 //     getCurrentRoomState: state => state.currentRoomState,
 //     getStudyRoomData: state => state.studyRoomData,
 //     getJwtToken: state => state.jwtToken,
-//     getRoomId: state => state.roomId,
 //     getStudentStartDialog: state => state.studentStartDialog,
 //     getSessionStartClickedOnce: state => state.sessionStartClickedOnce,
 //     getBrowserSupportDialog: state => state.browserSupportDialog,
@@ -44,15 +42,6 @@ const getters = {
 //     getSessionTimeEnd: state => state.sessionTimeEnd,
 //     getShowUserConsentDialog: state => state.showUserConsentDialog,
 //     getSnapshotDialog: state => state.snapshotDialog,
-//     getIsRoomNeedPayment: state => {
-//         if (!state.studyRoomData) {
-//             return null;
-//         }
-//         if (state.studyRoomData.isTutor) {
-//             return false;
-//         }
-//         return state.studyRoomData.needPayment;
-//     }
 };
 
 const mutations = {
@@ -77,9 +66,6 @@ const mutations = {
 //     },
 //     setJwtToken(state, val) {
 //         state.jwtToken = val;
-//     },
-//     setRoomId(state, val) {
-//         state.roomId = val;
 //     },
 //     setBrowserSupportDialog(state, val){
 //       state.browserSupportDialog = val;
@@ -223,18 +209,6 @@ const actions = {
 //             }, 2500);
             
 //         }
-//     },
-//     releasePaymeStatus_studyRoom({dispatch,state}){
-//         state.studyRoomData.needPayment = false;
-//         let isTutor = state.studyRoomData.isTutor;
-//         if(isTutor) {
-//             dispatch("setTutorDialogState", state.startSessionDialogStateEnum.start);
-//         }else{
-//             dispatch("setStudentDialogState", state.startSessionDialogStateEnum.waiting);
-//         }
-//     },
-//     setRoomId({commit}, val) {
-//         commit('setRoomId', val);
 //     },
 //     setBrowserSupportDialog({commit}, val){
 //       commit('setBrowserSupportDialog', val);

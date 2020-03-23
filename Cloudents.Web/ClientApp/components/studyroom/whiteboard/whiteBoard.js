@@ -141,7 +141,7 @@ export default {
             return this.canvasDataStore.color;
         },
         isTutor() {
-            return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
+            return this.$store.getters.getRoomIsTutor;
         },
         showAnchors(){
             let unsupportedResizeShapes = ["liveDraw", "textDraw", "equationDraw", "iink"];

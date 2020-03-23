@@ -87,7 +87,7 @@ const determinFirstPage = function(){
     
   }
 
-  let isRecordingSupported = store.getters.getStudyRoomData ? !store.getters.getStudyRoomData.isTutor : true;
+  let isRecordingSupported = !store.getters.getRoomIsTutor || true;
   if(isRecordingSupported){
     return new firstPageObj("watchRecordedStep");
   }else{
