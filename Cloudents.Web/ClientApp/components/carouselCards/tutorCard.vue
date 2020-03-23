@@ -20,7 +20,7 @@
                         </div>
                         <div class="user-rate-ts align-center" v-else>
                             <star class="mr-1 icon-star" />
-                            <span class="reviews-ts">{{$tc('resultTutor_review_one',tutor.reviews)}}</span> v-html="$Ph(`resultTutor_collecting_review`, reviewsPlaceHolder(tutor.reviews))"/>
+                            <span class="reviews-ts">{{$tc('resultTutor_review_one',tutor.reviews)}}</span>
                         </div>
                     </template>
                 </div>

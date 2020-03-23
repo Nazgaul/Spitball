@@ -71,7 +71,8 @@
             <v-flex xs4 class="pUb_top_tutorState" v-if="currentProfileUser.isTutor">
                 <div class="pUb_top_tS_list">
                     <starSVG/>
-                    <span class="pUb_t_ts_list_span pUb_t_ts_list_span_review" @click="isMobile? scrollToReviews():''" v-text="tutorStateRate(currentProfileTutor)"/>
+                    <span class="pUb_t_ts_list_span pUb_t_ts_list_span_review" @click="isMobile? scrollToReviews():''" 
+                    v-text="tutorStateRate(currentProfileTutor)"/>
                 </div>
                 <div class="pUb_top_tS_list" :class="[{'visibility_hidden':!currentProfileTutor.contentCount}]">
                     <resxSVG/>
