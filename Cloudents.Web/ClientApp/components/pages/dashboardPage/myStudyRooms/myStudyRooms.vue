@@ -20,7 +20,7 @@
          <template v-slot:top>
             <div class="tableTop d-flex align-center justify-space-between">
                <div class="myStudyRooms_title">{{$t('schoolBlock_my_study_rooms')}}</div>
-               <router-link class="link" :to="{name: routeNames.StudyRoom}">{{$t('dashboardPage_link_studyroom')}}</router-link>
+               <v-btn class="link white--text" :to="{name: routeNames.StudyRoom}" depressed color="#5360FC">{{$t('dashboardPage_link_studyroom')}}</v-btn>
             </div>
          </template>
 
