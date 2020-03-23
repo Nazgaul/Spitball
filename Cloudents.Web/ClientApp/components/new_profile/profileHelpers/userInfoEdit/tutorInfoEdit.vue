@@ -177,7 +177,7 @@
             },
             description: {
                 get() {
-                    return this.getProfile.user.description;
+                    return this.getProfile.user.tutorData.description;
                 },
                 set(newVal) {
                     this.editedDescription = newVal;
