@@ -1,11 +1,19 @@
 <template>
     <div>
-        <v-list-item v-for="link in satelliteLinksTeacher" :key="link.title" sel="menu_row" link>
+        <v-list-item
+            v-for="link in satelliteLinksTeacher"
+            :href="link.url || ''"
+            @click="link.action ? link.action() :  ''"
+            :key="link.title"
+            sel="menu_row"
+            link
+            target="_blank"
+        >
             <v-list-item-action>
-                <a :href="link.url"><v-icon class="userMenu_icons">{{link.icon}}</v-icon></a>
+                <v-icon class="userMenu_icons">{{link.icon}}</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-                <a :href="link.url" class="v-list__tile__title subheading userMenu_titles">{{link.title}}</a>
+                {{link.title}}
             </v-list-item-content>
         </v-list-item>
     </div>
@@ -18,7 +26,7 @@ export default {
             required: true
         },
         satelliteLinksStudent: {
-            required: false
+            required: false // prevent from dom attr to show [object object]
         }
     }
 }

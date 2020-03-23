@@ -127,7 +127,9 @@ export default {
       return isLogged && isTeacher && !isMobile
     },
     drawerPlaceholder() {
-      let isRoutes = ['feed',
+      // need to think of better way to check if placeholder
+      let isRoutes = [
+      'feed',
       'document',
       'question',
       'profile',
@@ -136,7 +138,9 @@ export default {
       'myContent',
       'myPurchases',
       'myStudyRooms',
-      'myCalendar'].some(route => this.$route.name === route)
+      'myCalendar',
+      'addCourse',
+      'editCourse'].some(route => this.$route.name === route)
       return isRoutes
     },
     isMobile() {
