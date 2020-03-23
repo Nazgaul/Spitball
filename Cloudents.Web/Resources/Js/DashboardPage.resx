@@ -169,6 +169,9 @@
   <data name="likes" xml:space="preserve">
     <value>Likes</value>
   </data>
+  <data name="link_studyroom" xml:space="preserve">
+    <value>Test study room</value>
+  </data>
   <data name="my_content_title" xml:space="preserve">
     <value>My Content</value>
   </data>
