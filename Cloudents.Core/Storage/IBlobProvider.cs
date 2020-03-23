@@ -48,7 +48,7 @@ namespace Cloudents.Core.Storage
     public interface IDocumentDirectoryBlobProvider : IBlobProvider
     {
         Uri GetPreviewImageLink(long id, int i);
-        Task<string> DownloadTextAsync(string name, string directory, CancellationToken token);
+        Task<string?> DownloadTextAsync(string name, string directory, CancellationToken token);
     }
 
     public interface IUserDirectoryBlobProvider : IBlobProvider

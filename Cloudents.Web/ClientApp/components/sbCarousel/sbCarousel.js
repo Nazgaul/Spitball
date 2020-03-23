@@ -165,7 +165,7 @@ export default {
         this.isFirstItemVisible = visiblesItems.some(item=>item.prevSibling === null);
         if(!!this.$slots && this.$slots.default){
             this.$slots.default.forEach((slot)=>{
-                slot.elm.draggable = false;
+                //slot.elm.draggable = false;
             });
         }
     }

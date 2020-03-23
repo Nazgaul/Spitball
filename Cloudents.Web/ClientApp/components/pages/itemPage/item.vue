@@ -130,8 +130,8 @@ import studyDocumentsStore from '../../../store/studyDocuments_store';
 // components
 import mainItem from './components/mainItem/mainItem.vue';
 import resultNote from '../../results/ResultNote.vue';
-import sbCarousel from '../../sbCarousel/sbCarousel.vue';
-import itemCard from '../../carouselCards/itemCard.vue'
+const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */'../../sbCarousel/sbCarousel.vue');
+import itemCard from '../../carouselCards/itemCard.vue';
 const tutorResultCard = () => import(/* webpackChunkName: "tutorResultCard" */ '../../results/tutorCards/tutorResultCard/tutorResultCard.vue');
 const tutorResultCardMobile = () => import(/* webpackChunkName: "tutorResultCardMobile" */ '../../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue');
 import whyUsDesktop from './components/whyUs/whyUsDesktop.vue';

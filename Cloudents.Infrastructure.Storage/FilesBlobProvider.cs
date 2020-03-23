@@ -22,7 +22,7 @@ namespace Cloudents.Infrastructure.Storage
             return blob.Uri;
         }
 
-        public async Task<string> DownloadTextAsync(string name, string directory, CancellationToken token)
+        public async Task<string?> DownloadTextAsync(string name, string directory, CancellationToken token)
         {
             try
             {

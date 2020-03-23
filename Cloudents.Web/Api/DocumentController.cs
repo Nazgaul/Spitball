@@ -98,7 +98,7 @@ namespace Cloudents.Web.Api
 
             var tQueue = queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
             var textTask = Task;
-            if (crawlerResolver.Crawler != null)
+            if (crawlerResolver.Crawler != null && model.Document.DocumentType == DocumentType.Document )
             {
                 textTask = _blobProvider.DownloadTextAsync("text.txt", query.Id.ToString(), token);
             }
