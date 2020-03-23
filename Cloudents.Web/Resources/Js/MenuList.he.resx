@@ -120,6 +120,9 @@
   <data name="about_spitball" xml:space="preserve">
     <value>אודות ספיטבול</value>
   </data>
+  <data name="account_setting" xml:space="preserve">
+    <value>הגדרות משתמש</value>
+  </data>
   <data name="balance" xml:space="preserve">
     <value>היתרה שלך: {1} נק'</value>
   </data>
@@ -144,6 +147,12 @@
   </data>
   <data name="logout" xml:space="preserve">
     <value>התנתק מהמערכת</value>
+  </data>
+  <data name="my_purchases" xml:space="preserve">
+    <value>הרכישות שלי</value>
+  </data>
+  <data name="my_studyroom" xml:space="preserve">
+    <value>חדרי הלימוד שלי</value>
   </data>
   <data name="my_study_rooms" xml:space="preserve">
     <value>בדיקת חדר לימוד</value>
