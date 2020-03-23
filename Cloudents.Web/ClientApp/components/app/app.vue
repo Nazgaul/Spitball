@@ -2,8 +2,8 @@
   <v-app>
     <router-view name="banner"></router-view>
     <router-view name="header"></router-view>
-    <router-view name="sideMenu" v-if="showSideMenu && !hideSideMenu"></router-view>
-    <v-content :class="['site-content',{'hidden-sideMenu':hideSideMenu}]">
+    <router-view name="sideMenu" v-if="isDrawer"></router-view>
+    <v-content :class="['site-content',{'hidden-sideMenu': drawerPlaceholder}]">
         <chat v-if="visible"/>
         <router-view class="main-container"></router-view>
       
@@ -114,28 +114,30 @@ export default {
       "getToasterTimeout",
       "getToasterText",
       "getMobileFooterState",
-      "showLeaderBoard",
-      // "showMobileFeed",
       "getRequestTutorDialog",
-      "isFrymo",
-      "getShowSchoolBlock",
       "getIsChatVisible",
-      'getUserLoggedInStatus'
+      'getUserLoggedInStatus',
+      'getIsTeacher'
     ]),
-    hideSideMenu(){
-      if(this.getUserLoggedInStatus && this.accountUser?.userType === 'Teacher'){
-        return false;
-      }else{
-        let routesNames = ['feed','document','question','profile']
-        return routesNames.some(route => this.$route.name === route)
-      }
+
+    isDrawer() {
+      let isLogged = this.getUserLoggedInStatus
+      let isTeacher = this.getIsTeacher
+      let isMobile = this.$vuetify.breakpoint.xsOnly
+      return isLogged && isTeacher && !isMobile
     },
-    showSideMenu() {
-      if (this.$vuetify.breakpoint.xsOnly) {
-        return this.getShowSchoolBlock;
-      } else {
-        return true;
-      }
+    drawerPlaceholder() {
+      let isRoutes = ['feed',
+      'document',
+      'question',
+      'profile',
+      'myFollowers',
+      'mySales',
+      'myContent',
+      'myPurchases',
+      'myStudyRooms',
+      'myCalendar'].some(route => this.$route.name === route)
+      return isRoutes
     },
     isMobile() {
       return this.$vuetify.breakpoint.smAndDown;

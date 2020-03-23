@@ -63,9 +63,6 @@ export default {
         this.updateDrawerValue(val)
       }
     },
-    showHome(){
-      return !this.accountUser?.isTutor
-    },
   },
   watch: {
     $route() {
