@@ -17,7 +17,7 @@ function urlForEnglishUsers(type){
         feedback: `https://help.${websitePrefix()}/en/article/how-to-contact-us`,
         terms: isFrymo ? `https://help.${websitePrefix()}/en/article/terms` : `https://help.${websitePrefix()}/en/article/terms-of-service`,
         privacy: `https://help.${websitePrefix()}/en/article/privacy-policy`,
-        faq: isFrymo ? `https://help.${websitePrefix()}/en/faqs` : `https://help.${websitePrefix()}/en/faq`,
+        faq: isFrymo ? `https://help.${websitePrefix()}/en/` : `https://help.${websitePrefix()}/en/`,
         contact: `https://help.${websitePrefix()}/en/article/how-to-contact-us`,
     };
     return urlByType[type];
@@ -61,7 +61,7 @@ const sattelites = {
         icon: 'sbf-help',
          url:{
             en: urlForEnglishUsers('faq'),
-            he:"https://help.spitball.co/he/%D7%A9%D7%90%D7%9C%D7%95%D7%AA-%D7%A0%D7%A4%D7%95%D7%A6%D7%95%D7%AA"
+            he:"https://help.spitball.co/he/"
         } 
     },
     contact:{
