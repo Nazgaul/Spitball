@@ -10,11 +10,10 @@ namespace Cloudents.Core.DTOs.Users
 {
     public class UserDto
     {
-        public UserDto(long id, string name, int score, string image)
+        public UserDto(long id, string name, string image)
         {
             Id = id;
             Name = name;
-            Score = score;
             Image = image;
         }
 
@@ -27,7 +26,6 @@ namespace Cloudents.Core.DTOs.Users
         public long Id { get; set; }
         public string Name { get; set; }
         public string Image { get; set; }
-        public int Score { get; set; }
     }
 
     public class UserProfileDto

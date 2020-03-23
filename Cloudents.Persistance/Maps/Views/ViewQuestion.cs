@@ -17,7 +17,7 @@ namespace Cloudents.Persistence.Maps.Views
                 {
                     z.Map(x => x.Id).Column("User_Id");
                     z.Map(x => x.Name).Column("User_Name");
-                    z.Map(x => x.Score).Column("User_Score");
+                    //z.Map(x => x.Score).Column("User_Score");
                     z.Map(x => x.Image).Column("User_ImageName");
                 }
             );

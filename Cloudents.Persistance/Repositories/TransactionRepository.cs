@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using NHibernate;
 using NHibernate.Criterion;
@@ -27,14 +26,14 @@ namespace Cloudents.Persistence.Repositories
                     .Select(Projections.Sum<Transaction>(x => x.Price))
                     .SingleOrDefaultAsync<decimal>(token);
         }
-        public Task<decimal> GetUserScoreAsync(long userId, CancellationToken token)
-        {
-            return
-                Session.QueryOver<Transaction>()
-                       .Where(w => w.User.Id == userId)
-                       .Where(w => w.Type == TransactionType.Earned && w.Price > 0)
-                       .Select(Projections.Sum<Transaction>(x => x.Price)).SingleOrDefaultAsync<decimal>(token);
-        }
+        //public Task<decimal> GetUserScoreAsync(long userId, CancellationToken token)
+        //{
+        //    return
+        //        Session.QueryOver<Transaction>()
+        //               .Where(w => w.User.Id == userId)
+        //               .Where(w => w.Type == TransactionType.Earned && w.Price > 0)
+        //               .Select(Projections.Sum<Transaction>(x => x.Price)).SingleOrDefaultAsync<decimal>(token);
+        //}
 
         //public async Task<TransactionActionType> GetFirstCourseTransaction (long userId, CancellationToken token)
         //{
