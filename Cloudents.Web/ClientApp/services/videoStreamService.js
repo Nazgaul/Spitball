@@ -58,13 +58,13 @@ import insightService from './insightService.js'
    async function addDevicesTotrack(){
     console.warn('DEBUG: 25 videoStreamService: addDevicesTotrack')
 
-        let audioSetObj = store.getters['getLocalAudioTrack'];
-        let videoSetObj = store.getters['getLocalVideoTrack'];
+        // let audioSetObj = store.getters['getLocalAudioTrack'];
+        // let videoSetObj = store.getters['getLocalVideoTrack'];
         // let isVideoActive = store.getters['getIsVideoActive']; maor
-        let isAudioActive = store.getters['getIsAudioActive'];
-        let audioDevice = audioSetObj && isAudioActive ? audioSetObj : false;
+        // let isAudioActive = store.getters['getIsAudioActive'];
+        // let audioDevice = audioSetObj && isAudioActive ? audioSetObj : false;
         // let videoDevice = videoSetObj && isVideoActive ? videoSetObj : false; maor
-        createTwillioTracks(audioDevice, videoDevice);
+        createTwillioTracks(/*audioDevice, videoDevice*/);
     }
 
     //get try to get share stream via chrome extension

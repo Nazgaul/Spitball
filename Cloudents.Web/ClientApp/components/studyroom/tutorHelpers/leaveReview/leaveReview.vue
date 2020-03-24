@@ -190,7 +190,7 @@
                     this.updateReview(null);
                     this.closeReviewDialog();
                 },
-                (error) => {
+                () => {
                     this.setReviewError('leaveReview_sendReviewError')
                 }
                 ).finally(() => {

@@ -42,7 +42,6 @@ import studySettingPopUp from './components/studySettingPopUp.vue';
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
 
 import intercomSettings from '../../services/intercomService';
-import studyRoomService from '../../services/studyRoomService';
 
 
 export default {

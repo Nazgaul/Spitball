@@ -17,7 +17,6 @@
             <v-flex xs12 style="text-align: center;" class="pt-2">
                 <span v-language:inner="'tutor_can_be_recorded'"></span>
             </v-flex>
-            <!-- <v-flex xs12 v-if="showButton" class="pt-5"> -->
             <v-flex xs12 class="pt-5">
                 <v-btn height="48" class="start-session-btn ma-2 elevation-0 align-center justify-center"
                         large
@@ -75,13 +74,6 @@
             },
             studentId(){
                 return this.roomStudent?.studentId;
-            },
-            showButton(){
-                // let statesToShow = [
-                //     this.tutoringMain.startSessionDialogStateEnum.start,
-                //     this.tutoringMain.startSessionDialogStateEnum.waiting
-                // ]
-                // return statesToShow.indexOf(this.getTutorDialogState) > -1
             },
             roomStateText(){
                 return LanguageService.getValueByKey('tutor_stream_btn_start_tutor')

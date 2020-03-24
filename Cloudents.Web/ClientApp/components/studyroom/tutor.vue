@@ -605,8 +605,7 @@ watch: {
         video.msRequestFullscreen();
       }
     },
-    setStudyRoom(id) {
-      // initSignalRService(`studyRoomHub?studyRoomId=${id}`);
+    setStudyRoom() {
       this.initMathjax()
       
       let self = this;

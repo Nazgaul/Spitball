@@ -62,7 +62,7 @@ function _twilioListeners(room,store) {
    room.localParticipant.on('networkQualityLevelChanged', (networkQualityLevel,networkQualityStats) => {
       _insightEvent('networkQuality',networkQualityStats, networkQualityLevel)
    });
-   room.localParticipant.on('trackPublished',(track)=>{
+   room.localParticipant.on('trackPublished',()=>{
    })
 
 
@@ -71,7 +71,7 @@ function _twilioListeners(room,store) {
       _insightEvent('TwilioTrackSubscribed', track, null);
       _detachTracks([track])
    })
-   room.on('trackUnsubscribed', (track, publication, participant) => {
+   room.on('trackUnsubscribed', (track) => {
       if(track.kind === 'video'){
          store.commit(twilio_SETTERS.FULL_SCREEN_AVAILABLE,false);
      }
@@ -125,9 +125,9 @@ function _twilioListeners(room,store) {
       _insightEvent('trackMessage', data, null);
       store.dispatch('dispatchDataTrackJunk',data)
    })
-   room.on('trackPublished', (track) => {
+   room.on('trackPublished', () => {
    })
-   room.on('trackUnpublished', (track) => {
+   room.on('trackUnpublished', () => {
    })
    // room connections events:
    room.on('participantConnected', (participant) => {
@@ -143,7 +143,7 @@ function _twilioListeners(room,store) {
       _insightEvent('TwilioParticipantDisconnected', participant, null);
       _detachTracks(Array.from(participant.tracks.values()))
    })
-   room.on('reconnecting', (reconnectingError) => {
+   room.on('reconnecting', () => {
       _insightEvent('reconnecting', null, null);
    })
    room.on('disconnected', (dRoom, error) => {
