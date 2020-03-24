@@ -2,25 +2,21 @@
   <v-layout column class="payme-popup">
     <v-icon class="exit-btn cursor-pointer" @click="closeDialog">sbf-close</v-icon>
     <div class="payme-popup-top pt-4">
-      <div class="payme-top-title" v-language:inner="'payme_top_title'" />
+      <div class="payme-top-title">{{$t('payme_top_title')}}</div>
       <v-layout justify-space-between wrap class="payme-content pt-4 pt-sm-8 pb-2 pb-sm-8 mx-sm-8">
         <v-flex class="payme-content-div">
           <img class="payme-content-img" src="./images/timer.png" />
-          <span class="payme-content-txt pt-0 pt-sm-2" v-language:inner="'payme_content_txt_time'" />
+          <span class="payme-content-txt pt-0 pt-sm-2">{{$t('payme_content_txt_time')}}</span>
         </v-flex>
         <v-flex  class="payme-content-div mx-0 ">
           <img class="payme-content-img" src="./images/sheild.png" />
           <span
-            class="payme-content-txt pt-0 pt-sm-2"
-            v-language:inner="'payme_content_txt_sheild'"
-          />
+            class="payme-content-txt pt-0 pt-sm-2">{{$t('payme_content_txt_sheild')}}</span>
         </v-flex>
         <v-flex  class="payme-content-div">
           <img class="payme-content-img" src="./images/hands.png" />
           <span
-            class="payme-content-txt pt-0 pt-sm-2"
-            v-language:inner="'payme_content_txt_hands'"
-          />
+            class="payme-content-txt pt-0 pt-sm-2">{{$t('payme_content_txt_hands')}}</span>
         </v-flex>
       </v-layout>
       <v-flex v-show="isLoading" xs12>
@@ -63,7 +59,7 @@ export default {
   },
   mounted() {
     let self = this;
-    let paypalUrl = `https://www.paypal.com/sdk/js?client-id=${window.paypalClientId}`;
+    let paypalUrl = `https://www.paypal.com/sdk/js?client-id=${window.paypalClientId}&intent=authorize`;
     this.$loadScript(paypalUrl).then(() => {
       window.paypal
         .Buttons({
@@ -73,20 +69,19 @@ export default {
                 {
                   reference_id: "PUHF",
                   amount: {
-                    value: self.$store.getters.getStudyRoomData.tutorPrice,
+                    value: self.$store.getters.getStudyRoomData.tutorPrice * 1.5,
                     currency: "USD"
                   }
                 }
               ]
             });
           },
-          onApprove: function(data, actions) {
+          onApprove: function(data) {
+            console.log(data);
             self.isLoading = true;
-            actions.order.capture().then(() => {
-              self.$store.dispatch("updatePaypalStudyRoom", {
-                orderId: data.orderID,
-                sessionId: self.$store.getters.getStudyRoomData.roomId
-              });
+            self.$store.dispatch("updatePaypalStudyRoom", {
+              orderId: data.orderID,
+              sessionId: self.$store.getters.getStudyRoomData.roomId
             });
           }
         })
