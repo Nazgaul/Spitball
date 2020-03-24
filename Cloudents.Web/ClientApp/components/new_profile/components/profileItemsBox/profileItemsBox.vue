@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import itemCard from '../../../carouselCards/itemCard.vue';
+const itemCard = () => import(/* webpackChunkName: "itemCard" */ '../../../carouselCards/itemCard.vue');
 import resultNote from "../../../results/ResultNote.vue";
 import { LanguageService } from "../../../../services/language/languageService";
 

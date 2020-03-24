@@ -16,7 +16,7 @@
                   </h6>
                   <div class="profileUserSticky_scrollHeader_rating mt-1">
                      <userRating class="scrollHeader_rating" :showRateNumber="false" :rating="getProfile.user.tutorData.rate" :size="'18'" />
-                     <span class="scrollHeader_rating_span ml-1" v-text="$Ph(getProfile.user.tutorData.reviewCount === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(getProfile.user.tutorData.reviewCount))"/>
+                     <span class="scrollHeader_rating_span ml-1" >{{$tc('resultTutor_review_one',getProfile.user.tutorData.reviewCount)}}</span>
                   </div>
                </div>
             </div>
@@ -161,9 +161,9 @@ export default {
       },
    },
    methods: {
-      reviewsPlaceHolder(reviews) {
-         return reviews === 0 ? reviews.toString() : reviews;
-      },
+      // reviewsPlaceHolder(reviews) {
+      //    return reviews === 0 ? reviews.toString() : reviews;
+      // },
       openBecomeTutor(){
          this.$openDialog(dialogNames.BecomeTutor)
       },

@@ -98,7 +98,7 @@ namespace Cloudents.Web.Api
 
             var tQueue = queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
             var textTask = Task;
-            if (crawlerResolver.Crawler != null)
+            if (crawlerResolver.Crawler != null && model.Document.DocumentType == DocumentType.Document )
             {
                 textTask = _blobProvider.DownloadTextAsync("text.txt", query.Id.ToString(), token);
             }
@@ -113,8 +113,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<CreateDocumentResponse>> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
-            [ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
+        public async Task<IActionResult> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
@@ -131,7 +130,7 @@ namespace Cloudents.Web.Api
             //{
             //    base62 = new Base62(command.Id).ToString()
             //});
-            return new CreateDocumentResponse(score >= Privileges.Post);
+            return Ok();
         }
 
 
@@ -279,9 +278,15 @@ namespace Cloudents.Web.Api
 
 
         [HttpGet("similar")]
-        public async Task<IEnumerable<DocumentFeedDto>> GetSimilarDocumentsAsync([FromQuery] SimilarDocumentsRequest request,
+        public async Task<IEnumerable<DocumentFeedDto>> GetSimilarDocumentsAsync(
+            [FromQuery] SimilarDocumentsRequest request,
+            [FromServices] ICrawlerResolver crawlerResolver,
              CancellationToken token)
         {
+            if (crawlerResolver.Crawler != null)
+            {
+                return Enumerable.Empty<DocumentFeedDto>();
+            }
             var query = new SimilarDocumentsQuery(request.DocumentId);
             var res = await _queryBus.QueryAsync(query, token);
             return res.Select(s =>

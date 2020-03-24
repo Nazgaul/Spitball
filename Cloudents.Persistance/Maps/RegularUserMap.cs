@@ -28,7 +28,7 @@ namespace Cloudents.Persistence.Maps
 
             Component(x => x.Transactions, y =>
             {
-                y.Map(x => x.Score);
+                //y.Map(x => x.Score);
                 y.Map(x => x.Balance).CustomSqlType("smallmoney");
                 y.HasMany(x => x.Transactions).KeyColumn("User_id")
                     .Inverse()

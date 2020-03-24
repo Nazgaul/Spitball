@@ -49,7 +49,8 @@
                         <template v-if="currentProfileUser.isTutor">
                             <div class="pUb_dS_c_rating" v-if="currentProfileTutor.reviewCount">
                                 <userRating class="c_rating" :showRateNumber="false" :rating="currentProfileTutor.rate" :size="'18'" />
-                                <span @click="scrollToReviews" class="pUb_dS_c_r_span ml-1" v-text="$Ph(currentProfileTutor.reviewCount === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(currentProfileTutor.reviewCount))"/>
+                                <span @click="scrollToReviews" class="pUb_dS_c_r_span ml-1">{{$tc('resultTutor_review_one',currentProfileTutor.reviewCount)}}</span>
+                               
                             </div>
                             <div v-else class="pUb_dS_c_rating">
                                 <starEmptySVG class="pUb_dS_c_rating_star"/>
@@ -70,7 +71,8 @@
             <v-flex xs4 class="pUb_top_tutorState" v-if="currentProfileUser.isTutor">
                 <div class="pUb_top_tS_list">
                     <starSVG/>
-                    <span class="pUb_t_ts_list_span pUb_t_ts_list_span_review" @click="isMobile? scrollToReviews():''" v-text="tutorStateRate(currentProfileTutor)"/>
+                    <span class="pUb_t_ts_list_span pUb_t_ts_list_span_review" @click="isMobile? scrollToReviews():''" 
+                    v-text="tutorStateRate(currentProfileTutor)"/>
                 </div>
                 <div class="pUb_top_tS_list" :class="[{'visibility_hidden':!currentProfileTutor.contentCount}]">
                     <resxSVG/>
@@ -90,8 +92,8 @@
 
         <div class="d-flex align-center">
             <div class="flex-grow-1">
-                <v-flex v-if="currentProfileUser.tutorData.description" sm9 xs12 class="profileUserBox_middle">
-                    
+                <v-flex sm9 xs12 class="profileUserBox_middle">
+                    <h3 class="pUb_middle_AboutMe" v-if="currentProfileUser.tutorData.description">{{currentProfileUser.tutorData.description}}</h3>
                     <div class="d-flex justify-space-between" v-if="currentProfileUser.isTutor">
                         <h4 v-if="currentProfileTutor.bio" class="pUb_middle_bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}
                             <span class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</span>
@@ -123,7 +125,7 @@
                 </div>
             </div>
             <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="isLogged && !currentProfileUser.isTutor">
-                <editSVG class="mr-1" v-if="!isMobile && isCurrentProfileUser" />
+                <editSVG class="mr-1" v-if="isCurrentProfileUser" />
             </v-btn>
         </div>
     </div>
@@ -229,9 +231,9 @@ export default {
     },
     methods: {
         ...mapActions(['updateEditDialog']),
-        reviewsPlaceHolder(reviews) {
-            return reviews === 0 ? reviews.toString() : reviews;
-        },
+        // reviewsPlaceHolder(reviews) {
+        //     return reviews === 0 ? reviews.toString() : reviews;
+        // },
         tutorStateRate(tutorData){
             let rate = tutorData.rate.toFixed(1);
             let reviews = tutorData.reviewCount;
@@ -513,6 +515,19 @@ export default {
         }
 
         color: #43425d;
+        .pUb_middle_AboutMe{
+            font-size: 18px;
+            font-weight: 600;
+            font-stretch: normal;
+            font-style: normal;
+            letter-spacing: normal;
+                word-break: break-word;
+            @media (max-width: @screen-xs) {
+                font-size: 16px;
+                line-height: 1.4;
+            }
+            padding-bottom: 12px;
+        }
         .pUb_middle_bio{
             margin: 0;
             padding: 0;

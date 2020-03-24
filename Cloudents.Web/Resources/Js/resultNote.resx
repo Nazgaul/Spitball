@@ -143,19 +143,13 @@
     <value>File deleted</value>
   </data>
   <data name="download" xml:space="preserve">
-    <value>Download</value>
-  </data>
-  <data name="downloads" xml:space="preserve">
-    <value>Downloads</value>
+    <value>{n} Download | {n} Downloads</value>
   </data>
   <data name="error_delete" xml:space="preserve">
     <value>Can't delete document, try again later</value>
   </data>
   <data name="purchased" xml:space="preserve">
-    <value>Purchase</value>
-  </data>
-  <data name="purchaseds" xml:space="preserve">
-    <value>Purchases</value>
+    <value>{n} Purchase | {n} Purchases</value>
   </data>
   <data name="university" xml:space="preserve">
     <value>School:</value>
@@ -164,9 +158,6 @@
     <value>Not have enough points</value>
   </data>
   <data name="view" xml:space="preserve">
-    <value>View</value>
-  </data>
-  <data name="views" xml:space="preserve">
-    <value>Views</value>
+    <value>{n} View | {n} Views</value>
   </data>
 </root>

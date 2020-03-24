@@ -73,7 +73,7 @@ namespace Cloudents.Core.Entities
 
         public abstract decimal Balance { get; }
 
-        public abstract int Score { get; protected set; }
+        //public abstract int Score { get; protected set; }
 
         public abstract void MakeTransaction(Transaction transaction);
 
