@@ -198,7 +198,7 @@ async function toggleRecord(isTutor){
         }  
       }
       if(isTutor){
-        store.dispatch('setShowUserConsentDialog', true);
+        store.dispatch('updateDialogUserConsent', true);
       }else{
         activateRecord();
       }

@@ -252,7 +252,7 @@
         <errorWithAudioRecording></errorWithAudioRecording>
       </sb-dialog>
       <sb-dialog
-        :showDialog="getShowUserConsentDialog"
+        :showDialog="getDialogUserConsent"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'userConsentDialog'"
         :maxWidth="'356'"
@@ -407,6 +407,7 @@ export default {
       "getIsFullScreenAvailable",
       "getDialogTutorStart",
       "getRoomIsNeedPayment",
+      "getDialogUserConsent",
 
       
       "getDialogRoomSettings",
@@ -421,7 +422,6 @@ export default {
       "getIsRecording",
       "getShowAudioRecordingError",
       "getVisitedSettingPage",
-      "getShowUserConsentDialog",
       "getSnapshotDialog",
     ]),
     isRoomTutor(){
@@ -492,7 +492,7 @@ watch: {
       "openChatInterface",
       "updateEndDialog",
       "setShowAudioRecordingError",
-      "setShowUserConsentDialog",
+      "updateDialogUserConsent",
       "setSnapshotDialog",
       "stopTracks"
     ]),
@@ -638,7 +638,7 @@ watch: {
       studyRoomRecordingService.toggleRecord(this.isTutor);
     },
     closeUserConsentDialog(){
-      this.setShowUserConsentDialog(false);
+      this.updateDialogUserConsent(false);
     },
     closeSnapshotDialog(){
       this.setSnapshotDialog(false);

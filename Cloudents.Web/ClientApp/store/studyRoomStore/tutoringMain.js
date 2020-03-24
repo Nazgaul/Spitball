@@ -24,7 +24,6 @@ const state = {
 //     studentStartDialog: false,
 //     sessionTimeStart: null,
 //     sessionTimeEnd: null,
-//     showUserConsentDialog: false,
 //     snapshotDialog: false,    
 };
 const getters = {
@@ -38,7 +37,6 @@ const getters = {
 //     getStudentDialogState: state => state.studentDialogState,
 //     getSessionTimeStart: state => state.sessionTimeStart,
 //     getSessionTimeEnd: state => state.sessionTimeEnd,
-//     getShowUserConsentDialog: state => state.showUserConsentDialog,
 //     getSnapshotDialog: state => state.snapshotDialog,
 };
 
@@ -76,9 +74,6 @@ const mutations = {
 //     },
 //     setSessionTimeEnd(state, val){
 //         state.sessionTimeEnd = val;
-//     },
-//     setShowUserConsentDialog(state, val){
-//         state.showUserConsentDialog = val;
 //     },
 //     setSnapshotDialog(state, val){
 //         state.snapshotDialog = val;
@@ -218,10 +213,6 @@ const actions = {
 //     },
 //     setSessionTimeEnd({commit}){
 //         commit('setSessionTimeEnd', Date.now());
-//     },
-//     setShowUserConsentDialog({commit}, val){
-//         console.warn('DEBUG: 21 store: setShowUserConsentDialog')
-//         commit('setShowUserConsentDialog', val);
 //     },
 //     setSnapshotDialog({commit}, val){
 //         commit('setSnapshotDialog', val);
