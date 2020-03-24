@@ -5,22 +5,16 @@
       <span @click="openAskQuestion()" class="rA_txt text-truncate" v-html="$Ph('requestActions_title',userName)" />
     </div>
     <v-layout class="rA_bottom">
-      <v-flex xs4 class="rA_btn">
+      <v-flex xs6 class="rA_btn">
         <v-btn :ripple="false" depressed text block @click="openRequestTutor()" sel="request">
           <rTutor class="rA_i" />
-          <span v-language:inner="$vuetify.breakpoint.smAndDown ?'requestActions_btn_tutor_mob':'requestActions_btn_tutor'"/>
+          <span v-t="$vuetify.breakpoint.smAndDown ?'requestActions_btn_tutor_mob':'requestActions_btn_tutor'"/>
         </v-btn>
       </v-flex>
-      <v-flex xs4 class="rA_btn">
-        <v-btn :ripple="false" text block v-openDialog="uploadDialog" sel="upload">
-          <uStudy class="rA_i mr-1" />
-          <span v-language:inner="$vuetify.breakpoint.smAndDown ?'requestActions_btn_upload_mob':'requestActions_btn_upload'"/>
-        </v-btn>
-      </v-flex>
-      <v-flex xs4 class="rA_btn">
+      <v-flex xs6 class="rA_btn">
         <v-btn :ripple="false" text block @click="openAskQuestion()" sel="ask">
           <aQuestion class="rA_i" />
-          <span v-language:inner="$vuetify.breakpoint.smAndDown ?'requestActions_btn_ask_mob':'requestActions_btn_ask'"/>
+          <span v-t="$vuetify.breakpoint.smAndDown ?'requestActions_btn_ask_mob':'requestActions_btn_ask'"/>
         </v-btn>
       </v-flex>
     </v-layout>
@@ -30,22 +24,15 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import analyticsService from "../../../../../services/analytics.service";
-import * as dialogNames from '../../../global/dialogInjection/dialogNames.js'
 
 import aQuestion from "./image/aQuestion.svg";
 import rTutor from "./image/rTutor.svg";
-import uStudy from "./image/uStudy.svg";
 
 export default {
   name: "requestActions",
-  components: {uStudy, rTutor, aQuestion },
-  data() {
-    return {
-      uploadDialog: dialogNames.Upload
-    }
-  },
+  components: {rTutor, aQuestion },
   computed: {
-    ...mapGetters(["accountUser", "getSelectedClasses",'getUserLoggedInStatus']),
+    ...mapGetters(["accountUser",'getUserLoggedInStatus']),
     userImageUrl() {
       if(this.getUserLoggedInStatus && this.accountUser.image.length > 1) {
         return `${this.accountUser.image}`;
