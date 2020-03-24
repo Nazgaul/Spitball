@@ -2,6 +2,7 @@
     <v-snackbar
         absolute
         top
+        @input="onCloseToaster"
         :timeout="params.timeout || 3000"
         :value="true"
     >
@@ -18,6 +19,11 @@ export default {
             type:Object,
             required:true
         }
-    }
+    },
+    methods: {
+        onCloseToaster() {
+            this.$store.commit('clearToaster')
+        }
+    },
 }
 </script>
