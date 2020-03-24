@@ -7,7 +7,7 @@ import {questionRoutes} from './routes/questionRoutes.js';
 import {itemRoutes} from './routes/itemRoutes.js';
 import {feedRoutes} from './routes/feedRoutes.js';
 import {courseRoutes} from './routes/courseRoutes.js';
-import {universityRoutes} from './routes/universityRoutes.js';
+// import {universityRoutes} from './routes/universityRoutes.js';
 import {globalRoutes} from './routes/globalRoutes.js';
 import {marketingRoutes} from './routes/marketingRoutes.js';
 
@@ -22,7 +22,7 @@ let routes2 = [
     ...itemRoutes,
     ...feedRoutes,
     ...courseRoutes,
-    ...universityRoutes,
+    // ...universityRoutes,
     ...globalRoutes,
 ];
 export const routes = routes2;
