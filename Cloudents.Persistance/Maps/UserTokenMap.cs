@@ -11,6 +11,7 @@ namespace Cloudents.Persistence.Maps
             Id(x => x.Id).GeneratedBy.GuidComb();
             Map(m => m.TokenId).Not.Nullable();
             Map(m => m.Created).Insert().Not.Update();
+            Map(m => m.Updated);
             Map(x => x.State).Not.Nullable();
             Map(x => x.Amount).CustomSqlType("Money");
             References(f => f.StudyRoom).Not.Nullable();

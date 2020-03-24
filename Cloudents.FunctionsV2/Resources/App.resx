@@ -151,8 +151,8 @@ Click here {link} to chat and schedule a lesson.</value>
     <value>Hi {UserFirstName}, 
 {FirstMessageStudentName} would like to schedule a tutoring session with you in {CourseName} {Request}.
 You can reach {FirstMessageStudentName} through Spitball {link}.  
-Alternatively you can reach {UserFirstName} through WhatApp : {WhatsappLink}.
-If you are unable to connect with {UserFirstName}, feel free to reach out to me via WhatsApp at+972527368268 or by email at support@spitball.co.
+Alternatively you can reach {FirstMessageStudentName} through WhatApp : {WhatsappLink}.
+If you are unable to connect with {FirstMessageStudentName}, feel free to reach out to me via WhatsApp at+972527368268 or by email at support@spitball.co.
 Cheers, Yaniv Silovisky
 </value>
   </data>

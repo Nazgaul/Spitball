@@ -63,7 +63,8 @@ namespace Cloudents.Infrastructure
             return DownloadStreamAsync(url, default, token);
         }
 
-        public async Task<(Stream stream, EntityTagHeaderValue etagHeader)> DownloadStreamAsync(Uri url, AuthenticationHeaderValue auth, CancellationToken token)
+        public async Task<(Stream stream, EntityTagHeaderValue etagHeader)> DownloadStreamAsync(Uri url,
+            AuthenticationHeaderValue? auth, CancellationToken token)
         {
             _client.DefaultRequestHeaders.Clear();
             if (auth != null)
@@ -91,13 +92,13 @@ namespace Cloudents.Infrastructure
         //}
 
         [Log]
-        public Task<T> GetAsync<T>(Uri url, NameValueCollection queryString, CancellationToken token)
+        public Task<T> GetAsync<T>(Uri url, NameValueCollection? queryString, CancellationToken token)
         {
             return GetAsync<T>(url, queryString, null, token);
         }
 
         [Log]
-        public async Task<T> GetAsync<T>(Uri url, NameValueCollection queryString, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
+        private async Task<T> GetAsync<T>(Uri url, NameValueCollection? queryString, IEnumerable<KeyValuePair<string, string>>? headers, CancellationToken token)
         {
             _client.DefaultRequestHeaders.Clear();
             foreach (var (key, value) in headers ?? Enumerable.Empty<KeyValuePair<string, string>>())

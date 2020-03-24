@@ -21,6 +21,17 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             });
         }
 
+        [Fact]
+        public async Task GetAsync_Profile_OKAsync()
+        {
+            var response = await _client.GetAsync("api/profile/159489");
+
+            response.EnsureSuccessStatusCode();
+            var str = await response.Content.ReadAsStringAsync();
+            var d = JObject.Parse(str);
+            var courses = d["courses"].Value<JArray>();
+            courses.Should().NotBeEmpty().And.NotBeNull();
+        }
 
         [Theory]
         [InlineData("api/profile/159489")]

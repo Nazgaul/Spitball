@@ -1,6 +1,6 @@
 <template>
  <div class="myStudyRooms">
-      <div class="myStudyRooms_title" v-language:inner="'schoolBlock_my_study_rooms'"/>
+ 
       <v-data-table 
             :headers="headers"
             :items="studyRoomItems"
@@ -17,7 +17,13 @@
                nextIcon: 'sbf-arrow-right-carousel',
                itemsPerPageOptions: [5]
             }">
-            
+         <template v-slot:top>
+            <div class="tableTop d-flex align-center justify-space-between">
+               <div class="myStudyRooms_title">{{$t('schoolBlock_my_study_rooms')}}</div>
+               <v-btn class="link white--text" :to="{name: routeNames.StudyRoom}" depressed color="#5360FC">{{$t('dashboardPage_link_studyroom')}}</v-btn>
+            </div>
+         </template>
+
          <template v-slot:header="{props}">
             <thead>
                <tr>
@@ -46,7 +52,7 @@
                   </v-btn>
                   <v-btn class="myStudyRooms_btns myStudyRooms_btns_enterRoom" depressed rounded color="white" @click="enterRoom(props.item.id)">
                      <enterRoom class="myStudyRooms_btn_icon"/>
-                     <span class="myStudyRooms_btn_txt" v-language:inner="'dashboardPage_enter_room'"/>
+                     <span class="myStudyRooms_btn_txt">{{$t('dashboardPage_enter_room')}}</span>
                   </v-btn>
                </td>
             </tr>
@@ -62,18 +68,23 @@ import tablePreviewTd from '../global/tablePreviewTd.vue';
 import tableInfoTd from '../global/tableInfoTd.vue';
 import iconChat from './images/icon-chat.svg';
 import enterRoom from './images/enterRoom.svg';
-import { LanguageService } from '../../../../services/language/languageService';
-
+import * as routeNames from '../../../../routes/routeNames'
 
 export default {
-   name:'myStudyRooms',
-   components:{tablePreviewTd,tableInfoTd,iconChat,enterRoom},
+   name: 'myStudyRooms',
+   components:{
+      tablePreviewTd,
+      tableInfoTd,
+      iconChat,
+      enterRoom
+   },
    data() {
       return {
+         routeNames,
+         sortedBy:'',
          paginationModel:{
             page:1
          },
-         sortedBy:'',
          headers:[
             this.dictionary.headers['preview'],
             this.dictionary.headers['student_tutor'],
@@ -91,17 +102,19 @@ export default {
    },
    computed: {
       ...mapGetters(['getStudyRoomItems']),
+
       studyRoomItems(){
          return this.getStudyRoomItems
       },
    },
    methods: {
       ...mapActions(['updateStudyRoomItems','dashboard_sort','openChatInterface','setActiveConversationObj']),
+
       showFirstName(name) {
          let maxChar = 4;
          name = name.split(' ')[0];
          if(name.length > maxChar) {
-         return LanguageService.getValueByKey('resultTutor_message_me');
+         return this.$t('resultTutor_message_me');
          }
          return name;
       },
@@ -142,23 +155,30 @@ export default {
 </script>
 
 <style lang="less">
+@import '../../../../styles/mixin.less';
+@import '../../../../styles/colors.less';
+
 .myStudyRooms{
    max-width: 1334px;
-   .myStudyRooms_title{
-      font-size: 22px;
-      color: #43425d;
-      font-weight: 600;
+   .tableTop {
       padding: 30px;
-      line-height: 1.3px;
-      background: #fff;
-      box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)!important;
+      color: @global-purple !important;
+      .myStudyRooms_title{
+         font-size: 22px;
+         font-weight: 600;
+         line-height: 1.3px;
+         background: #fff;
+      }
+      .link {
+         color: inherit;
+      }
    }
    .myStudyRooms_table{
       thead{
          tr{
             height: auto;
             th{
-               color: #43425d !important;
+               color: @global-purple !important;
                font-size: 14px;
                padding-top: 14px;
                padding-bottom: 14px;
@@ -166,7 +186,7 @@ export default {
                min-width: 130px;
             }
          }
-         color: #43425d !important;
+         color: @global-purple !important;
       }
       .myStudyRooms_action{
          outline: none;
@@ -198,13 +218,13 @@ export default {
          &.myStudyRooms_btns_enterRoom{
             // max-width: 170px;
             font-weight: bold;
-            color: #43425d;
-            border: solid 1px #43425d !important;
+            color: @global-purple;
+            border: solid 1px @global-purple !important;
          }
       }
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
          transform: none /*rtl:rotate(180deg)*/;
-         color: #43425d !important;
+         color: @global-purple !important;
          height: inherit;
          font-size: 14px;
       }
@@ -212,7 +232,7 @@ export default {
          padding: 6px 0;
          .v-data-footer__pagination {
             font-size: 14px;
-            color: #43425d;
+            color: @global-purple;
          }
       }
    }

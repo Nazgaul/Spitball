@@ -10,13 +10,10 @@ namespace Cloudents.Command.CommandHandler.Admin
     public class UpdateUserBalanceCommandHandler : ICommandHandler<UpdateUserBalanceCommand>
     {
         private readonly IRegularUserRepository _userRepository;
-        private readonly ITransactionRepository _transactionRepository;
 
-        public UpdateUserBalanceCommandHandler(IRegularUserRepository userRepository,
-            ITransactionRepository transactionRepository)
+        public UpdateUserBalanceCommandHandler(IRegularUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _transactionRepository = transactionRepository;
         }
 
 
@@ -24,11 +21,9 @@ namespace Cloudents.Command.CommandHandler.Admin
         {
             foreach (var id in message.UsersIds)
             {
-                //TODO: we can do it better
                 var user = await _userRepository.LoadAsync(id, token);
-                var balance = await _transactionRepository.GetBalanceAsync(id, token);
-                var score = (int)(await _transactionRepository.GetUserScoreAsync(id, token));
-                user.UpdateUserBalance(balance, score);
+
+                user.UpdateUserBalance();
                 await _userRepository.UpdateAsync(user, token);
 
             }

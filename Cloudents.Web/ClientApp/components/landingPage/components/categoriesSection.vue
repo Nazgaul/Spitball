@@ -60,7 +60,7 @@
 import compSVG from "../images/com.svg";
 import pplSVG from "../images/ppl.svg";
 import vidSVG from "../images/vid.svg";
-import sbCarousel from "../../sbCarousel/sbCarousel.vue";
+const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */"../../sbCarousel/sbCarousel.vue");
 import { LanguageService } from "../../../services/language/languageService.js";
 
 export default {

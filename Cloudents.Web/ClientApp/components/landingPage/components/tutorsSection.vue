@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import sbCarousel from "../../sbCarousel/sbCarousel.vue";
+const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */"../../sbCarousel/sbCarousel.vue");
 import tutorCard from "../../carouselCards/tutorCard.vue"
 import { mapActions, mapGetters } from "vuex";
 export default {

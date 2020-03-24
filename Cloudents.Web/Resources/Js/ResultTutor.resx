@@ -120,11 +120,8 @@
   <data name="hour" xml:space="preserve">
     <value>hour</value>
   </data>
-  <data name="reviews_many" xml:space="preserve">
-    <value>{1} Reviews</value>
-  </data>
   <data name="review_one" xml:space="preserve">
-    <value>{1} Review</value>
+    <value>Still Collecting reviews | {n} Review | {n} Reviews</value>
   </data>
   <data name="courses" xml:space="preserve">
     <value>Course:</value>
@@ -144,9 +141,6 @@
   </data>
   <data name="no_hours_completed" xml:space="preserve">
     <value>Lessons coming soon</value>
-  </data>
-  <data name="no_reviews" xml:space="preserve">
-    <value>Still Collecting reviews</value>
   </data>
   <data name="message_me" xml:space="preserve">
     <value>me</value>

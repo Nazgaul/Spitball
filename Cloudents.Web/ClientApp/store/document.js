@@ -102,8 +102,6 @@ const actions = {
     getStudyDocuments({commit}, {course,id}) {
         documentService.getStudyDocuments({course, documentId: id}).then(items => {
             commit('setRelatedDocs', items);
-        }).catch(ex => {
-            console.log(ex);
         });
     },
     setNewDocumentPrice({ commit }, price) {

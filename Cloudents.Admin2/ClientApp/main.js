@@ -16,6 +16,9 @@ import vueClipboard from 'vue-clipboard2'
 const vueUploadComponent = require('vue-upload-component');
 Vue.component('file-upload', vueUploadComponent);
 
+const vueJsonToCsv = require('vue-json-to-csv');
+Vue.component('json-to-csv', vueJsonToCsv);
+
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(toaster);
@@ -26,6 +29,7 @@ Vue.use(vuetify,
         }
     });
 Vue.use(vueClipboard);
+
 // 10/12/2018
 Vue.filter('dateFromISO', function (value) {
     let d = new Date(value);

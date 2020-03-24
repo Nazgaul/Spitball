@@ -9,7 +9,8 @@
                </div>
                <div class="profileReviewsBox_state_score_rating">
                   <userRating class="state_score_rating" :showRateNumber="false" :rating="getProfile.user.tutorData.rate" :size="'20'" />
-                  <span class="state_score_rating_span pl-1" v-text="$Ph(getProfile.user.tutorData.reviewCount === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(getProfile.user.tutorData.reviewCount))"/>
+                  <span class="state_score_rating_span pl-1" >{{$tc('resultTutor_review_one',getProfile.user.tutorData.reviewCount)}}</span>
+                
                </div>
             </div>
             <div class="profileReviewsBox_state_stats">
@@ -68,9 +69,9 @@ export default {
       },
    },
    methods: {
-      reviewsPlaceHolder(reviews) {
-         return reviews === 0 ? reviews.toString() : reviews;
-      },
+      // reviewsPlaceHolder(reviews) {
+      //    return reviews === 0 ? reviews.toString() : reviews;
+      // },
       sortRate(ratesArray){
          return ratesArray.sort((a,b)=> {
             return b.rate - a.rate

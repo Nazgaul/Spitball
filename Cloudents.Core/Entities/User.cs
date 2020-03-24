@@ -47,21 +47,16 @@ namespace Cloudents.Core.Entities
 
         public virtual bool LockoutEnabled { get; set; }
 
-        // public virtual bool TwoFactorEnabled { get; set; }
 
         public virtual string LockoutReason { get; set; }
 
-        // ReSharper disable once CollectionNeverUpdated.Local Nhiberate
-        //private readonly IList<Answer> _answers = new List<Answer>();
 
         protected internal virtual ICollection<Answer> Answers { get; set; }
         protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
 
-        //protected internal virtual ISet<UserCourse> UserCourses { get; protected set; }
 
 
 
-        //private readonly ISet<UserCourse> _userCourses = new HashSet<UserCourse>();
         private readonly ISet<UserCourse> _userCourses = new HashSet<UserCourse>();
 
         public virtual IEnumerable<UserCourse> UserCourses => _userCourses.ToList();
@@ -184,7 +179,7 @@ namespace Cloudents.Core.Entities
 
             Tutor = new Tutor(bio, this, price);
             Description = description;
-            UserType2 = UserType.Teacher;
+            SetUserType(UserType.Teacher);
             ChangeName(firstName, lastName);
             foreach (var userCourse in UserCourses)
             {
@@ -238,7 +233,7 @@ namespace Cloudents.Core.Entities
             var userToken = UserTokens.FirstOrDefault(w => w.State == UserTokenState.NotUsed);
             if (userToken != null)
             {
-                userToken.State = UserTokenState.Used;
+                userToken.ChangeToUsedState();
             }
 
             UseCoupon(tutor);
@@ -276,11 +271,7 @@ namespace Cloudents.Core.Entities
             LastOnline = DateTime.UtcNow;
         }
 
-        //public virtual void DeleteFirstAndLastName()
-        //{
-        //    FirstName = null;
-        //    LastName = null;
-        //}
+       
 
         public virtual void ChangeName(string firstName, string? lastName)
         {
@@ -326,9 +317,10 @@ namespace Cloudents.Core.Entities
             AddEvent(new UserUnSuspendEvent(this));
         }
 
-        public virtual void UpdateUserBalance(decimal balance, int score)
+        public virtual void UpdateUserBalance()
         {
-            Transactions.UpdateBalance(balance, score);
+            var balance = Transactions.Balance;
+            Transactions.UpdateBalance(balance);
         }
 
         public virtual void UpdateUserImage(string image, string imageName)
@@ -388,7 +380,7 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public override int Score { get; protected set; }  //=> Transactions.Score;
+       // public override int Score { get; protected set; }  //=> Transactions.Score;
         public override decimal Balance => Transactions.Balance;
 
 
@@ -400,6 +392,16 @@ namespace Cloudents.Core.Entities
 
         public virtual void SetUserType(UserType userType)
         {
+
+            //(userType,Tutor) switch
+            //{
+            //    (UserType.UniversityStudent, _) => Extend = new CollegeStudent(this),
+            //    (UserType.HighSchoolStudent, _) => Extend = new HighSchoolStudent(this),
+            //    (UserType.Parent, _) => Extend = new Parent(this),
+            //    (UserType.Teacher, null) => {Extend = new CollegeStudent(this)}
+            //    (UserType.Teacher, _) => Extend = new Teacher(this);,
+            //}
+          
             switch (userType)
             {
                 case UserType.UniversityStudent:
@@ -414,7 +416,17 @@ namespace Cloudents.Core.Entities
 
                     break;
                 case UserType.Teacher:
-                    Extend = new Teacher(this);
+                    if (Tutor == null)
+                    {
+                        Extend = new CollegeStudent(this);
+                        UserType2 = UserType.HighSchoolStudent;
+                        return;
+                    }
+                    else
+                    {
+                        Extend = new Teacher(this);
+                    }
+
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(userType), userType, null);
@@ -423,6 +435,7 @@ namespace Cloudents.Core.Entities
             UserType2 = userType;
         }
 
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Nhibernate")] 
         protected internal virtual ICollection<UserComponent> UserComponents { get; set; }
 
         public virtual UserComponent Extend

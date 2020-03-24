@@ -36,48 +36,6 @@ namespace Cloudents.Infrastructure
             }
 
             return await _services[query.Filter].GetFeedAsync(query, token);
-
-            //if (query.Filter is null)
-            //{
-            //    var feedQuery = new FeedAggregateQuery(query.UserId, query.Page, query.Country, query.Course, ItemPageSize);
-            //    var itemsTask = _queryBus.QueryAsync(feedQuery, token);
-            //    var tutorsTask = GetTutorsFeedAsync(query.UserId, query.Country, query.Page, query.Course, TutorPageSize, token);
-
-            //    await Task.WhenAll(itemsTask, tutorsTask);
-
-            //    return SortFeed(itemsTask.Result.ToList(),
-            //        tutorsTask.Result.ToList(),
-            //        query.Page);
-            //}
-
-
-            //if (query.Filter == Core.Enum.FeedType.Tutor)
-            //{
-            //    return await GetTutorsFeedAsync(query.UserId, query.Country, query.Page, query.Course, 21, token);
-            //    //await Task.WhenAll(tutorsTask);
-            //    //return tutorsTask.Result;
-            //}
-
-            //if (query.Filter == Core.Enum.FeedType.Document || query.Filter == Core.Enum.FeedType.Video)
-            //{
-            //    var feedQuery = new DocumentFeedWithFliterQuery(query.Page, query.UserId, query.Filter, query.Country, query.Course, 21);
-            //    var itemsFeed = await _queryBus.QueryAsync(feedQuery, token);
-            //    //Query docs/video
-            //    return itemsFeed;
-            //}
-
-            //if (query.Filter == Core.Enum.FeedType.Question)
-            //{
-            //    var feedQuery = new QuestionFeedWithFliterQuery(query.Page, query.UserId, query.Country, query.Course, 21);
-            //    var itemsFeed = await _queryBus.QueryAsync(feedQuery, token);
-            //    //Question query
-            //    return itemsFeed;
-            //}
-
-
-            //return null;
-
-
         }
 
         public async Task<IEnumerable<FeedDto>> GetFeedAsync(GetFeedWithCourseQuery query, CancellationToken token)
