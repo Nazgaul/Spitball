@@ -264,7 +264,7 @@
       </sb-dialog>
 
       <sb-dialog
-        :showDialog="getSnapshotDialog"
+        :showDialog="getDialogSnapshot"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'studyroomSnapshotDialog'"
         :maxWidth="'800'"
@@ -422,7 +422,7 @@ export default {
       "getIsRecording",
       "getShowAudioRecordingError",
       "getVisitedSettingPage",
-      "getSnapshotDialog",
+      "getDialogSnapshot",
     ]),
     isRoomTutor(){
       return this.$store.getters.getRoomIsTutor;
@@ -493,7 +493,7 @@ watch: {
       "updateEndDialog",
       "setShowAudioRecordingError",
       "updateDialogUserConsent",
-      "setSnapshotDialog",
+      "updateDialogSnapshot",
       "stopTracks"
     ]),
     handleNeedPayment(needPayment){
@@ -641,7 +641,7 @@ watch: {
       this.updateDialogUserConsent(false);
     },
     closeSnapshotDialog(){
-      this.setSnapshotDialog(false);
+      this.updateDialogSnapshot(false);
     }
   },
   mounted() {

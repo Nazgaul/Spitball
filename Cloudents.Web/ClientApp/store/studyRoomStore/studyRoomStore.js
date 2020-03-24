@@ -28,6 +28,7 @@ const state = {
    dialogRoomSettings: false,
    dialogEndSession: false,
    dialogUserConsent: false,
+   dialogSnapshot: false,
 
    roomProps: null,
 }
@@ -70,6 +71,7 @@ const mutations = {
       state.roomProps = null;
    },
    [studyRoom_SETTERS.DIALOG_USER_CONSENT]: (state, val) => state.dialogUserConsent = val,
+   [studyRoom_SETTERS.DIALOG_SNAPSHOT]: (state, val) => state.dialogSnapshot = val,
 }
 const getters = {
    getActiveNavIndicator: state => state.activeNavIndicator,
@@ -93,8 +95,12 @@ const getters = {
    getDialogRoomEnd: state => state.roomIsActive && state.roomIsTutor && state.dialogEndSession,
    getDialogTutorStart: state => !state.roomIsActive && state.roomIsTutor,
    getDialogUserConsent: state => state.dialogUserConsent,
+   getDialogSnapshot: state => state.dialogSnapshot,
 }
 const actions = {
+   updateDialogSnapshot({ commit }, val) {
+      commit(studyRoom_SETTERS.DIALOG_SNAPSHOT, val);
+   },
    updateDialogUserConsent({ commit }, val) {
       commit(studyRoom_SETTERS.DIALOG_USER_CONSENT, val);
    },

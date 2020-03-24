@@ -24,7 +24,6 @@ const state = {
 //     studentStartDialog: false,
 //     sessionTimeStart: null,
 //     sessionTimeEnd: null,
-//     snapshotDialog: false,    
 };
 const getters = {
 //     activeRoom: state => state.currentActiveRoom,
@@ -37,7 +36,6 @@ const getters = {
 //     getStudentDialogState: state => state.studentDialogState,
 //     getSessionTimeStart: state => state.sessionTimeStart,
 //     getSessionTimeEnd: state => state.sessionTimeEnd,
-//     getSnapshotDialog: state => state.snapshotDialog,
 };
 
 const mutations = {
@@ -74,9 +72,6 @@ const mutations = {
 //     },
 //     setSessionTimeEnd(state, val){
 //         state.sessionTimeEnd = val;
-//     },
-//     setSnapshotDialog(state, val){
-//         state.snapshotDialog = val;
 //     },
 };
 
@@ -213,9 +208,6 @@ const actions = {
 //     },
 //     setSessionTimeEnd({commit}){
 //         commit('setSessionTimeEnd', Date.now());
-//     },
-//     setSnapshotDialog({commit}, val){
-//         commit('setSnapshotDialog', val);
 //     },
 };
 export default {
