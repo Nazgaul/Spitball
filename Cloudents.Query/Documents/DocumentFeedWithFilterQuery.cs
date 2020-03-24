@@ -87,7 +87,7 @@ select 'd' as type
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
 left join sb.University un on un.Id = d.UniversityId
-join cte on un.country = cte.country or u.country = cte.country
+join cte on coalesce(un.country, u.country) = cte.country
 where
 d.State = 'Ok'
 and d.courseName = @course
@@ -138,7 +138,7 @@ select 'd' as type
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
 left join sb.University un on un.Id = d.UniversityId
-join cte on un.country = cte.country or u.country = cte.country
+join cte on coalesce(un.country, u.country) = cte.country
 where
     d.UpdateTime > GETUTCDATE() - 182
 and d.State = 'Ok'
