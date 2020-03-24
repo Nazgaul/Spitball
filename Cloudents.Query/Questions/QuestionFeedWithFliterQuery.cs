@@ -81,7 +81,7 @@ outer apply (
 select top 1 text, u.id, u.name, u.image, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
 ) as x
-join cte on un.country = cte.country or u.country = cte.country
+join cte on coalesce(un.country, u.country) = cte.country
 where
     q.Updated > GetUtcDATE() - 182
 and q.courseId = @course
@@ -134,7 +134,7 @@ select  top 1 text,u.id,u.name,u.image, a.Created from sb.Answer a join sb.[user
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
 
 ) as x
-join cte on un.country = cte.country or u.country = cte.country
+join cte on coalesce(un.country, u.country) = cte.country
 where 
     q.Updated > GETUTCDATE() - 182
 and q.State = 'Ok'
