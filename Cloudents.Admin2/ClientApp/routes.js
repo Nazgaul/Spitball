@@ -40,7 +40,7 @@ import userNotes from './components/userMainView/userNotes/userNotes.vue';
 
 import management from './components/management/Management.vue';
 import coursesPending from './components/management/coursesPending/coursesPending.vue';
-import universityPending from './components/management/universityPending/universityPending.vue';
+//import universityPending from './components/management/universityPending/universityPending.vue';
 import shortUrl from './components/management/shortUrl/shortUrl.vue';
 
 import conversation from './components/conversation/conversation.vue';
@@ -295,10 +295,10 @@ export const routes = [
                 path: 'coursesPending',
                 component: coursesPending
             },
-            {
-                path: 'universityPending',
-                component: universityPending
-            },
+            //{
+            //    path: 'universityPending',
+            //    component: universityPending
+            //},
             {
               path: 'shortUrl',
               component: shortUrl
