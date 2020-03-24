@@ -111,6 +111,7 @@ export default {
     },
   },
   async created(){
+    this.$store.dispatch('updateStudyRoomInformationForSettings',this.id)
     if(this.$vuetify.breakpoint.xsOnly){
       this.$router.push({name:'tutoring', params:{id:this.id}})
     }

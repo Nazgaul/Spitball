@@ -32,7 +32,7 @@ methods:{
     global.location.reload();
   },
   nextPage(){
-    let isRecordingSupported = !this.$store.getters.getRoomIsTutor || true;
+    let isRecordingSupported = !this.$store.getters.getRoomIsTutorSettings;
     if(isRecordingSupported){
     this.nextStep('watchRecordedStep', true);
   }else{
