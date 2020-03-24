@@ -162,6 +162,7 @@ const actions = {
       })
    },
    updateResetRoom({ commit }) {
+      commit(studyRoom_SETTERS.ROOM_ACTIVE, false);
       commit(studyRoom_SETTERS.ROOM_RESET)
    }
 }
