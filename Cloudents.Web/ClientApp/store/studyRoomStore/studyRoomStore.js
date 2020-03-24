@@ -113,15 +113,15 @@ const actions = {
    updateDialogRoomSettings({ commit }, val) {
       commit(studyRoom_SETTERS.DIALOG_ROOM_SETTINGS, val)
    },
-   updateEnterRoom({ commit }, roomId) { // when tutor press start session
+   updateEnterRoom({ dispatch }, roomId) { // when tutor press start session
       studyRoomService.enterRoom(roomId).then((jwtToken) => {
-         commit(twilio_SETTERS.JWT_TOKEN, jwtToken)
+         dispatch('updateJwtToken',jwtToken);
       })
    },
-   updateRoomIsNeedPayment({ commit,getters }, isNeedPayment) {
+   updateRoomIsNeedPayment({ commit,getters ,dispatch}, isNeedPayment) {
       commit(studyRoom_SETTERS.ROOM_PAYMENT, isNeedPayment)
       if(getters.getJwtToken){ 
-         commit(twilio_SETTERS.JWT_TOKEN, getters.getJwtToken)
+         dispatch('updateJwtToken',getters.getJwtToken);
       }
    },
 
@@ -139,7 +139,7 @@ const actions = {
          return studyRoomService.getRoomInformation(roomId).then((roomProps) => {
             commit(studyRoom_SETTERS.ROOM_PROPS, roomProps)
             if (roomProps.jwt){
-               commit(twilio_SETTERS.JWT_TOKEN, roomProps.jwt)
+               dispatch('updateJwtToken',roomProps.jwt);
             }
             return dispatch('studyRoomMiddleWare')
          })

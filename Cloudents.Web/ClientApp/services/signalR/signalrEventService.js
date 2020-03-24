@@ -53,7 +53,7 @@ function startConnection(connectionInstance, messageString) {
         store.dispatch('setIsSignalRConnected', true);
         connectionOn(connectionInstance.connection, messageString, messageHandler);
         connectionOn(connectionInstance.connection, "studyRoomToken", (jwtToken) => {
-            store.commit(twilio_SETTERS.JWT_TOKEN,jwtToken)
+            store.dispatch('updateJwtToken',jwtToken);
         });
         console.log("signal-R Conected", connectionInstance);
         connectionInstance.isConnected = true;

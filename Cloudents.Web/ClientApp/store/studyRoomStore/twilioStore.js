@@ -30,7 +30,10 @@ const getters = {
    getIsShareScreen: (state) => state.isShareScreen,
 }
 const actions = {
-   updateJwtToken({commit},token){
+   updateJwtToken({commit,getters},token){
+      if(!getters.getRoomIsTutor){
+         commit('setToaster', 'simpleToaster_sessionStarted');
+      }
       commit(twilio_SETTERS.JWT_TOKEN,token)
    },
    sendDataTrack({commit},data){

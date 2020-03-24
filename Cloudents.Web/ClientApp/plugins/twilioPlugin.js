@@ -67,13 +67,7 @@ function _twilioListeners(room,store) {
 
 
    // room events
-   room.on('trackSubscribed', (track,RemoteTrackPublication,remoteParticipant) => {
-      if(track.kind == 'data'){
-         let isRemoteTutorTrack = (remoteParticipant.identity == store.getters.getRoomTutor.tutorId);
-         if(isRemoteTutorTrack){
-            store.commit('setToaster', 'simpleToaster_sessionStarted');
-         }
-      }
+   room.on('trackSubscribed', (track) => {
       _insightEvent('TwilioTrackSubscribed', track, null);
       _detachTracks([track])
    })
