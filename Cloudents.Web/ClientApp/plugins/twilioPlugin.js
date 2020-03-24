@@ -285,6 +285,7 @@ export default () => {
                }else{
                   if(_localScreenTrack){
                      _localScreenTrack.stop()
+                     _localScreenTrack = null;
                   }
                }
             }
