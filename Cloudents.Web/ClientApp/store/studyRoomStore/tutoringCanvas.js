@@ -94,9 +94,7 @@ const getters = {
 
 const mutations = {
     setTabName(state, {tabName,tabId}){
-        debugger
         state.canvasTabs.forEach(tab =>{
-            debugger
             if(tab.id === tabId){
                 tab.name = tabName;
             }

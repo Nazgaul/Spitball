@@ -63,18 +63,15 @@ function _twilioListeners(room,store) {
       _insightEvent('networkQuality',networkQualityStats, networkQualityLevel)
    });
    room.localParticipant.on('trackPublished',(track)=>{
-      debugger;
    })
 
 
    // room events
    room.on('trackSubscribed', (track) => {
-      debugger
       _insightEvent('TwilioTrackSubscribed', track, null);
       _detachTracks([track])
    })
    room.on('trackUnsubscribed', (track, publication, participant) => {
-      debugger
       if(track.kind === 'video'){
          store.commit(twilio_SETTERS.FULL_SCREEN_AVAILABLE,false);
      }
@@ -82,22 +79,16 @@ function _twilioListeners(room,store) {
       _detachTracks([track]);
    })
    room.on('participantReconnected', () => {
-      debugger
    })
    room.on('participantReconnecting', () => {
-      debugger
    })
    room.on('trackDisabled', () => {
-      debugger
    })
    room.on('trackEnabled', () => {
-      debugger
    })
    room.on('trackRemoved',()=>{
-      debugger
    })
    room.on('trackStarted', (track) => {
-      debugger
       let previewContainer = document.getElementById(REMOTE_TRACK_DOM_ELEMENT);
       if(track.kind === 'video'){
          let videoTag = previewContainer.querySelector("video");
@@ -128,7 +119,6 @@ function _twilioListeners(room,store) {
 
 
 
-
    // room tracks events: 
    room.on('trackMessage', (message) => {
       let data = JSON.parse(message)
@@ -136,21 +126,17 @@ function _twilioListeners(room,store) {
       store.dispatch('dispatchDataTrackJunk',data)
    })
    room.on('trackPublished', (track) => {
-      debugger
    })
    room.on('trackUnpublished', (track) => {
-      debugger
    })
    // room connections events:
    room.on('participantConnected', (participant) => {
-      debugger
       if(store.getters.getRoomIsTutor){
          store.commit('setToaster', 'simpleToaster_userConnected');
       }
       _insightEvent('TwilioParticipantConnected', participant, null);
    })
    room.on('participantDisconnected', (participant) => {
-      debugger
       if(store.getters.getRoomIsTutor){
          store.commit('setToaster', 'simpleToaster_userLeft');
       }
@@ -158,7 +144,6 @@ function _twilioListeners(room,store) {
       _detachTracks(Array.from(participant.tracks.values()))
    })
    room.on('reconnecting', (reconnectingError) => {
-      debugger
       _insightEvent('reconnecting', null, null);
    })
    room.on('disconnected', (dRoom, error) => {
@@ -169,7 +154,6 @@ function _twilioListeners(room,store) {
       dRoom.localParticipant.tracks.forEach(function (track) {
          _detachTracks([track]);
       });
-      debugger
       // connect the room things
       if(!store.getters.getRoomIsTutor){
          store.dispatch('updateReviewDialog',true)
@@ -189,7 +173,6 @@ export default () => {
          if (mutation.type === 'setRouteStack' && mutation.payload.name === routeNames.StudyRoom) {
             import('twilio-video').then(async (Twilio) => { 
                twillioClient = Twilio;
-               dataTrack = new twillioClient.LocalDataTrack();
             });
             _debugMode = mutation.payload.query?.debug ? 'debug' : 'off';
          }
@@ -197,6 +180,8 @@ export default () => {
             let isRoomNeedPayment = store.getters.getRoomIsNeedPayment;
             let isRoomStudent = !store.getters.getRoomIsTutor;
             if(isRoomStudent && isRoomNeedPayment){return}
+
+            dataTrack = new twillioClient.LocalDataTrack();
             let jwtToken = mutation.payload;
             let options = {
                logLevel: _debugMode,

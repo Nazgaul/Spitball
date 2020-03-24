@@ -71,19 +71,22 @@ export const signlaREvents = {
         },
         update:function(arrEventObj){
             arrEventObj.forEach((roomStatusInformation)=>{
-                debugger
+                // TODO: remove it
                 if(!store.getters.getJwtToken){
                     store.dispatch('updateJwtToken',roomStatusInformation.jwtToken)
                 }
+                // TODO: remove it
+
                 // store.dispatch("signalR_UpdateState", roomStatusInformation);
             });
         },
         action:function(arrEventObj){
             arrEventObj.forEach((sessionInformation)=>{
-                debugger
+                // TODO: remove it
                 if(!store.getters.getJwtToken){
                     store.dispatch('updateJwtToken',sessionInformation.data.jwtToken)
                 }
+                // TODO: remove it
 
                 // store.dispatch("signalR_SetJwtToken", sessionInformation);
             });
