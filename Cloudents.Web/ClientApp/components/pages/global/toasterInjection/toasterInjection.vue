@@ -45,15 +45,13 @@ export default {
                 simpleToaster_userConnected:{
                     name:'simpleToaster',
                     params: {
-                        text: `new student is connected to the room`,
-                        timeout: 4000,
+                        text: this.$t('studyRoom_toaster_added_to_room'),
                     }
                 },
                 simpleToaster_userLeft:{
                     name:'simpleToaster',
                     params: {
-                        text: `a student is left the room`,
-                        timeout: 4000,
+                        text: this.$t('studyRoom_toaster_left_the_room'),
                     }
                 },
 
