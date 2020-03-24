@@ -23,6 +23,7 @@ using System.Net.Http;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Identity;
 using Microsoft.AspNetCore.Authorization;
 using SbSignInManager = Cloudents.Web.Identity.SbSignInManager;
 
@@ -31,11 +32,11 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]"), ApiController]
     public class RegisterController : Controller
     {
-        private readonly UserManager<User> _userManager;
+        private readonly SbUserManager _userManager;
         private readonly SbSignInManager _signInManager;
 
         private readonly IQueueProvider _queueProvider;
-        private readonly ISmsSender _client;
+        private readonly ISmsSender _smsSender;
         private readonly IStringLocalizer<RegisterController> _localizer;
         private readonly IStringLocalizer<LogInController> _loginLocalizer;
         private readonly ILogger _logger;
@@ -44,13 +45,13 @@ namespace Cloudents.Web.Api
         internal const string Email = "email2";
         private const string EmailTime = "EmailTime";
 
-        public RegisterController(UserManager<User> userManager, SbSignInManager signInManager,
+        public RegisterController(SbUserManager userManager, SbSignInManager signInManager,
              IQueueProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger, ICountryService countryProvider)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _queueProvider = queueProvider;
-            _client = client;
+            _smsSender = client;
             _localizer = localizer;
             _loginLocalizer = loginLocalizer;
             _logger = logger;
@@ -63,32 +64,41 @@ namespace Cloudents.Web.Api
         [ProducesDefaultResponseType]
         public async Task<ActionResult<ReturnSignUserResponse>> PostAsync(
             [FromBody] RegisterRequest model,
-            ReturnUrlRequest? returnUrl,
+            //ReturnUrlRequest? returnUrl,
+            [FromServices] ICountryProvider country,
             CancellationToken token)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user != null)
             {
-                try
-                {
-                    return await MakeDecisionAsync(user, false, returnUrl, token);
-                }
-                catch (ArgumentException)
-                {
-                }
+                //try
+                //{
+                //    return await MakeDecisionAsync(user, false, returnUrl, token);
+                //}
+                //catch (ArgumentException)
+                //{
+                //}
 
                 ModelState.AddModelError(nameof(model.Email), _localizer["UserExists"]);
                 return BadRequest(ModelState);
             }
 
-            var country = await _countryProvider.GetUserCountryAsync(token);
-            user = new User(model.Email, model.FirstName, model.LastName, CultureInfo.CurrentCulture, country, model.Gender);
+            var countryCode = await _countryProvider.GetUserCountryAsync(token);
+            country.GetCallingCode(countryCode);
+            user = new User(model.Email, model.FirstName, model.LastName, 
+                CultureInfo.CurrentCulture, countryCode, model.Gender);
             var p = await _userManager.CreateAsync(user, model.Password);
-            if (p.Succeeded)
+
+            var retVal = await _userManager.SetPhoneNumberAndCountryAsync(user, model.PhoneNumber, countryCode, token);
+            await _smsSender.SendSmsAsync(user, token);
+            if (p.Succeeded && retVal.Succeeded)
             {
-                await GenerateEmailAsync(user, returnUrl, token);
-                return new ReturnSignUserResponse(RegistrationStep.RegisterEmailConfirmed);
+                //TODO
+                await GenerateEmailAsync(user, null, token);
+                return Ok();// new ReturnSignUserResponse(RegistrationStep.RegisterEmailConfirmed);
             }
+
+
             ModelState.AddIdentityModelError(p);
             return BadRequest(ModelState);
         }
@@ -115,7 +125,7 @@ namespace Cloudents.Web.Api
             if (user.PhoneNumber != null)
             {
                 var t1 = _signInManager.TempSignIn(user);
-                var t2 = _client.SendSmsAsync(user, token);
+                var t2 = _smsSender.SendSmsAsync(user, token);
 
                 await Task.WhenAll(t1, t2);
                 return new ReturnSignUserResponse(RegistrationStep.RegisterVerifyPhone, new
@@ -143,8 +153,6 @@ namespace Cloudents.Web.Api
             [FromBody] GoogleTokenRequest model,
             [FromServices] IGoogleAuth service,
             [FromServices] IUserDirectoryBlobProvider blobProvider,
-
-
             [FromServices] TelemetryClient logClient,
             [FromServices] IHttpClientFactory clientFactory,
             CancellationToken cancellationToken)
@@ -173,6 +181,8 @@ namespace Cloudents.Web.Api
             }
 
             var user = await _userManager.FindByEmailAsync(result.Email);
+
+            //TODO: check what happens if google user is locked out
             if (result2.IsNotAllowed && user != null && await _userManager.IsLockedOutAsync(user))
             {
                 ModelState.AddModelError("Google", _loginLocalizer["LockOut"]);
