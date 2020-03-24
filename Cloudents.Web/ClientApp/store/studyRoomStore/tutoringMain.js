@@ -3,7 +3,6 @@
 
 const state = {
 //     currentActiveRoom: null,
-//     browserSupportDialog: false,
 //     studyRoomData: null,
 //     roomStateEnum: {
 //         pending: "pending",
@@ -35,7 +34,6 @@ const getters = {
 //     getJwtToken: state => state.jwtToken,
 //     getStudentStartDialog: state => state.studentStartDialog,
 //     getSessionStartClickedOnce: state => state.sessionStartClickedOnce,
-//     getBrowserSupportDialog: state => state.browserSupportDialog,
 //     getTutorDialogState: state => state.tutorDialogState,
 //     getStudentDialogState: state => state.studentDialogState,
 //     getSessionTimeStart: state => state.sessionTimeStart,
@@ -66,9 +64,6 @@ const mutations = {
 //     },
 //     setJwtToken(state, val) {
 //         state.jwtToken = val;
-//     },
-//     setBrowserSupportDialog(state, val){
-//       state.browserSupportDialog = val;
 //     },
 //     setTutorDialogState(state, val){
 //         state.tutorDialogState = val;
@@ -209,9 +204,6 @@ const actions = {
 //             }, 2500);
             
 //         }
-//     },
-//     setBrowserSupportDialog({commit}, val){
-//       commit('setBrowserSupportDialog', val);
 //     },
 //     setTutorDialogState({commit}, val){
 //         console.warn('DEBUG: 19 store: setTutorDialogState, VAL:',val)

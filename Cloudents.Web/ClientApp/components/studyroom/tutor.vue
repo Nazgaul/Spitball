@@ -179,7 +179,7 @@
 
 
       <sb-dialog
-        :showDialog="getBrowserSupportDialog"
+        :showDialog="isBrowserSupportDialog"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'browserDialog'"
         :maxWidth="'612.5'"
@@ -360,7 +360,12 @@ export default {
   },
   name: "tutor",
   data() {
-    return {      
+    return {
+      isBrowserSupportDialog:false,
+
+
+
+
       activeNavItem: "white-board",
       navs: [
         {
@@ -411,7 +416,6 @@ export default {
       "getReviewDialogState",
       "getStudentStartDialog",
       "getDialogRoomEnd",
-      "getBrowserSupportDialog",
       "accountUser",
       "getActiveNavIndicator",
       "getIsRecording",
@@ -487,7 +491,6 @@ watch: {
       "closeChat",
       "openChatInterface",
       "updateEndDialog",
-      "setBrowserSupportDialog",
       "setShowAudioRecordingError",
       "setShowUserConsentDialog",
       "setSnapshotDialog",
@@ -616,8 +619,8 @@ watch: {
         self.lockChat();
       });
     },
-    closeBrowserSupportDialog(){ 
-      this.setBrowserSupportDialog(false);
+    closeBrowserSupportDialog(){
+      this.isBrowserSupportDialog = false;
     },
     resetItems(){
       let isExit = confirm(this.$t("login_are_you_sure_you_want_to_exit"),)
@@ -685,7 +688,7 @@ watch: {
 
     if (!studyroomSettingsUtils.isBrowserSupport()) {
       this.$nextTick(()=>{
-        this.setBrowserSupportDialog(true)
+        this.isBrowserSupportDialog = true;
         let roomId = this.id ? this.id : 'No-Id';
         insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_BrowserNotSupported', {'roomId': roomId, 'userId': this.userId}, null)
       })
