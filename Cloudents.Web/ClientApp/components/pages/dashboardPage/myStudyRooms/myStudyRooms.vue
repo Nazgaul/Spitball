@@ -72,6 +72,7 @@ import tableInfoTd from '../global/tableInfoTd.vue';
 import iconChat from './images/icon-chat.svg';
 import enterRoom from './images/enterRoom.svg';
 import * as routeNames from '../../../../routes/routeNames'
+import * as dialogNames from '../../global/dialogInjection/dialogNames.js'
 
 export default {
    name: 'myStudyRooms',
@@ -83,6 +84,7 @@ export default {
    },
    data() {
       return {
+         createStudyRoomDialog: dialogNames.CreateStudyRoom,
          routeNames,
          sortedBy:'',
          paginationModel:{

@@ -28,6 +28,7 @@ export default {
             this.$store.dispatch('updateCreateStudyRoom',this.selectedStudent.userId)
                .then(() => {
                   self.isLoading = false;
+                  this.$store.dispatch('updateFollowersItems')
                   self.$closeDialog()
                });
          }

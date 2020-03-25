@@ -3,17 +3,14 @@
         <v-layout column class="messages-wrapper">
 
             <div class="messages-header">
-                <div class="messages-study-room" :class="{'join-room': studyRoomExists || isStudyRoom, 'create-room': !studyRoomExists && isRoomTutor}" v-if="!isRouteStudyRoom && showStudyRoomInteraction || isStudyRoom" @click="createRoom">
+                <div class="messages-study-room" 
+                :class="{'join-room': studyRoomExists || isStudyRoom}" 
+                v-if="!isRouteStudyRoom && showStudyRoomInteraction || isStudyRoom" 
+                @click="joinRoom">
                     <button v-if="studyRoomExists || isStudyRoom">
                         <v-icon style="font-size:16px !important; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon>&nbsp;
                         <span v-language:inner="'chat_studyRoom_enter'"></span>
                     </button>
-
-                    <v-btn v-if="(!studyRoomExists && isRoomTutor) && !isStudyRoom " 
-                           text class="white--text messages-study-room-btn-create" 
-                           :loading="loader">
-                        <add-circle />&nbsp;&nbsp;&nbsp;<span v-language:inner="'chat_studyRoom_create'"></span>
-                    </v-btn>
                 </div>
             </div>
 
@@ -49,15 +46,9 @@ import chatUploadFile from './messageComponents/chatUploadFile.vue';
 import {mapGetters, mapActions} from 'vuex';
 import { LanguageService } from '../../../services/language/languageService';
 
-import addCircle from '../images/add-circle-outline.svg';
-
-import analyticsService from '../../../services/analytics.service';
-
-
 export default {
     components:{
         message,
-        addCircle,
         chatUploadFile,
     },
     data(){
@@ -65,8 +56,6 @@ export default {
             messageText: "",
             placeHolderText: LanguageService.getValueByKey("chat_type_message"),
             emptyStateMessages: [],
-            alreadyCreated: false,
-            loader: false,
             lastMsgIndex: null
         }
     },
@@ -94,9 +83,6 @@ export default {
         showStudyRoomInteraction(){
             return this.messages &&  this.messages.length > 0;
         },
-        isRoomTutor(){
-            return this.isTutor && this.messages &&  this.messages.length > 0 && this.messages[0].userId !== this.accountUser.id && !this.messages[0].isDummy;
-        },
         typing() {
             return !!this.messageText;
         },
@@ -114,7 +100,7 @@ export default {
          this.$refs.chatTextArea.$el.querySelector('textarea').addEventListener('focusin', e=>e.stopPropagation());
     },
     methods:{
-        ...mapActions(['sendChatMessage', 'createStudyRoom']),
+        ...mapActions(['sendChatMessage']),
         sendMessage(){     
             let messageToSend = this.messageText.trim();
             if(messageToSend !== ''){
@@ -126,22 +112,18 @@ export default {
         scrollToEnd: function() {
             this.$nextTick(function(){
                 let container = document.querySelector(".messages-body");
-                
                 if(container){
                     container.scrollTop = container.scrollHeight;
                 }
             })
         },
-        createRoom(){         
+        joinRoom(){
             if((this.$route && this.$route.params && this.$route.params.id) &&
                 (!!this.activeConversationObj && this.activeConversationObj.studyRoomId)){
                 let paramId = this.$route.params.id;
                 let studyRoomId = this.activeConversationObj.studyRoomId
                 if(paramId == studyRoomId) return;
             }
-            
-            let conversationObj = this.activeConversationObj;
-            this.loader = true;
             if(!!this.activeConversationObj.studyRoomId){
                 let routeData = this.$router.resolve({
                     name: 'roomSettings',
@@ -150,18 +132,8 @@ export default {
                     }
                 });
                 global.open(routeData.href, '_self');
-                // this.$router.push(routeData.href);
-            }else{
-                if(!this.alreadyCreated){
-                    let userId = conversationObj.userId;
-                    this.createStudyRoom(userId).then(() => {
-                      analyticsService.sb_unitedEvent('study_room', 'created', `tutorName: ${this.accountUser.name} tutorId: ${this.accountUser.id}`);
-                      this.loader = false
-                    });
-                    this.alreadyCreated = true;
-                }
             }
-        }
+        },
     }
 }
 </script>
@@ -202,9 +174,6 @@ export default {
                         &.join-room {
                             background: #2ec293;
                         }
-                        &.create-room {
-                            background: #4452fc;
-                        }
                         button {
                             display: flex;
                             align-items: center;
@@ -213,18 +182,6 @@ export default {
                             font-weight: bold;
                             font-size: 14px;
                             outline: none;
-                        }
-                        .messages-study-room-btn-create {
-                           font-size: 14px;
-                           font-weight: bold;
-                           margin: 0 auto;
-                           height: auto;
-                           padding: 5px 10px;
-                           text-transform: capitalize;
-                        }
-                        .messages-study-room-btn-create::before {
-                           content: "";
-                           color: transparent;
                         }
                 }
                
