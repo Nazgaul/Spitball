@@ -18,16 +18,11 @@ namespace Cloudents.Web.Services
             _serviceBusProvider = serviceBusProvider;
         }
 
-        private async Task SendSmsAsync(string phoneNumber, string code, SmsMessage.MessageType type, CancellationToken token)
+        private Task SendSmsAsync(string phoneNumber, string code, SmsMessage.MessageType type, CancellationToken token)
         {
             var message = new SmsMessage(phoneNumber,  code, type);
-            await _serviceBusProvider.InsertMessageAsync(message, token);
+            return _serviceBusProvider.InsertMessageAsync(message, token);
         }
-
-        //public Task<(string phoneNumber,string country)> ValidateNumberAsync(string phoneNumber,string countryCode, CancellationToken token)
-        //{
-        //    return _smsProvider.ValidateNumberAsync(phoneNumber, countryCode, token);
-        //}
 
         public async Task SendSmsAsync(User user, CancellationToken token)
         {
