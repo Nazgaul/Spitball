@@ -52,6 +52,7 @@
                     type="submit"
                     depressed
                     large
+                    :loading="getGlobalLoading"
                     block
                     rounded
                     class="ctnBtn white--text btn-login"
@@ -108,6 +109,9 @@ export default {
         isError(){
             return !this.isTermsAgree && this.showError
         },
+        getGlobalLoading() {
+            return this.$store.getters.getGlobalLoading
+        }
     },
     methods: {
         onVerify(response) {
