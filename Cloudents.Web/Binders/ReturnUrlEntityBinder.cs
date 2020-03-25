@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Web.Binders
 {
-    public class ReturnUrlEntityBinder : RefererHeaderModelBinder
-    {
-        protected override void BindData(ModelBindingContext bindingContext, StringValues val)
-        {
-            bindingContext.Result = ModelBindingResult.Success(new ReturnUrlRequest { Url = val });
-        }
+    //public class ReturnUrlEntityBinder : RefererHeaderModelBinder
+    //{
+    //    protected override void BindData(ModelBindingContext bindingContext, StringValues val)
+    //    {
+    //        bindingContext.Result = ModelBindingResult.Success(new ReturnUrlRequest { Url = val });
+    //    }
 
-        public ReturnUrlEntityBinder() : base("returnUrl")
-        {
-        }
-    }
+    //    public ReturnUrlEntityBinder() : base("returnUrl")
+    //    {
+    //    }
+    //}
 
 
     public abstract class RefererHeaderModelBinder : IModelBinder

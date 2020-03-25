@@ -71,13 +71,13 @@ namespace Cloudents.Web.Api
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user != null)
             {
-                //try
-                //{
-                //    return await MakeDecisionAsync(user, false, returnUrl, token);
-                //}
-                //catch (ArgumentException)
-                //{
-                //}
+                try
+                {
+                    return await MakeDecisionAsync(user, false,  token);
+                }
+                catch (ArgumentException)
+                {
+                }
 
                 ModelState.AddModelError(nameof(model.Email), _localizer["UserExists"]);
                 return BadRequest(ModelState);
@@ -94,7 +94,7 @@ namespace Cloudents.Web.Api
             if (p.Succeeded && retVal.Succeeded)
             {
                 //TODO
-                await GenerateEmailAsync(user, null, token);
+                await GenerateEmailAsync(user,  token);
                 return Ok();// new ReturnSignUserResponse(RegistrationStep.RegisterEmailConfirmed);
             }
 
@@ -106,7 +106,6 @@ namespace Cloudents.Web.Api
 
         private async Task<ReturnSignUserResponse> MakeDecisionAsync(User user,
             bool isExternal,
-            ReturnUrlRequest? returnUrl,
             CancellationToken token)
         {
 
@@ -139,9 +138,9 @@ namespace Cloudents.Web.Api
                 await _signInManager.TempSignIn(user);
                 return new ReturnSignUserResponse(RegistrationStep.RegisterSetPhone);
             }
-
-            await GenerateEmailAsync(user, returnUrl, token);
-            return new ReturnSignUserResponse(RegistrationStep.RegisterEmailConfirmed);
+            await _signInManager.TempSignIn(user);
+            await GenerateEmailAsync(user,  token);
+            return new ReturnSignUserResponse(RegistrationStep.RegisterSetPhone);
         }
 
 
@@ -226,7 +225,7 @@ namespace Cloudents.Web.Api
                         }
                     }
                     await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-                    return await MakeDecisionAsync(user, true, null, cancellationToken);
+                    return await MakeDecisionAsync(user, true,  cancellationToken);
                 }
                 logClient.TrackTrace($"failed to register {string.Join(", ", result3.Errors)}");
 
@@ -240,24 +239,20 @@ namespace Cloudents.Web.Api
             }
 
             await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-            return await MakeDecisionAsync(user, true, null, cancellationToken);
+            return await MakeDecisionAsync(user, true,  cancellationToken);
         }
 
 
 
 
-        private async Task GenerateEmailAsync(User user, ReturnUrlRequest? returnUrl, CancellationToken token)
+        private async Task GenerateEmailAsync(User user,  CancellationToken token)
         {
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             code = UrlEncoder.Default.Encode(code);
-            var url = returnUrl?.Url;
-            if (!Url.IsLocalUrl(url))
-            {
-                url = null;
-            }
+          
             TempData[EmailTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
 
-            var link = Url.Link("ConfirmEmail", new { user.Id, code, returnUrl = url, referral = TempData[HomeController.Referral] });
+            var link = Url.Link("ConfirmEmail", new { user.Id, code,  referral = TempData[HomeController.Referral] });
             TempData[Email] = user.Email;
             var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link), CultureInfo.CurrentUICulture);
             await _queueProvider.InsertMessageAsync(message, token);
@@ -268,7 +263,6 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> ResendEmailAsync(
-            ReturnUrlRequest returnUrl,
             CancellationToken token)
         {
             var data = TempData.Peek(EmailTime);
@@ -297,7 +291,7 @@ namespace Cloudents.Web.Api
             }
 
             TempData[EmailTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
-            await GenerateEmailAsync(user, returnUrl, token);
+            await GenerateEmailAsync(user,  token);
             return Ok();
         }
 
