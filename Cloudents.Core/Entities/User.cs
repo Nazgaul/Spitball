@@ -273,7 +273,7 @@ namespace Cloudents.Core.Entities
             LastOnline = DateTime.UtcNow;
         }
 
-       
+
 
         public virtual void ChangeName(string firstName, string? lastName)
         {
@@ -369,12 +369,11 @@ namespace Cloudents.Core.Entities
         {
             foreach (var follower in followers)
             {
-                var follow = new Follow(this, follower);
-                _followers.Add(follow);
+                AddFollower(follower);
             }
-          //if (!Equals(follower))
+            //if (!Equals(follower))
             //{
-         
+
         }
 
         public override void RemoveFollower(BaseUser follower)
@@ -421,7 +420,7 @@ namespace Cloudents.Core.Entities
             }
         }
 
-       // public override int Score { get; protected set; }  //=> Transactions.Score;
+        // public override int Score { get; protected set; }  //=> Transactions.Score;
         public override decimal Balance => Transactions.Balance;
 
 
@@ -442,7 +441,7 @@ namespace Cloudents.Core.Entities
             //    (UserType.Teacher, null) => {Extend = new CollegeStudent(this)}
             //    (UserType.Teacher, _) => Extend = new Teacher(this);,
             //}
-          
+
             switch (userType)
             {
                 case UserType.UniversityStudent:
@@ -476,7 +475,7 @@ namespace Cloudents.Core.Entities
             UserType2 = userType;
         }
 
-        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Nhibernate")] 
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Nhibernate")]
         protected internal virtual ICollection<UserComponent> UserComponents { get; set; }
 
         public virtual UserComponent Extend
