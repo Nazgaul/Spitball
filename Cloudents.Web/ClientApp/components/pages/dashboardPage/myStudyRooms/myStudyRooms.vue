@@ -20,7 +20,10 @@
          <template v-slot:top>
             <div class="tableTop d-flex align-center justify-space-between">
                <div class="myStudyRooms_title">{{$t('schoolBlock_my_study_rooms')}}</div>
-               <v-btn class="link white--text" :to="{name: routeNames.StudyRoom}" depressed color="#5360FC">{{$t('dashboardPage_link_studyroom')}}</v-btn>
+               <div class="d-flex">
+                  <v-btn v-openDialog="createStudyRoomDialog" class="link white--text mr-4" depressed color="#5360FC">Create Study Room</v-btn>
+                  <v-btn class="link white--text" :to="{name: routeNames.StudyRoom}" depressed color="#5360FC">{{$t('dashboardPage_link_studyroom')}}</v-btn>
+               </div>
             </div>
          </template>
 
@@ -69,6 +72,7 @@ import tableInfoTd from '../global/tableInfoTd.vue';
 import iconChat from './images/icon-chat.svg';
 import enterRoom from './images/enterRoom.svg';
 import * as routeNames from '../../../../routes/routeNames'
+import * as dialogNames from '../../global/dialogInjection/dialogNames.js'
 
 export default {
    name: 'myStudyRooms',
@@ -80,6 +84,7 @@ export default {
    },
    data() {
       return {
+         createStudyRoomDialog: dialogNames.CreateStudyRoom,
          routeNames,
          sortedBy:'',
          paginationModel:{

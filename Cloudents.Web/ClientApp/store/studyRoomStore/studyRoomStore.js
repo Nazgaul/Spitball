@@ -1,6 +1,7 @@
 import studyRoomService from '../../services/studyRoomService.js';
 import {studyRoom_SETTERS} from '../constants/studyRoomConstants.js';
 import studyRoomRecordingService from '../../components/studyroom/studyRoomRecordingService.js'
+import analyticsService from '../../services/analytics.service'
 
 function _checkPayment(context) {
    let isTutor = context.getters.getRoomIsTutor;
@@ -123,14 +124,6 @@ const actions = {
          dispatch('updateJwtToken',getters.getJwtToken);
       }
    },
-
-
-
-
-
-
-
-
    updateStudyRoomInformation({ getters, dispatch, commit }, roomId) {
       if (getters.getRoomIdSession) {
          return dispatch('studyRoomMiddleWare')
@@ -163,6 +156,13 @@ const actions = {
    updateResetRoom({ commit }) {
       commit(studyRoom_SETTERS.ROOM_ACTIVE, false);
       commit(studyRoom_SETTERS.ROOM_RESET)
+   },
+   updateCreateStudyRoom({getters},userId){
+      return studyRoomService.createRoom(userId).then(()=>{
+         let currentTutor = getters.accountUser;
+         analyticsService.sb_unitedEvent('study_room', 'created', `tutorName: ${currentTutor.name} tutorId: ${currentTutor.id}`);
+         return
+      })
    }
 }
 export default {

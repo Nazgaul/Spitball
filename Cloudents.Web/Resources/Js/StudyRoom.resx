@@ -148,10 +148,10 @@
     <value>new student is connected to the room</value>
   </data>
   <data name="toaster_left_the_room" xml:space="preserve">
-    <value>a student left the room</value>
+    <value>Student has left the room</value>
   </data>
   <data name="toaster_session_start" xml:space="preserve">
-    <value>session started</value>
+    <value>Session has started</value>
   </data>
   <data name="video" xml:space="preserve">
     <value>Video</value>

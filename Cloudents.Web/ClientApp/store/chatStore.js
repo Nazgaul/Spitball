@@ -1,7 +1,6 @@
 import chatService from '../services/chatService';
 import { LanguageService } from '../services/language/languageService';
 import analyticsService from '../services/analytics.service';
-import studyRoomsService from '../services/studyRoomsService'
 
 
 const state = {
@@ -430,9 +429,6 @@ const actions = {
     },
     uploadCapturedImage(context, formData) {
         return chatService.uploadCapturedImage(formData);
-    },
-    createStudyRoom(context, userId){
-        return studyRoomsService.createRoom(userId);
     },
 };
 

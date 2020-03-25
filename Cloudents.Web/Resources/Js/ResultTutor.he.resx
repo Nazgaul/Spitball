@@ -154,4 +154,7 @@
   <data name="collecting_review" xml:space="preserve">
     <value>אוספים המלצות</value>
   </data>
+  <data name="no_reviews" xml:space="preserve">
+    <value>אוספים ביקורות</value>
+  </data>
 </root>
