@@ -20,8 +20,27 @@ authInstance.interceptors.response.use((config) => {
     return Promise.reject(error);
 });
 
+
+function googleRegistration() {
+    if (window.Android) {
+        Android.onLogin();
+        return Promise.reject();
+    }
+
+    let gapiInstance = gapi.auth2.getAuthInstance();
+    
+    return gapiInstance.signIn().then((googleUser) => {
+        let token = googleUser.getAuthResponse().id_token;
+        return authInstance.post("/register/google", { token })
+    }, error => {
+        return Promise.reject(error);
+    });
+}
+
+
 export default {
-    googleRegistration: data => authInstance.post("/register/google", {token: data}),
+    googleRegistration,
+    // googleRegistration: data => authInstance.post("/register/google", {token: data}),
     smsCodeVerification: data => authInstance.post("/sms/verify", {number: data.code, fingerprint: data.fingerprint}),
     signIn: data => authInstance.post("LogIn", { email: data.email, password: data.password, fingerprint: data.fingerprint }),
     resendCode: () => authInstance.post("/sms/resend"),
@@ -35,9 +54,10 @@ export default {
     updateParentStudentName: parentObj => authInstance.post(`Register/childName`, parentObj),
     updateUserRegisterType: type => authInstance.post('Register/userType', type),
     emailResend: () => authInstance.post("Register/resend"),
-    emailRegistration: ({firstName, lastName, email, gender, recaptcha, password, confirmPassword}) => {
-        return authInstance.post("Register", {firstName,lastName, email, gender, captcha: recaptcha, password, confirmPassword });
-    },
+    // emailRegistration: ({firstName, lastName, email, gender, recaptcha, password, confirmPassword}) => {
+    //     return authInstance.post("Register", {firstName,lastName, email, gender, captcha: recaptcha, password, confirmPassword });
+    // },
+    emailRegistration2: regObj => authInstance.post("Register", regObj),
     smsRegistration: (code, phoneNumber) => {
         return authInstance.post("/sms", {
             "countryCode": code,

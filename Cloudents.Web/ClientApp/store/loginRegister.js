@@ -169,7 +169,7 @@ const actions = {
             return;
         }
         let authInstance = gapi.auth2.getAuthInstance();
-
+        
         return authInstance.signIn().then((googleUser) => {
             let idToken = googleUser.getAuthResponse().id_token;
             return registrationService.googleRegistration(idToken).then(({data}) => {
