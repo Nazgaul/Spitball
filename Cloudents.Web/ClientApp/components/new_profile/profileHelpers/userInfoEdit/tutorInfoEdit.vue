@@ -4,14 +4,14 @@
             <v-layout class="header pa-4 mb-4">
                 <v-flex>
                     <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
-                    <span v-t>profile_edit_tutor_title</span>
+                    <span v-t="profile_edit_tutor_title"></span>
                 </v-flex>
             </v-layout>
             <v-layout class="px-3 mt-4" wrap>
                 <v-flex xs12 sm4  :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
                     <v-layout column>
                         <v-flex xs12 sm6  class="pl-2 mb-2">
-                            <span class="subtitle" v-t>profile_personal_details</span>
+                            <span class="subtitle" v-t="profile_personal_details"></span>
                         </v-flex>
                         <v-flex xs12>
                             <v-text-field
@@ -43,7 +43,7 @@
                 <v-flex xs12 sm4 :class="{'mt-4': $vuetify.breakpoint.xsOnly}" v-if="!isFrymo">
                     <v-layout column>
                         <v-flex xs12 sm6  class="mb-2 pl-2">
-                            <span class="subtitle" v-t>profile_pricing</span>
+                            <span class="subtitle" v-t="profile_pricing"></span>
                         </v-flex>
                         <v-flex>
                             <v-text-field 
@@ -63,7 +63,7 @@
 
             <v-layout class="px-3" column :class="[$vuetify.breakpoint.xsOnly ? 'mt-4' : '']">
                 <v-flex class="mb-2 pl-2">
-                    <span class="subtitle" v-t>profile_aboutme</span>
+                    <span class="subtitle" v-t="profile_aboutme"></span>
                 </v-flex>
                 <v-flex>
                     <v-textarea
@@ -94,12 +94,12 @@
                       :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between' : 'justify-end']">
                 <v-flex xs5 sm2 >
                     <v-btn :disabled="btnLoading" class="shallow-blue ml-0" rounded outline primary @click="closeDialog">
-                        <span v-t>profile_btn_cancel</span>
+                        <span v-t="profile_btn_cancel"></span>
                     </v-btn>
                 </v-flex>
                 <v-flex xs5 sm2 :class="{'mr-4': $vuetify.breakpoint.smAndUp}">
                     <v-btn class="blue-btn  ml-0" rounded @click="saveChanges()" :loading="btnLoading">
-                        <span v-t>profile_btn_save_changes</span>
+                        <span v-t="profile_btn_save_changes"></span>
                     </v-btn>
                 </v-flex>
             </v-layout>

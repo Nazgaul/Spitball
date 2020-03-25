@@ -3,25 +3,25 @@
         <v-layout class="py-4" :class="[$vuetify.breakpoint.smAndUp ?  'px-4': 'px-3']" align-center justify-center>
             <v-flex grow xs8 sm10 >
                 <div class="d-inline-flex justify-center shrink">
-                    <span class="subtitle-1 font-weight-bold" v-t>courses_my_courses</span>
+                    <span class="subtitle-1 font-weight-bold" v-t="courses_my_courses"></span>
                 </div>
             </v-flex>
             <v-flex xs4 sm2  shrink class="justify-end d-inline-flex">
                 <v-btn rounded color="#4452FC" class="add-btn py-1 px-0 font-weight-bold my-0" @click="goToAddCourses()">
                     <v-icon class="mr-1">sbf-plus-regular</v-icon>
-                    <span v-t>courses_add</span>
+                    <span v-t="courses_add"></span>
                 </v-btn>
             </v-flex>
         </v-layout>
         <v-layout wrap align-center justify-center>
             <v-flex xs12   class="text-center mb-2">
-                <span class="subtitle-1 font-weight-bold dark-text" v-t>courses_empty_pretty</span>
+                <span class="subtitle-1 font-weight-bold dark-text" v-t="courses_empty_pretty"></span>
             </v-flex>
             <v-flex xs12  class="text-center mb-2">
-                <span class="text-small" v-t>courses_start_adding</span>
+                <span class="text-small" v-t="courses_start_adding"></span>
             </v-flex>
             <v-flex xs12  class="text-center mb-2">
-                <span class="text-small" v-t>courses_out_of</span>
+                <span class="text-small" v-t="courses_out_of"></span>
             </v-flex>
             <v-flex xs12  class="text-center mt-4">
                 <img src="../images/courses-empty-image.png" alt="Empty courses">

@@ -69,7 +69,7 @@
                   :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
 
             <v-btn v-closeDialog  class="cancel-btn elevation-0" rounded outlined text>
-                <span v-t>becomeTutor_btn_cancel</span>
+                <span v-t="becomeTutor_btn_cancel"></span>
             </v-btn>
 
             <v-btn
@@ -78,7 +78,7 @@
                     class="white-text elevation-0 btn-first_next-btn"
                     :disabled="btnDisabled"
                     @click="nextStep()">
-                <span v-t>becomeTutor_btn_next</span>
+                <span v-t="becomeTutor_btn_next"></span>
             </v-btn>
 
         </v-layout>

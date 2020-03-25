@@ -5,7 +5,7 @@
                 <v-layout align-center justify-center class="become-header" v-show="!isLastStep">
                     <v-flex xs12 sm12  class="text-center">
                         <v-icon class="face-icon mr-2">sbf-face-icon</v-icon>
-                        <span class="become-title" v-t>becomeTutor_title_become</span>
+                        <span class="become-title" v-t="becomeTutor_title_become"></span>
                     </v-flex>
                 </v-layout>
                 <v-stepper-header class="sb-box" v-show="!isLastStep" v-if="$vuetify.breakpoint.smAndUp">
@@ -13,17 +13,17 @@
                                     color="#4452FC"
                                     :complete="currentStep > 1"
                                     :complete-icon="'sbf-checkmark'" step="1">
-                        <span v-t>becomeTutor_personal_details</span>
+                        <span v-t="becomeTutor_personal_details"></span>
                     </v-stepper-step>
                     <v-stepper-step class="step-control justify-center who" color="#4452FC"
                                     :complete="currentStep > 2"
                                     :complete-icon="'sbf-checkmark'" step="2">
-                        <span v-t>becomeTutor_who</span>
+                        <span v-t="becomeTutor_who"></span>
                     </v-stepper-step>
                     <v-stepper-step class="step-control justify-center" color="#4452FC"
                                     :complete="currentStep > 3"
                                     :complete-icon="'sbf-checkmark'" step="3">
-                        <span v-t>becomeTutor_calendar</span>
+                        <span v-t="becomeTutor_calendar"></span>
                     </v-stepper-step>
                 </v-stepper-header>
                 <v-stepper-items>

@@ -8,7 +8,7 @@
                 <v-flex d-flex xs12 order-xs3 order-sm2 >
                     <v-layout column>
                         <v-flex d-flex :class="{'shrink text-center': $vuetify.breakpoint.xsOnly}">
-                            <span class="created-heading" v-t>courses_you_created</span>
+                            <span class="created-heading" v-t="courses_you_created"></span>
                         </v-flex>
                         <v-flex d-flex>
                             <span class="font-weight-bold subtitle-1">{{courseName}}</span>
@@ -22,10 +22,10 @@
 
         <v-layout align-center justify-center column class="mb-2 mt-4" :class="[ $vuetify.breakpoint.xsOnly ? 'mt-5 shrink': '']">
             <v-flex  class="text-center"  :class="[ $vuetify.breakpoint.xsOnly ? 'shrink mt-1': '']">
-                <span class="font-weight-bold title" v-t>courses_invite_classmates</span>
+                <span class="font-weight-bold title" v-t="courses_invite_classmates"></span>
             </v-flex>
             <v-flex>
-                <!-- <span class="small-text" v-t>courses_sub_title_invite</span> -->
+                <!-- <span class="small-text" v-t="courses_sub_title_invite"></span> -->
             </v-flex>
         </v-layout>
         <v-layout align-center justify-center class="mt-4 mb-4" column :class="{'shrink mt-5 pt-2': $vuetify.breakpoint.xsOnly}">
@@ -34,14 +34,14 @@
                     <v-icon class="pr-0" color="white" transition="fade-transition"
                             v-show="isCopied">sbf-checkmark
                     </v-icon>
-                    <span class="font-weight-bold btn-text text-capitalize" v-show="!isCopied" v-t>courses_copy_link</span>
-                    <span class="font-weight-bold btn-text text-capitalize" v-show="isCopied" v-t>courses_link_copied</span>
+                    <span class="font-weight-bold btn-text text-capitalize" v-show="!isCopied" v-t="courses_copy_link"></span>
+                    <span class="font-weight-bold btn-text text-capitalize" v-show="isCopied" v-t="courses_link_copied"></span>
 
 
                 </button>
             </v-flex>
             <v-flex xs12  sm12 class="text-center">
-                <span @click="goToCoursesList()" class="caption blue-text cursor-pointer" v-t>courses_back_to_list</span>
+                <span @click="goToCoursesList()" class="caption blue-text cursor-pointer" v-t="courses_back_to_list"></span>
             </v-flex>
         </v-layout>
         <v-layout align-center justify-center>

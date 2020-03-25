@@ -91,7 +91,7 @@
                 :input-value="activeViewOption == enumViewOptions.videoChat"
                 active-class="v-btn--active control-btn-active"
               >
-                <span v-t>tutor_option_videoChat</span>
+                <span v-t="tutor_option_videoChat"></span>
               </v-btn>
               <v-btn
                 :disabled="!getIsFullScreenAvailable"
@@ -100,7 +100,7 @@
                 :input-value="activeViewOption == enumViewOptions.fullScreenVideo"
                 active-class="v-btn--active control-btn-active"
               >
-                <span v-t>tutor_option_videoFull</span>
+                <span v-t="tutor_option_videoFull"></span>
               </v-btn>
               <v-btn sel="full_board"
                 class="control-btn text-capitalize elevation-0 cursor-pointer"
@@ -108,7 +108,7 @@
                 :input-value="activeViewOption == enumViewOptions.fullBoard"
                 active-class="v-btn--active control-btn-active"
               >
-                <span v-t>tutor_option_fullBoard</span>
+                <span v-t="tutor_option_fullBoard"></span>
               </v-btn>
               <v-layout
                 column

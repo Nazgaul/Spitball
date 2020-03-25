@@ -2,7 +2,7 @@
     <v-card class="creation-wrap">
         <v-layout class="close-toolbar limit-height pl-4 pr-4" style="width:100%;" align-center justify-end>
             <v-flex grow>
-                <span class="font-weight-bold dialog-heading" v-t>courses_new_title</span>
+                <span class="font-weight-bold dialog-heading" v-t="courses_new_title"></span>
             </v-flex>
             <v-flex shrink class="mr-2">
                 <v-icon @click="closeDialog()" class="subtitle-1 course-close-icon">sbf-close</v-icon>
@@ -25,14 +25,14 @@
         </v-layout>
         <v-layout align-start justify-start shrink column class="px-4">
             <v-flex xs12  sm6 class="text-center mb-1">
-                <span class="caption helper-text" v-t>courses_minimum</span>
+                <span class="caption helper-text" v-t="courses_minimum"></span>
             </v-flex>
             <v-flex xs12  sm6 class="text-center mb-1">
-                <span class="caption helper-text" v-t>courses_meaningfull</span>
+                <span class="caption helper-text" v-t="courses_meaningfull"></span>
 
             </v-flex>
             <v-flex xs12  sm6 class="text-center mb-1">
-                <span class="caption helper-text" v-t>courses_third_tip</span>
+                <span class="caption helper-text" v-t="courses_third_tip"></span>
 
             </v-flex>
         </v-layout>

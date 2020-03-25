@@ -3,19 +3,19 @@
     <v-layout column class="pa-4 empty-state-top-layout">
       <v-flex>
         <div class="mb-1 user-search-text-container text-truncate" v-show="userText">
-          <span v-t>result_no_result_found_for</span>&nbsp;
+          <span v-t="result_no_result_found_for"></span>&nbsp;
           <span class="user-search-text">"{{userText}}"</span>
         </div>
         <div class="mb-1 user-search-text-container" v-show="!userText">
-          <span v-t>result_no_result_found</span>
+          <span v-t="result_no_result_found"></span>
         </div>
         <v-flex :class="['empty-state-content',isCourse? 'visible-hidden':'']">
           <div>
             <ul>
-              <li v-t>result_spelling</li>
-              <li v-t>result_different_keywords</li>
-              <li v-t>result_general_keywords</li>
-              <li v-t>result_fewer_keywords</li>
+              <li v-t="result_spelling"></li>
+              <li v-t="result_different_keywords"></li>
+              <li v-t="result_general_keywords"></li>
+              <li v-t="result_fewer_keywords"</li>
             </ul>
           </div>
         </v-flex>

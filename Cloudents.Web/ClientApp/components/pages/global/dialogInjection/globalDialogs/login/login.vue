@@ -12,8 +12,8 @@
                     </div>
                 </div>
                 <div class="btn-container">
-                    <a  class="login-btns" @click="goToSignIn()" v-t>loginAnswer_login</a>
-                    <a  class="login-btns" @click="goToRegister()" v-t>loginAnswer_Sign_Up</a>
+                    <a  class="login-btns" @click="goToSignIn()" v-t="loginAnswer_login"></a>
+                    <a  class="login-btns" @click="goToRegister()" v-t="loginAnswer_Sign_Up"></a>
                 </div>
             </div>
         </v-card>

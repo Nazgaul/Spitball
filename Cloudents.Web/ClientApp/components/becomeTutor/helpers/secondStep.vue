@@ -38,7 +38,7 @@
         <div class="mt-2 px-1 btns-second"
                   :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
             <v-btn @click="goToPreviousStep()" class="cancel-btn elevation-0" rounded outline text>
-                <span v-t>becomeTutor_btn_back</span>
+                <span v-t="becomeTutor_btn_back"></span>
             </v-btn>
             <v-btn
                     color="#4452FC"
@@ -46,7 +46,7 @@
                     rounded
                     :loading="btnLoading"
                     @click="submitData()">
-                <span v-t>becomeTutor_btn_next</span>
+                <span v-t="becomeTutor_btn_next"></span>
             </v-btn>
         </div>
     </div>
