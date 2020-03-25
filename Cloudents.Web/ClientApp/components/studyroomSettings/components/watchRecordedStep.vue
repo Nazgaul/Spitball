@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex';
 import satelliteService from '../../../services/satelliteService';
 import studyRoomRecordingService from '../../studyroom/studyRoomRecordingService';
 export default {
@@ -40,7 +39,6 @@ export default {
     }
   },
   computed:{
-    ...mapGetters(['getStudyRoomData']),
     termPageLink(){
       return satelliteService.getSatelliteUrlByName('terms');
     },
@@ -48,14 +46,13 @@ export default {
       return satelliteService.getSatelliteUrlByName('faq');
     },
     isTutor() {
-        return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
+      return this.$store.getters.getRoomIsTutor;
     },
   },
   methods:{
     gotoNextPage(){
       studyRoomRecordingService.toggleRecord();
       this.nextStep('studyRoom')
-      //this.nextStep('enableScreenStep')
     },
     skipToStudyRoom(){
       this.nextStep('studyRoom')

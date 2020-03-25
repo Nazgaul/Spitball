@@ -286,7 +286,7 @@ export default {
             let regRoute = 'registration';
             let routeStackLength = this.getRouteStack.length;
             let beforeLastRoute = this.getRouteStack[routeStackLength-2];
-            if (routeStackLength > 1 && beforeLastRoute && beforeLastRoute !== regRoute && beforeLastRoute !== 'document') {
+            if (routeStackLength > 1 && beforeLastRoute && beforeLastRoute.name !== regRoute && beforeLastRoute.name !== 'document') {
                 this.$router.back();
             } else {
                 this.$router.push({ name: "feed" });

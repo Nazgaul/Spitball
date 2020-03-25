@@ -1,13 +1,7 @@
 <template>
     <div class="btn-wrapper">
-        <v-flex v-show="isTutor">
-            <button v-show="roomIsActive && !waitingStudent" class="end-session" @click="endSession()">
-                <stopIcon class="stop-icon mr-2"></stopIcon>
-                <span v-language:inner>tutor_stream_btn_end_session</span>
-            </button>
-        </v-flex>
-        <v-flex v-show="!isTutor">
-            <button v-show="roomIsActive" class="end-session" @click="endSession()">
+        <v-flex>
+            <button class="end-session" @click="endSession()">
                 <stopIcon class="stop-icon mr-2"></stopIcon>
                 <span v-language:inner>tutor_stream_btn_end_session</span>
             </button>
@@ -16,32 +10,17 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions, mapState} from 'vuex';
     import stopIcon from '../../images/stop-icon.svg';
     export default {
         name: "startEndSessionBtn",
         components:{
             stopIcon
         },
-        computed: {
-            ...mapState(['tutoringMain']),
-            ...mapGetters(['getCurrentRoomState','getStudyRoomData']),
-            roomIsActive() {
-                return this.getCurrentRoomState === this.tutoringMain.roomStateEnum.active;
-            },
-            waitingStudent() {
-                return this.getCurrentRoomState === this.tutoringMain.roomStateEnum.loading;
-            },
-            isTutor() {
-                return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
-            },
-        },
         methods: {
-            ...mapActions(["updateEndDialog"]),
             endSession() {
                 this.$ga.event("tutoringRoom", "endSession");
-                this.updateEndDialog(true);
-            },
+                this.$store.dispatch('updateEndDialog',true)
+            }
         },
 
 

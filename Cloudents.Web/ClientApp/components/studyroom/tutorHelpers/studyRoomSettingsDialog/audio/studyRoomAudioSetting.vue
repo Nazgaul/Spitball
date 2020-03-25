@@ -46,7 +46,6 @@
 <script>
 import studyRoomAudioSettingService from './studyRoomAudioSettingService';
 import { LanguageService } from "../../../../../services/language/languageService";
-import {mapState, mapActions} from 'vuex';
 export default {
     data(){
         return{
@@ -61,11 +60,7 @@ export default {
             }
         }
     },
-    computed:{
-        ...mapState(['studyRoomTracks_store']),
-    },
     methods: {
-        ...mapActions(['changeAudioTrack']),
             playTestSound() {
                 this.audio = new Audio(`${this.soundUrl}`);
                 this.audio.play()
@@ -93,13 +88,11 @@ export default {
                             }
                         });
                         self.validateMicrophone('audio-input-meter', self.singleMicrophoneId);
-                        console.log('mics:::', self.microphoneList)
                     })
             },
             validateMicrophone() {
                 studyRoomAudioSettingService.createAudioContext('audio-input-meter', this.singleMicrophoneId);
-                global.localStorage.setItem(this.studyRoomTracks_store.storageENUM.audio, this.singleMicrophoneId);
-                this.changeAudioTrack(this.singleMicrophoneId);
+                this.$store.dispatch('updateAudioTrack',this.singleMicrophoneId)
             }
         },
         created() {

@@ -2,27 +2,23 @@
     <v-snackbar
         absolute
         top
-        @input="onCloseToaster"
+        color="error"
         :timeout="params.timeout || 3000"
         :value="true"
     >
-       {{params.text}}
+    <span v-html="params.text"></span>
     </v-snackbar>
 </template>
 
 
 <script>
+
 export default {
-    name: '',
+    name: 'errorLinkToaster',
     props: {
         params: {
             type:Object,
             required:true
-        }
-    },
-    methods: {
-        onCloseToaster() {
-            this.$store.commit('clearToaster')
         }
     },
 }

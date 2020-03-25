@@ -11,14 +11,7 @@
       </div>
 
       <div class="settingsContent">
-        <!-- <span style="position:absolute; left:25px;font-weight:bold;">{{currentStep}}</span> -->
-        
-        <!-- <unableToConnetStep :nextStep="nextStep"/> -->
-        <!-- <enableScreenStep/> -->
-        <!-- <watchRecordedStep/> -->
-        <!-- <notAllowedStep/> -->
         <component :nextStep="nextStep" :is="currentStep" />
-        <!-- {{currentStep}} -->
       </div>
       <sbDialog
           :activateOverlay="true"
@@ -36,7 +29,6 @@
 import {mapGetters, mapActions} from 'vuex';
 
 import studyroomSettingsUtils from './studyroomSettingsUtils';
-import tutorService from '../studyroom/tutorService';
 // import logo from '../../components/app/logo/logo-spitball.svg';
 import logo from '../../components/app/logo/logo.vue'
 import intercomSVG from './image/icon-1-2.svg'
@@ -48,12 +40,8 @@ import notAllowedStep from './components/notAllowedStep.vue';
 
 import studySettingPopUp from './components/studySettingPopUp.vue';
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
-import storeService from '../../services/store/storeService';
 
-import tutoringMain from '../../store/studyRoomStore/tutoringMain.js';
-import studyroomSettings_store from '../../store/studyRoomStore/studyroomSettings_store.js';
 import intercomSettings from '../../services/intercomService';
-import studyRoomService from '../../services/studyRoomService';
 
 
 export default {
@@ -62,7 +50,6 @@ export default {
     intercomSVG,
     unableToConnetStep,
     watchRecordedStep,
-   // enableScreenStep,
     notAllowedStep,
     studySettingPopUp,
     sbDialog
@@ -84,12 +71,9 @@ export default {
   },
   computed:{
     ...mapGetters(['getStepHistory']),
-    isMobile() {
-      return this.$vuetify.breakpoint.xsOnly;
-    },
   },
   methods:{
-    ...mapActions(['setStepHistory', 'reOrderStepHistory', 'pushHistoryState', 'replaceHistoryState', 'setVisitedSettingPage', 'updateStudyRoomProps']),
+    ...mapActions(['setStepHistory', 'reOrderStepHistory', 'pushHistoryState', 'replaceHistoryState', 'setVisitedSettingPage']),
     resetItems(){
       this.$router.push('/');
     },
@@ -127,23 +111,16 @@ export default {
     },
   },
   async created(){
-    storeService.lazyRegisterModule(this.$store,'studyroomSettings_store',studyroomSettings_store);
-    storeService.lazyRegisterModule(this.$store,'tutoringMain',tutoringMain);
-    if(this.isMobile){
+    this.$store.dispatch('updateStudyRoomInformationForSettings',this.id)
+    if(this.$vuetify.breakpoint.xsOnly){
       this.$router.push({name:'tutoring', params:{id:this.id}})
     }
     global.onpopstate = (event)=>{
       this.goStep(event.state)
-    }; 
-    if(!!this.id){
-      await studyRoomService.getRoomInformation(this.id).then((RoomProps) => {
-        this.updateStudyRoomProps(RoomProps)
-      })
-    }
-    
+    };
+
     this.setVisitedSettingPage(true);
-    
-    await tutorService.validateUserMedia(true, true);
+    await studyroomSettingsUtils.validateUserMedia(true, true);
     let firstPage = studyroomSettingsUtils.determinFirstPage();
     if(firstPage.type === "studyRoom"){
       this.$router.push({name:'tutoring', params:{id:this.id}})
@@ -152,7 +129,6 @@ export default {
     }
     this.setStepHistory(this.currentStep);
     this.replaceHistoryState();
-    console.log(firstPage);
   }   
 }
 

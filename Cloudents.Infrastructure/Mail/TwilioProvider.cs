@@ -31,7 +31,7 @@ namespace Cloudents.Infrastructure.Mail
         private const string AccountSid = "AC1796f09281da07ec03149db53b55db8d";
         private const string AuthToken = "c4cdf14c4f6ca25c345c3600a72e8b49";
 
-        public TwilioProvider()
+        static TwilioProvider()
         {
             TwilioClient.Init(AccountSid, AuthToken);
         }
@@ -51,7 +51,7 @@ namespace Cloudents.Infrastructure.Mail
             return phoneNumber;
         }
 
-        public async Task<(string phoneNumber, string country)> ValidateNumberAsync(string phoneNumber, string countryCode, CancellationToken token)
+        public async Task<(string? phoneNumber, string? country)> ValidateNumberAsync(string phoneNumber, string countryCode, CancellationToken token)
         {
             phoneNumber = BuildPhoneNumber(phoneNumber, countryCode);
 
@@ -129,6 +129,8 @@ namespace Cloudents.Infrastructure.Mail
                  recordParticipantsOnConnect: needRecord,
                  mediaRegion: mediaRegion
                  );
+
+
         }
 
         public Task CloseRoomAsync(string id)
@@ -156,39 +158,58 @@ namespace Cloudents.Infrastructure.Mail
 
         private const string ApiKey = "SKa10d29f12eb338d91351795847b35883";
         private const string SecretVideo = "sJBB0TVjomROMH2vj3VwuxvPN9CNHETj";
-        public async Task<string> ConnectToRoomAsync(string roomName, string name)
+        //public async Task<string?> ConnectToRoomAsync(string roomName, string name)
+        //{
+        //    try
+        //    {
+        //        var rooms = await RoomResource.ReadAsync(
+        //            status: RoomResource.RoomStatusEnum.InProgress,
+        //            uniqueName: roomName);
+        //        var room = rooms.FirstOrDefault();
+        //        if (room == null)
+        //        {
+        //            return null;
+        //        }
+        //        var grant = new VideoGrant
+        //        {
+        //            Room = room.UniqueName,
+        //        };
+        //        var grants = new HashSet<IGrant> { grant };
+
+        //        // Create an Access Token generator
+        //        var token = new Token(
+        //            AccountSid,
+        //            ApiKey,
+        //            SecretVideo,
+        //            identity: name,
+        //            grants: grants);
+
+        //        return token.ToJwt();
+        //    }
+        //    catch (Twilio.Exceptions.ApiException)
+        //    {
+        //        return null;
+        //    }
+
+        //}
+
+        public string CreateRoomToken(string roomName, long userId)
         {
-            try
+            var grant = new VideoGrant
             {
-                var rooms = await RoomResource.ReadAsync(
-                    status: RoomResource.RoomStatusEnum.InProgress,
-                    uniqueName: roomName);
-                var room = rooms.FirstOrDefault();
-                if (room == null)
-                {
-                    return null;
-                }
-                var grant = new VideoGrant
-                {
-                    Room = room.UniqueName,
-                };
-                var grants = new HashSet<IGrant> { grant };
+                Room = roomName,
+            };
+            var grants = new HashSet<IGrant> { grant };
 
-                // Create an Access Token generator
-                var token = new Token(
-                    AccountSid,
-                    ApiKey,
-                    SecretVideo,
-                    identity: name,
-                    grants: grants);
+            // Create an Access Token generator
+            var token = new Token(
+                AccountSid,
+                ApiKey,
+                SecretVideo,
+                identity: userId.ToString(),
+                grants: grants);
 
-                return token.ToJwt();
-            }
-            catch (Twilio.Exceptions.ApiException)
-            {
-                return null;
-            }
-
+            return token.ToJwt();
         }
 
 

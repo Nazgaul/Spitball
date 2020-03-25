@@ -26,18 +26,14 @@
     import studyRoomRecordingService from '../../studyRoomRecordingService';
 
     export default {
-        data() {
-            return {
-            };
-        },
         methods: {
-            ...mapActions(['setShowUserConsentDialog']),
+            ...mapActions(['updateDialogUserConsent']),
             accept() {
                 studyRoomRecordingService.activateRecord();
                 this.closeDialog();
             },
             closeDialog() {
-                this.setShowUserConsentDialog(false);
+                this.updateDialogUserConsent(false);
             }
         },
     };

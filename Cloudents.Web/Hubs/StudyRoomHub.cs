@@ -60,7 +60,7 @@ namespace Cloudents.Web.Hubs
             var userId = long.Parse(Context.UserIdentifier);
             var command = new ChangeStudyRoomOnlineStatusCommand(userId, false, roomId);
             await _commandBus.DispatchAsync(command, default);
-            await Clients.All.SendAsync("Offlie", userId);
+            await Clients.All.SendAsync("Offline", userId);
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, cookieVal);
             await base.OnDisconnectedAsync(exception);
         }

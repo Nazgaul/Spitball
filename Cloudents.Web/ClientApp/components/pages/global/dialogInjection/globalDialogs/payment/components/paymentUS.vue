@@ -40,16 +40,10 @@ export default {
       isLoading:false,
     }
   },
-//   computed: {
-//       tutorPrice() {
-//           return this.$store.getters.getStudyRoomData?.tutorPrice
-//       }
-//   },
-  
   methods: {
     closeDialog() {
       let isStudyRoom =
-        this.$store.getters.getStudyRoomData?.roomId &&
+        this.$store.getters.getRoomIdSession &&
         this.$route.name === routeNames.StudyRoom;
       if (isStudyRoom) {
         let isExit = confirm(this.$t("payme_are_you_sure_exit"));
@@ -73,7 +67,7 @@ export default {
                 {
                   reference_id: "PUHF",
                   amount: {
-                    value: self.$store.getters.getStudyRoomData.tutorPrice,
+                    value: self.$store.getters.getRoomTutor?.tutorPrice,
                     currency: "USD"
                   }
                 }
@@ -85,7 +79,7 @@ export default {
             actions.order.capture().then(() => {
               self.$store.dispatch("updatePaypalStudyRoom", {
                 orderId: data.orderID,
-                sessionId: self.$store.getters.getStudyRoomData.roomId
+                sessionId: self.$store.getters.getRoomIdSession
               });
             });
           }

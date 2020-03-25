@@ -30,10 +30,10 @@ namespace Cloudents.Command.CommandHandler
             {
                 throw new InvalidOperationException("user is not a tutor");
             }
-            
+
             var student = await _userRepository.LoadAsync(message.StudentId, token);
 
-            var chatRoomIdentifier = ChatRoom.BuildChatRoomIdentifier(new[] {userTutor.Id, student.Id});
+            var chatRoomIdentifier = ChatRoom.BuildChatRoomIdentifier(new[] { userTutor.Id, student.Id });
             var chatRoom = await _chatRoomRepository.GetChatRoomAsync(chatRoomIdentifier, token);
             if (chatRoom.Messages.Count == 0)
             {
@@ -41,10 +41,10 @@ namespace Cloudents.Command.CommandHandler
             }
 
             var url = await _googleDocument.CreateOnlineDocAsync(chatRoomIdentifier, token);
-           
+
             userTutor.AddFollower(student);
-            
-            var studyRoom = new StudyRoom(userTutor.Tutor, student,url);
+
+            var studyRoom = new StudyRoom(userTutor.Tutor, student, url);
             await _studyRoomRepository.AddAsync(studyRoom, token);
 
 
