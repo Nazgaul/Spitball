@@ -72,7 +72,6 @@ export const User = {
                 haveContent: objInit.haveContent,
                 isPurchased: objInit.isPurchased,
                 isSold: objInit.isSold,
-                haveStudyRoom: objInit.haveStudyRoom,
                 haveFollowers: objInit.haveFollowers,
                 pendingSessionsPayments: objInit.pendingSessionsPayments
             }

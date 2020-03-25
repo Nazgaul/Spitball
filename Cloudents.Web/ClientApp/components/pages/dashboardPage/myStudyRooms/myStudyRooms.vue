@@ -21,7 +21,7 @@
             <div class="tableTop d-flex align-center justify-space-between">
                <div class="myStudyRooms_title">{{$t('schoolBlock_my_study_rooms')}}</div>
                <div class="d-flex">
-                  <v-btn v-openDialog="createStudyRoomDialog" class="link white--text mr-4" depressed color="#5360FC">Create Study Room</v-btn>
+                  <v-btn v-if="isTutor" v-openDialog="createStudyRoomDialog" class="link white--text mr-4" depressed color="#5360FC">Create Study Room</v-btn>
                   <v-btn class="link white--text" :to="{name: routeNames.StudyRoom}" depressed color="#5360FC">{{$t('dashboardPage_link_studyroom')}}</v-btn>
                </div>
             </div>
@@ -107,7 +107,9 @@ export default {
    },
    computed: {
       ...mapGetters(['getStudyRoomItems']),
-
+      isTutor(){
+         return this.$store.getters.accountUser.isTutor;
+      },
       studyRoomItems(){
          return this.getStudyRoomItems
       },
