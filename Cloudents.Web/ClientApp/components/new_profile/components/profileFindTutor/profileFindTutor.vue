@@ -1,24 +1,24 @@
 <template>
    <div class="profileFindTutor">
       <div class="profileFindTutor_wrapper">
-         <div class="profileFindTutor_title" v-language:inner="'profile_why_learn'"/>
+         <div class="profileFindTutor_title" v-t="'profile_why_learn'"/>
 
          <div class="whyUs-bottom">
             <div class="cont">
                <sheild class="cont-icon"/>
-               <span class="cont-text" v-language:inner="'documentPage_money_back'"></span>
+               <span class="cont-text" v-t="'documentPage_money_back'"></span>
             </div>
             <div class="cont">
                <secure class="cont-icon"/>
-               <span class="cont-text" v-language:inner="'documentPage_secure_payment'"></span>
+               <span class="cont-text" v-t="'documentPage_secure_payment'"></span>
             </div>
             <div class="cont">
                <exams class="cont-icon"/>
-               <span class="cont-text" v-language:inner="'documentPage_prepared_exams'"></span>
+               <span class="cont-text" v-t="'documentPage_prepared_exams'"></span>
             </div>
          </div>
          <v-btn class="profileFindTutor_action white--text mt-4" depressed rounded color="#4452fc" @click="goTutorList()">
-            <div class="profileFindTutor_action_txt" v-language:inner="'profile_find_tutors'"/>
+            <div class="profileFindTutor_action_txt" v-t="'profile_find_tutors'"/>
          </v-btn>
       </div>
    </div>

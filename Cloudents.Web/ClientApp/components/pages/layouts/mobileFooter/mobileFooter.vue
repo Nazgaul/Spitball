@@ -10,26 +10,26 @@
                 :app="$vuetify.breakpoint.xsOnly"
                 class="notransition mobileFooter">
             <v-btn :ripple="false" class="mF_btns" text value="feed" @click="changeActiveTab('feed')">
-                <span class="mF_title" v-language:inner="'mobileFooter_btn_home'"/>
+                <span class="mF_title" v-t="'mobileFooter_btn_home'"/>
                 <v-icon class="mF_icon" v-html="'sbf-home-tab'"/>
             </v-btn>
             <v-btn :ripple="false" class="mF_btns" text value="tutorLandingPage" @click="changeActiveTab('tutorLandingPage')">
-                <span class="mF_title" v-language:inner="'mobileFooter_btn_tutors'"/>
+                <span class="mF_title" v-t="'mobileFooter_btn_tutors'"/>
                 <v-icon class="mF_icon" v-html="'sbf-account-group'"/>
             </v-btn>
             <v-btn :ripple="false" class="mF_btns" text value='upload' v-openDialog="uploadDialog">
-                <span class="mF_title" v-language:inner="'mobileFooter_btn_upload'"/>
+                <span class="mF_title" v-t="'mobileFooter_btn_upload'"/>
                 <v-icon class="mF_icon" v-html="'sbf-button-add'" />
             </v-btn> -->
             <v-btn :ripple="false" class="mF_btns" text value="chat" @click="openChat">
-                <span class="mF_title" v-language:inner="'mobileFooter_btn_chat'"/>
+                <span class="mF_title" v-t="'mobileFooter_btn_chat'"/>
                 <span class="mF_chat">
                     <v-icon class="mF_icon" v-html="'sbf-btm-msg'"/>
                     <span class="mF_chat_unread" v-show="totalUnread > 0">{{totalUnread}}</span>
                 </span>
             </v-btn>
             <v-btn :ripple="false" class="mF_btns" text value="profile" @click="changeActiveTab('profile')">
-                <span class="mF_title" v-language:inner="'mobileFooter_btn_profile'"/>
+                <span class="mF_title" v-t="'mobileFooter_btn_profile'"/>
                 <v-icon class="mF_icon" v-html="'sbf-account'"/>
             </v-btn>
         </v-bottom-navigation>

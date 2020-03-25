@@ -1,7 +1,7 @@
 <template>
   <div class="tutorsSections">
-    <h1 class="ts-title" v-language:inner="'homePage_ts_title'" />
-    <h2 class="ts-subtitle" v-language:inner="'homePage_ts_subtitle'" />
+    <h1 class="ts-title" v-t="'homePage_ts_title'" />
+    <h2 class="ts-subtitle" v-t="'homePage_ts_subtitle'" />
     <div class="tutorsCarousel">
       <sbCarousel :slideStep="5" @select="enterTutorCard" v-if="tutorList.length" :arrows="!$vuetify.breakpoint.xsOnly">
         <tutorCard :fromCarousel="true" v-for="(tutor, index) in tutorList" :tutor="tutor" :key="index"/>

@@ -1,6 +1,6 @@
 <template>
     <div class="calendarSelect">
-        <p class="calendarSelectP"  v-language:inner="isMobile?'becomeTutor_select_calendar_title_mobile':'becomeTutor_select_calendar_title'"/>   
+        <p class="calendarSelectP"  v-t="isMobile?'becomeTutor_select_calendar_title_mobile':'becomeTutor_select_calendar_title'"/>   
         <div class="calendarLines" :style="paddingScroll">
             <div v-for="calendar in calendarsList" :key="calendar.id">
                 <div class="singleCalendarLine">

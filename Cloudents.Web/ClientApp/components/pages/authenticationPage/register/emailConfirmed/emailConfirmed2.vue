@@ -1,20 +1,20 @@
 <template>
     <div class="EmailConfirmed">
-        <div class="top" v-language:inner="isRegisterPath? 'loginRegister_emailconfirm_title':'loginRegister_emailconfirm_title_reset'"/>
+        <div class="top" v-t="isRegisterPath? 'loginRegister_emailconfirm_title':'loginRegister_emailconfirm_title_reset'"/>
         <div class="middle" v-if="isRegisterPath">
             <span>
-                <!-- <span v-language:inner="'loginRegister_emailconfirm_to'"/> -->
+                <!-- <span v-t="'loginRegister_emailconfirm_to'"/> -->
                 <span class="email"> {{userEmail}}</span>
             </span>
-            <p class="notYou font-weight-bold" @click="goToRegister()" v-language:inner="'loginRegister_emailconfirm_notyou'"/>
+            <p class="notYou font-weight-bold" @click="goToRegister()" v-t="'loginRegister_emailconfirm_notyou'"/>
         </div>
         <div>
             <div class="bottom">
-                <span v-language:inner="isRegisterPath? 'loginRegister_emailconfirm_bottom' : 'loginRegister_emailconfirm_bottom_reset'"/>
-                <span v-if="!isRegisterPath" v-language:inner="'loginRegister_emailconfirm_bottom_reset_or'"/>
+                <span v-t="isRegisterPath? 'loginRegister_emailconfirm_bottom' : 'loginRegister_emailconfirm_bottom_reset'"/>
+                <span v-if="!isRegisterPath" v-t="'loginRegister_emailconfirm_bottom_reset_or'"/>
                 <div>
-                    <span class="link" @click="resend()" v-language:inner="'loginRegister_emailconfirm_resend'"/>&nbsp;
-                    <span v-if="isRegisterPath" v-language:inner="'loginRegister_emailconfirm_rest'"/>
+                    <span class="link" @click="resend()" v-t="'loginRegister_emailconfirm_resend'"/>&nbsp;
+                    <span v-if="isRegisterPath" v-t="'loginRegister_emailconfirm_rest'"/>
                 </div>
             </div>
         </div>

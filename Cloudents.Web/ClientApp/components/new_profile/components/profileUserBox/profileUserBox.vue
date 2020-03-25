@@ -9,7 +9,7 @@
             <div class="profileUserBox_top_mobile_bottom">
                 <div class="profileUserBox_top_mobile_right">
                     <h1 class="profileUserBox_top_mobile_userName text-truncate">
-                        <span v-if="currentProfileUser.isTutor" v-language:inner="'profile_tutor'"/>
+                        <span v-if="currentProfileUser.isTutor" v-t="'profile_tutor'"/>
                         {{currentProfileUser.name}}
                     </h1>
                 </div>
@@ -43,7 +43,7 @@
                 <div class="pUb_defaultState_content text-truncate hidden-xs-only">
                     <div>
                         <h1 class="pUb_dS_c_userName text-truncate">
-                            <span v-if="currentProfileUser.isTutor" class="mr-1" v-language:inner="'profile_tutor'"/> 
+                            <span v-if="currentProfileUser.isTutor" class="mr-1" v-t="'profile_tutor'"/> 
                             {{currentProfileUser.name}}
                         </h1>
                         <template v-if="currentProfileUser.isTutor">
@@ -54,7 +54,7 @@
                             </div>
                             <div v-else class="pUb_dS_c_rating">
                                 <starEmptySVG class="pUb_dS_c_rating_star"/>
-                                <span class="no-reviews font-weight-bold caption" v-language:inner="'resultTutor_no_reviews'"></span>
+                                <span class="no-reviews font-weight-bold caption" v-t="'resultTutor_no_reviews'"></span>
                             </div>
                         </template>
                     </div>
@@ -97,7 +97,7 @@
                     <div class="d-flex justify-space-between" v-if="currentProfileUser.isTutor">
                         <h4 v-if="currentProfileTutor.bio" class="pUb_middle_bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}
                             <span class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</span>
-                            <span sel="bio_more" v-if="readMoreVisible" @click="isOpen = !isOpen" class="pUb_middle_bio_readMore" v-language:inner="isOpen?'profile_read_less':'profile_read_more'"></span>
+                            <span sel="bio_more" v-if="readMoreVisible" @click="isOpen = !isOpen" class="pUb_middle_bio_readMore" v-t="isOpen?'profile_read_less':'profile_read_more'"></span>
                         </h4>
                     </div>
 
@@ -112,7 +112,7 @@
 
                 <!-- subjects -->
                 <div class="profileUserBox_bottom" v-if="currentProfileUser.isTutor && currentProfileTutor.subjects.length">
-                    <span class="profileUserBox_bottom_title mr-1" v-language:inner="'profile_study'"/>
+                    <span class="profileUserBox_bottom_title mr-1" v-t="'profile_study'"/>
                     <span v-for="(subject, index) in currentProfileTutor.subjects" :key="index">{{subject}}{{index + 1 == currentProfileTutor.subjects.length? '':' ,'}}</span>
                 </div>
 

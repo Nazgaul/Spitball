@@ -2,7 +2,7 @@
    <div class="profileItemsEmpty">
       <div class="profileItemsEmpty_wrapper">
          <img class="mb-2 profileItemsEmpty_img" width="76" height="80" src="./empty.png" alt="">
-         <div class="profileItemsEmpty_title" v-language:inner="'profile_empty_title'"/>
+         <div class="profileItemsEmpty_title" v-t="'profile_empty_title'"/>
       </div>
    </div>
 </template>

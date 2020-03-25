@@ -2,24 +2,24 @@
   <v-layout column class="payme-popup">
     <v-icon class="exit-btn cursor-pointer" @click="closeDialog">sbf-close</v-icon>
     <div class="payme-popup-top pt-4">
-      <div class="payme-top-title" v-language:inner="'payme_top_title'" />
+      <div class="payme-top-title" v-t="'payme_top_title'" />
       <v-layout justify-space-between wrap class="payme-content pt-4 pt-sm-8 pb-2 pb-sm-8 mx-sm-8">
         <v-flex class="payme-content-div">
           <img class="payme-content-img" src="./images/timer.png" />
-          <span class="payme-content-txt pt-0 pt-sm-2" v-language:inner="'payme_content_txt_time'" />
+          <span class="payme-content-txt pt-0 pt-sm-2" v-t="'payme_content_txt_time'" />
         </v-flex>
         <v-flex  class="payme-content-div mx-0 ">
           <img class="payme-content-img" src="./images/sheild.png" />
           <span
             class="payme-content-txt pt-0 pt-sm-2"
-            v-language:inner="'payme_content_txt_sheild'"
+            v-t="'payme_content_txt_sheild'"
           />
         </v-flex>
         <v-flex  class="payme-content-div">
           <img class="payme-content-img" src="./images/hands.png" />
           <span
             class="payme-content-txt pt-0 pt-sm-2"
-            v-language:inner="'payme_content_txt_hands'"
+            v-t="'payme_content_txt_hands'"
           />
         </v-flex>
       </v-layout>

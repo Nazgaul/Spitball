@@ -15,14 +15,14 @@
                 </div>
                 <router-link v-show="!isMobile && shouldShowFindTutor" :to="{name:'tutorLandingPage'}" class="gH_i_r_findTutor" >
                     <findSVG/>
-                    <span v-language:inner="'header_find_tutors'"/>
+                    <span v-t="'header_find_tutors'"/>
                 </router-link>
                 <template v-if="!isMobile" >
                     <v-tooltip bottom>
                         <template v-slot:activator="{on}">
                             <helpIcon @click="startIntercom" v-on="on" v-if="!$vuetify.breakpoint.smAndDown" class="gH_i_r_intercom" :class="{'gH_i_r_intercom--margin': !loggedIn}" />
                         </template>
-                        <span v-language:inner="'header_tooltip_help'"/>
+                        <span v-t="'header_tooltip_help'"/>
                     </v-tooltip>
                     
                     <v-tooltip bottom v-if="loggedIn">
@@ -32,12 +32,12 @@
                                 <span @click="openChatWindow" class="unread_circle_nav" v-show="totalUnread > 0" :class="[totalUnread > 9 ? 'longer_nav' :'']">{{totalUnread}}</span>
                             </div>
                         </template>
-                        <span v-language:inner="'header_tooltip_chat'"/>
+                        <span v-t="'header_tooltip_chat'"/>
                     </v-tooltip>
                 </template>
                 <template v-if="!$vuetify.breakpoint.smAndDown && !loggedIn">
-                    <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$router.push({name :'login'})" v-language:inner="'tutorListLanding_topnav_btn_login'"/>
-                    <button class="gH_i_r_btns gH_i_r_btn_up mr-4" @click="$router.push({name :'register'})" v-language:inner="'tutorListLanding_topnav_btn_signup'"/>
+                    <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$router.push({name :'login'})" v-t="'tutorListLanding_topnav_btn_login'"/>
+                    <button class="gH_i_r_btns gH_i_r_btn_up mr-4" @click="$router.push({name :'register'})" v-t="'tutorListLanding_topnav_btn_signup'"/>
                     <a class="gH_i_lang" @click="changeLanguage()" v-if="showChangeLanguage" sel="language" v-html="currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''"/>
                 </template>
                 <v-menu fixed close-on-content-click bottom offset-y :content-class="getBannerParams? 'fixed-content-banner':'fixed-content'">

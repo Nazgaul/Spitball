@@ -36,7 +36,7 @@
         <v-card class="pb-4 coupon-dialog-card" :class="{'d-block': $vuetify.breakpoint.xsOnly}">
             <v-layout class="header py-6">
                 <v-flex class="text-xs-center coupon-dialog-header" :class="{'mt-5': $vuetify.breakpoint.xsOnly}">
-                    <span v-language:inner="'coupon_title'"></span>
+                    <span v-t="'coupon_title'"></span>
                     <v-icon @click="closeCouponDialog" class="coupon-close" v-html="'sbf-close'" />
                 </v-flex>
             </v-layout>
@@ -46,9 +46,9 @@
                       <div class="text-xs-right ">
                         <div class="coupon__dialog--flex">
                           <input type="text" @keyup.enter="applyCoupon" v-model="coupon" :placeholder="couponPlaceholder" class="profile-coupon_input">
-                          <button class="profile-coupon_btn white--text" :disabled="disableApplyBtn" @click="applyCoupon" v-language:inner="'coupon_apply_btn'"></button>
+                          <button class="profile-coupon_btn white--text" :disabled="disableApplyBtn" @click="applyCoupon" v-t="'coupon_apply_btn'"></button>
                         </div>
-                        <div class="profile-coupon_error" v-language:inner="'coupon_apply_error'" v-if="getCouponError"></div>
+                        <div class="profile-coupon_error" v-t="'coupon_apply_error'" v-if="getCouponError"></div>
                         </div>
                     </div>
                 </v-flex>

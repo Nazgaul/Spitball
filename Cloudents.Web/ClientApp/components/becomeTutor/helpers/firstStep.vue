@@ -1,6 +1,6 @@
 <template>
     <div class="become-first-wrap" :class="[$vuetify.breakpoint.smAndUp ? 'px-0' : '']">
-        <span class="become-first-span" v-language:inner="'becomeTutor_sharing_step_1'"></span>
+        <span class="become-first-span" v-t="'becomeTutor_sharing_step_1'"></span>
         <v-layout wrap align-start class="become-first-cont">
             <v-flex xs12 sm4 shrink class="image-wrap text-center">
                 <img v-show="userImage && isLoaded" class="user-image" :src="userImage" alt="upload image" @load="loaded">
@@ -18,8 +18,8 @@
                         id="tutor-picture"
                         accept="image/*"
                         ref="tutorImage" v-show="false"/>
-                    <div v-if="errorUpload" class="tutor_picture_error" v-language:inner="'becomeTutor_upload_error'"></div>
-                    <!-- <span class="image-edit-text" v-language:inner="'becomeTutor_upload_image'"></span> -->
+                    <div v-if="errorUpload" class="tutor_picture_error" v-t="'becomeTutor_upload_error'"></div>
+                    <!-- <span class="image-edit-text" v-t="'becomeTutor_upload_image'"></span> -->
                 </label>
             </v-flex>
             <v-flex xs12 sm6 class="inputs-wrap" :class="{'mt-2' : $vuetify.breakpoint.xsOnly}">
@@ -69,7 +69,7 @@
                   :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
 
             <v-btn v-closeDialog  class="cancel-btn elevation-0" rounded outlined text>
-                <span v-language:inner>becomeTutor_btn_cancel</span>
+                <span v-t>becomeTutor_btn_cancel</span>
             </v-btn>
 
             <v-btn
@@ -78,7 +78,7 @@
                     class="white-text elevation-0 btn-first_next-btn"
                     :disabled="btnDisabled"
                     @click="nextStep()">
-                <span v-language:inner>becomeTutor_btn_next</span>
+                <span v-t>becomeTutor_btn_next</span>
             </v-btn>
 
         </v-layout>

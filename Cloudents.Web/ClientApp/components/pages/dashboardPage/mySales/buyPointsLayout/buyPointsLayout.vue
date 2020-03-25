@@ -5,9 +5,9 @@
             <img class="buyPointsLayout_img" src="./image/cardBuyPoints.jpg" alt="">
          </v-flex>
          <v-flex class="buyPointsLayout_action" text-center>
-            <p class="buyPointsLayout_title" v-language:inner="'dashboardPage_my_sales_action_need'"/>
+            <p class="buyPointsLayout_title" v-t="'dashboardPage_my_sales_action_need'"/>
             <v-btn @click="openSblToken" class="buyPointsLayout_btn white--text" depressed color="#4c59ff">
-               <span v-language:inner="'dashboardPage_my_sales_action_need_btn'"/>
+               <span v-t="'dashboardPage_my_sales_action_need_btn'"/>
             </v-btn>
          </v-flex>
       </v-layout>

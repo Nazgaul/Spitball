@@ -3,19 +3,19 @@
     <v-layout column class="pa-4 empty-state-top-layout">
       <v-flex>
         <div class="mb-1 user-search-text-container text-truncate" v-show="userText">
-          <span v-language:inner>result_no_result_found_for</span>&nbsp;
+          <span v-t>result_no_result_found_for</span>&nbsp;
           <span class="user-search-text">"{{userText}}"</span>
         </div>
         <div class="mb-1 user-search-text-container" v-show="!userText">
-          <span v-language:inner>result_no_result_found</span>
+          <span v-t>result_no_result_found</span>
         </div>
         <v-flex :class="['empty-state-content',isCourse? 'visible-hidden':'']">
           <div>
             <ul>
-              <li v-language:inner>result_spelling</li>
-              <li v-language:inner>result_different_keywords</li>
-              <li v-language:inner>result_general_keywords</li>
-              <li v-language:inner>result_fewer_keywords</li>
+              <li v-t>result_spelling</li>
+              <li v-t>result_different_keywords</li>
+              <li v-t>result_general_keywords</li>
+              <li v-t>result_fewer_keywords</li>
             </ul>
           </div>
         </v-flex>
@@ -24,10 +24,10 @@
     <v-layout column class="pa-4 empty-state-bottom-layout" v-show="helpAction">
       <v-flex>
         <div class="mb-1 user-search-cant-find-text">
-          <span v-language:inner>result_still_cant_find</span>
+          <span v-t>result_still_cant_find</span>
         </div>
         <div class="mb-1 user-search-button-container">
-          <button @click="helpAction()" v-language:inner>result_get_help</button>
+          <button @click="helpAction()" v-t>result_get_help</button>
         </div>
       </v-flex>
     </v-layout>

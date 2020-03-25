@@ -6,16 +6,16 @@
             </v-flex>
 
             <v-flex xs12 class="text-center text-capitalize mb-2 mt-1" >
-                <span class="final-text font-weight-bold" v-language:inner>becomeTutor_oh</span>
+                <span class="final-text font-weight-bold" v-t>becomeTutor_oh</span>
             </v-flex>
 
             <v-flex xs12 class="text-center mb-4">
-                <span class="final-text font-weight-bold" v-language:inner>becomeTutor_tutor_now</span>
+                <span class="final-text font-weight-bold" v-t>becomeTutor_tutor_now</span>
             </v-flex>
 
             <v-flex xs12 class="text-center">
                 <v-btn @click="goToCourses()" rounded class="add-btn text-uppercase">
-                    <span class="font-weight-bold" v-language:inner>becomeTutor_btn_add_courses_teach</span>
+                    <span class="font-weight-bold" v-t>becomeTutor_btn_add_courses_teach</span>
                 </v-btn>
             </v-flex>
         </v-layout>

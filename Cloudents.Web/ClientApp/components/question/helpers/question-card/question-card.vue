@@ -18,7 +18,7 @@
                         <div class="text-container">
                             <div class="text">
                                 <div class="answer-header-left-container">
-                                    <!-- <span class="user-date" v-language:inner>questionCard_Answer</span> -->
+                                    <!-- <span class="user-date" v-t>questionCard_Answer</span> -->
                                     <span class="timeago ml-2" :datetime="cardData.dateTime||cardData.create">{{date}}</span>
                                     <span class="choosen-answer right" v-if="flaggedAsCorrect">
                                         <v-icon>sbf-check-circle</v-icon>

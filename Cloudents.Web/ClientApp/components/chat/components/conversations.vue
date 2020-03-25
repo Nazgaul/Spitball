@@ -10,7 +10,7 @@
     </div>
     <div v-else>
         <v-layout>
-            <span class="conversations-empty-state" v-language:inner="'chat_conversations_empty_state'"></span>
+            <span class="conversations-empty-state" v-t="'chat_conversations_empty_state'"></span>
         </v-layout>
     </div>
 </template>

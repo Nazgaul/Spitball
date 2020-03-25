@@ -1,7 +1,7 @@
 <template>
    <div class="marketing-box-component">
       <div class="heading" v-if="$vuetify.breakpoint.smAndDown">
-         <span class="heading-text" v-language:inner>marketingBox_title</span>
+         <span class="heading-text" v-t>marketingBox_title</span>
       </div>
       <router-link :to="{name: 'tutorLandingPage'}" class="main-marketing-content transparent" @click.native="promotionOpen">
          <img :src="imgBySiteType" alt="Private lessons">

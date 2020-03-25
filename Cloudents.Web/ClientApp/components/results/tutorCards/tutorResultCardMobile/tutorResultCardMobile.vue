@@ -36,16 +36,16 @@
                           <span v-else class="price_oneline--count font-weight-bold">{{$n(tutorData.price, 'currency')}}</span>
                           <span>/</span>
                       </template>
-                      <span class="caption" v-language:inner="'resultTutor_hour'"></span>
+                      <span class="caption" v-t="'resultTutor_hour'"></span>
                   </div>
                   <div class="striked ml-3" v-if="isDiscount">{{$n(tutorData.price, 'currency')}}</div>
               </div>
 
-              <router-link class="applyCoupon" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name},  query: {coupon: true}}" v-language:inner="'resultTutor_apply_coupon'"></router-link>
+              <router-link class="applyCoupon" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name},  query: {coupon: true}}" v-t="'resultTutor_apply_coupon'"></router-link>
               
               <!-- DO NOT REMOVE THIS WAITING SHIRAN -->
               <!-- <div class="courses text-truncate">
-                  <div class="" v-language:inner="'resultTutor_courses'"></div>
+                  <div class="" v-t="'resultTutor_courses'"></div>
                   <div class="text-truncate">{{courses}}</div>
               </div>  -->
 
@@ -61,11 +61,11 @@
 
       <!-- DO NOT REMOVE THIS WAITING SHIRAN -->
       <div class="courses text-truncate" v-if="subjects">
-          <div class="courses-title font-weight-bold" v-language:inner="'resultTutor_study-area'"></div>
+          <div class="courses-title font-weight-bold" v-t="'resultTutor_study-area'"></div>
           <div class="text-truncate">{{subjects}}</div>
       </div> 
       <div class="courses text-truncate" v-else>
-          <div class="courses-title font-weight-bold" v-language:inner="'resultTutor_courses'"></div>
+          <div class="courses-title font-weight-bold" v-t="'resultTutor_courses'"></div>
           <div class="text-truncate">{{courses}}</div>
       </div> 
 

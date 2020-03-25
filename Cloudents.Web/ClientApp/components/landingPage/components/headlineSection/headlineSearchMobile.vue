@@ -1,8 +1,8 @@
 <template>
     <div class="headlineSearchMobile">
       <div class="headlineTitlesMobile">
-        <h1 class="hd-titleMobile" v-language:inner="'homePage_hd_title_mobile'"/>
-        <h2 :class="['hd-subtitleMobile','mb-4']" v-language:inner="'homePage_hd_subtitle'"/>
+        <h1 class="hd-titleMobile" v-t="'homePage_hd_title_mobile'"/>
+        <h2 :class="['hd-subtitleMobile','mb-4']" v-t="'homePage_hd_subtitle'"/>
         <div class="hd-searchMobile">
           <div class="search-input-cont">
             <v-text-field
@@ -17,7 +17,7 @@
               type="search"
             ></v-text-field>
           </div>
-          <div @click="searchQuery" class="search-btn" v-language:inner="'homePage_hd_search'" />
+          <div @click="searchQuery" class="search-btn" v-t="'homePage_hd_search'" />
         </div>
       </div>
       <div class="headline-img" :style="{'backgroundImage': `url(${backgroundImg}`, 'background-position': '-900px -120px'}">

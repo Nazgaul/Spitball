@@ -3,9 +3,9 @@
         <div class="getStartedActions">
             <div class="getStartedTop">
 
-                <!-- <p class="getStartedTitle" v-language:inner="isRegisterPath? 'loginRegister_getstarted_title':'loginRegister_getstarted_title_login'"></p> -->
+                <!-- <p class="getStartedTitle" v-t="isRegisterPath? 'loginRegister_getstarted_title':'loginRegister_getstarted_title_login'"></p> -->
                 <p class="getStartedTitle">{{$t(isRegisterPath? 'loginRegister_getstarted_title' : 'loginRegister_getstarted_title_login')}}</p>
-                <span class="getStartedSubtitle" v-language:inner="isRegisterPath? 'loginRegister_getstarted_subtitle': '' "></span>
+                <span class="getStartedSubtitle" v-t="isRegisterPath? 'loginRegister_getstarted_subtitle': '' "></span>
             </div>
             <div class="getStartedForm">
                 <div v-if="isRegisterPath" class="getStartedTerms">
@@ -24,14 +24,14 @@
                         </v-checkbox>
                         <label for="checkBox">
                             <span>
-                                <span class="paddingHelper" v-language:inner="'loginRegister_getstarted_terms_i_agree'"></span>
-                                <a :href="isFrymo ? 'https://help.frymo.com/en/article/terms' : 'https://help.spitball.co/en/article/terms-of-service'" class="terms paddingHelper" v-language:inner="'loginRegister_getstarted_terms_terms'"></a>
-                                    <span class="paddingHelper" v-language:inner="'loginRegister_getstarted_terms_and'"></span>
-                                <a :href="isFrymo ? 'https://help.frymo.com/en/policies' : 'https://help.spitball.co/en/article/privacy-policy'" class="terms" v-language:inner="'loginRegister_getstarted_terms_privacy'"></a>
+                                <span class="paddingHelper" v-t="'loginRegister_getstarted_terms_i_agree'"></span>
+                                <a :href="isFrymo ? 'https://help.frymo.com/en/article/terms' : 'https://help.spitball.co/en/article/terms-of-service'" class="terms paddingHelper" v-t="'loginRegister_getstarted_terms_terms'"></a>
+                                    <span class="paddingHelper" v-t="'loginRegister_getstarted_terms_and'"></span>
+                                <a :href="isFrymo ? 'https://help.frymo.com/en/policies' : 'https://help.spitball.co/en/article/privacy-policy'" class="terms" v-t="'loginRegister_getstarted_terms_privacy'"></a>
                             </span>
                         </label>
                     </div>
-                    <span v-if="isError" class="errorMsg" v-language:inner="'login_please_agree'"></span>
+                    <span v-if="isError" class="errorMsg" v-t="'login_please_agree'"></span>
                 </div>
                 
                 <v-btn 
@@ -44,12 +44,12 @@
                     class="google btn-login"
                 >
                         <img src="./images/G icon@2x.png" />
-                        <span class="btnText" v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_google_signup':'loginRegister_getstarted_btn_google_signin'"></span>
+                        <span class="btnText" v-t="isRegisterPath? 'loginRegister_getstarted_btn_google_signup':'loginRegister_getstarted_btn_google_signin'"></span>
                 </v-btn>
 
                 <span v-if="gmailError" class="errorMsg">{{gmailError}}</span>
 
-                <span class="or d-none d-sm-flex" v-language:inner="'loginRegister_getstarted_or'"></span>
+                <span class="or d-none d-sm-flex" v-t="'loginRegister_getstarted_or'"></span>
 
                 <v-btn 
                     @click="goWithEmail()"
@@ -61,16 +61,16 @@
                     sel="email"
                 >
                     <img src="./images/np_email@2x.png">
-                    <span class="btnText" v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_email_signup' : 'loginRegister_getstarted_btn_email_signin'"></span>
+                    <span class="btnText" v-t="isRegisterPath? 'loginRegister_getstarted_btn_email_signup' : 'loginRegister_getstarted_btn_email_signin'"></span>
                 </v-btn>
             </div>
         </div>
         <div class="getStartedBottom">
-            <span class="needAccount" v-language:inner="isRegisterPath ? 'loginRegister_getstarted_signin_text' : 'loginRegister_getstarted_signup_text'"></span><router-link
+            <span class="needAccount" v-t="isRegisterPath ? 'loginRegister_getstarted_signin_text' : 'loginRegister_getstarted_signup_text'"></span><router-link
                 :to="{name: isRegisterPath ? 'login' : 'register'}" 
                 exact
                 class="link ml-1" 
-                v-language:inner="isRegisterPath ? 'loginRegister_getstarted_signin_link' : 'loginRegister_getstarted_signup_link'"
+                v-t="isRegisterPath ? 'loginRegister_getstarted_signin_link' : 'loginRegister_getstarted_signup_link'"
             >
             </router-link>
         </div>

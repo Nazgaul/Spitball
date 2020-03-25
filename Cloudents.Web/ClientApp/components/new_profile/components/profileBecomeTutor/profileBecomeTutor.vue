@@ -1,10 +1,10 @@
 <template>
    <div class="profileBecomeTutor">
       <div class="profileBecomeTutor_wrapper">
-         <div class="profileBecomeTutor_title" v-language:inner="'profile_become_title'"/>
-         <div class="profileBecomeTutor_desc" v-language:inner="'profile_become_txt'"/>
+         <div class="profileBecomeTutor_title" v-t="'profile_become_title'"/>
+         <div class="profileBecomeTutor_desc" v-t="'profile_become_txt'"/>
          <v-btn class="profileBecomeTutor_action white--text" depressed rounded color="#4452fc" v-openDialog="becomeTutorDialog">
-            <div class="profileBecomeTutor_action_txt" v-language:inner="'profile_become_tutor_btn'"/>
+            <div class="profileBecomeTutor_action_txt" v-t="'profile_become_tutor_btn'"/>
          </v-btn>
       </div>
    </div>

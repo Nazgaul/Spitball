@@ -1,7 +1,7 @@
 <template>
    <div class="profileReviewsBox" v-if="!!getProfile && getProfileReviews !== null">
       <div class="profileReviewsBox_state">
-         <div class="profileReviewsBox_state_title" v-language:inner="'reviewBox_title'"/>
+         <div class="profileReviewsBox_state_title" v-t="'reviewBox_title'"/>
          <div class="profileReviewsBox_state_container">
             <div class="profileReviewsBox_state_score">
                <div class="profileReviewsBox_state_score_title">
@@ -29,7 +29,7 @@
       <profileSingleReview v-for="(review, index) in reviews" :review="review" :key="index"/>
       <div class="profileReviewsBox_more" v-if="getProfileReviews.reviews.length > 2">
          <button sel="more_reviews" @click="isExpand = !isExpand">
-            <span v-language:inner="isExpand?'reviewBox_see_less':'reviewBox_see_more'"/>
+            <span v-t="isExpand?'reviewBox_see_less':'reviewBox_see_more'"/>
          </button>
       </div>
    </div> 

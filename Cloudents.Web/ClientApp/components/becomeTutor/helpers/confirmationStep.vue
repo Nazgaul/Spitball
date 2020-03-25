@@ -2,8 +2,8 @@
     <div class="confirmation-step-wrap" :class="[!isMobile ? 'px-0' : '']">
         <v-layout column wrap align-center justify-center :class="[{'px-5':!isMobile},{'pt-4':!isMobile},'confirmation-step-wrap-cont']">
             <div :class="['code-txt',{'pr-5':!isMobile}]">
-                <p :class="['code-txt-title','mb-2']" v-language:inner="'becomeTutor_code_of_conduct_title'"/>
-                <p v-language:inner="'becomeTutor_code_of_conduct'"/>
+                <p :class="['code-txt-title','mb-2']" v-t="'becomeTutor_code_of_conduct_title'"/>
+                <p v-t="'becomeTutor_code_of_conduct'"/>
             </div>
             <v-checkbox :ripple="false" class="checkbox-confirmation-step"
                         :label="$Ph('becomeTutor_agree')"
@@ -14,7 +14,7 @@
         <v-layout class="px-1 btns-confirmation-step"
                 :class="[isMobile ? 'align-end justify-end' : 'align-center justify-center']">
             <v-btn class="cancel-btn-step elevation-0" rounded outlined text @click="goToPreviousStep">
-                <span v-language:inner="'becomeTutor_btn_back'"/>
+                <span v-t="'becomeTutor_btn_back'"/>
             </v-btn>
             <v-btn  color="#4452FC"
                     :loading="isLoading"
@@ -22,7 +22,7 @@
                     @click="submit"
                     rounded
                     class="white-text elevation-0">
-                    <span v-language:inner="'becomeTutor_btn_done'"/>
+                    <span v-t="'becomeTutor_btn_done'"/>
             </v-btn>
         </v-layout>
     </div>

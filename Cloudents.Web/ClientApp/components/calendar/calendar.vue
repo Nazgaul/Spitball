@@ -2,11 +2,11 @@
     <v-layout class="calendar-container">
       <v-flex :class="{'sheet-loading':!isReady}">
         <div class="calendar-header">
-            <h2 v-language:inner="'calendar_header'"></h2>
-            <h3 v-language:inner="'calendar_title'"></h3>
+            <h2 v-t="'calendar_header'"></h2>
+            <h3 v-t="'calendar_title'"></h3>
             <div class="calendar-header-time">
               <Schedule />
-              <div v-language:inner="'calendar_time'"></div>
+              <div v-t="'calendar_time'"></div>
             </div>
         </div>
         <div class="navigation-btns-calendar">
@@ -21,9 +21,9 @@
         <v-sheet>
           <v-card v-if="addEventDialog" class="addEventDialog" id="addEventDialog">
             <div :class="['event-dialog-title',{'event-dialog-title-send':!isEventSent,'event-dialog-title-done':isEventSent}]">
-              <span v-if="isNeedPayment && !isEventSent" v-language:inner="'calendar_add_event_payment'"/>
+              <span v-if="isNeedPayment && !isEventSent" v-t="'calendar_add_event_payment'"/>
               <span v-if="!isEventSent && !isNeedPayment" v-html="$Ph('calendar_add_event_title',[tutorName])"/>
-              <span v-if="isEventSent && !isNeedPayment" v-language:inner="'calendar_add_event_thank'"/>
+              <span v-if="isEventSent && !isNeedPayment" v-t="'calendar_add_event_thank'"/>
             </div>
 
             <div :class="['event-dialog-body',{'event-dialog-body-payment':isNeedPayment,'event-dialog-body-send':!isEventSent && !isNeedPayment,'event-dialog-body-done':isEventSent && !isNeedPayment}]">
@@ -32,7 +32,7 @@
                 <p>{{formatDateString()}}</p>
                 <p dir="ltr">{{formatTimeString()}}</p>
               </div>
-              <span v-if="isEventSent && !isNeedPayment" v-language:inner="'calendar_add_event_sent'"/>
+              <span v-if="isEventSent && !isNeedPayment" v-t="'calendar_add_event_sent'"/>
             </div>
 
             <div class="event-dialog-action">
@@ -41,7 +41,7 @@
                 @click="closeDialog" 
                 depressed rounded 
                 :class="[!isEventSent? 'cncl-btn': 'donebtn']">
-                <span v-language:inner="!isEventSent? 'calendar_add_event_cancel':'calendar_add_event_ok'"/>
+                <span v-t="!isEventSent? 'calendar_add_event_cancel':'calendar_add_event_ok'"/>
               </v-btn>
 
               <v-btn v-if="!isEventSent"
@@ -50,7 +50,7 @@
                   depressed rounded 
                   color="#4452fc" 
                   class="calbtn">
-                <span v-language:inner="isNeedPayment? 'calendar_add_event_ok' :'calendar_add_event_btn'"/>
+                <span v-t="isNeedPayment? 'calendar_add_event_ok' :'calendar_add_event_btn'"/>
               </v-btn>
             </div>
           </v-card>

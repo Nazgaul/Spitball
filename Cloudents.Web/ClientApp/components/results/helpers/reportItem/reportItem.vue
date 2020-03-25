@@ -5,12 +5,12 @@
             <v-flex xs12>
                 <div class="report-head">
                     <v-icon class="flag-icon">sbf-flag</v-icon>
-                    <span class="text-head" v-language:inner>reportItem_report_title</span>
+                    <span class="text-head" v-t>reportItem_report_title</span>
                     <v-icon class="report-close-icon" @click.prevent="closeReportPop()">sbf-close</v-icon>
                 </div>
                 <div class="reasons-wrap">
                     <div class="heading-container">
-                        <span class="report-heading-text" v-language:inner>reportItem_report_subtitle</span>
+                        <span class="report-heading-text" v-t>reportItem_report_subtitle</span>
                     </div>
                     <v-list>
                        <v-list-item-group>
@@ -24,7 +24,7 @@
                        
                         <v-list-item class="reason-item" @click="toogleOtherInput()">
                             <v-list-item-content class="reason-item-content">
-                                <v-list-item-title class="reason-name" v-language:inner>reportItem_report_other
+                                <v-list-item-title class="reason-name" v-t>reportItem_report_other
                                 </v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
@@ -39,7 +39,7 @@
             </v-flex>
             <div class="report-footer text-center">
                 <div v-if="errorText" class="red--text" v-text="errorText"/>
-                <button class="report-submit" @click="sendItemReport()" v-language:inner="'reportItem_report_btn'"/>
+                <button class="report-submit" @click="sendItemReport()" v-t="'reportItem_report_btn'"/>
             </div> 
         </v-layout>
     </div>

@@ -10,34 +10,34 @@
          </div>
          <div class="profileUserStickyMobile_user_info">
                <h6 class="profileUserStickyMobile_user_info_name text-truncate" v-if="!$vuetify.breakpoint.xsOnly">
-                  <span v-language:inner="'profile_tutor'"/>
+                  <span v-t="'profile_tutor'"/>
                   {{getProfile.user.name}}
                </h6>
                <div class="profileUserStickyMobile_user_info_pricing">
                   <v-flex class="profileUserStickyMobile_pricing_price">
-                     <span class="profileUserStickyMobile_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserStickyMobile_pricing_price_hour" v-language:inner="'profile_points_hour'"/>
+                     <span class="profileUserStickyMobile_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserStickyMobile_pricing_price_hour" v-t="'profile_points_hour'"/>
                   </v-flex>
                   <v-flex class="profileUserStickyMobile_pricing_discount" :class="[{'pl-4':$vuetify.breakpoint.xsOnly}]" v-if="isDiscount">
                      {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
                   </v-flex>
                </div>
-               <button :class="{'isMyProfileCoupon':isMyProfile}" class="profileUserStickyMobile_coupon" @click="globalFunctions.openCoupon" v-language:inner="'coupon_apply_coupon'"/>
+               <button :class="{'isMyProfileCoupon':isMyProfile}" class="profileUserStickyMobile_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
          </div>
       </div>
       <div class="profileUserStickyMobile_actions ml-1">
             <v-btn :disabled="isMyProfile" class="profileUserStickyMobile_btn mr-2 white--text" :class="[{'isMyProfile':isMyProfile},{'noCalendar':!getProfile.user.calendarShared}]" depressed rounded color="#4452fc" @click="globalFunctions.sendMessage">
                <chatIcon class="profileUserStickyMobile_btn_icon" :class="[{'mr-2':$vuetify.breakpoint.mdAndUp || $vuetify.breakpoint.xsOnly}]"/>
-               <div v-if="$vuetify.breakpoint.mdAndUp || $vuetify.breakpoint.xsOnly" class="profileUserStickyMobile_btn_txt" v-language:inner="'profile_send_message'"/>
+               <div v-if="$vuetify.breakpoint.mdAndUp || $vuetify.breakpoint.xsOnly" class="profileUserStickyMobile_btn_txt" v-t="'profile_send_message'"/>
             </v-btn>
             <v-btn :disabled="isMyProfile" v-if="getProfile.user.calendarShared" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isMyProfile}" class="profileUserStickyMobile_btn profileUserStickyMobile_btn_book white--text" depressed rounded color="white">
                <calendarIcon class="profileUserStickyMobile_btn_icon" :class="[{'mr-3':$vuetify.breakpoint.mdAndUp},{'mr-2':$vuetify.breakpoint.xsOnly}]"/>
-               <div v-if="$vuetify.breakpoint.mdAndUp || $vuetify.breakpoint.xsOnly" class="profileUserStickyMobile_btn_txt" v-language:inner="!$vuetify.breakpoint.xsOnly?'profile_book_session_mobile':'profile_book_session_mobile_xs'"/>
+               <div v-if="$vuetify.breakpoint.mdAndUp || $vuetify.breakpoint.xsOnly" class="profileUserStickyMobile_btn_txt" v-t="!$vuetify.breakpoint.xsOnly?'profile_book_session_mobile':'profile_book_session_mobile_xs'"/>
             </v-btn>
       </div>
      </template>
      <template v-if="!getProfile.user.isTutor">
          <v-btn class="profileUserSticky_btn profileUserSticky_btn_find white--text" depressed rounded color="#4452fc" @click="isMyProfile? openBecomeTutor() : goTutorList()">
-            <div class="profileUserSticky_btn_txt" v-language:inner="isMyProfile? 'profile_become_tutor_btn':'profile_find_tutors'"/>
+            <div class="profileUserSticky_btn_txt" v-t="isMyProfile? 'profile_become_tutor_btn':'profile_find_tutors'"/>
          </v-btn>
      </template>
   </div>

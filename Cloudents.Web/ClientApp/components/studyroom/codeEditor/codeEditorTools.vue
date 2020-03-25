@@ -10,7 +10,7 @@
                         <v-icon>{{ show ? 'sbf-arrow-up' : 'sbf-arrow-down' }}</v-icon>
                     </v-btn>
                </template>
-                <span v-language:inner="'tutor_tooltip_code_langauge'"/>
+                <span v-t="'tutor_tooltip_code_langauge'"/>
             </v-tooltip>
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
@@ -18,7 +18,7 @@
                         <v-switch class="switch" color="primary" v-model="themeMode" :label="switchThemeResx" hide-details />
                     </button>
                 </template>
-                <span v-language:inner="'tutor_tooltip_code_theme'"/>
+                <span v-t="'tutor_tooltip_code_theme'"/>
             </v-tooltip>
             <v-card v-if="show" class="list-lang-cont" id="languagesListPop" max-width="none">
                 <div v-for="lang in languagesList" :key="lang.langName" class="list-lang" @click="selectLang(lang)"> 

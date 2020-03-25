@@ -3,7 +3,7 @@
         <div>
             <v-form v-model="validBecomeSecond" ref="becomeFormSecond" class="become-second-form">
                 <v-flex xs12 class="mb-4 span-cont">
-                    <span class="sharing-text" v-language:inner="'becomeTutor_sharing_step_2'"></span>
+                    <span class="sharing-text" v-t="'becomeTutor_sharing_step_2'"></span>
                 </v-flex>
                 <v-flex xs12 class="mb-2" :class="{'mt-4' : $vuetify.breakpoint.xsOnly}">
                     <v-textarea
@@ -38,7 +38,7 @@
         <div class="mt-2 px-1 btns-second"
                   :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
             <v-btn @click="goToPreviousStep()" class="cancel-btn elevation-0" rounded outline text>
-                <span v-language:inner>becomeTutor_btn_back</span>
+                <span v-t>becomeTutor_btn_back</span>
             </v-btn>
             <v-btn
                     color="#4452FC"
@@ -46,7 +46,7 @@
                     rounded
                     :loading="btnLoading"
                     @click="submitData()">
-                <span v-language:inner>becomeTutor_btn_next</span>
+                <span v-t>becomeTutor_btn_next</span>
             </v-btn>
         </div>
     </div>

@@ -6,36 +6,36 @@
 					<h1 class="globalBanner_title_get" v-html="titleText"/>
 					<h2 class="globalBanner_title_sub" v-html="subTitleText"/>
 					<span class="globalBanner_title_sub banner_code" v-if="$vuetify.breakpoint.xsOnly">
-						<span v-language:inner="'banner_code'"/>
+						<span v-t="'banner_code'"/>
 						<span class="globalBanner_title_code" v-html="coupon"/>
 					</span>
 				</div>
 				<div class="globalBanner_coupon mt-1" v-if="!$vuetify.breakpoint.xsOnly && !!getBannerParams">
 					<img class="globalBanner_coupon_img" src="./images/b.png" alt="">
-					<span v-language:inner="'banner_code'"/>
+					<span v-t="'banner_code'"/>
 					<span class="globalBanner_coupon_code" v-html="coupon"/>
 				</div>
 				<div class="globalBanner_timer" v-if="$vuetify.breakpoint.mdAndUp && !!getBannerParams">
-					<span class="globalBanner_timer_title" v-language:inner="'banner_offer'"/>
+					<span class="globalBanner_timer_title" v-t="'banner_offer'"/>
 					<v-layout class="globalBanner_timer_container mt-1">
 						<v-flex xs2 class="globalBanner_timer_box">
 							<h1 class="globalBanner_timer_box_time" v-html="time.days"/>
-							<span class="globalBanner_timer_box_text" v-language:inner="'banner_days'"/>
+							<span class="globalBanner_timer_box_text" v-t="'banner_days'"/>
 						</v-flex>
 						<v-flex class="globalBanner_timer_divider">:</v-flex>
 						<v-flex xs2 class="globalBanner_timer_box">
 							<h1 class="globalBanner_timer_box_time" v-html="time.hours"/>
-							<span class="globalBanner_timer_box_text" v-language:inner="'banner_hours'"/>
+							<span class="globalBanner_timer_box_text" v-t="'banner_hours'"/>
 						</v-flex>
 						<v-flex class="globalBanner_timer_divider">:</v-flex>
 						<v-flex xs2 class="globalBanner_timer_box">
 							<h1 class="globalBanner_timer_box_time" v-html="time.minutes"/>
-							<span class="globalBanner_timer_box_text" v-language:inner="'banner_minutes'"/>
+							<span class="globalBanner_timer_box_text" v-t="'banner_minutes'"/>
 						</v-flex>
 						<v-flex class="globalBanner_timer_divider">:</v-flex>
 						<v-flex xs2 class="globalBanner_timer_box">
 							<h1 class="globalBanner_timer_box_time" v-html="time.seconds"/>
-							<span class="globalBanner_timer_box_text"  v-language:inner="'banner_seconds'"/>
+							<span class="globalBanner_timer_box_text"  v-t="'banner_seconds'"/>
 						</v-flex>
 					</v-layout>
 				</div>

@@ -2,8 +2,8 @@
     <div class="calendarHours">
         <div class="calendarHoursCont">
             <div class="calendarHoursTitle">
-                <h1 v-language:inner="'calendar_calendar_hour_title'"/>
-                <h2 v-language:inner="'calendar_calendar_hour_subtitle'"/>
+                <h1 v-t="'calendar_calendar_hour_title'"/>
+                <h2 v-t="'calendar_calendar_hour_subtitle'"/>
             </div>
     <table>
         <tbody>

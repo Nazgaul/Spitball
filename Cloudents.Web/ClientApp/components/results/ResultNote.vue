@@ -25,7 +25,7 @@
           :class="{'isPurchased': isPurchased}"
         >
           {{item.price ? item.price.toFixed(0): ''}}
-          <span v-language:inner>app_currency_dynamic</span>
+          <span v-t>app_currency_dynamic</span>
         </div>
 
         <v-menu
@@ -113,21 +113,21 @@
           <span>{{ $tc('resultNote_view',docViews)}}</span>
           <!-- <span
             class="views"
-            v-language:inner="docViews > 1 ? 'resultNote_views' : 'resultNote_view'"
+            v-t="docViews > 1 ? 'resultNote_views' : 'resultNote_view'"
           /> -->
         </span>
         <span v-if="docDownloads && !item.price">
           <span>{{ $tc('resultNote_download',docDownloads)}}</span>
           <!-- <span
             class="downloads"
-            v-language:inner="docDownloads > 1 ? 'resultNote_downloads' : 'resultNote_download'"
+            v-t="docDownloads > 1 ? 'resultNote_downloads' : 'resultNote_download'"
           /> -->
         </span>
         <span v-if="docPurchased && item.price">
           <span>{{ $tc('resultNote_purchased',docPurchased)}}</span>
           <!-- <span
             class="downloads"
-            v-language:inner="docPurchased > 1 ? 'resultNote_purchaseds' : 'resultNote_purchased'"
+            v-t="docPurchased > 1 ? 'resultNote_purchaseds' : 'resultNote_purchased'"
           /> -->
         </span>
       </div>
@@ -144,7 +144,7 @@
         :class="{'isPurchased': isPurchased}"
       >
         {{item.price ? item.price.toFixed(0): ''}}
-        <span v-language:inner>app_currency_dynamic</span>
+        <span v-t>app_currency_dynamic</span>
       </div>
     </v-flex>
 
@@ -168,7 +168,7 @@
       <v-card class="price-change-wrap">
         <v-flex align-center justify-center class="relative-pos">
           <div class="title-wrap">
-            <span class="change-title" v-language:inner>resultNote_change_for</span>
+            <span class="change-title" v-t>resultNote_change_for</span>
             <span class="change-title" style="max-width: 150px;">&nbsp;"{{item.title}}"</span>
           </div>
           <div class="input-wrap align-center justify-center">
@@ -189,10 +189,10 @@
         </v-flex>
         <div class="change-price-actions">
           <button @click="closeNewPriceDialog()" class="cancel mr-2">
-            <span v-language:inner>resultNote_action_cancel</span>
+            <span v-t>resultNote_action_cancel</span>
           </button>
           <button @click="submitNewPrice()" class="change-price">
-            <span v-language:inner>resultNote_action_apply_price</span>
+            <span v-t>resultNote_action_apply_price</span>
           </button>
         </div>
       </v-card>

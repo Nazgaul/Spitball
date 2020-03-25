@@ -2,7 +2,7 @@
    <v-card class="priceD-change-wrap">
       <v-flex align-center justify-center class="relative-pos">
          <div class="title-wrap">
-            <span class="change-title pr-1" v-language:inner="'resultNote_change_for'"></span>
+            <span class="change-title pr-1" v-t="'resultNote_change_for'"></span>
             <span class="change-title">&nbsp;"{{dialogData.name}}"</span>
          </div>
          <div class="input-wrap d-flex align-center justify-center">
@@ -23,10 +23,10 @@
       </v-flex>
       <div class="change-price-actions">
          <button @click="$emit('closeDialog')" class="cancel mr-2">
-            <span v-language:inner="'resultNote_action_cancel'"/>
+            <span v-t="'resultNote_action_cancel'"/>
          </button>
          <button @click="submitNewPrice()" class="change-price">
-            <span v-language:inner="'resultNote_action_apply_price'"/>
+            <span v-t="'resultNote_action_apply_price'"/>
          </button>
       </div>
    </v-card>

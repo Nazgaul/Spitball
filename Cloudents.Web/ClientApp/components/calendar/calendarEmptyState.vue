@@ -3,7 +3,7 @@
         <v-layout  column wrap align-center justify-center class="calendar-step-wrap-cont">
             <template v-if="!isSelectCalendar && !isSelectHours">
                 <img src="./images/calendar.png" alt="">
-                <p class="pEmptyCalendar" v-language:inner="'becomeTutor_cal_step'"/>
+                <p class="pEmptyCalendar" v-t="'becomeTutor_cal_step'"/>
             </template>
 
             <selectCalendarCMP v-if="isSelectCalendar  && !isSelectHours"/>
@@ -14,7 +14,7 @@
             <v-btn color="#4452FC" rounded :loading='isLoading'
                     class="white--text elevation-0 calbtnshare"
                     @click="emptyStateFunctions">
-                <span v-language:inner="emptyStateResources"/>
+                <span v-t="emptyStateResources"/>
             </v-btn>
         </v-layout>
     </div>

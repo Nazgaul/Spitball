@@ -6,13 +6,13 @@
                 <div class="messages-study-room" :class="{'join-room': studyRoomExists || isStudyRoom, 'create-room': !studyRoomExists && isRoomTutor}" v-if="!isRouteStudyRoom && showStudyRoomInteraction || isStudyRoom" @click="createRoom">
                     <button v-if="studyRoomExists || isStudyRoom">
                         <v-icon style="font-size:16px !important; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon>&nbsp;
-                        <span v-language:inner="'chat_studyRoom_enter'"></span>
+                        <span v-t="'chat_studyRoom_enter'"></span>
                     </button>
 
                     <v-btn v-if="(!studyRoomExists && isRoomTutor) && !isStudyRoom " 
                            text class="white--text messages-study-room-btn-create" 
                            :loading="loader">
-                        <add-circle />&nbsp;&nbsp;&nbsp;<span v-language:inner="'chat_studyRoom_create'"></span>
+                        <add-circle />&nbsp;&nbsp;&nbsp;<span v-t="'chat_studyRoom_create'"></span>
                     </v-btn>
                 </div>
             </div>
@@ -21,7 +21,7 @@
                 <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index" :lastMsgIndex="index === messages.length - 1"></message>
             </div>
 
-            <span class="error-file-span" v-if="fileError" v-language:inner="'chat_file_error'"></span>
+            <span class="error-file-span" v-if="fileError" v-t="'chat_file_error'"></span>
 
             <div class="messages-input" :class="{'messages-input-disabled': !getIsSignalRConnected}">
                 <span class="messages-mobile-button" v-if="typing" @click="sendMessage"><v-icon class="">sbf-path</v-icon></span>

@@ -1,7 +1,7 @@
 <template>
    <div class="v-alert info tableEmptyState">
       <img src="../images/warning.png" alt="">
-      <span class="tableEmptyState_text" v-language:inner="'dashboardPage_empty'"></span>
+      <span class="tableEmptyState_text" v-t="'dashboardPage_empty'"></span>
    </div>
 </template>
 <style lang="less">

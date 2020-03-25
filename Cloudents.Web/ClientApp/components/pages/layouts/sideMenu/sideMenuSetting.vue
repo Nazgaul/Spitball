@@ -4,7 +4,7 @@
          <v-list-item class="sideMenu_list">
             <v-list-item-content>
             <v-list-item-title>
-               <span class="sideMenu_list_title" v-language:inner="'schoolBlock_settings'"/>
+               <span class="sideMenu_list_title" v-t="'schoolBlock_settings'"/>
                </v-list-item-title>
             </v-list-item-content>
          </v-list-item>

@@ -1,6 +1,6 @@
 <template>
    <div class="myContent">
-      <div class="myContent_title" v-language:inner="'dashboardPage_my_content_title'"/>
+      <div class="myContent_title" v-t="'dashboardPage_my_content_title'"/>
       <v-data-table 
             :headers="headers"
             :items="contentItems"

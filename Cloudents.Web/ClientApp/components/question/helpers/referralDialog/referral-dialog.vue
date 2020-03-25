@@ -26,19 +26,19 @@
                 <div class="share-icon-container">
                     <span @click="shareOnSocialMedia(socialMedias.facebook)" class="share-btn facebook-share-btn">
                         <v-icon class="share-icon">sbf-facebook-share</v-icon>
-                        <span class="share-text" v-language:inner>referralDialog_share_facebook</span>
+                        <span class="share-text" v-t>referralDialog_share_facebook</span>
                     </span>
                     <span @click="shareOnSocialMedia(socialMedias.twitter)" class="share-btn twitter-share-btn">
                         <v-icon class="share-icon referral-twitter-icon">sbf-tweeter-share</v-icon>
-                        <span class="share-text referral-twitter" v-language:inner>referralDialog_share_tweeter</span>
+                        <span class="share-text referral-twitter" v-t>referralDialog_share_tweeter</span>
                     </span>
                     <span @click="shareOnSocialMedia(socialMedias.gmail)" class="share-btn gmail-share-btn">
                         <v-icon class="share-icon referral-gmail-icon">sbf-google-share</v-icon>
-                        <span class="share-text" v-language:inner>referralDialog_share_google</span>
+                        <span class="share-text" v-t>referralDialog_share_google</span>
                     </span>
                     <span @click="shareOnSocialMedia(socialMedias.whatsApp)" class="share-btn whatsup-share-btn">
                         <v-icon class="share-icon">sbf-whatsup-share</v-icon>
-                        <span class="share-text" v-language:inner>referralDialog_share_whatsup</span>
+                        <span class="share-text" v-t>referralDialog_share_whatsup</span>
                     </span>
                 </div>
                 <div class="input-container mb-4">
@@ -67,9 +67,9 @@
                             <v-icon class="copy-check-icon" transition="fade-transition"
                                     v-show="isCopied">sbf-checkmark
                             </v-icon>
-                            <span v-show="!isCopied && !isMultiple" v-language:inner>referralDialog_copy</span>
-                            <span v-show="!isCopied && isMultiple" v-language:inner>referralDialog_copy_link</span>
-                            <span v-show="isCopied" v-language:inner>referralDialog_copied</span>
+                            <span v-show="!isCopied && !isMultiple" v-t>referralDialog_copy</span>
+                            <span v-show="!isCopied && isMultiple" v-t>referralDialog_copy_link</span>
+                            <span v-show="isCopied" v-t>referralDialog_copied</span>
                         </button>
 
                     </div>

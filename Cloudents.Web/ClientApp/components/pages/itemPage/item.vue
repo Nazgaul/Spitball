@@ -17,7 +17,7 @@
                             <div
                                 class="mr-3 itemPage__main__document__tutor__link"
                             >
-                                <div class="itemPage__main__document__tutor__link--title1" v-language:inner="'documentPage_need_help1'" @click="moveDownToTutorItem"></div>
+                                <div class="itemPage__main__document__tutor__link--title1" v-t="'documentPage_need_help1'" @click="moveDownToTutorItem"></div>
                                 <div class="itemPage__main__document__tutor__link--title2" v-html="$Ph('documentPage_need_help2', firstName)"></div>
                             </div>
                             <v-btn v-if="!isMyProfile" class="itemPage__main__document__tutor--btn ma-0" depressed rounded @click="sendMessage">
@@ -60,9 +60,9 @@
             <div v-if="itemList.length" class="itemPage__main__carousel" :class="{'itemPage__main__carousel--margin': !docTutor && !docTutor.isTutor && $vuetify.breakpoint.xsOnly}">
                 <div class="itemPage__main__carousel__header">
                     
-                    <div class="itemPage__main__carousel__header__title" v-language:inner="'documentPage_related_content'"></div>
+                    <div class="itemPage__main__carousel__header__title" v-t="'documentPage_related_content'"></div>
                     <router-link 
-                        v-language:inner="'documentPage_full_list'"
+                        v-t="'documentPage_full_list'"
                         :to="{name: 'feed', query: {Course: courseName}}"
                         class="itemPage__main__carousel__header--seeAll"
                         color="#4c59ff"
@@ -99,7 +99,7 @@
             :timeout="8000"
         >
             <div>
-                <span v-language:inner="'resultNote_unsufficient_fund'"></span>
+                <span v-t="'resultNote_unsufficient_fund'"></span>
             </div>
             <v-btn
                 class="px-4"
@@ -107,7 +107,7 @@
                 rounded
                 @click="openBuyTokenDialog"
             >
-                <span v-language:inner="'dashboardPage_my_sales_action_need_btn'"></span>
+                <span v-t="'dashboardPage_my_sales_action_need_btn'"></span>
             </v-btn>
         </v-snackbar>
     </div>

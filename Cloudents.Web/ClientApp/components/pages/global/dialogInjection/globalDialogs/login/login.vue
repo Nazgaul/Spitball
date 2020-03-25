@@ -6,14 +6,14 @@
                     <v-icon>sbf-close</v-icon>
                 </button>
                 <div class="ml-1 wrap-text">
-                    <h2 class="text-md-center" v-language:inner="'profileData_generalProfile_modal_heading'"></h2>
+                    <h2 class="text-md-center" v-t="'profileData_generalProfile_modal_heading'"></h2>
                     <div class="wrapper-body-text">
-                        <p class="dialog-body-text" v-language:inner="'profileData_generalProfile_modal_text'"></p>
+                        <p class="dialog-body-text" v-t="'profileData_generalProfile_modal_text'"></p>
                     </div>
                 </div>
                 <div class="btn-container">
-                    <a  class="login-btns" @click="goToSignIn()" v-language:inner>loginAnswer_login</a>
-                    <a  class="login-btns" @click="goToRegister()" v-language:inner>loginAnswer_Sign_Up</a>
+                    <a  class="login-btns" @click="goToSignIn()" v-t>loginAnswer_login</a>
+                    <a  class="login-btns" @click="goToRegister()" v-t>loginAnswer_Sign_Up</a>
                 </div>
             </div>
         </v-card>

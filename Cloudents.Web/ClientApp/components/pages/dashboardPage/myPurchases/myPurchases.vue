@@ -1,6 +1,6 @@
 <template>
    <div class="myPurchases">
-      <div class="myPurchases_title" v-language:inner="'dashboardPage_my_purchases_title'"/>
+      <div class="myPurchases_title" v-t="'dashboardPage_my_purchases_title'"/>
       <v-data-table 
             :headers="headers"
             :items="purchasesItems"
@@ -42,7 +42,7 @@
                   
                   
                   <td class="text-center">
-                     <button v-if="props.item.type !== 'TutoringSession' && props.item.type !== 'BuyPoints'" @click="dynamicAction(props.item)" class="myPurchases_action" v-language:inner="dynamicResx(props.item.type)"/>
+                     <button v-if="props.item.type !== 'TutoringSession' && props.item.type !== 'BuyPoints'" @click="dynamicAction(props.item)" class="myPurchases_action" v-t="dynamicResx(props.item.type)"/>
                   </td> 
                </tr> 
             </template>

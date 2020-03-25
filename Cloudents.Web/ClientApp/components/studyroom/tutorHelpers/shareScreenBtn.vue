@@ -7,15 +7,15 @@
                         <div v-on="on">
                             <button :disabled="!isRoomActive" @click="showScreen" class="outline-btn-share">
                                 <castIcon class="cast-icon"></castIcon>
-                                <span v-language:inner="'tutor_btn_share_screen'"></span>
+                                <span v-t="'tutor_btn_share_screen'"></span>
                             </button>
                         </div>
                     </template>
-                    <span v-language:inner="'tutor_start_to_share'"/>
+                    <span v-t="'tutor_start_to_share'"/>
                 </v-tooltip>
             </div>
             <button class="outline-btn-share" v-else @click="stopSharing">
-                <span v-language:inner="'tutor_btn_stop_sharing'"></span>
+                <span v-t="'tutor_btn_stop_sharing'"></span>
             </button>
         </v-flex>
     </div>

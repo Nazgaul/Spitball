@@ -1,10 +1,10 @@
 <template>
     <div class="mobileUnlockDownload" :class="{'mobileUnlockDownload--sticky': sticky, 'mobileUnlockDownload--purchased': isPurchased}" v-if="showBlock">
-        <div class="mobileUnlockDownload__title" v-language:inner="'documentPage_credit_uploader'" v-if="!zeroPrice && !isPurchased"></div>
+        <div class="mobileUnlockDownload__title" v-t="'documentPage_credit_uploader'" v-if="!zeroPrice && !isPurchased"></div>
         <div class="mobileUnlockDownload__action">
             <template v-if="!zeroPrice && !isPurchased">
                 <span class="mobileUnlockDownload__action__price">{{priceWithComma}}</span>
-                <span class="mobileUnlockDownload__action__pts" v-language:inner="'documentPage_points'"></span>
+                <span class="mobileUnlockDownload__action__pts" v-t="'documentPage_points'"></span>
             </template>
             <v-btn
                 class="mobileUnlockDownload__action__btn"
@@ -16,8 +16,8 @@
                 @click="openPurchaseDialog"
                 v-if="!isPurchased || isVideo"
                 color="#4c59ff">
-                    <span v-if="isVideo" v-language:inner="'documentPage_unlock_video_btn'"></span>
-                    <span v-else v-language:inner="'documentPage_unlock_document_btn'"></span>
+                    <span v-if="isVideo" v-t="'documentPage_unlock_video_btn'"></span>
+                    <span v-else v-t="'documentPage_unlock_document_btn'"></span>
             </v-btn>
             <v-btn
                 v-else
@@ -31,7 +31,7 @@
                 block
                 rounded
                 @click="downloadDoc" color="#4c59ff">
-                    <span v-language:inner="'documentPage_download_btn'"></span>
+                    <span v-t="'documentPage_download_btn'"></span>
             </v-btn>
         </div>
     </div>

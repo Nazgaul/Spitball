@@ -5,13 +5,13 @@
         <template v-if="!isSelectCalendar && !isSelectHours">
             <v-layout column wrap align-center justify-center class="calendar-step-wrap-cont">
                 <img src="../images/calendar.png" alt="">
-                <p v-language:inner="'becomeTutor_cal_step'"/>
+                <p v-t="'becomeTutor_cal_step'"/>
                 <v-btn  color="#4452FC"
                         rounded
                         :loading='isLoadingCalendar'
                         class="white-text elevation-0 calbtnshare"
                         @click="shareCalendar()">
-                    <span v-language:inner="'becomeTutor_btn_cal_connect'"/>
+                    <span v-t="'becomeTutor_btn_cal_connect'"/>
                 </v-btn>
             </v-layout>
         </template>
@@ -23,7 +23,7 @@
             <v-layout class="px-1 btns-cal-step"
                         :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center',isSelectCalendar || isSelectHours? 'resetMargin': '']">
                 <v-btn @click="goToPreviousStep()" class="cancel-btn-step elevation-0" rounded outlined text>
-                    <span v-language:inner="'becomeTutor_btn_back'"/>
+                    <span v-t="'becomeTutor_btn_back'"/>
                 </v-btn>
                 <v-btn  color="#4452FC"
                         :disabled="isBtn"
@@ -31,7 +31,7 @@
                         :loading='isLoading'
                         class="white-text elevation-0"
                         @click="btnDoneNextFunc">
-                    <span v-language:inner="'becomeTutor_btn_next'"/>
+                    <span v-t="'becomeTutor_btn_next'"/>
                 </v-btn>
             </v-layout>
         </template>

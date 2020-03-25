@@ -7,7 +7,7 @@
             <v-container px-4 pt-6 pb-0 class="buy-tokens-top-container">
                 <v-layout>
                     <v-flex text-center xs12>
-                        <span class="buy-tokens-title-text" v-language:inner="'buyTokens_get_points'"></span>
+                        <span class="buy-tokens-title-text" v-t="'buyTokens_get_points'"></span>
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -23,16 +23,16 @@
                     >
                         <div class="buy-tokens-center-price-title">
                             <span class="buy-tokens-points-num">{{products.basic.pts}}</span>&nbsp;
-                            <span v-language:inner="'buyTokens_points'"></span>
+                            <span v-t="'buyTokens_points'"></span>
                         </div>
                         <div>{{products.currency}}{{products.basic.price}}</div>
                         <div class="buy-tokens-text-small">
                             <span>{{products.currency}}</span>
                             <span>{{basicConversionRate}}</span>&nbsp;
-                            <span v-language:inner="'buyTokens_per_point'"></span>
+                            <span v-t="'buyTokens_per_point'"></span>
                         </div>
                         <div>
-                            <button class="buy-tokens-choose-button" v-language:inner="'buyTokens_choose'"></button>
+                            <button class="buy-tokens-choose-button" v-t="'buyTokens_choose'"></button>
                         </div>
                     </v-flex>
                     <v-flex
@@ -43,19 +43,19 @@
                             :class="{'item-selected': selectedProduct === 'inter'}"
                             @click="selectProduct('inter')"
                     >
-                        <div class="buy-tokens-text-absolute" v-language:inner="'buyTokens_most_popular'"></div>
+                        <div class="buy-tokens-text-absolute" v-t="'buyTokens_most_popular'"></div>
                         <div class="buy-tokens-center-price-title">
                             <span class="buy-tokens-points-num">{{products.inter.pts}}</span>&nbsp;
-                            <span v-language:inner="'buyTokens_points'"></span>
+                            <span v-t="'buyTokens_points'"></span>
                         </div>
                         <div>{{products.currency}}{{products.inter.price}}</div>
                         <div class="buy-tokens-text-small">
                             <span>{{products.currency}}</span>
                             <span>{{interConversionRate}}</span>&nbsp;
-                            <span v-language:inner="'buyTokens_per_point'"></span>
+                            <span v-t="'buyTokens_per_point'"></span>
                         </div>
                         <div>
-                            <button class="buy-tokens-choose-button middle-box" v-language:inner="'buyTokens_choose'"></button>
+                            <button class="buy-tokens-choose-button middle-box" v-t="'buyTokens_choose'"></button>
                         </div>
                     </v-flex>
                     <v-flex
@@ -68,16 +68,16 @@
                     >
                         <div class="buy-tokens-center-price-title">
                             <span class="buy-tokens-points-num">{{$n(products.pro.pts)}}</span>&nbsp;
-                            <span v-language:inner="'buyTokens_points'"></span>
+                            <span v-t="'buyTokens_points'"></span>
                         </div>
                         <div>{{products.currency}}{{products.pro.price}}</div>
                         <div class="buy-tokens-text-small">
                             <span>{{products.currency}}</span>
                             <span>{{proConversionRate}}</span>&nbsp;
-                            <span v-language:inner="'buyTokens_per_point'"></span>
+                            <span v-t="'buyTokens_per_point'"></span>
                         </div>
                         <div>
-                            <button class="buy-tokens-choose-button" v-language:inner="'buyTokens_choose'"></button>
+                            <button class="buy-tokens-choose-button" v-t="'buyTokens_choose'"></button>
                         </div>
                     </v-flex>
                 </v-layout>
@@ -85,8 +85,8 @@
                     <v-flex class="buy-tokens-details-container">
                         <img class="img-warning" src="./img/warning.png" alt=""/>
                         <div class="txt-buy-tokens">
-                            <p style="color:red;" v-language:inner="'buyTokens_bottom_1'" />
-                            <p v-language:inner="'buyTokens_bottom_2'" />
+                            <p style="color:red;" v-t="'buyTokens_bottom_1'" />
+                            <p v-t="'buyTokens_bottom_2'" />
                         </div>
                             </v-flex>
                  </v-layout>

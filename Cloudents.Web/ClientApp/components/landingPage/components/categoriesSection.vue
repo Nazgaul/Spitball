@@ -1,6 +1,6 @@
 <template>
   <div class="categoriesSection">
-    <h1 class="cs-title" v-language:inner="'homePage_cs_title'" />
+    <h1 class="cs-title" v-t="'homePage_cs_title'" />
     <div class="categories-top">
       <sbCarousel :slideStep="1" :arrows="$vuetify.breakpoint.smAndDown" v-if="!isMobile">
         <router-link
@@ -25,18 +25,18 @@
     </div>
     <div class="categories-bottom">
       <div class="categories-banner">
-        <span class="banner-title" v-language:inner="'homePage_banner_title'" />
+        <span class="banner-title" v-t="'homePage_banner_title'" />
         <span class="banner-content">
           <compSVG class="banner-svg" />
-          <span v-language:inner="'homePage_banner_content_access'" />
+          <span v-t="'homePage_banner_content_access'" />
         </span>
         <span class="banner-content">
           <pplSVG class="banner-svg" />
-          <span v-language:inner="'homePage_banner_content_find'" />
+          <span v-t="'homePage_banner_content_find'" />
         </span>
         <span class="banner-content">
           <vidSVG class="banner-svg" />
-          <span v-language:inner="'homePage_banner_content_choose'" />
+          <span v-t="'homePage_banner_content_choose'" />
         </span>
       </div>
       <div class="categories-carousel" v-if="!$vuetify.breakpoint.smAndDown">

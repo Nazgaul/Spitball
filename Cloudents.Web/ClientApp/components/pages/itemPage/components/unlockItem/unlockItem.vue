@@ -2,25 +2,25 @@
   <div class="unlockItem">
      <div v-if="isDocument" class="unlockItem_document">
          <div class="unlockItem_document_container">
-            <div class="unlockItem_document_title" v-language:inner="'documentPage_unlock_title'"/>
+            <div class="unlockItem_document_title" v-t="'documentPage_unlock_title'"/>
             <div class="unlockItem_document_subtitle" v-text="$Ph('documentPage_unlock_subtitle',docLength)"/>
             <v-btn class="unlockItem_document_btn white--text"
                   @click="openPurchaseDialog" :loading="isLoading"
                   depressed height="44" rounded color="#4c59ff">
-                     <span v-language:inner="'documentPage_unlock_document_btn'"/>
+                     <span v-t="'documentPage_unlock_document_btn'"/>
             </v-btn>
             <img class="unlockItem_document_img" src="./lockdoc.png" alt="">
          </div>
      </div>
       <div v-else class="unlockItem_video">
          <div class="unlockItem_video_container">
-            <div class="unlockItem_video_title" v-language:inner="'documentPage_unlock_title'"/>
-            <div class="unlockItem_video_subtitle" v-language:inner="'documentPage_unlock_video_subtitle'"></div>
+            <div class="unlockItem_video_title" v-t="'documentPage_unlock_title'"/>
+            <div class="unlockItem_video_subtitle" v-t="'documentPage_unlock_video_subtitle'"></div>
 
             <v-btn class="unlockItem_video_btn white--text"
                   @click="openPurchaseDialog" :loading="isLoading"
                   depressed height="38" rounded color="#4c59ff">
-                     <span v-language:inner="'documentPage_unlock_video_btn'"/>
+                     <span v-t="'documentPage_unlock_video_btn'"/>
             </v-btn>
             <img class="unlockItem_video_img" src="./lockvid.png" alt="">
          </div>

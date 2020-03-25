@@ -12,7 +12,7 @@
                     <template slot="item" slot-scope="item">{{timeFormat(item.item)}}</template>
                 </v-select>
 
-                <span v-if="!isDayOff" class="dividers" v-language:inner="'calendar_to'"/>
+                <span v-if="!isDayOff" class="dividers" v-t="'calendar_to'"/>
 
                 <v-select v-if="!isDayOff" class="select-cal" height="30" dense tag="span"
                             v-model="selectedHourTo"
@@ -24,13 +24,13 @@
                 
                 <span v-if="!isDayOff && (selectedHourTo < 23 && !isAddTimeSlot)"
                       @click="isAddTimeSlot = true" class="addTime"
-                      v-language:inner="isMobile?'calendar_add_time_mobile':'calendar_add_time'"/>
+                      v-t="isMobile?'calendar_add_time_mobile':'calendar_add_time'"/>
 
                     <span class="dividersAnd" 
-                           v-language:inner="'calendar_and'"
+                           v-t="'calendar_and'"
                            v-show="isMobile &&(!isDayOff && isAddTimeSlot)"/>
 
-                    <span class="dividers" v-language:inner="'calendar_and'" 
+                    <span class="dividers" v-t="'calendar_and'" 
                           v-show="!isMobile &&(!isDayOff && isAddTimeSlot)"/>
                 <div :style="{'display':isMobile?'':'inline-block'}" :class="!showAdditional || isDayOff?'additionalHoursDisplay':''" > 
                         <v-select class="select-cal" height="30" dense
@@ -41,7 +41,7 @@
                             <template slot="item" slot-scope="item">{{timeFormat(item.item)}}</template>
                         </v-select>
 
-                        <span class="dividers" v-language:inner="'calendar_to'"/>
+                        <span class="dividers" v-t="'calendar_to'"/>
 
                         <v-select :class="['select-cal',{'mt-2':isMobile}]" height="30" dense
                                 v-model="selectedAdditionalHourTo"

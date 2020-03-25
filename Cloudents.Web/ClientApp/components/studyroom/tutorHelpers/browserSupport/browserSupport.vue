@@ -2,7 +2,7 @@
     <div class="browserSupport">
         <v-flex pb-12 only>
             <v-layout wrap align-center justify-space-between class="browserSupport-header">
-              <h4 v-language:inner="'browserSupport_unsupported_browser'"></h4>
+              <h4 v-t="'browserSupport_unsupported_browser'"></h4>
               <!-- <v-icon class="close" @click="closeDialog()">sbf-close</v-icon> -->
             </v-layout>
         </v-flex>
@@ -10,27 +10,27 @@
         <v-flex pb-6>
             <v-layout wrap align-center justify-center class="browserSupport-center-top">
                     <v-icon class="card" color="#000000">sbf-card</v-icon>
-                    <h3 v-language:inner="'browserSupport_update_browser'"></h3>
+                    <h3 v-t="'browserSupport_update_browser'"></h3>
             </v-layout>
         </v-flex>
 
         <div class="browserSupport-center-text">
-            <p v-language:inner="'browserSupport_supported_text'"></p>
+            <p v-t="'browserSupport_supported_text'"></p>
         </div>
 
         <v-flex pb-4>
             <v-layout :class="{'column': isMobile}" align-center justify-center text-center class="browserSupport-center-footer">
                 <div>
                     <img src="../../images/Safari.png" alt="Safari">
-                    <p v-language:inner="'browserSupport_supported_safari'"></p>
+                    <p v-t="'browserSupport_supported_safari'"></p>
                 </div>
                 <div>
                     <img src="../../images/Chrome.png" alt="Chrome">
-                    <p v-language:inner="'browserSupport_supported_chrome'"></p>
+                    <p v-t="'browserSupport_supported_chrome'"></p>
                 </div>
                 <div>
                     <img src="../../images/Firefox.png" alt="Firefox">
-                    <p v-language:inner="'browserSupport_supported_firefox'"></p>
+                    <p v-t="'browserSupport_supported_firefox'"></p>
                 </div>
             </v-layout>
         </v-flex>

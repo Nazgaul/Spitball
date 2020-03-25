@@ -11,7 +11,7 @@
                </div>
                <div class="profileUserSticky_scrollHeader_user text-truncate">
                   <h6 class="profileUserSticky_scrollHeader_name text-truncate">
-                     <span v-language:inner="'profile_tutor'"/>
+                     <span v-t="'profile_tutor'"/>
                      {{getProfile.user.name}}
                   </h6>
                   <div class="profileUserSticky_scrollHeader_rating mt-1">
@@ -26,7 +26,7 @@
                {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
             </v-flex>
             <v-flex class="profileUserSticky_pricing_price">
-               <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserSticky_pricing_price_hour" v-language:inner="'profile_points_hour'"/>
+               <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
             </v-flex>
          </div>
          <div class="profileUserSticky_btns">
@@ -35,7 +35,7 @@
                   <chatIcon class="profileUserSticky_btn_icon"/>
                </v-flex>
                <v-flex xs8>
-                  <div class="profileUserSticky_btn_txt" v-language:inner="'profile_send_message'"/>
+                  <div class="profileUserSticky_btn_txt" v-t="'profile_send_message'"/>
                </v-flex>
                <v-flex xs1>
                   
@@ -46,7 +46,7 @@
                   <calendarIcon class="profileUserSticky_btn_icon"/>
                </v-flex>
                <v-flex xs8>
-                  <div class="profileUserSticky_btn_txt" v-language:inner="'profile_book_session'"/>
+                  <div class="profileUserSticky_btn_txt" v-t="'profile_book_session'"/>
                </v-flex>
                <v-flex xs1>
                   
@@ -54,46 +54,46 @@
             </v-btn>
          </div>
          <!-- <div class="profileUserSticky_respone">
-            <span v-language:inner="'profile_response'"/>
+            <span v-t="'profile_response'"/>
             <span class="font-weight-bold" v-text="$Ph(1 > 0 ? 'profile_response_hours' : 'profile_response_hour',2)"/>
          </div> -->
          <div class="profileUserSticky_whyUs">
             <div class="profileUserSticky_whyUs_row mb-2">
                <shield class="profileUserSticky_whyUs_row_icon"></shield>
-               <span class="profileUserSticky_whyUs_row_text" v-language:inner="'documentPage_money_back'"></span>
+               <span class="profileUserSticky_whyUs_row_text" v-t="'documentPage_money_back'"></span>
             </div>
             <div class="profileUserSticky_whyUs_row mb-2">
                <secure class="profileUserSticky_whyUs_row_icon"></secure>
-               <span class="profileUserSticky_whyUs_row_text" v-language:inner="'documentPage_secure_payment'"></span>
+               <span class="profileUserSticky_whyUs_row_text" v-t="'documentPage_secure_payment'"></span>
             </div>
             <div class="profileUserSticky_whyUs_row mb-2">
                <exams class="profileUserSticky_whyUs_row_icon"></exams>
-               <span class="profileUserSticky_whyUs_row_text" v-language:inner="'documentPage_prepared_exams'"></span>
+               <span class="profileUserSticky_whyUs_row_text" v-t="'documentPage_prepared_exams'"></span>
             </div>
          </div>
-         <button sel="coupon" :class="{'isMyProfileCoupon':isMyProfile}" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-language:inner="'coupon_apply_coupon'"/>
+         <button sel="coupon" :class="{'isMyProfileCoupon':isMyProfile}" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
       </template>
       <template v-else>         
-         <div v-if="isMyProfile" class="profileUserSticky_title_become" v-language:inner="'profile_become_title'"/>
-         <div v-if="!isMyProfile" class="profileUserSticky_title" v-language:inner="'profile_why_learn'"/>
+         <div v-if="isMyProfile" class="profileUserSticky_title_become" v-t="'profile_become_title'"/>
+         <div v-if="!isMyProfile" class="profileUserSticky_title" v-t="'profile_why_learn'"/>
          <div class="profileUserSticky_whyUs why_learn_user" v-if="!isMyProfile">
             <div class="profileUserSticky_whyUs_row why_learn_user_row">
                <shield class="profileUserSticky_whyUs_row_icon"></shield>
-               <span class="profileUserSticky_whyUs_row_text" v-language:inner="'documentPage_money_back'"></span>
+               <span class="profileUserSticky_whyUs_row_text" v-t="'documentPage_money_back'"></span>
             </div>
             <div class="profileUserSticky_whyUs_row why_learn_user_row">
                <secure class="profileUserSticky_whyUs_row_icon"></secure>
-               <span class="profileUserSticky_whyUs_row_text" v-language:inner="'documentPage_secure_payment'"></span>
+               <span class="profileUserSticky_whyUs_row_text" v-t="'documentPage_secure_payment'"></span>
             </div>
             <div class="profileUserSticky_whyUs_row why_learn_user_row">
                <exams class="profileUserSticky_whyUs_row_icon"></exams>
-               <span class="profileUserSticky_whyUs_row_text" v-language:inner="'documentPage_prepared_exams'"></span>
+               <span class="profileUserSticky_whyUs_row_text" v-t="'documentPage_prepared_exams'"></span>
             </div>
          </div>
-         <div class="profileUserSticky_title_become_text" v-else v-language:inner="'profile_become_txt'"/>
+         <div class="profileUserSticky_title_become_text" v-else v-t="'profile_become_txt'"/>
          <div class="profileUserSticky_btns why_learn_user_btn mt-3">
             <v-btn class="profileUserSticky_btn profileUserSticky_btn_find white--text" depressed rounded color="#4452fc" @click="isMyProfile? openBecomeTutor() : goTutorList()">
-               <div class="profileUserSticky_btn_txt" v-language:inner="isMyProfile? 'profile_become_tutor_btn':'profile_find_tutors'"/>
+               <div class="profileUserSticky_btn_txt" v-t="isMyProfile? 'profile_become_tutor_btn':'profile_find_tutors'"/>
             </v-btn>
          </div>
       </template>

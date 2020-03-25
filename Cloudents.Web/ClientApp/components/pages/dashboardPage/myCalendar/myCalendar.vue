@@ -8,21 +8,21 @@
             <v-card class="myCalendar-container mb-2 mb-sm-3">
                <calendarHours class="calendarAvailability"/>
                <v-btn :loading="isLoadingAvailability" @click="changeAvailability" class="btn white--text" rounded depressed color="#4452fc">
-                  <span v-language:inner="'dashboardCalendar_btn_update'"/>
+                  <span v-t="'dashboardCalendar_btn_update'"/>
                </v-btn>
             </v-card> 
             <v-card class="myCalendar-container">
-               <p class="choose-title" v-language:inner="'dashboardCalendar_title_choose'"/>
+               <p class="choose-title" v-t="'dashboardCalendar_title_choose'"/>
                <selectCalendar class="calendarList"/>
                <v-btn :loading="isLoadingList" @click="changeList" class="btn white--text" rounded depressed color="#4452fc">
-                  <span v-language:inner="'dashboardCalendar_btn_update'"/>
+                  <span v-t="'dashboardCalendar_btn_update'"/>
                </v-btn>
             </v-card>
          </template>
      </template>
       <v-progress-circular class="progress-calendar" v-show="isLoading" indeterminate :size="300" width="3" color="#4c59ff"/>
       <v-snackbar v-model="snackBarObj.isOn" :color="snackBarObj.color" :top="true" :timeout="3000">
-         <span v-language:inner="snackBarObj.dictionary"></span>
+         <span v-t="snackBarObj.dictionary"></span>
       </v-snackbar>
   </div>
 </template>
