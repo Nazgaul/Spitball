@@ -1,8 +1,6 @@
 import { connectivityModule } from '../connectivity.module'
 import { signlaREvents } from './signalREventHandler'
 import store from '../../store/index'
-import {twilio_SETTERS} from '../../store/constants/twilioConstants.js'
-
 
 function ConnectionObj(objInit){
     this.connection = objInit.connection;
