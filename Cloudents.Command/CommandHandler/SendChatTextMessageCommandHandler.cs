@@ -1,7 +1,6 @@
 ﻿using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,21 +12,16 @@ namespace Cloudents.Command.CommandHandler
         private readonly IChatRoomRepository _chatRoomRepository;
         private readonly IRegularUserRepository _userRepository;
 
-        private readonly IRepository<ChatMessage> _chatMessageRepository;
 
         public SendChatTextMessageCommandHandler(IChatRoomRepository chatRoomRepository,
-            IRegularUserRepository userRepository,
-             IRepository<ChatMessage> chatMessageRepository)
+            IRegularUserRepository userRepository)
         {
             _chatRoomRepository = chatRoomRepository;
             _userRepository = userRepository;
-            _chatMessageRepository = chatMessageRepository;
         }
 
         public async Task ExecuteAsync(SendChatTextMessageCommand message, CancellationToken token)
         {
-            //var users = message.ToUsersId.ToList();
-            //users.Add(message.UserSendingId);
             var users = new[] { message.ToUsersId, message.UserSendingId };
 
             var chatRoom = await _chatRoomRepository.GetChatRoomAsync(users, token);
@@ -36,10 +30,6 @@ namespace Cloudents.Command.CommandHandler
             {
                 var userSending = await _userRepository.LoadAsync(message.UserSendingId, token);
                 var userReceiving = await _userRepository.LoadAsync(message.ToUsersId, token);
-                if (userReceiving.Tutor == null)
-                {
-                    throw new ArgumentException("sending a message not to tutor");
-                }
                 chatRoom = new ChatRoom(new List<User>() { userSending, userReceiving });
                 await _chatRoomRepository.AddAsync(chatRoom, token);
             }
@@ -49,7 +39,6 @@ namespace Cloudents.Command.CommandHandler
             var chatMessage = new ChatTextMessage(user, message.Message, chatRoom);
             chatRoom.AddMessage(chatMessage);
             await _chatRoomRepository.UpdateAsync(chatRoom, token);
-            await _chatMessageRepository.AddAsync(chatMessage, token); // need this in order to get id from nhibernate
         }
     }
 }
