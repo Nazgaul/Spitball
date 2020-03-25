@@ -72,38 +72,18 @@
                 :hint="passHint"
             >
             </v-text-field>
-
-            <!-- <v-btn
-                :loading="getGlobalLoading"
-                large
-                rounded
-                block
-                color="primary"
-                class="white--text btn-login">
-                    <span>{{$t('loginRegister_setphone_btn')}}</span>
-            </v-btn> -->
-
-
         </div>
-
     </div>
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from "vuex";
-
+import { mapGetters } from "vuex";
 
 export default {
-    // components: { VueRecaptcha },
     data() {
         return {
             gender: "male",
             password: "",
-            score: {
-                default: 0,
-                required: false
-            },
-
             firstName:'',
             lastName:'',
             firstNameError:'',
@@ -115,11 +95,15 @@ export default {
                 genderMale: this.$t('loginRegister_setemailpass_male'),
                 genderFemale: this.$t('loginRegister_setemailpass_female'),
                 password: this.$t('loginRegister_setemailpass_input_pass'),
-            }
+            },
+            score: {
+                default: 0,
+                required: false
+            },
         };
     },
     computed: {
-        ...mapGetters(["getEmail1","getGlobalLoading","getErrorMessages","getPassScoreObj"]),
+        ...mapGetters(["getErrorMessages", "getPassScoreObj"]),
         passHint() {
             if (this.password.length > 0) {
                 let passScoreObj = this.getPassScoreObj;
@@ -131,15 +115,6 @@ export default {
         errorMessages() {
             return this.getErrorMessages;
         },
-        email: {
-            get() {
-                return this.getEmail1;
-            },
-            set(val) {
-                this.updateEmail(val);
-                this.setErrorMessages({})
-            }
-        },
         hintClass() {
             let passScoreObj = this.getPassScoreObj;
             if (this.passHint) {
@@ -149,44 +124,12 @@ export default {
         }
     },
     methods: {
-        ...mapActions(["updateEmail","emailSigning",'updateName', 'updateGender']),
-        ...mapMutations(['setErrorMessages']),
-        // onVerify(response) {
-        //     this.recaptcha = response
-        //     this.register()
-        // },
-        // onExpired() {
-        //     this.recaptcha = ''
-        //     this.$refs.recaptcha.reset();
-        // },
-        // register() {
-        //     let paramObj = {
-        //         password: this.password,
-        //         recaptcha: this.recaptcha
-        //     }
-            // this.emailSigning(paramObj).then(() => {},() => {
-            //     this.$refs.recaptcha.reset()
-            // });
-        // },
-        // submit() {
-        //     if(this.firstName.length > 1 && this.lastName.length > 1){
-        //         this.$refs.recaptcha.execute()
-        //     } else{
-        //         if(this.firstName.length < 2 ){
-        //             this.firstNameError = `${this.$t("formErrors_min_chars")} 2`
-        //         }
-        //         if(this.lastName.length < 2 ){
-        //             this.lastNameError = `${this.$t("formErrors_min_chars")} 2`
-        //         }
-        //     }
-        // },
         changeScore() {
             this.score = global.zxcvbn(this.password).score;
         }
     },
     created() {
         this.$loadScript("https://unpkg.com/zxcvbn@4.4.2/dist/zxcvbn.js");
-
     }
 };
 </script>
