@@ -132,6 +132,12 @@
   <data name="course" xml:space="preserve">
     <value>Course:</value>
   </data>
+  <data name="create_room_create_btn" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="create_room_title" xml:space="preserve">
+    <value>Choose a student</value>
+  </data>
   <data name="date" xml:space="preserve">
     <value>Date</value>
   </data>
@@ -195,6 +201,9 @@
   </data>
   <data name="my_sales_title" xml:space="preserve">
     <value>My Sales</value>
+  </data>
+  <data name="my_studyrooms_create_room" xml:space="preserve">
+    <value>Create Study Room</value>
   </data>
   <data name="name" xml:space="preserve">
     <value>Name</value>
