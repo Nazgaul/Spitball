@@ -86,6 +86,7 @@ export default {
             password: "",
             firstName:'',
             lastName:'',
+            email: '',
             firstNameError:'',
             lastNameError:'',
             labels: {
