@@ -16,7 +16,7 @@ namespace Cloudents.Core.Entities
         {
             _users = new[]
             {
-                //new StudyRoomUser(tutor.User, this),
+                new StudyRoomUser(tutor.User, this),
                 new StudyRoomUser(user, this)
             };
             Tutor = tutor;
