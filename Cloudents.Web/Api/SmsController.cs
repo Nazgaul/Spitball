@@ -151,14 +151,14 @@ namespace Cloudents.Web.Api
             if (v.Succeeded)
             {
                 agent = agent.Substring(0, Math.Min(agent.Length, 255));
-                return await FinishRegistrationAsync(user, country, model.FingerPrint, agent, token);
+                return await FinishRegistrationAsync(user, country, agent, token);
             }
             _logger.Warning($"userid: {user.Id} is not verified reason: {v}");
             ModelState.AddIdentityModelError(v);
             return BadRequest(ModelState);
         }
 
-        private async Task<IActionResult> FinishRegistrationAsync(User user, string country, string fingerPrint,
+        private async Task<IActionResult> FinishRegistrationAsync(User user, string country, 
             string userAgent, CancellationToken token)
         {
             if (TempData[HomeController.Referral] != null)
@@ -183,7 +183,7 @@ namespace Cloudents.Web.Api
             }
             TempData.Clear();
 
-            var command2 = new AddUserLocationCommand(user, country, HttpContext.GetIpAddress(), fingerPrint, userAgent);
+            var command2 = new AddUserLocationCommand(user, country, HttpContext.GetIpAddress(),  userAgent);
             var registrationBonusCommand = new FinishRegistrationCommand(user.Id);
             var t1 = _commandBus.DispatchAsync(command2, token);
             var t2 = _signInManager.SignInAsync(user, false);
