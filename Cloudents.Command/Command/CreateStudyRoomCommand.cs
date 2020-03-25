@@ -1,4 +1,6 @@
-﻿namespace Cloudents.Command.Command
+﻿using System;
+
+namespace Cloudents.Command.Command
 {
     public class CreateStudyRoomCommand : ICommand
     {
@@ -10,5 +12,16 @@
 
         public long TutorId { get; }
         public long StudentId { get; }
+    }
+
+    public class CreateStudyRoomCommandResult : ICommandResult
+    {
+        public CreateStudyRoomCommandResult( Guid studyRoomId)
+        {
+            StudyRoomId = studyRoomId;
+        }
+
+        public Guid StudyRoomId { get; set; }
+
     }
 }

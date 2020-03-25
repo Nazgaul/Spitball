@@ -16,7 +16,7 @@ namespace Cloudents.Core.Entities
         {
             _users = new[]
             {
-                new StudyRoomUser(tutor.User, this),
+                //new StudyRoomUser(tutor.User, this),
                 new StudyRoomUser(user, this)
             };
             Tutor = tutor;
@@ -24,10 +24,6 @@ namespace Cloudents.Core.Entities
             OnlineDocumentUrl = onlineDocumentUrl;
             Type = StudyRoomType.PeerToPeer;
             DateTime = new DomainTimeStamp();
-
-           
-            
-
 
             AddEvent(new StudyRoomCreatedEvent(this));
         }

@@ -62,11 +62,15 @@ namespace Cloudents.Web.Api
         {
             var tutorId = _userManager.GetLongUserId(User);
 
+            if (tutorId != model.UserId)
+            {
+                return BadRequest();
+            }
             try
             {
                 var command = new CreateStudyRoomCommand(tutorId, model.UserId);
-                await _commandBus.DispatchAsync(command, token);
-                return Ok();
+                var result = await _commandBus.DispatchAsync<CreateStudyRoomCommand, CreateStudyRoomCommandResult>(command, token);
+                return Ok(result);
             }
             catch (DuplicateRowException)
             {
@@ -80,10 +84,6 @@ namespace Cloudents.Web.Api
                     ["tutorId"] = tutorId.ToString()
                 });
                 return BadRequest();
-            }
-            catch
-            {
-                return BadRequest("User equals tutor");
             }
         }
 

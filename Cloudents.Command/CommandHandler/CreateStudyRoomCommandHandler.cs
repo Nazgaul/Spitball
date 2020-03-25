@@ -8,46 +8,38 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler
 {
-    public class CreateStudyRoomCommandHandler : ICommandHandler<CreateStudyRoomCommand>
+    public class CreateStudyRoomCommandHandler : ICommandHandler<CreateStudyRoomCommand, CreateStudyRoomCommandResult>
     {
         private readonly IRegularUserRepository _userRepository;
         private readonly IRepository<StudyRoom> _studyRoomRepository;
         private readonly IGoogleDocument _googleDocument;
-        private readonly IChatRoomRepository _chatRoomRepository;
 
-        public CreateStudyRoomCommandHandler(IRegularUserRepository userRepository, IRepository<StudyRoom> studyRoomRepository, IGoogleDocument googleDocument, IChatRoomRepository chatRoomRepository)
+        public CreateStudyRoomCommandHandler(IRegularUserRepository userRepository,
+            IRepository<StudyRoom> studyRoomRepository, IGoogleDocument googleDocument
+            )
         {
             _userRepository = userRepository;
             _studyRoomRepository = studyRoomRepository;
             _googleDocument = googleDocument;
-            _chatRoomRepository = chatRoomRepository;
         }
 
-        public async Task ExecuteAsync(CreateStudyRoomCommand message, CancellationToken token)
+        public async Task<CreateStudyRoomCommandResult> ExecuteAsync(CreateStudyRoomCommand message,
+            CancellationToken token)
         {
-            var userTutor = await _userRepository.LoadAsync(message.TutorId, token);
-            if (userTutor.Tutor?.State != ItemState.Ok)
+            var tutor = await _userRepository.LoadAsync(message.TutorId, token);
+            if (tutor.Tutor?.State != ItemState.Ok)
             {
                 throw new InvalidOperationException("user is not a tutor");
             }
 
             var student = await _userRepository.LoadAsync(message.StudentId, token);
 
-            var chatRoomIdentifier = ChatRoom.BuildChatRoomIdentifier(new[] { userTutor.Id, student.Id });
-            var chatRoom = await _chatRoomRepository.GetChatRoomAsync(chatRoomIdentifier, token);
-            if (chatRoom.Messages.Count == 0)
-            {
-                throw new InvalidOperationException("no active conversation");
-            }
-
+            var chatRoomIdentifier = ChatRoom.BuildChatRoomIdentifier(new[] { tutor.Id, student.Id });
             var url = await _googleDocument.CreateOnlineDocAsync(chatRoomIdentifier, token);
-
-            userTutor.AddFollower(student);
-
-            var studyRoom = new StudyRoom(userTutor.Tutor, student, url);
+            tutor.AddFollower(student);
+            var studyRoom = new StudyRoom(tutor.Tutor, student, url);
             await _studyRoomRepository.AddAsync(studyRoom, token);
-
-
+            return new CreateStudyRoomCommandResult(studyRoom.Id);
         }
     }
 }
