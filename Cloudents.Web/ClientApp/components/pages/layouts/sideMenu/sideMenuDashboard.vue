@@ -22,9 +22,7 @@
          <sideMenuListItem :dashboardProps="dashboardProps" :item="myContentItem"/>
       </template>
 
-      <template v-if="showMyStudyRooms">
-         <sideMenuListItem :dashboardProps="dashboardProps" :item="myStudyRoomsItem"/>
-      </template>
+      <sideMenuListItem :dashboardProps="dashboardProps" :item="myStudyRoomsItem"/>
       
       <template v-if="showMySales">
          <sideMenuListItem :dashboardProps="dashboardProps" :item="mySalesItem"/>
@@ -81,11 +79,8 @@ export default {
       showMyPurchases(){
          return this.accountUser.isPurchased;
       },
-      showMyStudyRooms(){
-         return this.accountUser.haveStudyRoom;
-      },
       hideDashboardGroup(){
-         let itemList = [this.showOverview,this.showMySales,this.showMyFollowers,this.showMyContent,this.showMyPurchases,this.showMyStudyRooms]
+         let itemList = [this.showOverview,this.showMySales,this.showMyFollowers,this.showMyContent,this.showMyPurchases]
          return itemList.every(item=>(!item))
       }
    },
