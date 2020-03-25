@@ -1,23 +1,9 @@
 <template>
     <div class="messages-container">
         <v-layout column class="messages-wrapper">
-
-            <div class="messages-header">
-                <div class="messages-study-room" 
-                :class="{'join-room': studyRoomExists || isStudyRoom}" 
-                v-if="!isRouteStudyRoom && showStudyRoomInteraction || isStudyRoom" 
-                @click="joinRoom">
-                    <button v-if="studyRoomExists || isStudyRoom">
-                        <v-icon style="font-size:16px !important; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon>&nbsp;
-                        <span v-language:inner="'chat_studyRoom_enter'"></span>
-                    </button>
-                </div>
-            </div>
-
             <div class="messages-body">
                 <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index" :lastMsgIndex="index === messages.length - 1"></message>
             </div>
-
             <span class="error-file-span" v-if="fileError" v-language:inner="'chat_file_error'"></span>
 
             <div class="messages-input" :class="{'messages-input-disabled': !getIsSignalRConnected}">
@@ -60,7 +46,7 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['getshowStudentStudyRoom','getMessages', 'accountUser', 'getActiveConversationObj', 'getChatLoader', 'getIsSignalRConnected','getFileError']),
+        ...mapGetters(['getMessages', 'getChatLoader', 'getIsSignalRConnected','getFileError']),
         fileError(){
             return this.getFileError
         },
@@ -68,31 +54,9 @@ export default {
             this.scrollToEnd();
             return this.getMessages;            
         },
-        isTutor(){
-            return this.accountUser.isTutor;
-        },
-        activeConversationObj(){
-            return this.getActiveConversationObj;
-        },
-        studyRoomExists(){
-            if(this.activeConversationObj && this.activeConversationObj.studyRoomId){
-                return this.activeConversationObj.studyRoomId.length > 1
-            }
-            return false
-        },
-        showStudyRoomInteraction(){
-            return this.messages &&  this.messages.length > 0;
-        },
         typing() {
             return !!this.messageText;
         },
-        isStudyRoom(){
-            return this.getshowStudentStudyRoom
-        },
-        isRouteStudyRoom() {
-            let route = this.$route;
-            return (route.name === 'tutoring' || route.name === 'roomSettings') && route.params?.id;
-        }
     },
     mounted: function() {
         //this is due vuetify issue 6892
@@ -116,23 +80,6 @@ export default {
                     container.scrollTop = container.scrollHeight;
                 }
             })
-        },
-        joinRoom(){
-            if((this.$route && this.$route.params && this.$route.params.id) &&
-                (!!this.activeConversationObj && this.activeConversationObj.studyRoomId)){
-                let paramId = this.$route.params.id;
-                let studyRoomId = this.activeConversationObj.studyRoomId
-                if(paramId == studyRoomId) return;
-            }
-            if(!!this.activeConversationObj.studyRoomId){
-                let routeData = this.$router.resolve({
-                    name: 'roomSettings',
-                    params: {
-                        id: this.activeConversationObj.studyRoomId
-                    }
-                });
-                global.open(routeData.href, '_self');
-            }
         },
     }
 }
@@ -161,30 +108,6 @@ export default {
                 background-color: red;
                 color: white;
                 text-align: center;
-            }
-            .messages-header{
-                display:flex;
-                justify-content: flex-end;
-                .messages-study-room{
-                        padding: 2px 0;
-                        width: 100%;
-                        color: #FFF;
-                        text-align: center;
-                        display: flex;
-                        &.join-room {
-                            background: #2ec293;
-                        }
-                        button {
-                            display: flex;
-                            align-items: center;
-                            padding: 5px 10px;
-                            margin: 0 auto;
-                            font-weight: bold;
-                            font-size: 14px;
-                            outline: none;
-                        }
-                }
-               
             }
             .messages-body{
                 flex :2;
