@@ -761,7 +761,7 @@ namespace Cloudents.Selenium.Test
                     driver.FindElementByWait(By.XPath("//*[@class='flex top-row grow']"));
                     driver.FindElementByWait(By.XPath("//*[@class='flex bottom-row grow']"));
                     driver.FindElementByWait(By.XPath("//*[@class='views-cont']"));
-                    driver.FindElementByWait(By.XPath("//*[@class='views']"));
+                    //driver.FindElementByWait(By.XPath("//*[@class='views']"));
                     driver.FindElementByWait(By.XPath("//*[@class='right']"));
                     driver.FindElementByWait(By.XPath("//*[@class='sticky-item']"));
                     driver.FindElementByWait(By.XPath("//*[@class='shareContent']"));
