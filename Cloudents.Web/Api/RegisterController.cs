@@ -64,7 +64,6 @@ namespace Cloudents.Web.Api
         [ProducesDefaultResponseType]
         public async Task<ActionResult<ReturnSignUserResponse>> PostAsync(
             [FromBody] RegisterRequest model,
-            //ReturnUrlRequest? returnUrl,
             CancellationToken token)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
@@ -89,8 +88,9 @@ namespace Cloudents.Web.Api
 
             if (p.Succeeded)
             {
-                //TODO
-                await GenerateEmailAsync(user,  token);
+                var t2 =  GenerateEmailAsync(user,  token);
+                var t1 = _signInManager.TempSignIn(user);
+                await Task.WhenAll(t1, t2);
                 return Ok();// new ReturnSignUserResponse(RegistrationStep.RegisterEmailConfirmed);
             }
 

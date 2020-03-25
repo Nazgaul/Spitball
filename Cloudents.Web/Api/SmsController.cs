@@ -83,7 +83,7 @@ namespace Cloudents.Web.Api
                 _logger.Error("Set User Phone number We can't identify the user");
                 return Unauthorized();
             }
-            if (!user.EmailConfirmed || user.PhoneNumberConfirmed)
+            if (user.PhoneNumberConfirmed)
             {
                 return Unauthorized();
             }
