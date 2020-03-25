@@ -69,6 +69,9 @@ namespace Cloudents.Web.Api
             {
                 var command = new CreateStudyRoomCommand(tutorId, model.UserId);
                 var result = await _commandBus.DispatchAsync<CreateStudyRoomCommand, CreateStudyRoomCommandResult>(command, token);
+                //TODO - should be one command
+                var command2 = new SendChatTextMessageCommand("i created a new study room", tutorId, model.UserId);
+                await _commandBus.DispatchAsync(command2, token);
                 return Ok(result);
             }
             catch (DuplicateRowException)
