@@ -76,14 +76,15 @@
 </template>
 
 <script>
+import analyticsService from '../../../../../../services/analytics.service.js';
 import registrationService from '../../../../../../services/registrationService';
+
 import storeService from "../../../../../../services/store/storeService";
 import loginRegister from "../../../../../../store/loginRegister";
-import analyticsService from '../../../../../../services/analytics.service.js';
-
-import VueRecaptcha from "vue-recaptcha";
 
 import * as routeNames from '../../../../../../routes/routeNames'
+
+import VueRecaptcha from "vue-recaptcha";
 
 const emailRegister = () => import('./emailRegister.vue');
 const setPhone2 = () => import('./setPhone2.vue');
@@ -117,14 +118,6 @@ export default {
         }
     },
     methods: {
-        onVerify(response) {
-            this.recaptcha = response
-            this.emailRegister()
-        },
-        onExpired() {
-            this.recaptcha = ''
-            this.$refs.recaptcha.reset();
-        },
         submit() {
             let form = this.$refs.form
 
@@ -134,6 +127,15 @@ export default {
                 this.showError = true;
             }
         },
+        onVerify(response) {
+            this.recaptcha = response
+            this.emailRegister()
+        },
+        onExpired() {
+            this.recaptcha = ''
+            this.$refs.recaptcha.reset();
+        },
+
         gmailRegister() {
             if(!this.isTermsAgree) return this.showError = true;
 
