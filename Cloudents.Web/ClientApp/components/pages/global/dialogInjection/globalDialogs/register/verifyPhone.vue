@@ -1,10 +1,10 @@
 <template>
-  <v-form class="smsConfirmation" @submit="verifyPhone">
+  <v-form class="smsConfirmation" @submit.prevent="verifyPhone" ref="form">
 
     <div class="top">
-      	<p class="smsconfirm_title">{{$t('loginRegister_smsconfirm_title')}}</p>
+      	<p class="smsconfirm_title" v-t="'loginRegister_smsconfirm_title'"></p>
 		<span>
-			<div>{{$t('loginRegister_smsconfirm_subtitle')}}</div>
+			<div v-t="'loginRegister_smsconfirm_subtitle'"></div>
 			<bdi>{{userPhone}}</bdi>
 		</span>
     </div>
@@ -17,7 +17,6 @@
 		outlined
 		dense
 		prepend-inner-icon="sbf-keyCode"
-		name=""
 		:error-messages="errorMessages.code"
 		:label="$t('loginRegister_smsconfirm_input')"
 		placeholder=" "
@@ -32,12 +31,12 @@
 			block
 			color="primary"
 			class="white--text btn-login">
-				<span>{{$t('loginRegister_smsconfirm_btn')}}</span>
+				<span v-t="'loginRegister_smsconfirm_btn'"></span>
 		</v-btn>
 
 		<div class="actions">
-			<div class="mb-sm-2 mb-4" @click="phoneCall">{{$t('loginRegister_smsconfirm_call')}}</div>
-			<div @click="numberChange">{{$t('loginRegister_smsconfirm_change')}}</div>
+			<div class="mb-sm-2 mb-4" @click="phoneCall" v-t="'loginRegister_smsconfirm_call'"></div>
+			<div @click="numberChange" v-t="'loginRegister_smsconfirm_change'"></div>
 		</div>
 	</div>
 
@@ -47,7 +46,7 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex';
 
-import registrationService from '../../../../../../services/registrationService.js'
+import registrationService from '../../../../../../services/registrationService2.js'
 
 import analyticsService from '../../../../../../services/analytics.service.js';
 
@@ -85,14 +84,14 @@ export default {
 			let smsCode = {number: this.smsCode}
 			registrationService.smsCodeVerification(smsCode)
 				.then(userId => {
-					debugger
-					self.$store.commit('setRegisterDialog')
+					self.$store.commit('setRegisterDialog', false)
 					analyticsService.sb_unitedEvent('Registration', 'Phone Verified');
 					if(!!userId){
 						analyticsService.sb_unitedEvent('Registration', 'User Id', userId.data.id);
 					}
+					self.$store.commit('changeLoginStatus', true)
+					self.$store.dispatch('userStatus');
 				}, ex => {
-					debugger
 					self.$appInsights.trackException({exception: new Error(ex)});
 					self.setErrorMessages({code: "Invalid code"});
 				});

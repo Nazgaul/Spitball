@@ -1,7 +1,7 @@
 <template>
     <v-form class="setPhone text-center" @submit.prevent="sendSms" ref="form" lazy-validation>
         <div class="setPhoneWrap">
-            <p class="setphone_title">{{$t('loginRegister_setphone_title')}}</p>
+            <p class="setphone_title" v-t="'loginRegister_setphone_title'"></p>
             <v-select 
                 v-model="localCode"
                 class="widther countryCode"
@@ -46,7 +46,7 @@
             large rounded
             color="primary"
             class="white--text btn-login">
-                <span>{{$t('loginRegister_setphone_btn')}}</span>
+                <span v-t="'loginRegister_setphone_btn'"></span>
         </v-btn>
     </v-form> 
 </template>
@@ -56,7 +56,7 @@ import { mapGetters, mapMutations } from 'vuex'
 import { validationRules } from '../../../../../../services/utilities/formValidationRules';
 
 import analyticsService from '../../../../../../services/analytics.service.js';
-import registrationService from '../../../../../../services/registrationService.js'
+import registrationService from '../../../../../../services/registrationService2.js'
 import codesJson from './CountryCallingCodes';
 
 export default {
@@ -92,7 +92,7 @@ export default {
             if(validate) {
                 registrationService.smsRegistration(this.localCode,this.phoneNumber)
                     .then(function (){
-                        // analyticsService.sb_unitedEvent(['Registration', 'Phone Submitted']);
+                        analyticsService.sb_unitedEvent('Registration', 'Phone Submitted');
                         self.$store.dispatch('updateToasterParams',{
                             toasterText: self.$t("login_verification_code_sent_to_phone"),
                             showToaster: true,

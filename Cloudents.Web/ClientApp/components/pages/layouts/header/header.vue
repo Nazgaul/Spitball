@@ -52,7 +52,7 @@
                             </div>
                             <template v-if="loggedIn">
                                 <div v-if="!$vuetify.breakpoint.mdAndDown" class="gh_i_r_userInfo text-truncate" @click.prevent="drawer=!drawer">
-                                    <span class="ur_greets" v-html="$Ph('header_greets', accountUser.name)"/>
+                                    <span class="ur_greets" v-html="$Ph('header_greets', userName)"/>
                                     <div class="ur_balance">
                                         <span v-html="$Ph('header_balance', userBalance(accountUser.balance))"/>
                                         <arrowDownIcon v-if="!isMobile" class="ur_balance_drawer ml-2"/>
@@ -129,10 +129,10 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTuto
             return this.$vuetify.breakpoint.xsOnly;
         },
         userImageUrl(){
-            return this.loggedIn && this.accountUser.image.length > 1 ? this.accountUser.image : '';
+            return this.loggedIn && this.accountUser?.image.length > 1 ? this.accountUser.image : '';
         },
         userName(){
-            return this.loggedIn && this.accountUser.name ? this.accountUser.name : '';
+            return this.loggedIn && this.accountUser?.name ? this.accountUser.name : '';
         },
         totalUnread(){
             return this.getTotalUnread;

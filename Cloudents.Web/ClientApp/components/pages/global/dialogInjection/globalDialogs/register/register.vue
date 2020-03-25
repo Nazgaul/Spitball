@@ -1,6 +1,8 @@
 <template>
-    <v-dialog :value="true" max-width="620px" persistent>
-
+    <v-dialog :value="true" max-width="620px" content-class="registerDialog" persistent>
+        <div class="text-right pa-4 pb-0">
+            <v-icon size="14" color="grey" @click="$store.commit('setRegisterDialog', false)">sbf-close</v-icon>
+        </div>
         <v-form @submit.prevent="submit" ref="form" class="form pa-4">
 
             <template v-if="isEmailRegister">
@@ -40,7 +42,7 @@
                             </span>
                         </label>
                     </div>
-                    <span v-if="isError" class="errorMsg" v-t="'login_please_agree'"></span>
+                    <span v-if="isError" class="errorMsg text-left" v-t="'login_please_agree'"></span>
                 </div>
             </template>
             
@@ -58,7 +60,7 @@
                     class="ctnBtn white--text btn-login"
                     color="primary"
                 >
-                    <span>{{$t('loginRegister_setemailpass_btn')}}</span>
+                    <span v-t="'loginRegister_setemailpass_btn'"></span>
                 </v-btn>
             </div>
 
@@ -77,7 +79,7 @@
 
 <script>
 import analyticsService from '../../../../../../services/analytics.service.js';
-import registrationService from '../../../../../../services/registrationService';
+import registrationService from '../../../../../../services/registrationService2';
 
 import storeService from "../../../../../../services/store/storeService";
 import loginRegister from "../../../../../../store/loginRegister";
@@ -147,14 +149,13 @@ export default {
                 self.component = 'setPhone2'
             } else {
                 analyticsService.sb_unitedEvent('Login', 'Start Google');
-                self.$store.dispatch('updateLoginStatus',true)
+                self.$store.commit('setRegisterDialog', false)
+                self.$store.dispatch('updateLoginStatus', true)
             }
             }).catch(error => {
                 console.log(error);
                 self.$store.commit('setErrorMessages', { gmail: error.response.data["Google"] ? error.response.data["Google"][0] : '' });
                 self.$appInsights.trackException({exception: new Error(error)});
-            }).finally(() => {
-                self.$store.commit('setRegisterDialog', false)
             })
         },
         emailRegister() {
@@ -210,7 +211,7 @@ export default {
 <style lang="less">
 @import '../../../../../../styles/mixin.less';
 
-.form {
+.registerDialog {
     background: #fff;
     .responsive-property(width, 100%, null, 72%);
     &.google {
