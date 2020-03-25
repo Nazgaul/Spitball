@@ -57,6 +57,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             await Task.WhenAll(task1, task2);
         }
 
+        [Theory]
+        [InlineData("x",ItemState.Ok,0,"us")]
+        [InlineData(null,null,0,null)]
+        public async Task TutorSearchQuery_Ok(string term, ItemState? state, int page, string country)
+        {
+            var query = new TutorSearchQuery(term, state,page,country);
+            var _ = await _fixture.QueryBus.QueryAsync(query, default);
+        }
+
         //[Theory]
         //[InlineData("he", ItemState.Pending, "IL", null)]
         //[InlineData("en", ItemState.Ok, "IL", null)]
@@ -162,7 +171,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData("Hadar@cloudents.com","IL")]
+        [InlineData("Hadar@cloudents.com", "IL")]
         [InlineData("0523556456", "IL")]
         [InlineData("0523556456", null)]
         [InlineData("638", "IN")]
@@ -302,7 +311,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         //[Theory]
-        
+
         //[InlineData("IN")]
         //public async Task AdminLeadsQuery_Ok(string country)
         //{
@@ -336,10 +345,10 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
             //check distinct
             var v = from c in result
-                group c by c.Name
+                    group c by c.Name
                 into grp
-                where grp.Count() > 1
-                select grp.Key;
+                    where grp.Count() > 1
+                    select grp.Key;
             v.Should().BeEmpty();
 
 
