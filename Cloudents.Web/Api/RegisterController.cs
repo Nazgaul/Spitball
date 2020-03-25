@@ -65,7 +65,6 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<ReturnSignUserResponse>> PostAsync(
             [FromBody] RegisterRequest model,
             //ReturnUrlRequest? returnUrl,
-            [FromServices] ICountryProvider country,
             CancellationToken token)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
@@ -84,14 +83,11 @@ namespace Cloudents.Web.Api
             }
 
             var countryCode = await _countryProvider.GetUserCountryAsync(token);
-            country.GetCallingCode(countryCode);
             user = new User(model.Email, model.FirstName, model.LastName, 
                 CultureInfo.CurrentCulture, countryCode, model.Gender);
             var p = await _userManager.CreateAsync(user, model.Password);
 
-            var retVal = await _userManager.SetPhoneNumberAndCountryAsync(user, model.PhoneNumber, countryCode, token);
-            await _smsSender.SendSmsAsync(user, token);
-            if (p.Succeeded && retVal.Succeeded)
+            if (p.Succeeded)
             {
                 //TODO
                 await GenerateEmailAsync(user,  token);
@@ -115,7 +111,6 @@ namespace Cloudents.Web.Api
                 {
                     await _signInManager.SignInAsync(user, false);
                     return ReturnSignUserResponse.SignIn();
-                    // return new ReturnSignUserResponse(false);
                 }
 
                 throw new ArgumentException();
@@ -133,13 +128,14 @@ namespace Cloudents.Web.Api
                 });
             }
 
-            if (user.EmailConfirmed)
+            if (!user.EmailConfirmed)
             {
-                await _signInManager.TempSignIn(user);
-                return new ReturnSignUserResponse(RegistrationStep.RegisterSetPhone);
+                await GenerateEmailAsync(user, token);
+
+                //await _signInManager.TempSignIn(user);
+                //return new ReturnSignUserResponse(RegistrationStep.RegisterSetPhone);
             }
             await _signInManager.TempSignIn(user);
-            await GenerateEmailAsync(user,  token);
             return new ReturnSignUserResponse(RegistrationStep.RegisterSetPhone);
         }
 

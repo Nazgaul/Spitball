@@ -28,8 +28,8 @@ namespace Cloudents.Web.Models
         [Required(ErrorMessage = "Required")]
         public Gender Gender { get; set; }
 
-        [Required(ErrorMessage = "Required")]
-        public string PhoneNumber { get; set; }
+        //[Required(ErrorMessage = "Required")]
+        //public string PhoneNumber { get; set; }
 
         [Captcha]
         public string Captcha { get; set; }
