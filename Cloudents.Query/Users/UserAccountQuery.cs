@@ -56,20 +56,6 @@ namespace Cloudents.Query.Users
                 var userFuture = userSqlQuery.SetResultTransformer(new SbAliasToBeanResultTransformer<UserAccountDto>()).FutureValue<UserAccountDto>();
 
 
-                //const string coursesSql = @"select CourseId as [Name], 
-                //        c.count as Students,
-                //        case when c.State = 'Pending' then cast(1 as bit) else cast(null as bit) end as IsPending,
-                //        uc.CanTeach as IsTeaching
-                //        from sb.UsersCourses uc
-                //        join sb.Course c
-                //        on uc.courseId = c.Name
-                //        where UserId = :Id
-                //        order by IsPending desc, Students desc";
-
-                //var coursesSqlQuery = _session.CreateSQLQuery(coursesSql);
-                //coursesSqlQuery.SetInt64("Id", query.Id);
-                //var coursesFuture = coursesSqlQuery.SetResultTransformer(Transformers.AliasToBean<CourseDto>()).Future<CourseDto>();
-
                 const string pendingSessionsPaymentsSql = @"select count(1)
                                                         from sb.StudyRoom sr
                                                         join sb.StudyRoomSession srs

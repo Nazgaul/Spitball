@@ -39,9 +39,7 @@ namespace Cloudents.Persistence.Maps
                 .Cascade.AllDeleteOrphan();
 
 
-            HasMany(x => x.Followers).Access.CamelCaseField(Prefix.Underscore)
-                .Cascade.AllDeleteOrphan()
-                .KeyColumn("UserId").Inverse().AsSet();
+         
 
             //Map(x => x.Score).ReadOnly();
             Table("User"); //if not there is sql error

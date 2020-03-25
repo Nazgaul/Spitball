@@ -19,7 +19,10 @@ namespace Cloudents.Core.Entities
 
         public ChatRoom(IList<User> users) : this()
         {
-
+            foreach (var user in users)
+            {
+                user.AddFollowers(users);
+            }
             Users = users.Select(s => new ChatUser(this, s)).ToList();
             Identifier = BuildChatRoomIdentifier(users.Select(s => s.Id));
             UpdateTime = DateTime.UtcNow;
