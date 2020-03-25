@@ -127,14 +127,14 @@ namespace Cloudents.Selenium.Test
             "register",
             "signin",
             "feed",
-            "tutor",
+            //"tutor",
             "studyroom"
         };
 
         private static readonly IEnumerable<string> SignedPaths = new[]
         {
             //"wallet",
-            "university",
+            //"university",
             "courses",
             "dashboard",
             "feed",
@@ -234,7 +234,7 @@ namespace Cloudents.Selenium.Test
                         var langValue = htmlAttr.GetAttribute("lang");
                         langValue.Should().Be(culture.Split('-')[0], "on link {0}", url);
                         var body = driver.FindElement(By.TagName("body"));
-                        body.Text.Should().NotContain("###");
+                        body.Text.Should().NotContain("###").And.NotContain("_");
                         body.Text.Should().NotContain("[Object Object]");
                     }
 
