@@ -41,7 +41,7 @@ namespace Cloudents.Query.Admin
                             join sb.[User] u
 	                            on u.Id = t.Id
                             where CONTAINS(([Name], Email, PhoneNumberHash) , @Term)
-                            where (u.Country = @Country or @Country is null)
+                            and (u.Country = @Country or @Country is null)
                             and (t.State = @State or @State is null)
                             order by u.Id
                             OFFSET @PageSize * @Page ROWS
