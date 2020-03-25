@@ -638,5 +638,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var result = await fixture.QueryBus.QueryAsync(query, default);
             result.Should().NotBeNull();
         }
+
+        
     }
 }

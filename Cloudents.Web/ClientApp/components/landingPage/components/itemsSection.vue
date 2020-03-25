@@ -1,6 +1,6 @@
 <template>
     <div class="itemsSection"  v-if="itemList.length">
-        <h1 class="is-title" v-language:inner="'homePage_is_title'"/>
+        <h1 class="is-title">{{$t('homePage_is_title')}}</h1>
         <div class="itemsCarousel">
             <sbCarousel @select="enterItemCard" :arrows="!$vuetify.breakpoint.xsOnly">
                 <itemCard :fromCarousel="true" v-for="(item, index) in itemList" :item="item" :key="index"/>
