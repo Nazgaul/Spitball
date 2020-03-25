@@ -52,41 +52,31 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import { validationRules } from '../../../../../../services/utilities/formValidationRules';
 
+import analyticsService from '../../../../../../services/analytics.service.js';
 import registrationService from '../../../../../../services/registrationService.js'
+import codesJson from './CountryCallingCodes';
 
 export default {
     data() {
         return {
             phoneNumber: '',
+            localCode: '',
             rules: {
                 phone: phone => validationRules.phone(phone)
             }
         }
     },
-    watch: {
-        phoneNumber: function(){
-            this.setErrorMessages({})
-        }
-    },
     computed: {
-        ...mapGetters(['getCountryCodesList','getLocalCode','getGlobalLoading','getErrorMessages']),
+        ...mapGetters(['getGlobalLoading', 'getErrorMessages']),
         countryCodesList(){
-            return this.getCountryCodesList
+            return codesJson.sort((a, b) => a.name.localeCompare(b.name))
         },
         errorMessages(){
 			return this.getErrorMessages
 		},
-        localCode: {
-            get(){
-                return this.getLocalCode
-            },
-            set(val){
-                this.updateLocalCode(val)
-            }
-        },
         countryCodeLabel() {
             return this.$t('loginRegister_countryCode')
         },
@@ -95,7 +85,6 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updatePhone','updateLocalCode','sendSMScode']),
         ...mapMutations(['setErrorMessages']),
         sendSms(){
             let validate = this.$refs.form.validate()
@@ -103,25 +92,36 @@ export default {
             if(validate) {
                 registrationService.smsRegistration(this.localCode,this.phoneNumber)
                     .then(function (){
-                        debugger
-                        // commit('setErrorMessages', {});
+                        // analyticsService.sb_unitedEvent(['Registration', 'Phone Submitted']);
                         self.$store.dispatch('updateToasterParams',{
                             toasterText: self.$t("login_verification_code_sent_to_phone"),
                             showToaster: true,
                         });
-                        // _analytics(['Registration', 'Phone Submitted']);
-                        // router.push({name: routeNames.RegisterVerifyPhone});
+                        self.setErrorMessages({});
+                        self.$emit('goStep', 'verifyPhone');
                     }, function (error){
-                        // commit('setErrorMessages', {phone: error.response.data["PhoneNumber"] ? error.response.data["PhoneNumber"][0] : '' });
+                        self.$appInsights.trackException({exception: new Error(error)});
+                        self.setErrorMessages({phone: error.response.data["PhoneNumber"] ? error.response.data["PhoneNumber"][0] : '' });
                 });
             }
         },
         getCode(item){
-            return global.isRtl? `(${item.callingCode}) ${item.name}` : `${item.name} (${item.callingCode})`;
+            return global.isRtl ? `(${item.callingCode}) ${item.name}` : `${item.name} (${item.callingCode})`;
+        },
+        setLocalCode(code) {
+            if(code){
+                this.localCode = code
+                return
+            } 
+            registrationService.getLocalCode().then(({ data }) => {
+                this.localCode = data.code
+            }).catch(ex => {
+                self.$appInsights.trackException({exception: new Error(ex)});
+            })
         }
     },
     created() {
-        this.updateLocalCode()
+        this.setLocalCode()
     },
 }
 </script>

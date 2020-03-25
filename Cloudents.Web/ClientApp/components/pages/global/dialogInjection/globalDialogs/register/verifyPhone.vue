@@ -1,8 +1,8 @@
 <template>
-  <div class="smsConfirmation">
+  <v-form class="smsConfirmation" @submit="verifyPhone">
 
     <div class="top">
-      <p class="smsconfirm_title">{{$t('loginRegister_smsconfirm_title')}}</p>
+      	<p class="smsconfirm_title">{{$t('loginRegister_smsconfirm_title')}}</p>
 		<span>
 			<div>{{$t('loginRegister_smsconfirm_subtitle')}}</div>
 			<bdi>{{userPhone}}</bdi>
@@ -19,7 +19,7 @@
 		prepend-inner-icon="sbf-keyCode"
 		name=""
 		:error-messages="errorMessages.code"
-		:label="phoneNumberLabel"
+		:label="$t('loginRegister_smsconfirm_input')"
 		placeholder=" "
 	></v-text-field>
 
@@ -41,19 +41,27 @@
 		</div>
 	</div>
 
-  </div>
+  </v-form>
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
+
+import registrationService from '../../../../../../services/registrationService.js'
+
+import analyticsService from '../../../../../../services/analytics.service.js';
 
 export default {
-	// name: 'VerifyPhone',
 	data() {
 		return {
 			smsCode: '',
 		}
 	},
+	watch: {
+        smsCode: function(){
+            this.setErrorMessages({})
+		}
+    },
 	computed: {
 		...mapGetters(['getLocalCode','getPhone','getGlobalLoading','getErrorMessages']),
 		errorMessages(){
@@ -67,34 +75,44 @@ export default {
 			}
 			//this can happen when getting the info from the server
 			return this.getPhone;
-		},
-		phoneNumberLabel() {
-			return this.$t('loginRegister_smsconfirm_input')
 		}
 	},
 	methods: {
-		...mapActions(['smsCodeVerify','callWithCode','changeNumber']),
 		...mapMutations(['setErrorMessages']),
+
 		verifyPhone(){
-			this.smsCodeVerify(this.smsCode)
+			let self = this
+			let smsCode = {number: this.smsCode}
+			registrationService.smsCodeVerification(smsCode)
+				.then(userId => {
+					debugger
+					self.$store.commit('setRegisterDialog')
+					analyticsService.sb_unitedEvent('Registration', 'Phone Verified');
+					if(!!userId){
+						analyticsService.sb_unitedEvent('Registration', 'User Id', userId.data.id);
+					}
+				}, ex => {
+					debugger
+					self.$appInsights.trackException({exception: new Error(ex)});
+					self.setErrorMessages({code: "Invalid code"});
+				});
 		},
 		phoneCall(){
-			this.callWithCode()
+			let self = this
+			registrationService.voiceConfirmation()
+            .then(() => {
+					self.$store.dispatch('updateToasterParams',{
+						toasterText: self.$t("login_call_code"),
+						showToaster: true,
+					});
+				}, ex => {
+					self.$appInsights.trackException({exception: new Error(ex)});
+				});
 		},
 		numberChange(){
-			this.changeNumber()
+			this.$emit('goStep', 'setPhone2');
 		}
-	},
-	watch: {
-        smsCode: function(){
-            this.setErrorMessages({})
-		}
-    },
-    created() {
-        this.$loadScript("https://unpkg.com/zxcvbn@4.4.2/dist/zxcvbn.js");
-        let captchaLangCode = global.lang === "he" ? "iw" : "en";
-        this.$loadScript(`https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit&hl=${captchaLangCode}`);
-    }
+	}
 };
 </script>
 

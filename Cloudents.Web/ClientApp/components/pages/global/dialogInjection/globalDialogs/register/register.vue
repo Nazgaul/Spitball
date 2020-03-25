@@ -1,9 +1,9 @@
 <template>
-    <v-dialog :value="true" max-width="620px">
+    <v-dialog :value="true" max-width="620px" persistent>
 
         <v-form @submit.prevent="submit" ref="form" class="form pa-4">
 
-            <template v-if="component === 'emailRegister'">
+            <template v-if="isEmailRegister">
                 <v-btn 
                     @click="gmailRegister"
                     depressed
@@ -44,15 +44,15 @@
                 </div>
             </template>
             
-            <component :is="component" ref="childComponent"></component>
+            <component :is="component" ref="childComponent" @goStep="goStep"></component>
 
             <div class="text-right">
                 <v-btn
-                    v-if="component === 'emailRegister'"
+                    v-if="isEmailRegister"
                     type="submit"
                     depressed
                     large
-                    :loading="getGlobalLoading"
+                    :loading="btnLoading"
                     block
                     rounded
                     class="ctnBtn white--text btn-login"
@@ -76,18 +76,18 @@
 </template>
 
 <script>
+import registrationService from '../../../../../../services/registrationService';
 import storeService from "../../../../../../services/store/storeService";
 import loginRegister from "../../../../../../store/loginRegister";
+import analyticsService from '../../../../../../services/analytics.service.js';
 
-import routeNames from '../../../../../../routes/routeNames'
+import VueRecaptcha from "vue-recaptcha";
 
-import registrationService from '../../../../../../services/registrationService.js'
+import * as routeNames from '../../../../../../routes/routeNames'
 
 const emailRegister = () => import('./emailRegister.vue');
 const setPhone2 = () => import('./setPhone2.vue');
 const verifyPhone = () => import('./verifyPhone.vue');
-
-import VueRecaptcha from "vue-recaptcha";
 
 export default {
     components: { emailRegister, setPhone2, verifyPhone, VueRecaptcha },
@@ -109,8 +109,11 @@ export default {
         isError(){
             return !this.isTermsAgree && this.showError
         },
-        getGlobalLoading() {
+        btnLoading() {
             return this.$store.getters.getGlobalLoading
+        },
+        isEmailRegister() {
+            return this.component === 'emailRegister'
         }
     },
     methods: {
@@ -132,25 +135,24 @@ export default {
             }
         },
         gmailRegister() {
-            if(!this.isTermsAgree){
-                this.showError = true;
-                return;
-            }
+            if(!this.isTermsAgree) return this.showError = true;
 
             this.googleLoading = true;
+            let self = this
             registrationService.googleRegistration().then(({data}) => {
                 if (!data.isSignedIn) {
-                // _analytics(['Registration', 'Start Google']);
-                this.component = 'setPhone2'
+                analyticsService.sb_unitedEvent('Registration', 'Start Google');
+                self.component = 'setPhone2'
             } else {
-                // _analytics(['Login', 'Start Google']);
-                this.$store.dispatch('updateLoginStatus',true)
-                this.$router.push('/')     
+                analyticsService.sb_unitedEvent('Login', 'Start Google');
+                self.$store.dispatch('updateLoginStatus',true)
             }
             }).catch(error => {
                 console.log(error);
-                this.$store.commit('setErrorMessages', { gmail: error.response.data["Google"] ? error.response.data["Google"][0] : '' });
+                self.$store.commit('setErrorMessages', { gmail: error.response.data["Google"] ? error.response.data["Google"][0] : '' });
                 self.$appInsights.trackException({exception: new Error(error)});
+            }).finally(() => {
+                self.$store.commit('setRegisterDialog', false)
             })
         },
         emailRegister() {
@@ -177,6 +179,9 @@ export default {
 
             this.showError = true
         },
+        goStep(step) {
+            this.component = step
+        }
     },
     beforeDestroy() {
         storeService.unregisterModule(this.$store, "loginRegister");
