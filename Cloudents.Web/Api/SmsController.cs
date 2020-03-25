@@ -111,8 +111,8 @@ namespace Cloudents.Web.Api
             {
                 TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
                 TempData[PhoneCallTime] = DateTime.UtcNow.AddMinutes(-2).ToString(CultureInfo.InvariantCulture);
-                await _client.SendSmsAsync(user, token);
-                return Ok();
+                var code = await _client.SendSmsAsync(user, token);
+                return Ok(code);
             }
             if (retVal.Errors.Any(a => a.Code == "InvalidPhoneNumber"))
             {
@@ -158,7 +158,7 @@ namespace Cloudents.Web.Api
             return BadRequest(ModelState);
         }
 
-        private async Task<IActionResult> FinishRegistrationAsync(User user, string country, 
+        private async Task<IActionResult> FinishRegistrationAsync(User user, string country,
             string userAgent, CancellationToken token)
         {
             if (TempData[HomeController.Referral] != null)
@@ -183,7 +183,7 @@ namespace Cloudents.Web.Api
             }
             TempData.Clear();
 
-            var command2 = new AddUserLocationCommand(user, country, HttpContext.GetIpAddress(),  userAgent);
+            var command2 = new AddUserLocationCommand(user, country, HttpContext.GetIpAddress(), userAgent);
             var registrationBonusCommand = new FinishRegistrationCommand(user.Id);
             var t1 = _commandBus.DispatchAsync(command2, token);
             var t2 = _signInManager.SignInAsync(user, false);
