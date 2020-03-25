@@ -61,10 +61,9 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var tutorId = _userManager.GetLongUserId(User);
-
-            if (tutorId != model.UserId)
+            if (tutorId == model.UserId)
             {
-                return BadRequest();
+                return BadRequest("user cannot invoke itself");
             }
             try
             {
