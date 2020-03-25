@@ -134,7 +134,6 @@ namespace Cloudents.Core.DTOs.Users
         public bool HaveDocsWithPrice { get; set; }
         public bool IsPurchased { get; set; }
         public bool IsSold { get; set; }
-        public bool HaveStudyRoom { get; set; }
         public bool HaveFollowers { get; set; }
         private UserType? _userType;
         public UserType? UserType 
