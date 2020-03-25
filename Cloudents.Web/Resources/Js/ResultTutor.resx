@@ -155,4 +155,7 @@
   <data name="apply_coupon" xml:space="preserve">
     <value>Apply Coupon</value>
   </data>
+  <data name="no_reviews" xml:space="preserve">
+    <value>Still collecting</value>
+  </data>
 </root>
