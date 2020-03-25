@@ -169,7 +169,7 @@ const actions = {
             return;
         }
         let authInstance = gapi.auth2.getAuthInstance();
-        
+
         return authInstance.signIn().then((googleUser) => {
             let idToken = googleUser.getAuthResponse().id_token;
             return registrationService.googleRegistration(idToken).then(({data}) => {
@@ -242,17 +242,26 @@ const actions = {
                 commit('setErrorMessages', {phone: error.response.data["PhoneNumber"] ? error.response.data["PhoneNumber"][0] : '' });
             });
     },
-    // smsCodeVerify({commit}, smsCode) {
-        // let data = { code: smsCode, fingerprint: "" };
-        // debugger
-        // Fingerprint2.getPromise({})
-        //     .then(components => {
-        //         debugger
-        //         let values = components.map(component => component.value);
-        //         let murmur = Fingerprint2.x64hash128(values.join(''), 31);
-        //         data.fingerprint = murmur;
+    smsCodeVerify({commit}, smsCode) {
+        let data = { code: smsCode, fingerprint: "" };
 
-    // },
+        Fingerprint2.getPromise({})
+            .then(components => {
+                let values = components.map(component => component.value);
+                let murmur = Fingerprint2.x64hash128(values.join(''), 31);
+                data.fingerprint = murmur;
+                registrationService.smsCodeVerification(data)
+                    .then(userId => {
+                            router.push({name: routeNames.RegisterType});
+                            _analytics(['Registration', 'Phone Verified']);
+                            if(!!userId){
+                                _analytics(['Registration', 'User Id', userId.data.id]);
+                            }
+                    }, () => {
+                        commit('setErrorMessages',{code: "Invalid code"});
+                    });
+            });
+    },
     callWithCode({dispatch, commit}) {
         _analytics(['Registration', 'Call Voice SMS']);
         registrationService.voiceConfirmation()
