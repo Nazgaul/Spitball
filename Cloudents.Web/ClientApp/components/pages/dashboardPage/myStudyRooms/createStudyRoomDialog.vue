@@ -45,10 +45,9 @@ export default {
          if(!this.isLoading){
             this.isLoading = true
             let self = this;
-            this.$store.dispatch('updateCreateStudyRoom',this.selectedStudent.userId)
+            this.$store.dispatch('updateCreateStudyRoom',this.selectedStudent)
                .then(() => {
                   self.isLoading = false;
-                  this.$store.dispatch('updateFollowersItems')
                   self.$closeDialog()
                });
          }

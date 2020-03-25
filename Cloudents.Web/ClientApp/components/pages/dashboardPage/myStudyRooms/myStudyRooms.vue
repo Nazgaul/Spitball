@@ -47,7 +47,11 @@
                <tablePreviewTd :item="props.item"/>
                <tableInfoTd :item="props.item"/>
                <td class="text-xs-left">{{ $d(new Date(props.item.date)) }}</td>
-               <td class="text-xs-left">{{ $d(new Date(props.item.lastSession)) }}</td>
+               <td class="text-xs-left">
+                  <span v-if="props.item.lastSession">
+                  {{ $d(new Date(props.item.lastSession)) }}
+                  </span>
+                  </td>
                <td>
                   <v-btn class="myStudyRooms_btns white--text" depressed rounded color="#4452fc" @click="sendMessage(props.item)">
                      <iconChat class="myStudyRooms_btn_icon"/>
