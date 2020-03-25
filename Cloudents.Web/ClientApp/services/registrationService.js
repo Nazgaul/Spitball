@@ -41,7 +41,7 @@ function googleRegistration() {
 export default {
     googleRegistration,
     // googleRegistration: data => authInstance.post("/register/google", {token: data}),
-    smsCodeVerification: data => authInstance.post("/sms/verify", {number: data.code, fingerprint: data.fingerprint}),
+    smsCodeVerification: data => authInstance.post("/sms/verify", data),
     signIn: data => authInstance.post("LogIn", { email: data.email, password: data.password, fingerprint: data.fingerprint }),
     resendCode: () => authInstance.post("/sms/resend"),
     voiceConfirmation: () => authInstance.post("/sms/call"),
