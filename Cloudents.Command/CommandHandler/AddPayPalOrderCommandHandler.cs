@@ -22,9 +22,9 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(AddPayPalOrderCommand message, CancellationToken token)
         {
             var studyRoom = await _studyRoomRepository.LoadAsync(message.SessionId, token);
-            var v = await _payPalService.AuthorizationOrderAsync(message.PayPalOrderId, token);
+            var (authorizationId, amount) = await _payPalService.AuthorizationOrderAsync(message.PayPalOrderId, token);
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            user.AddToken(message.PayPalOrderId, v.authorizationId, v.amount, studyRoom);
+            user.AddToken(message.PayPalOrderId, authorizationId, amount, studyRoom);
 
             await _userRepository.UpdateAsync(user, token);
         }

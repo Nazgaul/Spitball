@@ -221,7 +221,7 @@ namespace Cloudents.Core.Entities
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
 
-        public virtual void UseToken(Tutor tutor)
+        public virtual void UseToken(StudyRoom studyRoom)
         {
             Country country = Country;
 
@@ -230,13 +230,14 @@ namespace Cloudents.Core.Entities
                 return;
             }
 
-            var userToken = UserTokens.FirstOrDefault(w => w.State == UserTokenState.NotUsed);
+            var userToken = UserTokens
+                .FirstOrDefault(w => w.State == UserTokenState.NotUsed && w.StudyRoom.Id == studyRoom.Id);
             if (userToken != null)
             {
                 userToken.ChangeToUsedState();
             }
 
-            UseCoupon(tutor);
+            UseCoupon(studyRoom.Tutor);
         }
 
         public virtual void AddToken(string orderId, string authorizationId, decimal amount, StudyRoom studyRoom)
