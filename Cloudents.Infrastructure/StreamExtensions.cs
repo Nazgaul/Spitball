@@ -15,7 +15,7 @@ namespace Cloudents.Infrastructure
         //    }
         //}
 
-        public static T ToJsonReader<T>(this Stream s, JsonSerializer serializer = null)
+        public static T ToJsonReader<T>(this Stream s, JsonSerializer? serializer = null)
         {
             using var sr = new StreamReader(s);
             using var reader = new JsonTextReader(sr);
