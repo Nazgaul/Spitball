@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,15 +26,13 @@ namespace Cloudents.Admin2.Api
     {
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
-        private readonly IUniversitySearch _universityProvider;
         private readonly IDapperRepository _dapperRepository;
 
         public AdminUniversityController(IQueryBus queryBus, ICommandBus commandBus,
-            IUniversitySearch universityProvider, IDapperRepository dapperRepository)
+             IDapperRepository dapperRepository)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;
-            _universityProvider = universityProvider;
             _dapperRepository = dapperRepository;
         }
 
@@ -64,32 +63,32 @@ namespace Cloudents.Admin2.Api
         }
 
 
-        [HttpGet("newUniversities")]
-        public async Task<IEnumerable<PendingUniversitiesDto>> GetNewUniversities([FromQuery] UniversitiesRequest model
-            , CancellationToken token)
-        {
+        //[HttpGet("newUniversities")]
+        //public async Task<IEnumerable<PendingUniversitiesDto>> GetNewUniversities([FromQuery] UniversitiesRequest model
+        //    , CancellationToken token)
+        //{
 
-            if (string.IsNullOrEmpty(User.GetCountryClaim()) ||
-                User.GetCountryClaim().Equals(model.Country, StringComparison.CurrentCultureIgnoreCase))
-            {
-                var query = new UniversitiesQuery(model.Country, model.State.GetValueOrDefault(ItemState.Pending));
-                var retVal = await _queryBus.QueryAsync(query, token);
-                return retVal;
-            }
-            else
-            {
-                return null;
-            }
-        }
+        //    if (string.IsNullOrEmpty(User.GetCountryClaim()) ||
+        //        User.GetCountryClaim().Equals(model.Country, StringComparison.CurrentCultureIgnoreCase))
+        //    {
+        //        var query = new UniversitiesQuery(model.Country, model.State.GetValueOrDefault(ItemState.Pending));
+        //        var retVal = await _queryBus.QueryAsync(query, token);
+        //        return retVal;
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
 
-        [HttpGet("allUniversities")]
-        [Authorize]
-        public async Task<IEnumerable<AllUniversitiesDto>> GetAllUniversities(CancellationToken token)
-        {
-            var query = new AllUniversitiesQuery(User.GetCountryClaim());
-            var retVal = await _queryBus.QueryAsync(query, token);
-            return retVal;
-        }
+        //[HttpGet("allUniversities")]
+        //[Authorize]
+        //public async Task<IEnumerable<AllUniversitiesDto>> GetAllUniversities(CancellationToken token)
+        //{
+        //    var query = new AllUniversitiesQuery(User.GetCountryClaim());
+        //    var retVal = await _queryBus.QueryAsync(query, token);
+        //    return retVal;
+        //}
 
 
         /// <summary>
@@ -98,25 +97,25 @@ namespace Cloudents.Admin2.Api
         /// <param name="university">university</param>
         /// <param name="token"></param>
         /// <returns>list of universities</returns>
-        [Route("search")]
-        [HttpGet]
-        [Authorize]
-        public async Task<UniversitySearchDto> GetAsync([FromQuery(Name = "university")]string university,
-            CancellationToken token)
-        {
-            var result = await _universityProvider.SearchAsync(university, 0,
-                User.GetCountryClaim(), token);
-            return result;
-        }
+        //[Route("search")]
+        //[HttpGet]
+        //[Authorize]
+        //public UniversitySearchDto GetAsync([FromQuery(Name = "university")]string university,
+        //    CancellationToken token)
+        //{
+        //    //var result = await _universityProvider.SearchAsync(university, 0,
+        //    //    User.GetCountryClaim(), token);
+        //    return new UniversitySearchDto(Enumerable.Empty<UniversityDto>());
+        //}
 
-        [HttpPost("approve")]
-        public async Task<IActionResult> ApproveUniversity([FromBody] ApproveUniversityRequest model,
-                CancellationToken token)
-        {
-            var command = new ApproveUniversityCommand(model.Id);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
+        //[HttpPost("approve")]
+        //public async Task<IActionResult> ApproveUniversity([FromBody] ApproveUniversityRequest model,
+        //        CancellationToken token)
+        //{
+        //    var command = new ApproveUniversityCommand(model.Id);
+        //    await _commandBus.DispatchAsync(command, token);
+        //    return Ok();
+        //}
 
         //TODO: Fix this and make it work in proper CQRS architecture 
         [HttpDelete("{id}")]
@@ -144,13 +143,13 @@ namespace Cloudents.Admin2.Api
             return Ok();
         }
 
-        [HttpPost("rename")]
-        public async Task<IActionResult> RenameUniversity([FromBody] RenameUniversityRequest model,
-        CancellationToken token)
-        {
-            var command = new RenameUniversityCommand(model.UniversityId, model.NewName);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
+        //[HttpPost("rename")]
+        //public async Task<IActionResult> RenameUniversity([FromBody] RenameUniversityRequest model,
+        //CancellationToken token)
+        //{
+        //    var command = new RenameUniversityCommand(model.UniversityId, model.NewName);
+        //    await _commandBus.DispatchAsync(command, token);
+        //    return Ok();
+        //}
     }
 }

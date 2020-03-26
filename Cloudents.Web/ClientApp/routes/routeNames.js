@@ -46,7 +46,7 @@ export const AddCourse = 'addCourse';
 export const SetCourse = 'setCourse';
 
 // Edit University
-export const EditUniversity = 'addUniversity';
+// export const EditUniversity = 'addUniversity';
 
 // Study Room:
 export const StudyRoom = 'tutoring';

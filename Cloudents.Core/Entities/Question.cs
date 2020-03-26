@@ -16,7 +16,7 @@ namespace Cloudents.Core.Entities
     {
         public Question(string text,
             User user,
-            [NotNull] Course course, University university)
+            [NotNull] Course course, University? university)
         : this()
         {
             if (text == null) throw new ArgumentNullException(nameof(text));
@@ -37,7 +37,7 @@ namespace Cloudents.Core.Entities
         }
 
         public Question(Course course, string text, SystemUser user,
-             University university)
+             University? university)
             : this()
         {
             if (text == null) throw new ArgumentNullException(nameof(text));

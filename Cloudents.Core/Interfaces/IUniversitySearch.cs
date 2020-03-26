@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface IUniversitySearch
-    {
-        Task<UniversitySearchDto?> SearchAsync(string term,
-            int page,
-            string country,
-            CancellationToken token);
+    //public interface IUniversitySearch
+    //{
+    //    Task<UniversitySearchDto?> SearchAsync(string term,
+    //        int page,
+    //        string country,
+    //        CancellationToken token);
 
-    }
+    //}
 
     public interface ITutorSearch
     {

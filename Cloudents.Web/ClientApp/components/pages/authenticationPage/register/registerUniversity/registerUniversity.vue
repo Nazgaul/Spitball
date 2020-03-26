@@ -2,20 +2,20 @@
     <div id="registerUniversity">
         <slot name="titleUniversity"></slot>
 
-        <university>
+        <!-- <university>
             <template #fromRegister>
                 <span></span>
             </template>
-        </university>
+        </university> -->
     </div>
 </template>
 
 <script>
-const university = () => import('../../../../university/addUniversity/addUniversity.vue');
+// const university = () => import('../../../../university/addUniversity/addUniversity.vue');
 
 export default {
     components: {
-        university
+        // university
     }
 }
 </script>
