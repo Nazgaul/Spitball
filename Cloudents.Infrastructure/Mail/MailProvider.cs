@@ -38,7 +38,7 @@ namespace Cloudents.Infrastructure.Mail
 
                 var result = await _client.GetAsync(uriBuilder.Uri, source.Token);
                 result.EnsureSuccessStatusCode();
-                using var s = await result.Content.ReadAsStreamAsync();
+                await using var s = await result.Content.ReadAsStreamAsync();
                 var w = s.ToJsonReader<VerifyEmail>();
 
                 var validStats = new[] { "valid", "catch-all" };
