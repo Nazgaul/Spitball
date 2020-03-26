@@ -1,16 +1,10 @@
-﻿using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Interfaces;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Specialized;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Query.Payment;
-using SendGrid;
 
 namespace Cloudents.Infrastructure.Mail
 {
@@ -53,13 +47,13 @@ namespace Cloudents.Infrastructure.Mail
 
         private class Rootobject
         {
-            public Result Result { get; set; }
+            public Result Result { get;private set; }
         }
 
         private class Result
         {
            // public string email { get; set; }
-            public string Verdict { get; set; }
+            public string Verdict { get; private set; }
             public float Score { get; set; }
            // public string local { get; set; }
            // public string host { get; set; }
@@ -67,30 +61,30 @@ namespace Cloudents.Infrastructure.Mail
           //  public string ip_address { get; set; }
         }
 
-        private class Checks
-        {
-            public Domain domain { get; set; }
-            public Local_Part local_part { get; set; }
-            public Additional additional { get; set; }
-        }
+        //private class Checks
+        //{
+        //    public Domain domain { get; set; }
+        //    public Local_Part local_part { get; set; }
+        //    public Additional additional { get; set; }
+        //}
 
-        private class Domain
-        {
-            public bool has_valid_address_syntax { get; set; }
-            public bool has_mx_or_a_record { get; set; }
-            public bool is_suspected_disposable_address { get; set; }
-        }
+        //private class Domain
+        //{
+        //    public bool has_valid_address_syntax { get; set; }
+        //    public bool has_mx_or_a_record { get; set; }
+        //    public bool is_suspected_disposable_address { get; set; }
+        //}
 
-        private class Local_Part
-        {
-            public bool is_suspected_role_address { get; set; }
-        }
+        //private class Local_Part
+        //{
+        //    public bool is_suspected_role_address { get; set; }
+        //}
 
-        private class Additional
-        {
-            public bool has_known_bounces { get; set; }
-            public bool has_suspected_bounces { get; set; }
-        }
+        //private class Additional
+        //{
+        //    public bool has_known_bounces { get; set; }
+        //    public bool has_suspected_bounces { get; set; }
+        //}
 
 
        
