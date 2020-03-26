@@ -243,6 +243,12 @@ export default {
       max-width: 1334px; 
    }
    .mySales_table-full{
+   tr{
+      height:54px;
+   }
+   td{
+      border: none !important;
+   }
       max-width: 1334px;
       td:first-child {
          width:1%;
