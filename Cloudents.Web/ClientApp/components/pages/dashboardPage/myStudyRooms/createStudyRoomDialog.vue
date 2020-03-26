@@ -33,8 +33,8 @@ export default {
    data() {
       return {
          isLoading:false,
+         myFollowers:[],
          selected:'',
-         active:false,
       }
    },
    methods: {
@@ -52,13 +52,10 @@ export default {
          }
       }
    },
-   computed: {
-      myFollowers(){
-         return this.$store.getters.getFollowersItems;
-      },
-   },
    created() {
-      this.$store.dispatch('updateFollowersItems')
+      this.$store.dispatch('updateFollowersItems').then(()=>{
+         this.myFollowers = this.$store.getters.getFollowersItems
+      })
    },
 }
 </script>
