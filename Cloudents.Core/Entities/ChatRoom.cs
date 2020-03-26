@@ -47,6 +47,12 @@ namespace Cloudents.Core.Entities
         public virtual string Identifier { get; protected set; }
         public virtual ChatRoomAdmin Extra { get; set; }
 
+        public virtual void AddTextMessage(User user, string message)
+        {
+            var chatMessage = new ChatTextMessage(user, message, this);
+            AddMessage(chatMessage);
+        }
+
         public virtual void AddMessage(ChatMessage message)
         {
             UpdateTime = DateTime.UtcNow;

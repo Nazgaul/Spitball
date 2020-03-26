@@ -24,20 +24,10 @@ namespace Cloudents.Command.CommandHandler
         {
             var users = new[] { message.ToUsersId, message.UserSendingId };
 
-            var chatRoom = await _chatRoomRepository.GetChatRoomAsync(users, token);
-
-            if (chatRoom == null)
-            {
-                var userSending = await _userRepository.LoadAsync(message.UserSendingId, token);
-                var userReceiving = await _userRepository.LoadAsync(message.ToUsersId, token);
-                chatRoom = new ChatRoom(new List<User>() { userSending, userReceiving });
-                await _chatRoomRepository.AddAsync(chatRoom, token);
-            }
-
+            var chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, token);
             var user = _userRepository.Load(message.UserSendingId);
-
-            var chatMessage = new ChatTextMessage(user, message.Message, chatRoom);
-            chatRoom.AddMessage(chatMessage);
+            //var chatMessage = new ChatTextMessage(user, message.Message, chatRoom);
+            chatRoom.AddTextMessage(user, message.Message);
             await _chatRoomRepository.UpdateAsync(chatRoom, token);
         }
     }
