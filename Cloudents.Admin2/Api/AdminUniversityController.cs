@@ -1,19 +1,10 @@
 ﻿using Cloudents.Admin2.Models;
 using Cloudents.Command;
-using Cloudents.Command.Command.Admin;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
 using Cloudents.Query;
-using Cloudents.Query.Admin;
 using Dapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

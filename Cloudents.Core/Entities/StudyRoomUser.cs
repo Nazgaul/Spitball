@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Event;
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.Entities

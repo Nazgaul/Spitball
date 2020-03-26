@@ -23,11 +23,6 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
-using Cloudents.Command.Documents.PurchaseDocument;
-using Cloudents.Core.Exceptions;
-using Cloudents.Core.Storage;
-using Cloudents.Query;
-using Cloudents.Query.Users;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 

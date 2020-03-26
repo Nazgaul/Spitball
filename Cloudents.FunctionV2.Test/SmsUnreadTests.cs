@@ -12,7 +12,6 @@ using FluentAssertions;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Moq;
 using SendGrid.Helpers.Mail;
-using Twilio.Rest.Api.V2010.Account;
 using Xunit;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
