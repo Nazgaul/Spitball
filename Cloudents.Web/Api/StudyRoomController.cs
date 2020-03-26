@@ -77,7 +77,7 @@ namespace Cloudents.Web.Api
             }
             catch (DuplicateRowException)
             {
-                return BadRequest("Already active study room");
+                return Conflict("Already active study room");
             }
             catch (InvalidOperationException e)
             {
