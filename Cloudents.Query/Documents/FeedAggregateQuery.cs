@@ -255,16 +255,16 @@ FETCH NEXT @pageSize ROWS ONLY";
                 //this is because we don't want to aggregate all the historical data
                 var result = new List<FeedDto>();
                 using (var conn = _dapperRepository.OpenConnection())
-                using (var reader = await conn.ExecuteReaderAsync(sql, new
                 {
-                    query.Page,
-                    query.UserId,
-                    query.Country,
-                    query.Course,
-                    query.PageSize
+                    using var reader = await conn.ExecuteReaderAsync(sql, new
+                    {
+                        query.Page,
+                        query.UserId,
+                        query.Country,
+                        query.Course,
+                        query.PageSize
 
-                }))
-                {
+                    });
                     if (reader.Read())
                     {
                         var col = reader.GetOrdinal("type");

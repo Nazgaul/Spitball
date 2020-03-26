@@ -37,14 +37,15 @@ namespace Cloudents.Query.Documents
             private readonly IDapperRepository _dapperRepository;
             private readonly IJsonSerializer _jsonSerializer;
 
-            public DocumentFeedWithFilterQueryHandler(IDapperRepository dapperRepository, IJsonSerializer jsonSerializer)
+            public DocumentFeedWithFilterQueryHandler(IDapperRepository dapperRepository,
+                IJsonSerializer jsonSerializer)
             {
                 _dapperRepository = dapperRepository;
                 _jsonSerializer = jsonSerializer;
             }
 
-            // If you chnage enything in the sql query tou need to take care to 
-            // QuestionFeedWithFliterQuery and FeedAggregateQuery as well
+            // If you change everything in the sql query tou need to take care to 
+            // QuestionFeedWithFilterQuery and FeedAggregateQuery as well
             public async Task<IEnumerable<DocumentFeedDto>> GetAsync(DocumentFeedWithFilterQuery query, CancellationToken token)
             {
                 const string sqlWithCourse = @"with cte as (
@@ -156,17 +157,17 @@ FETCH NEXT @pageSize ROWS ONLY";
 
                 var result = new List<DocumentFeedDto>();
                 using (var conn = _dapperRepository.OpenConnection())
-                using (var reader = await conn.ExecuteReaderAsync(sql, new
                 {
-                    query.Page,
-                    query.UserId,
-                    query.Country,
-                    query.Course,
-                    query.PageSize,
-                    documentType = query.Filter.ToString()
+                    using var reader = await conn.ExecuteReaderAsync(sql, new
+                    {
+                        query.Page,
+                        query.UserId,
+                        query.Country,
+                        query.Course,
+                        query.PageSize,
+                        documentType = query.Filter.ToString()
 
-                }))
-                {
+                    });
                     if (reader.Read())
                     {
                         var colJson = reader.GetOrdinal("JsonArray");
