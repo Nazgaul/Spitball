@@ -108,20 +108,10 @@ export const registrationRoutes = [
                 component: () => import(`../components/pages/authenticationPage/register/student/registerStudentCollege.vue`),
                 children: [
                     {
-                        path: 'university',
-                        name: routeName.RegisterUniversity,
-                        meta: {nextStep: routeName.RegisterCourseCollege, backStep: routeName.RegisterType, dynamicClass: true},
-                        component: () => import(`../components/pages/authenticationPage/register/registerUniversity/registerUniversity.vue`),
-                    },
-                    {
-                        path: 'course',
-                        name: routeName.RegisterCourseCollege,
-                        meta: {nextStep: 'feed', backStep: routeName.RegisterUniversity, dynamicClass: true},
-                        component: () => import(`../components/pages/authenticationPage/register/registerCourse/registerCourse.vue`)
-                    },
-                    {
                         path: '',
-                        redirect: { name: 'registerUniversity' } 
+                        name: routeName.RegisterCourseCollege,
+                        meta: {nextStep: 'feed', backStep: routeName.RegisterType, dynamicClass: true},
+                        component: () => import(`../components/pages/authenticationPage/register/registerCourse/registerCourse.vue`)
                     },
                 ]
             },

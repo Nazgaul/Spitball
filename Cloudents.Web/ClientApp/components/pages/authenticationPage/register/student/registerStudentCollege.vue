@@ -1,10 +1,6 @@
 <template>
     <div id="registerStudentCollege">
         <router-view>
-            <template #titleUniversity>
-                <div class="text-center university_title">{{$t('register_university_title')}}</div>
-            </template>
-
             <template #titleCourse>
                 <div class="text-center courses_title">{{$t('register_course_title')}}</div>
             </template>
