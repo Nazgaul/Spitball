@@ -17,7 +17,7 @@ namespace Cloudents.Infrastructure.Storage
 
         public Uri GetPreviewImageLink(long id, int i)
         {
-            var destinationDirectory = _blobDirectory.GetDirectoryReference(id.ToString());
+            var destinationDirectory = BlobDirectory.GetDirectoryReference(id.ToString());
             var blob = destinationDirectory.GetBlobReference($"preview-{i}.jpg");
             return blob.Uri;
         }
@@ -26,7 +26,7 @@ namespace Cloudents.Infrastructure.Storage
         {
             try
             {
-                var destinationDirectory = _blobDirectory.GetDirectoryReference(directory);
+                var destinationDirectory = BlobDirectory.GetDirectoryReference(directory);
                 var blob = destinationDirectory.GetBlockBlobReference(name);
 
                 return await blob.DownloadTextAsync();

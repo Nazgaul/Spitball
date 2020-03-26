@@ -33,7 +33,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<CountryProvider>().As<ICountryProvider>();
             builder.RegisterType<WixBlogProvider>().As<IBlogProvider>()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(CacheResultInterceptor)); ;
+                .InterceptedBy(typeof(CacheResultInterceptor));
         }
     }
 }

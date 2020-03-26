@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SixLabors.ImageSharp;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace Cloudents.FunctionsV2.Di
