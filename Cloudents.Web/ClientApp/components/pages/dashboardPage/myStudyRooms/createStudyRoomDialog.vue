@@ -24,6 +24,7 @@
          </div>
          <div class="d-flex flex-column align-center">
             <span v-if="showErrorEmpty" class="error--text">{{$t('dashboardPage_create_room_empty_error')}}</span>
+            <span v-if="showErrorAlreadyCreated" class="error--text">{{$t('dashboardPage_create_room_created_error')}}</span>
             <v-btn :loading="isLoading" @click="createStudyRoom" width="140" depressed height="40" color="#4452fc" class="white--text" rounded >{{$t('dashboardPage_create_room_create_btn')}}</v-btn>
          </div>
       </div>
@@ -39,11 +40,12 @@ export default {
          myFollowers:[],
          selected:'',
          showErrorEmpty:false,
+         showErrorAlreadyCreated:false,
       }
    },
    methods: {
       createStudyRoom(){
-         if(!this.isLoading){
+         if(!this.isLoading && !this.showErrorAlreadyCreated && !this.showErrorEmpty){
             if(this.selected){
                this.isLoading = true
                let self = this;
@@ -51,8 +53,11 @@ export default {
                   .then(() => {
                      self.isLoading = false;
                      self.$closeDialog()
-                  }).catch(()=>{
+                  }).catch((error)=>{
                      self.isLoading = false;
+                     if(error.response?.status == 409){
+                        self.showErrorAlreadyCreated = true;
+                     }
                   });
             }else{
                this.showErrorEmpty = true;
@@ -63,6 +68,7 @@ export default {
    watch: {
       selected(){
          this.showErrorEmpty = false;
+         this.showErrorAlreadyCreated = false;
       }
    },
    created() {

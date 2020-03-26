@@ -132,6 +132,9 @@
   <data name="course" xml:space="preserve">
     <value>Course:</value>
   </data>
+  <data name="create_room_created_error" xml:space="preserve">
+    <value>Already active study room</value>
+  </data>
   <data name="create_room_create_btn" xml:space="preserve">
     <value>Create study room</value>
   </data>
