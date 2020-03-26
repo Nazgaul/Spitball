@@ -89,8 +89,13 @@ export default {
             return this.$t('loginRegister_setphone_input')
         },
         showError() {
-            if(this.getErrorMessages?.phone) {
-                return this.$t('loginRegister_invalid_phone')
+            // TODO: need to retrive from server error type to know which error should show
+            let phoneErr = this.getErrorMessages?.phone
+            if(phoneErr) {
+                if(phoneErr === 'InvalidPhoneNumber') {
+                    return this.$t('loginRegister_invalid_phone')
+                }
+                return this.$t('loginRegister_already_used_number')
             }
             return ''
         }
