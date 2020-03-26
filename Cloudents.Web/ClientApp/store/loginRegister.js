@@ -194,7 +194,6 @@ const actions = {
 
         return registrationService.emailRegistration(emailRegObj)
             .then(({data}) => {
-                debugger
                 _analytics(['Registration', 'Start']);
                 if (data.param && data.param.phoneNumber) {
                     commit('setPhone',data.param.phoneNumber);
