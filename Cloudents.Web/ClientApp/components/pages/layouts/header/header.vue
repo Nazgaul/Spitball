@@ -54,7 +54,7 @@
                                 <div v-if="!$vuetify.breakpoint.mdAndDown" class="gh_i_r_userInfo text-truncate" @click.prevent="drawer=!drawer">
                                     <span class="ur_greets" v-html="$Ph('header_greets', userName)"/>
                                     <div class="ur_balance">
-                                        <span v-html="$Ph('header_balance', userBalance(accountUser.balance))"/>
+                                        <span>{{$t('header_balance', {'1': getUserBalance})}}</span>
                                         <arrowDownIcon v-if="!isMobile" class="ur_balance_drawer ml-2"/>
                                     </div>
                                 </div>
@@ -118,7 +118,7 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTuto
         layoutClass: {}
     },
     computed: {
-        ...mapGetters(['accountUser','getTotalUnread','getBannerParams','getUserLoggedInStatus']),
+        ...mapGetters(['accountUser','getTotalUnread','getBannerParams','getUserLoggedInStatus','getUserBalance']),
         loggedIn() {
             return this.getUserLoggedInStatus;
         },
@@ -181,10 +181,6 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTuto
         },       
         startIntercom() {
             intercomService.showDialog();
-        },  
-        userBalance(balance){
-            let balanceFixed = +balance.toFixed()
-            return balanceFixed.toLocaleString(`${global.lang}`)
         },
         changeLanguage() {
         LanguageChange.setUserLanguage(this.languageChoisesAval.id).then(
