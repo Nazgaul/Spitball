@@ -1,65 +1,58 @@
 <template>
    <div class="myContent">
-      <div class="myContent_title" v-language:inner="'dashboardPage_my_content_title'"/>
       <v-data-table 
-            :headers="headers"
-            :items="contentItems"
-            :items-per-page="5"
-            hide-default-header
-            sort-by
-            :item-key="'date'"
-            class="elevation-1 myContent_table"
-            :footer-props="{
-               showFirstLastPage: false,
-               firstIcon: '',
-               lastIcon: '',
-               prevIcon: 'sbf-arrow-left-carousel',
-               nextIcon: 'sbf-arrow-right-carousel',
-               itemsPerPageOptions: [5]
-            }">
-         <template v-slot:header="{props}">
-            <thead>
-               <tr>
-                  <th class="text-xs-left"
-                     v-for="header in props.headers"
-                     :key="header.value"
-                     :class="['column',{'sortable':header.sortable}]"
-                     @click="changeSort(header.value)">
-                     <span class="text-xs-left">{{ header.text }}
-                        <v-icon v-if="header.sortable" v-html="sortedBy !== header.value?'sbf-arrow-down':'sbf-arrow-up'" />
-                     </span>
-                  </th>
-               </tr>
-            </thead>
+         calculate-widths
+         :page.sync="paginationModel.page"
+         :headers="headers"
+         :items="contentItems"
+         :items-per-page="20"
+         sort-by
+         :item-key="'date'"
+         class="elevation-1"
+         :footer-props="{
+            showFirstLastPage: false,
+            firstIcon: '',
+            lastIcon: '',
+            prevIcon: 'sbf-arrow-left-carousel',
+            nextIcon: 'sbf-arrow-right-carousel',
+            itemsPerPageOptions: [20]
+         }">
+         <template v-slot:top >
+            <div class="myContent_title">
+                  {{$t('dashboardPage_my_content_title')}}
+                  </div>
          </template>
-            <template v-slot:item="props">
-               <tr class="myContent_table_tr">
-                  <tablePreviewTd :item="props.item"/>
-                  <tableInfoTd :item="props.item"/>
-
-                  <td class="text-xs-left" v-text="dictionary.types[props.item.type]"/>
-                  <td class="text-xs-left">{{props.item.likes}}</td>
-                  <td class="text-xs-left">{{props.item.views}}</td>
-                  <td class="text-xs-left">{{props.item.downloads}}</td>
-                  <td class="text-xs-left">{{props.item.purchased}}</td>
-                  <td class="text-xs-left" v-text="formatPrice(props.item.price,props.item.type)"/>
-                  <td class="text-xs-left">{{ $d(new Date(props.item.date)) }}</td>
-                  <td class="text-xs-center">
-                     <v-menu bottom left v-model="showMenu" v-if="!checkIsQuestion(props.item.type)">
-                        <template v-slot:activator="{ on }">
-                           <v-icon @click="currentItemIndex = props.index" v-on="on" slot="activator" small icon>sbf-3-dot</v-icon>
-                        </template>
-                     
-                        <v-list v-if="props.index == currentItemIndex">
-                           <v-list-item style="cursor:pointer;" @click="openChangeNameDialog(props.item)">{{rename}}</v-list-item>
-                           <v-list-item style="cursor:pointer;" @click="openChangePriceDialog(props.item)">{{changePrice}}</v-list-item>
-                        </v-list>
-                     </v-menu>
-                  </td>
-               </tr>
-            </template>
-
-            <slot slot="no-data" name="tableEmptyState"/>
+         <template v-slot:item.preview="{item}">
+            <router-link class="d-flex justify-center" :to="dynamicRouter(item)">
+               <v-avatar>
+                  <img :src="item.preview? item.preview : require('../global/images/qs.png')">
+               </v-avatar>
+            </router-link>
+         </template>
+         <template v-slot:item.info="{item}">
+            <tableInfoTd :item="item"/>
+         </template>
+         <template v-slot:item.type="{item}">
+            {{dictionary.types[item.type]}}
+         </template>
+         <template v-slot:item.price="{item}">
+            {{ formatPrice(item.price,item.type) }}
+         </template>
+         <template v-slot:item.date="{item}">
+            {{ $d(new Date(item.date)) }}
+         </template>
+         <template v-slot:item.action="{item}">
+            <v-menu bottom left v-model="showMenu" v-if="!checkIsQuestion(item.type)">
+               <template v-slot:activator="{ on }">
+                  <v-icon @click="currentItemIndex = item" v-on="on" slot="activator" small icon>sbf-3-dot</v-icon>
+               </template>
+               <v-list v-if="item == currentItemIndex">
+                  <v-list-item style="cursor:pointer;" @click="openChangeNameDialog(item)">{{rename}}</v-list-item>
+                  <v-list-item style="cursor:pointer;" @click="openChangePriceDialog(item)">{{changePrice}}</v-list-item>
+               </v-list>
+            </v-menu>
+         </template>
+         <slot slot="no-data" name="tableEmptyState"/>
       </v-data-table>
       <sb-dialog 
          :showDialog="isChangeNameDialog"
@@ -87,7 +80,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { LanguageService } from '../../../../services/language/languageService';
-import tablePreviewTd from '../global/tablePreviewTd.vue';
 import tableInfoTd from '../global/tableInfoTd.vue';
 import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 import changeNameDialog from '../dashboardDialog/changeNameDialog.vue';
@@ -95,7 +87,7 @@ import changePriceDialog from '../dashboardDialog/changePriceDialog.vue';
 
 export default {
    name:'myContent',
-   components:{tablePreviewTd,tableInfoTd,sbDialog,changeNameDialog,changePriceDialog},
+   components:{tableInfoTd,sbDialog,changeNameDialog,changePriceDialog},
    props:{
       dictionary:{
          type: Object,
@@ -137,6 +129,14 @@ export default {
    },
    methods: {
       ...mapActions(['updateContentItems','dashboard_sort']),
+      dynamicRouter(item){
+         if(item.url){
+            return item.url;
+         }
+         if(item.type === 'Question' || item.type === 'Answer'){
+            return {path:'/question/'+item.id}
+         }
+      },
       formatPrice(price,type){
          if(isNaN(price)) return;
          if(price < 0){
@@ -199,59 +199,43 @@ export default {
       padding: 30px;
       background-color: #fff;
       line-height: 1.3px;
-      box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)!important;
+      // box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)!important;
    }
-   .myContent_table{
-      thead{
-         tr{
-            height: auto;
-            th{
-               color: #43425d !important;
-               font-size: 14px;
-               padding-top: 14px;
-               padding-bottom: 14px;
-               font-weight: normal;
-               min-width: 100px;
-            }
-            
-         }
-         color: #43425d !important;
+   td:first-child {
+      width:1%;
+      white-space: nowrap;
+   }
+   tr:nth-of-type(2n) {
+      td {
+         background-color: #f5f5f5;
       }
-      // .myContent_table_tr {
-      //    @media (max-width: @screen-xs) {
-      //       display: flex;
-      //       flex-direction: column;
-      //       border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-      //       padding-bottom: 10px;  
-      //    }
-         
-      //    td {
-      //       font-size: 13px !important;
-      //       @media (max-width: @screen-xs) {
-      //          height: unset;
-      //          border-bottom: none !important;    
-                        
-      //       }
-      //    }
-      // }
-      .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
-         transform: none /*rtl:rotate(180deg)*/;
-         color: #43425d !important;
-         height: inherit;
-         font-size: 14px;
-      }
-      .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
-         transform: none /*rtl:rotate(180deg)*/;
-         color: #43425d !important;
-         height: inherit;
-         font-size: 14px;
-      }
-      .v-data-footer {
-         padding: 6px 0;
-         .v-data-footer__pagination {
+   }
+   thead{
+      tr{
+         // height: auto;
+         th{
+            color: #43425d !important;
             font-size: 14px;
-            color: #43425d;
+            padding-top: 14px;
+            padding-bottom: 14px;
+            font-weight: normal;
+            min-width: 100px;
          }
+         
+      }
+      color: #43425d !important;
+   }
+   .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
+      transform: none /*rtl:rotate(180deg)*/;
+      color: #43425d !important;
+      height: inherit;
+      font-size: 14px !important;
+   }
+   .v-data-footer {
+      padding: 6px 0;
+      .v-data-footer__pagination {
+         font-size: 14px;
+         color: #43425d;
       }
    }
 }
