@@ -24,7 +24,7 @@
          </template>
          <template v-slot:item.preview="{item}">
             <router-link class="d-flex justify-center" :to="dynamicRouter(item)">
-               <v-avatar>
+               <v-avatar size="40">
                   <img :src="item.preview? item.preview : require('../global/images/qs.png')">
                </v-avatar>
             </router-link>
