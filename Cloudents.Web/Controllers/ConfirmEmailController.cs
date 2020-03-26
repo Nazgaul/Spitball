@@ -42,7 +42,8 @@ namespace Cloudents.Web.Controllers
             var user = await _userManager.FindByIdAsync(model.Id.ToString());
             if (user is null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{model.Id}'.");
+                _logger.Error("Confirm user email is null");
+                return Redirect("/");
             }
 
             if (user.PhoneNumberConfirmed)
@@ -51,7 +52,9 @@ namespace Cloudents.Web.Controllers
             }
             if (user.EmailConfirmed)
             {
-                return await GoToStepAsync(user, RegistrationStep.RegisterSetPhone, model.ReturnUrl);
+                return RedirectToRoute(RegisterController.Signin);
+
+                //return await GoToStepAsync(user, RegistrationStep.RegisterSetPhone, model.ReturnUrl);
             }
             var result = await _userManager.ConfirmEmailAsync(user, model.Code);
             if (!result.Succeeded)
@@ -65,23 +68,21 @@ namespace Cloudents.Web.Controllers
                     });
             }
 
-            TempData[HomeController.Referral] = model.Referral;
+            //TempData[HomeController.Referral] = model.Referral;
 
-            return await GoToStepAsync(user,
-                RegistrationStep.RegisterSetPhone,
-                model.ReturnUrl);
+            return View("ConfirmEmail");
         }
 
-        private async Task<RedirectToRouteResult> GoToStepAsync(User user, RegistrationStep step, string returnUrl)
-        {
-            await _signInManager.TempSignIn(user);
-            var v =  RedirectToRoute(RegisterController.RegisterRouteName,
-                new
-                {
-                    page = step.RoutePath,
-                    returnUrl = Url.IsLocalUrl(returnUrl) ? returnUrl : null
-                });
-            return v;
-        }
+        //private async Task<RedirectToRouteResult> GoToStepAsync(User user, RegistrationStep step, string returnUrl)
+        //{
+        //    await _signInManager.TempSignIn(user);
+        //    var v =  RedirectToRoute(RegisterController.RegisterRouteName,
+        //        new
+        //        {
+        //            page = step.RoutePath,
+        //            returnUrl = Url.IsLocalUrl(returnUrl) ? returnUrl : null
+        //        });
+        //    return v;
+        //}
     }
 }

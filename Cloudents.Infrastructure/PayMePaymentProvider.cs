@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -57,26 +56,23 @@ namespace Cloudents.Infrastructure
                 ContractResolver = ContractResolver,
                 NullValueHandling = NullValueHandling.Ignore
             });
-            using (var sr = new StringContent(json, Encoding.UTF8, "application/json"))
+            using var sr = new StringContent(json, Encoding.UTF8, "application/json");
+            Uri.TryCreate(new Uri(_credentials.EndPoint), "generate-sale", out var uri);
+
+            var response = await _client.PostAsync(uri, sr, token);
+            if (!response.IsSuccessStatusCode)
             {
-                Uri.TryCreate(new Uri(_credentials.EndPoint), "generate-sale", out var uri);
-
-                var response = await _client.PostAsync(uri, sr, token);
-                if (!response.IsSuccessStatusCode)
-                {
-                    var str = await response.Content.ReadAsStringAsync();
-                    throw new HttpRequestException($"statusCode: {response.StatusCode} reason: {response.ReasonPhrase}, body: {str}");
-                }
-                using (var s = await response.Content.ReadAsStreamAsync())
-                {
-                    var serializer = JsonSerializer.Create(new JsonSerializerSettings
-                    {
-                        ContractResolver = ContractResolver,
-                    });
-
-                    return s.ToJsonReader<GenerateSaleResponse>(serializer);
-                }
+                var str = await response.Content.ReadAsStringAsync();
+                throw new HttpRequestException($"statusCode: {response.StatusCode} reason: {response.ReasonPhrase}, body: {str}");
             }
+
+            await using var s = await response.Content.ReadAsStreamAsync();
+            var serializer = JsonSerializer.Create(new JsonSerializerSettings
+            {
+                ContractResolver = ContractResolver,
+            });
+
+            return s.ToJsonReader<GenerateSaleResponse>(serializer);
         }
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Local", Justification = "Need for serialization")]
@@ -145,36 +141,4 @@ namespace Cloudents.Infrastructure
 
         }
     }
-
-
-
-    public static class StreamExtensions
-    {
-        //public static T ToJsonReader<T>(this Stream s, Func<JsonTextReader, T> func)
-        //{
-
-        //    using (var sr = new StreamReader(s))
-        //    using (var reader = new JsonTextReader(sr))
-        //    {
-        //        return func(reader);
-        //    }
-        //}
-
-        public static T ToJsonReader<T>(this Stream s, JsonSerializer serializer = null)
-        {
-
-            using (var sr = new StreamReader(s))
-            using (var reader = new JsonTextReader(sr))
-            {
-                if (serializer == null)
-                {
-                    serializer = new JsonSerializer();
-                }
-
-                return serializer.Deserialize<T>(reader);
-            }
-        }
-    }
-
-
 }

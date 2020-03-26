@@ -15,6 +15,7 @@ namespace Cloudents.Core.Entities
         }
         protected UserPayPalToken()
         { 
+
         }
 
        // public virtual User User { get; protected set; }

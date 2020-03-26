@@ -21,7 +21,7 @@ namespace Cloudents.Web.Models
         [Range(0, (int)Document.PriceLimit)]
         public decimal Price { get; set; }
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

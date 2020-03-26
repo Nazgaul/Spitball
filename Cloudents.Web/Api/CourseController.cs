@@ -67,10 +67,8 @@ namespace Cloudents.Web.Api
                 var query = new CourseSearchQuery(userId, request.Page);
                 temp = await _queryBus.QueryAsync(query, token);
             }
-            return new CoursesResponse
-            {
-                Courses = temp
-            };
+
+            return new CoursesResponse(temp);
         }
 
 

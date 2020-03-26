@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
@@ -26,7 +28,18 @@ namespace Cloudents.Web.Test.IntegrationTests
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            builder.UseEnvironment(Startup.IntegrationTestEnvironmentName);
+            var projectDir = Directory.GetCurrentDirectory();
+            var configPath = Path.Combine(projectDir, "appsettings.json");
+            builder.ConfigureAppConfiguration((context, conf) =>
+            {
+                conf.AddJsonFile(configPath);
+                
+            });
+            
+           
+            //builder.UseSetting("DbAction", "None");
+            //builder.ConfigureAppConfiguration(x => x.Configuration["DbAction"] = "None");
+            //builder.UseEnvironment(Startup.IntegrationTestEnvironmentName);
             //builder.ConfigureAppConfiguration(x=> x.Configuration["xxx"] = "Validate")
             //builder.UseEnvironment("Staging");
             //builder.ConfigureAppConfiguration()
@@ -71,7 +84,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var response = await client.PostAsync("api/LogIn", new StringContent(TestUser.GetTestUser(),
                  Encoding.UTF8, "application/json"));
-
+            var v = await response.Content.ReadAsStringAsync();
             response.EnsureSuccessStatusCode();
         }
 

@@ -59,7 +59,7 @@ namespace Cloudents.Core.DTOs.Documents
         [EntityBind(nameof(Document.User.Name))]
         public string Name { get; set; }
         [EntityBind(nameof(Document.User.ImageName))]
-        public string Image { get; set; }
+        public string? Image { get; set; }
 
         [EntityBind(nameof(Document.User.Country))]
         public string Country { get; set; }

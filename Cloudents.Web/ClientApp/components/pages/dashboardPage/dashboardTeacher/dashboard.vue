@@ -26,6 +26,8 @@ const spitballTips = () => import('./spitballTips.vue');
 const answerStudent = () => import('./answerStudent.vue');
 const teacherTasks = () => import('./teacherTasks.vue');
 
+// const register = () => import('../../../pages/global/dialogInjection/globalDialogs/register/register.vue');
+
 export default {
   components: {
     analyticOverview,
@@ -33,7 +35,9 @@ export default {
     uploadContent,
     spitballTips,
     answerStudent,
-    teacherTasks
+    teacherTasks,
+
+    // register
   },
   watch: {
     isTutor(newVal) {
