@@ -77,7 +77,7 @@ namespace Cloudents.Infrastructure.Video
                 jsonFile = "appsettings-dev.json";
             }
 
-            using (var stream = Assembly.GetExecutingAssembly()
+            await using (var stream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream($"Cloudents.Infrastructure.Video.{jsonFile}"))
             {
                 _config = stream.ToJsonReader<ConfigWrapper>();

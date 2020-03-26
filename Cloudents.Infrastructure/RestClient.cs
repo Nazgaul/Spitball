@@ -63,7 +63,7 @@ namespace Cloudents.Infrastructure
             return DownloadStreamAsync(url, default, token);
         }
 
-        public async Task<(Stream stream, EntityTagHeaderValue etagHeader)> DownloadStreamAsync(Uri url,
+        private async Task<(Stream stream, EntityTagHeaderValue etagHeader)> DownloadStreamAsync(Uri url,
             AuthenticationHeaderValue? auth, CancellationToken token)
         {
             _client.DefaultRequestHeaders.Clear();
