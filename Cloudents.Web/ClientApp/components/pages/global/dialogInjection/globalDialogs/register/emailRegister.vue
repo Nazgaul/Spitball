@@ -46,7 +46,7 @@
                 outlined
                 height="44" 
                 dense
-                :rules="[rules.required]"
+                :rules="[rules.required, rules.email]"
                 :label="labels['email']"
                 :error-messages="errorMessages.email"
                 placeholder=" "
@@ -66,7 +66,7 @@
                 outlined
                 height="44"
                 dense
-                :rules="[rules.required]"
+                :rules="[rules.required, rules.minimumCharsPass]"
                 :label="labels['password']"
                 :error-messages="errorMessages.password"
                 placeholder=" "
@@ -115,6 +115,8 @@ export default {
             rules: {
                 required: (value) => validationRules.required(value),
                 minimumChars: (value) => validationRules.minimumChars(value, 2),
+                minimumCharsPass: (value) => validationRules.minimumChars(value, 8),
+                email: value => validationRules.email(value)
             },
         };
     },
