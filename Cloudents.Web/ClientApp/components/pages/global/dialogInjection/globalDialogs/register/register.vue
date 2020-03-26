@@ -114,24 +114,28 @@ export default {
             this.googleLoading = true;
 
             let self = this
-            registrationService.googleRegistration().then(({data}) => {
-                
-                if (!data.isSignedIn) {
-                analyticsService.sb_unitedEvent('Registration', 'Start Google');
-                self.component = 'setPhone2'
-            } else {
-                analyticsService.sb_unitedEvent('Login', 'Start Google');
-                self.$store.commit('setRegisterDialog', false) // close register dialog
-                self.$store.dispatch('updateLoginStatus', true) // update user logged and get account user
-            }
-            }).catch(error => {
-                self.$store.commit('setErrorMessages', { gmail: error.response.data["Google"] ? error.response.data["Google"][0] : '' });
-                self.$appInsights.trackException({exception: new Error(error)});
-                self.$refs.recaptcha.reset();
-            })
+            registrationService.googleRegistration()
+                .then(({data}) => {
+                    if (!data.isSignedIn) {
+                        analyticsService.sb_unitedEvent('Registration', 'Start Google')
+                        self.component = 'setPhone2'
+                    } else {
+                        analyticsService.sb_unitedEvent('Login', 'Start Google')
+                        self.$store.commit('setRegisterDialog', false)
+                        self.$store.dispatch('updateLoginStatus', true)
+                    }
+                }).catch(error => {
+                    self.$store.commit('setErrorMessages', { 
+                        gmail: error.response.data["Google"] ? error.response.data["Google"][0] : '' 
+                    });
+                    self.$appInsights.trackException({exception: new Error(error)})
+                }).finally(() => {
+                    self.$refs.recaptcha.reset()
+                })
         },
         emailRegister() {
             let childComp = this.$refs.childComponent
+
             let emailRegister = {
                 firstName: childComp.firstName,
                 lastName: childComp.lastName,
@@ -140,18 +144,20 @@ export default {
                 password: childComp.password,
                 captcha: this.recaptcha
             }
+
             let self = this
-            registrationService.emailRegistration2(emailRegister).then(res => {
-                console.log(res);
-                self.component = 'setPhone2'
-            }).catch(error => {
-                self.$store.commit('setErrorMessages',{
-                    email: error.response.data["Email"] ? error.response.data["Email"][0] : '',
-                    password: error.response.data["Password"] ? error.response.data["Password"][0] : '',
-                });
-                self.$appInsights.trackException({exception: new Error(error)});
-                self.$refs.recaptcha.reset();
-            })
+            registrationService.emailRegistration2(emailRegister)
+                .then(() => {
+                    self.component = 'setPhone2'
+                }).catch(error => {
+                    self.$store.commit('setErrorMessages',{
+                        email: error.response.data["Email"] ? error.response.data["Email"][0] : '',
+                        password: error.response.data["Password"] ? error.response.data["Password"][0] : '',
+                    });
+                    self.$appInsights.trackException({exception: new Error(error)});
+                }).finally(() => {
+                    self.$refs.recaptcha.reset()
+                })
         },
         goStep(step) {
             this.component = step
