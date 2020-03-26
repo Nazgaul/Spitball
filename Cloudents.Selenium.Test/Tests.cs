@@ -127,14 +127,14 @@ namespace Cloudents.Selenium.Test
             "register",
             "signin",
             "feed",
-            "tutor",
+            //"tutor",
             "studyroom"
         };
 
         private static readonly IEnumerable<string> SignedPaths = new[]
         {
             //"wallet",
-            "university",
+            //"university",
             "courses",
             "dashboard",
             "feed",
