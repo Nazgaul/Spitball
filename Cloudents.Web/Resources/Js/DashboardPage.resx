@@ -136,7 +136,7 @@
     <value>Create study room</value>
   </data>
   <data name="create_room_empty_error" xml:space="preserve">
-    <value>you must choose one student</value>
+    <value>You didn't select any student</value>
   </data>
   <data name="create_room_title" xml:space="preserve">
     <value>Choose a student</value>
