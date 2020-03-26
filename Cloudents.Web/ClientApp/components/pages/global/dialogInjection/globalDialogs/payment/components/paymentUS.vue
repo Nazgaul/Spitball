@@ -63,7 +63,7 @@ export default {
                 {
                   reference_id: "PUHF",
                   amount: {
-                    value: self.$store.getters.getRoomTutor?.tutorPrice,
+                    value: self.$store.getters.getRoomTutor.tutorPrice,
                     currency: "USD"
                   }
                 }
