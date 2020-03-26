@@ -4,14 +4,14 @@
             <v-layout class="header pa-4 mb-4">
                 <v-flex>
                     <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
-                    <span v-t="profile_edit_tutor_title"></span>
+                    <span v-language:inner>profile_edit_tutor_title</span>
                 </v-flex>
             </v-layout>
             <v-layout class="px-3 mt-4" wrap>
                 <v-flex xs12 sm4  :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
                     <v-layout column>
                         <v-flex xs12 sm6  class="pl-2 mb-2">
-                            <span class="subtitle" v-t="profile_personal_details"></span>
+                            <span class="subtitle" v-language:inner>profile_personal_details</span>
                         </v-flex>
                         <v-flex xs12>
                             <v-text-field

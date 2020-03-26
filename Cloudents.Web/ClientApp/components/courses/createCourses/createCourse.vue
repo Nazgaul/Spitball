@@ -25,14 +25,14 @@
         </v-layout>
         <v-layout align-start justify-start shrink column class="px-4">
             <v-flex xs12  sm6 class="text-center mb-1">
-                <span class="caption helper-text" v-t="courses_minimum"></span>
+                <span class="caption helper-text" v-language:inner>courses_minimum</span>
             </v-flex>
             <v-flex xs12  sm6 class="text-center mb-1">
-                <span class="caption helper-text" v-t="courses_meaningfull"></span>
+                <span class="caption helper-text" v-language:inner>courses_meaningfull</span>
 
             </v-flex>
             <v-flex xs12  sm6 class="text-center mb-1">
-                <span class="caption helper-text" v-t="courses_third_tip"></span>
+                <span class="caption helper-text" v-language:inner>courses_third_tip</span>
 
             </v-flex>
         </v-layout>
@@ -40,7 +40,7 @@
             <v-flex shrink class="text-center">
                 <button @click="createNewCourse()" :disabled="!validCourseForm"
                         class="cursor-pointer create-btn min-width solid d-flex align-center justify-center py-2 px-3">
-                    <span class="font-weight-bold text-uppercase btn-text" v-t>courses_create_course</span>
+                    <span class="font-weight-bold text-uppercase btn-text" v-language:inner>courses_create_course</span>
                 </button>
             </v-flex>
         </v-layout>

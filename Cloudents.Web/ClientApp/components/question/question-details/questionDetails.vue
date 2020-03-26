@@ -81,11 +81,11 @@
                                         </div>
                                         <v-btn color="primary" @click="submitAnswer()"
                                                :loading="submitLoader"
-                                               class="add_answer"><span  v-t="questionDetails_Add_answer"></span> 
+                                               class="add_answer"><span  v-language:inner>questionDetails_Add_answer</span> 
                                         </v-btn>
                                     </div>
                                     <div v-else class="show-form-trigger" @click="showAnswerField()">
-                                        <div><b v-t="questionDetails_Know_the_answer"></b>&nbsp;<span v-t="questionDetails_Add_it_here"></span></div>
+                                        <div><b v-t="questionDetails_Know_the_answer"></b>&nbsp;<span v-language:inner>questionDetails_Add_it_here</span></div>
                                     </div>
                                 </div>
                         </v-flex>

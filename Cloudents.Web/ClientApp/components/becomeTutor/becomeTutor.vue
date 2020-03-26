@@ -5,7 +5,7 @@
                 <v-layout align-center justify-center class="become-header" v-show="!isLastStep">
                     <v-flex xs12 sm12  class="text-center">
                         <v-icon class="face-icon mr-2">sbf-face-icon</v-icon>
-                        <span class="become-title" v-t="becomeTutor_title_become"></span>
+                        <span class="become-title" v-language:inner>becomeTutor_title_become</span>
                     </v-flex>
                 </v-layout>
                 <v-stepper-header class="sb-box" v-show="!isLastStep" v-if="$vuetify.breakpoint.smAndUp">

@@ -46,7 +46,7 @@
                     rounded
                     :loading="btnLoading"
                     @click="submitData()">
-                <span v-t="becomeTutor_btn_next"></span>
+                <span v-language:inner>becomeTutor_btn_next</span>
             </v-btn>
         </div>
     </div>

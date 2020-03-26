@@ -15,13 +15,13 @@
         </v-layout>
         <v-layout wrap align-center justify-center>
             <v-flex xs12   class="text-center mb-2">
-                <span class="subtitle-1 font-weight-bold dark-text" v-t="courses_empty_pretty"></span>
+                <span class="subtitle-1 font-weight-bold dark-text" v-language:inner>courses_empty_pretty</span>
             </v-flex>
             <v-flex xs12  class="text-center mb-2">
-                <span class="text-small" v-t="courses_start_adding"></span>
+                <span class="text-small" v-language:inner>courses_start_adding</span>
             </v-flex>
             <v-flex xs12  class="text-center mb-2">
-                <span class="text-small" v-t="courses_out_of"></span>
+                <span class="text-small" v-language:inner>courses_out_of</span>
             </v-flex>
             <v-flex xs12  class="text-center mt-4">
                 <img src="../images/courses-empty-image.png" alt="Empty courses">
