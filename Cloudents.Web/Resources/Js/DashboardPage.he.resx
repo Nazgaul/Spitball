@@ -132,6 +132,12 @@
   <data name="course" xml:space="preserve">
     <value>קורס:</value>
   </data>
+  <data name="create_room_create_btn" xml:space="preserve">
+    <value>יצירת חדר לימוד</value>
+  </data>
+  <data name="create_room_title" xml:space="preserve">
+    <value>בחירת סטודנט/ית</value>
+  </data>
   <data name="date" xml:space="preserve">
     <value>תאריך</value>
   </data>
@@ -192,6 +198,9 @@
   </data>
   <data name="my_sales_title" xml:space="preserve">
     <value>המכירות שלי</value>
+  </data>
+  <data name="my_studyrooms_create_room" xml:space="preserve">
+    <value>צור חדר לימוד</value>
   </data>
   <data name="name" xml:space="preserve">
     <value>שם</value>

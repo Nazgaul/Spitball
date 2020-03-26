@@ -133,7 +133,7 @@
     <value>Course:</value>
   </data>
   <data name="create_room_create_btn" xml:space="preserve">
-    <value>Create</value>
+    <value>Create study room</value>
   </data>
   <data name="create_room_title" xml:space="preserve">
     <value>Choose a student</value>
