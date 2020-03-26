@@ -98,7 +98,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<StudyRoomDto>> GetStudyRoomAsync(Guid id, 
+        public async Task<ActionResult<StudyRoomDto>> GetStudyRoomAsync(Guid id,
             [FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
@@ -116,7 +116,7 @@ namespace Cloudents.Web.Api
             return result;
         }
 
-      
+
 
         [HttpPost("upload"), AllowAnonymous]
         public async Task<IActionResult> UploadAsync([Required] IFormFile file,
@@ -162,7 +162,7 @@ namespace Cloudents.Web.Api
         /// </summary>
         /// <returns></returns>
         [HttpPost("{id:guid}/enter")]
-        public async Task<IActionResult> CreateAsync([FromRoute] Guid id,
+        public async Task<CreateStudyRoomSessionResponse> CreateStudyRoomSessionAsync([FromRoute] Guid id,
             [FromServices] IWebHostEnvironment configuration,
             CancellationToken token)
         {
@@ -182,10 +182,8 @@ namespace Cloudents.Web.Api
 
 
             var command = new CreateStudyRoomSessionCommand(id, configuration.IsProduction(), userId, uri);
-            await _commandBus.DispatchAsync(command, token);
-
-            return Ok();
-
+            var result = await _commandBus.DispatchAsync<CreateStudyRoomSessionCommand, CreateStudyRoomSessionCommandResult>(command, token);
+            return new CreateStudyRoomSessionResponse(result.JwtToken);
 
         }
 

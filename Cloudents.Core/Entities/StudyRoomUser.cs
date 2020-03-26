@@ -26,7 +26,7 @@ namespace Cloudents.Core.Entities
         public virtual void ChangeOnlineState(bool isOnline)
         {
             Online = isOnline;
-            AddEvent(new StudyRoomOnlineChangeEvent(this));
+            //AddEvent(new StudyRoomOnlineChangeEvent(this));
         }
     }
 }

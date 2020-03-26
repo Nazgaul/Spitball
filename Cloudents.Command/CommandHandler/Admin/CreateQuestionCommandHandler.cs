@@ -12,18 +12,20 @@ namespace Cloudents.Command.CommandHandler.Admin
 
         private readonly IFictiveUserRepository _userRepository;
         private readonly IRepository<Question> _questionRepository;
-        private readonly IUniversityRepository _universityRepository;
+        //private readonly IUniversityRepository _universityRepository;
         private readonly IRepository<Course> _courseRepository;
 
 
         public CreateQuestionCommandHandler(IFictiveUserRepository userRepository,
             IRepository<Question> questionRepository,
-             IRepository<Course> courseRepository, IUniversityRepository universityRepository)
+             IRepository<Course> courseRepository
+           // IUniversityRepository universityRepository
+            )
         {
             _userRepository = userRepository;
             _questionRepository = questionRepository;
             _courseRepository = courseRepository;
-            _universityRepository = universityRepository;
+            //  _universityRepository = universityRepository;
         }
 
 
@@ -36,16 +38,16 @@ namespace Cloudents.Command.CommandHandler.Admin
             }
 
 
-            var university = await _universityRepository.GetUniversityByNameAndCountryAsync(message.University, message.Country, token);
-            if (university == null)
-            {
-                throw new InvalidOperationException("we don't have Universities with the specified name");
-            }
+            //var university = await _universityRepository.GetUniversityByNameAndCountryAsync(message.University, message.Country, token);
+            //if (university == null)
+            //{
+            //    throw new InvalidOperationException("we don't have Universities with the specified name");
+            //}
 
             var course = await _courseRepository.LoadAsync(message.CourseName, token);
             var question = new Question(course, message.Text,
                 user,
-                university);
+                null);
 
             await _questionRepository.AddAsync(question, token);
 

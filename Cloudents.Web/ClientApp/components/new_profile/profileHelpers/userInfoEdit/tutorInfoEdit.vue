@@ -190,21 +190,24 @@
                 if(this.$refs.formTutor.validate()) {
                     let firstName = this.editedFirstName || this.firstName;
                     let lastName = this.editedLastName || this.lastName;
+                    let price = this.editedPrice || this.price;
+                    let bio = this.editedBio || this.bio;
+                    let description = this.editedDescription || this.description;
                     let editsData = {
                         name: `${firstName} ${lastName}`,
                         lastName,
                         firstName,
-                        price: this.editedPrice || this.price,
-                        bio: this.editedBio,
-                        description: this.editedDescription
+                        price,
+                        bio,
+                        description,
                     };
                     this.btnLoading = true;
                     let serverFormat = {
                         firstName,
-                        description: this.editedDescription,
                         lastName,
-                        bio: this.editedBio,
-                        price: this.editedPrice || this.price,
+                        price,
+                        bio,
+                        description,
                     };
                     accountService.saveUserInfo(serverFormat)
                         .then(() => {

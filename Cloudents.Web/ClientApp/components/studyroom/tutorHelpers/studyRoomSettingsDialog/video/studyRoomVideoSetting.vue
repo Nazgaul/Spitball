@@ -28,9 +28,7 @@
 <script>
 import {LanguageService} from '../../../../../services/language/languageService';
 import { createLocalVideoTrack, } from 'twilio-video';
-import tutorService from '../../../tutorService';
 import insightService from '../../../../../services/insightService';
-import {mapActions, mapState} from 'vuex';
 
 export default {
     data(){
@@ -45,13 +43,7 @@ export default {
             }
         }
     },
-    watch:{
-    },
-    computed:{
-        ...mapState(['studyRoomTracks_store']),
-    },
     methods:{
-        ...mapActions(['changeVideoTrack', 'setIsVideoActive']),
         getVideoInputdevices() {
             let self = this;
             navigator.mediaDevices.enumerateDevices().then((mediaDevices) => {
@@ -63,7 +55,6 @@ export default {
                     if(self.camerasList.length > 0){
                         if(!self.singleCameraId){
                             self.singleCameraId = self.camerasList[0].deviceId;
-                            console.log(self.singleCameraId);
                         }
                         self.createVideoQualityPreview();
                     }
@@ -75,28 +66,27 @@ export default {
             )
         },
         createVideoQualityPreview() {
-                //clear if exists
-                if (this.localTrack) {
-                    this.clearVideoTrack();
-                }
-                let self = this;
-                createLocalVideoTrack({width: 490, height: 368, deviceId: {exact: self.singleCameraId}})
-                    .then(track => {
-                        self.videoEl = document.getElementById('local-video-test-track');
-                        self.localTrack = track;
-                        self.videoEl.appendChild(self.localTrack.attach());
-
-                        global.localStorage.setItem(self.studyRoomTracks_store.storageENUM.video, self.singleCameraId);
-                        self.changeVideoTrack(self.singleCameraId);
-                        self.setIsVideoActive(true); // Gaby: requested by idan
-                    }, (err)=>{
-                insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoValidation_createVideoQualityPreview', err, null);
-                console.error(err);
-            });
+            if (this.localTrack) {
+                this.clearVideoTrack();
+            }
+            let self = this;
+            createLocalVideoTrack({width: 490, height: 368, deviceId: {exact: self.singleCameraId}})
+                .then(track => {
+                    self.videoEl = document.getElementById('local-video-test-track');
+                    self.localTrack = track;
+                    self.videoEl.appendChild(self.localTrack.attach());
+                    self.$store.dispatch('updateVideoTrack',self.singleCameraId)
+                }, (err)=>{
+                    insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoValidation_createVideoQualityPreview', err, null);
+                    console.error(err);
+                });
         },
         clearVideoTrack() {
-            console.log('tracks cleared');
-            tutorService.detachTracks([this.localTrack])
+            if (this.localTrack?.detach) {
+                this.localTrack.detach().forEach((detachedElement) => {
+                    detachedElement.remove();
+                });
+            }
         }
     },
     created(){

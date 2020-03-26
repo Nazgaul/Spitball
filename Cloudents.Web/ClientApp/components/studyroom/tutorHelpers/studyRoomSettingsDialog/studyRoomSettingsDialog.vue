@@ -42,7 +42,6 @@
 <script>
 import studyRoomVideoSetting from "./video/studyRoomVideoSetting.vue";
 import studyRoomAudioSetting from "./audio/studyRoomAudioSetting.vue";
-import {mapActions} from "vuex";
 import videoCameraImage from '../../images/video-camera.svg';
 import microphoneImage from '../../images/microphone.svg';
 import { LanguageService } from '../../../../services/language/languageService';
@@ -72,9 +71,8 @@ export default {
     };
   }, 
   methods:{
-      ...mapActions(['setStudyRoomSettingsDialog']),
       closeDialog(){
-          this.setStudyRoomSettingsDialog(false);
+        this.$store.dispatch('updateDialogRoomSettings',false)
       }
   }
 };

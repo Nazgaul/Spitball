@@ -74,7 +74,7 @@ export default {
     checkRoutes(){
       let isCourseRoute = [routeNames.EditCourse,routeNames.AddCourse,routeNames.SetCourse].find(route=> route === this.$route.name);
       let dashboardRoutes = [routeNames.Dashboard,routeNames.MySales,routeNames.MyFollowers,routeNames.MyPurchases,routeNames.MyContent,routeNames.MyStudyRooms];
-      let settingRoutes = [isCourseRoute,routeNames.MyCalendar,routeNames.EditUniversity,routeNames.Profile];
+      let settingRoutes = [isCourseRoute,routeNames.MyCalendar,routeNames.Profile];
       let coursesRoutes = [routeNames.Document,routeNames.Question,routeNames.Feed];
 
       this.dashboardModel = [...settingRoutes,...coursesRoutes].every(route=>route !== this.$route.name);

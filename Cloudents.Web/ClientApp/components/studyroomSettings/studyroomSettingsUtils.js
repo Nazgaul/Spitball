@@ -1,6 +1,42 @@
 import store from  "../../store/index";
-import tutorService from '../studyroom/tutorService';
+import insightService from '../../services/insightService';
 
+let deviceValidationError = false;
+let devicesObject = {
+     hasAudio:false,
+     hasVideo:false,
+     errors:{
+         video: [],
+         audio: []
+     },
+  }
+const validateUserMedia = async function() {
+    await navigator.mediaDevices.getUserMedia({ video: true }).then((y) => {
+        console.log(y);
+        devicesObject.hasVideo = true;
+    }, err => {
+        let insightErrorObj={
+            error: err,
+            userId: this.userId
+        };
+        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_validationDialog_getUserMedia_VIDEO', insightErrorObj, null);
+        console.error(err.name + ":VIDEO!!!!!!!!!!!!!!!! " + err.message, err);
+        devicesObject.errors.video.push(err.name);
+    });
+
+    await navigator.mediaDevices.getUserMedia({ audio: true }).then((y) => {
+        console.log(y);
+        devicesObject.hasAudio = true;
+    }, err => {
+        let insightErrorObj={
+            error: err,
+            userId: this.userId
+        };
+        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_validationDialog_getUserMedia_AUDIO', insightErrorObj, null);
+        console.error(err.name + ":AUDIO!!!!!!!!!!!!!!!! " + err.message, err);
+        devicesObject.errors.audio.push(err.name);
+    });
+};
 const isBrowserSupport = function(){
     let agent = navigator.userAgent;
     if(agent.match(/Edge/)){
@@ -9,16 +45,14 @@ const isBrowserSupport = function(){
     return agent.match(/Firefox|Chrome|Safari/);
 };
 const validateMedia = async function(){
-  let deviceValidationObj = store.getters.getDevicesObj;
-  if(deviceValidationObj.errors.video.length > 0){
-    store.dispatch("setDeviceValidationError", true);  
-    store.dispatch("initLocalMediaTracks");  
-  }else if(deviceValidationObj.errors.audio.length > 0){
-    store.dispatch("setDeviceValidationError", true);
-    //allow video to be shown locally.
-    store.dispatch("initLocalMediaTracks");
+  if(devicesObject.errors.video.length > 0){
+    deviceValidationError = true;
+    // store.dispatch("initLocalMediaTracks");  
+  }else if(devicesObject.errors.audio.length > 0){
+    deviceValidationError = true;
+    // store.dispatch("initLocalMediaTracks");
   }else{
-    store.dispatch("initLocalMediaTracks");
+    // store.dispatch("initLocalMediaTracks");
   }
 };
 
@@ -28,23 +62,20 @@ function firstPageObj(type, props){
 }
 
 const determinFirstPage = function(){
-  //test browser support
   if(!isBrowserSupport()){
     return new firstPageObj("browserNotSupportedStep");
   }
-  //test validate user media
   validateMedia();
-  if(store.getters.showDeviceValidationError){
+  if(deviceValidationError){
     let notAllowedObj = {
       videoNotAllowed: false,
       audioNotAllowed: false,
     };
-    let deviceValidationObj = store.getters.getDevicesObj;
-      if (!deviceValidationObj.hasVideo) {
-        notAllowedObj.videoNotAllowed = deviceValidationObj.errors.video.indexOf("NotAllowedError") > -1;
+      if (!devicesObject.hasVideo) {
+        notAllowedObj.videoNotAllowed = devicesObject.errors.video.indexOf("NotAllowedError") > -1;
       }
-      if (!deviceValidationObj.hasAudio) {
-        notAllowedObj.audioNotAllowed = deviceValidationObj.errors.audio.indexOf("NotAllowedError") > -1;
+      if (!devicesObject.hasAudio) {
+        notAllowedObj.audioNotAllowed = devicesObject.errors.audio.indexOf("NotAllowedError") > -1;
       }
 
       if(notAllowedObj.videoNotAllowed || notAllowedObj.audioNotAllowed){
@@ -55,8 +86,9 @@ const determinFirstPage = function(){
       
     
   }
-  //else recording instruction page
-  if(tutorService.isRecordingSupported()){
+
+  let isRecordingSupported = !store.getters.getRoomIsTutorSettings;
+  if(isRecordingSupported){
     return new firstPageObj("watchRecordedStep");
   }else{
     return new firstPageObj("studyRoom");
@@ -67,5 +99,6 @@ const determinFirstPage = function(){
 export default {
     isBrowserSupport,
     determinFirstPage,
-    validateMedia
+    validateMedia,
+    validateUserMedia
 }

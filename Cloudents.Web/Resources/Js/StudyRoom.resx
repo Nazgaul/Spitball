@@ -144,6 +144,15 @@
   <data name="premission_denied" xml:space="preserve">
     <value>You need to update your settings to enable screen sharing - &lt;a style="color:black" href="{0}" target="_Blank"&gt;more info&lt;/a&gt;</value>
   </data>
+  <data name="toaster_added_to_room" xml:space="preserve">
+    <value>The student has entered the room</value>
+  </data>
+  <data name="toaster_left_the_room" xml:space="preserve">
+    <value>Student has left the room</value>
+  </data>
+  <data name="toaster_session_start" xml:space="preserve">
+    <value>Session has started</value>
+  </data>
   <data name="video" xml:space="preserve">
     <value>Video</value>
   </data>

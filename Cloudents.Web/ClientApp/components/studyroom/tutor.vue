@@ -36,7 +36,10 @@
           <div
             style="display: flex; align-items: center; max-height: 48px; justify-content: space-between;"
           >
+
+          <template v-if="isRoomActive && isRoomTutor">
             <startEndSessionBtn :id="id"></startEndSessionBtn>
+          </template>
           
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px; margin-left:30px;" vertical></v-divider>
 
@@ -91,7 +94,7 @@
                 <span v-language:inner>tutor_option_videoChat</span>
               </v-btn>
               <v-btn
-                :disabled="!releaseFullVideoButton"
+                :disabled="!getIsFullScreenAvailable"
                 @click="selectViewOption(enumViewOptions.fullScreenVideo)"
                 class="control-btn text-capitalize elevation-0 cursor-pointer"
                 :input-value="activeViewOption == enumViewOptions.fullScreenVideo"
@@ -127,47 +130,9 @@
           </keep-alive>
         </transition>
       </v-flex>
-      
+    <template>
       <sb-dialog
-        :showDialog="getBrowserSupportDialog"
-        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
-        :popUpType="'browserDialog'"
-        :maxWidth="'612.5'"
-        :onclosefn="closeBrowserSupportDialog"
-        :isPersistent="$vuetify.breakpoint.smAndUp"
-        :content-class="'browser-dialog-unsupport'"
-      >
-          <browserSupport></browserSupport>
-      </sb-dialog>
-
-      <sb-dialog
-        :showDialog="getStudyRoomSettingsDialog"
-        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
-        :popUpType="'tutor-settings'"
-        :maxWidth="'800'"
-        :onclosefn="closeStudyRoomSettingsDialog"
-        :activateOverlay="false"
-        :content-class="'tutor-settings-dialog'"
-      >
-        <studyRoomSettingsDialog></studyRoomSettingsDialog>
-      </sb-dialog>
-
-
-      <sb-dialog
-        :showDialog="getReviewDialogState"
-        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
-        :popUpType="'reviewDilaog'"
-        :maxWidth="'523'"
-        :onclosefn="closeReviewDialog"
-        :activateOverlay="false"
-        :isPersistent="$vuetify.breakpoint.smAndUp"
-        :content-class="'review-dialog'"
-      >
-        <leave-review></leave-review>
-      </sb-dialog>
-      <!--show only if not avaliable devices dialog is closed by user-->
-      <sb-dialog
-        :showDialog="openStartSessionDialog && !getStudyRoomSettingsDialog"
+        :showDialog="getDialogTutorStart"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'startSessionTutor'"
         :maxWidth="'356'"
@@ -178,9 +143,79 @@
       >
         <startSessionTutor :id="id"></startSessionTutor>
       </sb-dialog>
+
+      <sb-dialog
+        :showDialog="getReviewDialogState"
+        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
+        :popUpType="'reviewDilaog'"
+        :maxWidth="'596'"
+        :onclosefn="closeReviewDialog"
+        :activateOverlay="false"
+        :isPersistent="$vuetify.breakpoint.smAndUp"
+        :content-class="'review-dialog'"
+      >
+        <leave-review></leave-review>
+      </sb-dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <sb-dialog
+        :showDialog="isBrowserSupportDialog"
+        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
+        :popUpType="'browserDialog'"
+        :maxWidth="'612.5'"
+        :onclosefn="closeBrowserSupportDialog"
+        :isPersistent="$vuetify.breakpoint.smAndUp"
+        :content-class="'browser-dialog-unsupport'"
+      >
+          <browserSupport></browserSupport>
+      </sb-dialog>
+      <sb-dialog
+        :showDialog="getDialogRoomSettings"
+        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
+        :popUpType="'tutor-settings'"
+        :maxWidth="'800'"
+        :onclosefn="closeStudyRoomSettingsDialog"
+        :activateOverlay="false"
+        :content-class="'tutor-settings-dialog'"
+      >
+        <studyRoomSettingsDialog></studyRoomSettingsDialog>
+      </sb-dialog>
+      <!--show only if not avaliable devices dialog is closed by user-->
+      <!-- <sb-dialog
+        :showDialog=" && !getDialogRoomSettings"
+        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
+        :popUpType="'startSessionTutor'"
+        :maxWidth="'356'"
+        :onclosefn="closeStartSessionTutor"
+        :activateOverlay="false"
+        :isPersistent="true"
+        :content-class="'session-start-tutor-dialog'"
+      >
+        <startSessionTutor :id="id"></startSessionTutor>
+      </sb-dialog> -->
       <!--end session confirmation-->
       <sb-dialog
-        :showDialog="getEndDialog"
+        :showDialog="getDialogRoomEnd"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'endSessionConfirm'"
         :maxWidth="'356'"
@@ -193,7 +228,7 @@
       </sb-dialog>
       <!--show only if not avaliable devices dialog is closed by user-->
       <sb-dialog
-        :showDialog="getStudentStartDialog && !getStudyRoomSettingsDialog"
+        :showDialog="getStudentStartDialog && !getDialogRoomSettings"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'startSessionStudent'"
         :maxWidth="'356'"
@@ -205,7 +240,7 @@
         <startSessionStudent :id="id"></startSessionStudent>
       </sb-dialog>
 
-      <sb-dialog
+            <sb-dialog
         :showDialog="getShowAudioRecordingError"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'errorWithAudioRecording'"
@@ -216,9 +251,8 @@
       >
         <errorWithAudioRecording></errorWithAudioRecording>
       </sb-dialog>
-
       <sb-dialog
-        :showDialog="getShowUserConsentDialog"
+        :showDialog="getDialogUserConsent"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'userConsentDialog'"
         :maxWidth="'356'"
@@ -228,9 +262,9 @@
       >
           <studentConsentDialog></studentConsentDialog>
       </sb-dialog>
-      
+
       <sb-dialog
-        :showDialog="getSnapshotDialog"
+        :showDialog="getDialogSnapshot"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'studyroomSnapshotDialog'"
         :maxWidth="'800'"
@@ -240,6 +274,8 @@
       >
           <snapshotDialog></snapshotDialog>
       </sb-dialog>
+  </template>
+
     </div>
   </v-layout>
 </template>
@@ -260,7 +296,6 @@ import testIcon from "./images/eq-system.svg";
 import chatIcon from "../../font-icon/message-icon.svg";
 import noSupportTop from "./images/not_supported_top.svg";
 import noSupportBottom from "./images/not_supported_bottom.svg";
-import tutorService from "./tutorService";
 import chatService from "../../services/chatService";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import leaveReview from "./tutorHelpers/leaveReview/leaveReview.vue";
@@ -325,7 +360,12 @@ export default {
   },
   name: "tutor",
   data() {
-    return {      
+    return {
+      isBrowserSupportDialog:false,
+
+
+
+
       activeNavItem: "white-board",
       navs: [
         {
@@ -364,26 +404,43 @@ export default {
 
   computed: {
     ...mapGetters([
-      "getStudyRoomSettingsDialog",
+      "getIsFullScreenAvailable",
+      "getDialogTutorStart",
+      "getRoomIsNeedPayment",
+      "getDialogUserConsent",
+
+      
+      "getDialogRoomSettings",
       "getZoom",
       "getPanX",
       "getPanY",
       "getReviewDialogState",
       "getStudentStartDialog",
-      "getTutorStartDialog",
-      "getEndDialog",
-      "getBrowserSupportDialog",
+      "getDialogRoomEnd",
       "accountUser",
-      "getStudyRoomData",
-      "releaseFullVideoButton",
       "getActiveNavIndicator",
       "getIsRecording",
       "getShowAudioRecordingError",
       "getVisitedSettingPage",
-      "getShowUserConsentDialog",
-      "getSnapshotDialog",
-      "getIsRoomNeedPayment"
+      "getDialogSnapshot",
     ]),
+    isRoomTutor(){
+      return this.$store.getters.getRoomIsTutor;
+    },
+    isRoomActive(){
+      return this.$store.getters.getRoomIsActive;
+    },
+
+
+
+
+
+
+
+
+
+
+
     activeItem() {
       return this.activeNavItem;
     },
@@ -404,10 +461,7 @@ export default {
       return this.$vuetify.breakpoint.xsOnly;
     },
     isTutor() {
-        return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
-    },
-    openStartSessionDialog(){
-        return this.getTutorStartDialog
+      return this.$store.getters.getRoomIsTutor;
     },
     isCodeEditorActive(){
       return this.activeItem === "code-editor"
@@ -415,41 +469,31 @@ export default {
   },
 
 watch: {
-  getIsRoomNeedPayment:{
+  getRoomIsNeedPayment:{
     immediate:true,
     handler(newVal){
-      // note: we need the immediate cuz no one listen to getIsRoomNeedPayment and can 
+      // note: we need the immediate cuz no one listen to getRoomIsNeedPayment and can 
       // getStudyRoomData empty
       if(newVal !== null){
         this.handleNeedPayment(newVal)
       }
     }
   },
-  getStudyRoomData(){
-    if(!this.getIsRoomNeedPayment){
-      this.initStartSession();
-    }
-  }
 },
   methods: {
     ...mapActions([
-      "setStudyRoomSettingsDialog",
       "setActiveConversationObj",
       "getChatById",
       "lockChat",
       "updateReviewDialog",
       "updateReview",
-      "updateTutorStartDialog",
       "updateStudentStartDialog",
       "closeChat",
       "openChatInterface",
       "updateEndDialog",
-      "setBrowserSupportDialog",
-      "setRoomId",
       "setShowAudioRecordingError",
-      "hideRoomToasterMessage",
-      "setShowUserConsentDialog",
-      "setSnapshotDialog",
+      "updateDialogUserConsent",
+      "updateDialogSnapshot",
       "stopTracks"
     ]),
     handleNeedPayment(needPayment){
@@ -492,19 +536,7 @@ watch: {
     },
     openSettingsDialog(){
       this.$ga.event("tutoringRoom", "openSettingsDialog");
-      this.changeSettingsDialogState(true)
-    },
-    initStartSession(){
-        console.warn('DEBUG: 29 store: initStartSession')
-
-      let isNotStudyRoomTest = this.$route.params ? this.$route.params.id : null;
-      if(isNotStudyRoomTest) {
-        if(this.isTutor){
-          this.updateTutorStartDialog(true);
-        }else{
-          this.updateStudentStartDialog(true);
-        }
-      }
+      this.$store.dispatch('updateDialogRoomSettings',true)
     },
     closeFullScreen(){
       if(!document.fullscreenElement || !document.webkitFullscreenElement || document.mozFullScreenElement){
@@ -515,13 +547,12 @@ watch: {
       this.updateReviewDialog(false);
     },
     closeStudyRoomSettingsDialog(){
-      this.setStudyRoomSettingsDialog(false);
+      this.$store.dispatch('updateDialogRoomSettings',false)
     },
     closeEndDialog() {
       this.updateEndDialog(false);
     },
     closeStartSessionTutor() {
-      this.updateTutorStartDialog(false);
     },
     closeStartSessionStudent() {
       this.updateStudentStartDialog(false);
@@ -543,13 +574,8 @@ watch: {
           data: activeNavData
       };
       let normalizedData = JSON.stringify(transferDataObj);
-      tutorService.dataTrack.send(normalizedData);
-      console.log(this.activeItem);
+      this.$store.dispatch('sendDataTrack',normalizedData)
     },
-    changeSettingsDialogState(val) {
-      this.setStudyRoomSettingsDialog(val);
-    },
-    
     selectViewOption(param) {
       this.$ga.event("tutoringRoom", `selectViewOption:${param}`);
 
@@ -582,23 +608,19 @@ watch: {
         video.msRequestFullscreen();
       }
     },
-    setStudyRoom(id) {
-      this.setRoomId(id);
-      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_RoomProps', this.getStudyRoomData, null)
-      initSignalRService(`studyRoomHub?studyRoomId=${id}`);
-      setTimeout(()=>{this.initStartSession();})
+    setStudyRoom() {
       this.initMathjax()
       
       let self = this;
-      this.getChatById(this.getStudyRoomData.conversationId).then(({ data }) => {
+      this.getChatById(this.$store.getters.getRoomConversationId).then(({ data }) => {
         insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_ChatById', data, null)
         let currentConversationObj = chatService.createActiveConversationObj(data);
         self.setActiveConversationObj(currentConversationObj);
         self.lockChat();
       });
     },
-    closeBrowserSupportDialog(){ 
-      this.setBrowserSupportDialog(false);
+    closeBrowserSupportDialog(){
+      this.isBrowserSupportDialog = false;
     },
     resetItems(){
       let isExit = confirm(this.$t("login_are_you_sure_you_want_to_exit"),)
@@ -616,10 +638,10 @@ watch: {
       studyRoomRecordingService.toggleRecord(this.isTutor);
     },
     closeUserConsentDialog(){
-      this.setShowUserConsentDialog(false);
+      this.updateDialogUserConsent(false);
     },
     closeSnapshotDialog(){
-      this.setSnapshotDialog(false);
+      this.updateDialogSnapshot(false);
     }
   },
   mounted() {
@@ -632,12 +654,12 @@ watch: {
     global.onbeforeunload = function() { };
   },
   beforeDestroy(){
+    this.$store.dispatch('updateResetRoom');
+
+
+
     this.stopTracks();
-    this.hideRoomToasterMessage();
     
-    console.warn('DEBUG: 30 : beforeDestroy before updateTutorStartDialog(false)')
-    this.updateTutorStartDialog(false);
-    console.warn('DEBUG: 31 : beforeDestroy after updateTutorStartDialog(false)')
 
     this.updateStudentStartDialog(false);
     document.removeEventListener('fullscreenchange',this.closeFullScreen);
@@ -661,11 +683,12 @@ watch: {
     storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
   },
   async created() {
-    this.$store.commit('setToaster', '')
+    this.$store.commit('clearToaster')
     this.userId = this.accountUser?.id || 'GUEST';
+
     if (!studyroomSettingsUtils.isBrowserSupport()) {
       this.$nextTick(()=>{
-        this.setBrowserSupportDialog(true)
+        this.isBrowserSupportDialog = true;
         let roomId = this.id ? this.id : 'No-Id';
         insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_BrowserNotSupported', {'roomId': roomId, 'userId': this.userId}, null)
       })
@@ -673,6 +696,7 @@ watch: {
     }
 
     if(this.id){
+      initSignalRService(`studyRoomHub?studyRoomId=${this.id}`);
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null) 
       this.$store.dispatch('updateStudyRoomInformation',this.id).catch((err)=>{
           if(err?.response){
@@ -691,9 +715,9 @@ watch: {
     // this code will create an error object to know what is the cause of the problem in case there is one.
     // settings page is running this code, but we should run this code in case refresh was made in the study room page.
     // run this code only if refresh was made in the study room 
-    if(!this.getVisitedSettingPage){
-      await tutorService.validateUserMedia(true, true); 
-    }
+    // if(!this.getVisitedSettingPage){
+    //   await studyroomSettingsUtils.validateUserMedia(true, true); 
+    // }
     //this line will init the tracks to show local medias
     studyroomSettingsUtils.validateMedia();
 

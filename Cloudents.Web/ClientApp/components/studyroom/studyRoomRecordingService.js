@@ -1,10 +1,10 @@
 import store from '../../store/index';
-// import tutorService from './tutorService';
 import {Decoder, tools, Reader} from 'ts-ebml';
 import insightService from '../../services/insightService';
 import { LanguageService } from '../../services/language/languageService';
 
-
+let userMedia = null;
+let displayMedia = null;
 const MIME_TYPE = getBestMimeType();
 
 function getBestMimeType(){
@@ -53,12 +53,12 @@ const injectMetadata = async function(blob) {
 let wasCancelled = false;
 
 const getDisplayMedia = function(){
-    return navigator.mediaDevices.getDisplayMedia({video:true});
+  return navigator.mediaDevices.getDisplayMedia({video:true});
 };
+
 const getUserMedia = async function(){
   try{
-    let userMedia = await navigator.mediaDevices.getUserMedia({audio:true});
-    return userMedia;
+    return await navigator.mediaDevices.getUserMedia({audio:true});
   }catch(err){
     return null;
   }
@@ -87,12 +87,11 @@ const handleRecording = function(e){
   if(!wasCancelled){
     let options = {mimeType: MIME_TYPE};
     const recordingData = new Blob(recordingChunks, options);
-        if(store.getters.getRoomId && recordingData.size < 209715199){
+        if(store.getters.getRoomIdSession && recordingData.size < 209715199){
           downloadRecording(e, recordingData);
         }else{
           downloadRecording(e, recordingData);
         }
-        
         stopRecord();
   }
 
@@ -101,10 +100,6 @@ const handleRecording = function(e){
   store.dispatch('setShowAudioRecordingError', false);
 };
 const registerRecorderEvents = function(){
-    // store.getters.getRecorder.removeEventListener('dataavailable', stackChunks);
-    // store.getters.getRecorder.addEventListener('dataavailable', stackChunks);
-    // store.getters.getRecorder.removeEventListener('stop', handleRecording);
-    // store.getters.getRecorder.addEventListener('stop', handleRecording);
     store.getters.getRecorder.ondataavailable = stackChunks;
     store.getters.getRecorder.onstop = handleRecording;
     let streams = store.getters.getRecorderStream.getTracks();
@@ -127,26 +122,23 @@ function createRemoteAudioStream(){
 }
 
 async function activateRecord(){
-  let roomId = store.getters.getRoomId ? store.getters.getRoomId : 'testRoom';
+  let roomId = store.getters.getRoomIdSession || 'testRoom';
   let userId = store.getters.accountUser ? store.getters.accountUser.id : 'GUEST';
   insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_Recording_Start', {'roomId': roomId, 'userId': userId}, null);
   recordingChunks = [];
   wasCancelled = false;
   //start record
-  
-  let displayMedia = await getDisplayMedia();
-  store.dispatch('setLocalDisplayMedia', displayMedia);
-  let userMedia = await getUserMedia();  
-  store.dispatch('setLocalUserMedia', userMedia);
+  displayMedia = await getDisplayMedia();
+  userMedia = await getUserMedia();
   
   //if session is alreadyActive than set the remote tracks (can be null)
   let remoteMediaStream = createRemoteAudioStream();
   createCombinedMediaStreams(remoteMediaStream);
 }
 
+
 function combineAudioStreams(streams) {
   let audioContext = new (window.AudioContext || window.webkitAudioContext)();
-  let userMedia = store.getters.getLocalUserMedia;
   let newStreams = [userMedia, ...streams];
   const dest = audioContext.createMediaStreamDestination();
   newStreams.forEach(stream => {
@@ -159,7 +151,6 @@ function combineAudioStreams(streams) {
 }
 
 function createCombinedMediaStreams(remoteMediaStream){
-  let displayMedia = store.getters.getLocalDisplayMedia;
   let combinedAudioStreams = combineAudioStreams([remoteMediaStream]);
   let combinedMediaStreams = new MediaStream([...combinedAudioStreams.getTracks(), ...displayMedia.getVideoTracks()]);
   store.dispatch('setRecorderStearm', combinedMediaStreams);
@@ -179,7 +170,7 @@ function createMediaRecorder (){
 }
 
 function stopRecord(cancelled){
-  let roomId = store.getters.getRoomId ? store.getters.getRoomId : 'testRoom';
+  let roomId = store.getters.getRoomIdSession || 'testRoom';
   let userId = store.getters.accountUser ? store.getters.accountUser.id : 'GUEST';
   insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_Recording_End', {'roomId': roomId, 'userId': userId}, null);
   if(cancelled){
@@ -196,17 +187,18 @@ function stopRecord(cancelled){
 }
 
 async function toggleRecord(isTutor){
+
     if(!store.getters.getIsRecording){
       if(global.location.pathname === '/studyroom'){
-        let userMedia = await getUserMedia();
-        if(!userMedia){
+        let userMediaTest = await getUserMedia();
+        if(!userMediaTest){
           let msg = LanguageService.getValueByKey('tutor_microphone_blocked')
           alert(msg)
           return
         }  
       }
       if(isTutor){
-        store.dispatch('setShowUserConsentDialog', true);
+        store.dispatch('updateDialogUserConsent', true);
       }else{
         activateRecord();
       }

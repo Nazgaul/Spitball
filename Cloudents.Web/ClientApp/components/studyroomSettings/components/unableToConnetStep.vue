@@ -20,7 +20,6 @@
   </div>
 </template>
 <script>
-import tutorService from '../../studyroom/tutorService';
 export default {
   props:{
     nextStep:{
@@ -33,7 +32,8 @@ methods:{
     global.location.reload();
   },
   nextPage(){
-    if(tutorService.isRecordingSupported()){
+    let isRecordingSupported = !this.$store.getters.getRoomIsTutorSettings;
+    if(isRecordingSupported){
     this.nextStep('watchRecordedStep', true);
   }else{
     this.nextStep('studyRoom', true);

@@ -36,7 +36,7 @@ export default {
     },
     methods: {
         onCloseToaster() {
-            this.$store.commit('setToaster', '')
+            this.$store.commit('clearToaster')
             this.showToaster = false
         }
     }
