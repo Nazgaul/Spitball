@@ -31,11 +31,11 @@
                      :user-name="item.name" >
                   </user-avatar>
                </router-link>
-               <v-avatar class="d-flex" style="margin:0 auto;" v-if="!item.name && !item.preview">
+               <v-avatar size="40" class="d-flex" style="margin:0 auto;" v-if="!item.name && !item.preview">
                   <img :src="item.image" alt="John">
                </v-avatar>  
                <router-link class="d-flex justify-center" v-if="item.url" :to="item.url">
-                  <v-avatar v-if="item.preview">
+                  <v-avatar size="40" v-if="item.preview">
                      <img :src="item.preview" alt="John">
                   </v-avatar>  
                </router-link>
