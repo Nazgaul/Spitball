@@ -55,6 +55,9 @@
             :popUpType="'referralPop'"
           ></referral-dialog>
         </sb-dialog>
+
+        <loginNew v-if="getLoginDialog" />
+
       <mobile-footer v-if="showMobileFooter" />
     </v-content>
     
@@ -87,6 +90,8 @@ const chat = () => import("../chat/chat.vue");
 const tutorRequest = () => import("../tutorRequestNEW/tutorRequest.vue");
 const referralDialog = () => import("../question/helpers/referralDialog/referral-dialog.vue");
 
+const loginNew = () => import('../pages/global/dialogInjection/globalDialogs/loginNew/loginNew.vue')
+
 export default {
   components: {
     referralDialog,
@@ -96,7 +101,8 @@ export default {
     mobileFooter,
     tutorRequest,
     dialogInjection,
-    toasterInjection
+    toasterInjection,
+    loginNew
   },
   data() {
     return {
@@ -117,7 +123,8 @@ export default {
       "getRequestTutorDialog",
       "getIsChatVisible",
       'getUserLoggedInStatus',
-      'getIsTeacher'
+      'getIsTeacher',
+      'getLoginDialog'
     ]),
 
     isDrawer() {

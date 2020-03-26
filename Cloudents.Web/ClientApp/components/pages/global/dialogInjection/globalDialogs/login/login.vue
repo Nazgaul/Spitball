@@ -12,7 +12,8 @@
                     </div>
                 </div>
                 <div class="btn-container">
-                    <a  class="login-btns" @click="goToSignIn()" v-language:inner>loginAnswer_login</a>
+                  <v-btn class="login-btns" @click="$store.commit('setLoginDialog', true)" v-t="'loginAnswer_login'"></v-btn>
+                    <!-- <a  class="login-btns" @click="goToSignIn()" v-language:inner>loginAnswer_login</a> -->
                     <a  class="login-btns" @click="goToRegister()" v-language:inner>loginAnswer_Sign_Up</a>
                 </div>
             </div>
