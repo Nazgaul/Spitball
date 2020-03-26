@@ -17,7 +17,7 @@
 		outlined
 		dense
 		prepend-inner-icon="sbf-keyCode"
-		:error-messages="errorMessages.code"
+		:error-messages="showError"
 		:label="$t('loginRegister_smsconfirm_input')"
 		placeholder=" "
 	></v-text-field>
@@ -57,7 +57,7 @@ export default {
 		}
 	},
 	watch: {
-        smsCode: function(){
+        smsCode(){
             this.setErrorMessages({})
 		}
     },
@@ -74,7 +74,13 @@ export default {
 			}
 			//this can happen when getting the info from the server
 			return this.getPhone;
-		}
+		},
+		showError() {
+            if(this.getErrorMessages?.code) {
+                return this.$t('loginRegister_invalid_code')
+            }
+            return ''
+        }
 	},
 	methods: {
 		...mapMutations(['setErrorMessages']),

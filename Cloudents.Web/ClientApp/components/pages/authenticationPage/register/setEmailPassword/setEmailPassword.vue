@@ -71,19 +71,6 @@
           :hint="passHint">
         </v-text-field>
 
-        <v-text-field 
-          v-model="confirmPassword"
-          class="widther input-fields"
-          color="#304FFE"
-          outlined
-          height="44"
-          dense
-          :label="labels['confirmPassword']"
-          :error-messages="errorMessages.confirmPassword"
-          placeholder=" "
-          type="password">
-        </v-text-field>
-
         <vue-recaptcha
           size="invisible"
           class="captcha"
@@ -123,7 +110,6 @@ export default {
     return {
       gender: "male",
       password: "",
-      confirmPassword: "",
       score: {
         default: 0,
         required: false
@@ -142,15 +128,11 @@ export default {
         genderMale: LanguageService.getValueByKey('loginRegister_setemailpass_male'),
         genderFemale: LanguageService.getValueByKey('loginRegister_setemailpass_female'),
         password: LanguageService.getValueByKey('loginRegister_setemailpass_input_pass'),
-        confirmPassword: LanguageService.getValueByKey('loginRegister_setemailpass_input_passconfirm'),
       }
     };
   },
   watch: {
     password: function(){
-        this.setErrorMessages({})
-    },
-    confirmPassword: function(){
         this.setErrorMessages({})
     },
     firstName: function(){
@@ -220,7 +202,6 @@ export default {
     register() {
       let paramObj = {
         password: this.password,
-        confirmPassword: this.confirmPassword,
         recaptcha: this.recaptcha
       }
       this.emailSigning(paramObj).then(() => {},() => {

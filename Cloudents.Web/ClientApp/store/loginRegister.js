@@ -38,7 +38,6 @@ const state = {
         code: "",
         email: "",
         password: "",
-        confirmPassword: "",
         gmail: ""
     },
     passScoreObj: {
@@ -71,7 +70,6 @@ const mutations = {
             code: "",
             email: "",
             password: "",
-            confirmPassword: "",
             gmail: ""
         };
     },
@@ -96,7 +94,6 @@ const mutations = {
         state.errorMessage.code = (errorMessagesObj.code) ? errorMessagesObj.code : '';
         state.errorMessage.email = (errorMessagesObj.email) ? errorMessagesObj.email : '';
         state.errorMessage.password = (errorMessagesObj.password) ? errorMessagesObj.password : '';
-        state.errorMessage.confirmPassword = (errorMessagesObj.confirmPassword) ? errorMessagesObj.confirmPassword : '';
     },
     setLocalCode(state, localCode) {
         state.localCode = localCode;
@@ -191,12 +188,13 @@ const actions = {
         });
     },
     emailSigning({state, commit}, params) {
-        let { recaptcha, password, confirmPassword } = params;
+        let { recaptcha, password } = params;
         let { firstName, lastName, email, gender } = state;
-        let emailRegObj = { firstName, lastName, email, gender, recaptcha, password, confirmPassword }
+        let emailRegObj = { firstName, lastName, email, gender, recaptcha, password }
 
         return registrationService.emailRegistration(emailRegObj)
             .then(({data}) => {
+                debugger
                 _analytics(['Registration', 'Start']);
                 if (data.param && data.param.phoneNumber) {
                     commit('setPhone',data.param.phoneNumber);
@@ -207,7 +205,6 @@ const actions = {
                 commit('setErrorMessages',{
                     email: error.response.data["Email"] ? error.response.data["Email"][0] : '',
                     password: error.response.data["Password"] ? error.response.data["Password"][0] : '',
-                    confirmPassword: error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : ''
                 });
                 return Promise.reject(error);
             });
@@ -329,10 +326,8 @@ const actions = {
             });
     },
     changePassword({commit,dispatch},params) {
-        let {id, code, password, confirmPassword} = params;
-        let isValid = (password === confirmPassword);
-        if(isValid){
-            registrationService.updatePassword(password, confirmPassword, id, code) //TODO: send object instead
+        let {id, code, password} = params;
+            registrationService.updatePassword(password, id, code) //TODO: send object instead
                 .then(() => {
                     dispatch('updateLoginStatus',true)
                     _analytics(['Forgot Password', 'Updated password']);
@@ -340,12 +335,8 @@ const actions = {
                 }, (error) => {
                     commit('setErrorMessages',{
                         password: error.response.data["Password"] ? error.response.data["Password"][0] : '',
-                        confirmPassword: error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : ''
                     });
                 });
-        } else {
-            commit('setErrorMessages', { confirmPassword: _dictionary('login_error_not_matched') });
-        }
     },
     exit({commit}){
         commit('setResetState');

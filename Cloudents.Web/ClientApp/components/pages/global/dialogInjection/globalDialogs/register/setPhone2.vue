@@ -36,7 +36,7 @@
                 name=""
                 :rules="[rules.phone]"
                 :label="phoneNumberLabel"
-                :error-messages="errorMessages.phone"
+                :error-messages="showError"
                 placeholder=" "
             ></v-text-field>
         </div>
@@ -69,6 +69,11 @@ export default {
             }
         }
     },
+    watch: {
+        phoneNumber() {
+            this.$store.commit('setErrorMessages', {});
+        }
+    },
     computed: {
         ...mapGetters(['getGlobalLoading', 'getErrorMessages']),
         countryCodesList(){
@@ -82,6 +87,17 @@ export default {
         },
         phoneNumberLabel() {
             return this.$t('loginRegister_setphone_input')
+        },
+        showError() {
+            // TODO: need to retrive from server error type to know which error should show
+            let phoneErr = this.getErrorMessages?.phone
+            if(phoneErr) {
+                if(phoneErr === 'InvalidPhoneNumber') {
+                    return this.$t('loginRegister_invalid_phone')
+                }
+                return this.$t('loginRegister_already_used_number')
+            }
+            return ''
         }
     },
     methods: {
