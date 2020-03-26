@@ -1,24 +1,10 @@
-﻿using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Primitives;
 using System;
 using System.Threading.Tasks;
 
 namespace Cloudents.Web.Binders
 {
-    //public class ReturnUrlEntityBinder : RefererHeaderModelBinder
-    //{
-    //    protected override void BindData(ModelBindingContext bindingContext, StringValues val)
-    //    {
-    //        bindingContext.Result = ModelBindingResult.Success(new ReturnUrlRequest { Url = val });
-    //    }
-
-    //    public ReturnUrlEntityBinder() : base("returnUrl")
-    //    {
-    //    }
-    //}
-
-
     public abstract class RefererHeaderModelBinder : IModelBinder
     {
         private readonly string _key;

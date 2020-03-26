@@ -229,4 +229,21 @@ namespace Cloudents.Infrastructure
         //    _client?.Dispose();
         //}
     }
+
+    public static class HttpClientExtensions
+    {
+        public static async Task<T> GetAsJsonAsync<T>(this HttpClient client, Uri uri, CancellationToken token)
+        {
+            var response = await client.GetAsync(uri, token);
+            response.EnsureSuccessStatusCode();
+            await using var s = await response.Content.ReadAsStreamAsync();
+            using var sr = new StreamReader(s);
+            using var reader = new JsonTextReader(sr);
+            var serializer = new JsonSerializer
+            {
+                DefaultValueHandling = DefaultValueHandling.Ignore
+            };
+            return serializer.Deserialize<T>(reader);
+        }
+    }
 }

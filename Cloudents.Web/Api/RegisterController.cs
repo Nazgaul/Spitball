@@ -131,9 +131,6 @@ namespace Cloudents.Web.Api
             if (!user.EmailConfirmed)
             {
                 await GenerateEmailAsync(user, token);
-
-                //await _signInManager.TempSignIn(user);
-                //return new ReturnSignUserResponse(RegistrationStep.RegisterSetPhone);
             }
             await _signInManager.TempSignIn(user);
             return new ReturnSignUserResponse(RegistrationStep.RegisterSetPhone);
@@ -264,7 +261,7 @@ namespace Cloudents.Web.Api
             var data = TempData.Peek(EmailTime);
             if (data != null)
             {
-                var temp = DateTime.Parse(TempData.Peek(EmailTime).ToString(), CultureInfo.InvariantCulture);
+                var temp = DateTime.Parse(data.ToString()!, CultureInfo.InvariantCulture);
 
                 if (temp > DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(0.5)))
                 {

@@ -42,7 +42,7 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult> PostAsync(
             [ModelBinder(typeof(CountryModelBinder))] string country,
             [FromBody]LoginRequest model,
-            [FromHeader(Name = "User-Agent")] string agent,
+            [FromHeader(Name = "User-Agent")] string? agent,
             CancellationToken token)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);

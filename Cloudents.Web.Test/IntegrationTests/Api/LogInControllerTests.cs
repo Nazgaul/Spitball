@@ -35,5 +35,11 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
+
+        [Fact]
+        public async Task Post_Login_With_EmailAsync()
+        {
+            await _client.LogInAsync();
+        }
     }
 }

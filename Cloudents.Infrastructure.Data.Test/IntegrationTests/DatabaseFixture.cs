@@ -75,7 +75,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
     public class DummyCacheProvider : ICacheProvider
     {
-        public object Get(string key, string region)
+        public object? Get(string key, string region)
         {
             return null;
         }

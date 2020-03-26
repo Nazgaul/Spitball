@@ -41,19 +41,24 @@ namespace Cloudents.Infrastructure.Mail
 
             var result = s.ToJsonReader<Rootobject>();
 
-            return result.Result.Verdict == "Valid";
+            return result.Result.Score > 0.44;
+            //return result.Result.Verdict == "Valid";
            
         }
 
         private class Rootobject
         {
+            [JsonProperty("result")]
             public Result Result { get;private set; }
         }
 
         private class Result
         {
-           // public string email { get; set; }
+            // public string email { get; set; }
+            [JsonProperty("verdict")]
+
             public string Verdict { get; private set; }
+            [JsonProperty("score")]
             public float Score { get; set; }
            // public string local { get; set; }
            // public string host { get; set; }

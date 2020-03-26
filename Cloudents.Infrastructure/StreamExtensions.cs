@@ -27,4 +27,6 @@ namespace Cloudents.Infrastructure
             return serializer.Deserialize<T>(reader);
         }
     }
+
+
 }
