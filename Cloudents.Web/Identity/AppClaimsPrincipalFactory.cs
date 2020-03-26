@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.Entities;
-using Cloudents.Query;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
@@ -14,8 +13,6 @@ namespace Cloudents.Web.Identity
         //internal const string Profile = "profile";
 
         public AppClaimsPrincipalFactory(UserManager<User> userManager,
-            //RoleManager<ApplicationRole> roleManager,
-            IQueryBus queryBus,
             IOptions<IdentityOptions> options) :
             base(userManager, options)
         {
@@ -31,15 +28,6 @@ namespace Cloudents.Web.Identity
             {
                 p.AddClaim(new Claim(University, user.University.Id.ToString()));
             }
-
-            //var query = new UserDataQuery(user.Id);
-            //var result = await _queryBus.QueryAsync(query, default);
-            //var v = JsonConvert.SerializeObject(result);
-            //if (v.Length < 2000)
-            //{
-            //    p.AddClaim(new Claim(Profile, JsonConvert.SerializeObject(result)));
-            //}
-
             return p;
         }
     }

@@ -1,5 +1,4 @@
-﻿using Cloudents.Core;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Hubs;
