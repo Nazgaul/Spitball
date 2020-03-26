@@ -5,9 +5,9 @@
          <div class="createStudyRoomDialog-title pb-4">{{$t('dashboardPage_create_room_title')}}</div>
          <div class="createStudyRoomDialog-list">
             <v-list flat class="list-followers">
-               <v-list-item-group v-model="selectedIndex">
-                  <v-list-item v-for="(item, index) in myFollowers" :key="index">
-                     <template v-slot:default="{ active, toggle }">
+               <v-list-item-group>
+                  <v-list-item v-for="(item, index) in myFollowers" :key="index"  @click="selected = item">
+                     <template v-slot:default="{}">
                         <v-list-item-avatar>
                            <UserAvatar :size="'34'" :user-name="item.name" :user-id="item.id" :userImageUrl="item.image"/> 
                         </v-list-item-avatar>
@@ -15,7 +15,7 @@
                            <v-list-item-title>{{item.name}}</v-list-item-title>
                         </v-list-item-content>
                         <v-list-item-action>
-                           <v-checkbox v-model="active" @click="toggle" off-icon="sbf-check-box-un" on-icon="sbf-check-box-done"></v-checkbox>
+                           <v-checkbox v-model="selected" :value="item" off-icon="sbf-check-box-un" on-icon="sbf-check-box-done"></v-checkbox>
                         </v-list-item-action>
                      </template>
                   </v-list-item>
@@ -32,16 +32,17 @@ export default {
    name:'createStudyRoom',
    data() {
       return {
-         selectedIndex:null,
          isLoading:false,
+         selected:'',
+         active:false,
       }
    },
    methods: {
       createStudyRoom(){
-         if(!this.isLoading && this.selectedUser){
+         if(!this.isLoading && this.selected){
             this.isLoading = true
             let self = this;
-            this.$store.dispatch('updateCreateStudyRoom',this.selectedUser)
+            this.$store.dispatch('updateCreateStudyRoom',this.selected)
                .then(() => {
                   self.isLoading = false;
                   self.$closeDialog()
@@ -52,9 +53,6 @@ export default {
       }
    },
    computed: {
-      selectedUser(){
-         return this.myFollowers[this.selectedIndex];
-      },
       myFollowers(){
          return this.$store.getters.getFollowersItems;
       },
@@ -62,7 +60,6 @@ export default {
    created() {
       this.$store.dispatch('updateFollowersItems')
    },
-
 }
 </script>
 
