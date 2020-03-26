@@ -1,5 +1,5 @@
 <template>
-   <td class="tableInfo text-xs-left text-truncate">
+   <div class="tableInfo text-xs-left text-truncate">
       <template v-if="item.type === 'BuyPoints'">
          <div class="text-truncate">
             <span>{{$t('dashboardPage_info_buy_points')}}</span>
@@ -41,7 +41,7 @@
             <span>{{item.course}}</span>
          </div>
       </router-link>
-   </td>
+   </div>
 </template>
 <script>
 export default {
@@ -76,9 +76,9 @@ export default {
 
 <style lang="less">
 .tableInfo{
-   width: 400px;
-   max-width: 400px;
-   min-width: 300px;
+   // width: 400px;
+   // max-width: 400px;
+   // min-width: 300px;
    .tableInfo_router{
       color: #43425d !important;
       line-height: 1.6;
