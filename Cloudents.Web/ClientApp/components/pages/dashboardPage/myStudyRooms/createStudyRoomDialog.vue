@@ -22,7 +22,10 @@
                </v-list-item-group>
             </v-list>
          </div>
-         <v-btn :loading="isLoading" @click="createStudyRoom" width="140" depressed height="40" color="#4452fc" class="white--text" rounded >{{$t('dashboardPage_create_room_create_btn')}}</v-btn>
+         <div class="d-flex flex-column align-center">
+            <span v-if="showErrorEmpty" class="error--text">{{$t('dashboardPage_create_room_empty_error')}}</span>
+            <v-btn :loading="isLoading" @click="createStudyRoom" width="140" depressed height="40" color="#4452fc" class="white--text" rounded >{{$t('dashboardPage_create_room_create_btn')}}</v-btn>
+         </div>
       </div>
    </v-dialog>
 </template>
@@ -35,21 +38,31 @@ export default {
          isLoading:false,
          myFollowers:[],
          selected:'',
+         showErrorEmpty:false,
       }
    },
    methods: {
       createStudyRoom(){
-         if(!this.isLoading && this.selected){
-            this.isLoading = true
-            let self = this;
-            this.$store.dispatch('updateCreateStudyRoom',this.selected)
-               .then(() => {
-                  self.isLoading = false;
-                  self.$closeDialog()
-               }).catch(()=>{
-                  self.isLoading = false;
-               });
+         if(!this.isLoading){
+            if(this.selected){
+               this.isLoading = true
+               let self = this;
+               this.$store.dispatch('updateCreateStudyRoom',this.selected)
+                  .then(() => {
+                     self.isLoading = false;
+                     self.$closeDialog()
+                  }).catch(()=>{
+                     self.isLoading = false;
+                  });
+            }else{
+               this.showErrorEmpty = true;
+            }
          }
+      }
+   },
+   watch: {
+      selected(){
+         this.showErrorEmpty = false;
       }
    },
    created() {
