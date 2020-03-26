@@ -133,8 +133,12 @@ where sr.id = :Id;");
                 }
                 if (studyRoomSession != null)
                 {
-                    var jwt = _videoProvider.CreateRoomToken(studyRoomSession.SessionId, query.UserId);
-                    result.Jwt = jwt;
+                    var roomAvailable = await _videoProvider.GetRoomAvailableAsync(studyRoomSession.SessionId);
+                    if (roomAvailable)
+                    {
+                        var jwt = _videoProvider.CreateRoomToken(studyRoomSession.SessionId, query.UserId);
+                        result.Jwt = jwt;
+                    }
                 }
                 if (result.CouponType is null)
                 {
