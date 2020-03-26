@@ -41,7 +41,7 @@ namespace Cloudents.Query.Tutor
                 //  using var conn = _repository.OpenConnection();
 
                 var studyRoomSessionFuture = _statelessSession.Query<StudyRoomSession>()
-                    .Where(w => w.StudyRoom.Id == query.Id && w.Ended == null)
+                    .Where(w => w.StudyRoom.Id == query.Id && w.Ended == null && w.Created > DateTime.UtcNow.AddHours(-6))
                     .OrderByDescending(o => o.Id).Take(1).ToFutureValue();
 
 
