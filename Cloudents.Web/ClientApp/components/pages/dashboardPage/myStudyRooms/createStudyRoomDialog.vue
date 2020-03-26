@@ -91,6 +91,7 @@ export default {
       font-weight: 600;
    }
    .createStudyRoomDialog-list{
+      width: 100%;
       .list-followers{
          max-height: 300px;
          overflow-y: scroll;
