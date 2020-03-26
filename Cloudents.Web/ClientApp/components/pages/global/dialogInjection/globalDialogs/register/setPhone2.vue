@@ -36,7 +36,7 @@
                 name=""
                 :rules="[rules.phone]"
                 :label="phoneNumberLabel"
-                :error-messages="errorMessages.phone"
+                :error-messages="showError"
                 placeholder=" "
             ></v-text-field>
         </div>
@@ -69,6 +69,11 @@ export default {
             }
         }
     },
+    watch: {
+        phoneNumber() {
+            this.$store.commit('setErrorMessages', {});
+        }
+    },
     computed: {
         ...mapGetters(['getGlobalLoading', 'getErrorMessages']),
         countryCodesList(){
@@ -82,6 +87,12 @@ export default {
         },
         phoneNumberLabel() {
             return this.$t('loginRegister_setphone_input')
+        },
+        showError() {
+            if(this.getErrorMessages?.phone) {
+                return this.$t('loginRegister_invalid_phone')
+            }
+            return ''
         }
     },
     methods: {
