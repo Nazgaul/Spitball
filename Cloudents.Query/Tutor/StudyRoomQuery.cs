@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
+using Cloudents.Query.Stuff;
 using NHibernate;
 using NHibernate.Linq;
 using NHibernate.Transform;
@@ -85,7 +86,7 @@ where sr.id = :Id;");
                 sqlQuery.SetGuid("Id", query.Id);
                 sqlQuery.SetInt64("UserId", query.UserId);
 
-                sqlQuery.SetResultTransformer(Transformers.AliasToBean<StudyRoomDto>());
+                sqlQuery.SetResultTransformer(new SbAliasToBeanResultTransformer<StudyRoomDto>());
                 var resultFuture = sqlQuery.FutureValue<StudyRoomDto>();
 
                 var result = await resultFuture.GetValueAsync(token);
