@@ -366,4 +366,13 @@
   <data name="google_signin_error" xml:space="preserve">
     <value>Your browser seems to have cookies disabled. Enable cookies to sign in with Google</value>
   </data>
+  <data name="already_used_number" xml:space="preserve">
+    <value>This phone number is linked to another email address</value>
+  </data>
+  <data name="invalid_code" xml:space="preserve">
+    <value>Invalid confirmation code</value>
+  </data>
+  <data name="invalid_phone" xml:space="preserve">
+    <value>Invalid phone number</value>
+  </data>
 </root>
