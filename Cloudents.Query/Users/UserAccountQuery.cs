@@ -73,18 +73,18 @@ namespace Cloudents.Query.Users
                 var pendingSessionsPaymentsFuture = pendingSessionsPaymentsSqlQuery.FutureValue<int>();
 
 
-                var universityFuture = _session.Query<User>()
-                    .Fetch(f => f.University)
-                    .Where(w => w.Id == query.Id && w.University != null)
-                    .Select(s => 
-                        new UniversityDto(
-                            s.University!.Id,
-                            s.University.Name,
-                            s.University.Country,
-                            s.University.Image,
-                            s.University.UsersCount)
-                    )
-                    .ToFutureValue();
+                //var universityFuture = _session.Query<User>()
+                //    .Fetch(f => f.University)
+                //    .Where(w => w.Id == query.Id && w.University != null)
+                //    .Select(s => 
+                //        new UniversityDto(
+                //            s.University!.Id,
+                //            s.University.Name,
+                //            s.University.Country,
+                //            s.University.Image,
+                //            s.University.UsersCount)
+                //    )
+                //    .ToFutureValue();
 
                 var haveDocsFuture = _session.Query<Document>()
                     .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
@@ -177,7 +177,7 @@ namespace Cloudents.Query.Users
                 }
 
                 //result.Courses = await coursesFuture.GetEnumerableAsync(token);
-                result.University = await universityFuture.GetValueAsync(token);
+                //result.University = await universityFuture.GetValueAsync(token);
                 result.HaveContent = (await haveDocsFuture.GetEnumerableAsync(token)).Any()
                                      || (await haveQuestionsFuture.GetEnumerableAsync(token)).Any();
 

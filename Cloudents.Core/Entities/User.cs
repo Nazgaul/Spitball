@@ -167,12 +167,12 @@ namespace Cloudents.Core.Entities
             //AddEvent(new CanTeachCourseEvent(course));
         }
 
-        public virtual void SetUniversity(University university)
-        {
-            University = university;
-            University.UsersCount++;
-            AddEvent(new SetUniversityEvent(Id));
-        }
+        //public virtual void SetUniversity(University university)
+        //{
+        //    University = university;
+        //    University.UsersCount++;
+        //    AddEvent(new SetUniversityEvent(Id));
+        //}
 
         public virtual void BecomeTutor(string bio, decimal? price, string description, string firstName, string lastName)
         {

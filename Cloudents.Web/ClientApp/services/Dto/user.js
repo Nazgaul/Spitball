@@ -66,7 +66,7 @@ export const User = {
                 needPayment: objInit.needPayment,
                 isTutor: objInit.isTutor.toLowerCase() === 'ok',
                 isTutorState: _createIsTutorState(objInit.isTutor),
-                university: new School.University(objInit.university),
+                // university: new School.University(objInit.university),
                 courses: objInit.courses.map((course) => new School.Course(course)),
                 haveDocsWithPrice: objInit.haveDocsWithPrice,
                 haveContent: objInit.haveContent,

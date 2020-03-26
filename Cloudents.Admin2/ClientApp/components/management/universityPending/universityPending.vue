@@ -1,4 +1,4 @@
-﻿<template>
+﻿<!--<template>
     <div class="cashout-table-container">
         <span v-if="showLoading">Loading List...</span>
         <span v-if="showNoResult">NO RESULTS!</span>
@@ -70,17 +70,7 @@
                                     <v-radio label="Merge" value="merge"></v-radio>
                                 </v-radio-group>
 
-                                <!--<div class="select-type-container">
-        <v-select v-show="radios === 'merge'"
-                  class="select-type-input"
-                  solo
-                  v-model="picked"
-                  :items="suggestUniversities"
-                  item-text="name"
-                  item-value="id"
-                  label="Select university"
-                  :disabled="disableSelectBtn"></v-select>
-    </div>-->
+                              
                                 <search-Component :context="AdminAPI" :contextCallback="setAdminAPI" :searchValue="picked" :callback="setSearchValue" v-show="radios === 'merge'"> </search-Component>
                                 <v-text-field :label="editedItem.name"
                                 single-line
@@ -103,11 +93,9 @@
             </v-card>
         </v-dialog>
     </div>
+</template>-->
 
-
-</template>
-
-<script>
+<!--<script>
     import { getUniversitiesList, /*getSuggestions,*/ migrateUniversities, approve, rename, deleteUniversity } from './universityPendingService'
     import searchComponent from '../../helpers/search.vue'
 
@@ -287,9 +275,9 @@
         }
     }
 
-</script>
+</script>-->
 
-<style lang="less">
+<!--<style lang="less">
     //overwrite vuetify css to narrow the table
     table.v-table tbody td:first-child, table.v-table tbody td:not(:first-child), table.v-table tbody th:first-child, table.v-table tbody th:not(:first-child), table.v-table thead td:first-child, table.v-table thead td:not(:first-child), table.v-table thead th:first-child, table.v-table thead th:not(:first-child) {
         padding: 0 4px !important;
@@ -323,4 +311,4 @@
         width: 345px;
     }
     }
-</style>
+</style>-->

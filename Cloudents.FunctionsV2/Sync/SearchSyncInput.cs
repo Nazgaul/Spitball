@@ -18,8 +18,8 @@ namespace Cloudents.FunctionsV2.Sync
             {
                 switch (SyncType)
                 {
-                    case SyncType.University:
-                        return "university3";
+                    //case SyncType.University:
+                    //    return "university3";
                     case SyncType.Document:
                         return "document1";
                     default:
@@ -34,8 +34,8 @@ namespace Cloudents.FunctionsV2.Sync
             {
                 switch (SyncType)
                 {
-                    case SyncType.University:
-                        return "UniversitySearchSync4";
+                    //case SyncType.University:
+                    //    return "UniversitySearchSync4";
                     case SyncType.Document:
                         return "DocumentSearchSync2";
                     default:
@@ -56,7 +56,7 @@ namespace Cloudents.FunctionsV2.Sync
 
     public enum SyncType
     {
-        University,
+      //  University,
         Document,
     }
 }

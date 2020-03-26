@@ -5,9 +5,9 @@
          <div class="createStudyRoomDialog-title pb-4">{{$t('dashboardPage_create_room_title')}}</div>
          <div class="createStudyRoomDialog-list">
             <v-list flat class="list-followers">
-               <v-list-item-group v-model="selectedIndex">
-                  <v-list-item v-for="(item, index) in myFollowers" :key="index">
-                     <template v-slot:default="{ active, toggle }">
+               <v-list-item-group>
+                  <v-list-item v-for="(item, index) in myFollowers" :key="index"  @click="selected = item">
+                     <template v-slot:default="{}">
                         <v-list-item-avatar>
                            <UserAvatar :size="'34'" :user-name="item.name" :user-id="item.id" :userImageUrl="item.image"/> 
                         </v-list-item-avatar>
@@ -15,14 +15,17 @@
                            <v-list-item-title>{{item.name}}</v-list-item-title>
                         </v-list-item-content>
                         <v-list-item-action>
-                           <v-checkbox v-model="active" @click="toggle" off-icon="sbf-check-box-un" on-icon="sbf-check-box-done"></v-checkbox>
+                           <v-checkbox v-model="selected" :value="item" off-icon="sbf-check-box-un" on-icon="sbf-check-box-done"></v-checkbox>
                         </v-list-item-action>
                      </template>
                   </v-list-item>
                </v-list-item-group>
             </v-list>
          </div>
-         <v-btn :loading="isLoading" @click="createStudyRoom" width="140" depressed height="40" color="#4452fc" class="white--text" rounded >{{$t('dashboardPage_create_room_create_btn')}}</v-btn>
+         <div class="d-flex flex-column align-center">
+            <span v-if="showErrorEmpty" class="error--text">{{$t('dashboardPage_create_room_empty_error')}}</span>
+            <v-btn :loading="isLoading" @click="createStudyRoom" width="140" depressed height="40" color="#4452fc" class="white--text" rounded >{{$t('dashboardPage_create_room_create_btn')}}</v-btn>
+         </div>
       </div>
    </v-dialog>
 </template>
@@ -32,37 +35,41 @@ export default {
    name:'createStudyRoom',
    data() {
       return {
-         selectedIndex:null,
          isLoading:false,
+         myFollowers:[],
+         selected:'',
+         showErrorEmpty:false,
       }
    },
    methods: {
       createStudyRoom(){
-         if(!this.isLoading && this.selectedUser){
-            this.isLoading = true
-            let self = this;
-            this.$store.dispatch('updateCreateStudyRoom',this.selectedUser)
-               .then(() => {
-                  self.isLoading = false;
-                  self.$closeDialog()
-               }).catch(()=>{
-                  self.isLoading = false;
-               });
+         if(!this.isLoading){
+            if(this.selected){
+               this.isLoading = true
+               let self = this;
+               this.$store.dispatch('updateCreateStudyRoom',this.selected)
+                  .then(() => {
+                     self.isLoading = false;
+                     self.$closeDialog()
+                  }).catch(()=>{
+                     self.isLoading = false;
+                  });
+            }else{
+               this.showErrorEmpty = true;
+            }
          }
       }
    },
-   computed: {
-      selectedUser(){
-         return this.myFollowers[this.selectedIndex];
-      },
-      myFollowers(){
-         return this.$store.getters.getFollowersItems;
-      },
+   watch: {
+      selected(){
+         this.showErrorEmpty = false;
+      }
    },
    created() {
-      this.$store.dispatch('updateFollowersItems')
+      this.$store.dispatch('updateFollowersItems').then(()=>{
+         this.myFollowers = this.$store.getters.getFollowersItems
+      })
    },
-
 }
 </script>
 
@@ -91,6 +98,7 @@ export default {
       font-weight: 600;
    }
    .createStudyRoomDialog-list{
+      width: 100%;
       .list-followers{
          max-height: 300px;
          overflow-y: scroll;
