@@ -2,7 +2,6 @@
 using Cloudents.Core.Interfaces;
 using Cloudents.Search.Document;
 using Cloudents.Search.Tutor;
-using Cloudents.Search.University;
 using Module = Autofac.Module;
 
 namespace Cloudents.Search
@@ -13,11 +12,11 @@ namespace Cloudents.Search
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<AzureDocumentSearch>().AsSelf().As<IDocumentsSearch>();
-            builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();
+            //builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();
             builder.RegisterType<AzureTutorSearch>().AsSelf().As<ITutorSearch>();
 
             builder.RegisterType<DocumentSearchWrite>().As<SearchServiceWrite<Entities.Document>>();
-            builder.RegisterType<UniversitySearchWrite>().AsSelf();
+           // builder.RegisterType<UniversitySearchWrite>().AsSelf();
             builder.RegisterType<DocumentSearchWrite>().AsSelf();
             builder.RegisterType<TutorSearchWrite>().AsSelf();
 

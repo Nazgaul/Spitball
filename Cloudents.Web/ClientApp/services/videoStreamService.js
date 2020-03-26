@@ -1,4 +1,5 @@
 import tutorService from "../components/studyroom/tutorService";
+import studyRoomService from "../services/studyRoomService.js";
 const extensionId = 'jaimgihanebafnbcpckdkilkeoomkpik'; // dev && prod
 import store from '../store/index.js';
 import insightService from './insightService.js'
@@ -21,17 +22,10 @@ import insightService from './insightService.js'
         store.dispatch('setSesionClickedOnce', true);
         console.warn('DEBUG: 44.1 videoStreamService: setSesionClickedOnce,true after ')
             if (store.getters['getStudyRoomData'].isTutor) {
-                console.warn('DEBUG: 44.2 videoStreamService: (store.getters[getStudyRoomData].isTutor) ')
-                console.warn('DEBUG: 44.3 videoStreamService: updateCurrentRoomState before')
                 store.dispatch('updateCurrentRoomState', 'loading');
-                console.warn('DEBUG: 44.4 videoStreamService: updateCurrentRoomState after')
-                console.warn('DEBUG: 44.5 videoStreamService: tutorService.enterRoom(store.getters[getRoomId]) before')
-                tutorService.enterRoom(store.getters['getRoomId']).then(() => {
-                    console.warn('DEBUG: 44.6 videoStreamService: tutorService.enterRoom(store.getters[getRoomId]) then')
+                studyRoomService.enterRoom(store.getters['getRoomId']).then(() => {
                     setTimeout(() => {
-                        console.warn('DEBUG: 44.7 videoStreamService: tutorService.enterRoom(store.getters[getRoomId]) Settimeout')
                         this.createVideoSession();
-                        console.warn('DEBUG: 44.8 videoStreamService: tutorService.enterRoom(store.getters[getRoomId]) Settimeout after')
                     }, 1000);
                 });
             } else {
@@ -64,13 +58,13 @@ import insightService from './insightService.js'
    async function addDevicesTotrack(){
     console.warn('DEBUG: 25 videoStreamService: addDevicesTotrack')
 
-        let audioSetObj = store.getters['getLocalAudioTrack'];
-        let videoSetObj = store.getters['getLocalVideoTrack'];
-        let isVideoActive = store.getters['getIsVideoActive'];
-        let isAudioActive = store.getters['getIsAudioActive'];
-        let audioDevice = audioSetObj && isAudioActive ? audioSetObj : false;
-        let videoDevice = videoSetObj && isVideoActive ? videoSetObj : false;
-        createTwillioTracks(audioDevice, videoDevice);
+        // let audioSetObj = store.getters['getLocalAudioTrack'];
+        // let videoSetObj = store.getters['getLocalVideoTrack'];
+        // let isVideoActive = store.getters['getIsVideoActive']; maor
+        // let isAudioActive = store.getters['getIsAudioActive'];
+        // let audioDevice = audioSetObj && isAudioActive ? audioSetObj : false;
+        // let videoDevice = videoSetObj && isVideoActive ? videoSetObj : false; maor
+        createTwillioTracks(/*audioDevice, videoDevice*/);
     }
 
     //get try to get share stream via chrome extension

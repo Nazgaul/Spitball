@@ -16,7 +16,6 @@ const createAudioContext = function (elId, myPreferredCameraDeviceId) {
 
             let average = values / length;
 
-            //console.log(Math.round(average - 40));
             let micVolume = document.getElementById(`${elId}`);
             if (!micVolume) return;
             micVolume.style.backgroundColor = 'rgba(66, 224, 113, 0.8)';
@@ -44,7 +43,6 @@ const createAudioContext = function (elId, myPreferredCameraDeviceId) {
 
     }, () => {
         console.log('Something went wrong, or the browser does not support getUserMedia');
-        // Something went wrong, or the browser does not support getUserMedia
     });
 
 
@@ -53,9 +51,6 @@ const stopAudioContext = function () {
     if (input) {
         audioContext.close().then(function () {
             console.log('closed audio context');
-            // scriptProcessor = null;
-            // analyser.disconnect();
-
         }, (error) => {
             console.log('error stop audio context', error);
         });

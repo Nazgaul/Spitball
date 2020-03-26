@@ -100,7 +100,7 @@ const actions = {
     updateAccountUser({commit,dispatch},userAccount){
         intercomeService.startService(userAccount);
         commit("updateUser", userAccount);
-        dispatch("syncUniData", userAccount);
+        // dispatch("syncUniData", userAccount); // uni
         dispatch("getAllConversations");
         analyticsService.sb_setUserId(userAccount.id);
         insightService.authenticate.set(userAccount.id);

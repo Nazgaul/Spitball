@@ -218,7 +218,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['setShowPickColorInterface', 'setCurrentOptionSelected', 'setSelectedOptionString', 'setUndoClicked', 'setClearAllClicked', 'setSnapshotDialog']),
+        ...mapActions(['setShowPickColorInterface', 'setCurrentOptionSelected', 'setSelectedOptionString', 'setUndoClicked', 'setClearAllClicked', 'updateDialogSnapshot']),
         showColorPicker() {
             this.$ga.event("tutoringRoom", "showColorPicker");
             this.setShowPickColorInterface(true);
@@ -266,7 +266,7 @@ export default {
         },
         takeSnapshot(){
             this.$ga.event("tutoringRoom", "takeSnapshot");
-            this.setSnapshotDialog(true);
+            this.updateDialogSnapshot(true);
         }
     },
     computed:{

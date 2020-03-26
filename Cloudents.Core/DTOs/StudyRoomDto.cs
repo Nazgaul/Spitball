@@ -39,6 +39,7 @@ namespace Cloudents.Core.DTOs
         public decimal? CouponValue { get; set; }
 
         public decimal TutorPrice { get; set; }
+        public string Jwt { get; set; }
     };
 
 

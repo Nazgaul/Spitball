@@ -8,13 +8,13 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global")]
     public class University : Entity<Guid>
     {
-        public University(string name, string country) : this()
-        {
-            Name = name.Replace("+", "-");
-            Country = country;
-            RowDetail = new DomainTimeStamp();
-            State = ItemState.Pending;
-        }
+        //public University(string name, string country) : this()
+        //{
+        //    Name = name.Replace("+", "-");
+        //    Country = country;
+        //    RowDetail = new DomainTimeStamp();
+        //    State = ItemState.Pending;
+        //}
 
         protected University()
         {
@@ -31,10 +31,10 @@ namespace Cloudents.Core.Entities
         }
 
 
-        public virtual void Rename(string newName)
-        {
-            Name = newName;
-        }
+        //public virtual void Rename(string newName)
+        //{
+        //    Name = newName;
+        //}
 
         //public virtual Guid Id { get; protected set; }
 

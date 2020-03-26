@@ -35,8 +35,7 @@
 </template>
 
 <script>
-    import { mapActions, mapGetters } from 'vuex';
-    // import studyRoomRecordingService from '../../studyRoomRecordingService';
+    import { mapActions } from 'vuex';
     import {LanguageService} from "../../../../services/language/languageService";
 
     export default {
@@ -52,11 +51,8 @@
                 audio: null,
             };
         },
-        computed:{
-            ...mapGetters(['getLocalVideoTrack']),
-        },
         methods: {
-            ...mapActions(['setSnapshotDialog']),
+            ...mapActions(['updateDialogSnapshot']),
             drawImageToCanvas(){
                 let oldCanvas = document.getElementById("snapshot");
                 if(oldCanvas){
@@ -114,7 +110,7 @@
                 this.closeDialog();                  
             },
             closeDialog() {
-                this.setSnapshotDialog(false);
+                this.updateDialogSnapshot(false);
             },
             async getUserMedia(){
                 try{
@@ -127,19 +123,13 @@
             },
         async mounted(){
             this.audio = new Audio(require('./sound/Shutter.wav'));
-            let videoContainer = document.querySelector("#videoElementContainer");
             let videoElm = document.querySelector('#videoElement');
-            if(this.getLocalVideoTrack && !this.getLocalVideoTrack.isStopped){
-                videoContainer.appendChild(this.getLocalVideoTrack.attach());
+            videoElm.style.display = '';
+            let stream = await this.getUserMedia();
+            if(!!stream){
+                videoElm.srcObject = stream;
             }else{
-                //incase no local video or localvideo disconnected;
-                videoElm.style.display = '';
-                let stream = await this.getUserMedia();
-                if(!!stream){
-                    videoElm.srcObject = stream;
-                }else{
-                    this.noCameraError = true;
-                }
+                this.noCameraError = true;
             }
         }
     };

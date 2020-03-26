@@ -1,6 +1,5 @@
 ﻿using System;
 using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
@@ -49,7 +48,7 @@ namespace Cloudents.Web
     public class Startup
     {
         public const string IntegrationTestEnvironmentName = "Integration-Test";
-        //private const bool UseAzureSignalR = true;
+        private const bool UseAzureSignalR = true;
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
@@ -60,7 +59,6 @@ namespace Cloudents.Web
         private IConfiguration Configuration { get; }
         private IWebHostEnvironment HostingEnvironment { get; }
 
-        public ILifetimeScope AutofacContainer { get; private set; }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to conapp\Cloudents.Web\Startup.csfigure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
 
@@ -88,7 +86,7 @@ namespace Cloudents.Web
             }).AsSelf();
 
             var dbActionStr = Configuration["DbAction"];
-            
+
             if (!Enum.TryParse(dbActionStr, true, out DbConnectionString.DataBaseIntegration dbAction))
             {
                 dbAction = DbConnectionString.DataBaseIntegration.Validate;
@@ -247,10 +245,14 @@ namespace Cloudents.Web
                 o.PayloadSerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter
                 { NamingStrategy = new CamelCaseNamingStrategy() });
             });
-            //if (UseAzureSignalR)
-            //{
-            t.AddAzureSignalR();
-            //}
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse - configuration issue
+            if (UseAzureSignalR)
+            {
+                t.AddAzureSignalR(o =>
+                {
+                    o.AccessTokenLifetime = TimeSpan.FromDays(1);
+                });
+            }
             services.AddResponseCompression();
             services.AddResponseCaching();
             var physicalProvider = HostingEnvironment.ContentRootFileProvider;
@@ -305,7 +307,7 @@ namespace Cloudents.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            AutofacContainer = app.ApplicationServices.GetAutofacRoot();
+            // AutofacContainer = app.ApplicationServices.GetAutofacRoot();
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");
             app.UseForwardedHeaders();
             app.UseClickJacking();
@@ -323,6 +325,7 @@ namespace Cloudents.Web
             {
                 app.UseHsts();
             }
+
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
             var reWriterOptions = new RewriteOptions()
                 .Add(new RemoveTrailingSlash());
@@ -336,7 +339,7 @@ namespace Cloudents.Web
 
             app.UseResponseCaching();
 
-           
+
             app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = ctx =>
@@ -357,6 +360,7 @@ namespace Cloudents.Web
                 // Enable middleWare to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
             }
+
             app.UseRouting();
             //This is for ip
             //https://stackoverflow.com/a/41335701/1235448
@@ -370,7 +374,8 @@ namespace Cloudents.Web
             app.UseRequestLocalization(o =>
             {
                 o.DefaultRequestCulture = new RequestCulture(Language.English);
-                o.SupportedUICultures = o.SupportedCultures = Language.SystemSupportLanguage().Select(s => (CultureInfo)s).ToList();// SupportedCultures;
+                o.SupportedUICultures = o.SupportedCultures =
+                    Language.SystemSupportLanguage().Select(s => (CultureInfo) s).ToList(); // SupportedCultures;
 
                 o.RequestCultureProviders.Clear();
                 o.RequestCultureProviders.Add(new FrymoCultureProvider());
@@ -383,35 +388,31 @@ namespace Cloudents.Web
 
             });
 
-            //if (UseAzureSignalR)
-            //{
-            app.UseAzureSignalR(routes =>
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse - Configuration issue
+            if (UseAzureSignalR)
             {
-                routes.MapHub<SbHub>("/SbHub");
-                routes.MapHub<StudyRoomHub>("/StudyRoomHub");
-            });
-            //}
-            //else
-            //{
 
-            //    //app.UseSignalR(routes =>
-            //    //{
-            //    //    routes.MapHub<SbHub>("/SbHub");
-            //    //    routes.MapHub<StudyRoomHub>("/StudyRoomHub");
-            //    //});
-            //}
+                app.UseAzureSignalR(routes =>
+                {
+                    routes.MapHub<SbHub>("/SbHub");
+                    routes.MapHub<StudyRoomHub>("/StudyRoomHub");
+                });
+            }
+
             app.UseMiddleware<ApplicationInsightMiddleware>();
             app.UseEndpoints(endpoints =>
             {
-                //routes.MapRoute(
-                //    name: SeoTypeString.Question,
-                //    template: "question/{id:long}",
-                //    defaults: new { controller = "Home", action = "Index" }
-                //);
+                // ReSharper disable once ConditionIsAlwaysTrueOrFalse configuration issue
+                if (!UseAzureSignalR)
+                {
+                    endpoints.MapHub<SbHub>("/SbHub");
+                    endpoints.MapHub<StudyRoomHub>("/StudyRoomHub");
+                }
+
                 endpoints.MapControllerRoute(
                     name: SeoTypeString.Static,
                     pattern: "{id}",
-                    defaults: new { controller = "Home", action = "Index" }
+                    defaults: new {controller = "Home", action = "Index"}
                 );
                 endpoints.MapControllerRoute(
                     name: "default",
@@ -419,40 +420,7 @@ namespace Cloudents.Web
                 endpoints.MapFallbackToController("Index", "Home");
 
             });
-            //app.UseMvc(routes =>
-            //{
-            //    routes.MapRoute(
-            //        name: SeoTypeString.Question,
-            //        template: "question/{id:long}",
-            //        defaults: new { controller = "Home", action = "Index" }
-            //    );
 
-            //    //routes.MapRoute(
-            //    //    name: SeoTypeString.TutorList,
-            //    //    template: "tutor-list/{id}",
-            //    //    defaults: new { controller = "Home", action = "Index" }
-            //    //);
-            //    routes.MapRoute(
-            //        name: SeoTypeString.Static,
-            //        template: "{id}",
-            //        defaults: new { controller = "Home", action = "Index" }
-            //    );
-            //    routes.MapRoute(
-            //        name: "default",
-            //        template: "{controller}/{action}/{id?}",
-            //        defaults: new { controller = "Home", action = "Index" });
-            //    routes.MapSpaFallbackRoute(
-            //        name: "spa-fallback",
-            //        defaults: new
-            //        {
-            //            controller = "Home",
-            //            action = "Index"
-            //        });
-            //});
         }
     }
-
-
-
-
 }

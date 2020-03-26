@@ -11,7 +11,6 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
     export default {
         name: "sharedDocument",
         data() {
@@ -25,13 +24,8 @@
             }
         },
         computed: {
-            ...mapGetters(['getStudyRoomData']),
             sharedDocUrl(){
-                if(this.getStudyRoomData && this.getStudyRoomData.onlineDocument){
-                     return this.getStudyRoomData.onlineDocument
-                }else{
-                    return false
-                }
+                return this.$store.getters.getRoomOnlineDocument;
             }
         },
     }
