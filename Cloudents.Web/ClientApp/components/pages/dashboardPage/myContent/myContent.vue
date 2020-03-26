@@ -102,7 +102,6 @@ export default {
          paginationModel:{
             page:1
          },
-         sortedBy:'',
          currentItemIndex:'',
          showMenu:false,
          headers:[
@@ -128,7 +127,7 @@ export default {
       },
    },
    methods: {
-      ...mapActions(['updateContentItems','dashboard_sort']),
+      ...mapActions(['updateContentItems']),
       dynamicRouter(item){
          if(item.url){
             return item.url;
@@ -166,18 +165,6 @@ export default {
       checkIsQuestion(prop){
          return prop === 'Question' || prop === 'Answer';
       },
-      changeSort(sortBy){
-         if(sortBy === 'info') return;
-
-         let sortObj = {
-            listName: 'contentItems',
-            sortBy,
-            sortedBy: this.sortedBy
-         }
-         this.dashboard_sort(sortObj)
-         this.paginationModel.page = 1;
-         this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
-      }
    },
    created() {
       this.updateContentItems()
