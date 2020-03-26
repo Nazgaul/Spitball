@@ -1,5 +1,5 @@
 <template>
-    <v-dialog :value="true" max-width="620px" content-class="registerDialog" persistent>
+    <v-dialog :value="true" max-width="620px" content-class="registerDialog" persistent :fullscreen="$vuetify.breakpoint.xsOnly">
         <div class="text-right pa-4 pb-0">
             <v-icon size="14" color="grey" @click="$store.commit('setRegisterDialog', false)">sbf-close</v-icon>
         </div>
@@ -179,7 +179,6 @@ export default {
 
 .registerDialog {
     background: #fff;
-    .responsive-property(width, 100%, null, 72%);
     &.google {
         .responsive-property(margin-bottom, 0px, null, 20px);
         color: white;
