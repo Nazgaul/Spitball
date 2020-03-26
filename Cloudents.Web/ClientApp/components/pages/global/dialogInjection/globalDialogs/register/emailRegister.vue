@@ -11,7 +11,7 @@
                         height="44"
                         dense
                         :label="labels['fname']"
-                        :rules="[val => val.length > 2 || $t('formErrors_min_chars')]"
+                        :rules="[rules.required, rules.minimumChars]"
                         :error-messages="firstNameError"
                         placeholder=" "
                         autocomplete="nope"
@@ -29,7 +29,7 @@
                         height="44"
                         dense
                         :label="labels['lname']"
-                        :rules="[val => val.length > 2 || $t('formErrors_min_chars')]"
+                        :rules="[rules.required, rules.minimumChars]"
                         :error-messages="lastNameError"
                         placeholder=" "
                         autocomplete="nope"
@@ -46,6 +46,7 @@
                 outlined
                 height="44" 
                 dense
+                :rules="[rules.required, rules.email]"
                 :label="labels['email']"
                 :error-messages="errorMessages.email"
                 placeholder=" "
@@ -65,6 +66,7 @@
                 outlined
                 height="44"
                 dense
+                :rules="[rules.required, rules.minimumCharsPass]"
                 :label="labels['password']"
                 :error-messages="errorMessages.password"
                 placeholder=" "
@@ -78,6 +80,8 @@
 
 <script>
 import { mapGetters } from "vuex";
+
+import { validationRules } from '../../../../../../services/utilities/formValidationRules';
 
 export default {
     data() {
@@ -101,15 +105,27 @@ export default {
                 default: 0,
                 required: false
             },
+            passScoreObj: {
+                0: { name: this.$t("login_password_indication_weak"), className: "bad" },
+                1: { name: this.$t("login_password_indication_weak"), className: "bad" },
+                2: { name: this.$t("login_password_indication_strong"), className: "good" },
+                3: { name: this.$t("login_password_indication_strong"), className: "good" },
+                4: { name: this.$t("login_password_indication_strongest"), className: "best" }
+            },
+            rules: {
+                required: (value) => validationRules.required(value),
+                minimumChars: (value) => validationRules.minimumChars(value, 2),
+                minimumCharsPass: (value) => validationRules.minimumChars(value, 8),
+                email: value => validationRules.email(value)
+            },
         };
     },
     computed: {
         ...mapGetters(["getErrorMessages", "getPassScoreObj"]),
         passHint() {
             if (this.password.length > 0) {
-                let passScoreObj = this.getPassScoreObj;
                 this.changeScore()
-                return `${passScoreObj[this.score].name}`;
+                return `${this.passScoreObj[this.score].name}`;
             }
             return null
         },
@@ -117,9 +133,8 @@ export default {
             return this.getErrorMessages;
         },
         hintClass() {
-            let passScoreObj = this.getPassScoreObj;
             if (this.passHint) {
-                return passScoreObj[this.score].className;
+                return this.passScoreObj[this.score].className;
             }
             return null
         }

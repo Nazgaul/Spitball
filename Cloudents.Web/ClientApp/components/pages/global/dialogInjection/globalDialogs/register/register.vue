@@ -1,7 +1,9 @@
 <template>
-    <v-dialog :value="true" max-width="620px" persistent>
-
-        <v-form @submit.prevent="submit" ref="form" class="form pa-4">
+    <v-dialog :value="true" max-width="620px" content-class="registerDialog" persistent :fullscreen="$vuetify.breakpoint.xsOnly">
+        <div class="text-right pa-4 pb-0">
+            <v-icon size="14" color="grey" @click="$store.commit('setRegisterDialog', false)">sbf-close</v-icon>
+        </div>
+        <v-form @submit.prevent="submit" ref="form" class="form pa-4 pt-0">
 
             <template v-if="isEmailRegister">
                 <v-btn 
@@ -16,49 +18,29 @@
                     <img width="40" src="../../../../authenticationPage/images/G icon@2x.png" />
                     <span class="btnText" v-t="'loginRegister_getstarted_btn_google_signup'"></span>
                 </v-btn>
-
-                <div class="getStartedTerms">
-                    <div class="lineTerms">
-                        <v-checkbox
-                            v-model="isTermsAgree"
-                            @click="checkBoxConfirm"
-                            class="checkboxUserinfo"
-                            :ripple="false"
-                            name="checkBox"
-                            sel="check"
-                            off-icon="sbf-check-box-un"
-                            on-icon="sbf-check-box-done"
-                            id="checkBox"
-                        >
-                        </v-checkbox>
-                        <label for="checkBox">
-                            <span>
-                                <span class="paddingHelper" v-t="'loginRegister_getstarted_terms_i_agree'"></span>
-                                <a :href="isFrymo ? 'https://help.frymo.com/en/article/terms' : 'https://help.spitball.co/en/article/terms-of-service'" class="terms paddingHelper" v-t="'loginRegister_getstarted_terms_terms'"></a>
-                                <span class="paddingHelper" v-t="'loginRegister_getstarted_terms_and'"></span>
-                                <a :href="isFrymo ? 'https://help.frymo.com/en/policies' : 'https://help.spitball.co/en/article/privacy-policy'" class="terms" v-t="'loginRegister_getstarted_terms_privacy'"></a>
-                            </span>
-                        </label>
-                    </div>
-                    <span v-if="isError" class="errorMsg" v-t="'login_please_agree'"></span>
-                </div>
             </template>
             
-            <component :is="component" ref="childComponent" @goStep="goStep"></component>
+            <component :is="component" ref="childComponent" @goStep="goStep" class="mt-5"></component>
 
-            <div class="text-right">
+            <div class="text-left" v-if="isEmailRegister">
+                <div class="mb-4">
+                    <span class="paddingHelper" v-t="'loginRegister_getstarted_terms_i_agree'"></span>
+                    <a :href="isFrymo ? 'https://help.frymo.com/en/article/terms' : 'https://help.spitball.co/en/article/terms-of-service'" class="terms paddingHelper" v-t="'loginRegister_getstarted_terms_terms'"></a>
+                    <span class="paddingHelper" v-t="'loginRegister_getstarted_terms_and'"></span>
+                    <a :href="isFrymo ? 'https://help.frymo.com/en/policies' : 'https://help.spitball.co/en/article/privacy-policy'" class="terms" v-t="'loginRegister_getstarted_terms_privacy'"></a>
+                </div>
+                
                 <v-btn
-                    v-if="isEmailRegister"
                     type="submit"
                     depressed
                     large
-                    :loading="btnLoading"
+                    :loading="btnLoading && !googleLoading"
                     block
                     rounded
                     class="ctnBtn white--text btn-login"
                     color="primary"
                 >
-                    <span>{{$t('loginRegister_setemailpass_btn')}}</span>
+                    <span v-t="'loginRegister_setemailpass_btn'"></span>
                 </v-btn>
             </div>
 
@@ -76,14 +58,15 @@
 </template>
 
 <script>
-import registrationService from '../../../../../../services/registrationService';
+import analyticsService from '../../../../../../services/analytics.service.js';
+import registrationService from '../../../../../../services/registrationService2';
+
 import storeService from "../../../../../../services/store/storeService";
 import loginRegister from "../../../../../../store/loginRegister";
-import analyticsService from '../../../../../../services/analytics.service.js';
-
-import VueRecaptcha from "vue-recaptcha";
 
 import * as routeNames from '../../../../../../routes/routeNames'
+
+import VueRecaptcha from "vue-recaptcha";
 
 const emailRegister = () => import('./emailRegister.vue');
 const setPhone2 = () => import('./setPhone2.vue');
@@ -94,9 +77,7 @@ export default {
     data() {
         return {
             component: 'emailRegister',
-            isTermsAgree: false,
             googleLoading: false,
-            showError: false,
             recaptcha: "",
             siteKey: '6LfyBqwUAAAAAM-inDEzhgI2Cjf2OKH0IZbWPbQA',
             routeNames,
@@ -106,9 +87,6 @@ export default {
         isFrymo() {
             return this.$store.getters.isFrymo;
         },
-        isError(){
-            return !this.isTermsAgree && this.showError
-        },
         btnLoading() {
             return this.$store.getters.getGlobalLoading
         },
@@ -117,6 +95,13 @@ export default {
         }
     },
     methods: {
+        submit() {
+            let form = this.$refs.form
+
+            if(form.validate()) {
+                this.$refs.recaptcha.execute()
+            }
+        },
         onVerify(response) {
             this.recaptcha = response
             this.emailRegister()
@@ -125,19 +110,10 @@ export default {
             this.recaptcha = ''
             this.$refs.recaptcha.reset();
         },
-        submit() {
-            let form = this.$refs.form
 
-            if(form.validate() && this.isTermsAgree) {
-                this.$refs.recaptcha.execute()
-            } else {
-                this.showError = true;
-            }
-        },
         gmailRegister() {
-            if(!this.isTermsAgree) return this.showError = true;
-
             this.googleLoading = true;
+
             let self = this
             registrationService.googleRegistration().then(({data}) => {
                 if (!data.isSignedIn) {
@@ -145,14 +121,12 @@ export default {
                 self.component = 'setPhone2'
             } else {
                 analyticsService.sb_unitedEvent('Login', 'Start Google');
-                self.$store.dispatch('updateLoginStatus',true)
+                self.$store.commit('setRegisterDialog', false) // close register dialog
+                self.$store.dispatch('updateLoginStatus', true) // update user logged and get account user
             }
             }).catch(error => {
-                console.log(error);
                 self.$store.commit('setErrorMessages', { gmail: error.response.data["Google"] ? error.response.data["Google"][0] : '' });
                 self.$appInsights.trackException({exception: new Error(error)});
-            }).finally(() => {
-                self.$store.commit('setRegisterDialog', false)
             })
         },
         emailRegister() {
@@ -173,11 +147,6 @@ export default {
                 console.log(ex);
                 self.$appInsights.trackException({exception: new Error(ex)});
             })
-        },
-        checkBoxConfirm(){
-            if(this.isTermsAgree) return this.showError = false
-
-            this.showError = true
         },
         goStep(step) {
             this.component = step
@@ -208,9 +177,8 @@ export default {
 <style lang="less">
 @import '../../../../../../styles/mixin.less';
 
-.form {
+.registerDialog {
     background: #fff;
-    .responsive-property(width, 100%, null, 72%);
     &.google {
         .responsive-property(margin-bottom, 0px, null, 20px);
         color: white;
@@ -225,55 +193,6 @@ export default {
         }
         .v-btn__content {
             margin: 0;
-        }
-    }
-    .getStartedTerms{
-        margin-bottom: 34px;
-        align-items: center;
-        flex-direction: column;
-        .responsive-property(margin-bottom, 34px, null, 66px);
-        .errorMsg {
-            display: block; 
-            font-weight: normal;
-            color:red; 
-            text-align: center;
-            font-size: 14px;
-            letter-spacing: -0.36px;
-        }
-        .lineTerms {
-            display: flex;
-            align-items: inherit;
-            .checkboxUserinfo {
-                .v-input__slot {
-                    display: flex;
-                    align-items: unset;
-                    margin-bottom: 6px;
-                    .v-icon{
-                        color: @global-blue !important;
-                    }
-                    .v-messages{
-                        display: none;
-                    }
-                }
-            }
-            input{
-                padding-left: 12px;
-                width: 25px;
-                height: 25px;
-            }
-            span {
-                padding: 0;
-                color:#212121;
-                .responsive-property(font-size, 13px, null, 12px);
-                font-weight: initial;
-                &.paddingHelper{
-                    padding-right: 2px;
-                }
-                .terms {
-                    color: @global-blue; 
-                    text-decoration: underline;
-                }
-            }
         }
     }
 }
