@@ -97,7 +97,6 @@ export default {
     methods: {
         submit() {
             let form = this.$refs.form
-
             if(form.validate()) {
                 this.$refs.recaptcha.execute()
             }
@@ -116,6 +115,7 @@ export default {
 
             let self = this
             registrationService.googleRegistration().then(({data}) => {
+                
                 if (!data.isSignedIn) {
                 analyticsService.sb_unitedEvent('Registration', 'Start Google');
                 self.component = 'setPhone2'
@@ -127,6 +127,7 @@ export default {
             }).catch(error => {
                 self.$store.commit('setErrorMessages', { gmail: error.response.data["Google"] ? error.response.data["Google"][0] : '' });
                 self.$appInsights.trackException({exception: new Error(error)});
+                self.$refs.recaptcha.reset();
             })
         },
         emailRegister() {
@@ -143,9 +144,13 @@ export default {
             registrationService.emailRegistration2(emailRegister).then(res => {
                 console.log(res);
                 self.component = 'setPhone2'
-            }).catch(ex => {
-                console.log(ex);
-                self.$appInsights.trackException({exception: new Error(ex)});
+            }).catch(error => {
+                self.$store.commit('setErrorMessages',{
+                    email: error.response.data["Email"] ? error.response.data["Email"][0] : '',
+                    password: error.response.data["Password"] ? error.response.data["Password"][0] : '',
+                });
+                self.$appInsights.trackException({exception: new Error(error)});
+                self.$refs.recaptcha.reset();
             })
         },
         goStep(step) {

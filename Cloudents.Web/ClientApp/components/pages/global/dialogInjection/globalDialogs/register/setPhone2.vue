@@ -101,7 +101,7 @@ export default {
                         self.$emit('goStep', 'verifyPhone');
                     }, function (error){
                         self.$appInsights.trackException({exception: new Error(error)});
-                        self.setErrorMessages({phone: error.response.data["PhoneNumber"] ? error.response.data["PhoneNumber"][0] : '' });
+                        self.$store.commit('setErrorMessages', { phone: error.response.data["PhoneNumber"] ? error.response.data["PhoneNumber"][0] : '' });
                 });
             }
         },
