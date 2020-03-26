@@ -179,10 +179,35 @@ const mutations = {
     },
     setFontSize(state, val){
         state.fontSize = val;
-    }
-};
+    },
+    };
 
 const actions = {
+    dispatchDataTrackJunk({commit,dispatch},data){
+        // TODO: clean it!
+        let parsedData = data.data;
+        if (data.type === 'passData') {
+            whiteBoardService.passData(parsedData.canvasContext, parsedData.dataContext);
+        } else if (data.type === 'undoData') {
+            whiteBoardService.undo(parsedData, data.tab);
+        } else if (data.type === 'clearCanvas') {
+            whiteBoardService.clearData(parsedData, data.tab);
+        } else if(data.type === 'codeEditor_lang'){
+            commit('setLang',parsedData);
+        } else if (data.type === 'updateTab'){
+            dispatch('updateTab', parsedData);
+        } else if(data.type === 'updateTabById'){
+            commit('setTab',parsedData);
+        } 
+        else if(data.type === 'updateActiveNav'){
+            commit('ACTIVE_NAV_TAB_INDICATOR',parsedData);
+        } 
+        else if(data.type === 'codeEditor_code'){
+            commit('setCode',parsedData);
+        }
+
+    },
+
     updateDragData({commit}, val) {
         let dragData = {
             tab: val.tab,

@@ -1,8 +1,8 @@
-import universityService from '../services/universityService';
+// import universityService from '../services/universityService';
 import courseService from '../services/courseService';
 
 const state = {
-    universities: [],
+    // universities: [],
     classes: [],
     schoolName: '',
     selectedClasses: [],
@@ -21,7 +21,7 @@ const state = {
 };
 
 const getters = {
-    getUniversities: state => state.universities,
+    // getUniversities: state => state.universities,
     getSchoolName: state => state.schoolName,
     getClasses: state => state.classes,
     // the sorting is moved to the cmp
@@ -56,12 +56,12 @@ const mutations = {
         state.selectedClasses = index
     },
     
-    setUniversities(state, val) {
-        state.universities = val;
-    },
-    addUniversities(state, val) {
-        state.universities = state.universities.concat(val);
-    },
+    // setUniversities(state, val) {
+    //     state.universities = val;
+    // },
+    // addUniversities(state, val) {
+    //     state.universities = state.universities.concat(val);
+    // },
     addClasses(state, val) {
         state.classes = state.classes.concat(val);
     },
@@ -128,9 +128,9 @@ const actions = {
     clearClassesCahce({commit}){
         commit('clearClassesCahce');
     },
-    syncUniData({commit, dispatch},{courses ,university}) {
+    syncUniData({dispatch},{courses}) {
         dispatch('setLock_selectedClass', true);
-        commit('setSchoolName', university.text);
+        // commit('setSchoolName', university.text); // uni
         dispatch('setSelectedClasses', courses);
         dispatch('assignSelectedClassesCache', courses);
 
@@ -145,48 +145,47 @@ const actions = {
         });
     },
 
-    createUniversity({commit}, uniTocreate) {
-        return universityService.createUni(uniTocreate).then((uni) => {
-            commit('setSchoolName', uni);
-        });
-    },
+    // createUniversity({commit}, uniTocreate) {
+    //     return universityService.createUni(uniTocreate).then((uni) => {
+    //         commit('setSchoolName', uni);
+    //     });
+    // },
     changeReflectChangeToPage({commit}) {
         commit('setReflectChangeToPage');
     },
-    updateSchoolName({commit}, val) {
-        if (!val) return;
+    // updateSchoolName({commit}, val) {
+    //     if (!val) return;
             
-        let uniId = val.id;
-        let uniName = val.name;
-        return universityService.assaignUniversity(uniId).then(() => {
-            commit('setSchoolName', uniName);
-            return true;
-        });
-    },
-    updateUniversities({commit}, val) {
-        if(val || val === ''){
-           return universityService.getUni(val).then(data => {
-                commit('setUniversities', data);
-                return data;
-           }, () => {
-                commit('setUniversities', []);
-            });
-        }
-    },
-    addUniversities({commit}, val){
-        if(val || val === ''){
-            return universityService.getUni(val).then(data => {
-                commit('addUniversities', data);
-                return data;
-            }, () => {
-                commit('setUniversities', []);
-            });
-        }
-    },
-
-    clearUniversityList({commit}) {
-        commit('setUniversities', []);
-    },
+    //     let uniId = val.id;
+    //     let uniName = val.name;
+    //     return universityService.assaignUniversity(uniId).then(() => {
+    //         commit('setSchoolName', uniName);
+    //         return true;
+    //     });
+    // },
+    // updateUniversities({commit}, val) {
+    //     if(val || val === ''){
+    //        return universityService.getUni(val).then(data => {
+    //             commit('setUniversities', data);
+    //             return data;
+    //        }, () => {
+    //             commit('setUniversities', []);
+    //         });
+    //     }
+    // },
+    // addUniversities({commit}, val){
+    //     if(val || val === ''){
+    //         return universityService.getUni(val).then(data => {
+    //             commit('addUniversities', data);
+    //             return data;
+    //         }, () => {
+    //             commit('setUniversities', []);
+    //         });
+    //     }
+    // },
+    // clearUniversityList({commit}) {
+    //     commit('setUniversities', []);
+    // },
     updateClasses({commit}, val) {
      return  courseService.getCourse(val).then(data => {
             commit('setClasses', data);

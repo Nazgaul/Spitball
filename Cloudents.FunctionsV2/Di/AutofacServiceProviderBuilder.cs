@@ -88,8 +88,8 @@ namespace Cloudents.FunctionsV2.Di
 
             builder.RegisterType<Logger>().As<ILogger>();
 
-            builder.RegisterType<UniversityDbToSearchSync>()
-                .Keyed<IDbToSearchSync>(SyncType.University).SingleInstance();
+            //builder.RegisterType<UniversityDbToSearchSync>()
+            //    .Keyed<IDbToSearchSync>(SyncType.University).SingleInstance();
             builder.RegisterType<DocumentDbToSearchSync>()
                 .Keyed<IDbToSearchSync>(SyncType.Document).SingleInstance();
 

@@ -173,7 +173,7 @@
         computed: {
             ...mapGetters(['isFrymo','usersReffered', 'getSchoolName', 'accountUser']),
             isUploadReferral() {
-                return this.referralType === 'uploadReffer';
+                return this.referralType === 'uploadReffer'; //TODO: check if we need this 'uploadReffer'
             },
             userReferralLink() {
             let site = this.isFrymo ? 'frymo.com' : 'spitball.co';

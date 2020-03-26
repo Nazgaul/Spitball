@@ -1,7 +1,7 @@
 <template>
-    <div class="testimonialsSection">
-        <h1 class="tss-subtitle" v-language:inner="'homePage_tss_subtitle'"/>
-        <h1 class="tss-title" v-language:inner="'homePage_tss_title'"/>
+    <div class="testimonialsSection" v-if="reviewsList.length">
+        <h6 class="tss-subtitle">{{$t('homePage_tss_subtitle')}}</h6>
+        <h5 class="tss-title">{{$t('homePage_tss_title')}}</h5>
         <div class="tss-dvider"/>
         <div class="testimonialsCont" :style="{'pointer-events':$vuetify.breakpoint.smAndDown?'':'none'}">
             <sbCarousel :slideStep="1" :overflow="true" :arrows="false">
@@ -43,11 +43,11 @@ export default {
         .tss-subtitle{
             padding-top: 20px;
             font-size: 16px;
-            font-weight: normal;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: normal;
-            letter-spacing: normal;
+            // font-weight: normal;
+            // font-stretch: normal;
+            // font-style: normal;
+            // line-height: normal;
+            // letter-spacing: normal;
             text-align: center;
             color: #43425d;
             padding-bottom: 5px;
@@ -58,10 +58,10 @@ export default {
             }
             font-size: 30px;
             font-weight: bold;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: normal;
-            letter-spacing: normal;
+            // font-stretch: normal;
+            // font-style: normal;
+            // line-height: normal;
+            // letter-spacing: normal;
             text-align: center;
             color: #43425d;
         }

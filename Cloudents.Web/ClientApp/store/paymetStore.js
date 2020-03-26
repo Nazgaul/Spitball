@@ -56,11 +56,14 @@ const actions = {
         } 
     },
     signalR_ReleasePaymeStatus({getters,dispatch,commit}){
-        let isStudyRoom = getters.getStudyRoomData;
+        let isStudyRoom = getters.getRoomIdSession;
         commit('setIsBuyPoints',false)
-        if(!!isStudyRoom){
-            dispatch('releasePaymeStatus_studyRoom');
-            router.push({query:{...router.currentRoute.query,dialog:undefined}})
+        if(isStudyRoom){
+            let isRoomNeedPayment = getters.getRoomIsNeedPayment;
+            if(isRoomNeedPayment){
+                dispatch('updateRoomIsNeedPayment',false)
+                router.push({query:{...router.currentRoute.query,dialog:undefined}})
+            }
         } else{
             dispatch('updateNeedPayment',false);
             router.push({query:{...router.currentRoute.query,dialog:undefined}})

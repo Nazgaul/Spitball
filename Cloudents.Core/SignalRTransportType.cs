@@ -57,9 +57,9 @@ namespace Cloudents.Core
         Logout,
         Toaster,
         OnlineStatus,
-        StartSession,
+       // StartSession,
         PaymentReceived,
-        EnterStudyRoom
+       // EnterStudyRoom
     }
 
     public enum SignalRType

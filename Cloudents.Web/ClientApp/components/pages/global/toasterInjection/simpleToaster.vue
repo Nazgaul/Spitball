@@ -2,10 +2,11 @@
     <v-snackbar
         absolute
         top
-        :timeout="toasterObj.timeout || 3000"
+        @input="onCloseToaster"
+        :timeout="params.timeout || 3000"
         :value="true"
     >
-       {{toasterObj.text}}
+       {{params.text}}
     </v-snackbar>
 </template>
 
@@ -14,10 +15,15 @@
 export default {
     name: '',
     props: {
-        toasterObj: {
-            type: Object,
-            required: true
+        params: {
+            type:Object,
+            required:true
         }
-    }
+    },
+    methods: {
+        onCloseToaster() {
+            this.$store.commit('clearToaster')
+        }
+    },
 }
 </script>
