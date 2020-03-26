@@ -58,13 +58,14 @@
 </template>
 
 <script>
-import analyticsService from '../../../../../../services/analytics.service.js';
 import registrationService from '../../../../../../services/registrationService2';
 
 import storeService from "../../../../../../services/store/storeService";
 import loginRegister from "../../../../../../store/loginRegister";
 
 import * as routeNames from '../../../../../../routes/routeNames'
+
+import authMixin from '../../../../../mixins/authMixin'
 
 import VueRecaptcha from "vue-recaptcha";
 
@@ -74,10 +75,10 @@ const verifyPhone = () => import('./verifyPhone.vue');
 
 export default {
     components: { emailRegister, setPhone2, verifyPhone, VueRecaptcha },
+    mixins: [authMixin],
     data() {
         return {
             component: 'emailRegister',
-            googleLoading: false,
             recaptcha: "",
             siteKey: '6LfyBqwUAAAAAM-inDEzhgI2Cjf2OKH0IZbWPbQA',
             routeNames,
@@ -108,30 +109,6 @@ export default {
         onExpired() {
             this.recaptcha = ''
             this.$refs.recaptcha.reset();
-        },
-
-        gmailRegister() {
-            this.googleLoading = true;
-
-            let self = this
-            registrationService.googleRegistration()
-                .then(({data}) => {
-                    if (!data.isSignedIn) {
-                        analyticsService.sb_unitedEvent('Registration', 'Start Google')
-                        self.component = 'setPhone2'
-                    } else {
-                        analyticsService.sb_unitedEvent('Login', 'Start Google')
-                        self.$store.commit('setRegisterDialog', false)
-                        self.$store.dispatch('updateLoginStatus', true)
-                    }
-                }).catch(error => {
-                    self.$store.commit('setErrorMessages', { 
-                        gmail: error.response.data["Google"] ? error.response.data["Google"][0] : '' 
-                    });
-                    self.$appInsights.trackException({exception: new Error(error)})
-                }).finally(() => {
-                    self.$refs.recaptcha.reset()
-                })
         },
         emailRegister() {
             let childComp = this.$refs.childComponent
@@ -171,17 +148,6 @@ export default {
         let captchaLangCode = global.lang === "he" ? "iw" : "en";
         this.$loadScript(`https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit&hl=${captchaLangCode}`);
     },
-    mounted() {
-        let self = this;
-        this.$nextTick(function () {
-            this.$loadScript("https://apis.google.com/js/client:platform.js").then(()=>{
-                self.$store.dispatch('gapiLoad');
-            }).catch(ex => {
-                console.log(ex);
-                self.$appInsights.trackException({exception: new Error(ex)});
-            })
-        });
-    }
 };
 </script>
 

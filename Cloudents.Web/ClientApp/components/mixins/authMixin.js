@@ -1,10 +1,16 @@
 import { validationRules } from '../../services/utilities/formValidationRules';
-import * as routeNames from '../../routes/routeNames'
+
+import registrationService from '../../services/registrationService2';
+
+import analyticsService from '../../services/analytics.service.js';
+
+import * as routeNames from '../../routes/routeNames';
 
 export default {
 
     data() {
         return {
+            googleLoading: false,
             routeNames,
             labels: {
                 fname: this.$t('loginRegister_setemailpass_first'),
@@ -44,25 +50,56 @@ export default {
         },
         passHint() {
             if (this.password.length > 0) {
-                let passScoreObj = this.getPassScoreObj;
                 this.changeScore()
-                return `${passScoreObj[this.score].name}`;
+                return `${this.passScoreObj[this.score].name}`;
             }
             return null
         },
         hintClass() {
-            let passScoreObj = this.getPassScoreObj;
             if (this.passHint) {
-                return passScoreObj[this.score].className;
+                return this.passScoreObj[this.score].className;
             }
             return null
         }
     },
 
     methods: {
+        gmailRegister() {
+            this.googleLoading = true;
+            let self = this
+            registrationService.googleRegistration()
+                .then(({data}) => {
+                    if (!data.isSignedIn) {
+                        analyticsService.sb_unitedEvent('Registration', 'Start Google')
+                        self.component = 'setPhone2'
+                    } else {
+                        analyticsService.sb_unitedEvent('Login', 'Start Google')
+                        self.$store.commit('setRegisterDialog', false)
+                        self.$store.commit('setLoginDialog', false)
+                        self.$store.dispatch('updateLoginStatus', true)
+                    }
+                }).catch(error => {
+                    self.$store.commit('setErrorMessages', { 
+                        gmail: error.response.data["Google"] ? error.response.data["Google"][0] : '' 
+                    });
+                    self.$appInsights.trackException({exception: new Error(error)})
+                    self.$refs.recaptcha.reset()
+                })
+        },
         changeScore() {
             this.score = global.zxcvbn(this.password).score;
         }
+    },
+
+    mounted() {
+        let self = this;
+        this.$nextTick(function () {
+            this.$loadScript("https://apis.google.com/js/client:platform.js").then(()=>{
+                self.$store.dispatch('gapiLoad');
+            }).catch(ex => {
+                self.$appInsights.trackException({exception: new Error(ex)});
+            })
+        });
     }
 
 }
