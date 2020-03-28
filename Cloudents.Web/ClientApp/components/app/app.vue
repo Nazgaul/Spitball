@@ -56,7 +56,7 @@
           ></referral-dialog>
         </sb-dialog>
 
-        <auth />
+        <auth /> 
 
       <mobile-footer v-if="showMobileFooter" />
     </v-content>
