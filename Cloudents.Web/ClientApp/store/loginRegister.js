@@ -85,9 +85,9 @@ const mutations = {
     setGender(state, gender) {
         state.gender = gender;
     },
-    setGlobalLoading(state, value) {
-        state.globalLoading = value;
-    },
+    // setGlobalLoading(state, value) {
+    //     state.globalLoading = value;
+    // },
     setErrorMessages(state, errorMessagesObj) {
         state.errorMessage.gmail = (errorMessagesObj.gmail) ? errorMessagesObj.gmail : '';
         state.errorMessage.phone = (errorMessagesObj.phone) ? errorMessagesObj.phone : '';
@@ -115,7 +115,7 @@ const getters = {
     getPhone: state => state.phone,
     getCountryCodesList: () => codesJson.sort((a, b) => a.name.localeCompare(b.name)),
     getLocalCode: state => state.localCode,
-    getGlobalLoading: state => state.globalLoading,
+    // getGlobalLoading: state => state.globalLoading,
     getErrorMessages: state => state.errorMessage,
     getPassScoreObj: state => state.passScoreObj,
     getStudentGrade: state => state.grade,
