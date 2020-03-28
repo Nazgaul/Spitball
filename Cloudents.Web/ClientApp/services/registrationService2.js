@@ -39,28 +39,17 @@ function googleRegistration() {
 
 
 export default {
-    googleRegistration,
-    smsCodeVerification: data => authInstance.post("/sms/verify", data),
-    signIn: logObj => authInstance.post("LogIn", logObj),
-    resendCode: () => authInstance.post("/sms/resend"),
-    voiceConfirmation: () => authInstance.post("/sms/call"),
-    getLocalCode: () => authInstance.get("/sms/code"),
-    forgotPasswordReset: email => authInstance.post("ForgotPassword", {email}),
-    EmailforgotPasswordResend: () => authInstance.post("ForgotPassword/resend"),
-    updatePassword: (password, confirmPassword, id, code) => authInstance.post("ForgotPassword/reset", {id, code, password, confirmPassword}),
-    validateEmail: email => authInstance.get(`LogIn/ValidateEmail?email=${email}`),
-    updateGrade: grade => authInstance.post(`Register/grade`, grade),
-    updateParentStudentName: parentObj => authInstance.post(`Register/childName`, parentObj),
-    updateUserRegisterType: type => authInstance.post('Register/userType', type),
-    emailResend: () => authInstance.post("Register/resend"),
-    // emailRegistration: ({firstName, lastName, email, gender, recaptcha, password, confirmPassword}) => {
-    //     return authInstance.post("Register", {firstName,lastName, email, gender, captcha: recaptcha, password, confirmPassword });
-    // },
-    emailRegistration2: regObj => authInstance.post("Register", regObj),
-    smsRegistration: (code, phoneNumber) => {
-        return authInstance.post("/sms", {
-            "countryCode": code,
-            "phoneNumber": phoneNumber
-        });
-    },
+    googleRegistration, // ok
+    emailLogin: logObj => authInstance.post("/LogIn", logObj), // ok
+    emailRegistration: regObj => authInstance.post("/Register", regObj), // ok
+    resetPassword: email => authInstance.post("/ForgotPassword", email), // ok
+    emailForgotPasswordResend: () => authInstance.post("/ForgotPassword/resend"), // not ok ?? not sure if need it anymore @idan
+    smsRegistration: smsObj => authInstance.post("/sms", smsObj), // ok
+    voiceConfirmation: () => authInstance.post("/sms/call"), // ok
+    smsCodeVerification: data => authInstance.post("/sms/verify", data), // ok
+    updatePassword: (password, confirmPassword, id, code) => authInstance.post("ForgotPassword/reset", {id, code, password}), // not ok // what about change password
+    // emailResend: () => authInstance.post("Register/resend"),
+    // resendCode: () => authInstance.post("/sms/resend"),
+    getLocalCode: () => authInstance.get("/sms/code"), // ok
+    validateEmail: email => authInstance.get(`/LogIn/ValidateEmail`, { params: { email } }), // not ok ?? not sure if need it anymore @idan
 }
