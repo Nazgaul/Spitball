@@ -1,7 +1,15 @@
 const state = {
     referral:false,
     loginDialog: false,
-    registerDialog: false
+    registerDialog:  false,
+    globalLoading: false,
+};
+
+const getters = {
+    getReferralDialog:state => state.referral,
+    getLoginDialog: state => state.loginDialog,
+    getRegisterDialog: state => state.registerDialog,
+    getGlobalLoading: state => state.globalLoading,
 };
 
 const mutations = {
@@ -13,13 +21,10 @@ const mutations = {
     },
     setRegisterDialog(state, val) {
         state.registerDialog = val
+    },
+    setGlobalLoading(state, val) {
+        state.globalLoading = val
     }
-};
-
-const getters = {
-    getReferralDialog:state => state.referral,
-    getLoginDialog: state => state.loginDialog,
-    getRegisterDialog: state => state.registerDialog   
 };
 
 const actions = {
