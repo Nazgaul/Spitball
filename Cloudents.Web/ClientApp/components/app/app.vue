@@ -56,9 +56,8 @@
           ></referral-dialog>
         </sb-dialog>
 
-        <loginNew v-if="getLoginDialog" />
-        <register v-if="getRegisterDialog" />
-        
+        <auth />
+
       <mobile-footer v-if="showMobileFooter" />
     </v-content>
     
@@ -90,9 +89,7 @@ const mobileFooter = () => import("../pages/layouts/mobileFooter/mobileFooter.vu
 const chat = () => import("../chat/chat.vue");
 const tutorRequest = () => import("../tutorRequestNEW/tutorRequest.vue");
 const referralDialog = () => import("../question/helpers/referralDialog/referral-dialog.vue");
-const loginNew = () => import('../pages/global/dialogInjection/globalDialogs/loginNew/loginNew.vue');
-const register = () => import('../pages/global/dialogInjection/globalDialogs/register/register.vue');
-
+const auth = () => import('../pages/global/dialogInjection/globalDialogs/auth/auth.vue');
 export default {
   components: {
     referralDialog,
@@ -103,8 +100,7 @@ export default {
     tutorRequest,
     dialogInjection,
     toasterInjection,
-    loginNew,
-    register
+    auth,
   },
   data() {
     return {
