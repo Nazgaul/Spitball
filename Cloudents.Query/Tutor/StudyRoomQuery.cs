@@ -42,7 +42,7 @@ namespace Cloudents.Query.Tutor
                 //  using var conn = _repository.OpenConnection();
 
                 var studyRoomSessionFuture = _statelessSession.Query<StudyRoomSession>()
-                    .Where(w => w.StudyRoom.Id == query.Id && w.Ended == null)
+                    .Where(w => w.StudyRoom.Id == query.Id && w.Ended == null && w.Created > DateTime.UtcNow.AddHours(-6))
                     .OrderByDescending(o => o.Id).Take(1).ToFutureValue();
 
 
@@ -134,8 +134,12 @@ where sr.id = :Id;");
                 }
                 if (studyRoomSession != null)
                 {
-                    var jwt = _videoProvider.CreateRoomToken(studyRoomSession.SessionId, query.UserId);
-                    result.Jwt = jwt;
+                    var roomAvailable = await _videoProvider.GetRoomAvailableAsync(studyRoomSession.SessionId);
+                    if (roomAvailable)
+                    {
+                        var jwt = _videoProvider.CreateRoomToken(studyRoomSession.SessionId, query.UserId);
+                        result.Jwt = jwt;
+                    }
                 }
                 if (result.CouponType is null)
                 {

@@ -5,13 +5,13 @@ namespace Cloudents.Command.Command
 {
     public class AddPayPalOrderCommand : ICommand
     {
-        public AddPayPalOrderCommand(long userId, string token, Guid sessionId)
+        public AddPayPalOrderCommand(long userId, string payPalOrderId, Guid sessionId)
         {
-            Token = token;
+            PayPalOrderId = payPalOrderId;
             SessionId = sessionId;
             UserId = userId;
         }
-        public string Token { get; }
+        public string PayPalOrderId { get; }
         public long UserId { get; }
         public Guid SessionId { get; }
     }

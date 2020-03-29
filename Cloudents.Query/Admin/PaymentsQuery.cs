@@ -29,28 +29,30 @@ namespace Cloudents.Query.Admin
 
             public async Task<IEnumerable<PaymentDto>> GetAsync(PaymentsQuery query, CancellationToken token)
             {
-                StudyRoomSession studyRoomSessionAlias = null;
-                StudyRoom studyRoomAlias = null;
-                Core.Entities.Tutor tutorAlias = null;
-                StudyRoomUser studyRoomUserAlias = null;
-                User studentAlias = null;
-                User tutorUserAlias = null;
+                StudyRoomSession? studyRoomSessionAlias = null;
+                StudyRoom? studyRoomAlias = null;
+                Core.Entities.Tutor? tutorAlias = null;
+                StudyRoomUser? studyRoomUserAlias = null;
+                User? studentAlias = null;
+                User? tutorUserAlias = null;
 
-                PaymentDto resultDto = null;
+                PaymentDto? resultDto = null;
+
+                
 
                 var res = _session.QueryOver(() => studyRoomSessionAlias)
-                            .JoinAlias(x => x.StudyRoom, () => studyRoomAlias)
-                            .JoinEntityAlias(() => tutorAlias, () => studyRoomAlias.Tutor.Id == tutorAlias.Id)
-                            .JoinEntityAlias(() => studyRoomUserAlias, 
+                        .JoinAlias(x => x.StudyRoom, () => studyRoomAlias)
+                        .JoinEntityAlias(() => tutorAlias, () => studyRoomAlias.Tutor.Id == tutorAlias.Id)
+                        .JoinEntityAlias(() => studyRoomUserAlias, 
                                 () => studyRoomAlias.Id == studyRoomUserAlias.Room.Id &&
                                     tutorAlias.Id != studyRoomUserAlias.User.Id)
                             .JoinEntityAlias(() => studentAlias, () => studyRoomUserAlias.User.Id == studentAlias.Id)
                             .JoinEntityAlias(() => tutorUserAlias, () => tutorUserAlias.Id == tutorAlias.User.Id)
                             .Where(w => w.Receipt == null)
-                            .Where(w => w.Duration.Value > TimeSpan.FromMinutes(10));
+                            .Where(w => w.Duration!.Value > TimeSpan.FromMinutes(10));
                 if (!string.IsNullOrEmpty(query.Country))
                 {
-                    res = res.Where(w => studentAlias.Country == query.Country || tutorUserAlias.Country == query.Country);
+                    res = res.Where(w => tutorUserAlias.Country == query.Country);
                 }
 
                 return await res.SelectList(sl => 
@@ -71,19 +73,11 @@ namespace Cloudents.Query.Admin
                 .Select(s => studentAlias.Id).WithAlias(() => resultDto.UserId)
                 .Select(s => studentAlias.Name).WithAlias(() => resultDto.UserName)
                 .Select(s => s.Created).WithAlias(() => resultDto.Created)
-                .Select(s => s.Duration.Value).WithAlias(() => resultDto.Duration).WithAlias(() => resultDto.Duration)
-                .Select(s => s.RealDuration.Value).WithAlias(() => resultDto.RealDuration).WithAlias(() => resultDto.RealDuration)
-                //.Select(Projections.SqlFunction("COALESCE", NHibernateUtil.TimeSpan
-                //               , Projections.Property<StudyRoomSession>(s => s.RealDuration.Value)
-                //               , Projections.Property<StudyRoomSession>(s => s.Duration.Value))
-                //).WithAlias(() => resultDto.Duration)
-                  .Select(Projections.Conditional(
-                    Restrictions.IsNull(Projections.Property<StudyRoomSession>(s => s.RealDuration)),
-                    Projections.Constant(false),
-                    Projections.Constant(true)
-                    )).WithAlias(() => resultDto.IsRealDurationExitsts)
+                .Select(s => s.Duration.Value).WithAlias(() => resultDto._duration)
+                .Select(s => s.RealDuration).WithAlias(() => resultDto._realDuration)
+              
                 ).TransformUsing(Transformers.AliasToBean<PaymentDto>())
-                    .ListAsync<PaymentDto>();
+                    .ListAsync<PaymentDto>(token);
             }
         }
     }

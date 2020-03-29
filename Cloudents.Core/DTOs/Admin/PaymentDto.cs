@@ -6,29 +6,37 @@ namespace Cloudents.Core.DTOs.Admin
 {
     public class PaymentDto
     {
+        public TimeSpan _duration;
+        public TimeSpan? _realDuration;
+
         [EntityBind(nameof(StudyRoomSession.Id))]
-        public Guid StudyRoomSessionId { get; set; }
+        public Guid StudyRoomSessionId { get; set; } //
         [EntityBind(nameof(Tutor.Price))]
-        public decimal Price { get; set; }
+        public decimal Price { get; set; } //
 
         [EntityBind(nameof(Tutor.SellerKey))]
-        public bool IsSellerKeyExists { get; set; }
+        public bool IsSellerKeyExists { get; set; } //
         [EntityBind(nameof(Tutor.Id))]
-        public long TutorId { get; set; }
+        public long TutorId { get; set; } //
         [EntityBind(nameof(User.Name))]
-        public string TutorName { get; set; }
+        public string TutorName { get; set; } //
         [EntityBind(nameof(User.Id))]
-        public long UserId { get; set; }
+        public long UserId { get; set; } //
         [EntityBind(nameof(User.Name))]
-        public string UserName { get; set; }
+        public string UserName { get; set; } //
         [EntityBind(nameof(StudyRoomSession.Created))]
-        public DateTime Created { get; set; }
-        public TimeSpan Duration { get; set; }
-        public TimeSpan RealDuration { get; set; }
+        public DateTime Created { get; set; } //
+
+        public double Duration => _duration.TotalMinutes;
+
+        public double? RealDuration => _realDuration?.TotalMinutes;
+       
+
         [EntityBind(nameof(User.PaymentExists))]
-        public bool IsPaymentKeyExists { get; set; }
-        public bool IsRealDurationExitsts { get; set; }
-}
+        public bool IsPaymentKeyExists { get; set; } //
+
+        public bool IsRealDurationExists => RealDuration.HasValue; //
+    }
 
     public class PaymentDetailDto
     {

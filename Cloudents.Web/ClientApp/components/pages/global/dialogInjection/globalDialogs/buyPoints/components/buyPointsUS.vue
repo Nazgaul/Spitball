@@ -156,7 +156,7 @@ export default {
   },
   mounted() {
     let self = this;
-    let paypalUrl = `https://www.paypal.com/sdk/js?client-id=${window.paypalClientId}`;
+    let paypalUrl = `https://www.paypal.com/sdk/js?client-id=${window.paypalClientId}&intent=authorize`;
     this.$loadScript(paypalUrl)
         .then(() => {
             window.paypal
