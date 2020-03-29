@@ -3,6 +3,7 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -33,16 +34,16 @@ namespace Cloudents.Command.CommandHandler
                 throw new InvalidOperationException("user is not a tutor");
             }
 
-            var student = await _userRepository.LoadAsync(message.StudentId, token);
-            var usersId = new[] { tutor.Id, student.Id };
+            var students = message.StudentsId.Select(s => _userRepository.Load(s)).ToList();
+            var usersId = message.StudentsId.Union(new[] {tutor.Id}).ToList();
             var chatRoomIdentifier = ChatRoom.BuildChatRoomIdentifier(usersId);
 
             var chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(usersId, token);
             chatRoom.AddTextMessage(tutor, message.TextMessage);
 
             var url = await _googleDocument.CreateOnlineDocAsync(chatRoomIdentifier, token);
-            tutor.AddFollower(student);
-            var studyRoom = new StudyRoom(tutor.Tutor, student, url);
+            tutor.AddFollowers(students);
+            var studyRoom = new StudyRoom(tutor.Tutor, students, url);
             await _studyRoomRepository.AddAsync(studyRoom, token);
             return new CreateStudyRoomCommandResult(studyRoom.Id);
         }

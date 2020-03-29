@@ -1,18 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Cloudents.Command.Command
 {
     public class CreateStudyRoomCommand : ICommand
     {
-        public CreateStudyRoomCommand(long tutorId, long studentId, string textMessage)
+        public CreateStudyRoomCommand(long tutorId, IEnumerable<long> studentsId, string textMessage)
         {
             TutorId = tutorId;
-            StudentId = studentId;
+            StudentsId = studentsId;
             TextMessage = textMessage;
         }
 
         public long TutorId { get; }
-        public long StudentId { get; }
+        public IEnumerable<long> StudentsId { get; }
 
         public string TextMessage { get;  }
     }

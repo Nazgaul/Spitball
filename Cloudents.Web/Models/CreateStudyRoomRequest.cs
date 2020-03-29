@@ -1,7 +1,9 @@
-﻿namespace Cloudents.Web.Models
+﻿using System.Collections.Generic;
+
+namespace Cloudents.Web.Models
 {
     public class CreateStudyRoomRequest
     {
-        public long UserId { get; set; }
+        public IEnumerable<long> UserId { get; set; }
     }
 }

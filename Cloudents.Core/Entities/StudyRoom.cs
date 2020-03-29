@@ -12,15 +12,16 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class StudyRoom : Entity<Guid>, IAggregateRoot
     {
-        public StudyRoom(Tutor tutor, User user, string onlineDocumentUrl)
+        public StudyRoom(Tutor tutor, IEnumerable<User> users, string onlineDocumentUrl)
         {
-            _users = new[]
-            {
-                new StudyRoomUser(tutor.User, this), //this should not be here
-                new StudyRoomUser(user, this)
-            };
+            _users =  users.Union(new[] {tutor.User}).Select(s => new StudyRoomUser(s, this)).ToList();
+            //_users = new[]
+            //{
+            //    new StudyRoomUser(tutor.User, this), //this should not be here
+            //    new StudyRoomUser(user, this)
+            //};
             Tutor = tutor;
-            Identifier = ChatRoom.BuildChatRoomIdentifier(new[] { tutor.Id, user.Id });
+            Identifier = ChatRoom.BuildChatRoomIdentifier(_users.Select(s=>s.User.Id).ToList());
             OnlineDocumentUrl = onlineDocumentUrl;
             Type = StudyRoomType.PeerToPeer;
             DateTime = new DomainTimeStamp();
