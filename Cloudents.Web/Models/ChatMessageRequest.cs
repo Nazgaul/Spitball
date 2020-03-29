@@ -6,7 +6,6 @@ namespace Cloudents.Web.Models
 {
     public class ChatMessageRequest
     {
-        //public Guid? ChatId { get; set; }
 
         [Required, JsonConverter(typeof(StringHtmlEncoderConverter))]
         public string Message { get; set; }
