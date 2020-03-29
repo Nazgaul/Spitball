@@ -71,7 +71,7 @@ namespace Cloudents.Web.Api
             try
             {
 
-                var command = new CreateStudyRoomCommand(tutorId, model.UserId, _localizer["StudyRoomCreatedChatMessage"]);
+                var command = new CreateStudyRoomCommand(tutorId, model.UserId, _localizer["StudyRoomCreatedChatMessage"], model.Name);
                 var result = await _commandBus.DispatchAsync<CreateStudyRoomCommand, CreateStudyRoomCommandResult>(command, token);
                 return Ok(result);
             }
@@ -143,20 +143,16 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Get study rooms data of user - used in study room url
         /// </summary>
-        /// <param name="urlBuilder"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<UserStudyRoomDto>> GetUserLobbyStudyRooms([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
+        public async Task<IEnumerable<UserStudyRoomDto>> GetUserStudyRoomsAsync(
+             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserStudyRoomQuery(userId);
-            var res = await _queryBus.QueryAsync(query, token);
-            return res.Select(item =>
-            {
-                item.Image = urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
-                return item;
-            });
+            return await _queryBus.QueryAsync(query, token);
+          
         }
 
 

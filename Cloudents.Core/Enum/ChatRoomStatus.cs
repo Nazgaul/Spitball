@@ -109,10 +109,5 @@ namespace Cloudents.Core.Enum
     }
 
 
-    public enum StudyRoomMediaRegion
-    {
-        UsaEast,
-        Germany,
-        India
-    }
+   
 }

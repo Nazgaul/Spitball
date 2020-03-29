@@ -132,7 +132,7 @@ namespace Cloudents.Infrastructure.Mail
                  statusCallbackMethod: HttpMethod.Post,
                  recordParticipantsOnConnect: needRecord,
                  mediaRegion: mediaRegion
-                 );
+            );
 
 
         }

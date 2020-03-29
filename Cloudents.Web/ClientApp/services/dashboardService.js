@@ -53,10 +53,12 @@ const Item = {
       this.duration = buildSessionDuration(objInit.totalMinutes)
    },
    StudyRoom:function(objInit){
-      this.online = objInit.online;
+     // this.online = objInit.online;
       this.id = objInit.id;
       this.conversationId = objInit.conversationId;
       this.lastSession = objInit.lastSession;
+      this.name = objInit.name;
+      this.date = objInit.DateTime;
    },
    BuyPoints: function(objInit){
       this.price = objInit.price;
@@ -81,10 +83,8 @@ const Item = {
    }
 };
 function StudyRoomItem(objInit){
-   return Object.assign(
-      new Item.User(objInit),
-      new Item.StudyRoom(objInit)
-   );
+   return new Item.StudyRoom(objInit);
+   
 }
 function ContentItem(objInit){
    return Object.assign(
@@ -130,9 +130,7 @@ function createPurchasesItems({data}) {
    return data.map(item=> new PurchasesItem(item));
 }
 function createStudyRoomItems({data}) {
-   let studyRoomItems = [];
-   data.map(item => studyRoomItems.push(new StudyRoomItem(item)));
-   return studyRoomItems;
+  return data.map(item => new StudyRoomItem(item));
 }
 function createFollowersItems({data}) {
    let followersItems = [];
