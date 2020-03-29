@@ -212,6 +212,7 @@ namespace Cloudents.Core.Entities
         private readonly ICollection<UserPayPalToken> _userTokens = new List<UserPayPalToken>();
 
 
+        public virtual DateTime? FinishRegistrationDate { get; set; }
 
         public virtual IEnumerable<UserPayPalToken> UserTokens => _userTokens;
 
@@ -371,7 +372,8 @@ namespace Cloudents.Core.Entities
 
         public virtual void FinishRegistration()
         {
-            MakeTransaction(AwardMoneyTransaction.FinishRegistration(this));
+            FinishRegistrationDate = DateTime.UtcNow;
+            //MakeTransaction(AwardMoneyTransaction.FinishRegistration(this));
         }
 
         public virtual void ConfirmPhoneNumber()

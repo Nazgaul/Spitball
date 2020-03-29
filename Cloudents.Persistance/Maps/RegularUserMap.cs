@@ -40,6 +40,7 @@ namespace Cloudents.Persistence.Maps
 
             Map(x => x.Online);
             Map(x => x.LastOnline);
+            Map(x => x.FinishRegistrationDate).Column("FinishRegistration");
 
             Map(x => x.FirstName);
             Map(x => x.LastName);

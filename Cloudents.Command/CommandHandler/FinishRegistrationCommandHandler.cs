@@ -21,11 +21,11 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(FinishRegistrationCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.Id, token);
-            if (user.Transactions.TransactionsReadOnly.Any(f =>
-                f.Action == TransactionActionType.SignUp))
-            {
-                return;
-            }
+            //if (user.Transactions.TransactionsReadOnly.Any(f =>
+            //    f.Action == TransactionActionType.SignUp))
+            //{
+            //    return;
+            //}
             user.FinishRegistration();
             await _userRepository.UpdateAsync(user, token);
         }

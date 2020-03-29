@@ -58,9 +58,7 @@ namespace Cloudents.Query.Admin
                     Balance = s.Transactions.Balance,
                     IsActive = s.LockoutEnd == null || s.LockoutEnd < DateTime.UtcNow,
                     WasSuspended = s.LockoutEnd != null,
-                    Joined = _session.Query<AwardMoneyTransaction>()
-                        .Where(w => w.Action == TransactionActionType.SignUp && w.User.Id == s.Id).Select(s2 => s2.Created).FirstOrDefault()
-                        ,
+                    Joined = s.FinishRegistrationDate,
                     PhoneNumberConfirmed = s.PhoneNumberConfirmed,
                     EmailConfirmed = s.EmailConfirmed,
                     LastOnline = s.LastOnline,
@@ -71,44 +69,7 @@ namespace Cloudents.Query.Admin
                     CalendarExists = _session.Query<GoogleTokens>().Any(w => w.Id == s.Id.ToString()),
                     UserType = s.UserType2
                 }).SingleOrDefaultAsync(token);
-                //                string sql = @"select U.Id, U.Name, Email, PhoneNumberHash as PhoneNumber, Un.Name as University, U.Country, U.Score, 
-                //		(select count(1) from sb.[Transaction] T where  U.Id = T.[User_id] and T.[Action] = 'ReferringUser')  as ReferredCount,
-                //		U.Balance, 
-                //	        case when U.LockOutEnd is null or U.LockOutEnd < getUtcDate() then 1
-                //	        else 0 end as IsActive,
-                //			case when U.LockoutEnd is null then 0
-                //			else 1 end as WasSuspended,
-                //			(select min(Created) from sb.[Transaction] where [Action] = 'SignUp' and User_id = U.Id) as Joined,
-                //			U.PhoneNumberConfirmed,
-                //			U.EmailConfirmed,
-                //            U.LastOnline,
-                //            U.LockoutReason,
-                //t.state as TutorState,
-                //case when U.PaymentExists is null or U.PaymentExists = 0 then 0 else 1 end as PaymentExists
-
-                //                        from sb.[User] U
-                //                        left join sb.University Un
-                //	                        on U.UniversityId2 = Un.Id
-                //						left join sb.Tutor T
-                //							on U.Id = T.Id
-                //                        where (U.Id = @Id or U.Email = @Email or U.PhoneNumberHash = @Email)";
-
-                //                if (!string.IsNullOrEmpty(query.Country))
-                //                {
-                //                    sql += " and u.Country = @Country;";
-                //                }
-                //                using (var connection = _dapper.OpenConnection())
-                //                {
-
-                //                    return await connection.QuerySingleOrDefaultAsync<UserDetailsDto>(sql,
-                //                        new
-                //                        {
-                //                            id = tmpId,
-                //                            email = query.UserId,
-                //                            country = query.Country
-                //                        });
-                //                }
-                //}
+               
             }
         }
     }
