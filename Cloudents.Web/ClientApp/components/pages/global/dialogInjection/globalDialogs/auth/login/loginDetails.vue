@@ -71,6 +71,18 @@ export default {
 			},
         }
     },
+    watch: {
+        password() {
+            if(this.errors.password) {
+                this.errors.password = ''
+            }
+        },
+        email() {
+            if(this.errors.email) {
+                this.errors.email = ''
+            }
+        }
+    },
     computed: {
         currentEmail: {
             get() {
@@ -109,7 +121,6 @@ export default {
 @import '../../../../../../../styles/mixin.less';
 @import '../../../../../../../styles/colors.less';
 .loginDetails {
-
     .loginTitle {
         .responsive-property(font-size, 28px, null, 22px);
         color: @color-login-text-title;
