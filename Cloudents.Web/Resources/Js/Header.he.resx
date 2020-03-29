@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="balance" xml:space="preserve">
-    <value>יתרה: {1} נק'</value>
+    <value>יתרה: {0} נק'</value>
   </data>
   <data name="find_tutors" xml:space="preserve">
     <value>מורים פרטיים</value>
   </data>
   <data name="greets" xml:space="preserve">
-    <value>{1}</value>
+    <value>{0}</value>
   </data>
   <data name="placeholder_search" xml:space="preserve">
     <value>חיפוש</value>
