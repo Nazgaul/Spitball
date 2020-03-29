@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Cloudents.Core.DTOs
+﻿namespace Cloudents.Core.DTOs
 {
     //public class UniversityDto
     //{

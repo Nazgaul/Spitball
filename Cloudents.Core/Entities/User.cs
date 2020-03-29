@@ -221,7 +221,7 @@ namespace Cloudents.Core.Entities
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
 
-        public virtual void UseToken(Tutor tutor)
+        public virtual void UseToken(StudyRoom studyRoom)
         {
             Country country = Country;
 
@@ -230,18 +230,20 @@ namespace Cloudents.Core.Entities
                 return;
             }
 
-            var userToken = UserTokens.FirstOrDefault(w => w.State == UserTokenState.NotUsed);
+            var userToken = UserTokens
+                .FirstOrDefault(w => w.State == UserTokenState.NotUsed && w.StudyRoom.Id == studyRoom.Id);
             if (userToken != null)
             {
                 userToken.ChangeToUsedState();
             }
 
-            UseCoupon(tutor);
+            UseCoupon(studyRoom.Tutor);
         }
 
-        public virtual void AddToken(string userToken, decimal amount, StudyRoom studyRoom)
+        public virtual void AddToken(string orderId, string authorizationId, decimal amount, StudyRoom studyRoom)
         {
-            if (userToken == null) throw new ArgumentNullException(nameof(userToken));
+            if (orderId == null) throw new ArgumentNullException(nameof(orderId));
+            if (authorizationId == null) throw new ArgumentNullException(nameof(authorizationId));
             if (studyRoom == null) throw new ArgumentNullException(nameof(studyRoom));
             Country country = Country;
 
@@ -249,7 +251,7 @@ namespace Cloudents.Core.Entities
             {
                 throw new ArgumentException("Only usa country can use paypal");
             }
-            _userTokens.Add(new UserPayPalToken(userToken, amount, studyRoom));
+            _userTokens.Add(new UserPayPalToken(orderId, authorizationId, amount, studyRoom));
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
 
@@ -271,7 +273,7 @@ namespace Cloudents.Core.Entities
             LastOnline = DateTime.UtcNow;
         }
 
-       
+
 
         public virtual void ChangeName(string firstName, string? lastName)
         {
@@ -380,7 +382,7 @@ namespace Cloudents.Core.Entities
             }
         }
 
-       // public override int Score { get; protected set; }  //=> Transactions.Score;
+        // public override int Score { get; protected set; }  //=> Transactions.Score;
         public override decimal Balance => Transactions.Balance;
 
 
@@ -401,7 +403,7 @@ namespace Cloudents.Core.Entities
             //    (UserType.Teacher, null) => {Extend = new CollegeStudent(this)}
             //    (UserType.Teacher, _) => Extend = new Teacher(this);,
             //}
-          
+
             switch (userType)
             {
                 case UserType.UniversityStudent:
@@ -435,7 +437,7 @@ namespace Cloudents.Core.Entities
             UserType2 = userType;
         }
 
-        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Nhibernate")] 
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Nhibernate")]
         protected internal virtual ICollection<UserComponent> UserComponents { get; set; }
 
         public virtual UserComponent Extend

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,7 +9,6 @@ using Cloudents.FunctionsV2.GhostScript;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Model;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
 

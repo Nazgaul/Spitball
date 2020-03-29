@@ -23,11 +23,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
-using Cloudents.Command.Documents.PurchaseDocument;
-using Cloudents.Core.Exceptions;
-using Cloudents.Core.Storage;
-using Cloudents.Query;
-using Cloudents.Query.Users;
+using Cloudents.Infrastructure;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 
@@ -147,7 +143,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            Country country = "BD";
+            var client = Container.Resolve<PayPalClient>();
+            //await client.AuthorizationOrderAsync("86B81042SW1355019",default);
+            await client.CaptureAuthorizedOrderAsync("09R90651R50418022", 50,default);
             //ResourcesMaintenance.DeleteStuffFromJs();
             //await Convert();
             //var result = await s.GetPaymentAsync("4J34525079381873W", default);

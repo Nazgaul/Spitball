@@ -409,10 +409,12 @@ namespace Cloudents.Web
             {
                 // ReSharper disable once ConditionIsAlwaysTrueOrFalse configuration issue
                 if (!UseAzureSignalR)
+#pragma warning disable 162
                 {
                     endpoints.MapHub<SbHub>("/SbHub");
                     endpoints.MapHub<StudyRoomHub>("/StudyRoomHub");
                 }
+#pragma warning restore 162
 
                 endpoints.MapControllerRoute(
                     name: SeoTypeString.Static,
