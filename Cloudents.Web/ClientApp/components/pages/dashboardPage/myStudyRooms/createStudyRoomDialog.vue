@@ -6,7 +6,7 @@
          <div class="createStudyRoomDialog-list">
             <v-list flat class="list-followers">
                <v-list-item-group>
-                  <v-list-item v-for="(item, index) in myFollowers" :key="index"  @click="selected = item">
+                  <v-list-item v-for="(item, index) in myFollowers" :key="index" @click="addSelectedUser(item)">
                      <template v-slot:default="{}">
                         <v-list-item-avatar>
                            <UserAvatar :size="'34'" :user-name="item.name" :user-id="item.id" :userImageUrl="item.image"/> 
@@ -15,7 +15,7 @@
                            <v-list-item-title>{{item.name}}</v-list-item-title>
                         </v-list-item-content>
                         <v-list-item-action>
-                           <v-checkbox v-model="selected" :value="item" off-icon="sbf-check-box-un" on-icon="sbf-check-box-done"></v-checkbox>
+                           <v-checkbox @click.prevent multiple v-model="selected" :value="item" off-icon="sbf-check-box-un" on-icon="sbf-check-box-done"></v-checkbox>
                         </v-list-item-action>
                      </template>
                   </v-list-item>
@@ -38,15 +38,27 @@ export default {
       return {
          isLoading:false,
          myFollowers:[],
-         selected:'',
+         selected:[],
          showErrorEmpty:false,
          showErrorAlreadyCreated:false,
       }
    },
    methods: {
+      addSelectedUser(user){
+         let idx;
+         let isInList = this.selected.some((u,i)=>{
+            idx = i;
+            return u.userId === user.userId;
+         })
+         if(isInList){
+            this.selected.splice(idx,1);
+         }else{
+            this.selected.push(user)
+         }
+      },
       createStudyRoom(){
          if(!this.isLoading && !this.showErrorAlreadyCreated && !this.showErrorEmpty){
-            if(this.selected){
+            if(this.selected.length){
                this.isLoading = true
                let self = this;
                this.$store.dispatch('updateCreateStudyRoom',this.selected)
