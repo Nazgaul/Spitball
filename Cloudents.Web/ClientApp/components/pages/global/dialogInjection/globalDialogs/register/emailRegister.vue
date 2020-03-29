@@ -118,6 +118,11 @@ export default {
             },
         };
     },
+    watch: {
+        email() {
+            this.$store.commit('setErrorMessages', {})
+        }
+    },
     computed: {
         ...mapGetters(["getErrorMessages", "getPassScoreObj"]),
         passHint() {
