@@ -1,6 +1,6 @@
 <template>
     <v-dialog :value="true" max-width="620px" content-class="authDialog" persistent :fullscreen="$vuetify.breakpoint.xsOnly">
-        <component :is="params.show"></component>
+        <component :is="tempComponent || params.component" @goTo="goTo"></component>
     </v-dialog>
 </template>
 
@@ -16,18 +16,18 @@ export default {
             required: false,
         }
     },
+    data() {
+        return {
+            tempComponent: ''
+        }
+    },
     components: {
         login,
         register
     },
-    computed: {
-        componentState: {
-            get() {
-                return this.component
-            },
-            set(name) {
-                this.$store.commit('setAuthDialogState', name)
-            }
+    methods: {
+        goTo(name) {
+            this.tempComponent = name
         }
     }
 };

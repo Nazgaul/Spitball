@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="registerDialog">
         <v-form @submit.prevent="submit" ref="form" class="registerForm pa-4">  
             <div>
                 <div class="text-right">
@@ -61,7 +61,7 @@
         <div class="getStartedBottom pb-4">    
             <div class="text-center">
                 <span class="needAccount" v-t="'loginRegister_getstarted_signin_text'"></span>
-                <span class="link" v-t="'loginRegister_getstarted_signin_link'" @click="openLoginDialog"></span>
+                <span class="link" v-t="'loginRegister_getstarted_signin_link'" @click="$emit('goTo', 'login')"></span>
             </div>
         </div>
 
@@ -251,7 +251,7 @@ export default {
 <style lang="less">
 @import '../../../../../../../styles/mixin.less';
 
-.authDialog {
+.registerDialog {
     background: #fff;
     .registerForm {
         height: 100%;

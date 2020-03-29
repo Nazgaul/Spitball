@@ -53,7 +53,7 @@
         <div class="getStartedBottom pb-4">    
             <div class="text-center">
                 <span class="needAccount" v-t="'loginRegister_getstarted_signup_text'"></span>
-                <span class="link" v-t="'loginRegister_getstarted_signup_link'" @click="openRegisterDialog"></span>
+                <span class="link" v-t="'loginRegister_getstarted_signup_link'" @click="$emit('goTo', 'register')"></span>
             </div>
         </div>
     </div>
@@ -97,9 +97,6 @@ export default {
         }
     },
     methods: {
-        openRegisterDialog() {
-            this.$store.commit('setToaster', 'register')
-        },
         submit() {
             let formValidate = this.$refs.form.validate()
 

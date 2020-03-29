@@ -2,6 +2,11 @@ import registrationService from '../../../../../../services/registrationService2
 import analyticsService from '../../../../../../services/analytics.service.js';
 import * as routeNames from '../../../../../../routes/routeNames'
 export default {
+    props: {
+        goTo: {
+            type: Function
+        }
+    },
     data() {
         return {
             googleLoading: false,
