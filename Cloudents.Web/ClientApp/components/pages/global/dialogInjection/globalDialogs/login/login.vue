@@ -20,19 +20,6 @@
     </v-dialog>
 </template>
 
-<script>
-export default {
-    methods: {
-        goToRegister(){
-            this.$router.push({name: 'register', query:{returnUrl : this.$route.path}});
-        },
-        goToSignIn(){
-            this.$router.push({name: 'login', query:{returnUrl : this.$route.path}});
-        }
-    },
-}
-</script>
-
 <style lang="less">
 @import "../../../../../../styles/mixin.less";
 
