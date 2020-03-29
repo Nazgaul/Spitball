@@ -1,22 +1,10 @@
 <template>
-    <v-dialog :value="true" max-width="620px" content-class="authDialog" persistent :fullscreen="$vuetify.breakpoint.xsOnly">
-
+    <div>
         <v-form @submit.prevent="submit" ref="form" class="registerForm pa-4">  
             <div>
                 <div class="text-right">
-                    <v-icon size="14" color="" @click="$store.commit('setRegisterDialog', false)">sbf-close</v-icon>
+                    <v-icon size="14" color="" @click="$store.commit('setToaster', '')">sbf-close</v-icon>
                 </div>
-
-                <component 
-                    :is="component"
-                    ref="childComponent"
-                    class=""
-                    :errors="errors"
-                    :phone="phoneNumber"
-                    :code="localCode"
-                    @goStep="goStep"
-                >
-                </component>
 
                 <template v-if="isEmailRegister">
                     <v-btn 
@@ -32,6 +20,18 @@
                         <span class="googleBtn" v-t="'loginRegister_getstarted_btn_google_signup'"></span>
                     </v-btn>
                 </template>
+
+                <component 
+                    :is="component"
+                    ref="childComponent"
+                    class=""
+                    :errors="errors"
+                    :phone="phoneNumber"
+                    :code="localCode"
+                    @goStep="goStep"
+                >
+                </component>
+
             </div>
 
             <div class="bottom mt-8">
@@ -56,7 +56,6 @@
                     <span v-t="'loginRegister_setemailpass_btn'"></span>
                 </v-btn>
             </div>
-
         </v-form>
 
         <div class="getStartedBottom pb-4">    
@@ -74,7 +73,7 @@
             @verify="onVerify"
             @expired="onExpired()"
         /> 
-    </v-dialog>
+    </div>
 </template>
 
 <script>
@@ -125,8 +124,7 @@ export default {
     },
     methods: {
         openLoginDialog() {
-            this.$store.commit('setRegisterDialog', false)
-            this.$store.commit('setLoginDialog', true)
+            this.$store.commit('setToaster', 'login')
         },
         submit() {
             let formValidate = this.$refs.form.validate()
@@ -231,7 +229,7 @@ export default {
                         analyticsService.sb_unitedEvent('Registration', 'User Id', userId.data.id);
                     }
 
-					commit('setRegisterDialog', false)
+					commit('setToaster', '')
 					commit('changeLoginStatus', true)
 					dispatch('userStatus');
 				}).catch(error => {

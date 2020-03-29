@@ -1,21 +1,11 @@
 <template>
-    <v-dialog :value="true" max-width="620px" content-class="loginDialog" persistent :fullscreen="$vuetify.breakpoint.xsOnly">
-
+    <div class="loginDialog">
         <v-form class="loginForm pa-4" @submit.prevent="submit" ref="form">
 
             <div class="top">
                 <div class="text-right">
-                    <v-icon size="14" color="" @click="$store.commit('setLoginDialog', false)">sbf-close</v-icon>
+                    <v-icon size="14" color="" @click="$store.commit('setToaster', '')">sbf-close</v-icon>
                 </div>
-
-                <component
-                    ref="childComponent"
-                    :is="component"
-                    :email="email"
-                    :errors="errors"
-                    @updateEmail="updateEmail"
-                >
-                </component>
 
                 <v-btn
                     v-if="isLoginDetails"
@@ -31,6 +21,16 @@
                     <img width="40" src="../../../../../authenticationPage/images/G icon@2x.png" />
                     <span v-t="'loginRegister_getstarted_btn_google_signin'"></span>
                 </v-btn>
+
+                <component
+                    ref="childComponent"
+                    :is="component"
+                    :email="email"
+                    :errors="errors"
+                    @updateEmail="updateEmail"
+                >
+                </component>
+
             </div>
 
             <div class="bottom text-center mt-6">
@@ -49,13 +49,14 @@
                 </v-btn>
             </div>
         </v-form>
+        
         <div class="getStartedBottom pb-4">    
             <div class="text-center">
                 <span class="needAccount" v-t="'loginRegister_getstarted_signup_text'"></span>
                 <span class="link" v-t="'loginRegister_getstarted_signup_link'" @click="openRegisterDialog"></span>
             </div>
         </div>
-    </v-dialog>
+    </div>
 </template>
 
 <script>
@@ -97,8 +98,7 @@ export default {
     },
     methods: {
         openRegisterDialog() {
-            this.$store.commit('setLoginDialog', false)
-            this.$store.commit('setRegisterDialog', true)
+            this.$store.commit('setToaster', 'register')
         },
         submit() {
             let formValidate = this.$refs.form.validate()
@@ -131,7 +131,7 @@ export default {
                     global.country = data.country; // TODO: should we need this? @idan
 
                     analyticsService.sb_unitedEvent('Login', 'Start');
-                    commit('setLoginDialog', false)
+                    commit('setToaster', '')
                     dispatch('updateLoginStatus', true)
                     
                     if(self.$route.path === '/') {
@@ -182,12 +182,12 @@ export default {
             if(this.isLoginDetails) {
                 // this.component = 'forgotPassword'
                 this.$router.push({name: 'forgotPassword', params: { email: this.email }})
-                this.$store.commit('setLoginDialog', false)
+                this.$store.commit('setToaster', '')
                 return
             }
             this.component = 'loginDetails'
         }
-    }
+    },
 };
 </script>
 

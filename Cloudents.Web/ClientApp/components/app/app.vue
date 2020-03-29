@@ -19,7 +19,7 @@
         </div>
 
         <dialogInjection class="dialogInjection" />
-        <toasterInjection class="toasterInjection" />
+        <componentInjection class="componentInjection" />
 
         <sb-dialog
           :isPersistent="true"
@@ -56,8 +56,6 @@
           ></referral-dialog>
         </sb-dialog>
 
-        <auth />
-
       <mobile-footer v-if="showMobileFooter" />
     </v-content>
     
@@ -80,7 +78,7 @@ import { mapGetters, mapActions } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
 
 const dialogInjection = () => import('../pages/global/dialogInjection/dialogInjection.vue');
-const toasterInjection = () => import('../pages/global/toasterInjection/toasterInjection.vue');
+const componentInjection = () => import('../pages/global/toasterInjection/componentInjection.vue');
 
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
 const AddQuestion = () => import("../question/askQuestion/askQuestion.vue");
@@ -89,7 +87,7 @@ const mobileFooter = () => import("../pages/layouts/mobileFooter/mobileFooter.vu
 const chat = () => import("../chat/chat.vue");
 const tutorRequest = () => import("../tutorRequestNEW/tutorRequest.vue");
 const referralDialog = () => import("../question/helpers/referralDialog/referral-dialog.vue");
-const auth = () => import('../pages/global/dialogInjection/globalDialogs/auth/auth.vue');
+
 export default {
   components: {
     referralDialog,
@@ -99,8 +97,7 @@ export default {
     mobileFooter,
     tutorRequest,
     dialogInjection,
-    toasterInjection,
-    auth,
+    componentInjection,
   },
   data() {
     return {

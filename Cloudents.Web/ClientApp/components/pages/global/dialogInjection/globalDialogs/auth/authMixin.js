@@ -30,8 +30,7 @@ export default {
                     }
                     
                     analyticsService.sb_unitedEvent('Login', 'Start Google')
-                    commit('setRegisterDialog', false)
-                    commit('setLoginDialog', false)
+                    commit('setToaster', '')
                     dispatch('updateLoginStatus', true)
                     if(self.$route.path === '/') {
                         this.$router.push({name: this.routeNames.LoginRedirect})

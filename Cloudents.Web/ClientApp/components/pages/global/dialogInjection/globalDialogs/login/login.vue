@@ -12,8 +12,8 @@
                     </div>
                 </div>
                 <div class="btn-container">
-                    <v-btn class="login-btns" @click="$store.commit('setLoginDialog', true)" v-closeDialog v-t="'loginAnswer_login'"></v-btn>
-                    <v-btn class="login-btns" @click="$store.commit('setRegisterDialog', true)" v-closeDialog v-t="'loginAnswer_Sign_Up'"></v-btn>
+                    <v-btn class="login-btns" @click="$store.commit('setToaster', 'login')" v-closeDialog v-t="'loginAnswer_login'"></v-btn>
+                    <v-btn class="login-btns" @click="$store.commit('setToaster', 'register')" v-closeDialog v-t="'loginAnswer_Sign_Up'"></v-btn>
                 </div>
             </div>
         </v-card>

@@ -9,17 +9,22 @@ const simpleErrorToaster = () => import('./simpleErrorToaster.vue')
 const pendingPayment = () => import('./pendingPayment.vue')
 const errorLinkToaster = () => import('./errorLinkToaster.vue')
 
+// auth dialogs
+const auth = () => import('../../global/dialogInjection/globalDialogs/auth/auth.vue')
+
 export default {
     components: {
         simpleToaster,
         simpleErrorToaster,
         pendingPayment,
-        errorLinkToaster
+        errorLinkToaster,
+
+        auth,
     },
     data() {
         return {
             component: '',
-            toasterObj: {
+            componentObj: {
                 linkToaster: {
                     name: "pendingPayment",
                 },
@@ -60,8 +65,20 @@ export default {
                         text: this.$t('studyRoom_toaster_session_start'),
                         timeout: 4000,
                     }                
+                },
+                login: {
+                    name: 'auth',
+                    params: {
+                        show: 'login',
+                        
+                    }
+                },
+                register: {
+                    name: 'auth',
+                    params: {
+                        show: 'register'
+                    }
                 }
-
             }
         }
     },
@@ -77,8 +94,8 @@ export default {
     },
     methods: {
         showComponent(type) {
-            let toaster = this.toasterObj[type] || {component: '', params: ''};
-            this.component = toaster;
+            let componentInject = this.componentObj[type] || {component: '', params: ''};
+            this.component = componentInject;
         }
     }
 }
