@@ -31,7 +31,6 @@ export default {
                 this.component = name
                 return
             }
-            this.component = ''
         }
     },
 };

@@ -48,8 +48,13 @@
                     <span v-t="btnResource"></span>
                 </v-btn>
             </div>
-
         </v-form>
+        <div class="getStartedBottom pb-4">    
+            <div class="text-center">
+                <span class="needAccount" v-t="'loginRegister_getstarted_signup_text'"></span>
+                <span class="link" v-t="'loginRegister_getstarted_signup_link'" @click="openRegisterDialog"></span>
+            </div>
+        </div>
     </v-dialog>
 </template>
 
@@ -91,6 +96,10 @@ export default {
         }
     },
     methods: {
+        openRegisterDialog() {
+            this.$store.commit('setLoginDialog', false)
+            this.$store.commit('setRegisterDialog', true)
+        },
         submit() {
             let formValidate = this.$refs.form.validate()
 
@@ -183,6 +192,7 @@ export default {
 </script>
 
 <style lang="less">
+@import '../../../../../../../styles/mixin.less';
 @import '../../../../../../../styles/colors.less';
 .loginDialog {
     background: #ffffff;
@@ -196,6 +206,16 @@ export default {
             font-size: 14px;
             letter-spacing: -0.37px;
             color: @global-blue;
+        }
+    }
+    .getStartedBottom {
+        .responsive-property(font-size, 16px, null, 14px);
+            .link{    
+                cursor: pointer;  
+                color: @global-blue;
+            }
+        .needAccount {
+            color: @color-login-text-subtitle;
         }
     }
 }

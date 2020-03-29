@@ -57,7 +57,14 @@
                 </v-btn>
             </div>
 
-        </v-form>  
+        </v-form>
+
+        <div class="getStartedBottom pb-4">    
+            <div class="text-center">
+                <span class="needAccount" v-t="'loginRegister_getstarted_signin_text'"></span>
+                <span class="link" v-t="'loginRegister_getstarted_signin_link'" @click="openLoginDialog"></span>
+            </div>
+        </div>
 
         <vue-recaptcha
             size="invisible"
@@ -117,6 +124,10 @@ export default {
         }
     },
     methods: {
+        openLoginDialog() {
+            this.$store.commit('setRegisterDialog', false)
+            this.$store.commit('setLoginDialog', true)
+        },
         submit() {
             let formValidate = this.$refs.form.validate()
             if(formValidate) {
@@ -252,6 +263,16 @@ export default {
 
         .googleBtn {
             margin-bottom: 2px;
+        }
+    }
+    .getStartedBottom {
+        .responsive-property(font-size, 16px, null, 14px);
+            .link{
+                cursor: pointer;  
+                color: @global-blue;
+            }
+        .needAccount {
+            color: @color-login-text-subtitle;
         }
     }
     .captcha {
