@@ -91,7 +91,11 @@
                     this.isLoading = false;
                     this.isLoadingCalendar = false;
                 } else if(this.isSelectCalendar && !this.isSelectHours){
-                    this.goSelectHour()
+                    if(global.country === "IL"){
+                        this.goSelectHour()
+                    }else{
+                       this.$root.$emit('becomeTutorStep', 4); 
+                    }
                 }
             },
             goSelectHour(){
