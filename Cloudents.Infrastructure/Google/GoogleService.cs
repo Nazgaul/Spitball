@@ -26,6 +26,8 @@ using Document = Google.Apis.Docs.v1.Data.Document;
 using User = Cloudents.Core.Entities.User;
 using System.IdentityModel.Tokens.Jwt;
 using Cloudents.Core.Entities;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Cloudents.Infrastructure.Google
 {
@@ -172,7 +174,7 @@ namespace Cloudents.Infrastructure.Google
 
 
 
-        public async Task<IEnumerable<GoogleAppointmentDto>> ReadCalendarEventsAsync(long userId, 
+        public async Task<IEnumerable<GoogleAppointmentDto>> ReadCalendarEventsAsync(long userId,
             IEnumerable<string> calendarsIds,
             DateTime from, DateTime max,
             CancellationToken cancellationToken)
@@ -238,7 +240,7 @@ namespace Cloudents.Infrastructure.Google
                         To = end
                     };
 
-                }); 
+                });
             }
             catch (TokenResponseException e)
             {
@@ -277,7 +279,7 @@ namespace Cloudents.Infrastructure.Google
             {
                 HttpClientInitializer = cred
             });
-            var tutorCalendarEmail = _tokenHandler.ReadJwtToken(tutorToken.Id_token).Payload.SingleOrDefault(w => w.Key == "email");
+            var tutorCalendarEmail = _tokenHandler.ReadJwtToken(tutorToken.IdToken).Payload.SingleOrDefault(w => w.Key == "email");
 
 
             var attendees = new[] { tutor, student }.Select(s => new EventAttendee()
@@ -381,15 +383,15 @@ namespace Cloudents.Infrastructure.Google
         private class GoogleTokensValue
         {
 
-          //  public string Access_token { get; set; }
-          //  public string Token_type { get; set; }
-          //  public string Expires_in { get; set; }
-          //  public string Refresh_token { get; set; }
-          //  public string Scope { get; set; }
-          
-            public string Id_token { get; set; }
-           // public string Issued { get; set; }
-           // public string IssuedUtc { get; set; }
+            //  public string Access_token { get; set; }
+            //  public string Token_type { get; set; }
+            //  public string Expires_in { get; set; }
+            //  public string Refresh_token { get; set; }
+            //  public string Scope { get; set; }
+            [JsonProperty("Id_token")]
+            public string IdToken { get; set; }
+            // public string Issued { get; set; }
+            // public string IssuedUtc { get; set; }
         }
     }
 }

@@ -6,7 +6,6 @@ using Cloudents.Command.Documents.Delete;
 using Cloudents.Command.Documents.PurchaseDocument;
 using Cloudents.Command.Item.Commands.FlagItem;
 using Cloudents.Command.Votes.Commands.AddVoteDocument;
-using Cloudents.Core;
 using Cloudents.Core.DTOs.Documents;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
@@ -31,7 +30,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Wangkanai.Detection;
-using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
 namespace Cloudents.Web.Api
 {

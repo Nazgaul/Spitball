@@ -20,7 +20,7 @@
                         <span><collegeIcon /></span>
                         <span class="flex-grow-1 text-center white--text">{{$t('loginRegister_highSchool')}}</span>
                     </v-btn>
-                    <v-btn class="btn_student" large block color="#4c59ff" depressed height="50" @click="sendRegisterType('UniversityStudent', {name: 'registerUniversity'})">
+                    <v-btn class="btn_student" large block color="#4c59ff" depressed height="50" @click="sendRegisterType('UniversityStudent', {name: 'registerCourseCollege'})">
                         <span><highSchoolIcon /></span>
                         <span class="flex-grow-1 text-center white--text">{{$t('loginRegister_college')}}</span>
                     </v-btn>
