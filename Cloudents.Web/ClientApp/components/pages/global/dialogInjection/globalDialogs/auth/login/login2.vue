@@ -60,13 +60,13 @@ import analyticsService from '../../../../../../../services/analytics.service.js
 import authMixin from '../authMixin'
 
 const loginDetails = () => import('./loginDetails.vue')
-const forgotPassword = () => import('./forgotPassword.vue')
+// const forgotPassword = () => import('./forgotPassword.vue')
 
 export default {
     mixins: [authMixin],
     components: {
         loginDetails,
-        forgotPassword
+        // forgotPassword
     },
     data() {
         return {
@@ -99,9 +99,9 @@ export default {
                     case 'loginDetails':
                         this.login()
                         break;
-                    case 'forgotPassword':
-                        this.forgotPassword()
-                        break;
+                    // case 'forgotPassword':
+                    //     this.forgotPassword()
+                    //     break;
                     default:
                         return                        
                 }
@@ -140,25 +140,25 @@ export default {
                     self.$appInsights.trackException({exception: new Error(error)})
                 })
         },
-        forgotPassword() {
-            let self = this
-            registrationService.resetPassword({email: this.email})
-                .then(() =>{
-                    analyticsService.sb_unitedEvent('Forgot Password', 'Reset email send');
-                    // TODO: what is the next step @idan
-                }).catch(error => {
-                    let { response: { data } } = error
+        // forgotPassword() {
+        //     let self = this
+        //     registrationService.resetPassword({email: this.email})
+        //         .then(() =>{
+        //             analyticsService.sb_unitedEvent('Forgot Password', 'Reset email send');
+        //             // TODO: what is the next step @idan
+        //         }).catch(error => {
+        //             let { response: { data } } = error
 
-                    self.errors.email = data["ForgotPassword"] ? data["ForgotPassword"][0] : data["Email"][0]
-                    // if(data.Password) {
-                    //     self.errors.password = self.$t('loginRegister_error_forgot_password')
-                    // }
-                    // if(data.Email) {
-                    //     self.errors.email = self.$t('loginRegister_error_forgot_email')
-                    // }
-                    self.$appInsights.trackException({exception: new Error(error)})
-                })
-        },
+        //             self.errors.email = data["ForgotPassword"] ? data["ForgotPassword"][0] : data["Email"][0]
+        //             // if(data.Password) {
+        //             //     self.errors.password = self.$t('loginRegister_error_forgot_password')
+        //             // }
+        //             // if(data.Email) {
+        //             //     self.errors.email = self.$t('loginRegister_error_forgot_email')
+        //             // }
+        //             self.$appInsights.trackException({exception: new Error(error)})
+        //         })
+        // },
         updateEmail(email) {
             this.email = email
         },
