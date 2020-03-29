@@ -97,18 +97,22 @@ namespace Cloudents.Infrastructure.Mail
         }
 
 
-        public async Task CreateRoomAsync(string id, Country country,  bool needRecord, Uri callBack, StudyRoomType studyRoomType)
+        public async Task CreateRoomAsync(string id, Country country, 
+            bool needRecord, Uri callBack, StudyRoomType studyRoomType)
         {
             var type = RoomResource.RoomTypeEnum.PeerToPeer;
-            //switch (studyRoomType)
-            //{
-            //    case StudyRoomType.SmallGroup:
-            //        type = RoomResource.RoomTypeEnum.GroupSmall;
-            //        break;
-            //    case StudyRoomType.PeerToPeer:
-            //        type = RoomResource.RoomTypeEnum.PeerToPeer;
-            //        break;
-            //}
+            switch (studyRoomType)
+            {
+                case StudyRoomType.SmallGroup:
+                    type = RoomResource.RoomTypeEnum.GroupSmall;
+                    break;
+                case StudyRoomType.PeerToPeer:
+                    type = RoomResource.RoomTypeEnum.PeerToPeer;
+                    break;
+                case StudyRoomType.GroupRoom:
+                    type = RoomResource.RoomTypeEnum.Group;
+                    break;
+            }
             var mediaRegion = "us1";
             if (country == Country.Israel)
             {
@@ -122,7 +126,7 @@ namespace Cloudents.Infrastructure.Mail
             await RoomResource.CreateAsync(
                  uniqueName: id,
                  enableTurn: true,
-                 maxParticipants: 2,
+                 //maxParticipants: 2,
                  type: type,
                  statusCallback: callBack,
                  statusCallbackMethod: HttpMethod.Post,
