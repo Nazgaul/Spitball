@@ -79,7 +79,6 @@ export default {
 			return this.getErrorMessages
 		},
 		userPhone(){
-			debugger
 			if (this.code) {
 				return `${this.phone} (${this.code}+)`
 			}
