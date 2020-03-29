@@ -1,9 +1,9 @@
 <template>
     <div class="forgotPass text-center">
-        <div class="top mb-6">
+        <!-- <div class="top mb-6">
             <div class="mainTitle mb-4 mb-sm-2" v-t="'loginRegister_forgot_title'"></div>
             <div class="subTitle px-4 px-sm-0" v-t="'loginRegister_forgot_subtitle'"></div>
-        </div>
+        </div> -->
 
         <v-text-field 
             v-model="currentEmail"

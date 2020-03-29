@@ -1,62 +1,62 @@
 <template>
-    <div class="loginDialog">
-        <v-form class="loginForm pa-4" @submit.prevent="submit" ref="form">
+    <v-form class="loginForm pa-4" @submit.prevent="submit" ref="form">
+        <div class="top">
+            <div class="text-right">
+                <v-icon size="14" color="" @click="$store.commit('setToaster', '')">sbf-close</v-icon>
+            </div>
 
-            <div class="top">
-                <div class="text-right">
-                    <v-icon size="14" color="" @click="$store.commit('setToaster', '')">sbf-close</v-icon>
-                </div>
+            <template v-if="isLoginDetails">
+                <div class="loginTitle text-center mb-4"  v-t="'loginRegister_setemail_title'"></div>
 
                 <v-btn
-                    v-if="isLoginDetails"
                     @click="gmailRegister"
                     :loading="googleLoading"
-                    class="white--text"
+                    class="google white--text"
                     sel="gmail"
                     color="#304FFE"
-                    height="40"
                     rounded
                     depressed
                 >
                     <img width="40" src="../../../../../authenticationPage/images/G icon@2x.png" />
-                    <span v-t="'loginRegister_getstarted_btn_google_signin'"></span>
+                    <span class="googleBtnText" v-t="'loginRegister_getstarted_btn_google_signin'"></span>
                 </v-btn>
+            </template>
 
-                <component
-                    ref="childComponent"
-                    :is="component"
-                    :email="email"
-                    :errors="errors"
-                    @updateEmail="updateEmail"
-                >
-                </component>
 
-            </div>
+            <component
+                :is="component"
+                ref="childComponent"
+                class="mt-6"
+                :email="email"
+                :errors="errors"
+                @updateEmail="updateEmail"
+            >
+            </component>
 
-            <div class="bottom text-center mt-6">
-                <span class="helpLinks" @click="linksAction" v-t="remmberForgotLink"></span>
-                <v-btn
-                    type="submit"
-                    depressed
-                    large
-                    :loading="btnLoading && !googleLoading"
-                    block
-                    rounded
-                    class="white--text mt-6"
-                    color="#304FFE"
-                >
-                    <span v-t="btnResource"></span>
-                </v-btn>
-            </div>
-        </v-form>
-        
-        <div class="getStartedBottom pb-4">    
-            <div class="text-center">
-                <span class="needAccount" v-t="'loginRegister_getstarted_signup_text'"></span>
-                <span class="link" v-t="'loginRegister_getstarted_signup_link'" @click="$emit('goTo', 'register')"></span>
+            <div class="getStartedBottom">    
+                <div class="text-center">
+                    <span class="needAccount" v-t="'loginRegister_getstarted_signup_text'"></span>
+                    <span class="link" v-t="'loginRegister_getstarted_signup_link'" @click="$emit('goTo', 'register')"></span>
+                </div>
             </div>
         </div>
-    </div>
+
+        <div class="bottom text-center mt-6">
+            <span class="helpLinks" @click="linksAction" v-t="remmberForgotLink"></span>
+            <v-btn
+                type="submit"
+                depressed
+                large
+                :loading="btnLoading && !googleLoading"
+                block
+                rounded
+                class="white--text mt-6"
+                color="#304FFE"
+            >
+                <span v-t="btnResource"></span>
+            </v-btn>
+        </div>
+    </v-form>
 </template>
 
 <script>
@@ -191,29 +191,38 @@ export default {
 <style lang="less">
 @import '../../../../../../../styles/mixin.less';
 @import '../../../../../../../styles/colors.less';
-.loginDialog {
+
+.loginForm {
     background: #ffffff;
-    .loginForm {
-        height: 100%;
+    height: 100%;
+
+    @media (max-width: @screen-xs) {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        .helpLinks {
+    }
+    .loginTitle {
+        .responsive-property(font-size, 28px, null, 22px);
+        color: @color-login-text-title;
+    }
+    .googleBtnText {
+        margin-bottom: 2px;
+    }
+    .helpLinks {
+        cursor: pointer;
+        font-size: 14px;
+        letter-spacing: -0.37px;
+        color: @global-blue;
+    }
+}
+.getStartedBottom {
+    .responsive-property(font-size, 16px, null, 14px);
+        .link{
             cursor: pointer;
-            font-size: 14px;
-            letter-spacing: -0.37px;
             color: @global-blue;
         }
-    }
-    .getStartedBottom {
-        .responsive-property(font-size, 16px, null, 14px);
-            .link{    
-                cursor: pointer;  
-                color: @global-blue;
-            }
-        .needAccount {
-            color: @color-login-text-subtitle;
-        }
+    .needAccount {
+        color: @color-login-text-subtitle;
     }
 }
 </style>

@@ -7,6 +7,8 @@
                 </div>
 
                 <template v-if="isEmailRegister">
+                    <div class="mainTitle text-center mb-4" v-t="'loginRegister_setemailpass_title'"></div>
+
                     <v-btn 
                         @click="gmailRegister"
                         depressed
@@ -14,23 +16,29 @@
                         rounded
                         sel="gmail"
                         color="#304FFE"
-                        class="white--text mt-4"
+                        class="white--text mb-6"
                     >
                         <img width="40" src="../../../../../authenticationPage/images/G icon@2x.png" />
-                        <span class="googleBtn" v-t="'loginRegister_getstarted_btn_google_signup'"></span>
+                        <span class="googleBtnText" v-t="'loginRegister_getstarted_btn_google_signup'"></span>
                     </v-btn>
                 </template>
 
                 <component 
                     :is="component"
                     ref="childComponent"
-                    class=""
                     :errors="errors"
                     :phone="phoneNumber"
                     :code="localCode"
                     @goStep="goStep"
                 >
                 </component>
+
+                <div class="getStartedBottom" v-if="isEmailRegister">    
+                    <div class="text-center">
+                        <span class="needAccount" v-t="'loginRegister_getstarted_signin_text'"></span>
+                        <span class="link" v-t="'loginRegister_getstarted_signin_link'" @click="$emit('goTo', 'login')"></span>
+                    </div>
+                </div>
 
             </div>
 
@@ -58,12 +66,6 @@
             </div>
         </v-form>
 
-        <div class="getStartedBottom pb-4">    
-            <div class="text-center">
-                <span class="needAccount" v-t="'loginRegister_getstarted_signin_text'"></span>
-                <span class="link" v-t="'loginRegister_getstarted_signin_link'" @click="$emit('goTo', 'login')"></span>
-            </div>
-        </div>
 
         <vue-recaptcha
             size="invisible"
@@ -181,7 +183,6 @@ export default {
 
                     self.errors.email = data["Email"] ? data["Email"][0] : '', // TODO
                     self.errors.password = data["Password"] ? data["Password"][0] : '' // TODO
-                    
                     self.$appInsights.trackException({exception: new Error(error)});
                 }).finally(() => {
                     self.$refs.recaptcha.reset()
@@ -203,7 +204,6 @@ export default {
                         toasterText: self.$t("login_verification_code_sent_to_phone"),
                         showToaster: true,
                     });
-
                     analyticsService.sb_unitedEvent('Registration', 'Phone Submitted');
                     self.component = 'verifyPhone'
                 }).catch(error => {
@@ -212,7 +212,6 @@ export default {
                     // if(data.Phone) self.errors.phone = self.$t('loginRegister_invalid_phone_number')
 
                     self.errors.phone = data["PhoneNumber"] ? data["PhoneNumber"][0] : '' // TODO:
-
                     self.$appInsights.trackException({exception: new Error(error)});
                 })
         },
@@ -253,19 +252,29 @@ export default {
 
 .registerDialog {
     background: #fff;
-    .registerForm {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
 
-        .googleBtn {
+    @media (max-width: @screen-xs) {
+        height: 100%;
+    }
+    .registerForm {
+        height: inherit;
+
+        @media (max-width: @screen-xs) {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .mainTitle {
+            .responsive-property(font-size, 28px, null, 22px);
+            color: @color-login-text-title;
+        }
+        .googleBtnText {
             margin-bottom: 2px;
         }
     }
     .getStartedBottom {
         .responsive-property(font-size, 16px, null, 14px);
-            .link{
+            .link {
                 cursor: pointer;  
                 color: @global-blue;
             }

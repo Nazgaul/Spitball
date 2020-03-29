@@ -1,6 +1,5 @@
 <template>
     <div class="emailRegister text-center">
-        <div class="mainTitle mb-6" v-t="'loginRegister_setemailpass_title'"></div>
         <v-layout wrap class="widther">
             <v-flex xs12 sm6 class="pr-sm-2">
                 <v-text-field
@@ -150,13 +149,13 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../../../../../../styles/mixin.less';
-@import '../../../../../../../styles/colors.less';
+// @import '../../../../../../../styles/mixin.less';
+// @import '../../../../../../../styles/colors.less';
 
-.emailRegister {
-    .mainTitle {
-        .responsive-property(font-size, 28px, null, 22px);
-        color: @color-login-text-title;
-    }
-}
+// .emailRegister {
+//     .mainTitle {
+//         .responsive-property(font-size, 28px, null, 22px);
+//         color: @color-login-text-title;
+//     }
+// }
 </style>
