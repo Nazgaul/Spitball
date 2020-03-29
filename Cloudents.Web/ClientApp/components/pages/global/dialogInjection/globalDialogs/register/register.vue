@@ -23,7 +23,15 @@
                 </v-btn>
             </template>
             
-            <component :is="component" ref="childComponent" @goStep="goStep"></component>
+            <component 
+                :is="component" 
+                ref="childComponent" 
+                :phone="phoneNumber" 
+                :code="localCode" 
+                @goStep="goStep"
+                @updateCodePassword="updateCodePassword"
+            >
+            </component>
 
             <div class="text-left" v-if="isEmailRegister">
                 <div class="mb-4">
@@ -83,6 +91,8 @@ export default {
             googleLoading: false,
             recaptcha: "",
             siteKey: '6LfyBqwUAAAAAM-inDEzhgI2Cjf2OKH0IZbWPbQA',
+            phoneNumber: '',
+            localCode: '',
             routeNames,
         }
     },
@@ -162,6 +172,10 @@ export default {
         },
         goStep(step) {
             this.component = step
+        },
+        updateCodePassword(obj) {
+            this.phoneNumber = obj.phone;
+            this.localCode = obj.code
         }
     },
     beforeDestroy() {

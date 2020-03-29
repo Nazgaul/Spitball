@@ -113,6 +113,7 @@ export default {
                             toasterText: self.$t("login_verification_code_sent_to_phone"),
                             showToaster: true,
                         });
+                        self.$emit('updateCodePassword', { code: self.localCode, phone: self.phoneNumber })
                         self.setErrorMessages({});
                         self.$emit('goStep', 'verifyPhone');
                     }, function (error){
@@ -124,11 +125,7 @@ export default {
         getCode(item){
             return global.isRtl ? `(${item.callingCode}) ${item.name}` : `${item.name} (${item.callingCode})`;
         },
-        setLocalCode(code) {
-            if(code){
-                this.localCode = code
-                return
-            } 
+        setLocalCode() {
             registrationService.getLocalCode().then(({ data }) => {
                 this.localCode = data.code
             }).catch(ex => {

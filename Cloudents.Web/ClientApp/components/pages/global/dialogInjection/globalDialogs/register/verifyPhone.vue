@@ -1,7 +1,7 @@
 <template>
   <v-form class="smsConfirmation" @submit.prevent="verifyPhone" ref="form">
 
-    <div class="top mb-6">
+    <div class="top mb-6 text-center">
       	<p class="smsconfirm_title" v-t="'loginRegister_smsconfirm_title'"></p>
 		<span>
 			<div v-t="'loginRegister_smsconfirm_subtitle'"></div>
@@ -51,6 +51,18 @@ import registrationService from '../../../../../../services/registrationService2
 import analyticsService from '../../../../../../services/analytics.service.js';
 
 export default {
+	props: {
+        phone: {
+            type: String,
+            required: true,
+            default: ''
+		},
+		code: {
+			type: String,
+            required: true,
+            default: ''
+		}
+    },
 	data() {
 		return {
 			smsCode: '',
@@ -67,13 +79,11 @@ export default {
 			return this.getErrorMessages
 		},
 		userPhone(){
-			if (this.getLocalCode) {
-				//todo this can be simplify due the use of bdi
-				return `${this.getPhone} (${this.getLocalCode}+)`
-				// return global.isRtl? `${this.getPhone} (${this.getLocalCode}+)` : `(+${this.getLocalCode}) ${this.getPhone}`
+			debugger
+			if (this.code) {
+				return `${this.phone} (${this.code}+)`
 			}
-			//this can happen when getting the info from the server
-			return this.getPhone;
+			return this.phone;
 		},
 		showError() {
             if(this.getErrorMessages?.code) {
