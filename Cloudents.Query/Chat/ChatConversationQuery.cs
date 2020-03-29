@@ -30,17 +30,16 @@ namespace Cloudents.Query.Chat
 
             public async Task<ChatUserDto> GetAsync(ChatConversationQuery query, CancellationToken token)
             {
-                using (var conn = _dapper.OpenConnection())
-                {
-                    return await conn.QueryFirstOrDefaultAsync<ChatUserDto>(@"
+                using var conn = _dapper.OpenConnection();
+                return await conn.QueryFirstOrDefaultAsync<ChatUserDto>(@"
 Select u.Name,u.Id as UserId,u.ImageName as Image,u.Online,cu.Unread, cr.Identifier as ConversationId, cr.UpdateTime as DateTime
  from sb.ChatUser cu
 join sb.ChatRoom cr on cu.ChatRoomId = cr.Id
 join sb.ChatUser cu2 on cu2.ChatRoomId = cr.Id and cu2.Id <> cu.Id
 join sb.[User] u on cu2.UserId = u.Id
 where cu.UserId = @UserId and cr.Identifier = @Id
-order by cr.UpdateTime desc", new { id = query.Id, query.UserId });
-                }
+order by cr.UpdateTime desc", 
+                    new { id = query.Id, query.UserId });
             }
         }
     }
