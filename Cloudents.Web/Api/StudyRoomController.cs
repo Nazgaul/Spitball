@@ -25,6 +25,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
 {
@@ -36,13 +37,15 @@ namespace Cloudents.Web.Api
 
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
+        private readonly IStringLocalizer<StudyRoomController> _localizer;
         private readonly UserManager<User> _userManager;
 
-        public StudyRoomController(ICommandBus commandBus, UserManager<User> userManager, IQueryBus queryBus)
+        public StudyRoomController(ICommandBus commandBus, UserManager<User> userManager, IQueryBus queryBus, IStringLocalizer<StudyRoomController> localizer)
         {
             _commandBus = commandBus;
             _userManager = userManager;
             _queryBus = queryBus;
+            _localizer = localizer;
         }
 
         /// <summary>
@@ -61,16 +64,20 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var tutorId = _userManager.GetLongUserId(User);
-
+            if (tutorId == model.UserId)
+            {
+                return BadRequest("user cannot invoke itself");
+            }
             try
             {
-                var command = new CreateStudyRoomCommand(tutorId, model.UserId);
-                await _commandBus.DispatchAsync(command, token);
-                return Ok();
+
+                var command = new CreateStudyRoomCommand(tutorId, model.UserId, _localizer["StudyRoomCreatedChatMessage"]);
+                var result = await _commandBus.DispatchAsync<CreateStudyRoomCommand, CreateStudyRoomCommandResult>(command, token);
+                return Ok(result);
             }
             catch (DuplicateRowException)
             {
-                return BadRequest("Already active study room");
+                return Conflict("Already active study room");
             }
             catch (InvalidOperationException e)
             {
@@ -80,10 +87,6 @@ namespace Cloudents.Web.Api
                     ["tutorId"] = tutorId.ToString()
                 });
                 return BadRequest();
-            }
-            catch
-            {
-                return BadRequest("User equals tutor");
             }
         }
 
