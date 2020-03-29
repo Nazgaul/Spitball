@@ -9,7 +9,6 @@ const simpleErrorToaster = () => import('./simpleErrorToaster.vue')
 const pendingPayment = () => import('./pendingPayment.vue')
 const errorLinkToaster = () => import('./errorLinkToaster.vue')
 
-// auth dialogs
 const auth = () => import('../../global/dialogInjection/globalDialogs/auth/auth.vue')
 
 export default {
@@ -18,7 +17,6 @@ export default {
         simpleErrorToaster,
         pendingPayment,
         errorLinkToaster,
-
         auth,
     },
     data() {
@@ -69,14 +67,13 @@ export default {
                 login: {
                     name: 'auth',
                     params: {
-                        show: 'login',
-                        
+                        component: 'login',
                     }
                 },
                 register: {
                     name: 'auth',
                     params: {
-                        show: 'register'
+                        component: 'register'
                     }
                 }
             }
