@@ -1,10 +1,11 @@
 import registrationService from '../../../../../../services/registrationService2';
 import analyticsService from '../../../../../../services/analytics.service.js';
-
+import * as routeNames from '../../../../../../routes/routeNames'
 export default {
     data() {
         return {
             googleLoading: false,
+            routeNames
         };
     },
     computed: {
@@ -32,6 +33,9 @@ export default {
                     commit('setRegisterDialog', false)
                     commit('setLoginDialog', false)
                     dispatch('updateLoginStatus', true)
+                    if(self.$route.path === '/') {
+                        this.$router.push({name: this.routeNames.LoginRedirect})
+                    }
                 }).catch(error => {
                     let { response: { data } } = error
                     // if(data.Google) self.errors.gmail = self.$t('loginRegister_error_gmail')

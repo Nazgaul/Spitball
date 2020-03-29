@@ -124,6 +124,10 @@ export default {
                     analyticsService.sb_unitedEvent('Login', 'Start');
                     commit('setLoginDialog', false)
                     dispatch('updateLoginStatus', true)
+                    
+                    if(self.$route.path === '/') {
+                        this.$router.push({name: this.routeNames.LoginRedirect})
+                    }
                 }).catch(error => {      
                     let { response: { data } } = error
 
@@ -167,7 +171,9 @@ export default {
             this.errors.password = ''
             
             if(this.isLoginDetails) {
-                this.component = 'forgotPassword'
+                // this.component = 'forgotPassword'
+                this.$router.push({name: 'forgotPassword', params: { email: this.email }})
+                this.$store.commit('setLoginDialog', false)
                 return
             }
             this.component = 'loginDetails'
