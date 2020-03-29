@@ -58,7 +58,7 @@ const Item = {
       this.conversationId = objInit.conversationId;
       this.lastSession = objInit.lastSession;
       this.name = objInit.name;
-      this.date = objInit.DateTime;
+      this.date = objInit.dateTime;
    },
    BuyPoints: function(objInit){
       this.price = objInit.price;

@@ -33,9 +33,12 @@
                   :user-name="item.name" >
                </user-avatar>
          </template>  -->
-         <!-- <template v-slot:item.date="{item}">
+         <template v-slot:item.name="{item}">
+            {{item.name}}
+         </template>
+         <template v-slot:item.date="{item}">
             {{ $d(new Date(item.date)) }}
-         </template>-->
+         </template>
          <template v-slot:item.lastSession="{item}">
             <template v-if="item.lastSession">
                {{ $d(new Date(item.lastSession)) }}
@@ -241,8 +244,8 @@ export default {
       border: none !important;
    }
    td:first-child {
-      text-align: center !important;
-      width:1%;
+      // text-align: center !important;
+      // width:1%;
       white-space: nowrap;
    }
    tr:nth-of-type(2n) {

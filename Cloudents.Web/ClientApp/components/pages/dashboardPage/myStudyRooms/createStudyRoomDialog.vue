@@ -3,6 +3,9 @@
       <div class="createStudyRoomDialog">
          <v-icon class="close-dialog" v-text="'sbf-close'" v-closeDialog />
          <div class="createStudyRoomDialog-title pb-4">{{$t('dashboardPage_create_room_title')}}</div>
+         <div>
+            <v-text-field ref="roomName" :rules="[rules.required]" v-model="roomName" height="44" dense outlined label="Room Name" placeholder="enter a room name"/>
+         </div>
          <div class="createStudyRoomDialog-list">
             
             <v-list flat class="list-followers">
@@ -33,6 +36,7 @@
 </template>
 
 <script>
+import {validationRules} from '../../../../services/utilities/formValidationRules.js'
 export default {
    name:'createStudyRoom',
    data() {
@@ -42,6 +46,10 @@ export default {
          selected:[],
          showErrorEmpty:false,
          showErrorAlreadyCreated:false,
+         roomName:'',
+         rules: {
+            required: (value) => validationRules.required(value),
+         },
       }
    },
    methods: {
@@ -58,6 +66,8 @@ export default {
          }
       },
       createStudyRoom(){
+         //    if(this.$refs.roomName.validate()){
+         //    }
          if(!this.isLoading && !this.showErrorAlreadyCreated && !this.showErrorEmpty){
             if(this.selected.length){
                this.isLoading = true
@@ -98,7 +108,7 @@ export default {
    background: white;
    position: relative;
    padding: 10px;
-   height: 450px;
+   height: 500px;
    display: flex;
    flex-direction: column;
    align-items: center;

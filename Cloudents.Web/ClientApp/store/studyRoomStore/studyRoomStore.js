@@ -157,11 +157,11 @@ const actions = {
       commit(studyRoom_SETTERS.ROOM_ACTIVE, false);
       commit(studyRoom_SETTERS.ROOM_RESET)
    },
-   updateCreateStudyRoom({getters,commit},users){
+   updateCreateStudyRoom({getters,commit},{users,roomName}){
       // let userId = user.userId
       let usersIds = users.map(user=> user.userId);
       //TODO pass name
-      return studyRoomService.createRoom('Hi nice name',usersIds).then(({data})=>{
+      return studyRoomService.createRoom(roomName,usersIds).then(({data})=>{
          // let currentTutor = getters.accountUser;
          // analyticsService.sb_unitedEvent('study_room', 'created', `tutorName: ${currentTutor.name} tutorId: ${currentTutor.id}`);
          // let newStudyRoomParams = {
