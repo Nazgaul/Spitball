@@ -2,7 +2,7 @@ import {staticComponents} from './routesUtils.js';
 
 const feedPage = {
     default: () => import('../components/results/feeds/Feeds.vue'),
-    ...staticComponents(['banner', 'header', 'sideMenu'])
+    ...staticComponents(['header', 'sideMenu'])
 };
 export const feedRoutes = [
     {
