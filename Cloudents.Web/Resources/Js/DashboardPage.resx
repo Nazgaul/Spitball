@@ -133,7 +133,7 @@
     <value>Course:</value>
   </data>
   <data name="create_room_created_error" xml:space="preserve">
-    <value>Already active study room</value>
+    <value>Study room with this user already exists</value>
   </data>
   <data name="create_room_create_btn" xml:space="preserve">
     <value>Create study room</value>
