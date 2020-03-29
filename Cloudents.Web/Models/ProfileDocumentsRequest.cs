@@ -22,7 +22,7 @@ namespace Cloudents.Web.Models
         [Required]
         public int Page { get; set; }
         public DocumentType? DocumentType { get; set; }
-        public string Course { get; set; }
+        public string? Course { get; set; }
         [DefaultValue(20)]
         public int PageSize { get; set; } = 20;
     }

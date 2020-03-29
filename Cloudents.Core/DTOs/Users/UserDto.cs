@@ -10,22 +10,18 @@ namespace Cloudents.Core.DTOs.Users
 {
     public class UserDto
     {
-        public UserDto(long id, string name, string image)
-        {
-            Id = id;
-            Name = name;
-            Image = image;
-        }
+        //public UserDto(long id, string name, string image)
+        //{
+        //    Id = id;
+        //    Name = name;
+        //    Image = image;
+        //}
 
-        // ReSharper disable once MemberCanBeProtected.Global need that for mark answer as correct.
-        public UserDto()
-        {
-
-        }
+       
 
         public long Id { get; set; }
         public string Name { get; set; }
-        public string Image { get; set; }
+        public string? Image { get; set; }
     }
 
     public class UserProfileDto

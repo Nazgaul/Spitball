@@ -8,7 +8,5 @@ namespace Cloudents.Web.Models
         [StringLength(6, MinimumLength = 6, ErrorMessage = "StringLength")]
         public string Number { get; set; }
 
-        [Required(ErrorMessage = "Required")]
-        public string FingerPrint { get; set; }
     }
 }

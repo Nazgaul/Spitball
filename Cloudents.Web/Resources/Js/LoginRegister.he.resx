@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="already_used_number" xml:space="preserve">
+    <value>מספר טלפון זה מקושר לכתובת דוא"ל אחרת</value>
+  </data>
   <data name="college" xml:space="preserve">
     <value>מכללות או אוניברסיטאות</value>
   </data>
@@ -215,6 +218,12 @@
   </data>
   <data name="highSchool" xml:space="preserve">
     <value>בתי ספר</value>
+  </data>
+  <data name="invalid_code" xml:space="preserve">
+    <value>קוד אימות לא תקין</value>
+  </data>
+  <data name="invalid_phone" xml:space="preserve">
+    <value>מספר טלפון לא חוקי</value>
   </data>
   <data name="know_better" xml:space="preserve">
     <value>אנחנו רוצים להכיר אותך טוב יותר</value>

@@ -6,9 +6,12 @@ using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
+using System.Net.Http;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Extension;
+using Cloudents.Infrastructure;
 using Cloudents.Web.Models;
 using Microsoft.Extensions.Hosting;
 
@@ -30,20 +33,12 @@ namespace Cloudents.Web.Filters
         private sealed class ValidateRecaptchaImpl : ActionFilterAttribute
         {
             private readonly string _secretKey;
-            private readonly IRestClient _httpClient;
+            private readonly HttpClient _httpClient;
             private readonly IWebHostEnvironment _environment;
 
-            public ValidateRecaptchaImpl(string secretKey, /*IConfiguration configuration,*/ IRestClient httpClient, IWebHostEnvironment environment)
+            public ValidateRecaptchaImpl(string secretKey, /*IConfiguration configuration,*/ HttpClient httpClient, IWebHostEnvironment environment)
             {
-                //if (!string.IsNullOrEmpty(secretKey))
-                //{
                 _secretKey = secretKey;
-                //}
-                //else
-                //{
-                //    _secretKey= configuration["GoogleReCaptcha:Secret"];
-                //}
-
                 _httpClient = httpClient;
                 _environment = environment;
             }
@@ -77,9 +72,14 @@ namespace Cloudents.Web.Filters
                     ["response"] = captcha
                 };
 
-                var result = await _httpClient.GetAsync<RecaptchaResponse>(
-                    new Uri("https://www.google.com/recaptcha/api/siteverify"), nvc,
-                    context.HttpContext.RequestAborted);
+                var uri = new UriBuilder("https://www.google.com/recaptcha/api/siteverify");
+                uri.AddQuery(nvc);
+
+                var result = await _httpClient.GetAsJsonAsync<RecaptchaResponse>(uri.Uri, context.HttpContext.RequestAborted);
+
+                //var result = await _httpClient.GetAsync<RecaptchaResponse>(
+                //    new Uri("https://www.google.com/recaptcha/api/siteverify"), nvc,
+                //    context.HttpContext.RequestAborted);
 
                 if (result == null)
                 {
@@ -95,7 +95,7 @@ namespace Cloudents.Web.Filters
                 await base.OnActionExecutionAsync(context, next);
             }
 
-            private static string ScanObject(ActionExecutingContext context)
+            private static string? ScanObject(ActionExecutingContext context)
             {
                 foreach (var obj in context.ActionArguments.Values)
                 {
@@ -112,7 +112,7 @@ namespace Cloudents.Web.Filters
                         {
                             if (property.GetCustomAttribute(typeof(CaptchaAttribute)) != null)
                             {
-                                return propValue.ToString();
+                                return propValue?.ToString();
                             }
                         }
                         else if (typeof(IEnumerable).IsAssignableFrom(property.PropertyType))

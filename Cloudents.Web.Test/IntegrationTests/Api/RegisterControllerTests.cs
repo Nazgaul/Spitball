@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
+using Cloudents.Web.Models;
+using FluentAssertions;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests.Api
@@ -9,36 +12,37 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
     {
         private readonly System.Net.Http.HttpClient _client;
 
-        private readonly string _swaggerLink = "https://localhost:44345/swagger";
-
-/*
-        private readonly object _cred = new
-        {
-            confirmPassword = "123456789",
-            email = "elad+99@cloudents.com",
-            password = "123456789"
-        };
-*/
-
-        //private UriBuilder _uri = new UriBuilder()
-        //{
-        //    Path = "api/register"
-        //};
-
-
+        private const string _swaggerLink = "https://localhost:44345/swagger";
 
 
         public RegisterControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
+            
             _client.DefaultRequestHeaders.Referrer = new Uri(_swaggerLink);
 
         }
 
+
+
         [Fact]
-        public async Task Post_Login_With_EmailAsync()
+        public async Task PostAsync_DuplicateEmail_BadResult()
         {
-            await _client.LogInAsync();
+            
+            var model = new RegisterRequest
+            {
+                FirstName = "xxx",
+                LastName = "yyy",
+                Email = "ram@cloudents.com", // TODO: not good hard coded
+                Gender = Gender.Female,
+                Password = "123123123",
+                Captcha = "SomeCaptcha"
+            };
+
+            var jsonString = HttpClientExtensions.CreateJsonString(model);
+            var result = await _client.PostAsync("api/register", jsonString);
+            result.StatusCode.Should().Be(400);
+
         }
 
         //[Fact]

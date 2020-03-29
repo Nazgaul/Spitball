@@ -118,7 +118,7 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTuto
         layoutClass: {}
     },
     computed: {
-        ...mapGetters(['accountUser','getTotalUnread','getBannerParams','getUserLoggedInStatus']),
+        ...mapGetters(['accountUser','getTotalUnread','getBannerParams','getUserLoggedInStatus','getUserBalance']),
         loggedIn() {
             return this.getUserLoggedInStatus;
         },
@@ -129,10 +129,10 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTuto
             return this.$vuetify.breakpoint.xsOnly;
         },
         userImageUrl(){
-            return this.loggedIn && this.accountUser.image.length > 1 ? this.accountUser.image : '';
+            return this.loggedIn && this.accountUser?.image.length > 1 ? this.accountUser.image : '';
         },
         userName(){
-            return this.loggedIn && this.accountUser.name ? this.accountUser.name : '';
+            return this.loggedIn && this.accountUser?.name ? this.accountUser.name : '';
         },
         totalUnread(){
             return this.getTotalUnread;
@@ -181,10 +181,6 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTuto
         },       
         startIntercom() {
             intercomService.showDialog();
-        },  
-        userBalance(balance){
-            let balanceFixed = +balance.toFixed()
-            return balanceFixed.toLocaleString(`${global.lang}`)
         },
         changeLanguage() {
         LanguageChange.setUserLanguage(this.languageChoisesAval.id).then(

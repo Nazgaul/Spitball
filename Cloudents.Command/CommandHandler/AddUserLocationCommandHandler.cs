@@ -19,7 +19,7 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(AddUserLocationCommand message, CancellationToken token)
         {
-            var location = new UserLocation(message.User, message.Ip.ToString(), message.Country, message.FingerPrint, message.UserAgent);
+            var location = new UserLocation(message.User, message.Ip.ToString(), message.Country,  message.UserAgent);
 
             await _repository.AddAsync(location, token);
         }

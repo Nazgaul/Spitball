@@ -13,7 +13,7 @@
                 </div>
                 <div class="btn-container">
                     <a  class="login-btns" @click="goToSignIn()" v-language:inner>loginAnswer_login</a>
-                    <a  class="login-btns" @click="goToRegister()" v-language:inner>loginAnswer_Sign_Up</a>
+                    <a  class="login-btns" @click="$store.commit('setRegisterDialog', true)" v-closeDialog v-language:inner>loginAnswer_Sign_Up</a>
                 </div>
             </div>
         </v-card>
