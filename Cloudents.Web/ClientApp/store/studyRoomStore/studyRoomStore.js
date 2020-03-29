@@ -160,7 +160,8 @@ const actions = {
    updateCreateStudyRoom({getters,commit},users){
       // let userId = user.userId
       let usersIds = users.map(user=> user.userId);
-      return studyRoomService.createRoom(usersIds).then(({data})=>{
+      //TODO pass name
+      return studyRoomService.createRoom('Hi nice name',usersIds).then(({data})=>{
          // let currentTutor = getters.accountUser;
          // analyticsService.sb_unitedEvent('study_room', 'created', `tutorName: ${currentTutor.name} tutorId: ${currentTutor.id}`);
          // let newStudyRoomParams = {

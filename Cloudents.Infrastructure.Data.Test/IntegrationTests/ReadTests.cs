@@ -206,7 +206,6 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task UserStudyRoomQuery_Ok()
         {
             var query = new UserStudyRoomQuery(638);
-
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 

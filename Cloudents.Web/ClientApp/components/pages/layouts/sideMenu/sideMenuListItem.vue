@@ -3,7 +3,7 @@
       @click.native.prevent="dashboardProps.showSchoolBlock ? dashboardProps.goTo(item.route) : dashboardProps.openSideMenu()">
       <v-list-item-content> 
          <v-list-item-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker(item.route)}]">
-            <v-icon class="group_list_icon_dash">{{item.icon}}</v-icon>
+            <v-icon size="18" class="group_list_icon_dash">{{item.icon}}</v-icon>
             <span class="group_list_title_dash ml-3">{{item.name}}</span>
          </v-list-item-title>
       </v-list-item-content>

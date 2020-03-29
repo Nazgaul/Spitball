@@ -12,6 +12,7 @@ namespace Cloudents.Persistence.Maps
             References(x => x.Tutor).Not.Nullable();
 
             Map(x => x.Type);
+            Map(x => x.Name).Length(500);
             Component(x => x.DateTime, z => {
                 z.Map(m => m.CreationTime).Column("DateTime");
                 z.Map(m => m.UpdateTime).Column("Updated");

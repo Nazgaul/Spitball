@@ -39,14 +39,14 @@ namespace Cloudents.Command.StudyRooms
             }
             var sessionName = $"{message.StudyRoomId}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
 
-            await _videoProvider.CreateRoomAsync(sessionName,room.Tutor.User.Country,
+            await _videoProvider.CreateRoomAsync(sessionName,
+                room.Tutor.User.Country,
                 message.RecordVideo,
                 message.CallbackUrl,
                 room.Type.GetValueOrDefault(StudyRoomType.PeerToPeer)
                 );
             var session = new StudyRoomSession(room, sessionName);
             room.AddSession(session);
-
             var jwtToken = _videoProvider.CreateRoomToken(sessionName, message.UserId);
             return new CreateStudyRoomSessionCommandResult(jwtToken);
         }
