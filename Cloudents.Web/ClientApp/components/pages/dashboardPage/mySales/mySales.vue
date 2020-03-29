@@ -177,7 +177,7 @@ export default {
             return `${price} ${this.$t('dashboardPage_pts')}`
          }
          if(type === 'TutoringSession' || type === 'BuyPoints'){
-            return `${price} ${this.accountUser.currencySymbol}`
+            return this.$n(price, 'currency')
          }
       },
       formatBalancePts(pts){
