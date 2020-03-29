@@ -3,6 +3,9 @@
         <div class="text-right pa-4 pb-0">
             <v-icon size="14" color="grey" @click="$store.commit('setRegisterDialog', false)">sbf-close</v-icon>
         </div>
+
+        <div v-if="isEmailRegister" class="setemailpass_title mb-4">{{$t('loginRegister_setemailpass_title')}}</div>
+
         <v-form @submit.prevent="submit" ref="form" class="form pa-4 pt-0">
 
             <template v-if="isEmailRegister">
@@ -13,14 +16,14 @@
                     rounded
                     sel="gmail"
                     color="primary"
-                    class="google btn-login"
+                    class="google btn-login mb-4"
                 >
                     <img width="40" src="../../../../authenticationPage/images/G icon@2x.png" />
                     <span class="btnText" v-t="'loginRegister_getstarted_btn_google_signup'"></span>
                 </v-btn>
             </template>
             
-            <component :is="component" ref="childComponent" @goStep="goStep" class="mt-5"></component>
+            <component :is="component" ref="childComponent" @goStep="goStep"></component>
 
             <div class="text-left" v-if="isEmailRegister">
                 <div class="mb-4">
@@ -112,7 +115,7 @@ export default {
 
         gmailRegister() {
             this.googleLoading = true;
-
+            
             let self = this
             registrationService.googleRegistration()
                 .then(({data}) => {
@@ -129,8 +132,6 @@ export default {
                         gmail: error.response.data["Google"] ? error.response.data["Google"][0] : '' 
                     });
                     self.$appInsights.trackException({exception: new Error(error)})
-                }).finally(() => {
-                    self.$refs.recaptcha.reset()
                 })
         },
         emailRegister() {
@@ -190,6 +191,15 @@ export default {
 
 .registerDialog {
     background: #fff;
+    .setemailpass_title {
+        .responsive-property(font-size, 28px, null, 18px);
+        font-weight: 600;
+        text-align: center;
+        color: #43425d;
+        @media (max-width: @screen-xs) {
+        margin-top: 20px;
+        }
+    }
     &.google {
         .responsive-property(margin-bottom, 0px, null, 20px);
         color: white;

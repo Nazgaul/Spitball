@@ -1,7 +1,7 @@
 <template>
   <v-form class="smsConfirmation" @submit.prevent="verifyPhone" ref="form">
 
-    <div class="top">
+    <div class="top mb-6">
       	<p class="smsconfirm_title" v-t="'loginRegister_smsconfirm_title'"></p>
 		<span>
 			<div v-t="'loginRegister_smsconfirm_subtitle'"></div>
@@ -23,6 +23,10 @@
 	></v-text-field>
 
 	<div class="bottom">
+		<div class="actions mb-6">
+			<div class="mb-sm-2 mb-4" @click="phoneCall" v-t="'loginRegister_smsconfirm_call'"></div>
+			<div @click="numberChange" v-t="'loginRegister_smsconfirm_change'"></div>
+		</div>
 		<v-btn 	
 			:loading="getGlobalLoading"
 			type="submit"
@@ -34,10 +38,6 @@
 				<span v-t="'loginRegister_smsconfirm_btn'"></span>
 		</v-btn>
 
-		<div class="actions">
-			<div class="mb-sm-2 mb-4" @click="phoneCall" v-t="'loginRegister_smsconfirm_call'"></div>
-			<div @click="numberChange" v-t="'loginRegister_smsconfirm_change'"></div>
-		</div>
 	</div>
 
   </v-form>
@@ -133,15 +133,15 @@ export default {
     background: #fff;
 	.phoneGapFooterFix();
   	.top {
-		margin-top: 48px;
-	  	display: flex;
-		flex-direction: column;
-		align-items: center;
-		.responsive-property(margin-bottom, 64px, null, 32px);
+		// margin-top: 48px;
+	  	// display: flex;
+		// flex-direction: column;
+		// align-items: center;
+		// .responsive-property(margin-bottom, 64px, null, 32px);
 		.smsconfirm_title {
 			.responsive-property(font-size, 28px, null, 22px);
-			.responsive-property(letter-spacing, -0.51px, null, -0.4px);
-			line-height: 1.54;
+			// .responsive-property(letter-spacing, -0.51px, null, -0.4px);
+			// line-height: 1.54;
 			text-align: center;
 			color: @color-login-text-title;
 			margin-bottom: 8px;
@@ -173,7 +173,6 @@ export default {
 		}
 		.btn-login{
 			.responsive-property(width, 100%, null, @btnDialog);
-			margin: 20px 0 48px;
 			font-size: 14px;
 			font-weight: 600;
 			letter-spacing: -0.42px;

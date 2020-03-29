@@ -158,9 +158,6 @@ export default {
     .setPhoneWrap {
         .setphone_title {
             .responsive-property(font-size, 28px, null, 22px);
-            .responsive-property(letter-spacing, -0.51px, null, -0.4px);
-            .responsive-property(margin-bottom, 56px, null, 38px);
-            .responsive-property(margin-top, null, null, 42px);
             padding: 0;
             text-align: center;
             color: @color-login-text-title;
