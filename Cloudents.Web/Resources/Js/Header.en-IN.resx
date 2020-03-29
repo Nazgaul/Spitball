@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="balance" xml:space="preserve">
-    <value>Balance: {1} Pts</value>
+    <value>Balance: {0} Pts</value>
   </data>
   <data name="find_tutors" xml:space="preserve">
     <value>Find Tutors</value>
   </data>
   <data name="greets" xml:space="preserve">
-    <value>Hi, {1}</value>
+    <value>Hi, {0}</value>
   </data>
   <data name="placeholder_search" xml:space="preserve">
     <value>Search</value>
