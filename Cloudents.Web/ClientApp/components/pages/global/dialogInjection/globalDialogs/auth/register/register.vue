@@ -48,12 +48,12 @@
                     depressed
                     large
                     :loading="btnLoading && !googleLoading"
-                    v-t="'loginRegister_setemailpass_btn'"
                     block
                     rounded
                     class="white--text"
                     color="#304FFE"
                 >
+                    <span v-t="'loginRegister_setemailpass_btn'"></span>
                 </v-btn>
             </div>
 
@@ -167,8 +167,12 @@ export default {
                 }).catch(error => {
                     let { response: { data } } = error
 
-                    if(data.Email) self.errors.email = self.$t('loginRegister_invalid_email')
-                    if(data.Password) self.errors.password = self.$t('loginRegister_invalid_password')
+                    // if(data.Email) self.errors.email = self.$t('loginRegister_invalid_email')
+                    // if(data.Password) self.errors.password = self.$t('loginRegister_invalid_password')
+
+                    self.errors.email = data["Email"] ? data["Email"][0] : '', // TODO
+                    self.errors.password = data["Password"] ? data["Password"][0] : '' // TODO
+                    
                     self.$appInsights.trackException({exception: new Error(error)});
                 }).finally(() => {
                     self.$refs.recaptcha.reset()
@@ -196,7 +200,10 @@ export default {
                 }).catch(error => {
                     let { response: { data } } = error
                     
-                    if(data.Phone) self.errors.phone = self.$t('loginRegister_invalid_phone_number')
+                    // if(data.Phone) self.errors.phone = self.$t('loginRegister_invalid_phone_number')
+
+                    self.errors.phone = data["PhoneNumber"] ? data["PhoneNumber"][0] : '' // TODO:
+
                     self.$appInsights.trackException({exception: new Error(error)});
                 })
         },
@@ -217,9 +224,7 @@ export default {
 					commit('changeLoginStatus', true)
 					dispatch('userStatus');
 				}).catch(error => {
-                    let { response: { data } } = error
-
-                    if(data.Code) self.errors.code = self.$t('loginRegister_invalid_code')
+                    self.errors.code = self.$t('loginRegister_invalid_code')
                     self.$appInsights.trackException({exception: new Error(error)});
                 })
         },

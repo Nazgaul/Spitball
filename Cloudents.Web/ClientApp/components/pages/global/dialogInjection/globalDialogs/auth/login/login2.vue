@@ -21,7 +21,6 @@
                     v-if="isLoginDetails"
                     @click="gmailRegister"
                     :loading="googleLoading"
-                    :disabled="btnLoading"
                     class="white--text"
                     sel="gmail"
                     color="#304FFE"
@@ -40,14 +39,13 @@
                     type="submit"
                     depressed
                     large
-                    v-t="btnResource"
                     :loading="btnLoading && !googleLoading"
-                    :disabled="googleLoading"
                     block
                     rounded
                     class="white--text mt-6"
                     color="#304FFE"
                 >
+                    <span v-t="btnResource"></span>
                 </v-btn>
             </div>
 
@@ -129,13 +127,16 @@ export default {
                 }).catch(error => {      
                     let { response: { data } } = error
 
-                    if(data.Locked) {
-                        self.errors.password = self.$t('loginRegister_error_locked_user')
-                    }
-                    if(data.Wrong) {
-                        self.errors.email = self.$t('loginRegister_error_wrong_password')
-                        self.errors.password = self.$t('loginRegister_error_wrong_password')
-                    }
+                    self.errors.email = data["Password"] ? error.response.data["Password"][0] : '' //TODO:
+                    self.errors.password = data["Password"] ? error.response.data["Password"][0] : '' //TODO:
+
+                    // if(data.Locked) {
+                    //     self.errors.password = self.$t('loginRegister_error_locked_user')
+                    // }
+                    // if(data.Wrong) {
+                    //     self.errors.email = self.$t('loginRegister_error_wrong_password')
+                    //     self.errors.password = self.$t('loginRegister_error_wrong_password')
+                    // }
                     self.$appInsights.trackException({exception: new Error(error)})
                 })
         },
@@ -148,12 +149,13 @@ export default {
                 }).catch(error => {
                     let { response: { data } } = error
 
-                    if(data.Password) {
-                        self.errors.password = self.$t('loginRegister_error_forgot_password')
-                    }
-                    if(data.Email) {
-                        self.errors.email = self.$t('loginRegister_error_forgot_email')
-                    }
+                    self.errors.email = data["ForgotPassword"] ? data["ForgotPassword"][0] : data["Email"][0]
+                    // if(data.Password) {
+                    //     self.errors.password = self.$t('loginRegister_error_forgot_password')
+                    // }
+                    // if(data.Email) {
+                    //     self.errors.email = self.$t('loginRegister_error_forgot_email')
+                    // }
                     self.$appInsights.trackException({exception: new Error(error)})
                 })
         },
@@ -161,6 +163,9 @@ export default {
             this.email = email
         },
         linksAction() {
+            this.errors.email = ''
+            this.errors.password = ''
+            
             if(this.isLoginDetails) {
                 this.component = 'forgotPassword'
                 return

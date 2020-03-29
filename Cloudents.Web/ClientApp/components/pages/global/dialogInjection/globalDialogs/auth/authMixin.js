@@ -34,11 +34,10 @@ export default {
                     dispatch('updateLoginStatus', true)
                 }).catch(error => {
                     let { response: { data } } = error
-                    // need error for login and register?
-                    if(data.Google) self.errors.gmail = self.$t('loginRegister_error_gmail')
+                    // if(data.Google) self.errors.gmail = self.$t('loginRegister_error_gmail')
 
+                    self.errors.gmail = data["Google"] ? data["Google"][0] : ''; // TODO:
                     self.googleLoading = false;
-                    self.errors.gmail = data["Google"] ? data["Google"][0] : '';
                     self.$appInsights.trackException({exception: new Error(error)})
                 })
         }
