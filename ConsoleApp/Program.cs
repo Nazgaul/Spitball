@@ -23,6 +23,8 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
+using Cloudents.Query;
+using Cloudents.Query.Chat;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 
@@ -142,7 +144,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            Country country = "BD";
+            var queryBus = Container.Resolve<IQueryBus>();
+            var query = new ChatConversationsQuery(638);
+            var result = await queryBus.QueryAsync(query, default);
             //ResourcesMaintenance.DeleteStuffFromJs();
             //await Convert();
             //var result = await s.GetPaymentAsync("4J34525079381873W", default);

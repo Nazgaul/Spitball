@@ -352,10 +352,12 @@ const actions = {
     },
     sendChatMessage:({state, dispatch, getters}, message)=>{
         //send message to server.
-        let messageObj = chatService.createServerMessageObj({
+        let messageObj = {
             message: message,
-            otherUser: state.activeConversationObj.userId
-        });
+            otherUser: state.activeConversationObj.userId,
+            conversationId: state.activeConversationObj.conversationId
+
+        };
         chatService.sendChatMessage(messageObj);
 
         //add message locally

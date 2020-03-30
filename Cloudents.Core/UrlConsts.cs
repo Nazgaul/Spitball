@@ -14,7 +14,7 @@ namespace Cloudents.Core
 
         public UrlConst(IConfigurationKeys configuration)
         {
-            
+
             var siteEndPoints = configuration.SiteEndPoint;
             if (siteEndPoints.SpitballSite != null)
             {
@@ -95,9 +95,9 @@ namespace Cloudents.Core
             return builder.Uri;
         }
 
-       
 
-        public Uri BuildShortUrlEndpoint(string identifier,  object? parameters = null)
+
+        public Uri BuildShortUrlEndpoint(string identifier, object? parameters = null)
         {
             var builder = new UriBuilder(_webSiteEndPoint) { Path = $"go/{identifier}" };
             builder.AddQuery(parameters);
@@ -128,9 +128,9 @@ namespace Cloudents.Core
         public const string ImageFunctionUserRoute = "image/user/{id}/{file}";
         public string BuildUserImageEndpoint(long id, string imageName, string? userName, object? parameters = null)
         {
-            
-            var injectionObj = new 
-            { 
+
+            var injectionObj = new
+            {
                 id,
                 file = !string.IsNullOrEmpty(imageName) ? imageName : userName
             };
@@ -153,6 +153,13 @@ namespace Cloudents.Core
             }
 
             return BuildUserImageEndpoint(id, imageName, null);
+        }
+
+        public Uri BuildTwilioWebHookEndPoint(Guid id)
+        {
+            var builder = new UriBuilder(_functionEndPoint) { Path = "api/roomCallback" };
+            builder.AddQuery(new { id });
+            return builder.Uri;
         }
 
 

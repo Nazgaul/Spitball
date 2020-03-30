@@ -167,20 +167,20 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
 
-            var url = Url.RouteUrl("roomCallback", new
-            {
-                id
-            }, "https");
+            //var url = Url.RouteUrl("roomCallback", new
+            //{
+            //    id
+            //}, "https");
 
-            var uri = new Uri(url);
-            if (configuration.IsDevelopment())
-            {
-                var uriBuilder = new UriBuilder(url) { Host = "10bb4013.ngrok.io", Port = 443 };
-                uri = uriBuilder.Uri;
-            }
+            //var uri = new Uri(url);
+            //if (configuration.IsDevelopment())
+            //{
+            //    var uriBuilder = new UriBuilder(url) { Host = "10bb4013.ngrok.io", Port = 443 };
+            //    uri = uriBuilder.Uri;
+            //}
 
 
-            var command = new CreateStudyRoomSessionCommand(id, configuration.IsProduction(), userId, uri);
+            var command = new CreateStudyRoomSessionCommand(id, configuration.IsProduction(), userId);
             var result = await _commandBus.DispatchAsync<CreateStudyRoomSessionCommand, CreateStudyRoomSessionCommandResult>(command, token);
             return new CreateStudyRoomSessionResponse(result.JwtToken);
 

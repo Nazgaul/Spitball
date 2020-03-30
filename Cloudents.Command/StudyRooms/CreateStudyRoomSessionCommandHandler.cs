@@ -11,10 +11,12 @@ namespace Cloudents.Command.StudyRooms
     {
         private readonly IRepository<StudyRoom> _studyRoomRepository;
         private readonly IVideoProvider _videoProvider;
-        public CreateStudyRoomSessionCommandHandler(IRepository<StudyRoom> studyRoomRepository, IVideoProvider videoProvider)
+        private readonly IUrlBuilder _urlBuilder;
+        public CreateStudyRoomSessionCommandHandler(IRepository<StudyRoom> studyRoomRepository, IVideoProvider videoProvider, IUrlBuilder urlBuilder)
         {
             _studyRoomRepository = studyRoomRepository;
             _videoProvider = videoProvider;
+            _urlBuilder = urlBuilder;
         }
 
         public async Task<CreateStudyRoomSessionCommandResult> ExecuteAsync(CreateStudyRoomSessionCommand message, CancellationToken token)
@@ -38,11 +40,11 @@ namespace Cloudents.Command.StudyRooms
                 lastSession.EndSession();
             }
             var sessionName = $"{message.StudyRoomId}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
-
+            var url = _urlBuilder.BuildTwilioWebHookEndPoint(room.Id);
             await _videoProvider.CreateRoomAsync(sessionName,
                 room.Tutor.User.Country,
                 message.RecordVideo,
-                message.CallbackUrl,
+                url,
                 room.Type.GetValueOrDefault(StudyRoomType.PeerToPeer)
                 );
             var session = new StudyRoomSession(room, sessionName);
