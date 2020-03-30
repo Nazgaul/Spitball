@@ -58,13 +58,13 @@ t.Price as TutorPrice,
 u.Name as TutorName,
 u.ImageName as TutorImage,
 x.*,
- coalesce (
+  coalesce (
 	case when t.price = 0 then @False else null end,
     case when t.id = @UserId then @False else null end ,
-	case when COALESCE((select u2.PaymentExists from sb.[user] u2 where id = @UserId),0) = 1 then @False else null end,
+	case when COALESCE( (select u2.PaymentExists from sb.[user] u2 where id = @UserId),0) = 1 then @False else null end,
     case when u.Country = 'IN' then @False else null end,
-    case when EXISTS (select top 1 * from sb.UserToken ut where userid = @UserId and 
-(state = 'NotUsed' or  ut.created >  DATEADD(Minute,-30,GETUTCDATE()))) then @False else null end,
+    case when EXISTS (select top 1 * from sb.UserToken ut where userid = @UserId and  
+(state = 'NotUsed' or  ut.created >  DATEADD(Minute,-30,GETUTCDATE())) and @Id = ut.studyRoomId) then @False else null end,
 	@True
 ) as NeedPayment
 from sb.StudyRoom sr 
