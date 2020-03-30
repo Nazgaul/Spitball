@@ -1,13 +1,15 @@
 <template>
   <div class="smsConfirmation text-center">
 
-    <div class="top">
-      	<p class="smsconfirm_title mb-6" v-t="'loginRegister_smsconfirm_title'"></p>
-		<span>
+    <!-- <div class="top"> -->
+	<div class="mainTitle mb-8" v-t="'loginRegister_verifyPhone_main_title'"></div>
+	<div class="subTitle mb-9">{{$t('loginRegister_verifyPhone_subtitle', [userPhone])}}</div>
+      	<!-- <p class="smsconfirm_title mb-6" v-t="'loginRegister_smsconfirm_title'"></p> -->
+		<!-- <span>
 			<div v-t="'loginRegister_smsconfirm_subtitle'"></div>
 			<bdi>{{userPhone}}</bdi>
-		</span>
-    </div>
+		</span> -->
+    <!-- </div> -->
 
 	<v-text-field
 		v-model="smsCode"
@@ -24,14 +26,16 @@
 	>
 	</v-text-field>
 
-	<div class="bottom">
+	<span class="resendCode" @click="resendCode" v-t="'loginRegister_smsconfirm_resend_code'"></span>
+
+	<!-- <div class="bottom">
 		<div class="cursor mb-sm-2 mb-4">
 			<span  @click="phoneCall" v-t="'loginRegister_smsconfirm_call'"></span>
 		</div>
 		<div class="cursor">
 			<span @click="$emit('goStep', 'setPhone2')" v-t="'loginRegister_smsconfirm_change'"></span>
 		</div>
-	</div>
+	</div> -->
 
   </div>
 </template>
@@ -81,17 +85,17 @@ export default {
 		},
 	},
 	methods: {
-		phoneCall(){
+		resendCode() {
 			let self = this
-			registrationService.voiceConfirmation()
+			registrationService.resendCode()
             	.then(() => {
 					self.$store.dispatch('updateToasterParams',{
-						toasterText: self.$t("login_call_code"),
-						showToaster: true,
-					});
-				}, ex => {
-					self.$appInsights.trackException({exception: new Error(ex)});
-				});
+                        toasterText: self.$t("login_verification_code_sent_to_phone"),
+                        showToaster: true,
+                    });
+				}).catch(error => {
+					self.$appInsights.trackException({exception: new Error(error)});
+				})
 		}
 	}
 };
@@ -104,12 +108,13 @@ export default {
 
 .smsConfirmation {
   	.top {
-		.responsive-property(margin-bottom, 64px, null, 32px);
 		.smsconfirm_title {
 			.responsive-property(font-size, 28px, null, 22px);
 			color: @color-login-text-title;
 			margin-bottom: 8px;
 		}
+		.mainTitle
+		.subTitle
 		span{
 			.responsive-property(font-size, 16px, null, 14px);
 			color: @color-login-text-subtitle;
@@ -122,14 +127,19 @@ export default {
 			margin-top: 10px;
 		}
 	 }
-	.bottom {
-		.cursor{
-			color: @global-blue;
-			span {
-				cursor: pointer;
-			}
-		}
+	.resendCode {
+		cursor: pointer;
+		color: @global-blue;
+		font-weight: 600;
 	}
+	// .bottom {
+	// 	.cursor{
+	// 		color: @global-blue;
+	// 		span {
+	// 			cursor: pointer;
+	// 		}
+	// 	}
+	// }
 }
 </style>
 

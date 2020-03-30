@@ -24,11 +24,9 @@
                     </v-btn>
 
                     <div class="d-flex justify-center text-center mb-6">
-
                         <div class="divider"></div>
-                        <div class="or">OR</div>
+                        <div class="or" v-t="'loginRegister_or'"></div>
                         <div class="divider"></div>
-
                     </div>
                 </template>
 
@@ -41,10 +39,32 @@
                     @goStep="goStep"
                 >
                 </component>
-
             </div>
 
+
             <div class="bottom">
+
+                <template v-if="isVerifyPhone">
+                    <div class="verifyPhone mb-11">
+                        <div class="d-flex justify-center text-center mb-6">
+                            <div class="divider"></div>
+                            <div class="otherMethod" v-t="'loginRegister_choose_other_method'"></div>
+                            <div class="divider"></div>
+                        </div>
+
+                        <div class="methods d-flex justify-space-between">
+                            <div class="linkAction d-flex" @click="phoneCall">
+                                <phoneCall />
+                                <div class="ml-2">call me with code</div>
+                            </div>
+                            <div class="linkAction d-flex">
+                                <changeNumber />
+                                <div @click="goStep('setPhone2')" class="ml-2">Change phone number</div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
                 <v-btn
                     type="submit"
                     depressed
@@ -54,24 +74,27 @@
                     class="btns white--text"
                     color="#4452fc"
                 >
-                    <span v-t="'loginRegister_setemailpass_btn'"></span>
+                    <span v-t="globalBtnText"></span>
                 </v-btn>
 
-                <div class="termsWrap text-center" v-if="isEmailRegister">
-                    <div class="my-3">
-                        <span v-t="'loginRegister_getstarted_terms_i_agree'"></span>
-                        <a class="link" :href="termsLink" v-t="'loginRegister_getstarted_terms_terms'"></a>
-                        <span class="" v-t="'loginRegister_getstarted_terms_and'"></span>
-                        <a class="link" :href="policyLink" v-t="'loginRegister_getstarted_terms_privacy'"></a>
+                <template v-if="isEmailRegister">
+                    <div class="termsWrap text-center">
+                        <div class="my-3">
+                            <span v-t="'loginRegister_getstarted_terms_i_agree'"></span>
+                            <a class="link" :href="termsLink" v-t="'loginRegister_getstarted_terms_terms'"></a>
+                            <span class="" v-t="'loginRegister_getstarted_terms_and'"></span>
+                            <a class="link" :href="policyLink" v-t="'loginRegister_getstarted_terms_privacy'"></a>
+                        </div>
                     </div>
-                </div>
 
-                <div class="getStartedBottom mt-2" v-if="isEmailRegister">    
-                    <div class="text-center">
-                        <span class="needAccount" v-t="'loginRegister_getstarted_signin_text'"></span>
-                        <span class="link" v-t="'loginRegister_getstarted_signin_link'" @click="$emit('goTo', 'login')"></span>
+                    <div class="getStartedBottom mt-2">    
+                        <div class="text-center">
+                            <span class="needAccount" v-t="'loginRegister_getstarted_signin_text'"></span>
+                            <span class="link" v-t="'loginRegister_getstarted_signin_link'" @click="$emit('goTo', 'login')"></span>
+                        </div>
                     </div>
-                </div>
+
+                </template>
             </div>
         </v-form>
 
@@ -99,12 +122,22 @@ const emailRegister = () => import('./emailRegister.vue');
 const setPhone2 = () => import('./setPhone2.vue');
 const verifyPhone = () => import('./verifyPhone.vue');
 
+import changeNumber from '../images/changeNumber.svg'
+import phoneCall from '../images/phoneCall.svg'
+
 export default {
-    components: { emailRegister, setPhone2, verifyPhone, VueRecaptcha },
+    components: { 
+        emailRegister,
+        setPhone2,
+        verifyPhone,
+        VueRecaptcha,
+        changeNumber,
+        phoneCall
+    },
     mixins: [authMixin],
     data() {
         return {
-            component: 'setPhone2',
+            component: 'emailRegister',
             googleLoading: false,
             recaptcha: "",
             siteKey: '6LfyBqwUAAAAAM-inDEzhgI2Cjf2OKH0IZbWPbQA',
@@ -120,8 +153,14 @@ export default {
         }
     },
     computed: {
+        globalBtnText() {
+            return this.isVerifyPhone ? 'loginRegister_setemailpass_btn_verify' : 'loginRegister_setemailpass_btn'
+        },
         isEmailRegister() {
             return this.component === 'emailRegister'
+        },
+        isVerifyPhone() {
+            return this.component === 'verifyPhone'
         },
         termsLink() {
             let isFrymo = this.$store.getters.isFrymo
@@ -244,6 +283,18 @@ export default {
                     self.$appInsights.trackException({exception: new Error(error)});
                 })
         },
+        phoneCall(){
+			let self = this
+			registrationService.voiceConfirmation()
+            	.then(() => {
+					self.$store.dispatch('updateToasterParams',{
+						toasterText: self.$t("login_call_code"),
+						showToaster: true,
+					});
+				}).catch(error => {
+                    self.$appInsights.trackException({exception: new Error(error)});
+                })
+		},
         goStep(step) {
             this.component = step
         },
@@ -268,15 +319,6 @@ export default {
         position: absolute;
         right: 16px;
     }
-    .divider {
-        width: 140px;
-        border-bottom: 1px solid #ddd;
-        margin: 0 10px 7px;
-    }
-    .or {
-        color: @global-purple;
-        font-weight: 600;
-    }
     .registerForm {
         height: inherit;
         display: flex;
@@ -286,6 +328,18 @@ export default {
             .responsive-property(font-size, 20px, null, 22px);
             color: @color-login-text-title;
             font-weight: 600;
+        }
+        .divider {
+            width: 140px;
+            border-bottom: 1px solid #ddd;
+            margin: 0 10px 7px;
+        }
+        .or {
+            color: @global-purple;
+            font-weight: 600;
+        }
+        .otherMethod {
+            color: @global-purple;
         }
         .googleBtnText {
             margin-bottom: 2px;
@@ -304,15 +358,23 @@ export default {
             border-bottom: 1px solid #dddddd;
 
             .link {
-                color: #4c59ff;
+                color: @global-auth-text;
                 text-decoration: underline;
+            }
+        }
+        .verifyPhone {
+            color: @global-auth-text;
+            .methods {
+                .linkAction {
+                    cursor: pointer;
+                }
             }
         }
         .getStartedBottom {
             .responsive-property(font-size, 14px, null, 14px);
                 .link {
                     cursor: pointer;  
-                    color: #4c59ff;
+                    color: @global-auth-text;
                     font-weight: 600;
                 }
             .needAccount {
@@ -324,7 +386,7 @@ export default {
 .captcha {
     .grecaptcha-badge {
         @media (max-width: @screen-xs) {
-            bottom: 150px !important;
+            bottom: 200px !important;
         }
     }
 }

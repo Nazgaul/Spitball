@@ -50,5 +50,5 @@ export default {
     smsCodeVerification: data => authInstance.post("/sms/verify", data), // ok
     getLocalCode: () => authInstance.get("/sms/code"), // ok
     // emailResend: () => authInstance.post("Register/resend"),
-    // resendCode: () => authInstance.post("/sms/resend"),
+    resendCode: () => authInstance.post("/sms/resend"),
 }
