@@ -375,4 +375,10 @@
   <data name="invalid_phone" xml:space="preserve">
     <value>Invalid phone number</value>
   </data>
+  <data name="setphone_main_title" xml:space="preserve">
+    <value>Sign up to Spitball</value>
+  </data>
+  <data name="setphone_sub_title" xml:space="preserve">
+    <value>Please enter your phone number</value>
+  </data>
 </root>

@@ -297,6 +297,12 @@
   <data name="setphone_input" xml:space="preserve">
     <value>מספר טלפון נייד</value>
   </data>
+  <data name="setphone_main_title" xml:space="preserve">
+    <value>הרשמה לספיטבול</value>
+  </data>
+  <data name="setphone_sub_title" xml:space="preserve">
+    <value>אנא הכניסו את מספר הטלפון שלכם</value>
+  </data>
   <data name="setphone_title" xml:space="preserve">
     <value>קבלת מסרון עם קוד כניסה</value>
   </data>
