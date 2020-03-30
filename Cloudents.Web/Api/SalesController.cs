@@ -35,7 +35,7 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpGet("sales")]
+        [HttpGet]
         public async Task<IEnumerable<SaleDto>> GetUserSalesAsync([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);

@@ -57,7 +57,8 @@ namespace Cloudents.Query.Users
                 var sessionFuture = _session.Query<StudyRoomSession>()
                     .Fetch(f => f.StudyRoom)
                     .ThenFetch(f => f.Users)
-                    .Where(w => w.StudyRoom.Users.Select(s => s.User.Id).Any(a => a == query.Id) && query.Id != w.StudyRoom.Tutor.Id)
+                    .Where(w => w.StudyRoom.Users.Select(s => s.User.Id).Any(a => a == query.Id)
+                                && query.Id != w.StudyRoom.Tutor.Id)
                     .Where(w => w.Ended != null)
                     .Select(s => new PurchasedSessionDto()
                     {

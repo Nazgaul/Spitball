@@ -139,10 +139,5 @@ namespace Cloudents.Core.Entities
         {
             RealDuration = realDuration;
         }
-
-        //public virtual void SetPyment(IPaymentProvider payment)
-        //{
-        //    Payment = payment;
-        //}
     }
 }

@@ -155,7 +155,7 @@ function createBlogs({data}) {
 
 
 function getSalesItems(){
-   return connectivityModule.http.get('/Sales/sales').then(createSalesItems).catch(ex => ex);
+   return connectivityModule.http.get('/Sales').then(createSalesItems).catch(ex => ex);
 }
 function getSalesSessions(id){
    return connectivityModule.http.get('/Sales/session', {params: { id }}).then(createSalesSession).catch(ex => ex);
