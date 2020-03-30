@@ -20,13 +20,6 @@ namespace Cloudents.Core.DTOs
         public string? TutorImage { get; set; }
         [EntityBind(nameof(User.Name))]
         public string TutorName { get; set; }
-        [EntityBind(nameof(User.Id))]
-        public long StudentId { get; set; }
-        [EntityBind(nameof(User.ImageName))]
-        public string StudentImage { get; set; }
-        [EntityBind(nameof(User.Name))]
-        public string StudentName { get; set; }
-
 
         [EntityBind(nameof(User.PaymentExists), nameof(User.BuyerPayment.PaymentKeyExpiration))]
         public bool NeedPayment { get; set; }

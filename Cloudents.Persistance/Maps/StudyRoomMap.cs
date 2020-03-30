@@ -38,7 +38,7 @@ namespace Cloudents.Persistence.Maps
             Id(x => x.Id).GeneratedBy.GuidComb();
             References(x => x.User).Not.Nullable();
             References(x => x.Room).Column("StudyRoomId").Not.Nullable();
-            Map(x => x.Online).Not.Nullable();
+           // Map(x => x.Online).Not.Nullable();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Cloudents.Web.Models
 
     public class ChatResetRequest
     {
-        [Required, Range(1, long.MaxValue)]
-        public long OtherUserId { get; set; }
+        [Required]
+        public string ConversationId { get; set; }
     }
 }

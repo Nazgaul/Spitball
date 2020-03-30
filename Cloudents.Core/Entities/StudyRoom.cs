@@ -76,12 +76,12 @@ namespace Cloudents.Core.Entities
             DateTime.UpdateTime = System.DateTime.UtcNow;
         }
 
-        public virtual void ChangeOnlineStatus(long userId, bool isOnline)
-        {
-            var studyRoomUser = Users.Single(f => f.User.Id == userId);
-            studyRoomUser.ChangeOnlineState(isOnline);
+        //public virtual void ChangeOnlineStatus(long userId, bool isOnline)
+        //{
+        //    var studyRoomUser = Users.Single(f => f.User.Id == userId);
+        //    studyRoomUser.ChangeOnlineState(isOnline);
 
-        }
+        //}
 
     }
 }

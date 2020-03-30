@@ -114,7 +114,6 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
-            result.StudentImage = urlBuilder.BuildUserImageEndpoint(result.StudentId, result.StudentImage);
             result.TutorImage = urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
             return result;
         }
