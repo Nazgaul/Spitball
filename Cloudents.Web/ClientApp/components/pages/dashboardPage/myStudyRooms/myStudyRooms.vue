@@ -45,10 +45,10 @@
             </template>
          </template> 
          <template v-slot:item.action="{item}">
-            <v-btn  icon    x-small @click="sendMessage(item)">
+            <v-btn  icon    x-small @click="sendMessage(item)" :title="$t('schoolBlock_SendMessageTooltip')">
                <iconChat/>
             </v-btn>
-            <v-btn icon  x-small @click="enterRoom(item.id)">
+            <v-btn icon  x-small @click="enterRoom(item.id)" :title="$t('schoolBlock_EnterStudyRoomTooltip')">
                <enterRoom/>
             </v-btn>
          </template>

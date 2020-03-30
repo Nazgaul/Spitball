@@ -453,12 +453,6 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Fact]
-        public async Task ChatConversationQuery_Ok()
-        {
-            var query = new ChatConversationQuery("159039_160171", 159039);
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
 
         [Fact]
         public async Task ChatConversationByIdQuery_Ok()

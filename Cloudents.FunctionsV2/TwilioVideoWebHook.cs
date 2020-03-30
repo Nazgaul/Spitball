@@ -38,6 +38,10 @@ namespace Cloudents.FunctionsV2
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
             var client = new TelemetryClient();
+            foreach (var (key, value) in req.Form)
+            {
+                client.TrackTrace($"{key}, {value}");
+            }
 
             var request = new TwilioWebHookRequest(req.Form);
             var id = Guid.Parse(req.Query["id"]);
@@ -99,7 +103,11 @@ namespace Cloudents.FunctionsV2
                 ParticipantStatus = form["ParticipantStatus"];
                 ParticipantDuration = form["ParticipantDuration"];
                 ParticipantIdentity = form["ParticipantIdentity"];
-                RoomDurationInSeconds = int.Parse(form["RoomDuration"]);
+                if (form["RoomDuration"].ToString() != null)
+                {
+                    RoomDurationInSeconds = int.Parse(form["RoomDuration"]);
+                }
+
                 TrackSid = form["TrackSid"];
                 TackKind = form["TrackKind"];
 
