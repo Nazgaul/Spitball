@@ -144,6 +144,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            await BuildStudyRoomName();
             var queryBus = Container.Resolve<IQueryBus>();
             var query = new ChatConversationsQuery(638);
             var result = await queryBus.QueryAsync(query, default);
@@ -151,11 +152,62 @@ namespace ConsoleApp
             //await Convert();
             //var result = await s.GetPaymentAsync("4J34525079381873W", default);
             ////var x = await s.QueryAsync(new StudyRoomQuery(Guid.Parse("9f54280c-103e-46a6-8184-aabf00801beb"), 638), default);
-
-
-
-
         }
+
+        private static async Task BuildStudyRoomName()
+        {
+            var session = Container.Resolve<ISession>();
+
+            var studyRooms = session.Query<StudyRoom>().Where(w => w.Name == null).ToList();
+            foreach (var studyRoom in studyRooms)
+            {
+                var users = studyRoom.Users.Select(s=>s.User);
+                var country = studyRoom.Tutor.User.Country;
+                if (users.Count() == 2)
+                {
+                    var tutor = studyRoom.Tutor.User;
+
+                    var studentName = users.Single(s => s.Id != tutor.Id).FirstName;
+                    var tutorName = tutor.FirstName;
+
+                    string text;
+                    if (country == "IL")
+                    {
+                        text = $"חדר לימוד בן {tutorName} ל{studentName}";
+                    }
+                    else
+                    {
+                        text = $"study room between {tutorName} and {studentName}";
+                    }
+
+                    studyRoom.Name = text;
+                    session.Update(studyRoom);
+                    session.Flush();
+                }
+                else
+                {
+                    var tutor = studyRoom.Tutor.User;
+
+                    var studentName = users.Where(s => s.Id != tutor.Id).Select(s=>s.FirstName);
+                    var tutorName = tutor.FirstName;
+
+                    string text;
+                    if (country == "IL")
+                    {
+                        text = $"חדר לימוד בן {tutorName} ל{string.Join(",",studentName)}";
+                    }
+                    else
+                    {
+                        text = $"study room between {tutorName} and {string.Join(",", studentName)}";
+                    }
+
+                    studyRoom.Name = text;
+                    session.Update(studyRoom);
+                    session.Flush();
+                }
+            }
+        }
+
         private static async Task ResyncTutorRead()
         {
             var session = Container.Resolve<IStatelessSession>();
