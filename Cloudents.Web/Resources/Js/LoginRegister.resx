@@ -306,7 +306,7 @@
     <comment>1</comment>
   </data>
   <data name="smsconfirm_call" xml:space="preserve">
-    <value>Call me with a code</value>
+    <value>Call me with a confirmation code</value>
     <comment>1</comment>
   </data>
   <data name="smsconfirm_change" xml:space="preserve">
