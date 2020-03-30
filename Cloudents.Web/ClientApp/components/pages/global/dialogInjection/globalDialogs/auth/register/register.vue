@@ -55,11 +55,11 @@
                         <div class="methods d-flex justify-space-between">
                             <div class="linkAction d-flex" @click="phoneCall">
                                 <phoneCall />
-                                <div class="ml-2">call me with code</div>
+                                <div class="ml-2" v-t="'loginRegister_change_number'"></div>
                             </div>
                             <div class="linkAction d-flex">
                                 <changeNumber />
-                                <div @click="goStep('setPhone2')" class="ml-2">Change phone number</div>
+                                <div @click="goStep('setPhone2')" class="ml-2" v-t="'loginRegister_change_numb'"></div>
                             </div>
                         </div>
                     </div>
