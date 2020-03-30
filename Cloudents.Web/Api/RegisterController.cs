@@ -91,7 +91,7 @@ namespace Cloudents.Web.Api
                 var t2 =  GenerateEmailAsync(user,  token);
                 var t1 = _signInManager.TempSignIn(user);
                 await Task.WhenAll(t1, t2);
-                return Ok();// new ReturnSignUserResponse(RegistrationStep.RegisterEmailConfirmed);
+                return new ReturnSignUserResponse(RegistrationStep.RegisterSetPhone);
             }
 
 

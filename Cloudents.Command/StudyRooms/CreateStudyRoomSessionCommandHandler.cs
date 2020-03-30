@@ -44,8 +44,8 @@ namespace Cloudents.Command.StudyRooms
                 message.CallbackUrl,
                 room.Type.GetValueOrDefault(StudyRoomType.PeerToPeer)
                 );
-            var session = new StudyRoomSession(room, sessionName);
-            room.AddSession(session);
+            //var session = new StudyRoomSession(room, sessionName);
+            room.AddSession(sessionName);
 
             var jwtToken = _videoProvider.CreateRoomToken(sessionName, message.UserId);
             return new CreateStudyRoomSessionCommandResult(jwtToken);

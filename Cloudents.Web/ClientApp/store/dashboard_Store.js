@@ -87,7 +87,7 @@ const actions = {
       });
    },
    updateFollowersItems({commit}){
-      dashboardService.getFollowersItems().then(items=>{
+      return dashboardService.getFollowersItems().then(items=>{
          commit('setFollowersItems', items);
       });
    },

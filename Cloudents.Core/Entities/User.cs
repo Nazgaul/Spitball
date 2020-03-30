@@ -188,6 +188,8 @@ namespace Cloudents.Core.Entities
         }
 
 
+
+
         private readonly ICollection<StudyRoomUser> _studyRooms = new List<StudyRoomUser>();
 
         public virtual IEnumerable<StudyRoomUser> StudyRooms => _studyRooms;
@@ -212,6 +214,7 @@ namespace Cloudents.Core.Entities
         private readonly ICollection<UserPayPalToken> _userTokens = new List<UserPayPalToken>();
 
 
+        public virtual DateTime? FinishRegistrationDate { get; set; }
 
         public virtual IEnumerable<UserPayPalToken> UserTokens => _userTokens;
 
@@ -221,7 +224,7 @@ namespace Cloudents.Core.Entities
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
 
-        public virtual void UseToken(Tutor tutor)
+        public virtual void UseToken(StudyRoom studyRoom)
         {
             Country country = Country;
 
@@ -230,18 +233,20 @@ namespace Cloudents.Core.Entities
                 return;
             }
 
-            var userToken = UserTokens.FirstOrDefault(w => w.State == UserTokenState.NotUsed);
+            var userToken = UserTokens
+                .FirstOrDefault(w => w.State == UserTokenState.NotUsed && w.StudyRoom.Id == studyRoom.Id);
             if (userToken != null)
             {
                 userToken.ChangeToUsedState();
             }
 
-            UseCoupon(tutor);
+            UseCoupon(studyRoom.Tutor);
         }
 
-        public virtual void AddToken(string userToken, decimal amount, StudyRoom studyRoom)
+        public virtual void AddToken(string orderId, string authorizationId, decimal amount, StudyRoom studyRoom)
         {
-            if (userToken == null) throw new ArgumentNullException(nameof(userToken));
+            if (orderId == null) throw new ArgumentNullException(nameof(orderId));
+            if (authorizationId == null) throw new ArgumentNullException(nameof(authorizationId));
             if (studyRoom == null) throw new ArgumentNullException(nameof(studyRoom));
             Country country = Country;
 
@@ -249,7 +254,7 @@ namespace Cloudents.Core.Entities
             {
                 throw new ArgumentException("Only usa country can use paypal");
             }
-            _userTokens.Add(new UserPayPalToken(userToken, amount, studyRoom));
+            _userTokens.Add(new UserPayPalToken(orderId, authorizationId, amount, studyRoom));
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
 
@@ -271,7 +276,7 @@ namespace Cloudents.Core.Entities
             LastOnline = DateTime.UtcNow;
         }
 
-       
+
 
         public virtual void ChangeName(string firstName, string? lastName)
         {
@@ -342,6 +347,44 @@ namespace Cloudents.Core.Entities
 
         }
 
+        private readonly ISet<Follow> _followers = new HashSet<Follow>();
+        public virtual IEnumerable<Follow> Followers => _followers;
+
+        public override void AddFollower(User follower)
+        {
+            if (this == follower)
+            {
+                return;
+            }
+
+            if (this.Tutor == null)
+            {
+                return;
+            }
+
+            //if (!Equals(follower))
+            //{
+            var follow = new Follow(this, follower);
+            _followers.Add(follow);
+        }
+
+        public virtual void AddFollowers(IEnumerable<User> followers)
+        {
+            foreach (var follower in followers)
+            {
+                AddFollower(follower);
+            }
+            //if (!Equals(follower))
+            //{
+
+        }
+
+        public override void RemoveFollower(BaseUser follower)
+        {
+            var follow = new Follow(this, follower);
+            _followers.Remove(follow);
+        }
+
 
         public virtual void AwardMoney(decimal price)
         {
@@ -369,7 +412,8 @@ namespace Cloudents.Core.Entities
 
         public virtual void FinishRegistration()
         {
-            MakeTransaction(AwardMoneyTransaction.FinishRegistration(this));
+            FinishRegistrationDate = DateTime.UtcNow;
+            //MakeTransaction(AwardMoneyTransaction.FinishRegistration(this));
         }
 
         public virtual void ConfirmPhoneNumber()
@@ -380,7 +424,7 @@ namespace Cloudents.Core.Entities
             }
         }
 
-       // public override int Score { get; protected set; }  //=> Transactions.Score;
+        // public override int Score { get; protected set; }  //=> Transactions.Score;
         public override decimal Balance => Transactions.Balance;
 
 
@@ -401,7 +445,7 @@ namespace Cloudents.Core.Entities
             //    (UserType.Teacher, null) => {Extend = new CollegeStudent(this)}
             //    (UserType.Teacher, _) => Extend = new Teacher(this);,
             //}
-          
+
             switch (userType)
             {
                 case UserType.UniversityStudent:
@@ -435,7 +479,7 @@ namespace Cloudents.Core.Entities
             UserType2 = userType;
         }
 
-        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Nhibernate")] 
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Nhibernate")]
         protected internal virtual ICollection<UserComponent> UserComponents { get; set; }
 
         public virtual UserComponent Extend

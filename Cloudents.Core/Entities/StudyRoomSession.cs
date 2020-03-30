@@ -15,7 +15,7 @@ namespace Cloudents.Core.Entities
             Created = DateTime.UtcNow;
             SessionId = sessionId;
 
-            UseUserToken();
+            //UseUserToken();
 
             AddEvent(new StudyRoomSessionCreatedEvent(this));
         }
@@ -24,12 +24,12 @@ namespace Cloudents.Core.Entities
 
         }
 
-        protected virtual void UseUserToken()
-        {
-            var user = StudyRoom.Users.First(f => f.User.Id != StudyRoom.Tutor.Id).User;
-            user.UseToken(StudyRoom.Tutor);
+        //protected virtual void UseUserToken()
+        //{
+        //    var user = StudyRoom.Users.First(f => f.User.Id != StudyRoom.Tutor.Id).User;
+        //    user.UseToken(StudyRoom);
           
-        }
+        //}
 
         public virtual StudyRoom StudyRoom { get; protected set; }
         public virtual DateTime Created { get; protected set; }

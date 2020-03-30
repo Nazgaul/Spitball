@@ -16,7 +16,7 @@ namespace Cloudents.Core.Entities
         {
             _users = new[]
             {
-                new StudyRoomUser(tutor.User, this),
+                new StudyRoomUser(tutor.User, this), //this should not be here
                 new StudyRoomUser(user, this)
             };
             Tutor = tutor;
@@ -24,10 +24,6 @@ namespace Cloudents.Core.Entities
             OnlineDocumentUrl = onlineDocumentUrl;
             Type = StudyRoomType.PeerToPeer;
             DateTime = new DomainTimeStamp();
-
-           
-            
-
 
             AddEvent(new StudyRoomCreatedEvent(this));
         }
@@ -66,9 +62,12 @@ namespace Cloudents.Core.Entities
 
         public virtual StudyRoomType? Type { get; protected set; }
 
-        public virtual void AddSession(StudyRoomSession session)
+        public virtual void AddSession(string sessionName)
         {
+            var session = new StudyRoomSession(this, sessionName);
             _sessions.Add(session);
+            var user = Users.First(f => f.User.Id != Tutor.Id).User;
+            user.UseToken(this);
             DateTime.UpdateTime = System.DateTime.UtcNow;
         }
 
@@ -76,7 +75,6 @@ namespace Cloudents.Core.Entities
         {
             var studyRoomUser = Users.Single(f => f.User.Id == userId);
             studyRoomUser.ChangeOnlineState(isOnline);
-
         }
 
     }

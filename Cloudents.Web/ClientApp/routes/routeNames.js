@@ -15,7 +15,6 @@ export const RegisterType = 'registerType';
 export const RegisterStudentSchool = 'studentSchool';
 export const RegisterCourse = 'registerCourse';
 export const RegisterStudentCollege = 'studentCollege';
-export const RegisterUniversity = 'registerUniversity';
 export const RegisterCourseCollege = 'registerCourseCollege';
 export const RegisterParent = 'parent';
 export const RegisterCourseParent = 'registerCourseParent';

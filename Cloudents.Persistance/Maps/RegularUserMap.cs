@@ -40,6 +40,7 @@ namespace Cloudents.Persistence.Maps
 
             Map(x => x.Online);
             Map(x => x.LastOnline);
+            Map(x => x.FinishRegistrationDate).Column("FinishRegistration");
 
             Map(x => x.FirstName);
             Map(x => x.LastName);
@@ -76,6 +77,11 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.UserTokens)
                 .Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan();
+
+
+            HasMany(x => x.Followers).Access.CamelCaseField(Prefix.Underscore)
+                .Cascade.AllDeleteOrphan()
+                .KeyColumn("UserId").Inverse().AsSet();
         }
     }
 

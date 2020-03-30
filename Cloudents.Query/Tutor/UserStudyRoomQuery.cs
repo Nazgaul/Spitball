@@ -21,7 +21,6 @@ namespace Cloudents.Query.Tutor
         internal sealed class UserStudyRoomQueryHandler : IQueryHandler<UserStudyRoomQuery, IEnumerable<UserStudyRoomDto>>
         {
             private readonly IStatelessSession _session;
-            //private readonly IDapperRepository _dapperRepository;
 
             public UserStudyRoomQueryHandler(IStatelessSession session)
             {
@@ -30,20 +29,22 @@ namespace Cloudents.Query.Tutor
 
             public async Task<IEnumerable<UserStudyRoomDto>> GetAsync(UserStudyRoomQuery query, CancellationToken token)
             {
-                StudyRoom studyRoomAlias = null;
-                //StudyRoomSession studyRoomSessionAlias = null;
-                StudyRoomUser studyRoomUserAlias = null;
-                User userAlias = null;
+                StudyRoom? studyRoomAlias = null;
+                StudyRoomUser? studyRoomUserAlias = null;
+                User? userAlias = null;
 
-                UserStudyRoomDto resultAlias = null;
+                UserStudyRoomDto? resultAlias = null;
 
 
-                //_session.Query<StudyRoomUser>()
-                //    .Fetch(f=>f.Room)
-                //    .ThenFetch(f=>f.Users)
+                
+
                 var detachedQuery = QueryOver.Of<StudyRoomUser>()
                     .Where(w => w.User.Id == query.UserId)
                     .Select(s => s.Room.Id);
+
+
+
+
 
                 return await _session.QueryOver(() => studyRoomAlias)
                     .JoinAlias(x => x.Users, () => studyRoomUserAlias)

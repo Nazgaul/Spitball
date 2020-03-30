@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Core.Entities
 {
@@ -127,22 +125,22 @@ namespace Cloudents.Core.Entities
                 //"NO", "DK", "FI", "NL", "BE","LU","DE","CH","AT","ZA"
             };
 
-        public static AwardMoneyTransaction FinishRegistration(User user)
-        {
-            var initBalance = 0;
-            //var awardScore = 0;
-            if (Tier1Users.Contains(user.Country))
-            {
-                initBalance = 150;
-                //awardScore = 2;
-            }
-            //Score
-            return new AwardMoneyTransaction(initBalance)
-            {
-                Action = TransactionActionType.SignUp,
-                //  _awardScore = awardScore
-            };
-        }
+        //public static AwardMoneyTransaction FinishRegistration(User user)
+        //{
+        //    var initBalance = 0;
+        //    //var awardScore = 0;
+        //    if (Tier1Users.Contains(user.Country))
+        //    {
+        //        initBalance = 150;
+        //        //awardScore = 2;
+        //    }
+        //    //Score
+        //    return new AwardMoneyTransaction(initBalance)
+        //    {
+        //        Action = TransactionActionType.SignUp,
+        //        //  _awardScore = awardScore
+        //    };
+        //}
     }
     /// <summary>
     /// Question Transaction - we keep this because of older transactions
