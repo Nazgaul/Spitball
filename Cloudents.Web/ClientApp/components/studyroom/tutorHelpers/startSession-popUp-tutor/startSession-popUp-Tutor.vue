@@ -6,13 +6,6 @@
             </v-flex>
         </v-layout>
         <v-layout column align-center>
-            <!-- <v-flex xs12 class="pt-2">
-                <userAvatar :user-name="studentName"  :userImageUrl="studentImage" :user-id="studentId" :size="'58'"/>
-            </v-flex>
-            <v-flex xs12 class="pt-3 px-5 text-truncate">
-                <span class="tutor-start-wrap_title font-weight-bold" v-language:inner>tutor_start_dialog_your_student</span>
-                <span class="tutor-start-wrap_title font-weight-bold">&nbsp;{{studentName}}</span>
-            </v-flex> -->
             <v-flex xs12 style="text-align: center;" class="pt-2">
                 <span v-language:inner="'tutor_can_be_recorded'"></span>
             </v-flex>
@@ -48,42 +41,11 @@
         },
         computed: {
             ...mapState(['tutoringMain']),
-            ...mapGetters(['getSessionStartClickedOnce', 'getTutorDialogState', 'getSessionTimeStart', 'getSessionTimeEnd']),
-            // roomStudent(){
-            //     return this.$store.getters.getRoomStudent;
-            // },
-            
-            // studentName() {
-            //     return this.roomStudent?.studentName;
-            // },
+            ...mapGetters(['getSessionStartClickedOnce', 'getSessionTimeStart', 'getSessionTimeEnd']),
             sessionTime(){
                 let end = this.getSessionTimeEnd;
                 let start = this.getSessionTimeStart;
                 return this.getTimeFromMs(end - start);
-            },
-            // studentImage(){
-            //     return this.roomStudent?.studentImage;
-            // },
-            // studentId(){
-            //     return this.roomStudent?.studentId;
-            // },
-            // roomStateText(){
-            //     return LanguageService.getValueByKey('tutor_stream_btn_start_tutor')
-
-            //     // if(this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.start){
-            //     //     return LanguageService.getValueByKey('tutor_stream_btn_start_tutor')
-            //     // }else if(this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.waiting){
-            //     //     return LanguageService.getValueByKey('tutor_stream_btn_waiting_tutor')
-            //     // }else if(this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.disconnected){
-            //     //     return LanguageService.getValueByKey('tutor_stream_btn_disconnected_tutor')
-            //     // }else if(this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.finished){
-            //     //     return LanguageService.getValueByKey('tutor_stream_btn_finished_tutor')
-            //     // }else{
-            //     //     return LanguageService.getValueByKey('tutor_stream_btn_start_tutor')
-            //     // }
-            // },
-            sessionFinished(){
-                return this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.finished;
             },
         },
         methods: {
