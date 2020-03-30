@@ -1,14 +1,20 @@
 <template>
   <div class="conversation-container">
     <v-flex class="avatar-container">
-      <user-avatar :size="'46'" :userImageUrl="userImg" :user-name="conversation.name"/>
-      <userOnlineStatus class="user-status" :userId="conversation.userId"></userOnlineStatus>
+      <template v-if="isSingleUser">
+        <user-avatar :size="'46'" :userImageUrl="conversation.users[0].image" :user-name="conversation.users[0].name"/>
+        <userOnlineStatus class="user-status" :userId="conversation.userId"></userOnlineStatus>
+      </template>
+      <template v-else>
+      <v-avatar size="46">
+        <img src="src">
+      </v-avatar>
+      </template>
     </v-flex>
     <v-flex class="user-detail-container">
       <v-flex class="top-detail-container">
-
         <v-flex class="top-detail-container-wrap">
-          <div class="conversation-name text-truncate">{{conversation.name}}</div>
+          <div class="conversation-name text-truncate">{{conversationName}}</div>
           <span class="conversation-date">{{date}}</span>
         </v-flex>
 
@@ -17,7 +23,7 @@
             <div class="conversation-desc" v-html="conversation.lastMessage"></div>
           </template>
           <div>
-            <span v-show="conversation.unread > 0" class="conversation-unread">{{conversation.unread}}</span>
+            <span v-show="unreadMessages > 0" class="conversation-unread">{{unreadMessages}}</span>
           </div>
         </v-flex>
         
@@ -27,7 +33,6 @@
 </template>
 
 <script>
-import utilitiesService from "../../../../services/utilities/utilitiesService";
 import userOnlineStatus from "../../../helpers/userOnlineStatus/userOnlineStatus.vue";
 import timeAgoService from '../../../../services/language/timeAgoService';
 
@@ -41,12 +46,21 @@ export default {
     }
   },
   computed: {
+    conversationName(){
+      let userNames = this.conversation.users.map(u=>u.name).join(" ,")
+      return userNames
+    },
     date() {
         return timeAgoService.timeAgoFormat(this.conversation.dateTime)
     },
-    userImg() {
-      return utilitiesService.proccessImageURL(this.conversation.image, 46, 46);
-    }
+    isSingleUser(){
+      return (this.conversation.users.length == 1)
+    },
+    unreadMessages(){
+      let unreads = this.conversation.users.map(u=>u.unread);
+      const reducer = (accumulator, currentValue) => accumulator + currentValue;
+      return unreads.reduce(reducer)
+    },
   }
 };
 </script>
