@@ -47,9 +47,9 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
         public virtual byte[] Version { get; protected set; }
 
-        private readonly IList<SessionParticipantDisconnect> _participantDisconnections = new List<SessionParticipantDisconnect>();
+        //private readonly IList<SessionParticipantDisconnect> _participantDisconnections = new List<SessionParticipantDisconnect>();
 
-        public virtual IEnumerable<SessionParticipantDisconnect> ParticipantDisconnections => _participantDisconnections;
+        //public virtual IEnumerable<SessionParticipantDisconnect> ParticipantDisconnections => _participantDisconnections;
 
         public virtual bool VideoExists { get; protected set; }
 

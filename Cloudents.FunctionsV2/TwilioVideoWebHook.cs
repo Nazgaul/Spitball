@@ -53,10 +53,15 @@ namespace Cloudents.FunctionsV2
                     propInfo => propInfo.GetValue(request, null)?.ToString()
 
                 ));
-            if (request.RoomStatus == "completed")
+            if (request.StatusCallbackEvent == "room-ended")
             {
                 var command = new EndStudyRoomSessionTwilioCommand(id, request.RoomName);
                 await commandBus.DispatchAsync(command, token);
+            }
+            if (request.StatusCallbackEvent.Equals("participant-connected", StringComparison.OrdinalIgnoreCase))
+            {
+               // var command = new StudyRoomSessionParticipantReconnectedCommand(id);
+               // await _commandBus.DispatchAsync(command, token);
             }
 
             //if (request.StatusCallbackEvent.Equals("participant-disconnected", StringComparison.OrdinalIgnoreCase))
