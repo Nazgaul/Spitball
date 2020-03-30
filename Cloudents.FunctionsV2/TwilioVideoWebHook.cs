@@ -1,6 +1,4 @@
 using System;
-using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -13,10 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Primitives;
-using Newtonsoft.Json;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 namespace Cloudents.FunctionsV2
@@ -27,7 +22,9 @@ namespace Cloudents.FunctionsV2
         /// https://www.twilio.com/docs/video/api/status-callbacks
         /// </summary>
         /// <param name="req"></param>
+        /// <param name="commandBus"></param>
         /// <param name="log"></param>
+        /// <param name="token"></param>
         /// <returns></returns>
         [FunctionName("TwilioVideoWebHook")]
         public static async Task<IActionResult> Run(
@@ -107,46 +104,50 @@ namespace Cloudents.FunctionsV2
         {
             public TwilioWebHookRequest(IFormCollection form)
             {
-                AccountSid = form["AccountSid"];
+               // AccountSid = form["AccountSid"];
                 SessionId = form["RoomName"];
-                RoomSid = form["RoomSid"];
-                RoomStatus = form["RoomStatus"];
-                RoomType = form["RoomType"];
+               // RoomSid = form["RoomSid"];
+               // RoomStatus = form["RoomStatus"];
+               // RoomType = form["RoomType"];
                 StatusCallbackEvent = form["StatusCallbackEvent"];
-                Timestamp = DateTime.Parse(form["Timestamp"], CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
-                ParticipantSid = form["ParticipantSid"];
-                ParticipantStatus = form["ParticipantStatus"];
+               // Timestamp = DateTime.Parse(form["Timestamp"], CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
+               // ParticipantSid = form["ParticipantSid"];
+               // ParticipantStatus = form["ParticipantStatus"];
                 if (!string.IsNullOrEmpty(form["ParticipantDuration"]))
                 {
                     ParticipantDuration = TimeSpan.FromSeconds(double.Parse(form["ParticipantDuration"]));
                 }
 
-                UserId = long.Parse(form["ParticipantIdentity"]);
-                if (!string.IsNullOrEmpty(form["RoomDuration"]))
+                if (!string.IsNullOrEmpty(form["ParticipantIdentity"]))
                 {
-                    RoomDurationInSeconds = int.Parse(form["RoomDuration"]);
+                    UserId = long.Parse(form["ParticipantIdentity"]);
                 }
 
-                TrackSid = form["TrackSid"];
-                TackKind = form["TrackKind"];
+                //if (!string.IsNullOrEmpty(form["RoomDuration"]))
+                //{
+                //    RoomDurationInSeconds = int.Parse(form["RoomDuration"]);
+                //}
+
+               // TrackSid = form["TrackSid"];
+               // TackKind = form["TrackKind"];
 
             }
 
-            public StringValues TackKind { get; set; }
+           // public StringValues TackKind { get;  }
 
-            public string AccountSid { get; set; }
-            public string SessionId { get; set; }
-            public string RoomSid { get; set; }
-            public string RoomStatus { get; set; }
-            public string RoomType { get; set; }
-            public string StatusCallbackEvent { get; set; }
-            public DateTime Timestamp { get; set; }
-            public string ParticipantSid { get; set; }
-            public string ParticipantStatus { get; set; }
-            public TimeSpan? ParticipantDuration { get; set; }
-            public long UserId { get; set; }
-            public int? RoomDurationInSeconds { get; set; }
-            public string TrackSid { get; set; }
+          //  public string AccountSid { get;  }
+            public string SessionId { get;  }
+          //  public string RoomSid { get;  }
+          //  public string RoomStatus { get;  }
+          //  public string RoomType { get;  }
+            public string StatusCallbackEvent { get;  }
+          //  public DateTime Timestamp { get;  }
+           // public string ParticipantSid { get;  }
+           // public string ParticipantStatus { get;  }
+            public TimeSpan? ParticipantDuration { get;  }
+            public long UserId { get;  }
+            //public int? RoomDurationInSeconds { get;  }
+           // public string TrackSid { get; }
         }
     }
 }
