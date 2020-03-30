@@ -4,14 +4,14 @@
         <div class="top">
             <div>
                 <div class="closeIcon text-right">
-                    <v-icon size="12" color="#aaa" @click="$emit('goStep', 'register')">sbf-close</v-icon>
+                    <v-icon size="12" color="#aaa" @click="$store.commit('setComponent', '')">sbf-close</v-icon>
                 </div>
             </div>
 
             <div class="mainTitle" v-t="'loginRegister_registerType_mainTitle'"></div>
 
             <v-expansion-panels class="panels d-block px-0 px-sm-8">
-                <v-expansion-panel class="panel panel_student mb-5" readonly @click="$emit('goTo', 'register')">
+                <v-expansion-panel class="panel panel_student mb-5" @click="$emit('goTo', 'register')">
                     <v-expansion-panel-header class="pl-0 py-0" expand-icon="">
                         <span class="panelImage flex-grow-0 px-4">
                             <studentIcon />
@@ -21,8 +21,8 @@
                     </v-expansion-panel-header>
                 </v-expansion-panel>
 
-                <v-expansion-panel class="panel panel_teacher" readonly>
-                    <v-expansion-panel-header class="pl-0 py-0" expand-icon="">
+                <v-expansion-panel class="panel panel_teacher">
+                    <v-expansion-panel-header class="pl-0 py-0" v-openDialog="'becomeTutor'" >
                         <span class="panelImage flex-grow-0 px-4">
                             <teacherIcon />
                         </span>
@@ -55,6 +55,11 @@ export default {
     components: {
         teacherIcon,
         studentIcon
+    },
+    methods: {
+        // becomtTutor() {
+        //     this.$router.push({name: 'profile'})
+        // }
     }
 }
 </script>
