@@ -16,7 +16,8 @@
                             minSize: 1,
                             maxRetries: 5,
                             finishBody : {
-                            OtherUser: otherUserId
+                            OtherUser: otherUserId,
+                            conversationId:conversationId
                         }}"
                         id="chat-image"
                         :input-id="componentUniqueIdImage"
@@ -40,7 +41,8 @@
                         minSize: 1,
                         maxRetries: 5,
                         finishBody : {
-                        OtherUser: otherUserId
+                        OtherUser: otherUserId,
+                        conversationId:conversationId
                     }}"
                     id="file-input"
                     :input-id="componentUniqueIdFile"
@@ -143,6 +145,7 @@
 
                 formData.append("file", file);
                 formData.append('otherUser', this.otherUserId)
+                formData.append('conversationId', this.conversationId)
 
                 this.uploadCapturedImage(formData).then(()=> {
                     
@@ -155,6 +158,9 @@
         },
         computed:{
             ...mapGetters(['getActiveConversationObj']),
+            conversationId(){
+                return this.getActiveConversationObj.conversationId
+            },
             otherUserId(){
                 return this.getActiveConversationObj.userId
             }
