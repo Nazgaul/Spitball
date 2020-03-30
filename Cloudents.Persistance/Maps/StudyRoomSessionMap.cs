@@ -20,7 +20,7 @@ namespace Cloudents.Persistence.Maps
             //Map(x => x.VideoExists);
             HasMany(x => x.RoomSessionUsers)
                .KeyColumn("SessionId")
-               .Inverse().Cascade.AllDeleteOrphan();
+               .Inverse().Cascade.AllDeleteOrphan().AsSet();
             Map(m => m.PaymentApproved).Nullable();
             Map(x => x.AdminDuration).Column("AdminDuration2").Nullable();
 
