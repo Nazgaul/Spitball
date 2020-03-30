@@ -4,7 +4,7 @@ namespace Cloudents.Core.Interfaces
 {
     public interface ICacheProvider
     {
-        object Get(string key, string region);
+        object? Get(string key, string region);
 
         T Get<T>(string key, string region);
 

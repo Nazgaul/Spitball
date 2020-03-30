@@ -44,7 +44,11 @@
                     return `becomeTutor_btn_cal_connect`
                 }
                 if(this.isSelectCalendar && !this.isSelectHours){
-                    return `becomeTutor_btn_next`
+                    if(global.country === "IL"){
+                        return `becomeTutor_btn_next`
+                    }else{
+                        return `becomeTutor_connect_mobile`
+                    }
                 }
                 if(!this.isSelectCalendar && this.isSelectHours){
                     return `becomeTutor_connect_mobile`
@@ -91,8 +95,26 @@
                     return
                 }
                 if(this.isSelectCalendar && !this.isSelectHours){
-                    this.goSelectHour()
-                    return
+                    if(global.country === "IL"){
+                        this.goSelectHour()
+                        return
+                    }else{
+                        if(this.$route.name === 'myCalendar'){
+                            this.isLoading = true;
+                            let self = this;
+                            this.updateSelectedCalendarList().then(()=>{
+                                self.updateAvailabilityCalendar().then(()=>{
+                                    self.$emit('updateCalendar')
+                                    self.isLoading = false;
+                                })
+                            })
+                            
+                            return
+                        }else{
+                            this.initCalendar()
+                            return
+                        }
+                    }
                 }
                 if(!this.isSelectCalendar && this.isSelectHours){
                     if(this.$route.name === 'myCalendar'){

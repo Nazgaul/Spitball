@@ -5,12 +5,14 @@
             <calendarEmptyState @updateCalendar="updateCalendar"/>
          </v-card>
          <template v-if="isShowCalendarSettings">
-            <v-card class="myCalendar-container mb-2 mb-sm-3">
-               <calendarHours class="calendarAvailability"/>
-               <v-btn :loading="isLoadingAvailability" @click="changeAvailability" class="btn white--text" rounded depressed color="#4452fc">
-                  <span v-language:inner="'dashboardCalendar_btn_update'"/>
-               </v-btn>
-            </v-card> 
+            <template v-if="isShowCalendarAvailability">
+               <v-card class="myCalendar-container mb-2 mb-sm-3">
+                  <calendarHours class="calendarAvailability"/>
+                  <v-btn :loading="isLoadingAvailability" @click="changeAvailability" class="btn white--text" rounded depressed color="#4452fc">
+                     <span v-language:inner="'dashboardCalendar_btn_update'"/>
+                  </v-btn>
+               </v-card> 
+            </template>
             <v-card class="myCalendar-container">
                <p class="choose-title" v-language:inner="'dashboardCalendar_title_choose'"/>
                <selectCalendar class="calendarList"/>
@@ -68,6 +70,9 @@ export default {
       },
       isShowCalendarSettings(){
          return (this.isReady && !this.isLoadingthis && this.showCalendarSettings && !this.showEmptyState)
+      },
+      isShowCalendarAvailability(){
+         return global.country === "IL";
       }
    },
    methods: {

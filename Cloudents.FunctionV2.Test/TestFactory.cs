@@ -18,14 +18,14 @@ namespace Cloudents.FunctionsV2.Test
             };
         }
 
-        private static Dictionary<string, StringValues> CreateDictionary(string key, string value)
-        {
-            var qs = new Dictionary<string, StringValues>
-            {
-                { key, value }
-            };
-            return qs;
-        }
+        //private static Dictionary<string, StringValues> CreateDictionary(string key, string value)
+        //{
+        //    var qs = new Dictionary<string, StringValues>
+        //    {
+        //        { key, value }
+        //    };
+        //    return qs;
+        //}
 
         //public static DefaultHttpRequest CreateHttpRequest(string queryStringKey, string queryStringValue)
         //{

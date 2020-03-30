@@ -214,6 +214,7 @@ namespace Cloudents.Core.Entities
         private readonly ICollection<UserPayPalToken> _userTokens = new List<UserPayPalToken>();
 
 
+        public virtual DateTime? FinishRegistrationDate { get; set; }
 
         public virtual IEnumerable<UserPayPalToken> UserTokens => _userTokens;
 
@@ -223,7 +224,7 @@ namespace Cloudents.Core.Entities
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
 
-        public virtual void UseToken(Tutor tutor)
+        public virtual void UseToken(StudyRoom studyRoom)
         {
             Country country = Country;
 
@@ -232,18 +233,20 @@ namespace Cloudents.Core.Entities
                 return;
             }
 
-            var userToken = UserTokens.FirstOrDefault(w => w.State == UserTokenState.NotUsed);
+            var userToken = UserTokens
+                .FirstOrDefault(w => w.State == UserTokenState.NotUsed && w.StudyRoom.Id == studyRoom.Id);
             if (userToken != null)
             {
                 userToken.ChangeToUsedState();
             }
 
-            UseCoupon(tutor);
+            UseCoupon(studyRoom.Tutor);
         }
 
-        public virtual void AddToken(string userToken, decimal amount, StudyRoom studyRoom)
+        public virtual void AddToken(string orderId, string authorizationId, decimal amount, StudyRoom studyRoom)
         {
-            if (userToken == null) throw new ArgumentNullException(nameof(userToken));
+            if (orderId == null) throw new ArgumentNullException(nameof(orderId));
+            if (authorizationId == null) throw new ArgumentNullException(nameof(authorizationId));
             if (studyRoom == null) throw new ArgumentNullException(nameof(studyRoom));
             Country country = Country;
 
@@ -251,7 +254,7 @@ namespace Cloudents.Core.Entities
             {
                 throw new ArgumentException("Only usa country can use paypal");
             }
-            _userTokens.Add(new UserPayPalToken(userToken, amount, studyRoom));
+            _userTokens.Add(new UserPayPalToken(orderId, authorizationId, amount, studyRoom));
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
 
@@ -409,7 +412,8 @@ namespace Cloudents.Core.Entities
 
         public virtual void FinishRegistration()
         {
-            MakeTransaction(AwardMoneyTransaction.FinishRegistration(this));
+            FinishRegistrationDate = DateTime.UtcNow;
+            //MakeTransaction(AwardMoneyTransaction.FinishRegistration(this));
         }
 
         public virtual void ConfirmPhoneNumber()

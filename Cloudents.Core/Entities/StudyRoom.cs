@@ -70,9 +70,12 @@ namespace Cloudents.Core.Entities
 
         public virtual StudyRoomType? Type { get; protected set; }
 
-        public virtual void AddSession(StudyRoomSession session)
+        public virtual void AddSession(string sessionName)
         {
+            var session = new StudyRoomSession(this, sessionName);
             _sessions.Add(session);
+            var user = Users.First(f => f.User.Id != Tutor.Id).User;
+            user.UseToken(this);
             DateTime.UpdateTime = System.DateTime.UtcNow;
         }
 
@@ -80,7 +83,6 @@ namespace Cloudents.Core.Entities
         //{
         //    var studyRoomUser = Users.Single(f => f.User.Id == userId);
         //    studyRoomUser.ChangeOnlineState(isOnline);
-
         //}
 
     }

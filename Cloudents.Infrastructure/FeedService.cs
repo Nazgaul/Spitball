@@ -59,59 +59,7 @@ namespace Cloudents.Infrastructure
             return await _services[query.Filter].GetFeedAsync(query, token);
 
 
-            //if (query is null)
-            //{
-            //    throw new ArgumentNullException(nameof(query));
-            //}
-
-            //string termToQuery;
-            //if (!string.IsNullOrEmpty(query.Course))
-            //{
-            //    termToQuery = $"{query.Term} {query.Course}".Trim();
-            //}
-            //else
-            //{
-            //    termToQuery = query.Term.Trim();
-            //}
-            //var feedQuery = new DocumentQuery(query.Profile, query.Term, query.Course, ItemPageSize, query.Filter);
-            ////if (query.Filter == null)
-            ////{
-            ////    var feedQuery = new DocumentQuery(query.Profile, termToQuery, query.Course, ItemPageSize, query.Filter)
-            ////    {
-            ////        Page = query.Page,
-            ////    };
-            ////}
-            //var tutorQuery = new TutorListTabSearchQuery(termToQuery, query.Country, query.Page, TutorPageSize);
-            //var tutorTask = _tutorSearch.SearchAsync(tutorQuery, token);
-            //var resultTask = _searchProvider.SearchDocumentsAsync(feedQuery, token);
-
-
-            //await Task.WhenAll(resultTask, tutorTask);
-            //var result = SortFeed(resultTask.Result?.ToList(), tutorTask.Result?.Result?.ToList(), query.Page);
-            //return result;
-
-
-            //if (query.Filter == Core.Enum.FeedType.Tutor)
-            //{
-            //    var tutorQuery = new TutorListTabSearchQuery(termToQuery, query.Country, query.Page, 21);
-            //    var tutorsTask = _tutorSearch.SearchAsync(tutorQuery, token);
-            //    await Task.WhenAll(tutorsTask);
-            //    return tutorsTask.Result;
-            //}
-
-            //if (query.Filter == Core.Enum.FeedType.Document || query.Filter == Core.Enum.FeedType.Video)
-            //{
-            //    var feedQuery = new DocumentQuery(query.Profile, termToQuery, query.Course, 21, query.Filter)
-            //    {
-            //        Page = query.Page,
-            //    };
-            //    var resultTask = _searchProvider.SearchDocumentsAsync(feedQuery, token);
-            //    await Task.WhenAll(resultTask);
-            //    //Query docs/video
-            //    return resultTask.Result;
-            //}
-
-            //return Enumerable.Empty<FeedDto>();
+           
         }
     }
 
@@ -174,7 +122,7 @@ namespace Cloudents.Infrastructure
         }
 
 
-        private static IEnumerable<FeedDto> SortFeed(IList<FeedDto> itemsFeed, IList<FeedDto> tutorsFeed, int page)
+        private static IEnumerable<FeedDto> SortFeed(IList<FeedDto>? itemsFeed, IList<FeedDto>? tutorsFeed, int page)
         {
 
             if (itemsFeed is null)
@@ -185,26 +133,6 @@ namespace Cloudents.Infrastructure
             {
                 return itemsFeed;
             }
-
-            //foreach (var item in itemsFeed)
-            //{
-            //    if (item is DocumentFeedDto d)
-            //    {
-            //        if (d.User != null)
-            //        {
-            //            d.User.Image = _urlBuilder.BuildUserImageEndpoint(d.User.Id, d.User.Image);
-            //        }
-            //    }
-            //    else if (item is QuestionFeedDto q)
-            //    {
-            //        q.User.Image = _urlBuilder.BuildUserImageEndpoint(q.User.Id, q.User.Image);
-            //        if (q.FirstAnswer != null)
-            //        {
-            //            q.FirstAnswer.User.Image = _urlBuilder.BuildUserImageEndpoint(q.FirstAnswer.User.Id, q.FirstAnswer.User.Image);
-            //        }
-            //    }
-            //}
-
 
             var tutorLocationPageZero = new[] { 2, 12, 19 };
             var tutorLocationPage = new[] { 6, 13, 20 };

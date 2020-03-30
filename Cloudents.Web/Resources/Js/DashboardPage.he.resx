@@ -132,6 +132,9 @@
   <data name="course" xml:space="preserve">
     <value>קורס:</value>
   </data>
+  <data name="create_room_created_error" xml:space="preserve">
+    <value>קיים כבר חדר לימוד עם משתמש זה</value>
+  </data>
   <data name="create_room_create_btn" xml:space="preserve">
     <value>יצירת חדר לימוד</value>
   </data>

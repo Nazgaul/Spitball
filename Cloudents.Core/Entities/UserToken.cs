@@ -4,21 +4,29 @@ namespace Cloudents.Core.Entities
 {
     public class UserPayPalToken : Entity<Guid>
     {
-        public UserPayPalToken(string tokenId, decimal amount, StudyRoom studyRoom)
+        public UserPayPalToken(string orderId, string authorizationId, decimal amount, StudyRoom studyRoom)
         {
             //User = user;
-            TokenId = tokenId ?? throw new ArgumentNullException(nameof(tokenId));
+            //TokenId = tokenId ?? throw new ArgumentNullException(nameof(tokenId));
+
+            OrderId = orderId ?? throw new ArgumentNullException(nameof(orderId));
+            AuthorizationId = authorizationId ?? throw new ArgumentNullException(nameof(authorizationId));
+
             Created = Updated = DateTime.UtcNow;
             State = UserTokenState.NotUsed;
             Amount = amount;
             StudyRoom = studyRoom;
         }
+
         protected UserPayPalToken()
         { 
+
         }
 
        // public virtual User User { get; protected set; }
-        public virtual string TokenId { get; protected set; }
+        public virtual string OrderId { get; protected set; }
+        public virtual string AuthorizationId { get; protected set; }
+
         public virtual DateTime Created { get; }
 
         public virtual decimal Amount { get;  }
