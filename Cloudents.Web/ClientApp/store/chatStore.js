@@ -127,9 +127,6 @@ const mutations = {
     setActiveConversationId(state, id){
         state.activeConversationObj.conversationId = id;
     },
-    setActiveConversationStudyRoom(state, id){
-        state.activeConversationObj.studyRoomId = id;
-    },
     addConversation: (state, conversationObj)=>{
         let id = conversationObj.conversationId;
         // add a properly this way allow the computed to be fired!
@@ -190,7 +187,7 @@ const actions = {
                 if(state.activeConversationObj.conversationId === message.conversationId){
                     commit('addMessage', message);
                     if (message.fromSignalR) {
-                        chatService.clearUnread(state.activeConversationObj.userId);
+                        chatService.clearUnread(state.activeConversationObj.conversationId);
                     }
                     if(state.isMinimized && message.fromSignalR){
                         //in tutor room the conversation is auto loaded, so in case of refresh
@@ -214,7 +211,6 @@ const actions = {
                     // message here will be sent by local user
                     //if in conversation and is the first message then create a conversation before adding the message
                     let conversationObj = chatService.createConversation(message);
-                    conversationObj.userId = state.activeConversationObj.userId;
                     commit('addConversation', conversationObj);
                     commit('addMessage', message);
 
@@ -258,9 +254,8 @@ const actions = {
             conversationId = state.activeConversationObj.conversationId;
         }
         if(state.conversations[conversationId]){
-            let otherUserId = state.conversations[conversationId].userId;
-            if(state.totalUnread > 0 && state.conversations[conversationId].unread > 0) {
-                chatService.clearUnread(otherUserId);
+            if(state.conversations[conversationId].unread > 0) {
+                chatService.clearUnread(conversationId);
             }
             let unreadNumber = state.conversations[conversationId].unread * -1;
             commit('updateTotalUnread', unreadNumber);
@@ -274,9 +269,6 @@ const actions = {
         let messageObj2 = chatService.createMessage(messageObj.message, messageObj.conversationId, true);
         dispatch('addMessage', messageObj2);
         dispatch('openChatInterface');
-    },
-    signalRAddRoomInformationMessage({commit}, roomInfo){
-        commit('setActiveConversationStudyRoom', roomInfo.id);
     },
     setActiveConversationObj:({commit, dispatch, state}, obj)=>{
         commit('setSyncStatus', true);
@@ -294,15 +286,10 @@ const actions = {
         chatService.getAllConversations().then(({data})=>{
             if(data.length > 0){
                 data.forEach(conversation => {
-                    let conversationObj = chatService.createConversation2(conversation);
+                    let conversationObj = chatService.createConversation(conversation);
                     commit('addConversation', conversationObj);
-
-                    let unreads = conversationObj.users.map(u=>u.unread);
-                    const reducer = (accumulator, currentValue) => accumulator + currentValue;
-                    let totalUnread = unreads.reduce(reducer);
-                    commit('updateTotalUnread', totalUnread);
-                    
-                    conversationObj.users.forEach(user=>{
+                    commit('updateTotalUnread', conversationObj.unread);
+                    conversation.users.forEach(user=>{
                         let userStatus = {
                             id: user.userId,
                             online: user.online
