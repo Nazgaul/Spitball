@@ -23,6 +23,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
+using Cloudents.Command.Command;
 using Cloudents.Query;
 using Cloudents.Query.Chat;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
@@ -142,10 +143,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await BuildStudyRoomName();
-            var queryBus = Container.Resolve<IQueryBus>();
-            var query = new ChatConversationsQuery(638);
-            var result = await queryBus.QueryAsync(query, default);
+            var queryBus = Container.Resolve<ICommandBus>();
+            var roomId = Guid.Parse("9ae4930d-4100-466f-8e4f-ab8d00d3e650");
+            var command = new StudyRoomSessionUserConnectedCommand(roomId, "9ae4930d-4100-466f-8e4f-ab8d00d3e650_1585568328", 638);
+            await queryBus.DispatchAsync(command, default);
             //ResourcesMaintenance.DeleteStuffFromJs();
             //await Convert();
             //var result = await s.GetPaymentAsync("4J34525079381873W", default);
