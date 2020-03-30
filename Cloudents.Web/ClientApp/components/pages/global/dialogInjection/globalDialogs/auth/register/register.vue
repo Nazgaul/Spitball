@@ -3,7 +3,7 @@
         <v-form @submit.prevent="submit" ref="form" class="registerForm pa-4">  
             <div>
                 <div class="closeIcon">
-                    <v-icon size="14" color="" @click="$store.commit('setToaster', '')">sbf-close</v-icon>
+                    <v-icon size="12" color="#aaa" @click="$store.commit('setToaster', '')">sbf-close</v-icon>
                 </div>
 
                 <template v-if="isEmailRegister">
@@ -23,7 +23,7 @@
                         <span class="googleBtnText" v-t="'loginRegister_getstarted_btn_google_signup'"></span>
                     </v-btn>
 
-                    <div class="d-flex justify-center text-center mb-7">
+                    <div class="d-flex justify-center text-center mb-6">
 
                         <div class="divider"></div>
                         <div class="or">OR</div>
@@ -58,11 +58,11 @@
                 </v-btn>
 
                 <div class="termsWrap text-center" v-if="isEmailRegister">
-                    <div class="my-2">
+                    <div class="my-3">
                         <span v-t="'loginRegister_getstarted_terms_i_agree'"></span>
-                        <a :href="termsLink" v-t="'loginRegister_getstarted_terms_terms'"></a>
+                        <a class="link" :href="termsLink" v-t="'loginRegister_getstarted_terms_terms'"></a>
                         <span class="" v-t="'loginRegister_getstarted_terms_and'"></span>
-                        <a :href="policyLink" v-t="'loginRegister_getstarted_terms_privacy'"></a>
+                        <a class="link" :href="policyLink" v-t="'loginRegister_getstarted_terms_privacy'"></a>
                     </div>
                 </div>
 
@@ -168,7 +168,7 @@ export default {
                 firstName: childComp.firstName,
                 lastName: childComp.lastName,
                 email: childComp.email,
-                gender: childComp.gender,
+                // gender: childComp.gender,
                 password: childComp.password,
                 captcha: this.recaptcha
             }
@@ -304,16 +304,22 @@ export default {
         .termsWrap {
             color: @global-purple;
             font-size: 10px;
-            border-bottom: 1px solid #dddddd
+            border-bottom: 1px solid #dddddd;
+
+            .link {
+                color: #4c59ff;
+                text-decoration: underline;
+            }
         }
         .getStartedBottom {
             .responsive-property(font-size, 14px, null, 14px);
                 .link {
                     cursor: pointer;  
-                    color: @global-blue;
+                    color: #4c59ff;
+                    font-weight: 600;
                 }
             .needAccount {
-                color: @color-login-text-subtitle;
+                color: @global-purple;
             }
         }
     }

@@ -51,10 +51,11 @@
         >
         </v-text-field>
 
-        <v-radio-group v-model="gender" row class="radioActive mt-n1" dense :mandatory="true">
+        <!-- DO NOT REMOVE GENDER RADIO BUTTONS -->
+        <!-- <v-radio-group v-model="gender" row class="radioActive mt-n1" dense :mandatory="true">
             <v-radio :label="$t('loginRegister_setemailpass_male')" value="male" on-icon="sbf-radioOn" off-icon="sbf-radioOff"></v-radio>
             <v-radio :label="$t('loginRegister_setemailpass_female')" value="female" on-icon="sbf-radioOn" off-icon="sbf-radioOff"></v-radio>
-        </v-radio-group>
+        </v-radio-group> -->
 
         <v-text-field 
             v-model="password"
@@ -89,7 +90,7 @@ export default {
             firstName:'',
             lastName:'',
             email: '',
-            gender: "male",
+            // gender: "male",
             password: "",
             rules: {
                 required: (value) => validationRules.required(value),
