@@ -78,7 +78,6 @@
         </div>
         <template slot="rightSide">
             <div :class="['feed-sticky',{'feed-sticky_bannerActive':getBannerParams}]">
-                <feedFaqBlock v-if="showAdBlock" class="mb-4"/>
                 <buyPointsLayout v-if="getUserLoggedInStatus" class="buyPointsFeed"/>
             </div>
         </template>
