@@ -21,7 +21,6 @@ const state = {
    roomIsActive: false,
    roomIsNeedPayment: false,
    roomTutor: {},
-   roomStudent: {},
    // TODO: change it to roomId after u clean all
    studyRoomId: null,
 
@@ -44,11 +43,6 @@ const mutations = {
          tutorImage: props.tutorImage,
          tutorPrice: props.tutorPrice,
       }
-      state.roomStudent = {
-         studentId: props.studentId,
-         studentImage: props.studentImage,
-         studentName: props.studentName,
-      }
       state.roomIsNeedPayment = props.needPayment;
       state.roomConversationId = props.conversationId;
       state.studyRoomId = props.roomId;
@@ -64,7 +58,6 @@ const mutations = {
       state.roomIsActive = false;
       state.roomIsNeedPayment = false;
       state.roomTutor = {};
-      state.roomStudent = {};
       state.studyRoomId = null;
       state.dialogRoomSettings = false;
       state.dialogEndSession = false;
@@ -79,7 +72,6 @@ const getters = {
    getRoomIsTutor: state => state.roomIsTutor,
    getRoomIsActive: state => state.roomIsActive,
    getRoomTutor: state => state.roomTutor,
-   getRoomStudent: state => state.roomStudent,
    getRoomIdSession: state => state.studyRoomId,
    getRoomConversationId: state => state.roomConversationId,
    getRoomIsNeedPayment: state => {
