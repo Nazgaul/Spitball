@@ -126,7 +126,8 @@ import changeNumber from '../images/changeNumber.svg'
 import phoneCall from '../images/phoneCall.svg'
 
 export default {
-    components: { 
+    mixins: [authMixin],
+    components: {
         emailRegister,
         setPhone2,
         verifyPhone,
@@ -134,7 +135,9 @@ export default {
         changeNumber,
         phoneCall
     },
-    mixins: [authMixin],
+    props: {
+        params: {}
+    },
     data() {
         return {
             component: 'emailRegister',

@@ -75,7 +75,7 @@ export default {
                     params: {
                         component: 'register'
                     }
-                }
+                },
             }
         }
     },
@@ -83,6 +83,9 @@ export default {
         getIsShowToaster(val = "") {
             this.showComponent(val)
         },
+        "$store.getters.getParams"(param) {
+            this.componentObj[this.getIsShowToaster].params.component = param
+        }
     },
     computed: {
         getIsShowToaster() {

@@ -37,7 +37,7 @@
                 </template>
                 <template v-if="!$vuetify.breakpoint.smAndDown && !loggedIn">
                     <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$store.commit('setToaster', 'login')" v-language:inner="'tutorListLanding_topnav_btn_login'"/>
-                    <button class="gH_i_r_btns gH_i_r_btn_up mr-4" @click="$router.push({name :'register'})" v-language:inner="'tutorListLanding_topnav_btn_signup'"/>
+                    <button class="gH_i_r_btns gH_i_r_btn_up mr-4" @click="$store.commit('setToaster', {name: 'register', param: 'registerType'})" v-language:inner="'tutorListLanding_topnav_btn_signup'"/>
                     <a class="gH_i_lang" @click="changeLanguage()" v-if="showChangeLanguage" sel="language" v-html="currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''"/>
                 </template>
                 <v-menu fixed close-on-content-click bottom offset-y :content-class="getBannerParams? 'fixed-content-banner':'fixed-content'">

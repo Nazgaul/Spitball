@@ -12,6 +12,7 @@ const state = {
         toasterTimeout: 5000
     },
     value: '',
+    param: ''
 };
 const mutations = {
     //OLD CODE IGNORE!!!!
@@ -28,9 +29,11 @@ const mutations = {
         }
     },
     setToaster(state, type) {
-        state.value = type
+        state.param = type.param || ''
+        state.value = type.name || type
     },
     clearToaster(state) {
+        state.param = ''
         state.value = '';
     }
 };
@@ -39,7 +42,8 @@ const getters = {
     getToasterText: state => state.params.toasterText,
     getShowToasterType: state => state.params.toasterType,
     getToasterTimeout: state => state.params.toasterTimeout,
-    getIsShowToaster: state => state.value
+    getIsShowToaster: state => state.value,
+    getParams: state => state.param
 };
 const actions = {
     updateToasterParams({commit}, val){
