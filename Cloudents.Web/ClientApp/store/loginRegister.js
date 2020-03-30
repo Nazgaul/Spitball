@@ -325,8 +325,8 @@ const actions = {
             });
     },
     changePassword({commit,dispatch},params) {
-        let {id, code, password} = params;
-            registrationService.updatePassword(password, id, code) //TODO: send object instead
+        let {id, code, password, confirmPassword} = params;
+            registrationService.updatePassword(password, id, code, confirmPassword) //TODO: send object instead
                 .then(() => {
                     dispatch('updateLoginStatus',true)
                     _analytics(['Forgot Password', 'Updated password']);
