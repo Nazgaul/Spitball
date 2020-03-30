@@ -26,7 +26,7 @@ namespace Cloudents.Persistence.Maps
             Map(e => e.Country).Nullable().Length(2);
 
             Map(e => e.Created).Insert().Not.Update();
-            Map(e => e.Fictive).ReadOnly();
+            Map(e => e.Fictive).CustomSqlType("bit").ReadOnly();
 
 
             Map(e => e.OldUser).Nullable();
@@ -47,13 +47,13 @@ namespace Cloudents.Persistence.Maps
             DynamicUpdate();
             OptimisticLock.Version();
             Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
-            DiscriminateSubClassesOnColumn("Fictive");
+            //DiscriminateSubClassesOnColumn<int>("Fictive");
+            DiscriminateSubClassesOnColumn<bool>("Fictive",true);
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull
                ON sb.[User](PhoneNumberHash)
                WHERE PhoneNumberHash IS NOT NULL;
              */
-            SchemaAction.Update();
         }
     }
 
