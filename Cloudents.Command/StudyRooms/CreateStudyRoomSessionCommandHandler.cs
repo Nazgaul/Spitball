@@ -33,7 +33,7 @@ namespace Cloudents.Command.StudyRooms
                 var roomAvailable = await _videoProvider.GetRoomAvailableAsync(lastSession.SessionId);
                 if (roomAvailable)
                 {
-                    lastSession.ReJoinStudyRoom();
+                    //lastSession.ReJoinStudyRoom();
                     var jwtToken2 = _videoProvider.CreateRoomToken(lastSession.SessionId, message.UserId);
                     return  new CreateStudyRoomSessionCommandResult(jwtToken2);
                 }

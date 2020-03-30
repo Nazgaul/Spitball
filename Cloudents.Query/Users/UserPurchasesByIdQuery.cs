@@ -53,7 +53,7 @@ namespace Cloudents.Query.Users
                         Price = s.Price
 
                     }).ToFuture<UserPurchaseDto>();
-                //TODO: Please check if the ended and price happens in the same place
+
                 var sessionFuture = _session.Query<StudyRoomSession>()
                     .Fetch(f => f.StudyRoom)
                     .ThenFetch(f => f.Users)
@@ -69,6 +69,8 @@ namespace Cloudents.Query.Users
                         TutorId = s.StudyRoom.Tutor.Id,
                         TutorImage = _urlBuilder.BuildUserImageEndpoint(s.StudyRoom.Tutor.Id, s.StudyRoom.Tutor.User.ImageName, s.StudyRoom.Tutor.User.Name, null)
                     }).ToFuture<UserPurchaseDto>();
+
+                
 
                 var buyPointsFuture = _session.Query<BuyPointsTransaction>()
                     .Fetch(s => s.User)

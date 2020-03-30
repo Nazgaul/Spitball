@@ -11,7 +11,7 @@ namespace Cloudents.Persistence.Maps
             References(x => x.StudyRoom).Column("StudyRoomId").ForeignKey("Session_Room").Not.Nullable();
             Map(x => x.Created).Not.Nullable();
             Map(x => x.Ended);
-            Map(x => x.RejoinCount);
+            //Map(x => x.RejoinCount);
             Map(x => x.Duration);
             Map(x => x.RealDuration);
             Map(x => x.SessionId).Not.Nullable();

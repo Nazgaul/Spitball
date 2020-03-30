@@ -37,7 +37,7 @@ namespace Cloudents.Core.Entities
         public virtual TimeSpan? Duration { get; protected set; }
 
 
-        public virtual int RejoinCount { get; protected set; }
+        //public virtual int RejoinCount { get; protected set; }
         public virtual string SessionId { get; protected set; }
         public virtual string? Receipt { get; protected set; }
         public virtual decimal? Price { get; protected set; }
@@ -107,11 +107,11 @@ namespace Cloudents.Core.Entities
             AddEvent(new EndStudyRoomSessionEvent(this));
         }
 
-        public virtual void ReJoinStudyRoom()
-        {
-            RejoinCount++;
-            AddEvent(new StudyRoomSessionRejoinEvent(this));
-        }
+        //public virtual void ReJoinStudyRoom()
+        //{
+        //    RejoinCount++;
+        //    AddEvent(new StudyRoomSessionRejoinEvent(this));
+        //}
 
         public virtual void SetReceipt(string receipt)
         {
