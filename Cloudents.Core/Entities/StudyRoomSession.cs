@@ -46,7 +46,7 @@ namespace Cloudents.Core.Entities
         public virtual byte[] Version { get; protected set; }
 
 
-        protected internal ISet<StudyRoomSessionUser> RoomSessionUsers { get; set; }
+        protected internal virtual ISet<StudyRoomSessionUser> RoomSessionUsers { get; set; }
 
         public virtual void AddUser(User user)
         {

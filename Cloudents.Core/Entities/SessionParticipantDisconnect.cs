@@ -21,7 +21,7 @@ namespace Cloudents.Core.Entities
 
         public virtual TimeSpan? Duration { get; protected set; }
 
-        public int DisconnectCount { get; protected set; }
+        public virtual int DisconnectCount { get; protected set; }
 
         public virtual void Disconnect(TimeSpan durationInRoom)
         {
@@ -30,7 +30,7 @@ namespace Cloudents.Core.Entities
         }
 
 
-        public bool Equals(StudyRoomSessionUser other)
+        public virtual bool Equals(StudyRoomSessionUser other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
