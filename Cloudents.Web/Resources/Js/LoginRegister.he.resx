@@ -228,6 +228,9 @@
   <data name="know_better" xml:space="preserve">
     <value>אנחנו רוצים להכיר אותך טוב יותר</value>
   </data>
+  <data name="or" xml:space="preserve">
+    <value>או</value>
+  </data>
   <data name="parent" xml:space="preserve">
     <value>הורים</value>
   </data>

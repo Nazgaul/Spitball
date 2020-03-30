@@ -381,4 +381,7 @@
   <data name="setphone_sub_title" xml:space="preserve">
     <value>Please enter your phone number</value>
   </data>
+  <data name="or" xml:space="preserve">
+    <value>Or</value>
+  </data>
 </root>
