@@ -141,6 +141,12 @@
   <data name="create_room_empty_error" xml:space="preserve">
     <value>You didn't select any student</value>
   </data>
+  <data name="create_room_label" xml:space="preserve">
+    <value>Room Name</value>
+  </data>
+  <data name="create_room_placeholder" xml:space="preserve">
+    <value>enter a room name</value>
+  </data>
   <data name="create_room_title" xml:space="preserve">
     <value>Choose a student</value>
   </data>

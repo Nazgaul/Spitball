@@ -158,24 +158,18 @@ const actions = {
       commit(studyRoom_SETTERS.ROOM_RESET)
    },
    updateCreateStudyRoom({getters,commit},{users,roomName}){
-      // let userId = user.userId
       let usersIds = users.map(user=> user.userId);
-      //TODO pass name
       return studyRoomService.createRoom(roomName,usersIds).then(({data})=>{
-         // let currentTutor = getters.accountUser;
-         // analyticsService.sb_unitedEvent('study_room', 'created', `tutorName: ${currentTutor.name} tutorId: ${currentTutor.id}`);
-         // let newStudyRoomParams = {
-         //    name: user.name,
-         //    image: user.image,
-         //    userId,
-         //    conversationId: `${userId}_${currentTutor.id}`,
-         //    date: new Date().toISOString(),
-         //    // online: false
-         //    id: data.studyRoomId,
-         // }
-         // let myStudyRooms = getters.getStudyRoomItems;
-         // myStudyRooms.unshift(newStudyRoomParams);
-         // commit('setStudyRoomItems',myStudyRooms)
+         usersIds.push(getters.accountUser.id)
+         let newStudyRoomParams = {
+            date: new Date().toISOString(),
+            id: data.studyRoomId,
+            name: roomName,
+            conversationId: usersIds.sort((a,b)=>a-b).join('_'),
+         }
+         let myStudyRooms = getters.getStudyRoomItems;
+         myStudyRooms.unshift(newStudyRoomParams);
+         commit('setStudyRoomItems',myStudyRooms)
          return
       })
    }
