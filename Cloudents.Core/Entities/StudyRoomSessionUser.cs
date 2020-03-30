@@ -25,7 +25,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void Disconnect(TimeSpan durationInRoom)
         {
-            Duration = Duration.GetValueOrDefault(TimeSpan.Zero) +  durationInRoom;
+            Duration = Duration.GetValueOrDefault(TimeSpan.Zero) + durationInRoom;
             DisconnectCount++;
         }
 
@@ -34,7 +34,7 @@ namespace Cloudents.Core.Entities
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return base.Equals(other) && StudyRoomSession.Equals(other.StudyRoomSession) && User.Equals(other.User);
+            return StudyRoomSession.Id.Equals(other.StudyRoomSession.Id) && User.Id.Equals(other.User.Id);
         }
 
         public override bool Equals(object obj)
@@ -42,16 +42,15 @@ namespace Cloudents.Core.Entities
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((StudyRoomSessionUser) obj);
+            return Equals((StudyRoomSessionUser)obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                int hashCode = base.GetHashCode();
-                hashCode = (hashCode * 397) ^ StudyRoomSession.GetHashCode();
-                hashCode = (hashCode * 397) ^ User.GetHashCode();
+                var hashCode = StudyRoomSession.Id.GetHashCode();
+                hashCode = (hashCode * 397) ^ User.Id.GetHashCode();
                 return hashCode;
             }
         }
