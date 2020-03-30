@@ -2,25 +2,34 @@
     <div class="registerDialog">
         <v-form @submit.prevent="submit" ref="form" class="registerForm pa-4">  
             <div>
-                <div class="text-right">
+                <div class="closeIcon">
                     <v-icon size="14" color="" @click="$store.commit('setToaster', '')">sbf-close</v-icon>
                 </div>
 
                 <template v-if="isEmailRegister">
-                    <div class="mainTitle text-center mb-4" v-t="'loginRegister_setemailpass_title'"></div>
+                    <div class="mainTitle text-center mb-8" v-t="'loginRegister_setemailpass_title'"></div>
 
                     <v-btn 
                         @click="gmailRegister"
                         depressed
                         :loading="googleLoading"
-                        rounded
+                        block
+                        height="40"
                         sel="gmail"
-                        color="#304FFE"
-                        class="white--text mb-6"
+                        color="#da6156"
+                        class="btns white--text mb-6"
                     >
                         <img width="40" src="../../../../../authenticationPage/images/G icon@2x.png" />
                         <span class="googleBtnText" v-t="'loginRegister_getstarted_btn_google_signup'"></span>
                     </v-btn>
+
+                    <div class="d-flex justify-center text-center mb-7">
+
+                        <div class="divider"></div>
+                        <div class="or">OR</div>
+                        <div class="divider"></div>
+
+                    </div>
                 </template>
 
                 <component 
@@ -33,39 +42,38 @@
                 >
                 </component>
 
-                <div class="getStartedBottom" v-if="isEmailRegister">    
-                    <div class="text-center">
-                        <span class="needAccount" v-t="'loginRegister_getstarted_signin_text'"></span>
-                        <span class="link" v-t="'loginRegister_getstarted_signin_link'" @click="$emit('goTo', 'login')"></span>
-                    </div>
-                </div>
-
             </div>
 
-            <div class="bottom mt-8">
-                <div class="text-center" v-if="isEmailRegister">
-                    <div class="mb-4">
+            <div class="bottom">
+                <v-btn
+                    type="submit"
+                    depressed
+                    height="40"
+                    :loading="btnLoading && !googleLoading"
+                    block
+                    class="btns white--text"
+                    color="#4452fc"
+                >
+                    <span v-t="'loginRegister_setemailpass_btn'"></span>
+                </v-btn>
+
+                <div class="termsWrap text-center" v-if="isEmailRegister">
+                    <div class="my-2">
                         <span v-t="'loginRegister_getstarted_terms_i_agree'"></span>
                         <a :href="termsLink" v-t="'loginRegister_getstarted_terms_terms'"></a>
                         <span class="" v-t="'loginRegister_getstarted_terms_and'"></span>
                         <a :href="policyLink" v-t="'loginRegister_getstarted_terms_privacy'"></a>
                     </div>
                 </div>
-                <v-btn
-                    type="submit"
-                    depressed
-                    large
-                    :loading="btnLoading && !googleLoading"
-                    block
-                    rounded
-                    class="white--text"
-                    color="#304FFE"
-                >
-                    <span v-t="'loginRegister_setemailpass_btn'"></span>
-                </v-btn>
+
+                <div class="getStartedBottom mt-2" v-if="isEmailRegister">    
+                    <div class="text-center">
+                        <span class="needAccount" v-t="'loginRegister_getstarted_signin_text'"></span>
+                        <span class="link" v-t="'loginRegister_getstarted_signin_link'" @click="$emit('goTo', 'login')"></span>
+                    </div>
+                </div>
             </div>
         </v-form>
-
 
         <vue-recaptcha
             size="invisible"
@@ -252,9 +260,22 @@ export default {
 
 .registerDialog {
     background: #fff;
-
+    position: relative;
     @media (max-width: @screen-xs) {
         height: 100%;
+    }
+    .closeIcon {
+        position: absolute;
+        right: 16px;
+    }
+    .divider {
+        width: 140px;
+        border-bottom: 1px solid #ddd;
+        margin: 0 10px 7px;
+    }
+    .or {
+        color: @global-purple;
+        font-weight: 600;
     }
     .registerForm {
         height: inherit;
@@ -265,28 +286,42 @@ export default {
             justify-content: space-between;
         }
         .mainTitle {
-            .responsive-property(font-size, 28px, null, 22px);
+            .responsive-property(font-size, 20px, null, 22px);
             color: @color-login-text-title;
+            font-weight: 600;
         }
         .googleBtnText {
             margin-bottom: 2px;
         }
-    }
-    .getStartedBottom {
-        .responsive-property(font-size, 16px, null, 14px);
-            .link {
-                cursor: pointer;  
-                color: @global-blue;
-            }
-        .needAccount {
-            color: @color-login-text-subtitle;
+        .v-label {
+            color: @global-purple;
         }
     }
-    .captcha {
-        .grecaptcha-badge {
-            @media (max-width: @screen-xs) {
-                bottom: 150px !important;
+    .btns {
+        border-radius: 6px;
+    }
+    .bottom {
+        .termsWrap {
+            color: @global-purple;
+            font-size: 10px;
+            border-bottom: 1px solid #dddddd
+        }
+        .getStartedBottom {
+            .responsive-property(font-size, 14px, null, 14px);
+                .link {
+                    cursor: pointer;  
+                    color: @global-blue;
+                }
+            .needAccount {
+                color: @color-login-text-subtitle;
             }
+        }
+    }
+}
+.captcha {
+    .grecaptcha-badge {
+        @media (max-width: @screen-xs) {
+            bottom: 150px !important;
         }
     }
 }

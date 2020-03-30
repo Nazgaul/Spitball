@@ -1,5 +1,5 @@
 <template>
-    <v-dialog :value="true" max-width="620px" content-class="authDialog" persistent :fullscreen="$vuetify.breakpoint.xsOnly">
+    <v-dialog :value="true" max-width="410px" content-class="authDialog" persistent :fullscreen="$vuetify.breakpoint.xsOnly">
         <component :is="tempComponent || params.component" @goTo="goTo"></component>
     </v-dialog>
 </template>

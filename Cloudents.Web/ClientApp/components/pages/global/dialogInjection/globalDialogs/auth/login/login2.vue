@@ -1,20 +1,21 @@
 <template>
     <v-form class="loginForm pa-4" @submit.prevent="submit" ref="form">
         <div class="top">
-            <div class="text-right">
+            <div class="closeIcon">
                 <v-icon size="14" color="" @click="$store.commit('setToaster', '')">sbf-close</v-icon>
             </div>
 
             <template v-if="isLoginDetails">
-                <div class="loginTitle text-center mb-4"  v-t="'loginRegister_setemail_title'"></div>
+                <div class="loginTitle text-center mb-8"  v-t="'loginRegister_setemail_title'"></div>
 
                 <v-btn
                     @click="gmailRegister"
                     :loading="googleLoading"
-                    class="google white--text"
+                    class="btns google white--text"
                     sel="gmail"
-                    color="#304FFE"
-                    rounded
+                    block
+                    height="40"
+                    color="#da6156"
                     depressed
                 >
                     <img width="40" src="../../../../../authenticationPage/images/G icon@2x.png" />
@@ -46,12 +47,11 @@
             <v-btn
                 type="submit"
                 depressed
-                large
+                height="40"
                 :loading="btnLoading && !googleLoading"
                 block
-                rounded
-                class="white--text mt-6"
-                color="#304FFE"
+                class="btns white--text mt-6"
+                color="#4452fc"
             >
                 <span v-t="btnResource"></span>
             </v-btn>
@@ -195,15 +195,20 @@ export default {
 .loginForm {
     background: #ffffff;
     height: 100%;
-
+    position: relative;
     @media (max-width: @screen-xs) {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
     }
+    .closeIcon {
+        position: absolute;
+        right: 16px;
+    }
     .loginTitle {
-        .responsive-property(font-size, 28px, null, 22px);
+        .responsive-property(font-size, 20px, null, 22px);
         color: @color-login-text-title;
+        font-weight: 600;
     }
     .googleBtnText {
         margin-bottom: 2px;
@@ -214,15 +219,19 @@ export default {
         letter-spacing: -0.37px;
         color: @global-blue;
     }
-}
-.getStartedBottom {
-    .responsive-property(font-size, 16px, null, 14px);
-        .link{
-            cursor: pointer;
-            color: @global-blue;
+    .btns {
+        border-radius: 6px;
+    }
+    .getStartedBottom {
+        .responsive-property(font-size, 16px, null, 14px);
+            .link{
+                cursor: pointer;
+                color: @global-blue;
+            }
+        .needAccount {
+            color: @color-login-text-subtitle;
         }
-    .needAccount {
-        color: @color-login-text-subtitle;
+
     }
 }
 </style>
