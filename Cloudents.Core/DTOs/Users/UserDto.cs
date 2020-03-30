@@ -203,7 +203,7 @@ namespace Cloudents.Core.DTOs.Users
         [EntityBind(nameof(BaseUser.Name))]
         public string Name { get; set; }
         [EntityBind(nameof(BaseUser.ImageName))]
-        public string Image { get; set; }
+        public string? Image { get; set; }
 
         [EntityBind(nameof(ChatUser.Unread))]
         public int Unread { get; set; }

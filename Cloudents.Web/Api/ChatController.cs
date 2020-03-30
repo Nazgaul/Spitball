@@ -54,11 +54,6 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var result = await _queryBus.QueryAsync(new ChatConversationsQuery(userId), token);
-            //result = result.Select(s =>
-            //{
-            //    s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
-            //    return s;
-            //});
             return result;
         }
 
@@ -72,16 +67,15 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<ChatUserDto>> GetConversationAsync(string id, CancellationToken token)
+        public async Task<ActionResult<ChatDto>> GetConversationAsync(string id, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var result = await _queryBus.QueryAsync(new ChatConversationQuery(id, userId), token);
+            var results = await _queryBus.QueryAsync(new ChatConversationsQuery(userId), token);
+            var result = results.FirstOrDefault(f => f.ConversationId == id);
             if (result == null)
             {
                 return BadRequest();
             }
-
-            result.Image = _urlBuilder.BuildUserImageEndpoint(result.UserId, result.Image);
 
             return result;
         }
