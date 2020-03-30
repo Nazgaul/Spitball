@@ -11,7 +11,7 @@
                 <p class="message_2" v-language:inner="'tutorRequest_message_success_tutor_2'"></p>
                 <div class="message_3">
                     <p>{{$t('tutorRequest_message_success_tutor_3',[firstName])}}</p>
-                    <p>{{tutorPhoneNumber}}</p>
+                    <p><bdi>{{tutorPhoneNumber}}</bdi></p>
                 </div>
             </template>
             <template v-else>
