@@ -10,11 +10,12 @@
         //    ToUsersId = usersId;
         //}
 
-        public SendChatTextMessageCommand(string message, long userSendingId, long toUsersId)
+        public SendChatTextMessageCommand(string message, long userSendingId, long toUsersId, string identifier)
         {
             Message = message;
             UserSendingId = userSendingId;
             ToUsersId = toUsersId;
+            Identifier = identifier;
         }
 
         // public Guid? ChatRoomId { get;  }
@@ -25,5 +26,6 @@
         // public string Blob { get; }
 
         public long ToUsersId { get; }
+        public string Identifier { get; }
     }
 }

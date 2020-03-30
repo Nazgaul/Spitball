@@ -120,7 +120,7 @@ namespace Cloudents.Web.Api
             {
                 return BadRequest();
             }
-            var command = new SendChatTextMessageCommand(model.Message, userId, model.OtherUser);
+            var command = new SendChatTextMessageCommand(model.Message, userId, model.OtherUser, model.ConversationId);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }

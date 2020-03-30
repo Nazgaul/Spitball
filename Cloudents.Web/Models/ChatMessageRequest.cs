@@ -12,6 +12,8 @@ namespace Cloudents.Web.Models
         public string Message { get; set; }
 
         public long OtherUser { get; set; }
+
+        public string ConversationId { get; set; }
     }
 
 
