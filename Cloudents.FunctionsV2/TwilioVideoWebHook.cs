@@ -103,7 +103,7 @@ namespace Cloudents.FunctionsV2
                 ParticipantStatus = form["ParticipantStatus"];
                 ParticipantDuration = form["ParticipantDuration"];
                 ParticipantIdentity = form["ParticipantIdentity"];
-                if (form["RoomDuration"].ToString() != null)
+                if (!string.IsNullOrEmpty(form["RoomDuration"]))
                 {
                     RoomDurationInSeconds = int.Parse(form["RoomDuration"]);
                 }
