@@ -50,15 +50,15 @@ namespace Cloudents.Web.Api
 
         // GET: api/<controller>
         [HttpGet]
-        public async Task<IEnumerable<ChatUserDto>> GetAsync(CancellationToken token)
+        public async Task<IEnumerable<ChatDto>> GetAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var result = await _queryBus.QueryAsync(new ChatConversationsQuery(userId), token);
-            result = result.Select(s =>
-            {
-                s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
-                return s;
-            });
+            //result = result.Select(s =>
+            //{
+            //    s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
+            //    return s;
+            //});
             return result;
         }
 
