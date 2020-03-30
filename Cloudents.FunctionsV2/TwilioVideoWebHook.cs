@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
+using Cloudents.Command.Command;
 using Cloudents.Command.StudyRooms;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Mvc;
@@ -53,15 +54,20 @@ namespace Cloudents.FunctionsV2
                     propInfo => propInfo.GetValue(request, null)?.ToString()
 
                 ));
-            if (request.StatusCallbackEvent == "room-ended")
+            if (string.Equals(request.StatusCallbackEvent, "room-ended", StringComparison.OrdinalIgnoreCase))
             {
                 var command = new EndStudyRoomSessionTwilioCommand(roomId, request.SessionId);
                 await commandBus.DispatchAsync(command, token);
             }
             if (request.StatusCallbackEvent.Equals("participant-connected", StringComparison.OrdinalIgnoreCase))
             {
-               // var command = new StudyRoomSessionParticipantReconnectedCommand(id);
-               // await _commandBus.DispatchAsync(command, token);
+                // var command = new StudyRoomSessionParticipantReconnectedCommand(id);
+                // await _commandBus.DispatchAsync(command, token);
+            }
+            if (request.StatusCallbackEvent.Equals("participant-connected", StringComparison.OrdinalIgnoreCase))
+            {
+                var command = new StudyRoomSessionUserConnectedCommand(roomId,request.SessionId,request.UserId);
+                await commandBus.DispatchAsync(command, token);
             }
 
             //if (request.StatusCallbackEvent.Equals("participant-disconnected", StringComparison.OrdinalIgnoreCase))
@@ -107,7 +113,7 @@ namespace Cloudents.FunctionsV2
                 ParticipantSid = form["ParticipantSid"];
                 ParticipantStatus = form["ParticipantStatus"];
                 ParticipantDuration = form["ParticipantDuration"];
-                ParticipantIdentity = form["ParticipantIdentity"];
+                UserId = long.Parse(form["ParticipantIdentity"]);
                 if (!string.IsNullOrEmpty(form["RoomDuration"]))
                 {
                     RoomDurationInSeconds = int.Parse(form["RoomDuration"]);
@@ -130,7 +136,7 @@ namespace Cloudents.FunctionsV2
             public string ParticipantSid { get; set; }
             public string ParticipantStatus { get; set; }
             public string ParticipantDuration { get; set; }
-            public string ParticipantIdentity { get; set; }
+            public long UserId { get; set; }
             public int RoomDurationInSeconds { get; set; }
             public string TrackSid { get; set; }
         }

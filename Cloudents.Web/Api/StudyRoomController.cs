@@ -250,7 +250,7 @@ namespace Cloudents.Web.Api
         [HttpPost("{id:guid}/Video")]
         [RequestFormLimits(MultipartBodyLengthLimit = int.MaxValue)]
         [RequestSizeLimit(209715200)]
-        public async Task<IActionResult> UploadStudyRoomVideo(Guid id,
+        public IActionResult UploadStudyRoomVideo(Guid id,
             IFormFile file,
             CancellationToken token)
         {
@@ -258,10 +258,10 @@ namespace Cloudents.Web.Api
             {
                 return BadRequest();
             }
-            var userId = _userManager.GetLongUserId(User);
-            await using var stream = file.OpenReadStream();
-            var command = new UploadStudyRoomVideoCommand(id, userId, stream);
-            await _commandBus.DispatchAsync(command, token);
+            //var userId = _userManager.GetLongUserId(User);
+            //await using var stream = file.OpenReadStream();
+            //var command = new UploadStudyRoomVideoCommand(id, userId, stream);
+            //await _commandBus.DispatchAsync(command, token);
 
             return Ok();
         }

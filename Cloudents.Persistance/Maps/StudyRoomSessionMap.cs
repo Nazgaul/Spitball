@@ -17,10 +17,10 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.SessionId).Not.Nullable();
             Map(x => x.Receipt);
             Map(x => x.Price).CustomSqlType("smallMoney").Nullable();
-            Map(x => x.VideoExists);
-            //HasMany(x => x.ParticipantDisconnections).Access.CamelCaseField(Prefix.Underscore)
-            //   .KeyColumn("SessionId")
-            //   .Inverse().Cascade.AllDeleteOrphan();
+            //Map(x => x.VideoExists);
+            HasMany(x => x.RoomSessionUsers)
+               .KeyColumn("SessionId")
+               .Inverse().Cascade.AllDeleteOrphan();
             Map(m => m.PaymentApproved).Nullable();
             Map(x => x.AdminDuration).Column("AdminDuration2").Nullable();
 

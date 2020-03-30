@@ -28,7 +28,7 @@ namespace Cloudents.Core.Entities
         {
             var user = StudyRoom.Users.First(f => f.User.Id != StudyRoom.Tutor.Id).User;
             user.UseToken(StudyRoom.Tutor);
-          
+
         }
 
         public virtual StudyRoom StudyRoom { get; protected set; }
@@ -45,13 +45,19 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
         public virtual byte[] Version { get; protected set; }
 
-       
+
+        protected internal ISet<StudyRoomSessionUser> RoomSessionUsers { get; set; }
+
+        public virtual void AddUser(User user)
+        {
+            RoomSessionUsers.Add(new StudyRoomSessionUser(this, user));
+        }
 
         //private readonly IList<SessionParticipantDisconnect> _participantDisconnections = new List<SessionParticipantDisconnect>();
 
         //public virtual IEnumerable<SessionParticipantDisconnect> ParticipantDisconnections => _participantDisconnections;
 
-        public virtual bool VideoExists { get; protected set; }
+        //public virtual bool VideoExists { get; protected set; }
 
 
         //public virtual IPaymentProvider Payment { get; protected set; }
@@ -60,10 +66,10 @@ namespace Cloudents.Core.Entities
         public virtual TimeSpan? RealDuration { get; protected set; }
 
 
-        public virtual void UpdateVideo()
-        {
-            VideoExists = true;
-        }
+        //public virtual void UpdateVideo()
+        //{
+        //    VideoExists = true;
+        //}
 
         protected virtual void CalculatePriceAndDuration()
         {

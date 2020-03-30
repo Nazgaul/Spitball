@@ -37,7 +37,7 @@ namespace Cloudents.Core.Interfaces
         /// <returns>return url for stream - null if none exists</returns>
         Task<string> BuildUserStreamingLocatorAsync(long videoId, long userId, CancellationToken token);
         Task CreateAudioPreviewJobAsync(long id, string url, CancellationToken token);
-        Task CreateStudyRoomSessionEncoding(string id, string url, CancellationToken token);
+      //  Task CreateStudyRoomSessionEncoding(string id, string url, CancellationToken token);
         Task RemoveUnusedStreamingLocatorAsync(CancellationToken token);
     }
 
@@ -53,7 +53,7 @@ namespace Cloudents.Core.Interfaces
         public static AssetType Thumbnail = new AssetType("video-thumbnail-");
         public static AssetType Short = new AssetType("video-short-");
         public static AssetType Long = new AssetType("video-");
-        public static AssetType StudyRoom = new AssetType("video-studyRoom-");
+       // public static AssetType StudyRoom = new AssetType("video-studyRoom-");
 
         public override string ToString()
         {

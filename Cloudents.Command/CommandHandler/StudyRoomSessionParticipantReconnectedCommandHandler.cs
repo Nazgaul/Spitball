@@ -1,37 +1,38 @@
-﻿//using Cloudents.Command.Command;
-//using Cloudents.Core.Entities;
-//using Cloudents.Core.Interfaces;
-//using System.Linq;
-//using System.Threading;
-//using System.Threading.Tasks;
+﻿using System;
+using Cloudents.Command.Command;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
-//namespace Cloudents.Command.CommandHandler
-//{
-//    public class StudyRoomSessionParticipantReconnectedCommandHandler : ICommandHandler<StudyRoomSessionParticipantReconnectedCommand>
-//    {
-//        private readonly IRepository<SessionParticipantDisconnect> _sessionDisconnectRepository;
-//        private readonly IRepository<StudyRoom> _studyRoomRepository;
-//        public StudyRoomSessionParticipantReconnectedCommandHandler(IRepository<SessionParticipantDisconnect> sessionDisconnectRepository,
-//            IRepository<StudyRoom> studyRoomRepository)
-//        {
-//            _sessionDisconnectRepository = sessionDisconnectRepository;
-//            _studyRoomRepository = studyRoomRepository;
-//        }
+namespace Cloudents.Command.CommandHandler
+{
+    public class StudyRoomSessionUserConnectedCommandHandler : ICommandHandler<StudyRoomSessionUserConnectedCommand>
+    {
+        //private readonly IRepository<SessionParticipantDisconnect> _sessionDisconnectRepository;
+        private readonly IRepository<StudyRoomSession> _studyRoomRepository;
+        private readonly IRegularUserRepository _userRepository;
 
-//        public async Task ExecuteAsync(StudyRoomSessionParticipantReconnectedCommand message, CancellationToken token)
-//        {
-//            var studyRoom = await _studyRoomRepository.GetAsync(message.Id, token);
-//            var studyRoomSession = studyRoom.GetCurrentSession();
-//            if (studyRoomSession is null)
-//            {
-//                return;
-//            }
-//            var sessionParticipant = studyRoomSession.ParticipantDisconnections.FirstOrDefault();
+        public StudyRoomSessionUserConnectedCommandHandler(IRepository<StudyRoomSession> studyRoomRepository, IRegularUserRepository userRepository)
+        {
+            _studyRoomRepository = studyRoomRepository;
+            _userRepository = userRepository;
+        }
 
-//            if (sessionParticipant != null)
-//            {
-//                await _sessionDisconnectRepository.DeleteAsync(sessionParticipant, token);
-//            }
-//        }
-//    }
-//}
+
+        public async Task ExecuteAsync(StudyRoomSessionUserConnectedCommand message, CancellationToken token)
+        {
+            var studyRoomSession = await _studyRoomRepository.LoadAsync(message.SessionId, token);
+
+            if (studyRoomSession.StudyRoom.Id != message.RoomId)
+            {
+                throw new ArgumentException();
+            }
+
+            var user = await _userRepository.LoadAsync(message.UserId, token);
+            studyRoomSession.AddUser(user);
+          
+        }
+    }
+}
