@@ -1,6 +1,7 @@
 <template>
     <div class="setPhoneWrap text-center">
-        <div class="setphone_title mb-6" v-t="'loginRegister_setphone_title'"></div>
+        <div class="setphone_title mb-8" v-t="'loginRegister_setphone_main_title'"></div>
+        <div class="setphone_sub_title mb-9" v-t="'loginRegister_setphone_sub_title'"></div>
         <v-select 
             v-model="localCode"
             :items="countryCodesList"
@@ -110,9 +111,15 @@ export default {
 
 .setPhoneWrap {
     .setphone_title {
-        .responsive-property(font-size, 28px, null, 22px);
-        color: @color-login-text-title;
-    }
+        .responsive-property(font-size, 20px, null, 22px);
+            color: @global-purple;
+            font-weight: 600;
+        }
+        .setphone_sub_title {
+            .responsive-property(font-size, 16px, null, 22px);
+            line-height: 1.63;
+            color: @global-purple;
+        }
     .countryCode {
         .v-list-item__content {
             flex: auto; // vuetify reason ellipsis text

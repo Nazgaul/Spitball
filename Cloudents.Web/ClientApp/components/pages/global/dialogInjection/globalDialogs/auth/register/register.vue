@@ -104,7 +104,7 @@ export default {
     mixins: [authMixin],
     data() {
         return {
-            component: 'emailRegister',
+            component: 'setPhone2',
             googleLoading: false,
             recaptcha: "",
             siteKey: '6LfyBqwUAAAAAM-inDEzhgI2Cjf2OKH0IZbWPbQA',
@@ -279,12 +279,9 @@ export default {
     }
     .registerForm {
         height: inherit;
-
-        @media (max-width: @screen-xs) {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         .mainTitle {
             .responsive-property(font-size, 20px, null, 22px);
             color: @color-login-text-title;

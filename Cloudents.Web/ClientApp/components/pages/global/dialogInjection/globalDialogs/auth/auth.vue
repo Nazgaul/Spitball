@@ -1,6 +1,6 @@
 <template>
-    <v-dialog :value="true" max-width="410px" content-class="authDialog" persistent :fullscreen="$vuetify.breakpoint.xsOnly">
-        <component :is="tempComponent || params.component" @goTo="goTo"></component>
+    <v-dialog :value="true" max-width="410px" height="510" content-class="authDialog" persistent :fullscreen="$vuetify.breakpoint.xsOnly">
+        <component :is="tempComponent || params.component" @goTo="goTo" class="wrapper"></component>
     </v-dialog>
 </template>
 
@@ -32,3 +32,9 @@ export default {
     }
 };
 </script>
+
+<style lang="less">
+    .wrapper {
+        height: 510px;
+    }
+</style>
