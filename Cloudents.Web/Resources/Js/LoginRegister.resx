@@ -385,12 +385,12 @@
     <value>Or</value>
   </data>
   <data name="choose_other_method" xml:space="preserve">
-    <value>Or select one of the options</value>
+    <value>Or</value>
   </data>
   <data name="setemailpass_btn_verify" xml:space="preserve">
     <value>Verify</value>
   </data>
-  <data name="smsconfirm_resond_code" xml:space="preserve">
+  <data name="smsconfirm_resend_code" xml:space="preserve">
     <value>Resend code</value>
   </data>
   <data name="verifyPhone_main_title" xml:space="preserve">
@@ -398,5 +398,11 @@
   </data>
   <data name="verifyPhone_subtitle" xml:space="preserve">
     <value>A verification code was sent to your phone</value>
+  </data>
+  <data name="change_numb" xml:space="preserve">
+    <value>Change phone number</value>
+  </data>
+  <data name="change_number" xml:space="preserve">
+    <value>Call me with a code</value>
   </data>
 </root>

@@ -120,8 +120,14 @@
   <data name="already_used_number" xml:space="preserve">
     <value>מספר טלפון זה מקושר לכתובת דוא"ל אחרת</value>
   </data>
+  <data name="change_numb" xml:space="preserve">
+    <value>שינוי מספר טלפון</value>
+  </data>
+  <data name="change_number" xml:space="preserve">
+    <value>קבלת קוד בטלפון</value>
+  </data>
   <data name="choose_other_method" xml:space="preserve">
-    <value>או בחר אחת מהאפשרויות</value>
+    <value>או</value>
   </data>
   <data name="college" xml:space="preserve">
     <value>מכללות או אוניברסיטאות</value>
@@ -327,7 +333,7 @@
   <data name="smsconfirm_input" xml:space="preserve">
     <value>קוד כניסה</value>
   </data>
-  <data name="smsconfirm_resond_code" xml:space="preserve">
+  <data name="smsconfirm_resend_code" xml:space="preserve">
     <value>שינוי מספר ושליחה מחדש</value>
   </data>
   <data name="smsconfirm_subtitle" xml:space="preserve">
