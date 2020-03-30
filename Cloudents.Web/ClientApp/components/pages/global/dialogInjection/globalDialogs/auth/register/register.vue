@@ -81,9 +81,9 @@
                     <div class="termsWrap text-center">
                         <div class="my-3">
                             <span v-t="'loginRegister_getstarted_terms_i_agree'"></span>
-                            <a class="link" :href="termsLink" v-t="'loginRegister_getstarted_terms_terms'"></a>
+                            <a class="link" :href="termsLink" target="_blank" v-t="'loginRegister_getstarted_terms_terms'"></a>
                             <span class="" v-t="'loginRegister_getstarted_terms_and'"></span>
-                            <a class="link" :href="policyLink" v-t="'loginRegister_getstarted_terms_privacy'"></a>
+                            <a class="link" :href="policyLink" target="_blank" v-t="'loginRegister_getstarted_terms_privacy'"></a>
                         </div>
                     </div>
 
