@@ -199,9 +199,7 @@ namespace Cloudents.Core.DTOs.Users
         [EntityBind(nameof(ChatRoom.UpdateTime))]
         public DateTime DateTime { get; set; }
 
-        [EntityBind(nameof(StudyRoom.Id))]
-
-        public Guid? StudyRoomId { get; set; }
+      
 
         public string LastMessage { get; set; }
     }
