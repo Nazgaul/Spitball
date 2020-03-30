@@ -16,6 +16,14 @@ export default {
     computed: {
         btnLoading() {
             return this.$store.getters.getGlobalLoading
+        },
+        termsLink() {
+            let isFrymo = this.$store.getters.isFrymo
+            return isFrymo ? 'https://help.frymo.com/en/article/terms' : 'https://help.spitball.co/en/article/terms-of-service'
+        },
+        policyLink() {
+            let isFrymo = this.$store.getters.isFrymo
+            return isFrymo ? 'https://help.frymo.com/en/policies' : 'https://help.spitball.co/en/article/privacy-policy'
         }
     },
     methods: {

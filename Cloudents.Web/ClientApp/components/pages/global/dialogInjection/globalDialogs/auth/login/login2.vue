@@ -33,13 +33,6 @@
                 @updateEmail="updateEmail"
             >
             </component>
-
-            <div class="getStartedBottom">    
-                <div class="text-center">
-                    <span class="needAccount" v-t="'loginRegister_getstarted_signup_text'"></span>
-                    <span class="link" v-t="'loginRegister_getstarted_signup_link'" @click="$emit('goTo', 'register')"></span>
-                </div>
-            </div>
         </div>
 
         <div class="bottom text-center mt-6">
@@ -55,6 +48,22 @@
             >
                 <span v-t="btnResource"></span>
             </v-btn>
+
+            
+            <div class="getStartedBottom mt-2">    
+                <div class="termsWrap text-center">
+                    <div class="my-3">
+                        <span v-t="'loginRegister_getstarted_terms_i_agree'"></span>
+                        <a class="link" :href="termsLink" v-t="'loginRegister_getstarted_terms_terms'"></a>
+                        <span class="" v-t="'loginRegister_getstarted_terms_and'"></span>
+                        <a class="link" :href="policyLink" v-t="'loginRegister_getstarted_terms_privacy'"></a>
+                    </div>
+                </div>
+                <div class="text-center mt-2">
+                    <span class="needAccount" v-t="'loginRegister_getstarted_signup_text'"></span>
+                    <span class="link" v-t="'loginRegister_getstarted_signup_link'" @click="$emit('goTo', 'register')"></span>
+                </div>
+            </div>
         </div>
     </v-form>
 </template>
@@ -213,25 +222,37 @@ export default {
     .googleBtnText {
         margin-bottom: 2px;
     }
-    .helpLinks {
-        cursor: pointer;
-        font-size: 14px;
-        letter-spacing: -0.37px;
-        color: @global-blue;
-    }
-    .btns {
-        border-radius: 6px;
-    }
-    .getStartedBottom {
-        .responsive-property(font-size, 16px, null, 14px);
-            .link{
-                cursor: pointer;
-                color: @global-blue;
-            }
-        .needAccount {
-            color: @color-login-text-subtitle;
+    .bottom {
+        .helpLinks {
+            cursor: pointer;
+            font-size: 14px;
+            letter-spacing: -0.37px;
+            color: @global-blue;
         }
+        .termsWrap {
+            color: @global-purple;
+            font-size: 10px;
+            border-bottom: 1px solid #dddddd;
 
+            .link {
+                color: @global-auth-text;
+                text-decoration: underline;
+            }
+        }
+        .btns {
+            border-radius: 6px;
+        }
+       .getStartedBottom {
+            .responsive-property(font-size, 14px, null, 14px);
+                .link {
+                    cursor: pointer;  
+                    color: @global-auth-text;
+                    font-weight: 600;
+                }
+            .needAccount {
+                color: @global-purple;
+            }
+        }
     }
 }
 </style>

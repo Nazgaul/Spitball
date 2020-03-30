@@ -161,14 +161,6 @@ export default {
         },
         isVerifyPhone() {
             return this.component === 'verifyPhone'
-        },
-        termsLink() {
-            let isFrymo = this.$store.getters.isFrymo
-            return isFrymo ? 'https://help.frymo.com/en/article/terms' : 'https://help.spitball.co/en/article/terms-of-service'
-        },
-        policyLink() {
-            let isFrymo = this.$store.getters.isFrymo
-            return isFrymo ? 'https://help.frymo.com/en/policies' : 'https://help.spitball.co/en/article/privacy-policy'
         }
     },
     methods: {
@@ -386,7 +378,7 @@ export default {
 .captcha {
     .grecaptcha-badge {
         @media (max-width: @screen-xs) {
-            bottom: 200px !important;
+            bottom: 135px !important;
         }
     }
 }
