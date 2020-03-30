@@ -24,6 +24,15 @@ function Conversation(objInit){
 function createConversation(objInit){
     return new Conversation(objInit);
 }
+function Conversation2(objInit){
+    this.conversationId = objInit.conversationId;
+    this.dateTime = objInit.dateTime || new Date().toISOString();
+    this.lastMessage = objInit.lastMessage || createLastImageMsg();
+    this.users = objInit.users || [];
+}
+function createConversation2(objInit){
+    return new Conversation2(objInit);
+}
 
 function TextMessage(objInit, id, fromSignalR){
     this.userId= objInit.userId;
@@ -111,6 +120,7 @@ export default {
     getAllConversations,
     getChatById,
     createConversation,
+    createConversation2,
     getMessageById,
     createMessage,
     sendChatMessage,

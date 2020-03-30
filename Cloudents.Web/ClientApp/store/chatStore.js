@@ -294,14 +294,21 @@ const actions = {
         chatService.getAllConversations().then(({data})=>{
             if(data.length > 0){
                 data.forEach(conversation => {
-                    let conversationObj = chatService.createConversation(conversation);
-                        commit('addConversation', conversationObj);
-                        commit('updateTotalUnread', conversationObj.unread);
+                    let conversationObj = chatService.createConversation2(conversation);
+                    commit('addConversation', conversationObj);
+
+                    let unreads = conversationObj.users.map(u=>u.unread);
+                    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+                    let totalUnread = unreads.reduce(reducer);
+                    commit('updateTotalUnread', totalUnread);
+                    
+                    conversationObj.users.forEach(user=>{
                         let userStatus = {
-                            id: conversationObj.userId,
-                            online: conversationObj.online
+                            id: user.userId,
+                            online: user.online
                         };
                         dispatch('setUserStatus', userStatus);
+                    })
                 });
                 if(global.innerWidth > 600){
                     state.isVisible = true;
