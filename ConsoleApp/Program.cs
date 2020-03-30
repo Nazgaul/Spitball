@@ -58,7 +58,6 @@ namespace ConsoleApp
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                             ConfigurationManager.AppSettings["Redis"],
                             DbConnectionString.DataBaseIntegration.None),
-                        MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                         Search = new SearchServiceCredentials(
 
                             ConfigurationManager.AppSettings["AzureSearchServiceName"],
@@ -78,7 +77,6 @@ namespace ConsoleApp
                         SiteEndPoint = { SpitballSite = "https://www.spitball.co", FunctionSite = "https://spitball-dev-function.azureedge.net" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
                             ConfigurationManager.AppSettings["Redis"], DbConnectionString.DataBaseIntegration.None),
-                        MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                         Search = new SearchServiceCredentials(
 
                             ConfigurationManager.AppSettings["AzureSearchServiceName"],
