@@ -45,80 +45,15 @@
             </template>
          </template> 
          <template v-slot:item.action="{item}">
-            <v-btn fab depressed rounded color="#4452fc" x-small @click="sendMessage(item)">
+            <v-btn  icon    x-small @click="sendMessage(item)">
                <iconChat/>
             </v-btn>
-            <v-btn icon depressed rounded color="white" x-small @click="enterRoom(item.id)">
+            <v-btn icon  x-small @click="enterRoom(item.id)">
                <enterRoom/>
             </v-btn>
          </template>
          <slot slot="no-data" name="tableEmptyState"/>
       </v-data-table>
-
-      <!-- <v-data-table 
-            :headers="headers"
-            :items="studyRoomItems"
-            :items-per-page="5"
-            sort-by
-            hide-default-header
-            :item-key="'date'"
-            class="elevation-1 myStudyRooms_table"
-            :footer-props="{
-               showFirstLastPage: false,
-               firstIcon: '',
-               lastIcon: '',
-               prevIcon: 'sbf-arrow-left-carousel',
-               nextIcon: 'sbf-arrow-right-carousel',
-               itemsPerPageOptions: [5]
-            }">
-         <template v-slot:top>
-            <div class="tableTop d-flex align-center justify-space-between">
-               <div class="myStudyRooms_title">{{$t('schoolBlock_my_study_rooms')}}</div>
-               <div class="d-flex">
-                  <v-btn v-if="isTutor" v-openDialog="createStudyRoomDialog" class="link white--text mr-4" depressed color="#5360FC">{{$t('dashboardPage_my_studyrooms_create_room')}}</v-btn>
-                  <v-btn class="link white--text" :to="{name: routeNames.StudyRoom}" depressed color="#5360FC">{{$t('dashboardPage_link_studyroom')}}</v-btn>
-               </div>
-            </div>
-         </template>
-
-         <template v-slot:header="{props}">
-            <thead>
-               <tr>
-                  <th class="text-xs-left"
-                     v-for="header in props.headers"
-                     :key="header.value"
-                     :class="['column',{'sortable':header.sortable}]"
-                     @click="changeSort(header.value)">
-                     <span class="text-xs-left">{{ header.text }}
-                        <v-icon v-if="header.sortable" v-html="sortedBy !== header.value?'sbf-arrow-down':'sbf-arrow-up'" />
-                     </span>
-                  </th>
-               </tr>
-            </thead>
-         </template>
-         <template v-slot:item="props">
-            <tr class="myStudyRooms_table_tr">
-               <td class="text-xs-left">{{props.item.name}}</td>
-               <td class="text-xs-left">{{ $d(new Date(props.item.date)) }}</td>
-               <td class="text-xs-left">
-                  <span v-if="props.item.lastSession">
-                  {{ $d(new Date(props.item.lastSession)) }}
-                  </span>
-                  </td>
-               <td>
-                  <v-btn class="myStudyRooms_btns white--text" depressed rounded color="#4452fc" @click="sendMessage(props.item)">
-                     <iconChat class="myStudyRooms_btn_icon"/>
-                     <div class="myStudyRooms_btn_txt" v-html="$Ph('resultTutor_send_button', showFirstName(props.item.name))"></div>
-                  </v-btn>
-                  <v-btn class="myStudyRooms_btns myStudyRooms_btns_enterRoom" depressed rounded color="white" @click="enterRoom(props.item.id)">
-                     <enterRoom class="myStudyRooms_btn_icon"/>
-                     <span class="myStudyRooms_btn_txt">{{$t('dashboardPage_enter_room')}}</span>
-                  </v-btn>
-               </td>
-            </tr>
-         </template>
-         <slot slot="no-data" name="tableEmptyState"/>
-      </v-data-table> -->
    </div>
 </template>
 
@@ -134,8 +69,6 @@ import * as dialogNames from '../../global/dialogInjection/dialogNames.js'
 export default {
    name: 'myStudyRooms',
    components:{
-     // tablePreviewTd,
-     // tableInfoTd,
       iconChat,
       enterRoom
    },
