@@ -245,6 +245,7 @@ export default {
                     });
                     analyticsService.sb_unitedEvent('Registration', 'Phone Submitted');
                     self.component = 'verifyPhone'
+                    self.errors.phone = ''
                 }).catch(error => {
                     let { response: { data } } = error
                     
