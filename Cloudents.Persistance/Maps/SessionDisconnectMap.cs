@@ -13,6 +13,7 @@ namespace Cloudents.Persistence.Maps
             References(x => x.User).Not.Nullable();
 
             Map(x => x.Duration).Nullable();
+            Map(x => x.DisconnectCount);
         }
     }
 }

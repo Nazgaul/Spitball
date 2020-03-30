@@ -66,17 +66,21 @@ namespace Cloudents.FunctionsV2
             }
             if (request.StatusCallbackEvent.Equals("participant-connected", StringComparison.OrdinalIgnoreCase))
             {
-                var command = new StudyRoomSessionUserConnectedCommand(roomId,request.SessionId,request.UserId);
+                var command = new StudyRoomSessionUserConnectedCommand(roomId, request.SessionId, request.UserId);
                 await commandBus.DispatchAsync(command, token);
             }
 
-            //if (request.StatusCallbackEvent.Equals("participant-disconnected", StringComparison.OrdinalIgnoreCase))
-            //{
-            //    var command = new StudyRoomSessionParticipantDisconnectedCommand(id);
+            if (request.StatusCallbackEvent.Equals("participant-disconnected", StringComparison.OrdinalIgnoreCase))
+            {
+                if (!request.ParticipantDuration.HasValue)
+                {
+                    throw new ArgumentException("need to have duration");
+                }
+                var command = new StudyRoomSessionUserDisconnectedCommand(roomId, request.SessionId, request.UserId, request.ParticipantDuration.Value);
 
-            //    await _commandBus.DispatchAsync(command, token);
+                await commandBus.DispatchAsync(command, token);
 
-            //}
+            }
             //else if (request.StatusCallbackEvent.Equals("participant-connected", StringComparison.OrdinalIgnoreCase))
             //{
             //    var command = new StudyRoomSessionParticipantReconnectedCommand(id);
@@ -112,7 +116,11 @@ namespace Cloudents.FunctionsV2
                 Timestamp = DateTime.Parse(form["Timestamp"], CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
                 ParticipantSid = form["ParticipantSid"];
                 ParticipantStatus = form["ParticipantStatus"];
-                ParticipantDuration = form["ParticipantDuration"];
+                if (!string.IsNullOrEmpty(form["ParticipantDuration"]))
+                {
+                    ParticipantDuration = TimeSpan.FromSeconds(double.Parse(form["ParticipantDuration"]));
+                }
+
                 UserId = long.Parse(form["ParticipantIdentity"]);
                 if (!string.IsNullOrEmpty(form["RoomDuration"]))
                 {
@@ -135,9 +143,9 @@ namespace Cloudents.FunctionsV2
             public DateTime Timestamp { get; set; }
             public string ParticipantSid { get; set; }
             public string ParticipantStatus { get; set; }
-            public string ParticipantDuration { get; set; }
+            public TimeSpan? ParticipantDuration { get; set; }
             public long UserId { get; set; }
-            public int RoomDurationInSeconds { get; set; }
+            public int? RoomDurationInSeconds { get; set; }
             public string TrackSid { get; set; }
         }
     }

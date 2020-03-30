@@ -21,6 +21,14 @@ namespace Cloudents.Core.Entities
 
         public virtual TimeSpan? Duration { get; protected set; }
 
+        public int DisconnectCount { get; protected set; }
+
+        public virtual void Disconnect(TimeSpan durationInRoom)
+        {
+            Duration = Duration.GetValueOrDefault(TimeSpan.Zero) +  durationInRoom;
+            DisconnectCount++;
+        }
+
 
         public bool Equals(StudyRoomSessionUser other)
         {

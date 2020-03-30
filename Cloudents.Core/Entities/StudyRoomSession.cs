@@ -50,7 +50,14 @@ namespace Cloudents.Core.Entities
 
         public virtual void AddUser(User user)
         {
-            RoomSessionUsers.Add(new StudyRoomSessionUser(this, user));
+            var sessionUser = new StudyRoomSessionUser(this, user);
+            RoomSessionUsers.Add(sessionUser);
+        }
+
+        public virtual void UserDisconnect(User user, TimeSpan durationInRoom)
+        {
+            var sessionUser = RoomSessionUsers.Single(s => s.User == user);
+            sessionUser.Disconnect(durationInRoom);
         }
 
         //private readonly IList<SessionParticipantDisconnect> _participantDisconnections = new List<SessionParticipantDisconnect>();
