@@ -44,9 +44,9 @@ namespace Cloudents.FunctionsV2
             }
 
             var request = new TwilioWebHookRequest(req.Form);
-            var id = Guid.Parse(req.Query["id"]);
-            client.Context.Session.Id = id.ToString();
-            client.TrackEvent($"Room Status {id}",
+            var roomId = Guid.Parse(req.Query["id"]);
+            client.Context.Session.Id = roomId.ToString();
+            client.TrackEvent($"Room Status {roomId}",
                 request.GetType().GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance).ToDictionary
                 (
                     propInfo => propInfo.Name,
@@ -55,7 +55,7 @@ namespace Cloudents.FunctionsV2
                 ));
             if (request.StatusCallbackEvent == "room-ended")
             {
-                var command = new EndStudyRoomSessionTwilioCommand(id, request.RoomName);
+                var command = new EndStudyRoomSessionTwilioCommand(roomId, request.SessionId);
                 await commandBus.DispatchAsync(command, token);
             }
             if (request.StatusCallbackEvent.Equals("participant-connected", StringComparison.OrdinalIgnoreCase))
@@ -98,7 +98,7 @@ namespace Cloudents.FunctionsV2
             public TwilioWebHookRequest(IFormCollection form)
             {
                 AccountSid = form["AccountSid"];
-                RoomName = form["RoomName"];
+                SessionId = form["RoomName"];
                 RoomSid = form["RoomSid"];
                 RoomStatus = form["RoomStatus"];
                 RoomType = form["RoomType"];
@@ -121,7 +121,7 @@ namespace Cloudents.FunctionsV2
             public StringValues TackKind { get; set; }
 
             public string AccountSid { get; set; }
-            public string RoomName { get; set; }
+            public string SessionId { get; set; }
             public string RoomSid { get; set; }
             public string RoomStatus { get; set; }
             public string RoomType { get; set; }

@@ -36,8 +36,6 @@ namespace Cloudents.Core.Entities
         public virtual DateTime? Ended { get; protected set; }
         public virtual TimeSpan? Duration { get; protected set; }
 
-        //TODO remove this
-        //public virtual TimeSpan? DurationInMinutes { get; protected set; }
 
         public virtual int RejoinCount { get; protected set; }
         public virtual string SessionId { get; protected set; }
@@ -46,6 +44,8 @@ namespace Cloudents.Core.Entities
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
         public virtual byte[] Version { get; protected set; }
+
+       
 
         //private readonly IList<SessionParticipantDisconnect> _participantDisconnections = new List<SessionParticipantDisconnect>();
 
