@@ -649,7 +649,7 @@ watch: {
   },
   destroyed(){
     if(this.isTutor) {
-      this.$store.commit('setToaster', 'linkToaster') 
+      this.$store.commit('setComponent', 'linkToaster') 
     }
     global.onbeforeunload = function() { };
   },
@@ -683,7 +683,7 @@ watch: {
     storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
   },
   async created() {
-    this.$store.commit('clearToaster')
+    this.$store.commit('clearComponent')
     this.userId = this.accountUser?.id || 'GUEST';
 
     if (!studyroomSettingsUtils.isBrowserSupport()) {

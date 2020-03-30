@@ -8,7 +8,7 @@
             <div class="uM_noLogin_txt">{{$t('menuList_txt_out')}}</div>
             <div class="uM_noLogin_btns">
               <v-btn rounded depressed class="uM_noLogin_btns_in" color="white" @click="openLoginDialog">{{$t('menuList_Login')}}</v-btn>
-              <v-btn rounded depressed class="uM_noLogin_btns_up" color="#4c59ff" :to="{ name: 'register'}">{{$t('menuList_Sign_up')}}</v-btn>
+              <v-btn rounded depressed class="uM_noLogin_btns_up" color="#4c59ff" @click="openRegisterTypeDialog">{{$t('menuList_Sign_up')}}</v-btn>
             </div>
         </div>
 
@@ -272,7 +272,11 @@ export default {
       return balanceFixed.toLocaleString(`${global.lang}`)
     },
     openLoginDialog() {
-      this.$store.commit('setToaster', 'login');
+      this.$store.commit('setComponent', 'login');
+      this.$root.$emit('closeDrawer')
+    },
+    openRegisterTypeDialog() {
+      this.$store.commit('setComponent', 'registerType');
       this.$root.$emit('closeDrawer')
     }
   },

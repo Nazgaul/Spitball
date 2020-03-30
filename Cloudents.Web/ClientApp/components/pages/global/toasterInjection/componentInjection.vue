@@ -76,25 +76,21 @@ export default {
                         component: 'register'
                     }
                 },
+                registerType: {
+                    name: 'auth',
+                    params: {
+                        component: 'registerType'
+                    }
+                },
             }
         }
     },
     watch: {
-        getIsShowToaster(val = "") {
-            this.showComponent(val)
-        },
-        "$store.getters.getParams"(param) {
-            this.componentObj[this.getIsShowToaster].params.component = param
-        }
-    },
-    computed: {
-        getIsShowToaster() {
-            return this.$store.getters.getIsShowToaster
-        }
+        "$store.getters.getComponent": "showComponent"
     },
     methods: {
-        showComponent(type) {
-            let componentInject = this.componentObj[type] || {component: '', params: ''};
+        showComponent(componentName = "") {
+            let componentInject = this.componentObj[componentName] || {component: '', params: ''};
             this.component = componentInject;
         }
     }

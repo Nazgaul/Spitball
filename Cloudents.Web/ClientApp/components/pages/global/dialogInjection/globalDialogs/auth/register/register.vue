@@ -3,7 +3,7 @@
         <v-form @submit.prevent="submit" ref="form" class="registerForm pa-4">  
             <div>
                 <div class="closeIcon">
-                    <v-icon size="12" color="#aaa" @click="$store.commit('setToaster', '')">sbf-close</v-icon>
+                    <v-icon size="12" color="#aaa" @click="$store.commit('setComponent', '')">sbf-close</v-icon>
                 </div>
 
                 <template v-if="isEmailRegister">
@@ -168,7 +168,7 @@ export default {
     },
     methods: {
         openLoginDialog() {
-            this.$store.commit('setToaster', 'login')
+            this.$store.commit('setComponent', 'login')
         },
         submit() {
             let formValidate = this.$refs.form.validate()
@@ -270,7 +270,7 @@ export default {
                         analyticsService.sb_unitedEvent('Registration', 'User Id', userId.data.id);
                     }
 
-					commit('setToaster', '')
+					commit('setComponent', '')
 					commit('changeLoginStatus', true)
 					dispatch('userStatus');
 				}).catch(error => {

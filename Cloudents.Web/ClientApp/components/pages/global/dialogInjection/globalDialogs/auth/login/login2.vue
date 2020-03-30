@@ -2,7 +2,7 @@
     <v-form class="loginForm pa-4" @submit.prevent="submit" ref="form">
         <div class="top">
             <div class="closeIcon">
-                <v-icon size="14" color="" @click="$store.commit('setToaster', '')">sbf-close</v-icon>
+                <v-icon size="14" color="" @click="$store.commit('setComponent', '')">sbf-close</v-icon>
             </div>
 
             <template v-if="isLoginDetails">
@@ -137,7 +137,7 @@ export default {
                     global.country = data.country; // TODO: should we need this? @idan
 
                     analyticsService.sb_unitedEvent('Login', 'Start');
-                    commit('setToaster', '')
+                    commit('setComponent', '')
                     dispatch('updateLoginStatus', true)
                     
                     if(self.$route.path === '/') {
@@ -188,7 +188,7 @@ export default {
             if(this.isLoginDetails) {
                 // this.component = 'forgotPassword'
                 this.$router.push({name: 'forgotPassword', params: { email: this.email }})
-                this.$store.commit('setToaster', '')
+                this.$store.commit('setComponent', '')
                 return
             }
             this.component = 'loginDetails'
