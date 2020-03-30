@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
@@ -10,10 +11,10 @@ namespace Cloudents.Command.CommandHandler
     public class StudyRoomSessionUserDisconnectedCommandHandler : ICommandHandler<StudyRoomSessionUserDisconnectedCommand>
     {
 
-        private readonly IRepository<StudyRoomSession> _studyRoomRepository;
+        private readonly IRepository<StudyRoom> _studyRoomRepository;
         private readonly IRegularUserRepository _userRepository;
 
-        public StudyRoomSessionUserDisconnectedCommandHandler(IRepository<StudyRoomSession> studyRoomRepository, IRegularUserRepository userRepository)
+        public StudyRoomSessionUserDisconnectedCommandHandler(IRepository<StudyRoom> studyRoomRepository, IRegularUserRepository userRepository)
         {
             _studyRoomRepository = studyRoomRepository;
             _userRepository = userRepository;
@@ -22,13 +23,8 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(StudyRoomSessionUserDisconnectedCommand message, CancellationToken token)
         {
-            var studyRoomSession = await _studyRoomRepository.LoadAsync(message.SessionId, token);
-
-            if (studyRoomSession.StudyRoom.Id != message.RoomId)
-            {
-                throw new ArgumentException();
-            }
-
+            var studyRoom = await _studyRoomRepository.LoadAsync(message.RoomId, token);
+            var studyRoomSession = studyRoom.Sessions.AsQueryable().Single(s => s.SessionId == message.SessionId);
             var user = await _userRepository.LoadAsync(message.UserId, token);
             studyRoomSession.UserDisconnect(user, message.TimeInRoom);
         }

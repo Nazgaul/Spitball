@@ -67,13 +67,16 @@ namespace Cloudents.Core.Interfaces
         Task<IList<long>> GetTutorsByCourseAsync(string course, long userId, string country, CancellationToken token);
     }
 
+    
+
 
 
     public interface ITransactionRepository : IRepository<Transaction>
     {
         Task<decimal> GetBalanceAsync(long userId, CancellationToken token);
-
     }
+
+   
     public interface IReferUserTransactionRepository : IRepository<ReferUserTransaction>
     {
         Task<int> GetReferUserCountAsync(long userId, CancellationToken token);
