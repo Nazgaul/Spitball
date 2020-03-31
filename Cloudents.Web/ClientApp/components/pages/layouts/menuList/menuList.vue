@@ -198,6 +198,11 @@ export default {
           icon: 'sbf-studyroom-icon',
           url: 'myStudyRooms'
         },
+        {
+          title: this.$t('menuList_my_sales'),
+          icon: 'sbf-my-sales',
+          url: 'mySales',
+        },
       ]
     };
   },
