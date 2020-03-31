@@ -62,7 +62,6 @@
                                         :item="item" 
                                         :key="index"
                                         :index="index"
-                                        :tutorData="item"
                                         class="cell">
                                     </component>
                             </v-flex>

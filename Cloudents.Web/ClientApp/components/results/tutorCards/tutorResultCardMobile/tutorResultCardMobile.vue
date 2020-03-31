@@ -1,47 +1,47 @@
 <template>
-  <router-link class="tutor-result-card-mobile justify-space-between" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
+  <router-link class="tutor-result-card-mobile justify-space-between" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: item.userId,name:item.name}}">
       <div class="card-mobile-header">
           <user-avatar-rect
-            :userName="tutorData.name"
-            :userImageUrl="tutorData.image"
+            :userName="item.name"
+            :userImageUrl="item.image"
             class="mr-2"
-            :userId="tutorData.userId"
+            :userId="item.userId"
             :width="102"
             :height="116"
             :fontSize="24"
             :borderRadius="4"
           />
           <div class="card-mobile-header-content">
-              <h3 class="text-truncate font-weight-bold card-mobile-tutor-name" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
+              <h3 class="text-truncate font-weight-bold card-mobile-tutor-name" v-html="$Ph('resultTutor_private_tutor', item.name)"></h3>
 
               <template>
-                <h4 class="text-truncate university font-weight-light" v-if="tutorData.university">{{tutorData.university}}</h4>
+                <h4 class="text-truncate university font-weight-light" v-if="item.university">{{item.university}}</h4>
               </template>
 
               <template>
-                  <div class="user-rate align-center" v-if="tutorData.reviews > 0">
-                    <user-rating :rating="tutorData.rating" :showRateNumber="false" :size="'18'" class="flex-grow-0 mr-2" />
-                    <span class="reviews">{{$tc('resultTutor_review_one',tutorData.reviews)}}</span> 
+                  <div class="user-rate align-center" v-if="item.reviews > 0">
+                    <user-rating :rating="item.rating" :showRateNumber="false" :size="'18'" class="flex-grow-0 mr-2" />
+                    <span class="reviews">{{$tc('resultTutor_review_one',item.reviews)}}</span> 
                   </div>
                   <div class="user-rate align-center" v-else>
                     <star class="mr-1 icon-star" />
-                    <span class="reviews">{{$tc('resultTutor_review_one',tutorData.reviews)}}</span>
+                    <span class="reviews">{{$tc('resultTutor_review_one',item.reviews)}}</span>
                   </div>
               </template>
 
               <div class="price align-center">
                   <div class="price_oneline">
                       <template>
-                          <span v-if="isDiscount" class="price_oneline--count font-weight-bold">{{$n(tutorData.discountPrice, 'currency')}}</span>
-                          <span v-else class="price_oneline--count font-weight-bold">{{$n(tutorData.price, 'currency')}}</span>
+                          <span v-if="isDiscount" class="price_oneline--count font-weight-bold">{{$n(item.discountPrice, 'currency')}}</span>
+                          <span v-else class="price_oneline--count font-weight-bold">{{$n(item.price, 'currency')}}</span>
                           <span>/</span>
                       </template>
                       <span class="caption" v-language:inner="'resultTutor_hour'"></span>
                   </div>
-                  <div class="striked ml-3" v-if="isDiscount">{{$n(tutorData.price, 'currency')}}</div>
+                  <div class="striked ml-3" v-if="isDiscount">{{$n(item.price, 'currency')}}</div>
               </div>
 
-              <router-link class="applyCoupon" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name},  query: {coupon: true}}" v-language:inner="'resultTutor_apply_coupon'"></router-link>
+              <router-link class="applyCoupon" :to="{name: 'profile', params: {id: item.userId, name:item.name},  query: {coupon: true}}" v-language:inner="'resultTutor_apply_coupon'"></router-link>
               
               <!-- DO NOT REMOVE THIS WAITING SHIRAN -->
               <!-- <div class="courses text-truncate">
@@ -50,14 +50,14 @@
               </div>  -->
 
               <!-- <template>
-                <h4 class="text-truncate mb-1 university font-weight-light" v-if="isUniversity" v-html="$Ph('resultNote_university',[tutorData.university])"/>
+                <h4 class="text-truncate mb-1 university font-weight-light" v-if="isUniversity" v-html="$Ph('resultNote_university',[item.university])"/>
                 <h4 class="text-truncate mb-1 university" v-else></h4>
               </template>  -->
 
           </div>
       </div>
 
-      <div class="card-mobile-center">{{tutorData.bio}}</div>
+      <div class="card-mobile-center">{{item.bio}}</div>
 
       <!-- DO NOT REMOVE THIS WAITING SHIRAN -->
       <div class="courses text-truncate" v-if="subjects">
@@ -71,7 +71,7 @@
 
 
       <div class="card-mobile-footer">
-          <v-btn class="btn-chat white--text text-truncate my-0" depressed rounded block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
+          <v-btn class="btn-chat white--text text-truncate my-0" depressed rounded block color="#4452fc" @click.prevent.stop="sendMessage(item)">
                 <iconChat class="chat_icon_btn" />
                 <div class="text-truncate text_icon_btn" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
           </v-btn>
@@ -102,7 +102,7 @@ export default {
     star
   },
   props: {
-    tutorData: {},
+    item: {},
     fromLandingPage: {
       type: Boolean,
       default: false
@@ -150,30 +150,30 @@ export default {
     ...mapGetters(['accountUser']),
 
     courses() {
-      if (this.tutorData.courses) {
-        return `${this.tutorData.courses.join(', ')}`
+      if (this.item.courses) {
+        return `${this.item.courses.join(', ')}`
       }
       return '';
     },
     subjects() {
-      if (this.tutorData.subjects) {
-        return this.tutorData.subjects.join(', ');
+      if (this.item.subjects) {
+        return this.item.subjects.join(', ');
       }
       return '';
     },
     isUniversity() {
-      return (this.tutorData && this.tutorData.university) ? true : false;
+      return (this.item && this.item.university) ? true : false;
     },
     showFirstName() {
       let maxChar = 5;
-      let name = this.tutorData.name.split(' ')[0];
+      let name = this.item.name.split(' ')[0];
       if(name.length > maxChar) {
         return LanguageService.getValueByKey('resultTutor_message_me');
       }
       return name;
     },
     isDiscount() {
-      return this.tutorData.discountPrice !== undefined;
+      return this.item.discountPrice !== undefined;
     }
   }
 };

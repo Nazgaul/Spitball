@@ -27,8 +27,8 @@
                 <suggestCard/>
             </div>
             <div class="tutor-landing-card-container" v-for="(item, index) in items" :key="index">
-                <tutor-result-card v-if="!isMobile" class="mb-4 " :fromLandingPage="true" :tutorData="item"></tutor-result-card>
-                <tutor-result-card-mobile v-else class="mb-2 " :fromLandingPage="true" :tutorData="item"/>
+                <tutor-result-card v-if="!isMobile" class="mb-4 " :fromLandingPage="true" :item="item"></tutor-result-card>
+                <tutor-result-card-mobile v-else class="mb-2 " :fromLandingPage="true" :item="item"/>
             </div>   
         </div>
         <div class="tutorLandingPage_pagination" v-if="items.length && pagination.length > 1">

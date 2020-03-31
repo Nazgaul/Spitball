@@ -79,8 +79,8 @@
 
             <div class="itemPage__main__tutorCard" v-if="docTutor.isTutor" 
             :class="{'itemPage__main__tutorCard--margin': docTutor.isTutor && $vuetify.breakpoint.xsOnly, 'itemPage__main__tutorCard--marginT': !itemList.length}">
-                    <tutorResultCardMobile v-if="$vuetify.breakpoint.xsOnly" :tutorData="docTutor"></tutorResultCardMobile>
-                    <tutorResultCard v-else :tutorData="docTutor"></tutorResultCard>
+                    <tutorResultCardMobile v-if="$vuetify.breakpoint.xsOnly" :item="docTutor"></tutorResultCardMobile>
+                    <tutorResultCard v-else :item="docTutor"></tutorResultCard>
             </div>
             <mobileUnlockDownload :sticky="true" v-if="$vuetify.breakpoint.md || $vuetify.breakpoint.sm" :document="document"></mobileUnlockDownload>
         </div>

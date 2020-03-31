@@ -1,21 +1,21 @@
 <template>
-    <router-link class="tutor-result-card-desktop pa-4" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
+    <router-link class="tutor-result-card-desktop pa-4" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: item.userId, name:item.name}}">
 
         <v-flex class="user-details">
             <user-avatar-rect 
-              :userName="tutorData.name" 
-              :userImageUrl="tutorData.image" 
+              :userName="item.name" 
+              :userImageUrl="item.image" 
               class="user-avatar-rect" 
-              :userId="tutorData.userId"
+              :userId="item.userId"
               :width="148" 
               :height="182"
               :borderRadius="4"
             />
             <div class="main-card">
-                <h3 class="font-weight-bold text-truncate mb-1" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
+                <h3 class="font-weight-bold text-truncate mb-1" v-html="$Ph('resultTutor_private_tutor', item.name)"></h3>
                 <h4 class="mb-4 font-weight-bold text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
                 <div class="user-bio-wrapper mb-4">
-                  <div class="user-bio">{{tutorData.bio}}</div>
+                  <div class="user-bio">{{item.bio}}</div>
                 </div>
                 <div class="study-area mb-2 text-truncate" :class="{'study-area-hidden': !isSubjects}">
                   <span class="mr-1 font-weight-bold" v-language:inner="'resultTutor_study-area'"></span>
@@ -32,25 +32,25 @@
 
         <div class="user-rates">
             <div class="price">
-              <router-link class="applyCoupon" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name},  query: {coupon: true}}" v-language:inner="'resultTutor_apply_coupon'"></router-link>
+              <router-link class="applyCoupon" :to="{name: 'profile', params: {id: item.userId, name:item.name},  query: {coupon: true}}" v-language:inner="'resultTutor_apply_coupon'"></router-link>
               <div class="user-rates-top">
                 <template>
-                    <span v-if="isDiscount" class="tutor-card-price font-weight-bold">{{$n(tutorData.discountPrice, 'currency')}}</span>
-                    <span class="tutor-card-price font-weight-bold" v-else>{{$n(tutorData.price, 'currency')}}</span>
+                    <span v-if="isDiscount" class="tutor-card-price font-weight-bold">{{$n(item.discountPrice, 'currency')}}</span>
+                    <span class="tutor-card-price font-weight-bold" v-else>{{$n(item.price, 'currency')}}</span>
                 </template>
                 <span class="caption">
                   <span class="tutor-card-price-divider font-weight-bold">/</span>
                   <span class="tutor-card-price-divider font-weight-bold" v-language:inner="'resultTutor_hour'"></span>
                 </span>
-                <div class="striked mr-1" v-if="isDiscount">{{$n(tutorData.price, 'currency')}}</div>
+                <div class="striked mr-1" v-if="isDiscount">{{$n(item.price, 'currency')}}</div>
                 <div class="striked no-discount" v-else></div>
               </div>
             </div>
 
             <template>
               <div class="user-rank align-center" v-if="isReviews">
-                <user-rating size="18" class="ratingIcon" :rating="tutorData.rating" :showRateNumber="false"/>
-                <div class="reviews">{{$tc('resultTutor_review_one',tutorData.reviews)}}</div>
+                <user-rating size="18" class="ratingIcon" :rating="item.rating" :showRateNumber="false"/>
+                <div class="reviews">{{$tc('resultTutor_review_one',item.reviews)}}</div>
               </div>
               <div v-else class="user-rank align-center">
                 <star class="user-rank-star"/>
@@ -60,16 +60,16 @@
             
             <div class="classes-hours align-center">
               <clock />
-              <span class="font-weight-bold classes-hours_lesson" v-if="tutorData.lessons > 0">{{tutorData.lessons}}</span>
+              <span class="font-weight-bold classes-hours_lesson" v-if="item.lessons > 0">{{item.lessons}}</span>
               
               <template>
-                <span class="font-weight-bold no-classes" v-language:inner="'resultTutor_no_hours_completed'" v-if="tutorData.lessons === 0"></span>
-                <span class="font-weight-bold no-classes" v-language:inner="tutorData.lessons === 1 ? 'resultTutor_hour_completed' : 'resultTutor_hours_completed' " v-else></span>    
+                <span class="font-weight-bold no-classes" v-language:inner="'resultTutor_no_hours_completed'" v-if="item.lessons === 0"></span>
+                <span class="font-weight-bold no-classes" v-language:inner="item.lessons === 1 ? 'resultTutor_hour_completed' : 'resultTutor_hours_completed' " v-else></span>    
               </template>
             </div>                
 
             <div class="send-btn">
-                <v-btn class="btn-chat white--text" depressed rounded block color="#4452fc" @click.prevent="sendMessage(tutorData)">
+                <v-btn class="btn-chat white--text" depressed rounded block color="#4452fc" @click.prevent="sendMessage(item)">
                   <iconChat class="chat-icon-btn" v-if="fromLandingPage" />
                   <div class="" v-html="$Ph('resultTutor_send_button', showFirstName)" ></div>
                 </v-btn>
@@ -103,7 +103,7 @@ export default {
     userAvatarRect
   },
   props: {
-    tutorData: {},
+    item:{},
     fromLandingPage: {
       type: Boolean,
       default: false
@@ -151,36 +151,36 @@ export default {
     ...mapGetters(['accountUser']),
 
     courses() {
-      if (this.tutorData.courses) {
-        return `${this.tutorData.courses.join(', ')}`;
+      if (this.item.courses) {
+        return `${this.item.courses.join(', ')}`;
       }
       return '';
     },
     isSubjects() {
-      return this.tutorData && this.tutorData.subjects.length > 0 ? true : false;
+      return this.item && this.item.subjects.length > 0 ? true : false;
     },
     isCourses() {
-      return this.tutorData && this.tutorData.courses.length > 0 ? true : false;
+      return this.item && this.item.courses.length > 0 ? true : false;
     },
     university() {
-      return this.tutorData.university;
+      return this.item.university;
     },
     subjects() {
-      return this.tutorData.subjects.join(', ');
+      return this.item.subjects.join(', ');
     },
     showFirstName() {
       let maxChar = 5;
-      let name = this.tutorData.name.split(' ')[0];
+      let name = this.item.name.split(' ')[0];
       if(name.length > maxChar) {
         return LanguageService.getValueByKey('resultTutor_message_me');
       }
       return name;
     },
     isReviews() {
-      return this.tutorData.reviews > 0 ? true : false;
+      return this.item.reviews > 0 ? true : false;
     },
     isDiscount() {
-      return this.tutorData.discountPrice !== undefined;
+      return this.item.discountPrice !== undefined;
     }
   },
 };
