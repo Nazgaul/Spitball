@@ -2,7 +2,7 @@
     <div class="share-screen-btn-wrap">
         <v-flex class="text-center">
             <div v-if="!getIsShareScreen" >
-                <v-tooltip top >
+                <v-tooltip top :disabled="isRoomActive">
                     <template v-slot:activator="{on}">
                         <div v-on="on">
                             <button :disabled="!isRoomActive" @click="showScreen" class="outline-btn-share">
