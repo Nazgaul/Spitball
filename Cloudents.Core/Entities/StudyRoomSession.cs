@@ -50,12 +50,20 @@ namespace Cloudents.Core.Entities
 
         public virtual void AddUser(User user)
         {
+            if (user.Id == StudyRoom.Tutor.Id)
+            {
+                return;
+            }
             var sessionUser = new StudyRoomSessionUser(this, user);
             RoomSessionUsers.Add(sessionUser);
         }
 
         public virtual void UserDisconnect(User user, TimeSpan durationInRoom)
         {
+            if (user.Id == StudyRoom.Tutor.Id)
+            {
+                return;
+            }
             var sessionUser = RoomSessionUsers.Single(s => s.User == user);
             sessionUser.Disconnect(durationInRoom);
         }
