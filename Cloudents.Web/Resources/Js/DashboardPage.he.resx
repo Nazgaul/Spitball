@@ -141,6 +141,12 @@
   <data name="create_room_empty_error" xml:space="preserve">
     <value>לא נבחר אף סטודנט</value>
   </data>
+  <data name="create_room_label" xml:space="preserve">
+    <value>שם חדר הלימוד</value>
+  </data>
+  <data name="create_room_placeholder" xml:space="preserve">
+    <value>הכנס שם</value>
+  </data>
   <data name="create_room_title" xml:space="preserve">
     <value>בחירת סטודנט/ית</value>
   </data>
