@@ -143,6 +143,7 @@
   </data>
   <data name="create_room_max_error" xml:space="preserve">
     <value>ניתן לבחור עד 4 סטודנטים</value>
+  </data>
   <data name="create_room_label" xml:space="preserve">
     <value>שם חדר הלימוד</value>
   </data>
