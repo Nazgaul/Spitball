@@ -397,7 +397,7 @@
     <value>Confirm your phone number!</value>
   </data>
   <data name="verifyPhone_subtitle" xml:space="preserve">
-    <value>A verification code was sent to your phone</value>
+    <value>We sent you a text message to {0} with your code verification. Please enter it below</value>
   </data>
   <data name="change_numb" xml:space="preserve">
     <value>Change phone number</value>

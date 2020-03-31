@@ -37,6 +37,8 @@
                     :phone="phoneNumber"
                     :code="localCode"
                     @goStep="goStep"
+                    @updatePhone="updatePhone"
+                    @updateCode="updateCode"
                 >
                 </component>
             </div>
@@ -291,6 +293,12 @@ export default {
         goStep(step) {
             this.component = step
         },
+        updatePhone(phone) {
+            this.phoneNumber = phone
+        },
+        updateCode(code) {
+            this.localCode = code
+        }
     },
     created() {      
         let captchaLangCode = global.lang === "he" ? "iw" : "en";
