@@ -154,7 +154,7 @@
     <value>שדה {0} הנו חובה.</value>
   </data>
   <data name="StringLength" xml:space="preserve">
-    <value>שדה {0} חייב להיות מסוג מחרוזת באורך מינימלי של {2} ובאורך מרבי של {1}.</value>
+    <value>שדה {0} חייב להיות באורך מינימלי של {2} ובאורך מרבי של {1}</value>
   </data>
   <data name="StringLengthMax" xml:space="preserve">
     <value>שדה {0} חייב להיות מסוג מחרוזת באורך מרבי של {1}.</value>
