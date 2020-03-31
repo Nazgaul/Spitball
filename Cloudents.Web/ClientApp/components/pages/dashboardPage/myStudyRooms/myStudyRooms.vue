@@ -18,11 +18,11 @@
             itemsPerPageOptions: [20]
          }">
          <template v-slot:top>
-            <div class="tableTop d-flex align-center justify-space-between">
-               <div class="myStudyRooms_title">{{$t('schoolBlock_my_study_rooms')}}</div>
+            <div class="tableTop d-flex flex-sm-row flex-column align-sm-center justify-space-between">
+               <div class="myStudyRooms_title pb-3 pb-sm-0">{{$t('schoolBlock_my_study_rooms')}}</div>
                <div>
-                  <v-btn v-if="isTutor" v-openDialog="createStudyRoomDialog" class="link white--text mr-4" depressed color="#5360FC">{{$t('dashboardPage_my_studyrooms_create_room')}}</v-btn>
-                  <v-btn class="link white--text" :to="{name: routeNames.StudyRoom}" depressed color="#5360FC">{{$t('dashboardPage_link_studyroom')}}</v-btn>
+                  <v-btn v-if="isTutor" v-openDialog="createStudyRoomDialog" class="link white--text mr-0 mr-sm-4" depressed color="#5360FC">{{$t('dashboardPage_my_studyrooms_create_room')}}</v-btn>
+                  <v-btn v-if="!$vuetify.breakpoint.xsOnly" class="link white--text" :to="{name: routeNames.StudyRoom}" depressed color="#5360FC">{{$t('dashboardPage_link_studyroom')}}</v-btn>
                </div>
             </div>
          </template>
@@ -163,6 +163,9 @@ export default {
          font-size: 22px;
          font-weight: 600;
          line-height: 1.3px;
+         @media (max-width: @screen-xs) {
+            line-height: initial;
+         }
          background: #fff;
       }
       .link {
