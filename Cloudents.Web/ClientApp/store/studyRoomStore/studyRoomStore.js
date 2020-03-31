@@ -137,9 +137,11 @@ const actions = {
       })
       return Promise.resolve();
    },
-   updateEndTutorSession({ commit, state }) {
+   updateEndTutorSession({ commit, state ,getters}) {
       commit(studyRoom_SETTERS.ROOM_ACTIVE, false);
-      studyRoomRecordingService.stopRecord();
+      if(getters.getIsRecording){
+         studyRoomRecordingService.stopRecord();
+      }
       studyRoomService.endTutoringSession(state.studyRoomId).then(() => {
          commit(studyRoom_SETTERS.DIALOG_END_SESSION, false)
       })
