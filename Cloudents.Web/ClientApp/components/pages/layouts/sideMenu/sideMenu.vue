@@ -96,6 +96,10 @@ export default {
         this.$router.push({name: routeNames.Feed,query:{filter:feedFilters.Question}})
         return
       }
+      if(name === routeNames.Profile){
+        this.$router.push({name,params:{id:this.accountUser.id}})
+        return
+      }
       this.$router.push({name})
       this.closeSideMenu();
     },

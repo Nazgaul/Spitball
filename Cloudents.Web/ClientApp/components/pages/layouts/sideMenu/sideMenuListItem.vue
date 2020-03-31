@@ -24,6 +24,13 @@ export default {
    },
    methods: {
       currentPageChecker(pathName){
+         if(this.$route.name === routeNames.Profile && pathName === routeNames.Profile){
+            if(this.$route.params.id == this.$store.getters.accountUser.id){
+               return true
+            }else{
+               return false;
+            }
+         }
          let isMyQuestions = (this.$route.name === routeNames.Feed && this.$route.query?.filter === feedFilters.Question)
          if(pathName === 'myQuestions' && isMyQuestions){
             return true;
