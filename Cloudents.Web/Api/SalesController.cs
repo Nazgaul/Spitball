@@ -63,7 +63,6 @@ namespace Cloudents.Web.Api
             var tutorId = _userManager.GetLongUserId(User);
             var command = new SetSessionDurationCommand(tutorId,
                 model.SessionId,
-                
                 TimeSpan.FromMinutes(model.DurationInMinutes), model.UserId);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
