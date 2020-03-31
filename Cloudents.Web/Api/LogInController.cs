@@ -1,5 +1,6 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
@@ -90,36 +91,36 @@ namespace Cloudents.Web.Api
         }
 
 
-        //[HttpGet("ValidateEmail")]
-        //[ResponseCache(Duration = TimeConst.Minute * 2, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { nameof(EmailValidateRequest.Email) })]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
-        //[ProducesDefaultResponseType]
-        //public async Task<ActionResult<ReturnSignUserResponse>> CheckUserStatusAsync(
-        //    [FromQuery] EmailValidateRequest model)
-        //{
-        //    var user = await _userManager.FindByEmailAsync(model.Email);
-        //    if (user is null)
-        //    {
-        //        ModelState.AddModelError(nameof(model.Email), _localizer["EmailNotFound"]);
-        //        return BadRequest(ModelState);
-        //    }
+        [HttpGet("ValidateEmail")]
+        [ResponseCache(Duration = TimeConst.Minute * 2, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { nameof(EmailValidateRequest.Email) })]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<ReturnSignUserResponse>> CheckUserStatusAsync(
+            [FromQuery] EmailValidateRequest model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user is null)
+            {
+                ModelState.AddModelError(nameof(model.Email), _localizer["EmailNotFound"]);
+                return BadRequest(ModelState);
+            }
 
-        //    if (!user.PhoneNumberConfirmed)
-        //    {
-        //        if (user.OldUser.GetValueOrDefault())
-        //        {
-        //            return new ReturnSignUserResponse(RegistrationStep.RegisterSetEmailPassword);
-        //        }
-        //        ModelState.AddModelError(nameof(model.Email), _localizer["EmailNotFound"]);
-        //        return BadRequest(ModelState);
-        //    }
+            if (!user.PhoneNumberConfirmed)
+            {
+                if (user.OldUser.GetValueOrDefault())
+                {
+                    return new ReturnSignUserResponse(RegistrationStep.RegisterSetEmailPassword);
+                }
+                ModelState.AddModelError(nameof(model.Email), _localizer["EmailNotFound"]);
+                return BadRequest(ModelState);
+            }
 
-        //    if (user.PasswordHash is null)
-        //    {
-        //        return new ReturnSignUserResponse(RegistrationStep.RegisterSetEmailPassword);
-        //    }
-        //    return new ReturnSignUserResponse(RegistrationStep.LoginSetPassword);
-        //}
+            if (user.PasswordHash is null)
+            {
+                return new ReturnSignUserResponse(RegistrationStep.RegisterSetEmailPassword);
+            }
+            return new ReturnSignUserResponse(RegistrationStep.LoginSetPassword);
+        }
     }
 }
