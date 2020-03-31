@@ -186,14 +186,14 @@ export default {
          return `${pts} ${LanguageService.getValueByKey('dashboardPage_pts')}`
       },
       formatItemStatus(paymentStatus){
-         if(paymentStatus === 'Pending'){
-            return this.$t('dashboardPage_pending')
+         if(paymentStatus === 'Approved'){
+            return this.$t('dashboardPage_paid')
          }
          if(paymentStatus === 'PendingSystem'){
             return this.$t('dashboardPage_pending_approve')
          }
          if(paymentStatus === 'PendingTutor') {
-            return this.$t('dashboardPage_paid')
+            return this.$t('dashboardPage_pending')
          }
       },
    },
