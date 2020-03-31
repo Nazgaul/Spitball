@@ -64,12 +64,12 @@ export const signlaREvents = {
         }
     },
     studyroom:{
-        add:function(arrEventObj){
-            arrEventObj.forEach((roomInfo)=>{
+        // add:function(arrEventObj){
+            // arrEventObj.forEach((roomInfo)=>{
                 // TODO: remove it, ask ram before
                 // store.dispatch("signalRAddRoomInformationMessage", roomInfo);
-            });
-        },
+            // });
+        // },
         update:function(arrEventObj){
             arrEventObj.forEach((roomStatusInformation)=>{
                 // TODO: remove it

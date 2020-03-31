@@ -1,7 +1,6 @@
 import studyRoomService from '../../services/studyRoomService.js';
 import {studyRoom_SETTERS} from '../constants/studyRoomConstants.js';
 import studyRoomRecordingService from '../../components/studyroom/studyRoomRecordingService.js'
-import analyticsService from '../../services/analytics.service'
 
 function _checkPayment(context) {
    let isTutor = context.getters.getRoomIsTutor;
