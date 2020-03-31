@@ -9,8 +9,8 @@ namespace Cloudents.Web.Models
         public long? Id { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Required")]
         public string Code { get; set; }
-        public string ReturnUrl { get; set; }
+      //  public string ReturnUrl { get; set; }
 
-        public string Referral { get; set; }
+      //  public string Referral { get; set; }
     }
 }

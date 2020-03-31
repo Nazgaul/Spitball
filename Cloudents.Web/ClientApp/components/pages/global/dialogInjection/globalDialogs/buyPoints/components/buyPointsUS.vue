@@ -181,16 +181,19 @@ export default {
                         ]
                     });
                 },
-                onApprove: function(data,actions) {
+                onApprove: function(data) {
                     self.isLoading = true;
-                    actions.order.capture().then(() => {
+                    //actions.order.authorize().then((authorization) => {
+                        // var authorizationID = authorization.purchase_units[0]
+                        //         .payments.authorizations[0].id;
+                        //action.authorization.capture(authorizationID)
                         self.$closeDialog();
                         self.$store.dispatch('updatePaypalBuyTokens',data.orderID);
                         self.$store.dispatch('updateToasterParams', {
                         toasterText: self.$t("buyTokens_success_transaction"),
                         showToaster: true,
                         toasterTimeout: 5000
-                    });
+                    //});
                 });
                     
                     //TODO happy go lucky - update the balance of the user

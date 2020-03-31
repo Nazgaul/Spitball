@@ -59,7 +59,8 @@ const getters = {
     accountUser: (state) => {
         return state.user;
     },
-    getPendingPayment: state => state.user.pendingSessionsPayments
+    getPendingPayment: state => state.user.pendingSessionsPayments,
+    getUserBalance: state =>  state.user?.balance.toFixed(0) || 0
 };
 
 const actions = {
@@ -145,8 +146,12 @@ const actions = {
     updateUserStats(context, lastDays) {
         return accountService.getAccountStats(lastDays)
     },
-    updateLoginStatus({commit},val){
+    updateLoginStatus({commit, dispatch},val){
         commit("changeLoginStatus", val);
+        
+        if(val) {
+            dispatch('userStatus')
+        }
     }
 };
 

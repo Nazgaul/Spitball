@@ -188,6 +188,8 @@ namespace Cloudents.Core.Entities
         }
 
 
+
+
         private readonly ICollection<StudyRoomUser> _studyRooms = new List<StudyRoomUser>();
 
         public virtual IEnumerable<StudyRoomUser> StudyRooms => _studyRooms;
@@ -212,6 +214,7 @@ namespace Cloudents.Core.Entities
         private readonly ICollection<UserPayPalToken> _userTokens = new List<UserPayPalToken>();
 
 
+        public virtual DateTime? FinishRegistrationDate { get; set; }
 
         public virtual IEnumerable<UserPayPalToken> UserTokens => _userTokens;
 
@@ -344,6 +347,44 @@ namespace Cloudents.Core.Entities
 
         }
 
+        private readonly ISet<Follow> _followers = new HashSet<Follow>();
+        public virtual IEnumerable<Follow> Followers => _followers;
+
+        public override void AddFollower(User follower)
+        {
+            if (this == follower)
+            {
+                return;
+            }
+
+            if (this.Tutor == null)
+            {
+                return;
+            }
+
+            //if (!Equals(follower))
+            //{
+            var follow = new Follow(this, follower);
+            _followers.Add(follow);
+        }
+
+        public virtual void AddFollowers(IEnumerable<User> followers)
+        {
+            foreach (var follower in followers)
+            {
+                AddFollower(follower);
+            }
+            //if (!Equals(follower))
+            //{
+
+        }
+
+        public override void RemoveFollower(BaseUser follower)
+        {
+            var follow = new Follow(this, follower);
+            _followers.Remove(follow);
+        }
+
 
         public virtual void AwardMoney(decimal price)
         {
@@ -371,7 +412,8 @@ namespace Cloudents.Core.Entities
 
         public virtual void FinishRegistration()
         {
-            MakeTransaction(AwardMoneyTransaction.FinishRegistration(this));
+            FinishRegistrationDate = DateTime.UtcNow;
+            //MakeTransaction(AwardMoneyTransaction.FinishRegistration(this));
         }
 
         public virtual void ConfirmPhoneNumber()

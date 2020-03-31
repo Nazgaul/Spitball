@@ -55,6 +55,9 @@
             :popUpType="'referralPop'"
           ></referral-dialog>
         </sb-dialog>
+
+        <register v-if="getRegisterDialog" />
+        
       <mobile-footer v-if="showMobileFooter" />
     </v-content>
     
@@ -86,7 +89,7 @@ const mobileFooter = () => import("../pages/layouts/mobileFooter/mobileFooter.vu
 const chat = () => import("../chat/chat.vue");
 const tutorRequest = () => import("../tutorRequestNEW/tutorRequest.vue");
 const referralDialog = () => import("../question/helpers/referralDialog/referral-dialog.vue");
-
+const register = () => import('../pages/global/dialogInjection/globalDialogs/register/register.vue')
 export default {
   components: {
     referralDialog,
@@ -96,7 +99,8 @@ export default {
     mobileFooter,
     tutorRequest,
     dialogInjection,
-    toasterInjection
+    toasterInjection,
+    register
   },
   data() {
     return {
@@ -117,7 +121,8 @@ export default {
       "getRequestTutorDialog",
       "getIsChatVisible",
       'getUserLoggedInStatus',
-      'getIsTeacher'
+      'getIsTeacher',
+      'getRegisterDialog'
     ]),
 
     isDrawer() {

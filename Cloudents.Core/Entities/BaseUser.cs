@@ -88,22 +88,13 @@ namespace Cloudents.Core.Entities
 
         public virtual byte[] Version { get; protected set; }
 
-        private readonly ISet<Follow> _followers = new HashSet<Follow>();
-        public virtual IEnumerable<Follow> Followers => _followers.ToList();
+       
 
-        public virtual void AddFollower(BaseUser follower)
-        {
-            if (!Equals(follower))
-            {
-                var follow = new Follow(this, follower);
-                _followers.Add(follow);
-            }
-        }
 
-        public virtual void RemoveFollower(BaseUser follower)
-        {
-            var follow = new Follow(this, follower);
-            _followers.Remove(follow);
-        }
+        public abstract void AddFollower(User follower);
+
+
+        public abstract void RemoveFollower(BaseUser follower);
+       
     }
 }

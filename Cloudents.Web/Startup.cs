@@ -47,7 +47,7 @@ namespace Cloudents.Web
 {
     public class Startup
     {
-        public const string IntegrationTestEnvironmentName = "Integration-Test";
+        //public const string IntegrationTestEnvironmentName = "Integration-Test";
         private const bool UseAzureSignalR = true;
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
@@ -312,12 +312,17 @@ namespace Cloudents.Web
             app.UseForwardedHeaders();
             app.UseClickJacking();
             app.UseResponseCompression();
+
             if (env.IsDevelopment())
             {
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                if (Configuration["IntergrationTest"] == null)
                 {
-                    HotModuleReplacement = true
-                });
+                    app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                    {
+                        HotModuleReplacement = true
+                    });
+                }
+
                 app.UseDeveloperExceptionPage();
 
             }
@@ -329,7 +334,7 @@ namespace Cloudents.Web
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
             var reWriterOptions = new RewriteOptions()
                 .Add(new RemoveTrailingSlash());
-            if (!env.IsDevelopment() && !env.IsEnvironment(IntegrationTestEnvironmentName))
+            if (!env.IsDevelopment())
             {
                 reWriterOptions.AddRedirectToHttpsPermanent();
             }
@@ -375,7 +380,7 @@ namespace Cloudents.Web
             {
                 o.DefaultRequestCulture = new RequestCulture(Language.English);
                 o.SupportedUICultures = o.SupportedCultures =
-                    Language.SystemSupportLanguage().Select(s => (CultureInfo) s).ToList(); // SupportedCultures;
+                    Language.SystemSupportLanguage().Select(s => (CultureInfo)s).ToList(); // SupportedCultures;
 
                 o.RequestCultureProviders.Clear();
                 o.RequestCultureProviders.Add(new FrymoCultureProvider());
@@ -414,7 +419,7 @@ namespace Cloudents.Web
                 endpoints.MapControllerRoute(
                     name: SeoTypeString.Static,
                     pattern: "{id}",
-                    defaults: new {controller = "Home", action = "Index"}
+                    defaults: new { controller = "Home", action = "Index" }
                 );
                 endpoints.MapControllerRoute(
                     name: "default",

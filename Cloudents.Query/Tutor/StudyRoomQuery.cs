@@ -62,7 +62,7 @@ x.*,
 	case when t.price = 0 then @False else null end,
 	case when u1.PaymentExists = 1 then @False else null end,
     case when u1.Country = 'IN' then @False else null end,
-    case when EXISTS (select top 1 * from sb.UserToken ut where userid = :UserId and 
+    case when EXISTS (select top 1 * from sb.UserToken ut where userid = :UserId and  ut.StudyRoomId = :Id and
 (state = 'NotUsed' or  ut.created >  DATEADD(Minute,-30,GETUTCDATE()))) then @False else null end,
 	@True
 ) as NeedPayment

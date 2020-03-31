@@ -10,7 +10,6 @@ namespace Cloudents.Persistence.Maps
             Id(x => x.Id).GeneratedBy.GuidComb();
             References(r => r.StudyRoomSession).Column("SessionId").ForeignKey("Session_Disconnect")
                 .Not.Nullable().UniqueKey("Session_Disconnect");
-            SchemaAction.Update();
         }
     }
 }

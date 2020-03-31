@@ -20,7 +20,10 @@
          <template v-slot:top>
             <div class="tableTop d-flex align-center justify-space-between">
                <div class="myStudyRooms_title">{{$t('schoolBlock_my_study_rooms')}}</div>
-               <v-btn class="link white--text" :to="{name: routeNames.StudyRoom}" depressed color="#5360FC">{{$t('dashboardPage_link_studyroom')}}</v-btn>
+               <div class="d-flex">
+                  <v-btn v-if="isTutor" v-openDialog="createStudyRoomDialog" class="link white--text mr-4" depressed color="#5360FC">{{$t('dashboardPage_my_studyrooms_create_room')}}</v-btn>
+                  <v-btn class="link white--text" :to="{name: routeNames.StudyRoom}" depressed color="#5360FC">{{$t('dashboardPage_link_studyroom')}}</v-btn>
+               </div>
             </div>
          </template>
 
@@ -44,7 +47,11 @@
                <tablePreviewTd :item="props.item"/>
                <tableInfoTd :item="props.item"/>
                <td class="text-xs-left">{{ $d(new Date(props.item.date)) }}</td>
-               <td class="text-xs-left">{{ $d(new Date(props.item.lastSession)) }}</td>
+               <td class="text-xs-left">
+                  <span v-if="props.item.lastSession">
+                  {{ $d(new Date(props.item.lastSession)) }}
+                  </span>
+                  </td>
                <td>
                   <v-btn class="myStudyRooms_btns white--text" depressed rounded color="#4452fc" @click="sendMessage(props.item)">
                      <iconChat class="myStudyRooms_btn_icon"/>
@@ -69,6 +76,7 @@ import tableInfoTd from '../global/tableInfoTd.vue';
 import iconChat from './images/icon-chat.svg';
 import enterRoom from './images/enterRoom.svg';
 import * as routeNames from '../../../../routes/routeNames'
+import * as dialogNames from '../../global/dialogInjection/dialogNames.js'
 
 export default {
    name: 'myStudyRooms',
@@ -80,6 +88,7 @@ export default {
    },
    data() {
       return {
+         createStudyRoomDialog: dialogNames.CreateStudyRoom,
          routeNames,
          sortedBy:'',
          paginationModel:{
@@ -102,7 +111,9 @@ export default {
    },
    computed: {
       ...mapGetters(['getStudyRoomItems']),
-
+      isTutor(){
+         return this.$store.getters.accountUser.isTutor;
+      },
       studyRoomItems(){
          return this.getStudyRoomItems
       },

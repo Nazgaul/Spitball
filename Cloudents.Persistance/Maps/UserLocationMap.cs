@@ -17,9 +17,8 @@ namespace Cloudents.Persistence.Maps
             Component(x => x.TimeStamp);
             Map(x => x.Ip).Nullable();
             Map(x => x.Country).Length(10).Nullable();
-            Map(x => x.FingerPrint).Nullable();
+            //Map(x => x.FingerPrint).Nullable();
             Map(x => x.UserAgent).Nullable();
-            SchemaAction.Update();
         }
     }
 }

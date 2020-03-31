@@ -19,7 +19,10 @@ namespace Cloudents.Core.Entities
 
         public ChatRoom(IList<User> users) : this()
         {
-
+            foreach (var user in users)
+            {
+                user.AddFollowers(users);
+            }
             Users = users.Select(s => new ChatUser(this, s)).ToList();
             Identifier = BuildChatRoomIdentifier(users.Select(s => s.Id));
             UpdateTime = DateTime.UtcNow;
@@ -44,6 +47,12 @@ namespace Cloudents.Core.Entities
         public virtual string Identifier { get; protected set; }
         public virtual ChatRoomAdmin Extra { get; set; }
 
+        public virtual void AddTextMessage(User user, string message)
+        {
+            var chatMessage = new ChatTextMessage(user, message, this);
+            AddMessage(chatMessage);
+        }
+
         public virtual void AddMessage(ChatMessage message)
         {
             UpdateTime = DateTime.UtcNow;
@@ -58,7 +67,7 @@ namespace Cloudents.Core.Entities
                     userInChat.ResetUnread();
                 }
             }
-
+            Messages.Add(message);
             //Status = ChatRoomStatus.Default;
             AddEvent(new ChatMessageEvent(message));
         }
