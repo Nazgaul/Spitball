@@ -57,13 +57,13 @@ namespace Cloudents.Web.Api
             });
         }
 
-        [HttpPost("duration")]
+        [HttpPost]
         public async Task<IActionResult> SetSessionDurationAsync([FromBody] SetSessionDurationRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new SetSessionDurationCommand(userId,
                 model.SessionId,
-                TimeSpan.FromMinutes(model.RealDuration));
+                TimeSpan.FromMinutes(model.DurationInMinutes));
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
