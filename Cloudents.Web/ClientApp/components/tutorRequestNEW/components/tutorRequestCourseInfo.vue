@@ -155,7 +155,7 @@ export default {
                 this.updateSelectedCourse(this.tutorCourse)
                 this.updateMoreTutors(this.moreTutors)
                 this.updateRequestDialog(false);
-
+                
                 this.$store.commit('setIsFromTutorStep', true)
                 this.$store.commit('setComponent', 'register')
                 // this.updateTutorReqStep('tutorRequestUserInfo')

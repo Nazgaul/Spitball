@@ -8,7 +8,6 @@
                     <span class="sentMessage" v-language:inner="'tutorRequest_message_success_tutor_1'"></span>
                     <span>{{firstName}}</span>
                 </p>
-                <p class="message_2" v-language:inner="'tutorRequest_message_success_tutor_2'"></p>
                 <div class="message_3">
                     <p>{{$t('tutorRequest_message_success_tutor_3',[firstName])}}</p>
                     <p><bdi>{{tutorPhoneNumber}}</bdi></p>
@@ -45,7 +44,7 @@ import analyticsService from '../../../services/analytics.service';
 export default {
     name:'tutorRequestSuccess',
     computed:{
-        ...mapGetters(['accountUser', 'getCurrTutor', 'getSelectedCourse', 'getCurrentTutorPhoneNumber']),
+        ...mapGetters(['accountUser', 'getCurrTutor', 'getSelectedCourse', 'getCurrentTutorPhoneNumber', 'getCourseDescription', 'getMoreTutors']),
 
         isTutor(){
             return !!this.getCurrTutor;
@@ -70,7 +69,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateRequestDialog', 'resetRequestTutor']),
+        ...mapActions(['updateRequestDialog', 'resetRequestTutor', 'sendTutorRequest']),
         tutorRequestDialogClose() {
             this.updateRequestDialog(false);
             this.resetRequestTutor()
@@ -85,6 +84,20 @@ export default {
             this.tutorRequestDialogClose();
         },
     },
+    mounted() {
+        let tutorData = this.getCurrTutor
+        let serverObj = {
+            captcha: null,
+            text: this.getCourseDescription,
+            name: null,
+            email: null,
+            phone: null,
+            course: this.courseName,
+            tutorId: tutorData.id,
+            moreTutors: this.getMoreTutors
+        } 
+        this.sendTutorRequest(serverObj)
+    }
 }
 </script>
 
