@@ -325,15 +325,15 @@ const actions = {
             });
     },
     changePassword({commit,dispatch},params) {
-        let {id, code, password} = params;
-            registrationService.updatePassword(password, id, code) //TODO: send object instead
+        let {id, code, password, confirmPassword} = params;
+            registrationService.updatePassword(password, id, code, confirmPassword) //TODO: send object instead
                 .then(() => {
                     dispatch('updateLoginStatus',true)
                     _analytics(['Forgot Password', 'Updated password']);
                     router.push(state.toUrl);
                 }, (error) => {
                     commit('setErrorMessages',{
-                        password: error.response.data["Password"] ? error.response.data["Password"][0] : '',
+                        password: error.response.data["Password"] ? error.response.data["Password"][0] : error.response.data["ConfirmPassword"][0],
                     });
                 });
     },

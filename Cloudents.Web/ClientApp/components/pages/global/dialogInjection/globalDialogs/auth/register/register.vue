@@ -38,6 +38,8 @@
                     :code="localCode"
                     :teacher="teacher"
                     @goStep="goStep"
+                    @updatePhone="updatePhone"
+                    @updateCode="updateCode"
                 >
                 </component>
             </div>
@@ -56,11 +58,11 @@
                         <div class="methods d-flex justify-space-between">
                             <div class="linkAction d-flex" @click="phoneCall">
                                 <phoneCall />
-                                <div class="ml-2">call me with code</div>
+                                <div class="ml-2" v-t="'loginRegister_change_number'"></div>
                             </div>
                             <div class="linkAction d-flex">
                                 <changeNumber />
-                                <div @click="goStep('setPhone2')" class="ml-2">Change phone number</div>
+                                <div @click="goStep('setPhone2')" class="ml-2" v-t="'loginRegister_change_numb'"></div>
                             </div>
                         </div>
                     </div>
@@ -82,9 +84,9 @@
                     <div class="termsWrap text-center">
                         <div class="my-3">
                             <span v-t="'loginRegister_getstarted_terms_i_agree'"></span>
-                            <a class="link" :href="termsLink" v-t="'loginRegister_getstarted_terms_terms'"></a>
+                            <a class="link" :href="termsLink" target="_blank" v-t="'loginRegister_getstarted_terms_terms'"></a>
                             <span class="" v-t="'loginRegister_getstarted_terms_and'"></span>
-                            <a class="link" :href="policyLink" v-t="'loginRegister_getstarted_terms_privacy'"></a>
+                            <a class="link" :href="policyLink" target="_blank" v-t="'loginRegister_getstarted_terms_privacy'"></a>
                         </div>
                     </div>
 
@@ -256,6 +258,7 @@ export default {
                     });
                     analyticsService.sb_unitedEvent('Registration', 'Phone Submitted');
                     self.component = 'verifyPhone'
+                    self.errors.phone = ''
                 }).catch(error => {
                     let { response: { data } } = error
                     
@@ -323,6 +326,12 @@ export default {
         goStep(step) {
             this.component = step
         },
+        updatePhone(phone) {
+            this.phoneNumber = phone
+        },
+        updateCode(code) {
+            this.localCode = code
+        }
     },
     created() {      
         let captchaLangCode = global.lang === "he" ? "iw" : "en";

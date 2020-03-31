@@ -189,7 +189,7 @@
     <comment>1</comment>
   </data>
   <data name="getstarted_signin_link" xml:space="preserve">
-    <value>Log in</value>
+    <value>Login</value>
     <comment>1</comment>
   </data>
   <data name="getstarted_signin_text" xml:space="preserve">
@@ -306,7 +306,7 @@
     <comment>1</comment>
   </data>
   <data name="smsconfirm_call" xml:space="preserve">
-    <value>Call me with a code</value>
+    <value>Call me with a confirmation code</value>
     <comment>1</comment>
   </data>
   <data name="smsconfirm_change" xml:space="preserve">
@@ -379,6 +379,30 @@
     <value>Sign up to Spitball</value>
   </data>
   <data name="setphone_sub_title" xml:space="preserve">
-    <value>Please enter your phone number</value>
+    <value>Account recovery</value>
+  </data>
+  <data name="or" xml:space="preserve">
+    <value>Or</value>
+  </data>
+  <data name="choose_other_method" xml:space="preserve">
+    <value>Or</value>
+  </data>
+  <data name="setemailpass_btn_verify" xml:space="preserve">
+    <value>Verify</value>
+  </data>
+  <data name="smsconfirm_resend_code" xml:space="preserve">
+    <value>Resend code</value>
+  </data>
+  <data name="verifyPhone_main_title" xml:space="preserve">
+    <value>Confirm your phone number!</value>
+  </data>
+  <data name="verifyPhone_subtitle" xml:space="preserve">
+    <value>A verification code was sent to your phone: {0}</value>
+  </data>
+  <data name="change_numb" xml:space="preserve">
+    <value>Change phone number</value>
+  </data>
+  <data name="change_number" xml:space="preserve">
+    <value>Call me with a code</value>
   </data>
 </root>

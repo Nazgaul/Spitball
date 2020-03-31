@@ -30,7 +30,8 @@ export default {
           self.isLoading = false;
         })
       }else{
-        this.$openDialog('login')
+        // this.$openDialog('login')
+        this.$store.commit('setToaster', 'register')
       }
     }
   },

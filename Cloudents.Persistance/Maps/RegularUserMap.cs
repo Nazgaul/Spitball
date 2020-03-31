@@ -34,8 +34,6 @@ namespace Cloudents.Persistence.Maps
                     .Inverse()
                     .Cascade.AllDeleteOrphan().ForeignKeyConstraintName("Transaction_User").AsBag();
             });
-            //Map(x => x.Balance).CustomSqlType("smallmoney");
-            //Map(x => x.Score);
 
 
             Map(x => x.Online);

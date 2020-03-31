@@ -64,10 +64,14 @@ export default {
         }
     },
     watch: {
-        phoneNumber() {
+        phoneNumber(phone) {
+            this.$emit('updatePhone', phone)
             if(this.errors.phone) {
                 this.errors.phone = ''
             }
+        },
+        code(code) {
+            this.$emit('updateCode', code)
         }
     },
     computed: {
@@ -94,6 +98,7 @@ export default {
             let self = this
             registrationService.getLocalCode().then(({ data }) => {
                 self.localCode = data.code
+                this.$emit('updateCode', data.code)
             }).catch(ex => {
                 self.$appInsights.trackException({exception: new Error(ex)});
             })

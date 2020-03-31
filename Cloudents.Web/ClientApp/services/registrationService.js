@@ -29,7 +29,7 @@ export default {
     getLocalCode: () => authInstance.get("/sms/code"),
     forgotPasswordReset: email => authInstance.post("ForgotPassword", {email}),
     EmailforgotPasswordResend: () => authInstance.post("ForgotPassword/resend"),
-    updatePassword: (password, confirmPassword, id, code) => authInstance.post("ForgotPassword/reset", {id, code, password, confirmPassword}),
+    updatePassword: (password, id, code, confirmPassword) => authInstance.post("ForgotPassword/reset", {id, code, password, confirmPassword}),
     validateEmail: email => authInstance.get(`LogIn/ValidateEmail?email=${email}`),
     updateGrade: grade => authInstance.post(`Register/grade`, grade),
     updateParentStudentName: parentObj => authInstance.post(`Register/childName`, parentObj),

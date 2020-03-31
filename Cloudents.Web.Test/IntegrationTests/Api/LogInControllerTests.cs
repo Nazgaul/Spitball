@@ -16,7 +16,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
         
 
-        [Theory]
+        [Theory(Skip ="Obsolete")]
         [InlineData("api/LogIn/ValidateEmail?email=elad13@cloudents.com")]
         public async Task GetAsync_Login_OkAsync(string uri)
         {
@@ -27,7 +27,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             str.IsValidJson().Should().BeTrue();
         }
 
-        [Theory]
+        [Theory(Skip = "Obsolete")]
         [InlineData("api/LogIn/ValidateEmail")]
         public async Task GetAsync_Login_BadRquestAsync(string uri)
         {

@@ -50,15 +50,7 @@
             </v-btn>
 
             
-            <div class="getStartedBottom mt-2">    
-                <div class="termsWrap text-center">
-                    <div class="my-3">
-                        <span v-t="'loginRegister_getstarted_terms_i_agree'"></span>
-                        <a class="link" :href="termsLink" v-t="'loginRegister_getstarted_terms_terms'"></a>
-                        <span class="" v-t="'loginRegister_getstarted_terms_and'"></span>
-                        <a class="link" :href="policyLink" v-t="'loginRegister_getstarted_terms_privacy'"></a>
-                    </div>
-                </div>
+            <div class="getStartedBottom mt-2">
                 <div class="text-center mt-2">
                     <span class="needAccount" v-t="'loginRegister_getstarted_signup_text'"></span>
                     <span class="link" v-t="'loginRegister_getstarted_signup_link'" @click="$emit('goTo', 'register')"></span>
@@ -146,7 +138,7 @@ export default {
                 }).catch(error => {      
                     let { response: { data } } = error
 
-                    self.errors.email = data["Password"] ? error.response.data["Password"][0] : '' //TODO:
+                    // self.errors.email = data["Password"] ? error.response.data["Password"][0] : '' //TODO:
                     self.errors.password = data["Password"] ? error.response.data["Password"][0] : '' //TODO:
 
                     // if(data.Locked) {
@@ -228,16 +220,6 @@ export default {
             font-size: 14px;
             letter-spacing: -0.37px;
             color: @global-blue;
-        }
-        .termsWrap {
-            color: @global-purple;
-            font-size: 10px;
-            border-bottom: 1px solid #dddddd;
-
-            .link {
-                color: @global-auth-text;
-                text-decoration: underline;
-            }
         }
         .btns {
             border-radius: 6px;

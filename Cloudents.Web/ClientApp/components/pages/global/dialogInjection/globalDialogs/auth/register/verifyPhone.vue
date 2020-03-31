@@ -3,7 +3,9 @@
 
     <!-- <div class="top"> -->
 	<div class="mainTitle mb-8" v-t="'loginRegister_verifyPhone_main_title'"></div>
-	<div class="subTitle mb-9">{{$t('loginRegister_verifyPhone_subtitle', [userPhone])}}</div>
+	<i18n path="loginRegister_verifyPhone_subtitle" tag="div" class="subTitle mb-9">
+		<bdi>{{userPhone}}</bdi>
+	</i18n>
       	<!-- <p class="smsconfirm_title mb-6" v-t="'loginRegister_smsconfirm_title'"></p> -->
 		<!-- <span>
 			<div v-t="'loginRegister_smsconfirm_subtitle'"></div>

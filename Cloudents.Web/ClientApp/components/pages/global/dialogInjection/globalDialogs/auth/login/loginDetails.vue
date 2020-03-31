@@ -60,12 +60,14 @@ export default {
     watch: {
         password() {
             if(this.errors.password) {
+                this.errors.email = ''
                 this.errors.password = ''
             }
         },
         email() {
             if(this.errors.email) {
                 this.errors.email = ''
+                this.errors.password = ''
             }
         }
     },
