@@ -1,6 +1,13 @@
 <template>
     <v-dialog :value="true" max-width="410px" height="510" content-class="authDialog" persistent :fullscreen="$vuetify.breakpoint.xsOnly">
-        <component :is="tempComponent || params.component" :params="params" @goTo="goTo" class="wrapper"></component>
+        <component
+            :is="tempComponent || params.component"
+            :params="params"
+            @goTo="goTo"
+            @updateRegisterType="updateRegisterType"
+            class="wrapper"
+        >
+        </component>
     </v-dialog>
 </template>
 
@@ -19,7 +26,8 @@ export default {
     },
     data() {
         return {
-            tempComponent: ''
+            tempComponent: '',
+            teacher: false,
         }
     },
     components: {
@@ -30,6 +38,9 @@ export default {
     methods: {
         goTo(name) {
             this.tempComponent = name
+        },
+        updateRegisterType(type) {
+            // this.
         }
     }
 };
