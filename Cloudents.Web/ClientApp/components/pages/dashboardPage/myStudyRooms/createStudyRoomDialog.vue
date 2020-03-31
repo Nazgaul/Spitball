@@ -3,29 +3,29 @@
       <div class="createStudyRoomDialog">
          <v-icon class="close-dialog" v-text="'sbf-close'" v-closeDialog />
          <div class="createStudyRoomDialog-title pb-4">{{$t('dashboardPage_create_room_title')}}</div>
-         <v-form ref="createRoomValidation">
+         <v-form class="input-room-name" ref="createRoomValidation">
             <v-text-field :rules="[rules.required]" v-model="roomName" height="44" dense outlined :label="$t('dashboardPage_create_room_placeholder')" :placeholder="$t('dashboardPage_create_room_label')"/>
          </v-form>
          <div class="createStudyRoomDialog-list">
             <v-list flat class="list-followers">
                <v-list-item-group>
-                  <v-list-item v-for="(item, index) in myFollowers" :key="index" @click="addSelectedUser(item)">
+                  <v-list-item v-for="(item, index) in myFollowers" :key="index" @click="addSelectedUser(item)" :class="[{'dark-line': index % 2}]">
                      <template v-slot:default="{}">
                         <v-list-item-avatar>
-                           <UserAvatar :size="'34'" :user-name="item.name" :user-id="item.id" :userImageUrl="item.image"/> 
+                           <UserAvatar :size="'40'" :user-name="item.name" :user-id="item.id" :userImageUrl="item.image"/> 
                         </v-list-item-avatar>
                         <v-list-item-content>
                            <v-list-item-title>{{item.name}}</v-list-item-title>
                         </v-list-item-content>
                         <v-list-item-action>
-                           <v-checkbox @click.prevent multiple v-model="selected" :value="item" off-icon="sbf-check-box-un" on-icon="sbf-check-box-done"></v-checkbox>
+                           <v-checkbox @click.prevent multiple v-model="selected" :value="item" color="#4c59ff" off-icon="sbf-check-box-un" on-icon="sbf-check-box-done"></v-checkbox>
                         </v-list-item-action>
                      </template>
                   </v-list-item>
                </v-list-item-group>
             </v-list>
          </div>
-         <div class="d-flex flex-column align-center">
+         <div class="d-flex flex-column align-center pt-4">
             <span v-if="showErrorEmpty" class="error--text">{{$t('dashboardPage_create_room_empty_error')}}</span>
             <span v-if="showErrorAlreadyCreated" class="error--text">{{$t('dashboardPage_create_room_created_error')}}</span>
             <span v-if="showErrorMaxUsers" class="error--text">{{$t('dashboardPage_create_room_max_error')}}</span>
@@ -122,6 +122,7 @@ export default {
    flex-direction: column;
    align-items: center;
    justify-content: space-between;
+   padding-left: 0;
    .close-dialog {
       cursor: pointer;
       position: absolute;
@@ -135,11 +136,23 @@ export default {
       font-size: 20px;
       font-weight: 600;
    }
+   .input-room-name{
+      width: 216px;
+      .v-text-field__details{
+         margin-bottom: 0;
+      }
+   }
    .createStudyRoomDialog-list{
       width: 100%;
       .list-followers{
-         max-height: 300px;
+         max-height: 320px;
          overflow-y: scroll;
+         .v-item-group {
+            padding-right: 6px;
+         }
+         .dark-line{
+            background: #f5f5f5;
+         }
       }
    }
 }
