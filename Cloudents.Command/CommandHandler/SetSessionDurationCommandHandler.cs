@@ -2,6 +2,7 @@
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,11 +19,21 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(SetSessionDurationCommand message, CancellationToken token)
         {
             var session = await _repository.LoadAsync(message.SessionId, token);
-            if (session.StudyRoom.Tutor.Id != message.UserId)
+            if (session.StudyRoom.Tutor.Id != message.TutorId)
             {
                 throw new ArgumentException();
             }
-            session.SetRealDuration(message.RealDuration);
+
+            if (session.StudyRoomVersion == StudyRoomSession.StudyRoomNewVersion)
+            {
+                var userSession = session.RoomSessionUsers.AsQueryable().Single(s => s.User.Id == message.UserId);
+                userSession.ApproveSession(message.RealDuration);
+            }
+            else
+            {
+                session.SetRealDuration(message.RealDuration);
+            }
+
             await _repository.UpdateAsync(session, token);
         }
     }

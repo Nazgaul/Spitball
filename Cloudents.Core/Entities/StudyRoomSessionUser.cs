@@ -40,6 +40,12 @@ namespace Cloudents.Core.Entities
             DisconnectCount++;
         }
 
+        public virtual void ApproveSession(TimeSpan duration)
+        {
+            TutorApproveTime = duration;
+            TotalPrice = (decimal)TutorApproveTime.Value.TotalHours * PricePerHour;
+        }
+
 
         public virtual bool Equals(StudyRoomSessionUser other)
         {

@@ -9,6 +9,8 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class StudyRoomSession : Entity<Guid>
     {
+        public const int StudyRoomNewVersion = 2;
+
         public StudyRoomSession(StudyRoom studyRoom, string sessionId)
         {
             StudyRoom = studyRoom;
@@ -16,7 +18,7 @@ namespace Cloudents.Core.Entities
             SessionId = sessionId;
 
             //UseUserToken();
-            StudyRoomVersion = 2;
+            StudyRoomVersion = StudyRoomNewVersion;
             AddEvent(new StudyRoomSessionCreatedEvent(this));
         }
         protected StudyRoomSession()
