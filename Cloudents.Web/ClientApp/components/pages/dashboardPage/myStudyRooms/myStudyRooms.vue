@@ -60,7 +60,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 //import tablePreviewTd from '../global/tablePreviewTd.vue';
-//import tableInfoTd from '../global/tableInfoTd.vue';
 import iconChat from './images/icon-chat.svg';
 import enterRoom from './images/enterRoom.svg';
 import * as routeNames from '../../../../routes/routeNames'

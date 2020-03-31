@@ -35,7 +35,9 @@
             <template v-slot:item="props">
                <tr class="myContent_table_tr">
                   <tablePreviewTd :item="props.item"/>
-                  <tableInfoTd :item="props.item"/>
+                  <td>
+                     <tableInfoTd :item="props.item"/>
+                  </td>
 
                   <td class="text-xs-left" v-text="dictionary.types[props.item.type]"/>
                   <td class="text-xs-left">{{props.item.likes}}</td>
