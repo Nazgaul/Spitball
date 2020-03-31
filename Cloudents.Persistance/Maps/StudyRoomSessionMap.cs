@@ -23,7 +23,7 @@ namespace Cloudents.Persistence.Maps
                .Inverse().Cascade.AllDeleteOrphan().AsSet();
             Map(m => m.PaymentApproved).Nullable();
             Map(x => x.AdminDuration).Column("AdminDuration2").Nullable();
-
+            Map(x => x.StudyRoomVersion);
             Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
         }
     }

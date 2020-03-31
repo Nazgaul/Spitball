@@ -16,7 +16,7 @@ namespace Cloudents.Core.Entities
             SessionId = sessionId;
 
             //UseUserToken();
-
+            StudyRoomVersion = 2;
             AddEvent(new StudyRoomSessionCreatedEvent(this));
         }
         protected StudyRoomSession()
@@ -30,6 +30,8 @@ namespace Cloudents.Core.Entities
         //    user.UseToken(StudyRoom);
 
         //}
+
+        public virtual int? StudyRoomVersion { get; set; }
 
         public virtual StudyRoom StudyRoom { get; protected set; }
         public virtual DateTime Created { get; protected set; }
@@ -89,9 +91,8 @@ namespace Cloudents.Core.Entities
         protected virtual void CalculatePriceAndDuration()
         {
             Duration = Ended - Created;
-
-            Price = ((decimal)Math.Floor(Duration.Value.TotalMinutes) / 60) * StudyRoom.Tutor.Price.SubsidizedPrice ??
-                      ((decimal)Math.Floor(Duration.Value.TotalMinutes) / 60) * StudyRoom.Tutor.Price.Price;
+           // var tutorPrice = StudyRoom.Tutor.Price.SubsidizedPrice ??
+           Price = ((decimal) Math.Floor(Duration.Value.TotalMinutes) / 60) * StudyRoom.Tutor.Price.GetPrice();
         }
 
         public virtual void EditDuration(int minutes)

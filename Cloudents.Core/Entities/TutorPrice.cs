@@ -23,12 +23,14 @@ namespace Cloudents.Core.Entities
         public virtual decimal Price { get; protected set; }
         public virtual decimal? SubsidizedPrice { get; protected set; }
 
+        public virtual decimal GetPrice() => SubsidizedPrice ?? Price;
+
 
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return Price;
-            yield return SubsidizedPrice;
+            yield return SubsidizedPrice.GetValueOrDefault();
         }
     }
 }

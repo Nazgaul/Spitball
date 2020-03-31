@@ -9,6 +9,8 @@ namespace Cloudents.Core.Entities
         {
             StudyRoomSession = studyRoomSession;
             User = user;
+            PricePerHour = studyRoomSession.StudyRoom.Tutor.Price.GetPrice();
+
         }
         protected StudyRoomSessionUser()
         {
@@ -23,9 +25,16 @@ namespace Cloudents.Core.Entities
 
         public virtual int DisconnectCount { get; protected set; }
 
+        public virtual decimal PricePerHour { get; protected set; }
+
+        public virtual TimeSpan? TutorApproveTime { get; protected set; }
+
+        public virtual decimal TotalPrice { get; protected set; }
+
         public virtual void Disconnect(TimeSpan durationInRoom)
         {
             Duration = Duration.GetValueOrDefault(TimeSpan.Zero) + durationInRoom;
+            TotalPrice = (decimal)Duration.Value.TotalHours * PricePerHour;
             DisconnectCount++;
         }
 

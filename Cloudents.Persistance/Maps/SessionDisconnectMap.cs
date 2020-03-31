@@ -14,6 +14,10 @@ namespace Cloudents.Persistence.Maps
 
             Map(x => x.Duration).Nullable();
             Map(x => x.DisconnectCount);
+            Map(x => x.PricePerHour);
+            Map(x => x.TutorApproveTime);
+            Map(x => x.TotalPrice);
+
         }
     }
 }
