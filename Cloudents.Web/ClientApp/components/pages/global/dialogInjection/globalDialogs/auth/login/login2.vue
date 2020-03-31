@@ -138,7 +138,7 @@ export default {
                 }).catch(error => {      
                     let { response: { data } } = error
 
-                    self.errors.email = data["Password"] ? error.response.data["Password"][0] : '' //TODO:
+                    // self.errors.email = data["Password"] ? error.response.data["Password"][0] : '' //TODO:
                     self.errors.password = data["Password"] ? error.response.data["Password"][0] : '' //TODO:
 
                     // if(data.Locked) {
