@@ -254,6 +254,9 @@
   <data name="rename" xml:space="preserve">
     <value>Rename</value>
   </data>
+  <data name="room_name" xml:space="preserve">
+    <value>Room name:</value>
+  </data>
   <data name="send_email" xml:space="preserve">
     <value>send email</value>
   </data>
