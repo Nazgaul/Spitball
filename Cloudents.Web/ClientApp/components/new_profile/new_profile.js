@@ -215,13 +215,19 @@ export default {
             return !!this.getProfile && !!this.accountUser && this.accountUser.id == this.getProfile.user.id
         },
         showEarnMoney(){
-            return this.isMyProfile && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
+            return this.isMyProfile && this.isTutor && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
         },
         showItemsEmpty(){
-            return !this.isMyProfile && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
+            return !this.isMyProfile && this.isTutor && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
         },
         showItems(){
-            return !!this.getProfile;
+            if(!!this.getProfile){
+                if(this.isTutor) {
+                    return true;
+                }else{
+                    return this.uploadedDocuments?.result?.length
+                }
+            }
         },
         isTutorPending(){
             return this.isMyProfile && (!!this.accountUser && this.accountUser.isTutorState === "pending")
