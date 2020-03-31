@@ -5,7 +5,7 @@ const state = {
         image: '',
         firstName: '',
         lastName: '',
-        price: 50,
+        price: 35,
         description: '',
         bio: ''
     }

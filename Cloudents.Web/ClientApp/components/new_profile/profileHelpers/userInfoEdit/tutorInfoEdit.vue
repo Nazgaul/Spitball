@@ -129,7 +129,7 @@
                 editedPrice: null,
                 rules: {
                     required: (value) => validationRules.required(value),
-                    minimum: (value) => validationRules.minVal(value, 50),
+                    minimum: (value) => validationRules.minVal(value, 35),
                     maximum: (value) => validationRules.maxVal(value, 1000),
                     maximumChars: (value) => validationRules.maximumChars(value, 1000),
                     minimumChars: (value) => validationRules.minimumChars(value, 2),
