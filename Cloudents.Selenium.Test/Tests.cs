@@ -778,7 +778,7 @@ namespace Cloudents.Selenium.Test
                     driver.FindElementByWait(By.XPath("//*[contains(@class, 'sbCarousel_btn sbCarousel-nextBtn')]"));
                     driver.FindElementByWait(By.XPath("//*[contains(@class, 'menu-area-btn')]")).Click();
                     driver.FindElementByWait(By.XPath("//*[contains(@class, 'itemPage__side__btn')]")).Click();
-                    driver.FindElementByWait(By.XPath("//*[contains(@class, 'login-popup')]"));
+                    driver.FindElementByWait(By.XPath("//*[contains(@class, 'registerDialog wrapper')]"));
 
                     Index++;
                 }
