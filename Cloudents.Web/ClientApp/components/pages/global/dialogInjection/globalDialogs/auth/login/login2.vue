@@ -130,11 +130,13 @@ export default {
 
                     analyticsService.sb_unitedEvent('Login', 'Start');
                     commit('setToaster', '')
-                    dispatch('updateLoginStatus', true)
                     
+                   dispatch('updateLoginStatus', true)
                     if(self.$route.path === '/') {
                         this.$router.push({name: this.routeNames.LoginRedirect})
+                        return
                     }
+                    dispatch('userStatus')
                 }).catch(error => {      
                     let { response: { data } } = error
 
