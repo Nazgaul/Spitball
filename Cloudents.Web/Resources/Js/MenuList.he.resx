@@ -151,6 +151,9 @@
   <data name="my_purchases" xml:space="preserve">
     <value>הרכישות שלי</value>
   </data>
+  <data name="my_sales" xml:space="preserve">
+    <value>המכירות שלי</value>
+  </data>
   <data name="my_studyroom" xml:space="preserve">
     <value>חדרי הלימוד שלי</value>
   </data>
