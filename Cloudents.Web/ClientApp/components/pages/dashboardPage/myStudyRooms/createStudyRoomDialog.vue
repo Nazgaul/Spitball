@@ -28,6 +28,7 @@
          <div class="d-flex flex-column align-center">
             <span v-if="showErrorEmpty" class="error--text">{{$t('dashboardPage_create_room_empty_error')}}</span>
             <span v-if="showErrorAlreadyCreated" class="error--text">{{$t('dashboardPage_create_room_created_error')}}</span>
+            <span v-if="showErrorMaxUsers" class="error--text">{{$t('dashboardPage_create_room_max_error')}}</span>
             <v-btn :loading="isLoading" @click="createStudyRoom" width="150" depressed height="40" color="#4452fc" class="white--text" rounded >{{$t('dashboardPage_create_room_create_btn')}}</v-btn>
          </div>
       </div>
@@ -40,6 +41,7 @@ export default {
    name:'createStudyRoom',
    data() {
       return {
+         showErrorMaxUsers:false,
          isLoading:false,
          myFollowers:[],
          selected:[],
@@ -61,12 +63,16 @@ export default {
          if(isInList){
             this.selected.splice(idx,1);
          }else{
-            this.selected.push(user)
+            if(this.selected.length < 4){
+               this.selected.push(user)
+            }else{
+               this.showErrorMaxUsers = true;
+            }
          }
       },
       createStudyRoom(){
          if(!this.$refs.createRoomValidation.validate()) return
-         if(!this.isLoading && !this.showErrorAlreadyCreated && !this.showErrorEmpty){
+         if(!this.isLoading && !this.showErrorAlreadyCreated && !this.showErrorEmpty && !this.showErrorMaxUsers){
             if(this.selected.length){
                this.isLoading = true
                let self = this;
@@ -94,6 +100,7 @@ export default {
       selected(){
          this.showErrorEmpty = false;
          this.showErrorAlreadyCreated = false;
+         this.showErrorMaxUsers = false;
       }
    },
    created() {
