@@ -171,4 +171,7 @@
   <data name="my_studyroom" xml:space="preserve">
     <value>My Study rooms</value>
   </data>
+  <data name="my_sales" xml:space="preserve">
+    <value>My Sales</value>
+  </data>
 </root>
