@@ -113,13 +113,11 @@ export default {
             get() {
                 let session = this.sessionPayment;
                 if(session.studentPayPerHour) {
-                    debugger
                     return ((session.studentPayPerHour * session.duration) / 60).toFixed(2);
                 }
                 return 0;
             },
             set(val) {
-                debugger
                 this.sessionPayment.studentPayPerHour = (( val / this.sessionPayment.duration) * 60).toFixed(2);
             }
         },
@@ -208,7 +206,6 @@ export default {
         },
         approve() {
             let item = this.sessionPayment;
-            debugger;
             let itemObj = {
                 studentPay : Number(this.studentPayPerHour),
                 spitballPay: Number(this.spitballPayPerHour),
@@ -234,9 +231,9 @@ export default {
         decline() {
               let item = this.sessionPayment;
               let itemObj = {
-                 studyRoomSessionId: item.studyRoomSessionId
+                 studyRoomSessionId: item.studyRoomSessionId,
+                 userId: item.userId
               }
-              debugger;
             //     var itemToSubmit = this.editedItem;
             // const index = this.editedIndex;
             // const item = this.paymentRequestsList[index];
