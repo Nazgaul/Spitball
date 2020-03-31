@@ -26,14 +26,4 @@ namespace Cloudents.Command.Command.Admin
         public int AdminDuration { get; }
 
     }
-
-    public class DeclinePaymentCommand : ICommand
-    {
-        public DeclinePaymentCommand(Guid studyRoomSessionId)
-        {
-            StudyRoomSessionId = studyRoomSessionId;
-        }
-
-        public Guid StudyRoomSessionId { get; }
-    }
 }

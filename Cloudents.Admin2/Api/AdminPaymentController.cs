@@ -40,21 +40,7 @@ namespace Cloudents.Admin2.Api
         {
             var query = new PaymentsQuery(User.GetCountryClaim());
             return await _queryBus.QueryAsync(query, token);
-            //return result.Select(s => new PaymentResponse()
-            //{
-            //    StudyRoomSessionId = s.StudyRoomSessionId, 
-            //    Price = s.Price,
-            //    IsSellerKeyExists = s.IsSellerKeyExists,
-            //    IsPaymentKeyExists = s.IsPaymentKeyExists,
-            //    TutorId = s.TutorId,
-            //    TutorName = s.TutorName,
-            //    UserId = s.UserId,
-            //    UserName = s.UserName,
-            //    Created = s.Created,
-            //    Duration = s.Duration.TotalMinutes,
-            //    IsRealDurationExitsts = s.IsRealDurationExitsts,
-            //    RealDuration = s.RealDuration?.TotalMinutes
-            //});
+
         }
 
         [HttpGet("{id}")]
@@ -105,14 +91,14 @@ namespace Cloudents.Admin2.Api
 
 
         [HttpDelete]
-        public async Task<IActionResult> DeclinePay(Guid studyRoomSessionId, CancellationToken token)
+        public async Task<IActionResult> DeclinePay(Guid studyRoomSessionId, long userId, CancellationToken token)
         {
-            var command = new DeclinePaymentCommand(studyRoomSessionId);
+            var command = new PaymentDeclineCommand(studyRoomSessionId, userId);
             await _commandBus.DispatchAsync(command, token);
 
             return Ok();
         }
 
-        
+
     }
 }

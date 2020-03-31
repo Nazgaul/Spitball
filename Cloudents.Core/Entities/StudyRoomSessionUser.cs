@@ -31,7 +31,7 @@ namespace Cloudents.Core.Entities
 
         public virtual decimal TotalPrice { get; protected set; }
 
-        public virtual string? Receipt { get; set; }
+        public virtual string? Receipt { get; protected set; }
 
         public virtual void Disconnect(TimeSpan durationInRoom)
         {
@@ -44,6 +44,12 @@ namespace Cloudents.Core.Entities
         {
             TutorApproveTime = duration;
             TotalPrice = (decimal)TutorApproveTime.Value.TotalHours * PricePerHour;
+        }
+
+        public virtual void NoPay()
+        {
+            Receipt = "No Pay";
+            TotalPrice = 0;
         }
 
 
