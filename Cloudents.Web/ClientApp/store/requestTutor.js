@@ -16,7 +16,8 @@ const state = {
     currentTutorPhoneNumber: null,
     guestName: '',
     guestMail: '',
-    guestPhone: ''
+    guestPhone: '',
+    registerStepFromTutorRequest: false,
 };
 
 const getters = {
@@ -31,6 +32,7 @@ const getters = {
     getGuestName: state => state.guestName,
     getGuestMail: state => state.guestMail,
     getGuestPhone: state => state.guestPhone,
+    getIsFromTutorStep: state => state.registerStepFromTutorRequest,
 };
 
 const mutations = {
@@ -78,6 +80,9 @@ const mutations = {
     setGuestPhone(state, phone) {
         state.guestPhone = phone;
     },
+    setIsFromTutorStep(state, val) {
+        state.registerStepFromTutorRequest = val
+    }
 };
 
 
@@ -85,11 +90,11 @@ const actions = {
     updateCurrTutor({commit},tutorObj){ 
         commit('setCurrTutor', tutorObj);
     },
-    updateRequestDialog({commit, dispatch}, val){
+    updateRequestDialog({commit}, val){
         commit('setRequestDialog', val);
-        if(!val){
-            dispatch('updateCurrTutor', null);
-        }
+        // if(!val){
+        //     dispatch('updateCurrTutor', null);
+        // }
     },
     setTutorRequestAnalyticsOpenedFrom: ({commit}, val) => {
         commit('setTutorRequestAnalyticsOpenedFrom', val);

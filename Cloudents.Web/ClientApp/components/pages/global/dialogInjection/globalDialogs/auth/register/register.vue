@@ -169,6 +169,9 @@ export default {
         },
         isVerifyPhone() {
             return this.component === 'verifyPhone'
+        },
+        isFromTutorReuqest() {
+            return this.$store.getters.getIsFromTutorStep
         }
     },
     methods: {
@@ -276,8 +279,17 @@ export default {
                     }
 
 					commit('setComponent', '')
-					commit('changeLoginStatus', true)
+                    commit('changeLoginStatus', true)
+
+                    // this is when user statr register from tutorRequest
+                    if(self.isFromTutorReuqest) {
+                        self.$store.dispatch('updateRequestDialog', true);
+                        self.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
+                        return
+                    }
+
 					dispatch('userStatus').then(user => {
+                        // when user is register and pick teacher, redirect him to his profile page
                         if(self.teacher) {
                             self.$router.push({
                                 name: self.routeNames.Profile,

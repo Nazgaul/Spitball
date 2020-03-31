@@ -30,7 +30,7 @@
                     :items="getSelectedClasses"/>
             </fieldset>
             <v-checkbox v-if="isTutor" :ripple="false" class="checkbox-userinfo"
-                        :label="$Ph('tutorRequest_more_tutors',this.getCurrTutor.name)" 
+                        :label="$Ph('tutorRequest_more_tutors', getCurrTutor.name)" 
                         v-model="moreTutors" off-icon="sbf-check-box-un" 
                         on-icon="sbf-check-box-done"/>
     </v-form>
@@ -118,7 +118,8 @@ export default {
                        'updateTutorReqStep',
                        'resetRequestTutor',
                        'sendTutorRequest',
-                       'updateMoreTutors']),
+                       'updateMoreTutors',
+                       'updateCurrTutor']),
         tutorRequestDialogClose() {
             this.updateRequestDialog(false);
             this.resetRequestTutor()
@@ -153,7 +154,11 @@ export default {
                 this.updateCourseDescription(this.description)
                 this.updateSelectedCourse(this.tutorCourse)
                 this.updateMoreTutors(this.moreTutors)
-                this.updateTutorReqStep('tutorRequestUserInfo')
+                this.updateRequestDialog(false);
+
+                this.$store.commit('setIsFromTutorStep', true)
+                this.$store.commit('setComponent', 'register')
+                // this.updateTutorReqStep('tutorRequestUserInfo')
             let analyticsObject = {
                 userId: this.isLoggedIn ? this.accountUser.id : 'GUEST',
                 course: this.tutorCourse,

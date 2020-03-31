@@ -61,7 +61,7 @@ export default {
             return !!this.getCurrTutor;
         },
         courseName() {
-            return this.getSelectedCourse.text;
+            return this.getSelectedCourse?.text;
         },
         tutorPhoneNumber() {
             return this.getCurrentTutorPhoneNumber;
@@ -70,13 +70,13 @@ export default {
             return LanguageService.getValueByKey('whatsapp_message');
         },
         tutorId() {
-            return this.getCurrTutor.userId;
+            return this.getCurrTutor?.userId;
         },
         studentId() {
-            return this.accountUser.id;
+            return this.accountUser?.id;
         },
         firstName() {
-            return this.getCurrTutor.name.split(' ')[0];
+            return this.getCurrTutor?.name.split(' ')[0];
         }
     },
     methods: {
