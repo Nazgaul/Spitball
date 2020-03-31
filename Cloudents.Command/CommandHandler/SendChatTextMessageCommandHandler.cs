@@ -22,18 +22,19 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(SendChatTextMessageCommand message, CancellationToken token)
         {
-            ChatRoom chatRoom;
+            ChatRoom? chatRoom = null;
             if (message.Identifier != null)
             {
                 chatRoom = await _chatRoomRepository.GetChatRoomAsync(message.Identifier, token);
             }
-            else
+            if (chatRoom == null)
+            //else
             {
                 var users = new[] { message.ToUsersId, message.UserSendingId };
                 chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, token);
             }
 
-            
+
             var user = _userRepository.Load(message.UserSendingId);
             chatRoom.AddTextMessage(user, message.Message);
             await _chatRoomRepository.UpdateAsync(chatRoom, token);

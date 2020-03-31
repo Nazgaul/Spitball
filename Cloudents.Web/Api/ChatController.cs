@@ -152,7 +152,9 @@ namespace Cloudents.Web.Api
                 {
                     throw new ArgumentException();
                 }
-                var command = new SendChatFileMessageCommand(blobName, userId, new[] { chatModel.OtherUser });
+                var command = new SendChatFileMessageCommand(blobName,
+                    userId,
+                    new[] { chatModel.OtherUser }, chatModel.ConversationId);
                 await _commandBus.DispatchAsync(command, token);
 
             }
