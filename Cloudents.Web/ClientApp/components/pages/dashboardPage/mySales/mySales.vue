@@ -202,10 +202,10 @@ export default {
             return this.$t('dashboardPage_pending')
          }
          if(paymentStatus === 'PendingSystem'){
-            return this.$t('dashboardPage_paid')
+            return this.$t('dashboardPage_pending_approve')
          }
          if(paymentStatus === 'PendingTutor') {
-            return this.$t('dashboardPage_pending_approve')
+            return this.$t('dashboardPage_paid')
          }
       },
       changeSort(sortBy){
