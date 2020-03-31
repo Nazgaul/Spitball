@@ -46,75 +46,65 @@
             </div>
          </v-flex>
       </v-layout>
-      
-         <v-data-table
-            :headers="headers"
-            :items="salesItems" 
-            :items-per-page="5"
-            sort-by
-            hide-default-header
-            :item-key="'date'"
-            class="elevation-1 mySales_table"
-            :footer-props="{
-               showFirstLastPage: false,
-               firstIcon: '',
-               lastIcon: '',
-               prevIcon: 'sbf-arrow-left-carousel',
-               nextIcon: 'sbf-arrow-right-carousel',
-               itemsPerPageOptions: [5]
-            }">
-            <template v-slot:header="{props}">
-               <thead>
-                  <tr>
-                     <th class="text-left"
-                        v-for="header in props.headers"
-                        :key="header.value"
-                        :class="['column',{'sortable':header.sortable}]"
-                        @click="changeSort(header.value)">
-                        <span class="text-left">{{ header.text }}
-                           <v-icon v-if="header.sortable" v-html="sortedBy !== header.value?'sbf-arrow-down':'sbf-arrow-up'" />
-                        </span>
-                     </th>
-                  </tr>
-               </thead>
-            </template>
-            <!-- <template slot="headers" slot-scope="props">
-               <tr>
-                  <th class="text-xs-left"
-                     v-for="header in props.headers"
-                     :key="header.value"
-                     :class="['column',{'sortable':header.sortable}]"
-                     @click="changeSort(header.value)">
-                     <span class="text-xs-left">{{ header.text }}
-                        <v-icon v-if="header.sortable" v-html="sortedBy !== header.value?'sbf-arrow-down':'sbf-arrow-up'" />
-                     </span>
-                  </th>
-               </tr>
-            </template> -->
-            <template v-slot:item="props">
-               <tr class="mySales_table_tr">
-                  <tablePreviewTd :item="props.item"/>
-                  <tableInfoTd :item="props.item"/>
 
-                  <td class="text-left" v-text="dictionary.types[props.item.type]"/>
-                  <td class="text-left" v-text="formatItemStatus(props.item.paymentStatus)"/>
-                  <td class="text-left">{{ $d(new Date(props.item.date)) }}</td>
-                  <td class="text-left" v-text="formatPrice(props.item.price,props.item.type)"></td>
-                  <td>
-                     <v-btn 
-                        color="#02C8BF"
-                        class="white--text"
-                        width="120"
-                        depressed
-                        rounded
-                        v-if="pendingPayments && props.item.paymentStatus === 'PendingTutor' && props.item.type === 'TutoringSession'"
-                        @click="$openDialog('teacherApproval', {item: props.item})">
-                           {{$t('dashboardPage_btn_approve')}}
-                     </v-btn>
-                  </td>
-               </tr>
+      <v-data-table 
+         calculate-widths
+         :page.sync="paginationModel.page"
+         :headers="headers"
+         :items="salesItems"
+         :items-per-page="20"
+         sort-by
+         :item-key="'date'"
+         class="elevation-1 mySales_table-full"
+         :footer-props="{
+            showFirstLastPage: false,
+            firstIcon: '',
+            lastIcon: '',
+            prevIcon: 'sbf-arrow-left-carousel',
+            nextIcon: 'sbf-arrow-right-carousel',
+            itemsPerPageOptions: [20]
+         }">
+            <template v-slot:item.preview="{item}">
+               <router-link class="d-flex justify-center" v-if="item.preview" :to="item.url">
+                  <v-avatar size="40">
+                     <img :src="item.preview">
+                  </v-avatar>
+               </router-link>
+               <router-link v-if="item.sessionId" :to="{name: 'profile',params: {id: item.id, name: item.name}}">
+                  <user-avatar :user-id="item.userId" 
+                  :user-image-url="item.image" 
+                  :size="'40'" 
+                  :user-name="item.name" >
+                  </user-avatar>
+               </router-link>
             </template>
-
+            <template v-slot:item.info="{item}">
+               <tableInfoTd :item="item"/>
+            </template>
+            <template v-slot:item.type="{item}">
+               {{dictionary.types[item.type]}}
+            </template>
+            <template v-slot:item.paymentStatus="{item}">
+               {{formatItemStatus(item.paymentStatus)}}
+            </template>
+            <template v-slot:item.date="{item}">
+               {{ $d(new Date(item.date)) }}
+            </template>
+            <template v-slot:item.price="{item}">
+               {{formatPrice(item.price,item.type)}}
+            </template>
+            <template v-slot:item.action="{item}">
+               <v-btn 
+                  color="#02C8BF"
+                  class="white--text"
+                  width="120"
+                  depressed
+                  rounded
+                  v-if="pendingPayments && item.paymentStatus === 'PendingTutor' && item.type === 'TutoringSession'"
+                  @click="$openDialog('teacherApproval', {item: item})">
+                     {{$t('dashboardPage_btn_approve')}}
+               </v-btn>
+            </template>
             <slot slot="no-data" name="tableEmptyState"/>
          </v-data-table>
    </div>
@@ -124,7 +114,6 @@
 import { mapActions, mapGetters } from 'vuex';
 import { LanguageService } from '../../../../services/language/languageService';
 
-import tablePreviewTd from '../global/tablePreviewTd.vue';
 import tableInfoTd from '../global/tableInfoTd.vue';
 import buyPointsLayout from './buyPointsLayout/buyPointsLayout.vue'
 import redeemPointsLayout from './redeemPointsLayout/redeemPointsLayout.vue'
@@ -132,7 +121,7 @@ import redeemPointsLayout from './redeemPointsLayout/redeemPointsLayout.vue'
 
 export default {
    name:'mySales',
-   components:{tablePreviewTd,tableInfoTd,buyPointsLayout,redeemPointsLayout},
+   components:{tableInfoTd,buyPointsLayout,redeemPointsLayout},
    props:{
       dictionary:{
          type: Object,
@@ -144,7 +133,6 @@ export default {
          paginationModel:{
             page:1
          },
-         sortedBy:'',
          headers:[
             this.dictionary.headers['preview'],
             this.dictionary.headers['info'],
@@ -152,7 +140,7 @@ export default {
             this.dictionary.headers['status'],
             this.dictionary.headers['date'],
             this.dictionary.headers['price'],
-            '', // this is for empty th cell action approve button
+            this.dictionary.headers['action'],
          ],
          balancesHeaders:[
             this.dictionary.headers['preview'],
@@ -179,7 +167,7 @@ export default {
       }
    },
    methods: {
-      ...mapActions(['updateSalesItems','dashboard_sort']),
+      ...mapActions(['updateSalesItems']),
       formatPrice(price,type){
          if(isNaN(price)) return;
          if(price < 0){
@@ -190,7 +178,7 @@ export default {
             return `${price} ${this.$t('dashboardPage_pts')}`
          }
          if(type === 'TutoringSession' || type === 'BuyPoints'){
-            return `${price} ${this.accountUser.currencySymbol}`
+            return this.$n(price, 'currency')
          }
       },
       formatBalancePts(pts){
@@ -207,18 +195,6 @@ export default {
          if(paymentStatus === 'PendingTutor') {
             return this.$t('dashboardPage_paid')
          }
-      },
-      changeSort(sortBy){
-         if(sortBy === 'info') return;
-
-         let sortObj = {
-            listName: 'salesItems',
-            sortBy,
-            sortedBy: this.sortedBy
-         }
-         this.dashboard_sort(sortObj)
-         this.paginationModel.page = 1;
-         this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
       },
    },
    created() {
@@ -249,11 +225,9 @@ export default {
 
       }
    }
-   .mySales_table{
-      max-width: 1334px;
-      thead {
+      thead{
          tr{
-            height: auto;
+            // height: auto;
             th{
                color: #43425d !important;
                font-size: 14px;
@@ -265,17 +239,32 @@ export default {
             
          }
          color: #43425d !important;
+      } 
+   .mySales_table{
+      max-width: 1334px; 
+   }
+   .mySales_table-full{
+   tr{
+      height:54px;
+   }
+   td{
+      border: none !important;
+   }
+      max-width: 1334px;
+      td:first-child {
+         width:1%;
+         white-space: nowrap;
       }
-      .mySales_table_tr {
+      tr:nth-of-type(2n) {
          td {
-            font-size: 13px !important;
+            background-color: #f5f5f5;
          }
       }
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
          transform: none /*rtl:rotate(180deg)*/;
          color: #43425d !important;
          height: inherit;
-         font-size: 14px;
+         font-size: 14px !important;
       }
       .v-data-footer {
          padding: 6px 0;
