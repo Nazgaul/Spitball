@@ -68,3 +68,7 @@ export const HomePage = 'landingPage';
 
 // Tutor List:
 export const TutorList = 'tutorLandingPage';
+
+
+// Login Redirect
+export const LoginRedirect = 'loginRedirect'

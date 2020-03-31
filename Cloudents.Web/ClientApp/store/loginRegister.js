@@ -85,9 +85,9 @@ const mutations = {
     setGender(state, gender) {
         state.gender = gender;
     },
-    setGlobalLoading(state, value) {
-        state.globalLoading = value;
-    },
+    // setGlobalLoading(state, value) {
+    //     state.globalLoading = value;
+    // },
     setErrorMessages(state, errorMessagesObj) {
         state.errorMessage.gmail = (errorMessagesObj.gmail) ? errorMessagesObj.gmail : '';
         state.errorMessage.phone = (errorMessagesObj.phone) ? errorMessagesObj.phone : '';
@@ -115,7 +115,7 @@ const getters = {
     getPhone: state => state.phone,
     getCountryCodesList: () => codesJson.sort((a, b) => a.name.localeCompare(b.name)),
     getLocalCode: state => state.localCode,
-    getGlobalLoading: state => state.globalLoading,
+    // getGlobalLoading: state => state.globalLoading,
     getErrorMessages: state => state.errorMessage,
     getPassScoreObj: state => state.passScoreObj,
     getStudentGrade: state => state.grade,
@@ -325,15 +325,15 @@ const actions = {
             });
     },
     changePassword({commit,dispatch},params) {
-        let {id, code, password} = params;
-            registrationService.updatePassword(password, id, code) //TODO: send object instead
+        let {id, code, password, confirmPassword} = params;
+            registrationService.updatePassword(password, id, code, confirmPassword) //TODO: send object instead
                 .then(() => {
                     dispatch('updateLoginStatus',true)
                     _analytics(['Forgot Password', 'Updated password']);
                     router.push(state.toUrl);
                 }, (error) => {
                     commit('setErrorMessages',{
-                        password: error.response.data["Password"] ? error.response.data["Password"][0] : '',
+                        password: error.response.data["Password"] ? error.response.data["Password"][0] : error.response.data["ConfirmPassword"][0],
                     });
                 });
     },

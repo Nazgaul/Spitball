@@ -29,6 +29,25 @@ export const landingRoutes = [
         },
     },
     {
+        // this route is when user try login from homePage, fix navigation duplicate and render logic of beforeEnter
+        path: "/loginRedirect",
+        name: routeNames.LoginRedirect,
+        beforeEnter: (to, from, next) => {
+            if(store.getters.getUserLoggedInStatus){
+                let nextRoute = {name: routeNames.Feed};
+                if(store.getters.accountUser.userType === 'Teacher'){
+                    nextRoute = {name: routeNames.Dashboard};
+                }
+                if(store.getters.accountUser.userType === 'Parent'){
+                    nextRoute = {name: routeNames.TutorList};
+                }
+                next({name: nextRoute.name,query: to.query});
+                return;
+            }
+            next();
+        },
+    },
+    {
         path: "/tutor-list/:course?",
         name: routeNames.TutorList,
         components: {

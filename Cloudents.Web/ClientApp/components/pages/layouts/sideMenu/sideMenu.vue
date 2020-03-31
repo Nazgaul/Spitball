@@ -89,7 +89,8 @@ export default {
     goTo(name){
       if (this.accountUser == null) {
         // TODO: check if we needed
-        this.$openDialog('login')
+        // this.$openDialog('login')
+        this.$store.commit('setToaster', 'register')
         return
       }
       if(name === "myQuestions"){
