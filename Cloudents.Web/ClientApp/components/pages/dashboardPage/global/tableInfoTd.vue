@@ -1,5 +1,5 @@
 <template>
-   <div class="tableInfo text-xs-left text-truncate">
+   <div class="tableInfo text-xs-left text-truncate py-2">
       <template v-if="item.type === 'BuyPoints'">
          <div class="text-truncate">
             <span>{{$t('dashboardPage_info_buy_points')}}</span>
