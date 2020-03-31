@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Enum;
 using PaymentStatus = Cloudents.Core.DTOs.PaymentStatus;
 using System;
+using System.Diagnostics;
 
 namespace Cloudents.Query.Users
 {
@@ -24,7 +25,6 @@ namespace Cloudents.Query.Users
         internal sealed class UserSalesByIdQueryHandler : IQueryHandler<UserSalesByIdQuery, IEnumerable<SaleDto>>
         {
             private readonly IStatelessSession _session;
-            //private readonly IDapperRepository _dapper;
 
             public UserSalesByIdQueryHandler(IStatelessSession session)
             {
@@ -45,9 +45,9 @@ namespace Cloudents.Query.Users
                         Id = s.Document.Id,
                         Name = s.Document.Name,
                         Course = s.Document.Course.Id,
-                        Type = s.Document.DocumentType != null ?
-                            (ContentType)s.Document.DocumentType :
-                            ContentType.Document,
+                        Type = s.Document.DocumentType != null
+                            ? (ContentType) s.Document.DocumentType
+                            : ContentType.Document,
                         Date = s.Created,
                         Price = s.Price
                     }).ToFuture<SaleDto>();
@@ -75,27 +75,61 @@ namespace Cloudents.Query.Users
                     .ThenFetch(f => f.Users)
                     .Where(w => w.StudyRoom.Tutor.Id == query.Id && w.Ended != null)
                     .Where(w => w.Duration!.Value > TimeSpan.FromMinutes(10))
+                    .Where(w => w.StudyRoomVersion.GetValueOrDefault(0) == 0)
                     .Select(s => new SessionSaleDto()
                     {
                         SessionId = s.Id,
-                        PaymentStatus = string.IsNullOrEmpty(s.Receipt) && s.RealDuration == null ? PaymentStatus.PendingApproval :
-                                        string.IsNullOrEmpty(s.Receipt) ? PaymentStatus.Pending 
-                                        : PaymentStatus.Paid,
+                        PaymentStatus = string.IsNullOrEmpty(s.Receipt) && s.RealDuration == null
+                            ? PaymentStatus.PendingTutor
+                            : string.IsNullOrEmpty(s.Receipt)
+                                ? PaymentStatus.PendingSystem
+                                : PaymentStatus.Approved,
                         Date = s.Created,
                         Price = s.Price ?? 0,
-                        StudentName = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Name).FirstOrDefault(),
+                        StudentName = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Name)
+                            .FirstOrDefault(),
                         Duration = s.RealDuration.GetValueOrDefault(s.Duration!.Value),
-                        StudentImage = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.ImageName).FirstOrDefault(),
-                        StudentId = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Id).FirstOrDefault()
+                        StudentImage = s.StudyRoom.Users.Where(w => w.User.Id != query.Id)
+                            .Select(si => si.User.ImageName).FirstOrDefault(),
+                        StudentId = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Id)
+                            .FirstOrDefault()
+                    }).ToFuture<SaleDto>();
+
+
+                var sessionFuture2 = _session.Query<StudyRoomSessionUser>()
+                    .Fetch(f => f.StudyRoomSession)
+                    .ThenFetch(f => f.StudyRoom)
+                    .Fetch(f => f.User)
+                    .Where(w => w.StudyRoomSession.StudyRoom.Tutor.Id == 638 && w.Duration > TimeSpan.FromMinutes(10))
+                    .Select(s => new SessionSaleDto()
+                    {
+                        SessionId = s.StudyRoomSession.Id,
+                        PaymentStatus = s.Receipt != null ? PaymentStatus.Approved :
+                            s.TutorApproveTime != null ? PaymentStatus.PendingSystem :
+                            PaymentStatus.PendingTutor,
+
+                        //PaymentStatus = string.IsNullOrEmpty(s.Receipt) && s.RealDuration == null ? PaymentStatus.PendingApproval :
+                        //    string.IsNullOrEmpty(s.Receipt) ? PaymentStatus.Pending
+                        //    : PaymentStatus.Paid,
+                        Date = s.StudyRoomSession.Created,
+                        Price = s.TotalPrice,
+                        StudentName = s.User.Name,
+                        Duration = s.TutorApproveTime ?? s.Duration!.Value,
+                        StudentImage = s.User.ImageName,
+                        StudentId = s.User.Id
                     }).ToFuture<SaleDto>();
 
 
                 var documentResult = await documentFuture.GetEnumerableAsync(token);
                 var questionResult = await questionFuture.GetEnumerableAsync(token);
                 var sessionResult = await sessionFuture.GetEnumerableAsync(token);
+                var sessionV2Result = sessionFuture2.GetEnumerable();
 
-
-                return documentResult.Union(questionResult).Union(sessionResult).OrderByDescending(o => o.Date);
+                return documentResult
+                    .Union(questionResult)
+                    .Union(sessionResult)
+                    .Union(sessionV2Result)
+                    .OrderByDescending(o => o.Date);
             }
         }
     }

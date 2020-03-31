@@ -48,7 +48,8 @@ namespace Cloudents.Core.Entities
         public virtual byte[] Version { get; protected set; }
 
 
-        protected internal virtual ISet<StudyRoomSessionUser> RoomSessionUsers { get; set; }
+        private readonly ISet<StudyRoomSessionUser> _roomSessionUsers = new HashSet<StudyRoomSessionUser>();
+        public virtual IEnumerable<StudyRoomSessionUser> RoomSessionUsers => _roomSessionUsers;
 
         public virtual void AddUser(User user)
         {
@@ -57,7 +58,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
             var sessionUser = new StudyRoomSessionUser(this, user);
-            RoomSessionUsers.Add(sessionUser);
+            _roomSessionUsers.Add(sessionUser);
         }
 
         public virtual void UserDisconnect(User user, TimeSpan durationInRoom)
@@ -66,6 +67,7 @@ namespace Cloudents.Core.Entities
             {
                 return;
             }
+            
             var sessionUser = RoomSessionUsers.Single(s => s.User == user);
             sessionUser.Disconnect(durationInRoom);
         }

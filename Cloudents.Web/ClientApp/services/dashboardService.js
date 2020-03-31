@@ -97,7 +97,7 @@ function SalesItem(objInit){
       new Item.Default(objInit),
       new Item[itemTypeChcker(objInit.type)](objInit),
       {
-         paymentStatus: objInit.paymentStatus,
+         paymentStatus: objInit.paymentStatus || 'Approved',
       }
    );
 }

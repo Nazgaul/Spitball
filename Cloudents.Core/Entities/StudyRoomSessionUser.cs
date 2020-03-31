@@ -31,6 +31,8 @@ namespace Cloudents.Core.Entities
 
         public virtual decimal TotalPrice { get; protected set; }
 
+        public virtual string? Receipt { get; set; }
+
         public virtual void Disconnect(TimeSpan durationInRoom)
         {
             Duration = Duration.GetValueOrDefault(TimeSpan.Zero) + durationInRoom;

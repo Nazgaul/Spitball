@@ -24,10 +24,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Core.DTOs;
 using Cloudents.Query;
 using Cloudents.Query.Chat;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
+using NHibernate.Linq;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
+using PaymentStatus = Cloudents.Core.DTOs.PaymentStatus;
 
 
 namespace ConsoleApp
@@ -143,10 +146,33 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var queryBus = Container.Resolve<ICommandBus>();
-            var roomId = Guid.Parse("9ae4930d-4100-466f-8e4f-ab8d00d3e650");
-            var command = new StudyRoomSessionUserConnectedCommand(roomId, "9ae4930d-4100-466f-8e4f-ab8d00d3e650_1585568328", 638);
-            await queryBus.DispatchAsync(command, default);
+            var _session = Container.Resolve<IStatelessSession>();
+
+
+
+            //var sessionFuture = await _session.Query<StudyRoomSessionUser>()
+            //    .Fetch(f=>f.StudyRoomSession)
+            //    .ThenFetch(f=>f.StudyRoom)
+            //    .Fetch(f=>f.User)
+            //    .Where(w => w.StudyRoomSession.StudyRoom.Tutor.Id == 638 && w.Duration > TimeSpan.FromMinutes(10))
+            //    .Select(s => new SessionSaleDto()
+            //    {
+            //        SessionId = s.StudyRoomSession.Id,
+            //        PaymentStatus = s.Receipt != null ? PaymentStatus.Paid :
+            //            s.TutorApproveTime != null ? PaymentStatus.Pending:
+            //            PaymentStatus.PendingApproval,
+            //        Date = s.StudyRoomSession.Created,
+            //        Price = s.TotalPrice,
+            //        StudentName = s.User.Name,
+            //        Duration = s.TutorApproveTime ?? s.Duration.Value,
+            //        StudentImage = s.User.ImageName,
+            //        StudentId = s.User.Id
+            //    })
+            //    .ToListAsync();
+
+
+
+
             //ResourcesMaintenance.DeleteStuffFromJs();
             //await Convert();
             //var result = await s.GetPaymentAsync("4J34525079381873W", default);
