@@ -333,7 +333,7 @@ const actions = {
                     router.push(state.toUrl);
                 }, (error) => {
                     commit('setErrorMessages',{
-                        password: error.response.data["Password"] ? error.response.data["Password"][0] : '',
+                        password: error.response.data["Password"] ? error.response.data["Password"][0] : error.response.data["ConfirmPassword"][0],
                     });
                 });
     },
