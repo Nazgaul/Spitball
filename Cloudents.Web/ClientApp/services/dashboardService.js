@@ -51,6 +51,7 @@ const Item = {
       this.image = objInit.tutorImage || objInit.studentImage;
       this.totalMinutes = Math.floor(objInit.totalMinutes)
       this.duration = buildSessionDuration(objInit.totalMinutes)
+      this.roomName = objInit.studyRoomName || '';
    },
    StudyRoom:function(objInit){
      // this.online = objInit.online;

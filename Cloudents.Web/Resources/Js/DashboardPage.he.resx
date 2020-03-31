@@ -244,6 +244,9 @@
   <data name="rename" xml:space="preserve">
     <value>שינוי שם</value>
   </data>
+  <data name="room_name" xml:space="preserve">
+    <value>שם החדר:</value>
+  </data>
   <data name="send_email" xml:space="preserve">
     <value>שלח אימייל</value>
   </data>

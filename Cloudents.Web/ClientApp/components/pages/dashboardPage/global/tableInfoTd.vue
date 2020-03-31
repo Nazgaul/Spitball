@@ -8,6 +8,10 @@
       <router-link v-else class="tableInfo_router" :to="dynamicRouter(item)">
          <template v-if="item.type === 'TutoringSession'">
             <div class="text-truncate">
+               <div v-if="item.roomName" class="text-truncate">
+                  <span class="font-weight-bold">{{$t('dashboardPage_room_name')}}</span> 
+                  <span>{{item.roomName}}</span>
+               </div>
                <span v-text="$Ph('dashboardPage_session',item.name)"/>
                <div class="text-truncate">
                   <span class="font-weight-bold" v-language:inner="'dashboardPage_duration'"/> 
