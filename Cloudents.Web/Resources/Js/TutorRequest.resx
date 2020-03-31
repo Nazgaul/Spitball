@@ -123,6 +123,9 @@
   <data name="cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="close" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="email" xml:space="preserve">
     <value>Email</value>
   </data>
@@ -145,7 +148,7 @@
     <value>You will hear back through SMS and Email, but it may take some time.</value>
   </data>
   <data name="message_success_tutor_3" xml:space="preserve">
-    <value>Would you like to contact the tutor directly on WhatsApp?</value>
+    <value>Want to speak with {0} now?</value>
   </data>
   <data name="message_success_yaniv_1" xml:space="preserve">
     <value>Your message was sent.

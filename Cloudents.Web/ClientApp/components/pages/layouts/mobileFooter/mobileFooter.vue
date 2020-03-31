@@ -90,7 +90,8 @@ export default {
         ...mapActions(['openChatInterface']),
         openChat(){
             if (this.accountUser == null) {
-                this.$openDialog('login');
+                // this.$openDialog('login');
+                this.$store.commit('setToaster', 'register')
             }else{
                 this.openChatInterface();
             }
@@ -104,7 +105,8 @@ export default {
             }
             if(tabName === 'profile' && this.activeTab !== tabName){
                 if(this.accountUser == null) {
-                    this.$openDialog('login');
+                    // this.$openDialog('login');
+                    this.$store.commit('setToaster', 'register')
                 }else{
                     this.$router.push({name:'profile',params:{id: this.accountUser.id,name: this.accountUser.name}})
                 }

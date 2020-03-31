@@ -50,19 +50,17 @@ namespace Cloudents.Web.Api
             {
                 ModelState.AddModelError(nameof(model.Password), _localizer["BadLogin"]);
                 return BadRequest(ModelState);
-
             }
 
-            agent = agent?.Substring(0, Math.Min(agent.Length, 255));
-            var command = new AddUserLocationCommand(user, country, HttpContext.GetIpAddress(),  agent);
-            var t1 = _commandBus.DispatchAsync(command, token);
-            var t2 = _signInManager.CheckPasswordSignInAsync(user, model.Password, true);
-            await Task.WhenAll(t1, t2);
-            var result = t2.Result;
+            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, true);
             if (result == SignInResult.Success)
             {
-                await _userManager.ResetAccessFailedCountAsync(user);
-                await _signInManager.SignInAsync(user, false);
+                agent = agent?.Substring(0, Math.Min(agent.Length, 255));
+                var command = new AddUserLocationCommand(user, country, HttpContext.GetIpAddress(), agent);
+                var t1 = _commandBus.DispatchAsync(command, token);
+                var t2 = _userManager.ResetAccessFailedCountAsync(user);
+                var t3 = _signInManager.SignInAsync(user, false);
+                await Task.WhenAll(t1, t2, t3);
                 return Ok(new { user.Country });
             }
 
