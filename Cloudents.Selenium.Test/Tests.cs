@@ -849,7 +849,7 @@ namespace Cloudents.Selenium.Test
                 driver.FindElementByWait(By.XPath("//*[@class='flex avatar-container']")).Click();
 
                 // Check for those elements exist
-                driver.FindElementByWait(By.XPath("//*[@class='messages-header']"));
+                driver.FindElementByWait(By.XPath("//*[@class='layout chat-header']"));
                 driver.FindElementByWait(By.XPath("//*[@class='messages-body']"));
                 driver.FindElementByWait(By.XPath("//*[@class='messages-input']"));
                 driver.FindElementByWait(By.XPath("//*[@class='chat-upload-image']"));
