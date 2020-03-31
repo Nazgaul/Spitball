@@ -478,7 +478,8 @@ export default {
     isAuthUser() {
       let user = this.accountUser();
       if (user == null) {
-        this.$openDialog('login')
+        // this.$openDialog('login')
+        this.$store.commit('setToaster', 'register')
         return false;
       }
       return true;
