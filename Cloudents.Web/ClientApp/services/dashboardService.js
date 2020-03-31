@@ -164,7 +164,9 @@ function getSalesSessions(params){
    return connectivityModule.http.get(`/Sales/session/${sessionId}`,{params:{userId}}).then(createSalesSession).catch(ex => ex);
 }
 function updateSessionDuration(session){
-   return connectivityModule.http.post('/Sales/duration', session)
+   let sessionId = session.SessionId;
+   delete session.SessionId;
+   return connectivityModule.http.post(`/Sales/session/${sessionId}`, session)
 }
 function getContentItems(){
    return connectivityModule.http.get('/Account/content').then(createContentItems).catch(ex => ex);
