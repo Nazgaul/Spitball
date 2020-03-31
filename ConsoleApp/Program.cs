@@ -219,7 +219,7 @@ namespace ConsoleApp
                     string text;
                     if (country == "IL")
                     {
-                        text = $"חדר לימוד בן {tutorName} ל{string.Join(",",studentName)}";
+                        text = $"חדר לימוד בין {tutorName} ל{string.Join(",",studentName)}";
                     }
                     else
                     {
