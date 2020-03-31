@@ -21,7 +21,7 @@
                      {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
                   </v-flex>
                </div>
-               <button :class="{'isMyProfileCoupon':isMyProfile}" class="profileUserStickyMobile_coupon" @click="globalFunctions.openCoupon" v-language:inner="'coupon_apply_coupon'"/>
+               <button :class="{'isMyProfileCoupon':isMyProfile}" class="profileUserStickyMobile_coupon" @click="$store.commit('setToaster', 'register')" v-language:inner="'coupon_apply_coupon'"/>
          </div>
       </div>
       <div class="profileUserStickyMobile_actions ml-1">

@@ -1,7 +1,7 @@
 <template>
     <div class="menuListStudent">
         <v-list-item
-            v-for="link in satelliteLinksStudent"
+            v-for="link in studentMenuListFilter"
             :to="{ name: link.url }"
             :key="link.title"
             class="link"
@@ -42,6 +42,12 @@ export default {
     data() {
         return {
             satelliteService
+        }
+    },
+    computed: {
+        studentMenuListFilter() {
+            let isSold = this.$store.getters.accountUser?.isSold
+            return this.satelliteLinksStudent.filter(link => (link.url === 'mySales' && isSold) || (link.url !== 'mySales'))
         }
     }
 }

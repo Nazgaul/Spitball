@@ -130,6 +130,6 @@
     <value>אנא סיים את תהליך ההרשמה</value>
   </data>
   <data name="TempLockOut" xml:space="preserve">
-    <value>הוקשה סיסמה שגויה שלוש פעמים ברצף, המשתמש ננעל לחמש דקות</value>
+    <value>המשתמש ננעל לחמש דקות</value>
   </data>
 </root>

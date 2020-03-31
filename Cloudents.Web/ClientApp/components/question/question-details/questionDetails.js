@@ -123,7 +123,8 @@ export default {
             }
             else {
                 this.dialogType = '';
-                this.$openDialog('login')
+                // this.$openDialog('login')
+                this.$store.commit('setToaster', 'register')
             }
         },
         goToAnswer(hash) {

@@ -1,0 +1,77 @@
+api/Login: {
+	errors: {
+        Wrong: Boolean // when wrong email or password
+        Locked: Boolean // when user tried more than 3 times
+    },
+    clientResource: {
+        Wrong: 'loginRegister_error_wrong_password'
+        Locked: 'loginRegister_error_locked_user'
+    }
+}
+
+api/ForgotPassword: {
+    errors: {
+        Email: Boolean //
+        Password: Boolean //
+    },
+    clientResource: {
+        Email: 'loginRegister_error_forgot_email'
+        Password: 'loginRegister_error_forgot_password'
+    }
+}
+
+api/Register: {
+    errors: {
+        Email: Boolean //
+        Password: Boolean //
+    },
+    clientResource: {
+        Email: 'loginRegister_invalid_email'
+        Password: 'loginRegister_invalid_password'
+    }
+}
+
+api/register/google: {
+    errors: {
+        Google: {
+            Login: Boolean ???
+            Register: Boolean ???
+        }
+    },
+    clientResource: {
+      Google: {
+            Login: Boolean ???
+            Register: Boolean ???
+        }
+    }
+}
+
+api/sms: {
+    errors: {
+        Phone: Boolean //
+    },
+    clientResource: {
+        Phone: 'loginRegister_invalid_phone_number'
+    }
+}
+
+api/sms/verify: {
+    errors: {
+        Code: Boolean //
+    },
+    clientResource: {
+        Code: 'loginRegister_invalid_code'
+    }
+}
+
+api/sms/call: {
+    errors: {
+        ???
+    }
+}
+
+api/sms/code: {
+    errors: {
+        ???
+    }
+}
