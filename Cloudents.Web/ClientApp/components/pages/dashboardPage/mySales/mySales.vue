@@ -46,6 +46,7 @@
             </div>
          </v-flex>
       </v-layout>
+
       <v-data-table 
          calculate-widths
          :page.sync="paginationModel.page"
@@ -63,47 +64,47 @@
             nextIcon: 'sbf-arrow-right-carousel',
             itemsPerPageOptions: [20]
          }">
-         <template v-slot:item.preview="{item}">
-            <router-link class="d-flex justify-center" v-if="item.preview" :to="item.url">
-               <v-avatar size="40">
-                  <img :src="item.preview">
-               </v-avatar>
-            </router-link>
-            <router-link v-if="item.sessionId" :to="{name: 'profile',params: {id: item.id, name: item.name}}">
-               <user-avatar :user-id="item.userId" 
-               :user-image-url="item.image" 
-               :size="'40'" 
-               :user-name="item.name" >
-               </user-avatar>
-            </router-link>
-         </template>
-         <template v-slot:item.info="{item}">
-            <tableInfoTd :item="item"/>
-         </template>
-         <template v-slot:item.type="{item}">
-            {{dictionary.types[item.type]}}
-         </template>
-         <template v-slot:item.paymentStatus="{item}">
-            {{formatItemStatus(item.paymentStatus)}}
-         </template>
-         <template v-slot:item.date="{item}">
-            {{ $d(new Date(item.date)) }}
-         </template>
-         <template v-slot:item.price="{item}">
-            {{formatPrice(item.price,item.type)}}
-         </template>
-         <template v-slot:item.action="{item}">
-            <v-btn 
-               color="#02C8BF"
-               class="white--text"
-               width="120"
-               depressed
-               rounded
-               v-if="pendingPayments && item.paymentStatus === 'PendingApproval' && item.type === 'TutoringSession'"
-               @click="$openDialog('teacherApproval', {item: item})">
-                  {{$t('dashboardPage_btn_approve')}}
-            </v-btn>
-         </template>
+            <template v-slot:item.preview="{item}">
+               <router-link class="d-flex justify-center" v-if="item.preview" :to="item.url">
+                  <v-avatar size="40">
+                     <img :src="item.preview">
+                  </v-avatar>
+               </router-link>
+               <router-link v-if="item.sessionId" :to="{name: 'profile',params: {id: item.id, name: item.name}}">
+                  <user-avatar :user-id="item.userId" 
+                  :user-image-url="item.image" 
+                  :size="'40'" 
+                  :user-name="item.name" >
+                  </user-avatar>
+               </router-link>
+            </template>
+            <template v-slot:item.info="{item}">
+               <tableInfoTd :item="item"/>
+            </template>
+            <template v-slot:item.type="{item}">
+               {{dictionary.types[item.type]}}
+            </template>
+            <template v-slot:item.paymentStatus="{item}">
+               {{formatItemStatus(item.paymentStatus)}}
+            </template>
+            <template v-slot:item.date="{item}">
+               {{ $d(new Date(item.date)) }}
+            </template>
+            <template v-slot:item.price="{item}">
+               {{formatPrice(item.price,item.type)}}
+            </template>
+            <template v-slot:item.action="{item}">
+               <v-btn 
+                  color="#02C8BF"
+                  class="white--text"
+                  width="120"
+                  depressed
+                  rounded
+                  v-if="pendingPayments && item.paymentStatus === 'PendingTutor' && item.type === 'TutoringSession'"
+                  @click="$openDialog('teacherApproval', {item: item})">
+                     {{$t('dashboardPage_btn_approve')}}
+               </v-btn>
+            </template>
             <slot slot="no-data" name="tableEmptyState"/>
          </v-data-table>
    </div>
@@ -188,10 +189,10 @@ export default {
          if(paymentStatus === 'Pending'){
             return this.$t('dashboardPage_pending')
          }
-         if(paymentStatus === 'Paid'){
+         if(paymentStatus === 'PendingSystem'){
             return this.$t('dashboardPage_paid')
          }
-         if(paymentStatus === 'PendingApproval') {
+         if(paymentStatus === 'PendingTutor') {
             return this.$t('dashboardPage_pending_approve')
          }
       },

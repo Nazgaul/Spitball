@@ -1,7 +1,6 @@
 import chatService from '../services/chatService';
 import { LanguageService } from '../services/language/languageService';
 import analyticsService from '../services/analytics.service';
-import studyRoomsService from '../services/studyRoomsService'
 
 
 const state = {
@@ -21,7 +20,6 @@ const state = {
     chatLoader: false,
     emptyState: [],
     isSyncing: true,
-    showStudentStudyRoom: false
 };
 const getters = {
     getFileError: state => state.fileError,
@@ -89,7 +87,6 @@ const getters = {
     getActiveConversationObj:state=>state.activeConversationObj,
     getTotalUnread: state=>state.totalUnread,
     getIsChatLocked: state=>state.chatLocked,
-    getshowStudentStudyRoom: state => state.showStudentStudyRoom
 };
 
 const mutations = {
@@ -130,9 +127,6 @@ const mutations = {
     setActiveConversationId(state, id){
         state.activeConversationObj.conversationId = id;
     },
-    setActiveConversationStudyRoom(state, id){
-        state.activeConversationObj.studyRoomId = id;
-    },
     addConversation: (state, conversationObj)=>{
         let id = conversationObj.conversationId;
         // add a properly this way allow the computed to be fired!
@@ -171,9 +165,6 @@ const mutations = {
     setSyncStatus:(state, val)=>{
         state.isSyncing = val;
     },
-    setShowStudentStudyRoom(state){
-        state.showStudentStudyRoom = true;
-    }
 };
 
 const actions = {
@@ -196,7 +187,7 @@ const actions = {
                 if(state.activeConversationObj.conversationId === message.conversationId){
                     commit('addMessage', message);
                     if (message.fromSignalR) {
-                        chatService.clearUnread(state.activeConversationObj.userId);
+                        chatService.clearUnread(state.activeConversationObj.conversationId);
                     }
                     if(state.isMinimized && message.fromSignalR){
                         //in tutor room the conversation is auto loaded, so in case of refresh
@@ -220,7 +211,6 @@ const actions = {
                     // message here will be sent by local user
                     //if in conversation and is the first message then create a conversation before adding the message
                     let conversationObj = chatService.createConversation(message);
-                    conversationObj.userId = state.activeConversationObj.userId;
                     commit('addConversation', conversationObj);
                     commit('addMessage', message);
 
@@ -264,9 +254,8 @@ const actions = {
             conversationId = state.activeConversationObj.conversationId;
         }
         if(state.conversations[conversationId]){
-            let otherUserId = state.conversations[conversationId].userId;
-            if(state.totalUnread > 0 && state.conversations[conversationId].unread > 0) {
-                chatService.clearUnread(otherUserId);
+            if(state.conversations[conversationId].unread > 0) {
+                chatService.clearUnread(conversationId);
             }
             let unreadNumber = state.conversations[conversationId].unread * -1;
             commit('updateTotalUnread', unreadNumber);
@@ -280,21 +269,6 @@ const actions = {
         let messageObj2 = chatService.createMessage(messageObj.message, messageObj.conversationId, true);
         dispatch('addMessage', messageObj2);
         dispatch('openChatInterface');
-    },
-    signalRAddRoomInformationMessage({commit}, roomInfo){
-        // let messageObj ={
-        //     message: {
-        //         userId: roomInfo.userId,
-        //         text: `${LanguageService.getValueByKey('chat_room_created')} ${global.location.origin}/studyroom/${roomInfo.id}`,
-        //         type: 'text'
-        //     },
-        //     //TODO signalR should return Conversation ID
-        //     conversationId: state.activeConversationObj.conversationId
-        // };
-        // let messageObj2 = chatService.createMessage(messageObj.message, messageObj.conversationId);
-        // dispatch('addMessage', messageObj2);
-        commit('setActiveConversationStudyRoom', roomInfo.id);
-        commit('setShowStudentStudyRoom');
     },
     setActiveConversationObj:({commit, dispatch, state}, obj)=>{
         commit('setSyncStatus', true);
@@ -313,13 +287,15 @@ const actions = {
             if(data.length > 0){
                 data.forEach(conversation => {
                     let conversationObj = chatService.createConversation(conversation);
-                        commit('addConversation', conversationObj);
-                        commit('updateTotalUnread', conversationObj.unread);
+                    commit('addConversation', conversationObj);
+                    commit('updateTotalUnread', conversationObj.unread);
+                    conversation.users.forEach(user=>{
                         let userStatus = {
-                            id: conversationObj.userId,
-                            online: conversationObj.online
+                            id: user.userId,
+                            online: user.online
                         };
                         dispatch('setUserStatus', userStatus);
+                    })
                 });
                 if(global.innerWidth > 600){
                     state.isVisible = true;
@@ -370,10 +346,12 @@ const actions = {
     },
     sendChatMessage:({state, dispatch, getters}, message)=>{
         //send message to server.
-        let messageObj = chatService.createServerMessageObj({
+        let messageObj = {
             message: message,
-            otherUser: state.activeConversationObj.userId
-        });
+            otherUser: state.activeConversationObj.userId,
+            conversationId: state.activeConversationObj.conversationId
+
+        };
         chatService.sendChatMessage(messageObj);
 
         //add message locally
@@ -430,9 +408,6 @@ const actions = {
     },
     uploadCapturedImage(context, formData) {
         return chatService.uploadCapturedImage(formData);
-    },
-    createStudyRoom(context, userId){
-        return studyRoomsService.createRoom(userId);
     },
 };
 

@@ -37,36 +37,36 @@ namespace Cloudents.Infrastructure.Video
         private const string StreamingTransformer = "StreamingTransformer";
         private const string FullHdTransformer = "FullHdTransformer";
 
-        public async Task CreateStudyRoomSessionEncoding(string sessionId, string url,
-            CancellationToken token)
-        {
-            var thumbnailAsset = await CreateOutputAssetAsync(sessionId, AssetType.StudyRoom, token);
-            var jobInput =
-                new JobInputHttp(files: new[] { url });
-            JobOutput[] jobOutputs =
-            {
-                new JobOutputAsset(thumbnailAsset.Name, label: AssetType.StudyRoom.ToString())
-            };
-            var v = await _context;
+        //public async Task CreateStudyRoomSessionEncoding(string sessionId, string url,
+        //    CancellationToken token)
+        //{
+        //    var thumbnailAsset = await CreateOutputAssetAsync(sessionId, AssetType.StudyRoom, token);
+        //    var jobInput =
+        //        new JobInputHttp(files: new[] { url });
+        //    JobOutput[] jobOutputs =
+        //    {
+        //        new JobOutputAsset(thumbnailAsset.Name, label: AssetType.StudyRoom.ToString())
+        //    };
+        //    var v = await _context;
 
-            try
-            {
-                await v.Jobs.CreateAsync(
-                    _config.ResourceGroup,
-                    _config.AccountName,
-                    FullHdTransformer,
-                    $"{sessionId} study room session",
-                    new Job
-                    {
-                        Input = jobInput,
-                        Outputs = jobOutputs,
-                    }, token);
-            }
-            catch (ApiErrorException e) when (e.Response.StatusCode == HttpStatusCode.Conflict)
-            {
-                //Do nothing
-            }
-        }
+        //    try
+        //    {
+        //        await v.Jobs.CreateAsync(
+        //            _config.ResourceGroup,
+        //            _config.AccountName,
+        //            FullHdTransformer,
+        //            $"{sessionId} study room session",
+        //            new Job
+        //            {
+        //                Input = jobInput,
+        //                Outputs = jobOutputs,
+        //            }, token);
+        //    }
+        //    catch (ApiErrorException e) when (e.Response.StatusCode == HttpStatusCode.Conflict)
+        //    {
+        //        //Do nothing
+        //    }
+        //}
 
         private async Task<AzureMediaServicesClient> Init(bool isDevelop)
         {
@@ -77,7 +77,7 @@ namespace Cloudents.Infrastructure.Video
                 jsonFile = "appsettings-dev.json";
             }
 
-            using (var stream = Assembly.GetExecutingAssembly()
+            await using (var stream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream($"Cloudents.Infrastructure.Video.{jsonFile}"))
             {
                 _config = stream.ToJsonReader<ConfigWrapper>();

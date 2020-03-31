@@ -6,32 +6,19 @@
                     <v-icon>sbf-close</v-icon>
                 </button>
                 <div class="ml-1 wrap-text">
-                    <h2 class="text-md-center" v-language:inner="'profileData_generalProfile_modal_heading'"></h2>
+                    <h2 class="text-md-center" v-t="'profileData_generalProfile_modal_heading'"></h2>
                     <div class="wrapper-body-text">
-                        <p class="dialog-body-text" v-language:inner="'profileData_generalProfile_modal_text'"></p>
+                        <p class="dialog-body-text" v-t="'profileData_generalProfile_modal_text'"></p>
                     </div>
                 </div>
                 <div class="btn-container">
-                    <a  class="login-btns" @click="goToSignIn()" v-language:inner>loginAnswer_login</a>
-                    <a  class="login-btns" @click="goToRegister()" v-language:inner>loginAnswer_Sign_Up</a>
+                    <v-btn class="login-btns" @click="$store.commit('setToaster', 'login')" v-closeDialog v-t="'loginAnswer_login'"></v-btn>
+                    <v-btn class="login-btns" @click="$store.commit('setToaster', 'register')" v-closeDialog v-t="'loginAnswer_Sign_Up'"></v-btn>
                 </div>
             </div>
         </v-card>
     </v-dialog>
 </template>
-
-<script>
-export default {
-    methods: {
-        goToRegister(){
-            this.$router.push({name: 'register', query:{returnUrl : this.$route.path}});
-        },
-        goToSignIn(){
-            this.$router.push({name: 'login', query:{returnUrl : this.$route.path}});
-        }
-    },
-}
-</script>
 
 <style lang="less">
 @import "../../../../../../styles/mixin.less";

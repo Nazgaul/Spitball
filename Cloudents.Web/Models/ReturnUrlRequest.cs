@@ -1,16 +1,16 @@
-﻿using Cloudents.Web.Binders;
-using Microsoft.AspNetCore.Mvc;
+﻿//using Cloudents.Web.Binders;
+//using Microsoft.AspNetCore.Mvc;
 
-namespace Cloudents.Web.Models
-{
-    [ModelBinder(typeof(ReturnUrlEntityBinder))]
-    public class ReturnUrlRequest
-    {
-        public string Url { get; set; }
+//namespace Cloudents.Web.Models
+//{
+//    [ModelBinder(typeof(ReturnUrlEntityBinder))]
+//    public class ReturnUrlRequest
+//    {
+//        public string Url { get; set; }
 
-        public override string ToString()
-        {
-            return Url;
-        }
-    }
-}
+//        public override string ToString()
+//        {
+//            return Url;
+//        }
+//    }
+//}

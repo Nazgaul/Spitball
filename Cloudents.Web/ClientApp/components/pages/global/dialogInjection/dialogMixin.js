@@ -9,7 +9,7 @@ const buyPoints = () => import('./globalDialogs/buyPoints/buyPointsWrapper.vue')
 const teacherApproval = () => import('./globalDialogs/teacherApproval/teacherApproval.vue');
 
 const payment = () => import('./globalDialogs/payment/paymentWrapper.vue');
-
+const createStudyRoom = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue');
 
 
 export default {
@@ -21,7 +21,8 @@ export default {
         login,
         payment,
         buyPoints,
-        teacherApproval
+        teacherApproval,
+        createStudyRoom
     },
     data() {
         return {
@@ -33,7 +34,8 @@ export default {
                 upload: ["auth","courses"],
                 createCoupon: ["auth","tutor"],
                 buyPoints:["auth"],
-                teacherApproval:["auth", "tutor", "params"]
+                teacherApproval:["auth", "tutor", "params"],
+                createStudyRoom:["auth","tutor"]
             }
         }
     },

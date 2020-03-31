@@ -7,7 +7,7 @@
             <div class="userMenu_logo"><logoComponent/></div>
             <div class="uM_noLogin_txt">{{$t('menuList_txt_out')}}</div>
             <div class="uM_noLogin_btns">
-              <v-btn rounded depressed class="uM_noLogin_btns_in" color="white" :to="{ name: 'login'}">{{$t('menuList_Login')}}</v-btn>
+              <v-btn rounded depressed class="uM_noLogin_btns_in" color="white" @click="openLoginDialog">{{$t('menuList_Login')}}</v-btn>
               <v-btn rounded depressed class="uM_noLogin_btns_up" color="#4c59ff" :to="{ name: 'register'}">{{$t('menuList_Sign_up')}}</v-btn>
             </div>
         </div>
@@ -198,6 +198,11 @@ export default {
           icon: 'sbf-studyroom-icon',
           url: 'myStudyRooms'
         },
+        {
+          title: this.$t('menuList_my_sales'),
+          icon: 'sbf-my-sales',
+          url: 'mySales',
+        },
       ]
     };
   },
@@ -270,6 +275,10 @@ export default {
     userBalance(balance){
       let balanceFixed = +balance.toFixed()
       return balanceFixed.toLocaleString(`${global.lang}`)
+    },
+    openLoginDialog() {
+      this.$store.commit('setToaster', 'login');
+      this.$root.$emit('closeDrawer')
     }
   },
 

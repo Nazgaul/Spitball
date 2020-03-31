@@ -10,22 +10,18 @@ namespace Cloudents.Core.DTOs.Users
 {
     public class UserDto
     {
-        public UserDto(long id, string name, string image)
-        {
-            Id = id;
-            Name = name;
-            Image = image;
-        }
+        //public UserDto(long id, string name, string image)
+        //{
+        //    Id = id;
+        //    Name = name;
+        //    Image = image;
+        //}
 
-        // ReSharper disable once MemberCanBeProtected.Global need that for mark answer as correct.
-        public UserDto()
-        {
-
-        }
+       
 
         public long Id { get; set; }
         public string Name { get; set; }
-        public string Image { get; set; }
+        public string? Image { get; set; }
     }
 
     public class UserProfileDto
@@ -134,7 +130,6 @@ namespace Cloudents.Core.DTOs.Users
         public bool HaveDocsWithPrice { get; set; }
         public bool IsPurchased { get; set; }
         public bool IsSold { get; set; }
-        public bool HaveStudyRoom { get; set; }
         public bool HaveFollowers { get; set; }
         private UserType? _userType;
         public UserType? UserType 
@@ -179,20 +174,13 @@ namespace Cloudents.Core.DTOs.Users
 
 
 
-    public class ChatUserDto
+    public class ChatDto
     {
-        [EntityBind(nameof(BaseUser.Id))]
-        public long UserId { get; set; }
-        [EntityBind(nameof(BaseUser.Name))]
-        public string Name { get; set; }
-        [EntityBind(nameof(BaseUser.ImageName))]
-        public string Image { get; set; }
-
-        [EntityBind(nameof(ChatUser.Unread))]
-        public int Unread { get; set; }
-
-        [EntityBind(nameof(User.Online))]
-        public bool Online { get; set; }
+        public ChatDto()
+        {
+            Users = new List<ChatUserDto>();
+        }
+        public IList<ChatUserDto> Users { get; set; }
 
         [EntityBind(nameof(ChatRoom.Identifier))]
         public string ConversationId { get; set; }
@@ -200,10 +188,24 @@ namespace Cloudents.Core.DTOs.Users
         [EntityBind(nameof(ChatRoom.UpdateTime))]
         public DateTime DateTime { get; set; }
 
-        [EntityBind(nameof(StudyRoom.Id))]
-
-        public Guid? StudyRoomId { get; set; }
-
+        [EntityBind(nameof(ChatMessage))]
         public string LastMessage { get; set; }
+    }
+
+    public class ChatUserDto
+    {
+        [EntityBind(nameof(BaseUser.Id))]
+        public long UserId { get; set; }
+        [EntityBind(nameof(BaseUser.Name))]
+        public string Name { get; set; }
+        [EntityBind(nameof(BaseUser.ImageName))]
+        public string? Image { get; set; }
+
+        [EntityBind(nameof(ChatUser.Unread))]
+        public int Unread { get; set; }
+
+        [EntityBind(nameof(User.Online))]
+        public bool Online { get; set; }
+
     }
 }

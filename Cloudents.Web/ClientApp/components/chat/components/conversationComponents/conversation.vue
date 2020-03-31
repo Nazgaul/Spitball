@@ -1,8 +1,8 @@
 <template>
   <div class="conversation-container">
     <v-flex class="avatar-container">
-      <user-avatar :size="'46'" :userImageUrl="userImg" :user-name="conversation.name"/>
-      <userOnlineStatus class="user-status" :userId="conversation.userId"></userOnlineStatus>
+        <user-avatar :size="'46'" :userImageUrl="userImg" :user-name="conversation.name"/>
+        <userOnlineStatus class="user-status" :userId="conversation.userId"></userOnlineStatus>
     </v-flex>
     <v-flex class="user-detail-container">
       <v-flex class="top-detail-container">

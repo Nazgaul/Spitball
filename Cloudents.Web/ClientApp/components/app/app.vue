@@ -19,7 +19,7 @@
         </div>
 
         <dialogInjection class="dialogInjection" />
-        <toasterInjection class="toasterInjection" />
+        <componentInjection class="componentInjection" />
 
         <sb-dialog
           :isPersistent="true"
@@ -55,6 +55,7 @@
             :popUpType="'referralPop'"
           ></referral-dialog>
         </sb-dialog>
+
       <mobile-footer v-if="showMobileFooter" />
     </v-content>
     
@@ -77,7 +78,7 @@ import { mapGetters, mapActions } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
 
 const dialogInjection = () => import('../pages/global/dialogInjection/dialogInjection.vue');
-const toasterInjection = () => import('../pages/global/toasterInjection/toasterInjection.vue');
+const componentInjection = () => import('../pages/global/toasterInjection/componentInjection.vue');
 
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
 const AddQuestion = () => import("../question/askQuestion/askQuestion.vue");
@@ -96,7 +97,7 @@ export default {
     mobileFooter,
     tutorRequest,
     dialogInjection,
-    toasterInjection
+    componentInjection,
   },
   data() {
     return {
@@ -117,7 +118,9 @@ export default {
       "getRequestTutorDialog",
       "getIsChatVisible",
       'getUserLoggedInStatus',
-      'getIsTeacher'
+      'getIsTeacher',
+      'getLoginDialog',
+      'getRegisterDialog'
     ]),
 
     isDrawer() {

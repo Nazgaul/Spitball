@@ -23,8 +23,14 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Core.DTOs;
+using Cloudents.Query;
+using Cloudents.Query.Chat;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
+using NHibernate.Linq;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
+using PaymentStatus = Cloudents.Core.DTOs.PaymentStatus;
 
 
 namespace ConsoleApp
@@ -56,7 +62,6 @@ namespace ConsoleApp
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                             ConfigurationManager.AppSettings["Redis"],
                             DbConnectionString.DataBaseIntegration.None),
-                        MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                         Search = new SearchServiceCredentials(
 
                             ConfigurationManager.AppSettings["AzureSearchServiceName"],
@@ -76,7 +81,6 @@ namespace ConsoleApp
                         SiteEndPoint = { SpitballSite = "https://www.spitball.co", FunctionSite = "https://spitball-dev-function.azureedge.net" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
                             ConfigurationManager.AppSettings["Redis"], DbConnectionString.DataBaseIntegration.None),
-                        MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                         Search = new SearchServiceCredentials(
 
                             ConfigurationManager.AppSettings["AzureSearchServiceName"],
@@ -142,16 +146,93 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            Country country = "BD";
+            var _session = Container.Resolve<IStatelessSession>();
+
+
+
+            //var sessionFuture = await _session.Query<StudyRoomSessionUser>()
+            //    .Fetch(f=>f.StudyRoomSession)
+            //    .ThenFetch(f=>f.StudyRoom)
+            //    .Fetch(f=>f.User)
+            //    .Where(w => w.StudyRoomSession.StudyRoom.Tutor.Id == 638 && w.Duration > TimeSpan.FromMinutes(10))
+            //    .Select(s => new SessionSaleDto()
+            //    {
+            //        SessionId = s.StudyRoomSession.Id,
+            //        PaymentStatus = s.Receipt != null ? PaymentStatus.Paid :
+            //            s.TutorApproveTime != null ? PaymentStatus.Pending:
+            //            PaymentStatus.PendingApproval,
+            //        Date = s.StudyRoomSession.Created,
+            //        Price = s.TotalPrice,
+            //        StudentName = s.User.Name,
+            //        Duration = s.TutorApproveTime ?? s.Duration.Value,
+            //        StudentImage = s.User.ImageName,
+            //        StudentId = s.User.Id
+            //    })
+            //    .ToListAsync();
+
+
+
+
             //ResourcesMaintenance.DeleteStuffFromJs();
             //await Convert();
             //var result = await s.GetPaymentAsync("4J34525079381873W", default);
             ////var x = await s.QueryAsync(new StudyRoomQuery(Guid.Parse("9f54280c-103e-46a6-8184-aabf00801beb"), 638), default);
-
-
-
-
         }
+
+        private static async Task BuildStudyRoomName()
+        {
+            var session = Container.Resolve<ISession>();
+
+            var studyRooms = session.Query<StudyRoom>().Where(w => w.Name == null).ToList();
+            foreach (var studyRoom in studyRooms)
+            {
+                var users = studyRoom.Users.Select(s=>s.User);
+                var country = studyRoom.Tutor.User.Country;
+                if (users.Count() == 2)
+                {
+                    var tutor = studyRoom.Tutor.User;
+
+                    var studentName = users.Single(s => s.Id != tutor.Id).FirstName;
+                    var tutorName = tutor.FirstName;
+
+                    string text;
+                    if (country == "IL")
+                    {
+                        text = $"חדר לימוד בן {tutorName} ל{studentName}";
+                    }
+                    else
+                    {
+                        text = $"study room between {tutorName} and {studentName}";
+                    }
+
+                    studyRoom.Name = text;
+                    session.Update(studyRoom);
+                    session.Flush();
+                }
+                else
+                {
+                    var tutor = studyRoom.Tutor.User;
+
+                    var studentName = users.Where(s => s.Id != tutor.Id).Select(s=>s.FirstName);
+                    var tutorName = tutor.FirstName;
+
+                    string text;
+                    if (country == "IL")
+                    {
+                        text = $"חדר לימוד בן {tutorName} ל{string.Join(",",studentName)}";
+                    }
+                    else
+                    {
+                        text = $"study room between {tutorName} and {string.Join(",", studentName)}";
+                    }
+
+                    studyRoom.Name = text;
+                    session.Update(studyRoom);
+                    session.Flush();
+                }
+            }
+        }
+
         private static async Task ResyncTutorRead()
         {
             var session = Container.Resolve<IStatelessSession>();

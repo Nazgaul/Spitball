@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="already_used_number" xml:space="preserve">
+    <value>מספר טלפון זה מקושר לכתובת דוא"ל אחרת</value>
+  </data>
+  <data name="change_numb" xml:space="preserve">
+    <value>שינוי מספר טלפון</value>
+  </data>
+  <data name="change_number" xml:space="preserve">
+    <value>קבלת קוד אימות בטלפון</value>
+  </data>
+  <data name="choose_other_method" xml:space="preserve">
+    <value>או</value>
+  </data>
   <data name="college" xml:space="preserve">
     <value>מכללות או אוניברסיטאות</value>
   </data>
@@ -216,8 +228,17 @@
   <data name="highSchool" xml:space="preserve">
     <value>בתי ספר</value>
   </data>
+  <data name="invalid_code" xml:space="preserve">
+    <value>קוד אימות לא תקין</value>
+  </data>
+  <data name="invalid_phone" xml:space="preserve">
+    <value>מספר טלפון לא חוקי</value>
+  </data>
   <data name="know_better" xml:space="preserve">
     <value>אנחנו רוצים להכיר אותך טוב יותר</value>
+  </data>
+  <data name="or" xml:space="preserve">
+    <value>או</value>
   </data>
   <data name="parent" xml:space="preserve">
     <value>הורים</value>
@@ -235,6 +256,9 @@
     <value>סיסמא חדשה</value>
   </data>
   <data name="setemailpass_btn" xml:space="preserve">
+    <value>המשך</value>
+  </data>
+  <data name="setemailpass_btn_verify" xml:space="preserve">
     <value>המשך</value>
   </data>
   <data name="setemailpass_female" xml:space="preserve">
@@ -288,32 +312,47 @@
   <data name="setphone_input" xml:space="preserve">
     <value>מספר טלפון נייד</value>
   </data>
+  <data name="setphone_main_title" xml:space="preserve">
+    <value>הרשמה לספיטבול</value>
+  </data>
+  <data name="setphone_sub_title" xml:space="preserve">
+    <value>קבלת מסרון עם קוד אימות</value>
+  </data>
   <data name="setphone_title" xml:space="preserve">
-    <value>קבלת מסרון עם קוד כניסה</value>
+    <value>קבלת מסרון עם קוד אימות</value>
   </data>
   <data name="smsconfirm_btn" xml:space="preserve">
     <value>המשך</value>
   </data>
   <data name="smsconfirm_call" xml:space="preserve">
-    <value>התקשרו אלי לקבלת קוד כניסה</value>
+    <value>התקשרו אלי לקבלת קוד אימות</value>
   </data>
   <data name="smsconfirm_change" xml:space="preserve">
     <value>שינוי מספר ושליחה מחדש</value>
   </data>
   <data name="smsconfirm_input" xml:space="preserve">
-    <value>קוד כניסה</value>
+    <value>קוד אימות</value>
+  </data>
+  <data name="smsconfirm_resend_code" xml:space="preserve">
+    <value>שלח קוד אימות שוב</value>
   </data>
   <data name="smsconfirm_subtitle" xml:space="preserve">
     <value>נשלח למספר הזה:</value>
   </data>
   <data name="smsconfirm_title" xml:space="preserve">
-    <value>הכנסת קוד כניסה</value>
+    <value>הכנסת קוד אימות</value>
   </data>
   <data name="student" xml:space="preserve">
     <value>תלמידים</value>
   </data>
   <data name="teacher" xml:space="preserve">
     <value>מורים</value>
+  </data>
+  <data name="verifyPhone_main_title" xml:space="preserve">
+    <value>הכנסת קוד אימות</value>
+  </data>
+  <data name="verifyPhone_subtitle" xml:space="preserve">
+    <value>קוד האימות נשלח למספר הזה: {0}</value>
   </data>
   <data name="welcome" xml:space="preserve">
     <value>ברוך הבא לספיטבול</value>

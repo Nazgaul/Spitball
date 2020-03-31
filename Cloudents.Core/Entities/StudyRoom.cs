@@ -12,30 +12,34 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class StudyRoom : Entity<Guid>, IAggregateRoot
     {
-        public StudyRoom(Tutor tutor, User user, string onlineDocumentUrl)
+        public StudyRoom(Tutor tutor, IEnumerable<User> users, string onlineDocumentUrl, string name)
         {
-            _users = new[]
-            {
-                new StudyRoomUser(tutor.User, this),
-                new StudyRoomUser(user, this)
-            };
+            if (users == null) throw new ArgumentNullException(nameof(users));
+            _users = users.Select(s => new StudyRoomUser(s, this)).ToList();
             Tutor = tutor;
-            Identifier = ChatRoom.BuildChatRoomIdentifier(new[] { tutor.Id, user.Id });
+            Identifier = ChatRoom.BuildChatRoomIdentifier(_users.Select(s => s.User.Id).Union(new[] { tutor.Id }));
             OnlineDocumentUrl = onlineDocumentUrl;
-            Type = StudyRoomType.PeerToPeer;
+            Name = name;
+            if (_users.Count < 10)
+            {
+                Type = StudyRoomType.PeerToPeer;
+            }
+            else
+            {
+                Type = StudyRoomType.GroupRoom;
+            }
+
             DateTime = new DomainTimeStamp();
-
-           
-            
-
 
             AddEvent(new StudyRoomCreatedEvent(this));
         }
 
         protected StudyRoom()
         {
-            
+
         }
+
+        public virtual string Name { get; set; }
 
         public virtual Tutor Tutor { get; protected set; }
 
@@ -66,18 +70,20 @@ namespace Cloudents.Core.Entities
 
         public virtual StudyRoomType? Type { get; protected set; }
 
-        public virtual void AddSession(StudyRoomSession session)
+        public virtual void AddSession(string sessionName)
         {
+            var session = new StudyRoomSession(this, sessionName);
             _sessions.Add(session);
+            var user = Users.First(f => f.User.Id != Tutor.Id).User;
+            user.UseToken(this);
             DateTime.UpdateTime = System.DateTime.UtcNow;
         }
 
-        public virtual void ChangeOnlineStatus(long userId, bool isOnline)
-        {
-            var studyRoomUser = Users.Single(f => f.User.Id == userId);
-            studyRoomUser.ChangeOnlineState(isOnline);
-
-        }
+        //public virtual void ChangeOnlineStatus(long userId, bool isOnline)
+        //{
+        //    var studyRoomUser = Users.Single(f => f.User.Id == userId);
+        //    studyRoomUser.ChangeOnlineState(isOnline);
+        //}
 
     }
 }

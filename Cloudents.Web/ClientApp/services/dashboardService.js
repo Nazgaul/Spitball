@@ -53,10 +53,12 @@ const Item = {
       this.duration = buildSessionDuration(objInit.totalMinutes)
    },
    StudyRoom:function(objInit){
-      this.online = objInit.online;
+     // this.online = objInit.online;
       this.id = objInit.id;
       this.conversationId = objInit.conversationId;
       this.lastSession = objInit.lastSession;
+      this.name = objInit.name;
+      this.date = objInit.dateTime;
    },
    BuyPoints: function(objInit){
       this.price = objInit.price;
@@ -81,10 +83,8 @@ const Item = {
    }
 };
 function StudyRoomItem(objInit){
-   return Object.assign(
-      new Item.User(objInit),
-      new Item.StudyRoom(objInit)
-   );
+   return new Item.StudyRoom(objInit);
+   
 }
 function ContentItem(objInit){
    return Object.assign(
@@ -97,7 +97,7 @@ function SalesItem(objInit){
       new Item.Default(objInit),
       new Item[itemTypeChcker(objInit.type)](objInit),
       {
-         paymentStatus: objInit.paymentStatus,
+         paymentStatus: objInit.paymentStatus || 'Approved',
       }
    );
 }
@@ -130,9 +130,7 @@ function createPurchasesItems({data}) {
    return data.map(item=> new PurchasesItem(item));
 }
 function createStudyRoomItems({data}) {
-   let studyRoomItems = [];
-   data.map(item => studyRoomItems.push(new StudyRoomItem(item)));
-   return studyRoomItems;
+  return data.map(item => new StudyRoomItem(item));
 }
 function createFollowersItems({data}) {
    let followersItems = [];
@@ -157,10 +155,12 @@ function createBlogs({data}) {
 
 
 function getSalesItems(){
-   return connectivityModule.http.get('/Sales/sales').then(createSalesItems).catch(ex => ex);
+   return connectivityModule.http.get('/Sales').then(createSalesItems).catch(ex => ex);
 }
-function getSalesSessions(id){
-   return connectivityModule.http.get('/Sales/session', {params: { id }}).then(createSalesSession).catch(ex => ex);
+function getSalesSessions(params){
+   let sessionId = params.sessionId;
+   let userId = params.userId;
+   return connectivityModule.http.get(`/Sales/session/${sessionId}`,{params:{userId}}).then(createSalesSession).catch(ex => ex);
 }
 function updateSessionDuration(session){
    return connectivityModule.http.post('/Sales/duration', session)

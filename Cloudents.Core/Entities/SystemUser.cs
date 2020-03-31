@@ -10,6 +10,15 @@
         }
 
 
+        public override void AddFollower(User follower)
+        {
+            //we do nothing
+        }
+
+        public override void RemoveFollower(BaseUser follower)
+        {
+            //we do nothing
+        }
 
         public override decimal Balance => 0;
     }

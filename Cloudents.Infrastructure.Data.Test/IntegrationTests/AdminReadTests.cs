@@ -163,6 +163,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         [Theory]
         [InlineData("")]
+        [InlineData("US")]
         [InlineData("IL")]
         public async Task AdminPaymentsQuery_Ok(string country)
         {

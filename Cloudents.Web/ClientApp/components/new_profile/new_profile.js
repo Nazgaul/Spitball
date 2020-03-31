@@ -47,7 +47,6 @@ export default {
     data() {
         return {
             globalFunctions:{
-                openCoupon: this.openCoupon,
                 sendMessage: this.sendMessage,
                 openCalendar: this.openCalendar,
                 closeCalendar: this.closeCalendar,
@@ -103,7 +102,7 @@ export default {
                 }
             }
             } else {
-            this.$openDialog('login')
+                this.$store.commit('setToaster', 'register')
             }
         },
         applyCoupon() {
@@ -161,7 +160,8 @@ export default {
             if(!!this.accountUser) {
                 this.activeTab = 5;
             } else {
-                this.$openDialog('login')
+                // this.$openDialog('login')
+                this.$store.commit('setToaster', 'register')
                 setTimeout(()=>{
                     document.getElementById(`tab-${this.activeTab}`).lastChild.click();
                 },200);

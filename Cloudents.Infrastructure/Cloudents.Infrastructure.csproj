@@ -26,11 +26,10 @@
     <PackageReference Include="CacheManager.Serialization.Json" Version="1.2.0" />
     <PackageReference Include="CacheManager.StackExchange.Redis" Version="1.2.0" />
     <PackageReference Include="Dapper" Version="2.0.30" />
-    <PackageReference Include="Google.Apis.Calendar.v3" Version="1.44.1.1886" />
-    <PackageReference Include="Google.Apis.Docs.v1" Version="1.44.1.1884" />
-    <PackageReference Include="Google.Apis.Drive.v3" Version="1.44.1.1876" />
+    <PackageReference Include="Google.Apis.Calendar.v3" Version="1.44.1.1893" />
+    <PackageReference Include="Google.Apis.Docs.v1" Version="1.44.1.1894" />
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.44.1.1888" />
     <PackageReference Include="GoogleMeasurementProtocol" Version="2.1.0" />
-    <!--<PackageReference Include="Microsoft.Azure.CognitiveServices.Language.TextAnalytics" Version="4.0.0" />-->
     <PackageReference Include="Nager.Country" Version="1.0.4" />
     <PackageReference Include="PayPalHttp" Version="1.0.0" />
     <PackageReference Include="PayPalCheckoutSdk" Version="1.0.3" />

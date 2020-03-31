@@ -132,6 +132,9 @@
   <data name="dashboard" xml:space="preserve">
     <value>כלי ניהול</value>
   </data>
+  <data name="EnterStudyRoomTooltip" xml:space="preserve">
+    <value>כנס לחדר הלימוד</value>
+  </data>
   <data name="home" xml:space="preserve">
     <value>ראשי</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="purchases" xml:space="preserve">
     <value>הרכישות שלי</value>
+  </data>
+  <data name="SendMessageTooltip" xml:space="preserve">
+    <value>שלח הודעה</value>
   </data>
   <data name="settings" xml:space="preserve">
     <value>הגדרות</value>

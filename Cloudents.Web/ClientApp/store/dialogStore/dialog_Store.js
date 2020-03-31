@@ -1,17 +1,22 @@
 const state = {
     referral:false,
-    
+    globalLoading: false,
 };
+
+const getters = {
+    getReferralDialog:state => state.referral,
+    getGlobalLoading: state => state.globalLoading,
+};
+
 const mutations = {
     setReferralDialog(state,val){
         state.referral = val;
+    },
+    setGlobalLoading(state, val) {
+        state.globalLoading = val
     }
-    
 };
-const getters = {
-    getReferralDialog:state => state.referral,
-    
-};
+
 const actions = {
     updateReferralDialog({commit},val){
         commit('setReferralDialog',val);

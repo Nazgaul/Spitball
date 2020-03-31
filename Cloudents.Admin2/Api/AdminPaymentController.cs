@@ -36,25 +36,25 @@ namespace Cloudents.Admin2.Api
 
         // GET
         [HttpGet]
-        public async Task<IEnumerable<PaymentResponse>> GetPayments(CancellationToken token)
+        public async Task<IEnumerable<PaymentDto>> GetPayments(CancellationToken token)
         {
             var query = new PaymentsQuery(User.GetCountryClaim());
-            var result = await _queryBus.QueryAsync(query, token);
-            return result.Select(s => new PaymentResponse()
-            {
-                StudyRoomSessionId = s.StudyRoomSessionId,
-                Price = s.Price,
-                IsSellerKeyExists = s.IsSellerKeyExists,
-                IsPaymentKeyExists = s.IsPaymentKeyExists,
-                TutorId = s.TutorId,
-                TutorName = s.TutorName,
-                UserId = s.UserId,
-                UserName = s.UserName,
-                Created = s.Created,
-                Duration = s.Duration.TotalMinutes,
-                IsRealDurationExitsts = s.IsRealDurationExitsts,
-                RealDuration = s.RealDuration.TotalMinutes
-            });
+            return await _queryBus.QueryAsync(query, token);
+            //return result.Select(s => new PaymentResponse()
+            //{
+            //    StudyRoomSessionId = s.StudyRoomSessionId, 
+            //    Price = s.Price,
+            //    IsSellerKeyExists = s.IsSellerKeyExists,
+            //    IsPaymentKeyExists = s.IsPaymentKeyExists,
+            //    TutorId = s.TutorId,
+            //    TutorName = s.TutorName,
+            //    UserId = s.UserId,
+            //    UserName = s.UserName,
+            //    Created = s.Created,
+            //    Duration = s.Duration.TotalMinutes,
+            //    IsRealDurationExitsts = s.IsRealDurationExitsts,
+            //    RealDuration = s.RealDuration?.TotalMinutes
+            //});
         }
 
         [HttpGet("{id}")]

@@ -20,7 +20,6 @@ const state = {
    roomIsActive: false,
    roomIsNeedPayment: false,
    roomTutor: {},
-   roomStudent: {},
    // TODO: change it to roomId after u clean all
    studyRoomId: null,
 
@@ -43,11 +42,6 @@ const mutations = {
          tutorImage: props.tutorImage,
          tutorPrice: props.tutorPrice,
       }
-      state.roomStudent = {
-         studentId: props.studentId,
-         studentImage: props.studentImage,
-         studentName: props.studentName,
-      }
       state.roomIsNeedPayment = props.needPayment;
       state.roomConversationId = props.conversationId;
       state.studyRoomId = props.roomId;
@@ -63,7 +57,6 @@ const mutations = {
       state.roomIsActive = false;
       state.roomIsNeedPayment = false;
       state.roomTutor = {};
-      state.roomStudent = {};
       state.studyRoomId = null;
       state.dialogRoomSettings = false;
       state.dialogEndSession = false;
@@ -78,7 +71,6 @@ const getters = {
    getRoomIsTutor: state => state.roomIsTutor,
    getRoomIsActive: state => state.roomIsActive,
    getRoomTutor: state => state.roomTutor,
-   getRoomStudent: state => state.roomStudent,
    getRoomIdSession: state => state.studyRoomId,
    getRoomConversationId: state => state.roomConversationId,
    getRoomIsNeedPayment: state => {
@@ -123,14 +115,6 @@ const actions = {
          dispatch('updateJwtToken',getters.getJwtToken);
       }
    },
-
-
-
-
-
-
-
-
    updateStudyRoomInformation({ getters, dispatch, commit }, roomId) {
       if (getters.getRoomIdSession) {
          return dispatch('studyRoomMiddleWare')
@@ -163,6 +147,22 @@ const actions = {
    updateResetRoom({ commit }) {
       commit(studyRoom_SETTERS.ROOM_ACTIVE, false);
       commit(studyRoom_SETTERS.ROOM_RESET)
+   },
+   updateCreateStudyRoom({getters,commit},{users,roomName}){
+      let usersIds = users.map(user=> user.userId);
+      return studyRoomService.createRoom(roomName,usersIds).then(({data})=>{
+         usersIds.push(getters.accountUser.id)
+         let newStudyRoomParams = {
+            date: new Date().toISOString(),
+            id: data.studyRoomId,
+            name: roomName,
+            conversationId: usersIds.sort((a,b)=>a-b).join('_'),
+         }
+         let myStudyRooms = getters.getStudyRoomItems;
+         myStudyRooms.unshift(newStudyRoomParams);
+         commit('setStudyRoomItems',myStudyRooms)
+         return
+      })
    }
 }
 export default {
