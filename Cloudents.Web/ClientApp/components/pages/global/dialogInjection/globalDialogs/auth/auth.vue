@@ -1,5 +1,5 @@
 <template>
-    <v-dialog :value="true" max-width="410px" height="510" content-class="authDialog" persistent :fullscreen="$vuetify.breakpoint.xsOnly">
+    <v-dialog :value="true" max-width="410px" content-class="authDialog" persistent :fullscreen="$vuetify.breakpoint.xsOnly">
         <component :is="tempComponent || params.component" @goTo="goTo" class="wrapper"></component>
     </v-dialog>
 </template>
@@ -43,6 +43,6 @@ input:-webkit-autofill:active  {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
     .wrapper {
-        height: 510px;
+        height: 510px !important;
     }
 </style>

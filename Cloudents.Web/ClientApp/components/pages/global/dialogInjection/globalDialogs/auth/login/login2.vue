@@ -197,12 +197,12 @@ export default {
 
 .loginForm {
     background: #ffffff;
-    height: 100%;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     @media (max-width: @screen-xs) {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        height: 100% !important;
     }
     .closeIcon {
         position: absolute;
