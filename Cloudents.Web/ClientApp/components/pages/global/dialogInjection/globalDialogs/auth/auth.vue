@@ -3,6 +3,7 @@
         <component
             :is="tempComponent || params.component"
             :params="params"
+            :teacher="teacher"
             @goTo="goTo"
             @updateRegisterType="updateRegisterType"
             class="wrapper"
@@ -39,8 +40,8 @@ export default {
         goTo(name) {
             this.tempComponent = name
         },
-        updateRegisterType(type) {
-            // this.
+        updateRegisterType(val) {
+            this.teacher = val;
         }
     }
 };

@@ -36,6 +36,7 @@
                     :errors="errors"
                     :phone="phoneNumber"
                     :code="localCode"
+                    :teacher="teacher"
                     @goStep="goStep"
                 >
                 </component>
@@ -136,7 +137,11 @@ export default {
         phoneCall
     },
     props: {
-        params: {}
+        params: {},
+        teacher: {
+            type: Boolean,
+            default: false
+        }
     },
     data() {
         return {
@@ -272,7 +277,20 @@ export default {
 
 					commit('setComponent', '')
 					commit('changeLoginStatus', true)
-					dispatch('userStatus');
+					dispatch('userStatus').then(user => {
+                        if(self.teacher) {
+                            self.$router.push({
+                                name: self.routeNames.Profile,
+                                params: {
+                                    id: user.id,
+                                    name: user.name,
+                                },
+                                query: {
+                                    dialog: 'becomeTutor'
+                                }
+                            })
+                        }
+                    })
 				}).catch(error => {
                     self.errors.code = self.$t('loginRegister_invalid_code')
                     self.$appInsights.trackException({exception: new Error(error)});

@@ -22,7 +22,7 @@
                 </v-expansion-panel>
 
                 <v-expansion-panel class="panel panel_teacher">
-                    <v-expansion-panel-header class="pl-0 py-0" @click="$emit('updateRegisterType', 'teacher')" >
+                    <v-expansion-panel-header class="pl-0 py-0" @click="updateTeacherType" >
                         <span class="panelImage flex-grow-0 px-4">
                             <teacherIcon />
                         </span>
@@ -57,9 +57,10 @@ export default {
         studentIcon
     },
     methods: {
-        // becomtTutor() {
-        //     this.$router.push({name: 'profile'})
-        // }
+        updateTeacherType() {
+            this.$emit('updateRegisterType', true)
+            this.$emit('goTo', 'register')
+        }
     }
 }
 </script>
