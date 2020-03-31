@@ -11,6 +11,8 @@ namespace Cloudents.Core.Entities
     {
         public const int StudyRoomNewVersion = 2;
 
+        public static readonly  TimeSpan BillableStudyRoomSession = TimeSpan.FromMinutes(10);
+
         public StudyRoomSession(StudyRoom studyRoom, string sessionId)
         {
             StudyRoom = studyRoom;

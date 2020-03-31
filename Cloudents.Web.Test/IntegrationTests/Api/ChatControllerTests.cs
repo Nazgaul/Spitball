@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 using FluentAssertions;
 using Newtonsoft.Json.Linq;
 using Xunit;
@@ -173,10 +174,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
                 password = "123456789"
             };
 
-            object read = new
-            {
-                otherUserId = 159039
-            };
+         
 
 
             var response = await _client.PostAsync("api/chat", HttpClientExtensions.CreateJsonString(msg));
@@ -201,14 +199,24 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             }
             // _uri.Path = "api/chat/read";
 
-            response = await _client.PostAsync("api/chat/read", HttpClientExtensions.CreateJsonString(read));
+            response = await _client.PostAsync("api/chat/read", 
+                HttpClientExtensions.CreateJsonString(new
+                {
+                    ConversationId = ChatRoom.BuildChatRoomIdentifier(new  []{159039L, 160171L }) 
+                }));
 
-            response.EnsureSuccessStatusCode();
             str = await response.Content.ReadAsStringAsync();
-            if (!string.IsNullOrEmpty(str))
+
+            if (response.IsSuccessStatusCode)
             {
-                str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
+                
+                if (!string.IsNullOrEmpty(str))
+                {
+                    str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
+                }
             }
+
+            response.IsSuccessStatusCode.Should().BeTrue(str);
         }
     }
 }

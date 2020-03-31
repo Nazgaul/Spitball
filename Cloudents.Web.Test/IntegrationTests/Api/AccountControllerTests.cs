@@ -101,46 +101,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             price.Should().Be(55M);
         }
 
-        [Fact]
-        public async Task GetAsync_sales_OKAsync()
-        {
-            await _client.LogInAsync();
-
-            var response = await _client.GetAsync("api/Sales/sales");
-
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var responseBody = await response.Content.ReadAsStringAsync();
-
-            dynamic v = JsonConvert.DeserializeObject(responseBody);
-
-            /*string course = v[0].course;
-            course.Should().NotBeNull();
-
-            string name = v[0].name;
-            name.Should().NotBeNull();
-
-            long id = v[0].id;
-            id.Should().NotBe(0);
-
-            string preview = v[0].preview;
-            preview.Should().NotBeNull();
-
-            string url = v[0].url;
-            url.Should().NotBeNull();*/
-
-            string paymentStatus = v[0].paymentStatus;
-            paymentStatus.Should().NotBeNull();
-
-            string type = v[0].type;
-            type.Should().NotBeNull();
-
-            string date = v[0].date;
-            date.Should().NotBeNull();
-
-            int price = v[0].price;
-            price.Should().BeGreaterOrEqualTo(0);
-        }
+       
 
     }
 }

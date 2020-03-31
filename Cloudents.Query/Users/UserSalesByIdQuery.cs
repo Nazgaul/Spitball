@@ -74,7 +74,7 @@ namespace Cloudents.Query.Users
                     .Fetch(f => f.StudyRoom)
                     .ThenFetch(f => f.Users)
                     .Where(w => w.StudyRoom.Tutor.Id == query.Id && w.Ended != null)
-                    .Where(w => w.Duration!.Value > TimeSpan.FromMinutes(10))
+                    .Where(w => w.Duration!.Value > StudyRoomSession.BillableStudyRoomSession)
                     .Where(w => w.StudyRoomVersion.GetValueOrDefault(0) == 0)
                     .Select(s => new SessionSaleDto()
                     {
@@ -100,7 +100,7 @@ namespace Cloudents.Query.Users
                     .Fetch(f => f.StudyRoomSession)
                     .ThenFetch(f => f.StudyRoom)
                     .Fetch(f => f.User)
-                    .Where(w => w.StudyRoomSession.StudyRoom.Tutor.Id == query.Id && w.Duration > TimeSpan.FromMinutes(10))
+                    .Where(w => w.StudyRoomSession.StudyRoom.Tutor.Id == query.Id && w.Duration > StudyRoomSession.BillableStudyRoomSession)
                     .Select(s => new SessionSaleDto()
                     {
                         SessionId = s.StudyRoomSession.Id,
