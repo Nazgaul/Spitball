@@ -59,7 +59,7 @@ const getters = {
     accountUser: (state) => {
         return state.user;
     },
-    getPendingPayment: state => state.user.pendingSessionsPayments,
+    getPendingPayment: state => state.user?.pendingSessionsPayments,
     getUserBalance: state =>  state.user?.balance.toFixed(0) || 0
 };
 

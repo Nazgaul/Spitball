@@ -74,7 +74,7 @@ namespace Cloudents.Query.Users
                     .Fetch(f => f.StudyRoom)
                     .ThenFetch(f => f.Users)
                     .Where(w => w.StudyRoom.Tutor.Id == query.Id && w.Ended != null)
-                    .Where(w => w.Duration!.Value > TimeSpan.FromMinutes(10))
+                    .Where(w => w.Duration!.Value > StudyRoomSession.BillableStudyRoomSession)
                     .Where(w => w.StudyRoomVersion.GetValueOrDefault(0) == 0)
                     .Select(s => new SessionSaleDto()
                     {
@@ -100,22 +100,19 @@ namespace Cloudents.Query.Users
                     .Fetch(f => f.StudyRoomSession)
                     .ThenFetch(f => f.StudyRoom)
                     .Fetch(f => f.User)
-                    .Where(w => w.StudyRoomSession.StudyRoom.Tutor.Id == 638 && w.Duration > TimeSpan.FromMinutes(10))
+                    .Where(w => w.StudyRoomSession.StudyRoom.Tutor.Id == query.Id && w.Duration > StudyRoomSession.BillableStudyRoomSession)
                     .Select(s => new SessionSaleDto()
                     {
                         SessionId = s.StudyRoomSession.Id,
                         PaymentStatus = s.Receipt != null ? PaymentStatus.Approved :
                             s.TutorApproveTime != null ? PaymentStatus.PendingSystem :
                             PaymentStatus.PendingTutor,
-
-                        //PaymentStatus = string.IsNullOrEmpty(s.Receipt) && s.RealDuration == null ? PaymentStatus.PendingApproval :
-                        //    string.IsNullOrEmpty(s.Receipt) ? PaymentStatus.Pending
-                        //    : PaymentStatus.Paid,
                         Date = s.StudyRoomSession.Created,
                         Price = s.TotalPrice,
                         StudentName = s.User.Name,
                         Duration = s.TutorApproveTime ?? s.Duration!.Value,
                         StudentImage = s.User.ImageName,
+                        StudyRoomName = s.StudyRoomSession.StudyRoom.Name,
                         StudentId = s.User.Id
                     }).ToFuture<SaleDto>();
 

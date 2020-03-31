@@ -17,7 +17,7 @@ namespace Cloudents.Persistence.Repositories
 
         }
 
-        public async Task<ReadTutor> GetReadTutorAsync(long userId, CancellationToken token)
+        public async Task<ReadTutor?> GetReadTutorAsync(long userId, CancellationToken token)
         {
             var tutorFutureValue = Session.Query<Tutor>()
                 .Fetch(f => f.User)
@@ -60,7 +60,7 @@ namespace Cloudents.Persistence.Repositories
 
             var lessonsFutureValue = Session.Query<StudyRoomSession>()
 .Fetch(f => f.StudyRoom)
-.Where(w => w.StudyRoom.Tutor.Id == userId && w.Duration > TimeSpan.FromMinutes(10))
+.Where(w => w.StudyRoom.Tutor.Id == userId && w.Duration > StudyRoomSession.BillableStudyRoomSession)
 .GroupBy(g => 1)
 .Select(s => s.Count())
 .ToFutureValue();

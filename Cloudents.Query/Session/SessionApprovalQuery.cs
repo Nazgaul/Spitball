@@ -64,14 +64,15 @@ namespace Cloudents.Query.Session
                    return null;
                }
                var couponResult = couponFuture.Value;
+               if (couponResult != null)
+               {
+                   result.CouponType = couponResult.CouponType;
+                   result.CouponCode = couponResult.Code;
+                   result.CouponValue = couponResult.Value;
+                   result.CouponTutor = query.TutorId;
+               }
 
-               result.CouponType = couponResult.CouponType;
-               result.CouponCode = couponResult.Code;
-               result.CouponValue = couponResult.Value;
-               result.CouponTutor = query.TutorId;
                return result;
-               //This query will not work in case there will be more then one student in a room.
-
             }
         }
     }

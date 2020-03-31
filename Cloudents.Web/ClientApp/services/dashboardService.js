@@ -51,6 +51,7 @@ const Item = {
       this.image = objInit.tutorImage || objInit.studentImage;
       this.totalMinutes = Math.floor(objInit.totalMinutes)
       this.duration = buildSessionDuration(objInit.totalMinutes)
+      this.roomName = objInit.studyRoomName || '';
    },
    StudyRoom:function(objInit){
      // this.online = objInit.online;
@@ -157,11 +158,15 @@ function createBlogs({data}) {
 function getSalesItems(){
    return connectivityModule.http.get('/Sales').then(createSalesItems).catch(ex => ex);
 }
-function getSalesSessions(id){
-   return connectivityModule.http.get(`/Sales/session/${id}`).then(createSalesSession).catch(ex => ex);
+function getSalesSessions(params){
+   let sessionId = params.sessionId;
+   let userId = params.userId;
+   return connectivityModule.http.get(`/Sales/session/${sessionId}`,{params:{userId}}).then(createSalesSession).catch(ex => ex);
 }
 function updateSessionDuration(session){
-   return connectivityModule.http.post('/Sales/duration', session)
+   let sessionId = session.SessionId;
+   delete session.SessionId;
+   return connectivityModule.http.post(`/Sales/session/${sessionId}`, session)
 }
 function getContentItems(){
    return connectivityModule.http.get('/Account/content').then(createContentItems).catch(ex => ex);

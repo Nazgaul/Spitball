@@ -31,6 +31,7 @@ namespace Cloudents.Core.DTOs
     }
     public class SessionSaleDto : SaleDto
     {
+        public string StudyRoomName { get; set; }
         public Guid SessionId { get; set; }
         public string StudentName { get; set; }
         public TimeSpan Duration { get; set; }

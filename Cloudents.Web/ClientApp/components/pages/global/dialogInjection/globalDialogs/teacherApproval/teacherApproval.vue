@@ -127,8 +127,9 @@ export default {
             }
 
             let newSessionDuration = {
+                userId: this.session.id,
                 sessionId: this.session.sessionId,
-                realDuration: this.newSessionDuration
+                DurationInMinutes: this.newSessionDuration
             }
             let self = this
             this.$store.dispatch('updateSessionDuration', newSessionDuration).then(() => {
@@ -177,8 +178,12 @@ export default {
     },
     mounted() {
         let self = this;
-        let item = this.$route.params.item
-        this.$store.dispatch('updateSalesSessions', item?.sessionId).then(session => {
+        let item = this.$route.params.item;
+        let params = {
+            sessionId: item.sessionId,
+            userId: item.id,
+        }
+        this.$store.dispatch('updateSalesSessions', params).then(session => {
             self.session = {...session, ...item};
             self.updateTotalPrice(item.totalMinutes)
             self.newSessionDuration = self.session.totalMinutes

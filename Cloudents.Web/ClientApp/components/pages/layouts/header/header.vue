@@ -36,7 +36,7 @@
                     </v-tooltip>
                 </template>
                 <template v-if="!$vuetify.breakpoint.smAndDown && !loggedIn">
-                    <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$router.push({name :'login'})" v-language:inner="'tutorListLanding_topnav_btn_login'"/>
+                    <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$store.commit('setToaster', 'login')" v-language:inner="'tutorListLanding_topnav_btn_login'"/>
                     <button class="gH_i_r_btns gH_i_r_btn_up mr-4" @click="$router.push({name :'register'})" v-language:inner="'tutorListLanding_topnav_btn_signup'"/>
                     <a class="gH_i_lang" @click="changeLanguage()" v-if="showChangeLanguage" sel="language" v-html="currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''"/>
                 </template>
@@ -52,7 +52,7 @@
                             </div>
                             <template v-if="loggedIn">
                                 <div v-if="!$vuetify.breakpoint.mdAndDown" class="gh_i_r_userInfo text-truncate" @click.prevent="drawer=!drawer">
-                                    <span class="ur_greets" v-text="$t('header_greets', [userName])"/>
+                                    <span class="ur_greets">{{$t('header_greets', [userName])}}</span>
                                     <div class="ur_balance">
                                         <span>{{$t('header_balance', {'0': getUserBalance})}}</span>
                                         <arrowDownIcon v-if="!isMobile" class="ur_balance_drawer ml-2"/>
