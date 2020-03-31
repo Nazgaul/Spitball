@@ -142,13 +142,13 @@
     <value>You didn't select any student</value>
   </data>
   <data name="create_room_label" xml:space="preserve">
-    <value>Room Name</value>
+    <value>Study room's name</value>
   </data>
   <data name="create_room_max_error" xml:space="preserve">
     <value>the maximum room students count is 4</value>
   </data>
   <data name="create_room_placeholder" xml:space="preserve">
-    <value>enter a room name</value>
+    <value>Enter a name</value>
   </data>
   <data name="create_room_title" xml:space="preserve">
     <value>Choose a student</value>
