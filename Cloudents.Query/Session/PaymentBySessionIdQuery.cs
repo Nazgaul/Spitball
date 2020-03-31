@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Session
 {
+
+    /// <summary>
+    /// This is old version of study room session
+    /// </summary>
     public class PaymentBySessionIdQuery : IQuery<PaymentDetailDto>
     {
         public PaymentBySessionIdQuery(Guid sessionId)
