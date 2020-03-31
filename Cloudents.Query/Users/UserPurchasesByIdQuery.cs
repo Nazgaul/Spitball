@@ -60,34 +60,52 @@ namespace Cloudents.Query.Users
                     .Where(w => w.StudyRoom.Users.Select(s => s.User.Id).Any(a => a == query.Id)
                                 && query.Id != w.StudyRoom.Tutor.Id)
                     .Where(w => w.Ended != null)
+                    .Where(w => w.StudyRoomVersion.GetValueOrDefault(0) == 0)
                     .Select(s => new PurchasedSessionDto()
                     {
                         Date = s.Created,
                         Price = s.Price.GetValueOrDefault(),
-                        Duration = s.Duration,
+                        Duration = s.Duration.GetValueOrDefault(),
                         TutorName = s.StudyRoom.Tutor.User.Name,
                         TutorId = s.StudyRoom.Tutor.Id,
                         TutorImage = _urlBuilder.BuildUserImageEndpoint(s.StudyRoom.Tutor.Id, s.StudyRoom.Tutor.User.ImageName, s.StudyRoom.Tutor.User.Name, null)
                     }).ToFuture<UserPurchaseDto>();
 
-                
+
+                var newSessionFuture = _session.Query<StudyRoomSessionUser>()
+                    .Fetch(f=>f.StudyRoomSession)
+                    .ThenBy(f=>f.StudyRoomSession)
+                    .Where(w=>w.User.Id == query.Id && w.StudyRoomSession.Ended != null)
+                    .Select(s => new PurchasedSessionDto()
+                    {
+                        Date = s.StudyRoomSession.Created,
+                      //  Price = s.Price.GetValueOrDefault(),
+                        Duration = s.Duration.GetValueOrDefault(),
+                        TutorName = s.StudyRoomSession.StudyRoom.Tutor.User.Name,
+                        TutorId = s.StudyRoomSession.StudyRoom.Tutor.Id,
+                        TutorImage = _urlBuilder.BuildUserImageEndpoint(s.StudyRoomSession.StudyRoom.Tutor.Id, s.StudyRoomSession.StudyRoom.Tutor.User.ImageName, s.StudyRoomSession.StudyRoom.Tutor.User.Name, null)
+                    }).ToFuture<UserPurchaseDto>();
+
+
+
+
 
                 var buyPointsFuture = _session.Query<BuyPointsTransaction>()
                     .Fetch(s => s.User)
                     .Where(w => w.User.Id == query.Id)
                     .Select(s => new PurchasedBuyPointsDto()
-                    { 
+                    {
                         Id = s.Id,
                         Price = s.Price,
-                        Country =  s.User.Country,
+                        Country = s.User.Country,
                         Date = s.Created
                     }).ToFuture<UserPurchaseDto>();
 
                 var documentResult = await documentFuture.GetEnumerableAsync(token);
                 var sessionResult = await sessionFuture.GetEnumerableAsync(token);
                 var buyPointsResult = await buyPointsFuture.GetEnumerableAsync(token);
-
-                return documentResult.Union(sessionResult).Union(buyPointsResult).OrderByDescending(o => o.Date);
+                var newSession = newSessionFuture.GetEnumerable();
+                return documentResult.Union(sessionResult).Union(newSession).Union(buyPointsResult).OrderByDescending(o => o.Date);
             }
         }
     }
