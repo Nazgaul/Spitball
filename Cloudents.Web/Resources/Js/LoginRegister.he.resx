@@ -244,7 +244,7 @@
     <value>הורים</value>
   </data>
   <data name="registerType_mainTitle" xml:space="preserve">
-    <value>אנחנו רוצים להכיר אותך טוב יותר</value>
+    <value>הרשמה לספיטבול</value>
   </data>
   <data name="resetpass_btn" xml:space="preserve">
     <value>המשך</value>
@@ -346,10 +346,10 @@
     <value>הכנסת קוד אימות</value>
   </data>
   <data name="student" xml:space="preserve">
-    <value>תלמידים</value>
+    <value>הרשמה כתלמיד</value>
   </data>
   <data name="teacher" xml:space="preserve">
-    <value>מורים</value>
+    <value>הרשמה כמורה פרטי</value>
   </data>
   <data name="verifyPhone_main_title" xml:space="preserve">
     <value>הכנסת קוד אימות</value>
