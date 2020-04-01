@@ -288,10 +288,11 @@ export default {
 					commit('setComponent', '')
                     commit('changeLoginStatus', true)
 
-                    // this is when user statr register from tutorRequest
+                    // this is when user start register from tutorRequest
                     if(self.isFromTutorReuqest) {
                         self.$store.dispatch('updateRequestDialog', true);
                         self.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
+                        dispatch('userStatus')
                         return
                     }
 
