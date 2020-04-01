@@ -61,6 +61,7 @@ const mutations = {
         state.selectedCourse = '';
         state.moreTutors = false;
         state.currentTutorPhoneNumber = null;
+        state.registerStepFromTutorRequest = false
         state.guestName = '';
         state.guestMail = '';
         state.guestPhone = '';

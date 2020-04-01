@@ -33,12 +33,18 @@ export default {
             registrationService.googleRegistration()
                 .then(({data}) => {
                     let { commit, dispatch } = self.$store
-                    
                     self.googleLoading = false;
 
                     if (!data.isSignedIn) {
                         analyticsService.sb_unitedEvent('Registration', 'Start Google')
                         self.component = 'setPhone2'
+                        return
+                    }
+
+                    if(self.isFromTutorReuqest) {
+                        self.$store.dispatch('updateRequestDialog', true);
+                        self.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
+                        self.$store.dispatch('toggleProfileFollower', true)
                         return
                     }
                     
@@ -49,10 +55,9 @@ export default {
                         this.$router.push({name: this.routeNames.LoginRedirect})
                     }
                 }).catch(error => {
-                    let { response: { data } } = error
-                    // if(data.Google) self.errors.gmail = self.$t('loginRegister_error_gmail')
-
-                    self.errors.gmail = data["Google"] ? data["Google"][0] : ''; // TODO:
+                    if(error) {
+                        self.$emit('showToasterError');
+                    }
                     self.googleLoading = false;
                     self.$appInsights.trackException({exception: new Error(error)})
                 })
