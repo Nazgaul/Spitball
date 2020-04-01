@@ -85,7 +85,6 @@ export default {
         },
     },
     mounted() {
-        let tutorData = this.getCurrTutor
         let serverObj = {
             captcha: null,
             text: this.getCourseDescription,
@@ -93,7 +92,7 @@ export default {
             email: null,
             phone: null,
             course: this.courseName,
-            tutorId: tutorData.id,
+            tutorId: this.tutorId,
             moreTutors: this.getMoreTutors
         } 
         this.sendTutorRequest(serverObj)

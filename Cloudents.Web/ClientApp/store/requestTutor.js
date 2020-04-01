@@ -93,9 +93,6 @@ const actions = {
     },
     updateRequestDialog({commit}, val){
         commit('setRequestDialog', val);
-        // if(!val){
-        //     dispatch('updateCurrTutor', null);
-        // }
     },
     setTutorRequestAnalyticsOpenedFrom: ({commit}, val) => {
         commit('setTutorRequestAnalyticsOpenedFrom', val);

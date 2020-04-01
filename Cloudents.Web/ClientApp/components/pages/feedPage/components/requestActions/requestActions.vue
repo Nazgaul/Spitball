@@ -34,7 +34,7 @@ export default {
   computed: {
     ...mapGetters(["accountUser",'getUserLoggedInStatus']),
     userImageUrl() {
-      if(this.getUserLoggedInStatus && this.accountUser.image.length > 1) {
+      if(this.getUserLoggedInStatus && this.accountUser?.image && this.accountUser.image.length > 1) {
         return `${this.accountUser.image}`;
       }
       return "";
