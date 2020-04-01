@@ -31,7 +31,7 @@ export default {
         })
       }else{
         // this.$openDialog('login')
-        this.$store.commit('setToaster', 'register')
+        this.$store.commit('setComponent', 'register')
       }
     }
   },
