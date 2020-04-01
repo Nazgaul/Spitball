@@ -243,6 +243,9 @@
   <data name="parent" xml:space="preserve">
     <value>הורים</value>
   </data>
+  <data name="registerType_mainTitle" xml:space="preserve">
+    <value>אנחנו רוצים להכיר אותך טוב יותר</value>
+  </data>
   <data name="resetpass_btn" xml:space="preserve">
     <value>המשך</value>
   </data>
