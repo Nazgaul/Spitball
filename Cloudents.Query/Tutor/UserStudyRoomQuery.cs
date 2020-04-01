@@ -40,10 +40,6 @@ namespace Cloudents.Query.Tutor
                     .Where(w => w.User.Id == query.UserId || studyRoomAlias.Tutor.Id == query.UserId)
                     .Select(s => s.Room.Id);
 
-
-
-
-
                 return await _session.QueryOver(() => studyRoomAlias)
                     .WithSubquery.WhereProperty(x => x.Id).In(detachedQuery)
                     .SelectList(sl =>
@@ -51,10 +47,16 @@ namespace Cloudents.Query.Tutor
                                     .Select(s=>s!.Name).WithAlias(() => resultAlias!.Name)
                                 .Select(s => s!.DateTime.CreationTime).WithAlias(() => resultAlias!.DateTime)
                                 .Select(s => s!.Identifier).WithAlias(() => resultAlias!.ConversationId)
-                                .Select(Projections.SqlFunction("coalesce", NHibernateUtil.DateTime,
-                                                    Projections.Property(() => studyRoomAlias!.DateTime.UpdateTime),
-                                                    Projections.Property(() => studyRoomAlias!.DateTime.CreationTime)))
-                                    .WithAlias(() => resultAlias!.LastSession)
+                                    .SelectSubQuery(QueryOver.Of<StudyRoomSession>()
+                                        .Where(w=>w.StudyRoom.Id == studyRoomAlias.Id)
+                                        .OrderBy(x=>x.Created).Desc
+                                        .Select(s=>s.Created)
+                                        .Take(1)
+                                    ).WithAlias(() => resultAlias!.LastSession)
+                                //.Select(Projections.SqlFunction("coalesce", NHibernateUtil.DateTime,
+                                //                    Projections.Property(() => studyRoomAlias!.DateTime.UpdateTime),
+                                //                    Projections.Property(() => studyRoomAlias!.DateTime.CreationTime)))
+                                //    .WithAlias(() => resultAlias!.LastSession)
                     )
                     .OrderBy(Projections.SqlFunction("COALESCE", NHibernateUtil.Object,
                         Projections.Property(() => studyRoomAlias!.DateTime.UpdateTime),
