@@ -40,6 +40,7 @@ namespace Cloudents.Core.DTOs.Admin
 
     public class PaymentDetailDto
     {
+        public TimeSpan? _duration;
         [EntityBind(nameof(StudyRoomSession.Id))]
         public Guid StudyRoomSessionId { get; set; }
         [EntityBind(nameof(Tutor.Price))]
@@ -62,9 +63,9 @@ namespace Cloudents.Core.DTOs.Admin
         public string UserName { get; set; }
         [EntityBind(nameof(StudyRoomSession.Created))]
         public DateTime Created { get; set; }
-        public long DurationInTicks { get; set; }
-        public bool ShouldSerializeDurationInTicks() => false;
-        public double Duration => TimeSpan.FromTicks(DurationInTicks).TotalMinutes;
+        //public TimeSpan Duration { get; set; }
+        //public bool ShouldSerializeDurationInTicks() => false;
+        public double Duration => _duration.GetValueOrDefault().TotalMinutes;
 
         [EntityBind(nameof(Coupon.Code))]
         public string CouponCode { get; set; }

@@ -51,11 +51,19 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet("{id}")]
-        public async Task<PaymentDetailDto> GetPayment(Guid id, CancellationToken token)
+        public async Task<PaymentDetailDto> GetPayment(Guid id, [FromQuery] long userId, [FromQuery] long tutorId, CancellationToken token)
         {
+            var queryV2 = new PaymentBySessionIdV2Query(id, userId, tutorId);
+            var result = await _queryBus.QueryAsync(queryV2, token);
 
-            var query = new PaymentBySessionIdQuery(id);
-            return await _queryBus.QueryAsync(query, token);
+            if (result == null)
+            {
+
+                var query = new PaymentBySessionIdQuery(id);
+                return await _queryBus.QueryAsync(query, token);
+            }
+
+            return result;
         }
 
         [HttpPost]
