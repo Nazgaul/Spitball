@@ -143,9 +143,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var client = Container.Resolve<PayPalClient>();
+           // var client = Container.Resolve<ISmsProvider>();
+           // await client.SendSmsAsync();
             //await client.AuthorizationOrderAsync("86B81042SW1355019",default);
-            await client.CaptureAuthorizedOrderAsync("09R90651R50418022", 50,default);
             //ResourcesMaintenance.DeleteStuffFromJs();
             //await Convert();
             //var result = await s.GetPaymentAsync("4J34525079381873W", default);

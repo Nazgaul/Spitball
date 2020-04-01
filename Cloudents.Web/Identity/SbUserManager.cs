@@ -16,7 +16,7 @@ namespace Cloudents.Web.Identity
 {
     public sealed class SbUserManager : UserManager<User>
     {
-        private readonly ISmsProvider _smsProvider;
+        private readonly IPhoneValidator _smsProvider;
         private readonly IQueryBus _queryBus;
 
 
@@ -24,7 +24,7 @@ namespace Cloudents.Web.Identity
             IPasswordHasher<User> passwordHasher, IEnumerable<IUserValidator<User>> userValidators,
             IEnumerable<IPasswordValidator<User>> passwordValidators, ILookupNormalizer keyNormalizer,
             IdentityErrorDescriber errors, IServiceProvider services, ILogger<UserManager<User>> logger,
-            ISmsProvider smsProvider, IQueryBus queryBus) :
+            IPhoneValidator smsProvider, IQueryBus queryBus) :
             base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators,
                 keyNormalizer, errors, services, logger)
         {

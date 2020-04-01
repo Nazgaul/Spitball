@@ -6,7 +6,7 @@ using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface ISmsProvider
+    public interface IPhoneValidator
     {
 
         Task<(string? phoneNumber, string? country)> ValidateNumberAsync(string phoneNumber, string countryCode, CancellationToken token);
@@ -26,6 +26,12 @@ namespace Cloudents.Core.Interfaces
     public interface IMailProvider
     {
         Task<bool> ValidateEmailAsync(string email, CancellationToken token);
+    }
+
+
+    public interface ISmsProvider
+    {
+        Task SendSmsAsync(string message, string phoneNumber, CancellationToken token);
     }
 
 
