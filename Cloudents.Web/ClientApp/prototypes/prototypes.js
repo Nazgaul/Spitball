@@ -48,7 +48,7 @@ Vue.prototype.$Ph = function (key, placeholders) {
     return LanguageService.changePlaceHolders(rawKey, argumentsToSend);
 };
 Vue.prototype.$chatMessage = function (message) {
-    let userName = this.$store.getters.accountUser.id == message.userId ? '' : `<b>${message.name}:</b> `
+    let userName = this.$store.getters.accountUser.id == message.userId ? '' : `<span style="font-weight: 600;">${message.name}:</span><br>`
     if(message.type === 'text'){
         //text and convert links to url's
         let linkTest = /(ftp:\/\/|www\.|https?:\/\/){1}[a-zA-Z0-9u00a1-\\uffff0-]{2,}\.[a-zA-Z0-9u00a1-\\uffff0-]{2,}(\S*)/g;
