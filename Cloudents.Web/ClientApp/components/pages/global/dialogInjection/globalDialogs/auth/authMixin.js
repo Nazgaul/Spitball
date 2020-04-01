@@ -41,8 +41,7 @@ export default {
                         return
                     }
                     analyticsService.sb_unitedEvent('Login', 'Start Google')
-
-                    commit('setToaster', '')
+                    commit('setComponent', '')
                     dispatch('updateLoginStatus', true)
                     if(self.$route.path === '/') {
                         this.$router.push({name: this.routeNames.LoginRedirect})

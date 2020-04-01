@@ -1,7 +1,7 @@
 <template>
     <div class="tutorRequest-container">
         <tutorRequestHeader v-if="!showHeader"></tutorRequestHeader>
-        <component :is="currentStep"></component> 
+        <component :is="currentStep"></component>
     </div>
 </template>
 
@@ -13,7 +13,7 @@ import analyticsService from '../../services/analytics.service';
 // cmps:
 import tutorRequestHeader from './components/tutorRequestHeader.vue'
 import tutorRequestCourseInfo from './components/tutorRequestCourseInfo.vue'
-import tutorRequestUserInfo from './components/tutorRequestUserInfo.vue'
+// import tutorRequestUserInfo from './components/tutorRequestUserInfo.vue'
 import tutorRequestSuccess from './components/tutorRequestSuccess.vue'
 
 
@@ -21,7 +21,7 @@ export default {
     components:{
         tutorRequestHeader,
         tutorRequestCourseInfo,
-        tutorRequestUserInfo,
+        // tutorRequestUserInfo,
         tutorRequestSuccess
     },
     computed:{
