@@ -136,9 +136,12 @@ export default {
                     commit('setComponent', '')
                     dispatch('updateLoginStatus', true)
                     
+                   dispatch('updateLoginStatus', true)
                     if(self.$route.path === '/') {
                         this.$router.push({name: this.routeNames.LoginRedirect})
+                        return
                     }
+                    dispatch('userStatus')
                 }).catch(error => {      
                     let { response: { data } } = error
 
@@ -199,12 +202,12 @@ export default {
 
 .loginForm {
     background: #ffffff;
-    height: 100%;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     @media (max-width: @screen-xs) {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        height: 100% !important;
     }
     .closeIcon {
         position: absolute;

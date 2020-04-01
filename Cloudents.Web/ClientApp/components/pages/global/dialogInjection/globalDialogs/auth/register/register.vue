@@ -352,7 +352,7 @@ export default {
     background: #fff;
     position: relative;
     @media (max-width: @screen-xs) {
-        height: 100%;
+        height: 100% !important;
     }
     .closeIcon {
         position: absolute;

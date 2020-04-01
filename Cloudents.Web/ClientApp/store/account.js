@@ -146,12 +146,8 @@ const actions = {
     updateUserStats(context, lastDays) {
         return accountService.getAccountStats(lastDays)
     },
-    updateLoginStatus({commit, dispatch},val){
+    updateLoginStatus({commit},val){
         commit("changeLoginStatus", val);
-        
-        if(val) {
-            dispatch('userStatus')
-        }
     }
 };
 
