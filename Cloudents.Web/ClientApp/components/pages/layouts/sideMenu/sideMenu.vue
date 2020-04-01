@@ -90,7 +90,7 @@ export default {
       if (this.accountUser == null) {
         // TODO: check if we needed
         // this.$openDialog('login')
-        this.$store.commit('setToaster', 'register')
+        this.$store.commit('setComponent', 'register')
         return
       }
       if(name === "myQuestions"){

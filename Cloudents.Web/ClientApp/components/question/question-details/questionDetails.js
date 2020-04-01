@@ -124,7 +124,7 @@ export default {
             else {
                 this.dialogType = '';
                 // this.$openDialog('login')
-                this.$store.commit('setToaster', 'register')
+                this.$store.commit('setComponent', 'register')
             }
         },
         goToAnswer(hash) {

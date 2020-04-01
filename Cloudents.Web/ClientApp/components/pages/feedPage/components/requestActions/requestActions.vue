@@ -34,7 +34,7 @@ export default {
   computed: {
     ...mapGetters(["accountUser",'getUserLoggedInStatus']),
     userImageUrl() {
-      if(this.getUserLoggedInStatus && this.accountUser.image.length > 1) {
+      if(this.getUserLoggedInStatus && this.accountUser?.image && this.accountUser.image.length > 1) {
         return `${this.accountUser.image}`;
       }
       return "";
@@ -68,7 +68,7 @@ export default {
     openAskQuestion() {
       if (this.accountUser == null) {
         // this.$openDialog('login');
-        this.$store.commit('setToaster', 'register')
+        this.$store.commit('setComponent', 'register')
       } else {
         this.updateNewQuestionDialogState(true);
       }

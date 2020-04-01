@@ -56,6 +56,9 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active  {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
+    .authDialog {
+        background: #fff;
+    }
     .wrapper {
         height: 510px !important;
     }
