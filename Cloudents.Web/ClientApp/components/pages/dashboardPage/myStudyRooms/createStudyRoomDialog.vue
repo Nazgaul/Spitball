@@ -117,7 +117,7 @@ export default {
    background: white;
    position: relative;
    padding: 10px;
-   height: 500px;
+   height: 520px;
    display: flex;
    flex-direction: column;
    align-items: center;
