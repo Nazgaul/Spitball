@@ -107,6 +107,10 @@ namespace Cloudents.Admin2.Api
         [HttpDelete]
         public async Task<IActionResult> DeclinePay(Guid studyRoomSessionId, long userId, CancellationToken token)
         {
+            if (studyRoomSessionId == Guid.Empty)
+            {
+                return BadRequest();
+            }
             var command = new PaymentDeclineCommand(studyRoomSessionId, userId);
             await _commandBus.DispatchAsync(command, token);
 
