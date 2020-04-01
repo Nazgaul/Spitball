@@ -6,8 +6,9 @@ const state = {
    isAudioActive: true,
    isVideoAvailable: false,
    isAudioAvailable: false,
-   isFullScreenAvailable:false,
-   isShareScreen:false,
+   isFullScreenAvailable: false,
+   isShareScreen: false,
+   videoTracks: [],
 }
 const mutations = {
    [twilio_SETTERS.JWT_TOKEN]: (state,token) => state.jwtToken = token,
@@ -20,6 +21,28 @@ const mutations = {
    [twilio_SETTERS.AUDIO_TOGGLE]: (state,val) => state.isAudioActive = val,
    [twilio_SETTERS.FULL_SCREEN_AVAILABLE]: (state,val) => state.isFullScreenAvailable = val,
    [twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE]: (state,val) => state.isShareScreen = val,
+   [twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK]: (state,videoTrack) => {
+
+      let remoteTrackId = `remoteTrack_${videoTrack.sid || videoTrack.trackSid}`
+      videoTrack.sb_video_id = remoteTrackId;
+      let idx;
+      let isTrackInList = state.videoTracks.some((t,i)=>{idx = i;return t.sb_video_id == remoteTrackId})
+      if(isTrackInList){
+         state.videoTracks.splice(idx,1);
+      }else{
+         if(videoTrack.attach){
+            state.videoTracks.push(videoTrack)
+         }
+      }
+   },
+   [twilio_SETTERS.DELETE_REMOTE_VIDEO_TRACK]: (state,track) => {
+      if(!track.sb_video_id) return;
+      let idx;
+      let isInList = state.videoTracks.some((t,i)=>{idx = i;return t.sb_video_id == track.sb_video_id})
+      if(isInList){
+         state.videoTracks.splice(idx,1)
+      }
+   },
 }
 
 const getters = {
@@ -28,6 +51,7 @@ const getters = {
    getIsAudioActive: (state) => state.isAudioAvailable && state.isAudioActive,
    getIsFullScreenAvailable: (state) => state.isFullScreenAvailable,
    getIsShareScreen: (state) => state.isShareScreen,
+   getVideoTrackList: (state) => state.videoTracks,
 }
 const actions = {
    updateJwtToken({commit,getters},token){

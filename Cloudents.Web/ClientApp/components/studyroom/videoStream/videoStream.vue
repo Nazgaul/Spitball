@@ -6,6 +6,7 @@
                 </v-flex>
                 <v-flex v-show="visible.remote_player">
                     <div class="remote_video_container">
+                        <remoteVideoTrack v-for="(track, index) in $store.getters.getVideoTrackList" :key="index" :track="track"/>
                         <div id="remoteTrack"></div>
 
                         <div class="local-video-holder" :class="{'extended-video-window': extandLocalVideoScreen}">

@@ -1,4 +1,12 @@
 import { mapGetters } from 'vuex';
+import remoteVideoTrack from './components/remoteVideoTrack.vue';
+
+
+
+
+
+
+
 import timerIcon from '../images/timer.svg';
 import stopIcon from '../images/stop-icon.svg';
 import fullScreenIcon from '../images/fullscreen.svg';
@@ -12,6 +20,7 @@ import castIcon from "../images/cast.svg";
 export default {
     name: "videoStream",
     components: { 
+        remoteVideoTrack,
         videoCameraImageIgnore2,
         timerIcon,
         stopIcon, 
