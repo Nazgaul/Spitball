@@ -70,7 +70,8 @@ namespace Cloudents.Query.Admin
                         Created = s.StudyRoomSession.Created,
                         CantPay = s.StudyRoomSession.StudyRoom.Tutor.SellerKey == null,
                         _duration = s.TutorApproveTime ?? s.Duration,
-                        TutorName = s.StudyRoomSession.StudyRoom.Tutor.User.Name
+                        TutorName = s.StudyRoomSession.StudyRoom.Tutor.User.Name,
+                        StudyRoomSessionId = s.StudyRoomSession.Id
 
                     }).ToFutureValue();
 
