@@ -15,6 +15,7 @@ namespace Cloudents.Query.Admin
         {
             SessionId = sessionId;
             TutorId = tutorId;
+            UserId = userId;
         }
 
         private Guid SessionId { get; }
@@ -35,17 +36,18 @@ namespace Cloudents.Query.Admin
             {
 
 
+
                 var couponFuture = _stateless.Query<UserCoupon>()
                     .Fetch(f => f.Coupon)
                     .Where(w => w.User.Id == query.UserId && w.Tutor.Id == query.TutorId)
                     .Where(w => w.UsedAmount < w.Coupon.AmountOfUsePerUser)
-                    .Select(s => new
+                    .Select(s => new CouponClass
                     {
-                        s.Coupon.Code,
-                        s.Coupon.CouponType,
-                        s.Coupon.Value,
-                        TutorId = s.Coupon.Tutor!.Id
-                        //s.Coupon.Id
+                        Value = s.Coupon.Value,
+                        TutorId = s.Coupon.Tutor.Id,
+                        CouponType = s.Coupon.CouponType,
+                        Code = s.Coupon.Code
+                        
                     })
                     .Take(1)
                     .ToFutureValue();
@@ -158,6 +160,21 @@ namespace Cloudents.Query.Admin
 
                 //           return result;
             }
+
+            private class CouponClass
+            {
+                public string Code { get; set; }
+                public CouponType CouponType { get; set; }
+                public decimal Value { get; set; }
+                public long? TutorId { get; set; }
+
+              
+
+
+            }
         }
+
     }
+
+    
 }

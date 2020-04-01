@@ -394,19 +394,22 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var resultQuery = await _fixture.StatelessSession.Query<StudyRoomSessionUser>()
                 .Fetch(f => f.StudyRoomSession)
                 .ThenFetch(f => f.StudyRoom)
+                .OrderByDescending(o => o.StudyRoomSession.Created)
                 .Select(s => new
                 {
                     SessionId = s.StudyRoomSession.Id,
                     UserId = s.User.Id,
                     TutorId = s.StudyRoomSession.StudyRoom.Tutor.Id
                 })
+                
                 .Take(1).SingleOrDefaultAsync();
             if (resultQuery == null)
             {
                 return;
             }
             var query = new PaymentBySessionIdV2Query(resultQuery.SessionId, resultQuery.UserId, resultQuery.TutorId);
-            await _fixture.QueryBus.QueryAsync(query, default);
+            var result = await _fixture.QueryBus.QueryAsync(query, default);
+            result.Should().NotBeNull();
         }
 
 

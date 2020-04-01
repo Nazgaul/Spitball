@@ -58,7 +58,6 @@ namespace Cloudents.Admin2.Api
 
             if (result == null)
             {
-
                 var query = new PaymentBySessionIdQuery(id);
                 return await _queryBus.QueryAsync(query, token);
             }

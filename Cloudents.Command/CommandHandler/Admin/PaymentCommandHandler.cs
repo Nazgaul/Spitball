@@ -2,6 +2,7 @@
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -43,7 +44,17 @@ namespace Cloudents.Command.CommandHandler.Admin
                 await _payment.TransferPaymentAsync(tutor.SellerKey!,
                     message.SpitballBuyerKey, message.SpitballPay, token);
             }
-            session.SetReceiptAndAdminDate(receipt, message.AdminDuration);
+
+            if (session.StudyRoomVersion.GetValueOrDefault() == 0)
+            {
+                session.SetReceiptAndAdminDate(receipt, message.AdminDuration);
+            }
+            else
+            {
+                var sessionUser = session.RoomSessionUsers.AsQueryable().Single(s => s.User.Id == message.UserId);
+                sessionUser.Pay(receipt,message.AdminDuration);
+            }
+
             user.UseCoupon(tutor);
 
             await _studyRoomSessionRepository.UpdateAsync(session, token);

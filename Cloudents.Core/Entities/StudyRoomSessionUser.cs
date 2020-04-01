@@ -52,6 +52,11 @@ namespace Cloudents.Core.Entities
             TotalPrice = 0;
         }
 
+        public virtual void Pay(string receipt, in int messageAdminDuration)
+        {
+            throw new NotImplementedException();
+        }
+
 
         public virtual bool Equals(StudyRoomSessionUser other)
         {
@@ -87,5 +92,7 @@ namespace Cloudents.Core.Entities
         {
             return !Equals(left, right);
         }
+
+     
     }
 }
