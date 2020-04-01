@@ -64,8 +64,8 @@ namespace Cloudents.Web.Api
             var tutorId = _userManager.GetLongUserId(User);
             try
             {
-
-                var command = new CreateStudyRoomCommand(tutorId, model.UserId, _localizer["StudyRoomCreatedChatMessage"], model.Name);
+                var chatTextMessage = _localizer["StudyRoomCreatedChatMessage", model.Name];
+                var command = new CreateStudyRoomCommand(tutorId, model.UserId, chatTextMessage, model.Name);
                 var result = await _commandBus.DispatchAsync<CreateStudyRoomCommand, CreateStudyRoomCommandResult>(command, token);
                 return Ok(result);
             }
@@ -145,7 +145,7 @@ namespace Cloudents.Web.Api
             var userId = _userManager.GetLongUserId(User);
             var query = new UserStudyRoomQuery(userId);
             return await _queryBus.QueryAsync(query, token);
-          
+
         }
 
 
@@ -165,7 +165,7 @@ namespace Cloudents.Web.Api
 
         }
 
-       
+
 
         /// <summary>
         /// End Tutoring Session
