@@ -3,7 +3,7 @@
         <v-form @submit.prevent="submit" ref="form" class="registerForm pa-4">  
             <div>
                 <div class="closeIcon">
-                    <v-icon size="12" color="#aaa" @click="$store.commit('setToaster', '')">sbf-close</v-icon>
+                    <v-icon size="12" color="#aaa" @click="$store.commit('setComponent', '')">sbf-close</v-icon>
                 </div>
 
                 <template v-if="isEmailRegister">
@@ -36,6 +36,7 @@
                     :errors="errors"
                     :phone="phoneNumber"
                     :code="localCode"
+                    :teacher="teacher"
                     @goStep="goStep"
                     @updatePhone="updatePhone"
                     @updateCode="updateCode"
@@ -128,7 +129,8 @@ import changeNumber from '../images/changeNumber.svg'
 import phoneCall from '../images/phoneCall.svg'
 
 export default {
-    components: { 
+    mixins: [authMixin],
+    components: {
         emailRegister,
         setPhone2,
         verifyPhone,
@@ -136,7 +138,13 @@ export default {
         changeNumber,
         phoneCall
     },
-    mixins: [authMixin],
+    props: {
+        params: {},
+        teacher: {
+            type: Boolean,
+            default: false
+        }
+    },
     data() {
         return {
             component: 'emailRegister',
@@ -163,11 +171,14 @@ export default {
         },
         isVerifyPhone() {
             return this.component === 'verifyPhone'
+        },
+        isFromTutorReuqest() {
+            return this.$store.getters.getIsFromTutorStep
         }
     },
     methods: {
         openLoginDialog() {
-            this.$store.commit('setToaster', 'login')
+            this.$store.commit('setComponent', 'login')
         },
         submit() {
             let formValidate = this.$refs.form.validate()
@@ -270,9 +281,31 @@ export default {
                         analyticsService.sb_unitedEvent('Registration', 'User Id', userId.data.id);
                     }
 
-					commit('setToaster', '')
-					commit('changeLoginStatus', true)
-					dispatch('userStatus');
+					commit('setComponent', '')
+                    commit('changeLoginStatus', true)
+
+                    // this is when user statr register from tutorRequest
+                    if(self.isFromTutorReuqest) {
+                        self.$store.dispatch('updateRequestDialog', true);
+                        self.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
+                        return
+                    }
+
+					dispatch('userStatus').then(user => {
+                        // when user is register and pick teacher, redirect him to his profile page
+                        if(self.teacher) {
+                            self.$router.push({
+                                name: self.routeNames.Profile,
+                                params: {
+                                    id: user.id,
+                                    name: user.name,
+                                },
+                                query: {
+                                    dialog: 'becomeTutor'
+                                }
+                            })
+                        }
+                    })
 				}).catch(error => {
                     self.errors.code = self.$t('loginRegister_invalid_code')
                     self.$appInsights.trackException({exception: new Error(error)});

@@ -22,7 +22,7 @@ export default {
     },
     methods: {
         onCloseToaster() {
-            this.$store.commit('clearToaster')
+            this.$store.commit('clearComponent')
         }
     },
 }

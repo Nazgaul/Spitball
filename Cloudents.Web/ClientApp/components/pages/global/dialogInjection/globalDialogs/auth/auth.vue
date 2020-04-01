@@ -1,6 +1,14 @@
 <template>
     <v-dialog :value="true" max-width="410px" height="510" content-class="authDialog" persistent :fullscreen="$vuetify.breakpoint.xsOnly">
-        <component :is="tempComponent || params.component" @goTo="goTo" class="wrapper"></component>
+        <component
+            :is="tempComponent || params.component"
+            :params="params"
+            :teacher="teacher"
+            @goTo="goTo"
+            @updateRegisterType="updateRegisterType"
+            class="wrapper"
+        >
+        </component>
     </v-dialog>
 </template>
 
@@ -8,6 +16,7 @@
 
 const login = () => import('./login/login2.vue')
 const register = () => import('./register/register.vue')
+const registerType = () => import('./register/registerType.vue')
 
 export default {
     props: {
@@ -18,16 +27,21 @@ export default {
     },
     data() {
         return {
-            tempComponent: ''
+            tempComponent: '',
+            teacher: false,
         }
     },
     components: {
         login,
-        register
+        register,
+        registerType
     },
     methods: {
         goTo(name) {
             this.tempComponent = name
+        },
+        updateRegisterType(val) {
+            this.teacher = val;
         }
     }
 };
@@ -35,6 +49,7 @@ export default {
 
 <style lang="less">
     .wrapper {
+        background: #fff;
         height: 510px;
     }
 </style>
