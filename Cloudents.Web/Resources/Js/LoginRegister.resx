@@ -340,10 +340,10 @@
     <value>I'm a parent</value>
   </data>
   <data name="student" xml:space="preserve">
-    <value>I'm a pupil</value>
+    <value>Sign up as a pupil</value>
   </data>
   <data name="teacher" xml:space="preserve">
-    <value>I'm a teacher</value>
+    <value>Sign up as a teacher</value>
   </data>
   <data name="welcome" xml:space="preserve">
     <value>Welcome to Spitball</value>
@@ -406,6 +406,6 @@
     <value>Call me with a code</value>
   </data>
   <data name="registerType_mainTitle" xml:space="preserve">
-    <value>We would like to know you better</value>
+    <value>Sign up to Spitball</value>
   </data>
 </root>
