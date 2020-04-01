@@ -28,11 +28,12 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public DomainTimeStamp()
         {
-            CreationTime = UpdateTime = DateTime.UtcNow;
+            CreationTime = DateTime.UtcNow;
+            UpdateTime = DateTime.UtcNow;
         }
 
         public virtual DateTime CreationTime { get; private set; }
-        public virtual DateTime UpdateTime { get; set; }
+        public virtual DateTime? UpdateTime { get; set; }
     }
 
 

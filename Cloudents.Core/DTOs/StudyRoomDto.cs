@@ -47,7 +47,7 @@ namespace Cloudents.Core.DTOs
         public DateTime DateTime { get; set; }
 
         public string ConversationId { get; set; }
-        public DateTime LastSession { get; set; }
+        public DateTime? LastSession { get; set; }
 
     }
 }
