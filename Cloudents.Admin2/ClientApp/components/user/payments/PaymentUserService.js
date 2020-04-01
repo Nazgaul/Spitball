@@ -49,7 +49,7 @@ const approvePayment = function (item) {
 };
 
 const declinePayment = function (item) {
-    return connectivityModule.http.delete(`${path}?StudyRoomSessionId=${item.studyRoomSessionId}`);
+    return connectivityModule.http.delete(`${path}?StudyRoomSessionId=${item.studyRoomSessionId}`,{userId:item.userId});
 };
 
 function UserSessionPayment(objInit) {
