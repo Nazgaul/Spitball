@@ -133,7 +133,7 @@
     <value>Course:</value>
   </data>
   <data name="create_room_created_error" xml:space="preserve">
-    <value>Study room with this user already exists</value>
+    <value>This study room already exists</value>
   </data>
   <data name="create_room_create_btn" xml:space="preserve">
     <value>Create study room</value>
@@ -145,7 +145,7 @@
     <value>Study room's name</value>
   </data>
   <data name="create_room_max_error" xml:space="preserve">
-    <value>the maximum room students count is 4</value>
+    <value>Maximum 4 students on a study room</value>
   </data>
   <data name="create_room_placeholder" xml:space="preserve">
     <value>Enter a name</value>
