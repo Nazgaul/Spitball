@@ -64,6 +64,7 @@ const mutations = {
         state.guestName = '';
         state.guestMail = '';
         state.guestPhone = '';
+        state.currTutor = null
     },
     setMoreTutors(state, val) {
         state.moreTutors = val;
