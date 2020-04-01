@@ -200,7 +200,8 @@ export default {
             this.dialog = true;
             let params = {
                 sessionId: item.studyRoomSessionId,
-                userId: item.userId
+                userId: item.userId,
+                tutorId: item.tutorId
             }
             this.editedIndex = this.paymentRequestsList.indexOf(item);
             getUserSessionPayment(params).then(session => {

@@ -77,8 +77,8 @@ function handleError(err) {
     return err;
 }
 
-function getUserSessionPayment({sessionId,userId}) {
-    return connectivityModule.http.get(`${path}${sessionId}`,{params:{userId}}).then(createUserSessionPayment).catch(handleError);
+function getUserSessionPayment({sessionId,userId,tutorId}) {
+    return connectivityModule.http.get(`${path}${sessionId}`,{params:{userId,tutorId}}).then(createUserSessionPayment).catch(handleError);
 }
 
 export {
