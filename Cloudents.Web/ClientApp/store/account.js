@@ -60,7 +60,8 @@ const getters = {
         return state.user;
     },
     getPendingPayment: state => state.user?.pendingSessionsPayments,
-    getUserBalance: state =>  state.user?.balance.toFixed(0) || 0
+    getUserBalance: state =>  state.user?.balance.toFixed(0) || 0,
+    getIsSold: state => state.user?.isSold
 };
 
 const actions = {

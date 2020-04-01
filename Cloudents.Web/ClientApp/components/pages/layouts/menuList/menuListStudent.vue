@@ -2,7 +2,7 @@
     <div class="menuListStudent">
         <v-list-item
             v-for="link in studentMenuListFilter"
-            :to="{ name: link.url }"
+            :to="{ name: link.url, params: { id: user.id, name: user.name } }"
             :key="link.title"
             class="link"
             color="#fff"
@@ -45,8 +45,11 @@ export default {
         }
     },
     computed: {
+        user() {
+            return this.$store.getters.accountUser
+        },
         studentMenuListFilter() {
-            let isSold = this.$store.getters.accountUser?.isSold
+            let isSold = this.$store.getters.getIsSold
             return this.satelliteLinksStudent.filter(link => (link.url === 'mySales' && isSold) || (link.url !== 'mySales'))
         }
     }
