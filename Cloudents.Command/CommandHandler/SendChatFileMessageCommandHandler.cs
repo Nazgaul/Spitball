@@ -44,7 +44,7 @@ namespace Cloudents.Command.CommandHandler
             var chatMessage = new ChatAttachmentMessage(user, message.Blob, chatRoom);
             chatRoom.AddMessage(chatMessage);
             await _chatRoomRepository.UpdateAsync(chatRoom, token);
-            await _chatMessageRepository.AddAsync(chatMessage, token);
+            await _chatMessageRepository.AddAsync(chatMessage, token); // need this in order to get id from nhibernate
             var id = chatMessage.Id;
             await _blobProvider.MoveAsync(message.Blob, $"{chatRoom.Id}/{id}", token);
         }

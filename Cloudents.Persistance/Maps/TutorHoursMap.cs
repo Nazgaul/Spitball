@@ -17,7 +17,6 @@ namespace Cloudents.Persistence.Maps
             });
             Map(x => x.CreateTime).Not.Update();
             Table("TutorHours");
-            SchemaAction.Update();
         }
     }
 

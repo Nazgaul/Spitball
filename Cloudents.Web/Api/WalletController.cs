@@ -236,6 +236,9 @@ namespace Cloudents.Web.Api
             [FromServices] IPayPalService payPal, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
+            var (authorizationId, amountToCharge) = await payPal.AuthorizationOrderAsync(model.Id, token);
+            await payPal.CaptureAuthorizedOrderAsync(authorizationId, amountToCharge, default);
+
             var result = await payPal.GetPaymentAsync(model.Id, token);
 
 

@@ -67,7 +67,7 @@ namespace Cloudents.Core.DTOs.Feed
         [EntityBind(nameof(Question.User.Name))]
         public string Name { get; set; }
         [EntityBind(nameof(Question.User.ImageName))]
-        public string Image { get; set; }
+        public string? Image { get; set; }
     }
 
 

@@ -19,8 +19,8 @@ namespace Cloudents.Core.Interfaces
         Task<(Stream stream, EntityTagHeaderValue etagHeader)> DownloadStreamAsync(Uri url,
             CancellationToken token);
 
-        Task<(Stream stream, EntityTagHeaderValue etagHeader)> DownloadStreamAsync(Uri url,
-            AuthenticationHeaderValue auth, CancellationToken token);
+        //Task<(Stream stream, EntityTagHeaderValue etagHeader)> DownloadStreamAsync(Uri url,
+        //    AuthenticationHeaderValue auth, CancellationToken token);
 
         //Task<Uri> UrlRedirectAsync(Uri url);
 

@@ -1,7 +1,6 @@
 import chatService from '../services/chatService';
 import { LanguageService } from '../services/language/languageService';
 import analyticsService from '../services/analytics.service';
-import studyRoomsService from '../services/studyRoomsService'
 
 
 const state = {
@@ -21,7 +20,6 @@ const state = {
     chatLoader: false,
     emptyState: [],
     isSyncing: true,
-    showStudentStudyRoom: false
 };
 const getters = {
     getFileError: state => state.fileError,
@@ -89,7 +87,6 @@ const getters = {
     getActiveConversationObj:state=>state.activeConversationObj,
     getTotalUnread: state=>state.totalUnread,
     getIsChatLocked: state=>state.chatLocked,
-    getshowStudentStudyRoom: state => state.showStudentStudyRoom
 };
 
 const mutations = {
@@ -171,9 +168,6 @@ const mutations = {
     setSyncStatus:(state, val)=>{
         state.isSyncing = val;
     },
-    setShowStudentStudyRoom(state){
-        state.showStudentStudyRoom = true;
-    }
 };
 
 const actions = {
@@ -282,19 +276,7 @@ const actions = {
         dispatch('openChatInterface');
     },
     signalRAddRoomInformationMessage({commit}, roomInfo){
-        // let messageObj ={
-        //     message: {
-        //         userId: roomInfo.userId,
-        //         text: `${LanguageService.getValueByKey('chat_room_created')} ${global.location.origin}/studyroom/${roomInfo.id}`,
-        //         type: 'text'
-        //     },
-        //     //TODO signalR should return Conversation ID
-        //     conversationId: state.activeConversationObj.conversationId
-        // };
-        // let messageObj2 = chatService.createMessage(messageObj.message, messageObj.conversationId);
-        // dispatch('addMessage', messageObj2);
         commit('setActiveConversationStudyRoom', roomInfo.id);
-        commit('setShowStudentStudyRoom');
     },
     setActiveConversationObj:({commit, dispatch, state}, obj)=>{
         commit('setSyncStatus', true);
@@ -430,9 +412,6 @@ const actions = {
     },
     uploadCapturedImage(context, formData) {
         return chatService.uploadCapturedImage(formData);
-    },
-    createStudyRoom(context, userId){
-        return studyRoomsService.createRoom(userId);
     },
 };
 

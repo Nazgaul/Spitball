@@ -1,5 +1,4 @@
 import feedSkeleton from '../../pages/feedPage/components/feedSkeleton/feedSkeleton.vue';
-import feedFaqBlock from '../../pages/feedPage/components/feedFaqBlock/feedFaqBlock.vue';
 import scrollList from '../../helpers/infinateScroll.vue';
 
 // cards:
@@ -25,7 +24,6 @@ import emptyState from "../svg/no-match-icon.svg";
 export default {
     components: {
         feedSkeleton,
-        feedFaqBlock,
         scrollList,
         ResultItem: resultItem,
         ResultAsk: resultAsk,
@@ -45,7 +43,6 @@ export default {
     data() {
         return {
             courses: [],
-            showAdBlock: global.country === 'IL',
             query:{
                 filter:this.$route.query.filter,
                 course:this.$route.query.course

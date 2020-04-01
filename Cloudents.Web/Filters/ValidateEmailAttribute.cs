@@ -35,8 +35,8 @@ namespace Cloudents.Web.Filters
                 foreach (var value in context.ActionArguments.Values)
                 {
                     var t = ScanObject(value);
-                    if (t?.propertyValue == null) continue
-                    ;
+                    if (t?.propertyValue == null) continue;
+                    
                     var result = await _mailProvider.ValidateEmailAsync(t.Value.propertyValue.ToString(), context.HttpContext.RequestAborted);
                     if (!result)
                     {
@@ -67,6 +67,10 @@ namespace Cloudents.Web.Filters
                 foreach (var property in obj.GetType().GetProperties())
                 {
                     var propValue = property.GetValue(obj, null);
+                    if (propValue is null)
+                    {
+                        return null;
+                    }
                     if (property.PropertyType.IsPrimitive || property.PropertyType == typeof(string))
                     {
                         if (property.GetCustomAttribute(typeof(EmailAddressAttribute)) != null)

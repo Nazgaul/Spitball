@@ -39,15 +39,12 @@ u.Language
 join sb.[User] u on t.User_id = u.Id
 join sb.Document d on t.DocumentId = d.id
 where t.id = @id";
-                using (var connection = _dapper.OpenConnection())
-                {
-                    return await connection.QuerySingleAsync<DocumentPurchaseEmailDto>(sql,
-                        new
-                        {
-                            id = query.TransactionId,
-                        });
-
-                }
+                using var connection = _dapper.OpenConnection();
+                return await connection.QuerySingleAsync<DocumentPurchaseEmailDto>(sql,
+                    new
+                    {
+                        id = query.TransactionId,
+                    });
             }
         }
     }

@@ -55,11 +55,17 @@ namespace Cloudents.Query.Tutor
 
                 var result = DateTimeHelpers.EachHour(query.From, query.To).Where(w =>
                 {
+
                     var freeSlot = available.Where(w2 => w.ToUniversalTime().DayOfWeek == w2.AvailabilitySlot.Day);
 
                     if (googleBusySlot.Any(a => a.From <= w && w < a.To))
                     {
                         return true;
+                    }
+
+                    if (available.Count == 0)
+                    {
+                        return false;
                     }
                     //if (busySlots.Count >0)
                     if (freeSlot.Any(a => a.AvailabilitySlot.From <= w.ToUniversalTime().TimeOfDay && w.ToUniversalTime().TimeOfDay < a.AvailabilitySlot.To))
