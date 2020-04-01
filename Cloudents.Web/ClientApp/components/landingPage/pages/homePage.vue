@@ -1,75 +1,78 @@
 <template>
-  <div class="landingPageHP">
-      <!-- <homePageVideo></homePageVideo> -->
-      <!-- <headlineSection></headlineSection>
-      <categoriesSection></categoriesSection>
-      <tutorsSection></tutorsSection>
-      <itemsSection></itemsSection>
-      <testimonialsSection></testimonialsSection>
-      <earnSection></earnSection> -->
+    <div class="homePage">
 
+        <div class="homeVideo">
+            <video
+              ref="video"
+              poster="../images/Spitball_original_homepage_poster.jpg"
+              class="video"
+              loop
+              autoplay
+              muted
+            >
+                <source src="https://az32006.vo.msecnd.net/spitball-user/Spitball-HP-video.mp4" type="video/mp4">
+            </video>
 
-      <div class="homeVideo">
-        <video ref="video" class="video" height="636" data-object-position="50% 10%" autoplay loop data-object-fit="cover">
-          <!-- <source src="https://az32006.vo.msecnd.net/spitball-user/Spitball-HP-video.mp4" type="video/mp4"> -->
-        </video>
-
-        <div class="actions">
-          <div class="text">The Platform That Connects Teachers With Learners</div>
-          <div class="buttons">
-            <button class="btn btnLearn">Start Learning</button>
-            <button class="btn btnTeach">Start Teaching</button>
-          </div>
+            <div class="actions">
+                <div class="text" v-t="'homePage_video_title'"></div>
+                <homeButtons :action="actions" v-if="!$vuetify.breakpoint.xsOnly" />
+            </div>
         </div>
-      </div>
 
-      <div class="middle d-flex text-center mb-12">
-        <div class="studentAction">
-          <div class="studentText header">Student</div>
-          <div class="desc mt-3 mb-6">Access course specific study materials, talk to expert teachers or watch educational videos.</div>
-          <button class="btns btnsLearn mb-4">Register for Free</button>
-          <div class="noCredit">No credit card required</div>
+        <div class="middle d-sm-flex d-block text-center mb-6 mb-sm-12 pa-4 pt-0 pa-sm-0">
+            <homeButtons :action="actions" v-if="$vuetify.breakpoint.xsOnly" />
+            <div class="boxStudent">
+                <div class="boxHeader" v-t="'homePage_student'"></div>
+                <div class="boxDesc mt-3 mb-6" v-t="'homePage_student_text'"></div>
+                <button class="boxBtns btnsLearn mb-4" @click="studentRegister" v-t="'homePage_btn_register'"></button>
+                <div class="boxNoCredit" v-t="'homePage_credit'"></div>
+            </div>
+            <div>
+                <div class="boxHeader" v-t="'homePage_teacher'"></div>
+                <div class="boxDesc mt-3 mb-6" v-t="'homePage_teacher_text'"></div>
+                <button class="boxBtns btnsTeach mb-4" @click="teacherRegister" v-t="'homePage_btn_register'"></button>
+                <div class="boxNoCredit" v-t="'homePage_credit'"></div>
+            </div>
         </div>
-        <div class="teacherAction">
-          <div class="teacherText header">Teacher</div>
-          <div class="desc mt-3 mb-6">Your teaching skills are unique. We provide you with a beautiful site to recruit and teach students</div>
-          <button class="btns btnsTeach mb-4">Register for Free</button>
-          <div class="noCredit">No credit card required</div>
-        </div>
-      </div>
 
-  </div>
+    </div>
 </template>
 
 <script>
-// import headlineSection from '../components/headlineSection.vue';
-// import categoriesSection from '../components/categoriesSection.vue';
-// import tutorsSection from '../components/tutorsSection.vue';
-// import itemsSection from '../components/itemsSection.vue';
-// import testimonialsSection from '../components/testimonialsSection.vue';
-// import earnSection from '../components/earnSection.vue'
-
-// import homePageVideo from 
+const homeButtons = () => import('./homeButtons.vue')
 
 export default {
       components:{
-        // headlineSection,
-        // categoriesSection,
-        // tutorsSection,
-        // itemsSection,
-        // testimonialsSection,
-        // earnSection
+        homeButtons
+    },
+    data() {
+      return {
+        actions: {
+          startLearn: () => this.startLearn,
+          startTeach: () => this.startTeach
+        }
+      }
+    },
+    methods: {
+      studentRegister() {
+        this.$store.commit('setComponent', 'register')
+      },
+      teacherRegister() {
+        this.$store.commit('setComponent', 'registerTeacher')
+      },
+      startLearn() {
+        //
+      },
+      startTeach() {
+        //
+      }
     },
     mounted() {
-      var playPromise = this.$refs.video.play();
+      let playPromise = this.$refs.video.play();
       if (playPromise !== undefined) {
-        playPromise.then(_ => {
-          // Automatic playback started!
-          // Show playing UI.
-        })
-        .catch(error => {
-          // Auto-play was prevented
-          // Show paused UI.
+        playPromise.then(() => {}).catch(error => {
+          console.log(error);
+          self.$appInsights.trackException({exception: new Error(error)});
         });
       }
     }
@@ -78,21 +81,18 @@ export default {
 
 <style lang="less">
 @import "../../../styles/mixin.less";
-.landingPageHP {
+.homePage {
   background: #fff;
   .homeVideo {
     position: relative;
     height: 636px;
-    background-position: 50% 10%;
-    object-fit: cover;
-    background-image: url('../images/Spitball_original_homepage_poster.jpg');
+    @media (max-width: @screen-xs) {
+      height: 354px;
+    }
     .video {
       width: 100%;
       object-fit: cover;
-      flex: 1;
-      min-height: 100%;
-      min-width: 100%;
-
+      height: inherit;
     }
     .actions {
       color: #fff;
@@ -101,47 +101,45 @@ export default {
       right: 0;
       left: 0;
       text-align: center;
-
+      @media (max-width: @screen-xs) {
+        bottom: 20px;
+      }
       .text {
         font-size: 34px;
-        padding: 0 33%;
-        margin-bottom: 60px;
-      }
-      .buttons {
-        display: flex;
-        justify-content: space-evenly;
-        .btn {
-          outline: none;
-          width: 230px;
-          height: 44px;
-          border-radius: 28px;
-          font-size: 16px;
-          &.btnLearn {
-            background-color: #4c59ff;
-          }
-          &.btnTeach {
-            margin-left: 100px;
-            background-color: #41c4bc;
-          }
-          
+        width: 600px;
+        line-height: 1.5;
+        margin: 0 auto 60px;
+        @media (max-width: @screen-xs) {
+          margin: 0;
+          width: 100%;
+          font-size: 22px;
         }
       }
+ 
     }
   }
+
   .middle {
-    margin-top: 45px;
+    .responsive-property(margin-top, 45px, null, 28px);
     color: @global-purple;
     display: flex;
     justify-content: space-evenly;
-    .header {
+    .boxStudent {
+      @media (max-width: @screen-xs) {
+        border-top: 1px solid #ddd;
+        margin: 30px 0;
+        padding-top: 30px;
+      }
+    }
+    .boxHeader {
       font-size: 32px;
     }
-    .desc {
+    .boxDesc {
       line-height: 1.6;
-      font-size: 20px;
-      max-width: 380px;
+      .responsive-property(max-width, 380px, null, 100%);
+      .responsive-property(font-size, 20px, null, 16px);
     }
-    .btns {
+    .boxBtns {
       border-radius: 28px;
       border: solid 1px #4c59ff;
       width: 230px;
@@ -158,7 +156,7 @@ export default {
         border: solid 1px #41c4bc;
       }
     }
-    .noCredit {
+    .boxNoCredit {
       color: #a8a8ac;
     }
   }
