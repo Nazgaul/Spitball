@@ -52,7 +52,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             else
             {
                 var sessionUser = session.RoomSessionUsers.AsQueryable().Single(s => s.User.Id == message.UserId);
-                sessionUser.Pay(receipt,message.AdminDuration);
+                sessionUser.Pay(receipt, message.AdminDuration, message.StudentPay + message.SpitballPay);
             }
 
             user.UseCoupon(tutor);

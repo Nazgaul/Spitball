@@ -52,13 +52,15 @@ namespace Cloudents.Core.Entities
             TotalPrice = 0;
         }
 
-        public virtual void Pay(string receipt, in int messageAdminDuration)
+        public virtual void Pay(in string receipt, in TimeSpan duration, in decimal price)
         {
-            throw new NotImplementedException();
+            Receipt = receipt;
+            ApproveSession(duration);
+            TotalPrice = price;
         }
 
 
-        public virtual bool Equals(StudyRoomSessionUser other)
+        public virtual bool Equals( StudyRoomSessionUser other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;

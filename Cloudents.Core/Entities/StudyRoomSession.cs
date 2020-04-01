@@ -137,7 +137,7 @@ namespace Cloudents.Core.Entities
             Receipt = receipt;
         }
 
-        public virtual void SetReceiptAndAdminDate(string receipt, int adminDuration)
+        public virtual void SetReceiptAndAdminDate(string receipt, TimeSpan adminDuration)
         {
             if (string.IsNullOrEmpty(receipt))
             {
@@ -145,7 +145,7 @@ namespace Cloudents.Core.Entities
             }
             Receipt = receipt;
             PaymentApproved = DateTime.UtcNow;
-            AdminDuration = new TimeSpan(0, adminDuration, 0);
+            AdminDuration = adminDuration;
             //AdminDuration = adminDuration;
             //StudentPay = studentPay;
         }
