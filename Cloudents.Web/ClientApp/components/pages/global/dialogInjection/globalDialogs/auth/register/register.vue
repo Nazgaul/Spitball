@@ -3,7 +3,7 @@
         <v-form @submit.prevent="submit" ref="form" class="registerForm pa-4">  
             <div>
                 <div class="closeIcon">
-                    <v-icon size="12" color="#aaa" @click="$store.commit('setComponent', '')">sbf-close</v-icon>
+                    <v-icon size="12" color="#aaa" @click="closeRegister">sbf-close</v-icon>
                 </div>
 
                 <template v-if="isEmailRegister">
@@ -19,7 +19,8 @@
                         color="#da6156"
                         class="btns white--text mb-6"
                     >
-                        <img width="40" src="../../../../../authenticationPage/images/G icon@2x.png" />
+                        <gIcon class="mr-2" />
+                        <!-- <img width="40" src="../../../../../authenticationPage/images/G icon@2x.png" /> -->
                         <span class="googleBtnText" v-t="'loginRegister_getstarted_btn_google_signup'"></span>
                     </v-btn>
 
@@ -125,6 +126,7 @@ const emailRegister = () => import('./emailRegister.vue');
 const setPhone2 = () => import('./setPhone2.vue');
 const verifyPhone = () => import('./verifyPhone.vue');
 
+import gIcon from '../images/g-icon.svg'
 import changeNumber from '../images/changeNumber.svg'
 import phoneCall from '../images/phoneCall.svg'
 
@@ -136,7 +138,8 @@ export default {
         verifyPhone,
         VueRecaptcha,
         changeNumber,
-        phoneCall
+        phoneCall,
+        gIcon
     },
     props: {
         params: {},
@@ -177,6 +180,10 @@ export default {
         }
     },
     methods: {
+        closeRegister() {
+            this.$store.commit('setComponent', '')
+            this.$store.commit('setRequestTutor')
+        },
         openLoginDialog() {
             this.$store.commit('setComponent', 'login')
         },
@@ -284,10 +291,11 @@ export default {
 					commit('setComponent', '')
                     commit('changeLoginStatus', true)
 
-                    // this is when user statr register from tutorRequest
+                    // this is when user start register from tutorRequest
                     if(self.isFromTutorReuqest) {
                         self.$store.dispatch('updateRequestDialog', true);
                         self.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
+                        dispatch('userStatus')
                         return
                     }
 
@@ -347,7 +355,7 @@ export default {
     background: #fff;
     position: relative;
     @media (max-width: @screen-xs) {
-        height: 100%;
+        height: 100% !important;
     }
     .closeIcon {
         position: absolute;
@@ -374,9 +382,6 @@ export default {
         }
         .otherMethod {
             color: @global-purple;
-        }
-        .googleBtnText {
-            margin-bottom: 2px;
         }
         .v-label {
             color: @global-purple;

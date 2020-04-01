@@ -4,7 +4,7 @@
         <div class="top">
             <div>
                 <div class="closeIcon text-right">
-                    <v-icon size="12" color="#aaa" @click="$store.commit('setComponent', '')">sbf-close</v-icon>
+                    <v-icon size="12" color="#aaa" @click="closeRegister">sbf-close</v-icon>
                 </div>
             </div>
 
@@ -27,7 +27,7 @@
                             <teacherIcon />
                         </span>
                         <v-divider class="mr-4 my-2" vertical></v-divider>
-                        <span class="panel_title text-center pr-6" v-t="'loginRegister_teacher'"></span>
+                        <span class="panel_title text-center" v-t="'loginRegister_teacher'"></span>
                     </v-expansion-panel-header>
                 </v-expansion-panel>
 
@@ -57,6 +57,10 @@ export default {
         studentIcon
     },
     methods: {
+        closeRegister() {
+            this.$store.commit('setComponent', '')
+            this.$store.commit('setRequestTutor')
+        },
         updateTeacherType() {
             this.$emit('updateRegisterType', true)
             this.$emit('goTo', 'register')
@@ -103,7 +107,7 @@ export default {
                     padding: 14px;
                 }
                 .panel_title {
-                    font-size: 18px;
+                    font-size: 16px;
                     color: @global-auth-text;
                     font-weight: 600;
                 }
