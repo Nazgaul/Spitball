@@ -83,19 +83,25 @@ export default {
             this.$router.push({name: 'tutorLandingPage', params: {course: this.courseName}});
             this.tutorRequestDialogClose();
         },
+        requestTutorFromRegisterStep() {
+            // if there is an account, it's mean that the user not coming from register and dont need to call requestTutor api twice
+            if(this.accountUser) return
+            
+            let serverObj = {
+                captcha: null,
+                text: this.getCourseDescription,
+                name: null,
+                email: null,
+                phone: null,
+                course: this.courseName || this.getSelectedCourse,
+                tutorId: this.tutorId,
+                moreTutors: this.getMoreTutors
+            } 
+            this.sendTutorRequest(serverObj)
+        }
     },
     mounted() {
-        let serverObj = {
-            captcha: null,
-            text: this.getCourseDescription,
-            name: null,
-            email: null,
-            phone: null,
-            course: this.courseName || this.getSelectedCourse,
-            tutorId: this.tutorId,
-            moreTutors: this.getMoreTutors
-        } 
-        this.sendTutorRequest(serverObj)
+        this.requestTutorFromRegisterStep()
     }
 }
 </script>
