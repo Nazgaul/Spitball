@@ -130,7 +130,7 @@ import logoComponent from '../../../app/logo/logo.vue';
 @import "../../../../styles/mixin.less";
 
 .footer {
-  background-color: #202431;
+  background-color: #f1f1f4;
   color: #fff;
   padding-top: 30px;
   padding-bottom: 20px;
