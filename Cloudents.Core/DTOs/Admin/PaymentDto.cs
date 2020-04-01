@@ -6,7 +6,7 @@ namespace Cloudents.Core.DTOs.Admin
 {
     public class PaymentDto
     {
-        public TimeSpan _duration;
+        public TimeSpan? _duration;
         public TimeSpan? _realDuration;
 
         [EntityBind(nameof(StudyRoomSession.Id))]
@@ -27,7 +27,7 @@ namespace Cloudents.Core.DTOs.Admin
         [EntityBind(nameof(StudyRoomSession.Created))]
         public DateTime Created { get; set; } //
 
-        public double Duration => _duration.TotalMinutes;
+        public double Duration => _duration.GetValueOrDefault().TotalMinutes;
 
         public double? RealDuration => _realDuration?.TotalMinutes;
        

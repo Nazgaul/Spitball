@@ -167,7 +167,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData("IL")]
         public async Task AdminPaymentsQuery_Ok(string country)
         {
-            var q1 = new PaymentsQuery(country);
+            var q1 = new SessionPaymentsQuery(country);
             var _ = await _fixture.QueryBus.QueryAsync(q1, default);
         }
 
@@ -422,5 +422,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await _fixture.QueryBus.QueryAsync(query, default);
         }
 
+        [Theory]
+        [InlineData(null)]
+        [InlineData("IL")]
+        [InlineData("US")]
+        public async Task SessionPaymentsQueryV2_Ok(string country)
+        {
+            var query = new SessionPaymentsQueryV2(country);
+            var _ = await _fixture.QueryBus.QueryAsync(query, default);
+        }
     }
 }

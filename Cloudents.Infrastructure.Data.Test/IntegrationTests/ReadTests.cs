@@ -227,7 +227,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
             var query = new CourseSearchWithTermQuery(userId, term, page);
 
-            var z =  await fixture.QueryBus.QueryAsync(query, default);
+            var z = await fixture.QueryBus.QueryAsync(query, default);
 
             z.Should().HaveCountGreaterOrEqualTo(1);
         }
@@ -248,7 +248,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         public async Task UserProfileQuery_Ok(long id, long userId)
         {
-            
+
             var query = new UserProfileQuery(id, userId);
 
             var result = await fixture.QueryBus.QueryAsync(query, default);
@@ -395,7 +395,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(1L)]
         [InlineData(50039L)]
         [InlineData(50864)]
-        
+
         public async Task SimilarDocumentsQuery_Ok(long documentId)
         {
             var query = new SimilarDocumentsQuery(documentId);
@@ -632,6 +632,30 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             result.Should().NotBeNull();
         }
 
-        
+
+        [Fact]
+        public async Task SessionApprovalQuery_Ok()
+        {
+            var resultQuery = await fixture.StatelessSession.Query<StudyRoomSessionUser>()
+                .Fetch(f => f.StudyRoomSession)
+                .ThenFetch(f => f.StudyRoom)
+                .Select(s => new
+                {
+                    SessionId = s.StudyRoomSession.Id,
+                    UserId = s.User.Id,
+                    TutorId = s.StudyRoomSession.StudyRoom.Tutor.Id
+                })
+                .Take(1).SingleOrDefaultAsync();
+            if (resultQuery == null)
+            {
+                return;
+            }
+
+            var query = new SessionApprovalQuery(resultQuery.SessionId, resultQuery.UserId, resultQuery.TutorId);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+            result.Should().NotBeNull();
+        }
+
+
     }
 }
