@@ -4,7 +4,7 @@
         <div class="top">
             <div>
                 <div class="closeIcon text-right">
-                    <v-icon size="12" color="#aaa" @click="$store.commit('setComponent', '')">sbf-close</v-icon>
+                    <v-icon size="12" color="#aaa" @click="closeRegister">sbf-close</v-icon>
                 </div>
             </div>
 
@@ -57,6 +57,10 @@ export default {
         studentIcon
     },
     methods: {
+        closeRegister() {
+            this.$store.commit('setComponent', '')
+            this.$store.commit('setRequestTutor')
+        },
         updateTeacherType() {
             this.$emit('updateRegisterType', true)
             this.$emit('goTo', 'register')

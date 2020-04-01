@@ -3,7 +3,7 @@
         <v-form @submit.prevent="submit" ref="form" class="registerForm pa-4">  
             <div>
                 <div class="closeIcon">
-                    <v-icon size="12" color="#aaa" @click="$store.commit('setComponent', '')">sbf-close</v-icon>
+                    <v-icon size="12" color="#aaa" @click="closeRegister">sbf-close</v-icon>
                 </div>
 
                 <template v-if="isEmailRegister">
@@ -177,6 +177,10 @@ export default {
         }
     },
     methods: {
+        closeRegister() {
+            this.$store.commit('setComponent', '')
+            this.$store.commit('setRequestTutor')
+        },
         openLoginDialog() {
             this.$store.commit('setComponent', 'login')
         },

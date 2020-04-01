@@ -2,7 +2,7 @@
     <v-form class="loginForm pa-4" @submit.prevent="submit" ref="form">
         <div class="top">
             <div class="closeIcon">
-                <v-icon size="14" color="" @click="$store.commit('setComponent', '')">sbf-close</v-icon>
+                <v-icon size="14" color="" @click="closeRegister">sbf-close</v-icon>
             </div>
 
             <template v-if="isLoginDetails">
@@ -98,6 +98,10 @@ export default {
         }
     },
     methods: {
+        closeRegister() {
+            this.$store.commit('setComponent', '')
+            this.$store.commit('setRequestTutor')
+        },
         submit() {
             let formValidate = this.$refs.form.validate()
 
