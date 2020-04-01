@@ -91,7 +91,7 @@ export default {
             name: null,
             email: null,
             phone: null,
-            course: this.courseName,
+            course: this.courseName || this.getSelectedCourse,
             tutorId: this.tutorId,
             moreTutors: this.getMoreTutors
         } 
