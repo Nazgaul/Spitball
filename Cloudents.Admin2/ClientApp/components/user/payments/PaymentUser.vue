@@ -17,7 +17,7 @@
                 <td >{{ props.item.userName }}</td>
                 <td>{{ props.item.created }}</td>
                 <td>{{ props.item.realDuration }}</td>
-                <td :class="{ 'realDurationExitsts': props.item.isRealDurationExitsts }">{{ props.item.duration }}</td>
+                <td :class="{ 'realDurationExitsts': props.item.isRealDurationExitsts }">{{Math.floor(props.item.duration)}}</td>
                
                 <td>{{ props.item.price }}</td>
                 <td>{{ props.item.totalPrice.toFixed(2) }}</td>
@@ -198,9 +198,12 @@ export default {
         },
         editItem(item) {
             this.dialog = true;
-            let id = item.studyRoomSessionId;
+            let params = {
+                sessionId: item.studyRoomSessionId,
+                userId: item.userId
+            }
             this.editedIndex = this.paymentRequestsList.indexOf(item);
-            getUserSessionPayment(id).then(session => {
+            getUserSessionPayment(params).then(session => {
                 this.sessionPayment = session;
             })
         },
