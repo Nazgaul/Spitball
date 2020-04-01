@@ -61,7 +61,7 @@ export default {
                 this.updatePurchaseConfirmation(true)
             } else {
                // this.$openDialog('login')
-               this.$store.commit('setToaster', 'register')
+               this.$store.commit('setComponent', 'register')
             }
       }
    },

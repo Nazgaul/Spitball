@@ -56,7 +56,7 @@ export default {
   methods: {
     ...mapActions(['updateNewQuestionDialogState']),
     helpAction(){
-      (this.accountUser == null) ? this.$store.commit('setToaster', 'register') : this.updateNewQuestionDialogState(true);
+      (this.accountUser == null) ? this.$store.commit('setComponent', 'register') : this.updateNewQuestionDialogState(true);
     }
   },
 };

@@ -68,7 +68,7 @@ export default {
     openAskQuestion() {
       if (this.accountUser == null) {
         // this.$openDialog('login');
-        this.$store.commit('setToaster', 'register')
+        this.$store.commit('setComponent', 'register')
       } else {
         this.updateNewQuestionDialogState(true);
       }
