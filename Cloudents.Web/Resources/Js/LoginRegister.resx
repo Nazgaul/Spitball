@@ -405,4 +405,7 @@
   <data name="change_number" xml:space="preserve">
     <value>Call me with a code</value>
   </data>
+  <data name="registerType_mainTitle" xml:space="preserve">
+    <value>We would like to know you better</value>
+  </data>
 </root>
