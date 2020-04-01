@@ -206,6 +206,7 @@ export default {
             this.editedIndex = this.paymentRequestsList.indexOf(item);
             getUserSessionPayment(params).then(session => {
                 this.sessionPayment = session;
+                this.sessionPayment.duration = Math.floor(session.duration);
             })
         },
         approve() {
