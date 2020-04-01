@@ -27,7 +27,7 @@
                             <teacherIcon />
                         </span>
                         <v-divider class="mr-4 my-2" vertical></v-divider>
-                        <span class="panel_title text-center pr-6" v-t="'loginRegister_teacher'"></span>
+                        <span class="panel_title text-center" v-t="'loginRegister_teacher'"></span>
                     </v-expansion-panel-header>
                 </v-expansion-panel>
 
