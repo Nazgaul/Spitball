@@ -1,6 +1,6 @@
 import { mapGetters } from 'vuex';
 import remoteVideoTrack from './components/remoteVideoTrack.vue';
-
+import localStreams from './components/localStreams.vue';
 
 
 
@@ -21,6 +21,7 @@ export default {
     name: "videoStream",
     components: { 
         remoteVideoTrack,
+        localStreams,
         videoCameraImageIgnore2,
         timerIcon,
         stopIcon, 
