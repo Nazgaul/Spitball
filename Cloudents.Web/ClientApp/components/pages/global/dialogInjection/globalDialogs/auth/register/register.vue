@@ -19,7 +19,8 @@
                         color="#da6156"
                         class="btns white--text mb-6"
                     >
-                        <img width="40" src="../../../../../authenticationPage/images/G icon@2x.png" />
+                        <gIcon class="mr-2" />
+                        <!-- <img width="40" src="../../../../../authenticationPage/images/G icon@2x.png" /> -->
                         <span class="googleBtnText" v-t="'loginRegister_getstarted_btn_google_signup'"></span>
                     </v-btn>
 
@@ -125,6 +126,7 @@ const emailRegister = () => import('./emailRegister.vue');
 const setPhone2 = () => import('./setPhone2.vue');
 const verifyPhone = () => import('./verifyPhone.vue');
 
+import gIcon from '../images/g-icon.svg'
 import changeNumber from '../images/changeNumber.svg'
 import phoneCall from '../images/phoneCall.svg'
 
@@ -136,7 +138,8 @@ export default {
         verifyPhone,
         VueRecaptcha,
         changeNumber,
-        phoneCall
+        phoneCall,
+        gIcon
     },
     props: {
         params: {},
@@ -379,9 +382,6 @@ export default {
         }
         .otherMethod {
             color: @global-purple;
-        }
-        .googleBtnText {
-            margin-bottom: 2px;
         }
         .v-label {
             color: @global-purple;

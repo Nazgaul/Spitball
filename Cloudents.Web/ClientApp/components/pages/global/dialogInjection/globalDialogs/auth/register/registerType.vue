@@ -107,7 +107,7 @@ export default {
                     padding: 14px;
                 }
                 .panel_title {
-                    font-size: 18px;
+                    font-size: 16px;
                     color: @global-auth-text;
                     font-weight: 600;
                 }

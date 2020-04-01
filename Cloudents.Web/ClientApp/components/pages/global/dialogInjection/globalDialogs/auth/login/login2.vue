@@ -18,7 +18,8 @@
                     color="#da6156"
                     depressed
                 >
-                    <img width="40" src="../../../../../authenticationPage/images/G icon@2x.png" />
+                    <!-- <img width="40" src="../../../../../authenticationPage/images/G icon@2x.png" /> -->
+                    <gIcon class="mr-2" />
                     <span class="googleBtnText" v-t="'loginRegister_getstarted_btn_google_signin'"></span>
                 </v-btn>
             </template>
@@ -68,11 +69,13 @@ import authMixin from '../authMixin'
 
 const loginDetails = () => import('./loginDetails.vue')
 // const forgotPassword = () => import('./forgotPassword.vue')
+import gIcon from '../images/g-icon.svg'
 
 export default {
     mixins: [authMixin],
     components: {
         loginDetails,
+        gIcon
         // forgotPassword
     },
     data() {
@@ -217,9 +220,6 @@ export default {
         .responsive-property(font-size, 20px, null, 22px);
         color: @color-login-text-title;
         font-weight: 600;
-    }
-    .googleBtnText {
-        margin-bottom: 2px;
     }
     .bottom {
         .helpLinks {
