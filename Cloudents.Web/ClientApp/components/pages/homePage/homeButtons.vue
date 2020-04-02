@@ -23,7 +23,6 @@
         }
         &.btnLearn {
             background-color: #4c59ff;
-            .responsive-property(margin-right, 80px, null, auto);
 
         }
         &.btnTeach {

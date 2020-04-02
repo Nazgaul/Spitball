@@ -14,22 +14,23 @@
             </video>
 
             <div class="actions">
-                <div class="text" v-t="'homePage_video_title'"></div>
+                <h1 class="text" v-t="'homePage_video_title'"></h1>
                 <homeButtons :action="startLearn" v-if="!$vuetify.breakpoint.xsOnly" />
             </div>
+            <div class="videoLinear"></div>
         </div>
 
         <div class="middle d-sm-flex d-block text-center mb-6 mb-sm-12 pa-4 pt-0 pa-sm-0">
             <homeButtons :action="startLearn" v-if="$vuetify.breakpoint.xsOnly" />
             <div class="boxStudent">
-                <div class="boxHeader" v-t="'homePage_student'"></div>
-                <div class="boxDesc mt-3 mb-6" v-t="'homePage_student_text'"></div>
+                <h3 class="boxHeader" v-t="'homePage_student'"></h3>
+                <h4 class="boxDesc mt-3 mb-6" v-t="'homePage_student_text'"></h4>
                 <button class="boxBtns btnsLearn mb-3" @click="studentRegister" v-t="'homePage_btn_register'"></button>
                 <div class="boxNoCredit" v-t="'homePage_credit'"></div>
             </div>
             <div>
-                <div class="boxHeader" v-t="'homePage_teacher'"></div>
-                <div class="boxDesc mt-3 mb-6" v-t="'homePage_teacher_text'"></div>
+                <h3 class="boxHeader" v-t="'homePage_teacher'"></h3>
+                <h4 class="boxDesc mt-3 mb-6" v-t="'homePage_teacher_text'"></h4>
                 <button class="boxBtns btnsTeach mb-3" @click="teacherRegister" v-t="'homePage_btn_register'"></button>
                 <div class="boxNoCredit" v-t="'homePage_credit'"></div>
             </div>
@@ -95,12 +96,14 @@ export default {
       right: 0;
       left: 0;
       text-align: center;
+      z-index: 1;
       @media (max-width: @screen-xs) {
         bottom: 20px;
       }
       .text {
         font-size: 34px;
         width: 600px;
+        font-weight: normal;
         line-height: 1.5;
         margin: 0 auto 50px;
         @media (max-width: @screen-xs) {
@@ -109,7 +112,17 @@ export default {
           font-size: 22px;
         }
       }
- 
+    }
+    .videoLinear {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      height: 400px;
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.52) 47%, rgba(0, 0, 0, 0.81) 92%);
+      @media(max-width: @screen-xs) {
+        height: 200px;
+      }
     }
   }
 
@@ -127,8 +140,10 @@ export default {
     }
     .boxHeader {
       font-size: 32px;
+      font-weight: normal;
     }
     .boxDesc {
+      font-weight: normal;
       line-height: 1.6;
       .responsive-property(max-width, 380px, null, 100%);
       .responsive-property(font-size, 20px, null, 16px);

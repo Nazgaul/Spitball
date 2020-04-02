@@ -1,12 +1,11 @@
 <template>
     <div class="footer">
-        <v-layout align-center justify-space-around class="footer-warp">
+        <v-layout align-center class="footer-warp">
             <ul v-if="links" class="footer-wrap-list w-list-unstyled">
                 <li  v-for="(link, index) in links" :key="index">
                     <a :href="link.url" v-if="isShowBlog(link)" class="footer-link">{{link.title}}</a>
                 </li>
             </ul>
-            <div class="footer-warp-divider mt-6"></div>
             <div class="footer-contact-box">
                 <div class="tutor-list-footer-logo">
                     <logoComponent></logoComponent>
@@ -131,39 +130,46 @@ import logoComponent from '../../../app/logo/logo.vue';
 
 .footer {
   background-color: #f1f1f4;
-  padding: 20px 0;
-  @media (max-width: @screen-sm) {
+  @media (max-width: @screen-xs) {
+    padding-bottom: 20px;
+  }
+  @media (max-width: 941px) { // flex-wrap is breaking in 941
     padding-top: 20px;
   }
-  @media (max-width: @screen-xs) {
-        padding-bottom: 76px;
-        padding-top: 0;
-  }
   .tutorList_footer{
-      margin-top: 14px;
+    margin-top: 14px;
     @media (max-width: @screen-xs) {
         padding: 0 20px;
     }
-      .tutorList_footer_txt{
+    .tutorList_footer_txt{
         opacity: 0.3;
         font-weight: normal;
         font-size: 12px;
         text-align: center;
-      }
+    }
   }
  .footer-warp {
     max-width: 1200px;
     margin: 0 auto;
     height: inherit;
     font-size: 14px;
-    // @media (max-width: @screen-sm) {
-    //     flex-direction: column-reverse;
-    // }
+    flex-wrap: wrap;
+    justify-content: space-around;
+    @media (max-width: @screen-sm) {
+        justify-content: start;
+        margin: 0 50px;
+    }
+    @media (max-width: @screen-xs) {
+        flex-wrap: nowrap;
+        justify-content: center;
+        flex-direction: column;
+        margin: 0;
+    }
     .footer-wrap-list {
-        cursor: pointer;
         padding: 0;
         list-style: none;
-        @media (min-width: 768px){
+        line-height: 40px;
+        @media screen and (min-width: @screen-xs) {
             text-align: center;
             -webkit-column-count: 3;
             -moz-column-count: 3;
@@ -171,42 +177,24 @@ import logoComponent from '../../../app/logo/logo.vue';
             column-gap: 60px;
             -webkit-column-gap: 60px;
             -moz-column-gap: 60px;
-            line-height: 40px;
-        }
-        @media (max-width: @screen-sm) {
-            margin-top: 50px;
         }
         @media (max-width: @screen-xs) {
-            margin-top: 20px;
+            margin: 0 50px;
         }
         li {
-            padding: 0 20px;
             text-align: left;
-            @media (max-width: @screen-sm) {
-                // margin: 10px 0;
+            @media (max-width: @screen-xs) {
                 text-align: center;
             }
           .footer-link {
-              color: @global-purple;
-              font-size: 16px;
+            cursor: pointer;
+            color: @global-purple;
+            font-size: 16px;
         }
       }
     }
-    .footer-warp-divider {
-        width: 75px;
-        height: 1px;
-        border: solid 1px #979797;
-        display: none;
-        @media (max-width: @screen-sm) { 
-            display: block;
-        }
-        @media (max-width: @screen-xs) { 
-            margin-top: 8px !important;
-        }
-     }
     .footer-contact-box {
         line-height: 80px;
-        padding-right: 30px;
         @media (max-width: @screen-xs) { 
             padding-right: 0;
         }
@@ -221,7 +209,7 @@ import logoComponent from '../../../app/logo/logo.vue';
                 margin: 0 10px;
                 color: @global-purple;
                 cursor: pointer;
-                i{
+                i {
                     color: @global-purple;
                 }
             }
