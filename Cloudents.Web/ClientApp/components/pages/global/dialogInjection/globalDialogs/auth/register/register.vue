@@ -312,7 +312,9 @@ export default {
                                     dialog: 'becomeTutor'
                                 }
                             })
+                            return
                         }
+                        self.$router.push({name: self.routeNames.LoginRedirect})
                     })
 				}).catch(error => {
                     self.errors.code = self.$t('loginRegister_invalid_code')
