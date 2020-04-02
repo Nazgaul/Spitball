@@ -18,8 +18,8 @@ namespace Cloudents.Query.Users
             Page = page;
         }
 
-        public long Id { get; }
-        public int Page { get; }
+        private long Id { get; }
+        private int Page { get; }
 
         internal sealed class UserQuestionsQueryHandler : IQueryHandler<UserQuestionsByIdQuery, IEnumerable<QuestionFeedDto>>
         {
@@ -32,6 +32,7 @@ namespace Cloudents.Query.Users
             public async Task<IEnumerable<QuestionFeedDto>> GetAsync(UserQuestionsByIdQuery query, CancellationToken token)
             {
                 return await _session.Query<ViewQuestionWithFirstAnswer>()
+                    .WithOptions(w => w.SetComment(nameof(UserQuestionsByIdQuery)))
                     .Where(w => w.User.Id == query.Id)
                     .OrderByDescending(o => o.Id)
 

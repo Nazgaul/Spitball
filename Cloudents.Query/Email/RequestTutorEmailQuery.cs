@@ -26,12 +26,7 @@ namespace Cloudents.Query.Email
             {
                 _dapper = dapper;
             }
-            //private readonly QuerySession _querySession;
-
-            //public RequestTutorEmailQueryHandler(QuerySession querySession)
-            //{
-            //    _querySession = querySession;
-            //}
+           
 
             public async Task<IEnumerable<RequestTutorEmailDto>> GetAsync(RequestTutorEmailQuery query, CancellationToken token)
             {
@@ -58,30 +53,13 @@ namespace Cloudents.Query.Email
                                     join sb.[user] us
 	                                    on us.Id = l.UserId
                                     where cra.LeadId = @leadId";
-                using (var conn = _dapper.OpenConnection())
-                { 
-                    var res = await conn.QueryAsync<RequestTutorEmailDto>(sql, new
-                    {
-                        leadId = query.LeadId
-                    });
-                    return res;
-                }
-               //return await _querySession.StatelessSession.Query<Lead>()
-               //     .Fetch(f => f.Tutor).ThenFetch(f => f.User)
-               //     .Fetch(f => f.User)
-               //     .Where(w => w.Id == query.LeadId).Select(s => new RequestTutorEmailDto
-               //     {
-               //         TutorLanguage = s.Tutor.User.Language,
-               //         CourseName = s.Course.Id,
-               //         Request = s.Text,
-               //         TutorId = s.Tutor.Id,
-               //         TutorEmail = s.Tutor.User.Email,
-               //         StudentName = s.User.Name,
-               //         TutorFirstName = s.Tutor.User.FirstName,
-               //         StudentPhoneNumber = s.User.PhoneNumber,
-               //         TutorCountry = s.Tutor.User.Country
-
-               //     }).ToListAsync(token);
+                using var conn = _dapper.OpenConnection();
+                var res = await conn.QueryAsync<RequestTutorEmailDto>(sql, new
+                {
+                    leadId = query.LeadId
+                });
+                return res;
+               
             }
         }
     }

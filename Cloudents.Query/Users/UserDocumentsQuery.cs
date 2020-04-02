@@ -21,12 +21,12 @@ namespace Cloudents.Query.Users
             Course = course;
         }
 
-        public long Id { get; }
-        public int Page { get; }
-        public int PageSize { get; }
+        private long Id { get; }
+        private int Page { get; }
+        private int PageSize { get; }
 
-        public DocumentType? DocumentType { get; }
-        public string Course { get;}
+        private DocumentType? DocumentType { get; }
+        private string Course { get;}
 
         internal sealed class UserDocumentsQueryHandler : IQueryHandler<UserDocumentsQuery, ListWithCountDto<DocumentFeedDto>>
         {
@@ -39,6 +39,7 @@ namespace Cloudents.Query.Users
             public async Task<ListWithCountDto<DocumentFeedDto>> GetAsync(UserDocumentsQuery query, CancellationToken token)
             {
                 var r = _session.Query<Document>()
+                    .WithOptions(w => w.SetComment(nameof(UserDocumentsQuery)))
                     .Fetch(f => f.User)
                     .Fetch(f => f.University)
                     .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok);

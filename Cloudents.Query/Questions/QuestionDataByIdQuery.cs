@@ -11,8 +11,7 @@ using NHibernate.Linq;
 
 namespace Cloudents.Query.Questions
 {
-    public class QuestionDataByIdQuery : IQuery<QuestionDetailDto>
-
+    public class QuestionDataByIdQuery : IQuery<QuestionDetailDto?>
     {
         public QuestionDataByIdQuery(long id)
         {
@@ -22,7 +21,7 @@ namespace Cloudents.Query.Questions
         private long Id { get; }
 
 
-        internal sealed class QuestionDetailQueryHandler : IQueryHandler<QuestionDataByIdQuery, QuestionDetailDto>
+        internal sealed class QuestionDetailQueryHandler : IQueryHandler<QuestionDataByIdQuery, QuestionDetailDto?>
         {
             private readonly IStatelessSession _session;
 
@@ -34,9 +33,10 @@ namespace Cloudents.Query.Questions
 
             //TODO We need to delete the cache upon adding deleting answer
             //[Cache(TimeConst.Minute*10,"question-detail",false)]
-            public async Task<QuestionDetailDto> GetAsync(QuestionDataByIdQuery query, CancellationToken token)
+            public async Task<QuestionDetailDto?> GetAsync(QuestionDataByIdQuery query, CancellationToken token)
             {
                 var questionFuture = _session.Query<Question>()
+                    .WithOptions(w => w.SetComment(nameof(QuestionDataByIdQuery)))
                     .Where(w => w.Id == query.Id && w.Status.State == ItemState.Ok)
                     .Fetch(f => f.User)
                     .Select(s => new QuestionDetailDto

@@ -57,12 +57,10 @@ namespace Cloudents.Query.Session
 	                    on tr.Id = tu.Id
                     where srs.id = @id";
 
-                using (var conn = _repository.OpenConnection())
-                {
-                    var result = await conn.QuerySingleAsync<PaymentDetailDto>(sql, new { id = query.SessionId });
+                using var conn = _repository.OpenConnection();
+                var result = await conn.QuerySingleAsync<PaymentDetailDto>(sql, new { id = query.SessionId });
 
-                    return result;
-                }
+                return result;
             }
         }
     }

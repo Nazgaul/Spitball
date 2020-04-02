@@ -35,6 +35,7 @@ namespace Cloudents.Query.Users
             {
 
                 var documentFuture = _session.Query<DocumentTransaction>()
+                    .WithOptions(w => w.SetComment(nameof(UserSalesByIdQuery)))
                     .Fetch(f => f.User)
                     .Fetch(f => f.Document)
                     .Where(w => w.User.Id == query.Id)

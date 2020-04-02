@@ -27,16 +27,18 @@ namespace Cloudents.Query.Questions
                 // ReSharper disable once LoopCanBeConvertedToQuery - nhibernate doesn't response well for this
                 foreach (var county in counties)
                 {
-                    Question questionAlias = null;
-                    SystemUser userAlias = null;
+                    Question? questionAlias = null;
+                    SystemUser? userAlias = null;
 
                     var future = _session.QueryOver(() => questionAlias)
+
                             .JoinAlias(x => x.User, () => userAlias)
                             .Select(s => s.Id)
                             .Where(() => userAlias.Country == county)
                             .And(w => w.Status.State == ItemState.Pending)
                             .OrderBy(Projections.SqlFunction("random_Order", NHibernateUtil.Guid)).Asc
                             .Take(1)
+                            .UnderlyingCriteria.SetComment(nameof(FictivePendingQuestionEmptyQuery))
                             .FutureValue<long>();
                     list.Add(future);
 

@@ -15,7 +15,8 @@ namespace Cloudents.Query.Users
         {
             UserId = userId;
         }
-        public long UserId { get; set; }
+
+        private long UserId { get;}
 
         internal sealed class UserCouponsQueryHandler : IQueryHandler<UserCouponsQuery, IEnumerable<CouponDto>>
         {
@@ -28,7 +29,9 @@ namespace Cloudents.Query.Users
 
             public async Task<IEnumerable<CouponDto>> GetAsync(UserCouponsQuery query, CancellationToken token)
             {
+
                 return await _session.Query<Coupon>()
+                    .WithOptions(w => w.SetComment(nameof(UserCouponsQuery)))
                     .Where(w => w.Tutor.Id == query.UserId)
                     .Select(s => new CouponDto()
                     {
