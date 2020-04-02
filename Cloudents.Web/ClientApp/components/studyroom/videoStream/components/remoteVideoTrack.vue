@@ -7,7 +7,6 @@
             </v-btn>
          </template>
          <span>{{$t('tutor_tooltip_fullscreen')}}</span>
-         <span v-language:inner="isAudioActive ? 'tutor_tooltip_mic_mute':'tutor_tooltip_mic_unmute'"/>
       </v-tooltip>
    </div>
 </template>
@@ -55,8 +54,8 @@ export default {
    .remoteVideoStream{
       .fullscreen-btn{
          position: absolute;
-         right: 10px;
-         top: 10px;
+         margin: 10px;
+         right: 0;
          background:rgba(0, 0, 0, 0.7);
       }
       video {
