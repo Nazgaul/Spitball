@@ -71,7 +71,7 @@
                <span class="profileUserSticky_whyUs_row_text" v-language:inner="'documentPage_prepared_exams'"></span>
             </div>
          </div>
-         <button sel="coupon" :class="{'isMyProfileCoupon':isMyProfile}" class="profileUserSticky_coupon" @click="$store.commit('setComponent', 'register')" v-t="'coupon_apply_coupon'"/>
+         <button sel="coupon" :class="{'isMyProfileCoupon':isMyProfile}" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
       </template>
       <template v-else>         
          <div v-if="isMyProfile" class="profileUserSticky_title_become" v-language:inner="'profile_become_title'"/>
@@ -136,7 +136,7 @@ export default {
       }
    },
    computed: {
-      ...mapGetters(['getProfile','accountUser','getCouponDialog','getCouponError']),
+      ...mapGetters(['getProfile','accountUser','getCouponDialog','getCouponError', 'getUserLoggedInStatus']),
       isTutor(){
          return !!this.getProfile && this.getProfile.user.isTutor
       },
@@ -178,6 +178,12 @@ export default {
             this.showScrollHeader = false;
          }
 
+      },
+      openCoupon() {
+         if(this.getUserLoggedInStatus) {
+            return
+         }
+         this.$store.commit('setComponent', 'register')
       }
    },
    beforeDestroy(){

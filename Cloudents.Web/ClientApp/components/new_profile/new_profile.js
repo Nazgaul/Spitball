@@ -50,27 +50,11 @@ export default {
                 sendMessage: this.sendMessage,
                 openCalendar: this.openCalendar,
                 closeCalendar: this.closeCalendar,
+                openCoupon: this.openCoupon
             },
             coupon: '',
             couponPlaceholder: LanguageService.getValueByKey('coupon_placeholder'),
             disableApplyBtn: false,
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             activeTab: 1,
         };
     },
