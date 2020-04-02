@@ -25,6 +25,7 @@ using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Chat;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
@@ -146,7 +147,29 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+
+            
             var _session = Container.Resolve<IStatelessSession>();
+            var blobProvider = Container.Resolve<IDocumentDirectoryBlobProvider>();
+
+            var deletedDocuments = await _session.Query<Document>()
+                .Where(w => w.Status.State == ItemState.Deleted && w.Status.DeletedOn < DateTime.UtcNow.AddDays(-90))
+                .Take(100)
+                .ToListAsync();
+
+            foreach (var deletedDocument in deletedDocuments)
+            {
+                Console.WriteLine(deletedDocument.Id);
+                var v = await blobProvider.FilesInDirectoryAsync("", deletedDocument.Id.ToString(), default);
+                if (v.Any())
+                {
+
+                }
+
+                await _session.DeleteAsync(deletedDocument);
+                
+                //   blobProvider.DeleteDirectoryAsync(eventMessage.Document.Id.ToString(), token);
+            }
 
 
 
