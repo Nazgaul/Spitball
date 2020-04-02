@@ -51,7 +51,7 @@ export const landingRoutes = [
         path: "/learn",
         name: routeNames.Learning,
         components: {
-            default: () => import(`../components/landingPage/pages/learn.vue`),
+            default: () => import(`../components/landingPage/learn.vue`),
             ...staticComponents(['banner', 'header', 'footer']),
         },
         meta:{
