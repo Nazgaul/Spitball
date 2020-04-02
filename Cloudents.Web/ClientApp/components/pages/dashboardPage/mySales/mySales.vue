@@ -79,7 +79,9 @@
                </router-link>
             </template>
             <template v-slot:item.info="{item}">
-               <tableInfoTd :item="item"/>
+               <div class="text-xs-left text-truncate py-2">
+                  <itemInfoByType :item="item"/>
+               </div>
             </template>
             <template v-slot:item.type="{item}">
                {{dictionary.types[item.type]}}
@@ -114,14 +116,13 @@
 import { mapActions, mapGetters } from 'vuex';
 import { LanguageService } from '../../../../services/language/languageService';
 
-import tableInfoTd from '../global/tableInfoTd.vue';
 import buyPointsLayout from './buyPointsLayout/buyPointsLayout.vue'
 import redeemPointsLayout from './redeemPointsLayout/redeemPointsLayout.vue'
-
+import itemInfoByType from '../global/itemInfoByType.vue'
 
 export default {
    name:'mySales',
-   components:{tableInfoTd,buyPointsLayout,redeemPointsLayout},
+   components:{buyPointsLayout,redeemPointsLayout,itemInfoByType},
    props:{
       dictionary:{
          type: Object,

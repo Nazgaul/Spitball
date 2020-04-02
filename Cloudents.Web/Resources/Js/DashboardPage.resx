@@ -267,7 +267,7 @@
     <value>send whatsapp</value>
   </data>
   <data name="session" xml:space="preserve">
-    <value>Tutoring session with {1}</value>
+    <value>Tutoring session with {0}</value>
   </data>
   <data name="session_on" xml:space="preserve">
     <value>Ongoing</value>
