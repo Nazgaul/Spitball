@@ -21,13 +21,16 @@ namespace Cloudents.Infrastructure.Mail
         {
             _httpClient = httpClient;
         }
-        public async Task SendSmsAsync(string message, string phoneNumber, CancellationToken token)
+        public async Task<string> SendSmsAsync(string message, string phoneNumber, CancellationToken token)
         {
             var inforu = new Inforu(message, phoneNumber);
             var xml = Serialize(inforu);
 
             var content = new StringContent($"InforuXML={xml}", Encoding.UTF8, "application/x-www-form-urlencoded");
             var result = await _httpClient.PostAsync("http://smsapi.hadavar.co.il/SendMessageXml.ashx", content, token);
+
+            result.EnsureSuccessStatusCode();
+            return result.Content.ReadAsStringAsync();
 
         }
 

@@ -31,7 +31,7 @@ namespace Cloudents.Core.Interfaces
 
     public interface ISmsProvider
     {
-        Task SendSmsAsync(string message, string phoneNumber, CancellationToken token);
+        Task<string> SendSmsAsync(string message, string phoneNumber, CancellationToken token);
     }
 
 
