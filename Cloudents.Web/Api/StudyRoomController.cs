@@ -20,8 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
@@ -64,14 +62,10 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var tutorId = _userManager.GetLongUserId(User);
-            if (tutorId == model.UserId)
-            {
-                return BadRequest("user cannot invoke itself");
-            }
             try
             {
-
-                var command = new CreateStudyRoomCommand(tutorId, model.UserId, _localizer["StudyRoomCreatedChatMessage"]);
+                var chatTextMessage = _localizer["StudyRoomCreatedChatMessage", model.Name];
+                var command = new CreateStudyRoomCommand(tutorId, model.UserId, chatTextMessage, model.Name);
                 var result = await _commandBus.DispatchAsync<CreateStudyRoomCommand, CreateStudyRoomCommandResult>(command, token);
                 return Ok(result);
             }
@@ -114,7 +108,6 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
-            result.StudentImage = urlBuilder.BuildUserImageEndpoint(result.StudentId, result.StudentImage);
             result.TutorImage = urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
             return result;
         }
@@ -143,20 +136,16 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Get study rooms data of user - used in study room url
         /// </summary>
-        /// <param name="urlBuilder"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<UserStudyRoomDto>> GetUserLobbyStudyRooms([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
+        public async Task<IEnumerable<UserStudyRoomDto>> GetStudyRoomsAsync(
+             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserStudyRoomQuery(userId);
-            var res = await _queryBus.QueryAsync(query, token);
-            return res.Select(item =>
-            {
-                item.Image = urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
-                return item;
-            });
+            return await _queryBus.QueryAsync(query, token);
+
         }
 
 
@@ -170,60 +159,13 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-
-            var url = Url.RouteUrl("roomCallback", new
-            {
-                id
-            }, "https");
-
-            var uri = new Uri(url);
-            if (configuration.IsDevelopment())
-            {
-                var uriBuilder = new UriBuilder(url) { Host = "10bb4013.ngrok.io", Port = 443 };
-                uri = uriBuilder.Uri;
-            }
-
-
-            var command = new CreateStudyRoomSessionCommand(id, configuration.IsProduction(), userId, uri);
+            var command = new CreateStudyRoomSessionCommand(id, configuration.IsProduction(), userId);
             var result = await _commandBus.DispatchAsync<CreateStudyRoomSessionCommand, CreateStudyRoomSessionCommandResult>(command, token);
             return new CreateStudyRoomSessionResponse(result.JwtToken);
 
         }
 
-        [HttpPost("roomCallback", Name = "roomCallback"), ApiExplorerSettings(IgnoreApi = true), AllowAnonymous]
-        public async Task<IActionResult> TwilioCallBackAsync([FromQuery]Guid id,
-            [FromServices] TelemetryClient client,
-            [FromForm] TwilioWebHookRequest request, CancellationToken token)
-        {
-            client.Context.Session.Id = id.ToString();
-            client.TrackEvent($"Room Status {id}",
-                request.GetType().GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance).ToDictionary
-                (
-                    propInfo => propInfo.Name,
-                    propInfo => propInfo.GetValue(request, null)?.ToString()
 
-                ));
-            if (request.RoomStatus == "completed")
-            {
-                var command = new EndStudyRoomSessionTwilioCommand(id, request.RoomName);
-                await _commandBus.DispatchAsync(command, token);
-            }
-
-            //if (request.StatusCallbackEvent.Equals("participant-disconnected", StringComparison.OrdinalIgnoreCase))
-            //{
-            //    var command = new StudyRoomSessionParticipantDisconnectedCommand(id);
-
-            //    await _commandBus.DispatchAsync(command, token);
-
-            //}
-            //else if (request.StatusCallbackEvent.Equals("participant-connected", StringComparison.OrdinalIgnoreCase))
-            //{
-            //    var command = new StudyRoomSessionParticipantReconnectedCommand(id);
-            //    await _commandBus.DispatchAsync(command, token);
-            //}
-
-            return Ok();
-        }
 
         /// <summary>
         /// End Tutoring Session
@@ -255,7 +197,7 @@ namespace Cloudents.Web.Api
         [HttpPost("{id:guid}/Video")]
         [RequestFormLimits(MultipartBodyLengthLimit = int.MaxValue)]
         [RequestSizeLimit(209715200)]
-        public async Task<IActionResult> UploadStudyRoomVideo(Guid id,
+        public IActionResult UploadStudyRoomVideo(Guid id,
             IFormFile file,
             CancellationToken token)
         {
@@ -263,10 +205,10 @@ namespace Cloudents.Web.Api
             {
                 return BadRequest();
             }
-            var userId = _userManager.GetLongUserId(User);
-            await using var stream = file.OpenReadStream();
-            var command = new UploadStudyRoomVideoCommand(id, userId, stream);
-            await _commandBus.DispatchAsync(command, token);
+            //var userId = _userManager.GetLongUserId(User);
+            //await using var stream = file.OpenReadStream();
+            //var command = new UploadStudyRoomVideoCommand(id, userId, stream);
+            //await _commandBus.DispatchAsync(command, token);
 
             return Ok();
         }

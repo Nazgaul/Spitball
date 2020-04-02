@@ -104,14 +104,10 @@ namespace Cloudents.Core.Enum
     public enum StudyRoomType
     {
         SmallGroup,
-        PeerToPeer
+        PeerToPeer,
+        GroupRoom
     }
 
 
-    public enum StudyRoomMediaRegion
-    {
-        UsaEast,
-        Germany,
-        India
-    }
+   
 }

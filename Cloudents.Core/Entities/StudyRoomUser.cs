@@ -20,12 +20,12 @@ namespace Cloudents.Core.Entities
         public virtual User User { get; protected set; }
         public virtual StudyRoom Room { get; protected set; }
 
-        public virtual bool Online { get; protected set; }
+        //public virtual bool Online { get; protected set; }
 
-        public virtual void ChangeOnlineState(bool isOnline)
-        {
-            Online = isOnline;
-            //AddEvent(new StudyRoomOnlineChangeEvent(this));
-        }
+        //public virtual void ChangeOnlineState(bool isOnline)
+        //{
+        //    Online = isOnline;
+        //    //AddEvent(new StudyRoomOnlineChangeEvent(this));
+        //}
     }
 }

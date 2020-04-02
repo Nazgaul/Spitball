@@ -171,6 +171,7 @@ namespace Cloudents.FunctionsV2
                     var blobPath = $"spitball-user/DefaultThumbnail/{val.DefaultThumbnail}";
                     blob = await binder.BindAsync<CloudBlockBlob>(new BlobAttribute(blobPath, FileAccess.Read),
                         token);
+                    mutation.Background = "#ffffff"; // apply white
                 }
             }
 
@@ -260,6 +261,10 @@ namespace Cloudents.FunctionsV2
                     x.ApplyRoundedCorners(mutation.RoundCorner);
                 }
             });
+            if (mutation.Background != null)
+            {
+                image.Mutate(x => x.BackgroundColor(Color.FromHex(mutation.Background)));
+            }
 
             //image.Mutate(x => x.BackgroundColor(Rgba32.White));
             switch (mutation.BlurEffect)
@@ -389,5 +394,6 @@ namespace Cloudents.FunctionsV2
 
         public ImageProperties.BlurEffect BlurEffect { get; set; }
         public AnchorPositionMode Position { get; }
+        public string Background { get; set; }
     }
 }

@@ -52,7 +52,7 @@
                             </div>
                             <template v-if="loggedIn">
                                 <div v-if="!$vuetify.breakpoint.mdAndDown" class="gh_i_r_userInfo text-truncate" @click.prevent="drawer=!drawer">
-                                    <span class="ur_greets" v-text="$t('header_greets', [userName])"/>
+                                    <span class="ur_greets">{{$t('header_greets', [userName])}}</span>
                                     <div class="ur_balance">
                                         <span>{{$t('header_balance', {'0': getUserBalance})}}</span>
                                         <arrowDownIcon v-if="!isMobile" class="ur_balance_drawer ml-2"/>

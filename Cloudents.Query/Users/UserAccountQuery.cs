@@ -36,7 +36,7 @@ namespace Cloudents.Query.Users
                 const string sql = @"select u.Id, U.Balance, u.Name, u.FirstName, u.LastName, u.ImageName as Image, u.Email, 
                             u.PhoneNumberHash as PhoneNumber,
                             u.Country,
-                u.UserType,
+                            u.UserType,
                           t.State as IsTutor,
                             coalesce(
                                 cast(iif(u.PaymentExists != 0 , 0, null) as bit),
@@ -53,36 +53,25 @@ namespace Cloudents.Query.Users
                 userSqlQuery.SetInt64("Id", query.Id);
                 var userFuture = userSqlQuery.SetResultTransformer(new SbAliasToBeanResultTransformer<UserAccountDto>()).FutureValue<UserAccountDto>();
 
+                var pendingSessionsPaymentsFuture = _session.Query<StudyRoomSession>()
+                    .Fetch(f => f.StudyRoom)
+                    .Where(w => w.StudyRoom.Tutor.Id == query.Id)
+                    .Where(w => w.StudyRoomVersion.GetValueOrDefault() == 0)
+                    .Where(w => w.Duration > StudyRoomSession.BillableStudyRoomSession
+                                && w.RealDuration == null && w.Receipt == null)
+                    .GroupBy(g => 1)
+                    .Select(s => s.Count())
+                    .ToFutureValue();
 
-                const string pendingSessionsPaymentsSql = @"select count(1)
-                                                        from sb.StudyRoom sr
-                                                        join sb.StudyRoomSession srs
-	                                                        on sr.Id = srs.StudyRoomId
-                                                        where sr.TutorId = :Id
-                                                        and RealDuration is null
-                                                        and Receipt is null
-                                                        and Duration > :Ticks
-                                                        and price > 0";
-
-                var pendingSessionsPaymentsSqlQuery = _session.CreateSQLQuery(pendingSessionsPaymentsSql);
-                pendingSessionsPaymentsSqlQuery.SetInt64("Id", query.Id);
-                pendingSessionsPaymentsSqlQuery.SetInt64("Ticks", TimeSpan.FromMinutes(10).Ticks);
-
-                var pendingSessionsPaymentsFuture = pendingSessionsPaymentsSqlQuery.FutureValue<int>();
-
-
-                //var universityFuture = _session.Query<User>()
-                //    .Fetch(f => f.University)
-                //    .Where(w => w.Id == query.Id && w.University != null)
-                //    .Select(s => 
-                //        new UniversityDto(
-                //            s.University!.Id,
-                //            s.University.Name,
-                //            s.University.Country,
-                //            s.University.Image,
-                //            s.University.UsersCount)
-                //    )
-                //    .ToFutureValue();
+                var newPendingSessionPayment = _session.Query<StudyRoomSessionUser>()
+                    .Fetch(f => f.StudyRoomSession)
+                    .ThenFetch(f => f.StudyRoom)
+                    .Where(w => w.StudyRoomSession.StudyRoom.Tutor.Id == query.Id
+                                && w.Duration > StudyRoomSession.BillableStudyRoomSession
+                                && w.TutorApproveTime == null)
+                    .GroupBy(g => 1)
+                    .Select(s => s.Count())
+                    .ToFutureValue();
 
                 var haveDocsFuture = _session.Query<Document>()
                     .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
@@ -102,7 +91,6 @@ namespace Cloudents.Query.Users
                     .Take(1)
                     .ToFuture();
 
-                //TODO: need to return Document with state = archive
                 var purchasedDocsFuture = _session.Query<DocumentTransaction>()
                     .Fetch(f => f.User)
                     .Fetch(f => f.Document)
@@ -128,7 +116,7 @@ namespace Cloudents.Query.Users
                     .Take(1)
                     .ToFuture();
 
-               
+
 
                 var isSoldDocumentFuture = _session.Query<DocumentTransaction>()
                     .Fetch(f => f.User)
@@ -164,18 +152,12 @@ namespace Cloudents.Query.Users
                     .Take(1)
                     .ToFuture();
 
-                
-
-
-
                 var result = await userFuture.GetValueAsync(token);
                 if (result is null)
                 {
                     return null;
                 }
 
-                //result.Courses = await coursesFuture.GetEnumerableAsync(token);
-                //result.University = await universityFuture.GetValueAsync(token);
                 result.HaveContent = (await haveDocsFuture.GetEnumerableAsync(token)).Any()
                                      || (await haveQuestionsFuture.GetEnumerableAsync(token)).Any();
 
@@ -191,7 +173,8 @@ namespace Cloudents.Query.Users
                                 || (await isSoldSessionFuture.GetEnumerableAsync(token)).Any();
 
                 result.HaveFollowers = (await haveFollowersFuture.GetEnumerableAsync(token)).Any();
-                result.PendingSessionsPayments = await pendingSessionsPaymentsFuture.GetValueAsync(token);
+                result.PendingSessionsPayments =
+                     pendingSessionsPaymentsFuture.Value + newPendingSessionPayment.Value;
                 return result;
             }
         }

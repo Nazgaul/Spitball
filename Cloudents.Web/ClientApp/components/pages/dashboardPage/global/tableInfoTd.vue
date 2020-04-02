@@ -1,5 +1,5 @@
 <template>
-   <div class="tableInfo text-xs-left text-truncate">
+   <div class="tableInfo text-xs-left text-truncate py-2">
       <template v-if="item.type === 'BuyPoints'">
          <div class="text-truncate">
             <span>{{$t('dashboardPage_info_buy_points')}}</span>
@@ -8,6 +8,10 @@
       <router-link v-else class="tableInfo_router" :to="dynamicRouter(item)">
          <template v-if="item.type === 'TutoringSession'">
             <div class="text-truncate">
+               <div v-if="item.roomName" class="text-truncate">
+                  <span class="font-weight-bold">{{$t('dashboardPage_room_name')}}</span> 
+                  <span>{{item.roomName}}</span>
+               </div>
                <span v-text="$Ph('dashboardPage_session',item.name)"/>
                <div class="text-truncate">
                   <span class="font-weight-bold" v-language:inner="'dashboardPage_duration'"/> 

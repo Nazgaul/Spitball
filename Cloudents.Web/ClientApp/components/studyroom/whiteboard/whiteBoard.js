@@ -103,6 +103,9 @@ export default {
             'getShowBoxHelper',
             'getShapesSelected',
             'getFontSize']),
+        isRoomActive(){
+            return this.$store.getters.getRoomIsActive;
+        },
         equationSizeX(){
             return (window.innerWidth / 2) - 300;
         },
@@ -349,17 +352,17 @@ export default {
             this.currentTabId = tab.id;
 
             if (tab.id !== this.getCurrentSelectedTab.id) {
-
-                let tabData = {
-                    tabId: this.currentTabId,
-                };
-                let transferDataObj = {
-                    type: "updateTabById",
-                    data: tabData
-                };
-                let normalizedData = JSON.stringify(transferDataObj);
-                this.$store.dispatch('sendDataTrack',normalizedData)
-                
+                if(this.isTutor){
+                    let tabData = {
+                        tabId: this.currentTabId,
+                    };
+                    let transferDataObj = {
+                        type: "updateTabById",
+                        data: tabData
+                    };
+                    let normalizedData = JSON.stringify(transferDataObj);
+                    this.$store.dispatch('sendDataTrack',normalizedData)
+                }
                 this.changeSelectedTab(tab);
                 whiteBoardService.hideHelper();
                 whiteBoardService.redraw(this.canvasData);

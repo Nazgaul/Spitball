@@ -9,6 +9,10 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class StudyRoomSession : Entity<Guid>
     {
+        public const int StudyRoomNewVersion = 2;
+
+        public static readonly  TimeSpan BillableStudyRoomSession = TimeSpan.FromMinutes(10);
+
         public StudyRoomSession(StudyRoom studyRoom, string sessionId)
         {
             StudyRoom = studyRoom;
@@ -16,7 +20,7 @@ namespace Cloudents.Core.Entities
             SessionId = sessionId;
 
             //UseUserToken();
-
+            StudyRoomVersion = StudyRoomNewVersion;
             AddEvent(new StudyRoomSessionCreatedEvent(this));
         }
         protected StudyRoomSession()
@@ -28,18 +32,18 @@ namespace Cloudents.Core.Entities
         //{
         //    var user = StudyRoom.Users.First(f => f.User.Id != StudyRoom.Tutor.Id).User;
         //    user.UseToken(StudyRoom);
-          
+
         //}
+
+        public virtual int? StudyRoomVersion { get; set; }
 
         public virtual StudyRoom StudyRoom { get; protected set; }
         public virtual DateTime Created { get; protected set; }
         public virtual DateTime? Ended { get; protected set; }
         public virtual TimeSpan? Duration { get; protected set; }
 
-        //TODO remove this
-        //public virtual TimeSpan? DurationInMinutes { get; protected set; }
 
-        public virtual int RejoinCount { get; protected set; }
+        //public virtual int RejoinCount { get; protected set; }
         public virtual string SessionId { get; protected set; }
         public virtual string? Receipt { get; protected set; }
         public virtual decimal? Price { get; protected set; }
@@ -47,11 +51,36 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
         public virtual byte[] Version { get; protected set; }
 
-        private readonly IList<SessionParticipantDisconnect> _participantDisconnections = new List<SessionParticipantDisconnect>();
 
-        public virtual IEnumerable<SessionParticipantDisconnect> ParticipantDisconnections => _participantDisconnections;
+        private readonly ISet<StudyRoomSessionUser> _roomSessionUsers = new HashSet<StudyRoomSessionUser>();
+        public virtual IEnumerable<StudyRoomSessionUser> RoomSessionUsers => _roomSessionUsers;
 
-        public virtual bool VideoExists { get; protected set; }
+        public virtual void AddUser(User user)
+        {
+            if (user.Id == StudyRoom.Tutor.Id)
+            {
+                return;
+            }
+            var sessionUser = new StudyRoomSessionUser(this, user);
+            _roomSessionUsers.Add(sessionUser);
+        }
+
+        public virtual void UserDisconnect(User user, TimeSpan durationInRoom)
+        {
+            if (user.Id == StudyRoom.Tutor.Id)
+            {
+                return;
+            }
+            
+            var sessionUser = RoomSessionUsers.Single(s => s.User == user);
+            sessionUser.Disconnect(durationInRoom);
+        }
+
+        //private readonly IList<SessionParticipantDisconnect> _participantDisconnections = new List<SessionParticipantDisconnect>();
+
+        //public virtual IEnumerable<SessionParticipantDisconnect> ParticipantDisconnections => _participantDisconnections;
+
+        //public virtual bool VideoExists { get; protected set; }
 
 
         //public virtual IPaymentProvider Payment { get; protected set; }
@@ -60,17 +89,16 @@ namespace Cloudents.Core.Entities
         public virtual TimeSpan? RealDuration { get; protected set; }
 
 
-        public virtual void UpdateVideo()
-        {
-            VideoExists = true;
-        }
+        //public virtual void UpdateVideo()
+        //{
+        //    VideoExists = true;
+        //}
 
         protected virtual void CalculatePriceAndDuration()
         {
             Duration = Ended - Created;
-
-            Price = ((decimal)Math.Floor(Duration.Value.TotalMinutes) / 60) * StudyRoom.Tutor.Price.SubsidizedPrice ??
-                      ((decimal)Math.Floor(Duration.Value.TotalMinutes) / 60) * StudyRoom.Tutor.Price.Price;
+           // var tutorPrice = StudyRoom.Tutor.Price.SubsidizedPrice ??
+           Price = ((decimal) Math.Floor(Duration.Value.TotalMinutes) / 60) * StudyRoom.Tutor.Price.GetPrice();
         }
 
         public virtual void EditDuration(int minutes)
@@ -94,11 +122,11 @@ namespace Cloudents.Core.Entities
             AddEvent(new EndStudyRoomSessionEvent(this));
         }
 
-        public virtual void ReJoinStudyRoom()
-        {
-            RejoinCount++;
-            AddEvent(new StudyRoomSessionRejoinEvent(this));
-        }
+        //public virtual void ReJoinStudyRoom()
+        //{
+        //    RejoinCount++;
+        //    AddEvent(new StudyRoomSessionRejoinEvent(this));
+        //}
 
         public virtual void SetReceipt(string receipt)
         {
@@ -109,7 +137,7 @@ namespace Cloudents.Core.Entities
             Receipt = receipt;
         }
 
-        public virtual void SetReceiptAndAdminDate(string receipt, int adminDuration)
+        public virtual void SetReceiptAndAdminDate(string receipt, TimeSpan adminDuration)
         {
             if (string.IsNullOrEmpty(receipt))
             {
@@ -117,7 +145,7 @@ namespace Cloudents.Core.Entities
             }
             Receipt = receipt;
             PaymentApproved = DateTime.UtcNow;
-            AdminDuration = new TimeSpan(0, adminDuration, 0);
+            AdminDuration = adminDuration;
             //AdminDuration = adminDuration;
             //StudentPay = studentPay;
         }
@@ -126,10 +154,5 @@ namespace Cloudents.Core.Entities
         {
             RealDuration = realDuration;
         }
-
-        //public virtual void SetPyment(IPaymentProvider payment)
-        //{
-        //    Payment = payment;
-        //}
     }
 }
