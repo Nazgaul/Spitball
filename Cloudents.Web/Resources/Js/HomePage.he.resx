@@ -180,11 +180,17 @@
   <data name="student" xml:space="preserve">
     <value>תלמיד</value>
   </data>
+  <data name="student_btn_register" xml:space="preserve">
+    <value>הרשמה לתלמידים</value>
+  </data>
   <data name="student_text" xml:space="preserve">
     <value>גישה לכל חומרי הלימוד, דברו עם מורים מומחים וצפייה בשיעורים מקוונים</value>
   </data>
   <data name="teacher" xml:space="preserve">
     <value>מורה</value>
+  </data>
+  <data name="teacher_btn_register" xml:space="preserve">
+    <value>הרשמה למורים</value>
   </data>
   <data name="teacher_text" xml:space="preserve">
     <value>קבלו אתר למורה מותאם לצרכים שלכם ולמדו תלמידים מכל מקום</value>

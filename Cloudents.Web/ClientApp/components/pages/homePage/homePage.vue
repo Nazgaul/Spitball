@@ -25,13 +25,13 @@
             <div class="boxStudent">
                 <h3 class="boxHeader" v-t="'homePage_student'"></h3>
                 <h4 class="boxDesc mt-3 mb-6" v-t="'homePage_student_text'"></h4>
-                <button class="boxBtns btnsLearn mb-3" @click="studentRegister" v-t="'homePage_btn_register'"></button>
+                <button class="boxBtns btnsLearn mb-3" @click="studentRegister" v-t="'homePage_student_btn_register'"></button>
                 <div class="boxNoCredit" v-t="'homePage_credit'"></div>
             </div>
             <div>
                 <h3 class="boxHeader" v-t="'homePage_teacher'"></h3>
                 <h4 class="boxDesc mt-3 mb-6" v-t="'homePage_teacher_text'"></h4>
-                <button class="boxBtns btnsTeach mb-3" @click="teacherRegister" v-t="'homePage_btn_register'"></button>
+                <button class="boxBtns btnsTeach mb-3" @click="teacherRegister" v-t="'homePage_teacher_btn_register'"></button>
                 <div class="boxNoCredit" v-t="'homePage_credit'"></div>
             </div>
         </div>

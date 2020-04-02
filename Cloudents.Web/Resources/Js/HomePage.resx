@@ -204,4 +204,10 @@
   <data name="video_title" xml:space="preserve">
     <value>The platform that connects teachers with learners</value>
   </data>
+  <data name="student_btn_register" xml:space="preserve">
+    <value>Register as a student</value>
+  </data>
+  <data name="teacher_btn_register" xml:space="preserve">
+    <value>Register as a teacher</value>
+  </data>
 </root>
