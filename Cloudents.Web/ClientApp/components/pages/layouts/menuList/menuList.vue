@@ -29,8 +29,8 @@
           </v-list-item>
         </template>
 
-        <template v-if="!getIsStudent">
-          <template v-if="showFindTutors">
+        <template v-if="!getIsStudent && !getUserLoggedInStatus">
+          <template>
             <v-list-item :to="{name:'tutorLandingPage'}">
               <v-list-item-action><v-icon class="userMenu_icons" v-html="'sbf-account-group'"></v-icon></v-list-item-action>
               <v-list-item-content>
@@ -38,7 +38,7 @@
               </v-list-item-content>
             </v-list-item>
           </template>
-          <template v-if="showTeachOnSpitball">
+          <template v-if="!isFrymo">
             <v-list-item href="https://teach.spitball.co/" target="_blank">
               <v-list-item-action>
                 <v-icon v-html="'sbf-find'" class="userMenu_icons"/>
@@ -48,7 +48,7 @@
               </v-list-item-content>
             </v-list-item>
           </template>
-          <template v-if="showTestStudyRoom">
+          <template>
             <v-list-item :to="{ name: 'tutoring'}">
               <v-list-item-action><v-icon class="userMenu_icons" v-html="'sbf-pc'"></v-icon></v-list-item-action>
               <v-list-item-content>
@@ -122,9 +122,7 @@ export default {
       component: '',
       menuListComponent: {
         teacher: 'menuListTeacher',
-        parent: 'menuListTeacher',
-        universitystudent: 'menuListStudent',
-        highschoolstudent: 'menuListStudent',
+        student: 'menuListStudent'
       },
       languagesLocales,
       languageChoisesAval: [],
@@ -207,7 +205,8 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["accountUser",'isFrymo','getUserLoggedInStatus', 'getIsStudent']),
+    ...mapGetters(['accountUser', 'isFrymo', 'getUserLoggedInStatus', 'getIsStudent', 'getIsTeacher']),
+    
     menuListUserType() {
       let userType = this.user?.userType || '';
       return this.menuListComponent[userType.toLowerCase()]
@@ -219,43 +218,15 @@ export default {
       return { ...this.accountUser };
     },
     isLoggedIn() {
-      return !!this.accountUser;
+      return this.getUserLoggedInStatus;
     },
     showChangeLanguage() {
       return global.country === 'IL';
-    },
-    showFindTutors(){
-      if(this.$route.name === 'tutorLandingPage'){
-        return false;
-      }else{
-        if(this.getUserLoggedInStatus){
-          return !this.accountUser.isTutor;
-        }else{
-          return true;
-        }
-      }
-    },
-    showTeachOnSpitball(){
-      if(this.isFrymo){
-        return false;
-      }else{
-        if(this.getUserLoggedInStatus){
-          return !this.accountUser.isTutor;
-        }else{
-          return true;
-        }
-      }
-    },
-    showTestStudyRoom(){
-      if(this.getUserLoggedInStatus){
-        return !this.accountUser.isTutor;
-      }else{
-        return true;
-      }
     }
   },
   methods: {           
-    ...mapActions(['updateReferralDialog',"logout",]),
+    ...mapActions(['updateReferralDialog', 'logout']),
+
     changeLanguage(id) {
       LanguageChange.setUserLanguage(id).then(
         () => {
@@ -285,21 +256,11 @@ export default {
       this.$root.$emit('closeDrawer')
     }
   },
-
   created() {
     let currentLocHTML = document.documentElement.lang;
     this.languageChoisesAval = languagesLocales.filter(lan => {
       return lan.locale !== currentLocHTML;
     });
-    if (
-      !!this.$route.query &&
-      !!this.$route.query.open &&
-      this.$route.query.open === "referral"
-    ) {
-      this.$nextTick(function() {
-        this.updateReferralDialog(true)
-      });
-    }
   }
 };
 </script>
