@@ -131,8 +131,7 @@ import logoComponent from '../../../app/logo/logo.vue';
 
 .footer {
   background-color: #f1f1f4;
-  padding-top: 30px;
-  padding-bottom: 20px;
+  padding: 20px 0;
   @media (max-width: @screen-sm) {
     padding-top: 20px;
   }
@@ -157,9 +156,9 @@ import logoComponent from '../../../app/logo/logo.vue';
     margin: 0 auto;
     height: inherit;
     font-size: 14px;
-    @media (max-width: @screen-sm) {
-        flex-direction: column-reverse;
-    }
+    // @media (max-width: @screen-sm) {
+    //     flex-direction: column-reverse;
+    // }
     .footer-wrap-list {
         cursor: pointer;
         padding: 0;
@@ -181,10 +180,10 @@ import logoComponent from '../../../app/logo/logo.vue';
             margin-top: 20px;
         }
         li {
-            margin-left: 50px;
+            padding: 0 20px;
             text-align: left;
             @media (max-width: @screen-sm) {
-                margin: 10px 0;
+                // margin: 10px 0;
                 text-align: center;
             }
           .footer-link {
@@ -207,8 +206,15 @@ import logoComponent from '../../../app/logo/logo.vue';
      }
     .footer-contact-box {
         line-height: 80px;
+        padding-right: 30px;
+        @media (max-width: @screen-xs) { 
+            padding-right: 0;
+        }
         :first-child {
-            text-align: center;
+            text-align: left;
+            @media (max-width: @screen-xs) { 
+                text-align: center;
+            }
         }
         .footer-contact-box-icons {
             a {
@@ -225,18 +231,8 @@ import logoComponent from '../../../app/logo/logo.vue';
   .tutor-list-footer-logo {
         div{
           svg {
-            vertical-align: -webkit-baseline-middle;
-            fill: @global-purple;
-            &.frymo-logo{
-              fill: @global-purple;
-            }
-            
-          }
-        } 
-      }
-  .tutor-list-footer-logo {
-        div{
-          svg {
+            width: auto;
+            height: auto;
             vertical-align: -webkit-baseline-middle;
             fill: @global-purple;
             &.frymo-logo{

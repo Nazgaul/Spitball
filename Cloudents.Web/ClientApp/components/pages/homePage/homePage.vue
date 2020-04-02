@@ -24,13 +24,13 @@
             <div class="boxStudent">
                 <div class="boxHeader" v-t="'homePage_student'"></div>
                 <div class="boxDesc mt-3 mb-6" v-t="'homePage_student_text'"></div>
-                <button class="boxBtns btnsLearn mb-4" @click="studentRegister" v-t="'homePage_btn_register'"></button>
+                <button class="boxBtns btnsLearn mb-3" @click="studentRegister" v-t="'homePage_btn_register'"></button>
                 <div class="boxNoCredit" v-t="'homePage_credit'"></div>
             </div>
             <div>
                 <div class="boxHeader" v-t="'homePage_teacher'"></div>
                 <div class="boxDesc mt-3 mb-6" v-t="'homePage_teacher_text'"></div>
-                <button class="boxBtns btnsTeach mb-4" @click="teacherRegister" v-t="'homePage_btn_register'"></button>
+                <button class="boxBtns btnsTeach mb-3" @click="teacherRegister" v-t="'homePage_btn_register'"></button>
                 <div class="boxNoCredit" v-t="'homePage_credit'"></div>
             </div>
         </div>
@@ -79,7 +79,7 @@ export default {
   background: #fff;
   .homeVideo {
     position: relative;
-    height: 636px;
+    height: 710px;
     @media (max-width: @screen-xs) {
       height: 354px;
     }
@@ -91,7 +91,7 @@ export default {
     .actions {
       color: #fff;
       position: absolute;
-      bottom: 50px;
+      bottom: 40px;
       right: 0;
       left: 0;
       text-align: center;
@@ -102,7 +102,7 @@ export default {
         font-size: 34px;
         width: 600px;
         line-height: 1.5;
-        margin: 0 auto 60px;
+        margin: 0 auto 50px;
         @media (max-width: @screen-xs) {
           margin: 0;
           width: 100%;
@@ -139,6 +139,7 @@ export default {
       width: 230px;
       height: 44px;
       font-size: 16px;
+      .responsive-property(max-width, 230px, null, 260px);
       &.btnsLearn {
         color: #4c59ff;
         font-weight: 600;

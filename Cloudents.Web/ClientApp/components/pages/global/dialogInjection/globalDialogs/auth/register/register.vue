@@ -181,6 +181,9 @@ export default {
     },
     methods: {
         closeRegister() {
+            if(this.$route.query.teacher) {
+                this.$router.push('/')
+            }
             this.$store.commit('setComponent', '')
             this.$store.commit('setRequestTutor')
         },

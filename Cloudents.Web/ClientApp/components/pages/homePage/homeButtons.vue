@@ -11,18 +11,20 @@
     .responsive-property(justify-content, space-evenly, null, null);
 
     .btn {
-        .responsive-property(width, 230px, null, 100%);
+        .responsive-property(width, 230px, null, 260px);
         color: #fff;
         outline: none;
         padding: 11px 0;
         border-radius: 28px;
         font-size: 16px;
+        font-weight: 600;
         @media (max-width: @screen-xs) {
             margin: 0 auto;
         }
         &.btnLearn {
-            margin-right: 80px; // center the buttons to the middle section box's
             background-color: #4c59ff;
+            .responsive-property(margin-right, 80px, null, auto);
+
         }
         &.btnTeach {
             background-color: #41c4bc;
