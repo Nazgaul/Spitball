@@ -1,12 +1,14 @@
 import accountService from '../services/accountService';
 
+const TUTOR_MIN_PRICE = 35;
+
 const state = {
-    tutorMinPrice: 35,
+    tutorMinPrice: TUTOR_MIN_PRICE,
     becomeTutorObj: {
         image: '',
         firstName: '',
         lastName: '',
-        price: 35,
+        price: TUTOR_MIN_PRICE,
         description: '',
         bio: ''
     },
