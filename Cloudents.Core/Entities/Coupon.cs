@@ -60,7 +60,7 @@ namespace Cloudents.Core.Entities
 
         public virtual CouponType CouponType { get; protected set; }
 
-        public virtual Tutor Tutor { get; protected set; }
+        public virtual Tutor? Tutor { get; protected set; }
 
         public virtual decimal Value { get; protected set; }
 

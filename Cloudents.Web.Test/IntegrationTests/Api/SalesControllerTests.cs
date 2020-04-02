@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using System.Net;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests.Api
@@ -14,8 +15,9 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             _client = factory.CreateClient();
         }
 
+
         [Theory]
-        [InlineData("api/Sales/sales")]
+        [InlineData("api/Sales")]
         public async Task SalesTestGet_OkAsync(string url)
         {
             await _client.LogInAsync();
@@ -29,7 +31,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         public async Task SessionTestGet_OkAsync()
         {
             await _client.LogInAsync();
-            var response = await _client.GetAsync("api/sales/session?id=29FA48E7-65E0-4E4F-9916-AB1E00A8BC8B");
+            var response = await _client.GetAsync("api/sales?id=29FA48E7-65E0-4E4F-9916-AB1E00A8BC8B");
             response.EnsureSuccessStatusCode();
             if (response.StatusCode != HttpStatusCode.NoContent)
             {

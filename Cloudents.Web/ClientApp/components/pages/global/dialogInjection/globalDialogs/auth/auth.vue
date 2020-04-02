@@ -62,8 +62,18 @@ export default {
 </script>
 
 <style lang="less">
-    .wrapper {
+// this is idan(1) requirement.
+//remove input background when click from autocomplete suggestions
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+    .authDialog {
         background: #fff;
-        height: 510px;
+    }
+    .wrapper {
+        height: 510px !important;
     }
 </style>

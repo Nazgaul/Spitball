@@ -20,6 +20,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 using Cloudents.FunctionsV2.Operations;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.TwiML;
@@ -50,7 +51,7 @@ namespace Cloudents.FunctionsV2
                 log.LogError("error with parsing message");
                 return;
             }
-            
+
             await ProcessEmail(emailProvider, log, topicMessage, token);
 
             log.LogInformation("finish sending email");
@@ -127,6 +128,7 @@ namespace Cloudents.FunctionsV2
               [ServiceBusTrigger("communication", "sms", Connection = "AzureWebJobsServiceBus")]
               SmsMessage msg,
               [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
+              [Inject] ISmsProvider smsProvider,
               ILogger log,
               CancellationToken token
           )
@@ -144,14 +146,20 @@ namespace Cloudents.FunctionsV2
             }
 
             CultureInfo.DefaultThreadCurrentCulture = msg.CultureInfo;
-            var messageOptions = new CreateMessageOptions(new PhoneNumber(msg.PhoneNumber))
-            {
-                Body = string.Format(ResourceWrapper.GetString("sms_text"), msg.Message)
-            };
+            var smsMessage = string.Format(ResourceWrapper.GetString("sms_text"), msg.Message);
+            //var phoneNumber = new PhoneNumber(msg.PhoneNumber);
+
             if (msg.PhoneNumber.StartsWith("+972"))
             {
-                messageOptions.From = "Spitball";
+                log.LogInformation($"Receiving sms to: {msg.PhoneNumber}");
+                var result = await smsProvider.SendSmsAsync(smsMessage, msg.PhoneNumber, token);
+                log.LogInformation($"result is: {result}");
+                return;
             }
+            var messageOptions = new CreateMessageOptions(new PhoneNumber(msg.PhoneNumber))
+            {
+                Body = smsMessage
+            };
             await options.AddAsync(messageOptions, token);
         }
 

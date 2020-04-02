@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Session
 {
+
+    /// <summary>
+    /// This is old version of study room session
+    /// </summary>
     public class PaymentBySessionIdQuery : IQuery<PaymentDetailDto>
     {
         public PaymentBySessionIdQuery(Guid sessionId)
@@ -57,12 +61,9 @@ namespace Cloudents.Query.Session
 	                    on tr.Id = tu.Id
                     where srs.id = @id";
 
-                using (var conn = _repository.OpenConnection())
-                {
-                    var result = await conn.QuerySingleAsync<PaymentDetailDto>(sql, new { id = query.SessionId });
-
-                    return result;
-                }
+                using var conn = _repository.OpenConnection();
+                var result = await conn.QuerySingleAsync<PaymentDetailDto>(sql, new { id = query.SessionId });
+                return result;
             }
         }
     }

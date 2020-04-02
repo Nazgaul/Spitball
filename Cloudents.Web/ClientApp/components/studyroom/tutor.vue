@@ -28,7 +28,7 @@
               v-for="(singleNav, index) in navs"
               :class="{'active-nav': singleNav.value === activeItem, 'tutor-nav-disabled': singleNav.value !== 'white-board' && singleNav.value !== 'code-editor' && !id}"
               :key="index" :sel="`${singleNav.name.toLowerCase().replace(' ','_')}_tab`">
-              <span class="dot-nav" v-if="singleNav.value === getActiveNavIndicator">●</span>
+              <span class="dot-nav" v-if="isRoomActive && !isRoomTutor && singleNav.value === getActiveNavIndicator">●</span>
               <v-icon class="mr-2 nav-icon">{{singleNav.icon}}</v-icon>
               <a class="tutor-nav-item-link">{{singleNav.name}}</a>
             </div>
@@ -566,15 +566,17 @@ watch: {
       this.$ga.event("tutoringRoom", `updateActiveNav:${value}`);
 
       this.activeNavItem = value;
-      let activeNavData = {
-          activeNav: value,
+      if(this.isRoomTutor){
+        let activeNavData = {
+            activeNav: value,
+        }
+        let transferDataObj = {
+            type: "updateActiveNav",
+            data: activeNavData
+        };
+        let normalizedData = JSON.stringify(transferDataObj);
+        this.$store.dispatch('sendDataTrack',normalizedData)
       }
-      let transferDataObj = {
-          type: "updateActiveNav",
-          data: activeNavData
-      };
-      let normalizedData = JSON.stringify(transferDataObj);
-      this.$store.dispatch('sendDataTrack',normalizedData)
     },
     selectViewOption(param) {
       this.$ga.event("tutoringRoom", `selectViewOption:${param}`);

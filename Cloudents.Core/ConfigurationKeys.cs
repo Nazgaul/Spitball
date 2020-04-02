@@ -9,14 +9,9 @@ namespace Cloudents.Core
             SiteEndPoint = new SiteEndPoints();
 
         }
-        //public ConfigurationKeys(string siteEndPoint)
-        //{
-        //    SiteEndPoint = siteEndPoint;
-
-        //}
+       
 
         public DbConnectionString Db { get; set; }
-        public string MailGunDb { get; set; }
         public SearchServiceCredentials Search { get; set; }
         public string Redis { get; set; }
         public string Storage { get; set; }

@@ -65,6 +65,7 @@ const mutations = {
         state.guestName = '';
         state.guestMail = '';
         state.guestPhone = '';
+        state.currTutor = null
     },
     setMoreTutors(state, val) {
         state.moreTutors = val;
@@ -93,9 +94,6 @@ const actions = {
     },
     updateRequestDialog({commit}, val){
         commit('setRequestDialog', val);
-        // if(!val){
-        //     dispatch('updateCurrTutor', null);
-        // }
     },
     setTutorRequestAnalyticsOpenedFrom: ({commit}, val) => {
         commit('setTutorRequestAnalyticsOpenedFrom', val);

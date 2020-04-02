@@ -100,13 +100,8 @@ namespace Cloudents.Web.Controllers
                 await writer.WriteStartDocumentAsync();
 
                 await writer.WriteStartElementAsync(null, "urlset", null);
-                // writer.WriteStartElement("urlset",
-                //     "http://www.sitemaps.org/schemas/sitemap/0.9");
                 await writer.WriteAttributeStringAsync("xmlns", "image", null, "http://www.google.com/schemas/sitemap-image/1.1");
                 await writer.WriteAttributeStringAsync("v", "xmlns", null, "http://www.sitemaps.org/schemas/sitemap/0.9");
-                //writer.WriteAttributeString("xmlns", "video", null, "http://www.google.com/schemas/sitemap-video/1.1");
-                //writer.WriteAttributeString("xmlns", "xhtml", null, "http://www.w3.org/1999/xhtml");
-                //writer.WriteAttributeString("xmlns:xhtml", "http://www.w3.org/1999/xhtml"); // for lang support
                 foreach (var url in urls)
                 {
                     i++;
@@ -123,28 +118,6 @@ namespace Cloudents.Web.Controllers
             });
         }
 
-        //private static async Task WriteTagAsync(string priority, string freq,
-        //    string navigation, XmlWriter myWriter)
-        //{
-        //    myWriter.WriteStartElement("url");
-
-        //    myWriter.WriteStartElement("loc");
-        //    myWriter.WriteValue(navigation);
-        //    await myWriter.WriteEndElementAsync();
-
-        //    myWriter.WriteStartElement("lastmod");
-        //    myWriter.WriteValue(DateTime.Now.ToString("yyyy-MM-dd"));
-        //    await myWriter.WriteEndElementAsync();
-
-        //    myWriter.WriteStartElement("changefreq");
-        //    myWriter.WriteValue(freq);
-        //    await myWriter.WriteEndElementAsync();
-
-        //    myWriter.WriteStartElement("priority");
-        //    myWriter.WriteValue(priority);
-        //    await myWriter.WriteEndElementAsync();
-
-        //    await myWriter.WriteEndElementAsync();
-        //}
+        
     }
 }

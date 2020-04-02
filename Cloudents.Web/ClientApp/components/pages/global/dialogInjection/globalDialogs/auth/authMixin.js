@@ -53,7 +53,9 @@ export default {
                     dispatch('updateLoginStatus', true)
                     if(self.$route.path === '/') {
                         this.$router.push({name: this.routeNames.LoginRedirect})
+                        return
                     }
+                    dispatch('userStatus')
                 }).catch(error => {
                     if(error) {
                         self.$emit('showToasterError');
