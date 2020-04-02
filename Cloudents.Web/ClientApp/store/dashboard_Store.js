@@ -97,29 +97,6 @@ const actions = {
    dashboard_updateName({commit},paramObj){
       commit('dashboard_setName',paramObj);
    },
-   dashboard_sort({state},{listName,sortBy,sortedBy}){
-      if(sortBy == 'date' || sortBy == 'lastSession'){
-         if(sortedBy === sortBy){
-            state[listName].reverse();
-         }else{
-            state[listName].sort((a,b)=> new Date(b[sortBy]) - new Date(a[sortBy]));
-         }
-         return;
-      }
-      if(sortedBy === sortBy){
-         state[listName].reverse();
-      }else{
-         state[listName].sort((a,b)=> {
-            if(a[sortBy] == undefined) return 1;
-            if(b[sortBy] == undefined) return -1;
-
-            if(a[sortBy] > b[sortBy])return -1;
-            if(b[sortBy] > a[sortBy])return 1;
-            return 0;
-         });
-         return;
-      }
-   },
    updateStudentsAnswersQuestion() {
       return accountService.getQuestions().then((data) => {
          return data;
