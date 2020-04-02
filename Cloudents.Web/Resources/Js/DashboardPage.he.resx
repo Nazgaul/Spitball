@@ -133,13 +133,22 @@
     <value>קורס:</value>
   </data>
   <data name="create_room_created_error" xml:space="preserve">
-    <value>קיים כבר חדר לימוד עם משתמש זה</value>
+    <value>חדר לימוד זה כבר קיים</value>
   </data>
   <data name="create_room_create_btn" xml:space="preserve">
     <value>יצירת חדר לימוד</value>
   </data>
   <data name="create_room_empty_error" xml:space="preserve">
     <value>לא נבחר אף סטודנט</value>
+  </data>
+  <data name="create_room_max_error" xml:space="preserve">
+    <value>מקסימום 4 סטודנטים בחדר לימוד</value>
+  </data>
+  <data name="create_room_label" xml:space="preserve">
+    <value>שם חדר הלימוד</value>
+  </data>
+  <data name="create_room_placeholder" xml:space="preserve">
+    <value>הכנס שם</value>
   </data>
   <data name="create_room_title" xml:space="preserve">
     <value>בחירת סטודנט/ית</value>
@@ -243,6 +252,9 @@
   </data>
   <data name="rename" xml:space="preserve">
     <value>שינוי שם</value>
+  </data>
+  <data name="room_name" xml:space="preserve">
+    <value>שם החדר:</value>
   </data>
   <data name="send_email" xml:space="preserve">
     <value>שלח אימייל</value>

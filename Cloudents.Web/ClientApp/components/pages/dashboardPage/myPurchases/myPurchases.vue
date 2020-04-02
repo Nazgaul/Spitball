@@ -35,7 +35,9 @@
             <template v-slot:item="props">
                <tr class="myPurchases_table_tr">
                   <tablePreviewTd :item="props.item"/>
-                  <tableInfoTd :item="props.item"/>
+                  <td>
+                     <tableInfoTd :item="props.item"/>
+                  </td>
                   <td class="text-left" v-text="dictionary.types[props.item.type]"/>
                   <td class="text-left" v-text="formatPrice(props.item.price,props.item.type)"/>
                   <td class="text-left">{{ $d(new Date(props.item.date)) }}</td> 

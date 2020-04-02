@@ -138,8 +138,8 @@ const actions = {
    updateMarketingBlogs() {
       return dashboardService.getMarketingBlogs()
    },
-   updateSalesSessions(context, id) {
-      return dashboardService.getSalesSessions(id);
+   updateSalesSessions(context, params) {
+      return dashboardService.getSalesSessions(params);
    },
    updateSessionDuration(context, session) {
       return dashboardService.updateSessionDuration(session)

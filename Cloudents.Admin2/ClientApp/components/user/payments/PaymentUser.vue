@@ -17,7 +17,7 @@
                 <td >{{ props.item.userName }}</td>
                 <td>{{ props.item.created }}</td>
                 <td>{{ props.item.realDuration }}</td>
-                <td :class="{ 'realDurationExitsts': props.item.isRealDurationExitsts }">{{ props.item.duration }}</td>
+                <td :class="{ 'realDurationExitsts': props.item.isRealDurationExitsts }">{{Math.floor(props.item.duration)}}</td>
                
                 <td>{{ props.item.price }}</td>
                 <td>{{ props.item.totalPrice.toFixed(2) }}</td>
@@ -113,13 +113,11 @@ export default {
             get() {
                 let session = this.sessionPayment;
                 if(session.studentPayPerHour) {
-                    debugger
                     return ((session.studentPayPerHour * session.duration) / 60).toFixed(2);
                 }
                 return 0;
             },
             set(val) {
-                debugger
                 this.sessionPayment.studentPayPerHour = (( val / this.sessionPayment.duration) * 60).toFixed(2);
             }
         },
@@ -200,15 +198,19 @@ export default {
         },
         editItem(item) {
             this.dialog = true;
-            let id = item.studyRoomSessionId;
+            let params = {
+                sessionId: item.studyRoomSessionId,
+                userId: item.userId,
+                tutorId: item.tutorId
+            }
             this.editedIndex = this.paymentRequestsList.indexOf(item);
-            getUserSessionPayment(id).then(session => {
+            getUserSessionPayment(params).then(session => {
                 this.sessionPayment = session;
+                this.sessionPayment.duration = Math.floor(session.duration);
             })
         },
         approve() {
             let item = this.sessionPayment;
-            debugger;
             let itemObj = {
                 studentPay : Number(this.studentPayPerHour),
                 spitballPay: Number(this.spitballPayPerHour),
@@ -234,9 +236,9 @@ export default {
         decline() {
               let item = this.sessionPayment;
               let itemObj = {
-                 studyRoomSessionId: item.studyRoomSessionId
+                 studyRoomSessionId: item.studyRoomSessionId,
+                 userId: item.userId
               }
-              debugger;
             //     var itemToSubmit = this.editedItem;
             // const index = this.editedIndex;
             // const item = this.paymentRequestsList[index];

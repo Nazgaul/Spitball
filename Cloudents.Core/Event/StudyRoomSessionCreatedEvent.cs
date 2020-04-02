@@ -14,13 +14,13 @@ namespace Cloudents.Core.Event
     }
 
 
-    public class StudyRoomSessionRejoinEvent : IEvent
-    {
-        public StudyRoomSession StudyRoomSession { get; }
+    //public class StudyRoomSessionRejoinEvent : IEvent
+    //{
+    //    public StudyRoomSession StudyRoomSession { get; }
 
-        public StudyRoomSessionRejoinEvent(StudyRoomSession studyRoomSession)
-        {
-            StudyRoomSession = studyRoomSession;
-        }
-    }
+    //    public StudyRoomSessionRejoinEvent(StudyRoomSession studyRoomSession)
+    //    {
+    //        StudyRoomSession = studyRoomSession;
+    //    }
+    //}
 }

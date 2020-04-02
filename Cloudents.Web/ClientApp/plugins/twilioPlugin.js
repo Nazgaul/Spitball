@@ -91,10 +91,10 @@ function _twilioListeners(room,store) {
    room.on('trackStarted', (track) => {
       let previewContainer = document.getElementById(REMOTE_TRACK_DOM_ELEMENT);
       if(track.kind === 'video'){
-         let videoTag = previewContainer.querySelector("video");
-         if (videoTag) {
-            previewContainer.removeChild(videoTag);
-         }
+         // let videoTag = previewContainer.querySelector("video");
+         // if (videoTag) {
+         //    previewContainer.removeChild(videoTag);
+         // }
          previewContainer.appendChild(track.attach());
          store.commit(twilio_SETTERS.FULL_SCREEN_AVAILABLE,true);
       }

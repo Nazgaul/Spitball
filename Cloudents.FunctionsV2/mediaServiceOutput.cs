@@ -43,10 +43,10 @@ namespace Cloudents.FunctionsV2
                     await videoProvider.UpdateDurationAsync(id, binder, token);
                 }
 
-                if (label == AssetType.StudyRoom.ToString())
-                {
-                    await videoProvider.MoveStudyRoomVideoAsync(assetName, binder, token);
-                }
+                //if (label == AssetType.StudyRoom.ToString())
+                //{
+                //    await videoProvider.MoveStudyRoomVideoAsync(assetName, binder, token);
+                //}
             }
 
         }
