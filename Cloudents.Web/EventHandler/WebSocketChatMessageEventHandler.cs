@@ -92,16 +92,10 @@ namespace Cloudents.Web.EventHandler
                 chatRoomId = chatMessage.ChatRoom.Id,
                 chatId = chatMessage.Id
             });
-            //return helper.RouteUrl("imageUrl", new
-            //{
-            //    hash = Base64UrlTextEncoder.Encode(hash)
-            //});
-
-            //yield return _linkGenerator.GetUriByAction(_httpContextAccessor.HttpContext, "Index", "Home");
             return new ChatAttachmentDto
             {
                 UserId = chatMessage.User.Id,
-
+                Name = chatMessage.User.Name,
                 Src = srcUrl,
                 Href = hrefUrl,
                 DateTime = DateTime.UtcNow

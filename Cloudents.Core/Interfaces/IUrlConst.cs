@@ -26,6 +26,7 @@ namespace Cloudents.Core.Interfaces
         string BuildUserImageProfileShareEndpoint(long id, object? parameters = null);
         string BuildDocumentImageShareEndpoint(long id, object? parameters = null);
         string? BuildUserImageEndpoint(long id, string? imageName);
+        Uri BuildTwilioWebHookEndPoint(Guid id);
     }
 
 }

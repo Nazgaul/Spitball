@@ -132,6 +132,9 @@
   <data name="file_error" xml:space="preserve">
     <value>קובץ לא נתמך</value>
   </data>
+  <data name="go_study" xml:space="preserve">
+    <value>חדרי הלימוד שלי</value>
+  </data>
   <data name="messages" xml:space="preserve">
     <value>הודעות</value>
   </data>

@@ -77,6 +77,8 @@ namespace Cloudents.Web.Models
     public class FinishChatUpload : UploadRequestFinish
     {
         public long OtherUser { get; set; }
+
+        public string ConversationId { get; set; }
     }
 
     public class TempData

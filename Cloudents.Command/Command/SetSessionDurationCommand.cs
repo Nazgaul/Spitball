@@ -3,14 +3,17 @@ namespace Cloudents.Command.Command
 {
     public class SetSessionDurationCommand : ICommand
     {
-        public SetSessionDurationCommand(long userId, Guid sessionId, TimeSpan realDuration)
+        public SetSessionDurationCommand(long tutorId, Guid sessionId, TimeSpan realDuration, long userId)
         {
-            UserId = userId;
+            TutorId = tutorId;
             SessionId = sessionId;
             RealDuration = realDuration;
+            UserId = userId;
         }
-        public long UserId { get; }
+        public long TutorId { get; }
         public Guid SessionId { get; }
         public TimeSpan RealDuration { get; }
+
+        public long UserId { get; }
     }
 }

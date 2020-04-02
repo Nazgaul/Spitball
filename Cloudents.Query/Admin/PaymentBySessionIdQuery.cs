@@ -65,7 +65,7 @@ namespace Cloudents.Query.Admin
 					) x
                     join sb.[User] tu
 	                    on tr.Id = tu.Id
-                    where srs.id = @id";
+                    where srs.id = @id;";
 
                 using var conn = _repository.OpenConnection();
                 var result = await conn.QuerySingleAsync<PaymentDetailDto>(sql, new { id = query.SessionId });

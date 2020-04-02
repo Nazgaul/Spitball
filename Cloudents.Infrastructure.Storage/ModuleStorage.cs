@@ -28,9 +28,9 @@ namespace Cloudents.Infrastructure.Storage
                 .WithParameter("container", StorageContainer.Chat);
 
 
-            builder.RegisterType<StudyRoomSessionBlobProvider>()
-                .As<IStudyRoomSessionBlobProvider>()
-                .WithParameter("container", StorageContainer.StudyRoom);
+            //builder.RegisterType<StudyRoomSessionBlobProvider>()
+            //    .As<IStudyRoomSessionBlobProvider>()
+            //    .WithParameter("container", StorageContainer.StudyRoom);
 
             builder.RegisterType<UserDirectoryBlobProvider>()
                 .As<IUserDirectoryBlobProvider>()

@@ -16,21 +16,21 @@ namespace Cloudents.Command.StudyRooms
         public long UserId { get; }
     }
 
-    public class UploadStudyRoomVideoCommand : ICommand
-    {
-        public UploadStudyRoomVideoCommand(Guid studyRoomId, long userId, Stream videoStream)
-        {
-            StudyRoomId = studyRoomId;
-            UserId = userId;
-            VideoStream = videoStream;
-        }
-        public Guid StudyRoomId { get; }
+    //public class UploadStudyRoomVideoCommand : ICommand
+    //{
+    //    public UploadStudyRoomVideoCommand(Guid studyRoomId, long userId, Stream videoStream)
+    //    {
+    //        StudyRoomId = studyRoomId;
+    //        UserId = userId;
+    //        VideoStream = videoStream;
+    //    }
+    //    public Guid StudyRoomId { get; }
 
 
-        public long UserId { get; }
+    //    public long UserId { get; }
 
-        public Stream VideoStream { get; }
-    }
+    //    public Stream VideoStream { get; }
+    //}
 
     //public class StudyRoomVideoReadyCommand : ICommand
     //{

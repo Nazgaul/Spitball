@@ -38,31 +38,31 @@ namespace Cloudents.Admin2.Api
         [HttpGet]
         public async Task<IEnumerable<PaymentDto>> GetPayments(CancellationToken token)
         {
-            var query = new PaymentsQuery(User.GetCountryClaim());
-            return await _queryBus.QueryAsync(query, token);
-            //return result.Select(s => new PaymentResponse()
-            //{
-            //    StudyRoomSessionId = s.StudyRoomSessionId, 
-            //    Price = s.Price,
-            //    IsSellerKeyExists = s.IsSellerKeyExists,
-            //    IsPaymentKeyExists = s.IsPaymentKeyExists,
-            //    TutorId = s.TutorId,
-            //    TutorName = s.TutorName,
-            //    UserId = s.UserId,
-            //    UserName = s.UserName,
-            //    Created = s.Created,
-            //    Duration = s.Duration.TotalMinutes,
-            //    IsRealDurationExitsts = s.IsRealDurationExitsts,
-            //    RealDuration = s.RealDuration?.TotalMinutes
-            //});
+            var country = User.GetCountryClaim();
+            var queryV2 = new SessionPaymentsQueryV2(country);
+            var query = new SessionPaymentsQuery(country);
+            var taskRetVal1 = _queryBus.QueryAsync(query, token);
+            var taskRetVal2 = _queryBus.QueryAsync(queryV2, token);
+
+            var result = await Task.WhenAll(taskRetVal1, taskRetVal2);
+
+            return result.SelectMany(s => s).OrderByDescending(o => o.Created);
+
         }
 
         [HttpGet("{id}")]
-        public async Task<PaymentDetailDto> GetPayment(Guid id, CancellationToken token)
+        public async Task<PaymentDetailDto> GetPayment(Guid id, [FromQuery] long userId, [FromQuery] long tutorId, CancellationToken token)
         {
+            var queryV2 = new PaymentBySessionIdV2Query(id, userId, tutorId);
+            var result = await _queryBus.QueryAsync(queryV2, token);
 
-            var query = new PaymentBySessionIdQuery(id);
-            return await _queryBus.QueryAsync(query, token);
+            if (result == null)
+            {
+                var query = new PaymentBySessionIdQuery(id);
+                return await _queryBus.QueryAsync(query, token);
+            }
+
+            return result;
         }
 
         [HttpPost]
@@ -76,7 +76,7 @@ namespace Cloudents.Admin2.Api
             try
             {
                 var command = new PaymentCommand(model.UserId, model.TutorId, model.StudentPay, model.SpitballPay,
-                    model.StudyRoomSessionId, payMeCredentials.BuyerKey, model.AdminDuration);
+                    model.StudyRoomSessionId, payMeCredentials.BuyerKey, TimeSpan.FromMinutes(model.AdminDuration));
                 await _commandBus.DispatchAsync(command, token);
 
                 return Ok();
@@ -105,14 +105,18 @@ namespace Cloudents.Admin2.Api
 
 
         [HttpDelete]
-        public async Task<IActionResult> DeclinePay(Guid studyRoomSessionId, CancellationToken token)
+        public async Task<IActionResult> DeclinePay(Guid studyRoomSessionId, long userId, CancellationToken token)
         {
-            var command = new DeclinePaymentCommand(studyRoomSessionId);
+            if (studyRoomSessionId == Guid.Empty)
+            {
+                return BadRequest();
+            }
+            var command = new PaymentDeclineCommand(studyRoomSessionId, userId);
             await _commandBus.DispatchAsync(command, token);
 
             return Ok();
         }
 
-        
+
     }
 }

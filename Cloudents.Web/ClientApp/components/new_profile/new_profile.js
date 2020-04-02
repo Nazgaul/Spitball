@@ -102,7 +102,7 @@ export default {
                 }
             }
             } else {
-                this.$store.commit('setToaster', 'register')
+                this.$store.commit('setComponent', 'register')
             }
         },
         applyCoupon() {
@@ -161,7 +161,7 @@ export default {
                 this.activeTab = 5;
             } else {
                 // this.$openDialog('login')
-                this.$store.commit('setToaster', 'register')
+                this.$store.commit('setComponent', 'register')
                 setTimeout(()=>{
                     document.getElementById(`tab-${this.activeTab}`).lastChild.click();
                 },200);

@@ -2,9 +2,11 @@
 using Cloudents.Core.Enum;
 using System;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 using FluentAssertions;
 using Xunit;
 using Cloudents.Query.Admin;
+using NHibernate.Linq;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
@@ -58,11 +60,11 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData("x",ItemState.Ok,0,"us")]
-        [InlineData(null,null,0,null)]
+        [InlineData("x", ItemState.Ok, 0, "us")]
+        [InlineData(null, null, 0, null)]
         public async Task TutorSearchQuery_Ok(string term, ItemState? state, int page, string country)
         {
-            var query = new TutorSearchQuery(term, state,page,country);
+            var query = new TutorSearchQuery(term, state, page, country);
             var _ = await _fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -167,7 +169,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData("IL")]
         public async Task AdminPaymentsQuery_Ok(string country)
         {
-            var q1 = new PaymentsQuery(country);
+            var q1 = new SessionPaymentsQuery(country);
             var _ = await _fixture.QueryBus.QueryAsync(q1, default);
         }
 
@@ -385,6 +387,32 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
 
+        [Fact]
+        public async Task PaymentBySessionIdV2Query_Ok()
+        {
+
+            var resultQuery = await _fixture.StatelessSession.Query<StudyRoomSessionUser>()
+                .Fetch(f => f.StudyRoomSession)
+                .ThenFetch(f => f.StudyRoom)
+                .OrderByDescending(o => o.StudyRoomSession.Created)
+                .Select(s => new
+                {
+                    SessionId = s.StudyRoomSession.Id,
+                    UserId = s.User.Id,
+                    TutorId = s.StudyRoomSession.StudyRoom.Tutor.Id
+                })
+                
+                .Take(1).SingleOrDefaultAsync();
+            if (resultQuery == null)
+            {
+                return;
+            }
+            var query = new PaymentBySessionIdV2Query(resultQuery.SessionId, resultQuery.UserId, resultQuery.TutorId);
+            var result = await _fixture.QueryBus.QueryAsync(query, default);
+            result.Should().NotBeNull();
+        }
+
+
         [Theory]
         [InlineData(159039, 0, "IL")]
         [InlineData(159039, 0, null)]
@@ -422,5 +450,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await _fixture.QueryBus.QueryAsync(query, default);
         }
 
+        [Theory]
+        [InlineData(null)]
+        [InlineData("IL")]
+        [InlineData("US")]
+        public async Task SessionPaymentsQueryV2_Ok(string country)
+        {
+            var query = new SessionPaymentsQueryV2(country);
+            var _ = await _fixture.QueryBus.QueryAsync(query, default);
+        }
     }
 }

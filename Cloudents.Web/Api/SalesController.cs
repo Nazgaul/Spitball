@@ -35,7 +35,7 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpGet("sales")]
+        [HttpGet]
         public async Task<IEnumerable<SaleDto>> GetUserSalesAsync([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
@@ -57,20 +57,31 @@ namespace Cloudents.Web.Api
             });
         }
 
-        [HttpPost("duration")]
+        [HttpPost("session/{id}")]
         public async Task<IActionResult> SetSessionDurationAsync([FromBody] SetSessionDurationRequest model, CancellationToken token)
         {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new SetSessionDurationCommand(userId, model.SessionId, TimeSpan.FromMinutes(model.RealDuration));
+            var tutorId = _userManager.GetLongUserId(User);
+            var command = new SetSessionDurationCommand(tutorId,
+                model.SessionId,
+                TimeSpan.FromMinutes(model.DurationInMinutes), model.UserId);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
-        [HttpGet("session")]
-        public async Task<PaymentDetailDto> GetPaymentAsync([FromQuery] Guid id, CancellationToken token)
+        [HttpGet("session/{id}")]
+        public async Task<PaymentDetailDto> GetPaymentAsync([FromRoute] Guid id,[FromQuery] long userId, CancellationToken token)
         {
-            var query = new PaymentBySessionIdQuery(id);
-            return await _queryBus.QueryAsync(query, token);
+            var tutorId = _userManager.GetLongUserId(User);
+            var querySessionV2 = new SessionApprovalQuery(id, userId, tutorId);
+
+            var result = await _queryBus.QueryAsync(querySessionV2, token);
+            if (result is null)
+            {
+                var query = new PaymentBySessionIdQuery(id);
+                return await _queryBus.QueryAsync(query, token);
+            }
+
+            return result;
         }
     }
 }
