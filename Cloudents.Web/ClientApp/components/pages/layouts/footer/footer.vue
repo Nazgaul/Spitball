@@ -130,8 +130,7 @@ import logoComponent from '../../../app/logo/logo.vue';
 @import "../../../../styles/mixin.less";
 
 .footer {
-  background-color: #202431;
-  color: #fff;
+  background-color: #f1f1f4;
   padding-top: 30px;
   padding-bottom: 20px;
   @media (max-width: @screen-sm) {
@@ -189,7 +188,7 @@ import logoComponent from '../../../app/logo/logo.vue';
                 text-align: center;
             }
           .footer-link {
-              color: #fff;
+              color: @global-purple;
               font-size: 16px;
         }
       }
@@ -214,10 +213,10 @@ import logoComponent from '../../../app/logo/logo.vue';
         .footer-contact-box-icons {
             a {
                 margin: 0 10px;
-                color: #FFF;
+                color: @global-purple;
                 cursor: pointer;
                 i{
-                    color: white;
+                    color: @global-purple;
                 }
             }
         }
@@ -227,9 +226,9 @@ import logoComponent from '../../../app/logo/logo.vue';
         div{
           svg {
             vertical-align: -webkit-baseline-middle;
-            fill: #FFF;
+            fill: @global-purple;
             &.frymo-logo{
-              fill: #FFF;
+              fill: @global-purple;
             }
             
           }
@@ -239,9 +238,9 @@ import logoComponent from '../../../app/logo/logo.vue';
         div{
           svg {
             vertical-align: -webkit-baseline-middle;
-            fill: #FFF;
+            fill: @global-purple;
             &.frymo-logo{
-              fill: #FFF;
+              fill: @global-purple;
             }
             
           }

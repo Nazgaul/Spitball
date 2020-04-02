@@ -7,7 +7,7 @@ export const landingRoutes = [
         path: "/",
         // name: "landingPage",
         components: {
-            default: () => import(`../components/landingPage/pages/homePage.vue`),
+            default: () => import(`../components/pages/homePage/homePage.vue`),
             ...staticComponents(['banner', 'header', 'footer']),
         },
         meta:{
@@ -45,6 +45,17 @@ export const landingRoutes = [
                 return;
             }
             next();
+        },
+    },
+    {
+        path: "/learn",
+        name: routeNames.Learning,
+        components: {
+            default: () => import(`../components/landingPage/learn.vue`),
+            ...staticComponents(['banner', 'header', 'footer']),
+        },
+        meta:{
+            headerSlot: (global.siteName === 'frymo')? '': 'becomeTutorSlot',
         },
     },
     {

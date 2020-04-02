@@ -43,6 +43,9 @@ export default {
         updateRegisterType(val) {
             this.teacher = val;
         }
+    },
+    created() {
+        if(this.params.teacher) this.updateRegisterType(true)
     }
 };
 </script>
