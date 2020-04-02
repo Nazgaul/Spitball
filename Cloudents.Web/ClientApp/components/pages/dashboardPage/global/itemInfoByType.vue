@@ -7,13 +7,15 @@
 const TutoringSession = () => import('./tutoringSessionItem.vue');
 const Video = () => import('./docVidItem.vue');
 const Document = () => import('./docVidItem.vue');
+const BuyPoints = () => import('./pointsItem.vue');
 
 export default {
    name: 'itemInfoByType',
    components:{
       TutoringSession,
       Document,
-      Video
+      Video,
+      BuyPoints
    },
    props:{
       item:{

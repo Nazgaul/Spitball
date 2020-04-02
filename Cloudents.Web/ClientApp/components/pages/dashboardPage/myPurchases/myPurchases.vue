@@ -41,16 +41,18 @@
                </router-link>
             </template>
             <template v-slot:item.info="{item}">
-               <tableInfoTd :item="item"/>
+               <div class="text-xs-left text-truncate py-2">
+                  <itemInfoByType :item="item"/>
+               </div>
             </template>
             <template v-slot:item.type="{item}">
                {{dictionary.types[item.type]}}
             </template>
-            <template v-slot:item.price="{item}">
-               {{formatPrice(item.price,item.type)}}
-            </template>
             <template v-slot:item.date="{item}">
                {{ $d(new Date(item.date)) }}
+            </template>
+            <template v-slot:item.price="{item}">
+               {{formatPrice(item.price,item.type)}}
             </template>
             <template v-slot:item.action="{item}">
                <v-btn v-if="item.type !== 'TutoringSession' && item.type !== 'BuyPoints'" @click="dynamicAction(item)"
@@ -58,7 +60,6 @@
                   <v-icon v-text="item.type === 'Document'?'sbf-download':'sbf-watch'"/>
                </v-btn>
             </template>
-
             <slot slot="no-data" name="tableEmptyState"/>
       </v-data-table>
    </div>
@@ -66,11 +67,11 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import itemInfoByType from '../global/itemInfoByType.vue'
 
-import tableInfoTd from '../global/tableInfoTd.vue';
 export default {
    name:'myPurchases',
-   components:{tableInfoTd},
+   components:{itemInfoByType},
    props:{
       dictionary:{
          type: Object,
@@ -86,8 +87,8 @@ export default {
             this.dictionary.headers['preview'],
             this.dictionary.headers['info'],
             this.dictionary.headers['type'],
-            this.dictionary.headers['price'],
             this.dictionary.headers['date'],
+            this.dictionary.headers['price'],
             this.dictionary.headers['action'],
          ],
       }

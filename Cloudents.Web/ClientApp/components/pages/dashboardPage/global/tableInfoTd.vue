@@ -1,11 +1,6 @@
 <template>
    <div>
-      <template v-if="item.type === 'BuyPoints'">
-         <div class="text-truncate">
-            <span>{{$t('dashboardPage_info_buy_points')}}</span>
-         </div>
-      </template>
-      <router-link v-else class="tableInfo_router" :to="dynamicRouter(item)">
+      <router-link class="tableInfo_router" :to="dynamicRouter(item)">
          <template v-if="item.type === 'Question' || item.type === 'Answer'">
             <div class="text-truncate">
                <span class="font-weight-bold" v-language:inner="'dashboardPage_question'"/>
