@@ -28,6 +28,7 @@ namespace Cloudents.Query.Courses
             public async Task<SubjectDto> GetAsync(CourseSubjectQuery query, CancellationToken token)
             {
                 return await _session.Query<Course>()
+                    .WithOptions(w => w.SetComment(nameof(CourseSubjectQuery)))
                        .Fetch(f => f.Subject)
                        .Where(w => w.Id == query.CourseName)
                        .Select(s => new SubjectDto

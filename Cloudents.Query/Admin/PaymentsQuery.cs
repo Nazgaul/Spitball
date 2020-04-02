@@ -77,6 +77,7 @@ namespace Cloudents.Query.Admin
                 .Select(s => s.RealDuration).WithAlias(() => resultDto._realDuration)
               
                 ).TransformUsing(Transformers.AliasToBean<PaymentDto>())
+                    .UnderlyingCriteria.SetComment(nameof(PaymentsQuery))
                     .ListAsync<PaymentDto>(token);
             }
         }
