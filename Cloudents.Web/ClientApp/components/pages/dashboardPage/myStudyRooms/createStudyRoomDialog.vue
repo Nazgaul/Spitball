@@ -3,10 +3,11 @@
       <div class="createStudyRoomDialog">
          <v-icon class="close-dialog" v-text="'sbf-close'" v-closeDialog />
          <div class="createStudyRoomDialog-title pb-4">{{$t('dashboardPage_create_room_title')}}</div>
-         <v-form class="input-room-name" ref="createRoomValidation">
+         <v-form class="input-room-name d-flex flex-column align-center"  ref="createRoomValidation">
             <v-text-field :rules="[rules.required]" v-model="roomName" height="44" dense outlined :label="$t('dashboardPage_create_room_placeholder')" :placeholder="$t('dashboardPage_create_room_label')"/>
          </v-form>
-         <div class="createStudyRoomDialog-list">
+         <v-switch class="ma-0" v-model="isBroadcast" color="#4c59ff" label="broadcast room" hide-details />
+         <div :class="['createStudyRoomDialog-list',{'broadcastMode':isBroadcast}]">
             <v-list flat class="list-followers">
                <v-list-item-group>
                   <v-list-item v-for="(item, index) in myFollowers" :key="index" @click="addSelectedUser(item)" :class="[{'dark-line': index % 2}]">
@@ -41,6 +42,7 @@ export default {
    name:'createStudyRoom',
    data() {
       return {
+         isBroadcast:false,
          showErrorMaxUsers:false,
          isLoading:false,
          myFollowers:[],
@@ -71,29 +73,33 @@ export default {
          }
       },
       createStudyRoom(){
-         if(!this.$refs.createRoomValidation.validate()) return
-         if(!this.isLoading && !this.showErrorAlreadyCreated && !this.showErrorEmpty && !this.showErrorMaxUsers){
+         if(!this.$refs.createRoomValidation.validate() || this.isLoading || 
+            this.showErrorAlreadyCreated || this.showErrorEmpty) return;
+
+         let params = {};
+         if(this.isBroadcast){
+            params = {isBroadcast:this.isBroadcast}
+         }else{
             if(this.selected.length){
-               this.isLoading = true
-               let self = this;
-               let params = {
-                  users: this.selected,
-                  roomName: this.roomName,
-               }
-               this.$store.dispatch('updateCreateStudyRoom',params)
-                  .then(() => {
-                     self.isLoading = false;
-                     self.$closeDialog()
-                  }).catch((error)=>{
-                     self.isLoading = false;
-                     if(error.response?.status == 409){
-                        self.showErrorAlreadyCreated = true;
-                     }
-                  });
+               params = {userId: this.selected.map(user=> user.userId)}
             }else{
                this.showErrorEmpty = true;
+               return
             }
          }
+         params.name = this.roomName;
+         this.isLoading = true
+         let self = this;
+         this.$store.dispatch('updateCreateStudyRoom',params)
+         .then(() => {
+            self.isLoading = false;
+            self.$closeDialog()
+         }).catch((error)=>{
+            self.isLoading = false;
+            if(error.response?.status == 409){
+               self.showErrorAlreadyCreated = true;
+            }
+         });
       }
    },
    watch: {
@@ -101,6 +107,16 @@ export default {
          this.showErrorEmpty = false;
          this.showErrorAlreadyCreated = false;
          this.showErrorMaxUsers = false;
+      },
+      isBroadcast(val){
+         if(val){
+            this.showErrorEmpty = false;
+            this.showErrorAlreadyCreated = false;
+            this.showErrorMaxUsers = false;
+         }
+      },
+      roomName(){
+         this.showErrorAlreadyCreated = false;
       }
    },
    created() {
@@ -144,8 +160,12 @@ export default {
    }
    .createStudyRoomDialog-list{
       width: 100%;
+      &.broadcastMode{
+         opacity: 0.3;
+         pointer-events: none;
+      }
       .list-followers{
-         max-height: 320px;
+         max-height: 290px;
          overflow-y: scroll;
          .v-item-group {
             padding-right: 6px;
