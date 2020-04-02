@@ -173,8 +173,8 @@ export default {
          if(price < 0){
             price = Math.abs(price)
          }
-         price = Math.round(+price).toLocaleString();
          if(type === 'Document' || type === 'Video' ){
+            price = Math.round(+price).toLocaleString();
             return `${price} ${this.$t('dashboardPage_pts')}`
          }
          if(type === 'TutoringSession' || type === 'BuyPoints'){
