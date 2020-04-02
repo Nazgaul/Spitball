@@ -1,6 +1,8 @@
 <template>
    <div class="remoteVideoStream" :id="track.sb_video_id">
-      <v-btn absolute @click="openFullScreen" color="info">full</v-btn>
+      <v-btn class="fullscreen-btn" icon @click="openFullScreen" color="white">
+         <v-icon size="30">sbf-fullscreen</v-icon>
+      </v-btn>
    </div>
 </template>
 
@@ -45,6 +47,11 @@ export default {
 
 <style lang="less">
    .remoteVideoStream{
+      .fullscreen-btn{
+         position: absolute;
+         right: 10px;
+         top: 10px;
+      }
       video {
          width: 100%;
          background-repeat: no-repeat;

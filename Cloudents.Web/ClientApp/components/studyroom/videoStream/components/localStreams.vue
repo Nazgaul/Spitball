@@ -199,5 +199,11 @@ export default {
           left: 7px;
         }
       }
+   #localTrack {
+      video {
+         width: 100%;
+         background-repeat: no-repeat;
+      }
+   }
 }
 </style>

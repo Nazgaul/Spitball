@@ -117,7 +117,7 @@
                 v-show="activeViewOption !== enumViewOptions.fullBoard"
               >
                 <v-flex xs6 >
-                  <video-stream :id="id"></video-stream>
+                  <videoStream></videoStream>
                 </v-flex>
               </v-layout>
             </v-flex>
