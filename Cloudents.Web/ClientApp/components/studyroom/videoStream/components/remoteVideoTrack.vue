@@ -1,8 +1,14 @@
 <template>
    <div class="remoteVideoStream" :id="track.sb_video_id">
-      <v-btn class="fullscreen-btn" icon @click="openFullScreen" color="white">
-         <v-icon size="30">sbf-fullscreen</v-icon>
-      </v-btn>
+      <v-tooltip bottom>
+         <template v-slot:activator="{ on }">
+            <v-btn v-on="on" class="fullscreen-btn" icon @click="openFullScreen" color="white">
+               <v-icon>sbf-fullscreen</v-icon>
+            </v-btn>
+         </template>
+         <span>{{$t('tutor_tooltip_fullscreen')}}</span>
+         <span v-language:inner="isAudioActive ? 'tutor_tooltip_mic_mute':'tutor_tooltip_mic_unmute'"/>
+      </v-tooltip>
    </div>
 </template>
 
@@ -51,6 +57,7 @@ export default {
          position: absolute;
          right: 10px;
          top: 10px;
+         background:rgba(0, 0, 0, 0.7);
       }
       video {
          width: 100%;
