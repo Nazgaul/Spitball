@@ -479,7 +479,7 @@ export default {
       let user = this.accountUser();
       if (user == null) {
         // this.$openDialog('login')
-        this.$store.commit('setToaster', 'register')
+        this.$store.commit('setComponent', 'register')
         return false;
       }
       return true;

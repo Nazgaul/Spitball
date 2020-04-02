@@ -2,7 +2,7 @@
     <v-form class="loginForm pa-4" @submit.prevent="submit" ref="form">
         <div class="top">
             <div class="closeIcon">
-                <v-icon size="14" color="" @click="$store.commit('setToaster', '')">sbf-close</v-icon>
+                <v-icon size="14" color="" @click="closeRegister">sbf-close</v-icon>
             </div>
 
             <template v-if="isLoginDetails">
@@ -18,7 +18,8 @@
                     color="#da6156"
                     depressed
                 >
-                    <img width="40" src="../../../../../authenticationPage/images/G icon@2x.png" />
+                    <!-- <img width="40" src="../../../../../authenticationPage/images/G icon@2x.png" /> -->
+                    <gIcon class="mr-2" />
                     <span class="googleBtnText" v-t="'loginRegister_getstarted_btn_google_signin'"></span>
                 </v-btn>
             </template>
@@ -68,11 +69,13 @@ import authMixin from '../authMixin'
 
 const loginDetails = () => import('./loginDetails.vue')
 // const forgotPassword = () => import('./forgotPassword.vue')
+import gIcon from '../images/g-icon.svg'
 
 export default {
     mixins: [authMixin],
     components: {
         loginDetails,
+        gIcon
         // forgotPassword
     },
     data() {
@@ -98,6 +101,10 @@ export default {
         }
     },
     methods: {
+        closeRegister() {
+            this.$store.commit('setComponent', '')
+            this.$store.commit('setRequestTutor')
+        },
         submit() {
             let formValidate = this.$refs.form.validate()
 
@@ -129,12 +136,15 @@ export default {
                     global.country = data.country; // TODO: should we need this? @idan
 
                     analyticsService.sb_unitedEvent('Login', 'Start');
-                    commit('setToaster', '')
+                    commit('setComponent', '')
                     dispatch('updateLoginStatus', true)
                     
+                   dispatch('updateLoginStatus', true)
                     if(self.$route.path === '/') {
                         this.$router.push({name: this.routeNames.LoginRedirect})
+                        return
                     }
+                    dispatch('userStatus')
                 }).catch(error => {      
                     let { response: { data } } = error
 
@@ -180,7 +190,7 @@ export default {
             if(this.isLoginDetails) {
                 // this.component = 'forgotPassword'
                 this.$router.push({name: 'forgotPassword', params: { email: this.email }})
-                this.$store.commit('setToaster', '')
+                this.$store.commit('setComponent', '')
                 return
             }
             this.component = 'loginDetails'
@@ -195,12 +205,12 @@ export default {
 
 .loginForm {
     background: #ffffff;
-    height: 100%;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     @media (max-width: @screen-xs) {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        height: 100% !important;
     }
     .closeIcon {
         position: absolute;
@@ -210,9 +220,6 @@ export default {
         .responsive-property(font-size, 20px, null, 22px);
         color: @color-login-text-title;
         font-weight: 600;
-    }
-    .googleBtnText {
-        margin-bottom: 2px;
     }
     .bottom {
         .helpLinks {

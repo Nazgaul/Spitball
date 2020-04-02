@@ -3,7 +3,7 @@
         <v-form @submit.prevent="submit" ref="form" class="registerForm pa-4">  
             <div>
                 <div class="closeIcon">
-                    <v-icon size="12" color="#aaa" @click="$store.commit('setToaster', '')">sbf-close</v-icon>
+                    <v-icon size="12" color="#aaa" @click="closeRegister">sbf-close</v-icon>
                 </div>
 
                 <template v-if="isEmailRegister">
@@ -19,7 +19,8 @@
                         color="#da6156"
                         class="btns white--text mb-6"
                     >
-                        <img width="40" src="../../../../../authenticationPage/images/G icon@2x.png" />
+                        <gIcon class="mr-2" />
+                        <!-- <img width="40" src="../../../../../authenticationPage/images/G icon@2x.png" /> -->
                         <span class="googleBtnText" v-t="'loginRegister_getstarted_btn_google_signup'"></span>
                     </v-btn>
 
@@ -36,6 +37,7 @@
                     :errors="errors"
                     :phone="phoneNumber"
                     :code="localCode"
+                    :teacher="teacher"
                     @goStep="goStep"
                     @updatePhone="updatePhone"
                     @updateCode="updateCode"
@@ -124,19 +126,28 @@ const emailRegister = () => import('./emailRegister.vue');
 const setPhone2 = () => import('./setPhone2.vue');
 const verifyPhone = () => import('./verifyPhone.vue');
 
+import gIcon from '../images/g-icon.svg'
 import changeNumber from '../images/changeNumber.svg'
 import phoneCall from '../images/phoneCall.svg'
 
 export default {
-    components: { 
+    mixins: [authMixin],
+    components: {
         emailRegister,
         setPhone2,
         verifyPhone,
         VueRecaptcha,
         changeNumber,
-        phoneCall
+        phoneCall,
+        gIcon
     },
-    mixins: [authMixin],
+    props: {
+        params: {},
+        teacher: {
+            type: Boolean,
+            default: false
+        }
+    },
     data() {
         return {
             component: 'emailRegister',
@@ -163,11 +174,18 @@ export default {
         },
         isVerifyPhone() {
             return this.component === 'verifyPhone'
+        },
+        isFromTutorReuqest() {
+            return this.$store.getters.getIsFromTutorStep
         }
     },
     methods: {
+        closeRegister() {
+            this.$store.commit('setComponent', '')
+            this.$store.commit('setRequestTutor')
+        },
         openLoginDialog() {
-            this.$store.commit('setToaster', 'login')
+            this.$store.commit('setComponent', 'login')
         },
         submit() {
             let formValidate = this.$refs.form.validate()
@@ -270,9 +288,32 @@ export default {
                         analyticsService.sb_unitedEvent('Registration', 'User Id', userId.data.id);
                     }
 
-					commit('setToaster', '')
-					commit('changeLoginStatus', true)
-					dispatch('userStatus');
+					commit('setComponent', '')
+                    commit('changeLoginStatus', true)
+
+                    // this is when user start register from tutorRequest
+                    if(self.isFromTutorReuqest) {
+                        self.$store.dispatch('updateRequestDialog', true);
+                        self.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
+                        dispatch('userStatus')
+                        return
+                    }
+
+					dispatch('userStatus').then(user => {
+                        // when user is register and pick teacher, redirect him to his profile page
+                        if(self.teacher) {
+                            self.$router.push({
+                                name: self.routeNames.Profile,
+                                params: {
+                                    id: user.id,
+                                    name: user.name,
+                                },
+                                query: {
+                                    dialog: 'becomeTutor'
+                                }
+                            })
+                        }
+                    })
 				}).catch(error => {
                     self.errors.code = self.$t('loginRegister_invalid_code')
                     self.$appInsights.trackException({exception: new Error(error)});
@@ -314,7 +355,7 @@ export default {
     background: #fff;
     position: relative;
     @media (max-width: @screen-xs) {
-        height: 100%;
+        height: 100% !important;
     }
     .closeIcon {
         position: absolute;
@@ -341,9 +382,6 @@ export default {
         }
         .otherMethod {
             color: @global-purple;
-        }
-        .googleBtnText {
-            margin-bottom: 2px;
         }
         .v-label {
             color: @global-purple;

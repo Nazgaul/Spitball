@@ -8,7 +8,6 @@
                     <span class="sentMessage" v-language:inner="'tutorRequest_message_success_tutor_1'"></span>
                     <span>{{firstName}}</span>
                 </p>
-                <p class="message_2" v-language:inner="'tutorRequest_message_success_tutor_2'"></p>
                 <div class="message_3">
                     <p>{{$t('tutorRequest_message_success_tutor_3',[firstName])}}</p>
                     <p><bdi>{{tutorPhoneNumber}}</bdi></p>
@@ -45,13 +44,13 @@ import analyticsService from '../../../services/analytics.service';
 export default {
     name:'tutorRequestSuccess',
     computed:{
-        ...mapGetters(['accountUser', 'getCurrTutor', 'getSelectedCourse', 'getCurrentTutorPhoneNumber']),
+        ...mapGetters(['accountUser', 'getCurrTutor', 'getSelectedCourse', 'getCurrentTutorPhoneNumber', 'getCourseDescription', 'getMoreTutors']),
 
         isTutor(){
             return !!this.getCurrTutor;
         },
         courseName() {
-            return this.getSelectedCourse.text;
+            return this.getSelectedCourse?.text;
         },
         tutorPhoneNumber() {
             return this.getCurrentTutorPhoneNumber;
@@ -59,15 +58,18 @@ export default {
         defaultMessage() {
             return LanguageService.getValueByKey('whatsapp_message');
         },
+        tutorId() {
+            return this.getCurrTutor?.userId;
+        },
         studentId() {
-            return this.accountUser.id;
+            return this.accountUser?.id;
         },
         firstName() {
-            return this.getCurrTutor.name.split(' ')[0];
+            return this.getCurrTutor?.name.split(' ')[0];
         }
     },
     methods: {
-        ...mapActions(['updateRequestDialog', 'resetRequestTutor']),
+        ...mapActions(['updateRequestDialog', 'resetRequestTutor', 'sendTutorRequest']),
         tutorRequestDialogClose() {
             this.updateRequestDialog(false);
             this.resetRequestTutor()
@@ -81,7 +83,26 @@ export default {
             this.$router.push({name: 'tutorLandingPage', params: {course: this.courseName}});
             this.tutorRequestDialogClose();
         },
+        requestTutorFromRegisterStep() {
+            // if there is an account, it's mean that the user not coming from register and dont need to call requestTutor api twice
+            if(this.accountUser) return
+            
+            let serverObj = {
+                captcha: null,
+                text: this.getCourseDescription,
+                name: null,
+                email: null,
+                phone: null,
+                course: this.courseName || this.getSelectedCourse,
+                tutorId: this.tutorId,
+                moreTutors: this.getMoreTutors
+            } 
+            this.sendTutorRequest(serverObj)
+        }
     },
+    mounted() {
+        this.requestTutorFromRegisterStep()
+    }
 }
 </script>
 

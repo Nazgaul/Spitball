@@ -128,13 +128,13 @@ function _twilioListeners(room,store) {
    // room connections events:
    room.on('participantConnected', (participant) => {
       if(store.getters.getRoomIsTutor){
-         store.commit('setToaster', 'simpleToaster_userConnected');
+         store.commit('setComponent', 'simpleToaster_userConnected');
       }
       _insightEvent('TwilioParticipantConnected', participant, null);
    })
    room.on('participantDisconnected', (participant) => {
       if(store.getters.getRoomIsTutor){
-         store.commit('setToaster', 'simpleToaster_userLeft');
+         store.commit('setComponent', 'simpleToaster_userLeft');
       }
       _insightEvent('TwilioParticipantDisconnected', participant, null);
       _detachTracks(Array.from(participant.tracks.values()),store)
@@ -260,7 +260,7 @@ export default () => {
                      };
                      _insightEvent('StudyRoom_ShareScreenBtn_showScreen', d, null);
                      if(error === "notBrowser") {
-                        store.commit('setToaster', 'errorToaster_notBrowser');
+                        store.commit('setComponent', 'errorToaster_notBrowser');
                         return;
                      }
                      if(error.name === "NotAllowedError") {
@@ -272,11 +272,11 @@ export default () => {
                            return;
                         }
                         if (error.message === "Permission denied by system") {
-                           store.commit('setToaster', 'errorToaster_permissionDenied');
+                           store.commit('setComponent', 'errorToaster_permissionDenied');
                         }
                         return
                      }
-                     store.commit('setToaster', 'errorToaster_notScreen');
+                     store.commit('setComponent', 'errorToaster_notScreen');
                   })
                }else{
                   if(_localScreenTrack){

@@ -33,7 +33,6 @@ export default {
             registrationService.googleRegistration()
                 .then(({data}) => {
                     let { commit, dispatch } = self.$store
-                    
                     self.googleLoading = false;
 
                     if (!data.isSignedIn) {
@@ -41,13 +40,14 @@ export default {
                         self.component = 'setPhone2'
                         return
                     }
-                    
                     analyticsService.sb_unitedEvent('Login', 'Start Google')
-                    commit('setToaster', '')
+                    commit('setComponent', '')
                     dispatch('updateLoginStatus', true)
                     if(self.$route.path === '/') {
                         this.$router.push({name: this.routeNames.LoginRedirect})
+                        return
                     }
+                    dispatch('userStatus')
                 }).catch(error => {
                     let { response: { data } } = error
                     // if(data.Google) self.errors.gmail = self.$t('loginRegister_error_gmail')

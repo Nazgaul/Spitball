@@ -112,7 +112,7 @@ namespace Cloudents.Web.Api
                 TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
                 TempData[PhoneCallTime] = DateTime.UtcNow.AddMinutes(-2).ToString(CultureInfo.InvariantCulture);
                 var code = await _client.SendSmsAsync(user, token);
-                return Ok(code);
+                return Ok();
             }
             if (retVal.Errors.Any(a => a.Code == "InvalidPhoneNumber"))
             {

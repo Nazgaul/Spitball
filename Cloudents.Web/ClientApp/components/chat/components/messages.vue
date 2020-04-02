@@ -1,6 +1,9 @@
 <template>
     <div class="messages-container">
         <v-layout column class="messages-wrapper">
+            <router-link class="messages-header" :to="{name:myStudyRoomsRoute}">
+                {{$t('chat_go_study')}}
+            </router-link>
             <div class="messages-body">
                 <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index" :lastMsgIndex="index === messages.length - 1"></message>
             </div>
@@ -31,7 +34,7 @@ import message from "./messageComponents/message.vue"
 import chatUploadFile from './messageComponents/chatUploadFile.vue';
 import {mapGetters, mapActions} from 'vuex';
 import { LanguageService } from '../../../services/language/languageService';
-
+import * as routeNames from '../../../routes/routeNames.js';
 export default {
     components:{
         message,
@@ -39,6 +42,7 @@ export default {
     },
     data(){
         return{
+            myStudyRoomsRoute: routeNames.MyStudyRooms,
             messageText: "",
             placeHolderText: LanguageService.getValueByKey("chat_type_message"),
             emptyStateMessages: [],
@@ -108,6 +112,14 @@ export default {
                 background-color: red;
                 color: white;
                 text-align: center;
+            }
+            .messages-header{
+                text-align: center;
+                background: #2ec293;
+                color: #FFF;
+                font-weight: bold;
+                font-size: 14px;
+                padding: 8px 0;
             }
             .messages-body{
                 flex :2;

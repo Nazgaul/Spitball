@@ -136,7 +136,7 @@ export default {
                 self.$store.commit('setSaleItem', self.session.sessionId)
                 self.$store.commit('setUserPendingPayment', self.pendingPayments-1)
                 if(self.pendingPayments <= 0) {
-                    self.$store.commit('clearToaster')
+                    self.$store.commit('clearComponent')
                 }
             }).catch(ex => {
                 self.$appInsights.trackException({exception: new Error(ex)});
