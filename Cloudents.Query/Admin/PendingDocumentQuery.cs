@@ -18,8 +18,8 @@ namespace Cloudents.Query.Admin
             Country = country;
         }
 
-        public long? DocumentId { get; private set; }
-        public string Country { get; set; }
+        private long? DocumentId { get;  }
+        public string Country { get;  }
 
         internal sealed class PendingDocumentQueryHandler : IQueryHandler<PendingDocumentQuery, IList<PendingDocumentDto>>
         {
@@ -34,6 +34,7 @@ namespace Cloudents.Query.Admin
             public async Task<IList<PendingDocumentDto>> GetAsync(PendingDocumentQuery query, CancellationToken token)
             {
                 var dbQuery = _session.Query<Document>()
+                    .WithOptions(w => w.SetComment(nameof(PendingDocumentQuery)))
                     .Where(w => w.Status.State == ItemState.Pending);
                 if (!string.IsNullOrEmpty(query.Country))
                 {

@@ -39,7 +39,7 @@ namespace Cloudents.Query.Admin
                 PaymentDto? resultDto = null;
 
                 
-
+                //TODO add comment
                 var res = _session.QueryOver(() => studyRoomSessionAlias)
                         .JoinAlias(x => x.StudyRoom, () => studyRoomAlias)
                         .JoinEntityAlias(() => tutorAlias, () => studyRoomAlias.Tutor.Id == tutorAlias.Id)

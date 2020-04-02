@@ -30,6 +30,7 @@ namespace Cloudents.Query.Admin
             public async Task<IList<FlaggedDocumentDto>> GetAsync(FlaggedDocumentQuery query, CancellationToken token)
             {
                 var documents = _session.Query<Document>()
+                    .WithOptions(w => w.SetComment(nameof(FlaggedDocumentQuery)))
                     .Where(w => w.Status.State == ItemState.Flagged);
                 if (!string.IsNullOrEmpty(query.Country))
                 {
