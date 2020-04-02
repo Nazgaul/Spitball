@@ -30,7 +30,7 @@ namespace Cloudents.Infrastructure.Mail
             var result = await _httpClient.PostAsync("http://smsapi.hadavar.co.il/SendMessageXml.ashx", content, token);
 
             result.EnsureSuccessStatusCode();
-            return result.Content.ReadAsStringAsync();
+            return await result.Content.ReadAsStringAsync();
 
         }
 
