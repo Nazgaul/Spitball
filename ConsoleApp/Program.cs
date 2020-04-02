@@ -147,147 +147,13 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await DeleteOldQuestion();
-            await DeleteOldDocuments();
-           
+
+            await DeleteOldStuff.DoStuff();
         }
 
-        private static async Task DeleteOldQuestion()
-        {
-            var statelessSession = Container.Resolve<IStatelessSession>();
-            while (true)
-            {
-                var deletedDocuments = await statelessSession.Query<Question>()
-                    .Where(w => w.Status.State == ItemState.Deleted && w.Status.DeletedOn < DateTime.UtcNow
-                                    .AddDays(-60))
-                    .Take(100)
-                    .ToListAsync();
+        
 
-                if (deletedDocuments.Count == 0)
-                {
-                    break;
-
-                }
-                foreach (var deletedDocument in deletedDocuments)
-                {
-
-                    Console.WriteLine(deletedDocument.Id);
-                    try
-                    {
-                      
-                        //await statelessSession.Query<Document>().Where(w => w.Id == deletedDocument.Id)
-
-                        //    .DeleteAsync(default);
-
-                        var sqlQuery =
-                            statelessSession.CreateSQLQuery("update sb.question set CorrectAnswer_id = null where id =  :Id");
-                        sqlQuery.SetInt64("Id", deletedDocument.Id);
-                        sqlQuery.ExecuteUpdate();
-
-
-                        using (var child = Container.BeginLifetimeScope())
-                        {
-                            var unitOfWork = child.Resolve<IUnitOfWork>();
-                            var _session = child.Resolve<ISession>();
-                            var d = await _session.GetAsync<Question>(deletedDocument.Id);
-
-                            foreach (var dAnswer in d.Answers)
-                            {
-                                await _session.DeleteAsync(dAnswer);
-                            }
-
-                            await _session.DeleteAsync(d);
-                            await unitOfWork.CommitAsync(default);
-
-                        }
-
-                        //await statelessSession.Query<QuestionTransaction>().Where(w => w.Question.Id == deletedDocument.Id)
-                        //    .DeleteAsync(default);
-
-                        await statelessSession.Query<Answer>().Where(w => w.Question.Id == deletedDocument.Id)
-                            .DeleteAsync(default);
-                        await statelessSession.Query<Question>().Where(w => w.Id == deletedDocument.Id)
-                            .DeleteAsync(default);
-                    }
-                    catch(Exception e)
-                    {
-                       
-                    }
-                    //var d = await _session.GetAsync<Document>(deletedDocument.Id);
-                    //await _session.DeleteAsync(d);
-                    //await unitOfWork.CommitAsync(default);
-
-
-                    //   blobProvider.DeleteDirectoryAsync(eventMessage.Document.Id.ToString(), token);
-                }
-            }
-        }
-
-        private static async Task DeleteOldDocuments()
-        {
-            var statelessSession = Container.Resolve<IStatelessSession>();
-
-            var blobProvider = Container.Resolve<IDocumentDirectoryBlobProvider>();
-
-            while (true)
-            {
-
-
-                var deletedDocuments = await statelessSession.Query<Document>()
-                    .Where(w => w.Status.State == ItemState.Deleted && w.Status.DeletedOn < DateTime.UtcNow
-                    .AddDays(-60))
-                    .Take(100)
-                    .ToListAsync();
-
-                if (deletedDocuments.Count == 0)
-                {
-                    break;
-
-                }
-                foreach (var deletedDocument in deletedDocuments)
-                {
-
-                    Console.WriteLine(deletedDocument.Id);
-                    var v = await blobProvider.FilesInDirectoryAsync("", deletedDocument.Id.ToString(), default);
-                    if (v.Any())
-                    {
-                        await blobProvider.DeleteDirectoryAsync(deletedDocument.Id.ToString(), default);
-                    }
-
-                    var sqlQuery =
-                        statelessSession.CreateSQLQuery("delete from sb.DocumentsTags where documentid = :Id");
-                    sqlQuery.SetInt64("Id", deletedDocument.Id);
-                    sqlQuery.ExecuteUpdate();
-                  
-
-                    try
-                    {
-                        await statelessSession.Query<Document>().Where(w => w.Id == deletedDocument.Id)
-                            .DeleteAsync(default);
-                    }
-                    catch 
-                    {
-                        using (var child = Container.BeginLifetimeScope())
-                        {
-                            var unitOfWork = child.Resolve<IUnitOfWork>();
-                            var _session = child.Resolve<ISession>();
-                            var d = await _session.GetAsync<Document>(deletedDocument.Id);
-                            await _session.DeleteAsync(d);
-                            await unitOfWork.CommitAsync(default);
-
-                        }
-                        await statelessSession.Query<Document>().Where(w => w.Id == deletedDocument.Id)
-                            .DeleteAsync(default);
-                    }
-                    //var d = await _session.GetAsync<Document>(deletedDocument.Id);
-                    //await _session.DeleteAsync(d);
-                    //await unitOfWork.CommitAsync(default);
-
-
-                    //   blobProvider.DeleteDirectoryAsync(eventMessage.Document.Id.ToString(), token);
-                }
-            }
-        }
+       
 
         private static async Task BuildStudyRoomName()
         {
@@ -343,24 +209,7 @@ namespace ConsoleApp
             }
         }
 
-        private static async Task ResyncTutorRead()
-        {
-            var session = Container.Resolve<IStatelessSession>();
-            var bus = Container.Resolve<ICommandBus>();
-            var eventHandler = Container.Resolve<IEventPublisher>();
-
-            var x = await session.CreateSQLQuery(@"
-Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
-
-
-            foreach (dynamic z in x)
-            {
-                var e = new SetUniversityEvent(z);
-                await eventHandler.PublishAsync(e, default);
-                //var command = new TeachCourseCommand(z[0], z[1]);
-                //await bus.DispatchAsync(command, default);
-            }
-        }
+       
 
         private static async Task Convert()
         {
@@ -459,33 +308,7 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
             }
         }
 
-        private static async Task UpdateMethod()
-        {
-            //var c = _container.Resolve<UniversitySearchWrite>();
-            //await c.CreateOrUpdateAsync(default);
-
-
-            var c2 = Container.Resolve<TutorSearchWrite>();
-            await c2.CreateOrUpdateAsync(default);
-
-            var session = Container.Resolve<ISession>();
-            foreach (var tutorId in session.Query<Tutor>().Where(w => w.State == ItemState.Ok).Select(s => s.Id).AsEnumerable())
-            {
-                var eventHandler = Container.Resolve<IEventHandler<SetUniversityEvent>>();
-                await eventHandler.HandleAsync(new SetUniversityEvent(tutorId), default);
-            }
-
-            var storageProvider = Container.Resolve<ICloudStorageProvider>();
-            var blobClient = storageProvider.GetBlobClient();
-            var container = blobClient.GetContainerReference("spitball");
-            var directory = container.GetDirectoryReference("AzureSearch");
-            var blob = directory.GetBlobReference("tutor-version.txt");
-            await blob.DeleteAsync();
-
-
-            //var c3 = _container.Resolve<QuestionSearchWrite>();
-            //await c3.CreateOrUpdateAsync(default);
-        }
+       
 
 
         private static async Task ReduPreviewProcessingAsync()
