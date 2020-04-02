@@ -77,13 +77,6 @@ export default {
         showAnalyticStats() {
             let user = this.$store.getters.accountUser;
             return user && user.haveDocsWithPrice;
-        },
-        showRequestBox(){
-            if(this.getUserLoggedInStatus){
-                return this.accountUser?.userType !== 'Parent';
-            }else{
-                return true;
-            }
         }
     },
     watch: {
