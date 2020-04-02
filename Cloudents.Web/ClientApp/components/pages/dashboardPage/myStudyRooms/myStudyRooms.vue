@@ -45,10 +45,10 @@
             </template>
          </template> 
          <template v-slot:item.action="{item}">
-            <v-btn  icon    x-small @click="sendMessage(item)" :title="$t('schoolBlock_SendMessageTooltip')">
+            <v-btn icon x-small @click="sendMessage(item)" :title="$t('schoolBlock_SendMessageTooltip')">
                <iconChat/>
             </v-btn>
-            <v-btn icon  x-small @click="enterRoom(item.id)" :title="$t('schoolBlock_EnterStudyRoomTooltip')">
+            <v-btn icon x-small @click="enterRoom(item.id)" :title="$t('schoolBlock_EnterStudyRoomTooltip')">
                <enterRoom/>
             </v-btn>
          </template>
@@ -59,7 +59,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-//import tablePreviewTd from '../global/tablePreviewTd.vue';
 import iconChat from './images/icon-chat.svg';
 import enterRoom from './images/enterRoom.svg';
 import * as routeNames from '../../../../routes/routeNames'
@@ -75,7 +74,6 @@ export default {
       return {
          createStudyRoomDialog: dialogNames.CreateStudyRoom,
          routeNames,
-         sortedBy:'',
          paginationModel:{
             page:1
          },
@@ -104,16 +102,7 @@ export default {
       },
    },
    methods: {
-      ...mapActions(['updateStudyRoomItems','dashboard_sort','openChatInterface','setActiveConversationObj']),
-
-      // showFirstName(name) {
-      //    let maxChar = 4;
-      //    name = name.split(' ')[0];
-      //    if(name.length > maxChar) {
-      //    return this.$t('resultTutor_message_me');
-      //    }
-      //    return name;
-      // },
+      ...mapActions(['updateStudyRoomItems','openChatInterface','setActiveConversationObj']),
       sendMessage(item){
          let currentConversationObj = {
             userId: item.userId,
@@ -131,18 +120,6 @@ export default {
             });
          global.open(routeData.href, '_self');
       },
-      // changeSort(sortBy){
-      //    if(sortBy === 'info') return;
-
-      //    let sortObj = {
-      //       listName: 'studyRoomItems',
-      //       sortBy,
-      //       sortedBy: this.sortedBy
-      //    }
-      //    this.dashboard_sort(sortObj)
-      //    this.paginationModel.page = 1;
-      //    this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
-      // }
    },
    created() {
       this.updateStudyRoomItems()
