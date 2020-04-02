@@ -53,7 +53,7 @@ const getters = {
         return getters.getUserLoggedInStatus && state.user?.userType === 'Teacher'
     },
     getIsStudent: (state, getters) => {
-        return getters.getUserLoggedInStatus && ['UniversityStudent', 'HighSchoolStudent'].indexOf(state.user.userType) !== -1
+        return getters.getUserLoggedInStatus && state.user?.userType === 'Student'
     },
     usersReffered: state => state.usersReferred,
     accountUser: (state) => {
