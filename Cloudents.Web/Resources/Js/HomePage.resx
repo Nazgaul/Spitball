@@ -180,4 +180,28 @@
   <data name="hd_title_mobile" xml:space="preserve">
     <value>Improve your grades</value>
   </data>
+  <data name="btn_learn" xml:space="preserve">
+    <value>Start learning</value>
+  </data>
+  <data name="btn_teach" xml:space="preserve">
+    <value>Start teaching</value>
+  </data>
+  <data name="credit" xml:space="preserve">
+    <value>No credit card required</value>
+  </data>
+  <data name="student" xml:space="preserve">
+    <value>Student</value>
+  </data>
+  <data name="student_text" xml:space="preserve">
+    <value>Get the help you need, from your most trivial questions to a mentor that guides you on your journey</value>
+  </data>
+  <data name="teacher" xml:space="preserve">
+    <value>Teacher</value>
+  </data>
+  <data name="teacher_text" xml:space="preserve">
+    <value>Get your own stunning teaching site customizable to your personality. Reach &amp; teach students anytime anywhere</value>
+  </data>
+  <data name="video_title" xml:space="preserve">
+    <value>The platform that connects teachers with learners</value>
+  </data>
 </root>
