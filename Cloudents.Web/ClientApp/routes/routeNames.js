@@ -72,3 +72,5 @@ export const TutorList = 'tutorLandingPage';
 
 // Login Redirect
 export const LoginRedirect = 'loginRedirect'
+
+export const Learning = 'Learning'

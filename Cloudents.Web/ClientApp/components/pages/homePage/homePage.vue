@@ -4,7 +4,7 @@
         <div class="homeVideo">
             <video
               ref="video"
-              poster="../images/Spitball_original_homepage_poster.jpg"
+              poster="./Spitball_original_homepage_poster.jpg"
               class="video"
               loop
               autoplay
@@ -15,12 +15,12 @@
 
             <div class="actions">
                 <div class="text" v-t="'homePage_video_title'"></div>
-                <homeButtons :action="actions" v-if="!$vuetify.breakpoint.xsOnly" />
+                <homeButtons :action="startLearn" v-if="!$vuetify.breakpoint.xsOnly" />
             </div>
         </div>
 
         <div class="middle d-sm-flex d-block text-center mb-6 mb-sm-12 pa-4 pt-0 pa-sm-0">
-            <homeButtons :action="actions" v-if="$vuetify.breakpoint.xsOnly" />
+            <homeButtons :action="startLearn" v-if="$vuetify.breakpoint.xsOnly" />
             <div class="boxStudent">
                 <div class="boxHeader" v-t="'homePage_student'"></div>
                 <div class="boxDesc mt-3 mb-6" v-t="'homePage_student_text'"></div>
@@ -40,6 +40,7 @@
 
 <script>
 const homeButtons = () => import('./homeButtons.vue')
+import * as routeNames from '../../../routes/routeNames'
 
 export default {
       components:{
@@ -47,10 +48,7 @@ export default {
     },
     data() {
       return {
-        actions: {
-          startLearn: () => this.startLearn,
-          startTeach: () => this.startTeach
-        }
+        action: () => this.startLearn,
       }
     },
     methods: {
@@ -61,17 +59,13 @@ export default {
         this.$store.commit('setComponent', 'registerTeacher')
       },
       startLearn() {
-        //
-      },
-      startTeach() {
-        //
+        this.$router.push({name: routeNames.Learning})
       }
     },
     mounted() {
       let playPromise = this.$refs.video.play();
       if (playPromise !== undefined) {
         playPromise.then(() => {}).catch(error => {
-          console.log(error);
           self.$appInsights.trackException({exception: new Error(error)});
         });
       }

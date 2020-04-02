@@ -1,7 +1,7 @@
 <template functional>
     <div class="homeBtns d-block d-sm-flex mx-auto">
-        <button class="btn btnLearn d-block d-sm-inline-block mb-4 mb-sm-0" v-t="'homePage_btn_learn'" @click="props.actions.studentRegister()"></button>
-        <button class="btn btnTeach d-block d-sm-inline-block" v-t="'homePage_btn_teach'" @click="props.actions.teacherRegister()"></button>
+        <button class="btn btnLearn d-block d-sm-inline-block mb-4 mb-sm-0" v-t="'homePage_btn_learn'" @click="props.action()"></button>
+        <a class="btn btnTeach d-block d-sm-inline-block" href="https://www.teach.spitball.co/" target="_blank" v-t="'homePage_btn_teach'"></a>
     </div>
 </template>
 
@@ -14,7 +14,7 @@
         .responsive-property(width, 230px, null, 100%);
         color: #fff;
         outline: none;
-        height: 44px;
+        padding: 11px 0;
         border-radius: 28px;
         font-size: 16px;
         @media (max-width: @screen-xs) {
