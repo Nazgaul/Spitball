@@ -49,6 +49,7 @@ namespace Cloudents.Core.Entities
         public virtual void NoPay()
         {
             Receipt = "No Pay";
+            TutorApproveTime = Duration;
             TotalPrice = 0;
         }
 
