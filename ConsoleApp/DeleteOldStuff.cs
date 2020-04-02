@@ -67,12 +67,12 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
 
                 var sqlQuery =
-                    statelessSession.CreateSQLQuery(@"Select top 100 * from (
+                    statelessSession.CreateSQLQuery(@"select top 100 * from (
 Select c.Name from sb.Course c
 EXCEPT
-(Select distinct d.CourseName from sb.Document d
-union
-select distinct q.CourseId from sb.Question q)) t");
+Select distinct d.CourseName from sb.Document d
+EXCEPT
+select distinct q.CourseId from sb.Question q ) t");
 
                 var list = await sqlQuery.ListAsync<string>();
 
