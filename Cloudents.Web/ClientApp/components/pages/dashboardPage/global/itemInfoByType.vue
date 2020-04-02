@@ -29,7 +29,6 @@ export default {
    },
    computed: {
       component(){
-         debugger
          return this.item.type
       }
    },
