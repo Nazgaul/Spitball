@@ -8,6 +8,8 @@ const TutoringSession = () => import('./tutoringSessionItem.vue');
 const Video = () => import('./docVidItem.vue');
 const Document = () => import('./docVidItem.vue');
 const BuyPoints = () => import('./pointsItem.vue');
+const Question = () => import('./qaItem.vue');
+const Answer = () => import('./qaItem.vue');
 
 export default {
    name: 'itemInfoByType',
@@ -15,7 +17,9 @@ export default {
       TutoringSession,
       Document,
       Video,
-      BuyPoints
+      BuyPoints,
+      Question,
+      Answer
    },
    props:{
       item:{
@@ -25,6 +29,7 @@ export default {
    },
    computed: {
       component(){
+         debugger
          return this.item.type
       }
    },

@@ -30,7 +30,9 @@
             </router-link>
          </template>
          <template v-slot:item.info="{item}">
-            <tableInfoTd :item="item"/>
+            <div class="text-xs-left text-truncate py-2">
+               <itemInfoByType :item="item"/>
+            </div>
          </template>
          <template v-slot:item.type="{item}">
             {{dictionary.types[item.type]}}
@@ -80,14 +82,14 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { LanguageService } from '../../../../services/language/languageService';
-import tableInfoTd from '../global/tableInfoTd.vue';
 import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 import changeNameDialog from '../dashboardDialog/changeNameDialog.vue';
 import changePriceDialog from '../dashboardDialog/changePriceDialog.vue';
+import itemInfoByType from '../global/itemInfoByType.vue'
 
 export default {
    name:'myContent',
-   components:{tableInfoTd,sbDialog,changeNameDialog,changePriceDialog},
+   components:{sbDialog,changeNameDialog,changePriceDialog,itemInfoByType},
    props:{
       dictionary:{
          type: Object,
