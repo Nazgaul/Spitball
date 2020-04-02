@@ -76,11 +76,9 @@ namespace Cloudents.Infrastructure.Cache
                 }
                 if (_distributedEnabled)
                 {
-                    Console.WriteLine("distributed");
                     return _distributedCache;
                 }
 
-                Console.WriteLine("Memory");
                 return _inMemory;
             }
         }

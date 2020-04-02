@@ -23,10 +23,10 @@ namespace Cloudents.Persistence.Maps
             Component(x => x.Status);
             //References(x => x.FlaggedUser).Column("FlaggedUserId").ForeignKey("AnswerFlagged_User");
             //DO NOT PUT ANY CASCADE WE HANDLE THIS ON CODE - TAKE A LOOK AT ADMIN COMMAND AND REGULAR COMMAND
-            //HasMany(x => x.Transactions)
-            //    //.Cascade()
-            //    .LazyLoad()
-            //    .Inverse();
+            HasMany(x => x.Transaction)
+                .Cascade.AllDeleteOrphan()
+                .LazyLoad()
+                .Inverse();
 
             //HasMany(x => x.Votes)
             //    .Access.CamelCaseField(Prefix.Underscore)

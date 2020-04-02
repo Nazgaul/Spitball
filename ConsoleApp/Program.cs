@@ -147,36 +147,80 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            await DeleteOldQuestion();
             await DeleteOldDocuments();
+           
+        }
+
+        private static async Task DeleteOldQuestion()
+        {
+            var statelessSession = Container.Resolve<IStatelessSession>();
+            while (true)
+            {
+                var deletedDocuments = await statelessSession.Query<Question>()
+                    .Where(w => w.Status.State == ItemState.Deleted && w.Status.DeletedOn < DateTime.UtcNow
+                                    .AddDays(-60))
+                    .Take(100)
+                    .ToListAsync();
+
+                if (deletedDocuments.Count == 0)
+                {
+                    break;
+
+                }
+                foreach (var deletedDocument in deletedDocuments)
+                {
+
+                    Console.WriteLine(deletedDocument.Id);
+                    try
+                    {
+                      
+                        //await statelessSession.Query<Document>().Where(w => w.Id == deletedDocument.Id)
+
+                        //    .DeleteAsync(default);
+
+                        var sqlQuery =
+                            statelessSession.CreateSQLQuery("update sb.question set CorrectAnswer_id = null where id =  :Id");
+                        sqlQuery.SetInt64("Id", deletedDocument.Id);
+                        sqlQuery.ExecuteUpdate();
 
 
-            //var sessionFuture = await _session.Query<StudyRoomSessionUser>()
-            //    .Fetch(f=>f.StudyRoomSession)
-            //    .ThenFetch(f=>f.StudyRoom)
-            //    .Fetch(f=>f.User)
-            //    .Where(w => w.StudyRoomSession.StudyRoom.Tutor.Id == 638 && w.Duration > TimeSpan.FromMinutes(10))
-            //    .Select(s => new SessionSaleDto()
-            //    {
-            //        SessionId = s.StudyRoomSession.Id,
-            //        PaymentStatus = s.Receipt != null ? PaymentStatus.Paid :
-            //            s.TutorApproveTime != null ? PaymentStatus.Pending:
-            //            PaymentStatus.PendingApproval,
-            //        Date = s.StudyRoomSession.Created,
-            //        Price = s.TotalPrice,
-            //        StudentName = s.User.Name,
-            //        Duration = s.TutorApproveTime ?? s.Duration.Value,
-            //        StudentImage = s.User.ImageName,
-            //        StudentId = s.User.Id
-            //    })
-            //    .ToListAsync();
+                        using (var child = Container.BeginLifetimeScope())
+                        {
+                            var unitOfWork = child.Resolve<IUnitOfWork>();
+                            var _session = child.Resolve<ISession>();
+                            var d = await _session.GetAsync<Question>(deletedDocument.Id);
+
+                            foreach (var dAnswer in d.Answers)
+                            {
+                                await _session.DeleteAsync(dAnswer);
+                            }
+
+                            await _session.DeleteAsync(d);
+                            await unitOfWork.CommitAsync(default);
+
+                        }
+
+                        //await statelessSession.Query<QuestionTransaction>().Where(w => w.Question.Id == deletedDocument.Id)
+                        //    .DeleteAsync(default);
+
+                        await statelessSession.Query<Answer>().Where(w => w.Question.Id == deletedDocument.Id)
+                            .DeleteAsync(default);
+                        await statelessSession.Query<Question>().Where(w => w.Id == deletedDocument.Id)
+                            .DeleteAsync(default);
+                    }
+                    catch(Exception e)
+                    {
+                       
+                    }
+                    //var d = await _session.GetAsync<Document>(deletedDocument.Id);
+                    //await _session.DeleteAsync(d);
+                    //await unitOfWork.CommitAsync(default);
 
 
-
-
-            //ResourcesMaintenance.DeleteStuffFromJs();
-            //await Convert();
-            //var result = await s.GetPaymentAsync("4J34525079381873W", default);
-            ////var x = await s.QueryAsync(new StudyRoomQuery(Guid.Parse("9f54280c-103e-46a6-8184-aabf00801beb"), 638), default);
+                    //   blobProvider.DeleteDirectoryAsync(eventMessage.Document.Id.ToString(), token);
+                }
+            }
         }
 
         private static async Task DeleteOldDocuments()
@@ -191,20 +235,17 @@ namespace ConsoleApp
 
                 var deletedDocuments = await statelessSession.Query<Document>()
                     .Where(w => w.Status.State == ItemState.Deleted && w.Status.DeletedOn < DateTime.UtcNow
-                    .AddMonths(-6))
+                    .AddDays(-60))
                     .Take(100)
                     .ToListAsync();
 
                 if (deletedDocuments.Count == 0)
                 {
                     break;
-                    
+
                 }
                 foreach (var deletedDocument in deletedDocuments)
                 {
-                    // using var child = Container.BeginLifetimeScope();
-                    // var unitOfWork = child.Resolve<IUnitOfWork>();
-                    // var _session = child.Resolve<ISession>();
 
                     Console.WriteLine(deletedDocument.Id);
                     var v = await blobProvider.FilesInDirectoryAsync("", deletedDocument.Id.ToString(), default);
@@ -213,12 +254,31 @@ namespace ConsoleApp
                         await blobProvider.DeleteDirectoryAsync(deletedDocument.Id.ToString(), default);
                     }
 
-                    var sqlQuery = statelessSession.CreateSQLQuery("delete from sb.DocumentsTags where documentid = :Id");
+                    var sqlQuery =
+                        statelessSession.CreateSQLQuery("delete from sb.DocumentsTags where documentid = :Id");
                     sqlQuery.SetInt64("Id", deletedDocument.Id);
                     sqlQuery.ExecuteUpdate();
+                  
 
+                    try
+                    {
+                        await statelessSession.Query<Document>().Where(w => w.Id == deletedDocument.Id)
+                            .DeleteAsync(default);
+                    }
+                    catch 
+                    {
+                        using (var child = Container.BeginLifetimeScope())
+                        {
+                            var unitOfWork = child.Resolve<IUnitOfWork>();
+                            var _session = child.Resolve<ISession>();
+                            var d = await _session.GetAsync<Document>(deletedDocument.Id);
+                            await _session.DeleteAsync(d);
+                            await unitOfWork.CommitAsync(default);
 
-                    await statelessSession.Query<Document>().Where(w => w.Id == deletedDocument.Id).DeleteAsync(default);
+                        }
+                        await statelessSession.Query<Document>().Where(w => w.Id == deletedDocument.Id)
+                            .DeleteAsync(default);
+                    }
                     //var d = await _session.GetAsync<Document>(deletedDocument.Id);
                     //await _session.DeleteAsync(d);
                     //await unitOfWork.CommitAsync(default);

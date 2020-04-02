@@ -1,5 +1,6 @@
 ﻿using Cloudents.Core.Enum;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using static Cloudents.Core.Entities.ItemStatus;
@@ -48,7 +49,7 @@ namespace Cloudents.Core.Entities
 
         public virtual ItemStatus Status { get; set; }
 
-
+        protected internal virtual ICollection<QuestionTransaction> Transaction { get; set; }
         public virtual void UnFlag()
         {
             if (Status.State != ItemState.Flagged) return;
@@ -63,9 +64,12 @@ namespace Cloudents.Core.Entities
             Status = Status.Flag(messageFlagReason, user);
         }
 
+
+
         public virtual void Delete()
         {
             //_votes.Clear();
+            Transaction.Clear();
             Status = ItemStatus.Delete();
         }
     }
