@@ -147,30 +147,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-
-            
-            var _session = Container.Resolve<IStatelessSession>();
-            var blobProvider = Container.Resolve<IDocumentDirectoryBlobProvider>();
-
-            var deletedDocuments = await _session.Query<Document>()
-                .Where(w => w.Status.State == ItemState.Deleted && w.Status.DeletedOn < DateTime.UtcNow.AddDays(-90))
-                .Take(100)
-                .ToListAsync();
-
-            foreach (var deletedDocument in deletedDocuments)
-            {
-                Console.WriteLine(deletedDocument.Id);
-                var v = await blobProvider.FilesInDirectoryAsync("", deletedDocument.Id.ToString(), default);
-                if (v.Any())
-                {
-
-                }
-
-                await _session.DeleteAsync(deletedDocument);
-                
-                //   blobProvider.DeleteDirectoryAsync(eventMessage.Document.Id.ToString(), token);
-            }
-
+            await DeleteOldDocuments();
 
 
             //var sessionFuture = await _session.Query<StudyRoomSessionUser>()
@@ -202,6 +179,56 @@ namespace ConsoleApp
             ////var x = await s.QueryAsync(new StudyRoomQuery(Guid.Parse("9f54280c-103e-46a6-8184-aabf00801beb"), 638), default);
         }
 
+        private static async Task DeleteOldDocuments()
+        {
+            var statelessSession = Container.Resolve<IStatelessSession>();
+
+            var blobProvider = Container.Resolve<IDocumentDirectoryBlobProvider>();
+
+            while (true)
+            {
+
+
+                var deletedDocuments = await statelessSession.Query<Document>()
+                    .Where(w => w.Status.State == ItemState.Deleted && w.Status.DeletedOn < DateTime.UtcNow
+                    .AddMonths(-6))
+                    .Take(100)
+                    .ToListAsync();
+
+                if (deletedDocuments.Count == 0)
+                {
+                    break;
+                    
+                }
+                foreach (var deletedDocument in deletedDocuments)
+                {
+                    // using var child = Container.BeginLifetimeScope();
+                    // var unitOfWork = child.Resolve<IUnitOfWork>();
+                    // var _session = child.Resolve<ISession>();
+
+                    Console.WriteLine(deletedDocument.Id);
+                    var v = await blobProvider.FilesInDirectoryAsync("", deletedDocument.Id.ToString(), default);
+                    if (v.Any())
+                    {
+                        await blobProvider.DeleteDirectoryAsync(deletedDocument.Id.ToString(), default);
+                    }
+
+                    var sqlQuery = statelessSession.CreateSQLQuery("delete from sb.DocumentsTags where documentid = :Id");
+                    sqlQuery.SetInt64("Id", deletedDocument.Id);
+                    sqlQuery.ExecuteUpdate();
+
+
+                    await statelessSession.Query<Document>().Where(w => w.Id == deletedDocument.Id).DeleteAsync(default);
+                    //var d = await _session.GetAsync<Document>(deletedDocument.Id);
+                    //await _session.DeleteAsync(d);
+                    //await unitOfWork.CommitAsync(default);
+
+
+                    //   blobProvider.DeleteDirectoryAsync(eventMessage.Document.Id.ToString(), token);
+                }
+            }
+        }
+
         private static async Task BuildStudyRoomName()
         {
             var session = Container.Resolve<ISession>();
@@ -209,7 +236,7 @@ namespace ConsoleApp
             var studyRooms = session.Query<StudyRoom>().Where(w => w.Name == null).ToList();
             foreach (var studyRoom in studyRooms)
             {
-                var users = studyRoom.Users.Select(s=>s.User);
+                var users = studyRoom.Users.Select(s => s.User);
                 var country = studyRoom.Tutor.User.Country;
                 if (users.Count() == 2)
                 {
@@ -236,13 +263,13 @@ namespace ConsoleApp
                 {
                     var tutor = studyRoom.Tutor.User;
 
-                    var studentName = users.Where(s => s.Id != tutor.Id).Select(s=>s.FirstName);
+                    var studentName = users.Where(s => s.Id != tutor.Id).Select(s => s.FirstName);
                     var tutorName = tutor.FirstName;
 
                     string text;
                     if (country == "IL")
                     {
-                        text = $"חדר לימוד בין {tutorName} ל{string.Join(",",studentName)}";
+                        text = $"חדר לימוד בין {tutorName} ל{string.Join(",", studentName)}";
                     }
                     else
                     {
@@ -288,12 +315,12 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
             var dir1 = container.GetDirectoryReference("files");
             var dir2 = dir1.GetDirectoryReference($"{id}");
             var blobs = await dir2.ListBlobsSegmentedAsync(null);
-            var blob = (CloudBlockBlob)blobs.Results.FirstOrDefault(f => ((CloudBlockBlob) f).Name.Contains("file-"));
+            var blob = (CloudBlockBlob)blobs.Results.FirstOrDefault(f => ((CloudBlockBlob)f).Name.Contains("file-"));
 
 
             var sr = await blob.OpenReadAsync();
-            
-           // var sr = new FileStream("C:\\Users\\Ram\\Downloads\\xxx\\file-52936bce-e08a-4138-9639-4971c22640ba-142339.pptx", System.IO.FileMode.Open); // System.IO.Stream | Input file to perform the operation on.
+
+            // var sr = new FileStream("C:\\Users\\Ram\\Downloads\\xxx\\file-52936bce-e08a-4138-9639-4971c22640ba-142339.pptx", System.IO.FileMode.Open); // System.IO.Stream | Input file to perform the operation on.
             var text2 = await _convertDocumentApi.ConvertDocumentPptxToTxtAsync(sr);
             sr.Seek(0, SeekOrigin.Begin);
             var result = await _convertDocumentApi.ConvertDocumentAutodetectToPngArrayAsync(sr);

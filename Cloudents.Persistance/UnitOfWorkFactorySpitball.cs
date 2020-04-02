@@ -30,7 +30,7 @@ namespace Cloudents.Persistence
                     FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString.Db.Db)
                         .DefaultSchema("sb").Dialect<SbDialect>()
 #if DEBUG
-                        .ShowSql()
+                     //   .ShowSql()
 #endif
                 ).ExposeConfiguration((x) => BuildSchema(x, interceptor, connectionString.Db.Integration));
 
