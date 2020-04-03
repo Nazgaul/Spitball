@@ -49,8 +49,8 @@ const getters = {
     },
     //TODO need to change this to accountretive
     getUserLoggedInStatus: state => state.isUserLoggedIn || global.isAuth,
-    getIsTeacher: (state, getters) => getters.getUserLoggedInStatus && state.user?.userType === 'Teacher',
-    getIsStudent: (state, getters) => getters.getUserLoggedInStatus && state.user?.userType === 'Student',
+    getIsTeacher: (state, _getters) => _getters.getUserLoggedInStatus && state.user?.userType === 'Teacher',
+    getIsStudent: (state, _getters) => _getters.getUserLoggedInStatus && state.user?.userType === 'Student',
     usersReffered: state => state.usersReferred,
     accountUser: (state) => {
         return state.user;
