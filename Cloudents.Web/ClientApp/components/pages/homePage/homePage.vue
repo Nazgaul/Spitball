@@ -1,174 +1,25 @@
 <template>
     <div class="homePage">
-
-        <div class="homeVideo">
-            <video
-              ref="video"
-              poster="./Spitball_original_homepage_poster.jpg"
-              class="video"
-              loop
-              autoplay
-              muted
-            >
-                <source src="https://az32006.vo.msecnd.net/spitball-user/Spitball-HP-video.mp4" type="video/mp4">
-            </video>
-
-            <div class="actions">
-                <h1 class="text" v-t="'homePage_video_title'"></h1>
-                <homeButtons :action="startLearn" v-if="!$vuetify.breakpoint.xsOnly" />
-            </div>
-            <div class="videoLinear"></div>
-        </div>
-
-        <div class="middle d-sm-flex d-block text-center mb-6 mb-sm-12 pa-4 pt-0 pa-sm-0">
-            <homeButtons :action="startLearn" v-if="$vuetify.breakpoint.xsOnly" />
-            <div class="boxStudent">
-                <h3 class="boxHeader" v-t="'homePage_student'"></h3>
-                <h4 class="boxDesc mt-3 mb-6" v-t="'homePage_student_text'"></h4>
-                <button class="boxBtns btnsLearn mb-3" @click="studentRegister" v-t="'homePage_student_btn_register'"></button>
-                <div class="boxNoCredit" v-t="'homePage_credit'"></div>
-            </div>
-            <div>
-                <h3 class="boxHeader" v-t="'homePage_teacher'"></h3>
-                <h4 class="boxDesc mt-3 mb-6" v-t="'homePage_teacher_text'"></h4>
-                <button class="boxBtns btnsTeach mb-3" @click="teacherRegister" v-t="'homePage_teacher_btn_register'"></button>
-                <div class="boxNoCredit" v-t="'homePage_credit'"></div>
-            </div>
-        </div>
+      
+        <homeVideo />
+        <homeQuote />
+        <homeRegister />
+        <homeBoxes />
 
     </div>
 </template>
 
 <script>
-const homeButtons = () => import('./homeButtons.vue')
-import * as routeNames from '../../../routes/routeNames'
+const homeVideo = () => import('./homeVideo.vue')
+const homeQuote = () => import('./homeQuote.vue')
+const homeRegister = () => import('./homeRegister.vue')
+const homeBoxes = () => import('./homeBoxes.vue')
 
 export default {
-      components:{
-        homeButtons
-    },
-    data() {
-      return {
-        action: () => this.startLearn,
-      }
-    },
-    methods: {
-      studentRegister() {
-        this.$store.commit('setComponent', 'register')
-      },
-      teacherRegister() {
-        this.$store.commit('setComponent', 'registerTeacher')
-      },
-      startLearn() {
-        this.$router.push({name: routeNames.Learning})
-      }
-    },
-    mounted() {
-      let playPromise = this.$refs.video.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {}).catch(error => {
-          self.$appInsights.trackException({exception: new Error(error)});
-        });
-      }
-    }
+    components: { homeVideo, homeQuote, homeRegister, homeBoxes }
 };
 </script>
 
 <style lang="less">
-@import "../../../styles/mixin.less";
-.homePage {
-  background: #fff;
-  .homeVideo {
-    position: relative;
-    height: 710px;
-    @media (max-width: @screen-xs) {
-      height: 354px;
-    }
-    .video {
-      width: 100%;
-      object-fit: cover;
-      height: inherit;
-    }
-    .actions {
-      color: #fff;
-      position: absolute;
-      bottom: 40px;
-      right: 0;
-      left: 0;
-      text-align: center;
-      z-index: 1;
-      @media (max-width: @screen-xs) {
-        bottom: 20px;
-      }
-      .text {
-        font-size: 34px;
-        width: 600px;
-        font-weight: normal;
-        line-height: 1.5;
-        margin: 0 auto 50px;
-        @media (max-width: @screen-xs) {
-          margin: 0;
-          width: 100%;
-          font-size: 22px;
-        }
-      }
-    }
-    .videoLinear {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      height: 400px;
-      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.52) 47%, rgba(0, 0, 0, 0.81) 92%);
-      @media(max-width: @screen-xs) {
-        height: 200px;
-      }
-    }
-  }
-
-  .middle {
-    .responsive-property(margin-top, 45px, null, 28px);
-    color: @global-purple;
-    display: flex;
-    justify-content: space-evenly;
-    .boxStudent {
-      @media (max-width: @screen-xs) {
-        border-top: 1px solid #ddd;
-        margin: 30px 0;
-        padding-top: 30px;
-      }
-    }
-    .boxHeader {
-      font-size: 32px;
-      font-weight: normal;
-    }
-    .boxDesc {
-      font-weight: normal;
-      line-height: 1.6;
-      .responsive-property(max-width, 380px, null, 100%);
-      .responsive-property(font-size, 20px, null, 16px);
-    }
-    .boxBtns {
-      border-radius: 28px;
-      border: solid 1px #4c59ff;
-      width: 230px;
-      height: 44px;
-      font-size: 16px;
-      .responsive-property(max-width, 230px, null, 260px);
-      &.btnsLearn {
-        color: #4c59ff;
-        font-weight: 600;
-        border: solid 1px #4c59ff;
-      }
-      &.btnsTeach {
-        color: #41c4bc;
-        font-weight: 600;
-        border: solid 1px #41c4bc;
-      }
-    }
-    .boxNoCredit {
-      color: #a8a8ac;
-    }
-  }
-}
+  .homePage { background: #fff; }
 </style>
