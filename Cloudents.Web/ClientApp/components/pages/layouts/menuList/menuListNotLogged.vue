@@ -1,8 +1,8 @@
 <template>
     <div class="menuListStudent">
         <v-list-item
-            v-for="(link, index) in menuListStudentFilter"
-            :to="link.route ? { name: link.route, params: { id: user.id, name: user.name } } : ''"
+            v-for="(link, index) in menuListNotLoggedFilter"
+            :to="link.route || ''"
             :href="link.url || ''"
             :key="index"
             class="link"
@@ -21,31 +21,29 @@
 </template>
 
 <script>
-import * as routNames from '../../../../routes/routeNames'
 
 export default {
     props: {
-        menuListStudent: {
+        menuListNotLogged: {
             required: true
         },
-        menuListTeacher: {
+        menuListStudent: {
             required: false
         },
-        menuListNotLogged: {
+        menuListTeacher: {
             required: false
         }
     },
     computed: {
-        user() {
-            return this.$store.getters.accountUser
-        },
-        menuListStudentFilter() {
-            let isSold = this.$store.getters.getIsSold
-            return this.menuListStudent.filter(link => {
-                // let isUrlMySale = [routNames.MySales].indexOf(link.route) > -1
-                let isUrlMySale = link.route === routNames.MySales
-                return (isUrlMySale && isSold) || !isUrlMySale
+        menuListNotLoggedFilter() {
+            return this.menuListNotLogged.filter(item => {
+                let isShowFindTutor = item.route && this.$route.name === item.route.name
+                let isShowTeachOnSpitball = item.notShowFrymo && this.isFrymo 
+                return !isShowFindTutor && !isShowTeachOnSpitball
             })
+        },
+        isFrymo() {
+            return this.$store.getters.isFrymo
         }
     }
 }
