@@ -154,10 +154,10 @@
     <value>Test Study Room</value>
   </data>
   <data name="balance" xml:space="preserve">
-    <value>Your balance: {1} Pts</value>
+    <value>Your balance: {0} Pts</value>
   </data>
   <data name="greets" xml:space="preserve">
-    <value>{1}</value>
+    <value>{0}</value>
   </data>
   <data name="txt_out" xml:space="preserve">
     <value>Get access to thousands of online study materials and tutors</value>
