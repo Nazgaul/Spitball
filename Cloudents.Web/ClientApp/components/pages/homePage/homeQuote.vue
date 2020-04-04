@@ -50,7 +50,7 @@ export default {
             position: absolute;
             font-size: 175px;
             top: -140px;
-            right: 48%; // for responsive  quote
+            right: 48%; // for responsive quote
             color: rgba(200,200,200,.4);
 
             @media (max-width: @screen-xs) {

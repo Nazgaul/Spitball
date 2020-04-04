@@ -63,16 +63,16 @@ export default {
       width: 230px;
       height: 44px;
       font-size: 16px;
+      font-weight: 600;
+      outline: none;
       .responsive-property(max-width, 230px, null, 260px);
 
       &.btnsLearn {
         color: #4c59ff;
-        font-weight: 600;
         border: solid 1px #4c59ff;
       }
       &.btnsTeach {
         color: #41c4bc;
-        font-weight: 600;
         border: solid 1px #41c4bc;
       }
     }
