@@ -1,4 +1,4 @@
-// Auth:
+// Login:
 export const Login = 'login';
 export const LoginSetEmail = 'setEmail';
 export const LoginSetPassword = 'setPassword';
@@ -6,6 +6,7 @@ export const LoginEmailConfirmed = 'emailConfirmed';
 export const LoginForgotPassword = 'forgotPassword';
 export const LoginResetPassword = 'resetPassword';
 
+// Register:
 export const Register = 'register';
 export const RegisterSetEmailPassword = 'setEmailPassword';
 export const RegisterEmailConfirmed = 'registerEmailConfirmed';
@@ -19,15 +20,6 @@ export const RegisterCourseCollege = 'registerCourseCollege';
 export const RegisterParent = 'parent';
 export const RegisterCourseParent = 'registerCourseParent';
 
-// Profile:
-export const Profile = 'profile';
-
-// Feed:
-export const Feed = 'feed';
-
-// Dashboard:
-export const Dashboard = 'dashboardTeacher';
-
 // Marketing:
 export const Marketing = 'marketing';
 export const MarketingPromote = 'promote';
@@ -39,38 +31,43 @@ export const MyContent = 'myContent';
 export const MyStudyRooms = 'myStudyRooms';
 export const MyCalendar = 'myCalendar';
 
+// Home Page:
+export const HomePage = 'homePage';
+
+// Login Redirect:
+export const LoginRedirect = 'loginRedirect';
+
+// Learn Page:
+export const Learning = 'Learning';
+
 // Course:
 export const EditCourse = 'editCourse';
 export const AddCourse = 'addCourse';
 export const SetCourse = 'setCourse';
 
-// Edit University
+// Edit University:
 // export const EditUniversity = 'addUniversity';
 
-// Study Room:
-export const StudyRoom = 'tutoring';
+// Profile:
+export const Profile = 'profile';
 
-
-// Study Room Settings:
-export const StudyRoomSettings ='roomSettings'
-
-
-
+// Feed:
+export const Feed = 'feed';
 
 // Document:
 export const Document = 'document';
 
-// Question:
-export const Question = 'question'
+// Dashboard:
+export const Dashboard = 'dashboardTeacher';
 
-// Home Page:
-export const HomePage = 'landingPage';
+// Study Room:
+export const StudyRoom = 'tutoring';
+
+// Study Room Settings:
+export const StudyRoomSettings ='roomSettings';
+
+// Question:
+export const Question = 'question';
 
 // Tutor List:
 export const TutorList = 'tutorLandingPage';
-
-
-// Login Redirect
-export const LoginRedirect = 'loginRedirect'
-
-export const Learning = 'Learning'

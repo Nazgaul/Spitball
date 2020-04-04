@@ -5,13 +5,10 @@ import * as routeNames from "./routeNames.js";
 export const landingRoutes = [
     {
         path: "/",
-        // name: "landingPage",
+        name: routeNames.HomePage,
         components: {
             default: () => import(`../components/pages/homePage/homePage.vue`),
             ...staticComponents(['banner', 'header', 'footer']),
-        },
-        meta:{
-            headerSlot: (global.siteName === 'frymo')? '': 'becomeTutorSlot',
         },
         beforeEnter: (to, from, next) => {    
             if(store.getters.getUserLoggedInStatus){
