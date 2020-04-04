@@ -19,9 +19,6 @@ export const landingRoutes = [
                 if(store.getters.accountUser.userType === 'Teacher'){
                     nextRoute = {name: routeNames.Dashboard};
                 }
-                if(store.getters.accountUser.userType === 'Parent'){
-                    nextRoute = {name: routeNames.TutorList};
-                }
                 next({name: nextRoute.name,query: to.query});
                 return;
             }
@@ -37,9 +34,6 @@ export const landingRoutes = [
                 let nextRoute = {name: routeNames.Feed};
                 if(store.getters.accountUser.userType === 'Teacher'){
                     nextRoute = {name: routeNames.Dashboard};
-                }
-                if(store.getters.accountUser.userType === 'Parent'){
-                    nextRoute = {name: routeNames.TutorList};
                 }
                 next({name: nextRoute.name,query: to.query});
                 return;
