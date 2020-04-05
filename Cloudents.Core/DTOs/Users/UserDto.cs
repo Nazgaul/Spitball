@@ -32,7 +32,6 @@ namespace Cloudents.Core.DTOs.Users
         public string Name { get; set; }
         [EntityBind(nameof(User.ImageName))]
         public string? Image { get; set; }
-        //public string UniversityName { get; set; }
       
         [EntityBind(nameof(User.Online))]
         public bool Online { get; set; }
