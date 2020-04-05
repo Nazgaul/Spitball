@@ -41,12 +41,12 @@ namespace Cloudents.Query.Users
             {
 
 
-                const string tRevenueSql = @"select cast(isnull(sum(price), 0) as int) as price
+                const string tRevenueSql = @"select cast(isnull(sum(t.price), 0) as int) as price
                                     from sb.[Transaction] t
                                     where [user_Id] = :UserId and [action] in ('SoldDocument','ReferringUser')
                                     and Created between :from and :to;";
 
-                const string sRevenueSql = @"select cast(isnull(sum(Price), 0) as int) as price
+                const string sRevenueSql = @"select cast(isnull(sum(srs.Price), 0) as int) as price
                                             from sb.StudyRoom sr
                                             join sb.StudyRoomSession srs
                                                 on sr.Id = srs.StudyRoomId
