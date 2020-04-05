@@ -182,6 +182,7 @@ export default {
     }
   },
   created() {
+    debugger
     if (process.env.NODE_ENV == "development") {
       if (!this.link) {
         console.error("one or more params are missed in ShareContent: link");

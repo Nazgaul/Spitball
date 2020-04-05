@@ -6,7 +6,7 @@
             <shareContent :link="shareContentParams.link"
               :twitter="shareContentParams.twitter"
               :whatsApp="shareContentParams.whatsApp"
-              :email="shareContentParams.email"  class="mb-2 mb-sm-3" v-if="getProfile && !$vuetify.breakpoint.lgAndUp"/>
+              :email="shareContentParams.email"  class="mb-2 mb-sm-3 shareContentProfile" v-if="getProfile"/>
             <calendarTab v-if="showProfileCalendar" class="mb-6" :globalFunctions="globalFunctions"/>
             <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none"/>
             <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none"/>
@@ -132,7 +132,14 @@
   }
 }
 
-
+.shareContentProfile {
+  max-width: 292px;
+  margin: -10px auto 0;
+  position: absolute;
+  right: 0;
+  left: 0;
+  z-index: 1;
+}
 
 
 
