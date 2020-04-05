@@ -1,44 +1,46 @@
 <template>
 <div id="profileItemsBox">
-   <div class="profileItemsBox_title text-truncate" 
-   v-text="$Ph($vuetify.breakpoint.xsOnly? 'profile_study_materials_mobile':'profile_study_materials',userName)"/>   
-   <div class="profileItemsBox_filters">
-      <v-flex xs2 sm4 class="pr-0 pr-sm-4 d-flex d-sm-block" :class="{'filterbox':$vuetify.breakpoint.xsOnly}" justify-end>
-         <v-menu offset-y sel="filter_type">
-            <template v-slot:activator="{ on }">
-               <v-btn icon v-on="on" class="filters_menu_btn d-block d-sm-none">
-                  <v-icon class="icon">sbf-sort</v-icon>
-               </v-btn>
-            </template>
-            <v-list class="px-2">
-               <v-list-item v-for="(item, index) in typeItems" :key="index" @click="menuSelect(item.value)">
-               <v-list-item-title :class="{'font-weight-bold': selectChecker(item)}">{{ item.name }}</v-list-item-title>
-               </v-list-item>
-            </v-list>
-         </v-menu>
+   <div class="profileItemsBox-header">
+      <div class="profileItemsBox_title text-truncate" 
+      v-text="$Ph($vuetify.breakpoint.xsOnly? 'profile_study_materials_mobile':'profile_study_materials',userName)"/>   
+      <div class="profileItemsBox_filters">
+         <v-flex xs2 sm4 class="pr-0 pr-sm-4 d-flex d-sm-block" :class="{'filterbox':$vuetify.breakpoint.xsOnly}" justify-end>
+            <v-menu offset-y sel="filter_type">
+               <template v-slot:activator="{ on }">
+                  <v-btn icon v-on="on" class="filters_menu_btn d-block d-sm-none">
+                     <v-icon class="icon">sbf-sort</v-icon>
+                  </v-btn>
+               </template>
+               <v-list class="px-2">
+                  <v-list-item v-for="(item, index) in typeItems" :key="index" @click="menuSelect(item.value)">
+                  <v-list-item-title :class="{'font-weight-bold': selectChecker(item)}">{{ item.name }}</v-list-item-title>
+                  </v-list-item>
+               </v-list>
+            </v-menu>
 
-         <v-select class="profileItemsBox_filters_select d-none d-sm-flex"
-            sel="filter_type"
-            :append-icon="'sbf-arrow-fill'"
-            v-model="selectedModel.itemType"
-            :items="typeItems"
-            item-text="name"
-            @change="handleSelects()"
-            :height="$vuetify.breakpoint.xsOnly? 42 : 36" hide-details solo>
-         </v-select>
-      </v-flex>
-      <v-flex v-if="userCourses.length" xs10 sm9 class="pr-4 pr-sm-0" :class="{'filtercourse':$vuetify.breakpoint.xsOnly}">
-         <v-select class="profileItemsBox_filters_select"
-            sel="filter_course"
-            :append-icon="'sbf-arrow-fill'"
-            clearable
-            :clear-icon="'sbf-close'"
-            v-model="selectedModel.itemCourse"
-            :items="userCourses"
-            @change="handleSelects()"
-            :placeholder="selectPlaceholder" :height="$vuetify.breakpoint.xsOnly? 42 : 36" solo>
-         </v-select>
-      </v-flex>
+            <v-select class="profileItemsBox_filters_select d-none d-sm-flex"
+               sel="filter_type"
+               :append-icon="'sbf-arrow-fill'"
+               v-model="selectedModel.itemType"
+               :items="typeItems"
+               item-text="name"
+               @change="handleSelects()"
+               :height="$vuetify.breakpoint.xsOnly? 42 : 36" hide-details solo>
+            </v-select>
+         </v-flex>
+         <v-flex v-if="userCourses.length" xs10 sm9 class="pr-4 pr-sm-0" :class="{'filtercourse':$vuetify.breakpoint.xsOnly}">
+            <v-select class="profileItemsBox_filters_select"
+               sel="filter_course"
+               :append-icon="'sbf-arrow-fill'"
+               clearable
+               :clear-icon="'sbf-close'"
+               v-model="selectedModel.itemCourse"
+               :items="userCourses"
+               @change="handleSelects()"
+               :placeholder="selectPlaceholder" :height="$vuetify.breakpoint.xsOnly? 42 : 36" solo>
+            </v-select>
+         </v-flex>
+      </div>
    </div>
    <template v-if="!!items && items.length">
       <div class="profileItemsBox_content" v-if="$vuetify.breakpoint.smAndUp">
@@ -89,7 +91,7 @@ export default {
             course:'',
             documentType:'',
             page: 1,
-            pageSize: this.$vuetify.breakpoint.xsOnly? 3 : 6,
+            pageSize: this.$vuetify.breakpoint.xsOnly? 3 : 8,
          }
       }
    },
@@ -178,7 +180,13 @@ export default {
 
 #profileItemsBox{
    width: 100%;
+   max-width: 1006px;
+   margin: 0 auto;
    color: #43425d;
+   .profileItemsBox-header {
+      max-width: 800px;
+      margin: 0 auto;
+   }
    .profileItemsBox_title{
       .responsive-property(font-size, 18px, null, 16px);
       font-weight: 600;

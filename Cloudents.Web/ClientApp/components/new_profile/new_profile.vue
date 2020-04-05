@@ -2,7 +2,7 @@
     <div class="profilePage">
         <profileDialogs/>
         <div class="profilePage_main profile-page-container">
-            <profileUserBox/>
+            <profileUserBox />
             <shareContent :link="shareContentParams.link"
               :twitter="shareContentParams.twitter"
               :whatsApp="shareContentParams.whatsApp"
@@ -88,13 +88,13 @@
       }
     }
     .profilePage_main {
-        max-width: 720px;
+        max-width: 1920px;
         width: 100%;
-        margin-right: 33px;
-        @media (max-width: @screen-sm) {
-            margin-right: 0;
-            max-width: auto;
-        }
+        //margin-right: 33px;
+//         @media (max-width: @screen-sm) {
+//           //  margin-right: 0;
+// //            max-width: auto;
+//         }
         &.profile-page-container {
   &.content-center{
     margin: 0 auto;
