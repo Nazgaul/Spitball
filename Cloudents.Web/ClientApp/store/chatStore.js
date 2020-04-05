@@ -271,7 +271,6 @@ const actions = {
         dispatch('openChatInterface');
     },
     setActiveConversationObj:({commit, dispatch, state}, obj)=>{
-        debugger
         commit('setSyncStatus', true);
         commit('setActiveConversationObj', obj);
         dispatch('syncMessagesByConversationId');
@@ -305,7 +304,6 @@ const actions = {
         });
     },
     syncMessagesByConversationId:({dispatch, state, getters, commit})=>{
-        debugger
         //get from server the messages by id
         let id = null;
         if(!state.activeConversationObj.conversationId) {
@@ -356,9 +354,7 @@ const actions = {
 
         };
         chatService.sendChatMessage(messageObj).then(({data})=>{
-
-            debugger
-
+            state.activeConversationObj.conversationId = data.conversationId
             let id = data.conversationId;
             let userId = getters.accountUser.id;
             let localMessageObj = {
@@ -374,7 +370,6 @@ const actions = {
             localMessageObj = chatService.createMessage(localMessageObj, id);
             dispatch('addMessage', localMessageObj);
     
-            // id = data.conversationId;
         });
         // debugger
         //add message locally
