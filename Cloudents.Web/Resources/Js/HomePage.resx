@@ -193,13 +193,13 @@
     <value>Student</value>
   </data>
   <data name="student_text" xml:space="preserve">
-    <value>Get the help you need, from your most trivial questions to a mentor that guides you on your journey</value>
+    <value>Get the help you need. Weather it's the answer to a simple question, or a mentor to guide you through your journey</value>
   </data>
   <data name="teacher" xml:space="preserve">
     <value>Teacher</value>
   </data>
   <data name="teacher_text" xml:space="preserve">
-    <value>Get your own stunning teaching site customizable to your personality. Reach &amp; teach students anytime anywhere</value>
+    <value>Get your own stunning teaching site, built for you. Reach &amp; teach students anytime anywhere</value>
   </data>
   <data name="video_title" xml:space="preserve">
     <value>The platform that connects teachers with learners</value>
@@ -211,30 +211,30 @@
     <value>Register as a teacher</value>
   </data>
   <data name="find_relevant" xml:space="preserve">
-    <value>Find, or be found, from the most relevant students and teachers</value>
+    <value>Find or be found by the most relevant students and teachers</value>
   </data>
   <data name="find_relevant_link" xml:space="preserve">
-    <value>Search to find or get found</value>
+    <value>Search</value>
   </data>
   <data name="online_teach" xml:space="preserve">
-    <value>Online teaching platform with video and canvas</value>
+    <value>Online teaching platform with video and whiteboard</value>
   </data>
   <data name="online_teach_link" xml:space="preserve">
     <value>See it for yourself</value>
   </data>
   <data name="pay_and_receive" xml:space="preserve">
-    <value>Pay and receive payments for content and lessons directly</value>
+    <value>Integrated payments and scheduling and feature both!</value>
   </data>
   <data name="pay_and_receive_link" xml:space="preserve">
-    <value>Learn more on payments</value>
+    <value>Learn more</value>
   </data>
   <data name="quote" xml:space="preserve">
-    <value>Spitball helps students learn and teachers teach. Just enter the site and start a real-time lesson, no need for apps or leave your house</value>
+    <value>Spitball helps students learn and teachers teach. Just enter the site and start a real-time lesson, no need for extra apps, and no need to leave your house.</value>
   </data>
   <data name="quote_name" xml:space="preserve">
     <value>Shlomi Levi</value>
   </data>
   <data name="quote_teach" xml:space="preserve">
-    <value>Statistics teachers</value>
+    <value>Statistics teacher</value>
   </data>
 </root>
