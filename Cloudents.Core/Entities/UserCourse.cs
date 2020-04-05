@@ -44,7 +44,7 @@ namespace Cloudents.Core.Entities
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Equals(User.Id, other.User.Id) && Equals(Course.Id, other.Course.Id);
+            return Equals(User.Id, other.User.Id) && Equals(Course.Id.ToUpperInvariant(), other.Course.Id.ToUpperInvariant());
         }
 
         public override bool Equals(object obj)
@@ -60,7 +60,7 @@ namespace Cloudents.Core.Entities
         {
             unchecked
             {
-                return ((User != null ? User.Id.GetHashCode() : 0) * 397) ^ (Course != null ? Course.Id.GetHashCode() : 0);
+                return ((User != null ? User.Id.GetHashCode() : 0) * 397) ^ (Course != null ? Course.Id.ToUpperInvariant().GetHashCode() : 0);
             }
         }
 

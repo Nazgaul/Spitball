@@ -12,6 +12,7 @@ using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Storage;
+using Cloudents.Query;
 using NHibernate;
 using NHibernate.Linq;
 using NHibernate.Util;
@@ -62,6 +63,7 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
         private static async Task DeleteNotUsedCourses()
         {
             var statelessSession = Container.Resolve<IStatelessSession>();
+            var dapperRepository = Container.Resolve<IDapperRepository>();
             while (true)
             {
 
@@ -83,16 +85,21 @@ select distinct q.CourseId from sb.Question q ) t");
 
                 foreach (var course in list)
                 {
+                    const string sql = @"BEGIN TRANSACTION;  
+delete from sb.userscourses where courseid = :Id;
+delete from sb.course where name = :Id
+COMMIT;  ";
+                    await statelessSession.CreateSQLQuery(sql).SetString("Id", course).ExecuteUpdateAsync();
                     Console.WriteLine(course);
-                    using (var child = Container.BeginLifetimeScope())
-                    {
-                        var unitOfWork = child.Resolve<IUnitOfWork>();
-                        var _session = child.Resolve<ISession>();
-                        var d = await _session.GetAsync<Course>(course);
-                        await _session.DeleteAsync(d);
-                        await unitOfWork.CommitAsync(default);
+                    //using (var child = Container.BeginLifetimeScope())
+                    //{
+                    //    var unitOfWork = child.Resolve<IUnitOfWork>();
+                    //    var _session = child.Resolve<ISession>();
+                    //    var d = await _session.GetAsync<Course>(course);
+                    //    await _session.DeleteAsync(d);
+                    //    await unitOfWork.CommitAsync(default);
 
-                    }
+                    //}
                 }
 
             }
