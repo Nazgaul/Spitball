@@ -13,7 +13,7 @@ namespace Cloudents.Core.Entities
     public class StudyRoom : Entity<Guid>, IAggregateRoot
     {
         public StudyRoom(Tutor tutor, IEnumerable<User> users, string onlineDocumentUrl,
-            string name, decimal price)
+            string name, decimal price, DateTime? broadcastTime)
         {
             if (users == null) throw new ArgumentNullException(nameof(users));
             if (price < 0) throw new ArgumentException(nameof(price));
@@ -42,6 +42,7 @@ namespace Cloudents.Core.Entities
 
             DateTime = new DomainTimeStamp();
             Price = price;
+            BroadcastTime = broadcastTime;
             AddEvent(new StudyRoomCreatedEvent(this));
         }
 
@@ -49,6 +50,7 @@ namespace Cloudents.Core.Entities
         {
 
         }
+
 
         public virtual string Name { get; set; }
 
@@ -69,6 +71,8 @@ namespace Cloudents.Core.Entities
         public virtual IEnumerable<StudyRoomSession> Sessions => _sessions;
 
         public virtual decimal? Price { get; protected set; }
+
+        public virtual DateTime? BroadcastTime { get; protected set; }
 
         public virtual StudyRoomSession? GetCurrentSession()
         {

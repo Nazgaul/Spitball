@@ -29,6 +29,7 @@ namespace Cloudents.Persistence.Maps
                 .Inverse().Cascade.AllDeleteOrphan();
 
             Map(x => x.Price).CustomType(nameof(NHibernateUtil.Currency));
+            Map(x => x.BroadcastTime).Nullable();
         }
 
     }

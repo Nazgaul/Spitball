@@ -6,12 +6,15 @@ namespace Cloudents.Command.Command
 {
     public class CreateStudyRoomCommand : ICommand
     {
-        public CreateStudyRoomCommand(long tutorId, IEnumerable<long>? studentsId, string textMessage, string name, decimal price)
+        public CreateStudyRoomCommand(long tutorId, IEnumerable<long>? studentsId, string textMessage,
+            string name, decimal price, DateTime? broadcastTime)
         {
             TutorId = tutorId;
             StudentsId = studentsId ?? Enumerable.Empty<long>();
             TextMessage = textMessage;
             Name = name;
+            Price = price;
+            BroadcastTime = broadcastTime;
         }
 
         public long TutorId { get; }
@@ -21,7 +24,8 @@ namespace Cloudents.Command.Command
 
         public string Name { get; }
 
-        public decimal Price { get; set; }
+        public decimal Price { get;  }
+        public DateTime? BroadcastTime { get; }
     }
 
     public class CreateStudyRoomCommandResult : ICommandResult
