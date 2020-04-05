@@ -12,7 +12,7 @@ namespace Cloudents.Query
         IQueryHandler<TQuery, TQueryResult> where TQuery : IQuery<TQueryResult>
     {
         private readonly IQueryHandler<TQuery, TQueryResult> _decoratee;
-        private readonly Lazy<ICacheProvider> _cacheProvider;
+        private readonly Lazy<ICacheProvider>? _cacheProvider;
 
         public CacheQueryHandlerDecorator(IQueryHandler<TQuery, TQueryResult> decoratee, Lazy<ICacheProvider> cacheProvider)
         {

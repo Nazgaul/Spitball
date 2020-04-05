@@ -35,7 +35,9 @@ namespace Cloudents.Query.HomePage
             [Cache(TimeConst.Day, "homePage-documents", false)]
             public async Task<IEnumerable<DocumentFeedDto>> GetAsync(TopDocumentsQuery query, CancellationToken token)
             {
-                IQueryable<Document> sessionQuery = _session.Query<Document>().Fetch(f => f.University);
+                IQueryable<Document> sessionQuery = _session.Query<Document>()
+                    .WithOptions(w => w.SetComment(nameof(TopDocumentsQuery)))
+                    .Fetch(f => f.University);
 
 
                 sessionQuery = sessionQuery.Where(w => w.University.Country == query.Country.ToString());

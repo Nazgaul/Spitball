@@ -45,14 +45,12 @@ namespace Cloudents.Query.Email
                                     join sb.[user] u
 	                                    on l.UserId = u.Id and u.PhoneNumberConfirmed = 1 and u.Country = 'il'
                                     where l.Id =  @LeadId";
-                using (var conn = _dapper.OpenConnection())
+                using var conn = _dapper.OpenConnection();
+                var res = await conn.QueryAsync<RequestTutorAdminEmailDto>(sql, new
                 {
-                    var res = await conn.QueryAsync<RequestTutorAdminEmailDto>(sql, new
-                    {
-                        leadId = query.LeadId
-                    });
-                    return res;
-                }
+                    leadId = query.LeadId
+                });
+                return res;
             }
         }
     }

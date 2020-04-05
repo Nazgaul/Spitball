@@ -23,6 +23,7 @@ namespace Cloudents.Query.Admin
             public async Task<IEnumerable<CouponDto>> GetAsync(CouponQuery query, CancellationToken token)
             {
                 return  await _statelessSession.Query<Coupon>()
+                    .WithOptions(w => w.SetComment(nameof(CouponQuery)))
                      .Select(s => new CouponDto()
                      {
                          Value = s.Value,

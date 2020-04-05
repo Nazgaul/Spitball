@@ -59,15 +59,13 @@ order by id
      OFFSET @pageSize * @PageNumber ROWS
                 FETCH NEXT @pageSize ROWS ONLY;";
 
-                using (var conn = _session.OpenConnection())
+                using var conn = _session.OpenConnection();
+                return await conn.QueryAsync<UpdateUserEmailDto>(sql, new
                 {
-                    return await conn.QueryAsync<UpdateUserEmailDto>(sql, new
-                    {
-                        query.Since,
-                        PageSize = 100,
-                        PageNumber = query.Page
-                    });
-                }
+                    query.Since,
+                    PageSize = 100,
+                    PageNumber = query.Page
+                });
             }
         }
     }

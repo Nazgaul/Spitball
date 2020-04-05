@@ -29,7 +29,7 @@ namespace Cloudents.Query.Admin
 
             public async Task<IEnumerable<ConversationDetailsDto>> GetAsync(ConversationDetailsQuery query, CancellationToken token)
             {
-                string sql = @"with cte as (
+                var sql = @"with cte as (
 select u.Id as UserId, cr.Id as ChatRoomId, u.Name as UserName, u.Email, u.PhoneNumberHash as PhoneNumber, u.ImageName as Image,
 case when u.Id = (select top 1 UserId from sb.ChatMessage cm where cm.ChatRoomId = cr.Id order by cm.CreationTime) 
 	then 1
@@ -51,12 +51,9 @@ select * from cte";
                 }
                 sql += @" order by case when UserId = (select top 1 UserId from sb.ChatMessage cm where cm.ChatRoomId = ChatRoomId order by cm.CreationTime) then 1
                             else 0 end";
-                using (var connection = _dapper.OpenConnection())
-                {
-                    var res = await connection.QueryAsync<ConversationDetailsDto>(sql, new { query.Id, query.Country });
-                    return res;
-                }
-
+                using var connection = _dapper.OpenConnection();
+                var res = await connection.QueryAsync<ConversationDetailsDto>(sql, new { query.Id, query.Country });
+                return res;
             }
         }
     }

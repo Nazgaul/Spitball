@@ -16,7 +16,7 @@ namespace Cloudents.Query.Users
             UserId = userId;
         }
 
-        public long UserId { get; }
+        private long UserId { get; }
 
         internal sealed class UserVotesByCategoryCommandHandler : IQueryHandler<UserVotesByCategoryQuery, IEnumerable<UserVoteDocumentDto>>
         {
@@ -30,12 +30,13 @@ namespace Cloudents.Query.Users
             public async Task<IEnumerable<UserVoteDocumentDto>> GetAsync(UserVotesByCategoryQuery query, CancellationToken token)
             {
                 return await _session.Query<Vote>()
-                        .Where(w => w.Document != null && w.User.Id == query.UserId)
-                        .Select(s => new UserVoteDocumentDto
-                        {
-                            Id = s.Document.Id,
-                            Vote = s.VoteType
-                        }).ToListAsync(token);
+                    .WithOptions(w => w.SetComment(nameof(UserVotesByCategoryQuery)))
+                    .Where(w => w.Document != null && w.User.Id == query.UserId)
+                    .Select(s => new UserVoteDocumentDto
+                    {
+                        Id = s.Document.Id,
+                        Vote = s.VoteType
+                    }).ToListAsync(token);
             }
 
         }

@@ -9,7 +9,7 @@ namespace Cloudents.Query.Tutor
 {
     public class GetPhoneNumberQuery : IQuery<string>
     {
-        public long TutorId { get; set; }
+        private long TutorId { get; }
         public GetPhoneNumberQuery(long tutorId)
         {
             TutorId = tutorId;
@@ -26,6 +26,7 @@ namespace Cloudents.Query.Tutor
             public async Task<string> GetAsync(GetPhoneNumberQuery query, CancellationToken token)
             {
                 return await _statelessSession.Query<User>()
+                    .WithOptions(w => w.SetComment(nameof(GetPhoneNumberQuery)))
                     .Where(w => w.Id == query.TutorId).Select(s => s.PhoneNumber).SingleOrDefaultAsync(token);
             }
         }

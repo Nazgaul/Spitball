@@ -33,6 +33,7 @@ namespace Cloudents.Query.Tutor
             {
                 var taskGoogleCalendarResult = _calendarService.GetUserCalendarsAsync(query.UserId, token);
                 var taskSharedCalendarResult = _statelessSession.Query<TutorCalendar>()
+                    .WithOptions(w => w.SetComment(nameof(CalendarListQuery)))
                      .Where(w => w.Tutor.Id == query.UserId)
                      .Select(s => new { s.Calendar.GoogleId })
                      .ToListAsync(token);

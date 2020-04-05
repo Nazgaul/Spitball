@@ -55,13 +55,9 @@ where t.TransactionType='CashOut' and t.Action='CashOut' and t.Approved is null 
                     sql += " and u.Country = @Country";
                 }
                 sql += " order by t.id desc";
-                using (var conn = _session.OpenConnection())
-                {
-                    var result = await conn.QueryAsync<CashOutDto>(sql, new { date = DateTime.UtcNow.AddMonths(-1), query.Country });
-                    return result;
-                }
-
-
+                using var conn = _session.OpenConnection();
+                var result = await conn.QueryAsync<CashOutDto>(sql, new { date = DateTime.UtcNow.AddMonths(-1), query.Country });
+                return result;
             }
         }
     }

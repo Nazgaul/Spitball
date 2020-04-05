@@ -63,15 +63,12 @@ namespace Cloudents.Query.Admin
             }
 
 
-
-            using (var connection = _dapper.OpenConnection())
-            {
-                var res = await connection.QueryAsync<PendingCoursesDto>(
-                    sql,
-                    new { State = query.State.ToString(), query.Country, Term = query.Filter }
-                    );
-                return res.AsList();
-            }
+            using var connection = _dapper.OpenConnection();
+            var res = await connection.QueryAsync<PendingCoursesDto>(
+                sql,
+                new { State = query.State.ToString(), query.Country, Term = query.Filter }
+            );
+            return res.AsList();
         }
     }
 }

@@ -48,7 +48,7 @@ namespace Cloudents.Query.Admin
                     .JoinEntityAlias(() => studentAlias, () => studyRoomUserAlias.User.Id == studentAlias.Id)
                     .JoinEntityAlias(() => tutorUserAlias, () => tutorUserAlias.Id == tutorAlias.User.Id)
                     .Where(w => w.Receipt == null)
-                    .Where(w => w.StudyRoomVersion != StudyRoomSession.StudyRoomNewVersion)
+                    .Where(w => w.StudyRoomVersion.Coalesce(0) != StudyRoomSession.StudyRoomNewVersion)
                     .Where(w => w.Duration!.Value > StudyRoomSession.BillableStudyRoomSession);
                 if (!string.IsNullOrEmpty(query.Country))
                 {

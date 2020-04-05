@@ -16,7 +16,7 @@ using Twilio.Rest.Video.V1;
 
 namespace Cloudents.Infrastructure.Mail
 {
-    public class TwilioProvider : ISmsProvider, IVideoProvider
+    public class TwilioProvider : IPhoneValidator, IVideoProvider
     {
 
 

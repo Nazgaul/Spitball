@@ -21,11 +21,14 @@ namespace Cloudents.Query.HomePage
             {
                 _session = session.StatelessSession;
             }
+            //TODO add cache
 
             //[Cache(TimeConst.Day, "homepage4", false)]
             public async Task<StatsDto> GetAsync(StatsQuery query, CancellationToken token)
             {
-                var documents = _session.Query<Document>().GroupBy(g => 1).Select(s => s.Count()).ToFutureValue();
+                var documents = _session.Query<Document>()
+                    .WithOptions(w => w.SetComment(nameof(StatsQuery)))
+                    .GroupBy(g => 1).Select(s => s.Count()).ToFutureValue();
 
                 var tutors = _session.Query<Core.Entities.Tutor>().Where(w => w.State == Core.Enum.ItemState.Ok)
                     .GroupBy(g => 1).Select(s => s.Count())

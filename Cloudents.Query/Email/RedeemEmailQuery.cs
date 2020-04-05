@@ -30,7 +30,9 @@ namespace Cloudents.Query.Email
 
             public async Task<RedeemEmailDto> GetAsync(RedeemEmailQuery query, CancellationToken token)
             {
-                return await _session.Query<CashOutTransaction>().Where(w => w.Id == query.TransactionId)
+                return await _session.Query<CashOutTransaction>()
+                    .WithOptions(w => w.SetComment(nameof(RedeemEmailQuery)))
+                    .Where(w => w.Id == query.TransactionId)
                       .Fetch(f => f.User)
                       .Select(s => new RedeemEmailDto()
                       {

@@ -17,8 +17,8 @@ namespace Cloudents.Query.Admin
             Page = page;
             Country = country;
         }
-        public long UserId { get; }
-        public int Page { get; }
+        private long UserId { get; }
+        private int Page { get; }
         public string Country { get; }
         internal sealed class UserDocumentsQueryHandler : IQueryHandler<UserDocumentsQuery, IEnumerable<UserDocumentsDto>>
         {
@@ -35,6 +35,7 @@ namespace Cloudents.Query.Admin
             {
 
                 return await _session.Query<Document>()
+                    .WithOptions(w => w.SetComment(nameof(UserDocumentsQuery)))
                         .Fetch(f => f.University)
                         .Where(w => w.User.Id == query.UserId)
                         .Where(w => w.User.Country == query.Country || string.IsNullOrEmpty(query.Country))

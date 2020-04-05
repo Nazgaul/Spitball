@@ -6,9 +6,19 @@
             :teacher="teacher"
             @goTo="goTo"
             @updateRegisterType="updateRegisterType"
+            @showToasterError="showToasterError"
             class="wrapper"
         >
         </component>
+
+        <v-snackbar
+            v-model="snackbar"
+            class="error-toaster getStartedToaster"
+            :timeout="5000"
+            top
+        >
+            <div class="text-center flex-grow-1" v-t="'loginRegister_google_signin_error'"></div>
+        </v-snackbar>
     </v-dialog>
 </template>
 
@@ -29,6 +39,7 @@ export default {
         return {
             tempComponent: '',
             teacher: false,
+            snackbar: false
         }
     },
     components: {
@@ -42,6 +53,9 @@ export default {
         },
         updateRegisterType(val) {
             this.teacher = val;
+        },
+        showToasterError() {
+            this.snackbar = true
         }
     }
 };

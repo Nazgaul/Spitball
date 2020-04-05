@@ -36,7 +36,7 @@ namespace Cloudents.Query.Tutor
         private string Country { get; }
 
         private int Count { get; }
-        public int Page { get; set; }
+        private int Page { get;  }
 
         internal sealed class TutorListByCourseQueryHandler : IQueryHandler<TutorListByCourseQuery, IEnumerable<TutorCardDto>>
         {
@@ -104,7 +104,9 @@ namespace Cloudents.Query.Tutor
                      .OrderBy(o => o.OverAllRating).Desc
 
                      .TransformUsing(Transformers.AliasToBean<TutorCardDto>())
-                     .Take(query.Count).Future<TutorCardDto>();
+                     .Take(query.Count)
+                     .UnderlyingCriteria.SetComment(nameof(TutorListByCourseQuery))
+                     .Future<TutorCardDto>();
 
                 var futureCourse2 = _session.QueryOver<ReadTutor>()
                     .WithSubquery.WhereProperty(w => w.Id).In(relevantTutorBySubject)

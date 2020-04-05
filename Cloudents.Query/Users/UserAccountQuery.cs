@@ -53,11 +53,12 @@ namespace Cloudents.Query.Users
                 userSqlQuery.SetInt64("Id", query.Id);
                 var userFuture = userSqlQuery.SetResultTransformer(new SbAliasToBeanResultTransformer<UserAccountDto>()).FutureValue<UserAccountDto>();
 
-                var pendingSessionsPaymentsFuture =  _session.Query<StudyRoomSession>()
+                var pendingSessionsPaymentsFuture = _session.Query<StudyRoomSession>()
                     .Fetch(f => f.StudyRoom)
                     .Where(w => w.StudyRoom.Tutor.Id == query.Id)
                     .Where(w => w.StudyRoomVersion.GetValueOrDefault() == 0)
-                    .Where(w => w.Duration > StudyRoomSession.BillableStudyRoomSession && w.RealDuration != null)
+                    .Where(w => w.Duration > StudyRoomSession.BillableStudyRoomSession
+                                && w.RealDuration == null && w.Receipt == null)
                     .GroupBy(g => 1)
                     .Select(s => s.Count())
                     .ToFutureValue();
@@ -115,7 +116,7 @@ namespace Cloudents.Query.Users
                     .Take(1)
                     .ToFuture();
 
-               
+
 
                 var isSoldDocumentFuture = _session.Query<DocumentTransaction>()
                     .Fetch(f => f.User)
@@ -172,7 +173,7 @@ namespace Cloudents.Query.Users
                                 || (await isSoldSessionFuture.GetEnumerableAsync(token)).Any();
 
                 result.HaveFollowers = (await haveFollowersFuture.GetEnumerableAsync(token)).Any();
-                result.PendingSessionsPayments = 
+                result.PendingSessionsPayments =
                      pendingSessionsPaymentsFuture.Value + newPendingSessionPayment.Value;
                 return result;
             }

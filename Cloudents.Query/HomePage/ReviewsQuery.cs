@@ -35,6 +35,7 @@ namespace Cloudents.Query.HomePage
             public async Task<IEnumerable<ReviewDto>> GetAsync(ReviewsQuery query, CancellationToken token)
             {
                 return await _session.Query<TutorReview>()
+                    .WithOptions(w => w.SetComment(nameof(ReviewsQuery)))
                     .Fetch(f => f.User)
                     .Join(_session.Query<ReadTutor>(), review => review.Tutor.Id, read => read.Id, (review, tutor) =>
                         new

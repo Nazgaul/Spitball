@@ -263,13 +263,13 @@ namespace Cloudents.Infrastructure
 
         public async Task<IEnumerable<FeedDto>> GetFeedAsync(GetFeedQuery query, CancellationToken token)
         {
-            var feedQuery = new QuestionFeedWithFliterQuery(query.Page, query.UserId, query.Country, null, 21);
+            var feedQuery = new QuestionFeedWithFilterQuery(query.Page, query.UserId, query.Country, null, 21);
             return await _queryBus.QueryAsync(feedQuery, token);
         }
 
         public async Task<IEnumerable<FeedDto>> GetFeedAsync(GetFeedWithCourseQuery query, CancellationToken token)
         {
-            var feedQuery = new QuestionFeedWithFliterQuery(query.Page, query.UserId, query.Country, query.Course, 21);
+            var feedQuery = new QuestionFeedWithFilterQuery(query.Page, query.UserId, query.Country, query.Course, 21);
             return await _queryBus.QueryAsync(feedQuery, token);
         }
 
