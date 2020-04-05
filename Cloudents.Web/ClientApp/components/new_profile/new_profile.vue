@@ -16,14 +16,15 @@
             <profileReviewsBox v-if="showReviewBox"/>
             <profileUserStickyMobile :globalFunctions="globalFunctions" v-if="$vuetify.breakpoint.mdAndDown"/>
         </div>
-        <div :class="['profile-sticky',{'profileUserSticky_bannerActive':getBannerParams}]">
+        <!-- SIDE -->
+        <!-- <div :class="['profile-sticky',{'profileUserSticky_bannerActive':getBannerParams}]">
           <profileUserSticky class="mb-2" :globalFunctions="globalFunctions" v-if="$vuetify.breakpoint.lgAndUp && !isTutorPending"/>
           <shareContent 
               :link="shareContentParams.link"
               :twitter="shareContentParams.twitter"
               :whatsApp="shareContentParams.whatsApp"
               :email="shareContentParams.email" v-if="getProfile && $vuetify.breakpoint.lgAndUp"/>
-        </div>
+        </div> -->
         <sb-dialog
             :onclosefn="closeCouponDialog"
             :activateOverlay="false"
@@ -63,12 +64,14 @@
 <style lang="less">
 @import '../../styles/mixin.less';
 .profilePage{
-  position: relative;
+    position: relative;
     display: flex;
-    margin: 24px 70px 26px 34px;
+    margin: 24px 0;
+    justify-content: center;
+    // margin: 24px 70px 26px 34px;
 
     @media (max-width: @screen-md) {
-        margin: 20px;
+        // margin: 20px;
         justify-content: center;
     }
     @media (max-width: @screen-xs) {
