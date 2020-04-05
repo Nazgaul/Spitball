@@ -33,6 +33,7 @@ namespace Cloudents.Query.Tutor
             public async Task<ShareProfileImageDto> GetAsync(ShareProfileImageQuery query, CancellationToken token)
             {
                 return  await _statelessSession.Query<ReadTutor>()
+                    .WithOptions(w => w.SetComment(nameof(ShareProfileImageQuery)))
                     .Join(_statelessSession.Query<User>(),x=>x.Id,x=>x.Id,((tutor, user) => new  {tutor,user}))
                     .Where(w => w.tutor.Id == query.Id)
                     .Select(s => new ShareProfileImageDto()

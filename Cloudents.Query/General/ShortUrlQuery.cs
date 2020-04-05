@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.General
 {
-    public class ShortUrlQuery : IQuery<ShortUrlDto>
+    public class ShortUrlQuery : IQuery<ShortUrlDto?>
     {
         public ShortUrlQuery(string identifier)
         {
             Identifier = identifier;
         }
 
-        public string Identifier { get; private set; }
+        private string Identifier { get; }
 
 
-        internal sealed class ShortUrlQueryHandler : IQueryHandler<ShortUrlQuery, ShortUrlDto>
+        internal sealed class ShortUrlQueryHandler : IQueryHandler<ShortUrlQuery, ShortUrlDto?>
         {
             private readonly IStatelessSession _statelessSession;
 
@@ -28,9 +28,10 @@ namespace Cloudents.Query.General
             }
 
 
-            public async Task<ShortUrlDto> GetAsync(ShortUrlQuery query, CancellationToken token)
+            public async Task<ShortUrlDto?> GetAsync(ShortUrlQuery query, CancellationToken token)
             {
                 return await _statelessSession.Query<ShortUrl>()
+                    .WithOptions(w => w.SetComment(nameof(ShortUrlQuery)))
                       .Where(w => w.Identifier == query.Identifier)
                       .Where(w => w.Expiration.GetValueOrDefault(DateTime.MaxValue) > DateTime.UtcNow)
                       .Select(s => new ShortUrlDto()

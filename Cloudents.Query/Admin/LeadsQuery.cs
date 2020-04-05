@@ -31,6 +31,7 @@ namespace Cloudents.Query.Admin
             public async Task<IEnumerable<LeadDto>> GetAsync(LeadsQuery query, CancellationToken token)
             {
                 var leads = _session.Query<Lead>()
+                    .WithOptions(w => w.SetComment(nameof(LeadsQuery)))
                     .Fetch(f => f.User)
                     .Where(w=> !_session.Query<ChatRoomAdmin>().Any(w2=>w2.Lead.Id == w.Id));
 

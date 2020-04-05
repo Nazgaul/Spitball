@@ -16,8 +16,9 @@ namespace Cloudents.Query.Questions
             Id = id;
             Country = country;
         }
-        public long Id { get; }
-        public string Country { get; }
+
+        private long Id { get; }
+        private string Country { get; }
 
         internal sealed class AccountQuestionsQueryHandler : IQueryHandler<AccountQuestionsQuery, IEnumerable<AccountQuestionDto>>
         {

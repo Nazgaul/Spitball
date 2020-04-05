@@ -37,6 +37,7 @@ namespace Cloudents.Query.Documents
                 var ids = query.DocumentIds.ToList();
 
                 var z = await _session.Query<Document>()
+                    .WithOptions(w => w.SetComment(nameof(IdsDocumentsQuery)))
                     .Fetch(f => f.User)
                     .ThenFetch(f => f.University)
                     .Where(w => ids.Contains(w.Id) && w.Status.State == ItemState.Ok)

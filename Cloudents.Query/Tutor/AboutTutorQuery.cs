@@ -28,12 +28,10 @@ namespace Cloudents.Query.Tutor
 	                                        on t.Id = u.Id
                                         where len(tr.Review) > 0 and tr.Rate > 3
                                         order by NEWID()";
-                using (var conn = _dapperRepository.OpenConnection())
-                {
-                    var retVal = await conn.QueryAsync<AboutTutorDto>(sql);
+                using var conn = _dapperRepository.OpenConnection();
+                var retVal = await conn.QueryAsync<AboutTutorDto>(sql);
 
-                    return retVal;
-                }
+                return retVal;
             }
         }
     }

@@ -8,7 +8,7 @@ namespace Cloudents.Query.Admin
 {
     public class SubjectsQuery : IQuery<IEnumerable<string>>
     {
-        public Guid AdminUserId { get; set; }
+        private Guid AdminUserId { get; }
         public SubjectsQuery(Guid adminUserId)
         {
             AdminUserId = adminUserId;
@@ -31,10 +31,8 @@ namespace Cloudents.Query.Admin
 	                                        and st.LanguageId = (select LanguageId from sb.AdminUser where Id = @Id)
                                             order by COALESCE(st.NameTranslation, cs.Name)";
 
-                using (var conn = _dapperRepository.OpenConnection())
-                {
-                    return await conn.QueryAsync<string>(sql, new { id = query.AdminUserId });
-                }
+                using var conn = _dapperRepository.OpenConnection();
+                return await conn.QueryAsync<string>(sql, new { id = query.AdminUserId });
             }
         }
     }

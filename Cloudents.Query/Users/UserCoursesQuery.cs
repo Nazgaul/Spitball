@@ -37,10 +37,8 @@ namespace Cloudents.Query.Users
                         on uc.courseId = c.Name
                         where UserId = @Id
                         order by IsPending desc, Students desc";
-                using (var conn = _dapperRepository.OpenConnection())
-                {
-                    return await conn.QueryAsync<CourseDto>(sql, new { Id = query.UserId });
-                }
+                using var conn = _dapperRepository.OpenConnection();
+                return await conn.QueryAsync<CourseDto>(sql, new { Id = query.UserId });
             }
         }
     }

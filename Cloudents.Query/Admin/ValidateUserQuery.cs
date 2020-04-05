@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Admin
 {
-    public class ValidateUserQuery : IQuery<UserRolesDto>
+    public class ValidateUserQuery : IQuery<UserRolesDto?>
     {
         public ValidateUserQuery(string email)
         {
@@ -19,7 +19,7 @@ namespace Cloudents.Query.Admin
 
 
 
-        internal sealed class CoursesByTermQueryHandler : IQueryHandler<ValidateUserQuery, UserRolesDto>
+        internal sealed class CoursesByTermQueryHandler : IQueryHandler<ValidateUserQuery, UserRolesDto?>
         {
             private readonly QuerySession _session;
 
@@ -28,11 +28,11 @@ namespace Cloudents.Query.Admin
                 _session = session;
             }
 
-            public async Task<UserRolesDto> GetAsync(ValidateUserQuery query, CancellationToken token)
+            public async Task<UserRolesDto?> GetAsync(ValidateUserQuery query, CancellationToken token)
             {
                 var result = await _session.StatelessSession.Query<AdminUser>()
+                    .WithOptions(w => w.SetComment(nameof(ValidateUserQuery)))
                       .Where(w => w.Email == query.Email)
-                      //.Fetch(f => f.Roles)
                       .SingleOrDefaultAsync(token);
                 if (result == null)
                 {
@@ -40,7 +40,6 @@ namespace Cloudents.Query.Admin
                 }
                 return new UserRolesDto()
                 {
-                    //Roles = result.Roles.Select(s => s.Role),
                     Country = result.Country,
                     Id = result.Id
                 };
@@ -50,7 +49,6 @@ namespace Cloudents.Query.Admin
 
     public class UserRolesDto
     {
-        // public IEnumerable<string> Roles { get; set; }
         public Guid Id { get; set; }
         public string Country { get; set; }
     }

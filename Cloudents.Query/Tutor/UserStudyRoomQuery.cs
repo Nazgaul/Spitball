@@ -63,6 +63,7 @@ namespace Cloudents.Query.Tutor
                         Projections.Property(() => studyRoomAlias!.DateTime.CreationTime))).Desc
                     //TODO on nhibernate 5.3 need to fix.
                     .TransformUsing(Transformers.AliasToBean<UserStudyRoomDto>())
+                    .UnderlyingCriteria.SetComment(nameof(UserStudyRoomQuery))
                     .ListAsync<UserStudyRoomDto>(token);/*.OrderByDescending(o => o.LastActive > o.DateTime ? o.LastActive : o.DateTime)*/
 
 

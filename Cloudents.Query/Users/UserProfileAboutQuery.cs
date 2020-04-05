@@ -36,6 +36,7 @@ namespace Cloudents.Query.Users
             public async Task<UserProfileAboutDto> GetAsync(UserProfileAboutQuery query, CancellationToken token)
             {
                 var result = _statelessSession.Query<TutorReview>()
+                    .WithOptions(w => w.SetComment(nameof(TutorReview)))
                        .Fetch(f => f.User)
                        .Where(w => w.Tutor.Id == query.UserId)
                        .Where(w => w.Review != null && w.Review != string.Empty)

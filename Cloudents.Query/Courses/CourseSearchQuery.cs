@@ -75,15 +75,13 @@ order by IsFollowing desc,
 		c.count desc
 OFFSET @PageSize * @Page ROWS
 FETCH NEXT @PageSize ROWS ONLY;";
-                using (var conn = _dapperRepository.OpenConnection())
+                using var conn = _dapperRepository.OpenConnection();
+                return await conn.QueryAsync<CourseDto>(sql, new
                 {
-                    return await conn.QueryAsync<CourseDto>(sql, new
-                    {
-                        Id = query.UserId,
-                        PageSize = pageSize,
-                        query.Page
-                    });
-                }
+                    Id = query.UserId,
+                    PageSize = pageSize,
+                    query.Page
+                });
             }
         }
     }

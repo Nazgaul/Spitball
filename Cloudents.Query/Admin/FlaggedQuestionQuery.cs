@@ -30,6 +30,7 @@ namespace Cloudents.Query.Admin
             public async Task<IEnumerable<FlaggedQuestionDto>> GetAsync(FlaggedQuestionQuery query, CancellationToken token)
             {
                 var questions = _session.Query<Question>()
+                    .WithOptions(w => w.SetComment(nameof(FlaggedQuestionQuery)))
                     .Fetch(f => f.User)
                     .Where(w => w.User is User && w.Status.State == ItemState.Flagged);
 
