@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Cloudents.Command.Command
 {
     public class CreateStudyRoomCommand : ICommand
     {
-        public CreateStudyRoomCommand(long tutorId, IEnumerable<long> studentsId, string textMessage, string name, decimal price)
+        public CreateStudyRoomCommand(long tutorId, IEnumerable<long>? studentsId, string textMessage, string name, decimal price)
         {
             TutorId = tutorId;
-            StudentsId = studentsId;
+            StudentsId = studentsId ?? Enumerable.Empty<long>();
             TextMessage = textMessage;
             Name = name;
         }

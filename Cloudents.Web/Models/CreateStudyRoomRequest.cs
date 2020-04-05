@@ -1,16 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Cloudents.Web.Models
 {
-    public class CreateStudyRoomRequest
+    public class CreateStudyRoomRequest : IValidatableObject
     {
         [Required]
         public string Name { get; set; }
-        [Required]
+
         public IEnumerable<long> UserId { get; set; }
 
-        [Required] 
+        [Required]
+        [Range(0, 1000)]
         public decimal Price { get; set; }
+
+        public DateTime? Date { get; set; }
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (UserId?.Any() == false && !Date.HasValue)
+            {
+                yield return new ValidationResult(
+                    "Need to enter or users or date",
+                    new[] { nameof(Name) });
+            }
+        }
     }
 }
