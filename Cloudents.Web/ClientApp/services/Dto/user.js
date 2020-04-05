@@ -59,7 +59,7 @@ export const User = {
         return Object.assign(
             new User.Default(objInit),
             {
-                userType: objInit.userType,
+                userType: objInit.userType ? 'Teacher' : 'Student',
                 balance: objInit.balance,
                 email: objInit.email,
                 currencySymbol: objInit.currencySymbol,
