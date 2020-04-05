@@ -319,7 +319,8 @@ export default {
 <style lang="less">
 @import '../../../../styles/mixin.less';
 .profileUserBox{
-    width: 100%;
+    width: 800px;
+    margin: 0 auto;
     height: auto;
     border-radius: 8px;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
