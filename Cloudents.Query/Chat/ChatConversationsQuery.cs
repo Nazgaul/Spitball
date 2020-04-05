@@ -41,7 +41,7 @@ namespace Cloudents.Query.Chat
                 var reader = await conn.ExecuteReaderAsync(@"
 Select 
 cu.Unread,
-cr.Id as ConversationId
+cr.Id as ConversationId,
 cr.UpdateTime as DateTime,
 (select top 1 cm.Message  from sb.ChatMessage cm where cm.ChatRoomId = cr.Id order by id desc) as lastMessage,
 u.Id as UserId,
