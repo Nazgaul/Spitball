@@ -66,8 +66,6 @@
                 </div>
             </v-flex>
 
-
-
             <!-- <v-flex xs4 class="pUb_top_tutorState" v-if="currentProfileUser.isTutor">
                 <div class="pUb_top_tS_list">
                     <starSVG/>
@@ -130,15 +128,15 @@
         </div>
         <v-row class="bottom text-center" dense>
             <v-col class="bottomBox d-flex align-center justify-center">
-                <starSVG />
-                <div class="ml-2">
-                    <div class="number text-left">680</div>
+                <starSVG class="mt-2" width="26" />
+                <div class="ml-2" @click="isMobile ? scrollToReviews():''" >
+                    <div class="number text-left">{{tutorStateRate(currentProfileTutor)}}</div>
                     <div class="type">dsadasdsdas</div>
                     <!-- <span class="pUb_t_ts_list_span pUb_t_ts_list_span_review" @click="isMobile? scrollToReviews():''" v-text="tutorStateRate(currentProfileTutor)"></span> -->
                 </div>
             </v-col>
             <v-col class="bottomBox d-flex align-center justify-center">
-                <resxSVG />
+                <resxSVG class="mt-2" width="26" />
                 <div class="ml-2">
                     <div class="number text-left">324</div>
                     <div class="type">dsadasdsdas</div>
@@ -146,7 +144,7 @@
                 </div>
             </v-col>
             <v-col class="bottomBox d-flex align-center justify-center">
-                <clockSVG />
+                <clockSVG class="mt-2" width="26" />
                 <div class="ml-2">
                     <div class="number text-left">532</div>
                     <div class="type">dsadasdsdas</div>
@@ -154,7 +152,7 @@
                 </div>
             </v-col>
             <v-col class="bottomBox d-flex align-center justify-center">
-                <studensSVG />
+                <studensSVG class="mt-2" width="26" />
                 <div class="ml-2">
                     <div class="number text-left">243</div>
                     <div class="type">dsadasdsdas</div>
@@ -175,7 +173,6 @@ import resxSVG from './images/tResx.svg';
 import editSVG from './images/edit.svg';
 import { mapGetters, mapActions } from 'vuex';
 import userRating from '../../profileHelpers/profileBio/bioParts/userRating.vue'
-import { LanguageService } from "../../../../services/language/languageService";
 import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
 import uploadImage from '../../profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue';
 import followBtn from '../followBtn/followBtn.vue';
@@ -269,13 +266,13 @@ export default {
         //     return reviews === 0 ? reviews.toString() : reviews;
         // },
         tutorStateRate(tutorData){
-            let rate = tutorData.rate.toFixed(1);
+            let rate = tutorData.rate.toFixed(0);
             let reviews = tutorData.reviewCount;
             if(reviews < 1){
-                return LanguageService.getValueByKey('resultTutor_collecting_review');
+                return this.$t('resultTutor_collecting_review');
             }
-            let dictionary = reviews > 1? LanguageService.getValueByKey('profile_reviews'): LanguageService.getValueByKey('profile_single_review')
-            return `${rate} (${reviews} ${dictionary.toLowerCase()})`
+            // let dictionary = reviews > 1? this.$t('profile_reviews'): this.$t('profile_single_review')
+            return `${rate}`
         },
         openEditInfo() {
             this.updateEditDialog(true);
