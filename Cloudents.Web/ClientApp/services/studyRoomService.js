@@ -21,10 +21,7 @@ export default {
       let {data} = await studyRoomInstance.post(`${roomId}/enter`)
       return data.jwtToken;
    },
-   async createRoom(name, userId){
-      return await studyRoomInstance.post('',{
-         name,
-         userId
-      });
+   async createRoom(params){
+      return await studyRoomInstance.post('',params);
    }
 }

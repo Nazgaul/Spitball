@@ -150,15 +150,13 @@ const actions = {
       commit(studyRoom_SETTERS.ROOM_ACTIVE, false);
       commit(studyRoom_SETTERS.ROOM_RESET)
    },
-   updateCreateStudyRoom({getters,commit},{users,roomName}){
-      let usersIds = users.map(user=> user.userId);
-      return studyRoomService.createRoom(roomName,usersIds).then(({data})=>{
-         usersIds.push(getters.accountUser.id)
+   updateCreateStudyRoom({getters,commit},params){
+      return studyRoomService.createRoom(params).then(({data})=>{
          let newStudyRoomParams = {
-            date: new Date().toISOString(),
+            date: params.date || new Date().toISOString(),
             id: data.studyRoomId,
-            name: roomName,
-            conversationId: usersIds.sort((a,b)=>a-b).join('_'),
+            name: params.name,
+            conversationId: data.identifier,
          }
          let myStudyRooms = getters.getStudyRoomItems;
          myStudyRooms.unshift(newStudyRoomParams);
