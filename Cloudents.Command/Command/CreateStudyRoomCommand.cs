@@ -30,12 +30,15 @@ namespace Cloudents.Command.Command
 
     public class CreateStudyRoomCommandResult : ICommandResult
     {
-        public CreateStudyRoomCommandResult( Guid studyRoomId)
+        public CreateStudyRoomCommandResult( Guid studyRoomId, string identifier)
         {
             StudyRoomId = studyRoomId;
+            Identifier = identifier;
         }
 
-        public Guid StudyRoomId { get; set; }
+        public Guid StudyRoomId { get;  }
+
+        public string Identifier { get; }
 
     }
 }

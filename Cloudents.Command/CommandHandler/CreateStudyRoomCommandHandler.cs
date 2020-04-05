@@ -50,7 +50,7 @@ namespace Cloudents.Command.CommandHandler
             var studyRoom = new StudyRoom(tutor.Tutor, students, googleDocUrl,
                 message.Name, message.Price, message.BroadcastTime);
             await _studyRoomRepository.AddAsync(studyRoom, token);
-            return new CreateStudyRoomCommandResult(studyRoom.Id);
+            return new CreateStudyRoomCommandResult(studyRoom.Id, studyRoom.Identifier);
         }
     }
 }

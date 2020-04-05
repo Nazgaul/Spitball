@@ -57,7 +57,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> CreateStudyRoomAsync(CreateStudyRoomRequest model,
+        public async Task<ActionResult<CreateStudyRoomCommandResult>> CreateStudyRoomAsync(CreateStudyRoomRequest model,
             [FromServices] TelemetryClient client,
             CancellationToken token)
         {
@@ -68,7 +68,7 @@ namespace Cloudents.Web.Api
                 var command = new CreateStudyRoomCommand(tutorId, model.UserId,
                     chatTextMessage, model.Name, model.Price, model.Date);
                 var result = await _commandBus.DispatchAsync<CreateStudyRoomCommand, CreateStudyRoomCommandResult>(command, token);
-                return Ok(result);
+                return result;
             }
             catch (DuplicateRowException)
             {
