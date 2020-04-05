@@ -58,6 +58,7 @@ function FileMessage(objInit, id, fromSignalR){
     this.image = objInit.image;
     this.fromSignalR = fromSignalR || false;
     this.unreadMessage = objInit.unreadMessage || objInit.unread;
+    this.identifier = objInit.identifier || '';
 }
 
 function ActiveConversationObj(objInit){

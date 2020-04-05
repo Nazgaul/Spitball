@@ -101,9 +101,19 @@ const mutations = {
         state.conversations[message.conversationId].dateTime = message.dateTime;
     },
     addMessage:(state, message)=>{
+        debugger
+
         let id = message.conversationId || state.activeConversationObj.conversationId;
         if(!state.messages[id]){
+
+
+            // let messagesObj = Object.assign(state.messages, {[id]:[]})
+            // state.messages = messagesObj;
+            // debugger
+
             // add a properly this way allow the computed to be fired!
+            // state.messages = { ...state.messages, [id]:[] };
+            
             state.messages = { ...state.messages, [id]:[] };
         }
         state.messages[id].push(message);
@@ -179,6 +189,7 @@ const actions = {
     },
     addMessage:({commit, state, getters, dispatch}, message)=>{
         //check if inside conversation
+        debugger
         let isInConversation = state.chatState == state.enumChatState.messages;
         let conversationExists = !!state.conversations[message.conversationId];
         if(conversationExists){
@@ -207,9 +218,11 @@ const actions = {
             }
         }else{
             if(isInConversation){
-                if(state.activeConversationObj.conversationId === message.conversationId){
-                    // message here will be sent by local user
-                    //if in conversation and is the first message then create a conversation before adding the message
+                if(state.activeConversationObj.conversationId === message.conversationId ||
+                    state.activeConversationObj.conversationId === message.identifier ){ 
+                        // message here will be sent by local user
+                        //if in conversation and is the first message then create a conversation before adding the message
+                    debugger
                     let conversationObj = chatService.createConversation(message);
                     commit('addConversation', conversationObj);
                     commit('addMessage', message);
@@ -217,12 +230,12 @@ const actions = {
                     analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${getters.accountUser.id}`);
                 }else{
                     // message here will be sent by remote user
-                    debugger
                     dispatch('getChatById', message.conversationId).then(({data})=>{
                         let newData;
                         if(message.type === 'text') {
                             newData = {...data, lastMessage:message.text};
                         }
+                        debugger
                         let conversationObj = chatService.createConversation(newData);
                         commit('addConversation', conversationObj);
                         commit('addConversationUnread', message);
@@ -267,6 +280,7 @@ const actions = {
         debugger
         if(messageObj.message.type === 'file') {
             messageObj.message.unread = true;
+            messageObj.message.identifier = messageObj.identifier
         }
         let messageObj2 = chatService.createMessage(messageObj.message, messageObj.conversationId, true);
         dispatch('addMessage', messageObj2);
@@ -347,7 +361,6 @@ const actions = {
         commit('changeChatState', val);
     },
     sendChatMessage:({state, dispatch, getters}, message)=>{
-        debugger
         //send message to server.
         let messageObj = {
             message: message,
@@ -373,7 +386,6 @@ const actions = {
             };
             localMessageObj = chatService.createMessage(localMessageObj, id);
             dispatch('addMessage', localMessageObj);
-    
         });
     },
     toggleChatMinimize:({commit, state, dispatch})=>{
