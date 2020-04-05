@@ -32,8 +32,7 @@ export default {
 @import "../../../styles/mixin.less";
 
 .homeRegister {
-    .responsive-property(margin-bottom, 100px, null, 54px);
-    .responsive-property(margin-top, 45px, null, 28px);
+    .responsive-property(margin-bottom, 170px, null, 54px);
     color: @global-purple;
     display: flex;
     justify-content: space-evenly;
@@ -50,12 +49,14 @@ export default {
     .boxDesc {
       font-weight: normal;
       line-height: 1.6;
-      // .responsive-property(max-width, 380px, null, 100%);
-      .responsive-property(font-size, 18px, null, 16px);
+      font-size: 18px;
       max-width: 360px;
       width: 100%;
       margin: 0 auto;
       padding: 0 10px;
+      @media (max-width: @screen-sm) {
+        font-size: 16px;
+      }
     }
     .boxBtns {
       border-radius: 28px;

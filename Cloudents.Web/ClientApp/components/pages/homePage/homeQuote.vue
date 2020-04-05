@@ -1,12 +1,12 @@
 <template>
     <div class="homeQuote pa-2 text-center">
         <homeButtons :action="startLearn" v-if="$vuetify.breakpoint.xsOnly" />
-        <blockquote class="quote mb-3">
-            Spitball helps students learn and teachers teach. Just enter the site and start a real-time lesson, no need for apps or leave your house
+        <blockquote class="quote mb-4">
+            <span class="span" v-t="'homePage_quote'"></span>
         </blockquote>
         <div class="teacher d-flex">
-            <router-link class="userLink px-2 text-truncate" to="/">idan kallmann</router-link>
-            <span class="userTeach px-2 text-truncate">Statistics teachers</span>
+            <router-link class="userLink px-2 text-truncate" to="/" v-t="'homePage_quote_name'"></router-link>
+            <span class="userTeach px-2 text-truncate" v-t="'homePage_quote_teach'"></span>
         </div>
     </div>
 </template>
@@ -31,7 +31,7 @@ export default {
 .homeQuote {
     max-width: 700px;
     width: 100%;
-    margin: 80px auto;
+    margin: 90px auto 150px;
     @media (max-width: @screen-xs) {
         margin: 20px auto;
     }
@@ -39,7 +39,7 @@ export default {
         .responsive-property(font-size, 24px, null, 20px);
         position: relative;
         color: @global-purple;
-        line-height: 2;
+        line-height: 1.58;
         &:before {
             content: '\201C';
             width: 100%;
@@ -49,19 +49,22 @@ export default {
             font-weight: 700;
             position: absolute;
             font-size: 175px;
-            top: -140px;
-            right: 48%; // for responsive quote
+            top: -108px;
+            right: 47%; // for responsive quote
             color: rgba(200,200,200,.4);
 
             @media (max-width: @screen-xs) {
                 left: 0;
             }
         }
+        .span {
+            position: relative;
+        }
     }
     .teacher {
         .userLink {
             border-right: 1px solid #8c8b9b;
-            color: @global-auth-text;
+            color: @global-purple;
             font-weight: 600;
             max-width: 200px;
             margin-left: auto;

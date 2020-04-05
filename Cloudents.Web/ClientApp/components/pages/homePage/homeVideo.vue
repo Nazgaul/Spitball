@@ -46,7 +46,7 @@ export default {
     @import "../../../styles/mixin.less";
   .homeVideo {
     position: relative;
-    height: 710px;
+    height: 730px;
     @media (max-width: @screen-xs) {
       height: 354px;
     }
@@ -58,7 +58,7 @@ export default {
     .actions {
       color: #fff;
       position: absolute;
-      bottom: 40px;
+      bottom: 50px;
       right: 0;
       left: 0;
       text-align: center;
@@ -87,11 +87,8 @@ export default {
       bottom: 0;
       right: 0;
       left: 0;
-      height: 400px;
-      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.52) 47%, rgba(0, 0, 0, 0.81) 92%);
-      @media(max-width: @screen-xs) {
-        height: 200px;
-      }
+      height: 100%;
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0.89));
     }
   }
 </style>

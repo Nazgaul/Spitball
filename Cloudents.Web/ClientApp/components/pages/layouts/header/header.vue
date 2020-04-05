@@ -153,7 +153,7 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTuto
         },
         shouldShowFindTutor(){ 
             if(this.accountUser?.isTutor) return false
-            let hiddenRoutes = [routeNames.TutorList]
+            let hiddenRoutes = [routeNames.TutorList, routeNames.HomePage]
             return !hiddenRoutes.includes(this.currentRoute)
         },
         showChangeLanguage() {
