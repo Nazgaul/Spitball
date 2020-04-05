@@ -41,7 +41,7 @@ namespace Cloudents.Query.Chat
                 var reader = await conn.ExecuteReaderAsync(@"
 Select 
 cu.Unread,
-cr.Identifier as ConversationId,
+cr.Id as ConversationId
 cr.UpdateTime as DateTime,
 (select top 1 cm.Message  from sb.ChatMessage cm where cm.ChatRoomId = cr.Id order by id desc) as lastMessage,
 u.Id as UserId,
@@ -61,10 +61,10 @@ order by cr.UpdateTime desc", new {id = query.UserId});
 
 
                 var typeColumnIndex = reader.GetOrdinal("ConversationId");
-                var conversation = new Dictionary<string,ChatDto>();
+                var conversation = new Dictionary<Guid,ChatDto>();
                 while (reader.Read())
                 {
-                    var type = reader.GetString(typeColumnIndex);
+                    var type = reader.GetGuid(typeColumnIndex);
                    
                     var user = chatUserParser(reader);
 

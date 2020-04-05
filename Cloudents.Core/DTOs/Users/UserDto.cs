@@ -182,8 +182,8 @@ namespace Cloudents.Core.DTOs.Users
         }
         public IList<ChatUserDto> Users { get; set; }
 
-        [EntityBind(nameof(ChatRoom.Identifier))]
-        public string ConversationId { get; set; }
+        [EntityBind(nameof(ChatRoom.Id))]
+        public Guid ConversationId { get; set; }
 
         [EntityBind(nameof(ChatRoom.UpdateTime))]
         public DateTime DateTime { get; set; }
