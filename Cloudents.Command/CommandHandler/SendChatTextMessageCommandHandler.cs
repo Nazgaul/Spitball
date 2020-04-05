@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler
 {
-    public class SendChatTextMessageCommandHandler : ICommandHandler<SendChatTextMessageCommand>
+    public class SendChatTextMessageCommandHandler : ICommandHandler<SendChatTextMessageCommand, SendChatTextMessageCommandResult>
     {
         private readonly IChatRoomRepository _chatRoomRepository;
         private readonly IRegularUserRepository _userRepository;
@@ -20,24 +20,23 @@ namespace Cloudents.Command.CommandHandler
             _userRepository = userRepository;
         }
 
-        public async Task ExecuteAsync(SendChatTextMessageCommand message, CancellationToken token)
+        public async Task<SendChatTextMessageCommandResult> ExecuteAsync(SendChatTextMessageCommand message, CancellationToken token)
         {
-            ChatRoom? chatRoom = null;
-            if (message.Identifier != null)
+            ChatRoom chatRoom;
+            if (message.ChatRoomId.HasValue)
             {
-                chatRoom = await _chatRoomRepository.GetChatRoomAsync(message.Identifier, token);
+                chatRoom = await _chatRoomRepository.LoadAsync(message.ChatRoomId.Value, token);
             }
-            if (chatRoom == null)
-            //else
+            else
             {
                 var users = new[] { message.ToUsersId, message.UserSendingId };
                 chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, token);
             }
 
-
             var user = _userRepository.Load(message.UserSendingId);
             chatRoom.AddTextMessage(user, message.Message);
             await _chatRoomRepository.UpdateAsync(chatRoom, token);
+            return new SendChatTextMessageCommandResult(chatRoom.Id);
         }
     }
 }

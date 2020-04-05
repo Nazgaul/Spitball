@@ -55,7 +55,7 @@ namespace Cloudents.Core.Interfaces
 
     public interface IChatRoomRepository : IRepository<ChatRoom>
     {
-        Task<ChatRoom?> GetChatRoomAsync(IEnumerable<long> usersId, CancellationToken token);
+      //  Task<ChatRoom?> GetChatRoomAsync(IEnumerable<long> usersId, CancellationToken token);
 
         Task<ChatRoom> GetOrAddChatRoomAsync(IList<long> userIds, CancellationToken token);
         Task<ChatRoom?> GetChatRoomAsync(string identifier, CancellationToken token);

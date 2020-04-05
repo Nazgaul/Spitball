@@ -1,4 +1,5 @@
-﻿using Cloudents.Web.Binders;
+﻿using System;
+using Cloudents.Web.Binders;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
@@ -12,7 +13,17 @@ namespace Cloudents.Web.Models
 
         public long OtherUser { get; set; }
 
-        public string ConversationId { get; set; }
+        public Guid? ConversationId { get; set; }
+    }
+
+    public class ChatMessageResponse
+    {
+        public ChatMessageResponse(Guid conversationId)
+        {
+            ConversationId = conversationId;
+        }
+
+        public Guid ConversationId { get; }
     }
 
 

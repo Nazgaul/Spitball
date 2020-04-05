@@ -112,7 +112,7 @@ namespace Cloudents.Admin2.Api
         {
             var command = new SendChatTextMessageCommand(model.Message, model.UserId,
                 model.TutorId, null);
-            await _commandBus.DispatchAsync(command, token);
+            await _commandBus.DispatchAsync<SendChatTextMessageCommand, SendChatTextMessageCommandResult>(command, token);
             return Ok();
 
         }
