@@ -260,6 +260,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData(638)]
         [InlineData(164835)]
+        [InlineData(159039)]
         public async Task AccountUserDataById_Ok(long id)
         {
             var query = new UserAccountQuery(id);
