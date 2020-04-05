@@ -44,12 +44,12 @@
             <div class="rightSide flex-grow-1">
                 <div>
                     <div class="d-flex justify-space-between align-center">
-                        <h1 class="userName text-truncate">
-                        <span v-if="currentProfileUser.isTutor" class="mr-1" v-t="'profile_tutor'"></span>
-                        <span>{{currentProfileUser.name}}</span>
-                    </h1>
-                    <editSVG sel="edit" class="pUb_edit_user mr-1" v-if="!isMobile && isCurrentProfileUser" @click="openEditInfo"/>
-                </div>
+                        <h1 class="userName text-truncate mr-2">
+                            <span v-if="currentProfileUser.isTutor" class="mr-1" v-t="'profile_tutor'"></span>
+                            <span>{{currentProfileUser.name}}</span>
+                        </h1>
+                        <editSVG sel="edit" class="pUb_edit_user mr-1" v-if="!isMobile && isCurrentProfileUser" @click="openEditInfo"/>
+                    </div>
 
                     <!-- courses teacher -->
                     <div class="course mt-2 text-truncate" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
@@ -82,7 +82,7 @@
                         <span sel="bio_more" v-if="readMoreVisible" @click="isOpen = !isOpen" class="pUb_middle_bio_readMore" v-language:inner="isOpen?'profile_read_less':'profile_read_more'"></span>
                     </h4>
 
-                    <!-- courses student -->
+                    <!-- Courses Student -->
                     <div class="course mt-2 text-truncate" v-if="!currentProfileUser.isTutor && currentProfileUser.courses.length">
                         <span class="profileUserBox_bottom_title mr-1">{{$t('profile_my_courses')}}:</span>
                         <span v-for="(course, index) in currentProfileUser.courses" :key="index">
@@ -463,8 +463,8 @@ export default {
         .course {
             font-weight: 600;
             .responsive-property(font-size, 16px, null, 14px);
-            .courseName {
-            }
+            // .courseName {
+            // }
         }
         .pUb_dS_c_rating{
             display: inline-flex;
@@ -589,31 +589,20 @@ export default {
 
         // move to followBtn.vue style insted if we dont need anymore for old version of profile
         .followBtnNew {
-                padding: 0;
-                outline: none;
-                font-weight: 600;
-                display: flex;
-                align-items: center;
-                line-height: normal;
-            }
+            padding: 0;
+            outline: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            line-height: normal;
+        }
     }
-
-
-
 
         .pUb_edit_user_top{
             position: absolute;
             right: 0;
         }
         .pUb_top_defaultState{
-            // display: flex;
-            // position: relative;
-            // @media (max-width: @screen-xs) {
-            //     flex-basis: 0;
-            // }
-            // @media (max-width: @screen-xss) {
-            //     margin-right: 24px;
-            // }
 
             .pUb_edit_user{
                 position: absolute;
@@ -621,117 +610,8 @@ export default {
                 right: 0;
                 cursor: pointer;
             }
-            // .pUb_defaultState_img{
-      
- 
-            // }
-            .pUb_defaultState_content{
-                // color: #43425d;
-                // font-stretch: normal;
-                // font-style: normal;
-                // letter-spacing: normal;
-                // line-height: normal;
-                // display: flex;
-                // flex-direction: column;
-                // justify-content: space-between;
-                .profileUserBox_defaultState_content_followers{
-                //     display: flex;
-                //     align-items: center;
-                //     height: 26px;
-                //     .defaultState_content_followers{
-                //         font-size: 14px;
-                //         font-weight: 600;
-                //     }
-                // }
-
-                // .pUb_dS_c_userName{
-                //     font-size: 18px;
-                //     font-weight: bold;
-                //     display: flex;
-                //     flex-wrap: wrap;
-                //     line-height: 1;
-                //     padding-bottom: 6px;
-                // }
-                // .pUb_dS_c_rating{
-                //     display: inline-flex;
-                //     align-items: center;
-
-                //     i{
-                //         font-size: 18px !important;
-                //     }
-                //     .no-reviews {
-                //         margin-left: 5px;
-                //         color: #43425d;
-                //         font-size: 12px !important;
-                //         margin-top: 2px;
-                //     }
-                //     .pUb_dS_c_rating_star {
-                //         width: 18px;
-                //         vertical-align: sub !important;
-                //     }
-                //     .c_rating{
-                //         flex: 0 0 auto;
-                //         &.rating-container{
-                //         .v-rating{
-                //            .v-icon{
-                //               padding-right: 1px;
-                //            }
-                //         }
-                //      }
-                //     }
-                //     .pUb_dS_c_r_span{
-                //         cursor: pointer;
-                //         font-size: 12px;
-                //         color:#4c59ff;
-                //         font-weight: 600;
-                //     }
-                // }
-            }
         }
-        // .pUb_top_tutorState{
-        //     @media (max-width: @screen-xs) {
-        //         border-left: none;
-        //         padding: 6px 0;
-        //         justify-content: space-around;
-        //         margin-bottom: 0;
 
-        //     }
-
-        //     .flexSameSize();
-        //     border-left: solid 1px #dddddd;
-        //     padding-left: 16px;
-        //     display: flex;
-        //     flex-direction: column;
-        //     justify-content: space-between;
-        //     max-width: 162px;
-        //     min-width: 162px;
-        //     margin-bottom: 34px;
-        //     .pUb_top_tS_list{
-        //         padding-top: 3px;
-        //         .pUb_t_ts_list_span{
-        //             vertical-align: text-top;
-        //             margin-left: 6px;
-        //             font-size: 12px;
-        //             color: #43425d;
-        //             &.pUb_t_ts_list_span_review{
-        //                 @media (max-width: @screen-xs) {
-        //                     cursor: pointer;
-        //                     color:#4c59ff;
-        //                     font-weight: 600;
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-        
-    }
-    // .profileUserBox_middle{
-        // @media (max-width: @screen-xs) {
-        //     padding: 0 14px;
-        //     padding-right: 10px;
-        // }
-
-        // color: #43425d;
         .pUb_middle_AboutMe{
             font-size: 18px;
             font-weight: 600;
@@ -745,26 +625,7 @@ export default {
             }
             padding-bottom: 12px;
         }
-
-    // }
-    .profileUserBox_bottom{
-        // margin-top: 14px;
-        // color: #43425d;
-        // font-size: 16px;
-        // .profileUserBox_bottom_title{
-        //     font-weight: bold;
-        // }
-        // &.course {
-        //   .giveMeEllipsis(2, 18);
-        // }
-        // @media (max-width: @screen-xs) {
-            // padding: 0 14px 12px;
-            // margin-top: 10px;
-        // }
-    }
     .bottom {
-        // margin-top: 10px;
-        // padding-top: 10px;
         border-top: 1px solid #ddd;
 
         .bottomBox {
