@@ -1,5 +1,4 @@
-﻿using System;
-using Cloudents.Command;
+﻿using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
@@ -17,7 +16,6 @@ using Cloudents.Web.Models;
 using Cloudents.Query.Users;
 using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.DTOs.Documents;
-using Cloudents.Core.DTOs.Feed;
 
 namespace Cloudents.Web.Api
 {
@@ -64,23 +62,23 @@ namespace Cloudents.Web.Api
         }
 
         // GET
-        [Obsolete]
+        //[Obsolete]
 
-        [HttpGet("{id:long}/questions")]
-        [ProducesResponseType(200)]
+        //[HttpGet("{id:long}/questions")]
+        //[ProducesResponseType(200)]
 
-        public async Task<IEnumerable<QuestionFeedDto>> GetQuestionsAsync(long id, int page, CancellationToken token)
-        {
-            var query = new UserQuestionsByIdQuery(id, page);
+        //public async Task<IEnumerable<QuestionFeedDto>> GetQuestionsAsync(long id, int page, CancellationToken token)
+        //{
+        //    var query = new UserQuestionsByIdQuery(id, page);
             
-            var res =  await _queryBus.QueryAsync(query, token);
-            return res.Select(item =>
-            {
-                item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
-                return item;
-            });
+        //    var res =  await _queryBus.QueryAsync(query, token);
+        //    return res.Select(item =>
+        //    {
+        //        item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
+        //        return item;
+        //    });
 
-        }
+        //}
 
         [HttpGet("{id:long}/documents")]
         [ProducesResponseType(200)]
