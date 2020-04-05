@@ -290,12 +290,12 @@ export default {
 
                     // this is when user start register from tutorRequest
                     if(self.isFromTutorReuqest) {
+                        dispatch('userStatus')
                         self.$store.dispatch('updateRequestDialog', true);
                         self.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
                         self.$store.dispatch('toggleProfileFollower', true)
                         return
                     }
-
 					dispatch('userStatus').then(user => {
                         // when user is register and pick teacher, redirect him to his profile page
                         if(self.teacher) {
