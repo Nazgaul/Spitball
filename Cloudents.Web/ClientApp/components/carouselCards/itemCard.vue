@@ -10,17 +10,22 @@
         <div class="item-cont pa-2">
             <div class="item-title text-truncate">{{item.title}}</div>
             <div class="item-course text-truncate">
-                <b>{{$t('itemCardCarousel_course')}}</b>{{item.course}}</div>
-            <div class="item-university text-truncate" v-if="item.university">
-                <b>{{$t('itemCardCarousel_university')}}</b> {{item.university}}</div>
-            <div class="item-user">
-                <UserAvatar :size="'34'" :user-name="item.user.name" :user-id="item.user.id" :userImageUrl="item.user.image"/> 
-                <div class="ml-2 user-info">
-                    <div class="text-truncate" >{{item.user.name}}</div>
-                    <div>{{$d(new Date(item.dateTime), 'short')}}</div>
-                </div>
+                <b>{{$t('itemCardCarousel_course')}}</b>{{item.course}}
             </div>
-            <div class="itemCard-bottom">
+            <!-- <div class="item-university text-truncate" v-if="item.university">
+                <b>{{$t('itemCardCarousel_university')}}</b> {{item.university}}
+            </div> -->
+            <template>
+                <div class="user-info" v-if="!isProfilePage">{{$d(new Date(item.dateTime), 'short')}}</div>
+                <div class="item-user" v-else>
+                    <UserAvatar :size="'34'" :user-name="item.user.name" :user-id="item.user.id" :userImageUrl="item.user.image"/> 
+                    <div class="ml-2 user-info">
+                        <div class="text-truncate" >{{item.user.name}}</div>
+                        <div>{{$d(new Date(item.dateTime), 'short')}}</div>
+                    </div>
+                </div>
+            </template>
+            <div class="itemCard-bottom mt-2">
                 <span class="item-purchases">{{item.views}} {{$tc('itemCardCarousel_view', item.views)}}</span>
                 <span class="item-pts">{{$tc('itemCardCarousel_pts',item.price)}}</span>
             </div>
@@ -32,7 +37,7 @@
 const vidSVG = () => import("../../components/results/svg/vid.svg");
 
 import intersection from '../pages/global/intersection/intersection.vue';
-
+import * as routeNames from '../../routes/routeNames'
 export default {
     components:{vidSVG, intersection},
     props:{
@@ -46,9 +51,17 @@ export default {
             default: false
         }
     },
+    data() {
+        return {
+            routeNames
+        }
+    },
     computed: {
         showVideoDuration() {
             return (this.item && this.item.documentType === "Video" && this.item.itemDuration);
+        },
+        isProfilePage() {
+            return this.$route.name !== routeNames.Profile
         }
     },
     methods: {
@@ -105,6 +118,11 @@ export default {
         /*rtl:ignore*/
     }
     .item-cont{
+        height: inherit;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
         .item-title{
             overflow: hidden !important;
             font-size: 14px;
@@ -125,11 +143,11 @@ export default {
             .userImg-item{
                 margin-right: 10px;
             }
-            .user-info{
-                font-size: 12px;
-                color: #43425d;
-                min-width: 0;
-            }
+        }
+        .user-info{
+            font-size: 12px;
+            color: #43425d;
+            min-width: 0;
         }
         .itemCard-bottom{
             display: flex;
