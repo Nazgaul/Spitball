@@ -11,20 +11,14 @@
             <div class="item-title text-truncate">{{item.title}}</div>
             <div class="item-course text-truncate">
                 <b>{{$t('itemCardCarousel_course')}}</b>{{item.course}}
+                 <div class="user-info" >{{$d(new Date(item.dateTime), 'short')}}</div>
             </div>
-            <!-- <div class="item-university text-truncate" v-if="item.university">
-                <b>{{$t('itemCardCarousel_university')}}</b> {{item.university}}
-            </div> -->
-            <template>
-                <div class="user-info" v-if="!isProfilePage">{{$d(new Date(item.dateTime), 'short')}}</div>
-                <div class="item-user" v-else>
+                <div class="item-user" v-if="!isProfilePage">
                     <UserAvatar :size="'34'" :user-name="item.user.name" :user-id="item.user.id" :userImageUrl="item.user.image"/> 
                     <div class="ml-2 user-info">
                         <div class="text-truncate" >{{item.user.name}}</div>
-                        <div>{{$d(new Date(item.dateTime), 'short')}}</div>
                     </div>
                 </div>
-            </template>
             <div class="itemCard-bottom mt-2">
                 <span class="item-purchases">{{item.views}} {{$tc('itemCardCarousel_view', item.views)}}</span>
                 <span class="item-pts">{{$tc('itemCardCarousel_pts',item.price)}}</span>
@@ -61,7 +55,7 @@ export default {
             return (this.item && this.item.documentType === "Video" && this.item.itemDuration);
         },
         isProfilePage() {
-            return this.$route.name !== routeNames.Profile
+            return this.$route.name === routeNames.Profile
         }
     },
     methods: {
