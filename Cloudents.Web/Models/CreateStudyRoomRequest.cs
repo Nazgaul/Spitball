@@ -19,6 +19,12 @@ namespace Cloudents.Web.Models
         public DateTime? Date { get; set; }
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
+            if (Date.HasValue && Date.Value < DateTime.UtcNow)
+            {
+                yield return new ValidationResult(
+                    "Date should be in the future",
+                    new[] { nameof(Name) });
+            }
             if (UserId?.Any() == false && !Date.HasValue)
             {
                 yield return new ValidationResult(
