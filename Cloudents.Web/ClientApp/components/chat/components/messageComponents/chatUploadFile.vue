@@ -15,10 +15,8 @@
                             action: uploadUrl,
                             minSize: 1,
                             maxRetries: 5,
-                            finishBody : {
-                            OtherUser: otherUserId,
-                            conversationId:conversationId
-                        }}"
+                            finishBody: finishBody
+                        }"
                         id="chat-image"
                         :input-id="componentUniqueIdImage"
                         ref="uploadImage"
@@ -40,10 +38,8 @@
                         action: uploadUrl,
                         minSize: 1,
                         maxRetries: 5,
-                        finishBody : {
-                        OtherUser: otherUserId,
-                        conversationId:conversationId
-                    }}"
+                        finishBody: finishBody
+                    }"
                     id="file-input"
                     :input-id="componentUniqueIdFile"
                     ref="uploadFile"
@@ -142,11 +138,11 @@
                 this.updateChatUploadLoading(true);
                 let file = e.target.files[0];
                 let formData = new FormData();
-
                 formData.append("file", file);
                 formData.append('otherUser', this.otherUserId)
-                formData.append('conversationId', this.conversationId)
-
+                if(this.finishBody.conversationId){
+                    formData.append('conversationId', this.finishBody.conversationId)
+                }
                 this.uploadCapturedImage(formData).then(()=> {
                     
                 }).catch(() => {
@@ -158,8 +154,14 @@
         },
         computed:{
             ...mapGetters(['getActiveConversationObj']),
-            conversationId(){
-                return this.getActiveConversationObj.conversationId
+            finishBody(){
+                let parmas = {
+                    OtherUser: this.getActiveConversationObj.userId
+                }
+                if(this.getActiveConversationObj.conversationId.indexOf('_') === -1){
+                    parmas.conversationId = this.getActiveConversationObj.conversationId;
+                }
+                return parmas;
             },
             otherUserId(){
                 return this.getActiveConversationObj.userId

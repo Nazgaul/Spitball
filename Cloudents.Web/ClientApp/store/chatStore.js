@@ -217,6 +217,7 @@ const actions = {
                     analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${getters.accountUser.id}`);
                 }else{
                     // message here will be sent by remote user
+                    debugger
                     dispatch('getChatById', message.conversationId).then(({data})=>{
                         let newData;
                         if(message.type === 'text') {
@@ -263,6 +264,7 @@ const actions = {
         }
     },
     signalRAddMessage({dispatch}, messageObj){
+        debugger
         if(messageObj.message.type === 'file') {
             messageObj.message.unread = true;
         }
@@ -351,8 +353,10 @@ const actions = {
             message: message,
             otherUser: state.activeConversationObj.userId,
             conversationId: state.activeConversationObj.conversationId
-
         };
+        if(messageObj.conversationId.indexOf('_') > -1){
+            delete messageObj.conversationId
+        }
         chatService.sendChatMessage(messageObj).then(({data})=>{
             state.activeConversationObj.conversationId = data.conversationId
             let id = data.conversationId;
@@ -371,23 +375,6 @@ const actions = {
             dispatch('addMessage', localMessageObj);
     
         });
-        // debugger
-        //add message locally
-        // let id = state.activeConversationObj.conversationId;
-        // let userId = getters.accountUser.id;
-        // let localMessageObj = {
-        //     userId,
-        //     text: message,
-        //     type: 'text',
-        //     name: state.activeConversationObj.name,
-        //     dateTime: new Date().toISOString(),
-        //     fromSignalR:true,
-        //     image: state.activeConversationObj.image,
-        //     unreadMessage: true
-        // };
-        // localMessageObj = chatService.createMessage(localMessageObj, id);
-        // dispatch('addMessage', localMessageObj);
-
     },
     toggleChatMinimize:({commit, state, dispatch})=>{
         if(!state.isMinimized){
