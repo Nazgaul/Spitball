@@ -12,9 +12,10 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class StudyRoom : Entity<Guid>, IAggregateRoot
     {
-        public StudyRoom(Tutor tutor, IEnumerable<User> users, string onlineDocumentUrl, string name)
+        public StudyRoom(Tutor tutor, IEnumerable<User> users, string onlineDocumentUrl, string name, decimal price)
         {
             if (users == null) throw new ArgumentNullException(nameof(users));
+            if (price < 0) throw new ArgumentException(nameof(price));
             _users = users.Select(s => new StudyRoomUser(s, this)).ToList();
             Tutor = tutor;
             Identifier = ChatRoom.BuildChatRoomIdentifier(_users.Select(s => s.User.Id).Union(new[] { tutor.Id }));
@@ -30,7 +31,7 @@ namespace Cloudents.Core.Entities
             }
 
             DateTime = new DomainTimeStamp();
-
+            Price = price;
             AddEvent(new StudyRoomCreatedEvent(this));
         }
 
@@ -57,6 +58,7 @@ namespace Cloudents.Core.Entities
 
         public virtual IEnumerable<StudyRoomSession> Sessions => _sessions;
 
+        public virtual decimal? Price { get; protected set; }
 
         public virtual StudyRoomSession? GetCurrentSession()
         {
