@@ -63,7 +63,7 @@ namespace Cloudents.Web.Api
         /// <param name="id"></param>
         /// <param name="token"></param>
         /// <returns>list of courses for a user</returns>
-        [HttpGet("conversation/{id}")]
+        [HttpGet("conversation/{id:Guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
@@ -81,7 +81,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("{id}")]
-        public async Task<IEnumerable<ChatMessageDto>> GetAsync(string id, int page,
+        public async Task<IEnumerable<ChatMessageDto>> GetAsync(Guid id, int page,
             CancellationToken token)
         {
             //specific conversation

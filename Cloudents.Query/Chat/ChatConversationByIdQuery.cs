@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.DTOs;
+﻿using System;
+using Cloudents.Core.DTOs;
 using Dapper;
 using System.Collections.Generic;
 using System.Threading;
@@ -8,13 +9,13 @@ namespace Cloudents.Query.Chat
 {
     public class ChatConversationByIdQuery : IQuery<IEnumerable<ChatMessageDto>>
     {
-        public ChatConversationByIdQuery(string conversationId, int page)
+        public ChatConversationByIdQuery(Guid conversationId, int page)
         {
             ConversationId = conversationId;
             Page = page;
         }
 
-        private string ConversationId { get; }
+        private Guid ConversationId { get; }
         private int Page { get; }
 
         internal sealed class ChatConversationByIdQueryHandler : IQueryHandler<ChatConversationByIdQuery, IEnumerable<ChatMessageDto>>
@@ -49,7 +50,7 @@ join sb.ChatRoom cr
 	on cm.ChatRoomId = cr.Id
 join sb.[user] u
 	on cm.UserId = u.Id
-where cr.Identifier = @Id
+where cr.Id = @Id
 order by cm.Id desc
 OFFSET @PageSize * @PageNumber ROWS 
 FETCH NEXT @PageSize ROWS ONLY;", new { Id = query.ConversationId, PageSize = 50, PageNumber = query.Page }))
