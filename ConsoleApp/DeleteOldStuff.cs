@@ -27,9 +27,9 @@ namespace ConsoleApp
 
         public static async Task DoStuff()
         {
-            await DeleteNotUsedCourses();
             await DeleteOldQuestion();
             await DeleteOldDocuments();
+            await DeleteNotUsedCourses();
             await ResyncTutorRead();
         }
 
