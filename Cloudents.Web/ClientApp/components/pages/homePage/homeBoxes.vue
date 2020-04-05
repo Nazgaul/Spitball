@@ -18,7 +18,7 @@
             </div>
             <h3 class="desc mt-6 mb-3" v-t="'homePage_pay_and_receive'"></h3>
             <div class="d-flex justify-center align-center">
-                <a :href="payAndReceiveLink" class="link payments mr-3" v-t="'homePage_pay_and_receive_link'"></a>
+                <a target="_blank" :href="payAndReceiveLink" class="link payments mr-3" v-t="'homePage_pay_and_receive_link'"></a>
                 <arrow class="arrow blueArrow" />
             </div>
         </div>
@@ -29,7 +29,7 @@
             </div>
             <h3 class="desc mt-6 mb-3" v-t="'homePage_find_relevant'"></h3>
             <div class="d-flex justify-center align-center">
-                <a class="link relevant mr-3" href="https://www.spitball.co/tutor-list" target="_blank" v-t="'homePage_find_relevant_link'"></a>
+                <router-link :to="{ name: routeNames.StudyRoom }" class="link relevant mr-3" target="_blank"  v-t="'homePage_find_relevant_link'"></router-link>
                 <arrow class="arrow yellowArrow" />
             </div>
         </div>
