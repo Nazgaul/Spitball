@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Cloudents.Command.Command
 {
     public class SendChatFileMessageCommand : ICommand
     {
-        public SendChatFileMessageCommand(string blob, long userSendingId, IEnumerable<long> usersId , string? identifier = null)
+        public SendChatFileMessageCommand(string blob, long userSendingId, IEnumerable<long> usersId , Guid? identifier = null)
         {
             Blob = blob;
             UserSendingId = userSendingId;
@@ -17,7 +18,7 @@ namespace Cloudents.Command.Command
         public long UserSendingId { get; }
 
         public string Blob { get; }
-        public string? Identifier { get;  }
+        public Guid? Identifier { get;  }
 
         public IEnumerable<long> ToUsersId { get; }
     }

@@ -32,9 +32,9 @@ namespace Cloudents.Command.CommandHandler
         {
 
             ChatRoom? chatRoom = null;
-            if (!string.IsNullOrEmpty(message.Identifier))
+            if (message.Identifier.HasValue)
             {
-                chatRoom = await _chatRoomRepository.GetChatRoomAsync(message.Identifier, token);
+                chatRoom = await _chatRoomRepository.GetAsync(message.Identifier.Value, token);
             }
 
             if (chatRoom == null)

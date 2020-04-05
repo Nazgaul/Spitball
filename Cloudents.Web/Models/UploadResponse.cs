@@ -78,7 +78,7 @@ namespace Cloudents.Web.Models
     {
         public long OtherUser { get; set; }
 
-        public string ConversationId { get; set; }
+        public Guid? ConversationId { get; set; }
     }
 
     public class TempData
