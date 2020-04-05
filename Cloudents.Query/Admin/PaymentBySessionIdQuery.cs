@@ -36,7 +36,7 @@ namespace Cloudents.Query.Admin
 		                    u.Id as UserId,
 		                    u.Name as UserName,
 		                    srs.Created,
-							COALESCE (srs.RealDuration, srs.Duration) as DurationInTicks,
+							COALESCE (srs.RealDuration, srs.Duration) as _duration2,
 							
 							x.CouponCode as CouponCode,
 							x.couponType,
@@ -65,7 +65,7 @@ namespace Cloudents.Query.Admin
 					) x
                     join sb.[User] tu
 	                    on tr.Id = tu.Id
-                    where srs.id = @id";
+                    where srs.id = @id;";
 
                 using var conn = _repository.OpenConnection();
                 var result = await conn.QuerySingleAsync<PaymentDetailDto>(sql, new { id = query.SessionId });

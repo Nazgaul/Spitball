@@ -1,23 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Models
 {
-    public class SetSessionDurationRequest : IValidatableObject
+    public class SetSessionDurationRequest
     {
-        [Required]
+        [Required, FromRoute]
         public Guid SessionId { get; set; }
+
+        public long UserId { get; set; }
+
         [Required]
-        public long RealDuration { get; set; }
+        [Range(1, 1000)]
+        public long DurationInMinutes { get; set; }
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-
-            if (RealDuration < 1)
-            {
-                yield return new ValidationResult("Invalid input");
-            }
-        }
     }
 }

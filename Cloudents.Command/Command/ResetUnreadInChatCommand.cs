@@ -4,16 +4,16 @@ namespace Cloudents.Command.Command
 {
     public class ResetUnreadInChatCommand : ICommand
     {
-        public ResetUnreadInChatCommand(long userSendingId, IEnumerable<long> toUsersId)
+        public ResetUnreadInChatCommand(long userSendingId, string identifier)
         {
             UserSendingId = userSendingId;
-            ToUsersId = toUsersId;
+            Identifier = identifier;
         }
 
         public long UserSendingId { get; }
 
         // public string Blob { get; }
 
-        public IEnumerable<long> ToUsersId { get; }
+        public string Identifier { get; }
     }
 }

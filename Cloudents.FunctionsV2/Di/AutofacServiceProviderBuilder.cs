@@ -13,8 +13,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.WindowsAzure.Storage;
 using System;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Reflection;
 using Cloudents.FunctionsV2.Operations;
+using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Host.Executors;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Cloudents.Core.Interfaces.ILogger;
 
@@ -113,6 +116,9 @@ namespace Cloudents.FunctionsV2.Di
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .AsClosedTypesOf(typeof(ISystemOperation<>));
+
+            builder.Register(c => new HttpClient()).SingleInstance();
+            //builder.Register(c => c.Resolve<IHttpClientFactory>().CreateClient()).As<HttpClient>();
 
             builder.Populate(services); // Populate is needed to have support for scopes.
             return new AutofacServiceProvider(builder.Build());

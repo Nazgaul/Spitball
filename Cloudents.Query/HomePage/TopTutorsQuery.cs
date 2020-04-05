@@ -37,6 +37,7 @@ namespace Cloudents.Query.HomePage
                 //TutorCardDto tutorCardDtoAlias = null;
                 //var res = _session.QueryOver<ReadTutor>();
                 var linqQuery = _session.Query<ReadTutor>()
+                    .WithOptions(w => w.SetComment(nameof(TopTutorsQuery)))
                     .Join(_session.Query<Core.Entities.Tutor>(), readTutor => readTutor.Id, tutor => tutor.Id,
                         (readTutor, tutor) =>
                             new

@@ -1,18 +1,22 @@
 import accountService from '../services/accountService';
 
+const TUTOR_MIN_PRICE = 35;
+
 const state = {
+    tutorMinPrice: TUTOR_MIN_PRICE,
     becomeTutorObj: {
         image: '',
         firstName: '',
         lastName: '',
-        price: 50,
+        price: TUTOR_MIN_PRICE,
         description: '',
         bio: ''
-    }
+    },
 };
 
 const getters = {
     becomeTutorData: state => state.becomeTutorObj,
+    getTutorMinPrice: state => state.tutorMinPrice,
 };
 const mutations = {
     assignFields(state, val) {

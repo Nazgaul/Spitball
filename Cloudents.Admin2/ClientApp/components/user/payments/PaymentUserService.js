@@ -49,7 +49,7 @@ const approvePayment = function (item) {
 };
 
 const declinePayment = function (item) {
-    return connectivityModule.http.delete(`${path}?StudyRoomSessionId=${item.studyRoomSessionId}`);
+    return connectivityModule.http.delete(`${path}?StudyRoomSessionId=${item.studyRoomSessionId}`,{userId:item.userId});
 };
 
 function UserSessionPayment(objInit) {
@@ -77,8 +77,8 @@ function handleError(err) {
     return err;
 }
 
-function getUserSessionPayment(id) {
-    return connectivityModule.http.get(`${path}${id}`).then(createUserSessionPayment).catch(handleError);
+function getUserSessionPayment({sessionId,userId,tutorId}) {
+    return connectivityModule.http.get(`${path}${sessionId}`,{params:{userId,tutorId}}).then(createUserSessionPayment).catch(handleError);
 }
 
 export {

@@ -35,7 +35,7 @@ namespace Cloudents.Query.Admin
                                     U.Id as UserId
                             from [sb].[StudyRoomSession] S 
                             join [sb].[StudyRoom] R
-	                            on S.Studyroomid=R.id
+	                            on S.StudyRoomId=R.id
                             Join sb.[User] T 
 	                            on T.Id = R.TutorId
                             join sb.StudyRoomUser sru
@@ -51,11 +51,9 @@ namespace Cloudents.Query.Admin
                 }
                 sql += " order by S.created desc, S.Id";
 
-                using (var connection = _dapper.OpenConnection())
-                {
-                    return await connection.QueryAsync<StudyRoomDto>(sql, new { query.Country });
-                    //return res.AsList();
-                }
+                using var connection = _dapper.OpenConnection();
+                return await connection.QueryAsync<StudyRoomDto>(sql, new { query.Country });
+                //return res.AsList();
             }
         }
     }

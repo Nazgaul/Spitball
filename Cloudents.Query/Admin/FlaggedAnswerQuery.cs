@@ -31,6 +31,7 @@ namespace Cloudents.Query.Admin
             public async Task<IEnumerable<FlaggedAnswerDto>> GetAsync(FlaggedAnswerQuery query, CancellationToken token)
             {
                 var answers = _session.Query<Answer>()
+                    .WithOptions(w => w.SetComment(nameof(FlaggedAnswerQuery)))
                     .Fetch(f => f.User)
                     .Where(w => w.Status.State == ItemState.Flagged);
                 if (!string.IsNullOrEmpty(query.Country))
@@ -42,11 +43,11 @@ namespace Cloudents.Query.Admin
                 {
                     Id = s.Id,
                     Text = s.Text,
-                    Reason = s.Status.FlagReason,
+                    Reason = s.Status.FlagReason!,
                     FlaggedUserEmail = s.User.Email,
                     QuestionId = s.Question.Id,
                     QuestionText = s.Question.Text,
-                    MarkerEmail = s.Status.FlaggedUser.Email
+                    MarkerEmail = s.Status.FlaggedUser!.Email
                 }).OrderBy(o => o.Id).ToListAsync(token);
             }
         }

@@ -30,12 +30,13 @@ namespace Cloudents.Query.Chat
 
             public async Task<IList<UnreadMessageDto>> GetAsync(UserUnreadMessageQuery query, CancellationToken token)
             {
-                User userAlias = null;
-                ChatUser chatUserAlias = null;
-                UnreadMessageDto resultAlias = null;
+                User? userAlias = null;
+                ChatUser? chatUserAlias = null;
+                UnreadMessageDto? resultAlias = null;
                 //Core.Entities.Tutor tutorAlias = null;
 
                 var z = _querySession.StatelessSession.QueryOver(() => chatUserAlias)
+                    
                         .JoinAlias(x => x.User, () => userAlias)
                         .Where(w => w.Unread > 0)
                         .And(() => userAlias.PhoneNumber != null);
@@ -63,7 +64,9 @@ namespace Cloudents.Query.Chat
 
                                 ).WithAlias(() => resultAlias.ChatUserId)
                      )
+                    
                     .TransformUsing(Transformers.AliasToBean<UnreadMessageDto>())
+                    .UnderlyingCriteria.SetComment(nameof(UserUnreadMessageQuery))
                      .ListAsync<UnreadMessageDto>(token);
 
                 return result;

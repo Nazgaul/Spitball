@@ -29,7 +29,7 @@
           </v-list-item>
         </template>
 
-        <template v-if="!getIsStudent">
+        <template v-if="!isLoggedIn">
           <template v-if="showFindTutors">
             <v-list-item :to="{name:'tutorLandingPage'}">
               <v-list-item-action><v-icon class="userMenu_icons" v-html="'sbf-account-group'"></v-icon></v-list-item-action>
@@ -122,9 +122,10 @@ export default {
       component: '',
       menuListComponent: {
         teacher: 'menuListTeacher',
-        parent: 'menuListTeacher',
-        universitystudent: 'menuListStudent',
-        highschoolstudent: 'menuListStudent',
+        // parent: 'menuListTeacher',
+        student: 'menuListStudent'
+        // universitystudent: 'menuListStudent',
+        // highschoolstudent: 'menuListStudent',
       },
       languagesLocales,
       languageChoisesAval: [],

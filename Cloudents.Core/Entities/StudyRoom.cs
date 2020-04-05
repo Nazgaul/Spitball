@@ -12,17 +12,23 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class StudyRoom : Entity<Guid>, IAggregateRoot
     {
-        public StudyRoom(Tutor tutor, User user, string onlineDocumentUrl)
+        public StudyRoom(Tutor tutor, IEnumerable<User> users, string onlineDocumentUrl, string name)
         {
-            _users = new[]
-            {
-                new StudyRoomUser(tutor.User, this), //this should not be here
-                new StudyRoomUser(user, this)
-            };
+            if (users == null) throw new ArgumentNullException(nameof(users));
+            _users = users.Select(s => new StudyRoomUser(s, this)).ToList();
             Tutor = tutor;
-            Identifier = ChatRoom.BuildChatRoomIdentifier(new[] { tutor.Id, user.Id });
+            Identifier = ChatRoom.BuildChatRoomIdentifier(_users.Select(s => s.User.Id).Union(new[] { tutor.Id }));
             OnlineDocumentUrl = onlineDocumentUrl;
-            Type = StudyRoomType.PeerToPeer;
+            Name = name;
+            if (_users.Count < 10)
+            {
+                Type = StudyRoomType.PeerToPeer;
+            }
+            else
+            {
+                Type = StudyRoomType.GroupRoom;
+            }
+
             DateTime = new DomainTimeStamp();
 
             AddEvent(new StudyRoomCreatedEvent(this));
@@ -30,8 +36,10 @@ namespace Cloudents.Core.Entities
 
         protected StudyRoom()
         {
-            
+
         }
+
+        public virtual string Name { get; set; }
 
         public virtual Tutor Tutor { get; protected set; }
 
@@ -71,11 +79,11 @@ namespace Cloudents.Core.Entities
             DateTime.UpdateTime = System.DateTime.UtcNow;
         }
 
-        public virtual void ChangeOnlineStatus(long userId, bool isOnline)
-        {
-            var studyRoomUser = Users.Single(f => f.User.Id == userId);
-            studyRoomUser.ChangeOnlineState(isOnline);
-        }
+        //public virtual void ChangeOnlineStatus(long userId, bool isOnline)
+        //{
+        //    var studyRoomUser = Users.Single(f => f.User.Id == userId);
+        //    studyRoomUser.ChangeOnlineState(isOnline);
+        //}
 
     }
 }

@@ -144,7 +144,7 @@
                  <!-- add it to the other user tab -->
                 <!-- <div v-if="tab.id === getCurrentSelectedTab.id" class="tab-dot"></div> -->
                 <button :sel="`tab${index+1}`">
-                <span class="dot-tab" v-if="tab.id === getTabIndicator">●</span>
+                <span class="dot-tab" v-if="isRoomActive && !isTutor && tab.id === getTabIndicator">●</span>
                 <span @blur="saveNewTabName" @keyup.enter="saveNewTabName" @keypress.enter="saveNewTabName"
                 @dblclick.self='editTabName(tab.id)' :id="tab.id">{{tab.name}}</span>
                 </button>

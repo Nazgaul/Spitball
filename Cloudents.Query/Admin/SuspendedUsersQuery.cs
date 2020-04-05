@@ -28,6 +28,7 @@ namespace Cloudents.Query.Admin
             public async Task<IEnumerable<SuspendedUsersDto>> GetAsync(SuspendedUsersQuery query, CancellationToken token)
             {
                 var suspendDto = _session.Query<User>()
+                    .WithOptions(w => w.SetComment(nameof(SuspendedUsersQuery)))
                     .Where(w => w.LockoutEnd != null);
                 if (!string.IsNullOrEmpty(query.Country))
                 {

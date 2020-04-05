@@ -38,6 +38,7 @@ namespace Cloudents.Query.Admin
 
 
                 var dbQuery = _session.Query<User>()
+                    .WithOptions(w => w.SetComment(nameof(UserDetailsQuery)))
                     .Fetch(f => f.University)
                     .Fetch(f => f.Tutor)
                     .Where(w => w.Id == tmpId || w.Email == query.UserId || w.PhoneNumber == query.UserId);

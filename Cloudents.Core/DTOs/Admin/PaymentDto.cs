@@ -6,7 +6,7 @@ namespace Cloudents.Core.DTOs.Admin
 {
     public class PaymentDto
     {
-        public TimeSpan _duration;
+        public TimeSpan? _duration;
         public TimeSpan? _realDuration;
 
         [EntityBind(nameof(StudyRoomSession.Id))]
@@ -27,10 +27,10 @@ namespace Cloudents.Core.DTOs.Admin
         [EntityBind(nameof(StudyRoomSession.Created))]
         public DateTime Created { get; set; } //
 
-        public double Duration => _duration.TotalMinutes;
+        public double Duration => _duration.GetValueOrDefault().TotalMinutes;
 
         public double? RealDuration => _realDuration?.TotalMinutes;
-       
+
 
         [EntityBind(nameof(User.PaymentExists))]
         public bool IsPaymentKeyExists { get; set; } //
@@ -40,12 +40,17 @@ namespace Cloudents.Core.DTOs.Admin
 
     public class PaymentDetailDto
     {
+        [NonSerialized]
+        public TimeSpan? _duration;
+
+        [NonSerialized] public long? _duration2;
+
         [EntityBind(nameof(StudyRoomSession.Id))]
         public Guid StudyRoomSessionId { get; set; }
         [EntityBind(nameof(Tutor.Price))]
         public decimal TutorPricePerHour { get; set; }
 
-        
+
         public decimal StudentPayPerHour { get; set; }
         public decimal SpitballPayPerHour { get; set; }
 
@@ -62,9 +67,21 @@ namespace Cloudents.Core.DTOs.Admin
         public string UserName { get; set; }
         [EntityBind(nameof(StudyRoomSession.Created))]
         public DateTime Created { get; set; }
-        public long DurationInTicks { get; set; }
-        public bool ShouldSerializeDurationInTicks() => false;
-        public double Duration => TimeSpan.FromTicks(DurationInTicks).TotalMinutes;
+        //public TimeSpan Duration { get; set; }
+        //public bool ShouldSerializeDurationInTicks() => false;
+        public double Duration
+        {
+
+            get
+            {
+                if (_duration.HasValue)
+                {
+                    return _duration.Value.TotalMinutes;
+                }
+
+                return TimeSpan.FromTicks(_duration2.Value).TotalMinutes;
+            }
+        }
 
         [EntityBind(nameof(Coupon.Code))]
         public string CouponCode { get; set; }
@@ -75,6 +92,6 @@ namespace Cloudents.Core.DTOs.Admin
 
         [EntityBind(nameof(Coupon.Tutor.Id))]
         public long? CouponTutor { get; set; }
-        
+
     }
 }

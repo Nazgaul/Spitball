@@ -15,7 +15,7 @@ namespace Cloudents.Query.Admin
         {
             UserId = userId;
         }
-        public long UserId { get; set; }
+        private long UserId { get;  }
 
         internal sealed class UserNotesQueryHandler : IQueryHandler<UserNotesQuery, IEnumerable<UserNoteDto>>
         {
@@ -29,6 +29,7 @@ namespace Cloudents.Query.Admin
             public async Task<IEnumerable<UserNoteDto>> GetAsync(UserNotesQuery query, CancellationToken token)
             {
                 return await _session.Query<AdminNote>()
+                    .WithOptions(w => w.SetComment(nameof(UserNotesQuery)))
                     .Fetch(f => f.AdminUser)
                     .Where(w => w.User.Id == query.UserId)
                     .OrderByDescending(o => o.TimeStamp.CreationTime)
@@ -37,7 +38,7 @@ namespace Cloudents.Query.Admin
                         Text = s.Text,
                         Created = s.TimeStamp.CreationTime,
                         AdminUser = s.AdminUser.Email
-                    }).ToListAsync();
+                    }).ToListAsync(cancellationToken: token);
             }
         }
     }

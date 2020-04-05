@@ -29,7 +29,8 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<PayPalClient>().As<IPayPalService>().SingleInstance();
             builder.RegisterType<MailProvider>().As<IMailProvider>();
             builder.RegisterType<CognitiveService>().As<ICognitiveService>().SingleInstance();
-            builder.RegisterType<TwilioProvider>().AsSelf().As<ISmsProvider>().As<IVideoProvider>().SingleInstance();
+            builder.RegisterType<SmsProvider>().As<ISmsProvider>();
+            builder.RegisterType<TwilioProvider>().AsSelf().As<IPhoneValidator>().As<IVideoProvider>().SingleInstance();
             builder.RegisterType<CountryProvider>().As<ICountryProvider>();
             builder.RegisterType<WixBlogProvider>().As<IBlogProvider>()
                 .EnableInterfaceInterceptors()

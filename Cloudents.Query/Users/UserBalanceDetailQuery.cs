@@ -43,6 +43,7 @@ namespace Cloudents.Query.Users
                 {
                     var type = value;
                     var xx = _statelessSession.Query<Transaction>()
+                        .WithOptions(w => w.SetComment(nameof(UserBalanceQuery)))
                          .Where(w => w.User.Id == query.Id && w.Type == type)
                          .GroupBy(g => 1)
                          //.Select(s=>s.Key)

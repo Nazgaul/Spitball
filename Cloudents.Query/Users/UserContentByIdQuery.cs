@@ -31,6 +31,7 @@ namespace Cloudents.Query.Users
             public async Task<IEnumerable<UserContentDto>> GetAsync(UserContentByIdQuery query, CancellationToken token)
             {
                 var documentFuture = _session.Query<Document>()
+                    .WithOptions(w => w.SetComment(nameof(UserContentByIdQuery)))
                     .Fetch(f => f.User).FetchMany(f => f.Transactions)
                     .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
                     .Select(s => new UserDocumentsDto()
@@ -76,9 +77,9 @@ namespace Cloudents.Query.Users
 
                     }).ToFuture<UserContentDto>();
 
-                IEnumerable<UserContentDto> documentResult = await documentFuture.GetEnumerableAsync(token);
-                IEnumerable<UserContentDto> questionResult = await questionFuture.GetEnumerableAsync(token);
-                IEnumerable<UserContentDto> answerResult = await answerFuture.GetEnumerableAsync(token);
+                var documentResult = await documentFuture.GetEnumerableAsync(token);
+                var questionResult = await questionFuture.GetEnumerableAsync(token);
+                var answerResult = await answerFuture.GetEnumerableAsync(token);
 
                 return documentResult.Union(questionResult).Union(answerResult).OrderByDescending(o => o.Date);
             }

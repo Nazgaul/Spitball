@@ -15,7 +15,7 @@ using Cloudents.Core.DTOs.Tutors;
 
 namespace Cloudents.Query.Documents
 {
-    public class DocumentById : IQuery<DocumentDetailDto>
+    public class DocumentById : IQuery<DocumentDetailDto?>
     {
         public DocumentById(long id, long? userId)
         {
@@ -29,7 +29,7 @@ namespace Cloudents.Query.Documents
         private long? UserId { get; }
 
 
-        internal sealed class DocumentByIdQueryHandler : IQueryHandler<DocumentById, DocumentDetailDto>
+        internal sealed class DocumentByIdQueryHandler : IQueryHandler<DocumentById, DocumentDetailDto?>
         {
             private readonly IStatelessSession _session;
 
@@ -37,8 +37,8 @@ namespace Cloudents.Query.Documents
             {
                 _session = session.StatelessSession;
             }
-            [Cache(TimeConst.Minute*2,"document-by-id",false)]
-            public async Task<DocumentDetailDto> GetAsync(DocumentById query, CancellationToken token)
+            [Cache(TimeConst.Minute * 2, "document-by-id", false)]
+            public async Task<DocumentDetailDto?> GetAsync(DocumentById query, CancellationToken token)
             {
 
                 Document documentAlias = null;
@@ -95,6 +95,7 @@ namespace Cloudents.Query.Documents
 
                     )
                     .TransformUsing(new DeepTransformer<DocumentDetailDto>())
+                    .UnderlyingCriteria.SetComment(nameof(DocumentById))
                     .FutureValue<DocumentDetailDto>();
 
 
@@ -102,21 +103,24 @@ namespace Cloudents.Query.Documents
                 {
                     return await futureValue.GetValueAsync(token);
                 }
-                var purchaseFuture = _session.Query<DocumentTransaction>()
+                var purchaseFuture = _session.QueryOver<DocumentTransaction>()
                        .Where(w => w.User.Id == query.UserId.Value && w.Document.Id == query.Id && w.Type == TransactionType.Spent)
-                       .ToFutureValue();
-
+                       .UnderlyingCriteria.SetComment(nameof(DocumentById))
+                       .FutureValue<DocumentTransaction>();
+                //.ToFutureValue()
                 var purchaseCountFuture = _session.QueryOver<DocumentTransaction>()
-                    .Where(w => w.Document.Id == query.Id && w.Type == TransactionType.Spent)
-                    .SelectList(s => s.SelectCount(c => c.Id)).FutureValue<int>();
+             .Where(w => w.Document.Id == query.Id && w.Type == TransactionType.Spent)
+             .SelectList(s => s.SelectCount(c => c.Id)).FutureValue<int>();
 
-                var voteQuery = _session.Query<Vote>().Where(w => w.User.Id == query.UserId && w.Document.Id == query.Id).Select(s => s.VoteType).Take(1).ToFutureValue();
+                var voteQuery = _session.QueryOver<Vote>()
+                    .Where(w => w.User.Id == query.UserId && w.Document.Id == query.Id).Select(s => s.VoteType)
+                    .Take(1).FutureValue<VoteType>();
 
-                
+
 
                 var result = await futureValue.GetValueAsync(token);
 
-               
+
                 if (result == null)
                 {
                     return null;

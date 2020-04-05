@@ -16,7 +16,6 @@ const state = {
 //         disconnected: 'disconnected',
 //         finished: 'finished'
 //     },
-//     tutorDialogState:'start',
 //     studentDialogState:'waiting',
 //     sessionStartClickedOnce: false,
 //     currentRoomState: "pending",
@@ -32,7 +31,6 @@ const getters = {
 //     getJwtToken: state => state.jwtToken,
 //     getStudentStartDialog: state => state.studentStartDialog,
 //     getSessionStartClickedOnce: state => state.sessionStartClickedOnce,
-//     getTutorDialogState: state => state.tutorDialogState,
 //     getStudentDialogState: state => state.studentDialogState,
 //     getSessionTimeStart: state => state.sessionTimeStart,
 //     getSessionTimeEnd: state => state.sessionTimeEnd,
@@ -60,9 +58,6 @@ const mutations = {
 //     },
 //     setJwtToken(state, val) {
 //         state.jwtToken = val;
-//     },
-//     setTutorDialogState(state, val){
-//         state.tutorDialogState = val;
 //     },
 //     setStudentDialogState(state, val){
 //         state.studentDialogState = val;
@@ -122,8 +117,6 @@ const actions = {
 //                     dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
 //                     //show tutor start session
 //                     if(!state.studyRoomData.needPayment){
-//                         console.warn('DEBUG: 17.3 store: !state.studyRoomData.needPayment')
-//                         dispatch("setTutorDialogState", state.startSessionDialogStateEnum.start);
 //                     }
 //                 } else {
 //                     console.warn('DEBUG: 17.5 store: onlineCount !== totalOnline')
@@ -131,11 +124,8 @@ const actions = {
 //                     if(state.currentRoomState !== state.roomStateEnum.active){
 //                         console.warn('DEBUG: 17.6 store: state.currentRoomState !== state.roomStateEnum.active')
 
-//                         dispatch("setTutorDialogState", state.startSessionDialogStateEnum.waiting);
 //                     }else{
-//                         console.warn('DEBUG: 17.7 store: state.currentRoomState === state.roomStateEnum.active')
 
-//                         dispatch("setTutorDialogState", state.startSessionDialogStateEnum.disconnected);
 //                     }
 //                     dispatch("updateCurrentRoomState", state.roomStateEnum.pending);
 //                 }
@@ -187,17 +177,9 @@ const actions = {
 //                 dispatch("setStudentDialogState", state.startSessionDialogStateEnum.start);
 //             }, 3000);
 //         }else{
-//             console.warn('DEBUG: 18.2 store: if(isTutor)')
 
-//             setTimeout(()=>{
-//                 dispatch("setTutorDialogState", state.startSessionDialogStateEnum.waiting);
-//             }, 2500);
             
 //         }
-//     },
-//     setTutorDialogState({commit}, val){
-//         console.warn('DEBUG: 19 store: setTutorDialogState, VAL:',val)
-//         commit('setTutorDialogState', val);
 //     },
 //     setStudentDialogState({commit}, val){
 //         console.warn('DEBUG: 20 store: setStudentDialogState')

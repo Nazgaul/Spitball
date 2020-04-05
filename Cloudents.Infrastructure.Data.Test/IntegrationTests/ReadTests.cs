@@ -122,7 +122,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(0, 638, "IL", "Economics", 20)]
         public async Task QuestionFeedWithFilterQuery_Ok(int page, long userId, string country, string course, int pageSize)
         {
-            var query = new QuestionFeedWithFliterQuery(page, userId, country, course, pageSize);
+            var query = new QuestionFeedWithFilterQuery(page, userId, country, course, pageSize);
             var result = (await fixture.QueryBus.QueryAsync(query, default)).ToList();
             result.Should().NotBeNullOrEmpty();
             result.Should().OnlyContain(c => c.Type == FeedType.Question);
@@ -173,12 +173,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
 
-        [Fact]
-        public async Task UserQuestionFeedDtoQueryHandler_Ok()
-        {
-            var query = new UserQuestionsByIdQuery(638, 0);
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Fact]
+        //public async Task UserQuestionFeedDtoQueryHandler_Ok()
+        //{
+        //    var query = new UserQuestionsByIdQuery(638, 0);
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         //[Fact]
         //public async Task UserAnswerFeedDtoQueryHandler_Ok()
@@ -206,7 +206,6 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task UserStudyRoomQuery_Ok()
         {
             var query = new UserStudyRoomQuery(638);
-
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -228,7 +227,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
             var query = new CourseSearchWithTermQuery(userId, term, page);
 
-            var z =  await fixture.QueryBus.QueryAsync(query, default);
+            var z = await fixture.QueryBus.QueryAsync(query, default);
 
             z.Should().HaveCountGreaterOrEqualTo(1);
         }
@@ -249,7 +248,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         public async Task UserProfileQuery_Ok(long id, long userId)
         {
-            
+
             var query = new UserProfileQuery(id, userId);
 
             var result = await fixture.QueryBus.QueryAsync(query, default);
@@ -398,7 +397,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(1L)]
         [InlineData(50039L)]
         [InlineData(50864)]
-        
+
         public async Task SimilarDocumentsQuery_Ok(long documentId)
         {
             var query = new SimilarDocumentsQuery(documentId);
@@ -456,12 +455,6 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Fact]
-        public async Task ChatConversationQuery_Ok()
-        {
-            var query = new ChatConversationQuery("159039_160171", 159039);
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
 
         [Fact]
         public async Task ChatConversationByIdQuery_Ok()
@@ -522,12 +515,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
 
-        [Fact]
-        public async Task StudyRoomVideoEmailQuery_Ok()
-        {
-            var query = new StudyRoomVideoEmailQuery("d7140ca0-2b83-4ce5-b35c-ab190086fe18_1575469575");
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Fact]
+        //public async Task StudyRoomVideoEmailQuery_Ok()
+        //{
+        //    var query = new StudyRoomVideoEmailQuery("d7140ca0-2b83-4ce5-b35c-ab190086fe18_1575469575");
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         [Fact]
         public async Task ShortUrlQuery_Ok()
@@ -641,6 +634,30 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             result.Should().NotBeNull();
         }
 
-        
+
+        [Fact]
+        public async Task SessionApprovalQuery_Ok()
+        {
+            var resultQuery = await fixture.StatelessSession.Query<StudyRoomSessionUser>()
+                .Fetch(f => f.StudyRoomSession)
+                .ThenFetch(f => f.StudyRoom)
+                .Select(s => new
+                {
+                    SessionId = s.StudyRoomSession.Id,
+                    UserId = s.User.Id,
+                    TutorId = s.StudyRoomSession.StudyRoom.Tutor.Id
+                })
+                .Take(1).SingleOrDefaultAsync();
+            if (resultQuery == null)
+            {
+                return;
+            }
+
+            var query = new SessionApprovalQuery(resultQuery.SessionId, resultQuery.UserId, resultQuery.TutorId);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+            result.Should().NotBeNull();
+        }
+
+
     }
 }

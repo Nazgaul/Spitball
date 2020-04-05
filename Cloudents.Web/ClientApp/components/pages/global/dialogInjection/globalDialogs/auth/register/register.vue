@@ -268,13 +268,10 @@ export default {
                     });
                     analyticsService.sb_unitedEvent('Registration', 'Phone Submitted');
                     self.component = 'verifyPhone'
-                    self.errors.phone = ''
                 }).catch(error => {
                     let { response: { data } } = error
                     
-                    // if(data.Phone) self.errors.phone = self.$t('loginRegister_invalid_phone_number')
-
-                    self.errors.phone = data["PhoneNumber"] ? data["PhoneNumber"][0] : '' // TODO:
+                    self.errors.phone = data && data["PhoneNumber"] ? data["PhoneNumber"][0] : '' // TODO:
                     self.$appInsights.trackException({exception: new Error(error)});
                 })
         },
@@ -296,12 +293,15 @@ export default {
 
                     // this is when user start register from tutorRequest
                     if(self.isFromTutorReuqest) {
+                        dispatch('userStatus')
+                        if(self.$route.path === '/') {
+                            self.$router.push({name: this.routeNames.LoginRedirect})
+                        }
                         self.$store.dispatch('updateRequestDialog', true);
                         self.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
-                        dispatch('userStatus')
+                        self.$store.dispatch('toggleProfileFollower', true)
                         return
                     }
-
 					dispatch('userStatus').then(user => {
                         // when user is register and pick teacher, redirect him to his profile page
                         if(self.teacher) {
@@ -315,7 +315,9 @@ export default {
                                     dialog: 'becomeTutor'
                                 }
                             })
+                            return
                         }
+                        self.$router.push({name: self.routeNames.LoginRedirect})
                     })
 				}).catch(error => {
                     self.errors.code = self.$t('loginRegister_invalid_code')

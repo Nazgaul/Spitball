@@ -35,6 +35,7 @@ namespace Cloudents.Query.Documents
             public async Task<ShareDocumentImageDto> GetAsync(ShareDocumentImageQuery query, CancellationToken token)
             {
                 return await _statelessSession.Query<Document>()
+                    .WithOptions(w => w.SetComment(nameof(ShareDocumentImageQuery)))
                     .Where(w => w.Id == query.Id)
                     .Select(s => new ShareDocumentImageDto()
                     {

@@ -14,7 +14,7 @@ namespace Cloudents.Query.Users
         {
             UserId = userId;
         }
-        public long UserId { get; set; }
+        private long UserId { get; set; }
 
         internal sealed class UserFollowersByIdQueryHandler : IQueryHandler<UserFollowersByIdQuery, IEnumerable<FollowersDto>>
         {
@@ -46,6 +46,7 @@ namespace Cloudents.Query.Users
                     .Select(() => followAlias.Created).WithAlias(() => resultAlias.Created)
                     )
                     .TransformUsing(Transformers.AliasToBean<FollowersDto>())
+                    .UnderlyingCriteria.SetComment(nameof(UserFollowersByIdQuery))
                      .ListAsync<FollowersDto>(token);
 
                 return res;

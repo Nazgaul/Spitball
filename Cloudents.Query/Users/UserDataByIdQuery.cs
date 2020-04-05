@@ -13,7 +13,7 @@ namespace Cloudents.Query.Users
             Id = id;
         }
 
-        public long Id { get; }
+        private long Id { get; }
 
         internal sealed class UserDataByIdQueryHandler : IQueryHandler<UserDataByIdQuery, User>
         {
