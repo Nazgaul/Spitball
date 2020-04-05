@@ -36,7 +36,7 @@ namespace Cloudents.Query.Tutor
 
                 //TODO we can do it in linq
                 var detachedQuery = QueryOver.Of<StudyRoomUser>()
-                    .JoinAlias(x => x.Room, () => studyRoomAlias)
+                    .Left.JoinAlias(x => x.Room, () => studyRoomAlias)
                     .Where(w => w.User.Id == query.UserId || studyRoomAlias.Tutor.Id == query.UserId)
                     .Select(s => s.Room.Id);
 
