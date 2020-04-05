@@ -99,6 +99,7 @@ const getChatById = (id) => {
 };
 
 const getMessageById = (id) => {
+    debugger
     return connectivityModule.http.get(`Chat/${id}`);
 };
 

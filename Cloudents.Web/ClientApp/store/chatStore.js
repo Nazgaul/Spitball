@@ -271,6 +271,7 @@ const actions = {
         dispatch('openChatInterface');
     },
     setActiveConversationObj:({commit, dispatch, state}, obj)=>{
+        debugger
         commit('setSyncStatus', true);
         commit('setActiveConversationObj', obj);
         dispatch('syncMessagesByConversationId');
@@ -304,6 +305,7 @@ const actions = {
         });
     },
     syncMessagesByConversationId:({dispatch, state, getters, commit})=>{
+        debugger
         //get from server the messages by id
         let id = null;
         if(!state.activeConversationObj.conversationId) {
@@ -345,6 +347,7 @@ const actions = {
         commit('changeChatState', val);
     },
     sendChatMessage:({state, dispatch, getters}, message)=>{
+        debugger
         //send message to server.
         let messageObj = {
             message: message,
@@ -352,23 +355,43 @@ const actions = {
             conversationId: state.activeConversationObj.conversationId
 
         };
-        chatService.sendChatMessage(messageObj);
+        chatService.sendChatMessage(messageObj).then(({data})=>{
 
+            debugger
+
+            let id = data.conversationId;
+            let userId = getters.accountUser.id;
+            let localMessageObj = {
+                userId,
+                text: message,
+                type: 'text',
+                name: state.activeConversationObj.name,
+                dateTime: new Date().toISOString(),
+                fromSignalR:true,
+                image: state.activeConversationObj.image,
+                unreadMessage: true
+            };
+            localMessageObj = chatService.createMessage(localMessageObj, id);
+            dispatch('addMessage', localMessageObj);
+    
+            // id = data.conversationId;
+        });
+        // debugger
         //add message locally
-        let id = state.activeConversationObj.conversationId;
-        let userId = getters.accountUser.id;
-        let localMessageObj = {
-            userId,
-            text: message,
-            type: 'text',
-            name: state.activeConversationObj.name,
-            dateTime: new Date().toISOString(),
-            fromSignalR:true,
-            image: state.activeConversationObj.image,
-            unreadMessage: true
-        };
-        localMessageObj = chatService.createMessage(localMessageObj, id);
-        dispatch('addMessage', localMessageObj);
+        // let id = state.activeConversationObj.conversationId;
+        // let userId = getters.accountUser.id;
+        // let localMessageObj = {
+        //     userId,
+        //     text: message,
+        //     type: 'text',
+        //     name: state.activeConversationObj.name,
+        //     dateTime: new Date().toISOString(),
+        //     fromSignalR:true,
+        //     image: state.activeConversationObj.image,
+        //     unreadMessage: true
+        // };
+        // localMessageObj = chatService.createMessage(localMessageObj, id);
+        // dispatch('addMessage', localMessageObj);
 
     },
     toggleChatMinimize:({commit, state, dispatch})=>{
@@ -409,6 +432,13 @@ const actions = {
     uploadCapturedImage(context, formData) {
         return chatService.uploadCapturedImage(formData);
     },
+    createChat({dispatch,getters},conversationObj){
+        analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${getters.accountUser.id}`);
+        conversationObj.conversationId = chatService.createConversationId([conversationObj.userId, getters.accountUser.id]);
+        let currentConversationObj = chatService.createActiveConversationObj(conversationObj);
+        dispatch('setActiveConversationObj',currentConversationObj)
+        dispatch('openChatInterface')
+    }
 };
 
 export default {
