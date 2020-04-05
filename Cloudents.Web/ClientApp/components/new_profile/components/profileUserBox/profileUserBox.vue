@@ -25,7 +25,7 @@
         </div>
         <div class="profileUserBox_top">
             
-            <v-flex v-bind="flexOrder" class="pUb_top_defaultState">
+            <v-flex class="pUb_top_defaultState">
                 <editSVG sel="edit" class="pUb_edit_user mr-1" v-if="!isMobile && isCurrentProfileUser" @click="openEditInfo()"/>
                 <div class="pUb_defaultState_img">
                     <div class="pUb_dot" v-if="isOnline"/>
@@ -68,7 +68,7 @@
 
 
 
-            <v-flex xs4 class="pUb_top_tutorState" v-if="currentProfileUser.isTutor">
+            <!-- <v-flex xs4 class="pUb_top_tutorState" v-if="currentProfileUser.isTutor">
                 <div class="pUb_top_tS_list">
                     <starSVG/>
                     <span class="pUb_t_ts_list_span pUb_t_ts_list_span_review" @click="isMobile? scrollToReviews():''" 
@@ -86,7 +86,7 @@
                     <studensSVG/>
                     <span class="pUb_t_ts_list_span ml-1" v-text="$Ph(dynamicDictionay(currentProfileTutor.students,'profile_students','profile_student'),currentProfileTutor.students)"/>
                 </div>
-            </v-flex>
+            </v-flex> -->
         </div>
 
 
@@ -128,6 +128,40 @@
                 <editSVG class="mr-1" v-if="isCurrentProfileUser" />
             </v-btn>
         </div>
+        <v-row class="bottom text-center" dense>
+            <v-col class="bottomBox d-flex align-center justify-center">
+                <starSVG />
+                <div class="ml-2">
+                    <div class="number text-left">680</div>
+                    <div class="type">dsadasdsdas</div>
+                    <!-- <span class="pUb_t_ts_list_span pUb_t_ts_list_span_review" @click="isMobile? scrollToReviews():''" v-text="tutorStateRate(currentProfileTutor)"></span> -->
+                </div>
+            </v-col>
+            <v-col class="bottomBox d-flex align-center justify-center">
+                <resxSVG />
+                <div class="ml-2">
+                    <div class="number text-left">324</div>
+                    <div class="type">dsadasdsdas</div>
+                    <!-- <span class="pUb_t_ts_list_span" v-text="$Ph(dynamicDictionay(currentProfileTutor.contentCount,'profile_resourses','profile_resourse'),currentProfileTutor.contentCount)"/> -->
+                </div>
+            </v-col>
+            <v-col class="bottomBox d-flex align-center justify-center">
+                <clockSVG />
+                <div class="ml-2">
+                    <div class="number text-left">532</div>
+                    <div class="type">dsadasdsdas</div>
+                    <!-- <span class="pUb_t_ts_list_span" v-text="$Ph(dynamicDictionay(currentProfileTutor.lessons,'profile_sessions','profile_session'),currentProfileTutor.lessons)"/> -->
+                </div>
+            </v-col>
+            <v-col class="bottomBox d-flex align-center justify-center">
+                <studensSVG />
+                <div class="ml-2">
+                    <div class="number text-left">243</div>
+                    <div class="type">dsadasdsdas</div>
+                    <!-- <span class="pUb_t_ts_list_span ml-1" v-text="$Ph(dynamicDictionay(currentProfileTutor.students,'profile_students','profile_student'),currentProfileTutor.students)"/> -->
+                </div>
+            </v-col>
+        </v-row>
     </div>
 </template>
 
@@ -217,17 +251,17 @@ export default {
                 return false;
             }
         },
-        flexOrder(){
-            if(this.currentProfileUser.isTutor){
-                if(this.isMobile){
-                    return {xs4:true}
-                }else{
-                    return {xs9: true}
-                }
-            }else{
-                return {xs12:true}
-            }
-        }
+        // flexOrder(){
+        //     if(this.currentProfileUser.isTutor){
+        //         if(this.isMobile){
+        //             return {xs4:true}
+        //         }else{
+        //             return {xs9: true}
+        //         }
+        //     }else{
+        //         return {xs12:true}
+        //     }
+        // }
     },
     methods: {
         ...mapActions(['updateEditDialog']),
@@ -471,41 +505,41 @@ export default {
                 }
             }
         }
-        .pUb_top_tutorState{
-            @media (max-width: @screen-xs) {
-                border-left: none;
-                padding: 6px 0;
-                justify-content: space-around;
-                margin-bottom: 0;
+        // .pUb_top_tutorState{
+        //     @media (max-width: @screen-xs) {
+        //         border-left: none;
+        //         padding: 6px 0;
+        //         justify-content: space-around;
+        //         margin-bottom: 0;
 
-            }
+        //     }
 
-            .flexSameSize();
-            border-left: solid 1px #dddddd;
-            padding-left: 16px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            max-width: 162px;
-            min-width: 162px;
-            margin-bottom: 34px;
-            .pUb_top_tS_list{
-                padding-top: 3px;
-                .pUb_t_ts_list_span{
-                    vertical-align: text-top;
-                    margin-left: 6px;
-                    font-size: 12px;
-                    color: #43425d;
-                    &.pUb_t_ts_list_span_review{
-                        @media (max-width: @screen-xs) {
-                            cursor: pointer;
-                            color:#4c59ff;
-                            font-weight: 600;
-                        }
-                    }
-                }
-            }
-        }
+        //     .flexSameSize();
+        //     border-left: solid 1px #dddddd;
+        //     padding-left: 16px;
+        //     display: flex;
+        //     flex-direction: column;
+        //     justify-content: space-between;
+        //     max-width: 162px;
+        //     min-width: 162px;
+        //     margin-bottom: 34px;
+        //     .pUb_top_tS_list{
+        //         padding-top: 3px;
+        //         .pUb_t_ts_list_span{
+        //             vertical-align: text-top;
+        //             margin-left: 6px;
+        //             font-size: 12px;
+        //             color: #43425d;
+        //             &.pUb_t_ts_list_span_review{
+        //                 @media (max-width: @screen-xs) {
+        //                     cursor: pointer;
+        //                     color:#4c59ff;
+        //                     font-weight: 600;
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         
     }
     .profileUserBox_middle{
@@ -563,6 +597,25 @@ export default {
             padding: 0 14px 12px;
             // margin-top: 10px;
         }
-    } 
+    }
+    .bottom {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #ddd;
+
+        .bottomBox {
+            color: @global-purple;
+            font-size: 32px;
+            svg {
+                align-self: baseline;
+            }
+            .number {
+                font-weight: 600;
+            }
+            .type {
+                font-size: 14px;
+            }
+        }
+    }
 }
 </style>
