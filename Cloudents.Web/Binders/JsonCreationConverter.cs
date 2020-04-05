@@ -69,7 +69,7 @@ namespace Cloudents.Web.Binders
 
                 if (phase == UploadPhase.Finish)
                 {
-                    if (jObject["conversationId"] != null)
+                    if (jObject["OtherUser"] != null)
                     {
                         return new FinishChatUpload();
                     }
