@@ -37,17 +37,18 @@ namespace Cloudents.Query.HomePage
             {
                 IQueryable<Document> sessionQuery = _session.Query<Document>()
                     .WithOptions(w => w.SetComment(nameof(TopDocumentsQuery)))
-                    .Fetch(f => f.University);
+                    .Fetch(f => f.User);
+                    //.Fetch(f => f.University);
 
 
-                sessionQuery = sessionQuery.Where(w => w.University.Country == query.Country.ToString());
+                sessionQuery = sessionQuery.Where(w => w.User.Country == query.Country.ToString());
 
-                return await sessionQuery.Where(w => w.IsShownHomePage && w.Status.State == ItemState.Ok).Select(s => new DocumentFeedDto()
+                return await sessionQuery.Where(w => w.IsShownHomePage && w.Status.State == ItemState.Ok)
+                    .Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
                     DocumentType = s.DocumentType ?? DocumentType.Document,
                     Duration = s.Duration,
-                    University = s.University.Name,
                     Course = s.Course.Id,
                     Snippet = s.Description ?? s.MetaContent,
                     Title = s.Name,
