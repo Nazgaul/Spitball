@@ -150,6 +150,12 @@
   <data name="earn_title" xml:space="preserve">
     <value>להרוויח מלימוד החומר שאתם יודעים הכי טוב</value>
   </data>
+  <data name="find_relevant" xml:space="preserve">
+    <value>מערכת לימוד אינטראקטיבית כוללת וידאו, שיתוף מסך ומסמכים</value>
+  </data>
+  <data name="find_relevant_link" xml:space="preserve">
+    <value>ראה בעצמך</value>
+  </data>
   <data name="hd_search" xml:space="preserve">
     <value>חיפוש</value>
   </data>
@@ -176,6 +182,27 @@
   </data>
   <data name="is_title" xml:space="preserve">
     <value>נצפים כרגע</value>
+  </data>
+  <data name="online_teach" xml:space="preserve">
+    <value>מצא מורים או תלמידים רלוונטים</value>
+  </data>
+  <data name="online_teach_link" xml:space="preserve">
+    <value>חפש מורים או תלמידים</value>
+  </data>
+  <data name="pay_and_receive" xml:space="preserve">
+    <value>שלם וקבל תשלומים ישירות מתוך המערכת</value>
+  </data>
+  <data name="pay_and_receive_link" xml:space="preserve">
+    <value>פרטים נוספים על מערכת התשלומים</value>
+  </data>
+  <data name="quote" xml:space="preserve">
+    <value>ספיטבול עוזרת למורים ותלמידים. הכנס לשיעורים אמיתיים בזמן אמת מבלי לעזוב את הבית</value>
+  </data>
+  <data name="quote_name" xml:space="preserve">
+    <value>שלומי לוי</value>
+  </data>
+  <data name="quote_teach" xml:space="preserve">
+    <value>מורה לסטטיסטיקה</value>
   </data>
   <data name="student" xml:space="preserve">
     <value>תלמיד</value>
@@ -208,6 +235,6 @@
     <value>מורים פופולאריים</value>
   </data>
   <data name="video_title" xml:space="preserve">
-    <value />
+    <value>מחברים מורים עם תלמידים</value>
   </data>
 </root>
