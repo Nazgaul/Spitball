@@ -9,14 +9,30 @@
             flat
             multiple
         >
-            <v-expansion-panel class="panel panel_student mb-5" readonly @click="sendRegisterType('HighSchoolStudent', {name: 'registerCourse'})">
-                <v-expansion-panel-header class="px-4 py-2"  expand-icon="">
+            <v-expansion-panel class="panel panel_student mb-5">
+                <v-expansion-panel-header class="px-4 py-2" expand-icon="sbf-triangle-arrow-down">
                     <span class="flex-grow-0 mr-4"><studentIcon/></span>
                     <v-divider class="mr-4" vertical></v-divider>
                     <span class="panel_title text-center">{{$t('loginRegister_student')}}</span>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content class="pt-4">
+                    <v-btn class="mb-4 btn_student" large block color="#43425d" depressed height="50" @click="sendRegisterType('HighSchoolStudent', {name: 'registerCourse'})">
+                        <span><collegeIcon /></span>
+                        <span class="flex-grow-1 text-center white--text">{{$t('loginRegister_highSchool')}}</span>
+                    </v-btn>
+                    <v-btn class="btn_student" large block color="#4c59ff" depressed height="50" @click="sendRegisterType('UniversityStudent', {name: 'registerCourseCollege'})">
+                        <span><highSchoolIcon /></span>
+                        <span class="flex-grow-1 text-center white--text">{{$t('loginRegister_college')}}</span>
+                    </v-btn>
                 </v-expansion-panel-content>
+            </v-expansion-panel>
+
+            <v-expansion-panel class="panel panel_parent mb-5" readonly @click="sendRegisterType('Parent', {name: 'registerCourseParent'})">
+                <v-expansion-panel-header class="px-4 py-2" expand-icon="">
+                    <span class="flex-grow-0 mr-4"><parentIcon/></span>
+                    <v-divider class="mr-4" vertical></v-divider>
+                    <span class="panel_title text-center pr-6">{{$t('loginRegister_parent')}}</span>
+                </v-expansion-panel-header>
             </v-expansion-panel>
 
             <v-expansion-panel class="panel panel_teacher" readonly @click="sendRegisterType('Teacher', {query: {dialog: becomeTutorDialog}})">
@@ -33,14 +49,20 @@
 
 <script>
 import studentIcon from '../../images/student.svg'
+import parentIcon from '../../images/parent.svg';
 import teacherIcon from '../../images/teacher.svg';
+import collegeIcon from '../../images/college.svg';
+import highSchoolIcon from '../../images/highSchool.svg';
 import * as dialogNames from '../../../global/dialogInjection/dialogNames.js';
 import analyticsService from '../../../../../services/analytics.service.js';
 
 export default {
     components: {
         studentIcon,
+        parentIcon,
         teacherIcon,
+        collegeIcon,
+        highSchoolIcon
     },
     data() {
         return {
