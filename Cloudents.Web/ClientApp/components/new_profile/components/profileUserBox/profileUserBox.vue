@@ -1,6 +1,6 @@
 <template>
-    <div class="profileUserBox pa-5" v-if="currentProfileUser">
-        <div class="profileUserBox_top_mobile" v-if="isMobile">
+    <div class="profileUserBox pa-4 pa-sm-5" v-if="currentProfileUser">
+        <!-- <div class="profileUserBox_top_mobile" v-if="isMobile">
             <div class="profileUserBox_top_mobile_top">
                 <a class="profileUserBox_top_mobile_link" @click="$router.go(-1)">
                     <v-icon v-text="'sbf-arrow-left-carousel'"/>
@@ -22,11 +22,11 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
-        <div class="profileUserBox_top">
+        <div class="profileUserBox_top d-block d-sm-flex justify-space-between">
             
-            <div class="leftSide pUb_defaultState_img mr-6">
+            <div class="leftSide pUb_defaultState_img mr-6 d-flex justify-center">
                 <div class="pUb_dot" v-if="isOnline"></div>
                 <uploadImage sel="photo" class="pUb_edit_img" v-if="isCurrentProfileUser" />
                 <userAvatarRect
@@ -69,7 +69,7 @@
                                 <span class="no-reviews font-weight-bold caption" v-language:inner="'resultTutor_no_reviews'"></span>
                             </div>
                         </template>
-                        <div class="ml-5">
+                        <div class="ml-3 ml-sm-5">
                             <followBtn class="followBtnNew mr-2" v-if="!isCurrentProfileUser"/>
                             <!-- <span v-if="currentProfileUser.followers" class="defaultState_content_followers" 
                             v-text="$Ph(dynamicDictionay(currentProfileUser.followers,'profile_tutor_followers','profile_tutor_follower'),[currentProfileUser.followers])"/> -->
@@ -349,7 +349,6 @@ export default {
         border-radius: 0;
         box-shadow: none;
         padding: 0;
-        padding-top: 14px;
         margin-bottom: 8px;
 
     }
@@ -402,13 +401,11 @@ export default {
         }
     }
     .profileUserBox_top{
-        display: flex;
-        justify-content: space-between;
         margin-bottom: 34px;
         @media (max-width: @screen-xs) {
             // justify-content: center;
             justify-content: flex-start;
-            height: 126px;
+            // height: 126px;
             padding-left: 14px;
             position: relative;
             margin-bottom: 16px;
