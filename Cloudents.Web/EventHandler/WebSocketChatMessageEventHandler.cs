@@ -45,6 +45,7 @@ namespace Cloudents.Web.EventHandler
                 SignalRAction.Add, new
                 {
                     conversationId = chatMessage.ChatRoom.Id,
+                    identifier = chatMessage.ChatRoom.Identifier,
                     message = BuildChatMessage((dynamic)chatMessage)
                 });
 
