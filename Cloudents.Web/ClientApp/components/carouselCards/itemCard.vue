@@ -134,6 +134,7 @@ export default {
             margin-bottom: 14px;
             display: flex;
             align-items: unset;
+            
             .userImg-item{
                 margin-right: 10px;
             }
@@ -142,6 +143,12 @@ export default {
             font-size: 12px;
             color: #43425d;
             min-width: 0;
+            display: table;
+            height: 100%;
+            .text-truncate {
+                display: table-cell;
+                vertical-align: middle;
+            }
         }
         .itemCard-bottom{
             display: flex;
