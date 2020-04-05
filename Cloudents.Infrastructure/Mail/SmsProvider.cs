@@ -13,7 +13,7 @@ namespace Cloudents.Infrastructure.Mail
     /// <summary>
     /// https://www.hadavar.co.il/wp-content/uploads/2016/07/SMS_API-v3-1.pdf
     /// </summary>
-    public sealed class SmsProvider : ISmsProvider, IDisposable
+    public sealed class SmsProvider : ISmsProvider
     {
         private readonly HttpClient _httpClient;
 
@@ -34,10 +34,10 @@ namespace Cloudents.Infrastructure.Mail
 
         }
 
-        public void Dispose()
-        {
-            _httpClient?.Dispose();
-        }
+        //public void Dispose()
+        //{
+        //    _httpClient?.Dispose();
+        //}
 
         private static string Serialize<T>(T value)
         {
