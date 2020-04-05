@@ -36,12 +36,12 @@ namespace Cloudents.Command.CommandHandler
 
             var students = message.StudentsId.Select(s => _userRepository.Load(s)).ToList();
             var usersId = message.StudentsId.Union(new[] { tutor.Id }).ToList();
-            var chatRoomIdentifier = ChatRoom.BuildChatRoomIdentifier(usersId);
 
             var chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(usersId, token);
             chatRoom.AddTextMessage(tutor, message.TextMessage);
 
-            var googleDocUrl = await _googleDocument.CreateOnlineDocAsync(chatRoomIdentifier, token);
+            var documentName = $"{message.Name}-{Guid.NewGuid().ToString()}";
+            var googleDocUrl = await _googleDocument.CreateOnlineDocAsync(documentName, token);
             tutor.AddFollowers(students);
             var studyRoom = new StudyRoom(tutor.Tutor, students, googleDocUrl, message.Name, message.Price);
             await _studyRoomRepository.AddAsync(studyRoom, token);
