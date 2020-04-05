@@ -53,7 +53,7 @@ namespace Cloudents.Core.Interfaces
         public static AssetType Thumbnail = new AssetType("video-thumbnail-");
         public static AssetType Short = new AssetType("video-short-");
         public static AssetType Long = new AssetType("video-");
-        //public static AssetType StudyRoom = new AssetType("video-studyRoom-");
+       // public static AssetType StudyRoom = new AssetType("video-studyRoom-");
 
         public override string ToString()
         {

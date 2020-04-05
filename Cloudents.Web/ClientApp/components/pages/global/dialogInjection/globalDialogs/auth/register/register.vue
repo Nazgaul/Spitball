@@ -265,13 +265,10 @@ export default {
                     });
                     analyticsService.sb_unitedEvent('Registration', 'Phone Submitted');
                     self.component = 'verifyPhone'
-                    self.errors.phone = ''
                 }).catch(error => {
                     let { response: { data } } = error
                     
-                    // if(data.Phone) self.errors.phone = self.$t('loginRegister_invalid_phone_number')
-
-                    self.errors.phone = data["PhoneNumber"] ? data["PhoneNumber"][0] : '' // TODO:
+                    self.errors.phone = data && data["PhoneNumber"] ? data["PhoneNumber"][0] : '' // TODO:
                     self.$appInsights.trackException({exception: new Error(error)});
                 })
         },
@@ -295,7 +292,7 @@ export default {
                     if(self.isFromTutorReuqest) {
                         self.$store.dispatch('updateRequestDialog', true);
                         self.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
-                        dispatch('userStatus')
+                        self.$store.dispatch('toggleProfileFollower', true)
                         return
                     }
 
@@ -312,7 +309,9 @@ export default {
                                     dialog: 'becomeTutor'
                                 }
                             })
+                            return
                         }
+                        self.$router.push({name: self.routeNames.LoginRedirect})
                     })
 				}).catch(error => {
                     self.errors.code = self.$t('loginRegister_invalid_code')

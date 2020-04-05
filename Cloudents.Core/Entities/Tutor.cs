@@ -11,7 +11,7 @@ namespace Cloudents.Core.Entities
     public class Tutor : Entity<long>
     {
         public const int MaximumPrice = 214748;
-        public const int MinimumPrice = 50;
+        public const int MinimumPrice = 35;
         public Tutor(string bio, User user, decimal? price) : this()
         {
             User = user ?? throw new ArgumentNullException(nameof(user));

@@ -10,15 +10,25 @@ function createConversationId(arrIds){
 }
 
 function Conversation(objInit){
-    this.userId = objInit.userId;
-    this.name = objInit.name;
-    this.unread = objInit.unread || 0;
-    this.online = objInit.online;
+    if(objInit.users !== undefined){
+        let unreads = objInit.users.map(u=>u.unread);
+        const reducer = (accumulator, currentValue) => accumulator + currentValue;
+        let isRoom = objInit.users.length > 1; 
+        
+        this.image = isRoom? '': objInit.users[0].image;
+        this.online = objInit.users.some(u=>u.online);
+        this.unread = unreads.reduce(reducer);
+        this.name = objInit.users.map(u=>u.name).join(" ,");
+    }else{
+        this.image = objInit.image;
+        this.online = objInit.online;
+        this.unread = objInit.unread;
+        this.name = objInit.name;
+    }
+    // this.userId = objInit.userId; TODO remove it globaly
     this.conversationId = objInit.conversationId;
-    this.dateTime = objInit.dateTime || new Date().toISOString();
-    this.image = objInit.image;
-    this.studyRoomId = objInit.studyRoomId;
     this.lastMessage = objInit.lastMessage || createLastImageMsg();
+    this.dateTime = objInit.dateTime || new Date().toISOString();
 }
 
 function createConversation(objInit){
@@ -70,14 +80,14 @@ function createMessage(objInit, id, fromSignalR){
     }
 }
 
-function ServerMessageObj(objInit){
-    this.message = objInit.message;
-    this.otherUser = objInit.otherUser;
-}
+// function ServerMessageObj(objInit){
+//     this.message = objInit.message;
+//     this.otherUser = objInit.otherUser;
+// }
 
-function createServerMessageObj(objInit){
-    return new ServerMessageObj(objInit);
-}
+// function createServerMessageObj(objInit){
+//     return new ServerMessageObj(objInit);
+// }
 
 const getAllConversations = () => {
     return connectivityModule.http.get(`Chat`);
@@ -96,9 +106,9 @@ const sendChatMessage = (messageObj) => {
     return connectivityModule.http.post(`Chat`, messageObj);
 };
 
-const clearUnread = (otherUserId) => {
+const clearUnread = (conversationId) => {
     let serverObj = {
-        otherUserId:otherUserId
+        conversationId:conversationId
     };
     return connectivityModule.http.post(`Chat/read`, serverObj);
 };
@@ -114,7 +124,7 @@ export default {
     getMessageById,
     createMessage,
     sendChatMessage,
-    createServerMessageObj,
+   // createServerMessageObj,
     clearUnread,
     createActiveConversationObj,
     createConversationId,

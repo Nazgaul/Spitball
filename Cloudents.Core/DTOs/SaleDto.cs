@@ -5,7 +5,7 @@ namespace Cloudents.Core.DTOs
     public abstract class SaleDto
     {
         public virtual ContentType Type { get; set; }
-        public virtual PaymentStatus PaymentStatus { get; set; }
+       // public virtual PaymentStatus PaymentStatus { get; set; }
         public DateTime Date { get; set; }
         public decimal Price { get; set; }
     }
@@ -17,7 +17,7 @@ namespace Cloudents.Core.DTOs
         public long Id { get; set; }
         public string Preview { get; set; }
         public string Url { get; set; }
-        public override PaymentStatus PaymentStatus => PaymentStatus.Paid;
+      //  public override PaymentStatus PaymentStatus => PaymentStatus.Approved;
     }
 
     public class QuestionSaleDto : SaleDto
@@ -26,11 +26,12 @@ namespace Cloudents.Core.DTOs
         public string Course { get; set; }
         public string Text { get; set; }
         public string AnswerText { get; set; }
-        public override PaymentStatus PaymentStatus => PaymentStatus.Paid;
+       // public override PaymentStatus PaymentStatus => PaymentStatus.Paid;
         public override ContentType Type => ContentType.Question;
     }
     public class SessionSaleDto : SaleDto
     {
+        public string StudyRoomName { get; set; }
         public Guid SessionId { get; set; }
         public string StudentName { get; set; }
         public TimeSpan Duration { get; set; }
@@ -41,13 +42,15 @@ namespace Cloudents.Core.DTOs
         public string StudentImage { get; set; }
         public long StudentId { get; set; }
         public override ContentType Type => ContentType.TutoringSession;
+
+        public virtual PaymentStatus PaymentStatus { get; set; }
     }
 
     public enum PaymentStatus
     {
-        PendingApproval,
-        Pending,
-        Paid
+        PendingSystem,
+        PendingTutor,
+        Approved
     }
     public enum ContentType
     {

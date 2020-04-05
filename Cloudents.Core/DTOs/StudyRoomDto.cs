@@ -20,13 +20,6 @@ namespace Cloudents.Core.DTOs
         public string? TutorImage { get; set; }
         [EntityBind(nameof(User.Name))]
         public string TutorName { get; set; }
-        [EntityBind(nameof(User.Id))]
-        public long StudentId { get; set; }
-        [EntityBind(nameof(User.ImageName))]
-        public string StudentImage { get; set; }
-        [EntityBind(nameof(User.Name))]
-        public string StudentName { get; set; }
-
 
         [EntityBind(nameof(User.PaymentExists), nameof(User.BuyerPayment.PaymentKeyExpiration))]
         public bool NeedPayment { get; set; }
@@ -47,14 +40,14 @@ namespace Cloudents.Core.DTOs
     public class UserStudyRoomDto
     {
         public string Name { get; set; }
-        public string? Image { get; set; }
-        public long UserId { get; set; }
-        public bool Online { get; set; }
+        //public string? Image { get; set; }
+        //public long UserId { get; set; }
+        //public bool Online { get; set; }
         public Guid Id { get; set; }
         public DateTime DateTime { get; set; }
 
         public string ConversationId { get; set; }
-        public DateTime LastSession { get; set; }
+        public DateTime? LastSession { get; set; }
 
     }
 }

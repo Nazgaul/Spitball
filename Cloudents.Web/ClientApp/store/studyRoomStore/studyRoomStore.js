@@ -1,7 +1,6 @@
 import studyRoomService from '../../services/studyRoomService.js';
 import {studyRoom_SETTERS} from '../constants/studyRoomConstants.js';
 import studyRoomRecordingService from '../../components/studyroom/studyRoomRecordingService.js'
-import analyticsService from '../../services/analytics.service'
 
 function _checkPayment(context) {
    let isTutor = context.getters.getRoomIsTutor;
@@ -21,7 +20,6 @@ const state = {
    roomIsActive: false,
    roomIsNeedPayment: false,
    roomTutor: {},
-   roomStudent: {},
    // TODO: change it to roomId after u clean all
    studyRoomId: null,
 
@@ -44,11 +42,6 @@ const mutations = {
          tutorImage: props.tutorImage,
          tutorPrice: props.tutorPrice,
       }
-      state.roomStudent = {
-         studentId: props.studentId,
-         studentImage: props.studentImage,
-         studentName: props.studentName,
-      }
       state.roomIsNeedPayment = props.needPayment;
       state.roomConversationId = props.conversationId;
       state.studyRoomId = props.roomId;
@@ -64,7 +57,6 @@ const mutations = {
       state.roomIsActive = false;
       state.roomIsNeedPayment = false;
       state.roomTutor = {};
-      state.roomStudent = {};
       state.studyRoomId = null;
       state.dialogRoomSettings = false;
       state.dialogEndSession = false;
@@ -79,7 +71,6 @@ const getters = {
    getRoomIsTutor: state => state.roomIsTutor,
    getRoomIsActive: state => state.roomIsActive,
    getRoomTutor: state => state.roomTutor,
-   getRoomStudent: state => state.roomStudent,
    getRoomIdSession: state => state.studyRoomId,
    getRoomConversationId: state => state.roomConversationId,
    getRoomIsNeedPayment: state => {
@@ -146,9 +137,11 @@ const actions = {
       })
       return Promise.resolve();
    },
-   updateEndTutorSession({ commit, state }) {
+   updateEndTutorSession({ commit, state ,getters}) {
       commit(studyRoom_SETTERS.ROOM_ACTIVE, false);
-      studyRoomRecordingService.stopRecord();
+      if(getters.getIsRecording){
+         studyRoomRecordingService.stopRecord();
+      }
       studyRoomService.endTutoringSession(state.studyRoomId).then(() => {
          commit(studyRoom_SETTERS.DIALOG_END_SESSION, false)
       })
@@ -157,19 +150,15 @@ const actions = {
       commit(studyRoom_SETTERS.ROOM_ACTIVE, false);
       commit(studyRoom_SETTERS.ROOM_RESET)
    },
-   updateCreateStudyRoom({getters,commit},user){
-      let userId = user.userId
-      return studyRoomService.createRoom(userId).then(({data})=>{
-         let currentTutor = getters.accountUser;
-         analyticsService.sb_unitedEvent('study_room', 'created', `tutorName: ${currentTutor.name} tutorId: ${currentTutor.id}`);
+   updateCreateStudyRoom({getters,commit},{users,roomName}){
+      let usersIds = users.map(user=> user.userId);
+      return studyRoomService.createRoom(roomName,usersIds).then(({data})=>{
+         usersIds.push(getters.accountUser.id)
          let newStudyRoomParams = {
-            name: user.name,
-            image: user.image,
-            userId,
-            conversationId: `${userId}_${currentTutor.id}`,
             date: new Date().toISOString(),
-            // online: false
             id: data.studyRoomId,
+            name: roomName,
+            conversationId: usersIds.sort((a,b)=>a-b).join('_'),
          }
          let myStudyRooms = getters.getStudyRoomItems;
          myStudyRooms.unshift(newStudyRoomParams);

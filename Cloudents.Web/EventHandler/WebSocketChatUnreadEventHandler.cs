@@ -21,14 +21,18 @@ namespace Cloudents.Web.EventHandler
         public async Task HandleAsync(ChatReadEvent eventMessage, CancellationToken token)
         {
             var chatUser = eventMessage.ChatUser;
-            var users = chatUser.ChatRoom.Users.Where(w => w.User.Id != chatUser.User.Id).Select(s => s.User.Id.ToString()).ToList();
-            var message = new SignalRTransportType(SignalRType.Chat,
-                SignalRAction.Update, new
-                {
-                    conversationId = chatUser.ChatRoom.Identifier
-                });
+            if (chatUser.ChatRoom.Users.All(s => s.Unread == 0))
+            {
+                var users = chatUser.ChatRoom.Users.Where(w => w.User.Id != chatUser.User.Id)
+                    .Select(s => s.User.Id.ToString()).ToList();
+                var message = new SignalRTransportType(SignalRType.Chat,
+                    SignalRAction.Update, new
+                    {
+                        conversationId = chatUser.ChatRoom.Identifier
+                    });
 
-            await _hubContext.Clients.Users(users).SendAsync(SbHub.MethodName, message, token);
+                await _hubContext.Clients.Users(users).SendAsync(SbHub.MethodName, message, token);
+            }
         }
     }
 }

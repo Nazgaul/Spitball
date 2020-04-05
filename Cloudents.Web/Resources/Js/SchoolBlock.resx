@@ -132,6 +132,9 @@
   <data name="dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
+  <data name="EnterStudyRoomTooltip" xml:space="preserve">
+    <value>Enter the study room</value>
+  </data>
   <data name="home" xml:space="preserve">
     <value>Home</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="purchases" xml:space="preserve">
     <value>My Purchases</value>
+  </data>
+  <data name="SendMessageTooltip" xml:space="preserve">
+    <value>Send message</value>
   </data>
   <data name="settings" xml:space="preserve">
     <value>Settings</value>

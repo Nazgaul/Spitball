@@ -111,7 +111,7 @@ namespace Cloudents.Admin2.Api
             CancellationToken token)
         {
             var command = new SendChatTextMessageCommand(model.Message, model.UserId,
-                model.TutorId);
+                model.TutorId, null);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
 
