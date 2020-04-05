@@ -33,6 +33,8 @@ namespace Cloudents.Core.DTOs
 
         public decimal TutorPrice { get; set; }
         public string Jwt { get; set; }
+
+        public DateTime? BroadcastTime { get; set; }
     };
 
 
