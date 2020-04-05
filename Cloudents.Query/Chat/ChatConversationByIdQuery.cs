@@ -9,13 +9,13 @@ namespace Cloudents.Query.Chat
 {
     public class ChatConversationByIdQuery : IQuery<IEnumerable<ChatMessageDto>>
     {
-        public ChatConversationByIdQuery(Guid conversationId, int page)
+        public ChatConversationByIdQuery(string conversationId, int page)
         {
             ConversationId = conversationId;
             Page = page;
         }
 
-        private Guid ConversationId { get; }
+        private string ConversationId { get; }
         private int Page { get; }
 
         internal sealed class ChatConversationByIdQueryHandler : IQueryHandler<ChatConversationByIdQuery, IEnumerable<ChatMessageDto>>
@@ -32,6 +32,8 @@ namespace Cloudents.Query.Chat
             {
                 using var conn = _repository.OpenConnection();
                 var result = new List<ChatMessageDto>();
+                Guid.TryParse(query.ConversationId, out var id2);
+
                 using (var reader = await conn.ExecuteReaderAsync(@"
 Select
 messageType as discriminator,
@@ -50,10 +52,10 @@ join sb.ChatRoom cr
 	on cm.ChatRoomId = cr.Id
 join sb.[user] u
 	on cm.UserId = u.Id
-where cr.Id = @Id
+where cr.Id = @Id2 or cr.Identifier = @Id
 order by cm.Id desc
 OFFSET @PageSize * @PageNumber ROWS 
-FETCH NEXT @PageSize ROWS ONLY;", new { Id = query.ConversationId, PageSize = 50, PageNumber = query.Page }))
+FETCH NEXT @PageSize ROWS ONLY;", new { Id = query.ConversationId, Id2 = id2, PageSize = 50, PageNumber = query.Page }))
                 {
                     if (!reader.Read()) return result;
                     var toMessage = reader.GetRowParser<ChatMessageDto>(typeof(ChatTextMessageDto));

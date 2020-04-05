@@ -76,12 +76,11 @@ namespace Cloudents.Web.Api
             {
                 return BadRequest();
             }
-
             return result;
         }
 
         [HttpGet("{id}")]
-        public async Task<IEnumerable<ChatMessageDto>> GetAsync(Guid id, int page,
+        public async Task<IEnumerable<ChatMessageDto>> GetAsync(string id, int page,
             CancellationToken token)
         {
             //specific conversation
