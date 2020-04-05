@@ -40,11 +40,12 @@ namespace Cloudents.Query.Users
             {
                 var r = _session.Query<Document>()
                     .WithOptions(w => w.SetComment(nameof(UserDocumentsQuery)))
-                    .Fetch(f => f.User)
-                    .Fetch(f => f.University)
+                    //.Fetch(f => f.User)
+                    //.Fetch(f => f.University)
                     .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok);
 
-                var count = _session.Query<Document>().Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok);
+                var count = _session.Query<Document>()
+                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok);
 
                 if (query.DocumentType != null)
                 {
@@ -63,18 +64,18 @@ namespace Cloudents.Query.Users
                 var result = r.Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
-                    User = new DocumentUserDto
-                    {
-                        Id = s.User.Id,
-                        Name = s.User.Name,
-                        Image = s.User.ImageName,
-                    },
+                    //User = new DocumentUserDto
+                    //{
+                    //    Id = s.User.Id,
+                    //    Name = s.User.Name,
+                    //    Image = s.User.ImageName,
+                    //},
                     DateTime = s.TimeStamp.UpdateTime,
                     Course = s.Course.Id,
                     Title = s.Name,
                     Views = s.Views,
                     Downloads = s.Downloads,
-                    University = s.University.Name,
+                  //  University = s.University.Name,
                     Snippet = s.Description ?? s.MetaContent,
                     Price = s.Price,
                     Vote = new VoteDto
