@@ -294,7 +294,7 @@ export default {
                     // this is when user start register from tutorRequest
                     if(self.isFromTutorReuqest) {
                         dispatch('userStatus')
-                        if(self.$route.path === '/') {
+                        if(self.$route.path === '/' || self.$route.path === '/learn') {
                             self.$router.push({name: this.routeNames.LoginRedirect})
                         }
                         self.$store.dispatch('updateRequestDialog', true);
