@@ -282,6 +282,7 @@ export default {
          border: 1px solid #e0e1e9;
          flex: 0 0 32%;
          width: 230px;
+         height: 100%;
       }
    }
    .profileItemBox_pagination{

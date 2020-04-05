@@ -173,12 +173,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
 
-        [Fact]
-        public async Task UserQuestionFeedDtoQueryHandler_Ok()
-        {
-            var query = new UserQuestionsByIdQuery(638, 0);
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Fact]
+        //public async Task UserQuestionFeedDtoQueryHandler_Ok()
+        //{
+        //    var query = new UserQuestionsByIdQuery(638, 0);
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         //[Fact]
         //public async Task UserAnswerFeedDtoQueryHandler_Ok()

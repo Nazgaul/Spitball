@@ -39,8 +39,9 @@ namespace Cloudents.Query.Documents
                                 where d.Id = :Id
                                 )
 
-                                select top 10 d.Id, d.UpdateTime as DateTime, d.CourseName as Course, d.Name as Title,  
-                                un.Name as University, 
+                                select top 10 d.Id, d.UpdateTime as DateTime, 
+                                d.CourseName as Course, d.Name as Title,  
+                                
                                 coalesce(d.Description, d.MetaContent) as Snippet, d.Views, d.Downloads, d.Price, 
                                 d.DocumentType, d.Duration,  
                                 (
@@ -54,13 +55,11 @@ namespace Cloudents.Query.Documents
                                 u.Id as [User.Id], u.Name as [User.Name], 
                                 u.ImageName as [User.Image]
                                 from sb.[Document] d 
-                                inner join sb.[User] u on d.UserId=u.Id 
-                                left outer join sb.[University] un on d.UniversityId=un.Id,
+                                inner join sb.[User] u on d.UserId=u.Id ,
                                 cte
                                 where d.CourseName = cte.CourseName and u.Country = cte.Country
                                 and d.Id != :Id and d.[State]='ok'
-                                order by case when d.UniversityId=cte.UniversityId
-                                then 1 else 0 end desc, d.DocumentType desc, d.UpdateTime desc;
+                                order by d.DocumentType desc, d.UpdateTime desc;
                                 ";
 
             var res = await _session.CreateSQLQuery(sql)

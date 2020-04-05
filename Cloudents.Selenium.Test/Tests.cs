@@ -684,7 +684,7 @@ namespace Cloudents.Selenium.Test
             {
                 driver.Manage().Window.Maximize();
 
-                var url = $"{_driver.SiteUrl.TrimEnd('/')}/profile/159489";
+                var url = $"{_driver.SiteUrl.TrimEnd('/')}/profile/159039";
                 driver.Navigate().GoToUrl(url);
 
                 // Make sure those elements exist
@@ -695,14 +695,23 @@ namespace Cloudents.Selenium.Test
                 driver.FindElementByWait(By.XPath("//*[@class='profileReviewsBox']"));
                 driver.FindElementByWait(By.XPath("//*[@class='profileUserSticky_btns']//button"));
                 driver.FindElementByWait(By.XPath("//button[contains(@class, 'followBtn')]"));
-                driver.FindElementByWait(By.XPath("//*[@sel='coupon']"));
-
+                var coupon = driver.FindElementByWait(By.XPath("//*[@sel='coupon']"));
+                
                 var comboBoxes = driver.FindElements(By.XPath("//*[@class='v-input__control']"));
 
                 foreach(var comboBox in comboBoxes)
                 {
                     comboBox.Click();
                 }
+
+                coupon.Click();
+                driver.FindElementByWait(By.XPath("//*[@class='registerDialog wrapper']"));
+                Login(driver, "elad13@cloudents.com");
+                driver.FindElementByWait(By.XPath("//*[@class='dashboardMain mr-md-6']"));
+                driver.Navigate().GoToUrl(url);
+                coupon = driver.FindElementByWait(By.XPath("//*[@sel='coupon']"));
+                coupon.Click();
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'coupon-dialog')]"));
             }
 
         }
