@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Cloudents.Command.Command
 {
     public class ResetUnreadInChatCommand : ICommand
     {
-        public ResetUnreadInChatCommand(long userSendingId, string identifier)
+        public ResetUnreadInChatCommand(long userSendingId, Guid identifier)
         {
             UserSendingId = userSendingId;
             Identifier = identifier;
@@ -14,6 +15,6 @@ namespace Cloudents.Command.Command
 
         // public string Blob { get; }
 
-        public string Identifier { get; }
+        public Guid Identifier { get; }
     }
 }
