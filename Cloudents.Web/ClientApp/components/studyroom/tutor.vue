@@ -607,10 +607,8 @@ watch: {
     },
     setStudyRoom() {
       this.initMathjax()
-      debugger;
       let self = this;
       this.getChatById(this.$store.getters.getRoomConversationId).then(({ data }) => {
-debugger;
         insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_ChatById', data, null)
         let currentConversationObj = chatService.createActiveConversationObj(data);
         self.setActiveConversationObj(currentConversationObj);
