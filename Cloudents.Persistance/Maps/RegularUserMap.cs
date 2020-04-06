@@ -43,6 +43,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.FirstName);
             Map(x => x.LastName);
             Map(x => x.Description);
+            Map(x => x.CoverImage);
 
             Component(x => x.BuyerPayment, y =>
             {
