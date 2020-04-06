@@ -110,6 +110,10 @@ export default {
 }
 .coverupload {
   background-color: rgba(255, 255, 255, 0.38);
+  padding: 4px;
   z-index: 2;
+    @media (max-width: @screen-xs) {
+    position: absolute; // temporary for mobile version till new design
+  }
 }
 </style>
