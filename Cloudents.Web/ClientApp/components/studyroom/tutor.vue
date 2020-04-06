@@ -92,8 +92,7 @@
               >
                 <span v-language:inner>tutor_option_videoChat</span>
               </v-btn>
-              <v-btn
-                :disabled="!getIsFullScreenAvailable"
+              <v-btn style="visibility: hidden;" 
                 @click="selectViewOption(enumViewOptions.fullScreenVideo)"
                 class="control-btn text-capitalize elevation-0 cursor-pointer"
                 :input-value="activeViewOption == enumViewOptions.fullScreenVideo"
@@ -402,7 +401,6 @@ export default {
 
   computed: {
     ...mapGetters([
-      "getIsFullScreenAvailable",
       "getDialogTutorStart",
       "getRoomIsNeedPayment",
       "getDialogUserConsent",
