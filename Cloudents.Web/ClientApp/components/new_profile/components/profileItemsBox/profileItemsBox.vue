@@ -279,6 +279,7 @@ export default {
    .profileItemsBox_content{
       width: 100%;
       display: flex;
+      justify-content: center;
       flex-flow: row wrap;
       display: grid;
       box-sizing: border-box;
