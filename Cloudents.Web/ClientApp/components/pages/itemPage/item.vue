@@ -10,106 +10,69 @@
               :email="shareContentParams.email"/>
 
             </div>
-            <div class="itemPage__main__document">
-                
-                <mainItem :isLoad="isLoad" :document="document"></mainItem>
-                <div>
-                     <!-- || isVideo -->
- <v-btn 
-                class="itemPage__side__btn white--text"
-                depressed
-                block
-                rounded
-                large
-                :loading="isLoading"
-                @click="openPurchaseDialog"
-                v-if="!getIsPurchased"
-                color="#4c59ff">
-                    <span v-if="isVideo" v-t="'documentPage_unlock_video_btn'"></span>
-                    <span v-else v-t="'documentPage_unlock_document_btn'"></span>
-            </v-btn>
-            <v-btn
-                v-else
-                large
-                tag="a"
-                :href="`${$route.path}/download`"
-                target="_blank"
-                :loading="isLoading"
-                class="itemPage__side__btn white--text"
-                depressed block rounded @click="downloadDoc" color="#4c59ff">
-                <span v-t="'documentPage_download_btn'"></span>
-            </v-btn>
 
-                    <!-- <v-btn v-if="!getIsPurchased" v-t="'documentPage_download_btn'"></v-btn> -->
-                            <!-- <template v-if="!zeroPrice && !isPurchased">
-                        <div class="itemPage__side__top">
-                            <div >{{priceWithComma}}</div>
-                            <span v-t="'documentPage_points'"></span>
-                        </div>
-                        <div v-t="'documentPage_credit_uploader'"></div>
-                    </template>
-                    {{getIsPurchased}}
-                    {{getDocumentPrice}}
-                            For btn and points -->
-                </div>
+            <div class="itemPage__main__document">
+                <mainItem :isLoad="isLoad" :document="document"></mainItem>
+
+                <v-card class="itemActions pt-11 px-4 elevation-0">
+                    <div class="wrapper d-flex justify-end pb-4">
+                        <template v-if="getDocumentPrice && !getIsPurchased">
+                            <div class="d-flex align-end mr-4">
+                                <div class="mr-1 price">{{priceWithComma}}</div>
+                                <span class="points" v-t="'documentPage_points'"></span>
+                            </div>
+                            <!-- <div v-t="'documentPage_credit_uploader'"></div> -->
+                        </template>
+                        <v-btn 
+                            class="itemPage__side__btn white--text"
+                            depressed
+                            rounded
+                            large
+                            :loading="getBtnLoading"
+                            @click="openPurchaseDialog"
+                            v-if="!getIsPurchased"
+                            height="42"
+                            width="215"
+                            color="#4c59ff">
+                                <span v-if="isVideo" v-t="'documentPage_unlock_video_btn'"></span>
+                                <span v-else v-t="'documentPage_unlock_document_btn'"></span>
+                        </v-btn>
+                        <v-btn
+                            v-else
+                            large
+                            tag="a"
+                            :href="`${$route.path}/download`"
+                            target="_blank"
+                            :loading="getBtnLoading"
+                            class="itemPage__side__btn white--text"
+                            width="215"
+                            height="42"
+                            depressed block rounded @click="downloadDoc" color="#4c59ff">
+                            <span v-t="'documentPage_download_btn'"></span>
+                        </v-btn>
+                    </div>
+                </v-card>
+
                 <resultNote v-if="doucmentDetails.feedItem" class="itemPage__main__document__doc" :item="doucmentDetails.feedItem" :fromItemPage="true">
-                    <template #arrowBack>
-                        <!--TODO not good-->
+                    <!-- <template #arrowBack>
                         <v-icon
                             class="hidden-md-and-up document-header-large-sagment--arrow" 
                             @click="closeDocument" 
                             v-html="'sbf-arrow-left-carousel'">
                         </v-icon>
-                    </template>
-
-                    <!-- <template #isTutor v-if="docTutor.isTutor">
-                        <div class="itemPage__main__document__tutor mt-4">
-                            <div
-                                class="mr-3 itemPage__main__document__tutor__link"
-                            >
-                                <div class="itemPage__main__document__tutor__link--title1" v-language:inner="'documentPage_need_help1'" @click="moveDownToTutorItem"></div>
-                                <div class="itemPage__main__document__tutor__link--title2" v-html="$Ph('documentPage_need_help2', firstName)"></div>
-                            </div>
-                            <v-btn v-if="!isMyProfile" class="itemPage__main__document__tutor--btn ma-0" depressed rounded @click="sendMessage">
-                                <div v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
-                            </v-btn>
-                        </div>
                     </template> -->
                 </resultNote>
+
                 <template v-else>
-                    <v-sheet
-                        color="#fff"
-                        class="pb-2 skeletonWarp"
-                    >
-                        <v-skeleton-loader
-                            max-width="250"
-                            type="list-item-avatar-two-line"
-                        >
-                        </v-skeleton-loader>
-                        <v-skeleton-loader
-                            max-width="500"
-                            type="list-item-three-line, list-item"
-                        >
-                        </v-skeleton-loader>
+                    <v-sheet color="#fff" class="pb-2 skeletonWarp">
+                        <v-skeleton-loader max-width="250" type="list-item-avatar-two-line"></v-skeleton-loader>
+                        <v-skeleton-loader max-width="500" type="list-item-three-line, list-item"></v-skeleton-loader>
                     </v-sheet>
                 </template>
-            <!-- <template v-if="$vuetify.breakpoint.mdAndDown && getDocumentDetails">    
-                <shareContent :link="shareContentParams.link"
-              :twitter="shareContentParams.twitter"
-              :whatsApp="shareContentParams.whatsApp"
-              :email="shareContentParams.email" class="mt-4"/>
-            </template> -->
             </div>
-                    
-
-
-            <!-- <template v-if="$vuetify.breakpoint.mdAndDown">    
-                <whyUs :document="document"></whyUs>
-            </template> -->
 
             <div v-if="itemList.length" class="itemPage__main__carousel" :class="{'itemPage__main__carousel--margin': !docTutor && !docTutor.isTutor && $vuetify.breakpoint.xsOnly}">
                 <div class="itemPage__main__carousel__header">
-                    
                     <div class="itemPage__main__carousel__header__title" v-language:inner="'documentPage_related_content'"></div>
                     <router-link 
                         v-language:inner="'documentPage_full_list'"
@@ -127,21 +90,17 @@
                 </sbCarousel>
             </div>
 
-            <div class="itemPage__main__tutorCard" v-if="docTutor.isTutor" 
-            :class="{'itemPage__main__tutorCard--margin': docTutor.isTutor && $vuetify.breakpoint.xsOnly, 'itemPage__main__tutorCard--marginT': !itemList.length}">
-                    <tutorResultCardMobile v-if="$vuetify.breakpoint.xsOnly" :tutorData="docTutor"></tutorResultCardMobile>
-                    <tutorResultCard v-else :tutorData="docTutor"></tutorResultCard>
+            <div 
+                class="itemPage__main__tutorCard"
+                v-if="docTutor.isTutor"
+                :class="{'itemPage__main__tutorCard--margin': docTutor.isTutor && $vuetify.breakpoint.xsOnly, 'itemPage__main__tutorCard--marginT': !itemList.length}"
+            >
+                <tutorResultCardMobile v-if="$vuetify.breakpoint.xsOnly" :tutorData="docTutor"></tutorResultCardMobile>
+                <tutorResultCard v-else :tutorData="docTutor"></tutorResultCard>
             </div>
-            <mobileUnlockDownload :sticky="true" v-if="$vuetify.breakpoint.md || $vuetify.breakpoint.sm" :document="document"></mobileUnlockDownload>
+            <!-- <mobileUnlockDownload :sticky="true" v-if="$vuetify.breakpoint.md || $vuetify.breakpoint.sm" :document="document"></mobileUnlockDownload> -->
         </div>
-        <!-- <div v-if="$vuetify.breakpoint.lgAndUp" :class="['sticky-item',{'sticky-item_bannerActive':getBannerParams}]">
-            <whyUsDesktop class="mb-2" :document="document"></whyUsDesktop>
-            <shareContent v-if="getDocumentDetails" :link="shareContentParams.link"
-              :twitter="shareContentParams.twitter"
-              :whatsApp="shareContentParams.whatsApp"
-              :email="shareContentParams.email"/>
-        </div> -->
-        <mobileUnlockDownload v-if="$vuetify.breakpoint.xsOnly" :document="document"></mobileUnlockDownload>
+        <!-- <mobileUnlockDownload v-if="$vuetify.breakpoint.xsOnly" :document="document"></mobileUnlockDownload> -->
         <unlockDialog :document="document"></unlockDialog>
         <v-snackbar
             v-model="snackbar"
@@ -223,10 +182,19 @@ export default {
         },
     },
     computed: {
-        ...mapGetters(['getBannerParams','accountUser', 'getDocumentDetails',
-        "getDocumentName", "getDocumentPrice", "getIsPurchased",
-         'getRelatedDocuments', 'getRouteStack',
-          'getPurchaseConfirmation', 'getShowItemToaster']),
+        ...mapGetters([
+            'getBannerParams',
+            'accountUser',
+            'getDocumentDetails',
+            'getDocumentName',
+            'getDocumentPrice',
+            'getIsPurchased',
+            'getRelatedDocuments',
+            'getRouteStack',
+            'getPurchaseConfirmation',
+            'getShowItemToaster',
+            'getBtnLoading',
+        ]),
         shareContentParams(){
             let urlLink = `${global.location.origin}/d/${this.$route.params.id}?t=${Date.now()}` ;
             let itemType = this.getDocumentDetails.documentType;
@@ -306,6 +274,15 @@ export default {
             }
             return false;
         },
+        isVideo() {
+            return this.document.documentType === 'Video';
+        },
+        priceWithComma() {
+            if(this.document && this.document.details) {
+                return this.document.details.price.toLocaleString();
+            }
+            return null
+        },
     },
         methods: {
         ...mapActions([
@@ -318,6 +295,7 @@ export default {
             'setActiveConversationObj',
             'openChatInterface',
             'updateItemToaster',
+            'updatePurchaseConfirmation',
         ]),
         
         enterItemCard(vueElm){
@@ -377,7 +355,14 @@ export default {
         openBuyTokenDialog() {
             this.updateItemToaster(false);
             this.$openDialog(dialogNames.BuyPoints);
-        }
+        },
+        openPurchaseDialog() {
+            if(this.accountUser) {
+                this.updatePurchaseConfirmation(true)
+            } else {
+                this.$store.commit('setComponent', 'register')
+            }
+        },
     },
     beforeDestroy(){
         this.clearDocument();
@@ -417,9 +402,6 @@ export default {
         position: relative;
         margin: 0 auto;
         max-width: 960px;
-      //  display: flex;
-//        justify-content: center;
-
         @media (max-width: @screen-md) {
             margin: 20px;
         }
@@ -427,10 +409,6 @@ export default {
             margin: 0;
             display: block;
         }
-        
-        // &--noTutor {
-        //     margin-bottom: 80px;
-        // }
         .sticky-item{
             position: sticky;
             height: fit-content;
@@ -440,22 +418,29 @@ export default {
             }
         }
         &__main {
-//            max-width: 720px;
-//            width: 100%;
-          //  margin-right: 33px;
             @media (max-width: @screen-sm) {
                 margin-right: 0;
                 max-width: auto;
             }
             &__document {
-                //margin-bottom: 16px;
-               // max-width: 720px;
                 width: 100%;
-                //background: #fff;
                 margin: 0 auto 16px;
 
                 @media (max-width: @screen-sm) {
                     width: auto;
+                }
+                .itemActions {
+                    color: @global-purple;
+                    .wrapper {
+                        border-bottom: 1px solid #ddd;
+                        font-weight: 600;
+                        .price {
+                            .responsive-property(font-size, 30px, null, 64px);                
+                        }
+                        .points {
+                            .responsive-property(font-size, 14px, null, 64px);
+                        }
+                    }
                 }
                 &__doc {
                     padding: 12px 16px 12px 12px;

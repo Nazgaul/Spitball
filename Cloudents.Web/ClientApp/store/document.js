@@ -38,10 +38,14 @@ const getters = {
         if (_getter._getDocumentLoaded) {
             return  false
         }
-        state.document.details.isPurchased || _getter.getDocumentPrice === 0
+        state.document.details?.isPurchased || _getter.getDocumentPrice === 0
     },
-
-    getBtnLoading: state => state.btnLoading,
+    getBtnLoading: (state, _getter) => {
+        if (_getter._getDocumentLoaded) {
+            return state.btnLoading
+        }
+        return false
+    },
     getPurchaseConfirmation: state => state.showPurchaseConfirmation,
     getDocumentLoaded: state => state.documentLoaded,
     getRelatedDocuments: state => state.itemsList,
