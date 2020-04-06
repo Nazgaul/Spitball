@@ -7,7 +7,7 @@
         </template>
         <div v-if="!isLoad && videoLoader">
             <template v-if="isVideo && videoSrc">
-                <div style="margin: 0 auto;background:black" class="text-center mainItem__item mb-3">
+                <div style="margin: 0 auto;background:black" class="text-center mainItem__item">
                 <v-fade-transition>
                     <unlockItem v-if="showAfterVideo && !isPurchased" :type="document.documentType"/>
                 </v-fade-transition>
@@ -165,7 +165,7 @@ export default {
             }
         },
         calculateWidthByScreenSize(){
-            let width = global.innerWidth < 960 ? global.innerWidth : 703;
+            let width = Math.min(global.innerWidth,945);
             if(this.$vuetify.breakpoint.width >= 1264 && this.$vuetify.breakpoint.width <= 1410) {
                 width = 550;
             }
@@ -239,9 +239,12 @@ export default {
         }
         &__item {
             position: relative;
+            background: #fff;
             &__wrap {
                 position: relative;
                 height: 100%;
+                max-width: 720px;
+                margin: 0 auto;
                 .sbCarousel {
                     div:first-child {
                         height: 100% !important;

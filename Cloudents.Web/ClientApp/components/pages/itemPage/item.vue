@@ -1,7 +1,57 @@
 <template>
-    <div class="itemPage mt-6" :class="{'itemPage--noTutor': !docTutor.isTutor}">
+    <div class="itemPage mt-6">
+
         <div class="itemPage__main">
+            <div class="d-flex justify-space-between documentTitle">
+               <h1 class="pl-4"> {{getDocumentName}}</h1>
+                 <shareContent v-if="getDocumentDetails" :link="shareContentParams.link"
+              :twitter="shareContentParams.twitter"
+              :whatsApp="shareContentParams.whatsApp"
+              :email="shareContentParams.email"/>
+
+            </div>
             <div class="itemPage__main__document">
+                
+                <mainItem :isLoad="isLoad" :document="document"></mainItem>
+                <div>
+                     <!-- || isVideo -->
+ <v-btn 
+                class="itemPage__side__btn white--text"
+                depressed
+                block
+                rounded
+                large
+                :loading="isLoading"
+                @click="openPurchaseDialog"
+                v-if="!getIsPurchased"
+                color="#4c59ff">
+                    <span v-if="isVideo" v-t="'documentPage_unlock_video_btn'"></span>
+                    <span v-else v-t="'documentPage_unlock_document_btn'"></span>
+            </v-btn>
+            <v-btn
+                v-else
+                large
+                tag="a"
+                :href="`${$route.path}/download`"
+                target="_blank"
+                :loading="isLoading"
+                class="itemPage__side__btn white--text"
+                depressed block rounded @click="downloadDoc" color="#4c59ff">
+                <span v-t="'documentPage_download_btn'"></span>
+            </v-btn>
+
+                    <!-- <v-btn v-if="!getIsPurchased" v-t="'documentPage_download_btn'"></v-btn> -->
+                            <!-- <template v-if="!zeroPrice && !isPurchased">
+                        <div class="itemPage__side__top">
+                            <div >{{priceWithComma}}</div>
+                            <span v-t="'documentPage_points'"></span>
+                        </div>
+                        <div v-t="'documentPage_credit_uploader'"></div>
+                    </template>
+                    {{getIsPurchased}}
+                    {{getDocumentPrice}}
+                            For btn and points -->
+                </div>
                 <resultNote v-if="doucmentDetails.feedItem" class="itemPage__main__document__doc" :item="doucmentDetails.feedItem" :fromItemPage="true">
                     <template #arrowBack>
                         <!--TODO not good-->
@@ -12,7 +62,7 @@
                         </v-icon>
                     </template>
 
-                    <template #isTutor v-if="docTutor.isTutor">
+                    <!-- <template #isTutor v-if="docTutor.isTutor">
                         <div class="itemPage__main__document__tutor mt-4">
                             <div
                                 class="mr-3 itemPage__main__document__tutor__link"
@@ -24,7 +74,7 @@
                                 <div v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
                             </v-btn>
                         </div>
-                    </template>
+                    </template> -->
                 </resultNote>
                 <template v-else>
                     <v-sheet
@@ -43,19 +93,19 @@
                         </v-skeleton-loader>
                     </v-sheet>
                 </template>
-            <template v-if="$vuetify.breakpoint.mdAndDown && getDocumentDetails">    
+            <!-- <template v-if="$vuetify.breakpoint.mdAndDown && getDocumentDetails">    
                 <shareContent :link="shareContentParams.link"
               :twitter="shareContentParams.twitter"
               :whatsApp="shareContentParams.whatsApp"
               :email="shareContentParams.email" class="mt-4"/>
-            </template>
+            </template> -->
             </div>
                     
-            <mainItem :isLoad="isLoad" :document="document"></mainItem>
 
-            <template v-if="$vuetify.breakpoint.mdAndDown">    
+
+            <!-- <template v-if="$vuetify.breakpoint.mdAndDown">    
                 <whyUs :document="document"></whyUs>
-            </template>
+            </template> -->
 
             <div v-if="itemList.length" class="itemPage__main__carousel" :class="{'itemPage__main__carousel--margin': !docTutor && !docTutor.isTutor && $vuetify.breakpoint.xsOnly}">
                 <div class="itemPage__main__carousel__header">
@@ -173,7 +223,10 @@ export default {
         },
     },
     computed: {
-        ...mapGetters(['getBannerParams','accountUser', 'getDocumentDetails', 'getRelatedDocuments', 'getRouteStack', 'getPurchaseConfirmation', 'getShowItemToaster']),
+        ...mapGetters(['getBannerParams','accountUser', 'getDocumentDetails',
+        "getDocumentName", "getDocumentPrice", "getIsPurchased",
+         'getRelatedDocuments', 'getRouteStack',
+          'getPurchaseConfirmation', 'getShowItemToaster']),
         shareContentParams(){
             let urlLink = `${global.location.origin}/d/${this.$route.params.id}?t=${Date.now()}` ;
             let itemType = this.getDocumentDetails.documentType;
@@ -347,9 +400,25 @@ export default {
     @import '../../../styles/mixin';
 
     .itemPage {
+        .documentTitle {
+            background: #fff;
+            & > div {
+                .flexSameSize();
+              
+            }
+            & > h1 {
+                .flexSameSize();
+                  font-size: 18px;
+                font-weight: 600;
+                color: #43425d;
+                align-self: center;
+            }
+        }
         position: relative;
-        display: flex;
-        justify-content: center;
+        margin: 0 auto;
+        max-width: 960px;
+      //  display: flex;
+//        justify-content: center;
 
         @media (max-width: @screen-md) {
             margin: 20px;
@@ -359,9 +428,9 @@ export default {
             display: block;
         }
         
-        &--noTutor {
-            margin-bottom: 80px;
-        }
+        // &--noTutor {
+        //     margin-bottom: 80px;
+        // }
         .sticky-item{
             position: sticky;
             height: fit-content;
@@ -371,17 +440,19 @@ export default {
             }
         }
         &__main {
-            max-width: 720px;
-            width: 100%;
-            margin-right: 33px;
+//            max-width: 720px;
+//            width: 100%;
+          //  margin-right: 33px;
             @media (max-width: @screen-sm) {
                 margin-right: 0;
                 max-width: auto;
             }
             &__document {
-                margin-bottom: 16px;
-                max-width: 720px;
+                //margin-bottom: 16px;
+               // max-width: 720px;
                 width: 100%;
+                //background: #fff;
+                margin: 0 auto 16px;
 
                 @media (max-width: @screen-sm) {
                     width: auto;

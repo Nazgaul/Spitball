@@ -5,7 +5,7 @@
             <v-skeleton-loader type="image" width="100%" v-if="loading"></v-skeleton-loader>
             <img class="img" @load="onLoad" v-show="!loading" :src="publishImage" alt="">
             <div class="shareIt my-3 text-left">{{$t('promote_shareIt')}}</div>
-            <shareContent 
+            <shareContent  :defaultStyle="true"
               :link="shareContentParams.link"
               :twitter="shareContentParams.twitter"
               :whatsApp="shareContentParams.whatsApp"
