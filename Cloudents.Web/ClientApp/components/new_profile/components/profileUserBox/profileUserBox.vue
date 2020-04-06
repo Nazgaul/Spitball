@@ -9,7 +9,7 @@
             <div class="profileUserBox_top_mobile_bottom">
                 <div class="profileUserBox_top_mobile_right">
                     <h1 class="profileUserBox_top_mobile_userName text-truncate">
-                        <span v-if="currentProfileUser.isTutor" v-language:inner="'profile_tutor'"/>
+                        <span v-if="currentProfileUser.isTutor" v-t="'profile_tutor'"/>
                         {{currentProfileUser.name}}
                     </h1>
                 </div>
@@ -66,7 +66,7 @@
                             </div>
                             <div v-else class="pUb_dS_c_rating">
                                 <starEmptySVG class="pUb_dS_c_rating_star"/>
-                                <span class="no-reviews font-weight-bold caption" v-language:inner="'resultTutor_no_reviews'"></span>
+                                <span class="no-reviews font-weight-bold caption" v-t="'resultTutor_no_reviews'"></span>
                             </div>
                         </template>
                         <div class="ml-3 ml-sm-5">
@@ -97,7 +97,7 @@
                 <div class="profileUserSticky_btns d-flex justify-space-between align-end" v-if="currentProfileUser.isTutor">
                     <v-btn sel="send" height="42" width="246" :disabled="isCurrentProfileUser" class="profileUserSticky_btn white--text" :class="{'isMyProfile': isCurrentProfileUser}" depressed rounded color="#4c59ff" @click="globalFunctions.sendMessage">
                         <chatSVG class="profileUserSticky_btn_icon"/>
-                        <div class="profileUserSticky_btn_txt" v-language:inner="'profile_send_message'"/>
+                        <div class="profileUserSticky_btn_txt" v-t="'profile_send_message'"/>
                     </v-btn>
                     <div :class="{'flex-grow-1 ml-3': isCurrentProfileUser || !getProfile.user.calendarShared}">
                         <div class="d-flex justify-space-between align-end">
@@ -107,13 +107,13 @@
                                     {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
                                 </v-flex>
                                 <v-flex class="profileUserSticky_pricing_price">
-                                    <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserSticky_pricing_price_hour" v-language:inner="'profile_points_hour'"/>
+                                    <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
                                 </v-flex>
                             </div>
                         </div>
                         <v-btn sel="calendar" height="42" width="246" :disabled="isCurrentProfileUser" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isCurrentProfileUser || !getProfile.user.calendarShared}" class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-2" depressed rounded color="white">
                             <calendarSVG width="20" class="profileUserSticky_btn_icon"/>
-                            <div class="profileUserSticky_btn_txt" v-language:inner="'profile_book_session'"/>
+                            <div class="profileUserSticky_btn_txt" v-t="'profile_book_session'"/>
                         </v-btn>
                     </div>
                 </div>
@@ -125,28 +125,28 @@
                 <followersSvg class="mt-3" width="26" />
                 <div class="ml-3" @click="isMobile ? scrollToReviews():''" >
                     <div class="number text-left">{{currentProfileUser.followers}}</div>
-                    <div class="type">{{$tc('profile_tutor_followers')}}</div>
+                    <div class="type">{{$tc('profile_tutor_follower', currentProfileUser.followers)}}</div>
                 </div>
             </v-col>
             <v-col class="bottomBox d-flex align-center justify-center">
                 <onlineLessonSVG class="mt-3" width="20" />
                 <div class="ml-3">
                     <div class="number text-left">{{currentProfileTutor.lessons}}</div>
-                    <div class="type" v-t="'profile_sessions'"></div>
+                    <div class="type" v-t="''">{{$tc('profile_session', currentProfileTutor.lessons)}}</div>
                 </div>
             </v-col>
             <v-col class="bottomBox d-flex align-center justify-center">
                 <studentsSVG class="mt-3" width="26" />
                 <div class="ml-3">
                     <div class="number text-left">{{currentProfileTutor.students}}</div>
-                    <div class="type" v-t="'profile_session'"></div>
+                    <div class="type">{{$tc('profile_student', currentProfileTutor.students)}}</div>
                 </div>
             </v-col>
             <v-col class="bottomBox d-flex align-center justify-center">
                 <starSVG class="mt-3" width="26" />
                 <div class="ml-3">
                     <div class="number text-left">{{currentProfileTutor.reviewCount}}</div>
-                    <div class="type">{{$tc('resultTutor_review_one',currentProfileTutor.reviewCount)}}</div>
+                    <div class="type">{{$tc('profile_reviews',currentProfileTutor.reviewCount)}}</div>
                 </div>
             </v-col>
         </v-row>
