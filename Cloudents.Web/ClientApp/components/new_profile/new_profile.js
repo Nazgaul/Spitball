@@ -135,7 +135,7 @@ export default {
                 type:'documents',
                 params:{
                     page: 0,
-                    pageSize:this.$vuetify.breakpoint.xsOnly? 3 : 6,
+                    pageSize:this.$vuetify.breakpoint.xsOnly? 3 : 8,
                 }
             }
             this.syncProfile(syncObj);
