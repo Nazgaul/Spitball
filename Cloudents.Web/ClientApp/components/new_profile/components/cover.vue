@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex">
     <!--Should be nice to have quiet attribute-->
-    <img v-resize="onResize" class="coverPhoto" :src="getCoverImage" />
+    <img v-resize.quiet="onResize" class="coverPhoto" :src="getCoverImage" />
     <div class="coverupload" v-if="isCurrentProfileUser">
       <input
         class="profile-upload"
