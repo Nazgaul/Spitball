@@ -12,17 +12,17 @@
         class="mb-2 mb-sm-3 shareContentProfile"
         v-if="getProfile"
       />
-      <calendarTab v-if="showProfileCalendar" class="mb-6 mt-sm-12 mt-2  mx-auto calendarSection" :globalFunctions="globalFunctions" />
+      <calendarTab v-if="showProfileCalendar" class="mt-sm-12 mt-2 mx-auto calendarSection" :globalFunctions="globalFunctions" />
       <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" />
       <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" />
       <profileItemsBox v-if="showItems" class="mt-sm-12 mt-2" />
       <profileEarnMoney class="mt-0 mt-sm-5" v-if="showEarnMoney" />
       <profileItemsEmpty class="mt-0 mt-sm-5 mb-2 mb-sm-4" v-show="showItemsEmpty" />
       <profileReviewsBox v-if="showReviewBox" class="mt-sm-10 mt-2" />
-      <profileUserStickyMobile
+      <!-- <profileUserStickyMobile
         :globalFunctions="globalFunctions"
         v-if="$vuetify.breakpoint.mdAndDown"
-      />
+      /> -->
     </div>
     <!-- SIDE -->
     <!-- <div :class="['profile-sticky',{'profileUserSticky_bannerActive':getBannerParams}]">
@@ -105,7 +105,7 @@
   }
   @media (max-width: @screen-xs) {
     margin: 0;
-    margin-bottom: 40px;
+    // margin-bottom: 40px;
     display: block;
   }
   .profile-sticky {
@@ -135,7 +135,7 @@
       @media (max-width: @screen-xs) {
         margin-left: 0;
         padding: 0;
-        margin-bottom: 60px;
+        // margin-bottom: 60px;
       }
       .question-container {
         margin: unset;

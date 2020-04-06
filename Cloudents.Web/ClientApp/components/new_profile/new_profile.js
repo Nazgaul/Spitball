@@ -10,7 +10,7 @@ import chatService from '../../services/chatService.js';
 import profileUserBox from './components/profileUserBox/profileUserBox.vue';
 import profileDialogs from './components/profileDialogs/profileDialogs.vue';
 import profileUserSticky from './components/profileUserSticky/profileUserSticky.vue';
-import profileUserStickyMobile from './components/profileUserSticky/profileUserStickyMobile.vue';
+// import profileUserStickyMobile from './components/profileUserSticky/profileUserStickyMobile.vue';
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
 import profileEarnMoney from './components/profileEarnMoney/profileEarnMoney.vue';
 import profileBecomeTutor from './components/profileBecomeTutor/profileBecomeTutor.vue';
@@ -29,7 +29,7 @@ export default {
         profileUserBox,
         profileDialogs,
         profileUserSticky,
-        profileUserStickyMobile,
+        // profileUserStickyMobile,
         profileReviewsBox,
         profileEarnMoney,
         profileBecomeTutor,

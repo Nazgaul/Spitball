@@ -26,7 +26,7 @@
 
         <div class="profileUserBox_top d-block d-sm-flex justify-space-between">
             
-            <div class="leftSide mr-sm-6 d-flex justify-center">
+            <div class="leftSide mr-sm-6 mb-2 mb-sm-0 d-flex justify-center">
                 <div class="pUb_dot" v-if="isOnline"></div>
                 <uploadImage sel="photo" class="pUb_edit_img" v-if="isCurrentProfileUser" />
                 <userAvatarRect
@@ -77,7 +77,7 @@
                     </div>
 
                     <!-- TUTOR BIO -->
-                    <h4 v-if="currentProfileTutor.bio" class="userBio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}
+                    <h4 v-if="currentProfileTutor.bio" class="userBio mb-5 mb-sm-0">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}
                         <span class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</span>
                         <span sel="bio_more" v-if="readMoreVisible" @click="isOpen = !isOpen" class="readMore" v-t="isOpen ? 'profile_read_less' : 'profile_read_more'"></span>
                     </h4>
@@ -404,9 +404,9 @@ export default {
             margin: 0 auto;
             width: max-content;
             @media (max-width: @screen-xs) {
-            padding: 6px;
-            background: #fff;
-            border-radius: 4px;
+                padding: 6px;
+                background: #fff;
+                border-radius: 4px;
             }
             .pUb_dot {
                 position: absolute;
@@ -416,6 +416,12 @@ export default {
                 height: 16px;
                 border-radius: 50%;
                 background-color: #6aff70;
+                @media (max-width: @screen-xs) {
+                    left: 10px;
+                    top: 10px;
+                    width: 12px;
+                    height: 12px;
+                }
             }
             .pUb_dS_img{
                 pointer-events: none !important;
@@ -588,7 +594,6 @@ export default {
 
         // move to followBtn.vue style insted if we dont need anymore for old version of profile
         .followBtnNew {
-            padding: 0;
             outline: none;
             font-weight: 600;
             display: flex;

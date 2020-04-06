@@ -49,7 +49,7 @@
       <div v-if="$vuetify.breakpoint.xsOnly" class="profileItemsBox_content_mobile">
          <resultNote v-for="(item, index) in items" :key="index" :item="item" class="pa-3 mb-2"/>
       </div>
-      <div class="profileItemBox_pagination mb-3" v-if="pageCount > 1">
+      <div class="profileItemBox_pagination" v-if="pageCount > 1">
          <v-pagination circle
             total-visible=7  
             v-model="query.page" 
@@ -283,7 +283,6 @@ export default {
       display: grid;
       box-sizing: border-box;
       grid-gap: 14px;
-      padding-bottom: 10px;      
       grid-template-columns: repeat(auto-fill, 230px);
       margin-top: 18px;
       .itemCarouselCard{

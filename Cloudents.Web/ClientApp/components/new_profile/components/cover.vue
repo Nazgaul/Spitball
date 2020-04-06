@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="d-flex">
     <img
       class="coverPhoto"
       :src="getCoverImage"
