@@ -150,4 +150,10 @@ export const registrationRoutes = [
         //     }
         // }
     },
+    {
+        path: '/register2',
+        components: {
+            default: () => import(`../components/pages/authenticationPage/authenticationPage2.vue`)
+        }
+    }
 ]

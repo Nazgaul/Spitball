@@ -79,7 +79,10 @@
 <script>
 import { validationRules } from '../../../../../../../services/utilities/formValidationRules2';
 
+import scroeMixin from '../scoreMixin'
+
 export default {
+    mixins: [scroeMixin],
     props: {
         errors: {
             type: Object
@@ -98,18 +101,7 @@ export default {
                 email: value => validationRules.email(value),
                 minimumCharsPass: (value) => validationRules.minimumChars(value, 8)
             },
-            passScoreObj: {
-                0: { name: this.$t("login_password_indication_weak"), className: "bad" },
-                1: { name: this.$t("login_password_indication_weak"), className: "bad" },
-                2: { name: this.$t("login_password_indication_strong"), className: "good" },
-                3: { name: this.$t("login_password_indication_strong"), className: "good" },
-                4: { name: this.$t("login_password_indication_strongest"), className: "best" }
-            },
-            score: {
-				default: 0,
-				required: false
-			},
-        };
+        }
     },
     watch: {
         email() {
@@ -122,41 +114,6 @@ export default {
                 this.errors.password = ''
             }
         }
-    },
-    computed: {
-        passHint() {
-            if (this.password.length > 0) {
-                this.changeScore()
-                return `${this.passScoreObj[this.score].name}`;
-            }
-            return null
-        },
-        hintClass() {
-            if (this.passHint) {
-                return this.passScoreObj[this.score].className;
-            }
-            return null
-        }
-    },
-    methods: {
-        changeScore() {
-            this.score = global.zxcvbn(this.password).score;
-        }
-    },
-    created() {
-        this.$loadScript("https://unpkg.com/zxcvbn@4.4.2/dist/zxcvbn.js");
     }
 };
 </script>
-
-<style lang="less">
-// @import '../../../../../../../styles/mixin.less';
-// @import '../../../../../../../styles/colors.less';
-
-// .emailRegister {
-//     .mainTitle {
-//         .responsive-property(font-size, 28px, null, 22px);
-//         color: @color-login-text-title;
-//     }
-// }
-</style>

@@ -51,7 +51,7 @@ export default {
                     analyticsService.sb_unitedEvent('Login', 'Start Google')
                     commit('setComponent', '')
                     dispatch('updateLoginStatus', true)
-                    if(self.$route.path === '/') {
+                    if(self.$route.path === '/' || self.$route.path === '/learn') {
                         this.$router.push({name: this.routeNames.LoginRedirect})
                         return
                     }
