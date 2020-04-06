@@ -164,11 +164,7 @@
 
     .shareContentProfile {
       max-width: 292px;
-      margin: -10px auto 0;
-      //position: absolute;
-      //right: 0;
-      //left: 0;
-      z-index: 1;
+      margin: 0 auto 0;
     }
   }
   .calendarSection {
