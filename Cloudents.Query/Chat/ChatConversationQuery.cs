@@ -45,7 +45,7 @@ cr.UpdateTime as DateTime,
 u.Id as UserId,
 u.Name,
 u.ImageName as Image,
-u.Online,
+u.Online
 from sb.ChatUser cu
 join sb.ChatRoom cr on cu.ChatRoomId = cr.Id
 left join sb.ChatUser cu2 on cu2.ChatRoomId = cr.Id and cu2.Id <> cu.Id
