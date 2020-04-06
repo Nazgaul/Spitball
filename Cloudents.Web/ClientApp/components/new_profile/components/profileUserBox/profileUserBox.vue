@@ -26,7 +26,7 @@
 
         <div class="profileUserBox_top d-block d-sm-flex justify-space-between">
             
-            <div class="leftSide pUb_defaultState_img mr-6 d-flex justify-center">
+            <div class="leftSide mr-sm-6 d-flex justify-center">
                 <div class="pUb_dot" v-if="isOnline"></div>
                 <uploadImage sel="photo" class="pUb_edit_img" v-if="isCurrentProfileUser" />
                 <userAvatarRect
@@ -95,13 +95,13 @@
                 </v-btn> -->
 
                 <div class="profileUserSticky_btns d-flex justify-space-between align-end" v-if="currentProfileUser.isTutor">
-                    <v-btn sel="send" height="42" width="246" :disabled="false" class="profileUserSticky_btn white--text" :class="{'isMyProfile':currentProfileTutor}" depressed rounded color="#4c59ff" @click="''">
+                    <v-btn sel="send" height="42" width="246" :disabled="isCurrentProfileUser" class="profileUserSticky_btn white--text" :class="{'isMyProfile': isCurrentProfileUser}" depressed rounded color="#4c59ff" @click="globalFunctions.sendMessage">
                         <chatSVG class="profileUserSticky_btn_icon"/>
                         <div class="profileUserSticky_btn_txt" v-language:inner="'profile_send_message'"/>
                     </v-btn>
                     <div :class="{'flex-grow-1 ml-3': isCurrentProfileUser || !getProfile.user.calendarShared}">
                         <div class="d-flex justify-space-between align-end">
-                            <button sel="coupon" :class="{'isMyProfileCoupon':!currentProfileTutor}" class="profileUserSticky_coupon" @click="''" v-t="'coupon_apply_coupon'"/>
+                            <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
                             <div class="profileUserSticky_pricing d-flex align-end">
                                 <v-flex class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
                                     {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
@@ -111,7 +111,7 @@
                                 </v-flex>
                             </div>
                         </div>
-                        <v-btn sel="calendar" height="42" width="246" :disabled="false" v-if="!isCurrentProfileUser && getProfile.user.calendarShared" @click="''" :class="{'isMyProfile':currentProfileTutor}" class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-2" depressed rounded color="white">
+                        <v-btn sel="calendar" height="42" width="246" :disabled="isCurrentProfileUser" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isCurrentProfileUser || !getProfile.user.calendarShared}" class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-2" depressed rounded color="white">
                             <calendarSVG width="20" class="profileUserSticky_btn_icon"/>
                             <div class="profileUserSticky_btn_txt" v-language:inner="'profile_book_session'"/>
                         </v-btn>
@@ -122,58 +122,34 @@
 
         <v-row class="bottom text-center pt-3" dense v-if="currentProfileTutor">
             <v-col class="bottomBox d-flex align-center justify-center">
-                <starSVG class="mt-2" width="26" />
-                <div class="ml-2" @click="isMobile ? scrollToReviews():''" >
-                    <div class="number text-left">{{tutorStateRate(currentProfileTutor)}}</div>
-                    <div class="type">dsadasdsdas</div>
-                    <!-- <span class="pUb_t_ts_list_span pUb_t_ts_list_span_review" @click="isMobile? scrollToReviews():''" v-text="tutorStateRate(currentProfileTutor)"></span> -->
+                <followersSvg class="mt-3" width="26" />
+                <div class="ml-3" @click="isMobile ? scrollToReviews():''" >
+                    <div class="number text-left">{{currentProfileUser.followers}}</div>
+                    <div class="type">{{$tc('profile_tutor_followers')}}</div>
                 </div>
             </v-col>
             <v-col class="bottomBox d-flex align-center justify-center">
-                <resxSVG class="mt-2" width="26" />
-                <div class="ml-2">
-                    <div class="number text-left">324</div>
-                    <div class="type">dsadasdsdas</div>
-                    <!-- <span class="pUb_t_ts_list_span" v-text="$Ph(dynamicDictionay(currentProfileTutor.contentCount,'profile_resourses','profile_resourse'),currentProfileTutor.contentCount)"/> -->
+                <onlineLessonSVG class="mt-3" width="20" />
+                <div class="ml-3">
+                    <div class="number text-left">{{currentProfileTutor.lessons}}</div>
+                    <div class="type" v-t="'profile_sessions'"></div>
                 </div>
             </v-col>
             <v-col class="bottomBox d-flex align-center justify-center">
-                <clockSVG class="mt-2" width="26" />
-                <div class="ml-2">
-                    <div class="number text-left">532</div>
-                    <div class="type">dsadasdsdas</div>
-                    <!-- <span class="pUb_t_ts_list_span" v-text="$Ph(dynamicDictionay(currentProfileTutor.lessons,'profile_sessions','profile_session'),currentProfileTutor.lessons)"/> -->
+                <studentsSVG class="mt-3" width="26" />
+                <div class="ml-3">
+                    <div class="number text-left">{{currentProfileTutor.students}}</div>
+                    <div class="type" v-t="'profile_session'"></div>
                 </div>
             </v-col>
             <v-col class="bottomBox d-flex align-center justify-center">
-                <studensSVG class="mt-2" width="26" />
-                <div class="ml-2">
-                    <div class="number text-left">243</div>
-                    <div class="type">dsadasdsdas</div>
-                    <!-- <span class="pUb_t_ts_list_span ml-1" v-text="$Ph(dynamicDictionay(currentProfileTutor.students,'profile_students','profile_student'),currentProfileTutor.students)"/> -->
+                <starSVG class="mt-3" width="26" />
+                <div class="ml-3">
+                    <div class="number text-left">{{currentProfileTutor.reviewCount}}</div>
+                    <div class="type">{{$tc('resultTutor_review_one',currentProfileTutor.reviewCount)}}</div>
                 </div>
             </v-col>
         </v-row>
-
-        <!-- <v-flex xs4 class="pUb_top_tutorState" v-if="currentProfileUser.isTutor">
-            <div class="pUb_top_tS_list">
-                <starSVG/>
-                <span class="pUb_t_ts_list_span pUb_t_ts_list_span_review" @click="isMobile? scrollToReviews():''" 
-                v-text="tutorStateRate(currentProfileTutor)"/>
-            </div>
-            <div class="pUb_top_tS_list" :class="[{'visibility_hidden':!currentProfileTutor.contentCount}]">
-                <resxSVG/>
-                <span class="pUb_t_ts_list_span" v-text="$Ph(dynamicDictionay(currentProfileTutor.contentCount,'profile_resourses','profile_resourse'),currentProfileTutor.contentCount)"/>
-            </div>
-            <div class="pUb_top_tS_list" :class="[{'visibility_hidden':!currentProfileTutor.lessons}]">
-                <clockSVG/>
-                <span class="pUb_t_ts_list_span" v-text="$Ph(dynamicDictionay(currentProfileTutor.lessons,'profile_sessions','profile_session'),currentProfileTutor.lessons)"/>
-            </div>
-            <div class="pUb_top_tS_list" :class="[{'visibility_hidden':!currentProfileTutor.students}]">
-                <studensSVG/>
-                <span class="pUb_t_ts_list_span ml-1" v-text="$Ph(dynamicDictionay(currentProfileTutor.students,'profile_students','profile_student'),currentProfileTutor.students)"/>
-            </div>
-        </v-flex> -->
     </div>
 </template>
 
@@ -182,11 +158,11 @@ import { mapGetters, mapActions } from 'vuex';
 
 import * as routeNames from '../../../../routes/routeNames';
 
-import starSVG from './images/tStar.svg';
+import starSVG from './images/star.svg';
 import starEmptySVG from './images/stars-copy.svg';
-import clockSVG from './images/tClock.svg';
-import studensSVG from './images/tStudents.svg';
-import resxSVG from './images/tResx.svg';
+import studentsSVG from './images/students.svg';
+import onlineLessonSVG from './images/onlineLesson.svg';
+import followersSvg from './images/followers.svg';
 import editSVG from './images/edit.svg';
 import chatSVG from '../profileUserSticky/images/chatIcon_mobile.svg';
 import calendarSVG from '../profileUserSticky/images/calendarIcon.svg';
@@ -200,9 +176,9 @@ export default {
     name:'profileUserBox',
     components:{
         starSVG,
-        clockSVG,
-        studensSVG,
-        resxSVG,
+        studentsSVG,
+        onlineLessonSVG,
+        followersSvg,
         userRating,
         userAvatarRect,
         uploadImage,
@@ -211,6 +187,9 @@ export default {
         starEmptySVG,
         chatSVG,
         calendarSVG
+    },
+    props: {
+        globalFunctions:{}
     },
     data() {
         return {
@@ -286,15 +265,15 @@ export default {
         // reviewsPlaceHolder(reviews) {
         //     return reviews === 0 ? reviews.toString() : reviews;
         // },
-        tutorStateRate(tutorData){
-            let rate = tutorData.rate.toFixed(0);
-            let reviews = tutorData.reviewCount;
-            if(reviews < 1){
-                return this.$t('resultTutor_collecting_review');
-            }
-            // let dictionary = reviews > 1? this.$t('profile_reviews'): this.$t('profile_single_review')
-            return `${rate}`
-        },
+        // tutorStateRate(tutorData){
+        //     let rate = tutorData.rate.toFixed();
+        //     let reviews = tutorData.reviewCount;
+        //     if(reviews < 1){
+        //         return this.$t('resultTutor_collecting_review');
+        //     }
+        //     // let dictionary = reviews > 1? this.$t('profile_reviews'): this.$t('profile_single_review')
+        //     return `${rate}`
+        // },
         openEditInfo() {
             this.updateEditDialog(true);
         },
@@ -414,6 +393,8 @@ export default {
 
         .leftSide {
             position: relative;
+            margin: 0 auto;
+            width: max-content;
             .pUb_dot {
                 position: absolute;
                 left: 8px;
@@ -515,6 +496,7 @@ export default {
                     // text-align: initial;
                 }
                 &.isMyProfile{
+                    // visibility: hidden;
                     color: white !important;
                     border: none !important;
                     svg{
@@ -527,7 +509,7 @@ export default {
                     line-height: 0;
                 }
                 .profileUserSticky_btn_txt{
-                    font-size: 16px;
+                    font-size: 14px;
                     font-weight: 600;
                     text-transform: initial;
                     flex-grow: 1;
@@ -536,8 +518,9 @@ export default {
                     color: #4c59ff !important;
                     border: solid 1.5px #4c59ff !important;
                     &.isMyProfile{
-                    // color: white !important;
-                    // border: none !important;
+                        visibility: hidden;
+                        color: white !important;
+                        border: none !important;
                     svg{
                         path{
                             fill: #4c59ff !important;
@@ -547,7 +530,7 @@ export default {
                 }
                 &.profileUserSticky_btn_find{
                     .v-btn__content{
-                    justify-content: center;
+                        justify-content: center;
                     }
                 }
             }

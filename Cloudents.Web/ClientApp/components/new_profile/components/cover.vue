@@ -4,7 +4,6 @@
       class="coverPhoto"
       :src="getCoverImage"
     />
-    {{getProfileCoverImage}}
     <div>
       <input
         class="profile-upload"
@@ -35,7 +34,7 @@
             if (this.getProfileCoverImage) {
               return utilitiesService.proccessImageURL(this.getProfileCoverImage, 1920, 430)
             }
-            return ''
+            return `${require('./cover-default.jpg')}`
           },
           ...mapGetters(['getProfileCoverImage'])
         },
