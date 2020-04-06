@@ -13,7 +13,7 @@ namespace Cloudents.Web.Models
         public IEnumerable<long> UserId { get; set; }
 
         [Required]
-        [Range(0, 1000)]
+        [Range(0,10000000)]
         public decimal Price { get; set; }
 
         public DateTime? Date { get; set; }

@@ -38,6 +38,7 @@ namespace Cloudents.Query.Users
                             u.Country,
                             u.UserType,
                           t.State as IsTutor,
+                        t.price as Price,
                             coalesce(
                                 cast(iif(u.PaymentExists != 0 , 0, null) as bit),
 								cast(iif(u.Country != 'IL', 0 , null) as bit),
