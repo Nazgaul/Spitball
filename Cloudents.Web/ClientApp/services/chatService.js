@@ -6,6 +6,7 @@ function createLastImageMsg() {
 }
 
 function createConversationId(arrIds){
+    debugger;
     return arrIds.sort((a, b) => a - b).join('_');
 }
 
@@ -68,6 +69,7 @@ function ActiveConversationObj(objInit){
 }
 
 function createActiveConversationObj(objInit){
+    debugger
     return new ActiveConversationObj(objInit);
 }
 

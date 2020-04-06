@@ -30,20 +30,10 @@ namespace Cloudents.Web.Hubs
 
             var roomId = Guid.Parse(cookieVal);
             var userId = long.Parse(Context.UserIdentifier);
+            var command = new AddUserToChatCommand(roomId,userId);
 
-
-           
-
-          //  var command = new ChangeStudyRoomOnlineStatusCommand(userId, true, roomId);
-
-           
-
-
-            await Clients.All.SendAsync("Online", userId);
             await Groups.AddToGroupAsync(Context.ConnectionId, cookieVal);
-            //await _commandBus.DispatchAsync(command, default);
-
-
+            await _commandBus.DispatchAsync(command, default);
            
             await base.OnConnectedAsync();
 
@@ -56,11 +46,11 @@ namespace Cloudents.Web.Hubs
             var request = Context.GetHttpContext().Request;
             var cookieVal = request.Query[QueryStringName].ToString();
 
-            var roomId = Guid.Parse(cookieVal);
-            var userId = long.Parse(Context.UserIdentifier);
+         //   var roomId = Guid.Parse(cookieVal);
+            //var userId = long.Parse(Context.UserIdentifier);
            // var command = new ChangeStudyRoomOnlineStatusCommand(userId, false, roomId);
            // await _commandBus.DispatchAsync(command, default);
-            await Clients.All.SendAsync("Offline", userId);
+            //await Clients.All.SendAsync("Offline", userId);
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, cookieVal);
             await base.OnDisconnectedAsync(exception);
         }

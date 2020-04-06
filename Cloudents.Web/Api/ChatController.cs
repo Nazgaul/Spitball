@@ -70,8 +70,8 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<ChatDto>> GetConversationAsync(string id, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var results = await _queryBus.QueryAsync(new ChatConversationsQuery(userId), token);
-            var result = results.FirstOrDefault(f => f.ConversationId == id);
+            var result = await _queryBus.QueryAsync(new ChatConversationQuery(id, userId), token);
+            //var result = results.FirstOrDefault(f => f.ConversationId == id);
             if (result == null)
             {
                 return BadRequest();

@@ -44,7 +44,7 @@ namespace Cloudents.Query.Tutor
                     .WithSubquery.WhereProperty(x => x.Id).In(detachedQuery)
                     .SelectList(sl =>
                                 sl.Select(s => s!.Id).WithAlias(() => resultAlias!.Id)
-                                    .Select(s=>s!.Name).WithAlias(() => resultAlias!.Name)
+                                .Select(s=>s!.Name).WithAlias(() => resultAlias!.Name)
                                 .Select(s => s!.DateTime.CreationTime).WithAlias(() => resultAlias!.DateTime)
                                 .Select(s => s!.Identifier).WithAlias(() => resultAlias!.ConversationId)
                                     .SelectSubQuery(QueryOver.Of<StudyRoomSession>()
