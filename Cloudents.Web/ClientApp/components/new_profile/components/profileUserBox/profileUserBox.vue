@@ -43,7 +43,7 @@
                 
             <div class="rightSide flex-grow-1">
                 <div>
-                    <div class="d-flex justify-space-between align-center">
+                    <div class="d-flex justify-space-between align-center text-center text-sm-left">
                         <h1 class="userName text-truncate mr-2">
                             <span v-if="currentProfileUser.isTutor" class="mr-1" v-t="'profile_tutor'"></span>
                             <span>{{currentProfileUser.name}}</span>
@@ -52,13 +52,13 @@
                     </div>
 
                     <!-- courses teacher -->
-                    <div class="course mt-2 text-truncate" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
+                    <div class="course mt-2 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
                         <span class="iTeach mr-1" v-t="'profile_my_courses'"></span>
                         <span class="courseName text-truncate">{{currentProfileUser.courses.toString().replace(/,/g, ", ")}}</span>
                     </div>
 
                     <!-- Rate And Follower -->
-                    <div class="d-flex mt-2 mb-5">
+                    <div class="d-flex mt-2 mb-5 justify-center justify-sm-start">
                         <template v-if="currentProfileUser.isTutor">
                             <div class="pUb_dS_c_rating" v-if="currentProfileTutor.reviewCount">
                                 <userRating class="c_rating" :showRateNumber="false" :rating="currentProfileTutor.rate" :size="'18'" />
@@ -94,13 +94,21 @@
                     <editSVG class="mr-1" v-if="isCurrentProfileUser" />
                 </v-btn> -->
 
-                <div class="profileUserSticky_btns d-flex justify-space-between align-end" v-if="currentProfileUser.isTutor">
-                    <v-btn sel="send" height="42" width="246" :disabled="isCurrentProfileUser" class="profileUserSticky_btn white--text" :class="{'isMyProfile': isCurrentProfileUser}" depressed rounded color="#4c59ff" @click="globalFunctions.sendMessage">
+                <div class="profileUserSticky_btns d-block d-sm-flex justify-space-between align-end text-center" v-if="currentProfileUser.isTutor">
+                    <div class="profileUserSticky_pricing d-flex align-end justify-end mb-2" v-if="isMobile">
+                        <div class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
+                            {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
+                        </div>
+                        <div class="profileUserSticky_pricing_price">
+                            <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
+                        </div>
+                    </div>
+                    <v-btn sel="send" height="42" :width="isMobile ? 286 : 246" :disabled="isCurrentProfileUser" class="profileUserSticky_btn white--text" :class="{'isMyProfile': isCurrentProfileUser}" depressed rounded color="#4c59ff" @click="globalFunctions.sendMessage">
                         <chatSVG class="profileUserSticky_btn_icon"/>
                         <div class="profileUserSticky_btn_txt" v-t="'profile_send_message'"/>
                     </v-btn>
                     <div :class="{'flex-grow-1 ml-3': isCurrentProfileUser || !getProfile.user.calendarShared}">
-                        <div class="d-flex justify-space-between align-end">
+                        <div class="d-flex justify-space-between align-end" v-if="!isMobile">
                             <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
                             <div class="profileUserSticky_pricing d-flex align-end">
                                 <v-flex class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
@@ -111,10 +119,11 @@
                                 </v-flex>
                             </div>
                         </div>
-                        <v-btn sel="calendar" height="42" width="246" :disabled="isCurrentProfileUser" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isCurrentProfileUser || !getProfile.user.calendarShared}" class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-2" depressed rounded color="white">
+                        <v-btn sel="calendar" height="42" :width="isMobile ? 286 : 246" :disabled="isCurrentProfileUser" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isCurrentProfileUser || !getProfile.user.calendarShared}" class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-sm-2 mt-4" depressed rounded color="white">
                             <calendarSVG width="20" class="profileUserSticky_btn_icon"/>
                             <div class="profileUserSticky_btn_txt" v-t="'profile_book_session'"/>
                         </v-btn>
+                        <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" v-if="isMobile" class="profileUserSticky_coupon text-center mt-4" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
                     </div>
                 </div>
             </div>
@@ -385,9 +394,8 @@ export default {
             // justify-content: center;
             justify-content: flex-start;
             // height: 126px;
-            padding-left: 14px;
             position: relative;
-            margin-bottom: 16px;
+            margin: -100px 0 16px 0;
         }
     }
 
@@ -395,6 +403,11 @@ export default {
             position: relative;
             margin: 0 auto;
             width: max-content;
+            @media (max-width: @screen-xs) {
+            padding: 6px;
+            background: #fff;
+            border-radius: 4px;
+            }
             .pUb_dot {
                 position: absolute;
                 left: 8px;
@@ -433,6 +446,7 @@ export default {
         .userName{
             .responsive-property(font-size, 24px, null, 22px);
             font-weight: 600;
+            width: 100%;
             // display: flex;
             // flex-wrap: wrap;
             // line-height: 1;
@@ -612,7 +626,9 @@ export default {
         }
     .bottom {
         border-top: 1px solid #ddd;
-
+        @media (max-width: @screen-xs) {
+            border-top: none;
+        }
         .bottomBox {
             color: @global-purple;
             font-size: 32px;

@@ -39,8 +39,10 @@
             return false;
           },
           getCoverImage() {
+            let isMobile = this.$vuetify.breakpoint.xsOnly;
             if (this.getProfileCoverImage) {
-              return utilitiesService.proccessImageURL(this.getProfileCoverImage, 1920, 430)
+              let size = isMobile ? [window.innerWidth, 178] : [window.innerWidth, 430]
+              return utilitiesService.proccessImageURL(this.getProfileCoverImage, ...size)
             }
             return `${require('./cover-default.jpg')}`
           },
@@ -66,11 +68,17 @@
 </script>
 
 <style lang="less" scoped>
+@import '../../../styles/mixin';
+
 .coverPhoto {
   position: absolute;
   left: 0;
   right: 0;
   width: 100%;
   height: 430px;
+  @media(max-width: @screen-xs) {
+    position: static;
+    height: 178px;
+  }
 }
 </style>
