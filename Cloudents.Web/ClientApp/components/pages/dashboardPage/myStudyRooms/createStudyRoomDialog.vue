@@ -52,7 +52,7 @@ export default {
          showErrorEmpty:false,
          showErrorAlreadyCreated:false,
          roomName:'',
-         price: '0',
+         price: 0,
          // date:'',
          rules: {
             required: (value) => validationRules.required(value),
@@ -124,6 +124,7 @@ export default {
       this.$store.dispatch('updateFollowersItems').then(()=>{
          this.myFollowers = this.$store.getters.getFollowersItems
       })
+      this.price = this.$store.getters.accountUser.price;
    },
 }
 </script>
