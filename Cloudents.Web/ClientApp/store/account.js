@@ -72,10 +72,14 @@ const actions = {
             context.commit('setAccountPicture', imageUrl);
             context.commit('setProfilePicture', imageUrl)
             return true;
-        },
-            (error) => {
-                console.log(error, 'error upload account image');
-            });
+        });
+    },
+    uploadCoverImage(context, obj) {
+        return accountService.uploadCover(obj).then((resp) => {
+            let imageUrl = resp.data;
+           // context.commit('setAccountPicture', imageUrl);
+            context.commit('setCoverPicture', imageUrl)
+        });
     },
     getRefferedUsersNum(context, id) {
         accountService.getNumberReffered(id)
