@@ -1,5 +1,5 @@
 <template>
-   <div class="localStreams">
+   <div class="localVideoStream">
       <div class="local-video-holder">
          <div v-show="!isVideoActive && !getIsShareScreen" class="localTrack-placeholder">
             <div class="placeholder-back">
@@ -11,7 +11,7 @@
                <castIcon class="placeholder-svg"></castIcon>
             </div>
          </div>
-         <div v-show="isVideoActive && !getIsShareScreen" style="width:104px;height:80px" id="localTrack"></div>          
+         <div v-show="isVideoActive && !getIsShareScreen" id="localTrack"></div>          
       </div>
       <div class="control-panel">
          <v-tooltip top>
@@ -51,9 +51,8 @@ import videoCameraImageIgnore from '../../images/camera-ignore.svg';
 import videoCameraImageIgnore2 from '../../images/camera-ignore-big.svg'
 import videoCameraImage from '../../images/video-camera.svg'
 
-
 export default {
-   name:'localStreams',
+   name:'localVideo',
    components:{
       videoCameraImageIgnore2,
       castIcon,
@@ -92,24 +91,23 @@ export default {
          this.$store.dispatch('updateVideoToggle')
       }
    },
-
 }
 </script>
 
 <style lang="less">
-.localStreams{
+   .localVideoStream{
+      position: relative;
+      video {
+         width: 100%;
+         background-repeat: no-repeat;
+         pointer-events: none;
+      }
+      video::-webkit-media-controls-enclosure {
+         display: none !important;
+      }
    .local-video-holder{
-    position: absolute;
-    width: 104px;
-    height: 80px;
-    bottom: 4px;
-    right: 0;
-    z-index: 10;
     .localTrack-placeholder{
-      min-width: 104px;
-      min-height: 80px;
-      height: 100%;
-      width: 100%;
+      min-height: 229px;
       background: black;
       display: flex;
       justify-content: center;
@@ -119,8 +117,9 @@ export default {
         border-radius: 4px 0 00;
       }
       .placeholder-back{
-        width: 50px;
-        height: 50px;
+        width: 100px;
+        height: 100px;
+
         background-color: #353537;
         border-radius: 50%;
         display: flex;
@@ -135,7 +134,8 @@ export default {
       }
     }
   }
-        .control-panel{
+
+ .control-panel{
         position: absolute;
         width: 100%;
         height: 30px;
@@ -205,5 +205,7 @@ export default {
          background-repeat: no-repeat;
       }
    }
-}
+
+
+   }
 </style>

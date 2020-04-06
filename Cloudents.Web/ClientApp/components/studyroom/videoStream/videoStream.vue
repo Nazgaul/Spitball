@@ -6,9 +6,9 @@
                 </v-flex>
                 <v-flex>
                     <div class="remote_video_container">
+                        <localVideoTrack/>
                         <remoteVideoTrack v-for="(track, index) in $store.getters.getVideoTrackList" :key="index" :track="track"/>
                         <div id="remoteTrack"></div>
-                        <localStreams/>
                     </div>
                 </v-flex>
             </div>
@@ -17,13 +17,13 @@
 </template>
 <script>
 import remoteVideoTrack from './components/remoteVideoTrack.vue';
-import localStreams from './components/localStreams.vue';
+import localVideoTrack from './components/localVideoTrack.vue';
 
 export default {
     name: "videoStream",
     components: { 
         remoteVideoTrack,
-        localStreams,
+        localVideoTrack
     },
 };
 </script>
