@@ -38,13 +38,11 @@
                     :phone="phoneNumber"
                     :code="localCode"
                     :teacher="teacher"
-                    @goStep="goStep"
                     @updatePhone="updatePhone"
                     @updateCode="updateCode"
                 >
                 </component>
             </div>
-
 
             <div class="bottom">
 
@@ -143,10 +141,6 @@ export default {
     },
     props: {
         params: {},
-        teacher: {
-            type: Boolean,
-            default: false
-        }
     },
     data() {
         return {
@@ -154,15 +148,6 @@ export default {
             googleLoading: false,
             recaptcha: "",
             siteKey: '6LfyBqwUAAAAAM-inDEzhgI2Cjf2OKH0IZbWPbQA',
-            localCode: '',
-            phoneNumber: '',
-            errors: {
-                gmail: '',
-                phone: '',
-                code: '',
-                email: '',
-                password: '',
-            }
         }
     },
     computed: {
@@ -172,9 +157,7 @@ export default {
         isEmailRegister() {
             return this.component === 'emailRegister'
         },
-        isVerifyPhone() {
-            return this.component === 'verifyPhone'
-        },
+
         isFromTutorReuqest() {
             return this.$store.getters.getIsFromTutorStep
         }
@@ -249,101 +232,6 @@ export default {
                 }).finally(() => {
                     self.$refs.recaptcha.reset()
                 })
-        },
-        sendSms(){
-            let childComp = this.$refs.childComponent
-            let smsObj = {
-                countryCode: childComp.localCode,
-                phoneNumber: childComp.phoneNumber
-            }
-
-            let self = this
-            registrationService.smsRegistration(smsObj)
-                .then(function (){
-                    let { dispatch } = self.$store
-
-                    dispatch('updateToasterParams',{
-                        toasterText: self.$t("login_verification_code_sent_to_phone"),
-                        showToaster: true,
-                    });
-                    analyticsService.sb_unitedEvent('Registration', 'Phone Submitted');
-                    self.component = 'verifyPhone'
-                }).catch(error => {
-                    let { response: { data } } = error
-                    
-                    self.errors.phone = data && data["PhoneNumber"] ? data["PhoneNumber"][0] : '' // TODO:
-                    self.$appInsights.trackException({exception: new Error(error)});
-                })
-        },
-        verifyPhone(){
-            let childComp = this.$refs.childComponent
-
-			let self = this
-			registrationService.smsCodeVerification({number: childComp.smsCode})
-				.then(userId => {
-                    let { commit, dispatch } = self.$store
-
-                    analyticsService.sb_unitedEvent('Registration', 'Phone Verified');
-                    if(!!userId){
-                        analyticsService.sb_unitedEvent('Registration', 'User Id', userId.data.id);
-                    }
-
-					commit('setComponent', '')
-                    commit('changeLoginStatus', true)
-
-                    // this is when user start register from tutorRequest
-                    if(self.isFromTutorReuqest) {
-                        dispatch('userStatus')
-                        if(self.$route.path === '/' || self.$route.path === '/learn') {
-                            self.$router.push({name: this.routeNames.LoginRedirect})
-                        }
-                        self.$store.dispatch('updateRequestDialog', true);
-                        self.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
-                        self.$store.dispatch('toggleProfileFollower', true)
-                        return
-                    }
-					dispatch('userStatus').then(user => {
-                        // when user is register and pick teacher, redirect him to his profile page
-                        if(self.teacher) {
-                            self.$router.push({
-                                name: self.routeNames.Profile,
-                                params: {
-                                    id: user.id,
-                                    name: user.name,
-                                },
-                                query: {
-                                    dialog: 'becomeTutor'
-                                }
-                            })
-                            return
-                        }
-                        self.$router.push({name: self.routeNames.LoginRedirect})
-                    })
-				}).catch(error => {
-                    self.errors.code = self.$t('loginRegister_invalid_code')
-                    self.$appInsights.trackException({exception: new Error(error)});
-                })
-        },
-        phoneCall(){
-			let self = this
-			registrationService.voiceConfirmation()
-            	.then(() => {
-					self.$store.dispatch('updateToasterParams',{
-						toasterText: self.$t("login_call_code"),
-						showToaster: true,
-					});
-				}).catch(error => {
-                    self.$appInsights.trackException({exception: new Error(error)});
-                })
-		},
-        goStep(step) {
-            this.component = step
-        },
-        updatePhone(phone) {
-            this.phoneNumber = phone
-        },
-        updateCode(code) {
-            this.localCode = code
         }
     },
     created() {      
