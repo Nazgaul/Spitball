@@ -132,6 +132,15 @@
   <data name="btn_earn" xml:space="preserve">
     <value>למד בספיטבול</value>
   </data>
+  <data name="btn_learn" xml:space="preserve">
+    <value>לתלמידים</value>
+  </data>
+  <data name="btn_teach" xml:space="preserve">
+    <value>למורים</value>
+  </data>
+  <data name="credit" xml:space="preserve">
+    <value>הרשמה ללא תשלום</value>
+  </data>
   <data name="cs_title" xml:space="preserve">
     <value>קטגוריות פופולאריות </value>
   </data>
@@ -140,6 +149,12 @@
   </data>
   <data name="earn_title" xml:space="preserve">
     <value>להרוויח מלימוד החומר שאתם יודעים הכי טוב</value>
+  </data>
+  <data name="find_relevant" xml:space="preserve">
+    <value>מצא מורים או תלמידים רלוונטים</value>
+  </data>
+  <data name="find_relevant_link" xml:space="preserve">
+    <value>חפש מורים או תלמידים</value>
   </data>
   <data name="hd_search" xml:space="preserve">
     <value>חיפוש</value>
@@ -168,6 +183,45 @@
   <data name="is_title" xml:space="preserve">
     <value>נצפים כרגע</value>
   </data>
+  <data name="online_teach" xml:space="preserve">
+    <value>מערכת לימוד אינטראקטיבית כוללת וידאו, שיתוף מסך ומסמכים</value>
+  </data>
+  <data name="online_teach_link" xml:space="preserve">
+    <value>ראה בעצמך</value>
+  </data>
+  <data name="pay_and_receive" xml:space="preserve">
+    <value>שלם וקבל תשלומים ישירות מתוך המערכת</value>
+  </data>
+  <data name="pay_and_receive_link" xml:space="preserve">
+    <value>פרטים נוספים על מערכת התשלומים</value>
+  </data>
+  <data name="quote" xml:space="preserve">
+    <value>ספיטבול עוזרת למורים ותלמידים. היכנס לשיעורים אמיתיים בזמן אמת מבלי לעזוב את הבית. ספיטבול מעצימים את המורים, מסייעים לגייס תלמידים ולהגדיל את החשיפה לקהל יעד חדש במערכת מתקדמת לשיעורים און ליין.</value>
+  </data>
+  <data name="quote_name" xml:space="preserve">
+    <value>שלומי לוי</value>
+  </data>
+  <data name="quote_teach" xml:space="preserve">
+    <value>מורה לסטטיסטיקה</value>
+  </data>
+  <data name="student" xml:space="preserve">
+    <value>תלמיד</value>
+  </data>
+  <data name="student_btn_register" xml:space="preserve">
+    <value>הרשמה לתלמידים</value>
+  </data>
+  <data name="student_text" xml:space="preserve">
+    <value>גישה לכל חומרי הלימוד, דברו עם מורים מומחים וצפייה בשיעורים מקוונים</value>
+  </data>
+  <data name="teacher" xml:space="preserve">
+    <value>מורה</value>
+  </data>
+  <data name="teacher_btn_register" xml:space="preserve">
+    <value>הרשמה למורים</value>
+  </data>
+  <data name="teacher_text" xml:space="preserve">
+    <value>קבלו אתר למורה מותאם לצרכים שלכם ולמדו תלמידים מכל מקום</value>
+  </data>
   <data name="tss_subtitle" xml:space="preserve">
     <value>המלצות של תלמידים</value>
   </data>
@@ -179,5 +233,8 @@
   </data>
   <data name="ts_title" xml:space="preserve">
     <value>מורים פופולאריים</value>
+  </data>
+  <data name="video_title" xml:space="preserve">
+    <value>ספיטבול מחברת מורים ותלמידים באון ליין לחוויות לימודים מתקדמת ומאובטחת</value>
   </data>
 </root>

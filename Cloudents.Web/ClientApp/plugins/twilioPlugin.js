@@ -9,9 +9,10 @@ const AUDIO_TRACK_NAME = 'audioTrack';
 const VIDEO_TRACK_NAME = 'videoTrack';
 const SCREEN_TRACK_NAME = 'screenTrack';
 
-function _detachTracks(tracks){
+function _detachTracks(tracks,store){
    tracks.forEach((track) => {
       if (track?.detach) {
+         store.commit(twilio_SETTERS.DELETE_REMOTE_VIDEO_TRACK,track)
          track.detach().forEach((detachedElement) => {
             detachedElement.remove();
          });
@@ -41,11 +42,10 @@ function _toggleTrack(tracks,trackType){
 function _twilioListeners(room,store) { 
    // romote participants
    room.participants.forEach((participant) => {
-      let previewContainer = document.getElementById(REMOTE_TRACK_DOM_ELEMENT);
       let tracks = Array.from(participant.tracks.values());
       tracks.forEach((track) => {
-         if (track.attach) {
-            previewContainer.appendChild(track.attach());
+         if(track.kind === 'video'){
+            store.commit(twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK,track)
          }
       });
    });
@@ -69,14 +69,14 @@ function _twilioListeners(room,store) {
    // room events
    room.on('trackSubscribed', (track) => {
       _insightEvent('TwilioTrackSubscribed', track, null);
-      _detachTracks([track])
+      _detachTracks([track],store)
    })
    room.on('trackUnsubscribed', (track) => {
       if(track.kind === 'video'){
          store.commit(twilio_SETTERS.FULL_SCREEN_AVAILABLE,false);
      }
       _insightEvent('TwilioTrackUnsubscribed', track, null);
-      _detachTracks([track]);
+      _detachTracks([track],store);
    })
    room.on('participantReconnected', () => {
    })
@@ -89,16 +89,12 @@ function _twilioListeners(room,store) {
    room.on('trackRemoved',()=>{
    })
    room.on('trackStarted', (track) => {
-      let previewContainer = document.getElementById(REMOTE_TRACK_DOM_ELEMENT);
       if(track.kind === 'video'){
-         // let videoTag = previewContainer.querySelector("video");
-         // if (videoTag) {
-         //    previewContainer.removeChild(videoTag);
-         // }
-         previewContainer.appendChild(track.attach());
-         store.commit(twilio_SETTERS.FULL_SCREEN_AVAILABLE,true);
+         store.commit(twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK,track)
+         // store.commit(twilio_SETTERS.FULL_SCREEN_AVAILABLE,true);
       }
       if(track.kind === 'audio'){   
+         let previewContainer = document.getElementById(REMOTE_TRACK_DOM_ELEMENT);
          track.detach().forEach((detachedElement) => {
             detachedElement.remove();
          });
@@ -141,7 +137,7 @@ function _twilioListeners(room,store) {
          store.commit('setComponent', 'simpleToaster_userLeft');
       }
       _insightEvent('TwilioParticipantDisconnected', participant, null);
-      _detachTracks(Array.from(participant.tracks.values()))
+      _detachTracks(Array.from(participant.tracks.values()),store)
    })
    room.on('reconnecting', () => {
       _insightEvent('reconnecting', null, null);
@@ -152,7 +148,7 @@ function _twilioListeners(room,store) {
          console.error(`Twilio Error: Code: ${error.code}, Message: ${error.message}`)
       }
       dRoom.localParticipant.tracks.forEach(function (track) {
-         _detachTracks([track]);
+         _detachTracks([track],store);
       });
       if(!store.getters.getRoomIsTutor){
          store.commit(studyRoom_SETTERS.ROOM_ACTIVE,false)

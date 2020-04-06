@@ -57,6 +57,9 @@ export default {
         showToasterError() {
             this.snackbar = true
         }
+    },
+    created() {
+        if(this.params.teacher) this.updateRegisterType(true)
     }
 };
 </script>

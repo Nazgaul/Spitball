@@ -68,7 +68,6 @@ namespace Cloudents.Core.Entities
                 }
             }
             Messages.Add(message);
-            //Status = ChatRoomStatus.Default;
             AddEvent(new ChatMessageEvent(message));
         }
 

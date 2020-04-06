@@ -3,8 +3,12 @@
       <div class="createStudyRoomDialog">
          <v-icon class="close-dialog" v-text="'sbf-close'" v-closeDialog />
          <div class="createStudyRoomDialog-title pb-4">{{$t('dashboardPage_create_room_title')}}</div>
-         <v-form class="input-room-name" ref="createRoomValidation">
-            <v-text-field :rules="[rules.required]" v-model="roomName" height="44" dense outlined :label="$t('dashboardPage_create_room_placeholder')" :placeholder="$t('dashboardPage_create_room_label')"/>
+         <v-form class="d-flex justify-space-between input-room-name" ref="createRoomValidation">
+            <v-text-field class="pr-5" :rules="[rules.required]" v-model="roomName" height="44" dense outlined :label="$t('dashboardPage_create_room_placeholder')" :placeholder="$t('dashboardPage_create_room_label')"/>
+            <v-text-field class="pl-5" outlined  height="44" dense :rules="[rules.required,rules.integer,rules.minimum]"
+               v-model="price" type="number"
+               :label="$t('becomeTutor_placeholder_price', {'0' : getSymbol})" :placeholder="$t('becomeTutor_placeholder_price', {'0' : getSymbol})">
+            </v-text-field>
          </v-form>
          <div class="createStudyRoomDialog-list">
             <v-list flat class="list-followers">
@@ -48,8 +52,11 @@ export default {
          showErrorEmpty:false,
          showErrorAlreadyCreated:false,
          roomName:'',
+         price: 0,
+         // date:'',
          rules: {
             required: (value) => validationRules.required(value),
+            minimum: (value) => validationRules.minVal(value,0),
          },
       }
    },
@@ -74,13 +81,16 @@ export default {
          if(!this.$refs.createRoomValidation.validate()) return
          if(!this.isLoading && !this.showErrorAlreadyCreated && !this.showErrorEmpty && !this.showErrorMaxUsers){
             if(this.selected.length){
+               let paramsObj = {
+                  name: this.roomName,
+                  userId: Array.from(this.selected.map(user=> user.userId)),
+                  price: this.price || 0,
+                  // date: this.date || new Date().toISOString(),
+                  // date: '2020-04-06T14:01:54.339Z'
+               }
                this.isLoading = true
                let self = this;
-               let params = {
-                  users: this.selected,
-                  roomName: this.roomName,
-               }
-               this.$store.dispatch('updateCreateStudyRoom',params)
+               this.$store.dispatch('updateCreateStudyRoom',paramsObj)
                   .then(() => {
                      self.isLoading = false;
                      self.$closeDialog()
@@ -90,7 +100,8 @@ export default {
                         self.showErrorAlreadyCreated = true;
                      }
                   });
-            }else{
+            }
+            else{
                this.showErrorEmpty = true;
             }
          }
@@ -103,10 +114,17 @@ export default {
          this.showErrorMaxUsers = false;
       }
    },
+   computed: {
+      getSymbol() {
+         let v =   this.$n(1,'currency');
+         return v.replace(/\d|[.,]/g,'').trim();
+      },
+   },
    created() {
       this.$store.dispatch('updateFollowersItems').then(()=>{
          this.myFollowers = this.$store.getters.getFollowersItems
       })
+      this.price = this.$store.getters.accountUser.price;
    },
 }
 </script>
@@ -137,7 +155,8 @@ export default {
       font-weight: 600;
    }
    .input-room-name{
-      width: 216px;
+      width: 500px;
+      // width: 216px;
       .v-text-field__details{
          margin-bottom: 0;
       }
