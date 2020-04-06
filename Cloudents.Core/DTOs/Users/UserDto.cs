@@ -32,7 +32,10 @@ namespace Cloudents.Core.DTOs.Users
         public string Name { get; set; }
         [EntityBind(nameof(User.ImageName))]
         public string? Image { get; set; }
-      
+
+        [EntityBind(nameof(User.CoverImage))]
+        public string? Cover { get; set; }
+
         [EntityBind(nameof(User.Online))]
         public bool Online { get; set; }
         [EntityBind(nameof(GoogleTokens))]
@@ -49,6 +52,8 @@ namespace Cloudents.Core.DTOs.Users
         public int Followers { get; set; }
 
         public bool IsFollowing { get; set; }
+
+        
 
         public IEnumerable<string>? DocumentCourses { get; set; }
         public IEnumerable<string>? Courses { get; set; }

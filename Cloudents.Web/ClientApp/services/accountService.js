@@ -30,6 +30,9 @@ export default {
     async uploadImage(params){ 
         return await accountInstance.post('/image',params)
     },
+    async uploadCover(params){ 
+        return await accountInstance.post('/cover',params)
+    },
     async applyCoupon(params){ 
         return await couponInstance.post('/apply',params)
     },
