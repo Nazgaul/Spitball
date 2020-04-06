@@ -15,7 +15,7 @@
         class="mb-2 mb-sm-3 shareContentProfile"
         v-if="getProfile"
       />
-      <calendarTab v-if="showProfileCalendar" class="mb-6" :globalFunctions="globalFunctions" />
+      <calendarTab v-if="showProfileCalendar" class="mb-6 mx-auto calendarSection" :globalFunctions="globalFunctions" />
       <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" />
       <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" />
       <profileItemsBox v-if="showItems" class="mt-12" />
@@ -179,6 +179,9 @@
       //left: 0;
       z-index: 1;
     }
+  }
+  .calendarSection {
+    max-width: 800px;
   }
 }
 .coupon-dialog {
