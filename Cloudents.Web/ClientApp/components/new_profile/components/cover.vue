@@ -4,7 +4,7 @@
       class="coverPhoto"
       :src="getCoverImage"
     />
-    <div>
+    <div v-if="isCurrentProfileUser">
       <input
         class="profile-upload"
         type="file"
@@ -30,13 +30,20 @@
     export default {
         name: "uploadCover",
         computed : {
+          ...mapGetters(['getProfileCoverImage', 'currentProfileUser', 'accountUser', 'getProfile', 'getUserLoggedInStatus']),
+          isCurrentProfileUser(){
+            let profileUser = this.getProfile?.user
+            if (profileUser && this.getUserLoggedInStatus){
+              return profileUser.id == this.accountUser.id;
+            } 
+            return false;
+          },
           getCoverImage() {
             if (this.getProfileCoverImage) {
               return utilitiesService.proccessImageURL(this.getProfileCoverImage, 1920, 430)
             }
             return `${require('./cover-default.jpg')}`
           },
-          ...mapGetters(['getProfileCoverImage'])
         },
         methods: {
             ...mapActions(['uploadCoverImage', 'updateToasterParams']),
