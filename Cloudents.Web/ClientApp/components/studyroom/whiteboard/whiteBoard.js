@@ -343,22 +343,23 @@ export default {
             return (e.which == keyCode || e.keyCode == keyCode);
         },
         changeTab(tab) {
-            if(!this.isTutor)return;
-            this.$ga.event("tutoringRoom", `changeTab:${tab}`);
-            this.currentTabId = tab.id;
-            if (tab.id !== this.getCurrentSelectedTab.id) {
-                let transferDataObj = {
-                    type: "updateTabById",
-                    data: {
-                        tab,
-                        canvas:this.canvasData
-                    }
-                };
-                let normalizedData = JSON.stringify(transferDataObj);
-                this.$store.dispatch('sendDataTrack',normalizedData)
-                this.changeSelectedTab(tab);
-                whiteBoardService.hideHelper();
-                whiteBoardService.redraw(this.canvasData);
+            if(!this.$route.params.id || this.$route.params.id && this.isTutor ){
+                this.$ga.event("tutoringRoom", `changeTab:${tab}`);
+                this.currentTabId = tab.id;
+                if (tab.id !== this.getCurrentSelectedTab.id) {
+                    let transferDataObj = {
+                        type: "updateTabById",
+                        data: {
+                            tab,
+                            canvas:this.canvasData
+                        }
+                    };
+                    let normalizedData = JSON.stringify(transferDataObj);
+                    this.$store.dispatch('sendDataTrack',normalizedData)
+                    this.changeSelectedTab(tab);
+                    whiteBoardService.hideHelper();
+                    whiteBoardService.redraw(this.canvasData);
+                }
             }
         },
         resizeCanvas() {
