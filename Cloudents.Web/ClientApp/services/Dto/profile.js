@@ -16,7 +16,7 @@ export const Profile = {
             firstName: objInit.firstName || '',
             lastName: objInit.lastName || '',
             isFollowing: objInit.isFollowing,
-            cover : objInit.cover || 'https://scontent.ftlv6-1.fna.fbcdn.net/v/t31.0-8/c0.397.1280.474a/p960x960/1654920_10152171693052731_1868288487_o.jpg?_nc_cat=111&_nc_sid=dd9801&_nc_oc=AQllCRZ1QdZfBv5Bjh6A75F-Vq7xneUXpms9kPVtk0lvcvES6HhFp_4ZMM5yRrOZV48&_nc_ht=scontent.ftlv6-1.fna&oh=6169f0d86ede90f9d4c25020aaff1561&oe=5EB09126'
+            cover : objInit.cover || ''
          }
       )
    },
