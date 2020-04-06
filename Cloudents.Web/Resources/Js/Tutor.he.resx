@@ -348,4 +348,7 @@
   <data name="microphone_blocked" xml:space="preserve">
     <value>כדי להקליט, עליך לאפשר לדפדפן גישה למיקרופון שלך.</value>
   </data>
+  <data name="tooltip_fullscreen" xml:space="preserve">
+    <value>מסך מלא</value>
+  </data>
 </root>

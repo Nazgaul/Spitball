@@ -5,7 +5,6 @@ import store from '../store/index.js';
 import insightService from './insightService.js'
 
   function  createVideoSession() {
-    console.warn('DEBUG: 22 videoStreamService: createVideoSession')
         const self = this;
         // remove any remote track when joining a new room
         let clearEl = document.getElementById('remoteTrack');
@@ -15,12 +14,9 @@ import insightService from './insightService.js'
         self.addDevicesTotrack();
     }
    function enterRoom(){
-    console.warn('DEBUG: 23 videoStreamService: enterRoom')
        if (!store.getters['sessionStartClickedOnce']) {
         //leave this action here so that people that fills the 'pay me' wont get a loading button
-        console.warn('DEBUG: 44 videoStreamService: setSesionClickedOnce,true before ')
         store.dispatch('setSesionClickedOnce', true);
-        console.warn('DEBUG: 44.1 videoStreamService: setSesionClickedOnce,true after ')
             if (store.getters['getStudyRoomData'].isTutor) {
                 store.dispatch('updateCurrentRoomState', 'loading');
                 studyRoomService.enterRoom(store.getters['getRoomId']).then(() => {
@@ -35,7 +31,6 @@ import insightService from './insightService.js'
     }
 
     function createTwillioTracks(audioDevice, videoDevice){
-        console.warn('DEBUG: 24 videoStreamService: createTwillioTracks')
         const token = store.getters['getJwtToken']; //get jwt from store
         let tracksCreated = [];
         !!videoDevice ? tracksCreated.push(videoDevice) : '';
@@ -56,20 +51,12 @@ import insightService from './insightService.js'
     }
 
    async function addDevicesTotrack(){
-    console.warn('DEBUG: 25 videoStreamService: addDevicesTotrack')
 
-        // let audioSetObj = store.getters['getLocalAudioTrack'];
-        // let videoSetObj = store.getters['getLocalVideoTrack'];
-        // let isVideoActive = store.getters['getIsVideoActive']; maor
-        // let isAudioActive = store.getters['getIsAudioActive'];
-        // let audioDevice = audioSetObj && isAudioActive ? audioSetObj : false;
-        // let videoDevice = videoSetObj && isVideoActive ? videoSetObj : false; maor
-        createTwillioTracks(/*audioDevice, videoDevice*/);
+        createTwillioTracks();
     }
 
     //get try to get share stream via chrome extension
    function getUserScreen() {
-    console.warn('DEBUG: 26 videoStreamService: getUserScreen')
 
         let displayMediaOptions = {
             video:true,

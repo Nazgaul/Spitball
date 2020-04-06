@@ -117,7 +117,7 @@
                 v-show="activeViewOption !== enumViewOptions.fullBoard"
               >
                 <v-flex xs6 >
-                  <video-stream :id="id"></video-stream>
+                  <videoStream></videoStream>
                 </v-flex>
               </v-layout>
             </v-flex>
@@ -538,11 +538,6 @@ watch: {
       this.$ga.event("tutoringRoom", "openSettingsDialog");
       this.$store.dispatch('updateDialogRoomSettings',true)
     },
-    closeFullScreen(){
-      if(!document.fullscreenElement || !document.webkitFullscreenElement || document.mozFullScreenElement){
-       this.selectViewOption(this.enumViewOptions.videoChat)
-      }
-    },
     closeReviewDialog() {
       this.updateReviewDialog(false);
     },
@@ -646,9 +641,6 @@ watch: {
       this.updateDialogSnapshot(false);
     }
   },
-  mounted() {
-    document.addEventListener("fullscreenchange",this.closeFullScreen);
-  },
   destroyed(){
     if(this.isTutor) {
       this.$store.commit('setComponent', 'linkToaster') 
@@ -664,7 +656,6 @@ watch: {
     
 
     this.updateStudentStartDialog(false);
-    document.removeEventListener('fullscreenchange',this.closeFullScreen);
     storeService.unregisterModule(this.$store,'tutoringCanvas');
     // storeService.unregisterModule(this.$store,'tutoringMain');
     storeService.unregisterModule(this.$store,'studyRoomTracks_store');
