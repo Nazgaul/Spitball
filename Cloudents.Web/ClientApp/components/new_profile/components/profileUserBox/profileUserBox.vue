@@ -77,9 +77,9 @@
                     </div>
 
                     <!-- TUTOR BIO -->
-                    <h4 v-if="currentProfileTutor.bio" class="pUb_middle_bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}
+                    <h4 v-if="currentProfileTutor.bio" class="userBio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}
                         <span class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</span>
-                        <span sel="bio_more" v-if="readMoreVisible" @click="isOpen = !isOpen" class="pUb_middle_bio_readMore" v-language:inner="isOpen?'profile_read_less':'profile_read_more'"></span>
+                        <span sel="bio_more" v-if="readMoreVisible" @click="isOpen = !isOpen" class="readMore" v-t="isOpen ? 'profile_read_less' : 'profile_read_more'"></span>
                     </h4>
 
                     <!-- Courses Student -->
@@ -477,9 +477,14 @@ export default {
                 font-weight: 600;
             }
         }
-        .pUb_middle_bio{
+        .userBio {
             line-height: 1.64;
             font-weight: normal; // html h4 
+            .readMore {
+                color: #4c59ff;
+                font-weight: 600;
+                cursor: pointer;
+            }
         }
 
         .profileUserSticky_btns{
