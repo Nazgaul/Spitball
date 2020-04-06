@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Event;
-using System;
+﻿using System;
 
 namespace Cloudents.Core.Entities
 {
@@ -9,7 +8,14 @@ namespace Cloudents.Core.Entities
         {
             StudyRoomSession = studyRoomSession;
             User = user;
-            PricePerHour = studyRoomSession.StudyRoom.Tutor.Price.GetPrice();
+            if (studyRoomSession.StudyRoom.Price.HasValue)
+            {
+                PricePerHour = studyRoomSession.StudyRoom.Price.Value;
+            }
+            else
+            {
+                PricePerHour = studyRoomSession.StudyRoom.Tutor.Price.GetPrice();
+            }
 
         }
         protected StudyRoomSessionUser()

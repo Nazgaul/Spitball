@@ -52,6 +52,7 @@ Select
 onlineDocumentUrl as OnlineDocument, 
 sr.identifier as ConversationId,
 sr.tutorId,
+sr.BroadcastTime,
 t.Price as TutorPrice,
 u.Name as TutorName,
 u.ImageName as TutorImage,
