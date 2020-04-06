@@ -98,14 +98,10 @@ export default {
             'undoClicked', 
             'addImage',
             'clearAllClicked',
-            'getTabIndicator',
             'getImgLoader',
             'getShowBoxHelper',
             'getShapesSelected',
             'getFontSize']),
-        isRoomActive(){
-            return this.$store.getters.getRoomIsActive;
-        },
         equationSizeX(){
             return (window.innerWidth / 2) - 300;
         },
@@ -347,22 +343,19 @@ export default {
             return (e.which == keyCode || e.keyCode == keyCode);
         },
         changeTab(tab) {
+            if(!this.isTutor)return;
             this.$ga.event("tutoringRoom", `changeTab:${tab}`);
-
             this.currentTabId = tab.id;
-
             if (tab.id !== this.getCurrentSelectedTab.id) {
-                if(this.isTutor){
-                    let tabData = {
-                        tabId: this.currentTabId,
-                    };
-                    let transferDataObj = {
-                        type: "updateTabById",
-                        data: tabData
-                    };
-                    let normalizedData = JSON.stringify(transferDataObj);
-                    this.$store.dispatch('sendDataTrack',normalizedData)
-                }
+                let transferDataObj = {
+                    type: "updateTabById",
+                    data: {
+                        tab,
+                        canvas:this.canvasData
+                    }
+                };
+                let normalizedData = JSON.stringify(transferDataObj);
+                this.$store.dispatch('sendDataTrack',normalizedData)
                 this.changeSelectedTab(tab);
                 whiteBoardService.hideHelper();
                 whiteBoardService.redraw(this.canvasData);
