@@ -22,7 +22,6 @@ const mutations = {
    [twilio_SETTERS.FULL_SCREEN_AVAILABLE]: (state,val) => state.isFullScreenAvailable = val,
    [twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE]: (state,val) => state.isShareScreen = val,
    [twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK]: (state,videoTrack) => {
-
       let remoteTrackId = `remoteTrack_${videoTrack.sid || videoTrack.trackSid}`
       videoTrack.sb_video_id = remoteTrackId;
       let idx;

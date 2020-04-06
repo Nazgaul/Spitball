@@ -206,6 +206,8 @@ const actions = {
         } 
         else if(data.type === 'codeEditor_code'){
             commit('setCode',parsedData);
+        } else if(data.type === 'openFullScreen'){
+            dispatch('updateFullScreen',parsedData);
         }
 
     },

@@ -63,6 +63,17 @@ export default {
          background-repeat: no-repeat;
          pointer-events: none;
       }
+      .fullscreenMode{
+         position: fixed;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         width: 100vw;
+         object-fit: fill;
+         height: 100vh;
+         z-index: 20;
+      }
       video::-webkit-media-controls-enclosure {
          display: none !important;
       }

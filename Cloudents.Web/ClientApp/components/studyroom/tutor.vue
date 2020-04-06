@@ -80,7 +80,7 @@
               <codeEditorTools/>
             </v-flex>
             <v-spacer></v-spacer>
-            <v-flex class="share-screen">
+            <v-flex v-if="isRoomTutor" class="share-screen">
               <shareScreenBtn class="nav-share-btn" />
             </v-flex>
             <v-flex shrink class="controls-holder">

@@ -62,7 +62,16 @@ function _twilioListeners(room,store) {
    room.localParticipant.on('networkQualityLevelChanged', (networkQualityLevel,networkQualityStats) => {
       _insightEvent('networkQuality',networkQualityStats, networkQualityLevel)
    });
-   room.localParticipant.on('trackPublished',()=>{
+   room.localParticipant.on('trackPublished',(track)=>{
+      if(store.getters.getRoomIsTutor && track.trackName === 'screenTrack'){
+         let videoElementId = `remoteTrack_${track.trackSid}`
+         let transferDataObj = {
+            type: "openFullScreen",
+            data: videoElementId
+         };
+         let normalizedData = JSON.stringify(transferDataObj);
+         store.dispatch('sendDataTrack',normalizedData)
+      }
    })
 
 
