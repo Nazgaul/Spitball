@@ -1,5 +1,5 @@
 <template>
-    <div class="itemPage" :class="{'itemPage--noTutor': !docTutor.isTutor}">
+    <div class="itemPage mt-6" :class="{'itemPage--noTutor': !docTutor.isTutor}">
         <div class="itemPage__main">
             <div class="itemPage__main__document">
                 <resultNote v-if="doucmentDetails.feedItem" class="itemPage__main__document__doc" :item="doucmentDetails.feedItem" :fromItemPage="true">
@@ -84,13 +84,13 @@
             </div>
             <mobileUnlockDownload :sticky="true" v-if="$vuetify.breakpoint.md || $vuetify.breakpoint.sm" :document="document"></mobileUnlockDownload>
         </div>
-        <div v-if="$vuetify.breakpoint.lgAndUp" :class="['sticky-item',{'sticky-item_bannerActive':getBannerParams}]">
+        <!-- <div v-if="$vuetify.breakpoint.lgAndUp" :class="['sticky-item',{'sticky-item_bannerActive':getBannerParams}]">
             <whyUsDesktop class="mb-2" :document="document"></whyUsDesktop>
             <shareContent v-if="getDocumentDetails" :link="shareContentParams.link"
               :twitter="shareContentParams.twitter"
               :whatsApp="shareContentParams.whatsApp"
               :email="shareContentParams.email"/>
-        </div>
+        </div> -->
         <mobileUnlockDownload v-if="$vuetify.breakpoint.xsOnly" :document="document"></mobileUnlockDownload>
         <unlockDialog :document="document"></unlockDialog>
         <v-snackbar
@@ -134,9 +134,9 @@ const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */'../../sbCar
 import itemCard from '../../carouselCards/itemCard.vue';
 const tutorResultCard = () => import(/* webpackChunkName: "tutorResultCard" */ '../../results/tutorCards/tutorResultCard/tutorResultCard.vue');
 const tutorResultCardMobile = () => import(/* webpackChunkName: "tutorResultCardMobile" */ '../../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue');
-import whyUsDesktop from './components/whyUs/whyUsDesktop.vue';
+// import whyUsDesktop from './components/whyUs/whyUsDesktop.vue';
 import whyUs from './components/whyUs/whyUs.vue';
-import mobileUnlockDownload from './components/mobileUnlockDownload/mobileUnlockDownload.vue';
+// import mobileUnlockDownload from './components/mobileUnlockDownload/mobileUnlockDownload.vue';
 import unlockDialog from './components/dialog/unlockDialog.vue';
 const shareContent = () => import(/* webpackChunkName: "shareContent" */'../global/shareContent/shareContent.vue');
 export default {
@@ -147,9 +147,9 @@ export default {
         tutorResultCard,
         tutorResultCardMobile,
         itemCard,
-        whyUsDesktop,
+        // whyUsDesktop,
         whyUs,
-        mobileUnlockDownload,
+        // mobileUnlockDownload,
         mainItem,
         unlockDialog,
         shareContent
@@ -349,11 +349,10 @@ export default {
     .itemPage {
         position: relative;
         display: flex;
-        margin: 24px 70px 26px 34px;
+        justify-content: center;
 
         @media (max-width: @screen-md) {
             margin: 20px;
-            justify-content: center;
         }
         @media (max-width: @screen-xs) {
             margin: 0;
