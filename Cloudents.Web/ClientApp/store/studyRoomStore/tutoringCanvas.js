@@ -202,7 +202,7 @@ const actions = {
             whiteBoardService.redraw(parsedData.canvas);
         } 
         else if(data.type === 'updateActiveNav'){
-            commit('ACTIVE_NAV_TAB_INDICATOR',parsedData);
+            dispatch('updateActiveNavEditor',parsedData)
         } 
         else if(data.type === 'codeEditor_code'){
             commit('setCode',parsedData);
