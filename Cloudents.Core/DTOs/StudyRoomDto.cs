@@ -32,10 +32,15 @@ namespace Cloudents.Core.DTOs
 
         public decimal? CouponValue { get; set; }
 
+        [EntityBind(nameof(StudyRoom.Price), nameof(Tutor.Price))]
         public decimal TutorPrice { get; set; }
         public string Jwt { get; set; }
 
+        [EntityBind(nameof(StudyRoom.BroadcastTime))]
         public DateTime? BroadcastTime { get; set; }
+
+        [EntityBind(nameof(StudyRoom.Name))]
+        public string Name { get; set; }
     };
 
 
