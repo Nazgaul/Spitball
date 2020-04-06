@@ -10,7 +10,7 @@
             </div>
             <v-spacer v-else></v-spacer>
             <div class="globalHeader_items_right">
-                <div v-if="$route.meta.headerSlot">
+                <div>
                     <component :is="$route.meta.headerSlot"/>
                 </div>
                 <router-link v-show="!isMobile && shouldShowFindTutor" :to="{name:'tutorLandingPage'}" class="gH_i_r_findTutor" >
@@ -100,10 +100,10 @@ import chatIcon from './images/chatIcon.svg';
 import arrowDownIcon from './images/arrowDownIcon.svg';
 import hamburgerIcon from './images/hamburgerIcon.svg';
 const phoneNumberSlot = () => import('./headerSlots/phoneNumberSlot.vue');
-const becomeTutorSlot = () => import('./headerSlots/becomeTutorSlot.vue');
+// const becomeTutorSlot = () => import('./headerSlots/becomeTutorSlot.vue');
 
 export default {
-components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTutorSlot,helpIcon,chatIcon,arrowDownIcon,hamburgerIcon},
+components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,arrowDownIcon,hamburgerIcon},
     data() {
         return {
             drawer: false,
