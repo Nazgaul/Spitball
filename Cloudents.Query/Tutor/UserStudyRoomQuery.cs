@@ -32,13 +32,14 @@ namespace Cloudents.Query.Tutor
             public async Task<IEnumerable<UserStudyRoomDto>> GetAsync(UserStudyRoomQuery query, CancellationToken token)
             {
                 StudyRoom? studyRoomAlias = null;
+                StudyRoomUser? studyRoomUser = null;
                 UserStudyRoomDto? resultAlias = null;
 
                 //TODO we can do it in linq
-                var detachedQuery = QueryOver.Of<StudyRoomUser>()
-                    .Left.JoinAlias(x => x.Room, () => studyRoomAlias)
-                    .Where(w => w.User.Id == query.UserId || studyRoomAlias.Tutor.Id == query.UserId)
-                    .Select(s => s.Room.Id);
+                var detachedQuery = QueryOver.Of<StudyRoom>(()=> studyRoomAlias)
+                    .Left.JoinAlias(x => x.Users, () => studyRoomUser)
+                    .Where(() => studyRoomUser.User.Id == query.UserId || studyRoomAlias.Tutor.Id == query.UserId)
+                    .Select(s => s.Id);
 
                 return await _session.QueryOver(() => studyRoomAlias)
                     .WithSubquery.WhereProperty(x => x.Id).In(detachedQuery)
@@ -46,6 +47,7 @@ namespace Cloudents.Query.Tutor
                                 sl.Select(s => s!.Id).WithAlias(() => resultAlias!.Id)
                                 .Select(s=>s!.Name).WithAlias(() => resultAlias!.Name)
                                 .Select(s => s!.DateTime.CreationTime).WithAlias(() => resultAlias!.DateTime)
+                                .Select(s=>s.StudyRoomType).WithAlias(() => resultAlias!.Type)
                                 .Select(s => s!.Identifier).WithAlias(() => resultAlias!.ConversationId)
                                     .SelectSubQuery(QueryOver.Of<StudyRoomSession>()
                                         .Where(w=>w.StudyRoom.Id == studyRoomAlias.Id)

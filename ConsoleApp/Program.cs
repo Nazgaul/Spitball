@@ -27,6 +27,7 @@ using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Query;
 using Cloudents.Query.Chat;
+using Cloudents.Query.Tutor;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using NHibernate.Linq;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
@@ -147,11 +148,11 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             //var unitOfWork = Container.Resolve<IUnitOfWork>();
-            var _session = Container.Resolve<ICommandBus>();
-            var command = new CreateStudyRoomCommand(638, null, "x", "broadcast ram", 50, DateTime.UtcNow.AddDays(15));
-            await _session.DispatchAsync<CreateStudyRoomCommand, CreateStudyRoomCommandResult>(command, default);
+            var _session = Container.Resolve<IQueryBus>();
+            var command = new UserStudyRoomQuery(638);
+            var result = await _session.QueryAsync(command, default);
 
-
+            Console.WriteLine(result);
 
 
             //var sessionFuture = await _session.Query<StudyRoomSessionUser>()
