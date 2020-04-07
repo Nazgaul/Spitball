@@ -138,7 +138,7 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
             return this.getTotalUnread;
         },
         isShowBorderBottom(){
-            let filteredRoutes = [routeNames.Profile];
+            let filteredRoutes = [routeNames.Profile, routeNames.Document];
             return filteredRoutes.indexOf(this.$route.name) > -1 && this.$vuetify.breakpoint.xsOnly;
         },
         searchPlaceholder(){

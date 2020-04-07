@@ -166,7 +166,7 @@
     <value>Personal details</value>
   </data>
   <data name="price_label" xml:space="preserve">
-    <value>Price per Hour</value>
+    <value>Price per Hour per student</value>
   </data>
   <data name="pricing" xml:space="preserve">
     <value>Pricing</value>

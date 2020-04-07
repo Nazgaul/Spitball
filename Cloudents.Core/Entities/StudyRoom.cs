@@ -17,7 +17,7 @@ namespace Cloudents.Core.Entities
         {
             if (users == null) throw new ArgumentNullException(nameof(users));
             if (price < 0) throw new ArgumentException(nameof(price));
-            _users = users.Select(s => new StudyRoomUser(s, this)).ToList();
+            _users = new HashSet<StudyRoomUser>(users.Select(s => new StudyRoomUser(s, this)));
             Tutor = tutor;
             if (_users.Any())
             {
@@ -28,7 +28,7 @@ namespace Cloudents.Core.Entities
             else
             {
                 StudyRoomType = StudyRoomType.Broadcast;
-                Identifier =  Guid.NewGuid().ToString();
+                Identifier = Guid.NewGuid().ToString();
                 ChatRoom = ChatRoom.FromStudyRoom(this);
                 //var chatRoom = ChatRoom.FromStudyRoom(Identifier);
             }
@@ -74,9 +74,9 @@ namespace Cloudents.Core.Entities
 
         public virtual Tutor Tutor { get; protected set; }
 
-        private readonly ICollection<StudyRoomUser> _users = new List<StudyRoomUser>();
+        private readonly ISet<StudyRoomUser> _users = new HashSet<StudyRoomUser>();
 
-        public virtual IEnumerable<StudyRoomUser> Users => _users;
+        public virtual ISet<StudyRoomUser> Users => _users;
 
 
         public virtual string Identifier { get; protected set; }
@@ -111,6 +111,17 @@ namespace Cloudents.Core.Entities
             var user = Users.First(f => f.User.Id != Tutor.Id).User;
             user.UseToken(this);
             DateTime.UpdateTime = System.DateTime.UtcNow;
+        }
+
+
+        public virtual void AddUserToStudyRoom(User user)
+        {
+            if (StudyRoomType == StudyRoomType.Broadcast)
+            {
+                var studyRoomUser = new StudyRoomUser(user, this);
+                Users.Add(studyRoomUser);
+                ChatRoom.AddUserToChat(user);
+            }
         }
 
         //public virtual void ChangeOnlineStatus(long userId, bool isOnline)

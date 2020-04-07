@@ -202,7 +202,7 @@
     <value>שעה</value>
   </data>
   <data name="price_label" xml:space="preserve">
-    <value>מחיר לשעה</value>
+    <value>מחיר לשעה לסטודנט</value>
   </data>
   <data name="pricing" xml:space="preserve">
     <value>תמחור</value>

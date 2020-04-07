@@ -1,17 +1,17 @@
-﻿using System;
+﻿//using System;
 
-namespace Cloudents.Command
-{
-    public class AddUserToChatCommand : ICommand
-    {
-        public AddUserToChatCommand(Guid studyRoomId, long userId)
-        {
-            StudyRoomId = studyRoomId;
-            UserId = userId;
-        }
+//namespace Cloudents.Command
+//{
+//    public class AddUserToChatCommand : ICommand
+//    {
+//        public AddUserToChatCommand(Guid studyRoomId, long userId)
+//        {
+//            StudyRoomId = studyRoomId;
+//            UserId = userId;
+//        }
 
-        public Guid StudyRoomId { get; private set; }
+//        public Guid StudyRoomId { get; private set; }
 
-        public long UserId { get; set; }
-    }
-}
+//        public long UserId { get; set; }
+//    }
+//}
