@@ -9,6 +9,43 @@ const AUDIO_TRACK_NAME = 'audioTrack';
 const VIDEO_TRACK_NAME = 'videoTrack';
 const SCREEN_TRACK_NAME = 'screenTrack';
 
+function _initStudentJoined(store,localParticipant){
+   // update editor tab:
+   let editorTab = {
+      type: "updateActiveNav",
+      data: store.getters.getActiveNavEditor
+   };
+   store.dispatch('sendDataTrack',JSON.stringify(editorTab));
+
+   // update canvas tab:
+   let canvasTab = {
+      type: "updateTabById",
+      data:{
+         tab: store.getters.getCurrentSelectedTab,
+         canvas: store.getters.canvasDataStore
+      }
+   }
+   store.dispatch('sendDataTrack',JSON.stringify(canvasTab));
+
+   // share screen & video full screen:
+   Array.from(localParticipant.tracks.values()).forEach((track) => {
+         if(track.trackName === VIDEO_TRACK_NAME && store.getters.getIsFullScreen){
+            let shareVideoCamera = {
+               type: "openFullScreen",
+               data: `remoteTrack_${track.trackSid}`
+
+            };
+            store.dispatch('sendDataTrack',JSON.stringify(shareVideoCamera))
+         }
+         if(track.trackName === SCREEN_TRACK_NAME){
+            let shareScreen = {
+               type: "openFullScreen",
+               data: `remoteTrack_${track.trackSid}`
+            };
+            store.dispatch('sendDataTrack',JSON.stringify(shareScreen))
+         }
+      });
+}
 function _detachTracks(tracks,store){
    tracks.forEach((track) => {
       if (track?.detach) {
@@ -134,6 +171,11 @@ function _twilioListeners(room,store) {
    room.on('participantConnected', (participant) => {
       if(store.getters.getRoomIsTutor){
          store.commit('setComponent', 'simpleToaster_userConnected');
+         participant.on('trackSubscribed',(track)=>{
+            if(track.kind === 'data'){
+               _initStudentJoined(store,room.localParticipant)
+            }
+         })
       }
       _insightEvent('TwilioParticipantConnected', participant, null);
    })
