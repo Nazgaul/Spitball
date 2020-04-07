@@ -150,6 +150,9 @@
   <data name="toaster_left_the_room" xml:space="preserve">
     <value>A student has left the room</value>
   </data>
+  <data name="toaster_session_date" xml:space="preserve">
+    <value>session will begin in:</value>
+  </data>
   <data name="toaster_session_start" xml:space="preserve">
     <value>Session has started</value>
   </data>
