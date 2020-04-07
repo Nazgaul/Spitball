@@ -41,6 +41,9 @@ namespace Cloudents.Core.DTOs
 
         [EntityBind(nameof(StudyRoom.Name))]
         public string Name { get; set; }
+
+
+        public StudyRoomType Type { get; set; }
     };
 
 

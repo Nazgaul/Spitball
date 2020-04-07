@@ -145,10 +145,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
 
 
-        [Fact]
-        public async Task StudyRoomQuery_Ok()
+        [Theory]
+        [InlineData("0F70AF05-BAD4-4299-8341-AA38007858CF")]
+        [InlineData("30869fd9-f2f3-41ef-baee-ab9500b3832a")]
+        public async Task StudyRoomQuery_Ok(string id)
         {
-            var query = new StudyRoomQuery(Guid.Parse("0F70AF05-BAD4-4299-8341-AA38007858CF"), 159039);
+            var query = new StudyRoomQuery(Guid.Parse(id), 159039);
 
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
