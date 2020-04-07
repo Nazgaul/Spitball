@@ -49,7 +49,7 @@
                             <span>{{currentProfileUser.name}}</span>
                         </h1>
 
-                        <div class="profileUserSticky_pricing text-right" v-if="!isMobile">
+                        <div class="profileUserSticky_pricing text-center" v-if="!isMobile">
                             <template v-if="currentProfileUser.isTutor">
                                 <div class="d-flex align-end justify-center">
                                     <div class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
@@ -70,7 +70,7 @@
                     </div>
 
                     <!-- Rate And Follower -->
-                    <div class="rateWrap d-flex mb-4 justify-center justify-sm-start" :class="[!currentProfileUser.isTutor ? 'mt-sm-n0' : 'mt-sm-n5']">
+                    <div class="rateWrap d-flex mb-3 justify-center justify-sm-start" :class="[!currentProfileUser.isTutor ? 'mt-sm-n0' : 'mt-sm-n4']">
                         <template v-if="currentProfileUser.isTutor">
                             <div class="pUb_dS_c_rating" v-if="currentProfileTutor.reviewCount">
                                 <userRating class="c_rating" :showRateNumber="false" :rating="currentProfileTutor.rate" :size="'18'" />
@@ -90,12 +90,12 @@
 
                     <!-- courses teacher -->
                     <div class="course mt-sm-3 mb-sm-6 mt-2 mb-3 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
-                        <span class="iTeach mr-1" v-t="'profile_my_courses_teacher'"></span>
+                        <bdi class="iTeach mr-1" v-t="'profile_my_courses_teacher'"></bdi>
                         <span class="courseName text-truncate">{{currentProfileUser.courses.toString().replace(/,/g, ", ")}}</span>
                     </div>
 
                     <!-- TUTOR BIO -->
-                    <h4 v-if="currentProfileTutor.bio" class="userBio mb-5 mb-sm-0">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}
+                    <h4 v-if="currentProfileTutor.bio" class="userBio mb-5 mb-sm-0 mr-sm-2">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}
                         <span class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</span>
                         <span sel="bio_more" v-if="readMoreVisible" @click="isOpen = !isOpen" class="readMore" v-t="isOpen ? 'profile_read_less' : 'profile_read_more'"></span>
                     </h4>
@@ -109,7 +109,7 @@
                     </div>
                 </div>
 
-                <div class="profileUserSticky_btns d-block d-sm-flex justify-space-between align-end text-center" :class="{'student': !currentProfileUser.isTutor && isCurrentProfileUser}">
+                <div class="profileUserSticky_btns d-block d-sm-flex justify-space-between align-end text-center mt-5" :class="{'student': !currentProfileUser.isTutor && isCurrentProfileUser}">
                     <template v-if="isMobile">
                         <div class="profileUserSticky_pricing mb-4" v-if="currentProfileUser.isTutor">
                             <div class="d-flex align-end justify-center">
@@ -145,29 +145,29 @@
         </div>
 
         <v-row class="bottom text-center pt-3" dense v-if="currentProfileTutor">
-            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center">
-                <followersSvg class="mt-3" width="26" />
+            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-1">
+                <followersSvg class="mt-sm-2 mt-1" width="26" />
                 <div class="ml-3" @click="isMobile ? scrollToReviews():''" >
                     <div class="number text-left">{{currentProfileUser.followers}}</div>
                     <div class="type">{{$tc('profile_tutor_follower', currentProfileUser.followers)}}</div>
                 </div>
             </v-col>
-            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center">
-                <onlineLessonSVG class="mt-3" width="20" />
+            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-1">
+                <onlineLessonSVG class="mt-sm-2 mt-1" width="20" />
                 <div class="ml-3">
                     <div class="number text-left">{{currentProfileTutor.lessons}}</div>
                     <div class="type" v-t="''">{{$tc('profile_session', currentProfileTutor.lessons)}}</div>
                 </div>
             </v-col>
-            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center">
-                <studentsSVG class="mt-3" width="26" />
+            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-3 pa-sm-1">
+                <studentsSVG class="mt-sm-2 mt-1" width="26" />
                 <div class="ml-3">
                     <div class="number text-left">{{currentProfileTutor.students}}</div>
                     <div class="type">{{$tc('profile_student', currentProfileTutor.students)}}</div>
                 </div>
             </v-col>
-            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center">
-                <starSVG class="mt-3" width="26" />
+            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-1">
+                <starSVG class="mt-sm-1 mt-1" width="26" />
                 <div class="ml-3">
                     <div class="number text-left">{{currentProfileTutor.reviewCount}}</div>
                     <div class="type">{{$tc('profile_reviews',currentProfileTutor.reviewCount)}}</div>
@@ -247,7 +247,7 @@ export default {
             return this.getUserStatus[this.currentProfileUser.id] || false;
         },
         textLimit(){
-            return this.isMobile ? 68 : 220;
+            return this.isMobile ? 68 : 210;
         },
         isOpen :{
             get(){
@@ -538,7 +538,7 @@ export default {
                     font-weight: bold;
                 }
                 .profileUserSticky_pricing_price_number{
-                    font-size: 28px;
+                    font-size: 26px;
                     font-weight: bold;
                 }
             }

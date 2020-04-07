@@ -45,7 +45,7 @@ namespace Cloudents.Command.StudyRooms
                 room.Tutor.User.Country,
                 message.RecordVideo,
                 url,
-                room.Type.GetValueOrDefault(StudyRoomType.PeerToPeer)
+                room.Type.GetValueOrDefault(StudyRoomTopologyType.PeerToPeer)
                 );
             //var session = new StudyRoomSession(room, sessionName);
             room.AddSession(sessionName);

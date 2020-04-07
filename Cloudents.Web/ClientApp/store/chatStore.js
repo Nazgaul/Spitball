@@ -156,8 +156,8 @@ const mutations = {
         //val could be negative value
         state.totalUnread = state.totalUnread + val;
     },
-    lockChat:(state)=>{
-        state.chatLocked = true;
+    lockChat:(state,val)=>{
+        state.chatLocked = val;
     },
     activateLoader:(state, val)=>{
         state.chatLoader = val;
@@ -394,8 +394,8 @@ const actions = {
             dispatch('clearUnread');
         }
     },
-    lockChat:({commit})=>{
-        commit('lockChat');
+    updateLockChat({commit},val){
+        commit('lockChat',val);
     },
     checkUnreadMessageFromSignalR({state}, obj) {
         let currentConversation = state.activeConversationObj.conversationId === obj.conversationId;
