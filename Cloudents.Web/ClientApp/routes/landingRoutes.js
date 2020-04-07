@@ -51,9 +51,9 @@ export const landingRoutes = [
             default: () => import(`../components/landingPage/learn.vue`),
             ...staticComponents(['banner', 'header', 'footer']),
         },
-        meta:{
-            headerSlot: (global.siteName === 'frymo')? '': 'becomeTutorSlot',
-        },
+        // meta:{
+        //     headerSlot: (global.siteName === 'frymo')? '': 'becomeTutorSlot',
+        // },
     },
     {
         path: "/tutor-list/:course?",

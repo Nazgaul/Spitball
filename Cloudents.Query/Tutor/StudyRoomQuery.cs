@@ -59,6 +59,7 @@ u.Name as TutorName,
 u.ImageName as TutorImage,
 x.*,
   coalesce (
+    case when sr.price = 0 then @False else null end,
 	case when t.price = 0 then @False else null end,
     case when t.id = @UserId then @False else null end ,
 	case when COALESCE( (select u2.PaymentExists from sb.[user] u2 where id = @UserId),0) = 1 then @False else null end,

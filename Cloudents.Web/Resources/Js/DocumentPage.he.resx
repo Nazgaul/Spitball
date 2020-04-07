@@ -120,6 +120,9 @@
   <data name="credit_uploader" xml:space="preserve">
     <value>לצפייה, הענק נקודות לבעלי התוכן</value>
   </data>
+  <data name="description" xml:space="preserve">
+    <value>פירוט</value>
+  </data>
   <data name="docPage" xml:space="preserve">
     <value>עמוד {1} מתוך {2}</value>
   </data>

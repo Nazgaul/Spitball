@@ -1,5 +1,5 @@
 <template>
-  <div class="shareContent" :class="{'marketingBtn': large}">
+  <div class="shareContent"  :class="{'marketingBtn': large, 'shareContentDefault':defaultStyle}">
     <span class="pr-1" v-if="!large">{{$t('shareContent_title')}} |</span>
 
     <div class="d-flex align-center btnWrapper">
@@ -85,6 +85,11 @@ export default {
     };
   },
   props: {
+    defaultStyle: {
+      required: false,
+      type: Boolean,
+      default:false
+    },
     large: {
       required: false,
       type: Boolean
@@ -202,24 +207,35 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @import "../../../../styles/mixin.less";
-.shareContent {
-  padding: 16px;
-  min-width: 292px;
+.shareContentDefault  {
+  
   width: 100%;
-  height: 52px;
+  min-width: 292px;
+ 
   border-radius: 8px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
   background-color: #ffffff;
-  color: #43425d;
-  display: flex;
-  align-items: center;
   @media (max-width: @screen-xs) {
     padding: 14px;
     border-radius: 0;
     box-shadow: none;
     min-width: 100%;
+  }
+
+}
+.shareContent {
+  padding: 16px;
+  height: 52px;
+ 
+  color: #43425d;
+  display: flex;
+  align-items: center;
+  @media (max-width: @screen-xs) {
+    padding: 14px;
+   // border-radius: 0;
+   // box-shadow: none;
   }
   .share-title {
     font-size: 14px;
