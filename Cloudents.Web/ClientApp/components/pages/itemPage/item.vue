@@ -412,13 +412,14 @@ export default {
 
     .itemPage {
         //hacks to finish this fast
-        .price-area, .content-wrap, hr {
+        .price-area, .content-wrap, hr, .spacer {
             display: none !important;
         }
         .bottom-row, .data-row {
             margin-right: 30% !important;
             @media (max-width: @screen-xs) {
                 margin-right: auto !important;
+                justify-content: space-between;
             }
         }
         .azuremediaplayer {
