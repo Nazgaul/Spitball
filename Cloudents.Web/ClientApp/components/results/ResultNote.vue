@@ -2,7 +2,6 @@
   <router-link v-show="url && !fromItemPage" class="d-block note-block" :class="{'no-cursor': fromItemPage}" :to="!fromItemPage ? url : ''">
     <div class="document-header-container">
       <div class="document-header-large-sagment">
-        <slot name="arrowBack"></slot>
         <user-avatar
           size="34"
           v-if="authorName"
@@ -58,6 +57,8 @@
         </v-menu>
       </div>
     </div>
+
+    <slot name="descriptionTitle"></slot>
 
     <v-flex grow class="top-row">
       <template v-if="!fromItemPage">

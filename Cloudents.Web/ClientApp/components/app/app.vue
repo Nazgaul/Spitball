@@ -133,7 +133,6 @@ export default {
       // need to think of better way to check if placeholder
       let isRoutes = [
       'feed',
-      'document',
       'question',
       'myFollowers',
       'mySales',

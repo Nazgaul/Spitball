@@ -174,4 +174,7 @@
   <data name="unlock_video_subtitle" xml:space="preserve">
     <value>Want to see the full Video?</value>
   </data>
+  <data name="description" xml:space="preserve">
+    <value>Description</value>
+  </data>
 </root>

@@ -15,6 +15,9 @@ function _checkPayment(context) {
 
 const state = {
    activeNavEditor: 'white-board',
+   roomDate:null,
+   roomType:null,
+   roomName:null,
    roomOnlineDocument: null,
    roomIsTutor: false,
    roomIsActive: false,
@@ -45,6 +48,9 @@ const mutations = {
       state.roomIsNeedPayment = props.needPayment;
       state.roomConversationId = props.conversationId;
       state.studyRoomId = props.roomId;
+      state.roomType = props.type;
+      state.roomName = props.name;
+      state.roomDate = props.broadcastTime;
    },
    [studyRoom_SETTERS.DIALOG_ROOM_SETTINGS]: (state, val) => state.dialogRoomSettings = val,
    [studyRoom_SETTERS.DIALOG_END_SESSION]: (state, val) => state.dialogEndSession = val,
@@ -61,6 +67,8 @@ const mutations = {
       state.dialogRoomSettings = false;
       state.dialogEndSession = false;
       state.roomProps = null;
+      state.roomType = null;
+      state.roomName = null;
    },
    [studyRoom_SETTERS.DIALOG_USER_CONSENT]: (state, val) => state.dialogUserConsent = val,
    [studyRoom_SETTERS.DIALOG_SNAPSHOT]: (state, val) => state.dialogSnapshot = val,
@@ -69,6 +77,9 @@ const getters = {
    getActiveNavEditor: state => state.activeNavEditor,
    getRoomOnlineDocument: state => state.roomOnlineDocument,
    getRoomIsTutor: state => state.roomIsTutor,
+   getRoomName: state => state.roomName,
+   getRoomDate: state => state.roomDate,
+   getRoomIsBroadcast: state => state.roomType === 'Broadcast',
    getRoomIsActive: state => state.roomIsActive,
    getRoomTutor: state => state.roomTutor,
    getRoomIdSession: state => state.studyRoomId,
@@ -134,7 +145,15 @@ const actions = {
          return dispatch('studyRoomMiddleWare')
       } else {
          return studyRoomService.getRoomInformation(roomId).then((roomProps) => {
-            commit(studyRoom_SETTERS.ROOM_PROPS, roomProps)
+            commit(studyRoom_SETTERS.ROOM_PROPS, roomProps);
+            if(getters.getRoomIsBroadcast && !getters.getRoomIsTutor){
+               let countDownDate = new Date(getters.getRoomDate).getTime();
+			      let now = new Date();
+               let distance = countDownDate - now;
+               if (distance > 0) {
+                  commit('setComponent', 'simpleToaster_countDown');
+               }
+            }
             if (roomProps.jwt){
                dispatch('updateJwtToken',roomProps.jwt);
             }
