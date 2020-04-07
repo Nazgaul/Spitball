@@ -113,15 +113,15 @@ namespace Cloudents.Infrastructure.Mail
                     type = RoomResource.RoomTypeEnum.Group;
                     break;
             }
-            var mediaRegion = "us1";
-            if (country == Country.Israel)
-            {
-                mediaRegion = "de1";
-            }
-            if (country == Country.India)
-            {
-                mediaRegion = "us1";
-            }
+            //var mediaRegion = "us1";
+            //if (country == Country.Israel)
+            //{
+            //    mediaRegion = "de1";
+            //}
+            //if (country == Country.India)
+            //{
+            //    mediaRegion = "us1";
+            //}
 
             await RoomResource.CreateAsync(
                  uniqueName: id,
@@ -130,8 +130,8 @@ namespace Cloudents.Infrastructure.Mail
                  type: type,
                  statusCallback: callBack,
                  statusCallbackMethod: HttpMethod.Post,
-                 recordParticipantsOnConnect: needRecord,
-                 mediaRegion: mediaRegion
+                 recordParticipantsOnConnect: needRecord
+                 //mediaRegion: mediaRegion
             );
 
 
