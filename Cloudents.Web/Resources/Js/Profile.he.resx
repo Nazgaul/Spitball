@@ -226,7 +226,7 @@
     <value>{1} שעות</value>
   </data>
   <data name="reviews" xml:space="preserve">
-    <value>חוות דעת</value>
+    <value>ביקורות</value>
   </data>
   <data name="select_course" xml:space="preserve">
     <value>בחר קורס</value>
@@ -244,16 +244,16 @@
     <value>שלחו לי הודעה</value>
   </data>
   <data name="session" xml:space="preserve">
-    <value>{1} שיעור</value>
+    <value>שיעור | שיעורים</value>
   </data>
   <data name="sessions" xml:space="preserve">
     <value>{1} שיעורים</value>
   </data>
   <data name="single_review" xml:space="preserve">
-    <value>חוות דעת</value>
+    <value>ביקורת</value>
   </data>
   <data name="student" xml:space="preserve">
-    <value>{1} סטודנט</value>
+    <value>סטודנט | סטודנטים</value>
   </data>
   <data name="students" xml:space="preserve">
     <value>{1} תלמידים</value>
@@ -271,7 +271,7 @@
     <value>מורה פרטי</value>
   </data>
   <data name="tutor_follower" xml:space="preserve">
-    <value>{1} עוקב</value>
+    <value>עוקב | עוקבים</value>
   </data>
   <data name="tutor_followers" xml:space="preserve">
     <value>{1} עוקבים</value>
