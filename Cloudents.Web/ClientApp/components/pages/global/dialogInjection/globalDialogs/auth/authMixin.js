@@ -71,10 +71,14 @@ export default {
                     analyticsService.sb_unitedEvent('Login', 'Start Google')
                     commit('setComponent', '')
                     dispatch('updateLoginStatus', true)
-                    if(self.$route.path === '/' || self.$route.path === '/learn') {
+
+                    let pathToRedirect = ['/','/learn','/register2'];
+                    if (pathToRedirect.indexOf(self.$route.path) > -1) {
                         this.$router.push({name: this.routeNames.LoginRedirect})
                         return
                     }
+                    // if(self.$route.path === '/' || self.$route.path === '/learn') {
+                    // }
                     dispatch('userStatus')
                 }).catch(error => {
                     if(error) {

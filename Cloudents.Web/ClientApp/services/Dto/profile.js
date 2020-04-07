@@ -16,6 +16,7 @@ export const Profile = {
             firstName: objInit.firstName || '',
             lastName: objInit.lastName || '',
             isFollowing: objInit.isFollowing,
+            cover : objInit.cover || ''
          }
       )
    },

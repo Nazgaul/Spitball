@@ -87,6 +87,8 @@ export default {
 
 .profileReviewsBox{
   width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 //   height: 512px;
   border-radius: 8px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);

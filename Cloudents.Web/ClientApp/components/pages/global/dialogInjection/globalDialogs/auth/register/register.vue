@@ -232,6 +232,53 @@ export default {
                 }).finally(() => {
                     self.$refs.recaptcha.reset()
                 })
+        },
+        sendSms(){
+            let childComp = this.$refs.childComponent
+            let smsObj = {
+                countryCode: childComp.localCode,
+                phoneNumber: childComp.phoneNumber
+            }
+
+            let self = this
+            registrationService.smsRegistration(smsObj)
+                .then(function (){
+                    let { dispatch } = self.$store
+
+                    dispatch('updateToasterParams',{
+                        toasterText: self.$t("login_verification_code_sent_to_phone"),
+                        showToaster: true,
+                    });
+                    analyticsService.sb_unitedEvent('Registration', 'Phone Submitted');
+                    self.component = 'verifyPhone'
+                }).catch(error => {
+                    let { response: { data } } = error
+                    
+                    self.errors.phone = data && data["PhoneNumber"] ? data["PhoneNumber"][0] : '' // TODO:
+                    self.$appInsights.trackException({exception: new Error(error)});
+                })
+        },
+        verifyPhone(){
+            let childComp = this.$refs.childComponent
+
+			let self = this
+			registrationService.smsCodeVerification({number: childComp.smsCode})
+				.then(userId => {
+                    let { commit, dispatch } = self.$store
+
+                    analyticsService.sb_unitedEvent('Registration', 'Phone Verified');
+                    if(!!userId){
+                        analyticsService.sb_unitedEvent('Registration', 'User Id', userId.data.id);
+                    }
+
+					commit('setComponent', '')
+                    commit('changeLoginStatus', true)
+/*    let pathToRedirect = ['/','/learn','/register2'];
+                    if (pathToRedirect.indexOf(self.$route.path) > -1) {
+                        this.$router.push*/
+                    // this is when user start register from tutorRequest
+                    if(self.isFromTutorReuqest) {
+                        dispatch('userStatus')
         }
     },
     created() {      

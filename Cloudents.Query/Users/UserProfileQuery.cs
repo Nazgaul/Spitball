@@ -51,6 +51,7 @@ u.online,
 cast ((select count(*) from sb.GoogleTokens gt where u.Id = gt.Id) as bit) as CalendarShared,
 u.FirstName as FirstName,
 u.LastName as LastName,
+u.CoverImage as Cover,
 t.price as Tutor_Price, 
 t.SubsidizedPrice as Tutor_DiscountPrice,
 t.country as Tutor_TutorCountry,
@@ -135,6 +136,7 @@ and uc.tutorId =  :profileId";
                 result.DocumentCourses = documentCoursesFuture.GetEnumerable();
                 result.Courses = userCoursesFuture.GetEnumerable();
                 result.Image = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Image);
+                result.Cover = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Cover);
 
                 if (result.Tutor?.CouponValue != null && result.Tutor?.CouponType != null)
                 {
