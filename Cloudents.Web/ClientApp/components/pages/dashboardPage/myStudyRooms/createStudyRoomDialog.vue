@@ -5,10 +5,19 @@
          <div class="createStudyRoomDialog-title pb-4">{{$t('dashboardPage_create_room_title')}}</div>
          <v-form class="d-flex justify-space-between input-room-name" ref="createRoomValidation">
             <v-text-field class="pr-5" :rules="[rules.required]" v-model="roomName" height="44" dense outlined :label="$t('dashboardPage_create_room_placeholder')" :placeholder="$t('dashboardPage_create_room_label')"/>
-            <v-text-field class="pl-5" outlined  height="44" dense :rules="[rules.required,rules.integer,rules.minimum]"
+            <v-text-field class="px-5" outlined  height="44" dense :rules="[rules.required,rules.integer,rules.minimum]"
                v-model="price" type="number"
                :label="$t('becomeTutor_placeholder_price', {'0' : getSymbol})" :placeholder="$t('becomeTutor_placeholder_price', {'0' : getSymbol})">
             </v-text-field>
+            <v-combobox
+               v-model="studyRoomType"
+               :items="items"
+               class="pl-5"
+               label="Combobox"
+               height="44"
+               outlined
+               dense
+            ></v-combobox>
          </v-form>
          <div class="createStudyRoomDialog-list">
             <v-list flat class="list-followers">
@@ -60,6 +69,8 @@ export default {
             minimum: (value) => validationRules.minVal(value,0),
          },
          MAX_PARTICIPANT: 49,
+         studyRoomType: 'Private',
+         items: [ 'Private', 'Broadcast' ]
       }
    },
    methods: {
@@ -87,6 +98,7 @@ export default {
                   name: this.roomName,
                   userId: Array.from(this.selected.map(user=> user.userId)),
                   price: this.price || 0,
+                  type: this.studyRoomType
                   // date: this.date || new Date().toISOString(),
                   // date: '2020-04-06T14:01:54.339Z'
                }
