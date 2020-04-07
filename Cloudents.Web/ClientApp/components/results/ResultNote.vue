@@ -59,6 +59,8 @@
       </div>
     </div>
 
+    <slot name="descriptionTitle"></slot>
+
     <v-flex grow class="top-row">
       <template v-if="!fromItemPage">
         <v-progress-circular

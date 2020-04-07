@@ -54,13 +54,9 @@
                 </v-card>
 
                 <resultNote v-if="doucmentDetails.feedItem" class="itemPage__main__document__doc" :item="doucmentDetails.feedItem" :fromItemPage="true">
-                    <!-- <template #arrowBack>
-                        <v-icon
-                            class="hidden-md-and-up document-header-large-sagment--arrow" 
-                            @click="closeDocument" 
-                            v-html="'sbf-arrow-left-carousel'">
-                        </v-icon>
-                    </template> -->
+                    <template #descriptionTitle>
+                        <div class="mt-5 descriptionTitle" v-t="'documentPage_description'"></div>
+                    </template>
                 </resultNote>
 
                 <template v-else>
@@ -456,7 +452,11 @@ export default {
                 &__doc {
                     padding: 12px 16px 12px 12px;
 
-                  
+                  .descriptionTitle {
+                      font-size: 16px;
+                      color: @global-purple;
+                      font-weight: 600;
+                  }
                 }
                 .document-header-large-sagment {
                     &--arrow {
