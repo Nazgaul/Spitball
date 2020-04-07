@@ -48,7 +48,7 @@ namespace Cloudents.Command.CommandHandler
             var googleDocUrl = await _googleDocument.CreateOnlineDocAsync(documentName, token);
 
             var studyRoom = new StudyRoom(tutor.Tutor, students, googleDocUrl,
-                message.Name, message.Price, message.BroadcastTime);
+                message.Name, message.Price, message.BroadcastTime,message.Type);
             await _studyRoomRepository.AddAsync(studyRoom, token);
            
             
