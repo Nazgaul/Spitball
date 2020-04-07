@@ -12,7 +12,7 @@ export const profileRoutes = [
         path: "/profile/:id/:name",
         components: {
             default: () => import(`../components/new_profile/new_profile.vue`),
-            ...staticComponents(['banner', 'header', 'sideMenu'])
+            ...staticComponents(['banner', 'header'])
         },
         beforeEnter: (to, from, next) => {
             if (to.params?.id) {
