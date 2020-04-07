@@ -136,7 +136,7 @@ and uc.tutorId =  :profileId";
                 result.DocumentCourses = documentCoursesFuture.GetEnumerable();
                 result.Courses = userCoursesFuture.GetEnumerable();
                 result.Image = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Image);
-                result.Cover = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Image);
+                result.Cover = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Cover);
 
                 if (result.Tutor?.CouponValue != null && result.Tutor?.CouponType != null)
                 {

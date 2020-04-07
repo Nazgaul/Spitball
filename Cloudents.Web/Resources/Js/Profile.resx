@@ -276,7 +276,10 @@
   <data name="empty_title" xml:space="preserve">
     <value>Nothing posted yet</value>
   </data>
-  <data name="my_courses" xml:space="preserve">
+  <data name="my_courses_teacher" xml:space="preserve">
     <value>I Teach :</value>
+  </data>
+  <data name="my_courses_student" xml:space="preserve">
+    <value>My courses :</value>
   </data>
 </root>

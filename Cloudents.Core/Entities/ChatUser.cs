@@ -35,6 +35,27 @@ namespace Cloudents.Core.Entities
         }
 
 
+        protected bool Equals(ChatUser other)
+        {
+
+            return ChatRoom.Id.Equals(other.ChatRoom.Id) && User.Id.Equals(other.User.Id);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((ChatUser)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = ChatRoom.Id.GetHashCode() ^ User.Id.GetHashCode();
+            return hashCode;
+        }
+
+
         public virtual byte[] Version { get; protected set; }
 
     }

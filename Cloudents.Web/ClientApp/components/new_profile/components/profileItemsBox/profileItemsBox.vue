@@ -1,6 +1,6 @@
 <template>
 <div id="profileItemsBox">
-   <div class="profileItemsBox-header">
+   <div class="profileItemsBox-header mb-sm-8">
       <div class="profileItemsBox_title text-truncate" 
       v-text="$Ph($vuetify.breakpoint.xsOnly? 'profile_study_materials_mobile':'profile_study_materials',userName)"/>   
       <div class="profileItemsBox_filters">
@@ -43,7 +43,7 @@
       </div>
    </div>
    <template v-if="!!items && items.length">
-      <div class="profileItemsBox_content" v-if="$vuetify.breakpoint.smAndUp">
+      <div class="profileItemsBox_content mb-sm-4" v-if="$vuetify.breakpoint.smAndUp">
          <itemCard v-for="(item, index) in items" :key="index" :item="item"/>
       </div>
       <div v-if="$vuetify.breakpoint.xsOnly" class="profileItemsBox_content_mobile">
@@ -279,6 +279,7 @@ export default {
    .profileItemsBox_content{
       width: 100%;
       display: flex;
+      justify-content: center;
       flex-flow: row wrap;
       display: grid;
       box-sizing: border-box;

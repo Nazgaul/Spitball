@@ -2,7 +2,7 @@
     <v-form class="loginForm pa-4" @submit.prevent="submit" ref="form">
         <div class="top">
             <div class="closeIcon">
-                <v-icon size="14" color="" @click="closeRegister">sbf-close</v-icon>
+                <v-icon size="12" color="#aaa" @click="closeRegister">sbf-close</v-icon>
             </div>
 
             <template v-if="isLoginDetails">
@@ -11,7 +11,7 @@
                 <v-btn
                     @click="gmailRegister"
                     :loading="googleLoading"
-                    class="btns google white--text"
+                    class="btns google white--text mb-6"
                     sel="gmail"
                     block
                     height="40"
@@ -26,17 +26,40 @@
             <component
                 :is="component"
                 ref="childComponent"
-                class="mt-6"
                 :email="email"
+                :phone="phoneNumber"
+                :code="localCode"
                 :errors="errors"
                 @updateEmail="updateEmail"
+                @updatePhone="updatePhone"
+                @updateCode="updateCode"
             >
             </component>
         </div>
 
         <div class="bottom text-center mt-6">
+            <template v-if="isVerifyPhone">
+                <div class="verifyPhone mb-11">
+                    <div class="d-flex justify-center text-center mb-6">
+                        <div class="divider"></div>
+                        <div class="otherMethod" v-t="'loginRegister_choose_other_method'"></div>
+                        <div class="divider"></div>
+                    </div>
+
+                    <div class="methods d-flex justify-space-between">
+                        <div class="linkAction d-flex" @click="phoneCall">
+                            <phoneCall />
+                            <div class="ml-2" v-t="'loginRegister_change_number'"></div>
+                        </div>
+                        <div class="linkAction d-flex">
+                            <changeNumber />
+                            <div @click="goStep('setPhone2')" class="ml-2" v-t="'loginRegister_change_numb'"></div>
+                        </div>
+                    </div>
+                </div>
+            </template>
             <!-- <span class="helpLinks" @click="linksAction" v-t="remmberForgotLink" v-if="component !== 'resetPassword'"></span> -->
-            <span class="helpLinks" @click="linksAction" v-t="remmberForgotLink"></span>
+            <span class="helpLinks" @click="linksAction" v-if="isLoginDetails" v-t="remmberForgotLink"></span>
             <v-btn
                 type="submit"
                 depressed
@@ -66,6 +89,12 @@ import analyticsService from '../../../../../../../services/analytics.service.js
 import authMixin from '../authMixin'
 
 const loginDetails = () => import('./loginDetails.vue')
+const setPhone2 = () => import('../register/setPhone2.vue');
+const verifyPhone = () => import('../register/verifyPhone.vue');
+
+import phoneCall from '../images/phoneCall.svg'
+import changeNumber from '../images/changeNumber.svg'
+
 // const forgotPassword = () => import('./forgotPassword.vue')
 // const resetPassword = () => import('./resetPassword2.vue')
 import gIcon from '../images/g-icon.svg'
@@ -75,6 +104,10 @@ export default {
     components: {
         gIcon,
         loginDetails,
+        setPhone2,
+        verifyPhone,
+        phoneCall,
+        changeNumber
         // forgotPassword,
         // resetPassword
     },
@@ -82,12 +115,6 @@ export default {
         return {
             email: '',
             component: 'loginDetails',
-            errors: {
-                gmail: '',
-                email: '',
-                password: '',
-                confirmPassword: ''
-            }
         }
     },
     computed: {
@@ -97,8 +124,10 @@ export default {
         btnResource() {
             let resource = {
                 loginDetails: 'loginRegister_setemail_btn',
-                forgotPassword: 'loginRegister_forgot_btn',
-                resetPassword: 'loginRegister_resest_btn',
+                setPhone2: 'loginRegister_setemailpass_btn',
+                verifyPhone: 'loginRegister_setemailpass_btn_verify'
+                // forgotPassword: 'loginRegister_forgot_btn',
+                // resetPassword: 'loginRegister_resest_btn',
             }
             return resource[this.component]
         },
@@ -113,11 +142,16 @@ export default {
         },
         submit() {
             let formValidate = this.$refs.form.validate()
-
             if(formValidate) {
                 switch(this.component) {
                     case 'loginDetails':
                         this.login()
+                        break;
+                    case 'setPhone2':
+                        this.sendSms()
+                        break;
+                    case 'verifyPhone':
+                        this.verifyPhone()
                         break;
                     // case 'forgotPassword':
                     //     this.forgotPassword()
@@ -148,8 +182,9 @@ export default {
                     commit('setComponent', '')
                     dispatch('updateLoginStatus', true)
                     
-                    if(self.$route.path === '/' || self.$route.path === '/learn') {
-                        self.$router.push({name: self.routeNames.LoginRedirect})
+                    let pathToRedirect = ['/','/learn','/register2'];
+                    if (pathToRedirect.indexOf(self.$route.path) > -1) {
+                        this.$router.push({name: this.routeNames.LoginRedirect})
                         return
                     }
 
@@ -249,6 +284,23 @@ export default {
         }
         .btns {
             border-radius: 6px;
+        }
+        .verifyPhone {
+            color: @global-auth-text;
+            .methods {
+                .linkAction {
+                    cursor: pointer;
+                }
+            }
+        }
+        .divider {
+            width: 140px;
+            border-bottom: 1px solid #ddd;
+            margin: 0 10px 7px;
+        }
+        .or {
+            color: @global-purple;
+            font-weight: 600;
         }
        .getStartedBottom {
             .responsive-property(font-size, 14px, null, 14px);
