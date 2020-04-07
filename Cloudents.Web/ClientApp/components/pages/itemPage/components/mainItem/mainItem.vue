@@ -243,7 +243,7 @@ export default {
             &__wrap {
                 position: relative;
                 height: 100%;
-                max-width: 720px;
+               // max-width: 720px;
                 margin: 0 auto;
                 .sbCarousel {
                     div:first-child {
