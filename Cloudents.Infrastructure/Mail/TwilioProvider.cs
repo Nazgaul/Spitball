@@ -130,8 +130,8 @@ namespace Cloudents.Infrastructure.Mail
                  type: type,
                  statusCallback: callBack,
                  statusCallbackMethod: HttpMethod.Post,
-                 recordParticipantsOnConnect: needRecord
-                 //mediaRegion: mediaRegion
+                 recordParticipantsOnConnect: needRecord,
+                 mediaRegion: "gll"
             );
 
 
