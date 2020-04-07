@@ -13,14 +13,14 @@
                v-model="studyRoomType"
                :items="items"
                class="pl-5"
-               label="Combobox"
+               :label="$t('dashboardPage_placeholder_studyRoom_type')"
                height="44"
                outlined
                dense
             ></v-combobox>
          </v-form>
          <div class="createStudyRoomDialog-list">
-            <v-list flat class="list-followers">
+            <v-list flat class="list-followers" v-if="studyRoomType === 'Private'">
                <v-list-item-group>
                   <v-list-item v-for="(item, index) in myFollowers" :key="index" @click="addSelectedUser(item)" :class="[{'dark-line': index % 2}]">
                      <template v-slot:default="{}">
@@ -37,6 +37,59 @@
                   </v-list-item>
                </v-list-item-group>
             </v-list>
+
+            <div class="dateTimeWrapper d-flex justify-center" v-else>
+               <v-menu ref="datePickerMenu" v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290" min-width="290px">
+                  <template v-slot:activator="{ on }">
+                        <v-text-field 
+                           v-on="on"
+                           v-model="date"
+                           class="date-input pr-5"
+                           :rules="[rules.required]"
+                           :label="$t('coupon_label_date')"
+                           autocomplete="nope"
+                           prepend-inner-icon="sbf-calendar"
+                           dense
+                           color="#304FFE"
+                           outlined
+                           type="text"
+                           readonly
+                           :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
+                        />
+                  </template>                  
+                  <v-date-picker color="#4C59FF" class="date-picker-coupon" :next-icon="isRtl?'sbf-arrow-left-carousel':'sbf-arrow-right-carousel'" :prev-icon="isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'" v-model="date" no-title @input="datePickerMenu = false">
+                     <v-spacer></v-spacer>
+                     <v-btn text class="font-weight-bold" color="#4C59FF" @click="datePickerMenu = false">{{$t('coupon_btn_calendar_cancel')}}</v-btn>
+                     <v-btn text class="font-weight-bold" color="#4C59FF" @click="$refs.datePickerMenu.save(date)">{{$t('coupon_btn_calendar_ok')}}</v-btn>
+                  </v-date-picker>
+               </v-menu>
+
+               <v-menu ref="timePickerMenu" v-model="timePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290" min-width="290px">
+                  <template v-slot:activator="{ on }">
+                        <v-text-field 
+                           v-on="on"
+                           v-model="time"
+                           class="time-input"
+                           :rules="[rules.required]"
+                           :label="$t('coupon_label_time')"
+                           autocomplete="nope"
+                           prepend-inner-icon=""
+                           dense
+                           color="#304FFE"
+                           outlined
+                           type="text"
+                           readonly
+                           :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
+                        />
+                  </template>                  
+                  <v-time-picker color="#4C59FF" class="date-picker-coupon" :next-icon="isRtl?'sbf-arrow-left-carousel':'sbf-arrow-right-carousel'" :prev-icon="isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'" v-model="time" no-title @input="timePickerMenu = false">
+                     <v-spacer></v-spacer>
+                     <v-btn text class="font-weight-bold" color="#4C59FF" @click="timePickerMenu = false">{{$t('coupon_btn_calendar_cancel')}}</v-btn>
+                     <v-btn text class="font-weight-bold" color="#4C59FF" @click="$refs.timePickerMenu.save(time)">{{$t('coupon_btn_calendar_ok')}}</v-btn>
+                  </v-time-picker>
+               </v-menu>
+            </div>
+
          </div>
          <div class="d-flex flex-column align-center pt-4">
             <span v-if="showErrorEmpty" class="error--text">{{$t('dashboardPage_create_room_empty_error')}}</span>
@@ -55,6 +108,10 @@ export default {
    name:'createStudyRoom',
    data() {
       return {
+         time: '',
+         timePickerMenu:false,
+         datePickerMenu:false,
+         date: new Date().toISOString().substr(0, 10),
          showErrorMaxUsers:false,
          isLoading:false,
          myFollowers:[],
@@ -69,8 +126,9 @@ export default {
             minimum: (value) => validationRules.minVal(value,0),
          },
          MAX_PARTICIPANT: 49,
-         studyRoomType: 'Private',
-         items: [ 'Private', 'Broadcast' ]
+         studyRoomType: this.$t('dashboardPage_type_private'),
+         items: [this.$t('dashboardPage_type_private'), this.$t('dashboardPage_type_broadcast')],
+         isRtl: global.isRtl,
       }
    },
    methods: {
@@ -93,15 +151,16 @@ export default {
       createStudyRoom(){
          if(!this.$refs.createRoomValidation.validate()) return
          if(!this.isLoading && !this.showErrorAlreadyCreated && !this.showErrorEmpty && !this.showErrorMaxUsers){
-            if(this.selected.length){
+            // if(this.selected.length){
                let paramsObj = {
                   name: this.roomName,
                   userId: Array.from(this.selected.map(user=> user.userId)),
                   price: this.price || 0,
-                  type: this.studyRoomType
-                  // date: this.date || new Date().toISOString(),
-                  // date: '2020-04-06T14:01:54.339Z'
+                  type: this.studyRoomType,
+                  date: new Date(this.date + ' ' + this.time)
                }
+               console.log(paramsObj);
+               
                this.isLoading = true
                let self = this;
                this.$store.dispatch('updateCreateStudyRoom',paramsObj)
@@ -114,12 +173,17 @@ export default {
                         self.showErrorAlreadyCreated = true;
                      }
                   });
-            }
-            else{
-               this.showErrorEmpty = true;
-            }
+            // }
+            // else{
+            //    this.showErrorEmpty = true;
+            // }
          }
-      }
+      },
+      // parseDate (date) {
+      //    if (!date) return null
+      //    const [month, day, year] = date.split('/')
+      //    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+      // },
    },
    watch: {
       selected(){
@@ -174,6 +238,10 @@ export default {
       .v-text-field__details{
          margin-bottom: 0;
       }
+   }
+   .dateTimeWrapper {
+      width: 500px;
+      margin: 0 auto;
    }
    .createStudyRoomDialog-list{
       width: 100%;
