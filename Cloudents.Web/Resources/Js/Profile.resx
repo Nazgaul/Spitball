@@ -277,7 +277,7 @@
     <value>Nothing posted yet</value>
   </data>
   <data name="my_courses_teacher" xml:space="preserve">
-    <value>I Teach</value>
+    <value>I Teach :</value>
   </data>
   <data name="my_courses_student" xml:space="preserve">
     <value>My courses :</value>
