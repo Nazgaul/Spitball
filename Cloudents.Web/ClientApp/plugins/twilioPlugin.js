@@ -319,6 +319,17 @@ export default () => {
                   store.commit(twilio_SETTERS.AUDIO_AVAILABLE,false)
                }
             }
+            if (mutation.type === twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN){
+               let normalizedData = {
+                  type: "openFullScreen",
+               };
+               if(mutation.payload){
+                  let videoTrack = Array.from(_activeRoom.localParticipant.videoTracks.values())[0];
+                  let videoElementId = `remoteTrack_${videoTrack.trackSid}`
+                  normalizedData.data = videoElementId
+               }
+               store.dispatch('sendDataTrack',JSON.stringify(normalizedData))
+            }
          }
       })
 

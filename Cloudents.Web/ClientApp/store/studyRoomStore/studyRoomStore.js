@@ -90,9 +90,18 @@ const getters = {
 }
 const actions = {
    updateFullScreen(context,elId){
-      setTimeout(() => { // setTimeout: cuz we got this event by twilio data track before the dom is updated
-         document.querySelector(`#${elId} video`).classList.add("fullscreenMode");
-      }, 500);
+      let className = 'fullscreenMode';
+      if(elId){
+         let interval = setInterval(() => {
+            let vidEl = document.querySelector(`#${elId} video`);
+            if(vidEl){
+               vidEl.classList.add(className);
+               clearInterval(interval)
+            }
+         }, 50);
+      }else{
+         document.querySelector(`.${className}`).classList.remove(className);
+      }
    },
    updateDialogSnapshot({ commit }, val) {
       commit(studyRoom_SETTERS.DIALOG_SNAPSHOT, val);

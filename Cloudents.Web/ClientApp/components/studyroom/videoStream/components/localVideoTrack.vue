@@ -11,7 +11,18 @@
                <castIcon class="placeholder-svg"></castIcon>
             </div>
          </div>
-         <div v-show="isVideoActive && !getIsShareScreen" id="localTrack"></div>          
+         <div v-show="isVideoActive && !getIsShareScreen" id="localTrack">
+            <template v-if="$store.getters.getRoomIsTutor">
+               <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                     <v-btn v-on="on" class="fullscreen-btn" icon @click="openFullScreen" color="white">
+                        <v-icon>sbf-fullscreen</v-icon>
+                     </v-btn>
+                  </template>
+                  <span>{{$t('tutor_tooltip_fullscreen')}}</span>
+               </v-tooltip>
+            </template>   
+         </div>
       </div>
       <div class="control-panel">
          <v-tooltip top>
@@ -89,6 +100,22 @@ export default {
       toggleVideo(){
          this.$ga.event("tutoringRoom", "toggleVideo");
          this.$store.dispatch('updateVideoToggle')
+      },
+      exitFull(){
+         if(!document.fullscreen){
+            this.$store.dispatch('updateToggleTutorFullScreen',false);
+         }
+      },
+      openFullScreen(){
+         var video = document.querySelector(`#localTrack video`);
+         if (!video) return;
+         
+         if (video.requestFullscreen) {
+            video.requestFullscreen();
+            video.addEventListener('fullscreenchange',this.exitFull,false)
+            this.$store.dispatch('updateToggleTutorFullScreen',true);
+            return;
+         } 
       }
    },
 }
@@ -203,6 +230,12 @@ export default {
       video {
          width: 100%;
          background-repeat: no-repeat;
+      }
+      .fullscreen-btn{
+         position: absolute;
+         margin: 10px;
+         right: 0;
+         background:rgba(0, 0, 0, 0.7);
       }
    }
 

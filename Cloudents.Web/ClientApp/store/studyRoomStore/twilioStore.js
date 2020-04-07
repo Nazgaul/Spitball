@@ -40,6 +40,7 @@ const mutations = {
          state.videoTracks.splice(idx,1)
       }
    },
+   [twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN]:()=>{},
 }
 
 const getters = {
@@ -50,6 +51,9 @@ const getters = {
    getVideoTrackList: (state) => state.videoTracks,
 }
 const actions = {
+   updateToggleTutorFullScreen({commit},val){
+      commit(twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN,val)
+   },
    updateJwtToken({commit,getters},token){
       if(!getters.getRoomIsTutor){
          commit('setComponent', 'simpleToaster_sessionStarted');
