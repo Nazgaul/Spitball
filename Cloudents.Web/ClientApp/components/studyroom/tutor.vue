@@ -679,14 +679,22 @@ watch: {
     }
 
     if(this.id){
-      initSignalRService(`studyRoomHub?studyRoomId=${this.id}`);
-      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null) 
-      this.$store.dispatch('updateStudyRoomInformation',this.id).catch((err)=>{
-          if(err?.response){
-            insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_RoomProps', err, null)
-            this.$router.push('/')
-          }
-        })
+      if(this.$store.getters.accountUser?.id){
+        initSignalRService(`studyRoomHub?studyRoomId=${this.id}`);
+        insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null) 
+        this.$store.dispatch('updateStudyRoomInformation',this.id).catch((err)=>{
+            if(err?.response){
+              insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_RoomProps', err, null)
+              this.$router.push('/')
+            }
+          })
+        global.onbeforeunload = function() {     
+          insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_beforeUnloadTriggered', {'roomId': this.id, 'userId': this.userId}, null)
+          return "Are you sure you want to close the window?";
+        };
+      }else{
+        this.$store.commit('setComponent', 'login');
+      }
     }else{
       //TODO - we need one place to invoke this.
       this.initMathjax()
@@ -703,11 +711,6 @@ watch: {
     // }
     //this line will init the tracks to show local medias
     studyroomSettingsUtils.validateMedia();
-
-    global.onbeforeunload = function() {     
-      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_beforeUnloadTriggered', {'roomId': this.id, 'userId': this.userId}, null)
-      return "Are you sure you want to close the window?";
-    };
   }
 };
 </script>
