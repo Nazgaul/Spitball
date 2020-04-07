@@ -50,10 +50,9 @@ export default {
                 .then(({data}) => {
                     let { commit, dispatch } = self.$store
                     self.googleLoading = false;
-
                     if (!data.isSignedIn) {
                         analyticsService.sb_unitedEvent('Registration', 'Start Google')
-                        if(data.param.phoneNumber) {
+                        if(data.param?.phoneNumber) {
                             self.component = 'verifyPhone'
                             return
                         }
