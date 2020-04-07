@@ -41,6 +41,7 @@
 
 <script>
 import {validationRules} from '../../../../services/utilities/formValidationRules.js'
+
 export default {
    name:'createStudyRoom',
    data() {
@@ -58,6 +59,7 @@ export default {
             required: (value) => validationRules.required(value),
             minimum: (value) => validationRules.minVal(value,0),
          },
+         MAX_PARTICIPANT: 49,
       }
    },
    methods: {
@@ -70,7 +72,7 @@ export default {
          if(isInList){
             this.selected.splice(idx,1);
          }else{
-            if(this.selected.length < 4){
+            if(this.selected.length < this.MAX_PARTICIPANT){
                this.selected.push(user)
             }else{
                this.showErrorMaxUsers = true;
