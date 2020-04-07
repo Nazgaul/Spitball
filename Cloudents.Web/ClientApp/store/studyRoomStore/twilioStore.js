@@ -8,6 +8,7 @@ const state = {
    isAudioAvailable: false,
    isShareScreen: false,
    videoTracks: [],
+   isFullScreen:false,
 }
 const mutations = {
    [twilio_SETTERS.JWT_TOKEN]: (state,token) => state.jwtToken = token,
@@ -40,7 +41,7 @@ const mutations = {
          state.videoTracks.splice(idx,1)
       }
    },
-   [twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN]:()=>{},
+   [twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN]:(state,val)=> state.isFullScreen = val,
 }
 
 const getters = {
@@ -49,6 +50,7 @@ const getters = {
    getIsAudioActive: (state) => state.isAudioAvailable && state.isAudioActive,
    getIsShareScreen: (state) => state.isShareScreen,
    getVideoTrackList: (state) => state.videoTracks,
+   getIsFullScreen: (state) => state.isFullScreen
 }
 const actions = {
    updateToggleTutorFullScreen({commit},val){
