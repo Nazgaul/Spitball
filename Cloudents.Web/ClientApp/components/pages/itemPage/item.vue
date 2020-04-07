@@ -17,9 +17,9 @@
                 <mainItem :isLoad="isLoad" :document="document"></mainItem>
 
                 <v-card class="itemActions pt-11 px-4 elevation-0">
-                    <div class="wrapper d-flex justify-sm-end justify-center pb-4">
+                    <div class="wrapper d-block d-sm-flex justify-sm-end text-center pb-4">
                         <template v-if="getDocumentPrice && !getIsPurchased">
-                            <div class="d-flex align-end mr-4">
+                            <div class="d-flex align-end mr-4 justify-center mb-2 mb-sm-0">
                                 <div class="mr-1 price">{{priceWithComma}}</div>
                                 <span class="points" v-t="'documentPage_points'"></span>
                             </div>
@@ -479,10 +479,10 @@ export default {
                         border-bottom: 1px solid #ddd;
                         font-weight: 600;
                         .price {
-                            .responsive-property(font-size, 30px, null, 64px);                
+                            .responsive-property(font-size, 30px, null, 18px);                
                         }
                         .points {
-                            .responsive-property(font-size, 14px, null, 64px);
+                            .responsive-property(font-size, 14px, null, 18px);
                         }
                     }
                 }
@@ -615,7 +615,7 @@ export default {
                     margin-top: 34px;
                 }
                 &--margin {
-                    margin-bottom: 100px;
+                    // margin-bottom: 100px;
                 }
                 &--marginTop {
                     margin-top: 34px; 
