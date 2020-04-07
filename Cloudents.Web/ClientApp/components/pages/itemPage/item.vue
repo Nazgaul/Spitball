@@ -64,7 +64,7 @@
                     </div>
                 </v-card>
 
-                <resultNote v-if="doucmentDetails.feedItem" class="itemPage__main__document__doc mt-2 mt-sm-0" :item="doucmentDetails.feedItem" :fromItemPage="true">
+                <resultNote v-if="doucmentDetails.feedItem" class="itemPage__main__document__doc" :item="doucmentDetails.feedItem" :fromItemPage="true">
                     <!-- <template #arrowBack> -->
                         <v-icon
                             class="hidden-md-and-up document-header-large-sagment--arrow" 
@@ -72,7 +72,7 @@
                             v-html="'sbf-arrow-left-carousel'">
                         </v-icon>
                     <!-- </template> -->
-                    <template #descriptionTitle>
+                    <template #descriptionTitle v-if="doucmentDetails.snippet">
                         <div class="mt-5 descriptionTitle" v-t="'documentPage_description'"></div>
                     </template>
                 </resultNote>
