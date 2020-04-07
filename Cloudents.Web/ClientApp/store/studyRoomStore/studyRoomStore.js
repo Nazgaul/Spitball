@@ -15,6 +15,8 @@ function _checkPayment(context) {
 
 const state = {
    activeNavEditor: 'white-board',
+   roomType:null,
+   roomName:null,
    roomOnlineDocument: null,
    roomIsTutor: false,
    roomIsActive: false,
@@ -45,6 +47,8 @@ const mutations = {
       state.roomIsNeedPayment = props.needPayment;
       state.roomConversationId = props.conversationId;
       state.studyRoomId = props.roomId;
+      state.roomType = props.type;
+      state.roomName = props.name;
    },
    [studyRoom_SETTERS.DIALOG_ROOM_SETTINGS]: (state, val) => state.dialogRoomSettings = val,
    [studyRoom_SETTERS.DIALOG_END_SESSION]: (state, val) => state.dialogEndSession = val,
@@ -61,6 +65,8 @@ const mutations = {
       state.dialogRoomSettings = false;
       state.dialogEndSession = false;
       state.roomProps = null;
+      state.roomType = null;
+      state.roomName = null;
    },
    [studyRoom_SETTERS.DIALOG_USER_CONSENT]: (state, val) => state.dialogUserConsent = val,
    [studyRoom_SETTERS.DIALOG_SNAPSHOT]: (state, val) => state.dialogSnapshot = val,
@@ -69,6 +75,8 @@ const getters = {
    getActiveNavEditor: state => state.activeNavEditor,
    getRoomOnlineDocument: state => state.roomOnlineDocument,
    getRoomIsTutor: state => state.roomIsTutor,
+   getRoomName: state => state.roomName,
+   getRoomIsBroadcast: state => state.roomType === 'Broadcast',
    getRoomIsActive: state => state.roomIsActive,
    getRoomTutor: state => state.roomTutor,
    getRoomIdSession: state => state.studyRoomId,
