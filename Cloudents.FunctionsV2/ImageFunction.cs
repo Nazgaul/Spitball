@@ -248,6 +248,7 @@ namespace Cloudents.FunctionsV2
                     Mode = mutation.Mode,
                     Size = new Size(mutation.Width, mutation.Height),
                     Position = mutation.Position,
+                   
 
                 };
                 if (mutation.CenterCords.HasValue)
@@ -255,7 +256,18 @@ namespace Cloudents.FunctionsV2
                     v.CenterCoordinates = new[]
                         {mutation.CenterCords.Value.x / image.Width, mutation.CenterCords.Value.y / image.Height};
                 }
+                else
+                {
+                    v.CenterCoordinates = new float[]
+                    {
+                        0,0
+                    };
+                }
+
+
+
                 x.Resize(v);
+
                 if (mutation.RoundCorner > 0)
                 {
                     x.ApplyRoundedCorners(mutation.RoundCorner);
