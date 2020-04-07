@@ -4,15 +4,16 @@
          <v-icon class="close-dialog" v-text="'sbf-close'" v-closeDialog />
          <div class="createStudyRoomDialog-title pb-4">{{$t('dashboardPage_create_room_title')}}</div>
          <v-form class="d-flex justify-space-between input-room-name" ref="createRoomValidation">
-            <v-text-field class="pr-5" :rules="[rules.required]" v-model="roomName" height="44" dense outlined :label="$t('dashboardPage_create_room_placeholder')" :placeholder="$t('dashboardPage_create_room_label')"/>
-            <v-text-field class="px-5" outlined  height="44" dense :rules="[rules.required,rules.integer,rules.minimum]"
+            <v-text-field  :rules="[rules.required]" v-model="roomName" height="44" dense outlined :label="$t('dashboardPage_create_room_placeholder')" :placeholder="$t('dashboardPage_create_room_label')"/>
+            <v-text-field class="px-4" outlined  height="44" dense :rules="[rules.required,rules.integer,rules.minimum]"
                v-model="price" type="number"
                :label="$t('becomeTutor_placeholder_price', {'0' : getSymbol})" :placeholder="$t('becomeTutor_placeholder_price', {'0' : getSymbol})">
             </v-text-field>
             <v-combobox
                v-model="studyRoomType"
+               append-icon="sbf-menu-down"
                :items="items"
-               class="pl-5"
+               
                :label="$t('dashboardPage_placeholder_studyRoom_type')"
                height="44"
                outlined
@@ -46,7 +47,7 @@
                            v-model="date"
                            class="date-input pr-5"
                            :rules="[rules.required]"
-                           :label="$t('coupon_label_date')"
+                           :label="$t('dashboardPage_label_date')"
                            autocomplete="nope"
                            prepend-inner-icon="sbf-calendar"
                            dense
@@ -71,7 +72,7 @@
                            v-model="time"
                            class="time-input"
                            :rules="[rules.required]"
-                           :label="$t('coupon_label_time')"
+                           :label="$t('dashboardPage_label_time')"
                            autocomplete="nope"
                            prepend-inner-icon=""
                            dense
@@ -233,7 +234,7 @@ export default {
       font-weight: 600;
    }
    .input-room-name{
-      width: 500px;
+      width: 95%;
       // width: 216px;
       .v-text-field__details{
          margin-bottom: 0;
@@ -245,6 +246,7 @@ export default {
    }
    .createStudyRoomDialog-list{
       width: 100%;
+      height: 320px;
       .list-followers{
          max-height: 320px;
          overflow-y: scroll;
