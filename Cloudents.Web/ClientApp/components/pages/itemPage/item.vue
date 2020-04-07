@@ -1,21 +1,23 @@
 <template>
-    <div class="itemPage mt-6">
+    <div class="itemPage mt-sm-6 mt-2">
 
-        <div class="itemPage__main">
-            <div class="d-flex justify-space-between documentTitle">
-               <h1 class="pl-4"> {{getDocumentName}}</h1>
-                 <shareContent v-if="getDocumentDetails" :link="shareContentParams.link"
-              :twitter="shareContentParams.twitter"
-              :whatsApp="shareContentParams.whatsApp"
-              :email="shareContentParams.email"/>
-
+        <div class="itemPage__main mb-2 mb-sm-6">
+            <div class="d-flex pa-2 pa-sm-0 justify-center justify-sm-space-between documentTitle">
+                <h1 class="pl-sm-4 text-center text-sm-left">{{getDocumentName}}</h1>
+                <shareContent
+                    v-if="getDocumentDetails && !isMobile"
+                    :link="shareContentParams.link"
+                    :twitter="shareContentParams.twitter"
+                    :whatsApp="shareContentParams.whatsApp"
+                    :email="shareContentParams.email"
+                />
             </div>
 
             <div class="itemPage__main__document">
                 <mainItem :isLoad="isLoad" :document="document"></mainItem>
 
                 <v-card class="itemActions pt-11 px-4 elevation-0">
-                    <div class="wrapper d-flex justify-end pb-4">
+                    <div class="wrapper d-flex justify-sm-end justify-center pb-4">
                         <template v-if="getDocumentPrice && !getIsPurchased">
                             <div class="d-flex align-end mr-4">
                                 <div class="mr-1 price">{{priceWithComma}}</div>
@@ -56,7 +58,7 @@
                     </div>
                 </v-card>
 
-                <resultNote v-if="doucmentDetails.feedItem" class="itemPage__main__document__doc" :item="doucmentDetails.feedItem" :fromItemPage="true">
+                <resultNote v-if="doucmentDetails.feedItem" class="itemPage__main__document__doc mt-2 mt-sm-0" :item="doucmentDetails.feedItem" :fromItemPage="true">
                     <template #descriptionTitle>
                         <div class="mt-5 descriptionTitle" v-t="'documentPage_description'"></div>
                     </template>
@@ -68,6 +70,17 @@
                         <v-skeleton-loader max-width="500" type="list-item-three-line, list-item"></v-skeleton-loader>
                     </v-sheet>
                 </template>
+
+                <div class="mobileShareContent d-flex justify-center mt-2" v-if="isMobile">
+                    <shareContent
+                        class="d-flex justify-center"
+                        v-if="getDocumentDetails"
+                        :link="shareContentParams.link"
+                        :twitter="shareContentParams.twitter"
+                        :whatsApp="shareContentParams.whatsApp"
+                        :email="shareContentParams.email"
+                    />
+                </div>
             </div>
 
             <div v-if="itemList.length" class="itemPage__main__carousel" :class="{'itemPage__main__carousel--margin': !docTutor && !docTutor.isTutor && $vuetify.breakpoint.xsOnly}">
@@ -282,6 +295,9 @@ export default {
             }
             return null
         },
+        isMobile() {
+            return this.$vuetify.breakpoint.xsOnly
+        }
     },
         methods: {
         ...mapActions([
@@ -397,10 +413,13 @@ export default {
     .itemPage {
         //hacks to finish this fast
         .price-area, .content-wrap, hr {
-            display: none !important ;
+            display: none !important;
         }
         .bottom-row, .data-row {
             margin-right: 30% !important;
+            @media (max-width: @screen-xs) {
+                margin-right: auto !important;
+            }
         }
         .azuremediaplayer {
             background: #fff !important;
@@ -449,9 +468,13 @@ export default {
 
                 @media (max-width: @screen-sm) {
                     width: auto;
+                    margin: 0 auto 8px;
                 }
                 .itemActions {
                     color: @global-purple;
+                    @media (max-width: @screen-sm) {
+                        border-top: 1px solid #ddd
+                    }
                     .wrapper {
                         border-bottom: 1px solid #ddd;
                         font-weight: 600;
@@ -465,7 +488,7 @@ export default {
                 }
                 &__doc {
                     padding: 12px 16px 12px 12px;
-
+                    border-radius: 0;
                   .descriptionTitle {
                       font-size: 16px;
                       color: @global-purple;
@@ -540,6 +563,9 @@ export default {
                     justify-content: center;
                     min-height: 160px;
                 }
+                .mobileShareContent {
+                    background: #fff;;
+                }
             }
             &__carousel {
                 margin: 38px 0 34px 0;
@@ -547,7 +573,7 @@ export default {
                 @media (max-width: @screen-xs) {
                     background: #fff;
                     padding: 16px 11px;
-                    margin: 0 0 16px 0;
+                    margin: 0 0 8px 0;
                 }
                 &__header {
                     display: flex;
