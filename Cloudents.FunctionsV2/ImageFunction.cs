@@ -159,10 +159,7 @@ namespace Cloudents.FunctionsV2
 
 
             var blob = await binder.BindAsync<CloudBlockBlob>(
-                new BlobAttribute(properties.Path, FileAccess.Read)
-                {
-                    Connection = "Prod"
-                },
+                new BlobAttribute(properties.Path, FileAccess.Read),
                 token);
 
             var blobExtension = Path.GetExtension(blob.Name)?.ToLower();
