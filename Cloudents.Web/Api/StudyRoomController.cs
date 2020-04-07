@@ -100,6 +100,16 @@ namespace Cloudents.Web.Api
             [FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
+
+            try
+            {
+                await _commandBus.DispatchAsync(new EnterStudyRoomCommand(id, userId), default);
+            }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
+            }
+
             var query = new StudyRoomQuery(id, userId);
             var result = await _queryBus.QueryAsync(query, token);
 
