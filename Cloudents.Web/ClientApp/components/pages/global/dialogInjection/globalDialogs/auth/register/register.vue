@@ -294,9 +294,11 @@ export default {
                     // this is when user start register from tutorRequest
                     if(self.isFromTutorReuqest) {
                         dispatch('userStatus')
-                        if(self.$route.path === '/' || self.$route.path === '/learn') {
-                            self.$router.push({name: this.routeNames.LoginRedirect})
-                        }
+                          let pathToRedirect = ['/','/learn','/register2'];
+                    if (pathToRedirect.indexOf(self.$route.path) > -1) {
+                        this.$router.push({name: this.routeNames.LoginRedirect})
+                        return
+                    }
                         self.$store.dispatch('updateRequestDialog', true);
                         self.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
                         self.$store.dispatch('toggleProfileFollower', true)
