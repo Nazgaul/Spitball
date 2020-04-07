@@ -364,7 +364,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
 
-            if (this.Tutor == null)
+            if (Tutor == null)
             {
                 return;
             }

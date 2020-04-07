@@ -479,7 +479,7 @@ watch: {
     ...mapActions([
       "setActiveConversationObj",
       "getChatById",
-      "lockChat",
+      "updateLockChat",
       "updateReviewDialog",
       "updateReview",
       "updateStudentStartDialog",
@@ -597,13 +597,12 @@ watch: {
     },
     setStudyRoom() {
       this.initMathjax()
-      
       let self = this;
       this.getChatById(this.$store.getters.getRoomConversationId).then(({ data }) => {
         insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_ChatById', data, null)
         let currentConversationObj = chatService.createActiveConversationObj(data);
         self.setActiveConversationObj(currentConversationObj);
-        self.lockChat();
+        self.updateLockChat(true);
       });
     },
     closeBrowserSupportDialog(){
@@ -639,6 +638,8 @@ watch: {
   },
   beforeDestroy(){
     this.$store.dispatch('updateResetRoom');
+    this.updateLockChat(false);
+
 
 
 

@@ -2,6 +2,7 @@
 using Cloudents.Core.Entities;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
 {
@@ -31,10 +32,15 @@ namespace Cloudents.Core.DTOs
 
         public decimal? CouponValue { get; set; }
 
+        [EntityBind(nameof(StudyRoom.Price), nameof(Tutor.Price))]
         public decimal TutorPrice { get; set; }
         public string Jwt { get; set; }
 
+        [EntityBind(nameof(StudyRoom.BroadcastTime))]
         public DateTime? BroadcastTime { get; set; }
+
+        [EntityBind(nameof(StudyRoom.Name))]
+        public string Name { get; set; }
     };
 
 
@@ -50,6 +56,8 @@ namespace Cloudents.Core.DTOs
 
         public string ConversationId { get; set; }
         public DateTime? LastSession { get; set; }
+
+        public StudyRoomType Type { get; set; }
 
     }
 }

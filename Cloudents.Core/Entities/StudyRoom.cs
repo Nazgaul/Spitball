@@ -13,7 +13,7 @@ namespace Cloudents.Core.Entities
     public class StudyRoom : Entity<Guid>, IAggregateRoot
     {
         public StudyRoom(Tutor tutor, IEnumerable<User> users, string onlineDocumentUrl,
-            string name, decimal price, DateTime? broadcastTime)
+            string name, decimal price, DateTime? broadcastTime) : this()
         {
             if (users == null) throw new ArgumentNullException(nameof(users));
             if (price < 0) throw new ArgumentException(nameof(price));
@@ -21,23 +21,27 @@ namespace Cloudents.Core.Entities
             Tutor = tutor;
             if (_users.Any())
             {
+                StudyRoomType = StudyRoomType.Private;
                 Identifier = ChatRoom.BuildChatRoomIdentifier(
-                    _users.Select(s => s.User.Id).Union(new[] {tutor.Id}));
+                    _users.Select(s => s.User.Id).Union(new[] { tutor.Id }));
             }
             else
             {
-                Identifier = Guid.NewGuid().ToString();
+                StudyRoomType = StudyRoomType.Broadcast;
+                Identifier =  Guid.NewGuid().ToString();
+                ChatRoom = ChatRoom.FromStudyRoom(this);
+                //var chatRoom = ChatRoom.FromStudyRoom(Identifier);
             }
 
             OnlineDocumentUrl = onlineDocumentUrl;
             Name = name;
-            if (_users.Count < 10)
+            if (_users.Count < 10 && _users.Count > 0)
             {
-                Type = StudyRoomType.PeerToPeer;
+                Type = StudyRoomTopologyType.PeerToPeer;
             }
             else
             {
-                Type = StudyRoomType.GroupRoom;
+                Type = StudyRoomTopologyType.GroupRoom;
             }
 
             DateTime = new DomainTimeStamp();
@@ -48,9 +52,23 @@ namespace Cloudents.Core.Entities
 
         protected StudyRoom()
         {
-
+            ChatRooms ??= new List<ChatRoom>();
         }
 
+        protected internal virtual ICollection<ChatRoom> ChatRooms { get; set; }
+
+        public virtual ChatRoom ChatRoom
+        {
+            get => ChatRooms.SingleOrDefault();
+            set
+            {
+                ChatRooms.Clear();
+                ChatRooms.Add(value);
+            }
+        }
+
+
+        public virtual StudyRoomType StudyRoomType { get; protected set; }
 
         public virtual string Name { get; set; }
 
@@ -84,7 +102,7 @@ namespace Cloudents.Core.Entities
             return result.SingleOrDefault(w => w.Ended == null);
         }
 
-        public virtual StudyRoomType? Type { get; protected set; }
+        public virtual StudyRoomTopologyType? Type { get; protected set; }
 
         public virtual void AddSession(string sessionName)
         {

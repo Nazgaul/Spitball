@@ -60,6 +60,8 @@ const Item = {
       this.lastSession = objInit.lastSession;
       this.name = objInit.name;
       this.date = objInit.dateTime;
+      this.type = objInit.type;
+      this.showChat = this.type ==='Private';
    },
    BuyPoints: function(objInit){
       this.price = objInit.price;
@@ -83,10 +85,10 @@ const Item = {
       this.couponTutor = objInit.couponTutor;
    }
 };
-function StudyRoomItem(objInit){
-   return new Item.StudyRoom(objInit);
+// function StudyRoomItem(objInit){
+//    return new Item.StudyRoom(objInit);
    
-}
+// }
 function ContentItem(objInit){
    return Object.assign(
       new Item.Default(objInit),
@@ -131,7 +133,8 @@ function createPurchasesItems({data}) {
    return data.map(item=> new PurchasesItem(item));
 }
 function createStudyRoomItems({data}) {
-  return data.map(item => new StudyRoomItem(item));
+  let x =  data.map(item => new Item.StudyRoom(item));
+  return x;
 }
 function createFollowersItems({data}) {
    let followersItems = [];

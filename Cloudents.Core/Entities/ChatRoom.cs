@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Cloudents.Core.Enum;
 
 //[assembly: InternalsVisibleTo("Cloudents.Persistance")]
 namespace Cloudents.Core.Entities
@@ -12,9 +13,11 @@ namespace Cloudents.Core.Entities
     {
         protected ChatRoom()
         {
-            Users = new List<ChatUser>();
+            Users ??= new HashSet<ChatUser>();
             Messages = new List<ChatMessage>();
             Extra = new ChatRoomAdmin(this);
+            UpdateTime = DateTime.UtcNow;
+
         }
 
         public ChatRoom(IList<User> users) : this()
@@ -23,11 +26,20 @@ namespace Cloudents.Core.Entities
             {
                 user.AddFollowers(users);
             }
-            Users = users.Select(s => new ChatUser(this, s)).ToList();
+            Users = new HashSet<ChatUser>(users.Select(s => new ChatUser(this, s)));
             Identifier = BuildChatRoomIdentifier(users.Select(s => s.Id));
-            UpdateTime = DateTime.UtcNow;
-
         }
+
+        internal static ChatRoom FromStudyRoom(StudyRoom studyRoom)
+        {
+            return new ChatRoom
+            {
+                Identifier = studyRoom.Identifier,
+                StudyRoom = studyRoom
+            };
+        }
+
+
 
         public static string BuildChatRoomIdentifier(IEnumerable<long> userIds)
         {
@@ -39,9 +51,11 @@ namespace Cloudents.Core.Entities
             return string.Join("_", userIdsList);
         }
 
+        public virtual StudyRoom? StudyRoom { get; protected set; }
+
         public virtual DateTime UpdateTime { get; protected set; }
 
-        public virtual ICollection<ChatUser> Users { get; protected set; }
+        public virtual ISet<ChatUser> Users { get; protected set; }
         public virtual ICollection<ChatMessage> Messages { get; protected set; }
 
         public virtual string Identifier { get; protected set; }
@@ -56,19 +70,32 @@ namespace Cloudents.Core.Entities
         public virtual void AddMessage(ChatMessage message)
         {
             UpdateTime = DateTime.UtcNow;
-            foreach (var userInChat in Users)
+            if (StudyRoom?.StudyRoomType != StudyRoomType.Broadcast) // we update unread only on not broadcast studyroom
             {
-                if (userInChat.User.Id != message.User.Id)
+                foreach (var userInChat in Users)
                 {
-                    userInChat.UnreadMessage();
-                }
-                else
-                {
-                    userInChat.ResetUnread();
+                    if (userInChat.User.Id != message.User.Id)
+                    {
+                        userInChat.UnreadMessage();
+                    }
+                    else
+                    {
+                        userInChat.ResetUnread();
+                    }
                 }
             }
+
             Messages.Add(message);
             AddEvent(new ChatMessageEvent(message));
+        }
+
+        public virtual void AddUserToChat(User user)
+        {
+            if (StudyRoom?.StudyRoomType == StudyRoomType.Broadcast) // we update unread only on not broadcast studyroom
+            {
+                var chatUser = new ChatUser(this, user);
+                Users.Add(chatUser);
+            }
         }
 
     }
