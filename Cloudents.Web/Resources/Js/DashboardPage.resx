@@ -184,6 +184,12 @@
   <data name="joined" xml:space="preserve">
     <value>Joined</value>
   </data>
+  <data name="label_date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="label_time" xml:space="preserve">
+    <value>Time</value>
+  </data>
   <data name="last_date" xml:space="preserve">
     <value>Last Session</value>
   </data>
@@ -239,6 +245,9 @@
     <value>You have {0} {1} pending
  your {2}</value>
   </data>
+  <data name="placeholder_studyRoom_type" xml:space="preserve">
+    <value>Study room type</value>
+  </data>
   <data name="price" xml:space="preserve">
     <value>Price</value>
   </data>
@@ -284,8 +293,14 @@
   <data name="type" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="type_broadcast" xml:space="preserve">
+    <value>Broadcast</value>
+  </data>
   <data name="type_buy_points" xml:space="preserve">
     <value>Points</value>
+  </data>
+  <data name="type_private" xml:space="preserve">
+    <value>Private</value>
   </data>
   <data name="video" xml:space="preserve">
     <value>Video</value>
