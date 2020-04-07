@@ -58,12 +58,12 @@
                                     <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
                                 </div>
                             </div>
-                            <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
+                            <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" v-if="currentProfileUser.isTutor" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
                         </div>
                     </div>
 
                     <!-- Rate And Follower -->
-                    <div class="rateWrap d-flex mt-sm-n5 mb-4 justify-center justify-sm-start">
+                    <div class="rateWrap d-flex mb-4 justify-center justify-sm-start" :class="[!currentProfileUser.isTutor ? 'mt-sm-n0' : 'mt-sm-n5']">
                         <template v-if="currentProfileUser.isTutor">
                             <div class="pUb_dS_c_rating" v-if="currentProfileTutor.reviewCount">
                                 <userRating class="c_rating" :showRateNumber="false" :rating="currentProfileTutor.rate" :size="'18'" />
