@@ -49,16 +49,23 @@
                             <span>{{currentProfileUser.name}}</span>
                         </h1>
 
-                        <div class="profileUserSticky_pricing text-right" v-if="!isMobile && currentProfileUser.isTutor">
-                            <div class="d-flex align-end justify-center">
-                                <div class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
-                                    {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
+                        <div class="profileUserSticky_pricing text-right" v-if="!isMobile">
+                            <template v-if="currentProfileUser.isTutor">
+                                <div class="d-flex align-end justify-center">
+                                    <div class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
+                                        {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
+                                    </div>
+                                    <div class="profileUserSticky_pricing_price">
+                                        <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
+                                    </div>
                                 </div>
-                                <div class="profileUserSticky_pricing_price">
-                                    <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
-                                </div>
+                                <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" v-if="currentProfileUser.isTutor" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
+                            </template>
+                            <div v-else>
+                                <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="isLogged && !currentProfileUser.isTutor">
+                                    <editSVG class="mr-1" v-if="isCurrentProfileUser" />
+                                </v-btn>
                             </div>
-                            <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" v-if="currentProfileUser.isTutor" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
                         </div>
                     </div>
 
@@ -101,9 +108,6 @@
                         </span>
                     </div>
                 </div>
-                <!-- <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="isLogged && !currentProfileUser.isTutor">
-                    <editSVG class="mr-1" v-if="isCurrentProfileUser" />
-                </v-btn> -->
 
                 <div class="profileUserSticky_btns d-block d-sm-flex justify-space-between align-end text-center" :class="{'student': !currentProfileUser.isTutor && isCurrentProfileUser}">
                     <template v-if="isMobile">
@@ -118,9 +122,12 @@
                             </div>
                             <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" class="profileUserSticky_coupon text-center mt-1" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
                         </div>
-                        <div class="text-right mb-2" v-if="isCurrentProfileUser">
+                        <div class="text-sm-right text-center mb-2" v-if="isCurrentProfileUser">
                             <editSVG sel="edit" class="pUb_edit_user" @click="openEditInfo"/>
                         </div>
+                        <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="isLogged && !currentProfileUser.isTutor">
+                            <editSVG v-if="isCurrentProfileUser" />
+                        </v-btn>
                     </template>
                     <v-btn sel="send" height="42" :width="isMobile ? 286 : 246" :disabled="isCurrentProfileUser" v-if="currentProfileUser.isTutor" class="profileUserSticky_btn white--text" :class="{'isMyProfile': isCurrentProfileUser}" depressed rounded color="#4c59ff" @click="globalFunctions.sendMessage">
                         <chatSVG class="profileUserSticky_btn_icon"/>
@@ -182,6 +189,8 @@ import editSVG from './images/edit.svg';
 import chatSVG from '../profileUserSticky/images/chatIcon_mobile.svg';
 import calendarSVG from '../profileUserSticky/images/calendarIcon.svg';
 
+import * as routeNames from '../../../../routes/routeNames'
+
 import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
 import userRating from '../../profileHelpers/profileBio/bioParts/userRating.vue'
 import uploadImage from '../../profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue';
@@ -209,6 +218,7 @@ export default {
     data() {
         return {
             defOpen:false,
+            routeNames
         }
     },
     computed: {
