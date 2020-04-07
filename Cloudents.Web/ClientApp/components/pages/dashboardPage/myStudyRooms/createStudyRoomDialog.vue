@@ -110,7 +110,7 @@ export default {
    name:'createStudyRoom',
    data() {
       return {
-         time: '',
+         time: '12:00',
          timePickerMenu:false,
          datePickerMenu:false,
          date: new Date().toISOString().substr(0, 10),
