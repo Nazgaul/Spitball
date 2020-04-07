@@ -58,7 +58,7 @@ export default {
       "getIsSignalRConnected"
     ]),
     isLocked() {
-      return false;
+      return this.getIsChatLocked;
     },
     isMobile() {
       return this.$vuetify.breakpoint.smAndDown;

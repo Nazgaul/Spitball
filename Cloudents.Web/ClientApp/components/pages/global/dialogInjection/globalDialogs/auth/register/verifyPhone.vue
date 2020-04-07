@@ -29,16 +29,6 @@
 	</v-text-field>
 
 	<span class="resendCode" @click="resendCode" v-t="'loginRegister_smsconfirm_resend_code'"></span>
-
-	<!-- <div class="bottom">
-		<div class="cursor mb-sm-2 mb-4">
-			<span  @click="phoneCall" v-t="'loginRegister_smsconfirm_call'"></span>
-		</div>
-		<div class="cursor">
-			<span @click="$emit('goStep', 'setPhone2')" v-t="'loginRegister_smsconfirm_change'"></span>
-		</div>
-	</div> -->
-
   </div>
 </template>
 
@@ -109,13 +99,17 @@ export default {
 @import '../../../../../../../styles/colors.less';
 
 .smsConfirmation {
+	.mainTitle {
+		.responsive-property(font-size, 20px, null, 22px);
+		color: @color-login-text-title;
+		font-weight: 600;
+	}
   	.top {
 		.smsconfirm_title {
 			.responsive-property(font-size, 28px, null, 22px);
 			color: @color-login-text-title;
 			margin-bottom: 8px;
 		}
-		.mainTitle
 		.subTitle
 		span{
 			.responsive-property(font-size, 16px, null, 14px);

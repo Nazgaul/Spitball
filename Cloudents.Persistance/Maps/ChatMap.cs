@@ -15,12 +15,14 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.Users).Cascade.AllDeleteOrphan()
                 .Inverse()
                 .ForeignKeyConstraintName("fChatUserChatRoom")
-                .KeyColumn("ChatRoomId");
+                .KeyColumn("ChatRoomId").AsSet();
 
             HasMany(x => x.Messages).Cascade.AllDeleteOrphan()
                 .Inverse()
                 .ForeignKeyConstraintName("fChatMessageChatRoom")
                 .KeyColumn("ChatRoomId");
+
+            References(x => x.StudyRoom).Nullable();
         }
     }
 

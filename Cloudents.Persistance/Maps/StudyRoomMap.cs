@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
 using NHibernate;
 using NHibernate.Type;
@@ -30,6 +31,8 @@ namespace Cloudents.Persistence.Maps
 
             Map(x => x.Price).CustomType(nameof(NHibernateUtil.Currency));
             Map(x => x.BroadcastTime).Nullable();
+            Map(x => x.StudyRoomType).CustomType<GenericEnumStringType<StudyRoomType>>();
+            HasMany(x => x.ChatRooms).Inverse().Cascade.AllDeleteOrphan();//.Inverse();
         }
 
     }

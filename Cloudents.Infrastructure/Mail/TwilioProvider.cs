@@ -98,18 +98,18 @@ namespace Cloudents.Infrastructure.Mail
 
 
         public async Task CreateRoomAsync(string id, Country country, 
-            bool needRecord, Uri callBack, StudyRoomType studyRoomType)
+            bool needRecord, Uri callBack, StudyRoomTopologyType studyRoomType)
         {
             var type = RoomResource.RoomTypeEnum.PeerToPeer;
             switch (studyRoomType)
             {
-                case StudyRoomType.SmallGroup:
+                case StudyRoomTopologyType.SmallGroup:
                     type = RoomResource.RoomTypeEnum.GroupSmall;
                     break;
-                case StudyRoomType.PeerToPeer:
+                case StudyRoomTopologyType.PeerToPeer:
                     type = RoomResource.RoomTypeEnum.PeerToPeer;
                     break;
-                case StudyRoomType.GroupRoom:
+                case StudyRoomTopologyType.GroupRoom:
                     type = RoomResource.RoomTypeEnum.Group;
                     break;
             }
