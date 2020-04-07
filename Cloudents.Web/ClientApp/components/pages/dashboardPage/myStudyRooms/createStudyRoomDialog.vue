@@ -66,9 +66,17 @@
                   </v-date-picker>
                </v-menu>
 
-               <v-menu ref="timePickerMenu" v-model="timePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290" min-width="290px">
+               <v-menu 
+                  v-model="timePickerMenu" 
+                  ref="timePickerMenu" 
+                  :close-on-content-click="false" 
+                  transition="scale-transition" 
+                  offset-y 
+                  max-width="290" 
+                  min-width="290px"
+               >
                   <template v-slot:activator="{ on }">
-                        <v-text-field 
+                        <v-text-field
                            v-on="on"
                            v-model="time"
                            class="time-input"
@@ -79,12 +87,19 @@
                            dense
                            color="#304FFE"
                            outlined
+                           scrollable
                            type="text"
                            readonly
                            :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
                         />
                   </template>                  
-                  <v-time-picker color="#4C59FF" class="date-picker-coupon" :next-icon="isRtl?'sbf-arrow-left-carousel':'sbf-arrow-right-carousel'" :prev-icon="isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'" v-model="time" no-title @input="timePickerMenu = false">
+                  <v-time-picker 
+                     v-model="time"
+                     class="date-picker-coupon" 
+                     color="#4C59FF" 
+                     :next-icon="isRtl?'sbf-arrow-left-carousel':'sbf-arrow-right-carousel'" 
+                     :prev-icon="isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'" 
+                  >
                      <v-spacer></v-spacer>
                      <v-btn text class="font-weight-bold" color="#4C59FF" @click="timePickerMenu = false">{{$t('coupon_btn_calendar_cancel')}}</v-btn>
                      <v-btn text class="font-weight-bold" color="#4C59FF" @click="$refs.timePickerMenu.save(time)">{{$t('coupon_btn_calendar_ok')}}</v-btn>
@@ -122,7 +137,6 @@ export default {
          showErrorAlreadyCreated:false,
          roomName:'',
          price: 0,
-         // date:'',
          rules: {
             required: (value) => validationRules.required(value),
             minimum: (value) => validationRules.minVal(value,0),
@@ -133,7 +147,6 @@ export default {
             {text: this.$t('dashboardPage_type_private'), value: 'Private'},
             {text: this.$t('dashboardPage_type_broadcast'), value: 'Broadcast'}
          ],
-         // items: [this.$t('dashboardPage_type_private'), this.$t('dashboardPage_type_broadcast')],
          isRtl: global.isRtl,
       }
    },
