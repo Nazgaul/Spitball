@@ -40,6 +40,9 @@ export default {
     .remote_video_container{
       position: relative;
       min-height: 229px;
+      overflow: auto; 
+      height:100%;
+      max-height: 100vh;
     }
   }
   .video-con-controls{

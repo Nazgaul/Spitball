@@ -13,9 +13,36 @@ const state = {
 };
 
 const getters = {
+    _getDocumentLoaded: state => {
+        let x = state.document.details || '';
+        if (typeof(x) === "string") {
+            return false;
+        }
+        return true;
+    },
     getShowItemToaster: state => state.toaster,
     getDocumentDetails: state => state.document,
-    getBtnLoading: state => state.btnLoading,
+    getDocumentName: (state,_getter)=>  {
+        if (_getter._getDocumentLoaded) {
+            return  state.document.details.feedItem.title;
+        }
+        return ''
+    },
+    getDocumentPrice: (state,_getter) => {
+        if (_getter._getDocumentLoaded) {
+            return  state.document.details.price;
+        }
+        return 0
+    },
+    getIsPurchased: (state,_getter) => {
+        return state.document?.details?.isPurchased || _getter.getDocumentPrice === 0
+    },
+    getBtnLoading: (state, _getter) => {
+        if (_getter._getDocumentLoaded) {
+            return state.btnLoading
+        }
+        return false
+    },
     getPurchaseConfirmation: state => state.showPurchaseConfirmation,
     getDocumentLoaded: state => state.documentLoaded,
     getRelatedDocuments: state => state.itemsList,

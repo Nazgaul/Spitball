@@ -4,7 +4,8 @@
 
 <script>
 
-const simpleToaster = () => import('./simpleToaster.vue')
+const simpleToaster = () => import('./simpleToaster.vue');
+const simpleToasterCountDown = () => import('./simpleToasterCountDown.vue');
 const simpleErrorToaster = () => import('./simpleErrorToaster.vue')
 const pendingPayment = () => import('./pendingPayment.vue')
 const errorLinkToaster = () => import('./errorLinkToaster.vue')
@@ -18,11 +19,15 @@ export default {
         pendingPayment,
         errorLinkToaster,
         auth,
+        simpleToasterCountDown
     },
     data() {
         return {
             component: '',
             componentObj: {
+                simpleToaster_countDown:{
+                    name: 'simpleToasterCountDown'
+                },
                 linkToaster: {
                     name: "pendingPayment",
                 },
@@ -57,6 +62,7 @@ export default {
                         text: this.$t('studyRoom_toaster_left_the_room'),
                     }
                 },
+                
                 simpleToaster_sessionStarted:{
                     name:'simpleToaster',
                     params: {
