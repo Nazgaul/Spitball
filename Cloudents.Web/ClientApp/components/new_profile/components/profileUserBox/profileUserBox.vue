@@ -465,6 +465,9 @@ export default {
                 margin: 0 0 0 auto;
                 cursor: pointer;
             }
+            .pUb_edit_user{
+                cursor: pointer;
+            }
             .profileUserSticky_btn{
                 margin: 0;
                 width: 100%;
@@ -562,10 +565,10 @@ export default {
     .pUb_top_defaultState{
 
         .pUb_edit_user{
+            cursor: pointer;
             position: absolute;
             top: 0;
             right: 0;
-            cursor: pointer;
         }
     }
 
