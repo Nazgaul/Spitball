@@ -94,6 +94,11 @@ where sr.id = @Id;");
                 {
                     return null;
                 }
+
+                if (result.BroadcastTime.HasValue && result.BroadcastTime.Value < DateTime.UtcNow)
+                {
+                    return null;
+                }
                 if (studyRoomSession != null)
                 {
                     var roomAvailable = await _videoProvider.GetRoomAvailableAsync(studyRoomSession.SessionId);
