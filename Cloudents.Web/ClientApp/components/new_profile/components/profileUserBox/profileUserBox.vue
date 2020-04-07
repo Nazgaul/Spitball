@@ -58,12 +58,12 @@
                                     <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
                                 </div>
                             </div>
-                            <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
+                            <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" v-if="currentProfileUser.isTutor" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
                         </div>
                     </div>
 
                     <!-- Rate And Follower -->
-                    <div class="rateWrap d-flex mt-sm-n5 mb-4 justify-center justify-sm-start">
+                    <div class="rateWrap d-flex mb-4 justify-center justify-sm-start" :class="[!currentProfileUser.isTutor ? 'mt-sm-n0' : 'mt-sm-n5']">
                         <template v-if="currentProfileUser.isTutor">
                             <div class="pUb_dS_c_rating" v-if="currentProfileTutor.reviewCount">
                                 <userRating class="c_rating" :showRateNumber="false" :rating="currentProfileTutor.rate" :size="'18'" />
@@ -105,37 +105,28 @@
                     <editSVG class="mr-1" v-if="isCurrentProfileUser" />
                 </v-btn> -->
 
-                <div class="profileUserSticky_btns d-block d-sm-flex justify-space-between align-end text-center" v-if="currentProfileUser.isTutor">
-                    <div class="profileUserSticky_pricing mb-4" v-if="isMobile">
-                        <div class="d-flex align-end justify-center">
-                            <div class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
-                                {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
+                <div class="profileUserSticky_btns d-block d-sm-flex justify-space-between align-end text-center" :class="{'student': !currentProfileUser.isTutor && isCurrentProfileUser}">
+                    <template v-if="isMobile">
+                        <div class="profileUserSticky_pricing mb-4" v-if="currentProfileUser.isTutor">
+                            <div class="d-flex align-end justify-center">
+                                <div class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
+                                    {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
+                                </div>
+                                <div class="profileUserSticky_pricing_price">
+                                    <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
+                                </div>
                             </div>
-                            <div class="profileUserSticky_pricing_price">
-                                <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
-                            </div>
+                            <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" class="profileUserSticky_coupon text-center mt-1" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
                         </div>
-                        <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" class="profileUserSticky_coupon text-center mt-1" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
-                    </div>
-                    <div class="text-right mb-2" v-if="isMobile">
-                        <editSVG sel="edit" class="pUb_edit_user" v-if="isCurrentProfileUser" @click="openEditInfo"/>
-                    </div>
-                    <v-btn sel="send" height="42" :width="isMobile ? 286 : 246" :disabled="isCurrentProfileUser" class="profileUserSticky_btn white--text" :class="{'isMyProfile': isCurrentProfileUser}" depressed rounded color="#4c59ff" @click="globalFunctions.sendMessage">
+                        <div class="text-right mb-2" v-if="isCurrentProfileUser">
+                            <editSVG sel="edit" class="pUb_edit_user" @click="openEditInfo"/>
+                        </div>
+                    </template>
+                    <v-btn sel="send" height="42" :width="isMobile ? 286 : 246" :disabled="isCurrentProfileUser" v-if="currentProfileUser.isTutor" class="profileUserSticky_btn white--text" :class="{'isMyProfile': isCurrentProfileUser}" depressed rounded color="#4c59ff" @click="globalFunctions.sendMessage">
                         <chatSVG class="profileUserSticky_btn_icon"/>
                         <div class="profileUserSticky_btn_txt" v-t="'profile_send_message'"/>
                     </v-btn>
                     <div :class="{'ml-3': isCurrentProfileUser || !getProfile.user.calendarShared}">
-                        <!-- <div class="d-flex justify-space-between align-end" v-if="!isMobile">
-                            <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
-                            <div class="profileUserSticky_pricing d-flex align-end">
-                                <v-flex class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
-                                    {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
-                                </v-flex>
-                                <v-flex class="profileUserSticky_pricing_price">
-                                    <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
-                                </v-flex>
-                            </div>
-                        </div> -->
                         <editSVG sel="edit" class="pUb_edit_user mr-1" v-if="isCurrentProfileUser && !isMobile" @click="openEditInfo"/>
                         <v-btn sel="calendar" height="42" :width="isMobile ? 286 : 246" :disabled="isCurrentProfileUser" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isCurrentProfileUser || !getProfile.user.calendarShared}" class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-sm-2 mt-4" depressed rounded color="white">
                             <calendarSVG width="20" class="profileUserSticky_btn_icon"/>
@@ -469,6 +460,9 @@ export default {
         .profileUserSticky_btns{
             &.why_learn_user_btn{
                 margin-top: 34px !important;
+            }
+            &.student {
+                margin: 0 0 0 auto;
             }
             .profileUserSticky_btn{
                 margin: 0;
