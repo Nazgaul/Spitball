@@ -20,22 +20,26 @@
     >
       <template v-slot:top>
         <div class="tableTop d-flex flex-sm-row flex-column align-sm-center justify-space-between">
-          <div class="myStudyRooms_title pb-3 pb-sm-0">{{$t('schoolBlock_my_study_rooms')}}</div>
+          <div class="myStudyRooms_title pb-3 pb-sm-0" v-t="'schoolBlock_my_study_rooms'"></div>
           <div>
             <v-btn
               v-if="isTutor"
               v-openDialog="createStudyRoomDialog"
               class="link white--text mr-0 mr-sm-4"
               depressed
+              rounded
               color="#5360FC"
-            >{{$t('dashboardPage_my_studyrooms_create_room')}}</v-btn>
+              v-t="'dashboardPage_my_studyrooms_create_room'"
+            ></v-btn>
             <v-btn
               v-if="!$vuetify.breakpoint.xsOnly"
-              class="link white--text"
+              class="link btnTestStudyRoom"
               :to="{name: routeNames.StudyRoom}"
               depressed
-              color="#5360FC"
-            >{{$t('dashboardPage_link_studyroom')}}</v-btn>
+              rounded
+              outlined
+              v-t="'dashboardPage_link_studyroom'"
+            ></v-btn>
           </div>
         </div>
       </template>
@@ -62,27 +66,15 @@
         >
           <iconChat />
         </v-btn>
-
-        <v-tooltip v-model="showCopyToolTip" top transition="fade-transition" v-else>
+        <v-tooltip :value="currentItemId === item.id" top transition="fade-transition" v-else>
           <template v-slot:activator="{}">
-            <!-- <div class="copyBtn mt-3" v-if="large">
-              <div class="wrap">
-                <input type="text" class="copy text-truncate" name :value="link" ref="copy" readonly />
-                <button
-                  type="button"
-                  class="buttonCopy px-5"
-                  @click="shareOnSocialMedia('link')"
-                  name="button"
-                >{{$t('shareContent_copy')}}</button>
-              </div>
-            </div> -->
             <linkSVG
               style="width:20px"
               class="option link mr-4"
               @click="copyLink(item)"
             />
           </template>
-          <span>{{$t('shareContent_copy_tool')}}</span>
+          <span v-t="'shareContent_copy_tool'"></span>
         </v-tooltip>
 
         <v-btn
@@ -96,24 +88,17 @@
       </template>
       <slot slot="no-data" name="tableEmptyState" />
     </v-data-table>
-
-    <v-snackbar
-      v-model="snackbar"
-      absolute
-      top
-    >
-      <div class="text-wrap" v-t="'shareContent_copy_tool'"></div>
-    </v-snackbar>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
 //import tablePreviewTd from '../global/tablePreviewTd.vue';
-import iconChat from "./images/icon-chat.svg";
-import enterRoom from "./images/enterRoom.svg";
 import * as routeNames from "../../../../routes/routeNames";
 import * as dialogNames from "../../global/dialogInjection/dialogNames.js";
+
+import iconChat from "./images/icon-chat.svg";
+import enterRoom from "./images/enterRoom.svg";
 import linkSVG from "../../global/shareContent/images/link.svg";
 
 export default {
@@ -125,8 +110,7 @@ export default {
   },
   data() {
     return {
-      snackbar: false,
-      showCopyToolTip: false,
+      currentItemId: null,
       createStudyRoomDialog: dialogNames.CreateStudyRoom,
       routeNames,
       sortedBy: "",
@@ -164,15 +148,6 @@ export default {
       "openChatInterface",
       "setActiveConversationObj"
     ]),
-
-    // showFirstName(name) {
-    //    let maxChar = 4;
-    //    name = name.split(' ')[0];
-    //    if(name.length > maxChar) {
-    //    return this.$t('resultTutor_message_me');
-    //    }
-    //    return name;
-    // },
     sendMessage(item) {
       let currentConversationObj = {
         userId: item.userId,
@@ -190,6 +165,25 @@ export default {
       });
       global.open(routeData.href, "_self");
     },
+    copyLink(item) {
+      let link = `${window.origin}/studyroom/${item.id}`
+      let self = this
+      this.$copyText(link).then(({text}) => {
+        self.currentItemId = self.studyRoomItems.filter(s => s.id === item.id)[0].id
+        self.$ga.event('Share', 'Link', text);
+        setTimeout(() => {
+          self.currentItemId = null
+        }, 2000);
+      });
+    }
+    // showFirstName(name) {
+    //    let maxChar = 4;
+    //    name = name.split(' ')[0];
+    //    if(name.length > maxChar) {
+    //    return this.$t('resultTutor_message_me');
+    //    }
+    //    return name;
+    // },
     // changeSort(sortBy){
     //    if(sortBy === 'info') return;
 
@@ -202,19 +196,6 @@ export default {
     //    this.paginationModel.page = 1;
     //    this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
     // }
-    copyLink(item) {
-      let link = `${window.origin}/studyroom/${item.id}`
-      let self = this
-      this.$copyText(link).then(({text}) => {
-        self.snackbar = true
-        // self.showCopyToolTip = true;
-        self.$ga.event('Share', 'Link', text);
-        setTimeout(() => {
-          self.snackbar = false
-          // self.showCopyToolTip = false;
-        }, 2000);
-      });
-    }
   },
   created() {
     this.updateStudyRoomItems();
@@ -242,6 +223,10 @@ export default {
     }
     .link {
       color: inherit;
+      &.btnTestStudyRoom {
+        border: 1px solid #5360FC;
+        color: #5360FC;
+      }
     }
   }
   tr {
@@ -251,8 +236,6 @@ export default {
     border: none !important;
   }
   td:first-child {
-    // text-align: center !important;
-    // width:1%;
     white-space: nowrap;
   }
   tr:nth-of-type(2n) {
