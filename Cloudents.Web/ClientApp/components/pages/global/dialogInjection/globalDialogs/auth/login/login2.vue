@@ -148,8 +148,9 @@ export default {
                     commit('setComponent', '')
                     dispatch('updateLoginStatus', true)
                     
-                    if(self.$route.path === '/' || self.$route.path === '/learn') {
-                        self.$router.push({name: self.routeNames.LoginRedirect})
+                    let pathToRedirect = ['/','/learn','/register2'];
+                    if (pathToRedirect.indexOf(self.$route.path) > -1) {
+                        this.$router.push({name: this.routeNames.LoginRedirect})
                         return
                     }
 

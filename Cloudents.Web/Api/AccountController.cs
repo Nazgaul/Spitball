@@ -45,14 +45,16 @@ namespace Cloudents.Web.Api
         private readonly SignInManager<User> _signInManager;
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
+        private readonly IUrlBuilder _urlBuilder;
 
         public AccountController(UserManager<User> userManager,
-            SignInManager<User> signInManager, ICommandBus commandBus, IQueryBus queryBus)
+            SignInManager<User> signInManager, ICommandBus commandBus, IQueryBus queryBus, IUrlBuilder urlBuilder)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _commandBus = commandBus;
             _queryBus = queryBus;
+            _urlBuilder = urlBuilder;
         }
 
         // GET
@@ -63,7 +65,6 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<UserAccountDto>> GetAsync(
             [FromServices] IQueryBus queryBus,
             [FromServices] ILogger logger,
-            [FromServices] IUrlBuilder urlBuilder,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
@@ -75,7 +76,7 @@ namespace Cloudents.Web.Api
                 logger.Error($"User is null {userId}");
                 return Unauthorized();
             }
-            user.Image = urlBuilder.BuildUserImageEndpoint(userId, user.Image);
+            user.Image = _urlBuilder.BuildUserImageEndpoint(userId, user.Image);
             return user;
         }
 
@@ -117,10 +118,9 @@ namespace Cloudents.Web.Api
         [ProducesDefaultResponseType]
         public async Task<IActionResult> UploadImageAsync([Required] IFormFile file,
             [FromServices] IUserDirectoryBlobProvider blobProvider,
-            [FromServices] UserManager<User> userManager,
             CancellationToken token)
         {
-            var userId = userManager.GetLongUserId(User);
+            var userId = _userManager.GetLongUserId(User);
             Uri uri;
             try
             {
@@ -144,6 +144,44 @@ namespace Cloudents.Web.Api
             await _commandBus.DispatchAsync(command, token);
             return Ok(url);
         }
+
+
+        [HttpPost("cover")]
+        [ProducesResponseType(Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), Status400BadRequest)]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> UploadCoverImageAsync([Required] IFormFile file,
+            [FromServices] IUserDirectoryBlobProvider blobProvider,
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            Uri uri;
+            try
+            {
+                uri = await blobProvider.UploadImageAsync(userId, file.FileName, file.OpenReadStream(), file.ContentType, token);
+            }
+            catch (ArgumentException)
+            {
+                ModelState.AddModelError("x", "not an image");
+                return BadRequest(ModelState);
+            }
+
+            if (uri == null)
+            {
+                ModelState.AddModelError("x", "not an image");
+                return BadRequest(ModelState);
+            }
+            //   var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
+            //var url = Url.ImageUrl(imageProperties);
+
+            var fileName = uri.AbsolutePath.Split('/').LastOrDefault();
+            var command = new UpdateUserCoverImageCommand(userId,  fileName);
+            await _commandBus.DispatchAsync(command, token);
+
+            var url = _urlBuilder.BuildUserImageEndpoint(userId, fileName);
+            return Ok(url);
+        }
+
 
         [HttpPost("settings")]
         public async Task<IActionResult> ChangeSettingsAsync(
@@ -205,7 +243,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("content")]
-        public async Task<IEnumerable<UserContentDto>> GetUserContentAsync([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
+        public async Task<IEnumerable<UserContentDto>> GetUserContentAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserContentByIdQuery(userId);
@@ -215,7 +253,7 @@ namespace Cloudents.Web.Api
             {
                 if (s is UserDocumentsDto d)
                 {
-                    d.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
+                    d.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
                     d.Url = Url.DocumentUrl(d.Course, d.Id, d.Name);
                 }
                 return s;
@@ -223,7 +261,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("purchases")]
-        public async Task<IEnumerable<UserPurchaseDto>> GetUserPurchasesAsync([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
+        public async Task<IEnumerable<UserPurchaseDto>> GetUserPurchasesAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserPurchasesByIdQuery(userId);
@@ -233,7 +271,7 @@ namespace Cloudents.Web.Api
             {
                 if (s is PurchasedDocumentDto d)
                 {
-                    d.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
+                    d.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
                     d.Url = Url.DocumentUrl(d.Course, d.Id, d.Name);
                 }
                 return s;
@@ -241,7 +279,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("followers")]
-        public async Task<IEnumerable<FollowersDto>> GetFollowersAsync([FromServices] IUrlBuilder urlBuilder, 
+        public async Task<IEnumerable<FollowersDto>> GetFollowersAsync(
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
@@ -249,7 +287,7 @@ namespace Cloudents.Web.Api
             var result = await _queryBus.QueryAsync(query, token);
             return result.Select(s =>
             {
-                s.Image = urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image, s.Name);
+                s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image, s.Name);
                 return s;
             });
         }
@@ -265,7 +303,7 @@ namespace Cloudents.Web.Api
 
         [HttpGet("stats")]
         [ResponseCache(Duration = TimeConst.Day, Location = ResponseCacheLocation.Client)]
-        public async Task<IEnumerable<UserStatsDto>> GetTutorStatsAsync([FromQuery] UserStatsRequest request, CancellationToken token) 
+        public async Task<IEnumerable<UserStatsDto>> GetTutorStatsAsync([FromQuery] UserStatsRequest request, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserStatsQuery(userId, request.Days);
@@ -282,7 +320,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("questions")]
-        public async Task<IEnumerable<AccountQuestionDto>> GetQuestionsAsync([ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile, 
+        public async Task<IEnumerable<AccountQuestionDto>> GetQuestionsAsync([ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);

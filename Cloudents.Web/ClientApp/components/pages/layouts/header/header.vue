@@ -1,6 +1,6 @@
 ﻿<template>
-    <div v-if="!isHideHeader">
-    <v-app-bar :class="{'homePageWrapper': isHomePage}" class="globalHeader elevation-0" color="white" :height="isMobile? 60 : 70" app fixed clipped-left clipped-right>
+    <div>
+    <v-app-bar :class="{'homePageWrapper': isHomePage, 'borderBottom': isShowBorderBottom}" class="globalHeader elevation-0" color="white" :height="isMobile? 60 : 70" app fixed clipped-left clipped-right>
         <router-link @click.prevent="resetItems()" to="/" class="globalHeader_logo">
             <logoComponent/>
         </router-link>
@@ -137,7 +137,7 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
         totalUnread(){
             return this.getTotalUnread;
         },
-        isHideHeader(){
+        isShowBorderBottom(){
             let filteredRoutes = [routeNames.Profile];
             return filteredRoutes.indexOf(this.$route.name) > -1 && this.$vuetify.breakpoint.xsOnly;
         },
@@ -222,6 +222,13 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
         @media (max-width: @screen-xs) {
             padding: 0 8px;
             border-bottom: solid 1px #dadada;
+        }
+    }
+    &.borderBottom {
+        .v-toolbar__content{
+            @media (max-width: @screen-xs) {
+                border-bottom: solid 1px #dadada;
+            }
         }
     }
     .v-toolbar__content{

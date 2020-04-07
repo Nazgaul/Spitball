@@ -19,7 +19,7 @@
                                 :label="firstNameLabel"
                                 class="tutor-edit-firstname"
                                 v-model.trim="firstName"
-                                outline
+                                outlined
                         ></v-text-field>
                     </v-flex>
                 </v-layout>
@@ -35,7 +35,7 @@
                                 :label="lastNameLabel"
                                 class="tutor-edit-lastname"
                                 v-model.trim="lastName"
-                                outline
+                                outlined
                         ></v-text-field>
                     </v-flex>
                 </v-layout>
@@ -43,7 +43,7 @@
         </v-layout>
         <v-layout  align-center class="bottomActions px-3" :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between ' : 'justify-end']">
             <v-flex xs5 sm2  >
-                <v-btn class="shallow-blue ml-0" rounded outline primary @click="closeDialog">
+                <v-btn class="shallow-blue ml-0" rounded outlined primary @click="closeDialog">
                     <span>{{$t('profile_btn_cancel')}}</span>
                 </v-btn>
             </v-flex>

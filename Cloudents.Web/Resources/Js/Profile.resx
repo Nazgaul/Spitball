@@ -235,7 +235,7 @@
     <value>Study area:</value>
   </data>
   <data name="tutor_follower" xml:space="preserve">
-    <value>{1} Follower</value>
+    <value>Follower | Followers</value>
   </data>
   <data name="tutor_followers" xml:space="preserve">
     <value>{1} Followers</value>
@@ -244,10 +244,10 @@
     <value>{1} Content</value>
   </data>
   <data name="session" xml:space="preserve">
-    <value>{1} Lesson</value>
+    <value>Lesson | Lessons</value>
   </data>
   <data name="student" xml:space="preserve">
-    <value>{1} Student</value>
+    <value>Student | Students</value>
   </data>
   <data name="study_materials" xml:space="preserve">
     <value>{1}’s study materials</value>
@@ -276,7 +276,10 @@
   <data name="empty_title" xml:space="preserve">
     <value>Nothing posted yet</value>
   </data>
-  <data name="my_courses" xml:space="preserve">
-    <value>My Courses</value>
+  <data name="my_courses_teacher" xml:space="preserve">
+    <value>I Teach :</value>
+  </data>
+  <data name="my_courses_student" xml:space="preserve">
+    <value>My courses :</value>
   </data>
 </root>
