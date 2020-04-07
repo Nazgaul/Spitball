@@ -267,5 +267,4 @@ export default {
       }
    }
 }
-.v-time-picker-clock__item
 </style>
