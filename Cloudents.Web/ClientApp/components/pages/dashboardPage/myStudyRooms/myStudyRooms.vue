@@ -203,7 +203,7 @@ export default {
     //    this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
     // }
     copyLink(item) {
-      let link = `https://${window.origin}/studyroom/${item.id}`
+      let link = `${window.origin}/studyroom/${item.id}`
       let self = this
       this.$copyText(link).then(({text}) => {
         self.snackbar = true
