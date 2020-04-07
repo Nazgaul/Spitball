@@ -1,13 +1,15 @@
 <template>
    <div class="remoteVideoStream" :id="track.sb_video_id">
-      <v-tooltip bottom>
-         <template v-slot:activator="{ on }">
-            <v-btn v-on="on" class="fullscreen-btn" icon @click="openFullScreen" color="white">
-               <v-icon>sbf-fullscreen</v-icon>
-            </v-btn>
-         </template>
-         <span>{{$t('tutor_tooltip_fullscreen')}}</span>
-      </v-tooltip>
+      <!-- <template v-if="$store.getters.getRoomIsTutor">
+         <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+               <v-btn v-on="on" class="fullscreen-btn" icon @click="openFullScreen" color="white">
+                  <v-icon>sbf-fullscreen</v-icon>
+               </v-btn>
+            </template>
+            <span>{{$t('tutor_tooltip_fullscreen')}}</span>
+         </v-tooltip>
+      </template> -->
    </div>
 </template>
 
@@ -29,18 +31,6 @@ export default {
             video.requestFullscreen();
             return;
          } 
-         if (video.webkitRequestFullscreen) {
-            video.webkitRequestFullscreen();
-            return;
-         } 
-         if (video.mozRequestFullScreen) {
-            video.mozRequestFullScreen();
-            return;
-         } 
-         if (video.msRequestFullscreen) {
-            video.msRequestFullscreen();
-            return;
-         }
       }
    },
    mounted() {
@@ -62,6 +52,17 @@ export default {
          width: 100%;
          background-repeat: no-repeat;
          pointer-events: none;
+      }
+      .fullscreenMode{
+         position: fixed;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         width: 100vw;
+         object-fit: fill;
+         height: 100vh;
+         z-index: 20;
       }
       video::-webkit-media-controls-enclosure {
          display: none !important;

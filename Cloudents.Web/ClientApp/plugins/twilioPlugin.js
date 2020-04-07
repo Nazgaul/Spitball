@@ -62,7 +62,16 @@ function _twilioListeners(room,store) {
    room.localParticipant.on('networkQualityLevelChanged', (networkQualityLevel,networkQualityStats) => {
       _insightEvent('networkQuality',networkQualityStats, networkQualityLevel)
    });
-   room.localParticipant.on('trackPublished',()=>{
+   room.localParticipant.on('trackPublished',(track)=>{
+      if(store.getters.getRoomIsTutor && track.trackName === SCREEN_TRACK_NAME){
+         let videoElementId = `remoteTrack_${track.trackSid}`
+         let transferDataObj = {
+            type: "openFullScreen",
+            data: videoElementId
+         };
+         let normalizedData = JSON.stringify(transferDataObj);
+         store.dispatch('sendDataTrack',normalizedData)
+      }
    })
 
 
@@ -72,9 +81,6 @@ function _twilioListeners(room,store) {
       _detachTracks([track],store)
    })
    room.on('trackUnsubscribed', (track) => {
-      if(track.kind === 'video'){
-         store.commit(twilio_SETTERS.FULL_SCREEN_AVAILABLE,false);
-     }
       _insightEvent('TwilioTrackUnsubscribed', track, null);
       _detachTracks([track],store);
    })
@@ -91,7 +97,6 @@ function _twilioListeners(room,store) {
    room.on('trackStarted', (track) => {
       if(track.kind === 'video'){
          store.commit(twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK,track)
-         // store.commit(twilio_SETTERS.FULL_SCREEN_AVAILABLE,true);
       }
       if(track.kind === 'audio'){   
          let previewContainer = document.getElementById(REMOTE_TRACK_DOM_ELEMENT);
@@ -312,8 +317,18 @@ export default () => {
    
                   store.commit(twilio_SETTERS.VIDEO_AVAILABLE,false);
                   store.commit(twilio_SETTERS.AUDIO_AVAILABLE,false)
-                  store.commit(twilio_SETTERS.FULL_SCREEN_AVAILABLE,false);
                }
+            }
+            if (mutation.type === twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN){
+               let normalizedData = {
+                  type: "openFullScreen",
+               };
+               if(mutation.payload){
+                  let videoTrack = Array.from(_activeRoom.localParticipant.videoTracks.values())[0];
+                  let videoElementId = `remoteTrack_${videoTrack.trackSid}`
+                  normalizedData.data = videoElementId
+               }
+               store.dispatch('sendDataTrack',JSON.stringify(normalizedData))
             }
          }
       })

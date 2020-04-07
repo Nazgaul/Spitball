@@ -89,6 +89,20 @@ const getters = {
    getDialogSnapshot: state => state.dialogSnapshot,
 }
 const actions = {
+   updateFullScreen(context,elId){
+      let className = 'fullscreenMode';
+      if(elId){
+         let interval = setInterval(() => {
+            let vidEl = document.querySelector(`#${elId} video`);
+            if(vidEl){
+               vidEl.classList.add(className);
+               clearInterval(interval)
+            }
+         }, 50);
+      }else{
+         document.querySelector(`.${className}`).classList.remove(className);
+      }
+   },
    updateDialogSnapshot({ commit }, val) {
       commit(studyRoom_SETTERS.DIALOG_SNAPSHOT, val);
    },
