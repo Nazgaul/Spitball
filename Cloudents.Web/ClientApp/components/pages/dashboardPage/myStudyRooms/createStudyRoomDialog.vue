@@ -4,7 +4,7 @@
          <v-icon class="close-dialog" v-text="'sbf-close'" v-closeDialog />
          <div class="createStudyRoomDialog-title pb-4">{{$t('dashboardPage_create_room_title')}}</div>
          <v-form class="d-flex justify-space-between input-room-name" ref="createRoomValidation">
-            <v-text-field  :rules="[rules.required]" v-model="roomName" height="44" dense outlined :label="$t('dashboardPage_create_room_placeholder')" :placeholder="$t('dashboardPage_create_room_label')"/>
+            <v-text-field :rules="[rules.required]" v-model="roomName" height="44" dense outlined :label="$t('dashboardPage_create_room_placeholder')" :placeholder="$t('dashboardPage_create_room_label')"/>
             <v-text-field class="px-4" outlined  height="44" dense :rules="[rules.required,rules.integer,rules.minimum]"
                v-model="price" type="number"
                :label="$t('becomeTutor_placeholder_price', {'0' : getSymbol})" :placeholder="$t('becomeTutor_placeholder_price', {'0' : getSymbol})">
@@ -13,7 +13,6 @@
                v-model="studyRoomType"
                append-icon="sbf-menu-down"
                :items="items"
-               
                :label="$t('dashboardPage_placeholder_studyRoom_type')"
                height="44"
                outlined
@@ -196,6 +195,11 @@ export default {
             }
          }
       },
+      resetErrors() {
+         this.showErrorEmpty = false;
+         this.showErrorAlreadyCreated = false;
+         this.showErrorMaxUsers = false;
+      }
       // parseDate (date) {
       //    if (!date) return null
       //    const [month, day, year] = date.split('/')
@@ -204,14 +208,10 @@ export default {
    },
    watch: {
       selected(){
-         this.showErrorEmpty = false;
-         this.showErrorAlreadyCreated = false;
-         this.showErrorMaxUsers = false;
+         this.resetErrors()
       },
       studyRoomType() {
-         this.showErrorEmpty = false;
-         this.showErrorAlreadyCreated = false;
-         this.showErrorMaxUsers = false;
+         this.resetErrors()
       }
    },
    computed: {
