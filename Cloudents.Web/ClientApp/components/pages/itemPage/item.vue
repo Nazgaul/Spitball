@@ -144,7 +144,7 @@ import itemCard from '../../carouselCards/itemCard.vue';
 const tutorResultCard = () => import(/* webpackChunkName: "tutorResultCard" */ '../../results/tutorCards/tutorResultCard/tutorResultCard.vue');
 const tutorResultCardMobile = () => import(/* webpackChunkName: "tutorResultCardMobile" */ '../../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue');
 // import whyUsDesktop from './components/whyUs/whyUsDesktop.vue';
-import whyUs from './components/whyUs/whyUs.vue';
+// import whyUs from './components/whyUs/whyUs.vue';
 // import mobileUnlockDownload from './components/mobileUnlockDownload/mobileUnlockDownload.vue';
 import unlockDialog from './components/dialog/unlockDialog.vue';
 const shareContent = () => import(/* webpackChunkName: "shareContent" */'../global/shareContent/shareContent.vue');
@@ -157,7 +157,7 @@ export default {
         tutorResultCardMobile,
         itemCard,
         // whyUsDesktop,
-        whyUs,
+        // whyUs,
         // mobileUnlockDownload,
         mainItem,
         unlockDialog,
