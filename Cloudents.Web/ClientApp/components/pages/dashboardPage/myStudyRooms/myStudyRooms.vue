@@ -169,7 +169,7 @@ export default {
       let link = `${window.origin}/studyroom/${item.id}`
       let self = this
       this.$copyText(link).then(({text}) => {
-        self.currentItemId = self.studyRoomItems.filter(s => s.id === item.id)[0].id
+        self.currentItemId = item.id
         self.$ga.event('Share', 'Link', text);
         setTimeout(() => {
           self.currentItemId = null
@@ -223,6 +223,7 @@ export default {
     }
     .link {
       color: inherit;
+      font-weight: 600;
       &.btnTestStudyRoom {
         border: 1px solid #5360FC;
         color: #5360FC;
@@ -275,6 +276,7 @@ export default {
   }
   .option {
     vertical-align: middle;
+    cursor: pointer;
   }
 }
 </style>
