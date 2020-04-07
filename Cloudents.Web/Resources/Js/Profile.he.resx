@@ -189,8 +189,11 @@
   <data name="lastName_label" xml:space="preserve">
     <value>שם משפחה</value>
   </data>
-  <data name="my_courses" xml:space="preserve">
-    <value>הקורסים שלי</value>
+  <data name="my_courses_student" xml:space="preserve">
+    <value>הקורסים שלי :</value>
+  </data>
+  <data name="my_courses_teacher" xml:space="preserve">
+    <value>מלמד</value>
   </data>
   <data name="personal_details" xml:space="preserve">
     <value>פרטים אישיים</value>

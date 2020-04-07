@@ -49,7 +49,7 @@
                             <span>{{currentProfileUser.name}}</span>
                         </h1>
 
-                        <div class="profileUserSticky_pricing text-right" v-if="!isMobile">
+                        <div class="profileUserSticky_pricing text-right" v-if="!isMobile && currentProfileUser.isTutor">
                             <div class="d-flex align-end justify-center">
                                 <div class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
                                     {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
@@ -83,7 +83,7 @@
 
                     <!-- courses teacher -->
                     <div class="course mt-sm-3 mb-sm-6 mt-2 mb-3 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
-                        <span class="iTeach mr-1" v-t="'profile_my_courses'"></span>
+                        <span class="iTeach mr-1" v-t="'profile_my_courses_teacher'"></span>
                         <span class="courseName text-truncate">{{currentProfileUser.courses.toString().replace(/,/g, ", ")}}</span>
                     </div>
 
@@ -95,7 +95,7 @@
 
                     <!-- Courses Student -->
                     <div class="course mt-2 text-truncate" v-if="!currentProfileUser.isTutor && currentProfileUser.courses.length">
-                        <span class="profileUserBox_bottom_title mr-1">{{$t('profile_my_courses')}}:</span>
+                        <span class="profileUserBox_bottom_title mr-1" v-t="'profile_my_courses_student'"></span>
                         <span v-for="(course, index) in currentProfileUser.courses" :key="index">
                             {{course}}{{index + 1 == currentProfileUser.courses.length ? '' : ', '}}
                         </span>
@@ -463,6 +463,7 @@ export default {
             }
             &.student {
                 margin: 0 0 0 auto;
+                cursor: pointer;
             }
             .profileUserSticky_btn{
                 margin: 0;
