@@ -395,7 +395,7 @@ export default {
             width: 36px;
             height: 46px;
             border-radius: 4px;
-            background-color: rgba(255, 255, 255, 0.38);
+            background-color: #fff;
         }
     }
 
@@ -447,7 +447,7 @@ export default {
                     }
                     .pUb_dS_c_r_span{
                         cursor: pointer;
-                        color:#4c59ff;
+                        color:#43425d;
                         font-weight: 600;
                     }
                 }
@@ -459,7 +459,7 @@ export default {
                     order: 1;
                 }
                 .readMore {
-                    color: #4c59ff;
+                    color: #43425d;
                     font-weight: 600;
                     cursor: pointer;
                 }
