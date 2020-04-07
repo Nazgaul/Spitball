@@ -1,6 +1,6 @@
 <template>
-    <div class="profileUserBox" v-if="currentProfileUser">
-        <div class="profileUserBox_top_mobile" v-if="isMobile">
+    <div class="profileUserBox pa-4 pa-sm-5" v-if="currentProfileUser">
+        <!-- <div class="profileUserBox_top_mobile" v-if="isMobile">
             <div class="profileUserBox_top_mobile_top">
                 <a class="profileUserBox_top_mobile_link" @click="$router.go(-1)">
                     <v-icon v-text="'sbf-arrow-left-carousel'"/>
@@ -9,7 +9,7 @@
             <div class="profileUserBox_top_mobile_bottom">
                 <div class="profileUserBox_top_mobile_right">
                     <h1 class="profileUserBox_top_mobile_userName text-truncate">
-                        <span v-if="currentProfileUser.isTutor" v-language:inner="'profile_tutor'"/>
+                        <span v-if="currentProfileUser.isTutor" v-t="'profile_tutor'"/>
                         {{currentProfileUser.name}}
                     </h1>
                 </div>
@@ -22,144 +22,198 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="profileUserBox_top">
+        </div> -->
+
+        <div class="profileUserBox_top d-block d-sm-flex justify-space-between">
             
-            <v-flex v-bind="flexOrder" class="pUb_top_defaultState">
-                <editSVG sel="edit" class="pUb_edit_user mr-1" v-if="!isMobile && isCurrentProfileUser" @click="openEditInfo()"/>
-                <div class="pUb_defaultState_img">
-                    <div class="pUb_dot" v-if="isOnline"/>
-                    <uploadImage sel="photo" class="pUb_edit_img" v-if="isCurrentProfileUser"/>
-                    <userAvatarRect class="pUb_dS_img" 
-                                    :userName="currentProfileUser.name" 
-                                    :userImageUrl="currentProfileUser.image" 
-                                    :width="isMobile? 106 :116" 
-                                    :height="isMobile? 126 : 138"
-                                    :userId="currentProfileUser.id"
-                                    :fontSize="36"
-                                    :borderRadius="8"/>
-                </div>
+            <div class="leftSide mr-sm-6 mb-2 mb-sm-0 d-flex justify-center">
+                <div class="pUb_dot" v-if="isOnline"></div>
+                <uploadImage sel="photo" class="pUb_edit_img" v-if="isCurrentProfileUser" />
+                <userAvatarRect
+                    class="pUb_dS_img"
+                    :userName="currentProfileUser.name"
+                    :userImageUrl="currentProfileUser.image"
+                    :width="isMobile? 130: 226"
+                    :height="isMobile? 161 : 278"
+                    :userId="currentProfileUser.id"
+                    :fontSize="36"
+                    :borderRadius="8"
+                />
+            </div>
                 
-                <div class="pUb_defaultState_content text-truncate hidden-xs-only">
-                    <div>
-                        <h1 class="pUb_dS_c_userName text-truncate">
-                            <span v-if="currentProfileUser.isTutor" class="mr-1" v-language:inner="'profile_tutor'"/> 
-                            {{currentProfileUser.name}}
+            <div class="rightSide flex-grow-1">
+                <div class="detailsWrap d-flex d-sm-block">
+                    <div class="d-flex justify-space-between text-center text-sm-left">
+                        <h1 class="userName text-truncate mr-sm-2">
+                            <span v-if="currentProfileUser.isTutor" class="mr-1" v-t="'profile_tutor'"></span>
+                            <span>{{currentProfileUser.name}}</span>
                         </h1>
+
+                        <div class="profileUserSticky_pricing text-right" v-if="!isMobile">
+                            <template v-if="currentProfileUser.isTutor">
+                                <div class="d-flex align-end justify-center">
+                                    <div class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
+                                        {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
+                                    </div>
+                                    <div class="profileUserSticky_pricing_price">
+                                        <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
+                                    </div>
+                                </div>
+                                <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" v-if="currentProfileUser.isTutor" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
+                            </template>
+                            <div v-else>
+                                <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="isLogged && !currentProfileUser.isTutor">
+                                    <editSVG class="mr-1" v-if="isCurrentProfileUser" />
+                                </v-btn>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rate And Follower -->
+                    <div class="rateWrap d-flex mb-4 justify-center justify-sm-start" :class="[!currentProfileUser.isTutor ? 'mt-sm-n0' : 'mt-sm-n5']">
                         <template v-if="currentProfileUser.isTutor">
                             <div class="pUb_dS_c_rating" v-if="currentProfileTutor.reviewCount">
                                 <userRating class="c_rating" :showRateNumber="false" :rating="currentProfileTutor.rate" :size="'18'" />
                                 <span @click="scrollToReviews" class="pUb_dS_c_r_span ml-1">{{$tc('resultTutor_review_one',currentProfileTutor.reviewCount)}}</span>
-                               
                             </div>
                             <div v-else class="pUb_dS_c_rating">
                                 <starEmptySVG class="pUb_dS_c_rating_star"/>
-                                <span class="no-reviews font-weight-bold caption" v-language:inner="'resultTutor_no_reviews'"></span>
+                                <span class="no-reviews font-weight-bold caption" v-t="'resultTutor_no_reviews'"></span>
                             </div>
                         </template>
-                    </div>
-                    <div class="profileUserBox_defaultState_content_followers">
-                        <followBtn class="mr-2" v-if="!isCurrentProfileUser"/>
-                        <span v-if="currentProfileUser.followers" class="defaultState_content_followers" 
-                        v-text="$Ph(dynamicDictionay(currentProfileUser.followers,'profile_tutor_followers','profile_tutor_follower'),[currentProfileUser.followers])"/>
-                    </div>
-                </div>
-            </v-flex>
-
-
-
-            <v-flex xs4 class="pUb_top_tutorState" v-if="currentProfileUser.isTutor">
-                <div class="pUb_top_tS_list">
-                    <starSVG/>
-                    <span class="pUb_t_ts_list_span pUb_t_ts_list_span_review" @click="isMobile? scrollToReviews():''" 
-                    v-text="tutorStateRate(currentProfileTutor)"/>
-                </div>
-                <div class="pUb_top_tS_list" :class="[{'visibility_hidden':!currentProfileTutor.contentCount}]">
-                    <resxSVG/>
-                    <span class="pUb_t_ts_list_span" v-text="$Ph(dynamicDictionay(currentProfileTutor.contentCount,'profile_resourses','profile_resourse'),currentProfileTutor.contentCount)"/>
-                </div>
-                <div class="pUb_top_tS_list" :class="[{'visibility_hidden':!currentProfileTutor.lessons}]">
-                    <clockSVG/>
-                    <span class="pUb_t_ts_list_span" v-text="$Ph(dynamicDictionay(currentProfileTutor.lessons,'profile_sessions','profile_session'),currentProfileTutor.lessons)"/>
-                </div>
-                <div class="pUb_top_tS_list" :class="[{'visibility_hidden':!currentProfileTutor.students}]">
-                    <studensSVG/>
-                    <span class="pUb_t_ts_list_span ml-1" v-text="$Ph(dynamicDictionay(currentProfileTutor.students,'profile_students','profile_student'),currentProfileTutor.students)"/>
-                </div>
-            </v-flex>
-        </div>
-
-
-        <div class="d-flex align-center">
-            <div class="flex-grow-1">
-                <v-flex sm9 xs12 class="profileUserBox_middle">
-                    <h3 class="pUb_middle_AboutMe" v-if="currentProfileUser.tutorData.description">{{currentProfileUser.tutorData.description}}</h3>
-                    <div class="d-flex justify-space-between" v-if="currentProfileUser.isTutor">
-                        <h4 v-if="currentProfileTutor.bio" class="pUb_middle_bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}
-                            <span class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</span>
-                            <span sel="bio_more" v-if="readMoreVisible" @click="isOpen = !isOpen" class="pUb_middle_bio_readMore" v-language:inner="isOpen?'profile_read_less':'profile_read_more'"></span>
-                        </h4>
+                        <div class="ml-3">
+                            <followBtn class="followBtnNew mr-sm-2" v-if="!isCurrentProfileUser"/>
+                            <!-- <span v-if="currentProfileUser.followers" class="defaultState_content_followers" 
+                            v-text="$Ph(dynamicDictionay(currentProfileUser.followers,'profile_tutor_followers','profile_tutor_follower'),[currentProfileUser.followers])"/> -->
+                        </div>
                     </div>
 
                     <!-- courses teacher -->
-                    <div class="profileUserBox_bottom course mt-2" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
-                        <span class="profileUserBox_bottom_title mr-1">{{$t('profile_my_courses')}}:</span>
+                    <div class="course mt-sm-3 mb-sm-6 mt-2 mb-3 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
+                        <span class="iTeach mr-1" v-t="'profile_my_courses_teacher'"></span>
+                        <span class="courseName text-truncate">{{currentProfileUser.courses.toString().replace(/,/g, ", ")}}</span>
+                    </div>
+
+                    <!-- TUTOR BIO -->
+                    <h4 v-if="currentProfileTutor.bio" class="userBio mb-5 mb-sm-0">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}
+                        <span class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</span>
+                        <span sel="bio_more" v-if="readMoreVisible" @click="isOpen = !isOpen" class="readMore" v-t="isOpen ? 'profile_read_less' : 'profile_read_more'"></span>
+                    </h4>
+
+                    <!-- Courses Student -->
+                    <div class="course mt-2 text-truncate" v-if="!currentProfileUser.isTutor && currentProfileUser.courses.length">
+                        <span class="profileUserBox_bottom_title mr-1" v-t="'profile_my_courses_student'"></span>
                         <span v-for="(course, index) in currentProfileUser.courses" :key="index">
                             {{course}}{{index + 1 == currentProfileUser.courses.length ? '' : ', '}}
                         </span>
                     </div>
-                </v-flex>
-
-                <!-- subjects -->
-                <div class="profileUserBox_bottom" v-if="currentProfileUser.isTutor && currentProfileTutor.subjects.length">
-                    <span class="profileUserBox_bottom_title mr-1" v-language:inner="'profile_study'"/>
-                    <span v-for="(subject, index) in currentProfileTutor.subjects" :key="index">{{subject}}{{index + 1 == currentProfileTutor.subjects.length? '':' ,'}}</span>
                 </div>
 
-                <!-- courses student -->
-                <div class="profileUserBox_bottom course mt-2" v-if="!currentProfileUser.isTutor && currentProfileUser.courses.length">
-                    <span class="profileUserBox_bottom_title mr-1">{{$t('profile_my_courses')}}:</span>
-                    <span v-for="(course, index) in currentProfileUser.courses" :key="index">
-                        {{course}}{{index + 1 == currentProfileUser.courses.length ? '' : ', '}}
-                    </span>
+                <div class="profileUserSticky_btns d-block d-sm-flex justify-space-between align-end text-center" :class="{'student': !currentProfileUser.isTutor && isCurrentProfileUser}">
+                    <template v-if="isMobile">
+                        <div class="profileUserSticky_pricing mb-4" v-if="currentProfileUser.isTutor">
+                            <div class="d-flex align-end justify-center">
+                                <div class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
+                                    {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
+                                </div>
+                                <div class="profileUserSticky_pricing_price">
+                                    <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
+                                </div>
+                            </div>
+                            <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" class="profileUserSticky_coupon text-center mt-1" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
+                        </div>
+                        <div class="text-sm-right text-center mb-2" v-if="isCurrentProfileUser">
+                            <editSVG sel="edit" class="pUb_edit_user" @click="openEditInfo"/>
+                        </div>
+                        <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="isLogged && !currentProfileUser.isTutor">
+                            <editSVG v-if="isCurrentProfileUser" />
+                        </v-btn>
+                    </template>
+                    <v-btn sel="send" height="42" :width="isMobile ? 286 : 246" :disabled="isCurrentProfileUser" v-if="currentProfileUser.isTutor" class="profileUserSticky_btn white--text" :class="{'isMyProfile': isCurrentProfileUser}" depressed rounded color="#4c59ff" @click="globalFunctions.sendMessage">
+                        <chatSVG class="profileUserSticky_btn_icon"/>
+                        <div class="profileUserSticky_btn_txt" v-t="'profile_send_message'"/>
+                    </v-btn>
+                    <div :class="{'ml-3': isCurrentProfileUser || !getProfile.user.calendarShared}">
+                        <editSVG sel="edit" class="pUb_edit_user mr-1" v-if="isCurrentProfileUser && !isMobile" @click="openEditInfo"/>
+                        <v-btn sel="calendar" height="42" :width="isMobile ? 286 : 246" :disabled="isCurrentProfileUser" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isCurrentProfileUser || !getProfile.user.calendarShared}" class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-sm-2 mt-4" depressed rounded color="white">
+                            <calendarSVG width="20" class="profileUserSticky_btn_icon"/>
+                            <div class="profileUserSticky_btn_txt" v-t="'profile_book_session'"/>
+                        </v-btn>
+                    </div>
                 </div>
             </div>
-            <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="isLogged && !currentProfileUser.isTutor">
-                <editSVG class="mr-1" v-if="isCurrentProfileUser" />
-            </v-btn>
         </div>
+
+        <v-row class="bottom text-center pt-3" dense v-if="currentProfileTutor">
+            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center">
+                <followersSvg class="mt-3" width="26" />
+                <div class="ml-3" @click="isMobile ? scrollToReviews():''" >
+                    <div class="number text-left">{{currentProfileUser.followers}}</div>
+                    <div class="type">{{$tc('profile_tutor_follower', currentProfileUser.followers)}}</div>
+                </div>
+            </v-col>
+            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center">
+                <onlineLessonSVG class="mt-3" width="20" />
+                <div class="ml-3">
+                    <div class="number text-left">{{currentProfileTutor.lessons}}</div>
+                    <div class="type" v-t="''">{{$tc('profile_session', currentProfileTutor.lessons)}}</div>
+                </div>
+            </v-col>
+            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center">
+                <studentsSVG class="mt-3" width="26" />
+                <div class="ml-3">
+                    <div class="number text-left">{{currentProfileTutor.students}}</div>
+                    <div class="type">{{$tc('profile_student', currentProfileTutor.students)}}</div>
+                </div>
+            </v-col>
+            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center">
+                <starSVG class="mt-3" width="26" />
+                <div class="ml-3">
+                    <div class="number text-left">{{currentProfileTutor.reviewCount}}</div>
+                    <div class="type">{{$tc('profile_reviews',currentProfileTutor.reviewCount)}}</div>
+                </div>
+            </v-col>
+        </v-row>
     </div>
 </template>
 
 <script>
-import starSVG from './images/tStar.svg';
-import starEmptySVG from './images/stars-copy.svg';
-
-import clockSVG from './images/tClock.svg';
-import studensSVG from './images/tStudents.svg';
-import resxSVG from './images/tResx.svg';
-import editSVG from './images/edit.svg';
 import { mapGetters, mapActions } from 'vuex';
-import userRating from '../../profileHelpers/profileBio/bioParts/userRating.vue'
-import { LanguageService } from "../../../../services/language/languageService";
+
+import starSVG from './images/star.svg';
+import starEmptySVG from './images/stars-copy.svg';
+import studentsSVG from './images/students.svg';
+import onlineLessonSVG from './images/onlineLesson.svg';
+import followersSvg from './images/followers.svg';
+import editSVG from './images/edit.svg';
+import chatSVG from '../profileUserSticky/images/chatIcon_mobile.svg';
+import calendarSVG from '../profileUserSticky/images/calendarIcon.svg';
+
+import * as routeNames from '../../../../routes/routeNames'
+
 import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
+import userRating from '../../profileHelpers/profileBio/bioParts/userRating.vue'
 import uploadImage from '../../profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue';
 import followBtn from '../followBtn/followBtn.vue';
-import * as routeNames from '../../../../routes/routeNames';
 
 export default {
     name:'profileUserBox',
     components:{
         starSVG,
-        clockSVG,
-        studensSVG,
-        resxSVG,
+        studentsSVG,
+        onlineLessonSVG,
+        followersSvg,
         userRating,
         userAvatarRect,
         uploadImage,
         editSVG,
         followBtn,
         starEmptySVG,
+        chatSVG,
+        calendarSVG
+    },
+    props: {
+        globalFunctions:{}
     },
     data() {
         return {
@@ -193,7 +247,7 @@ export default {
             return this.getUserStatus[this.currentProfileUser.id] || false;
         },
         textLimit(){
-            return this.isMobile? 76 : 140;
+            return this.isMobile ? 68 : 220;
         },
         isOpen :{
             get(){
@@ -217,32 +271,33 @@ export default {
                 return false;
             }
         },
-        flexOrder(){
-            if(this.currentProfileUser.isTutor){
-                if(this.isMobile){
-                    return {xs4:true}
-                }else{
-                    return {xs9: true}
-                }
-            }else{
-                return {xs12:true}
+        isDiscount() {
+            return !!this.getProfile && (this.getProfile.user.tutorData.discountPrice || this.getProfile.user.tutorData.discountPrice === 0)
+        },
+        tutorDiscountPrice() {
+            return !!this.getProfile && this.getProfile.user.tutorData.discountPrice ? this.getProfile.user.tutorData.discountPrice : null;
+        },
+        tutorPrice() {
+            if (this.getProfile.user?.tutorData) {
+                return this.getProfile.user.tutorData.price;
             }
-        }
+            return 0;
+        },
     },
     methods: {
         ...mapActions(['updateEditDialog']),
         // reviewsPlaceHolder(reviews) {
         //     return reviews === 0 ? reviews.toString() : reviews;
         // },
-        tutorStateRate(tutorData){
-            let rate = tutorData.rate.toFixed(1);
-            let reviews = tutorData.reviewCount;
-            if(reviews < 1){
-                return LanguageService.getValueByKey('resultTutor_collecting_review');
-            }
-            let dictionary = reviews > 1? LanguageService.getValueByKey('profile_reviews'): LanguageService.getValueByKey('profile_single_review')
-            return `${rate} (${reviews} ${dictionary.toLowerCase()})`
-        },
+        // tutorStateRate(tutorData){
+        //     let rate = tutorData.rate.toFixed();
+        //     let reviews = tutorData.reviewCount;
+        //     if(reviews < 1){
+        //         return this.$t('resultTutor_collecting_review');
+        //     }
+        //     // let dictionary = reviews > 1? this.$t('profile_reviews'): this.$t('profile_single_review')
+        //     return `${rate}`
+        // },
         openEditInfo() {
             this.updateEditDialog(true);
         },
@@ -255,9 +310,6 @@ export default {
                 block: 'center',
             }
             document.querySelector('.profileReviewsBox').scrollIntoView(scrollIntoViewOptions);
-        },
-        dynamicDictionay(number,multipleDictionay,singleDictionay){
-            return number > 1 ? multipleDictionay : singleDictionay;
         }
     },
     filters: {
@@ -284,167 +336,99 @@ export default {
 
 <style lang="less">
 @import '../../../../styles/mixin.less';
-.profileUserBox{
+.profileUserBox {
+    max-width: 800px;
     width: 100%;
-    height: auto;
+    margin: 0 auto;
     border-radius: 8px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.38);
     background-color: #ffffff;
-    margin-bottom: 12px;
-    padding: 16px;
+    position: relative;
+    z-index: 2;
     @media (max-width: @screen-xs) {
         border-radius: 0;
         box-shadow: none;
         padding: 0;
-        padding-top: 14px;
         margin-bottom: 8px;
-
-    }
-    .visibility_hidden{
-        visibility: hidden;
-    }
-    .profileUserBox_top_mobile{
-        display: flex;
-        padding: 0 14px;
-        padding-bottom: 8px;
-        padding-right: 12px;
-        flex-direction: column;
-        color: #43425d;
-        .profileUserBox_top_mobile_top{
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            padding-bottom: 20px;
-            .profileUserBox_top_mobile_link{
-                transform: none /*rtl:rotate(180deg)*/ ;
-                cursor: pointer;
-                i{
-                    font-size: 20px;
-                    color: #69687d;
-                }
-            }
-        }
-        .profileUserBox_top_mobile_bottom{
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .profileUserBox_top_mobile_right{
-            .profileUserBox_top_mobile_userName{
-                font-size: 18px;
-                font-weight: bold;
-                letter-spacing: normal;
-                line-height: 1.4;
-            }
-        }
-        .profileUserBox_top_mobile_left{
-            text-align: end;
-            .profileUserBox_top_mobile_left_edit{
-                vertical-align: bottom;
-            }
-            .profileUserBox_top_mobile_left_followers{
-                font-weight: 600;
-                line-height: 2;
-            }
-        }
     }
     .profileUserBox_top{
-        display: flex;
-        justify-content: space-between;
+        margin-bottom: 34px;
         @media (max-width: @screen-xs) {
             // justify-content: center;
             justify-content: flex-start;
-            height: 126px;
-            padding-left: 14px;
+            // height: 126px;
             position: relative;
-            margin-bottom: 16px;
+            margin: -100px 0 16px 0;
         }
-        margin-bottom: 22px;
-        .pUb_edit_user_top{
+    }
+
+    .leftSide {
+        position: relative;
+        margin: 0 auto;
+        width: max-content;
+        @media (max-width: @screen-xs) {
+            padding: 8px 6px;
+            background: #fff;
+            border-radius: 8px;
+        }
+        .pUb_dot {
             position: absolute;
-            right: 0;
-        }
-
-
-        height: 138px;
-        .pUb_top_defaultState{
-            display: flex;
-            position: relative;
+            left: 8px;
+            top: 8px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #6aff70;
             @media (max-width: @screen-xs) {
-                flex-basis: 0;
+                left: 10px;
+                top: 10px;
+                width: 12px;
+                height: 12px;
             }
-            @media (max-width: @screen-xss) {
-                margin-right: 24px;
-            }
+        }
+        .pUb_dS_img{
+            pointer-events: none !important;
+        }
+        .pUb_edit_img{
+            position: absolute;
+            right: 4px;
+            text-align: center;
+            width: 36px;
+            height: 46px;
+            border-radius: 4px;
+            background-color: #fff;
+        }
+    }
 
-            .pUb_edit_user{
-                position: absolute;
-                top: 0;
-                right: 0;
-                cursor: pointer;
-            }
-            .pUb_defaultState_img{
-                margin-right: 16px;
-                position: relative;
-                .pUb_dot{
-                    position: absolute;
-                    left: 8px;
-                    top: 8px;
-                    width: 12px;
-                    height: 12px;
-                    border-radius: 50%;
-                    background-color: #6aff70;
-                }
-                .pUb_dS_img{
-                    pointer-events: none !important;
-                }
-                .pUb_edit_img{
-                    position: absolute;
-                    right: 0;
-                    text-align: center;
-                    width: 36px;
-                    height: 46px;
-                    border-radius: 4px;
-                    background-color: rgba(255, 255, 255, 0.38);
-                }
-            }
-            .pUb_defaultState_content{
-                color: #43425d;
-                font-stretch: normal;
-                font-style: normal;
-                letter-spacing: normal;
-                line-height: normal;
-                display: flex;
+    .rightSide {
+        color: @global-purple;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .detailsWrap {
+            @media (max-width: @screen-xs) {
                 flex-direction: column;
-                justify-content: space-between;
-                .profileUserBox_defaultState_content_followers{
-                    display: flex;
-                    align-items: center;
-                    height: 26px;
-                    .defaultState_content_followers{
-                        font-size: 14px;
-                        font-weight: 600;
-                    }
-                }
-
-                .pUb_dS_c_userName{
-                    font-size: 18px;
-                    font-weight: bold;
-                    display: flex;
-                    flex-wrap: wrap;
-                    line-height: 1;
-                    padding-bottom: 6px;
+            }
+            .userName{
+                .responsive-property(font-size, 24px, null, 22px);
+                font-weight: 600;
+                width: 100%;
+            }
+            .course {
+                font-weight: 600;
+                .responsive-property(font-size, 16px, null, 14px);
+            }
+            .rateWrap {
+                @media (max-width: @screen-xs) {
+                    order: 1;
                 }
                 .pUb_dS_c_rating{
                     display: inline-flex;
                     align-items: center;
-
-                    i{
-                        font-size: 18px !important;
-                    }
                     .no-reviews {
                         margin-left: 5px;
-                        color: #43425d;
+                        color: @global-purple;
                         font-size: 12px !important;
                         margin-top: 2px;
                     }
@@ -455,114 +439,180 @@ export default {
                     .c_rating{
                         flex: 0 0 auto;
                         &.rating-container{
-                        .v-rating{
-                           .v-icon{
-                              padding-right: 1px;
-                           }
+                            .v-rating{
+                                .v-icon{
+                                    padding-right: 1px;
+                                }
+                            }
                         }
-                     }
                     }
                     .pUb_dS_c_r_span{
                         cursor: pointer;
-                        font-size: 12px;
-                        color:#4c59ff;
+                        color:#43425d;
                         font-weight: 600;
                     }
                 }
             }
-        }
-        .pUb_top_tutorState{
-            @media (max-width: @screen-xs) {
-                border-left: none;
-                padding: 6px 0;
-                justify-content: space-around;
-                margin-bottom: 0;
-
-            }
-
-            .flexSameSize();
-            border-left: solid 1px #dddddd;
-            padding-left: 16px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            max-width: 162px;
-            min-width: 162px;
-            margin-bottom: 34px;
-            .pUb_top_tS_list{
-                padding-top: 3px;
-                .pUb_t_ts_list_span{
-                    vertical-align: text-top;
-                    margin-left: 6px;
-                    font-size: 12px;
+            .userBio {
+                line-height: 1.64;
+                font-weight: normal; // html h4 
+                @media (max-width: @screen-xs) {
+                    order: 1;
+                }
+                .readMore {
                     color: #43425d;
-                    &.pUb_t_ts_list_span_review{
-                        @media (max-width: @screen-xs) {
-                            cursor: pointer;
-                            color:#4c59ff;
-                            font-weight: 600;
+                    font-weight: 600;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .profileUserSticky_btns{
+            &.why_learn_user_btn{
+                margin-top: 34px !important;
+            }
+            &.student {
+                margin: 0 0 0 auto;
+                cursor: pointer;
+            }
+            .pUb_edit_user{
+                cursor: pointer;
+            }
+            .profileUserSticky_btn{
+                margin: 0;
+                width: 100%;
+                border-radius: 26px;
+                .v-btn__content{
+                    // justify-content: flex-start;
+                    justify-content: start;
+                    // text-align: initial;
+                }
+                &.isMyProfile{
+                    // visibility: hidden;
+                    color: white !important;
+                    border: none !important;
+                    svg{
+                    path{
+                        fill: white;
+                    }
+                    }
+                }
+                .profileUserSticky_btn_icon{
+                    line-height: 0;
+                }
+                .profileUserSticky_btn_txt{
+                    font-size: 14px;
+                    font-weight: 600;
+                    text-transform: initial;
+                    flex-grow: 1;
+                }
+                &.profileUserSticky_btn_book{
+                    color: #4c59ff !important;
+                    border: solid 1.5px #4c59ff !important;
+                    &.isMyProfile{
+                        display: none;
+                        color: white !important;
+                        border: none !important;
+                    svg{
+                        path{
+                            fill: #4c59ff !important;
                         }
+                    }
+                    }
+                }
+                &.profileUserSticky_btn_find{
+                    .v-btn__content{
+                        justify-content: center;
                     }
                 }
             }
         }
-        
-    }
-    .profileUserBox_middle{
-        @media (max-width: @screen-xs) {
-            padding: 0 14px;
-            padding-right: 10px;
+        .profileUserSticky_pricing{
+            .profileUserSticky_pricing_price{
+                .profileUserSticky_pricing_price_hour{
+                    font-size: 16px;
+                    font-weight: 600;
+                }
+                .profileUserSticky_pricing_price_currency{
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+                .profileUserSticky_pricing_price_number{
+                    font-size: 28px;
+                    font-weight: bold;
+                }
+            }
+            .profileUserSticky_pricing_discount{
+                font-size: 20px;
+                color: #b2b5c9;
+                text-decoration: line-through;
+            }
         }
-
-        color: #43425d;
-        .pUb_middle_AboutMe{
-            font-size: 18px;
+        .profileUserSticky_coupon{
+            outline: none;
             font-weight: 600;
-            font-stretch: normal;
-            font-style: normal;
-            letter-spacing: normal;
-                word-break: break-word;
-            @media (max-width: @screen-xs) {
-                font-size: 16px;
-                line-height: 1.4;
+            font-size: 12px;
+            color: @global-purple;
+            &.isMyProfileCoupon{
+                color: #c5c8cf;
+                cursor: initial;
             }
-            padding-bottom: 12px;
         }
-        .pUb_middle_bio{
-            margin: 0;
-            padding: 0;
-            // padding-bottom: 8px;
-            padding-bottom: 12px;
-            @media (max-width: @screen-xs) {
-               padding-bottom: 14px;
+        // move to followBtn.vue style insted if we dont need anymore for old version of profile
+        .followBtnNew {
+            outline: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            line-height: normal;
+        }
+    }
+
+    .pUb_edit_user_top{
+        position: absolute;
+        right: 0;
+    }
+    .pUb_top_defaultState{
+
+        .pUb_edit_user{
+            cursor: pointer;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+
+    .pUb_middle_AboutMe{
+        font-size: 18px;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        letter-spacing: normal;
+            word-break: break-word;
+        @media (max-width: @screen-xs) {
+            font-size: 16px;
+            line-height: 1.4;
+        }
+        padding-bottom: 12px;
+    }
+    .bottom {
+        border-top: 1px solid #ddd;
+        @media (max-width: @screen-xs) {
+            border-top: none;
+        }
+        .bottomBox {
+            color: @global-purple;
+            font-size: 32px;
+            svg {
+                align-self: baseline;
             }
-            font-size: 14px;
-            font-weight: normal;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: 1.57;
-            letter-spacing: normal;
-                word-break: break-word;
-            .pUb_middle_bio_readMore{
+            .number {
                 font-weight: 600;
-                cursor: pointer;
+            }
+            .type {
+                font-size: 14px;
             }
         }
     }
-    .profileUserBox_bottom{
-        // margin-top: 14px;
-        color: #43425d;
-        font-size: 14px;
-        .profileUserBox_bottom_title{
-            font-weight: bold;
-        }
-        &.course {
-          .giveMeEllipsis(2, 18);
-        }
-        @media (max-width: @screen-xs) {
-            padding: 0 14px 12px;
-            // margin-top: 10px;
-        }
-    } 
 }
 </style>

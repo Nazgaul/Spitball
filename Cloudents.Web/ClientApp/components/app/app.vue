@@ -135,7 +135,6 @@ export default {
       'feed',
       'document',
       'question',
-      'profile',
       'myFollowers',
       'mySales',
       'myContent',

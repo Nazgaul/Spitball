@@ -49,11 +49,17 @@ const mutations = {
          state.profile.user.image = imageUrl;
       }
    },
+   setCoverPicture(state,imageUrl) {
+      state.profile.user.cover = imageUrl;
+      //state.profile.user.cover = imageUrl;
+   }
 }
 const getters = {
    getProfile: state => state.profile,
+   getRam: state => state.profile,
    getProfileReviews: state => state.profileReviews,
    getShowEditDataDialog: state => state.showEditDataDialog,
+   getProfileCoverImage: state => state.profile?.user?.cover || ''
 }
 
 const actions = {
