@@ -444,6 +444,10 @@ export default {
                 }
                 &__doc {
                     padding: 12px 16px 12px 12px;
+
+                    .data-row {
+                        margin-right: 30%;
+                    }
                 }
                 .document-header-large-sagment {
                     &--arrow {
