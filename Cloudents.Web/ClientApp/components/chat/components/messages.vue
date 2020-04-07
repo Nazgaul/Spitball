@@ -1,7 +1,7 @@
 <template>
     <div class="messages-container">
         <v-layout column class="messages-wrapper">
-            <router-link class="messages-header" :to="{name:myStudyRoomsRoute}">
+            <router-link v-if="$route.name !== studyRoomRoute" class="messages-header" :to="{name:myStudyRoomsRoute}">
                 {{$t('chat_go_study')}}
             </router-link>
             <div class="messages-body">
@@ -43,6 +43,8 @@ export default {
     data(){
         return{
             myStudyRoomsRoute: routeNames.MyStudyRooms,
+            studyRoomRoute: routeNames.StudyRoom,
+
             messageText: "",
             placeHolderText: LanguageService.getValueByKey("chat_type_message"),
             emptyStateMessages: [],
