@@ -195,7 +195,7 @@ export default {
          this.showErrorAlreadyCreated = false;
          this.showErrorMaxUsers = false;
       },
-      studyRoomType(val) {
+      studyRoomType() {
          this.showErrorEmpty = false;
          this.showErrorAlreadyCreated = false;
          this.showErrorMaxUsers = false;
@@ -267,4 +267,5 @@ export default {
       }
    }
 }
+.v-time-picker-clock__item
 </style>
