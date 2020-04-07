@@ -19,8 +19,9 @@
                dense
             ></v-combobox>
          </v-form>
+
          <div class="createStudyRoomDialog-list">
-            <v-list flat class="list-followers" v-if="studyRoomType === 'Private'">
+            <v-list flat class="list-followers" v-if="studyRoomType.value === 'Private'">
                <v-list-item-group>
                   <v-list-item v-for="(item, index) in myFollowers" :key="index" @click="addSelectedUser(item)" :class="[{'dark-line': index % 2}]">
                      <template v-slot:default="{}">
@@ -126,8 +127,12 @@ export default {
             minimum: (value) => validationRules.minVal(value,0),
          },
          MAX_PARTICIPANT: 49,
-         studyRoomType: this.$t('dashboardPage_type_private'),
-         items: [this.$t('dashboardPage_type_private'), this.$t('dashboardPage_type_broadcast')],
+         studyRoomType: {text: this.$t('dashboardPage_type_private'), value: 'Private'},
+         items: [
+            {text: this.$t('dashboardPage_type_private'), value: 'Private'},
+            {text: this.$t('dashboardPage_type_broadcast'), value: 'Broadcast'}
+         ],
+         // items: [this.$t('dashboardPage_type_private'), this.$t('dashboardPage_type_broadcast')],
          isRtl: global.isRtl,
       }
    },
@@ -151,16 +156,14 @@ export default {
       createStudyRoom(){
          if(!this.$refs.createRoomValidation.validate()) return
          if(!this.isLoading && !this.showErrorAlreadyCreated && !this.showErrorEmpty && !this.showErrorMaxUsers){
-            // if(this.selected.length){
+            if(this.selected.length || this.studyRoomType.value === 'Broadcast'){
                let paramsObj = {
                   name: this.roomName,
                   userId: Array.from(this.selected.map(user=> user.userId)),
                   price: this.price || 0,
-                  type: this.studyRoomType,
+                  type: this.studyRoomType.value,
                   date: new Date(this.date + ' ' + this.time)
                }
-               console.log(paramsObj);
-               
                this.isLoading = true
                let self = this;
                this.$store.dispatch('updateCreateStudyRoom',paramsObj)
@@ -173,10 +176,10 @@ export default {
                         self.showErrorAlreadyCreated = true;
                      }
                   });
-            // }
-            // else{
-            //    this.showErrorEmpty = true;
-            // }
+            }
+            else{
+               this.showErrorEmpty = true;
+            }
          }
       },
       // parseDate (date) {
@@ -187,6 +190,11 @@ export default {
    },
    watch: {
       selected(){
+         this.showErrorEmpty = false;
+         this.showErrorAlreadyCreated = false;
+         this.showErrorMaxUsers = false;
+      },
+      studyRoomType(val) {
          this.showErrorEmpty = false;
          this.showErrorAlreadyCreated = false;
          this.showErrorMaxUsers = false;

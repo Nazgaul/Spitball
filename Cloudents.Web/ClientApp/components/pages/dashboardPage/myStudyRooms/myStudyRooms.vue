@@ -58,12 +58,35 @@
           x-small
           @click="sendMessage(item)"
           :title="$t('schoolBlock_SendMessageTooltip')"
+          class="mr-5"
         >
           <iconChat />
         </v-btn>
+
+        <v-tooltip v-model="showCopyToolTip" top transition="fade-transition" v-else>
+          <template v-slot:activator="{}">
+            <!-- <div class="copyBtn mt-3" v-if="large">
+              <div class="wrap">
+                <input type="text" class="copy text-truncate" name :value="link" ref="copy" readonly />
+                <button
+                  type="button"
+                  class="buttonCopy px-5"
+                  @click="shareOnSocialMedia('link')"
+                  name="button"
+                >{{$t('shareContent_copy')}}</button>
+              </div>
+            </div> -->
+            <linkSVG
+              style="width:20px"
+              class="option link mr-4"
+              @click="copyLink(item)"
+            />
+          </template>
+          <span>{{$t('shareContent_copy_tool')}}</span>
+        </v-tooltip>
+
         <v-btn
           icon
-          :class="{'gap': !item.showChat}"
           x-small
           @click="enterRoom(item.id)"
           :title="$t('schoolBlock_EnterStudyRoomTooltip')"
@@ -73,6 +96,14 @@
       </template>
       <slot slot="no-data" name="tableEmptyState" />
     </v-data-table>
+
+    <v-snackbar
+      v-model="snackbar"
+      absolute
+      top
+    >
+      <div class="text-wrap" v-t="'shareContent_copy_tool'"></div>
+    </v-snackbar>
   </div>
 </template>
 
@@ -83,15 +114,19 @@ import iconChat from "./images/icon-chat.svg";
 import enterRoom from "./images/enterRoom.svg";
 import * as routeNames from "../../../../routes/routeNames";
 import * as dialogNames from "../../global/dialogInjection/dialogNames.js";
+import linkSVG from "../../global/shareContent/images/link.svg";
 
 export default {
   name: "myStudyRooms",
   components: {
     iconChat,
-    enterRoom
+    enterRoom,
+    linkSVG
   },
   data() {
     return {
+      snackbar: false,
+      showCopyToolTip: false,
       createStudyRoomDialog: dialogNames.CreateStudyRoom,
       routeNames,
       sortedBy: "",
@@ -154,7 +189,7 @@ export default {
         params: { id }
       });
       global.open(routeData.href, "_self");
-    }
+    },
     // changeSort(sortBy){
     //    if(sortBy === 'info') return;
 
@@ -167,6 +202,19 @@ export default {
     //    this.paginationModel.page = 1;
     //    this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
     // }
+    copyLink(item) {
+      let link = `https://${window.origin}/studyroom/${item.id}`
+      let self = this
+      this.$copyText(link).then(({text}) => {
+        self.snackbar = true
+        // self.showCopyToolTip = true;
+        self.$ga.event('Share', 'Link', text);
+        setTimeout(() => {
+          self.snackbar = false
+          // self.showCopyToolTip = false;
+        }, 2000);
+      });
+    }
   },
   created() {
     this.updateStudyRoomItems();
@@ -241,6 +289,9 @@ export default {
       font-size: 14px;
       color: #43425d;
     }
+  }
+  .option {
+    vertical-align: middle;
   }
 }
 </style>
