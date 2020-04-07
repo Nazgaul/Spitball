@@ -158,7 +158,11 @@ namespace Cloudents.FunctionsV2
             var mutation = ImageMutation.FromQueryString(req.Query);
 
 
-            var blob = await binder.BindAsync<CloudBlockBlob>(new BlobAttribute(properties.Path, FileAccess.Read),
+            var blob = await binder.BindAsync<CloudBlockBlob>(
+                new BlobAttribute(properties.Path, FileAccess.Read)
+                {
+                    Connection = "Prod"
+                },
                 token);
 
             var blobExtension = Path.GetExtension(blob.Name)?.ToLower();
@@ -287,7 +291,8 @@ namespace Cloudents.FunctionsV2
                     image.Mutate(x => x.BoxBlur(5));
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    image.Mutate(x => x.BoxBlur(5));
+                    break;
             }
 
             return image;
