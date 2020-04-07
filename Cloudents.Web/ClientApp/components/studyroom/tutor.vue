@@ -80,7 +80,7 @@
               <codeEditorTools/>
             </v-flex>
             <v-spacer></v-spacer>
-            <v-flex class="share-screen">
+            <v-flex v-if="isRoomTutor" class="share-screen">
               <shareScreenBtn class="nav-share-btn" />
             </v-flex>
             <v-flex shrink class="controls-holder">
@@ -92,8 +92,7 @@
               >
                 <span v-language:inner>tutor_option_videoChat</span>
               </v-btn>
-              <v-btn
-                :disabled="!getIsFullScreenAvailable"
+              <v-btn style="visibility: hidden;" 
                 @click="selectViewOption(enumViewOptions.fullScreenVideo)"
                 class="control-btn text-capitalize elevation-0 cursor-pointer"
                 :input-value="activeViewOption == enumViewOptions.fullScreenVideo"
@@ -402,7 +401,6 @@ export default {
 
   computed: {
     ...mapGetters([
-      "getIsFullScreenAvailable",
       "getDialogTutorStart",
       "getRoomIsNeedPayment",
       "getDialogUserConsent",
@@ -682,14 +680,22 @@ watch: {
     }
 
     if(this.id){
-      initSignalRService(`studyRoomHub?studyRoomId=${this.id}`);
-      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null) 
-      this.$store.dispatch('updateStudyRoomInformation',this.id).catch((err)=>{
-          if(err?.response){
-            insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_RoomProps', err, null)
-            this.$router.push('/')
-          }
-        })
+      if(this.$store.getters.accountUser?.id){
+        initSignalRService(`studyRoomHub?studyRoomId=${this.id}`);
+        insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null) 
+        this.$store.dispatch('updateStudyRoomInformation',this.id).catch((err)=>{
+            if(err?.response){
+              insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_RoomProps', err, null)
+              this.$router.push('/')
+            }
+          })
+        global.onbeforeunload = function() {     
+          insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_beforeUnloadTriggered', {'roomId': this.id, 'userId': this.userId}, null)
+          return "Are you sure you want to close the window?";
+        };
+      }else{
+        this.$store.commit('setComponent', 'login');
+      }
     }else{
       //TODO - we need one place to invoke this.
       this.initMathjax()
@@ -706,11 +712,6 @@ watch: {
     // }
     //this line will init the tracks to show local medias
     studyroomSettingsUtils.validateMedia();
-
-    global.onbeforeunload = function() {     
-      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_beforeUnloadTriggered', {'roomId': this.id, 'userId': this.userId}, null)
-      return "Are you sure you want to close the window?";
-    };
   }
 };
 </script>

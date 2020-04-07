@@ -188,6 +188,9 @@ export default {
                         return
                     }
 
+                    if(self.$route.name === self.routeNames.StudyRoom){
+                        global.location.reload();
+                    }
                     dispatch('userStatus')
                 }).catch(error => {      
                     let { response: { data } } = error

@@ -28,12 +28,12 @@ namespace Cloudents.Web.Hubs
                 return;
             }
 
-            var roomId = Guid.Parse(cookieVal);
-            var userId = long.Parse(Context.UserIdentifier);
-            var command = new AddUserToChatCommand(roomId,userId);
+         //   var roomId = Guid.Parse(cookieVal);
+          //  var userId = long.Parse(Context.UserIdentifier);
+          //  var command = new AddUserToChatCommand(roomId,userId);
 
             await Groups.AddToGroupAsync(Context.ConnectionId, cookieVal);
-            await _commandBus.DispatchAsync(command, default);
+           // await _commandBus.DispatchAsync(command, default);
            
             await base.OnConnectedAsync();
 

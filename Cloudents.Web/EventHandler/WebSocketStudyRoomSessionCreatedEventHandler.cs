@@ -33,6 +33,7 @@ namespace Cloudents.Web.EventHandler
             var users = studyRoomSession.StudyRoom.Users;
             var session = studyRoomSession.SessionId;
             var tasks = new List<Task>();
+            
             foreach (var user in users.Where(w => w.User.Id != studyRoomSession.StudyRoom.Tutor.Id))
             {
                 var jwtToken = _videoProvider.CreateRoomToken(session, user.User.Id);
