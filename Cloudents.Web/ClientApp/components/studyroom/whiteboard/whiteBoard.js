@@ -98,14 +98,10 @@ export default {
             'undoClicked', 
             'addImage',
             'clearAllClicked',
-            'getTabIndicator',
             'getImgLoader',
             'getShowBoxHelper',
             'getShapesSelected',
             'getFontSize']),
-        isRoomActive(){
-            return this.$store.getters.getRoomIsActive;
-        },
         equationSizeX(){
             return (window.innerWidth / 2) - 300;
         },
@@ -347,25 +343,23 @@ export default {
             return (e.which == keyCode || e.keyCode == keyCode);
         },
         changeTab(tab) {
-            this.$ga.event("tutoringRoom", `changeTab:${tab}`);
-
-            this.currentTabId = tab.id;
-
-            if (tab.id !== this.getCurrentSelectedTab.id) {
-                if(this.isTutor){
-                    let tabData = {
-                        tabId: this.currentTabId,
-                    };
+            if(!this.$route.params.id || this.$route.params.id && this.isTutor ){
+                this.$ga.event("tutoringRoom", `changeTab:${tab}`);
+                this.currentTabId = tab.id;
+                if (tab.id !== this.getCurrentSelectedTab.id) {
                     let transferDataObj = {
                         type: "updateTabById",
-                        data: tabData
+                        data: {
+                            tab,
+                            canvas:this.canvasData
+                        }
                     };
                     let normalizedData = JSON.stringify(transferDataObj);
                     this.$store.dispatch('sendDataTrack',normalizedData)
+                    this.changeSelectedTab(tab);
+                    whiteBoardService.hideHelper();
+                    whiteBoardService.redraw(this.canvasData);
                 }
-                this.changeSelectedTab(tab);
-                whiteBoardService.hideHelper();
-                whiteBoardService.redraw(this.canvasData);
             }
         },
         resizeCanvas() {

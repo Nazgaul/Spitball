@@ -28,7 +28,6 @@
               v-for="(singleNav, index) in navs"
               :class="{'active-nav': singleNav.value === activeItem, 'tutor-nav-disabled': singleNav.value !== 'white-board' && singleNav.value !== 'code-editor' && !id}"
               :key="index" :sel="`${singleNav.name.toLowerCase().replace(' ','_')}_tab`">
-              <span class="dot-nav" v-if="isRoomActive && !isRoomTutor && singleNav.value === getActiveNavIndicator">●</span>
               <v-icon class="mr-2 nav-icon">{{singleNav.icon}}</v-icon>
               <a class="tutor-nav-item-link">{{singleNav.name}}</a>
             </div>
@@ -366,7 +365,6 @@ export default {
 
 
 
-      activeNavItem: "white-board",
       navs: [
         {
           name: this.$t("tutor_nav_canvas"),
@@ -418,7 +416,6 @@ export default {
       "getStudentStartDialog",
       "getDialogRoomEnd",
       "accountUser",
-      "getActiveNavIndicator",
       "getIsRecording",
       "getShowAudioRecordingError",
       "getVisitedSettingPage",
@@ -442,7 +439,7 @@ export default {
 
 
     activeItem() {
-      return this.activeNavItem;
+      return this.$store.getters.getActiveNavEditor;
     },
     isWhiteBoardActive() {
       return this.activeItem === "white-board" ? true : false;
@@ -556,18 +553,13 @@ watch: {
       this.setShowAudioRecordingError(false);
     },
     updateActiveNav(value) {
-      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_navigation', {'roomId': this.id, 'userId': this.userId, 'navigatedTo': value}, null)
-      
-      this.$ga.event("tutoringRoom", `updateActiveNav:${value}`);
-
-      this.activeNavItem = value;
-      if(this.isRoomTutor){
-        let activeNavData = {
-            activeNav: value,
-        }
+      if(!this.$route.params.id || this.$route.params.id && this.isRoomTutor ){
+        insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_navigation', {'roomId': this.id, 'userId': this.userId, 'navigatedTo': value}, null)
+        this.$ga.event("tutoringRoom", `updateActiveNav:${value}`);
+        this.$store.dispatch('updateActiveNavEditor',value)
         let transferDataObj = {
             type: "updateActiveNav",
-            data: activeNavData
+            data: value
         };
         let normalizedData = JSON.stringify(transferDataObj);
         this.$store.dispatch('sendDataTrack',normalizedData)

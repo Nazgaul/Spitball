@@ -145,10 +145,10 @@
     <value>בכדי לאשר שיתוף מסך, יש לעדכן את ההגדרות - &lt;a style="color:black" href="{0}" target="_Blank"&gt;למידע נוסף&lt;/a&gt;</value>
   </data>
   <data name="toaster_added_to_room" xml:space="preserve">
-    <value>הסטודנט/ית נכנס/ה לחדר</value>
+    <value>סטודנט/ית נכנס/ה לחדר</value>
   </data>
   <data name="toaster_left_the_room" xml:space="preserve">
-    <value>הסטודנט/ית עזב/ה את החדר</value>
+    <value>סטודנט/ית עזב/ה את החדר</value>
   </data>
   <data name="toaster_session_start" xml:space="preserve">
     <value>השיעור התחיל</value>

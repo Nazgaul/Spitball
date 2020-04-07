@@ -14,7 +14,7 @@ function _checkPayment(context) {
 
 
 const state = {
-   activeNavIndicator: 'white-board',
+   activeNavEditor: 'white-board',
    roomOnlineDocument: null,
    roomIsTutor: false,
    roomIsActive: false,
@@ -32,7 +32,7 @@ const state = {
 }
 
 const mutations = {
-   [studyRoom_SETTERS.ACTIVE_NAV_TAB_INDICATOR]: (state, { activeNav }) => state.activeNavIndicator = activeNav,
+   [studyRoom_SETTERS.ACTIVE_NAV_EDITOR]: (state, navEditor) => state.activeNavEditor = navEditor,
    [studyRoom_SETTERS.ROOM_PROPS](state, props) {
       state.roomOnlineDocument = props.onlineDocument;
       state.roomIsTutor = this.getters.accountUser.id == props.tutorId;
@@ -51,7 +51,7 @@ const mutations = {
    [studyRoom_SETTERS.ROOM_ACTIVE]: (state, val) => state.roomIsActive = val,
    [studyRoom_SETTERS.ROOM_PAYMENT]: (state, val) => state.roomIsNeedPayment = val,
    [studyRoom_SETTERS.ROOM_RESET]: (state) => {
-      state.activeNavIndicator = 'white-board';
+      state.activeNavEditor = 'white-board';
       state.roomOnlineDocument = null;
       state.roomIsTutor = false;
       state.roomIsActive = false;
@@ -66,7 +66,7 @@ const mutations = {
    [studyRoom_SETTERS.DIALOG_SNAPSHOT]: (state, val) => state.dialogSnapshot = val,
 }
 const getters = {
-   getActiveNavIndicator: state => state.activeNavIndicator,
+   getActiveNavEditor: state => state.activeNavEditor,
    getRoomOnlineDocument: state => state.roomOnlineDocument,
    getRoomIsTutor: state => state.roomIsTutor,
    getRoomIsActive: state => state.roomIsActive,
@@ -98,8 +98,8 @@ const actions = {
    updateEndDialog({ commit }, val) {
       commit(studyRoom_SETTERS.DIALOG_END_SESSION, val);
    },
-   updateActiveNavTab({ commit }, val) {
-      commit(studyRoom_SETTERS.ACTIVE_NAV_TAB, val)
+   updateActiveNavEditor({ commit }, val) {
+      commit(studyRoom_SETTERS.ACTIVE_NAV_EDITOR, val)
    },
    updateDialogRoomSettings({ commit }, val) {
       commit(studyRoom_SETTERS.DIALOG_ROOM_SETTINGS, val)
