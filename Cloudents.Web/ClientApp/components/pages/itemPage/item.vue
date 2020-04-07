@@ -385,6 +385,17 @@ export default {
     @import '../../../styles/mixin';
 
     .itemPage {
+        //hacks to finish this fast
+        .price-area, .content-wrap, hr {
+            display: none !important ;
+        }
+        .bottom-row, .data-row {
+            margin-right: 30% !important;
+        }
+        .azuremediaplayer {
+            background: #fff !important;
+        }
+        //end hacks to finish this fast
         .documentTitle {
             background: #fff;
             & > div {
@@ -445,9 +456,7 @@ export default {
                 &__doc {
                     padding: 12px 16px 12px 12px;
 
-                    .data-row {
-                        margin-right: 30%;
-                    }
+                  
                 }
                 .document-header-large-sagment {
                     &--arrow {
