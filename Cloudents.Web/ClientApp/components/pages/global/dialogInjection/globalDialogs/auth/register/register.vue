@@ -258,7 +258,7 @@ export default {
                     self.$appInsights.trackException({exception: new Error(error)});
                 })
         },
-        verifyPhone(){
+          verifyPhone(){
             let childComp = this.$refs.childComponent
 
 			let self = this
@@ -273,12 +273,62 @@ export default {
 
 					commit('setComponent', '')
                     commit('changeLoginStatus', true)
-/*    let pathToRedirect = ['/','/learn','/register2'];
-                    if (pathToRedirect.indexOf(self.$route.path) > -1) {
-                        this.$router.push*/
+
                     // this is when user start register from tutorRequest
                     if(self.isFromTutorReuqest) {
                         dispatch('userStatus')
+                          let pathToRedirect = ['/','/learn','/register2'];
+                    if (pathToRedirect.indexOf(self.$route.path) > -1) {
+                        this.$router.push({name: this.routeNames.LoginRedirect})
+                        return
+                    }
+                        self.$store.dispatch('updateRequestDialog', true);
+                        self.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
+                        self.$store.dispatch('toggleProfileFollower', true)
+                        return
+                    }
+					dispatch('userStatus').then(user => {
+                        // when user is register and pick teacher, redirect him to his profile page
+                        if(self.teacher) {
+                            self.$router.push({
+                                name: self.routeNames.Profile,
+                                params: {
+                                    id: user.id,
+                                    name: user.name,
+                                },
+                                query: {
+                                    dialog: 'becomeTutor'
+                                }
+                            })
+                            return
+                        }
+                        self.$router.push({name: self.routeNames.LoginRedirect})
+                    })
+				}).catch(error => {
+                    self.errors.code = self.$t('loginRegister_invalid_code')
+                    self.$appInsights.trackException({exception: new Error(error)});
+                })
+        },
+        phoneCall(){
+			let self = this
+			registrationService.voiceConfirmation()
+            	.then(() => {
+					self.$store.dispatch('updateToasterParams',{
+						toasterText: self.$t("login_call_code"),
+						showToaster: true,
+					});
+				}).catch(error => {
+                    self.$appInsights.trackException({exception: new Error(error)});
+                })
+		},
+        goStep(step) {
+            this.component = step
+        },
+        updatePhone(phone) {
+            this.phoneNumber = phone
+        },
+        updateCode(code) {
+            this.localCode = code
         }
     },
     created() {      
