@@ -35,10 +35,7 @@ const getters = {
         return 0
     },
     getIsPurchased: (state,_getter) => {
-        if (_getter._getDocumentLoaded) {
-            return  false
-        }
-        state.document.details?.isPurchased || _getter.getDocumentPrice === 0
+        return state.document?.details?.isPurchased || _getter.getDocumentPrice === 0
     },
     getBtnLoading: (state, _getter) => {
         if (_getter._getDocumentLoaded) {

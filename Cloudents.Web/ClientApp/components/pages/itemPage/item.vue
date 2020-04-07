@@ -38,7 +38,7 @@
                                 <span v-else v-t="'documentPage_unlock_document_btn'"></span>
                         </v-btn>
                         <v-btn
-                            v-else
+                            v-if="!isVideo && getIsPurchased"
                             large
                             tag="a"
                             :href="`${$route.path}/download`"
@@ -47,7 +47,10 @@
                             class="itemPage__side__btn white--text"
                             width="215"
                             height="42"
-                            depressed block rounded @click="downloadDoc" color="#4c59ff">
+                            depressed
+                            rounded
+                            @click="downloadDoc" color="#4c59ff"
+                        >
                             <span v-t="'documentPage_download_btn'"></span>
                         </v-btn>
                     </div>
@@ -292,6 +295,7 @@ export default {
             'openChatInterface',
             'updateItemToaster',
             'updatePurchaseConfirmation',
+            'downloadDocument'
         ]),
         
         enterItemCard(vueElm){
@@ -358,6 +362,16 @@ export default {
             } else {
                 this.$store.commit('setComponent', 'register')
             }
+        },
+        downloadDoc(e) {
+            if (!this.accountUser) {
+                e.preventDefault();
+            }
+            let item = {
+                course: this.document.details.course,
+                id: this.document.details.id
+            };
+            this.downloadDocument(item);
         },
     },
     beforeDestroy(){
