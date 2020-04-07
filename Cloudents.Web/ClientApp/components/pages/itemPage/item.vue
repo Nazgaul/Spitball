@@ -2,8 +2,14 @@
     <div class="itemPage mt-sm-6 mt-2">
 
         <div class="itemPage__main mb-2 mb-sm-6">
-            <div class="d-flex pa-2 pa-sm-0 justify-center justify-sm-space-between documentTitle">
-                <h1 class="pl-sm-4 text-center text-sm-left">{{getDocumentName}}</h1>
+            <div class="d-flex pa-2 pa-sm-0 justify-sm-space-between documentTitle">
+                <v-icon
+                    size="16"
+                    class="hidden-md-and-up pr-4 document-header-large-sagment--arrow" 
+                    @click="closeDocument" 
+                    v-html="'sbf-arrow-left-carousel'">
+                </v-icon>
+                <h1 class="pl-sm-4 text-center text-sm-left text-truncate">{{getDocumentName}}</h1>
                 <shareContent
                     v-if="getDocumentDetails && !isMobile"
                     :link="shareContentParams.link"
@@ -16,7 +22,7 @@
             <div class="itemPage__main__document">
                 <mainItem :isLoad="isLoad" :document="document"></mainItem>
 
-                <v-card class="itemActions pt-11 px-4 elevation-0">
+                <v-card class="itemActions pt-sm-11 pt-4 px-4 elevation-0">
                     <div class="wrapper d-block d-sm-flex justify-sm-end text-center pb-4">
                         <template v-if="getDocumentPrice && !getIsPurchased">
                             <div class="d-flex align-end mr-4 justify-center mb-2 mb-sm-0">
@@ -59,6 +65,13 @@
                 </v-card>
 
                 <resultNote v-if="doucmentDetails.feedItem" class="itemPage__main__document__doc mt-2 mt-sm-0" :item="doucmentDetails.feedItem" :fromItemPage="true">
+                    <!-- <template #arrowBack> -->
+                        <v-icon
+                            class="hidden-md-and-up document-header-large-sagment--arrow" 
+                            @click="closeDocument" 
+                            v-html="'sbf-arrow-left-carousel'">
+                        </v-icon>
+                    <!-- </template> -->
                     <template #descriptionTitle>
                         <div class="mt-5 descriptionTitle" v-t="'documentPage_description'"></div>
                     </template>
@@ -425,16 +438,22 @@ export default {
         .azuremediaplayer {
             background: #fff !important;
         }
+        .document-header-large-sagment {
+            &--arrow {
+                color: @global-purple;
+                transform: none /*rtl:scaleX(-1)*/;
+            }
+        }
         //end hacks to finish this fast
         .documentTitle {
             background: #fff;
             & > div {
-                .flexSameSize();
+                // .flexSameSize();
               
             }
             & > h1 {
-                .flexSameSize();
-                  font-size: 18px;
+                // .flexSameSize();
+                font-size: 18px;
                 font-weight: 600;
                 color: #43425d;
                 align-self: center;
@@ -473,12 +492,15 @@ export default {
                 }
                 .itemActions {
                     color: @global-purple;
-                    @media (max-width: @screen-sm) {
+                    @media (max-width: @screen-xs) {
                         border-top: 1px solid #ddd
                     }
                     .wrapper {
                         border-bottom: 1px solid #ddd;
                         font-weight: 600;
+                        @media (max-width: @screen-xs) {
+                            border-bottom: none;
+                        }
                         .price {
                             .responsive-property(font-size, 30px, null, 18px);                
                         }
@@ -495,13 +517,6 @@ export default {
                       color: @global-purple;
                       font-weight: 600;
                   }
-                }
-                .document-header-large-sagment {
-                    &--arrow {
-                        transform: none /*rtl:scaleX(-1)*/;
-                        margin-right: 18px;
-                        font-size: 20px;
-                    }
                 }
                 .skeletonWarp {
                     .v-skeleton-loader__avatar {

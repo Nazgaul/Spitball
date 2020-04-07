@@ -254,6 +254,10 @@ export default {
                 &--img  {
                     border-radius: 8px 8px 0 0;
                     width: 100%;
+
+                    @media (max-width: @screen-xs) {
+                        border-radius: 0;
+                    }
                 }
                 &__paging{
                     &__actions {
