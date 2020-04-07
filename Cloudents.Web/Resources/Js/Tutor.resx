@@ -350,4 +350,7 @@ Voice Recording?</value>
   <data name="microphone_blocked" xml:space="preserve">
     <value>To record, you must allow your browser to access your microphone</value>
   </data>
+  <data name="tooltip_fullscreen" xml:space="preserve">
+    <value>full screen</value>
+  </data>
 </root>

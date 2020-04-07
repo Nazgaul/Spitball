@@ -76,6 +76,13 @@ export default {
                         component: 'register'
                     }
                 },
+                registerTeacher: {
+                    name: 'auth',
+                    params: {
+                        component: 'register',
+                        teacher: true
+                    }
+                },
                 registerType: {
                     name: 'auth',
                     params: {

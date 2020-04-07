@@ -1,5 +1,7 @@
 ﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
+using NHibernate;
+using NHibernate.Type;
 
 namespace Cloudents.Persistence.Maps
 {
@@ -26,7 +28,8 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.Users).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse().Cascade.AllDeleteOrphan();
 
-
+            Map(x => x.Price).CustomType(nameof(NHibernateUtil.Currency));
+            Map(x => x.BroadcastTime).Nullable();
         }
 
     }

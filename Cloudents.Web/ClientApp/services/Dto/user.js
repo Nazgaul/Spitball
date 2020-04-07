@@ -76,7 +76,8 @@ export const User = {
                 isPurchased: objInit.isPurchased,
                 isSold: objInit.isSold,
                 haveFollowers: objInit.haveFollowers,
-                pendingSessionsPayments: objInit.pendingSessionsPayments
+                pendingSessionsPayments: objInit.pendingSessionsPayments,
+                price: objInit.price || null
             }
         )
     },

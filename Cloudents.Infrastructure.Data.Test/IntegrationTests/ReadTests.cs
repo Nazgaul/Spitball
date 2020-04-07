@@ -257,10 +257,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         }
 
-        [Fact]
-        public async Task AccountUserDataById_Ok()
+        [Theory]
+        [InlineData(638)]
+        [InlineData(164835)]
+        [InlineData(159039)]
+        public async Task AccountUserDataById_Ok(long id)
         {
-            var query = new UserAccountQuery(638);
+            var query = new UserAccountQuery(id);
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 

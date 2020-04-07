@@ -36,7 +36,7 @@ namespace Cloudents.Query.Tutor
 
                 //TODO we can do it in linq
                 var detachedQuery = QueryOver.Of<StudyRoomUser>()
-                    .JoinAlias(x => x.Room, () => studyRoomAlias)
+                    .Left.JoinAlias(x => x.Room, () => studyRoomAlias)
                     .Where(w => w.User.Id == query.UserId || studyRoomAlias.Tutor.Id == query.UserId)
                     .Select(s => s.Room.Id);
 
@@ -53,10 +53,7 @@ namespace Cloudents.Query.Tutor
                                         .Select(s=>s.Created)
                                         .Take(1)
                                     ).WithAlias(() => resultAlias!.LastSession)
-                                //.Select(Projections.SqlFunction("coalesce", NHibernateUtil.DateTime,
-                                //                    Projections.Property(() => studyRoomAlias!.DateTime.UpdateTime),
-                                //                    Projections.Property(() => studyRoomAlias!.DateTime.CreationTime)))
-                                //    .WithAlias(() => resultAlias!.LastSession)
+                               
                     )
                     .OrderBy(Projections.SqlFunction("COALESCE", NHibernateUtil.Object,
                         Projections.Property(() => studyRoomAlias!.DateTime.UpdateTime),
@@ -64,7 +61,7 @@ namespace Cloudents.Query.Tutor
                     //TODO on nhibernate 5.3 need to fix.
                     .TransformUsing(Transformers.AliasToBean<UserStudyRoomDto>())
                     .UnderlyingCriteria.SetComment(nameof(UserStudyRoomQuery))
-                    .ListAsync<UserStudyRoomDto>(token);/*.OrderByDescending(o => o.LastActive > o.DateTime ? o.LastActive : o.DateTime)*/
+                    .ListAsync<UserStudyRoomDto>(token);
 
 
             }

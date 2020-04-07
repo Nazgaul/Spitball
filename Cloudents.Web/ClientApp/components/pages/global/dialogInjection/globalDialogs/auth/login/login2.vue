@@ -18,12 +18,10 @@
                     color="#da6156"
                     depressed
                 >
-                    <!-- <img width="40" src="../../../../../authenticationPage/images/G icon@2x.png" /> -->
                     <gIcon class="mr-2" />
                     <span class="googleBtnText" v-t="'loginRegister_getstarted_btn_google_signin'"></span>
                 </v-btn>
             </template>
-
 
             <component
                 :is="component"
@@ -37,6 +35,7 @@
         </div>
 
         <div class="bottom text-center mt-6">
+            <!-- <span class="helpLinks" @click="linksAction" v-t="remmberForgotLink" v-if="component !== 'resetPassword'"></span> -->
             <span class="helpLinks" @click="linksAction" v-t="remmberForgotLink"></span>
             <v-btn
                 type="submit"
@@ -49,9 +48,8 @@
             >
                 <span v-t="btnResource"></span>
             </v-btn>
-
             
-            <div class="getStartedBottom mt-2">
+            <div class="getStartedBottom mt-2" v-if="isLoginDetails">
                 <div class="text-center mt-2">
                     <span class="needAccount" v-t="'loginRegister_getstarted_signup_text'"></span>
                     <span class="link" v-t="'loginRegister_getstarted_signup_link'" @click="$emit('goTo', 'register')"></span>
@@ -69,14 +67,16 @@ import authMixin from '../authMixin'
 
 const loginDetails = () => import('./loginDetails.vue')
 // const forgotPassword = () => import('./forgotPassword.vue')
+// const resetPassword = () => import('./resetPassword2.vue')
 import gIcon from '../images/g-icon.svg'
 
 export default {
     mixins: [authMixin],
     components: {
+        gIcon,
         loginDetails,
-        gIcon
-        // forgotPassword
+        // forgotPassword,
+        // resetPassword
     },
     data() {
         return {
@@ -85,7 +85,8 @@ export default {
             errors: {
                 gmail: '',
                 email: '',
-                password: ''
+                password: '',
+                confirmPassword: ''
             }
         }
     },
@@ -94,7 +95,12 @@ export default {
             return this.component === 'loginDetails'
         },
         btnResource() {
-            return this.isLoginDetails ? 'loginRegister_setemail_btn' : 'loginRegister_forgot_btn'
+            let resource = {
+                loginDetails: 'loginRegister_setemail_btn',
+                forgotPassword: 'loginRegister_forgot_btn',
+                resetPassword: 'loginRegister_resest_btn',
+            }
+            return resource[this.component]
         },
         remmberForgotLink() {
             return this.isLoginDetails ? 'loginRegister_setpass_forgot' : 'loginRegister_forgot_remember'
@@ -116,6 +122,9 @@ export default {
                     // case 'forgotPassword':
                     //     this.forgotPassword()
                     //     break;
+                    // case 'resetPassword':
+                    //     this.resetPassword()
+                    //     break;
                     default:
                         return                        
                 }
@@ -133,31 +142,23 @@ export default {
                 .then(({data}) => {
                     let { commit, dispatch } = self.$store
 
-                    global.country = data.country; // TODO: should we need this? @idan
-
+                    global.country = data.country; // should we need this? @idan
                     analyticsService.sb_unitedEvent('Login', 'Start');
+
                     commit('setComponent', '')
                     dispatch('updateLoginStatus', true)
                     
-                   dispatch('updateLoginStatus', true)
-                    if(self.$route.path === '/') {
+                    let pathToRedirect = ['/','/learn','/register2'];
+                    if (pathToRedirect.indexOf(self.$route.path) > -1) {
                         this.$router.push({name: this.routeNames.LoginRedirect})
                         return
                     }
+
                     dispatch('userStatus')
                 }).catch(error => {      
                     let { response: { data } } = error
 
-                    // self.errors.email = data["Password"] ? error.response.data["Password"][0] : '' //TODO:
-                    self.errors.password = data["Password"] ? error.response.data["Password"][0] : '' //TODO:
-
-                    // if(data.Locked) {
-                    //     self.errors.password = self.$t('loginRegister_error_locked_user')
-                    // }
-                    // if(data.Wrong) {
-                    //     self.errors.email = self.$t('loginRegister_error_wrong_password')
-                    //     self.errors.password = self.$t('loginRegister_error_wrong_password')
-                    // }
+                    self.errors.password = data["Password"] ? error.response.data["Password"][0] : ''
                     self.$appInsights.trackException({exception: new Error(error)})
                 })
         },
@@ -177,6 +178,25 @@ export default {
         //             // if(data.Email) {
         //             //     self.errors.email = self.$t('loginRegister_error_forgot_email')
         //             // }
+        //             self.$appInsights.trackException({exception: new Error(error)})
+        //         })
+        // },
+        // resetPassword() {
+        //     let childComp = this.$refs.childComponent
+        //     let passwordObj = {
+        //         id: childComp.id,
+        //         code: childComp.code,
+        //         password: childComp.password
+        //     }
+            
+        //     let self = this
+        //     registrationService.updatePassword(passwordObj)
+        //         .then(() => {
+        //             console.log();
+        //         }).catch(error => {
+        //             let { response: { data } } = error
+
+        //             self.errors.password = data["Password"] ? data["Password"][0] : data["ConfirmPassword"][0]
         //             self.$appInsights.trackException({exception: new Error(error)})
         //         })
         // },
