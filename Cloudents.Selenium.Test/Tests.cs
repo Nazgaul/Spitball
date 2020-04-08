@@ -344,7 +344,7 @@ namespace Cloudents.Selenium.Test
                 //    .Until(x => x.FindElement(By.TagName("input")));
 
                 var emailInput = driver.FindElementByWait(By.Name("email"));
-                emailInput.SendKeys("elad13@cloudents.com");
+                emailInput.SendKeys("elad+111@cloudents.com");
                 var loginButton = driver.FindElement(By.XPath("//*[@type='submit']"));
                 loginButton.Click();
 
@@ -448,7 +448,7 @@ namespace Cloudents.Selenium.Test
                 // Make sure this element is exist for unregistered user
                 driver.FindElementByWait(By.XPath("//a[contains(@class,'phoneNumberSlot')]"));
 
-                Login(driver, "elad13@cloudents.com");
+                Login(driver, UserTypeAccounts.ElementAt(0));
                 driver.Navigate().GoToUrl(url);
                 // Make sure this element is exist for registered user
                 driver.FindElementByWait(By.XPath("//a[contains(@class, 'phoneNumberSlot')]"));
@@ -462,7 +462,7 @@ namespace Cloudents.Selenium.Test
             foreach (var driver in this._driver.Drivers)
             {
                 driver.Manage().Window.Maximize();
-                Login(driver, "elad13@cloudents.com");
+                Login(driver, UserTypeAccounts.ElementAt(0));
 
                 // Make sure this element is exist
                 driver.FindElementByWait(By.XPath("//*[contains(@class, 'analyticOverview')]"));
@@ -484,13 +484,7 @@ namespace Cloudents.Selenium.Test
                 // Make sure this element is exist
                 driver.FindElementByWait(By.XPath("//*[contains(@class, 'login-popup')]"));
 
-                url = $"{_driver.SiteUrl.TrimEnd('/')}?dialog=exitRegister";
-                driver.Navigate().GoToUrl(url);
-
-                // Make sure this element is exist
-                driver.FindElementByWait(By.XPath("//*[contains(@class, 'exitRegisterDialog')]"));
-
-                Login(driver, "elad13@cloudents.com");
+                Login(driver, UserTypeAccounts.ElementAt(0));
 
                 // Wait until this element is showing
                 driver.FindElementByWait(By.XPath("//*[@sel='menu']"));
@@ -623,7 +617,7 @@ namespace Cloudents.Selenium.Test
             {
                 driver.Manage().Window.Maximize();
 
-                Login(driver, UserTypeAccounts.ElementAt(1));
+                Login(driver, UserTypeAccounts.ElementAt(0));
 
                 // Wait until this element is showing
                 driver.FindElementByWait(By.XPath("//*[@class='dashboardMain mr-md-6']"));
@@ -632,10 +626,6 @@ namespace Cloudents.Selenium.Test
                 
                 var buyPointsBox = driver.FindElement(By.XPath("//*[contains(@class, 'buyPointsLayout_btn')]"));
                 buyPointsBox.Click();
-
-                var buyPointsButton = driver.FindElementByWait(By.XPath("//*[contains(@class, 'buyPointsLayout_btn')]"));
-
-                buyPointsButton.Click();
 
                 // Check that this element exists
                 driver.FindElementByWait(By.XPath("//*[contains(@class, 'buy-dialog-wrap')]"));
@@ -688,13 +678,12 @@ namespace Cloudents.Selenium.Test
                 driver.Navigate().GoToUrl(url);
 
                 // Make sure those elements exist
-                driver.FindElementByWait(By.XPath("//*[@class='profile-sticky']"));
-                driver.FindElementByWait(By.XPath("//*[@class='shareContent']"));
-                driver.FindElementByWait(By.XPath("//*[@class='profileUserBox']"));
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'profileUserBox')]"));
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'shareContentProfile')]"));
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'profileUserSticky_btn')]"));
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'profileReviewsBox')]"));
+                driver.FindElementByWait(By.XPath("//button[contains(@class, 'followBtnNew')]"));
                 driver.FindElementByWait(By.Id("profileItemsBox"));
-                driver.FindElementByWait(By.XPath("//*[@class='profileReviewsBox']"));
-                driver.FindElementByWait(By.XPath("//*[@class='profileUserSticky_btns']//button"));
-                driver.FindElementByWait(By.XPath("//button[contains(@class, 'followBtn')]"));
                 var coupon = driver.FindElementByWait(By.XPath("//*[@sel='coupon']"));
                 
                 var comboBoxes = driver.FindElements(By.XPath("//*[@class='v-input__control']"));
@@ -706,7 +695,7 @@ namespace Cloudents.Selenium.Test
 
                 coupon.Click();
                 driver.FindElementByWait(By.XPath("//*[@class='registerDialog wrapper']"));
-                Login(driver, "elad13@cloudents.com");
+                Login(driver, UserTypeAccounts.ElementAt(0));
                 driver.FindElementByWait(By.XPath("//*[@class='dashboardMain mr-md-6']"));
                 driver.Navigate().GoToUrl(url);
                 coupon = driver.FindElementByWait(By.XPath("//*[@sel='coupon']"));
@@ -724,7 +713,7 @@ namespace Cloudents.Selenium.Test
             {
                 driver.Manage().Window.Maximize();
 
-                Login(driver, "elad13@cloudents.com");
+                Login(driver, UserTypeAccounts.ElementAt(0));
                 driver.FindElementByWait(By.XPath("//*[@class='dashboardMain mr-md-6']"));
                 var userMenu = driver.FindElementByWait(By.XPath("//*[@sel='menu']"));
 
@@ -773,7 +762,7 @@ namespace Cloudents.Selenium.Test
                     driver.FindElementByWait(By.XPath("//*[@class='views-cont']"));
                     //driver.FindElementByWait(By.XPath("//*[@class='views']"));
                     driver.FindElementByWait(By.XPath("//*[@class='right']"));
-                    driver.FindElementByWait(By.XPath("//*[@class='sticky-item']"));
+                    driver.FindElementByWait(By.XPath("//*[contains(@class, 'documentTitle')]"));
                     driver.FindElementByWait(By.XPath("//*[@class='shareContent']"));
                     driver.FindElements(By.XPath("//*[@class='shareContent']//button")).Count.Should().Be(4);
                     if (Index == 0)
@@ -788,8 +777,8 @@ namespace Cloudents.Selenium.Test
                     driver.FindElementByWait(By.XPath("//*[contains(@class, 'sbCarouselRef')]"));
                     driver.FindElementByWait(By.XPath("//*[contains(@class, 'sbCarousel_btn sbCarousel-nextBtn')]"));
                     driver.FindElementByWait(By.XPath("//*[contains(@class, 'menu-area-btn')]")).Click();
-                    driver.FindElementByWait(By.XPath("//*[contains(@class, 'itemPage__side__btn')]")).Click();
-                    driver.FindElementByWait(By.XPath("//*[contains(@class, 'registerDialog wrapper')]"));
+                    //driver.FindElementByWait(By.XPath("//*[contains(@class, 'itemPage__side__btn')]")).Click();
+                    //driver.FindElementByWait(By.XPath("//*[contains(@class, 'registerDialog wrapper')]"));
 
                     Index++;
                 }
@@ -809,8 +798,8 @@ namespace Cloudents.Selenium.Test
                 driver.FindElementByWait(By.XPath("//*[@sel='code_editor_tab']")).Click();
                 driver.FindElementByWait(By.XPath("//*[@sel='canvas_tab']")).Click();
                 driver.FindElementByWait(By.XPath("//*[contains(@class, 'container videos-wrapper')]"));
-                driver.FindElementByWait(By.XPath("//*[@class='outline-btn-share']"));
-                driver.FindElementByWait(By.XPath("//*[@sel='video_chat']")).Click();
+                //driver.FindElementByWait(By.XPath("//*[@class='outline-btn-share']"));
+                //driver.FindElementByWait(By.XPath("//*[@sel='video_chat']")).Click();
                 driver.FindElementByWait(By.XPath("//*[@sel='full_board']")).Click();
                 for(int i = 1; i < 9; i++)
                 {
@@ -838,13 +827,13 @@ namespace Cloudents.Selenium.Test
             foreach (var driver in this._driver.Drivers)
             {
                 driver.Manage().Window.Maximize();
-                Login(driver, "elad13@cloudents.com");
+                Login(driver, UserTypeAccounts.ElementAt(0));
 
                 var chatIcon = driver.FindElementByWait(By.XPath("//*[@class='gH_i_r_chat']"));
                 chatIcon.Click();
 
                 // Check for this element
-                var chatHeader = driver.FindElementByWait(By.XPath("//*[@class='layout chat-header']"));
+                var chatHeader = driver.FindElementByWait(By.XPath("//*[contains(@class, 'layout chat-header')]"));
 
                 // Check for this element
                 driver.FindElementByWait(By.XPath("//*[@class='layout general-chat-style']"));
@@ -880,7 +869,7 @@ namespace Cloudents.Selenium.Test
             foreach (var driver in this._driver.Drivers)
             {
                 driver.Manage().Window.Maximize();
-                Login(driver, "elad13@cloudents.com");
+                Login(driver, UserTypeAccounts.ElementAt(0));
 
                 var findTutors = driver.FindElementByWait(By.XPath("//*[@class='gH_i_r_findTutor']"));
                 findTutors.GetAttribute("href").Should().Be("https://dev.spitball.co/tutor-list");
