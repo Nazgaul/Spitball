@@ -284,9 +284,8 @@ export default {
    }
 }
    .v-picker__title {
-      direction: rtl /*rtl: ltr*/;
       .v-time-picker-title__time {
-         direction: ltr /*rtl: ltr*/;
+         direction: ltr /*rtl: ltr*/ !important;
       }
    }
 </style>
