@@ -20,22 +20,26 @@
     >
       <template v-slot:top>
         <div class="tableTop d-flex flex-sm-row flex-column align-sm-center justify-space-between">
-          <div class="myStudyRooms_title pb-3 pb-sm-0">{{$t('schoolBlock_my_study_rooms')}}</div>
+          <div class="myStudyRooms_title pb-3 pb-sm-0" v-t="'schoolBlock_my_study_rooms'"></div>
           <div>
             <v-btn
               v-if="isTutor"
               v-openDialog="createStudyRoomDialog"
               class="link white--text mr-0 mr-sm-4"
               depressed
+              rounded
               color="#5360FC"
-            >{{$t('dashboardPage_my_studyrooms_create_room')}}</v-btn>
+              v-t="'dashboardPage_my_studyrooms_create_room'"
+            ></v-btn>
             <v-btn
               v-if="!$vuetify.breakpoint.xsOnly"
-              class="link white--text"
+              class="link btnTestStudyRoom"
               :to="{name: routeNames.StudyRoom}"
               depressed
-              color="#5360FC"
-            >{{$t('dashboardPage_link_studyroom')}}</v-btn>
+              rounded
+              outlined
+              v-t="'dashboardPage_link_studyroom'"
+            ></v-btn>
           </div>
         </div>
       </template>
@@ -58,12 +62,23 @@
           x-small
           @click="sendMessage(item)"
           :title="$t('schoolBlock_SendMessageTooltip')"
+          class="mr-5"
         >
           <iconChat />
         </v-btn>
+        <v-tooltip :value="currentItemId === item.id" top transition="fade-transition" v-else>
+          <template v-slot:activator="{}">
+            <linkSVG
+              style="width:20px"
+              class="option link mr-4"
+              @click="copyLink(item)"
+            />
+          </template>
+          <span v-t="'shareContent_copy_tool'"></span>
+        </v-tooltip>
+
         <v-btn
           icon
-          :class="{'gap': !item.showChat}"
           x-small
           @click="enterRoom(item.id)"
           :title="$t('schoolBlock_EnterStudyRoomTooltip')"
@@ -79,19 +94,23 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 //import tablePreviewTd from '../global/tablePreviewTd.vue';
-import iconChat from "./images/icon-chat.svg";
-import enterRoom from "./images/enterRoom.svg";
 import * as routeNames from "../../../../routes/routeNames";
 import * as dialogNames from "../../global/dialogInjection/dialogNames.js";
+
+import iconChat from "./images/icon-chat.svg";
+import enterRoom from "./images/enterRoom.svg";
+import linkSVG from "../../global/shareContent/images/link.svg";
 
 export default {
   name: "myStudyRooms",
   components: {
     iconChat,
-    enterRoom
+    enterRoom,
+    linkSVG
   },
   data() {
     return {
+      currentItemId: null,
       createStudyRoomDialog: dialogNames.CreateStudyRoom,
       routeNames,
       sortedBy: "",
@@ -129,15 +148,6 @@ export default {
       "openChatInterface",
       "setActiveConversationObj"
     ]),
-
-    // showFirstName(name) {
-    //    let maxChar = 4;
-    //    name = name.split(' ')[0];
-    //    if(name.length > maxChar) {
-    //    return this.$t('resultTutor_message_me');
-    //    }
-    //    return name;
-    // },
     sendMessage(item) {
       let currentConversationObj = {
         userId: item.userId,
@@ -154,7 +164,26 @@ export default {
         params: { id }
       });
       global.open(routeData.href, "_self");
+    },
+    copyLink(item) {
+      let link = `${window.origin}/studyroom/${item.id}`
+      let self = this
+      this.$copyText(link).then(({text}) => {
+        self.currentItemId = item.id
+        self.$ga.event('Share', 'Link', text);
+        setTimeout(() => {
+          self.currentItemId = null
+        }, 2000);
+      });
     }
+    // showFirstName(name) {
+    //    let maxChar = 4;
+    //    name = name.split(' ')[0];
+    //    if(name.length > maxChar) {
+    //    return this.$t('resultTutor_message_me');
+    //    }
+    //    return name;
+    // },
     // changeSort(sortBy){
     //    if(sortBy === 'info') return;
 
@@ -194,6 +223,11 @@ export default {
     }
     .link {
       color: inherit;
+      font-weight: 600;
+      &.btnTestStudyRoom {
+        border: 1px solid #5360FC;
+        color: #5360FC;
+      }
     }
   }
   tr {
@@ -203,8 +237,6 @@ export default {
     border: none !important;
   }
   td:first-child {
-    // text-align: center !important;
-    // width:1%;
     white-space: nowrap;
   }
   tr:nth-of-type(2n) {
@@ -241,6 +273,10 @@ export default {
       font-size: 14px;
       color: #43425d;
     }
+  }
+  .option {
+    vertical-align: middle;
+    cursor: pointer;
   }
 }
 </style>

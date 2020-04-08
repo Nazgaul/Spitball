@@ -53,6 +53,7 @@ onlineDocumentUrl as OnlineDocument,
 sr.identifier as ConversationId,
 sr.tutorId,
 sr.BroadcastTime,
+sr.StudyRoomType as Type,
 sr.Name,
 COALESCE(sr.Price,t.Price) as TutorPrice,
 u.Name as TutorName,
@@ -92,6 +93,11 @@ where sr.id = @Id;");
                 var studyRoomSession = studyRoomSessionFuture.Value;
 
                 if (result is null)
+                {
+                    return null;
+                }
+
+                if (result.BroadcastTime.HasValue && result.BroadcastTime.Value < DateTime.UtcNow)
                 {
                     return null;
                 }

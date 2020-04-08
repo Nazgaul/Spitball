@@ -13,23 +13,33 @@ namespace Cloudents.Core.Entities
     public class StudyRoom : Entity<Guid>, IAggregateRoot
     {
         public StudyRoom(Tutor tutor, IEnumerable<User> users, string onlineDocumentUrl,
-            string name, decimal price, DateTime? broadcastTime) : this()
+            string name, decimal price, DateTime? broadcastTime, StudyRoomType type) : this()
         {
             if (users == null) throw new ArgumentNullException(nameof(users));
             if (price < 0) throw new ArgumentException(nameof(price));
             _users = new HashSet<StudyRoomUser>(users.Select(s => new StudyRoomUser(s, this)));
             Tutor = tutor;
-            if (_users.Any())
+            StudyRoomType = type;
+            if (StudyRoomType == StudyRoomType.Private )
             {
-                StudyRoomType = StudyRoomType.Private;
+                if (_users.Count == 0)
+                {
+                    throw new ArgumentException();
+                }
+                //StudyRoomType = StudyRoomType.Private;
                 Identifier = ChatRoom.BuildChatRoomIdentifier(
                     _users.Select(s => s.User.Id).Union(new[] { tutor.Id }));
             }
             else
             {
+                if (!broadcastTime.HasValue)
+                {
+                    throw new ArgumentException();
+                }
                 StudyRoomType = StudyRoomType.Broadcast;
                 Identifier = Guid.NewGuid().ToString();
                 ChatRoom = ChatRoom.FromStudyRoom(this);
+                BroadcastTime = broadcastTime!.Value;
                 //var chatRoom = ChatRoom.FromStudyRoom(Identifier);
             }
 
@@ -46,7 +56,7 @@ namespace Cloudents.Core.Entities
 
             DateTime = new DomainTimeStamp();
             Price = price;
-            BroadcastTime = broadcastTime;
+           
             AddEvent(new StudyRoomCreatedEvent(this));
         }
 

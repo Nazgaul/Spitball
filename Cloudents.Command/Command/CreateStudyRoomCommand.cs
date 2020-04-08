@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Command.Command
 {
     public class CreateStudyRoomCommand : ICommand
     {
         public CreateStudyRoomCommand(long tutorId, IEnumerable<long>? studentsId, string textMessage,
-            string name, decimal price, DateTime? broadcastTime)
+            string name, decimal price, DateTime? broadcastTime, StudyRoomType type)
         {
             TutorId = tutorId;
             StudentsId = studentsId ?? Enumerable.Empty<long>();
@@ -15,6 +16,7 @@ namespace Cloudents.Command.Command
             Name = name;
             Price = price;
             BroadcastTime = broadcastTime;
+            Type = type;
         }
 
         public long TutorId { get; }
@@ -26,6 +28,8 @@ namespace Cloudents.Command.Command
 
         public decimal Price { get;  }
         public DateTime? BroadcastTime { get; }
+
+        public StudyRoomType Type { get; }
     }
 
     public class CreateStudyRoomCommandResult : ICommandResult
