@@ -58,7 +58,7 @@
                            :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
                         />
                   </template>                  
-                  <v-date-picker color="#4C59FF" class="date-picker-coupon" :next-icon="isRtl?'sbf-arrow-left-carousel':'sbf-arrow-right-carousel'" :prev-icon="isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'" v-model="date" no-title @input="datePickerMenu = false">
+                  <v-date-picker color="#4C59FF" class="date-picker" :next-icon="isRtl?'sbf-arrow-left-carousel':'sbf-arrow-right-carousel'" :prev-icon="isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'" v-model="date" no-title @input="datePickerMenu = false">
                      <v-spacer></v-spacer>
                      <v-btn text class="font-weight-bold" color="#4C59FF" @click="datePickerMenu = false">{{$t('coupon_btn_calendar_cancel')}}</v-btn>
                      <v-btn text class="font-weight-bold" color="#4C59FF" @click="$refs.datePickerMenu.save(date)">{{$t('coupon_btn_calendar_ok')}}</v-btn>
@@ -94,7 +94,7 @@
                   </template>                  
                   <v-time-picker 
                      v-model="time"
-                     class="date-picker-coupon" 
+                     class="timePicker" 
                      color="#4C59FF" 
                      :next-icon="isRtl?'sbf-arrow-left-carousel':'sbf-arrow-right-carousel'" 
                      :prev-icon="isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'" 
@@ -265,6 +265,9 @@ export default {
       width: 500px;
       margin: 0 auto;
    }
+   // .timePickerMenu {
+
+   // }
    .createStudyRoomDialog-list{
       width: 100%;
       height: 320px;
@@ -280,4 +283,10 @@ export default {
       }
    }
 }
+   .v-picker__title {
+      direction: rtl /*rtl: ltr*/;
+      .v-time-picker-title__time {
+         direction: ltr /*rtl: ltr*/;
+      }
+   }
 </style>
