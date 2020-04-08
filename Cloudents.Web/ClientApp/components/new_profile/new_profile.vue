@@ -163,8 +163,15 @@
     }
 
     .shareContentProfile {
+      background: #fff;
       max-width: 292px;
       margin: 0 auto 0;
+      border-radius: 8px;
+      justify-content: center;
+      @media (max-width: @screen-xs) {
+        max-width: 100%;
+        border-radius: 0;
+      }
     }
   }
   .calendarSection {
