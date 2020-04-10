@@ -97,7 +97,7 @@ where sr.id = @Id;");
                     return null;
                 }
 
-                if (result.BroadcastTime.HasValue && result.BroadcastTime.Value < DateTime.UtcNow.AddHours(6)
+                if (result.BroadcastTime.HasValue && result.BroadcastTime.Value < DateTime.UtcNow.AddHours(6))
                 {
                     return null;
                 }
