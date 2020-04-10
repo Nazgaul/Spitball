@@ -97,10 +97,7 @@ where sr.id = @Id;");
                     return null;
                 }
 
-                if (result.BroadcastTime.HasValue && result.BroadcastTime.Value < DateTime.UtcNow)
-                {
-                    return null;
-                }
+               
                 if (studyRoomSession != null)
                 {
                     var roomAvailable = await _videoProvider.GetRoomAvailableAsync(studyRoomSession.SessionId);
@@ -109,6 +106,11 @@ where sr.id = @Id;");
                         var jwt = _videoProvider.CreateRoomToken(studyRoomSession.SessionId, query.UserId);
                         result.Jwt = jwt;
                     }
+                }
+                if (result.BroadcastTime.HasValue 
+                    && result.BroadcastTime.Value < DateTime.UtcNow && result.Jwt == null)
+                {
+                    return null;
                 }
                 if (result.CouponType is null)
                 {
