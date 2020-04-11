@@ -58,7 +58,16 @@
                            :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
                         />
                   </template>                  
-                  <v-date-picker color="#4C59FF" class="date-picker" :next-icon="isRtl?'sbf-arrow-left-carousel':'sbf-arrow-right-carousel'" :prev-icon="isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'" v-model="date" no-title @input="datePickerMenu = false">
+                  <v-date-picker 
+                     v-model="date" 
+                     class="date-picker" 
+                     @input="datePickerMenu = false"
+                     :allowed-dates="allowedDates"
+                     :next-icon="isRtl?'sbf-arrow-left-carousel':'sbf-arrow-right-carousel'" 
+                     :prev-icon="isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'" 
+                     color="#4C59FF" 
+                     no-title 
+                  >
                      <v-spacer></v-spacer>
                      <v-btn text class="font-weight-bold" color="#4C59FF" @click="datePickerMenu = false">{{$t('coupon_btn_calendar_cancel')}}</v-btn>
                      <v-btn text class="font-weight-bold" color="#4C59FF" @click="$refs.datePickerMenu.save(date)">{{$t('coupon_btn_calendar_ok')}}</v-btn>
@@ -92,12 +101,15 @@
                            :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
                         />
                   </template>                  
-                  <v-time-picker 
+                  <v-time-picker
                      v-model="time"
-                     class="timePicker" 
-                     color="#4C59FF" 
-                     :next-icon="isRtl?'sbf-arrow-left-carousel':'sbf-arrow-right-carousel'" 
-                     :prev-icon="isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'" 
+                     class="timePicker"
+                     color="#4C59FF"
+                     scrollable
+                     :allowed-hours="allowedHours"
+                     :allowed-minutes="allowedMinutes"
+                     :next-icon="isRtl?'sbf-arrow-left-carousel':'sbf-arrow-right-carousel'"
+                     :prev-icon="isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'"
                   >
                      <v-spacer></v-spacer>
                      <v-btn text class="font-weight-bold" color="#4C59FF" @click="timePickerMenu = false">{{$t('coupon_btn_calendar_cancel')}}</v-btn>
@@ -108,9 +120,12 @@
 
          </div>
          <div class="d-flex flex-column align-center pt-4">
-            <span v-if="showErrorEmpty" class="error--text">{{$t('dashboardPage_create_room_empty_error')}}</span>
-            <span v-if="showErrorAlreadyCreated" class="error--text">{{$t('dashboardPage_create_room_created_error')}}</span>
-            <span v-if="showErrorMaxUsers" class="error--text">{{$t('dashboardPage_create_room_max_error')}}</span>
+            <div class="mb-4">
+               <span v-if="showErrorEmpty" class="error--text" v-t="'dashboardPage_create_room_empty_error'"></span>
+               <span v-if="showErrorAlreadyCreated" class="error--text" v-t="'dashboardPage_create_room_created_error'"></span>
+               <span v-if="showErrorMaxUsers" class="error--text" v-t="'dashboardPage_create_room_max_error'"></span>
+               <span v-if="showErrorWrongTime" class="error--text" v-t="'dashboardPage_pick_time_error'"></span>
+            </div>
             <v-btn :loading="isLoading" @click="createStudyRoom" width="150" depressed height="40" color="#4452fc" class="white--text" rounded >{{$t('dashboardPage_create_room_create_btn')}}</v-btn>
          </div>
       </div>
@@ -134,6 +149,7 @@ export default {
          selected:[],
          showErrorEmpty:false,
          showErrorAlreadyCreated:false,
+         showErrorWrongTime: false,
          roomName:'',
          price: 0,
          rules: {
@@ -148,6 +164,26 @@ export default {
          ],
          isRtl: global.isRtl,
       }
+   },
+   watch: {
+      selected(){
+         this.resetErrors()
+      },
+      studyRoomType() {
+         this.resetErrors()
+      },
+      date() {
+         this.resetErrors()
+      },
+      time() {
+         this.resetErrors()
+      }
+   },
+   computed: {
+      getSymbol() {
+         let v =   this.$n(1,'currency');
+         return v.replace(/\d|[.,]/g,'').trim();
+      },
    },
    methods: {
       addSelectedUser(user){
@@ -170,6 +206,17 @@ export default {
          if(!this.$refs.createRoomValidation.validate()) return
          if(!this.isLoading && !this.showErrorAlreadyCreated && !this.showErrorEmpty && !this.showErrorMaxUsers){
             if(this.selected.length || this.studyRoomType.value === 'Broadcast'){
+               let today = new Date()
+               if(this.date === today.toISOString().substr(0, 10)) {
+                  let timeSplit = this.time.split(':')
+                  let isWrongHours = Number(timeSplit[0]) <= today.getHours()
+                  let isWrongMinutes = Number(timeSplit[1].padStart(0)) < today.getMinutes()
+                  if(isWrongHours && isWrongMinutes) {
+                     this.showErrorWrongTime = true
+                     return
+                  }
+               }
+
                let paramsObj = {
                   name: this.roomName,
                   userId: Array.from(this.selected.map(user=> user.userId)),
@@ -199,26 +246,38 @@ export default {
          this.showErrorEmpty = false;
          this.showErrorAlreadyCreated = false;
          this.showErrorMaxUsers = false;
+         this.showErrorWrongTime = false
+      },
+      allowedDates(date) {
+         let today = new Date().toISOString().substr(0, 10)
+         return date >= today
+      },
+      allowedHours(hour) {
+         let today = new Date()
+         if(today.toISOString().substr(0, 10) === this.date) {
+            return hour >= today.getHours()
+         }
+         return true
+         
+      },
+      allowedMinutes(minute) {
+         let today = new Date()
+         if(today.toISOString().substr(0, 10) === this.date) {
+            let timeSplit = this.time.split(':')
+            let currentHour = today.getHours()
+            let currentMin = today.getMinutes()
+
+            if(currentHour < Number(timeSplit[0])) return true
+
+            return currentMin <= minute
+         }
+         return true
       }
       // parseDate (date) {
       //    if (!date) return null
       //    const [month, day, year] = date.split('/')
       //    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
       // },
-   },
-   watch: {
-      selected(){
-         this.resetErrors()
-      },
-      studyRoomType() {
-         this.resetErrors()
-      }
-   },
-   computed: {
-      getSymbol() {
-         let v =   this.$n(1,'currency');
-         return v.replace(/\d|[.,]/g,'').trim();
-      },
    },
    created() {
       this.$store.dispatch('updateFollowersItems').then(()=>{
@@ -265,9 +324,6 @@ export default {
       width: 500px;
       margin: 0 auto;
    }
-   // .timePickerMenu {
-
-   // }
    .createStudyRoomDialog-list{
       width: 100%;
       height: 320px;
