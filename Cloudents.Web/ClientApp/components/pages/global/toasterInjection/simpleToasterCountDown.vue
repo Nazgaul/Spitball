@@ -63,6 +63,7 @@ export default {
 
 <style lang="less">
     .counterToaster {
-        z-index: 99999; // for overide studyroom 
+        // TODO: @maor @idan study room removed mobile-not-support css style
+        z-index: 99999;
     }
 </style>
