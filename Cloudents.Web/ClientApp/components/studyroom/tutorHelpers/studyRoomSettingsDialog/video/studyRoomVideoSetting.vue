@@ -24,13 +24,14 @@
             <div class="cameraListWrap text-center pt-3">
                 <v-select
                     v-model="singleCameraId"
+                    v-if="camerasList.length"
+                    @change="createVideoQualityPreview()"
                     :items="camerasList"
-                    :label="text.label"
+                    :label="$t('studyRoomSettings_video_select_label')"
                     :prepend-icon="''"
-                    :placeholder="placeCamera"
+                    :placeholder="$t('studyRoomSettings_camera_placeholder')"
                     :append-icon="'sbf-arrow-down'"
                     :menu-props="{contentClass:'select-direction'}"
-                    @change="createVideoQualityPreview()"
                     background-color="rgba(0,0,0,.7)"
                     item-text="label"
                     item-value="deviceId"
@@ -40,6 +41,8 @@
                     single-line
                     hide-details
                 ></v-select>
+
+                <div v-t="'studyRoomSettings_no_camera'" v-else></div>
             </div>
 
             <div id="local-video-test-track"></div>
@@ -48,8 +51,8 @@
 </template>
 
 <script>
-import {LanguageService} from '../../../../../services/language/languageService';
-import { createLocalVideoTrack, } from 'twilio-video';
+// import {LanguageService} from '../../../../../services/language/languageService';
+import { createLocalVideoTrack } from 'twilio-video';
 import insightService from '../../../../../services/insightService';
 
 export default {
@@ -59,10 +62,10 @@ export default {
             videoEl: null,
             localTrack: null,
             singleCameraId: global.localStorage.getItem('sb-videoTrackId'),
-            placeCamera: LanguageService.getValueByKey("studyRoomSettings_camera_placeholder"),
-            text:{
-                label: LanguageService.getValueByKey("studyRoomSettings_video_select_label"),
-            }
+            // placeCamera: LanguageService.getValueByKey("studyRoomSettings_camera_placeholder"),
+            // text:{
+            //     label: LanguageService.getValueByKey("studyRoomSettings_video_select_label"),
+            // }
         }
     },
     methods:{
@@ -122,6 +125,7 @@ export default {
 
 <style lang="less">
 .studyRoom-video-settings-container{
+    width: 600px;
     // margin-top: 48px;
     .studyRoom-video-settings-title{
         display:flex;
