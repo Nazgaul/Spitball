@@ -2,7 +2,7 @@
   <div class="study-room-settings-wrapper">
     <button @click="closeDialog" class="close-button"><v-icon>sbf-close</v-icon></button>
     <div class="study-room-settings-top">
-      <v-navigation-drawer width="300" permanent class="study-room-settings-nav">
+      <!-- <v-navigation-drawer width="300" permanent class="study-room-settings-nav">
         <v-toolbar class="study_room_toolBar" flat>
           <v-list>
             <v-list-item class="pa-0">
@@ -31,8 +31,8 @@
             </v-list-item-content>
           </v-list-item>
         </v-list>
-      </v-navigation-drawer>
-      <v-container class="study-room-settings-body">
+      </v-navigation-drawer> -->
+      <v-container class="study-room-settings-body d-flex align-center">
         <component :is="currenctComponent"></component>
       </v-container>
     </div>
@@ -80,8 +80,13 @@ export default {
 
 <style lang="less">
 .tutor-settings-dialog {
-  min-height: 560px;
-  background-color: #fff;
+    height: 100%;
+    max-height: 100% !important;
+    max-width: 100% !important;
+    width: 100%;
+    margin: 0 !important;
+    background: #fff;
+    border-radius: 0;
   .study-room-settings-wrapper {
     width: 100%;
     display: flex;

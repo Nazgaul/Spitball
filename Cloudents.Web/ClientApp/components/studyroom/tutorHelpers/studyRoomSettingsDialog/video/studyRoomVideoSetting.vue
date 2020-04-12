@@ -1,8 +1,8 @@
 <template>
     <div class="studyRoom-video-settings-container">
-        <div class="studyRoom-video-settings-title">
-            <h4 class="studyRoom-video-settings-label" v-language:inner='"studyRoomSettings_camera_label"'></h4>
-            <v-select
+        <!-- <div class="studyRoom-video-settings-title"> -->
+            <!-- <h4 class="studyRoom-video-settings-label" v-language:inner='"studyRoomSettings_camera_label"'></h4> -->
+            <!-- <v-select
                 :menu-props="{contentClass:'select-direction'}"
                 v-model="singleCameraId"
                 :items="camerasList"
@@ -16,10 +16,32 @@
                 :append-icon="'sbf-arrow-down'"
                 solo
                 single-line
-                ></v-select>
-        </div>
+                ></v-select> -->
+        <!-- </div> -->
         
-        <v-flex xs12  class="mt-4 mb-4 studyRoom-video-settings-video-container">
+        <v-flex class="mt-4 mb-4 studyRoom-video-settings-video-container">
+
+            <div class="cameraListWrap text-center pt-3">
+                <v-select
+                    v-model="singleCameraId"
+                    :items="camerasList"
+                    :label="text.label"
+                    :prepend-icon="''"
+                    :placeholder="placeCamera"
+                    :append-icon="'sbf-arrow-down'"
+                    :menu-props="{contentClass:'select-direction'}"
+                    @change="createVideoQualityPreview()"
+                    background-color="rgba(0,0,0,.7)"
+                    item-text="label"
+                    item-value="deviceId"
+                    solo
+                    dense
+                    rounded
+                    single-line
+                    hide-details
+                ></v-select>
+            </div>
+
             <div id="local-video-test-track"></div>
         </v-flex>
     </div>
@@ -100,7 +122,7 @@ export default {
 
 <style lang="less">
 .studyRoom-video-settings-container{
-    margin-top: 48px;
+    // margin-top: 48px;
     .studyRoom-video-settings-title{
         display:flex;
         justify-content: space-between;
@@ -116,13 +138,31 @@ export default {
         }
     }
     .studyRoom-video-settings-video-container{
+        position: relative;
         height: 368px;
         background-color: gray;
-        #local-video-test-track{
-                video{
-                    width:100%;
+        .cameraListWrap {
+            margin: 0 110px;
+            position: absolute;
+            right: 0;
+            left: 0;
+            z-index: 2;
+
+            .v-select__selections {
+                .v-select__selection--comma {
+                    color: #fff;
+                    font-size: 13px;
                 }
             }
+            .sbf-arrow-down {
+                color: #fff
+            }
+        }
+        #local-video-test-track{
+            video{
+                width:100%;
+            }
+        }
     }
     
 }

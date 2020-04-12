@@ -191,7 +191,6 @@
         :showDialog="getDialogRoomSettings"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'tutor-settings'"
-        :maxWidth="'800'"
         :onclosefn="closeStudyRoomSettingsDialog"
         :activateOverlay="false"
         :content-class="'tutor-settings-dialog'"
