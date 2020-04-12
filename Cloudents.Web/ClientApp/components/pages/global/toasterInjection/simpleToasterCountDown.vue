@@ -3,6 +3,7 @@
         absolute
         top
         @input="onCloseToaster"
+        class="counterToaster"
         :timeout="3000000"
         :value="true"
     >
@@ -59,3 +60,9 @@ export default {
     },
 }
 </script>
+
+<style lang="less">
+    .counterToaster {
+        z-index: 99999; // for overide studyroom 
+    }
+</style>
