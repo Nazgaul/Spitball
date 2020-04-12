@@ -156,6 +156,15 @@
     <value>Study smarter, go digital with Frymo</value>
     <comment>Study smarter, go digital with Frymo</comment>
   </data>
+  <data name="quote" xml:space="preserve">
+    <value>Frymo is very easy for teachers &amp; students. Within few hours I could get started with my online class room for my 18 students. Great for students too to share class notes, white boards, drawings, doubts all online</value>
+  </data>
+  <data name="quote_name" xml:space="preserve">
+    <value>Swati</value>
+  </data>
+  <data name="quote_teach" xml:space="preserve">
+    <value>Computer science Teacher</value>
+  </data>
   <data name="tss_title" xml:space="preserve">
     <value>Testimonial from Students</value>
     <comment>Testimonial from Students</comment>

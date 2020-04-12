@@ -132,6 +132,12 @@
   <data name="full_list" xml:space="preserve">
     <value>לצפייה ברשימה המלאה</value>
   </data>
+  <data name="label_hours" xml:space="preserve">
+    <value>שעה</value>
+  </data>
+  <data name="label_minutes" xml:space="preserve">
+    <value>דקות</value>
+  </data>
   <data name="money_back" xml:space="preserve">
     <value>החזר כספי מובטח</value>
   </data>
@@ -140,6 +146,9 @@
   </data>
   <data name="need_help2" xml:space="preserve">
     <value>{1} יכול ללמד אותך</value>
+  </data>
+  <data name="pick_time_error" xml:space="preserve">
+    <value>הזמן שנבחר צריך להיות בעתיד</value>
   </data>
   <data name="points" xml:space="preserve">
     <value>נק'</value>
