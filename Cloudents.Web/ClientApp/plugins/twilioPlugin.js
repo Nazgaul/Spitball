@@ -29,7 +29,8 @@ function _initStudentJoined(store,localParticipant){
 
    // share screen & video full screen:
    Array.from(localParticipant.tracks.values()).forEach((track) => {
-         if(track.trackName === VIDEO_TRACK_NAME && store.getters.getIsFullScreen){
+         let trackName = track.trackName.split('_')[0]
+         if(trackName === VIDEO_TRACK_NAME && store.getters.getIsFullScreen){
             let shareVideoCamera = {
                type: "openFullScreen",
                data: `remoteTrack_${track.trackSid}`
@@ -89,7 +90,11 @@ function _twilioListeners(room,store) {
 
    // local participant events
    room.localParticipant.on('trackStopped',(track)=>{
-      if(track.trackName === VIDEO_TRACK_NAME){
+      if(track.name === SCREEN_TRACK_NAME){
+         return
+      }
+      let trackName = track.trackName.includes("_")? track.trackName.split('_')[0] :track.trackName;
+      if(trackName === VIDEO_TRACK_NAME){
          store.commit(twilio_SETTERS.VIDEO_AVAILABLE,false)
       }
       if(track.trackName === AUDIO_TRACK_NAME){
@@ -211,7 +216,8 @@ export default () => {
       let _localVideoTrack = null;
       let _localAudioTrack = null;
       let _localScreenTrack = null;
-      let _debugMode;
+      let _debugMode = null;
+      let _userId = null
       store.subscribe((mutation) => {
          if (mutation.type === 'setRouteStack' && mutation.payload.name === routeNames.StudyRoom) {
             import('twilio-video').then(async (Twilio) => { 
@@ -246,15 +252,15 @@ export default () => {
                // TODO: fix it audio & video
                // let videoDeviceId = localStorage.getItem('sb-videoTrackId');
                // let videoParams = videoDeviceId ? {deviceId: {exact: videoDeviceId}} : {};
-
-
+               _userId = store.getters.accountUser.id;
                Promise.allSettled([
-                  createLocalVideoTrack({name:VIDEO_TRACK_NAME}),
+                  createLocalVideoTrack({name:`${VIDEO_TRACK_NAME}_${_userId}`}),
                   createLocalAudioTrack({name:AUDIO_TRACK_NAME})
                ]).then((tracks) => {
                   tracks.forEach(({value}) => {
                      if(value){
-                        if(value.name === VIDEO_TRACK_NAME){
+                        let trackName = value.name.split('_')[0]
+                        if(trackName === VIDEO_TRACK_NAME){
                            _setLocalVideoTrack(value)
                         }
                         if(value.name === AUDIO_TRACK_NAME){
@@ -336,7 +342,7 @@ export default () => {
                if(_localVideoTrack){
                   _unPublishTrack(_activeRoom,_localVideoTrack)
                }
-               let params = {deviceId: {exact: mutation.payload},name:VIDEO_TRACK_NAME}
+               let params = {deviceId: {exact: mutation.payload},name:`${VIDEO_TRACK_NAME}_${_userId}`}
                twillioClient.createLocalVideoTrack(params).then(track=>{
                   _setLocalVideoTrack(track);
                })
@@ -356,6 +362,7 @@ export default () => {
                   _localVideoTrack = null;
                   _localAudioTrack = null;
                   _localScreenTrack = null;
+                  _userId = null;
    
                   store.commit(twilio_SETTERS.VIDEO_AVAILABLE,false);
                   store.commit(twilio_SETTERS.AUDIO_AVAILABLE,false)

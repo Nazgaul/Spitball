@@ -49,7 +49,13 @@ const getters = {
    getIsVideoActive: (state) => state.isVideoAvailable && state.isVideoActive,
    getIsAudioActive: (state) => state.isAudioAvailable && state.isAudioActive,
    getIsShareScreen: (state) => state.isShareScreen,
-   getVideoTrackList: (state) => state.videoTracks,
+   getVideoTrackList: (state,getters) => {
+      let tutorId = getters.getRoomTutor.tutorId;
+      return state.videoTracks.sort((a,b) => {
+         if (a.name.split('_')[1] == tutorId)  return -1
+         if (a.name.split('_')[1] == b.name.split('_')[1])  return 0
+      return 1 })
+   },
    getIsFullScreen: (state) => state.isFullScreen
 }
 const actions = {

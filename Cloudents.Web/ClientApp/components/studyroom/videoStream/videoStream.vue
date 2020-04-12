@@ -36,14 +36,16 @@ export default {
     display: flex;
     flex-direction: column;
     width: 320px;
-
     .remote_video_container{
       position: relative;
       min-height: 229px;
       overflow: auto; 
       height:100%;
       max-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
+    .remote_video_container :nth-child(2) { order: -1; }
   }
   .video-con-controls{
     display: flex;
