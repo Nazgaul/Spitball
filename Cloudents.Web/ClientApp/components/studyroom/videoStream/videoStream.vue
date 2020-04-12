@@ -33,7 +33,7 @@ export default {
       getVideoTrackList(streamsArray){
         if(this.$vuetify.breakpoint.xsOnly && streamsArray.length && !this.$store.getters.getRoomIsTutor){
           let fullScreenClassName = 'fullscreenMode';
-          // if(!document.querySelector(`.${fullScreenClassName}`)){
+          if(!document.querySelector(`.${fullScreenClassName}`)){
             let tutorId = this.$store.getters.getRoomTutor.tutorId;
             let elId = streamsArray.find(streamTrack=>streamTrack.name.split('_')[1] == tutorId)
             if(elId.sb_video_id){
@@ -45,7 +45,7 @@ export default {
                   }
               }, 50);
             }
-          // }
+          }
         }
       }
     },
