@@ -3,7 +3,7 @@
     column
     class="tutoring-page"
     :style="{'background-size': zoom, 'background-position-x': panX, 'background-position-y': panY}"
-    :class="{'gridBackground': $route.name === 'tutoring', 'mobile-no-support': isMobile}"
+    :class="{'gridBackground': $route.name === 'tutoring'}"
   >
     <!-- <div v-show="isMobile" class="mobile-no-support-container">
       <noSupportTop></noSupportTop>

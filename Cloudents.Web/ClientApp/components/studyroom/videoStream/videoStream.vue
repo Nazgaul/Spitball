@@ -31,12 +31,13 @@ export default {
     },
     watch: {
       getVideoTrackList(streamsArray){
-        if(this.$vuetify.breakpoint.xsOnly && streamsArray.length){
+        if(this.$vuetify.breakpoint.xsOnly && streamsArray.length && !this.$store.getters.getRoomIsTutor){
           let fullScreenClassName = 'fullscreenMode';
           if(!document.querySelector(`.${fullScreenClassName}`)){
-            let elId = streamsArray[0].sb_video_id;
+            let tutorId = this.$store.getters.getRoomTutor.tutorId;
+            let elId = streamsArray.find(streamTrack=>streamTrack.name.split('_')[1] == tutorId)
             let interval = setInterval(() => {
-                let vidEl = document.querySelector(`#${elId} video`);
+                let vidEl = document.querySelector(`#${elId.sb_video_id} video`);
                 if(vidEl){
                   vidEl.classList.add(fullScreenClassName);
                   clearInterval(interval)
