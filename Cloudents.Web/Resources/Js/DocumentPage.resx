@@ -177,13 +177,4 @@
   <data name="description" xml:space="preserve">
     <value>Description</value>
   </data>
-  <data name="label_hours" xml:space="preserve">
-    <value>Hour</value>
-  </data>
-  <data name="label_minutes" xml:space="preserve">
-    <value>Minutes</value>
-  </data>
-  <data name="pick_time_error" xml:space="preserve">
-    <value>Time selected should be on the future</value>
-  </data>
 </root>
