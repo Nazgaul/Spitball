@@ -180,28 +180,22 @@ const actions ={
         }
     },
     insertEvent({state},{date,time}){
+        let dateTime = new Date(`${date}T${time}`);
+        //let hour = +time.split(':')[0];
 
-        let dateTime = new Date(date);
-        let hour = +time.split(':')[0];
+        //let from = new Date(dateTime.setHours(hour));
+        let fromISO = dateTime.toISOString();
 
-        let from = new Date(dateTime.setHours(hour));
-        let fromISO = from.toISOString();
-
-        let to = new Date(dateTime.setHours(hour + 1))
-        let toISO = to.toISOString();
+       //let to = new Date(dateTime.setHours(hour + 1))
+       // let toISO = to.toISOString();
 
         let insertEventObj = {
             from: fromISO,
-            to: toISO,
+         //   to: toISO,
             tutorId: state.tutorId
         };
 
-        return calendarService.addEvent(insertEventObj).then(
-            (response)=>{
-                return Promise.resolve(response);
-            },(error)=>{
-                return Promise.reject(error);
-            });
+        return calendarService.addEvent(insertEventObj);
     },
     updateNeedPayment({commit},val){
         commit('setNeedPayment',val);

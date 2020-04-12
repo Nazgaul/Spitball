@@ -277,7 +277,7 @@ namespace Cloudents.Web
             {
                 o.Cookie.Name = "sb5";
                 o.SlidingExpiration = true;
-                o.Cookie.Expiration = TimeSpan.FromDays(180);
+                o.ExpireTimeSpan = TimeSpan.FromDays(180);
 
                 o.Events.OnRedirectToLogin = context =>
                 {
