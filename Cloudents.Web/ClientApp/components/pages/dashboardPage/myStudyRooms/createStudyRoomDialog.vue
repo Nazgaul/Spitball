@@ -65,6 +65,7 @@
                   </v-date-picker>
                </v-menu>
 
+                  <!-- TIME PICKER TEXT FIELD -->
                   <v-combobox
                      v-model="hour"
                      class="roomType mx-5"
@@ -88,6 +89,8 @@
                      outlined
                   ></v-combobox>
 
+
+               <!-- TIME PICKER vuetify ui -->
                <!-- <v-menu 
                   v-model="timePickerMenu" 
                   ref="timePickerMenu" 
