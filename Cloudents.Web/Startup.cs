@@ -192,6 +192,7 @@ namespace Cloudents.Web
                 {
                     o.Cookie.Name = "td";
                     o.Cookie.HttpOnly = true;
+
                 })
                 //ToDO use the new one
                 .AddNewtonsoftJson(options =>
@@ -276,6 +277,7 @@ namespace Cloudents.Web
             {
                 o.Cookie.Name = "sb5";
                 o.SlidingExpiration = true;
+                o.Cookie.Expiration = TimeSpan.FromDays(180);
 
                 o.Events.OnRedirectToLogin = context =>
                 {
