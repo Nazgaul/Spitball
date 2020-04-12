@@ -87,7 +87,7 @@ namespace Cloudents.Web.Api
             if (string.IsNullOrWhiteSpace(term))
             {
                 _userManager.TryGetLongUserId(User, out var userId);
-                var query = new TutorListQuery(userId, profile.Country, page, pageSize);
+                var query = new TutorListQuery(userId, profile.CountryRegion, page, pageSize);
                 var result = await _queryBus.QueryAsync(query, token);
                 result.Result = result.Result.Select(s =>
                 {
@@ -143,7 +143,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-            var query = new TutorListByCourseQuery(course, userId, profile.Country, count.GetValueOrDefault(10));
+            var query = new TutorListByCourseQuery(course, userId, profile.CountryRegion, count.GetValueOrDefault(10));
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal.Select(item =>
             {
