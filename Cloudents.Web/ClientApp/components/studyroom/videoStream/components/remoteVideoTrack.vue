@@ -41,6 +41,7 @@ export default {
 </script>
 
 <style lang="less">
+@import '../../../../styles/mixin.less';
    .remoteVideoStream{
       .fullscreen-btn{
          position: absolute;
@@ -63,6 +64,10 @@ export default {
          object-fit: fill;
          height: 100vh;
          z-index: 20;
+         @media (max-width: @screen-xs) {
+            object-fit: contain;
+            background: black;
+         }
       }
       video::-webkit-media-controls-enclosure {
          display: none !important;

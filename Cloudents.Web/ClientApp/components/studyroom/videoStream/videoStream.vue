@@ -18,12 +18,33 @@
 <script>
 import remoteVideoTrack from './components/remoteVideoTrack.vue';
 import localVideoTrack from './components/localVideoTrack.vue';
+import { mapGetters } from 'vuex';
 
 export default {
     name: "videoStream",
     components: { 
         remoteVideoTrack,
         localVideoTrack
+    },
+    computed: {
+      ...mapGetters(['getVideoTrackList'])
+    },
+    watch: {
+      getVideoTrackList(streamsArray){
+        if(this.$vuetify.breakpoint.xsOnly && streamsArray.length){
+          let fullScreenClassName = 'fullscreenMode';
+          if(!document.querySelector(`.${fullScreenClassName}`)){
+            let elId = streamsArray[0].sb_video_id;
+            let interval = setInterval(() => {
+                let vidEl = document.querySelector(`#${elId} video`);
+                if(vidEl){
+                  vidEl.classList.add(fullScreenClassName);
+                  clearInterval(interval)
+                }
+            }, 50);
+          }
+        }
+      }
     },
 };
 </script>
