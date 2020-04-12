@@ -16,6 +16,7 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using NHibernate;
 using NHibernate.Linq;
+using Cloudents.Core.Interfaces;
 
 namespace ConsoleApp
 {
@@ -54,8 +55,8 @@ namespace ConsoleApp
             });
 
             // Define request parameters.
-            string spreadsheetId = "1hEET4d0YKmHBWQhbwkxPifcXVB5zqgs2Tcs2NiXLnlc";
-            string range = "Ram Sheet!A1:C";
+            string spreadsheetId = "19p5NTUpzDVICSCAYhqTvvjmbgU9AoInJMWwfJpfwX3A";
+            string range = "Full Clourse List!A2:E972";
             SpreadsheetsResource.ValuesResource.GetRequest request =
                     service.Spreadsheets.Values.Get(spreadsheetId, range);
 
@@ -64,211 +65,33 @@ namespace ConsoleApp
             ValueRange response = request.Execute();
             var values = response.Values;
 
-            var session = Program.Container.Resolve<IStatelessSession>();
-            var bus = Program.Container.Resolve<ICommandBus>();
+            
+            //var bus = Program.Container.Resolve<ICommandBus>();
 
             if (values != null && values.Count > 0)
             {
                 for (int i = 0; i < values.Count; i++)
                 {
 
+                    using var child = Program.Container.BeginLifetimeScope();
+
+                    var session = child.Resolve<ISession>();
+                    var unitOfWork = child.Resolve<IUnitOfWork>();
                     var row = values[i];
-                    //foreach (var row in values)
-                    //{
 
-                    var deleteRow = row.Count > 2 ? row[2].ToString() : null;
+                    Country country = row[0].ToString();
+                    var field = row[1].ToString();
+                    var subject = row[2].ToString();
+                    var search = row[3].ToString();
+                    var teacher = row[4].ToString();
 
-                    if (string.Equals(deleteRow, "DELETE", StringComparison.OrdinalIgnoreCase))
-                    {
+                    var course = new Course2(country, field, subject, search, teacher);
+                    await session.SaveAsync(course);
 
-
-                        var courseName = row[0].ToString();
-                        //if (courseName.ToUpperInvariant()[0] <= 'U')
-                        //{
-                        //     continue;
-                        //}
-
-                        Console.WriteLine($"Processing {courseName}");
-                        var result = await session.Query<Course>()
-                            .Where(w => w.Id == courseName).SingleOrDefaultAsync();
-                        if (result is null)
-                        {
-                            string range2 = $"Ram Sheet!E{i + 1}";
-                            var requestBody = new ValueRange();
-                            requestBody.Values = new List<IList<object>>()
-                            {
-                                new List<object>() { "Done" }
-                            };
-                            var update = service.Spreadsheets.Values.Update(requestBody, spreadsheetId, range2);
-                            update.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest
-                                .ValueInputOptionEnum.RAW;
-                            update.Execute();
-                            continue;
-                        }
-
-                        var documents = await session.Query<Document>().Fetch(f => f.University)
-                            .Where(w => w.Course.Id == courseName).ToListAsync();
-
-
-                        foreach (var document in documents.Where(w => w.Status.State == ItemState.Deleted))
-                        {
-                            await session.CreateSQLQuery("delete from sb.DocumentsTags where DocumentId = :id")
-                                .SetInt64("id", document.Id).ExecuteUpdateAsync();
-                            await session.Query<Document>().Where(w => w.Id == document.Id)
-                                .DeleteAsync(CancellationToken.None);
-                        }
-
-                        var goodCountries = new[] {"US", "IL"};
-                        if (documents.Any(a => goodCountries.Contains(a.University.Country,StringComparer.OrdinalIgnoreCase)))
-                        {
-                            var x = string.Join(",", documents.Select(a => a.University.Country)); Console.WriteLine(x);
-
-                           
-                            Console.WriteLine("Cant delete because of document");
-                            
-                            await session.Query<UserCourse>()
-                                .Where(w => w.Course.Id == courseName && session.Query<User>().Where(w2=>w2.Country == "IN").Contains(w.User))
-                                .DeleteAsync(CancellationToken.None);
-                            continue;
-                        }
-                        //var canDelete = true;
-                        foreach (var document in documents)
-                        {
-                            var deleteDocumentCommand = new DeleteDocumentCommand(document.Id);
-                            await bus.DispatchAsync(deleteDocumentCommand, default);
-
-                            await session.CreateSQLQuery("delete from sb.DocumentsTags where DocumentId = :id")
-                                .SetInt64("id", document.Id).ExecuteUpdateAsync();
-                            await session.Query<Document>().Where(w => w.Id == document.Id)
-                                .DeleteAsync(CancellationToken.None);
-                        }
-
-
-                        var questions = await session.Query<Question>().FetchMany(f => f.Answers).Where(w => w.Course.Id == courseName).ToListAsync();
-                        //if (questions.Any())
-                        //{
-                        //    //var deleteQuestionCommand =
-                        //    //    new Cloudents.Command.Command.Admin.DeleteQuestionCommand(question.Id);
-                        //    //await bus.DispatchAsync(deleteQuestionCommand, default);
-                        //    //Console.WriteLine("Cant delete question");
-                        //    //continue;
-                        //}
-                        foreach (var question in questions)
-                        {
-                            //    var response2 = ConsoleKey.Y;
-                            //    if (question.Status.State == ItemState.Ok)
-                            //    {
-                            //        Console.WriteLine($"Delete document id : {question.Id} text {question.Text}");
-                            //        response2 = Console.ReadKey(false).Key;
-                            //    }
-
-
-                            //    if (response2 == ConsoleKey.Y)
-                            //    {
-                            //var deleteQuestionCommand =
-                            //    new Cloudents.Command.Command.Admin.DeleteQuestionCommand(question.Id);
-                            //await bus.DispatchAsync(deleteQuestionCommand, default);
-                          await  session.CreateSQLQuery("delete from sb.[transaction] where questionId=:id")
-                                .SetInt64("id", question.Id).ExecuteUpdateAsync();
-
-                            //await session.Query<QuestionTransaction>().Where(w => w.Question.Id == question.Id)
-                            //    .DeleteAsync(CancellationToken.None);
-
-                            //await session.Query<AwardsTransaction>().Where(w => w.Question.Id == question.Id)
-                            //    .DeleteAsync(CancellationToken.None);
-
-                            foreach (var answer in question.Answers)
-                            {
-                                await session.Query<QuestionTransaction>().Where(w => w.Answer.Id == answer.Id)
-                                    .DeleteAsync(CancellationToken.None);
-
-
-
-                            }
-                            await session.CreateSQLQuery("delete from sb.vote where questionid = :id")
-                                .SetInt64("id", question.Id).ExecuteUpdateAsync();
-                            await session.CreateSQLQuery("update sb.question set correctanswer_id = null where id = :id")
-                                 .SetInt64("id", question.Id).ExecuteUpdateAsync();
-
-
-
-                            await session.Query<Answer>().Where(w => w.Question.Id == question.Id)
-                                .DeleteAsync(CancellationToken.None);
-                            await session.Query<Question>().Where(w => w.Id == question.Id)
-                                .DeleteAsync(CancellationToken.None);
-                        }
-
-                        try
-                        {
-                            await session.Query<UserCourse>().Where(w => w.Course.Id == courseName)
-                                .DeleteAsync(CancellationToken.None);
-
-                            //await session.Query<Lead>().Where(w => w.Course.Id == courseName)
-                            //    .DeleteAsync(CancellationToken.None);
-
-                            await session.Query<Course>().Where(w => w.Id == courseName)
-                                .DeleteAsync(CancellationToken.None);
-
-                            string range2 = $"Ram Sheet!E{i}";
-                            var requestBody = new ValueRange();
-                            requestBody.Values = new List<IList<object>>()
-                            {
-                                new List<object>() { "Done" }
-                            };
-                            var update = service.Spreadsheets.Values.Update(requestBody, spreadsheetId, range2);
-                            update.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest
-                                .ValueInputOptionEnum.RAW;
-                            update.Execute();
-
-                        }
-                        catch (Exception)
-                        {
-
-                        }
-                        //    }
-                        //    else
-                        //    {
-                        //        canDelete = false;
-                        //    }
-
-                        //}
-
-                        //if (canDelete)
-                        //{
-                        //using (var beginLifetimeScope = Program._container.BeginLifetimeScope())
-                        //{
-
-
-                        //    using (var session2 = beginLifetimeScope.Resolve<ISession>())
-                        //    {
-                        //        using (var uc = session2.BeginTransaction())
-                        //        {
-                        //            //using (var uc = Program._container.Resolve<IUnitOfWork>())
-                        //            //{
-                        //            var course = await session2.LoadAsync<Course>(courseName);
-                        //            await session2.DeleteAsync(course);
-
-                        //            //await session.Query<Course>().Where(w => w.Id == courseName).DeleteAsync(CancellationToken.None);
-
-                        //            await uc.CommitAsync(CancellationToken.None);
-                        //        }
-
-                        //        //}
-                        //    }
-                        //}
-                        //}
-
-                    }
+                    await unitOfWork.CommitAsync(default);
                 }
             }
-
-
         }
     }
-
-
-
-
-
 }
 

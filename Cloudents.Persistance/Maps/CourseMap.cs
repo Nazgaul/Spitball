@@ -25,4 +25,21 @@ namespace Cloudents.Persistence.Maps
             Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
         }
     }
+
+    public sealed class Course2Map: ClassMap<Course2>
+    {
+        public Course2Map()
+        {
+            Id(x => x.Id).GeneratedBy.GuidComb();
+            Map(x => x.Count).Not.Nullable();
+            Map(x => x.Created).Insert().Not.Update();
+            Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
+            Map(x => x.Field);
+            Map(x => x.Country).CustomType<EnumerationType<Country>>(); ;
+            Map(x => x.Subject);
+            Map(x => x.SearchDisplay);
+            Map(x => x.CardDisplay);
+        }
+
+    }
 }
