@@ -241,8 +241,14 @@ export default {
       createStudyRoom(){
          if(!this.$refs.createRoomValidation.validate()) return
          if(!this.isLoading && !this.showErrorAlreadyCreated && !this.showErrorEmpty && !this.showErrorMaxUsers){
-            if(this.selected.length || this.studyRoomType.value === 'Broadcast'){
+            let isBroadcast = this.studyRoomType.value === 'Broadcast'
+            
+            if(!this.selected.length && !isBroadcast){
+               this.showErrorEmpty = true;
+               return 
+            }
 
+            if(isBroadcast) {
                let today = new Date()
                if(this.date === today.toISOString().substr(0, 10)) {
 
@@ -260,30 +266,28 @@ export default {
                      }
                   }
                }
+            }
                
-               let paramsObj = {
-                  name: this.roomName,
-                  userId: Array.from(this.selected.map(user=> user.userId)),
-                  price: this.price || 0,
-                  type: this.studyRoomType.value,
-                  date: new Date(this.date + ' ' + this.time)
-               }
-               this.isLoading = true
-               let self = this;
-               this.$store.dispatch('updateCreateStudyRoom',paramsObj)
-                  .then(() => {
-                     self.isLoading = false;
-                     self.$closeDialog()
-                  }).catch((error)=>{
-                     self.isLoading = false;
-                     if(error.response?.status == 409){
-                        self.showErrorAlreadyCreated = true;
-                     }
-                  });
+            let paramsObj = {
+               name: this.roomName,
+               userId: Array.from(this.selected.map(user=> user.userId)),
+               price: this.price || 0,
+               type: this.studyRoomType.value,
+               date: new Date(`${this.date} ${this.hour}:${this.minutes}`)
             }
-            else{
-               this.showErrorEmpty = true;
-            }
+               
+            this.isLoading = true
+            let self = this;
+            this.$store.dispatch('updateCreateStudyRoom',paramsObj)
+               .then(() => {
+                  self.isLoading = false;
+                  self.$closeDialog()
+               }).catch((error)=>{
+                  self.isLoading = false;
+                  if(error.response?.status == 409){
+                     self.showErrorAlreadyCreated = true;
+                  }
+               });
          }
       },
       allowedDates(date) {
@@ -312,7 +316,7 @@ export default {
    background: white;
    position: relative;
    padding: 10px;
-   height: 520px;
+   // height: 520px;
    display: flex;
    flex-direction: column;
    align-items: center;
