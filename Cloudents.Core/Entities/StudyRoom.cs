@@ -118,8 +118,12 @@ namespace Cloudents.Core.Entities
         {
             var session = new StudyRoomSession(this, sessionName);
             _sessions.Add(session);
-            var user = Users.First(f => f.User.Id != Tutor.Id).User;
-            user.UseToken(this);
+            foreach(var studyRoomUser in Users.Where(f => f.User.Id != Tutor.Id))
+            {
+                var user = studyRoomUser.User;
+                user.UseToken(this);
+            }
+           
             DateTime.UpdateTime = System.DateTime.UtcNow;
         }
 
@@ -128,6 +132,7 @@ namespace Cloudents.Core.Entities
         {
             if (StudyRoomType == StudyRoomType.Broadcast)
             {
+                user.UseToken(this);
                 var studyRoomUser = new StudyRoomUser(user, this);
                 Users.Add(studyRoomUser);
                 ChatRoom.AddUserToChat(user);
