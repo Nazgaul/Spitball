@@ -75,12 +75,14 @@ function _publishTrack(activeRoom,track){
 function _unPublishTrack(activeRoom,track){
    activeRoom.localParticipant.unpublishTrack(track);
 }
-function _toggleTrack(tracks,trackType){
+function _toggleTrack(tracks,trackType,value){
    let {track} = tracks.find(track=>track.kind === trackType);
    if(track){
-      if(track.isEnabled){
+      // value: FLASE - USER TURNED OFF / TRUE - USER TURNED ON
+      if(!value && track.isEnabled){
          track.disable()
-      }else{
+      }
+      if(value && !track.isEnabled){
          track.enable()
       }
    }
@@ -281,12 +283,12 @@ export default () => {
             if (mutation.type === twilio_SETTERS.VIDEO_TOGGLE){
                let tracks = [];
                _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
-               _toggleTrack(tracks,'video');
+               _toggleTrack(tracks,'video',mutation.payload);
             }
             if (mutation.type === twilio_SETTERS.AUDIO_TOGGLE){
                let tracks = [];
                _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
-               _toggleTrack(tracks,'audio');
+               _toggleTrack(tracks,'audio',mutation.payload);
             }
             if (mutation.type === twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE){
                if(mutation.payload && !_localScreenTrack){ 
