@@ -320,7 +320,8 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("questions")]
-        public async Task<IEnumerable<AccountQuestionDto>> GetQuestionsAsync([ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
+        public async Task<IEnumerable<AccountQuestionDto>> GetQuestionsAsync(
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
