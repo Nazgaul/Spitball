@@ -12,6 +12,15 @@ namespace Cloudents.Core.Models
 
         public string? Country { get; set; }
 
+        public string CountryRegion
+        {
+            get
+            {
+                Cloudents.Core.Entities.Country c = Country;
+                return c.Name;
+            }
+        }
+
     }
 
     //public class UserUniversityQueryProfileDto
