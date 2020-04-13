@@ -34,5 +34,7 @@ namespace Cloudents.Core.Entities
         public virtual int Count { get; protected internal set; }
 
         public virtual ItemState State { get; protected set; }
+
+        protected internal virtual ISet<UserCourse2> Users { get; set; }
     }
 }

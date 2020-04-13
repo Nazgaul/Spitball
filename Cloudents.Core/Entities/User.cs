@@ -58,8 +58,10 @@ namespace Cloudents.Core.Entities
 
 
         private readonly ISet<UserCourse> _userCourses = new HashSet<UserCourse>();
+        private readonly ISet<UserCourse2> _userCourses2 = new HashSet<UserCourse2>();
 
-        public virtual IEnumerable<UserCourse> UserCourses => _userCourses.ToList();
+        public virtual IEnumerable<UserCourse> UserCourses => _userCourses;
+        public virtual IEnumerable<UserCourse2> UserCourses2 => _userCourses2;
 
 
         private readonly ISet<UserCoupon> _userCoupon = new HashSet<UserCoupon>();
@@ -75,6 +77,23 @@ namespace Cloudents.Core.Entities
                     course.Count++;
                 }
             }
+        }
+
+        public virtual void AssignCourse2(Course2 course, bool canTeach)
+        {
+            //foreach (var course in courses)
+            //{
+            var p = new UserCourse2(this, course);
+            p.CanTeach(canTeach);
+            if (_userCourses2.Add(p))
+            {
+                course.Count++;
+            }
+            else
+            {
+
+            }
+            //}
         }
 
         public virtual void UseCoupon(Tutor tutor)

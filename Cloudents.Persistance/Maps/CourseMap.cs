@@ -34,11 +34,15 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Count).Not.Nullable();
             Map(x => x.Created).Insert().Not.Update();
             Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
-            Map(x => x.Field);
-            Map(x => x.Country).CustomType<EnumerationType<Country>>(); ;
-            Map(x => x.Subject);
+            Map(x => x.Field).Not.Nullable().UniqueKey("K-Course2Restriction");
+            Map(x => x.Country).UniqueKey("K-Course2Restriction").CustomType<EnumerationType<Country>>().Not.Nullable(); 
+            Map(x => x.Subject).UniqueKey("K-Course2Restriction").Not.Nullable();
             Map(x => x.SearchDisplay);
             Map(x => x.CardDisplay);
+
+            HasMany(x => x.Users)
+                .KeyColumn("CourseId")
+                .Inverse().Cascade.AllDeleteOrphan().AsSet();
         }
 
     }
