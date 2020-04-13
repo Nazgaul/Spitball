@@ -14,6 +14,7 @@ using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Exceptions;
 using NHibernate;
 using NHibernate.Linq;
 using Cloudents.Core.Interfaces;
@@ -56,39 +57,96 @@ namespace ConsoleApp
 
             // Define request parameters.
             string spreadsheetId = "19p5NTUpzDVICSCAYhqTvvjmbgU9AoInJMWwfJpfwX3A";
-            string range = "Full Clourse List!A2:E972";
+            string range = "RamISL!A2:c1660";
             SpreadsheetsResource.ValuesResource.GetRequest request =
                     service.Spreadsheets.Values.Get(spreadsheetId, range);
 
             // Prints the names and majors of students in a sample spreadsheet:
             // https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-            ValueRange response = request.Execute();
+            ValueRange response = await request.ExecuteAsync();
             var values = response.Values;
 
             
             //var bus = Program.Container.Resolve<ICommandBus>();
 
-            if (values != null && values.Count > 0)
+            if (values == null || values.Count <= 0)
             {
-                for (int i = 0; i < values.Count; i++)
-                {
+                return;
+            }
 
+            for (int i = 0; i < values.Count; i++)
+            {
+                try
+                {
+                   
+                    var row = values[i];
+
+                    //Country country = row[0].ToString();
+
+                    var newMapping = row[2].ToString().Trim('"').Replace("\\\"","\"");
+                    var oldCourseName = row[0].ToString();
+                    if (newMapping.Equals("N.A", StringComparison.OrdinalIgnoreCase))
+                    {
+                        continue;
+                        
+                    }
                     using var child = Program.Container.BeginLifetimeScope();
 
                     var session = child.Resolve<ISession>();
                     var unitOfWork = child.Resolve<IUnitOfWork>();
-                    var row = values[i];
 
-                    Country country = row[0].ToString();
-                    var field = row[1].ToString();
-                    var subject = row[2].ToString();
-                    var search = row[3].ToString();
-                    var teacher = row[4].ToString();
+                    var course = await session.Query<Course2>().Where(w => w.Country == Country.Israel && w.SearchDisplay == newMapping)
+                        .SingleOrDefaultAsync();
+                    if (course == null)
+                    {
 
-                    var course = new Course2(country, field, subject, search, teacher);
-                    await session.SaveAsync(course);
+                    }
+
+
+                    var userIdAlreadyInCourse = await session.Query<UserCourse2>()
+                        .Where(w => w.Course.SearchDisplay == newMapping)
+                        .Select(s=>s.User.Id).ToListAsync();
+
+                    var users = await session.Query<UserCourse>()
+                        .Where(w => w.Course.Id == oldCourseName)
+                        .Select(s =>new { s.User.Id, s.IsTeach}).ToListAsync();
+                    if (userIdAlreadyInCourse.Count == users.Count)
+                    {
+                        continue;
+                    }
+                    foreach (var user2 in users)
+                    {
+                        if (userIdAlreadyInCourse.Contains(user2.Id))
+                        {
+                            continue;
+                        }
+                        var user = session.Get<User>(user2.Id);
+                        if (user.Country != "IL")
+                        {
+                            continue;
+                        }
+                        user.AssignCourse2(course,user2.IsTeach);
+                        session.Save(user);
+                    }
+
+                    Console.WriteLine($"Processing {newMapping} index {i}");
+
+                    //if (string.IsNullOrEmpty(field))
+                    //{
+                    //    break;
+                    //}
+
+                    //var subject = row[2].ToString();
+                    //var search = row[3].ToString();
+                    //var teacher = row[4].ToString();
+
+                    //var course = new Course2(country, field, subject, search, teacher);
+                    //await session.SaveAsync(course);
 
                     await unitOfWork.CommitAsync(default);
+                }
+                catch (DuplicateRowException e)
+                {
                 }
             }
         }
