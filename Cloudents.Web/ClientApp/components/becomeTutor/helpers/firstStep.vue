@@ -100,13 +100,13 @@
                 selectGender: LanguageService.getValueByKey("becomeTutor_placeholder_select_gender"),
                 firstname: '',
                 lastname: '',
-                price: 50,
+                price: '',
                 imageAdded: false,
                 errorUpload: false,
                 validBecomeFirst: false,
                 rules: {
                     required: (value) => validationRules.required(value),
-                    minimum: (value) => validationRules.minVal(value,50),
+                    minimum: (value) => validationRules.minVal(value,this.tutorMinPrice),
                     maximum: (value) => validationRules.maxVal(value, 1000),
                     minimumChars: (value) => validationRules.minimumChars(value, 2),
                     notSpaces: (value) => validationRules.notSpaces(value),
@@ -118,6 +118,9 @@
             };
         },
         computed: {
+            tutorMinPrice(){
+                return this.$store.getters.getTutorMinPrice;
+            },
             getSymbol() {
               let v =   this.$n(1,'currency');
               return v.replace(/\d|[.,]/g,'').trim();
@@ -205,6 +208,9 @@
             saveLastName(name) {
                 this.lastname = name || '';
             }
+        },
+        mounted() {
+            this.price = this.tutorMinPrice;
         },
     };
 </script>

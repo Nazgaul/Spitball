@@ -61,7 +61,6 @@ const state = {
         name: LanguageService.getValueByKey('tutor_tab') + ' 1',
         id: 'tab-0'
     },
-    tabIndicator: 'tab-0',
     imgLoader: false,
     showBoxHelper: true,
     fontSize: '40'
@@ -86,9 +85,13 @@ const getters = {
             return state.addImage;
         }
     },
-    getTabIndicator:state => state.tabIndicator,
     getImgLoader:state => state.imgLoader,
-    getShowBoxHelper:state => state.showBoxHelper,
+    getShowBoxHelper:(state,getters) => {
+        if(getters.getRoomIdSession){
+            return getters.getRoomIsTutor && state.showBoxHelper;
+        }else{
+            return state.showBoxHelper
+        }},
     getFontSize: state=>state.fontSize
 };
 
@@ -168,9 +171,6 @@ const mutations = {
     setClearAllClicked(state){
         state.clearAllClicked = !state.clearAllClicked;
     },
-    setTab(state,{tabId}){
-        state.tabIndicator = tabId;
-    },
     setImgLoader(state,val){
         state.imgLoader = val;
     },
@@ -197,13 +197,19 @@ const actions = {
         } else if (data.type === 'updateTab'){
             dispatch('updateTab', parsedData);
         } else if(data.type === 'updateTabById'){
-            commit('setTab',parsedData);
+            dispatch('changeSelectedTab',parsedData.tab);
+            whiteBoardService.hideHelper();
+            whiteBoardService.redraw(parsedData.canvas);
         } 
         else if(data.type === 'updateActiveNav'){
-            commit('ACTIVE_NAV_TAB_INDICATOR',parsedData);
+            dispatch('updateActiveNavEditor',parsedData)
         } 
         else if(data.type === 'codeEditor_code'){
             commit('setCode',parsedData);
+        } else if(data.type === 'openFullScreen'){
+            dispatch('updateFullScreen',parsedData);
+        } else if(data.type === 'toggleParticipantsAudio'){
+            dispatch('updateAudioToggleByRemote',parsedData)
         }
 
     },

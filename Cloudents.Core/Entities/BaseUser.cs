@@ -31,6 +31,8 @@ namespace Cloudents.Core.Entities
         public virtual string Image { get; protected set; }
         public virtual string ImageName { get; protected set; }
 
+        
+
         //TODO: should fictive user need to have university
         public virtual University? University { get; protected set; }
 

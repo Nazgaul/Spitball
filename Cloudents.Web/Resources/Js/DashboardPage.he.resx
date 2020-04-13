@@ -141,11 +141,14 @@
   <data name="create_room_empty_error" xml:space="preserve">
     <value>לא נבחר אף סטודנט</value>
   </data>
-  <data name="create_room_max_error" xml:space="preserve">
-    <value>מקסימום 4 סטודנטים בחדר לימוד</value>
-  </data>
   <data name="create_room_label" xml:space="preserve">
     <value>שם חדר הלימוד</value>
+  </data>
+  <data name="create_room_label_broadcast" xml:space="preserve">
+    <value>שם החדר</value>
+  </data>
+  <data name="create_room_max_error" xml:space="preserve">
+    <value>מקסימום 4 סטודנטים בחדר לימוד</value>
   </data>
   <data name="create_room_placeholder" xml:space="preserve">
     <value>הכנס שם</value>
@@ -180,6 +183,18 @@
   </data>
   <data name="joined" xml:space="preserve">
     <value>תאריך הצטרפות</value>
+  </data>
+  <data name="label_date" xml:space="preserve">
+    <value>תאריך</value>
+  </data>
+  <data name="label_minutes" xml:space="preserve">
+    <value>דקות</value>
+  </data>
+  <data name="label_time" xml:space="preserve">
+    <value>זמן</value>
+  </data>
+  <data name="labe_hours" xml:space="preserve">
+    <value>שעה</value>
   </data>
   <data name="last_date" xml:space="preserve">
     <value>שיעור אחרון</value>
@@ -235,6 +250,12 @@
   <data name="pending_payment" xml:space="preserve">
     <value>יש לכם {0} {1} ל{2}</value>
   </data>
+  <data name="pick_time_error" xml:space="preserve">
+    <value>הזמן שנבחר צריך להיות בעתיד</value>
+  </data>
+  <data name="placeholder_studyRoom_type" xml:space="preserve">
+    <value>סוג חדר</value>
+  </data>
   <data name="price" xml:space="preserve">
     <value>מחיר</value>
   </data>
@@ -280,8 +301,14 @@
   <data name="type" xml:space="preserve">
     <value>סוג</value>
   </data>
+  <data name="type_broadcast" xml:space="preserve">
+    <value>ציבורי</value>
+  </data>
   <data name="type_buy_points" xml:space="preserve">
     <value>נקודות</value>
+  </data>
+  <data name="type_private" xml:space="preserve">
+    <value>פרטי</value>
   </data>
   <data name="video" xml:space="preserve">
     <value>וידאו</value>

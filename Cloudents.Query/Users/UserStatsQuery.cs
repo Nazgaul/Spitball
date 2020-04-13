@@ -35,18 +35,18 @@ namespace Cloudents.Query.Users
             private const string SSales = "sSales";
             private const string Followers = "followers";
             private const string Views = "views";
-                
+
 
             public async Task<IEnumerable<UserStatsDto>> GetAsync(UserStatsQuery query, CancellationToken token)
             {
-                
 
-            const string tRevenueSql = @"select cast(isnull(sum(price), 0) as int) as price
+
+                const string tRevenueSql = @"select cast(isnull(sum(t.price), 0) as int) as price
                                     from sb.[Transaction] t
                                     where [user_Id] = :UserId and [action] in ('SoldDocument','ReferringUser')
                                     and Created between :from and :to;";
 
-                const string sRevenueSql = @"select cast(isnull(sum(Price), 0) as int) as price
+                const string sRevenueSql = @"select cast(isnull(sum(srs.Price), 0) as int) as price
                                             from sb.StudyRoom sr
                                             join sb.StudyRoomSession srs
                                                 on sr.Id = srs.StudyRoomId
@@ -87,7 +87,7 @@ namespace Cloudents.Query.Users
 
                 var period = new Period(query.Days, query.UserId);
 
-                
+
                 var sqlQueries = new Dictionary<string, string>
                 {
                     { TRevenue, tRevenueSql },
@@ -145,7 +145,7 @@ namespace Cloudents.Query.Users
                     previousResult
                 };
             }
-       
+
 
             private class Period
             {

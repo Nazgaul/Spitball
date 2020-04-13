@@ -79,20 +79,6 @@ namespace Cloudents.Core.Enum
 
 
 
-    //public enum ChatRoomAssign
-    //{
-    //    All,
-    //    Unassigned,
-    //    Eidan,
-    //    Jaron,
-    //    Yaniv,
-    //    Almog,
-    //    Ron,
-    //    Shira
-    //    Gilad
-
-    //}
-
     public enum WaitingFor
     {
         All = 0,
@@ -101,11 +87,17 @@ namespace Cloudents.Core.Enum
         Conv = 3
     }
 
-    public enum StudyRoomType
+    public enum StudyRoomTopologyType
     {
         SmallGroup,
         PeerToPeer,
         GroupRoom
+    }
+
+    public enum StudyRoomType
+    {
+        Private,
+        Broadcast
     }
 
 

@@ -37,11 +37,9 @@ join sb.Tutor t
 where t.State = 'Pending' AND (@Country IS NULL OR u.Country = @Country) order by t.id desc OPTION(RECOMPILE)";
 
 
-                using (var connection = _dapper.OpenConnection())
-                {
-                    var res = await connection.QueryAsync<PendingTutorsDto>(sql, new { query.Country });
-                    return res;
-                }
+                using var connection = _dapper.OpenConnection();
+                var res = await connection.QueryAsync<PendingTutorsDto>(sql, new { query.Country });
+                return res;
             }
         }
     }

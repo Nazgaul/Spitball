@@ -28,7 +28,6 @@
               v-for="(singleNav, index) in navs"
               :class="{'active-nav': singleNav.value === activeItem, 'tutor-nav-disabled': singleNav.value !== 'white-board' && singleNav.value !== 'code-editor' && !id}"
               :key="index" :sel="`${singleNav.name.toLowerCase().replace(' ','_')}_tab`">
-              <span class="dot-nav" v-if="isRoomActive && !isRoomTutor && singleNav.value === getActiveNavIndicator">●</span>
               <v-icon class="mr-2 nav-icon">{{singleNav.icon}}</v-icon>
               <a class="tutor-nav-item-link">{{singleNav.name}}</a>
             </div>
@@ -81,7 +80,7 @@
               <codeEditorTools/>
             </v-flex>
             <v-spacer></v-spacer>
-            <v-flex class="share-screen">
+            <v-flex v-if="isRoomTutor" class="share-screen">
               <shareScreenBtn class="nav-share-btn" />
             </v-flex>
             <v-flex shrink class="controls-holder">
@@ -93,14 +92,13 @@
               >
                 <span v-language:inner>tutor_option_videoChat</span>
               </v-btn>
-              <v-btn
-                :disabled="!getIsFullScreenAvailable"
-                @click="selectViewOption(enumViewOptions.fullScreenVideo)"
+              <v-btn :style="{'visibility': isRoomTutor? 'visible':'hidden'}"
+                @click="$store.dispatch('updateToggleAudioParticipants')"
                 class="control-btn text-capitalize elevation-0 cursor-pointer"
-                :input-value="activeViewOption == enumViewOptions.fullScreenVideo"
+                :input-value="$store.getters.getIsAudioParticipants"
                 active-class="v-btn--active control-btn-active"
               >
-                <span v-language:inner>tutor_option_videoFull</span>
+                <span>{{$t($store.getters.getIsAudioParticipants?'tutor_mute_room':'tutor_unmute_room')}}</span>
               </v-btn>
               <v-btn sel="full_board"
                 class="control-btn text-capitalize elevation-0 cursor-pointer"
@@ -117,7 +115,7 @@
                 v-show="activeViewOption !== enumViewOptions.fullBoard"
               >
                 <v-flex xs6 >
-                  <video-stream :id="id"></video-stream>
+                  <videoStream></videoStream>
                 </v-flex>
               </v-layout>
             </v-flex>
@@ -366,7 +364,6 @@ export default {
 
 
 
-      activeNavItem: "white-board",
       navs: [
         {
           name: this.$t("tutor_nav_canvas"),
@@ -404,7 +401,6 @@ export default {
 
   computed: {
     ...mapGetters([
-      "getIsFullScreenAvailable",
       "getDialogTutorStart",
       "getRoomIsNeedPayment",
       "getDialogUserConsent",
@@ -418,7 +414,6 @@ export default {
       "getStudentStartDialog",
       "getDialogRoomEnd",
       "accountUser",
-      "getActiveNavIndicator",
       "getIsRecording",
       "getShowAudioRecordingError",
       "getVisitedSettingPage",
@@ -442,7 +437,7 @@ export default {
 
 
     activeItem() {
-      return this.activeNavItem;
+      return this.$store.getters.getActiveNavEditor;
     },
     isWhiteBoardActive() {
       return this.activeItem === "white-board" ? true : false;
@@ -484,7 +479,7 @@ watch: {
     ...mapActions([
       "setActiveConversationObj",
       "getChatById",
-      "lockChat",
+      "updateLockChat",
       "updateReviewDialog",
       "updateReview",
       "updateStudentStartDialog",
@@ -538,11 +533,6 @@ watch: {
       this.$ga.event("tutoringRoom", "openSettingsDialog");
       this.$store.dispatch('updateDialogRoomSettings',true)
     },
-    closeFullScreen(){
-      if(!document.fullscreenElement || !document.webkitFullscreenElement || document.mozFullScreenElement){
-       this.selectViewOption(this.enumViewOptions.videoChat)
-      }
-    },
     closeReviewDialog() {
       this.updateReviewDialog(false);
     },
@@ -561,18 +551,13 @@ watch: {
       this.setShowAudioRecordingError(false);
     },
     updateActiveNav(value) {
-      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_navigation', {'roomId': this.id, 'userId': this.userId, 'navigatedTo': value}, null)
-      
-      this.$ga.event("tutoringRoom", `updateActiveNav:${value}`);
-
-      this.activeNavItem = value;
-      if(this.isRoomTutor){
-        let activeNavData = {
-            activeNav: value,
-        }
+      if(!this.$route.params.id || this.$route.params.id && this.isRoomTutor ){
+        insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_navigation', {'roomId': this.id, 'userId': this.userId, 'navigatedTo': value}, null)
+        this.$ga.event("tutoringRoom", `updateActiveNav:${value}`);
+        this.$store.dispatch('updateActiveNavEditor',value)
         let transferDataObj = {
             type: "updateActiveNav",
-            data: activeNavData
+            data: value
         };
         let normalizedData = JSON.stringify(transferDataObj);
         this.$store.dispatch('sendDataTrack',normalizedData)
@@ -612,13 +597,12 @@ watch: {
     },
     setStudyRoom() {
       this.initMathjax()
-      
       let self = this;
       this.getChatById(this.$store.getters.getRoomConversationId).then(({ data }) => {
         insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_ChatById', data, null)
         let currentConversationObj = chatService.createActiveConversationObj(data);
         self.setActiveConversationObj(currentConversationObj);
-        self.lockChat();
+        self.updateLockChat(true);
       });
     },
     closeBrowserSupportDialog(){
@@ -646,9 +630,6 @@ watch: {
       this.updateDialogSnapshot(false);
     }
   },
-  mounted() {
-    document.addEventListener("fullscreenchange",this.closeFullScreen);
-  },
   destroyed(){
     if(this.isTutor) {
       this.$store.commit('setComponent', 'linkToaster') 
@@ -657,6 +638,8 @@ watch: {
   },
   beforeDestroy(){
     this.$store.dispatch('updateResetRoom');
+    this.updateLockChat(false);
+
 
 
 
@@ -664,7 +647,6 @@ watch: {
     
 
     this.updateStudentStartDialog(false);
-    document.removeEventListener('fullscreenchange',this.closeFullScreen);
     storeService.unregisterModule(this.$store,'tutoringCanvas');
     // storeService.unregisterModule(this.$store,'tutoringMain');
     storeService.unregisterModule(this.$store,'studyRoomTracks_store');
@@ -698,14 +680,22 @@ watch: {
     }
 
     if(this.id){
-      initSignalRService(`studyRoomHub?studyRoomId=${this.id}`);
-      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null) 
-      this.$store.dispatch('updateStudyRoomInformation',this.id).catch((err)=>{
-          if(err?.response){
-            insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_RoomProps', err, null)
-            this.$router.push('/')
-          }
-        })
+      if(this.$store.getters.accountUser?.id){
+        initSignalRService(`studyRoomHub?studyRoomId=${this.id}`);
+        insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null) 
+        this.$store.dispatch('updateStudyRoomInformation',this.id).catch((err)=>{
+            if(err?.response){
+              insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_RoomProps', err, null)
+              this.$router.push('/')
+            }
+          })
+        global.onbeforeunload = function() {     
+          insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_beforeUnloadTriggered', {'roomId': this.id, 'userId': this.userId}, null)
+          return "Are you sure you want to close the window?";
+        };
+      }else{
+        this.$store.commit('setComponent', 'login');
+      }
     }else{
       //TODO - we need one place to invoke this.
       this.initMathjax()
@@ -722,11 +712,6 @@ watch: {
     // }
     //this line will init the tracks to show local medias
     studyroomSettingsUtils.validateMedia();
-
-    global.onbeforeunload = function() {     
-      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_beforeUnloadTriggered', {'roomId': this.id, 'userId': this.userId}, null)
-      return "Are you sure you want to close the window?";
-    };
   }
 };
 </script>

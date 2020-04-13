@@ -14,8 +14,8 @@ namespace Cloudents.Query.Admin
             Page = page;
             Country = country;
         }
-        public long UserId { get; }
-        public int Page { get; }
+        private long UserId { get; }
+        private int Page { get; }
         public string Country { get; }
         internal sealed class UserPurchasedDocsQueryHandler : IQueryHandler<UserPurchasedDocsQuery, IEnumerable<UserPurchasedDocsDto>>
         {
@@ -42,17 +42,15 @@ namespace Cloudents.Query.Admin
                     order by 1
                     OFFSET @pageSize * @PageNumber ROWS
                     FETCH NEXT @pageSize ROWS ONLY;";
-                    using (var connection = _dapper.OpenConnection())
+                using var connection = _dapper.OpenConnection();
+                return await connection.QueryAsync<UserPurchasedDocsDto>(sql,
+                    new
                     {
-                        return await connection.QueryAsync<UserPurchasedDocsDto>(sql,
-                            new
-                            {
-                                id = query.UserId,
-                                PageNumber = query.Page,
-                                PageSize,
-                                query.Country
-                            });
-                    }
+                        id = query.UserId,
+                        PageNumber = query.Page,
+                        PageSize,
+                        query.Country
+                    });
             }
         }
     }

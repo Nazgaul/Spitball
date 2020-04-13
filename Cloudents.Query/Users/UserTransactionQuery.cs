@@ -14,7 +14,7 @@ namespace Cloudents.Query.Users
             Id = id;
         }
 
-        public long Id { get; }
+        private long Id { get; }
 
         internal sealed class UserTransactionQueryHandler : IQueryHandler<UserTransactionQuery, IEnumerable<TransactionDto>>
         {

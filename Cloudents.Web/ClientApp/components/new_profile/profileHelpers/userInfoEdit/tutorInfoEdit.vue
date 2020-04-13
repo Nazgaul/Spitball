@@ -19,7 +19,7 @@
                                     :label="firstNameLabel"
                                     class="tutor-edit-firstname"
                                     v-model.trim="firstName"
-                                    outline
+                                    outlined
                             ></v-text-field>
                         </v-flex>
                     </v-layout>
@@ -35,7 +35,7 @@
                                     :label="lastNameLabel"
                                     class="tutor-edit-lastname"
                                     v-model.trim="lastName"
-                                    outline
+                                    outlined
                             ></v-text-field>
                         </v-flex>
                     </v-layout>
@@ -50,7 +50,7 @@
                                         :rules="[rules.required, rules.minimum, rules.maximum,rules.integer]"
                                         :label="priceLabel"
                                         v-model="price"
-                                        outline
+                                        outlined
                                         :prefix="accountUser.currencySymbol"
                                         class="tutor-edit-pricing"
                                         type="number"
@@ -68,7 +68,7 @@
                 <v-flex>
                     <v-textarea
                             rows="2"
-                            outline
+                            outlined
                             v-model="description"
                             :rules="[rules.maximumChars, rules.descriptionMinChars]"
                             class="tutor-edit-description"
@@ -81,7 +81,7 @@
                 <v-flex>
                     <v-textarea
                             rows="5"
-                            outline
+                            outlined
                             :rules="[rules.maximumChars, rules.descriptionMinChars]"
                             v-model="bio"
                             class="tutor-edit-bio"
@@ -92,16 +92,16 @@
             </v-layout>
             <v-layout align-center class="px-3"
                       :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between' : 'justify-end']">
-                <v-flex xs5 sm2 >
-                    <v-btn :disabled="btnLoading" class="shallow-blue ml-0" rounded outline primary @click="closeDialog">
+                <!-- <v-flex xs5 sm2 > -->
+                    <v-btn :disabled="btnLoading" width="120" depressed color="#4452fc" class="shallow-blue ml-0" rounded outlined primary @click="closeDialog">
                         <span v-language:inner>profile_btn_cancel</span>
                     </v-btn>
-                </v-flex>
-                <v-flex xs5 sm2 :class="{'mr-4': $vuetify.breakpoint.smAndUp}">
-                    <v-btn class="blue-btn  ml-0" rounded @click="saveChanges()" :loading="btnLoading">
+                <!-- </v-flex> -->
+                <!-- <v-flex xs5 sm2 :class="{'mr-4': $vuetify.breakpoint.smAndUp}"> -->
+                    <v-btn class="blue-btn ml-sm-4" width="120" depressed color="#4452fc" rounded @click="saveChanges()" :loading="btnLoading">
                         <span v-language:inner>profile_btn_save_changes</span>
                     </v-btn>
-                </v-flex>
+                <!-- </v-flex> -->
             </v-layout>
         </v-form>
     </v-card>
@@ -129,7 +129,7 @@
                 editedPrice: null,
                 rules: {
                     required: (value) => validationRules.required(value),
-                    minimum: (value) => validationRules.minVal(value, 50),
+                    minimum: (value) => validationRules.minVal(value, this.tutorMinPrice),
                     maximum: (value) => validationRules.maxVal(value, 1000),
                     maximumChars: (value) => validationRules.maximumChars(value, 1000),
                     minimumChars: (value) => validationRules.minimumChars(value, 2),
@@ -142,6 +142,9 @@
         },
         computed: {
             ...mapGetters(['getProfile','accountUser', 'isFrymo']),
+            tutorMinPrice(){
+                return this.$store.getters.getTutorMinPrice;
+            },
             bio: {
                 get() {
                     return this.getProfile.user.tutorData.bio
@@ -251,20 +254,13 @@
             border: 1px solid @global-blue;
             color: @color-blue-new;
             @media (max-width: @screen-xs) {
-                min-width: 100%;
                 padding: 0 16px ;
-                border-radius: 0;
             }
         }
-        //vuetify overwrite
         .blue-btn {
-            background-color: @color-blue-new !important;
             color: @color-white;
-            box-shadow: none !important;
             @media (max-width: @screen-xs) {
-                min-width: 100%;
                 padding: 0 16px ;
-                border-radius: 0;
             }
         }
         .header {
@@ -291,11 +287,11 @@
                 border: 1px solid rgba(0, 0, 0, 0.19) !important;
             }
         }
-        .tutor-edit-pricing, .tutor-edit-firstname, .tutor-edit-lastname, .tutor-edit-description, .tutor-edit-bio {
-            .v-messages__message {
-                line-height: normal;
-            }
-        }
+        // .tutor-edit-pricing, .tutor-edit-firstname, .tutor-edit-lastname, .tutor-edit-description, .tutor-edit-bio {
+        //     .v-messages__message {
+        //         line-height: normal;
+        //     }
+        // }
     }
 
 

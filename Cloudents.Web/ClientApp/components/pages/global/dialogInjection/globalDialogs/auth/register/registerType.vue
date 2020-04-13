@@ -78,14 +78,9 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     @media (max-width: @screen-xs) {
-        height: inherit;
+        height: 100% !important;
     }
     .top {
-        // position: relative;
-        // .closeIcon {
-        //     // position: absolute;
-        //     // right: 16px;
-        // }
         .mainTitle {
             .responsive-property(font-size, 20px, null, 22px);
             color: @color-login-text-title;

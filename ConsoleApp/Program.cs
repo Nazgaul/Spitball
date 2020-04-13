@@ -28,6 +28,7 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Chat;
+using Cloudents.Query.Tutor;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using NHibernate.Linq;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
@@ -155,63 +156,7 @@ namespace ConsoleApp
 
        
 
-        private static async Task BuildStudyRoomName()
-        {
-            var session = Container.Resolve<ISession>();
-
-            var studyRooms = session.Query<StudyRoom>().Where(w => w.Name.Like("%חדר לימוד בין%") || w.Name.Like("%study room between%")).ToList();
-
-            foreach (var studyRoom in studyRooms)
-            {
-                
-            
-
-
-            //foreach (var studyRoom in studyRooms)
-            //{
-                var users = studyRoom.Users.Select(s => s.User);
-                var country = studyRoom.Tutor.User.Country;
-                if (users.Count() == 2)
-                {
-                    var tutor = studyRoom.Tutor.User;
-
-                    var studentName = users.Single(s => s.Id != tutor.Id).Name;
-                    var tutorName = tutor.Name;
-
-                    string text;
-                  
-                    text = $"{tutorName} -{studentName}";
-                   
-
-                    studyRoom.Name = text;
-                    session.Update(studyRoom);
-                    session.Flush();
-                }
-                else
-                {
-                    continue;
-                    
-                    //var tutor = studyRoom.Tutor.User;
-
-                    //var studentName = users.Where(s => s.Id != tutor.Id).Select(s => s.FirstName);
-                    //var tutorName = tutor.FirstName;
-
-                    //string text;
-                    //if (country == "IL")
-                    //{
-                    //    text = $"חדר לימוד בין {tutorName} ל{string.Join(",", studentName)}";
-                    //}
-                    //else
-                    //{
-                    //    text = $"study room between {tutorName} and {string.Join(",", studentName)}";
-                    //}
-
-                    //studyRoom.Name = text;
-                    //session.Update(studyRoom);
-                    //session.Flush();
-                }
-            }
-        }
+       
 
        
 

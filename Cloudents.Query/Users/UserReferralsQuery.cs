@@ -12,7 +12,7 @@ namespace Cloudents.Query.Users
             Id = id;
         }
 
-        public long Id { get; }
+        private long Id { get; }
 
         internal sealed class UserReferralsQueryHandler : IQueryHandler<UserReferralsQuery, UserReferralsDto>
         {
@@ -26,14 +26,10 @@ namespace Cloudents.Query.Users
             }
             public async Task<UserReferralsDto> GetAsync(UserReferralsQuery query, CancellationToken token)
             {
-                using (var connection = _dapper.OpenConnection())
-                {
-                    return await connection.QueryFirstOrDefaultAsync<UserReferralsDto>(@"select count(1) as Referrals
+                using var connection = _dapper.OpenConnection();
+                return await connection.QueryFirstOrDefaultAsync<UserReferralsDto>(@"select count(1) as Referrals
                     from sb.[Transaction] where [Action] = 'ReferringUser' and User_Id = @Id"
-                        , new { query.Id });
-                }
-
-
+                    , new { query.Id });
             }
         }
     }

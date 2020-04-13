@@ -14,7 +14,10 @@ function _checkPayment(context) {
 
 
 const state = {
-   activeNavIndicator: 'white-board',
+   activeNavEditor: 'white-board',
+   roomDate:null,
+   roomType:null,
+   roomName:null,
    roomOnlineDocument: null,
    roomIsTutor: false,
    roomIsActive: false,
@@ -32,7 +35,7 @@ const state = {
 }
 
 const mutations = {
-   [studyRoom_SETTERS.ACTIVE_NAV_TAB_INDICATOR]: (state, { activeNav }) => state.activeNavIndicator = activeNav,
+   [studyRoom_SETTERS.ACTIVE_NAV_EDITOR]: (state, navEditor) => state.activeNavEditor = navEditor,
    [studyRoom_SETTERS.ROOM_PROPS](state, props) {
       state.roomOnlineDocument = props.onlineDocument;
       state.roomIsTutor = this.getters.accountUser.id == props.tutorId;
@@ -45,13 +48,16 @@ const mutations = {
       state.roomIsNeedPayment = props.needPayment;
       state.roomConversationId = props.conversationId;
       state.studyRoomId = props.roomId;
+      state.roomType = props.type;
+      state.roomName = props.name;
+      state.roomDate = props.broadcastTime;
    },
    [studyRoom_SETTERS.DIALOG_ROOM_SETTINGS]: (state, val) => state.dialogRoomSettings = val,
    [studyRoom_SETTERS.DIALOG_END_SESSION]: (state, val) => state.dialogEndSession = val,
    [studyRoom_SETTERS.ROOM_ACTIVE]: (state, val) => state.roomIsActive = val,
    [studyRoom_SETTERS.ROOM_PAYMENT]: (state, val) => state.roomIsNeedPayment = val,
    [studyRoom_SETTERS.ROOM_RESET]: (state) => {
-      state.activeNavIndicator = 'white-board';
+      state.activeNavEditor = 'white-board';
       state.roomOnlineDocument = null;
       state.roomIsTutor = false;
       state.roomIsActive = false;
@@ -61,14 +67,19 @@ const mutations = {
       state.dialogRoomSettings = false;
       state.dialogEndSession = false;
       state.roomProps = null;
+      state.roomType = null;
+      state.roomName = null;
    },
    [studyRoom_SETTERS.DIALOG_USER_CONSENT]: (state, val) => state.dialogUserConsent = val,
    [studyRoom_SETTERS.DIALOG_SNAPSHOT]: (state, val) => state.dialogSnapshot = val,
 }
 const getters = {
-   getActiveNavIndicator: state => state.activeNavIndicator,
+   getActiveNavEditor: state => state.activeNavEditor,
    getRoomOnlineDocument: state => state.roomOnlineDocument,
    getRoomIsTutor: state => state.roomIsTutor,
+   getRoomName: state => state.roomName,
+   getRoomDate: state => state.roomDate,
+   getRoomIsBroadcast: state => state.roomType === 'Broadcast',
    getRoomIsActive: state => state.roomIsActive,
    getRoomTutor: state => state.roomTutor,
    getRoomIdSession: state => state.studyRoomId,
@@ -89,6 +100,20 @@ const getters = {
    getDialogSnapshot: state => state.dialogSnapshot,
 }
 const actions = {
+   updateFullScreen(context,elId){
+      let className = 'fullscreenMode';
+      if(elId){
+         let interval = setInterval(() => {
+            let vidEl = document.querySelector(`#${elId} video`);
+            if(vidEl){
+               vidEl.classList.add(className);
+               clearInterval(interval)
+            }
+         }, 50);
+      }else{
+         document.querySelector(`.${className}`).classList.remove(className);
+      }
+   },
    updateDialogSnapshot({ commit }, val) {
       commit(studyRoom_SETTERS.DIALOG_SNAPSHOT, val);
    },
@@ -98,8 +123,8 @@ const actions = {
    updateEndDialog({ commit }, val) {
       commit(studyRoom_SETTERS.DIALOG_END_SESSION, val);
    },
-   updateActiveNavTab({ commit }, val) {
-      commit(studyRoom_SETTERS.ACTIVE_NAV_TAB, val)
+   updateActiveNavEditor({ commit }, val) {
+      commit(studyRoom_SETTERS.ACTIVE_NAV_EDITOR, val)
    },
    updateDialogRoomSettings({ commit }, val) {
       commit(studyRoom_SETTERS.DIALOG_ROOM_SETTINGS, val)
@@ -120,7 +145,15 @@ const actions = {
          return dispatch('studyRoomMiddleWare')
       } else {
          return studyRoomService.getRoomInformation(roomId).then((roomProps) => {
-            commit(studyRoom_SETTERS.ROOM_PROPS, roomProps)
+            commit(studyRoom_SETTERS.ROOM_PROPS, roomProps);
+            if(getters.getRoomIsBroadcast && !getters.getRoomIsTutor){
+               let countDownDate = new Date(getters.getRoomDate).getTime();
+			      let now = new Date();
+               let distance = countDownDate - now;
+               if (distance > 0) {
+                  commit('setComponent', 'simpleToaster_countDown');
+               }
+            }
             if (roomProps.jwt){
                dispatch('updateJwtToken',roomProps.jwt);
             }
@@ -150,15 +183,13 @@ const actions = {
       commit(studyRoom_SETTERS.ROOM_ACTIVE, false);
       commit(studyRoom_SETTERS.ROOM_RESET)
    },
-   updateCreateStudyRoom({getters,commit},{users,roomName}){
-      let usersIds = users.map(user=> user.userId);
-      return studyRoomService.createRoom(roomName,usersIds).then(({data})=>{
-         usersIds.push(getters.accountUser.id)
+   updateCreateStudyRoom({getters,commit},params){
+      return studyRoomService.createRoom(params).then(({data})=>{
          let newStudyRoomParams = {
-            date: new Date().toISOString(),
+            date: params.date || new Date().toISOString(),
             id: data.studyRoomId,
-            name: roomName,
-            conversationId: usersIds.sort((a,b)=>a-b).join('_'),
+            name: params.name,
+            conversationId: data.identifier,
          }
          let myStudyRooms = getters.getStudyRoomItems;
          myStudyRooms.unshift(newStudyRoomParams);

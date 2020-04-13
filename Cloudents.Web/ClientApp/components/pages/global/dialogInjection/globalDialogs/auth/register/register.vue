@@ -38,13 +38,11 @@
                     :phone="phoneNumber"
                     :code="localCode"
                     :teacher="teacher"
-                    @goStep="goStep"
                     @updatePhone="updatePhone"
                     @updateCode="updateCode"
                 >
                 </component>
             </div>
-
 
             <div class="bottom">
 
@@ -143,10 +141,6 @@ export default {
     },
     props: {
         params: {},
-        teacher: {
-            type: Boolean,
-            default: false
-        }
     },
     data() {
         return {
@@ -154,15 +148,6 @@ export default {
             googleLoading: false,
             recaptcha: "",
             siteKey: '6LfyBqwUAAAAAM-inDEzhgI2Cjf2OKH0IZbWPbQA',
-            localCode: '',
-            phoneNumber: '',
-            errors: {
-                gmail: '',
-                phone: '',
-                code: '',
-                email: '',
-                password: '',
-            }
         }
     },
     computed: {
@@ -172,15 +157,16 @@ export default {
         isEmailRegister() {
             return this.component === 'emailRegister'
         },
-        isVerifyPhone() {
-            return this.component === 'verifyPhone'
-        },
+
         isFromTutorReuqest() {
             return this.$store.getters.getIsFromTutorStep
         }
     },
     methods: {
         closeRegister() {
+            if(this.$route.query.teacher) {
+                this.$router.push('/')
+            }
             this.$store.commit('setComponent', '')
             this.$store.commit('setRequestTutor')
         },
@@ -265,17 +251,14 @@ export default {
                     });
                     analyticsService.sb_unitedEvent('Registration', 'Phone Submitted');
                     self.component = 'verifyPhone'
-                    self.errors.phone = ''
                 }).catch(error => {
                     let { response: { data } } = error
                     
-                    // if(data.Phone) self.errors.phone = self.$t('loginRegister_invalid_phone_number')
-
-                    self.errors.phone = data["PhoneNumber"] ? data["PhoneNumber"][0] : '' // TODO:
+                    self.errors.phone = data && data["PhoneNumber"] ? data["PhoneNumber"][0] : '' // TODO:
                     self.$appInsights.trackException({exception: new Error(error)});
                 })
         },
-        verifyPhone(){
+          verifyPhone(){
             let childComp = this.$refs.childComponent
 
 			let self = this
@@ -293,12 +276,17 @@ export default {
 
                     // this is when user start register from tutorRequest
                     if(self.isFromTutorReuqest) {
-                        self.$store.dispatch('updateRequestDialog', true);
-                        self.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
                         dispatch('userStatus')
+                          let pathToRedirect = ['/','/learn','/register2'];
+                    if (pathToRedirect.indexOf(self.$route.path) > -1) {
+                        this.$router.push({name: this.routeNames.LoginRedirect})
                         return
                     }
-
+                        self.$store.dispatch('updateRequestDialog', true);
+                        self.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
+                        self.$store.dispatch('toggleProfileFollower', true)
+                        return
+                    }
 					dispatch('userStatus').then(user => {
                         // when user is register and pick teacher, redirect him to his profile page
                         if(self.teacher) {
@@ -312,7 +300,9 @@ export default {
                                     dialog: 'becomeTutor'
                                 }
                             })
+                            return
                         }
+                        self.$router.push({name: self.routeNames.LoginRedirect})
                     })
 				}).catch(error => {
                     self.errors.code = self.$t('loginRegister_invalid_code')

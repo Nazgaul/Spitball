@@ -4,7 +4,7 @@
       <v-icon class="mr-2" size="18" color="#fff" @click.stop="OriginalChatState" v-html="inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'" />
         <template v-if="state === 'messages'">
           <user-avatar :size="'32'" :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/> 
-          <div class="chat-header-name text-truncate pl-4">{{activeConversationObj.name}}</div>
+          <div class="chat-header-name text-truncate pl-4">{{chatTitle}}</div>
         </template>
         <template v-else>
             <span class="chat-header-text">{{getIsSignalRConnected ? headerTitle : errorTitle}}</span>
@@ -58,7 +58,7 @@ export default {
       "getIsSignalRConnected"
     ]),
     isLocked() {
-      return false;
+      return this.getIsChatLocked;
     },
     isMobile() {
       return this.$vuetify.breakpoint.smAndDown;
@@ -82,6 +82,13 @@ export default {
         }
       }
       return ''
+    },
+    chatTitle(){
+      if(this.$store.getters.getRoomIsBroadcast){
+        return this.$store.getters.getRoomName;
+      }else{
+        return this.getActiveConversationObj.name;
+      }
     },
     errorTitle() {
       return LanguageService.getValueByKey("chat_error_messages");

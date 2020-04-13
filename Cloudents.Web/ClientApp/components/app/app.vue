@@ -3,7 +3,7 @@
     <router-view name="banner"></router-view>
     <router-view name="header"></router-view>
     <router-view name="sideMenu" v-if="isDrawer"></router-view>
-    <v-content :class="['site-content',{'hidden-sideMenu': drawerPlaceholder}]">
+    <v-content :class="[{'site-content': $route.path !== '/'}, {'hidden-sideMenu': drawerPlaceholder}]">
         <chat v-if="visible"/>
         <router-view class="main-container"></router-view>
       
@@ -133,9 +133,7 @@ export default {
       // need to think of better way to check if placeholder
       let isRoutes = [
       'feed',
-      'document',
       'question',
-      'profile',
       'myFollowers',
       'mySales',
       'myContent',

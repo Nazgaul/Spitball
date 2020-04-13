@@ -18,6 +18,8 @@ export default {
 .profileItemsEmpty{
    width: 100%;
    border-radius: 8px;
+   max-width: 1006px;
+   margin: 0 auto;;
    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
    background-color: #ffffff;
    text-align: center;

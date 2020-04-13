@@ -2,6 +2,7 @@ import insightService from '../services/insightService';
 import * as routeNames from '../routes/routeNames.js';
 import {twilio_SETTERS} from '../store/constants/twilioConstants.js';
 import {studyRoom_SETTERS} from '../store/constants/studyRoomConstants.js';
+import STORE from '../store/index.js'
 //https://media.twiliocdn.com/sdk/js/video/releases/2.2.0/docs
 const REMOTE_TRACK_DOM_ELEMENT = 'remoteTrack';
 const LOCAL_TRACK_DOM_ELEMENT = 'localTrack';
@@ -9,9 +10,55 @@ const AUDIO_TRACK_NAME = 'audioTrack';
 const VIDEO_TRACK_NAME = 'videoTrack';
 const SCREEN_TRACK_NAME = 'screenTrack';
 
-function _detachTracks(tracks){
+function _initStudentJoined(localParticipant){
+   // update editor tab:
+   let editorTab = {
+      type: "updateActiveNav",
+      data: STORE.getters.getActiveNavEditor
+   };
+   STORE.dispatch('sendDataTrack',JSON.stringify(editorTab));
+
+   // update canvas tab:
+   let canvasTab = {
+      type: "updateTabById",
+      data:{
+         tab: STORE.getters.getCurrentSelectedTab,
+         canvas: STORE.getters.canvasDataStore
+      }
+   }
+   STORE.dispatch('sendDataTrack',JSON.stringify(canvasTab));
+
+   // share screen & video full screen:
+   Array.from(localParticipant.tracks.values()).forEach((track) => {
+         if(track.trackName === VIDEO_TRACK_NAME && STORE.getters.getIsFullScreen){
+            let shareVideoCamera = {
+               type: "openFullScreen",
+               data: `remoteTrack_${track.trackSid}`
+
+            };
+            STORE.dispatch('sendDataTrack',JSON.stringify(shareVideoCamera))
+         }
+         if(track.trackName === SCREEN_TRACK_NAME){
+            let shareScreen = {
+               type: "openFullScreen",
+               data: `remoteTrack_${track.trackSid}`
+            };
+            STORE.dispatch('sendDataTrack',JSON.stringify(shareScreen))
+         }
+   });
+   // room muted by tutor:
+   if(!STORE.getters.getIsAudioParticipants){
+      let normalizedData = {
+         type: "toggleParticipantsAudio",
+         data: STORE.getters.getIsAudioParticipants
+      };
+      STORE.dispatch('sendDataTrack',JSON.stringify(normalizedData))
+   }
+}
+function _detachTracks(tracks,store){
    tracks.forEach((track) => {
       if (track?.detach) {
+         store.commit(twilio_SETTERS.DELETE_REMOTE_VIDEO_TRACK,track)
          track.detach().forEach((detachedElement) => {
             detachedElement.remove();
          });
@@ -28,12 +75,14 @@ function _publishTrack(activeRoom,track){
 function _unPublishTrack(activeRoom,track){
    activeRoom.localParticipant.unpublishTrack(track);
 }
-function _toggleTrack(tracks,trackType){
+function _toggleTrack(tracks,trackType,value){
    let {track} = tracks.find(track=>track.kind === trackType);
    if(track){
-      if(track.isEnabled){
+      // value: FLASE - USER TURNED OFF / TRUE - USER TURNED ON
+      if(!value && track.isEnabled){
          track.disable()
-      }else{
+      }
+      if(value && !track.isEnabled){
          track.enable()
       }
    }
@@ -41,11 +90,10 @@ function _toggleTrack(tracks,trackType){
 function _twilioListeners(room,store) { 
    // romote participants
    room.participants.forEach((participant) => {
-      let previewContainer = document.getElementById(REMOTE_TRACK_DOM_ELEMENT);
       let tracks = Array.from(participant.tracks.values());
       tracks.forEach((track) => {
-         if (track.attach) {
-            previewContainer.appendChild(track.attach());
+         if(track.kind === 'video'){
+            store.commit(twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK,track)
          }
       });
    });
@@ -62,21 +110,27 @@ function _twilioListeners(room,store) {
    room.localParticipant.on('networkQualityLevelChanged', (networkQualityLevel,networkQualityStats) => {
       _insightEvent('networkQuality',networkQualityStats, networkQualityLevel)
    });
-   room.localParticipant.on('trackPublished',()=>{
+   room.localParticipant.on('trackPublished',(track)=>{
+      if(store.getters.getRoomIsTutor && track.trackName === SCREEN_TRACK_NAME){
+         let videoElementId = `remoteTrack_${track.trackSid}`
+         let transferDataObj = {
+            type: "openFullScreen",
+            data: videoElementId
+         };
+         let normalizedData = JSON.stringify(transferDataObj);
+         store.dispatch('sendDataTrack',normalizedData)
+      }
    })
 
 
    // room events
    room.on('trackSubscribed', (track) => {
       _insightEvent('TwilioTrackSubscribed', track, null);
-      _detachTracks([track])
+      _detachTracks([track],store)
    })
    room.on('trackUnsubscribed', (track) => {
-      if(track.kind === 'video'){
-         store.commit(twilio_SETTERS.FULL_SCREEN_AVAILABLE,false);
-     }
       _insightEvent('TwilioTrackUnsubscribed', track, null);
-      _detachTracks([track]);
+      _detachTracks([track],store);
    })
    room.on('participantReconnected', () => {
    })
@@ -89,16 +143,11 @@ function _twilioListeners(room,store) {
    room.on('trackRemoved',()=>{
    })
    room.on('trackStarted', (track) => {
-      let previewContainer = document.getElementById(REMOTE_TRACK_DOM_ELEMENT);
       if(track.kind === 'video'){
-         // let videoTag = previewContainer.querySelector("video");
-         // if (videoTag) {
-         //    previewContainer.removeChild(videoTag);
-         // }
-         previewContainer.appendChild(track.attach());
-         store.commit(twilio_SETTERS.FULL_SCREEN_AVAILABLE,true);
+         store.commit(twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK,track)
       }
       if(track.kind === 'audio'){   
+         let previewContainer = document.getElementById(REMOTE_TRACK_DOM_ELEMENT);
          track.detach().forEach((detachedElement) => {
             detachedElement.remove();
          });
@@ -133,6 +182,11 @@ function _twilioListeners(room,store) {
    room.on('participantConnected', (participant) => {
       if(store.getters.getRoomIsTutor){
          store.commit('setComponent', 'simpleToaster_userConnected');
+         participant.on('trackSubscribed',(track)=>{
+            if(track.kind === 'data'){
+               _initStudentJoined(room.localParticipant)
+            }
+         })
       }
       _insightEvent('TwilioParticipantConnected', participant, null);
    })
@@ -141,7 +195,7 @@ function _twilioListeners(room,store) {
          store.commit('setComponent', 'simpleToaster_userLeft');
       }
       _insightEvent('TwilioParticipantDisconnected', participant, null);
-      _detachTracks(Array.from(participant.tracks.values()))
+      _detachTracks(Array.from(participant.tracks.values()),store)
    })
    room.on('reconnecting', () => {
       _insightEvent('reconnecting', null, null);
@@ -152,7 +206,7 @@ function _twilioListeners(room,store) {
          console.error(`Twilio Error: Code: ${error.code}, Message: ${error.message}`)
       }
       dRoom.localParticipant.tracks.forEach(function (track) {
-         _detachTracks([track]);
+         _detachTracks([track],store);
       });
       if(!store.getters.getRoomIsTutor){
          store.commit(studyRoom_SETTERS.ROOM_ACTIVE,false)
@@ -229,12 +283,12 @@ export default () => {
             if (mutation.type === twilio_SETTERS.VIDEO_TOGGLE){
                let tracks = [];
                _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
-               _toggleTrack(tracks,'video');
+               _toggleTrack(tracks,'video',mutation.payload);
             }
             if (mutation.type === twilio_SETTERS.AUDIO_TOGGLE){
                let tracks = [];
                _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
-               _toggleTrack(tracks,'audio');
+               _toggleTrack(tracks,'audio',mutation.payload);
             }
             if (mutation.type === twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE){
                if(mutation.payload && !_localScreenTrack){ 
@@ -316,8 +370,25 @@ export default () => {
    
                   store.commit(twilio_SETTERS.VIDEO_AVAILABLE,false);
                   store.commit(twilio_SETTERS.AUDIO_AVAILABLE,false)
-                  store.commit(twilio_SETTERS.FULL_SCREEN_AVAILABLE,false);
                }
+            }
+            if (mutation.type === twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN){
+               let normalizedData = {
+                  type: "openFullScreen",
+               };
+               if(mutation.payload){
+                  let videoTrack = Array.from(_activeRoom.localParticipant.videoTracks.values())[0];
+                  let videoElementId = `remoteTrack_${videoTrack.trackSid}`
+                  normalizedData.data = videoElementId
+               }
+               store.dispatch('sendDataTrack',JSON.stringify(normalizedData))
+            }
+            if(mutation.type === twilio_SETTERS.TOGGLE_AUDIO_PARTICIPANTS){
+               let normalizedData = {
+                  type: "toggleParticipantsAudio",
+                  data: mutation.payload
+               };
+               store.dispatch('sendDataTrack',JSON.stringify(normalizedData))
             }
          }
       })

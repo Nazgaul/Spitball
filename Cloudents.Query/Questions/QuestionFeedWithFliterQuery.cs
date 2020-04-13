@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Questions
 {
-    public class QuestionFeedWithFliterQuery : IQuery<IEnumerable<QuestionFeedDto>>
+    public class QuestionFeedWithFilterQuery : IQuery<IEnumerable<QuestionFeedDto>>
     {
-        public QuestionFeedWithFliterQuery(int page, long userId, string country, string course, int pageSize)
+        public QuestionFeedWithFilterQuery(int page, long userId, string country, string course, int pageSize)
         {
             Page = page;
             UserId = userId;
@@ -25,14 +25,14 @@ namespace Cloudents.Query.Questions
         private string Country { get; }
 
         private string Course { get; }
-        public int PageSize { get; }
+        private int PageSize { get; }
 
-        internal sealed class DocumentFeedWithFliterQueryHandler : IQueryHandler<QuestionFeedWithFliterQuery, IEnumerable<QuestionFeedDto>>
+        internal sealed class DocumentFeedWithFilterQueryHandler : IQueryHandler<QuestionFeedWithFilterQuery, IEnumerable<QuestionFeedDto>>
         {
             private readonly IDapperRepository _dapperRepository;
             private readonly IJsonSerializer _jsonSerializer;
 
-            public DocumentFeedWithFliterQueryHandler(IDapperRepository dapperRepository, IJsonSerializer jsonSerializer)
+            public DocumentFeedWithFilterQueryHandler(IDapperRepository dapperRepository, IJsonSerializer jsonSerializer)
             {
                 _dapperRepository = dapperRepository;
                 _jsonSerializer = jsonSerializer;
@@ -40,7 +40,7 @@ namespace Cloudents.Query.Questions
 
             // If you chnage enything in the sql query tou need to take care to 
             // FeedAggregateQuery and DocumentFeedWithFilterQuery as well
-            public async Task<IEnumerable<QuestionFeedDto>> GetAsync(QuestionFeedWithFliterQuery query, CancellationToken token)
+            public async Task<IEnumerable<QuestionFeedDto>> GetAsync(QuestionFeedWithFilterQuery query, CancellationToken token)
             {
                 const string sqlWithCourse = @"with cte as (
 select top 1 * from(select 1 as o, u2.Id as UniversityId, COALESCE(u2.country, u.country) as Country, u.id as userid

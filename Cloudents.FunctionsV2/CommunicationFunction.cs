@@ -51,7 +51,7 @@ namespace Cloudents.FunctionsV2
                 log.LogError("error with parsing message");
                 return;
             }
-            
+
             await ProcessEmail(emailProvider, log, topicMessage, token);
 
             log.LogInformation("finish sending email");
@@ -144,14 +144,16 @@ namespace Cloudents.FunctionsV2
                 log.LogError("no phone number");
                 return;
             }
-            
+
             CultureInfo.DefaultThreadCurrentCulture = msg.CultureInfo;
             var smsMessage = string.Format(ResourceWrapper.GetString("sms_text"), msg.Message);
             //var phoneNumber = new PhoneNumber(msg.PhoneNumber);
-            
+
             if (msg.PhoneNumber.StartsWith("+972"))
             {
-                await smsProvider.SendSmsAsync(smsMessage, msg.Message, token);
+                log.LogInformation($"Receiving sms to: {msg.PhoneNumber}");
+                var result = await smsProvider.SendSmsAsync(smsMessage, msg.PhoneNumber, token);
+                log.LogInformation($"result is: {result}");
                 return;
             }
             var messageOptions = new CreateMessageOptions(new PhoneNumber(msg.PhoneNumber))

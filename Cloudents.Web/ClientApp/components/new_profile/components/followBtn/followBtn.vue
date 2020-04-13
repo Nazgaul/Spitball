@@ -1,6 +1,6 @@
 <template>
   <button :class="['followBtn',getProfile.user.isFollowing?'following':'follow']" @click="followToggler">
-    <followSVG v-if="!getProfile.user.isFollowing" class="mr-1" />
+    <followSVG width="20" v-if="!getProfile.user.isFollowing" class="mr-1" />
     <span v-language:inner="getProfile.user.isFollowing? 'profile_following' :'profile_follow'"/>
   </button>
 </template>
@@ -43,7 +43,7 @@ export default {
    max-height: 26px;
    display: inline-flex !important;
    outline: none;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -62,7 +62,7 @@ export default {
   }
   &.follow{
    color: #4c59ff;
-   border: solid 1px #4c59ff;
+  //  border: solid 1px #4c59ff;
   }
 }
 </style>

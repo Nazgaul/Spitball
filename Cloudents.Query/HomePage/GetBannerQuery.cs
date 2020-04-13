@@ -11,7 +11,7 @@ using NHibernate.Linq;
 
 namespace Cloudents.Query.HomePage
 {
-    public class GetBannerQuery : IQuery<BannerDto>
+    public class GetBannerQuery : IQuery<BannerDto?>
     {
         private CultureInfo Culture { get; }
         public GetBannerQuery(CultureInfo culture)
@@ -20,7 +20,7 @@ namespace Cloudents.Query.HomePage
         }
 
 
-        internal sealed class GetBannerQueryHandler : IQueryHandler<GetBannerQuery, BannerDto>
+        internal sealed class GetBannerQueryHandler : IQueryHandler<GetBannerQuery, BannerDto?>
         {
             private readonly IStatelessSession _session;
             private readonly ICacheProvider _cacheProvider;
@@ -30,12 +30,14 @@ namespace Cloudents.Query.HomePage
                 _cacheProvider = cacheProvider;
                 _session = session.StatelessSession;
             }
-            public async Task<BannerDto> GetAsync(GetBannerQuery query, CancellationToken token)
+            public async Task<BannerDto?> GetAsync(GetBannerQuery query, CancellationToken token)
             {
                 var v = _cacheProvider.Get(query.Culture.Name, "Banner");
                 if (v is null)
                 {
-                    var res = await _session.Query<BannerBar>().Where(w => w.ExpirationDate > DateTime.UtcNow)
+                    var res = await _session.Query<BannerBar>()
+                        .WithOptions(w => w.SetComment(nameof(BannerBar)))
+                        .Where(w => w.ExpirationDate > DateTime.UtcNow)
                         .Where(w => query.Culture.Equals(new CultureInfo("he")) ? w.HeTitle != null :
                             query.Culture.Equals(new CultureInfo("en-in")) ? w.EnInTitle != null : w.EnTitle != null
                         ).Select(s => new BannerDto()

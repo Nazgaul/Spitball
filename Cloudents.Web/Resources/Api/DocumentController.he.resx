@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="InSufficientFunds" xml:space="preserve">
-    <value>אין לך מספיק נקודות.</value>
+    <value>אין לך מספיק נקודות לביצוע רכישה זו</value>
   </data>
   <data name="SomeOnePurchased" xml:space="preserve">
     <value>מסמך נקנה. אי אפשר למחוק</value>
