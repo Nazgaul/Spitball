@@ -6,6 +6,7 @@
 export default {
     data() {
         return {
+            interVal:null,
             time:{
                 days:'00',
                 hours:'00',
@@ -47,8 +48,7 @@ export default {
             this.time.seconds = Math.floor((distance % (minute)) / second).toLocaleString('en-US', {minimumIntegerDigits: 2});
             if (distance < 0) {
                 clearInterval(this.interVal);
-                // this.isRoomActive = true;
-                this.$emit('updateRoomisActive', true)
+                this.$emit('updateCounterFinish', true)
             }
         }
     },
@@ -61,7 +61,7 @@ export default {
         if(this.$store.getters.getRoomIsBroadcast) {
             this.setParamsInterval();
         } else{
-            this.isRoomNow = true;
+            this.$emit('updateCounterFinish', true)
         }
     },
 }

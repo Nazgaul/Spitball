@@ -1,36 +1,23 @@
 <template>
     <div class="settingDetailsWrap ml-12">
         <div class="mb-12 settingDetails">
-            <div>
-                <span class="mr-2" v-t="'studyRoomSettings_room_name'"></span>
-                <span>{{roomName}}</span>
-            </div>
-            <div>
-                <span class="mr-2" v-t="'studyRoomSettings_tutor_name'"></span>
-                <span>{{roomTutor.tutorName}}</span>
-            </div>
-            <div>
-                <span class="mr-2" v-t="'studyRoomSettings_price'"></span>
-                <span>{{roomTutor.tutorPrice}}</span>
-            </div>
-            <div>
-                <span class="mr-2" v-t="'studyRoomSettings_schedule_date'"></span>
-                <span></span>
-            </div>
-            <div>
-                <span class="mr-2" v-t="'studyRoomSettings_room_link'"></span>
-                <span>{{roomLink}}</span>
+            <div class="mb-1" v-for="(item, index) in roomDetails" :key="index">
+                <span class="detailName mr-2" v-t="item.text"></span>
+                <span class="detailValue">{{item.value}}</span>
             </div>
         </div>
 
-        <div class="text-center">
-            <div class="mb-8" v-show="!isRoomActive">
-                <div v-t="'studyRoomSettings_clock_counter'"></div>
-                <sessionStartCounter @updateRoomisActive="val => isRoomActive = val" />
-            </div>
+        <div class="counterWrap text-center">
+            <template>
+                <div class="mb-8" v-if="!isRoomActive">
+                    <div v-t="'studyRoomSettings_clock_counter'"></div>
+                    <sessionStartCounter @updateCounterFinish="$emit('updateRoomIsActive', true)" />
+                </div>
+                <div class="mb-8" v-else v-t="'studyRoomSettings_ready'"></div>
+            </template>
             <v-btn 
                 class="joinNow white--text px-8"
-                @click="startSession"
+                @click="$store.dispatch('updateEnterRoom', id)"
                 :disabled="!isRoomActive"
                 height="50"
                 color="#5360FC"
@@ -51,20 +38,22 @@ export default {
         sessionStartCounter
     },
     props: {
-        id: {
-            type: String,
-        },
         isRoomActive: {
             type: Boolean,
             default: false,
             required: true
         }
     },
-    data() {
-        return {
-        }
-    }, 
     computed: {
+        roomDetails() {
+            return [
+                { text: 'studyRoomSettings_room_name', value: this.roomName },
+                { text: 'studyRoomSettings_tutor_name', value: this.roomTutor.tutorName },
+                { text: 'studyRoomSettings_price', value: this.roomTutor.tutorPrice },
+                { text: 'studyRoomSettings_schedule_date', value: '' },
+                { text: 'studyRoomSettings_room_link', value: this.roomLink },
+            ]
+        },
         roomName() {
             return this.$store.getters?.getRoomName
         },
@@ -72,13 +61,34 @@ export default {
             return this.$store.getters?.getRoomTutor
         },
         roomLink() {
-            return `${window.origin}/studyroom/${this.id}`
-        }
-    },
-    methods:{
-        startSession(){
-            this.$store.dispatch('updateEnterRoom',this.id)
+            // @idan - I think this better approach getting the room id with $route.params instead of passing props
+            // TODO: Make room link getter from store
+            return `${window.origin}/studyroom/${this.$route.params.id}`
         }
     }
 }
 </script>
+
+<style lang="less">
+@import '../../../../styles/mixin.less';
+
+.settingDetailsWrap {
+    max-width: 400px;
+    color: @global-purple;
+    .settingDetails {
+        .detailName {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .detailValue {
+        }
+    }
+
+    .counterWrap {
+        font-weight: 600;
+        .joinNow {
+            font-weight: 600;
+        }
+    }
+}
+</style>
