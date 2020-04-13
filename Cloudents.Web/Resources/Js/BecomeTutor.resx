@@ -170,7 +170,7 @@ must connect your Google Calendar</value>
     <value>Last Name</value>
   </data>
   <data name="placeholder_price" xml:space="preserve">
-    <value>Price per hour {0}  per student</value>
+    <value>Student's price per hour {0}</value>
   </data>
   <data name="sharing_step_2" xml:space="preserve">
     <value></value>
