@@ -1,7 +1,7 @@
 <template>
     <div class="studyRoom-audio-settings-container">
         <div class="studyRoom-audio-settings-microphone-container">
-            <h4 class="studyRoom-audio-settings-microphone-label" v-language:inner="'studyRoomSettings_audio_input'"></h4>
+            <!-- <h4 class="studyRoom-audio-settings-microphone-label" v-language:inner="'studyRoomSettings_audio_input'"></h4> -->
             <!-- <v-divider style="margin-bottom: 10px;"></v-divider> -->
             <div class="audioSelect">
                 <v-select 
@@ -27,8 +27,8 @@
             </div>
             
         </div>
-        <v-divider style="margin: 20px 0;"></v-divider>
-        <div class="studyRoom-audio-settings-speaker-container">
+        <!-- <v-divider style="margin: 20px 0;"></v-divider> -->
+        <!-- <div class="studyRoom-audio-settings-speaker-container">
             <h4 class="studyRoom-audio-settings-speaker-label" v-language:inner="'studyRoomSettings_audio_output'"></h4>
             
             <div class="audio-output-controls">
@@ -38,7 +38,7 @@
                     <img class="eq-image" src="../../../images/eq.gif" alt="">
                 </v-flex>
             </div>
-        </div>
+        </div> -->
         
     </div>
 </template>

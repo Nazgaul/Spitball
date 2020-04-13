@@ -1,27 +1,11 @@
 <template>
-    <v-snackbar
-        absolute
-        top
-        @input="onCloseToaster"
-        :timeout="3000000"
-        :value="true"
-    >
-        <span class="mr-2" v-t="'studyRoom_toaster_session_date'"></span>
-        <sessionStartCounter />
-    </v-snackbar>
+    <span>{{time.days}}:{{time.hours}}:{{time.minutes}}:{{time.seconds}}</span>
 </template>
 
-
 <script>
-import sessionStartCounter from '../../../studyroom/tutorHelpers/sessionStartCounter/sessionStartCounter.vue'
 export default {
-    name: '',
-    components: {
-        sessionStartCounter
-    },
     data() {
         return {
-            interVal:null,
             time:{
                 days:'00',
                 hours:'00',
@@ -30,9 +14,18 @@ export default {
             }
         }
     },
+    computed: {
+        sessionTime(){
+            let end = this.$store.getters.getSessionTimeEnd;
+            let start = this.$store.getters.getSessionTimeStart;
+            return this.getTimeFromMs(end - start);
+        },
+    },
     methods: {
-        onCloseToaster() {
-            this.$store.commit('clearComponent')
+        getTimeFromMs(mills){
+            let ms = 1000*Math.round(mills/1000); // round to nearest second
+            let d = new Date(ms);
+            return (`${d.getUTCHours()}:${d.getUTCMinutes()}:${d.getUTCSeconds()} `)
         },
         setParamsInterval(){
             this.interVal = setInterval(this.getNow, 1000);
@@ -47,7 +40,6 @@ export default {
             const minute = second * 60;
             const hour = minute * 60;
             const day = hour * 24;
-            
 
             this.time.days = Math.floor(distance / (day)).toLocaleString('en-US', {minimumIntegerDigits: 2});
             this.time.hours = Math.floor((distance % (day)) / (hour)).toLocaleString('en-US', {minimumIntegerDigits: 2});
@@ -55,12 +47,22 @@ export default {
             this.time.seconds = Math.floor((distance % (minute)) / second).toLocaleString('en-US', {minimumIntegerDigits: 2});
             if (distance < 0) {
                 clearInterval(this.interVal);
-                this.$store.commit('clearComponent')
+                // this.isRoomActive = true;
+                this.$emit('updateRoomisActive', true)
             }
         }
     },
+    beforeDestroy(){
+        this.isLoading = false;
+        // this.setSesionClickedOnce(false);
+        global.onbeforeunload = function() {}
+    },
     created() {
-        this.setParamsInterval();
+        if(this.$store.getters.getRoomIsBroadcast) {
+            this.setParamsInterval();
+        } else{
+            this.isRoomNow = true;
+        }
     },
 }
 </script>

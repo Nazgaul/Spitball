@@ -129,7 +129,8 @@
         </transition>
       </v-flex>
     <template>
-      <sb-dialog
+
+      <!-- <sb-dialog
         :showDialog="getDialogTutorStart"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'startSessionTutor'"
@@ -140,7 +141,7 @@
         :content-class="'session-start-tutor-dialog'"
       >
         <startSessionTutor :id="id"></startSessionTutor>
-      </sb-dialog>
+      </sb-dialog> -->
 
       <sb-dialog
         :showDialog="getReviewDialogState"
@@ -155,27 +156,6 @@
         <leave-review></leave-review>
       </sb-dialog>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       <sb-dialog
         :showDialog="isBrowserSupportDialog"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
@@ -188,14 +168,14 @@
           <browserSupport></browserSupport>
       </sb-dialog>
       <sb-dialog
-        :showDialog="getDialogRoomSettings"
+        :showDialog="getDialogTutorStart"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'tutor-settings'"
         :onclosefn="closeStudyRoomSettingsDialog"
         :activateOverlay="false"
         :content-class="'tutor-settings-dialog'"
       >
-        <studyRoomSettingsDialog></studyRoomSettingsDialog>
+        <studyRoomSettingsDialog :id="id"></studyRoomSettingsDialog>
       </sb-dialog>
       <!--show only if not avaliable devices dialog is closed by user-->
       <!-- <sb-dialog
@@ -237,7 +217,7 @@
         <startSessionStudent :id="id"></startSessionStudent>
       </sb-dialog>
 
-            <sb-dialog
+      <sb-dialog
         :showDialog="getShowAudioRecordingError"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'errorWithAudioRecording'"

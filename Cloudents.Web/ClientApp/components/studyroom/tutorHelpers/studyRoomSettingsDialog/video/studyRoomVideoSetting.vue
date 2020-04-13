@@ -22,27 +22,46 @@
         <v-flex class="mt-4 mb-4 studyRoom-video-settings-video-container">
 
             <div class="cameraListWrap text-center pt-3">
-                <v-select
-                    v-model="singleCameraId"
-                    v-if="camerasList.length"
-                    @change="createVideoQualityPreview()"
-                    :items="camerasList"
-                    :label="$t('studyRoomSettings_video_select_label')"
-                    :prepend-icon="''"
-                    :placeholder="$t('studyRoomSettings_camera_placeholder')"
-                    :append-icon="'sbf-arrow-down'"
-                    :menu-props="{contentClass:'select-direction'}"
-                    background-color="rgba(0,0,0,.7)"
-                    item-text="label"
-                    item-value="deviceId"
-                    solo
-                    dense
-                    rounded
-                    single-line
-                    hide-details
-                ></v-select>
+                <div class="" v-if="camerasList.length">
+                    <v-select
+                        v-model="singleCameraId"
+                        @change="createVideoQualityPreview()"
+                        :items="camerasList"
+                        :label="$t('studyRoomSettings_video_select_label')"
+                        :placeholder="$t('studyRoomSettings_camera_placeholder')"
+                        :append-icon="'sbf-arrow-down'"
+                        :menu-props="{contentClass:'select-direction'}"
+                        background-color="rgba(0,0,0,.7)"
+                        item-text="label"
+                        item-value="deviceId"
+                        solo
+                        dense
+                        rounded
+                        single-line
+                        hide-details
+                    >
+                        <template v-slot:prepend-inner>
+                            <videoCameraImage class="videoIcon" width="20" />
+                        </template>
+                    </v-select>
+                </div>
+                <div class="noCamera" v-t="'studyRoomSettings_no_camera'" v-else></div>
+            </div>
 
-                <div v-t="'studyRoomSettings_no_camera'" v-else></div>
+            <div class="bottomIcons d-flex align-end justify-space-between">
+                <microphoneImage width="14" />
+                <div class="centerIcons d-flex align-center">
+                    <v-btn class="mx-2" :class="{'noBorder': !microphoneOn}" fab :color="microphoneOn ? 'transparent' : 'red'" @click="toggleMic">
+                        <microphoneImage width="14" v-if="microphoneOn" />
+                        <microphoneImageIgnore width="18" v-else />
+                    </v-btn>
+                    <v-btn class="mx-2" :class="{'noBorder': !cameraOn}" fab :color="cameraOn ? 'transparent' : 'red'" @click="toggleCamera">
+                        <videoCameraImage class="videoIcon" width="22" v-if="cameraOn" />
+                        <videoCameraImageIgnore width="18" v-else />
+                    </v-btn>
+                </div>
+                <v-btn color="primary" small>sound test</v-btn>
+                <!-- <microphoneImage width="14" /> -->
             </div>
 
             <div id="local-video-test-track"></div>
@@ -54,14 +73,28 @@
 // import {LanguageService} from '../../../../../services/language/languageService';
 import { createLocalVideoTrack } from 'twilio-video';
 import insightService from '../../../../../services/insightService';
+import videoCameraImage from '../../../images/video-camera.svg';
+
+import microphoneImage from '../../../images/outline-mic-none-24-px-copy-2.svg'
+import microphoneImageIgnore from '../../../images/mic-ignore.svg';
+import videoCameraImageIgnore from '../../../images/camera-ignore.svg';
 
 export default {
+    components: {
+        videoCameraImage,
+        microphoneImage,
+        microphoneImageIgnore,
+        videoCameraImageIgnore,
+    },
     data(){
         return{
             camerasList:[],
             videoEl: null,
             localTrack: null,
             singleCameraId: global.localStorage.getItem('sb-videoTrackId'),
+            cameraOn: true,
+            microphoneOn: true
+            
             // placeCamera: LanguageService.getValueByKey("studyRoomSettings_camera_placeholder"),
             // text:{
             //     label: LanguageService.getValueByKey("studyRoomSettings_video_select_label"),
@@ -112,6 +145,12 @@ export default {
                     detachedElement.remove();
                 });
             }
+        },
+        toggleMic() {
+            this.microphoneOn = !this.microphoneOn
+        },
+        toggleCamera() {
+            this.cameraOn = !this.cameraOn
         }
     },
     created(){
@@ -125,8 +164,6 @@ export default {
 
 <style lang="less">
 .studyRoom-video-settings-container{
-    width: 600px;
-    // margin-top: 48px;
     .studyRoom-video-settings-title{
         display:flex;
         justify-content: space-between;
@@ -143,10 +180,10 @@ export default {
     }
     .studyRoom-video-settings-video-container{
         position: relative;
-        height: 368px;
+        border-radius: 6px;
         background-color: gray;
         .cameraListWrap {
-            margin: 0 110px;
+            margin: 0 220px;
             position: absolute;
             right: 0;
             left: 0;
@@ -161,10 +198,40 @@ export default {
             .sbf-arrow-down {
                 color: #fff
             }
+
+            .videoIcon {
+                fill: #fff;
+            }
+
+        }
+        .bottomIcons {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            left: 10px;
+            z-index: 2;
+            .videoIcon {
+                fill: #fff;
+            }
+
+            .centerIcons {
+
+                button {
+                    border: 1px solid #fff !important;
+                    &.noBorder {
+                        border: none !important;
+                    }
+                }
+            }
         }
         #local-video-test-track{
+            width: 740px;
+            height: 400px;
             video{
-                width:100%;
+                height: 100%;
+                width: 100%;
+                border-radius: 6px;
+                object-fit: fill;
             }
         }
     }
