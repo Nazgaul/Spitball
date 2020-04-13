@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Cloudents.Core.Entities
 {
-    public class Course2 : Entity<Guid>
+    public class Course2 : Entity<long>
     {
         public Course2(Country country, string field, string subject, string searchDisplay, string cardDispaly)
         {

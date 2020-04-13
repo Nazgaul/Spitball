@@ -30,7 +30,7 @@ namespace Cloudents.Persistence.Maps
     {
         public Course2Map()
         {
-            Id(x => x.Id).GeneratedBy.GuidComb();
+            Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "3", $"{nameof(HiLoGenerator.TableName)}='{nameof(Course2)}'");
             Map(x => x.Count).Not.Nullable();
             Map(x => x.Created).Insert().Not.Update();
             Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
