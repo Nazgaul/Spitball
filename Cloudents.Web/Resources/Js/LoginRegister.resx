@@ -298,7 +298,7 @@
     <comment>1</comment>
   </data>
   <data name="setphone_title" xml:space="preserve">
-    <value>Account recovery</value>
+    <value>Phone verification</value>
     <comment>1</comment>
   </data>
   <data name="smsconfirm_btn" xml:space="preserve">
@@ -379,7 +379,7 @@
     <value>Sign up to Spitball</value>
   </data>
   <data name="setphone_sub_title" xml:space="preserve">
-    <value>Account recovery</value>
+    <value>Phone verification</value>
   </data>
   <data name="or" xml:space="preserve">
     <value>Or</value>
