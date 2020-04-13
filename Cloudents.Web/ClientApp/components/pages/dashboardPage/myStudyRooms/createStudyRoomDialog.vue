@@ -67,30 +67,28 @@
                </v-menu>
 
                   <!-- TIME PICKER TEXT FIELD -->
-                  <v-combobox
+                  <v-select
                      v-model="hour"
                      class="roomType mx-5"
                      append-icon="sbf-menu-down"
                      :items="timeHoursList"
-                     readonly
                      :menu-props="{
                         maxHeight: 200
                      }"
                      :label="$t('dashboardPage_labe_hours')"
                      placeholder=" "
                      outlined
-                  ></v-combobox>
+                  ></v-select>
 
-                  <v-combobox
+                  <v-select
                      v-model="minutes"
                      class="roomType"
                      append-icon="sbf-menu-down"
-                     readonly
                      :items="timeMinutes"
                      :label="$t('dashboardPage_label_minutes')"
                      placeholder=" "
                      outlined
-                  ></v-combobox>
+                  ></v-select>
 
 
                <!-- TIME PICKER vuetify ui -->
