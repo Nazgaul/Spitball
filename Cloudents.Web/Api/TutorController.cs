@@ -359,7 +359,9 @@ namespace Cloudents.Web.Api
         {
             try
             {
-                var query = new CalendarEventsQuery(model.TutorId, model.From.GetValueOrDefault(DateTime.UtcNow), model.To.GetValueOrDefault(DateTime.UtcNow.AddMonths(1)));
+                var query = new CalendarEventsQuery(model.TutorId, 
+                    model.From.GetValueOrDefault(DateTime.UtcNow),
+                    model.To.GetValueOrDefault(DateTime.UtcNow.AddMonths(1)));
                 var res = await _queryBus.QueryAsync(query, token);
                 return res.BusySlot.ToList();
             }
@@ -375,7 +377,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> SetTutorCalendarAsync(
-            [FromBody]CalendarEventRequest model,
+            [FromBody]CalendarSetEvent model,
             CancellationToken token)
         {
             try
@@ -383,9 +385,8 @@ namespace Cloudents.Web.Api
                 var userId = _userManager.GetLongUserId(User);
 
                 Debug.Assert(model.From != null, "model.From != null");
-                Debug.Assert(model.To != null, "model.To != null");
 
-                var command = new AddTutorCalendarEventCommand(userId, model.TutorId, model.From.Value, model.To.Value);
+                var command = new AddTutorCalendarEventCommand(userId, model.TutorId, model.From.Value, model.From.Value.AddHours(1));
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
