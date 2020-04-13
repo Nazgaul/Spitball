@@ -9,6 +9,7 @@ const state = {
    isShareScreen: false,
    videoTracks: [],
    isFullScreen:false,
+   isAudioParticipants:true,
 }
 const mutations = {
    [twilio_SETTERS.JWT_TOKEN]: (state,token) => state.jwtToken = token,
@@ -42,6 +43,7 @@ const mutations = {
       }
    },
    [twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN]:(state,val)=> state.isFullScreen = val,
+   [twilio_SETTERS.TOGGLE_AUDIO_PARTICIPANTS]:(state,val)=> state.isAudioParticipants = val,
 }
 
 const getters = {
@@ -50,9 +52,12 @@ const getters = {
    getIsAudioActive: (state) => state.isAudioAvailable && state.isAudioActive,
    getIsShareScreen: (state) => state.isShareScreen,
    getVideoTrackList: (state) => state.videoTracks,
-   getIsFullScreen: (state) => state.isFullScreen
+   getIsAudioParticipants: (state) => state.isAudioParticipants,
 }
 const actions = {
+   updateToggleAudioParticipants({commit,state}){
+      commit(twilio_SETTERS.TOGGLE_AUDIO_PARTICIPANTS,!state.isAudioParticipants)
+   },
    updateToggleTutorFullScreen({commit},val){
       commit(twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN,val)
    },
@@ -84,6 +89,11 @@ const actions = {
    updateAudioToggle({commit,state}){
       if(state.isAudioAvailable){
          commit(twilio_SETTERS.AUDIO_TOGGLE,!state.isAudioActive);
+      }
+   },
+   updateAudioToggleByRemote({commit,state},val){
+      if(state.isAudioAvailable){
+         commit(twilio_SETTERS.AUDIO_TOGGLE,val);
       }
    },
 }
