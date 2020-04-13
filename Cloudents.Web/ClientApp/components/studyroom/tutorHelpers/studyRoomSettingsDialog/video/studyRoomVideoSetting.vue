@@ -1,10 +1,15 @@
 <template>
-    <div class="studyRoom-video-settings-container">
+    <div class="studyRoom-video-settings-container mr-12">
         <v-flex class="mt-4 mb-4 studyRoom-video-settings-video-container">
 
-            <!-- <div class="cameraListWrap text-center pt-3">
-                <div class="" v-if="camerasList.length">
-                    <v-select
+            <div class="cameraListWrap text-center pt-3">
+                <div class="d-flex justify-center cameraSelected" v-if="camerasList.length && singleCameraId">
+                    <videoCameraImage class="videoIcon mr-2" width="20" />
+                    <div class="text-truncate white--text">
+                        <span v-t="'studyRoomSettings_camera_connected'"></span>
+                        <span>{{singleCameraId}}</span>
+                    </div>
+                    <!-- <v-select
                         v-model="singleCameraId"
                         @change="createVideoQualityPreview()"
                         :items="camerasList"
@@ -22,64 +27,76 @@
                         hide-details
                     >
                         <template v-slot:prepend-inner>
-                            <videoCameraImage class="videoIcon" width="20" />
                         </template>
-                    </v-select>
+                    </v-select> -->
                 </div>
-                <div class="noCamera" v-t="'studyRoomSettings_no_camera'" v-else></div>
-            </div> -->
+                <div class="noCamera white--text" v-t="'studyRoomSettings_no_camera'" v-else></div>
+            </div>
 
             <div class="bottomIcons d-flex align-end justify-space-between">
                 <microphoneImage width="14" />
                 <div class="centerIcons d-flex align-center">
-                    <v-btn class="mx-2" :class="{'noBorder': !microphoneOn}" fab :color="microphoneOn ? 'transparent' : 'red'" @click="toggleMic">
+                    <v-btn 
+                        class="mx-2"
+                        :class="{'noBorder': !microphoneOn}"
+                        :color="microphoneOn ? 'transparent' : 'red'" @click="toggleMic"
+                        fab
+                    >
                         <microphoneImage width="14" v-if="microphoneOn" />
                         <microphoneImageIgnore width="18" v-else />
                     </v-btn>
-                    <v-btn class="mx-2" :class="{'noBorder': !cameraOn}" fab :color="cameraOn ? 'transparent' : 'red'" @click="toggleCamera">
-                        <videoCameraImage class="videoIcon" width="22" v-if="cameraOn" />
+                    <v-btn 
+                        class="mx-2"
+                        :class="{'noBorder': !cameraOn || !singleCameraId}"
+                        :color="cameraOn ? 'transparent' : 'red'" @click="toggleCamera"
+                        fab 
+                    >
+                        <videoCameraImage class="videoIcon" width="22" v-if="cameraOn && singleCameraId" />
                         <videoCameraImageIgnore width="18" v-else />
                     </v-btn>
                 </div>
-                <v-icon color="#fff" @click="openSettingDialog">sbf-settings</v-icon>
+                <v-icon color="#fff" @click="openSettingDialog" size="20">sbf-settings</v-icon>
             </div>
 
             <div id="local-video-test-track"></div>
         </v-flex>
+
+        <studyRoomAudioVideoDialog
+            v-if="settingDialogState"
+            @updateSettingDialogState="val => settingDialogState = val"
+        />
     </div>
 </template>
 
 <script>
-// import {LanguageService} from '../../../../../services/language/languageService';
 import { createLocalVideoTrack } from 'twilio-video';
+
 import insightService from '../../../../../services/insightService';
-import videoCameraImage from '../../../images/video-camera.svg';
+
+import studyRoomAudioVideoDialog from '../studyRoomAudioVideoDialog.vue'
 
 import microphoneImage from '../../../images/outline-mic-none-24-px-copy-2.svg'
 import microphoneImageIgnore from '../../../images/mic-ignore.svg';
+import videoCameraImage from '../../../images/video-camera.svg';
 import videoCameraImageIgnore from '../../../images/camera-ignore.svg';
 
 export default {
     components: {
         videoCameraImage,
+        videoCameraImageIgnore,
         microphoneImage,
         microphoneImageIgnore,
-        videoCameraImageIgnore,
+        studyRoomAudioVideoDialog
     },
     data(){
         return{
-            microphoneList: [],
-            camerasList:[],
             videoEl: null,
             localTrack: null,
-            singleCameraId: global.localStorage.getItem('sb-videoTrackId'),
             cameraOn: true,
-            microphoneOn: true
-            
-            // placeCamera: LanguageService.getValueByKey("studyRoomSettings_camera_placeholder"),
-            // text:{
-            //     label: LanguageService.getValueByKey("studyRoomSettings_video_select_label"),
-            // }
+            microphoneOn: true,
+            settingDialogState: false,
+            camerasList:[],
+            singleCameraId: global.localStorage.getItem('sb-videoTrackId')
         }
     },
     methods:{
@@ -134,7 +151,8 @@ export default {
             this.cameraOn = !this.cameraOn
         },
         openSettingDialog() {
-            this.$store.commit('setComponent', 'studyRoomSetting')
+            this.settingDialogState = true;
+            // this.$store.commit('setComponent', 'studyRoomSetting')
         }
     },
     created(){
@@ -167,29 +185,38 @@ export default {
         border-radius: 6px;
         background-color: #000;
         .cameraListWrap {
-            margin: 0 220px;
+            margin: 0 100px;
             position: absolute;
             right: 0;
             left: 0;
             z-index: 2;
-            .v-select__selections {
-                .v-select__selection--comma {
-                    color: #fff;
-                    font-size: 13px;
+
+            .cameraSelected {
+                background: rgba(0,0,0, .7);
+                padding: 8px 14px;
+                border-radius: 20px;
+                margin: 0 auto;
+                width: 100%;
+                max-width: max-content;
+                .v-select__selections {
+                    .v-select__selection--comma {
+                        color: #fff;
+                        font-size: 13px;
+                    }
                 }
-            }
-            .sbf-arrow-down {
-                color: #fff
-            }
-            .videoIcon {
-                fill: #fff;
+                .sbf-arrow-down {
+                    color: #fff
+                }
+                .videoIcon {
+                    fill: #fff;
+                }
             }
         }
         .bottomIcons {
             position: absolute;
-            bottom: 10px;
-            right: 10px;
-            left: 10px;
+            bottom: 14px;
+            right: 14px;
+            left: 14px;
             z-index: 2;
             .videoIcon {
                 fill: #fff;
