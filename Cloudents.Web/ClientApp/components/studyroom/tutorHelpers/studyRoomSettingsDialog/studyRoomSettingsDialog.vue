@@ -1,48 +1,49 @@
 <template>
     <div class="study-room-settings-wrapper">
-        <button @click="closeDialog" class="close-button"><v-icon size="14">sbf-close</v-icon></button>
+        <button @click="closeDialog" class="close-button">
+            <v-icon size="14">sbf-close</v-icon>
+        </button>
         <appLogo class="pa-4" />
         <div class="study-room-settings-top">
 
             <v-container class="study-room-settings-body d-flex align-center justify-center">
 
-                    <div class="mr-12">
-                        <studyRoomVideoSetting />
-                        <studyRoomAudioSetting />
-                    </div>
-                    
-                    <div class="settingDetailsWrap ml-12">
-                        <div class="mb-12 settingDetails">
-                            <div>
-                              <span class="mr-2" v-t="'studyRoomSettings_room_name'"></span>
-                              <span>{{roomName}}</span>
-                            </div>
-                            <div>
-                              <span class="mr-2" v-t="'studyRoomSettings_tutor_name'"></span>
-                              <span>{{roomTutor.tutorName}}</span>
-                            </div>
-                            <div>
-                              <span class="mr-2" v-t="'studyRoomSettings_price'"></span>
-                              <span>{{roomTutor.tutorPrice}}</span>
-                            </div>
-                            <div>
-                              <span class="mr-2" v-t="'studyRoomSettings_schedule_date'"></span>
-                              <span></span>
-                            </div>
-                            <div>
-                              <span class="mr-2" v-t="'studyRoomSettings_room_link'"></span>
-                              <span>{{roomLink}}</span>
-                            </div>
+                <div class="mr-12">
+                    <studyRoomVideoSetting />
+                </div>
+                
+                <div class="settingDetailsWrap ml-12">
+                    <div class="mb-12 settingDetails">
+                        <div>
+                          <span class="mr-2" v-t="'studyRoomSettings_room_name'"></span>
+                          <span>{{roomName}}</span>
                         </div>
-
-                      <div class="text-center">
-                          <div class="mb-8" v-show="!isRoomActive">
-                            <div v-t="'studyRoomSettings_clock_counter'"></div>
-                            <sessionStartCounter @updateRoomisActive="val => isRoomActive = val" />
-                          </div>
-                          <v-btn class="joinNow white--text px-8" @click="startSession" :disabled="!isRoomActive" height="50" color="#5360FC" rounded depressed>{{$t('studyRoomSettings_join_now')}}</v-btn>
-                      </div>
+                        <div>
+                          <span class="mr-2" v-t="'studyRoomSettings_tutor_name'"></span>
+                          <span>{{roomTutor.tutorName}}</span>
+                        </div>
+                        <div>
+                          <span class="mr-2" v-t="'studyRoomSettings_price'"></span>
+                          <span>{{roomTutor.tutorPrice}}</span>
+                        </div>
+                        <div>
+                          <span class="mr-2" v-t="'studyRoomSettings_schedule_date'"></span>
+                          <span></span>
+                        </div>
+                        <div>
+                          <span class="mr-2" v-t="'studyRoomSettings_room_link'"></span>
+                          <span>{{roomLink}}</span>
+                        </div>
                     </div>
+
+                  <div class="text-center">
+                      <div class="mb-8" v-show="!isRoomActive">
+                        <div v-t="'studyRoomSettings_clock_counter'"></div>
+                        <sessionStartCounter @updateRoomisActive="val => isRoomActive = val" />
+                      </div>
+                      <v-btn class="joinNow white--text px-8" @click="startSession" :disabled="!isRoomActive" height="50" color="#5360FC" rounded depressed>{{$t('studyRoomSettings_join_now')}}</v-btn>
+                  </div>
+                </div>
             </v-container>
 
         </div>
@@ -130,7 +131,7 @@ export default {
         outline:none;
     }
     .study-room-settings-top {
-      display: flex;
+      // display: flex;
       height: 100%;
       // .study-room-settings-nav {
       //   .study_room_toolBar{

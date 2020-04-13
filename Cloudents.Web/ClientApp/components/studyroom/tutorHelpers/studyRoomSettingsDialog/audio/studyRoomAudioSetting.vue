@@ -1,32 +1,35 @@
 <template>
     <div class="studyRoom-audio-settings-container">
-        <div class="studyRoom-audio-settings-microphone-container">
+        <!-- <div class="studyRoom-audio-settings-microphone-container"> -->
             <!-- <h4 class="studyRoom-audio-settings-microphone-label" v-language:inner="'studyRoomSettings_audio_input'"></h4> -->
             <!-- <v-divider style="margin-bottom: 10px;"></v-divider> -->
-            <div class="audioSelect">
+            <div class="audioSelect cameraListWrap">
                 <v-select 
-                class="minimum-width"
-                :menu-props="{contentClass:'select-direction'}"
-                v-model="singleMicrophoneId"
-                :items="microphoneList"
-                item-value="deviceId"
-                item-text="label"
-                :label="text.label"
-                hide-details
-                :prepend-icon="''"
-                @change="validateMicrophone()"
-                :placeholder="micPlaceholder"
-                :append-icon="'sbf-arrow-down'"
-                solo
-                single-line
-                ></v-select>
-                <v-layout class="indicator-audio-meter" style="">
+                    v-model="singleMicrophoneId"
+                    @change="validateMicrophone()"
+                    :items="microphoneList"
+                    class="minimum-width"
+                    :label="$t('studyRoomSettings_audio_select_label')"
+                    :placeholder="$t('studyRoomSettings_mic_placeholder')"
+                    item-value="deviceId"
+                    item-text="label"
+                    background-color="rgba(0,0,0,.7)"
+                    :menu-props="{contentClass:'select-direction'}"
+                    :prepend-icon="''"
+                    :append-icon="'sbf-arrow-down'"
+                    hide-details
+                    dense
+                    rounded
+                    solo
+                    single-line
+                ></v-select>                      
+                <!-- <v-layout class="indicator-audio-meter" style="">
                     <div style="margin: 0 15px 0 0" v-language:inner='"studyRoomSettings_audio_indicator"'></div>
                     <div id="audio-input-meter"></div>
-                </v-layout>
+                </v-layout> -->
             </div>
             
-        </div>
+        <!-- </div> -->
         <!-- <v-divider style="margin: 20px 0;"></v-divider> -->
         <!-- <div class="studyRoom-audio-settings-speaker-container">
             <h4 class="studyRoom-audio-settings-speaker-label" v-language:inner="'studyRoomSettings_audio_output'"></h4>
@@ -45,19 +48,15 @@
 
 <script>
 import studyRoomAudioSettingService from './studyRoomAudioSettingService';
-import { LanguageService } from "../../../../../services/language/languageService";
+// import { LanguageService } from "../../../../../services/language/languageService";
 export default {
     data(){
         return{
             microphoneList: [],
             singleMicrophoneId: global.localStorage.getItem('sb-audioTrackId'),
-            micPlaceholder: LanguageService.getValueByKey("studyRoomSettings_mic_placeholder"),
             soundUrl: `https://zboxstorage.blob.core.windows.net/zboxhelp/new/music-check.mp3`,
             audio: null,
             isPlaying: false,
-            text:{
-                lable: LanguageService.getValueByKey('studyRoomSettings_audio_select_label')
-            }
         }
     },
     methods: {

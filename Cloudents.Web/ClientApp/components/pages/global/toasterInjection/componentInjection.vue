@@ -95,6 +95,9 @@ export default {
                         component: 'registerType'
                     }
                 },
+                studyRoomSetting: {
+                    name: 'studyRoomSetting',
+                }
             }
         }
     },

@@ -1,27 +1,8 @@
 <template>
     <div class="studyRoom-video-settings-container">
-        <!-- <div class="studyRoom-video-settings-title"> -->
-            <!-- <h4 class="studyRoom-video-settings-label" v-language:inner='"studyRoomSettings_camera_label"'></h4> -->
-            <!-- <v-select
-                :menu-props="{contentClass:'select-direction'}"
-                v-model="singleCameraId"
-                :items="camerasList"
-                item-value="deviceId"
-                item-text="label"
-                :label="text.label"
-                hide-details
-                :prepend-icon="''"
-                @change="createVideoQualityPreview()"
-                :placeholder="placeCamera"
-                :append-icon="'sbf-arrow-down'"
-                solo
-                single-line
-                ></v-select> -->
-        <!-- </div> -->
-        
         <v-flex class="mt-4 mb-4 studyRoom-video-settings-video-container">
 
-            <div class="cameraListWrap text-center pt-3">
+            <!-- <div class="cameraListWrap text-center pt-3">
                 <div class="" v-if="camerasList.length">
                     <v-select
                         v-model="singleCameraId"
@@ -46,7 +27,7 @@
                     </v-select>
                 </div>
                 <div class="noCamera" v-t="'studyRoomSettings_no_camera'" v-else></div>
-            </div>
+            </div> -->
 
             <div class="bottomIcons d-flex align-end justify-space-between">
                 <microphoneImage width="14" />
@@ -60,8 +41,7 @@
                         <videoCameraImageIgnore width="18" v-else />
                     </v-btn>
                 </div>
-                <v-btn color="primary" small>sound test</v-btn>
-                <!-- <microphoneImage width="14" /> -->
+                <v-icon color="#fff" @click="openSettingDialog">sbf-settings</v-icon>
             </div>
 
             <div id="local-video-test-track"></div>
@@ -88,6 +68,7 @@ export default {
     },
     data(){
         return{
+            microphoneList: [],
             camerasList:[],
             videoEl: null,
             localTrack: null,
@@ -151,6 +132,9 @@ export default {
         },
         toggleCamera() {
             this.cameraOn = !this.cameraOn
+        },
+        openSettingDialog() {
+            this.$store.commit('setComponent', 'studyRoomSetting')
         }
     },
     created(){
@@ -181,14 +165,13 @@ export default {
     .studyRoom-video-settings-video-container{
         position: relative;
         border-radius: 6px;
-        background-color: gray;
+        background-color: #000;
         .cameraListWrap {
             margin: 0 220px;
             position: absolute;
             right: 0;
             left: 0;
             z-index: 2;
-
             .v-select__selections {
                 .v-select__selection--comma {
                     color: #fff;
@@ -198,11 +181,9 @@ export default {
             .sbf-arrow-down {
                 color: #fff
             }
-
             .videoIcon {
                 fill: #fff;
             }
-
         }
         .bottomIcons {
             position: absolute;
@@ -213,9 +194,7 @@ export default {
             .videoIcon {
                 fill: #fff;
             }
-
             .centerIcons {
-
                 button {
                     border: 1px solid #fff !important;
                     &.noBorder {
@@ -228,10 +207,14 @@ export default {
             width: 740px;
             height: 400px;
             video{
+                // width: 100%;
+                // border-radius: 6px;
                 height: 100%;
-                width: 100%;
-                border-radius: 6px;
+                width: 70%;
                 object-fit: fill;
+                margin: 0 auto;
+                text-align: center;
+                display: block;
             }
         }
     }
