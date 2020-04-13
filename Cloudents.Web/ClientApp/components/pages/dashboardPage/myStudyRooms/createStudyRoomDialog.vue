@@ -9,15 +9,16 @@
                v-model="price" type="number"
                :label="$t('becomeTutor_placeholder_price', {'0' : getSymbol})" :placeholder="$t('becomeTutor_placeholder_price', {'0' : getSymbol})">
             </v-text-field>
-            <v-combobox
+            <v-select
                v-model="studyRoomType"
                class="roomType"
                append-icon="sbf-menu-down"
                :items="items"
                :label="$t('dashboardPage_placeholder_studyRoom_type')"
+               return-object
                height="44"
                outlined
-            ></v-combobox>
+            ></v-select>
          </v-form>
 
          <div class="createStudyRoomDialog-list">
@@ -71,6 +72,7 @@
                      class="roomType mx-5"
                      append-icon="sbf-menu-down"
                      :items="timeHoursList"
+                     readonly
                      :menu-props="{
                         maxHeight: 200
                      }"
@@ -83,6 +85,7 @@
                      v-model="minutes"
                      class="roomType"
                      append-icon="sbf-menu-down"
+                     readonly
                      :items="timeMinutes"
                      :label="$t('dashboardPage_label_minutes')"
                      placeholder=" "
