@@ -28,7 +28,7 @@
          <v-tooltip top>
             <template v-slot:activator="{ on }">
                <button sel="audio_enabling" v-on="on" :class="['mic-image-btn', localAudioTrack && activeRoom ? 'dynamicBackground-dark': 'dynamicBackground-light', !isAudioActive ? 'micIgnore':'']" @click="toggleAudio">   
-                     <microphoneImage v-if="isAudioActive" class="mic-image-svg" />
+                     <microphoneImage v-if="isAudioActive" width="12" class="mic-image-svg" />
                      <microphoneImageIgnore v-if="!isAudioActive" class="mic-ignore" />           
                </button>
             </template>
@@ -44,7 +44,7 @@
                         !isVideoActive ? 'camIgnore':''
                   ]" 
                   @click="toggleVideo">              
-                        <videoCameraImage v-if="isVideoActive" class="video-image-svg"/>
+                        <videoCameraImage v-if="isVideoActive" width="22" class="video-image-svg"/>
                         <videoCameraImageIgnore v-else class="cam-ignore"/>
                   </button>
                </template>
