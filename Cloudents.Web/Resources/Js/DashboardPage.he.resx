@@ -144,6 +144,9 @@
   <data name="create_room_label" xml:space="preserve">
     <value>שם חדר הלימוד</value>
   </data>
+  <data name="create_room_label_broadcast" xml:space="preserve">
+    <value>שם החדר</value>
+  </data>
   <data name="create_room_max_error" xml:space="preserve">
     <value>מקסימום 4 סטודנטים בחדר לימוד</value>
   </data>

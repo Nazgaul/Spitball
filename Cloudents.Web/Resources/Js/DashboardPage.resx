@@ -144,6 +144,9 @@
   <data name="create_room_label" xml:space="preserve">
     <value>Study room's name</value>
   </data>
+  <data name="create_room_label_broadcast" xml:space="preserve">
+    <value>Room's name</value>
+  </data>
   <data name="create_room_max_error" xml:space="preserve">
     <value>Maximum 4 students on a study room</value>
   </data>
