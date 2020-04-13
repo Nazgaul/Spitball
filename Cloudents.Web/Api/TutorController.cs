@@ -386,7 +386,7 @@ namespace Cloudents.Web.Api
 
                 Debug.Assert(model.From != null, "model.From != null");
 
-                var command = new AddTutorCalendarEventCommand(userId, model.TutorId, model.From.Value, model.From.Value.AddDays(1));
+                var command = new AddTutorCalendarEventCommand(userId, model.TutorId, model.From.Value, model.From.Value.AddHours(1));
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
