@@ -151,10 +151,10 @@
     <value>מקסימום 4 סטודנטים בחדר לימוד</value>
   </data>
   <data name="create_room_placeholder" xml:space="preserve">
-    <value>הכנס שם</value>
+    <value>שם</value>
   </data>
   <data name="create_room_title" xml:space="preserve">
-    <value>בחירת סטודנט/ית</value>
+    <value>יצירת חדר לימוד חדש</value>
   </data>
   <data name="date" xml:space="preserve">
     <value>תאריך</value>

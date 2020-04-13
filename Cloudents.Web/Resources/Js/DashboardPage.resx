@@ -151,10 +151,10 @@
     <value>Maximum 4 students on a study room</value>
   </data>
   <data name="create_room_placeholder" xml:space="preserve">
-    <value>Enter a name</value>
+    <value>Name</value>
   </data>
   <data name="create_room_title" xml:space="preserve">
-    <value>Choose a student</value>
+    <value>Create a new study room</value>
   </data>
   <data name="date" xml:space="preserve">
     <value>Date</value>

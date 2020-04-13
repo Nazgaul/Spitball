@@ -9,15 +9,16 @@
                v-model="price" type="number"
                :label="$t('becomeTutor_placeholder_price', {'0' : getSymbol})" :placeholder="$t('becomeTutor_placeholder_price', {'0' : getSymbol})">
             </v-text-field>
-            <v-combobox
+            <v-select
                v-model="studyRoomType"
                class="roomType"
                append-icon="sbf-menu-down"
                :items="items"
                :label="$t('dashboardPage_placeholder_studyRoom_type')"
+               return-object
                height="44"
                outlined
-            ></v-combobox>
+            ></v-select>
          </v-form>
 
          <div class="createStudyRoomDialog-list">
@@ -66,7 +67,7 @@
                </v-menu>
 
                   <!-- TIME PICKER TEXT FIELD -->
-                  <v-combobox
+                  <v-select
                      v-model="hour"
                      class="roomType mx-5"
                      append-icon="sbf-menu-down"
@@ -77,9 +78,9 @@
                      :label="$t('dashboardPage_labe_hours')"
                      placeholder=" "
                      outlined
-                  ></v-combobox>
+                  ></v-select>
 
-                  <v-combobox
+                  <v-select
                      v-model="minutes"
                      class="roomType"
                      append-icon="sbf-menu-down"
@@ -87,7 +88,7 @@
                      :label="$t('dashboardPage_label_minutes')"
                      placeholder=" "
                      outlined
-                  ></v-combobox>
+                  ></v-select>
 
 
                <!-- TIME PICKER vuetify ui -->
