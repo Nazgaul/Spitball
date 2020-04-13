@@ -4,22 +4,25 @@
 
 <script>
 
+const auth = () => import('../../global/dialogInjection/globalDialogs/auth/auth.vue')
+
 const simpleToaster = () => import('./simpleToaster.vue');
 const simpleToasterCountDown = () => import('./simpleToasterCountDown.vue');
 const simpleErrorToaster = () => import('./simpleErrorToaster.vue')
 const pendingPayment = () => import('./pendingPayment.vue')
 const errorLinkToaster = () => import('./errorLinkToaster.vue')
 
-const auth = () => import('../../global/dialogInjection/globalDialogs/auth/auth.vue')
+const studRoomSettings = () => import('../../../studyroom/tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue')
 
 export default {
     components: {
+        auth,
         simpleToaster,
         simpleErrorToaster,
+        simpleToasterCountDown,
         pendingPayment,
         errorLinkToaster,
-        auth,
-        simpleToasterCountDown
+        studRoomSettings,
     },
     data() {
         return {
@@ -95,8 +98,8 @@ export default {
                         component: 'registerType'
                     }
                 },
-                studyRoomSetting: {
-                    name: 'studyRoomSetting',
+                studyRoomSettings: {
+                    name: 'studRoomSettings',
                 }
             }
         }

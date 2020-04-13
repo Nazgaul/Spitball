@@ -167,7 +167,7 @@
       >
           <browserSupport></browserSupport>
       </sb-dialog>
-      <sb-dialog
+      <!-- <sb-dialog
         :showDialog="getDialogTutorStart"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'tutor-settings'"
@@ -176,7 +176,7 @@
         :content-class="'tutor-settings-dialog'"
       >
         <studyRoomSettingsDialog :id="id"></studyRoomSettingsDialog>
-      </sb-dialog>
+      </sb-dialog> -->
       <!--show only if not avaliable devices dialog is closed by user-->
       <!-- <sb-dialog
         :showDialog=" && !getDialogRoomSettings"
@@ -339,10 +339,6 @@ export default {
   data() {
     return {
       isBrowserSupportDialog:false,
-
-
-
-
       navs: [
         {
           name: this.$t("tutor_nav_canvas"),
@@ -404,17 +400,6 @@ export default {
     isRoomActive(){
       return this.$store.getters.getRoomIsActive;
     },
-
-
-
-
-
-
-
-
-
-
-
     activeItem() {
       return this.$store.getters.getActiveNavEditor;
     },
@@ -443,6 +428,11 @@ export default {
   },
 
 watch: {
+  "$store.getters.getDialogTutorStart"(val) {
+    if(val) {
+      this.$store.commit('setComponent', 'studyRoomSettings')
+    }
+  },
   getRoomIsNeedPayment:{
     immediate:true,
     handler(newVal){
@@ -619,11 +609,7 @@ watch: {
     this.$store.dispatch('updateResetRoom');
     this.updateLockChat(false);
 
-
-
-
-    this.stopTracks();
-    
+    this.stopTracks();    
 
     this.updateStudentStartDialog(false);
     storeService.unregisterModule(this.$store,'tutoringCanvas');
@@ -634,7 +620,6 @@ watch: {
     if(this.id){
       CloseConnection(`studyRoomHub?studyRoomId=${this.id}`);
     }
-
   },
   beforeCreate(){
     storeService.registerModule(this.$store,'studyRoomTracks_store',studyRoomTracks_store);
