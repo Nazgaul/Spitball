@@ -1,65 +1,103 @@
 <template>
-    <div class="itemPage" :class="{'itemPage--noTutor': !docTutor.isTutor}">
-        <div class="itemPage__main">
+    <div class="itemPage mt-sm-6 mt-2">
+
+        <div class="itemPage__main mb-2 mb-sm-6">
+            <div class="d-flex pa-2 pa-sm-0 justify-sm-space-between documentTitle">
+                <v-icon
+                    size="16"
+                    class="hidden-md-and-up pr-4 document-header-large-sagment--arrow" 
+                    @click="closeDocument" 
+                    v-html="'sbf-arrow-left-carousel'">
+                </v-icon>
+                <h1 class="pl-sm-4 text-center text-sm-left text-truncate">{{getDocumentName}}</h1>
+                <shareContent
+                    v-if="getDocumentDetails && !isMobile"
+                    :link="shareContentParams.link"
+                    :twitter="shareContentParams.twitter"
+                    :whatsApp="shareContentParams.whatsApp"
+                    :email="shareContentParams.email"
+                />
+            </div>
+
             <div class="itemPage__main__document">
+                <mainItem :isLoad="isLoad" :document="document"></mainItem>
+
+                <v-card class="itemActions pt-sm-11 pt-4 px-4 elevation-0">
+                    <div class="wrapper d-block d-sm-flex justify-sm-end text-center pb-4">
+                        <template v-if="getDocumentPrice && !getIsPurchased">
+                            <div class="d-flex align-end mr-4 justify-center mb-2 mb-sm-0">
+                                <div class="mr-1 price">{{priceWithComma}}</div>
+                                <span class="points" v-t="'documentPage_points'"></span>
+                            </div>
+                            <!-- <div v-t="'documentPage_credit_uploader'"></div> -->
+                        </template>
+                        <v-btn 
+                            class="itemPage__side__btn white--text"
+                            depressed
+                            rounded
+                            large
+                            :loading="getBtnLoading"
+                            @click="openPurchaseDialog"
+                            v-if="!getIsPurchased"
+                            height="42"
+                            width="215"
+                            color="#4c59ff">
+                                <span v-if="isVideo" v-t="'documentPage_unlock_video_btn'"></span>
+                                <span v-else v-t="'documentPage_unlock_document_btn'"></span>
+                        </v-btn>
+                        <v-btn
+                            v-if="!isVideo && getIsPurchased"
+                            large
+                            tag="a"
+                            :href="`${$route.path}/download`"
+                            target="_blank"
+                            :loading="getBtnLoading"
+                            class="itemPage__side__btn white--text"
+                            width="215"
+                            height="42"
+                            depressed
+                            rounded
+                            @click="downloadDoc" color="#4c59ff"
+                        >
+                            <span v-t="'documentPage_download_btn'"></span>
+                        </v-btn>
+                    </div>
+                </v-card>
+
                 <resultNote v-if="doucmentDetails.feedItem" class="itemPage__main__document__doc" :item="doucmentDetails.feedItem" :fromItemPage="true">
-                    <template #arrowBack>
-                        <!--TODO not good-->
+                    <!-- <template #arrowBack> -->
                         <v-icon
                             class="hidden-md-and-up document-header-large-sagment--arrow" 
                             @click="closeDocument" 
                             v-html="'sbf-arrow-left-carousel'">
                         </v-icon>
-                    </template>
-
-                    <template #isTutor v-if="docTutor.isTutor">
-                        <div class="itemPage__main__document__tutor mt-4">
-                            <div
-                                class="mr-3 itemPage__main__document__tutor__link"
-                            >
-                                <div class="itemPage__main__document__tutor__link--title1" v-language:inner="'documentPage_need_help1'" @click="moveDownToTutorItem"></div>
-                                <div class="itemPage__main__document__tutor__link--title2" v-html="$Ph('documentPage_need_help2', firstName)"></div>
-                            </div>
-                            <v-btn v-if="!isMyProfile" class="itemPage__main__document__tutor--btn ma-0" depressed rounded @click="sendMessage">
-                                <div v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
-                            </v-btn>
-                        </div>
+                    <!-- </template> -->
+                    <template #descriptionTitle v-if="doucmentDetails.snippet">
+                        <div class="mt-5 descriptionTitle" v-t="'documentPage_description'"></div>
                     </template>
                 </resultNote>
+
                 <template v-else>
-                    <v-sheet
-                        color="#fff"
-                        class="pb-2 skeletonWarp"
-                    >
-                        <v-skeleton-loader
-                            max-width="250"
-                            type="list-item-avatar-two-line"
-                        >
-                        </v-skeleton-loader>
-                        <v-skeleton-loader
-                            max-width="500"
-                            type="list-item-three-line, list-item"
-                        >
-                        </v-skeleton-loader>
+                    <v-sheet color="#fff" class="pb-2 skeletonWarp">
+                        <v-skeleton-loader max-width="250" type="list-item-avatar-two-line"></v-skeleton-loader>
+                        <v-skeleton-loader max-width="500" type="list-item-three-line, list-item"></v-skeleton-loader>
                     </v-sheet>
                 </template>
-            <template v-if="$vuetify.breakpoint.mdAndDown && getDocumentDetails">    
-                <shareContent :link="shareContentParams.link"
-              :twitter="shareContentParams.twitter"
-              :whatsApp="shareContentParams.whatsApp"
-              :email="shareContentParams.email" class="mt-4"/>
-            </template>
-            </div>
-                    
-            <mainItem :isLoad="isLoad" :document="document"></mainItem>
 
-            <template v-if="$vuetify.breakpoint.mdAndDown">    
-                <whyUs :document="document"></whyUs>
-            </template>
+                <div class="mobileShareContent d-flex justify-center mt-2" v-if="isMobile">
+                    <shareContent
+                        class="d-flex justify-center"
+                        v-if="getDocumentDetails"
+                        :link="shareContentParams.link"
+                        :twitter="shareContentParams.twitter"
+                        :whatsApp="shareContentParams.whatsApp"
+                        :email="shareContentParams.email"
+                    />
+                </div>
+            </div>
 
             <div v-if="itemList.length" class="itemPage__main__carousel" :class="{'itemPage__main__carousel--margin': !docTutor && !docTutor.isTutor && $vuetify.breakpoint.xsOnly}">
                 <div class="itemPage__main__carousel__header">
-                    
                     <div class="itemPage__main__carousel__header__title" v-language:inner="'documentPage_related_content'"></div>
                     <router-link 
                         v-language:inner="'documentPage_full_list'"
@@ -77,21 +115,17 @@
                 </sbCarousel>
             </div>
 
-            <div class="itemPage__main__tutorCard" v-if="docTutor.isTutor" 
-            :class="{'itemPage__main__tutorCard--margin': docTutor.isTutor && $vuetify.breakpoint.xsOnly, 'itemPage__main__tutorCard--marginT': !itemList.length}">
-                    <tutorResultCardMobile v-if="$vuetify.breakpoint.xsOnly" :tutorData="docTutor"></tutorResultCardMobile>
-                    <tutorResultCard v-else :tutorData="docTutor"></tutorResultCard>
+            <div 
+                class="itemPage__main__tutorCard"
+                v-if="docTutor.isTutor"
+                :class="{'itemPage__main__tutorCard--margin': docTutor.isTutor && $vuetify.breakpoint.xsOnly, 'itemPage__main__tutorCard--marginT': !itemList.length}"
+            >
+                <tutorResultCardMobile v-if="$vuetify.breakpoint.xsOnly" :tutorData="docTutor"></tutorResultCardMobile>
+                <tutorResultCard v-else :tutorData="docTutor"></tutorResultCard>
             </div>
-            <mobileUnlockDownload :sticky="true" v-if="$vuetify.breakpoint.md || $vuetify.breakpoint.sm" :document="document"></mobileUnlockDownload>
+            <!-- <mobileUnlockDownload :sticky="true" v-if="$vuetify.breakpoint.md || $vuetify.breakpoint.sm" :document="document"></mobileUnlockDownload> -->
         </div>
-        <div v-if="$vuetify.breakpoint.lgAndUp" :class="['sticky-item',{'sticky-item_bannerActive':getBannerParams}]">
-            <whyUsDesktop class="mb-2" :document="document"></whyUsDesktop>
-            <shareContent v-if="getDocumentDetails" :link="shareContentParams.link"
-              :twitter="shareContentParams.twitter"
-              :whatsApp="shareContentParams.whatsApp"
-              :email="shareContentParams.email"/>
-        </div>
-        <mobileUnlockDownload v-if="$vuetify.breakpoint.xsOnly" :document="document"></mobileUnlockDownload>
+        <!-- <mobileUnlockDownload v-if="$vuetify.breakpoint.xsOnly" :document="document"></mobileUnlockDownload> -->
         <unlockDialog :document="document"></unlockDialog>
         <v-snackbar
             v-model="snackbar"
@@ -134,9 +168,9 @@ const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */'../../sbCar
 import itemCard from '../../carouselCards/itemCard.vue';
 const tutorResultCard = () => import(/* webpackChunkName: "tutorResultCard" */ '../../results/tutorCards/tutorResultCard/tutorResultCard.vue');
 const tutorResultCardMobile = () => import(/* webpackChunkName: "tutorResultCardMobile" */ '../../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue');
-import whyUsDesktop from './components/whyUs/whyUsDesktop.vue';
-import whyUs from './components/whyUs/whyUs.vue';
-import mobileUnlockDownload from './components/mobileUnlockDownload/mobileUnlockDownload.vue';
+// import whyUsDesktop from './components/whyUs/whyUsDesktop.vue';
+// import whyUs from './components/whyUs/whyUs.vue';
+// import mobileUnlockDownload from './components/mobileUnlockDownload/mobileUnlockDownload.vue';
 import unlockDialog from './components/dialog/unlockDialog.vue';
 const shareContent = () => import(/* webpackChunkName: "shareContent" */'../global/shareContent/shareContent.vue');
 export default {
@@ -147,9 +181,9 @@ export default {
         tutorResultCard,
         tutorResultCardMobile,
         itemCard,
-        whyUsDesktop,
-        whyUs,
-        mobileUnlockDownload,
+        // whyUsDesktop,
+        // whyUs,
+        // mobileUnlockDownload,
         mainItem,
         unlockDialog,
         shareContent
@@ -173,7 +207,19 @@ export default {
         },
     },
     computed: {
-        ...mapGetters(['getBannerParams','accountUser', 'getDocumentDetails', 'getRelatedDocuments', 'getRouteStack', 'getPurchaseConfirmation', 'getShowItemToaster']),
+        ...mapGetters([
+            'getBannerParams',
+            'accountUser',
+            'getDocumentDetails',
+            'getDocumentName',
+            'getDocumentPrice',
+            'getIsPurchased',
+            'getRelatedDocuments',
+            'getRouteStack',
+            'getPurchaseConfirmation',
+            'getShowItemToaster',
+            'getBtnLoading',
+        ]),
         shareContentParams(){
             let urlLink = `${global.location.origin}/d/${this.$route.params.id}?t=${Date.now()}` ;
             let itemType = this.getDocumentDetails.documentType;
@@ -253,6 +299,18 @@ export default {
             }
             return false;
         },
+        isVideo() {
+            return this.document.documentType === 'Video';
+        },
+        priceWithComma() {
+            if(this.document && this.document.details) {
+                return this.document.details.price.toLocaleString();
+            }
+            return null
+        },
+        isMobile() {
+            return this.$vuetify.breakpoint.xsOnly
+        }
     },
         methods: {
         ...mapActions([
@@ -265,6 +323,8 @@ export default {
             'setActiveConversationObj',
             'openChatInterface',
             'updateItemToaster',
+            'updatePurchaseConfirmation',
+            'downloadDocument'
         ]),
         
         enterItemCard(vueElm){
@@ -324,7 +384,24 @@ export default {
         openBuyTokenDialog() {
             this.updateItemToaster(false);
             this.$openDialog(dialogNames.BuyPoints);
-        }
+        },
+        openPurchaseDialog() {
+            if(this.accountUser) {
+                this.updatePurchaseConfirmation(true)
+            } else {
+                this.$store.commit('setComponent', 'register')
+            }
+        },
+        downloadDoc(e) {
+            if (!this.accountUser) {
+                e.preventDefault();
+            }
+            let item = {
+                course: this.document.details.course,
+                id: this.document.details.id
+            };
+            this.downloadDocument(item);
+        },
     },
     beforeDestroy(){
         this.clearDocument();
@@ -347,21 +424,50 @@ export default {
     @import '../../../styles/mixin';
 
     .itemPage {
+        //hacks to finish this fast
+        .price-area, .content-wrap, hr, .spacer {
+            display: none !important;
+        }
+        .bottom-row, .data-row {
+            margin-right: 30% !important;
+            @media (max-width: @screen-xs) {
+                margin-right: auto !important;
+                justify-content: space-between;
+            }
+        }
+        .azuremediaplayer {
+            background: #fff !important;
+        }
+        .document-header-large-sagment {
+            &--arrow {
+                color: @global-purple;
+                transform: none /*rtl:scaleX(-1)*/;
+            }
+        }
+        //end hacks to finish this fast
+        .documentTitle {
+            background: #fff;
+            & > div {
+                // .flexSameSize();
+              
+            }
+            & > h1 {
+                // .flexSameSize();
+                font-size: 18px;
+                font-weight: 600;
+                color: #43425d;
+                align-self: center;
+            }
+        }
         position: relative;
-        display: flex;
-        margin: 24px 70px 26px 34px;
-
+        margin: 0 auto;
+        max-width: 960px;
         @media (max-width: @screen-md) {
             margin: 20px;
-            justify-content: center;
         }
         @media (max-width: @screen-xs) {
             margin: 0;
             display: block;
-        }
-        
-        &--noTutor {
-            margin-bottom: 80px;
         }
         .sticky-item{
             position: sticky;
@@ -372,30 +478,45 @@ export default {
             }
         }
         &__main {
-            max-width: 720px;
-            width: 100%;
-            margin-right: 33px;
             @media (max-width: @screen-sm) {
                 margin-right: 0;
                 max-width: auto;
             }
             &__document {
-                margin-bottom: 16px;
-                max-width: 720px;
                 width: 100%;
+                margin: 0 auto 16px;
 
                 @media (max-width: @screen-sm) {
                     width: auto;
+                    margin: 0 auto 8px;
+                }
+                .itemActions {
+                    color: @global-purple;
+                    @media (max-width: @screen-xs) {
+                        border-top: 1px solid #ddd
+                    }
+                    .wrapper {
+                        border-bottom: 1px solid #ddd;
+                        font-weight: 600;
+                        @media (max-width: @screen-xs) {
+                            border-bottom: none;
+                        }
+                        .price {
+                            .responsive-property(font-size, 30px, null, 18px);                
+                        }
+                        .points {
+                            .responsive-property(font-size, 14px, null, 18px);
+                        }
+                    }
                 }
                 &__doc {
                     padding: 12px 16px 12px 12px;
-                }
-                .document-header-large-sagment {
-                    &--arrow {
-                        transform: none /*rtl:scaleX(-1)*/;
-                        margin-right: 18px;
-                        font-size: 20px;
-                    }
+                    border-radius: 0;
+                  .descriptionTitle {
+                      font-size: 16px;
+                      color: @global-purple;
+                      font-weight: 600;
+                  }
                 }
                 .skeletonWarp {
                     .v-skeleton-loader__avatar {
@@ -458,6 +579,9 @@ export default {
                     justify-content: center;
                     min-height: 160px;
                 }
+                .mobileShareContent {
+                    background: #fff;;
+                }
             }
             &__carousel {
                 margin: 38px 0 34px 0;
@@ -465,7 +589,7 @@ export default {
                 @media (max-width: @screen-xs) {
                     background: #fff;
                     padding: 16px 11px;
-                    margin: 0 0 16px 0;
+                    margin: 0 0 8px 0;
                 }
                 &__header {
                     display: flex;
@@ -507,7 +631,7 @@ export default {
                     margin-top: 34px;
                 }
                 &--margin {
-                    margin-bottom: 100px;
+                    // margin-bottom: 100px;
                 }
                 &--marginTop {
                     margin-top: 34px; 

@@ -41,20 +41,20 @@ export default {
     },
     previewName(){
       if(this.getUserLoggedInStatus){
-        return this.accountUser.name;
+        return this.accountUser?.name;
       }else{
         return ''
       }
     },
     userName() {
       if(this.getUserLoggedInStatus){
-          return `, ${this.accountUser.name}?`;
+          return `, ${this.accountUser?.name}?`;
       }
       return '?';
     },
     userID() {
       if(this.getUserLoggedInStatus){
-        return this.accountUser.id;
+        return this.accountUser?.id;
       }
       return null;
     }

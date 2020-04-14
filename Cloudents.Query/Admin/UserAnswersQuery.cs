@@ -17,8 +17,9 @@ namespace Cloudents.Query.Admin
             Page = page;
             Country = country;
         }
-        public long UserId { get; }
-        public int Page { get; }
+
+        private long UserId { get; }
+        private int Page { get; }
         public string Country { get; }
         internal sealed class UserAnswersQueryHandler : IQueryHandler<UserAnswersQuery, IEnumerable<UserAnswersDto>>
         {
@@ -33,6 +34,7 @@ namespace Cloudents.Query.Admin
             public async Task<IEnumerable<UserAnswersDto>> GetAsync(UserAnswersQuery query, CancellationToken token)
             {
                 return await _session.Query<Answer>()
+                    .WithOptions(w => w.SetComment(nameof(UserAnswersQuery)))
                      //  .Fetch(f => f.Question)
                      .Where(w => w.User.Id == query.UserId)
                      .Where(w => w.User.Country == query.Country || string.IsNullOrEmpty(query.Country))
@@ -47,24 +49,7 @@ namespace Cloudents.Query.Admin
                          QuestionText = s.Question.Text,
                          Text = s.Text
                      }).ToListAsync(token);
-                //const string sql = @"select A.Id, A.Text, A.Created, A.QuestionId, Q.Text as QuestionText, A.[State]
-                //    from sb.Answer A
-                //    join sb.Question Q
-                //     on A.QuestionId = Q.Id
-                //    where A.UserId = @Id
-                //    order by 1
-                //    OFFSET @pageSize * @PageNumber ROWS
-                //    FETCH NEXT @pageSize ROWS ONLY;";
-                //using (var connection = _dapper.OpenConnection())
-                //{
-                //    return await connection.QueryAsync<UserAnswersDto>(sql,
-                //        new
-                //        {
-                //            id = query.UserId,
-                //            PageNumber = query.Page,
-                //            PageSize
-                //        });
-                //}
+              
             }
         }
     }

@@ -20,6 +20,8 @@ namespace Cloudents.Web.EventHandler
     public class WebSocketChatMessageEventHandler : IEventHandler<ChatMessageEvent>
     {
         private readonly IHubContext<SbHub> _hubContext;
+        private readonly IHubContext<StudyRoomHub> _studyRoomContext;
+
         private readonly IChatDirectoryBlobProvider _blobProvider;
         private readonly IBinarySerializer _binarySerializer;
         private readonly LinkGenerator _linkGenerator;
@@ -27,15 +29,15 @@ namespace Cloudents.Web.EventHandler
        // private readonly IUrlBuilder _urlBuilder;
 
         public WebSocketChatMessageEventHandler(IHubContext<SbHub> hubContext, IChatDirectoryBlobProvider blobProvider, 
-            IBinarySerializer binarySerializer, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor
-            )
+            IBinarySerializer binarySerializer, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor, IHubContext<StudyRoomHub> studyRoomContext)
         {
             _hubContext = hubContext;
             _blobProvider = blobProvider;
             _binarySerializer = binarySerializer;
             _linkGenerator = linkGenerator;
             _httpContextAccessor = httpContextAccessor;
-           // _urlBuilder = urlBuilder;
+            _studyRoomContext = studyRoomContext;
+            // _urlBuilder = urlBuilder;
         }
 
         public async Task HandleAsync(ChatMessageEvent eventMessage, CancellationToken token)
@@ -47,14 +49,19 @@ namespace Cloudents.Web.EventHandler
                     conversationId = chatMessage.ChatRoom.Identifier,
                     message = BuildChatMessage((dynamic)chatMessage)
                 });
+            
 
             List<string> users = BuildUserList((dynamic)chatMessage);
-            await _hubContext.Clients.Users(users).SendAsync(SbHub.MethodName, message, token);
+            if (users.Count > 0)
+            {
+                await _hubContext.Clients.Users(users).SendAsync(SbHub.MethodName, message, token);
+            }
         }
 
         private List<string> BuildUserList(ChatTextMessage chatMessage)
         {
-            return chatMessage.ChatRoom.Users.Where(w => w.User.Id != chatMessage.User.Id).Select(s => s.User.Id.ToString()).ToList();
+            return chatMessage.ChatRoom.Users.Where(w => w.User.Id != chatMessage.User.Id)
+                .Select(s => s.User.Id.ToString()).ToList();
 
         }
         private List<string> BuildUserList(ChatAttachmentMessage chatMessage)

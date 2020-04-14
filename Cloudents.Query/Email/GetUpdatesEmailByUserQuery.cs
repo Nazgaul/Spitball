@@ -33,9 +33,9 @@ namespace Cloudents.Query.Email
 
             public async Task<IEnumerable<UpdateEmailDto>> GetAsync(GetUpdatesEmailByUserQuery query, CancellationToken token)
             {
-                User userAlias = null;
-                Question questionAlias = null;
-                QuestionUpdateEmailDto questionEmailDtoAlias = null;
+                User? userAlias = null;
+                Question? questionAlias = null;
+                QuestionUpdateEmailDto? questionEmailDtoAlias = null;
 
                 var queryCourse = QueryOver.Of<UserCourse>().Where(w => w.User.Id == query.UserId)
                     .Select(s => s.Course.Id);
@@ -69,6 +69,7 @@ namespace Cloudents.Query.Email
                          sl.SelectSubQuery(firstAnswer).WithAlias(() => questionEmailDtoAlias.AnswerText);
                          return sl;
                      }).TransformUsing(Transformers.AliasToBean<QuestionUpdateEmailDto>())
+                     .UnderlyingCriteria.SetComment(nameof(GetUpdatesEmailByUserQuery))
                      .Future<QuestionUpdateEmailDto>();
 
                 DocumentUpdateEmailDto documentEmailDtoAlias = null;
@@ -94,7 +95,9 @@ namespace Cloudents.Query.Email
                         sl.Select(x => x.DocumentType).WithAlias(() => documentEmailDtoAlias.DocumentType);
                         return sl;
                     }).TransformUsing(Transformers.AliasToBean<DocumentUpdateEmailDto>())
-                    .OrderBy(x=>x.DocumentType).Desc.Future<DocumentUpdateEmailDto>();
+                    .OrderBy(x=>x.DocumentType).Desc
+                    .UnderlyingCriteria.SetComment(nameof(GetUpdatesEmailByUserQuery))
+                    .Future<DocumentUpdateEmailDto>();
 
                 IEnumerable<UpdateEmailDto> questions = await questionFuture.GetEnumerableAsync(token);
                 IEnumerable<UpdateEmailDto> documents = await documentFuture.GetEnumerableAsync(token);

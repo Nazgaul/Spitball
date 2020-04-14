@@ -1,12 +1,11 @@
 <template>
     <div class="footer">
-        <v-layout align-center justify-space-around class="footer-warp">
+        <v-layout align-center class="footer-warp">
             <ul v-if="links" class="footer-wrap-list w-list-unstyled">
                 <li  v-for="(link, index) in links" :key="index">
                     <a :href="link.url" v-if="isShowBlog(link)" class="footer-link">{{link.title}}</a>
                 </li>
             </ul>
-            <div class="footer-warp-divider mt-6"></div>
             <div class="footer-contact-box">
                 <div class="tutor-list-footer-logo">
                     <logoComponent></logoComponent>
@@ -130,42 +129,47 @@ import logoComponent from '../../../app/logo/logo.vue';
 @import "../../../../styles/mixin.less";
 
 .footer {
-  background-color: #202431;
-  color: #fff;
-  padding-top: 30px;
-  padding-bottom: 20px;
-  @media (max-width: @screen-sm) {
+  background-color: #f1f1f4;
+  @media (max-width: @screen-xs) {
+    padding-bottom: 20px;
+  }
+  @media (max-width: 941px) { // flex-wrap is breaking in 941
     padding-top: 20px;
   }
-  @media (max-width: @screen-xs) {
-        padding-bottom: 76px;
-        padding-top: 0;
-  }
   .tutorList_footer{
-      margin-top: 14px;
+    margin-top: 14px;
     @media (max-width: @screen-xs) {
         padding: 0 20px;
     }
-      .tutorList_footer_txt{
+    .tutorList_footer_txt{
         opacity: 0.3;
         font-weight: normal;
         font-size: 12px;
         text-align: center;
-      }
+    }
   }
  .footer-warp {
     max-width: 1200px;
     margin: 0 auto;
     height: inherit;
     font-size: 14px;
+    flex-wrap: wrap;
+    justify-content: space-around;
     @media (max-width: @screen-sm) {
-        flex-direction: column-reverse;
+        justify-content: start;
+        margin: 0 50px;
+    }
+    @media (max-width: @screen-xs) {
+        flex-wrap: nowrap;
+        justify-content: center;
+        flex-direction: column;
+        margin: 0;
     }
     .footer-wrap-list {
-        cursor: pointer;
         padding: 0;
         list-style: none;
-        @media (min-width: 768px){
+        line-height: 40px;
+        @media screen and (min-width: @screen-xs) {
             text-align: center;
             -webkit-column-count: 3;
             -moz-column-count: 3;
@@ -173,51 +177,40 @@ import logoComponent from '../../../app/logo/logo.vue';
             column-gap: 60px;
             -webkit-column-gap: 60px;
             -moz-column-gap: 60px;
-            line-height: 40px;
-        }
-        @media (max-width: @screen-sm) {
-            margin-top: 50px;
         }
         @media (max-width: @screen-xs) {
-            margin-top: 20px;
+            margin: 0 50px;
         }
         li {
-            margin-left: 50px;
             text-align: left;
-            @media (max-width: @screen-sm) {
-                margin: 10px 0;
+            @media (max-width: @screen-xs) {
                 text-align: center;
             }
           .footer-link {
-              color: #fff;
-              font-size: 16px;
+            cursor: pointer;
+            color: @global-purple;
+            font-size: 16px;
         }
       }
     }
-    .footer-warp-divider {
-        width: 75px;
-        height: 1px;
-        border: solid 1px #979797;
-        display: none;
-        @media (max-width: @screen-sm) { 
-            display: block;
-        }
-        @media (max-width: @screen-xs) { 
-            margin-top: 8px !important;
-        }
-     }
     .footer-contact-box {
         line-height: 80px;
+        @media (max-width: @screen-xs) { 
+            padding-right: 0;
+        }
         :first-child {
-            text-align: center;
+            text-align: left;
+            @media (max-width: @screen-xs) { 
+                text-align: center;
+            }
         }
         .footer-contact-box-icons {
             a {
                 margin: 0 10px;
-                color: #FFF;
+                color: @global-purple;
                 cursor: pointer;
-                i{
-                    color: white;
+                i {
+                    color: @global-purple;
                 }
             }
         }
@@ -226,22 +219,12 @@ import logoComponent from '../../../app/logo/logo.vue';
   .tutor-list-footer-logo {
         div{
           svg {
+            width: auto;
+            height: auto;
             vertical-align: -webkit-baseline-middle;
-            fill: #FFF;
+            fill: @global-purple;
             &.frymo-logo{
-              fill: #FFF;
-            }
-            
-          }
-        } 
-      }
-  .tutor-list-footer-logo {
-        div{
-          svg {
-            vertical-align: -webkit-baseline-middle;
-            fill: #FFF;
-            &.frymo-logo{
-              fill: #FFF;
+              fill: @global-purple;
             }
             
           }

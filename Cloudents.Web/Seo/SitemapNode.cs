@@ -22,6 +22,9 @@ namespace Cloudents.Web.Seo
         public SitemapNode(string url)
         {
             Url = url;
+            ChangeFrequency = Seo.ChangeFrequency.Daily;
+            Priority = 1;
+            TimeStamp = DateTime.UtcNow;
         }
 
         /// <summary>

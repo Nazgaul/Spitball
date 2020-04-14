@@ -14,8 +14,8 @@ namespace Cloudents.Query.Admin
             MinFlags = minFlags;
             Country = country;
         }
-        public int Page { get; }
-        public int MinFlags { get; }
+        private int Page { get; }
+        private int MinFlags { get; }
         public string Country { get; }
         internal sealed class UserFlagsOthersQueryHandler : IQueryHandler<UserFlagsOthersQuery, (IEnumerable<UserFlagsOthersDto>, int)>
         {
@@ -55,27 +55,22 @@ namespace Cloudents.Query.Admin
                             ) A;";
                 }
 
-                using (var connection = _dapper.OpenConnection())
-                {
-                    using (var res = await connection.QueryMultipleAsync(sql,
-                        new
-                        {
-                            flags = query.MinFlags,
-                            PageNumber = query.Page,
-                            PageSize,
-                            query.Country
-                        })
-                        )
+                using var connection = _dapper.OpenConnection();
+                using var res = await connection.QueryMultipleAsync(sql,
+                    new
                     {
-                        var resList = res.Read<UserFlagsOthersDto>();
-                        int rows = -1;
-                        if (!res.IsConsumed)
-                        {
-                            rows = res.ReadFirst<int>();
-                        }
-                        return (resList, rows);
-                    }
+                        flags = query.MinFlags,
+                        PageNumber = query.Page,
+                        PageSize,
+                        query.Country
+                    });
+                var resList = res.Read<UserFlagsOthersDto>();
+                var rows = -1;
+                if (!res.IsConsumed)
+                {
+                    rows = res.ReadFirst<int>();
                 }
+                return (resList, rows);
             }
         }
     }

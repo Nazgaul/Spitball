@@ -27,6 +27,7 @@ using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Query;
 using Cloudents.Query.Chat;
+using Cloudents.Query.Tutor;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using NHibernate.Linq;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
@@ -146,8 +147,12 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var _session = Container.Resolve<IStatelessSession>();
+            //var unitOfWork = Container.Resolve<IUnitOfWork>();
+            var _session = Container.Resolve<IQueryBus>();
+            var command = new UserStudyRoomQuery(638);
+            var result = await _session.QueryAsync(command, default);
 
+            Console.WriteLine(result);
 
 
             //var sessionFuture = await _session.Query<StudyRoomSessionUser>()
@@ -186,7 +191,7 @@ namespace ConsoleApp
             var studyRooms = session.Query<StudyRoom>().Where(w => w.Name == null).ToList();
             foreach (var studyRoom in studyRooms)
             {
-                var users = studyRoom.Users.Select(s=>s.User);
+                var users = studyRoom.Users.Select(s => s.User);
                 var country = studyRoom.Tutor.User.Country;
                 if (users.Count() == 2)
                 {
@@ -213,13 +218,13 @@ namespace ConsoleApp
                 {
                     var tutor = studyRoom.Tutor.User;
 
-                    var studentName = users.Where(s => s.Id != tutor.Id).Select(s=>s.FirstName);
+                    var studentName = users.Where(s => s.Id != tutor.Id).Select(s => s.FirstName);
                     var tutorName = tutor.FirstName;
 
                     string text;
                     if (country == "IL")
                     {
-                        text = $"חדר לימוד בין {tutorName} ל{string.Join(",",studentName)}";
+                        text = $"חדר לימוד בין {tutorName} ל{string.Join(",", studentName)}";
                     }
                     else
                     {
@@ -265,12 +270,12 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
             var dir1 = container.GetDirectoryReference("files");
             var dir2 = dir1.GetDirectoryReference($"{id}");
             var blobs = await dir2.ListBlobsSegmentedAsync(null);
-            var blob = (CloudBlockBlob)blobs.Results.FirstOrDefault(f => ((CloudBlockBlob) f).Name.Contains("file-"));
+            var blob = (CloudBlockBlob)blobs.Results.FirstOrDefault(f => ((CloudBlockBlob)f).Name.Contains("file-"));
 
 
             var sr = await blob.OpenReadAsync();
-            
-           // var sr = new FileStream("C:\\Users\\Ram\\Downloads\\xxx\\file-52936bce-e08a-4138-9639-4971c22640ba-142339.pptx", System.IO.FileMode.Open); // System.IO.Stream | Input file to perform the operation on.
+
+            // var sr = new FileStream("C:\\Users\\Ram\\Downloads\\xxx\\file-52936bce-e08a-4138-9639-4971c22640ba-142339.pptx", System.IO.FileMode.Open); // System.IO.Stream | Input file to perform the operation on.
             var text2 = await _convertDocumentApi.ConvertDocumentPptxToTxtAsync(sr);
             sr.Seek(0, SeekOrigin.Begin);
             var result = await _convertDocumentApi.ConvertDocumentAutodetectToPngArrayAsync(sr);

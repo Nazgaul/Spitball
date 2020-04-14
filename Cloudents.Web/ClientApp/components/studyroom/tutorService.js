@@ -25,7 +25,7 @@
 //             store.dispatch('updateRoomInstance', room);
 
 //             //disconnected room
-//             store.getters['activeRoom'].on('disconnected', (room, error) => {
+//             store.getters[''].on('disconnected', (room, error) => {
 //                 if(!error) return;
 //                 store.dispatch('setSessionTimeEnd');
 

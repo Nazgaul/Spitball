@@ -41,7 +41,9 @@ namespace Cloudents.Query.Tutor
             public async Task<CalendarEventDto> GetAsync(CalendarEventsQuery query, CancellationToken token)
             {
 
-                var calendarsFuture = _statelessSession.Query<TutorCalendar>().Where(w => w.Tutor.Id == query.Id)
+                var calendarsFuture = _statelessSession.Query<TutorCalendar>()
+                    .WithOptions(w => w.SetComment(nameof(CalendarEventsQuery)))
+                    .Where(w => w.Tutor.Id == query.Id)
                     .Select(s => s.Calendar.GoogleId).ToFuture();
 
                 var availableFuture = _statelessSession.Query<TutorHours>()

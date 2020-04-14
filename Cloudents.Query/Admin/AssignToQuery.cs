@@ -23,7 +23,7 @@ namespace Cloudents.Query.Admin
 
             public async Task<IList<string>> GetAsync(AssignToQuery query, CancellationToken token)
             {
-                return await _session.Query<AdminUser>()
+                return await _session.Query<AdminUser>().WithOptions(w => w.SetComment(nameof(AssignToQuery)))
                     .Select(s => s.Email)
                     .ToListAsync(token);
 

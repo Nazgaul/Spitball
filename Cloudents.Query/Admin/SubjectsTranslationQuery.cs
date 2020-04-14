@@ -8,10 +8,10 @@ namespace Cloudents.Query.Admin
 {
     public class SubjectsTranslationQuery : IQuery<IEnumerable<SubjectDto>>
     {
-        internal sealed class SubjectsTranslationQueryHandlar : IQueryHandler<SubjectsTranslationQuery, IEnumerable<SubjectDto>>
+        internal sealed class SubjectsTranslationQueryHandler : IQueryHandler<SubjectsTranslationQuery, IEnumerable<SubjectDto>>
         {
             private readonly IDapperRepository _dapperRepository;
-            public SubjectsTranslationQueryHandlar(IDapperRepository dapperRepository)
+            public SubjectsTranslationQueryHandler(IDapperRepository dapperRepository)
             {
                 _dapperRepository = dapperRepository;
             }
@@ -25,11 +25,8 @@ namespace Cloudents.Query.Admin
 	                                    on cs.Id = st.SubjectId 
 	                                    and st.LanguageId = (select Id from sb.AdminLanguage where Name = 'en')";
 
-                using (var conn = _dapperRepository.OpenConnection())
-                {
-                    return await conn.QueryAsync<SubjectDto>(sql);
-                }
-
+                using var conn = _dapperRepository.OpenConnection();
+                return await conn.QueryAsync<SubjectDto>(sql);
             }
         }
     }

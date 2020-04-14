@@ -28,10 +28,8 @@ namespace Cloudents.Core.EventHandler
             }
 
             var tutorId = eventMessage.StudyRoomSession.StudyRoom.Tutor.Id;
-            var identifier = eventMessage.StudyRoomSession.StudyRoom.Identifier;
+            var identifier = eventMessage.StudyRoomSession.StudyRoom.Id;
             return _googleAnalytics.TrackEventAsync("Tutor funnel", "Tutor session", $"{tutorId}-{identifier}", token);
-
-            //eventMessage.StudyRoomSession.StudyRoom.Identifier
         }
     }
 }

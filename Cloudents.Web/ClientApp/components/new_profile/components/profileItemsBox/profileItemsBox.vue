@@ -1,55 +1,57 @@
 <template>
 <div id="profileItemsBox">
-   <div class="profileItemsBox_title text-truncate" 
-   v-text="$Ph($vuetify.breakpoint.xsOnly? 'profile_study_materials_mobile':'profile_study_materials',userName)"/>   
-   <div class="profileItemsBox_filters">
-      <v-flex xs2 sm4 class="pr-0 pr-sm-4 d-flex d-sm-block" :class="{'filterbox':$vuetify.breakpoint.xsOnly}" justify-end>
-         <v-menu offset-y sel="filter_type">
-            <template v-slot:activator="{ on }">
-               <v-btn icon v-on="on" class="filters_menu_btn d-block d-sm-none">
-                  <v-icon class="icon">sbf-sort</v-icon>
-               </v-btn>
-            </template>
-            <v-list class="px-2">
-               <v-list-item v-for="(item, index) in typeItems" :key="index" @click="menuSelect(item.value)">
-               <v-list-item-title :class="{'font-weight-bold': selectChecker(item)}">{{ item.name }}</v-list-item-title>
-               </v-list-item>
-            </v-list>
-         </v-menu>
+   <div class="profileItemsBox-header mb-sm-8">
+      <div class="profileItemsBox_title text-truncate" 
+      v-text="$Ph($vuetify.breakpoint.xsOnly? 'profile_study_materials_mobile':'profile_study_materials',userName)"/>   
+      <div class="profileItemsBox_filters">
+         <v-flex xs2 sm4 class="pr-0 pr-sm-4 d-flex d-sm-block" :class="{'filterbox':$vuetify.breakpoint.xsOnly}" justify-end>
+            <v-menu offset-y sel="filter_type">
+               <template v-slot:activator="{ on }">
+                  <v-btn icon v-on="on" class="filters_menu_btn d-block d-sm-none">
+                     <v-icon class="icon">sbf-sort</v-icon>
+                  </v-btn>
+               </template>
+               <v-list class="px-2">
+                  <v-list-item v-for="(item, index) in typeItems" :key="index" @click="menuSelect(item.value)">
+                  <v-list-item-title :class="{'font-weight-bold': selectChecker(item)}">{{ item.name }}</v-list-item-title>
+                  </v-list-item>
+               </v-list>
+            </v-menu>
 
-         <v-select class="profileItemsBox_filters_select d-none d-sm-flex"
-            sel="filter_type"
-            :append-icon="'sbf-arrow-fill'"
-            v-model="selectedModel.itemType"
-            :items="typeItems"
-            item-text="name"
-            @change="handleSelects()"
-            :height="$vuetify.breakpoint.xsOnly? 42 : 36" hide-details solo>
-         </v-select>
-      </v-flex>
-      <v-flex v-if="userCourses.length" xs10 sm9 class="pr-4 pr-sm-0" :class="{'filtercourse':$vuetify.breakpoint.xsOnly}">
-         <v-select class="profileItemsBox_filters_select"
-            sel="filter_course"
-            :append-icon="'sbf-arrow-fill'"
-            clearable
-            :clear-icon="'sbf-close'"
-            v-model="selectedModel.itemCourse"
-            :items="userCourses"
-            @change="handleSelects()"
-            :placeholder="selectPlaceholder" :height="$vuetify.breakpoint.xsOnly? 42 : 36" solo>
-         </v-select>
-      </v-flex>
+            <v-select class="profileItemsBox_filters_select d-none d-sm-flex"
+               sel="filter_type"
+               :append-icon="'sbf-arrow-fill'"
+               v-model="selectedModel.itemType"
+               :items="typeItems"
+               item-text="name"
+               @change="handleSelects()"
+               :height="$vuetify.breakpoint.xsOnly? 42 : 36" hide-details solo>
+            </v-select>
+         </v-flex>
+         <v-flex v-if="userCourses.length" xs10 sm9 class="pr-4 pr-sm-0" :class="{'filtercourse':$vuetify.breakpoint.xsOnly}">
+            <v-select class="profileItemsBox_filters_select"
+               sel="filter_course"
+               :append-icon="'sbf-arrow-fill'"
+               clearable
+               :clear-icon="'sbf-close'"
+               v-model="selectedModel.itemCourse"
+               :items="userCourses"
+               @change="handleSelects()"
+               :placeholder="selectPlaceholder" :height="$vuetify.breakpoint.xsOnly? 42 : 36" solo>
+            </v-select>
+         </v-flex>
+      </div>
    </div>
    <template v-if="!!items && items.length">
-      <div class="profileItemsBox_content" v-if="$vuetify.breakpoint.smAndUp">
+      <div class="profileItemsBox_content mb-sm-4" v-if="$vuetify.breakpoint.smAndUp">
          <itemCard v-for="(item, index) in items" :key="index" :item="item"/>
       </div>
       <div v-if="$vuetify.breakpoint.xsOnly" class="profileItemsBox_content_mobile">
          <resultNote v-for="(item, index) in items" :key="index" :item="item" class="pa-3 mb-2"/>
       </div>
-      <div class="profileItemBox_pagination mb-3" v-if="pageCount > 1">
-         <v-pagination
-            total-visible=7 
+      <div class="profileItemBox_pagination" v-if="pageCount > 1">
+         <v-pagination circle
+            total-visible=7  
             v-model="query.page" 
             :length="pageCount"
             :next-icon="`sbf-arrow-right-carousel`"
@@ -89,7 +91,7 @@ export default {
             course:'',
             documentType:'',
             page: 1,
-            pageSize: this.$vuetify.breakpoint.xsOnly? 3 : 6,
+            pageSize: this.$vuetify.breakpoint.xsOnly? 3 : 8,
          }
       }
    },
@@ -178,7 +180,13 @@ export default {
 
 #profileItemsBox{
    width: 100%;
+   max-width: 1006px;
+   margin: 0 auto;
    color: #43425d;
+   .profileItemsBox-header {
+      max-width: 800px;
+      margin: 0 auto;
+   }
    .profileItemsBox_title{
       .responsive-property(font-size, 18px, null, 16px);
       font-weight: 600;
@@ -271,17 +279,18 @@ export default {
    .profileItemsBox_content{
       width: 100%;
       display: flex;
+      justify-content: center;
       flex-flow: row wrap;
       display: grid;
       box-sizing: border-box;
       grid-gap: 14px;
-      padding-bottom: 10px;      
       grid-template-columns: repeat(auto-fill, 230px);
       margin-top: 18px;
       .itemCarouselCard{
          border: 1px solid #e0e1e9;
          flex: 0 0 32%;
          width: 230px;
+         height: 100%;
       }
    }
    .profileItemBox_pagination{
@@ -294,9 +303,10 @@ export default {
          &.v-pagination__item--active{
             background-color: initial !important;
             border: none !important;
-            border: 1px solid rgb(68, 82, 252) !important;
+            border: 1px solid  #4c59ff !important;
             outline:none;
-            color: black;
+            color: #4c59ff;
+            font-weight: 600;
          }
       }
       .v-pagination__navigation{

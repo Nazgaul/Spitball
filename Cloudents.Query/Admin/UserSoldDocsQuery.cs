@@ -18,8 +18,8 @@ namespace Cloudents.Query.Admin
             Country = country;
         }
 
-        public long UserId { get; }
-        public int Page { get; }
+        private long UserId { get; }
+        private int Page { get; }
         public string Country { get; }
 
         internal sealed class UserSoldDocsQueryHandler : IQueryHandler<UserSoldDocsQuery, IEnumerable<UserSoldItemsDto>>

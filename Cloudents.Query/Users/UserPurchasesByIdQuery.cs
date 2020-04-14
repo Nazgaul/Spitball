@@ -36,6 +36,7 @@ namespace Cloudents.Query.Users
 
                 //TODO: need to return Document with state = archive
                 var documentFuture = _session.Query<DocumentTransaction>()
+                    .WithOptions(w => w.SetComment(nameof(UserPurchasesByIdQuery)))
                     .Fetch(f => f.User)
                     .Fetch(f => f.Document)
                     .Where(w => w.User.Id == query.Id)

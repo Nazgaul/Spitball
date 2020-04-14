@@ -10,7 +10,7 @@ import chatService from '../../services/chatService.js';
 import profileUserBox from './components/profileUserBox/profileUserBox.vue';
 import profileDialogs from './components/profileDialogs/profileDialogs.vue';
 import profileUserSticky from './components/profileUserSticky/profileUserSticky.vue';
-import profileUserStickyMobile from './components/profileUserSticky/profileUserStickyMobile.vue';
+// import profileUserStickyMobile from './components/profileUserSticky/profileUserStickyMobile.vue';
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
 import profileEarnMoney from './components/profileEarnMoney/profileEarnMoney.vue';
 import profileBecomeTutor from './components/profileBecomeTutor/profileBecomeTutor.vue';
@@ -18,6 +18,7 @@ import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileItemsEmpty from './components/profileItemsEmpty/profileItemsEmpty.vue';
 import calendarTab from '../calendar/calendarTab.vue';
+import cover from "./components/cover.vue";
 
 
 
@@ -28,7 +29,7 @@ export default {
         profileUserBox,
         profileDialogs,
         profileUserSticky,
-        profileUserStickyMobile,
+        // profileUserStickyMobile,
         profileReviewsBox,
         profileEarnMoney,
         profileBecomeTutor,
@@ -36,6 +37,7 @@ export default {
         profileItemsBox,
         profileItemsEmpty,
         calendarTab,
+        cover,
         sbDialog,
         shareContent,
     },
@@ -50,27 +52,11 @@ export default {
                 sendMessage: this.sendMessage,
                 openCalendar: this.openCalendar,
                 closeCalendar: this.closeCalendar,
+                openCoupon: this.openCoupon
             },
             coupon: '',
             couponPlaceholder: LanguageService.getValueByKey('coupon_placeholder'),
             disableApplyBtn: false,
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             activeTab: 1,
         };
     },
@@ -151,7 +137,7 @@ export default {
                 type:'documents',
                 params:{
                     page: 0,
-                    pageSize:this.$vuetify.breakpoint.xsOnly? 3 : 6,
+                    pageSize:this.$vuetify.breakpoint.xsOnly? 3 : 8,
                 }
             }
             this.syncProfile(syncObj);
@@ -222,12 +208,13 @@ export default {
         },
         showItems(){
             if(!!this.getProfile){
-                if(this.isTutor) {
-                    return true;
-                }else{
+                // if(this.isTutor) {
+                //     return true;
+                // }else{
                     return this.uploadedDocuments?.result?.length
-                }
+                // }
             }
+            return false
         },
         isTutorPending(){
             return this.isMyProfile && (!!this.accountUser && this.accountUser.isTutorState === "pending")

@@ -350,4 +350,13 @@ Voice Recording?</value>
   <data name="microphone_blocked" xml:space="preserve">
     <value>To record, you must allow your browser to access your microphone</value>
   </data>
+  <data name="tooltip_fullscreen" xml:space="preserve">
+    <value>full screen</value>
+  </data>
+  <data name="mute_room" xml:space="preserve">
+    <value>Mute Students</value>
+  </data>
+  <data name="unmute_room" xml:space="preserve">
+    <value>Unmute Students</value>
+  </data>
 </root>

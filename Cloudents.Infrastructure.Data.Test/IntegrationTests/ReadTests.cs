@@ -122,7 +122,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(0, 638, "IL", "Economics", 20)]
         public async Task QuestionFeedWithFilterQuery_Ok(int page, long userId, string country, string course, int pageSize)
         {
-            var query = new QuestionFeedWithFliterQuery(page, userId, country, course, pageSize);
+            var query = new QuestionFeedWithFilterQuery(page, userId, country, course, pageSize);
             var result = (await fixture.QueryBus.QueryAsync(query, default)).ToList();
             result.Should().NotBeNullOrEmpty();
             result.Should().OnlyContain(c => c.Type == FeedType.Question);
@@ -145,10 +145,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
 
 
-        [Fact]
-        public async Task StudyRoomQuery_Ok()
+        [Theory]
+        [InlineData("0F70AF05-BAD4-4299-8341-AA38007858CF")]
+        [InlineData("30869fd9-f2f3-41ef-baee-ab9500b3832a")]
+        public async Task StudyRoomQuery_Ok(string id)
         {
-            var query = new StudyRoomQuery(Guid.Parse("0F70AF05-BAD4-4299-8341-AA38007858CF"), 159039);
+            var query = new StudyRoomQuery(Guid.Parse(id), 159039);
 
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
@@ -173,12 +175,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
 
-        [Fact]
-        public async Task UserQuestionFeedDtoQueryHandler_Ok()
-        {
-            var query = new UserQuestionsByIdQuery(638, 0);
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Fact]
+        //public async Task UserQuestionFeedDtoQueryHandler_Ok()
+        //{
+        //    var query = new UserQuestionsByIdQuery(638, 0);
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         //[Fact]
         //public async Task UserAnswerFeedDtoQueryHandler_Ok()
@@ -257,10 +259,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         }
 
-        [Fact]
-        public async Task AccountUserDataById_Ok()
+        [Theory]
+        [InlineData(638)]
+        [InlineData(164835)]
+        [InlineData(159039)]
+        public async Task AccountUserDataById_Ok(long id)
         {
-            var query = new UserAccountQuery(638);
+            var query = new UserAccountQuery(id);
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -513,12 +518,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
 
-        [Fact]
-        public async Task StudyRoomVideoEmailQuery_Ok()
-        {
-            var query = new StudyRoomVideoEmailQuery("d7140ca0-2b83-4ce5-b35c-ab190086fe18_1575469575");
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Fact]
+        //public async Task StudyRoomVideoEmailQuery_Ok()
+        //{
+        //    var query = new StudyRoomVideoEmailQuery("d7140ca0-2b83-4ce5-b35c-ab190086fe18_1575469575");
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         [Fact]
         public async Task ShortUrlQuery_Ok()

@@ -203,6 +203,8 @@ namespace Cloudents.Core.Entities
         public virtual string FirstName { get; protected set; }
         public virtual string LastName { get; protected set; }
         public virtual string Description { get; set; }
+
+        public virtual string CoverImage { get; protected set; }
         public virtual Tutor? Tutor { get; protected set; }
 
         public virtual BuyerPayment? BuyerPayment { get; protected set; }
@@ -335,6 +337,11 @@ namespace Cloudents.Core.Entities
             AddEvent(new UpdateImageEvent(Id));
         }
 
+        public virtual void UpdateCoverImage(string image)
+        {
+            CoverImage = image;
+        }
+
         public override string ToString()
         {
             return $"{nameof(Id)}: {Id}, {nameof(EmailConfirmed)}: {EmailConfirmed}, {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}";
@@ -357,7 +364,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
 
-            if (this.Tutor == null)
+            if (Tutor == null)
             {
                 return;
             }

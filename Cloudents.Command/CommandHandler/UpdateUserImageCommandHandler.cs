@@ -21,4 +21,22 @@ namespace Cloudents.Command.CommandHandler
             await _userRepository.UpdateAsync(user, token);
         }
     }
+
+
+    public class UpdateUserCoverImageCommandHandler : ICommandHandler<UpdateUserCoverImageCommand>
+    {
+        private readonly IRegularUserRepository _userRepository;
+
+        public UpdateUserCoverImageCommandHandler(IRegularUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
+        public async Task ExecuteAsync(UpdateUserCoverImageCommand message, CancellationToken token)
+        {
+            var user = await _userRepository.LoadAsync(message.UserId, token);
+            user.UpdateCoverImage(message.FileName);
+            await _userRepository.UpdateAsync(user, token);
+        }
+    }
 }

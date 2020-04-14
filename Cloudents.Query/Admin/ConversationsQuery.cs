@@ -42,7 +42,7 @@ namespace Cloudents.Query.Admin
             public async Task<IEnumerable<ConversationDto>> GetAsync(ConversationsQuery query, CancellationToken token)
             {
 
-                var p = _statelessSession.Query<ViewConversation>();
+                var p = _statelessSession.Query<ViewConversation>().WithOptions(w => w.SetComment(nameof(ConversationsQuery)));
 
 
                 if (!string.IsNullOrEmpty(query.AssignTo))

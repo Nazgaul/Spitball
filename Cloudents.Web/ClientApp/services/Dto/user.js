@@ -4,8 +4,8 @@ function _createIsTutorState(str){
     else if(str && str.toLowerCase() === 'pending')return 'pending';
     else return null;
 }
-function _createUserType(str){
-    return str.toLowerCase() === 'teacher' ? 'Teacher' : 'Student'
+function _createUserType(userType){
+    return userType.toLowerCase() === 'teacher' ? 'Teacher' : 'Student'
 }
 export const User = {
     Default: function (objInit) {
@@ -76,7 +76,8 @@ export const User = {
                 isPurchased: objInit.isPurchased,
                 isSold: objInit.isSold,
                 haveFollowers: objInit.haveFollowers,
-                pendingSessionsPayments: objInit.pendingSessionsPayments
+                pendingSessionsPayments: objInit.pendingSessionsPayments,
+                price: objInit.price || null
             }
         )
     },

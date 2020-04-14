@@ -11,7 +11,7 @@ namespace Cloudents.Core.DTOs.Tutors
     {
         public long UserId { get; set; }
         public string Name { get; set; }
-        public string Image { get; set; }
+        public string? Image { get; set; }
         public IEnumerable<string> Courses { get; set; }
         public IEnumerable<string> Subjects { get; set; }
 

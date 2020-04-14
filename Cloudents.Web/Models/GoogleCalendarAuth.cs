@@ -18,8 +18,16 @@ namespace Cloudents.Web.Models
     {
         [Required]
         public DateTime? From { get; set; }
-        [Required]
+        //[Required]
         public DateTime? To { get; set; }
+
+        public long TutorId { get; set; }
+    }
+
+    public class CalendarSetEvent
+    {
+        [Required]
+        public DateTime? From { get; set; }
 
         public long TutorId { get; set; }
     }

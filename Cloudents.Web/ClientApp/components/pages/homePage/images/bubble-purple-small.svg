@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="190" height="233" viewBox="0 0 205 233">
+    <defs>
+        <path id="prefix__a" d="M0.64 0.365L40.384 0.365 40.384 40 0.64 40z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <path fill="#ECDDFD" d="M104 173c0 2.76-2.238 5-5 5-2.761 0-5-2.24-5-5 0-2.761 2.239-5 5-5 2.762 0 5 2.239 5 5M114 211c0 2.76-2.238 5-5 5-2.761 0-5-2.24-5-5 0-2.761 2.239-5 5-5 2.762 0 5 2.239 5 5M39 145c0 2.76-2.239 5-5 5-2.762 0-5-2.24-5-5 0-2.761 2.238-5 5-5 2.761 0 5 2.239 5 5M63 72c0 2.761-2.238 5-5 5-2.761 0-5-2.239-5-5 0-2.76 2.239-5 5-5 2.762 0 5 2.24 5 5M92 72c0 2.761-2.238 5-5 5-2.761 0-5-2.239-5-5 0-2.76 2.239-5 5-5 2.762 0 5 2.24 5 5M132 54c0 2.761-2.238 5-5 5-2.761 0-5-2.239-5-5 0-2.76 2.239-5 5-5 2.762 0 5 2.24 5 5M148 116.5c0 2.486-2.015 4.5-4.5 4.5s-4.5-2.014-4.5-4.5 2.015-4.5 4.5-4.5 4.5 2.014 4.5 4.5M43 42.5c0 2.486-2.015 4.5-4.5 4.5S34 44.986 34 42.5s2.015-4.5 4.5-4.5 4.5 2.014 4.5 4.5M72 161.5c0 2.486-2.015 4.5-4.5 4.5s-4.5-2.014-4.5-4.5c0-2.487 2.015-4.5 4.5-4.5s4.5 2.013 4.5 4.5M133 184.5c0 3.59-2.91 6.5-6.5 6.5s-6.5-2.91-6.5-6.5 2.91-6.5 6.5-6.5 6.5 2.91 6.5 6.5" transform="translate(0 1)"/>
+        <path stroke="#ECDDFD" stroke-linecap="round" stroke-width="2" d="M137.414 23.665c-2.576 10.169-12.908 16.325-23.079 13.749-10.169-2.576-16.325-12.908-13.749-23.078 2.577-10.17 12.909-16.326 23.078-13.75 10.17 2.577 16.326 12.909 13.75 23.079z" transform="translate(0 1)"/>
+        <path fill="#C697F8" d="M127 19.5L116 10 114 26z" transform="translate(0 1)"/>
+        <path stroke="#ECDDFD" stroke-linecap="round" stroke-width="2" d="M48 179c0 10.494-8.507 19-19 19-10.494 0-19-8.506-19-19s8.506-19 19-19c10.493 0 19 8.506 19 19z" transform="translate(0 1)"/>
+        <path stroke="#C1A9DC" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M24 171L19 184M25 171L30 184M28 179.5L21 179.5M38 170L35.499 167 33 170M33 185L35.5 188 38 185M35.5 167L35.5 188" transform="translate(0 1)"/>
+        <path fill="#F1E6FD" d="M205 128.5c0 9.113-7.387 16.5-16.5 16.5-9.112 0-16.5-7.387-16.5-16.5 0-9.112 7.388-16.5 16.5-16.5 9.113 0 16.5 7.388 16.5 16.5" transform="translate(0 1)"/>
+        <path fill="#ECDDFD" d="M185 62.5c0 3.59-2.91 6.5-6.5 6.5s-6.5-2.91-6.5-6.5 2.91-6.5 6.5-6.5 6.5 2.91 6.5 6.5" transform="translate(0 1)"/>
+        <path fill="#C697F8" d="M93 38.5c0 3.59-2.91 6.5-6.5 6.5S80 42.09 80 38.5s2.91-6.5 6.5-6.5 6.5 2.91 6.5 6.5" transform="translate(0 1)"/>
+        <path fill="#D9B9FA" d="M154 149.5c0 4.141-3.359 7.5-7.5 7.5-4.143 0-7.5-3.359-7.5-7.5 0-4.142 3.357-7.5 7.5-7.5 4.141 0 7.5 3.358 7.5 7.5" transform="translate(0 1)"/>
+        <path fill="#C697F8" d="M75 197.5c0 4.141-3.358 7.5-7.5 7.5-4.143 0-7.5-3.359-7.5-7.5 0-4.142 3.357-7.5 7.5-7.5 4.142 0 7.5 3.358 7.5 7.5" transform="translate(0 1)"/>
+        <path fill="#C290F7" d="M17 120.5c0 4.141-3.358 7.5-7.5 7.5-4.143 0-7.5-3.359-7.5-7.5 0-4.142 3.357-7.5 7.5-7.5 4.142 0 7.5 3.358 7.5 7.5" transform="translate(0 1)"/>
+        <path fill="#C697F8" d="M188 165c0 3.314-2.686 6-6 6s-6-2.686-6-6 2.686-6 6-6 6 2.686 6 6" transform="translate(0 1)"/>
+        <path stroke="#C1A9DC" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M182.752 130.731L182 136l5.268-.754 11.511-11.51c.295-.294.295-.77 0-1.064l-3.451-3.452c-.294-.293-.77-.293-1.065 0l-11.51 11.511zM188 130L197 121M183 131L187 135" transform="translate(0 1)"/>
+        <path fill="#F5ECFE" d="M41 80.5c0 11.322-9.178 20.5-20.5 20.5S0 91.822 0 80.5 9.178 60 20.5 60 41 69.178 41 80.5" transform="translate(0 1)"/>
+        <path stroke="#C1A9DC" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M19.5 72c-6.192 0-11.134 5.362-10.434 11.695.53 4.803 4.435 8.707 9.238 9.239C24.638 93.634 30 88.692 30 82.499H19.5V72z" transform="translate(0 1)"/>
+        <path stroke="#C1A9DC" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M22 80h11c0-6.076-4.925-11-11-11v11z" transform="translate(0 1)"/>
+        <g transform="translate(0 1) translate(145 180)">
+            <mask id="prefix__b" fill="#fff">
+                <use xlink:href="#prefix__a"/>
+            </mask>
+            <path fill="#F5ECFE" d="M40.384 20.182C40.384 31.127 31.487 40 20.512 40 9.538 40 .64 31.127.64 20.182.64 9.237 9.538.365 20.512.365c10.975 0 19.872 8.872 19.872 19.817" mask="url(#prefix__b)"/>
+        </g>
+        <path fill="#C697F8" d="M132 122.5c0 21.816-17.685 39.5-39.5 39.5-21.814 0-39.5-17.684-39.5-39.5S70.686 83 92.5 83c21.815 0 39.5 17.684 39.5 39.5M168 90.5c0 5.799-4.701 10.5-10.5 10.5S147 96.299 147 90.5c0-5.8 4.701-10.5 10.5-10.5S168 84.7 168 90.5" transform="translate(0 1)"/>
+        <path stroke="#ECDDFD" stroke-width="2" d="M102 84L114 38M38 91L58 103M45 167L64 150" transform="translate(0 1)"/>
+        <g>
+            <path fill="#ECDDFD" d="M35.776 34.93L0.757 0.011" transform="translate(0 1) translate(118 153)"/>
+            <path stroke="#F7F1FE" stroke-width="2" d="M35.776 34.93L0.757 0.011" transform="translate(0 1) translate(118 153)"/>
+        </g>
+        <path stroke="#ECDDFD" stroke-width="2" d="M128 105L148 95" transform="translate(0 1)"/>
+        <path stroke="#C1A9DC" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M172.116 211h-14.232c-.488 0-.884-.408-.884-.913v-19.174c0-.504.396-.913.884-.913h14.232c.489 0 .884.409.884.913v19.174c0 .505-.395.913-.884.913z" transform="translate(0 1)"/>
+        <path stroke="#C1A9DC" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M171 199L167.5 196.3 164 199 164 190 171 190zM160 205.5L164 205.5M160 207.5L168 207.5" transform="translate(0 1)"/>
+    </g>
+</svg>

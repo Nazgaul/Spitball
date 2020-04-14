@@ -101,9 +101,9 @@ export default {
       languagesLocales,
       languageChoisesAval: [],
       menuListComponent: {
+        default: 'menuListNotLogged',
         teacher: 'menuListTeacher',
         student: 'menuListStudent',
-        default: 'menuListNotLogged'
       },
       menuListNotLogged: [
         { title: 'header_find_tutors', icon: 'sbf-account-group', route: { name: routeNames.TutorList } },

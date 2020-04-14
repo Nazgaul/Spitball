@@ -58,16 +58,14 @@ select Name,
 									c.count desc
   OFFSET @PageSize * @Page ROWS
   FETCH NEXT @PageSize ROWS ONLY;";
-                using (var conn = _dapperRepository.OpenConnection())
+                using var conn = _dapperRepository.OpenConnection();
+                return await conn.QueryAsync<CourseDto>(sql, new
                 {
-                    return await conn.QueryAsync<CourseDto>(sql, new
-                    {
-                        query.Term,
-                        Id = query.UserId,
-                        PageSize = pageSize,
-                        query.Page
-                    });
-                }
+                    query.Term,
+                    Id = query.UserId,
+                    PageSize = pageSize,
+                    query.Page
+                });
             }
         }
     }

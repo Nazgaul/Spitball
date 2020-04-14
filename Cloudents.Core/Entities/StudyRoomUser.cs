@@ -20,6 +20,27 @@ namespace Cloudents.Core.Entities
         public virtual User User { get; protected set; }
         public virtual StudyRoom Room { get; protected set; }
 
+
+        protected bool Equals(StudyRoomUser other)
+        {
+
+            return Room.Id.Equals(other.Room.Id) && User.Id.Equals(other.User.Id);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((StudyRoomUser)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = Room.Id.GetHashCode() ^ User.Id.GetHashCode();
+            return hashCode;
+        }
+
         //public virtual bool Online { get; protected set; }
 
         //public virtual void ChangeOnlineState(bool isOnline)

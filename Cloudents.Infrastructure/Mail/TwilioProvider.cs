@@ -98,30 +98,30 @@ namespace Cloudents.Infrastructure.Mail
 
 
         public async Task CreateRoomAsync(string id, Country country, 
-            bool needRecord, Uri callBack, StudyRoomType studyRoomType)
+            bool needRecord, Uri callBack, StudyRoomTopologyType studyRoomType)
         {
             var type = RoomResource.RoomTypeEnum.PeerToPeer;
             switch (studyRoomType)
             {
-                case StudyRoomType.SmallGroup:
+                case StudyRoomTopologyType.SmallGroup:
                     type = RoomResource.RoomTypeEnum.GroupSmall;
                     break;
-                case StudyRoomType.PeerToPeer:
+                case StudyRoomTopologyType.PeerToPeer:
                     type = RoomResource.RoomTypeEnum.PeerToPeer;
                     break;
-                case StudyRoomType.GroupRoom:
+                case StudyRoomTopologyType.GroupRoom:
                     type = RoomResource.RoomTypeEnum.Group;
                     break;
             }
-            var mediaRegion = "us1";
-            if (country == Country.Israel)
-            {
-                mediaRegion = "de1";
-            }
-            if (country == Country.India)
-            {
-                mediaRegion = "us1";
-            }
+            //var mediaRegion = "us1";
+            //if (country == Country.Israel)
+            //{
+            //    mediaRegion = "de1";
+            //}
+            //if (country == Country.India)
+            //{
+            //    mediaRegion = "us1";
+            //}
 
             await RoomResource.CreateAsync(
                  uniqueName: id,
@@ -131,7 +131,7 @@ namespace Cloudents.Infrastructure.Mail
                  statusCallback: callBack,
                  statusCallbackMethod: HttpMethod.Post,
                  recordParticipantsOnConnect: needRecord,
-                 mediaRegion: mediaRegion
+                 mediaRegion: "gll"
             );
 
 

@@ -65,21 +65,19 @@ Select count(distinct rt.Id)
 from sb.ReadTutor rt
 where rt.Country = coalesce(@country, (select country from sb.[user] where Id = @userId))
 and rt.Id != @userid;";
-                using (var conn = _dapper.OpenConnection())
-                using (var multi = conn.QueryMultiple(sql, new { query.UserId, query.Country, query.PageSize, @PageNumber = query.Page }))
+                using var conn = _dapper.OpenConnection();
+                using var multi = conn.QueryMultiple(sql, new { query.UserId, query.Country, query.PageSize, @PageNumber = query.Page });
+                var tutor = await multi.ReadAsync<TutorCardDto>();
+                var count = await multi.ReadFirstAsync<int>();
+                return new ListWithCountDto<TutorCardDto>()
                 {
-                    var tutor = await multi.ReadAsync<TutorCardDto>();
-                    var count = await multi.ReadFirstAsync<int>();
-                    return new ListWithCountDto<TutorCardDto>()
+                    Count = count,
+                    Result = tutor.Select(s =>
                     {
-                        Count = count,
-                        Result = tutor.Select(s =>
-                        {
-                            s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId,s.Image);
-                            return s;
-                        })
-                    };
-                }
+                        s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId,s.Image);
+                        return s;
+                    })
+                };
             }
         }
     }

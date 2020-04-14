@@ -57,7 +57,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> CreateStudyRoomAsync(CreateStudyRoomRequest model,
+        public async Task<ActionResult<CreateStudyRoomCommandResult>> CreateStudyRoomAsync(CreateStudyRoomRequest model,
             [FromServices] TelemetryClient client,
             CancellationToken token)
         {
@@ -65,9 +65,10 @@ namespace Cloudents.Web.Api
             try
             {
                 var chatTextMessage = _localizer["StudyRoomCreatedChatMessage", model.Name];
-                var command = new CreateStudyRoomCommand(tutorId, model.UserId, chatTextMessage, model.Name);
+                var command = new CreateStudyRoomCommand(tutorId, model.UserId,
+                    chatTextMessage, model.Name, model.Price, model.Date, model.Type);
                 var result = await _commandBus.DispatchAsync<CreateStudyRoomCommand, CreateStudyRoomCommandResult>(command, token);
-                return Ok(result);
+                return result;
             }
             catch (DuplicateRowException)
             {
@@ -99,6 +100,16 @@ namespace Cloudents.Web.Api
             [FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
+
+            try
+            {
+                await _commandBus.DispatchAsync(new EnterStudyRoomCommand(id, userId), default);
+            }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
+            }
+
             var query = new StudyRoomQuery(id, userId);
             var result = await _queryBus.QueryAsync(query, token);
 

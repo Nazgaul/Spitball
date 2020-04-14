@@ -1,5 +1,8 @@
 ﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
+using NHibernate;
+using NHibernate.Type;
 
 namespace Cloudents.Persistence.Maps
 {
@@ -24,9 +27,12 @@ namespace Cloudents.Persistence.Maps
 
 
             HasMany(x => x.Users).Access.CamelCaseField(Prefix.Underscore)
-                .Inverse().Cascade.AllDeleteOrphan();
+                .Inverse().Cascade.AllDeleteOrphan().AsSet();
 
-
+            Map(x => x.Price).CustomType(nameof(NHibernateUtil.Currency));
+            Map(x => x.BroadcastTime).Nullable();
+            Map(x => x.StudyRoomType).CustomType<GenericEnumStringType<StudyRoomType>>();
+            HasMany(x => x.ChatRooms).Inverse().Cascade.AllDeleteOrphan();//.Inverse();
         }
 
     }

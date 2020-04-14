@@ -90,31 +90,27 @@ offset @pageSize * @PageNumber rows
 fetch next @pageSize Rows only";
 
 
-
-
-                using (var conn = _dapperRepository.OpenConnection())
-                {
-                    var sql = query.Version == 0 ? firstQuery : secondQuery;
-                    var result = (await conn.QueryAsync<TutorSearchDto>(sql,
-                         new
-                         {
-                             query.Version,
-                             // RowVersion =  query.RowVersion ?? new[] { Convert.ToByte(0) },
-                             PageNumber = query.Page,
-                             PageSize
-                         })).ToList();
-
-
-
-                    var lookUp = result.ToLookup(x => x.SYS_CHANGE_OPERATION == "D");
-                    return new SearchWrapperDto<TutorSearchDto>()
+                using var conn = _dapperRepository.OpenConnection();
+                var sql = query.Version == 0 ? firstQuery : secondQuery;
+                var result = (await conn.QueryAsync<TutorSearchDto>(sql,
+                    new
                     {
-                        Update = lookUp[false],
-                        Delete = lookUp[true].Select(s => s.Id.ToString()),
-                        Version = result.Count > 0 ? result.Max(x => x.SYS_CHANGE_VERSION) : 0
+                        query.Version,
+                        // RowVersion =  query.RowVersion ?? new[] { Convert.ToByte(0) },
+                        PageNumber = query.Page,
+                        PageSize
+                    })).ToList();
 
-                    };
-                }
+
+
+                var lookUp = result.ToLookup(x => x.SYS_CHANGE_OPERATION == "D");
+                return new SearchWrapperDto<TutorSearchDto>()
+                {
+                    Update = lookUp[false],
+                    Delete = lookUp[true].Select(s => s.Id.ToString()),
+                    Version = result.Count > 0 ? result.Max(x => x.SYS_CHANGE_VERSION) : 0
+
+                };
             }
         }
     }
