@@ -12,7 +12,7 @@ namespace Cloudents.Core.Entities
     public class User : BaseUser
     {
         public User(string email, string firstName, string lastName,
-            Language language, string country, Gender gender = Gender.None) : this()
+            Language language, string country, Gender gender = Cloudents.Core.Enum.Gender.None) : this()
         {
             Email = email;
             ChangeName(firstName, lastName);
@@ -223,8 +223,8 @@ namespace Cloudents.Core.Entities
 
         public virtual BuyerPayment? BuyerPayment { get; protected set; }
 
-        public virtual Gender Gender { get; protected set; }
-        public virtual PaymentStatus PaymentExists { get; protected set; }
+        public virtual Gender? Gender { get; protected set; }
+        public virtual PaymentStatus? PaymentExists { get; protected set; }
 
         public virtual UserType? UserType2 { get; protected set; }
         private readonly ICollection<UserPayPalToken> _userTokens = new List<UserPayPalToken>();

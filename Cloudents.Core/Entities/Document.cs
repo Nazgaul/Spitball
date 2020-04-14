@@ -59,8 +59,8 @@ namespace Cloudents.Core.Entities
 
         public virtual Course Course { get; protected set; }
 
-        private readonly ISet<DocumentCourse> _Courses = new HashSet<DocumentCourse>();
-        public virtual IEnumerable<DocumentCourse> Courses => _Courses;
+        private readonly ISet<DocumentCourse> _courses = new HashSet<DocumentCourse>();
+        public virtual IEnumerable<DocumentCourse> Courses => _courses;
 
 
         public virtual void AssignCourse(Course2 course)
@@ -68,7 +68,7 @@ namespace Cloudents.Core.Entities
             //foreach (var course in courses)
             //{
             var p = new DocumentCourse(this, course);
-            if (_Courses.Add(p))
+            if (_courses.Add(p))
             {
                 course.Count++;
             }
@@ -231,7 +231,7 @@ namespace Cloudents.Core.Entities
 
         //This is only for video
         public virtual TimeSpan? Duration { get; set; }
-        public virtual bool IsShownHomePage { get; protected set; }
+        public virtual bool? IsShownHomePage { get; protected set; }
 
         public virtual string Md5 { get; set; }
     }

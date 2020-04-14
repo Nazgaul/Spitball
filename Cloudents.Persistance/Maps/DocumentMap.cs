@@ -42,11 +42,16 @@ namespace Cloudents.Persistence.Maps
              .Cascade.AllDeleteOrphan()
              .KeyColumn("DocumentId").Inverse().AsSet();
 
+            HasMany(x => x.Courses).Access.CamelCaseField(Prefix.Underscore)
+                .Cascade.AllDeleteOrphan()
+                .KeyColumn("DocumentId").Inverse().AsSet();
+
             Map(x => x.DocumentType).Column("DocumentType");
             Map(x => x.Duration);//.CustomType<TimeAsTimeSpanType>();
             Map(e => e.IsShownHomePage);
             Map(x => x.Boost);
             Component(x => x.Status);
+            DynamicUpdate();
         }
     }
 

@@ -39,7 +39,8 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Subject).UniqueKey("K-Course2Restriction").Not.Nullable();
             Map(x => x.SearchDisplay);
             Map(x => x.CardDisplay);
-
+            DynamicUpdate();
+            
             HasMany(x => x.Users)
                 .KeyColumn("CourseId")
                 .Inverse().Cascade.AllDeleteOrphan().AsSet();

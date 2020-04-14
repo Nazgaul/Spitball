@@ -43,7 +43,7 @@ namespace Cloudents.Query.HomePage
 
                 sessionQuery = sessionQuery.Where(w => w.User.Country == query.Country.ToString());
 
-                return await sessionQuery.Where(w => w.IsShownHomePage && w.Status.State == ItemState.Ok)
+                return await sessionQuery.Where(w => w.IsShownHomePage == true && w.Status.State == ItemState.Ok)
                     .Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,

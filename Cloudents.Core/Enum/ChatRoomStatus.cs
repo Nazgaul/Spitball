@@ -6,8 +6,9 @@ namespace Cloudents.Core.Enum
 
     public enum PaymentStatus :int
     {
-        None,
-        Done,
+        //Nhibernate need those number to stop update the record
+        None = 0,
+        Done = 1,
         //Later
 
     }
