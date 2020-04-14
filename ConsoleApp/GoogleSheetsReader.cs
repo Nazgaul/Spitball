@@ -89,7 +89,7 @@ namespace ConsoleApp
                         
                     }
 
-                    await ProcessUsers(newMapping, oldCourseName, i);
+                    await ProcessDocuments(newMapping, oldCourseName, i);
                 }
                 catch (DuplicateRowException e)
                 {
@@ -163,16 +163,17 @@ namespace ConsoleApp
                 throw new ArgumentException(newMapping);
             }
 
-
-            var documentIdAlreadyInCourse =  new HashSet<long>(await session.Query<DocumentCourse>()
+            var f1 = session.Query<DocumentCourse>()
                 .Where(w => w.Course.SearchDisplay == newMapping)
-                .Select(s => s.Document.Id).ToListAsync());
-            //TODO change here
-            var documents = await session.Query<Document>()
-                //.Fetch(f=>f.User)
+                .Select(s => s.Document.Id).ToFuture();
+
+            var f2 =  session.Query<Document>()
                 .Where(w => w.Course.Id == oldCourseName && w.Status.State == ItemState.Ok &&
-                            w.User.Country == Country.IsraelStr)
-                .ToListAsync();
+                            w.User.Country == Country.IsraelStr).ToFuture();
+
+            var documentIdAlreadyInCourse =  new HashSet<long>(f1.GetEnumerable());
+            //TODO change here
+            var documents = f2.GetEnumerable().ToList();
             if (documents.Count == documentIdAlreadyInCourse.Count)
             {
                 return;
@@ -221,7 +222,7 @@ namespace ConsoleApp
                 .Where(w => w.User.Country == "IL")
                 .Where(w => w.User.LockoutEnd != DateTimeOffset.MaxValue)
                 .Where(w => w.User.EmailConfirmed && w.User.PhoneNumberConfirmed)
-                .Select(s => new {s.User.Id, s.IsTeach}).ToFuture();
+                .Select(s => new {s.User.Id, s.IsTeach }).ToFuture();
 
             var userIdAlreadyInCourse = new HashSet<long>(f1.GetEnumerable());
 
@@ -239,23 +240,23 @@ namespace ConsoleApp
                     continue;
                 }
 
-                var user = session.Get<User>(user2.Id);
+                var user = session.Load<User>(user2.Id);
 
                 //TODO change here
-                if (user.Country != "IL")
-                {
-                    continue;
-                }
+                //if (user.Country != "IL")
+                //{
+                //    continue;
+                //}
 
-                if (user.LockoutEnd == DateTimeOffset.MaxValue)
-                {
-                    continue;
-                }
+                //if (user.LockoutEnd == DateTimeOffset.MaxValue)
+                //{
+                //    continue;
+                //}
 
-                if (!user.EmailConfirmed && !user.PhoneNumberConfirmed)
-                {
-                    continue;
-                }
+                //if (!user.EmailConfirmed && !user.PhoneNumberConfirmed)
+                //{
+                //    continue;
+                //}
                 needToCommit = true;
                 user.AssignCourse2(course, user2.IsTeach);
                 session.Save(user);
