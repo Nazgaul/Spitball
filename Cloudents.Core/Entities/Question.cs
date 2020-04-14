@@ -91,18 +91,11 @@ namespace Cloudents.Core.Entities
 
         }
 
-        
-
-        //[NotNull]
-        //public virtual CultureInfo Language { get; protected set; }
-
         public virtual void MakePublic()
         {
-            //TODO: maybe put an event to that
             if (Status == Pending)
             {
                 Status = Public;
-                //AddEvent(new QuestionCreatedEvent(this));
             }
         }
 
@@ -139,12 +132,7 @@ namespace Cloudents.Core.Entities
             {
                 throw new ArgumentException();
             }
-
-            //if (Status.FlagReason?.Equals(TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase) == true)
-            //{
-            //    //_votes.Clear();
-            //    //VoteCount = 0;
-            //}
+         
             Status = Public;
         }
     }

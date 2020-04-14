@@ -96,6 +96,56 @@ namespace ConsoleApp
             }
         }
 
+        private static async Task ProcessQuestion(string newMapping, string oldCourseName, int i)
+        {
+
+            using var child = Program.Container.BeginLifetimeScope();
+
+            var session = child.Resolve<ISession>();
+            var unitOfWork = child.Resolve<IUnitOfWork>();
+            //TODO change here
+            var course = await session.Query<Course2>().Where(w => w.Country == Country.Israel &&
+                                                                   w.SearchDisplay == newMapping)
+                .SingleOrDefaultAsync();
+            if (course == null)
+            {
+                throw new ArgumentException(newMapping);
+            }
+
+
+            var questionIdAlreadyInCourse = await session.Query<Question>()
+                .Where(w => w.Course2.SearchDisplay == newMapping)
+                .Select(s => s.Id).ToListAsync();
+            //TODO change here
+            var questions = await session.Query<Question>()
+                .Fetch(f => f.User)
+                .Where(w => w.Course.Id == oldCourseName && w.Status.State == ItemState.Ok &&
+                            w.User.Country == Country.IsraelStr)
+                .ToListAsync();
+            if (questions.Count == questionIdAlreadyInCourse.Count)
+            {
+                return;
+            }
+
+            var needToCommit = false;
+            foreach (var question in questions)
+            {
+                if (questionIdAlreadyInCourse.Contains(question.Id))
+                {
+                    continue;
+                }
+                needToCommit = true;
+                question.Course2 = course;
+                //document.AssignCourse(course);
+                session.Save(question);
+            }
+            if (needToCommit)
+            {
+                Console.WriteLine($"Processing {newMapping} index {i}");
+                await unitOfWork.CommitAsync(default);
+            }
+        }
+
         private static async Task ProcessDocuments(string newMapping, string oldCourseName, int i)
         {
             
