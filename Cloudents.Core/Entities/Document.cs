@@ -70,7 +70,7 @@ namespace Cloudents.Core.Entities
             var p = new DocumentCourse(this, course);
             if (_courses.Add(p))
             {
-                course.Count++;
+               // course.Count++;
             }
         }
 

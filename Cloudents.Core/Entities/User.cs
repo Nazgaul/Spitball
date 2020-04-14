@@ -87,7 +87,7 @@ namespace Cloudents.Core.Entities
             p.CanTeach(canTeach);
             if (_userCourses2.Add(p))
             {
-                course.Count++;
+                //course.Count++;
             }
         }
 
