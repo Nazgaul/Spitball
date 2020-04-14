@@ -113,12 +113,12 @@ namespace ConsoleApp
             }
 
 
-            var questionIdAlreadyInCourse = await session.Query<Question>()
+            var questionIdAlreadyInCourse = new HashSet<long>(await session.Query<Question>()
                 .Where(w => w.Course2.SearchDisplay == newMapping)
-                .Select(s => s.Id).ToListAsync();
+                .Select(s => s.Id).ToListAsync());
             //TODO change here
             var questions = await session.Query<Question>()
-                .Fetch(f => f.User)
+               // .Fetch(f => f.User)
                 .Where(w => w.Course.Id == oldCourseName && w.Status.State == ItemState.Ok &&
                             w.User.Country == Country.IsraelStr)
                 .ToListAsync();
@@ -163,9 +163,9 @@ namespace ConsoleApp
             }
 
 
-            var documentIdAlreadyInCourse = await session.Query<DocumentCourse>()
+            var documentIdAlreadyInCourse =  new HashSet<long>(await session.Query<DocumentCourse>()
                 .Where(w => w.Course.SearchDisplay == newMapping)
-                .Select(s => s.Document.Id).ToListAsync();
+                .Select(s => s.Document.Id).ToListAsync());
             //TODO change here
             var documents = await session.Query<Document>()
                 //.Fetch(f=>f.User)
@@ -212,13 +212,13 @@ namespace ConsoleApp
             }
 
 
-            var userIdAlreadyInCourse = await session.Query<UserCourse2>()
+            var userIdAlreadyInCourse = new HashSet<long>(await session.Query<UserCourse2>()
                 .Where(w => w.Course.SearchDisplay == newMapping)
-                .Select(s => s.User.Id).ToListAsync();
+                .Select(s => s.User.Id).ToListAsync());
 
             //TODO change here
             var users = await session.Query<UserCourse>()
-                .Fetch(f=>f.User)
+                //.Fetch(f=>f.User)
                 .Where(w => w.Course.Id == oldCourseName)
                 .Where(w=>w.User.Country == "IL")
                 .Where(w=>w.User.LockoutEnd != DateTimeOffset.MaxValue)
