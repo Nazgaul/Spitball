@@ -136,6 +136,7 @@ namespace Cloudents.Core.Entities
                 var studyRoomUser = new StudyRoomUser(user, this);
                 Users.Add(studyRoomUser);
                 ChatRoom.AddUserToChat(user);
+                Tutor.User.AddFollower(user);
             }
         }
 
