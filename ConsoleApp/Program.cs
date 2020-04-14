@@ -134,8 +134,8 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-
-            await DeleteOldStuff.DoStuff();
+            await GoogleSheetsReader.Read();
+            //await DeleteOldStuff.DoStuff();
         }
 
         
