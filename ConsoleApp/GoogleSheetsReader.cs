@@ -55,7 +55,8 @@ namespace ConsoleApp
 
             // Define request parameters.
             string spreadsheetId = "19p5NTUpzDVICSCAYhqTvvjmbgU9AoInJMWwfJpfwX3A";
-            string range = "RamISL!A2:c1660";
+            var country = Country.India;
+            string range = "IN Clean this up!A2:C1660";
             SpreadsheetsResource.ValuesResource.GetRequest request =
                     service.Spreadsheets.Values.Get(spreadsheetId, range);
 
@@ -86,15 +87,31 @@ namespace ConsoleApp
                         Console.WriteLine($"Line index {i}");
                         //Country country = row[0].ToString();
 
-                        var newMapping = row[2].ToString().Trim('"').Replace("\\\"", "\"");
+                        var newMapping = row[1].ToString().Trim('"')
+                            .Replace("\\\"", "\"")
+                            .Replace("--","-");
                         var oldCourseName = row[0].ToString();
-                        if (newMapping.Equals("N.A", StringComparison.OrdinalIgnoreCase))
+                        if (newMapping.Equals("N.A", StringComparison.OrdinalIgnoreCase) ||
+                            newMapping.Equals("N/A", StringComparison.OrdinalIgnoreCase))
                         {
                             continue;
 
                         }
 
-                        await func(newMapping, oldCourseName, Country.Israel, i);
+                        if (country == Country.India && row.Count < 3)
+                        {
+                            if (row.Count < 3)
+                            {
+                                continue;
+                                
+                            }
+                            if (row[2]?.ToString() != "*")
+                            {
+                                continue;
+                            }
+                        }
+
+                        await func(newMapping, oldCourseName, country, i);
                     }
                     catch (DuplicateRowException e)
                     {
