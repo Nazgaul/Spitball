@@ -1,18 +1,13 @@
 ﻿using Autofac;
 using Cloudents.Core;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Infrastructure.Video;
 using Cloudents.Persistence;
-using Cloudents.Search.Tutor;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
-using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -22,17 +17,8 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Command;
-using Cloudents.Command.Command;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Storage;
-using Cloudents.Query;
-using Cloudents.Query.Chat;
-using Cloudents.Query.Tutor;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
-using NHibernate.Linq;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
-using PaymentStatus = Cloudents.Core.DTOs.PaymentStatus;
 
 
 namespace ConsoleApp
