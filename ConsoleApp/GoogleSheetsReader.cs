@@ -168,7 +168,7 @@ namespace ConsoleApp
                 .Select(s => s.Document.Id).ToListAsync();
             //TODO change here
             var documents = await session.Query<Document>()
-                .Fetch(f=>f.User)
+                //.Fetch(f=>f.User)
                 .Where(w => w.Course.Id == oldCourseName && w.Status.State == ItemState.Ok &&
                             w.User.Country == Country.IsraelStr)
                 .ToListAsync();
