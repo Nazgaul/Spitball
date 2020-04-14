@@ -28,6 +28,8 @@ namespace Cloudents.Persistence.Maps
 
             Component(x => x.Status);
 
+            DynamicUpdate();
+
         }
     }
 }

@@ -64,7 +64,7 @@ namespace ConsoleApp
             ValueRange response = await request.ExecuteAsync();
             var values = response.Values;
 
-            
+
             //var bus = Program.Container.Resolve<ICommandBus>();
 
             if (values == null || values.Count <= 0)
@@ -72,32 +72,38 @@ namespace ConsoleApp
                 return;
             }
 
-            for (int i = 0; i < values.Count; i++)
+            var listOfFunction = new Func<string, string, Country, int, Task>[] { ProcessUsers, ProcessDocuments, ProcessQuestion };
+            foreach (var func in listOfFunction)
             {
-                try
-                {
-                   
-                    var row = values[i];
-                    Console.WriteLine($"Line index {i}");
-                    //Country country = row[0].ToString();
 
-                    var newMapping = row[2].ToString().Trim('"').Replace("\\\"","\"");
-                    var oldCourseName = row[0].ToString();
-                    if (newMapping.Equals("N.A", StringComparison.OrdinalIgnoreCase))
+
+                for (int i = 0; i < values.Count; i++)
+                {
+                    try
                     {
-                        continue;
-                        
-                    }
 
-                    await ProcessDocuments(newMapping, oldCourseName, i);
-                }
-                catch (DuplicateRowException e)
-                {
+                        var row = values[i];
+                        Console.WriteLine($"Line index {i}");
+                        //Country country = row[0].ToString();
+
+                        var newMapping = row[2].ToString().Trim('"').Replace("\\\"", "\"");
+                        var oldCourseName = row[0].ToString();
+                        if (newMapping.Equals("N.A", StringComparison.OrdinalIgnoreCase))
+                        {
+                            continue;
+
+                        }
+
+                        await func(newMapping, oldCourseName, Country.Israel, i);
+                    }
+                    catch (DuplicateRowException e)
+                    {
+                    }
                 }
             }
         }
 
-        private static async Task ProcessQuestion(string newMapping, string oldCourseName, int i)
+        private static async Task ProcessQuestion(string newMapping, string oldCourseName, Country country, int i)
         {
 
             using var child = Program.Container.BeginLifetimeScope();
@@ -105,7 +111,7 @@ namespace ConsoleApp
             var session = child.Resolve<ISession>();
             var unitOfWork = child.Resolve<IUnitOfWork>();
             //TODO change here
-            var course = await session.Query<Course2>().Where(w => w.Country == Country.Israel &&
+            var course = await session.Query<Course2>().Where(w => w.Country == country &&
                                                                    w.SearchDisplay == newMapping)
                 .SingleOrDefaultAsync();
             if (course == null)
@@ -113,16 +119,18 @@ namespace ConsoleApp
                 throw new ArgumentException(newMapping);
             }
 
-
-            var questionIdAlreadyInCourse = new HashSet<long>(await session.Query<Question>()
+            var f1 = session.Query<Question>()
                 .Where(w => w.Course2.SearchDisplay == newMapping)
-                .Select(s => s.Id).ToListAsync());
-            //TODO change here
-            var questions = await session.Query<Question>()
-               // .Fetch(f => f.User)
+                .Select(s => s.Id).ToFuture();
+
+            var f2 = session.Query<Question>()
+                // .Fetch(f => f.User)
                 .Where(w => w.Course.Id == oldCourseName && w.Status.State == ItemState.Ok &&
-                            w.User.Country == Country.IsraelStr)
-                .ToListAsync();
+                            w.User.Country == country.Name).ToFuture();
+
+            var questionIdAlreadyInCourse = new HashSet<long>(f1.GetEnumerable());
+            //TODO change here
+            var questions = f2.GetEnumerable().ToList();
             if (questions.Count == questionIdAlreadyInCourse.Count)
             {
                 return;
@@ -147,15 +155,15 @@ namespace ConsoleApp
             }
         }
 
-        private static async Task ProcessDocuments(string newMapping, string oldCourseName, int i)
+        private static async Task ProcessDocuments(string newMapping, string oldCourseName, Country country, int i)
         {
-            
+
             using var child = Program.Container.BeginLifetimeScope();
 
             var session = child.Resolve<ISession>();
             var unitOfWork = child.Resolve<IUnitOfWork>();
             //TODO change here
-            var course = await session.Query<Course2>().Where(w => w.Country == Country.Israel &&
+            var course = await session.Query<Course2>().Where(w => w.Country == country &&
                                                                    w.SearchDisplay == newMapping)
                 .SingleOrDefaultAsync();
             if (course == null)
@@ -167,11 +175,11 @@ namespace ConsoleApp
                 .Where(w => w.Course.SearchDisplay == newMapping)
                 .Select(s => s.Document.Id).ToFuture();
 
-            var f2 =  session.Query<Document>()
+            var f2 = session.Query<Document>()
                 .Where(w => w.Course.Id == oldCourseName && w.Status.State == ItemState.Ok &&
-                            w.User.Country == Country.IsraelStr).ToFuture();
+                            w.User.Country == country.Name).ToFuture();
 
-            var documentIdAlreadyInCourse =  new HashSet<long>(f1.GetEnumerable());
+            var documentIdAlreadyInCourse = new HashSet<long>(f1.GetEnumerable());
             //TODO change here
             var documents = f2.GetEnumerable().ToList();
             if (documents.Count == documentIdAlreadyInCourse.Count)
@@ -197,7 +205,7 @@ namespace ConsoleApp
             }
         }
 
-        private static async Task ProcessUsers(string newMapping, string oldCourseName, int i)
+        private static async Task ProcessUsers(string newMapping, string oldCourseName, Country country, int i)
         {
             using var child = Program.Container.BeginLifetimeScope();
 
@@ -205,7 +213,7 @@ namespace ConsoleApp
             var unitOfWork = child.Resolve<IUnitOfWork>();
 
             //TODO change here
-            var course = await session.Query<Course2>().Where(w => w.Country == Country.Israel 
+            var course = await session.Query<Course2>().Where(w => w.Country == country
                                                                    && w.SearchDisplay == newMapping)
                 .SingleOrDefaultAsync();
             if (course == null)
@@ -213,16 +221,16 @@ namespace ConsoleApp
                 throw new ArgumentException(newMapping);
             }
 
-            var f1 =  session.Query<UserCourse2>()
+            var f1 = session.Query<UserCourse2>()
                 .Where(w => w.Course.SearchDisplay == newMapping)
                 .Select(s => s.User.Id).ToFuture();
             var f2 = session.Query<UserCourse>()
                 //.Fetch(f=>f.User)
                 .Where(w => w.Course.Id == oldCourseName)
-                .Where(w => w.User.Country == "IL")
+                .Where(w => w.User.Country == country.Name)
                 .Where(w => w.User.LockoutEnd != DateTimeOffset.MaxValue)
                 .Where(w => w.User.EmailConfirmed && w.User.PhoneNumberConfirmed)
-                .Select(s => new {s.User.Id, s.IsTeach }).ToFuture();
+                .Select(s => new { s.User.Id, s.IsTeach }).ToFuture();
 
             var userIdAlreadyInCourse = new HashSet<long>(f1.GetEnumerable());
 
