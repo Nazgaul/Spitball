@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.Entities
 {
-    public class UserCourse2 :Entity<Guid>, IEquatable<UserCourse2>
+    public class UserCourse2 : Entity<Guid>, IEquatable<UserCourse2>
     {
         protected UserCourse2()
         {
@@ -28,7 +28,7 @@ namespace Cloudents.Core.Entities
             IsTeach = canTeach;
             //TODO - COURSE-CLEANUP
 
-           // _domainEvents.Add(new CanTeachCourseEvent(this));
+            // _domainEvents.Add(new CanTeachCourseEvent(this));
         }
 
         public virtual bool Equals(UserCourse2? other)
@@ -43,12 +43,12 @@ namespace Cloudents.Core.Entities
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((UserCourse2) obj);
+            return Equals((UserCourse2)obj);
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(User.Id, Course.Id);
+            return HashCode.Combine(499, User.Id, Course.Id);
         }
     }
 }

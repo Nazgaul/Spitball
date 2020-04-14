@@ -59,6 +59,22 @@ namespace Cloudents.Core.Entities
 
         public virtual Course Course { get; protected set; }
 
+        private readonly ISet<DocumentCourse> _Courses = new HashSet<DocumentCourse>();
+        public virtual IEnumerable<DocumentCourse> Courses => _Courses;
+
+
+        public virtual void AssignCourse(Course2 course)
+        {
+            //foreach (var course in courses)
+            //{
+            var p = new DocumentCourse(this, course);
+            if (_Courses.Add(p))
+            {
+                course.Count++;
+            }
+        }
+
+
         public virtual string Description { get; protected set; }
 
 
@@ -73,7 +89,7 @@ namespace Cloudents.Core.Entities
 
         //this is only for document
         public virtual int? PageCount { get; set; }
-        public virtual long? OldId { get; protected set; }
+       // public virtual long? OldId { get; protected set; }
 
         public virtual string MetaContent { get; set; }
 
@@ -88,6 +104,8 @@ namespace Cloudents.Core.Entities
         public virtual IEnumerable<Vote> Votes => _votes;
 
         public virtual int VoteCount { get; protected set; }
+
+        
 
         protected internal virtual ISet<UserDownloadDocument> DocumentDownloads { get; set; }
 
@@ -165,7 +183,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void UnDelete()
         {
-            Status = ItemStatus.Public;
+            Status = Public;
             AddEvent(new DocumentUndeletedEvent(this));
         }
 

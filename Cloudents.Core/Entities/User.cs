@@ -89,11 +89,6 @@ namespace Cloudents.Core.Entities
             {
                 course.Count++;
             }
-            else
-            {
-
-            }
-            //}
         }
 
         public virtual void UseCoupon(Tutor tutor)

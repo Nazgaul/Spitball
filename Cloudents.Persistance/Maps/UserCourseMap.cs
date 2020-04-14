@@ -20,16 +20,4 @@ namespace Cloudents.Persistence.Maps
 
         }
     }
-
-
-    public sealed class UserCourse2Map : ClassMap<UserCourse2>
-    {
-        public UserCourse2Map()
-        {
-            Id(x => x.Id).GeneratedBy.GuidComb();
-            Map(e => e.IsTeach).Column("CanTeach").Not.Nullable();
-            References(x => x.User).Not.Nullable().UniqueKey("k-UserCourse2");
-            References(x => x.Course).Not.Nullable().UniqueKey("k-UserCourse2");
-        }
-    }
 }
