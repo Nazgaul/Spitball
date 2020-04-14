@@ -47,7 +47,7 @@ namespace Cloudents.Web.Api
                 if (s is DocumentSaleDto d)
                 {
                     d.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
-                    d.Url = Url.DocumentUrl(d.Course, d.Id, d.Name);
+                    d.Url = Url.DocumentUrl(d.Id, d.Name);
                 }
                 if (s is SessionSaleDto ss)
                 {

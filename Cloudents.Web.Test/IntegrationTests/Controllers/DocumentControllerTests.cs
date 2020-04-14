@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 using System.Threading.Tasks;
+using FluentAssertions;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests.Controllers
@@ -18,18 +19,27 @@ namespace Cloudents.Web.Test.IntegrationTests.Controllers
         }
 
 
-        //private UriBuilder _uri = new UriBuilder()
-        //{
-        //    Path = string.Empty
-        //};
+       
 
         [Fact]
-        public async Task GetAsync_OldDocument_OKAsync()
+        public async Task GetAsync_OldDocument_RedirectAsync()
         {
             var response = await _client.GetAsync("document/Box%20Read%20for%20hotmail%20user/Load%20Stress%20Testing%20Multimi2.docx/457");
-            response.EnsureSuccessStatusCode();
+            response.StatusCode.Should().Be(301);
+            //response.EnsureSuccessStatusCode();
         }
 
+
+        [Theory]
+        [InlineData("en")]
+        [InlineData("he")]
+        [InlineData("en-IN")]
+        public async Task GetAsync_Document_RedirectAsync(string culture)
+        {
+
+            var response = await _client.GetAsync($"document/פריוריטי-פיתוח/פריוריטי-בניית-דוחות/22?culture={culture}");
+            response.StatusCode.Should().Be(301);
+        }
 
         [Theory]
         [InlineData("en")]
@@ -38,7 +48,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Controllers
         public async Task GetAsync_Document_OKAsync(string culture)
         {
 
-            var response = await _client.GetAsync($"document/פריוריטי-פיתוח/פריוריטי-בניית-דוחות/22?culture={culture}");
+            var response = await _client.GetAsync($"document/פריוריטי-בניית-דוחות/22?culture={culture}");
             response.EnsureSuccessStatusCode();
         }
     }

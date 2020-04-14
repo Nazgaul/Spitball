@@ -22,18 +22,18 @@ namespace Cloudents.Web.Test.UnitTests.Api
     public class ProfileControllerTests
     {
 
-        public interface IExtensionMethodsWrapper
-        {
-            string DocumentUrlWrapper<T>(IUrlHelper myObj, string course, long id, string name);
-        }
+        //public interface IExtensionMethodsWrapper
+        //{
+        //    string DocumentUrlWrapper<T>(IUrlHelper myObj, string course, long id, string name);
+        //}
 
-        public class ExtensionMethodsWrapper : IExtensionMethodsWrapper
-        {
-            public string DocumentUrlWrapper<T>(IUrlHelper myObj,  string course, long id, string name)
-            {
-                return myObj.DocumentUrl( course, id, name);
-            }
-        }
+        //public class ExtensionMethodsWrapper : IExtensionMethodsWrapper
+        //{
+        //    public string DocumentUrlWrapper<T>(IUrlHelper myObj,  string course, long id, string name)
+        //    {
+        //        return myObj.DocumentUrl( course, id, name);
+        //    }
+        //}
 
         [Fact]
         public async Task GetDocumentsAsync_ReturnUrlAsync()

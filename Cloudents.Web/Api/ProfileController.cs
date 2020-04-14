@@ -111,7 +111,7 @@ namespace Cloudents.Web.Api
             {
                 Result = retValTask.Result.Result.Select(s =>
                 {
-                    s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
+                    s.Url = Url.DocumentUrl(s.Id, s.Title);
                     s.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
                     if (votesTask.Result != null && votesTask.Result.TryGetValue(s.Id, out var p))
                     {

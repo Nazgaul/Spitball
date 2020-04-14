@@ -32,7 +32,7 @@ namespace Cloudents.Web.Seo
         public IEnumerable<SitemapNode> GetUrls(bool isFrymo, int index)
         {
             var t = _session.Query<Document>()
-                .Fetch(f => f.University)
+                .Fetch(f => f.User)
                 .Where(w => w.Status.State == ItemState.Ok);
 
             if (isFrymo)
@@ -49,9 +49,7 @@ namespace Cloudents.Web.Seo
                  {
                      s.Id,
                      s.Name,
-                     CourseName = s.Course.Id,
-                    // UniversityName = s.University.Name,
-                    s.TimeStamp.UpdateTime
+                     s.TimeStamp.UpdateTime
 
                  });
 
@@ -59,7 +57,6 @@ namespace Cloudents.Web.Seo
             {
                 var url = _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Document, new
                 {
-                    courseName = FriendlyUrlHelper.GetFriendlyTitle(item.CourseName),
                     item.Id,
                     name = FriendlyUrlHelper.GetFriendlyTitle(item.Name)
                 });
@@ -82,6 +79,6 @@ namespace Cloudents.Web.Seo
             }
         }
 
-       
+
     }
 }

@@ -140,7 +140,7 @@ namespace Cloudents.Web.Api
             {
                 item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
                 item.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(item.Id);
-                item.Url = Url.DocumentUrl(item.Course, item.Id, item.Title);
+                item.Url = Url.DocumentUrl(item.Id, item.Title);
                 return item;
             });
            

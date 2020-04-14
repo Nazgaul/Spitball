@@ -62,7 +62,6 @@ namespace Cloudents.Web.Controllers
             }
             var t = RedirectToRoutePermanent(SeoTypeString.Document, new
             {
-                courseName = FriendlyUrlHelper.GetFriendlyTitle(model.Document.Course),
                 id,
                 theme,
                 name = FriendlyUrlHelper.GetFriendlyTitle(model.Document.Title)
@@ -123,8 +122,8 @@ namespace Cloudents.Web.Controllers
         }
 
 
-        [Route("document/{courseName}/{name}/{id:long}",
-             Name = SeoTypeString.Document)]
+        [Route("document/{id:long}/{name}",
+            Name = SeoTypeString.Document)]
         [ActionName("Index"), SignInWithToken]
         public async Task<IActionResult> IndexAsync([FromQuery]string theme, long id, CancellationToken token)
         {
@@ -180,7 +179,7 @@ namespace Cloudents.Web.Controllers
             }));
             ViewBag.ogTitle = model.Document.Title;
 
-            ViewBag.ogDescription = 
+            ViewBag.ogDescription =
                 _localizer.WithCulture(country.MainLanguage.Info)
                 ["OgDescription", model.Document.Course];
 
@@ -190,7 +189,27 @@ namespace Cloudents.Web.Controllers
             return View();
         }
 
-        [Route("document/{courseName}/{name}/{id:long}/download", Name = "ItemDownload")]
+        [Route("document/{courseName}/{name}/{id:long}")]
+        public async Task<IActionResult> OldDocumentLinkRedirectAsync([FromQuery]string theme, long id, CancellationToken token)
+        {
+            _userManager.TryGetLongUserId(User, out var userId);
+            var query = new DocumentById(id, userId);
+
+            var model = await _queryBus.QueryAsync(query, token);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return RedirectToRoutePermanent(SeoTypeString.Document, new
+            {
+                id,
+                theme,
+                name = FriendlyUrlHelper.GetFriendlyTitle(model.Document.Title)
+            });
+            
+        }
+
+        [Route("document/{id:long}/{name}/download", Name = "ItemDownload")]
         [Authorize]
         public async Task<ActionResult> DownloadAsync(long id, [FromServices] ICommandBus commandBus,
             [FromServices] IBlobProvider blobProvider2, CancellationToken token)
