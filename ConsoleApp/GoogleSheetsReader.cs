@@ -78,7 +78,7 @@ namespace ConsoleApp
                 {
                    
                     var row = values[i];
-
+                    Console.WriteLine($"Line index {i}");
                     //Country country = row[0].ToString();
 
                     var newMapping = row[2].ToString().Trim('"').Replace("\\\"","\"");
@@ -212,19 +212,21 @@ namespace ConsoleApp
                 throw new ArgumentException(newMapping);
             }
 
-
-            var userIdAlreadyInCourse = new HashSet<long>(await session.Query<UserCourse2>()
+            var f1 =  session.Query<UserCourse2>()
                 .Where(w => w.Course.SearchDisplay == newMapping)
-                .Select(s => s.User.Id).ToListAsync());
-
-            //TODO change here
-            var users = await session.Query<UserCourse>()
+                .Select(s => s.User.Id).ToFuture();
+            var f2 = session.Query<UserCourse>()
                 //.Fetch(f=>f.User)
                 .Where(w => w.Course.Id == oldCourseName)
-                .Where(w=>w.User.Country == "IL")
-                .Where(w=>w.User.LockoutEnd != DateTimeOffset.MaxValue)
-                .Where(w=> !w.User.EmailConfirmed && !w.User.PhoneNumberConfirmed)
-                .Select(s => new {s.User.Id, s.IsTeach}).ToListAsync();
+                .Where(w => w.User.Country == "IL")
+                .Where(w => w.User.LockoutEnd != DateTimeOffset.MaxValue)
+                .Where(w => w.User.EmailConfirmed && w.User.PhoneNumberConfirmed)
+                .Select(s => new {s.User.Id, s.IsTeach}).ToFuture();
+
+            var userIdAlreadyInCourse = new HashSet<long>(f1.GetEnumerable());
+
+            //TODO change here
+            var users = f2.GetEnumerable().ToList();
             if (userIdAlreadyInCourse.Count == users.Count)
             {
                 return;
