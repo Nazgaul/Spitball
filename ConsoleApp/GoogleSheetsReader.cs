@@ -4,14 +4,11 @@ using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
-using Cloudents.Command;
-using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
@@ -99,6 +96,52 @@ namespace ConsoleApp
             }
         }
 
+        private static async Task ProcessDocuments(string newMapping, string oldCourseName, int i)
+        {
+            using var child = Program.Container.BeginLifetimeScope();
+
+            var session = child.Resolve<ISession>();
+            var unitOfWork = child.Resolve<IUnitOfWork>();
+
+            var course = await session.Query<Course2>().Where(w => w.Country == Country.Israel &&
+                                                                   w.SearchDisplay == newMapping)
+                .SingleOrDefaultAsync();
+            if (course == null)
+            {
+                throw new ArgumentException(newMapping);
+            }
+
+
+            var documentIdAlreadyInCourse = await session.Query<DocumentCourse>()
+                .Where(w => w.Course.SearchDisplay == newMapping)
+                .Select(s => s.Document.Id).ToListAsync();
+
+            var documents = await session.Query<Document>()
+                .Where(w => w.Course.Id == oldCourseName && w.Status.State == ItemState.Ok)
+                .ToListAsync();
+            if (documents.Count == documentIdAlreadyInCourse.Count)
+            {
+                return;
+            }
+
+            var needToCommit = false;
+            foreach (var document in documents)
+            {
+                if (documentIdAlreadyInCourse.Contains(document.Id))
+                {
+                    continue;
+                }
+                needToCommit = true;
+                document.AssignCourse(course);
+                session.Save(document);
+            }
+            if (needToCommit)
+            {
+                Console.WriteLine($"Processing {newMapping} index {i}");
+                await unitOfWork.CommitAsync(default);
+            }
+        }
+
         private static async Task ProcessUsers(string newMapping, string oldCourseName, int i)
         {
             using var child = Program.Container.BeginLifetimeScope();
@@ -125,7 +168,7 @@ namespace ConsoleApp
             {
                 return;
             }
-
+            var needToCommit = false;
             foreach (var user2 in users)
             {
                 if (userIdAlreadyInCourse.Contains(user2.Id))
@@ -139,12 +182,25 @@ namespace ConsoleApp
                     continue;
                 }
 
+                if (user.LockoutEnd == DateTimeOffset.MaxValue)
+                {
+                    continue;
+                }
+
+                if (!user.EmailConfirmed && !user.PhoneNumberConfirmed)
+                {
+                    continue;
+                }
+                needToCommit = true;
                 user.AssignCourse2(course, user2.IsTeach);
                 session.Save(user);
             }
 
-            Console.WriteLine($"Processing {newMapping} index {i}");
-            await unitOfWork.CommitAsync(default);
+            if (needToCommit)
+            {
+                Console.WriteLine($"Processing {newMapping} index {i}");
+                await unitOfWork.CommitAsync(default);
+            }
         }
     }
 }
