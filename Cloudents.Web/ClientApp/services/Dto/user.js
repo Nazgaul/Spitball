@@ -5,7 +5,7 @@ function _createIsTutorState(str){
     else return null;
 }
 function _createUserType(userType){
-    return userType.toLowerCase() === 'teacher' ? 'Teacher' : 'Student'
+    return userType && userType.toLowerCase() === 'teacher' ? 'Teacher' : 'Student'
 }
 export const User = {
     Default: function (objInit) {

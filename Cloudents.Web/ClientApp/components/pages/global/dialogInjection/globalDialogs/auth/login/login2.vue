@@ -184,7 +184,7 @@ export default {
                     
                     let pathToRedirect = ['/','/learn','/register2'];
                     if (pathToRedirect.indexOf(self.$route.path) > -1) {
-                        this.$router.push({name: this.routeNames.LoginRedirect})
+                        self.$router.push({name: self.routeNames.LoginRedirect})
                         return
                     }
 
