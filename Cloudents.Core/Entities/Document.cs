@@ -109,7 +109,7 @@ namespace Cloudents.Core.Entities
 
         protected internal virtual ISet<UserDownloadDocument> DocumentDownloads { get; set; }
 
-        public virtual short Boost { get; set; }
+        public virtual short? Boost { get; set; }
 
         public virtual void AddDownload(BaseUser user)
         {
