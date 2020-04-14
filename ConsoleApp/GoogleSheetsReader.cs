@@ -90,65 +90,61 @@ namespace ConsoleApp
                         continue;
                         
                     }
-                    using var child = Program.Container.BeginLifetimeScope();
 
-                    var session = child.Resolve<ISession>();
-                    var unitOfWork = child.Resolve<IUnitOfWork>();
-
-                    var course = await session.Query<Course2>().Where(w => w.Country == Country.Israel && w.SearchDisplay == newMapping)
-                        .SingleOrDefaultAsync();
-                    if (course == null)
-                    {
-
-                    }
-
-
-                    var userIdAlreadyInCourse = await session.Query<UserCourse2>()
-                        .Where(w => w.Course.SearchDisplay == newMapping)
-                        .Select(s=>s.User.Id).ToListAsync();
-
-                    var users = await session.Query<UserCourse>()
-                        .Where(w => w.Course.Id == oldCourseName)
-                        .Select(s =>new { s.User.Id, s.IsTeach}).ToListAsync();
-                    if (userIdAlreadyInCourse.Count == users.Count)
-                    {
-                        continue;
-                    }
-                    foreach (var user2 in users)
-                    {
-                        if (userIdAlreadyInCourse.Contains(user2.Id))
-                        {
-                            continue;
-                        }
-                        var user = session.Get<User>(user2.Id);
-                        if (user.Country != "IL")
-                        {
-                            continue;
-                        }
-                        user.AssignCourse2(course,user2.IsTeach);
-                        session.Save(user);
-                    }
-
-                    Console.WriteLine($"Processing {newMapping} index {i}");
-
-                    //if (string.IsNullOrEmpty(field))
-                    //{
-                    //    break;
-                    //}
-
-                    //var subject = row[2].ToString();
-                    //var search = row[3].ToString();
-                    //var teacher = row[4].ToString();
-
-                    //var course = new Course2(country, field, subject, search, teacher);
-                    //await session.SaveAsync(course);
-
-                    await unitOfWork.CommitAsync(default);
+                    await ProcessUsers(newMapping, oldCourseName, i);
                 }
                 catch (DuplicateRowException e)
                 {
                 }
             }
+        }
+
+        private static async Task ProcessUsers(string newMapping, string oldCourseName, int i)
+        {
+            using var child = Program.Container.BeginLifetimeScope();
+
+            var session = child.Resolve<ISession>();
+            var unitOfWork = child.Resolve<IUnitOfWork>();
+
+            var course = await session.Query<Course2>().Where(w => w.Country == Country.Israel && w.SearchDisplay == newMapping)
+                .SingleOrDefaultAsync();
+            if (course == null)
+            {
+                throw new ArgumentException(newMapping);
+            }
+
+
+            var userIdAlreadyInCourse = await session.Query<UserCourse2>()
+                .Where(w => w.Course.SearchDisplay == newMapping)
+                .Select(s => s.User.Id).ToListAsync();
+
+            var users = await session.Query<UserCourse>()
+                .Where(w => w.Course.Id == oldCourseName)
+                .Select(s => new {s.User.Id, s.IsTeach}).ToListAsync();
+            if (userIdAlreadyInCourse.Count == users.Count)
+            {
+                return;
+            }
+
+            foreach (var user2 in users)
+            {
+                if (userIdAlreadyInCourse.Contains(user2.Id))
+                {
+                    continue;
+                }
+
+                var user = session.Get<User>(user2.Id);
+                if (user.Country != "IL")
+                {
+                    continue;
+                }
+
+                user.AssignCourse2(course, user2.IsTeach);
+                session.Save(user);
+            }
+
+            Console.WriteLine($"Processing {newMapping} index {i}");
+            await unitOfWork.CommitAsync(default);
         }
     }
 }
