@@ -13,7 +13,7 @@ export const landingRoutes = [
         beforeEnter: (to, from, next) => {    
             if(store.getters.getUserLoggedInStatus){
                 let nextRoute = {name: routeNames.Feed};
-                if(store.getters.accountUser.userType === 'Teacher'){
+                if(store.getters.getIsTeacher){
                     nextRoute = {name: routeNames.Dashboard};
                 }
                 next({name: nextRoute.name,query: to.query});
@@ -29,7 +29,7 @@ export const landingRoutes = [
         beforeEnter: (to, from, next) => {
             if(store.getters.getUserLoggedInStatus){
                 let nextRoute = {name: routeNames.Feed};
-                if(store.getters.accountUser.userType === 'Teacher'){
+                if(store.getters.getIsTeacher){
                     nextRoute = {name: routeNames.Dashboard};
                 }
                 next({name: nextRoute.name,query: to.query});
