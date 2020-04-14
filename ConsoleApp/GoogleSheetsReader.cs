@@ -216,8 +216,13 @@ namespace ConsoleApp
                 .Where(w => w.Course.SearchDisplay == newMapping)
                 .Select(s => s.User.Id).ToListAsync();
 
+            //TODO change here
             var users = await session.Query<UserCourse>()
+                .Fetch(f=>f.User)
                 .Where(w => w.Course.Id == oldCourseName)
+                .Where(w=>w.User.Country == "IL")
+                .Where(w=>w.User.LockoutEnd != DateTimeOffset.MaxValue)
+                .Where(w=> !w.User.EmailConfirmed && !w.User.PhoneNumberConfirmed)
                 .Select(s => new {s.User.Id, s.IsTeach}).ToListAsync();
             if (userIdAlreadyInCourse.Count == users.Count)
             {
