@@ -98,11 +98,12 @@ namespace ConsoleApp
 
         private static async Task ProcessDocuments(string newMapping, string oldCourseName, int i)
         {
+            
             using var child = Program.Container.BeginLifetimeScope();
 
             var session = child.Resolve<ISession>();
             var unitOfWork = child.Resolve<IUnitOfWork>();
-
+            //TODO change here
             var course = await session.Query<Course2>().Where(w => w.Country == Country.Israel &&
                                                                    w.SearchDisplay == newMapping)
                 .SingleOrDefaultAsync();
@@ -115,9 +116,11 @@ namespace ConsoleApp
             var documentIdAlreadyInCourse = await session.Query<DocumentCourse>()
                 .Where(w => w.Course.SearchDisplay == newMapping)
                 .Select(s => s.Document.Id).ToListAsync();
-
+            //TODO change here
             var documents = await session.Query<Document>()
-                .Where(w => w.Course.Id == oldCourseName && w.Status.State == ItemState.Ok)
+                .Fetch(f=>f.User)
+                .Where(w => w.Course.Id == oldCourseName && w.Status.State == ItemState.Ok &&
+                            w.User.Country == Country.IsraelStr)
                 .ToListAsync();
             if (documents.Count == documentIdAlreadyInCourse.Count)
             {
@@ -149,7 +152,9 @@ namespace ConsoleApp
             var session = child.Resolve<ISession>();
             var unitOfWork = child.Resolve<IUnitOfWork>();
 
-            var course = await session.Query<Course2>().Where(w => w.Country == Country.Israel && w.SearchDisplay == newMapping)
+            //TODO change here
+            var course = await session.Query<Course2>().Where(w => w.Country == Country.Israel 
+                                                                   && w.SearchDisplay == newMapping)
                 .SingleOrDefaultAsync();
             if (course == null)
             {
@@ -177,6 +182,8 @@ namespace ConsoleApp
                 }
 
                 var user = session.Get<User>(user2.Id);
+
+                //TODO change here
                 if (user.Country != "IL")
                 {
                     continue;
