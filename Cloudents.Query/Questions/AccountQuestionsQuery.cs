@@ -47,7 +47,7 @@ namespace Cloudents.Query.Questions
                                 and q.userId != :userid
                                 and u.country = :country
                                 order by
-                                case when q.CourseId in (select courseId from sb.usersCourses where userid = :userid) then 4 else 0 end +
+                                case when q.CourseId2 in (select courseId from sb.UserCourse2 where userid = :userid) then 4 else 0 end +
                                 cast(1 as float)/ISNULL(nullif( DATEDIFF(minute, q.Updated, GETUTCDATE()   ),0),1) desc";
 
                 var res = await _session.CreateSQLQuery(sql)
