@@ -235,7 +235,6 @@ export default () => {
             let options = {
                logLevel: _debugMode,
                tracks: [dataTrack],
-               preferredVideoCodecs: ['VP8', 'H264'],
                networkQuality: { // this is reserved down the road
                   local: 3,
                   remote: 3
