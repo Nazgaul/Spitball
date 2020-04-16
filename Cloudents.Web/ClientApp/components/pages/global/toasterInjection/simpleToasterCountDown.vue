@@ -3,6 +3,7 @@
         absolute
         top
         @input="onCloseToaster"
+        class="counterToaster"
         :timeout="3000000"
         :value="true"
     >
@@ -59,3 +60,10 @@ export default {
     },
 }
 </script>
+
+<style lang="less">
+    .counterToaster {
+        // TODO: @maor @idan study room removed mobile-not-support css style
+        z-index: 99999;
+    }
+</style>

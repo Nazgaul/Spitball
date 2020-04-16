@@ -92,13 +92,13 @@
               >
                 <span v-language:inner>tutor_option_videoChat</span>
               </v-btn>
-              <v-btn style="visibility: hidden;" 
-                @click="selectViewOption(enumViewOptions.fullScreenVideo)"
+              <v-btn :style="{'visibility': isRoomTutor? 'visible':'hidden'}"
+                @click="$store.dispatch('updateToggleAudioParticipants')"
                 class="control-btn text-capitalize elevation-0 cursor-pointer"
-                :input-value="activeViewOption == enumViewOptions.fullScreenVideo"
+                :input-value="$store.getters.getIsAudioParticipants"
                 active-class="v-btn--active control-btn-active"
               >
-                <span v-language:inner>tutor_option_videoFull</span>
+                <span>{{$t($store.getters.getIsAudioParticipants?'tutor_mute_room':'tutor_unmute_room')}}</span>
               </v-btn>
               <v-btn sel="full_board"
                 class="control-btn text-capitalize elevation-0 cursor-pointer"

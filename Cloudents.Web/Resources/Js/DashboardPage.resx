@@ -144,14 +144,17 @@
   <data name="create_room_label" xml:space="preserve">
     <value>Study room's name</value>
   </data>
+  <data name="create_room_label_broadcast" xml:space="preserve">
+    <value>Room's name</value>
+  </data>
   <data name="create_room_max_error" xml:space="preserve">
     <value>Maximum 4 students on a study room</value>
   </data>
   <data name="create_room_placeholder" xml:space="preserve">
-    <value>Enter a name</value>
+    <value>Name</value>
   </data>
   <data name="create_room_title" xml:space="preserve">
-    <value>Choose a student</value>
+    <value>Create a new study room</value>
   </data>
   <data name="date" xml:space="preserve">
     <value>Date</value>
@@ -187,8 +190,14 @@
   <data name="label_date" xml:space="preserve">
     <value>Date</value>
   </data>
+  <data name="label_minutes" xml:space="preserve">
+    <value>Minutes</value>
+  </data>
   <data name="label_time" xml:space="preserve">
     <value>Time</value>
+  </data>
+  <data name="labe_hours" xml:space="preserve">
+    <value>Hour</value>
   </data>
   <data name="last_date" xml:space="preserve">
     <value>Last Session</value>
@@ -244,6 +253,9 @@
   <data name="pending_payment" xml:space="preserve">
     <value>You have {0} {1} pending
  your {2}</value>
+  </data>
+  <data name="pick_time_error" xml:space="preserve">
+    <value>Time selected should be on the future</value>
   </data>
   <data name="placeholder_studyRoom_type" xml:space="preserve">
     <value>Study room type</value>

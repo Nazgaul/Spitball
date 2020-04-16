@@ -59,7 +59,7 @@ namespace Cloudents.Web.Api
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
-            var query = new TopTutorsQuery(profile.Country, count);
+            var query = new TopTutorsQuery(profile.CountryRegion, count);
             var result = await _queryBus.QueryAsync(query, token);
             return result.Select(s =>
             {
@@ -96,7 +96,7 @@ namespace Cloudents.Web.Api
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
-            var query = new ReviewsQuery(profile.Country, count);
+            var query = new ReviewsQuery(profile.CountryRegion, count);
             var result = await _queryBus.QueryAsync(query, token);
 
             return result.Select(s =>
@@ -133,7 +133,7 @@ namespace Cloudents.Web.Api
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
-            var query = new TopDocumentsQuery(profile.Country, count);
+            var query = new TopDocumentsQuery(profile.CountryRegion, count);
             var result = await _queryBus.QueryAsync(query, token);
 
             return result.Select(item =>

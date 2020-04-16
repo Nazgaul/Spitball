@@ -30,6 +30,7 @@ function _initStudentJoined(localParticipant){
 
    // share screen & video full screen:
    Array.from(localParticipant.tracks.values()).forEach((track) => {
+      
          let trackName = track.trackName.split('_')[0]
          if(trackName === VIDEO_TRACK_NAME && STORE.getters.getIsFullScreen){
             let shareVideoCamera = {
@@ -46,7 +47,15 @@ function _initStudentJoined(localParticipant){
             };
             STORE.dispatch('sendDataTrack',JSON.stringify(shareScreen))
          }
-      });
+   });
+   // room muted by tutor:
+   if(!STORE.getters.getIsAudioParticipants){
+      let normalizedData = {
+         type: "toggleParticipantsAudio",
+         data: STORE.getters.getIsAudioParticipants
+      };
+      STORE.dispatch('sendDataTrack',JSON.stringify(normalizedData))
+   }
 }
 function _detachTracks(tracks){
    tracks.forEach((track) => {
@@ -68,12 +77,14 @@ function _publishTrack(activeRoom,track){
 function _unPublishTrack(activeRoom,track){
    activeRoom.localParticipant.unpublishTrack(track);
 }
-function _toggleTrack(tracks,trackType){
+function _toggleTrack(tracks,trackType,value){
    let {track} = tracks.find(track=>track.kind === trackType);
    if(track){
-      if(track.isEnabled){
+      // value: FLASE - USER TURNED OFF / TRUE - USER TURNED ON
+      if(!value && track.isEnabled){
          track.disable()
-      }else{
+      }
+      if(value && !track.isEnabled){
          track.enable()
       }
    }
@@ -279,12 +290,12 @@ export default () => {
             if (mutation.type === twilio_SETTERS.VIDEO_TOGGLE){
                let tracks = [];
                _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
-               _toggleTrack(tracks,'video');
+               _toggleTrack(tracks,'video',mutation.payload);
             }
             if (mutation.type === twilio_SETTERS.AUDIO_TOGGLE){
                let tracks = [];
                _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
-               _toggleTrack(tracks,'audio');
+               _toggleTrack(tracks,'audio',mutation.payload);
             }
             if (mutation.type === twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE){
                if(mutation.payload && !_localScreenTrack){ 
@@ -378,6 +389,13 @@ export default () => {
                   let videoElementId = `remoteTrack_${videoTrack.trackSid}`
                   normalizedData.data = videoElementId
                }
+               store.dispatch('sendDataTrack',JSON.stringify(normalizedData))
+            }
+            if(mutation.type === twilio_SETTERS.TOGGLE_AUDIO_PARTICIPANTS){
+               let normalizedData = {
+                  type: "toggleParticipantsAudio",
+                  data: mutation.payload
+               };
                store.dispatch('sendDataTrack',JSON.stringify(normalizedData))
             }
          }

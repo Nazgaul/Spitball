@@ -50,7 +50,7 @@ export default {
       font-weight: normal;
       line-height: 1.6;
       font-size: 18px;
-      max-width: 360px;
+      max-width: 366px;
       width: 100%;
       margin: 0 auto;
       padding: 0 10px;

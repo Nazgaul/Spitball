@@ -105,8 +105,7 @@ function postCalendarAvailability(paramsObj){
     return connectivityModule.http.post(`Tutor/calendar/hours`,params);
 }
 function addEvent(params){
-    return connectivityModule.http.post(`Tutor/calendar/events`,params).then(()=>{
-    });
+    return connectivityModule.http.post(`Tutor/calendar/events`,params);
 }
 function getAccountAvailabilityCalendar(){
     return connectivityModule.http.get(`Account/calendar`).then(({data})=>{

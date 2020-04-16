@@ -67,6 +67,7 @@ namespace Cloudents.Web.Binders
                             profile.Courses = resultCourses.Select(s => s.Name);
                         }
 
+
                         break;
                        // throw new ArgumentOutOfRangeException();
                 }

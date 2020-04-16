@@ -208,12 +208,13 @@ export default {
         },
         showItems(){
             if(!!this.getProfile){
-                if(this.isTutor) {
-                    return true;
-                }else{
+                // if(this.isTutor) {
+                //     return true;
+                // }else{
                     return this.uploadedDocuments?.result?.length
-                }
+                // }
             }
+            return false
         },
         isTutorPending(){
             return this.isMyProfile && (!!this.accountUser && this.accountUser.isTutorState === "pending")
