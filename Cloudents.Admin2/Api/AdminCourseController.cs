@@ -154,14 +154,14 @@ namespace Cloudents.Admin2.Api
         }
 
 
-        [HttpGet("subject")]
-        [Authorize]
-        public async Task<IEnumerable<string>> GetSubjects(CancellationToken token)
-        {
-            var query = new SubjectsQuery(User.GetIdClaim());
-            var retVal = await _queryBus.QueryAsync(query, token);
-            return retVal;
-        }
+        //[HttpGet("subject")]
+        //[Authorize]
+        //public async Task<IEnumerable<string>> GetSubjects(CancellationToken token)
+        //{
+        //    var query = new SubjectsQuery(User.GetIdClaim());
+        //    var retVal = await _queryBus.QueryAsync(query, token);
+        //    return retVal;
+        //}
 
 
         [HttpDelete("{name}")]
