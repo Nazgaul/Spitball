@@ -37,7 +37,7 @@ namespace Cloudents.Persistence.Repositories
             return Session.LoadAsync<T>(id, token);
         }
 
-        public virtual Task<T> GetAsync(object id, CancellationToken token)
+        public virtual Task<T?> GetAsync(object id, CancellationToken token)
         {
             return Session.GetAsync<T>(id, token);
         }

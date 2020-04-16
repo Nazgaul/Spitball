@@ -24,22 +24,22 @@ namespace Cloudents.Persistence.Repositories
         {
             const string sql = @"with cte as
 (
-select distinct uc.UserId, case when uc.UserId in (select UserId from sb.UsersCourses where CourseId = :Course and CanTeach = 1) then 1 else 0 end as IsMatch
-from sb.Course c
-join sb.UsersCourses uc
-	on uc.CourseId = c.Name
-		WHERE (c.SubjectId in (select SubjectId from sb.Course where Name = :Course) or c.Name = :Course) and CanTeach = 1 
+select distinct uc.UserId, case when uc.UserId in (select UserId from sb.UserCourse2 where CourseId = :Course) then 1 else 0 end as IsMatch
+from sb.Course2 c
+join sb.UserCourse2 uc
+	on uc.CourseId = c.Id
+		WHERE (c.Field in (select Field from sb.Course2 where SearchDisplay = :Course) or c.SearchDisplay = :Course) 
 			and exists (
-						SELECT uc1.CanTeach
-						FROM sb.UsersCourses uc1
-						inner join sb.[Course] c 
-						on uc1.CourseId=c.Name 
-						WHERE uc1.CanTeach = 1 and c.[State] = 'Ok' 
+						SELECT uc1.*
+						FROM sb.UserCourse2 uc1
+						inner join sb.[Course2] c 
+						on uc1.CourseId=c.Id 
+						WHERE c.[State] = 'Ok' 
 						and (
-							c.Name = :Course 
-							or c.SubjectId = (SELECT c1.SubjectId as y0_ 
-												FROM sb.[Course] c1 
-												WHERE c1.Name =  :Course)
+							c.SearchDisplay = :Course 
+							or c.Field = (SELECT c1.Field as y0_ 
+												FROM sb.[Course2] c1 
+												WHERE c1.SearchDisplay =  :Course)
 						)
 						
 					) 
