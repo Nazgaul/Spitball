@@ -41,7 +41,7 @@
                             <v-layout align-center justify-end class="pr-2 grow">
                                 <v-flex shrink class="d-flex align-center" v-if="!singleClass.isLoading">
                                     <div v-show="isUserTutor">
-                                    <v-btn v-if="!singleClass.isTeaching" rounded @click="teachCourseToggle(singleClass)"
+                                    <v-btn v-if="!singleClass.isTeaching" rounded 
                                            :loading="singleClass.isLoading && teachingActive"
                                            class="outline-btn elevation-0 text-none align-center justify-center rounded-btn">
                                         <span>
@@ -49,7 +49,7 @@
                                             <span class="purple-text caption" v-html="$Ph('courses_teach')"></span>
                                         </span>
                                     </v-btn>
-                                    <v-btn v-else rounded @click="teachCourseToggle(singleClass)"
+                                    <v-btn v-else rounded
                                            class="solid-btn elevation-0 text-none align-center justify-center rounded-btn">
                                         <span>
                                             <v-icon class="btn-icon mr-1">sbf-checkmark</v-icon>
@@ -110,17 +110,17 @@
 
         },
         methods: {
-            ...mapActions(['deleteClass', 'updateTeachCourse', 'getManageCourses']),
+            ...mapActions(['deleteClass',  'getManageCourses']),
 
-            teachCourseToggle(course) {
-                this.teachingActive = true;
-                this.$set(course, 'isLoading', true);                
-                this.updateTeachCourse(course.text).finally(() => {
-                    course.isLoading = false;
-                    this.teachingActive = false;
-                    return course.isTeaching = !course.isTeaching;
-                });
-            },
+            // teachCourseToggle(course) {
+            //     this.teachingActive = true;
+            //     this.$set(course, 'isLoading', true);                
+            //     this.updateTeachCourse(course.text).finally(() => {
+            //         course.isLoading = false;
+            //         this.teachingActive = false;
+            //         return course.isTeaching = !course.isTeaching;
+            //     });
+            // },
             removeClass(classDelete) {
                 // https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats
                 // add isLoading prop to the object classesSelected, for render loading

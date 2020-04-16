@@ -27,9 +27,9 @@ export default {
    async deleteCourse(courseName) {
       return await courseInstance.delete('',{params: {name: courseName}})
    },
-   async teachCourse(name) {
-      return await courseInstance.post('teach',{name})
-   },
+   // async teachCourse(name) {
+   //    return await courseInstance.post('teach',{name})
+   // },
    getCourse(val){
       let path = val ? `search?term=${val.term}&page=${val.page}` : `search`;
       return courseInstance.get(`${path}`).then(({data}) => {
