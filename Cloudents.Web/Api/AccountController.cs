@@ -330,7 +330,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("courses")]
-        public async Task<IEnumerable<CourseDto>> GetCoursesAsync(CancellationToken token)
+        public async Task<IEnumerable<UserCourseDto>> GetCoursesAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserCoursesQuery(userId);

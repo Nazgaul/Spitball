@@ -37,11 +37,11 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Field).Not.Nullable().UniqueKey("K-Course2Restriction");
             Map(x => x.Country).UniqueKey("K-Course2Restriction").CustomType<EnumerationType<Country>>().Not.Nullable(); 
             Map(x => x.Subject).UniqueKey("K-Course2Restriction").Not.Nullable();
-            Map(x => x.SearchDisplay);
+            Map(x => x.SearchDisplay).Not.Nullable().UniqueKey("ui_ukDoc");
             Map(x => x.CardDisplay);
             DynamicUpdate();
             
-            HasMany(x => x.Users)
+            HasMany(x => x.Users).Access.PascalCaseField(Prefix.m)
                 .KeyColumn("CourseId")
                 .Inverse().Cascade.AllDeleteOrphan().AsSet();
         }

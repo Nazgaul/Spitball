@@ -3,23 +3,25 @@ using Dapper;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 
 namespace Cloudents.Query.Courses
 {
     public class CourseSearchWithTermQuery : IQuery<IEnumerable<CourseDto>>
     {
-        public CourseSearchWithTermQuery(long userId, string term, int page)
+        public CourseSearchWithTermQuery(long userId, string term, int page, Country country)
         {
             UserId = userId;
             Term = term.Replace('"', ' ');
             Page = page;
+            Country = country;
         }
 
         private long UserId { get; }
         private string Term { get; }
         private int Page { get; }
-
+        private Country Country { get; }
 
 
         internal sealed class CourseSearchWithTermQueryHandler : IQueryHandler<CourseSearchWithTermQuery, IEnumerable<CourseDto>>
@@ -36,35 +38,23 @@ namespace Cloudents.Query.Courses
                 const int pageSize = 30;
                 const string sql =
                             @"     
-declare @schoolType nvarchar(50) = (select case when UserType = 'UniversityStudent' then 'University'
-										when UserType in ('HighSchoolStudent', 'Parent') then 'HighSchool'  
-										else null end
-                                        from sb.[user] where Id = @Id);
 Select @Term =  '""*' + @Term+ '*""'; 
 
-select Name,
-	                            case when uc.CourseId is not null then 1 else null end as IsFollowing,
-	                            c.count as Students
-                            from sb.Course c
-                            left join sb.UsersCourses uc
-	                            on c.Name = uc.CourseId and uc.UserId = @Id
-                             where Contains(Name,  @Term)
-							and State = 'OK'
-							and ( c.SchoolType = @schoolType 
-							or (@schoolType = 'University' and c.SchoolType is null)
-							or @schoolType is null )
-                            order by case when uc.CourseId is not null
-                                    then 1 else null end desc,
-									c.count desc
-  OFFSET @PageSize * @Page ROWS
-  FETCH NEXT @PageSize ROWS ONLY;";
+Select c.SearchDisplay as name,count as Students,
+CASE WHEN uc.UserId IS NULL THEN 0 ELSE 1 END  as  IsFollowing from sb.Course2 c
+left join sb.UserCourse2 uc on c.Id = uc.CourseId and uc.UserId = @Id
+where c.country = @Country and State = 'OK' and Contains(SearchDisplay,  @Term)
+order by uc.UserId desc ,c.[Count] desc
+OFFSET @PageSize * @Page ROWS
+FETCH NEXT @PageSize ROWS ONLY;";
                 using var conn = _dapperRepository.OpenConnection();
                 return await conn.QueryAsync<CourseDto>(sql, new
                 {
                     query.Term,
                     Id = query.UserId,
                     PageSize = pageSize,
-                    query.Page
+                    query.Page,
+                    Country = query.Country.Id
                 });
             }
         }

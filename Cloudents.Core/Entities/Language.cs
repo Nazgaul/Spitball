@@ -127,6 +127,20 @@ namespace Cloudents.Core.Entities
             return result;
         }
 
+        public static implicit operator Country(int? tb)
+        {
+            if (tb is null)
+            {
+                return UnitedStates;
+            }
+            var result = FromValue<Country>(tb.Value);
+            if (result is null)
+            {
+                return UnitedStates;
+            }
+            return result;
+        }
+
         public const string IsraelStr = "IL";
         public const string IndiaStr = "IN";
         public const string UsStr = "US";

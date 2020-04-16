@@ -35,6 +35,8 @@ namespace Cloudents.Core.Entities
 
         public virtual ItemState State { get; protected set; }
 
-        protected internal virtual ISet<UserCourse2> Users { get; set; }
+        private readonly ISet<UserCourse2> mUsers = new HashSet<UserCourse2>();
+
+        public virtual IEnumerable<UserCourse2> Users => mUsers;
     }
 }

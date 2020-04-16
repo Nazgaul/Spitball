@@ -267,26 +267,7 @@
                     this.$router.push('/');
                 }
             },
-            // submitAndGo() {
-            //     //assign all saved in cached list to classes list
-            //     this.changeClassesToCachedClasses();
-            //     this.doneButtonLoading = true;
-            //     this.assignClasses(this.localSelectedClasses).then(() => {
-            //         if(this.isTutor){
-            //                 this.localSelectedClasses.forEach(course=>{
-            //                     .(course.text).then(()=>{
-            //                         course.isTeaching = true;
-            //                         this.doneButtonLoading = false;
-            //                         this.$router.push({name: 'editCourse'});
-            //                     })
-            //                 });
-            //         }else{
-            //             this.doneButtonLoading = false;
-            //             this.$router.push({name: 'editCourse'});
-            //         }
-                    
-            //     });
-            // },
+           
             deleteSelectedClass(classToDelete, from) {
                 let index = from.indexOf(classToDelete);
                 from.splice(index, 1);

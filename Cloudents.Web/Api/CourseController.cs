@@ -17,6 +17,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Models;
+using Cloudents.Web.Binders;
 
 namespace Cloudents.Web.Api
 {
@@ -46,29 +48,29 @@ namespace Cloudents.Web.Api
         /// Perform course search - we can't put cache because the user can re-enter the page
         /// </summary>
         /// <param name="request">params</param>
+        /// <param name="profile"></param>
         /// <param name="token"></param>
         /// <returns>list of courses filter by input</returns>
         [Route("search")]
         [HttpGet, AllowAnonymous]
 
-        public async Task<CoursesResponse> GetAsync(
+        public async Task<IEnumerable<CourseDto>> GetAsync(
            [FromQuery] CourseSearchRequest request,
+           [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-            IEnumerable<CourseDto> temp;
             if (!string.IsNullOrEmpty(request.Term))
             {
-                var query = new CourseSearchWithTermQuery(userId, request.Term, request.Page);
-                temp = await _queryBus.QueryAsync(query, token);
+                var query = new CourseSearchWithTermQuery(userId, request.Term, request.Page, profile.CountryRegion);
+                return await _queryBus.QueryAsync(query, token);
             }
             else
             {
-                var query = new CourseSearchQuery(userId, request.Page);
-                temp = await _queryBus.QueryAsync(query, token);
+                var query = new CourseSearchQuery(userId, request.Page, profile.CountryRegion);
+                return await _queryBus.QueryAsync(query, token);
             }
 
-            return new CoursesResponse(temp);
         }
 
 
@@ -132,16 +134,15 @@ namespace Cloudents.Web.Api
             var command = new UserRemoveCourseCommand(userId, name);
             await _commandBus.DispatchAsync(command, token);
             var user = await _userManager.GetUserAsync(User);
-            await _signInManager.RefreshSignInAsync(user);
             return Ok();
         }
 
-        [HttpGet("subject"),AllowAnonymous]
+        [HttpGet("subject"), AllowAnonymous]
         public async Task<SubjectDto> GetSubjectAsync([FromQuery, Required] string courseName,
             CancellationToken token)
         {
             var query = new CourseSubjectQuery(courseName);
-            var result  = await _queryBus.QueryAsync(query, token);
+            var result = await _queryBus.QueryAsync(query, token);
             return result;
 
         }

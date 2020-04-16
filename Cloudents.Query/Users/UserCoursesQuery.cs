@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Users
 {
-    public class UserCoursesQuery : IQuery<IEnumerable<CourseDto>>
+    public class UserCoursesQuery : IQuery<IEnumerable<UserCourseDto>>
     {
         public UserCoursesQuery(long userId)
         {
@@ -15,7 +15,7 @@ namespace Cloudents.Query.Users
 
         private long UserId { get; set; }
 
-        internal sealed class UserCoursesQueryHandler : IQueryHandler<UserCoursesQuery, IEnumerable<CourseDto>>
+        internal sealed class UserCoursesQueryHandler : IQueryHandler<UserCoursesQuery, IEnumerable<UserCourseDto>>
         {
             private readonly IDapperRepository _dapperRepository;
 
@@ -24,7 +24,7 @@ namespace Cloudents.Query.Users
                 _dapperRepository = dapperRepository;
             }
 
-            public async Task<IEnumerable<CourseDto>> GetAsync(UserCoursesQuery query, CancellationToken token)
+            public async Task<IEnumerable<UserCourseDto>> GetAsync(UserCoursesQuery query, CancellationToken token)
             {
                 token.ThrowIfCancellationRequested();
                 //We use Students, IsPending and IsTeaching in "My Courses" when a user edit his courses list
@@ -38,7 +38,7 @@ namespace Cloudents.Query.Users
                         where UserId = @Id
                         order by IsPending desc, Students desc";
                 using var conn = _dapperRepository.OpenConnection();
-                return await conn.QueryAsync<CourseDto>(sql, new { Id = query.UserId });
+                return await conn.QueryAsync<UserCourseDto>(sql, new { Id = query.UserId });
             }
         }
     }

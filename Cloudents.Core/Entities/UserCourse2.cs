@@ -16,6 +16,7 @@ namespace Cloudents.Core.Entities
             User = user;
             IsTeach = user.Tutor != null;
             Course = course;
+
         }
 
         public virtual User User { get; protected set; }
@@ -23,13 +24,13 @@ namespace Cloudents.Core.Entities
 
         public virtual bool IsTeach { get; protected set; }
 
-        public virtual void CanTeach(bool canTeach)
-        {
-            IsTeach = canTeach;
-            //TODO - COURSE-CLEANUP
+        //public virtual void CanTeach(bool canTeach)
+        //{
+        //    IsTeach = canTeach;
+        //    //TODO - COURSE-CLEANUP
 
-            // _domainEvents.Add(new CanTeachCourseEvent(this));
-        }
+        //    // _domainEvents.Add(new CanTeachCourseEvent(this));
+        //}
 
         public virtual bool Equals(UserCourse2? other)
         {

@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 
 namespace Cloudents.Admin2.Api
 {
@@ -82,16 +83,12 @@ namespace Cloudents.Admin2.Api
         [Route("search")]
         [HttpGet]
         //[Authorize(Policy = Policy.IsraelUser)]
-        public async Task<CoursesResponse> GetAsync([FromQuery(Name = "course")]string course,
+        public async Task<IEnumerable<CourseDto>> GetAsync([FromQuery(Name = "course")]string course,
             CancellationToken token)
         {
             var query = new CourseSearchQuery(0, course, 0, User.GetCountryClaim());
             //var query = new CourseSearchWithTermQuery(0, course, 0);
-            var result = await _queryBus.QueryAsync(query, token);
-            return new CoursesResponse
-            {
-                Courses = result
-            };
+            return await _queryBus.QueryAsync(query, token);
         }
 
         [HttpGet("newCourses")]
