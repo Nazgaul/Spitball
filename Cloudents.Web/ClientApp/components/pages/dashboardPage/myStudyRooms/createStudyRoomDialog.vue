@@ -56,7 +56,7 @@
                            outlined
                            type="text"
                            readonly
-                           :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
+                           :height="$vuetify.breakpoint.xsOnly ? 50 : 48"
                         />
                   </template>
                   <v-date-picker :allowed-dates="allowedDates" color="#4C59FF" class="date-picker" :next-icon="isRtl?'sbf-arrow-left-carousel':'sbf-arrow-right-carousel'" :prev-icon="isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'" v-model="date" no-title @input="datePickerMenu = false">
@@ -360,6 +360,16 @@ export default {
       margin: 0 auto;
       .menuHour {
          max-height: 200px;
+      }
+      .date-input{
+         .v-text-field__slot{
+            input{
+               margin-top: 4px !important;
+            }
+         }
+         .v-input__prepend-inner{
+            margin-top: 12px !important;
+         }
       }
    }
    .createStudyRoomDialog-list{
