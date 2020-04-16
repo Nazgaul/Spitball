@@ -3,12 +3,13 @@ using Dapper;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Query.Admin
 {
-    public class CourseSearchQuery : IQueryAdmin<IEnumerable<CourseDto>>
+    public class CourseSearchQuery : IQueryAdmin2<IEnumerable<CourseDto>>
     {
-        public CourseSearchQuery(long userId, string term, int page, string country)
+        public CourseSearchQuery(long userId, string term, int page, Country country)
         {
             UserId = userId;
             if (!string.IsNullOrEmpty(term))
@@ -21,9 +22,9 @@ namespace Cloudents.Query.Admin
         }
 
         private long UserId { get; }
-        private string Term { get; }
+        private string? Term { get; }
         private int Page { get; }
-        public string Country { get; }
+        public Country Country { get; }
 
 
 
@@ -42,24 +43,14 @@ namespace Cloudents.Query.Admin
                 const string sql =
                             @"     
 Select @Term = case when @Term is null then '""""' else '""' + @Term+ '*""' end 
-select c.Name,
+select c.SearchDisplay as Name,
 	case when uc.CourseId is not null then 1 else null end as IsFollowing,
 	c.count as Students
-from sb.Course c
-left join sb.UsersCourses uc
-	on c.Name = uc.CourseId and uc.UserId = @Id
-where (@Term = '""""' or Contains(Name,  @Term))
-and (c.name in (
-				select CourseId 
-				from sb.UsersCourses uc1 
-				join sb.[user] u 
-					on u.Id = uc1.UserId
-				where (u.Country = @Country or @Country is null)
-				and uc1.CourseId = c.Name
-				)
-	or 
-	(select count(1) from sb.UsersCourses uc1 where uc1.CourseId = c.Name) = 0
-	)
+from sb.Course2 c
+left join sb.UserCourse2 uc
+	on c.id = uc.CourseId and uc.UserId = @Id
+where (@Term = '""""' or Contains(SearchDisplay,  @Term))
+and (c.Country = @Country or @Country is null)
 and State = 'OK'
 order by case when uc.CourseId is not null
         then 1 else null end desc,
@@ -70,7 +61,7 @@ FETCH NEXT @PageSize ROWS ONLY;";
                 return await conn.QueryAsync<CourseDto>(sql, new
                 {
                     query.Term,
-                    query.Country,
+                    Country = query.Country.Name,
                     Id = query.UserId,
                     PageSize = pageSize,
                     query.Page
