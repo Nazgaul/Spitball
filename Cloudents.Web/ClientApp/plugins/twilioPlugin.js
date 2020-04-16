@@ -126,7 +126,7 @@ function _twilioListeners(room,store) {
    // room events
    room.on('trackSubscribed', (track) => {
       _insightEvent('TwilioTrackSubscribed', track, null);
-      _detachTracks([track],store)
+      // _detachTracks([track],store)
    })
    room.on('trackUnsubscribed', (track) => {
       _insightEvent('TwilioTrackUnsubscribed', track, null);
