@@ -443,12 +443,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await _fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Fact]
-        public async Task SubjectsTranslationQuery_Ok()
-        {
-            var query = new SubjectsTranslationQuery();
-            var _ = await _fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Fact]
+        //public async Task SubjectsTranslationQuery_Ok()
+        //{
+        //    var query = new SubjectsTranslationQuery();
+        //    var _ = await _fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         [Theory]
         [InlineData(null)]

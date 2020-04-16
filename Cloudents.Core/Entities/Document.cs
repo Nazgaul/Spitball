@@ -21,14 +21,17 @@ namespace Cloudents.Core.Entities
         public const int MaxLength = 150;
 
         public Document(string name,
-            Course course,
+            Course2 course,
             BaseUser user, decimal price, DocumentType documentType, string description)
       : this()
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
             Name = Path.GetFileNameWithoutExtension(name.Replace("+", "-"));
-         //   University = user.University;
-            Course = course ?? throw new ArgumentNullException(nameof(course));
+            //   University = user.University;
+            if (course == null) throw new ArgumentNullException(nameof(course));
+
+
+            AssignCourse(course);
             User = user;
             Views = 0;
             if (!string.IsNullOrEmpty(description))
@@ -55,7 +58,7 @@ namespace Cloudents.Core.Entities
         // public virtual long Id { get; set; }
         public virtual string Name { get; protected set; }
 
-       // public virtual University? University { get; protected set; }
+        // public virtual University? University { get; protected set; }
 
         public virtual Course Course { get; protected set; }
 
@@ -70,7 +73,7 @@ namespace Cloudents.Core.Entities
             var p = new DocumentCourse(this, course);
             if (_courses.Add(p))
             {
-               // course.Count++;
+                // course.Count++;
             }
         }
 
@@ -89,7 +92,7 @@ namespace Cloudents.Core.Entities
 
         //this is only for document
         public virtual int? PageCount { get; set; }
-       // public virtual long? OldId { get; protected set; }
+        // public virtual long? OldId { get; protected set; }
 
         public virtual string MetaContent { get; set; }
 
@@ -105,7 +108,7 @@ namespace Cloudents.Core.Entities
 
         public virtual int VoteCount { get; protected set; }
 
-        
+
 
         protected internal virtual ISet<UserDownloadDocument> DocumentDownloads { get; set; }
 

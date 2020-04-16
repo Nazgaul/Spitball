@@ -5,12 +5,12 @@ namespace Cloudents.Core.Event
 {
     public class CanTeachCourseEvent : IEvent
     {
-        public CanTeachCourseEvent(UserCourse userCourse)
+        public CanTeachCourseEvent(UserCourse2 userCourse)
         {
             UserCourse = userCourse;
         }
 
-        public UserCourse UserCourse { get; private set; }
+        public UserCourse2 UserCourse { get; private set; }
     }
 
     public class RemoveCourseEvent : IEvent

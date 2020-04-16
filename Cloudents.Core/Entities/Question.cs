@@ -16,7 +16,7 @@ namespace Cloudents.Core.Entities
     {
         public Question(string text,
             User user,
-            [NotNull] Course course
+            [NotNull] Course2 course
             //University? university
             )
         : this()
@@ -34,17 +34,17 @@ namespace Cloudents.Core.Entities
             }
 
             Status = status;
-            Course = course ?? throw new ArgumentException();
+            Course2 = course ?? throw new ArgumentException();
            // University = university;
         }
 
-        public Question(Course course, string text, SystemUser user
+        public Question(Course2 course, string text, SystemUser user
             // University? university
              )
             : this()
         {
             if (text == null) throw new ArgumentNullException(nameof(text));
-            Course = course;
+            Course2 = course;
             Text = text.Trim();
             User = user;
             Updated = Created = DateTime.UtcNow;

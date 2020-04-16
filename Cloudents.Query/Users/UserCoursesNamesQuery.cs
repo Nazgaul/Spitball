@@ -28,10 +28,10 @@ namespace Cloudents.Query.Users
 
             public async Task<IEnumerable<string>> GetAsync(UserCoursesNamesQuery query, CancellationToken token)
             {
-                return await _session.Query<UserCourse>()
+                return await _session.Query<UserCourse2>()
                     .WithOptions(w => w.SetComment(nameof(UserCoursesNamesQuery)))
                     .Where(w => w.User.Id == query.UserId)
-                    .Select(s => s.Course.Id)
+                    .Select(s => s.Course.CardDisplay)
                     .ToListAsync(token);
             }
         }

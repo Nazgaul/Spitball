@@ -35,6 +35,11 @@ namespace Cloudents.Core.Interfaces
         Task<IEnumerable<User>> GetExpiredCreditCardsAsync(CancellationToken token);
     }
 
+    public interface ICourseRepository : IRepository<Course2>
+    {
+        Task<Course2> GetCourseByName(string courseName, CancellationToken token);
+    }
+
     public interface IDocumentRepository : IRepository<Document>
     {
         Task UpdateNumberOfViews(long id, CancellationToken token);
@@ -81,10 +86,10 @@ namespace Cloudents.Core.Interfaces
     {
         Task<int> GetReferUserCountAsync(long userId, CancellationToken token);
     }
-    public interface ICourseSubjectRepository : IRepository<CourseSubject>
-    {
-        Task<CourseSubject> GetCourseSubjectByName(string name, CancellationToken token);
-    }
+    //public interface ICourseSubjectRepository : IRepository<CourseSubject>
+    //{
+    //    Task<CourseSubject> GetCourseSubjectByName(string name, CancellationToken token);
+    //}
 
     public interface ILeadRepository : IRepository<Lead>
     {
@@ -116,13 +121,13 @@ namespace Cloudents.Core.Interfaces
     //    Task<University> GetUniversityByNameAndCountryAsync(string name, string country, CancellationToken token);
     //}
 
-    public interface IAdminLanguageRepository : IRepository<AdminLanguage>
-    {
-        Task<AdminLanguage> GetLanguageByNameAsync(string name, CancellationToken token);
-    }
+    //public interface IAdminLanguageRepository : IRepository<AdminLanguage>
+    //{
+    //    Task<AdminLanguage> GetLanguageByNameAsync(string name, CancellationToken token);
+    //}
 
-    public interface ICourseRepository : IRepository<Course>
-    {
-        Task<IEnumerable<Course>> GetCoursesBySubjectIdAsync(long subjectId, CancellationToken token);
-    }
+    //public interface ICourseRepository : IRepository<Course>
+    //{
+    //    Task<IEnumerable<Course>> GetCoursesBySubjectIdAsync(long subjectId, CancellationToken token);
+    //}
 }

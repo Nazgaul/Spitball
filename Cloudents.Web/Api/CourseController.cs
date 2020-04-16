@@ -108,25 +108,25 @@ namespace Cloudents.Web.Api
             }
         }
 
-        [HttpPost("teach")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesDefaultResponseType]
-        public async Task<IActionResult> TeachCoursesAsync([FromBody] SetCourseRequest model, CancellationToken token)
-        {
-            try
-            {
-                var userId = _userManager.GetLongUserId(User);
-                var command = new TeachCourseCommand(userId, model.Name);
-                await _commandBus.DispatchAsync(command, token);
-                return Ok();
-            }
-            catch (InvalidOperationException)
-            {
-                ModelState.AddModelError("x", "Not such course");
-                return BadRequest();
-            }
-        }
+        //[HttpPost("teach")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesDefaultResponseType]
+        //public async Task<IActionResult> TeachCoursesAsync([FromBody] SetCourseRequest model, CancellationToken token)
+        //{
+        //    try
+        //    {
+        //        var userId = _userManager.GetLongUserId(User);
+        //        var command = new TeachCourseCommand(userId, model.Name);
+        //        await _commandBus.DispatchAsync(command, token);
+        //        return Ok();
+        //    }
+        //    catch (InvalidOperationException)
+        //    {
+        //        ModelState.AddModelError("x", "Not such course");
+        //        return BadRequest();
+        //    }
+        //}
         [HttpDelete]
         public async Task<IActionResult> DeleteCoursesAsync([FromQuery, Required]string name, CancellationToken token)
         {
@@ -137,14 +137,14 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpGet("subject"), AllowAnonymous]
-        public async Task<SubjectDto> GetSubjectAsync([FromQuery, Required] string courseName,
-            CancellationToken token)
-        {
-            var query = new CourseSubjectQuery(courseName);
-            var result = await _queryBus.QueryAsync(query, token);
-            return result;
+        //[HttpGet("subject"), AllowAnonymous]
+        //public async Task<SubjectDto> GetSubjectAsync([FromQuery, Required] string courseName,
+        //    CancellationToken token)
+        //{
+        //    var query = new CourseSubjectQuery(courseName);
+        //    var result = await _queryBus.QueryAsync(query, token);
+        //    return result;
 
-        }
+        //}
     }
 }

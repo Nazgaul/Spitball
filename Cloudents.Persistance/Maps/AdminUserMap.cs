@@ -10,7 +10,7 @@ namespace Cloudents.Persistence.Maps
             Id(x => x.Id).GeneratedBy.GuidComb();
             Map(x => x.Email).Not.Nullable().Unique();
             Map(x => x.Country).Nullable();
-            References(r => r.Language).Column("LanguageId").ForeignKey("FK_user_language").Not.Nullable();
+            //References(r => r.Language).Column("LanguageId").ForeignKey("FK_user_language").Not.Nullable();
             //HasMany(x => x.Roles).AsSet();
 
             ReadOnly();

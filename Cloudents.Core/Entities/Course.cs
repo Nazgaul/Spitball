@@ -58,24 +58,27 @@ namespace Cloudents.Core.Entities
         //    return !Equals(left, right);
         //}
 
-        public virtual void Approve()
-        {
-            //TODO: maybe put an event to that
-            if (State == ItemState.Pending)
-            {
-                State = ItemState.Ok;
-            }
-        }
+        //public virtual void Approve()
+        //{
+        //    //TODO: maybe put an event to that
+        //    if (State == ItemState.Pending)
+        //    {
+        //        State = ItemState.Ok;
+        //    }
+        //}
 
-        public virtual void SetSubject(CourseSubject subject)
-        {
-            Subject = subject;
-        }
+        //public virtual void SetSubject(CourseSubject subject)
+        //{
+        //    Subject = subject;
+        //}
 
-        public virtual void SetSchoolType(SchoolType schoolType)
-        {
-            SchoolType = schoolType;
-        }
+        //public virtual void SetSchoolType(SchoolType schoolType)
+        //{
+        //    SchoolType = schoolType;
+        //}        //public virtual void SetSchoolType(SchoolType schoolType)
+        //{
+        //    SchoolType = schoolType;
+        //}
         public virtual int Count { get; protected internal set; }
 
 
@@ -89,7 +92,7 @@ namespace Cloudents.Core.Entities
 
 
         public virtual ItemState State { get; protected set; }
-        public virtual CourseSubject Subject { get; protected set; }
+       // public virtual CourseSubject Subject { get; protected set; }
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
         public virtual byte[] Version { get; protected set; }

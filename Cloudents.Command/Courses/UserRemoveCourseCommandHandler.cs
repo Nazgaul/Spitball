@@ -8,9 +8,9 @@ namespace Cloudents.Command.Courses
     public class UserRemoveCourseCommandHandler : ICommandHandler<UserRemoveCourseCommand>
     {
         private readonly IRegularUserRepository _userRepository;
-        private readonly IRepository<Course> _courseRepository;
+        private readonly ICourseRepository _courseRepository;
 
-        public UserRemoveCourseCommandHandler(IRegularUserRepository userRepository, IRepository<Course> courseRepository)
+        public UserRemoveCourseCommandHandler(IRegularUserRepository userRepository, ICourseRepository courseRepository)
         {
             _userRepository = userRepository;
             _courseRepository = courseRepository;
@@ -19,7 +19,7 @@ namespace Cloudents.Command.Courses
         public async Task ExecuteAsync(UserRemoveCourseCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            var course = await _courseRepository.LoadAsync(message.Name, token);
+            var course = await _courseRepository.GetCourseByName(message.Name, token);
             user.RemoveCourse(course);
             await _userRepository.UpdateAsync(user, token);
         }

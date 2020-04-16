@@ -67,29 +67,29 @@ namespace Cloudents.Core.Entities
         private readonly ISet<UserCoupon> _userCoupon = new HashSet<UserCoupon>();
         public virtual IEnumerable<UserCoupon> UserCoupon => _userCoupon;
 
-        public virtual void AssignCourses(IEnumerable<Course> courses)
+        public virtual void AssignCourses(IEnumerable<Course2> courses)
         {
             foreach (var course in courses)
             {
-                var p = new UserCourse(this, course);
-                if (_userCourses.Add(p))
+                var p = new UserCourse2(this, course);
+                if (_userCourses2.Add(p))
                 {
                     course.Count++;
                 }
             }
         }
 
-        public virtual void AssignCourse2(Course2 course, bool canTeach)
-        {
-            //foreach (var course in courses)
-            //{
-            var p = new UserCourse2(this, course);
-            //p.CanTeach(canTeach);
-            if (_userCourses2.Add(p))
-            {
-                //course.Count++;
-            }
-        }
+        //public virtual void AssignCourse2(Course2 course, bool canTeach)
+        //{
+        //    //foreach (var course in courses)
+        //    //{
+        //    var p = new UserCourse2(this, course);
+        //    //p.CanTeach(canTeach);
+        //    if (_userCourses2.Add(p))
+        //    {
+        //        //course.Count++;
+        //    }
+        //}
 
         public virtual void UseCoupon(Tutor tutor)
         {
@@ -156,30 +156,31 @@ namespace Cloudents.Core.Entities
                 return;
             }
             Country = country;
+            _userCourses2.Clear();
             //University = null;
             ChangeLanguage(Entities.Language.English);
             AddEvent(new ChangeCountryEvent(Id));
         }
 
 
-        public virtual void RemoveCourse(Course course)
+        public virtual void RemoveCourse(Course2 course)
         {
-            var p = new UserCourse(this, course);
-            if (_userCourses.Remove(p))
+            var p = new UserCourse2(this, course);
+            if (_userCourses2.Remove(p))
             {
                 course.Count--;
             }
             AddEvent(new RemoveCourseEvent(Id));
         }
 
-        public virtual void CanTeachCourse(string courseName)
-        {
-            var course = UserCourses.AsQueryable().First(w => w.Course.Id == courseName);
-            course.ToggleCanTeach();
-            //course.CanTeach = !course.CanTeach;
-            //LastOnline = DateTime.UtcNow; // this is for trigger the event
-            //AddEvent(new CanTeachCourseEvent(course));
-        }
+        //public virtual void CanTeachCourse(string courseName)
+        //{
+        //    var course = UserCourses2.AsQueryable().First(w => w.Course.SearchDisplay == courseName);
+        //    course.ToggleCanTeach();
+        //    //course.CanTeach = !course.CanTeach;
+        //    //LastOnline = DateTime.UtcNow; // this is for trigger the event
+        //    //AddEvent(new CanTeachCourseEvent(course));
+        //}
 
         //public virtual void SetUniversity(University university)
         //{
@@ -188,14 +189,15 @@ namespace Cloudents.Core.Entities
         //    AddEvent(new SetUniversityEvent(Id));
         //}
 
-        public virtual void BecomeTutor(string bio, decimal? price, string description, string firstName, string lastName)
+        public virtual void BecomeTutor(string bio, decimal? price, 
+            string description, string firstName, string lastName)
         {
 
             Tutor = new Tutor(bio, this, price);
             Description = description;
             SetUserType(UserType.Teacher);
             ChangeName(firstName, lastName);
-            foreach (var userCourse in UserCourses)
+            foreach (var userCourse in UserCourses2)
             {
                 userCourse.CanTeach();
             }

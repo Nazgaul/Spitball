@@ -11,9 +11,9 @@ namespace Cloudents.Command.CommandHandler
     public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand>
     {
         private readonly IRegularUserRepository _userRepository;
-        private readonly IRepository<Course> _courseRepository;
+        private readonly ICourseRepository _courseRepository;
 
-        public CreateUserCommandHandler(IRegularUserRepository userRepository, IRepository<Course> courseRepository)
+        public CreateUserCommandHandler(IRegularUserRepository userRepository, ICourseRepository courseRepository)
         {
             _userRepository = userRepository;
             _courseRepository = courseRepository;
@@ -23,7 +23,7 @@ namespace Cloudents.Command.CommandHandler
         {
             if (!string.IsNullOrEmpty(message.Course))
             {
-                var course = await _courseRepository.GetAsync(message.Course, token);
+                var course = await _courseRepository.GetCourseByName(message.Course, token);
                 if (course != null)
                 {
                     message.User.AssignCourses(new[] {course});

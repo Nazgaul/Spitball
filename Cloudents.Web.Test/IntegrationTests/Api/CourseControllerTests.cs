@@ -29,20 +29,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             _client = factory.CreateClient();
         }
 
-        [Theory]
-        [InlineData("api/course/search?term=his")]
-        public async Task Get_SomeCourse_ReturnResultAsync(string url)
-        {
-            await _client.LogInAsync();
-
-            var response = await _client.GetAsync(url);
-
-            response.EnsureSuccessStatusCode();
-
-            var str = await response.Content.ReadAsStringAsync();
-
-            str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
-        }
+      
 
       
 
@@ -51,8 +38,8 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         {
             await _client.PostAsync("api/login", HttpClientExtensions.CreateJsonString(_credentials));
             await _client.PostAsync("api/course/set", HttpClientExtensions.CreateJsonString(_course));
-            var response = await _client.PostAsync("api/course/teach", HttpClientExtensions.CreateJsonString(_course));
-            response.EnsureSuccessStatusCode();
+            //var response = await _client.PostAsync("api/course/teach", HttpClientExtensions.CreateJsonString(_course));
+            //response.EnsureSuccessStatusCode();
         }
 
         //[Fact(Skip = "this is not a good unit test - need to think about it")]
@@ -95,41 +82,48 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         //    response.EnsureSuccessStatusCode();
         //}
 
-        [Fact]
-        public async Task GetAsync_Get_CoursesAsync()
-        {
-          //  await _client.LogInAsync();
+//        [Fact]
+//        public async Task GetAsync_Get_CoursesAsync()
+//        {
+//          //  await _client.LogInAsync();
 
-//            _uri.Path = "api/course/search";
+////            _uri.Path = "api/course/search";
 
-            var response = await _client.GetAsync("api/course/search");
+//            var response = await _client.GetAsync("api/course/search");
 
-            response.Should().NotBeNull();
+//            response.Should().NotBeNull();
 
-            var str = await response.Content.ReadAsStringAsync();
+//            var str = await response.Content.ReadAsStringAsync();
 
-            str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
-        }
+//            str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
+//        }
 
 
-        [Fact]
-        public async Task GetSubjectAsync_OkAsync()
-        {
-            var response = await _client.GetAsync("api/course/subject?course=31010-אנגלית רמה A למדעי הרוח");
-            response.Should().NotBeNull();
-            var str = await response.Content.ReadAsStringAsync();
-            str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
-        }
+        //[Fact]
+        //public async Task GetSubjectAsync_OkAsync()
+        //{
+        //    var response = await _client.GetAsync("api/course/subject?course=31010-אנגלית רמה A למדעי הרוח");
+        //    response.Should().NotBeNull();
+        //    var str = await response.Content.ReadAsStringAsync();
+        //    str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
+        //}
 
         [Theory]
         [InlineData("api/course/search")]
-        [InlineData("api/course/subject?courseName=Economics")]
+        [InlineData("api/course/search?Term=Economics")]
+        [InlineData("api/course/search?term=his")]
         public async Task GetAsync_Course_OKAsync(string url)
         {
             var response = await _client.GetAsync(url);
 
             response.EnsureSuccessStatusCode();
+            var str = await response.Content.ReadAsStringAsync();
+
+            str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
         }
+
+
+       
 
     }
 }

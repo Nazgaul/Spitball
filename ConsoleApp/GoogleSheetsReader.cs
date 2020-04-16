@@ -283,7 +283,7 @@ namespace ConsoleApp
                 //    continue;
                 //}
                 needToCommit = true;
-                user.AssignCourse2(course, user2.IsTeach);
+                user.AssignCourses(new[] { course });
                 session.Save(user);
             }
 

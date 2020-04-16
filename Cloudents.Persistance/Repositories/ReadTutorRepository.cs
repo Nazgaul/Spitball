@@ -29,20 +29,19 @@ namespace Cloudents.Persistence.Repositories
                     s.User.ImageName,
                     s.User.Image,
                     s.Bio,
-                   // UniversityName = s.User.University.Name,
                     s.Price.Price,
                     s.Price.SubsidizedPrice,
                     s.User.Country
                 }).ToFutureValue();
 
-            var coursesFuture = Session.Query<UserCourse>()
+            var coursesFuture = Session.Query<UserCourse2>()
                 .Fetch(f => f.Course)
-                .ThenFetch(f => f.Subject)
+                //.ThenFetch(f => f.Subject)
                 .Where(w => w.IsTeach && w.User.Id == userId)
                 .Select(s => new
                 {
-                    CourseName = s.Course.Id,
-                    SubjectName = s.Course.Subject.Name
+                    CourseName = s.Course.CardDisplay,
+                    SubjectName = s.Course.Field
                 }).ToFuture();
 
             var query = from e in Session.Query<TutorReview>()
@@ -83,7 +82,8 @@ namespace Cloudents.Persistence.Repositories
             }
 
             var readTutor = new ReadTutor(tutor.Id, tutor.Name, tutor.Image, tutor.ImageName,
-                course.Where(w => !string.IsNullOrEmpty(w.SubjectName)).Select(s => s.SubjectName).Distinct().ToList(),
+                course.Where(w => !string.IsNullOrEmpty(w.SubjectName))
+                    .Select(s => s.SubjectName).Distinct().ToList(),
                 course.Select(s => s.CourseName).ToList(),
                 tutor.Price, average, count, tutor.Bio, 
                 //tutor.UniversityName,

@@ -13,7 +13,7 @@ namespace Cloudents.Core.DTOs.SearchSync
         public string Name { get; set; }
 
         [EntityBind(nameof(Document.Course.Id))]
-        public string Course { get; set; }
+        public string? Course { get; set; }
         [EntityBind(nameof(Document.User.Country))]
         public string Country { get; set; }
         //[EntityBind(nameof(Document.University.Id))]

@@ -80,7 +80,7 @@ namespace Cloudents.Query.General
                 }
                 var tutorCountFuture = tutorCountFutureQuery.ToRowCountQuery().FutureValue<int>();
 
-                UserCourse userCourseAlias = null;
+                UserCourse2 userCourseAlias = null;
                 ReadTutor tutorAlias = null;
 
                 var tutorCoursesFutureQuery = _session.QueryOver(() => tutorAlias)

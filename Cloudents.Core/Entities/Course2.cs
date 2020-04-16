@@ -7,14 +7,28 @@ namespace Cloudents.Core.Entities
 {
     public class Course2 : Entity<long>
     {
-        public Course2(Country country, string field, string subject, string searchDisplay, string cardDispaly)
+        public Course2(Country country, string field, string subject, string searchDisplay, string cardDisplay)
         {
             Country = country;
             Field = field;
             Subject = subject;
             SearchDisplay = searchDisplay;
-            CardDisplay = cardDispaly;
+            CardDisplay = cardDisplay;
             Created = DateTime.UtcNow;
+
+
+        }
+
+
+        public Course2(Country country,  string searchDisplay)
+        {
+            Country = country;
+            //Field = field;
+            //Subject = subject;
+            SearchDisplay = searchDisplay;
+            //CardDisplay = cardDispaly;
+            Created = DateTime.UtcNow;
+            State = ItemState.Pending;
 
 
         }
@@ -38,5 +52,14 @@ namespace Cloudents.Core.Entities
         private readonly ISet<UserCourse2> mUsers = new HashSet<UserCourse2>();
 
         public virtual IEnumerable<UserCourse2> Users => mUsers;
+
+        public virtual void Approve()
+        {
+            //TODO: maybe put an event to that
+            if (State == ItemState.Pending)
+            {
+                State = ItemState.Ok;
+            }
+        }
     }
 }

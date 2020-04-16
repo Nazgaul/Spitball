@@ -11,11 +11,11 @@ namespace Cloudents.Command.CommandHandler
     {
         private readonly IQuestionRepository _questionRepository;
         private readonly IRegularUserRepository _userRepository;
-        private readonly IRepository<Course> _courseRepository;
+        private readonly ICourseRepository _courseRepository;
 
         public CreateQuestionCommandHandler(IQuestionRepository questionRepository,
             IRegularUserRepository userRepository,
-             IRepository<Course> courseRepository)
+            ICourseRepository courseRepository)
         {
             _questionRepository = questionRepository;
             _userRepository = userRepository;
@@ -31,7 +31,7 @@ namespace Cloudents.Command.CommandHandler
                 throw new DuplicateRowException();
             }
 
-            var course = await _courseRepository.LoadAsync(message.Course, token);
+            var course = await _courseRepository.GetCourseByName(message.Course, token);
             await _courseRepository.UpdateAsync(course, token);
 
 

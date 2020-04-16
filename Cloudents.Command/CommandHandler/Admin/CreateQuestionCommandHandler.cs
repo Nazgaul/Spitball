@@ -12,12 +12,12 @@ namespace Cloudents.Command.CommandHandler.Admin
 
         private readonly IFictiveUserRepository _userRepository;
         private readonly IRepository<Question> _questionRepository;
-        private readonly IRepository<Course> _courseRepository;
+        private readonly ICourseRepository _courseRepository;
 
 
         public CreateQuestionCommandHandler(IFictiveUserRepository userRepository,
             IRepository<Question> questionRepository,
-             IRepository<Course> courseRepository
+            ICourseRepository courseRepository
             )
         {
             _userRepository = userRepository;
@@ -34,7 +34,7 @@ namespace Cloudents.Command.CommandHandler.Admin
                 throw new InvalidOperationException("we don't have fictive user in that country");
             }
 
-            var course = await _courseRepository.LoadAsync(message.CourseName, token);
+            var course = await _courseRepository.GetCourseByName(message.CourseName, token);
             var question = new Question(course, message.Text,
                 user);
 

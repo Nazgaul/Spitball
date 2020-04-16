@@ -10,10 +10,10 @@ namespace Cloudents.Command.Courses
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class UserJoinCoursesCommandHandler : ICommandHandler<UserJoinCoursesCommand>
     {
-        private readonly IRepository<Course> _courseRepository;
+        private readonly ICourseRepository _courseRepository;
         private readonly IRepository<User> _userRepository;
 
-        public UserJoinCoursesCommandHandler(IRepository<Course> courseRepository,
+        public UserJoinCoursesCommandHandler(ICourseRepository courseRepository,
             IRepository<User> userRepository)
         {
             _courseRepository = courseRepository;
@@ -24,10 +24,10 @@ namespace Cloudents.Command.Courses
         public async Task ExecuteAsync(UserJoinCoursesCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            var courses = new List<Course>();
+            var courses = new List<Course2>();
             foreach (var s in message.Name)
             {
-                var course = await _courseRepository.LoadAsync(s, token);
+                var course = await _courseRepository.GetCourseByName(s, token);
                 courses.Add(course);
             }
 
