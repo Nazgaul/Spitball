@@ -28,19 +28,11 @@ namespace Cloudents.Core.DTOs.Feed
         [EntityBind(nameof(Question.Updated))]
         public DateTime DateTime { get; set; }
 
-        [EntityBind(nameof(Question.Course.Id))]
+        [EntityBind(nameof(Question.Course2.CardDisplay))]
         public string Course { get; set; }
 
         [EntityBind(nameof(Question.User.Id))]
-        // public long UserId { get; set; }
-        //public bool HasCorrectAnswer { get; set; }
-
-        //public bool IsRtl
-        //{
-        //    get => CultureInfo?.TextInfo.IsRightToLeft ?? false;
-        //}
-
-        // public VoteDto Vote { get; set; }
+      
         public override FeedType Type => FeedType.Question;
 
         [EntityBind(nameof(Question.Answers))]

@@ -140,7 +140,9 @@ namespace ConsoleApp
                 .Where(w => w.Course2.SearchDisplay == newMapping)
                 .Select(s => s.Id).ToFuture();
 
-            var f2 = session.Query<Question>()
+            var f2 =
+
+                session.Query<Question>()
                 // .Fetch(f => f.User)
                 .Where(w => w.Course.Id == oldCourseName && w.Status.State == ItemState.Ok &&
                             w.User.SbCountry == country).ToFuture();

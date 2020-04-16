@@ -53,12 +53,11 @@ select top 1 * from(select 1 as o, u2.Id as UniversityId, COALESCE(u2.country, u
     order by o
 )
 SELECT  'q' as type
-,q.CourseId as Course
-,q.UniversityId as UniversityId
 ,q.Updated as DateTime
 ,(select q.Id as Id,
 q.Text as Text,
-q.CourseId as Course,
+(select cardDisplay from sb.course2 where id = q.CourseId2) as Course,
+
 (SELECT count(*) as y0_ FROM sb.[Answer] this_0_ WHERE(this_0_.QuestionId = q.Id and this_0_.State = 'Ok')) as Answers,
 q.Updated as DateTime,
 q.Language as CultureInfo
@@ -84,7 +83,7 @@ where a.QuestionId = q.Id and state = 'Ok' order by a.created
 join cte on coalesce(un.country, u.country) = cte.country
 where
     q.Updated > GetUtcDATE() - 182
-and q.courseId = @course
+and q.courseId2 = (select id from sb.Course2 where SearchDisplay = @course)
 and q.State = 'Ok'
 order by
 case when un.Id = cte.UniversityId or un.Id is null then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
@@ -105,12 +104,12 @@ select top 1 * from (select 1 as o, u2.Id as UniversityId, COALESCE(u2.country,u
 
 
 SELECT  'q' as type
-,q.CourseId as Course
+
 ,q.UniversityId as UniversityId
 ,q.Updated as DateTime
 ,(select q.Id as Id,
 q.Text as Text,
-q.CourseId as Course,
+(select cardDisplay from sb.course2 where id = q.CourseId2) as Course,
 (SELECT count(*) as y0_ FROM sb.[Answer] this_0_ WHERE (this_0_.QuestionId = q.Id and this_0_.State = 'Ok')) as Answers,
 q.Updated as DateTime,
 q.Language as CultureInfo
@@ -138,7 +137,7 @@ join cte on coalesce(un.country, u.country) = cte.country
 where 
     q.Updated > GETUTCDATE() - 182
 and q.State = 'Ok'
-and (q.CourseId in (select courseId from sb.usersCourses where userid = cte.userid) or @userid <= 0)
+and (q.CourseId2 in (select courseId from sb.userCourse2 where userid = cte.userid) or @userid <= 0)
 order by
 case when un.Id = cte.UniversityId or un.Id is null then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
 DATEDiff(hour, q.Updated, GetUtcDATE()) +

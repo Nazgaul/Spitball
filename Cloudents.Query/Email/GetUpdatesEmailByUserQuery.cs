@@ -36,8 +36,9 @@ namespace Cloudents.Query.Email
                 User? userAlias = null;
                 Question? questionAlias = null;
                 QuestionUpdateEmailDto? questionEmailDtoAlias = null;
+                Course2 courseAlias = null;
 
-                var queryCourse = QueryOver.Of<UserCourse>().Where(w => w.User.Id == query.UserId)
+                var queryCourse = QueryOver.Of<UserCourse2>().Where(w => w.User.Id == query.UserId)
                     .Select(s => s.Course.Id);
 
                 var firstAnswer = QueryOver.Of<Answer>().Where(w => w.Question.Id == questionAlias.Id)
@@ -51,9 +52,10 @@ namespace Cloudents.Query.Email
 
                 var questionFuture = _session.QueryOver(() => questionAlias)
                      .JoinAlias(x => x.User, () => userAlias)
+                     .JoinAlias(x=>x.Course2,() => courseAlias)
                      .Where(x => x.Created > query.Since)
                      .And(x => x.Status.State == ItemState.Ok)
-                     .WithSubquery.WhereProperty(x => x.Course.Id).In(queryCourse)
+                     .WithSubquery.WhereProperty(x => x.Course2.Id).In(queryCourse)
                      //.WithSubquery.WhereProperty(x => x.University.Id).Eq(queryUniversity)
                      .And(x => x.User.Id != query.UserId)
 
@@ -65,7 +67,7 @@ namespace Cloudents.Query.Email
                          sl.Select(x => x.Text).WithAlias(() => questionEmailDtoAlias.QuestionText);
                          sl.Select(() => userAlias.Name).WithAlias(() => questionEmailDtoAlias.UserName);
                          sl.Select(() => userAlias.ImageName).WithAlias(() => questionEmailDtoAlias.UserImage);
-                         sl.Select(x => x.Course.Id).WithAlias(() => questionEmailDtoAlias.Course);
+                         sl.Select(() => courseAlias.SearchDisplay).WithAlias(() => questionEmailDtoAlias.Course);
                          sl.SelectSubQuery(firstAnswer).WithAlias(() => questionEmailDtoAlias.AnswerText);
                          return sl;
                      }).TransformUsing(Transformers.AliasToBean<QuestionUpdateEmailDto>())

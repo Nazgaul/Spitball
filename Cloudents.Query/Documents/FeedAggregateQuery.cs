@@ -206,7 +206,7 @@ SELECT  'q' as type
 ,q.Updated as DateTime
 ,(select q.Id as Id,
 q.Text as Text,
-q.CourseId as Course,
+q.CourseId2 as Course,
 (SELECT count(*) as y0_ FROM sb.[Answer] this_0_ WHERE (this_0_.QuestionId = q.Id and this_0_.State = 'Ok')) as Answers,
 q.Updated as DateTime,
 q.Language as CultureInfo
@@ -237,7 +237,7 @@ where
     q.Updated > GETUTCDATE() - 182
 
 and q.State = 'Ok'
-and (q.CourseId in (select courseId from sb.usersCourses where userid = cte.userid) or @userid <= 0)
+and (q.CourseId2 in (select courseId from sb.usersCourses2 where userid = cte.userid) or @userid <= 0)
   ) R,
   cte
 order by

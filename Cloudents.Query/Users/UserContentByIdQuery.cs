@@ -52,26 +52,29 @@ namespace Cloudents.Query.Users
 
                 var questionFuture = _session.Query<Question>()
                     .FetchMany(f => f.Answers)
+                    .Fetch(f=>f.Course2)
                     .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
                     .Select(s => new UserQuestionsDto()
                     {
                         Id = s.Id,
                         //State = s.Status.State,
                         Date = s.Created,
-                        Course = s.Course.Id,
+                        Course = s.Course2.CardDisplay,
                         Text = s.Text,
                         AnswerText = s.Answers.Select(si => si.Text).FirstOrDefault()
                     }).ToFuture<UserContentDto>();
 
                 var answerFuture = _session.Query<Answer>()
-                    .Fetch(f => f.User).Fetch(f => f.Question)
+                    .Fetch(f => f.User)
+                    .Fetch(f => f.Question)
+                    .ThenFetch(f=>f.Course2)
                     .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok && w.Question.Status.State == ItemState.Ok)
                     .Select(s => new UserAnswersDto()
                     { 
                         QuestionId = s.Question.Id,
                         //State = s.Status.State,
                         Date = s.Created,
-                        Course = s.Question.Course.Id,
+                        Course = s.Question.Course2.CardDisplay,
                         QuestionText = s.Question.Text,
                         AnswerText = s.Text
 

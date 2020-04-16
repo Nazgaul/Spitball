@@ -17,7 +17,6 @@ namespace Cloudents.Core.Entities
         public Question(string text,
             User user,
             [NotNull] Course2 course
-            //University? university
             )
         : this()
         {
@@ -39,7 +38,6 @@ namespace Cloudents.Core.Entities
         }
 
         public Question(Course2 course, string text, SystemUser user
-            // University? university
              )
             : this()
         {
@@ -50,14 +48,12 @@ namespace Cloudents.Core.Entities
             Updated = Created = DateTime.UtcNow;
 
             Status = Pending;
-           // University = university;
 
         }
 
         protected Question()
         {
             _answers ??= new List<Answer>();
-            //_votes = _votes ?? new List<Vote>();
         }
 
         public virtual ItemStatus Status { get; protected set; }
@@ -70,8 +66,10 @@ namespace Cloudents.Core.Entities
         public virtual DateTime Created { get; protected set; }
         public virtual DateTime Updated { get; set; }
 
-        [NotNull]
+        [Obsolete]
         public virtual Course Course { get; set; }
+
+
 
         public virtual Course2 Course2 { get; set; }
 

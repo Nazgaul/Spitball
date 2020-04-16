@@ -39,10 +39,11 @@ namespace Cloudents.Query.Questions
                     .WithOptions(w => w.SetComment(nameof(QuestionDataByIdQuery)))
                     .Where(w => w.Id == query.Id && w.Status.State == ItemState.Ok)
                     .Fetch(f => f.User)
+                    .Fetch(f=>f.Course2)
                     .Select(s => new QuestionDetailDto
                         {
                             Id = s.Id,
-                            Course = s.Course.Id,
+                            Course = s.Course2.CardDisplay,
                             Text = s.Text,
                             Create = s.Updated,
                             User = new QuestionUserDto()

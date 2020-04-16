@@ -6,11 +6,11 @@ const courseInstance = axios.create({
 })
 
 export default {
-   async getSubject(params) {
-      if (!params) return
-      let { data } = await courseInstance.get('subject', { params })
-      return data
-   },
+   // async getSubject(params) {
+   //    if (!params) return
+   //    let { data } = await courseInstance.get('subject', { params })
+   //    return data
+   // },
    async assaignCourse(courseName) {
       return await courseInstance.post('set', courseName)
    },
