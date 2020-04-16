@@ -5,7 +5,7 @@
                 <v-flex class="px-3 video-con-controls">
                 </v-flex>
                 <v-flex>
-                    <div class="remote_video_container">
+                    <div :class="['remote_video_container',{'studentRemote': !$store.getters.getRoomIsTutor}]">
                         <localVideoTrack/>
                         <remoteVideoTrack v-for="(track, index) in $store.getters.getVideoTrackList" :key="index" :track="track"/>
                         <div id="remoteTrack"></div>
@@ -68,8 +68,10 @@ export default {
       max-height: 100vh;
       display: flex;
       flex-direction: column;
+      &.studentRemote{
+        :nth-child(2){ order: -1; }
+      }
     }
-    .remote_video_container :nth-child(2) { order: -1; }
   }
   .video-con-controls{
     display: flex;
