@@ -76,26 +76,11 @@ export default {
         closeAddQuestionDialog() {
             this.updateNewQuestionDialogState(false);
         },
-        searchCourses: debounce(function(ev){
-            let term = ev.target.value.trim()
-            if(!term) {
-                this.questionCourse = ''
-                this.suggestsCourses = []
-                return 
-            }
-            if(!!term){
-                courseService.getCourse({term, page:0}).then(data=>{
-                    this.suggestsCourses = data;
-                    this.suggestsCourses.forEach(course=>{                                               
-                        if(course.text === this.questionCourse){                           
-                            this.questionCourse = course
-                        }
-                    }) 
-                })
-            }
-        },300),
     },
     created() {
+        this.$store.dispatch('updateFeedCourses').then(({data}) => {
+            this.suggestsCourses = data
+        })
         if(this.$route.query && this.$route.query.term){
             this.questionCourse = this.$route.query.term;
         }
