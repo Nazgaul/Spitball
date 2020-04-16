@@ -16,8 +16,8 @@ namespace Cloudents.Core.DTOs.Admin
         public string Email { get; set; }
         [EntityBind(nameof(User.PhoneNumber))]
         public string PhoneNumber { get; set; }
-        [EntityBind(nameof(User.University))]
-        public string? University { get; set; }
+        //[EntityBind(nameof(User.University))]
+        //public string? University { get; set; }
         [EntityBind(nameof(User.Country))]
         public string Country { get; set; }
       

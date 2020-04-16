@@ -10,7 +10,7 @@ namespace Cloudents.Search.Document
         public const string IndexName = "document3";
 
         internal const string TagsCourseParameter = "Course";
-        internal const string TagsUniversityParameter = "University";
+        //internal const string TagsUniversityParameter = "University";
         internal const string TagsCountryParameter = "Country";
         //internal const string TagsTagsParameter = "Tag";
         internal const string ScoringProfile = "ScoringProfile2";
@@ -41,7 +41,7 @@ namespace Cloudents.Search.Document
                         Functions = new List<ScoringFunction>
                         {
                             new TagScoringFunction(Entities.Document.CourseNameField,3.2, new TagScoringParameters(TagsCourseParameter)),
-                            new TagScoringFunction(Entities.Document.UniversityIdFieldName,3, new TagScoringParameters(TagsUniversityParameter)),
+                            //new TagScoringFunction(Entities.Document.UniversityIdFieldName,3, new TagScoringParameters(TagsUniversityParameter)),
                             new TagScoringFunction(nameof(Entities.Document.Tags),1.5, new TagScoringParameters("Tag")),
                         }
                     },
@@ -57,7 +57,7 @@ namespace Cloudents.Search.Document
                 Functions = new List<ScoringFunction>
                 {
                     new TagScoringFunction(Entities.Document.CourseNameField,3.2, new TagScoringParameters(TagsCourseParameter)),
-                    new TagScoringFunction(Entities.Document.UniversityIdFieldName,3, new TagScoringParameters(TagsUniversityParameter)),
+                    //new TagScoringFunction(Entities.Document.UniversityIdFieldName,3, new TagScoringParameters(TagsUniversityParameter)),
                     new TagScoringFunction(nameof(Entities.Document.Country),1.5, new TagScoringParameters(TagsCountryParameter)),
                 }
             }

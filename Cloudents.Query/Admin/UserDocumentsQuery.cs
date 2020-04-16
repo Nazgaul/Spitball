@@ -36,7 +36,7 @@ namespace Cloudents.Query.Admin
 
                 return await _session.Query<Document>()
                     .WithOptions(w => w.SetComment(nameof(UserDocumentsQuery)))
-                        .Fetch(f => f.University)
+                        //.Fetch(f => f.University)
                         .Where(w => w.User.Id == query.UserId)
                         .Where(w => w.User.Country == query.Country || string.IsNullOrEmpty(query.Country))
                         .Select(s => new UserDocumentsDto
@@ -44,7 +44,7 @@ namespace Cloudents.Query.Admin
                             Course = s.Course.Id,
                             Id = s.Id,
                             Name = s.Name,
-                            University = s.University.Name,
+                            //University = s.University.Name,
                             State = s.Status.State,
                             Price = s.Price,
                             Created = s.TimeStamp.CreationTime,

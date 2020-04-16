@@ -48,7 +48,7 @@ namespace Cloudents.Query.Admin
                     Phone = s.User.PhoneNumber,
                     Text = s.Text,
                     Course = s.Course,
-                    University = s.User.University.Name,
+                    //University = s.User.University.Name,
                     DateTime = s.CreationTime 
                 }).OrderByDescending(o=>o.Id).ToListAsync(token);
             }

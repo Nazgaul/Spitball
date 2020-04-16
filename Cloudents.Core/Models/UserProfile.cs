@@ -8,7 +8,7 @@ namespace Cloudents.Core.Models
         public IEnumerable<string>? Courses { get; set; }
 
 
-        public Guid? UniversityId { get; set; }
+      //  public Guid? UniversityId { get; set; }
 
         public string? Country { get; set; }
 

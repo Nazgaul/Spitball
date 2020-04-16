@@ -46,15 +46,15 @@ namespace Cloudents.Query.Email
                     .Take(1);
 
 
-                var queryUniversity = QueryOver.Of<User>().Where(w => w.Id == query.UserId)
-                    .Select(s => s.University.Id);
+                //var queryUniversity = QueryOver.Of<User>().Where(w => w.Id == query.UserId)
+                //    .Select(s => s.University.Id);
 
                 var questionFuture = _session.QueryOver(() => questionAlias)
                      .JoinAlias(x => x.User, () => userAlias)
                      .Where(x => x.Created > query.Since)
                      .And(x => x.Status.State == ItemState.Ok)
                      .WithSubquery.WhereProperty(x => x.Course.Id).In(queryCourse)
-                     .WithSubquery.WhereProperty(x => x.University.Id).Eq(queryUniversity)
+                     //.WithSubquery.WhereProperty(x => x.University.Id).Eq(queryUniversity)
                      .And(x => x.User.Id != query.UserId)
 
 
@@ -80,7 +80,7 @@ namespace Cloudents.Query.Email
                     .Where(x => x.TimeStamp.CreationTime > query.Since)
                     .And(x => x.Status.State == ItemState.Ok)
                     .WithSubquery.WhereProperty(x => x.Course.Id).In(queryCourse)
-                    .WithSubquery.WhereProperty(x => x.University.Id).Eq(queryUniversity)
+                    //.WithSubquery.WhereProperty(x => x.University.Id).Eq(queryUniversity)
                     .And(x => x.User.Id != query.UserId)
 
 

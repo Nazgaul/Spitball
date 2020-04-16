@@ -3,9 +3,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Query.Stuff;
 using NHibernate;
 using NHibernate.Criterion;
-using NHibernate.Linq;
 using NHibernate.SqlCommand;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
@@ -43,7 +41,7 @@ namespace Cloudents.Query.Documents
 
                 Document documentAlias = null;
                 ReadTutor tutorAlias = null;
-                University universityAlias = null;
+               // University universityAlias = null;
                 BaseUser userAlias = null;
                 DocumentDetailDto dtoAlias = null;
 
@@ -53,7 +51,7 @@ namespace Cloudents.Query.Documents
 
 
                 var futureValue = _session.QueryOver(() => documentAlias)
-                    .JoinAlias(x => x.University, () => universityAlias, JoinType.LeftOuterJoin)
+                   // .JoinAlias(x => x.University, () => universityAlias, JoinType.LeftOuterJoin)
                     .JoinAlias(x => x.User, () => userAlias)
                     .JoinEntityAlias(() => tutorAlias, () => documentAlias.User.Id == tutorAlias.Id, JoinType.LeftOuterJoin)
                     .Where(w => w.Id == query.Id && w.Status.State == ItemState.Ok)
@@ -63,7 +61,7 @@ namespace Cloudents.Query.Documents
                             .Select(Projections.Property(() => documentAlias.Id).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Id)}"))
                             .Select(Projections.Property(() => documentAlias.Name).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Title)}"))
                             .Select(Projections.Property(() => documentAlias.TimeStamp.UpdateTime).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.DateTime)}"))
-                            .Select(Projections.Property(() => universityAlias.Name).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.University)}"))
+                            //.Select(Projections.Property(() => universityAlias.Name).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.University)}"))
                             .Select(Projections.Property(() => documentAlias.Views).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Views)}"))
                             .Select(Projections.Property(() => documentAlias.Price).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Price)}"))
                             .Select(Projections.Property(() => documentAlias.Course.Id).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Course)}"))
@@ -88,7 +86,7 @@ namespace Cloudents.Query.Documents
                             .Select(Projections.Property(() => tutorAlias.Rate).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Rate)}"))
                             .Select(Projections.Property(() => tutorAlias.RateCount).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.ReviewsCount)}"))
                             .Select(Projections.Property(() => tutorAlias.Bio).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Bio)}"))
-                            .Select(Projections.Property(() => tutorAlias.University).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.University)}"))
+                            //.Select(Projections.Property(() => tutorAlias.University).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.University)}"))
                             .Select(Projections.Property(() => tutorAlias.Lessons).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Lessons)}"))
                             .Select(Projections.Property(() => tutorAlias.Country).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Country)}"))
 

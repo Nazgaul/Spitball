@@ -50,7 +50,7 @@ namespace Cloudents.Web.Test.UnitTests.Api
                     Result = new[] {new DocumentFeedDto()
                     {
                         Id = 159039,
-                        University = "SOME UNIVERSITY",
+                        //University = "SOME UNIVERSITY",
                         Course = "some course",
                         Title = "some name"
                     }},

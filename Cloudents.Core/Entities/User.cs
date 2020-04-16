@@ -143,7 +143,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
             Country = country;
-            University = null;
+            //University = null;
             AddEvent(new ChangeCountryEvent(Id));
         }
 
@@ -156,7 +156,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
             Country = country;
-            University = null;
+            //University = null;
             ChangeLanguage(Entities.Language.English);
             AddEvent(new ChangeCountryEvent(Id));
         }

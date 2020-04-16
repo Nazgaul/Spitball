@@ -11,7 +11,7 @@ namespace Cloudents.Persistence.Maps
                 $"{nameof(HiLoGenerator.TableName)}='{nameof(Document)}'");
 
             Map(x => x.Name).Length(150).Not.Nullable();
-            References(x => x.University).Nullable().Column("UniversityId").ForeignKey("Document_University");
+            //References(x => x.University).Nullable().Column("UniversityId").ForeignKey("Document_University");
             
             Component(x => x.TimeStamp);
 

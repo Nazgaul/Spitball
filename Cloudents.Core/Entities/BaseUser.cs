@@ -33,8 +33,7 @@ namespace Cloudents.Core.Entities
 
         
 
-        //TODO: should fictive user need to have university
-        public virtual University? University { get; protected set; }
+       // public virtual University? University { get; protected set; }
 
 
 

@@ -111,7 +111,7 @@ namespace Cloudents.Web.Api
         [HttpGet]
         public async Task<WebResponseWithFacet<FeedDto>> SearchInCourseAsync(
             [RequiredFromQuery]  DocumentRequestSearchCourse request,
-            [ProfileModelBinder(ProfileServiceQuery.UniversityId | ProfileServiceQuery.Country)] UserProfile profile,
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
             var result = await _feedService.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.CountryRegion, request.Course), token);
@@ -130,7 +130,7 @@ namespace Cloudents.Web.Api
         [HttpGet]
         public async Task<WebResponseWithFacet<FeedDto>> SearchInSpitballAsync(
             [RequiredFromQuery]  DocumentRequestSearch request,
-            [ProfileModelBinder(ProfileServiceQuery.UniversityId | ProfileServiceQuery.Country | ProfileServiceQuery.Course)] UserProfile profile,
+            [ProfileModelBinder( ProfileServiceQuery.Country | ProfileServiceQuery.Course)] UserProfile profile,
             CancellationToken token)
         {
             var result = await _feedService.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.CountryRegion, null), token);

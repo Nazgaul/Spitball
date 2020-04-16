@@ -17,7 +17,7 @@ namespace Cloudents.Persistence.Maps
 
             References(x => x.User).Column("UserId")
                 .ForeignKey("Question_User").Not.Nullable();
-            References(x => x.University).Column("UniversityId").ForeignKey("Question_University").Nullable();
+            //References(x => x.University).Column("UniversityId").ForeignKey("Question_University").Nullable();
             References(x => x.Course).Column("CourseId").ForeignKey("Question_Course").Nullable();
 
             References(x => x.Course2).Column("CourseId2").ForeignKey("Question_Course2").Nullable();

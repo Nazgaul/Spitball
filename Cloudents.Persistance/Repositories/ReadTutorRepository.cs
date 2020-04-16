@@ -3,7 +3,6 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using NHibernate;
 using NHibernate.Linq;
-using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,7 +20,7 @@ namespace Cloudents.Persistence.Repositories
         {
             var tutorFutureValue = Session.Query<Tutor>()
                 .Fetch(f => f.User)
-                .ThenFetch(f => f.University)
+                //.ThenFetch(f => f.University)
                 .Where(w => w.Id == userId && w.State == ItemState.Ok)
                 .Select(s => new
                 {
@@ -30,7 +29,7 @@ namespace Cloudents.Persistence.Repositories
                     s.User.ImageName,
                     s.User.Image,
                     s.Bio,
-                    UniversityName = s.User.University.Name,
+                   // UniversityName = s.User.University.Name,
                     s.Price.Price,
                     s.Price.SubsidizedPrice,
                     s.User.Country
@@ -86,7 +85,8 @@ namespace Cloudents.Persistence.Repositories
             var readTutor = new ReadTutor(tutor.Id, tutor.Name, tutor.Image, tutor.ImageName,
                 course.Where(w => !string.IsNullOrEmpty(w.SubjectName)).Select(s => s.SubjectName).Distinct().ToList(),
                 course.Select(s => s.CourseName).ToList(),
-                tutor.Price, average, count, tutor.Bio, tutor.UniversityName,
+                tutor.Price, average, count, tutor.Bio, 
+                //tutor.UniversityName,
                 lessons, tutor.Country, tutor.SubsidizedPrice);
 
 

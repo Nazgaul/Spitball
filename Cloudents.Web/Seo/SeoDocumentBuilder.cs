@@ -37,11 +37,11 @@ namespace Cloudents.Web.Seo
 
             if (isFrymo)
             {
-                t = t.Where(w => w.University.Country == Country.India.Name);
+                t = t.Where(w => w.User.Country == Country.India.Name);
             }
             else
             {
-                t = t.Where(w => w.University.Country != Country.India.Name);
+                t = t.Where(w => w.User.Country != Country.India.Name);
             }
 
             var docs = t.Take(SiteMapController.PageSize).Skip(SiteMapController.PageSize * index)

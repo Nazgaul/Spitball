@@ -27,7 +27,7 @@ namespace Cloudents.Core.Entities
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
             Name = Path.GetFileNameWithoutExtension(name.Replace("+", "-"));
-            University = user.University;
+         //   University = user.University;
             Course = course ?? throw new ArgumentNullException(nameof(course));
             User = user;
             Views = 0;
@@ -55,7 +55,7 @@ namespace Cloudents.Core.Entities
         // public virtual long Id { get; set; }
         public virtual string Name { get; protected set; }
 
-        public virtual University? University { get; protected set; }
+       // public virtual University? University { get; protected set; }
 
         public virtual Course Course { get; protected set; }
 

@@ -39,7 +39,7 @@ namespace Cloudents.Query.Documents
                 var z = await _session.Query<Document>()
                     .WithOptions(w => w.SetComment(nameof(IdsDocumentsQuery)))
                     .Fetch(f => f.User)
-                    .ThenFetch(f => f.University)
+                   // .ThenFetch(f => f.University)
                     .Where(w => ids.Contains(w.Id) && w.Status.State == ItemState.Ok)
                     
                     .Select(s => new DocumentFeedDto
@@ -57,7 +57,7 @@ namespace Cloudents.Query.Documents
                         Snippet = s.Description ?? s.MetaContent,
                         Views = s.Views,
                         Downloads = s.Downloads,
-                        University = s.University.Name,
+                       // University = s.University.Name,
                         Price = s.Price,
                         Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.Id && x.Action == TransactionActionType.SoldDocument),
                         DocumentType = s.DocumentType ?? DocumentType.Document,

@@ -31,37 +31,37 @@ namespace Cloudents.Query.General
             {
 
                 
-                University? universityAlias = null;
+               // University? universityAlias = null;
                 BaseUser? userAlias = null;
 
                 var documentCountFutureQuery = _session.QueryOver<Document>()
-                    .Left.JoinAlias(x => x.University, () => universityAlias)
+                   // .Left.JoinAlias(x => x.University, () => universityAlias)
                     .JoinAlias(x => x.User, () => userAlias)
                     .Where(w => w.Status.State == ItemState.Ok);
                 if (query.IsFrymo)
                 {
-                    documentCountFutureQuery.Where(() => universityAlias.Country.IfNull(userAlias.Country) == "IN");
+                    documentCountFutureQuery.Where(() => userAlias.Country.IfNull(userAlias.Country) == "IN");
                 }
                 else
                 {
-                    documentCountFutureQuery.Where(() => universityAlias.Country.IfNull(userAlias.Country) != "IN");
+                    documentCountFutureQuery.Where(() => userAlias.Country.IfNull(userAlias.Country) != "IN");
 
                 }
                 var documentCountFuture = documentCountFutureQuery.ToRowCountQuery().UnderlyingCriteria.SetComment(nameof(SiteMapQuery)).FutureValue<int>();
 
 
                 var questionCountFutureQuery = _session.QueryOver<Question>()
-                    .Left.JoinAlias(x => x.University, () => universityAlias)
+                    //.Left.JoinAlias(x => x.University, () => universityAlias)
                     .JoinAlias(x => x.User, () => userAlias)
                     .Where(w => w.Status.State == ItemState.Ok);
 
                 if (query.IsFrymo)
                 {
-                    questionCountFutureQuery.Where(() => universityAlias.Country.IfNull(userAlias.Country) == "IN");
+                    questionCountFutureQuery.Where(() => userAlias.Country.IfNull(userAlias.Country) == "IN");
                 }
                 else
                 {
-                    questionCountFutureQuery.Where(() => universityAlias.Country.IfNull(userAlias.Country) != "IN");
+                    questionCountFutureQuery.Where(() => userAlias.Country.IfNull(userAlias.Country) != "IN");
 
                 }
                 

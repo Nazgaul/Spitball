@@ -22,9 +22,9 @@ namespace Cloudents.Core.EventHandler
         {
             var doc = new DocumentSearchDto
             {
-                UniversityId = eventMessage.Document.University.Id,
-                UniversityName = eventMessage.Document.University.Name,
-                Country = eventMessage.Document.University.Country.ToUpperInvariant(),
+              //  UniversityId = eventMessage.Document.University.Id,
+              //  UniversityName = eventMessage.Document.University.Name,
+                Country = eventMessage.Document.User.Country.ToUpperInvariant(),
                 Course = eventMessage.Document.Course.Id.ToUpperInvariant(),
                 DateTime = eventMessage.Document.TimeStamp.UpdateTime,
                 ItemId = eventMessage.Document.Id,
@@ -47,9 +47,9 @@ namespace Cloudents.Core.EventHandler
         {
             var doc = new DocumentSearchDto
             {
-                UniversityId = eventMessage.Document.University.Id,
-                UniversityName = eventMessage.Document.University.Name,
-                Country = eventMessage.Document.University.Country.ToUpperInvariant(),
+               // UniversityId = eventMessage.Document.University.Id,
+              //  UniversityName = eventMessage.Document.University.Name,
+                Country = eventMessage.Document.User.Country.ToUpperInvariant(),
                 Course = eventMessage.Document.Course.Id.ToUpperInvariant(),
                 DateTime = eventMessage.Document.TimeStamp.UpdateTime,
                 ItemId = eventMessage.Document.Id,

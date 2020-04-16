@@ -16,7 +16,9 @@ namespace Cloudents.Core.Entities
     {
         public Question(string text,
             User user,
-            [NotNull] Course course, University? university)
+            [NotNull] Course course
+            //University? university
+            )
         : this()
         {
             if (text == null) throw new ArgumentNullException(nameof(text));
@@ -33,11 +35,12 @@ namespace Cloudents.Core.Entities
 
             Status = status;
             Course = course ?? throw new ArgumentException();
-            University = university;
+           // University = university;
         }
 
-        public Question(Course course, string text, SystemUser user,
-             University? university)
+        public Question(Course course, string text, SystemUser user
+            // University? university
+             )
             : this()
         {
             if (text == null) throw new ArgumentNullException(nameof(text));
@@ -47,7 +50,7 @@ namespace Cloudents.Core.Entities
             Updated = Created = DateTime.UtcNow;
 
             Status = Pending;
-            University = university;
+           // University = university;
 
         }
 
@@ -72,7 +75,7 @@ namespace Cloudents.Core.Entities
 
         public virtual Course2 Course2 { get; set; }
 
-        public virtual University? University { get; set; }
+       // public virtual University? University { get; set; }
 
         private readonly IList<Answer> _answers = new List<Answer>();
 
