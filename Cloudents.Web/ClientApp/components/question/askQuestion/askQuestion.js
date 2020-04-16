@@ -3,8 +3,6 @@ import { LanguageService } from "../../../services/language/languageService";
 import { validationRules } from "../../../services/utilities/formValidationRules";
 import questionService from "../../../services/questionService";
 import analyticsService from "../../../services/analytics.service";
-import debounce from "lodash/debounce";
-import courseService from '../../../services/courseService.js'
 
 export default {
     data() {
