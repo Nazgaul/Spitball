@@ -46,14 +46,14 @@ and rt.Id != @userId
 order by
 CASE
    WHEN exists (
-				select uc.courseId from sb.UsersCourses uc where rt.Id = uc.UserId and uc.CanTeach = 1
+				select uc.courseId from sb.UserCourse2 uc where rt.Id = uc.UserId
    INTERSECT
-				select uc2.CourseId from sb.UsersCourses uc2 where uc2.UserId = @userid) THEN 2
+				select uc2.CourseId from sb.UserCourse2 uc2 where uc2.UserId = @userid) THEN 2
    WHEN exists (
-				select c.subjectId from sb.UsersCourses uc  join sb.Course c on uc.CourseId = c.Name
-				where rt.Id = uc.UserId and uc.CanTeach = 1
+				select c.Field from sb.UserCourse2 uc  join sb.Course2 c on uc.CourseId = c.id
+				where rt.Id = uc.UserId 
    intersect
-				select c2.SubjectId from sb.UsersCourses uc2 join sb.Course c2 on uc2.CourseId = c2.Name 
+				select c2.Field from sb.UserCourse2 uc2 join sb.Course2 c2 on uc2.CourseId = c2.id 
 				where uc2.UserId = @userid
 				) THEN 1
    else 0
