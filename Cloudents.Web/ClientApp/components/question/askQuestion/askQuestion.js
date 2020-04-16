@@ -3,6 +3,8 @@ import { LanguageService } from "../../../services/language/languageService";
 import { validationRules } from "../../../services/utilities/formValidationRules";
 import questionService from "../../../services/questionService";
 import analyticsService from "../../../services/analytics.service";
+import debounce from "lodash/debounce";
+import courseService from '../../../services/courseService.js'
 
 export default {
     data() {
@@ -73,9 +75,30 @@ export default {
         },
         closeAddQuestionDialog() {
             this.updateNewQuestionDialogState(false);
-        }
+        },
+        searchCourses: debounce(function(ev){
+            let term = ev.target.value.trim()
+            if(!term) {
+                this.questionCourse = ''
+                this.suggestsCourses = []
+                return 
+            }
+            if(!!term){
+                courseService.getCourse({term, page:0}).then(data=>{
+                    this.suggestsCourses = data;
+                    this.suggestsCourses.forEach(course=>{                                               
+                        if(course.text === this.questionCourse){                           
+                            this.questionCourse = course
+                        }
+                    }) 
+                })
+            }
+        },300),
     },
     created() {
+        if(this.$route.query && this.$route.query.term){
+            this.questionCourse = this.$route.query.term;
+        }
         if(this.$route.query && this.$route.query.Course){
             this.questionCourse = this.$route.query.Course;
         }

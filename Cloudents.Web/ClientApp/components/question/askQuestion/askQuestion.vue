@@ -28,12 +28,13 @@
                     <fieldset class="question-fieldset px-2">
                         <legend v-language:inner="'addQuestion_class_placeholder'"/>
                         <v-combobox 
+                            @keyup="searchCourses"
                             class="text-truncate pa-0"
                             flat
                             hide-no-data
                             :append-icon="''"
                             v-model="questionCourse"
-                            :items="getSelectedClasses"
+                            :items="suggestsCourses"
                             :rules="[rules.required]">
                         </v-combobox>
                     </fieldset>
