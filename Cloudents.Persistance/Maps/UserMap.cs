@@ -23,6 +23,7 @@ namespace Cloudents.Persistence.Maps
 
 
 
+            Map(e => e.SbCountry).CustomType<EnumerationType<Country>>().Nullable();
             Map(e => e.Country).Nullable().Length(2);
 
             Map(e => e.Created).Insert().Not.Update();

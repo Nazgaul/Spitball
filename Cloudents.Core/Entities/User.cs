@@ -84,7 +84,7 @@ namespace Cloudents.Core.Entities
             //foreach (var course in courses)
             //{
             var p = new UserCourse2(this, course);
-            p.CanTeach(canTeach);
+            //p.CanTeach(canTeach);
             if (_userCourses2.Add(p))
             {
                 //course.Count++;

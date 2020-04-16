@@ -89,7 +89,7 @@ namespace ConsoleApp
 
                         var newMapping = row[1].ToString().Trim('"')
                             .Replace("\\\"", "\"")
-                            .Replace("--","-");
+                            .Replace("--", "-");
                         var oldCourseName = row[0].ToString();
                         if (newMapping.Equals("N.A", StringComparison.OrdinalIgnoreCase) ||
                             newMapping.Equals("N/A", StringComparison.OrdinalIgnoreCase))
@@ -103,7 +103,7 @@ namespace ConsoleApp
                             if (row.Count < 3)
                             {
                                 continue;
-                                
+
                             }
                             if (row[2]?.ToString() != "*")
                             {
@@ -143,7 +143,7 @@ namespace ConsoleApp
             var f2 = session.Query<Question>()
                 // .Fetch(f => f.User)
                 .Where(w => w.Course.Id == oldCourseName && w.Status.State == ItemState.Ok &&
-                            w.User.Country == country.Name).ToFuture();
+                            w.User.SbCountry == country).ToFuture();
 
             var questionIdAlreadyInCourse = new HashSet<long>(f1.GetEnumerable());
             //TODO change here
@@ -194,7 +194,7 @@ namespace ConsoleApp
 
             var f2 = session.Query<Document>()
                 .Where(w => w.Course.Id == oldCourseName && w.Status.State == ItemState.Ok &&
-                            w.User.Country == country.Name).ToFuture();
+                            w.User.SbCountry == country).ToFuture();
 
             var documentIdAlreadyInCourse = new HashSet<long>(f1.GetEnumerable());
             //TODO change here
@@ -244,7 +244,7 @@ namespace ConsoleApp
             var f2 = session.Query<UserCourse>()
                 //.Fetch(f=>f.User)
                 .Where(w => w.Course.Id == oldCourseName)
-                .Where(w => w.User.Country == country.Name)
+                .Where(w => w.User.SbCountry == country)
                 .Where(w => w.User.LockoutEnd != DateTimeOffset.MaxValue)
                 .Where(w => w.User.EmailConfirmed && w.User.PhoneNumberConfirmed)
                 .Select(s => new { s.User.Id, s.IsTeach }).ToFuture();

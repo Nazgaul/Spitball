@@ -17,6 +17,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Query;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 
@@ -134,13 +135,43 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            await PopulateDb();
             await GoogleSheetsReader.Read();
             //await DeleteOldStuff.DoStuff();
         }
 
-        
 
-       
+
+        private static async Task PopulateDb()
+        {
+            var sql = @"update top (1000) sb.[User]
+            set SbCountry = 1
+            where Country = 'IL' and SbCountry is null";
+
+            var sql2 = @"update top (1000) sb.[User]
+set SbCountry = 2
+where Country = 'IN' and SbCountry is null";
+
+            var sql3 = @"update top (1000) sb.[User]
+set SbCountry = 3
+where SbCountry is null and country not in ('IL','IN') ";
+
+            var queries = new[] {sql, sql2, sql3};
+
+            var dapper = Container.Resolve<IDapperRepository>();
+            foreach (var query in queries)
+            {
+                using var con =  dapper.OpenConnection();
+                while (true)
+                {
+                    var i = await con.ExecuteAsync(query);
+                    if (i == 0)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
 
        
 

@@ -86,6 +86,7 @@ namespace Cloudents.Core.Entities
         }
 
         public virtual string Country { get; protected set; }
+        public virtual Country SbCountry { get; protected set; }
 
         public virtual byte[] Version { get; protected set; }
 
