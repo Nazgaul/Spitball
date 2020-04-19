@@ -55,10 +55,10 @@ function _initStudentJoined(localParticipant){
       STORE.dispatch('sendDataTrack',JSON.stringify(normalizedData))
    }
 }
-function _detachTracks(tracks,store){
+function _detachTracks(tracks){
    tracks.forEach((track) => {
       if (track?.detach) {
-         store.commit(twilio_SETTERS.DELETE_REMOTE_VIDEO_TRACK,track)
+         // store.commit(twilio_SETTERS.DELETE_REMOTE_VIDEO_TRACK,track)
          track.detach().forEach((detachedElement) => {
             detachedElement.remove();
          });
