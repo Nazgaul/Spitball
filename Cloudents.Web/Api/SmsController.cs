@@ -142,14 +142,14 @@ namespace Cloudents.Web.Api
             [FromHeader(Name = "User-Agent")] string agent,
             CancellationToken token)
         {
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+
+            var user = await _userManager.FindByIdAsync("165441");
+            //var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
                 _logger.Error("VerifySmsAsync We can't identify the user");
                 return Unauthorized();
             }
-
-            var x = await phoneValidator.VerifyCodeAsync(user.PhoneNumber, model.Number, token);
 
             var v = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number);
             if (v.Succeeded)
