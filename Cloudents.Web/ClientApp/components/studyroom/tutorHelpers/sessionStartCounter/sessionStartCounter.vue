@@ -1,5 +1,7 @@
 <template>
-    <span>{{time.days}}:{{time.hours}}:{{time.minutes}}:{{time.seconds}}</span>
+    <div>
+        <span>{{time.days}}</span>:<span>{{time.hours}}</span>:<span>{{time.minutes}}</span>:<span>{{time.seconds}}</span>
+    </div>
 </template>
 
 <script>
