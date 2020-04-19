@@ -19,12 +19,13 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
 using SbUserManager = Cloudents.Web.Identity.SbUserManager;
 
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/[controller]"), ApiController]
+    [Microsoft.AspNetCore.Mvc.Route("api/[controller]"), ApiController]
 
     public class SmsController : Controller
     {
@@ -136,6 +137,7 @@ namespace Cloudents.Web.Api
         [HttpPost("verify")]
         public async Task<IActionResult> VerifySmsAsync(
             [FromBody]CodeRequest model,
+            [FromServices] IPhoneValidator phoneValidator,
             [ModelBinder(typeof(CountryModelBinder))] string country,
             [FromHeader(Name = "User-Agent")] string agent,
             CancellationToken token)
@@ -146,6 +148,8 @@ namespace Cloudents.Web.Api
                 _logger.Error("VerifySmsAsync We can't identify the user");
                 return Unauthorized();
             }
+
+            var x = await phoneValidator.VerifyCodeAsync(user.PhoneNumber, model.Number, token);
 
             var v = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number);
             if (v.Succeeded)

@@ -102,20 +102,40 @@ namespace Cloudents.Infrastructure.Mail
             }
         }
 
-        public async Task<(string? phoneNumber, string? country)> ValidateAndSendSmsAsync(string phoneNumber, string countryCode, CancellationToken token)
+        public async Task SendVerificationCodeAsync(string phoneNumber, CancellationToken token)
         {
             // var service = Twilio.Rest.Verify.V2.ServiceResource.Create(friendlyName: "My Verify Service");
-            phoneNumber = BuildPhoneNumber(phoneNumber, countryCode);
+           // phoneNumber = BuildPhoneNumber(phoneNumber, countryCode);
             //VerificationResource.Create()
-
-            
             var verificationCheck = await VerificationResource.CreateAsync(
                 to: phoneNumber,
                 channel:"sms",
                 pathServiceSid: "VA54583e5d91fabd4433a82fc263a8a696"
             );
 
-            return (null, null);
+           // return (null, null);
+        }
+
+        public async Task<bool> VerifyCodeAsync(string phoneNumber,string code, CancellationToken token)
+        {
+            // var service = Twilio.Rest.Verify.V2.ServiceResource.Create(friendlyName: "My Verify Service");
+            // phoneNumber = BuildPhoneNumber(phoneNumber, countryCode);
+            //VerificationResource.Create()
+            try
+            {
+                var verificationCheck = await VerificationCheckResource.CreateAsync(
+                    to: phoneNumber,
+                    code: code,
+                    pathServiceSid: "VA54583e5d91fabd4433a82fc263a8a696"
+                );
+                return verificationCheck.Status == "approved";
+            }
+            catch (Twilio.Exceptions.ApiException)
+            {
+                return false;
+            }
+
+            // return (null, null);
         }
 
 
