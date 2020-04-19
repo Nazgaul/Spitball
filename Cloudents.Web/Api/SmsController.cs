@@ -143,8 +143,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
 
-            var user = await _userManager.FindByIdAsync("165441");
-            //var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
                 _logger.Error("VerifySmsAsync We can't identify the user");
