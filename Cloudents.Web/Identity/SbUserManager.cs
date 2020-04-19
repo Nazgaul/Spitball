@@ -52,7 +52,6 @@ namespace Cloudents.Web.Identity
         {
             var phoneNumberWithCallingCode = TwilioProvider.BuildPhoneNumber(phoneNumber, countryCallingCode);
             Expression<Func<User, bool>> expression = s => s.PhoneNumber == phoneNumberWithCallingCode;
-            //return await _session.Query<RegularUser>().FirstOrDefaultAsync(w => w.NormalizedName == normalizedUserName, cancellationToken: cancellationToken);
             return await _queryBus.QueryAsync(new UserDataExpressionQuery(expression), CancellationToken.None);
 
         }
