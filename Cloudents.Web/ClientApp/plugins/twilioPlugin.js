@@ -55,10 +55,10 @@ function _initStudentJoined(localParticipant){
       STORE.dispatch('sendDataTrack',JSON.stringify(normalizedData))
    }
 }
-function _detachTracks(tracks,store){
+function _detachTracks(tracks){
    tracks.forEach((track) => {
       if (track?.detach) {
-         store.commit(twilio_SETTERS.DELETE_REMOTE_VIDEO_TRACK,track)
+         // store.commit(twilio_SETTERS.DELETE_REMOTE_VIDEO_TRACK,track)
          track.detach().forEach((detachedElement) => {
             detachedElement.remove();
          });
@@ -126,7 +126,7 @@ function _twilioListeners(room,store) {
    // room events
    room.on('trackSubscribed', (track) => {
       _insightEvent('TwilioTrackSubscribed', track, null);
-      _detachTracks([track],store)
+      // _detachTracks([track],store)
    })
    room.on('trackUnsubscribed', (track) => {
       _insightEvent('TwilioTrackUnsubscribed', track, null);
@@ -231,6 +231,9 @@ export default () => {
             _debugMode = mutation.payload.query?.debug ? 'debug' : 'off';
          }
          if (mutation.type === twilio_SETTERS.JWT_TOKEN) {
+            if(_activeRoom?.state == 'connected'){
+               return
+            }
             let isRoomNeedPayment = store.getters.getRoomIsNeedPayment;
             let isRoomStudent = !store.getters.getRoomIsTutor;
             if(isRoomStudent && isRoomNeedPayment){return}
