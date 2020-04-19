@@ -138,6 +138,9 @@
   <data name="audio_title" xml:space="preserve">
     <value>Audio</value>
   </data>
+  <data name="block_permission" xml:space="preserve">
+    <value>Meet requires access to your camera and microphone. Click the camera blocked icon {0}  in your browser's address bar.</value>
+  </data>
   <data name="camera_label" xml:space="preserve">
     <value>Camera:</value>
   </data>
@@ -145,9 +148,33 @@
     <value>Please select camera</value>
     <comment>בחר בבקשה מצלמה</comment>
   </data>
+  <data name="class_name" xml:space="preserve">
+    <value>Class Name</value>
+  </data>
+  <data name="dismiss" xml:space="preserve">
+    <value>dismiss</value>
+  </data>
+  <data name="full_view" xml:space="preserve">
+    <value>full view</value>
+  </data>
   <data name="mic_placeholder" xml:space="preserve">
     <value>Please select microphone</value>
     <comment>בבקשה בחר מיקרופון</comment>
+  </data>
+  <data name="no_camera" xml:space="preserve">
+    <value>Camera is off</value>
+  </data>
+  <data name="present" xml:space="preserve">
+    <value>present</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="share" xml:space="preserve">
+    <value>Share it</value>
+  </data>
+  <data name="start_in" xml:space="preserve">
+    <value>Class start in</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>Settings</value>
@@ -157,5 +184,8 @@
   </data>
   <data name="video_title" xml:space="preserve">
     <value>Video</value>
+  </data>
+  <data name="whiteboard" xml:space="preserve">
+    <value>whiteboard</value>
   </data>
 </root>
