@@ -10,7 +10,7 @@
 
             <div class="settingsMain d-flex align-center justify-center">
                 <div class="d-flex align-center">
-                    <studyRoomVideoSetting />
+                    <studyRoomVideo />
                     <studyRoomSettingDetails :isRoomActive="isRoomActive" @updateRoomIsActive="val => isRoomActive = val" />
                 </div>
             </div>
@@ -20,14 +20,14 @@
 
 <script>
 import appLogo from '../../../app/logo/logo.vue'
-import studyRoomSettingDetails from "./studyRoomSettingsDetails.vue";
-import studyRoomVideoSetting from "./studyRoomVideo.vue";
+import studyRoomSettingDetails from "./studyRoomSettingsDetails/studyRoomSettingsDetails.vue";
+import studyRoomVideo from "./studyRoomVideo/studyRoomVideo.vue";
 
 export default {
   components: {
     appLogo,
     studyRoomSettingDetails,
-    studyRoomVideoSetting,
+    studyRoomVideo,
   },
   data() {
     return {

@@ -1,13 +1,12 @@
 <template>
-    <div class="studyRoom-video-settings-container mr-12">
-        <v-row class="studyRoom-video-settings-video-container elevation-2">
-            <div class="cameraListWrap text-center">
+    <div class="srVideoSettingsVideoContainer mr-12">
+        <v-row class="srVideoSettingsVideoContainer elevation-2">
+
+            <div class="cameraTextWrap text-center">
                 <div class="noCamera white--text" v-if="!camerasList.length" v-t="'studyRoomSettings_no_camera'"></div>
-                
-                <i18n :path="permissionText" tag="div" v-if="permissionDenied" class="blockPermission inCamera white--text">
+                <i18n class="blockPermission inCamera white--text" v-if="permissionDenied" :path="permissionText" tag="div">
                     <cameraBlock class="cameraBlock" width="20" />
                 </i18n>
-                <!-- <div class="noPermission white--text"  v-t="permissionText"></div> -->
             </div>
 
             <div class="bottomIcons d-flex align-end justify-space-between">
@@ -41,7 +40,7 @@
 
         <studyRoomAudioVideoDialog
             v-if="settingDialogState"
-            @updateSettingDialogState="val => settingDialogState = val"
+            @closeAudioVideoSettingDialog="val => settingDialogState = val"
         />
 
         <v-dialog v-model="permissionDialogState" width="512" persistent content-class="premissionDeniedDialog pa-6 pb-4">
@@ -67,15 +66,16 @@
 <script>
 import { createLocalVideoTrack } from 'twilio-video';
 
-import insightService from '../../../../services/insightService';
+import insightService from '../../../../../services/insightService';
 
-import studyRoomAudioVideoDialog from './studyRoomAudioVideoDialog.vue'
+import studyRoomAudioVideoDialog from '../studyRoomAudioVideoDialog/studyRoomAudioVideoDialog.vue'
 
-import microphoneImage from '../../images/outline-mic-none-24-px-copy-2.svg'
-import microphoneImageIgnore from '../../images/mic-ignore.svg';
-import videoCameraImage from '../../images/video-camera.svg';
-import videoCameraImageIgnore from '../../images/camera-ignore.svg';
-import cameraBlock from './images/cameraBlock.svg'
+import microphoneImage from '../../../images/outline-mic-none-24-px-copy-2.svg'
+import microphoneImageIgnore from '../../../images/mic-ignore.svg';
+import videoCameraImage from '../../../images/video-camera.svg';
+import videoCameraImageIgnore from '../../../images/camera-ignore.svg';
+import cameraBlock from '../images/cameraBlock.svg'
+
 export default {
     components: {
         videoCameraImage,
@@ -197,27 +197,27 @@ export default {
 
 <style lang="less">
 // @import '../../../../styles/mixin';
-@import '../../../../styles/colors';
-.studyRoom-video-settings-container{
-    .studyRoom-video-settings-title{
-        display:flex;
-        justify-content: space-between;
-        .studyRoom-video-settings-label{
-            font-size: 14px;
-            min-width: 100px;
-        }
-        .v-input__control{
-            min-height: unset;
-            .v-select__selection{
-                font-size: 14px;
-            }
-        }
-    }
-    .studyRoom-video-settings-video-container{
+@import '../../../../../styles/colors';
+.srVideoSettingsVideoContainer{
+    // .studyRoom-video-settings-title{
+    //     display:flex;
+    //     justify-content: space-between;
+    //     .studyRoom-video-settings-label{
+    //         font-size: 14px;
+    //         min-width: 100px;
+    //     }
+    //     .v-input__control{
+    //         min-height: unset;
+    //         .v-select__selection{
+    //             font-size: 14px;
+    //         }
+    //     }
+    // }
+    .srVideoSettingsVideoContainer {
         position: relative;
         border-radius: 8px;
         background-color: #202124;
-        .cameraListWrap {
+        .cameraTextWrap {
             margin: 0 100px;
             position: absolute;
             top: calc(50% - 36px); // center text
@@ -272,7 +272,7 @@ export default {
                 display: block;
             }
         }
-        .videoOverlay{
+        .videoOverlay {
             background-image: -webkit-linear-gradient(bottom,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
             background-image: linear-gradient(bottom,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
             height: 80px;

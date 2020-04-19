@@ -101,12 +101,12 @@
 </template>
 
 <script>
-import sessionStartCounter from '../sessionStartCounter/sessionStartCounter.vue'
-import shareContent from '../../../pages/global/shareContent/shareContent.vue'
+import sessionStartCounter from '../../sessionStartCounter/sessionStartCounter.vue'
+import shareContent from '../../../../pages/global/shareContent/shareContent.vue'
 
-import whiteboardSvg from './images/whiteboard.svg'
-import presentSvg from './images/present.svg'
-import fullviewSvg from './images/fullview.svg'
+import whiteboardSvg from '../images/whiteboard.svg'
+import presentSvg from '../images/present.svg'
+import fullviewSvg from '../images/fullview.svg'
 
 export default {
     components: {
@@ -156,7 +156,7 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../../../styles/mixin.less';
+@import '../../../../../styles/mixin.less';
 
 .settingDetailsWrap {
     // max-width: 100%;
