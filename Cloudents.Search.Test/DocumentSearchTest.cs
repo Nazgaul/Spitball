@@ -1,4 +1,4 @@
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
 using Cloudents.Query;
@@ -23,9 +23,9 @@ namespace Cloudents.Search.Test
         private readonly IQueryBus _queryBus;
 
         [Theory]
-        [InlineData("IL", null, "Economics", null)]
-        [InlineData("IL", null, "Economics", DocumentType.Video)]
-        [InlineData("IL", null, "Economics", DocumentType.Document)]
+        [InlineData("IL", null, "משפטים - דיני עונשין", null)]
+        [InlineData("IL", null, "משפטים - דיני עונשין", DocumentType.Video)]
+        [InlineData("IL", null, "משפטים - דיני עונשין", DocumentType.Document)]
         public async Task DocumentSearch_Params_Ok(string country, string term, string course, DocumentType? filter)
         {
             var userProfile = new UserProfile()

@@ -15,7 +15,9 @@ namespace Cloudents.Persistence.Maps
             
             Component(x => x.TimeStamp);
 
+#pragma warning disable 612
             References(x => x.Course).Column("CourseName").Not.Nullable().ForeignKey("Document_course");
+#pragma warning restore 612
             References(x => x.Course2).Column("CourseId2").Not.Nullable().ForeignKey("Document_course2");
             References(x => x.User).Column("UserId").Not.Nullable().ForeignKey("Document_User");
             Map(x => x.Views).Not.Nullable();

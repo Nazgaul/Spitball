@@ -100,9 +100,9 @@ and uc.tutorId =  :profileId";
                     .Select(s => s.Subjects).ToFutureValue();
 
                 var documentCoursesFuture = _session.Query<Document>()
-                    .Fetch(f => f.User)
+                    .Fetch(f => f.User).Fetch(f=>f.Course2)
                     .Where(w => w.User.Id == query.Id && w.Status.State == Core.Enum.ItemState.Ok)
-                    .Select(s => s.Course.Id).Distinct()
+                    .Select(s => s.Course2.CardDisplay).Distinct()
                     .ToFuture();
 
 
@@ -133,8 +133,8 @@ and uc.tutorId =  :profileId";
                     }
                 }
 
-                result.DocumentCourses = documentCoursesFuture.GetEnumerable();
-                result.Courses = userCoursesFuture.GetEnumerable();
+                result.DocumentCourses = await documentCoursesFuture.GetEnumerableAsync(token);
+                result.Courses = await userCoursesFuture.GetEnumerableAsync(token);
                 result.Image = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Image);
                 result.Cover = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Cover);
 

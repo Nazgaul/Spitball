@@ -38,7 +38,7 @@ namespace Cloudents.Query.Users
                     {
                         Id = s.Id,
                         Name = s.Name,
-                        Course = s.Course.Id,
+                        Course = s.Course2.CardDisplay,
                         Type = s.DocumentType != null?  s.DocumentType.ToString() : "Document",
                         Likes = s.VoteCount,
                         Price = s.Price,

@@ -43,7 +43,7 @@ namespace Cloudents.Query.Users
                     {
                         Id = s.Document.Id,
                         Name = s.Document.Name,
-                        Course = s.Document.Course.Id,
+                        Course = s.Document.Course2.CardDisplay,
                         Type = s.Document.DocumentType != null
                             ? (ContentType) s.Document.DocumentType
                             : ContentType.Document,

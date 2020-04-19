@@ -49,7 +49,7 @@ namespace Cloudents.Query.HomePage
                     Id = s.Id,
                     DocumentType = s.DocumentType ?? DocumentType.Document,
                     Duration = s.Duration,
-                    Course = s.Course.Id,
+                    Course = s.Course2.CardDisplay,
                     Snippet = s.Description ?? s.MetaContent,
                     Title = s.Name,
                     User = new DocumentUserDto()

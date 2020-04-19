@@ -41,9 +41,10 @@ namespace Cloudents.Query.Documents
 
                 Document documentAlias = null;
                 ReadTutor tutorAlias = null;
-               // University universityAlias = null;
                 BaseUser userAlias = null;
                 DocumentDetailDto dtoAlias = null;
+
+                Course2 courseAlias = null;
 
                 var similarDocumentQueryOver = QueryOver.Of<Document>()
                     .Where(w => w.Md5 == documentAlias.Md5 && w.Status.State == ItemState.Ok)
@@ -51,7 +52,7 @@ namespace Cloudents.Query.Documents
 
 
                 var futureValue = _session.QueryOver(() => documentAlias)
-                   // .JoinAlias(x => x.University, () => universityAlias, JoinType.LeftOuterJoin)
+                    .JoinAlias(x => x.Course2, () => courseAlias, JoinType.LeftOuterJoin)
                     .JoinAlias(x => x.User, () => userAlias)
                     .JoinEntityAlias(() => tutorAlias, () => documentAlias.User.Id == tutorAlias.Id, JoinType.LeftOuterJoin)
                     .Where(w => w.Id == query.Id && w.Status.State == ItemState.Ok)
@@ -64,7 +65,7 @@ namespace Cloudents.Query.Documents
                             //.Select(Projections.Property(() => universityAlias.Name).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.University)}"))
                             .Select(Projections.Property(() => documentAlias.Views).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Views)}"))
                             .Select(Projections.Property(() => documentAlias.Price).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Price)}"))
-                            .Select(Projections.Property(() => documentAlias.Course.Id).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Course)}"))
+                            .Select(Projections.Property(() => courseAlias.CardDisplay).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Course)}"))
                             .Select(Projections.Property(() => documentAlias.Downloads).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Downloads)}"))
                             .Select(Projections.Property(() => documentAlias.VoteCount).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Vote)}.{nameof(VoteDto.Votes)}"))
                             .Select(Projections.SqlFunction("COALESCE", NHibernateUtil.String

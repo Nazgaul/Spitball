@@ -40,8 +40,6 @@ namespace Cloudents.Query.Users
             {
                 var r = _session.Query<Document>()
                     .WithOptions(w => w.SetComment(nameof(UserDocumentsQuery)))
-                    //.Fetch(f => f.User)
-                    //.Fetch(f => f.University)
                     .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok);
 
                 var count = _session.Query<Document>()
@@ -57,8 +55,8 @@ namespace Cloudents.Query.Users
                 }
                 if (!string.IsNullOrEmpty(query.Course))
                 {
-                    r = r.Where(w => w.Course.Id == query.Course);
-                    count = count.Where(w => w.Course.Id == query.Course);
+                    r = r.Where(w => w.Course2.SearchDisplay == query.Course);
+                    count = count.Where(w => w.Course2.SearchDisplay == query.Course);
                 }
                 r = r.OrderByDescending(o => o.Boost).ThenByDescending(o => o.TimeStamp.UpdateTime);
                 var result = r.Select(s => new DocumentFeedDto()
@@ -71,7 +69,7 @@ namespace Cloudents.Query.Users
                     //    Image = s.User.ImageName,
                     //},
                     DateTime = s.TimeStamp.UpdateTime,
-                    Course = s.Course.Id,
+                    Course = s.Course2.CardDisplay,
                     Title = s.Name,
                     Views = s.Views,
                     Downloads = s.Downloads,

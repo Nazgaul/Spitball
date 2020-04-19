@@ -40,7 +40,7 @@ namespace Cloudents.Query.Documents
                     .Select(s => new ShareDocumentImageDto()
                     {
                         Name = s.Name,
-                        CourseName = s.Course.Id,
+                        CourseName = s.Course2.CardDisplay,
                         Type = s.DocumentType ?? DocumentType.Document
 
                     }).SingleOrDefaultAsync(token);

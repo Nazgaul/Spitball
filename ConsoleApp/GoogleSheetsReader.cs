@@ -156,7 +156,9 @@ namespace ConsoleApp
 
                 session.Query<Question>()
                 // .Fetch(f => f.User)
+#pragma warning disable 612
                 .Where(w => w.Course.Id == oldCourseName && w.Status.State == ItemState.Ok &&
+#pragma warning restore 612
                             w.User.SbCountry == country).ToFuture();
 
             var questionIdAlreadyInCourse = new HashSet<long>(f1.GetEnumerable());
@@ -211,7 +213,9 @@ namespace ConsoleApp
             //    .Select(s => s.Document.Id).ToFuture();
 
             var f2 = session.Query<Document>()
+#pragma warning disable 612
                 .Where(w => w.Course.Id == oldCourseName && w.Status.State == ItemState.Ok &&
+#pragma warning restore 612
                             w.User.SbCountry == country).ToFuture();
 
             var documentIdAlreadyInCourse = new HashSet<long>(f1.GetEnumerable());

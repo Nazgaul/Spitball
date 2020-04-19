@@ -21,18 +21,14 @@ namespace Cloudents.Query.SearchSync
             {
                 const string res = @"select d.Id as ItemId,
 	                            d.Name as Name,
-	                            d.CourseName as Course,
-	                            d.UniversityId as UniversityId,
+	                            (select cardDisplay from sb.course2 where id = d.CourseId2) as Course,
 	                            d.DocumentType as Type,
 	                            d.State as State,
 	                            d.UpdateTime as DateTime, 
 	                            u.Country as Country,
-								u.Name as UniversityName,
 	                            c.* 
                             From sb.[Document] d  
                             right outer join CHANGETABLE (CHANGES sb.[Document], :Version) AS c ON d.Id = c.id 
-                            left join sb.[University] u 
-		                        On u.Id = d.UniversityId  
                             Order by d.Id 
                             OFFSET :PageSize * :PageNumber 
                             ROWS FETCH NEXT :PageSize ROWS ONLY";
@@ -50,16 +46,13 @@ with cte as (
 
 select d.Id as ItemId,	            
                 d.Name as Name,	               
-				d.CourseName as Course,	               
-				d.UniversityId as UniversityId,	                  
+				(select cardDisplay from sb.course2 where id = d.CourseId2) as Course,	               
 				d.DocumentType as Type,						                 
 				d.State as State,				
 				d.UpdateTime as DateTime, 	                   
 				u.Country as Country,							
 				u.Name as UniversityName	     		
 				From sb.[Document] d  
-				join sb.[University] u 	                  				
-				On u.Id = d.UniversityId 	
 				Order by d.Id                     		
 				OFFSET  :PageSize * :PageNumber                  			
 				ROWS FETCH NEXT :PageSize ROWS ONLY 

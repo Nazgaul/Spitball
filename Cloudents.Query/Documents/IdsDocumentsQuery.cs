@@ -39,6 +39,7 @@ namespace Cloudents.Query.Documents
                 var z = await _session.Query<Document>()
                     .WithOptions(w => w.SetComment(nameof(IdsDocumentsQuery)))
                     .Fetch(f => f.User)
+                    .Fetch(f=>f.Course2)
                    // .ThenFetch(f => f.University)
                     .Where(w => ids.Contains(w.Id) && w.Status.State == ItemState.Ok)
                     
@@ -52,7 +53,7 @@ namespace Cloudents.Query.Documents
                             Image = s.User.ImageName,
                         },
                         DateTime = s.TimeStamp.UpdateTime,
-                        Course = s.Course.Id,
+                        Course = s.Course2.CardDisplay,
                         Title = s.Name,
                         Snippet = s.Description ?? s.MetaContent,
                         Views = s.Views,
