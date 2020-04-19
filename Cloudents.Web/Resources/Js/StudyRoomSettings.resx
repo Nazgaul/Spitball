@@ -170,6 +170,9 @@
   <data name="price" xml:space="preserve">
     <value>Price</value>
   </data>
+  <data name="ready" xml:space="preserve">
+    <value>Class is ready</value>
+  </data>
   <data name="share" xml:space="preserve">
     <value>Share it</value>
   </data>
@@ -178,6 +181,9 @@
   </data>
   <data name="title" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="tutor_name" xml:space="preserve">
+    <value>Tutor name</value>
   </data>
   <data name="video_select_label" xml:space="preserve">
     <value>Select Video</value>
