@@ -208,6 +208,8 @@ const actions = {
             commit('setCode',parsedData);
         } else if(data.type === 'openFullScreen'){
             dispatch('updateFullScreen',parsedData);
+        } else if(data.type === 'toggleParticipantsAudio'){
+            dispatch('updateAudioToggleByRemote',parsedData)
         }
 
     },

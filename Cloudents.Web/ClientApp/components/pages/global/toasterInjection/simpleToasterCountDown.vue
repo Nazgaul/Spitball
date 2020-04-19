@@ -3,6 +3,7 @@
         absolute
         top
         @input="$store.commit('clearComponent')"
+        class="counterToaster"
         :timeout="0"
         :value="true"
     >
@@ -21,3 +22,10 @@ export default {
     }
 }
 </script>
+
+<style lang="less">
+    .counterToaster {
+        // TODO: @maor @idan study room removed mobile-not-support css style
+        z-index: 99999;
+    }
+</style>

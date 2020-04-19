@@ -351,4 +351,10 @@
   <data name="tooltip_fullscreen" xml:space="preserve">
     <value>מסך מלא</value>
   </data>
+  <data name="mute_room" xml:space="preserve">
+    <value>השתק תלמידים</value>
+  </data>
+  <data name="unmute_room" xml:space="preserve">
+    <value>בטל השתקת תלמידים</value>
+  </data>
 </root>

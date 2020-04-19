@@ -144,14 +144,17 @@
   <data name="create_room_label" xml:space="preserve">
     <value>שם חדר הלימוד</value>
   </data>
+  <data name="create_room_label_broadcast" xml:space="preserve">
+    <value>שם החדר</value>
+  </data>
   <data name="create_room_max_error" xml:space="preserve">
     <value>מקסימום 4 סטודנטים בחדר לימוד</value>
   </data>
   <data name="create_room_placeholder" xml:space="preserve">
-    <value>הכנס שם</value>
+    <value>שם</value>
   </data>
   <data name="create_room_title" xml:space="preserve">
-    <value>בחירת סטודנט/ית</value>
+    <value>יצירת חדר לימוד חדש</value>
   </data>
   <data name="date" xml:space="preserve">
     <value>תאריך</value>
@@ -184,8 +187,14 @@
   <data name="label_date" xml:space="preserve">
     <value>תאריך</value>
   </data>
+  <data name="label_minutes" xml:space="preserve">
+    <value>דקות</value>
+  </data>
   <data name="label_time" xml:space="preserve">
     <value>זמן</value>
+  </data>
+  <data name="labe_hours" xml:space="preserve">
+    <value>שעה</value>
   </data>
   <data name="last_date" xml:space="preserve">
     <value>שיעור אחרון</value>
@@ -240,6 +249,9 @@
   </data>
   <data name="pending_payment" xml:space="preserve">
     <value>יש לכם {0} {1} ל{2}</value>
+  </data>
+  <data name="pick_time_error" xml:space="preserve">
+    <value>הזמן שנבחר צריך להיות בעתיד</value>
   </data>
   <data name="placeholder_studyRoom_type" xml:space="preserve">
     <value>סוג חדר</value>
