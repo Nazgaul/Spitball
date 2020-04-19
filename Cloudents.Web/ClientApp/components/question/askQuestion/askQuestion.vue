@@ -33,7 +33,7 @@
                             hide-no-data
                             :append-icon="''"
                             v-model="questionCourse"
-                            :items="getSelectedClasses"
+                            :items="suggestsCourses"
                             :rules="[rules.required]">
                         </v-combobox>
                     </fieldset>
