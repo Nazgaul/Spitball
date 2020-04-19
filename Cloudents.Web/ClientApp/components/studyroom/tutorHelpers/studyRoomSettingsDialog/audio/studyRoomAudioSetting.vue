@@ -1,8 +1,8 @@
 <template>
     <div class="studyRoom-audio-settings-container">
-        <!-- <div class="studyRoom-audio-settings-microphone-container"> -->
-            <!-- <h4 class="studyRoom-audio-settings-microphone-label" v-language:inner="'studyRoomSettings_audio_input'"></h4> -->
-            <!-- <v-divider style="margin-bottom: 10px;"></v-divider> -->
+        <div class="studyRoom-audio-settings-microphone-container">
+            <h4 class="studyRoom-audio-settings-microphone-label" v-language:inner="'studyRoomSettings_audio_input'"></h4>
+            <v-divider style="margin-bottom: 10px;"></v-divider>
             <div class="audioSelect cameraListWrap">
                 <v-select 
                     v-model="singleMicrophoneId"
@@ -23,25 +23,25 @@
                     solo
                     single-line
                 ></v-select>                      
-                <!-- <v-layout class="indicator-audio-meter" style="">
+                <v-layout class="indicator-audio-meter" style="">
                     <div style="margin: 0 15px 0 0" v-language:inner='"studyRoomSettings_audio_indicator"'></div>
                     <div id="audio-input-meter"></div>
-                </v-layout> -->
+                </v-layout>
             </div>
             
-        <!-- </div> -->
-        <!-- <v-divider style="margin: 20px 0;"></v-divider> -->
-        <!-- <div class="studyRoom-audio-settings-speaker-container">
+        </div>
+        <v-divider style="margin: 20px 0;"></v-divider>
+        <div class="studyRoom-audio-settings-speaker-container">
             <h4 class="studyRoom-audio-settings-speaker-label" v-language:inner="'studyRoomSettings_audio_output'"></h4>
             
             <div class="audio-output-controls">
                 <button @click="playTestSound" v-if="!isPlaying" v-language:inner='"studyRoomSettings_audio_test_sound"'></button>
                 <button @click="stopSound" v-else v-language:inner='"studyRoomSettings_audio_stop_sound"'></button>
                 <v-flex v-if="isPlaying" class="eq-image-container">
-                    <img class="eq-image" src="../../../images/eq.gif" alt="">
+                    <img class="eq-image" src="../images/speakers.gif" alt="">
                 </v-flex>
             </div>
-        </div> -->
+        </div>
         
     </div>
 </template>
@@ -138,6 +138,7 @@ export default {
         .audio-output-controls{
             font-size: 14px;
             display: flex;
+            align-items: center;
             button{
                 background-color: #5158af;
                 padding: 5px;

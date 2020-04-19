@@ -5,7 +5,6 @@
                 <a @click="resetItems" class="logo-link">
                     <appLogo />
                 </a>
-                <!-- NOT SURE IF WE NEED EXIT BUTTON -->
                 <v-icon @click="closeDialog" size="14">sbf-close</v-icon>
             </div>
 
@@ -22,7 +21,7 @@
 <script>
 import appLogo from '../../../app/logo/logo.vue'
 import studyRoomSettingDetails from "./studyRoomSettingsDetails.vue";
-import studyRoomVideoSetting from "./video/studyRoomVideoSetting.vue";
+import studyRoomVideoSetting from "./studyRoomVideo.vue";
 
 export default {
   components: {
