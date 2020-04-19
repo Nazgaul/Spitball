@@ -33,7 +33,7 @@
                 <button @click="playTestSound" v-if="!isPlaying" v-t='"studyRoomSettings_audio_test_sound"'></button>
                 <button @click="stopSound" v-else v-t='"studyRoomSettings_audio_stop_sound"'></button>
                 <v-flex v-if="isPlaying" class="eq-image-container">
-                    <img class="eq-image" src="../images/speakers.gif" alt="">
+                    <img class="eq-image" src="../../images/speakers.gif" alt="">
                 </v-flex>
             </div>
         </div>
@@ -42,7 +42,7 @@
 
 <script>
 import studyRoomAudioSettingService from './studyRoomAudioSettingService';
-import microphoneImage from '../../../images/microphone.svg';
+import microphoneImage from '../../../../images/microphone.svg';
 
 export default {
     components: {
@@ -103,7 +103,7 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../../../../styles/colors.less';
+@import '../../../../../../styles/colors.less';
 
 .studyRoom-audio-settings-container{
     margin-top: 36px;

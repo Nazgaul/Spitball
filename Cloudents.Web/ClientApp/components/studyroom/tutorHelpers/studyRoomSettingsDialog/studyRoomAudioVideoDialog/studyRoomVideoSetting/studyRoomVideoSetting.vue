@@ -8,11 +8,11 @@
                 :items="camerasList"
                 item-value="deviceId"
                 item-text="label"
-                :label="text.label"
+                :label="$t('studyRoomSettings_video_select_label')"
                 hide-details
                 :prepend-icon="''"
                 @change="createVideoQualityPreview()"
-                :placeholder="placeCamera"
+                :placeholder="$t('studyRoomSettings_camera_placeholder')"
                 :append-icon="'sbf-arrow-down'"
                 solo
                 single-line
@@ -26,9 +26,9 @@
 </template>
 
 <script>
-import {LanguageService} from '../../../../../services/language/languageService';
 import { createLocalVideoTrack, } from 'twilio-video';
-import insightService from '../../../../../services/insightService';
+
+import insightService from '../../../../../../services/insightService';
 
 export default {
     data(){
@@ -36,11 +36,7 @@ export default {
             camerasList:[],
             videoEl: null,
             localTrack: null,
-            singleCameraId: global.localStorage.getItem('sb-videoTrackId'),
-            placeCamera: LanguageService.getValueByKey("studyRoomSettings_camera_placeholder"),
-            text:{
-                label: LanguageService.getValueByKey("studyRoomSettings_video_select_label"),
-            }
+            singleCameraId: global.localStorage.getItem('sb-videoTrackId')
         }
     },
     methods:{
