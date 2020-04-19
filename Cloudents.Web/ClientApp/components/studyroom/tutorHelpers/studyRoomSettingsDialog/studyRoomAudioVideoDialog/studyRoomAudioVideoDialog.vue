@@ -1,73 +1,35 @@
 <template>
-    <v-dialog :value="true" max-width="570" content-class="studyRoomAudioVideoDialog" @click:outside="$emit('updateSettingDialogState', false)">
-
-        <div class="study-room-settings-wrapper">
-            <!-- <button @click="closeDialog" class="close-button"><v-icon>sbf-close</v-icon></button> -->
-            <div class="study-room-settings-top">
-
-
-                <div class="audioVideoTabs">
-                    <div class="tabBtn audio active">
-                        <microphoneImage width="24" />
-                        <div class="tabText">Audio</div>
-                    </div>
-
-                    <div class="tabBtn video">
-                        <videoCameraImage width="24" height="40" />
-                        <div class="tabText">Video</div>
-                    </div>
+    <v-dialog :value="true" max-width="570" content-class="studyRoomAudioVideoDialog" persistent>
+        <div class="studyRoomSettingsWrapper">
+            <div class="audioVideoTabs d-flex align-center text-center">
+                <div class="tabBtn video" :class="{'active': !toggleActiveClass}" @click="switchComponent">
+                    <videoCameraImage class="image" width="24" height="40" />
+                    <div class="tabText ml-1" v-t="'studyRoomSettings_video_title'"></div>
                 </div>
 
+                <div class="tabBtn audio" :class="{'active': toggleActiveClass}" @click="switchComponent">
+                    <microphoneImage class="image" width="24" />
+                    <div class="tabText ml-1" v-t="'studyRoomSettings_audio_title'"></div>
+                </div>
+            </div>
 
-                <!-- <v-navigation-drawer width="300" permanent class="study-room-settings-nav">
-                    <v-toolbar class="study_room_toolBar" flat>
-                    <v-list>
-                        <v-list-item class="pa-0">
-                        <v-list-item-title class="study-room-settings-nav-title">
-                            <span class="study-room-settings-nav-title_title" v-language:inner='"studyRoomSettings_title"'></span>
-                        </v-list-item-title>
-                        </v-list-item>
-                    </v-list>
-                    </v-toolbar>
+            <div class="mainWrap pa-4 pt-0 ">
+                <component :is="currenctComponent"></component>
 
-                    <v-divider></v-divider>
-
-                    <v-list dense class="study-room-settings-nav-sideMenu pt-0">
-                        <v-list-item
-                            v-for="item in items"
-                            :key="item.title"
-                            @click="currenctComponent = item.componentName"
-                            :class="{'tileActive': currenctComponent === item.componentName}"
-                        >
-                            <v-list-item-action>
-                            <component :is="item.icon"></component>
-                            </v-list-item-action>
-
-                            <v-list-item-content>
-                            <v-list-item-title>{{ item.title }}</v-list-item-title>
-                            </v-list-item-content>
-                        </v-list-item>
-                    </v-list>
-                </v-navigation-drawer> -->
-                <v-container class="study-room-settings-body">
-                    <component :is="currenctComponent"></component>
-                    <div class="text-right">
-                      <v-btn
-                        class="white--text text-truncate"
-                        @click="$emit('closeAudioVideoSettingDialog')"
-                        width="120"
-                        color="#4c59ff"
-                        rounded
-                        depressed
-                      >
-                        {{$t('studyRoomSettings_done_btn')}}
-                      </v-btn>
-                    </div>
-                </v-container>
-
+                <div class="text-right">
+                    <v-btn
+                      class="white--text text-truncate"
+                      @click="$emit('closeAudioVideoSettingDialog', false)"
+                      width="120"
+                      color="#4c59ff"
+                      rounded
+                      depressed
+                    >
+                      {{$t('studyRoomSettings_done_btn')}}
+                    </v-btn>
+                </div>
             </div>
         </div>
-
     </v-dialog>
 </template>
 
@@ -76,7 +38,6 @@ import studyRoomVideoSetting from "../studyRoomVideoSetting/studyRoomVideoSettin
 import studyRoomAudioSetting from "../studyRoomAudioSetting/studyRoomAudioSetting.vue";
 import videoCameraImage from '../../../images/video-camera.svg';
 import microphoneImage from '../../../images/microphone.svg';
-import { LanguageService } from '../../../../../services/language/languageService';
 
 export default {
   components: {
@@ -87,20 +48,16 @@ export default {
   },
   data() {
     return {
-      items: [
-        {
-          title: LanguageService.getValueByKey("studyRoomSettings_video_title"),
-          icon: "videoCameraImage",
-          componentName: "studyRoomVideoSetting"
-        },
-        {
-          title: LanguageService.getValueByKey("studyRoomSettings_audio_title"),
-          icon: "microphoneImage",
-          componentName: "studyRoomAudioSetting"
-        }
-      ],
+      toggleActiveClass: false,
       currenctComponent: "studyRoomVideoSetting"
     };
+  },
+  methods: {
+    switchComponent() {
+      this.toggleActiveClass = !this.toggleActiveClass
+
+      this.currenctComponent = this.toggleActiveClass ? 'studyRoomAudioSetting' : 'studyRoomVideoSetting'
+    }
   }
 };
 </script>
@@ -108,98 +65,52 @@ export default {
 <style lang="less">
 @import '../../../../../styles/colors.less';
 
+@tabsHeight: 46px;
+
 .studyRoomAudioVideoDialog {
   background-color: #fff;
-  .study-room-settings-wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    position:relative;
-    .close-button{
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        outline:none;
-        i{
-            font-size: 14px;
+  height: 544px;
+  border-radius: 6px;
+  .studyRoomSettingsWrapper {
+    height: 100%;
+
+    .audioVideoTabs {
+      height: @tabsHeight;
+
+      .tabBtn {
+        cursor: pointer;
+        flex: 1;
+        border-bottom: 1px solid #ddd;
+        color: #a5a8ba;
+        font-weight: 600;
+
+        &:first-child {
+          border-right: 1px solid #ddd;
         }
-    }
-    .study-room-settings-top {
-      .audioVideoTabs {
-        display: flex;
-        align-items: center;
-        text-align: center;
-        height: 46px;
-        .tabBtn {
-          cursor: pointer;
-          flex: 1;
-          border-bottom: 1px solid #ddd;
+        .image {
+          fill: #a5a8ba;
+        }
+        * {
+          display: inline-block;
+          vertical-align: middle;
+        }
+        &.active {
+          border-bottom: 2px solid @global-auth-text;
 
-          &:first-child {
-            border-right: 1px solid #ddd;
+          .image {
+            fill: @global-auth-text;
           }
-
-          * {
-            display: inline-block;
-            vertical-align: middle;
+          .tabText {
+            color: @global-auth-text;
           }
         }
-
-      }
-      // display: flex;
-      // height: 100%;
-      // .study-room-settings-nav {
-      //   .study_room_toolBar{
-      //     background: rgb(245, 245, 245)
-
-      //   }
-      //   .study-room-settings-nav-title{
-      //       display: flex;
-      //       align-items: center;
-      //       font-weight: bold;
-      //   }
-      //   .study-room-settings-nav-title_title{
-      //     font-size: 16px;
-      //   }
-      //   .v-list-item__title {
-      //     transition: none;
-      //     font-size: 13px;
-      //   }
-      //   .v-list-item__action{
-      //     margin: 0 32px 0 0;
-      //   }
-      //   .tileActive {
-      //     background-color: #5158af;
-      //     color: white !important;
-      //     i {
-      //       color: white !important;
-      //     }
-      //     .v-list-item__action{
-      //       svg{
-      //         fill: #FFF !important;
-      //       }
-      //     }
-      //   }
-      // }
-      .study-room-settings-body {
-        padding: 30px;
-        height: 100%;
       }
     }
-    .study-room-settings-bottom {
-      border-top: 1px solid #e0e0e0;
-      .study-room-settings-footer {
-          button{
-            margin: 0 10px;
-            background: #c2443d;
-            padding: 5px 15px;
-            border-radius: 4px;
-            color: #FFF;
-            font-weight: 400;
-            font-size: 14px;
-            outline: none;
-          }
-      }
+    .mainWrap {
+      height: calc(100% - @tabsHeight); // calculating the tabs height for justify-space-between wont make scroll
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
   }
 }

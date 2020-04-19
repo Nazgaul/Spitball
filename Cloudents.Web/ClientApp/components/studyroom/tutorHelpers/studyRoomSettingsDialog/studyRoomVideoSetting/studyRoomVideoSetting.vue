@@ -116,13 +116,13 @@ export default {
         }
     }
     .studyRoom-video-settings-video-container{
-        height: 368px;
+        height: 300px;
         background-color: gray;
-        #local-video-test-track{
-                video{
-                    width:100%;
-                }
+        #local-video-test-track {
+            video {
+                width:100%;
             }
+        }
     }
     
 }

@@ -1,55 +1,53 @@
 <template>
     <div class="studyRoom-audio-settings-container">
         <div class="studyRoom-audio-settings-microphone-container">
-            <h4 class="studyRoom-audio-settings-microphone-label" v-language:inner="'studyRoomSettings_audio_input'"></h4>
-            <v-divider style="margin-bottom: 10px;"></v-divider>
-            <div class="audioSelect cameraListWrap">
+            <h4 class="studyRoom-audio-settings-microphone-label mb-4" v-language:inner="'studyRoomSettings_audio_input'"></h4>
+            <div class="audioSelect cameraListWrap d-flex align-center ">
                 <v-select 
                     v-model="singleMicrophoneId"
-                    @change="validateMicrophone()"
                     :items="microphoneList"
-                    class="minimum-width"
+                    @change="validateMicrophone()"
+                    class="selectAudio"
                     :label="$t('studyRoomSettings_audio_select_label')"
                     :placeholder="$t('studyRoomSettings_mic_placeholder')"
                     item-value="deviceId"
                     item-text="label"
-                    background-color="rgba(0,0,0,.7)"
                     :menu-props="{contentClass:'select-direction'}"
                     :prepend-icon="''"
                     :append-icon="'sbf-arrow-down'"
+                    small
                     hide-details
+                    outlined
                     dense
-                    rounded
-                    solo
                     single-line
                 ></v-select>                      
-                <v-layout class="indicator-audio-meter" style="">
-                    <div style="margin: 0 15px 0 0" v-language:inner='"studyRoomSettings_audio_indicator"'></div>
+                <v-layout class="indicator-audio-meter ml-4" style="">
+                    <microphoneImage class="image" width="24" />
                     <div id="audio-input-meter"></div>
                 </v-layout>
             </div>
-            
         </div>
-        <v-divider style="margin: 20px 0;"></v-divider>
-        <div class="studyRoom-audio-settings-speaker-container">
-            <h4 class="studyRoom-audio-settings-speaker-label" v-language:inner="'studyRoomSettings_audio_output'"></h4>
-            
+        <div class="studyRoom-audio-settings-speaker-container mt-8">
+            <h4 class="studyRoom-audio-settings-speaker-label mb-4" v-t="'studyRoomSettings_audio_output'"></h4>
             <div class="audio-output-controls">
-                <button @click="playTestSound" v-if="!isPlaying" v-language:inner='"studyRoomSettings_audio_test_sound"'></button>
-                <button @click="stopSound" v-else v-language:inner='"studyRoomSettings_audio_stop_sound"'></button>
+                <button @click="playTestSound" v-if="!isPlaying" v-t='"studyRoomSettings_audio_test_sound"'></button>
+                <button @click="stopSound" v-else v-t='"studyRoomSettings_audio_stop_sound"'></button>
                 <v-flex v-if="isPlaying" class="eq-image-container">
                     <img class="eq-image" src="../images/speakers.gif" alt="">
                 </v-flex>
             </div>
         </div>
-        
     </div>
 </template>
 
 <script>
 import studyRoomAudioSettingService from './studyRoomAudioSettingService';
-// import { LanguageService } from "../../../../../services/language/languageService";
+import microphoneImage from '../../../images/microphone.svg';
+
 export default {
+    components: {
+        microphoneImage
+    },
     data(){
         return{
             microphoneList: [],
@@ -105,22 +103,43 @@ export default {
 </script>
 
 <style lang="less">
+@import '../../../../../styles/colors.less';
+
 .studyRoom-audio-settings-container{
-    margin-top: 48px;
+    margin-top: 36px;
     .studyRoom-audio-settings-microphone-container{
-        display: flex;
         .audioSelect{
-            width: 100%;
+            .selectAudio {
+                flex: 4;
+                font-size: 14px;
+
+                .v-input__slot {
+                    min-height: 38px !important; // vuetify
+                }
+                ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                color: @global-purple;
+                opacity: 1; /* Firefox */
+                }
+                :-ms-input-placeholder { /* Internet Explorer 10-11 */
+                color: @global-purple;
+                }
+                ::-ms-input-placeholder { /* Microsoft Edge */
+                color: @global-purple;
+                }
+            }
         }
-        .studyRoom-audio-settings-microphone-label{
-            min-width: 100px;
+        .studyRoom-audio-settings-microphone-label {
+            color: @global-auth-text;
+            font-weight: 600;
         }
         .indicator-audio-meter{
                 font-size: 14px;
-                margin-top:20px;
                 display:flex;
                 align-items: center;
 
+                .image {
+                    fill: #7a798c;
+                }
                 .audio-input-meter {
                     background: #16eab1;
                     height: 6px;
@@ -134,22 +153,17 @@ export default {
             }
         }
     }
-    .studyRoom-audio-settings-speaker-container{
-        display: flex;
-        margin-top: 25px;
-        .studyRoom-audio-settings-speaker-label{
-            font-size: 14px;
-            width: 100px;
+    .studyRoom-audio-settings-speaker-container {
+        .studyRoom-audio-settings-speaker-label {
+            color: @global-auth-text;
+            font-weight: 600;
         }
-        .audio-output-controls{
+        .audio-output-controls {
+            color: @global-purple;
             font-size: 14px;
             display: flex;
             align-items: center;
-            button{
-                background-color: #5158af;
-                padding: 5px;
-                color: #FFF;
-                border-radius: 4px;
+            button {
                 outline: none;
             }
             .eq-image-container{
