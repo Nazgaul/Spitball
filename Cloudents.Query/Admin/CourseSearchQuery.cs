@@ -61,7 +61,7 @@ FETCH NEXT @PageSize ROWS ONLY;";
                 return await conn.QueryAsync<CourseDto>(sql, new
                 {
                     query.Term,
-                    Country = query.Country.Name,
+                    Country = query.Country.Id,
                     Id = query.UserId,
                     PageSize = pageSize,
                     query.Page

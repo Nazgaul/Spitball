@@ -36,7 +36,6 @@ namespace Cloudents.Query.Email
                 User? userAlias = null;
                 Question? questionAlias = null;
                 QuestionUpdateEmailDto? questionEmailDtoAlias = null;
-                Course2 courseAlias = null;
 
                 var queryCourse = QueryOver.Of<UserCourse2>().Where(w => w.User.Id == query.UserId)
                     .Select(s => s.Course.Id);
@@ -45,18 +44,13 @@ namespace Cloudents.Query.Email
                     .Where(w => w.Status.State == ItemState.Ok)
                     .Select(s => s.Text)
                     .Take(1);
-
-
-                //var queryUniversity = QueryOver.Of<User>().Where(w => w.Id == query.UserId)
-                //    .Select(s => s.University.Id);
+            
 
                 var questionFuture = _session.QueryOver(() => questionAlias)
                      .JoinAlias(x => x.User, () => userAlias)
-                     .JoinAlias(x=>x.Course2,() => courseAlias)
                      .Where(x => x.Created > query.Since)
                      .And(x => x.Status.State == ItemState.Ok)
                      .WithSubquery.WhereProperty(x => x.Course2.Id).In(queryCourse)
-                     //.WithSubquery.WhereProperty(x => x.University.Id).Eq(queryUniversity)
                      .And(x => x.User.Id != query.UserId)
 
 
@@ -67,7 +61,7 @@ namespace Cloudents.Query.Email
                          sl.Select(x => x.Text).WithAlias(() => questionEmailDtoAlias.QuestionText);
                          sl.Select(() => userAlias.Name).WithAlias(() => questionEmailDtoAlias.UserName);
                          sl.Select(() => userAlias.ImageName).WithAlias(() => questionEmailDtoAlias.UserImage);
-                         sl.Select(() => courseAlias.SearchDisplay).WithAlias(() => questionEmailDtoAlias.Course);
+                         sl.Select(x => x.Course.Id).WithAlias(() => questionEmailDtoAlias.Course);
                          sl.SelectSubQuery(firstAnswer).WithAlias(() => questionEmailDtoAlias.AnswerText);
                          return sl;
                      }).TransformUsing(Transformers.AliasToBean<QuestionUpdateEmailDto>())
@@ -81,8 +75,7 @@ namespace Cloudents.Query.Email
                     .JoinAlias(x => x.User, () => userAlias)
                     .Where(x => x.TimeStamp.CreationTime > query.Since)
                     .And(x => x.Status.State == ItemState.Ok)
-                    .WithSubquery.WhereProperty(x => x.Course.Id).In(queryCourse)
-                    //.WithSubquery.WhereProperty(x => x.University.Id).Eq(queryUniversity)
+                    .WithSubquery.WhereProperty(x => x.Course2.Id).In(queryCourse)
                     .And(x => x.User.Id != query.UserId)
 
 
@@ -97,7 +90,7 @@ namespace Cloudents.Query.Email
                         sl.Select(x => x.DocumentType).WithAlias(() => documentEmailDtoAlias.DocumentType);
                         return sl;
                     }).TransformUsing(Transformers.AliasToBean<DocumentUpdateEmailDto>())
-                    .OrderBy(x=>x.DocumentType).Desc
+                    .OrderBy(x => x.DocumentType).Desc
                     .UnderlyingCriteria.SetComment(nameof(GetUpdatesEmailByUserQuery))
                     .Future<DocumentUpdateEmailDto>();
 

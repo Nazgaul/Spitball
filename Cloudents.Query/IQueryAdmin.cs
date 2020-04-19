@@ -10,6 +10,6 @@ namespace Cloudents.Query
 
     public interface IQueryAdmin2<TResult> : IQuery<TResult>
     {
-        Country Country { get; }
+        Country? Country { get; }
     }
 }

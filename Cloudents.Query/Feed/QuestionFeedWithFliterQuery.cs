@@ -1,12 +1,12 @@
-﻿using Cloudents.Core.DTOs.Feed;
-using Cloudents.Core.Interfaces;
-using Dapper;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs.Feed;
+using Cloudents.Core.Interfaces;
+using Dapper;
 
-namespace Cloudents.Query.Questions
+namespace Cloudents.Query.Feed
 {
     public class QuestionFeedWithFilterQuery : IQuery<IEnumerable<QuestionFeedDto>>
     {
@@ -50,9 +50,9 @@ select top 1 * from(select 1 as o, u.country as Country, u.id as userid
  select 2, @country, 0) t
     order by o
 )
-SELECT  'q' as type
-,q.Updated as DateTime
-,(select q.Id as Id,
+
+SELECT  
+(select q.Id as Id,
 q.Text as Text,
 (select cardDisplay from sb.course2 where id = q.CourseId2) as Course,
 
@@ -69,19 +69,17 @@ q.Language as CultureInfo
 ,u.Name as 'User.Name'
 ,u.Image as 'User.Image'
 ,'Question' as documentType for json path) JsonArray
-,case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end as IsFollow
 FROM sb.[Question] q
 join sb.[user] u
 	on q.UserId = u.Id
-
 outer apply (
 select top 1 text, u.id, u.name, u.image, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
 ) as x
 join cte on u.country = cte.country
 where
-    q.Updated > GetUtcDATE() - 182
-and q.courseId2 = (select id from sb.Course2 where SearchDisplay = @course)
+
+ q.courseId2 = (select id from sb.Course2 where SearchDisplay = @course)
 and q.State = 'Ok'
 order by
 DATEDiff(hour, q.Updated, GetUtcDATE()) +
@@ -99,9 +97,8 @@ select top 1 * from (select 1 as o, u.country as Country, u.id as userid
 )
 
 
-SELECT  'q' as type
-,q.Updated as DateTime
-,(select q.Id as Id,
+SELECT  
+(select q.Id as Id,
 q.Text as Text,
 (select cardDisplay from sb.course2 where id = q.CourseId2) as Course,
 (SELECT count(*) as y0_ FROM sb.[Answer] this_0_ WHERE (this_0_.QuestionId = q.Id and this_0_.State = 'Ok')) as Answers,
@@ -117,7 +114,6 @@ q.Language as CultureInfo
 ,u.Name as 'User.Name'
 ,u.Image as 'User.Image'
 ,'Question' as documentType for json path) JsonArray
-,case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end as IsFollow
 FROM sb.[Question] q
 join sb.[user] u
 	on q.UserId = u.Id
@@ -129,7 +125,7 @@ where a.QuestionId = q.Id and state = 'Ok' order by a.created
 ) as x
 join cte on u.country = cte.country
 where 
-    q.Updated > GETUTCDATE() - 182
+    q.Updated > GetUtcDATE() - 182
 and q.State = 'Ok'
 and (q.CourseId2 in (select courseId from sb.userCourse2 where userid = cte.userid) or @userid <= 0)
 order by

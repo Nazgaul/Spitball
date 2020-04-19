@@ -318,26 +318,26 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         //}
 
         [Theory]
-        [InlineData(null, ItemState.Ok, null, null)]
-        [InlineData(null, ItemState.Pending, null, null)]
-        [InlineData("he", ItemState.Ok, null, null)]
-        [InlineData("en", ItemState.Pending, null, null)]
-        [InlineData(null, ItemState.Ok, "IL", null)]
-        [InlineData(null, ItemState.Pending, "IL", null)]
-        [InlineData("he", ItemState.Ok, "IL", null)]
-        [InlineData("en", ItemState.Pending, "IL", null)]
-        [InlineData(null, ItemState.Ok, null, "V")]
-        [InlineData(null, ItemState.Pending, null, "V")]
-        [InlineData("he", ItemState.Ok, null, "V")]
-        [InlineData("en", ItemState.Pending, null, "V")]
-        [InlineData(null, ItemState.Ok, "IL", "V")]
-        [InlineData(null, ItemState.Pending, "IL", "V")]
-        [InlineData("he", ItemState.Ok, "IL", "V")]
-        [InlineData("en", ItemState.Pending, "IL", "V")]
+        [InlineData(ItemState.Ok, null, null)]
+        [InlineData(ItemState.Pending, null, null)]
+        [InlineData(ItemState.Ok, null, null)]
+        [InlineData(ItemState.Pending, null, null)]
+        [InlineData(ItemState.Ok, "IL", null)]
+        [InlineData(ItemState.Pending, "IL", null)]
+        [InlineData(ItemState.Ok, "IL", null)]
+        [InlineData(ItemState.Pending, "IL", null)]
+        [InlineData(ItemState.Ok, null, "V")]
+        [InlineData(ItemState.Pending, null, "V")]
+        [InlineData(ItemState.Ok, null, "V")]
+        [InlineData(ItemState.Pending, null, "V")]
+        [InlineData(ItemState.Ok, "IL", "V")]
+        [InlineData(ItemState.Pending, "IL", "V")]
+        [InlineData(ItemState.Ok, "IL", "V")]
+        [InlineData(ItemState.Pending, "IL", "V")]
 
-        public async Task AdminCoursesQuery_Ok(string language, ItemState state, string country, string filter)
+        public async Task AdminCoursesQuery_Ok( ItemState state, string country, string filter)
         {
-            var query = new CoursesQuery(language, state, country, filter);
+            var query = new CoursesQuery( state, country, filter);
             var result = await _fixture.QueryBus.QueryAsync(query, default);
 
 

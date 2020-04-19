@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Autofac.Features.Indexed;
 using Cloudents.Core.Enum;
 using Cloudents.Core.DTOs.Feed;
+using Cloudents.Query.Feed;
 
 namespace Cloudents.Infrastructure
 {

@@ -61,6 +61,7 @@ namespace Cloudents.Core.Entities
 
         // public virtual University? University { get; protected set; }
 
+        [Obsolete]
         public virtual Course Course { get; protected set; }
         public virtual Course2 Course2 { get; set; }
 

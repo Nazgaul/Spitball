@@ -17,6 +17,7 @@ using Cloudents.Query.Courses;
 using Cloudents.Query.Questions;
 using Cloudents.Query.General;
 using Cloudents.Core.DTOs.Feed;
+using Cloudents.Query.Feed;
 using Cloudents.Query.Session;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
@@ -69,7 +70,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(638, 0, "IL", "economics")]
         [InlineData(638, 1, "IL", null)]
 
-        public async Task DocumentAggregateQuery_Ok(long userId, int page, string country, string course)
+        public async Task FeedAggregateQuery_Ok(long userId, int page, string country, string course)
         {
             var query = new FeedAggregateQuery(userId, page, country, course, 18);
 
