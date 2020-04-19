@@ -150,13 +150,13 @@ namespace Cloudents.FunctionsV2
             var smsMessage = string.Format(ResourceWrapper.GetString("sms_text"), msg.Message);
             //var phoneNumber = new PhoneNumber(msg.PhoneNumber);
 
-            //if (msg.PhoneNumber.StartsWith("+972"))
-            //{
-            //    log.LogInformation($"Receiving sms to: {msg.PhoneNumber}");
-            //    var result = await smsProvider.SendSmsAsync(smsMessage, msg.PhoneNumber, token);
-            //    log.LogInformation($"result is: {result}");
-            //    return;
-            //}
+            if (msg.PhoneNumber.StartsWith("+972"))
+            {
+                log.LogInformation($"Receiving sms to: {msg.PhoneNumber}");
+                var result = await smsProvider.SendSmsAsync(smsMessage, msg.PhoneNumber, token);
+                log.LogInformation($"result is: {result}");
+                return;
+            }
 
             await phoneValidator.SendVerificationCodeAsync(msg.PhoneNumber, token);
             //var messageOptions = new CreateMessageOptions(new PhoneNumber(msg.PhoneNumber))

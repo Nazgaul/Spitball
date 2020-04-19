@@ -137,7 +137,6 @@ namespace Cloudents.Web.Api
         [HttpPost("verify")]
         public async Task<IActionResult> VerifySmsAsync(
             [FromBody]CodeRequest model,
-            [FromServices] IPhoneValidator phoneValidator,
             [ModelBinder(typeof(CountryModelBinder))] string country,
             [FromHeader(Name = "User-Agent")] string agent,
             CancellationToken token)
