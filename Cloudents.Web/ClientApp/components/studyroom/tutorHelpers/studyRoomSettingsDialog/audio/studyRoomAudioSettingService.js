@@ -18,8 +18,9 @@ const createAudioContext = function (elId, myPreferredCameraDeviceId) {
 
             let micVolume = document.getElementById(`${elId}`);
             if (!micVolume) return;
-            micVolume.style.backgroundColor = 'rgba(66, 224, 113, 0.8)';
+            micVolume.style.backgroundColor = '#16eab1';
             micVolume.style.height = '6px';
+            micVolume.style.borderRadius = '2px';
             micVolume.style.maxWidth = '150px';
             micVolume.style.width = `${Math.round(average)}px`;
 

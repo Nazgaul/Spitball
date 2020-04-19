@@ -120,6 +120,12 @@ export default {
                 margin-top:20px;
                 display:flex;
                 align-items: center;
+
+                .audio-input-meter {
+                    background: #16eab1;
+                    height: 6px;
+                    max-width: 150px;
+                }
             }
         .v-input__control{
             min-height: unset;
