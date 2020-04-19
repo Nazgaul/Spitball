@@ -31,7 +31,8 @@ namespace Cloudents.Core.Entities
             if (course == null) throw new ArgumentNullException(nameof(course));
 
 
-            AssignCourse(course);
+            Course2 = course;
+            //AssignCourse(course);
             User = user;
             Views = 0;
             if (!string.IsNullOrEmpty(description))
@@ -61,21 +62,22 @@ namespace Cloudents.Core.Entities
         // public virtual University? University { get; protected set; }
 
         public virtual Course Course { get; protected set; }
+        public virtual Course2 Course2 { get; set; }
 
-        private readonly ISet<DocumentCourse> _courses = new HashSet<DocumentCourse>();
-        public virtual IEnumerable<DocumentCourse> Courses => _courses;
+        //private readonly ISet<DocumentCourse> _courses = new HashSet<DocumentCourse>();
+        //public virtual IEnumerable<DocumentCourse> Courses => _courses;
 
 
-        public virtual void AssignCourse(Course2 course)
-        {
-            //foreach (var course in courses)
-            //{
-            var p = new DocumentCourse(this, course);
-            if (_courses.Add(p))
-            {
-                // course.Count++;
-            }
-        }
+        //public virtual void AssignCourse(Course2 course)
+        //{
+        //    //foreach (var course in courses)
+        //    //{
+        //    var p = new DocumentCourse(this, course);
+        //    if (_courses.Add(p))
+        //    {
+        //        // course.Count++;
+        //    }
+        //}
 
 
         public virtual string Description { get; protected set; }

@@ -55,66 +55,78 @@ namespace ConsoleApp
 
             // Define request parameters.
             string spreadsheetId = "19p5NTUpzDVICSCAYhqTvvjmbgU9AoInJMWwfJpfwX3A";
-            var country = Country.India;
-            string range = "IN Clean this up!A2:C1660";
-            SpreadsheetsResource.ValuesResource.GetRequest request =
-                    service.Spreadsheets.Values.Get(spreadsheetId, range);
 
-            // Prints the names and majors of students in a sample spreadsheet:
-            // https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-            ValueRange response = await request.ExecuteAsync();
-            var values = response.Values;
-
-
-            //var bus = Program.Container.Resolve<ICommandBus>();
-
-            if (values == null || values.Count <= 0)
+            var sheets = new List<(Country, string)>()
             {
-                return;
-            }
-
-            var listOfFunction = new Func<string, string, Country, int, Task>[] { ProcessUsers, ProcessDocuments, ProcessQuestion };
-            foreach (var func in listOfFunction)
+                (Country.India, "IN Clean this up!A2:C1660"),
+                (Country.UnitedStates, "Us Clean this up!A2:C1660"),
+                (Country.Israel, "RamISL!A2:C1660")
+            };
+            foreach (var (country, range) in sheets)
             {
+                Console.WriteLine("Processing " + country);
+
+                //var country = Country.India;
+                //string range = "IN Clean this up!A2:C1660";
+                SpreadsheetsResource.ValuesResource.GetRequest request =
+                        service.Spreadsheets.Values.Get(spreadsheetId, range);
+
+                // Prints the names and majors of students in a sample spreadsheet:
+                // https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
+                ValueRange response = await request.ExecuteAsync();
+                var values = response.Values;
 
 
-                for (int i = 0; i < values.Count; i++)
+                //var bus = Program.Container.Resolve<ICommandBus>();
+
+                if (values == null || values.Count <= 0)
                 {
-                    try
+                    return;
+                }
+
+                var listOfFunction = new Func<string, string, Country, int, Task>[] { ProcessUsers, ProcessDocuments, ProcessQuestion };
+                foreach (var func in listOfFunction)
+                {
+
+
+                    for (int i = 0; i < values.Count; i++)
                     {
-
-                        var row = values[i];
-                        Console.WriteLine($"Line index {i}");
-                        //Country country = row[0].ToString();
-
-                        var newMapping = row[1].ToString().Trim('"')
-                            .Replace("\\\"", "\"")
-                            .Replace("--", "-");
-                        var oldCourseName = row[0].ToString();
-                        if (newMapping.Equals("N.A", StringComparison.OrdinalIgnoreCase) ||
-                            newMapping.Equals("N/A", StringComparison.OrdinalIgnoreCase))
+                        try
                         {
-                            continue;
 
-                        }
+                            var row = values[i];
+                            Console.WriteLine($"Line index {i}");
+                            //Country country = row[0].ToString();
 
-                        if (country == Country.India && row.Count < 3)
-                        {
-                            if (row.Count < 3)
+                            var newMapping = row[1].ToString().Trim('"')
+                                .Replace("\\\"", "\"")
+                                .Replace("--", "-");
+                            var oldCourseName = row[0].ToString();
+                            if (newMapping.Equals("N.A", StringComparison.OrdinalIgnoreCase) ||
+                                newMapping.Equals("N/A", StringComparison.OrdinalIgnoreCase))
                             {
                                 continue;
 
                             }
-                            if (row[2]?.ToString() != "*")
-                            {
-                                continue;
-                            }
-                        }
 
-                        await func(newMapping, oldCourseName, country, i);
-                    }
-                    catch (DuplicateRowException e)
-                    {
+                            if (country == Country.India && row.Count < 3)
+                            {
+                                if (row.Count < 3)
+                                {
+                                    continue;
+
+                                }
+                                if (row[2]?.ToString() != "*")
+                                {
+                                    continue;
+                                }
+                            }
+
+                            await func(newMapping, oldCourseName, country, i);
+                        }
+                        catch (DuplicateRowException e)
+                        {
+                        }
                     }
                 }
             }
@@ -190,9 +202,13 @@ namespace ConsoleApp
                 throw new ArgumentException(newMapping);
             }
 
-            var f1 = session.Query<DocumentCourse>()
-                .Where(w => w.Course.SearchDisplay == newMapping)
-                .Select(s => s.Document.Id).ToFuture();
+            var f1 = session.Query<Document>()
+                .Where(w => w.Course2.SearchDisplay == newMapping)
+                .Select(s => s.Id).ToFuture();
+
+            //var f1 = session.Query<Document>()
+            //    .Where(w => w.Course.SearchDisplay == newMapping)
+            //    .Select(s => s.Document.Id).ToFuture();
 
             var f2 = session.Query<Document>()
                 .Where(w => w.Course.Id == oldCourseName && w.Status.State == ItemState.Ok &&
@@ -214,7 +230,8 @@ namespace ConsoleApp
                     continue;
                 }
                 needToCommit = true;
-                document.AssignCourse(course);
+                document.Course2 = course;
+                // document.AssignCourse(course);
                 session.Save(document);
             }
             if (needToCommit)

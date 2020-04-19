@@ -124,11 +124,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
             var query = new QuestionFeedWithFilterQuery(page, userId, country, course, pageSize);
             var result = (await fixture.QueryBus.QueryAsync(query, default)).ToList();
-            result.Should().NotBeNullOrEmpty();
-            result.Should().OnlyContain(c => c.Type == FeedType.Question);
-            if (!string.IsNullOrEmpty(course))
+            if (result.Any())
             {
-                result.Should().OnlyContain(c => c.Course == course);
+                result.Should().OnlyContain(c => c.Type == FeedType.Question);
+                if (!string.IsNullOrEmpty(course))
+                {
+                    result.Should().OnlyContain(c => c.Course == course);
+                }
             }
         }
 

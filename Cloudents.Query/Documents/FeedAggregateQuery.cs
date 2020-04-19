@@ -31,7 +31,7 @@ namespace Cloudents.Query.Documents
 
         private string Country { get; }
 
-        private string Course { get; }
+        private string? Course { get; }
         private int PageSize { get; }
 
         internal sealed class DocumentAggregateQueryHandler : IQueryHandler<FeedAggregateQuery, IEnumerable<FeedDto>>
@@ -56,13 +56,11 @@ namespace Cloudents.Query.Documents
             {
                 const string sqlWithCourse = @"
 with cte as (
-select top 1 * from(select 1 as o, u2.Id as UniversityId, COALESCE(u2.country, u.country) as Country, u.id as userid
+select top 1 * from(select 1 as o,  u.country as Country, u.id as userid
  from sb.[user] u
- left
- join sb.University u2 on u.UniversityId2 = u2.Id
  where u.id = @userid
  union
- select 2, null, @country, 0) t
+ select 2,  @country, 0) t
     order by o
 )
 
@@ -72,18 +70,17 @@ from
 (
 select 'd' as type
 , d.CourseName as Course
-, d.UniversityId as UniversityId
 , d.UpdateTime as DateTime
 , (select d.Id--id,
 , d.Price
 , d.CourseName as Course
 , d.UpdateTime as DateTime
 , d.Language as CultureInfo
-, un.Name as University
+
 , u.Id as 'User.Id'
 , u.Name as 'User.Name'
 , u.ImageName as 'User.Image'
-, un.Id as UniversityId
+
 , COALESCE(d.description,metaContent) as Snippet
 , d.Name as Title
 , d.[Views]
@@ -97,8 +94,7 @@ case when d.DocumentType = 'Video' then 1 else 0 end as IsVideo,
 case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end as IsFollow
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
-left join sb.University un on un.Id = d.UniversityId
-join cte on coalesce(un.country, u.country) = cte.country 
+join cte on u.country = cte.country 
 where
 
 d.State = 'Ok'
@@ -108,7 +104,6 @@ union all
 
 SELECT  'q' as type
 ,q.CourseId as Course
-,q.UniversityId as UniversityId
 ,q.Updated as DateTime
 ,(select q.Id as Id,
 q.Text as Text,
@@ -131,53 +126,54 @@ case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @use
 FROM sb.[Question] q
 join sb.[user] u
 	on q.UserId = u.Id
-left join sb.University un on un.Id = q.UniversityId
+
 outer apply (
 select top 1 text, u.id, u.name, u.ImageName, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
 ) as x
 ,cte
 where
- coalesce(un.country, u.country) = cte.country
+  u.country = cte.country
 and q.courseId = @course
 
 and q.State = 'Ok'
   ) R,
   cte
 order by
-case when R.UniversityId = cte.UniversityId or R.UniversityId is null then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
+DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) +
 DATEDiff(hour, R.DateTime, GetUtcDATE()) +
 case when r.IsVideo = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end + 
 case when r.IsFollow = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
 OFFSET @page*@pageSize ROWS
 FETCH NEXT @pageSize ROWS ONLY";
-                const string sqlWithoutCourse = @"with cte as (
-select top 1 * from (select 1 as o, u2.Id as UniversityId, COALESCE(u2.country,u.country) as Country, u.id as userid
+                const string sqlWithoutCourse = @"
+with cte as (
+select top 1 * from (select 1 as o, u.country as Country, u.id as userid
  from sb.[user] u
- left join sb.University u2 on u.UniversityId2 = u2.Id
  where u.id = @userid
  union
- select 2,null,@country,0) t
+ select 2,@country,0) t
  order by o
 )
-
 select R.*
 from
 (
-select 'd' as type
-,d.CourseName as Course
-,d.UniversityId as UniversityId
+select 'd' as type,
+
+case when d.CourseId2 in (select courseId from sb.UserCourse2 where userid = cte.userid) then 1 else 0 end as Course
+--,d.CourseName as Course
+
 ,d.UpdateTime as DateTime
 ,(select d.Id --id,
 ,d.Price
-,d.CourseName as Course
+,(select top 1 c.CardDisplay from sb.course2 c where CourseId = d.CourseId2) as Course
 ,d.UpdateTime as DateTime
 ,d.Language as CultureInfo
-,un.Name as University
+
 ,u.Id as 'User.Id'
 ,u.Name as 'User.Name'
 ,u.ImageName as 'User.Image'
-,un.Id as UniversityId
+
 ,COALESCE(d.description,metaContent) as Snippet
 ,d.Name as Title
 ,d.[Views]
@@ -191,22 +187,22 @@ case when d.DocumentType = 'Video' then 1 else 0 end as IsVideo,
 case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end as IsFollow
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
-left join sb.University un on un.Id = d.UniversityId
-join cte on coalesce(un.country, u.country) = cte.country 
+join cte on  u.country = cte.country 
+
 where
     d.UpdateTime > GETUTCDATE() - 182
 and d.State = 'Ok'
-and (d.CourseName in (select courseId from sb.usersCourses where userid = cte.userid) or @userid <= 0)
+and (d.CourseId2 in (select courseId from sb.UserCourse2 where userid = cte.userid) or @userid <= 0)
 
 union all
 
-SELECT  'q' as type
-,q.CourseId as Course
-,q.UniversityId as UniversityId
+SELECT  'q' as type,
+case when q.CourseId2 in (select courseId from sb.UserCourse2 where userid = cte.userid) then 1 else 0 end as Course
+
 ,q.Updated as DateTime
 ,(select q.Id as Id,
 q.Text as Text,
-q.CourseId2 as Course,
+(select top 1 c.CardDisplay from sb.course2 c where c.Id = q.CourseId2) as Course,
 (SELECT count(*) as y0_ FROM sb.[Answer] this_0_ WHERE (this_0_.QuestionId = q.Id and this_0_.State = 'Ok')) as Answers,
 q.Updated as DateTime,
 q.Language as CultureInfo
@@ -225,24 +221,23 @@ case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @use
 FROM sb.[Question] q
 join sb.[user] u
 	on q.UserId = u.Id
-left join sb.University un on q.UniversityId = un.Id
 outer apply (
 select  top 1 text,u.id,u.name,u.ImageName, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
 
 ) as x
-join cte on coalesce(un.country, u.country) = cte.country 
+join cte on u.country = cte.country 
 
 where
     q.Updated > GETUTCDATE() - 182
 
 and q.State = 'Ok'
-and (q.CourseId2 in (select courseId from sb.usersCourses2 where userid = cte.userid) or @userid <= 0)
+and (q.CourseId2 in (select courseId from sb.userCourse2 where userid = cte.userid) or @userid <= 0)
   ) R,
   cte
 order by
-case when R.Course in (select courseId from sb.usersCourses where userid = cte.userid) then 0 else DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE())*2 end +
-case when R.UniversityId = cte.UniversityId or R.UniversityId is null then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
+case when R.Course = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE())*2 end +
+DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE())  +
 DATEDiff(hour, R.DateTime, GetUtcDATE()) +
 case when r.IsVideo = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end + 
 case when r.IsFollow = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
