@@ -10,9 +10,10 @@
             </div>
 
             <div class="settingsMain d-flex align-center justify-center">
-                <studyRoomVideoSetting />
-
-                <studyRoomSettingDetails :isRoomActive="isRoomActive" @updateRoomIsActive="val => isRoomActive = val" />
+                <div class="d-flex align-center">
+                    <studyRoomVideoSetting />
+                    <studyRoomSettingDetails :isRoomActive="isRoomActive" @updateRoomIsActive="val => isRoomActive = val" />
+                </div>
             </div>
         </div>
     </v-dialog>

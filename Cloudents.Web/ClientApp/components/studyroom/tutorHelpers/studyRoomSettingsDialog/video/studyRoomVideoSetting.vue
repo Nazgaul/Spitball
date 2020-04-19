@@ -1,14 +1,13 @@
 <template>
     <div class="studyRoom-video-settings-container mr-12">
-        <v-flex class="mt-4 mb-4 studyRoom-video-settings-video-container">
-
+        <v-flex class="studyRoom-video-settings-video-container elevation-2">
             <div class="cameraListWrap text-center pt-3">
                 <div class="d-flex justify-center cameraSelected" v-if="camerasList.length && singleCameraId">
-                    <videoCameraImage class="videoIcon mr-2" width="20" />
+                    <!-- <videoCameraImage class="videoIcon mr-2" width="20" />
                     <div class="text-truncate white--text">
                         <span v-t="'studyRoomSettings_camera_connected'"></span>
                         <span>{{singleCameraId}}</span>
-                    </div>
+                    </div> -->
                     <!-- <v-select
                         v-model="singleCameraId"
                         @change="createVideoQualityPreview()"
@@ -31,15 +30,16 @@
                     </v-select> -->
                 </div>
                 <div class="noCamera white--text" v-t="'studyRoomSettings_no_camera'" v-else></div>
+                <div class="noPermission white--text" v-if="permissionDenied" v-t="'studyRoomSettings_camera_permission_denied'"></div>
             </div>
 
             <div class="bottomIcons d-flex align-end justify-space-between">
-                <microphoneImage width="14" />
+                <!-- <microphoneImage width="14" /> -->
                 <div class="centerIcons d-flex align-center">
-                    <v-btn 
+                    <v-btn
                         class="mx-2"
                         :class="{'noBorder': !microphoneOn}"
-                        :color="microphoneOn ? 'transparent' : 'red'" @click="toggleMic"
+                        :color="microphoneOn ? 'transparent' : '#cb4243'" @click="toggleMic"
                         fab
                     >
                         <microphoneImage width="14" v-if="microphoneOn" />
@@ -48,17 +48,18 @@
                     <v-btn 
                         class="mx-2"
                         :class="{'noBorder': !cameraOn || !singleCameraId}"
-                        :color="cameraOn ? 'transparent' : 'red'" @click="toggleCamera"
+                        :color="cameraOn ? 'transparent' : '#cb4243'" @click="toggleCamera"
                         fab 
                     >
                         <videoCameraImage class="videoIcon" width="22" v-if="cameraOn && singleCameraId" />
                         <videoCameraImageIgnore width="18" v-else />
                     </v-btn>
                 </div>
-                <v-icon color="#fff" @click="openSettingDialog" size="20">sbf-settings</v-icon>
+                <v-icon color="#fff" @click="openSettingDialog" size="26">sbf-settings</v-icon>
             </div>
 
             <div id="local-video-test-track"></div>
+            <div class="videoOverlay"></div>
         </v-flex>
 
         <studyRoomAudioVideoDialog
@@ -94,6 +95,7 @@ export default {
             localTrack: null,
             cameraOn: true,
             microphoneOn: true,
+            permissionDenied: false,
             settingDialogState: false,
             camerasList:[],
             singleCameraId: global.localStorage.getItem('sb-videoTrackId')
@@ -101,19 +103,23 @@ export default {
     },
     methods:{
         getVideoInputdevices() {
+            this.camerasList = []
             let self = this;
             navigator.mediaDevices.enumerateDevices().then((mediaDevices) => {
-                    mediaDevices.forEach((device) => {
-                        if (device.kind === 'videoinput') {
-                            self.camerasList.push(device)
-                        }
+                mediaDevices.forEach((device) => {
+                    if (device.kind === 'videoinput') {
+                        self.camerasList.push(device)
+                        self.cameraOn = true
+                    }
                     })
                     if(self.camerasList.length > 0){
                         if(!self.singleCameraId){
                             self.singleCameraId = self.camerasList[0].deviceId;
                         }
                         self.createVideoQualityPreview();
+                        return
                     }
+                    self.cameraOn = false
                 },
                 (error) => {
                     insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoSettings_getVideoInputdevices', error, null);
@@ -128,14 +134,20 @@ export default {
             let self = this;
             createLocalVideoTrack({width: 490, height: 368, deviceId: {exact: self.singleCameraId}})
                 .then(track => {
-                    self.videoEl = document.getElementById('local-video-test-track');
-                    self.localTrack = track;
-                    self.videoEl.appendChild(self.localTrack.attach());
-                    self.$store.dispatch('updateVideoTrack',self.singleCameraId)
-                }, (err)=>{
+                    // Checking whether a video tag is already have been attached to dom.
+                    // Reason: duplicate video attached when pluggin device on/off
+                    if(!document.getElementsByTagName('video').length) {
+                        self.videoEl = document.getElementById('local-video-test-track');
+                        self.localTrack = track;
+                        self.videoEl.appendChild(self.localTrack.attach());
+                        self.$store.dispatch('updateVideoTrack',self.singleCameraId)
+                    }
+                }).catch(err => {
+                    self.permissionDenied = true
+                    self.cameraOn = false
                     insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoValidation_createVideoQualityPreview', err, null);
                     console.error(err);
-                });
+                })
         },
         clearVideoTrack() {
             if (this.localTrack?.detach) {
@@ -152,11 +164,12 @@ export default {
         },
         openSettingDialog() {
             this.settingDialogState = true;
-            // this.$store.commit('setComponent', 'studyRoomSetting')
         }
     },
     created(){
         this.getVideoInputdevices();
+
+        navigator.mediaDevices.ondevicechange = this.getVideoInputdevices
     },
     beforeDestroy() {
         this.clearVideoTrack();
@@ -182,11 +195,12 @@ export default {
     }
     .studyRoom-video-settings-video-container{
         position: relative;
-        border-radius: 6px;
-        background-color: #000;
+        border-radius: 8px;
+        background-color: #202124;
         .cameraListWrap {
             margin: 0 100px;
             position: absolute;
+            top: calc(50% - 36px); // center text
             right: 0;
             left: 0;
             z-index: 2;
@@ -211,6 +225,14 @@ export default {
                     fill: #fff;
                 }
             }
+            .noCamera, .noPermission {
+                font-size: 20px;
+                font-weight: 600;
+            }
+            // .noPermission {
+            //     font-size: 20px;
+            //     font-weight: 600;
+            // }
         }
         .bottomIcons {
             position: absolute;
@@ -222,6 +244,9 @@ export default {
                 fill: #fff;
             }
             .centerIcons {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
                 button {
                     border: 1px solid #fff !important;
                     &.noBorder {
@@ -234,15 +259,21 @@ export default {
             width: 740px;
             height: 400px;
             video{
-                // width: 100%;
-                // border-radius: 6px;
+                width: 100%;
+                border-radius: 8px;
                 height: 100%;
-                width: 70%;
-                object-fit: fill;
-                margin: 0 auto;
                 text-align: center;
                 display: block;
             }
+        }
+        .videoOverlay{
+            background-image: -webkit-linear-gradient(bottom,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
+            background-image: linear-gradient(bottom,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
+            height: 80px;
+            margin-top: -80px;
+            position: relative;
+            width: 100%;
+            border-radius: 6px
         }
     }
     
