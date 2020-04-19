@@ -1,40 +1,13 @@
 <template>
     <div class="studyRoom-video-settings-container mr-12">
-        <v-flex class="studyRoom-video-settings-video-container elevation-2">
+        <v-row class="studyRoom-video-settings-video-container elevation-2">
             <div class="cameraListWrap text-center pt-3">
-                <div class="d-flex justify-center cameraSelected" v-if="camerasList.length && singleCameraId">
-                    <!-- <videoCameraImage class="videoIcon mr-2" width="20" />
-                    <div class="text-truncate white--text">
-                        <span v-t="'studyRoomSettings_camera_connected'"></span>
-                        <span>{{singleCameraId}}</span>
-                    </div> -->
-                    <!-- <v-select
-                        v-model="singleCameraId"
-                        @change="createVideoQualityPreview()"
-                        :items="camerasList"
-                        :label="$t('studyRoomSettings_video_select_label')"
-                        :placeholder="$t('studyRoomSettings_camera_placeholder')"
-                        :append-icon="'sbf-arrow-down'"
-                        :menu-props="{contentClass:'select-direction'}"
-                        background-color="rgba(0,0,0,.7)"
-                        item-text="label"
-                        item-value="deviceId"
-                        solo
-                        dense
-                        rounded
-                        single-line
-                        hide-details
-                    >
-                        <template v-slot:prepend-inner>
-                        </template>
-                    </v-select> -->
-                </div>
-                <div class="noCamera white--text" v-t="'studyRoomSettings_no_camera'" v-else></div>
-                <div class="noPermission white--text" v-if="permissionDenied" v-t="'studyRoomSettings_camera_permission_denied'"></div>
+                <div class="noCamera white--text" v-if="!camerasList.length" v-t="'studyRoomSettings_no_camera'"></div>
+                <div class="noPermission white--text" v-if="permissionDenied" v-t="permissionText"></div>
             </div>
 
             <div class="bottomIcons d-flex align-end justify-space-between">
-                <!-- <microphoneImage width="14" /> -->
+                <microphoneImage v-if="!permissionDenied" width="14" />
                 <div class="centerIcons d-flex align-center">
                     <v-btn
                         class="mx-2"
@@ -60,12 +33,27 @@
 
             <div id="local-video-test-track"></div>
             <div class="videoOverlay"></div>
-        </v-flex>
+        </v-row>
 
         <studyRoomAudioVideoDialog
             v-if="settingDialogState"
             @updateSettingDialogState="val => settingDialogState = val"
         />
+        <v-dialog v-model="permissionDialogState" width="512" persistent content-class="premissionDeniedDialog pa-6 pb-4">
+            <div class="mb-6" v-t="'studyRoomSettings_block_title'"></div>
+            <div v-t="'studyRoomSettings_block_description'"></div>
+            <div class="text-right">
+                <v-btn
+                    @click="permissionDialogState = false"
+                    color="#5360FC"
+                    rounded
+                    text
+                    depressed
+                >
+                    {{$t('studyRoomSettings_dismiss')}}
+                </v-btn>
+            </div>
+        </v-dialog>
     </div>
 </template>
 
@@ -96,9 +84,18 @@ export default {
             cameraOn: true,
             microphoneOn: true,
             permissionDenied: false,
+            permissionDialogState: false,
             settingDialogState: false,
             camerasList:[],
             singleCameraId: global.localStorage.getItem('sb-videoTrackId')
+        }
+    },
+    computed: {
+        permissionText() {
+            if(this.permissionDenied && !this.permissionDialogState) {
+                return 'studyRoomSettings_block_description'
+            }
+            return 'studyRoomSettings_camera_permission_denied'
         }
     },
     methods:{
@@ -111,7 +108,7 @@ export default {
                         self.camerasList.push(device)
                         self.cameraOn = true
                     }
-                    })
+                })
                     if(self.camerasList.length > 0){
                         if(!self.singleCameraId){
                             self.singleCameraId = self.camerasList[0].deviceId;
@@ -120,19 +117,18 @@ export default {
                         return
                     }
                     self.cameraOn = false
-                },
-                (error) => {
+                }).catch(error => {
                     insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoSettings_getVideoInputdevices', error, null);
                     console.log('error cant get video input devices', error)
-                }
-            )
+                })
         },
         createVideoQualityPreview() {
             if (this.localTrack) {
                 this.clearVideoTrack();
             }
+            
             let self = this;
-            createLocalVideoTrack({width: 490, height: 368, deviceId: {exact: self.singleCameraId}})
+            createLocalVideoTrack({width: 600, height: 400})
                 .then(track => {
                     // Checking whether a video tag is already have been attached to dom.
                     // Reason: duplicate video attached when pluggin device on/off
@@ -144,7 +140,9 @@ export default {
                     }
                 }).catch(err => {
                     self.permissionDenied = true
+                    self.permissionDialogState = true
                     self.cameraOn = false
+                    self.microphoneOn = false
                     insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoValidation_createVideoQualityPreview', err, null);
                     console.error(err);
                 })
@@ -157,10 +155,22 @@ export default {
             }
         },
         toggleMic() {
+            if(this.permissionDenied) return
+
             this.microphoneOn = !this.microphoneOn
         },
         toggleCamera() {
+            if(this.permissionDenied) return
+
             this.cameraOn = !this.cameraOn
+
+            if(!this.cameraOn) {
+                this.clearVideoTrack()
+                this.camerasList = []
+                return
+            }
+
+            this.getVideoInputdevices()
         },
         openSettingDialog() {
             this.settingDialogState = true;
@@ -204,35 +214,10 @@ export default {
             right: 0;
             left: 0;
             z-index: 2;
-
-            .cameraSelected {
-                background: rgba(0,0,0, .7);
-                padding: 8px 14px;
-                border-radius: 20px;
-                margin: 0 auto;
-                width: 100%;
-                max-width: max-content;
-                .v-select__selections {
-                    .v-select__selection--comma {
-                        color: #fff;
-                        font-size: 13px;
-                    }
-                }
-                .sbf-arrow-down {
-                    color: #fff
-                }
-                .videoIcon {
-                    fill: #fff;
-                }
-            }
             .noCamera, .noPermission {
                 font-size: 20px;
                 font-weight: 600;
             }
-            // .noPermission {
-            //     font-size: 20px;
-            //     font-weight: 600;
-            // }
         }
         .bottomIcons {
             position: absolute;
@@ -276,7 +261,9 @@ export default {
             border-radius: 6px
         }
     }
-    
+}
+.premissionDeniedDialog {
+    background: #fff !important;
 }
 
 </style>

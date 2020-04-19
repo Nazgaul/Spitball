@@ -96,7 +96,6 @@
                     </v-btn>
                 </v-col>
             </v-row>
-{{meTutor}}
         </template>
     </div>
 </template>
