@@ -52,9 +52,21 @@ namespace Cloudents.Web.Identity
         {
             var phoneNumberWithCallingCode = TwilioProvider.BuildPhoneNumber(phoneNumber, countryCallingCode);
             Expression<Func<User, bool>> expression = s => s.PhoneNumber == phoneNumberWithCallingCode;
-            //return await _session.Query<RegularUser>().FirstOrDefaultAsync(w => w.NormalizedName == normalizedUserName, cancellationToken: cancellationToken);
             return await _queryBus.QueryAsync(new UserDataExpressionQuery(expression), CancellationToken.None);
 
+        }
+
+        public override async Task<IdentityResult> ChangePhoneNumberAsync(User user, string phoneNumber, string token)
+        {
+            var x = await _smsProvider.VerifyCodeAsync(phoneNumber, token, default);
+            if (x)
+            {
+                var store = (IUserPhoneNumberStore<User>)Store;
+                await store.SetPhoneNumberConfirmedAsync(user, true, CancellationToken);
+                //await UpdateSecurityStampInternal(user);
+                return await UpdateUserAsync(user);
+            }
+            return await base.ChangePhoneNumberAsync(user, phoneNumber, token);
         }
     }
 }
