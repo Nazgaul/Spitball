@@ -169,6 +169,12 @@ export default {
             width: 100%;
             border-spacing: 0 20px;
             font-weight: 600;
+
+            td {
+                &:first-child {
+                    width: 120px;
+                }
+            }
             .settingShareContent {
                 height: 19px;
                 svg {

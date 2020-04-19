@@ -1,22 +1,23 @@
 <template>
     <div class="studyRoomVideoSettings">
         <div class="studyRoom-video-settings-title">
-            <h4 class="studyRoom-video-settings-label" v-language:inner='"studyRoomSettings_camera_label"'></h4>
+            <h4 class="studyRoom-video-settings-label mb-4" v-language:inner='"studyRoomSettings_camera_label"'></h4>
             <v-select
-                :menu-props="{contentClass:'select-direction'}"
                 v-model="singleCameraId"
+                class="videoSelect"
                 :items="camerasList"
-                item-value="deviceId"
-                item-text="label"
-                :label="$t('studyRoomSettings_video_select_label')"
-                hide-details
-                :prepend-icon="''"
                 @change="createVideoQualityPreview()"
+                :label="$t('studyRoomSettings_video_select_label')"
                 :placeholder="$t('studyRoomSettings_camera_placeholder')"
+                :menu-props="{contentClass:'select-direction'}"
+                :prepend-icon="''"
                 :append-icon="'sbf-arrow-down'"
-                solo
+                item-value="deviceId"
+                hide-details
+                outlined
+                dense
                 single-line
-                ></v-select>
+            ></v-select>
         </div>
         
         <v-flex xs12  class="mt-4 mb-4 studyRoom-video-settings-video-container">
@@ -95,14 +96,29 @@ export default {
 </script>
 
 <style lang="less">
+@import '../../../../../../styles/colors.less';
+
 .studyRoomVideoSettings{
-    margin-top: 48px;
-    .studyRoom-video-settings-title{
-        display:flex;
-        justify-content: space-between;
+    margin-top: 36px;
+    .studyRoom-video-settings-title {
         .studyRoom-video-settings-label{
+            color: @global-auth-text;
+        }
+        .videoSelect {
             font-size: 14px;
-            min-width: 100px;
+                .v-input__slot {
+                    min-height: 38px !important; // vuetify
+                }
+                ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                    color: @global-purple;
+                    opacity: 1; /* Firefox */
+                }
+                :-ms-input-placeholder { /* Internet Explorer 10-11 */
+                    color: @global-purple;
+                }
+                ::-ms-input-placeholder { /* Microsoft Edge */
+                    color: @global-purple;
+                }
         }
         .v-input__control{
             min-height: unset;

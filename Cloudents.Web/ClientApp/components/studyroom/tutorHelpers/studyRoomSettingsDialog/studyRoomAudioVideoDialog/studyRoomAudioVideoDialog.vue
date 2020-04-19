@@ -34,8 +34,9 @@
 </template>
 
 <script>
-import studyRoomVideoSetting from "../studyRoomVideoSetting/studyRoomVideoSetting.vue";
-import studyRoomAudioSetting from "../studyRoomAudioSetting/studyRoomAudioSetting.vue";
+import studyRoomVideoSetting from "./studyRoomVideoSetting/studyRoomVideoSetting.vue";
+import studyRoomAudioSetting from "./studyRoomAudioSetting/studyRoomAudioSetting.vue";
+
 import videoCameraImage from '../../../images/video-camera.svg';
 import microphoneImage from '../../../images/microphone.svg';
 

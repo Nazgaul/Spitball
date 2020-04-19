@@ -10,7 +10,8 @@ const createAudioContext = function (elId, myPreferredCameraDeviceId) {
             let values = 0;
 
             let length = array.length;
-            for (let i = 0; i < length; i++) {
+            let i;
+            for (i = 0; i < length; i++) {
                 values += (array[i]);
             }
 

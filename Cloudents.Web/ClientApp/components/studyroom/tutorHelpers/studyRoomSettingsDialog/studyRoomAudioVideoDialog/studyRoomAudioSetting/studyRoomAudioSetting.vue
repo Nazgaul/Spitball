@@ -42,6 +42,7 @@
 
 <script>
 import studyRoomAudioSettingService from './studyRoomAudioSettingService';
+
 import microphoneImage from '../../../../images/microphone.svg';
 
 export default {
@@ -117,14 +118,14 @@ export default {
                     min-height: 38px !important; // vuetify
                 }
                 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-                color: @global-purple;
-                opacity: 1; /* Firefox */
+                    color: @global-purple;
+                    opacity: 1; /* Firefox */
                 }
                 :-ms-input-placeholder { /* Internet Explorer 10-11 */
-                color: @global-purple;
+                    color: @global-purple;
                 }
                 ::-ms-input-placeholder { /* Microsoft Edge */
-                color: @global-purple;
+                    color: @global-purple;
                 }
             }
         }

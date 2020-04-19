@@ -1,6 +1,6 @@
 <template>
-    <div class="srVideoSettingsVideoContainer mr-12">
-        <v-row class="srVideoSettingsVideoContainer elevation-2">
+    <div class="srVideoSettingsVideoContainer">
+        <v-row class="srVideoSettingsVideoContainer ma-0 elevation-2">
 
             <div class="cameraTextWrap text-center">
                 <div class="noCamera white--text" v-if="!camerasList.length" v-t="'studyRoomSettings_no_camera'"></div>
@@ -31,7 +31,7 @@
                         <videoCameraImageIgnore width="18" v-else />
                     </v-btn>
                 </div>
-                <v-icon color="#fff" @click="openSettingDialog" size="26">sbf-settings</v-icon>
+                <v-icon color="#fff" @click="settingDialogState = true" size="26">sbf-settings</v-icon>
             </div>
 
             <div id="local-video-test-track"></div>
@@ -109,25 +109,25 @@ export default {
     methods:{
         getVideoInputdevices() {
             this.camerasList = []
+
             let self = this;
             navigator.mediaDevices.enumerateDevices().then((mediaDevices) => {
                 mediaDevices.forEach((device) => {
                     if (device.kind === 'videoinput') {
                         self.camerasList.push(device)
-                        self.cameraOn = true
                     }
                 })
                     if(self.camerasList.length > 0){
                         if(!self.singleCameraId){
                             self.singleCameraId = self.camerasList[0].deviceId;
                         }
+                        self.cameraOn = true
                         self.createVideoQualityPreview();
                         return
                     }
                     self.cameraOn = false
                 }).catch(error => {
                     insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoSettings_getVideoInputdevices', error, null);
-                    console.log('error cant get video input devices', error)
                 })
         },
         createVideoQualityPreview() {
@@ -152,7 +152,6 @@ export default {
                     self.cameraOn = false
                     self.microphoneOn = false
                     insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoValidation_createVideoQualityPreview', err, null);
-                    console.error(err);
                 })
         },
         clearVideoTrack() {
@@ -179,9 +178,6 @@ export default {
             }
 
             this.getVideoInputdevices()
-        },
-        openSettingDialog() {
-            this.settingDialogState = true;
         }
     },
     created(){
@@ -199,21 +195,9 @@ export default {
 // @import '../../../../styles/mixin';
 @import '../../../../../styles/colors';
 .srVideoSettingsVideoContainer{
-    // .studyRoom-video-settings-title{
-    //     display:flex;
-    //     justify-content: space-between;
-    //     .studyRoom-video-settings-label{
-    //         font-size: 14px;
-    //         min-width: 100px;
-    //     }
-    //     .v-input__control{
-    //         min-height: unset;
-    //         .v-select__selection{
-    //             font-size: 14px;
-    //         }
-    //     }
-    // }
+    min-width: 680px;
     .srVideoSettingsVideoContainer {
+        width: 100%;
         position: relative;
         border-radius: 8px;
         background-color: #202124;
@@ -262,7 +246,7 @@ export default {
             }
         }
         #local-video-test-track{
-            width: 740px;
+            width: 100%;
             height: 400px;
             video{
                 width: 100%;
