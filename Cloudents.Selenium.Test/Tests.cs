@@ -362,7 +362,7 @@ namespace Cloudents.Selenium.Test
             }
         }
 
-        [Fact(Skip ="Need to be fixed")]
+        [Fact]
         public void MenuListItemsTest()
         {
             foreach (var driver in this._driver.Drivers)
@@ -370,54 +370,32 @@ namespace Cloudents.Selenium.Test
                 driver.Manage().Window.Maximize();
                 Login(driver, UserTypeAccounts.ElementAt(1));
 
+                // Wait for this element to be displayed
+                driver.FindElementByWait(By.XPath("//*[@class='gH_i_r_chat']"));
+
                 var url = $"{_driver.SiteUrl.TrimEnd('/')}/feed?culture=he-IL";
                 driver.Navigate().GoToUrl(url);
 
                 var menu = driver.FindElementByWait(By.XPath("//*[@sel='menu']"));
                 menu.Click();
-                var listItems = driver.FindElements(By.XPath("//*[@class='userMenu_actionsList']//a"));
 
-                listItems.Count.Should().Be(11);
+                // Check those elements are showing
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'v-menu__content')]"));
+                driver.FindElementByWait(By.XPath("//*[@class='userMenu_top']"));
+                driver.FindElementByWait(By.XPath("//*[@class='userMenu_actionsList']"));
+                var listItems = driver.FindElements(By.XPath("//*[@sel='menu_row']"));
+
+                listItems.Count.Should().Be(6);
 
                 // Check items route links
-                listItems[0].GetAttribute("href").Should().Be("https://dev.spitball.co/tutor-list");
-                listItems[1].GetAttribute("href").Should().Be("https://teach.spitball.co/");
-                listItems[2].GetAttribute("href").Should().Be("https://dev.spitball.co/studyroom");
-                listItems[3].GetAttribute("href").Should().Be("https://help.spitball.co/he/%D7%A9%D7%90%D7%9C%D7%95%D7%AA-%D7%A0%D7%A4%D7%95%D7%A6%D7%95%D7%AA");
-                listItems[5].GetAttribute("href").Should().Be("https://help.spitball.co/he/article/%D7%94%D7%9B%D7%9C-%D7%A2%D7%9C%D7%99%D7%A0%D7%95");
-                listItems[7].GetAttribute("href").Should().Be("https://help.spitball.co/en/article/terms-of-service");
+                listItems[1].GetAttribute("href").Should().Contain("profile/164516/teacher%20teacher");
+                listItems[2].GetAttribute("href").Should().Contain("my-purchases");
+                listItems[3].GetAttribute("href").Should().Contain("study-rooms");
+                listItems[4].GetAttribute("href").Should().Be("https://help.spitball.co/he/");
 
                 Logout(driver);
             }
-
-            /*for(int i = 0; i < 5; i++)
-            {
-                listItems[i].GetAttribute("href").Should().Be(menuItems.ElementAt(i));
-            }*/
-
-            /*for(int i = 9; i < 12; i++)
-            {
-                listItems[i].GetAttribute("href").Should().Be(menuItems.ElementAt(i));
-            }*/
         }
-
-        //[Fact(Skip = "NEED TO FIX")]
-        //public void SignButtonsTest()
-        //{
-        //    _driver.Manage().Window.Maximize();
-        //    _driver.Navigate().GoToUrl($"{SiteMainUrl.TrimEnd('/')}");
-
-        //    //var carousel = _driver.FindElements(By.XPath("//*[@class='itemsCarousel']//a"));
-        //    //carousel[0].Click();
-
-        //    var loginButton = _driver.FindElement(By.XPath("//*[@sel='sign']"));
-        //    loginButton.Click();
-
-        //    // blank page will not have class name with the word container
-        //    var div = _driver.FindElements(By.XPath("//*[contains(text(),'container')]"));
-
-        //    div.Count.Should().BeGreaterThan(1);
-        //}
 
         [Fact(Skip ="Need to fix this test")]
         public void Feed_Search()
