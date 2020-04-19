@@ -122,6 +122,7 @@ namespace Cloudents.Selenium.Test
         private static readonly IEnumerable<string> RelativePaths = new[]
         {
             "",
+            "learn",
             "tutor-list",
             "register",
             "signin",
@@ -142,7 +143,7 @@ namespace Cloudents.Selenium.Test
             "my-sales",
             "my-followers",
             "my-purchases",
-            "my-calendar",
+            //"my-calendar",
             "tutor-list"
         };
 
@@ -237,6 +238,12 @@ namespace Cloudents.Selenium.Test
                         body.Text.Should().NotContain("[Object Object]");
                     }
 
+                    Login(driver, UserTypeAccounts.ElementAt(0));
+
+                    // Wait until this element is showing
+                    driver.FindElementByWait(By.XPath("//*[@sel='menu']"));
+
+
                     foreach (var site in SignedPaths.Union(GetProfileUrls()))
                     {
                         var url = $"{_driver.SiteUrl.TrimEnd('/')}/{site}?culture={culture}";
@@ -249,9 +256,9 @@ namespace Cloudents.Selenium.Test
                         var body = driver.FindElement(By.TagName("body"));
                         body.Text.Should().NotContain("###");
                     }
-                }
 
-                Logout(driver);
+                    Logout(driver);
+                }
             }
         }
 
@@ -507,6 +514,12 @@ namespace Cloudents.Selenium.Test
                 // Make sure this element is exist
                 driver.FindElementByWait(By.XPath("//*[contains(@class, 'become-tutor-wrap')]"));
 
+                url = $"{_driver.SiteUrl.TrimEnd('/')}?dialog=buyPoints";
+                driver.Navigate().GoToUrl(url);
+
+                // Make sure this element is exist
+                driver.FindElementByWait(By.XPath("//*[@class='buy-tokens-wrap']"));
+
                 Logout(driver);
             }
 
@@ -672,36 +685,49 @@ namespace Cloudents.Selenium.Test
         {
             foreach (var driver in this._driver.Drivers)
             {
-                driver.Manage().Window.Maximize();
-
-                var url = $"{_driver.SiteUrl.TrimEnd('/')}/profile/159039";
-                driver.Navigate().GoToUrl(url);
-
-                // Make sure those elements exist
-                driver.FindElementByWait(By.XPath("//*[contains(@class, 'profileUserBox')]"));
-                driver.FindElementByWait(By.XPath("//*[contains(@class, 'shareContentProfile')]"));
-                driver.FindElementByWait(By.XPath("//*[contains(@class, 'profileUserSticky_btn')]"));
-                driver.FindElementByWait(By.XPath("//*[contains(@class, 'profileReviewsBox')]"));
-                driver.FindElementByWait(By.XPath("//button[contains(@class, 'followBtnNew')]"));
-                driver.FindElementByWait(By.Id("profileItemsBox"));
-                var coupon = driver.FindElementByWait(By.XPath("//*[@sel='coupon']"));
-                
-                var comboBoxes = driver.FindElements(By.XPath("//*[@class='v-input__control']"));
-
-                foreach(var comboBox in comboBoxes)
+                foreach (var culture in Cultures)
                 {
-                    comboBox.Click();
-                }
+                    driver.Manage().Window.Maximize();
 
-                coupon.Click();
-                driver.FindElementByWait(By.XPath("//*[@class='registerDialog wrapper']"));
-                Login(driver, UserTypeAccounts.ElementAt(0));
-                driver.FindElementByWait(By.XPath("//*[@class='dashboardMain mr-md-6']"));
-                driver.Navigate().GoToUrl(url);
-                coupon = driver.FindElementByWait(By.XPath("//*[@sel='coupon']"));
-                coupon.Click();
-                driver.FindElementByWait(By.XPath("//*[contains(@class, 'coupon-dialog')]"));
-                Logout(driver);
+                    var url = $"{_driver.SiteUrl.TrimEnd('/')}/profile/159039/culture={culture}";
+                    driver.Navigate().GoToUrl(url);
+
+                    // Make sure those elements exist
+                    driver.FindElementByWait(By.XPath("//*[@class='coverPhoto']"));
+                    driver.FindElementByWait(By.XPath("//*[contains(@class, 'userName')]"));
+                    driver.FindElementByWait(By.XPath("//*[@class='user-avatar-rect pUb_dS_img']"));
+                    driver.FindElementByWait(By.XPath("//*[contains(@class, 'profileUserBox')]"));
+                    driver.FindElementByWait(By.XPath("//*[contains(@class, 'shareContentProfile')]"));
+                    driver.FindElementByWait(By.XPath("//*[contains(@class, 'profileUserSticky_btn')]"));
+                    driver.FindElementByWait(By.XPath("//*[contains(@class, 'profileReviewsBox')]"));
+                    driver.FindElementByWait(By.XPath("//button[contains(@class, 'followBtnNew')]"));
+                    driver.FindElementByWait(By.Id("profileItemsBox"));
+                    driver.FindElementByWait(By.XPath("//*[contains(@class, 'profileItemsBox_title')]"));
+                    driver.FindElements(By.XPath("//*[contains(@class, 'profileItemsBox_content')]//a"));
+                    driver.FindElementByWait(By.XPath("//*[@class='profileItemBox_pagination']"));
+                    var coupon = driver.FindElementByWait(By.XPath("//*[@sel='coupon']"));
+
+                    var comboBoxes = driver.FindElements(By.XPath("//*[@class='v-input__control']"));
+
+                    foreach (var comboBox in comboBoxes)
+                    {
+                        comboBox.Click();
+                    }
+
+                    driver.FindElementByWait(By.XPath("//*[@sel='send']")).Click();
+                    driver.FindElementByWait(By.XPath("//*[@sel='cancel_tutor_request']")).Click();
+                    coupon.Click();
+                    driver.FindElementByWait(By.XPath("//*[@class='registerDialog wrapper']"));
+
+                    Login(driver, UserTypeAccounts.ElementAt(0));
+                    driver.FindElementByWait(By.XPath("//*[@class='dashboardMain mr-md-6']"));
+                    driver.Navigate().GoToUrl(url);
+                    coupon = driver.FindElementByWait(By.XPath("//*[@sel='coupon']"));
+                    driver.FindElementByWait(By.XPath("//*[@sel='send']")).Click();
+                    coupon.Click();
+                    driver.FindElementByWait(By.XPath("//*[contains(@class, 'coupon-dialog')]"));
+                    Logout(driver);
+                }
             }
 
         }
@@ -877,6 +903,35 @@ namespace Cloudents.Selenium.Test
                 driver.FindElementByWait(By.XPath("//*[@class='gH_i_r_chat']")).Click();
                 driver.FindElementByWait(By.XPath("//*[@class='gH_i_r_menuList']")).Click();
                 driver.FindElementByWait(By.XPath("//*[@class='globalHeader_logo router-link-active']")).GetAttribute("href").Should().Be("https://dev.spitball.co/");
+
+                Logout(driver);
+           
+            }
+        }
+
+        [Fact]
+        public void ActionBoxTest()
+        {
+            foreach (var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+                Login(driver, UserTypeAccounts.ElementAt(0));
+
+                // Check if this element exists
+                driver.FindElementByWait(By.XPath("//*[@class='gH_i_r_chat']"));
+
+                driver.Navigate().GoToUrl($"{_driver.SiteUrl.TrimEnd('/')}/feed");
+
+                driver.FindElementByWait(By.XPath("//*[@sel='request']")).Click();
+                driver.FindElementByWait(By.XPath("//*[@sel='course_request']")).Click();
+
+                // Check if this element exists
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'v-select--is-menu-active')]"));
+
+                driver.FindElementByWait(By.XPath("//*[@sel='cancel_tutor_request']")).Click();
+
+                driver.FindElementByWait(By.XPath("//*[@sel='ask']")).Click();
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'v-text-field--solo-flat')]")).Click();
 
                 Logout(driver);
             }
