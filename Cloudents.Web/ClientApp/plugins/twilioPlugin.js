@@ -33,52 +33,6 @@ function _changeState(localParticipant) {
    STORE.dispatch('sendDataTrack',JSON.stringify(stuffToSend));
 }
 
-// function _initStudentJoined(localParticipant){
-//    // update editor tab:
-
-//    let editorTab = {
-//       type: "updateActiveNav",
-//       data: STORE.getters.getActiveNavEditor
-//    };
-//    STORE.dispatch('sendDataTrack',JSON.stringify(editorTab));
-
-//    // update canvas tab:
-//    let canvasTab = {
-//       type: "updateTabById",
-//       data:{
-//          tab: STORE.getters.getCurrentSelectedTab,
-//          canvas: STORE.getters.canvasDataStore
-//       }
-//    }
-//    STORE.dispatch('sendDataTrack',JSON.stringify(canvasTab));
-
-//    // share screen & video full screen:
-//    Array.from(localParticipant.tracks.values()).forEach((track) => {
-//          if(track.trackName === VIDEO_TRACK_NAME && STORE.getters.getIsFullScreen){
-//             let shareVideoCamera = {
-//                type: "openFullScreen",
-//                data: `remoteTrack_${track.trackSid}`
-
-//             };
-//             STORE.dispatch('sendDataTrack',JSON.stringify(shareVideoCamera))
-//          }
-//          if(track.trackName === SCREEN_TRACK_NAME){
-//             let shareScreen = {
-//                type: "openFullScreen",
-//                data: `remoteTrack_${track.trackSid}`
-//             };
-//             STORE.dispatch('sendDataTrack',JSON.stringify(shareScreen))
-//          }
-//    });
-//    // room muted by tutor:
-//    if(!STORE.getters.getIsAudioParticipants){
-//       let normalizedData = {
-//          type: "toggleParticipantsAudio",
-//          data: STORE.getters.getIsAudioParticipants
-//       };
-//       STORE.dispatch('sendDataTrack',JSON.stringify(normalizedData))
-//    }
-// }
 function _detachTracks(tracks){
    tracks.forEach((track) => {
       if (track?.detach) {
@@ -194,14 +148,13 @@ function _twilioListeners(room,store) {
    // room tracks events: 
    room.on('trackMessage', (message) => {
       let data = JSON.parse(message);
+      _insightEvent('trackMessage', data, null);
       if (data.type == CURRENT_STATE) {
          store.dispatch('updateAudioToggleByRemote',data.mute)
          store.dispatch('updateFullScreen',data.fullScreen)
          store.dispatch('updateActiveNavEditor', data.tab)
         // store.dispatch('tempWhiteBoardTabChanged',data.canvasTab)
-         store.dispatch('sendDataTrack', JSON.stringify( {
-            type : 'ACK'
-         }));
+         store.dispatch('sendDataTrack', JSON.stringify({type : 'ACK'}));
          return;
       }
       if (data.type == 'ACK') {
@@ -216,11 +169,6 @@ function _twilioListeners(room,store) {
    })
    // room connections events:
    room.on('participantConnected', (participant) => {
-     
-     
-
-      
-
       if(store.getters.getRoomIsTutor){
          store.commit('setComponent', 'simpleToaster_userConnected');
          participant.on('trackSubscribed',(track)=>{
