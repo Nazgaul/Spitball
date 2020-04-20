@@ -3,7 +3,7 @@
         <div class="studyRoomSettingsWrapper">
             <div class="audioVideoTabs d-flex align-center text-center">
                 <div class="tabBtn video" :class="{'active': !toggleActiveClass}" @click="switchComponent">
-                    <videoCameraImage class="image vidSvg" width="24" height="40" />
+                    <videoCameraImage class="image vidSvg" width="22" height="40" />
                     <div class="tabText ml-1" v-t="'studyRoomSettings_video_title'"></div>
                 </div>
 
@@ -13,7 +13,7 @@
                 </div>
             </div>
 
-            <div class="mainWrap pa-4 pt-0 ">
+            <div class="mainWrap pa-5 pt-0 ">
                 <component :is="currenctComponent"></component>
 
                 <div class="text-right btnWrap">

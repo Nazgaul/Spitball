@@ -160,6 +160,7 @@ export default {
 
 .settingDetailsWrap {
     // max-width: 100%;
+    // flex-shrink: 0;
     color: @global-purple;
     .settingDetails {
         .settingTitle {

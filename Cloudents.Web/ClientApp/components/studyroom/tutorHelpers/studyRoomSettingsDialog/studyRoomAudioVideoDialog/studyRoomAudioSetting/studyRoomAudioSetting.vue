@@ -30,7 +30,7 @@
         <div class="studyRoom-audio-settings-speaker-container mt-8">
             <h4 class="studyRoom-audio-settings-speaker-label mb-4" v-t="'studyRoomSettings_audio_output'"></h4>
             <div class="audio-output-controls">
-                <speakerImage />
+                <speakerImage width="20" class="mr-2" />
                 <button @click="playTestSound" v-if="!isPlaying" v-t='"studyRoomSettings_audio_test_sound"'></button>
                 <button @click="stopSound" v-else v-t='"studyRoomSettings_audio_stop_sound"'></button>
                 <v-flex v-if="isPlaying" class="eq-image-container">

@@ -135,6 +135,7 @@ export default {
         overflow: hidden;
         background-color: gray;
         #local-video-test-track1 {
+            height: 100%;
             video {
                 width: 100%;
                 overflow: hidden;

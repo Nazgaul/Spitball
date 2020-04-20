@@ -137,7 +137,7 @@ export default {
             }
             
             let self = this;
-            createLocalVideoTrack({width: 600, height: 400})
+            createLocalVideoTrack({width: 680, height: 380})
                 .then(track => {
                     // Checking whether a video tag is already have been attached to dom.
                     // Reason: duplicate video attached when pluggin device on/off
@@ -199,9 +199,9 @@ export default {
 @import '../../../../../styles/mixin';
 @import '../../../../../styles/colors';
 .srVideoSettingsVideoContainerWrap {
-    max-width: 600px;
-    // height: 400px;
-    // width: 100%;
+    max-width: 680px;
+    width: 100%;
+    // min-width: 680px;
     .srVideoSettingsVideoContainer {
         width: 100%;
         position: relative;
@@ -209,7 +209,7 @@ export default {
         background-color: #202124;
 
         // @media (max-width: @screen-sm) {
-        //     max-width: 400px;
+        //     width: 70%;
         // }
         .cameraTextWrap {
             margin: 0 100px;
