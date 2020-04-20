@@ -173,6 +173,7 @@ function _twilioListeners(room,store) {
 
    // room tracks events: 
    room.on('trackMessage', (message) => {
+      console.log('trackMessage',message);
       let data = JSON.parse(message)
       _insightEvent('trackMessage', data, null);
       store.dispatch('dispatchDataTrackJunk',data)
@@ -184,17 +185,47 @@ function _twilioListeners(room,store) {
    })
    // room connections events:
    room.on('participantConnected', (participant) => {
+      function trackSubscribed(participant, track) {
+         console.log(`LocalParticipant subscribed to RemoteParticipant "${participant.identity}"'s ${track.kind} Track ${track.sid}`);
+         if (track.kind === 'audio' || track.kind === 'video') {
+           //track.attach(`#${participant.sid} > video`);
+         } else if (track.kind === 'data') {
+           //const color = colorHash.hex(track.id);
+           track.on('message', data => {
+              console.log('ram-message',data);
+            //  const { mouseDown, mouseCoordinates: { x, y } } = JSON.parse(data);
+            //  if (mouseDown) {
+            //    drawCircle(canvas, color, x, y);
+            //  }
+           });
+         }
+       }
+      function trackPublished(participant, publication) {
+         console.log(`RemoteParticipant "${participant.identity}" published ${publication.kind} Track ${publication.trackSid}`);
+         if (publication.isSubscribed) {
+           trackSubscribed(participant, publication.track);
+         } else {
+           publication.on('subscribed', track => trackSubscribed(participant, track));
+         }
+        // publication.on('unsubscribed', track => trackUnsubscribed(participant, track));
+       }
+       
+
       if(store.getters.getRoomIsTutor){
          store.commit('setComponent', 'simpleToaster_userConnected');
+         console.log(participant);
          participant.on('trackSubscribed',(track)=>{
             if(track.kind === 'data'){
                console.log('y')
                _initStudentJoined(room.localParticipant)
             }
          })
+         participant.tracks.forEach(publication => trackPublished(participant, publication));
       }
       _insightEvent('TwilioParticipantConnected', participant, null);
    })
+
+
    room.on('participantDisconnected', (participant) => {
       if(store.getters.getRoomIsTutor){
          store.commit('setComponent', 'simpleToaster_userLeft');
