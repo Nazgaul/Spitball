@@ -212,20 +212,23 @@ function _twilioListeners(room,store) {
 
    // room tracks events: 
    room.on('trackMessage', (message) => {
+      console.log(message);
       let data = JSON.parse(message);
       if (data.type == CURRENT_STATE) {
          //We put our code in here
-         store.dispatch('updateAudioToggleByRemote',message.mute)
-         store.dispatch('updateFullScreen',message.fullScreen)
-         store.dispatch('updateActiveNavEditor', message.tab)
-         store.dispatch('tempWhiteBoardTabChanged',message.canvasTab)
-         store.dispatch('sendDataTrack', {
+         store.dispatch('updateAudioToggleByRemote',data.mute)
+         store.dispatch('updateFullScreen',data.fullScreen)
+         store.dispatch('updateActiveNavEditor', data.tab)
+         store.dispatch('tempWhiteBoardTabChanged',data.canvasTab)
+         store.dispatch('sendDataTrack', JSON.stringify( {
             type : 'ACK'
-         });
+         }));
          return;
       }
+      console.log(message);
       if (data.type == 'ACK') {
          clearInterval(intervalTime)
+         return;
          //Remove the interval
       }
       store.dispatch('dispatchDataTrackJunk',data)
