@@ -90,13 +90,7 @@ function _twilioListeners(room,store) {
    });
    room.localParticipant.on('trackPublished',(track)=>{
       if(store.getters.getRoomIsTutor && track.trackName === SCREEN_TRACK_NAME){
-         let videoElementId = `${track.trackSid}`
-         let transferDataObj = {
-            type: "openFullScreen",
-            data: videoElementId
-         };
-         let normalizedData = JSON.stringify(transferDataObj);
-         store.dispatch('sendDataTrack',normalizedData)
+         _changeState(room.localParticipant);
       }
    })
 
