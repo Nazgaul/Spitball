@@ -134,9 +134,12 @@ export default {
   computed: {
     ...mapGetters(['accountUser', 'getUserLoggedInStatus']),
     
-    menuListUserType() {
-      let userType = this.user?.userType || 'default';
-      return this.menuListComponent[userType.toLowerCase()]
+    menuListUserType() {      
+      let userType = 'default'
+      if(this.isLoggedIn) {
+        userType = this.user?.isTutor ? 'teacher' : 'student'        
+      }
+      return this.menuListComponent[userType]
     },
     isMobile() {
       return this.$vuetify.breakpoint.smAndDown;

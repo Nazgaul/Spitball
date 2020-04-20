@@ -37,7 +37,7 @@ export default {
     },
     computed: {
         user() {
-            return this.$store.getters.accountUser
+            return this.$store.getters?.accountUser
         },
         menuListStudentFilter() {
             let isSold = this.$store.getters.getIsSold
