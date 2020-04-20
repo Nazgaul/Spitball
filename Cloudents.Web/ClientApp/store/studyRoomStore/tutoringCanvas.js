@@ -187,9 +187,10 @@ const actions = {
     tempWhiteBoardTabChanged({dispatch},data) {
         dispatch('changeSelectedTab',data.tab);
         whiteBoardService.hideHelper();
-        whiteBoardService.redraw(data.canvas);
+        if(Object.keys(data.canvas).length > 1){
+            whiteBoardService.redraw(data.canvas);
+        }
     },
-
     dispatchDataTrackJunk({commit,dispatch},data){
         // TODO: clean it!
         let parsedData = data.data;
