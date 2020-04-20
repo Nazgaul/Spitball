@@ -187,7 +187,7 @@ const actions = {
     tempWhiteBoardTabChanged({dispatch},data) {
         dispatch('changeSelectedTab',data.tab);
         whiteBoardService.hideHelper();
-        whiteBoardService.redraw(data.canvas);
+      //  whiteBoardService.redraw(data.canvas);
     },
 
     dispatchDataTrackJunk({commit,dispatch},data){
