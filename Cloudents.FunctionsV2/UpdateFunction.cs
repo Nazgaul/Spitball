@@ -89,15 +89,15 @@ on x.Id = tr.Id";
             ILogger log,
             CancellationToken token)
         {
-            var sql = @"update top (1000) sb.[User]
+            const string sql = @"update top (1000) sb.[User]
             set SbCountry = 1
             where Country = 'IL' and SbCountry is null";
 
-            var sql2 = @"update top (1000) sb.[User]
+            const string sql2 = @"update top (1000) sb.[User]
 set SbCountry = 2
 where Country = 'IN' and SbCountry is null";
 
-            var sql3 = @"update top (1000) sb.[User]
+            const string sql3 = @"update top (1000) sb.[User]
 set SbCountry = 3
 where SbCountry is null and country not in ('IL','IN') ";
 
@@ -105,9 +105,17 @@ where SbCountry is null and country not in ('IL','IN') ";
 
             foreach (var query in queries)
             {
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
                 using var con = dapper.OpenConnection();
                 while (true)
                 {
+                    if (token.IsCancellationRequested)
+                    {
+                        break;
+                    }
                     var i = await con.ExecuteAsync(query);
                     if (i == 0)
                     {
