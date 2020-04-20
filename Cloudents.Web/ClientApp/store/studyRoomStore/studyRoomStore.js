@@ -105,7 +105,7 @@ const actions = {
       let className = 'fullscreenMode';
       if(elId){
          let interval = setInterval(() => {
-            let vidEl = document.querySelector(`#remoteTrack_${elId} video`);
+            let vidEl = document.querySelector(`#${elId} video`);
             if(vidEl){
                vidEl.classList.add(className);
                clearInterval(interval)

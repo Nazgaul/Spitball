@@ -90,7 +90,7 @@ function _twilioListeners(room,store) {
    });
    room.localParticipant.on('trackPublished',(track)=>{
       if(store.getters.getRoomIsTutor && track.trackName === SCREEN_TRACK_NAME){
-         let videoElementId = `remoteTrack_${track.trackSid}`
+         let videoElementId = `${track.trackSid}`
          let transferDataObj = {
             type: "openFullScreen",
             data: videoElementId
@@ -366,27 +366,10 @@ export default () => {
                   store.commit(twilio_SETTERS.AUDIO_AVAILABLE,false)
                }
             }
-            if (mutation.type === twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN){
-               let normalizedData = {
-                  type: "openFullScreen",
-               };
-               if(mutation.payload){
-                  let videoTrack = Array.from(_activeRoom.localParticipant.videoTracks.values())[0];
-                  let videoElementId = `remoteTrack_${videoTrack.trackSid}`
-                  normalizedData.data = videoElementId
-               }
-               store.dispatch('sendDataTrack',JSON.stringify(normalizedData))
+            if(mutation.type === twilio_SETTERS.TOGGLE_AUDIO_PARTICIPANTS ||
+               mutation.type === twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN){
+               _changeState(_activeRoom.localParticipant)
             }
-            if(mutation.type === twilio_SETTERS.TOGGLE_AUDIO_PARTICIPANTS){
-               let normalizedData = {
-                  type: "toggleParticipantsAudio",
-                  data: mutation.payload
-               };
-               store.dispatch('sendDataTrack',JSON.stringify(normalizedData))
-            }
-            // if (mutation.type == "changeTab" || mutation.type =="enterfullScreen" ||) {
-            //    _changeState()
-            // }
          }
       })
 
