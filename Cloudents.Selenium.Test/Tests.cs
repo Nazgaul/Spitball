@@ -397,7 +397,7 @@ namespace Cloudents.Selenium.Test
             }
         }
 
-        [Fact(Skip ="Need to fix this test")]
+        [Fact]
         public void Feed_Search()
         {
             foreach (var driver in this._driver.Drivers)
@@ -412,8 +412,30 @@ namespace Cloudents.Selenium.Test
                 driver.FindElementByWait(By.XPath("//*[contains(@class, 'v-menu__content')]"));
                 
                 var types = driver.FindElements(By.XPath("//*[contains(@id, 'list-item-')]"));
-                //var items = driver.FindElements(By.XPath("//*[@role='listbox']//div"));
-                //items[1].Click();
+                types[1].Click();
+
+                driver.Url.Should().Contain("filter=");
+
+                categories.Click();
+
+                // Wait until this element is showing
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'v-menu__content')]"));
+
+                types[0].Click();
+
+                var searchBar = driver.FindElementByWait(By.XPath("//*[@class='v-text-field__slot']//input"));
+
+                searchBar.Click();
+
+                searchBar.SendKeys("Math" + Keys.Enter);
+
+                driver.Url.Should().Contain("term");
+
+                categories.Click();
+
+                // Wait until this element is showing
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'v-menu__content')]"));
+
                 types[1].Click();
 
                 driver.Url.Should().Contain("term=");

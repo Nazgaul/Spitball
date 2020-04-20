@@ -1,7 +1,7 @@
 <template>
     <general-page :mdAndDown="$vuetify.breakpoint.mdAndDown" :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="$route.name">
         <div slot="main" class="feedWrap">
-            <template v-if="showRequestBox">
+            <template>
                 <request-box class="request-box mb-0"/>
             </template>
             <v-flex xs12 class="analyticWrapper" v-if="showAnalyticStats">

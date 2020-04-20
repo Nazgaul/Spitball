@@ -1,19 +1,19 @@
 <template>
-    <div>
+    <div class="menuListTeacher">
         <v-list-item
-            v-for="link in satelliteLinksTeacher"
+            v-for="(link, index) in menuListTeacher"
             :href="link.url || ''"
             @click="link.action ? link.action() :  ''"
-            :key="link.title"
+            :key="index"
             sel="menu_row"
             link
             target="_blank"
         >
             <v-list-item-action>
-                <v-icon class="userMenu_icons">{{link.icon}}</v-icon>
+                <v-icon class="userMenu_icons" size="18" color="#69687d">{{link.icon}}</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-                {{link.title}}
+                <v-list-item-title class="userMenu_titles" v-t="link.title"></v-list-item-title>
             </v-list-item-content>
         </v-list-item>
     </div>
@@ -22,11 +22,14 @@
 <script>
 export default {
     props: {
-        satelliteLinksTeacher: {
+        menuListTeacher: {
             required: true
         },
-        satelliteLinksStudent: {
-            required: false // prevent from dom attr to show [object object]
+       menuListStudent: {
+            required: false
+        },
+        menuListNotLogged: {
+            required: false
         }
     }
 }
