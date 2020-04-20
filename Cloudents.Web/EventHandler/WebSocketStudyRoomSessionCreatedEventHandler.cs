@@ -13,10 +13,11 @@ namespace Cloudents.Web.EventHandler
     public class WebSocketStudyRoomSessionCreatedEventHandler
         : IEventHandler<StudyRoomSessionCreatedEvent>
     {
-        private readonly IHubContext<StudyRoomHub> _hubContext;
+        private readonly IHubContext<SbHub> _hubContext;
         private readonly IVideoProvider _videoProvider;
 
-        public WebSocketStudyRoomSessionCreatedEventHandler(IHubContext<StudyRoomHub> hubContext, IVideoProvider videoProvider)
+        public WebSocketStudyRoomSessionCreatedEventHandler(IHubContext<SbHub> hubContext,
+            IVideoProvider videoProvider)
         {
             _hubContext = hubContext;
             _videoProvider = videoProvider;
@@ -37,7 +38,9 @@ namespace Cloudents.Web.EventHandler
             foreach (var user in users.Where(w => w.User.Id != studyRoomSession.StudyRoom.Tutor.Id))
             {
                 var jwtToken = _videoProvider.CreateRoomToken(session, user.User.Id);
-                var t = _hubContext.Clients.User(user.User.Id.ToString()).SendAsync("studyRoomToken", jwtToken, token);
+                var t = _hubContext.Clients.User(user.User.Id.ToString()).SendAsync("studyRoomToken", 
+                    jwtToken,studyRoomSession.StudyRoom.Id,
+                    token);
                 tasks.Add(t);
             }
             await Task.WhenAll(tasks);

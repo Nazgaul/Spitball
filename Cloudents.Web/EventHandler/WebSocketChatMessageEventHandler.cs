@@ -20,7 +20,7 @@ namespace Cloudents.Web.EventHandler
     public class WebSocketChatMessageEventHandler : IEventHandler<ChatMessageEvent>
     {
         private readonly IHubContext<SbHub> _hubContext;
-        private readonly IHubContext<StudyRoomHub> _studyRoomContext;
+      //  private readonly IHubContext<StudyRoomHub> _studyRoomContext;
 
         private readonly IChatDirectoryBlobProvider _blobProvider;
         private readonly IBinarySerializer _binarySerializer;
@@ -29,14 +29,16 @@ namespace Cloudents.Web.EventHandler
        // private readonly IUrlBuilder _urlBuilder;
 
         public WebSocketChatMessageEventHandler(IHubContext<SbHub> hubContext, IChatDirectoryBlobProvider blobProvider, 
-            IBinarySerializer binarySerializer, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor, IHubContext<StudyRoomHub> studyRoomContext)
+            IBinarySerializer binarySerializer, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor
+            //IHubContext<StudyRoomHub> studyRoomContext
+            )
         {
             _hubContext = hubContext;
             _blobProvider = blobProvider;
             _binarySerializer = binarySerializer;
             _linkGenerator = linkGenerator;
             _httpContextAccessor = httpContextAccessor;
-            _studyRoomContext = studyRoomContext;
+           // _studyRoomContext = studyRoomContext;
             // _urlBuilder = urlBuilder;
         }
 

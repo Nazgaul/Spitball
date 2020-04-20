@@ -402,7 +402,7 @@ namespace Cloudents.Web
                 app.UseAzureSignalR(routes =>
                 {
                     routes.MapHub<SbHub>("/SbHub");
-                    routes.MapHub<StudyRoomHub>("/StudyRoomHub");
+                  //  routes.MapHub<StudyRoomHub>("/StudyRoomHub");
                 });
             }
 
@@ -414,7 +414,7 @@ namespace Cloudents.Web
 #pragma warning disable 162
                 {
                     endpoints.MapHub<SbHub>("/SbHub");
-                    endpoints.MapHub<StudyRoomHub>("/StudyRoomHub");
+                   // endpoints.MapHub<StudyRoomHub>("/StudyRoomHub");
                 }
 #pragma warning restore 162
 

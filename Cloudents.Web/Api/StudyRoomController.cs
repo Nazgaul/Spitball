@@ -22,6 +22,8 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Hubs;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Localization;
 
@@ -37,13 +39,15 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly IStringLocalizer<StudyRoomController> _localizer;
         private readonly UserManager<User> _userManager;
+        private readonly IHubContext<SbHub> _hubContext;
 
-        public StudyRoomController(ICommandBus commandBus, UserManager<User> userManager, IQueryBus queryBus, IStringLocalizer<StudyRoomController> localizer)
+        public StudyRoomController(ICommandBus commandBus, UserManager<User> userManager, IQueryBus queryBus, IStringLocalizer<StudyRoomController> localizer, IHubContext<SbHub> hubContext)
         {
             _commandBus = commandBus;
             _userManager = userManager;
             _queryBus = queryBus;
             _localizer = localizer;
+            _hubContext = hubContext;
         }
 
         /// <summary>
@@ -100,7 +104,6 @@ namespace Cloudents.Web.Api
             [FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-
             try
             {
                 await _commandBus.DispatchAsync(new EnterStudyRoomCommand(id, userId), default);

@@ -226,7 +226,7 @@
       </sb-dialog>
       <!--show only if not avaliable devices dialog is closed by user-->
       <sb-dialog
-        :showDialog="getStudentStartDialog && !getDialogRoomSettings"
+        :showDialog="!getDialogRoomSettings"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'startSessionStudent'"
         :maxWidth="'356'"
@@ -279,8 +279,8 @@
 </template>
 <script>
 
-import initSignalRService from "../../services/signalR/signalrEventService";
-import {CloseConnection} from "../../services/signalR/signalrEventService";
+//import initSignalRService from "../../services/signalR/signalrEventService";
+//import {CloseConnection} from "../../services/signalR/signalrEventService";
 import { mapActions, mapGetters } from "vuex";
 import videoStream from "./videoStream/videoStream.vue";
 import whiteBoard from "./whiteboard/WhiteBoard.vue";
@@ -411,7 +411,7 @@ export default {
       "getPanX",
       "getPanY",
       "getReviewDialogState",
-      "getStudentStartDialog",
+      //"getStudentStartDialog",
       "getDialogRoomEnd",
       "accountUser",
       "getIsRecording",
@@ -653,7 +653,7 @@ watch: {
     storeService.unregisterModule(this.$store,'roomRecording_store');
     storeService.unregisterModule(this.$store,'codeEditor_store');
     if(this.id){
-      CloseConnection(`studyRoomHub?studyRoomId=${this.id}`);
+      //CloseConnection(`studyRoomHub?studyRoomId=${this.id}`);
     }
 
   },
@@ -681,7 +681,7 @@ watch: {
 
     if(this.id){
       if(this.$store.getters.accountUser?.id){
-        initSignalRService(`studyRoomHub?studyRoomId=${this.id}`);
+        //initSignalRService(`studyRoomHub?studyRoomId=${this.id}`);
         insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null) 
         this.$store.dispatch('updateStudyRoomInformation',this.id).catch((err)=>{
             if(err?.response){
