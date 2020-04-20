@@ -70,17 +70,17 @@ export const signlaREvents = {
                 // store.dispatch("signalRAddRoomInformationMessage", roomInfo);
             // });
         // },
-        update:function(arrEventObj){
-            arrEventObj.forEach((roomStatusInformation)=>{
-                // TODO: remove it
-                if(!store.getters.getJwtToken){
-                    store.dispatch('updateJwtToken',roomStatusInformation.jwtToken)
-                }
-                // TODO: remove it
+        // update:function(arrEventObj){
+        //     arrEventObj.forEach((roomStatusInformation)=>{
+        //         // TODO: remove it
+        //         if(!store.getters.getJwtToken){
+        //             store.dispatch('updateJwtToken',roomStatusInformation.jwtToken)
+        //         }
+        //         // TODO: remove it
 
-                // store.dispatch("signalR_UpdateState", roomStatusInformation);
-            });
-        },
+        //         // store.dispatch("signalR_UpdateState", roomStatusInformation);
+        //     });
+        // },
         action:function(arrEventObj){
             arrEventObj.forEach((sessionInformation)=>{
                 // TODO: remove it
