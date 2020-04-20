@@ -7,7 +7,7 @@
                     v-model="singleMicrophoneId"
                     :items="microphoneList"
                     @change="validateMicrophone()"
-                    class="selectAudio"
+                    class="selectAudio flex-grow-1"
                     :label="$t('studyRoomSettings_audio_select_label')"
                     :placeholder="$t('studyRoomSettings_mic_placeholder')"
                     item-value="deviceId"
@@ -30,6 +30,7 @@
         <div class="studyRoom-audio-settings-speaker-container mt-8">
             <h4 class="studyRoom-audio-settings-speaker-label mb-4" v-t="'studyRoomSettings_audio_output'"></h4>
             <div class="audio-output-controls">
+                <speakerImage />
                 <button @click="playTestSound" v-if="!isPlaying" v-t='"studyRoomSettings_audio_test_sound"'></button>
                 <button @click="stopSound" v-else v-t='"studyRoomSettings_audio_stop_sound"'></button>
                 <v-flex v-if="isPlaying" class="eq-image-container">
@@ -44,10 +45,12 @@
 import studyRoomAudioSettingService from './studyRoomAudioSettingService';
 
 import microphoneImage from '../../../../images/microphone.svg';
+import speakerImage from '../../images/speaker.svg';
 
 export default {
     components: {
-        microphoneImage
+        microphoneImage,
+        speakerImage
     },
     data(){
         return{
@@ -108,12 +111,13 @@ export default {
 
 .studyRoom-audio-settings-container{
     margin-top: 36px;
+    width: 100%;
     .studyRoom-audio-settings-microphone-container{
         .audioSelect{
             .selectAudio {
-                flex: 4;
+                min-width: 400px;
+                flex-basis: 0;
                 font-size: 14px;
-
                 .v-input__slot {
                     min-height: 38px !important; // vuetify
                 }
@@ -140,6 +144,7 @@ export default {
 
                 .image {
                     fill: #7a798c;
+                    flex-shrink: 0;
                 }
                 .audio-input-meter {
                     background: #16eab1;

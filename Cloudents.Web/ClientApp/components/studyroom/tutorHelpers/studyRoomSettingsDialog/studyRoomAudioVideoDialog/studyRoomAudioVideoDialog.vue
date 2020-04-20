@@ -3,7 +3,7 @@
         <div class="studyRoomSettingsWrapper">
             <div class="audioVideoTabs d-flex align-center text-center">
                 <div class="tabBtn video" :class="{'active': !toggleActiveClass}" @click="switchComponent">
-                    <videoCameraImage class="image" width="24" height="40" />
+                    <videoCameraImage class="image vidSvg" width="24" height="40" />
                     <div class="tabText ml-1" v-t="'studyRoomSettings_video_title'"></div>
                 </div>
 
@@ -16,7 +16,7 @@
             <div class="mainWrap pa-4 pt-0 ">
                 <component :is="currenctComponent"></component>
 
-                <div class="text-right">
+                <div class="text-right btnWrap">
                     <v-btn
                       class="white--text text-truncate"
                       @click="$emit('closeAudioVideoSettingDialog', false)"
@@ -37,7 +37,7 @@
 import studyRoomVideoSetting from "./studyRoomVideoSetting/studyRoomVideoSetting.vue";
 import studyRoomAudioSetting from "./studyRoomAudioSetting/studyRoomAudioSetting.vue";
 
-import videoCameraImage from '../../../images/video-camera.svg';
+import videoCameraImage from '../images/videocam.svg';
 import microphoneImage from '../../../images/microphone.svg';
 
 export default {
@@ -112,6 +112,11 @@ export default {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      align-items: center;
+
+      .btnWrap {
+        width: 100%;
+      }
     }
   }
 }

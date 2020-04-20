@@ -1,7 +1,6 @@
 <template>
-    <div class="srVideoSettingsVideoContainer">
-        <v-row class="srVideoSettingsVideoContainer ma-0 elevation-2">
-
+    <div class="srVideoSettingsVideoContainerWrap">
+        <v-row class="srVideoSettingsVideoContainer ma-md-0 ma-auto elevation-2">
             <div class="cameraTextWrap text-center">
                 <div class="noCamera white--text" v-if="!camerasList.length" v-t="'studyRoomSettings_no_camera'"></div>
                 <i18n class="blockPermission inCamera white--text" v-if="permissionDenied" :path="permissionText" tag="div">
@@ -34,7 +33,9 @@
                 <v-icon color="#fff" @click="settingDialogState = true" size="26">sbf-settings</v-icon>
             </div>
 
-            <div id="local-video-test-track"></div>
+            <div id="local-video-test-track">
+                <video id="videoPlaceholder" width="600" height="400" v-show="!cameraOn"></video>
+            </div>
             <div class="videoOverlay"></div>
         </v-row>
 
@@ -140,11 +141,14 @@ export default {
                 .then(track => {
                     // Checking whether a video tag is already have been attached to dom.
                     // Reason: duplicate video attached when pluggin device on/off
-                    if(!document.getElementsByTagName('video').length) {
+                    let videoPlaceholderExist = document.getElementById('videoPlaceholder')
+
+                    if(videoPlaceholderExist) {
                         self.videoEl = document.getElementById('local-video-test-track');
                         self.localTrack = track;
                         self.videoEl.appendChild(self.localTrack.attach());
                         self.$store.dispatch('updateVideoTrack',self.singleCameraId)
+                        videoPlaceholderExist
                     }
                 }).catch(err => {
                     self.permissionDenied = true
@@ -192,15 +196,21 @@ export default {
 </script>
 
 <style lang="less">
-// @import '../../../../styles/mixin';
+@import '../../../../../styles/mixin';
 @import '../../../../../styles/colors';
-.srVideoSettingsVideoContainer{
-    min-width: 680px;
+.srVideoSettingsVideoContainerWrap {
+    max-width: 600px;
+    // height: 400px;
+    // width: 100%;
     .srVideoSettingsVideoContainer {
         width: 100%;
         position: relative;
         border-radius: 8px;
         background-color: #202124;
+
+        // @media (max-width: @screen-sm) {
+        //     max-width: 400px;
+        // }
         .cameraTextWrap {
             margin: 0 100px;
             position: absolute;
@@ -247,8 +257,15 @@ export default {
         }
         #local-video-test-track{
             width: 100%;
-            height: 400px;
-            video{
+
+            .videoPlaceHolder {
+                    width: 100%;
+                    border-radius: 8px;
+                    height: 100%;
+                    text-align: center;
+                    display: block;
+                }
+            video {
                 width: 100%;
                 border-radius: 8px;
                 height: 100%;
@@ -257,13 +274,14 @@ export default {
             }
         }
         .videoOverlay {
-            background-image: -webkit-linear-gradient(bottom,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
-            background-image: linear-gradient(bottom,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
-            height: 80px;
-            margin-top: -80px;
-            position: relative;
+            background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.7) 0, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
+            background-image: linear-gradient(bottom, rgba(0, 0, 0, 0.7) 0, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
+            /* margin-top: -80px; */
             width: 100%;
-            border-radius: 6px
+            border-radius: 6px;
+            position: absolute;
+            bottom: 0;
+            height: 100px;
         }
     }
 }

@@ -13,6 +13,7 @@
                 :prepend-icon="''"
                 :append-icon="'sbf-arrow-down'"
                 item-value="deviceId"
+                item-text="label"
                 hide-details
                 outlined
                 dense
@@ -21,7 +22,7 @@
         </div>
         
         <v-flex xs12  class="mt-4 mb-4 studyRoom-video-settings-video-container">
-            <div id="local-video-test-track"></div>
+            <div id="local-video-test-track1"></div>
         </v-flex>
     </div>
 </template>
@@ -69,7 +70,7 @@ export default {
             let self = this;
             createLocalVideoTrack({width: 490, height: 368, deviceId: {exact: self.singleCameraId}})
                 .then(track => {
-                    self.videoEl = document.getElementById('local-video-test-track');
+                    self.videoEl = document.getElementById('local-video-test-track1');
                     self.localTrack = track;
                     self.videoEl.appendChild(self.localTrack.attach());
                     self.$store.dispatch('updateVideoTrack',self.singleCameraId)
@@ -99,6 +100,7 @@ export default {
 @import '../../../../../../styles/colors.less';
 
 .studyRoomVideoSettings{
+    width: 100%;
     margin-top: 36px;
     .studyRoom-video-settings-title {
         .studyRoom-video-settings-label{
@@ -128,11 +130,14 @@ export default {
         }
     }
     .studyRoom-video-settings-video-container{
+        width: 100%;
         height: 300px;
+        overflow: hidden;
         background-color: gray;
-        #local-video-test-track {
+        #local-video-test-track1 {
             video {
-                width:100%;
+                width: 100%;
+                overflow: hidden;
             }
         }
     }

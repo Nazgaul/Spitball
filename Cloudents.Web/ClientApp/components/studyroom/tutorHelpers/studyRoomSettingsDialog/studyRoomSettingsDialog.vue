@@ -5,11 +5,10 @@
                 <a @click="resetItems" class="logo-link">
                     <appLogo />
                 </a>
-                <v-icon @click="closeDialog" size="14">sbf-close</v-icon>
             </div>
 
             <div class="settingsMain d-flex align-center justify-center">
-                <div class="d-flex align-center">
+                <div class="wrap d-md-flex d-block align-center mx-5">
                     <studyRoomVideo />
                     <studyRoomSettingDetails :isRoomActive="isRoomActive" @updateRoomIsActive="val => isRoomActive = val" />
                 </div>
@@ -76,6 +75,11 @@ export default {
   
     .settingsMain {
       height: inherit;
+      padding-top: 70px;
+
+      .wrap {
+        height: 100%;
+      }
     }
 
   }

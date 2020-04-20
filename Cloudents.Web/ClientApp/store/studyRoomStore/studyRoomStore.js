@@ -151,7 +151,7 @@ const actions = {
 			      let now = new Date();
                let distance = countDownDate - now;
                if (distance > 0) {
-                  commit('setComponent', 'simpleToaster_countDown');
+                  commit('setComponent', 'studyRoomSettings');
                }
             }
             if (roomProps.jwt){
