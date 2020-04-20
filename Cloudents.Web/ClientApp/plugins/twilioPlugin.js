@@ -10,51 +10,88 @@ const AUDIO_TRACK_NAME = 'audioTrack';
 const VIDEO_TRACK_NAME = 'videoTrack';
 const SCREEN_TRACK_NAME = 'screenTrack';
 
-function _initStudentJoined(localParticipant){
-   // update editor tab:
-   let editorTab = {
-      type: "updateActiveNav",
-      data: STORE.getters.getActiveNavEditor
-   };
-   STORE.dispatch('sendDataTrack',JSON.stringify(editorTab));
+const CURRENT_STATE="1";
 
-   // update canvas tab:
-   let canvasTab = {
-      type: "updateTabById",
-      data:{
+
+function _changeState(localParticipant) {
+   let stuffToSend =  {
+      type: CURRENT_STATE,
+      tab : STORE.getters.getActiveNavEditor,
+      canvasTab : {
          tab: STORE.getters.getCurrentSelectedTab,
          canvas: STORE.getters.canvasDataStore
+      },
+      mute : STORE.getters.getIsAudioParticipants,
+      fullScreen: null
+   };
+   localParticipant.tracks.forEach((track) => {
+      if(track.trackName === VIDEO_TRACK_NAME && STORE.getters.getIsFullScreen 
+         || track.trackName === SCREEN_TRACK_NAME){
+         stuffToSend.fullScreen = track.trackSid;
+         // let shareVideoCamera = {
+         //    type: "openFullScreen",
+         //    data: `remoteTrack_${track.trackSid}`
+
+         // };
+         // STORE.dispatch('sendDataTrack',JSON.stringify(shareVideoCamera))
       }
-   }
-   STORE.dispatch('sendDataTrack',JSON.stringify(canvasTab));
-
-   // share screen & video full screen:
-   Array.from(localParticipant.tracks.values()).forEach((track) => {
-         if(track.trackName === VIDEO_TRACK_NAME && STORE.getters.getIsFullScreen){
-            let shareVideoCamera = {
-               type: "openFullScreen",
-               data: `remoteTrack_${track.trackSid}`
-
-            };
-            STORE.dispatch('sendDataTrack',JSON.stringify(shareVideoCamera))
-         }
-         if(track.trackName === SCREEN_TRACK_NAME){
-            let shareScreen = {
-               type: "openFullScreen",
-               data: `remoteTrack_${track.trackSid}`
-            };
-            STORE.dispatch('sendDataTrack',JSON.stringify(shareScreen))
-         }
+      // if(track.trackName === SCREEN_TRACK_NAME){
+      //    let shareScreen = {
+      //       type: "openFullScreen",
+      //       data: `remoteTrack_${track.trackSid}`
+      //    };
+      //    STORE.dispatch('sendDataTrack',JSON.stringify(shareScreen))
+      // }
    });
-   // room muted by tutor:
-   if(!STORE.getters.getIsAudioParticipants){
-      let normalizedData = {
-         type: "toggleParticipantsAudio",
-         data: STORE.getters.getIsAudioParticipants
-      };
-      STORE.dispatch('sendDataTrack',JSON.stringify(normalizedData))
-   }
+   STORE.dispatch('sendDataTrack',JSON.stringify(stuffToSend));
 }
+
+// function _initStudentJoined(localParticipant){
+//    // update editor tab:
+
+//    let editorTab = {
+//       type: "updateActiveNav",
+//       data: STORE.getters.getActiveNavEditor
+//    };
+//    STORE.dispatch('sendDataTrack',JSON.stringify(editorTab));
+
+//    // update canvas tab:
+//    let canvasTab = {
+//       type: "updateTabById",
+//       data:{
+//          tab: STORE.getters.getCurrentSelectedTab,
+//          canvas: STORE.getters.canvasDataStore
+//       }
+//    }
+//    STORE.dispatch('sendDataTrack',JSON.stringify(canvasTab));
+
+//    // share screen & video full screen:
+//    Array.from(localParticipant.tracks.values()).forEach((track) => {
+//          if(track.trackName === VIDEO_TRACK_NAME && STORE.getters.getIsFullScreen){
+//             let shareVideoCamera = {
+//                type: "openFullScreen",
+//                data: `remoteTrack_${track.trackSid}`
+
+//             };
+//             STORE.dispatch('sendDataTrack',JSON.stringify(shareVideoCamera))
+//          }
+//          if(track.trackName === SCREEN_TRACK_NAME){
+//             let shareScreen = {
+//                type: "openFullScreen",
+//                data: `remoteTrack_${track.trackSid}`
+//             };
+//             STORE.dispatch('sendDataTrack',JSON.stringify(shareScreen))
+//          }
+//    });
+//    // room muted by tutor:
+//    if(!STORE.getters.getIsAudioParticipants){
+//       let normalizedData = {
+//          type: "toggleParticipantsAudio",
+//          data: STORE.getters.getIsAudioParticipants
+//       };
+//       STORE.dispatch('sendDataTrack',JSON.stringify(normalizedData))
+//    }
+// }
 function _detachTracks(tracks){
    tracks.forEach((track) => {
       if (track?.detach) {
@@ -93,6 +130,7 @@ function _twilioListeners(room,store) {
       let tracks = Array.from(participant.tracks.values());
       tracks.forEach((track) => {
          if(track.kind === 'video'){
+            console.log(participant,track)
             store.commit(twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK,track)
          }
       });
@@ -147,6 +185,7 @@ function _twilioListeners(room,store) {
    })
    room.on('trackStarted', (track) => {
       if(track.kind === 'video'){
+         console.log(track)
          store.commit(twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK,track)
       }
       if(track.kind === 'audio'){   
@@ -173,54 +212,55 @@ function _twilioListeners(room,store) {
 
    // room tracks events: 
    room.on('trackMessage', (message) => {
-      console.log('trackMessage',message);
-      let data = JSON.parse(message)
-      _insightEvent('trackMessage', data, null);
+      let data = JSON.parse(message);
+      if (data.type == CURRENT_STATE) {
+         //We put our code in here
+         store.dispatch('updateAudioToggleByRemote',message.mute)
+         store.dispatch('updateFullScreen',message.fullScreen)
+         store.dispatch('updateActiveNavEditor', message.tab)
+         store.dispatch('tempWhiteBoardTabChanged',message.canvasTab)
+         store.dispatch('sendDataTrack', {
+            type : 'ACK'
+         });
+         return;
+      }
+      if (data.type == 'ACK') {
+         //Remove the interval
+      }
       store.dispatch('dispatchDataTrackJunk',data)
    })
-   room.on('trackPublished', (x) => {
-      console.log('x',x)
-   })
+   // room.on('trackPublished', (track) => {
+     
+
+   //    // if(store.getters.getRoomIsTutor){
+   //    //    if(track.kind === 'data'){
+   //    //          console.log('y')
+   //    //          _initStudentJoined(room.localParticipant)
+   //    //    }
+   //    // }
+       
+   //    console.log('x',track)
+   // })
    room.on('trackUnpublished', () => {
    })
    // room connections events:
    room.on('participantConnected', (participant) => {
-      function trackSubscribed(participant, track) {
-         console.log(`LocalParticipant subscribed to RemoteParticipant "${participant.identity}"'s ${track.kind} Track ${track.sid}`);
-         if (track.kind === 'audio' || track.kind === 'video') {
-           //track.attach(`#${participant.sid} > video`);
-         } else if (track.kind === 'data') {
-           //const color = colorHash.hex(track.id);
-           track.on('message', data => {
-              console.log('ram-message',data);
-            //  const { mouseDown, mouseCoordinates: { x, y } } = JSON.parse(data);
-            //  if (mouseDown) {
-            //    drawCircle(canvas, color, x, y);
-            //  }
-           });
-         }
-       }
-      function trackPublished(participant, publication) {
-         console.log(`RemoteParticipant "${participant.identity}" published ${publication.kind} Track ${publication.trackSid}`);
-         if (publication.isSubscribed) {
-           trackSubscribed(participant, publication.track);
-         } else {
-           publication.on('subscribed', track => trackSubscribed(participant, track));
-         }
-        // publication.on('unsubscribed', track => trackUnsubscribed(participant, track));
-       }
-       
+     
+     
+
+      
 
       if(store.getters.getRoomIsTutor){
          store.commit('setComponent', 'simpleToaster_userConnected');
          console.log(participant);
          participant.on('trackSubscribed',(track)=>{
             if(track.kind === 'data'){
-               console.log('y')
-               _initStudentJoined(room.localParticipant)
+               _changeState(room.localParticipant);
+               //_initStudentJoined(room.localParticipant)
             }
          })
-         participant.tracks.forEach(publication => trackPublished(participant, publication));
+        
+        // participant.tracks.forEach(publication => trackPublished(participant, publication));
       }
       _insightEvent('TwilioParticipantConnected', participant, null);
    })
