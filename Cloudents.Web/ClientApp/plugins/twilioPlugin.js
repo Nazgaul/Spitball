@@ -111,6 +111,7 @@ function _twilioListeners(room,store) {
       _insightEvent('networkQuality',networkQualityStats, networkQualityLevel)
    });
    room.localParticipant.on('trackPublished',(track)=>{
+      console.log('trackPublished')
       if(store.getters.getRoomIsTutor && track.trackName === SCREEN_TRACK_NAME){
          let videoElementId = `remoteTrack_${track.trackSid}`
          let transferDataObj = {
@@ -125,6 +126,7 @@ function _twilioListeners(room,store) {
 
    // room events
    room.on('trackSubscribed', (track) => {
+      console.log('trackSubscribed')
       _insightEvent('TwilioTrackSubscribed', track, null);
       // _detachTracks([track],store)
    })
@@ -139,6 +141,7 @@ function _twilioListeners(room,store) {
    room.on('trackDisabled', () => {
    })
    room.on('trackEnabled', () => {
+      console.log('trackEnabled')
    })
    room.on('trackRemoved',()=>{
    })
@@ -175,6 +178,7 @@ function _twilioListeners(room,store) {
       store.dispatch('dispatchDataTrackJunk',data)
    })
    room.on('trackPublished', () => {
+      console.log('x')
    })
    room.on('trackUnpublished', () => {
    })
@@ -184,6 +188,7 @@ function _twilioListeners(room,store) {
          store.commit('setComponent', 'simpleToaster_userConnected');
          participant.on('trackSubscribed',(track)=>{
             if(track.kind === 'data'){
+               console.log('y')
                _initStudentJoined(room.localParticipant)
             }
          })
