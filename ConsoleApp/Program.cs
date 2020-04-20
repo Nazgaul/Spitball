@@ -91,7 +91,7 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Dev;
+            var env = EnvironmentSettings.Prod;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
@@ -135,8 +135,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await PopulateDb();
-            await GoogleSheetsReader.Read();
+            await DeleteOldStuff.DoStuff();
+            //await PopulateDb();
+            //await GoogleSheetsReader.Read();
             //await DeleteOldStuff.DoStuff();
         }
 

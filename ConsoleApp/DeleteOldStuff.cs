@@ -27,11 +27,30 @@ namespace ConsoleApp
 
         public static async Task DoStuff()
         {
+            await DeleteFlaggedDocument();
             await DeleteOldQuestion();
             await DeleteOldDocuments();
             await DeleteNotUsedCourses();
             await ResyncTutorRead();
         }
+
+        private static async Task DeleteFlaggedDocument()
+        {
+            var statelessSession = Container.Resolve<IStatelessSession>();
+            int i;
+            do
+            {
+                Console.WriteLine("Turn to delete");
+                var sqlQuery = statelessSession.CreateSQLQuery(@"
+            update top(1000) sb.Document
+            set state = 'Deleted', DeletedOn = '2020-02-16 18:39:13.9970249'
+            where state = 'flagged' and FlagReason = 'Eidan asked to remove on 2020-03-12'
+");
+
+                i = await sqlQuery.ExecuteUpdateAsync();
+            } while (i > 0);
+        }
+
 
 
         private static async Task ResyncTutorRead()
@@ -77,7 +96,7 @@ EXCEPT
 select distinct q.CourseId from sb.Question q ) t");
 
                 var list = await sqlQuery.ListAsync<string>();
-
+                Console.WriteLine("courses " + list.Count);
                 if (list.Count == 0)
                 {
                     break;
@@ -118,7 +137,7 @@ COMMIT;  ";
                                     .AddDays(-60))
                     .Take(100)
                     .ToListAsync();
-
+                Console.WriteLine("question " + deletedDocuments.Count);
                 if (deletedDocuments.Count == 0)
                 {
                     break;
@@ -194,7 +213,7 @@ COMMIT;  ";
                     .AddDays(-60))
                     .Take(100)
                     .ToListAsync();
-
+                Console.WriteLine("document " + deletedDocuments.Count);
                 if (deletedDocuments.Count == 0)
                 {
                     break;
