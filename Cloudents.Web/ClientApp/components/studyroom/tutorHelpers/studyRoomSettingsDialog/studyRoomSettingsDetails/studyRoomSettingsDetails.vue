@@ -58,6 +58,7 @@
             <v-row v-else dense class="tutorActions">
                 <v-col>
                     <v-btn
+                        @click="tutorActions('whiteboard')"
                         color="#4c59ff"
                         height="46"
                         width="140"
@@ -71,6 +72,7 @@
                 </v-col>
                 <v-col>
                     <v-btn
+                        @click="tutorActions('present')"
                         color="#4c59ff"
                         height="46"
                         width="140"
@@ -84,6 +86,7 @@
                 </v-col>
                 <v-col>
                     <v-btn
+                        @click="tutorActions('fullview')"
                         color="#4c59ff"
                         height="46"
                         width="140"
@@ -119,8 +122,16 @@ export default {
     props: {
         isRoomActive: {
             type: Boolean,
-            default: false,
             required: true
+        }
+    },
+    data() {
+        return {
+            actions: {
+                whiteboard: this.whiteboard,
+                present: this.present,
+                fullview: this.fullview,
+            }
         }
     },
     computed: {
@@ -151,7 +162,29 @@ export default {
             // TODO: Make room link getter from store
             return `${window.origin}/studyroom/${this.$route.params.id}`
         }
-    }
+    },
+     methods: {
+         tutorActions(name) {
+            let self = this
+            this.$store.dispatch('updateEnterRoom', this.$route.params.id)
+                .then(() => {
+                    self.$emit('updateRoomIsActive', true)
+                    self.actions[name]();
+                }).catch(ex => {
+                    self.$appInsights.trackException({exception: new Error(ex)});
+                })
+         },
+        whiteboard() {
+            this.$store.commit('setComponent', '')
+        },
+        present() {
+            this.$store.dispatch('updateShareScreen', true)
+        },
+        fullview() {
+            this.$store.dispatch('updateToggleTutorFullScreen', true);
+        },
+        
+     }
 }
 </script>
 
