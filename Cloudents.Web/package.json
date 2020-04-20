@@ -86,7 +86,7 @@
     "intersection-observer": "^0.7.0",
     "myscript": "^4.3.0",
     "timeago.js": "^4.0.2",
-    "twilio-video": "2.0.0",
+    "twilio-video": "2.3.0",
     "vue-application-insights": "1.0.6",
     "vue-clipboard2": "^0.3.1",
     "vue-codemirror": "^4.0.6",
