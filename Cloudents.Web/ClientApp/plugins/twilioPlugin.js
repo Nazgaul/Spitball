@@ -219,7 +219,7 @@ function _twilioListeners(room,store) {
          store.dispatch('updateAudioToggleByRemote',data.mute)
          store.dispatch('updateFullScreen',data.fullScreen)
          store.dispatch('updateActiveNavEditor', data.tab)
-         store.dispatch('tempWhiteBoardTabChanged',data.canvasTab)
+        // store.dispatch('tempWhiteBoardTabChanged',data.canvasTab)
          store.dispatch('sendDataTrack', JSON.stringify( {
             type : 'ACK'
          }));
