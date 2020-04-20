@@ -11,7 +11,7 @@ const VIDEO_TRACK_NAME = 'videoTrack';
 const SCREEN_TRACK_NAME = 'screenTrack';
 
 const CURRENT_STATE="1";
-
+let intervalTime = null;
 
 function _changeState(localParticipant) {
    let stuffToSend =  {
@@ -225,6 +225,7 @@ function _twilioListeners(room,store) {
          return;
       }
       if (data.type == 'ACK') {
+         clearInterval(intervalTime)
          //Remove the interval
       }
       store.dispatch('dispatchDataTrackJunk',data)
@@ -255,7 +256,10 @@ function _twilioListeners(room,store) {
          console.log(participant);
          participant.on('trackSubscribed',(track)=>{
             if(track.kind === 'data'){
-               _changeState(room.localParticipant);
+               intervalTime= setInterval(() => {
+                  _changeState(room.localParticipant);
+
+               },100);
                //_initStudentJoined(room.localParticipant)
             }
          })
