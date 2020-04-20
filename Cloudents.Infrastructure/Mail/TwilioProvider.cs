@@ -7,10 +7,12 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
+using Newtonsoft.Json;
 using Twilio;
 using Twilio.Http;
 using Twilio.Jwt.AccessToken;
 using Twilio.Rest.Lookups.V1;
+using Twilio.Rest.Verify.V2.Service;
 using Twilio.Rest.Video.V1;
 
 
@@ -65,9 +67,15 @@ namespace Cloudents.Infrastructure.Mail
                     }
                 );
 
+               
+
                 if (result == null)
                 {
                     return (null, null);
+                }
+                if (result.CountryCode == "CA")
+                {
+                    return (result.PhoneNumber.ToString(), result.CountryCode);
                 }
                 var carrier = result.Carrier;
 
@@ -80,8 +88,6 @@ namespace Cloudents.Infrastructure.Mail
                 }
                 if (carrier.TryGetValue("name", out var carrierName))
                 {
-
-
                     if (_badProviders.Contains(carrierName, StringComparer.OrdinalIgnoreCase))
                     {
                         return (null, null);
@@ -94,6 +100,42 @@ namespace Cloudents.Infrastructure.Mail
             {
                 return (null, null);
             }
+        }
+
+        public async Task SendVerificationCodeAsync(string phoneNumber, CancellationToken token)
+        {
+            // var service = Twilio.Rest.Verify.V2.ServiceResource.Create(friendlyName: "My Verify Service");
+           // phoneNumber = BuildPhoneNumber(phoneNumber, countryCode);
+            //VerificationResource.Create()
+            var verificationCheck = await VerificationResource.CreateAsync(
+                to: phoneNumber,
+                channel:"sms",
+                pathServiceSid: "VA54583e5d91fabd4433a82fc263a8a696"
+            );
+
+           // return (null, null);
+        }
+
+        public async Task<bool> VerifyCodeAsync(string phoneNumber,string code, CancellationToken token)
+        {
+            // var service = Twilio.Rest.Verify.V2.ServiceResource.Create(friendlyName: "My Verify Service");
+            // phoneNumber = BuildPhoneNumber(phoneNumber, countryCode);
+            //VerificationResource.Create()
+            try
+            {
+                var verificationCheck = await VerificationCheckResource.CreateAsync(
+                    to: phoneNumber,
+                    code: code,
+                    pathServiceSid: "VA54583e5d91fabd4433a82fc263a8a696"
+                );
+                return verificationCheck.Status == "approved";
+            }
+            catch (Twilio.Exceptions.ApiException)
+            {
+                return false;
+            }
+
+            // return (null, null);
         }
 
 

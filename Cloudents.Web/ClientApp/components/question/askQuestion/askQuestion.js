@@ -73,9 +73,15 @@ export default {
         },
         closeAddQuestionDialog() {
             this.updateNewQuestionDialogState(false);
-        }
+        },
     },
     created() {
+        this.$store.dispatch('updateFeedCourses').then(({data}) => {
+            this.suggestsCourses = data
+        })
+        if(this.$route.query && this.$route.query.term){
+            this.questionCourse = this.$route.query.term;
+        }
         if(this.$route.query && this.$route.query.Course){
             this.questionCourse = this.$route.query.Course;
         }

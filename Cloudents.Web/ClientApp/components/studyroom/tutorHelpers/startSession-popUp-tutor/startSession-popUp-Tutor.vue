@@ -6,14 +6,13 @@
             </v-flex>
         </v-layout>
         <v-layout column align-center>
-            <span v-if="$store.getters.getRoomIsBroadcast && !isRoomNow">{{time.days}}:{{time.hours}}:{{time.minutes}}:{{time.seconds}}</span>
+            <span v-if="$store.getters.getRoomIsBroadcast && interVal">{{time.days}}:{{time.hours}}:{{time.minutes}}:{{time.seconds}}</span>
             <v-flex xs12 style="text-align: center;" class="pt-2">
                 <span v-language:inner="'tutor_can_be_recorded'"></span>
             </v-flex>
             <v-flex xs12 class="pt-5">
                 <v-btn height="48" class="start-session-btn ma-2 elevation-0 align-center justify-center"
                         large
-                        :disabled="!isRoomNow"
                         :loading="isLoading"
                         @click="startSession()">
                     <timerIcon class="timer-icon mr-2"></timerIcon>
@@ -33,7 +32,6 @@
         data() {
             return {
                 isLoading:false,
-                isRoomNow:false,
                 interVal:null,
                 time:{
                     days:'00',
@@ -96,7 +94,7 @@
                 this.time.seconds = Math.floor((distance % (minute)) / second).toLocaleString('en-US', {minimumIntegerDigits: 2});
                 if (distance < 0) {
                     clearInterval(this.interVal);
-                    this.isRoomNow = true;
+                    this.interVal = null;
                 }
             }
         },
@@ -108,8 +106,6 @@
         created() {
             if(this.$store.getters.getRoomIsBroadcast){
                 this.setParamsInterval();
-            }else{
-                this.isRoomNow = true;
             }
         },
     };
