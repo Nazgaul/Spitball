@@ -81,5 +81,40 @@ on x.Id = tr.Id";
 
             log.LogInformation($"deleted amount: {i}");
         }
+
+
+        [FunctionName("UpdateSbCountry")]
+        public static async Task UpdateSbCountryAsync([TimerTrigger("0 */5 * * * *")] TimerInfo myTimer,
+            [Inject] IDapperRepository dapper,
+            ILogger log,
+            CancellationToken token)
+        {
+            var sql = @"update top (1000) sb.[User]
+            set SbCountry = 1
+            where Country = 'IL' and SbCountry is null";
+
+            var sql2 = @"update top (1000) sb.[User]
+set SbCountry = 2
+where Country = 'IN' and SbCountry is null";
+
+            var sql3 = @"update top (1000) sb.[User]
+set SbCountry = 3
+where SbCountry is null and country not in ('IL','IN') ";
+
+            var queries = new[] { sql, sql2, sql3 };
+
+            foreach (var query in queries)
+            {
+                using var con = dapper.OpenConnection();
+                while (true)
+                {
+                    var i = await con.ExecuteAsync(query);
+                    if (i == 0)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
     }
 }
