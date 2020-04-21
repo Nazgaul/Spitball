@@ -32,6 +32,7 @@
     <v-data-table
       :headers="headers"
       :items="newCourseList"
+      :rows-per-page-items = "[25,50,100]"
       :loading="showLoading"
       disable-initial-sort
     >
