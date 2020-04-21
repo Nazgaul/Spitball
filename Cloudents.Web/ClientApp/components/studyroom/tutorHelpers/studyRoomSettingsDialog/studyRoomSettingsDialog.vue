@@ -82,7 +82,7 @@ export default {
         width: 100%;
 
         @media (max-width: @screen-sm) {
-          width: auto;
+          max-width: 60%;
         }
       }
     }
