@@ -22,7 +22,7 @@ const mutations = {
    [twilio_SETTERS.AUDIO_TOGGLE]: (state,val) => state.isAudioActive = val,
    [twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE]: (state,val) => state.isShareScreen = val,
    [twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK]: (state,videoTrack) => {
-      let remoteTrackId = `remoteTrack_${videoTrack.sid || videoTrack.trackSid}`
+      let remoteTrackId = `${videoTrack.sid || videoTrack.trackSid}`
       videoTrack.sb_video_id = remoteTrackId;
       let idx;
       let isTrackInList = state.videoTracks.some((t,i)=>{idx = i;return t.sb_video_id == remoteTrackId})

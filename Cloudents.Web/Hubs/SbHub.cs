@@ -43,6 +43,10 @@ namespace Cloudents.Web.Hubs
             await Clients.All.SendAsync(MethodName, entity);
         }
 
+        public async Task AddStudyRoomGroup(string roomId)
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, $"studyRoom-{roomId}");
+        }
 
         private async Task ChangeOnlineStatus(long currentUserId, bool isOnline)
         {

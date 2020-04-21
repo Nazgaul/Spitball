@@ -178,18 +178,6 @@
         <studyRoomSettingsDialog :id="id"></studyRoomSettingsDialog>
       </sb-dialog> -->
       <!--show only if not avaliable devices dialog is closed by user-->
-      <!-- <sb-dialog
-        :showDialog=" && !getDialogRoomSettings"
-        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
-        :popUpType="'startSessionTutor'"
-        :maxWidth="'356'"
-        :onclosefn="closeStartSessionTutor"
-        :activateOverlay="false"
-        :isPersistent="true"
-        :content-class="'session-start-tutor-dialog'"
-      >
-        <startSessionTutor :id="id"></startSessionTutor>
-      </sb-dialog> -->
       <!--end session confirmation-->
       <sb-dialog
         :showDialog="getDialogRoomEnd"
@@ -204,20 +192,7 @@
         <endSessionConfirm :id="id"></endSessionConfirm>
       </sb-dialog>
       <!--show only if not avaliable devices dialog is closed by user-->
-      <sb-dialog
-        :showDialog="getStudentStartDialog && !getDialogRoomSettings"
-        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
-        :popUpType="'startSessionStudent'"
-        :maxWidth="'356'"
-        :onclosefn="closeStartSessionStudent"
-        :activateOverlay="false"
-        :isPersistent="true"
-        :content-class="'session-start-student-dialog'"
-      >
-        <startSessionStudent :id="id"></startSessionStudent>
-      </sb-dialog>
-
-      <sb-dialog
+            <sb-dialog
         :showDialog="getShowAudioRecordingError"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'errorWithAudioRecording'"
@@ -258,8 +233,6 @@
 </template>
 <script>
 
-import initSignalRService from "../../services/signalR/signalrEventService";
-import {CloseConnection} from "../../services/signalR/signalrEventService";
 import { mapActions, mapGetters } from "vuex";
 import videoStream from "./videoStream/videoStream.vue";
 import whiteBoard from "./whiteboard/WhiteBoard.vue";
@@ -277,7 +250,6 @@ import chatService from "../../services/chatService";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import leaveReview from "./tutorHelpers/leaveReview/leaveReview.vue";
 import startSessionTutor from "./tutorHelpers/startSession-popUp-tutor/startSession-popUp-Tutor.vue";
-import startSessionStudent from "./tutorHelpers/startSession-popUp-student/startSession-popUp-student.vue";
 import whiteBoardTools from "./whiteboard/whiteboardTools.vue";
 import startEndSessionBtn from "./tutorHelpers/startEndSessionBtn/startEndSessionBtn.vue";
 import endSessionConfirm from "./tutorHelpers/endSessionConfirm/endSessionConfirm.vue";
@@ -321,7 +293,6 @@ export default {
     noSupportTop,
     noSupportBottom,
     startSessionTutor,
-    startSessionStudent,
     whiteBoardTools,
     startEndSessionBtn,
     endSessionConfirm,
@@ -366,27 +337,22 @@ export default {
       userId: null,
     };
   },
-
   props: {
     id: {
       type: String,
       default: ''
     }
   },
-
   computed: {
     ...mapGetters([
       "getDialogTutorStart",
       "getRoomIsNeedPayment",
       "getDialogUserConsent",
-
-      
       "getDialogRoomSettings",
       "getZoom",
       "getPanX",
       "getPanY",
       "getReviewDialogState",
-      "getStudentStartDialog",
       "getDialogRoomEnd",
       "accountUser",
       "getIsRecording",
@@ -451,7 +417,6 @@ watch: {
       "updateLockChat",
       "updateReviewDialog",
       "updateReview",
-      "updateStudentStartDialog",
       "closeChat",
       "openChatInterface",
       "updateEndDialog",
@@ -512,9 +477,6 @@ watch: {
       this.updateEndDialog(false);
     },
     closeStartSessionTutor() {
-    },
-    closeStartSessionStudent() {
-      this.updateStudentStartDialog(false);
     },
     closeShowAudioRecordingError(){
       this.setShowAudioRecordingError(false);
@@ -611,15 +573,11 @@ watch: {
 
     this.stopTracks();    
 
-    this.updateStudentStartDialog(false);
     storeService.unregisterModule(this.$store,'tutoringCanvas');
     // storeService.unregisterModule(this.$store,'tutoringMain');
     storeService.unregisterModule(this.$store,'studyRoomTracks_store');
     storeService.unregisterModule(this.$store,'roomRecording_store');
     storeService.unregisterModule(this.$store,'codeEditor_store');
-    if(this.id){
-      CloseConnection(`studyRoomHub?studyRoomId=${this.id}`);
-    }
   },
   beforeCreate(){
     storeService.registerModule(this.$store,'studyRoomTracks_store',studyRoomTracks_store);
@@ -645,7 +603,6 @@ watch: {
 
     if(this.id){
       if(this.$store.getters.accountUser?.id){
-        initSignalRService(`studyRoomHub?studyRoomId=${this.id}`);
         insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null) 
         this.$store.dispatch('updateStudyRoomInformation',this.id).catch((err)=>{
             if(err?.response){

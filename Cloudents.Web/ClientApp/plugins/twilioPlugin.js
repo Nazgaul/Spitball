@@ -9,52 +9,31 @@ const LOCAL_TRACK_DOM_ELEMENT = 'localTrack';
 const AUDIO_TRACK_NAME = 'audioTrack';
 const VIDEO_TRACK_NAME = 'videoTrack';
 const SCREEN_TRACK_NAME = 'screenTrack';
+const CURRENT_STATE_UPDATE = '1';
+const CURRENT_STATE_UPDATED = '2';
 
-function _initStudentJoined(localParticipant){
-   // update editor tab:
-   let editorTab = {
-      type: "updateActiveNav",
-      data: STORE.getters.getActiveNavEditor
-   };
-   STORE.dispatch('sendDataTrack',JSON.stringify(editorTab));
+let intervalTime = null;
 
-   // update canvas tab:
-   let canvasTab = {
-      type: "updateTabById",
-      data:{
+function _changeState(localParticipant) {
+   let stuffToSend =  {
+      type: CURRENT_STATE_UPDATE,
+      tab : STORE.getters.getActiveNavEditor,
+      canvasTab : {
          tab: STORE.getters.getCurrentSelectedTab,
          canvas: STORE.getters.canvasDataStore
+      },
+      mute : STORE.getters.getIsAudioParticipants,
+      fullScreen: null
+   };
+   localParticipant.tracks.forEach((track) => {
+      if(track.trackName === VIDEO_TRACK_NAME && STORE.getters.getIsFullScreen 
+         || track.trackName === SCREEN_TRACK_NAME){
+         stuffToSend.fullScreen = track.trackSid;
       }
-   }
-   STORE.dispatch('sendDataTrack',JSON.stringify(canvasTab));
-
-   // share screen & video full screen:
-   Array.from(localParticipant.tracks.values()).forEach((track) => {
-         if(track.trackName === VIDEO_TRACK_NAME && STORE.getters.getIsFullScreen){
-            let shareVideoCamera = {
-               type: "openFullScreen",
-               data: `remoteTrack_${track.trackSid}`
-
-            };
-            STORE.dispatch('sendDataTrack',JSON.stringify(shareVideoCamera))
-         }
-         if(track.trackName === SCREEN_TRACK_NAME){
-            let shareScreen = {
-               type: "openFullScreen",
-               data: `remoteTrack_${track.trackSid}`
-            };
-            STORE.dispatch('sendDataTrack',JSON.stringify(shareScreen))
-         }
    });
-   // room muted by tutor:
-   if(!STORE.getters.getIsAudioParticipants){
-      let normalizedData = {
-         type: "toggleParticipantsAudio",
-         data: STORE.getters.getIsAudioParticipants
-      };
-      STORE.dispatch('sendDataTrack',JSON.stringify(normalizedData))
-   }
+   STORE.dispatch('sendDataTrack',JSON.stringify(stuffToSend));
 }
+
 function _detachTracks(tracks){
    tracks.forEach((track) => {
       if (track?.detach) {
@@ -112,13 +91,7 @@ function _twilioListeners(room,store) {
    });
    room.localParticipant.on('trackPublished',(track)=>{
       if(store.getters.getRoomIsTutor && track.trackName === SCREEN_TRACK_NAME){
-         let videoElementId = `remoteTrack_${track.trackSid}`
-         let transferDataObj = {
-            type: "openFullScreen",
-            data: videoElementId
-         };
-         let normalizedData = JSON.stringify(transferDataObj);
-         store.dispatch('sendDataTrack',normalizedData)
+         _changeState(room.localParticipant);
       }
    })
 
@@ -126,7 +99,6 @@ function _twilioListeners(room,store) {
    // room events
    room.on('trackSubscribed', (track) => {
       _insightEvent('TwilioTrackSubscribed', track, null);
-      // _detachTracks([track],store)
    })
    room.on('trackUnsubscribed', (track) => {
       _insightEvent('TwilioTrackUnsubscribed', track, null);
@@ -170,8 +142,20 @@ function _twilioListeners(room,store) {
 
    // room tracks events: 
    room.on('trackMessage', (message) => {
-      let data = JSON.parse(message)
+      let data = JSON.parse(message);
       _insightEvent('trackMessage', data, null);
+      if (data.type === CURRENT_STATE_UPDATE) {
+         store.dispatch('updateAudioToggleByRemote',data.mute)
+         store.dispatch('updateFullScreen',data.fullScreen)
+         store.dispatch('updateActiveNavEditor', data.tab)
+         store.dispatch('tempWhiteBoardTabChanged', data.canvasTab)
+         store.dispatch('sendDataTrack', JSON.stringify({type : CURRENT_STATE_UPDATED}));
+         return;
+      }
+      if (data.type === CURRENT_STATE_UPDATED) {
+         clearInterval(intervalTime)
+         return;
+      }
       store.dispatch('dispatchDataTrackJunk',data)
    })
    room.on('trackPublished', () => {
@@ -184,7 +168,9 @@ function _twilioListeners(room,store) {
          store.commit('setComponent', 'simpleToaster_userConnected');
          participant.on('trackSubscribed',(track)=>{
             if(track.kind === 'data'){
-               _initStudentJoined(room.localParticipant)
+               intervalTime= setInterval(() => {
+                  _changeState(room.localParticipant);
+               },100);
             }
          })
       }
@@ -375,23 +361,9 @@ export default () => {
                   store.commit(twilio_SETTERS.AUDIO_AVAILABLE,false)
                }
             }
-            if (mutation.type === twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN){
-               let normalizedData = {
-                  type: "openFullScreen",
-               };
-               if(mutation.payload){
-                  let videoTrack = Array.from(_activeRoom.localParticipant.videoTracks.values())[0];
-                  let videoElementId = `remoteTrack_${videoTrack.trackSid}`
-                  normalizedData.data = videoElementId
-               }
-               store.dispatch('sendDataTrack',JSON.stringify(normalizedData))
-            }
-            if(mutation.type === twilio_SETTERS.TOGGLE_AUDIO_PARTICIPANTS){
-               let normalizedData = {
-                  type: "toggleParticipantsAudio",
-                  data: mutation.payload
-               };
-               store.dispatch('sendDataTrack',JSON.stringify(normalizedData))
+            if(mutation.type === twilio_SETTERS.TOGGLE_AUDIO_PARTICIPANTS ||
+               mutation.type === twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN){
+               _changeState(_activeRoom.localParticipant)
             }
          }
       })
