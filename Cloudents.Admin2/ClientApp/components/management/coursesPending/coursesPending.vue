@@ -9,13 +9,13 @@
                 <v-select :items="states"
                           label="state"
                           v-model="state"
-                          @change="getCourseList(language, state, search)"></v-select>
+                          @change="getCourseList( state, search)"></v-select>
             </v-flex>   
             <v-flex xs3 offset-xs2>
-                <v-select :items="languages"
+                <!-- <v-select :items="languages"
                           label="language"
                           v-model="language"
-                          @change="getCourseList(language, state, search)"></v-select>
+                          @change="getCourseList(language, state, search)"></v-select> -->
             </v-flex>
                 <v-flex xs4 sm4 md4 offset-xs2>
                     <v-text-field v-model="search"
@@ -23,7 +23,7 @@
                                   label="Search"
                                   single-line
                                   hide-details
-                                  @keyup.enter.native="getCourseList(language, state, search)">
+                                  @keyup.enter.native="getCourseList( state, search)">
                     </v-text-field>
                 </v-flex>
 
@@ -262,8 +262,8 @@
                 )
             },
    
-            getCourseList(language, state, filter) {
-                getCourseList(language, state, filter).then((list) => {
+            getCourseList( state, filter) {
+                getCourseList( state, filter).then((list) => {
                     this.newCourseList = [];
                     if (list.length === 0) {
                         this.showNoResult = true;
@@ -272,12 +272,12 @@
                     }
                     this.showLoading = false;
                 }, (err) => {
-                    console.log(err)
+                    this.$toaster.error(err);
                 })
             }
         },
         created() {
-            getCourseList('', 'Pending', this.search).then((list) => {
+            getCourseList('Pending', this.search).then((list) => {
                 if (list.length === 0) {
                     this.showNoResult = true;
                 } else {
@@ -285,7 +285,7 @@
                 }
                 this.showLoading = false;
             }, (err) => {
-                console.log(err)
+                this.$toaster.error(err);
             })
                 .then(getSubjects().then((list) => {
                     if (list.length > 0) {
@@ -293,7 +293,7 @@
                         this.isLoading = false;
                     }
                 }, (err) => {
-                    console.log(err)
+                    this.$toaster.error(err);
                     })
                 )
            

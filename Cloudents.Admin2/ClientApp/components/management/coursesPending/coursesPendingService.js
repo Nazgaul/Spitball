@@ -23,7 +23,7 @@ const getSubjects = function () {
 
 const getCourseList = function (language, state, filter) {
     language = language === '' ? null : language;
-    let query = `?Language=${language}&State=${state}`;
+    let query = `?State=${state}`;
 
     if(filter){
         query += `&Filter=${filter}`;
@@ -36,8 +36,6 @@ const getCourseList = function (language, state, filter) {
                 });
             }
             return arrCourseList;
-        }, (err) => {
-            return Promise.reject(err);
         });
 
 };
