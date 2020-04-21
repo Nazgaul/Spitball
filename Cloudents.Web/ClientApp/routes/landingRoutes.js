@@ -13,11 +13,8 @@ export const landingRoutes = [
         beforeEnter: (to, from, next) => {    
             if(store.getters.getUserLoggedInStatus){
                 let nextRoute = {name: routeNames.Feed};
-                if(store.getters.accountUser.userType === 'Teacher'){
+                if(store.getters.getIsTeacher){
                     nextRoute = {name: routeNames.Dashboard};
-                }
-                if(store.getters.accountUser.userType === 'Parent'){
-                    nextRoute = {name: routeNames.TutorList};
                 }
                 next({name: nextRoute.name,query: to.query});
                 return;
@@ -32,11 +29,8 @@ export const landingRoutes = [
         beforeEnter: (to, from, next) => {
             if(store.getters.getUserLoggedInStatus){
                 let nextRoute = {name: routeNames.Feed};
-                if(store.getters.accountUser.userType === 'Teacher'){
+                if(store.getters.getIsTeacher){
                     nextRoute = {name: routeNames.Dashboard};
-                }
-                if(store.getters.accountUser.userType === 'Parent'){
-                    nextRoute = {name: routeNames.TutorList};
                 }
                 next({name: nextRoute.name,query: to.query});
                 return;

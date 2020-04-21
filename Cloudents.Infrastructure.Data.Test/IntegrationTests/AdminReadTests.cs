@@ -60,11 +60,11 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData("x", ItemState.Ok, 0, "us")]
-        [InlineData(null, null, 0, null)]
-        public async Task TutorSearchQuery_Ok(string term, ItemState? state, int page, string country)
+        [InlineData("x", ItemState.Ok, "us")]
+        [InlineData(null, null, null)]
+        public async Task TutorSearchQuery_Ok(string term, ItemState? state, string country)
         {
-            var query = new TutorSearchQuery(term, state, page, country);
+            var query = new TutorSearchQuery(term, state, country);
             var _ = await _fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -401,7 +401,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
                     UserId = s.User.Id,
                     TutorId = s.StudyRoomSession.StudyRoom.Tutor.Id
                 })
-                
+
                 .Take(1).SingleOrDefaultAsync();
             if (resultQuery == null)
             {

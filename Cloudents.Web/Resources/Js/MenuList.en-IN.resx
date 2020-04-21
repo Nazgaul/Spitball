@@ -121,7 +121,7 @@
     <value>About Frymo</value>
   </data>
   <data name="balance" xml:space="preserve">
-    <value>Your balance: {1} Pts</value>
+    <value>Your balance: {0} Pts</value>
   </data>
   <data name="Change" xml:space="preserve">
     <value>Change</value>
@@ -133,7 +133,7 @@
     <value>Feedback</value>
   </data>
   <data name="greets" xml:space="preserve">
-    <value>Hi, {1}</value>
+    <value>Hi, {0}</value>
   </data>
   <data name="help" xml:space="preserve">
     <value>Help</value>

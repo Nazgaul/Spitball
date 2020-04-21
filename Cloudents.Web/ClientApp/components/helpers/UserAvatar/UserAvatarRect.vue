@@ -91,6 +91,7 @@ export default {
             align-items: center;
             img {
                 border-radius: 4px;
+                width: 100%;
             }
         }
         .user-avatar-rect-no-image {
