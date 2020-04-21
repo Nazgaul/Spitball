@@ -34,9 +34,9 @@
                       class="cash-out-table"
                       disable-initial-sort>
             <template slot="items" slot-scope="props">
-                <td class="text-xs-center">{{ props.item.name }}</td>
+                <td >{{ props.item.name }}</td>
 
-                <td class="text-xs-center">
+                <td >
                     <span>
                         <v-icon small
                                 color="green"
