@@ -6,8 +6,7 @@ let subjectInstance = axios.create({
 
 function Subject(objInit) {
     this.id = objInit.id;
-    this.heName = objInit.heName;
-    this.enName = objInit.enName;
+    this.name = objInit.name;
 }
 
 function createSubject(subject) {

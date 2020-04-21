@@ -72,10 +72,10 @@ namespace Cloudents.Core.Entities
             Subject = subject;
         }
 
-        public virtual void SetSchoolType(SchoolType schoolType)
-        {
-            SchoolType = schoolType;
-        }
+        //public virtual void SetSchoolType(SchoolType schoolType)
+        //{
+        //    SchoolType = schoolType;
+        //}
         public virtual int Count { get; protected internal set; }
 
 
@@ -93,7 +93,7 @@ namespace Cloudents.Core.Entities
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
         public virtual byte[] Version { get; protected set; }
-        public virtual SchoolType? SchoolType { get; protected set; }
-        public virtual string Country { get; protected set; }
+       // public virtual SchoolType? SchoolType { get; protected set; }
+       // public virtual string Country { get; protected set; }
     }
 }

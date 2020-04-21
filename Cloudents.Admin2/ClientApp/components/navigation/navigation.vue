@@ -140,13 +140,13 @@
                     },
                     {
                         setting: {
-                            title: 'subjects',
+                            title: 'Subjects',
                             path: '/subjects',
                         }
                     },
                     {
                         setting: {
-                            title: 'upload',
+                            title: 'Upload',
                             path: '/upload',
                         }
                     },

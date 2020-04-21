@@ -438,10 +438,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await _fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Fact]
-        public async Task SubjectsTranslationQuery_Ok()
+        [Theory]
+        [InlineData("US")]
+        [InlineData("In")]
+        [InlineData("IL")]
+        [InlineData(null)]
+        public async Task SubjectsTranslationQuery_Ok(string countryStr)
         {
-            var query = new SubjectsTranslationQuery();
+            var country = Country.FromCountry(countryStr);
+            var query = new SubjectsTranslationQuery(country);
             var _ = await _fixture.QueryBus.QueryAsync(query, default);
         }
 
