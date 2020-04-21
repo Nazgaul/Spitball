@@ -216,6 +216,21 @@ namespace Cloudents.Selenium.Test
             driver.Navigate().GoToUrl("https://dev.spitball.co/logout");
         }
 
+        private IWebElement FindByClass(IWebDriver driver, string name)
+        {
+            return driver.FindElementByWait(By.ClassName(name));
+        }
+
+        private IWebElement FindContains(IWebDriver driver, string name)
+        {
+            return driver.FindElementByWait(By.XPath("//*[contains(@class, '" + name + "')]"));
+        }
+
+        private IWebElement FindSel(IWebDriver driver, string name)
+        {
+            return driver.FindElementByWait(By.XPath("//*[@sel='" + name + "']"));
+        }
+
         [Fact]
         public void MissingResource()
         {
@@ -271,25 +286,25 @@ namespace Cloudents.Selenium.Test
                 driver.Navigate().GoToUrl(url);
 
                 // Check that the element is exist
-                driver.FindElement(By.XPath("//*[@class='logo']"));
+                FindByClass(driver, "logo");
 
                 url = $"{_driver.SiteUrl.TrimEnd('/')}/{FrymoSiteUrl}";
                 driver.Navigate().GoToUrl(url);
 
                 // Check that the element is exist
-                driver.FindElement(By.XPath("//*[@class='logo frymo-logo']"));
+                FindContains(driver, "frymo-logo");
 
                 url = $"{_driver.SiteUrl.TrimEnd('/')}/studyroomsettings";
                 driver.Navigate().GoToUrl(url);
 
                 // Check that the element is exist
-                driver.FindElement(By.XPath("//*[@class='logo']"));
+                FindByClass(driver, "logo");
 
                 url = $"{_driver.SiteUrl.TrimEnd('/')}/studyroomsettings?site=frymo";
                 driver.Navigate().GoToUrl(url);
 
                 // Check that the element is exist
-                driver.FindElement(By.XPath("//*[@class='logo frymo-logo']"));
+                FindContains(driver, "frymo-logo");
             }
 
         }
@@ -381,7 +396,7 @@ namespace Cloudents.Selenium.Test
 
                 // Check those elements are showing
                 driver.FindElementByWait(By.XPath("//*[contains(@class, 'v-menu__content')]"));
-                driver.FindElementByWait(By.XPath("//*[@class='userMenu_top']"));
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'userMenu_top')]"));
                 driver.FindElementByWait(By.XPath("//*[@class='userMenu_actionsList']"));
                 var listItems = driver.FindElements(By.XPath("//*[@sel='menu_row']"));
 
@@ -472,7 +487,7 @@ namespace Cloudents.Selenium.Test
                 Login(driver, UserTypeAccounts.ElementAt(0));
 
                 // Make sure this element is exist
-                driver.FindElementByWait(By.XPath("//*[contains(@class, 'analyticOverview')]"));
+                FindContains(driver, "analyticOverview");
 
                 Logout(driver);
             }
@@ -657,24 +672,25 @@ namespace Cloudents.Selenium.Test
                 Login(driver, UserTypeAccounts.ElementAt(0));
 
                 // Make sure those elements exist
-                driver.FindElementByWait(By.XPath("//*[contains(@class, 'uploadContent')]"));
-                driver.FindElementByWait(By.XPath("//button[contains(@class, 'uploadBtn')]"));
-                driver.FindElementByWait(By.XPath("//div[contains(@class, 'spitballTips')]"));
-                driver.FindElementByWait(By.XPath("//*[@class='dashboardSide']"));
-                driver.FindElementByWait(By.XPath("//*[contains(@class, 'teacherTasks')]"));
-                driver.FindElementByWait(By.XPath("//*[contains(@class, 'answerStudent')]"));
+                FindContains(driver, "uploadBtn").GetAttribute("type").Should().Be("button");
+                FindByClass(driver, "dashboardSide");
+                string[] elements = { "uploadContent", "spitballTips", "teacherTasks", "answerStudent" };
+                foreach(var element in elements)
+                {
+                    FindContains(driver, element);
+                }
 
                 var letsGo = driver.FindElementByWait(By.XPath("//*[contains(@class, 'marketingTools')]//a"));
 
                 letsGo.Click();
 
                 // Making sure those elements display
-                driver.FindElementByWait(By.XPath("//*[contains(@class, 'marketingActions')]"));
-                driver.FindElementByWait(By.XPath("//*[@class='spitballBlogs']"));
-                driver.FindElementByWait(By.XPath("//*[contains(@class, 'tableCoupon')]"));
+                FindContains(driver, "marketingActions");
+                FindByClass(driver, "spitballBlogs");
+                FindContains(driver, "tableCoupon");
 
                 // Make sure those buttons exist
-                driver.FindElements(By.XPath("//button[contains(@class, 'marketingbtn')]"));
+                FindContains(driver, "marketingbtn");
 
                 Logout(driver);
             }
@@ -897,12 +913,11 @@ namespace Cloudents.Selenium.Test
                 driver.Manage().Window.Maximize();
                 Login(driver, UserTypeAccounts.ElementAt(0));
 
-                var findTutors = driver.FindElementByWait(By.XPath("//*[@class='gH_i_r_findTutor']"));
-                findTutors.GetAttribute("href").Should().Be("https://dev.spitball.co/tutor-list");
-                driver.FindElementByWait(By.XPath("//*[@class='gH_i_r_intercom']")).Click();
-                driver.FindElementByWait(By.XPath("//*[@class='gH_i_r_chat']")).Click();
-                driver.FindElementByWait(By.XPath("//*[@class='gH_i_r_menuList']")).Click();
-                driver.FindElementByWait(By.XPath("//*[@class='globalHeader_logo router-link-active']")).GetAttribute("href").Should().Be("https://dev.spitball.co/");
+                FindByClass(driver, "gH_i_r_findTutor").GetAttribute("href").Should().Contain("tutor-list");
+                FindByClass(driver, "gH_i_r_intercom");
+                FindByClass(driver, "gH_i_r_chat");
+                FindByClass(driver, "gH_i_r_menuList");
+                FindContains(driver, "router-link-active").GetAttribute("href").Should().Contain("dev.spitball.co");// driver.FindElementByWait(By.XPath("//*[@class='globalHeader_logo router-link-active']")).GetAttribute("href").Should().Be("https://dev.spitball.co/");
 
                 Logout(driver);
            
@@ -918,22 +933,55 @@ namespace Cloudents.Selenium.Test
                 Login(driver, UserTypeAccounts.ElementAt(0));
 
                 // Check if this element exists
-                driver.FindElementByWait(By.XPath("//*[@class='gH_i_r_chat']"));
+                FindByClass(driver, "gH_i_r_chat");
 
                 driver.Navigate().GoToUrl($"{_driver.SiteUrl.TrimEnd('/')}/feed");
 
-                driver.FindElementByWait(By.XPath("//*[@sel='request']")).Click();
-                driver.FindElementByWait(By.XPath("//*[@sel='course_request']")).Click();
+                FindSel(driver, "request").Click();
+                FindSel(driver, "course_request").Click();
+
 
                 // Check if this element exists
-                driver.FindElementByWait(By.XPath("//*[contains(@class, 'v-select--is-menu-active')]"));
+                FindContains(driver, "v-select--is-menu-active");
 
-                driver.FindElementByWait(By.XPath("//*[@sel='cancel_tutor_request']")).Click();
+                FindSel(driver, "cancel_tutor_request").Click() ;
 
-                driver.FindElementByWait(By.XPath("//*[@sel='ask']")).Click();
-                driver.FindElementByWait(By.XPath("//*[contains(@class, 'v-text-field--solo-flat')]")).Click();
+                FindSel(driver, "ask").Click();
+                FindContains(driver, "v-text-field--solo-flat");
 
                 Logout(driver);
+            }
+        }
+
+        [Fact]
+        public void NewHomePage()
+        {
+            foreach(var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+                driver.Navigate().GoToUrl($"{_driver.SiteUrl.TrimEnd('/')}");
+
+                FindContains(driver, "btnTeach").GetAttribute("href").Should().Contain("teach.spitball.co");
+                FindContains(driver, "online").GetAttribute("href").Should().Contain("studyroom");
+                var paymentsLink = FindContains(driver, "payments");
+                paymentsLink.GetAttribute("href").Should().Contain("help.spitball.co");
+                paymentsLink.GetAttribute("target").Should().Be("_blank");
+                FindContains(driver, "relevant").GetAttribute("href").Should().Contain("tutor-list");
+
+                // Check those elements exist                
+                var learn = FindContains(driver, "btnLearn");
+                string[] elements = { "videoLinear", "homeQuote", "btnsTeach", "btnsLearn", "homeBoxes", "footer" };
+                foreach (var element in elements)
+                {
+                    FindContains(driver, element);
+                }
+
+                learn.Click();
+
+                // Wait until this element is showing
+                FindContains(driver, "landingPageHP");
+
+                driver.Url.Should().Contain("learn");
             }
         }
     }
@@ -956,6 +1004,6 @@ namespace Cloudents.Selenium.Test
             });
 
             //return driver.FindElement(by);
-        }       
+        }
     }
 }
