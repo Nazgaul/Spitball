@@ -55,7 +55,7 @@
                 {{$t('studyRoomSettings_join_now')}}
             </v-btn>
 
-            <v-row v-else dense class="tutorActions text-center text-md-left d-block d-sm-flex">
+            <div v-else dense class="tutorActions text-center text-md-left d-block d-sm-flex">
                 <v-col>
                     <v-btn
                         @click="tutorActions('whiteboard')"
@@ -98,7 +98,7 @@
                         <div class="flex-grow-1">{{$t('studyRoomSettings_full_view')}}</div>
                     </v-btn>
                 </v-col>
-            </v-row>
+            </div>
         </template>
     </div>
 </template>

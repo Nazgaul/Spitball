@@ -1,5 +1,5 @@
 <template>
-    <div class="srVideoSettingsVideoContainerWrap">
+    <div class="srVideoSettingsVideoContainerWrap mb-5 mb-md-0">
         <v-row class="srVideoSettingsVideoContainer ma-md-0 ma-auto elevation-2">
             <div class="cameraTextWrap text-center">
                 <div class="noCamera white--text" v-if="!camerasList.length" v-t="'studyRoomSettings_no_camera'"></div>
@@ -9,7 +9,7 @@
             </div>
 
             <div class="bottomIcons d-flex align-end justify-space-between">
-                <microphoneImage v-if="!permissionDenied" width="14" />
+                <microphoneImage v-if="microphoneOn" width="14" />
                 <div class="centerIcons d-flex align-center">
                     <v-btn
                         class="mx-2"
@@ -34,7 +34,7 @@
             </div>
 
             <div id="local-video-test-track">
-                <video id="videoPlaceholder" width="600" height="400" v-if="!cameraOn || !placeholder"></video>
+                <video id="videoPlaceholder" v-if="!cameraOn || !placeholder"></video>
             </div>
             <div class="videoOverlay"></div>
         </v-row>
@@ -171,6 +171,9 @@ export default {
             if(this.permissionDenied) return
 
             this.microphoneOn = !this.microphoneOn
+
+            console.log(this);
+            
         },
         toggleCamera() {
             if(this.permissionDenied) return
@@ -210,6 +213,10 @@ export default {
         position: relative;
         border-radius: 8px;
         background-color: #202124;
+
+        @media (max-width: @screen-xs) {
+            border-radius: 0;
+        }
         .cameraTextWrap {
             margin: 0 100px;
             position: absolute;
