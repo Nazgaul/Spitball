@@ -16,22 +16,18 @@ const state = {
 //         disconnected: 'disconnected',
 //         finished: 'finished'
 //     },
-//     studentDialogState:'waiting',
 //     sessionStartClickedOnce: false,
 //     currentRoomState: "pending",
 //     jwtToken: null,
-//     studentStartDialog: false,
 //     sessionTimeStart: null,
 //     sessionTimeEnd: null,
 };
 const getters = {
 //     activeRoom: state => state.currentActiveRoom,
-//     getCurrentRoomState: state => state.currentRoomState,
+//     : state => state.currentRoomState,
 //     getStudyRoomData: state => state.studyRoomData,
 //     getJwtToken: state => state.jwtToken,
-//     getStudentStartDialog: state => state.studentStartDialog,
 //     getSessionStartClickedOnce: state => state.sessionStartClickedOnce,
-//     getStudentDialogState: state => state.studentDialogState,
 //     getSessionTimeStart: state => state.sessionTimeStart,
 //     getSessionTimeEnd: state => state.sessionTimeEnd,
 };
@@ -39,9 +35,6 @@ const getters = {
 const mutations = {
 //     updateSessionClickedOnce(state, val) {
 //         state.sessionStartClickedOnce = val;
-//     },
-//     setStudentStartDialog(state, val) {
-//         state.studentStartDialog = val;
 //     },
 //     leaveIfJoinedRoom(state) {
 //         if(state.currentActiveRoom) {
@@ -72,7 +65,6 @@ const mutations = {
 
 const actions = {
 //     setSesionClickedOnce({commit}, val) {
-//         console.warn('DEBUG: 5 store: setSesionClickedOnce VAL:',val)
 //         commit('updateSessionClickedOnce', val);
 //     },
 //     leaveRoomIfJoined({commit}) {
@@ -86,10 +78,6 @@ const actions = {
 //     updateCurrentRoomState({commit}, val) {
 //         console.warn('DEBUG: 13 store: updateCurrentRoomState')
 //         commit('setCurrentRoomState', val);
-//     },
-//     updateStudentStartDialog({commit}, val) {
-//         console.warn('DEBUG: 14 store: updateStudentStartDialog')
-//         commit('setStudentStartDialog', val);
 //     },
 //     signalR_UpdateState({commit, dispatch, state, getters}, notificationObj) {
 //         console.warn('DEBUG: 16 store: signalR_UpdateState')
@@ -151,11 +139,6 @@ const actions = {
 //                         dispatch("setStudentDialogState", state.startSessionDialogStateEnum.disconnected);
 //                     }
 //                 }
-//                 if(!getters.getReviewDialogState){
-//                     console.warn('DEBUG: 17.9.7 store: !getters.getReviewDialogState')
-
-//                     dispatch('updateStudentStartDialog', true);
-//                 }
 //                 dispatch("updateCurrentRoomState", state.roomStateEnum.pending);
 //             }
 //         }
@@ -182,7 +165,6 @@ const actions = {
 //         }
 //     },
 //     setStudentDialogState({commit}, val){
-//         console.warn('DEBUG: 20 store: setStudentDialogState')
 //         commit('setStudentDialogState', val);
 //     },
 //     setSessionTimeStart({commit}){
