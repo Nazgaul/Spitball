@@ -55,7 +55,7 @@
                 {{$t('studyRoomSettings_join_now')}}
             </v-btn>
 
-            <v-row v-else dense class="tutorActions">
+            <v-row v-else dense class="tutorActions text-center text-md-left d-block d-sm-flex">
                 <v-col>
                     <v-btn
                         @click="tutorActions('whiteboard')"

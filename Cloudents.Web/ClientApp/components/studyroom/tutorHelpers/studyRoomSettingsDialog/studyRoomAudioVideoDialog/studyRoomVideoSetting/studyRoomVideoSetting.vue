@@ -18,7 +18,8 @@
                 outlined
                 dense
                 single-line
-            ></v-select>
+            >
+            </v-select>
         </div>
         
         <v-flex xs12  class="mt-4 mb-4 studyRoom-video-settings-video-container">
@@ -34,7 +35,7 @@ import insightService from '../../../../../../services/insightService';
 
 export default {
     data(){
-        return{
+        return {
             camerasList:[],
             videoEl: null,
             localTrack: null,
@@ -55,6 +56,7 @@ export default {
                             self.singleCameraId = self.camerasList[0].deviceId;
                         }
                         self.createVideoQualityPreview();
+                        return
                     }
                 },
                 (error) => {
