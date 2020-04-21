@@ -140,17 +140,12 @@ export default {
             let self = this;
             createLocalVideoTrack({width: 680, height: 380})
                 .then(track => {
-                    // Checking whether a video tag is already have been attached to dom.
-                    // Reason: duplicate video attached when pluggin device on/off
-                    // let videoPlaceholderExist = document.getElementById('sbCam')
-                    // if(document.getElementById('videoPlaceholder')) {
                         self.videoEl = document.getElementById('local-video-test-track');
                         self.localTrack = track;
                         self.videoEl.appendChild(self.localTrack.attach());
                         self.$store.dispatch('updateVideoTrack',self.singleCameraId)
                         self.cameraOn = true
                         self.placeholder = true
-                    // }
                 }).catch(err => {
                     self.permissionDenied = true
                     self.permissionDialogState = true
@@ -218,7 +213,6 @@ export default {
             border-radius: 0;
         }
         .cameraTextWrap {
-            margin: 0 100px;
             position: absolute;
             top: calc(50% - 50px); // center text
             right: 0;
