@@ -213,7 +213,7 @@ export default {
         .cameraTextWrap {
             margin: 0 100px;
             position: absolute;
-            top: calc(50% - 36px); // center text
+            top: calc(50% - 50px); // center text
             right: 0;
             left: 0;
             z-index: 2;
@@ -293,9 +293,9 @@ export default {
         font-size: 22px;
     }
     .blockPermission {
-        color: rgba(0,0,0,0.541);
+        color: @global-purple;
         line-height: 22px;
-
+        font-size: 16px;
         &.inCamera {
             font-size: 22px;
             line-height: 30px;

@@ -226,6 +226,11 @@
       >
           <snapshotDialog></snapshotDialog>
       </sb-dialog>
+
+      <studyRoomAudioVideoDialog
+        v-if="settingDialogState"
+        @closeAudioVideoSettingDialog="val => settingDialogState = val"
+      />
   </template>
 
     </div>
@@ -263,6 +268,7 @@ import studentConsentDialog from './tutorHelpers/studentConsentDialog/studentCon
 import snapshotDialog from './tutorHelpers/snapshotDialog/snapshotDialog.vue';
 import stopRecording from './images/stop-recording.svg';
 import beginRecording from './images/begain-recording.svg';
+import studyRoomAudioVideoDialog from './tutorHelpers/studyRoomSettingsDialog/studyRoomAudioVideoDialog/studyRoomAudioVideoDialog.vue'
 
 import intercomSettings from '../../services/intercomService';
 
@@ -304,11 +310,13 @@ export default {
     studentConsentDialog,
     snapshotDialog,
     stopRecording,
-    beginRecording
+    beginRecording,
+    studyRoomAudioVideoDialog
   },
   name: "tutor",
   data() {
     return {
+      settingDialogState: false,
       isBrowserSupportDialog:false,
       navs: [
         {
@@ -465,14 +473,15 @@ watch: {
     },
     openSettingsDialog(){
       this.$ga.event("tutoringRoom", "openSettingsDialog");
-      this.$store.dispatch('updateDialogRoomSettings',true)
+      this.settingDialogState = true;
+      // this.$store.dispatch('updateDialogRoomSettings',true)
     },
     closeReviewDialog() {
       this.updateReviewDialog(false);
     },
-    closeStudyRoomSettingsDialog(){
-      this.$store.dispatch('updateDialogRoomSettings',false)
-    },
+    // closeStudyRoomSettingsDialog(){
+    //   this.$store.dispatch('updateDialogRoomSettings',false)
+    // },
     closeEndDialog() {
       this.updateEndDialog(false);
     },
