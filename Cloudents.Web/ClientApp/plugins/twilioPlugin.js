@@ -36,6 +36,9 @@ function _changeState(localParticipant) {
 
 function _detachTracks(tracks){
    tracks.forEach((track) => {
+      // if(track.kind == 'audio'){
+      //    return
+      // }
       if (track?.detach) {
          // store.commit(twilio_SETTERS.DELETE_REMOTE_VIDEO_TRACK,track)
          track.detach().forEach((detachedElement) => {
@@ -118,11 +121,11 @@ function _twilioListeners(room,store) {
       if(track.kind === 'video'){
          store.commit(twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK,track)
       }
-      if(track.kind === 'audio'){   
+      if(track.kind === 'audio'){  
          let previewContainer = document.getElementById(REMOTE_TRACK_DOM_ELEMENT);
-         track.detach().forEach((detachedElement) => {
-            detachedElement.remove();
-         });
+      //    // track.detach().forEach((detachedElement) => {
+      //    //    detachedElement.remove();
+      //    // });
          previewContainer.appendChild(track.attach());
       }
    })
