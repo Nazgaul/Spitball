@@ -1,5 +1,5 @@
 <template>
-    <div class="settingDetailsWrap ml-md-12">
+    <div class="settingDetailsWrap ml-md-12 pa-3 pa-sm-0">
         <div class="mb-5 settingDetails">
             <div class="settingTitle mb-4" v-t="'studyRoomSettings_class_name'"></div>
 

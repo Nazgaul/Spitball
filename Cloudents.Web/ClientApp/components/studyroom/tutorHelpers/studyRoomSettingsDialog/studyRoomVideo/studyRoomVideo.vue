@@ -265,6 +265,9 @@ export default {
                     height: 100%;
                     text-align: center;
                     display: block;
+                    @media (max-width: @screen-xs) {
+                        border-radius: 0;
+                    }
                 }
             video {
                 width: 100%;
@@ -272,6 +275,9 @@ export default {
                 height: 100%;
                 text-align: center;
                 display: block;
+                @media (max-width: @screen-xs) {
+                    border-radius: 0;
+                }
             }
         }
         .videoOverlay {
@@ -283,6 +289,9 @@ export default {
             position: absolute;
             bottom: 0;
             height: 100px;
+            @media (max-width: @screen-xs) {
+                border-radius: 0;
+            }
         }
     }
 }
