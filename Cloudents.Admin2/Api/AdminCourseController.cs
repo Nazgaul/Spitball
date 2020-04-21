@@ -56,13 +56,14 @@ namespace Cloudents.Admin2.Api
         //}
 
         [HttpGet]
+        [HttpGet("search")]
         [Authorize]
         public async Task<IEnumerable<PendingCoursesDto>> GetNewCourses([FromQuery]CoursesRequest model
                 , CancellationToken token)
         {
 
             var query = new CoursesQuery(
-                model.State.GetValueOrDefault(ItemState.Pending),
+                model.State.GetValueOrDefault(ItemState.Ok),
                 User.GetSbCountryClaim(),
                 model.Search);
             var retVal = await _queryBus.QueryAsync(query, token);
