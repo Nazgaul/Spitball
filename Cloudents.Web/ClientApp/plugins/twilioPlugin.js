@@ -71,11 +71,19 @@ function _unPublishTrack(activeRoom,track){
 // }
 function _twilioListeners(room,store) { 
    // romote participants
+   let previewContainer = document.getElementById(REMOTE_TRACK_DOM_ELEMENT);
    room.participants.forEach((participant) => {
       let tracks = Array.from(participant.tracks.values());
       tracks.forEach((track) => {
          if(track.kind === 'video'){
             store.commit(twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK,track)
+         }
+         if(track.kind === 'audio'){  
+          
+         //    // track.detach().forEach((detachedElement) => {
+         //    //    detachedElement.remove();
+         //    // });
+            previewContainer.appendChild(track.attach());
          }
       });
    });
