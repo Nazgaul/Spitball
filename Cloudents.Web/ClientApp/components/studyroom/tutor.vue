@@ -365,7 +365,7 @@ export default {
       "accountUser",
       "getIsRecording",
       "getShowAudioRecordingError",
-      "getVisitedSettingPage",
+      // "getVisitedSettingPage",
       "getDialogSnapshot",
     ]),
     isRoomTutor(){
@@ -431,7 +431,7 @@ watch: {
       "setShowAudioRecordingError",
       "updateDialogUserConsent",
       "updateDialogSnapshot",
-      "stopTracks"
+      // "stopTracks"
     ]),
     handleNeedPayment(needPayment){
       if(needPayment){
@@ -580,7 +580,7 @@ watch: {
     this.$store.dispatch('updateResetRoom');
     this.updateLockChat(false);
 
-    this.stopTracks();    
+    // this.stopTracks();    
 
     storeService.unregisterModule(this.$store,'tutoringCanvas');
     // storeService.unregisterModule(this.$store,'tutoringMain');
