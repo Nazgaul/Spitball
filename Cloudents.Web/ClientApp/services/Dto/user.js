@@ -1,12 +1,11 @@
 import {School} from './school.js';
+
 function _createIsTutorState(str){
-    if(str && str.toLowerCase() === 'ok')return 'ok';
-    else if(str && str.toLowerCase() === 'pending')return 'pending';
+    if(str && str.toLowerCase() === 'ok') return 'ok';
+    else if(str && str.toLowerCase() === 'pending') return 'pending';
     else return null;
 }
-function _createUserType(type) {
-    return type && type === 'Teacher' ? 'Teacher' : 'Student'
-}
+
 export const User = {
     Default: function (objInit) {
         this.id = objInit.id || objInit.userId;
@@ -62,12 +61,11 @@ export const User = {
         return Object.assign(
             new User.Default(objInit),
             {
-                userType: _createUserType(objInit.userType),
                 balance: objInit.balance,
                 email: objInit.email,
                 currencySymbol: objInit.currencySymbol,
                 needPayment: objInit.needPayment,
-                isTutor: objInit.isTutor.toLowerCase() === 'ok',
+                isTutor: _createIsTutorState(objInit.isTutor) ? true : false,
                 isTutorState: _createIsTutorState(objInit.isTutor),
                 // university: new School.University(objInit.university),
                 courses: objInit.courses.map((course) => new School.Course(course)),

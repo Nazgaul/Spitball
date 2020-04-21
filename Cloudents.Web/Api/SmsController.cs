@@ -19,12 +19,13 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
 using SbUserManager = Cloudents.Web.Identity.SbUserManager;
 
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/[controller]"), ApiController]
+    [Microsoft.AspNetCore.Mvc.Route("api/[controller]"), ApiController]
 
     public class SmsController : Controller
     {
@@ -111,7 +112,7 @@ namespace Cloudents.Web.Api
             {
                 TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
                 TempData[PhoneCallTime] = DateTime.UtcNow.AddMinutes(-2).ToString(CultureInfo.InvariantCulture);
-                var code = await _client.SendSmsAsync(user, token);
+                await _client.SendSmsAsync(user, token);
                 return Ok();
             }
             if (retVal.Errors.Any(a => a.Code == "InvalidPhoneNumber"))
@@ -140,6 +141,7 @@ namespace Cloudents.Web.Api
             [FromHeader(Name = "User-Agent")] string agent,
             CancellationToken token)
         {
+
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {

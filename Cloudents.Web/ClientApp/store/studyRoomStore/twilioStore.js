@@ -53,6 +53,7 @@ const getters = {
    getIsShareScreen: (state) => state.isShareScreen,
    getVideoTrackList: (state) => state.videoTracks,
    getIsAudioParticipants: (state) => state.isAudioParticipants,
+   getIsFullScreen: (state) => state.isFullScreen
 }
 const actions = {
    updateToggleAudioParticipants({commit,state}){

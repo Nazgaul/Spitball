@@ -127,8 +127,9 @@ namespace Cloudents.FunctionsV2
         public static async Task SmsServiceBusAsync(
               [ServiceBusTrigger("communication", "sms", Connection = "AzureWebJobsServiceBus")]
               SmsMessage msg,
-              [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
+             // [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
               [Inject] ISmsProvider smsProvider,
+              [Inject] IPhoneValidator  phoneValidator,
               ILogger log,
               CancellationToken token
           )
@@ -156,11 +157,13 @@ namespace Cloudents.FunctionsV2
                 log.LogInformation($"result is: {result}");
                 return;
             }
-            var messageOptions = new CreateMessageOptions(new PhoneNumber(msg.PhoneNumber))
-            {
-                Body = smsMessage
-            };
-            await options.AddAsync(messageOptions, token);
+
+            await phoneValidator.SendVerificationCodeAsync(msg.PhoneNumber, token);
+            //var messageOptions = new CreateMessageOptions(new PhoneNumber(msg.PhoneNumber))
+            //{
+            //    Body = smsMessage
+            //};
+            //await options.AddAsync(messageOptions, token);
         }
 
         [FunctionName("FunctionPhoneServiceBus")]
