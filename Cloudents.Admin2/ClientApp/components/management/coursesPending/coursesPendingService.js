@@ -21,12 +21,11 @@ const getSubjects = function () {
     });
 };
 
-const getCourseList = function (language, state, filter) {
-    language = language === '' ? null : language;
+const getCourseList = function ( state, filter) {
     let query = `?State=${state}`;
 
     if(filter){
-        query += `&Filter=${filter}`;
+        query += `&Search=${filter}`;
     }
         return connectivityModule.http.get(`AdminCourse${query}`).then((newCourseList) => {
             let arrCourseList = [];
