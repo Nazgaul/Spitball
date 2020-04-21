@@ -80,10 +80,6 @@ export default {
       .wrap {
         height: 100%;
         width: 100%;
-
-        @media (max-width: @screen-sm) {
-          max-width: 60%;
-        }
       }
     }
 

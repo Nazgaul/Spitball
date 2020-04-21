@@ -1,5 +1,5 @@
 <template>
-    <v-dialog :value="true" max-width="570" content-class="studyRoomAudioVideoDialog" persistent>
+    <v-dialog :value="true" max-width="570" content-class="studyRoomAudioVideoDialog" :fullscreen="$vuetify.breakpoint.xsOnly" persistent>
         <div class="studyRoomSettingsWrapper">
             <div class="audioVideoTabs d-flex align-center text-center">
                 <div class="tabBtn video" :class="{'active': !toggleActiveClass}" @click="switchComponent">
@@ -65,13 +65,18 @@ export default {
 
 <style lang="less">
 @import '../../../../../styles/colors.less';
+@import '../../../../../styles/mixin.less';
 
 @tabsHeight: 46px;
 
 .studyRoomAudioVideoDialog {
-  background-color: #fff;
   height: 544px;
+  background-color: #fff;
   border-radius: 6px;
+
+  @media (max-width: @screen-xs) {
+    height: 100%;
+  }
   .studyRoomSettingsWrapper {
     height: 100%;
 

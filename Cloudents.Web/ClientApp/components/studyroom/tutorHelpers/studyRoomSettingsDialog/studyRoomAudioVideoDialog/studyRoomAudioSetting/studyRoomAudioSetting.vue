@@ -2,7 +2,7 @@
     <div class="studyRoom-audio-settings-container">
         <div class="studyRoom-audio-settings-microphone-container">
             <h4 class="studyRoom-audio-settings-microphone-label mb-4" v-language:inner="'studyRoomSettings_audio_input'"></h4>
-            <div class="audioSelect cameraListWrap d-flex align-center ">
+            <div class="audioSelect cameraListWrap d-sm-flex d-block align-center">
                 <v-select 
                     v-model="singleMicrophoneId"
                     :items="microphoneList"
@@ -21,7 +21,7 @@
                     dense
                     single-line
                 ></v-select>                      
-                <v-layout class="indicator-audio-meter ml-4" style="">
+                <v-layout class="indicator-audio-meter ml-sm-4 mt-3 mt-sm-0">
                     <microphoneImage class="image" width="24" />
                     <div id="audio-input-meter"></div>
                 </v-layout>
@@ -108,6 +108,7 @@ export default {
 
 <style lang="less">
 @import '../../../../../../styles/colors.less';
+@import '../../../../../../styles/mixin.less';
 
 .studyRoom-audio-settings-container{
     margin-top: 36px;
@@ -118,6 +119,10 @@ export default {
                 min-width: 400px;
                 flex-basis: 0;
                 font-size: 14px;
+
+                @media (max-width: @screen-xs) {
+                    min-width: 100%;
+                }
                 .v-input__slot {
                     min-height: 38px !important; // vuetify
                 }

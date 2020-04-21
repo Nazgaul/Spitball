@@ -30,7 +30,7 @@
                         <videoCameraImageIgnore width="18" v-else />
                     </v-btn>
                 </div>
-                <v-icon color="#fff" @click="settingDialogState = true" size="26">sbf-settings</v-icon>
+                <v-icon color="#fff" @click="settingDialogState = true" size="22">sbf-settings</v-icon>
             </div>
 
             <div id="local-video-test-track">
@@ -44,7 +44,7 @@
             @closeAudioVideoSettingDialog="val => settingDialogState = val"
         />
 
-        <v-dialog v-model="permissionDialogState" width="512" persistent content-class="premissionDeniedDialog pa-6 pb-4">
+        <v-dialog v-model="permissionDialogState" width="512" :fullscreen="$vuetify.breakpoint.xsOnly" persistent content-class="premissionDeniedDialog pa-6 pb-4">
             <div class="mb-6 mainTitle" v-t="'studyRoomSettings_block_title'"></div>
             <i18n path="studyRoomSettings_block_permission" tag="div" class="blockPermission mb-6">
                 <cameraBlock class="cameraBlock" width="20" />
@@ -256,7 +256,9 @@ export default {
         }
         #local-video-test-track{
             width: 100%;
-
+            @media (max-width: @screen-xs) {
+                min-width: 385px !important;
+            }
             .videoPlaceHolder {
                     width: 100%;
                     border-radius: 8px;

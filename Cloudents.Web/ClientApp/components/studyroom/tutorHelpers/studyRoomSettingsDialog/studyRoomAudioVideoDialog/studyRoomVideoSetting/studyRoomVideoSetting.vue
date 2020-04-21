@@ -36,6 +36,7 @@ import insightService from '../../../../../../services/insightService';
 export default {
     data(){
         return {
+            permissionDenied: false,
             camerasList:[],
             videoEl: null,
             localTrack: null,
@@ -46,18 +47,18 @@ export default {
         getVideoInputdevices() {
             let self = this;
             navigator.mediaDevices.enumerateDevices().then((mediaDevices) => {
-                    mediaDevices.forEach((device) => {
-                        if (device.kind === 'videoinput') {
-                            self.camerasList.push(device)
+                        mediaDevices.forEach((device) => {
+                            if (device.kind === 'videoinput') {
+                                self.camerasList.push(device)
+                            }
+                        })
+                        if(self.camerasList.length > 0){
+                            if(!self.singleCameraId){
+                                self.singleCameraId = self.camerasList[0].deviceId;
+                            }
+                            self.createVideoQualityPreview();
                         }
-                    })
-                    if(self.camerasList.length > 0){
-                        if(!self.singleCameraId){
-                            self.singleCameraId = self.camerasList[0].deviceId;
-                        }
-                        self.createVideoQualityPreview();
-                        return
-                    }
+                        if(self.permissionDenied) return self.camerasList = []
                 },
                 (error) => {
                     insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoSettings_getVideoInputdevices', error, null);
@@ -77,6 +78,7 @@ export default {
                     self.videoEl.appendChild(self.localTrack.attach());
                     self.$store.dispatch('updateVideoTrack',self.singleCameraId)
                 }, (err)=>{
+                    self.permissionDenied = true
                     insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoValidation_createVideoQualityPreview', err, null);
                     console.error(err);
                 });
@@ -100,6 +102,7 @@ export default {
 
 <style lang="less">
 @import '../../../../../../styles/colors.less';
+@import '../../../../../../styles/mixin.less';
 
 .studyRoomVideoSettings{
     width: 100%;
@@ -138,6 +141,7 @@ export default {
         background-color: gray;
         #local-video-test-track1 {
             height: 100%;
+
             video {
                 width: 100%;
                 overflow: hidden;
