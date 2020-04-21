@@ -57,7 +57,7 @@ function _publishTrack(activeRoom,track){
 function _unPublishTrack(activeRoom,track){
    activeRoom.localParticipant.unpublishTrack(track);
 }
-function _toggleTrack(tracks,trackType,value){
+// function _toggleTrack(tracks,trackType,value){
    // let {track} = tracks.find(track=>track.kind === trackType);
    // if(track){
    //    // value: FLASE - USER TURNED OFF / TRUE - USER TURNED ON
@@ -68,7 +68,7 @@ function _toggleTrack(tracks,trackType,value){
    //       track.enable()
    //    }
    // }
-}
+// }
 function _twilioListeners(room,store) { 
    // romote participants
    room.participants.forEach((participant) => {
@@ -273,14 +273,14 @@ export default () => {
                dataTrack.send(mutation.payload);
             }
             if (mutation.type === twilio_SETTERS.VIDEO_TOGGLE){
-               let tracks = [];
-               _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
-               _toggleTrack(tracks,'video',mutation.payload);
+               // let tracks = [];
+               // _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
+               // _toggleTrack(tracks,'video',mutation.payload);
             }
             if (mutation.type === twilio_SETTERS.AUDIO_TOGGLE){
-               let tracks = [];
-               _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
-               _toggleTrack(tracks,'audio',mutation.payload);
+               // let tracks = [];
+               // _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
+               // _toggleTrack(tracks,'audio',mutation.payload);
             }
             if (mutation.type === twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE){
                if(mutation.payload && !_localScreenTrack){ 
