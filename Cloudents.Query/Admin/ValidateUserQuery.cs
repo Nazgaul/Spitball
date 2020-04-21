@@ -41,6 +41,7 @@ namespace Cloudents.Query.Admin
                 return new UserRolesDto()
                 {
                     Country = result.Country,
+                    SbCountry = result.SbCountry,
                     Id = result.Id
                 };
             }
@@ -50,6 +51,8 @@ namespace Cloudents.Query.Admin
     public class UserRolesDto
     {
         public Guid Id { get; set; }
-        public string Country { get; set; }
+        public string? Country { get; set; }
+
+        public Country? SbCountry { get; set; }
     }
 }

@@ -89,14 +89,13 @@ namespace Cloudents.Admin2.Api
 
         [Route("search")]
         [HttpGet]
-        //[Authorize(Policy = Policy.IsraelUser)]
         public async Task<IEnumerable<TutorDto>> GetAsync([FromQuery] TutorSearchRequest model,
            CancellationToken token)
         {
-            var adminCountry = User.GetCountryClaim();
+            var adminCountry = User.GetSbCountryClaim();
             var country = adminCountry ?? model.Country;
-            
-            var query = new TutorSearchQuery(model.Term, model.State, 0, country);
+
+            var query = new TutorSearchQuery(model.Term, model.State, country);
             var result = await _queryBus.QueryAsync(query, token);
             return result;
         }

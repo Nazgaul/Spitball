@@ -4,23 +4,22 @@ using Dapper;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Query.Admin
 {
-    public class TutorSearchQuery : IQueryAdmin<IEnumerable<TutorDto>>
+    public class TutorSearchQuery : IQueryAdmin2<IEnumerable<TutorDto>>
     {
-        public TutorSearchQuery(string term, ItemState? state, int page, string country)
+        public TutorSearchQuery(string term, ItemState? state, Country country)
         {
             Term = term;
             State = state;
-            Page = page;
             Country = country;
         }
 
         private string Term { get; }
-        private ItemState? State { get;  }
-        private int Page { get; }
-        public string Country { get; }
+        private ItemState? State { get; }
+        public Country? Country { get; }
 
         internal sealed class TutorSearchQueryHandler : IQueryHandler<TutorSearchQuery, IEnumerable<TutorDto>>
         {
@@ -33,7 +32,6 @@ namespace Cloudents.Query.Admin
 
             public async Task<IEnumerable<TutorDto>> GetAsync(TutorSearchQuery query, CancellationToken token)
             {
-                const int pageSize = 200;
 
                 const string sqlWithTerm = @"Select @Term = case when @Term is null then '""""' else '""' + @Term+ '*""' end 
                             select u.Id, u.Name, u.Email, u.PhoneNumberHash as PhoneNumber, u.Country, t.State, t.Created
@@ -41,22 +39,18 @@ namespace Cloudents.Query.Admin
                             join sb.[User] u
 	                            on u.Id = t.Id
                             where CONTAINS(([Name], Email, PhoneNumberHash) , @Term)
-                            and (u.Country = @Country or @Country is null)
+                            and (u.SbCountry = @Country or @Country is null)
                             and (t.State = @State or @State is null)
-                            order by u.Id
-                            OFFSET @PageSize * @Page ROWS
-                            FETCH NEXT @PageSize ROWS ONLY;";
+                            order by u.Id;";
 
                 const string sqlWithoutTerm = @"select u.Id, u.Name, u.Email, u.PhoneNumberHash as PhoneNumber, u.Country, 
                                     t.State, t.Created
                             from sb.Tutor t
                             join sb.[User] u
 	                            on u.Id = t.Id
-                            where (u.Country = @Country or @Country is null)
+                            where (u.SbCountry = @Country or @Country is null)
                             and (t.State = @State or @State is null)
-                            order by u.Id
-                            OFFSET @PageSize * @Page ROWS
-                            FETCH NEXT @PageSize ROWS ONLY;";
+                            order by u.Id;";
 
                 var sql = string.IsNullOrEmpty(query.Term) ? sqlWithoutTerm : sqlWithTerm;
                 using var conn = _dapperRepository.OpenConnection();
@@ -64,9 +58,7 @@ namespace Cloudents.Query.Admin
                 {
                     query.Term,
                     State = query.State?.ToString(),
-                    query.Country,
-                    PageSize = pageSize,
-                    query.Page
+                    Country = query.Country?.Id,
                 });
             }
         }
