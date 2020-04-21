@@ -168,7 +168,7 @@ export default {
             let self = this
             this.$store.dispatch('updateEnterRoom', this.$route.params.id)
                 .then(() => {
-                    self.$emit('updateRoomIsActive', true)
+                    // self.$emit('updateRoomIsActive', true)
                     self.actions[name]();
                 }).catch(ex => {
                     self.$appInsights.trackException({exception: new Error(ex)});
@@ -192,8 +192,7 @@ export default {
 @import '../../../../../styles/mixin.less';
 
 .settingDetailsWrap {
-    // max-width: 100%;
-    // flex-shrink: 0;
+    flex-shrink: 0;
     color: @global-purple;
     .settingDetails {
         .settingTitle {
@@ -226,7 +225,6 @@ export default {
     }
 
     .counterWrap {
-        // margin: 0 auto;
         max-width: 300px;
         .counterTitle {
             font-weight: 600;

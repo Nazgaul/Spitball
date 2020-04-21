@@ -34,7 +34,7 @@
             </div>
 
             <div id="local-video-test-track">
-                <video id="videoPlaceholder" width="600" height="400" v-show="!cameraOn"></video>
+                <video id="videoPlaceholder" width="600" height="400" v-if="!cameraOn || !placeholder"></video>
             </div>
             <div class="videoOverlay"></div>
         </v-row>
@@ -90,8 +90,9 @@ export default {
         return{
             videoEl: null,
             localTrack: null,
-            cameraOn: true,
             microphoneOn: true,
+            cameraOn: false,
+            placeholder: false,
             permissionDenied: false,
             permissionDialogState: false,
             settingDialogState: false,
@@ -109,8 +110,7 @@ export default {
     },
     methods:{
         getVideoInputdevices() {
-            this.camerasList = []
-
+            this.camerasList = [];
             let self = this;
             navigator.mediaDevices.enumerateDevices().then((mediaDevices) => {
                 mediaDevices.forEach((device) => {
@@ -122,11 +122,12 @@ export default {
                         if(!self.singleCameraId){
                             self.singleCameraId = self.camerasList[0].deviceId;
                         }
-                        self.cameraOn = true
                         self.createVideoQualityPreview();
+                        self.cameraOn = true
                         return
                     }
                     self.cameraOn = false
+                    self.clearVideoTrack()
                 }).catch(error => {
                     insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoSettings_getVideoInputdevices', error, null);
                 })
@@ -141,19 +142,20 @@ export default {
                 .then(track => {
                     // Checking whether a video tag is already have been attached to dom.
                     // Reason: duplicate video attached when pluggin device on/off
-                    let videoPlaceholderExist = document.getElementById('videoPlaceholder')
-
-                    if(videoPlaceholderExist) {
+                    // let videoPlaceholderExist = document.getElementById('sbCam')
+                    // if(document.getElementById('videoPlaceholder')) {
                         self.videoEl = document.getElementById('local-video-test-track');
                         self.localTrack = track;
                         self.videoEl.appendChild(self.localTrack.attach());
                         self.$store.dispatch('updateVideoTrack',self.singleCameraId)
-                        videoPlaceholderExist
-                    }
+                        self.cameraOn = true
+                        self.placeholder = true
+                    // }
                 }).catch(err => {
                     self.permissionDenied = true
                     self.permissionDialogState = true
                     self.cameraOn = false
+                    self.placeholder = false
                     self.microphoneOn = false
                     insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoValidation_createVideoQualityPreview', err, null);
                 })
@@ -174,6 +176,7 @@ export default {
             if(this.permissionDenied) return
 
             this.cameraOn = !this.cameraOn
+            this.placeholder = !this.placeholder
 
             if(!this.cameraOn) {
                 this.clearVideoTrack()
@@ -198,19 +201,15 @@ export default {
 <style lang="less">
 @import '../../../../../styles/mixin';
 @import '../../../../../styles/colors';
+
 .srVideoSettingsVideoContainerWrap {
     max-width: 680px;
     width: 100%;
-    // min-width: 680px;
     .srVideoSettingsVideoContainer {
         width: 100%;
         position: relative;
         border-radius: 8px;
         background-color: #202124;
-
-        // @media (max-width: @screen-sm) {
-        //     width: 70%;
-        // }
         .cameraTextWrap {
             margin: 0 100px;
             position: absolute;

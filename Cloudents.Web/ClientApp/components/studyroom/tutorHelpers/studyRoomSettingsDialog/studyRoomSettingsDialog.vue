@@ -8,7 +8,7 @@
             </div>
 
             <div class="settingsMain d-flex align-center justify-center">
-                <div class="wrap d-md-flex d-block align-center mx-5">
+                <div class="wrap d-md-flex d-block align-center justify-center mx-5">
                     <studyRoomVideo />
                     <studyRoomSettingDetails :isRoomActive="isRoomActive" @updateRoomIsActive="val => isRoomActive = val" />
                 </div>
@@ -79,6 +79,11 @@ export default {
 
       .wrap {
         height: 100%;
+        width: 100%;
+
+        @media (max-width: @screen-sm) {
+          width: auto;
+        }
       }
     }
 
