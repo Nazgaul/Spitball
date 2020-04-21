@@ -36,9 +36,9 @@ function _changeState(localParticipant) {
 
 function _detachTracks(tracks){
    tracks.forEach((track) => {
-      // if(track.kind == 'audio'){
-      //    return
-      // }
+      if(track.kind == 'audio'){
+         return
+      }
       if (track?.detach) {
          // store.commit(twilio_SETTERS.DELETE_REMOTE_VIDEO_TRACK,track)
          track.detach().forEach((detachedElement) => {
