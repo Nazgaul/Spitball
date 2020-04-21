@@ -99,7 +99,7 @@ export default {
       // Lazily load input items
 
       return connectivityModule.http
-        .get(`Admin${this.context}/search?${this.context.toLowerCase()}=${val}`)
+        .get(`Admin${this.context}/search?search=${val}`)
         .then(res => {
           this.items = [].concat(res);
         })
