@@ -56,9 +56,10 @@
             </v-btn>
 
             <div v-else dense class="tutorActions text-center text-md-left d-block d-sm-flex">
-                <v-col>
+                <div>
                     <v-btn
                         @click="tutorActions('whiteboard')"
+                        class="mr-sm-2 mr-0 mb-2"
                         color="#4c59ff"
                         height="46"
                         width="140"
@@ -69,10 +70,11 @@
                         <whiteboardSvg width="18" />
                         <div class="flex-grow-1">{{$t('studyRoomSettings_whiteboard')}}</div>
                     </v-btn>
-                </v-col>
-                <v-col>
+                </div>
+                <div>
                     <v-btn
                         @click="tutorActions('present')"
+                        class="mx-sm-2 mx-0 mb-2"
                         color="#4c59ff"
                         height="46"
                         width="140"
@@ -83,10 +85,11 @@
                         <presentSvg width="18" />
                         <div class="flex-grow-1">{{$t('studyRoomSettings_present')}}</div>
                     </v-btn>
-                </v-col>
-                <v-col>
+                </div>
+                <div>
                     <v-btn
                         @click="tutorActions('fullview')"
+                        class="ml-sm-2 ml-0 mb-2"
                         color="#4c59ff"
                         height="46"
                         width="140"
@@ -97,7 +100,7 @@
                         <fullviewSvg width="18" />
                         <div class="flex-grow-1">{{$t('studyRoomSettings_full_view')}}</div>
                     </v-btn>
-                </v-col>
+                </div>
             </div>
         </template>
     </div>
