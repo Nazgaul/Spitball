@@ -23,7 +23,6 @@ const mutations = {
         state.visitedSettingPage = val;
     },
     studySettings_room_props(state,props){
-        debugger
         state.roomIsTutorSettings = this.getters.accountUser.id == props.tutorId;
     }
 };
