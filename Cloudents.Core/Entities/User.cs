@@ -22,6 +22,7 @@ namespace Cloudents.Core.Entities
             Language = language;
             Created = DateTime.UtcNow;
             Country = country;
+            SbCountry = country;
             Gender = gender;
         }
 
@@ -129,6 +130,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
             Country = country;
+            SbCountry = country;
             University = null;
             AddEvent(new ChangeCountryEvent(Id));
         }
@@ -142,6 +144,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
             Country = country;
+            SbCountry = country;
             University = null;
             ChangeLanguage(Entities.Language.English);
             AddEvent(new ChangeCountryEvent(Id));
@@ -228,9 +231,9 @@ namespace Cloudents.Core.Entities
 
         public virtual void UseToken(StudyRoom studyRoom)
         {
-            Country country = Country;
+           
 
-            if (country != Entities.Country.UnitedStates)
+            if (SbCountry != Entities.Country.UnitedStates)
             {
                 return;
             }
@@ -250,9 +253,8 @@ namespace Cloudents.Core.Entities
             if (orderId == null) throw new ArgumentNullException(nameof(orderId));
             if (authorizationId == null) throw new ArgumentNullException(nameof(authorizationId));
             if (studyRoom == null) throw new ArgumentNullException(nameof(studyRoom));
-            Country country = Country;
 
-            if (country != Entities.Country.UnitedStates)
+            if (SbCountry != Entities.Country.UnitedStates)
             {
                 throw new ArgumentException("Only usa country can use paypal");
             }
@@ -411,9 +413,10 @@ namespace Cloudents.Core.Entities
         {
             const int maxRefer = 5;
 
-            Country country = user.Country;
+            //Country country = user.Country;
+
             var referCount = Transactions.TransactionsReadOnly.AsQueryable().Count(w => w is ReferUserTransaction);
-            var price = referCount > maxRefer || country == Entities.Country.India ? 0 : 10;
+            var price = referCount > maxRefer || SbCountry == Entities.Country.India ? 0 : 10;
             MakeTransaction(new ReferUserTransaction(user, price));
         }
 
