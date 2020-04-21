@@ -263,9 +263,6 @@ export default {
         }
         #local-video-test-track{
             width: 100%;
-            @media (max-width: @screen-xs) {
-                min-width: 385px !important;
-            }
             .videoPlaceHolder {
                     width: 100%;
                     border-radius: 8px;
