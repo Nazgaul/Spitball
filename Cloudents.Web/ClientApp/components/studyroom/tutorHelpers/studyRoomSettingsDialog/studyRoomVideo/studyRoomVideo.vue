@@ -33,8 +33,8 @@
                 <v-icon color="#fff" @click="settingDialogState = true" size="22">sbf-settings</v-icon>
             </div>
 
-            <div id="local-video-test-track">
-                <video id="videoPlaceholder" v-if="!cameraOn || !placeholder"></video>
+            <div id="local-video-test-track" :class="{'videoPlaceholderWrap': !cameraOn || !placeholder}">
+                <video class="videoPlaceholder" v-if="!cameraOn || !placeholder"></video>
             </div>
             <div class="videoOverlay"></div>
         </v-row>
@@ -255,8 +255,13 @@ export default {
                 }
             }
         }
-        #local-video-test-track{
+        #local-video-test-track {
+            padding-top: 6.25%;
             width: 100%;
+
+            &.videoPlaceholderWrap {
+                padding-top: 6.25%;
+            }
             .videoPlaceHolder {
                     width: 100%;
                     border-radius: 8px;
