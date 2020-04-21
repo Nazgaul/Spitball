@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace Cloudents.Persistence.Maps
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Fluent nhibernate")]
-    public class HiLoGeneratorMap : ClassMap<HiLoGenerator>
+    internal class HiLoGeneratorMap : ClassMap<HiLoGenerator>
     {
         public HiLoGeneratorMap()
         {

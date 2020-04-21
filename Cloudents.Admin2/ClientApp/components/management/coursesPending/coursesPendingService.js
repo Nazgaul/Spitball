@@ -28,14 +28,14 @@ const getCourseList = function (language, state, filter) {
     if(filter){
         query += `&Filter=${filter}`;
     }
-        return connectivityModule.http.get(`${path}newCourses${query}`).then((newCourseList) => {
+        return connectivityModule.http.get(`AdminCourse${query}`).then((newCourseList) => {
             let arrCourseList = [];
             if (newCourseList.length > 0) {
                 newCourseList.forEach((ci) => {
                     arrCourseList.push(createCourseItem(ci));
                 });
             }
-            return Promise.resolve(arrCourseList);
+            return arrCourseList;
         }, (err) => {
             return Promise.reject(err);
         });
