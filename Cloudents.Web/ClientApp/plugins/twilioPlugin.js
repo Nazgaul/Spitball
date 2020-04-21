@@ -9,13 +9,14 @@ const LOCAL_TRACK_DOM_ELEMENT = 'localTrack';
 const AUDIO_TRACK_NAME = 'audioTrack';
 const VIDEO_TRACK_NAME = 'videoTrack';
 const SCREEN_TRACK_NAME = 'screenTrack';
+const CURRENT_STATE_UPDATE = '1';
+const CURRENT_STATE_UPDATED = '2';
 
-const CURRENT_STATE="1";
 let intervalTime = null;
 
 function _changeState(localParticipant) {
    let stuffToSend =  {
-      type: CURRENT_STATE,
+      type: CURRENT_STATE_UPDATE,
       tab : STORE.getters.getActiveNavEditor,
       canvasTab : {
          tab: STORE.getters.getCurrentSelectedTab,
@@ -143,15 +144,15 @@ function _twilioListeners(room,store) {
    room.on('trackMessage', (message) => {
       let data = JSON.parse(message);
       _insightEvent('trackMessage', data, null);
-      if (data.type == CURRENT_STATE) {
+      if (data.type === CURRENT_STATE_UPDATE) {
          store.dispatch('updateAudioToggleByRemote',data.mute)
          store.dispatch('updateFullScreen',data.fullScreen)
          store.dispatch('updateActiveNavEditor', data.tab)
          store.dispatch('tempWhiteBoardTabChanged', data.canvasTab)
-         store.dispatch('sendDataTrack', JSON.stringify({type : 'ACK'}));
+         store.dispatch('sendDataTrack', JSON.stringify({type : CURRENT_STATE_UPDATED}));
          return;
       }
-      if (data.type == 'ACK') {
+      if (data.type === CURRENT_STATE_UPDATED) {
          clearInterval(intervalTime)
          return;
       }
