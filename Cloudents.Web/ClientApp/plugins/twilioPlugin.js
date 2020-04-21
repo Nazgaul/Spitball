@@ -58,16 +58,16 @@ function _unPublishTrack(activeRoom,track){
    activeRoom.localParticipant.unpublishTrack(track);
 }
 function _toggleTrack(tracks,trackType,value){
-   let {track} = tracks.find(track=>track.kind === trackType);
-   if(track){
-      // value: FLASE - USER TURNED OFF / TRUE - USER TURNED ON
-      if(!value && track.isEnabled){
-         track.disable()
-      }
-      if(value && !track.isEnabled){
-         track.enable()
-      }
-   }
+   // let {track} = tracks.find(track=>track.kind === trackType);
+   // if(track){
+   //    // value: FLASE - USER TURNED OFF / TRUE - USER TURNED ON
+   //    if(!value && track.isEnabled){
+   //       track.disable()
+   //    }
+   //    if(value && !track.isEnabled){
+   //       track.enable()
+   //    }
+   // }
 }
 function _twilioListeners(room,store) { 
    // romote participants
@@ -148,7 +148,7 @@ function _twilioListeners(room,store) {
       let data = JSON.parse(message);
       _insightEvent('trackMessage', data, null);
       if (data.type === CURRENT_STATE_UPDATE) {
-         store.dispatch('updateAudioToggleByRemote',data.mute)
+         // store.dispatch('updateAudioToggleByRemote',data.mute)
          store.dispatch('updateFullScreen',data.fullScreen)
          store.dispatch('updateActiveNavEditor', data.tab)
          store.dispatch('tempWhiteBoardTabChanged', data.canvasTab)
