@@ -52,7 +52,8 @@ namespace Cloudents.Query.Users
                     listOfQueries.Add(type, xx);
                 }
 
-                var futureValueCountry = _statelessSession.Query<User>().Where(w => w.Id == query.Id).Select(s => s.Country).ToFutureValue();
+                var futureValueCountry = _statelessSession.Query<User>()
+                    .Where(w => w.Id == query.Id).Select(s => s.SbCountry).ToFutureValue();
 
 
                 Country country = await futureValueCountry.GetValueAsync(token);

@@ -3,17 +3,18 @@ using Dapper;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Query.Admin
 {
-    public class PendingTutorsQuery : IQueryAdmin<IEnumerable<PendingTutorsDto>>
+    public class PendingTutorsQuery : IQueryAdmin2<IEnumerable<PendingTutorsDto>>
     {
-        public PendingTutorsQuery(string country)
+        public PendingTutorsQuery(Country? country)
         {
             Country = country;
         }
 
-        public string Country { get; }
+        public Country? Country { get; }
 
         internal sealed class PendingTutorsQueryHandler : IQueryHandler<PendingTutorsQuery, IEnumerable<PendingTutorsDto>>
         {
@@ -34,11 +35,12 @@ u.ImageName as Image
 from sb.[User] u
 join sb.Tutor t
 	on u.Id = t.Id 
-where t.State = 'Pending' AND (@Country IS NULL OR u.Country = @Country) order by t.id desc OPTION(RECOMPILE)";
+where t.State = 'Pending' AND (@Country IS NULL OR u.SbCountry = @Country) order by t.id desc OPTION(RECOMPILE)";
 
 
                 using var connection = _dapper.OpenConnection();
-                var res = await connection.QueryAsync<PendingTutorsDto>(sql, new { query.Country });
+                var res = await connection.QueryAsync<PendingTutorsDto>(sql,
+                    new { Country = query.Country?.Id });
                 return res;
             }
         }

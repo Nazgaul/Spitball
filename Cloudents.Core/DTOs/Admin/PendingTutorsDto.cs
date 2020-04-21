@@ -20,7 +20,7 @@ namespace Cloudents.Core.DTOs.Admin
         public string Email { get; set; }
 
         [EntityBind(nameof(BaseUser.ImageName))]
-        public string Image { get; set; }
+        public string? Image { get; set; }
         public string Courses { get; set; }
         [EntityBind(nameof(Tutor.Created))]
         public DateTime? Created { get; set; }

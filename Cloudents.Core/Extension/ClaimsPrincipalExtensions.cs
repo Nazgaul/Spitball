@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Security.Claims;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.Extension
 {
@@ -17,10 +18,10 @@ namespace Cloudents.Core.Extension
         }
 
 
-        public static string? GetSbCountryClaim(this ClaimsPrincipal principal)
+        public static Country? GetSbCountryClaim(this ClaimsPrincipal principal)
         {
             var country = principal.Claims.First(w => string.Equals(w.Type, SbClaimCountry, StringComparison.OrdinalIgnoreCase)).Value;
-            return country != "None" ? country : null;
+            return country != "None" ? Country.FromCountry(country) : null;
         }
 
         public static Guid GetIdClaim(this ClaimsPrincipal principal)

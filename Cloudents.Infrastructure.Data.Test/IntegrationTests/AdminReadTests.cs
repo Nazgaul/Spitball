@@ -62,8 +62,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData("x", ItemState.Ok, "us")]
         [InlineData(null, null, null)]
-        public async Task TutorSearchQuery_Ok(string term, ItemState? state, string country)
+        public async Task TutorSearchQuery_Ok(string term, ItemState? state, string countryStr)
         {
+            var country = Country.FromCountry(countryStr);
             var query = new TutorSearchQuery(term, state, country);
             var _ = await _fixture.QueryBus.QueryAsync(query, default);
         }
@@ -114,8 +115,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData(null)]
         [InlineData("IL")]
-        public async Task AdminPendingTutorsQuery_Ok(string country)
+        public async Task AdminPendingTutorsQuery_Ok(string countryStr)
         {
+            var country = Country.FromCountry(countryStr);
             var query = new PendingTutorsQuery(country);
             await _fixture.QueryBus.QueryAsync(query, default);
         }
@@ -332,8 +334,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(ItemState.Ok, "IL", "V")]
         [InlineData(ItemState.Pending, "IL", "V")]
 
-        public async Task AdminCoursesQuery_Ok(ItemState state, string country, string search)
+        public async Task AdminCoursesQuery_Ok(ItemState state, string countryStr, string search)
         {
+            var country = Country.FromCountry(countryStr);
             var query = new CoursesQuery(state, country, search);
             var result = await _fixture.QueryBus.QueryAsync(query, default);
 

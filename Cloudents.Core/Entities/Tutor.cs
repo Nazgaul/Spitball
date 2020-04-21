@@ -19,8 +19,8 @@ namespace Cloudents.Core.Entities
             Created = DateTime.UtcNow;
             Bio = bio;
             //User.SetUserType(UserType.Teacher);
-            Country country = user.Country;
-            if (country == Country.India)
+            //Country country = user.Country;
+            if (user.SbCountry == Country.India)
             {
                 Price = new TutorPrice(100, 0);
             }

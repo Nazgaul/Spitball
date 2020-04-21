@@ -68,12 +68,12 @@ namespace Cloudents.Web.Controllers
                 Response.Headers.Add("X-Robots-Tag", "noindex");
                 return View("Index");
             }
-            
+
             ViewBag.title = _localizer["TitleNoUniversity", retVal.Name];
             ViewBag.metaDescription = _localizer["Description", retVal.Tutor.Description];
             if (retVal.Image != null)
             {
-                Country country = retVal.Tutor.TutorCountry;
+                Country country = Country.FromCountry(retVal.Tutor.TutorCountry);
 
                 ViewBag.ogImage = _urlBuilder.BuildUserImageProfileShareEndpoint(retVal.Id, new
                 {
@@ -92,7 +92,7 @@ namespace Cloudents.Web.Controllers
                 }
 
             }
-          
+
             return View("Index");
         }
     }

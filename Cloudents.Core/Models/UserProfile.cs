@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.Models
 {
@@ -12,34 +13,16 @@ namespace Cloudents.Core.Models
 
         public string? Country { get; set; }
 
-        public string CountryRegion
+        public Country CountryRegion
         {
             get
             {
-                Cloudents.Core.Entities.Country c = Country;
-                return c.Name;
+                Country c = Entities.Country.FromCountry(Country);
+                return c;
             }
         }
 
     }
 
-    //public class UserUniversityQueryProfileDto
-    //{
-    //    public UserUniversityQueryProfileDto()
-    //    {
-    //    }
-    //    public UserUniversityQueryProfileDto(Guid id, string extraName, string name, string country)
-    //    {
-    //        Id = id;
-    //        ExtraName = extraName?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Union(new[] { name });
-    //        Name = name;
-    //        Country = country;
-    //    }
-
-    //    public Guid Id { get;  set; }
-    //    public IEnumerable<string> ExtraName { get;  set; }
-    //    public string Name { get;  set; }
-
-    //    public string Country { get;  set; }
-    //}
+    
 }
