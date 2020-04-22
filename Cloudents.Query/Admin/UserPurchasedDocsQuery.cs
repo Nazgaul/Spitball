@@ -8,7 +8,7 @@ namespace Cloudents.Query.Admin
 {
     public class UserPurchasedDocsQuery : IQueryAdmin<IEnumerable<UserPurchasedDocsDto>>
     {
-        public UserPurchasedDocsQuery(long userId, int page, string country)
+        public UserPurchasedDocsQuery(long userId, int page, string? country)
         {
             UserId = userId;
             Page = page;
@@ -16,7 +16,7 @@ namespace Cloudents.Query.Admin
         }
         private long UserId { get; }
         private int Page { get; }
-        public string Country { get; }
+        public string? Country { get; }
         internal sealed class UserPurchasedDocsQueryHandler : IQueryHandler<UserPurchasedDocsQuery, IEnumerable<UserPurchasedDocsDto>>
         {
             private readonly IDapperRepository _dapper;

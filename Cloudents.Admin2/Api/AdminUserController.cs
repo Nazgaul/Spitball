@@ -12,13 +12,13 @@ using Cloudents.Query;
 using Cloudents.Query.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Admin2.Api
 {
@@ -30,18 +30,18 @@ namespace Cloudents.Admin2.Api
         private readonly IQueryBus _queryBus;
         private readonly IDocumentDirectoryBlobProvider _blobProvider;
         private readonly IQueueProvider _queueProvider;
-        private readonly IConfiguration _configuration;
+        private readonly IUrlBuilder _urlBuilder;
 
 
         public AdminUserController(ICommandBus commandBus, IQueryBus queryBus,
             IDocumentDirectoryBlobProvider blobProvider, IQueueProvider queueProvider,
-            IConfiguration configuration)
+            IUrlBuilder urlBuilder)
         {
             _commandBus = commandBus;
             _queryBus = queryBus;
             _blobProvider = blobProvider;
             _queueProvider = queueProvider;
-            _configuration = configuration;
+            _urlBuilder = urlBuilder;
         }
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet("suspended")]
         public async Task<IEnumerable<SuspendedUsersDto>> GetSuspended(CancellationToken token)
         {
-            var country = User.GetCountryClaim();
+            var country = User.GetSbCountryClaim();
             var query = new SuspendedUsersQuery(country);
             return await _queryBus.QueryAsync(query, token);
         }
@@ -218,7 +218,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet("info")]
         public async Task<ActionResult<UserDetailsDto>> GetUserDetails(string userIdentifier, CancellationToken token)
         {
-            var country = User.GetCountryClaim();
+            var country = User.GetSbCountryClaim();
             var regex = new Regex("^[0-9]+$");
             if (userIdentifier[0] == '0' && regex.IsMatch(userIdentifier))
             {
@@ -232,13 +232,15 @@ namespace Cloudents.Admin2.Api
             {
                 return NotFound();
             }
+
+            res.ProfileUrl = _urlBuilder.BuildProfileEndPoint(res.Id);
             return res;
         }
 
         [HttpGet("questions")]
         public async Task<IEnumerable<UserQuestionsDto>> GetUserQuestionsDetails(long id, int page, CancellationToken token)
         {
-            var country = User.GetCountryClaim();
+            var country = User.GetSbCountryClaim();
             var query = new UserQuestionsQuery(id, page, country);
             return await _queryBus.QueryAsync(query, token);
         }
@@ -246,7 +248,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet("answers")]
         public async Task<IEnumerable<UserAnswersDto>> GetUserAnswersDetails(long id, int page, CancellationToken token)
         {
-            var country = User.GetCountryClaim();
+            var country = User.GetSbCountryClaim();
             var query = new UserAnswersQuery(id, page, country);
             return await _queryBus.QueryAsync(query, token);
         }
@@ -282,7 +284,7 @@ namespace Cloudents.Admin2.Api
             var res = (await _queryBus.QueryAsync(query, token)).ToList();
             foreach (var r in res)
             {
-                r.Url = $"{_configuration["Site"]}document/{r.ItemCourse}/{r.ItemCreated:dd-M-yyyy}/{r.ItemId}";
+                r.Url = _urlBuilder.BuildDocumentEndPoint(r.ItemId);
             }
             return res;
         }
@@ -291,7 +293,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<UserDocumentsDto>> GetUserInfo(long id, int page, [FromServices] IBlobProvider blobProvider,
              CancellationToken token)
         {
-            var country = User.GetCountryClaim();
+            var country = User.GetSbCountryClaim();
             var query = new UserDocumentsQuery(id, page, country);
 
 

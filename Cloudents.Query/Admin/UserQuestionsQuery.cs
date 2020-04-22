@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Admin
 {
-    public class UserQuestionsQuery : IQueryAdmin<IEnumerable<UserQuestionsDto>>
+    public class UserQuestionsQuery : IQueryAdmin2<IEnumerable<UserQuestionsDto>>
     {
-        public UserQuestionsQuery(long userId, int page, string country)
+        public UserQuestionsQuery(long userId, int page, Country? country)
         {
             UserId = userId;
             Page = page;
@@ -19,7 +19,7 @@ namespace Cloudents.Query.Admin
         }
         private long UserId { get; }
         private int Page { get; }
-        public string Country { get; }
+        public Country? Country { get; }
         internal sealed class UserQuestionsQueryHandler : IQueryHandler<UserQuestionsQuery, IEnumerable<UserQuestionsDto>>
         {
             private readonly IStatelessSession _session;
@@ -33,17 +33,19 @@ namespace Cloudents.Query.Admin
             public async Task<IEnumerable<UserQuestionsDto>> GetAsync(UserQuestionsQuery query, CancellationToken token)
             {
 
-                return await _session.Query<Question>()
+                var dbQuery = _session.Query<Question>()
                     .WithOptions(w => w.SetComment(nameof(UserQuestionsQuery)))
-                        .Where(w => w.User.Id == query.UserId)
-                        .Where(w => w.User.Country == query.Country || string.IsNullOrEmpty(query.Country))
-                        .Take(PageSize).Skip(PageSize * query.Page)
+                        .Where(w => w.User.Id == query.UserId);
+                if (query.Country != null)
+                {
+                    dbQuery = dbQuery.Where(w => w.User.SbCountry == query.Country);
+                }
+                return await dbQuery.Take(PageSize).Skip(PageSize * query.Page)
                         .Select(s => new UserQuestionsDto
                         {
                             Id = s.Id,
                             Text = s.Text,
                             State = s.Status.State,
-                            Created = s.Created
                         }).ToListAsync(token);
             }
         }

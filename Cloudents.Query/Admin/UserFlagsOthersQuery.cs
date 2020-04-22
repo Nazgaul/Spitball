@@ -8,7 +8,7 @@ namespace Cloudents.Query.Admin
 {
     public class UserFlagsOthersQuery : IQueryAdmin<(IEnumerable<UserFlagsOthersDto>, int)>
     {
-        public UserFlagsOthersQuery(int minFlags, int page, string country)
+        public UserFlagsOthersQuery(int minFlags, int page, string? country)
         {
             Page = page;
             MinFlags = minFlags;
@@ -16,7 +16,7 @@ namespace Cloudents.Query.Admin
         }
         private int Page { get; }
         private int MinFlags { get; }
-        public string Country { get; }
+        public string? Country { get; }
         internal sealed class UserFlagsOthersQueryHandler : IQueryHandler<UserFlagsOthersQuery, (IEnumerable<UserFlagsOthersDto>, int)>
         {
             private readonly IDapperRepository _dapper;

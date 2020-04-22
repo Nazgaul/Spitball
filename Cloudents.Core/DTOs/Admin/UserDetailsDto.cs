@@ -16,8 +16,7 @@ namespace Cloudents.Core.DTOs.Admin
         public string Email { get; set; }
         [EntityBind(nameof(User.PhoneNumber))]
         public string PhoneNumber { get; set; }
-        [EntityBind(nameof(User.University))]
-        public string? University { get; set; }
+
         [EntityBind(nameof(User.Country))]
         public string Country { get; set; }
       
@@ -46,5 +45,8 @@ namespace Cloudents.Core.DTOs.Admin
         public bool CalendarExists { get; set; }
         public decimal? TutorPrice { get; set; }
         public UserType? UserType { get; set; }
+
+
+        public string ProfileUrl { get; set; }
     }
 }

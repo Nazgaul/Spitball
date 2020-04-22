@@ -23,13 +23,6 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
 
-        [Fact]
-        public async Task DocumentAggregateQuery_Ok()
-        {
-            var query = new UserAnswersQuery(638, 0, "IL");
-            await _fixture.QueryBus.QueryAsync(query, default);
-        }
-
         [Theory]
         [InlineData("638_159039", null)]
         [InlineData("638_159039", "IL")]
@@ -64,7 +57,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(null, null, null)]
         public async Task TutorSearchQuery_Ok(string term, ItemState? state, string countryStr)
         {
-            var country = Country.FromCountry(countryStr);
+            var country = FromCountry(countryStr);
             var query = new TutorSearchQuery(term, state, country);
             var _ = await _fixture.QueryBus.QueryAsync(query, default);
         }
@@ -117,7 +110,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData("IL")]
         public async Task AdminPendingTutorsQuery_Ok(string countryStr)
         {
-            var country = Country.FromCountry(countryStr);
+            var country = FromCountry(countryStr);
             var query = new PendingTutorsQuery(country);
             await _fixture.QueryBus.QueryAsync(query, default);
         }
@@ -161,7 +154,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminUserAnswersQuery_Ok()
         {
-            var query = new UserAnswersQuery(159039, 0, "IL");
+            var query = new UserAnswersQuery(159039, 0, FromCountry("IL"));
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -175,6 +168,16 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await _fixture.QueryBus.QueryAsync(q1, default);
         }
 
+        private Country? FromCountry(string countryStr)
+        {
+            if (countryStr == null)
+            {
+                return null;
+
+            }
+            return Country.FromCountry(countryStr);
+        }
+
         [Theory]
         [InlineData("Hadar@cloudents.com", "IL")]
         [InlineData("0523556456", "IL")]
@@ -184,7 +187,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData("638", null)]
         public async Task AdminUserDetailsQuery_Ok(string email, string country)
         {
-            var q2 = new UserDetailsQuery(email, country);
+
+
+            var q2 = new UserDetailsQuery(email, FromCountry(country));
             await _fixture.QueryBus.QueryAsync(q2, default);
         }
 
@@ -193,7 +198,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(159039, 0, null)]
         public async Task AdminUserDocumentsQuery_Ok(long userId, int page, string country)
         {
-            var query = new UserDocumentsQuery(userId, page, country);
+            var query = new UserDocumentsQuery(userId, page, FromCountry(country));
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -217,7 +222,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminUserQuestionsQuery_Ok()
         {
-            var query = new UserQuestionsQuery(159039, 0, "IL");
+            var query = new UserQuestionsQuery(159039, 0, FromCountry("IL"));
             await _fixture.QueryBus.QueryAsync(query, default);
         }
         //[Fact]
@@ -272,7 +277,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task SuspendedUsersEmptyQuery_Ok()
         {
-            var query = new SuspendedUsersQuery("IL");
+            var query = new SuspendedUsersQuery(FromCountry("IL"));
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -336,7 +341,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         public async Task AdminCoursesQuery_Ok(ItemState state, string countryStr, string search)
         {
-            var country = Country.FromCountry(countryStr);
+            var country = FromCountry(countryStr);
             var query = new CoursesQuery(state, country, search);
             var result = await _fixture.QueryBus.QueryAsync(query, default);
 
@@ -445,7 +450,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(null)]
         public async Task SubjectsTranslationQuery_Ok(string countryStr)
         {
-            var country = Country.FromCountry(countryStr);
+            var country = FromCountry(countryStr);
             var query = new SubjectsTranslationQuery(country);
             var _ = await _fixture.QueryBus.QueryAsync(query, default);
         }

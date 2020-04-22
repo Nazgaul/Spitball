@@ -11,7 +11,7 @@ namespace Cloudents.Query.Admin
 {
     public class UserSoldDocsQuery : IQueryAdmin<IEnumerable<UserSoldItemsDto>>
     {
-        public UserSoldDocsQuery(long userId, int page, string country)
+        public UserSoldDocsQuery(long userId, int page, string? country)
         {
             UserId = userId;
             Page = page;
@@ -20,7 +20,7 @@ namespace Cloudents.Query.Admin
 
         private long UserId { get; }
         private int Page { get; }
-        public string Country { get; }
+        public string? Country { get; }
 
         internal sealed class UserSoldDocsQueryHandler : IQueryHandler<UserSoldDocsQuery, IEnumerable<UserSoldItemsDto>>
         {
@@ -73,7 +73,7 @@ namespace Cloudents.Query.Admin
                         .Select(x => userAlias.Email).WithAlias(() => userSoldDto.PurchasedUserEmail)
                         .Select(x => userAlias.Transactions.Balance).WithAlias(() => userSoldDto.PurchasedUserBalance)
                         ).TransformUsing(Transformers.AliasToBean<UserSoldItemsDto>())
-                        .Skip(query.Page * pageSize).Take(pageSize).ListAsync<UserSoldItemsDto>();
+                        .Skip(query.Page * pageSize).Take(pageSize).ListAsync<UserSoldItemsDto>(token);
             }
         }
     }
