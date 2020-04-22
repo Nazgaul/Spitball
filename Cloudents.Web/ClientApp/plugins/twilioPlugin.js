@@ -22,7 +22,7 @@ function _changeState(localParticipant) {
          tab: STORE.getters.getCurrentSelectedTab,
          canvas: STORE.getters.canvasDataStore
       },
-      mute : STORE.getters.getIsAudioParticipants,
+     // mute : STORE.getters.getIsAudioParticipants,
       fullScreen: null
    };
    localParticipant.tracks.forEach((track) => {
@@ -36,9 +36,6 @@ function _changeState(localParticipant) {
 
 function _detachTracks(tracks){
    tracks.forEach((track) => {
-      if(track.kind == 'audio'){
-         return
-      }
       if (track?.detach) {
          // store.commit(twilio_SETTERS.DELETE_REMOTE_VIDEO_TRACK,track)
          track.detach().forEach((detachedElement) => {
@@ -57,18 +54,18 @@ function _publishTrack(activeRoom,track){
 function _unPublishTrack(activeRoom,track){
    activeRoom.localParticipant.unpublishTrack(track);
 }
-// function _toggleTrack(tracks,trackType,value){
-   // let {track} = tracks.find(track=>track.kind === trackType);
-   // if(track){
-   //    // value: FLASE - USER TURNED OFF / TRUE - USER TURNED ON
-   //    if(!value && track.isEnabled){
-   //       track.disable()
-   //    }
-   //    if(value && !track.isEnabled){
-   //       track.enable()
-   //    }
-   // }
-// }
+function _toggleTrack(tracks,trackType,value){
+   let {track} = tracks.find(track=>track.kind === trackType);
+   if(track){
+      // value: FLASE - USER TURNED OFF / TRUE - USER TURNED ON
+      if(!value){
+         track.disable()
+      }
+      if(value){
+         track.enable()
+      }
+   }
+}
 function _twilioListeners(room,store) { 
    // romote participants
    //let previewContainer = document.getElementById(REMOTE_TRACK_DOM_ELEMENT);
@@ -133,9 +130,6 @@ function _twilioListeners(room,store) {
       }
       if(track.kind === 'audio'){  
          let previewContainer = document.getElementById(REMOTE_TRACK_DOM_ELEMENT);
-      //    // track.detach().forEach((detachedElement) => {
-      //    //    detachedElement.remove();
-      //    // });
          previewContainer.appendChild(track.attach());
       }
    })
@@ -158,12 +152,15 @@ function _twilioListeners(room,store) {
       let data = JSON.parse(message);
       _insightEvent('trackMessage', data, null);
       if (data.type === CURRENT_STATE_UPDATE) {
-         // store.dispatch('updateAudioToggleByRemote',data.mute)
+         //store.dispatch('updateAudioToggleByRemote',data.mute)
          store.dispatch('updateFullScreen',data.fullScreen)
          store.dispatch('updateActiveNavEditor', data.tab)
          store.dispatch('tempWhiteBoardTabChanged', data.canvasTab)
          store.dispatch('sendDataTrack', JSON.stringify({type : CURRENT_STATE_UPDATED}));
          return;
+      }
+      if (data.type === "muteAll") {
+         store.dispatch('updateAudioToggleByRemote',data.val)
       }
       if (data.type === CURRENT_STATE_UPDATED) {
          clearInterval(intervalTime)
@@ -283,14 +280,14 @@ export default () => {
                dataTrack.send(mutation.payload);
             }
             if (mutation.type === twilio_SETTERS.VIDEO_TOGGLE){
-               // let tracks = [];
-               // _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
-               // _toggleTrack(tracks,'video',mutation.payload);
+               let tracks = [];
+               _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
+               _toggleTrack(tracks,'video',mutation.payload);
             }
             if (mutation.type === twilio_SETTERS.AUDIO_TOGGLE){
-               // let tracks = [];
-               // _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
-               // _toggleTrack(tracks,'audio',mutation.payload);
+               let tracks = [];
+               _activeRoom.localParticipant.tracks.forEach(track=>{tracks.push(track)})
+               _toggleTrack(tracks,'audio',mutation.payload);
             }
             if (mutation.type === twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE){
                if(mutation.payload && !_localScreenTrack){ 
@@ -374,9 +371,17 @@ export default () => {
                   store.commit(twilio_SETTERS.AUDIO_AVAILABLE,false)
                }
             }
-            if(mutation.type === twilio_SETTERS.TOGGLE_AUDIO_PARTICIPANTS ||
-               mutation.type === twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN){
+            if (mutation.type === twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN) {
                _changeState(_activeRoom.localParticipant)
+            }
+            if(mutation.type === twilio_SETTERS.TOGGLE_AUDIO_PARTICIPANTS){
+               STORE.dispatch('sendDataTrack',JSON.stringify(
+                  {
+                     type:'muteAll',
+                     val:  STORE.getters.getIsAudioParticipants
+                  }
+               ));
+               //_changeState(_activeRoom.localParticipant)
             }
          }
       })
