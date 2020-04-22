@@ -9,14 +9,14 @@ namespace Cloudents.Command.CommandHandler
     public class ReferringUserCommandHandler : ICommandHandler<ReferringUserCommand>
     {
         private readonly IRepository<User> _userRepository;
-        private readonly IReferUserTransactionRepository _referUserTransactionRepository;
+      
 
         //private const int MaxRefer = 5;
 
-        public ReferringUserCommandHandler(IRepository<User> userRepository, IReferUserTransactionRepository referUserTransactionRepository)
+        public ReferringUserCommandHandler(IRepository<User> userRepository)
         {
             _userRepository = userRepository;
-            _referUserTransactionRepository = referUserTransactionRepository;
+           
         }
 
         public async Task ExecuteAsync(ReferringUserCommand message, CancellationToken token)

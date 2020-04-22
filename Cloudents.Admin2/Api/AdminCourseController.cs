@@ -39,21 +39,15 @@ namespace Cloudents.Admin2.Api
             return Ok();
         }
 
-       
-        //[Route("search")]
-        //[HttpGet]
-        ////[Authorize(Policy = Policy.IsraelUser)]
-        //public async Task<CoursesResponse> GetAsync([FromQuery(Name = "course")]string course,
-        //    CancellationToken token)
-        //{
-        //    var query = new CourseSearchQuery(0, course, 0, User.GetCountryClaim());
-        //    //var query = new CourseSearchWithTermQuery(0, course, 0);
-        //    var result = await _queryBus.QueryAsync(query, token);
-        //    return new CoursesResponse
-        //    {
-        //        Courses = result
-        //    };
-        //}
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateCourseRequest model, CancellationToken token)
+        {
+            var command = new CreateCourseCommand(model.Name,model.Subject);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+        
 
         [HttpGet]
         [HttpGet("search")]
