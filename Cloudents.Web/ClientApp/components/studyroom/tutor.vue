@@ -3,17 +3,8 @@
     column
     class="tutoring-page"
     :style="{'background-size': zoom, 'background-position-x': panX, 'background-position-y': panY}"
-    :class="{'gridBackground': $route.name === 'tutoring'}"
-  >
-    <!-- <div v-show="isMobile" class="mobile-no-support-container">
-      <noSupportTop></noSupportTop>
-      <div class="no-support-text" v-language:inner="'tutor_not_supported'"></div>
-      <div class="no-support-button">
-        <router-link to="/" tag="button" v-language:inner="'tutor_close'"></router-link>
-      </div>
-      <noSupportBottom></noSupportBottom>
-    </div> -->
-    <div v-show="!isMobile">
+    :class="{'gridBackground': $route.name === 'tutoring'}">
+    <div>
       <v-flex>
         <nav class="tutoring-navigation">
           <div class="logo-nav-wrap">
@@ -226,8 +217,6 @@ import shareScreenBtn from "./tutorHelpers/shareScreenBtn.vue";
 import logoComponent from '../app/logo/logo.vue';
 import testIcon from "./images/eq-system.svg";
 import chatIcon from "../../font-icon/message-icon.svg";
-import noSupportTop from "./images/not_supported_top.svg";
-import noSupportBottom from "./images/not_supported_bottom.svg";
 import chatService from "../../services/chatService";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import leaveReview from "./tutorHelpers/leaveReview/leaveReview.vue";
@@ -272,8 +261,6 @@ export default {
     chatIcon,
     sbDialog,
     leaveReview,
-    noSupportTop,
-    noSupportBottom,
     whiteBoardTools,
     startEndSessionBtn,
     endSessionConfirm,
@@ -363,9 +350,6 @@ export default {
     },
     panY() {
       return `${this.getPanY}px`;
-    },
-    isMobile() {
-      return this.$vuetify.breakpoint.xsOnly;
     },
     isTutor() {
       return this.$store.getters.getRoomIsTutor;
