@@ -64,7 +64,7 @@
                     </v-btn>
                 </div>
                 <div>
-                    <v-btn :loading="loadings[roomModes.fullview]" :disabled="!$store.getters.getVideoTrackId"
+                    <v-btn :loading="loadings[roomModes.fullview]" 
                         @click="tutorActions(roomModes.fullview)" class="ml-sm-2 ml-0 mb-2"
                         color="#4c59ff" height="46" width="140" depressed rounded outlined>
                         <fullviewSvg width="18" />
