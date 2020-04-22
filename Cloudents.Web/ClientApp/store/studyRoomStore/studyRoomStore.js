@@ -95,7 +95,6 @@ const getters = {
    },
    getDialogRoomSettings: state => state.dialogRoomSettings,
    getDialogRoomEnd: state => state.roomIsActive && state.roomIsTutor && state.dialogEndSession,
-   getDialogTutorStart: state => !state.roomIsActive && state.roomIsTutor,
    getDialogUserConsent: state => state.dialogUserConsent,
    getDialogSnapshot: state => state.dialogSnapshot,
 }
@@ -150,14 +149,6 @@ const actions = {
       } else {
          return studyRoomService.getRoomInformation(roomId).then((roomProps) => {
             commit(studyRoom_SETTERS.ROOM_PROPS, roomProps);
-            if(getters.getRoomIsBroadcast && !getters.getRoomIsTutor){
-               let countDownDate = new Date(getters.getRoomDate).getTime();
-			      let now = new Date();
-               let distance = countDownDate - now;
-               if (distance > 0) {
-                  commit('setComponent', 'studyRoomSettings');
-               }
-            }
             if (roomProps.jwt){
                dispatch('updateJwtToken',roomProps.jwt);
             }

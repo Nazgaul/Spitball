@@ -17,19 +17,7 @@ export default {
             }
         }
     },
-    computed: {
-        sessionTime(){
-            let end = this.$store.getters.getSessionTimeEnd;
-            let start = this.$store.getters.getSessionTimeStart;
-            return this.getTimeFromMs(end - start);
-        },
-    },
     methods: {
-        getTimeFromMs(mills){
-            let ms = 1000*Math.round(mills/1000); // round to nearest second
-            let d = new Date(ms);
-            return (`${d.getUTCHours()}:${d.getUTCMinutes()}:${d.getUTCSeconds()} `)
-        },
         setParamsInterval(){
             this.interVal = setInterval(this.getNow, 1000);
             this.getNow();
@@ -56,7 +44,6 @@ export default {
     },
     beforeDestroy(){
         this.isLoading = false;
-        // this.setSesionClickedOnce(false);
         global.onbeforeunload = function() {}
     },
     created() {

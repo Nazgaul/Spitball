@@ -130,19 +130,6 @@
       </v-flex>
     <template>
 
-      <!-- <sb-dialog
-        :showDialog="getDialogTutorStart"
-        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
-        :popUpType="'startSessionTutor'"
-        :maxWidth="'356'"
-        :onclosefn="closeStartSessionTutor"
-        :activateOverlay="false"
-        :isPersistent="true"
-        :content-class="'session-start-tutor-dialog'"
-      >
-        <startSessionTutor :id="id"></startSessionTutor>
-      </sb-dialog> -->
-
       <sb-dialog
         :showDialog="getReviewDialogState"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
@@ -167,16 +154,6 @@
       >
           <browserSupport></browserSupport>
       </sb-dialog>
-      <!-- <sb-dialog
-        :showDialog="getDialogTutorStart"
-        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
-        :popUpType="'tutor-settings'"
-        :onclosefn="closeStudyRoomSettingsDialog"
-        :activateOverlay="false"
-        :content-class="'tutor-settings-dialog'"
-      >
-        <studyRoomSettingsDialog :id="id"></studyRoomSettingsDialog>
-      </sb-dialog> -->
       <!--show only if not avaliable devices dialog is closed by user-->
       <!--end session confirmation-->
       <sb-dialog
@@ -254,7 +231,6 @@ import noSupportBottom from "./images/not_supported_bottom.svg";
 import chatService from "../../services/chatService";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import leaveReview from "./tutorHelpers/leaveReview/leaveReview.vue";
-import startSessionTutor from "./tutorHelpers/startSession-popUp-tutor/startSession-popUp-Tutor.vue";
 import whiteBoardTools from "./whiteboard/whiteboardTools.vue";
 import startEndSessionBtn from "./tutorHelpers/startEndSessionBtn/startEndSessionBtn.vue";
 import endSessionConfirm from "./tutorHelpers/endSessionConfirm/endSessionConfirm.vue";
@@ -298,7 +274,6 @@ export default {
     leaveReview,
     noSupportTop,
     noSupportBottom,
-    startSessionTutor,
     whiteBoardTools,
     startEndSessionBtn,
     endSessionConfirm,
@@ -353,7 +328,6 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "getDialogTutorStart",
       "getRoomIsNeedPayment",
       "getDialogUserConsent",
       "getDialogRoomSettings",
@@ -402,11 +376,6 @@ export default {
   },
 
 watch: {
-  "$store.getters.getDialogTutorStart"(val) {
-    if(val) {
-      this.$store.commit('setComponent', 'studyRoomSettings')
-    }
-  },
   getRoomIsNeedPayment:{
     immediate:true,
     handler(newVal){
@@ -484,8 +453,6 @@ watch: {
     // },
     closeEndDialog() {
       this.updateEndDialog(false);
-    },
-    closeStartSessionTutor() {
     },
     closeShowAudioRecordingError(){
       this.setShowAudioRecordingError(false);

@@ -7,7 +7,6 @@
 const auth = () => import('../../global/dialogInjection/globalDialogs/auth/auth.vue')
 
 const simpleToaster = () => import('./simpleToaster.vue');
-const simpleToasterCountDown = () => import('./simpleToasterCountDown.vue');
 const simpleErrorToaster = () => import('./simpleErrorToaster.vue')
 const pendingPayment = () => import('./pendingPayment.vue')
 const errorLinkToaster = () => import('./errorLinkToaster.vue')
@@ -19,7 +18,6 @@ export default {
         auth,
         simpleToaster,
         simpleErrorToaster,
-        simpleToasterCountDown,
         pendingPayment,
         errorLinkToaster,
         studRoomSettings,
@@ -28,9 +26,6 @@ export default {
         return {
             component: '',
             componentObj: {
-                simpleToaster_countDown:{
-                    name: 'simpleToasterCountDown'
-                },
                 linkToaster: {
                     name: "pendingPayment",
                 },
