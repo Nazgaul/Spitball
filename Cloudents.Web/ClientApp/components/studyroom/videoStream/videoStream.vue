@@ -35,7 +35,7 @@ export default {
     padding: 0px 10px 10px 10px;
     display: flex;
     flex-direction: column;
-    width: 320px;
+    width: 332px;
 
     .remote_video_container{
       position: relative;

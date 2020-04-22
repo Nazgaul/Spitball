@@ -189,7 +189,7 @@
 
 .code-editor-wrap {
     height: ~"calc(100vh - 108px)";
-    width: ~"calc(100% - 322px)";
+    width: ~"calc(100% - 333px)";
     position: relative;
     text-align: left /*rtl:ignore*/;
     direction: ltr /*rtl:ignore*/;

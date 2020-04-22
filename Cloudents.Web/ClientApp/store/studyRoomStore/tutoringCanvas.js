@@ -183,6 +183,14 @@ const mutations = {
     };
 
 const actions = {
+
+    tempWhiteBoardTabChanged({dispatch},data) {
+        dispatch('changeSelectedTab',data.tab);
+        whiteBoardService.hideHelper();
+        if(Object.keys(data.canvas).length > 1){
+            whiteBoardService.redraw(data.canvas);
+        }
+    },
     dispatchDataTrackJunk({commit,dispatch},data){
         // TODO: clean it!
         let parsedData = data.data;
@@ -208,9 +216,10 @@ const actions = {
             commit('setCode',parsedData);
         } else if(data.type === 'openFullScreen'){
             dispatch('updateFullScreen',parsedData);
-        } else if(data.type === 'toggleParticipantsAudio'){
-            dispatch('updateAudioToggleByRemote',parsedData)
-        }
+        } 
+        // else if(data.type === 'toggleParticipantsAudio'){
+        //     dispatch('updateAudioToggleByRemote',parsedData)
+        // }
 
     },
 
