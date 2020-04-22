@@ -77,18 +77,18 @@ import studyRoomAudioSettingService from '../studyRoomAudioVideoDialog/studyRoom
 import studyRoomAudioVideoDialog from '../studyRoomAudioVideoDialog/studyRoomAudioVideoDialog.vue'
 
 import microphoneImage from '../../../images/outline-mic-none-24-px-copy-2.svg'
-import microphoneImageIgnore from '../../../images/mic-ignore.svg';
-import videoCameraImage from '../../../images/video-camera.svg';
-import videoCameraImageIgnore from '../../../images/camera-ignore.svg';
+// import microphoneImageIgnore from '../../../images/mic-ignore.svg';
+// import videoCameraImage from '../../../images/video-camera.svg';
+// import videoCameraImageIgnore from '../../../images/camera-ignore.svg';
 import cameraBlock from '../images/cameraBlock.svg'
 
 export default {
     components: {
         studyRoomAudioVideoDialog,
-        videoCameraImage,
-        videoCameraImageIgnore,
+        // videoCameraImage,
+        // videoCameraImageIgnore,
         microphoneImage,
-        microphoneImageIgnore,
+        // microphoneImageIgnore,
         cameraBlock
     },
     data(){
