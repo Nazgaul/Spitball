@@ -99,7 +99,7 @@ export default {
             return delta;
         },
         moreAnswersDictionary() {
-            return this.cardData.answers > 1 ? 'questionCard_Answers' : 'questionCard_Answer_one';
+            return this.cardData.answers > 2 ? 'questionCard_Answers' : 'questionCard_Answer_one';
         }
         
     },

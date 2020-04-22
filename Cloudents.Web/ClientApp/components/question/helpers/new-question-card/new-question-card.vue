@@ -82,16 +82,10 @@
                         </div>
                         <div class="user_answer">{{answers.text}}</div>
                     </div>
-                    <div v-if="cardData.answers > 1" class="more-answers" v-html="$Ph(moreAnswersDictionary, answersCount -1)"></div>
+                    <div v-if="cardData.answers > 1" class="more-answers">{{$t(moreAnswersDictionary, {0: answersCount -1})}}</div>
                     <div v-else class="mt-4"></div>
                 </div>
-
-                <!-- <div class="answers-info-container">
-                    <div v-if="cardData.filesNum > 0" class="answers-attachments-container">
-                        <v-icon>sbf-attach</v-icon>
-                        <span>{{cardData.filesNum}}</span>
-                    </div>
-                </div> -->
+                
             </div>
             <div v-if="!hideAnswerInput" class="question-bottom-section" :class="[{'mx-12': !$vuetify.breakpoint.xsOnly}, answersCount > 1 ? 'mt-0' : 'mt-6']">
                 <div class="question-input-container d-flex">
