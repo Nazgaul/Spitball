@@ -1,7 +1,7 @@
 <template>
     <div class="settingDetailsWrap ml-md-12 pa-4 pa-sm-0">
         <div class="mb-5 settingDetails">
-            <div class="settingTitle mb-2 mb-sm-3" v-t="'studyRoomSettings_class_name'"></div>
+            <div class="settingTitle mb-2 mb-sm-3">{{roomName}}</div>
 
             <div>
                 <table class="settingTable">
