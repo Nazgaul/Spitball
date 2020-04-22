@@ -105,7 +105,7 @@ const getters = {
    getRoomIsJoined:state => state.roomIsJoined,
 
 
-   getDialogEnterRoom: (state,getters) => {
+   getDialogEnterRoom: (state) => {
       // // if(!state.roomIsActive){
       // //    return true; // show popup
       // // }else{
