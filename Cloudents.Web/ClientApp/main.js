@@ -54,7 +54,6 @@ const router = new VueRouter({
         });
     }
 });
-//import initSignalRService from './services/signalR/signalrEventService'; only logged in users will connect to the signalR
 
 Vue.use(VueFlicking);
 Vue.use(VueRouter);

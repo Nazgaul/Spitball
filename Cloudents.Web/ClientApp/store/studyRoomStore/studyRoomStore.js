@@ -101,6 +101,7 @@ const getters = {
 }
 const actions = {
    updateFullScreen(context,elId){
+
       let className = 'fullscreenMode';
       if(elId){
          let interval = setInterval(() => {
@@ -111,7 +112,10 @@ const actions = {
             }
          }, 50);
       }else{
-         document.querySelector(`.${className}`).classList.remove(className);
+         let x = document.querySelector(`.${className}`);
+         if (x) {
+            x.classList.remove(className);
+         }
       }
    },
    updateDialogSnapshot({ commit }, val) {
