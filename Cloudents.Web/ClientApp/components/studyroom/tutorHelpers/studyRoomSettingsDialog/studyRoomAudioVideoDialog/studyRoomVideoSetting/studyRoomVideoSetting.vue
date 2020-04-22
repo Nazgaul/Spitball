@@ -1,7 +1,7 @@
 <template>
     <div class="studyRoomVideoSettings">
         <div class="studyRoom-video-settings-title">
-            <h4 class="studyRoom-video-settings-label mb-4" v-language:inner='"studyRoomSettings_camera_label"'></h4>
+            <h4 class="studyRoom-video-settings-label mb-3" v-language:inner='"studyRoomSettings_camera_label"'></h4>
             <v-select
                 v-model="singleCameraId"
                 class="videoSelect"
@@ -110,6 +110,7 @@ export default {
     .studyRoom-video-settings-title {
         .studyRoom-video-settings-label{
             color: @global-auth-text;
+            font-weight: 600;
         }
         .videoSelect {
             font-size: 14px;
@@ -139,16 +140,29 @@ export default {
         height: 300px;
         overflow: hidden;
         background-color: gray;
+
+        @media (max-width: @screen-xs) {
+            height: auto;
+        }
         #local-video-test-track1 {
             height: 100%;
 
             video {
                 width: 100%;
                 overflow: hidden;
+                @media (max-width: @screen-xs) {
+                    display: block;
+                }
             }
         }
     }
     
+}
+
+.select-direction {
+    .v-list-item__title {
+        color: #4c59ff;
+    }
 }
 
 </style>
