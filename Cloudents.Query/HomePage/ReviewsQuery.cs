@@ -12,7 +12,7 @@ namespace Cloudents.Query.HomePage
 {
     public class ReviewsQuery : IQuery<IEnumerable<ReviewDto>>
     {
-        public ReviewsQuery(string country, int count)
+        public ReviewsQuery(Country country, int count)
         {
             Country = country;
             Count = count;

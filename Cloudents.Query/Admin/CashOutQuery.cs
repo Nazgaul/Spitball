@@ -9,11 +9,11 @@ namespace Cloudents.Query.Admin
 {
     public class CashOutQuery : IQueryAdmin<IEnumerable<CashOutDto>>
     {
-        public CashOutQuery(string country)
+        public CashOutQuery(string? country)
         {
             Country = country;
         }
-        public string Country { get; }
+        public string? Country { get; }
         internal sealed class CashOutEmptyQueryHandler : IQueryHandler<CashOutQuery, IEnumerable<CashOutDto>>
         {
             private readonly IDapperRepository _session;

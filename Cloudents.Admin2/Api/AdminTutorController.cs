@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Country = Cloudents.Core.Entities.Country;
 
 namespace Cloudents.Admin2.Api
 {
@@ -33,7 +34,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet]
         public async Task<IEnumerable<PendingTutorsDto>> GetPendingTutorsAsync([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
-            var query = new PendingTutorsQuery(User.GetCountryClaim());
+            var query = new PendingTutorsQuery(User.GetSbCountryClaim());
             var res = await _queryBus.QueryAsync(query, token);
             return res.Select(item =>
             {
@@ -93,7 +94,7 @@ namespace Cloudents.Admin2.Api
            CancellationToken token)
         {
             var adminCountry = User.GetSbCountryClaim();
-            var country = adminCountry ?? model.Country;
+            var country = adminCountry ?? Country.FromCountry(model.Country);
 
             var query = new TutorSearchQuery(model.Term, model.State, country);
             var result = await _queryBus.QueryAsync(query, token);

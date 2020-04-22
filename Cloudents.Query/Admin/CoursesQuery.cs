@@ -1,29 +1,27 @@
 ﻿using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Enum;
 using Dapper;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Query.Admin
 {
-    public class CoursesQuery : IQueryAdmin<IList<PendingCoursesDto>>
+    public class CoursesQuery : IQueryAdmin2<IEnumerable<PendingCoursesDto>>
     {
-        public CoursesQuery(string language, ItemState state, string country, string filter)
+        public CoursesQuery(ItemState state, Country? country, string term)
         {
-            Language = language;
             State = state;
             Country = country;
-            Filter = filter;
+            Term = term;
         }
-        public string Language { get; }
         public ItemState State { get; }
-        public string Country { get; }
-        public string Filter { get;  }
+        public Country? Country { get; }
+        public string Term { get; }
     }
 
-    internal class PendingCoursesQueryHandler : IQueryHandler<CoursesQuery, IList<PendingCoursesDto>>
+    internal class PendingCoursesQueryHandler : IQueryHandler<CoursesQuery, IEnumerable<PendingCoursesDto>>
     {
 
         private readonly IDapperRepository _dapper;
@@ -34,7 +32,7 @@ namespace Cloudents.Query.Admin
             _dapper = dapper;
         }
 
-        public async Task<IList<PendingCoursesDto>> GetAsync(CoursesQuery query, CancellationToken token)
+        public async Task<IEnumerable<PendingCoursesDto>> GetAsync(CoursesQuery query, CancellationToken token)
         {
             var sql = @"Select @Term = case when @Term is null then '""""' else '""*' + @Term + '*""' end 
                     select distinct top 100 c.Name
@@ -46,29 +44,21 @@ namespace Cloudents.Query.Admin
                     where c.State = @State
                     and (@Term = '""""' or CONTAINS(c.Name, @Term))";
 
-            if (!string.IsNullOrEmpty(query.Country))
+            if (query.Country != null)
             {
-                sql += " and u.Country = @Country";
+                sql += " and u.SbCountry = @Country";
             }
-            if (!string.IsNullOrEmpty(query.Language))
-            {
-                if (query.Language.Equals("he", StringComparison.OrdinalIgnoreCase))
-                {
-                    sql += " and c.name like N'%[א-ת]%'";
-                }
-                else if (query.Language.Equals("en", StringComparison.OrdinalIgnoreCase))
-                {
-                    sql += " and c.name like '%[a-z]%'";
-                }
-            }
-
 
             using var connection = _dapper.OpenConnection();
-            var res = await connection.QueryAsync<PendingCoursesDto>(
-                sql,
-                new { State = query.State.ToString(), query.Country, Term = query.Filter }
-            );
-            return res.AsList();
+            return await connection.QueryAsync<PendingCoursesDto>(
+                 sql,
+                 new
+                 {
+                     State = query.State.ToString(),
+                     Country = query.Country?.Id,
+                     query.Term
+                 }
+             );
         }
     }
 }

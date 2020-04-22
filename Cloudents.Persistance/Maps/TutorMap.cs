@@ -29,10 +29,17 @@ namespace Cloudents.Persistence.Maps
                 .Inverse().Cascade.AllDeleteOrphan().AsSet();
 
             HasMany(x => x.StudyRooms)/*.Access.CamelCaseField(Prefix.Underscore)*/
-                .Cascade.AllDeleteOrphan().Inverse().AsSet();
+                .Cascade.AllDeleteOrphan().Inverse();
 
             HasMany(x => x.Leads)
-                .Cascade.AllDeleteOrphan().Inverse().AsSet();
+                .Cascade.AllDeleteOrphan().Inverse();
+
+
+            HasMany(x => x.Coupons)
+                .Cascade.AllDeleteOrphan().Inverse();
+
+            HasMany(x => x.UserCoupons)
+                .Cascade.AllDeleteOrphan().Inverse();
 
             Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
             Map(e => e.Created).Insert().Not.Update();

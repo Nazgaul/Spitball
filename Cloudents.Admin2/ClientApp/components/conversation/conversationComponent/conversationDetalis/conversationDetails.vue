@@ -99,16 +99,19 @@
                               </v-layout>
                           </v-flex>
                           <v-divider vertical></v-divider>
+
+                         
                           <v-flex xs2 class="card-converstaion-content-col-3 pl-3">
                               <v-layout row wrap align-center>
-                                  <p @click.stop="openSpitballTutorPage(conversation.requestFor)" class="subheading pl-2 popenSpitballTutorPaget-1 font-weight-bold">{{conversation.requestFor}}</p>
+                               
+                                  <p class="subheading pl-2 popenSpitballTutorPaget-1 font-weight-bold">{{conversation.requestFor}}</p>
                               </v-layout>
                           </v-flex>
                           <v-divider vertical></v-divider>
                           <v-flex xs2 class="card-converstaion-content-col-4 pl-3">
                               <v-layout row wrap column>
                                   <p class="body-1 pl-2 pt-1 font-weight-bold">{{conversation.hoursFromLastMessage}}h</p>
-                                  <p class="pl-2">({{conversation.lastMessage.toLocaleString('he-IL')}})</p>
+                                  <p class="pl-2">({{conversation.lastMessage.toLocaleString()}})</p>
                               </v-layout>
                           </v-flex>
                           <v-divider vertical></v-divider>
@@ -338,9 +341,9 @@ export default {
         this.isCompleted = false;
       })
     },
-    openSpitballTutorPage(subject) {
-      window.open(`https://www.spitball.co/tutor?term=${subject}`, '_blank');
-    },
+    // openSpitballTutorPage(subject) {
+    //   window.open(`https://www.spitball.co/tutor?term=${subject}`, '_blank');
+    // },
     openStartConversationDialog(id) {
       this.currentStudentId = id;
       this.dialog.startConversation = true;

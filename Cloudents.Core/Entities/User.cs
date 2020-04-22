@@ -22,7 +22,7 @@ namespace Cloudents.Core.Entities
             Language = language;
             Created = DateTime.UtcNow;
             Country = country;
-            SbCountry = country;
+            SbCountry = Entities.Country.FromCountry(country);
             Gender = gender;
         }
 
@@ -130,7 +130,8 @@ namespace Cloudents.Core.Entities
                 return;
             }
             Country = country;
-            SbCountry = country;
+            
+            SbCountry = Entities.Country.FromCountry(country);
             University = null;
             AddEvent(new ChangeCountryEvent(Id));
         }
@@ -144,7 +145,8 @@ namespace Cloudents.Core.Entities
                 return;
             }
             Country = country;
-            SbCountry = country;
+            
+            SbCountry = Entities.Country.FromCountry(country);
             University = null;
             ChangeLanguage(Entities.Language.English);
             AddEvent(new ChangeCountryEvent(Id));

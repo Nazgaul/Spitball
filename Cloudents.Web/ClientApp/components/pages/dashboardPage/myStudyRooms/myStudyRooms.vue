@@ -160,7 +160,7 @@ export default {
     },
     enterRoom(id) {
       let routeData = this.$router.resolve({
-        name: "tutoring",
+        name: routeNames.StudyRoom,
         params: { id }
       });
       global.open(routeData.href, "_self");

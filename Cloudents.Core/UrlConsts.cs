@@ -49,7 +49,7 @@ namespace Cloudents.Core
 
         public string BuildCourseEndPoint(string courseName)
         {
-            var builder = new UriBuilder(_webSiteEndPoint) { Path = "ask" };
+            var builder = new UriBuilder(_webSiteEndPoint) { Path = "feed" };
             builder.AddQuery(new { Course = courseName });
             return builder.ToString();
         }
@@ -59,6 +59,12 @@ namespace Cloudents.Core
         {
             var builder = new UriBuilder(_webSiteEndPoint) { Path = $"question/{id}" };
             builder.AddQuery(parameters);
+            return builder.ToString();
+        }
+
+        public string BuildProfileEndPoint(long id)
+        {
+            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"p/{id}" };
             return builder.ToString();
         }
 
@@ -107,7 +113,7 @@ namespace Cloudents.Core
         public string BuildDocumentEndPoint(long id, object? parameters = null)
         {
             var base62 = new Base62(id);
-            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"document/{base62.ToString()}" };
+            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"document/{base62}" };
             builder.AddQuery(parameters);
             return builder.ToString();
         }

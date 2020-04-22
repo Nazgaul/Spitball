@@ -1,7 +1,7 @@
 <template>
     <div class="studyRoom-audio-settings-container">
         <div class="studyRoom-audio-settings-microphone-container">
-            <h4 class="studyRoom-audio-settings-microphone-label mb-4" v-language:inner="'studyRoomSettings_audio_input'"></h4>
+            <h4 class="studyRoom-audio-settings-microphone-label mb-3" v-language:inner="'studyRoomSettings_audio_input'"></h4>
             <div class="audioSelect cameraListWrap d-sm-flex d-block align-center">
                 <v-select 
                     v-model="singleMicrophoneId"
@@ -22,13 +22,13 @@
                     single-line
                 ></v-select>                      
                 <v-layout class="indicator-audio-meter ml-sm-4 mt-3 mt-sm-0">
-                    <microphoneImage class="image" width="24" />
-                    <div id="audio-input-meter"></div>
+                    <microphoneImage class="image mr-1" width="24" />
+                    <div id="audio-input-meter1"></div>
                 </v-layout>
             </div>
         </div>
         <div class="studyRoom-audio-settings-speaker-container mt-8">
-            <h4 class="studyRoom-audio-settings-speaker-label mb-4" v-t="'studyRoomSettings_audio_output'"></h4>
+            <h4 class="studyRoom-audio-settings-speaker-label mb-3" v-t="'studyRoomSettings_audio_output'"></h4>
             <div class="audio-output-controls">
                 <speakerImage width="20" class="mr-2" />
                 <button @click="playTestSound" v-if="!isPlaying" v-t='"studyRoomSettings_audio_test_sound"'></button>
@@ -88,11 +88,11 @@ export default {
                                 }
                             }
                         });
-                        self.validateMicrophone('audio-input-meter', self.singleMicrophoneId);
+                        self.validateMicrophone('audio-input-meter1', self.singleMicrophoneId);
                     })
             },
             validateMicrophone() {
-                studyRoomAudioSettingService.createAudioContext('audio-input-meter', this.singleMicrophoneId);
+                studyRoomAudioSettingService.createAudioContext('audio-input-meter1', this.singleMicrophoneId);
                 this.$store.dispatch('updateAudioTrack',this.singleMicrophoneId)
             }
         },
@@ -100,7 +100,7 @@ export default {
             this.getDevices();
         },
         beforeDestroy() {
-            studyRoomAudioSettingService.stopAudioContext();
+            // studyRoomAudioSettingService.stopAudioContext();
             this.stopSound();
         }
 }
@@ -116,7 +116,7 @@ export default {
     .studyRoom-audio-settings-microphone-container{
         .audioSelect{
             .selectAudio {
-                min-width: 400px;
+                min-width: 420px;
                 flex-basis: 0;
                 font-size: 14px;
 
@@ -136,6 +136,12 @@ export default {
                 ::-ms-input-placeholder { /* Microsoft Edge */
                     color: @global-purple;
                 }
+                .v-select__selection--comma {
+                    max-width: 100%;
+                }
+                .v-list-item__title {
+                    color: #4c59ff !important;
+                }
             }
         }
         .studyRoom-audio-settings-microphone-label {
@@ -151,7 +157,7 @@ export default {
                     fill: #7a798c;
                     flex-shrink: 0;
                 }
-                .audio-input-meter {
+                .audio-input-meter1 {
                     background: #16eab1;
                     height: 6px;
                     max-width: 150px;
@@ -183,6 +189,10 @@ export default {
             }
         }
     }
-    
+}
+.select-direction {
+    .v-list-item__title {
+        color: #4c59ff;
+    }
 }
 </style>

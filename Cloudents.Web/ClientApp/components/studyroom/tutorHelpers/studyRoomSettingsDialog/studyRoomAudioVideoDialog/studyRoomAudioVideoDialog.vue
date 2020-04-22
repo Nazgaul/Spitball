@@ -2,12 +2,12 @@
     <v-dialog :value="true" max-width="570" content-class="studyRoomAudioVideoDialog" :fullscreen="$vuetify.breakpoint.xsOnly" persistent>
         <div class="studyRoomSettingsWrapper">
             <div class="audioVideoTabs d-flex align-center text-center">
-                <div class="tabBtn video" :class="{'active': !toggleActiveClass}" @click="switchComponent">
+                <div class="tabBtn video" :class="{'active': toggleVideoActiveClass}" @click="switchToVideo">
                     <videoCameraImage class="image vidSvg" width="22" height="40" />
                     <div class="tabText ml-1" v-t="'studyRoomSettings_video_title'"></div>
                 </div>
 
-                <div class="tabBtn audio" :class="{'active': toggleActiveClass}" @click="switchComponent">
+                <div class="tabBtn audio" :class="{'active': toggleAudioActiveClass}" @click="switchToAudio">
                     <microphoneImage class="image" width="24" />
                     <div class="tabText ml-1" v-t="'studyRoomSettings_audio_title'"></div>
                 </div>
@@ -16,7 +16,7 @@
             <div class="mainWrap pa-5 pt-0 ">
                 <component :is="currenctComponent"></component>
 
-                <div class="text-right btnWrap">
+                <div class="text-sm-right text-center btnWrap">
                     <v-btn
                       class="white--text text-truncate"
                       @click="$emit('closeAudioVideoSettingDialog', false)"
@@ -49,15 +49,21 @@ export default {
   },
   data() {
     return {
-      toggleActiveClass: false,
+      toggleVideoActiveClass: true,
+      toggleAudioActiveClass: false,
       currenctComponent: "studyRoomVideoSetting"
     };
   },
   methods: {
-    switchComponent() {
-      this.toggleActiveClass = !this.toggleActiveClass
-
-      this.currenctComponent = this.toggleActiveClass ? 'studyRoomAudioSetting' : 'studyRoomVideoSetting'
+    switchToAudio() {
+      this.currenctComponent = 'studyRoomAudioSetting'
+      this.toggleAudioActiveClass = true
+      this.toggleVideoActiveClass = false
+    },
+    switchToVideo() {
+      this.currenctComponent = 'studyRoomVideoSetting'
+      this.toggleVideoActiveClass = true
+      this.toggleAudioActiveClass = false
     }
   }
 };

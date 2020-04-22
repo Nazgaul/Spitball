@@ -346,8 +346,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData("IL")]
         [InlineData("IN")]
-        public async Task TopTutorsQuery_Ok(string country)
+        public async Task TopTutorsQuery_Ok(string countryStr)
         {
+            var country = Country.FromCountry(countryStr);
             var query = new TopTutorsQuery(country, 12);
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
@@ -356,8 +357,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData("IL")]
         [InlineData("IN")]
-        public async Task TopDocumentsQuery_Ok(string country)
+        public async Task TopDocumentsQuery_Ok(string countryStr)
         {
+            var country = Country.FromCountry(countryStr);
             var query = new TopDocumentsQuery(country, 5);
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
@@ -373,8 +375,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData("IL")]
         [InlineData("IN")]
-        public async Task ReviewsQuery_Ok(string country)
+        public async Task ReviewsQuery_Ok(string countryStr)
         {
+            var country = Country.FromCountry(countryStr);
             var query = new ReviewsQuery(country, 5);
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }

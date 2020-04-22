@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Admin
 {
-    public class UserAnswersQuery : IQueryAdmin<IEnumerable<UserAnswersDto>>
+    public class UserAnswersQuery : IQueryAdmin2<IEnumerable<UserAnswersDto>>
     {
-        public UserAnswersQuery(long userId, int page, string country)
+        public UserAnswersQuery(long userId, int page, Country? country)
         {
             UserId = userId;
             Page = page;
@@ -20,7 +20,7 @@ namespace Cloudents.Query.Admin
 
         private long UserId { get; }
         private int Page { get; }
-        public string Country { get; }
+        public Country? Country { get; }
         internal sealed class UserAnswersQueryHandler : IQueryHandler<UserAnswersQuery, IEnumerable<UserAnswersDto>>
         {
             private readonly IStatelessSession _session;
@@ -33,12 +33,14 @@ namespace Cloudents.Query.Admin
 
             public async Task<IEnumerable<UserAnswersDto>> GetAsync(UserAnswersQuery query, CancellationToken token)
             {
-                return await _session.Query<Answer>()
+                var dbQuery = _session.Query<Answer>()
                     .WithOptions(w => w.SetComment(nameof(UserAnswersQuery)))
-                     //  .Fetch(f => f.Question)
-                     .Where(w => w.User.Id == query.UserId)
-                     .Where(w => w.User.Country == query.Country || string.IsNullOrEmpty(query.Country))
-                     .Take(PageSize).Skip(PageSize * query.Page)
+                     .Where(w => w.User.Id == query.UserId);
+                if (query.Country != null)
+                {
+                    dbQuery = dbQuery.Where(w => w.User.SbCountry == query.Country);
+                }
+                return await dbQuery.Take(PageSize).Skip(PageSize * query.Page)
                      .OrderBy(o => o.Id)
                      .Select(s => new UserAnswersDto
                      {
@@ -49,7 +51,7 @@ namespace Cloudents.Query.Admin
                          QuestionText = s.Question.Text,
                          Text = s.Text
                      }).ToListAsync(token);
-              
+
             }
         }
     }

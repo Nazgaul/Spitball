@@ -51,7 +51,7 @@ namespace Cloudents.Web.Api
 
             _userManager.TryGetLongUserId(User, out var userId);
 
-            var result = await _feedService.GetFeedAsync(new GetFeedQuery(userId, page, request.Filter, profile.CountryRegion), token);
+            var result = await _feedService.GetFeedAsync(new GetFeedQuery(userId, page, request.Filter, profile.CountryRegion.Name), token);
             return GenerateResult(result,
                 new List<string>()
                 {
@@ -94,7 +94,7 @@ namespace Cloudents.Web.Api
         {
             _userManager.TryGetLongUserId(User, out var userId);
 
-            var result = await _feedService.GetFeedAsync(new GetFeedWithCourseQuery(userId, request.Page, request.Filter, profile.CountryRegion, request.Course), token);
+            var result = await _feedService.GetFeedAsync(new GetFeedWithCourseQuery(userId, request.Page, request.Filter, profile.CountryRegion.Name, request.Course), token);
 
             return GenerateResult(result,
                 new List<string>()
@@ -114,7 +114,7 @@ namespace Cloudents.Web.Api
             [ProfileModelBinder(ProfileServiceQuery.UniversityId | ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
-            var result = await _feedService.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.CountryRegion, request.Course), token);
+            var result = await _feedService.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.CountryRegion.Name, request.Course), token);
 
             return GenerateResult(result,
                 new List<string>()
@@ -133,7 +133,7 @@ namespace Cloudents.Web.Api
             [ProfileModelBinder(ProfileServiceQuery.UniversityId | ProfileServiceQuery.Country | ProfileServiceQuery.Course)] UserProfile profile,
             CancellationToken token)
         {
-            var result = await _feedService.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.CountryRegion, null), token);
+            var result = await _feedService.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.CountryRegion.Name, null), token);
             return GenerateResult(result,
                 new List<string>()
                 {

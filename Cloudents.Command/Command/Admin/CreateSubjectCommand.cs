@@ -1,13 +1,20 @@
-﻿namespace Cloudents.Command.Command.Admin
+﻿using System;
+using Cloudents.Core.Entities;
+
+namespace Cloudents.Command.Command.Admin
 {
     public class CreateSubjectCommand : ICommand
     {
-        public CreateSubjectCommand(string enSubjectName, string heSubjectName)
+        public string Name { get; }
+        public Guid UserId { get; }
+        public Country Country { get; }
+
+        public CreateSubjectCommand(string name, Guid userId, Country country)
         {
-            EnSubjectName = enSubjectName;
-            HeSubjectName = heSubjectName;
+            Name = name;
+            UserId = userId;
+            Country = country;
         }
-        public string EnSubjectName { get; set; }
-        public string HeSubjectName { get; set; }
+      
     }
 }

@@ -1,8 +1,7 @@
 <template>
-    <div class="settingDetailsWrap ml-md-12 pa-3 pa-sm-0" v-if="roomName">
+    <div class="settingDetailsWrap ml-md-12 pa-4 pa-sm-0" v-if="roomName">
         <div class="mb-5 settingDetails">
-            <!-- <div class="settingTitle mb-4" v-t="'studyRoomSettings_class_name'"></div> -->
-            <div class="settingTitle mb-4">{{roomName}}</div>
+            <div class="settingTitle mb-2 mb-sm-3">{{roomName}}</div>
             <div>
                 <table class="settingTable">
                     <tr>
@@ -32,7 +31,7 @@
 
         <div class="counterWrap">
             <template>
-                <div class=" mb-8" v-if="isRoomBroadcast && isRoomDisabled">
+                <div class="mb-6 mb-sm-8" v-if="isRoomBroadcast && isRoomDisabled">
                     <div class="counterTitle mb-2" v-t="'studyRoomSettings_start_in'"></div>
                     <sessionStartCounter class="counter"/>
                     <!-- <sessionStartCounter class="counter" @updateCounterFinish="waitingForTutor = true" /> -->
@@ -47,28 +46,31 @@
                 {{$t('studyRoomSettings_join_now')}}
             </v-btn>
 
-            <div v-else dense class="tutorActions text-center text-md-left d-block d-sm-flex">
+            <div v-else dense class="tutorActions text-center text-md-left d-sm-flex d-block">
                 <div>
-                    <v-btn :loading="loadings[roomModes.whiteboard]" @click="tutorActions(roomModes.whiteboard)" class="mr-sm-2 mr-0 mb-2"
-                        color="#4c59ff" height="46" width="140" depressed rounded outlined>
+                    <v-btn 
+                    :loading="loadings[roomModes.whiteboard]" 
+                    @click="tutorActions(roomModes.whiteboard)" 
+                    class="mr-sm-2 mr-0 mb-4"
+                        color="#4c59ff" height="44" width="140" depressed rounded outlined :block="$vuetify.breakpoint.xsOnly">
                         <whiteboardSvg width="18" />
-                        <div class="flex-grow-1">{{$t('studyRoomSettings_whiteboard')}}</div>
+                        <div class="flex-grow-1 btnText ml-sm-1 ma-0 pr-2 pr-sm-0">{{$t('studyRoomSettings_whiteboard')}}</div>
                     </v-btn>
                 </div>
                 <div>
                     <v-btn :loading="loadings[roomModes.present]"
-                        @click="tutorActions(roomModes.present)" class="mx-sm-2 mx-0 mb-2"
-                        color="#4c59ff" height="46" width="140" depressed rounded outlined>
+                        @click="tutorActions(roomModes.present)" class="mx-sm-2 mx-0 mb-4"
+                        color="#4c59ff" height="44" width="140" depressed rounded outlined :block="$vuetify.breakpoint.xsOnly">
                         <presentSvg width="18" />
-                        <div class="flex-grow-1">{{$t('studyRoomSettings_present')}}</div>
+                        <div class="flex-grow-1 btnText pr-2 pr-sm-0">{{$t('studyRoomSettings_present')}}</div>
                     </v-btn>
                 </div>
                 <div>
                     <v-btn :loading="loadings[roomModes.fullview]" 
-                        @click="tutorActions(roomModes.fullview)" class="ml-sm-2 ml-0 mb-2"
-                        color="#4c59ff" height="46" width="140" depressed rounded outlined>
+                        @click="tutorActions(roomModes.fullview)" class="ml-sm-2 ml-0 mb-4" :block="$vuetify.breakpoint.xsOnly"
+                        color="#4c59ff" height="44" width="140" depressed rounded outlined>
                         <fullviewSvg width="18" />
-                        <div class="flex-grow-1">{{$t('studyRoomSettings_full_view')}}</div>
+                        <div class="flex-grow-1 btnText pr-2 pr-sm-0">{{$t('studyRoomSettings_full_view')}}</div>
                     </v-btn>
                 </div>
             </div>
@@ -223,11 +225,11 @@ export default {
     color: @global-purple;
     .settingDetails {
         .settingTitle {
-            font-size: 24px;
+            font-size: 20px;
         }
         .settingTable {
             width: 100%;
-            border-spacing: 0 20px;
+            border-spacing: 0 12px;
             font-weight: 600;
 
             td {
@@ -259,8 +261,7 @@ export default {
         }
         .counter {
             display: flex;
-            justify-content: space-between;
-            font-size: 34px;
+            font-size: 32px;
             span {
                 &:first-child {
                     margin-left: 0;
@@ -280,6 +281,10 @@ export default {
         
         button {
             font-weight: 600;
+            .btnText {
+                margin-bottom: 2px;
+
+            }
         }
     }
 }

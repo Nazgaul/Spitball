@@ -3,8 +3,10 @@ using Cloudents.Core.Entities;
 using NHibernate;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using NHibernate.Linq;
 
 namespace Cloudents.Query.Users
 {
@@ -29,9 +31,9 @@ namespace Cloudents.Query.Users
             }
 
 
-            private const string TRevenue = "tRevenue";
+            private const string Revenue = "tRevenue";
             private const string SRevenue = "sRevenue";
-            private const string TSales = "tSales";
+            private const string Sales = "tSales";
             private const string SSales = "sSales";
             private const string Followers = "followers";
             private const string Views = "views";
@@ -83,16 +85,18 @@ namespace Cloudents.Query.Users
                                             )
                                             select cast(isnull(sum([MaxViews]), 0) - isnull(sum(MinViews), 0) as int) as [Views] from cte;";
 
-                const string countrySql = @"select country from sb.[user] where Id = :UserId";
+                //const string countrySql = @"select country from sb.[user] where Id = :UserId";
+
+
 
                 var period = new Period(query.Days, query.UserId);
 
 
                 var sqlQueries = new Dictionary<string, string>
                 {
-                    { TRevenue, tRevenueSql },
+                    { Revenue, tRevenueSql },
                     { SRevenue, sRevenueSql },
-                    { TSales, tSalesSql },
+                    { Sales, tSalesSql },
                     { SSales, sSalesSql },
                     { Followers, followersSql },
                     { Views, viewsSql }
@@ -111,9 +115,14 @@ namespace Cloudents.Query.Users
                         futureQueries.Add(sql.Key, CreateSqlQuery(sql.Value, period));
                     }
                 }
-                var countryFuture = _session.CreateSQLQuery(countrySql)
-                    .SetInt64("UserId", query.UserId)
-                    .FutureValue<string>();
+
+                var countryFuture = _session.Query<User>()
+                    .Where(w => w.Id == query.UserId)
+                    .Select(s => s.SbCountry)
+                    .ToFutureValue();
+                //var countryFuture = _session.CreateSQLQuery(countrySql)
+                //    .SetInt64("UserId", query.UserId)
+                //    .FutureValue<string>();
                 var resDictionary = new Dictionary<string, (int current, int previous)>();
 
                 foreach (var item in futureQueries)
@@ -123,19 +132,18 @@ namespace Cloudents.Query.Users
                     resDictionary.Add(item.Key, (currentRes, previousRes));
                 }
 
-                var countryRes = await countryFuture.GetValueAsync(token);
-                Country country = countryRes;
+                var country = await countryFuture.GetValueAsync(token);
 
                 var currentResult = new UserStatsDto();
                 var previousResult = new UserStatsDto();
 
-                currentResult.Revenue = country.ConversationRate * resDictionary[TRevenue].current + resDictionary[SRevenue].current;
-                currentResult.Sales = resDictionary[TSales].current + resDictionary[SSales].current;
+                currentResult.Revenue = country.ConversationRate * resDictionary[Revenue].current + resDictionary[SRevenue].current;
+                currentResult.Sales = resDictionary[Sales].current + resDictionary[SSales].current;
                 currentResult.Followers = resDictionary[Followers].current;
                 currentResult.Views = resDictionary[Views].current;
 
                 previousResult.Revenue = country.ConversationRate * resDictionary["tRevenue"].previous + resDictionary["sRevenue"].previous;
-                previousResult.Sales = resDictionary[TSales].previous + resDictionary[SSales].previous;
+                previousResult.Sales = resDictionary[Sales].previous + resDictionary[SSales].previous;
                 previousResult.Followers = resDictionary[Followers].previous;
                 previousResult.Views = resDictionary[Views].previous;
 

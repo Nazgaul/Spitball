@@ -1,14 +1,15 @@
 <template>
-    <div class="srVideoSettingsVideoContainerWrap mb-5 mb-md-0">
+    <div class="srVideoSettingsVideoContainerWrap mb-1 mb-sm-5 mb-md-0">
         <v-row class="srVideoSettingsVideoContainer ma-md-0 ma-auto elevation-2">
             <div class="cameraTextWrap text-center">
-                <i18n class="blockPermission inCamera white--text" v-if="videoBlockPermission" :path="permissionText" tag="div">
+                <div class="noCamera white--text" v-if="!cameraOn && permissionDialogState" v-t="'studyRoomSettings_no_camera'"></div>
+                <i18n class="blockPermission inCamera white--text" v-if="videoBlockPermission && !permissionDialogState" path="studyRoomSettings_block_permission" tag="div">
                     <cameraBlock class="cameraBlock" width="20" />
                 </i18n>
             </div>
 
             <div class="bottomIcons d-flex align-end justify-space-between">
-                <div class="micIconWrap d-flex align-end" v-if="microphoneOn">
+                <div class="micIconWrap d-flex align-center" v-if="microphoneOn">
                     <microphoneImage :class="{'audioIconVisible': !microphoneOn}" width="14" /> 
                     <div id="audio-input-meter" class="ml-2"></div>
                 </div>
@@ -16,7 +17,8 @@
                     <v-btn
                         class="mx-2"
                         :class="{'noBorder': !microphoneOn}"
-                        :color="microphoneOn ? 'transparent' : '#cb4243'" @click="toggleMic"
+                        :color="microphoneOn ? 'transparent' : '#cb4243 !important'" @click="toggleMic"
+                        depressed
                         fab
                     >
                         <microphoneImage width="14" v-if="microphoneOn" />
@@ -25,14 +27,15 @@
                     <v-btn 
                         class="mx-2"
                         :class="{'noBorder': !cameraOn || !singleCameraId}"
-                        :color="cameraOn ? 'transparent' : '#cb4243'" @click="toggleCamera"
+                        :color="cameraOn ? 'transparent' : '#cb4243 !important'" @click="toggleCamera"
+                        depressed
                         fab 
                     >
                         <videoCameraImage class="videoIcon" width="22" v-if="cameraOn && singleCameraId" />
                         <videoCameraImageIgnore width="18" v-else />
                     </v-btn>
                 </div>
-                <v-icon color="#fff" @click="settingDialogState = true" size="22">sbf-settings</v-icon>
+                <v-icon class="settingIcon" color="#fff" @click="settingDialogState = true" size="22">sbf-settings</v-icon>
             </div>
 
             <div id="local-video-test-track" :class="{'videoPlaceholderWrap': !cameraOn || !placeholder}"></div>
@@ -44,16 +47,17 @@
             @closeAudioVideoSettingDialog="val => settingDialogState = val"
         />
 
-        <v-dialog v-model="permissionDialogState" width="512" :fullscreen="$vuetify.breakpoint.xsOnly" persistent content-class="premissionDeniedDialog pa-6 pb-4">
-            <div class="mb-6 mainTitle" v-t="'studyRoomSettings_block_title'"></div>
+        <v-dialog v-model="permissionDialogState" width="512" :fullscreen="$vuetify.breakpoint.xsOnly" persistent content-class="premissionDeniedDialog text-center pa-6 pb-4">
+            <div class="mb-4 mainTitle" v-t="'studyRoomSettings_block_title'"></div>
             <i18n path="studyRoomSettings_block_permission" tag="div" class="blockPermission mb-6">
-                <cameraBlock class="cameraBlock" width="20" />
+                <cameraBlock class="cameraBlock mx-1 mt-1" width="20" />
             </i18n>
-            <div class="text-right">
+            <div class="text-center">
                 <v-btn
                     @click="permissionDialogState = false"
                     class="white--text"
                     color="#5360FC"
+                    width="140"
                     rounded
                     depressed
                 >
@@ -103,14 +107,6 @@ export default {
             settingDialogState: false,
             singleCameraId: global.localStorage.getItem('sb-videoTrackId'),
             singleMicrophoneId: global.localStorage.getItem('sb-audioTrackId')
-        }
-    },
-    computed: {
-        permissionText() {
-            if(this.videoBlockPermission && !this.permissionDialogState) {
-                return 'studyRoomSettings_block_permission'
-            }
-            return 'studyRoomSettings_no_camera'
         }
     },
     methods:{
@@ -257,28 +253,33 @@ export default {
         width: 100%;
         position: relative;
         border-radius: 8px;
-        background-color: #202124;
-
+        background-color: #212123;
+        box-shadow: none !important;
         @media (max-width: @screen-xs) {
             border-radius: 0;
         }
         .cameraTextWrap {
+            font-weight: 600;
             padding: 0 10px;
             position: absolute;
-            top: calc(50% - 50px); // center text
+            top: calc(50% - 40px); // center text
             right: 0;
             left: 0;
             z-index: 2;
+            flex-direction: column;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             .noCamera, .noPermission {
-                font-size: 18px;
+                font-size: 16px;
                 font-weight: 600;
             }
             .blockPermission {
                 color: rgba(0,0,0,0.541);
 
                 &.inCamera {
-                    font-size: 18px;
-                    line-height: 30px;
+                    padding: 0 100px;
+                    line-height: 22px;
                 }
                 .cameraBlock {
                     vertical-align: middle;
@@ -306,11 +307,15 @@ export default {
                 text-align: center;
                 justify-content: center;
                 button {
-                    border: 1px solid #fff !important;
+                     background-color: rgba(0, 0, 0, 0.15) !important;
                     &.noBorder {
                         border: none !important;
                     }
                 }
+            }
+            .settingIcon {
+                position: absolute;
+                right: 0;
             }
         }
         #local-video-test-track {

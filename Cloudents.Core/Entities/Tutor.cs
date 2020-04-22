@@ -19,8 +19,8 @@ namespace Cloudents.Core.Entities
             Created = DateTime.UtcNow;
             Bio = bio;
             //User.SetUserType(UserType.Teacher);
-            Country country = user.Country;
-            if (country == Country.India)
+            //Country country = user.Country;
+            if (user.SbCountry == Country.India)
             {
                 Price = new TutorPrice(100, 0);
             }
@@ -48,6 +48,9 @@ namespace Cloudents.Core.Entities
         public virtual User User { get; protected set; }
 
         public virtual TutorPrice Price { get; protected set; }
+
+        protected internal virtual ICollection<UserCoupon> UserCoupons { get; set; }
+        protected internal virtual ICollection<Coupon> Coupons { get; set; }
 
         public virtual void UpdateSettings(string bio, decimal? price)
         {
@@ -100,9 +103,9 @@ namespace Cloudents.Core.Entities
 
         public virtual IEnumerable<TutorReview> Reviews => _reviews;
 
-        protected internal virtual ISet<StudyRoom> StudyRooms { get; set; }
+        protected internal virtual ICollection<StudyRoom> StudyRooms { get; set; }
 
-        protected internal virtual ISet<Lead> Leads { get; set; }
+        protected internal virtual ICollection<Lead> Leads { get; set; }
         public virtual string? SellerKey { get; set; }
         public virtual ItemState State { get; protected set; }
         public virtual DateTime Created { get; protected set; }
