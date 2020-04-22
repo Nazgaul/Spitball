@@ -13,7 +13,7 @@
                     <microphoneImage :class="{'audioIconVisible': !microphoneOn}" width="14" /> 
                     <div id="audio-input-meter" class="ml-2"></div>
                 </div>
-                <div class="centerIcons d-flex align-center">
+                <!-- <div class="centerIcons d-flex align-center">
                     <v-btn
                         class="mx-2"
                         :class="{'noBorder': !microphoneOn}"
@@ -34,7 +34,7 @@
                         <videoCameraImage class="videoIcon" width="22" v-if="cameraOn && singleCameraId" />
                         <videoCameraImageIgnore width="18" v-else />
                     </v-btn>
-                </div>
+                </div> -->
                 <v-icon class="settingIcon" color="#fff" @click="settingDialogState = true" size="22">sbf-settings</v-icon>
             </div>
 
