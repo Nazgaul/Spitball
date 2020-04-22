@@ -107,9 +107,9 @@ function _twilioListeners(room,store) {
       if(store.getters.getRoomIsTutor && track.kind === 'data'){
          _changeState(room.localParticipant);
          if(store.getters.getDialogEnterRoom && store.getters.getIsFullScreen){
-            store.dispatch('updateDialogEnter',false)
             document.getElementById('openFullTutor').click()
          }
+         store.dispatch('updateDialogEnter',false)
       }
    })
 
