@@ -1,4 +1,5 @@
-﻿using Cloudents.Command.Command.Admin;
+﻿using System.Runtime.InteropServices;
+using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System.Threading;
@@ -9,25 +10,19 @@ namespace Cloudents.Command.CommandHandler.Admin
     public class CreateSubjectCommandHandler : ICommandHandler<CreateSubjectCommand>
     {
         private readonly IRepository<CourseSubject> _subjectRepository;
-        private readonly IAdminLanguageRepository _adminLanguageRepository;
-        public CreateSubjectCommandHandler(IRepository<CourseSubject> subjectRepository,
-            IAdminLanguageRepository adminLanguageRepository)
+        private readonly IRepository<AdminUser> _userRepository;
+
+
+        public CreateSubjectCommandHandler(IRepository<CourseSubject> subjectRepository, IRepository<AdminUser> userRepository)
         {
             _subjectRepository = subjectRepository;
-            _adminLanguageRepository = adminLanguageRepository;
+            _userRepository = userRepository;
         }
 
         public async Task ExecuteAsync(CreateSubjectCommand message, CancellationToken token)
         {
-            var subject = new CourseSubject(message.HeSubjectName);
-            var language = await _adminLanguageRepository.GetLanguageByNameAsync("en", token);
-            
-            if (!string.IsNullOrEmpty(message.EnSubjectName))
-            {
-                var translation = new CourseSubjectTranslation(subject, language, message.EnSubjectName);
-                subject.AddTranslation(translation);
-            }
-
+            var adminUser = await _userRepository.LoadAsync(message.UserId, token);
+            var subject = new CourseSubject(message.Name, adminUser.SbCountry ?? message.Country);
             await _subjectRepository.AddAsync(subject, token);
         }
     }

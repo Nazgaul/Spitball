@@ -21,7 +21,7 @@ namespace Cloudents.Persistence
         private readonly ISessionFactory _factory;
 
         public UnitOfWorkFactorySpitball(PublishEventsListener publisher,
-            IInterceptor interceptor,
+            IInterceptor? interceptor,
             IConfigurationKeys connectionString)
         {
             _publisher = publisher;
@@ -70,7 +70,7 @@ namespace Cloudents.Persistence
             return _factory.OpenStatelessSession();
         }
 
-        private void BuildSchema(Configuration config, IInterceptor interceptor,
+        private void BuildSchema(Configuration config, IInterceptor? interceptor,
             DbConnectionString.DataBaseIntegration needValidate)
         {
             SchemaMetadataUpdater.QuoteTableAndColumns(config, new SbDialect());

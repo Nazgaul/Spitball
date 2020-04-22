@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Admin
 {
-    public class UserDocumentsQuery : IQueryAdmin<IEnumerable<UserDocumentsDto>>
+    public class UserDocumentsQuery : IQueryAdmin2<IEnumerable<UserDocumentsDto>>
     {
-        public UserDocumentsQuery(long userId, int page, string country)
+        public UserDocumentsQuery(long userId, int page, Country? country)
         {
             UserId = userId;
             Page = page;
@@ -19,7 +19,7 @@ namespace Cloudents.Query.Admin
         }
         private long UserId { get; }
         private int Page { get; }
-        public string Country { get; }
+        public Country? Country { get; }
         internal sealed class UserDocumentsQueryHandler : IQueryHandler<UserDocumentsQuery, IEnumerable<UserDocumentsDto>>
         {
             private readonly IStatelessSession _session;
@@ -34,22 +34,28 @@ namespace Cloudents.Query.Admin
             public async Task<IEnumerable<UserDocumentsDto>> GetAsync(UserDocumentsQuery query, CancellationToken token)
             {
 
-                return await _session.Query<Document>()
+                var dbQuery = _session.Query<Document>()
                     .WithOptions(w => w.SetComment(nameof(UserDocumentsQuery)))
                         .Fetch(f => f.University)
-                        .Where(w => w.User.Id == query.UserId)
-                        .Where(w => w.User.Country == query.Country || string.IsNullOrEmpty(query.Country))
-                        .Select(s => new UserDocumentsDto
-                        {
-                            Course = s.Course.Id,
-                            Id = s.Id,
-                            Name = s.Name,
-                            University = s.University.Name,
-                            State = s.Status.State,
-                            Price = s.Price,
-                            Created = s.TimeStamp.CreationTime,
+                        .Where(w => w.User.Id == query.UserId);
+                if (query.Country != null)
+                {
+                    dbQuery = dbQuery.Where(w => w.User.SbCountry == query.Country);
+                }
 
-                        }).OrderBy(o => o.Id).Take(PageSize).Skip(PageSize * query.Page).ToListAsync(token);
+                return await dbQuery.Select(s => new UserDocumentsDto
+                {
+                    Course = s.Course.Id,
+                    Id = s.Id,
+                    Name = s.Name,
+                    State = s.Status.State,
+                    Price = s.Price,
+                    Created = s.TimeStamp.CreationTime,
+
+                }).OrderBy(o => o.Id)
+                     .Take(PageSize)
+                     .Skip(PageSize * query.Page)
+                     .ToListAsync(token);
             }
         }
     }

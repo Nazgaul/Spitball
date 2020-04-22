@@ -29,7 +29,7 @@ namespace Cloudents.Web.Api
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
-            return await _blogProvider.GetBlogAsync(BlogQuery.Blog(profile.Country),  token);
+            return await _blogProvider.GetBlogAsync(BlogQuery.Blog(profile.CountryRegion),  token);
         }
 
         [HttpGet("marketing")]
@@ -37,7 +37,7 @@ namespace Cloudents.Web.Api
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
-            return await _blogProvider.GetBlogAsync(BlogQuery.Marketing(profile.Country), token);
+            return await _blogProvider.GetBlogAsync(BlogQuery.Marketing(profile.CountryRegion), token);
         }
     }
 }

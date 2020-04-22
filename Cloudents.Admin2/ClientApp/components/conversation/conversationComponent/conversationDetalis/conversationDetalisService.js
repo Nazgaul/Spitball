@@ -39,9 +39,9 @@ function ConversationItem(objInit) {
     this.assignTo = objInit.assignTo;
     this.requestFor = objInit.requestFor;
 }
-function createConversationItem(objInit) {
-    return new ConversationItem(objInit);
-}
+// function createConversationItem(objInit) {
+//     return new ConversationItem(objInit);
+// }
 
 function DetailsItem(objInit) {
     this.userName = objInit.userName;
@@ -73,7 +73,7 @@ const getFilters = (id, filters) => {
         let filtersArray = [];   
         if (filtersConversations.length > 0) {
             filtersConversations.forEach((conversation) => {
-                filtersArray.push(createConversationItem(conversation));
+                filtersArray.push(new ConversationItem(conversation));
             });
         }
         return filtersArray;
@@ -92,7 +92,7 @@ const getConversationsListPage = function (id, page, filter) {
         let arrConversationList = [];
         if (newConversationList.length > 0) {
             newConversationList.forEach((conversation) => {
-                arrConversationList.push(createConversationItem(conversation));
+                arrConversationList.push(new ConversationItem(conversation));
             });
         }
         return arrConversationList;

@@ -41,7 +41,12 @@
                             <v-layout align-center justify-space-between>
                                 <div>
                                 <span><b>{{infoItem.label}}:</b></span>
-                                <span>{{infoItem.value}}</span>
+                                <template v-if="infoItem.url">
+                                    <a target="_blank" :href="infoItem.url">{{infoItem.value}}</a>
+                                </template>
+                                <template v-else>
+                                    <span>{{infoItem.value}}</span>
+                                </template>
                                 </div>
                                 <div>
                                     <v-tooltip top> 

@@ -18,7 +18,7 @@ namespace Cloudents.Query.HomePage
         private Country Country { get; }
         private int Count { get; }
 
-        public TopDocumentsQuery(string country, int count)
+        public TopDocumentsQuery(Country country, int count)
         {
             Country = country;
             Count = count;

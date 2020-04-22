@@ -10,7 +10,7 @@ const apiAddress = `${window.location.origin}/api/`;
 //}
 
 function UserInfo(objInit) {
-    this.id = {value: objInit.id || 0, label: 'User ID'};
+    this.id = {value: objInit.id, label: 'User ID', url: objInit.profileUrl};
     this.name = {value: objInit.name || '', label: 'User Name'};
     this.email = {value: objInit.email || '', label: 'User Email'};
     this.emailConfirmed = {value: objInit.emailConfirmed ? 'Yes' : 'No', label: 'Email Confirmed'};
@@ -27,7 +27,7 @@ function UserInfo(objInit) {
         buttonText: "delete"
     };
     this.phoneNumberConfirmed = {value: objInit.phoneNumberConfirmed ? 'Yes' : 'No', label: "Phone Confirmed"};
-    this.university = {value: objInit.university || '', label: 'University'};
+    //this.university = {value: objInit.university || '', label: 'University'};
     this.country = {value: objInit.country || '', label: 'Country'};
     this.referredCount = {value: objInit.referredCount || 0, label: 'People Referred'};
     this.balance = {value: objInit.balance || 0, label: 'Balance'};

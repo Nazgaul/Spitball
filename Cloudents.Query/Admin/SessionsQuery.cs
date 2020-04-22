@@ -8,13 +8,13 @@ namespace Cloudents.Query.Admin
 {
     public class SessionsQuery : IQueryAdmin<IEnumerable<SessionDto>>
     {
-        public SessionsQuery(long userId, string country)
+        public SessionsQuery(long userId, string? country)
         {
             UserId = userId;
             Country = country;
         }
         private long UserId { get; }
-        public string Country { get; }
+        public string? Country { get; }
 
         internal sealed class SessionsQueryHandler : IQueryHandler<SessionsQuery, IEnumerable<SessionDto>>
         {

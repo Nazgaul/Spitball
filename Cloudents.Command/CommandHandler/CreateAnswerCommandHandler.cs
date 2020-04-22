@@ -39,7 +39,7 @@ namespace Cloudents.Command.CommandHandler
             }
 
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            Country country = user.Country;
+            Country country = user.SbCountry;
             if (country == Country.India)
             {
                 var pendingAnswers = await _answerRepository.GetNumberOfPendingAnswer(user.Id, token);

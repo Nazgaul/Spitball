@@ -11,7 +11,7 @@ namespace Cloudents.Query.HomePage
 {
     public class TopTutorsQuery : IQuery<IEnumerable<TutorCardDto>>
     {
-        public TopTutorsQuery(string country, int count)
+        public TopTutorsQuery(Country country, int count)
         {
             Country = country;
             Count = count;

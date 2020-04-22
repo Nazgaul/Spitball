@@ -10,16 +10,16 @@ using NHibernate.Linq;
 
 namespace Cloudents.Query.Admin
 {
-    public class UserDetailsQuery : IQueryAdmin<UserDetailsDto>
+    public class UserDetailsQuery : IQueryAdmin2<UserDetailsDto>
     {
-        public UserDetailsQuery(string userId, string country)
+        public UserDetailsQuery(string userId, Country? country)
         {
             UserId = userId;
             Country = country;
         }
 
         private string UserId { get; }
-        public string Country { get; }
+        public Country? Country { get; }
 
         internal sealed class UserDetailsQueryHandler : IQueryHandler<UserDetailsQuery, UserDetailsDto>
         {
@@ -39,12 +39,12 @@ namespace Cloudents.Query.Admin
 
                 var dbQuery = _session.Query<User>()
                     .WithOptions(w => w.SetComment(nameof(UserDetailsQuery)))
-                    .Fetch(f => f.University)
+                    //.Fetch(f => f.University)
                     .Fetch(f => f.Tutor)
                     .Where(w => w.Id == tmpId || w.Email == query.UserId || w.PhoneNumber == query.UserId);
-                if (!string.IsNullOrEmpty(query.Country))
+                if (query.Country != null)
                 {
-                    dbQuery = dbQuery.Where(w => w.Country == query.Country);
+                    dbQuery = dbQuery.Where(w => w.SbCountry == query.Country);
                 }
 
                 return await dbQuery.Select(s => new UserDetailsDto()
@@ -53,7 +53,7 @@ namespace Cloudents.Query.Admin
                     Name = s.Name,
                     Email = s.Email,
                     PhoneNumber = s.PhoneNumber,
-                    University = s.University.Name,
+                    //University = s.University.Name,
                     Country = s.Country,
                     ReferredCount = _session.Query<ReferUserTransaction>().Count(w => w.User.Id == s.Id),
                     Balance = s.Transactions.Balance,
@@ -64,7 +64,9 @@ namespace Cloudents.Query.Admin
                     EmailConfirmed = s.EmailConfirmed,
                     LastOnline = s.LastOnline,
                     LockoutReason = s.LockoutReason,
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                     TutorState = s.Tutor.State,
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
                     PaymentExists = s.PaymentExists == PaymentStatus.Done,
                     TutorPrice = s.Tutor.Price.SubsidizedPrice ?? s.Tutor.Price.Price,
                     CalendarExists = _session.Query<GoogleTokens>().Any(w => w.Id == s.Id.ToString()),
