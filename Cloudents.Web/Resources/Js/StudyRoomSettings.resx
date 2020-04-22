@@ -121,10 +121,10 @@
     <value>Indicator:</value>
   </data>
   <data name="audio_input" xml:space="preserve">
-    <value>Microphone:</value>
+    <value>Microphone</value>
   </data>
   <data name="audio_output" xml:space="preserve">
-    <value>Speaker:</value>
+    <value>Speaker</value>
   </data>
   <data name="audio_select_label" xml:space="preserve">
     <value>Select Audio:</value>
@@ -139,10 +139,13 @@
     <value>Audio</value>
   </data>
   <data name="block_permission" xml:space="preserve">
-    <value>Meet requires access to your camera and microphone. Click the camera blocked icon {0}  in your browser's address bar.</value>
+    <value>Spitball requires access to your camera and microphone. Click the camera blocked icon {0}  in your browser's address bar.</value>
+  </data>
+  <data name="block_title" xml:space="preserve">
+    <value>Access to camera &amp; microphone</value>
   </data>
   <data name="camera_label" xml:space="preserve">
-    <value>Camera:</value>
+    <value>Camera</value>
   </data>
   <data name="camera_placeholder" xml:space="preserve">
     <value>Please select camera</value>
@@ -152,10 +155,13 @@
     <value>Class Name</value>
   </data>
   <data name="dismiss" xml:space="preserve">
-    <value>dismiss</value>
+    <value>Dismiss</value>
+  </data>
+  <data name="done_btn" xml:space="preserve">
+    <value>Done</value>
   </data>
   <data name="full_view" xml:space="preserve">
-    <value>full view</value>
+    <value>Full view</value>
   </data>
   <data name="mic_placeholder" xml:space="preserve">
     <value>Please select microphone</value>
@@ -165,7 +171,7 @@
     <value>Camera is off</value>
   </data>
   <data name="present" xml:space="preserve">
-    <value>present</value>
+    <value>Present</value>
   </data>
   <data name="price" xml:space="preserve">
     <value>Price</value>
@@ -177,7 +183,7 @@
     <value>Share it</value>
   </data>
   <data name="start_in" xml:space="preserve">
-    <value>Class start in</value>
+    <value>Class starts in</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>Settings</value>
