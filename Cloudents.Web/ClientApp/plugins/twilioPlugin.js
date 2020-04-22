@@ -106,10 +106,12 @@ function _twilioListeners(room,store) {
       }
       if(store.getters.getRoomIsTutor && track.kind === 'data'){
          _changeState(room.localParticipant);
-         if(store.getters.getDialogEnterRoom && store.getters.getIsFullScreen){
-            document.getElementById('openFullTutor').click()
+         if(store.getters.getDialogEnterRoom){
+            if(store.getters.getIsFullScreen){
+               document.getElementById('openFullTutor').click()
+            }
+            store.dispatch('updateDialogEnter',false)
          }
-         store.dispatch('updateDialogEnter',false)
       }
    })
 
