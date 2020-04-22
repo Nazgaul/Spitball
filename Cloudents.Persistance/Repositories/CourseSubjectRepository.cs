@@ -11,7 +11,7 @@ namespace Cloudents.Persistence.Repositories
         public CourseSubjectRepository(ISession session) : base(session)
         {
         }
-        public async Task<CourseSubject> GetCourseSubjectByName(string name, CancellationToken token)
+        public async Task<CourseSubject?> GetCourseSubjectByName(string name, CancellationToken token)
         {
             return await Session.QueryOver<CourseSubject>()
                 .Where(w => w.Name == name).SingleOrDefaultAsync<CourseSubject>(token);

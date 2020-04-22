@@ -19,7 +19,7 @@ namespace Cloudents.Core.Query.Feed
 
     public class GetFeedWithCourseQuery : GetFeedQuery
     {
-        public GetFeedWithCourseQuery(long userId, int page, FeedType? filter, string country, string course) : base(
+        public GetFeedWithCourseQuery(long userId, int page, FeedType? filter, string country, string? course) : base(
              userId,  page, filter,  country)
         {
           
@@ -30,7 +30,7 @@ namespace Cloudents.Core.Query.Feed
         {
             return new GetFeedWithCourseQuery(query.UserId,query.Page,query.Filter,query.Country,null);
         }
-        public string Course { get; }
+        public string? Course { get; }
     }
 }
 

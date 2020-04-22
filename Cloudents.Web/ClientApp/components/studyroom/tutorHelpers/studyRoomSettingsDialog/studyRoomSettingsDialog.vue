@@ -77,6 +77,9 @@ export default {
       height: inherit;
       padding-top: 70px;
 
+      @media (max-width: @screen-xs) {
+        padding-top: 42px;
+      }
       .wrap {
         height: 100%;
         width: 100%;

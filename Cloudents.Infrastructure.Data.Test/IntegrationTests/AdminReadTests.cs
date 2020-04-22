@@ -23,13 +23,6 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
 
-        [Fact]
-        public async Task DocumentAggregateQuery_Ok()
-        {
-            var query = new UserAnswersQuery(638, 0, "IL");
-            await _fixture.QueryBus.QueryAsync(query, default);
-        }
-
         [Theory]
         [InlineData("638_159039", null)]
         [InlineData("638_159039", "IL")]
@@ -62,8 +55,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData("x", ItemState.Ok, "us")]
         [InlineData(null, null, null)]
-        public async Task TutorSearchQuery_Ok(string term, ItemState? state, string country)
+        public async Task TutorSearchQuery_Ok(string term, ItemState? state, string countryStr)
         {
+            var country = FromCountry(countryStr);
             var query = new TutorSearchQuery(term, state, country);
             var _ = await _fixture.QueryBus.QueryAsync(query, default);
         }
@@ -114,8 +108,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData(null)]
         [InlineData("IL")]
-        public async Task AdminPendingTutorsQuery_Ok(string country)
+        public async Task AdminPendingTutorsQuery_Ok(string countryStr)
         {
+            var country = FromCountry(countryStr);
             var query = new PendingTutorsQuery(country);
             await _fixture.QueryBus.QueryAsync(query, default);
         }
@@ -139,12 +134,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
 
-        [Fact]
-        public async Task AdminSubjectsQuery_Ok()
-        {
-            var query = new SubjectsQuery(Guid.Parse("6942483C-4CEF-4256-B9A1-0CAE272C54B4"));
-            await _fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Fact]
+        //public async Task AdminSubjectsQuery_Ok()
+        //{
+        //    var query = new SubjectsQuery(Guid.Parse("6942483C-4CEF-4256-B9A1-0CAE272C54B4"));
+        //    await _fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         //[Fact]
         //public async Task AdminUniversitiesQuery_Ok()
@@ -159,7 +154,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminUserAnswersQuery_Ok()
         {
-            var query = new UserAnswersQuery(159039, 0, "IL");
+            var query = new UserAnswersQuery(159039, 0, FromCountry("IL"));
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -173,6 +168,16 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await _fixture.QueryBus.QueryAsync(q1, default);
         }
 
+        private Country? FromCountry(string countryStr)
+        {
+            if (countryStr == null)
+            {
+                return null;
+
+            }
+            return Country.FromCountry(countryStr);
+        }
+
         [Theory]
         [InlineData("Hadar@cloudents.com", "IL")]
         [InlineData("0523556456", "IL")]
@@ -182,7 +187,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData("638", null)]
         public async Task AdminUserDetailsQuery_Ok(string email, string country)
         {
-            var q2 = new UserDetailsQuery(email, country);
+
+
+            var q2 = new UserDetailsQuery(email, FromCountry(country));
             await _fixture.QueryBus.QueryAsync(q2, default);
         }
 
@@ -191,7 +198,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(159039, 0, null)]
         public async Task AdminUserDocumentsQuery_Ok(long userId, int page, string country)
         {
-            var query = new UserDocumentsQuery(userId, page, country);
+            var query = new UserDocumentsQuery(userId, page, FromCountry(country));
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -215,7 +222,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminUserQuestionsQuery_Ok()
         {
-            var query = new UserQuestionsQuery(159039, 0, "IL");
+            var query = new UserQuestionsQuery(159039, 0, FromCountry("IL"));
             await _fixture.QueryBus.QueryAsync(query, default);
         }
         //[Fact]
@@ -270,7 +277,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task SuspendedUsersEmptyQuery_Ok()
         {
-            var query = new SuspendedUsersQuery("IL");
+            var query = new SuspendedUsersQuery(FromCountry("IL"));
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -323,26 +330,19 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         //}
 
         [Theory]
-        [InlineData(null, ItemState.Ok, null, null)]
-        [InlineData(null, ItemState.Pending, null, null)]
-        [InlineData("he", ItemState.Ok, null, null)]
-        [InlineData("en", ItemState.Pending, null, null)]
-        [InlineData(null, ItemState.Ok, "IL", null)]
-        [InlineData(null, ItemState.Pending, "IL", null)]
-        [InlineData("he", ItemState.Ok, "IL", null)]
-        [InlineData("en", ItemState.Pending, "IL", null)]
-        [InlineData(null, ItemState.Ok, null, "V")]
-        [InlineData(null, ItemState.Pending, null, "V")]
-        [InlineData("he", ItemState.Ok, null, "V")]
-        [InlineData("en", ItemState.Pending, null, "V")]
-        [InlineData(null, ItemState.Ok, "IL", "V")]
-        [InlineData(null, ItemState.Pending, "IL", "V")]
-        [InlineData("he", ItemState.Ok, "IL", "V")]
-        [InlineData("en", ItemState.Pending, "IL", "V")]
+        [InlineData(ItemState.Ok, null, null)]
+        [InlineData(ItemState.Pending, null, null)]
+        [InlineData(ItemState.Ok, "IL", null)]
+        [InlineData(ItemState.Pending, "IL", null)]
+        [InlineData(ItemState.Ok, null, "V")]
+        [InlineData(ItemState.Pending, null, "V")]
+        [InlineData(ItemState.Ok, "IL", "V")]
+        [InlineData(ItemState.Pending, "IL", "V")]
 
-        public async Task AdminCoursesQuery_Ok(string language, ItemState state, string country, string filter)
+        public async Task AdminCoursesQuery_Ok(ItemState state, string countryStr, string search)
         {
-            var query = new CoursesQuery(language, state, country, filter);
+            var country = FromCountry(countryStr);
+            var query = new CoursesQuery(state, country, search);
             var result = await _fixture.QueryBus.QueryAsync(query, default);
 
 
@@ -357,15 +357,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         }
 
-        [Theory]
-        [InlineData(159039, "", 0, "IL")]
-        [InlineData(0, null, 0, "IL")]
-        [InlineData(0, "Econ", 0, "IL")]
-        public async Task AdminCourseSearchQuery_Ok(long userId, string term, int page, string country)
-        {
-            var query = new CourseSearchQuery(userId, term, page, country);
-            await _fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Theory]
+        //[InlineData(159039, "", 0, "IL")]
+        //[InlineData(0, null, 0, "IL")]
+        //[InlineData(0, "Econ", 0, "IL")]
+        //public async Task AdminCourseSearchQuery_Ok(long userId, string term, int page, string country)
+        //{
+        //    var query = new CourseSearchQuery(userId, term, page, country);
+        //    await _fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         [Theory]
         [InlineData("IL")]
@@ -443,10 +443,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await _fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Fact]
-        public async Task SubjectsTranslationQuery_Ok()
+        [Theory]
+        [InlineData("US")]
+        [InlineData("In")]
+        [InlineData("IL")]
+        [InlineData(null)]
+        public async Task SubjectsTranslationQuery_Ok(string countryStr)
         {
-            var query = new SubjectsTranslationQuery();
+            var country = FromCountry(countryStr);
+            var query = new SubjectsQuery(country);
             var _ = await _fixture.QueryBus.QueryAsync(query, default);
         }
 

@@ -13,11 +13,14 @@ namespace Cloudents.Core.Entities
     {
         public const int MinLength = 4;
         public const int MaxLength = 150;
+
+
         protected Course()
         {
+            Users ??= new HashSet<UserCourse>();
         }
 
-        public Course(string name)
+        public Course(string name) : this()
         {
             Id = name.Trim();//.Replace("+", string.Empty);
             if (Id.Length > MaxLength || Id.Length < MinLength)
@@ -26,6 +29,12 @@ namespace Cloudents.Core.Entities
             }
             State = ItemState.Pending;
             Created = DateTime.UtcNow;
+        }
+
+        public Course(string name, CourseSubject subject) :this(name)
+        {
+            Subject = subject;
+            State = ItemState.Ok;
         }
 
         protected bool Equals(Course? other)
@@ -72,10 +81,10 @@ namespace Cloudents.Core.Entities
             Subject = subject;
         }
 
-        public virtual void SetSchoolType(SchoolType schoolType)
-        {
-            SchoolType = schoolType;
-        }
+        //public virtual void SetSchoolType(SchoolType schoolType)
+        //{
+        //    SchoolType = schoolType;
+        //}
         public virtual int Count { get; protected internal set; }
 
 
@@ -85,15 +94,15 @@ namespace Cloudents.Core.Entities
         //private readonly ISet<UserCourse> _users = new HashSet<UserCourse>();
         //public virtual IEnumerable<UserCourse> Users => _users;
 
-        protected internal virtual ISet<UserCourse> Users { get; set; }
+        protected internal virtual ISet<UserCourse> Users { get;  set; }
 
 
         public virtual ItemState State { get; protected set; }
-        public virtual CourseSubject Subject { get; protected set; }
+        public virtual CourseSubject? Subject { get; protected set; }
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
         public virtual byte[] Version { get; protected set; }
-        public virtual SchoolType? SchoolType { get; protected set; }
-        public virtual string Country { get; protected set; }
+       // public virtual SchoolType? SchoolType { get; protected set; }
+       // public virtual string Country { get; protected set; }
     }
 }

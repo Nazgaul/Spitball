@@ -42,7 +42,7 @@ namespace Cloudents.Command.StudyRooms
             var sessionName = $"{message.StudyRoomId}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
             var url = _urlBuilder.BuildTwilioWebHookEndPoint(room.Id);
             await _videoProvider.CreateRoomAsync(sessionName,
-                room.Tutor.User.Country,
+                room.Tutor.User.SbCountry,
                 message.RecordVideo,
                 url,
                 room.Type.GetValueOrDefault(StudyRoomTopologyType.PeerToPeer)

@@ -1,3 +1,4 @@
+
 <template>
   <div>
       <div class="settingsTop">
@@ -26,6 +27,7 @@
 </template>
 
 <script>
+// TODO: clean this file @idan to @maor
 import {mapGetters, mapActions} from 'vuex';
 
 import studyroomSettingsUtils from './studyroomSettingsUtils';

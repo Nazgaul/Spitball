@@ -71,7 +71,7 @@ namespace Cloudents.Core.Entities
         }
         public static ItemStatus GetInitState(User user)
         {
-            Country country = user.Country;
+            Country country = user.SbCountry;
             if (country == Country.India)
             {
                 return Pending;

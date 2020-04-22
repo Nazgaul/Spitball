@@ -148,7 +148,7 @@ namespace Cloudents.Web.Controllers
 
             ViewBag.title = _localizer["Title", model.Document.Course, model.Document.Title];
             ViewBag.metaDescription = _localizer["Description", model.Document.Course];
-            Country country = model.Document.User.Country;
+            Country country = Country.FromCountry(model.Document.User.Country);
 
             if (model.Document.DocumentType == DocumentType.Video && !string.IsNullOrEmpty(model.Document.Snippet))
             {
@@ -180,7 +180,7 @@ namespace Cloudents.Web.Controllers
             }));
             ViewBag.ogTitle = model.Document.Title;
 
-            ViewBag.ogDescription = 
+            ViewBag.ogDescription =
                 _localizer.WithCulture(country.MainLanguage.Info)
                 ["OgDescription", model.Document.Course];
 

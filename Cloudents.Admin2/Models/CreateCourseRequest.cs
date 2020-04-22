@@ -2,15 +2,12 @@
 
 namespace Cloudents.Admin2.Models
 {
-    public class EditSubjectRequest 
+    public class CreateCourseRequest
     {
-        [Required]
-        public long SubjectId { get; set; }
-
-        [StringLength(300)]
         [Required]
         public string Name { get; set; }
 
-
+        [Required]
+        public long Subject { get; set; }
     }
 }
