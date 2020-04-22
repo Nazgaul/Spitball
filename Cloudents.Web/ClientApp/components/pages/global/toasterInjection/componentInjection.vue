@@ -60,14 +60,6 @@ export default {
                         text: this.$t('studyRoom_toaster_left_the_room'),
                     }
                 },
-                
-                simpleToaster_sessionStarted:{
-                    name:'simpleToaster',
-                    params: {
-                        text: this.$t('studyRoom_toaster_session_start'),
-                        timeout: 4000,
-                    }                
-                },
                 login: {
                     name: 'auth',
                     params: {

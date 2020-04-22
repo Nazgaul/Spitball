@@ -1,8 +1,8 @@
 <template>
-    <div class="settingDetailsWrap ml-md-12 pa-3 pa-sm-0">
+    <div class="settingDetailsWrap ml-md-12 pa-3 pa-sm-0" v-if="roomName">
         <div class="mb-5 settingDetails">
-            <div class="settingTitle mb-4" v-t="'studyRoomSettings_class_name'"></div>
-
+            <!-- <div class="settingTitle mb-4" v-t="'studyRoomSettings_class_name'"></div> -->
+            <div class="settingTitle mb-4">{{roomName}}</div>
             <div>
                 <table class="settingTable">
                     <tr>
@@ -32,71 +32,41 @@
 
         <div class="counterWrap">
             <template>
-                <div class=" mb-8" v-if="!isRoomActive">
+                <div class=" mb-8" v-if="isRoomBroadcast && isRoomDisabled">
                     <div class="counterTitle mb-2" v-t="'studyRoomSettings_start_in'"></div>
-                    <sessionStartCounter class="counter" @updateCounterFinish="$emit('updateRoomIsActive', true)" />
+                    <sessionStartCounter class="counter"/>
+                    <!-- <sessionStartCounter class="counter" @updateCounterFinish="waitingForTutor = true" /> -->
                 </div>
                 <div class="mb-8" v-else v-t="'studyRoomSettings_ready'"></div>
             </template>
         </div>
 
         <template>
-            <v-btn
-                v-if="!isMyProfile"
-                class="joinNow white--text px-8"
-                @click="$store.dispatch('updateEnterRoom', $route.params.id)"
-                :disabled="!isRoomActive"
-                height="50"
-                block
-                color="#5360FC"
-                rounded
-                depressed
-            >
+            <v-btn :loading="loadings.student" v-if="!isRoomTutor" @click="studentEnterRoom()" class="joinNow white--text px-8"
+                :disabled="isRoomDisabled" height="50" block color="#5360FC" rounded depressed>
                 {{$t('studyRoomSettings_join_now')}}
             </v-btn>
 
             <div v-else dense class="tutorActions text-center text-md-left d-block d-sm-flex">
                 <div>
-                    <v-btn
-                        @click="tutorActions('whiteboard')"
-                        class="mr-sm-2 mr-0 mb-2"
-                        color="#4c59ff"
-                        height="46"
-                        width="140"
-                        depressed
-                        rounded
-                        outlined
-                    >
+                    <v-btn :loading="loadings[roomModes.whiteboard]" @click="tutorActions(roomModes.whiteboard)" class="mr-sm-2 mr-0 mb-2"
+                        color="#4c59ff" height="46" width="140" depressed rounded outlined>
                         <whiteboardSvg width="18" />
                         <div class="flex-grow-1">{{$t('studyRoomSettings_whiteboard')}}</div>
                     </v-btn>
                 </div>
                 <div>
-                    <v-btn
-                        @click="tutorActions('present')"
-                        class="mx-sm-2 mx-0 mb-2"
-                        color="#4c59ff"
-                        height="46"
-                        width="140"
-                        depressed
-                        rounded
-                        outlined
-                    >
+                    <v-btn :loading="loadings[roomModes.present]"
+                        @click="tutorActions(roomModes.present)" class="mx-sm-2 mx-0 mb-2"
+                        color="#4c59ff" height="46" width="140" depressed rounded outlined>
                         <presentSvg width="18" />
                         <div class="flex-grow-1">{{$t('studyRoomSettings_present')}}</div>
                     </v-btn>
                 </div>
                 <div>
-                    <v-btn
-                        @click="tutorActions('fullview')"
-                        class="ml-sm-2 ml-0 mb-2"
-                        color="#4c59ff"
-                        height="46"
-                        width="140"
-                        depressed
-                        rounded
-                        outlined
-                    >
+                    <v-btn :loading="loadings[roomModes.fullview]" :disabled="!$store.getters.getVideoTrackId"
+                        @click="tutorActions(roomModes.fullview)" class="ml-sm-2 ml-0 mb-2"
+                        color="#4c59ff" height="46" width="140" depressed rounded outlined>
                         <fullviewSvg width="18" />
                         <div class="flex-grow-1">{{$t('studyRoomSettings_full_view')}}</div>
                     </v-btn>
@@ -130,14 +100,32 @@ export default {
     },
     data() {
         return {
+            loadings:{
+                whiteboard: false,
+                present: false,
+                fullview: false,
+                student:false,
+            },
+            selectedRoomMode:'',
             actions: {
                 whiteboard: this.whiteboard,
                 present: this.present,
                 fullview: this.fullview,
+            },
+            roomModes:{
+                whiteboard:'whiteboard',
+                present: 'present',
+                fullview: 'fullview',
             }
         }
     },
     computed: {
+        isRoomBroadcast(){
+            return this.$store.getters.getRoomIsBroadcast;
+        },
+        isRoomDisabled(){
+            return !this.$store.getters.getJwtToken;
+        },
         shareContentParams(){
             let urlLink = `${this.roomLink}?t=${Date.now()}` ;
             let paramObJ = {
@@ -151,8 +139,8 @@ export default {
             }
             return paramObJ
         },
-        isMyProfile() {
-            return this.roomTutor.tutorId === this.$store.getters.accountUser?.id
+        isRoomTutor(){
+            return this.$store.getters.getRoomIsTutor;
         },
         roomName() {
             return this.$store.getters?.getRoomName
@@ -166,28 +154,64 @@ export default {
             return `${window.origin}/studyroom/${this.$route.params.id}`
         }
     },
-     methods: {
-         tutorActions(name) {
-            let self = this
-            this.$store.dispatch('updateEnterRoom', this.$route.params.id)
-                .then(() => {
-                    // self.$emit('updateRoomIsActive', true)
-                    self.actions[name]();
-                }).catch(ex => {
-                    self.$appInsights.trackException({exception: new Error(ex)});
-                })
-         },
+    methods: {
+        studentEnterRoom(){
+            this.loadings.student = true;
+            this.$store.dispatch('updateRoomIsJoined',true)
+        },
+        tutorActions(roomMode){
+        
+        let self = this
+        this.selectedRoomMode = roomMode;
+        // this.loadings[roomMode] = true;
+        this.$store.dispatch('updateEnterRoom', this.$route.params.id)
+            .then(() => {
+                this.$store.dispatch('updateRoomIsJoined',true);
+            }).catch(ex => {
+                self.$appInsights.trackException({exception: new Error(ex)});
+            })
+        },
+
         whiteboard() {
-            this.$store.commit('setComponent', '')
+            this.$store.dispatch('updateDialogEnter',false);
+            this.selectedRoomMode = ''
         },
         present() {
             this.$store.dispatch('updateShareScreen', true)
+            this.selectedRoomMode = ''
         },
         fullview() {
             this.$store.dispatch('updateToggleTutorFullScreen', true);
+            this.selectedRoomMode = ''
         },
         
-     }
+     },
+    watch: {
+        '$store.getters.getRoomIsActive':{
+            deep:true,
+            handler(val){
+                if(val){
+                    if(!this.isRoomTutor){
+                        this.$store.dispatch('updateDialogEnter',false);
+                        return
+                    }
+                    if(this.isRoomTutor && this.selectedRoomMode){
+                        this.actions[this.selectedRoomMode]();
+                        return
+                    }
+                    this.$store.dispatch('updateDialogEnter',false);
+                }
+            }
+        }
+    },
+    beforeDestroy() {
+        if(this.isRoomTutor){
+            this.loadings[this.selectedRoomMode] = false;
+            this.selectedRoomMode = '';
+        }else{
+            this.loadings.student = false;
+        }
+    },
 }
 </script>
 

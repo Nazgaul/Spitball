@@ -23,6 +23,7 @@ const state = {
    roomIsActive: false,
    roomIsNeedPayment: false,
    roomTutor: {},
+   roomIsJoined: false,
    // TODO: change it to roomId after u clean all
    studyRoomId: null,
 
@@ -30,6 +31,7 @@ const state = {
    dialogEndSession: false,
    dialogUserConsent: false,
    dialogSnapshot: false,
+   dialogEnter: true,
 
    roomProps: null,
 }
@@ -69,9 +71,12 @@ const mutations = {
       state.roomProps = null;
       state.roomType = null;
       state.roomName = null;
+      state.dialogEnter = true;
    },
    [studyRoom_SETTERS.DIALOG_USER_CONSENT]: (state, val) => state.dialogUserConsent = val,
    [studyRoom_SETTERS.DIALOG_SNAPSHOT]: (state, val) => state.dialogSnapshot = val,
+   [studyRoom_SETTERS.ROOM_JOINED]: (state, val) => state.roomIsJoined = val,
+   [studyRoom_SETTERS.DIALOG_ENTER]: (state, val) => state.dialogEnter = val,
 }
 const getters = {
    getActiveNavEditor: state => state.activeNavEditor,
@@ -97,8 +102,30 @@ const getters = {
    getDialogRoomEnd: state => state.roomIsActive && state.roomIsTutor && state.dialogEndSession,
    getDialogUserConsent: state => state.dialogUserConsent,
    getDialogSnapshot: state => state.dialogSnapshot,
+   getRoomIsJoined:state => state.roomIsJoined,
+
+
+   getDialogEnterRoom: (state,getters) => {
+      // // if(!state.roomIsActive){
+      // //    return true; // show popup
+      // // }else{
+      //    if(state.roomIsTutor){
+      //       if(state.roomIsJoined){
+      //          return false; // hide popup
+      //       }
+      //    }else{
+      //       if(getters.getJwtToken && state.roomIsJoined){
+      //          return false; // hide popup
+      //       }
+      //    }
+         return state.dialogEnter;
+      // }
+   },
 }
 const actions = {
+   updateDialogEnter({commit},val){
+      commit(studyRoom_SETTERS.DIALOG_ENTER,val)
+   },
    updateFullScreen(context,elId){
 
       let className = 'fullscreenMode';
@@ -133,8 +160,9 @@ const actions = {
       commit(studyRoom_SETTERS.DIALOG_ROOM_SETTINGS, val)
    },
    updateEnterRoom({ dispatch }, roomId) { // when tutor press start session
-      studyRoomService.enterRoom(roomId).then((jwtToken) => {
+      return studyRoomService.enterRoom(roomId).then((jwtToken) => {
          dispatch('updateJwtToken',jwtToken);
+         return Promise.resolve()
       })
    },
    updateRoomIsNeedPayment({ commit,getters ,dispatch}, isNeedPayment) {
@@ -191,7 +219,13 @@ const actions = {
          commit('setStudyRoomItems',myStudyRooms)
          return
       })
-   }
+   },
+   updateRoomIsJoined({ commit,getters ,dispatch}, val) {
+      commit(studyRoom_SETTERS.ROOM_JOINED,val)
+      if(val){
+         dispatch('updateJwtToken',getters.getJwtToken);
+      }
+   },
 }
 export default {
    state,

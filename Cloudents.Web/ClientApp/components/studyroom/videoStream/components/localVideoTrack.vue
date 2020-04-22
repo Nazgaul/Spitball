@@ -15,7 +15,7 @@
             <template v-if="$store.getters.getRoomIsTutor">
                <v-tooltip bottom>
                   <template v-slot:activator="{ on }">
-                     <v-btn v-on="on" class="fullscreen-btn" icon @click="openFullScreen" color="white">
+                     <v-btn v-on="on" id="openFullTutor" class="fullscreen-btn" icon @click="openFullScreen" color="white">
                         <v-icon>sbf-fullscreen</v-icon>
                      </v-btn>
                   </template>

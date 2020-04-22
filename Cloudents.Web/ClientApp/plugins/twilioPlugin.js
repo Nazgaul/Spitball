@@ -93,6 +93,13 @@ function _twilioListeners(room,store) {
       if(store.getters.getRoomIsTutor && track.trackName === SCREEN_TRACK_NAME){
          _changeState(room.localParticipant);
       }
+      if(store.getters.getRoomIsTutor && track.kind === 'data'){
+         _changeState(room.localParticipant);
+         if(store.getters.getDialogEnterRoom){
+            store.dispatch('updateDialogEnter',false)
+            document.getElementById('openFullTutor').click()
+         }
+      }
    })
 
 
@@ -203,7 +210,7 @@ function _twilioListeners(room,store) {
 export default () => {
    return store => {
       let twillioClient;
-      let dataTrack;
+      let dataTrack = null;
       let _activeRoom = null;
       let _localVideoTrack = null;
       let _localAudioTrack = null;
@@ -216,8 +223,11 @@ export default () => {
             });
             _debugMode = mutation.payload.query?.debug ? 'debug' : 'off';
          }
-         if (mutation.type === twilio_SETTERS.JWT_TOKEN) {
+         if (mutation.type === twilio_SETTERS.JWT_TOKEN && mutation.payload) {
             if(_activeRoom?.state == 'connected'){
+               return
+            }
+            if(!store.getters.getRoomIsJoined){
                return
             }
             let isRoomNeedPayment = store.getters.getRoomIsNeedPayment;
@@ -288,6 +298,9 @@ export default () => {
                      }
                      _publishTrack(_activeRoom,_localScreenTrack);
                      store.commit(twilio_SETTERS.VIDEO_AVAILABLE,true)
+                     if(store.getters.getDialogEnterRoom){
+                        store.dispatch('updateDialogEnter',false)
+                     }
                      _localScreenTrack.on('stopped',(track)=>{
                         _unPublishTrack(_activeRoom,track)
                         store.commit(twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE,false);
@@ -353,10 +366,14 @@ export default () => {
             if (mutation.type === studyRoom_SETTERS.ROOM_ACTIVE){
                if(!mutation.payload && _activeRoom){
                   _activeRoom.disconnect()
+                  _activeRoom = null;
+                  dataTrack = null;
                   _localVideoTrack = null;
                   _localAudioTrack = null;
                   _localScreenTrack = null;
-   
+                  store.dispatch('updateJwtToken',null)
+                  store.dispatch('updateRoomIsJoined',null)
+                  store.dispatch('updateDialogEnter',true)
                   store.commit(twilio_SETTERS.VIDEO_AVAILABLE,false);
                   store.commit(twilio_SETTERS.AUDIO_AVAILABLE,false)
                }

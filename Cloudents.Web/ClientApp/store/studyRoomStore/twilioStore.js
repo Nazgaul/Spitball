@@ -62,10 +62,7 @@ const actions = {
    updateToggleTutorFullScreen({commit},val){
       commit(twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN,val)
    },
-   updateJwtToken({commit,getters},token){
-      if(!getters.getRoomIsTutor){
-         commit('setComponent', 'simpleToaster_sessionStarted');
-      }
+   updateJwtToken({commit},token){
       commit(twilio_SETTERS.JWT_TOKEN,token)
    },
    sendDataTrack({commit},data){
