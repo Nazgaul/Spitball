@@ -1,39 +1,48 @@
-﻿using Dapper;
-using System;
+﻿using Cloudents.Core.DTOs.Admin;
+using Dapper;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
+using NHibernate;
+using NHibernate.Linq;
 
 namespace Cloudents.Query.Admin
 {
-    public class SubjectsQuery : IQuery<IEnumerable<string>>
+    public class SubjectsQuery : IQueryAdmin2<IEnumerable<SubjectDto>>
     {
-        private Guid AdminUserId { get; }
-        public SubjectsQuery(Guid adminUserId)
+        public SubjectsQuery(Country? country)
         {
-            AdminUserId = adminUserId;
+            Country = country;
         }
-        internal sealed class SubjectsQueryHandler : IQueryHandler<SubjectsQuery, IEnumerable<string>>
+
+        public Country? Country { get; }
+
+        internal sealed class SubjectsTranslationQueryHandler : IQueryHandler<SubjectsQuery, IEnumerable<SubjectDto>>
         {
-            private readonly IDapperRepository _dapperRepository;
-            public SubjectsQueryHandler(IDapperRepository dapperRepository)
+            private readonly IStatelessSession _statelessSession;
+            public SubjectsTranslationQueryHandler(QuerySession dapperRepository)
             {
-                _dapperRepository = dapperRepository;
+                _statelessSession = dapperRepository.StatelessSession;
             }
 
-            public async Task<IEnumerable<string>> GetAsync(SubjectsQuery query,
+            public async Task<IEnumerable<SubjectDto>> GetAsync(SubjectsQuery query,
                 CancellationToken token)
             {
-                const string sql = @"select COALESCE(st.NameTranslation, cs.Name)
-                                        from sb.CourseSubject cs
-                                        left join sb.SubjectTranslation st
-	                                        on cs.Id = st.SubjectId 
-	                                        and st.LanguageId = (select LanguageId from sb.AdminUser where Id = @Id)
-                                            order by COALESCE(st.NameTranslation, cs.Name)";
 
-                using var conn = _dapperRepository.OpenConnection();
-                return await conn.QueryAsync<string>(sql, new { id = query.AdminUserId });
+                var x = _statelessSession.Query<CourseSubject>();
+                if (query.Country != null)
+                {
+                    x = x.Where(w => w.Country == query.Country);
+                }
+                return await x.Select(s => new SubjectDto
+                {
+                    Id = s.Id,
+                    Name = s.Name
+                }).ToListAsync(token);
             }
         }
+
     }
 }

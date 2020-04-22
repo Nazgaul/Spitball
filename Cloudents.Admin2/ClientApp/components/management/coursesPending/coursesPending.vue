@@ -1,7 +1,6 @@
 ﻿<template>
-  <div class="cashout-table-container">
-    <span v-if="showLoading">Loading List...</span>
-    <h1 align="center">Pending Courses List</h1>
+  <v-container fluid>
+    <h1 align="center">Courses Managment</h1>
     <v-layout>
       <v-spacer></v-spacer>
       <v-flex xs3>
@@ -13,6 +12,7 @@
         ></v-select>
       </v-flex>
       <v-flex xs3 offset-xs2>
+        <v-btn @click="openCreateCourse()">Create Course</v-btn>
         <!-- <v-select :items="languages"
                           label="language"
                           v-model="language"
@@ -32,7 +32,7 @@
     <v-data-table
       :headers="headers"
       :items="newCourseList"
-      :rows-per-page-items = "[25,50,100]"
+      :rows-per-page-items="[25,50,100]"
       :loading="showLoading"
       disable-initial-sort
     >
@@ -70,8 +70,6 @@
                   <v-radio label="Approve" value="approve"></v-radio>
                   <v-radio label="Merge" value="merge"></v-radio>
                 </v-radio-group>
-                <!--<v-text-field v-show="radios === 'merge'" v-model="newItem.course" label="New course"></v-text-field>-->
-
                 <template v-if="radios === 'approve'">
                   <div class="select-type-container">
                     <v-select
@@ -81,12 +79,7 @@
                       :loading="isLoading"
                       label="Select subjects"
                     ></v-select>
-                    <v-select
-                      class="select-type-input"
-                      v-model="schoolType"
-                      :items="schoolTypes"
-                      label="Select school type"
-                    ></v-select>
+                  
                   </div>
                 </template>
 
@@ -115,7 +108,24 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </div>
+
+    <v-dialog v-model="createCourse" width="500">
+      <v-card>
+        <v-card-title primary-title class="headline grey lighten-2">Create Course</v-card-title>
+        <v-card-text>
+          <v-container>
+              <v-text-field label="CourseName" required v-model="createCourseSelect.name"></v-text-field>
+              <v-select v-model="createCourseSelect.subject" :items="subjects" label="Outlined style" outlined></v-select>
+          </v-container>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" text @click="submitCreateCourse()">Submit</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+ </v-container>
 </template>
 
 <script>
@@ -125,13 +135,15 @@ import {
   migrateCourses,
   approve,
   rename,
-  deleteCourse
+  deleteCourse,
+  createCourse
 } from "./coursesPendingService";
 import searchComponent from "../../helpers/search.vue";
 
 export default {
   data() {
     return {
+      createCourse: false,
       isLoading: true,
       newCourseList: [],
       subjects: [],
@@ -139,6 +151,10 @@ export default {
       picked: {
         id: "",
         name: ""
+      },
+      createCourseSelect: {
+        name : '',
+        subject: null
       },
       adminAPI: "Course",
       showLoading: true,
@@ -162,8 +178,6 @@ export default {
         { text: "Pending Courses", value: "name" },
         { text: "Actions", value: "actions" }
       ],
-      schoolTypes: ["University", "Highschool"],
-      schoolType: ""
     };
   },
   computed: {
@@ -237,8 +251,7 @@ export default {
     },
     approve(item) {
       const index = this.newCourseList.indexOf(item.name);
-      let schoolType = this.schoolType;
-      approve({ course: item, schoolType }).then(
+      approve({ course: item }).then(
         resp => {
           console.log("got migration resp success");
           this.$toaster.success(`Approved Course ${item.name.name}`);
@@ -281,6 +294,21 @@ export default {
         }
       );
     },
+    openCreateCourse() {
+      this.createCourse = true;
+    },
+    submitCreateCourse() {
+      console.log(this.createCourseSelect);
+      var self = this;
+      createCourse(this.createCourseSelect).then(() => {
+          self.createCourse = false;
+          self.createCourseSelect = {
+                 name : '',
+                subject: null
+          };
+      })
+       
+    },
 
     getCourseList2(state, filter) {
       this.showLoading = true;
@@ -290,7 +318,7 @@ export default {
           this.newCourseList = list;
           if (list.length === 0) {
             self.showNoResult = true;
-          } 
+          }
           self.showLoading = false;
         },
         err => {
@@ -303,9 +331,11 @@ export default {
     this.getCourseList2("Pending", this.search);
     getSubjects().then(
       list => {
+        this.isLoading = false;
         if (list.length > 0) {
+          console.log(list)
           this.subjects = list;
-          this.isLoading = false;
+          
         }
       },
       err => {
@@ -321,27 +351,25 @@ export default {
 
 <style lang="less">
 //overwrite vuetify css to narrow the table
-table.v-table tbody td:first-child,
-table.v-table tbody td:not(:first-child),
-table.v-table tbody th:first-child,
-table.v-table tbody th:not(:first-child),
-table.v-table thead td:first-child,
-table.v-table thead td:not(:first-child),
-table.v-table thead th:first-child,
-table.v-table thead th:not(:first-child) {
-  padding: 0 4px !important;
-}
+// table.v-table tbody td:first-child,
+// table.v-table tbody td:not(:first-child),
+// table.v-table tbody th:first-child,
+// table.v-table tbody th:not(:first-child),
+// table.v-table thead td:first-child,
+// table.v-table thead td:not(:first-child),
+// table.v-table thead th:first-child,
+// table.v-table thead th:not(:first-child) {
+//   padding: 0 4px !important;
+// }
 
 /*table.v-table tbody td:first-child, table.v-table tbody td:not(:first-child), table.v-table tbody th:first-child, table.v-table tbody th:not(:first-child),*/
 /*table.v-table thead td:first-child, table.v-table thead td:not(:first-child), table.v-table thead th:first-child, table.v-table thead th:not(:first-child){*/
 /*padding: 0 4px!important;*/
 /*}*/
-.cashout-table-container {
-  width: 100%;
-  max-width: calc(100vw - 325px);
-}
-.cash-out-table {
-}
+// .cashout-table-container {
+//   width: 100%;
+//   max-width: calc(100vw - 325px);
+// }
 
 .user-inputs-container,
 .select-type-container {

@@ -134,12 +134,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
 
-        [Fact]
-        public async Task AdminSubjectsQuery_Ok()
-        {
-            var query = new SubjectsQuery(Guid.Parse("6942483C-4CEF-4256-B9A1-0CAE272C54B4"));
-            await _fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Fact]
+        //public async Task AdminSubjectsQuery_Ok()
+        //{
+        //    var query = new SubjectsQuery(Guid.Parse("6942483C-4CEF-4256-B9A1-0CAE272C54B4"));
+        //    await _fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         //[Fact]
         //public async Task AdminUniversitiesQuery_Ok()
@@ -451,7 +451,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task SubjectsTranslationQuery_Ok(string countryStr)
         {
             var country = FromCountry(countryStr);
-            var query = new SubjectsTranslationQuery(country);
+            var query = new SubjectsQuery(country);
             var _ = await _fixture.QueryBus.QueryAsync(query, default);
         }
 

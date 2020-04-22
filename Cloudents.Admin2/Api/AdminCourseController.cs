@@ -43,15 +43,14 @@ namespace Cloudents.Admin2.Api
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateCourseRequest model, CancellationToken token)
         {
-            var command = new CreateCourseCommand(model.Name,model.Subject);
+            var command = new CreateCourseCommand(model.Name, model.Subject);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
-        
+
 
         [HttpGet]
         [HttpGet("search")]
-        [Authorize]
         public async Task<IEnumerable<PendingCoursesDto>> GetNewCourses([FromQuery]CoursesRequest model
                 , CancellationToken token)
         {
@@ -64,7 +63,7 @@ namespace Cloudents.Admin2.Api
             return retVal;
         }
 
-      
+
 
 
         [HttpPost("approve")]
@@ -87,18 +86,17 @@ namespace Cloudents.Admin2.Api
         }
 
 
-        [HttpGet("subject")]
-        [Authorize]
-        public async Task<IEnumerable<string>> GetSubjects(CancellationToken token)
-        {
-            var query = new SubjectsQuery(User.GetIdClaim());
-            var retVal = await _queryBus.QueryAsync(query, token);
-            return retVal;
-        }
+        //[HttpGet("subject")]
+        //[Authorize]
+        //public async Task<IEnumerable<SubjectDto>> GetSubjects(CancellationToken token)
+        //{
+        //    var query = new SubjectsQuery(User.GetSbCountryClaim());
+        //    var retVal = await _queryBus.QueryAsync(query, token);
+        //    return retVal;
+        //}
 
 
         [HttpDelete("{name}")]
-        [Authorize]
         public async Task<IActionResult> DeleteCourse(string name,
                 CancellationToken token)
         {
@@ -107,7 +105,7 @@ namespace Cloudents.Admin2.Api
             {
                 await _commandBus.DispatchAsync(command, token);
             }
-            catch(SqlConstraintViolationException e)
+            catch (SqlConstraintViolationException e)
             {
                 return BadRequest(e.Message);
             }

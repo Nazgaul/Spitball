@@ -33,7 +33,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<SubjectDto>> GetAsync(CancellationToken token)
         {
             var country = User.GetSbCountryClaim();
-            var query = new SubjectsTranslationQuery(country);
+            var query = new SubjectsQuery(country);
             return await _queryBus.QueryAsync(query, token);
         }
 
