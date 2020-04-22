@@ -148,10 +148,7 @@
     <value>מצלמה</value>
   </data>
   <data name="camera_placeholder" xml:space="preserve">
-    <value>בחירת מצלמה</value>
-  </data>
-  <data name="class_name" xml:space="preserve">
-    <value>שם החדר</value>
+    <value>אנא בחרו מצלמה</value>
   </data>
   <data name="dismiss" xml:space="preserve">
     <value>סגור</value>
@@ -163,7 +160,7 @@
     <value>מסך מלא</value>
   </data>
   <data name="mic_placeholder" xml:space="preserve">
-    <value>בחירת מיקרופון</value>
+    <value>אנא בחרו מיקרופון</value>
   </data>
   <data name="no_camera" xml:space="preserve">
     <value>המצלמה כבויה</value>
