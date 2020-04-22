@@ -168,6 +168,7 @@ export default {
             this.localTrack = track;
             this.videoEl.appendChild(this.localTrack.attach());
             this.$store.dispatch('updateVideoTrack',this.singleCameraId)
+            this.$store.commit('settings_setIsVideo',true)
 
             this.cameraOn = true
             this.placeholder = true
@@ -175,6 +176,7 @@ export default {
             this.permissionDialogState = false
         },
         clearVideoTrack() {
+            this.$store.commit('settings_setIsVideo',false)
             if (this.localTrack?.detach) {
                 this.localTrack.detach().forEach((detachedElement) => {
                     detachedElement.remove();

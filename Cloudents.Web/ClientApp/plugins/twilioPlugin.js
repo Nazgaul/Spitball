@@ -102,10 +102,11 @@ function _twilioListeners(room,store) {
    room.localParticipant.on('trackPublished',(track)=>{
       if(store.getters.getRoomIsTutor && track.trackName === SCREEN_TRACK_NAME){
          _changeState(room.localParticipant);
+         return
       }
       if(store.getters.getRoomIsTutor && track.kind === 'data'){
          _changeState(room.localParticipant);
-         if(store.getters.getDialogEnterRoom){
+         if(store.getters.getDialogEnterRoom && store.getters.getIsFullScreen){
             store.dispatch('updateDialogEnter',false)
             document.getElementById('openFullTutor').click()
          }

@@ -1,5 +1,5 @@
 <template>
-    <div class="settingDetailsWrap ml-md-12 pa-4 pa-sm-0" v-if="roomName">
+    <div class="settingDetailsWrap ml-md-12 pa-4 pa-sm-0">
         <div class="mb-5 settingDetails">
             <div class="settingTitle mb-2 mb-sm-3">{{roomName}}</div>
             <div>
@@ -66,7 +66,7 @@
                     </v-btn>
                 </div>
                 <div>
-                    <v-btn :loading="loadings[roomModes.fullview]" 
+                    <v-btn :loading="loadings[roomModes.fullview]" :disabled="!$store.getters.settings_getIsVideo"
                         @click="tutorActions(roomModes.fullview)" class="ml-sm-2 ml-0 mb-4" :block="$vuetify.breakpoint.xsOnly"
                         color="#4c59ff" height="44" width="140" depressed rounded outlined>
                         <fullviewSvg width="18" />
@@ -162,10 +162,12 @@ export default {
             this.$store.dispatch('updateRoomIsJoined',true)
         },
         tutorActions(roomMode){
-        
+        if(Object.values(this.loadings).some(loader=>loader)){
+            return
+        }
         let self = this
         this.selectedRoomMode = roomMode;
-        // this.loadings[roomMode] = true;
+        this.loadings[roomMode] = true;
         this.$store.dispatch('updateEnterRoom', this.$route.params.id)
             .then(() => {
                 this.$store.dispatch('updateRoomIsJoined',true);
