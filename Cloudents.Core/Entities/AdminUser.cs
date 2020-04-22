@@ -10,9 +10,8 @@ namespace Cloudents.Core.Entities
 
         public virtual string? Country { get; set; }
 
-        public virtual Country SbCountry { get; set; }
+        public virtual Country? SbCountry { get; set; }
 
-        public virtual AdminLanguage Language { get; set; }
 
     }
 }

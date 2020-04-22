@@ -43,8 +43,6 @@ namespace Cloudents.Core.DTOs.Admin
         public string Name { get; set; }
         [EntityBind(nameof(Document.TimeStamp.CreationTime))]
         public DateTime Created { get; set; }
-        [EntityBind(nameof(Document.University.Name))]
-        public string University { get; set; }
         [EntityBind(nameof(Document.Course.Id))]
         public string Course { get; set; }
         [EntityBind(nameof(Document.Price))]

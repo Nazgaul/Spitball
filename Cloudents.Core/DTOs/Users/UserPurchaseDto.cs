@@ -47,7 +47,7 @@ namespace Cloudents.Core.DTOs.Users
         {
             get
             {
-                Country country = Country;
+                Country country = Entities.Country.FromCountry(Country);
                 return (_price, country.Name) switch
                 {
                     (500, Entities.Country.UsStr) => 6M,

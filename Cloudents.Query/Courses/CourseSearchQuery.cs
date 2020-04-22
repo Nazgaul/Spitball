@@ -35,10 +35,7 @@ namespace Cloudents.Query.Courses
                 const string sql =
                             @"declare @country nvarchar(2) = (select country from sb.[user] where id = @Id);
 
-declare @schoolType nvarchar(50) = (select case when UserType = 'UniversityStudent' then 'University'
-										when UserType in ('HighSchoolStudent', 'Parent') then 'HighSchool'  
-										else null end
-                                        from sb.[user] where Id = @Id);
+
 
 
 with cte as 
@@ -65,9 +62,7 @@ select Name,
 	c.count as Students
 from sb.Course c
 where State = 'OK'
-and ( @schoolType is null
-	or (@schoolType = 'University' and c.SchoolType is null)
-	or c.SchoolType = @schoolType  )
+
 and exists (select CourseId from cte where CourseId = c.Name)
 and not exists (select uc.CourseId from sb.UsersCourses uc where c.Name = uc.CourseId and uc.UserId = @Id)
 and (c.Country is null or c.Country = @Country)

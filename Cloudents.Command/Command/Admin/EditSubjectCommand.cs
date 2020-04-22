@@ -3,14 +3,12 @@ namespace Cloudents.Command.Command.Admin
 {
     public class EditSubjectCommand : ICommand
     {
-        public EditSubjectCommand(long subjectId, string enSubjectName, string heSubjectName)
+        public EditSubjectCommand(long subjectId, string newName)
         {
             SubjectId = subjectId;
-            EnSubjectName = enSubjectName;
-            HeSubjectName = heSubjectName;
+            NewName = newName;
         }
-        public long SubjectId { get; set; }
-        public string EnSubjectName { get; set; }
-        public string HeSubjectName { get; set; }
+        public long SubjectId { get; }
+        public string NewName { get;  }
     }
 }

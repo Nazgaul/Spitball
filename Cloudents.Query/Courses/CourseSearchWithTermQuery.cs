@@ -36,10 +36,7 @@ namespace Cloudents.Query.Courses
                 const int pageSize = 30;
                 const string sql =
                             @"     
-declare @schoolType nvarchar(50) = (select case when UserType = 'UniversityStudent' then 'University'
-										when UserType in ('HighSchoolStudent', 'Parent') then 'HighSchool'  
-										else null end
-                                        from sb.[user] where Id = @Id);
+
 Select @Term =  '""*' + @Term+ '*""'; 
 
 select Name,
@@ -50,9 +47,7 @@ select Name,
 	                            on c.Name = uc.CourseId and uc.UserId = @Id
                              where Contains(Name,  @Term)
 							and State = 'OK'
-							and ( c.SchoolType = @schoolType 
-							or (@schoolType = 'University' and c.SchoolType is null)
-							or @schoolType is null )
+							
                             order by case when uc.CourseId is not null
                                     then 1 else null end desc,
 									c.count desc

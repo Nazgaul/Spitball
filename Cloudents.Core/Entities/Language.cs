@@ -113,7 +113,9 @@ namespace Cloudents.Core.Entities
             MainLanguage = language;
         }
 
-        public static implicit operator Country(string? tb)
+        public static Country FromCountry(string? tb) 
+
+        //public static implicit operator Country(string? tb)
         {
             if (tb is null)
             {

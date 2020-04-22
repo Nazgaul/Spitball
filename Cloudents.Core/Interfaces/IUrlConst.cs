@@ -12,7 +12,8 @@ namespace Cloudents.Core.Interfaces
         string BuildCourseEndPoint(string courseName);
 
         string BuildQuestionEndPoint(long id, object? parameters = null);
-        // string BuildPayMeBuyerEndPoint(string token);
+        string BuildProfileEndPoint(long id);
+
 
         Uri BuildChatEndpoint(string token, object? parameters = null);
 

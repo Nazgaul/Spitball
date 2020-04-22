@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Admin
 {
-    public class SuspendedUsersQuery : IQueryAdmin<IEnumerable<SuspendedUsersDto>>
+    public class SuspendedUsersQuery : IQueryAdmin2<IEnumerable<SuspendedUsersDto>>
     {
-        public SuspendedUsersQuery(string country)
+        public SuspendedUsersQuery(Country? country)
         {
             Country = country;
         }
-        public string Country { get; }
+        public Country? Country { get; }
         internal sealed class SuspendedUsersEmptyQueryHandler : IQueryHandler<SuspendedUsersQuery, IEnumerable<SuspendedUsersDto>>
         {
             private readonly IStatelessSession _session;
@@ -30,9 +30,9 @@ namespace Cloudents.Query.Admin
                 var suspendDto = _session.Query<User>()
                     .WithOptions(w => w.SetComment(nameof(SuspendedUsersQuery)))
                     .Where(w => w.LockoutEnd != null);
-                if (!string.IsNullOrEmpty(query.Country))
+                if (query.Country != null)
                 {
-                    suspendDto = suspendDto.Where(w => w.Country == query.Country);
+                    suspendDto = suspendDto.Where(w => w.SbCountry == query.Country);
                 }
 
                 var res = suspendDto.Select(s => new SuspendedUsersDto
