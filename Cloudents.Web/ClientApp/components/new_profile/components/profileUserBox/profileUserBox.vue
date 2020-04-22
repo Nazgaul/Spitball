@@ -1,29 +1,5 @@
 <template>
     <div class="profileUserBox pa-4 pa-sm-5" v-if="currentProfileUser">
-        <!-- <div class="profileUserBox_top_mobile" v-if="isMobile">
-            <div class="profileUserBox_top_mobile_top">
-                <a class="profileUserBox_top_mobile_link" @click="$router.go(-1)">
-                    <v-icon v-text="'sbf-arrow-left-carousel'"/>
-                </a>
-            </div>
-            <div class="profileUserBox_top_mobile_bottom">
-                <div class="profileUserBox_top_mobile_right">
-                    <h1 class="profileUserBox_top_mobile_userName text-truncate">
-                        <span v-if="currentProfileUser.isTutor" v-t="'profile_tutor'"/>
-                        {{currentProfileUser.name}}
-                    </h1>
-                </div>
-                <div class="profileUserBox_top_mobile_left">
-                    <followBtn v-if="!isCurrentProfileUser"/>
-                    <editSVG sel="edit" class="profileUserBox_top_mobile_left_edit" v-if="isMobile && isCurrentProfileUser" @click="openEditInfo()"/>
-                    <div class="profileUserBox_top_mobile_left_followers">
-                        <span v-if="currentProfileUser.followers" class="defaultState_content_followers" 
-                        v-text="$Ph(currentProfileUser.followers > 1 ? 'profile_tutor_followers':'profile_tutor_follower',currentProfileUser.followers)"/>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
         <div class="profileUserBox_top d-block d-sm-flex justify-space-between">
             
             <div class="leftSide mr-sm-6 mb-2 mb-sm-0 d-flex justify-center">
@@ -62,8 +38,8 @@
                                 <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" v-if="currentProfileUser.isTutor" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
                             </template>
                             <div v-else>
-                                <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="isLogged && !currentProfileUser.isTutor">
-                                    <editSVG class="mr-1" v-if="isCurrentProfileUser" />
+                                <v-btn v-ripple="false" icon text v-if="isCurrentProfileUser">
+                                    <editSVG sel="edit" class="pUb_edit_user mr-1" @click="openEditInfo"/>
                                 </v-btn>
                             </div>
                         </div>
@@ -134,8 +110,10 @@
                         <div class="profileUserSticky_btn_txt" v-t="'profile_send_message'"/>
                     </v-btn>
                     <div :class="{'ml-3': isCurrentProfileUser || !getProfile.user.calendarShared}">
-                        <editSVG sel="edit" class="pUb_edit_user mr-1" v-if="isCurrentProfileUser && !isMobile" @click="openEditInfo"/>
-                        <v-btn sel="calendar" height="42" :width="isMobile ? 286 : 246" :disabled="isCurrentProfileUser" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isCurrentProfileUser || !getProfile.user.calendarShared}" class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-sm-2 mt-4" depressed rounded color="white">
+                            <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="isLogged && !currentProfileUser.isTutor">
+                                <editSVG class="mr-1" v-if="isCurrentProfileUser" />
+                            </v-btn>
+                            <v-btn sel="calendar" height="42" :width="isMobile ? 286 : 246" :disabled="isCurrentProfileUser" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isCurrentProfileUser || !getProfile.user.calendarShared}" class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-sm-2 mt-4" depressed rounded color="white">
                             <calendarSVG width="20" class="profileUserSticky_btn_icon"/>
                             <div class="profileUserSticky_btn_txt" v-t="'profile_book_session'"/>
                         </v-btn>
