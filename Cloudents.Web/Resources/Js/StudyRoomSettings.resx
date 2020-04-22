@@ -151,9 +151,6 @@
     <value>Please select camera</value>
     <comment>בחר בבקשה מצלמה</comment>
   </data>
-  <data name="class_name" xml:space="preserve">
-    <value>Class Name</value>
-  </data>
   <data name="dismiss" xml:space="preserve">
     <value>Dismiss</value>
   </data>
