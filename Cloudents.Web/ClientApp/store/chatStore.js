@@ -13,7 +13,7 @@ const state = {
     },
     chatState: "conversation",
     activeConversationObj: chatService.createActiveConversationObj({}), //points to conversation Obj
-    isVisible: false,// global.innerWidth < 600 ? false : false,
+    isVisible: true,// global.innerWidth < 600 ? false : false,
     isMinimized: true,
     totalUnread: 0,
     chatLocked: false,
@@ -157,6 +157,7 @@ const mutations = {
         state.totalUnread = state.totalUnread + val;
     },
     lockChat:(state,val)=>{
+        state.isVisible = true;
         state.chatLocked = val;
     },
     activateLoader:(state, val)=>{

@@ -165,7 +165,7 @@ export default {
             if(time == this.hoursList[0]) {
                 return time
             }else{
-                return (time < 10) ? `0${time}:00` : `${time}:00`;
+                return `${time.toString().padStart(2,'0')}:00`;
             }
         },
         timeFormatISO(time){
