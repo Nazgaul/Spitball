@@ -160,6 +160,9 @@
   <data name="full_view" xml:space="preserve">
     <value>Full view</value>
   </data>
+  <data name="join_now" xml:space="preserve">
+    <value>Join</value>
+  </data>
   <data name="mic_placeholder" xml:space="preserve">
     <value>Please select microphone</value>
     <comment>בבקשה בחר מיקרופון</comment>

@@ -159,6 +159,9 @@
   <data name="full_view" xml:space="preserve">
     <value>מסך מלא</value>
   </data>
+  <data name="join_now" xml:space="preserve">
+    <value>כניסה לחדר</value>
+  </data>
   <data name="mic_placeholder" xml:space="preserve">
     <value>אנא בחרו מיקרופון</value>
   </data>
