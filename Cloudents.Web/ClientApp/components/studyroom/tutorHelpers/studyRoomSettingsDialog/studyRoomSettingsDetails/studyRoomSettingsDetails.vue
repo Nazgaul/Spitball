@@ -1,5 +1,5 @@
 <template>
-    <div class="settingDetailsWrap ml-md-12 pa-4 pa-sm-0">
+    <div class="settingDetailsWrap ml-md-12 pa-4 pa-sm-0" :style="!roomName? 'visibility: hidden': ''">
         <div class="mb-5 settingDetails">
             <div class="settingTitle mb-2 mb-sm-3">{{roomName}}</div>
             <div>
@@ -148,7 +148,7 @@ export default {
             return this.$store.getters?.getRoomName
         },
         roomPrice(){
-            return this.roomTutor?.tutorPrice || 0
+            return this.roomTutor?.tutorPrice;
         },
         roomTutor() {
             return this.$store.getters.getRoomTutor
