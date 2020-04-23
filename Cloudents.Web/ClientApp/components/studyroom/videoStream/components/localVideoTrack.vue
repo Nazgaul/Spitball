@@ -30,7 +30,7 @@
           <button
             sel="audio_enabling"
             v-on="on"
-            :class="['mic-image-btn', localAudioTrack && activeRoom ? 'dynamicBackground-dark': 'dynamicBackground-light', !isAudioActive ? 'micIgnore':'']"
+            :class="['mic-image-btn', isAudioActive && isRoomActive ? 'dynamicBackground-dark': 'dynamicBackground-light', !isAudioActive ? 'micIgnore':'']"
             @click="toggleAudio"
           >
             <microphoneImage v-if="isAudioActive" class="mic-image-svg" />
@@ -48,7 +48,7 @@
             v-on="on"
             :class="[
                         'video-image-btn', 
-                        localVideoTrack && activeRoom ? 'dynamicBackground-dark': 'dynamicBackground-light', 
+                        isVideoActive && isRoomActive ? 'dynamicBackground-dark': 'dynamicBackground-light', 
                         !isVideoActive ? 'camIgnore':''
                   ]"
             @click="toggleVideo"
@@ -93,14 +93,18 @@ export default {
     isAudioActive() {
       return this.$store.getters.getIsAudioActive;
     },
-    localAudioTrack() {
-      return false;
+    isRoomActive(){
+      return this.$store.getters.getRoomIsActive;
     },
-    actvieRoom() {
-      return false;
-    },
-    localVideoTrack() {
-      return false;
+  },
+  watch: {
+    isRoomActive:{
+      deep:true,
+      handler(newVal,oldVal){
+        if(oldVal && !newVal){
+          document.querySelector('#localTrack video').remove()
+        }
+      }
     }
   },
   methods: {
