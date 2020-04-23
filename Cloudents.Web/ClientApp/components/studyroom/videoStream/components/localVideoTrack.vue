@@ -205,8 +205,10 @@ export default {
     }
     .mic-image-svg {
       position: absolute;
+      height: 16px;
+      width: 16px;
       top: 8px;
-      left: 9px;
+      left: 7px;
     }
     .mic-ignore {
       position: absolute;
@@ -230,8 +232,10 @@ export default {
     }
     .video-image-svg {
       position: absolute;
-      top: 4px;
-      left: 4px;
+      height: 20px;
+      width: 20px;
+      top: 6px;
+      left: 6px;
       fill: white;
     }
     .cam-ignore {
