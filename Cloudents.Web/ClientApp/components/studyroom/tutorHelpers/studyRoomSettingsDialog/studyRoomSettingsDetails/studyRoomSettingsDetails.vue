@@ -49,9 +49,9 @@
             <div v-else dense class="tutorActions text-center text-md-left d-sm-flex d-block">
                 <div>
                     <v-btn 
-                    :loading="loadings[roomModes.whiteboard]" 
-                    @click="tutorActions(roomModes.whiteboard)" 
-                    class="mr-sm-2 mr-0 mb-4"
+                        :loading="loadings[roomModes.whiteboard]" 
+                        @click="tutorActions(roomModes.whiteboard)" 
+                        class="mr-sm-2 mr-0 mb-4"
                         color="#4c59ff" height="44" min-width="140" depressed rounded outlined :block="$vuetify.breakpoint.xsOnly">
                         <whiteboardSvg width="18" />
                         <div class="flex-grow-1 btnText ml-sm-1 ma-0 pr-2 pr-sm-0">{{$t('studyRoomSettings_whiteboard')}}</div>
@@ -67,7 +67,7 @@
                 </div>
                 <div>
                     <v-btn :loading="loadings[roomModes.fullview]" :disabled="!$store.getters.settings_getIsVideo"
-                        @click="tutorActions(roomModes.fullview)" class="ml-sm-2 ml-0 mb-4" :block="$vuetify.breakpoint.xsOnly"
+                        @click="tutorActions(roomModes.fullview)" class="fullscreen ml-sm-2 ml-0 mb-4" :block="$vuetify.breakpoint.xsOnly"
                         color="#4c59ff" height="44" min-width="140" depressed rounded outlined>
                         <fullviewSvg width="18" />
                         <div class="flex-grow-1 btnText pr-2 pr-sm-0">{{$t('studyRoomSettings_full_view')}}</div>
@@ -289,6 +289,13 @@ export default {
             .btnText {
                 margin-bottom: 2px;
 
+            }
+            &.fullscreen {
+                &:disabled {
+                    path {
+                        stroke: rgba(0, 0, 0, 0.26) !important
+                    }
+                }
             }
         }
     }
