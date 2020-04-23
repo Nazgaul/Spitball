@@ -14,7 +14,7 @@
                         <div class="text mb-3">{{tip.title}}</div>
                         <div class="nameDate d-flex justify-space-between">
                             <div class="name text-truncate">{{tip.uploader}}</div>
-                            <div class="date">{{$d(tip.date, 'short')}}</div>
+                            <div class="date">{{$d(new Date(tip.create), 'short')}}</div>
                         </div>
                     </div>
                 </a>
