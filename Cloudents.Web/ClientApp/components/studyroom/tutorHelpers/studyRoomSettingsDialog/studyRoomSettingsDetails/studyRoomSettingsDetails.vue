@@ -10,7 +10,7 @@
                     </tr>
                     <tr>
                         <td class="" v-t="'studyRoomSettings_price'"></td>
-                        <td class="pl-4">{{$n(roomTutor.tutorPrice, 'currency')}}</td>
+                        <td class="pl-4">{{$n(roomPrice, 'currency')}}</td>
                     </tr>
                     <tr>
                         <td class="" v-t="'studyRoomSettings_share'"></td>
@@ -147,8 +147,11 @@ export default {
         roomName() {
             return this.$store.getters?.getRoomName
         },
+        roomPrice(){
+            return this.roomTutor?.tutorPrice || 0
+        },
         roomTutor() {
-            return this.$store.getters?.getRoomTutor
+            return this.$store.getters.getRoomTutor
         },
         roomLink() {
             // @idan - I think this better approach getting the room id with $route.params instead of passing props
