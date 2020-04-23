@@ -139,7 +139,7 @@
     <value>Audio</value>
   </data>
   <data name="block_permission" xml:space="preserve">
-    <value>Spitball requires access to your camera and microphone. Click the camera blocked icon {0}  in your browser's address bar.</value>
+    <value>Spitball requires access to your camera and microphone. Click the {0} icon in your browser's address bar to allow.</value>
   </data>
   <data name="block_title" xml:space="preserve">
     <value>Access to camera &amp; microphone</value>
@@ -158,7 +158,7 @@
     <value>Done</value>
   </data>
   <data name="full_view" xml:space="preserve">
-    <value>Full view</value>
+    <value>Camera Fullscreen</value>
   </data>
   <data name="join_now" xml:space="preserve">
     <value>Join</value>
@@ -171,7 +171,7 @@
     <value>Camera is off</value>
   </data>
   <data name="present" xml:space="preserve">
-    <value>Present</value>
+    <value>Present/Share Screen</value>
   </data>
   <data name="price" xml:space="preserve">
     <value>Price</value>
@@ -180,7 +180,7 @@
     <value>Class is ready</value>
   </data>
   <data name="share" xml:space="preserve">
-    <value>Share it</value>
+    <value>Share</value>
   </data>
   <data name="start_in" xml:space="preserve">
     <value>Class starts in</value>
@@ -189,7 +189,7 @@
     <value>Settings</value>
   </data>
   <data name="tutor_name" xml:space="preserve">
-    <value>Tutor name</value>
+    <value>Teacher name</value>
   </data>
   <data name="video_select_label" xml:space="preserve">
     <value>Select Video</value>
@@ -198,6 +198,6 @@
     <value>Video</value>
   </data>
   <data name="whiteboard" xml:space="preserve">
-    <value>whiteboard</value>
+    <value>Whiteboard</value>
   </data>
 </root>
