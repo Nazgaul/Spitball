@@ -112,23 +112,26 @@ export default {
       this.$ga.event("tutoringRoom", "toggleVideo");
       this.$store.dispatch("updateVideoToggle");
     },
-    exitFull() {
-      if (!document.fullscreen) {
-        this.$store.dispatch("updateToggleTutorFullScreen", false);
+    exitFull(ev) {
+      if (ev.keyCode === 27){
+        let video = document.querySelector(`#localTrack video`);
+        video.classList.remove('fullscreenMode')
+        this.$store.dispatch('updateToggleTutorFullScreen',false);
+        document.querySelector('body').removeEventListener('keyup',this.exitFull)
       }
     },
     openFullScreen() {
-      var video = document.querySelector(`#localTrack video`);
-      if (!video) return;
-
-      if (video.requestFullscreen) {
-        video.requestFullscreen();
-        video.addEventListener("fullscreenchange", this.exitFull, false);
-        this.$store.dispatch("updateToggleTutorFullScreen", true);
-        return;
+      let video = document.querySelector(`#localTrack video`);
+      if(video){
+        video.classList.add('fullscreenMode');
+        this.$store.dispatch('updateToggleTutorFullScreen',true);
+        document.querySelector('body').addEventListener('keyup',this.exitFull)
       }
     }
-  }
+  },
+  beforeDestroy() {
+    document.querySelector('body').removeEventListener('keyup',this.exitFull)
+  },
 };
 </script>
 
@@ -240,6 +243,18 @@ export default {
     }
   }
   #localTrack {
+          .fullscreenMode{
+         position: fixed;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         width: 100vw;
+         //object-fit: fill;
+         height: 100vh;
+         z-index: 20;
+         background: #000;
+      }
     video {
       width: 100%;
       background-repeat: no-repeat;
