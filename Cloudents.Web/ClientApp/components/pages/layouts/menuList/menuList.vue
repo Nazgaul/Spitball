@@ -259,9 +259,13 @@ export default {
     }
   }
   .userMenu_actionsList {
+    overflow: scroll;
     .v-list-item__action {
       margin: 0 20px 0 0;
       justify-content: center;
+    }
+    @media (max-height: 550px) {
+      height: 250px;
     }
   }
   .userMenu_titles {
