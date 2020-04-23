@@ -400,18 +400,18 @@ namespace Cloudents.Admin2.Api
             return await _queryBus.QueryAsync(query, token);
         }
 
-        [HttpPost("type")]
-        public async Task<IActionResult> SetUserTypeAsync([FromBody] SetUserTypeRequest request, CancellationToken token)
-        {
-            var command = new SetUserTypeCommand(request.UserId, request.UserType);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
+        //[HttpPost("type")]
+        //public async Task<IActionResult> SetUserTypeAsync([FromBody] SetUserTypeRequest request, CancellationToken token)
+        //{
+        //    var command = new SetUserTypeCommand(request.UserId, request.UserType);
+        //    await _commandBus.DispatchAsync(command, token);
+        //    return Ok();
+        //}
 
-        [HttpGet("types")]
-        public IEnumerable<string> GetAllTypes()
-        {
-            return Enum.GetNames(typeof(UserType)).Select(s => s.ToCamelCase());
-        }
+        //[HttpGet("types")]
+        //public IEnumerable<string> GetAllTypes()
+        //{
+        //    return Enum.GetNames(typeof(UserType)).Select(s => s.ToCamelCase());
+        //}
     }
 }
