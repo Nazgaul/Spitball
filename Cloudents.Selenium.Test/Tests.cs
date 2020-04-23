@@ -560,11 +560,11 @@ namespace Cloudents.Selenium.Test
                 var url = $"{_driver.SiteUrl.TrimEnd('/')}/feed?culture=en-US";
                 driver.Navigate().GoToUrl(url);
 
-                var tutorRequest = driver.FindElementByWait(By.XPath("//*[@sel='request']"));
+                var tutorRequest = FindSel(driver, "request");
 
                 tutorRequest.Click();
 
-                var submitRequest = driver.FindElementByWait(By.XPath("//*[@sel='submit_tutor_request']"));
+                var submitRequest = FindSel(driver, "submit_tutor_request");
 
                 submitRequest.Click();
 
@@ -580,17 +580,15 @@ namespace Cloudents.Selenium.Test
                     error.Text.Should().NotBeEmpty();
                 }
 
-                var freeText = driver.FindElement(By.XPath("//*[@sel='free_text']"));
+                var freeText = FindSel(driver, "free_text");
+                var courseSelection = FindSel(driver, "course_request");
+                
                 freeText.SendKeys("Hi");
-
-                var courseSelection = driver.FindElement(By.XPath("//*[@sel='course_request']"));
-                courseSelection.SendKeys("Temp");
-                courseSelection.SendKeys(Keys.Tab);
-
+                courseSelection.SendKeys("Temp" + Keys.Tab);
                 submitRequest.Click();
 
                 // Make sure this element is showing
-                driver.FindElementByWait(By.XPath("//*[@class='registerDialog wrapper']"));
+                FindContains(driver, "registerDialog");
 
                 Logout(driver);
             }
