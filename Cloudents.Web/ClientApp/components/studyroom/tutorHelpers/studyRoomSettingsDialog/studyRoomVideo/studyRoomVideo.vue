@@ -151,7 +151,8 @@ export default {
                     self.setVideoTrack(track)
                 }).catch(err => {
                     // error code 0: Blocked premission
-                    if(err.code === 0) {
+                    let rateReviewDialogState = this.$store.getters.getReviewDialogState
+                    if(err.code === 0 && !rateReviewDialogState) {
                         self.videoBlockPermission = true
                         self.permissionDialogState = true
                         self.placeholder = false
