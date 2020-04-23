@@ -269,6 +269,11 @@ export default {
                 this.fetchData();
             }
         },
+        coupon(val) {
+            if(val && this.getCouponError) {
+                this.$store.commit('setCouponError', false)
+            }
+        }
     },
     beforeRouteLeave(to, from, next) {
         this.updateToasterParams({
