@@ -50,9 +50,15 @@ function _insightEvent(...args) {
 }
 function _publishTrack(activeRoom,track){
    activeRoom.localParticipant.publishTrack(track);
+
+   //On share screen we want to update all the users in the room
+   _changeState( activeRoom.localParticipant);
 }
 function _unPublishTrack(activeRoom,track){
    activeRoom.localParticipant.unpublishTrack(track);
+
+   //On share screen we want to update all the users in the room
+   _changeState( activeRoom.localParticipant);
 }
 function _toggleTrack(tracks,trackType,value){
    let {track} = tracks.find(track=>track.kind === trackType);
@@ -111,6 +117,8 @@ function _twilioListeners(room,store) {
          previewContainer.appendChild(track.attach());
       }
    })
+
+   // room tracks events: 
    room.on('trackMessage', (message) => {
       let data = JSON.parse(message);
       _insightEvent('trackMessage', data, null);
@@ -140,7 +148,7 @@ function _twilioListeners(room,store) {
             if(track.kind === 'data'){
                intervalTime= setInterval(() => {
                   _changeState(room.localParticipant);
-               },100);
+               },500);
             }
          })
       }

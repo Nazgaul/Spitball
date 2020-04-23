@@ -1,5 +1,5 @@
 <template>
-  <div class="sb-chat-container px-0 py-0" :class="[ $route.name == 'tutoring' ?  'chat-studyRoom': '', {'minimized': isMinimized}]">
+  <div class="sb-chat-container px-0 py-0" :class="{'minimized': isMinimized}">
     <v-layout @click="toggleMinimizeChat" class="chat-header" :class="{'new-messages': hasUnread}">
       <v-icon class="mr-2" size="18" color="#fff" @click.stop="OriginalChatState" v-html="inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'" />
         <template v-if="state === 'messages'">
@@ -16,23 +16,21 @@
             <span class="chat-header-text">{{getIsSignalRConnected ? headerTitle : errorTitle}}</span>
         </template>
         
-        <span class="other-side">
-          <v-icon
-            class="minimizeIcon"
-            v-show="!isMobile"
-            @click.stop="toggleMinimizeChat"
-            size="18"
-            color="#fff"
-          >{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
-          <v-icon size="18" color="#fff" class="closeIcon" v-if="!isLocked" @click.stop="closeChatWindow">sbf-close-chat</v-icon>
-        </span>
-
+      <span class="other-side">
+        <v-icon
+          class="minimizeIcon"
+          v-show="!isMobile"
+          @click.stop="toggleMinimizeChat"
+          size="18"
+          color="#fff"
+        >{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
+        <v-icon size="18" color="#fff" class="closeIcon" v-if="!isLocked" @click.stop="closeChatWindow">sbf-close-chat</v-icon>
+      </span>
     </v-layout>
 
     <v-layout v-if="!isMinimized" class="general-chat-style">
       <component :is="`chat-${state}`"></component>
     </v-layout>
-    
   </div>
 </template>
 
@@ -45,12 +43,12 @@ import { LanguageService } from "../../services/language/languageService";
 export default {
   components: {
     chatConversation,
-    chatMessages,
+    chatMessages
   },
   data() {
     return {
       enumChatState: this.getEnumChatState(),
-      mobileHeaderHeight: 39,
+      mobileHeaderHeight: 39
     };
   },
   computed: {
@@ -87,12 +85,12 @@ export default {
           return this.getActiveConversationObj.name;
         }
       }
-      return ''
+      return "";
     },
-    chatTitle(){
-      if(this.$store.getters.getRoomIsBroadcast){
+    chatTitle() {
+      if (this.$store.getters.getRoomIsBroadcast) {
         return this.$store.getters.getRoomName;
-      }else{
+      } else {
         return this.getActiveConversationObj.name;
       }
     },
@@ -108,16 +106,16 @@ export default {
     hasUnread() {
       return this.getTotalUnread > 0;
     },
-    activeConversationObj(){
+    activeConversationObj() {
       return this.getActiveConversationObj;
-    },
+    }
   },
   methods: {
     ...mapActions([
       "updateChatState",
       "toggleChatMinimize",
       "closeChat",
-      "openChatInterface",
+      "openChatInterface"
     ]),
     ...mapGetters(["getEnumChatState"]),
     OriginalChatState() {
@@ -137,12 +135,13 @@ export default {
     closeChatWindow() {
       this.OriginalChatState();
       this.closeChat();
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="less">
 @import "../../styles/mixin.less";
+
 .sb-chat-container {
   position: fixed;
   bottom: 0;
@@ -154,11 +153,7 @@ export default {
   border-radius: 10px 10px 0 0;
   box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.3);
   max-height: ~"calc( 100vh - 100px)";
-  &.chat-studyRoom {
-    right: 0 ;
-    left: unset;
-    z-index: 201;
-  }
+
   @media (max-width: @screen-xs) {
     width: 100%;
     height: 100%;
@@ -218,9 +213,10 @@ export default {
     .other-side {
       display: flex;
       margin-left: auto;
-      .minimizeIcon, .closeIcon {
+      .minimizeIcon,
+      .closeIcon {
         margin-right: 0;
-        margin-left: 14px;        
+        margin-left: 14px;
       }
       .theme--light.v-btn-toggle {
         background: #393850 !important;
@@ -231,8 +227,30 @@ export default {
     height: ~"calc( 100% - 48px)";
     width: 100%;
     @media (max-width: @screen-xs) {
-      flex:2;
+      flex: 2;
     }
+  }
+}
+.tutoring-page + .sb-chat-container {
+  right: 0;
+  left: unset;
+  z-index: 201;
+  @media (max-width: @screen-sm) and (orientation: portrait) {
+    // width: 100%;
+    // height: 100%;
+    // max-height: unset;
+    height: unset;
+    top: 50%;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 999;
+  }
+  @media (max-width: @screen-sm) and (orientation: landscape) {
+    // width: 100%;
+    // height: 100%;
+    // max-height: unset;
+    display: none;
   }
 }
 </style>
