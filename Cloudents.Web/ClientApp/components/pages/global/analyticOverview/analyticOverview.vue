@@ -65,7 +65,7 @@ export default {
     results: [],
     navigation: {
       revenue: 'mySales',
-      sales: 'myContent',
+      sales: 'mySales',
       views: 'myContent',
       followers: 'myFollowers'
     },
