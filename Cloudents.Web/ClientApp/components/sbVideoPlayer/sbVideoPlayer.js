@@ -109,11 +109,10 @@ export default {
         let ampUrlScript = '//amp.azure.net/libs/amp/2.3.1/azuremediaplayer.min.js';
         let ampUrlStyle = `//amp.azure.net/libs/amp/2.3.1/skins/amp-flush/azuremediaplayer.min.css`;
         let id = '#amp-azure';
-        this.$loadScript(ampUrlScript).then(()=>{
-            self.$loadStyle(ampUrlStyle,id).then(()=>{
-                self.initVideoPlayer();
-            });
-        });
+
+        Promise.all([this.$loadScript(ampUrlScript), this.$loadStyle(ampUrlStyle, id)])
+            .then(() => self.initVideoPlayer())
+            .catch(ex => self.$appInsights.trackException({exception: new Error(ex)}))
     },
     beforeDestroy() {
         this.myPlayer.dispose()
