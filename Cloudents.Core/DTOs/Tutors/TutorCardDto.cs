@@ -45,7 +45,7 @@ namespace Cloudents.Core.DTOs.Tutors
 
         public string Bio { get; set; }
 
-        public string University { get; set; }
+      //  public string University { get; set; }
 
         public int Lessons { get; set; }
 

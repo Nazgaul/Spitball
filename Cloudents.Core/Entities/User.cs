@@ -18,7 +18,6 @@ namespace Cloudents.Core.Entities
             ChangeName(firstName, lastName);
             FirstName = firstName;
             LastName = lastName;
-            //TwoFactorEnabled = true;
             Language = language;
             Created = DateTime.UtcNow;
             Country = country;
@@ -26,15 +25,13 @@ namespace Cloudents.Core.Entities
             Gender = gender;
         }
 
-        //public User(string email, Language language) : this(email, null, null, language)
-        //{
+      
 
-        //}
-
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
         protected User()
         {
             UserLogins = new List<UserLogin>();
-            Transactions = Transactions ?? new UserTransactions();
+            Transactions ??= new UserTransactions();
 
         }
 
@@ -52,8 +49,10 @@ namespace Cloudents.Core.Entities
         public virtual string LockoutReason { get; set; }
 
 
-        protected internal virtual ICollection<Answer> Answers { get; set; }
-        protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
+        protected internal virtual ICollection<Answer> Answers { get; protected set; }
+        protected internal virtual ICollection<UserLogin> UserLogins { get; protected set; }
+
+        protected internal virtual ICollection<UserLocation> UserLocations { get; protected set; }
 
 
 
