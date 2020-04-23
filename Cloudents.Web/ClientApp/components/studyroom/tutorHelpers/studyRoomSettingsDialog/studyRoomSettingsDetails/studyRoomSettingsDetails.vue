@@ -265,13 +265,14 @@ export default {
             font-size: 16px;
         }
         .counter {
-            display: flex;
+            // display: flex;
             font-size: 32px;
             span {
                 &:first-child {
                     margin-left: 0;
                 }
                 &:last-child {
+                    /*rtl:ignore*/
                     margin-right: 0;
                 }
                 margin:0 14px;

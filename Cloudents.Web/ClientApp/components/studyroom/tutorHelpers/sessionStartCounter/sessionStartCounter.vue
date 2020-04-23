@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="counterComponent">
         <span>{{time.days}}</span>:<span>{{time.hours}}</span>:<span>{{time.minutes}}</span>:<span>{{time.seconds}}</span>
     </div>
 </template>
@@ -55,3 +55,10 @@ export default {
     },
 }
 </script>
+<style lang="less">
+.counterComponent{
+    text-align: left;
+    /*rtl:ignore */
+    direction: ltr;
+}
+</style>
