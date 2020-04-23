@@ -231,7 +231,6 @@ export default () => {
             _debugMode = mutation.payload.query?.debug ? 'debug' : 'off';
          }
          if (mutation.type === twilio_SETTERS.JWT_TOKEN && mutation.payload) {
-            debugger
             if(_activeRoom?.state == 'connected'){
                return
             }
