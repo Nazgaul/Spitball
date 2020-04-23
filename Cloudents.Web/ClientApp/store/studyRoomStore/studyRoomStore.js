@@ -25,6 +25,7 @@ const state = {
    roomTutor: {},
    // TODO: change it to roomId after u clean all
    studyRoomId: null,
+   roomParticipantCount: 0,
 
    dialogRoomSettings: false,
    dialogEndSession: false,
@@ -69,9 +70,11 @@ const mutations = {
       state.roomProps = null;
       state.roomType = null;
       state.roomName = null;
+      state.roomParticipantCount = 0;
    },
    [studyRoom_SETTERS.DIALOG_USER_CONSENT]: (state, val) => state.dialogUserConsent = val,
    [studyRoom_SETTERS.DIALOG_SNAPSHOT]: (state, val) => state.dialogSnapshot = val,
+   [studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT]: (state, val) => state.roomParticipantCount = val,
 }
 const getters = {
    getActiveNavEditor: state => state.activeNavEditor,
@@ -83,6 +86,7 @@ const getters = {
    getRoomIsActive: state => state.roomIsActive,
    getRoomTutor: state => state.roomTutor,
    getRoomIdSession: state => state.studyRoomId,
+   getRoomParticipantCount: state => state.roomParticipantCount,
    getRoomConversationId: state => state.roomConversationId,
    getRoomIsNeedPayment: state => {
       if (!state.studyRoomId) {

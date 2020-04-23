@@ -67,26 +67,16 @@ function _toggleTrack(tracks,trackType,value){
    }
 }
 function _twilioListeners(room,store) { 
-   // romote participants
-   //let previewContainer = document.getElementById(REMOTE_TRACK_DOM_ELEMENT);
+   store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,Array.from(room.participants.values()).length)
+   // romote participants events:
    room.participants.forEach((participant) => {
       let tracks = Array.from(participant.tracks.values());
       tracks.forEach((track) => {
          if(track.kind === 'video'){
             store.commit(twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK,track)
          }
-         // if(track.kind === 'audio'){  
-         //  if (track.attach) {
-         // //    // track.detach().forEach((detachedElement) => {
-         // //    //    detachedElement.remove();
-         // //    // });
-         // debugger;
-         //    previewContainer.appendChild(track.attach());
-         //  }
-         // }
       });
    });
-
    // local participant events
    room.localParticipant.on('trackStopped',(track)=>{
       if(track.trackName === VIDEO_TRACK_NAME){
@@ -104,25 +94,13 @@ function _twilioListeners(room,store) {
          _changeState(room.localParticipant);
       }
    })
-
-
-   // room events
+   // room tracks events: 
    room.on('trackSubscribed', (track) => {
       _insightEvent('TwilioTrackSubscribed', track, null);
    })
    room.on('trackUnsubscribed', (track) => {
       _insightEvent('TwilioTrackUnsubscribed', track, null);
       _detachTracks([track],store);
-   })
-   room.on('participantReconnected', () => {
-   })
-   room.on('participantReconnecting', () => {
-   })
-   room.on('trackDisabled', () => {
-   })
-   room.on('trackEnabled', () => {
-   })
-   room.on('trackRemoved',()=>{
    })
    room.on('trackStarted', (track) => {
       if(track.kind === 'video'){
@@ -133,21 +111,6 @@ function _twilioListeners(room,store) {
          previewContainer.appendChild(track.attach());
       }
    })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   // room tracks events: 
    room.on('trackMessage', (message) => {
       let data = JSON.parse(message);
       _insightEvent('trackMessage', data, null);
@@ -168,12 +131,9 @@ function _twilioListeners(room,store) {
       }
       store.dispatch('dispatchDataTrackJunk',data)
    })
-   room.on('trackPublished', () => {
-   })
-   room.on('trackUnpublished', () => {
-   })
    // room connections events:
    room.on('participantConnected', (participant) => {
+      store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,Array.from(room.participants.values()).length)
       if(store.getters.getRoomIsTutor){
          store.commit('setComponent', 'simpleToaster_userConnected');
          participant.on('trackSubscribed',(track)=>{
@@ -187,6 +147,7 @@ function _twilioListeners(room,store) {
       _insightEvent('TwilioParticipantConnected', participant, null);
    })
    room.on('participantDisconnected', (participant) => {
+      store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,Array.from(room.participants.values()).length)
       if(store.getters.getRoomIsTutor){
          store.commit('setComponent', 'simpleToaster_userLeft');
       }
@@ -204,6 +165,7 @@ function _twilioListeners(room,store) {
       dRoom.localParticipant.tracks.forEach(function (track) {
          _detachTracks([track],store);
       });
+      store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,0)
       if(!store.getters.getRoomIsTutor){
          store.commit(studyRoom_SETTERS.ROOM_ACTIVE,false)
          store.dispatch('updateReviewDialog',true)

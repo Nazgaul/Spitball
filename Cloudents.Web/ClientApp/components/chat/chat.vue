@@ -4,7 +4,13 @@
       <v-icon class="mr-2" size="18" color="#fff" @click.stop="OriginalChatState" v-html="inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'" />
         <template v-if="state === 'messages'">
           <user-avatar :size="'32'" :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/> 
-          <div class="chat-header-name text-truncate pl-4">{{chatTitle}}</div>
+          <div class="chat-header-name text-truncate pl-4">
+            <span class="text-truncate">{{chatTitle}}</span>
+            
+            <span v-if="$store.getters.getRoomIsBroadcast && $store.getters.getRoomIsActive">
+              <v-icon size="14" color="white" class="pr-1">sbf-users</v-icon>
+              {{$store.getters.getRoomParticipantCount}}</span>
+          </div>
         </template>
         <template v-else>
             <span class="chat-header-text">{{getIsSignalRConnected ? headerTitle : errorTitle}}</span>
@@ -200,6 +206,11 @@ export default {
     .sbf-arrow-back-chat {
       transform: scaleX(1) /*rtl:append:scaleX(-1)*/;
       display: flex;
+    }
+    .chat-header-name{
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
     }
     .chat-header-name, .other-side {
       align-self: center;
