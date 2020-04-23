@@ -162,8 +162,9 @@ export default {
                 })
         },
         setVideoTrack(track) {
-            // prevent duplicate elements
-            if(document.getElementsByTagName('video').length >= 1) return
+            if(document.querySelector('#local-video-test-track video')){
+                return
+            }
 
             this.videoEl = document.getElementById('local-video-test-track');
             this.localTrack = track;
