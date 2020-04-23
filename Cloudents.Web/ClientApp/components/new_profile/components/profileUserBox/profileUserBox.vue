@@ -123,28 +123,28 @@
             <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-1">
                 <followersSvg class="mt-sm-2 mt-1" width="26" />
                 <div class="ml-3" @click="isMobile ? scrollToReviews():''" >
-                    <div class="number text-left">{{currentProfileUser.followers}}</div>
+                    <div class="number text-left">{{currentProfileUser.followers || 0}}</div>
                     <div class="type">{{$tc('profile_tutor_follower', currentProfileUser.followers)}}</div>
                 </div>
             </v-col>
             <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-1">
                 <onlineLessonSVG class="mt-sm-2 mt-1" width="20" />
                 <div class="ml-3">
-                    <div class="number text-left">{{currentProfileTutor.lessons}}</div>
+                    <div class="number text-left">{{currentProfileTutor.lessons || 0}}</div>
                     <div class="type" v-t="''">{{$tc('profile_session', currentProfileTutor.lessons)}}</div>
                 </div>
             </v-col>
             <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-3 pa-sm-1">
                 <studentsSVG class="mt-sm-2 mt-1" width="26" />
                 <div class="ml-3">
-                    <div class="number text-left">{{currentProfileTutor.students}}</div>
+                    <div class="number text-left">{{currentProfileTutor.students || 0}}</div>
                     <div class="type">{{$tc('profile_student', currentProfileTutor.students)}}</div>
                 </div>
             </v-col>
             <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-1">
                 <starSVG class="mt-sm-1 mt-1" width="26" />
                 <div class="ml-3">
-                    <div class="number text-left">{{currentProfileTutor.reviewCount}}</div>
+                    <div class="number text-left">{{currentProfileTutor.reviewCount || 0}}</div>
                     <div class="type">{{$tc('profile_reviews',currentProfileTutor.reviewCount)}}</div>
                 </div>
             </v-col>
