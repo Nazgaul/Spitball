@@ -106,19 +106,20 @@ function _twilioListeners(room,store) {
       _insightEvent('networkQuality',networkQualityStats, networkQualityLevel)
    });
    room.localParticipant.on('trackPublished',(track)=>{
-      if(store.getters.getRoomIsTutor && track.trackName === SCREEN_TRACK_NAME){
-         _changeState(room.localParticipant);
-         return
-      }
-      if(store.getters.getRoomIsTutor && track.kind === 'data'){
-         _changeState(room.localParticipant);
+      _changeState(room.localParticipant);
+      // if(store.getters.getRoomIsTutor && track.trackName === SCREEN_TRACK_NAME){
+       
+      //    return
+      // }
+      //if(store.getters.getRoomIsTutor && track.kind === 'data'){
+         //_changeState(room.localParticipant);
          if(store.getters.getDialogEnterRoom){
             if(store.getters.getIsFullScreen){
                document.getElementById('openFullTutor').click()
             }
             store.dispatch('updateDialogEnter',false)
          }
-      }
+      //}
    })
 
 
@@ -230,6 +231,7 @@ export default () => {
             _debugMode = mutation.payload.query?.debug ? 'debug' : 'off';
          }
          if (mutation.type === twilio_SETTERS.JWT_TOKEN && mutation.payload) {
+            debugger
             if(_activeRoom?.state == 'connected'){
                return
             }
