@@ -129,7 +129,7 @@ export default {
             return !this.$store.getters.getJwtToken;
         },
         shareContentParams(){
-            let urlLink = `${this.roomLink}?t=${Date.now()}` ;
+            let urlLink = `${window.origin}/studyroom/${this.$route.params.id}?t=${Date.now()}`;
             let paramObJ = {
                 link: urlLink,
                 twitter: this.$t('shareContent_share_profile_twitter',[this.roomTutor.tutorName,urlLink]),
@@ -250,6 +250,9 @@ export default {
                             width: 8px !important;
                         }
                     }
+                }
+                .option.link  {
+                    visibility: hidden !important;
                 }
             }
         }
