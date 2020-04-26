@@ -271,8 +271,8 @@ namespace Cloudents.Infrastructure.Google
             CancellationToken cancellationToken)
         {
             var cred = SpitballCalendarCred;
-            var x = new System.Resources.ResourceManager(typeof(CalendarResources));
-            var eventName = x.GetString("TutorCalendarMessage", CultureInfo.CurrentUICulture) ?? "Tutor Session In Spitball";
+            var resourceManager = new System.Resources.ResourceManager(typeof(CalendarResources));
+            var eventName = resourceManager.GetString("TutorCalendarMessage", CultureInfo.CurrentUICulture) ?? "Tutor Session In Spitball";
             eventName = string.Format(eventName, tutor.Name, student.Name);
             var tutorToken = _jsonSerializer.Deserialize<GoogleTokensValue>(googleTokens.Value);
             using var service = new CalendarService(new BaseClientService.Initializer()
@@ -299,12 +299,15 @@ namespace Cloudents.Infrastructure.Google
                 Summary = eventName,
                 Start = new EventDateTime()
                 {
-                    DateTime = @from
+                    DateTime = @from,
+                    TimeZone = "Etc/UTC"
                 },
                 End = new EventDateTime()
                 {
-                    DateTime = to
+                    DateTime = to.ToUniversalTime(),
+                    TimeZone = "Etc/UTC"
                 }
+                
             }, PrimaryGoogleCalendarId);
             event2.SendUpdates = EventsResource.InsertRequest.SendUpdatesEnum.All;
             await event2.ExecuteAsync(cancellationToken);
