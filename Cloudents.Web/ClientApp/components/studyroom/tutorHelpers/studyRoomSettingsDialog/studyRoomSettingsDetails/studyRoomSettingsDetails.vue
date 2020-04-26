@@ -36,7 +36,7 @@
                     <sessionStartCounter class="counter"/>
                     <!-- <sessionStartCounter class="counter" @updateCounterFinish="waitingForTutor = true" /> -->
                 </div>
-                <div class="mb-8" v-else v-t="'studyRoomSettings_ready'"></div>
+                <div class="mb-8" v-if="(!isRoomBroadcast || !isRoomDisabled) && !isRoomTutor" v-t="'studyRoomSettings_ready'"></div>
             </template>
         </div>
 
