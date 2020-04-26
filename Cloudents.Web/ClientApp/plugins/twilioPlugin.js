@@ -333,12 +333,7 @@ export default () => {
                   _localAudioTrack = null;
                   _localScreenTrack = null;
                   _activeRoom = null;
-                  store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,0)
-                  store.commit(twilio_SETTERS.VIDEO_AVAILABLE,false);
-                  store.commit(twilio_SETTERS.AUDIO_AVAILABLE,false)
-                  if(!store.getters.getRoomIsTutor){
-                     store.dispatch('updateReviewDialog',true)
-                  }
+                  store.dispatch('updateRoomDisconnected')
                }
             }
             if (mutation.type === twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN) {
