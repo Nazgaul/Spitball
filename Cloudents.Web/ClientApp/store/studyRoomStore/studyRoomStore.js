@@ -70,6 +70,7 @@ const mutations = {
       state.roomType = null;
       state.roomName = null;
       state.roomParticipantCount = 0;
+      
    },
    [studyRoom_SETTERS.DIALOG_USER_CONSENT]: (state, val) => state.dialogUserConsent = val,
    [studyRoom_SETTERS.DIALOG_SNAPSHOT]: (state, val) => state.dialogSnapshot = val,
