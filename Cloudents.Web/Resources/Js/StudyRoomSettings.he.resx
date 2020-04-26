@@ -175,7 +175,7 @@
     <value>מחיר</value>
   </data>
   <data name="ready" xml:space="preserve">
-    <value>החדר מוכן</value>
+    <value>ממתין למורה שיתחיל את השיעור</value>
   </data>
   <data name="share" xml:space="preserve">
     <value>שיתוף</value>
