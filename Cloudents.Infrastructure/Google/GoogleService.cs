@@ -27,7 +27,6 @@ using User = Cloudents.Core.Entities.User;
 using System.IdentityModel.Tokens.Jwt;
 using Cloudents.Core.Entities;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace Cloudents.Infrastructure.Google
 {
@@ -392,7 +391,8 @@ namespace Cloudents.Infrastructure.Google
             //  public string Refresh_token { get; set; }
             //  public string Scope { get; set; }
             [JsonProperty("Id_token")]
-            public string IdToken { get; set; }
+            public string IdToken { get; set; } = null!;
+
             // public string Issued { get; set; }
             // public string IssuedUtc { get; set; }
         }
