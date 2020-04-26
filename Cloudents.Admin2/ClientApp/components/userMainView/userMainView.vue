@@ -69,10 +69,10 @@
                                         <v-btn slot="activator" class="ma-0" icon small @click="deleteTutor()" v-if="infoItem.label == 'Tutor State'"><v-icon>delete</v-icon></v-btn>
                                         <span>Delete</span>
                                     </v-tooltip> 
-                                    <v-tooltip top> 
+                                    <!-- <v-tooltip top> 
                                         <v-btn slot="activator" class="ma-0" icon small @click="openEditUserTypeDialog(userInfo.id.value)" v-if="infoItem.label == 'User Type'"><v-icon>edit</v-icon></v-btn>
                                         <span>Edit</span>
-                                    </v-tooltip> 
+                                    </v-tooltip>  -->
 
 
                                     <template v-if="infoItem.label == 'Tutor State'">
@@ -258,7 +258,7 @@
         </v-dialog>
 
 <!-- new -->
-        <v-dialog v-model="dialogs.type" persistent max-width="600px" lazy v-if="dialogs.type">
+        <!-- <v-dialog v-model="dialogs.type" persistent max-width="600px" lazy v-if="dialogs.type">
             <v-card>
                 <v-card-title>
                     <span class="headline">Edit user type</span>
@@ -283,7 +283,7 @@
                     <v-btn color="blue darken-1" flat @click="dialogs.type = false">Close</v-btn>
                 </v-card-actions>
             </v-card>
-        </v-dialog>
+        </v-dialog> -->
 
     </v-container>
 </template>
