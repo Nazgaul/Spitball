@@ -119,16 +119,4 @@ export const dashboardRoutes = [
 
         },
     },
-    {
-        path: "/wallet",
-        components: {
-            default: () => import('../components/wallet/wallet.vue'),
-            ...staticComponents(['banner', 'header', 'sideMenu'])
-
-        },
-        name: "wallet",
-        meta: {
-            requiresAuth: true
-        },
-    },
 ]
