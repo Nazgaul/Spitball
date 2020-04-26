@@ -174,7 +174,6 @@ function _twilioListeners(room,store) {
       store.dispatch('dispatchDataTrackJunk',data)
    })
    room.on('trackPublished', () => {
-      debugger
    })
    room.on('trackUnpublished', () => {
    })
