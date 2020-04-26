@@ -221,7 +221,7 @@ export default {
     color: @global-purple;
     .settingDetails {
         .settingTitle {
-            font-size: 20px;
+            font-size: 26px;
         }
         .settingTable {
             width: 100%;
