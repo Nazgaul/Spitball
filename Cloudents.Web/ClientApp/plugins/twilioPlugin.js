@@ -267,6 +267,8 @@ export default () => {
                      }
                   })
                })
+            }).catch(()=>{
+               store.dispatch('updateRoomIsJoined',false)
             })
          }
          if(_activeRoom){

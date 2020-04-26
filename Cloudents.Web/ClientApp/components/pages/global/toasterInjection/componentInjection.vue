@@ -41,6 +41,12 @@ export default {
                         text: this.$t("studyRoom_not_screen"),
                     }
                 },
+                errorToaster_sessionEnded:{
+                    name:'simpleErrorToaster',
+                    params: {
+                        text: this.$t("studyRoom_already_ended"),
+                    }
+                },
                 errorToaster_permissionDenied:{
                     name:'errorLinkToaster',
                     params: {

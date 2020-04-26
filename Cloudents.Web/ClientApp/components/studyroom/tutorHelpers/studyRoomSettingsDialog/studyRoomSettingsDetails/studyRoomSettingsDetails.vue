@@ -160,6 +160,14 @@ export default {
             return `${window.origin}/studyroom/${this.$route.params.id}`
         }
     },
+    watch: {
+        isRoomDisabled(val){
+            if(val){
+                this.loadings.student = false;
+                this.$store.commit('setComponent', 'errorToaster_sessionEnded');
+            }
+        }
+    },
     methods: {
         studentEnterRoom(){
             this.loadings.student = true;
