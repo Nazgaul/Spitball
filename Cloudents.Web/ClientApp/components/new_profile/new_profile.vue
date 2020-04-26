@@ -3,7 +3,7 @@
     <cover></cover>
     <profileDialogs />
     <div class="profilePage_main profile-page-container">
-      <profileUserBox :globalFunctions="globalFunctions" />
+      <profileUserBox :globalFunctions="globalFunctions" :key="componentRenderKey" />
       <shareContent
         :link="shareContentParams.link"
         :twitter="shareContentParams.twitter"
