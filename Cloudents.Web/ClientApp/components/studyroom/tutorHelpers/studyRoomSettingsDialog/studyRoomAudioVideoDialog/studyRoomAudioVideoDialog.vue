@@ -96,9 +96,6 @@ export default {
         color: #a5a8ba;
         font-weight: 600;
 
-        &:first-child {
-          border-right: 1px solid #ddd;
-        }
         .image {
           fill: #a5a8ba;
         }
