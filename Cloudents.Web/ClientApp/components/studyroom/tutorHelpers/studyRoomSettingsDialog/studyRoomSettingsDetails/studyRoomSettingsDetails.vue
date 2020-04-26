@@ -54,7 +54,7 @@
                         class="mr-sm-2 mr-0 mb-4"
                         color="#4c59ff" height="44" min-width="140" depressed rounded outlined :block="$vuetify.breakpoint.xsOnly">
                         <whiteboardSvg width="18" />
-                        <div class="flex-grow-1 btnText ml-sm-1 ma-0 pr-2 pr-sm-0">{{$t('studyRoomSettings_whiteboard')}}</div>
+                        <div class="flex-grow-1 btnText ml-sm-1 ma-0 pr-2 pr-sm-0 ml-1">{{$t('studyRoomSettings_whiteboard')}}</div>
                     </v-btn>
                 </div>
                 <div>
@@ -62,7 +62,7 @@
                         @click="tutorActions(roomModes.present)" class="mx-sm-2 mx-0 mb-4"
                         color="#4c59ff" height="44" min-width="140" depressed rounded outlined :block="$vuetify.breakpoint.xsOnly">
                         <presentSvg width="18" />
-                        <div class="flex-grow-1 btnText pr-2 pr-sm-0">{{$t('studyRoomSettings_present')}}</div>
+                        <div class="flex-grow-1 btnText pr-2 pr-sm-0 ml-1">{{$t('studyRoomSettings_present')}}</div>
                     </v-btn>
                 </div>
                 <div>
@@ -70,7 +70,7 @@
                         @click="tutorActions(roomModes.fullview)" class="fullscreen ml-sm-2 ml-0 mb-4" :block="$vuetify.breakpoint.xsOnly"
                         color="#4c59ff" height="44" min-width="140" depressed rounded outlined>
                         <fullviewSvg width="18" />
-                        <div class="flex-grow-1 btnText pr-2 pr-sm-0">{{$t('studyRoomSettings_full_view')}}</div>
+                        <div class="flex-grow-1 btnText pr-2 pr-sm-0 ml-1" >{{$t('studyRoomSettings_full_view')}}</div>
                     </v-btn>
                 </div>
             </div>
@@ -102,6 +102,7 @@ export default {
     },
     data() {
         return {
+            clickOccur: false,
             loadings:{
                 whiteboard: false,
                 present: false,

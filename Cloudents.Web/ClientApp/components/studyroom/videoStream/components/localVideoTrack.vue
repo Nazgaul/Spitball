@@ -123,7 +123,7 @@ export default {
         let video = document.querySelector(`#localTrack video`);
         video.classList.remove('fullscreenMode')
         this.$store.dispatch('updateToggleTutorFullScreen',false);
-        document.querySelector('body').removeEventListener('keyup',this.exitFull)
+        document.body.removeEventListener('keyup',this.exitFull)
       }
     },
     openFullScreen() {
@@ -131,18 +131,18 @@ export default {
       if(video){
         video.classList.add('fullscreenMode');
         this.$store.dispatch('updateToggleTutorFullScreen',true);
-        document.querySelector('body').addEventListener('keyup',this.exitFull)
+        document.body.addEventListener('keyup',this.exitFull)
       }
     }
   },
   beforeDestroy() {
-    document.querySelector('body').removeEventListener('keyup',this.exitFull)
+    document.body.removeEventListener('keyup',this.exitFull)
   },
 };
 </script>
 
 <style lang="less">
-
+@import "../../../../styles/mixin.less";
 .localVideoStream {
   position: relative;
   video {
@@ -264,6 +264,13 @@ export default {
          height: 100vh;
          z-index: 20;
          background: #000;
+         @media (max-width: @screen-sm) and (orientation: portrait) {
+    top: 0;
+    left: 0;
+    height: 50vh;
+    bottom: 50%;
+    right: 0;
+  }
       }
     video {
       width: 100%;
