@@ -289,34 +289,27 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("userType"), Authorize]
-        public async Task<IActionResult> SetUserTypeAsync([FromBody] SetUserTypeRequest model,
-            [FromServices] ICommandBus commandBus, CancellationToken token)
+        public IActionResult SetUserTypeAsync()
         {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new SetUserTypeCommand(userId, model.UserType);
-            await commandBus.DispatchAsync(command, token);
+            //var command = new SetUserTypeCommand(userId, model.UserType);
+            //await commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
 
         [HttpPost("childName"), Authorize]
-        public async Task<IActionResult> SetChildNameAsync([FromBody] SetChildNameRequest model,
-            [FromServices] ICommandBus commandBus, CancellationToken token)
+        public  IActionResult SetChildNameAsync()
         {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new SetChildNameCommand(userId, model.Name, model.Grade);
-            await commandBus.DispatchAsync(command, token);
+            //var userId = _userManager.GetLongUserId(User);
+            //var command = new SetChildNameCommand(userId, model.Name, model.Grade);
+            //await commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
         [HttpPost("grade")]
-        public async Task<IActionResult> SetUserGradeAsync([FromBody] UserGradeRequest model,
-            [FromServices] ICommandBus commandBus,
-            CancellationToken token)
+        public IActionResult SetUserGradeAsync()
         {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new SetUserGradeCommand(userId, model.Grade);
-            await commandBus.DispatchAsync(command, token);
+          
             return Ok();
         }
     }

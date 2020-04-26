@@ -70,7 +70,7 @@ namespace Cloudents.Query.Admin
                     PaymentExists = s.PaymentExists == PaymentStatus.Done,
                     TutorPrice = s.Tutor.Price.SubsidizedPrice ?? s.Tutor.Price.Price,
                     CalendarExists = _session.Query<GoogleTokens>().Any(w => w.Id == s.Id.ToString()),
-                    UserType = s.UserType2
+                   // UserType = s.UserType2
                 }).SingleOrDefaultAsync(token);
                
             }
