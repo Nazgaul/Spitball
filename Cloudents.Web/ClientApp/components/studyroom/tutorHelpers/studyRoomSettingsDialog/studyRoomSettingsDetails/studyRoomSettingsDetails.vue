@@ -31,12 +31,11 @@
 
         <div class="counterWrap">
             <template>
-                <div class="mb-6 mb-sm-8" v-if="isRoomBroadcast && isRoomDisabled">
+                <div class="mb-6 mb-sm-8" v-if="isRoomBroadcast && isRoomDisabled && !waitingForTutor">
                     <div class="counterTitle mb-2" v-t="'studyRoomSettings_start_in'"></div>
-                    <sessionStartCounter class="counter"/>
-                    <!-- <sessionStartCounter class="counter" @updateCounterFinish="waitingForTutor = true" /> -->
+                    <sessionStartCounter class="counter" @updateCounterFinish="waitingForTutor = true" />
                 </div>
-                <div class="mb-8" v-if="(!isRoomBroadcast || !isRoomDisabled) && !isRoomTutor" v-t="'studyRoomSettings_ready'"></div>
+                <div class="mb-8" v-if="!isRoomTutor && ((!isRoomBroadcast || !isRoomDisabled) || waitingForTutor)" v-t="'studyRoomSettings_ready'"></div>
             </template>
         </div>
 
@@ -102,6 +101,7 @@ export default {
     },
     data() {
         return {
+            waitingForTutor:false,
             clickOccur: false,
             loadings:{
                 whiteboard: false,
@@ -203,6 +203,7 @@ export default {
         
     },
     beforeDestroy() {
+        this.waitingForTutor = false;
         if(this.isRoomTutor){
             this.loadings[this.selectedRoomMode] = false;
             this.selectedRoomMode = '';
