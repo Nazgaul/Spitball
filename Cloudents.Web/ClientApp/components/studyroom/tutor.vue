@@ -200,7 +200,7 @@
         v-if="settingDialogState"
         @closeAudioVideoSettingDialog="val => settingDialogState = val"
       />
-      <studyRoomSettingsDialog v-if="id && getDialogEnterRoom"/>
+      <studyRoomSettingsDialog v-if="id && !isRoomActive"/>
   </template>
 
     </div>
@@ -317,7 +317,6 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "getDialogEnterRoom",
       "getRoomIsNeedPayment",
       "getDialogUserConsent",
       "getDialogRoomSettings",

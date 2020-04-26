@@ -102,7 +102,9 @@ export default {
       deep:true,
       handler(newVal,oldVal){
         if(oldVal && !newVal){
-          document.querySelector('#localTrack video').remove()
+          let vidEl = document.querySelector('#localTrack video')
+          if(vidEl)
+          vidEl.remove()
         }
       }
     }

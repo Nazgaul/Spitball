@@ -15,6 +15,7 @@ const CURRENT_STATE_UPDATED = '2';
 let intervalTime = null;
 
 function _changeState(localParticipant) {
+   if(!STORE.getters.getRoomIsTutor) return;
    let stuffToSend =  {
       type: CURRENT_STATE_UPDATE,
       tab : STORE.getters.getActiveNavEditor,
@@ -74,22 +75,12 @@ function _toggleTrack(tracks,trackType,value){
 }
 function _twilioListeners(room,store) { 
    // romote participants
-   //let previewContainer = document.getElementById(REMOTE_TRACK_DOM_ELEMENT);
    room.participants.forEach((participant) => {
       let tracks = Array.from(participant.tracks.values());
       tracks.forEach((track) => {
          if(track.kind === 'video'){
             store.commit(twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK,track)
          }
-         // if(track.kind === 'audio'){  
-         //  if (track.attach) {
-         // //    // track.detach().forEach((detachedElement) => {
-         // //    //    detachedElement.remove();
-         // //    // });
-         // debugger;
-         //    previewContainer.appendChild(track.attach());
-         //  }
-         // }
       });
    });
 
@@ -106,17 +97,14 @@ function _twilioListeners(room,store) {
       _insightEvent('networkQuality',networkQualityStats, networkQualityLevel)
    });
    room.localParticipant.on('trackPublished',(track)=>{
-      if(store.getters.getRoomIsTutor && track.trackName === SCREEN_TRACK_NAME){
-         _changeState(room.localParticipant);
-         return
-      }
-      if(store.getters.getRoomIsTutor && track.kind === 'data'){
-         _changeState(room.localParticipant);
-         if(store.getters.getDialogEnterRoom){
-            if(store.getters.getIsFullScreen){
-               document.getElementById('openFullTutor').click()
-            }
-            store.dispatch('updateDialogEnter',false)
+      store.commit(studyRoom_SETTERS.ROOM_ACTIVE,true)
+      _changeState(room.localParticipant);
+      if(store.getters.getRoomIsTutor){
+         if(track.kind === 'video' && store.getters.getIsFullScreen){
+            document.getElementById('openFullTutor').click();
+         }
+         if(track.kind === 'data' && store.getters.getIsShareScreen){
+            store.commit(twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE,true)
          }
       }
    })
@@ -255,8 +243,6 @@ export default () => {
                _activeRoom = room; // for global using in this plugin
                _insightEvent('TwilioConnect', _activeRoom, null);
                _twilioListeners(_activeRoom,store); // start listen to twilio events;
-               store.commit(studyRoom_SETTERS.ROOM_ACTIVE,true)
-
                let {createLocalVideoTrack,createLocalAudioTrack} = twillioClient;
 
                // TODO: fix it audio & video
@@ -304,9 +290,6 @@ export default () => {
                      }
                      _publishTrack(_activeRoom,_localScreenTrack);
                      store.commit(twilio_SETTERS.VIDEO_AVAILABLE,true)
-                     if(store.getters.getDialogEnterRoom){
-                        store.dispatch('updateDialogEnter',false)
-                     }
                      _localScreenTrack.on('stopped',(track)=>{
                         _unPublishTrack(_activeRoom,track)
                         store.commit(twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE,false);
@@ -377,9 +360,7 @@ export default () => {
                   _localVideoTrack = null;
                   _localAudioTrack = null;
                   _localScreenTrack = null;
-                  store.dispatch('updateJwtToken',null)
                   store.dispatch('updateRoomIsJoined',null)
-                  store.dispatch('updateDialogEnter',true)
                   store.commit(twilio_SETTERS.VIDEO_AVAILABLE,false);
                   store.commit(twilio_SETTERS.AUDIO_AVAILABLE,false)
                }
@@ -394,7 +375,6 @@ export default () => {
                      val:  STORE.getters.getIsAudioParticipants
                   }
                ));
-               //_changeState(_activeRoom.localParticipant)
             }
          }
       })

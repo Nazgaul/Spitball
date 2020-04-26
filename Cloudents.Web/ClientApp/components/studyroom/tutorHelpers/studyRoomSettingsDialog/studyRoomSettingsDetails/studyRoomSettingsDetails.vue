@@ -174,13 +174,13 @@ export default {
         this.$store.dispatch('updateEnterRoom', this.$route.params.id)
             .then(() => {
                 this.$store.dispatch('updateRoomIsJoined',true);
+                this.actions[this.selectedRoomMode]();
             }).catch(ex => {
                 self.$appInsights.trackException({exception: new Error(ex)});
             })
         },
 
         whiteboard() {
-            this.$store.dispatch('updateDialogEnter',false);
             this.selectedRoomMode = ''
         },
         present() {
@@ -192,24 +192,6 @@ export default {
             this.selectedRoomMode = ''
         },
         
-     },
-    watch: {
-        '$store.getters.getRoomIsActive':{
-            deep:true,
-            handler(val){
-                if(val){
-                    if(!this.isRoomTutor){
-                        this.$store.dispatch('updateDialogEnter',false);
-                        return
-                    }
-                    if(this.isRoomTutor && this.selectedRoomMode){
-                        this.actions[this.selectedRoomMode]();
-                        return
-                    }
-                    this.$store.dispatch('updateDialogEnter',false);
-                }
-            }
-        }
     },
     beforeDestroy() {
         if(this.isRoomTutor){
