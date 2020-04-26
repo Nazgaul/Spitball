@@ -664,6 +664,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             result.Should().NotBeNull();
         }
 
+        [Fact]
+        public async Task TutorUpcomingBroadcastStudyRoomQuery_Ok()
+        {
+            var query = new TutorUpcomingBroadcastStudyRoomQuery(638);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
 
     }
 }

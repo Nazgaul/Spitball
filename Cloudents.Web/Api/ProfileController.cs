@@ -11,11 +11,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Microsoft.AspNetCore.Http;
 using Cloudents.Web.Models;
 using Cloudents.Query.Users;
 using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.DTOs.Documents;
+using Cloudents.Query.Tutor;
 
 namespace Cloudents.Web.Api
 {
@@ -86,7 +88,8 @@ namespace Cloudents.Web.Api
         public async Task<WebResponseWithFacet<DocumentFeedDto>> GetDocumentsAsync(
             [FromQuery] ProfileDocumentsRequest request, CancellationToken token = default)
         {
-            var query = new UserDocumentsQuery(request.Id, request.Page, request.PageSize, request.DocumentType, request.Course);
+            var query = new UserDocumentsQuery(request.Id, request.Page, request.PageSize,
+                request.DocumentType, request.Course);
             var retValTask = _queryBus.QueryAsync(query, token);
 
             var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
@@ -122,6 +125,13 @@ namespace Cloudents.Web.Api
                 }),
                 Count = retValTask.Result.Count
             };
+        }
+
+        [HttpGet("{id:long}/studyRoom")]
+        public async Task<IEnumerable<FutureBroadcastStudyRoomDto>> GetUpcomingEventsAsync(long id, CancellationToken token)
+        {
+            var query = new TutorUpcomingBroadcastStudyRoomQuery(id);
+            return await _queryBus.QueryAsync(query, token);
         }
         
 
