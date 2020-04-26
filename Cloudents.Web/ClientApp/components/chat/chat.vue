@@ -1,7 +1,7 @@
 <template>
   <div class="sb-chat-container px-0 py-0" :class="{'minimized': isMinimized}">
-    <v-layout @click="toggleMinimizeChat" class="chat-header" :class="{'new-messages': hasUnread}">
-      <v-icon
+    <v-layout @click="toggleMinimizeChat" class="chat-header" :class="{'new-messages': hasUnread}" sel="chat_header">
+      <v-icon sel="chat_icon"
         class="mr-2"
         size="18"
         color="#fff"
