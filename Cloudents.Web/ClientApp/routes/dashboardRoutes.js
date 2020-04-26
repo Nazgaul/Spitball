@@ -1,5 +1,6 @@
 import { staticComponents } from './routesUtils.js';
 import store from '../store';
+import * as routeName from "./routeNames.js";
 
 const dashboardPages = {
    default: () => import('../components/pages/dashboardPage/dashboardPage.vue'),
@@ -118,5 +119,9 @@ export const dashboardRoutes = [
             requiresAuth: true,
 
         },
+    },
+    {
+        path: "/wallet",
+        redirect: { name: routeName.MySales }
     },
 ]
