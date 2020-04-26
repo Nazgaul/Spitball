@@ -1,5 +1,5 @@
 <template>
-    <v-dialog :value="true" content-class="studyRoomSettingDialog" :transition="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'" :fullscreen="true">
+    <v-dialog :value="true" :persistent="true" content-class="studyRoomSettingDialog" :transition="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'" :fullscreen="true">
         <div class="settings">
             <div class="settingsHeader">
                 <a @click="resetItems" class="logo-link">
