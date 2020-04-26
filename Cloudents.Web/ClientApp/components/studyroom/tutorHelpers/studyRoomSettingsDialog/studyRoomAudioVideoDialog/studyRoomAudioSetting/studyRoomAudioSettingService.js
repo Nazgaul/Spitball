@@ -1,7 +1,7 @@
 let audioContext, input, analyser, scriptProcessor;
 
 const createAudioContext = function (elId, myPreferredCameraDeviceId) {
-    stopAudioContext();
+    // stopAudioContext();
     navigator.mediaDevices.getUserMedia({audio: myPreferredCameraDeviceId ? {deviceId: myPreferredCameraDeviceId} : true})
         .then(stream => {
         const processInput = () => {
