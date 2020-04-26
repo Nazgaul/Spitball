@@ -55,13 +55,17 @@ const mutations = {
    },
    [studyRoom_SETTERS.DIALOG_ROOM_SETTINGS]: (state, val) => state.dialogRoomSettings = val,
    [studyRoom_SETTERS.DIALOG_END_SESSION]: (state, val) => state.dialogEndSession = val,
-   [studyRoom_SETTERS.ROOM_ACTIVE]: (state, val) => state.roomIsActive = val,
+   [studyRoom_SETTERS.ROOM_ACTIVE]: (state, val) => {
+      state.roomIsActive = val
+      if(!val){
+         this.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,0)
+      }
+   },
    [studyRoom_SETTERS.ROOM_PAYMENT]: (state, val) => state.roomIsNeedPayment = val,
    [studyRoom_SETTERS.ROOM_RESET]: (state) => {
       state.activeNavEditor = 'white-board';
       state.roomOnlineDocument = null;
       state.roomIsTutor = false;
-      state.roomIsActive = false;
       state.roomIsNeedPayment = false;
       state.roomTutor = {};
       state.studyRoomId = null;
@@ -70,7 +74,6 @@ const mutations = {
       state.roomProps = null;
       state.roomType = null;
       state.roomName = null;
-      state.roomParticipantCount = 0;
    },
    [studyRoom_SETTERS.DIALOG_USER_CONSENT]: (state, val) => state.dialogUserConsent = val,
    [studyRoom_SETTERS.DIALOG_SNAPSHOT]: (state, val) => state.dialogSnapshot = val,
