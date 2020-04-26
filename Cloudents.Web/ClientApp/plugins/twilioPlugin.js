@@ -75,6 +75,16 @@ function _toggleTrack(tracks,trackType,value){
    }
 }
 function _twilioListeners(room,store) { 
+   if(!store.getters.getRoomIsBroadcast && room.localParticipant.tracks.size){
+      store.commit(studyRoom_SETTERS.ROOM_ACTIVE,true)
+      _changeState(room.localParticipant);
+      if(store.getters.getRoomIsTutor){
+         if(!isTwilioStarted && store.getters.getIsShareScreen){
+            store.commit(twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE,true)
+            isTwilioStarted = true;
+         }
+      }
+   }
    // romote participants
    room.participants.forEach((participant) => {
       let tracks = Array.from(participant.tracks.values());
@@ -84,6 +94,8 @@ function _twilioListeners(room,store) {
          }
       });
    });
+   room.localParticipant.on('trackStarted',()=>{
+   })
 
    // local participant events
    room.localParticipant.on('trackStopped',(track)=>{
@@ -162,6 +174,7 @@ function _twilioListeners(room,store) {
       store.dispatch('dispatchDataTrackJunk',data)
    })
    room.on('trackPublished', () => {
+      debugger
    })
    room.on('trackUnpublished', () => {
    })
