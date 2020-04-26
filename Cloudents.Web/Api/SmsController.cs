@@ -115,6 +115,17 @@ namespace Cloudents.Web.Api
                 await _client.SendSmsAsync(user, token);
                 return Ok();
             }
+
+            if (retVal.Errors.Any(a => a.Code == "CountryNotSupported"))
+            {
+                //var command2 = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress());
+                //var t1 = _commandBus.DispatchAsync(command2, token);
+                await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.MaxValue);
+                ModelState.AddModelError(nameof(model.PhoneNumber), _smsLocalizer["CountryNotSupported"]);
+                var t2 = _signInManager.SignOutAsync();
+                await Task.WhenAll( t2);
+                return BadRequest(ModelState);
+            }
             if (retVal.Errors.Any(a => a.Code == "InvalidPhoneNumber"))
             {
                 ModelState.AddModelError(nameof(model.PhoneNumber), _localizer["InvalidPhoneNumber"]);

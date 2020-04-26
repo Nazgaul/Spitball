@@ -120,10 +120,10 @@
   <data name="CannotResendSms" xml:space="preserve">
     <value>We cannot resend sms</value>
   </data>
+  <data name="CountryNotSupported" xml:space="preserve">
+    <value>Your country is not supported by spitball</value>
+  </data>
   <data name="DuplicatePhoneNumber" xml:space="preserve">
     <value>This phone number is linked to another email address</value>
-  </data>
-  <data name="PhoneNumberNotSameCountry" xml:space="preserve">
-    <value>Your account has being suspended. Please contact support for more info</value>
   </data>
 </root>
