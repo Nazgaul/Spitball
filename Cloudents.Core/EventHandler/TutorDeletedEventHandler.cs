@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Core.EventHandler
 {
-    public sealed class TutorDeletedEventHandler : 
-        IEventHandler<TutorDeletedEvent>, 
+    public sealed class TutorDeletedEventHandler :
+        IEventHandler<TutorDeletedEvent>,
         IEventHandler<TutorSuspendedEvent>,
-        IEventHandler<UserSuspendEvent>, 
+        IEventHandler<UserSuspendEvent>,
         IDisposable
     {
         private readonly IReadTutorRepository _repository;
@@ -22,38 +22,31 @@ namespace Cloudents.Core.EventHandler
             _unitOfWork = unitOfWork;
         }
 
-        public async Task HandleAsync(TutorDeletedEvent eventMessage, CancellationToken token)
+        public Task HandleAsync(TutorDeletedEvent eventMessage, CancellationToken token)
         {
-            var tutor = await _repository.GetAsync(eventMessage.Id, token);
+
+            return DeleteAsync(eventMessage.Id, token);
+        }
+
+        public Task HandleAsync(TutorSuspendedEvent eventMessage, CancellationToken token)
+        {
+
+            return DeleteAsync(eventMessage.Id, token);
+        }
+
+        public Task HandleAsync(UserSuspendEvent eventMessage, CancellationToken token)
+        {
+
+            return DeleteAsync(eventMessage.User.Id, token);
+        }
+
+        private async Task DeleteAsync(long tutorId, CancellationToken token)
+        {
+            var tutor = await _repository.GetAsync(tutorId, token);
             if (tutor is null)
             {
                 return;
             }
-            await DeleteAsync(tutor, token);
-        }
-
-        public async Task HandleAsync(TutorSuspendedEvent eventMessage, CancellationToken token)
-        {
-            var tutor = await _repository.GetAsync(eventMessage.Id, token);
-            if (tutor is null)
-            {
-                return;
-            }
-            await DeleteAsync(tutor, token);
-        }
-
-        public async Task HandleAsync(UserSuspendEvent eventMessage, CancellationToken token)
-        {
-            var tutor = await _repository.GetAsync(eventMessage.User.Id, token);
-            if (tutor is null)
-            {
-                return;
-            }
-            await DeleteAsync(tutor, token);
-        }
-
-        private async Task DeleteAsync(ReadTutor tutor, CancellationToken token)
-        {
             await _repository.DeleteAsync(tutor, token);
             await _unitOfWork.CommitAsync(CancellationToken.None);
         }
