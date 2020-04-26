@@ -3,19 +3,19 @@
     column
     class="tutoring-page"
     :style="{'background-size': zoom, 'background-position-x': panX, 'background-position-y': panY}"
-    :class="{'gridBackground': $route.name === 'tutoring', 'mobile-no-support': isMobile}"
+    :class="{'gridBackground': $route.name === 'tutoring'}"
   >
-    <div v-show="isMobile" class="mobile-no-support-container">
+    <!-- <div v-show="isMobile" class="mobile-no-support-container">
       <noSupportTop></noSupportTop>
       <div class="no-support-text" v-language:inner="'tutor_not_supported'"></div>
       <div class="no-support-button">
         <router-link to="/" tag="button" v-language:inner="'tutor_close'"></router-link>
       </div>
       <noSupportBottom></noSupportBottom>
-    </div>
-    <div v-show="!isMobile">
+    </div> -->
+    <div>
       <v-flex>
-        <nav class="tutoring-navigation">
+        <nav class="tutoring-navigation d-none d-md-flex">
           <div class="logo-nav-wrap">
             <span class="logo-container">
               <a @click="resetItems()" class="logo-link">
@@ -71,7 +71,7 @@
             
           </div>
         </nav>
-        <v-flex xs12   class="study-tools-wrapper">
+        <v-flex xs12  class="study-tools-wrapper d-none d-md-block">
           <v-layout class="pl-2" align-center shrink>
             <v-flex shrink class="canvas-tools-wrapper" v-if="isWhiteBoardActive">
               <whiteBoardTools></whiteBoardTools>
@@ -108,20 +108,21 @@
               >
                 <span v-language:inner>tutor_option_fullBoard</span>
               </v-btn>
-              <v-layout
+             
+                <!-- <v-flex xs6 > -->
+                 
+                <!-- </v-flex> -->
+            </v-flex>
+          </v-layout>
+        </v-flex>
+         <v-layout
                 column
                 align-start
                 class="video-stream-wraper"
                 v-show="activeViewOption !== enumViewOptions.fullBoard"
               >
-                <v-flex xs6 >
-                  <videoStream></videoStream>
-                </v-flex>
-              </v-layout>
-            </v-flex>
-          </v-layout>
-        </v-flex>
-
+        <videoStream></videoStream>
+         </v-layout>
         <transition name="slide-x-transition">
           <keep-alive>
             <component :is="activeItem" :roomId="id"></component>
@@ -413,9 +414,9 @@ export default {
     panY() {
       return `${this.getPanY}px`;
     },
-    isMobile() {
-      return this.$vuetify.breakpoint.xsOnly;
-    },
+    // isMobile() {
+    //   return this.$vuetify.breakpoint.xsOnly;
+    // },
     isTutor() {
       return this.$store.getters.getRoomIsTutor;
     },
@@ -449,7 +450,8 @@ watch: {
       "setShowAudioRecordingError",
       "updateDialogUserConsent",
       "updateDialogSnapshot",
-      "stopTracks"
+      "stopTracks",
+      "openChat"
     ]),
     handleNeedPayment(needPayment){
       if(needPayment){

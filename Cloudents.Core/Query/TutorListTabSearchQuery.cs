@@ -2,7 +2,7 @@
 {
     public class TutorListTabSearchQuery
     {
-        public TutorListTabSearchQuery(string term, string country, int page, int pageSize = 25)
+        public TutorListTabSearchQuery(string term, string? country, int page, int pageSize = 25)
         {
             Term = term;
             Page = page;
@@ -14,6 +14,6 @@
         public int Page { get; }
         public int PageSize { get; }
 
-        public string Country { get; }
+        public string? Country { get; }
     }
 }

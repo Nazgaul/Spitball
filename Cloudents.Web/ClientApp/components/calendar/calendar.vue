@@ -75,8 +75,9 @@
             </template>
             
             <template v-slot:interval="{date,time,past}">
-              <div :class="['my-event',checkDateCell(past,date)? 'without-time-past':'without-time', {'cursor-none': isSelfTutor},{'selectedEvent': isSelected(date,time)}]">
-              <!-- <div :class="['my-event',past? 'without-time-past':'without-time', {'cursor-none': isSelfTutor},{'selectedEvent': isSelected(date,time)}]"> -->
+             
+              <div :class="['my-event',checkDateCell(past,date, time)? 'without-time-past':'without-time', {'cursor-none': isSelfTutor},{'selectedEvent': isSelected(date,time)}]">
+              
                 <button @click="addEvent($event, date,time)" v-html="cellTime(date,time)"></button> 
               </div>
           </template>
@@ -202,26 +203,32 @@ export default {
           return this._i18n.d(date,v);
           //return  date.toLocaleDateString('en-us', options);
         },
-        checkDateCell(past,date){
+        checkDateCell(past,date, time){
+          
           if(past) {
             return true;
-          }else{
-            let lastDate = Object.keys(this.eventsMap).map((key)=>key)
-            lastDate = lastDate[lastDate.length-1]
-            let lastDateStemp = new Date(`${lastDate}`).getTime()
-
-            if(new Date(date).getTime() >= lastDateStemp){
-              // let lastHour = this.eventsMap[lastDate];
-              // lastHour = lastHour[lastHour.length - 1].time
-              // if(+time.slice(0,2) <= +lastHour.slice(0,2)){
-              return true;
-              // }else{
-                // return true;
-              // }
-            
-            }
-            return false;
           }
+          //debugger;
+          let dateEvent =  this.eventsMap[date];
+          var e = dateEvent.find(x=>x.time === time)
+          if (e != null) {
+            return true;
+          }
+          if (date == "2020-04-22") {
+            //debugger;
+          }
+          return false;
+          // dateEvent.find
+          // console.log(this.calendarEvents);
+          // let lastDate = Object.keys(this.eventsMap).map((key)=>key)
+          // lastDate = lastDate[lastDate.length-1]
+          // let lastDateStemp = new Date(`${lastDate}`).getTime()
+
+          // if(new Date(date).getTime() >= lastDateStemp){
+          //   return true;
+          // }
+          // return false;
+          
         },
         insertNewEvent(){
           this.isLoading = true;

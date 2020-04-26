@@ -135,7 +135,7 @@
             </div>
         </div>
         </div>
-        <div class="canvas-tabs">
+        <div class="canvas-tabs d-none d-md-flex">
             <div @click="changeTab(tab)"
                  class="canvas-tab"
                  v-for="(tab,index) in canvasTabs"
