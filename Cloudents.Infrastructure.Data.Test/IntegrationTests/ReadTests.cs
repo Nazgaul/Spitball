@@ -667,7 +667,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task TutorUpcomingBroadcastStudyRoomQuery_Ok()
         {
-            var query = new TutorUpcomingBroadcastStudyRoomQuery(638);
+            var query = new TutorUpcomingBroadcastStudyRoomQuery(638,159039);
             var result = await fixture.QueryBus.QueryAsync(query, default);
         }
 

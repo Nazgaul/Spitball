@@ -13,11 +13,13 @@ namespace Cloudents.Query.Tutor
 {
     public class TutorUpcomingBroadcastStudyRoomQuery : IQuery<IEnumerable<FutureBroadcastStudyRoomDto>>
     {
-        public TutorUpcomingBroadcastStudyRoomQuery(long userId)
+        public TutorUpcomingBroadcastStudyRoomQuery(long tutorId, long userId)
         {
+            TutorId = tutorId;
             UserId = userId;
         }
 
+        private long TutorId { get; }
         private long UserId { get; }
 
 
@@ -32,14 +34,15 @@ namespace Cloudents.Query.Tutor
             public async Task<IEnumerable<FutureBroadcastStudyRoomDto>> GetAsync(TutorUpcomingBroadcastStudyRoomQuery query, CancellationToken token)
             {
                 return await _session.Query<StudyRoom>()
-                    .Where(w => w.Tutor.Id == query.UserId && w.StudyRoomType == StudyRoomType.Broadcast &&
+                    .Where(w => w.Tutor.Id == query.TutorId && w.StudyRoomType == StudyRoomType.Broadcast &&
                                 w.BroadcastTime > DateTime.UtcNow)
                     .Select(s => new FutureBroadcastStudyRoomDto()
                     {
                         Id = s.Id,
                         Price = s.Price.GetValueOrDefault(),
                         Name = s.Name,
-                        DateTime = s.BroadcastTime!.Value
+                        DateTime = s.BroadcastTime!.Value,
+                        Enrolled = _session.Query<StudyRoomUser>().Any(w => w.Room.Id == s.Id && w.User.Id == query.UserId)
                     }).ToListAsync(token);
             }
         }

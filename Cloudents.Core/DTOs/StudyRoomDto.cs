@@ -68,5 +68,7 @@ namespace Cloudents.Core.DTOs
         public Guid Id { get; set; }
 
         public decimal Price { get; set; }
+
+        public bool Enrolled { get; set; }
     }
 }
