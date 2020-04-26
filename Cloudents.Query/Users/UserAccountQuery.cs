@@ -36,7 +36,6 @@ namespace Cloudents.Query.Users
                 const string sql = @"select u.Id, U.Balance, u.Name, u.FirstName, u.LastName, u.ImageName as Image, u.Email, 
                             u.PhoneNumberHash as PhoneNumber,
                             u.Country,
-                            u.UserType,
                           t.State as IsTutor,
                         t.price as Price,
                             coalesce(

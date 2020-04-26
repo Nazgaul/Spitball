@@ -33,9 +33,9 @@ namespace Cloudents.Query.Email
 
             public async Task<IEnumerable<UpdateEmailDto>> GetAsync(GetUpdatesEmailByUserQuery query, CancellationToken token)
             {
-                User? userAlias = null;
-                Question? questionAlias = null;
-                QuestionUpdateEmailDto? questionEmailDtoAlias = null;
+                User userAlias = null!;
+                Question questionAlias = null!;
+                QuestionUpdateEmailDto questionEmailDtoAlias = null!;
 
                 var queryCourse = QueryOver.Of<UserCourse>().Where(w => w.User.Id == query.UserId)
                     .Select(s => s.Course.Id);
@@ -46,15 +46,15 @@ namespace Cloudents.Query.Email
                     .Take(1);
 
 
-                var queryUniversity = QueryOver.Of<User>().Where(w => w.Id == query.UserId)
-                    .Select(s => s.University.Id);
+                var queryCountry = QueryOver.Of<User>().Where(w => w.Id == query.UserId)
+                    .Select(s => s.Country);
 
                 var questionFuture = _session.QueryOver(() => questionAlias)
                      .JoinAlias(x => x.User, () => userAlias)
                      .Where(x => x.Created > query.Since)
                      .And(x => x.Status.State == ItemState.Ok)
                      .WithSubquery.WhereProperty(x => x.Course.Id).In(queryCourse)
-                     .WithSubquery.WhereProperty(x => x.University.Id).Eq(queryUniversity)
+                     .WithSubquery.WhereProperty(() => userAlias.Country).Eq(queryCountry)
                      .And(x => x.User.Id != query.UserId)
 
 
@@ -72,7 +72,7 @@ namespace Cloudents.Query.Email
                      .UnderlyingCriteria.SetComment(nameof(GetUpdatesEmailByUserQuery))
                      .Future<QuestionUpdateEmailDto>();
 
-                DocumentUpdateEmailDto documentEmailDtoAlias = null;
+                DocumentUpdateEmailDto documentEmailDtoAlias = null!;
 
 
                 var documentFuture = _session.QueryOver<Document>()
@@ -80,7 +80,7 @@ namespace Cloudents.Query.Email
                     .Where(x => x.TimeStamp.CreationTime > query.Since)
                     .And(x => x.Status.State == ItemState.Ok)
                     .WithSubquery.WhereProperty(x => x.Course.Id).In(queryCourse)
-                    .WithSubquery.WhereProperty(x => x.University.Id).Eq(queryUniversity)
+                    .WithSubquery.WhereProperty(() => userAlias.Country).Eq(queryCountry)
                     .And(x => x.User.Id != query.UserId)
 
 

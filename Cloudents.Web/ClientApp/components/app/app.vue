@@ -4,10 +4,10 @@
     <router-view name="header"></router-view>
     <router-view name="sideMenu" v-if="isDrawer"></router-view>
     <v-content :class="[{'site-content': $route.path !== '/'}, {'hidden-sideMenu': drawerPlaceholder}]">
-        <chat v-if="visible"/>
         <router-view class="main-container"></router-view>
+        <chat v-if="visible"/>
       
-        <div class="s-cookie-container" v-if="!cookiesShow">
+        <!-- <div class="s-cookie-container" v-if="!cookiesShow">
           <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
           <span class="cookie-approve">
             <button
@@ -16,7 +16,7 @@
               v-language:inner
             >app_cookie_toaster_action</button>
           </span>
-        </div>
+        </div> -->
 
         <dialogInjection class="dialogInjection" />
         <componentInjection class="componentInjection" />
@@ -159,6 +159,7 @@ export default {
       return this.$vuetify.breakpoint.xsOnly && this.getMobileFooterState && !this.hideFooter && this.$route.name !== 'tutorLandingPage';
     },
     visible() {
+
       if (this.accountUser === null) {
         return false;
       } else {
