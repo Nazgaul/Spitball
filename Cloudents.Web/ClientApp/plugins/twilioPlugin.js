@@ -11,6 +11,7 @@ const VIDEO_TRACK_NAME = 'videoTrack';
 const SCREEN_TRACK_NAME = 'screenTrack';
 const CURRENT_STATE_UPDATE = '1';
 const CURRENT_STATE_UPDATED = '2';
+let isTwilioStarted = false;
 
 let intervalTime = null;
 
@@ -103,8 +104,9 @@ function _twilioListeners(room,store) {
          if(track.kind === 'video' && store.getters.getIsFullScreen){
             document.getElementById('openFullTutor').click();
          }
-         if(track.kind === 'data' && store.getters.getIsShareScreen){
+         if(!isTwilioStarted && store.getters.getIsShareScreen){
             store.commit(twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE,true)
+            isTwilioStarted = true;
          }
       }
    })
