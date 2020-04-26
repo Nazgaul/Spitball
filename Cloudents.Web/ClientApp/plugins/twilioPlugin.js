@@ -362,6 +362,7 @@ export default () => {
                   _localVideoTrack = null;
                   _localAudioTrack = null;
                   _localScreenTrack = null;
+                  isTwilioStarted = false;
                   store.dispatch('updateRoomIsJoined',null)
                   store.commit(twilio_SETTERS.VIDEO_AVAILABLE,false);
                   store.commit(twilio_SETTERS.AUDIO_AVAILABLE,false)
