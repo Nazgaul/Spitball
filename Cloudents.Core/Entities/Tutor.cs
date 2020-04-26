@@ -32,7 +32,7 @@ namespace Cloudents.Core.Entities
                 }
                 Price = new TutorPrice(price.Value);
             }
-
+            AddEvent(new TutorCreatedEvent(this));
             //SubsidizedPrice = subsidizedPrice;
 
 

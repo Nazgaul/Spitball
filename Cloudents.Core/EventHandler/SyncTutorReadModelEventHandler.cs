@@ -31,7 +31,7 @@ namespace Cloudents.Core.EventHandler
 
         public async Task HandleAsync(TutorApprovedEvent eventMessage, CancellationToken token)
         {
-            await AddAsync(eventMessage.UserId, token);
+            await AddAsync(eventMessage.TutorId, token);
         }
 
         public async Task HandleAsync(TutorUnSuspendedEvent eventMessage, CancellationToken token)
