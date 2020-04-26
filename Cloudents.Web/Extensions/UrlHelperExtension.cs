@@ -74,7 +74,7 @@ namespace Cloudents.Web.Extensions
 
             if (val.ToString() != val.GetType().ToString() && IsAnonymous(valType))
             {
-                nvc.Add(prefix, val.ToString().Trim());
+                nvc.Add(prefix, val.ToString()?.Trim());
                 return;
             }
             if (val is IEnumerable p)
