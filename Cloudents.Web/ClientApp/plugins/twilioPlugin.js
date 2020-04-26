@@ -73,7 +73,7 @@ function _toggleTrack(tracks,trackType,value){
    }
 }
 function _twilioListeners(room,store) { 
-   store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,Array.from(room.participants.values()).length)
+   store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,room.participants.size)
    // romote participants events:
    room.participants.forEach((participant) => {
       let tracks = Array.from(participant.tracks.values());
@@ -141,7 +141,7 @@ function _twilioListeners(room,store) {
    })
    // room connections events:
    room.on('participantConnected', (participant) => {
-      store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,Array.from(room.participants.values()).length)
+      store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,room.participants.size)
       if(store.getters.getRoomIsTutor){
          store.commit('setComponent', 'simpleToaster_userConnected');
          participant.on('trackSubscribed',(track)=>{
@@ -155,7 +155,7 @@ function _twilioListeners(room,store) {
       _insightEvent('TwilioParticipantConnected', participant, null);
    })
    room.on('participantDisconnected', (participant) => {
-      store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,Array.from(room.participants.values()).length)
+      store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,room.participants.size)
       if(store.getters.getRoomIsTutor){
          store.commit('setComponent', 'simpleToaster_userLeft');
       }
@@ -173,11 +173,7 @@ function _twilioListeners(room,store) {
       dRoom.localParticipant.tracks.forEach(function (track) {
          _detachTracks([track],store);
       });
-      store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,0)
-      if(!store.getters.getRoomIsTutor){
-         store.commit(studyRoom_SETTERS.ROOM_ACTIVE,false)
-         store.dispatch('updateReviewDialog',true)
-      }
+      store.commit(studyRoom_SETTERS.ROOM_ACTIVE,false)
    })
 }
 export default () => {
@@ -336,9 +332,13 @@ export default () => {
                   _localVideoTrack = null;
                   _localAudioTrack = null;
                   _localScreenTrack = null;
-   
+                  _activeRoom = null;
+                  store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,0)
                   store.commit(twilio_SETTERS.VIDEO_AVAILABLE,false);
                   store.commit(twilio_SETTERS.AUDIO_AVAILABLE,false)
+                  if(!store.getters.getRoomIsTutor){
+                     store.dispatch('updateReviewDialog',true)
+                  }
                }
             }
             if (mutation.type === twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN) {

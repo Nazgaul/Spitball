@@ -61,7 +61,6 @@ const mutations = {
       state.activeNavEditor = 'white-board';
       state.roomOnlineDocument = null;
       state.roomIsTutor = false;
-      state.roomIsActive = false;
       state.roomIsNeedPayment = false;
       state.roomTutor = {};
       state.studyRoomId = null;
