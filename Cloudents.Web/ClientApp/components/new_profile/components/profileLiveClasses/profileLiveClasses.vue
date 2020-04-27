@@ -1,0 +1,232 @@
+<template>
+    <div class="profileLiveClasses pa-sm-4 pa-0">
+
+        <div class="mainTitle pb-sm-4 pt-3 pt-sm-0 text-center text-sm-left">
+            <span v-t="'profile_live_title'"></span>
+            <span>{{tutorName}}</span>
+        </div>
+
+        <div class="liveRow pa-4 pa-sm-0 px-sm-2 py-sm-8 py-5 d-sm-flex d-block justify-space-between align-center" v-for="(session, index) in liveSessionsList" :key="index">
+            <div class="leftSide mb-5 mb-sm-0 d-flex">
+                <div class="icons">
+                    <radioIcon v-if="$vuetify.breakpoint.xsOnly" width="30" />
+                    <tvIcon width="90" v-else />
+                </div>
+
+                <div class="details ml-6 d-flex">
+                    <div class="created mb-sm-3 mt-3 mt-sm-0">{{$d(new Date(session.created), 'long')}}</div>
+                    <div class="liveName">{{session.name}}</div>
+                </div>
+            </div>
+
+            <div class="rightSide d-sm-flex d-block align-end flex-shrink-0 text-center">
+                <div class="price mb-2 mb-sm-0" :class="{'enroll': session.enrolled}">
+                    <span class="numericPrice">{{$n(session.price, 'currency')}}</span>
+                    <span v-t="'profile_per_hour'"></span>
+                </div>
+                <div class="action">
+                    <v-btn
+                        @click="session.enrolled ? enterRoom(session.id) : enrollSession(session.id)"
+                        class="btn white--text"
+                        width="140"
+                        :color="session.enrolled ? '#41c4bc' : '#4c59ff'"
+                        :block="$vuetify.breakpoint.xsOnly"
+                        depressed
+                        rounded
+                    >
+                        <enterIcon class="enterIcon mr-sm-2" v-show="session.enrolled" width="20" />
+                        <!-- <rollIcon class="" v-show="!session.enrolled && $vuetify.breakpoint.xsOnly" width="20" /> -->
+                        <span :class="{'flex-grow-1': $vuetify.breakpoint.xsOnly}">{{$t(session.enrolled ? 'profile_enter_room' : 'profile_enroll')}}</span>
+                    </v-btn>
+                </div>
+            </div>
+        </div>
+
+        <div class="showMore pa-3 pt-sm-4 pb-sm-0 text-center">
+            <button class="showBtn" v-t="'profile_see_all'" @click="isExpand = !isExpand"></button>
+        </div>
+
+        <v-snackbar
+            absolute
+            top
+            :timeout="5000"
+            :color="color"
+            @input="showSnack = false"
+            :value="showSnack"
+        >
+            <div class="text-wrap" v-t="toasterText"></div>
+        </v-snackbar>
+
+    </div>
+</template>
+
+<script>
+import * as routeNames from '../../../../routes/routeNames'
+
+import tvIcon from './brodcast-copy-9.svg'
+import radioIcon from './group-4-copy-5.svg'
+import enterIcon from './enterRoom.svg'
+// import rollIcon from './group-9-copy-4.svg'
+
+export default {
+    name: 'profileLiveClasses',
+    props: {
+        id: {
+            required: true
+        }
+    },
+    components: {
+        tvIcon,
+        radioIcon,
+        enterIcon,
+        // rollIcon
+    },
+    data() {
+        return {
+            liveSessions: [],
+            showSnack: false,
+            color: '',
+            toasterText: '',
+            isExpand: false
+        }
+    },
+    computed: {
+        liveSessionsList() {
+            let liveList = this.liveSessions
+            if(this.isExpand) {
+                return liveList
+            }
+            return liveList.slice(0, 3)
+        },
+        tutorName() {
+            return this.$store.getters.getProfile?.user?.name
+        }
+    },
+    methods: {
+        enrollSession(studyRoomId) {
+            let session = {
+                userId: this.id,
+                studyRoomId
+            }
+            let self = this
+            this.$store.dispatch('updateStudyroomLiveSessions', session)
+                .then(() => {
+                    self.toasterText = 'enroll_success'
+                    let currentSession = self.liveSessions.filter(s => s.id === studyRoomId)[0]
+                    currentSession.enrolled = true
+                }).catch(ex => {
+                    self.toasterText = 'enroll_error'
+                    self.color = 'error'
+                    self.$appInsights.trackException({exception: new Error(ex)});
+                }).finally(() => {
+                    self.showSnack = true
+                })
+        },
+        enterRoom(studyRoomId) {
+            this.$router.push({name: routeNames.StudyRoom, params: {id: studyRoomId} })
+        },
+        getLiveSessions() {
+            let self = this;
+            this.$store.dispatch('getStudyroomLiveSessions', this.id)
+                .then(res => {
+                    self.liveSessions = res
+                }).catch(ex => {
+                    self.$appInsights.trackException({exception: new Error(ex)});
+                })
+        }
+    },
+    created() {
+        this.getLiveSessions()
+    }
+}
+</script>
+
+<style lang="less">
+    @import '../../../../styles/mixin.less';
+    @import '../../../../styles/colors.less';
+
+    .profileLiveClasses {
+        max-width: 800px;
+        background: #fff;
+        margin: 54px auto 0;
+        border-radius: 8px;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+        
+        @media(max-width: @screen-xs) {
+            margin-top: 8px;
+            box-shadow: none;
+            border-radius: 0;
+            background: transparent;
+        }
+        .mainTitle {
+            color: @global-purple;
+            font-weight: 600;
+            .responsive-property(font-size, 18px, null, 16px);
+            border-bottom: 1px solid #ebebeb;
+            @media(max-width: @screen-xs) {
+                border-bottom: none;
+                background: #fff;
+            }
+        }
+
+        .liveRow {
+            border-bottom: 1px solid #ebebeb;
+
+            @media(max-width: @screen-xs) {
+                background: #fff;
+                margin-bottom: 8px;
+            }
+            .details {
+                font-weight: 600;
+                flex-direction: column;
+                .created {
+                    color: @global-auth-text;
+                    @media(max-width: @screen-xs) {
+                        order: 1;
+                    }
+                }
+                .liveName {
+                    font-size: 16px;
+                    color: @global-purple;
+                }
+            }
+            .rightSide {
+                .price {
+                    vertical-align: bottom;
+                    margin-right: 50px;
+                    color: @global-purple;
+                    @media(max-width: @screen-xs) {
+                        margin-right: 0;
+                    }
+                    &.enroll {
+                        font-weight: 600;
+                        color: #bdc0d1;
+                    }
+                    .numericPrice {
+                        font-size: 20px;
+                        font-weight: bold;
+                    }
+                }
+            }
+            .action {
+                .btn {
+                    font-weight: 600;
+                }
+                .enterIcon {
+                    fill: #fff;
+                }
+            }
+        }
+        .showMore {
+            color: @global-purple;
+            font-weight: 600;
+            .showBtn {
+                color: @global-auth-text;
+                outline: none;
+            }
+            @media(max-width: @screen-xs) {
+                background: #fff;
+            }
+        }
+    }
+</style>

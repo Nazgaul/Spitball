@@ -26,7 +26,7 @@ export default {
    },
    async getStudyroomLiveSessions(id) {
       let { data } = await profileInstance.get(`${id}/studyRoom`)
-      return data.map(broadcast => new Profile.BroadCastSessions(broadcast))      
+      return data.map(broadcast => new Profile.BroadCastSessions(broadcast))
    },
    updateStudyroomLiveSessions(id, studyRoomId) {
       return profileInstance.post(`${id}/studyRoom`, { studyRoomId })     

@@ -13,7 +13,7 @@
         v-if="getProfile"
       />
       <calendarTab v-if="showProfileCalendar" class="mt-sm-12 mt-2 mx-auto calendarSection" :globalFunctions="globalFunctions" />
-      <profileLiveClasses :id="id" />
+      <profileLiveClasses :id="id" v-if="isTutor" />
       <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" />
       <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" />
       <profileItemsBox v-if="isMyProfile || showItems" class="mt-sm-12 mt-2" />
