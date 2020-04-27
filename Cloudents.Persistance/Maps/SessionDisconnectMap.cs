@@ -9,8 +9,8 @@ namespace Cloudents.Persistence.Maps
         {
             Id(x => x.Id).GeneratedBy.GuidComb();
             References(r => r.StudyRoomSession).Column("SessionId")
-                .Not.Nullable();
-            References(x => x.User).Not.Nullable();
+                .Not.Nullable().UniqueKey("k_StudyRoomSessionUser");
+            References(x => x.User).Not.Nullable().UniqueKey("k_StudyRoomSessionUser");
 
             Map(x => x.Duration).Nullable();
             Map(x => x.DisconnectCount);
