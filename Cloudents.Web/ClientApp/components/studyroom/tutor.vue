@@ -317,7 +317,6 @@ export default {
     ...mapGetters([
       "getRoomIsNeedPayment",
       "getDialogUserConsent",
-      "getDialogRoomSettings",
       "getZoom",
       "getPanX",
       "getPanY",
@@ -426,14 +425,10 @@ watch: {
     openSettingsDialog(){
       this.$ga.event("tutoringRoom", "openSettingsDialog");
       this.settingDialogState = true;
-      // this.$store.dispatch('updateDialogRoomSettings',true)
     },
     closeReviewDialog() {
       this.updateReviewDialog(false);
     },
-    // closeStudyRoomSettingsDialog(){
-    //   this.$store.dispatch('updateDialogRoomSettings',false)
-    // },
     closeEndDialog() {
       this.updateEndDialog(false);
     },
@@ -538,7 +533,6 @@ watch: {
     this.updateLockChat(false);
 
     storeService.unregisterModule(this.$store,'tutoringCanvas');
-    // storeService.unregisterModule(this.$store,'tutoringMain');
     storeService.unregisterModule(this.$store,'studyRoomTracks_store');
     storeService.unregisterModule(this.$store,'roomRecording_store');
     storeService.unregisterModule(this.$store,'codeEditor_store');
@@ -546,7 +540,6 @@ watch: {
   beforeCreate(){
     storeService.registerModule(this.$store,'studyRoomTracks_store',studyRoomTracks_store);
     storeService.registerModule(this.$store,'roomRecording_store',roomRecording_store);
-    // storeService.registerModule(this.$store,'tutoringMain',tutoringMain);
     storeService.lazyRegisterModule(this.$store,'tutoringMain',tutoringMain);
     storeService.registerModule(this.$store,'tutoringCanvas',tutoringCanvas);
     storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
@@ -584,13 +577,6 @@ watch: {
       //TODO - we need one place to invoke this.
       this.initMathjax()
     }
-
-    
-    // in case refresh was made in studyRoom page, make sure to init local media tracks. (to be able to share video/audio)
-
-    // this code will create an error object to know what is the cause of the problem in case there is one.
-    // settings page is running this code, but we should run this code in case refresh was made in the study room page.
-    // run this code only if refresh was made in the study room 
   }
 };
 </script>
