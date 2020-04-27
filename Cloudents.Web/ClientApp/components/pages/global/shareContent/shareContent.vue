@@ -1,6 +1,6 @@
 <template>
   <div class="shareContent"  :class="{'marketingBtn': large, 'shareContentDefault':defaultStyle}">
-    <span class="pr-1" v-if="!large">{{$t('shareContent_title')}} |</span>
+    <span class="pr-1" v-if="!large && !roomSetting">{{$t('shareContent_title')}} |</span>
 
     <div class="d-flex align-center btnWrapper">
       <v-btn
@@ -91,6 +91,10 @@ export default {
       default:false
     },
     large: {
+      required: false,
+      type: Boolean
+    },
+    roomSetting: {
       required: false,
       type: Boolean
     },

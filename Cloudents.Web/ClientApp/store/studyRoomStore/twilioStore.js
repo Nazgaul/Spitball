@@ -10,8 +10,12 @@ const state = {
    videoTracks: [],
    isFullScreen:false,
    isAudioParticipants:true,
+   settings_isVideo:false,
 }
 const mutations = {
+   settings_setIsVideo(state,val){
+      state.settings_isVideo = val
+   },
    [twilio_SETTERS.JWT_TOKEN]: (state,token) => state.jwtToken = token,
    [twilio_SETTERS.DATA_TRACK]: () => {},
    [twilio_SETTERS.CHANGE_VIDEO_DEVICE]: () => {},
@@ -53,7 +57,8 @@ const getters = {
    getIsShareScreen: (state) => state.isShareScreen,
    getVideoTrackList: (state) => state.videoTracks,
    getIsAudioParticipants: (state) => state.isAudioParticipants,
-   getIsFullScreen: (state) => state.isFullScreen
+   getIsFullScreen: (state) => state.isFullScreen,
+   settings_getIsVideo: state => state.settings_isVideo
 }
 const actions = {
    updateToggleAudioParticipants({commit,state}){
@@ -62,10 +67,7 @@ const actions = {
    updateToggleTutorFullScreen({commit},val){
       commit(twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN,val)
    },
-   updateJwtToken({commit,getters},token){
-      if(!getters.getRoomIsTutor){
-         commit('setComponent', 'simpleToaster_sessionStarted');
-      }
+   updateJwtToken({commit},token){
       commit(twilio_SETTERS.JWT_TOKEN,token)
    },
    sendDataTrack({commit},data){

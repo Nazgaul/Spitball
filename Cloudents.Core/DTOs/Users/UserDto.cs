@@ -135,30 +135,30 @@ namespace Cloudents.Core.DTOs.Users
         public bool IsPurchased { get; set; }
         public bool IsSold { get; set; }
         public bool HaveFollowers { get; set; }
-        private UserType? _userType;
-        public UserType? UserType 
-        {
-            get
-            {
-                var statesOfTutor = new[] {ItemState.Ok, ItemState.Pending};
-                if (_userType == Enum.UserType.Teacher)
-                {
-                    if (statesOfTutor.All(a => a != IsTutor.GetValueOrDefault(ItemState.Deleted)))
-                    {
-                        return Enum.UserType.UniversityStudent;
-                    }
-                }
-                //if (_userType == Enum.UserType.Teacher 
-                //    && statesOfTutor.Any()
-                //IsTutor.GetValueOrDefault(ItemState.Deleted) != ItemState.Ok)
-                //    return Enum.UserType.UniversityStudent;
-                return _userType;
-            }
-            set
-            {
-                _userType = value;
-            }
-        }
+        //private UserType? _userType;
+        //public UserType? UserType 
+        //{
+        //    get
+        //    {
+        //        var statesOfTutor = new[] {ItemState.Ok, ItemState.Pending};
+        //        if (_userType == Enum.UserType.Teacher)
+        //        {
+        //            if (statesOfTutor.All(a => a != IsTutor.GetValueOrDefault(ItemState.Deleted)))
+        //            {
+        //                return Enum.UserType.UniversityStudent;
+        //            }
+        //        }
+        //        //if (_userType == Enum.UserType.Teacher 
+        //        //    && statesOfTutor.Any()
+        //        //IsTutor.GetValueOrDefault(ItemState.Deleted) != ItemState.Ok)
+        //        //    return Enum.UserType.UniversityStudent;
+        //        return _userType;
+        //    }
+        //    set
+        //    {
+        //        _userType = value;
+        //    }
+        //}
         public string Country { get; set; }
 
         //public IEnumerable<CourseDto> Courses { get; set; }

@@ -69,7 +69,7 @@ export default {
             requiredRules: [
                 v => !!v || 'Name is required'
             ],
-            userTypes: [],
+           // userTypes: [],
             selectedType:''
         };
     },
@@ -109,8 +109,8 @@ export default {
             "setTokensDialogState",
             "setSuspendDialogState",
             "getUserData",
-            "getUserTypes",
-            "updateUserType",
+          //  "getUserTypes",
+           // "updateUserType",
             "setUserCurrentStatus",
             "verifyUserPhone",
             "getUserPurchasedDocuments",
@@ -313,26 +313,26 @@ export default {
                 this.$toaster.error(`Error: delete user payment`);
             });
         },
-        openEditUserTypeDialog(id){
-            let self = this;
-            if(self.userTypes.length == 0){
-            self.getUserTypes(id).then((data) =>{
-                self.dialogs.type = true;
-                self.userIdentifier = id;
-                self.userTypes = data;
-            });
-            } else { 
-                self.dialogs.type = true;
-            }
-        },
-        editUserType(){
-            this.updateUserType({userId: this.userIdentifier, userType: this.selectedType}).then(() =>{
-                this.dialogs.type = false;
-                this.$toaster.success(`Success: edit user type`)
-                }).catch(() => {
-                    this.$toaster.error(`Error: edit user type`);
-                });
-        }
+        // openEditUserTypeDialog(id){
+        //     let self = this;
+        //     if(self.userTypes.length == 0){
+        //     self.getUserTypes(id).then((data) =>{
+        //         self.dialogs.type = true;
+        //         self.userIdentifier = id;
+        //         self.userTypes = data;
+        //     });
+        //     } else { 
+        //         self.dialogs.type = true;
+        //     }
+        // },
+        // editUserType(){
+        //     this.updateUserType({userId: this.userIdentifier, userType: this.selectedType}).then(() =>{
+        //         this.dialogs.type = false;
+        //         this.$toaster.success(`Success: edit user type`)
+        //         }).catch(() => {
+        //             this.$toaster.error(`Error: edit user type`);
+        //         });
+        // }
     },
 
     created() {
