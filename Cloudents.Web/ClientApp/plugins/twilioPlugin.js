@@ -253,7 +253,7 @@ export default () => {
 
 
                Promise.allSettled([
-                  createLocalVideoTrack({name:VIDEO_TRACK_NAME}),
+                  createLocalVideoTrack({name:VIDEO_TRACK_NAME,deviceId: {exact: store.getters.getVideoDeviceId}}),
                   createLocalAudioTrack({name:AUDIO_TRACK_NAME})
                ]).then((tracks) => {
                   tracks.forEach(({value}) => {

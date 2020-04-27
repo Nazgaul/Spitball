@@ -69,8 +69,6 @@
 </template>
 
 <script>
-import { createLocalVideoTrack } from 'twilio-video';
-
 import insightService from '../../../../../services/insightService';
 import studyRoomAudioSettingService from '../studyRoomAudioVideoDialog/studyRoomAudioSetting/studyRoomAudioSettingService';
 
@@ -81,6 +79,7 @@ import microphoneImage from '../../../images/outline-mic-none-24-px-copy-2.svg'
 // import videoCameraImage from '../../../images/video-camera.svg';
 // import videoCameraImageIgnore from '../../../images/camera-ignore.svg';
 import cameraBlock from '../images/cameraBlock.svg'
+import { mapGetters } from 'vuex';
 
 export default {
     components: {
@@ -109,6 +108,17 @@ export default {
             singleMicrophoneId: global.localStorage.getItem('sb-audioTrackId')
         }
     },
+    watch: {
+        getVideoDeviceId(val){
+            if(val && val !== this.singleCameraId){
+                this.singleCameraId = val; 
+                this.getInputdevices()
+            }
+        }
+    },
+    computed: {
+        ...mapGetters(['getVideoDeviceId'])
+    },
     methods:{
         getInputdevices() {
             let self = this;
@@ -129,7 +139,9 @@ export default {
                 self.checkAudioDevice()
 
                 if(self.camerasList.length > 0){
-                    if(!self.singleCameraId){
+                    let isNotInList = self.camerasList.every(device=>device.deviceId !== self.singleCameraId)
+            
+                    if(isNotInList || !self.singleCameraId){
                         self.singleCameraId = self.camerasList[0].deviceId;
                     }
                     self.createVideoQualityPreview();
@@ -146,11 +158,19 @@ export default {
                 this.clearVideoTrack();
             }
             let self = this;
-            createLocalVideoTrack({width: 680, height: 380})
+            let isNotInList = self.camerasList.every(device=>device.deviceId !== self.singleCameraId)
+            
+            if(self.camerasList.length){
+                if(isNotInList || !self.singleCameraId){
+                    self.singleCameraId = self.camerasList[0].deviceId;
+                }
+            }
+
+            let videoParams = {audio:false,video :{ deviceId: this.singleCameraId}}
+            navigator.mediaDevices.getUserMedia(videoParams)
                 .then(track => {
                     self.setVideoTrack(track)
                 }).catch(err => {
-                    // error code 0: Blocked premission
                     let rateReviewDialogState = this.$store.getters.getReviewDialogState
                     if(err.code === 0 && !rateReviewDialogState) {
                         self.videoBlockPermission = true
@@ -165,10 +185,14 @@ export default {
             if(document.querySelector('#local-video-test-track video')){
                 return
             }
-
             this.videoEl = document.getElementById('local-video-test-track');
             this.localTrack = track;
-            this.videoEl.appendChild(this.localTrack.attach());
+            let video = document.createElement('video');
+            video.srcObject = track;
+            video.onloadedmetadata = function() {
+                video.play();
+            };
+            this.videoEl.appendChild(video);
             this.$store.dispatch('updateVideoTrack',this.singleCameraId)
             this.$store.commit('settings_setIsVideo',true)
 
@@ -179,10 +203,11 @@ export default {
         },
         clearVideoTrack() {
             this.$store.commit('settings_setIsVideo',false)
-            if (this.localTrack?.detach) {
-                this.localTrack.detach().forEach((detachedElement) => {
-                    detachedElement.remove();
-                });
+            if (!this.localTrack.active) {
+                this.videoEl.removeChild(document.querySelector('#local-video-test-track video'))
+                this.localTrack = null;
+                this.cameraOn = false
+                this.placeholder = false
             }
         },
         checkAudioDevice() {
@@ -254,7 +279,6 @@ export default {
     max-width: 680px;
     width: 100%;
     .srVideoSettingsVideoContainer {
-        width: 100%;
         position: relative;
         border-radius: 8px;
         background-color: #212123;
@@ -262,6 +286,11 @@ export default {
         @media (max-width: @screen-xs) {
             border-radius: 0;
         }
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        max-height: 380px;
+        max-width: 680px;
         .cameraTextWrap {
             font-weight: 600;
             padding: 0 10px;

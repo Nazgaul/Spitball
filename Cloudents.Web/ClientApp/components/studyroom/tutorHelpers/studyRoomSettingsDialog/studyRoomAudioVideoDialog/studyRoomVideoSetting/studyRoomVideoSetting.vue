@@ -53,7 +53,9 @@ export default {
                             }
                         })
                         if(self.camerasList.length > 0){
-                            if(!self.singleCameraId){
+                            let isNotInList = self.camerasList.every(device=>device.deviceId !== self.singleCameraId)
+                    
+                            if(isNotInList || !self.singleCameraId){
                                 self.singleCameraId = self.camerasList[0].deviceId;
                             }
                             self.createVideoQualityPreview();
@@ -66,28 +68,58 @@ export default {
                 }
             )
         },
-        createVideoQualityPreview() {
+        async createVideoQualityPreview() {
             if (this.localTrack) {
                 this.clearVideoTrack();
             }
             let self = this;
-            createLocalVideoTrack({width: 490, height: 368, deviceId: {exact: self.singleCameraId}})
+            let isNotInList = self.camerasList.every(device=>device.deviceId !== self.singleCameraId)
+    
+            // if what i have in LS === one of the ids in the list
+            // if yes: this is my singleId
+            // if not: take the first from the list
+            let isDeviceInList = self.camerasList.some(device=>{
+                if(device.deviceId === self.singleCameraId){
+                    return true;
+                }
+            })
+            if(isDeviceInList){
+                debugger
+                //
+            }else{
+                debugger
+                self.singleCameraId = self.camerasList[0].deviceId;
+            }
+
+            // if(isNotInList || !self.singleCameraId){
+            //     self.singleCameraId = self.camerasList[0].deviceId;
+            // }
+            let videoParams = {audio:false,video :{ deviceId: self.singleCameraId}}
+            await navigator.mediaDevices.getUserMedia(videoParams)
                 .then(track => {
                     self.videoEl = document.getElementById('local-video-test-track1');
                     self.localTrack = track;
-                    self.videoEl.appendChild(self.localTrack.attach());
+                    let video = document.createElement('video');
+                    video.srcObject = track;
+                    video.onloadedmetadata = function() {
+                        video.play();
+                    };
+                    self.videoEl.appendChild(video);
                     self.$store.dispatch('updateVideoTrack',self.singleCameraId)
-                }, (err)=>{
+                }).catch(err => {
+                    debugger
                     self.permissionDenied = true
                     insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoValidation_createVideoQualityPreview', err, null);
-                    console.error(err);
-                });
+                })
         },
         clearVideoTrack() {
-            if (this.localTrack?.detach) {
-                this.localTrack.detach().forEach((detachedElement) => {
-                    detachedElement.remove();
-                });
+            if (this.localTrack) {
+                this.localTrack.getTracks()[0].stop()
+                let video = document.querySelector('#local-video-test-track1 video');
+                if(video){
+                    this.videoEl.removeChild(video)
+                }
+                this.localTrack = null;
             }
         }
     },

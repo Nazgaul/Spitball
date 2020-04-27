@@ -11,6 +11,7 @@ const state = {
    isFullScreen:false,
    isAudioParticipants:true,
    settings_isVideo:false,
+   videoDeviceId:'',
 }
 const mutations = {
    settings_setIsVideo(state,val){
@@ -48,6 +49,7 @@ const mutations = {
    },
    [twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN]:(state,val)=> state.isFullScreen = val,
    [twilio_SETTERS.TOGGLE_AUDIO_PARTICIPANTS]:(state,val)=> state.isAudioParticipants = val,
+   [twilio_SETTERS.VIDEO_DEVICE_ID]:(state,id)=> state.videoDeviceId = id,
 }
 
 const getters = {
@@ -58,7 +60,8 @@ const getters = {
    getVideoTrackList: (state) => state.videoTracks,
    getIsAudioParticipants: (state) => state.isAudioParticipants,
    getIsFullScreen: (state) => state.isFullScreen,
-   settings_getIsVideo: state => state.settings_isVideo
+   settings_getIsVideo: state => state.settings_isVideo,
+   getVideoDeviceId: state => state.videoDeviceId
 }
 const actions = {
    updateToggleAudioParticipants({commit,state}){
@@ -76,6 +79,7 @@ const actions = {
    updateVideoTrack({commit},trackId){
       global.localStorage.setItem('sb-videoTrackId',trackId);
       commit(twilio_SETTERS.CHANGE_VIDEO_DEVICE,trackId);
+      commit(twilio_SETTERS.VIDEO_DEVICE_ID,trackId)
    },
    updateAudioTrack({commit},trackId){
       global.localStorage.setItem('sb-audioTrackId',trackId);
