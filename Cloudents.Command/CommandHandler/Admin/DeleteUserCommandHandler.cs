@@ -11,11 +11,14 @@ namespace Cloudents.Command.CommandHandler.Admin
     {
         private readonly IRegularUserRepository _userRepository;
         private readonly IRepository<AdminUser> _adminUserRepository;
+        private readonly IRepository<ChatRoom> _chatRoomRepository;
 
-        public DeleteUserCommandHandler(IRegularUserRepository userRepository, IRepository<AdminUser> adminUserRepository)
+
+        public DeleteUserCommandHandler(IRegularUserRepository userRepository, IRepository<AdminUser> adminUserRepository, IRepository<ChatRoom> chatRoomRepository)
         {
             _userRepository = userRepository;
             _adminUserRepository = adminUserRepository;
+            _chatRoomRepository = chatRoomRepository;
         }
 
         public async Task ExecuteAsync(DeleteUserCommand message, CancellationToken token)
@@ -25,6 +28,14 @@ namespace Cloudents.Command.CommandHandler.Admin
             if (adminUser.SbCountry != null && user.SbCountry != adminUser.SbCountry)
             {
                 throw new ArgumentException();
+            }
+
+            foreach (var chatUser in user.ChatUsers)
+            {
+                if (chatUser.ChatRoom.StudyRoom == null)
+                {
+                    await _chatRoomRepository.DeleteAsync(chatUser.ChatRoom, token);
+                }
             }
 
             await _userRepository.DeleteAsync(user, token);
