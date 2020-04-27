@@ -73,7 +73,6 @@ namespace Cloudents.FunctionsV2
                                 Subjects = subjects.OrderBy(o => o).Take(3),
                                 ReviewsCount = update.ReviewsCount,
                                 Rate = (float)update.Rate,
-                                University = update.University,
                                 Lessons = Math.Max(update.LessonsCount, update.ReviewsCount),
                                 Bio = update.Bio,
                                 Price = update.Price,
