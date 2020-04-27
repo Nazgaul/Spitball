@@ -49,7 +49,6 @@ export const User = {
                 rating:  objInit.rate ? Number(objInit.rate.toFixed(2)): null,
                 reviews: objInit.reviewsCount || 0,
                 template: 'tutor-result-card',
-                university: objInit.university || '',
                 classes: objInit.classes || 0,
                 isTutor: true,
             }
