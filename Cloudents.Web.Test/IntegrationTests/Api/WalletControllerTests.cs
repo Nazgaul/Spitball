@@ -23,7 +23,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("api/wallet/balance")]
-        [InlineData("api/wallet/transaction")]
+        //[InlineData("api/wallet/transaction")]
         [InlineData("api/wallet/GetPaymentLink")]
         public async Task GetAsync_Wallet_OkAsync(string uri)
         {
@@ -39,7 +39,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("api/wallet/balance")]
-        [InlineData("api/wallet/transaction")]
+        //[InlineData("api/wallet/transaction")]
         [InlineData("api/wallet/GetPaymentLink")]
         public async Task GetAsync_Wallet_UnauthorizedAsync(string uri)
         {
@@ -74,12 +74,14 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             }
         }
 
-        [Fact]
+        [Fact(Skip ="Obselete")]
         public async Task GetAsync_TransactionAsync()
         {
             await _client.LogInAsync();
 
             var response = await _client.GetAsync("api/wallet/transaction?culture=en-US");
+
+            response.EnsureSuccessStatusCode();
 
             var str = await response.Content.ReadAsStringAsync();
             str.IsValidJson().Should().BeTrue();
