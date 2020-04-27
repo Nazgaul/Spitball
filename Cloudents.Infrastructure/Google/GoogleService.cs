@@ -309,6 +309,7 @@ namespace Cloudents.Infrastructure.Google
                 
             }, PrimaryGoogleCalendarId);
             event2.SendUpdates = EventsResource.InsertRequest.SendUpdatesEnum.All;
+            event2.ConferenceDataVersion = 1;
             await event2.ExecuteAsync(cancellationToken);
         }
 
