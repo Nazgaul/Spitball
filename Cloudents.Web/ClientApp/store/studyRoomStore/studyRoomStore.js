@@ -1,5 +1,7 @@
 import studyRoomService from '../../services/studyRoomService.js';
 import {studyRoom_SETTERS} from '../constants/studyRoomConstants.js';
+import {twilio_SETTERS} from '../constants/twilioConstants.js';
+
 import studyRoomRecordingService from '../../components/studyroom/studyRoomRecordingService.js'
 
 function _checkPayment(context) {
@@ -23,8 +25,10 @@ const state = {
    roomIsActive: false,
    roomIsNeedPayment: false,
    roomTutor: {},
+   roomIsJoined: false,
    // TODO: change it to roomId after u clean all
    studyRoomId: null,
+   roomParticipantCount: 0,
 
    dialogRoomSettings: false,
    dialogEndSession: false,
@@ -54,13 +58,17 @@ const mutations = {
    },
    [studyRoom_SETTERS.DIALOG_ROOM_SETTINGS]: (state, val) => state.dialogRoomSettings = val,
    [studyRoom_SETTERS.DIALOG_END_SESSION]: (state, val) => state.dialogEndSession = val,
-   [studyRoom_SETTERS.ROOM_ACTIVE]: (state, val) => state.roomIsActive = val,
+   [studyRoom_SETTERS.ROOM_ACTIVE]: (state, isConnected) => {
+      state.roomIsActive = isConnected
+      if(!isConnected){
+         state.roomParticipantCount = 0;
+      }
+   },
    [studyRoom_SETTERS.ROOM_PAYMENT]: (state, val) => state.roomIsNeedPayment = val,
    [studyRoom_SETTERS.ROOM_RESET]: (state) => {
       state.activeNavEditor = 'white-board';
       state.roomOnlineDocument = null;
       state.roomIsTutor = false;
-      state.roomIsActive = false;
       state.roomIsNeedPayment = false;
       state.roomTutor = {};
       state.studyRoomId = null;
@@ -72,6 +80,8 @@ const mutations = {
    },
    [studyRoom_SETTERS.DIALOG_USER_CONSENT]: (state, val) => state.dialogUserConsent = val,
    [studyRoom_SETTERS.DIALOG_SNAPSHOT]: (state, val) => state.dialogSnapshot = val,
+   [studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT]: (state, val) => state.roomParticipantCount = val,
+   [studyRoom_SETTERS.ROOM_JOINED]: (state, val) => state.roomIsJoined = val,
 }
 const getters = {
    getActiveNavEditor: state => state.activeNavEditor,
@@ -83,6 +93,7 @@ const getters = {
    getRoomIsActive: state => state.roomIsActive,
    getRoomTutor: state => state.roomTutor,
    getRoomIdSession: state => state.studyRoomId,
+   getRoomParticipantCount: state => state.roomIsActive? state.roomParticipantCount : 0,
    getRoomConversationId: state => state.roomConversationId,
    getRoomIsNeedPayment: state => {
       if (!state.studyRoomId) {
@@ -95,13 +106,12 @@ const getters = {
    },
    getDialogRoomSettings: state => state.dialogRoomSettings,
    getDialogRoomEnd: state => state.roomIsActive && state.roomIsTutor && state.dialogEndSession,
-   getDialogTutorStart: state => !state.roomIsActive && state.roomIsTutor,
    getDialogUserConsent: state => state.dialogUserConsent,
    getDialogSnapshot: state => state.dialogSnapshot,
+   getRoomIsJoined:state => state.roomIsJoined,
 }
 const actions = {
    updateFullScreen(context,elId){
-
       let className = 'fullscreenMode';
       if(elId){
          let interval = setInterval(() => {
@@ -134,8 +144,9 @@ const actions = {
       commit(studyRoom_SETTERS.DIALOG_ROOM_SETTINGS, val)
    },
    updateEnterRoom({ dispatch }, roomId) { // when tutor press start session
-      studyRoomService.enterRoom(roomId).then((jwtToken) => {
+      return studyRoomService.enterRoom(roomId).then((jwtToken) => {
          dispatch('updateJwtToken',jwtToken);
+         return Promise.resolve()
       })
    },
    updateRoomIsNeedPayment({ commit,getters ,dispatch}, isNeedPayment) {
@@ -150,14 +161,6 @@ const actions = {
       } else {
          return studyRoomService.getRoomInformation(roomId).then((roomProps) => {
             commit(studyRoom_SETTERS.ROOM_PROPS, roomProps);
-            if(getters.getRoomIsBroadcast && !getters.getRoomIsTutor){
-               let countDownDate = new Date(getters.getRoomDate).getTime();
-			      let now = new Date();
-               let distance = countDownDate - now;
-               if (distance > 0) {
-                  commit('setComponent', 'simpleToaster_countDown');
-               }
-            }
             if (roomProps.jwt){
                dispatch('updateJwtToken',roomProps.jwt);
             }
@@ -200,7 +203,22 @@ const actions = {
          commit('setStudyRoomItems',myStudyRooms)
          return
       })
-   }
+   },
+   updateRoomDisconnected({commit,getters,dispatch}){
+      commit(twilio_SETTERS.VIDEO_AVAILABLE,false);
+      commit(twilio_SETTERS.AUDIO_AVAILABLE,false)
+      if(!getters.getRoomIsTutor){
+         dispatch('updateReviewDialog',true)
+      }
+   },
+   updateRoomIsJoined({ commit,getters ,dispatch}, val) {
+      commit(studyRoom_SETTERS.ROOM_JOINED,val)
+      if(val){
+         dispatch('updateJwtToken',getters.getJwtToken);
+      }else{
+         dispatch('updateJwtToken',null);
+      }
+   },
 }
 export default {
    state,

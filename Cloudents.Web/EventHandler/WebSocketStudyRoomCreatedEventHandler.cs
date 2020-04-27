@@ -30,7 +30,11 @@ namespace Cloudents.Web.EventHandler
                     userId = studyRoom.Tutor.Id,
                     conversationId = studyRoom.Identifier
                 });
-            await _hubContext.Clients.Users(studyRoom.Users.Select(s => s.User.Id.ToString()).ToList()).SendAsync(SbHub.MethodName, message, token);
+            var users = studyRoom.Users.Select(s => s.User.Id.ToString()).ToList();
+            if (users.Count > 0)
+            {
+                await _hubContext.Clients.Users(users).SendAsync(SbHub.MethodName, message, token);
+            }
         }
     }
 }

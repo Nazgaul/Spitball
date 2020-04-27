@@ -11,7 +11,7 @@ namespace Cloudents.Core.Entities
     public class Tutor : Entity<long>
     {
         public const int MaximumPrice = 214748;
-        public const int MinimumPrice = 35;
+        public const int MinimumPrice = 10;
         public Tutor(string bio, User user, decimal? price) : this()
         {
             User = user ?? throw new ArgumentNullException(nameof(user));
@@ -82,7 +82,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void Delete()
         {
-            User.SetUserType(UserType.UniversityStudent);
+            //User.SetUserType(UserType.UniversityStudent);
             AddEvent(new TutorDeletedEvent(Id));
         }
 

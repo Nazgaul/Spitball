@@ -4,30 +4,28 @@
 
 <script>
 
+const auth = () => import('../../global/dialogInjection/globalDialogs/auth/auth.vue')
+
 const simpleToaster = () => import('./simpleToaster.vue');
-const simpleToasterCountDown = () => import('./simpleToasterCountDown.vue');
 const simpleErrorToaster = () => import('./simpleErrorToaster.vue')
 const pendingPayment = () => import('./pendingPayment.vue')
 const errorLinkToaster = () => import('./errorLinkToaster.vue')
 
-const auth = () => import('../../global/dialogInjection/globalDialogs/auth/auth.vue')
+const studRoomSettings = () => import('../../../studyroom/tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue')
 
 export default {
     components: {
+        auth,
         simpleToaster,
         simpleErrorToaster,
         pendingPayment,
         errorLinkToaster,
-        auth,
-        simpleToasterCountDown
+        studRoomSettings,
     },
     data() {
         return {
             component: '',
             componentObj: {
-                simpleToaster_countDown:{
-                    name: 'simpleToasterCountDown'
-                },
                 linkToaster: {
                     name: "pendingPayment",
                 },
@@ -41,6 +39,12 @@ export default {
                     name:'simpleErrorToaster',
                     params: {
                         text: this.$t("studyRoom_not_screen"),
+                    }
+                },
+                errorToaster_sessionEnded:{
+                    name:'simpleErrorToaster',
+                    params: {
+                        text: this.$t("studyRoom_already_ended"),
                     }
                 },
                 errorToaster_permissionDenied:{
@@ -61,14 +65,6 @@ export default {
                     params: {
                         text: this.$t('studyRoom_toaster_left_the_room'),
                     }
-                },
-                
-                simpleToaster_sessionStarted:{
-                    name:'simpleToaster',
-                    params: {
-                        text: this.$t('studyRoom_toaster_session_start'),
-                        timeout: 4000,
-                    }                
                 },
                 login: {
                     name: 'auth',
@@ -95,6 +91,9 @@ export default {
                         component: 'registerType'
                     }
                 },
+                studyRoomSettings: {
+                    name: 'studRoomSettings',
+                }
             }
         }
     },
