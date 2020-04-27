@@ -35,7 +35,7 @@ namespace Cloudents.Core
 
         public string BuildWalletEndPoint(string token)
         {
-            var builder = new UriBuilder(_webSiteEndPoint) { Path = "wallet" };
+            var builder = new UriBuilder(_webSiteEndPoint) { Path = "my-sales" };
             builder.AddQuery(new { token });
             return builder.ToString();
         }

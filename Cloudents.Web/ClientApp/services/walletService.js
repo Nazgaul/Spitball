@@ -22,9 +22,6 @@ export default {
     async buyTokens(points) {
         return await Api.post.buyTokens(points)
     },
-    async getTransactions() {
-        return await Api.get.taransactions()
-    },
     async paypalBuyTokens(id){ 
         return await walletInstance.post('PayPal/buyTokens',{id})
     },
