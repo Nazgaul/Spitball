@@ -282,4 +282,10 @@
   <data name="my_courses_student" xml:space="preserve">
     <value>My courses :</value>
   </data>
+  <data name="my_courses" xml:space="preserve">
+    <value>My courses:</value>
+  </data>
+  <data name="my_subjects" xml:space="preserve">
+    <value>My subjects:</value>
+  </data>
 </root>
