@@ -53,7 +53,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<FlaggedAnswerDto>> FlagAsync(CancellationToken token)
         {
 
-            var query = new FlaggedAnswerQuery(User.GetCountryClaim());
+            var query = new FlaggedAnswerQuery(User.GetSbCountryClaim());
             return await _queryBus.QueryAsync(query, token);
         }
 
