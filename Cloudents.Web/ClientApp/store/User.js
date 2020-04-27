@@ -23,6 +23,7 @@ const actions = {
         commit(USER.ACCEPTED_COOKIE);
     },
     signalR_TutorEnterStudyRoom({ dispatch, rootState }, notificationObj){
+        // TODO: clean reference to roomSetting (old studyRoomSetting)
         if(rootState.route.name !== 'tutoring' && rootState.route.name !== 'roomSettings'){
             let id = notificationObj.studyRoomId;
             let userName = notificationObj.userName;

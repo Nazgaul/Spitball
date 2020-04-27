@@ -27,9 +27,9 @@ const getters = {
 //     : state => state.currentRoomState,
 //     getStudyRoomData: state => state.studyRoomData,
 //     getJwtToken: state => state.jwtToken,
-//     getSessionStartClickedOnce: state => state.sessionStartClickedOnce,
-//     getSessionTimeStart: state => state.sessionTimeStart,
-//     getSessionTimeEnd: state => state.sessionTimeEnd,
+//     : state => state.sessionStartClickedOnce,
+//     : state => state.sessionTimeStart,
+//     : state => state.sessionTimeEnd,
 };
 
 const mutations = {

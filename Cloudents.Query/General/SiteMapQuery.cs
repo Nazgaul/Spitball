@@ -5,7 +5,6 @@ using NHibernate;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Query.Stuff;
 
 namespace Cloudents.Query.General
 {
@@ -31,37 +30,37 @@ namespace Cloudents.Query.General
             {
 
                 
-                University? universityAlias = null;
-                BaseUser? userAlias = null;
+              //  University? universityAlias = null;
+                BaseUser? userAlias = null!;
 
                 var documentCountFutureQuery = _session.QueryOver<Document>()
-                    .Left.JoinAlias(x => x.University, () => universityAlias)
+                    //.Left.JoinAlias(x => x.University, () => universityAlias)
                     .JoinAlias(x => x.User, () => userAlias)
                     .Where(w => w.Status.State == ItemState.Ok);
                 if (query.IsFrymo)
                 {
-                    documentCountFutureQuery.Where(() => universityAlias.Country.IfNull(userAlias.Country) == "IN");
+                    documentCountFutureQuery.Where(() => userAlias.Country == "IN");
                 }
                 else
                 {
-                    documentCountFutureQuery.Where(() => universityAlias.Country.IfNull(userAlias.Country) != "IN");
+                    documentCountFutureQuery.Where(() => userAlias.Country != "IN");
 
                 }
                 var documentCountFuture = documentCountFutureQuery.ToRowCountQuery().UnderlyingCriteria.SetComment(nameof(SiteMapQuery)).FutureValue<int>();
 
 
                 var questionCountFutureQuery = _session.QueryOver<Question>()
-                    .Left.JoinAlias(x => x.University, () => universityAlias)
+                    //.Left.JoinAlias(x => x.University, () => universityAlias)
                     .JoinAlias(x => x.User, () => userAlias)
                     .Where(w => w.Status.State == ItemState.Ok);
 
                 if (query.IsFrymo)
                 {
-                    questionCountFutureQuery.Where(() => universityAlias.Country.IfNull(userAlias.Country) == "IN");
+                    questionCountFutureQuery.Where(() => userAlias.Country == "IN");
                 }
                 else
                 {
-                    questionCountFutureQuery.Where(() => universityAlias.Country.IfNull(userAlias.Country) != "IN");
+                    questionCountFutureQuery.Where(() => userAlias.Country != "IN");
 
                 }
                 
@@ -80,8 +79,8 @@ namespace Cloudents.Query.General
                 }
                 var tutorCountFuture = tutorCountFutureQuery.ToRowCountQuery().FutureValue<int>();
 
-                UserCourse userCourseAlias = null;
-                ReadTutor tutorAlias = null;
+                UserCourse userCourseAlias = null!;
+                ReadTutor tutorAlias = null!;
 
                 var tutorCoursesFutureQuery = _session.QueryOver(() => tutorAlias)
                     .JoinEntityAlias(() => userCourseAlias, () => tutorAlias.Id == userCourseAlias.User.Id)

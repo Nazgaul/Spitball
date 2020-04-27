@@ -15,7 +15,7 @@
         <template v-if="$store.getters.getRoomIsTutor">
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-              <v-btn v-on="on" class="fullscreen-btn" icon @click="openFullScreen" color="white">
+              <v-btn v-on="on" id="openFullTutor" class="fullscreen-btn" icon @click="openFullScreen" color="white">
                 <v-icon>sbf-fullscreen</v-icon>
               </v-btn>
             </template>
@@ -30,7 +30,7 @@
           <button
             sel="audio_enabling"
             v-on="on"
-            :class="['mic-image-btn', localAudioTrack && activeRoom ? 'dynamicBackground-dark': 'dynamicBackground-light', !isAudioActive ? 'micIgnore':'']"
+            :class="['mic-image-btn', isAudioActive && isRoomActive ? 'dynamicBackground-dark': 'dynamicBackground-light', !isAudioActive ? 'micIgnore':'']"
             @click="toggleAudio"
           >
             <microphoneImage v-if="isAudioActive" class="mic-image-svg" />
@@ -48,7 +48,7 @@
             v-on="on"
             :class="[
                         'video-image-btn', 
-                        localVideoTrack && activeRoom ? 'dynamicBackground-dark': 'dynamicBackground-light', 
+                        isVideoActive && isRoomActive ? 'dynamicBackground-dark': 'dynamicBackground-light', 
                         !isVideoActive ? 'camIgnore':''
                   ]"
             @click="toggleVideo"
@@ -93,14 +93,20 @@ export default {
     isAudioActive() {
       return this.$store.getters.getIsAudioActive;
     },
-    localAudioTrack() {
-      return false;
+    isRoomActive(){
+      return this.$store.getters.getRoomIsActive;
     },
-    actvieRoom() {
-      return false;
-    },
-    localVideoTrack() {
-      return false;
+  },
+  watch: {
+    isRoomActive:{
+      deep:true,
+      handler(newVal,oldVal){
+        if(oldVal && !newVal){
+          let vidEl = document.querySelector('#localTrack video')
+          if(vidEl)
+          vidEl.remove()
+        }
+      }
     }
   },
   methods: {
@@ -112,28 +118,31 @@ export default {
       this.$ga.event("tutoringRoom", "toggleVideo");
       this.$store.dispatch("updateVideoToggle");
     },
-    exitFull() {
-      if (!document.fullscreen) {
-        this.$store.dispatch("updateToggleTutorFullScreen", false);
+    exitFull(ev) {
+      if (ev.keyCode === 27){
+        let video = document.querySelector(`#localTrack video`);
+        video.classList.remove('fullscreenMode')
+        this.$store.dispatch('updateToggleTutorFullScreen',false);
+        document.body.removeEventListener('keyup',this.exitFull)
       }
     },
     openFullScreen() {
-      var video = document.querySelector(`#localTrack video`);
-      if (!video) return;
-
-      if (video.requestFullscreen) {
-        video.requestFullscreen();
-        video.addEventListener("fullscreenchange", this.exitFull, false);
-        this.$store.dispatch("updateToggleTutorFullScreen", true);
-        return;
+      let video = document.querySelector(`#localTrack video`);
+      if(video){
+        video.classList.add('fullscreenMode');
+        this.$store.dispatch('updateToggleTutorFullScreen',true);
+        document.body.addEventListener('keyup',this.exitFull)
       }
     }
-  }
+  },
+  beforeDestroy() {
+    document.body.removeEventListener('keyup',this.exitFull)
+  },
 };
 </script>
 
 <style lang="less">
-
+@import "../../../../styles/mixin.less";
 .localVideoStream {
   position: relative;
   video {
@@ -202,8 +211,10 @@ export default {
     }
     .mic-image-svg {
       position: absolute;
+      height: 16px;
+      width: 16px;
       top: 8px;
-      left: 9px;
+      left: 7px;
     }
     .mic-ignore {
       position: absolute;
@@ -227,8 +238,10 @@ export default {
     }
     .video-image-svg {
       position: absolute;
-      top: 4px;
-      left: 4px;
+      height: 20px;
+      width: 20px;
+      top: 6px;
+      left: 6px;
       fill: white;
     }
     .cam-ignore {
@@ -240,6 +253,25 @@ export default {
     }
   }
   #localTrack {
+          .fullscreenMode{
+         position: fixed;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         width: 100vw;
+         //object-fit: fill;
+         height: 100vh;
+         z-index: 20;
+         background: #000;
+         @media (max-width: @screen-sm) and (orientation: portrait) {
+    top: 0;
+    left: 0;
+    height: 50vh;
+    bottom: 50%;
+    right: 0;
+  }
+      }
     video {
       width: 100%;
       background-repeat: no-repeat;
