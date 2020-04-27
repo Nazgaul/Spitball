@@ -14,7 +14,6 @@
                 </span>
                         <span class="name">{{user.name}}</span>
                         <p class="last-msg" v-if="text">{{text}}</p>
-                        <p class="university" v-if="user.universityName">{{user.universityName}}</p>
                     </div>
                 </slot>
             </div>
