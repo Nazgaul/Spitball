@@ -4,7 +4,6 @@ using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core;
 using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Storage;
@@ -51,7 +50,6 @@ namespace Cloudents.Admin2.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPost("sendTokens")]
-        [Authorize]
         public async Task<IActionResult> Post(SendTokenRequest model, CancellationToken token)
         {
             var command = new DistributeTokensCommand(model.UserId, model.Tokens);
@@ -61,7 +59,6 @@ namespace Cloudents.Admin2.Api
 
 
         [HttpPost("cashOut/approve")]
-        [Authorize]
         public async Task<IActionResult> ApprovePost(ApproveCashOutRequest model, CancellationToken token)
         {
             var command = new ApproveCashOutCommand(model.TransactionId);
@@ -70,7 +67,6 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpPost("cashOut/decline")]
-        [Authorize]
         public async Task<IActionResult> DeclinePost(DeclineCashOutRequest model, CancellationToken token)
         {
             var command = new DeclineCashOutCommand(model.TransactionId, model.Reason);
@@ -84,7 +80,6 @@ namespace Cloudents.Admin2.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("cashOut")]
-        [Authorize]
         public async Task<IEnumerable<CashOutDto>> Get(CancellationToken token)
         {
             var query = new CashOutQuery(User.GetCountryClaim());
@@ -96,16 +91,13 @@ namespace Cloudents.Admin2.Api
         /// Suspend a user
         /// </summary>
         /// <param name="model"></param>
-        /// <param name="commandBus"></param>
         /// <param name="token"></param>
         /// <response code="200">The User email</response>
         /// <returns>the user email to show on the ui</returns>
         [HttpPost("suspend")]
-        [Authorize]
         [ProducesResponseType(200)]
 
         public async Task<SuspendUserResponse> SuspendUserAsync(SuspendUserRequest model,
-            [FromServices] ICommandBus commandBus,
             CancellationToken token)
         {
             foreach (var id in model.Ids)
@@ -131,7 +123,7 @@ namespace Cloudents.Admin2.Api
                 }
 
                 var command = new SuspendUserCommand(id, lockout, model.Reason);
-                await commandBus.DispatchAsync(command, token);
+                await _commandBus.DispatchAsync(command, token);
             }
             return new SuspendUserResponse();
         }
@@ -158,7 +150,6 @@ namespace Cloudents.Admin2.Api
         /// <returns>the user email to show on the ui</returns>
         [HttpPost("unSuspend")]
         [ProducesResponseType(200)]
-        [Authorize]
         public async Task<UnSuspendUserResponse> UnSuspendUserAsync(UnSuspendUserRequest model,
             CancellationToken token)
         {
@@ -173,7 +164,6 @@ namespace Cloudents.Admin2.Api
 
         [HttpPost("country")]
         [ProducesResponseType(200)]
-        [Authorize]
         public async Task ChangeCountryAsync(ChangeCountryRequest model,
             CancellationToken token)
         {
@@ -182,12 +172,19 @@ namespace Cloudents.Admin2.Api
             await _commandBus.DispatchAsync(command, token);
         }
 
+        [HttpDelete("{id}")]
+        public async Task DeleteUserAsync([FromRoute]long id, CancellationToken token)
+        {
+            var userId = User.GetIdClaim();
+            var command = new DeleteUserCommand(id, userId);
+            await _commandBus.DispatchAsync(command, token);
+        }
+        
 
 
         [HttpPost("verify")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        [Authorize]
         public async Task<IActionResult> VerifySmsAsync(PhoneConfirmRequest model,
             CancellationToken token)
         {
@@ -271,7 +268,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet("purchased")]
         public async Task<IEnumerable<UserPurchasedDocsDto>> GetUserPurchasedDocsDetails(long id, int page, CancellationToken token)
         {
-            var country = User.GetCountryClaim();
+            var country = User.GetSbCountryClaim();
             var query = new UserPurchasedDocsQuery(id, page, country);
             return await _queryBus.QueryAsync(query, token);
         }

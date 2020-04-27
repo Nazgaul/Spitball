@@ -20,6 +20,7 @@ import uSuspend from './components/user/suspend/suspendUser.vue';
 import activeUsers from './components/user/activeUsers/activeUsers.vue';
 import payments from './components/user/payments/PaymentUser.vue';
 import changeCountry from './components/user/changeCountry/changeCountry.vue';
+import deleteUser from './components/user/delete/delete.vue';
 
 import document from './components/document/document.vue';
 import approveDelete from './components/document/documentComponents/approveDelete/approveDelete.vue';
@@ -247,6 +248,10 @@ export const routes = [
           {
             path: 'change-country',
             component: changeCountry
+          },
+          {
+            path: 'delete',
+            component: deleteUser
           },
           {
             path: '*',

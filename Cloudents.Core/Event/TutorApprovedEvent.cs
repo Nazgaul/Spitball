@@ -1,14 +1,25 @@
-﻿using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Event
 {
     public class TutorApprovedEvent : IEvent
     {
-        public TutorApprovedEvent(long userId)
+        public TutorApprovedEvent(long tutorId)
         {
-            UserId = userId;
+            TutorId = tutorId;
         }
 
-        public long UserId { get; private set; }
+        public long TutorId { get; private set; }
+    }
+
+    public class TutorCreatedEvent : IEvent
+    {
+        public TutorCreatedEvent(Tutor tutor)
+        {
+            Tutor = tutor;
+        }
+
+        public Tutor Tutor { get; private set; }
     }
 }

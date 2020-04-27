@@ -1,7 +1,7 @@
 let audioContext, input, analyser, scriptProcessor;
 
 const createAudioContext = function (elId, myPreferredCameraDeviceId) {
-    stopAudioContext();
+    // stopAudioContext();
     navigator.mediaDevices.getUserMedia({audio: myPreferredCameraDeviceId ? {deviceId: myPreferredCameraDeviceId} : true})
         .then(stream => {
         const processInput = () => {
@@ -10,7 +10,8 @@ const createAudioContext = function (elId, myPreferredCameraDeviceId) {
             let values = 0;
 
             let length = array.length;
-            for (let i = 0; i < length; i++) {
+            let i;
+            for (i = 0; i < length; i++) {
                 values += (array[i]);
             }
 
@@ -18,9 +19,10 @@ const createAudioContext = function (elId, myPreferredCameraDeviceId) {
 
             let micVolume = document.getElementById(`${elId}`);
             if (!micVolume) return;
-            micVolume.style.backgroundColor = 'rgba(66, 224, 113, 0.8)';
+            micVolume.style.backgroundColor = '#16eab1';
             micVolume.style.height = '6px';
-            micVolume.style.maxWidth = '150px';
+            micVolume.style.borderRadius = '2px';
+            micVolume.style.maxWidth = '40px';
             micVolume.style.width = `${Math.round(average)}px`;
 
         };

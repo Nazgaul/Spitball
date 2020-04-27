@@ -18,9 +18,13 @@ namespace Cloudents.Persistence.Maps
             Map(e => e.AccessFailedCount);
             Map(e => e.LockoutEnabled);
             Map(e => e.LockoutReason);
-            HasMany(x => x.Answers)/*.Access.CamelCaseField(Prefix.Underscore)*/.Inverse()
+            HasMany(x => x.Answers).Inverse()
                 .Cascade.AllDeleteOrphan();
             HasMany(x => x.UserLogins)
+                .Inverse()
+                .Cascade.AllDeleteOrphan();
+
+            HasMany(x => x.UserLocations)
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
 
@@ -59,6 +63,10 @@ namespace Cloudents.Persistence.Maps
                 .Cascade.AllDeleteOrphan()
                 .KeyColumn("UserId").Inverse().AsSet();
 
+            HasMany(x => x.ChatUsers).Access.CamelCaseField(Prefix.Underscore)
+                .Cascade.AllDeleteOrphan()
+                .KeyColumn("UserId").Inverse();
+
             HasOne(x => x.Tutor).Cascade.None();
             HasMany(x => x.UserCoupon).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan()
@@ -81,6 +89,13 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.Followers).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan()
                 .KeyColumn("UserId").Inverse().AsSet();
+
+
+            HasMany(x => x.Followed).KeyColumn("FollowerId")
+                .Cascade.AllDeleteOrphan().AsSet();
+
+            HasMany(x => x.Leads)
+                .Cascade.AllDeleteOrphan();
         }
     }
 

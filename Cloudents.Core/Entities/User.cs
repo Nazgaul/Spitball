@@ -18,7 +18,6 @@ namespace Cloudents.Core.Entities
             ChangeName(firstName, lastName);
             FirstName = firstName;
             LastName = lastName;
-            //TwoFactorEnabled = true;
             Language = language;
             Created = DateTime.UtcNow;
             Country = country;
@@ -26,15 +25,13 @@ namespace Cloudents.Core.Entities
             Gender = gender;
         }
 
-        //public User(string email, Language language) : this(email, null, null, language)
-        //{
 
-        //}
 
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
         protected User()
         {
             UserLogins = new List<UserLogin>();
-            Transactions = Transactions ?? new UserTransactions();
+            Transactions ??= new UserTransactions();
 
         }
 
@@ -52,11 +49,15 @@ namespace Cloudents.Core.Entities
         public virtual string LockoutReason { get; set; }
 
 
-        protected internal virtual ICollection<Answer> Answers { get; set; }
-        protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
+        protected internal virtual ICollection<Answer> Answers { get; protected set; }
+        protected internal virtual ICollection<UserLogin> UserLogins { get; protected set; }
+
+        protected internal virtual ICollection<UserLocation> UserLocations { get; protected set; }
 
 
+        private readonly ICollection<ChatUser> _chatUsers = new List<ChatUser>();
 
+        public virtual IEnumerable<ChatUser> ChatUsers => _chatUsers;
 
         private readonly ISet<UserCourse> _userCourses = new HashSet<UserCourse>();
 
@@ -124,32 +125,29 @@ namespace Cloudents.Core.Entities
 
         public virtual void ChangeCountry(string country)
         {
-
+            if (Entities.Country.CountriesNotSupported.Contains(country))
+            {
+                throw new NotSupportedException();
+            }
             if (Country?.Equals(country) == true)
             {
                 return;
             }
             Country = country;
-            
+
             SbCountry = Entities.Country.FromCountry(country);
             University = null;
+           
+
             AddEvent(new ChangeCountryEvent(Id));
         }
 
 
         public virtual void ChangeCountryAdmin(string country)
         {
-
-            if (Country?.Equals(country) == true)
-            {
-                return;
-            }
-            Country = country;
-            
-            SbCountry = Entities.Country.FromCountry(country);
-            University = null;
+            ChangeCountry(country);
             ChangeLanguage(Entities.Language.English);
-            AddEvent(new ChangeCountryEvent(Id));
+          
         }
 
 
@@ -217,7 +215,7 @@ namespace Cloudents.Core.Entities
         public virtual Gender Gender { get; protected set; }
         public virtual PaymentStatus PaymentExists { get; protected set; }
 
-       // public virtual UserType? UserType2 { get; protected set; }
+        // public virtual UserType? UserType2 { get; protected set; }
         private readonly ICollection<UserPayPalToken> _userTokens = new List<UserPayPalToken>();
 
 
@@ -233,7 +231,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void UseToken(StudyRoom studyRoom)
         {
-           
+
 
             if (SbCountry != Entities.Country.UnitedStates)
             {
@@ -358,6 +356,10 @@ namespace Cloudents.Core.Entities
 
         }
 
+
+        protected internal virtual IEnumerable<Follow> Followed { get; set; }
+        protected internal virtual IEnumerable<Lead> Leads { get; set; }
+
         private readonly ISet<Follow> _followers = new HashSet<Follow>();
         public virtual IEnumerable<Follow> Followers => _followers;
 
@@ -392,8 +394,11 @@ namespace Cloudents.Core.Entities
 
         public override void RemoveFollower(BaseUser follower)
         {
-            var follow = new Follow(this, follower);
-            _followers.Remove(follow);
+            if (follower is User u)
+            {
+                var follow = new Follow(this, u);
+                _followers.Remove(follow);
+            }
         }
 
 

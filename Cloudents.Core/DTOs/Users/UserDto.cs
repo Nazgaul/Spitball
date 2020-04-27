@@ -123,7 +123,7 @@ namespace Cloudents.Core.DTOs.Users
         public string LastName { get; set; }
 
         [EntityBind(nameof(User.ImageName))]
-        public string Image { get; set; }
+        public string? Image { get; set; }
         
         public ItemState? IsTutor { get; set; }
 

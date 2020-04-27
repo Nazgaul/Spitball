@@ -3,9 +3,9 @@
         <div class="profileUserBox_top d-block d-sm-flex justify-space-between">
             
             <div class="leftSide mr-sm-6 mb-2 mb-sm-0 d-flex justify-center">
-                <div class="pUb_dot" v-if="isOnline"></div>
+                <div class="pUb_dot" sel="online_icon" v-if="isOnline"></div>
                 <uploadImage sel="photo" class="pUb_edit_img" v-if="isCurrentProfileUser" />
-                <userAvatarRect
+                <userAvatarRect sel="avatar_image"
                     class="pUb_dS_img"
                     :userName="currentProfileUser.name"
                     :userImageUrl="currentProfileUser.image"
@@ -20,7 +20,7 @@
             <div class="rightSide flex-grow-1">
                 <div class="detailsWrap d-flex d-sm-block">
                     <div class="d-flex justify-space-between text-center text-sm-left">
-                        <h1 class="userName text-truncate mr-sm-2">
+                        <h1  sel="username_title" class="userName text-truncate mr-sm-2">
                             <span v-if="currentProfileUser.isTutor" class="mr-1" v-t="'profile_tutor'"></span>
                             <span>{{currentProfileUser.name}}</span>
                         </h1>
@@ -58,14 +58,14 @@
                             </div>
                         </template>
                         <div class="ml-3">
-                            <followBtn class="followBtnNew mr-sm-2" v-if="!isCurrentProfileUser"/>
+                            <followBtn sel="follow_btn" class="followBtnNew mr-sm-2" v-if="!isCurrentProfileUser"/>
                             <!-- <span v-if="currentProfileUser.followers" class="defaultState_content_followers" 
                             v-text="$Ph(dynamicDictionay(currentProfileUser.followers,'profile_tutor_followers','profile_tutor_follower'),[currentProfileUser.followers])"/> -->
                         </div>
                     </div>
 
                     <!-- courses teacher -->
-                    <div class="course mt-sm-3 mb-sm-6 mt-2 mb-3 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
+                    <div sel="teach_courses" class="course mt-sm-3 mb-sm-6 mt-2 mb-3 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
                         <bdi class="iTeach mr-1" v-t="'profile_my_courses_teacher'"></bdi>
                         <span class="courseName text-truncate">{{currentProfileUser.courses.toString().replace(/,/g, ", ")}}</span>
                     </div>

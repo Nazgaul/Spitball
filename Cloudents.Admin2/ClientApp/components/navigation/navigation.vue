@@ -80,7 +80,7 @@
                             { name: 'Users who flagged', link: '/user/active-users', icon: '' },
                             { name: 'Sessions payments', link: '/user/payments', icon: '' },
                             { name: 'Change country', link: '/user/change-country', icon: '' },
-                            // {name: 'Suspend User', link: '/user/suspend', icon: 'block'},
+                             {name: 'Delete User', link: '/user/delete', icon: 'block'},
                         ]
                     },
                     {

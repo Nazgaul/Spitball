@@ -105,13 +105,6 @@ namespace Cloudents.FunctionsV2
             {
                 message.AddContent("text/html", topicMessage.ToString());
                 message.Subject = topicMessage.Subject;
-                if (topicMessage.Bcc != null)
-                {
-                    foreach (var bcc in topicMessage.Bcc)
-                    {
-                        message.AddBcc(bcc);
-                    }
-                }
                 log.LogWarning("error with template name" + topicMessage.TemplateId);
             }
 

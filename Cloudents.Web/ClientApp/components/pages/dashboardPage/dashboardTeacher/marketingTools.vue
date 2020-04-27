@@ -15,7 +15,7 @@
                         {{$t('marketing_tools_title2')}}
                     </div>
                 </div>
-                <v-btn :to="{name: 'marketing'}" class="btn" rounded outlined color="#4c59ff" width="120">{{$t('marketing_lets_go')}}</v-btn>
+                <v-btn sel="marketing_btn" :to="{name: 'marketing'}" class="btn" rounded outlined color="#4c59ff" width="120">{{$t('marketing_lets_go')}}</v-btn>
             </div>
 
             <div class="rightBlogs d-flex-column d-sm-flex pa-0 mr-md-8">

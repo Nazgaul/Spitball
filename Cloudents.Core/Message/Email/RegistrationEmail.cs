@@ -35,4 +35,24 @@ namespace Cloudents.Core.Message.Email
             {Language.EnglishIndia,"1ec4aa02-796d-40bd-8488-54c265871098" }
         };
     }
+
+    public class WelcomeTutorEmail : BaseEmail
+    {
+        public WelcomeTutorEmail(string to, CultureInfo info, string firstName)
+            : base(to, "Welcome to Spitball", info)
+        {
+            FirstName = firstName;
+        }
+
+        public string FirstName { get; private set; }
+
+        public override string? Campaign => "Tutor Email";
+        public override UnsubscribeGroup UnsubscribeGroup => UnsubscribeGroup.System;
+
+        protected override IDictionary<CultureInfo, string>? Templates =>
+            new Dictionary<CultureInfo, string>
+            {
+                {Language.English, "76c0e70d-0e39-4bba-a78d-b5a4e3073bf6"}
+            };
+    }
 }

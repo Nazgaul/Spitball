@@ -5,6 +5,7 @@
     <div class="profilePage_main profile-page-container">
       <profileUserBox :globalFunctions="globalFunctions" :key="componentRenderKey" />
       <shareContent
+        sel="share_area"
         :link="shareContentParams.link"
         :twitter="shareContentParams.twitter"
         :whatsApp="shareContentParams.whatsApp"
