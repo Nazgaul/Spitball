@@ -242,7 +242,6 @@ import intercomSettings from '../../services/intercomService';
 //store
 import storeService from "../../services/store/storeService";
 import tutoringCanvas from '../../store/studyRoomStore/tutoringCanvas.js';
-import tutoringMain from '../../store/studyRoomStore/tutoringMain.js';
 import codeEditor_store from '../../store/studyRoomStore/codeEditor_store.js';
 import roomRecording_store from '../../store/studyRoomStore/roomRecording_store.js';
 
@@ -537,7 +536,6 @@ watch: {
   },
   beforeCreate(){
     storeService.registerModule(this.$store,'roomRecording_store',roomRecording_store);
-    storeService.lazyRegisterModule(this.$store,'tutoringMain',tutoringMain);
     storeService.registerModule(this.$store,'tutoringCanvas',tutoringCanvas);
     storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
   },

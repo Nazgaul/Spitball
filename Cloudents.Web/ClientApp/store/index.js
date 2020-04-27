@@ -29,7 +29,6 @@ import dashboard_Store from './dashboard_Store.js'
 import feed from './feedStore.js'
 import profile from './profile.js';
 
-import tutoringMain from './studyRoomStore/tutoringMain.js';
 import studyRoomStore from './studyRoomStore/studyRoomStore.js'
 import signalRPlugin from '../plugins/signalRPlugin';
 import componentPlugin from '../plugins/componentPlugin';
@@ -108,7 +107,6 @@ const store = new Vuex.Store({
         dashboard_Store,
         profile,
 
-        tutoringMain,
         studyRoomStore,
         twilioStore,
     },
