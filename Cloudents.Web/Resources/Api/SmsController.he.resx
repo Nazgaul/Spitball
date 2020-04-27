@@ -120,7 +120,4 @@
   <data name="CannotResendSms" xml:space="preserve">
     <value>לא ניתן לשלוח שוב סמס</value>
   </data>
-  <data name="DuplicatePhoneNumber" xml:space="preserve">
-    <value>מספר טלפון זה מקושר לכתובת דוא"ל אחרת</value>
-  </data>
 </root>

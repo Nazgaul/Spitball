@@ -128,12 +128,12 @@ namespace Cloudents.Web.Api
             }
             if (retVal.Errors.Any(a => a.Code == "InvalidPhoneNumber"))
             {
-                ModelState.AddModelError(nameof(model.PhoneNumber), _localizer["InvalidPhoneNumber"]);
+                ModelState.AddModelError(nameof(model.PhoneNumber), "InvalidPhoneNumber");
             }
             if (retVal.Errors.Any(a => a.Code == "Duplicate"))
             {
                 _logger.Warning("phone number is duplicate");
-                ModelState.AddModelError(nameof(model.PhoneNumber), _smsLocalizer["DuplicatePhoneNumber"]);
+                ModelState.AddModelError(nameof(model.PhoneNumber), "DuplicatePhoneNumber");
             }
             else
             {

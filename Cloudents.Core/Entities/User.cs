@@ -123,7 +123,10 @@ namespace Cloudents.Core.Entities
 
         public virtual void ChangeCountry(string country)
         {
-
+            if (Entities.Country.CountriesNotSupported.Contains(country))
+            {
+                throw new NotSupportedException();
+            }
             if (Country?.Equals(country) == true)
             {
                 return;
@@ -132,10 +135,7 @@ namespace Cloudents.Core.Entities
             
             SbCountry = Entities.Country.FromCountry(country);
             University = null;
-            if (Entities.Country.CountriesNotSupported.Contains(country))
-            {
-                throw new NotSupportedException();
-            }
+           
 
             AddEvent(new ChangeCountryEvent(Id));
         }

@@ -123,7 +123,4 @@
   <data name="CountryNotSupported" xml:space="preserve">
     <value>Your country is not supported by spitball</value>
   </data>
-  <data name="DuplicatePhoneNumber" xml:space="preserve">
-    <value>This phone number is linked to another email address</value>
-  </data>
 </root>
