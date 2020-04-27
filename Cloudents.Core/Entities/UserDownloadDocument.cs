@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate")]
-    public class UserDownloadDocument : IEquatable<UserDownloadDocument>
+    public class UserDownloadDocument : Entity<Guid>, IEquatable<UserDownloadDocument>
     {
         public UserDownloadDocument(BaseUser user, Document document)
         {
@@ -16,9 +16,10 @@ namespace Cloudents.Core.Entities
             Document = document;
             Created = DateTime.UtcNow;
         }
+        [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate")]
         protected UserDownloadDocument()
+
         { }
-        public virtual Guid Id { get; }
         public virtual BaseUser User { get; protected set; }
         public virtual Document Document { get; protected set; }
         public virtual DateTime Created { get; }

@@ -1,7 +1,7 @@
 <template>
    <v-list-group v-if="!hideDashboardGroup" @click="dashboardProps.openSideMenu()" v-model="dashboardProps.model" class="sideMenu_group" active-class="''" :prepend-icon="'sbf-dashboard-sideMenu'" :append-icon="''" no-action>
       <template v-slot:activator>
-         <v-list-item class="sideMenu_list">
+         <v-list-item sel="sidemenu_dashboard" class="sideMenu_list">
             <v-list-item-content>
             <v-list-item-title>
                <span class="sideMenu_list_title" v-language:inner="'schoolBlock_dashboard'"/>
@@ -11,29 +11,29 @@
       </template>
 
       <template v-if="showOverview">
-         <sideMenuListItem :dashboardProps="dashboardProps" :item="overviewItem"/>
+         <sideMenuListItem sel="sidemenu_dashboard_overview" :dashboardProps="dashboardProps" :item="overviewItem"/>
       </template>
 
       <template v-if="showOverview">
-         <sideMenuListItem :dashboardProps="dashboardProps" :item="myQuestionsItem"/>
+         <sideMenuListItem sel="sidemenu_dashboard_opportunities" :dashboardProps="dashboardProps" :item="myQuestionsItem"/>
       </template>
 
       <template v-if="showMyContent">
-         <sideMenuListItem :dashboardProps="dashboardProps" :item="myContentItem"/>
+         <sideMenuListItem sel="sidemenu_dashboard_myContent" :dashboardProps="dashboardProps" :item="myContentItem"/>
       </template>
 
-      <sideMenuListItem :dashboardProps="dashboardProps" :item="myStudyRoomsItem"/>
+      <sideMenuListItem sel="sidemenu_dashboard_myStudyRooms" :dashboardProps="dashboardProps" :item="myStudyRoomsItem"/>
       
       <template v-if="showMySales">
-         <sideMenuListItem :dashboardProps="dashboardProps" :item="mySalesItem"/>
+         <sideMenuListItem sel="sidemenu_dashboard_mySales" :dashboardProps="dashboardProps" :item="mySalesItem"/>
       </template>
 
       <template v-if="showMyFollowers">
-         <sideMenuListItem :dashboardProps="dashboardProps" :item="myFollowersItem"/>
+         <sideMenuListItem sel="sidemenu_dashboard_myFollowers" :dashboardProps="dashboardProps" :item="myFollowersItem"/>
       </template>
 
       <template v-if="showMyPurchases">
-         <sideMenuListItem :dashboardProps="dashboardProps" :item="myPurchasesItem"/>
+         <sideMenuListItem sel="sidemenu_dashboard_myPurchases" :dashboardProps="dashboardProps" :item="myPurchasesItem"/>
       </template>
 
    </v-list-group> 

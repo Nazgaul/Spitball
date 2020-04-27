@@ -268,7 +268,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet("purchased")]
         public async Task<IEnumerable<UserPurchasedDocsDto>> GetUserPurchasedDocsDetails(long id, int page, CancellationToken token)
         {
-            var country = User.GetCountryClaim();
+            var country = User.GetSbCountryClaim();
             var query = new UserPurchasedDocsQuery(id, page, country);
             return await _queryBus.QueryAsync(query, token);
         }
