@@ -63,6 +63,10 @@ namespace Cloudents.Persistence.Maps
                 .Cascade.AllDeleteOrphan()
                 .KeyColumn("UserId").Inverse().AsSet();
 
+            HasMany(x => x.ChatUsers).Access.CamelCaseField(Prefix.Underscore)
+                .Cascade.AllDeleteOrphan()
+                .KeyColumn("UserId").Inverse();
+
             HasOne(x => x.Tutor).Cascade.None();
             HasMany(x => x.UserCoupon).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan()
@@ -85,6 +89,13 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.Followers).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan()
                 .KeyColumn("UserId").Inverse().AsSet();
+
+
+            HasMany(x => x.Followed).KeyColumn("FollowerId")
+                .Cascade.AllDeleteOrphan().AsSet();
+
+            HasMany(x => x.Leads)
+                .Cascade.AllDeleteOrphan();
         }
     }
 

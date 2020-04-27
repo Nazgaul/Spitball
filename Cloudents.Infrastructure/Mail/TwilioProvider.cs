@@ -152,6 +152,7 @@ namespace Cloudents.Infrastructure.Mail
                     type = RoomResource.RoomTypeEnum.Group;
                     break;
             }
+            //https://www.twilio.com/blog/2017/12/introducing-gll-for-group-rooms.html
             var mediaRegion = "us1";
             if (country == Country.Israel)
             {
@@ -159,7 +160,7 @@ namespace Cloudents.Infrastructure.Mail
             }
             if (country == Country.India)
             {
-                mediaRegion = "us1";
+                mediaRegion = "in1";
             }
 
             await RoomResource.CreateAsync(
