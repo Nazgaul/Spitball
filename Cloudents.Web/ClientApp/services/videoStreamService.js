@@ -2,7 +2,6 @@ import tutorService from "../components/studyroom/tutorService";
 import studyRoomService from "../services/studyRoomService.js";
 const extensionId = 'jaimgihanebafnbcpckdkilkeoomkpik'; // dev && prod
 import store from '../store/index.js';
-import insightService from './insightService.js'
 
   function  createVideoSession() {
         const self = this;
@@ -31,7 +30,7 @@ import insightService from './insightService.js'
     }
 
     function createTwillioTracks(audioDevice, videoDevice){
-        const token = store.getters['getJwtToken']; //get jwt from store
+        const token = store.getters['']; //get jwt from store
         let tracksCreated = [];
         !!videoDevice ? tracksCreated.push(videoDevice) : '';
         !!audioDevice ? tracksCreated.push(audioDevice) : '';
@@ -51,30 +50,10 @@ import insightService from './insightService.js'
     }
 
    async function addDevicesTotrack(){
-
         createTwillioTracks();
-    }
-
-    //get try to get share stream via chrome extension
-   function getUserScreen() {
-
-        let displayMediaOptions = {
-            video:true,
-            audio: false
-        };
-        try {
-            return navigator.mediaDevices.getDisplayMedia(displayMediaOptions).then(stream => {
-                return stream.getTracks()[0];
-            });
-        }
-        catch(err) {
-            insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoStream_notBrowser', err);
-            return Promise.reject("notBrowser");
-        }
     }
 export default {
     extensionId,
-    getUserScreen,
     addDevicesTotrack,
     enterRoom,
     createVideoSession
