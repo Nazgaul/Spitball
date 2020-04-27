@@ -57,7 +57,7 @@ export default {
             ...size
           );
         }
-        return `${require("./cover-default.jpg")}`;
+        return `${require("./cover-default.png")}`;
       }
       return "";
     }

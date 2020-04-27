@@ -89,7 +89,7 @@
                     </div>
 
                     <!-- courses teacher -->
-                    <div class="course mt-sm-3 mb-sm-4 mt-2 mb-3 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
+                    <div class="course mt-sm-3 mb-sm-3 mt-2 mb-3 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
                         <bdi class="iTeach mr-1" v-t="'profile_my_courses_teacher'"></bdi>
                         <span class="courseName text-truncate">{{currentProfileUser.courses.toString().replace(/,/g, ", ")}}</span>
                     </div>
@@ -109,7 +109,7 @@
                     </div>
                 </div>
 
-                <div class="profileUserSticky_btns d-block d-sm-flex justify-space-between align-end text-center mt-sm-4" :class="{'student': !currentProfileUser.isTutor && isCurrentProfileUser}">
+                <div class="profileUserSticky_btns d-block d-sm-flex align-end text-center mt-sm-1" :class="{'student': !currentProfileUser.isTutor && isCurrentProfileUser}">
                     <template v-if="isMobile">
                         <div class="profileUserSticky_pricing mb-4" v-if="currentProfileUser.isTutor">
                             <div class="d-flex align-end justify-center">
@@ -129,13 +129,13 @@
                             <editSVG v-if="isCurrentProfileUser" />
                         </v-btn>
                     </template>
-                    <v-btn sel="send" height="42" :width="isMobile ? 286 : 246" :disabled="isCurrentProfileUser" v-if="currentProfileUser.isTutor" class="profileUserSticky_btn white--text" :class="{'isMyProfile': isCurrentProfileUser}" depressed rounded color="#4c59ff" @click="globalFunctions.sendMessage">
+                    <v-btn sel="send" height="42" :width="isMobile ? 286 : 220" :disabled="isCurrentProfileUser" v-if="currentProfileUser.isTutor" class="profileUserSticky_btn white--text mr-sm-4" :class="{'isMyProfile': isCurrentProfileUser}" depressed rounded color="#4c59ff" @click="globalFunctions.sendMessage">
                         <chatSVG class="profileUserSticky_btn_icon"/>
                         <div class="profileUserSticky_btn_txt" v-t="'profile_send_message'"/>
                     </v-btn>
                     <div :class="{'ml-3': isCurrentProfileUser || !getProfile.user.calendarShared}">
                         <editSVG sel="edit" class="pUb_edit_user mr-1" v-if="isCurrentProfileUser && !isMobile" @click="openEditInfo"/>
-                        <v-btn sel="calendar" height="42" :width="isMobile ? 286 : 246" :disabled="isCurrentProfileUser" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isCurrentProfileUser || !getProfile.user.calendarShared}" class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-sm-2 mt-4" depressed rounded color="white">
+                        <v-btn sel="calendar" height="42" :width="isMobile ? 286 : 220" :disabled="isCurrentProfileUser" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isCurrentProfileUser || !getProfile.user.calendarShared}" class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-sm-2 mt-4" depressed rounded color="white">
                             <calendarSVG width="20" class="profileUserSticky_btn_icon"/>
                             <div class="profileUserSticky_btn_txt" v-t="'profile_book_session'"/>
                         </v-btn>
@@ -145,28 +145,28 @@
         </div>
 
         <v-row class="bottom text-center pt-3" dense v-if="currentProfileTutor">
-            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-1">
+            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-0">
                 <followersSvg class="icon" width="24" />
                 <div class="ml-3" @click="isMobile ? scrollToReviews():''" >
                     <div class="number text-left">{{currentProfileUser.followers}}</div>
                     <div class="type">{{$tc('profile_tutor_follower', currentProfileUser.followers)}}</div>
                 </div>
             </v-col>
-            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-1">
+            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-0">
                 <onlineLessonSVG class="icon" width="17" />
                 <div class="ml-3">
                     <div class="number text-left">{{currentProfileTutor.lessons}}</div>
                     <div class="type" v-t="''">{{$tc('profile_session', currentProfileTutor.lessons)}}</div>
                 </div>
             </v-col>
-            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-3 pa-sm-1">
+            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-3 pa-sm-0">
                 <studentsSVG class="icon" width="25" />
                 <div class="ml-3">
                     <div class="number text-left">{{currentProfileTutor.students}}</div>
                     <div class="type">{{$tc('profile_student', currentProfileTutor.students)}}</div>
                 </div>
             </v-col>
-            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-1">
+            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-0">
                 <starSVG class="icon" width="22" />
                 <div class="ml-3">
                     <div class="number text-left">{{currentProfileTutor.reviewCount}}</div>
@@ -247,7 +247,7 @@ export default {
             return this.getUserStatus[this.currentProfileUser.id] || false;
         },
         textLimit(){
-            return this.isMobile ? 140 : 210;
+            return this.isMobile ? 140 : 200;
         },
         isOpen :{
             get(){
@@ -337,8 +337,8 @@ export default {
 <style lang="less">
 @import '../../../../styles/mixin.less';
 .profileUserBox {
-    max-width: 800px;
-    width: 100%;
+    max-width: 762px;
+    // width: 100%;
     margin: 0 auto;
     border-radius: 8px;
     box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.38);

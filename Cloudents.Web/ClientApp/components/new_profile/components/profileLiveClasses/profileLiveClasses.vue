@@ -1,7 +1,7 @@
 <template>
     <div class="profileLiveClasses pa-sm-4 pa-0">
 
-        <div class="mainTitle pb-sm-4 pt-3 pt-sm-0 pl-4 text-truncate">
+        <div class="mainTitle pl-4 pl-sm-0 pb-sm-4 pt-3 pt-sm-0 text-truncate">
             <span v-t="'profile_live_title'"></span>
             <span>{{tutorName}}</span>
         </div>
@@ -36,7 +36,6 @@
                         rounded
                     >
                         <enterIcon class="enterIcon mr-sm-2" v-show="session.enrolled" width="18" />
-                        <!-- <rollIcon class="" v-show="!session.enrolled && $vuetify.breakpoint.xsOnly" width="20" /> -->
                         <span :class="{'flex-grow-1 pr-4': $vuetify.breakpoint.xsOnly}">{{$t(session.enrolled ? 'profile_enter_room' : 'profile_enroll')}}</span>
                     </v-btn>
                 </div>
@@ -67,7 +66,6 @@ import * as routeNames from '../../../../routes/routeNames'
 import tvIcon from './brodcast-copy-9.svg'
 import radioIcon from './group-4-copy-5.svg'
 import enterIcon from './enterRoom.svg'
-// import rollIcon from './group-9-copy-4.svg'
 
 export default {
     name: 'profileLiveClasses',
@@ -80,7 +78,6 @@ export default {
         tvIcon,
         radioIcon,
         enterIcon,
-        // rollIcon
     },
     data() {
         return {
@@ -153,9 +150,9 @@ export default {
         border-radius: 8px;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
        
-        @media(max-width: @screen-sm) {
-            margin: 54px 20px 0;
-        }
+        // @media(max-width: @screen-sm) {
+        //     margin: 54px 20px 0;
+        // }
         @media(max-width: @screen-xs) {
             margin: 8px auto;
             box-shadow: none;
@@ -164,11 +161,12 @@ export default {
         }
         .mainTitle {
             color: @global-purple;
-            font-weight: bold;
+            font-weight: 600;
             .responsive-property(font-size, 18px, null, 16px);
             border-bottom: 1px solid #ebebeb;
             @media(max-width: @screen-xs) {
                 border-bottom: none;
+                font-weight: bold;
                 background: #fff;
             }
         }

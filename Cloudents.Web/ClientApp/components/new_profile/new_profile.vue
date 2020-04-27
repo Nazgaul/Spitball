@@ -119,19 +119,19 @@
   }
   .profilePage_main {
     max-width: 1920px;
-    width: 100%;
-    padding-top: 240px;
+    // width: 100%;
+    padding-top: 260px;
+    margin: 0 20px;
     //margin-right: 33px;
-    //         @media (max-width: @screen-sm) {
-    //           //  margin-right: 0;
-    // //            max-width: auto;
-    //         }
+    @media (max-width: @screen-sm) {
+      margin: 0;
+    }
     &.profile-page-container {
       &.content-center {
         margin: 0 auto;
       }
       @media (max-width: @screen-md-plus) {
-        margin-left: 0;
+        // margin-left: 0;
       }
       @media (max-width: @screen-xs) {
         margin-left: 0;

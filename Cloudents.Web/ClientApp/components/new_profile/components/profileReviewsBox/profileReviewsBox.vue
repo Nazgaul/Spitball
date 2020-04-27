@@ -96,8 +96,12 @@ export default {
   padding-top: 12px;
   padding-bottom: 12px;
   color: #43425d;
+   // @media (max-width: @screen-sm) {
+   //    margin: 0 20px;
+   // }
   @media (max-width: @screen-xs) {
      border-radius: 0;
+      margin: 0;
      padding: 12px 0;
   }
   .profileReviewsBox_state{
