@@ -17,7 +17,7 @@ namespace Cloudents.Core.EventHandler
 
         public Task HandleAsync(TutorApprovedEvent eventMessage, CancellationToken token)
         {
-            return _googleAnalytics.TrackEventAsync("Tutor funnel", "Tutor approved", eventMessage.UserId.ToString(), token);
+            return _googleAnalytics.TrackEventAsync("Tutor funnel", "Tutor approved", eventMessage.TutorId.ToString(), token);
         }
 
         public Task HandleAsync(StudyRoomSessionCreatedEvent eventMessage, CancellationToken token)

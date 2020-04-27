@@ -252,6 +252,11 @@ export default {
                     analyticsService.sb_unitedEvent('Registration', 'Phone Submitted');
                     self.component = 'verifyPhone'
                 }).catch(error => {
+                    if (error.response.status === 401) {
+                        let { commit} = self.$store
+                        commit('setComponent', '')
+                        return;
+                    }
                     let { response: { data } } = error
                     
                     self.errors.phone = data && data["PhoneNumber"] ? data["PhoneNumber"][0] : '' // TODO:

@@ -125,7 +125,10 @@ namespace Cloudents.Core.Entities
 
         public virtual void ChangeCountry(string country)
         {
-
+            if (Entities.Country.CountriesNotSupported.Contains(country))
+            {
+                throw new NotSupportedException();
+            }
             if (Country?.Equals(country) == true)
             {
                 return;
@@ -134,23 +137,17 @@ namespace Cloudents.Core.Entities
 
             SbCountry = Entities.Country.FromCountry(country);
             University = null;
+           
+
             AddEvent(new ChangeCountryEvent(Id));
         }
 
 
         public virtual void ChangeCountryAdmin(string country)
         {
-
-            if (Country?.Equals(country) == true)
-            {
-                return;
-            }
-            Country = country;
-
-            SbCountry = Entities.Country.FromCountry(country);
-            University = null;
+            ChangeCountry(country);
             ChangeLanguage(Entities.Language.English);
-            AddEvent(new ChangeCountryEvent(Id));
+          
         }
 
 
