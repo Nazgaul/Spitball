@@ -86,8 +86,7 @@ export default {
 @import '../../../../styles/mixin.less';
 
 .profileReviewsBox{
-  width: 100%;
-  max-width: 800px;
+  max-width: 960px;
   margin: 0 auto;
 //   height: 512px;
   border-radius: 8px;

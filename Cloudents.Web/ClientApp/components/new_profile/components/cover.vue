@@ -102,7 +102,7 @@ export default {
   left: 0;
   right: 0;
   width: 100%;
-  height: 430px;
+  height: 350px;
   @media (max-width: @screen-xs) {
     position: static;
     height: 178px;

@@ -120,7 +120,7 @@
   .profilePage_main {
     max-width: 1920px;
     width: 100%;
-    padding-top: 180px;
+    padding-top: 240px;
     //margin-right: 33px;
     //         @media (max-width: @screen-sm) {
     //           //  margin-right: 0;
@@ -170,13 +170,15 @@
       border-radius: 8px;
       justify-content: center;
       @media (max-width: @screen-xs) {
+        padding-bottom: 20px;
         max-width: 100%;
         border-radius: 0;
       }
     }
   }
   .calendarSection {
-    max-width: 800px;
+    max-width: 960px;
+    border-radius: 8px !important;
   }
 }
 .coupon-dialog {

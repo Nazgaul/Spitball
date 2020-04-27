@@ -1,20 +1,20 @@
 <template>
     <div class="profileLiveClasses pa-sm-4 pa-0">
 
-        <div class="mainTitle pb-sm-4 pt-3 pt-sm-0 text-center text-sm-left">
+        <div class="mainTitle pb-sm-4 pt-3 pt-sm-0 pl-4 text-truncate">
             <span v-t="'profile_live_title'"></span>
             <span>{{tutorName}}</span>
         </div>
 
-        <div class="liveRow pa-4 pa-sm-0 px-sm-2 py-sm-8 py-5 d-sm-flex d-block justify-space-between align-center" v-for="(session, index) in liveSessionsList" :key="index">
+        <div class="liveRow pa-4 pa-sm-0 px-sm-2 py-sm-7 py-5 d-sm-flex d-block justify-space-between align-center" v-for="(session, index) in liveSessionsList" :key="index">
             <div class="leftSide mb-5 mb-sm-0 d-flex">
                 <div class="icons">
                     <radioIcon v-if="$vuetify.breakpoint.xsOnly" width="30" />
                     <tvIcon width="90" v-else />
                 </div>
 
-                <div class="details ml-6 d-flex">
-                    <div class="created mb-sm-3 mt-3 mt-sm-0">{{$d(new Date(session.created), 'long')}}</div>
+                <div class="details ml-3 ml-sm-5 d-flex">
+                    <div class="created mb-sm-3 mt-2 mt-sm-0">{{$d(new Date(session.created), 'long')}}</div>
                     <div class="liveName">{{session.name}}</div>
                 </div>
             </div>
@@ -29,20 +29,21 @@
                         @click="session.enrolled ? enterRoom(session.id) : enrollSession(session.id)"
                         class="btn white--text"
                         width="140"
+                        :height="$vuetify.breakpoint.xsOnly ? '42' : '38'"
                         :color="session.enrolled ? '#41c4bc' : '#4c59ff'"
                         :block="$vuetify.breakpoint.xsOnly"
                         depressed
                         rounded
                     >
-                        <enterIcon class="enterIcon mr-sm-2" v-show="session.enrolled" width="20" />
+                        <enterIcon class="enterIcon mr-sm-2" v-show="session.enrolled" width="18" />
                         <!-- <rollIcon class="" v-show="!session.enrolled && $vuetify.breakpoint.xsOnly" width="20" /> -->
-                        <span :class="{'flex-grow-1': $vuetify.breakpoint.xsOnly}">{{$t(session.enrolled ? 'profile_enter_room' : 'profile_enroll')}}</span>
+                        <span :class="{'flex-grow-1 pr-4': $vuetify.breakpoint.xsOnly}">{{$t(session.enrolled ? 'profile_enter_room' : 'profile_enroll')}}</span>
                     </v-btn>
                 </div>
             </div>
         </div>
 
-        <div class="showMore pa-3 pt-sm-4 pb-sm-0 text-center">
+        <div class="showMore pa-3 pt-sm-4 pb-sm-0 text-center" v-if="liveSessionsList.length > 2">
             <button class="showBtn" v-t="'profile_see_all'" @click="isExpand = !isExpand"></button>
         </div>
 
@@ -99,7 +100,7 @@ export default {
             return liveList.slice(0, 3)
         },
         tutorName() {
-            return this.$store.getters.getProfile?.user?.name
+            return this.$store.getters.getProfile?.user?.firstName
         }
     },
     methods: {
@@ -146,21 +147,24 @@ export default {
     @import '../../../../styles/colors.less';
 
     .profileLiveClasses {
-        max-width: 800px;
+        max-width: 960px;
         background: #fff;
         margin: 54px auto 0;
         border-radius: 8px;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
-        
+       
+        @media(max-width: @screen-sm) {
+            margin: 54px 20px 0;
+        }
         @media(max-width: @screen-xs) {
-            margin-top: 8px;
+            margin: 8px auto;
             box-shadow: none;
             border-radius: 0;
             background: transparent;
         }
         .mainTitle {
             color: @global-purple;
-            font-weight: 600;
+            font-weight: bold;
             .responsive-property(font-size, 18px, null, 16px);
             border-bottom: 1px solid #ebebeb;
             @media(max-width: @screen-xs) {
@@ -172,13 +176,22 @@ export default {
         .liveRow {
             border-bottom: 1px solid #ebebeb;
 
+            &:last-child  {
+                border-bottom: none;
+            }
             @media(max-width: @screen-xs) {
                 background: #fff;
                 margin-bottom: 8px;
+                border-bottom: none;
             }
             .details {
                 font-weight: 600;
                 flex-direction: column;
+                padding: 0 50px 0 0;
+                max-width: 450px;
+                @media(max-width: @screen-xs) {
+                    padding: 0;
+                }
                 .created {
                     color: @global-auth-text;
                     @media(max-width: @screen-xs) {
@@ -188,6 +201,13 @@ export default {
                 .liveName {
                     font-size: 16px;
                     color: @global-purple;
+                }
+            }
+            .leftSide {
+                .icons {
+                    @media(max-width: @screen-xs) {
+                        margin-top: 2px;
+                    }
                 }
             }
             .rightSide {
