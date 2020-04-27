@@ -269,8 +269,8 @@ namespace Cloudents.Infrastructure.Google
             CancellationToken cancellationToken)
         {
             var cred = SpitballCalendarCred;
-            var x = new System.Resources.ResourceManager(typeof(CalendarResources));
-            var eventName = x.GetString("TutorCalendarMessage", CultureInfo.CurrentUICulture) ?? "Tutor Session In Spitball";
+            var resourceManager = new System.Resources.ResourceManager(typeof(CalendarResources));
+            var eventName = resourceManager.GetString("TutorCalendarMessage", CultureInfo.CurrentUICulture) ?? "Tutor Session In Spitball";
             eventName = string.Format(eventName, tutor.Name, student.Name);
 
             
@@ -306,13 +306,17 @@ namespace Cloudents.Infrastructure.Google
                 Start = new EventDateTime()
                 {
                     DateTime = from
+                    TimeZone = "Etc/UTC"
                 },
                 End = new EventDateTime()
                 {
-                    DateTime = to
+                    DateTime = to.ToUniversalTime(),
+                    TimeZone = "Etc/UTC"
                 }
+                
             }, PrimaryGoogleCalendarId);
             event2.SendUpdates = EventsResource.InsertRequest.SendUpdatesEnum.All;
+            event2.ConferenceDataVersion = 1;
             await event2.ExecuteAsync(cancellationToken);
         }
 
@@ -434,6 +438,7 @@ namespace Cloudents.Infrastructure.Google
             //  public string Expires_in { get; set; }
             //  public string Refresh_token { get; set; }
             //  public string Scope { get; set; }
+
             // public string Issued { get; set; }
             // public string IssuedUtc { get; set; }
         }

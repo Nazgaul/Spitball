@@ -6,7 +6,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor",Justification = "nhibernate")]
     public class Follow : IEquatable<Follow>
     {
-        public Follow(BaseUser followed, BaseUser follower)
+        public Follow(User followed, User follower)
         {
             if (followed.Id == follower.Id)
             {
@@ -20,8 +20,8 @@ namespace Cloudents.Core.Entities
         protected Follow() 
         { }
         public virtual Guid Id { get; }
-        public virtual BaseUser Followed { get; protected set; }
-        public virtual BaseUser Follower { get; protected set; }
+        public virtual User Followed { get; protected set; }
+        public virtual User Follower { get; protected set; }
         public virtual DateTime Created { get; }
 
         public virtual bool Equals(Follow other)

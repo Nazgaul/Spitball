@@ -1,157 +1,99 @@
 <template>
-  <div class="study-room-settings-wrapper">
-    <button @click="closeDialog" class="close-button"><v-icon>sbf-close</v-icon></button>
-    <div class="study-room-settings-top">
-      <v-navigation-drawer width="300" permanent class="study-room-settings-nav">
-        <v-toolbar class="study_room_toolBar" flat>
-          <v-list>
-            <v-list-item class="pa-0">
-              <v-list-item-title class="study-room-settings-nav-title">
-                <span class="study-room-settings-nav-title_title" v-language:inner='"studyRoomSettings_title"'></span>
-              </v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-toolbar>
+    <v-dialog :value="true" :persistent="true" content-class="studyRoomSettingDialog" :transition="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'" :fullscreen="true">
+        <div class="settings">
+            <div class="settingsHeader">
+                <a @click="resetItems" class="logo-link">
+                    <appLogo />
+                </a>
+            </div>
 
-        <v-divider></v-divider>
-
-        <v-list dense class="study-room-settings-nav-sideMenu pt-0">
-          <v-list-item
-            v-for="item in items"
-            :key="item.title"
-            @click="currenctComponent = item.componentName"
-            :class="{'tileActive': currenctComponent === item.componentName}"
-          >
-            <v-list-item-action>
-              <component :is="item.icon"></component>
-            </v-list-item-action>
-
-            <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-navigation-drawer>
-      <v-container class="study-room-settings-body">
-        <component :is="currenctComponent"></component>
-      </v-container>
-    </div>
-  </div>
+            <div class="settingsMain d-flex align-center justify-center">
+                <div class="wrap d-md-flex d-block align-center justify-center">
+                    <studyRoomVideo />
+                    <studyRoomSettingDetails :isRoomActive="isRoomActive" @updateRoomIsActive="val => isRoomActive = val" />
+                </div>
+            </div>
+        </div>
+    </v-dialog>
 </template>
 
 <script>
-import studyRoomVideoSetting from "./video/studyRoomVideoSetting.vue";
-import studyRoomAudioSetting from "./audio/studyRoomAudioSetting.vue";
-import videoCameraImage from '../../images/video-camera.svg';
-import microphoneImage from '../../images/microphone.svg';
-import { LanguageService } from '../../../../services/language/languageService';
+import appLogo from '../../../app/logo/logo.vue'
+import studyRoomSettingDetails from "./studyRoomSettingsDetails/studyRoomSettingsDetails.vue";
+import studyRoomVideo from "./studyRoomVideo/studyRoomVideo.vue";
 
 export default {
   components: {
-    studyRoomVideoSetting,
-    studyRoomAudioSetting,
-    videoCameraImage,
-    microphoneImage
+    appLogo,
+    studyRoomSettingDetails,
+    studyRoomVideo,
   },
   data() {
     return {
-      items: [
-        {
-          title: LanguageService.getValueByKey("studyRoomSettings_video_title"),
-          icon: "videoCameraImage",
-          componentName: "studyRoomVideoSetting"
-        },
-        {
-          title: LanguageService.getValueByKey("studyRoomSettings_audio_title"),
-          icon: "microphoneImage",
-          componentName: "studyRoomAudioSetting"
-        }
-      ],
-      currenctComponent: "studyRoomVideoSetting"
-    };
-  }, 
+      isRoomActive: false
+    }
+  },
+  computed: {
+    roomIsActive() {
+      return this.$store.getters.getRoomIsActive
+    },
+  },
   methods:{
-      closeDialog(){
-        this.$store.dispatch('updateDialogRoomSettings',false)
+    closeDialog(){
+      this.$store.commit('setComponent', '')
+    },
+    resetItems() {
+      let isExit = confirm(this.$t("login_are_you_sure_you_want_to_exit"),)
+      if(isExit){
+        this.$ga.event("tutoringRoom", 'resetItems');
+        this.closeDialog()
+        this.$router.push('/');
       }
+    }
   }
-};
+}
 </script>
 
 <style lang="less">
-.tutor-settings-dialog {
-  min-height: 560px;
-  background-color: #fff;
-  .study-room-settings-wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    position:relative;
-    .close-button{
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        outline:none;
-        i{
-            font-size: 14px;
-        }
-    }
-    .study-room-settings-top {
-      display: flex;
-      height: 100%;
-      .study-room-settings-nav {
-        .study_room_toolBar{
-          background: rgb(245, 245, 245)
+@import '../../../../styles/mixin.less';
 
+.studyRoomSettingDialog {
+  .settings {
+     height: 100%;
+    .settingsHeader {
+        position: absolute;
+        width: 100%;
+        padding: 10px 14px 0;
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+  
+        button {
+          outline: none;
         }
-        .study-room-settings-nav-title{
-            display: flex;
-            align-items: center;
-            font-weight: bold;
-        }
-        .study-room-settings-nav-title_title{
-          font-size: 16px;
-        }
-        .v-list-item__title {
-          transition: none;
-          font-size: 13px;
-        }
-        .v-list-item__action{
-          margin: 0 32px 0 0;
-        }
-        .tileActive {
-          background-color: #5158af;
-          color: white !important;
-          i {
-            color: white !important;
-          }
-          .v-list-item__action{
-            svg{
-              fill: #FFF !important;
-            }
-          }
-        }
+    }
+  
+    .settingsMain {
+      height: inherit;
+      padding-top: 70px;
+
+      @media (max-width: @screen-xs) {
+        padding-top: 42px;
       }
-      .study-room-settings-body {
-        padding: 30px;
+      .wrap {
         height: 100%;
+        width: 100%;
+        margin: 0 20px;
+
+        @media (max-width: @screen-sm) {
+          margin: 0 200px;
+        }
+        @media (max-width: @screen-xs) {
+          margin: 0;
+        }
       }
     }
-    .study-room-settings-bottom {
-      border-top: 1px solid #e0e0e0;
-      .study-room-settings-footer {
-          button{
-            margin: 0 10px;
-            background: #c2443d;
-            padding: 5px 15px;
-            border-radius: 4px;
-            color: #FFF;
-            font-weight: 400;
-            font-size: 14px;
-            outline: none;
-          }
-      }
-    }
+
   }
 }
 </style>

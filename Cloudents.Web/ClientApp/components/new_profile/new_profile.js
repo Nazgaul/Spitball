@@ -60,6 +60,7 @@ export default {
             couponPlaceholder: LanguageService.getValueByKey('coupon_placeholder'),
             disableApplyBtn: false,
             activeTab: 1,
+            componentRenderKey: 0
         };
     },
     methods: {
@@ -255,6 +256,7 @@ export default {
             let old = Number(oldVal,10);
             let newVal = Number(val,10);
             this.activeTab = 1;
+            this.componentRenderKey += 1;
             if (newVal !== old) {
                 this.resetProfileData();
                 if((newVal == this.accountUser.id) && this.accountUser.isTutorState === "pending"){

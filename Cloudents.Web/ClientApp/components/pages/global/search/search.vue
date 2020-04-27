@@ -3,7 +3,7 @@
     <div class="searchCMP-cont">
        <!-- class="searchCMP-input" -->
       <v-text-field
-       
+        sel="search_header"
         v-model="search"
       class="searchCMP-input"
         solo

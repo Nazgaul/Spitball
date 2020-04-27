@@ -1,20 +1,11 @@
 <template>
-    <v-snackbar
-        absolute
-        top
-        @input="onCloseToaster"
-        class="counterToaster"
-        :timeout="3000000"
-        :value="true"
-    >
-        <span>{{$t('studyRoom_toaster_session_date')}} {{time.days}}:{{time.hours}}:{{time.minutes}}:{{time.seconds}}</span>
-    </v-snackbar>
+    <div class="counterComponent">
+        <span>{{time.days}}</span>:<span>{{time.hours}}</span>:<span>{{time.minutes}}</span>:<span>{{time.seconds}}</span>
+    </div>
 </template>
-
 
 <script>
 export default {
-    name: '',
     data() {
         return {
             interVal:null,
@@ -27,9 +18,6 @@ export default {
         }
     },
     methods: {
-        onCloseToaster() {
-            this.$store.commit('clearComponent')
-        },
         setParamsInterval(){
             this.interVal = setInterval(this.getNow, 1000);
             this.getNow();
@@ -43,7 +31,6 @@ export default {
             const minute = second * 60;
             const hour = minute * 60;
             const day = hour * 24;
-            
 
             this.time.days = Math.floor(distance / (day)).toLocaleString('en-US', {minimumIntegerDigits: 2});
             this.time.hours = Math.floor((distance % (day)) / (hour)).toLocaleString('en-US', {minimumIntegerDigits: 2});
@@ -51,19 +38,27 @@ export default {
             this.time.seconds = Math.floor((distance % (minute)) / second).toLocaleString('en-US', {minimumIntegerDigits: 2});
             if (distance < 0) {
                 clearInterval(this.interVal);
-                this.$store.commit('clearComponent')
+                this.$emit('updateCounterFinish', true)
             }
         }
     },
+    beforeDestroy(){
+        this.isLoading = false;
+        global.onbeforeunload = function() {}
+    },
     created() {
-        this.setParamsInterval();
+        if(this.$store.getters.getRoomIsBroadcast) {
+            this.setParamsInterval();
+        } else{
+            this.$emit('updateCounterFinish', true)
+        }
     },
 }
 </script>
-
 <style lang="less">
-    .counterToaster {
-        // TODO: @maor @idan study room removed mobile-not-support css style
-        z-index: 99999;
-    }
+.counterComponent{
+    text-align: left;
+    /*rtl:ignore */
+    direction: ltr;
+}
 </style>

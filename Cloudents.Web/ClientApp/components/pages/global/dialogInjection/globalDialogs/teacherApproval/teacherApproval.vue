@@ -1,22 +1,20 @@
 <template>
    <v-dialog :value="true" persistent :maxWidth="'580'" :content-class="'teacherApproval'" :fullscreen="$vuetify.breakpoint.xsOnly">
         <div class="py-4 pa-sm-4 text-center wrapper">
-            <div class="">
+            <div>
                 <div class="text-right pr-4 pr-sm-0 d-sm-none"><v-icon size="12" v-closeDialog>sbf-close</v-icon></div>
 
-                <div class="mainTitle text-center" :class="[modifyDurationError ? 'mb-3' : 'mb-12']">
-                    {{$t('teacherApproval_title')}}
-                </div>
+                <div class="mainTitle text-center" :class="[modifyDurationError ? 'mb-3' : 'mb-12']" v-t="'teacherApproval_title'"></div>
 
                 <div class="v-alert error tableEmptyState text-left mb-5 pa-2 align-start align-sm-center" v-if="modifyDurationError">
                     <whiteWarn class="image mr-2 mr-sm-4 pt-1 pt-sm-0" width="50" />
-                    <span class="white--text">{{$t('teacherApproval_error')}}</span>
+                    <span class="white--text" v-t="'teacherApproval_error'"></span>
                 </div>
 
                 <table class="table text-left">
                     <tr>
                         <td>
-                            <div class="pb-3">{{$t('teacherApproval_date')}}</div>
+                            <div class="pb-3" v-t="'teacherApproval_date'"></div>
                         </td>
                         <td>
                             <div class="mb-3 pl-2">{{formatDate}}</div>
@@ -25,7 +23,7 @@
 
                     <tr class="studentRow">
                         <td>
-                            <div class="pb-9">{{$t('teacherApproval_student')}}</div>
+                            <div class="pb-9" v-t="'teacherApproval_student'"></div>
                         </td>
                         <td>
                             <div class="mb-9  pl-2 userName">{{session.name}}</div>
@@ -34,28 +32,33 @@
 
                     <tr>
                         <td>
-                            <div  class="pt-1">{{$t('teacherApproval_session_duration')}}</div>
+                            <div class="pt-1" v-t="'teacherApproval_session_duration'"></div>
                         </td>
                         <td>
                             <div class="d-flex align-center">
-                                <input type="number" class="durationInput" maxlength="4"  @keypress="inputRestriction" v-model.number="newSessionDuration" />
-                                <span class="ml-2">{{$t('teacherApproval_minutes')}}</span>
+                                <input type="number" class="durationInput" maxlength="4" @keypress="inputRestriction" v-model.number="newSessionDuration" />
+                                <span class="ml-2" v-t="'teacherApproval_minutes'"></span>
                             </div>
                         </td>
                     </tr>
 
                     <tr>
                         <td>
-                            <div class="py-4">{{$t('teacherApproval_lesson_per_hour')}}</div>
+                            <div class="py-4" v-t="'teacherApproval_lesson_per_hour'"></div>
                         </td>
                         <td>
-                            <div class="py-4 pl-2">{{$n(session.tutorPricePerHour, 'currency')}}</div>
+                            <input type="number" class="durationInput" maxlength="4" @keypress="inputRestriction" v-model.number="tutorPricePerHour" />
+                            <i18n-n :value="0" :format="'currency'">
+                                <template v-slot:currency="slotProps"><span>{{slotProps.currency}}</span></template>
+                                <!-- Dont show the integer value only the currency symbol -->
+                                <template v-slot:integer></template>
+                            </i18n-n>
                         </td>
                     </tr>
 
                     <tr v-if="session.couponTutor">
                         <td class="pb-4">
-                            <div>{{$t('teacherApproval_coupon_discount')}}</div>
+                            <div v-t="'teacherApproval_coupon_discount'"></div>
                         </td>
                         <td class="pb-4">
                             <div class="pl-2">- {{$n(session.couponValue, 'currency')}} ({{session.couponCode}})</div>
@@ -63,7 +66,7 @@
                     </tr>
 
                     <tr class="bordeTop font-weight-bold">
-                        <td class="pt-4"><div class="totalText">{{$t('teacherApproval_total_session')}}</div></td>
+                        <td class="pt-4"><div class="totalText" v-t="'teacherApproval_total_session'"></div></td>
                         <td class="pt-4 pl-2"><div class="totalNumber">{{$n(totalPrice, 'currency')}}</div></td>
                     </tr>
                 </table>
@@ -116,6 +119,15 @@ export default {
         },
         pendingPayments() {
             return this.$store.getters.getPendingPayment
+        },
+        tutorPricePerHour: {
+            get() {
+                return Math.floor(this.session.tutorPricePerHour)
+            },
+            set(val) {
+                this.session.tutorPricePerHour = val
+                this.updateTotalPrice(this.newSessionDuration)
+            }
         }
     },
     methods: {
@@ -129,8 +141,10 @@ export default {
             let newSessionDuration = {
                 userId: this.session.id,
                 sessionId: this.session.sessionId,
-                DurationInMinutes: this.newSessionDuration
+                DurationInMinutes: this.newSessionDuration,
+                price: this.session.tutorPricePerHour
             }
+            
             let self = this
             this.$store.dispatch('updateSessionDuration', newSessionDuration).then(() => {
                 self.$store.commit('setSaleItem', self.session.sessionId)
@@ -154,7 +168,7 @@ export default {
                 }
             } else {
                 total = this.session.tutorPricePerHour * duration / 60
-            }            
+            }         
             this.totalPrice = total;
         },
         inputRestriction(e) {
@@ -167,10 +181,6 @@ export default {
                 e.preventDefault();
                 
             }
-            
-            // if(this.newSessionDuration >= this.MAX_DIGITS || !()) {
-            //     e.preventDefault();
-            // }
         },
         openIntercom() {
             intercomService.showDialog();

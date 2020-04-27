@@ -4,7 +4,7 @@
             {{$t('dashboardTeacher_answer_title')}}
         </v-col>
 
-        <v-col class="answerList pr-3 pa-0">
+        <v-col class="answerList pr-3 pa-0" sel="answer_list">
             <div class="answerItem pb-3"  v-for="(answer, index) in answers" :key="index">
                 <UserAvatar :size="'34'" :user-name="answer.user.name" :user-id="answer.user.id" :userImageUrl="answer.user.image" /> 
                 <router-link class="middle pl-4 pb-4" :to="{name: 'question', params: {id: answer.id}}">

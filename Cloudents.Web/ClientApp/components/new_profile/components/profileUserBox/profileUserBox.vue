@@ -1,35 +1,11 @@
 <template>
     <div class="profileUserBox pa-4 pa-sm-5" v-if="currentProfileUser">
-        <!-- <div class="profileUserBox_top_mobile" v-if="isMobile">
-            <div class="profileUserBox_top_mobile_top">
-                <a class="profileUserBox_top_mobile_link" @click="$router.go(-1)">
-                    <v-icon v-text="'sbf-arrow-left-carousel'"/>
-                </a>
-            </div>
-            <div class="profileUserBox_top_mobile_bottom">
-                <div class="profileUserBox_top_mobile_right">
-                    <h1 class="profileUserBox_top_mobile_userName text-truncate">
-                        <span v-if="currentProfileUser.isTutor" v-t="'profile_tutor'"/>
-                        {{currentProfileUser.name}}
-                    </h1>
-                </div>
-                <div class="profileUserBox_top_mobile_left">
-                    <followBtn v-if="!isCurrentProfileUser"/>
-                    <editSVG sel="edit" class="profileUserBox_top_mobile_left_edit" v-if="isMobile && isCurrentProfileUser" @click="openEditInfo()"/>
-                    <div class="profileUserBox_top_mobile_left_followers">
-                        <span v-if="currentProfileUser.followers" class="defaultState_content_followers" 
-                        v-text="$Ph(currentProfileUser.followers > 1 ? 'profile_tutor_followers':'profile_tutor_follower',currentProfileUser.followers)"/>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
         <div class="profileUserBox_top d-block d-sm-flex justify-space-between">
             
             <div class="leftSide mr-sm-6 mb-2 mb-sm-0 d-flex justify-center">
-                <div class="pUb_dot" v-if="isOnline"></div>
+                <div class="pUb_dot" sel="online_icon" v-if="isOnline"></div>
                 <uploadImage sel="photo" class="pUb_edit_img" v-if="isCurrentProfileUser" />
-                <userAvatarRect
+                <userAvatarRect sel="avatar_image"
                     class="pUb_dS_img"
                     :userName="currentProfileUser.name"
                     :userImageUrl="currentProfileUser.image"
@@ -44,7 +20,7 @@
             <div class="rightSide flex-grow-1">
                 <div class="detailsWrap d-flex d-sm-block">
                     <div class="d-flex justify-space-between text-center text-sm-left">
-                        <h1 class="userName text-truncate mr-sm-2">
+                        <h1  sel="username_title" class="userName text-truncate mr-sm-2">
                             <span v-if="currentProfileUser.isTutor" class="mr-1" v-t="'profile_tutor'"></span>
                             <span>{{currentProfileUser.name}}</span>
                         </h1>
@@ -82,23 +58,35 @@
                             </div>
                         </template>
                         <div class="ml-3">
-                            <followBtn class="followBtnNew mr-sm-2" v-if="!isCurrentProfileUser"/>
+                            <followBtn sel="follow_btn" class="followBtnNew mr-sm-2" v-if="!isCurrentProfileUser"/>
                             <!-- <span v-if="currentProfileUser.followers" class="defaultState_content_followers" 
                             v-text="$Ph(dynamicDictionay(currentProfileUser.followers,'profile_tutor_followers','profile_tutor_follower'),[currentProfileUser.followers])"/> -->
                         </div>
                     </div>
 
                     <!-- courses teacher -->
-                    <div class="course mt-sm-3 mb-sm-3 mt-2 mb-3 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
+                    <div sel="teach_courses" class="course mt-sm-3 mb-sm-3 mt-2 mb-3 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
                         <bdi class="iTeach mr-1" v-t="'profile_my_courses_teacher'"></bdi>
                         <span class="courseName text-truncate">{{currentProfileUser.courses.toString().replace(/,/g, ", ")}}</span>
                     </div>
 
                     <!-- TUTOR BIO -->
-                    <h4 v-if="currentProfileTutor.bio" class="userBio mb-5 mb-sm-0 mr-sm-2">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}
-                        <span class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</span>
-                        <span sel="bio_more" v-if="readMoreVisible" @click="isOpen = !isOpen" class="readMore" v-t="isOpen ? 'profile_read_less' : 'profile_read_more'"></span>
-                    </h4>
+                    <div class="userBio mb-5 mb-sm-0 mr-sm-2" v-if="currentProfileTutor.bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}
+                        <div v-if="isOpen" class="my-4">
+                            <div class="course mb-1 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
+                                <bdi class="iTeach mr-1" v-t="'profile_my_courses'"></bdi>
+                                <span class="courseName text-truncate">{{currentProfileUser.courses.toString().replace(/,/g, ", ")}}</span>
+                            </div>
+                            <div class="course text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
+                                <bdi class="iTeach mr-1" v-t="'profile_my_subjects'"></bdi>
+                                <span class="courseName text-truncate">{{currentProfileTutor.subjects.toString().replace(/,/g, ", ")}}</span>
+                            </div>
+                        </div>
+                        <div class="d-none">
+                            <div>{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</div>
+                        </div>
+                        <span sel="bio_more" @click="isOpen = !isOpen" class="readMore" v-t="isOpen ? 'profile_read_less' : 'profile_read_more'"></span>
+                    </div>
 
                     <!-- Courses Student -->
                     <div class="course mt-2 text-truncate" v-if="!currentProfileUser.isTutor && currentProfileUser.courses.length">
@@ -257,13 +245,6 @@ export default {
                 this.defOpen = val
             }
         },
-        readMoreVisible(){
-            if(!!this.currentProfileTutor){
-                return this.currentProfileTutor.bio.length >=  this.textLimit
-            }else{
-                return false;
-            }
-        },
         isCurrentProfileUser(){
             if (!!this.currentProfileUser && !!this.accountUser ){
                 return this.currentProfileUser.id == this.accountUser.id;
@@ -286,18 +267,6 @@ export default {
     },
     methods: {
         ...mapActions(['updateEditDialog']),
-        // reviewsPlaceHolder(reviews) {
-        //     return reviews === 0 ? reviews.toString() : reviews;
-        // },
-        // tutorStateRate(tutorData){
-        //     let rate = tutorData.rate.toFixed();
-        //     let reviews = tutorData.reviewCount;
-        //     if(reviews < 1){
-        //         return this.$t('resultTutor_collecting_review');
-        //     }
-        //     // let dictionary = reviews > 1? this.$t('profile_reviews'): this.$t('profile_single_review')
-        //     return `${rate}`
-        // },
         openEditInfo() {
             this.updateEditDialog(true);
         },
@@ -462,6 +431,15 @@ export default {
                     color: #43425d;
                     font-weight: 600;
                     cursor: pointer;
+                }
+                .course {
+                    font-weight: 600;
+                    font-size: 14px;
+
+                    .courseName {
+                        font-weight: normal;
+                    }
+                    // .responsive-property(font-size, 16px, null, 14px);
                 }
             }
         }
