@@ -1,4 +1,3 @@
-// import { createLocalVideoTrack,createLocalAudioTrack } from "twilio-video";
 // import studyRoomRecordingService from '../../components/studyroom/studyRoomRecordingService';
 
 // const _getLocalTrack = (getters,type) =>{
@@ -31,54 +30,6 @@ const mutations = {
 };
 
 const actions = {
-//     initLocalMediaTracks({dispatch}){
-//         dispatch('initLocalVideoTrack');
-//         dispatch('initLocalAudioTrack');
-//     },
-//     initLocalVideoTrack({getters,dispatch,state}){
-//         let deviceId = global.localStorage.getItem('sb-videoTrackId');
-//         let mediaStreamTrack = state.;
-//         if(mediaStreamTrack){
-//             //after changing the 
-//             getters['activeRoom'].localParticipant.publishTrack(mediaStreamTrack);
-//         }else{
-//             dispatch('createLocalVideoTrack_Store', deviceId);
-//         }
-//     },
-   //  createLocalVideoTrack_Store({getters, dispatch, state}, id){
-   //      let param = id ? {deviceId: {exact: id}} : {};
-   //      createLocalVideoTrack(param).then(videoTrack => {
-   //          if(getters['activeRoom']){
-   //              getters['activeRoom'].localParticipant.publishTrack(videoTrack.mediaStreamTrack);  
-   //          }
-   //      },()=>{
-   //              createLocalVideoTrack().then(videoTrack => {
-   //                  if(getters['activeRoom']){
-   //                      getters['activeRoom'].localParticipant.publishTrack(videoTrack.mediaStreamTrack);  
-   //                  }
-   //              },()=>{
-   //              });
-   //      });
-   //  },
-//     initLocalAudioTrack({dispatch}){
-//         let deviceId = global.localStorage.getItem('sb-audioTrackId');
-//         dispatch('createLocalAudioTrack_store', deviceId);
-//     },
-//     createLocalAudioTrack_store({getters, commit, dispatch}, id){
-//         let param = id ? {deviceId: {exact: id}} : {};
-//         createLocalAudioTrack(param).then(audioTrack => {
-//             if(getters['activeRoom'] && state.){
-//                 getters['activeRoom'].localParticipant.publishTrack(audioTrack.mediaStreamTrack);  
-//             }
-//         },()=>{
-//                 createLocalAudioTrack().then(audioTrack => {
-//                     if(getters['activeRoom'] && state.){
-//                         getters['activeRoom'].localParticipant.publishTrack(audioTrack.mediaStreamTrack);  
-//                     }
-//                 },()=>{
-//                 });
-//         });
-//     },
 //     destroyLocalVideoTrack({getters,dispatch},track){
 //         if(track.isEnabled){
 //             if (track.detach) {

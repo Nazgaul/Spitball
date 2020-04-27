@@ -246,9 +246,7 @@ import tutoringMain from '../../store/studyRoomStore/tutoringMain.js';
 import studyRoomTracks_store from '../../store/studyRoomStore/studyRoomTracks_store.js';
 import codeEditor_store from '../../store/studyRoomStore/codeEditor_store.js';
 import roomRecording_store from '../../store/studyRoomStore/roomRecording_store.js';
-import studyroomSettings_store from '../../store/studyRoomStore/studyroomSettings_store';
 
-import studyroomSettingsUtils from '../studyroomSettings/studyroomSettingsUtils';
 import * as dialogNames from '../pages/global/dialogInjection/dialogNames.js';
 
 export default {
@@ -328,7 +326,6 @@ export default {
       "accountUser",
       "getIsRecording",
       "getShowAudioRecordingError",
-      // "getVisitedSettingPage",
       "getDialogSnapshot",
     ]),
     isRoomTutor(){
@@ -521,6 +518,13 @@ watch: {
     },
     closeSnapshotDialog(){
       this.updateDialogSnapshot(false);
+    },
+    isBrowserSupport(){
+      let agent = navigator.userAgent;
+      if(agent.match(/Edge/)){
+        return false;
+      }
+      return agent.match(/Firefox|Chrome|Safari/);
     }
   },
   destroyed(){
@@ -544,7 +548,6 @@ watch: {
     storeService.registerModule(this.$store,'roomRecording_store',roomRecording_store);
     // storeService.registerModule(this.$store,'tutoringMain',tutoringMain);
     storeService.lazyRegisterModule(this.$store,'tutoringMain',tutoringMain);
-    storeService.lazyRegisterModule(this.$store,'studyroomSettings_store',studyroomSettings_store);
     storeService.registerModule(this.$store,'tutoringCanvas',tutoringCanvas);
     storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
   },
@@ -552,7 +555,7 @@ watch: {
     this.$store.commit('clearComponent')
     this.userId = this.accountUser?.id || 'GUEST';
 
-    if (!studyroomSettingsUtils.isBrowserSupport()) {
+    if (!this.isBrowserSupport()) {
       this.$nextTick(()=>{
         this.isBrowserSupportDialog = true;
         let roomId = this.id ? this.id : 'No-Id';
@@ -588,11 +591,6 @@ watch: {
     // this code will create an error object to know what is the cause of the problem in case there is one.
     // settings page is running this code, but we should run this code in case refresh was made in the study room page.
     // run this code only if refresh was made in the study room 
-    // if(!this.getVisitedSettingPage){
-    //   await studyroomSettingsUtils.validateUserMedia(true, true); 
-    // }
-    //this line will init the tracks to show local medias
-    studyroomSettingsUtils.validateMedia();
   }
 };
 </script>
