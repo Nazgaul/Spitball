@@ -1,9 +1,20 @@
 <template>
   <div class="sb-chat-container px-0 py-0" :class="{'minimized': isMinimized}">
-    <v-layout @click="toggleMinimizeChat" class="chat-header" :class="{'new-messages': hasUnread}">
-      <v-icon class="mr-2" size="18" color="#fff" @click.stop="OriginalChatState" v-html="inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'" />
-        <template v-if="state === 'messages'">
-          <user-avatar :size="'32'" :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/> 
+    <v-layout @click="toggleMinimizeChat" class="chat-header" :class="{'new-messages': hasUnread}" sel="chat_header">
+      <v-icon sel="chat_icon"
+        class="mr-2"
+        size="18"
+        color="#fff"
+        @click.stop="OriginalChatState"
+        v-html="inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'"
+      />
+      <template v-if="state === 'messages'">
+        <user-avatar
+          :size="'32'"
+          :user-name="activeConversationObj.name"
+          :user-id="activeConversationObj.userId"
+          :userImageUrl="activeConversationObj.image"
+        />
           <div class="chat-header-name text-truncate pl-4">
             <span class="text-truncate">{{chatTitle}}</span>
             
@@ -12,10 +23,10 @@
               {{$store.getters.getRoomParticipantCount}}</span>
           </div>
         </template>
-        <template v-else>
-            <span class="chat-header-text">{{getIsSignalRConnected ? headerTitle : errorTitle}}</span>
-        </template>
-        
+      <template v-else>
+        <span class="chat-header-text">{{getIsSignalRConnected ? headerTitle : errorTitle}}</span>
+      </template>
+
       <span class="other-side">
         <v-icon
           class="minimizeIcon"

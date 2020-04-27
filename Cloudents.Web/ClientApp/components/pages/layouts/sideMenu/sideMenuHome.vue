@@ -1,5 +1,5 @@
 <template>
-   <router-link to="/">
+   <router-link to="/" sel="sidemenu_home">
       <v-list-group active-class="''" :prepend-icon="'sbf-home-sideMenu'" :append-icon="''" no-action class="sideMenu_group">
          <template v-slot:activator>
             <v-list-item class="sideMenu_list">
