@@ -106,6 +106,12 @@ const actions = {
    updateEditedProfile(context, newdata) {
       context.commit("updateEditedData", newdata);
    },
+   getStudyroomLiveSessions(context, id) {
+      return profileService.getStudyroomLiveSessions(id)
+   },
+   updateStudyroomLiveSessions(context ,session) {
+      return profileService.updateStudyroomLiveSessions(session.userId, session.studyRoomId)
+   }
 }
 
 export default {

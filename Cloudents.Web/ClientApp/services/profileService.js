@@ -24,4 +24,11 @@ export default {
    async unfollowProfile(id) {
       return await profileInstance.delete(`unfollow/${id}`)
    },
+   async getStudyroomLiveSessions(id) {
+      let { data } = await profileInstance.get(`${id}/studyRoom`)
+      return data.map(broadcast => new Profile.BroadCastSessions(broadcast))      
+   },
+   updateStudyroomLiveSessions(id, studyRoomId) {
+      return profileInstance.post(`${id}/studyRoom`, { studyRoomId })     
+   }
 }
