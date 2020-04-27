@@ -282,4 +282,23 @@
   <data name="my_courses_student" xml:space="preserve">
     <value>My courses :</value>
   </data>
+  <data name="enroll" xml:space="preserve">
+    <value>Enroll</value>
+  </data>
+  <data name="enroll_message" xml:space="preserve">
+    <value>A calendar booking email was sent to you.
+Check your email for you reservation and details on how and when to loggin.</value>
+  </data>
+  <data name="enter_room" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="live_title" xml:space="preserve">
+    <value>Upcoming  live classes by</value>
+  </data>
+  <data name="per_hour" xml:space="preserve">
+    <value>/hour</value>
+  </data>
+  <data name="see_all" xml:space="preserve">
+    <value>See all</value>
+  </data>
 </root>
