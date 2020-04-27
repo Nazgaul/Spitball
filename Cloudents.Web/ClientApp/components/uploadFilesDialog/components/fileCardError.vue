@@ -2,7 +2,6 @@
     <v-layout align-center justify-space-between wrap 
     :class="['ufItem-error','mb-4',isMobile? ' py-3':'px-4',{'pl-4':isMobile}]">
         <v-flex xs12 sm7 class="ufItem-error-content">
-            <v-icon color="white" class="mr-2 attachClass" v-html="'sbf-attachment'"/>
                 <div class="ufItem-error-txt">
                     <span>{{item.name}}</span>
                     <span class="ufItem-error-txt-content">{{item.errorText}}</span>
