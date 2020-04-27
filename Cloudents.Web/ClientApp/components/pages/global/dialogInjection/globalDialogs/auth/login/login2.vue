@@ -181,16 +181,13 @@ export default {
 
                     commit('setComponent', '')
                     dispatch('updateLoginStatus', true)
-                    
-                    let pathToRedirect = ['/','/learn','/register2'];
-                    if (pathToRedirect.indexOf(self.$route.path) > -1) {
-                        self.$router.push({name: self.routeNames.LoginRedirect})
-                        return
-                    }
+
+                    if(self.needRedirect()) return
 
                     if(self.$route.name === self.routeNames.StudyRoom){
                         global.location.reload();
                     }
+                    
                     dispatch('userStatus')
                 }).catch(error => {      
                     let { response: { data } } = error

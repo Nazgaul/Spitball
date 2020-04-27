@@ -49,6 +49,7 @@ export default {
             registrationService.googleRegistration()
                 .then(({data}) => {
                     let { commit, dispatch } = self.$store
+
                     self.googleLoading = false;
                     if (!data.isSignedIn) {
                         analyticsService.sb_unitedEvent('Registration', 'Start Google')
@@ -71,14 +72,12 @@ export default {
                     commit('setComponent', '')
                     dispatch('updateLoginStatus', true)
 
-                    let pathToRedirect = ['/','/learn','/register2'];
-                    if (pathToRedirect.indexOf(self.$route.path) > -1) {
-                        this.$router.push({name: this.routeNames.LoginRedirect})
-                        return
-                    }
+                    if(self.needRedirect()) return
+
                     if(self.$route.name === self.routeNames.StudyRoom){
                         global.location.reload();
                     }
+
                     dispatch('userStatus')
                 }).catch(error => {
                     if(error) {
@@ -87,6 +86,14 @@ export default {
                     self.googleLoading = false;
                     self.$appInsights.trackException({exception: new Error(error)})
                 })
+        },
+        needRedirect() {
+            let pathToRedirect = ['/','/learn','/register2'];
+            if (pathToRedirect.indexOf(this.$route.path) > -1) {
+                this.$router.push({name: this.routeNames.LoginRedirect})
+                return true
+            }
+            return false
         },
         sendSms(){
             let childComp = this.$refs.childComponent
