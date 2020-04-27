@@ -36,13 +36,8 @@ namespace Cloudents.Core.Entities
                 Description = description;
             }
             ChangePrice(price);
-            //Price = price;
-            //var status = Public;// GetInitState(user);
-            //if (status == Public)
-            //{
-            MakePublic();
-            //}
-            // Status = status;
+            Status = Public;
+            AddEvent(new DocumentCreatedEvent(this));
             DocumentType = documentType;
         }
 

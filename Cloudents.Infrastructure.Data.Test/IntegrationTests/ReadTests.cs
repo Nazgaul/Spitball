@@ -555,14 +555,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
 
-        [Theory]
-        [InlineData(159039)]
-        [InlineData(638)]
-        public async Task UserTransactionQuery_Ok(long userId)
-        {
-            var query = new UserTransactionQuery(userId);
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Theory]
+        //[InlineData(159039)]
+        //[InlineData(638)]
+        //public async Task UserTransactionQuery_Ok(long userId)
+        //{
+        //    var query = new UserTransactionQuery(userId);
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         [Fact]
         public async Task CalendarEventsQuery_Ok()
