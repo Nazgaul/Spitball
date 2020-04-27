@@ -2,7 +2,7 @@
     <v-row class="spitballTips">
         <v-col cols="12" class="pa-0 mb-4 d-flex justify-space-between">
             <div class="tipTitle">{{$t('dashboardTeacher_spitball_tips')}}</div>
-            <a class="seeAll" :href="blogsLink" target="_blank">{{$t('dashboardTeacher_see_all')}}</a>
+            <a sel="see_all_blog" class="seeAll" :href="blogsLink" target="_blank">{{$t('dashboardTeacher_see_all')}}</a>
         </v-col>
         <template v-if="tips.length">
             <v-col class="tipsList d-flex pa-0" cols="4" v-for="(tip, index) in tips" :key="index">
