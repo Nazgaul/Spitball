@@ -276,8 +276,8 @@ export default {
 
                     // this is when user start register from tutorRequest
                     if(self.isFromTutorReuqest) {
-                        dispatch('userStatus')
-                          let pathToRedirect = ['/','/learn','/register2'];
+                    dispatch('userStatus')
+                    let pathToRedirect = ['/','/learn','/register2'];
                     if (pathToRedirect.indexOf(self.$route.path) > -1) {
                         this.$router.push({name: this.routeNames.LoginRedirect})
                         return
@@ -286,6 +286,9 @@ export default {
                         self.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
                         self.$store.dispatch('toggleProfileFollower', true)
                         return
+                    }
+                    if(self.$route.name === self.routeNames.StudyRoom){
+                        global.location.reload();
                     }
 					dispatch('userStatus').then(user => {
                         // when user is register and pick teacher, redirect him to his profile page
