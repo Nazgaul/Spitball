@@ -25,7 +25,7 @@ namespace Cloudents.Core.Entities
             Gender = gender;
         }
 
-      
+
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
         protected User()
@@ -55,7 +55,9 @@ namespace Cloudents.Core.Entities
         protected internal virtual ICollection<UserLocation> UserLocations { get; protected set; }
 
 
+        private readonly ICollection<ChatUser> _chatUsers = new List<ChatUser>();
 
+        public virtual IEnumerable<ChatUser> ChatUsers => _chatUsers;
 
         private readonly ISet<UserCourse> _userCourses = new HashSet<UserCourse>();
 
@@ -129,7 +131,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
             Country = country;
-            
+
             SbCountry = Entities.Country.FromCountry(country);
             University = null;
             AddEvent(new ChangeCountryEvent(Id));
@@ -144,7 +146,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
             Country = country;
-            
+
             SbCountry = Entities.Country.FromCountry(country);
             University = null;
             ChangeLanguage(Entities.Language.English);
@@ -216,7 +218,7 @@ namespace Cloudents.Core.Entities
         public virtual Gender Gender { get; protected set; }
         public virtual PaymentStatus PaymentExists { get; protected set; }
 
-       // public virtual UserType? UserType2 { get; protected set; }
+        // public virtual UserType? UserType2 { get; protected set; }
         private readonly ICollection<UserPayPalToken> _userTokens = new List<UserPayPalToken>();
 
 
@@ -232,7 +234,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void UseToken(StudyRoom studyRoom)
         {
-           
+
 
             if (SbCountry != Entities.Country.UnitedStates)
             {
@@ -357,6 +359,10 @@ namespace Cloudents.Core.Entities
 
         }
 
+
+        protected internal virtual IEnumerable<Follow> Followed { get; set; }
+        protected internal virtual IEnumerable<Lead> Leads { get; set; }
+
         private readonly ISet<Follow> _followers = new HashSet<Follow>();
         public virtual IEnumerable<Follow> Followers => _followers;
 
@@ -391,8 +397,11 @@ namespace Cloudents.Core.Entities
 
         public override void RemoveFollower(BaseUser follower)
         {
-            var follow = new Follow(this, follower);
-            _followers.Remove(follow);
+            if (follower is User u)
+            {
+                var follow = new Follow(this, u);
+                _followers.Remove(follow);
+            }
         }
 
 
