@@ -36,7 +36,6 @@ namespace Cloudents.Query.Admin
 
                 var dbQuery = _session.Query<Document>()
                     .WithOptions(w => w.SetComment(nameof(UserDocumentsQuery)))
-                        .Fetch(f => f.University)
                         .Where(w => w.User.Id == query.UserId);
                 if (query.Country != null)
                 {
