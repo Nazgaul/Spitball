@@ -36,7 +36,7 @@ namespace Cloudents.Core
                 return fields.ToList();
             });
 
-            return value.Cast<T>();
+            return value.OfType<T>();
         }
 
         public override bool Equals(object obj)

@@ -42,7 +42,7 @@ namespace Cloudents.Core.Entities
 
         public override int GetHashCode()
         {
-            var t = (User.GetHashCode() * 53) ^ (Document.GetHashCode() * 37);
+            var t = (User.Id.GetHashCode() * 53) ^ (Document.Id.GetHashCode() * 37);
             return t;
         }
     }

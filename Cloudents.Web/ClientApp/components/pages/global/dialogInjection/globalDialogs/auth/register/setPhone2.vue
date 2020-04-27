@@ -85,7 +85,10 @@ export default {
                 if(phoneError === 'InvalidPhoneNumber') {
                     return this.$t('loginRegister_invalid_phone')
                 }
-                return this.$t('loginRegister_already_used_number')
+                if (phoneError === "DuplicatePhoneNumber") {
+                    return this.$t('loginRegister_already_used_number')
+                }
+                return phoneError;
             }
             return ''
         }

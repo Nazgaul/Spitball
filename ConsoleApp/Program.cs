@@ -70,7 +70,6 @@ namespace ConsoleApp
                             ConfigurationManager.AppSettings["AzureSearchKey"], true),
                         Redis = ConfigurationManager.AppSettings["Redis"],
                         Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
-                        LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                         ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
                         PayPal = new PayPalCredentials(
                             "AcaET-3DaTqu01QZ0Ad7-5C52pMZ5s4nx59TmbCqdn8gZpfJoM3UPLYCnZmDELZfc-22N_yhmaGEjS3e",
@@ -89,7 +88,6 @@ namespace ConsoleApp
                             ConfigurationManager.AppSettings["AzureSearchKey"], false),
                         Redis = ConfigurationManager.AppSettings["Redis"],
                         Storage = ConfigurationManager.AppSettings["StorageConnectionStringProd"],
-                        LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                         ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
                     };
                 default:

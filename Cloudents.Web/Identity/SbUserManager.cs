@@ -35,6 +35,8 @@ namespace Cloudents.Web.Identity
         public async Task<IdentityResult> SetPhoneNumberAndCountryAsync(User user, string phoneNumber, string countryCallingCode, CancellationToken cancellationToken)
         {
             var result = await _smsProvider.ValidateNumberAsync(phoneNumber, countryCallingCode, cancellationToken);
+
+
             if (string.IsNullOrEmpty(result.phoneNumber))
             {
                 return IdentityResult.Failed(new IdentityError()
@@ -44,7 +46,19 @@ namespace Cloudents.Web.Identity
                 });
             }
 
-            user.ChangeCountry(result.country);
+            try
+            {
+                user.ChangeCountry(result.country);
+            }
+            catch (NotSupportedException)
+            {
+                return IdentityResult.Failed(new IdentityError()
+                {
+                    Code = "CountryNotSupported",
+                    Description = "CountryNotSupported"
+                });
+            }
+
             return await SetPhoneNumberAsync(user, result.phoneNumber);
         }
 
