@@ -305,7 +305,7 @@ namespace Cloudents.Infrastructure.Google
                 Summary = eventName,
                 Start = new EventDateTime()
                 {
-                    DateTime = from
+                    DateTime = from,
                     TimeZone = "Etc/UTC"
                 },
                 End = new EventDateTime()

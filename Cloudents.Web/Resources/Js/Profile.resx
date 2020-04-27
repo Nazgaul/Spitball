@@ -303,6 +303,7 @@ Check your email for you reservation and details on how and when to loggin.</val
   </data>
   <data name="see_all" xml:space="preserve">
     <value>See all</value>
+  </data>
   <data name="my_courses" xml:space="preserve">
     <value>My courses:</value>
   </data>
