@@ -6,8 +6,8 @@ const state = {
 };
 
 const getters = {
-    getStepHistory:state=> state.stepHistory,
-    getVisitedSettingPage:state=> state.visitedSettingPage,
+    // getStepHistory:state=> state.stepHistory,
+    // getVisitedSettingPage:state=> state.visitedSettingPage,
     getRoomIsTutorSettings:state=> state.roomIsTutorSettings,
 };
 

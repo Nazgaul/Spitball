@@ -63,9 +63,11 @@ namespace Cloudents.Command.CommandHandler
             var user = await _userRepository.LoadAsync(message.UserId, token);
           
             var googleTokens = await _googleTokenRepository.GetAsync(message.TutorId.ToString(), token);
-
-            await _calendarService.BookCalendarEventAsync(tutor.User, user, googleTokens,
-                message.From, message.To, token);
+            if (googleTokens != null)
+            {
+                await _calendarService.BookCalendarEventAsync(tutor.User, user, googleTokens,
+                    message.From, message.To, token);
+            }
 
         }
 

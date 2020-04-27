@@ -150,8 +150,9 @@ namespace Cloudents.Core.Entities
             //StudentPay = studentPay;
         }
 
-        public virtual void SetRealDuration(TimeSpan realDuration)
+        public virtual void SetRealDuration(TimeSpan realDuration, decimal price)
         {
+            Price = price;
             RealDuration = realDuration;
         }
     }
