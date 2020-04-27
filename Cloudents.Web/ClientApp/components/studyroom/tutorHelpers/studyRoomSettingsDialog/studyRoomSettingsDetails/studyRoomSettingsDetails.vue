@@ -125,7 +125,7 @@ export default {
     computed: {
         isWaiting(){
             if(!this.isRoomTutor){
-                return this.isRoomDisabled && this.waitingForTutor
+                return (this.isRoomDisabled && this.waitingForTutor) || (this.isRoomDisabled && !this.isRoomBroadcast)
             }else{
                 return false
             }
