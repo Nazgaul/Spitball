@@ -19,7 +19,7 @@ namespace Cloudents.Query.Admin
         {
             Country = country;
         }
-        public string Country { get; }
+        public string? Country { get; }
         internal sealed class SessionPaymentsV2QueryHandler : IQueryHandler<SessionPaymentsQueryV2, IEnumerable<PaymentDto>>
         {
             private readonly IStatelessSession _session;

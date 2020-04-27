@@ -5,7 +5,7 @@ namespace Cloudents.Core.Query.Feed
 {
     public class SearchFeedQuery
     {
-        public SearchFeedQuery(UserProfile profile, string term, int page, FeedType? filter, string country, string course)
+        public SearchFeedQuery(UserProfile profile, string term, int page, FeedType? filter, string country, string? course)
         {
             Profile = profile;
             Term = term;
@@ -19,6 +19,6 @@ namespace Cloudents.Core.Query.Feed
         public int Page { get; }
         public FeedType Filter { get; }
         public string Country { get; }
-        public string Course { get; }
+        public string? Course { get; }
     }
 }

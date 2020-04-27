@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Admin
 {
-    //TODO: think about make this suitable for IN.
-    public class LeadsQuery : IQueryAdmin<IEnumerable<LeadDto>>
+
+    public class LeadsQuery : IQueryAdmin2<IEnumerable<LeadDto>>
     {
-        public string Country { get; }
-        public LeadsQuery(string country)
+        public Country? Country { get; }
+        public LeadsQuery(Country? country)
         {
             Country = country;
         }
@@ -33,11 +33,11 @@ namespace Cloudents.Query.Admin
                 var leads = _session.Query<Lead>()
                     .WithOptions(w => w.SetComment(nameof(LeadsQuery)))
                     .Fetch(f => f.User)
-                    .Where(w=> !_session.Query<ChatRoomAdmin>().Any(w2=>w2.Lead.Id == w.Id));
+                    .Where(w => !_session.Query<ChatRoomAdmin>().Any(w2 => w2.Lead!.Id == w.Id));
 
-                if (!string.IsNullOrEmpty(query.Country))
+                if (query.Country != null)
                 {
-                    leads = leads.Where(w => w.User.Country == query.Country);
+                    leads = leads.Where(w => w.User.SbCountry == query.Country);
                 }
 
                 return await leads.Select(s => new LeadDto
@@ -48,9 +48,8 @@ namespace Cloudents.Query.Admin
                     Phone = s.User.PhoneNumber,
                     Text = s.Text,
                     Course = s.Course,
-                    University = s.User.University.Name,
-                    DateTime = s.CreationTime 
-                }).OrderByDescending(o=>o.Id).ToListAsync(token);
+                    DateTime = s.CreationTime
+                }).OrderByDescending(o => o.Id).ToListAsync(token);
             }
         }
     }

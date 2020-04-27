@@ -7,7 +7,6 @@
         {{document.name}}
         </v-card-title>
         <v-card-text>
-            <div><b>University:</b> {{document.university}}</div>
             <div><b>Course:</b> {{document.course}}</div>
             <div><b>Upload Date:</b>  {{document.create | dateFromISO}}</div>
         </v-card-text>

@@ -5,7 +5,6 @@ namespace Cloudents.Query.Sync
 {
     public class SyncAzureQuery //: System.IEquatable<SyncAzureQuery>
           : 
-        //IQuery<(IEnumerable<UniversitySearchDto> update, IEnumerable<string> delete, long version)>,
         IQuery<(IEnumerable<DocumentSearchDto> update, IEnumerable<string> delete, long version)>
     {
         public SyncAzureQuery(long version, int page)

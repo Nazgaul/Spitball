@@ -57,10 +57,10 @@ namespace Cloudents.Query.Tutor
                     throw  new ArgumentException("query count cannot be 0");
                 }
                 //TODO maybe we can fix this query
-                ReadTutor tutorAlias = null;
-                UserCourse userCourseAlias = null;
-                Course courseAlias = null;
-                TutorCardDto tutorCardDtoAlias = null;
+                ReadTutor tutorAlias = null!;
+                UserCourse userCourseAlias = null!;
+                Course courseAlias = null!;
+                TutorCardDto tutorCardDtoAlias = null!;
                 var relevantTutorByCourse = QueryOver.Of(() => tutorAlias)
                     .JoinEntityAlias(() => userCourseAlias,
                         () => userCourseAlias.User.Id == tutorAlias.Id)
@@ -97,7 +97,6 @@ namespace Cloudents.Query.Tutor
                              .Select(x => x.Rate).WithAlias(() => tutorCardDtoAlias.Rate)
                              .Select(x => x.RateCount).WithAlias(() => tutorCardDtoAlias.ReviewsCount)
                              .Select(x => x.Bio).WithAlias(() => tutorCardDtoAlias.Bio)
-                            // .Select(x => x.University).WithAlias(() => tutorCardDtoAlias.University)
                              .Select(x => x.Country).WithAlias(() => tutorCardDtoAlias.Country)
                              .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons)
                      .Select(x=>x.SubsidizedPrice).WithAlias(() => tutorCardDtoAlias.DiscountPrice))
@@ -123,7 +122,6 @@ namespace Cloudents.Query.Tutor
                             .Select(x => x.RateCount).WithAlias(() => tutorCardDtoAlias.ReviewsCount)
                             .Select(x => x.Bio).WithAlias(() => tutorCardDtoAlias.Bio)
                             .Select(x => x.Country).WithAlias(() => tutorCardDtoAlias.Country)
-                          //  .Select(x => x.University).WithAlias(() => tutorCardDtoAlias.University)
                             .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons))
 
                     .OrderBy(o => o.OverAllRating).Desc

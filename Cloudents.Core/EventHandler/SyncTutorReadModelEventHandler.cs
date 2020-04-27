@@ -13,7 +13,6 @@ namespace Cloudents.Core.EventHandler
         IEventHandler<UpdateTutorSettingsEvent>,
         IEventHandler<CanTeachCourseEvent>,
         IEventHandler<RemoveCourseEvent>,
-        //IEventHandler<SetUniversityEvent>,
         IEventHandler<UpdateImageEvent>,
         IEventHandler<EndStudyRoomSessionEvent>,
         IEventHandler<ChangeCountryEvent>,
@@ -54,11 +53,6 @@ namespace Cloudents.Core.EventHandler
         {
             await UpdateAsync(eventMessage.UserCourse.User.Id, token);
         }
-
-        //public async Task HandleAsync(SetUniversityEvent eventMessage, CancellationToken token)
-        //{
-        //    await UpdateAsync(eventMessage.UserId, token);
-        //}
 
         public async Task HandleAsync(UpdateImageEvent eventMessage, CancellationToken token)
         {

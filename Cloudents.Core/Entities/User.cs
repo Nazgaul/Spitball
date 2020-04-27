@@ -28,6 +28,7 @@ namespace Cloudents.Core.Entities
 
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
+        [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]
         protected User()
         {
             UserLogins = new List<UserLogin>();
@@ -133,7 +134,6 @@ namespace Cloudents.Core.Entities
             Country = country;
 
             SbCountry = Entities.Country.FromCountry(country);
-            University = null;
             AddEvent(new ChangeCountryEvent(Id));
         }
 
@@ -148,7 +148,6 @@ namespace Cloudents.Core.Entities
             Country = country;
 
             SbCountry = Entities.Country.FromCountry(country);
-            University = null;
             ChangeLanguage(Entities.Language.English);
             AddEvent(new ChangeCountryEvent(Id));
         }
@@ -168,17 +167,10 @@ namespace Cloudents.Core.Entities
         {
             var course = UserCourses.AsQueryable().First(w => w.Course.Id == courseName);
             course.ToggleCanTeach();
-            //course.CanTeach = !course.CanTeach;
-            //LastOnline = DateTime.UtcNow; // this is for trigger the event
-            //AddEvent(new CanTeachCourseEvent(course));
+          
         }
 
-        //public virtual void SetUniversity(University university)
-        //{
-        //    University = university;
-        //    University.UsersCount++;
-        //    AddEvent(new SetUniversityEvent(Id));
-        //}
+
 
         public virtual void BecomeTutor(string bio, decimal? price, string description, string firstName, string lastName)
         {

@@ -13,7 +13,6 @@ namespace Cloudents.Core.DTOs.Documents
         public long Id { get; set; }
         private TimeSpan? _duration;
         public override FeedType Type => FeedType.Document;
-        //public string University { get; set; }
         public string Course { get; set; }
         public string Snippet { get; set; }
         public string Title { get; set; }
