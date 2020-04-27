@@ -46,6 +46,12 @@ namespace Cloudents.Core.Entities
             DisconnectCount++;
         }
 
+        public virtual void ApproveSession(TimeSpan duration, decimal price)
+        {
+            PricePerHour = price;
+            ApproveSession(duration);
+        }
+
         public virtual void ApproveSession(TimeSpan duration)
         {
             TutorApproveTime = duration;

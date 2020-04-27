@@ -39,7 +39,7 @@ namespace Cloudents.Query.Admin
                     from sb.Course c 
                         left join sb.UsersCourses uc
                         on c.Name = uc.CourseId
-                        join sb.[User] u
+                        left join sb.[User] u
                         on uc.UserId = u.Id
                     where c.State = @State
                     and (@Term = '""""' or CONTAINS(c.Name, @Term))";

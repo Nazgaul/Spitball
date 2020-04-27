@@ -8,10 +8,9 @@ function _dayStringToNumber(dayString){
     }
 }
 
-function _calendarDate(dateTime){
-    let retVal = `${dateTime.getFullYear()}-${(dateTime.getMonth()+1).toString().padStart(2,'0')}-${dateTime.getDate().toString().padStart(2,'0')}`;
-    return retVal;
-}
+// function _calendarDate(dateTime){
+//     return dateTime.FormatDateToString();
+// }
 function _calendarTime(dateTime){
     let hour;
     (typeof dateTime === 'number')? hour = dateTime : hour = dateTime.getHours();
@@ -31,20 +30,24 @@ const Calendar = {
         this.needToAdd = function() {
             return date.getHours() >7 && date.getHours() <= 23;
         };
-        this.date = _calendarDate(date);
-        this.time = _calendarTime(date);
+        this.date = date.FormatDateToString();
+        this.time = `${date.getHours().toString().padStart(2,'0')}:00`  //_calendarTime(date);
         this.datex = date;
     },
+    //Avaibilty
     Day:function(objInit){
+       
         this.day = _dayStringToNumber(objInit.day);
         this.from = objInit.from;
         this.to = objInit.to;
     },
+    //Avaibilty
     DayRead:function(objInit){
         this.day = _dayStringToNumber(objInit.day);
         this.from = _formatDayRead(objInit.from);
         this.to = _formatDayRead(objInit.to);
     },
+    //Avaibilty
     Account:function(objInit){
         this.calendarShared = objInit.calendarShared;
         this.tutorDailyHours = objInit.tutorDailyHours.map(day=> new Calendar.DayRead(day));
@@ -90,11 +93,7 @@ function createCalendarHours(objInit){
     return tutorDailyHoursObj;
 }
 function signIn(signInData){
-    return connectivityModule.http.post(`Tutor/calendar/Access`,signInData).then((response)=>{
-        return Promise.resolve(response);
-    },(error)=>{
-          return Promise.reject(error);
-    });
+    return connectivityModule.http.post(`Tutor/calendar/Access`,signInData);
 }
 function getEvents(params){
     return connectivityModule.http.get(`Tutor/calendar/events`,{params}).then(
@@ -103,10 +102,7 @@ function getEvents(params){
       });
 }
 function getCalendarsList(){
-    return connectivityModule.http.get(`Tutor/calendar/list`).then(
-        (response)=>{
-            return response;
-        });
+    return connectivityModule.http.get(`Tutor/calendar/list`);
 }
 function postCalendarsList(params){
     return connectivityModule.http.post(`Tutor/calendar/list`,params);

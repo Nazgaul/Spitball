@@ -121,10 +121,10 @@
     <value>Indicator:</value>
   </data>
   <data name="audio_input" xml:space="preserve">
-    <value>Microphone:</value>
+    <value>Microphone</value>
   </data>
   <data name="audio_output" xml:space="preserve">
-    <value>Speaker:</value>
+    <value>Speaker</value>
   </data>
   <data name="audio_select_label" xml:space="preserve">
     <value>Select Audio:</value>
@@ -138,24 +138,66 @@
   <data name="audio_title" xml:space="preserve">
     <value>Audio</value>
   </data>
+  <data name="block_permission" xml:space="preserve">
+    <value>Spitball requires access to your camera and microphone. Click the {0} icon in your browser's address bar to allow.</value>
+  </data>
+  <data name="block_title" xml:space="preserve">
+    <value>Access to camera &amp; microphone</value>
+  </data>
   <data name="camera_label" xml:space="preserve">
-    <value>Camera:</value>
+    <value>Camera</value>
   </data>
   <data name="camera_placeholder" xml:space="preserve">
     <value>Please select camera</value>
     <comment>בחר בבקשה מצלמה</comment>
   </data>
+  <data name="dismiss" xml:space="preserve">
+    <value>Dismiss</value>
+  </data>
+  <data name="done_btn" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="full_view" xml:space="preserve">
+    <value>Camera Fullscreen</value>
+  </data>
+  <data name="join_now" xml:space="preserve">
+    <value>Join</value>
+  </data>
   <data name="mic_placeholder" xml:space="preserve">
     <value>Please select microphone</value>
     <comment>בבקשה בחר מיקרופון</comment>
   </data>
+  <data name="no_camera" xml:space="preserve">
+    <value>Camera is off</value>
+  </data>
+  <data name="present" xml:space="preserve">
+    <value>Present/Share Screen</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="ready" xml:space="preserve">
+    <value>Waiting for the tutor to start the session</value>
+  </data>
+  <data name="share" xml:space="preserve">
+    <value>Share</value>
+  </data>
+  <data name="start_in" xml:space="preserve">
+    <value>Class starts in</value>
+  </data>
   <data name="title" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="tutor_name" xml:space="preserve">
+    <value>Teacher name</value>
   </data>
   <data name="video_select_label" xml:space="preserve">
     <value>Select Video</value>
   </data>
   <data name="video_title" xml:space="preserve">
     <value>Video</value>
+  </data>
+  <data name="whiteboard" xml:space="preserve">
+    <value>Whiteboard</value>
   </data>
 </root>
