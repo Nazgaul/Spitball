@@ -1,5 +1,7 @@
 import studyRoomService from '../../services/studyRoomService.js';
 import {studyRoom_SETTERS} from '../constants/studyRoomConstants.js';
+import {twilio_SETTERS} from '../constants/twilioConstants.js';
+
 import studyRoomRecordingService from '../../components/studyroom/studyRoomRecordingService.js'
 
 function _checkPayment(context) {
@@ -26,6 +28,7 @@ const state = {
    roomIsJoined: false,
    // TODO: change it to roomId after u clean all
    studyRoomId: null,
+   roomParticipantCount: 0,
 
    dialogRoomSettings: false,
    dialogEndSession: false,
@@ -55,13 +58,17 @@ const mutations = {
    },
    [studyRoom_SETTERS.DIALOG_ROOM_SETTINGS]: (state, val) => state.dialogRoomSettings = val,
    [studyRoom_SETTERS.DIALOG_END_SESSION]: (state, val) => state.dialogEndSession = val,
-   [studyRoom_SETTERS.ROOM_ACTIVE]: (state, val) => state.roomIsActive = val,
+   [studyRoom_SETTERS.ROOM_ACTIVE]: (state, isConnected) => {
+      state.roomIsActive = isConnected
+      if(!isConnected){
+         state.roomParticipantCount = 0;
+      }
+   },
    [studyRoom_SETTERS.ROOM_PAYMENT]: (state, val) => state.roomIsNeedPayment = val,
    [studyRoom_SETTERS.ROOM_RESET]: (state) => {
       state.activeNavEditor = 'white-board';
       state.roomOnlineDocument = null;
       state.roomIsTutor = false;
-      state.roomIsActive = false;
       state.roomIsNeedPayment = false;
       state.roomTutor = {};
       state.studyRoomId = null;
@@ -73,6 +80,7 @@ const mutations = {
    },
    [studyRoom_SETTERS.DIALOG_USER_CONSENT]: (state, val) => state.dialogUserConsent = val,
    [studyRoom_SETTERS.DIALOG_SNAPSHOT]: (state, val) => state.dialogSnapshot = val,
+   [studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT]: (state, val) => state.roomParticipantCount = val,
    [studyRoom_SETTERS.ROOM_JOINED]: (state, val) => state.roomIsJoined = val,
 }
 const getters = {
@@ -85,6 +93,7 @@ const getters = {
    getRoomIsActive: state => state.roomIsActive,
    getRoomTutor: state => state.roomTutor,
    getRoomIdSession: state => state.studyRoomId,
+   getRoomParticipantCount: state => state.roomIsActive? state.roomParticipantCount : 0,
    getRoomConversationId: state => state.roomConversationId,
    getRoomIsNeedPayment: state => {
       if (!state.studyRoomId) {
@@ -194,6 +203,13 @@ const actions = {
          commit('setStudyRoomItems',myStudyRooms)
          return
       })
+   },
+   updateRoomDisconnected({commit,getters,dispatch}){
+      commit(twilio_SETTERS.VIDEO_AVAILABLE,false);
+      commit(twilio_SETTERS.AUDIO_AVAILABLE,false)
+      if(!getters.getRoomIsTutor){
+         dispatch('updateReviewDialog',true)
+      }
    },
    updateRoomIsJoined({ commit,getters ,dispatch}, val) {
       commit(studyRoom_SETTERS.ROOM_JOINED,val)
