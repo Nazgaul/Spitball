@@ -121,10 +121,10 @@
     <value>חיווי שמע:</value>
   </data>
   <data name="audio_input" xml:space="preserve">
-    <value>מיקרופון:</value>
+    <value>מיקרופון</value>
   </data>
   <data name="audio_output" xml:space="preserve">
-    <value>רמקול:</value>
+    <value>רמקול</value>
   </data>
   <data name="audio_select_label" xml:space="preserve">
     <value>בחר שמע:</value>
@@ -138,22 +138,64 @@
   <data name="audio_title" xml:space="preserve">
     <value>שמע</value>
   </data>
+  <data name="block_permission" xml:space="preserve">
+    <value>ספיטבול זקוקה לגישה למצלמה והמיקרופון שלך. לחצו על סמל המצלמה החסומה {0} בפס הכתובת של הדפדפן.</value>
+  </data>
+  <data name="block_title" xml:space="preserve">
+    <value>גישה למצלמה ומיקרופון</value>
+  </data>
   <data name="camera_label" xml:space="preserve">
-    <value>מצלמה:</value>
+    <value>מצלמה</value>
   </data>
   <data name="camera_placeholder" xml:space="preserve">
-    <value>בחירת מצלמה</value>
+    <value>אנא בחרו מצלמה</value>
+  </data>
+  <data name="dismiss" xml:space="preserve">
+    <value>סגור</value>
+  </data>
+  <data name="done_btn" xml:space="preserve">
+    <value>סיום</value>
+  </data>
+  <data name="full_view" xml:space="preserve">
+    <value>מסך מלא</value>
+  </data>
+  <data name="join_now" xml:space="preserve">
+    <value>כניסה לחדר</value>
   </data>
   <data name="mic_placeholder" xml:space="preserve">
-    <value>בחירת מיקרופון</value>
+    <value>אנא בחרו מיקרופון</value>
+  </data>
+  <data name="no_camera" xml:space="preserve">
+    <value>המצלמה כבויה</value>
+  </data>
+  <data name="present" xml:space="preserve">
+    <value>הצגה</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>מחיר</value>
+  </data>
+  <data name="ready" xml:space="preserve">
+    <value>ממתין למורה שיתחיל את השיעור</value>
+  </data>
+  <data name="share" xml:space="preserve">
+    <value>שיתוף</value>
+  </data>
+  <data name="start_in" xml:space="preserve">
+    <value>השיעור מתחיל בעוד</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>הגדרות</value>
+  </data>
+  <data name="tutor_name" xml:space="preserve">
+    <value>שם המורה</value>
   </data>
   <data name="video_select_label" xml:space="preserve">
     <value>בחר וידיאו</value>
   </data>
   <data name="video_title" xml:space="preserve">
     <value>וידיאו</value>
+  </data>
+  <data name="whiteboard" xml:space="preserve">
+    <value>לוח</value>
   </data>
 </root>

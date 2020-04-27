@@ -8,7 +8,7 @@ namespace Cloudents.Query.Admin
 {
     public class ChatConversationByIdQuery : IQueryAdmin<IEnumerable<ChatMessageDto>>
     {
-        public ChatConversationByIdQuery(string conversationId, int page, string country)
+        public ChatConversationByIdQuery(string conversationId, int page, string? country)
         {
             ConversationId = conversationId;
             Page = page;
@@ -17,7 +17,7 @@ namespace Cloudents.Query.Admin
 
         private string ConversationId { get; }
         private int Page { get; }
-        public string Country { get; set; }
+        public string? Country { get;  }
 
 
         internal sealed class ChatConversationByIdQueryHandler : IQueryHandler<ChatConversationByIdQuery, IEnumerable<ChatMessageDto>>

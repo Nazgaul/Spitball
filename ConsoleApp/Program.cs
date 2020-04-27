@@ -24,6 +24,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs;
 using Cloudents.Query;
 using Cloudents.Query.Chat;
@@ -103,7 +104,7 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Dev;
+            var env = EnvironmentSettings.Prod;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
@@ -148,11 +149,11 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             //var unitOfWork = Container.Resolve<IUnitOfWork>();
-            var _session = Container.Resolve<IQueryBus>();
-            var command = new UserStudyRoomQuery(638);
-            var result = await _session.QueryAsync(command, default);
+            var _commandBus = Container.Resolve<ICommandBus>();
+            var command = new PaymentDeclineCommand(Guid.Parse("dce63420-8645-4b0b-842b-ab9900c1e5a6"), 482226);
+            await _commandBus.DispatchAsync(command, default);
 
-            Console.WriteLine(result);
+            //  Console.WriteLine(result);
 
 
             //var sessionFuture = await _session.Query<StudyRoomSessionUser>()

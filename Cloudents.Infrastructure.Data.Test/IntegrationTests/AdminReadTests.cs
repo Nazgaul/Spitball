@@ -262,8 +262,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData("IL")]
         [InlineData(null)]
-        public async Task FlaggedAnswerEmptyQuery_Ok(string country)
+        public async Task FlaggedAnswerEmptyQuery_Ok(string countryStr)
         {
+            var country = FromCountry(countryStr);
             var query = new FlaggedAnswerQuery(country);
             await _fixture.QueryBus.QueryAsync(query, default);
         }
