@@ -247,7 +247,7 @@ export default {
             return this.getUserStatus[this.currentProfileUser.id] || false;
         },
         textLimit(){
-            return this.isMobile ? 68 : 210;
+            return this.isMobile ? 150 : 210;
         },
         isOpen :{
             get(){
@@ -349,7 +349,6 @@ export default {
         border-radius: 0;
         box-shadow: none;
         padding: 0;
-        margin-bottom: 8px;
     }
     .profileUserBox_top{
         margin-bottom: 34px;
