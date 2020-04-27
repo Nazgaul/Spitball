@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Admin
 {
-    public class FlaggedAnswerQuery : IQueryAdmin<IEnumerable<FlaggedAnswerDto>>
+    public class FlaggedAnswerQuery : IQueryAdmin2<IEnumerable<FlaggedAnswerDto>>
     {
-        public string Country { get; set; }
-        public FlaggedAnswerQuery(string country)
+        public Country? Country { get; }
+        public FlaggedAnswerQuery(Country? country)
         {
             Country = country;
         }
@@ -34,9 +34,9 @@ namespace Cloudents.Query.Admin
                     .WithOptions(w => w.SetComment(nameof(FlaggedAnswerQuery)))
                     .Fetch(f => f.User)
                     .Where(w => w.Status.State == ItemState.Flagged);
-                if (!string.IsNullOrEmpty(query.Country))
+                if (query.Country != null)
                 {
-                    answers = answers.Where(w => w.User.Country == query.Country);
+                    answers = answers.Where(w => w.User.SbCountry == query.Country);
                 }
 
                 return await answers.Select(s => new FlaggedAnswerDto

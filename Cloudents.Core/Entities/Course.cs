@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using Cloudents.Core.Event;
 
 [assembly: InternalsVisibleTo("Cloudents.Persistence")]
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-    // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
     public class Course : Entity<string>
     {
         public const int MinLength = 4;
@@ -79,20 +79,16 @@ namespace Cloudents.Core.Entities
         public virtual void SetSubject(CourseSubject subject)
         {
             Subject = subject;
+            AddEvent(new CourseChangeSubjectEvent(this));
         }
 
-        //public virtual void SetSchoolType(SchoolType schoolType)
-        //{
-        //    SchoolType = schoolType;
-        //}
+     
         public virtual int Count { get; protected internal set; }
 
 
 
         public virtual DateTime Created { get; protected set; }
 
-        //private readonly ISet<UserCourse> _users = new HashSet<UserCourse>();
-        //public virtual IEnumerable<UserCourse> Users => _users;
 
         protected internal virtual ISet<UserCourse> Users { get;  set; }
 
@@ -102,7 +98,5 @@ namespace Cloudents.Core.Entities
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
         public virtual byte[] Version { get; protected set; }
-       // public virtual SchoolType? SchoolType { get; protected set; }
-       // public virtual string Country { get; protected set; }
     }
 }

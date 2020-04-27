@@ -63,9 +63,6 @@ export const Dashboard = 'dashboardTeacher';
 // Study Room:
 export const StudyRoom = 'tutoring';
 
-// Study Room Settings:
-export const StudyRoomSettings ='roomSettings';
-
 // Question:
 export const Question = 'question';
 

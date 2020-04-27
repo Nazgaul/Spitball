@@ -73,7 +73,7 @@ function UserInfo(objInit) {
 
     };
 
-    this.userType = { value: objInit.userType ? objInit.userType : '', label: 'User Type' };
+    //this.userType = { value: objInit.userType ? objInit.userType : '', label: 'User Type' };
 }
 
 function createUserInfoItem(data) {
@@ -316,16 +316,16 @@ export default {
             return err;
         });
     },
-    getUserTypes: (id) => {
-        let path = `AdminUser/types`;
-        return connectivityModule.http.get(path).then((newTypesList) => {
-            return newTypesList;  
-        });
-    },
-    updateUserType:(data) => {
-        let path = `AdminUser/type`;
-        return connectivityModule.http.post(path, data);
-    },
+    // getUserTypes: (id) => {
+    //     let path = `AdminUser/types`;
+    //     return connectivityModule.http.get(path).then((newTypesList) => {
+    //         return newTypesList;  
+    //     });
+    // },
+    // updateUserType:(data) => {
+    //     let path = `AdminUser/type`;
+    //     return connectivityModule.http.post(path, data);
+    // },
     verifyPhone: (data) => {
         let path = `AdminUser/verify`;
         return connectivityModule.http.post(path, data)

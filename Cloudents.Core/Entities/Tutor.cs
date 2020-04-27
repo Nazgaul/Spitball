@@ -82,7 +82,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void Delete()
         {
-            User.SetUserType(UserType.UniversityStudent);
+            //User.SetUserType(UserType.UniversityStudent);
             AddEvent(new TutorDeletedEvent(Id));
         }
 
