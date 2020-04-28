@@ -286,7 +286,7 @@
     <value>Enroll</value>
   </data>
   <data name="enroll_error" xml:space="preserve">
-    <value />
+    <value>An error has occured</value>
   </data>
   <data name="enroll_success" xml:space="preserve">
     <value>You have successfully enrolled</value>
