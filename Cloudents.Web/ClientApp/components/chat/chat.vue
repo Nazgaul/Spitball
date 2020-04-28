@@ -167,11 +167,11 @@ export default {
 
   @media (max-width: @screen-xs) {
     width: 100%;
-    height: 100%;
+    height: ~"calc( 100vh - 62px)"; //footer size
     max-height: unset;
     top: 0;
     left: 0;
-    bottom: 0;
+    //bottom: 62px;
     right: 0;
     z-index: 999;
   }
