@@ -43,7 +43,7 @@
         </div>
 
         <div class="showMore pa-3 pt-sm-4 pb-sm-0 text-center" v-if="liveSessionsList.length > 3">
-            <button class="showBtn" v-t="'profile_see_all'" @click="isExpand = !isExpand"></button>
+            <button class="showBtn" v-t="isExpand ? 'profile_see_less' : 'profile_see_all'" @click="isExpand = !isExpand"></button>
         </div>
 
         <v-snackbar
