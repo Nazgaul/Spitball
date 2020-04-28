@@ -255,6 +255,9 @@
   <data name="see_all" xml:space="preserve">
     <value>הראה הכל</value>
   </data>
+  <data name="see_less" xml:space="preserve">
+    <value>הסתר</value>
+  </data>
   <data name="select_course" xml:space="preserve">
     <value>בחר קורס</value>
   </data>

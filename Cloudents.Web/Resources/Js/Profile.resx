@@ -309,4 +309,7 @@
   <data name="my_subjects" xml:space="preserve">
     <value>My subjects:</value>
   </data>
+  <data name="see_less" xml:space="preserve">
+    <value>Hide</value>
+  </data>
 </root>
