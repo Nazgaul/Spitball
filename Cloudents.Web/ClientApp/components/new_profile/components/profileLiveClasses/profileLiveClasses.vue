@@ -68,7 +68,7 @@
             @input="showSnack = false"
             :value="showSnack"
         >
-            <div class="text-wrap" v-t="toasterText"></div>
+            <div class="text-wrap white--text" v-t="toasterText"></div>
         </v-snackbar>
 
     </div>
@@ -132,8 +132,8 @@ export default {
                     let currentSession = self.liveSessions.filter(s => s.id === studyRoomId)[0]
                     currentSession.enrolled = true
                 }).catch(ex => {
-                    self.toasterText = 'profile_enroll_error'
                     self.color = 'error'
+                    self.toasterText = 'profile_enroll_error'
                     self.$appInsights.trackException({exception: new Error(ex)});
                 }).finally(() => {
                     self.showSnack = true
