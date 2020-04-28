@@ -87,7 +87,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['openChatInterface']),
+        ...mapActions(['openChatInterface','closeChat']),
         openChat(){
             if (this.accountUser == null) {
                 // this.$openDialog('login');
@@ -97,6 +97,7 @@ export default {
             }
         },
         changeActiveTab(tabName){
+            this.closeChat();
             if(tabName === 'feed' && this.activeTab !== tabName){
                 this.$router.push({name:'feed'})
             }
