@@ -36,7 +36,7 @@ namespace Cloudents.Query.Tutor
                 return await _session.Query<StudyRoom>()
                     .Where(w => w.Tutor.Id == query.TutorId && w.StudyRoomType == StudyRoomType.Broadcast &&
                                 w.BroadcastTime > DateTime.UtcNow)
-                    .OrderByDescending(o=>o.Id)
+                    .OrderBy(o=>o.BroadcastTime)
                     .Select(s => new FutureBroadcastStudyRoomDto()
                     {
                         Id = s.Id,
