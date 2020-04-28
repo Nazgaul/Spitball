@@ -2,11 +2,12 @@
     <div class="studyRoomVideoSettings">
         <div class="studyRoom-video-settings-title">
             <h4 class="studyRoom-video-settings-label mb-3" v-language:inner='"studyRoomSettings_camera_label"'></h4>
+                <!-- @change="createVideoQualityPreview()" -->
             <v-select
-                v-model="singleCameraId"
+                :value="getVideoDeviceId"
                 class="videoSelect"
-                :items="camerasList"
-                @change="createVideoQualityPreview()"
+                :items="videoDevicesList"
+                @change="createVideoPreview"
                 :label="$t('studyRoomSettings_video_select_label')"
                 :placeholder="$t('studyRoomSettings_camera_placeholder')"
                 :menu-props="{contentClass:'select-direction'}"
@@ -23,7 +24,9 @@
         </div>
         
         <v-flex xs12  class="mt-4 mb-4 studyRoom-video-settings-video-container">
-            <div id="local-video-test-track1"></div>
+            <div id="local-video-test-track1">
+                <video ref="videoEl" autoplay playsinline controls="false"></video>
+            </div>
         </v-flex>
     </div>
 </template>
@@ -37,102 +40,131 @@ import { mapGetters } from 'vuex';
 export default {
     data(){
         return {
-            permissionDenied: false,
-            camerasList:[],
-            videoEl: null,
-            localTrack: null,
-            singleCameraId: global.localStorage.getItem('sb-videoTrackId')
+            videoDevicesList: [],
+            // permissionDenied: false,
+            // camerasList:[],
+            // videoEl: null,
+            // localTrack: null,
+            // singleCameraId: global.localStorage.getItem('sb-videoTrackId')
         }
     },
     computed: {
         ...mapGetters(['getVideoDeviceId'])
     },
     methods:{
-        getVideoInputdevices() {
-            let self = this;
-            navigator.mediaDevices.enumerateDevices().then((mediaDevices) => {
-                        mediaDevices.forEach((device) => {
-                            if (device.kind === 'videoinput') {
-                                self.camerasList.push(device)
-                            }
-                        })
-                        if(self.camerasList.length > 0){
-                            let isNotInList = self.camerasList.every(device=>device.deviceId !== self.singleCameraId)
-                    
-                            if(isNotInList || !self.singleCameraId){
-                                self.singleCameraId = self.camerasList[0].deviceId;
-                            }
-                            self.createVideoQualityPreview();
-                        }
-                        if(self.permissionDenied) return self.camerasList = []
-                },
-                (error) => {
-                    insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoSettings_getVideoInputdevices', error, null);
-                    console.log('error cant get video input devices', error)
-                }
-            )
-        },
-        async createVideoQualityPreview() {
-            if (this.localTrack) {
-                this.clearVideoTrack();
-            }
-            let self = this;
-            let isDeviceInList = self.camerasList.some(device=>{
-                if(device.deviceId === self.singleCameraId){
-                    return true;
-                }
-            })
-            if(!isDeviceInList){
-                self.singleCameraId = self.camerasList[0].deviceId;
-            }
+        // getVideoInputdevices() {
+        //     let self = this;
+        //     navigator.mediaDevices.enumerateDevices().then((mediaDevices) => {
+        //                 mediaDevices.forEach((device) => {
+        //                     if (device.kind === 'videoinput') {
+        //                         self.camerasList.push(device)
+        //                     }
+        //                 })
+        //                 if(self.camerasList.length > 0){
+        //                     let isDeviceInList = self.camerasList.some(device=>{
+        //                         if(device.deviceId === self.singleCameraId){
+        //                             return true;
+        //                         }
+        //                     })
+        //                     if(!isDeviceInList){
+        //                         self.singleCameraId = self.camerasList[0].deviceId;
+        //                     }
+        //                     self.createVideoQualityPreview();
+        //                 }
+        //                 if(self.permissionDenied) return self.camerasList = []
+        //         },
+        //         (error) => {
+        //             insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoSettings_getVideoInputdevices', error, null);
+        //             console.log('error cant get video input devices', error)
+        //         }
+        //     )
+        // },
+        // async createVideoQualityPreview() {
+        //     if (this.localTrack) {
+        //         this.clearVideoTrack();
+        //     }
+        //     let self = this;
+        //     let isDeviceInList = self.camerasList.some(device=>{
+        //         if(device.deviceId === self.singleCameraId){
+        //             return true;
+        //         }
+        //     })
+        //     if(!isDeviceInList){
+        //         self.singleCameraId = self.camerasList[0].deviceId;
+        //     }
 
-            let videoParams = {audio:false,video :{ deviceId: self.singleCameraId}}
-            await navigator.mediaDevices.getUserMedia(videoParams)
-                .then(track => {
-                    self.videoEl = document.getElementById('local-video-test-track1');
-                    self.localTrack = track;
-                    let video = document.createElement('video');
-                    video.srcObject = track;
-                    video.onloadedmetadata = function() {
-                        video.play();
-                    };
-                    self.videoEl.appendChild(video);
-                    self.$store.dispatch('updateVideoTrack',self.singleCameraId)
-                }).catch(err => {
-                    self.clearVideoTrack()
-                    self.$store.dispatch('updateVideoTrack',self.singleCameraId)
-                    debugger
-                    self.permissionDenied = true
-                    insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoValidation_createVideoQualityPreview', err, null);
-                })
-        },
-        clearVideoTrack() {
-            if (this.localTrack) {
-                debugger
-                
-                this.localTrack.getTracks().forEach(track => {
-                    track.stop();
-                });
-                let video = document.querySelector('#local-video-test-track1 video');
-                if(video){
-                    this.videoEl.removeChild(video)
-                }
-                this.localTrack = null;
+        //     let videoParams = {audio:false,video :{ deviceId: self.singleCameraId}}
+        //     await navigator.mediaDevices.getUserMedia(videoParams)
+        //         .then(track => {
+        //             self.videoEl = document.getElementById('local-video-test-track1');
+        //             self.localTrack = track;
+        //             let video = document.createElement('video');
+        //             video.srcObject = track;
+        //             video.onloadedmetadata = function() {
+        //                 video.play();
+        //             };
+        //             self.videoEl.appendChild(video);
+        //             self.$store.dispatch('updateVideoTrack',self.singleCameraId)
+        //         }).catch(err => {
+        //             self.clearVideoTrack()
+        //             self.$store.dispatch('updateVideoTrack',self.singleCameraId)
+        //             self.permissionDenied = true
+        //             insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoValidation_createVideoQualityPreview', err, null);
+        //         })
+        // },
+        // clearVideoTrack() {
+        //     if (this.localTrack) {
+        //         this.localTrack.getTracks().forEach(track => {
+        //             track.stop();
+        //         });
+        //         let video = document.querySelector('#local-video-test-track1 video');
+        //         if(video){
+        //             this.videoEl.removeChild(video)
+        //         }
+        //         this.localTrack = null;
+        //     }
+        // }
+        createVideoPreview(deviceId){
+            let videoParams = {
+                audio: false,
+                video:{deviceId}
             }
+            let self = this;
+            navigator.mediaDevices.getUserMedia(videoParams)
+                .then(stream=>{
+                    self.$refs.videoEl.srcObject = stream;
+                    deviceId = stream.getVideoTracks()[0].getSettings().deviceId
+                    self.$store.dispatch('updateVideoDeviceId',deviceId)
+                    self.$store.dispatch('updateVideoTrack',deviceId)
+                    return
+                })
+                .catch(err=>{
+                    insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoSettings_getVideoInputdevices', err, null);
+                })
+                self.cameraOn = false
+        },
+        getVideoDevices(){
+            let self = this;
+            navigator.mediaDevices.enumerateDevices()
+                .then(devices => {
+                    self.videoDevicesList = devices.filter(device => device.kind === 'videoinput');
+                });
         }
     },
     watch: {
-        getVideoDeviceId(val){
-            if(val && !this.localTrack){
-                this.createVideoQualityPreview();
-            }
-        }
+        // getVideoDeviceId(val){
+        //     if(val && !this.localTrack){
+        //         this.createVideoQualityPreview();
+        //     }
+        // }
     },
     created(){
-        this.getVideoInputdevices();
+        this.createVideoPreview(this.getVideoDeviceId)
+        this.getVideoDevices()
+        // this.getVideoInputdevices();
     },
     beforeDestroy() {
-        this.clearVideoTrack();
+        // this.clearVideoTrack();
     }
 }
 </script>

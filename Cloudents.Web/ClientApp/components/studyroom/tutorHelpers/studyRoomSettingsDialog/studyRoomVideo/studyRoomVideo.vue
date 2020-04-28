@@ -38,7 +38,9 @@
                 <v-icon class="settingIcon" color="#fff" @click="settingDialogState = true" size="22">sbf-settings</v-icon>
             </div>
 
-            <div id="local-video-test-track" :class="{'videoPlaceholderWrap': !cameraOn || !placeholder}"></div>
+            <div id="local-video-test-track" :class="{'videoPlaceholderWrap': !cameraOn || !placeholder}">
+                <video ref="videoEl" autoplay playsinline controls="false"></video>
+            </div>
             <div class="videoOverlay" :class="{'videoPlaceholderWrap': !cameraOn || !placeholder}"></div>
         </v-row>
 
@@ -92,10 +94,10 @@ export default {
     },
     data(){
         return {
-            camerasList: [],
-            videoEl: null,
-            localTrack: null,
-            audio: null,
+            // camerasList: [],
+            // videoEl: null,
+            // localTrack: null,
+            // audio: null,
             microphoneOn: true,
             cameraOn: false,
             placeholder: false,
@@ -104,178 +106,231 @@ export default {
             audioDeviceNotFound: false,
             permissionDialogState: false,
             settingDialogState: false,
-            singleCameraId: global.localStorage.getItem('sb-videoTrackId'),
-            singleMicrophoneId: global.localStorage.getItem('sb-audioTrackId')
+            // singleCameraId: global.localStorage.getItem('sb-videoTrackId'),
+            // singleMicrophoneId: global.localStorage.getItem('sb-audioTrackId')
         }
     },
     watch: {
-        getVideoDeviceId(val){
-            if(val && val !== this.singleCameraId){
-                this.localTrack.getTracks().forEach(track => {
-                    track.stop();
-                });
-                this.singleCameraId = val; 
-                this.getInputdevices()
+        getVideoDeviceId(newVal,oldVal){
+            if((newVal && oldVal) && newVal !== oldVal){
+                this.createVideoPreview(newVal)
             }
         }
     },
     computed: {
-        ...mapGetters(['getVideoDeviceId'])
+        ...mapGetters(['getVideoDeviceId','getAudioDeviceId'])
     },
     methods:{
-        getInputdevices() {
-            let self = this;
-            navigator.mediaDevices.enumerateDevices().then((mediaDevices) => {
-                mediaDevices.forEach((device) => {
-                    if (device.kind === 'videoinput') {
-                        self.camerasList.push(device)
-                    }
-                    if (device.kind === 'audioinput') {
-                        if(!self.singleMicrophoneId){
-                            if (device && device.label.toLowerCase().includes('default')) {
-                                self.singleMicrophoneId = device.deviceId;
-                            }
-                        }
-                    }
-                })
-
-                self.checkAudioDevice()
-
-                if(self.camerasList.length > 0){
-                    let isNotInList = self.camerasList.every(device=>device.deviceId !== self.singleCameraId)
-            
-                    if(isNotInList || !self.singleCameraId){
-                        self.singleCameraId = self.camerasList[0].deviceId;
-                    }
-                    self.createVideoQualityPreview();
-                    self.cameraOn = true
-                    return
-                }
-                self.cameraOn = false
-            }).catch(error => {
-                insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoSettings_getVideoInputdevices', error, null);
-            })
-        },
-        createVideoQualityPreview() {
-            if (this.localTrack) {
-                this.clearVideoTrack();
+        createVideoPreview(deviceId){
+            let videoParams = {
+                audio: false,
+                video:{deviceId}
             }
             let self = this;
-            let isNotInList = self.camerasList.every(device=>device.deviceId !== self.singleCameraId)
-            
-            if(self.camerasList.length){
-                if(isNotInList || !self.singleCameraId){
-                    self.singleCameraId = self.camerasList[0].deviceId;
-                }
-            }
-
-            let videoParams = {audio:false,video :{ deviceId: this.singleCameraId}}
             navigator.mediaDevices.getUserMedia(videoParams)
-                .then(track => {
-                    self.setVideoTrack(track)
-                }).catch(err => {
-                    let rateReviewDialogState = this.$store.getters.getReviewDialogState
-                    if(err.code === 0 && !rateReviewDialogState) {
-                        self.videoBlockPermission = true
-                        self.permissionDialogState = true
-                        self.placeholder = false
+                .then(stream=>{
+                    self.$refs.videoEl.srcObject = stream;
+                    self.cameraOn = true
+                    self.placeholder = true
+                    self.videoBlockPermission = false
+                    self.permissionDialogState = false
+                    deviceId = stream.getVideoTracks()[0].getSettings().deviceId
+                    self.$store.dispatch('updateVideoDeviceId',deviceId)
+                    return
+                })
+                .catch(err=>{
+                    insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoSettings_getVideoInputdevices', err, null);
+                })
+                self.cameraOn = false
+        },
+        getAudioDevices(){
+            let self = this;
+            navigator.mediaDevices.enumerateDevices()
+                .then(devices => {
+                    let audioDevice = devices.find(device => device.kind === 'audioinput' && device.label.toLowerCase().includes('default'));
+                    self.checkAudio(audioDevice.deviceId);
+                });
+        },
+        checkAudio(deviceId){
+            let audioParams = {
+                audio: {deviceId},
+                video: false
+            }
+            let self = this;
+            navigator.mediaDevices.getUserMedia(audioParams)
+                .then((stream)=>{
+                    deviceId = stream.getAudioTracks()[0].getSettings().deviceId 
+                    self.microphoneOn = true
+                    self.validateMicrophone(deviceId);
+                })
+                .catch(err=>{
+                    if(err.code === 0) {
+                        self.audioBlockPermission = true 
                     }
-                    self.cameraOn = false
-                    insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoValidation_createVideoQualityPreview', err, null);
+                    if(err.code === 8) {
+                        self.audioDeviceNotFound = true
+                    }
+                    self.microphoneOn = false;
                 })
         },
-        setVideoTrack(track) {
-            if(document.querySelector('#local-video-test-track video')){
-                return
-            }
-            this.videoEl = document.getElementById('local-video-test-track');
-            this.localTrack = track;
-            let video = document.createElement('video');
-            video.srcObject = track;
-            video.onloadedmetadata = function() {
-                video.play();
-            };
-            this.videoEl.appendChild(video);
-            this.$store.dispatch('updateVideoTrack',this.singleCameraId)
-            this.$store.commit('settings_setIsVideo',true)
+        validateMicrophone(deviceId) {
+            studyRoomAudioSettingService.createAudioContext('audio-input-meter', deviceId);
+            this.$store.dispatch('updateAudioDeviceId',deviceId)
+        },
+        // getInputDevices() {
+        //     let self = this;
+        //     navigator.mediaDevices.enumerateDevices().then((mediaDevices) => {
+        //         mediaDevices.forEach((device) => {
+        //             if (device.kind === 'videoinput') {
+        //                 self.camerasList.push(device)
+        //             }
+        //             if (device.kind === 'audioinput') {
+        //                 if(!self.singleMicrophoneId){
+        //                     if (device && device.label.toLowerCase().includes('default')) {
+        //                         self.singleMicrophoneId = device.deviceId;
+        //                     }
+        //                 }
+        //             }
+        //         })
 
-            this.cameraOn = true
-            this.placeholder = true
-            this.videoBlockPermission = false
-            this.permissionDialogState = false
-        },
-        clearVideoTrack() {
-            this.$store.commit('settings_setIsVideo',false)
-            if (this.localTrack) {
-                this.localTrack.getTracks().forEach(track => {
-                    track.stop();
-                });
-                let video = document.querySelector('#local-video-test-track video')
-                if(video){
-                    this.videoEl.removeChild(video)
-                }
-                this.localTrack = null;
-                this.cameraOn = false
-                this.placeholder = false
-            }
-        },
-        checkAudioDevice() {
-            let self = this
-            navigator.getUserMedia({ audio: true }, () => {
-                self.microphoneOn = true
-                self.validateMicrophone('audio-input-meter', self.singleMicrophoneId);
-            }, (err) => {
-                if(err.code === 0) {
-                    self.audioBlockPermission = true 
-                }
-                if(err.code === 8) {
-                    self.audioDeviceNotFound = true
-                }
-                self.microphoneOn = false;
-            })
-        },
-        toggleMic() {
-            if(this.audioBlockPermission) return
+        //         self.checkAudioDevice()
 
-            this.microphoneOn = !this.microphoneOn   
-            if(!this.microphoneOn) {
-                this.stopSound()
-                return
-            }
+        //         if(self.camerasList.length > 0){
+        //             let isNotInList = self.camerasList.every(device=>device.deviceId !== self.singleCameraId)
+            
+        //             if(isNotInList || !self.singleCameraId){
+        //                 self.singleCameraId = self.camerasList[0].deviceId;
+        //             }
+        //             self.createVideoQualityPreview();
+        //             self.cameraOn = true
+        //             return
+        //         }
+        //         self.cameraOn = false
+        //     })
+        // },
+        // createVideoQualityPreview() {
+        //     if (this.localTrack) {
+        //         this.clearVideoTrack();
+        //     }
+        //     let self = this;
+        //     let isNotInList = self.camerasList.every(device=>device.deviceId !== self.singleCameraId)
+            
+        //     if(self.camerasList.length){
+        //         if(isNotInList || !self.singleCameraId){
+        //             self.singleCameraId = self.camerasList[0].deviceId;
+        //         }
+        //     }
 
-            this.checkAudioDevice()
-        },
-        toggleCamera() {
-            if(this.videoBlockPermission) return
+        //     let videoParams = {audio:false,video :{ deviceId: this.singleCameraId}}
+        //     navigator.mediaDevices.getUserMedia(videoParams)
+        //         .then(track => {
+        //             self.setVideoTrack(track)
+        //         }).catch(err => {
+        //             let rateReviewDialogState = this.$store.getters.getReviewDialogState
+        //             if(err.code === 0 && !rateReviewDialogState) {
+        //                 self.videoBlockPermission = true
+        //                 self.permissionDialogState = true
+        //                 self.placeholder = false
+        //             }
+        //             self.cameraOn = false
+        //             insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoValidation_createVideoQualityPreview', err, null);
+        //         })
+        // },
+        // setVideoTrack(track) {
+        //     if(document.querySelector('#local-video-test-track video')){
+        //         return
+        //     }
+        //     this.videoEl = document.getElementById('local-video-test-track');
+        //     this.localTrack = track;
+        //     let video = document.createElement('video');
+        //     video.srcObject = track;
+        //     video.onloadedmetadata = function() {
+        //         video.play();
+        //     };
+        //     this.videoEl.appendChild(video);
+        //     this.$store.dispatch('updateVideoTrack',this.singleCameraId)
+        //     this.$store.commit('settings_setIsVideo',true)
 
-            this.cameraOn = !this.cameraOn
+        //     this.cameraOn = true
+        //     this.placeholder = true
+        //     this.videoBlockPermission = false
+        //     this.permissionDialogState = false
+        // },
+        // clearVideoTrack() {
+        //     this.$store.commit('settings_setIsVideo',false)
+        //     if (this.localTrack) {
+        //         this.localTrack.getTracks().forEach(track => {
+        //             track.stop();
+        //         });
+        //         let video = document.querySelector('#local-video-test-track video')
+        //         if(video){
+        //             this.videoEl.removeChild(video)
+        //         }
+        //         this.localTrack = null;
+        //         this.cameraOn = false
+        //         this.placeholder = false
+        //     }
+        // },
+        // checkAudioDevice() {
+        //     let self = this
+        //     navigator.getUserMedia({ audio: true }, () => {
+        //         self.microphoneOn = true
+        //         self.validateMicrophone('audio-input-meter', self.singleMicrophoneId);
+        //     }, (err) => {
+        //         if(err.code === 0) {
+        //             self.audioBlockPermission = true 
+        //         }
+        //         if(err.code === 8) {
+        //             self.audioDeviceNotFound = true
+        //         }
+        //         self.microphoneOn = false;
+        //     })
+        // },
+        // toggleMic() {
+        //     if(this.audioBlockPermission) return
 
-            if(!this.cameraOn) {
-                this.clearVideoTrack()
-                this.camerasList = []
-                return
-            }
-            this.getInputdevices()
-        },
-        validateMicrophone() {
-            studyRoomAudioSettingService.createAudioContext('audio-input-meter', this.singleMicrophoneId);
-            this.$store.dispatch('updateAudioTrack',this.singleMicrophoneId)
-        },
-        stopSound(){
-            if(this.audio && this.audio.pause){
-                this.audio.pause();
-            }
-        },
+        //     this.microphoneOn = !this.microphoneOn   
+        //     if(!this.microphoneOn) {
+        //         this.stopSound()
+        //         return
+        //     }
+
+        //     this.checkAudioDevice()
+        // },
+        // toggleCamera() {
+        //     if(this.videoBlockPermission) return
+
+        //     this.cameraOn = !this.cameraOn
+
+        //     if(!this.cameraOn) {
+        //         this.clearVideoTrack()
+        //         this.camerasList = []
+        //         return
+        //     }
+        //     this.getInputDevices()
+        // },
+        // validateMicrophone() {
+        //     studyRoomAudioSettingService.createAudioContext('audio-input-meter', this.singleMicrophoneId);
+        //     this.$store.dispatch('updateAudioTrack',this.singleMicrophoneId)
+        // },
+        // stopSound(){
+        //     if(this.audio && this.audio.pause){
+        //         this.audio.pause();
+        //     }
+        // },
+        startPreview(){
+            this.createVideoPreview(this.getVideoDeviceId)
+            this.checkAudio(this.getAudioDeviceId) 
+        }
     },
     created(){
-        this.getInputdevices()
-
-        navigator.mediaDevices.ondevicechange = this.getInputdevices
+        this.startPreview()
+        navigator.mediaDevices.ondevicechange = this.startPreview
     },
     beforeDestroy() {
-        this.clearVideoTrack();
+        // this.clearVideoTrack();
         studyRoomAudioSettingService.stopAudioContext();
-        this.stopSound();
+        // this.stopSound();
     }
 }
 </script>
