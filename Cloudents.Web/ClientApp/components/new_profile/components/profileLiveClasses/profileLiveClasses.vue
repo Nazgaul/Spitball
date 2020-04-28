@@ -1,5 +1,5 @@
 <template>
-    <div class="profileLiveClasses pa-sm-4 pa-0">
+    <div class="profileLiveClasses pa-sm-4 pa-0" v-if="liveSessions.length">
 
         <div class="mainTitle pl-4 pl-sm-0 pb-sm-4 pt-3 pt-sm-0 text-truncate">
             <span v-t="'profile_live_title'"></span>
@@ -55,7 +55,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="showMore pa-3 pt-sm-4 pb-sm-0 text-center" v-if="liveSessions.length > 3">
             <button class="showBtn" v-t="isExpand ? 'profile_see_less' : 'profile_see_all'" @click="isExpand = !isExpand"></button>
         </div>
