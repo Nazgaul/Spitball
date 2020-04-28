@@ -120,11 +120,9 @@
   }
   .profilePage_main {
     max-width: 1920px;
-    // width: 100%;
     padding-top: 260px;
     margin: 0 20px;
-    //margin-right: 33px;
-    @media (max-width: @screen-sm) {
+    @media (max-width: @screen-xs) {
       margin: 0;
     }
     &.profile-page-container {
