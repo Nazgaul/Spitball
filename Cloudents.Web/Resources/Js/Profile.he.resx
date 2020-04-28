@@ -177,6 +177,9 @@
   <data name="enroll" xml:space="preserve">
     <value>הרשמה</value>
   </data>
+  <data name="enroll_error" xml:space="preserve">
+    <value>אירעה שגיאה</value>
+  </data>
   <data name="enroll_success" xml:space="preserve">
     <value>ההרשמה בוצעה</value>
   </data>
