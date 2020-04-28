@@ -26,23 +26,37 @@
                 </div>
                 <div class="action">
                     <v-btn
-                        @click="session.enrolled ? enterRoom(session.id) : enrollSession(session.id)"
+                        v-if="isMyProfile || session.enrolled"
+                        @click="enterRoom(session.id)"
                         class="btn white--text"
                         width="140"
                         :height="$vuetify.breakpoint.xsOnly ? '42' : '38'"
-                        :color="session.enrolled ? '#41c4bc' : '#4c59ff'"
+                        color="#41c4bc"
                         :block="$vuetify.breakpoint.xsOnly"
                         depressed
                         rounded
                     >
-                        <enterIcon class="enterIcon mr-sm-2" v-show="session.enrolled" width="18" />
-                        <span :class="{'flex-grow-1 pr-4': $vuetify.breakpoint.xsOnly}">{{$t(session.enrolled ? 'profile_enter_room' : 'profile_enroll')}}</span>
+                        <enterIcon class="enterIcon mr-sm-2" width="18" />
+                        <span :class="{'flex-grow-1 pr-4': $vuetify.breakpoint.xsOnly}" v-t="'profile_enter_room'"></span>
+                    </v-btn>
+                    <v-btn
+                        v-else
+                        @click="enrollSession(session.id)"
+                        class="btn white--text"
+                        width="140"
+                        :height="$vuetify.breakpoint.xsOnly ? '42' : '38'"
+                        color="#4c59ff"
+                        :block="$vuetify.breakpoint.xsOnly"
+                        depressed
+                        rounded
+                    >
+                        <span :class="{'flex-grow-1 pr-4': $vuetify.breakpoint.xsOnly}" v-t="'profile_enroll'"></span>
                     </v-btn>
                 </div>
             </div>
         </div>
-
-        <div class="showMore pa-3 pt-sm-4 pb-sm-0 text-center" v-if="liveSessionsList.length > 3">
+        
+        <div class="showMore pa-3 pt-sm-4 pb-sm-0 text-center" v-if="liveSessionsList.length >= 3">
             <button class="showBtn" v-t="isExpand ? 'profile_see_less' : 'profile_see_all'" @click="isExpand = !isExpand"></button>
         </div>
 
@@ -98,7 +112,12 @@ export default {
         },
         tutorName() {
             return this.$store.getters.getProfile?.user?.firstName
-        }
+        },
+        isMyProfile(){
+            let accountId = this.$store.getters?.accountUser?.id
+            let profileId = this.$store.getters.getProfile?.user?.id
+            return accountId == profileId
+        },
     },
     methods: {
         enrollSession(studyRoomId) {
