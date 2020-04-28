@@ -46,6 +46,29 @@ export default {
         }
     },
     methods: {
+        login(){
+            let childComp = this.$refs.childComponent
+            let loginObj = {
+                email: childComp.email,
+                password: childComp.password
+            }
+
+            let self = this
+            registrationService.emailLogin(loginObj)
+                .then(({data}) => {
+                    global.country = data.country; // should we need this? @idan
+                    analyticsService.sb_unitedEvent('Login', 'Start');
+
+                    if(self.presetRouting()) return
+                    
+                    self.$store.dispatch('userStatus')
+                }).catch(error => {      
+                    let { response: { data } } = error
+
+                    self.errors.password = data["Password"] ? error.response.data["Password"][0] : ''
+                    self.$appInsights.trackException({exception: new Error(error)})
+                })
+        },
         gmailRegister() {
             this.googleLoading = true;
             let self = this
