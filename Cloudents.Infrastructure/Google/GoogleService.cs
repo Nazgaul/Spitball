@@ -26,6 +26,7 @@ using Document = Google.Apis.Docs.v1.Data.Document;
 using User = Cloudents.Core.Entities.User;
 using System.IdentityModel.Tokens.Jwt;
 using Cloudents.Core.Entities;
+using Google.Apis.Json;
 using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Google
@@ -39,15 +40,13 @@ namespace Cloudents.Infrastructure.Google
         private const string PrimaryGoogleCalendarId = "primary";
         private readonly ILifetimeScope _container;
         private readonly GoogleAnalyticsRequestFactory _factory;
-        private readonly JwtSecurityTokenHandler _tokenHandler;
-        private readonly IJsonSerializer _jsonSerializer;
+       // private readonly JwtSecurityTokenHandler _tokenHandler;
 
-        public GoogleService(ILifetimeScope container, IJsonSerializer jsonSerializer)
+        public GoogleService(ILifetimeScope container)
         {
             _container = container;
             _factory = new GoogleAnalyticsRequestFactory("UA-100723645-2");
-            _tokenHandler = new JwtSecurityTokenHandler();
-            _jsonSerializer = jsonSerializer;
+            //_tokenHandler = new JwtSecurityTokenHandler();
         }
 
 
@@ -265,45 +264,56 @@ namespace Cloudents.Infrastructure.Google
         }
 
 
-        public async Task BookCalendarEventAsync(User tutor, User student, GoogleTokens googleTokens,
+        public async Task BookCalendarEventAsync(User tutor, User student, GoogleTokens? googleTokens,
              DateTime from, DateTime to,
             CancellationToken cancellationToken)
         {
-            var cred = SpitballCalendarCred;
+         
             var resourceManager = new System.Resources.ResourceManager(typeof(CalendarResources));
             var eventName = resourceManager.GetString("TutorCalendarMessage", CultureInfo.CurrentUICulture) ?? "Tutor Session In Spitball";
             eventName = string.Format(eventName, tutor.Name, student.Name);
-            var tutorToken = _jsonSerializer.Deserialize<GoogleTokensValue>(googleTokens.Value);
+
+
+            var attendees = new[] { tutor, student }.Select(s => s.Email).ToList();
+            if (googleTokens != null)
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var tutorToken = NewtonsoftJsonSerializer.Instance.Deserialize<GoogleTokensValue>(googleTokens.Value);
+                var tutorCalendarEmail = tokenHandler.ReadJwtToken(tutorToken.IdToken).Payload
+                    .SingleOrDefault(w => w.Key == "email");
+                attendees.Add(tutorCalendarEmail.Value.ToString());
+            }
+
+            await SendCalendarInviteAsync(attendees, from, to, eventName, cancellationToken);
+          
+        }
+
+        private async Task SendCalendarInviteAsync(IEnumerable<string> emails, DateTime @from, DateTime to,
+            string title, CancellationToken cancellationToken)
+        {
+             var cred = SpitballCalendarCred;
+
+            
             using var service = new CalendarService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = cred
             });
-            var tutorCalendarEmail = _tokenHandler.ReadJwtToken(tutorToken.IdToken).Payload.SingleOrDefault(w => w.Key == "email");
 
-
-            var attendees = new[] { tutor, student }.Select(s => new EventAttendee()
+            var event2 = service.Events.Insert(new Event
             {
-                Email = s.Email
-
-            }).ToList();
-
-            attendees.Add(new EventAttendee()
-            {
-                Email = tutorCalendarEmail.Value.ToString()
-            });
-
-            var event2 = service.Events.Insert(new Event()
-            {
-                Attendees = attendees,
-                Summary = eventName,
+                Attendees = emails.Select(s=>new EventAttendee()
+                {
+                    Email = s
+                }).ToList(),
+                Summary = title,
                 Start = new EventDateTime()
                 {
-                    DateTime = @from,
+                    DateTime = from,
                     TimeZone = "Etc/UTC"
                 },
                 End = new EventDateTime()
                 {
-                    DateTime = to.ToUniversalTime(),
+                    DateTime = to,
                     TimeZone = "Etc/UTC"
                 }
                 
@@ -311,6 +321,17 @@ namespace Cloudents.Infrastructure.Google
             event2.SendUpdates = EventsResource.InsertRequest.SendUpdatesEnum.All;
             event2.ConferenceDataVersion = 1;
             await event2.ExecuteAsync(cancellationToken);
+        }
+
+        public async Task EnrollUserEventAsync(string studyRoomName, Tutor tutor, User student, DateTime broadcastTime, CancellationToken cancellationToken)
+        {
+            var x = new System.Resources.ResourceManager(typeof(CalendarResources));
+            var eventName = x.GetString("EnrollCalendarMessage", CultureInfo.CurrentUICulture) 
+                            ?? $"Spitball Live session - {studyRoomName}";
+            eventName = string.Format(eventName, tutor.User.Name, student.Name);
+
+            var attendees = new[] {tutor.User, student}.Select(s => s.Email);
+            await SendCalendarInviteAsync(attendees, broadcastTime, broadcastTime.AddHours(1), eventName, cancellationToken);
         }
 
         private static ServiceAccountCredential SpitballCalendarCred
@@ -322,6 +343,7 @@ namespace Cloudents.Infrastructure.Google
                     Scopes = new[] { CalendarService.Scope.Calendar },
                     User = "schedule@spitball.co"
                 }.FromPrivateKey(
+                    // ReSharper disable once StringLiteralTypo
                     "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC6j5Wb+58PaIlE\nlWeitrRDKWo7gDgw3BgKCK1MA9IZd7nI5gAQDoE6X/UTFt2PHD4QtQU5juNVSS+1\nhgppSAZIHlCKiUKnNg4X5FmODk3XlrZSWsTINLosVl3W9f1tntnL2ll518NTfsv5\nCSf0D/X6+wwJ/QbgTeX2miyCfZlOsU7ARlYeXMQgPiizebVQZ4OKFETbPBf694U3\nHm7aheRPMBYb2ZKNuzJVGvi8P6IWsTgAdWb9VwrBDWgWTju2x08ux2mnmgL09ZAw\ni2KD3dQ9KfeLv/XIWcHPCRLJsnpcHABuBlr83XUrMKMt//VvN60NgmIbnZc19b4P\nwyZr8qgTAgMBAAECggEACBY8RSWBmMCOdAoeksI6YHpARXGtPd+fLSQreug5fcAf\nrgfbndaQdHrUsUNO+aqe6B4oqqeOeX5xfSa2dyeCRN2yM7x3xq7EVUshNKlbEiAm\n1BK6L/bVJncx8c+k8NEEyN40qGBEHRpEdjhBjUX52Ct0s07Osv9oG1SbNFGEc+bk\nTHTZVXYGSJRkyo3BNLohXo+pFgIdWrzD5zaURCQwxNJPJRHA3GRSVDIaQ7ik9PXK\nqm/8+rrQAv4oAifbYxF0KWI7Sj2q9JLFCfXJXmIIMq/n4l5NcpVKJstvGWe7qYFT\ne4uCn8ItVxpTJWBRDv8oL6NUsgZog0eK82/PKYucuQKBgQDylaw4zXykUzLnGh9G\nadnAVNFnxA8Yh3PwAL5V+qRXMbIWxqeOFxMeg3UDjEaUXAmn0J3Y038xm7Bsp+FY\nmJDWi77aCNvZKOs227tmLTFOEZZ1BDvgaNU+gT7XXRQWABc+5YxR/bLHan6vDnYP\nyh21BEiruUQTbdmn1kumA/QuqQKBgQDE4MUeNEMMPJrKQyPBYw/CRk4dW1/R2gX7\nEttcSk9g9UObNizXlqVPHNcDfISreuBPFq+sE6npxkraobKSYdulLtsFxw7MSBe4\niA7mppltdYknwms+VyVJL//cGQXOqG/IcEBoIiJN4DSNUIjC8ArMVYF5OXkzm6X0\nw4suwrrCWwKBgQDmR+keXwr0XzqSIb0QtckNCDdlXrvJ2EPZ0IreybkaQMXDUz+Z\n5hOzQq1g+dfCXICZ+rLtMxCqghX/f3qvBN1xnWVGS2SQCIUJJZwHCd2lM5L1cFh6\n1mmgFUcXYHeBzwJCJdyHtOLy5Qhvm7W9lWuP/AoUYiHao8wbxJU5esVhSQKBgQCO\nf43NBdC9q6Px39SiZZwDZrWlY/yfvGl1x7lEPHjl2b/cOMMOK/hsoZgy6s5v+5kd\nRXNTXkwua5rEUiMY9oFvNtHKhcB9NXUN2FTIty733gmu4HaVAah4J6jOWsIsSRfX\ngP/tHz+rFCuVWQQT7IA0U3NKFcJXC0J8PYihCMr6XwKBgH6NQiVYrg6Z6E1+T2+K\nWwfKem7uwDMi1FSi1IG9++nN92eO7ZZka4YEZ7runa4DS9a1oA6kIipT1JxAAQzi\nwhODOWc47SrdWlj9TwZm1ky8SAHvaxvECDJenWr+ooXzmdAiApnEHxQt4VsxuYhz\neLf0iFOJEWE47mX1CjBYuiSA\n-----END PRIVATE KEY-----\n"));
                 return cred;
             }
@@ -386,13 +408,15 @@ namespace Cloudents.Infrastructure.Google
         private class GoogleTokensValue
         {
 
+            [JsonProperty("Id_token")]
+            public string IdToken { get; set; } = null!;
+
+
             //  public string Access_token { get; set; }
             //  public string Token_type { get; set; }
             //  public string Expires_in { get; set; }
             //  public string Refresh_token { get; set; }
             //  public string Scope { get; set; }
-            [JsonProperty("Id_token")]
-            public string IdToken { get; set; } = null!;
 
             // public string Issued { get; set; }
             // public string IssuedUtc { get; set; }
