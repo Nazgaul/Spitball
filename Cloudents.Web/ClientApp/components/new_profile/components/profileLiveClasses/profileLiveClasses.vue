@@ -118,9 +118,17 @@ export default {
             let profileId = this.$store.getters.getProfile?.user?.id
             return accountId == profileId
         },
+        isLogged() {
+            return this.$store.getters.getUserLoggedInStatus
+        }
     },
     methods: {
         enrollSession(studyRoomId) {
+            if(!this.isLogged) {
+                this.$store.commit('setComponent', 'login')
+                return
+            }
+
             let session = {
                 userId: this.id,
                 studyRoomId
