@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <div class="showMore pa-3 pt-sm-4 pb-sm-0 text-center" v-if="liveSessionsList.length > 2">
+        <div class="showMore pa-3 pt-sm-4 pb-sm-0 text-center" v-if="liveSessionsList.length > 3">
             <button class="showBtn" v-t="'profile_see_all'" @click="isExpand = !isExpand"></button>
         </div>
 
@@ -109,11 +109,11 @@ export default {
             let self = this
             this.$store.dispatch('updateStudyroomLiveSessions', session)
                 .then(() => {
-                    self.toasterText = 'enroll_success'
+                    self.toasterText = 'profile_enroll_success'
                     let currentSession = self.liveSessions.filter(s => s.id === studyRoomId)[0]
                     currentSession.enrolled = true
                 }).catch(ex => {
-                    self.toasterText = 'enroll_error'
+                    self.toasterText = 'profile_enroll_error'
                     self.color = 'error'
                     self.$appInsights.trackException({exception: new Error(ex)});
                 }).finally(() => {
