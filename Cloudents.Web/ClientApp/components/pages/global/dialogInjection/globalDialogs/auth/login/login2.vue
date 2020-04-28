@@ -174,21 +174,12 @@ export default {
             let self = this
             registrationService.emailLogin(loginObj)
                 .then(({data}) => {
-                    let { commit, dispatch } = self.$store
-
                     global.country = data.country; // should we need this? @idan
                     analyticsService.sb_unitedEvent('Login', 'Start');
 
-                    commit('setComponent', '')
-                    dispatch('updateLoginStatus', true)
-
-                    if(self.needRedirect()) return
-
-                    if(self.$route.name === self.routeNames.StudyRoom){
-                        global.location.reload();
-                    }
+                    if(self.presetRouting()) return
                     
-                    dispatch('userStatus')
+                    self.$store.dispatch('userStatus')
                 }).catch(error => {      
                     let { response: { data } } = error
 
