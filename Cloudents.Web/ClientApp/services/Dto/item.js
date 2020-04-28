@@ -6,7 +6,6 @@ export const Item = {
       this.id = objInit.id || null;
       this.type = objInit.type || 'Document';
       this.course = objInit.course;
-      this.university = objInit.university;
       this.user = objInit.user ? new User.Default(objInit.user) : '';
       this.views = objInit.views;
       this.downloads = objInit.downloads;
