@@ -111,6 +111,9 @@ export default {
     watch: {
         getVideoDeviceId(val){
             if(val && val !== this.singleCameraId){
+                this.localTrack.getTracks().forEach(track => {
+                    track.stop();
+                });
                 this.singleCameraId = val; 
                 this.getInputdevices()
             }
@@ -203,8 +206,14 @@ export default {
         },
         clearVideoTrack() {
             this.$store.commit('settings_setIsVideo',false)
-            if (!this.localTrack.active) {
-                this.videoEl.removeChild(document.querySelector('#local-video-test-track video'))
+            if (this.localTrack) {
+                this.localTrack.getTracks().forEach(track => {
+                    track.stop();
+                });
+                let video = document.querySelector('#local-video-test-track video')
+                if(video){
+                    this.videoEl.removeChild(video)
+                }
                 this.localTrack = null;
                 this.cameraOn = false
                 this.placeholder = false

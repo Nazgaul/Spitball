@@ -29,9 +29,10 @@
 </template>
 
 <script>
-import { createLocalVideoTrack, } from 'twilio-video';
+// import { createLocalVideoTrack, } from 'twilio-video';
 
 import insightService from '../../../../../../services/insightService';
+import { mapGetters } from 'vuex';
 
 export default {
     data(){
@@ -42,6 +43,9 @@ export default {
             localTrack: null,
             singleCameraId: global.localStorage.getItem('sb-videoTrackId')
         }
+    },
+    computed: {
+        ...mapGetters(['getVideoDeviceId'])
     },
     methods:{
         getVideoInputdevices() {
@@ -73,27 +77,15 @@ export default {
                 this.clearVideoTrack();
             }
             let self = this;
-            let isNotInList = self.camerasList.every(device=>device.deviceId !== self.singleCameraId)
-    
-            // if what i have in LS === one of the ids in the list
-            // if yes: this is my singleId
-            // if not: take the first from the list
             let isDeviceInList = self.camerasList.some(device=>{
                 if(device.deviceId === self.singleCameraId){
                     return true;
                 }
             })
-            if(isDeviceInList){
-                debugger
-                //
-            }else{
-                debugger
+            if(!isDeviceInList){
                 self.singleCameraId = self.camerasList[0].deviceId;
             }
 
-            // if(isNotInList || !self.singleCameraId){
-            //     self.singleCameraId = self.camerasList[0].deviceId;
-            // }
             let videoParams = {audio:false,video :{ deviceId: self.singleCameraId}}
             await navigator.mediaDevices.getUserMedia(videoParams)
                 .then(track => {
@@ -107,6 +99,8 @@ export default {
                     self.videoEl.appendChild(video);
                     self.$store.dispatch('updateVideoTrack',self.singleCameraId)
                 }).catch(err => {
+                    self.clearVideoTrack()
+                    self.$store.dispatch('updateVideoTrack',self.singleCameraId)
                     debugger
                     self.permissionDenied = true
                     insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoValidation_createVideoQualityPreview', err, null);
@@ -114,12 +108,23 @@ export default {
         },
         clearVideoTrack() {
             if (this.localTrack) {
-                this.localTrack.getTracks()[0].stop()
+                debugger
+                
+                this.localTrack.getTracks().forEach(track => {
+                    track.stop();
+                });
                 let video = document.querySelector('#local-video-test-track1 video');
                 if(video){
                     this.videoEl.removeChild(video)
                 }
                 this.localTrack = null;
+            }
+        }
+    },
+    watch: {
+        getVideoDeviceId(val){
+            if(val && !this.localTrack){
+                this.createVideoQualityPreview();
             }
         }
     },
