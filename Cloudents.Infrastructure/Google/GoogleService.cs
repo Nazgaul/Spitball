@@ -323,10 +323,11 @@ namespace Cloudents.Infrastructure.Google
             await event2.ExecuteAsync(cancellationToken);
         }
 
-        public async Task EnrollUserEventAsync(Tutor tutor, User student, DateTime broadcastTime, CancellationToken cancellationToken)
+        public async Task EnrollUserEventAsync(string studyRoomName, Tutor tutor, User student, DateTime broadcastTime, CancellationToken cancellationToken)
         {
             var x = new System.Resources.ResourceManager(typeof(CalendarResources));
-            var eventName = x.GetString("TutorCalendarMessage", CultureInfo.CurrentUICulture) ?? "Tutor Session In Spitball";
+            var eventName = x.GetString("EnrollCalendarMessage", CultureInfo.CurrentUICulture) 
+                            ?? $"Spitball Live session - {studyRoomName}";
             eventName = string.Format(eventName, tutor.User.Name, student.Name);
 
             var attendees = new[] {tutor.User, student}.Select(s => s.Email);
