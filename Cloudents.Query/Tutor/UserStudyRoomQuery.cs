@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.DTOs;
+﻿using System;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Criterion;
@@ -6,6 +7,7 @@ using NHibernate.Transform;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Query.Stuff;
 
 namespace Cloudents.Query.Tutor
 {
@@ -41,6 +43,7 @@ namespace Cloudents.Query.Tutor
 
                 return await _session.QueryOver(() => studyRoomAlias)
                     .WithSubquery.WhereProperty(x => x.Id).In(detachedQuery)
+                    .Where(w=>w.BroadcastTime.IfNull(DateTime.UtcNow.AddDays(1)) > DateTime.UtcNow)
                     .SelectList(sl =>
                                 sl.Select(s => s.Id).WithAlias(() => resultAlias.Id)
                                 .Select(s=>s.Name).WithAlias(() => resultAlias.Name)

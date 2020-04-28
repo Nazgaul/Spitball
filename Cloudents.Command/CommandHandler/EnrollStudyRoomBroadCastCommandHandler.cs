@@ -26,7 +26,7 @@ namespace Cloudents.Command.CommandHandler
 
             studyRoom.AddUserToStudyRoom(user);
 
-            await _calendarService.EnrollUserEventAsync(studyRoom.Tutor,
+            await _calendarService.EnrollUserEventAsync(studyRoom.Name, studyRoom.Tutor,
                 user,
                 studyRoom.BroadcastTime!.Value, token);
         }

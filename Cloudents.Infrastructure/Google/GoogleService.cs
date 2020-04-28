@@ -268,10 +268,30 @@ namespace Cloudents.Infrastructure.Google
              DateTime from, DateTime to,
             CancellationToken cancellationToken)
         {
-            var cred = SpitballCalendarCred;
+         
             var resourceManager = new System.Resources.ResourceManager(typeof(CalendarResources));
             var eventName = resourceManager.GetString("TutorCalendarMessage", CultureInfo.CurrentUICulture) ?? "Tutor Session In Spitball";
             eventName = string.Format(eventName, tutor.Name, student.Name);
+
+
+            var attendees = new[] { tutor, student }.Select(s => s.Email).ToList();
+            if (googleTokens != null)
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var tutorToken = NewtonsoftJsonSerializer.Instance.Deserialize<GoogleTokensValue>(googleTokens.Value);
+                var tutorCalendarEmail = tokenHandler.ReadJwtToken(tutorToken.IdToken).Payload
+                    .SingleOrDefault(w => w.Key == "email");
+                attendees.Add(tutorCalendarEmail.Value.ToString());
+            }
+
+            await SendCalendarInviteAsync(attendees, from, to, eventName, cancellationToken);
+          
+        }
+
+        private async Task SendCalendarInviteAsync(IEnumerable<string> emails, DateTime @from, DateTime to,
+            string title, CancellationToken cancellationToken)
+        {
+             var cred = SpitballCalendarCred;
 
             
             using var service = new CalendarService(new BaseClientService.Initializer()
@@ -279,30 +299,13 @@ namespace Cloudents.Infrastructure.Google
                 HttpClientInitializer = cred
             });
 
-            
-
-
-            var attendees = new[] { tutor, student }.Select(s => new EventAttendee()
+            var event2 = service.Events.Insert(new Event
             {
-                Email = s.Email
-
-            }).ToList();
-            if (googleTokens != null)
-            {
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var tutorToken = NewtonsoftJsonSerializer.Instance.Deserialize<GoogleTokensValue>(googleTokens.Value);
-                var tutorCalendarEmail = tokenHandler.ReadJwtToken(tutorToken.IdToken).Payload
-                    .SingleOrDefault(w => w.Key == "email");
-                attendees.Add(new EventAttendee()
+                Attendees = emails.Select(s=>new EventAttendee()
                 {
-                    Email = tutorCalendarEmail.Value.ToString()
-                });
-            }
-
-            var event2 = service.Events.Insert(new Event()
-            {
-                Attendees = attendees,
-                Summary = eventName,
+                    Email = s
+                }).ToList(),
+                Summary = title,
                 Start = new EventDateTime()
                 {
                     DateTime = from,
@@ -310,7 +313,7 @@ namespace Cloudents.Infrastructure.Google
                 },
                 End = new EventDateTime()
                 {
-                    DateTime = to.ToUniversalTime(),
+                    DateTime = to,
                     TimeZone = "Etc/UTC"
                 }
                 
@@ -320,39 +323,15 @@ namespace Cloudents.Infrastructure.Google
             await event2.ExecuteAsync(cancellationToken);
         }
 
-        public async Task EnrollUserEventAsync(Tutor tutor, User student, DateTime broadcastTime, CancellationToken cancellationToken)
+        public async Task EnrollUserEventAsync(string studyRoomName, Tutor tutor, User student, DateTime broadcastTime, CancellationToken cancellationToken)
         {
-            var cred = SpitballCalendarCred;
             var x = new System.Resources.ResourceManager(typeof(CalendarResources));
-            var eventName = x.GetString("TutorCalendarMessage", CultureInfo.CurrentUICulture) ?? "Tutor Session In Spitball";
+            var eventName = x.GetString("EnrollCalendarMessage", CultureInfo.CurrentUICulture) 
+                            ?? $"Spitball Live session - {studyRoomName}";
             eventName = string.Format(eventName, tutor.User.Name, student.Name);
-            using var service = new CalendarService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = cred
-            });
 
-
-            var attendees = new[] { tutor.User, student }.Select(s => new EventAttendee()
-            {
-                Email = s.Email
-
-            }).ToList();
-
-            var event2 = service.Events.Insert(new Event()
-            {
-                Attendees = attendees,
-                Summary = eventName,
-                Start = new EventDateTime()
-                {
-                    DateTime = broadcastTime
-                },
-                End = new EventDateTime()
-                {
-                    DateTime = broadcastTime.AddHours(1)
-                }
-            }, PrimaryGoogleCalendarId);
-            event2.SendUpdates = EventsResource.InsertRequest.SendUpdatesEnum.All;
-            await event2.ExecuteAsync(cancellationToken);
+            var attendees = new[] {tutor.User, student}.Select(s => s.Email);
+            await SendCalendarInviteAsync(attendees, broadcastTime, broadcastTime.AddHours(1), eventName, cancellationToken);
         }
 
         private static ServiceAccountCredential SpitballCalendarCred
