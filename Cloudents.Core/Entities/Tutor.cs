@@ -111,7 +111,7 @@ namespace Cloudents.Core.Entities
         public virtual DateTime Created { get; protected set; }
 
         protected internal virtual byte[] Version { get; set; }
-        public virtual void AddReview(string review, float rate, User user)
+        public virtual void AddReview(string? review, float rate, User user)
         {
             if (Id == user.Id)
             {
