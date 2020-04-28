@@ -289,8 +289,7 @@
     <value />
   </data>
   <data name="enroll_success" xml:space="preserve">
-    <value>A calendar booking email was sent to you.
-Check your email for you reservation and details on how and when to loggin.</value>
+    <value>You have successfully enrolled</value>
   </data>
   <data name="enter_room" xml:space="preserve">
     <value>Enter</value>
