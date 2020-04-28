@@ -1,6 +1,6 @@
 import accountService from '../services/accountService';
 
-const TUTOR_MIN_PRICE = 10;
+const TUTOR_MIN_PRICE = 35;
 
 const state = {
     tutorMinPrice: TUTOR_MIN_PRICE,
