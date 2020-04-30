@@ -251,10 +251,16 @@ export default () => {
                // let videoDeviceId = localStorage.getItem('sb-videoTrackId');
                // let videoParams = videoDeviceId ? {deviceId: {exact: videoDeviceId}} : {};
 
-
+               // let devicesList = []
+               // if(store.getters.getAudioDeviceId){
+               //    devicesList.push(createLocalAudioTrack({name:AUDIO_TRACK_NAME,deviceId:store.getters.getAudioDeviceId}))
+               // }
+               // if(store.getters.getVideoDeviceId){
+               //    devicesList.push(createLocalVideoTrack({name:VIDEO_TRACK_NAME,deviceId: {exact: store.getters.getVideoDeviceId}}))
+               // }
                Promise.allSettled([
                   createLocalVideoTrack({name:VIDEO_TRACK_NAME,deviceId: {exact: store.getters.getVideoDeviceId}}),
-                  createLocalAudioTrack({name:AUDIO_TRACK_NAME})
+                  createLocalAudioTrack({name:AUDIO_TRACK_NAME}),
                ]).then((tracks) => {
                   tracks.forEach(({value}) => {
                      if(value){
@@ -332,7 +338,7 @@ export default () => {
                      store.commit('setComponent', 'errorToaster_notScreen');
                   })
                }else{
-                  if(_localScreenTrack){
+                  if(!mutation.payload && _localScreenTrack){
                      _localScreenTrack.stop()
                      _localScreenTrack = null;
                   }

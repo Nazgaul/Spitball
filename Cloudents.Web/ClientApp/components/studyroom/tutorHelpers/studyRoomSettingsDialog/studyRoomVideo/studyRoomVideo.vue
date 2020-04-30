@@ -2,7 +2,7 @@
     <div class="srVideoSettingsVideoContainerWrap mb-1 mb-sm-5 mb-md-0">
         <v-row class="srVideoSettingsVideoContainer ma-md-0 ma-auto elevation-2">
             <div class="cameraTextWrap text-center">
-                <div class="noCamera white--text" v-if="!cameraOn && permissionDialogState" v-t="'studyRoomSettings_no_camera'"></div>
+                <div class="noCamera white--text" v-if="!cameraOn && (permissionDialogState || !videoBlockPermission)" v-t="'studyRoomSettings_no_camera'"></div>
                 <i18n class="blockPermission inCamera white--text" v-if="videoBlockPermission && !permissionDialogState" path="studyRoomSettings_block_permission" tag="div">
                     <cameraBlock class="cameraBlock" width="20" />
                 </i18n>
@@ -25,29 +25,27 @@
                         <microphoneImageIgnore width="18" v-else />
                     </v-btn>
                     <v-btn 
+                        :loading="cameraInitLoader"
                         class="mx-2"
-                        :class="{'noBorder': !cameraOn || !singleCameraId}"
+                        :class="{'noBorder': !cameraOn}"
                         :color="cameraOn ? 'transparent' : '#cb4243 !important'" @click="toggleCamera"
                         depressed
                         fab 
                     >
-                        <videoCameraImage class="videoIcon" width="22" v-if="cameraOn && singleCameraId" />
+                        <videoCameraImage class="videoIcon" width="22" v-if="cameraOn" />
                         <videoCameraImageIgnore width="18" v-else />
                     </v-btn>
                 </div> -->
                 <v-icon class="settingIcon" color="#fff" @click="settingDialogState = true" size="22">sbf-settings</v-icon>
             </div>
 
-            <div id="local-video-test-track" :class="{'videoPlaceholderWrap': !cameraOn || !placeholder}">
-                <video ref="videoEl" autoplay playsinline controls="false"></video>
+            <div id="localTrackEnterRoom" :class="{'videoPlaceholderWrap': !cameraOn || !placeholder}">
+                <video ref="videoEl" autoplay playsinline></video>
             </div>
             <div class="videoOverlay" :class="{'videoPlaceholderWrap': !cameraOn || !placeholder}"></div>
         </v-row>
 
-        <studyRoomAudioVideoDialog
-            v-if="settingDialogState"
-            @closeAudioVideoSettingDialog="val => settingDialogState = val"
-        />
+        <studyRoomAudioVideoDialog :streamsArray="streamsArray" v-if="settingDialogState" @closeAudioVideoSettingDialog="val => settingDialogState = val"/>
 
         <v-dialog v-model="permissionDialogState" width="512" :fullscreen="$vuetify.breakpoint.xsOnly" persistent content-class="premissionDeniedDialog text-center pa-6 pb-4">
             <div class="mb-4 mainTitle" v-t="'studyRoomSettings_block_title'"></div>
@@ -82,6 +80,7 @@ import microphoneImage from '../../../images/outline-mic-none-24-px-copy-2.svg'
 // import videoCameraImageIgnore from '../../../images/camera-ignore.svg';
 import cameraBlock from '../images/cameraBlock.svg'
 import { mapGetters } from 'vuex';
+import settingMixin from '../settingMixin.js'
 
 export default {
     components: {
@@ -94,10 +93,7 @@ export default {
     },
     data(){
         return {
-            // camerasList: [],
-            // videoEl: null,
-            // localTrack: null,
-            // audio: null,
+            streamsArray:[],
             microphoneOn: true,
             cameraOn: false,
             placeholder: false,
@@ -106,13 +102,15 @@ export default {
             audioDeviceNotFound: false,
             permissionDialogState: false,
             settingDialogState: false,
-            // singleCameraId: global.localStorage.getItem('sb-videoTrackId'),
-            // singleMicrophoneId: global.localStorage.getItem('sb-audioTrackId')
         }
     },
+    mixins: [settingMixin],
     watch: {
+        settingDialogState(){
+            this.createVideoPreview(this.getVideoDeviceId) 
+        },
         getVideoDeviceId(newVal,oldVal){
-            if((newVal && oldVal) && newVal !== oldVal){
+            if(newVal && newVal !== oldVal){
                 this.createVideoPreview(newVal)
             }
         }
@@ -127,8 +125,9 @@ export default {
                 video:{deviceId}
             }
             let self = this;
-            navigator.mediaDevices.getUserMedia(videoParams)
+            this.MIXIN_getMediaTrack(videoParams)
                 .then(stream=>{
+                    self.MIXIN_addStream(self.streamsArray,stream)
                     self.$refs.videoEl.srcObject = stream;
                     self.cameraOn = true
                     self.placeholder = true
@@ -136,12 +135,22 @@ export default {
                     self.permissionDialogState = false
                     deviceId = stream.getVideoTracks()[0].getSettings().deviceId
                     self.$store.dispatch('updateVideoDeviceId',deviceId)
+                    self.$store.commit('settings_setIsVideo',true)
                     return
                 })
                 .catch(err=>{
+                    if(err.code === 0) {
+                        self.videoBlockPermission = true 
+                        self.permissionDialogState = true
+                    }
+                    self.$store.dispatch('updateVideoDeviceId',null)
+                    self.cameraOn = false
                     insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoSettings_getVideoInputdevices', err, null);
                 })
-                self.cameraOn = false
+                .finally(()=>{
+                    self.cameraInitLoader = false;
+                })
+            self.cameraOn = false
         },
         getAudioDevices(){
             let self = this;
@@ -157,7 +166,7 @@ export default {
                 video: false
             }
             let self = this;
-            navigator.mediaDevices.getUserMedia(audioParams)
+            this.MIXIN_getMediaTrack(audioParams)
                 .then((stream)=>{
                     deviceId = stream.getAudioTracks()[0].getSettings().deviceId 
                     self.microphoneOn = true
@@ -177,147 +186,39 @@ export default {
             studyRoomAudioSettingService.createAudioContext('audio-input-meter', deviceId);
             this.$store.dispatch('updateAudioDeviceId',deviceId)
         },
-        // getInputDevices() {
-        //     let self = this;
-        //     navigator.mediaDevices.enumerateDevices().then((mediaDevices) => {
-        //         mediaDevices.forEach((device) => {
-        //             if (device.kind === 'videoinput') {
-        //                 self.camerasList.push(device)
-        //             }
-        //             if (device.kind === 'audioinput') {
-        //                 if(!self.singleMicrophoneId){
-        //                     if (device && device.label.toLowerCase().includes('default')) {
-        //                         self.singleMicrophoneId = device.deviceId;
-        //                     }
-        //                 }
-        //             }
-        //         })
+        clearVideoTrack(){
+            this.cameraOn = false
+            this.placeholder = false
+            this.$store.commit('settings_setIsVideo',false)
+            this.MIXIN_cleanStreams(this.streamsArray)
+        },
+        toggleMic() {
+            if(this.audioBlockPermission) return
 
-        //         self.checkAudioDevice()
+            this.microphoneOn = !this.microphoneOn   
+            if(!this.microphoneOn) {
+                studyRoomAudioSettingService.stopAudioContext()
+                this.$store.dispatch('updateAudioDeviceId',null)
+                return
+            }else{
+                this.checkAudio() 
+            }
 
-        //         if(self.camerasList.length > 0){
-        //             let isNotInList = self.camerasList.every(device=>device.deviceId !== self.singleCameraId)
-            
-        //             if(isNotInList || !self.singleCameraId){
-        //                 self.singleCameraId = self.camerasList[0].deviceId;
-        //             }
-        //             self.createVideoQualityPreview();
-        //             self.cameraOn = true
-        //             return
-        //         }
-        //         self.cameraOn = false
-        //     })
-        // },
-        // createVideoQualityPreview() {
-        //     if (this.localTrack) {
-        //         this.clearVideoTrack();
-        //     }
-        //     let self = this;
-        //     let isNotInList = self.camerasList.every(device=>device.deviceId !== self.singleCameraId)
-            
-        //     if(self.camerasList.length){
-        //         if(isNotInList || !self.singleCameraId){
-        //             self.singleCameraId = self.camerasList[0].deviceId;
-        //         }
-        //     }
+        },
+        toggleCamera() {
+            if(this.videoBlockPermission) return
 
-        //     let videoParams = {audio:false,video :{ deviceId: this.singleCameraId}}
-        //     navigator.mediaDevices.getUserMedia(videoParams)
-        //         .then(track => {
-        //             self.setVideoTrack(track)
-        //         }).catch(err => {
-        //             let rateReviewDialogState = this.$store.getters.getReviewDialogState
-        //             if(err.code === 0 && !rateReviewDialogState) {
-        //                 self.videoBlockPermission = true
-        //                 self.permissionDialogState = true
-        //                 self.placeholder = false
-        //             }
-        //             self.cameraOn = false
-        //             insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoValidation_createVideoQualityPreview', err, null);
-        //         })
-        // },
-        // setVideoTrack(track) {
-        //     if(document.querySelector('#local-video-test-track video')){
-        //         return
-        //     }
-        //     this.videoEl = document.getElementById('local-video-test-track');
-        //     this.localTrack = track;
-        //     let video = document.createElement('video');
-        //     video.srcObject = track;
-        //     video.onloadedmetadata = function() {
-        //         video.play();
-        //     };
-        //     this.videoEl.appendChild(video);
-        //     this.$store.dispatch('updateVideoTrack',this.singleCameraId)
-        //     this.$store.commit('settings_setIsVideo',true)
+            this.cameraOn = !this.cameraOn
 
-        //     this.cameraOn = true
-        //     this.placeholder = true
-        //     this.videoBlockPermission = false
-        //     this.permissionDialogState = false
-        // },
-        // clearVideoTrack() {
-        //     this.$store.commit('settings_setIsVideo',false)
-        //     if (this.localTrack) {
-        //         this.localTrack.getTracks().forEach(track => {
-        //             track.stop();
-        //         });
-        //         let video = document.querySelector('#local-video-test-track video')
-        //         if(video){
-        //             this.videoEl.removeChild(video)
-        //         }
-        //         this.localTrack = null;
-        //         this.cameraOn = false
-        //         this.placeholder = false
-        //     }
-        // },
-        // checkAudioDevice() {
-        //     let self = this
-        //     navigator.getUserMedia({ audio: true }, () => {
-        //         self.microphoneOn = true
-        //         self.validateMicrophone('audio-input-meter', self.singleMicrophoneId);
-        //     }, (err) => {
-        //         if(err.code === 0) {
-        //             self.audioBlockPermission = true 
-        //         }
-        //         if(err.code === 8) {
-        //             self.audioDeviceNotFound = true
-        //         }
-        //         self.microphoneOn = false;
-        //     })
-        // },
-        // toggleMic() {
-        //     if(this.audioBlockPermission) return
-
-        //     this.microphoneOn = !this.microphoneOn   
-        //     if(!this.microphoneOn) {
-        //         this.stopSound()
-        //         return
-        //     }
-
-        //     this.checkAudioDevice()
-        // },
-        // toggleCamera() {
-        //     if(this.videoBlockPermission) return
-
-        //     this.cameraOn = !this.cameraOn
-
-        //     if(!this.cameraOn) {
-        //         this.clearVideoTrack()
-        //         this.camerasList = []
-        //         return
-        //     }
-        //     this.getInputDevices()
-        // },
-        // validateMicrophone() {
-        //     studyRoomAudioSettingService.createAudioContext('audio-input-meter', this.singleMicrophoneId);
-        //     this.$store.dispatch('updateAudioTrack',this.singleMicrophoneId)
-        // },
-        // stopSound(){
-        //     if(this.audio && this.audio.pause){
-        //         this.audio.pause();
-        //     }
-        // },
+            if(!this.cameraOn) {
+                this.clearVideoTrack()
+                this.$store.dispatch('updateVideoDeviceId',null)
+                return
+            }else{
+                this.cameraInitLoader = true;
+                this.createVideoPreview(this.getVideoDeviceId)
+            }
+        },
         startPreview(){
             this.createVideoPreview(this.getVideoDeviceId)
             this.checkAudio(this.getAudioDeviceId) 
@@ -328,9 +229,9 @@ export default {
         navigator.mediaDevices.ondevicechange = this.startPreview
     },
     beforeDestroy() {
-        // this.clearVideoTrack();
+        this.MIXIN_cleanStreams(this.streamsArray)
+        this.clearVideoTrack();
         studyRoomAudioSettingService.stopAudioContext();
-        // this.stopSound();
     }
 }
 </script>
@@ -415,7 +316,7 @@ export default {
                 right: 0;
             }
         }
-        #local-video-test-track {
+        #localTrackEnterRoom {
             width: 100%;
             &.videoPlaceholderWrap {
             padding-top: 55.88%;
