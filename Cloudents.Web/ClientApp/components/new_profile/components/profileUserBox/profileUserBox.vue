@@ -120,11 +120,22 @@
                         <chatSVG class="profileUserSticky_btn_icon"/>
                         <div class="profileUserSticky_btn_txt" v-t="'profile_send_message'"/>
                     </v-btn>
-                    <div :class="{'ml-3': isCurrentProfileUser || !getProfile.user.calendarShared}">
+                    <div class="calendarBtnWrap" :class="{'ml-3': !getProfile.user.calendarShared}">
                         <editSVG sel="edit" class="pUb_edit_user mr-1" v-if="isCurrentProfileUser && !isMobile" @click="openEditInfo"/>
-                        <v-btn sel="calendar" height="42" :width="isMobile ? 286 : 220" :disabled="isCurrentProfileUser" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isCurrentProfileUser || !getProfile.user.calendarShared}" class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-sm-2 mt-4" depressed rounded color="white">
+                        <v-btn
+                            @click="globalFunctions.openCalendar"
+                            class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-sm-2 mt-4"
+                            :class="{'hideCalendarBtn': !getProfile.user.calendarShared}"
+                            :disabled="!getProfile.user.calendarShared"
+                            :width="isMobile ? 286 : 220"
+                            sel="calendar"
+                            height="42"
+                            color="white"
+                            depressed
+                            rounded
+                        >
                             <calendarSVG width="20" class="profileUserSticky_btn_icon"/>
-                            <div class="profileUserSticky_btn_txt" v-t="'profile_book_session'"/>
+                            <div class="profileUserSticky_btn_txt" v-t="calendarBtnResource"/>
                         </v-btn>
                     </div>
                 </div>
@@ -263,6 +274,9 @@ export default {
             }
             return 0;
         },
+        calendarBtnResource() {
+            return this.isCurrentProfileUser ? 'profile_my_book_session' : 'profile_book_session'
+        }
     },
     methods: {
         ...mapActions(['updateEditDialog']),
@@ -442,7 +456,11 @@ export default {
                 }
             }
         }
-
+        .calendarBtnWrap {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
         .profileUserSticky_btns{
             &.why_learn_user_btn{
                 margin-top: 34px !important;
@@ -485,8 +503,8 @@ export default {
                 &.profileUserSticky_btn_book{
                     color: #4c59ff !important;
                     border: solid 1.5px #4c59ff !important;
-                    &.isMyProfile{
-                        display: none;
+                    &.hideCalendarBtn{
+                        visibility: hidden;
                         color: white !important;
                         border: none !important;
                     svg{
