@@ -47,4 +47,11 @@ export const Profile = {
       this.documents = [];
       this.purchasedDocuments = [];
    },
+   BroadCastSessions: function(objInit) {
+      this.id = objInit.id;
+      this.name = objInit.name;
+      this.price = objInit.price
+      this.created = objInit.dateTime;
+      this.enrolled = objInit.enrolled;
+   }
 }

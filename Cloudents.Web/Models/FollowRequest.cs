@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
@@ -12,5 +13,11 @@ namespace Cloudents.Web.Models
     {
         [Required]
         public long Id { get; set; }
+    }
+
+    public class EnrollStudyRoomRequest
+    {
+        [Required]
+        public Guid StudyRoomId { get; set; }
     }
 }

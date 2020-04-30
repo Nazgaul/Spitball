@@ -263,6 +263,7 @@ export default {
       margin: 0 20px 0 0;
       justify-content: center;
     }
+
   }
   .userMenu_titles {
     font-size: 14px !important;

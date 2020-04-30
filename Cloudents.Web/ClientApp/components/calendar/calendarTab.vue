@@ -1,7 +1,7 @@
 <template>
     <v-layout class="calendar-section">
         <v-icon v-if="!isMyProfile" @click="globalFunctions.closeCalendar()" class="close-btn">sbf-close</v-icon>
-        <v-flex xs12>
+        <v-flex xs12 class="">
             <v-progress-circular class="progress-calendar" v-show="!isReady && !studentEmptyState" indeterminate :size="150" width="3" color="info"/>
             <v-card class="caltab" v-if="isReady">
                 <calendar v-if="getShowCalendar"/>
@@ -97,6 +97,7 @@ export default {
         .caltab{
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
             padding: 40px 22px;
+            border-radius: 8px;
             @media (max-width: @screen-xs) {
                   box-shadow: none;
                 padding: 10px;

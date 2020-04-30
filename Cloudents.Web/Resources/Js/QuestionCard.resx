@@ -130,9 +130,9 @@
     <value>Report this item</value>
   </data>
   <data name="Answers" xml:space="preserve">
-    <value>{1} More answers</value>
+    <value>{0} More answers</value>
   </data>
   <data name="Answer_one" xml:space="preserve">
-    <value>{1} More answer</value>
+    <value>{0} More answer</value>
   </data>
 </root>

@@ -1,7 +1,7 @@
 <template functional>
     <div class="homeBtns d-block d-sm-flex mx-auto">
         <button class="btn btnLearn d-block d-sm-inline-block mb-4 mb-sm-0" v-t="'homePage_btn_learn'" @click="props.action"></button>
-        <a class="btn btnTeach d-block d-sm-inline-block" href="https://www.teach.spitball.co/" target="_blank" v-t="'homePage_btn_teach'"></a>
+        <a class="btn btnTeach d-block d-sm-inline-block" :href="`https://www.teach.spitball.co/?${props.country}`" target="_blank" v-t="'homePage_btn_teach'"></a>
     </div>
 </template>
 

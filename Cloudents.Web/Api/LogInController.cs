@@ -59,7 +59,7 @@ namespace Cloudents.Web.Api
                 var command = new AddUserLocationCommand(user, country, HttpContext.GetIpAddress(), agent);
                 var t1 = _commandBus.DispatchAsync(command, token);
                 var t2 = _userManager.ResetAccessFailedCountAsync(user);
-                var t3 = _signInManager.SignInAsync(user, false);
+                var t3 = _signInManager.SignInAsync(user, true);
                 await Task.WhenAll(t1, t2, t3);
                 return Ok(new { user.Country });
             }
