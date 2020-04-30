@@ -1,5 +1,6 @@
 ﻿<template>
-  <v-app>
+<div>
+    <!-- <component :is="layout"></component> -->
     <router-view name="banner"></router-view>
     <router-view name="header"></router-view>
     <router-view name="sideMenu" v-if="isDrawer"></router-view>
@@ -18,8 +19,7 @@
           </span>
         </div> -->
 
-        <dialogInjection class="dialogInjection" />
-        <componentInjection class="componentInjection" />
+      
 
         <sb-dialog
           :isPersistent="true"
@@ -70,15 +70,14 @@
     </v-snackbar>
 
     <router-view name="footer"></router-view>
-  </v-app>
+  </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
 
-const dialogInjection = () => import('../pages/global/dialogInjection/dialogInjection.vue');
-const componentInjection = () => import('../pages/global/toasterInjection/componentInjection.vue');
+
 
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
 const AddQuestion = () => import("../question/askQuestion/askQuestion.vue");
@@ -96,8 +95,7 @@ export default {
     chat,
     mobileFooter,
     tutorRequest,
-    dialogInjection,
-    componentInjection,
+   
   },
   data() {
     return {

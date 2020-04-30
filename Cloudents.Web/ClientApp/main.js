@@ -12,7 +12,7 @@ import VueFlicking from "@egjs/vue-flicking";
 import {i18n, loadLanguageAsync } from './plugins/t-i18n';
 
 // Global Components
-import App from "./components/app/app.vue";
+import App from "./components/app/mainLayout.vue";
 import UserAvatar from './components/helpers/UserAvatar/UserAvatar.vue';
 
 // Global Services

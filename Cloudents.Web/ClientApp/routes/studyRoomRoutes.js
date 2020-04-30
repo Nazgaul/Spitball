@@ -16,6 +16,9 @@ export const studyRoomRoutes = [
             default: (route) => ({
                 id: route.params.id
             })
+        },
+        meta: {
+            layout : 'studyRoomLayout'
         }
     }
 ]
