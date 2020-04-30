@@ -28,9 +28,6 @@
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
     border-radius: 4px;
   }
-  .zoom-image {
-    overflow-y: hidden;
-  }
   .top-block {
     display: flex;
     align-items: start;
@@ -132,49 +129,6 @@
   @media (max-width: @screen-xs) {
     .ellipsis {
       .giveEllipsisUpdated(20px, 1.35, 3);
-    }
-  }
-  .gallery {
-    padding: 16px;
-    margin: 16px;
-    .v-carousel {
-      cursor: pointer;
-      .v-jumbotron__wrapper {
-        .v-jumbotron__image {
-          height: auto;
-          width: 100%;
-          cursor: pointer;
-        }
-      }
-      @media (max-width: @screen-xs) {
-        height: 238px;
-        padding: 25px;
-      }
-      box-shadow: none;
-      button {
-        width: 40px;
-        height: @btnHeight;
-        &:before {
-          opacity: 0.2;
-          background-color: #000000;
-        }
-        .v-icon {
-          font-size: 20px !important;
-          &.left {
-            transform: scale(-1, 1);
-            margin-right: 3px;
-          }
-          &.right {
-            transform: scale(1, 1);
-            margin-left: 4px;
-          }
-        }
-      }
-      .v-carousel__item {
-        .v-image__image--cover {
-          background-size: contain;
-        }
-      }
     }
   }
 
@@ -288,16 +242,6 @@
     background-color: #FF006B;
      .cellActionBtnMixinAnswer();
   }
-  .v-dialog.zoom-image {
-    overflow-y: hidden;
-    width: auto !important;
-    border: 1px solid red;
-  }
-  .zoomed-image {
-    height: auto;
-    width: 100%;
-    max-height: 720px;
-  }
 
   .question-card-answer {
     .text {
@@ -346,38 +290,12 @@
           .answer-header-left-container{
             display: flex;
             width: 100%;
-            .choosen-answer {
-              font-size: 12px;
-              letter-spacing: -0.2px;
-              margin-top: -2px;
-              .sbf {
-                color: #7ed321;
-                font-size: 25px;
-              }
-              @media (max-width: @screen-xs) {
-                margin-left: 5px;
-                span {
-                  display: none;
-                }
-                .sbf {
-                  font-size: 24px;
-                }
-              }
-            }
           }
         }
         @media (max-width: @screen-xs) {
           max-width: 435px;
         }
       }
-    }
-
-    .fixed-margin {
-      margin: 0px 18px 0 -13px;
-      background-color: @Question-Answer-Bg;
-    }
-    .column-direction {
-      flex-direction: column;
     }
 
     p {

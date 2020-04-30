@@ -66,7 +66,6 @@ namespace Cloudents.Core.Entities
 
         [NotNull]
         public virtual Course Course { get; set; }
-      //  public virtual University? University { get; set; }
 
         private readonly IList<Answer> _answers = new List<Answer>();
 

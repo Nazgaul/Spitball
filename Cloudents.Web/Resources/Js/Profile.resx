@@ -133,7 +133,7 @@
     <value>Read More</value>
   </data>
   <data name="reviews" xml:space="preserve">
-    <value>Reviews</value>
+    <value>No Reviews | Review | Reviews</value>
   </data>
   <data name="aboutme" xml:space="preserve">
     <value>About me</value>
@@ -235,7 +235,7 @@
     <value>Study area:</value>
   </data>
   <data name="tutor_follower" xml:space="preserve">
-    <value>Follower | Followers</value>
+    <value>No Followers | Follower | Followers</value>
   </data>
   <data name="tutor_followers" xml:space="preserve">
     <value>{1} Followers</value>
@@ -244,10 +244,10 @@
     <value>{1} Content</value>
   </data>
   <data name="session" xml:space="preserve">
-    <value>Lesson | Lessons</value>
+    <value>No Lessons | Lesson | Lessons</value>
   </data>
   <data name="student" xml:space="preserve">
-    <value>Student | Students</value>
+    <value>No Students | Student | Students</value>
   </data>
   <data name="study_materials" xml:space="preserve">
     <value>{1}’s study materials</value>

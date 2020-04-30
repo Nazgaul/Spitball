@@ -13,7 +13,7 @@
 
         <div class="actions">
             <h1 class="text" v-t="'homePage_video_title'"></h1>
-            <homeButtons :action="startLearn" v-if="!$vuetify.breakpoint.xsOnly" />
+            <homeButtons :action="startLearn" :country="country" v-if="!$vuetify.breakpoint.xsOnly" />
         </div>
         <div class="videoLinear"></div>
     </div>
@@ -28,6 +28,14 @@ export default {
     mixins: [homeMixin],
     components:{
         homeButtons
+    },
+    computed: {
+        country() {
+            if(global.country === 'IL') {
+                return 'lang=he'
+            }
+            return ''
+        }
     },
     mounted() {
         let playPromise = this.$refs.video.play()

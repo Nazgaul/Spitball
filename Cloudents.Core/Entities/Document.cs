@@ -27,7 +27,6 @@ namespace Cloudents.Core.Entities
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
             Name = Path.GetFileNameWithoutExtension(name.Replace("+", "-"));
-            //University = user.University;
             Course = course ?? throw new ArgumentNullException(nameof(course));
             User = user;
             Views = 0;

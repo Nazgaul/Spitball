@@ -11,7 +11,6 @@
                             <div><span class="font-weight-bold pr-2">Email:</span> {{document.email}}</div>
                             <div><span class="font-weight-bold pr-2">Phone:</span> {{document.phone}}</div>
                             <div><span class="font-weight-bold pr-2">Text:</span> {{document.text}}</div>
-                            <div><span class="font-weight-bold pr-2">University:</span>{{document.university}}</div>
                             <div><span class="font-weight-bold pr-2">Date:</span>{{document.dateTime.toLocaleString()}}</div>
                         </v-card-text>
                     </v-card>

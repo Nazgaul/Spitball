@@ -7,12 +7,14 @@
             <div class="answer-container">
                 <h3 class="Answers ml-2" style="padding-top: 12px;padding-left: 12px;font-weight: 600; font-size:16px;" v-if="props.questionData.answers.length" v-language:inner>questionTheard_Answers</h3>
                 <answer-card 
-                    v-for="(answer, index) in props.questionData.answers" :typeAnswer="true" :key="answer.id"
-                    :showApproveButton="props.cardOwner && !props.questionData.correctAnswerId"
-                    :hasAnswer="props.questionData.correctAnswerId"
-                    :isCorrectAnswer="props.questionData.correctAnswerId && props.questionData.correctAnswerId.toUpperCase() === answer.id.toUpperCase()"
+                    v-for="(answer, index) in props.questionData.answers"
+                    :key="answer.id"
                     :cardData="answer"
-                    class="user-question answer-card" :id="`answer-${index}`" detailed-view>
+                    :typeAnswer="true"
+                    class="user-question answer-card"
+                    :id="`answer-${index}`"
+                    detailed-view
+                >
                 </answer-card>
             </div>
             

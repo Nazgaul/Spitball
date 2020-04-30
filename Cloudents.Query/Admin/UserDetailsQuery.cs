@@ -39,7 +39,6 @@ namespace Cloudents.Query.Admin
 
                 var dbQuery = _session.Query<User>()
                     .WithOptions(w => w.SetComment(nameof(UserDetailsQuery)))
-                    //.Fetch(f => f.University)
                     .Fetch(f => f.Tutor)
                     .Where(w => w.Id == tmpId || w.Email == query.UserId || w.PhoneNumber == query.UserId);
                 if (query.Country != null)
@@ -53,7 +52,6 @@ namespace Cloudents.Query.Admin
                     Name = s.Name,
                     Email = s.Email,
                     PhoneNumber = s.PhoneNumber,
-                    //University = s.University.Name,
                     Country = s.Country,
                     ReferredCount = _session.Query<ReferUserTransaction>().Count(w => w.User.Id == s.Id),
                     Balance = s.Transactions.Balance,

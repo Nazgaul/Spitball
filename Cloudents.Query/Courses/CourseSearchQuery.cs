@@ -44,9 +44,8 @@ select distinct CourseId
 		from sb.UsersCourses uc1 
 		join sb.[user] u1 
 			on u1.Id = uc1.UserId 
-		join sb.University un
-			on un.Id = u1.UniversityId2
-		where un.Country = @Country
+		
+		where u1.Country = @Country
 )
 
 select Name,

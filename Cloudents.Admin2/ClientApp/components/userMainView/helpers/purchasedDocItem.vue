@@ -6,7 +6,6 @@
         
         
             <div><b>Document Id:</b> {{document.id}}</div>
-            <div><b>University:</b> {{document.university}}</div>
             <div><b>Course:</b> {{document.class}}</div>
             <div><b>Price:</b>  {{document.price}}</div>
         </v-card-text>

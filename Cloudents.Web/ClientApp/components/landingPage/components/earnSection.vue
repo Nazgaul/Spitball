@@ -1,18 +1,25 @@
 <template>
     <div :class="['earnSection']">
-        <div class="earnImg">
-            <div class="earn-title" v-language:inner="'homePage_earn_title'"/>
-            <div class="earn-subtitle" v-language:inner="'homePage_earn_subtitle'"/>
-            <v-btn tag="a" :href="href" class="btn-earn" rounded color="#4c59ff">
-                <span v-language:inner="'homePage_btn_earn'"/>
-            </v-btn>
-        </div>
+        <intersection>
+            <div class="earnImg">
+                <div class="earn-title" v-t="'homePage_earn_title'"/>
+                <div class="earn-subtitle" v-t="'homePage_earn_subtitle'"/>
+                <v-btn tag="a" :href="href" class="btn-earn" rounded color="#4c59ff">
+                    <span v-t="'homePage_btn_earn'"/>
+                </v-btn>
+            </div>
+        </intersection>
     </div>
 </template>
 
 <script>
+import intersection from '../../pages/global/intersection/intersection.vue';
+
 import { mapGetters } from 'vuex';
 export default {
+    components: {
+        intersection
+    },
     computed: {
         ...mapGetters(['isFrymo']),
         href() {

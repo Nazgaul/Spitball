@@ -21,7 +21,6 @@ namespace Cloudents.Persistence.Repositories
         {
             var tutorFutureValue = Session.Query<Tutor>()
                 .Fetch(f => f.User)
-               // .ThenFetch(f => f.University)
                 .Where(w => w.Id == userId && w.State == ItemState.Ok)
                 .Select(s => new
                 {
@@ -30,7 +29,6 @@ namespace Cloudents.Persistence.Repositories
                     s.User.ImageName,
                     s.User.Image,
                     s.Bio,
-                  //  UniversityName = s.User.University.Name,
                     s.Price.Price,
                     s.Price.SubsidizedPrice,
                     s.User.Country

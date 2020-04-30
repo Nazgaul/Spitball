@@ -10,5 +10,5 @@
     //  "EmailUpdateFunction_Process",
     //  "EmailUpdateFunction_TimerStart"
     //]
-    //"functions": [ "UniversitySearchSync", "SearchSync", "SearchSyncSync", "SearchSyncGetProgress", "SearchSyncSetProgress" ]
+    //"functions": [ "", "SearchSync", "SearchSyncSync", "SearchSyncGetProgress", "SearchSyncSetProgress" ]
 }
