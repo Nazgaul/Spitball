@@ -17,6 +17,7 @@ import profileBecomeTutor from './components/profileBecomeTutor/profileBecomeTut
 import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue';
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileItemsEmpty from './components/profileItemsEmpty/profileItemsEmpty.vue';
+import profileLiveClasses from './components/profileLiveClasses/profileLiveClasses.vue'
 import calendarTab from '../calendar/calendarTab.vue';
 import cover from "./components/cover.vue";
 
@@ -36,6 +37,7 @@ export default {
         profileFindTutor,
         profileItemsBox,
         profileItemsEmpty,
+        profileLiveClasses,
         calendarTab,
         cover,
         sbDialog,

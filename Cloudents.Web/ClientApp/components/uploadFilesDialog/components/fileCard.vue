@@ -4,7 +4,7 @@
         <v-layout wrap pb-1 px-4>
             <v-layout wrap justify-space-between>   
                 <v-flex xs12 md8 pr-4>
-                    <v-text-field style="direction: ltr;" :prepend-inner-icon="'sbf-attachment'" 
+                    <v-text-field style="direction: ltr;" 
                                   v-model="item.name" 
                                   dir="ltr"
                                   :rules="[rules.required]"/>
