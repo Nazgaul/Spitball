@@ -212,10 +212,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             await Task.WhenAll(t1, t2);
         }
 
-        [Fact]
-        public async Task AdminUserPurchasedDocsQuery_Ok()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("IL")]
+        public async Task AdminUserPurchasedDocsQuery_Ok(string countryStr)
         {
-            var query = new UserPurchasedDocsQuery(159039, 0, "IL");
+            var country = FromCountry(countryStr);
+            var query = new UserPurchasedDocsQuery(159039, 0, country);
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -259,8 +262,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData("IL")]
         [InlineData(null)]
-        public async Task FlaggedAnswerEmptyQuery_Ok(string country)
+        public async Task FlaggedAnswerEmptyQuery_Ok(string countryStr)
         {
+            var country = FromCountry(countryStr);
             var query = new FlaggedAnswerQuery(country);
             await _fixture.QueryBus.QueryAsync(query, default);
         }

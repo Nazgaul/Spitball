@@ -59,6 +59,10 @@ const dateTimeFormats = {
     },
     calendarMobile: {
       weekday:'narrow'
+    },
+    long: {
+      year: 'numeric', month: 'short', day: 'numeric',
+      weekday: 'long', hour: 'numeric', minute: 'numeric'
     }
   },
   'en-IL': {
@@ -67,6 +71,10 @@ const dateTimeFormats = {
     },
     tableDate: {
       month: 'short', day: 'numeric'
+    },
+    long: {
+      year: 'numeric', month: 'short', day: 'numeric',
+      weekday: 'long', hour: 'numeric', minute: 'numeric'
     }
   },
   'he-IL': {
@@ -81,6 +89,10 @@ const dateTimeFormats = {
     },
     calendarMobile: {
       weekday:'narrow'
+    },
+    long: {
+      year: 'numeric', month: 'short', day: 'numeric',
+      weekday: 'long', hour: 'numeric', minute: 'numeric'
     }
   },
   'en-IN': {
@@ -89,6 +101,10 @@ const dateTimeFormats = {
     },
     tableDate: {
       month: 'short', day: 'numeric'
+    },
+    long: {
+      year: 'numeric', month: 'short', day: 'numeric',
+      weekday: 'long', hour: 'numeric', minute: 'numeric'
     }
   }
 }

@@ -16,8 +16,8 @@ namespace Cloudents.Command.Command
 
         public User User { get; }
 
-        public string Country { get; set; }
-        public IPAddress Ip { get; set; }
-        public string UserAgent { get; protected set; }
+        public string Country { get;  }
+        public IPAddress Ip { get;  }
+        public string UserAgent { get;  }
     }
 }

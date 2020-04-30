@@ -1,40 +1,16 @@
 <template>
     <div class="profileUserBox pa-4 pa-sm-5" v-if="currentProfileUser">
-        <!-- <div class="profileUserBox_top_mobile" v-if="isMobile">
-            <div class="profileUserBox_top_mobile_top">
-                <a class="profileUserBox_top_mobile_link" @click="$router.go(-1)">
-                    <v-icon v-text="'sbf-arrow-left-carousel'"/>
-                </a>
-            </div>
-            <div class="profileUserBox_top_mobile_bottom">
-                <div class="profileUserBox_top_mobile_right">
-                    <h1 class="profileUserBox_top_mobile_userName text-truncate">
-                        <span v-if="currentProfileUser.isTutor" v-t="'profile_tutor'"/>
-                        {{currentProfileUser.name}}
-                    </h1>
-                </div>
-                <div class="profileUserBox_top_mobile_left">
-                    <followBtn v-if="!isCurrentProfileUser"/>
-                    <editSVG sel="edit" class="profileUserBox_top_mobile_left_edit" v-if="isMobile && isCurrentProfileUser" @click="openEditInfo()"/>
-                    <div class="profileUserBox_top_mobile_left_followers">
-                        <span v-if="currentProfileUser.followers" class="defaultState_content_followers" 
-                        v-text="$Ph(currentProfileUser.followers > 1 ? 'profile_tutor_followers':'profile_tutor_follower',currentProfileUser.followers)"/>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
         <div class="profileUserBox_top d-block d-sm-flex justify-space-between">
             
             <div class="leftSide mr-sm-6 mb-2 mb-sm-0 d-flex justify-center">
-                <div class="pUb_dot" v-if="isOnline"></div>
+                <div class="pUb_dot" sel="online_icon" v-if="isOnline"></div>
                 <uploadImage sel="photo" class="pUb_edit_img" v-if="isCurrentProfileUser" />
-                <userAvatarRect
+                <userAvatarRect sel="avatar_image"
                     class="pUb_dS_img"
                     :userName="currentProfileUser.name"
                     :userImageUrl="currentProfileUser.image"
-                    :width="isMobile? 130: 226"
-                    :height="isMobile? 161 : 278"
+                    :width="isMobile? 130: 190"
+                    :height="isMobile? 161 : 235"
                     :userId="currentProfileUser.id"
                     :fontSize="36"
                     :borderRadius="8"
@@ -44,7 +20,7 @@
             <div class="rightSide flex-grow-1">
                 <div class="detailsWrap d-flex d-sm-block">
                     <div class="d-flex justify-space-between text-center text-sm-left">
-                        <h1 class="userName text-truncate mr-sm-2">
+                        <h1  sel="username_title" class="userName text-truncate mr-sm-2">
                             <span v-if="currentProfileUser.isTutor" class="mr-1" v-t="'profile_tutor'"></span>
                             <span>{{currentProfileUser.name}}</span>
                         </h1>
@@ -82,23 +58,35 @@
                             </div>
                         </template>
                         <div class="ml-3">
-                            <followBtn class="followBtnNew mr-sm-2" v-if="!isCurrentProfileUser"/>
+                            <followBtn sel="follow_btn" class="followBtnNew mr-sm-2" v-if="!isCurrentProfileUser"/>
                             <!-- <span v-if="currentProfileUser.followers" class="defaultState_content_followers" 
                             v-text="$Ph(dynamicDictionay(currentProfileUser.followers,'profile_tutor_followers','profile_tutor_follower'),[currentProfileUser.followers])"/> -->
                         </div>
                     </div>
 
                     <!-- courses teacher -->
-                    <div class="course mt-sm-3 mb-sm-6 mt-2 mb-3 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
+                    <div sel="teach_courses" class="course mt-sm-3 mb-sm-3 mt-2 mb-3 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
                         <bdi class="iTeach mr-1" v-t="'profile_my_courses_teacher'"></bdi>
                         <span class="courseName text-truncate">{{currentProfileUser.courses.toString().replace(/,/g, ", ")}}</span>
                     </div>
 
                     <!-- TUTOR BIO -->
-                    <h4 v-if="currentProfileTutor.bio" class="userBio mb-5 mb-sm-0 mr-sm-2">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}
-                        <span class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</span>
-                        <span sel="bio_more" v-if="readMoreVisible" @click="isOpen = !isOpen" class="readMore" v-t="isOpen ? 'profile_read_less' : 'profile_read_more'"></span>
-                    </h4>
+                    <div class="userBio mb-5 mb-sm-0 mr-sm-2" v-if="currentProfileTutor.bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}
+                        <div v-if="isOpen" class="my-4">
+                            <div class="course mb-1 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
+                                <bdi class="iTeach mr-1" v-t="'profile_my_courses'"></bdi>
+                                <span class="courseName text-truncate">{{currentProfileUser.courses.toString().replace(/,/g, ", ")}}</span>
+                            </div>
+                            <div class="course text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
+                                <bdi class="iTeach mr-1" v-t="'profile_my_subjects'"></bdi>
+                                <span class="courseName text-truncate">{{currentProfileTutor.subjects.toString().replace(/,/g, ", ")}}</span>
+                            </div>
+                        </div>
+                        <div class="d-none">
+                            <div>{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</div>
+                        </div>
+                        <span sel="bio_more" @click="isOpen = !isOpen" class="readMore" v-t="isOpen ? 'profile_read_less' : 'profile_read_more'"></span>
+                    </div>
 
                     <!-- Courses Student -->
                     <div class="course mt-2 text-truncate" v-if="!currentProfileUser.isTutor && currentProfileUser.courses.length">
@@ -109,7 +97,7 @@
                     </div>
                 </div>
 
-                <div class="profileUserSticky_btns d-block d-sm-flex justify-space-between align-end text-center mt-5" :class="{'student': !currentProfileUser.isTutor && isCurrentProfileUser}">
+                <div class="profileUserSticky_btns d-block d-sm-flex align-end text-center mt-sm-1" :class="{'student': !currentProfileUser.isTutor && isCurrentProfileUser}">
                     <template v-if="isMobile">
                         <div class="profileUserSticky_pricing mb-4" v-if="currentProfileUser.isTutor">
                             <div class="d-flex align-end justify-center">
@@ -129,13 +117,13 @@
                             <editSVG v-if="isCurrentProfileUser" />
                         </v-btn>
                     </template>
-                    <v-btn sel="send" height="42" :width="isMobile ? 286 : 246" :disabled="isCurrentProfileUser" v-if="currentProfileUser.isTutor" class="profileUserSticky_btn white--text" :class="{'isMyProfile': isCurrentProfileUser}" depressed rounded color="#4c59ff" @click="globalFunctions.sendMessage">
+                    <v-btn sel="send" height="42" :width="isMobile ? 286 : 220" :disabled="isCurrentProfileUser" v-if="currentProfileUser.isTutor" class="profileUserSticky_btn white--text mr-sm-4" :class="{'isMyProfile': isCurrentProfileUser}" depressed rounded color="#4c59ff" @click="globalFunctions.sendMessage">
                         <chatSVG class="profileUserSticky_btn_icon"/>
                         <div class="profileUserSticky_btn_txt" v-t="'profile_send_message'"/>
                     </v-btn>
                     <div :class="{'ml-3': isCurrentProfileUser || !getProfile.user.calendarShared}">
                         <editSVG sel="edit" class="pUb_edit_user mr-1" v-if="isCurrentProfileUser && !isMobile" @click="openEditInfo"/>
-                        <v-btn sel="calendar" height="42" :width="isMobile ? 286 : 246" :disabled="isCurrentProfileUser" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isCurrentProfileUser || !getProfile.user.calendarShared}" class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-sm-2 mt-4" depressed rounded color="white">
+                        <v-btn sel="calendar" height="42" :width="isMobile ? 286 : 220" :disabled="isCurrentProfileUser" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isCurrentProfileUser || !getProfile.user.calendarShared}" class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-sm-2 mt-4" depressed rounded color="white">
                             <calendarSVG width="20" class="profileUserSticky_btn_icon"/>
                             <div class="profileUserSticky_btn_txt" v-t="'profile_book_session'"/>
                         </v-btn>
@@ -145,29 +133,29 @@
         </div>
 
         <v-row class="bottom text-center pt-3" dense v-if="currentProfileTutor">
-            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-1">
-                <followersSvg class="mt-sm-2 mt-1" width="26" />
+            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-0">
+                <followersSvg class="icon" width="24" />
                 <div class="ml-3" @click="isMobile ? scrollToReviews():''" >
                     <div class="number text-left">{{currentProfileUser.followers}}</div>
                     <div class="type">{{$tc('profile_tutor_follower', currentProfileUser.followers)}}</div>
                 </div>
             </v-col>
-            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-1">
-                <onlineLessonSVG class="mt-sm-2 mt-1" width="20" />
+            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-0">
+                <onlineLessonSVG class="icon" width="17" />
                 <div class="ml-3">
                     <div class="number text-left">{{currentProfileTutor.lessons}}</div>
                     <div class="type" v-t="''">{{$tc('profile_session', currentProfileTutor.lessons)}}</div>
                 </div>
             </v-col>
-            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-3 pa-sm-1">
-                <studentsSVG class="mt-sm-2 mt-1" width="26" />
+            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-3 pa-sm-0">
+                <studentsSVG class="icon" width="25" />
                 <div class="ml-3">
                     <div class="number text-left">{{currentProfileTutor.students}}</div>
                     <div class="type">{{$tc('profile_student', currentProfileTutor.students)}}</div>
                 </div>
             </v-col>
-            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-1">
-                <starSVG class="mt-sm-1 mt-1" width="26" />
+            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-0">
+                <starSVG class="icon" width="22" />
                 <div class="ml-3">
                     <div class="number text-left">{{currentProfileTutor.reviewCount}}</div>
                     <div class="type">{{$tc('profile_reviews',currentProfileTutor.reviewCount)}}</div>
@@ -247,7 +235,7 @@ export default {
             return this.getUserStatus[this.currentProfileUser.id] || false;
         },
         textLimit(){
-            return this.isMobile ? 68 : 210;
+            return this.isMobile ? 140 : 200;
         },
         isOpen :{
             get(){
@@ -255,13 +243,6 @@ export default {
             },
             set(val){
                 this.defOpen = val
-            }
-        },
-        readMoreVisible(){
-            if(!!this.currentProfileTutor){
-                return this.currentProfileTutor.bio.length >=  this.textLimit
-            }else{
-                return false;
             }
         },
         isCurrentProfileUser(){
@@ -286,18 +267,6 @@ export default {
     },
     methods: {
         ...mapActions(['updateEditDialog']),
-        // reviewsPlaceHolder(reviews) {
-        //     return reviews === 0 ? reviews.toString() : reviews;
-        // },
-        // tutorStateRate(tutorData){
-        //     let rate = tutorData.rate.toFixed();
-        //     let reviews = tutorData.reviewCount;
-        //     if(reviews < 1){
-        //         return this.$t('resultTutor_collecting_review');
-        //     }
-        //     // let dictionary = reviews > 1? this.$t('profile_reviews'): this.$t('profile_single_review')
-        //     return `${rate}`
-        // },
         openEditInfo() {
             this.updateEditDialog(true);
         },
@@ -337,8 +306,8 @@ export default {
 <style lang="less">
 @import '../../../../styles/mixin.less';
 .profileUserBox {
-    max-width: 800px;
-    width: 100%;
+    max-width: 762px;
+    // width: 100%;
     margin: 0 auto;
     border-radius: 8px;
     box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.38);
@@ -349,10 +318,9 @@ export default {
         border-radius: 0;
         box-shadow: none;
         padding: 0;
-        margin-bottom: 8px;
     }
     .profileUserBox_top{
-        margin-bottom: 34px;
+        margin-bottom: 20px;
         @media (max-width: @screen-xs) {
             // justify-content: center;
             justify-content: flex-start;
@@ -463,6 +431,15 @@ export default {
                     color: #43425d;
                     font-weight: 600;
                     cursor: pointer;
+                }
+                .course {
+                    font-weight: 600;
+                    font-size: 14px;
+
+                    .courseName {
+                        font-weight: normal;
+                    }
+                    // .responsive-property(font-size, 16px, null, 14px);
                 }
             }
         }
@@ -602,9 +579,10 @@ export default {
         }
         .bottomBox {
             color: @global-purple;
-            font-size: 32px;
-            svg {
+            font-size: 28px;
+            .icon {
                 align-self: baseline;
+                margin-top: 8px;
             }
             .number {
                 font-weight: 600;

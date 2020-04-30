@@ -9,7 +9,6 @@ using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using NHibernate;
-using NHibernate.Linq;
 
 namespace Cloudents.Web.Seo
 {
@@ -32,16 +31,16 @@ namespace Cloudents.Web.Seo
         public IEnumerable<SitemapNode> GetUrls(bool isFrymo, int index)
         {
             var t = _session.Query<Document>()
-                .Fetch(f => f.University)
+                //.Fetch(f => f.University)
                 .Where(w => w.Status.State == ItemState.Ok);
 
             if (isFrymo)
             {
-                t = t.Where(w => w.University.Country == Country.India.Name);
+                t = t.Where(w => w.User.SbCountry == Country.India);
             }
             else
             {
-                t = t.Where(w => w.University.Country != Country.India.Name);
+                t = t.Where(w => w.User.SbCountry != Country.India);
             }
 
             var docs = t.Take(SiteMapController.PageSize).Skip(SiteMapController.PageSize * index)

@@ -24,6 +24,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs;
 using Cloudents.Query;
 using Cloudents.Query.Chat;
@@ -69,7 +70,6 @@ namespace ConsoleApp
                             ConfigurationManager.AppSettings["AzureSearchKey"], true),
                         Redis = ConfigurationManager.AppSettings["Redis"],
                         Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
-                        LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                         ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
                         PayPal = new PayPalCredentials(
                             "AcaET-3DaTqu01QZ0Ad7-5C52pMZ5s4nx59TmbCqdn8gZpfJoM3UPLYCnZmDELZfc-22N_yhmaGEjS3e",
@@ -88,7 +88,6 @@ namespace ConsoleApp
                             ConfigurationManager.AppSettings["AzureSearchKey"], false),
                         Redis = ConfigurationManager.AppSettings["Redis"],
                         Storage = ConfigurationManager.AppSettings["StorageConnectionStringProd"],
-                        LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                         ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
                     };
                 default:
@@ -148,11 +147,11 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             //var unitOfWork = Container.Resolve<IUnitOfWork>();
-            var _session = Container.Resolve<IQueryBus>();
-            var command = new UserStudyRoomQuery(638);
-            var result = await _session.QueryAsync(command, default);
+            var _commandBus = Container.Resolve<ICommandBus>();
+            var command = new PaymentDeclineCommand(Guid.Parse("dce63420-8645-4b0b-842b-ab9900c1e5a6"), 482226);
+            await _commandBus.DispatchAsync(command, default);
 
-            Console.WriteLine(result);
+            //  Console.WriteLine(result);
 
 
             //var sessionFuture = await _session.Query<StudyRoomSessionUser>()

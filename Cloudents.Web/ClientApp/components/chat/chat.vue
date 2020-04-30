@@ -1,7 +1,7 @@
 <template>
   <div class="sb-chat-container px-0 py-0" :class="{'minimized': isMinimized}">
-    <v-layout @click="toggleMinimizeChat" class="chat-header" :class="{'new-messages': hasUnread}">
-      <v-icon
+    <v-layout @click="toggleMinimizeChat" class="chat-header" :class="{'new-messages': hasUnread}" sel="chat_header">
+      <v-icon sel="chat_icon"
         class="mr-2"
         size="18"
         color="#fff"
@@ -15,8 +15,14 @@
           :user-id="activeConversationObj.userId"
           :userImageUrl="activeConversationObj.image"
         />
-        <div class="chat-header-name text-truncate pl-4">{{chatTitle}}</div>
-      </template>
+          <div class="chat-header-name text-truncate pl-4">
+            <span class="text-truncate">{{chatTitle}}</span>
+            
+            <span v-if="$store.getters.getRoomIsBroadcast && $store.getters.getRoomIsActive">
+              <v-icon size="14" color="white" class="pr-1">sbf-users</v-icon>
+              {{$store.getters.getRoomParticipantCount}}</span>
+          </div>
+        </template>
       <template v-else>
         <span class="chat-header-text">{{getIsSignalRConnected ? headerTitle : errorTitle}}</span>
       </template>
@@ -29,13 +35,7 @@
           size="18"
           color="#fff"
         >{{isMinimized ? 'sbf-toggle-enlarge' : 'sbf-minimize'}}</v-icon>
-        <v-icon
-          size="18"
-          color="#fff"
-          class="closeIcon"
-          v-if="!isLocked"
-          @click.stop="closeChatWindow"
-        >sbf-close-chat</v-icon>
+        <v-icon size="18" color="#fff" class="closeIcon" v-if="!isLocked" @click.stop="closeChatWindow">sbf-close-chat</v-icon>
       </span>
     </v-layout>
 
@@ -167,11 +167,11 @@ export default {
 
   @media (max-width: @screen-xs) {
     width: 100%;
-    height: 100%;
+    height: ~"calc( 100vh - 62px)"; //footer size
     max-height: unset;
     top: 0;
     left: 0;
-    bottom: 0;
+    //bottom: 62px;
     right: 0;
     z-index: 999;
   }
@@ -213,8 +213,12 @@ export default {
       transform: scaleX(1) /*rtl:append:scaleX(-1)*/;
       display: flex;
     }
-    .chat-header-name,
-    .other-side {
+    .chat-header-name{
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .chat-header-name, .other-side {
       align-self: center;
     }
     .other-side {
@@ -251,7 +255,6 @@ export default {
     left: 0;
     bottom: 0;
     right: 0;
-    z-index: 999;
   }
   @media (max-width: @screen-sm) and (orientation: landscape) {
     // width: 100%;

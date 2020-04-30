@@ -1,9 +1,9 @@
 <template>
   <div class="d-flex">
     <!--Should be nice to have quiet attribute-->
-    <img v-resize="onResize" class="coverPhoto" :src="getCoverImage" />
+    <img v-resize="onResize" sel="cover_image" class="coverPhoto" :src="getCoverImage" />
     <div class="coverupload" v-if="isCurrentProfileUser">
-      <input
+      <input sel="edit_cover_image"
         class="profile-upload"
         type="file"
         name="File Upload"
@@ -57,7 +57,7 @@ export default {
             ...size
           );
         }
-        return `${require("./cover-default.jpg")}`;
+        return `${require("./cover-default.png")}`;
       }
       return "";
     }
@@ -102,7 +102,7 @@ export default {
   left: 0;
   right: 0;
   width: 100%;
-  height: 430px;
+  height: 350px;
   @media (max-width: @screen-xs) {
     position: static;
     height: 178px;

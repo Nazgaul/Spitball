@@ -76,8 +76,9 @@ export default {
                         this.$router.push({name: this.routeNames.LoginRedirect})
                         return
                     }
-                    // if(self.$route.path === '/' || self.$route.path === '/learn') {
-                    // }
+                    if(self.$route.name === self.routeNames.StudyRoom){
+                        global.location.reload();
+                    }
                     dispatch('userStatus')
                 }).catch(error => {
                     if(error) {

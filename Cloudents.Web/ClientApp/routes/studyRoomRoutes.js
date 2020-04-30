@@ -2,19 +2,9 @@ import * as routeName from "./routeNames.js";
 
 export const studyRoomRoutes = [
     {
-        path: `/studyroomSettings/:id?`, 
-        name: routeName.StudyRoomSettings,
-        components: {
-            default: () => import(`../components/studyroomSettings/studyroomSettings.vue`),
-        },
-        header: () => ({
-            submitRoute: '/tutoring'
-        }),
-        props: {
-            default: (route) => ({
-                id: route.params.id
-            })
-        }
+        path: `/studyroomSettings/:id?`,
+        name: 'studyroomSettings',
+        redirect: { name: routeName.StudyRoom }
     },
     {
         path: `/studyroom/:id?`,
@@ -27,5 +17,5 @@ export const studyRoomRoutes = [
                 id: route.params.id
             })
         }
-    },
+    }
 ]
