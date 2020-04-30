@@ -1,11 +1,11 @@
+import { mapGetters, mapActions } from 'vuex'
+
+import disableForm from "../../../mixins/submitDisableMixin"
+
 import userBlock from "./../../../helpers/user-block/user-block.vue";
 import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 import reportItem from "../../../results/helpers/reportItem/reportItem.vue"
-import disableForm from "../../../mixins/submitDisableMixin"
-import { mapGetters, mapActions } from 'vuex'
-// import timeago from 'timeago.js';
 import timeAgoService from '../../../../services/language/timeAgoService';
-import { LanguageService } from "../../../../services/language/languageService";
 
 export default {
     mixins: [disableForm],
@@ -15,74 +15,37 @@ export default {
         reportItem
     },
     props: {
-        hasAnswer: false,
+        cardData: {},
         typeAnswer: {
             type: Boolean,
             required: false,
             default: false
         },
-        showApproveButton: {
-            type: Boolean,
-            required: false,
-            default: false
-        },
-        cardData: {},
-        fromCarousel: {
-            type: Boolean,
-            required: false
-        },
-        suggestion: {
-            type: Boolean,
-            default: false
-        },
-        isApproved: {
-            type: Boolean,
-            default: false
-        },
-        isCorrectAnswer: {
-            type: Boolean,
-            default: false
-        },
-        detailedView: {
-            type: Boolean,
-            default: false
-        }
     },
     data() {
         return {
             actions: [
                 {
-                    title: LanguageService.getValueByKey("questionCard_Report"),
+                    title: this.$t("questionCard_Report"),
                     action: this.reportItem,
                     isDisabled: this.isDisabled,
                     isVisible: true
                 },
                 {
-                    title: LanguageService.getValueByKey("questionCard_Delete"),
+                    title: this.$t("questionCard_Delete"),
                     action: this.deleteQuestion,
                     isDisabled: this.isDeleteDisabled,
                     isVisible: true
                 }
             ],
-            showReport: false,
-            itemId: 0,
-            answerToDeletObj: {},
-            isDeleted: false,
-            showActionToaster: false,
-            localMarkedAsCorrect: false,
+            showReport: false, // ok
+            itemId: 0, // ok
+            answerToDeletObj: {}, // ok
+            isDeleted: false, // ok
             toasterText: '',
-            timeoutID: null,
-            action: null,
-            path: '',
-            src: '',
-            selectedImage: '',
-            showDialog: false,
         };
     },
     computed: {
-        gallery() {
-            return this.cardData.files;
-        },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
@@ -96,9 +59,6 @@ export default {
             } else if (!!this.cardData && !!this.cardData.answers) {
                 return this.cardData.answers.length > 3 ? this.cardData.answers.slice(0, 3) : this.cardData.answers.slice();
             }
-        },
-        flaggedAsCorrect() {
-            return this.isCorrectAnswer || this.localMarkedAsCorrect;
         },
         isSold() {
             return !this.cardData.hasCorrectAnswer && !this.cardData.correctAnswerId;
@@ -116,7 +76,7 @@ export default {
     methods: {
         ...mapActions({
             'delete': 'deleteQuestion',
-            correctAnswer: 'correctAnswer',
+            // correctAnswer: 'correctAnswer',
             updateToasterParams: 'updateToasterParams',
             removeQuestionItemAction: 'removeQuestionItemAction',
             manualAnswerRemove: 'answerRemoved',
@@ -158,94 +118,43 @@ export default {
         closeReportDialog() {
             this.showReport = false;
         },
-        getQuestionColor() {
-            if (!!this.cardData && !this.cardData.color) {
-                return this.cardData.color = 'default';
-            }
-        },
-        showBigImage(src) {
-            this.showDialog = true;
-            this.selectedImage = src;
-        },
-
         canDelete() {
            let isOwner = this.cardOwner();
-           return !this.flaggedAsCorrect && isOwner;
-
-        },
-        markAsCorrect() {
-            this.localMarkedAsCorrect = true;
-            this.correctAnswer(this.cardData.id);
+           return isOwner;
         },
         deleteQuestion() {
+            let self = this
             this.delete({id: this.cardData.id, type: (this.typeAnswer ? 'Answer' : 'Question')})
                 .then(() => {
-                        this.updateToasterParams({
-                            toasterText: this.typeAnswer ? LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_answer") : LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_question"),
+                        let text = self.typeAnswer ? 'helpers_questionCard_toasterDeleted_answer' : 'helpers_questionCard_toasterDeleted_question'
+                        self.updateToasterParams({
+                            toasterText: self.$t(text),
                             showToaster: true
                         });
-                        if (!this.typeAnswer) {
+                        if (!self.typeAnswer) {
                             let objToDelete = {
-                                id: parseInt(this.$route.params.id)
+                                id: parseInt(self.$route.params.id)
                             };
-                            this.$ga.event("Delete_question", "Homework help");
+                            self.$ga.event("Delete_question", "Homework help");
                             //ToDO change to router link use and not text URL
-                            this.removeQuestionItemAction(objToDelete);
-                            this.$router.push('/ask');
+                            self.removeQuestionItemAction(objToDelete);
+                            self.$router.push('/ask');
                         } else {
                             //emit to root to update array of answers
-                            this.$ga.event("Delete_answer", "Homework help");
+                            self.$ga.event("Delete_answer", "Homework help");
 
                             //delete object Manually
                             let answerToRemove = {
-                                questionId: parseInt(this.$route.params.id),
+                                questionId: parseInt(self.$route.params.id),
                                 answer: {
-                                    id: this.cardData.id
+                                    id: self.cardData.id
                                 }
                             };
-                            this.manualAnswerRemove(answerToRemove);
-                            this.isDeleted = true;
+                            self.manualAnswerRemove(answerToRemove);
+                            self.isDeleted = true;
                         }
                     }
                 );
         },
-        // renderQuestionTime(className) {
-        //     const hebrewLang = function (number, index) {
-        //         return [
-        //             ['זה עתה', 'עכשיו'],
-        //             ['לפני %s שניות', 'בעוד %s שניות'],
-        //             ['לפני דקה', 'בעוד דקה'],
-        //             ['לפני %s דקות', 'בעוד %s דקות'],
-        //             ['לפני שעה', 'בעוד שעה'],
-        //             ['לפני %s שעות', 'בעוד %s שעות'],
-        //             ['אתמול', 'מחר'],
-        //             ['לפני %s ימים', 'בעוד %s ימים'],
-        //             ['לפני שבוע', 'בעוד שבוע'],
-        //             ['לפני %s שבועות', 'בעוד %s שבועות'],
-        //             ['לפני חודש', 'בעוד חודש'],
-        //             ['לפני %s חודשים', 'בעוד %s חודשים'],
-        //             ['לפני שנה', 'בעוד שנה'],
-        //             ['לפני %s שנים', 'בעוד %s שנים']
-        //         ][index];
-        //     };
-        //     timeago.register('he', hebrewLang);
-        //     let timeAgoRef = timeago();
-        //     let locale = global.lang.toLowerCase() === 'he' ? 'he' : '';
-        //     timeAgoRef.render(document.querySelectorAll(className), locale);
-        // }
-    },
-    created() {
-        this.getQuestionColor();
-    },
-    mounted() {
-        // use render method to render nodes in real time
-        // this.renderQuestionTime('.timeago');
-    },
-    updated() {
-        // when signalR adds a question we want the time to be rerendered to show correct time
-        // thats why we have same function on mounted and updated
-        // this.renderQuestionTime('.timeago');
-
-
     }
 }

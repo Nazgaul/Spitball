@@ -50,7 +50,7 @@
             class="text-xs-center coupon-dialog-header"
             :class="{'mt-5': $vuetify.breakpoint.xsOnly}"
           >
-            <span v-language:inner="'coupon_title'"></span>
+            <span v-t="'coupon_title'"></span>
             <v-icon @click="closeCouponDialog" class="coupon-close" v-html="'sbf-close'" />
           </v-flex>
         </v-layout>
@@ -70,12 +70,12 @@
                     class="profile-coupon_btn white--text"
                     :disabled="disableApplyBtn"
                     @click="applyCoupon"
-                    v-language:inner="'coupon_apply_btn'"
+                    v-t="'coupon_apply_btn'"
                   ></button>
                 </div>
                 <div
                   class="profile-coupon_error"
-                  v-language:inner="'coupon_apply_error'"
+                  v-t="'coupon_apply_error'"
                   v-if="getCouponError"
                 ></div>
               </div>

@@ -1,7 +1,6 @@
 <template>
     <div class="profileUserBox pa-4 pa-sm-5" v-if="currentProfileUser">
         <div class="profileUserBox_top d-block d-sm-flex justify-space-between">
-            
             <div class="leftSide mr-sm-6 mb-2 mb-sm-0 d-flex justify-center">
                 <div class="pUb_dot" sel="online_icon" v-if="isOnline"></div>
                 <uploadImage sel="photo" class="pUb_edit_img" v-if="isCurrentProfileUser" />
@@ -136,28 +135,28 @@
             <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-0">
                 <followersSvg class="icon" width="24" />
                 <div class="ml-3" @click="isMobile ? scrollToReviews():''" >
-                    <div class="number text-left">{{currentProfileUser.followers}}</div>
+                    <div class="number text-left">{{currentProfileUser.followers || 0}}</div>
                     <div class="type">{{$tc('profile_tutor_follower', currentProfileUser.followers)}}</div>
                 </div>
             </v-col>
             <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-0">
                 <onlineLessonSVG class="icon" width="17" />
                 <div class="ml-3">
-                    <div class="number text-left">{{currentProfileTutor.lessons}}</div>
+                    <div class="number text-left">{{currentProfileTutor.lessons || 0}}</div>
                     <div class="type" v-t="''">{{$tc('profile_session', currentProfileTutor.lessons)}}</div>
                 </div>
             </v-col>
             <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-3 pa-sm-0">
                 <studentsSVG class="icon" width="25" />
                 <div class="ml-3">
-                    <div class="number text-left">{{currentProfileTutor.students}}</div>
+                    <div class="number text-left">{{currentProfileTutor.students || 0}}</div>
                     <div class="type">{{$tc('profile_student', currentProfileTutor.students)}}</div>
                 </div>
             </v-col>
             <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-0">
                 <starSVG class="icon" width="22" />
                 <div class="ml-3">
-                    <div class="number text-left">{{currentProfileTutor.reviewCount}}</div>
+                    <div class="number text-left">{{currentProfileTutor.reviewCount || 0}}</div>
                     <div class="type">{{$tc('profile_reviews',currentProfileTutor.reviewCount)}}</div>
                 </div>
             </v-col>
