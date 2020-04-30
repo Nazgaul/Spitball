@@ -15,7 +15,7 @@
       />
       <calendarTab
         ref="calendarTab"
-        v-if="activeTab === 5"
+        v-if="showCalendarTab"
         class="mt-sm-12 mt-2 mx-auto calendarSection"
         :globalFunctions="globalFunctions"
       />

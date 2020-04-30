@@ -204,7 +204,7 @@ export default {
             return !!this.getProfile && this.getProfile.user.isTutor
         },
         isMyProfile(){
-            return !!this.getProfile && !!this.accountUser && this.accountUser.id == this.getProfile.user.id
+            return !!this.getProfile && !!this.accountUser && this.accountUser?.id == this.getProfile?.user?.id
         },
         showEarnMoney(){
             return this.isMyProfile && this.isTutor && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
@@ -221,6 +221,13 @@ export default {
                 // }
             }
             return false
+        },
+        showCalendarTab() {
+            let isCalendar = this.getProfile?.user.calendarShared
+            if(this.isMyProfile) {
+                return !isCalendar || (this.activeTab === 5 && isCalendar) 
+            }
+            return this.activeTab === 5 && isCalendar
         },
         isTutorPending(){
             return this.isMyProfile && (!!this.accountUser && this.accountUser.isTutorState === "pending")
