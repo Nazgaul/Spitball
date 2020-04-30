@@ -136,6 +136,7 @@ const actions ={
             tutorId: state.tutorId
         };
         return calendarService.getEvents(paramsObj).then(response=>{
+            console.log(response)
             commit('setCalendarEvents',response);
             commit('setShowCalendar',true);
             return Promise.resolve(response);
@@ -194,7 +195,6 @@ const actions ={
          //   to: toISO,
             tutorId: state.tutorId
         };
-
         return calendarService.addEvent(insertEventObj);
     },
     updateNeedPayment({commit},val){

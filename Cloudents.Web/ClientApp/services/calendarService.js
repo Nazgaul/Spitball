@@ -7,39 +7,47 @@ function _dayStringToNumber(dayString){
         return Days.indexOf(dayString);
     }
 }
-function _calendarDate(dateTime){
-    return dateTime.toISOString().substr(0, 10);
-}
+
+// function _calendarDate(dateTime){
+//     return dateTime.FormatDateToString();
+// }
 function _calendarTime(dateTime){
     let hour;
     (typeof dateTime === 'number')? hour = dateTime : hour = dateTime.getHours();
-    if(hour < 10) return `0${hour}:00`;
-    else return `${hour}:00`;
+    return `${hour.toString().padStart(2,'0')}:00`
 }
 function _formatDayRead(UTC){
 
     let UtcSplited = UTC.split(":");
     let currentDate = new Date()
-    let timeFormated = new Date(Date.UTC(currentDate.getFullYear(), currentDate.getMonth() , currentDate.getDay(), UtcSplited[0],UtcSplited[1],UtcSplited[2],0))
+    let timeFormated = new Date(
+        Date.UTC(currentDate.getFullYear(), currentDate.getMonth() , currentDate.getDay(), UtcSplited[0],UtcSplited[1],UtcSplited[2],0))
     return _calendarTime(timeFormated.getHours())
 }
 const Calendar = {
     Event:function(objInit){
         var date = new Date(objInit);
-        this.needToAdd = function() {return date.getHours() >7 && date.getHours() <= 23;};
-        this.date = _calendarDate(date);
-        this.time = _calendarTime(date);
+        this.needToAdd = function() {
+            return date.getHours() >7 && date.getHours() <= 23;
+        };
+        this.date = date.FormatDateToString();
+        this.time = `${date.getHours().toString().padStart(2,'0')}:00`  //_calendarTime(date);
+        this.datex = date;
     },
+    //Avaibilty
     Day:function(objInit){
+       
         this.day = _dayStringToNumber(objInit.day);
         this.from = objInit.from;
         this.to = objInit.to;
     },
+    //Avaibilty
     DayRead:function(objInit){
         this.day = _dayStringToNumber(objInit.day);
         this.from = _formatDayRead(objInit.from);
         this.to = _formatDayRead(objInit.to);
     },
+    //Avaibilty
     Account:function(objInit){
         this.calendarShared = objInit.calendarShared;
         this.tutorDailyHours = objInit.tutorDailyHours.map(day=> new Calendar.DayRead(day));
@@ -50,7 +58,13 @@ function calendarEvents(objInit){
     let events = [];
     objInit.forEach(e =>{
         let event = new Calendar.Event(e);
-        if (event.needToAdd()) {events.push(event);}
+        if (event.needToAdd())
+        {
+            events.push(event);
+        }
+        else {
+            console.log('not add',event)
+        }
     });
     return events;
 }
@@ -79,11 +93,7 @@ function createCalendarHours(objInit){
     return tutorDailyHoursObj;
 }
 function signIn(signInData){
-    return connectivityModule.http.post(`Tutor/calendar/Access`,signInData).then((response)=>{
-        return Promise.resolve(response);
-    },(error)=>{
-          return Promise.reject(error);
-    });
+    return connectivityModule.http.post(`Tutor/calendar/Access`,signInData);
 }
 function getEvents(params){
     return connectivityModule.http.get(`Tutor/calendar/events`,{params}).then(
@@ -92,10 +102,7 @@ function getEvents(params){
       });
 }
 function getCalendarsList(){
-    return connectivityModule.http.get(`Tutor/calendar/list`).then(
-        (response)=>{
-            return response;
-        });
+    return connectivityModule.http.get(`Tutor/calendar/list`);
 }
 function postCalendarsList(params){
     return connectivityModule.http.post(`Tutor/calendar/list`,params);

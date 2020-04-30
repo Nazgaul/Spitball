@@ -157,6 +157,7 @@ const mutations = {
         state.totalUnread = state.totalUnread + val;
     },
     lockChat:(state,val)=>{
+        state.isVisible = true;
         state.chatLocked = val;
     },
     activateLoader:(state, val)=>{

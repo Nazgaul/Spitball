@@ -3,19 +3,10 @@
     column
     class="tutoring-page"
     :style="{'background-size': zoom, 'background-position-x': panX, 'background-position-y': panY}"
-    :class="{'gridBackground': $route.name === 'tutoring', 'mobile-no-support': isMobile}"
-  >
-    <div v-show="isMobile" class="mobile-no-support-container">
-      <noSupportTop></noSupportTop>
-      <div class="no-support-text" v-language:inner="'tutor_not_supported'"></div>
-      <div class="no-support-button">
-        <router-link to="/" tag="button" v-language:inner="'tutor_close'"></router-link>
-      </div>
-      <noSupportBottom></noSupportBottom>
-    </div>
-    <div v-show="!isMobile">
+    :class="{'gridBackground': $route.name === 'tutoring'}">
+    <div>
       <v-flex>
-        <nav class="tutoring-navigation">
+        <nav class="tutoring-navigation d-none d-md-flex">
           <div class="logo-nav-wrap">
             <span class="logo-container">
               <a @click="resetItems()" class="logo-link">
@@ -71,7 +62,7 @@
             
           </div>
         </nav>
-        <v-flex xs12   class="study-tools-wrapper">
+        <v-flex xs12  class="study-tools-wrapper d-none d-md-block">
           <v-layout class="pl-2" align-center shrink>
             <v-flex shrink class="canvas-tools-wrapper" v-if="isWhiteBoardActive">
               <whiteBoardTools></whiteBoardTools>
@@ -108,20 +99,21 @@
               >
                 <span v-language:inner>tutor_option_fullBoard</span>
               </v-btn>
-              <v-layout
+             
+                <!-- <v-flex xs6 > -->
+                 
+                <!-- </v-flex> -->
+            </v-flex>
+          </v-layout>
+        </v-flex>
+         <v-layout
                 column
                 align-start
                 class="video-stream-wraper"
                 v-show="activeViewOption !== enumViewOptions.fullBoard"
               >
-                <v-flex xs6 >
-                  <videoStream></videoStream>
-                </v-flex>
-              </v-layout>
-            </v-flex>
-          </v-layout>
-        </v-flex>
-
+        <videoStream></videoStream>
+         </v-layout>
         <transition name="slide-x-transition">
           <keep-alive>
             <component :is="activeItem" :roomId="id"></component>
@@ -129,18 +121,6 @@
         </transition>
       </v-flex>
     <template>
-      <sb-dialog
-        :showDialog="getDialogTutorStart"
-        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
-        :popUpType="'startSessionTutor'"
-        :maxWidth="'356'"
-        :onclosefn="closeStartSessionTutor"
-        :activateOverlay="false"
-        :isPersistent="true"
-        :content-class="'session-start-tutor-dialog'"
-      >
-        <startSessionTutor :id="id"></startSessionTutor>
-      </sb-dialog>
 
       <sb-dialog
         :showDialog="getReviewDialogState"
@@ -155,27 +135,6 @@
         <leave-review></leave-review>
       </sb-dialog>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       <sb-dialog
         :showDialog="isBrowserSupportDialog"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
@@ -187,17 +146,7 @@
       >
           <browserSupport></browserSupport>
       </sb-dialog>
-      <sb-dialog
-        :showDialog="getDialogRoomSettings"
-        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
-        :popUpType="'tutor-settings'"
-        :maxWidth="'800'"
-        :onclosefn="closeStudyRoomSettingsDialog"
-        :activateOverlay="false"
-        :content-class="'tutor-settings-dialog'"
-      >
-        <studyRoomSettingsDialog></studyRoomSettingsDialog>
-      </sb-dialog>
+      <!--show only if not avaliable devices dialog is closed by user-->
       <!--end session confirmation-->
       <sb-dialog
         :showDialog="getDialogRoomEnd"
@@ -246,6 +195,12 @@
       >
           <snapshotDialog></snapshotDialog>
       </sb-dialog>
+
+      <studyRoomAudioVideoDialog
+        v-if="settingDialogState"
+        @closeAudioVideoSettingDialog="val => settingDialogState = val"
+      />
+      <studyRoomSettingsDialog v-if="id && !isRoomActive"/>
   </template>
 
     </div>
@@ -264,12 +219,9 @@ import shareScreenBtn from "./tutorHelpers/shareScreenBtn.vue";
 import logoComponent from '../app/logo/logo.vue';
 import testIcon from "./images/eq-system.svg";
 import chatIcon from "../../font-icon/message-icon.svg";
-import noSupportTop from "./images/not_supported_top.svg";
-import noSupportBottom from "./images/not_supported_bottom.svg";
 import chatService from "../../services/chatService";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import leaveReview from "./tutorHelpers/leaveReview/leaveReview.vue";
-import startSessionTutor from "./tutorHelpers/startSession-popUp-tutor/startSession-popUp-Tutor.vue";
 import whiteBoardTools from "./whiteboard/whiteboardTools.vue";
 import startEndSessionBtn from "./tutorHelpers/startEndSessionBtn/startEndSessionBtn.vue";
 import endSessionConfirm from "./tutorHelpers/endSessionConfirm/endSessionConfirm.vue";
@@ -283,6 +235,7 @@ import studentConsentDialog from './tutorHelpers/studentConsentDialog/studentCon
 import snapshotDialog from './tutorHelpers/snapshotDialog/snapshotDialog.vue';
 import stopRecording from './images/stop-recording.svg';
 import beginRecording from './images/begain-recording.svg';
+import studyRoomAudioVideoDialog from './tutorHelpers/studyRoomSettingsDialog/studyRoomAudioVideoDialog/studyRoomAudioVideoDialog.vue'
 
 import intercomSettings from '../../services/intercomService';
 
@@ -310,9 +263,6 @@ export default {
     chatIcon,
     sbDialog,
     leaveReview,
-    noSupportTop,
-    noSupportBottom,
-    startSessionTutor,
     whiteBoardTools,
     startEndSessionBtn,
     endSessionConfirm,
@@ -324,11 +274,13 @@ export default {
     studentConsentDialog,
     snapshotDialog,
     stopRecording,
-    beginRecording
+    beginRecording,
+    studyRoomAudioVideoDialog
   },
   name: "tutor",
   data() {
     return {
+      settingDialogState: false,
       isBrowserSupportDialog:false,
       navs: [
         {
@@ -365,7 +317,6 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "getDialogTutorStart",
       "getRoomIsNeedPayment",
       "getDialogUserConsent",
       "getDialogRoomSettings",
@@ -377,7 +328,7 @@ export default {
       "accountUser",
       "getIsRecording",
       "getShowAudioRecordingError",
-      "getVisitedSettingPage",
+      // "getVisitedSettingPage",
       "getDialogSnapshot",
     ]),
     isRoomTutor(){
@@ -386,17 +337,6 @@ export default {
     isRoomActive(){
       return this.$store.getters.getRoomIsActive;
     },
-
-
-
-
-
-
-
-
-
-
-
     activeItem() {
       return this.$store.getters.getActiveNavEditor;
     },
@@ -412,9 +352,6 @@ export default {
     },
     panY() {
       return `${this.getPanY}px`;
-    },
-    isMobile() {
-      return this.$vuetify.breakpoint.xsOnly;
     },
     isTutor() {
       return this.$store.getters.getRoomIsTutor;
@@ -449,7 +386,7 @@ watch: {
       "setShowAudioRecordingError",
       "updateDialogUserConsent",
       "updateDialogSnapshot",
-      "stopTracks"
+      "openChat"
     ]),
     handleNeedPayment(needPayment){
       if(needPayment){
@@ -491,18 +428,17 @@ watch: {
     },
     openSettingsDialog(){
       this.$ga.event("tutoringRoom", "openSettingsDialog");
-      this.$store.dispatch('updateDialogRoomSettings',true)
+      this.settingDialogState = true;
+      // this.$store.dispatch('updateDialogRoomSettings',true)
     },
     closeReviewDialog() {
       this.updateReviewDialog(false);
     },
-    closeStudyRoomSettingsDialog(){
-      this.$store.dispatch('updateDialogRoomSettings',false)
-    },
+    // closeStudyRoomSettingsDialog(){
+    //   this.$store.dispatch('updateDialogRoomSettings',false)
+    // },
     closeEndDialog() {
       this.updateEndDialog(false);
-    },
-    closeStartSessionTutor() {
     },
     closeShowAudioRecordingError(){
       this.setShowAudioRecordingError(false);
@@ -597,18 +533,11 @@ watch: {
     this.$store.dispatch('updateResetRoom');
     this.updateLockChat(false);
 
-
-
-
-    this.stopTracks();
-    
-
     storeService.unregisterModule(this.$store,'tutoringCanvas');
     // storeService.unregisterModule(this.$store,'tutoringMain');
     storeService.unregisterModule(this.$store,'studyRoomTracks_store');
     storeService.unregisterModule(this.$store,'roomRecording_store');
     storeService.unregisterModule(this.$store,'codeEditor_store');
-
   },
   beforeCreate(){
     storeService.registerModule(this.$store,'studyRoomTracks_store',studyRoomTracks_store);

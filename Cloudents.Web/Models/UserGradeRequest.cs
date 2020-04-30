@@ -1,13 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿//using System.ComponentModel.DataAnnotations;
 
-namespace Cloudents.Web.Models
-{
-    public class UserGradeRequest
-    {
+//namespace Cloudents.Web.Models
+//{
+//    public class UserGradeRequest
+//    {
 
-        [Required]
-        [Range(1, 12)]
-        public short Grade { get; set; }
+//        [Required]
+//        [Range(1, 12)]
+//        public short Grade { get; set; }
 
-    }
-}
+//    }
+//}

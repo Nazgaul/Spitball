@@ -17,6 +17,7 @@ import profileBecomeTutor from './components/profileBecomeTutor/profileBecomeTut
 import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue';
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileItemsEmpty from './components/profileItemsEmpty/profileItemsEmpty.vue';
+import profileLiveClasses from './components/profileLiveClasses/profileLiveClasses.vue'
 import calendarTab from '../calendar/calendarTab.vue';
 import cover from "./components/cover.vue";
 
@@ -36,6 +37,7 @@ export default {
         profileFindTutor,
         profileItemsBox,
         profileItemsEmpty,
+        profileLiveClasses,
         calendarTab,
         cover,
         sbDialog,
@@ -58,6 +60,7 @@ export default {
             couponPlaceholder: LanguageService.getValueByKey('coupon_placeholder'),
             disableApplyBtn: false,
             activeTab: 1,
+            componentRenderKey: 0
         };
     },
     methods: {
@@ -253,6 +256,7 @@ export default {
             let old = Number(oldVal,10);
             let newVal = Number(val,10);
             this.activeTab = 1;
+            this.componentRenderKey += 1;
             if (newVal !== old) {
                 this.resetProfileData();
                 if((newVal == this.accountUser.id) && this.accountUser.isTutorState === "pending"){

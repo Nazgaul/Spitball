@@ -75,54 +75,28 @@ on x.Id = tr.Id";
             ILogger log,
             CancellationToken token)
         {
-            var i = await statelessSession.Query<UserLocation>()
-                  .Where(w => w.TimeStamp.CreationTime < DateTime.UtcNow.AddYears(-1))
-                  .DeleteAsync(token);
-
-            log.LogInformation($"deleted amount: {i}");
-        }
-
-
-        [FunctionName("UpdateSbCountry")]
-        public static async Task UpdateSbCountryAsync([TimerTrigger("0 */5 * * * *")] TimerInfo myTimer,
-            [Inject] IDapperRepository dapper,
-            ILogger log,
-            CancellationToken token)
-        {
-            const string sql = @"update top (1000) sb.[User]
-            set SbCountry = 1
-            where Country = 'IL' and SbCountry is null";
-
-            const string sql2 = @"update top (1000) sb.[User]
-set SbCountry = 2
-where Country = 'IN' and SbCountry is null";
-
-            const string sql3 = @"update top (1000) sb.[User]
-set SbCountry = 3
-where SbCountry is null and country not in ('IL','IN') ";
-
-            var queries = new[] { sql, sql2, sql3 };
-
-            foreach (var query in queries)
+            int count;
+            do
             {
                 if (token.IsCancellationRequested)
                 {
                     break;
                 }
-                using var con = dapper.OpenConnection();
-                while (true)
+                var v = await statelessSession.Query<UserLocation>()
+                    .Where(w => w.TimeStamp.CreationTime < DateTime.UtcNow.AddYears(-1))
+                    .OrderBy(o => o.Id)
+                    .Take(100)
+                    .Select(s => s.Id).ToListAsync(cancellationToken: token);
+                count = v.Count;
+                if (count > 0)
                 {
-                    if (token.IsCancellationRequested)
-                    {
-                        break;
-                    }
-                    var i = await con.ExecuteAsync(query);
-                    if (i == 0)
-                    {
-                        break;
-                    }
+                    var x =  await statelessSession.Query<UserLocation>()
+                        .Where(w => v.Contains(w.Id))
+                        .DeleteAsync(default);
+                    log.LogInformation($"deleted amount: {x}");
                 }
-            }
+            } while (count > 0);
+        
         }
     }
 }

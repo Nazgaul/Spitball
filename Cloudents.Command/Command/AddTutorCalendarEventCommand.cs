@@ -8,8 +8,8 @@ namespace Cloudents.Command.Command
         {
             UserId = userId;
             TutorId = tutorId;
-            From = @from.ToUniversalTime();
-            To = to.ToUniversalTime();
+            From = @from;
+            To = to;
         }
 
         public long UserId { get; }

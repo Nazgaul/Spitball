@@ -30,6 +30,12 @@
     padding-bottom: 1px;
     padding-left: 1px;
     background-color: #efefef;
+
+    @media (max-width: @screen-md) {
+      top: -1000px;
+      
+    }
+
   }
   .controls-holder {
     display: flex;
@@ -199,43 +205,4 @@
 }
 .device-dialog-unsupport {
   flex: auto
-}
-.mobile-no-support{
-    z-index: 10000;
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    .mobile-no-support-container{
-            background: #FFF;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            padding-top: 50px;
-        .no-support-text{
-            font-size: 16px;
-            padding: 25px;
-            padding-top: 50px;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-        .no-support-button{
-            font-size: 16px;
-            padding-bottom: 50px;
-            button{
-                border: 1px solid @global-blue;
-                color: @global-blue;
-                padding: 5px 32px;
-                border-radius: 30px;
-                margin-top: 5px;
-                outline: none;
-            }
-        }
-        img{
-            width:100px;
-            height:100px;
-        }
-    }
-
 }

@@ -36,10 +36,10 @@ namespace Cloudents.Query.Admin
         {
             var sql = @"Select @Term = case when @Term is null then '""""' else '""*' + @Term + '*""' end 
                     select distinct top 100 c.Name
-                    from sb.Course c
-                        join sb.UsersCourses uc
+                    from sb.Course c 
+                        left join sb.UsersCourses uc
                         on c.Name = uc.CourseId
-                        join sb.[User] u
+                        left join sb.[User] u
                         on uc.UserId = u.Id
                     where c.State = @State
                     and (@Term = '""""' or CONTAINS(c.Name, @Term))";

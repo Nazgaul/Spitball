@@ -1,5 +1,5 @@
 <template>
-   <div class="profileReviewsBox" v-if="!!getProfile && getProfileReviews !== null">
+   <div class="profileReviewsBox" sel="reviews_section" v-if="!!getProfile && getProfileReviews !== null">
       <div class="profileReviewsBox_state">
          <div class="profileReviewsBox_state_title" v-language:inner="'reviewBox_title'"/>
          <div class="profileReviewsBox_state_container">
@@ -86,8 +86,7 @@ export default {
 @import '../../../../styles/mixin.less';
 
 .profileReviewsBox{
-  width: 100%;
-  max-width: 800px;
+  max-width: 960px;
   margin: 0 auto;
 //   height: 512px;
   border-radius: 8px;
@@ -97,8 +96,12 @@ export default {
   padding-top: 12px;
   padding-bottom: 12px;
   color: #43425d;
+   // @media (max-width: @screen-sm) {
+   //    margin: 0 20px;
+   // }
   @media (max-width: @screen-xs) {
      border-radius: 0;
+      margin: 0;
      padding: 12px 0;
   }
   .profileReviewsBox_state{

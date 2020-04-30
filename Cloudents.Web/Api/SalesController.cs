@@ -63,13 +63,13 @@ namespace Cloudents.Web.Api
             var tutorId = _userManager.GetLongUserId(User);
             var command = new SetSessionDurationCommand(tutorId,
                 model.SessionId,
-                TimeSpan.FromMinutes(model.DurationInMinutes), model.UserId);
+                TimeSpan.FromMinutes(model.DurationInMinutes), model.UserId, model.Price);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
         [HttpGet("session/{id}")]
-        public async Task<PaymentDetailDto> GetPaymentAsync([FromRoute] Guid id,[FromQuery] long userId, CancellationToken token)
+        public async Task<PaymentDetailDto> GetPaymentAsync([FromRoute] Guid id, [FromQuery] long userId, CancellationToken token)
         {
             var tutorId = _userManager.GetLongUserId(User);
             var querySessionV2 = new SessionApprovalQuery(id, userId, tutorId);

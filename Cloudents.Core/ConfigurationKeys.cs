@@ -18,7 +18,7 @@ namespace Cloudents.Core
 
         public PayPalCredentials PayPal { get; set; }
 
-        public LocalStorageData LocalStorageData { get; set; }
+        //public LocalStorageData LocalStorageData { get; set; }
         //public string FunctionEndpoint { get; set; }
 
 

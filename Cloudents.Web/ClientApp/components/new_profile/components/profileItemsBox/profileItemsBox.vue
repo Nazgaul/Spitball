@@ -43,10 +43,10 @@
       </div>
    </div>
    <template v-if="!!items && items.length">
-      <div class="profileItemsBox_content mb-sm-4" v-if="$vuetify.breakpoint.smAndUp">
+      <div class="profileItemsBox_content mb-sm-4" sel="profile_items" v-if="$vuetify.breakpoint.smAndUp">
          <itemCard v-for="(item, index) in items" :key="index" :item="item"/>
       </div>
-      <div v-if="$vuetify.breakpoint.xsOnly" class="profileItemsBox_content_mobile">
+      <div v-if="$vuetify.breakpoint.xsOnly" class="profileItemsBox_content_mobile" sel="profile_items">
          <resultNote v-for="(item, index) in items" :key="index" :item="item" class="pa-3 mb-2"/>
       </div>
       <div class="profileItemBox_pagination" v-if="pageCount > 1">
@@ -184,7 +184,7 @@ export default {
    margin: 0 auto;
    color: #43425d;
    .profileItemsBox-header {
-      max-width: 800px;
+      max-width: 960px;
       margin: 0 auto;
    }
    .profileItemsBox_title{

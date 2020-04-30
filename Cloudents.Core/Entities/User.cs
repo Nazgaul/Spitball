@@ -18,7 +18,6 @@ namespace Cloudents.Core.Entities
             ChangeName(firstName, lastName);
             FirstName = firstName;
             LastName = lastName;
-            //TwoFactorEnabled = true;
             Language = language;
             Created = DateTime.UtcNow;
             Country = country;
@@ -26,15 +25,13 @@ namespace Cloudents.Core.Entities
             Gender = gender;
         }
 
-        //public User(string email, Language language) : this(email, null, null, language)
-        //{
 
-        //}
 
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
         protected User()
         {
             UserLogins = new List<UserLogin>();
-            Transactions = Transactions ?? new UserTransactions();
+            Transactions ??= new UserTransactions();
 
         }
 
@@ -52,11 +49,15 @@ namespace Cloudents.Core.Entities
         public virtual string LockoutReason { get; set; }
 
 
-        protected internal virtual ICollection<Answer> Answers { get; set; }
-        protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
+        protected internal virtual ICollection<Answer> Answers { get; protected set; }
+        protected internal virtual ICollection<UserLogin> UserLogins { get; protected set; }
+
+        protected internal virtual ICollection<UserLocation> UserLocations { get; protected set; }
 
 
+        private readonly ICollection<ChatUser> _chatUsers = new List<ChatUser>();
 
+        public virtual IEnumerable<ChatUser> ChatUsers => _chatUsers;
 
         private readonly ISet<UserCourse> _userCourses = new HashSet<UserCourse>();
 
@@ -124,32 +125,29 @@ namespace Cloudents.Core.Entities
 
         public virtual void ChangeCountry(string country)
         {
-
+            if (Entities.Country.CountriesNotSupported.Contains(country))
+            {
+                throw new NotSupportedException();
+            }
             if (Country?.Equals(country) == true)
             {
                 return;
             }
             Country = country;
-            
+
             SbCountry = Entities.Country.FromCountry(country);
             University = null;
+           
+
             AddEvent(new ChangeCountryEvent(Id));
         }
 
 
         public virtual void ChangeCountryAdmin(string country)
         {
-
-            if (Country?.Equals(country) == true)
-            {
-                return;
-            }
-            Country = country;
-            
-            SbCountry = Entities.Country.FromCountry(country);
-            University = null;
+            ChangeCountry(country);
             ChangeLanguage(Entities.Language.English);
-            AddEvent(new ChangeCountryEvent(Id));
+          
         }
 
 
@@ -184,7 +182,7 @@ namespace Cloudents.Core.Entities
 
             Tutor = new Tutor(bio, this, price);
             Description = description;
-            SetUserType(UserType.Teacher);
+            //SetUserType(UserType.Teacher);
             ChangeName(firstName, lastName);
             foreach (var userCourse in UserCourses)
             {
@@ -217,7 +215,7 @@ namespace Cloudents.Core.Entities
         public virtual Gender Gender { get; protected set; }
         public virtual PaymentStatus PaymentExists { get; protected set; }
 
-        public virtual UserType? UserType2 { get; protected set; }
+        // public virtual UserType? UserType2 { get; protected set; }
         private readonly ICollection<UserPayPalToken> _userTokens = new List<UserPayPalToken>();
 
 
@@ -233,7 +231,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void UseToken(StudyRoom studyRoom)
         {
-           
+
 
             if (SbCountry != Entities.Country.UnitedStates)
             {
@@ -358,6 +356,10 @@ namespace Cloudents.Core.Entities
 
         }
 
+
+        protected internal virtual IEnumerable<Follow> Followed { get; set; }
+        protected internal virtual IEnumerable<Lead> Leads { get; set; }
+
         private readonly ISet<Follow> _followers = new HashSet<Follow>();
         public virtual IEnumerable<Follow> Followers => _followers;
 
@@ -392,8 +394,11 @@ namespace Cloudents.Core.Entities
 
         public override void RemoveFollower(BaseUser follower)
         {
-            var follow = new Follow(this, follower);
-            _followers.Remove(follow);
+            if (follower is User u)
+            {
+                var follow = new Follow(this, u);
+                _followers.Remove(follow);
+            }
         }
 
 
@@ -446,146 +451,146 @@ namespace Cloudents.Core.Entities
             PaymentExists = PaymentStatus.None;
         }
 
-        public virtual void SetUserType(UserType userType)
-        {
+        //public virtual void SetUserType(UserType userType)
+        //{
 
-            //(userType,Tutor) switch
-            //{
-            //    (UserType.UniversityStudent, _) => Extend = new CollegeStudent(this),
-            //    (UserType.HighSchoolStudent, _) => Extend = new HighSchoolStudent(this),
-            //    (UserType.Parent, _) => Extend = new Parent(this),
-            //    (UserType.Teacher, null) => {Extend = new CollegeStudent(this)}
-            //    (UserType.Teacher, _) => Extend = new Teacher(this);,
-            //}
+        //    //(userType,Tutor) switch
+        //    //{
+        //    //    (UserType.UniversityStudent, _) => Extend = new CollegeStudent(this),
+        //    //    (UserType.HighSchoolStudent, _) => Extend = new HighSchoolStudent(this),
+        //    //    (UserType.Parent, _) => Extend = new Parent(this),
+        //    //    (UserType.Teacher, null) => {Extend = new CollegeStudent(this)}
+        //    //    (UserType.Teacher, _) => Extend = new Teacher(this);,
+        //    //}
 
-            switch (userType)
-            {
-                case UserType.UniversityStudent:
-                    Extend = new CollegeStudent(this);
-                    break;
-                case UserType.HighSchoolStudent:
-                    Extend = new HighSchoolStudent(this);
+        //    switch (userType)
+        //    {
+        //        case UserType.UniversityStudent:
+        //            Extend = new CollegeStudent(this);
+        //            break;
+        //        case UserType.HighSchoolStudent:
+        //            Extend = new HighSchoolStudent(this);
 
-                    break;
-                case UserType.Parent:
-                    Extend = new Parent(this);
+        //            break;
+        //        case UserType.Parent:
+        //            Extend = new Parent(this);
 
-                    break;
-                case UserType.Teacher:
-                    if (Tutor == null)
-                    {
-                        Extend = new CollegeStudent(this);
-                        UserType2 = UserType.HighSchoolStudent;
-                        return;
-                    }
-                    else
-                    {
-                        Extend = new Teacher(this);
-                    }
+        //            break;
+        //        case UserType.Teacher:
+        //            if (Tutor == null)
+        //            {
+        //                Extend = new CollegeStudent(this);
+        //                UserType2 = UserType.HighSchoolStudent;
+        //                return;
+        //            }
+        //            else
+        //            {
+        //                Extend = new Teacher(this);
+        //            }
 
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(userType), userType, null);
-            }
+        //            break;
+        //        default:
+        //            throw new ArgumentOutOfRangeException(nameof(userType), userType, null);
+        //    }
 
-            UserType2 = userType;
-        }
+        //    UserType2 = userType;
+        //}
 
-        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Nhibernate")]
-        protected internal virtual ICollection<UserComponent> UserComponents { get; set; }
+        //[SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Nhibernate")]
+        //protected internal virtual ICollection<UserComponent> UserComponents { get; set; }
 
-        public virtual UserComponent Extend
-        {
-            get => UserComponents.SingleOrDefault();
-            set
-            {
-                UserComponents.Clear();
-                UserComponents.Add(value);
+        //public virtual UserComponent Extend
+        //{
+        //    get => UserComponents.SingleOrDefault();
+        //    set
+        //    {
+        //        UserComponents.Clear();
+        //        UserComponents.Add(value);
 
-            }
-        }
+        //    }
+        //}
     }
 
-    public class Parent : UserComponent
-    {
-        public Parent(User user)
-            : base(UserType.Parent, user)
-        {
+    //public class Parent : UserComponent
+    //{
+    //    public Parent(User user)
+    //        : base(UserType.Parent, user)
+    //    {
 
-        }
-        public Parent(User user, string name, short grade)
-            : base(UserType.Parent, user)
-        {
-            Name = name;
-            Grade = grade;
-        }
+    //    }
+    //    public Parent(User user, string name, short grade)
+    //        : base(UserType.Parent, user)
+    //    {
+    //        Name = name;
+    //        Grade = grade;
+    //    }
 
-        protected Parent()
-        {
+    //    protected Parent()
+    //    {
 
-        }
-        public virtual string Name { get; protected set; }
-        public virtual short Grade { get; protected set; }
-
-
+    //    }
+    //    public virtual string Name { get; protected set; }
+    //    public virtual short Grade { get; protected set; }
 
 
-        public virtual void SetChildData(string name, short grade)
-        {
-            Name = name;
-            Grade = grade;
-        }
-
-        //public override UserType Type { get; protected set; }
-    }
 
 
-    public class HighSchoolStudent : UserComponent
-    {
-        public HighSchoolStudent(User user) : base(UserType.HighSchoolStudent, user)
-        {
+    //    public virtual void SetChildData(string name, short grade)
+    //    {
+    //        Name = name;
+    //        Grade = grade;
+    //    }
 
-        }
+    //    //public override UserType Type { get; protected set; }
+    //}
 
-        protected HighSchoolStudent()
-        {
 
-        }
-        public override UserType Type { get; protected set; }
+    //public class HighSchoolStudent : UserComponent
+    //{
+    //    public HighSchoolStudent(User user) : base(UserType.HighSchoolStudent, user)
+    //    {
 
-        public virtual void SetGrade(short grade)
-        {
-            Grade = grade;
-        }
+    //    }
 
-        public virtual short Grade { get; protected set; }
-    }
+    //    protected HighSchoolStudent()
+    //    {
 
-    public class CollegeStudent : UserComponent
-    {
-        public CollegeStudent(User user) : base(UserType.UniversityStudent, user)
-        {
-        }
+    //    }
+    //    public override UserType Type { get; protected set; }
 
-        protected CollegeStudent()
-        {
+    //    public virtual void SetGrade(short grade)
+    //    {
+    //        Grade = grade;
+    //    }
 
-        }
-        public override UserType Type { get; protected set; }
-    }
+    //    public virtual short Grade { get; protected set; }
+    //}
 
-    public class Teacher : UserComponent
-    {
-        public Teacher(User user) : base(UserType.Teacher, user)
-        {
-        }
+    //public class CollegeStudent : UserComponent
+    //{
+    //    public CollegeStudent(User user) : base(UserType.UniversityStudent, user)
+    //    {
+    //    }
 
-        protected Teacher()
-        {
+    //    protected CollegeStudent()
+    //    {
 
-        }
-        public override UserType Type { get; protected set; }
-    }
+    //    }
+    //    public override UserType Type { get; protected set; }
+    //}
+
+    //public class Teacher : UserComponent
+    //{
+    //    public Teacher(User user) : base(UserType.Teacher, user)
+    //    {
+    //    }
+
+    //    protected Teacher()
+    //    {
+
+    //    }
+    //    public override UserType Type { get; protected set; }
+    //}
 
 
 }

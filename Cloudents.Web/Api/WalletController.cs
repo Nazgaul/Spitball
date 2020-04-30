@@ -57,15 +57,15 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpGet("transaction")]
-        public async Task<IEnumerable<TransactionDto>> GetTransactionAsync(CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
+        //[HttpGet("transaction")]
+        //public async Task<IEnumerable<TransactionDto>> GetTransactionAsync(CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
 
-            var retVal = await _queryBus.QueryAsync(new UserTransactionQuery(userId), token);
+        //    var retVal = await _queryBus.QueryAsync(new UserTransactionQuery(userId), token);
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
 
 

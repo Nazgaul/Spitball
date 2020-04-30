@@ -3,8 +3,9 @@
     <cover></cover>
     <profileDialogs />
     <div class="profilePage_main profile-page-container">
-      <profileUserBox :globalFunctions="globalFunctions" />
+      <profileUserBox :globalFunctions="globalFunctions" :key="componentRenderKey" />
       <shareContent
+        sel="share_area"
         :link="shareContentParams.link"
         :twitter="shareContentParams.twitter"
         :whatsApp="shareContentParams.whatsApp"
@@ -13,6 +14,7 @@
         v-if="getProfile"
       />
       <calendarTab v-if="showProfileCalendar" class="mt-sm-12 mt-2 mx-auto calendarSection" :globalFunctions="globalFunctions" />
+      <profileLiveClasses :id="id" v-if="isTutor" />
       <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" />
       <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" />
       <profileItemsBox v-if="isMyProfile || showItems" class="mt-sm-12 mt-2" />
@@ -118,19 +120,17 @@
   }
   .profilePage_main {
     max-width: 1920px;
-    width: 100%;
-    padding-top: 180px;
-    //margin-right: 33px;
-    //         @media (max-width: @screen-sm) {
-    //           //  margin-right: 0;
-    // //            max-width: auto;
-    //         }
+    padding-top: 260px;
+    margin: 0 20px;
+    @media (max-width: @screen-xs) {
+      margin: 0;
+    }
     &.profile-page-container {
       &.content-center {
         margin: 0 auto;
       }
       @media (max-width: @screen-md-plus) {
-        margin-left: 0;
+        // margin-left: 0;
       }
       @media (max-width: @screen-xs) {
         margin-left: 0;
@@ -169,13 +169,15 @@
       border-radius: 8px;
       justify-content: center;
       @media (max-width: @screen-xs) {
+        padding-bottom: 20px;
         max-width: 100%;
         border-radius: 0;
       }
     }
   }
   .calendarSection {
-    max-width: 800px;
+    max-width: 960px;
+    border-radius: 8px !important;
   }
 }
 .coupon-dialog {

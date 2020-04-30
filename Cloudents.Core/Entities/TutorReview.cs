@@ -7,9 +7,10 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
     public class TutorReview : Entity<Guid>
     {
-        internal TutorReview(string review, float rate, User user, Tutor tutor/*, StudyRoom room*/)
+        internal TutorReview(string? review, float rate, User user, Tutor tutor/*, StudyRoom room*/)
         {
             if (rate <= 0) throw new ArgumentOutOfRangeException(nameof(rate));
+            if (rate > 5) throw new ArgumentOutOfRangeException(nameof(rate));
             if (!string.IsNullOrEmpty(review))
             {
                 Review = review;
@@ -24,11 +25,13 @@ namespace Cloudents.Core.Entities
 
         }
 
+        [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]
+        [SuppressMessage("ReSharper", "UnusedMember.Global",  Justification = "Nhibernate proxy")]
         protected TutorReview()
         {
 
         }
-        public virtual string Review { get; protected set; }
+        public virtual string? Review { get; protected set; }
 
         public virtual float Rate { get; protected set; }
 
