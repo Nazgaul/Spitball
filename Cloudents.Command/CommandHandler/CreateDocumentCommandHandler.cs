@@ -12,12 +12,12 @@ namespace Cloudents.Command.CommandHandler
     public class CreateDocumentCommandHandler : ICommandHandler<CreateDocumentCommand>
     {
         private readonly IDocumentDirectoryBlobProvider _blobProvider;
-        private readonly IRepository<BaseUser> _userRepository;
+        private readonly IRepository<User> _userRepository;
         private readonly IRepository<Document> _documentRepository;
         private readonly IRepository<Course> _courseRepository;
 
         public CreateDocumentCommandHandler(IDocumentDirectoryBlobProvider blobProvider,
-            IRepository<BaseUser> userRepository,
+            IRepository<User> userRepository,
             IRepository<Document> documentRepository, IRepository<Course> courseRepository
             )
         {
