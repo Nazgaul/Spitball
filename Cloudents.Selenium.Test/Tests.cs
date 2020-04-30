@@ -545,6 +545,8 @@ namespace Cloudents.Selenium.Test
                 var url = $"{_driver.SiteUrl.TrimEnd('/')}/learn?culture=en-US";
                 driver.Navigate().GoToUrl(url);
 
+                ((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight - 150)");
+
                 FindContains(driver, "btn-earn").GetAttribute("href").Should().Be(wixLink);
             }
         }
