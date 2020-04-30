@@ -31,11 +31,11 @@
 
         <div class="counterWrap">
             <template>
-                <div class="mb-6 mb-sm-8" v-if="isRoomBroadcast && isRoomDisabled && !waitingForTutor">
-                    <div class="counterTitle mb-2" v-t="'studyRoomSettings_start_in'"></div>
-                    <sessionStartCounter class="counter" @updateCounterFinish="waitingForTutor = true" />
+                <div class="mb-6 mb-sm-8" v-if="isRoomBroadcast && isRoomDisabled">
+                    <div v-if="!waitingForTutor" class="counterTitle mb-2" v-t="'studyRoomSettings_start_in'"></div>
+                    <sessionStartCounter v-if="!waitingForTutor" class="counter" @updateCounterFinish="waitingForTutor = true" />
                 </div>
-                <div class="mb-8" v-if="!isRoomTutor && ((!isRoomBroadcast || !isRoomDisabled) || waitingForTutor)" v-t="'studyRoomSettings_ready'"></div>
+                <div class="mb-8" v-if="isWaiting" v-t="'studyRoomSettings_ready'"></div>
             </template>
         </div>
 
@@ -123,6 +123,13 @@ export default {
         }
     },
     computed: {
+        isWaiting(){
+            if(!this.isRoomTutor){
+                return (this.isRoomDisabled && this.waitingForTutor) || (this.isRoomDisabled && !this.isRoomBroadcast)
+            }else{
+                return false
+            }
+        },
         isRoomBroadcast(){
             return this.$store.getters.getRoomIsBroadcast;
         },

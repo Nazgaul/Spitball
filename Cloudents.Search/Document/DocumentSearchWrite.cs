@@ -29,22 +29,7 @@ namespace Cloudents.Search.Document
                 Fields = FieldBuilder.BuildForType<Entities.Document>(new SearchIndexEnumToIntContractResolver()),
                 ScoringProfiles = new List<ScoringProfile>
                 {
-                    new ScoringProfile("ScoringProfile")
-                    {
-                        TextWeights = new TextWeights(new Dictionary<string, double>
-                        {
-                            [nameof(Entities.Document.Name)] = 4,
-                            [nameof(Entities.Document.Tags)] = 3.5,
-                            [nameof(Entities.Document.Content)] = 3,
-                        }),
-                        FunctionAggregation = ScoringFunctionAggregation.Sum,
-                        Functions = new List<ScoringFunction>
-                        {
-                            new TagScoringFunction(Entities.Document.CourseNameField,3.2, new TagScoringParameters(TagsCourseParameter)),
-                            new TagScoringFunction(Entities.Document.UniversityIdFieldName,3, new TagScoringParameters(TagsUniversityParameter)),
-                            new TagScoringFunction(nameof(Entities.Document.Tags),1.5, new TagScoringParameters("Tag")),
-                        }
-                    },
+                    
                     new ScoringProfile(ScoringProfile)
                     {
                     TextWeights = new TextWeights(new Dictionary<string, double>
@@ -57,7 +42,7 @@ namespace Cloudents.Search.Document
                 Functions = new List<ScoringFunction>
                 {
                     new TagScoringFunction(Entities.Document.CourseNameField,3.2, new TagScoringParameters(TagsCourseParameter)),
-                    new TagScoringFunction(Entities.Document.UniversityIdFieldName,3, new TagScoringParameters(TagsUniversityParameter)),
+                    new TagScoringFunction("University",3, new TagScoringParameters(TagsUniversityParameter)),
                     new TagScoringFunction(nameof(Entities.Document.Country),1.5, new TagScoringParameters(TagsCountryParameter)),
                 }
             }

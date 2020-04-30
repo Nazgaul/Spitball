@@ -1,7 +1,7 @@
 <template>
    <v-list-group @click="settingProps.openSideMenu()" v-model="settingProps.model" class="sideMenu_group" active-class="''" :prepend-icon="'sbf-settings'" :append-icon="''" no-action>
       <template v-slot:activator>
-         <v-list-item class="sideMenu_list">
+         <v-list-item class="sideMenu_list" sel="sidemenu_settings">
             <v-list-item-content>
             <v-list-item-title>
                <span class="sideMenu_list_title" v-language:inner="'schoolBlock_settings'"/>
@@ -9,12 +9,12 @@
             </v-list-item-content>
          </v-list-item>
       </template>
-       <sideMenuListItem :dashboardProps="settingProps" :item="myProfileItem"/>
+       <sideMenuListItem sel="sidemenu_settings_myProfile" :dashboardProps="settingProps" :item="myProfileItem"/>
       <!-- <sideMenuListItem :dashboardProps="settingProps" :item="myUniversityItem"/> -->
-      <sideMenuListItem :dashboardProps="settingProps" :item="myCoursesItem"/>
+      <sideMenuListItem sel="sidemenu_settings_myCourses" :dashboardProps="settingProps" :item="myCoursesItem"/>
       <template v-if="isTutor">
-         <sideMenuListItem :dashboardProps="settingProps" :item="myCalendarItem"/>
-         <sideMenuListItem :dashboardProps="settingProps" :item="testStudyRoomItem"/>
+         <sideMenuListItem sel="sidemenu_settings_myCalendar" :dashboardProps="settingProps" :item="myCalendarItem"/>
+         <sideMenuListItem sel="sidemenu_settings_testStudyRoom" :dashboardProps="settingProps" :item="testStudyRoomItem"/>
       </template>
    </v-list-group>
 </template>

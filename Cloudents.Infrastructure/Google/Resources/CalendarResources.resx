@@ -120,4 +120,7 @@
   <data name="TutorCalendarMessage" xml:space="preserve">
     <value>Spitball Tutor session is between {0} and {1}</value>
   </data>
+  <data name="EnrollCalendarMessage" xml:space="preserve">
+	  <value>Spitball Live session - {0}</value>
+  </data>
 </root>

@@ -106,7 +106,7 @@ namespace ConsoleApp
                             continue;
                         }
 
-                        var documents = await session.Query<Document>().Fetch(f => f.University)
+                        var documents = await session.Query<Document>()
                             .Where(w => w.Course.Id == courseName).ToListAsync();
 
 
@@ -119,9 +119,9 @@ namespace ConsoleApp
                         }
 
                         var goodCountries = new[] {"US", "IL"};
-                        if (documents.Any(a => goodCountries.Contains(a.University.Country,StringComparer.OrdinalIgnoreCase)))
+                        if (documents.Any(a => goodCountries.Contains(a.User.Country,StringComparer.OrdinalIgnoreCase)))
                         {
-                            var x = string.Join(",", documents.Select(a => a.University.Country)); Console.WriteLine(x);
+                            var x = string.Join(",", documents.Select(a => a.User.Country)); Console.WriteLine(x);
 
                            
                             Console.WriteLine("Cant delete because of document");

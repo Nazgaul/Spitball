@@ -132,11 +132,11 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            if (uri == null)
-            {
-                ModelState.AddModelError("x", "not an image");
-                return BadRequest(ModelState);
-            }
+            //if (uri == null)
+            //{
+            //    ModelState.AddModelError("x", "not an image");
+            //    return BadRequest(ModelState);
+            //}
             var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
             var url = Url.ImageUrl(imageProperties);
             var fileName = uri.AbsolutePath.Split('/').LastOrDefault();
@@ -166,11 +166,11 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            if (uri == null)
-            {
-                ModelState.AddModelError("x", "not an image");
-                return BadRequest(ModelState);
-            }
+            //if (uri == null)
+            //{
+            //    ModelState.AddModelError("x", "not an image");
+            //    return BadRequest(ModelState);
+            //}
             //   var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
             //var url = Url.ImageUrl(imageProperties);
 

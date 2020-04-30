@@ -22,20 +22,20 @@ namespace Cloudents.Core.Message.Email
 
         }
 
-        public CultureInfo Info { get; set; }
+        public CultureInfo? Info { get; set; }
 
-        public string To { get; private set; }
+        public string To { get; private set; } = null!;
 
-        public virtual string[] Bcc { get; protected set; }
+       // public virtual string[] Bcc { get; protected set; } = null!;
 
-        public string TemplateId { get; protected set; }
-        public string Subject { get; protected set; }
+        public string? TemplateId { get; protected set; }
+        public string Subject { get; protected set; } = null!;
         public abstract string? Campaign { get; }
 
         public abstract UnsubscribeGroup UnsubscribeGroup { get; }
         protected abstract IDictionary<CultureInfo, string>? Templates { get; }
 
-        private string? AssignTemplate(CultureInfo info)
+        private string? AssignTemplate(CultureInfo? info)
         {
             if (Templates == null)
             {

@@ -177,7 +177,7 @@
     <value>Price</value>
   </data>
   <data name="ready" xml:space="preserve">
-    <value>Class is ready</value>
+    <value>Waiting for the tutor to start the session</value>
   </data>
   <data name="share" xml:space="preserve">
     <value>Share</value>

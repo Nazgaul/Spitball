@@ -120,4 +120,19 @@
   <data name="StudyRoomCreatedChatMessage" xml:space="preserve">
     <value>I've created a new study room - {0}</value>
   </data>
+  <data name="Review-1" xml:space="preserve">
+	  <value>Not Recommended</value>
+  </data>
+  <data name="Review-2" xml:space="preserve">
+	  <value>Ok</value>
+  </data>
+  <data name="Review-3" xml:space="preserve">
+	  <value>Good</value>
+  </data>
+  <data name="Review-4" xml:space="preserve">
+	  <value>Very Good</value>
+  </data>
+  <data name="Review-5" xml:space="preserve">
+	  <value>Excellent</value>
+  </data>
 </root>

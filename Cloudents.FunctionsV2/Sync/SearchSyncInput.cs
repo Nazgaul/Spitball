@@ -18,8 +18,7 @@ namespace Cloudents.FunctionsV2.Sync
             {
                 switch (SyncType)
                 {
-                    //case SyncType.University:
-                    //    return "university3";
+                  
                     case SyncType.Document:
                         return "document1";
                     default:

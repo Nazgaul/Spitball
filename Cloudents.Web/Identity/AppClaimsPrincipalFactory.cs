@@ -9,7 +9,7 @@ namespace Cloudents.Web.Identity
     public class AppClaimsPrincipalFactory : UserClaimsPrincipalFactory<User>
     {
         public const string Country = "country";
-        public const string University = "university";
+        //public const string University = "university";
         //internal const string Profile = "profile";
 
         public AppClaimsPrincipalFactory(UserManager<User> userManager,
@@ -24,10 +24,10 @@ namespace Cloudents.Web.Identity
 
             if (!user.PhoneNumberConfirmed) return p;
             p.AddClaim(new Claim(Country, user.Country));
-            if (user.University?.Id != null)
-            {
-                p.AddClaim(new Claim(University, user.University.Id.ToString()));
-            }
+            //if (user.University?.Id != null)
+            //{
+            //    p.AddClaim(new Claim(University, user.University.Id.ToString()));
+            //}
             return p;
         }
     }

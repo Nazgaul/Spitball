@@ -6,7 +6,6 @@ export default {
    get: {
       balance: () => connectivityModule.http.get(`${BASE_URL}/balance`),
       paymentLink: () => connectivityModule.http.get(`${BASE_URL}/getPaymentLink`),
-      taransactions: () => connectivityModule.http.get(`${BASE_URL}/transaction`),
    },
    post: {
       buyTokens: (points) => connectivityModule.http.post(`${BASE_URL}/buyTokens`, points),

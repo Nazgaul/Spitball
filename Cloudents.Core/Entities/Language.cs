@@ -136,6 +136,22 @@ namespace Cloudents.Core.Entities
         public static readonly Country India = new Country(2, IndiaStr, 1, Language.EnglishIndia);
         public static readonly Country UnitedStates = new Country(3, UsStr, 1 / 100M, Language.EnglishUsa);
 
+
+
+
+        public static readonly HashSet<string> CountriesNotSupported = new HashSet<string>()
+        {
+            "DZ", "AO", "BJ", "BW", "BF", "BI", "CM",
+            "CV", "CF", "KM", "CD", "DJ", "EG", "GQ", "ER", "ET", "GA", "GM", "GH", "GN", "GW", "CI", "KE",
+            "LS", "LR", "LY",
+            "MG", "MW", "ML", "MR", "MU", "MA", "MZ", "NA", "NE", "NG", "CG", "RE", "RW", "SH", "ST", "SN",
+            "SC", "SL", "SO",
+            "SS", "SD", "SZ", "TZ", "TG", "TN", "UG", "EH", "ZM", "ZW", "AF", "AM", "AZ", "BH", "BD", "BT",
+            "BN", "KH", "GE",
+            "ID", "IR", "IQ", "JO", "KZ", "KW", "KG", "LA", "LB", "MO", "MY", "MV", "MN", "MM", "NP",
+            "KP", "OM", "PK",
+            "PH", "QA", "SA", "LK", "SY", "TW", "TJ", "TH", "TR", "TM", "AE", "UZ", "VN", "YE"
+        };
         //    public static Country Palestine = new Country("PS", CountryGroup.Israel);
 
         //    public static Country Afghanistan = new Country("AF", CountryGroup.Tier3);

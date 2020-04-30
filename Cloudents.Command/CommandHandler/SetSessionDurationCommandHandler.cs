@@ -27,11 +27,11 @@ namespace Cloudents.Command.CommandHandler
             if (session.StudyRoomVersion == StudyRoomSession.StudyRoomNewVersion)
             {
                 var userSession = session.RoomSessionUsers.AsQueryable().Single(s => s.User.Id == message.UserId);
-                userSession.ApproveSession(message.RealDuration);
+                userSession.ApproveSession(message.RealDuration , message.Price);
             }
             else
             {
-                session.SetRealDuration(message.RealDuration);
+                session.SetRealDuration(message.RealDuration, message.Price);
             }
 
             await _repository.UpdateAsync(session, token);

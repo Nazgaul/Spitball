@@ -16,7 +16,7 @@ namespace Cloudents.Query.Admin
         {
             Country = country;
         }
-        public string Country { get; }
+        public string? Country { get; }
         internal sealed class PaymentsQueryHandler : IQueryHandler<SessionPaymentsQuery, IEnumerable<PaymentDto>>
         {
             private readonly IStatelessSession _session;

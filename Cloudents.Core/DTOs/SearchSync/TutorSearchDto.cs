@@ -24,7 +24,6 @@ namespace Cloudents.Core.DTOs.SearchSync
         [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Database value")]
         public long SYS_CHANGE_VERSION { get; set; }
 
-        public string University { get; set; }
         public int LessonsCount { get; set; }
         public long Id { get; set; }
         [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Database value")]

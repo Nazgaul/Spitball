@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Admin2.Models
 {
@@ -15,15 +14,5 @@ namespace Cloudents.Admin2.Models
         public string NewName { get; set; }
     }
 
-    public class RenameUniversityRequest
-    {
-        public RenameUniversityRequest(Guid universityId, string newName)
-        {
-            UniversityId = universityId;
-            NewName = newName;
-        }
-        public Guid UniversityId { get; set; }
-        [StringLength(150, MinimumLength = 4, ErrorMessage = "StringLength")]
-        public string NewName { get; set; }
-    }
+   
 }

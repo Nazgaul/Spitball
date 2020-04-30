@@ -27,7 +27,6 @@ namespace Cloudents.Core.Entities
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
             Name = Path.GetFileNameWithoutExtension(name.Replace("+", "-"));
-            University = user.University;
             Course = course ?? throw new ArgumentNullException(nameof(course));
             User = user;
             Views = 0;
@@ -36,17 +35,12 @@ namespace Cloudents.Core.Entities
                 Description = description;
             }
             ChangePrice(price);
-            //Price = price;
-            var status = Public;// GetInitState(user);
-            if (status == Public)
-            {
-                MakePublic();
-            }
-            Status = status;
+            Status = Public;
+            AddEvent(new DocumentCreatedEvent(this));
             DocumentType = documentType;
         }
 
-
+        [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate")]
         protected Document()
         {
             TimeStamp = new DomainTimeStamp();
@@ -55,7 +49,6 @@ namespace Cloudents.Core.Entities
         // public virtual long Id { get; set; }
         public virtual string Name { get; protected set; }
 
-        public virtual University? University { get; protected set; }
 
         public virtual Course Course { get; protected set; }
 
@@ -73,7 +66,7 @@ namespace Cloudents.Core.Entities
 
         //this is only for document
         public virtual int? PageCount { get; set; }
-        public virtual long? OldId { get; protected set; }
+        //public virtual long? OldId { get; protected set; }
 
         public virtual string MetaContent { get; set; }
 

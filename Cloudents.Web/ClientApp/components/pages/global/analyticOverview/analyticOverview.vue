@@ -8,10 +8,10 @@
                 <template v-slot:activator="{ on }">
                     <div v-on="on" class="menuDropDown">
                         <span class="pr-2 selectedItem">{{$t(`dashboardTeacher_last_days`, [selectedItem.value])}}</span>
-                        <div class="arrow-down"></div>
+                        <div class="arrow-down" sel="analytics_dropdown"></div>
                     </div>
                 </template>
-                <v-list>
+                <v-list sel="anayltics_menu">
                     <v-list-item v-for="(item, index) in items" :key="index" @click="changeDays(item)">
                       <v-list-item-title>{{ $t(`dashboardTeacher_last_days`, [item.value]) }}</v-list-item-title>
                     </v-list-item>
@@ -65,7 +65,7 @@ export default {
     results: [],
     navigation: {
       revenue: 'mySales',
-      sales: 'myContent',
+      sales: 'mySales',
       views: 'myContent',
       followers: 'myFollowers'
     },

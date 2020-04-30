@@ -30,9 +30,7 @@ namespace Cloudents.Persistence.Maps
             Map(e => e.Fictive).CustomSqlType("bit").ReadOnly();
 
 
-            Map(e => e.OldUser).Nullable();
 
-            References(x => x.University).Column("UniversityId2").ForeignKey("User_University2").Nullable();
             Map(x => x.Language).Column("Language").CustomType<CultureInfo>().Nullable();
 
             HasMany(x => x.Questions).Access.CamelCaseField(Prefix.Underscore).KeyColumn("UserId")
@@ -42,7 +40,6 @@ namespace Cloudents.Persistence.Maps
 
          
 
-            //Map(x => x.Score).ReadOnly();
             Table("User"); //if not there is sql error
 
             DynamicUpdate();

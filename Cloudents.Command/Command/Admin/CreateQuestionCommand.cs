@@ -2,13 +2,12 @@
 {
     public class CreateQuestionCommand : ICommand
     {
-        public CreateQuestionCommand(string courseName, string university,
+        public CreateQuestionCommand(string courseName, 
             string text, string country)
         {
             CourseName = courseName;
             Text = text;
             Country = country;
-            University = university;
         }
 
         public string CourseName { get; }
@@ -16,6 +15,5 @@
 
 
         public string Country { get; }
-        public string University { get; }
     }
 }
