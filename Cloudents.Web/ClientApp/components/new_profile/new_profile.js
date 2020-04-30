@@ -223,6 +223,8 @@ export default {
             return false
         },
         showCalendarTab() {
+            if(!this.isTutor) return false;
+            
             let isCalendar = this.getProfile?.user.calendarShared
             if(this.isMyProfile) {
                 return !isCalendar || (this.activeTab === 5 && isCalendar) 
