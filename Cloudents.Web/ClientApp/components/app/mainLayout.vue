@@ -1,6 +1,6 @@
 <template>
      <v-app>
-        <component :is="layout"></component>
+        <component :is="layout" class="v-content"></component>
         <dialogInjection class="dialogInjection" />
         <componentInjection class="componentInjection" />
      </v-app>
@@ -9,7 +9,7 @@
 <script>
 
 const defaultLayout = () => import('./app.vue');
-const studyRoomLayout = () => import('./studyRoomLayout.vue');
+const studyRoomLayout = () => import('./../studyroom/studyRoomLayout.vue');
 
 
 const dialogInjection = () => import('../pages/global/dialogInjection/dialogInjection.vue');
