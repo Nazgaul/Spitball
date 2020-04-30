@@ -33,6 +33,9 @@ export default {
         btnLoading() {
             return this.$store.getters.getGlobalLoading
         },
+        isFromTutorReuqest() {
+            return this.$store.getters.getIsFromTutorStep
+        },
         termsLink() {
             let isFrymo = this.$store.getters.isFrymo
             return isFrymo ? 'https://help.frymo.com/en/article/terms' : 'https://help.spitball.co/en/article/terms-of-service'
@@ -43,12 +46,34 @@ export default {
         }
     },
     methods: {
+        login(){
+            let childComp = this.$refs.childComponent
+            let loginObj = {
+                email: childComp.email,
+                password: childComp.password
+            }
+
+            let self = this
+            registrationService.emailLogin(loginObj)
+                .then(({data}) => {
+                    global.country = data.country; // should we need this? @idan
+                    analyticsService.sb_unitedEvent('Login', 'Start');
+
+                    if(self.presetRouting()) return
+                    
+                    self.$store.dispatch('userStatus')
+                }).catch(error => {      
+                    let { response: { data } } = error
+
+                    self.errors.password = data["Password"] ? error.response.data["Password"][0] : ''
+                    self.$appInsights.trackException({exception: new Error(error)})
+                })
+        },
         gmailRegister() {
             this.googleLoading = true;
             let self = this
             registrationService.googleRegistration()
                 .then(({data}) => {
-                    let { commit, dispatch } = self.$store
                     self.googleLoading = false;
                     if (!data.isSignedIn) {
                         analyticsService.sb_unitedEvent('Registration', 'Start Google')
@@ -59,27 +84,11 @@ export default {
                         self.component = 'setPhone2'
                         return
                     }
-
-                    if(self.isFromTutorReuqest) {
-                        self.$store.dispatch('updateRequestDialog', true);
-                        self.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
-                        self.$store.dispatch('toggleProfileFollower', true)
-                        return
-                    }
-                    
                     analyticsService.sb_unitedEvent('Login', 'Start Google')
-                    commit('setComponent', '')
-                    dispatch('updateLoginStatus', true)
 
-                    let pathToRedirect = ['/','/learn','/register2'];
-                    if (pathToRedirect.indexOf(self.$route.path) > -1) {
-                        this.$router.push({name: this.routeNames.LoginRedirect})
-                        return
-                    }
-                    if(self.$route.name === self.routeNames.StudyRoom){
-                        global.location.reload();
-                    }
-                    dispatch('userStatus')
+                    if(self.presetRouting()) return
+
+                    self.$store.dispatch('userStatus')
                 }).catch(error => {
                     if(error) {
                         self.$emit('showToasterError');
@@ -87,6 +96,65 @@ export default {
                     self.googleLoading = false;
                     self.$appInsights.trackException({exception: new Error(error)})
                 })
+        },
+        verifyPhone(){
+            let childComp = this.$refs.childComponent
+
+			let self = this
+			registrationService.smsCodeVerification({number: childComp.smsCode})
+				.then(userId => {
+                    let { dispatch } = self.$store
+
+                    analyticsService.sb_unitedEvent('Registration', 'Phone Verified');
+                    if(!!userId){
+                        analyticsService.sb_unitedEvent('Registration', 'User Id', userId.data.id);
+                    }
+
+                    if(self.presetRouting()) return
+
+					dispatch('userStatus').then(user => {
+                        // when user is register and pick teacher, redirect him to his profile page
+                        if(self.teacher) {
+                            self.$router.push({
+                                name: self.routeNames.Profile,
+                                params: {
+                                    id: user.id,
+                                    name: user.name,
+                                },
+                                query: {
+                                    dialog: 'becomeTutor'
+                                }
+                            })
+                            return
+                        }
+                        self.$router.push({name: self.routeNames.LoginRedirect})
+                    })
+				}).catch(error => {
+                    self.errors.code = self.$t('loginRegister_invalid_code')
+                    self.$appInsights.trackException({exception: new Error(error)});
+                })
+        },
+        presetRouting() {
+            this.setStatusLogin()
+
+            if(this.isFromTutorReuqest) {
+                this.fromTutorReuqest()
+                return true
+            }
+
+            if(this.needRedirect()) return true
+
+            this.fromStudyRoom()
+
+            return false
+        },
+        needRedirect() {
+            let pathToRedirect = ['/','/learn','/register2'];
+            if (pathToRedirect.indexOf(this.$route.path) > -1) {
+                this.$router.push({name: this.routeNames.LoginRedirect})
+                return true
+            }
+            return false
         },
         sendSms(){
             let childComp = this.$refs.childComponent
@@ -113,55 +181,6 @@ export default {
                     self.$appInsights.trackException({exception: new Error(error)});
                 })
         },
-        verifyPhone(){
-            let childComp = this.$refs.childComponent
-
-			let self = this
-			registrationService.smsCodeVerification({number: childComp.smsCode})
-				.then(userId => {
-                    let { commit, dispatch } = self.$store
-
-                    analyticsService.sb_unitedEvent('Registration', 'Phone Verified');
-                    if(!!userId){
-                        analyticsService.sb_unitedEvent('Registration', 'User Id', userId.data.id);
-                    }
-
-					commit('setComponent', '')
-                    commit('changeLoginStatus', true)
-
-                    // this is when user start register from tutorRequest
-                    if(self.isFromTutorReuqest) {
-                        dispatch('userStatus')
-                        if(self.$route.path === '/' || self.$route.path === '/learn') {
-                            self.$router.push({name: this.routeNames.LoginRedirect})
-                        }
-                        self.$store.dispatch('updateRequestDialog', true);
-                        self.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
-                        self.$store.dispatch('toggleProfileFollower', true)
-                        return
-                    }
-					dispatch('userStatus').then(user => {
-                        // when user is register and pick teacher, redirect him to his profile page
-                        if(self.teacher) {
-                            self.$router.push({
-                                name: self.routeNames.Profile,
-                                params: {
-                                    id: user.id,
-                                    name: user.name,
-                                },
-                                query: {
-                                    dialog: 'becomeTutor'
-                                }
-                            })
-                            return
-                        }
-                        self.$router.push({name: self.routeNames.LoginRedirect})
-                    })
-				}).catch(error => {
-                    self.errors.code = self.$t('loginRegister_invalid_code')
-                    self.$appInsights.trackException({exception: new Error(error)});
-                })
-        },
         phoneCall(){
 			let self = this
 			registrationService.voiceConfirmation()
@@ -173,7 +192,24 @@ export default {
 				}).catch(error => {
                     self.$appInsights.trackException({exception: new Error(error)});
                 })
-		},
+        },
+        fromTutorReuqest() {
+            this.$store.dispatch('userStatus')
+            this.needRedirect()
+
+            this.$store.dispatch('updateRequestDialog', true);
+            this.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
+            this.$store.dispatch('toggleProfileFollower', true)
+        },
+        fromStudyRoom() {
+            if(this.$route.name === this.routeNames.StudyRoom){
+                global.location.reload();
+            }
+        },
+        setStatusLogin(){
+            this.$store.commit('setComponent', '')
+            this.$store.commit('changeLoginStatus', true)
+        },
         updatePhone(phone) {
             this.phoneNumber = phone
         },

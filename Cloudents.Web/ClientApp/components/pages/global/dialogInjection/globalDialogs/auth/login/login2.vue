@@ -83,9 +83,6 @@
 </template>
 
 <script>
-import registrationService from '../../../../../../../services/registrationService2';
-import analyticsService from '../../../../../../../services/analytics.service.js';
-
 import authMixin from '../authMixin'
 
 const loginDetails = () => import('./loginDetails.vue')
@@ -163,41 +160,6 @@ export default {
                         return                        
                 }
             }
-        },
-        login(){
-            let childComp = this.$refs.childComponent
-            let loginObj = {
-                email: childComp.email,
-                password: childComp.password
-            }
-
-            let self = this
-            registrationService.emailLogin(loginObj)
-                .then(({data}) => {
-                    let { commit, dispatch } = self.$store
-
-                    global.country = data.country; // should we need this? @idan
-                    analyticsService.sb_unitedEvent('Login', 'Start');
-
-                    commit('setComponent', '')
-                    dispatch('updateLoginStatus', true)
-                    
-                    let pathToRedirect = ['/','/learn','/register2'];
-                    if (pathToRedirect.indexOf(self.$route.path) > -1) {
-                        self.$router.push({name: self.routeNames.LoginRedirect})
-                        return
-                    }
-
-                    if(self.$route.name === self.routeNames.StudyRoom){
-                        global.location.reload();
-                    }
-                    dispatch('userStatus')
-                }).catch(error => {      
-                    let { response: { data } } = error
-
-                    self.errors.password = data["Password"] ? error.response.data["Password"][0] : ''
-                    self.$appInsights.trackException({exception: new Error(error)})
-                })
         },
         // forgotPassword() {
         //     let self = this
