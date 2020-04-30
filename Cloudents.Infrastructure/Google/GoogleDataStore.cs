@@ -65,7 +65,7 @@ namespace Cloudents.Infrastructure.Google
             var entity = await _googleTokenRepository.GetAsync(key, CancellationToken.None);
             if (entity == null)
             {
-                return default(T);
+                return default;
             }
 
             return NewtonsoftJsonSerializer.Instance.Deserialize<T>(entity.Value);

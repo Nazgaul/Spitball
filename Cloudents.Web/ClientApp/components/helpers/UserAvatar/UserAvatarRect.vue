@@ -1,6 +1,6 @@
 <template>
     <component v-if="!!userName" class="user-avatar-rect" :is="userId?'router-link':'div'" :to="userId?{name:'profile',params:{id:userId,name:userName}}:''">
-        <div v-if="userImageUrl" class="user-avatar-image-wrap" :style="{width: `${width}px`, height: `${height}px`}">
+        <div v-if="userImageUrl" class="user-avatar-image-wrap" :style="{width: `${width}px`}">
             <v-progress-circular v-if="!isLoaded" indeterminate v-bind:size="50"></v-progress-circular>
             <intersection>
                 <img 
