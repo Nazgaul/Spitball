@@ -36,11 +36,14 @@ import signalRPlugin from '../plugins/signalRPlugin';
 import componentPlugin from '../plugins/componentPlugin';
 import twilioPlugin from '../plugins/twilioPlugin';
 import twilioStore from './studyRoomStore/twilioStore.js'
+import registerStore from '../plugins/registerStore'; 
 // import logger from 'vuex/dist/logger.js'
 const plugins = [
     signalRPlugin({hubPath:'/sbhub'}), 
     componentPlugin(),
-    twilioPlugin()
+    twilioPlugin(),
+    registerStore()
+
 ]
 
 // if(process.env.NODE_ENV !== "production"){

@@ -1,19 +1,19 @@
 const state = {
-   isDarkTheme: true,
+  // isDarkTheme: true,
    currentLang: { langName: 'C', langMode: 'text/x-c++src', langIcon: './images/c.png' },
    code: '',
 };
 
 const getters = {
-   getIsDarkTheme: state => state.isDarkTheme,
+   //getIsDarkTheme: state => state.isDarkTheme,
    getCurrentLang: state => state.currentLang,
    getCode: state => state.code,
 };
 
 const mutations = {
-   setThemeMode(state, val) {
-      state.isDarkTheme = val;
-   },
+   // setThemeMode(state, val) {
+   //    state.isDarkTheme = val;
+   // },
    setLang(state, lang) {
       state.currentLang = lang;
    },
@@ -23,9 +23,9 @@ const mutations = {
 };
 
 const actions = {
-   updateThemeMode({ commit }, val) {
-      commit('setThemeMode', val);
-   },
+   // updateThemeMode({ commit }, val) {
+   //    commit('setThemeMode', val);
+   // },
    updateLang({commit, dispatch }, lang) {
       commit('setLang', lang);
       let editorEvent = {

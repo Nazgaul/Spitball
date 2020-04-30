@@ -1,25 +1,25 @@
 <template>
     <div class="nav-container">
-            <v-tooltip bottom>
-                <template v-slot:activator="{on}" id="languagesListPop" >
-                    <v-btn v-on="on" text @click="show = !show" class="selected-lang nav-action"  id="languagesListPop" >
+            <!-- <v-tooltip bottom>
+                <template v-slot:activator="{on}" id="languagesListPop" > -->
+                    <v-btn text @click="show = !show" class="selected-lang nav-action"  id="languagesListPop" >
                         <div class="name_img">
                         <img style="width: 24px; margin-right: 5px;" :src="getLangImg(currentLang.langIcon)" >
                             {{currentLang.langName}}
                         </div>
                         <v-icon>{{ show ? 'sbf-arrow-up' : 'sbf-arrow-down' }}</v-icon>
                     </v-btn>
-               </template>
-                <span v-language:inner="'tutor_tooltip_code_langauge'"/>
-            </v-tooltip>
-            <v-tooltip bottom>
-                <template v-slot:activator="{on}">
-                    <button v-on="on" class="nav-action" >
+               <!-- </template> -->
+                <!-- <span v-language:inner="'tutor_tooltip_code_langauge'"/> -->
+            <!-- </v-tooltip>
+            <v-tooltip bottom> -->
+                <!-- <template v-slot:activator="{on}"> -->
+                    <!-- <button v-on="on" class="nav-action" >
                         <v-switch class="switch" color="primary" v-model="themeMode" :label="switchThemeResx" hide-details />
-                    </button>
-                </template>
-                <span v-language:inner="'tutor_tooltip_code_theme'"/>
-            </v-tooltip>
+                    </button> -->
+                <!-- </template> -->
+                <!-- <span v-t="'tutor_tooltip_code_theme'"/> -->
+            <!-- </v-tooltip> -->
             <v-card v-if="show" class="list-lang-cont" id="languagesListPop" max-width="none">
                 <div v-for="lang in languagesList" :key="lang.langName" class="list-lang" @click="selectLang(lang)"> 
                     <img style="width: 24px; margin-right: 5px;" v-if="lang.langIcon" :src="getLangImg(lang.langIcon)">
@@ -62,7 +62,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['updateThemeMode','updateLang']),
+        ...mapActions(['updateLang']),
         getLangImg(src){
             return require(`${src}`)
         },
@@ -80,18 +80,18 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['getIsDarkTheme','getCurrentLang']),
+        ...mapGetters(['getCurrentLang']),
         currentLang(){
             return this.getCurrentLang
         },
-        themeMode:{
-            get(){
-                return !this.getIsDarkTheme
-            },
-            set(val){
-                this.updateThemeMode(!val)
-            }
-        }
+        // themeMode:{
+        //     get(){
+        //         return !this.getIsDarkTheme
+        //     },
+        //     set(val){
+        //         this.updateThemeMode(!val)
+        //     }
+        // }
     },
     mounted() {
         document.addEventListener("click", this.clodeSelector);
@@ -102,54 +102,54 @@ export default {
 }
 </script>
 
-<style lang="less">
-@import '../../../styles/colors.less';
-.nav-container {
-    position: relative;
-        .selected-lang{
-                display: flex;
-                align-items: center;
-                font-size: 16px;
-                border-radius: 4px;
-                border: solid 1px @color-main;
-                padding: 0 5px;
-                width: 160px;
-                height: 36px;
-                align-self: center;
-                .name_img{
-                        display: flex;
-                        align-items: inherit;
-                }
-                .v-btn__content{
-                    justify-content: space-between;
-                    padding: 0 8px;
-                }
-        }
+// <style lang="less">
+// @import '../../../styles/colors.less';
+// .nav-container {
+//     //position: relative;
+//         .selected-lang{
+//                 display: flex;
+//                 align-items: center;
+//                 font-size: 16px;
+//                 border-radius: 4px;
+//                 border: solid 1px @color-main;
+//                 padding: 0 5px;
+//                 width: 160px;
+//                 height: 36px;
+//                 align-self: center;
+//                 .name_img{
+//                         display: flex;
+//                         align-items: inherit;
+//                 }
+//                 .v-btn__content{
+//                     justify-content: space-between;
+//                     padding: 0 8px;
+//                 }
+//         }
 
-    .list-lang-cont{
-        width: 410px;
-        position: absolute;
-        padding: 5px;
-        top: 52px;
-        left: 8px;
-        font-size: 14px;
-        .list-lang{
-            cursor: pointer;
-            // padding: 5px;
-            width: 120px;
-            float: left;
-            display: flex;
-            padding: 8px;
-            margin-right: 9px;
-        }
-        .list-lang:hover{
-            background-color: rgb(204, 204, 204);
-        }
-    }
-            .nav-action {
-                .switch{
-                    margin: 0;
-                }
-            }
-        }
-</style>
+//     .list-lang-cont{
+//         width: 410px;
+//         position: absolute;
+//         padding: 5px;
+//         top: 52px;
+//         left: 8px;
+//         font-size: 14px;
+//         .list-lang{
+//             cursor: pointer;
+//             // padding: 5px;
+//             width: 120px;
+//             float: left;
+//             display: flex;
+//             padding: 8px;
+//             margin-right: 9px;
+//         }
+//         .list-lang:hover{
+//             background-color: rgb(204, 204, 204);
+//         }
+//     }
+//             .nav-action {
+//                 .switch{
+//                     margin: 0;
+//                 }
+//             }
+//         }
+// </style>

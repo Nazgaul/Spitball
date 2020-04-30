@@ -6,11 +6,22 @@
         class="collapseIcon"
         @click="drawerExtend = !drawerExtend"
         color="#fff"
-        rounded="false"
       >
         <v-icon v-if="drawerExtend">sbf-arrow-right-carousel</v-icon>
         <v-icon v-else>sbf-arrow-left-carousel</v-icon>
       </v-btn>
+
+      <v-card
+        :color="'grey lighten-1'"
+        class="ma-2"
+        height="210"
+        width="276"
+        
+      ></v-card>
+
+      <v-sheet height="100%" width="100%" color="green">
+        <div>Chat location</div>
+      </v-sheet>
     </v-navigation-drawer>
 
     <v-app-bar app clipped-right color="#4c59ff" class="header">
@@ -57,12 +68,7 @@
         :height="footerExtend ? 124 : 0"
         class="pa-0 footer"
       >
-        <v-btn
-          icon
-          class="collapseIcon"
-          @click="footerExtend = !footerExtend"
-          color="#fff"
-        >
+        <v-btn icon class="collapseIcon" @click="footerExtend = !footerExtend" color="#fff">
           <v-icon v-if="footerExtend">sbf-arrow-down</v-icon>
           <v-icon v-else>sbf-arrow-up</v-icon>
         </v-btn>
@@ -75,13 +81,12 @@
           prev-icon="sbf-arrow-left-carousel"
           next-icon="sbf-arrow-right-carousel"
         >
-          <v-slide-item v-for="n in 15" :key="n" v-slot:default="{ active, toggle }">
+          <v-slide-item v-for="n in 15" :key="n">
             <v-card
-              :color="active ? undefined : 'grey lighten-1'"
+              :color="'grey lighten-1'"
               class="ma-2"
               height="100"
               width="154"
-              @click="toggle"
             >
               <!-- <v-row
             class="fill-height"
@@ -107,32 +112,35 @@
 
 <script>
 import logoComponent from "../app/logo/logo.vue";
-const canvas = () => import("./windows/canvas/canvas.vue");
-
+const canvasWrap = () => import("./windows/canvas/canvasWrap.vue");
+const codeEditor = () => import("./codeEditor/codeEditor.vue");
+const sharedDocument = () => import("./sharedDocument/sharedDocument.vue");
 export default {
   components: {
     logoComponent,
-    canvas
+    canvasWrap,
+    codeEditor,
+    sharedDocument
   },
   data: () => ({
     model: null,
     footerExtend: true,
     drawerExtend: true,
-    activeWindow: canvas
+    activeWindow: codeEditor
   }),
   methods: {
     setClass() {
       this.activeWindow = 1;
     },
     setWhiteboard() {
-      this.activeWindow = 2;
+      this.activeWindow = canvasWrap;
     },
     setShareScreen() {},
     setTextEditor() {
-      this.activeWindow = 4;
+      this.activeWindow = sharedDocument;
     },
     setCodeEditor() {
-      this.activeWindow = 5;
+      this.activeWindow = codeEditor;
     }
   }
 };
@@ -153,7 +161,7 @@ export default {
   }
   .drawer {
     overflow: initial; // to let the collapse btn to show
-   // position: relative;
+    // position: relative;
     .collapseIcon {
       position: absolute;
       top: 20px;

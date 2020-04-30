@@ -117,30 +117,27 @@ namespace Cloudents.Infrastructure.Google
                 HttpClientInitializer = docCred,
 
             };
-            using (var service = new DocsService(clientService))
-            using (var driveService = new DriveService(clientService))
+            using var service = new DocsService(clientService);
+            using var driveService = new DriveService(clientService);
+            var doc = new Document()
             {
+                Title = documentName
+            };
+            var request = service.Documents.Create(doc);
 
-                var doc = new Document()
-                {
-                    Title = documentName
-                };
-                var request = service.Documents.Create(doc);
+            doc = await request.ExecuteAsync(token);
+                
+            await driveService.Permissions.Create(new Permission()
+            {
+                Role = "writer",
+                Type = "anyone"
+            }, doc.DocumentId).ExecuteAsync(token);
 
-                doc = await request.ExecuteAsync(token);
+            var request2 = driveService.Files.Get(doc.DocumentId);
+            request2.Fields = "id,webViewLink";
+            var webLink = (await request2.ExecuteAsync(token)).WebViewLink;
 
-                await driveService.Permissions.Create(new Permission()
-                {
-                    Role = "writer",
-                    Type = "anyone"
-                }, doc.DocumentId).ExecuteAsync(token);
-
-                var request2 = driveService.Files.Get(doc.DocumentId);
-                request2.Fields = "id,webViewLink";
-                var webLink = (await request2.ExecuteAsync(token)).WebViewLink;
-
-                return webLink;
-            }
+            return webLink;
         }
 
         private static GoogleClientSecrets GetGoogleClientSecrets()

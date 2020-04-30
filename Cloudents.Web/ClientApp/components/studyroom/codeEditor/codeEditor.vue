@@ -1,5 +1,6 @@
 <template>
     <div class="code-editor-wrap">
+        <codeEditorTools></codeEditorTools>
         <codemirror v-model="code" class="code-editor-cont" 
                     :options="optionObj"
                      @gutterClick='gutterClick'/>
@@ -7,6 +8,7 @@
 </template>
 <script>
     import debounce from "lodash/debounce";
+    import codeEditorTools from './codeEditorTools.vue';
     import { codemirror } from 'vue-codemirror';
     import "codemirror/addon/display/autorefresh.js";
     
@@ -90,14 +92,15 @@
     export default {
         name: "codeEditor",
         components:{
-            codemirror
+            codemirror,
+            codeEditorTools
         },
         data() {
             return {
                 optionObj: {
                     tabSize: 1,
                     mode: mixedMode,
-                    theme: 'vscode-dark',
+                    theme: 'coda',
                     lineNumbers: true,
                     line: true,
                     autoRefresh: true,
@@ -123,10 +126,8 @@
             }
         },
         computed: {
-            ...mapGetters(['getIsDarkTheme', 'getCurrentLang', 'getCode']),
-            themeMode(){
-                return this.getIsDarkTheme
-            },
+            ...mapGetters([ 'getCurrentLang', 'getCode']),
+           
             currentLang(){
                 return this.getCurrentLang
             },
@@ -163,13 +164,13 @@
         },
 
         watch: {
-            themeMode: function(val){
-                if(val){
-                    this.optionObj.theme = 'vscode-dark'
-                } else{
-                   this.optionObj.theme = 'coda'
-                }
-            },
+            // themeMode: function(val){
+            //     if(val){
+            //         this.optionObj.theme = 'vscode-dark'
+            //     } else{
+            //        this.optionObj.theme = 'coda'
+            //     }
+            // },
             currentLang: function(val){
                 this.changeLang(val)
             }
@@ -184,22 +185,24 @@
 <style lang="less">
 
 @import './helperStyles/codeMirror.less';
-@import './themes/vscode-dark.css';
+//@import './themes/vscode-dark.css';
 @import './themes/coda.css';
 
+
 .code-editor-wrap {
-    height: ~"calc(100vh - 108px)";
-    width: ~"calc(100% - 333px)";
-    position: relative;
+   // height: ~"calc(100vh - 108px)";
+    //width: ~"calc(100% - 333px)";
+   // position: relative;
     text-align: left /*rtl:ignore*/;
     direction: ltr /*rtl:ignore*/;
 }
 .code-editor-cont{
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        left: 0;
+    height: 100%;
+        // position: absolute;
+        // top: 0;
+        // bottom: 0;
+        // right: 0;
+        // left: 0;
    
     .CodeMirror{
         height: 100%;
