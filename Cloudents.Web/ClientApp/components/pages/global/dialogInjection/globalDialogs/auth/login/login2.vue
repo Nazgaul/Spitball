@@ -83,9 +83,6 @@
 </template>
 
 <script>
-import registrationService from '../../../../../../../services/registrationService2';
-import analyticsService from '../../../../../../../services/analytics.service.js';
-
 import authMixin from '../authMixin'
 
 const loginDetails = () => import('./loginDetails.vue')
