@@ -148,8 +148,10 @@ export default {
         openCalendar() {
             if(!!this.accountUser) {
                 this.activeTab = 5;
+                this.$nextTick(() => {
+                    this.$vuetify.goTo(this.$refs.calendarTab)
+                })
             } else {
-                // this.$openDialog('login')
                 this.$store.commit('setComponent', 'register')
                 setTimeout(()=>{
                     document.getElementById(`tab-${this.activeTab}`).lastChild.click();
@@ -167,7 +169,8 @@ export default {
             'getCouponError',
             "getProfile",
             'getBannerParams',
-            'getUserLoggedInStatus']),
+            'getUserLoggedInStatus'
+        ]),
         shareContentParams(){
             let urlLink = `${global.location.origin}/p/${this.$route.params.id}?t=${Date.now()}` ;
             let userName = this.getProfile.user?.name;
@@ -221,17 +224,6 @@ export default {
         },
         isTutorPending(){
             return this.isMyProfile && (!!this.accountUser && this.accountUser.isTutorState === "pending")
-        },
-        showProfileCalendar(){
-            if(this.isMyProfile){
-                return (this.isTutor)
-            }else{
-                if(this.isTutor){
-                    return (this.activeTab === 5)
-                }else{
-                    return false;
-                }
-            }
         },
         showBecomeTutor(){
             return this.isMyProfile && !this.isTutor && !this.isTutorPending;
