@@ -660,7 +660,7 @@ namespace Cloudents.Selenium.Test
                 {
                     driver.Manage().Window.Maximize();
 
-                    var url = $"{_driver.SiteUrl.TrimEnd('/')}/profile/159039/culture={culture}";
+                    var url = $"{_driver.SiteUrl.TrimEnd('/')}/profile/159039";
                     driver.Navigate().GoToUrl(url);
 
                     // Make sure those elements exist
@@ -677,7 +677,8 @@ namespace Cloudents.Selenium.Test
                     
                     driver.FindElementByWait(By.Id("profileItemsBox"));
 
-                    var coupon = FindSel(driver, "coupon");
+                    FindSel(driver, "send").Click();
+                    FindSel(driver, "cancel_tutor_request").Click();
 
                     var comboBoxes = driver.FindElements(By.XPath("//*[@class='v-input__control']"));
 
@@ -686,8 +687,7 @@ namespace Cloudents.Selenium.Test
                         comboBox.Click();
                     }
 
-                    FindSel(driver, "send").Click();
-                    FindSel(driver, "cancel_tutor_request").Click();
+                    var coupon = FindSel(driver, "coupon");
                     coupon.Click();
                     FindContains(driver, "registerDialog");
 

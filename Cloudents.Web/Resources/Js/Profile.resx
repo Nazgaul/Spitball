@@ -312,4 +312,7 @@
   <data name="see_less" xml:space="preserve">
     <value>Hide</value>
   </data>
+  <data name="my_book_session" xml:space="preserve">
+    <value>Show my calendar</value>
+  </data>
 </root>
