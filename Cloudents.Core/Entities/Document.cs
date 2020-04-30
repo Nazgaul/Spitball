@@ -80,7 +80,7 @@ namespace Cloudents.Core.Entities
         public virtual decimal Price { get; protected set; }
         // ReSharper disable once CollectionNeverUpdated.Local Resharper
         private readonly IList<Transaction> _transactions = new List<Transaction>();
-        public virtual IReadOnlyCollection<Transaction> Transactions => _transactions.ToList();
+        public virtual IEnumerable<Transaction> Transactions => _transactions;
 
         public virtual ItemStatus Status { get; protected set; }
 
