@@ -27,7 +27,6 @@ function UserInfo(objInit) {
         buttonText: "delete"
     };
     this.phoneNumberConfirmed = {value: objInit.phoneNumberConfirmed ? 'Yes' : 'No', label: "Phone Confirmed"};
-    //this.university = {value: objInit.university || '', label: 'University'};
     this.country = {value: objInit.country || '', label: 'Country'};
     this.referredCount = {value: objInit.referredCount || 0, label: 'People Referred'};
     this.balance = {value: objInit.balance || 0, label: 'Balance'};
@@ -91,7 +90,6 @@ function DocumentItem(objInit) {
     this.name = objInit.name;
     this.id = objInit.id;
     this.create = objInit.created;
-    this.university = objInit.university;
     this.course = objInit.course;
     this.price = objInit.price;
     this.state = objInit.state ? objInit.state.toLowerCase() : 'ok';
@@ -111,7 +109,6 @@ function AnswerItem(objInit) {
 function PurchasedDocItem(objInit) {
     this.id = objInit.documentId  || 'no ID';
     this.title = objInit.title  || 'not specified';
-    this.university = objInit.university || 'not specified';
     this.class = objInit.class  || 'not specified';
     this.price = Math.abs(objInit.price ) || 'not specified';
 }

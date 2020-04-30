@@ -15,7 +15,7 @@ namespace Cloudents.Query.Admin
         }
 
         private string Id { get; }
-        public string Country { get; }
+        public string? Country { get; }
 
         internal sealed class ConversationDetailsQueryHandler : IQueryHandler<ConversationDetailsQuery, IEnumerable<ConversationDetailsDto>>
         {

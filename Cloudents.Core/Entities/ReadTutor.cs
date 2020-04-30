@@ -24,7 +24,6 @@ namespace Cloudents.Core.Entities
             Rate = rate;
             RateCount = rateCount;
             Bio = bio;
-           // University = university;
             Lessons = lessons;
             Country = country;
             //case 115
@@ -50,7 +49,6 @@ namespace Cloudents.Core.Entities
         public virtual double? Rate { get; protected set; }
         public virtual int RateCount { get; protected set; }
         public virtual string Bio { get; protected set; }
-      //  public virtual string University { get; protected set; }
         public virtual int Lessons { get; protected set; }
         public virtual double OverAllRating { get; protected set; }
 

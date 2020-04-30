@@ -40,8 +40,6 @@ namespace Cloudents.Query.Users
             {
                 var r = _session.Query<Document>()
                     .WithOptions(w => w.SetComment(nameof(UserDocumentsQuery)))
-                    //.Fetch(f => f.User)
-                    //.Fetch(f => f.University)
                     .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok);
 
                 var count = _session.Query<Document>()

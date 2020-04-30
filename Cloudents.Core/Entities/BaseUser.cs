@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Linq;
 
 //[assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 namespace Cloudents.Core.Entities
@@ -14,6 +13,7 @@ namespace Cloudents.Core.Entities
 
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
+        [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]
         protected BaseUser()
         {
 
@@ -31,16 +31,8 @@ namespace Cloudents.Core.Entities
         public virtual string Image { get; protected set; }
         public virtual string ImageName { get; protected set; }
 
-        
-
-        //TODO: should fictive user need to have university
-        public virtual University? University { get; protected set; }
-
-
-
         public virtual string AuthenticatorKey { get; set; }
 
-        public virtual bool? OldUser { get; set; }
 
 
 
@@ -61,8 +53,8 @@ namespace Cloudents.Core.Entities
 
 
         // ReSharper disable once CollectionNeverUpdated.Local Nhibernate
-        private readonly IList<Question> _questions = new List<Question>();
-        public virtual IReadOnlyList<Question> Questions => _questions.ToList();
+        private readonly ICollection<Question> _questions = new List<Question>();
+        public virtual IEnumerable<Question> Questions => _questions;
 
 
         public virtual DateTime Created { get; protected set; }
