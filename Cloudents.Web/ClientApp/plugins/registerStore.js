@@ -1,6 +1,8 @@
 import * as routeNames from '../routes/routeNames.js';
-const codeEditor_store = () => import("../store/studyRoomStore/codeEditor_store.js");
-const tutoringCanvas = () => import("../store/studyRoomStore/tutoringCanvas.js");
+import codeEditor_store from "../store/studyRoomStore/codeEditor_store.js";
+import tutoringCanvas from  "../store/studyRoomStore/tutoringCanvas.js";
+//const codeEditor_store = () => import("../store/studyRoomStore/codeEditor_store.js");
+//const tutoringCanvas = () => import("../store/studyRoomStore/tutoringCanvas.js");
 export default () => {
     let registeredStore = [];
 
@@ -8,7 +10,7 @@ export default () => {
 
         let registeredModules = [];
         const registerModule = function (moduleName, moduleObj) {
-            debugger
+            //debugger
             if (typeof (moduleObj) === "function") {
                 moduleObj().then(m => {
                     store.registerModule(moduleName, m);

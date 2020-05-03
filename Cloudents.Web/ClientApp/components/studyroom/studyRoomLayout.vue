@@ -11,6 +11,7 @@
         <v-icon v-else>sbf-arrow-left-carousel</v-icon>
       </v-btn>
 
+<!--Video element-->
       <v-card
         :color="'grey lighten-1'"
         class="ma-2"
@@ -19,6 +20,7 @@
         
       ></v-card>
 
+<!--chat element-->
       <v-sheet height="100%" width="100%" color="green">
         <div>Chat location</div>
       </v-sheet>
@@ -40,6 +42,7 @@
       <v-btn rounded depressed class="ma-2" @click="EndSeesion()">End</v-btn>
       <v-btn icon>
         <v-icon>sbf-3-dot</v-icon>
+        <!--Need to open record ( if avaible and setting)-->
       </v-btn>
       <!-- -->
     </v-app-bar>
@@ -88,20 +91,6 @@
               height="100"
               width="154"
             >
-              <!-- <v-row
-            class="fill-height"
-            align="center"
-            justify="center"
-          >
-            <v-scale-transition>
-              <v-icon
-                v-if="active"
-                color="white"
-                size="48"
-                v-text="'mdi-close-circle-outline'"
-              ></v-icon>
-            </v-scale-transition>
-              </v-row>-->
             </v-card>
           </v-slide-item>
         </v-slide-group>
@@ -126,7 +115,7 @@ export default {
     model: null,
     footerExtend: true,
     drawerExtend: true,
-    activeWindow: codeEditor
+    activeWindow: canvasWrap
   }),
   methods: {
     setClass() {
