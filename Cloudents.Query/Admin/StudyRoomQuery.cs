@@ -12,7 +12,7 @@ namespace Cloudents.Query.Admin
         {
             Country = country;
         }
-        public string Country { get; }
+        public string? Country { get; }
         internal sealed class StudyRoomQueryHandler : IQueryHandler<StudyRoomQuery, IEnumerable<StudyRoomDto>>
         {
 

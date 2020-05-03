@@ -42,15 +42,15 @@ u.Id as UserId
 from sb.[user] u
 join sb.UsersCourses uc on u.id = uc.UserId
 join
- (Select d.UniversityId as UniversityId,d.CourseName  from sb.Document  d
+ (Select d.CourseName  from sb.Document  d
 where state = 'Ok'
 and d.CreationTime > @Since
 union 
-Select q.UniversityId as UniversityId,q.CourseId as CourseName  from sb.question  q
+Select q.CourseId as CourseName  from sb.question  q
 where state = 'Ok'
 and q.Created > @Since
 ) t
-on u.UniversityId2 = t.UniversityId and t.CourseName  = uc.CourseId
+on  t.CourseName  = uc.CourseId
 where u.EmailConfirmed = 1
 and u.country = 'IL'
 --Temp for now of emails

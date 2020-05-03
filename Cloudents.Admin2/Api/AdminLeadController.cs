@@ -23,10 +23,9 @@ namespace Cloudents.Admin2.Api
             _queryBus = queryBus;
         }
         [HttpGet]
-        //[Authorize(Policy = Policy.IsraelUser)]
         public async Task<IEnumerable<LeadDto>> LeadAsync(CancellationToken token)
         {
-            var query = new LeadsQuery( User.GetCountryClaim());
+            var query = new LeadsQuery( User.GetSbCountryClaim());
             return await _queryBus.QueryAsync(query, token);
         }
         

@@ -204,6 +204,9 @@
   <data name="live_title" xml:space="preserve">
     <value>שיעורים פתוחים לקהל של</value>
   </data>
+  <data name="my_book_session" xml:space="preserve">
+    <value>הצג את היומן שלי</value>
+  </data>
   <data name="my_courses" xml:space="preserve">
     <value>הקורסים שלי:</value>
   </data>

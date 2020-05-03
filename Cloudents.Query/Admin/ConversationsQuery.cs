@@ -13,13 +13,18 @@ namespace Cloudents.Query.Admin
     public class ConversationsQuery : IQueryAdmin<IEnumerable<ConversationDto>>
     {
         private int Page { get; }
-        public string Country { get; }
-        private ChatRoomStatus Status { get; }
-        private string AssignTo { get; }
+        public string? Country { get; }
+        private ChatRoomStatus? Status { get; }
+        private string? AssignTo { get; }
         private WaitingFor? ConversationStatus { get; }
 
 
-        public ConversationsQuery(long userId, int page, string country, ChatRoomStatus status, string assignTo, WaitingFor? conversationStatus)
+        public ConversationsQuery(long userId,
+            int page,
+            string? country,
+            ChatRoomStatus? status,
+            string? assignTo,
+            WaitingFor? conversationStatus)
         {
             UserId = userId;
             Page = page;

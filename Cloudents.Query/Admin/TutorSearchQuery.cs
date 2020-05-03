@@ -10,7 +10,7 @@ namespace Cloudents.Query.Admin
 {
     public class TutorSearchQuery : IQueryAdmin2<IEnumerable<TutorDto>>
     {
-        public TutorSearchQuery(string term, ItemState? state, Country country)
+        public TutorSearchQuery(string term, ItemState? state, Country? country)
         {
             Term = term;
             State = state;

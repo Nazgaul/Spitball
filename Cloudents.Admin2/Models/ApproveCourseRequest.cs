@@ -11,9 +11,5 @@ namespace Cloudents.Admin2.Models
        
     }
 
-    //public class ApproveUniversityRequest
-    //{
-    //    [Required]
-    //    public Guid Id { get; set; }
-    //}
+
 }

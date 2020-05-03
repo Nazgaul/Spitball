@@ -9,7 +9,6 @@ function AdminLeads(objInit) {
     this.name = objInit.name;
     this.phone = objInit.phone;
     this.text = objInit.text;
-    this.university = objInit.university;
     this.dateTime = new Date( objInit.dateTime);
 }
 

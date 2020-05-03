@@ -38,7 +38,7 @@ namespace Cloudents.Admin2.Api
         public async Task<ActionResult> CreateQuestionAsync([FromBody]CreateQuestionRequest model, CancellationToken token)
         {
 
-            var command = new CreateQuestionCommand(model.Course, model.University, model.Text, model.Country.ToString("G"));
+            var command = new CreateQuestionCommand(model.Course,  model.Text, model.Country.ToString("G"));
             await _commandBus.Value.DispatchAsync(command, token);
             return Ok();
         }

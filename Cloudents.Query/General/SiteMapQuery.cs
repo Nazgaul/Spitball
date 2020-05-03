@@ -30,11 +30,9 @@ namespace Cloudents.Query.General
             {
 
                 
-              //  University? universityAlias = null;
                 BaseUser? userAlias = null!;
 
                 var documentCountFutureQuery = _session.QueryOver<Document>()
-                    //.Left.JoinAlias(x => x.University, () => universityAlias)
                     .JoinAlias(x => x.User, () => userAlias)
                     .Where(w => w.Status.State == ItemState.Ok);
                 if (query.IsFrymo)
@@ -50,7 +48,6 @@ namespace Cloudents.Query.General
 
 
                 var questionCountFutureQuery = _session.QueryOver<Question>()
-                    //.Left.JoinAlias(x => x.University, () => universityAlias)
                     .JoinAlias(x => x.User, () => userAlias)
                     .Where(w => w.Status.State == ItemState.Ok);
 
