@@ -3,6 +3,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,11 +26,6 @@ namespace Cloudents.Command.Documents.Delete
             if (document.Status.State != ItemState.Ok)
             {
                 throw new NotFoundException("document doesn't exists");
-
-            }
-            if (document.Transactions.Count > 0)
-            {
-                throw new InvalidOperationException("document already purchased");
             }
 
             if (document.User.Id != message.UserId)
@@ -37,8 +33,12 @@ namespace Cloudents.Command.Documents.Delete
                 throw new ArgumentException("user is not the one who uploaded the document");
             }
 
-            await _repository.DeleteAsync(document, token);
+            if (document.Transactions.Any())
+            {
+                throw new InvalidOperationException("document already purchased");
+            }
 
+            await _repository.DeleteAsync(document, token);
         }
     }
 }

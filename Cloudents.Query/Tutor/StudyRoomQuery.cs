@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query.Stuff;
 using NHibernate;
@@ -26,9 +27,9 @@ namespace Cloudents.Query.Tutor
         internal sealed class StudyRoomQueryHandler : IQueryHandler<StudyRoomQuery, StudyRoomDto?>
         {
             private readonly IStatelessSession _statelessSession;
-            private readonly IVideoProvider _videoProvider;
+            private readonly IStudyRoomProvider _videoProvider;
 
-            public StudyRoomQueryHandler(QuerySession repository, IVideoProvider videoProvider)
+            public StudyRoomQueryHandler(QuerySession repository, IStudyRoomProvider videoProvider)
             {
                 _videoProvider = videoProvider;
                 _statelessSession = repository.StatelessSession;
@@ -105,7 +106,9 @@ where sr.id = @Id;");
                     var roomAvailable = await _videoProvider.GetRoomAvailableAsync(studyRoomSession.SessionId);
                     if (roomAvailable)
                     {
-                        var jwt = _videoProvider.CreateRoomToken(studyRoomSession.SessionId, query.UserId);
+                        var jwt = _videoProvider.CreateRoomToken(
+                            studyRoomSession.SessionId,
+                            query.UserId, result.Name);
                         result.Jwt = jwt;
                     }
                 }

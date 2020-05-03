@@ -120,7 +120,7 @@
                         <chatSVG class="profileUserSticky_btn_icon"/>
                         <div class="profileUserSticky_btn_txt" v-t="'profile_send_message'"/>
                     </v-btn>
-                    <div class="calendarBtnWrap" :class="{'ml-3': !getProfile.user.calendarShared}">
+                    <div class="calendarBtnWrap align-center align-sm-end" :class="{'ml-3': !getProfile.user.calendarShared}">
                         <editSVG sel="edit" class="pUb_edit_user mr-1" v-if="isCurrentProfileUser && !isMobile" @click="openEditInfo"/>
                         <v-btn
                             @click="globalFunctions.openCalendar"
@@ -459,7 +459,6 @@ export default {
         .calendarBtnWrap {
             display: flex;
             flex-direction: column;
-            align-items: flex-end;
         }
         .profileUserSticky_btns{
             &.why_learn_user_btn{

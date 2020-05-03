@@ -14,15 +14,14 @@ namespace Cloudents.Core.Interfaces
         Task<bool> VerifyCodeAsync(string phoneNumber, string code, CancellationToken token);
     }
 
-    public interface IVideoProvider
+    public interface IStudyRoomProvider
     {
         Task CreateRoomAsync(string id, Country country, bool needRecord, Uri callBack, StudyRoomTopologyType studyRoomType);
         Task CloseRoomAsync(string id);
 
         Task<bool> GetRoomAvailableAsync(string id);
-        //Task<string?> ConnectToRoomAsync(string roomName, long userId);
 
-        string CreateRoomToken(string roomName, long userId);
+        string CreateRoomToken(string roomName, long userId, string name);
     }
 
     public interface IMailProvider

@@ -35,7 +35,6 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet]
-        //[Authorize(Policy = Policy.IsraelUser)]
         public async Task<IEnumerable<ConversationDto>> ConversationAsync([FromQuery] ConversationDetailsRequest request
             , CancellationToken token)
         {

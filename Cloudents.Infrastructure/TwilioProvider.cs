@@ -1,12 +1,13 @@
-﻿using Cloudents.Core.Enum;
-using Cloudents.Core.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
 using Twilio;
 using Twilio.Http;
 using Twilio.Jwt.AccessToken;
@@ -15,10 +16,9 @@ using Twilio.Rest.Verify.V2.Service;
 using Twilio.Rest.Video.V1;
 using Twilio.Rest.Video.V1.Room;
 
-
-namespace Cloudents.Infrastructure.Mail
+namespace Cloudents.Infrastructure
 {
-    public class TwilioProvider : IPhoneValidator, IVideoProvider
+    public class TwilioProvider : IPhoneValidator, IStudyRoomProvider
     {
 
 
@@ -237,7 +237,7 @@ namespace Cloudents.Infrastructure.Mail
 
         //}
 
-        public string CreateRoomToken(string roomName, long userId)
+        public string CreateRoomToken(string roomName, long userId, string name)
         {
             var grant = new VideoGrant
             {
@@ -250,7 +250,7 @@ namespace Cloudents.Infrastructure.Mail
                 AccountSid,
                 ApiKey,
                 SecretVideo,
-                identity: userId.ToString(),
+                $"{userId}_{name.Truncate(30, true)}",
                 grants: grants);
 
             return token.ToJwt();

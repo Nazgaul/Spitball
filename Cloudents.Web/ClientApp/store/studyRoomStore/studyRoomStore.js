@@ -30,7 +30,6 @@ const state = {
    studyRoomId: null,
    roomParticipantCount: 0,
 
-   dialogRoomSettings: false,
    dialogEndSession: false,
    dialogUserConsent: false,
    dialogSnapshot: false,
@@ -56,7 +55,6 @@ const mutations = {
       state.roomName = props.name;
       state.roomDate = props.broadcastTime;
    },
-   [studyRoom_SETTERS.DIALOG_ROOM_SETTINGS]: (state, val) => state.dialogRoomSettings = val,
    [studyRoom_SETTERS.DIALOG_END_SESSION]: (state, val) => state.dialogEndSession = val,
    [studyRoom_SETTERS.ROOM_ACTIVE]: (state, isConnected) => {
       state.roomIsActive = isConnected
@@ -72,7 +70,6 @@ const mutations = {
       state.roomIsNeedPayment = false;
       state.roomTutor = {};
       state.studyRoomId = null;
-      state.dialogRoomSettings = false;
       state.dialogEndSession = false;
       state.roomProps = null;
       state.roomType = null;
@@ -104,7 +101,6 @@ const getters = {
       }
       return state.roomIsNeedPayment;
    },
-   getDialogRoomSettings: state => state.dialogRoomSettings,
    getDialogRoomEnd: state => state.roomIsActive && state.roomIsTutor && state.dialogEndSession,
    getDialogUserConsent: state => state.dialogUserConsent,
    getDialogSnapshot: state => state.dialogSnapshot,
@@ -139,9 +135,6 @@ const actions = {
    },
    updateActiveNavEditor({ commit }, val) {
       commit(studyRoom_SETTERS.ACTIVE_NAV_EDITOR, val)
-   },
-   updateDialogRoomSettings({ commit }, val) {
-      commit(studyRoom_SETTERS.DIALOG_ROOM_SETTINGS, val)
    },
    updateEnterRoom({ dispatch }, roomId) { // when tutor press start session
       return studyRoomService.enterRoom(roomId).then((jwtToken) => {
