@@ -2,6 +2,7 @@
   <v-sheet height="100%" width="100%" class="flex-column d-flex canvas-window">
     <div class="d-flex flex-grow-1">
       <whiteBoard></whiteBoard>
+      <whiteBoardFloatingTools/>
     </div>
     <v-slide-y-transition>
     <div class="d-flex flex-grow-0 flex-shrink-0 tabs">
@@ -22,9 +23,11 @@
 </template>
 <script>
 import whiteBoard from  "./../../whiteboard/WhiteBoard.vue"
+import whiteBoardFloatingTools from './whiteBoardFloatingTools.vue'
 export default {
   components : {
-    whiteBoard
+    whiteBoard,
+    whiteBoardFloatingTools
   },
   data() {
     return {

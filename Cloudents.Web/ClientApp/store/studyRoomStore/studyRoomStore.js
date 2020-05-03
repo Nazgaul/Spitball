@@ -14,9 +14,14 @@ function _checkPayment(context) {
    return Promise.resolve();
 }
 
+const ROOM_MODE = {
+   WHITE_BOARD: 'white-board',
+   TEXT_EDITOR: 'shared-document',
+   CODE_EDITOR: 'code-editor',
+}
 
 const state = {
-   activeNavEditor: 'white-board',
+   activeNavEditor: ROOM_MODE.WHITE_BOARD,
    roomDate:null,
    roomType:null,
    roomName:null,
@@ -109,6 +114,7 @@ const getters = {
    getDialogUserConsent: state => state.dialogUserConsent,
    getDialogSnapshot: state => state.dialogSnapshot,
    getRoomIsJoined:state => state.roomIsJoined,
+   getRoomModeConsts: ()=> ROOM_MODE,
 }
 const actions = {
    updateFullScreen(context,elId){

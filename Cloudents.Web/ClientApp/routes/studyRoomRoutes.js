@@ -1,4 +1,5 @@
 import * as routeName from "./routeNames.js";
+import store from '../store'
 
 export const studyRoomRoutes = [
     {
@@ -19,6 +20,10 @@ export const studyRoomRoutes = [
         },
         meta: {
             layout : 'studyRoomLayout'
+        },
+        beforeEnter: (to, from, next) => {
+            store.commit('clearComponent')
+            next();
         }
     }
 ]
