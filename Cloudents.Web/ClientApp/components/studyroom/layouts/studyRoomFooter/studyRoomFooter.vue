@@ -13,7 +13,6 @@
             <v-icon v-else>sbf-arrow-up</v-icon>
          </v-btn>
          <v-slide-group
-            v-model="model"
             class="pa-0"
             active-class="success"
             show-arrows
@@ -21,8 +20,7 @@
             prev-icon="sbf-arrow-left-carousel"
             next-icon="sbf-arrow-right-carousel">
             <v-slide-item v-for="n in 15" :key="n">
-               <v-card :color="'grey lighten-1'" class="ma-2" height="100" width="154">
-               </v-card>
+               <userPreview class="ma-2"/>
             </v-slide-item>
          </v-slide-group>
       </v-footer>
@@ -30,14 +28,15 @@
 </template>
 
 <script>
+import userPreview from '../userPreview/userPreview.vue';
+
 export default {
    data() {
       return {
          footerExtend:true,
-         model: null,
       }
    },
-
+   components:{userPreview}
 }
 </script>
 
