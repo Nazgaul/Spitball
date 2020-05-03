@@ -69,6 +69,7 @@ namespace Cloudents.Query.Admin
                         .Select(() => participantAlias.Id).WithAlias(() => resultAlias.UserId)
 
                     )
+
                     .TransformUsing(Transformers.AliasToBean<StudyRoomDto>()).Future<StudyRoomDto>();
 
 
@@ -99,7 +100,8 @@ namespace Cloudents.Query.Admin
                      .TransformUsing(Transformers.AliasToBean<StudyRoomDto>()).Future<StudyRoomDto>();
 
 
-                var result = (await future1.GetEnumerableAsync(token)).Union(future2.GetEnumerable());
+                var result = 
+                    (await future1.GetEnumerableAsync(token)).Union(future2.GetEnumerable()).OrderByDescending(o=>o.Created);
 
                 return result;
 
