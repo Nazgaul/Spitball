@@ -662,7 +662,7 @@ namespace Cloudents.Selenium.Test
                 {
                     driver.Manage().Window.Maximize();
 
-                    var url = $"{_driver.SiteUrl.TrimEnd('/')}/profile/159039";
+                    var url = $"{_driver.SiteUrl.TrimEnd('/')}/profile/159039/culture={culture}";
                     driver.Navigate().GoToUrl(url);
 
                     // Make sure those elements exist
@@ -703,6 +703,13 @@ namespace Cloudents.Selenium.Test
                     FindContains(driver, "coupon-dialog");
                     Logout(driver);
                 }
+
+                // Turn to mobile size
+                driver.Manage().Window.Size = new System.Drawing.Size(414, 736);
+                driver.Navigate().GoToUrl($"{_driver.SiteUrl.TrimEnd('/')}/profile/159039");
+
+                // Check that this class exists containing text-center
+                FindContains(driver, "profileUserSticky_btns d-block d-sm-flex align-end text-center");
             }
         }
 
@@ -940,6 +947,24 @@ namespace Cloudents.Selenium.Test
                 FindContains(driver, "landingPageHP");
 
                 driver.Url.Should().Contain("learn");
+            }
+        }
+
+        [Fact]
+        public void SideMenuTest()
+        {
+            foreach (var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+                Login(driver, UserTypeAccounts.ElementAt(0));
+
+                var menus = driver.FindElements(By.XPath("//*[@class='sideMenu_group']"));
+
+                menus.ElementAt(0).Click();
+                menus.ElementAt(1).Click();
+                menus.ElementAt(2).Click();
+
+                Logout(driver);
             }
         }
     }
