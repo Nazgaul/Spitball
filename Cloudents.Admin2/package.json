@@ -12,7 +12,7 @@
     "all": "npm run build && npm run start"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.19.2",
     "browserslist": "^4.7.0",
     "caniuse-lite": "^1.0.30000989",
     "qs": "^6.9.1",
