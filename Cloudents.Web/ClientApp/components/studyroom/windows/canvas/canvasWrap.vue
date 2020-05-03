@@ -6,17 +6,7 @@
     </div>
     <v-slide-y-transition>
     <div class="d-flex flex-grow-0 flex-shrink-0 tabs">
-      <v-btn-toggle v-model="text" group dense borderless color="#4c59ff"  background-color="#00FF00" mandatory>
-        <template v-for="n in 8">
-          <v-btn color="#00FF00" :key="n" :value="'tab'+n" active-class="tab-active">Tab {{n}}</v-btn>
-        </template>
-
-        <!-- <v-btn value="center">Center</v-btn>
-
-        <v-btn value="right">Right</v-btn>
-
-        <v-btn value="justify">Justify</v-btn>-->
-      </v-btn-toggle>
+      <whiteBoardTabs/>
     </div>
     </v-slide-y-transition>
   </v-sheet>
@@ -24,17 +14,13 @@
 <script>
 import whiteBoard from  "./../../whiteboard/WhiteBoard.vue"
 import whiteBoardFloatingTools from './whiteBoardFloatingTools.vue'
+import whiteBoardTabs from './whiteBoardTabs.vue';
 export default {
   components : {
     whiteBoard,
-    whiteBoardFloatingTools
+    whiteBoardFloatingTools,
+    whiteBoardTabs
   },
-  data() {
-    return {
-      text: "tab1",
-      tabsCount: 8
-    };
-  }
 };
 </script>
 <style lang="less">
@@ -46,9 +32,6 @@ export default {
 
   .tabs {
     background: #e0e0e1;
-  }
-  .tab-active {
-   // color: #4c59ff !important;
   }
 }
 </style>

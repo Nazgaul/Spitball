@@ -3,6 +3,7 @@ import {LanguageService} from '../../services/language/languageService'
 import whiteBoardService from '../../components/studyroom/whiteboard/whiteBoardService'
 
 const state = {
+    canvasStore:{},
     canvasDataStore:{
         color: {
             hex: '#000000'
@@ -92,16 +93,13 @@ const getters = {
         }else{
             return state.showBoxHelper
         }},
-    getFontSize: state=>state.fontSize
+    getFontSize: state=>state.fontSize,
+    getTempCanvasStore:state=>state.canvasStore,
 };
 
 const mutations = {
-    setTabName(state, {tabName,tabId}){
-        state.canvasTabs.forEach(tab =>{
-            if(tab.id === tabId){
-                tab.name = tabName;
-            }
-        });
+    setCanvasStore(state,val){
+        state.canvasStore = {...val}
     },
     setDragData(state, val) {
         let tab = val.tab.id;
@@ -141,18 +139,6 @@ const mutations = {
         state.currentSelectedTab.name = tab.name;
         state.currentSelectedTab.id = tab.id;
     },
-    removeCanvasTab(state, deletedTab){
-        let tabIndex = null;
-        if(state.canvasTabs.length > 1){
-            state.canvasTabs.forEach((canvasTab, index)=>{
-                if(canvasTab.id === deletedTab.id){
-                    tabIndex = index;
-                }
-            });
-            state.canvasTabs.splice(tabIndex, 1);
-        }
-        return Promise.resolve(tabIndex);
-    },
     setCurrentOptionSelected(state, val){
         state.currentOptionSelected = val;
     },
@@ -183,7 +169,9 @@ const mutations = {
     };
 
 const actions = {
-
+    tempUpdateCanvasStore({commit},val){
+        commit('setCanvasStore',val)
+    },
     tempWhiteBoardTabChanged({dispatch},data) {
         dispatch('changeSelectedTab',data.tab);
         whiteBoardService.hideHelper();
@@ -202,8 +190,6 @@ const actions = {
             whiteBoardService.clearData(parsedData, data.tab);
         } else if(data.type === 'codeEditor_lang'){
             commit('setLang',parsedData);
-        } else if (data.type === 'updateTab'){
-            dispatch('updateTab', parsedData);
         } else if(data.type === 'updateTabById'){
             dispatch('changeSelectedTab',parsedData.tab);
             whiteBoardService.hideHelper();
@@ -269,9 +255,6 @@ const actions = {
             commit('changeSelectedTab', tab);
         }
     },
-    removeCanvasTab({commit}, tab){
-        return commit('removeCanvasTab', tab);
-    },
     setCurrentOptionSelected({commit}, val){
         commit('setCurrentOptionSelected', val);
     },
@@ -289,9 +272,6 @@ const actions = {
     },
     setClearAllClicked({commit}){
         commit('setClearAllClicked');
-    },
-    updateTab({commit},updateTabObj){
-        commit('setTabName',updateTabObj);
     },
     updateImgLoader({commit},val){
         commit('setImgLoader',val);

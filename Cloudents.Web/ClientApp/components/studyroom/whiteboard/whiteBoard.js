@@ -27,15 +27,12 @@ export default {
     data() {
         return {
             canvas: null,
-            isEdit: false,
-            currentTabId: null,
             canvasWidth: 2800,
             canvasHeight: 850,
             windowWidth: global.innerWidth, // 10 stands for the scroll offset
             windowHeight: global.innerHeight - HeaderHeight, 
             showPickColorInterface: false,
             showHelper: false,
-            tabEditId: null,
             formula: 'x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.',
             
             enumOptions: {
@@ -91,7 +88,6 @@ export default {
             'getDragData',
             'getZoom', 
             'selectedOptionString',
-            'getCanvasTabs', 
             'getCurrentSelectedTab', 
             'currentOptionSelected', 
             'canvasDataStore',
@@ -131,16 +127,10 @@ export default {
                 this.formula = val;
             }
         },
-        canvasTabs() {
-            return this.getCanvasTabs;
-        },
         canvasDataColor(){
             //activated from watch
             this.canvasData.color = this.canvasDataStore.color;
             return this.canvasDataStore.color;
-        },
-        isTutor() {
-            return this.$store.getters.getRoomIsTutor;
         },
         showAnchors(){
             let unsupportedResizeShapes = ["liveDraw", "textDraw", "equationDraw", "iink"];
@@ -165,6 +155,12 @@ export default {
         }
     },
     watch: {
+        canvasData:{
+            deep:true,
+            handler(newVal){
+                this.$store.dispatch('tempUpdateCanvasStore',newVal)
+            }
+        },
         canvasDataColor(newVal){
             //watch is activating the canvasDataColor computed
             this.canvasData.color = newVal;
@@ -185,43 +181,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateShowBoxHelper','updateImgLoader','resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString', 'changeSelectedTab', 'removeCanvasTab', 'setCurrentOptionSelected', 'setShowPickColorInterface', 'setFontSize']),
-        ...mapMutations(['setTabName']),
-        renameTab() {
-            console.log("Rename Tab");
-        },
-        editTabName(tabId){
-            this.isEdit = true;
-            this.currentTabId = tabId;
-            let tab = document.getElementById(tabId);
-            tab.contentEditable = "true";
-            let range = document.createRange();
-            range.selectNodeContents(tab);
-            let selection = global.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-        },
-        saveNewTabName(){
-            if(this.isEdit){
-                let newTabName = document.getElementById(this.currentTabId).innerText;
-                let tabData = {
-                    tabId: this.currentTabId,
-                    tabName: newTabName
-                };
-                let transferDataObj = {
-                    type: "updateTab",
-                    data: tabData
-                };
-                let normalizedData = JSON.stringify(transferDataObj);
-                this.$store.dispatch('sendDataTrack',normalizedData)
-    
-                let tab = document.getElementById(this.currentTabId);
-                let selection = global.getSelection();
-                selection.empty();
-                tab.contentEditable = "false";
-                this.isEdit = false;
-            }
-        },
+        ...mapActions(['updateShowBoxHelper','updateImgLoader','resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString', 'setCurrentOptionSelected', 'setShowPickColorInterface', 'setFontSize']),
         uploadImage(){
             this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, 'imageDraw')());
             this.setSelectedOptionString('imageDraw');
@@ -234,11 +194,6 @@ export default {
         finishEquation(){
             let mouseEvent = new MouseEvent("mousedown", {});
             this.canvas.dispatchEvent(mouseEvent);
-        },
-        deleteTab(tab) {
-            this.removeCanvasTab(tab);
-            this.changeTab(this.getCanvasTabs[0]);
-            console.log("Delete Tab");
         },
         showColorPicker() {
             this.setShowPickColorInterface(true);
@@ -341,26 +296,6 @@ export default {
         },
         keyCodeChecker(e,keyCode){
             return (e.which == keyCode || e.keyCode == keyCode);
-        },
-        changeTab(tab) {
-            if(!this.$route.params.id || this.$route.params.id && this.isTutor ){
-                this.$ga.event("tutoringRoom", `changeTab:${tab}`);
-                this.currentTabId = tab.id;
-                if (tab.id !== this.getCurrentSelectedTab.id) {
-                    let transferDataObj = {
-                        type: "updateTabById",
-                        data: {
-                            tab,
-                            canvas:this.canvasData
-                        }
-                    };
-                    let normalizedData = JSON.stringify(transferDataObj);
-                    this.$store.dispatch('sendDataTrack',normalizedData)
-                    this.changeSelectedTab(tab);
-                    whiteBoardService.hideHelper();
-                    whiteBoardService.redraw(this.canvasData);
-                }
-            }
         },
         resizeCanvas() {
             // let canvas = document.getElementById('canvas');
@@ -494,5 +429,8 @@ export default {
         canvasFinder.trackTransforms(this.canvasData.context);
         this.registerCanvasEvents(this.canvas, canvasWrapper);
         global.document.addEventListener("keydown", this.keyPressed);
-    }
+    },
+    updated() {
+        this.$store.dispatch('tempUpdateCanvasStore',this.canvasData)
+    },
 }
