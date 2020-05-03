@@ -60,6 +60,7 @@ namespace Cloudents.Core.Entities
             AddEvent(new StudyRoomCreatedEvent(this));
         }
 
+        [SuppressMessage("ReSharper", "CS8618",Justification = "Nhibernate proxy")]
         protected StudyRoom()
         {
             ChatRooms ??= new List<ChatRoom>();
@@ -67,7 +68,7 @@ namespace Cloudents.Core.Entities
 
         protected internal virtual ICollection<ChatRoom> ChatRooms { get; set; }
 
-        public virtual ChatRoom ChatRoom
+        protected virtual ChatRoom ChatRoom
         {
             get => ChatRooms.SingleOrDefault();
             set

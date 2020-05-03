@@ -8,8 +8,8 @@ namespace Cloudents.Core.Entities
     public class ReadTutor : Entity<long>
     {
         public ReadTutor(long id, string name, string image, string imageName, 
-            IReadOnlyList<string> allSubjects,
-            IReadOnlyList<string> allCourses,
+            IReadOnlyList<string>? allSubjects,
+            IReadOnlyList<string>? allCourses,
             decimal price, double? rate, int rateCount, string bio, int lessons, string country, decimal? subsidizedPrice)
         {
             Id = id;
@@ -32,6 +32,7 @@ namespace Cloudents.Core.Entities
             SubsidizedPrice = subsidizedPrice;
         }
 
+        [SuppressMessage("ReSharper", "CS8618",Justification = "Nhibernate proxy")]
         protected ReadTutor()
         {
 
@@ -41,10 +42,10 @@ namespace Cloudents.Core.Entities
         public virtual string Name { get; protected set; }
         public virtual string Image { get; protected set; }
         public virtual string ImageName { get; protected set; }
-        public virtual IEnumerable<string> Subjects { get; protected set; }
-        public virtual IEnumerable<string> AllSubjects { get; protected set; }
-        public virtual IEnumerable<string> Courses { get; protected set; }
-        public virtual IEnumerable<string> AllCourses { get; protected set; }
+        public virtual IEnumerable<string>? Subjects { get; protected set; }
+        public virtual IEnumerable<string>? AllSubjects { get; protected set; }
+        public virtual IEnumerable<string>? Courses { get; protected set; }
+        public virtual IEnumerable<string>? AllCourses { get; protected set; }
         public virtual decimal Price { get; protected set; }
         public virtual double? Rate { get; protected set; }
         public virtual int RateCount { get; protected set; }

@@ -7,6 +7,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
     public class ChatUser : Entity<Guid>
     {
+        [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate")]
         protected ChatUser()
         {
 
@@ -16,6 +17,7 @@ namespace Cloudents.Core.Entities
         {
             ChatRoom = chatRoom;
             User = user;
+            Unread = 0;
         }
         public virtual ChatRoom ChatRoom { get; protected set; }
         public virtual User User { get; protected set; }

@@ -30,7 +30,7 @@ namespace Cloudents.Query.Admin
                          AmountOfUsers = _statelessSession.Query<UserCoupon>().Count(w => w.Coupon.Id == s.Id),
                          Code = s.Code,
                          CouponType = s.CouponType,
-                         TutorId = s.Tutor.Id,
+                         TutorId = s.Tutor!.Id,
                          Description = s.Description,
                          Owner = s.Owner
                      }).ToListAsync(token);

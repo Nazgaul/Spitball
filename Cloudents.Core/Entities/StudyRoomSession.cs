@@ -76,23 +76,11 @@ namespace Cloudents.Core.Entities
             sessionUser.Disconnect(durationInRoom);
         }
 
-        //private readonly IList<SessionParticipantDisconnect> _participantDisconnections = new List<SessionParticipantDisconnect>();
-
-        //public virtual IEnumerable<SessionParticipantDisconnect> ParticipantDisconnections => _participantDisconnections;
-
-        //public virtual bool VideoExists { get; protected set; }
-
-
-        //public virtual IPaymentProvider Payment { get; protected set; }
         public virtual DateTime? PaymentApproved { get; protected set; }
         public virtual TimeSpan? AdminDuration { get; protected set; }
         public virtual TimeSpan? RealDuration { get; protected set; }
 
 
-        //public virtual void UpdateVideo()
-        //{
-        //    VideoExists = true;
-        //}
 
         protected virtual void CalculatePriceAndDuration()
         {
@@ -121,12 +109,7 @@ namespace Cloudents.Core.Entities
             CalculatePriceAndDuration();
             AddEvent(new EndStudyRoomSessionEvent(this));
         }
-
-        //public virtual void ReJoinStudyRoom()
-        //{
-        //    RejoinCount++;
-        //    AddEvent(new StudyRoomSessionRejoinEvent(this));
-        //}
+        
 
         public virtual void SetReceipt(string receipt)
         {
@@ -146,8 +129,6 @@ namespace Cloudents.Core.Entities
             Receipt = receipt;
             PaymentApproved = DateTime.UtcNow;
             AdminDuration = adminDuration;
-            //AdminDuration = adminDuration;
-            //StudentPay = studentPay;
         }
 
         public virtual void SetRealDuration(TimeSpan realDuration, decimal price)

@@ -8,8 +8,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
 using PaymentStatus = Cloudents.Core.DTOs.PaymentStatus;
-using System;
-using System.Diagnostics;
 
 namespace Cloudents.Query.Users
 {

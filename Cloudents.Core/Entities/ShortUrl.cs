@@ -13,6 +13,7 @@ namespace Cloudents.Core.Entities
             Expiration = expiration;
         }
 
+        [SuppressMessage("ReSharper", "CS8618",Justification = "Nhibernate proxy")]
         protected ShortUrl()
         {
 

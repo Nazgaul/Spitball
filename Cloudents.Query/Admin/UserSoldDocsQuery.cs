@@ -35,11 +35,11 @@ namespace Cloudents.Query.Admin
             public async Task<IEnumerable<UserSoldItemsDto>> GetAsync(UserSoldDocsQuery query, CancellationToken token)
             {
                 const int pageSize = 20;
-                User userAlias = null;
-                DocumentTransaction transactionAlias = null;
-                Document documentAlias = null;
+                User userAlias = null!;
+                DocumentTransaction transactionAlias = null!;
+                Document documentAlias = null!;
 
-                UserSoldItemsDto userSoldDto = null;
+                UserSoldItemsDto userSoldDto = null!;
 
                 var cte = QueryOver.Of(() => documentAlias)
                     .Where(w => w.User.Id == query.UserId)

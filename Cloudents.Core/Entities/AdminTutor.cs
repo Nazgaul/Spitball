@@ -13,7 +13,7 @@ namespace Cloudents.Core.Entities
         }
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "nhibernate")]
         [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "nhibernate")]
-        [SuppressMessage("NullChecker", "CS8618", Justification = "nhibernate")]
+        [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate")]
         protected AdminTutor()
         { }
 
