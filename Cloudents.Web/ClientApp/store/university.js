@@ -2,7 +2,6 @@ import courseService from '../services/courseService';
 
 const state = {
     classes: [],
-    schoolName: '',
     selectedClasses: [],
     selectedClassesCache: [],
     resultLockForSchoolNameChange: false,
@@ -10,52 +9,32 @@ const state = {
     reflectChangeToPage: 0,
     createDialog: false,
     creationVerified: false,
-    createUniDialog: false,
-    uniCreationVerified: false,
     lock_selectedClass:true,
     searchedCourse: '',
     isCourseRequestQuery: false
 };
 
 const getters = {
-    getSchoolName: state => state.schoolName,
     getClasses: state => state.classes,
-    // the sorting is moved to the cmp
     getSelectedClasses: state => state.selectedClasses,
-    // getSelectedClassesCache: state => state.selectedClassesCache,
     createDialogVisibility: state => state.createDialog,
     creationVerified: state => state.creationVerified,
-    getCreateDialogVisibility: state => state.createUniDialog,
-    uniCreationVerified: state => state.uniCreationVerified,
-    // getIsSelectedClassLocked: state => state.lock_selectedClass,
     getSearchedCourse: state => state.searchedCourse,
 };
 
 const mutations = {
-    //uni create dialog mutations
-    verifyUniCreation(state, val) {
-        state.uniCreationVerified = val;
-    },
-    updateUniCreateDialogState(state, val) {
-        state.createUniDialog = val;
-    },
-    //course create dialog mutations
     verifyCreation(state, val) {
         state.creationVerified = val;
     },
     updateCreateDialogState(state, val) {
         state.createDialog = val;
     },
-    //end dialogs mutations
     deleteCourse(state, val) {
         let index = state.selectedClasses.filter(v => v.text !== val);
         state.selectedClasses = index
     },
     addClasses(state, val) {
         state.classes = state.classes.concat(val);
-    },
-    setSchoolName(state, val) {
-        state.schoolName = val;
     },
     setClasses(state, val) {
         state.classes = val;
@@ -201,12 +180,6 @@ const actions = {
     },
     updateVerification({commit}, val) {
         commit('verifyCreation', val);
-    },
-    changeUniCreateDialogState({commit}, val) {
-        commit('updateUniCreateDialogState', val);
-    },
-    updateUniVerification({commit}, val) {
-        commit('verifyUniCreation', val);
     },
     setSelectedClasses({commit, dispatch}, val){
         commit('setSelectedClasses', val);

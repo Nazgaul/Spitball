@@ -5,12 +5,12 @@
             <v-icon class="close-btn-referral body-1 pr-3 pt-3" @click.prevent="requestDialogClose()">sbf-close</v-icon>
             <v-layout column v-show="!isUploadReferral">
                 <v-flex xs12   class="mb-4">
-                    <div v-show="getSchoolName">
+                    <!-- <div v-show="getSchoolName">
                         <span class="ref-title" v-html="text.dialog.title">
                         </span>
                         <span class="ref-title" v-if="getSchoolName">{{getSchoolName}}</span>
-                    </div>
-                    <div v-show="!getSchoolName">
+                    </div> -->
+                    <div>
                         <span class="ref-title" v-html="text.dialog.titleSpread"></span>
                     </div>
                 </v-flex>
@@ -171,7 +171,7 @@
             }
         },
         computed: {
-            ...mapGetters(['isFrymo','usersReffered', 'getSchoolName', 'accountUser']),
+            ...mapGetters(['isFrymo','usersReffered', 'accountUser']),
             isUploadReferral() {
                 return this.referralType === 'uploadReffer'; //TODO: check if we need this 'uploadReffer'
             },
