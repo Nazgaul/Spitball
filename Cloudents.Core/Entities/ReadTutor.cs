@@ -30,7 +30,7 @@ namespace Cloudents.Core.Entities
             OverAllRating = (rate.GetValueOrDefault() * RateCount + 48 + Lessons * rate.GetValueOrDefault())
                             / (RateCount + 12 + Lessons);
             SubsidizedPrice = subsidizedPrice;
-            //SbCountry = Entities.Country.FromCountry(country);
+            SbCountry = Entities.Country.FromCountry(country);
         }
 
         [SuppressMessage("ReSharper", "CS8618",Justification = "Nhibernate proxy")]
@@ -57,7 +57,7 @@ namespace Cloudents.Core.Entities
         public virtual string Country { get; protected set; }
         public virtual decimal? SubsidizedPrice { get; protected set; }
 
-       // public virtual Country SbCountry { get; protected set; }
+        public virtual Country SbCountry { get; protected set; }
 
     }
 }
