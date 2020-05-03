@@ -12,8 +12,7 @@ using static Cloudents.Core.Entities.ItemStatus;
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhiberante proxy")]
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
-
+    [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate Proxy")]
     public class Document : Entity<long>, IAggregateRoot, ISoftDelete
     {
 
@@ -22,28 +21,36 @@ namespace Cloudents.Core.Entities
 
         public Document(string name,
             Course course,
-            BaseUser user, decimal price, DocumentType documentType, string description)
-      : this()
+            User user, decimal price, DocumentType documentType, string description)
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
-            Name = Path.GetFileNameWithoutExtension(name.Replace("+", "-"));
             Course = course ?? throw new ArgumentNullException(nameof(course));
-            User = user;
+            User = user ?? throw new ArgumentNullException(nameof(user));
+            Name = Path.GetFileNameWithoutExtension(name.Replace("+", "-"));
+
             Views = 0;
             if (!string.IsNullOrEmpty(description))
             {
                 Description = description;
             }
             ChangePrice(price);
-            Status = Public;
-            AddEvent(new DocumentCreatedEvent(this));
+            Status = GetInitState(user);
+            if (Status == Public)
+            {
+                MakePublic();
+            }
             DocumentType = documentType;
+            TimeStamp = new DomainTimeStamp();
+            DocumentDownloads = new HashSet<UserDownloadDocument>();
         }
+
+      
 
         [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate")]
         protected Document()
         {
             TimeStamp = new DomainTimeStamp();
+            DocumentDownloads ??= new HashSet<UserDownloadDocument>();
         }
 
         // public virtual long Id { get; set; }
@@ -52,7 +59,7 @@ namespace Cloudents.Core.Entities
 
         public virtual Course Course { get; protected set; }
 
-        public virtual string Description { get; protected set; }
+        public virtual string? Description { get; protected set; }
 
 
         public virtual DomainTimeStamp TimeStamp { get; protected set; }
@@ -68,12 +75,12 @@ namespace Cloudents.Core.Entities
         public virtual int? PageCount { get; set; }
         //public virtual long? OldId { get; protected set; }
 
-        public virtual string MetaContent { get; set; }
+        public virtual string? MetaContent { get; set; }
 
         public virtual decimal Price { get; protected set; }
         // ReSharper disable once CollectionNeverUpdated.Local Resharper
         private readonly IList<Transaction> _transactions = new List<Transaction>();
-        public virtual IReadOnlyCollection<Transaction> Transactions => _transactions.ToList();
+        public virtual IEnumerable<Transaction> Transactions => _transactions;
 
         public virtual ItemStatus Status { get; protected set; }
 
@@ -208,6 +215,6 @@ namespace Cloudents.Core.Entities
         public virtual TimeSpan? Duration { get; set; }
         public virtual bool IsShownHomePage { get; protected set; }
 
-        public virtual string Md5 { get; set; }
+        public virtual string? Md5 { get; set; }
     }
 }

@@ -13,7 +13,12 @@
         class="mb-2 mb-sm-3 shareContentProfile"
         v-if="getProfile"
       />
-      <calendarTab v-if="showProfileCalendar" class="mt-sm-12 mt-2 mx-auto calendarSection" :globalFunctions="globalFunctions" />
+      <calendarTab
+        ref="calendarTab"
+        v-if="showCalendarTab"
+        class="mt-sm-12 mt-2 mx-auto calendarSection"
+        :globalFunctions="globalFunctions"
+      />
       <profileLiveClasses :id="id" v-if="isTutor" />
       <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" />
       <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" />
