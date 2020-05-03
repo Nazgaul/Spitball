@@ -1,6 +1,8 @@
 <template>
   <v-sheet height="100%" width="100%" class="flex-column d-flex canvas-window">
-    <div class="d-flex flex-grow-1">Canvas location</div>
+    <div class="d-flex flex-grow-1">
+      <whiteBoard></whiteBoard>
+    </div>
     <v-slide-y-transition>
     <div class="d-flex flex-grow-0 flex-shrink-0 tabs">
       <v-btn-toggle v-model="text" group dense borderless color="#4c59ff"  background-color="#00FF00" mandatory>
@@ -19,7 +21,11 @@
   </v-sheet>
 </template>
 <script>
+import whiteBoard from  "./../../whiteboard/WhiteBoard.vue"
 export default {
+  components : {
+    whiteBoard
+  },
   data() {
     return {
       text: "tab1",

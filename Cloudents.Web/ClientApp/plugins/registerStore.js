@@ -1,17 +1,26 @@
 import * as routeNames from '../routes/routeNames.js';
-import codeEditor_store from "../store/studyRoomStore/codeEditor_store.js";
+const codeEditor_store = () => import("../store/studyRoomStore/codeEditor_store.js");
+const tutoringCanvas = () => import("../store/studyRoomStore/tutoringCanvas.js");
 export default () => {
     let registeredStore = [];
 
     return store => {
 
-        let registeredModules =[];
-        const registerModule = function(moduleName, moduleObj){
-            store.registerModule(moduleName, moduleObj);
-            registeredModules.push(moduleName);
+        let registeredModules = [];
+        const registerModule = function (moduleName, moduleObj) {
+            debugger
+            if (typeof (moduleObj) === "function") {
+                moduleObj().then(m => {
+                    store.registerModule(moduleName, m);
+                })
+            }
+            else {
+                store.registerModule(moduleName, moduleObj);
+                registeredModules.push(moduleName);
+            }
         };
-        const unregisterModules = function(){
-            registeredStore.forEach(f=> {
+        const unregisterModules = function () {
+            registeredStore.forEach(f => {
                 store.unregisterModule(f);
             })
             //store.unregisterModule(moduleName);
@@ -24,7 +33,7 @@ export default () => {
         //         store.registerModule(moduleName, moduleObj);
         //     }
         // };
-        
+
         // export default {
         //     registerModule,
         //     unregisterModule,
@@ -36,11 +45,17 @@ export default () => {
                 unregisterModules();
                 if (mutation.payload.name === routeNames.StudyRoom) {
                     //registerModule(moduleName, moduleObj);
-                   registerModule('codeEditor_store',codeEditor_store);
+                    // debugger;
+                    // Promise.allSettled([codeEditor_store(),tutoringCanvas()]).then((arr)=> {
+                    //     arr.forEach(r=> )
+                    // })
+                    registerModule('codeEditor_store', codeEditor_store);
+                    registerModule('tutoringCanvas', tutoringCanvas);
+
                 }
-            
-        }
+
+            }
         });
-        
+
     }
 }
