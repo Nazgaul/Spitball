@@ -58,18 +58,4 @@ namespace Cloudents.Core.DTOs.Admin
         public bool StudyRoomExists { get; set; }
         public int HoursFromLastMessage { get; set; }
     }
-
-    public class ConversationDetailsDto
-    {
-        [EntityBind(nameof(BaseUser.Id))]
-        public long UserId { get; set; }
-        [EntityBind(nameof(BaseUser.Name))]
-        public string UserName { get; set; }
-        [EntityBind(nameof(BaseUser.Email))]
-        public string Email { get; set; }
-        [EntityBind(nameof(User.PhoneNumber))]
-        public string PhoneNumber { get; set; }
-        [EntityBind(nameof(User.ImageName))]
-        public string? Image { get; set; }
-    }
 }

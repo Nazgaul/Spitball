@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.Entities
 {
@@ -11,11 +12,12 @@ namespace Cloudents.Core.Entities
             CreditCardMask = creditCardMask;
         }
 
+        [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate")]
         protected BuyerPayment()
         {
         }
 
-        public string? PaymentKey { get; set; }
+        public string PaymentKey { get; set; }
         public DateTime PaymentKeyExpiration { get; set; }
 
         public string CreditCardMask { get; set; }

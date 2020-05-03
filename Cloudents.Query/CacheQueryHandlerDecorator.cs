@@ -40,7 +40,6 @@ namespace Cloudents.Query
             }
 
             var cacheKey = $"{query.GetType().Name}_{query.AsDictionary(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).ToContentString()}";
-            //var cacheKey = CacheResultInterceptor.GetCacheKey(_decoratee.GetType(), "GetAsync", new object[] { query });
 
             var result = _cacheProvider.Value.Get<TQueryResult>(cacheKey, attr.Region);
 

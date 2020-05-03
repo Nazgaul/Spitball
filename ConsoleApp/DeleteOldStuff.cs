@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Autofac;
-using Autofac.Core;
 using Cloudents.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
@@ -15,7 +12,6 @@ using Cloudents.Infrastructure.Storage;
 using Cloudents.Query;
 using NHibernate;
 using NHibernate.Linq;
-using NHibernate.Util;
 
 namespace ConsoleApp
 {
@@ -35,34 +31,34 @@ namespace ConsoleApp
             await ResyncTutorRead();
         }
 
-        private static async Task DeleteFlaggedDocument()
-        {
-            var statelessSession = Container.Resolve<IStatelessSession>();
-            int i;
-            do
-            {
-                Console.WriteLine("Turn to delete");
-                var sqlQuery = statelessSession.CreateSQLQuery(@"
-            update top(1000) sb.Document
-            set state = 'Deleted', DeletedOn = '2020-02-16 18:39:13.9970249'
-            where state = 'Ok' and CourseName in ('Small Talk',
-'Reading for Elementary Students',
-'Justice Administration',
-'Life Science',
-'PADP 6920 Public Personnel Administration',
-'PADP 7110 Research Methods of Public Administration',
-'Preschool Math')");
+//        private static async Task DeleteFlaggedDocument()
+//        {
+//            var statelessSession = Container.Resolve<IStatelessSession>();
+//            int i;
+//            do
+//            {
+//                Console.WriteLine("Turn to delete");
+//                var sqlQuery = statelessSession.CreateSQLQuery(@"
+//            update top(1000) sb.Document
+//            set state = 'Deleted', DeletedOn = '2020-02-16 18:39:13.9970249'
+//            where state = 'Ok' and CourseName in ('Small Talk',
+//'Reading for Elementary Students',
+//'Justice Administration',
+//'Life Science',
+//'PADP 6920 Public Personnel Administration',
+//'PADP 7110 Research Methods of Public Administration',
+//'Preschool Math')");
 
-                i = await sqlQuery.ExecuteUpdateAsync();
-            } while (i > 0);
-        }
+//                i = await sqlQuery.ExecuteUpdateAsync();
+//            } while (i > 0);
+//        }
 
 
 
         private static async Task ResyncTutorRead()
         {
             var session = Container.Resolve<IStatelessSession>();
-            var bus = Container.Resolve<ICommandBus>();
+            //var bus = Container.Resolve<ICommandBus>();
             var eventHandler = Container.Resolve<IEventPublisher>();
 
             var x = await session.CreateSQLQuery(@"
@@ -88,7 +84,6 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
         private static async Task DeleteNotUsedCourses()
         {
             var statelessSession = Container.Resolve<IStatelessSession>();
-            var dapperRepository = Container.Resolve<IDapperRepository>();
             while (true)
             {
 
@@ -169,15 +164,15 @@ COMMIT;  ";
                         using (var child = Container.BeginLifetimeScope())
                         {
                             var unitOfWork = child.Resolve<IUnitOfWork>();
-                            var _session = child.Resolve<ISession>();
-                            var d = await _session.GetAsync<Question>(deletedDocument.Id);
+                            var session = child.Resolve<ISession>();
+                            var d = await session.GetAsync<Question>(deletedDocument.Id);
 
                             foreach (var dAnswer in d.Answers)
                             {
-                                await _session.DeleteAsync(dAnswer);
+                                await session.DeleteAsync(dAnswer);
                             }
 
-                            await _session.DeleteAsync(d);
+                            await session.DeleteAsync(d);
                             await unitOfWork.CommitAsync(default);
 
                         }
@@ -207,7 +202,7 @@ COMMIT;  ";
         private static async Task DeleteDocumentFromNotSupportCountries()
         {
             var statelessSession = Container.Resolve<IStatelessSession>();
-            var count = 0;
+            int count;
             do
             {
 
@@ -222,7 +217,7 @@ COMMIT;  ";
                 count = v.Count;
                 if (count > 0)
                 {
-                   var x =  await statelessSession.Query<Document>()
+                    await statelessSession.Query<Document>()
                         .Where(w => v.Contains(w.Id))
                         .UpdateBuilder().Set(s => s.Status.State, ItemState.Deleted)
                         .Set(s => s.Status.DeletedOn, DateTime.UtcNow.AddDays(-90))
@@ -291,9 +286,9 @@ COMMIT;  ";
                         using (var child = Container.BeginLifetimeScope())
                         {
                             var unitOfWork = child.Resolve<IUnitOfWork>();
-                            var _session = child.Resolve<ISession>();
-                            var d = await _session.GetAsync<Document>(deletedDocument.Id);
-                            await _session.DeleteAsync(d);
+                            var session = child.Resolve<ISession>();
+                            var d = await session.GetAsync<Document>(deletedDocument.Id);
+                            await session.DeleteAsync(d);
                             await unitOfWork.CommitAsync(default);
 
                         }

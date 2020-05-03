@@ -85,8 +85,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData("IL")]
         [InlineData(null)]
-        public async Task AdminStudyRoomQuery_Ok(string country)
+        public async Task AdminStudyRoomQuery_Ok(string countryStr)
         {
+            var country = FromCountry(countryStr);
             var query = new StudyRoomQuery(country);
             await _fixture.QueryBus.QueryAsync(query, default);
         }

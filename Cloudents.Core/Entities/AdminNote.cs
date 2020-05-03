@@ -7,17 +7,18 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "nHibernate")]
     public class AdminNote : Entity<Guid>
     {
-        public AdminNote(string text, User user, AdminUser adminUser) : this()
+        public AdminNote(string text, User user, AdminUser adminUser) 
         {
             Text = text;
             User = user;
             AdminUser = adminUser;
+            TimeStamp = new DomainTimeStamp();
 
         }
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "nhibernate")]
         [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "nhibernate")]
-        [SuppressMessage("NullChecker", "CS8618", Justification = "nhibernate")]
+        [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate")]
         protected AdminNote()
         {
             TimeStamp ??= new DomainTimeStamp();

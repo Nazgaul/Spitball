@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.DTOs.Admin;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -7,9 +6,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using NHibernate;
-using NHibernate.Criterion;
 using NHibernate.Linq;
-using NHibernate.Transform;
 
 namespace Cloudents.Query.Admin
 {

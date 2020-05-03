@@ -6,6 +6,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
     public abstract class ChatMessage : Entity<Guid>
     {
+        [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate")]
         protected ChatMessage()
         {
 

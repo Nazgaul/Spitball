@@ -9,7 +9,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Query.Stuff;
 using NHibernate;
 using NHibernate.Linq;
-using NHibernate.Transform;
 
 namespace Cloudents.Query.Tutor
 {

@@ -12,12 +12,7 @@ namespace Cloudents.Persistence
     [Serializable]
     public class EnumerationType<T> : IUserType where T : Enumeration
     {
-        //public EnumerationType()
-        //{
-        //    typeof(T).GetT
-        //}
-
-        bool IUserType.Equals(object x, object y)
+       bool IUserType.Equals(object x, object y)
         {
             if (ReferenceEquals(x, y))
                 return true;

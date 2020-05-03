@@ -1,14 +1,9 @@
-﻿using System;
-using Cloudents.Core.DTOs.Users;
+﻿using Cloudents.Core.DTOs.Users;
 using Dapper;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
-using NHibernate;
-using NHibernate.Linq;
 
 namespace Cloudents.Query.Chat
 {

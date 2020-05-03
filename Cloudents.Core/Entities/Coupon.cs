@@ -16,7 +16,7 @@ namespace Cloudents.Core.Entities
     public class Coupon
     {
         public const int MinimumLength = 5, MaxLength = 12;
-        public Coupon([NotNull] string code, CouponType couponType, Tutor tutor, decimal value,
+        public Coupon(string code, CouponType couponType, Tutor tutor, decimal value,
             int? amountOfUsers, int amountOfUsePerUser, DateTime? expiration, string description, string owner)
         {
             if (value <= 0) throw new ArgumentOutOfRangeException(nameof(value));
@@ -46,9 +46,11 @@ namespace Cloudents.Core.Entities
             Description = description;
             Owner = owner;
             CreateTime = DateTime.UtcNow;
+            UserCoupon = new HashSet<UserCoupon>();
 
         }
 
+        [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate")]
         protected Coupon()
         {
 

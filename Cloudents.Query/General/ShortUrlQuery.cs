@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 
 namespace Cloudents.Query.General
 {
@@ -34,17 +35,12 @@ namespace Cloudents.Query.General
                     .WithOptions(w => w.SetComment(nameof(ShortUrlQuery)))
                       .Where(w => w.Identifier == query.Identifier)
                       .Where(w => w.Expiration.GetValueOrDefault(DateTime.MaxValue) > DateTime.UtcNow)
-                      .Select(s => new ShortUrlDto()
-                      {
-                          Destination = s.Destination
-                      }).SingleOrDefaultAsync(token);
+                      .Select(s => new ShortUrlDto(s.Destination))
+                    .SingleOrDefaultAsync(token);
 
             }
         }
     }
 
-    public class ShortUrlDto
-    {
-        public string Destination { get; set; }
-    }
+    
 }
