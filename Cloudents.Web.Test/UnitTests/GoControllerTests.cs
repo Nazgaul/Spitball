@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using Cloudents.Query.General;
@@ -30,7 +31,7 @@ namespace Cloudents.Web.Test.UnitTests
         public async Task GetAsync_SomeIdentifier_OkAsync()
         {
             _queryBusMoq.Setup(s => s.QueryAsync(It.IsAny<ShortUrlQuery>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new ShortUrlDto() {Destination = "/test"});
+                .ReturnsAsync(new ShortUrlDto("/test"));
 
             var controller = new GoController(_queryBusMoq.Object, _googleAnalyticsMoq.Object);
             var result = await controller.Index("xxx", null, null, null, null, default);
@@ -41,7 +42,7 @@ namespace Cloudents.Web.Test.UnitTests
         public async Task GetAsync_SomeIdentifierWithoutQuerySite_OkAsync()
         {
             _queryBusMoq.Setup(s => s.QueryAsync(It.IsAny<ShortUrlQuery>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new ShortUrlDto() { Destination = "/test" });
+                .ReturnsAsync(new ShortUrlDto("/test"));
 
             var controller = new GoController(_queryBusMoq.Object, _googleAnalyticsMoq.Object);
             var result = await controller.Index("xxx", "frymo", null, null, null, default);
@@ -52,7 +53,7 @@ namespace Cloudents.Web.Test.UnitTests
         public async Task GetAsync_SomeIdentifierWithQuerySite_OkAsync()
         {
             _queryBusMoq.Setup(s => s.QueryAsync(It.IsAny<ShortUrlQuery>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new ShortUrlDto() { Destination = "/test?v=1" });
+                .ReturnsAsync(new ShortUrlDto("/test?v=1"));
 
             var controller = new GoController(_queryBusMoq.Object, _googleAnalyticsMoq.Object);
             var result = await controller.Index("xxx", "frymo",null,null,null, default);
