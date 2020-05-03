@@ -15,7 +15,6 @@
                     :borderRadius="8"
                 />
             </div>
-                
             <div class="rightSide flex-grow-1">
                 <div class="detailsWrap d-flex d-sm-block">
                     <div class="d-flex justify-space-between text-center text-sm-left">
@@ -28,10 +27,10 @@
                             <template v-if="currentProfileUser.isTutor">
                                 <div class="d-flex align-end justify-center">
                                     <div class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
-                                        {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
+                                        {{tutorPrice ? $n(tutorPrice, 'currency', currentProfileTutor.currency) : $n(tutorDiscountPrice, 'currency', currentProfileTutor.currency)}}
                                     </div>
                                     <div class="profileUserSticky_pricing_price">
-                                        <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
+                                        <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency', currentProfileTutor.currency) : $n(tutorPrice, 'currency', currentProfileTutor.currency)}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
                                     </div>
                                 </div>
                                 <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" v-if="currentProfileUser.isTutor" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
@@ -101,10 +100,10 @@
                         <div class="profileUserSticky_pricing mb-4" v-if="currentProfileUser.isTutor">
                             <div class="d-flex align-end justify-center">
                                 <div class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
-                                    {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
+                                    {{tutorPrice ? $n(tutorPrice, 'currency', currentProfileTutor.currency) : $n(tutorDiscountPrice, 'currency', currentProfileTutor.currency)}}
                                 </div>
                                 <div class="profileUserSticky_pricing_price">
-                                    <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
+                                    <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency', currentProfileTutor.currency) : $n(tutorPrice, 'currency', currentProfileTutor.currency)}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
                                 </div>
                             </div>
                             <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" class="profileUserSticky_coupon text-center mt-1" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
