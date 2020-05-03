@@ -70,6 +70,6 @@ namespace Cloudents.Core.DTOs.Admin
         [EntityBind(nameof(User.PhoneNumber))]
         public string PhoneNumber { get; set; }
         [EntityBind(nameof(User.ImageName))]
-        public string Image { get; set; }
+        public string? Image { get; set; }
     }
 }

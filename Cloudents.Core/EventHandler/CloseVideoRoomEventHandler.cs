@@ -7,8 +7,8 @@ namespace Cloudents.Core.EventHandler
 {
     public class CloseVideoRoomEventHandler : IEventHandler<EndStudyRoomSessionEvent>
     {
-        private readonly IVideoProvider _videoProvider;
-        public CloseVideoRoomEventHandler(IVideoProvider videoProvider)
+        private readonly IStudyRoomProvider _videoProvider;
+        public CloseVideoRoomEventHandler(IStudyRoomProvider videoProvider)
         {
             _videoProvider = videoProvider;
         }
