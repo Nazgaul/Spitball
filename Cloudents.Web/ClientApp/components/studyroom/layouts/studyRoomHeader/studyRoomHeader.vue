@@ -3,18 +3,20 @@
       <a @click="resetItems()">
          <logoComponent/>
       </a>
-
       <div class="roundShape mr-2"></div>
       <v-toolbar-title class="white--text">{{$t('studyRoom_live')}}</v-toolbar-title>
       <v-divider class="mx-6 divider" vertical inset color="white"></v-divider>
       <v-btn-toggle mandatory :value="currentEditorMode" :ripple="false" active-class="editorActive"  borderless group class="editors">
-         <v-btn :value="roomModes.CLASS" text @click="setClass()">
+         <v-btn :value="roomModes.CLASS_MODE" text @click="setClass()">
             <span><v-icon class="mr-2">sbf-class</v-icon>{{$t('studyRoom_nav_class')}}</span>
+         </v-btn>
+         <v-btn :value="roomModes.CLASS_SCREEN" text @click="setClassScreen()">
+            <span><v-icon class="mr-2">sbf-class</v-icon>{{$t('studyRoom_nav_class')}} screen</span>
          </v-btn>
          <v-btn :value="roomModes.WHITE_BOARD" text @click="setWhiteboard()">
             <span><v-icon class="mr-2">sbf-whiteboard</v-icon>{{$t('studyRoom_nav_whiteboard')}}</span>
          </v-btn>
-         <v-btn :value="roomModes.SCREEN" text @click="setShareScreen()">
+         <v-btn :value="roomModes.SCREEN_MODE" text @click="setShareScreen()">
             <span><v-icon class="mr-2">sbf-shareScreen</v-icon>{{$t('studyRoom_nav_screen')}}</span>
          </v-btn>
          <v-btn :value="roomModes.TEXT_EDITOR" text @click="setTextEditor()">
@@ -67,7 +69,10 @@ export default {
          this.$store.dispatch('updateActiveNavEditor',this.roomModes.CODE_EDITOR)
       },
       setClass() {
-         // this.$store.dispatch('updateActiveNavEditor',this.roomModes.CLASS_MODE)
+         this.$store.dispatch('updateActiveNavEditor',this.roomModes.CLASS_MODE)
+      },
+      setClassScreen() {
+         this.$store.dispatch('updateActiveNavEditor',this.roomModes.CLASS_SCREEN)
       },
       setShareScreen() {
          // this.$store.dispatch('updateActiveNavEditor',this.roomModes.SCREEN_MODE)

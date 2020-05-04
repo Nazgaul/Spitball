@@ -20,6 +20,7 @@ const ROOM_MODE = {
    CODE_EDITOR: 'code-editor',
    SCREEN_MODE: 'screen-mode',
    CLASS_MODE: 'class-mode',
+   CLASS_SCREEN: 'class-screen'
 }
 
 const state = {

@@ -5,7 +5,7 @@
     <v-content>
       <component style="height:100%" :is="activeWindow"></component>
     </v-content>
-    <studyRoomFooter/>
+    <studyRoomFooter v-if="isShowFooter"/>
   </div>
 </template>
 
@@ -17,6 +17,8 @@ import studyRoomHeader from './layouts/studyRoomHeader/studyRoomHeader.vue';
 const canvasWrap = () => import("./windows/canvas/canvasWrap.vue");
 const codeEditor = () => import("./codeEditor/codeEditor.vue");
 const sharedDocument = () => import("./sharedDocument/sharedDocument.vue");
+const classMode = () => import('./windows/class/classRoom.vue');
+const classScreen = () => import('./windows/class/classFullScreen.vue');
 export default {
   components: {
     studyRoomDrawer,
@@ -26,20 +28,20 @@ export default {
     canvasWrap,
     codeEditor,
     sharedDocument,
+    classMode,
+    classScreen
   },
   computed: {
     activeWindow(){
       if(this.$store.getters.getActiveNavEditor === 'white-board'){
         return 'canvasWrap'
-      }else{
-        return this.$store.getters.getActiveNavEditor
       }
+      return this.$store.getters.getActiveNavEditor
+    },
+    isShowFooter(){
+      let currentEditor = this.$store.getters.getActiveNavEditor 
+      return currentEditor !== 'class-mode' && currentEditor !== 'class-screen'
     }
   },
 };
 </script>
-
-<style lang="less">
-.studyRoom {
-}
-</style>
