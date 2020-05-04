@@ -96,6 +96,10 @@ namespace Cloudents.Query.Admin
                     payment.SpitballPayPerHour = payment.TutorPricePerHour - payment.StudentPayPerHour;
                 }
 
+                payment.CouponCode = couponResult.Code;
+                payment.CouponType = couponResult.CouponType;
+                payment.CouponValue = couponResult.Value;
+                payment.CouponTutor = couponResult.TutorId;
                 return payment;
 
             }
