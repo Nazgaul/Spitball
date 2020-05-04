@@ -359,10 +359,13 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpPut("email")]
-        public async Task<IActionResult> UpdateEmailAsync([FromBody]UpdateEmailRequest model, CancellationToken token)
+        public async Task<IActionResult> UpdateEmailAsync(
+            [FromBody]UpdateEmailRequest model,
+            CancellationToken token)
         {
             try
             {
+                
                 var command = new UpdateEmailCommand(model.UserId, model.Email);
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
