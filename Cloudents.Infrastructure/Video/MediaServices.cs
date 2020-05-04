@@ -22,7 +22,7 @@ namespace Cloudents.Infrastructure.Video
         // public const string JobLabelFullVideo = "video";
 
         private readonly AsyncLazy<AzureMediaServicesClient> _context;
-        private ConfigWrapper _config;
+        private ConfigWrapper _config = null!;
 
         public const string PrefixThumbnailBlobName = "Thumbnail";
 
@@ -36,37 +36,6 @@ namespace Cloudents.Infrastructure.Video
         private const string ThumbnailTransformer = "PreviewTransformer";
         private const string StreamingTransformer = "StreamingTransformer";
         private const string FullHdTransformer = "FullHdTransformer";
-
-        //public async Task CreateStudyRoomSessionEncoding(string sessionId, string url,
-        //    CancellationToken token)
-        //{
-        //    var thumbnailAsset = await CreateOutputAssetAsync(sessionId, AssetType.StudyRoom, token);
-        //    var jobInput =
-        //        new JobInputHttp(files: new[] { url });
-        //    JobOutput[] jobOutputs =
-        //    {
-        //        new JobOutputAsset(thumbnailAsset.Name, label: AssetType.StudyRoom.ToString())
-        //    };
-        //    var v = await _context;
-
-        //    try
-        //    {
-        //        await v.Jobs.CreateAsync(
-        //            _config.ResourceGroup,
-        //            _config.AccountName,
-        //            FullHdTransformer,
-        //            $"{sessionId} study room session",
-        //            new Job
-        //            {
-        //                Input = jobInput,
-        //                Outputs = jobOutputs,
-        //            }, token);
-        //    }
-        //    catch (ApiErrorException e) when (e.Response.StatusCode == HttpStatusCode.Conflict)
-        //    {
-        //        //Do nothing
-        //    }
-        //}
 
         private async Task<AzureMediaServicesClient> Init(bool isDevelop)
         {
