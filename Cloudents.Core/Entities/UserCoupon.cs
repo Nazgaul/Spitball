@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 
 namespace Cloudents.Core.Entities
 {
-    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor" , Justification = "Nhibernate")]
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode", Justification = "Nhibernate")]
     public class UserCoupon : Entity<Guid>
     {
@@ -23,16 +24,16 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate proxy")]
         protected UserCoupon()
         {
-
+            StudyRoomSessionUser = null;
         }
 
-        public virtual User User { get;protected set; }
+        public virtual User User { get; protected set; }
 
-        public virtual Coupon Coupon { get;protected set; }
+        public virtual Coupon Coupon { get; protected set; }
 
         public virtual Tutor Tutor { get; protected set; }
 
-        public virtual StudyRoomSessionUser StudyRoomSessionUser { get;protected set; }
+        public virtual StudyRoomSessionUser StudyRoomSessionUser { get; protected set; }
 
         public static readonly Expression<Func<UserCoupon, bool>> IsUsedExpression = x => x.UsedAmount < 1;
 
@@ -46,7 +47,7 @@ namespace Cloudents.Core.Entities
         //    get { return CalculateBalance(this); }
         //}
 
-        public virtual bool IsUsed()
+        public virtual bool IsNotUsed()
         {
             return IsUsedExpression.Compile()(this);
             //return IsUsedExpression(this);
@@ -61,13 +62,13 @@ namespace Cloudents.Core.Entities
 
         public virtual int UsedAmount { get; protected set; }
 
-        public virtual DateTime CreatedTime { get;protected set; }
+        public virtual DateTime CreatedTime { get; protected set; }
 
         protected bool Equals(UserCoupon other)
         {
-            return Equals(User.Id, other.User.Id) 
-                   && Equals(Tutor.Id, other.Tutor.Id) 
-                   && Equals(Coupon.Id,other.Coupon.Id);
+            return Equals(User.Id, other.User.Id)
+                   && Equals(Tutor.Id, other.Tutor.Id)
+                   && Equals(Coupon.Id, other.Coupon.Id);
         }
 
         public override bool Equals(object obj)
@@ -82,9 +83,9 @@ namespace Cloudents.Core.Entities
         {
             unchecked
             {
-               return  ((User != null ? User.Id.GetHashCode() : 0) * 397) ^
-                       (Tutor != null ? Tutor.Id.GetHashCode() : 0) ^
-                       ((Coupon != null ? Coupon.Id.GetHashCode() : 0) * 11);
+                return ((User != null ? User.Id.GetHashCode() : 0) * 397) ^
+                        (Tutor != null ? Tutor.Id.GetHashCode() : 0) ^
+                        ((Coupon != null ? Coupon.Id.GetHashCode() : 0) * 11);
             }
         }
 

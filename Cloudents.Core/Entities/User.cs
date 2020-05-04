@@ -97,7 +97,7 @@ namespace Cloudents.Core.Entities
         {
             if (coupon.CanApplyCoupon())
             {
-                var userCoupon = UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id && w.IsUsed());
+                var userCoupon = UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id && w.IsNotUsed());
                 if (userCoupon != null)
                 {
                     throw new DuplicateRowException();

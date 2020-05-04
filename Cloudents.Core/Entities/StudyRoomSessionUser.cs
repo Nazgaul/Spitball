@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
@@ -23,6 +25,7 @@ namespace Cloudents.Core.Entities
             UseCoupon();
             UsePaymentToken();
         }
+        [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]
         protected StudyRoomSessionUser()
         {
         }
@@ -30,11 +33,6 @@ namespace Cloudents.Core.Entities
 
 
         public virtual StudyRoomSession StudyRoomSession { get; protected set; }
-
-
-       
-    
-
 
         public virtual User User { get; protected set; }
 
@@ -63,7 +61,7 @@ namespace Cloudents.Core.Entities
             ApproveSession(duration);
         }
 
-        public virtual void ApproveSession(TimeSpan duration)
+        protected virtual void ApproveSession(TimeSpan duration)
         {
             TutorApproveTime = duration;
             TotalPrice = (decimal)TutorApproveTime.Value.TotalHours * PricePerHour;
@@ -103,11 +101,11 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public virtual void UseCoupon()
+        protected virtual void UseCoupon()
         {
-            var tutor = this.StudyRoomSession.StudyRoom.Tutor;
+            var tutor = StudyRoomSession.StudyRoom.Tutor;
             var userCoupon = User.UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id 
-                                                             && w.IsUsed());
+                                                             && w.IsNotUsed());
             if (userCoupon is null) // we do not check before if user have coupon on that user
             {
                 return;
@@ -143,15 +141,15 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public static bool operator ==(StudyRoomSessionUser left, StudyRoomSessionUser right)
-        {
-            return Equals(left, right);
-        }
+        //public static bool operator ==(StudyRoomSessionUser left, StudyRoomSessionUser right)
+        //{
+        //    return Equals(left, right);
+        //}
 
-        public static bool operator !=(StudyRoomSessionUser left, StudyRoomSessionUser right)
-        {
-            return !Equals(left, right);
-        }
+        //public static bool operator !=(StudyRoomSessionUser left, StudyRoomSessionUser right)
+        //{
+        //    return !Equals(left, right);
+        //}
 
      
     }
