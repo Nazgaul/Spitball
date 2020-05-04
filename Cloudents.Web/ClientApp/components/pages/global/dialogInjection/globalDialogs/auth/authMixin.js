@@ -149,7 +149,7 @@ export default {
             return false
         },
         needRedirect() {
-            let pathToRedirect = ['/','/learn','/register2'];
+            let pathToRedirect = ['/','/learn'];
             if (pathToRedirect.indexOf(this.$route.path) > -1) {
                 this.$router.push({name: this.routeNames.LoginRedirect})
                 return true
