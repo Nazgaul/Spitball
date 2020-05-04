@@ -16,14 +16,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             {
                 var configuration = new ConfigurationKeys()
                 {
-                    Db = new DbConnectionString(
-                        "Server=tcp:sb-dev.database.windows.net,1433;Initial Catalog=ZboxNew_Develop;Persist Security Info=False;User ID=sb-dev;Password=Pa$$W0rd123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
-                        null, DbConnectionString.DataBaseIntegration.Validate)
+                    //Db = new DbConnectionString(
+                    //    "Server=tcp:sb-dev.database.windows.net,1433;Initial Catalog=ZboxNew_Develop;Persist Security Info=False;User ID=sb-dev;Password=Pa$$W0rd123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+                    //    null, DbConnectionString.DataBaseIntegration.Validate)
 
                     //PROD
-                    //Db = new DbConnectionString(
-                    //"Server=tcp:on0rodxe8f.database.windows.net,1433;Initial Catalog=ZboxNew;Persist Security Info=False;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
-                    //null, DbConnectionString.DataBaseIntegration.Validate)
+                    Db = new DbConnectionString(
+                    "Server=tcp:on0rodxe8f.database.windows.net,1433;Initial Catalog=ZboxNew;Persist Security Info=False;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+                    null, DbConnectionString.DataBaseIntegration.Validate)
 
                 };
                 var moq = mock.Create<PublishEventsListener>();
