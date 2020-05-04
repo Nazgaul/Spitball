@@ -132,6 +132,9 @@
   <data name="boxs_top" xml:space="preserve">
     <value>Click anywhere to start drawing</value>
   </data>
+  <data name="chat" xml:space="preserve">
+    <value>Chat</value>
+  </data>
   <data name="created" xml:space="preserve">
     <value>Created on</value>
   </data>

@@ -6,6 +6,20 @@
 
    <div class="drawerContent flex-column d-flex justify-space-between align-center">
       <v-card v-if="isShowVideo" class="mt-2 d-flex flex-grow-0 flex-shrink-0 elevation-0" :color="'grey lighten-1'" height="210" width="276"></v-card>
+      <div class="drawerChatHeader mt-4">
+         <div class="headerTitle mb-5 text-truncate">{{$store.getters.getRoomName}}</div>
+         <div class="headerInfo d-flex justify-space-between mb-4">
+            <span>
+               <v-icon class="mr-1">sbf-message-icon</v-icon>
+               {{$t('studyRoom_chat')}}
+            </span>
+            <span v-if="$store.getters.getRoomIsBroadcast">
+              <v-icon size="16" color="#7a798c" class="pr-1">sbf-users</v-icon>
+              {{$store.getters.getRoomParticipantCount}}
+            </span>
+         </div>
+         <v-divider></v-divider>
+      </div>
       <v-sheet class="chatContainer d-flex flex-grow-1">
          <chat></chat>
       </v-sheet>
@@ -40,9 +54,32 @@ export default {
          right: 0 !important;
       }
       .drawerContent{
+         ::-webkit-scrollbar-track {
+               background: #f5f5f5; 
+         }
+         ::-webkit-scrollbar {
+               width: 10px;
+         }
+         ::-webkit-scrollbar-thumb {
+               background: #b5b8d9 !important;
+               border-radius: 4px !important;
+         }
          height: ~"calc(100vh - 68px)";
+         .drawerChatHeader{
+            width: 100%;
+            padding: 0 12px;
+            .headerTitle{
+               font-size: 14px;
+               font-weight: 600;
+               color: #43425d;
+            }
+            .headerInfo{
+               font-size: 14px;
+               font-weight: 600;
+               color: #665d81;
+            }
+         }
          .chatContainer{
-            // background: red;
             width: 100%;
             margin-top: 14px;
             overflow-y: hidden;
