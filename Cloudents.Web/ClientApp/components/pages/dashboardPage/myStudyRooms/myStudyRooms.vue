@@ -56,38 +56,63 @@
         <template v-if="item.lastSession">{{ $d(new Date(item.lastSession)) }}</template>
       </template>
       <template v-slot:item.action="{item}">
-        <v-btn
-          icon
-          v-if="item.showChat"
-          x-small
-          @click="sendMessage(item)"
-          :title="$t('schoolBlock_SendMessageTooltip')"
-          class="mr-5"
-        >
-          <iconChat />
-        </v-btn>
-        <v-tooltip :value="currentItemId === item.id" top transition="fade-transition" v-else>
-          <template v-slot:activator="{}">
-            <linkSVG
-              style="width:20px"
-              class="option link mr-4"
-              @click="copyLink(item)"
-            />
-          </template>
-          <span v-t="'shareContent_copy_tool'"></span>
-        </v-tooltip>
+        <div class="d-flex">
+            <v-btn
+              icon
+              v-if="item.showChat"
+              x-small
+              @click="sendMessage(item)"
+              :title="$t('schoolBlock_SendMessageTooltip')"
+              class="mr-5"
+            >
+              <iconChat />
+            </v-btn>
+            <v-tooltip :value="currentItemId === item.id" top transition="fade-transition" v-else>
+              <template v-slot:activator="{on}">
+                <linkSVG
+                  style="width:20px"
+                  v-on="on"
+                  class="option link mr-4"
+                  @click="copyLink(item)"
+                />
+              </template>
+              <span v-t="'shareContent_copy_tool'"></span>
+            </v-tooltip>
 
-        <v-btn
-          icon
-          x-small
-          @click="enterRoom(item.id)"
-          :title="$t('schoolBlock_EnterStudyRoomTooltip')"
-        >
-          <enterRoom />
-        </v-btn>
+            <v-btn
+              icon
+              x-small
+              @click="enterRoom(item.id)"
+              :title="$t('schoolBlock_EnterStudyRoomTooltip')"
+            >
+              <enterRoom />
+            </v-btn>
+
+            <v-spacer></v-spacer>
+            <v-menu bottom left v-model="showMenu">
+                <template v-slot:activator="{ on }">
+                    <div>
+                        <v-icon v-on="on" @click="openDeleteMenu(item.id)" slot="activator" small icon>sbf-3-dot</v-icon>
+                    </div>
+                </template>
+                <v-list v-if="menuShowId === item.id">
+                  <v-list-item @click="deleteSession(item.id)" v-t="'dashboardPage_link_delete'"></v-list-item>
+                </v-list>
+            </v-menu>
+        </div>
+
       </template>
       <slot slot="no-data" name="tableEmptyState" />
     </v-data-table>
+
+    <v-snackbar
+      v-model="snackbar.value"
+      @input="snackbar.value = false"
+      :timeout="5000"
+      top
+    >
+      <div class="text-center flex-grow-1" v-t="snackbar.text"></div>
+    </v-snackbar>
   </div>
 </template>
 
@@ -110,6 +135,13 @@ export default {
   },
   data() {
     return {
+      snackbar: {
+        value: false,
+        text: ''
+      },
+      snackTest: '',
+      showMenu: false,
+      menuShowId: null,
       currentItemId: null,
       createStudyRoomDialog: dialogNames.CreateStudyRoom,
       routeNames,
@@ -146,8 +178,26 @@ export default {
       "updateStudyRoomItems",
       "dashboard_sort",
       "openChatInterface",
-      "setActiveConversationObj"
+      "setActiveConversationObj",
+      "deleteStudyRoomSession"
     ]),
+    deleteSession(id) {
+      let self = this
+      this.deleteStudyRoomSession(id).then(() => {
+        let newItems = self.studyRoomItems.filter(item => item.id !== id)
+        self.$store.commit('setStudyRoomItems', newItems)
+        self.snackbar.text = 'dashboardPage_success_session_removed'
+      }).catch(() => {
+        self.snackbar.text = 'dashboardPage_error_session_removed'
+        self.snackbar.color = "error"
+      }).finally(() => {
+        self.snackbar.value = true;
+      })
+    },
+    openDeleteMenu(id) {
+      this.menuShowId = id
+      this.showMenu = true
+    },
     sendMessage(item) {
       let currentConversationObj = {
         userId: item.userId,

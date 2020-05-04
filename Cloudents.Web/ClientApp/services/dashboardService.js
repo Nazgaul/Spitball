@@ -193,6 +193,9 @@ function getSpitballBlogs(){
 function getMarketingBlogs() {
    return connectivityModule.http.get('/blog/marketing').then(createBlogs).catch(ex => ex);
 }
+function removeStudyRoomSession(id) {
+   return connectivityModule.http.delete(`/StudyRoom/${id}`);
+}
 
 
 export default {
@@ -205,5 +208,6 @@ export default {
    getFollowersItems,
    getTutorActions,
    getSpitballBlogs,
-   getMarketingBlogs
+   getMarketingBlogs,
+   removeStudyRoomSession
 }

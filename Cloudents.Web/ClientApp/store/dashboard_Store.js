@@ -143,6 +143,9 @@ const actions = {
    },
    updateSessionDuration(context, session) {
       return dashboardService.updateSessionDuration(session)
+   },
+   deleteStudyRoomSession(context, id) {
+      return dashboardService.removeStudyRoomSession(id)
    }
 };
 

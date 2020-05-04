@@ -5,7 +5,7 @@
          <div class="createStudyRoomDialog-title pb-4">{{$t('dashboardPage_create_room_title')}}</div>
          <v-form class="d-flex justify-space-between input-room-name" ref="createRoomValidation">
             <v-text-field :rules="[rules.required]" v-model="roomName" height="44" dense outlined :label="$t('dashboardPage_create_room_placeholder')" :placeholder="$t(roomNamePlaceholder)"/>
-            <v-text-field class="px-4" outlined  height="44" dense :rules="[rules.required,rules.integer,rules.minimum]"
+            <v-text-field class="px-4" outlined  height="44" dense :rules="[rules.required,rules.minimum]"
                v-model="price" type="number"
                :label="$t('becomeTutor_placeholder_price', {'0' : getSymbol})" :placeholder="$t('becomeTutor_placeholder_price', {'0' : getSymbol})">
             </v-text-field>
