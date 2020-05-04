@@ -398,34 +398,34 @@ watch: {
       }
       this.setStudyRoom(this.id);
     },
-    initMathjax(){
-      this.$loadScript("https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG")
-        .then(() => {
-          MathJax.Hub.Config({
-            showMathMenu: false,
-            SVG: {
-              useGlobalCache: false,
-              useFontCache: false
-            }
-          });
-          MathJax.AuthorInit = function(texstring, callback) {
-            var input = texstring;
-            var wrapper = document.createElement("div");
-            wrapper.innerHTML = input;
-            var output = { svg: "" };
-            MathJax.Hub.Queue(["Typeset", MathJax.Hub, wrapper]);
-            MathJax.Hub.Queue(function() {
-              var mjOut = wrapper.getElementsByTagName("svg")[0];
-              if (!mjOut) {
-                return null;
-              }
-              mjOut.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-              output.svg = mjOut.outerHTML;
-              callback(output);
-            });
-          };
-      });
-    },
+    // initMathjax(){ // added
+    //   this.$loadScript("https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG")
+    //     .then(() => {
+    //       MathJax.Hub.Config({
+    //         showMathMenu: false,
+    //         SVG: {
+    //           useGlobalCache: false,
+    //           useFontCache: false
+    //         }
+    //       });
+    //       MathJax.AuthorInit = function(texstring, callback) {
+    //         var input = texstring;
+    //         var wrapper = document.createElement("div");
+    //         wrapper.innerHTML = input;
+    //         var output = { svg: "" };
+    //         MathJax.Hub.Queue(["Typeset", MathJax.Hub, wrapper]);
+    //         MathJax.Hub.Queue(function() {
+    //           var mjOut = wrapper.getElementsByTagName("svg")[0];
+    //           if (!mjOut) {
+    //             return null;
+    //           }
+    //           mjOut.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    //           output.svg = mjOut.outerHTML;
+    //           callback(output);
+    //         });
+    //       };
+    //   });
+    // },
     openSettingsDialog(){
       this.$ga.event("tutoringRoom", "openSettingsDialog");
       this.settingDialogState = true;
@@ -489,7 +489,7 @@ watch: {
       }
     },
     setStudyRoom() {
-      this.initMathjax()
+      // this.initMathjax() // added
       let self = this;
       this.getChatById(this.$store.getters.getRoomConversationId).then(({ data }) => {
         insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_ChatById', data, null)
@@ -549,7 +549,7 @@ watch: {
     storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
   },
   async created() {
-    this.$store.commit('clearComponent')
+    // this.$store.commit('clearComponent') // added
     this.userId = this.accountUser?.id || 'GUEST';
 
     if (!studyroomSettingsUtils.isBrowserSupport()) {
@@ -579,7 +579,7 @@ watch: {
       }
     }else{
       //TODO - we need one place to invoke this.
-      this.initMathjax()
+      // this.initMathjax() //added
     }
 
     
