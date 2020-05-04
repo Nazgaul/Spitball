@@ -3,7 +3,7 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistence.Maps
 {
-    public class UserTokenMap : ClassMap<UserPayPalToken>
+    public class UserTokenMap : ClassMap<UserPaymentToken>
     {
         public UserTokenMap()
         {

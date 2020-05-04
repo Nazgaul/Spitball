@@ -20,9 +20,17 @@ namespace Cloudents.Core.Entities
         }
         protected StudyRoomSessionUser()
         {
+        }
+
+
+
+        public virtual StudyRoomSession StudyRoomSession { get; protected set; }
+
+
+        public virtual void UsePaymentToken()
+        {
 
         }
-        public virtual StudyRoomSession StudyRoomSession { get; protected set; }
 
 
         public virtual User User { get; protected set; }

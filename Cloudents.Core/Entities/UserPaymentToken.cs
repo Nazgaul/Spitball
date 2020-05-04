@@ -1,10 +1,11 @@
 ﻿using System;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Entities
 {
-    public class UserPayPalToken : Entity<Guid>
+    public class UserPaymentToken : Entity<Guid>
     {
-        public UserPayPalToken(string orderId, string authorizationId, decimal amount, StudyRoom studyRoom)
+        public UserPaymentToken(string orderId, string authorizationId, decimal amount, StudyRoom studyRoom)
         {
             //User = user;
             //TokenId = tokenId ?? throw new ArgumentNullException(nameof(tokenId));
@@ -13,17 +14,17 @@ namespace Cloudents.Core.Entities
             AuthorizationId = authorizationId ?? throw new ArgumentNullException(nameof(authorizationId));
 
             Created = Updated = DateTime.UtcNow;
-            State = UserTokenState.NotUsed;
+            State = PaymentTokenState.NotUsed;
             Amount = amount;
             StudyRoom = studyRoom;
         }
 
-        protected UserPayPalToken()
+        protected UserPaymentToken()
         { 
 
         }
 
-       // public virtual User User { get; protected set; }
+        // public virtual User User { get; protected set; }
         public virtual string OrderId { get; protected set; }
         public virtual string AuthorizationId { get; protected set; }
 
@@ -33,21 +34,14 @@ namespace Cloudents.Core.Entities
 
         public virtual StudyRoom StudyRoom { get; set; }
 
-        public virtual UserTokenState State { get; protected set; }
+        public virtual PaymentTokenState State { get; protected set; }
         public virtual DateTime Updated { get; set; }
 
         public virtual void ChangeToUsedState()
         {
-            State = UserTokenState.Used;
+            State = PaymentTokenState.Used;
             Updated = DateTime.UtcNow;
             
         }
-    }
-
-    public enum UserTokenState
-    {
-        NotUsed,
-       // Reserved,
-        Used
     }
 }

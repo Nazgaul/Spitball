@@ -209,12 +209,12 @@ namespace Cloudents.Core.Entities
         public virtual PaymentStatus PaymentExists { get; protected set; }
 
         // public virtual UserType? UserType2 { get; protected set; }
-        private readonly ICollection<UserPayPalToken> _userTokens = new List<UserPayPalToken>();
+        private readonly ICollection<UserPaymentToken> _userTokens = new List<UserPaymentToken>();
 
 
         public virtual DateTime? FinishRegistrationDate { get; set; }
 
-        public virtual IEnumerable<UserPayPalToken> UserTokens => _userTokens;
+        public virtual IEnumerable<UserPaymentToken> UserTokens => _userTokens;
 
         public virtual void CreditCardReceived()
         {
@@ -232,7 +232,7 @@ namespace Cloudents.Core.Entities
             }
 
             var userToken = UserTokens
-                .FirstOrDefault(w => w.State == UserTokenState.NotUsed && w.StudyRoom.Id == studyRoom.Id);
+                .FirstOrDefault(w => w.State == PaymentTokenState.NotUsed && w.StudyRoom.Id == studyRoom.Id);
             if (userToken != null)
             {
                 userToken.ChangeToUsedState();
@@ -251,7 +251,7 @@ namespace Cloudents.Core.Entities
             {
                 throw new ArgumentException("Only usa country can use paypal");
             }
-            _userTokens.Add(new UserPayPalToken(orderId, authorizationId, amount, studyRoom));
+            _userTokens.Add(new UserPaymentToken(orderId, authorizationId, amount, studyRoom));
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
 
