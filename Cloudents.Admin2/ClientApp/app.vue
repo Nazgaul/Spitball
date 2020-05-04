@@ -4,15 +4,17 @@
         <v-content fluid fill-height>
             <router-view class="router-view-wrap"></router-view>
         </v-content>
+        <componentInjection />
     </v-app>
 
 </template>
 
 <script>
     import navigation from "./components/navigation/navigation.vue"
+    import componentInjection from "./components/componentInjection/componentInjection.vue"
 
     export default {
-        components: { navigation }
+        components: { navigation, componentInjection }
     }
 </script>
 <style lang="less">

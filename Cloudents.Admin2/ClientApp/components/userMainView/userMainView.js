@@ -169,7 +169,12 @@ export default {
                     }
                 }, () => {
                     if(id > 0 || this.userIdentifier !== '') {
-                        self.$toaster.error(`Error can't find user with given identifier`);
+                        self.$store.commit('setSnackbar', {
+                            value: true,
+                            name: 'toasterError',
+                            params: `Error can't find user with given identifier`
+                        })
+                        // self.$toaster.error(`Error can't find user with given identifier`);
                     }
                 });
         },
