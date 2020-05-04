@@ -46,5 +46,18 @@ namespace Cloudents.Core.Test.Entities
             document.TimeStamp.CreationTime.Should().BeAfter(date);
         }
         
+
+        [Fact]
+        public void InitDocumentWithPrice_Ok_StateOk()
+        {
+            var course = new Course("Some name");
+            var mockUser = new Mock<User>();
+            // var user = new User("some email",)
+
+            var date = DateTime.UtcNow;
+            var document = new Document("some name", course, mockUser.Object, 10, DocumentType.Document, null);
+            document.Status.State.Should().Be(ItemState.Ok);
+            document.TimeStamp.CreationTime.Should().BeAfter(date);
+        }
     }
 }

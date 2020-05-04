@@ -1,12 +1,7 @@
-﻿using Cloudents.Core.Storage;
-using Microsoft.WindowsAzure.Storage;
+﻿using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Storage
 {
@@ -77,30 +72,30 @@ namespace Cloudents.Infrastructure.Storage
             //If we want to create new storage
         }
 
-        private static IEnumerable<QueueName> GetQueues()
-        {
-            foreach (var field in typeof(QueueName).GetFields(BindingFlags.Public | BindingFlags.Static))
-            {
-                if (field.IsLiteral)
-                {
-                    continue;
-                }
-                yield return (QueueName)field.GetValue(null);
-            }
-        }
+        //private static IEnumerable<QueueName> GetQueues()
+        //{
+        //    foreach (var field in typeof(QueueName).GetFields(BindingFlags.Public | BindingFlags.Static))
+        //    {
+        //        if (field.IsLiteral)
+        //        {
+        //            continue;
+        //        }
+        //        yield return (QueueName)field.GetValue(null);
+        //    }
+        //}
 
 
-        public static IEnumerable<StorageContainer> GetContainers()
-        {
-            // return Enum.GetValues(typeof(StorageContainer)).Cast<StorageContainer>();
-            foreach (var field in typeof(StorageContainer).GetFields(BindingFlags.Public | BindingFlags.Static))
-            {
-                if (field.IsLiteral)
-                {
-                    continue;
-                }
-                yield return (StorageContainer)field.GetValue(null);
-            }
-        }
+        //public static IEnumerable<StorageContainer> GetContainers()
+        //{
+        //    // return Enum.GetValues(typeof(StorageContainer)).Cast<StorageContainer>();
+        //    foreach (var field in typeof(StorageContainer).GetFields(BindingFlags.Public | BindingFlags.Static))
+        //    {
+        //        if (field.IsLiteral)
+        //        {
+        //            continue;
+        //        }
+        //        yield return (StorageContainer)field.GetValue(null);
+        //    }
+        //}
     }
 }
