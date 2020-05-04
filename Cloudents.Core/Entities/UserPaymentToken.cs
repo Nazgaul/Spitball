@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Entities
@@ -19,6 +20,7 @@ namespace Cloudents.Core.Entities
             StudyRoom = studyRoom;
         }
 
+        [SuppressMessage("ReSharper", "CS8618", Justification = "Nhiberate proxy")]
         protected UserPaymentToken()
         { 
 
@@ -33,15 +35,17 @@ namespace Cloudents.Core.Entities
         public virtual decimal Amount { get;  }
 
         public virtual StudyRoom StudyRoom { get; set; }
+        public virtual StudyRoomSessionUser? StudyRoomSessionUser { get; set; }
 
         public virtual PaymentTokenState State { get; protected set; }
         public virtual DateTime Updated { get; set; }
 
-        public virtual void ChangeToUsedState()
+        public virtual void ChangeToUsedState(StudyRoomSessionUser user)
         {
             State = PaymentTokenState.Used;
             Updated = DateTime.UtcNow;
-            
+            StudyRoomSessionUser = user;
+
         }
     }
 }

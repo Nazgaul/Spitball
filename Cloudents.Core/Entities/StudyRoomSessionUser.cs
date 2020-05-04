@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
 
 namespace Cloudents.Core.Entities
 {
@@ -17,6 +20,8 @@ namespace Cloudents.Core.Entities
                 PricePerHour = studyRoomSession.StudyRoom.Tutor.Price.GetPrice();
             }
 
+            UseCoupon();
+            UsePaymentToken();
         }
         protected StudyRoomSessionUser()
         {
@@ -27,10 +32,8 @@ namespace Cloudents.Core.Entities
         public virtual StudyRoomSession StudyRoomSession { get; protected set; }
 
 
-        public virtual void UsePaymentToken()
-        {
-
-        }
+       
+    
 
 
         public virtual User User { get; protected set; }
@@ -78,6 +81,40 @@ namespace Cloudents.Core.Entities
             Receipt = receipt;
             ApproveSession(duration);
             TotalPrice = price;
+
+            //Use Copuon
+        }
+
+        public virtual void UsePaymentToken()
+        {
+            if (User.SbCountry != Entities.Country.UnitedStates)
+            {
+                return;
+            }
+
+            if (PricePerHour == 0)
+            {
+                return;
+            }
+            var userToken = this.StudyRoomSession.StudyRoom.UserTokens.FirstOrDefault(w => w.State == PaymentTokenState.NotUsed);
+            if (userToken != null)
+            {
+                userToken.ChangeToUsedState(this);
+            }
+        }
+
+        public virtual void UseCoupon()
+        {
+            var tutor = this.StudyRoomSession.StudyRoom.Tutor;
+            var userCoupon = User.UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id 
+                                                             && w.IsUsed());
+            if (userCoupon is null) // we do not check before if user have coupon on that user
+            {
+                return;
+            }
+            userCoupon.UseCoupon(this);
+            //'userCoupon.UsedAmount++;
+            AddEvent(new UseCouponEvent(userCoupon));
         }
 
 

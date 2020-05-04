@@ -53,7 +53,7 @@ namespace ConsoleApp
                         SiteEndPoint = { SpitballSite = "https://dev.spitball.co", FunctionSite = "https://spitball-function.azureedge.net" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                             ConfigurationManager.AppSettings["Redis"],
-                            DbConnectionString.DataBaseIntegration.None),
+                            DbConnectionString.DataBaseIntegration.Update),
                         Search = new SearchServiceCredentials(
 
                             ConfigurationManager.AppSettings["AzureSearchServiceName"],
@@ -136,7 +136,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            //var unitOfWork = Container.Resolve<IUnitOfWork>();
+            var unitOfWork = Container.Resolve<IUnitOfWork>();
             var _commandBus = Container.Resolve<ICommandBus>();
             var command = new PaymentDeclineCommand(Guid.Parse("dce63420-8645-4b0b-842b-ab9900c1e5a6"), 482226);
             await _commandBus.DispatchAsync(command, default);

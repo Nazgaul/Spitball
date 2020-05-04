@@ -22,11 +22,11 @@ namespace Cloudents.Query.Session
         private long UserId { get; }
         private long TutorId { get; }
 
-        internal sealed class PaymentBySessionIdQueryHandler : IQueryHandler<SessionApprovalQuery, PaymentDetailDto?>
+        internal sealed class SessionApprovalQueryHandler : IQueryHandler<SessionApprovalQuery, PaymentDetailDto?>
         {
             private readonly IStatelessSession _stateless;
 
-            public PaymentBySessionIdQueryHandler(QuerySession querySession)
+            public SessionApprovalQueryHandler(QuerySession querySession)
             {
                 _stateless = querySession.StatelessSession;
             }
@@ -35,8 +35,8 @@ namespace Cloudents.Query.Session
             {
                 var couponFuture = _stateless.Query<UserCoupon>()
                      .Fetch(f => f.Coupon)
-                     .Where(w => w.User.Id == query.UserId && w.Tutor.Id == query.TutorId)
-                     .Where(w => w.UsedAmount < w.Coupon.AmountOfUsePerUser)
+                     .Where(w => w.SessionUser!.StudyRoomSession.Id == query.SessionId)
+                     //.Where(w => w.UsedAmount < w.Coupon.AmountOfUsePerUser)
                      .Select(s => new
                      {
                          s.Coupon.Code,
@@ -44,11 +44,11 @@ namespace Cloudents.Query.Session
                          s.Coupon.Value,
                          //s.Coupon.Id
                      })
-                     .Take(1)
+                     //.Take(1)
                      .ToFutureValue();
 
 
-               var studyRoomUserFuture =  _stateless.Query<StudyRoomSessionUser>()
+                var studyRoomUserFuture =  _stateless.Query<StudyRoomSessionUser>()
                     .Fetch(f => f.StudyRoomSession)
                     .Where(w => w.User.Id == query.UserId)
                     .Where(w => w.StudyRoomSession.Id == query.SessionId)

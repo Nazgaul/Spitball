@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq.Expressions;
 
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor" , Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode", Justification = "Nhibernate")]
-    public class UserCoupon
+    public class UserCoupon : Entity<Guid>
     {
         public UserCoupon(User user, Coupon coupon, Tutor tutor)
         {
@@ -24,16 +25,42 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public virtual Guid Id { get; set; }
-        public virtual User User { get; set; }
+        public virtual User User { get;protected set; }
 
-        public virtual Coupon Coupon { get; set; }
+        public virtual Coupon Coupon { get;protected set; }
 
-        public virtual Tutor Tutor { get; set; }
+        public virtual Tutor Tutor { get; protected set; }
 
-        public virtual int UsedAmount { get; set; }
+        public virtual StudyRoomSessionUser? SessionUser { get;protected set; }
 
-        public virtual DateTime CreatedTime { get; set; }
+        public static readonly Expression<Func<UserCoupon, bool>> IsUsedExpression = x => x.UsedAmount < 1;
+
+        //public static readonly Expression<Func<User, decimal>> CalculateBalanceExpression = x =>
+        //    x.Transactions.Count();
+
+        //private static readonly Func<User, decimal> CalculateBalance = CalculateBalanceExpression.Compile();
+
+        //public virtual decimal Fee
+        //{
+        //    get { return CalculateBalance(this); }
+        //}
+
+        public virtual bool IsUsed()
+        {
+            return IsUsedExpression.Compile()(this);
+            //return IsUsedExpression(this);
+            //return UsedAmount < 1;
+        }
+
+        public virtual void UseCoupon(StudyRoomSessionUser user)
+        {
+            SessionUser = user;
+            UsedAmount = 1;
+        }
+
+        public virtual int UsedAmount { get; protected set; }
+
+        public virtual DateTime CreatedTime { get;protected set; }
 
         protected bool Equals(UserCoupon other)
         {

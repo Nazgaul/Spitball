@@ -85,7 +85,7 @@ and (u.LockoutEnd is null or u.LockoutEnd < GetUtcDate())";
                 var couponQuery = _session.Query<UserCoupon>()
                       .Where(w => w.User.Id == query.UserId)
                       .Where(w => w.Tutor.Id == query.Id)
-                      .Where(w => w.UsedAmount < w.Coupon.AmountOfUsePerUser)
+                      .Where(UserCoupon.IsUsedExpression)
                       .Select(s => new CouponDto
                       {
                           Value = s.Coupon.Value,

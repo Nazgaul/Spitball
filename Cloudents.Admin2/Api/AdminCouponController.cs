@@ -42,11 +42,8 @@ namespace Cloudents.Admin2.Api
                     model.TutorId,
                     model.Value,
                     model.Expiration,
-                    model.Description,
-                    model.Owner,
-                    null,
-                    //model.Amount,
-                    1
+                    model.Description
+                   
                 );
                 await _commandBus.DispatchAsync(command, token);
             }
