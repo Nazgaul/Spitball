@@ -175,7 +175,7 @@ export default {
   mounted() {
     this.placeHoldersEmpty = ' '
     setTimeout(()=>{
-      this.dateFormatted = this.formatDate(new Date().toISOString().substr(0, 10))
+      this.dateFormatted = this.formatDate(new Date().FormatDateToString())
     })
   },
     beforeDestroy(){
