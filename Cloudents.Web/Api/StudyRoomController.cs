@@ -169,11 +169,10 @@ namespace Cloudents.Web.Api
         /// <returns></returns>
         [HttpPost("{id:guid}/enter")]
         public async Task<CreateStudyRoomSessionResponse> CreateStudyRoomSessionAsync([FromRoute] Guid id,
-            [FromServices] IWebHostEnvironment configuration,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new CreateStudyRoomSessionCommand(id, configuration.IsProduction(), userId);
+            var command = new CreateStudyRoomSessionCommand(id, userId);
             var result = await _commandBus.DispatchAsync<CreateStudyRoomSessionCommand, CreateStudyRoomSessionCommandResult>(command, token);
             return new CreateStudyRoomSessionResponse(result.JwtToken);
 

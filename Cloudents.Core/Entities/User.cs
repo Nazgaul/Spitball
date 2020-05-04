@@ -80,22 +80,24 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public virtual void UseCoupon(Tutor tutor)
-        {
-            var userCoupon = UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id && w.UsedAmount < w.Coupon.AmountOfUsePerUser);
-            if (userCoupon is null) // we do not check before if user have coupon on that user
-            {
-                return;
-            }
-            userCoupon.UsedAmount++;
-            AddEvent(new UseCouponEvent(userCoupon));
-        }
+        //public virtual void UseCoupon(Tutor tutor)
+        //{
+        //    var userCoupon = UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id 
+        //                                            && w.UsedAmount < w.Coupon.AmountOfUsePerUser);
+        //    if (userCoupon is null) // we do not check before if user have coupon on that user
+        //    {
+        //        return;
+        //    }
+        //    userCoupon.UsedAmount++;
+        //    AddEvent(new UseCouponEvent(userCoupon));
+        //}
+
 
         public virtual void ApplyCoupon(Coupon coupon, Tutor tutor)
         {
             if (coupon.CanApplyCoupon())
             {
-                var userCoupon = UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id && w.UsedAmount < w.Coupon.AmountOfUsePerUser);
+                var userCoupon = UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id && w.IsNotUsed());
                 if (userCoupon != null)
                 {
                     throw new DuplicateRowException();
@@ -106,21 +108,9 @@ namespace Cloudents.Core.Entities
                     throw new DuplicateRowException();
                 }
                 AddEvent(new ApplyCouponEvent(p));
-                //{
-                //    _userCoupon.Remove(p);
-                //    _userCoupon.Add(p);
-                //}
+               
 
             }
-            //if (coupon.Expiration.GetValueOrDefault(DateTime.MaxValue) < DateTime.UtcNow)
-            //{
-            //    throw new ArgumentException("invalid coupon");
-            //}
-
-            //if (AmountOfUsers.HasValue && AmountOfUsers.Value <= _userCoupon.Count)
-            //{
-            //    throw new OverflowException();
-            //}
 
         }
 
@@ -209,12 +199,12 @@ namespace Cloudents.Core.Entities
         public virtual PaymentStatus PaymentExists { get; protected set; }
 
         // public virtual UserType? UserType2 { get; protected set; }
-        private readonly ICollection<UserPayPalToken> _userTokens = new List<UserPayPalToken>();
+        private readonly ICollection<UserPaymentToken> _userTokens = new List<UserPaymentToken>();
+        public virtual IEnumerable<UserPaymentToken> UserTokens => _userTokens;
 
 
         public virtual DateTime? FinishRegistrationDate { get; set; }
 
-        public virtual IEnumerable<UserPayPalToken> UserTokens => _userTokens;
 
         public virtual void CreditCardReceived()
         {
@@ -222,26 +212,26 @@ namespace Cloudents.Core.Entities
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
 
-        public virtual void UseToken(StudyRoom studyRoom)
-        {
+        //public virtual void UseToken(StudyRoom studyRoom)
+        //{
 
 
-            if (SbCountry != Entities.Country.UnitedStates)
-            {
-                return;
-            }
+        //    if (SbCountry != Entities.Country.UnitedStates)
+        //    {
+        //        return;
+        //    }
 
-            var userToken = UserTokens
-                .FirstOrDefault(w => w.State == UserTokenState.NotUsed && w.StudyRoom.Id == studyRoom.Id);
-            if (userToken != null)
-            {
-                userToken.ChangeToUsedState();
-            }
+        //    var userToken = UserTokens
+        //        .FirstOrDefault(w => w.State == PaymentTokenState.NotUsed && w.StudyRoom.Id == studyRoom.Id);
+        //    if (userToken != null)
+        //    {
+        //        userToken.ChangeToUsedState();
+        //    }
 
-            UseCoupon(studyRoom.Tutor);
-        }
+        //    UseCoupon(studyRoom.Tutor);
+        //}
 
-        public virtual void AddToken(string orderId, string authorizationId, decimal amount, StudyRoom studyRoom)
+        public virtual void AddPaymentToken(string orderId, string authorizationId, decimal amount, StudyRoom studyRoom)
         {
             if (orderId == null) throw new ArgumentNullException(nameof(orderId));
             if (authorizationId == null) throw new ArgumentNullException(nameof(authorizationId));
@@ -251,7 +241,7 @@ namespace Cloudents.Core.Entities
             {
                 throw new ArgumentException("Only usa country can use paypal");
             }
-            _userTokens.Add(new UserPayPalToken(orderId, authorizationId, amount, studyRoom));
+            _userTokens.Add(new UserPaymentToken(orderId, authorizationId, amount, studyRoom));
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
 

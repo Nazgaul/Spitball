@@ -32,12 +32,12 @@ namespace Cloudents.Query.Users
 
                 return await _session.Query<Coupon>()
                     .WithOptions(w => w.SetComment(nameof(UserCouponsQuery)))
-                    .Where(w => w.Tutor.Id == query.UserId)
+                    .Where(w => w.Tutor!.Id == query.UserId)
                     .Select(s => new CouponDto()
                     {
                         Code = s.Code,
                         CouponType = s.CouponType,
-                        AmountOfUsers = _session.Query<UserCoupon>().Where(w => w.Coupon.Id == s.Id).Count(),
+                        AmountOfUsers = _session.Query<UserCoupon>().Count(w => w.Coupon.Id == s.Id),
                         CreateTime = s.CreateTime,
                         Expiration = s.Expiration,
                         Value = s.Value

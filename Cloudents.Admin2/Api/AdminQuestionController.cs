@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Admin2.Api
 {
@@ -37,8 +38,8 @@ namespace Cloudents.Admin2.Api
         [HttpPost]
         public async Task<ActionResult> CreateQuestionAsync([FromBody]CreateQuestionRequest model, CancellationToken token)
         {
-
-            var command = new CreateQuestionCommand(model.Course,  model.Text, model.Country.ToString("G"));
+            var country = Country.FromCountry(model.Country);
+            var command = new CreateQuestionCommand(model.Course,  model.Text, country.Name);
             await _commandBus.Value.DispatchAsync(command, token);
             return Ok();
         }
