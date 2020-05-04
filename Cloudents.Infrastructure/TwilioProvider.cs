@@ -264,7 +264,12 @@ namespace Cloudents.Infrastructure
         public static (long userId, string name) ParseIdentity(string identity)
         {
             var userIdStr = identity.Split("_");
-            return (long.Parse(userIdStr[0]), userIdStr[1]);
+            if (userIdStr.Length == 2)
+            {
+                return (long.Parse(userIdStr[0]), userIdStr[1]);
+            }
+
+            return (long.Parse(userIdStr[0]), null);
         }
 
         public async Task<IEnumerable<(long identity, TimeSpan duration)>> GetRoomParticipantInfoAsync(string sessionId)
