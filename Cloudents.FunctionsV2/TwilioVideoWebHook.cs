@@ -120,7 +120,8 @@ namespace Cloudents.FunctionsV2
 
                 if (!string.IsNullOrEmpty(form["ParticipantIdentity"]))
                 {
-                    UserId = long.Parse(form["ParticipantIdentity"]);
+                    var userIdStr = form["ParticipantIdentity"].ToString().Split("_")[0];
+                    UserId = long.Parse(userIdStr);
                 }
 
                 //if (!string.IsNullOrEmpty(form["RoomDuration"]))
