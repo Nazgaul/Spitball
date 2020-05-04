@@ -87,6 +87,15 @@ namespace Cloudents.Web.Api
             }
         }
 
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteStudyRoomAsync(Guid id, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new DeleteStudyRoomCommand(id, userId);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
         /// <summary>
         /// Get Study Room data and sessionId if opened
         /// </summary>
