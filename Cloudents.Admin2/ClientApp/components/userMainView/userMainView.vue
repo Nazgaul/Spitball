@@ -54,6 +54,10 @@
                                         <span>Edit</span>
                                     </v-tooltip>
                                     <v-tooltip top> 
+                                        <v-btn slot="activator" class="ma-0" icon small @click="openEmailDialog(userInfo.email.value)" v-if="infoItem.label == 'User Email'"><v-icon>edit</v-icon></v-btn>
+                                        <span>Edit</span>
+                                    </v-tooltip>
+                                    <v-tooltip top> 
                                         <v-btn slot="activator" class="ma-0" icon small @click="openPhoneDialog(userInfo.phoneNumber.value)" v-if="infoItem.label == 'Phone Number'"><v-icon>edit</v-icon></v-btn>
                                         <span>Edit</span>
                                     </v-tooltip>
@@ -202,6 +206,32 @@
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="blue darken-1" flat @click="dialogs.name = false">Close</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+        <v-dialog v-model="dialogs.email" persistent max-width="600px" lazy v-if="dialogs.email">
+            <v-card>
+                <v-card-title>
+                    <span class="headline">Edit email</span>
+                </v-card-title>
+                <v-card-text>
+                    <span class = "subheading">Please insert a valid email</span>
+                    <v-container grid-list-md>
+                        <v-layout wrap>
+                            <v-flex xs12 sm12 md12>
+                                <v-text-field
+                                    v-model="newEmail"
+                                    label="Email"
+                                    :placeholder="currentEmail"
+                                ></v-text-field>
+                                <v-btn @click="editEmail()">Send</v-btn>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" flat @click="dialogs.email = false">Close</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>

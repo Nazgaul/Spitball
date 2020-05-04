@@ -342,6 +342,11 @@ export default {
     updateUserName: ({ userId, firstName, lastName }) => {
         return connectivityModule.http.put(`AdminUser/name`, {userId, firstName, lastName});
     },
+    updateUserEmail: (payload) => {
+        let path = `AdminUser/email`;
+        let uri = apiAddress + path;
+        return axios.put(uri, payload);
+    },
     updateUserPhone: ({ userId, newPhone }) => {
         let path = `AdminUser/phone`;
         let uri = apiAddress + path;

@@ -386,6 +386,11 @@ const actions = {
             return false;
         });
     },
+    updateUserEmail({dispatch }, payload) {
+        return userMainService.updateUserEmail(payload).then(() => {
+            return dispatch('getUserData', payload.userId);
+        });
+    },
     updateUserPhone({dispatch }, payload) {
         return userMainService.updateUserPhone(payload).then(() => {
             return dispatch('getUserData', payload.userId);
