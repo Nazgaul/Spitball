@@ -146,7 +146,7 @@
     <comment>צריך להיות התחבר</comment>
   </data>
   <data name="logout" xml:space="preserve">
-    <value>התנתק מהמערכת</value>
+    <value>התנתקות</value>
   </data>
   <data name="my_purchases" xml:space="preserve">
     <value>הרכישות שלי</value>
