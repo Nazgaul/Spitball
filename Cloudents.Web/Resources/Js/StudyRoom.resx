@@ -138,6 +138,24 @@
   <data name="equation_btn" xml:space="preserve">
     <value>Add equation to the board</value>
   </data>
+  <data name="live" xml:space="preserve">
+    <value>Live</value>
+  </data>
+  <data name="nav_class" xml:space="preserve">
+    <value>Class</value>
+  </data>
+  <data name="nav_code" xml:space="preserve">
+    <value>Code Editor</value>
+  </data>
+  <data name="nav_screen" xml:space="preserve">
+    <value>Share Screen</value>
+  </data>
+  <data name="nav_text" xml:space="preserve">
+    <value>Text Editor</value>
+  </data>
+  <data name="nav_whiteboard" xml:space="preserve">
+    <value>Whiteboard</value>
+  </data>
   <data name="not_browser" xml:space="preserve">
     <value>Browser not supported</value>
   </data>

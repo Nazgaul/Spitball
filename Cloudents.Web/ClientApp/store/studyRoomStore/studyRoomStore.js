@@ -18,6 +18,8 @@ const ROOM_MODE = {
    WHITE_BOARD: 'white-board',
    TEXT_EDITOR: 'shared-document',
    CODE_EDITOR: 'code-editor',
+   SCREEN_MODE: 'screen-mode',
+   CLASS_MODE: 'class-mode',
 }
 
 const state = {
