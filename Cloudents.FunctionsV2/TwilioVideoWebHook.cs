@@ -56,11 +56,7 @@ namespace Cloudents.FunctionsV2
                 var command = new EndStudyRoomSessionTwilioCommand(roomId, request.SessionId);
                 await commandBus.DispatchAsync(command, token);
             }
-            if (request.StatusCallbackEvent.Equals("participant-connected", StringComparison.OrdinalIgnoreCase))
-            {
-                // var command = new StudyRoomSessionParticipantReconnectedCommand(id);
-                // await _commandBus.DispatchAsync(command, token);
-            }
+         
             if (request.StatusCallbackEvent.Equals("participant-connected", StringComparison.OrdinalIgnoreCase))
             {
                 var command = new StudyRoomSessionUserConnectedCommand(roomId, request.SessionId, request.UserId);

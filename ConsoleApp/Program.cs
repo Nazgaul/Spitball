@@ -20,7 +20,10 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
+using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
+using Cloudents.Query;
+using Cloudents.Query.Users;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 
@@ -53,7 +56,7 @@ namespace ConsoleApp
                         SiteEndPoint = { SpitballSite = "https://dev.spitball.co", FunctionSite = "https://spitball-function.azureedge.net" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                             ConfigurationManager.AppSettings["Redis"],
-                            DbConnectionString.DataBaseIntegration.Update),
+                            DbConnectionString.DataBaseIntegration.None),
                         Search = new SearchServiceCredentials(
 
                             ConfigurationManager.AppSettings["AzureSearchServiceName"],
