@@ -35,7 +35,7 @@ namespace Cloudents.Query.Session
             {
                 var couponFuture = _stateless.Query<UserCoupon>()
                      .Fetch(f => f.Coupon)
-                     .Where(w => w.SessionUser!.StudyRoomSession.Id == query.SessionId)
+                     .Where(w => w.StudyRoomSessionUser!.StudyRoomSession.Id == query.SessionId)
                      //.Where(w => w.UsedAmount < w.Coupon.AmountOfUsePerUser)
                      .Select(s => new
                      {

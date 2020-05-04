@@ -75,25 +75,10 @@ namespace Cloudents.FunctionsV2
                 await commandBus.DispatchAsync(command, token);
 
             }
-            //else if (request.StatusCallbackEvent.Equals("participant-connected", StringComparison.OrdinalIgnoreCase))
-            //{
-            //    var command = new StudyRoomSessionParticipantReconnectedCommand(id);
-            //    await _commandBus.DispatchAsync(command, token);
-            //}
 
             return new OkResult();
 
-            //string name = req.Query["name"];
-
-            //string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            //dynamic data = JsonConvert.DeserializeObject(requestBody);
-            //name = name ?? data?.name;
-
-            //string responseMessage = string.IsNullOrEmpty(name)
-            //    ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-            //    : $"Hello, {name}. This HTTP triggered function executed successfully.";
-
-            //return new OkObjectResult(responseMessage);
+           
         }
 
 

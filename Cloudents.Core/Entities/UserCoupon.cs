@@ -20,6 +20,7 @@ namespace Cloudents.Core.Entities
             CreatedTime = DateTime.UtcNow;
         }
 
+        [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate proxy")]
         protected UserCoupon()
         {
 
@@ -31,7 +32,7 @@ namespace Cloudents.Core.Entities
 
         public virtual Tutor Tutor { get; protected set; }
 
-        public virtual StudyRoomSessionUser? SessionUser { get;protected set; }
+        public virtual StudyRoomSessionUser StudyRoomSessionUser { get;protected set; }
 
         public static readonly Expression<Func<UserCoupon, bool>> IsUsedExpression = x => x.UsedAmount < 1;
 
@@ -54,7 +55,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void UseCoupon(StudyRoomSessionUser user)
         {
-            SessionUser = user;
+            StudyRoomSessionUser = user;
             UsedAmount = 1;
         }
 

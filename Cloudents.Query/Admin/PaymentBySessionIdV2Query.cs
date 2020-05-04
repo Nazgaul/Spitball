@@ -41,7 +41,7 @@ namespace Cloudents.Query.Admin
                     .Fetch(f => f.Coupon)
                     //.Where(w => w.User.Id == query.UserId && w.Tutor.Id == query.TutorId)
                     //.Where(w => w.UsedAmount < w.Coupon.AmountOfUsePerUser)
-                    .Where(w => w.SessionUser!.StudyRoomSession.Id == query.SessionId)
+                    .Where(w => w.StudyRoomSessionUser!.StudyRoomSession.Id == query.SessionId)
                     .Select(s => new CouponClass
                     {
                         Value = s.Coupon.Value,

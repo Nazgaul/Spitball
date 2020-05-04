@@ -32,7 +32,7 @@ namespace Cloudents.Persistence.Maps
             References(x => x.User).Not.Nullable();
             References(x => x.Coupon).Not.Nullable();
             References(x => x.Tutor).Not.Nullable();
-            References(x => x.SessionUser).Nullable();
+            References(x => x.StudyRoomSessionUser).Column("SessionUserId").Nullable();
             Map(x => x.UsedAmount);
             Map(x => x.CreatedTime);
         }

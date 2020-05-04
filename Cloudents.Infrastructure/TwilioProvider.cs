@@ -267,6 +267,18 @@ namespace Cloudents.Infrastructure
             return (long.Parse(userIdStr[0]), userIdStr[1]);
         }
 
+        public async Task<IEnumerable<(long identity, TimeSpan duration)>> GetRoomParticipantInfoAsync(string sessionId)
+        {
+            var rooms = await RoomResource.ReadAsync(
+                status: RoomResource.RoomStatusEnum.Completed,
+                uniqueName: sessionId);
+            var room = rooms.First();
+            var participantResources = await ParticipantResource.ReadAsync(room.Sid);
+            return participantResources.Select(s =>
+                (ParseIdentity(s.Identity).userId, TimeSpan.FromSeconds(s.Duration.Value)));
+
+        }
+
 
         public async Task ComposeVideo(string roomId)
         {
