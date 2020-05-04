@@ -105,7 +105,7 @@ export default {
       snackbar:false,
       placeHoldersEmpty:'',
       datePickerMenu:false,
-      date: new Date().toISOString().substr(0, 10),
+      date: new Date().FormatDateToString(),
       dateFormatted: '',
       couponErr:'',
       isRtl: global.isRtl,

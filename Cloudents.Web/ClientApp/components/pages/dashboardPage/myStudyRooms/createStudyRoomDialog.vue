@@ -154,7 +154,7 @@ export default {
    name:'createStudyRoom',
    data() {
       return {
-         date: new Date().toISOString().substr(0, 10),
+         date: new Date().FormatDateToString(),
          time: '',
          hour: '00',
          minutes: '00',
