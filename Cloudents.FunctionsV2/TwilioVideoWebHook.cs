@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.StudyRooms;
+using Cloudents.Infrastructure;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -116,8 +117,8 @@ namespace Cloudents.FunctionsV2
 
                 if (!string.IsNullOrEmpty(form["ParticipantIdentity"]))
                 {
-                    var userIdStr = form["ParticipantIdentity"].ToString().Split("_")[0];
-                    UserId = long.Parse(userIdStr);
+                    var (userId, name) = TwilioProvider.ParseIdentity(form["ParticipantIdentity"]);
+                    UserId = userId;
                 }
 
                 //if (!string.IsNullOrEmpty(form["RoomDuration"]))
