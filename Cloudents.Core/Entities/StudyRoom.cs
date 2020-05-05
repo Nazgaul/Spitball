@@ -103,6 +103,7 @@ namespace Cloudents.Core.Entities
 
         public virtual DateTime? BroadcastTime { get; protected set; }
 
+        [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")] 
         private readonly ICollection<UserPaymentToken> _userTokens = new List<UserPaymentToken>();
         public virtual IEnumerable<UserPaymentToken> UserTokens => _userTokens;
 
