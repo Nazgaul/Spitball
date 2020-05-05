@@ -59,6 +59,9 @@ namespace Cloudents.Core.DTOs
 
         public StudyRoomType Type { get; set; }
 
+        public int AmountOfUsers { get; set; }
+        public DateTime? Scheduled { get; set; }
+
     }
 
     public class FutureBroadcastStudyRoomDto
