@@ -59,11 +59,26 @@
                   :user-name="item.name" >
                </user-avatar>
       </template>-->
-      <template v-slot:item.name="{item}">{{item.name}}</template>
       <template v-slot:item.date="{item}">{{ $d(new Date(item.date)) }}</template>
+
+      <template v-slot:item.name="{item}">{{item.name}}</template>
+
+      <template v-slot:item.type="{item}">
+        <div class="sessionType" :class="{'private': item.type === 'Private'}">{{item.type}}</div>
+      </template>
+
+      <template v-slot:item.scheduled="{item}">
+        <div v-if="item.scheduled">{{ $d(new Date(item.scheduled)) }}</div>
+      </template>
+
+      <template v-slot:item.students="{item}">
+        <div class="amountStudents white--text" v-if="item.students">{{item.students}}</div>
+      </template>
+
       <template v-slot:item.lastSession="{item}">
         <template v-if="item.lastSession">{{ $d(new Date(item.lastSession)) }}</template>
       </template>
+      
       <template v-slot:item.action="{item}">
 
         <div class="d-flex align-center justify-center">
@@ -79,7 +94,7 @@
               <div v-t="'schoolBlock_SendMessageTooltip'"></div>
             </div>
 
-            <div v-else class="mr-9">
+            <div v-else class="mr-5 flex-grow-1">
               <v-tooltip :value="currentItemId === item.id" top transition="fade-transition">
                 <template v-slot:activator="{on}">
                   <linkSVG
@@ -106,8 +121,8 @@
 
             <v-menu bottom left v-model="showMenu">
                 <template v-slot:activator="{ on }">
-                    <div v-if="isTutor && item.type === 'Broadcast'">
-                        <v-icon v-on="on" @click="openDeleteMenu(item.id)" slot="activator" small icon>sbf-3-dot</v-icon>
+                    <div class="mr-2 pb-5" v-if="isTutor && item.type === 'Broadcast'">
+                        <v-icon color="#bbb" v-on="on" @click="openDeleteMenu(item.id)" slot="activator" small icon>sbf-3-dot</v-icon>
                     </div>
                 </template>
                 <v-list v-if="menuShowId === item.id">
@@ -166,8 +181,11 @@ export default {
       },
       headers: [
         //  this.dictionary.headers['preview'],
-        this.dictionary.headers["name"],
         this.dictionary.headers["created"],
+        this.dictionary.headers["name"],
+        this.dictionary.headers["type"],
+        this.dictionary.headers["scheduled"],
+        this.dictionary.headers["students"],
         this.dictionary.headers["last_date"],
         this.dictionary.headers["action"]
       ]
@@ -300,6 +318,31 @@ export default {
         color: #5360FC;
       }
     }
+  }
+  .sessionType {
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      background: #68D568;
+      width: 12px;
+      height: 12px;
+      top: 2px;
+      left: -20px;
+      border-radius: 50%;
+    }
+    &.private {
+      &::before {
+        content: '';
+        background: #BFE4FF;
+      }
+    }
+  }
+  .amountStudents {
+    background: #0294FF;
+    border-radius: 12px;
+    display: inline-block;
+    padding: 8px 20px;
   }
   tr {
     height: 54px;

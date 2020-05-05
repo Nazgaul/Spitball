@@ -54,6 +54,8 @@ export default {
                'last_date': {text: LanguageService.getValueByKey('dashboardPage_last_date'), align:'left', sortable: true, value:'lastSession'},
                'joined': {text: LanguageService.getValueByKey('dashboardPage_joined'), align:'left', sortable: true, value:'date'},
                'name': {text: LanguageService.getValueByKey('dashboardPage_name'), align:'left', sortable: true, value:'name'},
+               'students': {text: LanguageService.getValueByKey('dashboardPage_students'), align:'left', sortable: true, value:'students'},
+               'scheduled': {text: LanguageService.getValueByKey('dashboardPage_scheduled'), align:'left', sortable: true, value:'scheduled'},
             }
          },
       }
