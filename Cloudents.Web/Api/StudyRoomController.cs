@@ -12,7 +12,6 @@ using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +21,6 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
@@ -90,10 +88,23 @@ namespace Cloudents.Web.Api
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteStudyRoomAsync(Guid id, CancellationToken token)
         {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new DeleteStudyRoomCommand(id, userId);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
+            try
+            {
+                var userId = _userManager.GetLongUserId(User);
+                var command = new DeleteStudyRoomCommand(id, userId);
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch (UnauthorizedAccessException)
+            {
+                ModelState.AddModelError("error", "Only tutor can delete");
+                return BadRequest(ModelState);
+            }
+            catch (ArgumentException)
+            {
+                ModelState.AddModelError("error", "Study room with session");
+                return BadRequest(ModelState);
+            }
         }
 
         /// <summary>
@@ -107,7 +118,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        
+
 
         public async Task<ActionResult<StudyRoomDto>> GetStudyRoomAsync(Guid id,
             [FromServices] IUrlBuilder urlBuilder, CancellationToken token)
@@ -252,7 +263,7 @@ namespace Cloudents.Web.Api
                 {
                     model.Review = _localizer[$"Review-{i}"].Value;
                 }
-                
+
             }
 
 

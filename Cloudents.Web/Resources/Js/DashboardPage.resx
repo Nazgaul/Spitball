@@ -177,6 +177,9 @@
   <data name="enter_room" xml:space="preserve">
     <value>Enter the room</value>
   </data>
+  <data name="error_session_removed" xml:space="preserve">
+    <value>An error occured</value>
+  </data>
   <data name="info" xml:space="preserve">
     <value>Product
 </value>
@@ -234,6 +237,9 @@
   </data>
   <data name="my_sales_title" xml:space="preserve">
     <value>My Sales</value>
+  </data>
+  <data name="my_studyrooms_create_live" xml:space="preserve">
+    <value>Create Live Broadcast</value>
   </data>
   <data name="my_studyrooms_create_room" xml:space="preserve">
     <value>Create Study Room</value>
