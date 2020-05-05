@@ -132,6 +132,12 @@
   <data name="course" xml:space="preserve">
     <value>Course:</value>
   </data>
+  <data name="create_broadcast" xml:space="preserve">
+    <value>Create Live Session</value>
+  </data>
+  <data name="create_private" xml:space="preserve">
+    <value>Create</value>
+  </data>
   <data name="create_room_created_error" xml:space="preserve">
     <value>This study room already exists</value>
   </data>
@@ -193,6 +199,9 @@
   <data name="info_buy_points" xml:space="preserve">
     <value>Points purchase</value>
   </data>
+  <data name="invite_students" xml:space="preserve">
+    <value>Invite students to the room</value>
+  </data>
   <data name="joined" xml:space="preserve">
     <value>Joined</value>
   </data>
@@ -216,6 +225,9 @@
   </data>
   <data name="link_delete" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="link_share" xml:space="preserve">
+    <value>Share</value>
   </data>
   <data name="link_studyroom" xml:space="preserve">
     <value>Test study room</value>
@@ -296,6 +308,9 @@
   <data name="room_name" xml:space="preserve">
     <value>Room name:</value>
   </data>
+  <data name="scheduled" xml:space="preserve">
+    <value>Scheduled</value>
+  </data>
   <data name="send_email" xml:space="preserve">
     <value>send email</value>
   </data>
@@ -310,6 +325,9 @@
   </data>
   <data name="status" xml:space="preserve">
     <value>Status</value>
+  </data>
+  <data name="students" xml:space="preserve">
+    <value>Students</value>
   </data>
   <data name="student_tutor" xml:space="preserve">
     <value>Student / tutor</value>

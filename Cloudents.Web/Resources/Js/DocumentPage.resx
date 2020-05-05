@@ -177,10 +177,4 @@
   <data name="description" xml:space="preserve">
     <value>Description</value>
   </data>
-  <data name="scheduled" xml:space="preserve">
-    <value>Scheduled</value>
-  </data>
-  <data name="students" xml:space="preserve">
-    <value>Students</value>
-  </data>
 </root>
