@@ -147,11 +147,17 @@
   <data name="create_room_label_broadcast" xml:space="preserve">
     <value>Room's name</value>
   </data>
+  <data name="create_room_live_title" xml:space="preserve">
+    <value>Create New Live Session</value>
+  </data>
   <data name="create_room_max_error" xml:space="preserve">
     <value>Maximum 4 students on a study room</value>
   </data>
   <data name="create_room_placeholder" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="create_room_private_title" xml:space="preserve">
+    <value>Create New Study Room</value>
   </data>
   <data name="create_room_title" xml:space="preserve">
     <value>Create a new study room</value>
