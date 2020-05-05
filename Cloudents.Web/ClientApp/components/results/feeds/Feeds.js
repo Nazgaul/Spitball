@@ -8,7 +8,6 @@ import resultNote from "../ResultNote.vue";
 import suggestCard from '../suggestCard.vue';
 import emptyStateCard from '../emptyStateCard/emptyStateCard.vue';
 import { mapActions, mapGetters } from 'vuex';
-import resultFilter from '../helpers/resultFilter/resultFilter.vue';
 import requestBox from '../../pages/feedPage/components/requestActions/requestActions.vue';
 // import coursesTab from "../../pages/feedPage/components/coursesTab/coursesTab.vue";
 import generalPage from '../../helpers/generalPage.vue';
@@ -32,7 +31,6 @@ export default {
         tutorResultCard,
         SuggestCard: suggestCard,
         emptyState,
-        resultFilter,
         emptyStateCard,
         requestBox,
         // coursesTab,
