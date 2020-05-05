@@ -2,7 +2,7 @@
    <v-dialog :value="true" persistent max-width="640px" :fullscreen="$vuetify.breakpoint.xsOnly">
       <div class="createStudyRoomDialog">
          <v-icon class="close-dialog" v-text="'sbf-close'" @click="$store.commit('setComponent')" />
-         <div class="createStudyRoomDialog-title pb-4">{{$t('dashboardPage_create_room_title')}}</div>
+         <div class="createStudyRoomDialog-title pb-4" v-t="createSessionTitle"></div>
          <v-form class="d-flex justify-space-between input-room-name" ref="createRoomValidation">
             <v-text-field
                :rules="[rules.required]"
@@ -211,6 +211,9 @@ export default {
       }
    },
    computed: {
+      createSessionTitle() {
+         return this.studyRoomType === 'private' ? 'dashboardPage_create_room_private_title' : 'dashboardPage_create_room_live_title'
+      },
       getSymbol() {
          let v =   this.$n(1,'currency');
          return v.replace(/\d|[.,]/g,'').trim();
