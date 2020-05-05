@@ -958,11 +958,18 @@ namespace Cloudents.Selenium.Test
                 driver.Manage().Window.Maximize();
                 Login(driver, UserTypeAccounts.ElementAt(0));
 
-                var menus = driver.FindElements(By.XPath("//*[@class='sideMenu_group']"));
+                // Wait until this element shows
+                FindByClass(driver, "gH_i_r_chat");
 
-                menus.ElementAt(0).Click();
-                menus.ElementAt(1).Click();
-                menus.ElementAt(2).Click();
+                FindSel(driver, "sidemenu_home").Click();
+                FindSel(driver, "sidemenu_dashboard").Click();
+                FindSel(driver, "sidemenu_dashboard_overview").Click();
+                FindSel(driver, "sidemenu_dashboard_opportunities").Click();
+                //FindSel(driver, "sidemenu_dashboard_myContent").Click();
+                FindSel(driver, "sidemenu_dashboard_myStudyRooms").Click();
+                FindSel(driver, "sidemenu_dashboard_mySales").Click();
+                FindSel(driver, "sidemenu_dashboard_myFollowers").Click();
+                FindSel(driver, "sidemenu_dashboard_myPurchases").Click();
 
                 Logout(driver);
             }
