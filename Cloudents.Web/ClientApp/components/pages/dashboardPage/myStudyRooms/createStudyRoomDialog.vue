@@ -300,7 +300,7 @@ export default {
             this.$store.dispatch('updateCreateStudyRoom',paramsObj)
                .then(() => {
                   self.isLoading = false;
-                  self.$closeDialog()
+                  self.$store.commit('setComponent')
                }).catch((error)=>{
                   self.isLoading = false;
                   if(error.response?.status == 409){
