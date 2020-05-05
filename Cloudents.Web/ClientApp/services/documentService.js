@@ -19,7 +19,6 @@ function DocumentItem(obj) {
     this.date = ObjInit.date;
     this.course = ObjInit.course;
     this.id = ObjInit.id;
-    this.university = ObjInit.university || '';
     this.user = !!ObjInit.user ? searchService.createTutorItem(ObjInit.user) : new documentUserItem(ObjInit);
     this.views = ObjInit.views || 0;
     this.pages = ObjInit.pages || 0;
