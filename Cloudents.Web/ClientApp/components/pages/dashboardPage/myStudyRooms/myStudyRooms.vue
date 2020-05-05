@@ -22,7 +22,7 @@
       <template v-slot:top>
         <div class="tableTop d-flex flex-sm-row flex-column align-sm-center justify-space-between">
           <div class="myStudyRooms_title pb-3 pb-sm-0" v-t="'schoolBlock_my_study_rooms'"></div>
-          <div v-if="isTutor && !isTutorPending">
+          <div v-if="isTutor && isTutorStateOk">
             <v-btn
               @click="openLiveSession"
               class="link white--text mr-0 mr-sm-4 mb-4 mb-sm-0"
@@ -205,8 +205,8 @@ export default {
   },
   computed: {
     ...mapGetters(["getStudyRoomItems"]),
-    isTutorPending() {
-      return this.$store.getters.accountUser?.isTutorPending === 'pending';
+    isTutorStateOk() {
+      return this.$store.getters.accountUser?.isTutorState === 'ok';
     },
     isTutor() {
       return this.$store.getters.accountUser?.isTutor;
