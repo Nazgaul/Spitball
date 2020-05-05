@@ -174,6 +174,9 @@
   <data name="enter_room" xml:space="preserve">
     <value>כניסה לחדר</value>
   </data>
+  <data name="error_session_removed" xml:space="preserve">
+    <value>קרתה שגיאה</value>
+  </data>
   <data name="info" xml:space="preserve">
     <value>מוצר
 </value>
@@ -231,6 +234,9 @@
   </data>
   <data name="my_sales_title" xml:space="preserve">
     <value>המכירות שלי</value>
+  </data>
+  <data name="my_studyrooms_create_live" xml:space="preserve">
+    <value>צור חדר לימוד ציבורי</value>
   </data>
   <data name="my_studyrooms_create_room" xml:space="preserve">
     <value>צור חדר לימוד</value>
