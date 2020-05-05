@@ -150,14 +150,8 @@
   <data name="related_content" xml:space="preserve">
     <value>תכנים דומים</value>
   </data>
-  <data name="scheduled" xml:space="preserve">
-    <value>תאריך מתוכנן</value>
-  </data>
   <data name="secure_payment" xml:space="preserve">
     <value>תשלום במערכת מאובטחת</value>
-  </data>
-  <data name="students" xml:space="preserve">
-    <value>סטודנטים</value>
   </data>
   <data name="unlock_document" xml:space="preserve">
     <value>לצפייה, הענק נקודות לבעלי התוכן</value>

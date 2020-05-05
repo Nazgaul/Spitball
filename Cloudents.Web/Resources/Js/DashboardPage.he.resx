@@ -132,6 +132,12 @@
   <data name="course" xml:space="preserve">
     <value>קורס:</value>
   </data>
+  <data name="create_broadcast" xml:space="preserve">
+    <value>יצירת חדר פתוח לקהל</value>
+  </data>
+  <data name="create_private" xml:space="preserve">
+    <value>יצירת חדר</value>
+  </data>
   <data name="create_room_created_error" xml:space="preserve">
     <value>חדר לימוד זה כבר קיים</value>
   </data>
@@ -190,6 +196,9 @@
   <data name="info_buy_points" xml:space="preserve">
     <value>רכישת נקודות</value>
   </data>
+  <data name="invite_students" xml:space="preserve">
+    <value>הזמינו סטודנטים לחדר</value>
+  </data>
   <data name="joined" xml:space="preserve">
     <value>תאריך הצטרפות</value>
   </data>
@@ -213,6 +222,9 @@
   </data>
   <data name="link_delete" xml:space="preserve">
     <value>מחיקה</value>
+  </data>
+  <data name="link_share" xml:space="preserve">
+    <value>שיתוף</value>
   </data>
   <data name="link_studyroom" xml:space="preserve">
     <value>בדיקת חדר לימוד</value>
@@ -292,6 +304,9 @@
   <data name="room_name" xml:space="preserve">
     <value>שם החדר:</value>
   </data>
+  <data name="scheduled" xml:space="preserve">
+    <value>תאריך מתוכנן</value>
+  </data>
   <data name="send_email" xml:space="preserve">
     <value>שלח אימייל</value>
   </data>
@@ -307,8 +322,14 @@
   <data name="status" xml:space="preserve">
     <value>סטטוס</value>
   </data>
+  <data name="students" xml:space="preserve">
+    <value>סטודנטים</value>
+  </data>
   <data name="student_tutor" xml:space="preserve">
     <value>סטודנט / מורה פרטי</value>
+  </data>
+  <data name="success_session_removed" xml:space="preserve">
+    <value>חדר לימוד נמחק</value>
   </data>
   <data name="tutor_session" xml:space="preserve">
     <value>שיעור פרטי</value>
