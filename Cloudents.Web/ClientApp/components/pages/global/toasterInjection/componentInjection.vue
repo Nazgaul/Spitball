@@ -105,7 +105,7 @@ export default {
                 createLiveSession: {
                     name: 'createStudyRoomDialog',
                     params: {
-                        type: 'live'
+                        type: 'broadcast'
                     }
                 }
             }

@@ -218,7 +218,7 @@ export default {
       roomNamePlaceholder() {
          let roomNamePlaceholder = {
             private: 'dashboardPage_create_room_label',
-            live: 'dashboardPage_create_room_label_broadcast'
+            broadcast: 'dashboardPage_create_room_label_broadcast'
          }
          return roomNamePlaceholder[this.studyRoomType.toLowerCase()]
       },
@@ -260,7 +260,7 @@ export default {
       createStudyRoom(){
          if(!this.$refs.createRoomValidation.validate()) return
          if(!this.isLoading && !this.showErrorAlreadyCreated && !this.showErrorEmpty && !this.showErrorMaxUsers){
-            let isBroadcast = this.studyRoomType === 'live'
+            let isBroadcast = this.studyRoomType === 'broadcast'
             
             if(!this.selected.length && !isBroadcast){
                this.showErrorEmpty = true;
