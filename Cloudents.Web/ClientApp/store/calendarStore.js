@@ -1,5 +1,4 @@
 import calendarService from "../services/calendarService";
-import utilitiesService from '../services/utilities/utilitiesService.js'
 import paymentService from '../services/payment/paymentService.js';
 import {router} from '../main.js';
 
@@ -129,7 +128,8 @@ const actions ={
                 tutorId = getters.accountUser.id;
             }
         commit('setTutorId',tutorId);
-        commit('setToDate',utilitiesService.IsoStringDateWithOffset(60));
+        let ourDate = new Date();
+        commit('setToDate',ourDate.AddDays(60));
         let paramsObj = {
             from: state.fromDate,
             to: state.toDate,
@@ -147,7 +147,8 @@ const actions ={
     },
     initCalendar({state,commit,dispatch},tutorId){
         commit('setTutorId',tutorId);
-        commit('setToDate',utilitiesService.IsoStringDateWithOffset(60));
+        let ourDate = new Date();
+        commit('setToDate',ourDate.AddDays(60));
         return dispatch('gapiLoad',state.scope).then(()=>{
             let paramsObj = {
                 from: state.fromDate,

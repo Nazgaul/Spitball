@@ -22,19 +22,15 @@ namespace Cloudents.Infrastructure
 
         public byte[] Serialize(object o)
         {
-            using (var ms = new MemoryStream())
-            {
-                Serialize(ms, o);
-                return ms.ToArray();
-            }
+            using var ms = new MemoryStream();
+            Serialize(ms, o);
+            return ms.ToArray();
         }
 
         public T Deserialize<T>(byte[] sr)
         {
-            using (var ms = new MemoryStream(sr))
-            {
-                return Deserialize<T>(sr: ms);
-            }
+            using var ms = new MemoryStream(sr);
+            return Deserialize<T>(sr: ms);
         }
     }
 

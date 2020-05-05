@@ -205,6 +205,9 @@
   <data name="likes" xml:space="preserve">
     <value>Likes</value>
   </data>
+  <data name="link_delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="link_studyroom" xml:space="preserve">
     <value>Test study room</value>
   </data>
@@ -255,7 +258,7 @@
  your {2}</value>
   </data>
   <data name="pick_time_error" xml:space="preserve">
-    <value>Time selected should be on the future</value>
+    <value>Schedule a future date</value>
   </data>
   <data name="placeholder_studyRoom_type" xml:space="preserve">
     <value>Study room type</value>

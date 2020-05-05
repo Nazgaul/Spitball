@@ -1,12 +1,7 @@
-﻿using Cloudents.Core.Storage;
-using Microsoft.WindowsAzure.Storage;
+﻿using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Storage
 {
@@ -54,53 +49,53 @@ namespace Cloudents.Infrastructure.Storage
 
         public void Start()
         {
-            var client = GetQueueClient();
+            //var client = GetQueueClient();
 
-            var tasks = new List<Task>();
-            foreach (var queueName in GetQueues())
-            {
-                var queue = client.GetQueueReference(queueName.Name);
-                tasks.Add(queue.CreateIfNotExistsAsync());
-            }
+            //var tasks = new List<Task>();
+            //foreach (var queueName in GetQueues())
+            //{
+            //    var queue = client.GetQueueReference(queueName.Name);
+            //    tasks.Add(queue.CreateIfNotExistsAsync());
+            //}
 
-            var storageClient = GetCloudBlobClient();
-            foreach (var container in GetContainers())
-            {
-                //var att = ExtractContainerData(container);
-                var blobContainer = storageClient.GetContainerReference(container.Name);
-                tasks.Add(blobContainer.CreateIfNotExistsAsync());
-            }
+            //var storageClient = GetCloudBlobClient();
+            //foreach (var container in GetContainers())
+            //{
+            //    //var att = ExtractContainerData(container);
+            //    var blobContainer = storageClient.GetContainerReference(container.Name);
+            //    tasks.Add(blobContainer.CreateIfNotExistsAsync());
+            //}
 
 
-            Task.WaitAll(tasks.ToArray(), TimeSpan.Zero);
+            //Task.WaitAll(tasks.ToArray(), TimeSpan.Zero);
 
             //If we want to create new storage
         }
 
-        private static IEnumerable<QueueName> GetQueues()
-        {
-            foreach (var field in typeof(QueueName).GetFields(BindingFlags.Public | BindingFlags.Static))
-            {
-                if (field.IsLiteral)
-                {
-                    continue;
-                }
-                yield return (QueueName)field.GetValue(null);
-            }
-        }
+        //private static IEnumerable<QueueName> GetQueues()
+        //{
+        //    foreach (var field in typeof(QueueName).GetFields(BindingFlags.Public | BindingFlags.Static))
+        //    {
+        //        if (field.IsLiteral)
+        //        {
+        //            continue;
+        //        }
+        //        yield return (QueueName)field.GetValue(null);
+        //    }
+        //}
 
 
-        public static IEnumerable<StorageContainer> GetContainers()
-        {
-            // return Enum.GetValues(typeof(StorageContainer)).Cast<StorageContainer>();
-            foreach (var field in typeof(StorageContainer).GetFields(BindingFlags.Public | BindingFlags.Static))
-            {
-                if (field.IsLiteral)
-                {
-                    continue;
-                }
-                yield return (StorageContainer)field.GetValue(null);
-            }
-        }
+        //public static IEnumerable<StorageContainer> GetContainers()
+        //{
+        //    // return Enum.GetValues(typeof(StorageContainer)).Cast<StorageContainer>();
+        //    foreach (var field in typeof(StorageContainer).GetFields(BindingFlags.Public | BindingFlags.Static))
+        //    {
+        //        if (field.IsLiteral)
+        //        {
+        //            continue;
+        //        }
+        //        yield return (StorageContainer)field.GetValue(null);
+        //    }
+        //}
     }
 }
