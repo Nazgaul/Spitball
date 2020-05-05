@@ -297,7 +297,7 @@ namespace Cloudents.Infrastructure.Video
         }
 
 
-        public async Task<string> GetAssetContainerAsync(long id, AssetType assetType, CancellationToken token)
+        public async Task<string?> GetAssetContainerAsync(long id, AssetType assetType, CancellationToken token)
         {
             var v = await _context;
 
