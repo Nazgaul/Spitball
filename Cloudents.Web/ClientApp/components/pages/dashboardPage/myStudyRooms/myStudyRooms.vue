@@ -65,42 +65,48 @@
         <template v-if="item.lastSession">{{ $d(new Date(item.lastSession)) }}</template>
       </template>
       <template v-slot:item.action="{item}">
-        <div class="d-flex">
-            <v-btn
-              icon
-              v-if="item.showChat"
-              x-small
-              @click="sendMessage(item)"
-              :title="$t('schoolBlock_SendMessageTooltip')"
-              class="mr-5"
-            >
-              <iconChat />
-            </v-btn>
-            <v-tooltip :value="currentItemId === item.id" top transition="fade-transition" v-else>
-              <template v-slot:activator="{on}">
-                <linkSVG
-                  style="width:20px"
-                  v-on="on"
-                  class="option link mr-4"
-                  @click="copyLink(item)"
-                />
-              </template>
-              <span v-t="'shareContent_copy_tool'"></span>
-            </v-tooltip>
 
-            <v-btn
-              icon
-              x-small
-              @click="enterRoom(item.id)"
-              :title="$t('schoolBlock_EnterStudyRoomTooltip')"
-            >
-              <enterRoom />
-            </v-btn>
+        <div class="d-flex align-center justify-center">
+          
+            <div v-if="item.showChat" class="mr-9">
+              <v-btn
+                icon
+                @click="sendMessage(item)"
+                :title="$t('schoolBlock_SendMessageTooltip')"
+              >
+                <iconChat fill="#4c59ff" />
+              </v-btn>
+              <div v-t="'schoolBlock_SendMessageTooltip'"></div>
+            </div>
 
-            <v-spacer></v-spacer>
+            <div v-else class="mr-9">
+              <v-tooltip :value="currentItemId === item.id" top transition="fade-transition">
+                <template v-slot:activator="{on}">
+                  <linkSVG
+                    style="width:20px"
+                    v-on="on"
+                    class="option link"
+                    @click="copyLink(item)"
+                  />
+                </template>
+                <span v-t="'shareContent_copy_tool'"></span>
+              </v-tooltip>
+            </div>
+
+            <div>
+              <v-btn
+                icon
+                @click="enterRoom(item.id)"
+                :title="$t('schoolBlock_EnterStudyRoomTooltip')"
+              >
+                <enterRoom width="18" />
+              </v-btn>
+              <div v-t="'schoolBlock_EnterStudyRoomTooltip'"></div>
+            </div>
+
             <v-menu bottom left v-model="showMenu">
                 <template v-slot:activator="{ on }">
-                    <div>
+                    <div v-if="isTutor && item.type === 'Broadcast'">
                         <v-icon v-on="on" @click="openDeleteMenu(item.id)" slot="activator" small icon>sbf-3-dot</v-icon>
                     </div>
                 </template>
@@ -132,7 +138,7 @@ import * as routeNames from "../../../../routes/routeNames";
 import * as dialogNames from "../../global/dialogInjection/dialogNames.js";
 
 import iconChat from "./images/icon-chat.svg";
-import enterRoom from "./images/enterRoom.svg";
+import enterRoom from "./images/enterRoomGreen.svg";
 import linkSVG from "../../global/shareContent/images/link.svg";
 
 export default {
