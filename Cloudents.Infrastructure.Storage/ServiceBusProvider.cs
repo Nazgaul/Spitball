@@ -65,7 +65,7 @@ namespace Cloudents.Infrastructure.Storage
         }
 
 
-        private Task InsertMessageAsync(SignalRTransportType obj, long? userId, string group, CancellationToken token)
+        private Task InsertMessageAsync(SignalRTransportType obj, long? userId, string? group, CancellationToken token)
         {
             var queueClient = _queueClients.GetOrAdd(QueueSignalr, x => new QueueClient(_connectionString, x));
 
