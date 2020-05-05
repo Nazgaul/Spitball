@@ -328,6 +328,9 @@
   <data name="student_tutor" xml:space="preserve">
     <value>סטודנט / מורה פרטי</value>
   </data>
+  <data name="success_session_removed" xml:space="preserve">
+    <value>חדר לימוד נמחק</value>
+  </data>
   <data name="tutor_session" xml:space="preserve">
     <value>שיעור פרטי</value>
   </data>

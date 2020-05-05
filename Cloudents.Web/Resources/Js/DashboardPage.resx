@@ -332,6 +332,9 @@
   <data name="student_tutor" xml:space="preserve">
     <value>Student / tutor</value>
   </data>
+  <data name="success_session_removed" xml:space="preserve">
+    <value>Study room has been deleted</value>
+  </data>
   <data name="tutor_session" xml:space="preserve">
     <value>Tutoring Session</value>
   </data>
