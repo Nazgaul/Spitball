@@ -24,7 +24,7 @@ namespace Cloudents.Command.CommandHandler
             {
                 throw new UnauthorizedAccessException();
             }
-
+            
             if (studyRoom.Sessions.Any())
             {
                 throw new ArgumentException();
