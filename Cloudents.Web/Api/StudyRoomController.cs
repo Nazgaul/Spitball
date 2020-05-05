@@ -22,8 +22,6 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Hubs;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Localization;
 
@@ -32,6 +30,7 @@ namespace Cloudents.Web.Api
     [Produces("application/json")]
     [Route("api/[controller]"), ApiController]
     [Authorize]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Return to client")]
     public class StudyRoomController : ControllerBase
     {
 
@@ -39,15 +38,14 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly IStringLocalizer<StudyRoomController> _localizer;
         private readonly UserManager<User> _userManager;
-        private readonly IHubContext<SbHub> _hubContext;
 
-        public StudyRoomController(ICommandBus commandBus, UserManager<User> userManager, IQueryBus queryBus, IStringLocalizer<StudyRoomController> localizer, IHubContext<SbHub> hubContext)
+        public StudyRoomController(ICommandBus commandBus, UserManager<User> userManager,
+            IQueryBus queryBus, IStringLocalizer<StudyRoomController> localizer)
         {
             _commandBus = commandBus;
             _userManager = userManager;
             _queryBus = queryBus;
             _localizer = localizer;
-            _hubContext = hubContext;
         }
 
         /// <summary>
@@ -100,6 +98,8 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
+        
+
         public async Task<ActionResult<StudyRoomDto>> GetStudyRoomAsync(Guid id,
             [FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
@@ -169,11 +169,10 @@ namespace Cloudents.Web.Api
         /// <returns></returns>
         [HttpPost("{id:guid}/enter")]
         public async Task<CreateStudyRoomSessionResponse> CreateStudyRoomSessionAsync([FromRoute] Guid id,
-            [FromServices] IWebHostEnvironment configuration,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new CreateStudyRoomSessionCommand(id, configuration.IsProduction(), userId);
+            var command = new CreateStudyRoomSessionCommand(id, userId);
             var result = await _commandBus.DispatchAsync<CreateStudyRoomSessionCommand, CreateStudyRoomSessionCommandResult>(command, token);
             return new CreateStudyRoomSessionResponse(result.JwtToken);
 
@@ -237,6 +236,17 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = userManager.GetLongUserId(User);
+            if (string.IsNullOrEmpty(model.Review))
+            {
+                var i = Math.Floor(model.Rate);
+                if (!_localizer[$"Review-{i}"].ResourceNotFound)
+                {
+                    model.Review = _localizer[$"Review-{i}"].Value;
+                }
+                
+            }
+
+
             var command = new AddTutorReviewCommand(model.RoomId, model.Review, model.Rate, userId);
             try
             {

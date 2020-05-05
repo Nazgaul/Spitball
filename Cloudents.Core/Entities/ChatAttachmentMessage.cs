@@ -5,6 +5,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
     public class ChatAttachmentMessage : ChatMessage
     {
+        [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate")]
         protected ChatAttachmentMessage()
         {
 

@@ -19,7 +19,7 @@ namespace Cloudents.Query.Admin
         }
 
         private long? DocumentId { get;  }
-        public string Country { get;  }
+        public string? Country { get;  }
 
         internal sealed class PendingDocumentQueryHandler : IQueryHandler<PendingDocumentQuery, IList<PendingDocumentDto>>
         {

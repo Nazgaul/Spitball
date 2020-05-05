@@ -10,7 +10,6 @@ namespace Cloudents.Core.DTOs.Admin
         public string Phone { get; set; }
         public string Text { get; set; }
         public string Course { get; set; }
-        public string University { get; set; }
 
         public DateTime? DateTime { get; set; }
 

@@ -38,7 +38,6 @@ namespace Cloudents.Query.HomePage
                 IQueryable<Document> sessionQuery = _session.Query<Document>()
                     .WithOptions(w => w.SetComment(nameof(TopDocumentsQuery)))
                     .Fetch(f => f.User);
-                    //.Fetch(f => f.University);
 
 
                 sessionQuery = sessionQuery.Where(w => w.User.Country == query.Country.ToString());

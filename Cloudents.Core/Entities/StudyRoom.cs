@@ -60,6 +60,7 @@ namespace Cloudents.Core.Entities
             AddEvent(new StudyRoomCreatedEvent(this));
         }
 
+        [SuppressMessage("ReSharper", "CS8618",Justification = "Nhibernate proxy")]
         protected StudyRoom()
         {
             ChatRooms ??= new List<ChatRoom>();
@@ -67,7 +68,7 @@ namespace Cloudents.Core.Entities
 
         protected internal virtual ICollection<ChatRoom> ChatRooms { get; set; }
 
-        public virtual ChatRoom ChatRoom
+        protected virtual ChatRoom ChatRoom
         {
             get => ChatRooms.SingleOrDefault();
             set
@@ -102,6 +103,9 @@ namespace Cloudents.Core.Entities
 
         public virtual DateTime? BroadcastTime { get; protected set; }
 
+        private readonly ICollection<UserPaymentToken> _userTokens = new List<UserPaymentToken>();
+        public virtual IEnumerable<UserPaymentToken> UserTokens => _userTokens;
+
         public virtual StudyRoomSession? GetCurrentSession()
         {
             var result = Sessions.AsQueryable().Where(w => w.Ended == null).OrderBy(o => o.Id).ToList();
@@ -118,11 +122,7 @@ namespace Cloudents.Core.Entities
         {
             var session = new StudyRoomSession(this, sessionName);
             _sessions.Add(session);
-            foreach(var studyRoomUser in Users.Where(f => f.User.Id != Tutor.Id))
-            {
-                var user = studyRoomUser.User;
-                user.UseToken(this);
-            }
+          
            
             DateTime.UpdateTime = System.DateTime.UtcNow;
         }
@@ -132,7 +132,6 @@ namespace Cloudents.Core.Entities
         {
             if (StudyRoomType == StudyRoomType.Broadcast)
             {
-                user.UseToken(this);
                 var studyRoomUser = new StudyRoomUser(user, this);
                 Users.Add(studyRoomUser);
                 ChatRoom.AddUserToChat(user);
@@ -140,11 +139,7 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        //public virtual void ChangeOnlineStatus(long userId, bool isOnline)
-        //{
-        //    var studyRoomUser = Users.Single(f => f.User.Id == userId);
-        //    studyRoomUser.ChangeOnlineState(isOnline);
-        //}
+      
 
     }
 }

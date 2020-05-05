@@ -8,9 +8,9 @@ namespace Cloudents.Core
 {
     public class UrlConst : IUrlBuilder
     {
-        private readonly Uri _webSiteEndPoint;
-        private readonly Uri _functionEndPoint;
-        private readonly Uri _indiaWebSiteEndpoint;
+        private readonly Uri? _webSiteEndPoint;
+        private readonly Uri? _functionEndPoint;
+        private readonly Uri? _indiaWebSiteEndpoint;
 
         public UrlConst(IConfigurationKeys configuration)
         {

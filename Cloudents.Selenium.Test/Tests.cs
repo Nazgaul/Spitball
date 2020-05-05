@@ -545,6 +545,8 @@ namespace Cloudents.Selenium.Test
                 var url = $"{_driver.SiteUrl.TrimEnd('/')}/learn?culture=en-US";
                 driver.Navigate().GoToUrl(url);
 
+                ((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight - 150)");
+
                 FindContains(driver, "btn-earn").GetAttribute("href").Should().Be(wixLink);
             }
         }
@@ -677,7 +679,8 @@ namespace Cloudents.Selenium.Test
                     
                     driver.FindElementByWait(By.Id("profileItemsBox"));
 
-                    var coupon = FindSel(driver, "coupon");
+                    FindSel(driver, "send").Click();
+                    FindSel(driver, "cancel_tutor_request").Click();
 
                     var comboBoxes = driver.FindElements(By.XPath("//*[@class='v-input__control']"));
 
@@ -686,8 +689,7 @@ namespace Cloudents.Selenium.Test
                         comboBox.Click();
                     }
 
-                    FindSel(driver, "send").Click();
-                    FindSel(driver, "cancel_tutor_request").Click();
+                    var coupon = FindSel(driver, "coupon");
                     coupon.Click();
                     FindContains(driver, "registerDialog");
 
@@ -701,6 +703,13 @@ namespace Cloudents.Selenium.Test
                     FindContains(driver, "coupon-dialog");
                     Logout(driver);
                 }
+
+                // Turn to mobile size
+                driver.Manage().Window.Size = new System.Drawing.Size(414, 736);
+                driver.Navigate().GoToUrl($"{_driver.SiteUrl.TrimEnd('/')}/profile/159039");
+
+                // Check that this class exists containing text-center
+                FindContains(driver, "profileUserSticky_btns d-block d-sm-flex align-end text-center");
             }
         }
 
@@ -938,6 +947,31 @@ namespace Cloudents.Selenium.Test
                 FindContains(driver, "landingPageHP");
 
                 driver.Url.Should().Contain("learn");
+            }
+        }
+
+        [Fact]
+        public void SideMenuTest()
+        {
+            foreach (var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+                Login(driver, UserTypeAccounts.ElementAt(0));
+
+                // Wait until this element shows
+                FindByClass(driver, "gH_i_r_chat");
+
+                FindSel(driver, "sidemenu_home").Click();
+                FindSel(driver, "sidemenu_dashboard").Click();
+                FindSel(driver, "sidemenu_dashboard_overview").Click();
+                FindSel(driver, "sidemenu_dashboard_opportunities").Click();
+                //FindSel(driver, "sidemenu_dashboard_myContent").Click();
+                FindSel(driver, "sidemenu_dashboard_myStudyRooms").Click();
+                FindSel(driver, "sidemenu_dashboard_mySales").Click();
+                FindSel(driver, "sidemenu_dashboard_myFollowers").Click();
+                FindSel(driver, "sidemenu_dashboard_myPurchases").Click();
+
+                Logout(driver);
             }
         }
     }

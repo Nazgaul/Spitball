@@ -242,13 +242,9 @@ import intercomSettings from '../../services/intercomService';
 //store
 import storeService from "../../services/store/storeService";
 import tutoringCanvas from '../../store/studyRoomStore/tutoringCanvas.js';
-import tutoringMain from '../../store/studyRoomStore/tutoringMain.js';
-import studyRoomTracks_store from '../../store/studyRoomStore/studyRoomTracks_store.js';
 import codeEditor_store from '../../store/studyRoomStore/codeEditor_store.js';
 import roomRecording_store from '../../store/studyRoomStore/roomRecording_store.js';
-import studyroomSettings_store from '../../store/studyRoomStore/studyroomSettings_store';
 
-import studyroomSettingsUtils from '../studyroomSettings/studyroomSettingsUtils';
 import * as dialogNames from '../pages/global/dialogInjection/dialogNames.js';
 
 export default {
@@ -319,7 +315,6 @@ export default {
     ...mapGetters([
       "getRoomIsNeedPayment",
       "getDialogUserConsent",
-      "getDialogRoomSettings",
       "getZoom",
       "getPanX",
       "getPanY",
@@ -328,7 +323,6 @@ export default {
       "accountUser",
       "getIsRecording",
       "getShowAudioRecordingError",
-      // "getVisitedSettingPage",
       "getDialogSnapshot",
     ]),
     isRoomTutor(){
@@ -429,14 +423,10 @@ watch: {
     openSettingsDialog(){
       this.$ga.event("tutoringRoom", "openSettingsDialog");
       this.settingDialogState = true;
-      // this.$store.dispatch('updateDialogRoomSettings',true)
     },
     closeReviewDialog() {
       this.updateReviewDialog(false);
     },
-    // closeStudyRoomSettingsDialog(){
-    //   this.$store.dispatch('updateDialogRoomSettings',false)
-    // },
     closeEndDialog() {
       this.updateEndDialog(false);
     },
@@ -521,6 +511,13 @@ watch: {
     },
     closeSnapshotDialog(){
       this.updateDialogSnapshot(false);
+    },
+    isBrowserSupport(){
+      let agent = navigator.userAgent;
+      if(agent.match(/Edge/)){
+        return false;
+      }
+      return agent.match(/Firefox|Chrome|Safari/);
     }
   },
   destroyed(){
@@ -534,17 +531,11 @@ watch: {
     this.updateLockChat(false);
 
     storeService.unregisterModule(this.$store,'tutoringCanvas');
-    // storeService.unregisterModule(this.$store,'tutoringMain');
-    storeService.unregisterModule(this.$store,'studyRoomTracks_store');
     storeService.unregisterModule(this.$store,'roomRecording_store');
     storeService.unregisterModule(this.$store,'codeEditor_store');
   },
   beforeCreate(){
-    storeService.registerModule(this.$store,'studyRoomTracks_store',studyRoomTracks_store);
     storeService.registerModule(this.$store,'roomRecording_store',roomRecording_store);
-    // storeService.registerModule(this.$store,'tutoringMain',tutoringMain);
-    storeService.lazyRegisterModule(this.$store,'tutoringMain',tutoringMain);
-    storeService.lazyRegisterModule(this.$store,'studyroomSettings_store',studyroomSettings_store);
     storeService.registerModule(this.$store,'tutoringCanvas',tutoringCanvas);
     storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
   },
@@ -552,7 +543,7 @@ watch: {
     // this.$store.commit('clearComponent') // added
     this.userId = this.accountUser?.id || 'GUEST';
 
-    if (!studyroomSettingsUtils.isBrowserSupport()) {
+    if (!this.isBrowserSupport()) {
       this.$nextTick(()=>{
         this.isBrowserSupportDialog = true;
         let roomId = this.id ? this.id : 'No-Id';
@@ -581,18 +572,6 @@ watch: {
       //TODO - we need one place to invoke this.
       // this.initMathjax() //added
     }
-
-    
-    // in case refresh was made in studyRoom page, make sure to init local media tracks. (to be able to share video/audio)
-
-    // this code will create an error object to know what is the cause of the problem in case there is one.
-    // settings page is running this code, but we should run this code in case refresh was made in the study room page.
-    // run this code only if refresh was made in the study room 
-    // if(!this.getVisitedSettingPage){
-    //   await studyroomSettingsUtils.validateUserMedia(true, true); 
-    // }
-    //this line will init the tracks to show local medias
-    studyroomSettingsUtils.validateMedia();
   }
 };
 </script>

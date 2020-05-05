@@ -32,7 +32,7 @@ namespace Cloudents.Query.Documents
         {
             const string sql = @"with cte as
                                 (
-                                select d.UniversityId, CourseName, u.Country
+                                select  CourseName, u.Country
                                 from sb.Document d 
                                 join sb.[user] u
 	                                on d.UserId = u.Id

@@ -34,20 +34,17 @@ import userQuestions from './components/userMainView/userQuestions/userQuestions
 import userAnswers from './components/userMainView/userAnswers/userAnswers.vue';
 import userDocuments from './components/userMainView/userDocuments/userDocuments.vue';
 import userPurchasedDocuments from './components/userMainView/userPurchasedDocuments/userPurchasedDocuments.vue';
-// import userConversations from './components/userMainView/userConversations/userConversations.vue';
 import userSessions from './components/userMainView/userSessions/userSessions.vue';
 import userSoldItems from './components/userMainView/userSoldItems/userSoldItems.vue';
 import userNotes from './components/userMainView/userNotes/userNotes.vue';
 
 import management from './components/management/Management.vue';
 import coursesPending from './components/management/coursesPending/coursesPending.vue';
-//import universityPending from './components/management/universityPending/universityPending.vue';
 import shortUrl from './components/management/shortUrl/shortUrl.vue';
 
 import conversation from './components/conversation/conversation.vue';
 import conversations from './components/conversation/conversationComponent/conversationDetalis/conversationDetails.vue';
 import startConversations from './components/conversation/startConversation.vue';
-// import conversationMessages from './components/conversation/conversationComponent/conversationMessages/conversationMessages.vue';
 
 import tutors from './components/tutor/tutor.vue';
 import pendingTutors from './components/tutor/pendingTutors/pendingTutor.vue';
@@ -300,10 +297,6 @@ export const routes = [
                 path: 'coursesPending',
                 component: coursesPending
             },
-            //{
-            //    path: 'universityPending',
-            //    component: universityPending
-            //},
             {
               path: 'shortUrl',
               component: shortUrl

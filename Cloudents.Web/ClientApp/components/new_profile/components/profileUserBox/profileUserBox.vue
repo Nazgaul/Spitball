@@ -1,7 +1,6 @@
 <template>
     <div class="profileUserBox pa-4 pa-sm-5" v-if="currentProfileUser">
         <div class="profileUserBox_top d-block d-sm-flex justify-space-between">
-            
             <div class="leftSide mr-sm-6 mb-2 mb-sm-0 d-flex justify-center">
                 <div class="pUb_dot" sel="online_icon" v-if="isOnline"></div>
                 <uploadImage sel="photo" class="pUb_edit_img" v-if="isCurrentProfileUser" />
@@ -16,7 +15,6 @@
                     :borderRadius="8"
                 />
             </div>
-                
             <div class="rightSide flex-grow-1">
                 <div class="detailsWrap d-flex d-sm-block">
                     <div class="d-flex justify-space-between text-center text-sm-left">
@@ -29,10 +27,10 @@
                             <template v-if="currentProfileUser.isTutor">
                                 <div class="d-flex align-end justify-center">
                                     <div class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
-                                        {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
+                                        {{tutorPrice ? currencySymbol(tutorPrice) : currencySymbol(tutorDiscountPrice)}}
                                     </div>
                                     <div class="profileUserSticky_pricing_price">
-                                        <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
+                                        <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? currencySymbol(tutorDiscountPrice) : currencySymbol(tutorPrice)}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
                                     </div>
                                 </div>
                                 <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" v-if="currentProfileUser.isTutor" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
@@ -102,10 +100,10 @@
                         <div class="profileUserSticky_pricing mb-4" v-if="currentProfileUser.isTutor">
                             <div class="d-flex align-end justify-center">
                                 <div class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
-                                    {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
+                                    {{tutorPrice ? currencySymbol(tutorPrice) : currencySymbol(tutorDiscountPrice)}}
                                 </div>
                                 <div class="profileUserSticky_pricing_price">
-                                    <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
+                                    <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? currencySymbol(tutorDiscountPrice) : currencySymbol(tutorPrice)}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
                                 </div>
                             </div>
                             <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" class="profileUserSticky_coupon text-center mt-1" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
@@ -121,11 +119,22 @@
                         <chatSVG class="profileUserSticky_btn_icon"/>
                         <div class="profileUserSticky_btn_txt" v-t="'profile_send_message'"/>
                     </v-btn>
-                    <div :class="{'ml-3': isCurrentProfileUser || !getProfile.user.calendarShared}">
+                    <div class="calendarBtnWrap align-center align-sm-end" :class="{'ml-3': !getProfile.user.calendarShared}">
                         <editSVG sel="edit" class="pUb_edit_user mr-1" v-if="isCurrentProfileUser && !isMobile" @click="openEditInfo"/>
-                        <v-btn sel="calendar" height="42" :width="isMobile ? 286 : 220" :disabled="isCurrentProfileUser" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isCurrentProfileUser || !getProfile.user.calendarShared}" class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-sm-2 mt-4" depressed rounded color="white">
+                        <v-btn
+                            @click="globalFunctions.openCalendar"
+                            class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-sm-2 mt-4"
+                            :class="{'hideCalendarBtn': !getProfile.user.calendarShared}"
+                            :disabled="!getProfile.user.calendarShared"
+                            :width="isMobile ? 286 : 220"
+                            sel="calendar"
+                            height="42"
+                            color="white"
+                            depressed
+                            rounded
+                        >
                             <calendarSVG width="20" class="profileUserSticky_btn_icon"/>
-                            <div class="profileUserSticky_btn_txt" v-t="'profile_book_session'"/>
+                            <div class="profileUserSticky_btn_txt" v-t="calendarBtnResource"/>
                         </v-btn>
                     </div>
                 </div>
@@ -136,28 +145,28 @@
             <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-0">
                 <followersSvg class="icon" width="24" />
                 <div class="ml-3" @click="isMobile ? scrollToReviews():''" >
-                    <div class="number text-left">{{currentProfileUser.followers}}</div>
+                    <div class="number text-left">{{currentProfileUser.followers || 0}}</div>
                     <div class="type">{{$tc('profile_tutor_follower', currentProfileUser.followers)}}</div>
                 </div>
             </v-col>
             <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-0">
                 <onlineLessonSVG class="icon" width="17" />
                 <div class="ml-3">
-                    <div class="number text-left">{{currentProfileTutor.lessons}}</div>
+                    <div class="number text-left">{{currentProfileTutor.lessons || 0}}</div>
                     <div class="type" v-t="''">{{$tc('profile_session', currentProfileTutor.lessons)}}</div>
                 </div>
             </v-col>
             <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-3 pa-sm-0">
                 <studentsSVG class="icon" width="25" />
                 <div class="ml-3">
-                    <div class="number text-left">{{currentProfileTutor.students}}</div>
+                    <div class="number text-left">{{currentProfileTutor.students || 0}}</div>
                     <div class="type">{{$tc('profile_student', currentProfileTutor.students)}}</div>
                 </div>
             </v-col>
             <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-0">
                 <starSVG class="icon" width="22" />
                 <div class="ml-3">
-                    <div class="number text-left">{{currentProfileTutor.reviewCount}}</div>
+                    <div class="number text-left">{{currentProfileTutor.reviewCount || 0}}</div>
                     <div class="type">{{$tc('profile_reviews',currentProfileTutor.reviewCount)}}</div>
                 </div>
             </v-col>
@@ -264,9 +273,18 @@ export default {
             }
             return 0;
         },
+        calendarBtnResource() {
+            return this.isCurrentProfileUser ? 'profile_my_book_session' : 'profile_book_session'
+        }
     },
     methods: {
         ...mapActions(['updateEditDialog']),
+        currencySymbol(amount) {
+            let options = { style: 'currency', currency: this.currentProfileUser.tutorData.currency, minimumFractionDigits: 0 };
+            let numberFormat = new Intl.NumberFormat('he-IL', options);
+
+            return numberFormat.format(amount)
+        },
         openEditInfo() {
             this.updateEditDialog(true);
         },
@@ -443,7 +461,10 @@ export default {
                 }
             }
         }
-
+        .calendarBtnWrap {
+            display: flex;
+            flex-direction: column;
+        }
         .profileUserSticky_btns{
             &.why_learn_user_btn{
                 margin-top: 34px !important;
@@ -486,8 +507,8 @@ export default {
                 &.profileUserSticky_btn_book{
                     color: #4c59ff !important;
                     border: solid 1.5px #4c59ff !important;
-                    &.isMyProfile{
-                        display: none;
+                    &.hideCalendarBtn{
+                        visibility: hidden;
                         color: white !important;
                         border: none !important;
                     svg{

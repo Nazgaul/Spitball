@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
 namespace Cloudents.Web.Binders
 {
@@ -47,14 +46,14 @@ namespace Cloudents.Web.Binders
                 {
                     case ProfileServiceQuery.None:
                         break;
-                    case ProfileServiceQuery.UniversityId:
-                        var universityId = bindingContext.HttpContext.User.Claims.FirstOrDefault(f =>
-                            string.Equals(f.Type, AppClaimsPrincipalFactory.University, StringComparison.OrdinalIgnoreCase));
-                        if (universityId?.Value != null && Guid.TryParse(universityId.Value, out var p))
-                        {
-                            profile.UniversityId = p;
-                        }
-                        break;
+                    //case ProfileServiceQuery.UniversityId:
+                    //    var universityId = bindingContext.HttpContext.User.Claims.FirstOrDefault(f =>
+                    //        string.Equals(f.Type, AppClaimsPrincipalFactory.University, StringComparison.OrdinalIgnoreCase));
+                    //    if (universityId?.Value != null && Guid.TryParse(universityId.Value, out var p))
+                    //    {
+                    //        profile.UniversityId = p;
+                    //    }
+                    //    break;
                     case ProfileServiceQuery.Country:
                         profile.Country = await _countryProvider.GetUserCountryAsync(token);
                         break;
@@ -80,7 +79,7 @@ namespace Cloudents.Web.Binders
     public enum ProfileServiceQuery
     {
         None,
-        UniversityId = 1,
+      //  UniversityId = 1,
         Country = 2,
         Course = 4,
     }

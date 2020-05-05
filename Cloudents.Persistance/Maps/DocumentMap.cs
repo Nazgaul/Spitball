@@ -11,7 +11,6 @@ namespace Cloudents.Persistence.Maps
                 $"{nameof(HiLoGenerator.TableName)}='{nameof(Document)}'");
 
             Map(x => x.Name).Length(150).Not.Nullable();
-            //References(x => x.University).Nullable().Column("UniversityId").ForeignKey("Document_University");
             
             Component(x => x.TimeStamp);
 
@@ -28,8 +27,7 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.Transactions)
                 .KeyColumn("DocumentId")
                 //.Cascade.()
-                .Access.CamelCaseField(Prefix.Underscore)
-                .LazyLoad()
+                .Access.CamelCaseField(Prefix.Underscore).ExtraLazyLoad()
                 .Inverse();
             //Map(x => x.OldId).Nullable();
             HasMany(x => x.Votes)

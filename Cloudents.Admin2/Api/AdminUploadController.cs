@@ -106,6 +106,7 @@ namespace Cloudents.Admin2.Api
                 BlobName = BlobFileName(response.Data.SessionId, model.Name),
                 MimeType = model.MimeType
             };
+            token.ThrowIfCancellationRequested();
             var tempDataProvider = _tempDataDictionaryFactory.GetTempData(HttpContext);
             tempDataProvider.Put($"update-{response.Data.SessionId}", tempData);
             return Task.FromResult(response);
@@ -127,10 +128,8 @@ namespace Cloudents.Admin2.Api
 
             //original file name can only have ascii chars. hebrew not supported. remove that
             await _blobProvider.CommitBlockListAsync(tempData2.BlobName, tempData2.MimeType, null, indexes, TimeSpan.FromDays(365), token);
-            var bolobUri = _blobProvider.GetBlobUrl(tempData2.BlobName);
-            //var preview = BlobProvider.GeneratePreviewLink(bolobUri,
-            //                TimeSpan.FromDays(30));
-            return new UploadEndResponce(bolobUri);
+            var blobUri = _blobProvider.GetBlobUrl(tempData2.BlobName);
+            return new UploadEndResponce(blobUri);
         }
 
         [HttpGet]

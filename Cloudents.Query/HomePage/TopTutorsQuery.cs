@@ -59,7 +59,6 @@ namespace Cloudents.Query.HomePage
                     Lessons = s.readTutor.Lessons,
                     ReviewsCount = s.readTutor.RateCount,
                     Subjects = s.readTutor.Subjects,
-                   // University = s.readTutor.University,
                     DiscountPrice = s.readTutor.SubsidizedPrice
                 }).Take(query.Count).ToListAsync(token);
                

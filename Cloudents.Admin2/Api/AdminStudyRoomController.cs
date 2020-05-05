@@ -29,7 +29,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet]
         public async Task<IEnumerable<StudyRoomDto>> StudyRoomAsync(CancellationToken token)
         {
-            var query = new StudyRoomQuery(User.GetCountryClaim());
+            var query = new StudyRoomQuery(User.GetSbCountryClaim());
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }

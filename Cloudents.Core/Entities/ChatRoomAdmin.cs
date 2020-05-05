@@ -8,16 +8,17 @@ namespace Cloudents.Core.Entities
 
     public class ChatRoomAdmin : Entity<Guid>
     {
+        [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate")]
         protected ChatRoomAdmin()
         {
 
         }
-        public ChatRoomAdmin(ChatRoom room) : this()
+        public ChatRoomAdmin(ChatRoom room) 
         {
             ChatRoom = room;
         }
-        public virtual ChatRoomStatus Status { get; set; }
-        public virtual string AssignTo { get; set; }
+        public virtual ChatRoomStatus? Status { get; set; }
+        public virtual string? AssignTo { get; set; }
 
         public virtual ChatRoom ChatRoom { get; protected set; }
 

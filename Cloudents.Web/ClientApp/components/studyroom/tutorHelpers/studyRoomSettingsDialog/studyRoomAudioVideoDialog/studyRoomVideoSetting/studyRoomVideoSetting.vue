@@ -3,10 +3,10 @@
         <div class="studyRoom-video-settings-title">
             <h4 class="studyRoom-video-settings-label mb-3" v-language:inner='"studyRoomSettings_camera_label"'></h4>
             <v-select
-                v-model="singleCameraId"
+                :value="getVideoDeviceId"
                 class="videoSelect"
-                :items="camerasList"
-                @change="createVideoQualityPreview()"
+                :items="videoDevicesList"
+                @change="createVideoPreview"
                 :label="$t('studyRoomSettings_video_select_label')"
                 :placeholder="$t('studyRoomSettings_camera_placeholder')"
                 :menu-props="{contentClass:'select-direction'}"
@@ -23,80 +23,82 @@
         </div>
         
         <v-flex xs12  class="mt-4 mb-4 studyRoom-video-settings-video-container">
-            <div id="local-video-test-track1"></div>
+            <div id="localTrackSetting">
+                <video ref="videoElPopUp" autoplay playsinline></video>
+            </div>
         </v-flex>
     </div>
 </template>
 
 <script>
-import { createLocalVideoTrack, } from 'twilio-video';
 
 import insightService from '../../../../../../services/insightService';
+import { mapGetters } from 'vuex';
+import settingMixin from '../../settingMixin.js'
 
 export default {
     data(){
         return {
+            videoDevicesList: [],
+            streams:[],
             permissionDenied: false,
-            camerasList:[],
-            videoEl: null,
-            localTrack: null,
-            singleCameraId: global.localStorage.getItem('sb-videoTrackId')
         }
     },
+    mixins: [settingMixin],
+    computed: {
+        ...mapGetters(['getVideoDeviceId'])
+    },
+    props:['streamsArray'],
     methods:{
-        getVideoInputdevices() {
-            let self = this;
-            navigator.mediaDevices.enumerateDevices().then((mediaDevices) => {
-                        mediaDevices.forEach((device) => {
-                            if (device.kind === 'videoinput') {
-                                self.camerasList.push(device)
-                            }
-                        })
-                        if(self.camerasList.length > 0){
-                            if(!self.singleCameraId){
-                                self.singleCameraId = self.camerasList[0].deviceId;
-                            }
-                            self.createVideoQualityPreview();
-                        }
-                        if(self.permissionDenied) return self.camerasList = []
-                },
-                (error) => {
-                    insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoSettings_getVideoInputdevices', error, null);
-                    console.log('error cant get video input devices', error)
-                }
-            )
-        },
-        createVideoQualityPreview() {
-            if (this.localTrack) {
-                this.clearVideoTrack();
-            }
-            let self = this;
-            createLocalVideoTrack({width: 490, height: 368, deviceId: {exact: self.singleCameraId}})
-                .then(track => {
-                    self.videoEl = document.getElementById('local-video-test-track1');
-                    self.localTrack = track;
-                    self.videoEl.appendChild(self.localTrack.attach());
-                    self.$store.dispatch('updateVideoTrack',self.singleCameraId)
-                }, (err)=>{
-                    self.permissionDenied = true
-                    insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoValidation_createVideoQualityPreview', err, null);
-                    console.error(err);
-                });
-        },
         clearVideoTrack() {
-            if (this.localTrack?.detach) {
-                this.localTrack.detach().forEach((detachedElement) => {
-                    detachedElement.remove();
+            if(this.streamsArray){
+                this.MIXIN_cleanStreams(this.streamsArray)
+            }else{
+                this.streams.forEach(t => {
+                    t.getTracks()[0].stop()
                 });
             }
+        },
+        createVideoPreview(deviceId){
+            this.clearVideoTrack()
+            let videoParams = {
+                audio: false,
+                video:{deviceId}
+            }
+            let self = this;
+            this.MIXIN_getMediaTrack(videoParams)
+                .then(stream=>{
+                    if(self.streamsArray){
+                        self.MIXIN_addStream(self.streamsArray,stream)
+                    }else{
+                        self.streams.push(stream)
+                    }
+                    self.$refs.videoElPopUp.srcObject = stream;
+                    deviceId = stream.getVideoTracks()[0].getSettings().deviceId
+                    self.$store.dispatch('updateVideoDeviceId',deviceId)
+                    self.$store.dispatch('updateVideoTrack',deviceId)
+                    return
+                })
+                .catch(err=>{
+                    insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoSettings_getVideoInputdevices', err, null);
+                })
+                self.cameraOn = false
+        },
+        getVideoDevices(){
+            let self = this;
+            navigator.mediaDevices.enumerateDevices()
+                .then(devices => {
+                    self.videoDevicesList = devices.filter(device => device.kind === 'videoinput');
+                });
         }
     },
     created(){
-        this.getVideoInputdevices();
+        this.createVideoPreview(this.getVideoDeviceId)
+        this.getVideoDevices()
     },
     beforeDestroy() {
-        this.clearVideoTrack();
-    }
+        this.clearVideoTrack()
+    },
 }
 </script>
 
@@ -144,7 +146,7 @@ export default {
         @media (max-width: @screen-xs) {
             height: auto;
         }
-        #local-video-test-track1 {
+        #localTrackSetting {
             height: 100%;
 
             video {

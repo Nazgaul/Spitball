@@ -39,7 +39,7 @@ namespace Cloudents.Query.Tutor
             {
                 const string sql = @"Select rt.Id as UserId,
 rt.Name as 'Name', rt.ImageName as 'Image', rt.Courses, rt.Subjects, rt.Price,
-rt.Rate, rt.RateCount as ReviewsCount, rt.Bio, rt.University, rt.Lessons, rt.Country, rt.SubsidizedPrice as DiscountPrice
+rt.Rate, rt.RateCount as ReviewsCount, rt.Bio,  rt.Lessons, rt.Country, rt.SubsidizedPrice as DiscountPrice
 from sb.ReadTutor rt
 where rt.Country = coalesce(@country, (select country from sb.[user] where Id = @userId))
 and rt.Id != @userId

@@ -55,7 +55,7 @@ namespace Cloudents.Command.CommandHandler.Admin
                 sessionUser.Pay(receipt, message.AdminDuration, message.StudentPay + message.SpitballPay);
             }
 
-            user.UseCoupon(tutor);
+            //user.UseCoupon(tutor);
 
             await _studyRoomSessionRepository.UpdateAsync(session, token);
         }

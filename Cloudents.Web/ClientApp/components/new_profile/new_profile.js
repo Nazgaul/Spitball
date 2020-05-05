@@ -148,8 +148,10 @@ export default {
         openCalendar() {
             if(!!this.accountUser) {
                 this.activeTab = 5;
+                this.$nextTick(() => {
+                    this.$vuetify.goTo(this.$refs.calendarTab)
+                })
             } else {
-                // this.$openDialog('login')
                 this.$store.commit('setComponent', 'register')
                 setTimeout(()=>{
                     document.getElementById(`tab-${this.activeTab}`).lastChild.click();
@@ -167,7 +169,8 @@ export default {
             'getCouponError',
             "getProfile",
             'getBannerParams',
-            'getUserLoggedInStatus']),
+            'getUserLoggedInStatus'
+        ]),
         shareContentParams(){
             let urlLink = `${global.location.origin}/p/${this.$route.params.id}?t=${Date.now()}` ;
             let userName = this.getProfile.user?.name;
@@ -201,7 +204,7 @@ export default {
             return !!this.getProfile && this.getProfile.user.isTutor
         },
         isMyProfile(){
-            return !!this.getProfile && !!this.accountUser && this.accountUser.id == this.getProfile.user.id
+            return !!this.getProfile && !!this.accountUser && this.accountUser?.id == this.getProfile?.user?.id
         },
         showEarnMoney(){
             return this.isMyProfile && this.isTutor && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
@@ -219,19 +222,17 @@ export default {
             }
             return false
         },
+        showCalendarTab() {
+            if(!this.isTutor) return false;
+            
+            let isCalendar = this.getProfile?.user.calendarShared
+            if(this.isMyProfile) {
+                return !isCalendar || (this.activeTab === 5 && isCalendar) 
+            }
+            return this.activeTab === 5 && isCalendar
+        },
         isTutorPending(){
             return this.isMyProfile && (!!this.accountUser && this.accountUser.isTutorState === "pending")
-        },
-        showProfileCalendar(){
-            if(this.isMyProfile){
-                return (this.isTutor)
-            }else{
-                if(this.isTutor){
-                    return (this.activeTab === 5)
-                }else{
-                    return false;
-                }
-            }
         },
         showBecomeTutor(){
             return this.isMyProfile && !this.isTutor && !this.isTutorPending;
@@ -273,6 +274,11 @@ export default {
                 this.fetchData();
             }
         },
+        coupon(val) {
+            if(val && this.getCouponError) {
+                this.$store.commit('setCouponError', false)
+            }
+        }
     },
     beforeRouteLeave(to, from, next) {
         this.updateToasterParams({

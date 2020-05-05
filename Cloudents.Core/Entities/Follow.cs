@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor",Justification = "nhibernate")]
-    public class Follow : IEquatable<Follow>
+    public class Follow : Entity<Guid>, IEquatable<Follow>
     {
         public Follow(User followed, User follower)
         {
@@ -17,9 +17,9 @@ namespace Cloudents.Core.Entities
             Created = DateTime.UtcNow;
         }
 
+        [SuppressMessage("ReSharper", "CS8618",Justification = "Nhibernate proxy")]
         protected Follow() 
         { }
-        public virtual Guid Id { get; }
         public virtual User Followed { get; protected set; }
         public virtual User Follower { get; protected set; }
         public virtual DateTime Created { get; }

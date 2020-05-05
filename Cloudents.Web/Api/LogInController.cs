@@ -108,10 +108,10 @@ namespace Cloudents.Web.Api
 
             if (!user.PhoneNumberConfirmed)
             {
-                if (user.OldUser.GetValueOrDefault())
-                {
-                    return new ReturnSignUserResponse(RegistrationStep.RegisterSetEmailPassword);
-                }
+                //if (user.OldUser.GetValueOrDefault())
+                //{
+                //    return new ReturnSignUserResponse(RegistrationStep.RegisterSetEmailPassword);
+                //}
                 ModelState.AddModelError(nameof(model.Email), _localizer["EmailNotFound"]);
                 return BadRequest(ModelState);
             }

@@ -21,7 +21,7 @@ namespace Cloudents.Core.DTOs
 
         [DataMember] public abstract string Type { get; }
         [DataMember] public string Name { get; set; }
-        [DataMember] public string Image { get; set; }
+        [DataMember] public string? Image { get; set; }
         [DataMember] public bool Unread { get; set; }
     }
 
