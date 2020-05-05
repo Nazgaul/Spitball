@@ -9,50 +9,116 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("Cloudents.Persistence")]
 namespace Cloudents.Core.Entities
 {
+    public class BroadCastStudyRoom : StudyRoom
+    {
+        public BroadCastStudyRoom(Tutor tutor,
+            IEnumerable<User> users, string onlineDocumentUrl, string name, decimal price, DateTime broadcastTime) : base(tutor, users, onlineDocumentUrl, name, price)
+        {
+            Identifier = Guid.NewGuid().ToString();
+            ChatRoom = ChatRoom.FromStudyRoom(this);
+            BroadcastTime = broadcastTime;
+            TopologyType = StudyRoomTopologyType.GroupRoom;
+        }
+
+        protected BroadCastStudyRoom(): base()
+        {
+        }
+
+        public virtual DateTime BroadcastTime { get; protected set; }
+
+        public override void AddUserToStudyRoom(User user)
+        {
+           
+                var studyRoomUser = new StudyRoomUser(user, this);
+                _users.Add(studyRoomUser);
+                ChatRoom.AddUserToChat(user);
+                Tutor.User.AddFollower(user);
+            
+        }
+
+        public override StudyRoomType Type => StudyRoomType.Broadcast;
+    }
+
+    public class PrivateStudyRoom : StudyRoom
+    {
+        public PrivateStudyRoom(Tutor tutor, IEnumerable<User> users, string onlineDocumentUrl,
+            string name, decimal price) : base(tutor,users,onlineDocumentUrl, name, price)
+        {
+            if (_users.Count == 0)
+            {
+                throw new ArgumentException();
+            }
+            Identifier = ChatRoom.BuildChatRoomIdentifier(
+                _users.Select(s => s.User.Id).Union(new[] { tutor.Id }));
+            if (_users.Count < 10 && _users.Count > 0)
+            {
+                TopologyType = StudyRoomTopologyType.PeerToPeer;
+            }
+            else
+            {
+                TopologyType = StudyRoomTopologyType.GroupRoom;
+            }
+        }
+        protected PrivateStudyRoom(): base()
+        {
+        }
+
+        public override void AddUserToStudyRoom(User user)
+        {
+            if (Tutor.User.Id == user.Id)
+            {
+                return;
+            }
+            var _ = Users.AsQueryable().Single(s => s.User.Id == user.Id);
+        }
+
+        public override StudyRoomType Type => StudyRoomType.Private;
+    }
+
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class StudyRoom : Entity<Guid>, IAggregateRoot
+    public abstract class StudyRoom : Entity<Guid>, IAggregateRoot
     {
         public StudyRoom(Tutor tutor, IEnumerable<User> users, string onlineDocumentUrl,
-            string name, decimal price, DateTime? broadcastTime, StudyRoomType type) : this()
+            string name, decimal price) : this()
         {
             if (users == null) throw new ArgumentNullException(nameof(users));
             if (price < 0) throw new ArgumentException(nameof(price));
             _users = new HashSet<StudyRoomUser>(users.Select(s => new StudyRoomUser(s, this)));
             Tutor = tutor;
-            StudyRoomType = type;
-            if (StudyRoomType == StudyRoomType.Private )
-            {
-                if (_users.Count == 0)
-                {
-                    throw new ArgumentException();
-                }
-                //StudyRoomType = StudyRoomType.Private;
-                Identifier = ChatRoom.BuildChatRoomIdentifier(
-                    _users.Select(s => s.User.Id).Union(new[] { tutor.Id }));
-            }
-            else
-            {
-                if (!broadcastTime.HasValue)
-                {
-                    throw new ArgumentException();
-                }
-                StudyRoomType = StudyRoomType.Broadcast;
-                Identifier = Guid.NewGuid().ToString();
-                ChatRoom = ChatRoom.FromStudyRoom(this);
-                BroadcastTime = broadcastTime!.Value;
-                //var chatRoom = ChatRoom.FromStudyRoom(Identifier);
-            }
+           // StudyRoomType = type;
+            //if (StudyRoomType == StudyRoomType.Private )
+            //{
+            //    if (_users.Count == 0)
+            //    {
+            //        throw new ArgumentException();
+            //    }
+            //    //StudyRoomType = StudyRoomType.Private;
+            //    Identifier = ChatRoom.BuildChatRoomIdentifier(
+            //        _users.Select(s => s.User.Id).Union(new[] { tutor.Id }));
+            //}
+            //else
+            //{
+            //    if (!broadcastTime.HasValue)
+            //    {
+            //        throw new ArgumentException();
+            //    }
+            //    StudyRoomType = StudyRoomType.Broadcast;
+            //    Identifier = Guid.NewGuid().ToString();
+            //    ChatRoom = ChatRoom.FromStudyRoom(this);
+            //    BroadcastTime = broadcastTime!.Value;
+            //    //var chatRoom = ChatRoom.FromStudyRoom(Identifier);
+            //}
 
             OnlineDocumentUrl = onlineDocumentUrl;
             Name = name;
-            if (_users.Count < 10 && _users.Count > 0)
-            {
-                Type = StudyRoomTopologyType.PeerToPeer;
-            }
-            else
-            {
-                Type = StudyRoomTopologyType.GroupRoom;
-            }
+            //if (_users.Count < 10 && _users.Count > 0)
+            //{
+            //    Type = StudyRoomTopologyType.PeerToPeer;
+            //}
+            //else
+            //{
+            //    Type = StudyRoomTopologyType.GroupRoom;
+            //}
 
             DateTime = new DomainTimeStamp();
             Price = price;
@@ -79,15 +145,15 @@ namespace Cloudents.Core.Entities
         }
 
 
-        public virtual StudyRoomType StudyRoomType { get; protected set; }
+      //  public virtual StudyRoomType StudyRoomType { get; protected set; }
 
         public virtual string Name { get; set; }
 
         public virtual Tutor Tutor { get; protected set; }
 
-        private readonly ISet<StudyRoomUser> _users = new HashSet<StudyRoomUser>();
+        protected readonly ISet<StudyRoomUser> _users = new HashSet<StudyRoomUser>();
 
-        public virtual ISet<StudyRoomUser> Users => _users;
+        public virtual IEnumerable<StudyRoomUser> Users => _users;
 
 
         public virtual string Identifier { get; protected set; }
@@ -101,7 +167,7 @@ namespace Cloudents.Core.Entities
 
         public virtual decimal? Price { get; protected set; }
 
-        public virtual DateTime? BroadcastTime { get; protected set; }
+        
 
         private readonly ICollection<UserPaymentToken> _userTokens = new List<UserPaymentToken>();
         public virtual IEnumerable<UserPaymentToken> UserTokens => _userTokens;
@@ -116,7 +182,7 @@ namespace Cloudents.Core.Entities
             return result.SingleOrDefault(w => w.Ended == null);
         }
 
-        public virtual StudyRoomTopologyType? Type { get; protected set; }
+        public virtual StudyRoomTopologyType? TopologyType { get; protected set; }
 
         public virtual void AddSession(string sessionName)
         {
@@ -127,17 +193,11 @@ namespace Cloudents.Core.Entities
             DateTime.UpdateTime = System.DateTime.UtcNow;
         }
 
+        public abstract void AddUserToStudyRoom(User user);
+        public abstract StudyRoomType Type { get; }
 
-        public virtual void AddUserToStudyRoom(User user)
-        {
-            if (StudyRoomType == StudyRoomType.Broadcast)
-            {
-                var studyRoomUser = new StudyRoomUser(user, this);
-                Users.Add(studyRoomUser);
-                ChatRoom.AddUserToChat(user);
-                Tutor.User.AddFollower(user);
-            }
-        }
+
+        
 
       
 

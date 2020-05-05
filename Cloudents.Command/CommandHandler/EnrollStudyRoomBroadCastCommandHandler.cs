@@ -9,10 +9,10 @@ namespace Cloudents.Command.CommandHandler
     public class EnrollStudyRoomBroadCastCommandHandler : ICommandHandler<EnrollStudyRoomBroadCastCommand>
     {
         private readonly IRegularUserRepository _userRepository;
-        private readonly IRepository<StudyRoom> _studyRoomRepository;
+        private readonly IRepository<BroadCastStudyRoom> _studyRoomRepository;
         private readonly ICalendarService _calendarService;
 
-        public EnrollStudyRoomBroadCastCommandHandler(IRegularUserRepository userRepository, IRepository<StudyRoom> studyRoomRepository, ICalendarService calendarService)
+        public EnrollStudyRoomBroadCastCommandHandler(IRegularUserRepository userRepository, IRepository<BroadCastStudyRoom> studyRoomRepository, ICalendarService calendarService)
         {
             _userRepository = userRepository;
             _studyRoomRepository = studyRoomRepository;
@@ -28,7 +28,7 @@ namespace Cloudents.Command.CommandHandler
 
             await _calendarService.EnrollUserEventAsync(studyRoom.Name, studyRoom.Tutor,
                 user,
-                studyRoom.BroadcastTime!.Value, token);
+                studyRoom.BroadcastTime, token);
         }
     }
 }

@@ -44,14 +44,28 @@ namespace Cloudents.Command.CommandHandler
                 tutor.AddFollowers(students);
             }
 
-            var documentName = $"{message.Name}-{Guid.NewGuid().ToString()}";
+            var documentName = $"{message.Name}-{Guid.NewGuid()}";
             var googleDocUrl = await _googleDocument.CreateOnlineDocAsync(documentName, token);
 
-            var studyRoom = new StudyRoom(tutor.Tutor, students, googleDocUrl,
-                message.Name, message.Price, message.BroadcastTime,message.Type);
-            await _studyRoomRepository.AddAsync(studyRoom, token);
-           
-            
+
+            StudyRoom studyRoom;
+            if (message.Type == StudyRoomType.Broadcast)
+            {
+                studyRoom = new BroadCastStudyRoom(tutor.Tutor, students, googleDocUrl,
+                   message.Name, message.Price, message.BroadcastTime!.Value);
+                await _studyRoomRepository.AddAsync(studyRoom, token);
+            }
+            else
+            {
+                studyRoom = new PrivateStudyRoom(tutor.Tutor, students, googleDocUrl,
+                   message.Name, message.Price);
+                await _studyRoomRepository.AddAsync(studyRoom, token);
+            }
+            //var studyRoom = new StudyRoom(tutor.Tutor, students, googleDocUrl,
+            //    message.Name, message.Price, message.BroadcastTime,message.Type);
+            //await _studyRoomRepository.AddAsync(studyRoom, token);
+
+
             return new CreateStudyRoomCommandResult(studyRoom.Id, studyRoom.Identifier);
         }
     }

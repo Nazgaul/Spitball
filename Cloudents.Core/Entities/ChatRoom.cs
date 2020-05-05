@@ -70,17 +70,20 @@ namespace Cloudents.Core.Entities
         public virtual void AddMessage(ChatMessage message)
         {
             UpdateTime = DateTime.UtcNow;
-            if (StudyRoom?.StudyRoomType != StudyRoomType.Broadcast) // we update unread only on not broadcast studyroom
+            if (StudyRoom != null)
             {
-                foreach (var userInChat in Users)
+                if (StudyRoom is PrivateStudyRoom _) 
                 {
-                    if (userInChat.User.Id != message.User.Id)
+                    foreach (var userInChat in Users)
                     {
-                        userInChat.UnreadMessage();
-                    }
-                    else
-                    {
-                        userInChat.ResetUnread();
+                        if (userInChat.User.Id != message.User.Id)
+                        {
+                            userInChat.UnreadMessage();
+                        }
+                        else
+                        {
+                            userInChat.ResetUnread();
+                        }
                     }
                 }
             }
@@ -91,10 +94,19 @@ namespace Cloudents.Core.Entities
 
         public virtual void AddUserToChat(User user)
         {
-            if (StudyRoom?.StudyRoomType == StudyRoomType.Broadcast) // we update unread only on not broadcast studyroom
+            if (StudyRoom != null)
             {
-                var chatUser = new ChatUser(this, user);
-                Users.Add(chatUser);
+                if (StudyRoom is BroadCastStudyRoom _)
+                {
+                    var chatUser = new ChatUser(this, user);
+                    Users.Add(chatUser);
+                }
+
+                //if (StudyRoom?.StudyRoomType == StudyRoomType.Broadcast
+                //) // we update unread only on not broadcast studyroom
+                //{
+                   
+                //}
             }
         }
 
