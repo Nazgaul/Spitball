@@ -133,7 +133,7 @@
     <value>הקלק בכל מקום להתחיל לכתוב</value>
   </data>
   <data name="created" xml:space="preserve">
-    <value>נוצר ב-</value>
+    <value>תאריך יצירה</value>
   </data>
   <data name="equation_btn" xml:space="preserve">
     <value>הוסף משוואה ללוח</value>

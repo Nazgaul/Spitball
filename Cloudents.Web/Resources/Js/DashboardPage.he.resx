@@ -260,7 +260,7 @@
     <value>צור חדר לימוד</value>
   </data>
   <data name="name" xml:space="preserve">
-    <value>שם</value>
+    <value>שם החדר</value>
   </data>
   <data name="paid" xml:space="preserve">
     <value>שולם</value>
@@ -323,7 +323,7 @@
     <value>סטטוס</value>
   </data>
   <data name="students" xml:space="preserve">
-    <value>סטודנטים</value>
+    <value>מס' הסטודנטים</value>
   </data>
   <data name="student_tutor" xml:space="preserve">
     <value>סטודנט / מורה פרטי</value>
