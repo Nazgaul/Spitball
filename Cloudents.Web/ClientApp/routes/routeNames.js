@@ -45,9 +45,6 @@ export const EditCourse = 'editCourse';
 export const AddCourse = 'addCourse';
 export const SetCourse = 'setCourse';
 
-// Edit University:
-// export const EditUniversity = 'addUniversity';
-
 // Profile:
 export const Profile = 'profile';
 

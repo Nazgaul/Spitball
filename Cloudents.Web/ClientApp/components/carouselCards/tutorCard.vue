@@ -10,7 +10,6 @@
             <div class="ts-content">
                 <!-- <h3 class="font-weight-bold text-truncate mb-1" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3> -->
                 <h3 class="font-weight-bold text-truncate mb-1" v-html="$Ph('resultTutor_private_tutor', tutor.name)"></h3>
-                <!-- <h2 class="tutor-university text-truncate">{{tutor.university}}</h2> -->
                 <div class="rank">
                     <template>
                         <div class="user-rate-ts" v-if="tutor.reviews > 0">
@@ -190,15 +189,6 @@ export default {
         .tutor-name {
         font-size: 14px;
         font-weight: bold;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        margin-bottom: 4px;
-        }
-        .tutor-university {
-        font-size: 14px;
-        font-weight: normal;
         font-stretch: normal;
         font-style: normal;
         line-height: normal;

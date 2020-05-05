@@ -11,11 +11,11 @@ namespace Cloudents.Query.Admin
 {
     public class CouponQuery : IQuery<IEnumerable<CouponDto>>
     {
-        internal sealed class AllConversationsQueryHandler : IQueryHandler<CouponQuery, IEnumerable<CouponDto>>
+        internal sealed class CouponQueryHandler : IQueryHandler<CouponQuery, IEnumerable<CouponDto>>
         {
             private readonly IStatelessSession _statelessSession;
 
-            public AllConversationsQueryHandler(QuerySession statelessSession)
+            public CouponQueryHandler(QuerySession statelessSession)
             {
                 _statelessSession = statelessSession.StatelessSession;
             }
@@ -32,7 +32,7 @@ namespace Cloudents.Query.Admin
                          CouponType = s.CouponType,
                          TutorId = s.Tutor!.Id,
                          Description = s.Description,
-                         Owner = s.Owner
+                        // Owner = s.Owner
                      }).ToListAsync(token);
             }
         }

@@ -19,13 +19,17 @@ namespace Cloudents.Command.CommandHandler.Admin
 
         public async Task ExecuteAsync(CreateCouponCommand message, CancellationToken token)
         {
-            Tutor tutor = null;
+            Tutor? tutor = null;
             if (message.TutorId.HasValue)
             {
                 tutor = await _tutorRepository.LoadAsync(message.TutorId.Value, token);
             }
             var coupon = new Coupon(message.Code, message.CouponType, tutor,
-                message.Value, message.AmountOfUsers,message.AmountOfUsePerUser, message.Expiration, message.Description, message.Owner);
+                message.Value, 
+                //message.AmountOfUsers,
+                //message.AmountOfUsePerUser,
+                message.Expiration,
+                message.Description);
             await _couponRepository.AddAsync(coupon, token);
         }
     }

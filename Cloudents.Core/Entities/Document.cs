@@ -26,6 +26,10 @@ namespace Cloudents.Core.Entities
             if (name == null) throw new ArgumentNullException(nameof(name));
             Course = course ?? throw new ArgumentNullException(nameof(course));
             User = user ?? throw new ArgumentNullException(nameof(user));
+
+            TimeStamp = new DomainTimeStamp();
+            DocumentDownloads = new HashSet<UserDownloadDocument>();
+
             Name = Path.GetFileNameWithoutExtension(name.Replace("+", "-"));
 
             Views = 0;
@@ -40,8 +44,7 @@ namespace Cloudents.Core.Entities
                 MakePublic();
             }
             DocumentType = documentType;
-            TimeStamp = new DomainTimeStamp();
-            DocumentDownloads = new HashSet<UserDownloadDocument>();
+      
         }
 
       

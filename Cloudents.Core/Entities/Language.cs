@@ -147,7 +147,7 @@ namespace Cloudents.Core.Entities
             "MG", "MW", "ML", "MR", "MU", "MA", "MZ", "NA", "NE", "NG", "CG", "RE", "RW", "SH", "ST", "SN",
             "SC", "SL", "SO",
             "SS", "SD", "SZ", "TZ", "TG", "TN", "UG", "EH", "ZM", "ZW", "AF", "AM", "AZ", "BH", "BD", "BT",
-            "BN", "KH", "GE",
+            "BN", "KH", 
             "ID", "IR", "IQ", "JO", "KZ", "KW", "KG", "LA", "LB", "MO", "MY", "MV", "MN", "MM", "NP",
             "KP", "OM", "PK",
             "PH", "QA", "SA", "LK", "SY", "TW", "TJ", "TH", "TR", "TM", "AE", "UZ", "VN", "YE"

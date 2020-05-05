@@ -49,16 +49,19 @@ export default {
             ],
             dialogs: {
                 name: false,
+                email: false,
                 phone: false,
                 price: false,
                 type: false
             },
             currentFirstName: '',
             currentLastName: '',
+            currentEmail: '',
             currentPhone: '',
             currentPrice: '',
             newFirstName: '',
             newLastName: '',
+            newEmail: '',
             newPhone: '',
             newPrice: '',
             suspendDialog: false,
@@ -120,8 +123,9 @@ export default {
             "removeTutor",
             "updateSuspendTutor",
             "updateUnSuspendTutor",
-            "updateUserPhone",
             "updateUserName",
+            "updateUserEmail",
+            "updateUserPhone",
             "deletePayment",
             "updateTutorPrice",
             "removeCalender"
@@ -248,6 +252,10 @@ export default {
             this.currentFirstName = fullName[0];
             this.currentLastName = fullName[1];
         },
+        openEmailDialog(email) {
+            this.dialogs.email = true;
+            this.currentEmail = email;
+        },
         openPhoneDialog(phone) {           
             this.dialogs.phone = true;
             this.currentPhone = phone;
@@ -274,13 +282,25 @@ export default {
                 this.dialogs.name = false;
             });
         },
+        editEmail() {
+            let emailObj = { email: this.newEmail, userId: this.userIdentifier };
+            this.updateUserEmail(emailObj).then(() => {
+                this.$toaster.success(`SUCCESS: update user email`);
+            }).catch(() => {
+                this.$toaster.error(`ERROR: update user email`);
+            })
+            .finally(() => {
+                this.newEmail = '';
+                this.dialogs.email = false;
+            });
+        },
         editPhone() {
             let phoneObj = {
                 newPhone: this.newPhone,
                 userId: this.userIdentifier
             };
             this.updateUserPhone(phoneObj).then(() => {
-                this.$toaster.success(`SUCCESS: update user name`);
+                this.$toaster.success(`SUCCESS: update user phone`);
             }).catch(() => {
                 this.$toaster.error(`ERROR: update user phone`);
             })

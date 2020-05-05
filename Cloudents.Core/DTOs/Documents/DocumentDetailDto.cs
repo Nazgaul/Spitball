@@ -4,7 +4,7 @@ namespace Cloudents.Core.DTOs.Documents
 {
     public class DocumentDetailDto
     {
-        public TutorCardDto Tutor { get; set; }
+        public TutorCardDto? Tutor { get; set; }
         public DocumentFeedDto Document{ get; set; }
         public int Pages { get; set; }
         public bool IsPurchased { get; set; }
