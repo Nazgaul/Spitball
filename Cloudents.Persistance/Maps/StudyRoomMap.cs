@@ -1,5 +1,7 @@
 ﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
+using FluentNHibernate.Conventions;
+using FluentNHibernate.Conventions.Instances;
 using FluentNHibernate.Mapping;
 using NHibernate;
 
@@ -13,7 +15,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Identifier).Not.Nullable().Unique();
             References(x => x.Tutor).Not.Nullable();
 
-            Map(x => x.Type);
+            Map(x => x.TopologyType).Column("Type");
             Map(x => x.Name).Length(500);
             Component(x => x.DateTime, z => {
                 z.Map(m => m.CreationTime).Column("DateTime");
@@ -29,16 +31,40 @@ namespace Cloudents.Persistence.Maps
                 .Inverse().Cascade.AllDeleteOrphan().AsSet();
 
             Map(x => x.Price).CustomType(nameof(NHibernateUtil.Currency));
-            Map(x => x.BroadcastTime).Nullable();
-            Map(x => x.StudyRoomType).CustomType<GenericEnumStringType<StudyRoomType>>();
+           
+            //Map(x => x.StudyRoomType).CustomType<GenericEnumStringType<StudyRoomType>>();
+
+
             HasMany(x => x.ChatRooms).Inverse().Cascade.AllDeleteOrphan();//.Inverse();
 
 
             HasMany(x => x.UserTokens)
                 .Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan();
+
+            
+            DiscriminateSubClassesOnColumn("StudyRoomType");//,StudyRoomType.Private.ToString())
+                //.CustomType<GenericEnumStringType<StudyRoomType>>().Not.Nullable();
+
         }
 
+    }
+
+    public class PrivateStudyRoomMap : SubclassMap<PrivateStudyRoom>
+    {
+        public PrivateStudyRoomMap()
+        {
+            DiscriminatorValue(StudyRoomType.Private.ToString());
+        }
+    }
+
+    public class BroadCastStudyRoomMap : SubclassMap<BroadCastStudyRoom>
+    {
+        public BroadCastStudyRoomMap()
+        {
+            DiscriminatorValue(StudyRoomType.Broadcast.ToString());
+            Map(x => x.BroadcastTime);
+        }
     }
 
     public class StudyRoomUserMap : ClassMap<StudyRoomUser>
@@ -51,4 +77,13 @@ namespace Cloudents.Persistence.Maps
            // Map(x => x.Online).Not.Nullable();
         }
     }
+
+
+    //public class DiscriminatorValueConvention  :ISubclassConvention
+    //{
+    //    public void Apply(ISubclassInstance instance)
+    //    {
+    //        instance.DiscriminatorValue(instance.EntityType.Name);
+    //    }
+    //}
 }

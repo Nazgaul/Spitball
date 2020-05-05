@@ -43,13 +43,13 @@ namespace Cloudents.Query.Tutor
 
                 return await _session.QueryOver(() => studyRoomAlias)
                     .WithSubquery.WhereProperty(x => x.Id).In(detachedQuery)
-                    .Where(w=>w.BroadcastTime.IfNull(DateTime.UtcNow.AddDays(1)) > DateTime.UtcNow)
+                    .Where(w=>((BroadCastStudyRoom)w).BroadcastTime.IfNull(DateTime.UtcNow.AddDays(1)) > DateTime.UtcNow)
                     .SelectList(sl =>
                                 sl.Select(s => s.Id).WithAlias(() => resultAlias.Id)
                                 .Select(s=>s.Name).WithAlias(() => resultAlias.Name)
                                 .Select(s => s.DateTime.CreationTime).WithAlias(() => resultAlias.DateTime)
-                                .Select(s=>s.StudyRoomType).WithAlias(() => resultAlias.Type)
-                                .Select(s=>s.BroadcastTime).WithAlias(() => resultAlias.Scheduled)
+                                .Select(s=> s.GetType()).WithAlias(() => resultAlias.Type)
+                                .Select(s=>((BroadCastStudyRoom)s).BroadcastTime).WithAlias(() => resultAlias.Scheduled)
                                 .Select(s => s.Identifier).WithAlias(() => resultAlias.ConversationId)
                                 .SelectSubQuery(QueryOver.Of<StudyRoomSession>()
                                     .Where(w=>w.StudyRoom.Id == studyRoomAlias.Id)
@@ -64,7 +64,8 @@ namespace Cloudents.Query.Tutor
                                
                     )
                     .OrderBy(()=> studyRoomAlias.DateTime.CreationTime).Desc
-                    .TransformUsing(Transformers.AliasToBean<UserStudyRoomDto>())
+                    //.TransformUsing(Transformers.AliasToBean<UserStudyRoomDto>())
+                    .TransformUsing(new SbAliasToBeanResultTransformer<UserStudyRoomDto>())
                     .UnderlyingCriteria.SetComment(nameof(UserStudyRoomQuery))
                     .ListAsync<UserStudyRoomDto>(token);
 
