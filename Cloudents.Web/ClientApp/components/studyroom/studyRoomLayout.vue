@@ -6,12 +6,14 @@
       <component style="height:100%" :is="activeWindow"></component>
     </v-content>
     <studyRoomFooter v-if="isShowFooter"/>
+    <studyRoomSettingsDialog v-if="id && !isRoomActive"/>
   </div>
 </template>
 
 <script>
 const studyRoomDrawer = () => import('./layouts/studyRoomDrawer/studyRoomDrawer.vue');
 const studyRoomFooter = () => import('./layouts/studyRoomFooter/studyRoomFooter.vue');
+import studyRoomSettingsDialog from "./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue";
 import studyRoomHeader from './layouts/studyRoomHeader/studyRoomHeader.vue';
 import * as dialogNames from '../pages/global/dialogInjection/dialogNames.js';
 import chatService from "../../services/chatService";
@@ -36,7 +38,9 @@ export default {
     codeEditor,
     sharedDocument,
     classMode,
-    classScreen
+    classScreen,
+
+    studyRoomSettingsDialog,
   },
   computed: {
     ...mapGetters(['getRoomIsNeedPayment']),
@@ -49,7 +53,10 @@ export default {
     isShowFooter(){
       let currentEditor = this.$store.getters.getActiveNavEditor 
       return currentEditor !== 'class-mode' && currentEditor !== 'class-screen'
-    }
+    },
+    isRoomActive(){
+      return this.$store.getters.getRoomIsActive;
+    },
   },
   watch: {
     getRoomIsNeedPayment:{
