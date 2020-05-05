@@ -22,7 +22,8 @@ export const User = {
         this.discountPrice = objInit.discountPrice;
         this.subjects = objInit.subjects || [];
         this.pendingSessionsPayments = objInit.pendingSessionsPayments || null;
-        this.description = objInit.description || ''
+        this.description = objInit.description || '';
+        this.tutorCountry = objInit.tutorCountry
 
     },
     Tutor: function (objInit) {
@@ -49,7 +50,6 @@ export const User = {
                 rating:  objInit.rate ? Number(objInit.rate.toFixed(2)): null,
                 reviews: objInit.reviewsCount || 0,
                 template: 'tutor-result-card',
-                university: objInit.university || '',
                 classes: objInit.classes || 0,
                 isTutor: true,
             }
@@ -67,7 +67,6 @@ export const User = {
                 needPayment: objInit.needPayment,
                 isTutor: _createIsTutorState(objInit.isTutor) ? true : false,
                 isTutorState: _createIsTutorState(objInit.isTutor),
-                // university: new School.University(objInit.university),
                 courses: objInit.courses.map((course) => new School.Course(course)),
                 haveDocsWithPrice: objInit.haveDocsWithPrice,
                 haveContent: objInit.haveContent,

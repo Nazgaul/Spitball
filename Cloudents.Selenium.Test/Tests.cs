@@ -662,7 +662,7 @@ namespace Cloudents.Selenium.Test
                 {
                     driver.Manage().Window.Maximize();
 
-                    var url = $"{_driver.SiteUrl.TrimEnd('/')}/profile/159039";
+                    var url = $"{_driver.SiteUrl.TrimEnd('/')}/profile/159039/culture={culture}";
                     driver.Navigate().GoToUrl(url);
 
                     // Make sure those elements exist
@@ -703,6 +703,13 @@ namespace Cloudents.Selenium.Test
                     FindContains(driver, "coupon-dialog");
                     Logout(driver);
                 }
+
+                // Turn to mobile size
+                driver.Manage().Window.Size = new System.Drawing.Size(414, 736);
+                driver.Navigate().GoToUrl($"{_driver.SiteUrl.TrimEnd('/')}/profile/159039");
+
+                // Check that this class exists containing text-center
+                FindContains(driver, "profileUserSticky_btns d-block d-sm-flex align-end text-center");
             }
         }
 
@@ -940,6 +947,31 @@ namespace Cloudents.Selenium.Test
                 FindContains(driver, "landingPageHP");
 
                 driver.Url.Should().Contain("learn");
+            }
+        }
+
+        [Fact]
+        public void SideMenuTest()
+        {
+            foreach (var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+                Login(driver, UserTypeAccounts.ElementAt(0));
+
+                // Wait until this element shows
+                FindByClass(driver, "gH_i_r_chat");
+
+                FindSel(driver, "sidemenu_home").Click();
+                FindSel(driver, "sidemenu_dashboard").Click();
+                FindSel(driver, "sidemenu_dashboard_overview").Click();
+                FindSel(driver, "sidemenu_dashboard_opportunities").Click();
+                //FindSel(driver, "sidemenu_dashboard_myContent").Click();
+                FindSel(driver, "sidemenu_dashboard_myStudyRooms").Click();
+                FindSel(driver, "sidemenu_dashboard_mySales").Click();
+                FindSel(driver, "sidemenu_dashboard_myFollowers").Click();
+                FindSel(driver, "sidemenu_dashboard_myPurchases").Click();
+
+                Logout(driver);
             }
         }
     }

@@ -250,10 +250,38 @@ namespace Cloudents.Infrastructure
                 AccountSid,
                 ApiKey,
                 SecretVideo,
-                $"{userId}_{name.Truncate(30, true)}",
+                CreateIdentity(userId,name),
                 grants: grants);
 
             return token.ToJwt();
+        }
+
+        public static string CreateIdentity(long userId, string name)
+        {
+            return $"{userId}_{name.Truncate(30, true)}";
+        }
+
+        public static (long userId, string name) ParseIdentity(string identity)
+        {
+            var userIdStr = identity.Split("_");
+            if (userIdStr.Length == 2)
+            {
+                return (long.Parse(userIdStr[0]), userIdStr[1]);
+            }
+
+            return (long.Parse(userIdStr[0]), null);
+        }
+
+        public async Task<IEnumerable<(long identity, TimeSpan duration)>> GetRoomParticipantInfoAsync(string sessionId)
+        {
+            var rooms = await RoomResource.ReadAsync(
+                status: RoomResource.RoomStatusEnum.Completed,
+                uniqueName: sessionId);
+            var room = rooms.First();
+            var participantResources = await ParticipantResource.ReadAsync(room.Sid);
+            return participantResources.Select(s =>
+                (ParseIdentity(s.Identity).userId, TimeSpan.FromSeconds(s.Duration.Value)));
+
         }
 
 

@@ -12,8 +12,7 @@
               :borderRadius="4"
             />
             <div class="main-card">
-                <h3 class="font-weight-bold text-truncate mb-1" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
-                <h4 class="mb-4 font-weight-bold text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
+                <h3 class="font-weight-bold text-truncate mb-8" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
                 <div class="user-bio-wrapper mb-4">
                   <div class="user-bio">{{tutorData.bio}}</div>
                 </div>
@@ -162,9 +161,6 @@ export default {
     isCourses() {
       return this.tutorData && this.tutorData.courses.length > 0 ? true : false;
     },
-    university() {
-      return this.tutorData.university;
-    },
     subjects() {
       return this.tutorData.subjects.join(', ');
     },
@@ -209,10 +205,6 @@ export default {
       display: flex;
       .main-card {
         min-width: 0;
-        .university-hidden {
-          visibility: hidden;
-          min-height: 16px;
-        }
         .user-bio-wrapper {
           min-height: 60px;
           .user-bio {

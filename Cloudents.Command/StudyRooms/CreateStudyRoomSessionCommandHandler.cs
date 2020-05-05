@@ -34,7 +34,6 @@ namespace Cloudents.Command.StudyRooms
                 var roomAvailable = await _videoProvider.GetRoomAvailableAsync(lastSession.SessionId);
                 if (roomAvailable)
                 {
-                    //lastSession.ReJoinStudyRoom();
                     var jwtToken2 = _videoProvider.CreateRoomToken(lastSession.SessionId, tutor.Id, tutor.User.Name);
                     return new CreateStudyRoomSessionCommandResult(jwtToken2);
                 }
@@ -44,7 +43,7 @@ namespace Cloudents.Command.StudyRooms
             var url = _urlBuilder.BuildTwilioWebHookEndPoint(room.Id);
             await _videoProvider.CreateRoomAsync(sessionName,
                 room.Tutor.User.SbCountry,
-                message.RecordVideo,
+                true,
                 url,
                 room.Type.GetValueOrDefault(StudyRoomTopologyType.PeerToPeer)
                 );
