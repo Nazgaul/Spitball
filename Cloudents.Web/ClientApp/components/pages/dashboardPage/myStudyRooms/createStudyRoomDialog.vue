@@ -1,125 +1,38 @@
 <template>
    <v-dialog :value="true" persistent max-width="640px" :fullscreen="$vuetify.breakpoint.xsOnly">
-      <div class="createStudyRoomDialog pa-4">
-         <v-icon class="close-dialog" v-text="'sbf-close'" @click="$store.commit('setComponent')" />
-         <div class="createStudyRoomDialog-title text-center" v-t="createSessionTitle"></div>
-         
-         <component :is="studyRoomType"></component>
-         <!-- <v-form class="justify-space-between input-room-name mb-3" ref="createRoomValidation">
-            <div class="d-flex">
-               <v-text-field
-                  :rules="[rules.required]"
-                  v-model="roomName"
-                  class="roomName"
-                  height="50"
-                  dense
-                  outlined
-                  :label="$t('dashboardPage_create_room_placeholder')"
-                  :placeholder="$t(roomNamePlaceholder)"
-               >
-               </v-text-field>
-               <v-text-field 
-                  class="pl-4 roomPrice"
-                  outlined
-                  height="50"
-                  dense
-                  :rules="[rules.required,rules.minimum]"
-                  v-model="price" type="number"
-                  :label="$t('becomeTutor_placeholder_price', {'0' : getSymbol})"
-                  :placeholder="$t('becomeTutor_placeholder_price', {'0' : getSymbol})"
-               >
-               </v-text-field>
-            </div>
+      <div class="createStudyRoomDialog pa-4 d-sm-block d-flex flex-column justify-space-between">
 
-         <div class="createStudyRoomDialog-list">
-            <template v-if="studyRoomType === 'private'">
-               <div class="listTitle" v-t="'dashboardPage_invite_students'"></div>
-               <v-list flat class="list-followers">
-                  <v-list-item-group>
-                     <v-list-item v-for="(item, index) in myFollowers" :key="index" @click="addSelectedUser(item)" :class="[{'dark-line': index % 2}]">
-                        <template v-slot:default="{}">
-                           <v-list-item-avatar>
-                              <UserAvatar :size="'40'" :user-name="item.name" :user-id="item.id" :userImageUrl="item.image"/> 
-                           </v-list-item-avatar>
-                           <v-list-item-content>
-                              <v-list-item-title>{{item.name}}</v-list-item-title>
-                           </v-list-item-content>
-                           <v-list-item-action>
-                              <v-checkbox @click.prevent multiple v-model="selected" :value="item" color="#4c59ff" off-icon="sbf-check-box-un" on-icon="sbf-check-box-done"></v-checkbox>
-                           </v-list-item-action>
-                        </template>
-                     </v-list-item>
-                  </v-list-item-group>
-               </v-list>
-            </template>
+         <v-form class="justify-space-between input-room-name mb-3" ref="createRoomValidation">
+            <v-icon class="close-dialog" v-text="'sbf-close'" @click="$store.commit('setComponent')" />
+            <div class="createStudyRoomDialog-title text-center" v-t="createSessionTitle"></div>
 
-            <div class="dateTimeWrapper d-flex justify-center" v-else>
-               <v-menu ref="datePickerMenu" v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290" min-width="290px">
-                  <template v-slot:activator="{ on }">
-                        <v-text-field 
-                           v-on="on"
-                           v-model="date"
-                           class="date-input"
-                           :rules="[rules.required]"
-                           :label="$t('dashboardPage_label_date')"
-                           autocomplete="nope"
-                           prepend-inner-icon="sbf-calendar"
-                           dense
-                           color="#304FFE"
-                           outlined
-                           type="text"
-                           readonly
-                           :height="$vuetify.breakpoint.xsOnly ? 50 : 48"
-                        />
-                  </template>
-                  <v-date-picker :allowed-dates="allowedDates" color="#4C59FF" class="date-picker" :next-icon="isRtl?'sbf-arrow-left-carousel':'sbf-arrow-right-carousel'" :prev-icon="isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'" v-model="date" no-title @input="datePickerMenu = false">
-                     <v-spacer></v-spacer>
-                     <v-btn text class="font-weight-bold" color="#4C59FF" @click="datePickerMenu = false">{{$t('coupon_btn_calendar_cancel')}}</v-btn>
-                     <v-btn text class="font-weight-bold" color="#4C59FF" @click="$refs.datePickerMenu.save(date)">{{$t('coupon_btn_calendar_ok')}}</v-btn>
-                  </v-date-picker>
-               </v-menu>
+            <component
+               :is="studyRoomType"
+               :price="price"
+               :currentError="currentError"
+               @updateError="updateError"
+               @resetErrors="resetErrors"
+               @updatePrice="val => price = val"
+               ref="childComponent"
+            >
+            </component>
+         </v-form>
 
-                  <v-select
-                     v-model="hour"
-                     class="roomType mx-5"
-                     append-icon="sbf-menu-down"
-                     :items="timeHoursList"
-                     :menu-props="{
-                        maxHeight: 200
-                     }"
-                     :label="$t('dashboardPage_labe_hours')"
-                     placeholder=" "
-                     outlined
-                  ></v-select>
-
-                  <v-select
-                     v-model="minutes"
-                     class="roomType"
-                     append-icon="sbf-menu-down"
-                     :items="timeMinutes"
-                     :label="$t('dashboardPage_label_minutes')"
-                     placeholder=" "
-                     outlined
-                  ></v-select>
-            </div>
-
-         </div>
          <div class="d-flex flex-column align-center pt-4">
             <div class="mb-4">
-               <span v-if="showErrorEmpty" class="error--text" v-t="'dashboardPage_create_room_empty_error'"></span>
-               <span v-if="showErrorAlreadyCreated" class="error--text" v-t="'dashboardPage_create_room_created_error'"></span>
-               <span v-if="showErrorMaxUsers" class="error--text" v-t="'dashboardPage_create_room_max_error'"></span>
-               <span v-if="showErrorWrongTime" class="error--text" v-t="'dashboardPage_pick_time_error'"></span>
+               <span v-if="currentError" class="error--text" v-t="errorsResource[currentError]"></span>
+               <!-- <span v-if="errors.showErrorEmpty" class="error--text" v-t="'dashboardPage_create_room_empty_error'"></span>
+               <span v-if="errors.showErrorAlreadyCreated" class="error--text" v-t="'dashboardPage_create_room_created_error'"></span>
+               <span v-if="errors.showErrorMaxUsers" class="error--text" v-t="'dashboardPage_create_room_max_error'"></span>
+               <span v-if="errors.showErrorWrongTime" class="error--text" v-t="'dashboardPage_pick_time_error'"></span> -->
             </div>
-            <v-btn :loading="isLoading" @click="createStudyRoom" width="150" depressed height="40" color="#4452fc" class="white--text" rounded >{{$t(btnCreateText)}}</v-btn>
+            <v-btn :loading="isLoading" @click="createStudyRoom" width="160" depressed height="40" color="#4452fc" class="white--text" rounded >{{$t(btnCreateText)}}</v-btn>
          </div>
-      </v-form> -->
       </div>
    </v-dialog>
 </template>
 
 <script>
-import { validationRules } from '../../../../services/utilities/formValidationRules.js'
 import Broadcast from './liveSession/liveSession.vue'
 import Private from './privateSession/privateSession.vue'
 
@@ -134,185 +47,149 @@ export default {
    },
    data() {
       return {
-         date: new Date().FormatDateToString(),
          studyRoomType: '',
-         time: '',
-         hour: '00',
-         minutes: '00',
-         roomName:'',
-         price: 0,
-         isLoading:false,
-         showErrorEmpty:false,
-         showErrorMaxUsers:false,
-         showErrorWrongTime: false,
-         showErrorAlreadyCreated:false,
-         selected:[],
-         myFollowers:[],
-         MAX_PARTICIPANT: 49,
-         isRtl: global.isRtl,
-         rules: {
-            required: (value) => validationRules.required(value),
-            minimum: (value) => validationRules.minVal(value,0),
+         isLoading: false,
+         errors: {
+            showErrorEmpty: false,
+            showErrorMaxUsers: false,
+            showErrorWrongTime: false,
+            showErrorAlreadyCreated: false
          },
-      }
-   },
-   watch: {
-      roomName(){
-         this.resetErrors()
-      },
-      selected(){
-         this.resetErrors()
-      },
-      studyRoomType() {
-         this.resetErrors()
-      },
-      hour() {
-         this.resetErrors()
-      },
-      minutes() {
-         this.resetErrors()
+         errorsResource: {
+            showErrorEmpty: 'dashboardPage_create_room_empty_error',
+            showErrorAlreadyCreated: 'dashboardPage_create_room_created_error',
+            showErrorMaxUsers: 'dashboardPage_create_room_max_error',
+            showErrorWrongTime: 'dashboardPage_pick_time_error',
+         },
+         currentError: '',
+         price: 0
       }
    },
    computed: {
-      btnCreateText() {
-         return this.isStudyRoomPrivate ? 'dashboardPage_create_private' : 'dashboardPage_create_broadcast'
-      },
-      isStudyRoomPrivate() {
+      isPrivate() {
          return this.studyRoomType === 'private'
       },
+      btnCreateText() {
+         return this.isPrivate ? 'dashboardPage_create_private' : 'dashboardPage_create_broadcast'
+      },
       createSessionTitle() {
-         return this.studyRoomType === 'private' ? 'dashboardPage_create_room_private_title' : 'dashboardPage_create_room_live_title'
+         return this.isPrivate ? 'dashboardPage_create_room_private_title' : 'dashboardPage_create_room_live_title'
       },
-      getSymbol() {
-         let v =   this.$n(1,'currency');
-         return v.replace(/\d|[.,]/g,'').trim();
-      },
-      roomNamePlaceholder() {
-         let roomNamePlaceholder = {
-            private: 'dashboardPage_create_room_label',
-            broadcast: 'dashboardPage_create_room_label_broadcast'
-         }
-         return roomNamePlaceholder[this.studyRoomType.toLowerCase()]
-      },
-      timeMinutes() {
-         let arr = []
-         let jump = 15
-         for (let i = 0; i < 60; i++) {
-            if(i % jump === 0) {
-               arr.push(i.toString().padStart(2, '0'));
-            }
-         }
-         return arr
-      },
-      timeHoursList() {
-         let arr = []
-         for (let i = 0; i < 24; i++) {
-            arr.push(i.toString().padStart(2, '0'));
-         }
-         return arr
+      isNoErrors() {
+         return !this.errors.showErrorAlreadyCreated && !this.errors.showErrorEmpty &&
+                !this.errors.showErrorMaxUsers && !this.errors.showErrorWrongTime
       }
    },
    methods: {
-      addSelectedUser(user){
-         let idx;
-         let isInList = this.selected.some((u,i)=>{
-            idx = i;
-            return u.userId === user.userId;
-         })
-         if(isInList){
-            this.selected.splice(idx,1);
-         }else{
-            if(this.selected.length < this.MAX_PARTICIPANT){
-               this.selected.push(user)
-            }else{
-               this.showErrorMaxUsers = true;
-            }
-         }
-      },
       createStudyRoom(){
-         if(!this.$refs.createRoomValidation.validate()) return
-         if(!this.isLoading && !this.showErrorAlreadyCreated && !this.showErrorEmpty && !this.showErrorMaxUsers){
-            let isBroadcast = this.studyRoomType === 'broadcast'
-            
-            if(!this.selected.length && !isBroadcast){
-               this.showErrorEmpty = true;
-               return 
+         let params
+         let form = this.$refs.createRoomValidation
+         if(!form.validate()) return
+
+         if(!this.isLoading && this.isNoErrors){
+
+            if(this.isPrivate) {
+               params = this.createPrivateSession()
+            } else {
+               params = this.createLiveSession()
             }
 
-            if(isBroadcast) {
-               let today = new Date()
-               if(this.date === today.FormatDateToString()) {
+            if(params === false) return
 
-                  let hour = Number(this.hour);
-                  let isWrongMinutes = today.getMinutes() < Number(this.minutes.padStart(0))
-                  if(hour < today.getHours()) {
-                     this.showErrorWrongTime = true
-                     return
-                  }
+            params.type = this.studyRoomType
 
-                  if(hour === today.getHours()) {
-                     if(!isWrongMinutes) {
-                        this.showErrorWrongTime = true
-                        return
-                     }
-                  }
-               }
-            }
-               
-            let paramsObj = {
-               name: this.roomName,
-               userId: Array.from(this.selected.map(user=> user.userId)),
-               price: this.price || 0,
-               type: this.studyRoomType,
-               date: new Date(`${this.date} ${this.hour}:${this.minutes}`)
-            }
-               
             this.isLoading = true
-            let self = this;
-            this.$store.dispatch('updateCreateStudyRoom',paramsObj)
+
+            let self = this
+            this.$store.dispatch('updateCreateStudyRoom', params)
                .then(() => {
                   self.$store.commit('setComponent')
-               }).catch((error)=>{
+               }).catch((error) => {
+                  console.log(error)
                   if(error.response?.status == 409){
-                     self.showErrorAlreadyCreated = true;
+                     self.errors.showErrorAlreadyCreated = true
+                     self.currentError = 'showErrorAlreadyCreated'
                   }
                }).finally(() => {
-                  self.isLoading = false;
+                  self.isLoading = false
                })
          }
       },
-      allowedDates(date) {
-         let today = new Date().FormatDateToString()
-         return date >= today
+      createPrivateSession() {
+         let childComponent = this.$refs.childComponent
+
+         if(!childComponent.selected.length) {
+            this.errors.showErrorEmpty = true
+            this.currentError = 'showErrorEmpty'
+            return false
+         }
+
+         return {
+            userId: Array.from(childComponent.selected.map(user=> user.userId)),
+            date: new Date(`${childComponent.date} ${childComponent.hour}:${childComponent.minutes}`),
+            name: childComponent.roomName,
+            price: childComponent.newPrice || 0,
+         }
+      },
+      createLiveSession() {
+         // TODO: new date format verify
+         
+         let childComponent = this.$refs.childComponent
+         let today = new Date()
+         if(childComponent.date === today.FormatDateToString()) {
+
+            let hour = Number(childComponent.hour)
+            let isWrongMinutes = today.getMinutes() < Number(childComponent.minutes.padStart(0))
+            if(hour < today.getHours()) {
+               this.errors.showErrorWrongTime = true
+               this.currentError = 'showErrorWrongTime'
+               return false
+            }
+
+            if(hour === today.getHours()) {
+               if(!isWrongMinutes) {
+                  this.errors.showErrorWrongTime = true
+                  this.currentError = 'showErrorWrongTime'
+                  return false
+               }
+            }
+         }
+
+         return {
+            date: new Date(`${childComponent.date} ${childComponent.hour}:${childComponent.minutes}`),
+            name: childComponent.liveSessionTitle || '',
+            about: childComponent.sessionAboutText || '',
+            price: childComponent.newPrice || 0,
+         }
+      },
+      updateError(error) {
+         this.currentError = error
+         this.errors[error] = true
       },
       resetErrors() {
-         this.showErrorEmpty = false;
-         this.showErrorAlreadyCreated = false;
-         this.showErrorMaxUsers = false;
-         this.showErrorWrongTime = false
+         this.errors.showErrorEmpty = false
+         this.errors.showErrorAlreadyCreated = false
+         this.errors.showErrorMaxUsers = false
+         this.errors.showErrorWrongTime = false
+         this.currentError = ''
       }
    },
    created() {
       this.studyRoomType = this.params.type
-      this.price = this.$store.getters.accountUser.price;
+      this.price = this.$store.getters.accountUser.price
    },
 }
 </script>
 
 <style lang="less">
 @import '../../../../styles/mixin.less';
+@import '../../../../styles/colors.less';
+
 .createStudyRoomDialog{
    background: white;
    position: relative;
-   // padding: 10px;
-   // height: 520px;
-   // display: flex;
-   // flex-direction: column;
-   // align-items: center;
-   // justify-content: space-between;
-   // padding-left: 0;
+   height: 100%;
    .close-dialog {
-      cursor: pointer;
       position: absolute;
       right: 12px;
       font-size: 12px;
@@ -325,7 +202,6 @@ export default {
    }
    .input-room-name{
       width: 100%;
-      // width: 216px;
       .v-text-field__details{
          margin-bottom: 0;
       }
@@ -337,39 +213,11 @@ export default {
             color: @global-purple;
          }
       }
-      .roomPrice {
-         flex: 1;
-      }
-   }
-   .roomType {
-      .v-input__slot {
-         min-height: 44px !important;
 
-         .v-input__append-inner {
-            margin-top: 10px;
-         }
-      }
    }
-   .dateTimeWrapper {
-      width: 95%;
-      margin: 0 auto;
-      .menuHour {
-         max-height: 200px;
-      }
-      .date-input{
-         .v-text-field__slot{
-            input{
-               margin-top: 4px !important;
-            }
-         }
-         .v-input__prepend-inner{
-            margin-top: 12px !important;
-         }
-      }
-   }
+
    .createStudyRoomDialog-list{
       width: 100%;
-      // height: 320px;
       .listTitle {
          font-size: 18px;
          font-weight: 600;

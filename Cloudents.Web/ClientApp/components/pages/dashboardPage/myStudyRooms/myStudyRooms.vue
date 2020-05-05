@@ -363,6 +363,11 @@ export default {
       display: none;
       opacity: 0;
       transition: opacity 0.5s ease-out;
+
+      @media(max-width: @screen-xs) {
+        display: flex;
+        opacity: 1;
+      }
     }
 
     &:hover {
