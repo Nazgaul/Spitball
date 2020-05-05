@@ -1,8 +1,8 @@
 <template>
    <v-dialog :value="true" persistent max-width="640px" :fullscreen="$vuetify.breakpoint.xsOnly">
-      <div class="createStudyRoomDialog">
+      <div class="createStudyRoomDialog pa-4">
          <v-icon class="close-dialog" v-text="'sbf-close'" @click="$store.commit('setComponent')" />
-         <div class="createStudyRoomDialog-title pb-4" v-t="createSessionTitle"></div>
+         <div class="createStudyRoomDialog-title text-center" v-t="createSessionTitle"></div>
          <v-form class="d-flex justify-space-between input-room-name" ref="createRoomValidation">
             <v-text-field
                :rules="[rules.required]"
@@ -38,6 +38,7 @@
          </v-form>
 
          <div class="createStudyRoomDialog-list">
+            <div class="listTitle" v-t="'dashboardPage_invite_students'"></div>
             <v-list flat class="list-followers" v-if="studyRoomType === 'private'">
                <v-list-item-group>
                   <v-list-item v-for="(item, index) in myFollowers" :key="index" @click="addSelectedUser(item)" :class="[{'dark-line': index % 2}]">
@@ -338,25 +339,24 @@ export default {
 .createStudyRoomDialog{
    background: white;
    position: relative;
-   padding: 10px;
+   // padding: 10px;
    // height: 520px;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: space-between;
+   // display: flex;
+   // flex-direction: column;
+   // align-items: center;
+   // justify-content: space-between;
    // padding-left: 0;
    .close-dialog {
       cursor: pointer;
       position: absolute;
-      right: 0;
+      right: 12px;
       font-size: 12px;
-      padding-top: 6px;
-      padding-right: 16px;
    }
    .createStudyRoomDialog-title{
       color: @global-purple;
       font-size: 20px;
       font-weight: 600;
+      padding-bottom: 34px;
    }
    .input-room-name{
       width: 100%;
@@ -396,7 +396,12 @@ export default {
    }
    .createStudyRoomDialog-list{
       width: 100%;
-      height: 320px;
+      // height: 320px;
+      .listTitle {
+         font-size: 18px;
+         font-weight: 600;
+         color: @global-purple;
+      }
       .list-followers{
          max-height: 320px;
          overflow-y: scroll;
