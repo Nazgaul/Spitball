@@ -40,13 +40,5 @@ namespace Cloudents.Core.Entities
             var hashCode = Room.Id.GetHashCode() ^ User.Id.GetHashCode();
             return hashCode;
         }
-
-        //public virtual bool Online { get; protected set; }
-
-        //public virtual void ChangeOnlineState(bool isOnline)
-        //{
-        //    Online = isOnline;
-        //    //AddEvent(new StudyRoomOnlineChangeEvent(this));
-        //}
     }
 }

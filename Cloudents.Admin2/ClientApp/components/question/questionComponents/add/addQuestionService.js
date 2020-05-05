@@ -25,17 +25,15 @@ const getSubjectList = function(){
     });
 };
 
-const addQuestion = function(subjectId, text, price, country, uni, course, files){
+const addQuestion = function(subjectId, text, price, country, uni, course){
     let path = "AdminQuestion";
-    let university = uni;
     let questionData = {
         subjectId,
         text,
         price,
         country,
-        university,
-        course,
-        files
+        course
+        
     };
     return connectivityModule.http.post(path, questionData).then(()=>{
         return Promise.resolve();

@@ -13,7 +13,13 @@
         class="mb-2 mb-sm-3 shareContentProfile"
         v-if="getProfile"
       />
-      <calendarTab v-if="showProfileCalendar" class="mt-sm-12 mt-2 mx-auto calendarSection" :globalFunctions="globalFunctions" />
+      <calendarTab
+        ref="calendarTab"
+        v-if="showCalendarTab"
+        class="mt-sm-12 mt-2 mx-auto calendarSection"
+        :globalFunctions="globalFunctions"
+      />
+      <profileLiveClasses :id="id" v-if="isTutor" />
       <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" />
       <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" />
       <profileItemsBox v-if="isMyProfile || showItems" class="mt-sm-12 mt-2" />
@@ -49,7 +55,7 @@
             class="text-xs-center coupon-dialog-header"
             :class="{'mt-5': $vuetify.breakpoint.xsOnly}"
           >
-            <span v-language:inner="'coupon_title'"></span>
+            <span v-t="'coupon_title'"></span>
             <v-icon @click="closeCouponDialog" class="coupon-close" v-html="'sbf-close'" />
           </v-flex>
         </v-layout>
@@ -69,12 +75,12 @@
                     class="profile-coupon_btn white--text"
                     :disabled="disableApplyBtn"
                     @click="applyCoupon"
-                    v-language:inner="'coupon_apply_btn'"
+                    v-t="'coupon_apply_btn'"
                   ></button>
                 </div>
                 <div
                   class="profile-coupon_error"
-                  v-language:inner="'coupon_apply_error'"
+                  v-t="'coupon_apply_error'"
                   v-if="getCouponError"
                 ></div>
               </div>
@@ -119,19 +125,17 @@
   }
   .profilePage_main {
     max-width: 1920px;
-    width: 100%;
-    padding-top: 180px;
-    //margin-right: 33px;
-    //         @media (max-width: @screen-sm) {
-    //           //  margin-right: 0;
-    // //            max-width: auto;
-    //         }
+    padding-top: 260px;
+    margin: 0 20px;
+    @media (max-width: @screen-xs) {
+      margin: 0;
+    }
     &.profile-page-container {
       &.content-center {
         margin: 0 auto;
       }
       @media (max-width: @screen-md-plus) {
-        margin-left: 0;
+        // margin-left: 0;
       }
       @media (max-width: @screen-xs) {
         margin-left: 0;
@@ -170,13 +174,15 @@
       border-radius: 8px;
       justify-content: center;
       @media (max-width: @screen-xs) {
+        padding-bottom: 20px;
         max-width: 100%;
         border-radius: 0;
       }
     }
   }
   .calendarSection {
-    max-width: 800px;
+    max-width: 960px;
+    border-radius: 8px !important;
   }
 }
 .coupon-dialog {

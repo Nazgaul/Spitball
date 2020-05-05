@@ -1,6 +1,6 @@
 <template>
     <div class="homeQuote pa-2 text-center">
-        <homeButtons :action="startLearn" v-if="$vuetify.breakpoint.xsOnly" />
+        <homeButtons :action="startLearn" :country="country" v-if="$vuetify.breakpoint.xsOnly" />
         <blockquote class="quote mb-4">
             <span class="span" v-t="'homePage_quote'"></span>
         </blockquote>
@@ -21,6 +21,14 @@ export default {
     components:{
         homeButtons
     },
+    computed: {
+        country() {
+            if(global.country === 'IL') {
+                return 'lang=he'
+            }
+            return ''
+        }
+    }
 }
 </script>
 

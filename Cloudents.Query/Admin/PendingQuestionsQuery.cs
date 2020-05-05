@@ -16,7 +16,7 @@ namespace Cloudents.Query.Admin
         {
             Country = country;
         }
-        public string Country { get; }
+        public string? Country { get; }
         internal sealed class PendingQuestionsEmptyQueryHandler : IQueryHandler<PendingQuestionsQuery, IEnumerable<PendingQuestionDto>>
         {
             private readonly IStatelessSession _session;

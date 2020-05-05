@@ -16,11 +16,11 @@ namespace Cloudents.Core.Entities
     public class Coupon
     {
         public const int MinimumLength = 5, MaxLength = 12;
-        public Coupon([NotNull] string code, CouponType couponType, Tutor tutor, decimal value,
-            int? amountOfUsers, int amountOfUsePerUser, DateTime? expiration, string description, string owner)
+        public Coupon(string code, CouponType couponType, Tutor? tutor, decimal value,
+            DateTime? expiration, string? description)
         {
             if (value <= 0) throw new ArgumentOutOfRangeException(nameof(value));
-            if (amountOfUsers.HasValue && amountOfUsers.Value <= 0) throw new ArgumentOutOfRangeException(nameof(value));
+           // if (amountOfUsers.HasValue && amountOfUsers.Value <= 0) throw new ArgumentOutOfRangeException(nameof(value));
             if (couponType == CouponType.Percentage && value > 100)
             {
                 throw new ArgumentException("value cannot be more than 100");
@@ -40,15 +40,17 @@ namespace Cloudents.Core.Entities
             CouponType = couponType;
             Tutor = tutor;
             Value = value;
-            AmountOfUsers = amountOfUsers;
-            AmountOfUsePerUser = amountOfUsePerUser;
+           // AmountOfUsers = amountOfUsers;
+           // AmountOfUsePerUser = amountOfUsePerUser;
             Expiration = expiration;
             Description = description;
-            Owner = owner;
+           // Owner = owner;
             CreateTime = DateTime.UtcNow;
+            UserCoupon = new HashSet<UserCoupon>();
 
         }
 
+        [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate")]
         protected Coupon()
         {
 
@@ -64,17 +66,17 @@ namespace Cloudents.Core.Entities
 
         public virtual decimal Value { get; protected set; }
 
-        public virtual int? AmountOfUsers { get; protected set; }
-        public virtual int AmountOfUsePerUser { get; protected set; }
+       // public virtual int? AmountOfUsers { get; protected set; }
+       // public virtual int AmountOfUsePerUser { get; protected set; }
 
         public virtual DateTime? Expiration { get; protected set; }
         public virtual DateTime? CreateTime { get; protected set; }
 
-        public virtual string Description { get; protected set; }
+        public virtual string? Description { get; protected set; }
 
-        public virtual string Owner { get; protected set; }
+      //  public virtual string Owner { get; protected set; }
 
-        protected internal virtual ISet<UserCoupon> UserCoupon { get; set; }
+        protected internal virtual ISet<UserCoupon> UserCoupon { get;protected set; }
     
         
 
@@ -86,10 +88,10 @@ namespace Cloudents.Core.Entities
                 throw new ArgumentException("invalid coupon");
             }
 
-            if (AmountOfUsers.HasValue && AmountOfUsers.Value <= UserCoupon.Count)
-            {
-                throw new OverflowException();
-            }
+            //if (AmountOfUsers.HasValue && AmountOfUsers.Value <= UserCoupon.Count)
+            //{
+            //    throw new OverflowException();
+            //}
 
             return true;
         }

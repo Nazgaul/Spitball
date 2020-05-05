@@ -1,13 +1,10 @@
 ﻿using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Infrastructure.Video;
 using Cloudents.Persistence;
-using Cloudents.Search.Tutor;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -25,14 +22,12 @@ using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
-using Cloudents.Core.DTOs;
+using Cloudents.Infrastructure;
 using Cloudents.Query;
-using Cloudents.Query.Chat;
-using Cloudents.Query.Tutor;
+using Cloudents.Query.Users;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using NHibernate.Linq;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
-using PaymentStatus = Cloudents.Core.DTOs.PaymentStatus;
 
 
 namespace ConsoleApp
@@ -102,7 +97,7 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Prod;
+            var env = EnvironmentSettings.Dev;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
@@ -146,115 +141,63 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            //var unitOfWork = Container.Resolve<IUnitOfWork>();
-            var _commandBus = Container.Resolve<ICommandBus>();
-            var command = new PaymentDeclineCommand(Guid.Parse("dce63420-8645-4b0b-842b-ab9900c1e5a6"), 482226);
-            await _commandBus.DispatchAsync(command, default);
-
-            //  Console.WriteLine(result);
-
-
-            //var sessionFuture = await _session.Query<StudyRoomSessionUser>()
-            //    .Fetch(f=>f.StudyRoomSession)
-            //    .ThenFetch(f=>f.StudyRoom)
-            //    .Fetch(f=>f.User)
-            //    .Where(w => w.StudyRoomSession.StudyRoom.Tutor.Id == 638 && w.Duration > TimeSpan.FromMinutes(10))
-            //    .Select(s => new SessionSaleDto()
-            //    {
-            //        SessionId = s.StudyRoomSession.Id,
-            //        PaymentStatus = s.Receipt != null ? PaymentStatus.Paid :
-            //            s.TutorApproveTime != null ? PaymentStatus.Pending:
-            //            PaymentStatus.PendingApproval,
-            //        Date = s.StudyRoomSession.Created,
-            //        Price = s.TotalPrice,
-            //        StudentName = s.User.Name,
-            //        Duration = s.TutorApproveTime ?? s.Duration.Value,
-            //        StudentImage = s.User.ImageName,
-            //        StudentId = s.User.Id
-            //    })
-            //    .ToListAsync();
+            
 
 
 
 
-            //ResourcesMaintenance.DeleteStuffFromJs();
-            //await Convert();
-            //var result = await s.GetPaymentAsync("4J34525079381873W", default);
-            ////var x = await s.QueryAsync(new StudyRoomQuery(Guid.Parse("9f54280c-103e-46a6-8184-aabf00801beb"), 638), default);
         }
 
-        private static async Task BuildStudyRoomName()
+        private static async Task UpdateTwilioParticipants()
         {
-            var session = Container.Resolve<ISession>();
+            var commandBus = Container.Resolve<ICommandBus>();
+            //var commandX = new ApplyCouponCommand("testing2", 638, 160171);
+            //await commandBus.DispatchAsync(commandX, default);
 
-            var studyRooms = session.Query<StudyRoom>().Where(w => w.Name == null).ToList();
-            foreach (var studyRoom in studyRooms)
+            var x = Container.Resolve<TwilioProvider>();
+
+            var statelessSession = Container.Resolve<IStatelessSession>();
+            var dbResult = await statelessSession.Query<StudyRoomSession>()
+                .Where(w => w.StudyRoomVersion == StudyRoomSession.StudyRoomNewVersion)
+                .Where(w => !statelessSession.Query<StudyRoomSessionUser>().Any(w2 => w2.StudyRoomSession.Id == w.Id))
+                .ToListAsync();
+
+            foreach (var studyRoomSession in dbResult)
             {
-                var users = studyRoom.Users.Select(s => s.User);
-                var country = studyRoom.Tutor.User.Country;
-                if (users.Count() == 2)
+                var sessionId = studyRoomSession.SessionId;
+                var roomId = studyRoomSession.StudyRoom.Id;
+                var result = await x.GetRoomParticipantInfoAsync(sessionId);
+                foreach (var (identity, duration) in result)
                 {
-                    var tutor = studyRoom.Tutor.User;
+                    var command = new StudyRoomSessionUserConnectedCommand(roomId, sessionId, identity);
+                    await commandBus.DispatchAsync(command, default);
 
-                    var studentName = users.Single(s => s.Id != tutor.Id).FirstName;
-                    var tutorName = tutor.FirstName;
 
-                    string text;
-                    if (country == "IL")
-                    {
-                        text = $"חדר לימוד בן {tutorName} ל{studentName}";
-                    }
-                    else
-                    {
-                        text = $"study room between {tutorName} and {studentName}";
-                    }
+                    var command2 = new StudyRoomSessionUserDisconnectedCommand(roomId, sessionId, identity, duration);
 
-                    studyRoom.Name = text;
-                    session.Update(studyRoom);
-                    session.Flush();
-                }
-                else
-                {
-                    var tutor = studyRoom.Tutor.User;
-
-                    var studentName = users.Where(s => s.Id != tutor.Id).Select(s => s.FirstName);
-                    var tutorName = tutor.FirstName;
-
-                    string text;
-                    if (country == "IL")
-                    {
-                        text = $"חדר לימוד בין {tutorName} ל{string.Join(",", studentName)}";
-                    }
-                    else
-                    {
-                        text = $"study room between {tutorName} and {string.Join(",", studentName)}";
-                    }
-
-                    studyRoom.Name = text;
-                    session.Update(studyRoom);
-                    session.Flush();
+                    await commandBus.DispatchAsync(command2, default);
                 }
             }
         }
 
-//        private static async Task ResyncTutorRead()
-//        {
-//            var session = Container.Resolve<IStatelessSession>();
-//            var bus = Container.Resolve<ICommandBus>();
-//            var eventHandler = Container.Resolve<IEventPublisher>();
+        //        private static async Task ResyncTutorRead()
+        //        {
+        //            var session = Container.Resolve<IStatelessSession>();
+        //            var bus = Container.Resolve<ICommandBus>();
+        //            var eventHandler = Container.Resolve<IEventPublisher>();
 
-//            var x = await session.CreateSQLQuery(@"
-//Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
+        //            var x = await session.CreateSQLQuery(@"
+        //Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
 
-//            foreach (dynamic z in x)
-//            {
-//                var e = new SetUniversityEvent(z);
-//                await eventHandler.PublishAsync(e, default);
-//                //var command = new TeachCourseCommand(z[0], z[1]);
-//                //await bus.DispatchAsync(command, default);
-//            }
-//        }
+        //            foreach (dynamic z in x)
+        //            {
+        //                var e = new SetUniversityEvent(z);
+        //                await eventHandler.PublishAsync(e, default);
+        //                //var command = new TeachCourseCommand(z[0], z[1]);
+        //                //await bus.DispatchAsync(command, default);
+        //            }
+        //        }
 
         private static async Task Convert()
         {
@@ -508,7 +451,7 @@ namespace ConsoleApp
 
             var s = new UploadVideo();
             s.Upload();
-            
+
         }
 
 
@@ -516,7 +459,7 @@ namespace ConsoleApp
 
 
 
-       
+
 
         //private static async Task FixStorageAsync()
         //{
@@ -593,7 +536,7 @@ namespace ConsoleApp
 
         private static async Task DeleteUserAsync(long id)
         {
-            var session  = Container.Resolve<ISession>();
+            var session = Container.Resolve<ISession>();
             var unitOfWork = Container.Resolve<IUnitOfWork>();
 
             var user = await session.LoadAsync<User>(id);
@@ -601,7 +544,7 @@ namespace ConsoleApp
             await unitOfWork.CommitAsync(default);
         }
 
-        
+
 
         private static async Task<string> CopyBlobFromOldContainerAsync(string blobName, long itemId)
         {

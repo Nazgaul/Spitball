@@ -14,7 +14,7 @@
             </div>
 
             <div class="mainWrap pa-5 pt-0 ">
-                <component :is="currenctComponent"></component>
+                <component :streamsArray="streamsArray" :is="currenctComponent"></component>
 
                 <div class="text-sm-right text-center btnWrap">
                     <v-btn
@@ -54,6 +54,7 @@ export default {
       currenctComponent: "studyRoomVideoSetting"
     };
   },
+  props:['streamsArray'],
   methods: {
     switchToAudio() {
       this.currenctComponent = 'studyRoomAudioSetting'

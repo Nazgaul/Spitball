@@ -16,10 +16,10 @@ namespace Cloudents.Core.Entities
     {
         public Question(string text,
             User user,
-            [NotNull] Course course)
-        : this()
+            Course course)
         {
             if (text == null) throw new ArgumentNullException(nameof(text));
+            if (course == null) throw new ArgumentNullException(nameof(course));
             Text = text.Trim();
             User = user;
             Updated = Created = DateTime.UtcNow;
@@ -33,25 +33,25 @@ namespace Cloudents.Core.Entities
 
             Status = status;
             Course = course ?? throw new ArgumentException();
+            _answers = new List<Answer>();
         }
 
         public Question(Course course, string text, SystemUser user)
-            : this()
         {
             if (text == null) throw new ArgumentNullException(nameof(text));
-            Course = course;
+            Course = course ?? throw new ArgumentNullException(nameof(course));
             Text = text.Trim();
             User = user;
             Updated = Created = DateTime.UtcNow;
 
             Status = Pending;
+            _answers = new List<Answer>();
 
         }
 
+        [SuppressMessage("ReSharper", "CS8618",Justification = "Nhibernate proxy")]
         protected Question()
         {
-            _answers ??= new List<Answer>();
-            //_votes = _votes ?? new List<Vote>();
         }
 
         public virtual ItemStatus Status { get; protected set; }
@@ -66,7 +66,6 @@ namespace Cloudents.Core.Entities
 
         [NotNull]
         public virtual Course Course { get; set; }
-      //  public virtual University? University { get; set; }
 
         private readonly IList<Answer> _answers = new List<Answer>();
 

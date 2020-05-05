@@ -56,7 +56,7 @@ namespace Cloudents.Web.Api
             }
             catch (ArgumentOutOfRangeException)
             {
-                return BadRequest("Inavlid Value");
+                return BadRequest("Invalid Value");
             }
             catch (ArgumentException)
             {

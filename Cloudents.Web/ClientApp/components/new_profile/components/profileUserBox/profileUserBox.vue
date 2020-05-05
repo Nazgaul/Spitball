@@ -1,7 +1,6 @@
 <template>
     <div class="profileUserBox pa-4 pa-sm-5" v-if="currentProfileUser">
         <div class="profileUserBox_top d-block d-sm-flex justify-space-between">
-            
             <div class="leftSide mr-sm-6 mb-2 mb-sm-0 d-flex justify-center">
                 <div class="pUb_dot" sel="online_icon" v-if="isOnline"></div>
                 <uploadImage sel="photo" class="pUb_edit_img" v-if="isCurrentProfileUser" />
@@ -9,14 +8,13 @@
                     class="pUb_dS_img"
                     :userName="currentProfileUser.name"
                     :userImageUrl="currentProfileUser.image"
-                    :width="isMobile? 130: 226"
-                    :height="isMobile? 161 : 278"
+                    :width="isMobile? 130: 190"
+                    :height="isMobile? 161 : 235"
                     :userId="currentProfileUser.id"
                     :fontSize="36"
                     :borderRadius="8"
                 />
             </div>
-                
             <div class="rightSide flex-grow-1">
                 <div class="detailsWrap d-flex d-sm-block">
                     <div class="d-flex justify-space-between text-center text-sm-left">
@@ -29,10 +27,10 @@
                             <template v-if="currentProfileUser.isTutor">
                                 <div class="d-flex align-end justify-center">
                                     <div class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
-                                        {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
+                                        {{tutorPrice ? currencySymbol(tutorPrice) : currencySymbol(tutorDiscountPrice)}}
                                     </div>
                                     <div class="profileUserSticky_pricing_price">
-                                        <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
+                                        <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? currencySymbol(tutorDiscountPrice) : currencySymbol(tutorPrice)}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
                                     </div>
                                 </div>
                                 <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" v-if="currentProfileUser.isTutor" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
@@ -65,7 +63,7 @@
                     </div>
 
                     <!-- courses teacher -->
-                    <div sel="teach_courses" class="course mt-sm-3 mb-sm-6 mt-2 mb-3 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
+                    <div sel="teach_courses" class="course mt-sm-3 mb-sm-3 mt-2 mb-3 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
                         <bdi class="iTeach mr-1" v-t="'profile_my_courses_teacher'"></bdi>
                         <span class="courseName text-truncate">{{currentProfileUser.courses.toString().replace(/,/g, ", ")}}</span>
                     </div>
@@ -97,15 +95,15 @@
                     </div>
                 </div>
 
-                <div class="profileUserSticky_btns d-block d-sm-flex justify-space-between align-end text-center mt-5" :class="{'student': !currentProfileUser.isTutor && isCurrentProfileUser}">
+                <div class="profileUserSticky_btns d-block d-sm-flex align-end text-center mt-sm-1" :class="{'student': !currentProfileUser.isTutor && isCurrentProfileUser}">
                     <template v-if="isMobile">
                         <div class="profileUserSticky_pricing mb-4" v-if="currentProfileUser.isTutor">
                             <div class="d-flex align-end justify-center">
                                 <div class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
-                                    {{tutorPrice ? $n(tutorPrice, 'currency') : $n(tutorDiscountPrice, 'currency')}}
+                                    {{tutorPrice ? currencySymbol(tutorPrice) : currencySymbol(tutorDiscountPrice)}}
                                 </div>
                                 <div class="profileUserSticky_pricing_price">
-                                    <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? $n(tutorDiscountPrice, 'currency') : $n(tutorPrice, 'currency')}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
+                                    <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? currencySymbol(tutorDiscountPrice) : currencySymbol(tutorPrice)}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
                                 </div>
                             </div>
                             <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" class="profileUserSticky_coupon text-center mt-1" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
@@ -117,15 +115,26 @@
                             <editSVG v-if="isCurrentProfileUser" />
                         </v-btn>
                     </template>
-                    <v-btn sel="send" height="42" :width="isMobile ? 286 : 246" :disabled="isCurrentProfileUser" v-if="currentProfileUser.isTutor" class="profileUserSticky_btn white--text" :class="{'isMyProfile': isCurrentProfileUser}" depressed rounded color="#4c59ff" @click="globalFunctions.sendMessage">
+                    <v-btn sel="send" height="42" :width="isMobile ? 286 : 220" :disabled="isCurrentProfileUser" v-if="currentProfileUser.isTutor" class="profileUserSticky_btn white--text mr-sm-4" :class="{'isMyProfile': isCurrentProfileUser}" depressed rounded color="#4c59ff" @click="globalFunctions.sendMessage">
                         <chatSVG class="profileUserSticky_btn_icon"/>
                         <div class="profileUserSticky_btn_txt" v-t="'profile_send_message'"/>
                     </v-btn>
-                    <div :class="{'ml-3': isCurrentProfileUser || !getProfile.user.calendarShared}">
+                    <div class="calendarBtnWrap align-center align-sm-end" :class="{'ml-3': !getProfile.user.calendarShared}">
                         <editSVG sel="edit" class="pUb_edit_user mr-1" v-if="isCurrentProfileUser && !isMobile" @click="openEditInfo"/>
-                        <v-btn sel="calendar" height="42" :width="isMobile ? 286 : 246" :disabled="isCurrentProfileUser" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isCurrentProfileUser || !getProfile.user.calendarShared}" class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-sm-2 mt-4" depressed rounded color="white">
+                        <v-btn
+                            @click="globalFunctions.openCalendar"
+                            class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-sm-2 mt-4"
+                            :class="{'hideCalendarBtn': !getProfile.user.calendarShared}"
+                            :disabled="!getProfile.user.calendarShared"
+                            :width="isMobile ? 286 : 220"
+                            sel="calendar"
+                            height="42"
+                            color="white"
+                            depressed
+                            rounded
+                        >
                             <calendarSVG width="20" class="profileUserSticky_btn_icon"/>
-                            <div class="profileUserSticky_btn_txt" v-t="'profile_book_session'"/>
+                            <div class="profileUserSticky_btn_txt" v-t="calendarBtnResource"/>
                         </v-btn>
                     </div>
                 </div>
@@ -133,31 +142,31 @@
         </div>
 
         <v-row class="bottom text-center pt-3" dense v-if="currentProfileTutor">
-            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-1">
-                <followersSvg class="mt-sm-2 mt-1" width="26" />
+            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-0">
+                <followersSvg class="icon" width="24" />
                 <div class="ml-3" @click="isMobile ? scrollToReviews():''" >
-                    <div class="number text-left">{{currentProfileUser.followers}}</div>
+                    <div class="number text-left">{{currentProfileUser.followers || 0}}</div>
                     <div class="type">{{$tc('profile_tutor_follower', currentProfileUser.followers)}}</div>
                 </div>
             </v-col>
-            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-1">
-                <onlineLessonSVG class="mt-sm-2 mt-1" width="20" />
+            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-0">
+                <onlineLessonSVG class="icon" width="17" />
                 <div class="ml-3">
-                    <div class="number text-left">{{currentProfileTutor.lessons}}</div>
+                    <div class="number text-left">{{currentProfileTutor.lessons || 0}}</div>
                     <div class="type" v-t="''">{{$tc('profile_session', currentProfileTutor.lessons)}}</div>
                 </div>
             </v-col>
-            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-3 pa-sm-1">
-                <studentsSVG class="mt-sm-2 mt-1" width="26" />
+            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-3 pa-sm-0">
+                <studentsSVG class="icon" width="25" />
                 <div class="ml-3">
-                    <div class="number text-left">{{currentProfileTutor.students}}</div>
+                    <div class="number text-left">{{currentProfileTutor.students || 0}}</div>
                     <div class="type">{{$tc('profile_student', currentProfileTutor.students)}}</div>
                 </div>
             </v-col>
-            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-1">
-                <starSVG class="mt-sm-1 mt-1" width="26" />
+            <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-0">
+                <starSVG class="icon" width="22" />
                 <div class="ml-3">
-                    <div class="number text-left">{{currentProfileTutor.reviewCount}}</div>
+                    <div class="number text-left">{{currentProfileTutor.reviewCount || 0}}</div>
                     <div class="type">{{$tc('profile_reviews',currentProfileTutor.reviewCount)}}</div>
                 </div>
             </v-col>
@@ -235,7 +244,7 @@ export default {
             return this.getUserStatus[this.currentProfileUser.id] || false;
         },
         textLimit(){
-            return this.isMobile ? 68 : 210;
+            return this.isMobile ? 140 : 200;
         },
         isOpen :{
             get(){
@@ -264,9 +273,18 @@ export default {
             }
             return 0;
         },
+        calendarBtnResource() {
+            return this.isCurrentProfileUser ? 'profile_my_book_session' : 'profile_book_session'
+        }
     },
     methods: {
         ...mapActions(['updateEditDialog']),
+        currencySymbol(amount) {
+            let options = { style: 'currency', currency: this.currentProfileUser.tutorData.currency, minimumFractionDigits: 0 };
+            let numberFormat = new Intl.NumberFormat('he-IL', options);
+
+            return numberFormat.format(amount)
+        },
         openEditInfo() {
             this.updateEditDialog(true);
         },
@@ -306,8 +324,8 @@ export default {
 <style lang="less">
 @import '../../../../styles/mixin.less';
 .profileUserBox {
-    max-width: 800px;
-    width: 100%;
+    max-width: 762px;
+    // width: 100%;
     margin: 0 auto;
     border-radius: 8px;
     box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.38);
@@ -318,10 +336,9 @@ export default {
         border-radius: 0;
         box-shadow: none;
         padding: 0;
-        margin-bottom: 8px;
     }
     .profileUserBox_top{
-        margin-bottom: 34px;
+        margin-bottom: 20px;
         @media (max-width: @screen-xs) {
             // justify-content: center;
             justify-content: flex-start;
@@ -444,7 +461,10 @@ export default {
                 }
             }
         }
-
+        .calendarBtnWrap {
+            display: flex;
+            flex-direction: column;
+        }
         .profileUserSticky_btns{
             &.why_learn_user_btn{
                 margin-top: 34px !important;
@@ -487,8 +507,8 @@ export default {
                 &.profileUserSticky_btn_book{
                     color: #4c59ff !important;
                     border: solid 1.5px #4c59ff !important;
-                    &.isMyProfile{
-                        display: none;
+                    &.hideCalendarBtn{
+                        visibility: hidden;
                         color: white !important;
                         border: none !important;
                     svg{
@@ -580,9 +600,10 @@ export default {
         }
         .bottomBox {
             color: @global-purple;
-            font-size: 32px;
-            svg {
+            font-size: 28px;
+            .icon {
                 align-self: baseline;
+                margin-top: 8px;
             }
             .number {
                 font-weight: 600;

@@ -283,12 +283,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
-        //[Fact]
-        //public async Task UniversityQuery_Ok()
-        //{
-        //    var query = new UniversityQuery(Guid.Parse("80B226AE-94A1-4240-8796-A98200E81A54"));
-        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
-        //}
+       
 
         [Fact]
         public async Task UserReferralsQuery_Ok()
@@ -662,6 +657,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new SessionApprovalQuery(resultQuery.SessionId, resultQuery.UserId, resultQuery.TutorId);
             var result = await fixture.QueryBus.QueryAsync(query, default);
             result.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task TutorUpcomingBroadcastStudyRoomQuery_Ok()
+        {
+            var query = new TutorUpcomingBroadcastStudyRoomQuery(638,159039);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
         }
 
 

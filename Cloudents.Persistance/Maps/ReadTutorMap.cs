@@ -21,10 +21,10 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Rate);
             Map(x => x.RateCount);
             Map(x => x.Bio).Length(1000);
-            //Map(x => x.University);
             Map(x => x.Lessons);
             Map(x => x.OverAllRating).Column("Rating");
             Map(x => x.Country).Length(2);
+            //Map(x => x.SbCountry).CustomType<EnumerationType<Country>>();
             Table("ReadTutor");
             DynamicUpdate();
         }

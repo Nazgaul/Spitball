@@ -12,9 +12,9 @@ namespace Cloudents.Core.Entities
             Value = value;
         }
 
+        [SuppressMessage("ReSharper", "CS8618",Justification = "Nhibernate proxy")]
         protected GoogleTokens()
         {
-
         }
 
         public virtual string Id { get; protected set; }

@@ -15,12 +15,12 @@ namespace Cloudents.Core.Entities
         public const int MaxLength = 150;
 
 
+        [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate")]
         protected Course()
         {
-            Users ??= new HashSet<UserCourse>();
         }
 
-        public Course(string name) : this()
+        public Course(string name) 
         {
             Id = name.Trim();//.Replace("+", string.Empty);
             if (Id.Length > MaxLength || Id.Length < MinLength)
@@ -29,6 +29,7 @@ namespace Cloudents.Core.Entities
             }
             State = ItemState.Pending;
             Created = DateTime.UtcNow;
+            Users = new HashSet<UserCourse>();
         }
 
         public Course(string name, CourseSubject subject) :this(name)

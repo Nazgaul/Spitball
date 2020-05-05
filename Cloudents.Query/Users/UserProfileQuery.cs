@@ -10,6 +10,7 @@ using Cloudents.Core.Interfaces;
 using NHibernate.Transform;
 using NHibernate.Linq;
 using Cloudents.Core.DTOs.Users;
+using NHibernate.SqlCommand;
 
 namespace Cloudents.Query.Users
 {
@@ -42,7 +43,6 @@ namespace Cloudents.Query.Users
 
             public async Task<UserProfileDto?> GetAsync(UserProfileQuery query, CancellationToken token)
             {
-
                 const string sql = @"select u.id,
 u.ImageName as Image,
 u.Name,
@@ -74,12 +74,6 @@ where u.id = :profileId
 and (u.LockoutEnd is null or u.LockoutEnd < GetUtcDate())";
 
 
-                const string couponSql = @"Select c.value as Value,
-c.CouponType as Type
-from sb.UserCoupon uc
-join sb.coupon c on uc.couponId = c.id and uc.UsedAmount < c.AmountOfUsePerUser
-where userid = :userid
-and uc.tutorId =  :profileId";
 
                 var sqlQuery = _session.CreateSQLQuery(sql);
                 sqlQuery.SetInt64("profileId", query.Id);
@@ -88,12 +82,16 @@ and uc.tutorId =  :profileId";
                 var profileValue = sqlQuery.FutureValue<UserProfileDto>();
 
 
+                var couponQuery = _session.Query<UserCoupon>()
+                      .Where(w => w.User.Id == query.UserId)
+                      .Where(w => w.Tutor.Id == query.Id)
+                      .Where(UserCoupon.IsUsedExpression)
+                      .Select(s => new CouponDto
+                      {
+                          Value = s.Coupon.Value,
+                          TypeEnum = s.Coupon.CouponType
+                      }).ToFutureValue();
 
-                var couponSqlQuery = _session.CreateSQLQuery(couponSql);
-                couponSqlQuery.SetInt64("profileId", query.Id);
-                couponSqlQuery.SetInt64("userid", query.UserId);
-                couponSqlQuery.SetResultTransformer(Transformers.AliasToBean<CouponDto>());
-                var couponValue = couponSqlQuery.FutureValue<CouponDto>();
 
 
                 var futureSubject = _session.Query<ReadTutor>().Where(t => t.Id == query.Id)
@@ -115,7 +113,7 @@ and uc.tutorId =  :profileId";
 
                 var result = await profileValue.GetValueAsync(token);
 
-                var couponResult = couponValue.Value;
+                var couponResult = couponQuery.Value;
 
                 if (result is null)
                 {
@@ -129,7 +127,7 @@ and uc.tutorId =  :profileId";
                     {
                         result.Tutor.CouponType = couponResult.TypeEnum;
                         result.Tutor.CouponValue = couponResult.Value;
-                       
+
                     }
                 }
 
@@ -150,9 +148,9 @@ and uc.tutorId =  :profileId";
 
         public class CouponDto
         {
-            public string Type { get; set; }
+            public CouponType TypeEnum { get; set; }
 
-            public CouponType TypeEnum => (CouponType)Enum.Parse(typeof(CouponType), Type, true);
+            // public CouponType TypeEnum => (CouponType)Enum.Parse(typeof(CouponType), Type, true);
 
             public decimal Value { get; set; }
         }

@@ -184,7 +184,7 @@ export default {
    margin: 0 auto;
    color: #43425d;
    .profileItemsBox-header {
-      max-width: 800px;
+      max-width: 960px;
       margin: 0 auto;
    }
    .profileItemsBox_title{

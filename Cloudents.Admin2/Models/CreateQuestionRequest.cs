@@ -20,19 +20,17 @@ namespace Cloudents.Admin2.Models
         /// the country of the question - can be us or il
         /// </summary>
         [Required]
-        public Country Country { get; set; }
+        public string Country { get; set; }
 
-        [Required]
-        [MaxLength(255)]
-        public string University { get; set; }
+      
 
 
     }
 
-    public enum Country
-    {
-        Us,
-        Il,
-        In
-    }
+    //public enum Country
+    //{
+    //    Us,
+    //    Il,
+    //    In
+    //}
 }

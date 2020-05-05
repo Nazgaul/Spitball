@@ -133,7 +133,7 @@
     <value>Read More</value>
   </data>
   <data name="reviews" xml:space="preserve">
-    <value>Reviews</value>
+    <value>No Reviews | Review | Reviews</value>
   </data>
   <data name="aboutme" xml:space="preserve">
     <value>About me</value>
@@ -235,7 +235,7 @@
     <value>Study area:</value>
   </data>
   <data name="tutor_follower" xml:space="preserve">
-    <value>Follower | Followers</value>
+    <value>No Followers | Follower | Followers</value>
   </data>
   <data name="tutor_followers" xml:space="preserve">
     <value>{1} Followers</value>
@@ -244,10 +244,10 @@
     <value>{1} Content</value>
   </data>
   <data name="session" xml:space="preserve">
-    <value>Lesson | Lessons</value>
+    <value>No Lessons | Lesson | Lessons</value>
   </data>
   <data name="student" xml:space="preserve">
-    <value>Student | Students</value>
+    <value>No Students | Student | Students</value>
   </data>
   <data name="study_materials" xml:space="preserve">
     <value>{1}’s study materials</value>
@@ -282,10 +282,37 @@
   <data name="my_courses_student" xml:space="preserve">
     <value>My courses :</value>
   </data>
+  <data name="enroll" xml:space="preserve">
+    <value>Enroll</value>
+  </data>
+  <data name="enroll_error" xml:space="preserve">
+    <value>An error has occured</value>
+  </data>
+  <data name="enroll_success" xml:space="preserve">
+    <value>You have successfully enrolled</value>
+  </data>
+  <data name="enter_room" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="live_title" xml:space="preserve">
+    <value>Upcoming  Live classes by</value>
+  </data>
+  <data name="per_hour" xml:space="preserve">
+    <value>/hour</value>
+  </data>
+  <data name="see_all" xml:space="preserve">
+    <value>See all</value>
+  </data>
   <data name="my_courses" xml:space="preserve">
     <value>My courses:</value>
   </data>
   <data name="my_subjects" xml:space="preserve">
     <value>My subjects:</value>
+  </data>
+  <data name="see_less" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="my_book_session" xml:space="preserve">
+    <value>Show my calendar</value>
   </data>
 </root>

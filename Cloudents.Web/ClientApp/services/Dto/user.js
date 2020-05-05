@@ -22,7 +22,8 @@ export const User = {
         this.discountPrice = objInit.discountPrice;
         this.subjects = objInit.subjects || [];
         this.pendingSessionsPayments = objInit.pendingSessionsPayments || null;
-        this.description = objInit.description || ''
+        this.description = objInit.description || '';
+        this.tutorCountry = objInit.tutorCountry
 
     },
     Tutor: function (objInit) {

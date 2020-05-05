@@ -27,12 +27,10 @@ const getSubjectList = function(){
 
 const addQuestion = function(course, text, country, uni){
     let path = "AdminQuestion";
-    let university = uni;
     let questionData = {
         course,
         text,
         country,
-        university
     };
     return connectivityModule.http.post(path, questionData).then(()=>{
         return Promise.resolve();

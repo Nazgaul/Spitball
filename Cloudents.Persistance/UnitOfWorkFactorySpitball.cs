@@ -100,7 +100,6 @@ namespace Cloudents.Persistence
             //var enversConf = new NHibernate.Envers.Configuration.Fluent.FluentConfiguration();
             //enversConf.Audit<Document>()
             //    .Exclude(x => x.Transactions)
-            //    .ExcludeRelationData(x => x.University)
             //    .Exclude(x => x.Votes)
             //    .Exclude(x => x.Course)
             //    .Exclude(x => x.User)

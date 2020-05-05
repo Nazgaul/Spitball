@@ -62,48 +62,6 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await _fixture.QueryBus.QueryAsync(query, default);
         }
 
-        //[Theory]
-        //[InlineData("he", ItemState.Pending, "IL", null)]
-        //[InlineData("en", ItemState.Ok, "IL", null)]
-        //[InlineData(null, null, null, null)]
-        //public async Task AdminCoursesQuery_Ok(string language, ItemState? state, string country, string filter)
-        //{
-        //    var query = new AdminCoursesQuery(language, state.GetValueOrDefault(ItemState.Pending), country, filter);
-        //    await _fixture.QueryBus.QueryAsync(query, default);
-        //}
-
-        //TODO: check all AdminEmptyQuery handlers
-
-
-        //[Fact]
-        //public async Task AdminLanguageQuery_Courses_Ok()
-        //{
-        //    var queryHe = new AdminLanguageQuery("he");
-        //    var queryNull = new AdminLanguageQuery(null);
-        //    var t1 = fixture.QueryBus.QueryAsync<IList<PendingCoursesDto>>(queryHe, default);
-        //    var t2 = fixture.QueryBus.QueryAsync<IList<PendingCoursesDto>>(queryNull, default);
-        //    await Task.WhenAll(t1, t2);
-        //}
-
-
-
-        //[Fact]
-        //public async Task AdminLanguageQuery_University_Ok()
-        //{
-        //    var queryHe = new AdminLanguageQuery("il");
-        //    var queryNull = new AdminLanguageQuery(null);
-        //    var t1 = fixture.QueryBus.QueryAsync<IList<PendingUniversitiesDto>>(queryHe, default);
-        //    var t2 = fixture.QueryBus.QueryAsync<IList<PendingUniversitiesDto>>(queryNull, default);
-        //    await Task.WhenAll(t1, t2);
-        //}
-
-
-        //[Fact]
-        //public async Task AdminPageQuery_QuestionWithoutCorrectAnswer_Ok()
-        //{
-        //    var query = new AdminQuestionWithoutCorrectAnswerPageQuery(0, "IL");
-        //    await _fixture.QueryBus.QueryAsync(query, default);
-        //}
 
         [Theory]
         [InlineData(null)]
@@ -127,8 +85,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData("IL")]
         [InlineData(null)]
-        public async Task AdminStudyRoomQuery_Ok(string country)
+        public async Task AdminStudyRoomQuery_Ok(string countryStr)
         {
+            var country = FromCountry(countryStr);
             var query = new StudyRoomQuery(country);
             await _fixture.QueryBus.QueryAsync(query, default);
         }
@@ -374,8 +333,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData("IL")]
         [InlineData(null)]
-        public async Task AdminLeadsQuery_Ok(string country)
+        public async Task AdminLeadsQuery_Ok(string countryStr)
         {
+            var country = FromCountry(countryStr);
             var query = new LeadsQuery(country);
             await _fixture.QueryBus.QueryAsync(query, default);
         }

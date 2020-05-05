@@ -16,9 +16,9 @@ namespace Cloudents.Core.Interfaces
         /// <param name="value">the value to save</param>
         /// <param name="expire">time till expire in seconds</param>
         /// <param name="slideExpiration">true is we want sliding   </param>
-        void Set(string key, string region, object value, int expire, bool slideExpiration);
+        void Set(string key, string region, object? value, int expire, bool slideExpiration);
 
-        void Set(string key, string region, object value, TimeSpan expire, bool slideExpiration);
+        void Set(string key, string region, object? value, TimeSpan expire, bool slideExpiration);
 
         bool Exists(string key, string region);
 

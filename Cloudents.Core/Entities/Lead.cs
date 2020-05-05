@@ -23,6 +23,7 @@ namespace Cloudents.Core.Entities
         }
 
 
+        [SuppressMessage("ReSharper", "CS8618",Justification = "Nhibernate proxy")]
         protected Lead()
         {
         }

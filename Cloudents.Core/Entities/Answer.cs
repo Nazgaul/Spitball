@@ -19,7 +19,7 @@ namespace Cloudents.Core.Entities
         public const int MaxLength = 550;
 
         public Answer(Question question, string text, User user)
-            : this()
+           
         {
             if (text == null) throw new ArgumentNullException(nameof(text));
             Question = question;
@@ -34,6 +34,7 @@ namespace Cloudents.Core.Entities
 
         }
 
+        [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate")]
         protected Answer()
         {
         }

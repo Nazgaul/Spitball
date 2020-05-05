@@ -107,7 +107,7 @@ namespace Cloudents.Infrastructure.Storage
 
 
 
-        public Task CommitBlockListAsync(string blobName, string mimeType, string originalFileName, IList<int> indexes, TimeSpan? cacheControlTime = null, CancellationToken token = default)
+        public Task CommitBlockListAsync(string blobName, string mimeType, string originalFileName, IEnumerable<int> indexes, TimeSpan? cacheControlTime = null, CancellationToken token = default)
         {
             var blob = GetBlob(blobName);
             if (cacheControlTime.HasValue)

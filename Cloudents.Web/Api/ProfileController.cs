@@ -11,11 +11,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Microsoft.AspNetCore.Http;
 using Cloudents.Web.Models;
 using Cloudents.Query.Users;
 using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.DTOs.Documents;
+using Cloudents.Query.Tutor;
 
 namespace Cloudents.Web.Api
 {
@@ -26,13 +28,15 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
         private readonly IUrlBuilder _urlBuilder;
+        private readonly ICommandBus _commandBus;
 
         public ProfileController(IQueryBus queryBus, UserManager<User> userManager,
-             IUrlBuilder urlBuilder)
+             IUrlBuilder urlBuilder, ICommandBus commandBus)
         {
             _queryBus = queryBus;
             _userManager = userManager;
             _urlBuilder = urlBuilder;
+            _commandBus = commandBus;
         }
 
         // GET
@@ -86,7 +90,8 @@ namespace Cloudents.Web.Api
         public async Task<WebResponseWithFacet<DocumentFeedDto>> GetDocumentsAsync(
             [FromQuery] ProfileDocumentsRequest request, CancellationToken token = default)
         {
-            var query = new UserDocumentsQuery(request.Id, request.Page, request.PageSize, request.DocumentType, request.Course);
+            var query = new UserDocumentsQuery(request.Id, request.Page, request.PageSize,
+                request.DocumentType, request.Course);
             var retValTask = _queryBus.QueryAsync(query, token);
 
             var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
@@ -123,13 +128,30 @@ namespace Cloudents.Web.Api
                 Count = retValTask.Result.Count
             };
         }
+
+        [HttpGet("{id:long}/studyRoom")]
+        public async Task<IEnumerable<FutureBroadcastStudyRoomDto>> GetUpcomingEventsAsync(long id, CancellationToken token)
+        {
+            _userManager.TryGetLongUserId(User, out var userId);
+            var query = new TutorUpcomingBroadcastStudyRoomQuery(id, userId);
+            return await _queryBus.QueryAsync(query, token);
+        }
+
+        [HttpPost("{id:long}/studyRoom"), Authorize]
+        public async Task EnrollUpcomingEventAsync(EnrollStudyRoomRequest model, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new EnrollStudyRoomBroadCastCommand(userId,model.StudyRoomId);
+            await _commandBus.DispatchAsync(command, token);
+            
+        }
         
 
         [HttpPost("follow"), Authorize]
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> FollowAsync([FromBody] FollowRequest model, [FromServices] ICommandBus commandBus, CancellationToken token)
+        public async Task<IActionResult> FollowAsync([FromBody] FollowRequest model,  CancellationToken token)
         {
             var user = _userManager.GetLongUserId(User);
             if (model.Id == user)
@@ -137,7 +159,7 @@ namespace Cloudents.Web.Api
                 return BadRequest();
             }
             var command = new FollowUserCommand(model.Id, user);
-            await commandBus.DispatchAsync(command, token);
+            await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
 

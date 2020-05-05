@@ -39,8 +39,8 @@ namespace Cloudents.Core.Test.CommandHandler
             //var couponMock = new Mock<Coupon>();
 
             var coupon = new Coupon("vvvvvv", CouponType.Flat,
-                null, 10, 1, 1, DateTime.UtcNow.AddYears(-1),
-                null, null);
+                null, 10,  DateTime.UtcNow.AddYears(-1),
+                null);
 
             var user = new User("someUser","firstName","lastName", Language.English,"IN");
 
@@ -101,7 +101,7 @@ namespace Cloudents.Core.Test.CommandHandler
             tutorMoq.Setup(s => s.Price.Price).Returns(price);
             tutorMoq.Setup(s => s.Id).Returns(tutorId);
 
-            var coupon = new Coupon(someCoupon, CouponType.Flat, null, discount, null, 1, null, null, null);
+            var coupon = new Coupon(someCoupon, CouponType.Flat, null, discount, null,  null);
             _mock.Mock<ICouponRepository>().Setup(s => s.GetCouponAsync(someCoupon, default)).ReturnsAsync(coupon);
             _mock.Mock<ITutorRepository>().Setup(s => s.LoadAsync(tutorId, default)).ReturnsAsync(tutorMoq.Object);
             _mock.Mock<IRegularUserRepository>().Setup(s => s.LoadAsync(userId, default)).ReturnsAsync(user);
@@ -132,7 +132,7 @@ namespace Cloudents.Core.Test.CommandHandler
             tutorMoq.Setup(s => s.Price.Price).Returns(price);
             tutorMoq.Setup(s => s.Id).Returns(tutorId);
 
-            var coupon = new Coupon(someCoupon, CouponType.Percentage, null, discount, null, 1, null, null, null);
+            var coupon = new Coupon(someCoupon, CouponType.Percentage, null, discount, null, null);
 
             _mock.Mock<ICouponRepository>().Setup(s => s.GetCouponAsync(someCoupon, default)).ReturnsAsync(coupon);
             _mock.Mock<ITutorRepository>().Setup(s => s.LoadAsync(tutorId, default)).ReturnsAsync(tutorMoq.Object);
