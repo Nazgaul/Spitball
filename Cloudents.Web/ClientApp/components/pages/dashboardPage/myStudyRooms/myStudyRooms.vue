@@ -5,6 +5,7 @@
       :page.sync="paginationModel.page"
       :headers="headers"
       :items="studyRoomItems"
+      :mobile-breakpoint="0"
       :items-per-page="20"
       sort-by
       :item-key="'date'"
@@ -25,9 +26,10 @@
             <v-btn
               v-if="isTutor"
               @click="openLiveSession"
-              class="link white--text mr-0 mr-sm-4"
+              class="link white--text mr-0 mr-sm-4 mb-4 mb-sm-0"
               depressed
               rounded
+              :block="$vuetify.breakpoint.xsOnly"
               color="#5360FC"
               v-t="'dashboardPage_my_studyrooms_create_live'"
             ></v-btn>
@@ -37,6 +39,7 @@
               class="link white--text"
               depressed
               rounded
+              :block="$vuetify.breakpoint.xsOnly"
               color="#5360FC"
               v-t="'dashboardPage_my_studyrooms_create_room'"
             ></v-btn>
@@ -64,7 +67,12 @@
       <template v-slot:item.name="{item}">{{item.name}}</template>
 
       <template v-slot:item.type="{item}">
-        <div class="sessionType" :class="{'private': item.type === 'Private'}">{{item.type}}</div>
+        <div
+          class="sessionType"
+          :class="{'private': item.type === 'Private'}"
+          v-t="item.type === 'Private' ? 'dashboardPage_type_private' : 'dashboardPage_type_broadcast'"
+        >
+        </div>
       </template>
 
       <template v-slot:item.scheduled="{item}">
@@ -98,14 +106,14 @@
               <v-tooltip :value="currentItemId === item.id" top transition="fade-transition">
                 <template v-slot:activator="{on}">
                   <linkSVG
-                    style="width:20px"
-                    v-on="on"
+                    style="width:20px;height:36px;"
                     class="option link"
                     @click="copyLink(item)"
                   />
                 </template>
                 <span v-t="'shareContent_copy_tool'"></span>
               </v-tooltip>
+              <div v-t="'dashboardPage_link_share'"></div>
             </div>
 
             <div>
