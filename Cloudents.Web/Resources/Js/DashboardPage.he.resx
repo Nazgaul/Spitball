@@ -202,6 +202,9 @@
   <data name="likes" xml:space="preserve">
     <value>לייקים</value>
   </data>
+  <data name="link_delete" xml:space="preserve">
+    <value>מחיקה</value>
+  </data>
   <data name="link_studyroom" xml:space="preserve">
     <value>בדיקת חדר לימוד</value>
   </data>
