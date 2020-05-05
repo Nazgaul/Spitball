@@ -1,7 +1,7 @@
 <template>
    <div class="classFullScreen">
       <div class="videoContainer">
-         <video class="videoElement" autoplay src="https://www.html5rocks.com/en/tutorials/video/basics/devstories.webm"></video>
+         <div id="classFullScreenVideo"></div>
          <div class="videoTools">
             <v-row class="videoBtns" justify="center">
                <v-btn class="controlsBtn" icon>
@@ -24,8 +24,8 @@
             color="#fff"
             prev-icon="sbf-arrow-left-carousel"
             next-icon="sbf-arrow-right-carousel">
-            <v-slide-item v-for="n in 15" :key="n">
-               <userPreview class="ma-2"/>
+            <v-slide-item v-for="videoTrack in $store.getters.getStudentsVideoTracks" :key="videoTrack.identity">
+               <userPreview :videoTrack="videoTrack" class="ma-2"/>
             </v-slide-item>
          </v-slide-group>
       </v-footer>
@@ -34,9 +34,32 @@
 
 <script>
 import userPreview from '../../layouts/userPreview/userPreview.vue'
+import { mapGetters } from 'vuex';
 export default {
    components:{
       userPreview
+   },
+   watch: {
+      getTutorVideoTrack:{
+         immediate:true,
+         deep:true,
+         handler(newVal){
+            if(newVal){
+               this.$nextTick(()=>{
+                  const localMediaContainer = document.getElementById('classFullScreenVideo');
+                  let videoTag = localMediaContainer.querySelector("video");
+                  if (videoTag) {localMediaContainer.removeChild(videoTag)}
+                  localMediaContainer.appendChild(newVal.attach());
+               })
+            }
+         }
+      }
+   },
+   computed: {
+      ...mapGetters(['getTutorVideoTrack'])
+   },
+   created() {
+      // debugger
    },
 }
 </script>
@@ -50,8 +73,18 @@ export default {
       max-height: ~"calc(100vh - 186px)"; // 124px footer + 62px header
       overflow: hidden;
       position: relative;
-      .videoElement{
-         width: 100%;
+      #classFullScreenVideo{
+         height: ~"calc(100vh - 186px)"; // 124px footer + 62px header
+
+         video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+         }
+           video::-webkit-media-controls-enclosure {
+              display: none !important;
+           }
       }
       .videoTools{
          position: absolute;

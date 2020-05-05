@@ -5,7 +5,10 @@
    </v-btn>
 
    <div class="drawerContent flex-column d-flex justify-space-between align-center">
-      <v-card v-if="isShowVideo" class="mt-2 d-flex flex-grow-0 flex-shrink-0 elevation-0" :color="'grey lighten-1'" height="210" width="276"></v-card>
+      <v-card id="tutorVideoDrawer" v-if="isShowVideo" class="mt-2 d-flex flex-grow-0 flex-shrink-0 elevation-0" :color="'grey lighten-1'" height="210" width="276">
+         <span class="tutorName">{{roomTutorName}}</span>
+         <div class="videoLiner"></div>
+      </v-card>
       <div class="drawerChatHeader mt-4">
          <div class="headerTitle mb-5 text-truncate">{{$store.getters.getRoomName}}</div>
          <div class="headerInfo d-flex justify-space-between mb-4">
@@ -29,6 +32,7 @@
 
 <script>
 import chat from '../../../chat/components/messages.vue';
+import { mapGetters } from 'vuex';
 export default {
    data() {
       return {
@@ -38,9 +42,43 @@ export default {
    components:{
       chat,
    },
+   watch: {
+      isShowVideo(newVal){
+         if(!newVal){
+            let localMediaContainer = document.getElementById('tutorVideoDrawer');
+            let videoTag = localMediaContainer.querySelector("video");
+            if (videoTag) {localMediaContainer.removeChild(videoTag)} 
+         }
+         if(newVal){
+            let self = this;
+            this.$nextTick(()=>{
+               let localMediaContainer = document.getElementById('tutorVideoDrawer');
+               let videoTag = localMediaContainer.querySelector("video");
+               if (videoTag) {localMediaContainer.removeChild(videoTag)} 
+               localMediaContainer.appendChild(self.getTutorVideoTrack.attach());
+            })
+         }
+      },
+      getTutorVideoTrack:{
+         immediate:true,
+         deep:true,
+         handler(newVal){
+            if(newVal){
+               const localMediaContainer = document.getElementById('tutorVideoDrawer');
+               let videoTag = localMediaContainer.querySelector("video");
+               if (videoTag) {localMediaContainer.removeChild(videoTag)}
+               localMediaContainer.appendChild(newVal.attach());
+            }
+         }
+      }
+   },
    computed: {
+      ...mapGetters(['getTutorVideoTrack']),
       isShowVideo(){
          return this.$store.getters.getActiveNavEditor !== 'class-screen'
+      },
+      roomTutorName(){
+         return this.$store.getters.getRoomTutor.tutorName;
       }
    },
 }
@@ -54,6 +92,37 @@ export default {
          right: 0 !important;
       }
       .drawerContent{
+         #tutorVideoDrawer{
+            border-radius: 6px;
+            .tutorName{
+               position: absolute;
+               font-size: 14px;
+               font-weight: 600;
+               color: #ffffff;
+               top: 8px;
+               left: 8px;
+               z-index: 1;
+            }
+            .videoLiner{
+               border-radius: 6px;
+               position: absolute;
+               width: 100%;
+               height: 100%;
+               background-image: linear-gradient(to top, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.1) 74%, rgba(0, 0, 0, 0.64));
+            }
+            video {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              object-position: center;
+              background-repeat: no-repeat;
+              pointer-events: none;
+              border-radius: 6px;
+           }
+           video::-webkit-media-controls-enclosure {
+              display: none !important;
+           }
+         }
          ::-webkit-scrollbar-track {
                background: #f5f5f5; 
          }

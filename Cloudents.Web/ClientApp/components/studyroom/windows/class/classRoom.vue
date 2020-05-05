@@ -1,6 +1,7 @@
 <template>
    <div class="classRoom">
-      <userPreview v-for="n in 16" :key="n" class="ma-2 classRoomCards"/>
+      <userPreview v-for="videoTrack in $store.getters.getStudentsVideoTracks" 
+                  :key="videoTrack.identity" :videoTrack="videoTrack" class="ma-2 classRoomCards"/>
    </div>
 </template>
 

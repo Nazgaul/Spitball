@@ -14,7 +14,11 @@ const CURRENT_STATE_UPDATED = '2';
 let isTwilioStarted = false;
 
 let intervalTime = null;
-
+function _tracksAccumulation(track,participant){
+   track.identity = participant.identity;
+   STORE.dispatch('updateRoomVideoTracks',track)
+   // STORE.commit(twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK,track)
+}
 function _changeState(localParticipant) {
    if(!STORE.getters.getRoomIsTutor) return;
    let stuffToSend =  {
@@ -91,7 +95,7 @@ function _twilioListeners(room,store) {
       let tracks = Array.from(participant.tracks.values());
       tracks.forEach((track) => {
          if(track.kind === 'video'){
-            store.commit(twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK,track)
+            _tracksAccumulation(track,participant)
          }
       });
    });
@@ -128,9 +132,9 @@ function _twilioListeners(room,store) {
       _insightEvent('TwilioTrackUnsubscribed', track, null);
       _detachTracks([track],store);
    })
-   room.on('trackStarted', (track) => {
+   room.on('trackStarted', (track,remoteParticipant) => {
       if(track.kind === 'video'){
-         store.commit(twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK,track)
+         _tracksAccumulation(track,remoteParticipant)
       }
       if(track.kind === 'audio'){  
          let previewContainer = document.getElementById(REMOTE_TRACK_DOM_ELEMENT);
@@ -384,10 +388,12 @@ export default () => {
 
       // plugin functions:
       function _setLocalVideoTrack(track){
-         const localMediaContainer = document.getElementById(LOCAL_TRACK_DOM_ELEMENT);
-         let videoTag = localMediaContainer.querySelector("video");
-         if (videoTag) {localMediaContainer.removeChild(videoTag)}
-         localMediaContainer.appendChild(track.attach());
+         // const localMediaContainer = document.getElementById(LOCAL_TRACK_DOM_ELEMENT);
+         // let videoTag = localMediaContainer.querySelector("video");
+         // if (videoTag) {localMediaContainer.removeChild(videoTag)}
+         // localMediaContainer.appendChild(track.attach());
+         // debugger
+         _tracksAccumulation(track,_activeRoom.localParticipant)
          _localVideoTrack = track;
          _publishTrack(_activeRoom,track)
          store.commit(twilio_SETTERS.VIDEO_AVAILABLE,true)

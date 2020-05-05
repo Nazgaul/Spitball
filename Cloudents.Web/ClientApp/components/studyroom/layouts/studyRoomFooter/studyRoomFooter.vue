@@ -19,8 +19,8 @@
             color="#fff"
             prev-icon="sbf-arrow-left-carousel"
             next-icon="sbf-arrow-right-carousel">
-            <v-slide-item v-for="n in 15" :key="n">
-               <userPreview class="ma-2"/>
+            <v-slide-item v-for="videoTrack in $store.getters.getStudentsVideoTracks" :key="videoTrack.identity">
+               <userPreview :videoTrack="videoTrack" class="ma-2"/>
             </v-slide-item>
          </v-slide-group>
       </v-footer>
