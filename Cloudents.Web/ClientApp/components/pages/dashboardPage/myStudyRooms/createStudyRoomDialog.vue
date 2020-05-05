@@ -158,7 +158,7 @@
                <span v-if="showErrorMaxUsers" class="error--text" v-t="'dashboardPage_create_room_max_error'"></span>
                <span v-if="showErrorWrongTime" class="error--text" v-t="'dashboardPage_pick_time_error'"></span>
             </div>
-            <v-btn :loading="isLoading" @click="createStudyRoom" width="150" depressed height="40" color="#4452fc" class="white--text" rounded >{{$t('dashboardPage_create_room_create_btn')}}</v-btn>
+            <v-btn :loading="isLoading" @click="createStudyRoom" width="150" depressed height="40" color="#4452fc" class="white--text" rounded >{{$t(btnCreateText)}}</v-btn>
          </div>
       </div>
    </v-dialog>
@@ -212,6 +212,12 @@ export default {
       }
    },
    computed: {
+      btnCreateText() {
+         return this.isStudyRoomPrivate ? 'dashboardPage_create_private' : 'dashboardPage_create_broadcast'
+      },
+      isStudyRoomPrivate() {
+         return this.studyRoomType === 'private'
+      },
       createSessionTitle() {
          return this.studyRoomType === 'private' ? 'dashboardPage_create_room_private_title' : 'dashboardPage_create_room_live_title'
       },

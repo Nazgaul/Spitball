@@ -22,9 +22,8 @@
       <template v-slot:top>
         <div class="tableTop d-flex flex-sm-row flex-column align-sm-center justify-space-between">
           <div class="myStudyRooms_title pb-3 pb-sm-0" v-t="'schoolBlock_my_study_rooms'"></div>
-          <div>
+          <div v-if="isTutor && !isTutorPending">
             <v-btn
-              v-if="isTutor"
               @click="openLiveSession"
               class="link white--text mr-0 mr-sm-4 mb-4 mb-sm-0"
               depressed
@@ -34,7 +33,6 @@
               v-t="'dashboardPage_my_studyrooms_create_live'"
             ></v-btn>
             <v-btn
-              v-if="isTutor"
               @click="openPrivateSession"
               class="link white--text"
               depressed
@@ -104,7 +102,7 @@
 
             <div v-else class="mr-5 flex-grow-1">
               <v-tooltip :value="currentItemId === item.id" top transition="fade-transition">
-                <template v-slot:activator="{on}">
+                <template v-slot:activator="{}">
                   <linkSVG
                     style="width:20px;height:36px;"
                     class="option link"
@@ -207,8 +205,11 @@ export default {
   },
   computed: {
     ...mapGetters(["getStudyRoomItems"]),
+    isTutorPending() {
+      return this.$store.getters.accountUser?.isTutorPending === 'pending';
+    },
     isTutor() {
-      return this.$store.getters.accountUser.isTutor;
+      return this.$store.getters.accountUser?.isTutor;
     },
     studyRoomItems() {
       return this.getStudyRoomItems;
