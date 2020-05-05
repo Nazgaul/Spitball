@@ -73,5 +73,7 @@ namespace Cloudents.Core.DTOs
         public decimal Price { get; set; }
 
         public bool Enrolled { get; set; }
+
+        public string? Description { get; set; }
     }
 }

@@ -43,6 +43,7 @@ namespace Cloudents.Query.Tutor
                         Price = s.Price.GetValueOrDefault(),
                         Name = s.Name,
                         DateTime = s.BroadcastTime,
+                        Description = s.Description,
                         Enrolled = _session.Query<StudyRoomUser>().Any(w => w.Room.Id == s.Id && w.User.Id == query.UserId)
                     }).ToListAsync(token);
             }

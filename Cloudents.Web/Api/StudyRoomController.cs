@@ -66,7 +66,7 @@ namespace Cloudents.Web.Api
             {
                 var chatTextMessage = _localizer["StudyRoomCreatedChatMessage", model.Name];
                 var command = new CreateStudyRoomCommand(tutorId, model.UserId,
-                    chatTextMessage, model.Name, model.Price, model.Date, model.Type);
+                    chatTextMessage, model.Name, model.Price, model.Date, model.Type,model.Description);
                 var result = await _commandBus.DispatchAsync<CreateStudyRoomCommand, CreateStudyRoomCommandResult>(command, token);
                 return result;
             }
