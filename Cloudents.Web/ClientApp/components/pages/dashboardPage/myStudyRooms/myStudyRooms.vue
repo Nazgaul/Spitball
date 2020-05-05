@@ -100,7 +100,7 @@
               <div v-t="'schoolBlock_SendMessageTooltip'"></div>
             </div>
 
-            <div v-else class="mr-5 flex-grow-1">
+            <div v-else class="mr-5">
               <v-tooltip :value="currentItemId === item.id" top transition="fade-transition">
                 <template v-slot:activator="{}">
                   <linkSVG

@@ -7,6 +7,7 @@
             <v-text-field
                :rules="[rules.required]"
                v-model="roomName"
+               class="roomName"
                height="50"
                dense
                outlined
@@ -15,7 +16,7 @@
             >
             </v-text-field>
             <v-text-field 
-               class="pl-4 roomName"
+               class="pl-4 roomPrice"
                outlined
                height="50"
                dense
@@ -38,24 +39,26 @@
          </v-form>
 
          <div class="createStudyRoomDialog-list">
-            <div class="listTitle" v-t="'dashboardPage_invite_students'"></div>
-            <v-list flat class="list-followers" v-if="studyRoomType === 'private'">
-               <v-list-item-group>
-                  <v-list-item v-for="(item, index) in myFollowers" :key="index" @click="addSelectedUser(item)" :class="[{'dark-line': index % 2}]">
-                     <template v-slot:default="{}">
-                        <v-list-item-avatar>
-                           <UserAvatar :size="'40'" :user-name="item.name" :user-id="item.id" :userImageUrl="item.image"/> 
-                        </v-list-item-avatar>
-                        <v-list-item-content>
-                           <v-list-item-title>{{item.name}}</v-list-item-title>
-                        </v-list-item-content>
-                        <v-list-item-action>
-                           <v-checkbox @click.prevent multiple v-model="selected" :value="item" color="#4c59ff" off-icon="sbf-check-box-un" on-icon="sbf-check-box-done"></v-checkbox>
-                        </v-list-item-action>
-                     </template>
-                  </v-list-item>
-               </v-list-item-group>
-            </v-list>
+            <template v-if="studyRoomType === 'private'">
+               <div class="listTitle" v-t="'dashboardPage_invite_students'"></div>
+               <v-list flat class="list-followers">
+                  <v-list-item-group>
+                     <v-list-item v-for="(item, index) in myFollowers" :key="index" @click="addSelectedUser(item)" :class="[{'dark-line': index % 2}]">
+                        <template v-slot:default="{}">
+                           <v-list-item-avatar>
+                              <UserAvatar :size="'40'" :user-name="item.name" :user-id="item.id" :userImageUrl="item.image"/> 
+                           </v-list-item-avatar>
+                           <v-list-item-content>
+                              <v-list-item-title>{{item.name}}</v-list-item-title>
+                           </v-list-item-content>
+                           <v-list-item-action>
+                              <v-checkbox @click.prevent multiple v-model="selected" :value="item" color="#4c59ff" off-icon="sbf-check-box-un" on-icon="sbf-check-box-done"></v-checkbox>
+                           </v-list-item-action>
+                        </template>
+                     </v-list-item>
+                  </v-list-item-group>
+               </v-list>
+            </template>
 
             <div class="dateTimeWrapper d-flex justify-center" v-else>
                <v-menu ref="datePickerMenu" v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290" min-width="290px">
@@ -371,6 +374,14 @@ export default {
          margin-bottom: 0;
       }
       .roomName {
+         ::placeholder {
+            color: @global-purple;
+         }
+         :-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color: @global-purple;
+         }
+      }
+      .roomPrice {
          flex: 1;
       }
    }
