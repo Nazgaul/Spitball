@@ -81,7 +81,7 @@ namespace Cloudents.Web.Api
                     ["UserId"] = model.UserId.ToString(),
                     ["tutorId"] = tutorId.ToString()
                 });
-                return BadRequest();
+                return BadRequest("user is not a tutor");
             }
         }
 
