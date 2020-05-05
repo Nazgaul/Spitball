@@ -3,40 +3,33 @@
       <div class="createStudyRoomDialog pa-4">
          <v-icon class="close-dialog" v-text="'sbf-close'" @click="$store.commit('setComponent')" />
          <div class="createStudyRoomDialog-title text-center" v-t="createSessionTitle"></div>
-         <v-form class="d-flex justify-space-between input-room-name" ref="createRoomValidation">
-            <v-text-field
-               :rules="[rules.required]"
-               v-model="roomName"
-               class="roomName"
-               height="50"
-               dense
-               outlined
-               :label="$t('dashboardPage_create_room_placeholder')"
-               :placeholder="$t(roomNamePlaceholder)"
-            >
-            </v-text-field>
-            <v-text-field 
-               class="pl-4 roomPrice"
-               outlined
-               height="50"
-               dense
-               :rules="[rules.required,rules.minimum]"
-               v-model="price" type="number"
-               :label="$t('becomeTutor_placeholder_price', {'0' : getSymbol})"
-               :placeholder="$t('becomeTutor_placeholder_price', {'0' : getSymbol})"
-            >
-            </v-text-field>
-            <!-- <v-select
-               v-model="studyRoomType"
-               class="roomType"
-               append-icon="sbf-menu-down"
-               :items="items"
-               :label="$t('dashboardPage_placeholder_studyRoom_type')"
-               return-object
-               height="44"
-               outlined
-            ></v-select> -->
-         </v-form>
+         
+         <component :is="studyRoomType"></component>
+         <!-- <v-form class="justify-space-between input-room-name mb-3" ref="createRoomValidation">
+            <div class="d-flex">
+               <v-text-field
+                  :rules="[rules.required]"
+                  v-model="roomName"
+                  class="roomName"
+                  height="50"
+                  dense
+                  outlined
+                  :label="$t('dashboardPage_create_room_placeholder')"
+                  :placeholder="$t(roomNamePlaceholder)"
+               >
+               </v-text-field>
+               <v-text-field 
+                  class="pl-4 roomPrice"
+                  outlined
+                  height="50"
+                  dense
+                  :rules="[rules.required,rules.minimum]"
+                  v-model="price" type="number"
+                  :label="$t('becomeTutor_placeholder_price', {'0' : getSymbol})"
+                  :placeholder="$t('becomeTutor_placeholder_price', {'0' : getSymbol})"
+               >
+               </v-text-field>
+            </div>
 
          <div class="createStudyRoomDialog-list">
             <template v-if="studyRoomType === 'private'">
@@ -86,7 +79,6 @@
                   </v-date-picker>
                </v-menu>
 
-                  <!-- TIME PICKER TEXT FIELD -->
                   <v-select
                      v-model="hour"
                      class="roomType mx-5"
@@ -109,48 +101,6 @@
                      placeholder=" "
                      outlined
                   ></v-select>
-
-
-               <!-- TIME PICKER vuetify ui -->
-               <!-- <v-menu 
-                  v-model="timePickerMenu" 
-                  ref="timePickerMenu" 
-                  :close-on-content-click="false" 
-                  transition="scale-transition" 
-                  offset-y 
-                  max-width="290" 
-                  min-width="290px"
-               >
-                  <template v-slot:activator="{ on }">
-                        <v-text-field
-                           v-on="on"
-                           v-model="time"
-                           class="time-input"
-                           :rules="[rules.required]"
-                           :label="$t('dashboardPage_label_time')"
-                           autocomplete="nope"
-                           prepend-inner-icon=""
-                           dense
-                           color="#304FFE"
-                           outlined
-                           scrollable
-                           type="text"
-                           readonly
-                           :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
-                        />
-                  </template>                  
-                  <v-time-picker 
-                     v-model="time"
-                     class="timePicker" 
-                     color="#4C59FF" 
-                     :next-icon="isRtl?'sbf-arrow-left-carousel':'sbf-arrow-right-carousel'" 
-                     :prev-icon="isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'" 
-                  >
-                     <v-spacer></v-spacer>
-                     <v-btn text class="font-weight-bold" color="#4C59FF" @click="timePickerMenu = false">{{$t('coupon_btn_calendar_cancel')}}</v-btn>
-                     <v-btn text class="font-weight-bold" color="#4C59FF" @click="$refs.timePickerMenu.save(time)">{{$t('coupon_btn_calendar_ok')}}</v-btn>
-                  </v-time-picker>
-               </v-menu> -->
             </div>
 
          </div>
@@ -163,28 +113,35 @@
             </div>
             <v-btn :loading="isLoading" @click="createStudyRoom" width="150" depressed height="40" color="#4452fc" class="white--text" rounded >{{$t(btnCreateText)}}</v-btn>
          </div>
+      </v-form> -->
       </div>
    </v-dialog>
 </template>
 
 <script>
 import { validationRules } from '../../../../services/utilities/formValidationRules.js'
+import Broadcast from './liveSession/liveSession.vue'
+import Private from './privateSession/privateSession.vue'
 
 export default {
    name:'createStudyRoom',
+   components: {
+      Broadcast,
+      Private
+   },
    props: {
       params: {}
    },
    data() {
       return {
          date: new Date().FormatDateToString(),
+         studyRoomType: '',
          time: '',
          hour: '00',
          minutes: '00',
          roomName:'',
          price: 0,
          isLoading:false,
-         datePickerMenu:false,
          showErrorEmpty:false,
          showErrorMaxUsers:false,
          showErrorWrongTime: false,
@@ -197,10 +154,12 @@ export default {
             required: (value) => validationRules.required(value),
             minimum: (value) => validationRules.minVal(value,0),
          },
-         studyRoomType: '',
       }
    },
    watch: {
+      roomName(){
+         this.resetErrors()
+      },
       selected(){
          this.resetErrors()
       },
@@ -312,14 +271,14 @@ export default {
             let self = this;
             this.$store.dispatch('updateCreateStudyRoom',paramsObj)
                .then(() => {
-                  self.isLoading = false;
                   self.$store.commit('setComponent')
                }).catch((error)=>{
-                  self.isLoading = false;
                   if(error.response?.status == 409){
                      self.showErrorAlreadyCreated = true;
                   }
-               });
+               }).finally(() => {
+                  self.isLoading = false;
+               })
          }
       },
       allowedDates(date) {
@@ -335,9 +294,6 @@ export default {
    },
    created() {
       this.studyRoomType = this.params.type
-      this.$store.dispatch('updateFollowersItems').then(()=>{
-         this.myFollowers = this.$store.getters.getFollowersItems
-      })
       this.price = this.$store.getters.accountUser.price;
    },
 }
@@ -361,7 +317,7 @@ export default {
       right: 12px;
       font-size: 12px;
    }
-   .createStudyRoomDialog-title{
+   .createStudyRoomDialog-title {
       color: @global-purple;
       font-size: 20px;
       font-weight: 600;
