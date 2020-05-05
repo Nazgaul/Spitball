@@ -11,7 +11,7 @@ namespace Cloudents.Persistence
         {
         }
 
-        public override object GetInstance(object code)
+        public override object? GetInstance(object code)
         {
             if (!(code is string p))
             {

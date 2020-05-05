@@ -36,7 +36,7 @@ namespace Cloudents.Core.DTOs
         public decimal TutorPrice { get; set; }
         public string Jwt { get; set; }
 
-        [EntityBind(nameof(StudyRoom.BroadcastTime))]
+        [EntityBind(nameof(BroadCastStudyRoom.BroadcastTime))]
         public DateTime? BroadcastTime { get; set; }
 
         [EntityBind(nameof(StudyRoom.Name))]

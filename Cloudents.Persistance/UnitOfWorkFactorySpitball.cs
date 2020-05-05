@@ -38,10 +38,12 @@ namespace Cloudents.Persistence
             {
                 m.FluentMappings.AddFromAssemblyOf<UserMap>()
                     .Conventions.Add(ForeignKey.EndsWith("Id"));
+                //.Conventions.Add(new DiscriminatorValueConvention());
+
 
             });
 
-
+            
 
 
             //TODO: Redis sometime fails. We need to gracefully fallback if it happens
