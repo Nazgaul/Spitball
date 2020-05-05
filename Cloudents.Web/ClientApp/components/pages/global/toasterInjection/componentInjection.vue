@@ -12,6 +12,7 @@ const pendingPayment = () => import('./pendingPayment.vue')
 const errorLinkToaster = () => import('./errorLinkToaster.vue')
 
 const studRoomSettings = () => import('../../../studyroom/tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue')
+const createStudyRoomDialog = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue')
 
 export default {
     components: {
@@ -21,6 +22,7 @@ export default {
         pendingPayment,
         errorLinkToaster,
         studRoomSettings,
+        createStudyRoomDialog,
     },
     data() {
         return {
@@ -93,6 +95,18 @@ export default {
                 },
                 studyRoomSettings: {
                     name: 'studRoomSettings',
+                },
+                createPrivateSession: {
+                    name: 'createStudyRoomDialog',
+                    params: {
+                        type: 'private'
+                    }
+                },
+                createLiveSession: {
+                    name: 'createStudyRoomDialog',
+                    params: {
+                        type: 'live'
+                    }
                 }
             }
         }

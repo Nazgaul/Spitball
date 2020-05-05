@@ -1,15 +1,31 @@
 <template>
    <v-dialog :value="true" persistent max-width="640px" :fullscreen="$vuetify.breakpoint.xsOnly">
       <div class="createStudyRoomDialog">
-         <v-icon class="close-dialog" v-text="'sbf-close'" v-closeDialog />
+         <v-icon class="close-dialog" v-text="'sbf-close'" @click="$store.commit('setComponent')" />
          <div class="createStudyRoomDialog-title pb-4">{{$t('dashboardPage_create_room_title')}}</div>
          <v-form class="d-flex justify-space-between input-room-name" ref="createRoomValidation">
-            <v-text-field :rules="[rules.required]" v-model="roomName" height="44" dense outlined :label="$t('dashboardPage_create_room_placeholder')" :placeholder="$t(roomNamePlaceholder)"/>
-            <v-text-field class="px-4" outlined  height="44" dense :rules="[rules.required,rules.minimum]"
-               v-model="price" type="number"
-               :label="$t('becomeTutor_placeholder_price', {'0' : getSymbol})" :placeholder="$t('becomeTutor_placeholder_price', {'0' : getSymbol})">
+            <v-text-field
+               :rules="[rules.required]"
+               v-model="roomName"
+               height="50"
+               dense
+               outlined
+               :label="$t('dashboardPage_create_room_placeholder')"
+               :placeholder="$t(roomNamePlaceholder)"
+            >
             </v-text-field>
-            <v-select
+            <v-text-field 
+               class="pl-4 roomName"
+               outlined
+               height="50"
+               dense
+               :rules="[rules.required,rules.minimum]"
+               v-model="price" type="number"
+               :label="$t('becomeTutor_placeholder_price', {'0' : getSymbol})"
+               :placeholder="$t('becomeTutor_placeholder_price', {'0' : getSymbol})"
+            >
+            </v-text-field>
+            <!-- <v-select
                v-model="studyRoomType"
                class="roomType"
                append-icon="sbf-menu-down"
@@ -18,11 +34,11 @@
                return-object
                height="44"
                outlined
-            ></v-select>
+            ></v-select> -->
          </v-form>
 
          <div class="createStudyRoomDialog-list">
-            <v-list flat class="list-followers" v-if="studyRoomType.value === 'Private'">
+            <v-list flat class="list-followers" v-if="studyRoomType === 'private'">
                <v-list-item-group>
                   <v-list-item v-for="(item, index) in myFollowers" :key="index" @click="addSelectedUser(item)" :class="[{'dark-line': index % 2}]">
                      <template v-slot:default="{}">
@@ -152,6 +168,9 @@ import { validationRules } from '../../../../services/utilities/formValidationRu
 
 export default {
    name:'createStudyRoom',
+   props: {
+      params: {}
+   },
    data() {
       return {
          date: new Date().toISOString().substr(0, 10),
@@ -174,11 +193,7 @@ export default {
             required: (value) => validationRules.required(value),
             minimum: (value) => validationRules.minVal(value,0),
          },
-         studyRoomType: {text: this.$t('dashboardPage_type_private'), value: 'Private'},
-         items: [
-            { text: this.$t('dashboardPage_type_private'), value: 'Private' },
-            { text: this.$t('dashboardPage_type_broadcast'), value: 'Broadcast' }
-         ],
+         studyRoomType: '',
       }
    },
    watch: {
@@ -203,9 +218,9 @@ export default {
       roomNamePlaceholder() {
          let roomNamePlaceholder = {
             private: 'dashboardPage_create_room_label',
-            broadcast: 'dashboardPage_create_room_label_broadcast'
+            live: 'dashboardPage_create_room_label_broadcast'
          }
-         return roomNamePlaceholder[this.studyRoomType.value.toLowerCase()]
+         return roomNamePlaceholder[this.studyRoomType.toLowerCase()]
       },
       timeMinutes() {
          let arr = []
@@ -245,7 +260,7 @@ export default {
       createStudyRoom(){
          if(!this.$refs.createRoomValidation.validate()) return
          if(!this.isLoading && !this.showErrorAlreadyCreated && !this.showErrorEmpty && !this.showErrorMaxUsers){
-            let isBroadcast = this.studyRoomType.value === 'Broadcast'
+            let isBroadcast = this.studyRoomType === 'live'
             
             if(!this.selected.length && !isBroadcast){
                this.showErrorEmpty = true;
@@ -276,7 +291,7 @@ export default {
                name: this.roomName,
                userId: Array.from(this.selected.map(user=> user.userId)),
                price: this.price || 0,
-               type: this.studyRoomType.value,
+               type: this.studyRoomType,
                date: new Date(`${this.date} ${this.hour}:${this.minutes}`)
             }
                
@@ -306,6 +321,7 @@ export default {
       }
    },
    created() {
+      this.studyRoomType = this.params.type
       this.$store.dispatch('updateFollowersItems').then(()=>{
          this.myFollowers = this.$store.getters.getFollowersItems
       })
@@ -325,7 +341,7 @@ export default {
    flex-direction: column;
    align-items: center;
    justify-content: space-between;
-   padding-left: 0;
+   // padding-left: 0;
    .close-dialog {
       cursor: pointer;
       position: absolute;
@@ -340,10 +356,13 @@ export default {
       font-weight: 600;
    }
    .input-room-name{
-      width: 95%;
+      width: 100%;
       // width: 216px;
       .v-text-field__details{
          margin-bottom: 0;
+      }
+      .roomName {
+         flex: 1;
       }
    }
    .roomType {

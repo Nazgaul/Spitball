@@ -24,14 +24,23 @@
           <div>
             <v-btn
               v-if="isTutor"
-              v-openDialog="createStudyRoomDialog"
+              @click="openLiveSession"
               class="link white--text mr-0 mr-sm-4"
+              depressed
+              rounded
+              color="#5360FC"
+              v-t="'dashboardPage_my_studyrooms_create_live'"
+            ></v-btn>
+            <v-btn
+              v-if="isTutor"
+              @click="openPrivateSession"
+              class="link white--text"
               depressed
               rounded
               color="#5360FC"
               v-t="'dashboardPage_my_studyrooms_create_room'"
             ></v-btn>
-            <v-btn
+            <!-- <v-btn
               v-if="!$vuetify.breakpoint.xsOnly"
               class="link btnTestStudyRoom"
               :to="{name: routeNames.StudyRoom}"
@@ -39,7 +48,7 @@
               rounded
               outlined
               v-t="'dashboardPage_link_studyroom'"
-            ></v-btn>
+            ></v-btn> -->
           </div>
         </div>
       </template>
@@ -181,6 +190,12 @@ export default {
       "setActiveConversationObj",
       "deleteStudyRoomSession"
     ]),
+    openPrivateSession() {
+      this.$store.commit('setComponent', 'createPrivateSession')
+    },
+    openLiveSession() {
+      this.$store.commit('setComponent', 'createLiveSession')
+    },
     deleteSession(id) {
       let self = this
       this.deleteStudyRoomSession(id).then(() => {
