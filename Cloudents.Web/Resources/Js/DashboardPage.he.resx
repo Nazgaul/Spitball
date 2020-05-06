@@ -364,6 +364,12 @@
   <data name="views" xml:space="preserve">
     <value>צפיות</value>
   </data>
+  <data name="visitors_free" xml:space="preserve">
+    <value>חינם</value>
+  </data>
+  <data name="visitors_set_price" xml:space="preserve">
+    <value>קבע מחיר</value>
+  </data>
   <data name="visitor_price" xml:space="preserve">
     <value>תעריף למבקרים</value>
   </data>
