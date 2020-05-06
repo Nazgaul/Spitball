@@ -30,14 +30,24 @@
                                         {{tutorPrice ? currencySymbol(tutorPrice) : currencySymbol(tutorDiscountPrice)}}
                                     </div>
                                     <div class="profileUserSticky_pricing_price">
-                                        <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? currencySymbol(tutorDiscountPrice) : currencySymbol(tutorPrice)}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
+                                        <template v-if="tutorPrice">
+                                        <i18n-n :value="tutorDiscountPrice || tutorPrice" :locale="'he-IL'" :format="{ key: 'currency', currency: currentProfileUser.tutorData.currency }">
+                                            <template v-slot:integer="slotProps"><span class="profileUserSticky_pricing_price_number">{{ slotProps.integer }}</span></template>
+                                            <template v-slot:currency="slotProps"><span class="profileUserSticky_pricing_price_number"> {{ slotProps.currency }}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/></template>
+                                        </i18n-n>
+                                        </template>
+                                        <template v-else>
+                                            <span class="profileUserSticky_pricing_price_number" v-t="'profile_free'"></span>
+                                        </template>
+                                            <!--  <span class="profileUserSticky_pricing_price_number"> {{isDiscount && tutorPrice !== 0  ? currencySymbol(tutorDiscountPrice) : currencySymbol(tutorPrice)}}</span>
+                                            /<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/> -->
                                     </div>
                                 </div>
                                 <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" v-if="currentProfileUser.isTutor" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
                             </template>
                             <div v-else>
-                                <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="isLogged && !currentProfileUser.isTutor">
-                                    <editSVG class="mr-1" v-if="isCurrentProfileUser" />
+                                <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="isCurrentProfileUser && !currentProfileUser.isTutor">
+                                    <editSVG class="mr-1" />
                                 </v-btn>
                             </div>
                         </div>
@@ -391,7 +401,8 @@ export default {
             .userName{
                 .responsive-property(font-size, 24px, null, 22px);
                 font-weight: 600;
-                width: 100%;
+                //width: 100%;
+                flex-grow: 1;
             }
             .course {
                 font-weight: 600;

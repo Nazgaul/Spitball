@@ -129,7 +129,7 @@
   </data>
   <data name="send_button" xml:space="preserve">
     <value>Send {0} a message</value>
-    <comment>change</comment>
+    
   </data>
   <data name="study-area" xml:space="preserve">
     <value>Study area:</value>

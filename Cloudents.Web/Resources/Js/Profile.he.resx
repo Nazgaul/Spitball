@@ -198,6 +198,9 @@
   <data name="following" xml:space="preserve">
     <value>עוקב/ת</value>
   </data>
+  <data name="free" xml:space="preserve">
+    <value>חינם</value>
+  </data>
   <data name="lastName_label" xml:space="preserve">
     <value>שם משפחה</value>
   </data>
@@ -221,9 +224,6 @@
   </data>
   <data name="personal_details" xml:space="preserve">
     <value>פרטים אישיים</value>
-  </data>
-  <data name="per_hour" xml:space="preserve">
-    <value>/שעה</value>
   </data>
   <data name="points_hour" xml:space="preserve">
     <value>שעה</value>

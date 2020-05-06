@@ -21,8 +21,13 @@
 
             <div class="rightSide d-sm-flex d-block align-end flex-shrink-0 text-center">
                 <div class="price mb-2 mb-sm-0" :class="{'enroll': session.enrolled}">
-                    <span class="numericPrice">{{$n(session.price, 'currency')}}</span>
-                    <span v-t="'profile_per_hour'"></span>
+                    <!-- <i18n-n :value="tutorPrice" :locale="'he-IL'" :format="{ key: 'currency', currency: currentProfileUser.tutorData.currency }"> -->
+                    <template v-if="session.price">
+                        <i18n-n  :value="session.price" :locale="'he-IL'" :format="{ key: 'currency', currency: tutorCurrency }" class="numericPrice"></i18n-n>
+                        
+                        /<span v-t="'profile_points_hour'"></span>
+                    </template>
+                    <span  class="numericPrice" v-else v-t="'profile_free'"></span>
                 </div>
                 <div class="action">
                     <v-btn
@@ -110,7 +115,11 @@ export default {
             }
             return liveList.slice(0, 3)
         },
+        tutorCurrency() {
+            return this.$store.getters.getProfile?.user?.tutorData?.currency
+        },
         tutorName() {
+            
             return this.$store.getters.getProfile?.user?.firstName
         },
         isMyProfile(){
