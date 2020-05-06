@@ -154,7 +154,7 @@
     <value>שם החדר</value>
   </data>
   <data name="create_room_live_title" xml:space="preserve">
-    <value>יצירת שיעור ציבורי</value>
+    <value>יצירת חדר לימוד ציבורי</value>
   </data>
   <data name="create_room_max_error" xml:space="preserve">
     <value>מקסימום 4 סטודנטים בחדר לימוד</value>
@@ -363,6 +363,12 @@
   </data>
   <data name="views" xml:space="preserve">
     <value>צפיות</value>
+  </data>
+  <data name="visitors_free" xml:space="preserve">
+    <value>חינם</value>
+  </data>
+  <data name="visitors_set_price" xml:space="preserve">
+    <value>קביעת מחיר</value>
   </data>
   <data name="visitor_price" xml:space="preserve">
     <value>מחיר לאורחים</value>

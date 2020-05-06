@@ -368,6 +368,12 @@
   <data name="views" xml:space="preserve">
     <value>Views</value>
   </data>
+  <data name="visitors_free" xml:space="preserve">
+    <value>Free</value>
+  </data>
+  <data name="visitors_set_price" xml:space="preserve">
+    <value>Set price</value>
+  </data>
   <data name="visitor_price" xml:space="preserve">
     <value>Price for visitors</value>
   </data>
