@@ -12,7 +12,7 @@
             :borderRadius="4"
           />
           <div class="card-mobile-header-content">
-              <h3 class="text-truncate font-weight-bold card-mobile-tutor-name" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
+              <h3 class="text-truncate font-weight-bold card-mobile-tutor-name">{{tutorData.name}}</h3>
 
               <template>
                   <div class="user-rate align-center" v-if="tutorData.reviews > 0">

@@ -7,7 +7,8 @@ export const Profile = {
          new User.Default(objInit),
          {
             documentCourses: objInit.documentCourses,
-            courses: objInit.courses,  
+            courses:  objInit.courses, 
+            coursesString: objInit.courses.toString().replace(/,/g, ", ") ,
             online: objInit.online || false,
             calendarShared: objInit.calendarShared || false,
             tutorData: objInit.tutor ? new User.Tutor(objInit.tutor) : '',

@@ -121,28 +121,18 @@
     <value>hour</value>
   </data>
   <data name="review_one" xml:space="preserve">
-    <value>Still Collecting reviews | {n} Review | {n} Reviews</value>
+    <value>Still Collecting | {n} Review | {n} Reviews</value>
   </data>
   <data name="courses" xml:space="preserve">
     <value>Course:</value>
     <comment>Duplicate</comment>
   </data>
-  <data name="hours_completed" xml:space="preserve">
-    <value>Lessons completed</value>
-    <comment>no need</comment>
-  </data>
   <data name="send_button" xml:space="preserve">
     <value>Send {1} a message</value>
+    <comment>change</comment>
   </data>
   <data name="study-area" xml:space="preserve">
     <value>Study area:</value>
-  </data>
-  <data name="private_tutor" xml:space="preserve">
-    <value>Tutor {1}</value>
-  </data>
-  <data name="no_hours_completed" xml:space="preserve">
-    <value>Lessons coming soon</value>
-    <comment>no need</comment>
   </data>
   <data name="message_me" xml:space="preserve">
     <value>me</value>
@@ -153,11 +143,13 @@
   </data>
   <data name="collecting_review" xml:space="preserve">
     <value>Collecting reviews</value>
+    <comment>no need</comment>
   </data>
   <data name="apply_coupon" xml:space="preserve">
     <value>Apply Coupon</value>
   </data>
   <data name="no_reviews" xml:space="preserve">
     <value>Still collecting</value>
+    <comment>no need</comment>
   </data>
 </root>

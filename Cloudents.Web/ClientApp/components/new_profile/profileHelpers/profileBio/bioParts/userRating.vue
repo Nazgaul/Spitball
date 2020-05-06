@@ -27,15 +27,14 @@
 <script>
     export default {
         name: "userReviews",
-        data() {
-            return {
-                ratingLength: 5,
-            }
-        },
         props: {
             callbackFn: {
                 type: Function,
                 required: false
+            },
+            ratingLength: {
+                type: Number,
+                default: 5
             },
             starColor: {
                 type: String,

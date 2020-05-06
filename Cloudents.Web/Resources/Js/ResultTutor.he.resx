@@ -123,17 +123,8 @@
   <data name="hour" xml:space="preserve">
     <value>לשעה</value>
   </data>
-  <data name="hours_completed" xml:space="preserve">
-    <value>שיעורים הושלמו</value>
-  </data>
-  <data name="no_hours_completed" xml:space="preserve">
-    <value>שיעורים יתקיימו בקרוב</value>
-  </data>
-  <data name="private_tutor" xml:space="preserve">
-    <value>מורה פרטי/ת {1}</value>
-  </data>
   <data name="review_one" xml:space="preserve">
-    <value>אין ביקורות | ביקורת אחת | {n} ביקורות</value>
+    <value>אוספים ביקורות | ביקורת אחת | {n} ביקורות</value>
   </data>
   <data name="send_button" xml:space="preserve">
     <value>שלחו ל{1} הודעה</value>
