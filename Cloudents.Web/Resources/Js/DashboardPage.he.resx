@@ -136,7 +136,7 @@
     <value>יצירת חדר פתוח לקהל</value>
   </data>
   <data name="create_private" xml:space="preserve">
-    <value>יצירת חדר</value>
+    <value>יצירת חדר לימוד</value>
   </data>
   <data name="create_room_created_error" xml:space="preserve">
     <value>חדר לימוד זה כבר קיים</value>

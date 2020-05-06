@@ -136,7 +136,7 @@
     <value>Create Live Session</value>
   </data>
   <data name="create_private" xml:space="preserve">
-    <value>Create</value>
+    <value>Create Study Room</value>
   </data>
   <data name="create_room_created_error" xml:space="preserve">
     <value>This study room already exists</value>
