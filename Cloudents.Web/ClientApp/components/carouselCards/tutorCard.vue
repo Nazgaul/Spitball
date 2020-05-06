@@ -50,7 +50,7 @@
             <v-btn depressed color="#4c59ff" class="tutor-btn">
                 <span class="text-truncate">
                     <button class="mr-1">
-                        <div class="contact-me-button" v-html="$Ph('resultTutor_send_button', showFirstName)" ></div>
+                        <div class="contact-me-button">{{$t('resultTutor_send_button',[showFirstName])}}</div>
                     </button>
                 </span>
             </v-btn>

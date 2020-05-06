@@ -51,7 +51,6 @@
                                         :length="currentProfileTutor.reviewCount > 0  ? 5 : 1"
                                             :size="18" readonly />
                                     <span  span @click="scrollToReviews" class="pUb_dS_c_r_span ml-1">{{$tc('resultTutor_review_one',currentProfileTutor.reviewCount)}}</span>
-                                <!-- <span class="no-reviews font-weight-bold caption" v-t="'resultTutor_no_reviews'"></span> -->
                             </div>
                         </template>
                         <div class="ml-3">

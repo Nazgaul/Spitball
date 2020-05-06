@@ -56,7 +56,7 @@
       <div class="card-mobile-footer">
           <v-btn class="btn-chat white--text text-truncate my-0" depressed rounded block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
                 <iconChat class="chat_icon_btn" />
-                <div class="text-truncate text_icon_btn" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
+                <div class="text-truncate text_icon_btn">{{$t('resultTutor_send_button',[showFirstName])}}</div>
           </v-btn>
       </div>
 

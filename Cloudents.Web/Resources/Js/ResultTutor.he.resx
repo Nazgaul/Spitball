@@ -127,7 +127,7 @@
     <value>אוספים ביקורות | ביקורת אחת | {n} ביקורות</value>
   </data>
   <data name="send_button" xml:space="preserve">
-    <value>שלחו ל{1} הודעה</value>
+    <value>שלחו ל{0} הודעה</value>
   </data>
   <data name="study-area" xml:space="preserve">
     <value>תחומי לימוד:</value>
@@ -141,11 +141,5 @@
   </data>
   <data name="apply_coupon" xml:space="preserve">
     <value>מימוש קופון</value>
-  </data>
-  <data name="collecting_review" xml:space="preserve">
-    <value>אוספים המלצות</value>
-  </data>
-  <data name="no_reviews" xml:space="preserve">
-    <value>אוספים ביקורות</value>
   </data>
 </root>

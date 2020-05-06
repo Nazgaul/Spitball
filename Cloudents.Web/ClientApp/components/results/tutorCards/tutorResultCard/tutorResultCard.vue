@@ -46,16 +46,14 @@
               </div>
             </div>
 
-            <template>
-              <div class="user-rank align-center" v-if="isReviews">
-                <user-rating size="18" class="ratingIcon" :rating="tutorData.rating" :showRateNumber="false"/>
-                <div class="reviews">{{$tc('resultTutor_review_one',tutorData.reviews)}}</div>
-              </div>
-              <div v-else class="user-rank align-center">
-                <star class="user-rank-star"/>
-                <span class="no-reviews font-weight-bold" v-t="'resultTutor_no_reviews'"></span>
-              </div>
-            </template>
+             
+            <div  class="user-rank align-center">
+              <v-rating  v-model="tutorData.rating" color="#ffca54" background-color="#ffca54"
+                                      :length="isReviews  ? 5 : 1"
+                                          :size="18" readonly />
+              <span :class="{'reviews': isReviews,'no-reviews font-weight-bold': !isReviews}">{{$tc('resultTutor_review_one',tutorData.reviews)}}</span>
+              
+            </div>
             
             <div class="classes-hours align-center">
               <clock />
@@ -65,7 +63,7 @@
             <div class="send-btn">
                 <v-btn class="btn-chat white--text" depressed rounded block color="#4452fc" @click.prevent="sendMessage(tutorData)">
                   <iconChat class="chat-icon-btn" v-if="fromLandingPage" />
-                  <div v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
+                  <div>{{$t('resultTutor_send_button',[showFirstName])}}</div>
                 </v-btn>
             </div>
         </div>
@@ -80,19 +78,15 @@ import analyticsService from "../../../../services/analytics.service";
 import chatService from '../../../../services/chatService';
 import { LanguageService } from "../../../../services/language/languageService.js";
 
-import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
 import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
 
 import iconChat from '../icon-chat.svg';
 import clock from './clock.svg';
-import star from '../stars-copy.svg';
 
 export default {
   name: "tutorResultCard",
   components: {
-    userRating,
     clock,
-    star,
     iconChat,
     userAvatarRect
   },

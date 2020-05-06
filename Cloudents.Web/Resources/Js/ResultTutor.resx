@@ -128,7 +128,7 @@
     <comment>Duplicate</comment>
   </data>
   <data name="send_button" xml:space="preserve">
-    <value>Send {1} a message</value>
+    <value>Send {0} a message</value>
     <comment>change</comment>
   </data>
   <data name="study-area" xml:space="preserve">
@@ -141,15 +141,7 @@
   <data name="hour_completed" xml:space="preserve">
 	  <value>Lessons coming soon | One lesson completed | {n} Lessons completed</value>
   </data>
-  <data name="collecting_review" xml:space="preserve">
-    <value>Collecting reviews</value>
-    <comment>no need</comment>
-  </data>
   <data name="apply_coupon" xml:space="preserve">
     <value>Apply Coupon</value>
-  </data>
-  <data name="no_reviews" xml:space="preserve">
-    <value>Still collecting</value>
-    <comment>no need</comment>
   </data>
 </root>
