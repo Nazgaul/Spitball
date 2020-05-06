@@ -145,7 +145,6 @@ export default {
                }
             }
          }
-debugger
          return {
             date: userChooseDate,
             name: childComponent.liveSessionTitle || '',

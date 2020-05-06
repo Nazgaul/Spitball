@@ -43,7 +43,7 @@
             <v-col cols="12" sm="6" class="pa-0">
                 <v-select
                     v-model="hour"
-                    class="roomType pl-sm-4"
+                    class="roomHour pl-sm-4"
                     :items="timeHoursList"
                     height="50"
                     :menu-props="{
@@ -221,6 +221,15 @@ export default {
                 this.$emit('resetErrors')
             }
         }
+    },
+    created() {
+        if(this.isRtl) {
+            this.$nextTick(() => {
+                let x = document.querySelector('.roomHour .v-label')
+                x.style.right = '-28px'
+            })
+        }
+        
     }
 }
 </script>
@@ -235,7 +244,7 @@ export default {
             margin: 4px 0 0 4px;
         }
     }
-    .dateInput, .roomType, .roomPrice, .priceTitle, .sessionTitleInput, .sessionAbout, .sbf-menu-down {
+    .dateInput, .roomHour, .roomPrice, .priceTitle, .sessionTitleInput, .sessionAbout, .sbf-menu-down {
         input, textarea {
             color: @global-purple !important;
         }
