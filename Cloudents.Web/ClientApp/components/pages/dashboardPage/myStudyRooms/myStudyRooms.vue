@@ -346,10 +346,10 @@ export default {
     .actionsWrapper {
       width: 304px;
       .studyRoomActions {
-        display: none;
-        opacity: 0;
         transition: opacity 0.5s ease-out;
-  
+        opacity: 0;
+        display: none;
+        
         @media(max-width: @screen-xs) {
           display: flex;
           opacity: 1;
