@@ -1,58 +1,77 @@
 <template>
-    <v-card class="uf-sEdit-item mb-4">
-        <v-icon v-if="!isLastItem" class="uf-sEdit-close" v-html="'sbf-close'" @click="deleteFile()"/>
-        <v-layout wrap pb-1 px-4>
-            <v-layout wrap justify-space-between>   
-                <v-flex xs12 md8 pr-4>
-                    <v-text-field style="direction: ltr;" 
-                                  v-model="item.name" 
-                                  dir="ltr"
-                                  :rules="[rules.required]"/>
-                </v-flex>
-                <v-flex xs7 md4>
-                    <v-combobox 
-                    autocomplete="abcd"
-                        :placeholder="itemCoursePlaceholder"
-                        flat hide-no-data
-                        :append-icon="''"
+    <v-card class="uf-sEdit-item mb-4 pa-3 pt-0">
+        <div class="text-right pb-1">
+            <v-icon v-if="!isLastItem" class="uf-sEdit-close" color="#adadba" size="12" @click="deleteFile()">sbf-close</v-icon>
+        </div>
+        <v-row dense class="pa-0 ma-0 pr-4">
+            <v-row dense class="pa-0 ma-0 justify-space-between">   
+                <v-col cols="12" md="8" class="pa-0 pr-4">
+                    <v-text-field
+                        v-model="item.name" 
+                        :rules="[rules.required]"
+                        dense
+                        height="44"
+                        dir="ltr"
+                        style="direction: ltr;" 
+                        outlined
+                    />
+                </v-col>
+                <v-col cols="7" md="4" class="pa-0">
+                    <v-combobox
                         v-model="course"
+                        :placeholder="itemCoursePlaceholder"
                         :items="getSelectedClasses"
-                        :rules="[rules.required,rules.matchCourse]"/>
-                </v-flex>
-                <v-flex hidden-md-and-up xs4> 
-                    <v-text-field class="uf_price"
-                        :rules="[rules.integer,rules.maximum,rules.minimum]"  
-                         type="number" 
-                         v-model="item.price" 
-                         :placeholder="emptyPricePlaceholder"
-                         :suffix="item.price? pricePts :''"
-                         />
-                </v-flex>
-            </v-layout>
-            <v-layout wrap justify-space-between>
-                <v-flex xs12 md10 :class="['uf_desc',{'pr-4':!isMobile}]">
-                    <!-- <v-textarea rows="2" :resize="false" style="margin: 0;padding: 0;"
-                        v-model="item.description" 
-                        :placeholder="itemDescPlaceholder">>
-
-                    </v-textarea> -->
+                        :rules="[rules.required,rules.matchCourse]"
+                        :append-icon="''"
+                        dense
+                        height="44"
+                        autocomplete="abcd"
+                        hide-no-data
+                        outlined
+                    />
+                </v-col>
+                <v-col hidden-md-and-up xs4 class="pa-0 d-md-none d-flex">
+                    <v-text-field
+                        v-model="item.price"
+                        type="number"
+                        class="uf_price"
+                        :rules="[rules.integer,rules.maximum,rules.minimum]"
+                        :placeholder="emptyPricePlaceholder"
+                        :suffix="item.price ? pricePts : ''"
+                        dense
+                        height="44"
+                        outlined
+                    >
+                    </v-text-field>
+                </v-col>
+            </v-row>
+            <v-row class="pa-0 ma-0 justify-space-between">
+                <v-col cols="12" md="10" class="uf_desc pa-0 pr-sm-4">
                     <v-text-field 
                         class="pt-1"
                         v-model="item.description" 
-                        :placeholder="itemDescPlaceholder">
+                        :placeholder="itemDescPlaceholder"
+                        dense
+                        height="44"
+                        outlined
+                    >
                     </v-text-field>
-                </v-flex>
-                <v-flex hidden-sm-and-down md2> 
+                </v-col>
+                <v-col md="2" class="d-none d-md-flex pa-0"> 
                     <v-text-field class="uf_price pt-1"
                         :rules="[rules.integer,rules.maximum,rules.minimum]" 
-                         type="number" 
-                         v-model="item.price" 
-                         :placeholder="emptyPricePlaceholder"
-                         :suffix="item.price? pricePts :''"
-                         />
-                </v-flex>
-            </v-layout>
-        </v-layout>
+                        type="number" 
+                        v-model="item.price" 
+                        :placeholder="emptyPricePlaceholder"
+                        :suffix="item.price? pricePts :''"
+                        dense
+                        height="44"
+                        outlined
+                        >
+                    </v-text-field>
+                </v-col>
+            </v-row>
+        </v-row>
     </v-card>
 </template>
 
@@ -185,13 +204,7 @@ export default {
         }
     }
     .uf-sEdit-close{
-        position: absolute;
-        right: 10px;
-        top: 10px;
         z-index: 99;
-        font-size: 12px;
-        color: #adadba;
-        cursor: pointer;  
     }
     .v-input__slot {
         ::placeholder{
