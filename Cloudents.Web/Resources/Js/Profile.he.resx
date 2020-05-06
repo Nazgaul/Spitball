@@ -303,9 +303,6 @@
   <data name="study_materials_mobile" xml:space="preserve">
     <value>התוכן של {1}</value>
   </data>
-  <data name="tutor" xml:space="preserve">
-    <value>מורה פרטי</value>
-  </data>
   <data name="tutor_follower" xml:space="preserve">
     <value>עוקב | עוקבים</value>
   </data>
