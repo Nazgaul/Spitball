@@ -118,7 +118,8 @@ export default {
                 this.selected.splice(idx,1);
             } else {
                 if(this.selected.length < this.MAX_PARTICIPANT){
-                this.selected.push(user)
+                    this.$emit('resetErrors')
+                    this.selected.push(user)
                 } else {
                     this.$emit('updateError', 'showErrorMaxUsers')
                 }
