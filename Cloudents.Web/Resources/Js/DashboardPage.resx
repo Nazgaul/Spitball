@@ -208,8 +208,14 @@
   <data name="label_date" xml:space="preserve">
     <value>Date</value>
   </data>
+  <data name="label_live_title" xml:space="preserve">
+    <value>Live session title</value>
+  </data>
   <data name="label_minutes" xml:space="preserve">
     <value>Minutes</value>
+  </data>
+  <data name="label_session_about" xml:space="preserve">
+    <value>What is the session about?</value>
   </data>
   <data name="label_time" xml:space="preserve">
     <value>Time</value>
@@ -332,6 +338,12 @@
   <data name="student_tutor" xml:space="preserve">
     <value>Student / tutor</value>
   </data>
+  <data name="subscription_free" xml:space="preserve">
+    <value>Free</value>
+  </data>
+  <data name="subscription_price" xml:space="preserve">
+    <value>Price for subscription</value>
+  </data>
   <data name="success_session_removed" xml:space="preserve">
     <value>Study room has been deleted</value>
   </data>
@@ -355,5 +367,8 @@
   </data>
   <data name="views" xml:space="preserve">
     <value>Views</value>
+  </data>
+  <data name="visitor_price" xml:space="preserve">
+    <value>Price for visitors</value>
   </data>
 </root>
