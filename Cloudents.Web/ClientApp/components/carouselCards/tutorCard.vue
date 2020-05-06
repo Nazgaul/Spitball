@@ -8,8 +8,7 @@
                 :width="240" 
                 :height="152"></userAvatarRect>
             <div class="ts-content">
-                <!-- <h3 class="font-weight-bold text-truncate mb-1" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3> -->
-                <h3 class="font-weight-bold text-truncate mb-1" v-html="$Ph('resultTutor_private_tutor', tutor.name)"></h3>
+                <h3 class="font-weight-bold text-truncate mb-1">{{tutor.name}}</h3>
                 <div class="rank">
                     <template>
                         <div class="user-rate-ts" v-if="tutor.reviews > 0">
@@ -47,12 +46,6 @@
                     </span>
                     <div class="striked ml-2" v-if="isDiscount">{{$n(tutor.price, 'currency')}}</div>
                 </div>
-
-
-                <!-- <div class="ts-price">
-                    <span class="price-mark">{{tutor.price | currencyFormat(tutor.currency)}}</span>/
-                    <span v-language:inner="'tutorCardCarousel_hour'" />
-                </div> -->
             </div>
             <v-btn depressed color="#4c59ff" class="tutor-btn">
                 <span class="text-truncate">

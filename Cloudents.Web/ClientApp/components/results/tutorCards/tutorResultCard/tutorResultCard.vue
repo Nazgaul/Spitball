@@ -12,16 +12,16 @@
               :borderRadius="4"
             />
             <div class="main-card">
-                <h3 class="font-weight-bold text-truncate mb-8" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
+                <h3 class="font-weight-bold text-truncate mb-8">{{tutorData.name}}</h3>
                 <div class="user-bio-wrapper mb-4">
                   <div class="user-bio">{{tutorData.bio}}</div>
                 </div>
                 <div class="study-area mb-2 text-truncate" :class="{'study-area-hidden': !isSubjects}">
-                  <span class="mr-1 font-weight-bold" v-language:inner="'resultTutor_study-area'"></span>
+                  <span class="mr-1 font-weight-bold" v-t="'resultTutor_study-area'"></span>
                   <span>{{subjects}}</span>
                 </div>
                 <div class="courses text-truncate" v-if="isCourses">
-                  <span class="mr-2 font-weight-bold" v-language:inner="'resultTutor_courses'"></span>
+                  <span class="mr-2 font-weight-bold" v-t="'resultTutor_courses'"></span>
                   <span>{{courses}}</span> 
                 </div>
             </div>
@@ -31,7 +31,7 @@
 
         <div class="user-rates">
             <div class="price">
-              <router-link class="applyCoupon" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name},  query: {coupon: true}}" v-language:inner="'resultTutor_apply_coupon'"></router-link>
+              <router-link class="applyCoupon" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name},  query: {coupon: true}}" v-t="'resultTutor_apply_coupon'"></router-link>
               <div class="user-rates-top">
                 <template>
                     <span v-if="isDiscount" class="tutor-card-price font-weight-bold">{{$n(tutorData.discountPrice, 'currency')}}</span>
@@ -39,7 +39,7 @@
                 </template>
                 <span class="caption">
                   <span class="tutor-card-price-divider font-weight-bold">/</span>
-                  <span class="tutor-card-price-divider font-weight-bold" v-language:inner="'resultTutor_hour'"></span>
+                  <span class="tutor-card-price-divider font-weight-bold" v-t="'resultTutor_hour'"></span>
                 </span>
                 <div class="striked mr-1" v-if="isDiscount">{{$n(tutorData.price, 'currency')}}</div>
                 <div class="striked no-discount" v-else></div>
@@ -53,24 +53,19 @@
               </div>
               <div v-else class="user-rank align-center">
                 <star class="user-rank-star"/>
-                <span class="no-reviews font-weight-bold" v-language:inner="'resultTutor_no_reviews'"></span>
+                <span class="no-reviews font-weight-bold" v-t="'resultTutor_no_reviews'"></span>
               </div>
             </template>
             
             <div class="classes-hours align-center">
               <clock />
-              <span class="font-weight-bold classes-hours_lesson" v-if="tutorData.lessons > 0">{{tutorData.lessons}}</span>
-              
-              <template>
-                <span class="font-weight-bold no-classes" v-language:inner="'resultTutor_no_hours_completed'" v-if="tutorData.lessons === 0"></span>
-                <span class="font-weight-bold no-classes" v-language:inner="tutorData.lessons === 1 ? 'resultTutor_hour_completed' : 'resultTutor_hours_completed' " v-else></span>    
-              </template>
+              <span class="font-weight-bold no-classes">{{ $tc('resultTutor_hour_completed', tutorData.lesson) }}</span>
             </div>                
 
             <div class="send-btn">
                 <v-btn class="btn-chat white--text" depressed rounded block color="#4452fc" @click.prevent="sendMessage(tutorData)">
                   <iconChat class="chat-icon-btn" v-if="fromLandingPage" />
-                  <div class="" v-html="$Ph('resultTutor_send_button', showFirstName)" ></div>
+                  <div v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
                 </v-btn>
             </div>
         </div>
@@ -285,16 +280,21 @@ export default {
         margin-left: 3px;
         display: flex;
         align-items: end;
-        .classes-hours_lesson{
-          font-size: 12px;
-        }
-        &_lesson {
+        font-size: 12px;
+        
+        span {
           margin-left: 6px;
         }
-        .no-classes {
-          font-size: 12px;
-          margin-left: 6px;
-        }
+        // .classes-hours_lesson{
+        //   font-size: 12px;
+        // }
+        // &_lesson {
+        //   margin-left: 6px;
+        // }
+        // .no-classes {
+        //   font-size: 12px;
+        //   margin-left: 6px;
+        // }
       }
       .user-rank {
         display: flex;

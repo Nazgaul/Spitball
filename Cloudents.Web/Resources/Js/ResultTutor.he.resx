@@ -146,7 +146,7 @@
     <comment>זה אמור להיות אות אחת</comment>
   </data>
   <data name="hour_completed" xml:space="preserve">
-    <value>שיעור הושלם</value>
+	  <value>שיעורים יתקיימו בקרוב | שיעור אחד הושלם | {n} שיעורים הושלמו</value>
   </data>
   <data name="apply_coupon" xml:space="preserve">
     <value>מימוש קופון</value>

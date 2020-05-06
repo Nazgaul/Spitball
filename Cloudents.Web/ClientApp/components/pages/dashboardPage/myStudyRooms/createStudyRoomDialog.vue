@@ -295,7 +295,7 @@ export default {
          }
       },
       allowedDates(date) {
-         let today = new Date().FormatDateToString()
+         let today = new Date().FormatDateToString();
          return date >= today
       },
       resetErrors() {

@@ -15,7 +15,7 @@
                         :hover="true" />
             </v-flex>
             <v-flex>
-                <div class="">
+                <div>
                    <span v-show="showRateNumber" :style="{ color: rateNumColor }" class="caption ml-1 pb-1 rating-number">
        {{ dynamicRating }}
       </span>

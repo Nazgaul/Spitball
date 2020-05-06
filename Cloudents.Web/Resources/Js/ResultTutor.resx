@@ -129,6 +129,7 @@
   </data>
   <data name="hours_completed" xml:space="preserve">
     <value>Lessons completed</value>
+    <comment>no need</comment>
   </data>
   <data name="send_button" xml:space="preserve">
     <value>Send {1} a message</value>
@@ -141,13 +142,14 @@
   </data>
   <data name="no_hours_completed" xml:space="preserve">
     <value>Lessons coming soon</value>
+    <comment>no need</comment>
   </data>
   <data name="message_me" xml:space="preserve">
     <value>me</value>
     <comment>זה אמור להיות אות אחת</comment>
   </data>
   <data name="hour_completed" xml:space="preserve">
-    <value>Lesson completed</value>
+	  <value>Lessons coming soon | One lesson completed | {n} Lessons completed</value>
   </data>
   <data name="collecting_review" xml:space="preserve">
     <value>Collecting reviews</value>
