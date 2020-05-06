@@ -4,8 +4,8 @@ import {twilio_SETTERS} from '../store/constants/twilioConstants.js';
 import {studyRoom_SETTERS} from '../store/constants/studyRoomConstants.js';
 import STORE from '../store/index.js'
 //https://media.twiliocdn.com/sdk/js/video/releases/2.2.0/docs
-const REMOTE_TRACK_DOM_ELEMENT = 'remoteTrack';
-const LOCAL_TRACK_DOM_ELEMENT = 'localTrack';
+// const REMOTE_TRACK_DOM_ELEMENT = 'remoteTrack';
+// const LOCAL_TRACK_DOM_ELEMENT = 'localTrack';
 const AUDIO_TRACK_NAME = 'audioTrack';
 const VIDEO_TRACK_NAME = 'videoTrack';
 const SCREEN_TRACK_NAME = 'screenTrack';

@@ -89,7 +89,7 @@ export default {
       },
       createAudioMeter(audioTrack){
          // audioTrack.media somehting..check it
-         this.audioContext = new (AudioContext || webkitAudioContext)();
+         this.audioContext = new AudioContext();
          this.input = this.audioContext.createMediaStreamSource(audioTrack);
          this.analyser = this.audioContext.createAnalyser();
          this.scriptProcessor = this.audioContext.createScriptProcessor();

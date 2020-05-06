@@ -2,7 +2,7 @@ import {VueMathjax} from 'vue-mathjax'
 
 import whiteBoardService from './whiteBoardService';
 import helperUtil from './utils/helper';
-import { mapGetters, mapActions, mapMutations } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import canvasFinder from "./utils/canvasFinder";
 import equationMapper from "./innerComponents/equationMapper.vue";
 // import iinkDrawer from "./innerComponents/iinkDrawer.vue";
