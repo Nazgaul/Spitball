@@ -99,7 +99,6 @@ export default {
             params.type = this.studyRoomType
 
             this.isLoading = true
-
             let self = this
             this.$store.dispatch('updateCreateStudyRoom', params)
                .then(() => {
@@ -126,7 +125,6 @@ export default {
 
          return {
             userId: Array.from(childComponent.selected.map(user=> user.userId)),
-            date: new Date(`${childComponent.date} ${childComponent.hour}:${childComponent.minutes}`),
             name: childComponent.roomName,
             price: childComponent.newPrice || 0,
          }
@@ -135,18 +133,18 @@ export default {
          // TODO: new date format verify
          
          let childComponent = this.$refs.childComponent
+         let userChooseDate = new Date(`${childComponent.date} ${childComponent.hour}`)
          let today = new Date()
          if(childComponent.date === today.FormatDateToString()) {
-
-            let hour = Number(childComponent.hour)
-            let isWrongMinutes = today.getMinutes() < Number(childComponent.minutes.padStart(0))
-            if(hour < today.getHours()) {
+            
+            if(userChooseDate.getHours() < today.getHours()) {
                this.errors.showErrorWrongTime = true
                this.currentError = 'showErrorWrongTime'
                return false
             }
 
-            if(hour === today.getHours()) {
+            if(userChooseDate.getHours() === today.getHours()) {
+               let isWrongMinutes = today.getMinutes() < Number(userChooseDate.getMinutes())
                if(!isWrongMinutes) {
                   this.errors.showErrorWrongTime = true
                   this.currentError = 'showErrorWrongTime'
@@ -155,8 +153,10 @@ export default {
             }
          }
 
+
+
          return {
-            date: new Date(`${childComponent.date} ${childComponent.hour}:${childComponent.minutes}`),
+            date: userChooseDate,
             name: childComponent.liveSessionTitle || '',
             about: childComponent.sessionAboutText || '',
             price: childComponent.newPrice || 0,

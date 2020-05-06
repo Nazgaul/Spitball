@@ -13,7 +13,7 @@
                             :rules="[rules.required]"
                             :label="$t('dashboardPage_label_date')"
                             height="50"
-                            prepend-inner-icon="sbf-calendar"
+                            prepend-inner-icon="sbf-dateIcon"
                             color="#304FFE"
                             autocomplete="nope"
                             dense
@@ -50,6 +50,7 @@
                         maxHeight: 200
                     }"
                     :label="$t('dashboardPage_labe_hours')"
+                    prepend-inner-icon="sbf-clockIcon"
                     append-icon="sbf-menu-down"
                     color="#304FFE"
                     placeholder=" "
@@ -98,7 +99,6 @@
                         v-model="currentVisitorPriceSelect"
                         :items="items"
                         class="selectVisitorPrice mb-6 mb-sm-0"
-                        label="Outlined style"
                         color="#304FFE"
                         height="50"
                         dense
@@ -156,7 +156,7 @@ export default {
             liveSessionTitle: '',
             sessionAboutText: '',
             date: new Date().FormatDateToString(),
-            hour: '00',
+            hour: '00:00 AM',
             currentVisitorPriceSelect: { text: this.$t('dashboardPage_visitors_free'), value: 'free' },
             isRtl: global.isRtl,
             datePickerMenu: false,
@@ -197,14 +197,18 @@ export default {
             }
         },
         timeHoursList() {
-            let arr = []
-            for (let i = 0; i < 24; i++) {
-                arr.push(i.toString().padStart(2, '0'));
+            let timesArr = [], i
+            for(i = 0; i < 60*24; i = i+15) {
+                let label = parseInt(i/(60*12)) == 0 ? "AM" : "PM";
+                let h = parseInt( i/60);
+                let m = i % 60;
+                let time = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')} ${label}`
+                timesArr.push(time)
             }
-            return arr
+            return timesArr
         },
         getSymbol() {
-            let v = this.$n(1,'currency');
+            let v = this.$n(1, 'currency');
             return v.replace(/\d|[.,]/g,'').trim();
         },
     },
@@ -227,14 +231,17 @@ export default {
 @import '../../../../../styles/colors.less';
 
 .liveSession {
-    .dateInput{
-        .v-text-field__slot{
-            input{
-                margin: 4px 0 0 4px;
-            }
+    .v-text-field__slot{
+        input{
+            margin: 4px 0 0 4px;
         }
-        .v-input__prepend-inner{
-            margin-top: 12px !important;
+    }
+    .v-input__prepend-inner, .v-input__append-inner{
+        margin-top: 14px !important; // vuetify icons inside input
+    }
+    .selectVisitorPrice  {
+        .v-select__selection--comma {
+            line-height: normal !important; // vuetify line height issue
         }
     }
 }
