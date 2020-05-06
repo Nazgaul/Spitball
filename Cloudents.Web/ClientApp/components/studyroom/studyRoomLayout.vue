@@ -104,5 +104,8 @@ export default {
       this.$store.commit('setComponent', 'login');
     }
   },
+  beforeDestroy() {
+    this.$store.dispatch('updateResetRoom');
+  },
 };
 </script>

@@ -24,8 +24,8 @@
             color="#fff"
             prev-icon="sbf-arrow-left-carousel"
             next-icon="sbf-arrow-right-carousel">
-            <v-slide-item v-for="videoTrack in $store.getters.getStudentsVideoTracks" :key="videoTrack.identity">
-               <userPreview :videoTrack="videoTrack" class="ma-2"/>
+            <v-slide-item v-for="participant in $store.getters.getRoomParticipants" :key="participant.id">
+               <userPreview :participant="participant" class="ma-2"/>
             </v-slide-item>
          </v-slide-group>
       </v-footer>
@@ -40,26 +40,26 @@ export default {
       userPreview
    },
    watch: {
-      getTutorVideoTrack:{
+      tutorVideoTrack:{
          immediate:true,
          deep:true,
-         handler(newVal){
-            if(newVal){
+         handler(track){
+            if(track){
                this.$nextTick(()=>{
                   const localMediaContainer = document.getElementById('classFullScreenVideo');
                   let videoTag = localMediaContainer.querySelector("video");
                   if (videoTag) {localMediaContainer.removeChild(videoTag)}
-                  localMediaContainer.appendChild(newVal.attach());
+                  localMediaContainer.appendChild(track.attach());
                })
             }
          }
       }
    },
    computed: {
-      ...mapGetters(['getTutorVideoTrack'])
-   },
-   created() {
-      // debugger
+      ...mapGetters(['getRoomTutorParticipant']),
+      tutorVideoTrack(){
+         return this.getRoomTutorParticipant?.video;
+      }
    },
 }
 </script>

@@ -3,7 +3,25 @@ import {studyRoom_SETTERS} from '../constants/studyRoomConstants.js';
 import {twilio_SETTERS} from '../constants/twilioConstants.js';
 
 import studyRoomRecordingService from '../../components/studyroom/studyRoomRecordingService.js'
-
+function _getRoomParticipantsWithoutTutor(roomParticipants,roomTutor){
+   if(roomTutor?.tutorId){
+      Object.filter = (obj, predicate) => 
+      Object.keys(obj)
+            .filter( key => predicate(obj[key]) )
+            .reduce( (res, key) => (res[key] = obj[key], res), {} );
+      return Object.filter(roomParticipants, participant => participant.id != roomTutor.tutorId); 
+   }
+}
+function _getIdFromIdentity(identity){
+   return identity.split('_')[0]
+}
+function _getNameFromIdentity(identity){
+   return identity.split('_')[1]
+}
+function _newObjectPointer(obj){
+   // object assign cuz we need to create new object to vuex listen to
+   return Object.assign({}, obj);
+}
 function _checkPayment(context) {
    let isTutor = context.getters.getRoomIsTutor;
    let isNeedPayment = context.getters.getRoomIsNeedPayment;
@@ -43,6 +61,7 @@ const state = {
    dialogSnapshot: false,
 
    roomProps: null,
+   roomParticipants:{},
 }
 
 const mutations = {
@@ -82,11 +101,38 @@ const mutations = {
       state.roomProps = null;
       state.roomType = null;
       state.roomName = null;
+      state.roomParticipants = {}
    },
    [studyRoom_SETTERS.DIALOG_USER_CONSENT]: (state, val) => state.dialogUserConsent = val,
    [studyRoom_SETTERS.DIALOG_SNAPSHOT]: (state, val) => state.dialogSnapshot = val,
    [studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT]: (state, val) => state.roomParticipantCount = val,
    [studyRoom_SETTERS.ROOM_JOINED]: (state, val) => state.roomIsJoined = val,
+   [studyRoom_SETTERS.ADD_ROOM_PARTICIPANT]: (state, participant) => {
+      let participantId = _getIdFromIdentity(participant.identity)
+      let participantObj = {
+         name: _getNameFromIdentity(participant.identity),
+         id: participantId
+      }
+      state.roomParticipants[participantId] = participantObj;
+      state.roomParticipants = _newObjectPointer(state.roomParticipants)
+   },
+   [studyRoom_SETTERS.DELETE_ROOM_PARTICIPANT]: (state, participant) => {
+      let participantId = _getIdFromIdentity(participant.identity)
+      delete state.roomParticipants[participantId];
+      state.roomParticipants = _newObjectPointer(state.roomParticipants)
+   },
+   [studyRoom_SETTERS.ADD_ROOM_PARTICIPANT_TRACK]: (state, track) => {
+      if(track.attach){
+         let participantId = _getIdFromIdentity(track.identity);
+         state.roomParticipants[participantId][track.kind] = track;
+         state.roomParticipants = _newObjectPointer(state.roomParticipants)
+      }
+   },
+   [studyRoom_SETTERS.DELETE_ROOM_PARTICIPANT_TRACK]: (state, track) => {
+      let participantId = _getIdFromIdentity(track.identity);
+      state.roomParticipants[participantId][track.kind] = undefined;
+      state.roomParticipants = _newObjectPointer(state.roomParticipants)
+   }
 }
 const getters = {
    getActiveNavEditor: state => state.activeNavEditor,
@@ -114,6 +160,12 @@ const getters = {
    getDialogSnapshot: state => state.dialogSnapshot,
    getRoomIsJoined:state => state.roomIsJoined,
    getRoomModeConsts: ()=> ROOM_MODE,
+   getRoomParticipants:state => _getRoomParticipantsWithoutTutor(state.roomParticipants,state.roomTutor),
+   getRoomTutorParticipant:state => {
+      if(state.roomTutor?.tutorId){
+         return state.roomParticipants[state.roomTutor.tutorId]
+      }
+   },
 }
 const actions = {
    updateFullScreen(context,elId){

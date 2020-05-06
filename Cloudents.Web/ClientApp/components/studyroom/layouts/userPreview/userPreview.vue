@@ -1,5 +1,5 @@
 <template>
-   <v-card :id="videoTrack.sb_video_id" class="userPreview" height="100" width="154">
+   <v-card :id="participant.id" color="black" class="userPreview" height="100" width="154">
       <span class="name">{{userName}}</span>
       <div class="linear"></div>
       <div class="linear2"></div>
@@ -7,27 +7,89 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
    props:{
-      videoTrack:{
+      participant:{
          type: Object,
          required:true
+      },
+   },
+   data() {
+      return {
+         videoTrack:null,
+         audioTrack:null,
       }
    },
    computed: {
+      ...mapGetters(['getRoomParticipants']),
+      currentParticipant(){
+        return this.getRoomParticipants[this.participant.id];
+      },
       userName(){
-         return this.videoTrack.identity.split('_')[1];
+         return this.participant.name;
       }
    },
-   mounted() {
-      let previewContainer = document.getElementById(this.videoTrack.sb_video_id);
-      previewContainer.appendChild(this.videoTrack.attach());
+   methods: {
+      handleAudioTrack(participant){
+         if(participant.audio){
+            if(this.audioTrack){
+               return;
+            }else{
+               this.audioTrack = participant.audio;
+               this.$nextTick(()=>{
+                  let previewContainer = document.getElementById(participant.id);
+                  let audioTag = previewContainer.querySelector("audio");
+                  if (audioTag) {previewContainer.removeChild(audioTag)}
+                  previewContainer.appendChild(participant.audio.attach());
+               })
+            }
+         }
+         if(!participant.audio && this.audioTrack){
+            this.audioTrack = null;
+         }
+      },
+      handleVideoTrack(participant){
+         if(participant.video){
+            if(this.videoTrack){
+               return;
+            }else{
+               this.videoTrack = participant.video;
+               this.$nextTick(()=>{
+                  let previewContainer = document.getElementById(participant.id);
+                  let videoTag = previewContainer.querySelector("video");
+                  if (videoTag) {previewContainer.removeChild(videoTag)}
+                  previewContainer.appendChild(participant.video.attach());
+               })
+            }
+         }
+         if(!participant.video && this.videoTrack){
+            this.videoTrack = null;
+         }
+      },
    },
-   // destroyed() {
-   //    this.videoTrack.detach().forEach((detachedElement) => {
-   //       detachedElement.remove();
-   //    });
-   // },
+   watch: {
+      currentParticipant:{
+         immediate:true,
+         deep:true,
+         handler(val){
+            this.handleAudioTrack(val);
+            this.handleVideoTrack(val);
+         }
+      }
+   },
+   destroyed() {
+      if(this.videoTrack){
+         this.videoTrack.detach().forEach((detachedElement) => {
+            detachedElement.remove();
+         });
+      }
+      if(this.audioTrack){
+         this.audioTrack.detach().forEach((detachedElement) => {
+            detachedElement.remove();
+         });
+      }
+   },
 }
 </script>
 

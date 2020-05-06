@@ -14,12 +14,11 @@ const CURRENT_STATE_UPDATED = '2';
 let isTwilioStarted = false;
 
 let intervalTime = null;
-function _tracksAccumulation(track,participant){
-   track.identity = participant.identity;
-   STORE.dispatch('updateRoomVideoTracks',track)
+
    // STORE.commit(twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK,track)
-}
 function _changeState(localParticipant) {
+   return;
+   
    if(!STORE.getters.getRoomIsTutor) return;
    let stuffToSend =  {
       type: CURRENT_STATE_UPDATE,
@@ -90,12 +89,14 @@ function _twilioListeners(room,store) {
          }
       }
    }
+   store.commit(studyRoom_SETTERS.ADD_ROOM_PARTICIPANT,room.localParticipant)
    // romote participants events:
    room.participants.forEach((participant) => {
+      store.commit(studyRoom_SETTERS.ADD_ROOM_PARTICIPANT,participant)
       let tracks = Array.from(participant.tracks.values());
       tracks.forEach((track) => {
          if(track.kind === 'video'){
-            _tracksAccumulation(track,participant)
+            _addParticipantTrack(track,participant)
          }
       });
    });
@@ -128,17 +129,14 @@ function _twilioListeners(room,store) {
    room.on('trackSubscribed', (track) => {
       _insightEvent('TwilioTrackSubscribed', track, null);
    })
-   room.on('trackUnsubscribed', (track) => {
+   room.on('trackUnsubscribed', (track,trackPublication,participant) => {
       _insightEvent('TwilioTrackUnsubscribed', track, null);
+      _deleteParticipantTrack(track,participant)
       _detachTracks([track],store);
    })
    room.on('trackStarted', (track,remoteParticipant) => {
-      if(track.kind === 'video'){
-         _tracksAccumulation(track,remoteParticipant)
-      }
-      if(track.kind === 'audio'){  
-         let previewContainer = document.getElementById(REMOTE_TRACK_DOM_ELEMENT);
-         previewContainer.appendChild(track.attach());
+      if(track.kind === 'audio' || track.kind === 'video'){
+         _addParticipantTrack(track,remoteParticipant)
       }
    })
 
@@ -165,6 +163,8 @@ function _twilioListeners(room,store) {
    })
    // room connections events:
    room.on('participantConnected', (participant) => {
+      store.commit(studyRoom_SETTERS.ADD_ROOM_PARTICIPANT,participant);
+
       store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,room.participants.size)
       if(store.getters.getRoomIsTutor){
          store.commit('setComponent', 'simpleToaster_userConnected');
@@ -179,6 +179,8 @@ function _twilioListeners(room,store) {
       _insightEvent('TwilioParticipantConnected', participant, null);
    })
    room.on('participantDisconnected', (participant) => {
+      store.commit(studyRoom_SETTERS.DELETE_ROOM_PARTICIPANT,participant)
+
       store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,room.participants.size)
       if(store.getters.getRoomIsTutor){
          store.commit('setComponent', 'simpleToaster_userLeft');
@@ -392,16 +394,24 @@ export default () => {
          // let videoTag = localMediaContainer.querySelector("video");
          // if (videoTag) {localMediaContainer.removeChild(videoTag)}
          // localMediaContainer.appendChild(track.attach());
-         // debugger
-         _tracksAccumulation(track,_activeRoom.localParticipant)
+         _addParticipantTrack(track,_activeRoom.localParticipant)
          _localVideoTrack = track;
          _publishTrack(_activeRoom,track)
          store.commit(twilio_SETTERS.VIDEO_AVAILABLE,true)
       }
       function _setLocalAudioTrack(track){
+         _addParticipantTrack(track,_activeRoom.localParticipant)
          _localAudioTrack = track;
          _publishTrack(_activeRoom,_localAudioTrack)
          store.commit(twilio_SETTERS.AUDIO_AVAILABLE,true)
       }
    }
+}
+function _addParticipantTrack(track,participant){
+   track.identity = participant.identity;
+   STORE.commit(studyRoom_SETTERS.ADD_ROOM_PARTICIPANT_TRACK,track)
+}
+function _deleteParticipantTrack(track,participant){
+   track.identity = participant.identity;
+   STORE.commit(studyRoom_SETTERS.DELETE_ROOM_PARTICIPANT_TRACK,track)
 }

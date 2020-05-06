@@ -28,22 +28,46 @@
       </v-btn-toggle>
 
       <v-spacer></v-spacer>
-      <v-btn depressed class="ma-2" @click="MuteAll()">Mute All</v-btn>
-      <v-btn rounded depressed class="ma-2" @click="EndSeesion()">End</v-btn>
+      <v-btn v-if="isRoomTutor"  depressed class="ma-2" @click="MuteAll()">Mute All</v-btn>
+      <v-btn v-if="isRoomTutor" rounded depressed class="ma-2" @click="endSession()">End</v-btn>
       <v-btn icon>
          <v-icon>sbf-3-dot</v-icon>
          <!--Need to open record ( if avaible and setting)-->
       </v-btn>
+      <sb-dialog
+        :showDialog="getDialogRoomEnd"
+        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
+        :popUpType="'endSessionConfirm'"
+        :maxWidth="'356'"
+        :onclosefn="closeEndDialog"
+        :activateOverlay="false"
+        :isPersistent="$vuetify.breakpoint.smAndUp"
+        :content-class="'session-end-confirm'"
+      >
+        <endSessionConfirm :id="$route.params.id"></endSessionConfirm>
+      </sb-dialog>
+
    </v-app-bar>
 </template>
 
 <script>
+import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
+import endSessionConfirm from "../../tutorHelpers/endSessionConfirm/endSessionConfirm.vue";
+
 import logoComponent from "../../../app/logo/logo.vue";
+import { mapGetters } from 'vuex';
 export default {
    components:{
       logoComponent,
+
+      sbDialog,
+      endSessionConfirm
    },
    computed: {
+      ...mapGetters(['getDialogRoomEnd']),
+      isRoomTutor(){
+         return this.$store.getters.getRoomIsTutor;
+      },
       roomModes(){
          return this.$store.getters.getRoomModeConsts;
       },
@@ -52,6 +76,9 @@ export default {
       }
    },
    methods: {
+      closeEndDialog(){
+         this.$store.dispatch('updateEndDialog',false)
+      },
       resetItems(){
          let isExit = confirm(this.$t("login_are_you_sure_you_want_to_exit"),)
          if(isExit){
@@ -77,6 +104,10 @@ export default {
       setShareScreen() {
          // this.$store.dispatch('updateActiveNavEditor',this.roomModes.SCREEN_MODE)
       },
+      endSession() {
+            this.$ga.event("tutoringRoom", "endSession");
+            this.$store.dispatch('updateEndDialog',true)
+      }
    },
 }
 </script>

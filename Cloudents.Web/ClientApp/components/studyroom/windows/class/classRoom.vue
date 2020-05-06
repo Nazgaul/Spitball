@@ -1,7 +1,9 @@
 <template>
    <div class="classRoom">
-      <userPreview v-for="videoTrack in $store.getters.getStudentsVideoTracks" 
-                  :key="videoTrack.identity" :videoTrack="videoTrack" class="ma-2 classRoomCards"/>
+      <userPreview 
+            v-for="participant in $store.getters.getRoomParticipants" 
+            :key="participant.id" :participant="participant"
+            class="ma-2 classRoomCards"/>
    </div>
 </template>
 

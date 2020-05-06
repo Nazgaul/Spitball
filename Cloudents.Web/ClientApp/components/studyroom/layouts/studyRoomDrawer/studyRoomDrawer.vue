@@ -36,7 +36,9 @@ import { mapGetters } from 'vuex';
 export default {
    data() {
       return {
-        drawerExtend:true, 
+        drawerExtend:true,
+        tutorVideo: null,
+        tutorAudio: null,
       }
    },
    components:{
@@ -48,32 +50,71 @@ export default {
             let localMediaContainer = document.getElementById('tutorVideoDrawer');
             let videoTag = localMediaContainer.querySelector("video");
             if (videoTag) {localMediaContainer.removeChild(videoTag)} 
+            let audioTag = localMediaContainer.querySelector("audio");
+            if (audioTag) {localMediaContainer.removeChild(audioTag)}
          }
-         if(newVal){
+         if(newVal && this.tutorVideo){
             let self = this;
             this.$nextTick(()=>{
                let localMediaContainer = document.getElementById('tutorVideoDrawer');
                let videoTag = localMediaContainer.querySelector("video");
                if (videoTag) {localMediaContainer.removeChild(videoTag)} 
-               localMediaContainer.appendChild(self.getTutorVideoTrack.attach());
+               localMediaContainer.appendChild(self.tutorVideo.attach());
+            })
+         }
+         if(newVal && this.tutorAudio){
+            let self = this;
+            this.$nextTick(()=>{
+               let localMediaContainer = document.getElementById('tutorVideoDrawer');
+               let audioTag = localMediaContainer.querySelector("audio");
+               if (audioTag) {localMediaContainer.removeChild(audioTag)} 
+               localMediaContainer.appendChild(self.tutorAudio.attach());
             })
          }
       },
-      getTutorVideoTrack:{
+      tutorAudioTrack:{
          immediate:true,
          deep:true,
-         handler(newVal){
-            if(newVal){
+         handler(track){
+            if(track){
+               this.tutorAudio = track;
+               const localMediaContainer = document.getElementById('tutorVideoDrawer');
+               let audioTag = localMediaContainer.querySelector("audio");
+               if (audioTag) {localMediaContainer.removeChild(audioTag)}
+               localMediaContainer.appendChild(track.attach());
+               return
+            }
+            if(this.tutorAudio && !track){
+               this.tutorAudio = null;
+            }
+         }
+      },
+      tutorVideoTrack:{
+         immediate:true,
+         deep:true,
+         handler(track){
+            if(track){
+               this.tutorVideo = track;
                const localMediaContainer = document.getElementById('tutorVideoDrawer');
                let videoTag = localMediaContainer.querySelector("video");
                if (videoTag) {localMediaContainer.removeChild(videoTag)}
-               localMediaContainer.appendChild(newVal.attach());
+               localMediaContainer.appendChild(track.attach());
+               return
+            }
+            if(this.tutorVideo && !track){
+               this.tutorVideo = null;
             }
          }
-      }
+      },
    },
    computed: {
-      ...mapGetters(['getTutorVideoTrack']),
+      ...mapGetters(['getRoomTutorParticipant']),
+      tutorAudioTrack(){
+         return this.getRoomTutorParticipant?.audio;
+      },
+      tutorVideoTrack(){
+         return this.getRoomTutorParticipant?.video;
+      },
       isShowVideo(){
          return this.$store.getters.getActiveNavEditor !== 'class-screen'
       },

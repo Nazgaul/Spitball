@@ -19,8 +19,8 @@
             color="#fff"
             prev-icon="sbf-arrow-left-carousel"
             next-icon="sbf-arrow-right-carousel">
-            <v-slide-item v-for="videoTrack in $store.getters.getStudentsVideoTracks" :key="videoTrack.identity">
-               <userPreview :videoTrack="videoTrack" class="ma-2"/>
+            <v-slide-item v-for="participant in roomParticipants" :key="participant.id">
+               <userPreview :participant="participant" class="ma-2"/>
             </v-slide-item>
          </v-slide-group>
       </v-footer>
@@ -36,7 +36,12 @@ export default {
          footerExtend:true,
       }
    },
-   components:{userPreview}
+   components:{userPreview},
+   computed: {
+      roomParticipants(){
+         return this.$store.getters.getRoomParticipants
+      }
+   },
 }
 </script>
 
