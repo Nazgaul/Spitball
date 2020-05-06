@@ -335,6 +335,10 @@ export default {
   }
   .copyLink {
     width: 100px;
+
+    @media(max-width: @screen-xs) {
+      width: 86px;
+    }
   }
   tr {
     height: 54px;
