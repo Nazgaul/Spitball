@@ -23,6 +23,7 @@
             <span v-text="$t(isAudioActive?'tutor_tooltip_mic_mute':'tutor_tooltip_mic_unmute')"/>
          </v-tooltip>
       </div>
+      <div class="audioMeter" v-if="audioTrack && !isCurrentParticipant" :id="audioMeterId"></div>
    </v-card>  
 </template>
 
@@ -39,6 +40,11 @@ export default {
       return {
          videoTrack:null,
          audioTrack:null,
+         audioMeterId: `audioMeter_${this.participant.id}`,
+         audioContext:null,
+         input:null,
+         analyser:null,
+         scriptProcessor:null,
       }
    },
    computed: {
@@ -60,6 +66,44 @@ export default {
       }
    },
    methods: {
+      processInput(){
+         let array = new Uint8Array(this.analyser.frequencyBinCount);
+         this.analyser.getByteFrequencyData(array);
+         let values = 0;
+
+         let length = array.length;
+         let i;
+         for (i = 0; i < length; i++) {
+               values += (array[i]);
+         }
+
+         let average = values / length;
+
+         let micVolume = document.getElementById(this.audioMeterId);
+         if (!micVolume) return;
+         micVolume.style.backgroundColor = '#16eab1';
+         micVolume.style.height = '6px';
+         micVolume.style.borderRadius = '2px';
+         micVolume.style.maxWidth = '40px';
+         micVolume.style.width = `${Math.round(average)}px`;
+      },
+      createAudioMeter(audioTrack){
+         // audioTrack.media somehting..check it
+         this.audioContext = new (AudioContext || webkitAudioContext)();
+         this.input = this.audioContext.createMediaStreamSource(audioTrack);
+         this.analyser = this.audioContext.createAnalyser();
+         this.scriptProcessor = this.audioContext.createScriptProcessor();
+
+         // Some analyser setup
+         this.analyser.smoothingTimeConstant = 0.3;
+         this.analyser.fftSize = 1024;
+
+         this.input.connect(this.analyser);
+         this.analyser.connect(this.scriptProcessor);
+         this.scriptProcessor.connect(this.audioContext.destination);
+         this.scriptProcessor.onaudioprocess = this.processInput;
+
+      },
       toggleVideo() {
          this.$ga.event("tutoringRoom", "toggleVideo");
          this.$store.dispatch("updateVideoToggle");
@@ -74,11 +118,16 @@ export default {
                return;
             }else{
                this.audioTrack = participant.audio;
+               let self = this;
                this.$nextTick(()=>{
                   let previewContainer = document.getElementById(participant.id);
                   let audioTag = previewContainer.querySelector("audio");
                   if (audioTag) {previewContainer.removeChild(audioTag)}
                   previewContainer.appendChild(participant.audio.attach());
+                  if(self.isCurrentParticipant){
+                     let domStream = previewContainer.querySelector("audio").captureStream()
+                     self.createAudioMeter(domStream)
+                  }
                })
             }
          }
@@ -154,6 +203,13 @@ export default {
       width: 100%;
       height: 100%;
       background-image: linear-gradient(to top, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.1) 74%, rgba(0, 0, 0, 0.64));
+   }
+   .audioMeter{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      bottom: 8px;
+      left: 12px;
    }
    .videoPreviewTools{
       position: absolute;
