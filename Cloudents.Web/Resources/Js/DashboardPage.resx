@@ -133,7 +133,7 @@
     <value>Course:</value>
   </data>
   <data name="create_broadcast" xml:space="preserve">
-    <value>Create Live Session</value>
+    <value>Create Live Broadcast</value>
   </data>
   <data name="create_private" xml:space="preserve">
     <value>Create Study Room</value>
@@ -263,7 +263,7 @@
     <value>My Sales</value>
   </data>
   <data name="my_studyrooms_create_live" xml:space="preserve">
-    <value>Create Live Broadcast</value>
+    <value>Schedule a Live Broadcast</value>
   </data>
   <data name="my_studyrooms_create_room" xml:space="preserve">
     <value>Create Study Room</value>
@@ -367,12 +367,6 @@
   </data>
   <data name="views" xml:space="preserve">
     <value>Views</value>
-  </data>
-  <data name="visitors_free" xml:space="preserve">
-    <value>Free</value>
-  </data>
-  <data name="visitors_set_price" xml:space="preserve">
-    <value>Set your price</value>
   </data>
   <data name="visitor_price" xml:space="preserve">
     <value>Price for visitors</value>
