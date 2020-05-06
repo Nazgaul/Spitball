@@ -16,10 +16,12 @@
                         <div v-if="errorFile && errorFile.name" class="px-4">
                             <fileCardError :fileItem="errorFile" :singleFileIndex="0"/>
                         </div>
-                        <v-stepper-content :class="['uf-mStepper-content', `step-${n}`]"
-                                        v-for="n in steps"
-                                        :key="`${n}-content`"
-                                        :step="n">
+                        <v-stepper-content
+                            :class="['uf-mStepper-content', `step-${n}`]"
+                            v-for="n in steps"
+                            :key="`${n}-content`"
+                            :step="n"
+                        >
 
                             <upload-files-start 
                                 v-show="n===1" 

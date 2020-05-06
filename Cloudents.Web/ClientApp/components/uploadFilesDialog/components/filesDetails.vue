@@ -1,32 +1,42 @@
 <template>
     <div class="uf-sEdit">
-        <v-layout wrap justify-space-between class="uf-sEdit-top pb-1 px-3" v-if="fileItems.length > 1 && !isError">
-            <v-flex xs12 sm6 :class="[{'pl-4':!isMobile}]">
-                <v-combobox 
-                    browser-autocomplete="abcd"
-                    :placeholder="coursePlaceHolder"
-                    class="text-truncate"
-                    flat hide-no-data
-                    :append-icon="''"
+        <v-row class="uf-sEdit-top ma-0 pa-0 pb-1 px-3 justify-space-between wrap" v-if="fileItems.length > 1 && !isError" dense>
+            <v-col cols="12" sm="6" class="pa-0">
+                <v-combobox
                     v-model="courseForAll"
+                    class="text-truncate"
                     :items="getSelectedClasses"
-                    :rules="[rules.matchCourse]"/>
-            </v-flex>
-            <v-flex xs6 sm3 :class="[{'pl-4':!isMobile}]">
-                <v-text-field v-model="priceForAll" 
-                              :placeholder="emptyPricePlaceholder"
-                              :rules="[rules.integer,rules.maximum,rules.minimum]"
-                              type="number"
-                              :suffix="priceForAll? pricePts :''"/>
-            </v-flex>
-            <v-flex xs5 sm3 :class="[{'pl-4':!isMobile}]">
-                <v-btn @click="applyAll" class="uf-sEdit-top-btn" color="white" depressed rounded>
-                    <span v-language:inner="'upload_uf_sEdit_top_btn'"/>
+                    :rules="[rules.matchCourse]"
+                    :label="$t('upload_label_course_name')"
+                    :append-icon="''"
+                    height="44"
+                    autocomplete="abcd"
+                    hide-no-data
+                    outlined
+                    dense
+                />
+            </v-col>
+            <v-col cols="6" sm="3" class="pa-0 pl-sm-4">
+                <v-text-field
+                    v-model="priceForAll"
+                    type="number"
+                    :placeholder="emptyPricePlaceholder"
+                    :rules="[rules.integer,rules.maximum,rules.minimum]"
+                    :label="$t('upload_label_price')"
+                    :suffix="priceForAll ? pricePts :''"
+                    height="44"
+                    dense
+                    outlined
+                >
+                </v-text-field>
+            </v-col>
+            <v-col cols="6" sm="3" class="pl-4">
+                <v-btn @click="applyAll" class="uf-sEdit-top-btn" color="#4c59ff" height="44" block depressed rounded outlined>
+                    <span v-t="'upload_uf_sEdit_top_btn'"/>
                 </v-btn>
-            </v-flex>
-        </v-layout>
+            </v-col>
+        </v-row>
         <div :class="['uf-sEdit-items',isMobile?'py-3':'pt-4',isMobile? 'px-2': 'px-4']" class="">
-            <!-- <div v-if="isError" class="uf-sEdit-items-error mb-2" v-language:inner="'upload_uf_sEdit_items_error'"/> -->
             <v-form ref="filesDetailsForm">
                 <transition-group name="slide-x-transition">
                     <div v-for="(fileItem, index) in fileItems" :key="fileItem.id">
@@ -53,7 +63,7 @@ export default {
     components: {fileCard,fileCardError},
     data() {
         return {
-            coursePlaceHolder: LanguageService.getValueByKey("upload_uf_course_name"),
+            // coursePlaceHolder: LanguageService.getValueByKey("upload_uf_course_name"),
             emptyPricePlaceholder: LanguageService.getValueByKey("upload_uf_price"),
             pricePts: LanguageService.getValueByKey("upload_uf_price_pts"),
             someVal: '',
@@ -172,22 +182,19 @@ export default {
                 }
             }
         }
-        .v-btn{
-            @media (max-width: @screen-xs) {
-                min-width: auto;
-            }
-            min-width: 150px;
-            height: 40px !important;
-            text-transform: capitalize !important;
-            margin-left: 0;
-            margin-right: 0;
-        }
+        // .v-btn{
+        //     @media (max-width: @screen-xs) {
+        //         min-width: auto;
+        //     }
+        //     min-width: 150px;
+        //     height: 40px !important;
+        //     text-transform: capitalize !important;
+        //     margin-left: 0;
+        //     margin-right: 0;
+        // }
         .uf-sEdit-top-btn{
-            color: @global-blue;
-            border: 1px solid @global-blue !important;
             font-size: 14px;
             font-weight: 600;
-            letter-spacing: -0.26px;
         }
 
    }
