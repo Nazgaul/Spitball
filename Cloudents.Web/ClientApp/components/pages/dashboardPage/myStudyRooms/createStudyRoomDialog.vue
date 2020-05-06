@@ -145,12 +145,12 @@ export default {
                }
             }
          }
-
+debugger
          return {
             date: userChooseDate,
             name: childComponent.liveSessionTitle || '',
             about: childComponent.sessionAboutText || '',
-            price: childComponent.price,
+            price: childComponent.currentVisitorPriceSelect.value === 'free' ? 0 : childComponent.price,
          }
       },
       updateError(error) {
