@@ -136,7 +136,7 @@
     <value>צור שידור חי</value>
   </data>
   <data name="create_private" xml:space="preserve">
-    <value>לימוד פרטני</value>
+    <value>צור חדר לימוד פרטני</value>
   </data>
   <data name="create_room_created_error" xml:space="preserve">
     <value>חדר לימוד זה כבר קיים</value>
@@ -265,6 +265,9 @@
   <data name="my_studyrooms_create_room" xml:space="preserve">
     <value>לימוד פרטני</value>
   </data>
+  <data name="name" xml:space="preserve">
+    <value>שם</value>
+  </data>
   <data name="paid" xml:space="preserve">
     <value>שולם</value>
   </data>
@@ -360,12 +363,6 @@
   </data>
   <data name="views" xml:space="preserve">
     <value>צפיות</value>
-  </data>
-  <data name="visitors_free" xml:space="preserve">
-    <value>חינם</value>
-  </data>
-  <data name="visitors_set_price" xml:space="preserve">
-    <value>קבע מחיר</value>
   </data>
   <data name="visitor_price" xml:space="preserve">
     <value>תעריף למבקרים</value>
