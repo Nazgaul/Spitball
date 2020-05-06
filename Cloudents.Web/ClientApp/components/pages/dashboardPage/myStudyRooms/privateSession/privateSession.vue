@@ -151,6 +151,7 @@ export default {
         flex: 1;
     }
     .createStudyRoomDialog-list{
+        min-height: 320px;
         width: 100%;
         .listTitle {
             font-size: 18px;
