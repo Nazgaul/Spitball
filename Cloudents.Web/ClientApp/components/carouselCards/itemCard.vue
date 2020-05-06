@@ -126,9 +126,6 @@ export default {
             margin: 8px 0;
             font-size: 12px;
         }
-        .item-university{
-            font-size: 12px;
-        }
         .item-user{
             margin-top: 30px;
             margin-bottom: 14px;

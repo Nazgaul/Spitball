@@ -15,10 +15,6 @@
               <h3 class="text-truncate font-weight-bold card-mobile-tutor-name" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
 
               <template>
-                <h4 class="text-truncate university font-weight-light" v-if="tutorData.university">{{tutorData.university}}</h4>
-              </template>
-
-              <template>
                   <div class="user-rate align-center" v-if="tutorData.reviews > 0">
                     <user-rating :rating="tutorData.rating" :showRateNumber="false" :size="'18'" class="flex-grow-0 mr-2" />
                     <span class="reviews">{{$tc('resultTutor_review_one',tutorData.reviews)}}</span> 
@@ -42,24 +38,11 @@
               </div>
 
               <router-link class="applyCoupon" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name},  query: {coupon: true}}" v-language:inner="'resultTutor_apply_coupon'"></router-link>
-              
-              <!-- DO NOT REMOVE THIS WAITING SHIRAN -->
-              <!-- <div class="courses text-truncate">
-                  <div class="" v-language:inner="'resultTutor_courses'"></div>
-                  <div class="text-truncate">{{courses}}</div>
-              </div>  -->
-
-              <!-- <template>
-                <h4 class="text-truncate mb-1 university font-weight-light" v-if="isUniversity" v-html="$Ph('resultNote_university',[tutorData.university])"/>
-                <h4 class="text-truncate mb-1 university" v-else></h4>
-              </template>  -->
-
           </div>
       </div>
 
       <div class="card-mobile-center">{{tutorData.bio}}</div>
 
-      <!-- DO NOT REMOVE THIS WAITING SHIRAN -->
       <div class="courses text-truncate" v-if="subjects">
           <div class="courses-title font-weight-bold" v-language:inner="'resultTutor_study-area'"></div>
           <div class="text-truncate">{{subjects}}</div>
@@ -118,9 +101,6 @@ export default {
           analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
       }
     },
-    // reviewsPlaceHolder(reviews) {
-    //   return reviews === 0 ? reviews.toString() : reviews
-    // },
     sendMessage(user) {
       if (this.accountUser == null) {
           analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
@@ -160,9 +140,6 @@ export default {
         return this.tutorData.subjects.join(', ');
       }
       return '';
-    },
-    isUniversity() {
-      return (this.tutorData && this.tutorData.university) ? true : false;
     },
     showFirstName() {
       let maxChar = 5;
@@ -220,13 +197,6 @@ export default {
             div {
               display: inline;
             }
-        }
-        .university {
-          font-size: 12px;
-
-          &.no-field {
-            .heightMinMax(16px);
-          }
         }
         .price {
           display: flex;

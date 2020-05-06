@@ -83,3 +83,9 @@ Date.prototype.FormatDateToString = function() {
 
     return [year, month, day].join('-');
 }
+
+Date.prototype.AddDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}

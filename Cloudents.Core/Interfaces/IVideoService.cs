@@ -13,7 +13,7 @@ namespace Cloudents.Core.Interfaces
         /// <param name="type">the type of the asset</param>
         /// <param name="token"></param>
         /// <returns>the container name null if the asset doesn't exists</returns>
-        Task<string> GetAssetContainerAsync(long id, AssetType type, CancellationToken token);
+        Task<string?> GetAssetContainerAsync(long id, AssetType type, CancellationToken token);
 
         Task DeleteImageAssetAsync(long id, CancellationToken token);
 

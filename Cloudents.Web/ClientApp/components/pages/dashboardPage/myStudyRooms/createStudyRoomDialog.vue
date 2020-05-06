@@ -154,7 +154,7 @@ export default {
    name:'createStudyRoom',
    data() {
       return {
-         date: new Date().toISOString().substr(0, 10),
+         date: new Date().FormatDateToString(),
          time: '',
          hour: '00',
          minutes: '00',
@@ -254,7 +254,7 @@ export default {
 
             if(isBroadcast) {
                let today = new Date()
-               if(this.date === today.toISOString().substr(0, 10)) {
+               if(this.date === today.FormatDateToString()) {
 
                   let hour = Number(this.hour);
                   let isWrongMinutes = today.getMinutes() < Number(this.minutes.padStart(0))
@@ -295,7 +295,7 @@ export default {
          }
       },
       allowedDates(date) {
-         let today = new Date().toISOString().substr(0, 10)
+         let today = new Date().FormatDateToString()
          return date >= today
       },
       resetErrors() {

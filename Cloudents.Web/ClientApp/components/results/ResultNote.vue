@@ -95,10 +95,6 @@
               <span class="item-course">{{$t('resultNote_course')}}</span>
               <h2 class="item-course">{{item.course}}</h2>
             </span>
-            <span v-if="item.university" class="item-university text-truncate">
-              <span class="item-university" >{{$t('resultNote_university')}}</span>
-              <h3 class="item-university">{{item.university}}</h3>
-            </span>
           </div>
           <v-divider v-show="item.snippet" class="my-2"></v-divider>
           <div class="doc-snippet" v-show="item.snippet">

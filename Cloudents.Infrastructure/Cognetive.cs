@@ -1,9 +1,12 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Microsoft.Azure.CognitiveServices.Vision.Face;
+using Microsoft.Azure.CognitiveServices.Vision.Face.Models;
 
 namespace Cloudents.Infrastructure
 {
@@ -30,17 +33,28 @@ namespace Cloudents.Infrastructure
  */
         public async Task<Point?> DetectCenterFaceAsync(Stream stream)
         {
-            var result = await _faceClient.Face.DetectWithStreamAsync(stream);
-
-            var faceRectangle = result.FirstOrDefault()?.FaceRectangle;
-            if (faceRectangle is null)
+            try
             {
-                return null;
-            }
+                var result = await _faceClient.Face.DetectWithStreamAsync(stream);
 
-            var left = faceRectangle.Left + (faceRectangle.Width / 2);
-            var top = faceRectangle.Top + faceRectangle.Height / 2;
-            return new Point(left, top);
+                var faceRectangle = result.FirstOrDefault()?.FaceRectangle;
+                if (faceRectangle is null)
+                {
+                    return null;
+                }
+
+                var left = faceRectangle.Left + (faceRectangle.Width / 2);
+                var top = faceRectangle.Top + faceRectangle.Height / 2;
+                return new Point(left, top);
+            }
+            catch (APIErrorException e) when(e.Response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                if (e.Body.Error.Code == "InvalidImageSize")
+                {
+                    return null;
+                }
+                throw;
+            }
 
 
         }

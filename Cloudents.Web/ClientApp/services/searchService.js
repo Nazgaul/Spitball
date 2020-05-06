@@ -63,7 +63,6 @@ function TutorItem(objInit) {
     this.reviews = objInit.reviewsCount || 0;
     this.template = 'tutor-result-card';
     this.bio = objInit.bio || '';
-    this.university = objInit.university || '';
     this.classes = objInit.classes || 0;
     this.lessons = objInit.lessons || 0;
     this.subjects = objInit.subjects || [];

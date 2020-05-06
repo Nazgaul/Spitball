@@ -120,7 +120,14 @@ namespace Cloudents.Web.Api
             {
                 name = DateTimeOffset.UtcNow.ToUnixTimeSeconds() + name;
             }
-            return $"file-{sessionId}-{name.Replace("/", string.Empty)}";
+
+            var charsToRemove = new[] {"/", "[", "]"};
+            foreach (var s in charsToRemove)
+            {
+                name = name.Replace(s, string.Empty);
+            }
+
+            return $"file-{sessionId}-{name}";
         }
 
         private async Task<UploadStartResponse> Upload(UploadRequestFinish model, CancellationToken token)

@@ -36,10 +36,10 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public virtual string PhoneNumber { get; set; }
+        public virtual string? PhoneNumber { get; set; }
 
         public virtual bool PhoneNumberConfirmed { get; set; }
-        public virtual string PasswordHash { get; set; }
+        public virtual string? PasswordHash { get; set; }
         public virtual DateTimeOffset? LockoutEnd { get; set; }
 
         public virtual int AccessFailedCount { get; set; }
@@ -56,6 +56,7 @@ namespace Cloudents.Core.Entities
         protected internal virtual ICollection<UserLocation> UserLocations { get; protected set; }
 
 
+        [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")] 
         private readonly ICollection<ChatUser> _chatUsers = new List<ChatUser>();
 
         public virtual IEnumerable<ChatUser> ChatUsers => _chatUsers;
@@ -175,7 +176,7 @@ namespace Cloudents.Core.Entities
 
 
 
-
+        [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")] 
         private readonly ICollection<StudyRoomUser> _studyRooms = new List<StudyRoomUser>();
 
         public virtual IEnumerable<StudyRoomUser> StudyRooms => _studyRooms;

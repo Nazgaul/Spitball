@@ -2,8 +2,11 @@
 using Cloudents.Query.Tutor;
 using FluentAssertions;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Xunit;
 using Cloudents.Query.Users;
+using NHibernate.Linq;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
@@ -57,7 +60,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         public async Task TutorListQuery_PageCountOk(long userId)
         {
-            var query = new TutorListQuery(userId, "IL",0,int.MaxValue);
+            var query = new TutorListQuery(userId, "IL", 0, int.MaxValue);
             var result = await _fixture.QueryBus.QueryAsync(query, default);
             result.Should().NotBeNull();
             var count = result.Count;
@@ -121,7 +124,10 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task GetReadTutorAsync_Ok()
         {
-            var res = await _fixture.ReadTutorRepository.GetReadTutorAsync(638, default);
+            var tutorId = await _fixture.StatelessSession.Query<Tutor>()
+                .Where(w => w.State == ItemState.Ok).Select(s => s.Id).Take(1)
+                            .SingleOrDefaultAsync();
+            var res = await _fixture.ReadTutorRepository.GetReadTutorAsync(tutorId, default);
             res.Should().NotBeNull();
         }
     }
