@@ -124,7 +124,7 @@ export default {
                   let audioTag = previewContainer.querySelector("audio");
                   if (audioTag) {previewContainer.removeChild(audioTag)}
                   previewContainer.appendChild(participant.audio.attach());
-                  if(self.isCurrentParticipant){
+                  if(!self.isCurrentParticipant){
                      let domStream = previewContainer.querySelector("audio").captureStream()
                      self.createAudioMeter(domStream)
                   }
