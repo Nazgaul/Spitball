@@ -77,12 +77,17 @@ export default {
          deep:true,
          handler(track){
             if(track){
-               this.tutorAudio = track;
-               const localMediaContainer = document.getElementById('tutorVideoDrawer');
-               let audioTag = localMediaContainer.querySelector("audio");
-               if (audioTag) {localMediaContainer.removeChild(audioTag)}
-               localMediaContainer.appendChild(track.attach());
-               return
+               let self = this;
+               this.$nextTick(()=>{
+                  self.tutorAudio = track;
+                  const localMediaContainer = document.getElementById('tutorVideoDrawer');
+                  if(localMediaContainer){
+                     let audioTag = localMediaContainer.querySelector("audio");
+                     if (audioTag) {localMediaContainer.removeChild(audioTag)}
+                     localMediaContainer.appendChild(track.attach());
+                     return
+                  }
+               })
             }
             if(this.tutorAudio && !track){
                this.tutorAudio = null;
@@ -94,12 +99,17 @@ export default {
          deep:true,
          handler(track){
             if(track){
-               this.tutorVideo = track;
-               const localMediaContainer = document.getElementById('tutorVideoDrawer');
-               let videoTag = localMediaContainer.querySelector("video");
-               if (videoTag) {localMediaContainer.removeChild(videoTag)}
-               localMediaContainer.appendChild(track.attach());
-               return
+               let self = this;
+               this.$nextTick(()=>{
+                  self.tutorVideo = track;
+                  const localMediaContainer = document.getElementById('tutorVideoDrawer');
+                  if(localMediaContainer){
+                     let videoTag = localMediaContainer.querySelector("video");
+                     if (videoTag) {localMediaContainer.removeChild(videoTag)}
+                     localMediaContainer.appendChild(track.attach());
+                     return
+                  }
+               })
             }
             if(this.tutorVideo && !track){
                this.tutorVideo = null;

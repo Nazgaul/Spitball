@@ -168,22 +168,25 @@ const getters = {
    },
 }
 const actions = {
-   updateFullScreen(context,elId){
-      let className = 'fullscreenMode';
-      if(elId){
-         let interval = setInterval(() => {
-            let vidEl = document.querySelector(`#${elId}`);
-            if(vidEl){
-               vidEl.classList.add(className);
-               clearInterval(interval)
-            }
-         }, 50);
-      }else{
-         let x = document.querySelector(`.${className}`);
-         if (x) {
-            x.classList.remove(className);
-         }
+   updateFullScreen(context,participantId){
+      if(participantId){
+         context.dispatch('updateActiveNavEditor',ROOM_MODE.CLASS_SCREEN)
       }
+      // let className = 'fullscreenMode';
+      // if(elId){
+      //    let interval = setInterval(() => {
+      //       let vidEl = document.querySelector(`#${elId}`);
+      //       if(vidEl){
+      //          vidEl.classList.add(className);
+      //          clearInterval(interval)
+      //       }
+      //    }, 50);
+      // }else{
+      //    let x = document.querySelector(`.${className}`);
+      //    if (x) {
+      //       x.classList.remove(className);
+      //    }
+      // }
    },
    updateDialogSnapshot({ commit }, val) {
       commit(studyRoom_SETTERS.DIALOG_SNAPSHOT, val);

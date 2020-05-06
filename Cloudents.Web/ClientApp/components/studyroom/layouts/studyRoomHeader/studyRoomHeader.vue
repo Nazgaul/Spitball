@@ -7,22 +7,22 @@
       <v-toolbar-title class="white--text">{{$t('studyRoom_live')}}</v-toolbar-title>
       <v-divider class="mx-6 divider" vertical inset color="white"></v-divider>
       <v-btn-toggle mandatory :value="currentEditorMode" :ripple="false" active-class="editorActive"  borderless group class="editors">
-         <v-btn :value="roomModes.CLASS_MODE" text @click="setClass()">
+         <v-btn :value="roomModes.CLASS_MODE" text @click="actionHandler(roomModes.CLASS_MODE)">
             <span><v-icon class="mr-2">sbf-class</v-icon>{{$t('studyRoom_nav_class')}}</span>
          </v-btn>
-         <v-btn :value="roomModes.CLASS_SCREEN" text @click="setClassScreen()">
+         <v-btn :value="roomModes.CLASS_SCREEN" text @click="actionHandler(roomModes.CLASS_SCREEN)">
             <span><v-icon class="mr-2">sbf-class</v-icon>{{$t('studyRoom_nav_class')}} screen</span>
          </v-btn>
-         <v-btn :value="roomModes.WHITE_BOARD" text @click="setWhiteboard()">
+         <v-btn :value="roomModes.WHITE_BOARD" text @click="actionHandler(roomModes.WHITE_BOARD)">
             <span><v-icon class="mr-2">sbf-whiteboard</v-icon>{{$t('studyRoom_nav_whiteboard')}}</span>
          </v-btn>
-         <v-btn :value="roomModes.SCREEN_MODE" text @click="setShareScreen()">
+         <v-btn :value="roomModes.SCREEN_MODE" text @click="actionHandler(roomModes.SCREEN_MODE)">
             <span><v-icon class="mr-2">sbf-shareScreen</v-icon>{{$t('studyRoom_nav_screen')}}</span>
          </v-btn>
-         <v-btn :value="roomModes.TEXT_EDITOR" text @click="setTextEditor()">
+         <v-btn :value="roomModes.TEXT_EDITOR" text @click="actionHandler(roomModes.TEXT_EDITOR)">
             <span><v-icon class="mr-2">sbf-text</v-icon>{{$t('studyRoom_nav_text')}}</span>
          </v-btn>
-         <v-btn :value="roomModes.CODE_EDITOR" text @click="setCodeEditor()">
+         <v-btn :value="roomModes.CODE_EDITOR" text @click="actionHandler(roomModes.CODE_EDITOR)">
             <span><v-icon class="mr-2">sbf-code</v-icon>{{$t('studyRoom_nav_code')}}</span>
          </v-btn>
       </v-btn-toggle>
@@ -102,11 +102,24 @@ export default {
          this.$store.dispatch('updateActiveNavEditor',this.roomModes.CLASS_SCREEN)
       },
       setShareScreen() {
+         this.$store.dispatch('updateShareScreen',true)
          // this.$store.dispatch('updateActiveNavEditor',this.roomModes.SCREEN_MODE)
       },
       endSession() {
             this.$ga.event("tutoringRoom", "endSession");
             this.$store.dispatch('updateEndDialog',true)
+      },
+      actionHandler(editorType){
+         // if(!this.isRoomTutor) return;
+         let actionsOptions = {
+            [this.roomModes.WHITE_BOARD]:this.setWhiteboard,
+            [this.roomModes.TEXT_EDITOR]:this.setTextEditor,
+            [this.roomModes.CODE_EDITOR]:this.setCodeEditor,
+            [this.roomModes.CLASS_MODE]:this.setClass,
+            [this.roomModes.CLASS_SCREEN]:this.setClassScreen,
+            [this.roomModes.SCREEN_MODE]:this.setShareScreen,
+         }
+         actionsOptions[editorType]()
       }
    },
 }

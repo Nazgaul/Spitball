@@ -17,25 +17,40 @@ let intervalTime = null;
 
    // STORE.commit(twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK,track)
 function _changeState(localParticipant) {
-   return;
-   
    if(!STORE.getters.getRoomIsTutor) return;
+
    let stuffToSend =  {
       type: CURRENT_STATE_UPDATE,
-      tab : STORE.getters.getActiveNavEditor,
-      canvasTab : {
-         tab: STORE.getters.getCurrentSelectedTab,
-         canvas: STORE.getters.canvasDataStore
-      },
-     // mute : STORE.getters.getIsAudioParticipants,
-      fullScreen: null
+      // tab : STORE.getters.getActiveNavEditor,
+      // canvasTab : {
+      //    tab: STORE.getters.getCurrentSelectedTab,
+      //    canvas: STORE.getters.canvasDataStore
+      // },
+      // fullScreen: null
    };
    localParticipant.tracks.forEach((track) => {
       if(track.trackName === VIDEO_TRACK_NAME && STORE.getters.getIsFullScreen 
          || track.trackName === SCREEN_TRACK_NAME){
-         stuffToSend.fullScreen = track.trackSid;
+         stuffToSend.fullScreen = localParticipant.identity.split('_')[0]
       }
    });
+   // if(!STORE.getters.getRoomIsTutor) return;
+   // let stuffToSend =  {
+   //    type: CURRENT_STATE_UPDATE,
+   //    tab : STORE.getters.getActiveNavEditor,
+   //    canvasTab : {
+   //       tab: STORE.getters.getCurrentSelectedTab,
+   //       canvas: STORE.getters.canvasDataStore
+   //    },
+   //   // mute : STORE.getters.getIsAudioParticipants,
+   //    fullScreen: null
+   // };
+   // localParticipant.tracks.forEach((track) => {
+   //    if(track.trackName === VIDEO_TRACK_NAME && STORE.getters.getIsFullScreen 
+   //       || track.trackName === SCREEN_TRACK_NAME){
+   //       stuffToSend.fullScreen = track.trackSid;
+   //    }
+   // });
    STORE.dispatch('sendDataTrack',JSON.stringify(stuffToSend));
 }
 
@@ -55,12 +70,14 @@ function _insightEvent(...args) {
 }
 function _publishTrack(activeRoom,track){
    activeRoom.localParticipant.publishTrack(track);
+   _addParticipantTrack(track,activeRoom.localParticipant)
 
    //On share screen we want to update all the users in the room
    _changeState( activeRoom.localParticipant);
 }
 function _unPublishTrack(activeRoom,track){
    activeRoom.localParticipant.unpublishTrack(track);
+   _deleteParticipantTrack(track,activeRoom.localParticipant)
 
    //On share screen we want to update all the users in the room
    _changeState( activeRoom.localParticipant);
@@ -145,10 +162,12 @@ function _twilioListeners(room,store) {
       let data = JSON.parse(message);
       _insightEvent('trackMessage', data, null);
       if (data.type === CURRENT_STATE_UPDATE) {
+         if(data.fullScreen){
+            store.dispatch('updateFullScreen',data.fullScreen)
+         }
          //store.dispatch('updateAudioToggleByRemote',data.mute)
-         store.dispatch('updateFullScreen',data.fullScreen)
-         store.dispatch('updateActiveNavEditor', data.tab)
-         store.dispatch('tempWhiteBoardTabChanged', data.canvasTab)
+         // store.dispatch('updateActiveNavEditor', data.tab)
+         // store.dispatch('tempWhiteBoardTabChanged', data.canvasTab)
          store.dispatch('sendDataTrack', JSON.stringify({type : CURRENT_STATE_UPDATED}));
          return;
       }
@@ -394,13 +413,11 @@ export default () => {
          // let videoTag = localMediaContainer.querySelector("video");
          // if (videoTag) {localMediaContainer.removeChild(videoTag)}
          // localMediaContainer.appendChild(track.attach());
-         _addParticipantTrack(track,_activeRoom.localParticipant)
          _localVideoTrack = track;
          _publishTrack(_activeRoom,track)
          store.commit(twilio_SETTERS.VIDEO_AVAILABLE,true)
       }
       function _setLocalAudioTrack(track){
-         _addParticipantTrack(track,_activeRoom.localParticipant)
          _localAudioTrack = track;
          _publishTrack(_activeRoom,_localAudioTrack)
          store.commit(twilio_SETTERS.AUDIO_AVAILABLE,true)
