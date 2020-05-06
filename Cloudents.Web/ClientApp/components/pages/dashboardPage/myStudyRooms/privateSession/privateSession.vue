@@ -140,10 +140,10 @@ export default {
 .privateLesson {
     .roomName {
         ::placeholder {
-            color: @global-purple;
+            color: #bbb !important;
         }
         :-ms-input-placeholder { /* Internet Explorer 10-11 */
-            color: @global-purple;
+            color: #bbb !important;
         }
     }
     .roomPrice {
