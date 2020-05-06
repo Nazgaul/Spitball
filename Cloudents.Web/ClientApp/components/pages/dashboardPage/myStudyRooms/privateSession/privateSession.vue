@@ -160,10 +160,10 @@ export default {
         }
         .list-followers {
             overflow-y: scroll;
-            max-height: 320px;
+            max-height: 270px;
 
             @media (max-width: @screen-xs) {
-                max-height: 350px !important;
+                max-height: 350px;
             }
             .v-item-group {
                 padding-right: 6px;

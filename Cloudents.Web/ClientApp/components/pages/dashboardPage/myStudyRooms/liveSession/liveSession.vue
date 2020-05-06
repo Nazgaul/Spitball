@@ -1,7 +1,7 @@
 <template>
     <div class="liveSession">
 
-        <v-row class="d-flex" dense>
+        <v-row class="d-flex ma-0 pa-0 mb-3" dense>
             <v-col cols="12" sm="6" class="pa-0">
                 <v-menu ref="datePickerMenu" v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290" min-width="290px">
                     <template v-slot:activator="{ on }">
@@ -63,7 +63,7 @@
         <v-text-field 
             v-model="liveSessionTitle"
             type="text"
-            class="sessionTitleInput mb-2"
+            class="sessionTitleInput mb-3"
             :rules="[rules.required]"
             :label="$t('dashboardPage_label_live_title')"
             height="50"
@@ -77,7 +77,7 @@
 
         <v-textarea
             v-model="sessionAboutText"
-            class="sessionAbout mb-2"
+            class="sessionAbout mb-3"
             :rules="[rules.required]"
             :label="$t('dashboardPage_label_session_about')"
             :rows="3"
@@ -92,7 +92,7 @@
 
             <v-row class="align-center pa-0 ma-0 mb-5" dense>
                 <v-col cols="12" sm="4" class="pa-0">
-                    <div class="mb-2 mb-sm-0" v-t="'dashboardPage_visitor_price'"></div>
+                    <div class="priceTitle mb-2 mb-sm-0" v-t="'dashboardPage_visitor_price'"></div>
                 </v-col>
                 <v-col cols="12" sm="4" class="pa-0" >
                     <v-select
@@ -108,7 +108,7 @@
                         outlined
                     ></v-select>
                 </v-col>
-                <v-col cols="12" sm="4" class="pa-0" v-if="currentVisitorPriceSelect.value === 'price'">
+                <v-col cols="6" sm="4" class="pa-0" v-if="currentVisitorPriceSelect.value === 'price'">
                     <v-text-field 
                         v-model="myPrice"
                         type="number"
@@ -126,11 +126,11 @@
             </v-row>
 
             <v-row class="align-center pa-0 ma-0">
-                <v-col sm="4" class="pa-0">
-                    <div v-t="'dashboardPage_subscription_price'"></div>
+                <v-col cols="8" sm="4" class="pa-0">
+                    <div class="priceTitle" v-t="'dashboardPage_subscription_price'"></div>
                 </v-col>
-                <v-col sm="4" class="pa-0">
-                    <div class="ml-4" v-t="'dashboardPage_subscription_free'"></div>
+                <v-col cols="4" sm="4" class="pa-0">
+                    <div class="ml-4 ml-sm-0 priceSubscription" v-t="'dashboardPage_subscription_free'"></div>
                 </v-col>
             </v-row>
 
@@ -236,6 +236,14 @@ export default {
             margin: 4px 0 0 4px;
         }
     }
+    .dateInput, .roomType, .roomPrice, .priceTitle, .sessionTitleInput, .sessionAbout, .sbf-menu-down {
+        input, textarea {
+            color: @global-purple !important;
+        }
+    }
+    .priceSubscription, .v-select__selection--comma {
+        color: @global-purple !important;
+    }
     .v-input__prepend-inner, .v-input__append-inner{
         margin-top: 14px !important; // vuetify icons inside input
     }
@@ -243,6 +251,13 @@ export default {
         .v-select__selection--comma {
             line-height: normal !important; // vuetify line height issue
         }
+    }
+    .priceTitle {
+        font-size: 16px;
+        font-weight: 600;
+    }
+    .sbf-menu-down {
+        font-size: 34px;
     }
 }
 </style>

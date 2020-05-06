@@ -210,25 +210,6 @@ export default {
       }
 
    }
-
-   .createStudyRoomDialog-list{
-      width: 100%;
-      .listTitle {
-         font-size: 18px;
-         font-weight: 600;
-         color: @global-purple;
-      }
-      .list-followers{
-         max-height: 320px;
-         overflow-y: scroll;
-         .v-item-group {
-            padding-right: 6px;
-         }
-         .dark-line{
-            background: #f5f5f5;
-         }
-      }
-   }
 }
    .v-picker__title {
       .v-time-picker-title__time {
