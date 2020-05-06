@@ -41,27 +41,11 @@
               color="#5360FC"
               v-t="'dashboardPage_my_studyrooms_create_room'"
             ></v-btn>
-            <!-- <v-btn
-              v-if="!$vuetify.breakpoint.xsOnly"
-              class="link btnTestStudyRoom"
-              :to="{name: routeNames.StudyRoom}"
-              depressed
-              rounded
-              outlined
-              v-t="'dashboardPage_link_studyroom'"
-            ></v-btn> -->
           </div>
         </div>
       </template>
-      <!-- <template v-slot:item.preview="{item}">
-            <user-avatar :user-id="item.userId"
-                  :user-image-url="item.image" 
-                  :size="'40'" 
-                  :user-name="item.name" >
-               </user-avatar>
-      </template>-->
-      <template v-slot:item.date="{item}">{{ $d(new Date(item.date)) }}</template>
 
+      <template v-slot:item.date="{item}">{{ $d(new Date(item.date)) }}</template>
       <template v-slot:item.name="{item}">{{item.name}}</template>
 
       <template v-slot:item.type="{item}">
@@ -86,10 +70,7 @@
       </template>
       
       <template v-slot:item.action="{item}">
-
         <div class="actionsWrapper d-flex align-center justify-center">
-          
-            <div class="studyRoomActions">
                 <div v-if="item.showChat" class="mr-9">
                     <v-btn
                       icon
@@ -125,12 +106,14 @@
                   </v-btn>
                   <div v-t="'schoolBlock_EnterStudyRoomTooltip'"></div>
                 </div>
-            </div>
 
             <v-menu v-model="showMenu" offset-overflow>
                 <template v-slot:activator="{ on }">
-                    <div class="dotsIcon mr-2 ml-4 pb-5" v-if="isTutor && item.type === 'Broadcast'">
+                    <div class="dotsIcon mr-2 ml-4 pb-5 pr-5 pr-sm-0" v-if="isTutor && item.type === 'Broadcast'">
                         <v-icon color="#bbb" v-on="on" @click="openDeleteMenu(item.id)" slot="activator" small icon>sbf-3-dot</v-icon>
+                    </div>
+                    <div class="dotsIcon mr-2 ml-2 pb-5" v-else>
+                        <!-- <v-icon color="#bbb" v-on="on" @click="openDeleteMenu(item.id)" slot="activator" small icon>sbf-3-dot</v-icon> -->
                     </div>
                 </template>
                 <v-list v-if="menuShowId === item.id">
@@ -138,8 +121,8 @@
                 </v-list>
             </v-menu>
         </div>
-
       </template>
+
       <slot slot="no-data" name="tableEmptyState" />
     </v-data-table>
 
@@ -314,24 +297,24 @@ export default {
       content: '';
       position: absolute;
       background: #68D568;
-      width: 12px;
-      height: 12px;
-      top: 2px;
+      width: 10px;
+      height: 10px;
+      top: 3px;
       left: -20px;
       border-radius: 50%;
     }
     &.private {
       &::before {
         content: '';
-        background: #BFE4FF;
+        background: #5360fc;
       }
     }
   }
   .amountStudents {
-    background: #0294FF;
-    border-radius: 12px;
+    background: #0294ff;
+    border-radius: 9px;
     display: inline-block;
-    padding: 8px 20px;
+    padding: 4px 10px;
   }
   .copyLink {
     width: 100px;
@@ -341,24 +324,20 @@ export default {
     }
   }
   tr {
-    height: 54px;
+    height: 70px;
 
     .actionsWrapper {
-      width: 304px;
-      .studyRoomActions {
-        transition: opacity 0.5s ease-out;
-        opacity: 0;
-        display: none;
+      transition: opacity 0.5s ease-out;
+      opacity: 0;
+      display: none;
         
-        @media(max-width: @screen-xs) {
-          display: flex;
-          opacity: 1;
-        }
+      @media(max-width: @screen-xs) {
+        display: flex;
+        opacity: 1;
       }
-  
     }
     &:hover {
-      .studyRoomActions {
+      .actionsWrapper {
         display: flex;
         opacity: 1;
         transition: opacity 0.5s ease-in;
@@ -368,13 +347,13 @@ export default {
   td {
     border: none !important;
   }
-  td:last-child {
-      position: relative;
-      .dotsIcon {
-        position: absolute;
-        right: 12px;
-      }
-  }
+  // td:last-child {
+  //     position: relative;
+  //     .dotsIcon {
+  //       position: absolute;
+  //       right: 12px;
+  //     }
+  // }
   td:first-child {
     white-space: nowrap;
   }
@@ -385,6 +364,7 @@ export default {
   }
   thead {
     tr {
+      height: 54px;
       th {
         color: #43425d !important;
         font-size: 14px;
