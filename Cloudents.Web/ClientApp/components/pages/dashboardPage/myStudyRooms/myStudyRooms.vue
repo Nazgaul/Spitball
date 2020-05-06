@@ -22,7 +22,7 @@
       <template v-slot:top>
         <div class="tableTop d-flex flex-sm-row flex-column align-sm-center justify-space-between">
           <div class="myStudyRooms_title pb-3 pb-sm-0" v-t="'schoolBlock_my_study_rooms'"></div>
-          <div v-if="isTutor && !isTutorPending">
+          <div v-if="isTutor && isTutorStateOk">
             <v-btn
               @click="openLiveSession"
               class="link white--text mr-0 mr-sm-4 mb-4 mb-sm-0"
@@ -87,7 +87,7 @@
       
       <template v-slot:item.action="{item}">
 
-        <div class="d-flex align-center justify-center">
+        <div class="studyRoomActions d-flex align-center justify-center">
           
             <div v-if="item.showChat" class="mr-9">
               <v-btn
@@ -100,7 +100,7 @@
               <div v-t="'schoolBlock_SendMessageTooltip'"></div>
             </div>
 
-            <div v-else class="mr-5">
+            <div v-else class="copyLink mr-5">
               <v-tooltip :value="currentItemId === item.id" top transition="fade-transition">
                 <template v-slot:activator="{}">
                   <linkSVG
@@ -125,7 +125,7 @@
               <div v-t="'schoolBlock_EnterStudyRoomTooltip'"></div>
             </div>
 
-            <v-menu bottom left v-model="showMenu">
+            <v-menu v-model="showMenu" offset-overflow>
                 <template v-slot:activator="{ on }">
                     <div class="mr-2 pb-5" v-if="isTutor && item.type === 'Broadcast'">
                         <v-icon color="#bbb" v-on="on" @click="openDeleteMenu(item.id)" slot="activator" small icon>sbf-3-dot</v-icon>
@@ -205,8 +205,8 @@ export default {
   },
   computed: {
     ...mapGetters(["getStudyRoomItems"]),
-    isTutorPending() {
-      return this.$store.getters.accountUser?.isTutorPending === 'pending';
+    isTutorStateOk() {
+      return this.$store.getters.accountUser?.isTutorState === 'ok';
     },
     isTutor() {
       return this.$store.getters.accountUser?.isTutor;
@@ -353,8 +353,30 @@ export default {
     display: inline-block;
     padding: 8px 20px;
   }
+  .copyLink {
+    width: 110px;
+  }
   tr {
     height: 54px;
+
+    .studyRoomActions {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease-out;
+
+      @media(max-width: @screen-xs) {
+        display: flex;
+        opacity: 1;
+      }
+    }
+
+    &:hover {
+    .studyRoomActions {
+      display: flex;
+      opacity: 1;
+      transition: opacity 0.5s ease-in;
+    } 
+    }
   }
   td {
     border: none !important;
