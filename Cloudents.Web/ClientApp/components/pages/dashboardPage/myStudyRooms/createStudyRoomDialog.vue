@@ -133,7 +133,7 @@ export default {
          // TODO: new date format verify
          
          let childComponent = this.$refs.childComponent
-         let userChooseDate = new Date(`${childComponent.date} ${childComponent.hour}`)
+         let userChooseDate = new Date(`${childComponent.date} ${childComponent.hour.slice(0, -3)}`)
          let today = new Date()
          if(childComponent.date === today.FormatDateToString()) {
             
@@ -142,7 +142,6 @@ export default {
                this.currentError = 'showErrorWrongTime'
                return false
             }
-
             if(userChooseDate.getHours() === today.getHours()) {
                let isWrongMinutes = today.getMinutes() < Number(userChooseDate.getMinutes())
                if(!isWrongMinutes) {

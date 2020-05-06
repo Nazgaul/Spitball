@@ -100,7 +100,7 @@
               <div v-t="'schoolBlock_SendMessageTooltip'"></div>
             </div>
 
-            <div v-else class="copyLink mr-5">
+            <div v-else class="copyLink mr-5 flex-shrink-0">
               <v-tooltip :value="currentItemId === item.id" top transition="fade-transition">
                 <template v-slot:activator="{}">
                   <linkSVG
@@ -114,7 +114,7 @@
               <div v-t="'dashboardPage_link_share'"></div>
             </div>
 
-            <div>
+            <div class="flex-shrink-0">
               <v-btn
                 icon
                 @click="enterRoom(item.id)"
@@ -127,7 +127,7 @@
 
             <v-menu v-model="showMenu" offset-overflow>
                 <template v-slot:activator="{ on }">
-                    <div class="mr-2 pb-5" v-if="isTutor && item.type === 'Broadcast'">
+                    <div class="mr-2 ml-4 pb-5" v-if="isTutor && item.type === 'Broadcast'">
                         <v-icon color="#bbb" v-on="on" @click="openDeleteMenu(item.id)" slot="activator" small icon>sbf-3-dot</v-icon>
                     </div>
                 </template>
