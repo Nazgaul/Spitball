@@ -14,8 +14,6 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
-using Microsoft.AspNetCore.DataProtection;
 
 namespace Cloudents.Web.Controllers
 {
@@ -24,12 +22,10 @@ namespace Cloudents.Web.Controllers
     {
         internal const string Referral = "referral";
         private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
 
-        public HomeController(SignInManager<User> signInManager, UserManager<User> userManager)
+        public HomeController(SignInManager<User> signInManager)
         {
             _signInManager = signInManager;
-            _userManager = userManager;
         }
 
         //Any got issue with auth vs no auth. need to fix this.
@@ -149,28 +145,28 @@ namespace Cloudents.Web.Controllers
         }
 
 
-        [Route("google")]
-        public async Task<RedirectToActionResult> GoogleSigninAndroidAsync(string token,
-            [FromServices] IGoogleAuth service,
-            [FromServices] IDataProtectionProvider dataProtectProvider,
-            CancellationToken cancellationToken
-            )
-        {
-            var result = await service.LogInAsync(token, cancellationToken);
-            if (result == null)
-            {
-                return RedirectToAction("Index");
-            }
+        //[Route("google")]
+        //public async Task<RedirectToActionResult> GoogleSigninAndroidAsync(string token,
+        //    [FromServices] IGoogleAuth service,
+        //    [FromServices] IDataProtectionProvider dataProtectProvider,
+        //    CancellationToken cancellationToken
+        //    )
+        //{
+        //    var result = await service.LogInAsync(token, cancellationToken);
+        //    if (result == null)
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
 
-            var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, true, true);
+        //    var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, true, true);
 
-            var user2 = await _userManager.FindByEmailAsync(result.Email);
-            var dataProtector = dataProtectProvider.CreateProtector("Spitball").ToTimeLimitedDataProtector();
-            var code = dataProtector.Protect(user2.Id.ToString(), DateTimeOffset.UtcNow.AddDays(5));
-            return RedirectToAction("Index", new
-            {
-                token = code
-            });
-        }
+        //    var user2 = await _userManager.FindByEmailAsync(result.Email);
+        //    var dataProtector = dataProtectProvider.CreateProtector("Spitball").ToTimeLimitedDataProtector();
+        //    var code = dataProtector.Protect(user2.Id.ToString(), DateTimeOffset.UtcNow.AddDays(5));
+        //    return RedirectToAction("Index", new
+        //    {
+        //        token = code
+        //    });
+        //}
     }
 }

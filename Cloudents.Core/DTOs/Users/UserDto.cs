@@ -91,7 +91,7 @@ namespace Cloudents.Core.DTOs.Users
         public string Bio { get; set; }
 
         [EntityBind(nameof(ReadTutor.AllSubjects))]
-        public IEnumerable<string> Subjects { get; set; }
+        public IEnumerable<string>? Subjects { get; set; }
 
         [EntityBind(nameof(ReadTutor.Lessons))]
         public int Lessons { get; set; }

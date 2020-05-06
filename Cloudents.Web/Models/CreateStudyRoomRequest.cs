@@ -29,7 +29,7 @@ namespace Cloudents.Web.Models
                     "Need a date",
                     new[] { nameof(Name) });
             }
-            if (Type == StudyRoomType.Broadcast && Date.Value < DateTime.UtcNow)
+            if (Type == StudyRoomType.Broadcast && Date.GetValueOrDefault(DateTime.MaxValue) < DateTime.UtcNow)
             {
                 yield return new ValidationResult(
                     "Date should be in the future",

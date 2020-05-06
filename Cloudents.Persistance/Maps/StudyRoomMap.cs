@@ -1,7 +1,5 @@
 ﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using FluentNHibernate.Conventions;
-using FluentNHibernate.Conventions.Instances;
 using FluentNHibernate.Mapping;
 using NHibernate;
 

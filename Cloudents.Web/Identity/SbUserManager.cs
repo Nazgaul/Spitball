@@ -9,7 +9,6 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Infrastructure;
-using Cloudents.Infrastructure.Mail;
 using Cloudents.Query;
 using Cloudents.Query.Users;
 

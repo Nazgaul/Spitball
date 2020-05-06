@@ -77,7 +77,7 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public virtual void SetSubject(CourseSubject subject)
+        public virtual void SetSubject(CourseSubject? subject)
         {
             Subject = subject;
             AddEvent(new CourseChangeSubjectEvent(this));
