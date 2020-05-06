@@ -133,16 +133,16 @@
     <value>קורס:</value>
   </data>
   <data name="create_broadcast" xml:space="preserve">
-    <value>יצירת חדר ציבורי</value>
+    <value>יצירת חדר לימוד ציבורי</value>
   </data>
   <data name="create_private" xml:space="preserve">
-    <value>יצירת חדר לימוד</value>
+    <value>יצירת חדר לימוד פרטי</value>
   </data>
   <data name="create_room_created_error" xml:space="preserve">
     <value>חדר לימוד זה כבר קיים</value>
   </data>
   <data name="create_room_create_btn" xml:space="preserve">
-    <value>יצירת חדר לימוד</value>
+    <value>יצירת חדר לימוד פרטי</value>
   </data>
   <data name="create_room_empty_error" xml:space="preserve">
     <value>לא נבחר אף סטודנט</value>
@@ -163,10 +163,10 @@
     <value>שם</value>
   </data>
   <data name="create_room_private_title" xml:space="preserve">
-    <value>יצירת חדר לימוד חדש</value>
+    <value>יצירת חדר לימוד פרטי</value>
   </data>
   <data name="create_room_title" xml:space="preserve">
-    <value>יצירת חדר לימוד חדש</value>
+    <value>יצירת חדר לימוד פרטי</value>
   </data>
   <data name="date" xml:space="preserve">
     <value>תאריך</value>
@@ -260,10 +260,10 @@
     <value>המכירות שלי</value>
   </data>
   <data name="my_studyrooms_create_live" xml:space="preserve">
-    <value>צור חדר לימוד ציבורי</value>
+    <value>יצירת חדר לימוד ציבורי</value>
   </data>
   <data name="my_studyrooms_create_room" xml:space="preserve">
-    <value>צור חדר לימוד</value>
+    <value>יצירת חדר לימוד פרטי</value>
   </data>
   <data name="name" xml:space="preserve">
     <value>שם החדר</value>
