@@ -168,6 +168,14 @@ const getters = {
    },
 }
 const actions = {
+   updateToggleTutorFullScreen({dispatch,commit},val){
+      commit(twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN,val)
+      if(val){
+         dispatch('updateActiveNavEditor',ROOM_MODE.CLASS_SCREEN)
+      }else{
+         dispatch('updateActiveNavEditor',ROOM_MODE.WHITE_BOARD)
+      }
+   },
    updateFullScreen(context,participantId){
       if(participantId){
          context.dispatch('updateActiveNavEditor',ROOM_MODE.CLASS_SCREEN)
@@ -197,8 +205,16 @@ const actions = {
    updateEndDialog({ commit }, val) {
       commit(studyRoom_SETTERS.DIALOG_END_SESSION, val);
    },
-   updateActiveNavEditor({ commit }, val) {
+   updateActiveNavEditor({ commit,getters,dispatch }, val) {
       commit(studyRoom_SETTERS.ACTIVE_NAV_EDITOR, val)
+      if(getters.getRoomIsTutor){
+         let transferDataObj = {
+             type: "updateActiveNav",
+             data: val
+         };
+         let normalizedData = JSON.stringify(transferDataObj);
+         dispatch('sendDataTrack',normalizedData)
+      }
    },
    updateEnterRoom({ dispatch }, roomId) { // when tutor press start session
       return studyRoomService.enterRoom(roomId).then((jwtToken) => {

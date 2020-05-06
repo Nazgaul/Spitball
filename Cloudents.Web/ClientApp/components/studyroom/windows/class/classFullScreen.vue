@@ -2,17 +2,29 @@
    <div class="classFullScreen">
       <div class="videoContainer">
          <div id="classFullScreenVideo"></div>
-         <div class="videoTools">
+         <div class="videoTools" v-if="isRoomTutor">
             <v-row class="videoBtns" justify="center">
-               <v-btn class="controlsBtn" icon>
-                  <v-icon size="20" class="ml-1" color="white">sbf-video-camera</v-icon>
-               </v-btn>
-               <v-btn class="controlsBtn ml-6" icon>
-                  <v-icon size="28" color="white">sbf-microphone</v-icon>
-               </v-btn>
+               <v-tooltip top>
+                  <template v-slot:activator="{ on }">
+                     <v-btn v-on="on" :class="['controlsBtn',{'btnIgnoreClass':!isVideoActive}]" icon @click="toggleVideo" sel="video_class_enabling">
+                        <v-icon v-if="isVideoActive" size="20" class="ml-1" color="white">sbf-video-camera</v-icon>
+                        <v-icon v-else size="30" color="white">sbf-camera-ignore</v-icon>
+                     </v-btn>
+                  </template>
+                  <span v-text="$t(isVideoActive?'tutor_tooltip_video_pause':'tutor_tooltip_video_resume')"/>
+               </v-tooltip>
+               <v-tooltip top>
+                  <template v-slot:activator="{ on }">
+                     <v-btn v-on="on" :class="['controlsBtn',{'btnIgnoreClass':!isAudioActive},'ml-3']" icon @click="toggleAudio" sel="audio_class_enabling">
+                        <v-icon v-if="isAudioActive" size="22" color="white">sbf-microphone</v-icon>
+                        <v-icon v-else size="28" color="white">sbf-mic-ignore</v-icon>
+                     </v-btn>
+                  </template>
+                  <span v-text="$t(isAudioActive?'tutor_tooltip_mic_mute':'tutor_tooltip_mic_unmute')"/>
+               </v-tooltip>
             </v-row>
-            <div class="videoMinimizeBtn">
-               <v-icon size="32" color="white">sbf-minis</v-icon>
+            <div class="videoMinimizeBtn" @click="closeFullScreen">
+               <v-icon size="30" color="white">sbf-minis</v-icon>
             </div>
          </div>
       </div>
@@ -59,6 +71,29 @@ export default {
       ...mapGetters(['getRoomTutorParticipant']),
       tutorVideoTrack(){
          return this.getRoomTutorParticipant?.video;
+      },
+      isVideoActive() {
+         return this.$store.getters.getIsVideoActive;
+      },
+      isAudioActive() {
+         return this.$store.getters.getIsAudioActive;
+      },
+      isRoomTutor(){
+         return this.$store.getters.getRoomIsTutor;
+      },
+   },
+   methods: {
+      toggleVideo() {
+         this.$ga.event("tutoringRoom", "toggleVideo");
+         this.$store.dispatch("updateVideoToggle");
+      },
+      toggleAudio() {
+         this.$ga.event("tutoringRoom", "toggleAudio");
+         this.$store.dispatch("updateAudioToggle");
+      },
+
+      closeFullScreen(){
+         this.$store.dispatch('updateToggleTutorFullScreen',false);
       }
    },
 }
@@ -106,6 +141,9 @@ export default {
                height: 60px;
                background-color: rgba(0, 0, 0, 0.25);
                border-radius: 50%;
+               &.btnIgnoreClass{
+                  background-color: rgba(255, 0, 0, 0.589);
+               }
             }
          }
       }

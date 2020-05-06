@@ -70,9 +70,6 @@ const actions = {
    updateToggleAudioParticipants({commit,state}){
       commit(twilio_SETTERS.TOGGLE_AUDIO_PARTICIPANTS,!state.isAudioParticipants)
    },
-   updateToggleTutorFullScreen({commit},val){
-      commit(twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN,val)
-   },
    updateJwtToken({commit},token){
       commit(twilio_SETTERS.JWT_TOKEN,token)
    },

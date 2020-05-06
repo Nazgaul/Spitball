@@ -3,6 +3,26 @@
       <span class="name">{{userName}}</span>
       <div class="linear"></div>
       <div class="linear2"></div>
+      <div class="videoPreviewTools" v-if="isCurrentParticipant">
+         <v-tooltip top>
+            <template v-slot:activator="{ on }">
+               <v-btn v-on="on" :class="['userPreviewControlsBtn',{'userPreviewbtnIgnore':!isVideoActive}]" icon @click="toggleVideo" sel="video_enabling">
+                  <v-icon v-if="isVideoActive" size="11" class="ml-1" color="white">sbf-video-camera</v-icon>
+                  <v-icon v-else size="18" color="white">sbf-camera-ignore</v-icon>
+               </v-btn>
+            </template>
+            <span v-text="$t(isVideoActive?'tutor_tooltip_video_pause':'tutor_tooltip_video_resume')"/>
+         </v-tooltip>
+         <v-tooltip top>
+            <template v-slot:activator="{ on }">
+               <v-btn v-on="on" :class="['userPreviewControlsBtn',{'userPreviewbtnIgnore':!isAudioActive},'ml-2']" icon @click="toggleAudio" sel="audio_enabling">
+                  <v-icon v-if="isAudioActive" size="16" color="white">sbf-microphone</v-icon>
+                  <v-icon v-else size="16" color="white">sbf-mic-ignore</v-icon>
+               </v-btn>
+            </template>
+            <span v-text="$t(isAudioActive?'tutor_tooltip_mic_mute':'tutor_tooltip_mic_unmute')"/>
+         </v-tooltip>
+      </div>
    </v-card>  
 </template>
 
@@ -28,9 +48,26 @@ export default {
       },
       userName(){
          return this.participant.name;
+      },
+      isVideoActive() {
+         return this.$store.getters.getIsVideoActive;
+      },
+      isAudioActive() {
+         return this.$store.getters.getIsAudioActive;
+      },
+      isCurrentParticipant(){
+         return this.currentParticipant?.id == this.$store.getters.accountUser?.id
       }
    },
    methods: {
+      toggleVideo() {
+         this.$ga.event("tutoringRoom", "toggleVideo");
+         this.$store.dispatch("updateVideoToggle");
+      },
+      toggleAudio() {
+         this.$ga.event("tutoringRoom", "toggleAudio");
+         this.$store.dispatch("updateAudioToggle");
+      },
       handleAudioTrack(participant){
          if(participant.audio){
             if(this.audioTrack){
@@ -117,6 +154,27 @@ export default {
       width: 100%;
       height: 100%;
       background-image: linear-gradient(to top, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.1) 74%, rgba(0, 0, 0, 0.64));
+   }
+   .videoPreviewTools{
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      border-radius: 6px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      padding-bottom: 10px;
+      z-index: 1;
+      .userPreviewControlsBtn{
+         width: 33px;
+         height: 33px;
+         background-color: rgba(0, 0, 0, 0.25);
+         border-radius: 50%;
+         &.userPreviewbtnIgnore{
+            background-color: rgba(255, 0, 0, 0.589);
+         }
+      }
    }
    video {
       width: 100%;

@@ -6,6 +6,14 @@
          <div class="drawerVideoBtns">
             <v-tooltip top>
                <template v-slot:activator="{ on }">
+                  <v-btn v-on="on" icon class="fullScreenBtn" text @click="openFullScreen">
+                     <v-icon size="22" class="ml-1" color="white">sbf-exp</v-icon>
+                  </v-btn>
+               </template>
+               <span v-text="$t('tutor_tooltip_fullscreen')"/>
+            </v-tooltip>
+            <v-tooltip top>
+               <template v-slot:activator="{ on }">
                   <v-btn v-on="on" :class="['drawerControlsBtn',{'btnIgnore':!isVideoActive}]" icon @click="toggleVideo" sel="video_enabling">
                      <v-icon v-if="isVideoActive" size="14" class="ml-1" color="white">sbf-video-camera</v-icon>
                      <v-icon v-else size="22" color="white">sbf-camera-ignore</v-icon>
@@ -52,6 +60,9 @@ export default {
          this.$ga.event("tutoringRoom", "toggleAudio");
          this.$store.dispatch("updateAudioToggle");
       },
+      openFullScreen(){
+         this.$store.dispatch('updateToggleTutorFullScreen',true);
+      }
    },
    watch: {
       isShowVideo(newVal){
@@ -182,6 +193,11 @@ export default {
             justify-content: center;
             align-items: flex-end;
             padding-bottom: 10px;
+            .fullScreenBtn{
+               position: absolute;
+               top: 8px;
+               right: 8px;
+            }
             .drawerControlsBtn{
                width: 46px;
                height: 46px;
