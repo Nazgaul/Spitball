@@ -21,10 +21,6 @@
          <div class="d-flex flex-column align-center pt-4">
             <div class="mb-4">
                <span v-if="currentError" class="error--text" v-t="errorsResource[currentError]"></span>
-               <!-- <span v-if="errors.showErrorEmpty" class="error--text" v-t="'dashboardPage_create_room_empty_error'"></span>
-               <span v-if="errors.showErrorAlreadyCreated" class="error--text" v-t="'dashboardPage_create_room_created_error'"></span>
-               <span v-if="errors.showErrorMaxUsers" class="error--text" v-t="'dashboardPage_create_room_max_error'"></span>
-               <span v-if="errors.showErrorWrongTime" class="error--text" v-t="'dashboardPage_pick_time_error'"></span> -->
             </div>
             <v-btn :loading="isLoading" @click="createStudyRoom" width="160" depressed height="40" color="#4452fc" class="white--text" rounded >{{$t(btnCreateText)}}</v-btn>
          </div>

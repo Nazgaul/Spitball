@@ -87,47 +87,49 @@
       
       <template v-slot:item.action="{item}">
 
-        <div class="studyRoomActions d-flex align-center justify-center">
+        <div class="actionsWrapper d-flex align-center justify-center">
           
-            <div v-if="item.showChat" class="mr-9">
-              <v-btn
-                icon
-                @click="sendMessage(item)"
-                :title="$t('schoolBlock_SendMessageTooltip')"
-              >
-                <iconChat fill="#4c59ff" />
-              </v-btn>
-              <div v-t="'schoolBlock_SendMessageTooltip'"></div>
-            </div>
+            <div class="studyRoomActions">
+                <div v-if="item.showChat" class="mr-9">
+                    <v-btn
+                      icon
+                      @click="sendMessage(item)"
+                      :title="$t('schoolBlock_SendMessageTooltip')"
+                    >
+                        <iconChat fill="#4c59ff" />
+                    </v-btn>
+                    <div v-t="'schoolBlock_SendMessageTooltip'"></div>
+                </div>
 
-            <div v-else class="copyLink mr-5 flex-shrink-0">
-              <v-tooltip :value="currentItemId === item.id" top transition="fade-transition">
-                <template v-slot:activator="{}">
-                  <linkSVG
-                    style="width:20px;height:36px;"
-                    class="option link"
-                    @click="copyLink(item)"
-                  />
-                </template>
-                <span v-t="'shareContent_copy_tool'"></span>
-              </v-tooltip>
-              <div v-t="'dashboardPage_link_share'"></div>
-            </div>
+                <div v-else class="copyLink mr-8 flex-shrink-0">
+                    <v-tooltip :value="currentItemId === item.id" top transition="fade-transition">
+                        <template v-slot:activator="{}">
+                            <linkSVG
+                              style="width:20px;height:36px;"
+                              class="option link"
+                              @click="copyLink(item)"
+                            />
+                        </template>
+                        <span v-t="'shareContent_copy_tool'"></span>
+                    </v-tooltip>
+                    <div v-t="'dashboardPage_link_share'"></div>
+                </div>
 
-            <div class="flex-shrink-0">
-              <v-btn
-                icon
-                @click="enterRoom(item.id)"
-                :title="$t('schoolBlock_EnterStudyRoomTooltip')"
-              >
-                <enterRoom width="18" />
-              </v-btn>
-              <div v-t="'schoolBlock_EnterStudyRoomTooltip'"></div>
+                <div class="flex-shrink-0">
+                  <v-btn
+                    icon
+                    @click="enterRoom(item.id)"
+                    :title="$t('schoolBlock_EnterStudyRoomTooltip')"
+                  >
+                    <enterRoom width="18" />
+                  </v-btn>
+                  <div v-t="'schoolBlock_EnterStudyRoomTooltip'"></div>
+                </div>
             </div>
 
             <v-menu v-model="showMenu" offset-overflow>
                 <template v-slot:activator="{ on }">
-                    <div class="mr-2 ml-4 pb-5" v-if="isTutor && item.type === 'Broadcast'">
+                    <div class="dotsIcon mr-2 ml-4 pb-5" v-if="isTutor && item.type === 'Broadcast'">
                         <v-icon color="#bbb" v-on="on" @click="openDeleteMenu(item.id)" slot="activator" small icon>sbf-3-dot</v-icon>
                     </div>
                 </template>
@@ -154,7 +156,6 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-//import tablePreviewTd from '../global/tablePreviewTd.vue';
 import * as routeNames from "../../../../routes/routeNames";
 import * as dialogNames from "../../global/dialogInjection/dialogNames.js";
 
@@ -186,7 +187,6 @@ export default {
         page: 1
       },
       headers: [
-        //  this.dictionary.headers['preview'],
         this.dictionary.headers["created"],
         this.dictionary.headers["name"],
         this.dictionary.headers["type"],
@@ -274,26 +274,6 @@ export default {
         }, 2000);
       });
     }
-    // showFirstName(name) {
-    //    let maxChar = 4;
-    //    name = name.split(' ')[0];
-    //    if(name.length > maxChar) {
-    //    return this.$t('resultTutor_message_me');
-    //    }
-    //    return name;
-    // },
-    // changeSort(sortBy){
-    //    if(sortBy === 'info') return;
-
-    //    let sortObj = {
-    //       listName: 'studyRoomItems',
-    //       sortBy,
-    //       sortedBy: this.sortedBy
-    //    }
-    //    this.dashboard_sort(sortObj)
-    //    this.paginationModel.page = 1;
-    //    this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
-    // }
   },
   created() {
     this.updateStudyRoomItems();
@@ -354,32 +334,42 @@ export default {
     padding: 8px 20px;
   }
   .copyLink {
-    width: 110px;
+    width: 100px;
   }
   tr {
     height: 54px;
 
-    .studyRoomActions {
-      display: none;
-      opacity: 0;
-      transition: opacity 0.5s ease-out;
-
-      @media(max-width: @screen-xs) {
+    .actionsWrapper {
+      width: 304px;
+      .studyRoomActions {
+        display: none;
+        opacity: 0;
+        transition: opacity 0.5s ease-out;
+  
+        @media(max-width: @screen-xs) {
+          display: flex;
+          opacity: 1;
+        }
+      }
+  
+    }
+    &:hover {
+      .studyRoomActions {
         display: flex;
         opacity: 1;
-      }
-    }
-
-    &:hover {
-    .studyRoomActions {
-      display: flex;
-      opacity: 1;
-      transition: opacity 0.5s ease-in;
-    } 
+        transition: opacity 0.5s ease-in;
+      } 
     }
   }
   td {
     border: none !important;
+  }
+  td:last-child {
+      position: relative;
+      .dotsIcon {
+        position: absolute;
+        right: 12px;
+      }
   }
   td:first-child {
     white-space: nowrap;
