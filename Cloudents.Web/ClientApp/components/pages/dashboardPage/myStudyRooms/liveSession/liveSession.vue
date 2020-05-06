@@ -153,13 +153,13 @@ export default {
     },
     data() {
         return {
+            isRtl: global.isRtl,
             liveSessionTitle: '',
             sessionAboutText: '',
             date: new Date().FormatDateToString(),
             hour: '00:00 AM',
-            currentVisitorPriceSelect: { text: this.$t('dashboardPage_visitors_free'), value: 'free' },
-            isRtl: global.isRtl,
             datePickerMenu: false,
+            currentVisitorPriceSelect: { text: this.$t('dashboardPage_visitors_free'), value: 'free' },
             items: [
                 { text: this.$t('dashboardPage_visitors_free'), value: 'free' },
                 { text: this.$t('dashboardPage_visitors_set_price'), value: 'price' }
@@ -167,7 +167,7 @@ export default {
             rules: {
                 required: (value) => validationRules.required(value),
                 minimum: (value) => validationRules.minVal(value,0),
-            },
+            }
         }
     },
     watch: {
@@ -198,9 +198,9 @@ export default {
         },
         timeHoursList() {
             let timesArr = [], i
-            for(i = 0; i < 60*24; i = i+15) {
-                let label = parseInt(i/(60*12)) == 0 ? "AM" : "PM";
-                let h = parseInt( i/60);
+            for(i = 0; i < 60 * 24; i = i + 15) {
+                let label = parseInt(i / (60 * 12)) === 0 ? "AM" : "PM";
+                let h = parseInt(i / 60);
                 let m = i % 60;
                 let time = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')} ${label}`
                 timesArr.push(time)

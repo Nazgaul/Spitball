@@ -94,8 +94,8 @@ export default {
 
             params.type = this.studyRoomType
 
-            this.isLoading = true
             let self = this
+            this.isLoading = true
             this.$store.dispatch('updateCreateStudyRoom', params)
                .then(() => {
                   self.$store.commit('setComponent')
