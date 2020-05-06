@@ -133,7 +133,7 @@
     <value>קורס:</value>
   </data>
   <data name="create_broadcast" xml:space="preserve">
-    <value>יצירת חדר פתוח לקהל</value>
+    <value>יצירת חדר ציבורי</value>
   </data>
   <data name="create_private" xml:space="preserve">
     <value>יצירת חדר לימוד</value>
@@ -154,7 +154,7 @@
     <value>שם החדר</value>
   </data>
   <data name="create_room_live_title" xml:space="preserve">
-    <value>יצירת שיעור פתוח לקהל</value>
+    <value>יצירת שיעור ציבורי</value>
   </data>
   <data name="create_room_max_error" xml:space="preserve">
     <value>מקסימום 4 סטודנטים בחדר לימוד</value>
@@ -206,7 +206,7 @@
     <value>תאריך</value>
   </data>
   <data name="label_live_title" xml:space="preserve">
-    <value>שם החדר הפתוח לקהל</value>
+    <value>שם החדר הציבורי</value>
   </data>
   <data name="label_minutes" xml:space="preserve">
     <value>דקות</value>
