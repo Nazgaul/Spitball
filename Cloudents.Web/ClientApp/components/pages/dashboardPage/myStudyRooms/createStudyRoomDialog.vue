@@ -122,12 +122,10 @@ export default {
          return {
             userId: Array.from(childComponent.selected.map(user=> user.userId)),
             name: childComponent.roomName,
-            price: childComponent.newPrice || 0,
+            price: childComponent.price,
          }
       },
       createLiveSession() {
-         // TODO: new date format verify
-         
          let childComponent = this.$refs.childComponent
          let userChooseDate = new Date(`${childComponent.date} ${childComponent.hour.slice(0, -3)}`)
          let today = new Date()
@@ -148,13 +146,11 @@ export default {
             }
          }
 
-
-
          return {
             date: userChooseDate,
             name: childComponent.liveSessionTitle || '',
             about: childComponent.sessionAboutText || '',
-            price: childComponent.newPrice || 0,
+            price: childComponent.price,
          }
       },
       updateError(error) {
