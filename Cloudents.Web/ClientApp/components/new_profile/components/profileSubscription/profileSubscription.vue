@@ -13,7 +13,7 @@
                 <span v-t="'profile_subscribe_btn'"></span>
             </v-btn>
 
-            <div v-t="'profile_subscribe_no_contract'"></div>
+            <div class="noContract" v-t="'profile_subscribe_no_contract'"></div>
         </div>
     </div>
 </template>
@@ -80,6 +80,9 @@ export default {
                 font-size: 40px;
                 font-weight: 600;
             }
+        }
+        .noContract {
+            color: @global-purple;
         }
     }
 }
