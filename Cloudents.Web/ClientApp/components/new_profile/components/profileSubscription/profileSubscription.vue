@@ -2,7 +2,7 @@
     <div class="profileSubscription pa-4 text-center">
         <div class="wrapper pa-4">
             <div class="mainTitle mb-1" v-t="'profile_subscribe_title'"></div>
-            <div class="subTitle" v-t="{path: 'profile_subscribe_subtitle', args: {0: firstName}}"></div>
+            <div class="subTitle text-truncate" v-t="{path: 'profile_subscribe_subtitle', args: {0: firstName}}"></div>
 
             <div class="priceWrapper mt-8 mb-2">
                 <span class="price">15$</span>
