@@ -330,4 +330,13 @@
   <data name="subscribe_title" xml:space="preserve">
     <value>Subscribe and get</value>
   </data>
+  <data name="live_subscribers_free" xml:space="preserve">
+    <value>Free</value>
+  </data>
+  <data name="live_subscribers_title" xml:space="preserve">
+    <value>Subscribers</value>
+  </data>
+  <data name="live_visitor" xml:space="preserve">
+    <value>Visitors</value>
+  </data>
 </root>

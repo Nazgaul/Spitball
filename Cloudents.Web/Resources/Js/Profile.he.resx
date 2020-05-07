@@ -201,8 +201,17 @@
   <data name="lastName_label" xml:space="preserve">
     <value>שם משפחה</value>
   </data>
+  <data name="live_subscribers_free" xml:space="preserve">
+    <value>חינם</value>
+  </data>
+  <data name="live_subscribers_title" xml:space="preserve">
+    <value>מנויים</value>
+  </data>
   <data name="live_title" xml:space="preserve">
     <value>שיעורים פתוחים לקהל של</value>
+  </data>
+  <data name="live_visitor" xml:space="preserve">
+    <value>אורחים</value>
   </data>
   <data name="my_book_session" xml:space="preserve">
     <value>הצג את היומן שלי</value>
