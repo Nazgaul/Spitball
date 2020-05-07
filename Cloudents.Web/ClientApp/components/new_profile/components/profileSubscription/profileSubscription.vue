@@ -70,7 +70,7 @@ export default {
 
         .subTitle {
             color: @global-purple;
-            .responsive-property(font-size, 20px, null, 18px);                
+            .responsive-property(font-size, 20px, null, 16px);                
         }
 
         .priceWrapper {

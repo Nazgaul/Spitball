@@ -6,33 +6,58 @@
             <span>{{tutorName}}</span>
         </div>
 
-        <div class="liveRow pa-4 pa-sm-0 px-sm-2 py-sm-7 py-5 d-sm-flex d-block justify-space-between align-center" v-for="(session, index) in liveSessionsList" :key="index">
-            <div class="leftSide mb-5 mb-sm-0 d-flex">
-                <div class="icons">
-                    <radioIcon v-if="$vuetify.breakpoint.xsOnly" width="30" />
-                    <tvIcon width="90" v-else />
-                </div>
+        <v-row v-show="!$vuetify.breakpoint.xsOnly" class="headerRow text-center" dense>
+            <v-col cols="6" class="pa-sm-4"></v-col>
+            <v-col cols="2" class="pa-sm-4">
+                <div v-t="'profile_live_visitors_title'"></div>
+            </v-col>
+            <v-col cols="2" class="subscribers pa-sm--4">
+                <div v-t="'profile_live_subscribers_title'"></div>
+            </v-col>
+            <v-col cols="2" class="pa-sm--4"></v-col>
+        </v-row>
 
-                <div class="details ml-3 ml-sm-5 d-flex">
-                    <div class="created mb-sm-3 mt-2 mt-sm-0">{{$d(new Date(session.created), 'long')}}</div>
-                    <div class="liveName">{{session.name}}</div>
-                </div>
-            </div>
+        <v-row v-for="(session, index) in liveSessionsList" :key="index" class="trRow text-center" dense>
+            <v-col cols="12" sm="6" class="text-left pa-sm-4 px-4">
+                <div class="leftSide text-left mb-sm-5 mb-2 mb-sm-0 d-flex">
+                    <div class="icons">
+                        <radioIcon v-if="$vuetify.breakpoint.xsOnly" width="30" />
+                        <tvIcon width="90" v-else />
+                    </div>
 
-            <div class="rightSide d-sm-flex d-block align-end flex-shrink-0 text-center">
-                <div class="price mb-2 mb-sm-0" :class="{'enroll': session.enrolled}">
+                    <div class="details ml-3 ml-sm-5 d-flex">
+                        <div class="created mb-3">{{$d(new Date(session.created), 'long')}}</div>
+                        <div class="d-none d-sm-block">
+                            <div class="liveName mb-2 text-truncate">{{session.name}}</div>
+                            <div class="description" v-if="session.description" v-t="'profile_live_description'"></div>
+                        </div>
+                    </div>
+                </div>  
+            </v-col>
+            <v-col cols="12" class="d-flex d-sm-none pa-sm-4 px-4">
+                <div class="">
+                    <div class="liveName mb-2 text-truncate">{{session.name}}</div>
+                    <div class="description" v-if="session.description" v-t="'profile_live_description'"></div>
+                </div>
+            </v-col>
+            <v-col cols="4" sm="2" class="d-flex align-center justify-center pa-sm-4">
+                <div class="price">
                     <span class="numericPrice">{{$n(session.price, 'currency')}}</span>
-                    <span v-t="'profile_per_hour'"></span>
-                </div>
+                    <span class="hour" v-t="'profile_per_hour'"></span>
+                </div>  
+            </v-col>
+            <v-col cols="4" sm="2" class="subscribers d-flex align-center justify-center pa-sm-4">
+                <div v-t="'profile_live_subscribers_free'"></div>  
+            </v-col>
+            <v-col cols="4" sm="2" class="d-flex align-center justify-center pa-sm-4">
                 <div class="action">
                     <v-btn
                         v-if="isMyProfile || session.enrolled"
                         @click="enterRoom(session.id)"
                         class="btn white--text"
-                        width="140"
                         :height="$vuetify.breakpoint.xsOnly ? '42' : '38'"
                         color="#41c4bc"
-                        :block="$vuetify.breakpoint.xsOnly"
+                        block
                         depressed
                         rounded
                     >
@@ -43,18 +68,17 @@
                         v-else
                         @click="enrollSession(session.id)"
                         class="btn white--text"
-                        width="140"
                         :height="$vuetify.breakpoint.xsOnly ? '42' : '38'"
                         color="#4c59ff"
-                        :block="$vuetify.breakpoint.xsOnly"
+                        block
                         depressed
                         rounded
                     >
                         <span :class="{'flex-grow-1 pr-4': $vuetify.breakpoint.xsOnly}" v-t="'profile_enroll'"></span>
                     </v-btn>
                 </div>
-            </div>
-        </div>
+            </v-col>
+        </v-row>
 
         <div class="showMore pa-3 pt-sm-4 pb-sm-0 text-center" v-if="liveSessions.length > 3">
             <button class="showBtn" v-t="isExpand ? 'profile_see_less' : 'profile_see_all'" @click="isExpand = !isExpand"></button>
@@ -176,10 +200,7 @@ export default {
         margin: 54px auto 0;
         border-radius: 8px;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
-       
-        // @media(max-width: @screen-sm) {
-        //     margin: 54px 20px 0;
-        // }
+
         @media(max-width: @screen-xs) {
             margin: 8px auto;
             box-shadow: none;
@@ -190,7 +211,6 @@ export default {
             color: @global-purple;
             font-weight: 600;
             .responsive-property(font-size, 18px, null, 16px);
-            border-bottom: 1px solid #ebebeb;
             @media(max-width: @screen-xs) {
                 border-bottom: none;
                 font-weight: bold;
@@ -198,68 +218,85 @@ export default {
             }
         }
 
-        .liveRow {
+        .headerRow {
+            color: #595475;
+            font-size: 16px;
+            font-weight: 600;
+            border-bottom: 1px solid #ebebeb;
+            .subscribers:nth-child(3) {
+                background: #f5f5f5;
+            }
+        }
+        .trRow {
             border-bottom: 1px solid #ebebeb;
 
-            &:last-child  {
+            &:last-child {
                 border-bottom: none;
+            }
+            .subscribers:nth-child(4) {
+                color: @global-purple;
+                font-size: 16px;
+                font-weight: 600;
+                background: #f5f5f5;
+                @media(max-width: @screen-xs) {
+                    background: #fff
+                }   
             }
             @media(max-width: @screen-xs) {
                 background: #fff;
                 margin-bottom: 8px;
-                border-bottom: none;
+            }            
+        }
+        .details {
+            font-weight: 600;
+            flex-direction: column;
+            min-width: 0;
+            @media(max-width: @screen-xs) {
+                padding: 0;
             }
-            .details {
-                font-weight: 600;
-                flex-direction: column;
-                padding: 0 50px 0 0;
-                max-width: 450px;
+            .created {
+                color: @global-auth-text;
+            }
+            .liveName {
+                font-size: 16px;
+                color: @global-purple;
+            }
+            .description {
+                color: @global-purple;
+                font-size: 12px;
+            }
+        }
+        .leftSide {
+            .icons {
                 @media(max-width: @screen-xs) {
-                    padding: 0;
-                }
-                .created {
-                    color: @global-auth-text;
-                    @media(max-width: @screen-xs) {
-                        order: 1;
-                    }
-                }
-                .liveName {
-                    font-size: 16px;
-                    color: @global-purple;
+                    margin-top: 2px;
                 }
             }
-            .leftSide {
-                .icons {
-                    @media(max-width: @screen-xs) {
-                        margin-top: 2px;
-                    }
-                }
+        }
+        .price {
+            vertical-align: bottom;
+            color: @global-purple;
+            @media(max-width: @screen-xs) {
+                margin-right: 0;
             }
-            .rightSide {
-                .price {
-                    vertical-align: bottom;
-                    margin-right: 50px;
-                    color: @global-purple;
-                    @media(max-width: @screen-xs) {
-                        margin-right: 0;
-                    }
-                    &.enroll {
-                        font-weight: 600;
-                        color: #bdc0d1;
-                    }
-                    .numericPrice {
-                        font-size: 20px;
-                        font-weight: bold;
-                    }
-                }
+            &.enroll {
+                font-weight: 600;
+                color: #bdc0d1;
             }
-            .action {
-                .btn {
-                    font-weight: 600;
-                }
-                .enterIcon {
-                    fill: #fff;
-                }
+            .numericPrice {
+                font-size: 22px;
+                font-weight: bold;
+            }
+            .hour {
+                font-size: 16px
+            }
+        }
+        .action {
+            .btn {
+                font-weight: 600;
+            }
+            .enterIcon {
+                fill: #fff;
             }
         }
         .showMore {
