@@ -121,20 +121,6 @@
         </transition>
       </v-flex>
     <template>
-
-      <sb-dialog
-        :showDialog="getReviewDialogState"
-        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
-        :popUpType="'reviewDilaog'"
-        :maxWidth="'596'"
-        :onclosefn="closeReviewDialog"
-        :activateOverlay="false"
-        :isPersistent="$vuetify.breakpoint.smAndUp"
-        :content-class="'review-dialog'"
-      >
-        <leave-review></leave-review>
-      </sb-dialog>
-
       <sb-dialog
         :showDialog="isBrowserSupportDialog"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
@@ -221,7 +207,6 @@ import testIcon from "./images/eq-system.svg";
 import chatIcon from "../../font-icon/message-icon.svg";
 import chatService from "../../services/chatService";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
-import leaveReview from "./tutorHelpers/leaveReview/leaveReview.vue";
 import whiteBoardTools from "./whiteboard/whiteboardTools.vue";
 import startEndSessionBtn from "./tutorHelpers/startEndSessionBtn/startEndSessionBtn.vue";
 import endSessionConfirm from "./tutorHelpers/endSessionConfirm/endSessionConfirm.vue";
@@ -258,7 +243,6 @@ export default {
     testIcon,
     chatIcon,
     sbDialog,
-    leaveReview,
     whiteBoardTools,
     startEndSessionBtn,
     endSessionConfirm,
@@ -318,7 +302,6 @@ export default {
       "getZoom",
       "getPanX",
       "getPanY",
-      "getReviewDialogState",
       "getDialogRoomEnd",
       "accountUser",
       "getIsRecording",
@@ -372,8 +355,6 @@ watch: {
       "setActiveConversationObj",
       "getChatById",
       "updateLockChat",
-      "updateReviewDialog",
-      "updateReview",
       "closeChat",
       "openChatInterface",
       "updateEndDialog",
@@ -423,9 +404,6 @@ watch: {
     openSettingsDialog(){
       this.$ga.event("tutoringRoom", "openSettingsDialog");
       this.settingDialogState = true;
-    },
-    closeReviewDialog() {
-      this.updateReviewDialog(false);
     },
     closeEndDialog() {
       this.updateEndDialog(false);

@@ -8,6 +8,7 @@
     <studyRoomFooter v-if="isShowFooter" @footerExtendChanged="(val)=> isFooterExtendReference = val"/>
     <floatingVideoContainer v-if="!isRoomTutor" :isShowFloatingVideo="isShowFloatingVideo" :isFooter="isFooterExtendReference"></floatingVideoContainer>
     <studyRoomSettingsDialog v-if="id && !isRoomActive"/>
+    <studyRoomDialogs/>
   </div>
 </template>
 
@@ -25,6 +26,7 @@ const sharedDocument = () => import("./sharedDocument/sharedDocument.vue");
 const classMode = () => import('./windows/class/classRoom.vue');
 const classScreen = () => import('./windows/class/classFullScreen.vue');
 import floatingVideoContainer from './layouts/studyRoomDrawer/floatingVideoContainer.vue';
+import studyRoomDialogs from './studyRoomDialogs.vue';
 export default {
   data() {
     return {
@@ -46,6 +48,7 @@ export default {
 
     floatingVideoContainer,
     studyRoomSettingsDialog,
+    studyRoomDialogs,
   },
   computed: {
     ...mapGetters(['getRoomIsNeedPayment']),
