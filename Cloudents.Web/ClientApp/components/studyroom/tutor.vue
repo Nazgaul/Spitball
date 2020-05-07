@@ -133,20 +133,6 @@
           <browserSupport></browserSupport>
       </sb-dialog>
       <!--show only if not avaliable devices dialog is closed by user-->
-      <!--end session confirmation-->
-      <sb-dialog
-        :showDialog="getDialogRoomEnd"
-        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
-        :popUpType="'endSessionConfirm'"
-        :maxWidth="'356'"
-        :onclosefn="closeEndDialog"
-        :activateOverlay="false"
-        :isPersistent="$vuetify.breakpoint.smAndUp"
-        :content-class="'session-end-confirm'"
-      >
-        <endSessionConfirm :id="id"></endSessionConfirm>
-      </sb-dialog>
-      <!--show only if not avaliable devices dialog is closed by user-->
             <sb-dialog
         :showDialog="getShowAudioRecordingError"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
@@ -169,19 +155,6 @@
       >
           <studentConsentDialog></studentConsentDialog>
       </sb-dialog>
-
-      <sb-dialog
-        :showDialog="getDialogSnapshot"
-        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
-        :popUpType="'studyroomSnapshotDialog'"
-        :maxWidth="'800'"
-        :onclosefn="closeSnapshotDialog"
-        :isPersistent="$vuetify.breakpoint.smAndUp"
-        :content-class="'studyroom-snapshot-dialog'"
-      >
-          <snapshotDialog></snapshotDialog>
-      </sb-dialog>
-
       <studyRoomAudioVideoDialog
         v-if="settingDialogState"
         @closeAudioVideoSettingDialog="val => settingDialogState = val"
@@ -209,7 +182,6 @@ import chatService from "../../services/chatService";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import whiteBoardTools from "./whiteboard/whiteboardTools.vue";
 import startEndSessionBtn from "./tutorHelpers/startEndSessionBtn/startEndSessionBtn.vue";
-import endSessionConfirm from "./tutorHelpers/endSessionConfirm/endSessionConfirm.vue";
 import browserSupport from "./tutorHelpers/browserSupport/browserSupport.vue";
 import insightService from '../../services/insightService.js';
 import studyRoomSettingsDialog from "./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue";
@@ -217,7 +189,6 @@ import intercomSVG from './images/icon-1-2.svg'
 import studyRoomRecordingService from './studyRoomRecordingService.js';
 import errorWithAudioRecording from './tutorHelpers/errorWithAudioRecording/errorWithAudioRecording.vue';
 import studentConsentDialog from './tutorHelpers/studentConsentDialog/studentConsentDialog.vue';
-import snapshotDialog from './tutorHelpers/snapshotDialog/snapshotDialog.vue';
 import stopRecording from './images/stop-recording.svg';
 import beginRecording from './images/begain-recording.svg';
 import studyRoomAudioVideoDialog from './tutorHelpers/studyRoomSettingsDialog/studyRoomAudioVideoDialog/studyRoomAudioVideoDialog.vue'
@@ -245,14 +216,12 @@ export default {
     sbDialog,
     whiteBoardTools,
     startEndSessionBtn,
-    endSessionConfirm,
     browserSupport,
     studyRoomSettingsDialog,
     codeEditorTools,
     intercomSVG,
     errorWithAudioRecording,
     studentConsentDialog,
-    snapshotDialog,
     stopRecording,
     beginRecording,
     studyRoomAudioVideoDialog
@@ -302,11 +271,9 @@ export default {
       "getZoom",
       "getPanX",
       "getPanY",
-      "getDialogRoomEnd",
       "accountUser",
       "getIsRecording",
       "getShowAudioRecordingError",
-      "getDialogSnapshot",
     ]),
     isRoomTutor(){
       return this.$store.getters.getRoomIsTutor;
@@ -357,10 +324,8 @@ watch: {
       "updateLockChat",
       "closeChat",
       "openChatInterface",
-      "updateEndDialog",
       "setShowAudioRecordingError",
       "updateDialogUserConsent",
-      "updateDialogSnapshot",
       "openChat"
     ]),
     handleNeedPayment(needPayment){
@@ -404,9 +369,6 @@ watch: {
     openSettingsDialog(){
       this.$ga.event("tutoringRoom", "openSettingsDialog");
       this.settingDialogState = true;
-    },
-    closeEndDialog() {
-      this.updateEndDialog(false);
     },
     closeShowAudioRecordingError(){
       this.setShowAudioRecordingError(false);
@@ -486,9 +448,6 @@ watch: {
     },
     closeUserConsentDialog(){
       this.updateDialogUserConsent(false);
-    },
-    closeSnapshotDialog(){
-      this.updateDialogSnapshot(false);
     },
     isBrowserSupport(){
       let agent = navigator.userAgent;

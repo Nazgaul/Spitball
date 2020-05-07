@@ -9,17 +9,27 @@
       <whiteBoardTabs/>
     </div>
     </v-slide-y-transition>
+      <v-dialog 
+         v-model="$store.getters.getDialogSnapshot" 
+         max-width="800px"
+         content-class="studyroom-snapshot-dialog"
+         :transition="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
+         :persistent="$vuetify.breakpoint.smAndUp">
+         <snapshotDialog/>
+      </v-dialog>   
   </v-sheet>
 </template>
 <script>
 import whiteBoard from  "./../../whiteboard/WhiteBoard.vue"
 import whiteBoardFloatingTools from './whiteBoardFloatingTools.vue'
 import whiteBoardTabs from './whiteBoardTabs.vue';
+import snapshotDialog from '../../tutorHelpers/snapshotDialog/snapshotDialog.vue';
 export default {
   components : {
     whiteBoard,
     whiteBoardFloatingTools,
-    whiteBoardTabs
+    whiteBoardTabs,
+    snapshotDialog
   },
   methods: {
     initMathjax(){
