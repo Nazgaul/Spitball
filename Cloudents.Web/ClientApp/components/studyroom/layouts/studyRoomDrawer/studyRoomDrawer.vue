@@ -44,6 +44,14 @@ export default {
          return this.$store.getters.getActiveNavEditor !== 'class-screen'
       },
    },
+   watch: {
+      drawerExtend:{
+         immediate:true,
+         handler(newVal){
+            this.$emit('drawerExtendChanged',newVal)
+         }
+      }
+   },
 }
 </script>
 

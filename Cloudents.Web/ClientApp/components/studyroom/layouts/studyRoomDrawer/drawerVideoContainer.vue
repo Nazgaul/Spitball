@@ -43,7 +43,7 @@ export default {
       return {
          elementId: 'tutorVideoDrawer',
          tutorAudio: null,
-        tutorVideo: null,
+         tutorVideo: null,
       }
    },
    props:{

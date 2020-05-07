@@ -1,11 +1,12 @@
 <template>
   <div class="studyRoom">
-    <studyRoomDrawer/>
+    <studyRoomDrawer @drawerExtendChanged="(val)=> isDrawerExtendReference = val"/>
     <studyRoomHeader/>
     <v-content>
       <component style="height:100%" :is="activeWindow"></component>
     </v-content>
-    <studyRoomFooter v-if="isShowFooter"/>
+    <studyRoomFooter v-if="isShowFooter" @footerExtendChanged="(val)=> isFooterExtendReference = val"/>
+    <floatingVideoContainer v-if="!isRoomTutor" :isShowFloatingVideo="isShowFloatingVideo" :isFooter="isFooterExtendReference"></floatingVideoContainer>
     <studyRoomSettingsDialog v-if="id && !isRoomActive"/>
   </div>
 </template>
@@ -23,10 +24,13 @@ const codeEditor = () => import("./codeEditor/codeEditor.vue");
 const sharedDocument = () => import("./sharedDocument/sharedDocument.vue");
 const classMode = () => import('./windows/class/classRoom.vue');
 const classScreen = () => import('./windows/class/classFullScreen.vue');
+import floatingVideoContainer from './layouts/studyRoomDrawer/floatingVideoContainer.vue';
 export default {
   data() {
     return {
-      id: this.$route.params.id
+      id: this.$route.params.id,
+      isDrawerExtendReference:true,
+      isFooterExtendReference:true,
     }
   },
   components: {
@@ -40,23 +44,35 @@ export default {
     classMode,
     classScreen,
 
+    floatingVideoContainer,
     studyRoomSettingsDialog,
   },
   computed: {
     ...mapGetters(['getRoomIsNeedPayment']),
+    isShowFloatingVideo(){
+      return !this.isDrawerExtendReference && this.currentEditor !== 'class-screen';
+    },
+    isFooter(){
+      return this.isFooterExtendReference;
+    },
     activeWindow(){
       if(this.$store.getters.getActiveNavEditor === 'white-board'){
         return 'canvasWrap'
       }
       return this.$store.getters.getActiveNavEditor
     },
+    currentEditor(){
+      return this.$store.getters.getActiveNavEditor 
+    },
     isShowFooter(){
-      let currentEditor = this.$store.getters.getActiveNavEditor 
-      return currentEditor !== 'class-mode' && currentEditor !== 'class-screen'
+      return this.currentEditor !== 'class-mode' && this.currentEditor !== 'class-screen'
     },
     isRoomActive(){
       return this.$store.getters.getRoomIsActive;
     },
+    isRoomTutor(){
+      return this.$store.getters.getRoomIsTutor;
+    }
   },
   watch: {
     getRoomIsNeedPayment:{

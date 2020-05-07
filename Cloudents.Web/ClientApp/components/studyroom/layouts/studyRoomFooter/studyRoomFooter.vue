@@ -42,6 +42,14 @@ export default {
          return this.$store.getters.getRoomParticipants
       }
    },
+   watch: {
+      footerExtend:{
+         immediate:true,
+         handler(newVal){
+            this.$emit('footerExtendChanged',newVal)
+         }
+      }
+   },
 }
 </script>
 
