@@ -19,8 +19,25 @@
             </v-col>
             <v-col cols="6" sm="3" class="pa-0 pl-sm-4">
                 <!-- :placeholder="$t('upload_uf_price')" -->
+                <v-combobox
+                    v-model="currentPrice"
+                    v-if="true"
+                    :items="currentPriceItems"
+                    :rules="[rules.required]"
+                    :label="$t('upload_file_price_label')"
+                    :append-icon="'sbf-menu-down'"
+                    placeholder=" "
+                    color="#4c59ff"
+                    height="44"
+                    autocomplete="abcd"
+                    hide-no-data
+                    outlined
+                    dense
+                >
+                </v-combobox>
                 <v-text-field
                     v-model="priceForAll"
+                    v-else
                     type="number"
                     :rules="[rules.required,rules.integer,rules.maximum,rules.minimum]"
                     :label="$t('upload_label_price')"
@@ -68,6 +85,11 @@ export default {
             priceForAll: '',
             fileItems: this.getFileData(),
             courseForAll:'',
+            currentPrice: '',
+            currentPriceItems: [
+                { text: this.$t('upload_free_all'), value: 'free' },
+                { text: this.$t('upload_subscriber_only'), value: 'subscriber' }
+            ],
             rules: {
                 required: (value) => validationRules.required(value),
                 matchCourse:() => ((   

@@ -53,6 +53,7 @@
             <v-col cols="12" sm="3" class="pa-0" order="3" order-sm="4">
                 <v-combobox
                     v-model="currentPrice"
+                    v-if="true"
                     :items="currentPriceItems"
                     :rules="[rules.required]"
                     :label="$t('upload_file_price_label')"
@@ -66,10 +67,11 @@
                     dense
                 >
                 </v-combobox>
-                <!-- <v-text-field class="uf_price pt-1"
-                    :rules="[rules.integer,rules.maximum,rules.minimum]"
-                    type="number"
+                <v-text-field class="uf_price pt-1"
                     v-model="item.price" 
+                    v-else
+                    type="number"
+                    :rules="[rules.integer,rules.maximum,rules.minimum]"
                     :placeholder="$t('upload_uf_price')"
                     :suffix="item.price ? $t('upload_uf_price_pts') : ''"
                     color="#4c59ff"
@@ -77,7 +79,7 @@
                     outlined
                     dense
                 >
-                </v-text-field> -->
+                </v-text-field>
             </v-col>
         </v-row>
     </v-card>
