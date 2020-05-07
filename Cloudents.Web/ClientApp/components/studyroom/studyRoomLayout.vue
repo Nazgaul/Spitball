@@ -27,6 +27,7 @@ const classMode = () => import('./windows/class/classRoom.vue');
 const classScreen = () => import('./windows/class/classFullScreen.vue');
 import floatingVideoContainer from './layouts/studyRoomDrawer/floatingVideoContainer.vue';
 import studyRoomDialogs from './studyRoomDialogs.vue';
+import screenMode from './windows/shareScreen/shareScreen.vue';
 export default {
   data() {
     return {
@@ -45,6 +46,7 @@ export default {
     sharedDocument,
     classMode,
     classScreen,
+    screenMode,
 
     floatingVideoContainer,
     studyRoomSettingsDialog,

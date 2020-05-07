@@ -116,8 +116,7 @@ export default {
          this.$store.dispatch('updateActiveNavEditor',this.roomModes.CLASS_MODE)
       },
       setShareScreen() {
-         this.$store.dispatch('updateShareScreen',true)
-         // this.$store.dispatch('updateActiveNavEditor',this.roomModes.SCREEN_MODE)
+         this.$store.dispatch('updateActiveNavEditor',this.roomModes.SCREEN_MODE)
       },
       endSession() {
             this.$ga.event("tutoringRoom", "endSession");
@@ -159,7 +158,7 @@ export default {
          background: white;
          width: 130px;
          height: 50px;
-         margin-top: 7px;
+         margin-top: 8px;
          border-top-right-radius: 6px;
          border-top-left-radius: 6px;
          display: flex;

@@ -124,13 +124,21 @@ const mutations = {
    [studyRoom_SETTERS.ADD_ROOM_PARTICIPANT_TRACK]: (state, track) => {
       if(track.attach){
          let participantId = _getIdFromIdentity(track.identity);
-         state.roomParticipants[participantId][track.kind] = track;
+         if(track.name == 'screenTrack'){
+            state.roomParticipants[participantId].screen = track;
+         }else{
+            state.roomParticipants[participantId][track.kind] = track;
+         }
          state.roomParticipants = _newObjectPointer(state.roomParticipants)
       }
    },
    [studyRoom_SETTERS.DELETE_ROOM_PARTICIPANT_TRACK]: (state, track) => {
       let participantId = _getIdFromIdentity(track.identity);
-      state.roomParticipants[participantId][track.kind] = undefined;
+      if(track.name == 'screenTrack'){
+         state.roomParticipants[participantId].screen = undefined;
+      }else{
+         state.roomParticipants[participantId][track.kind] = undefined;
+      }
       state.roomParticipants = _newObjectPointer(state.roomParticipants)
    }
 }
@@ -176,9 +184,13 @@ const actions = {
          dispatch('updateActiveNavEditor',ROOM_MODE.CLASS_MODE)
       }
    },
-   updateFullScreen(context,participantId){
+   updateFullScreen(context,{participantId,trackType}){
       if(participantId){
-         context.dispatch('updateActiveNavEditor',ROOM_MODE.CLASS_SCREEN)
+         if(trackType == 'videoTrack'){
+            context.dispatch('updateActiveNavEditor',ROOM_MODE.CLASS_SCREEN)
+         }else{
+            context.dispatch('updateActiveNavEditor',ROOM_MODE.SCREEN_MODE)
+         }
       }
       // let className = 'fullscreenMode';
       // if(elId){

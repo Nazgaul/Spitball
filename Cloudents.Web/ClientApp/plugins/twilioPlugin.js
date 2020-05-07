@@ -31,7 +31,10 @@ function _changeState(localParticipant) {
    localParticipant.tracks.forEach((track) => {
       if(track.trackName === VIDEO_TRACK_NAME && STORE.getters.getIsFullScreen 
          || track.trackName === SCREEN_TRACK_NAME){
-         stuffToSend.fullScreen = localParticipant.identity.split('_')[0]
+         stuffToSend.fullScreen = {
+            participantId:localParticipant.identity.split('_')[0],
+            trackType: track.trackName
+         };
       }
    });
    // if(!STORE.getters.getRoomIsTutor) return;
@@ -313,9 +316,9 @@ export default () => {
                if(mutation.payload && !_localScreenTrack){ 
                   navigator.mediaDevices.getDisplayMedia({video:true,audio: false}).then(stream=>{
                      _localScreenTrack = new twillioClient.LocalVideoTrack(stream.getTracks()[0],{name:SCREEN_TRACK_NAME});
-                     if(_localVideoTrack){
-                        _unPublishTrack(_activeRoom,_localVideoTrack)
-                     }
+                     // if(_localVideoTrack){
+                     //    _unPublishTrack(_activeRoom,_localVideoTrack)
+                     // }
                      _publishTrack(_activeRoom,_localScreenTrack);
                      store.commit(twilio_SETTERS.VIDEO_AVAILABLE,true)
                      _localScreenTrack.on('stopped',(track)=>{
