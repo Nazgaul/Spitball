@@ -5,7 +5,7 @@
             <div class="uf-uploading-text">
                 <span class="uf-bold" v-t="'upload_uf-uploading'"></span>
                 <span v-t="'upload_uf-take-time'"></span>
-                <span>{{files[0].progress}}%</span>
+                <span>{{files[0].progress.toFixed(0)}}%</span>
             </div>
             <v-progress-linear color="success" v-model="files[0].progress"></v-progress-linear>
         </div>
@@ -184,7 +184,7 @@ export default {
         // regular upload methods
         inputFile(newFile, oldFile) {
             this.uploadStarted = true;
-
+debugger
             if(newFile) {
                 // Upload progress
                 if (newFile.progress === 100) {
