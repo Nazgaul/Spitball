@@ -31,7 +31,7 @@ namespace Cloudents.Command.CommandHandler
             var tutor = await _userRepository.LoadAsync(message.TutorId, token);
             if (tutor.Tutor?.State != ItemState.Ok)
             {
-                throw new InvalidOperationException("user is not a tutor");
+                throw new InvalidOperationException($"user is not a tutor {message.TutorId}");
             }
 
             var students = message.StudentsId.Select(s => _userRepository.Load(s)).ToList();
@@ -44,14 +44,24 @@ namespace Cloudents.Command.CommandHandler
                 tutor.AddFollowers(students);
             }
 
-            var documentName = $"{message.Name}-{Guid.NewGuid().ToString()}";
+            var documentName = $"{message.Name}-{Guid.NewGuid()}";
             var googleDocUrl = await _googleDocument.CreateOnlineDocAsync(documentName, token);
 
-            var studyRoom = new StudyRoom(tutor.Tutor, students, googleDocUrl,
-                message.Name, message.Price, message.BroadcastTime,message.Type);
-            await _studyRoomRepository.AddAsync(studyRoom, token);
-           
-            
+
+            StudyRoom studyRoom;
+            if (message.Type == StudyRoomType.Broadcast)
+            {
+                studyRoom = new BroadCastStudyRoom(tutor.Tutor, students, googleDocUrl,
+                   message.Name, message.Price, message.BroadcastTime!.Value, message.Description);
+                await _studyRoomRepository.AddAsync(studyRoom, token);
+            }
+            else
+            {
+                studyRoom = new PrivateStudyRoom(tutor.Tutor, students, googleDocUrl,
+                   message.Name, message.Price);
+                await _studyRoomRepository.AddAsync(studyRoom, token);
+            }
+
             return new CreateStudyRoomCommandResult(studyRoom.Id, studyRoom.Identifier);
         }
     }
