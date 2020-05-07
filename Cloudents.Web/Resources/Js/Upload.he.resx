@@ -156,6 +156,9 @@
   <data name="subscribers_only" xml:space="preserve">
     <value>מנויים בלבד</value>
   </data>
+  <data name="subscriber_only" xml:space="preserve">
+    <value>מנויים בלבד</value>
+  </data>
   <data name="uf-take-time" xml:space="preserve">
     <value>זה יכול לקחת קצת זמן</value>
   </data>

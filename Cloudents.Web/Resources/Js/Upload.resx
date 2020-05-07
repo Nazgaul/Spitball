@@ -216,4 +216,7 @@
   <data name="subscribers_only" xml:space="preserve">
     <value>Subscribers only</value>
   </data>
+  <data name="subscriber_only" xml:space="preserve">
+    <value>Subscribers only</value>
+  </data>
 </root>
