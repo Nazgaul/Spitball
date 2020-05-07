@@ -19,6 +19,7 @@ import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileItemsEmpty from './components/profileItemsEmpty/profileItemsEmpty.vue';
 import profileLiveClasses from './components/profileLiveClasses/profileLiveClasses.vue'
 import calendarTab from '../calendar/calendarTab.vue';
+import profileSubscription from './components/profileSubscription/profileSubscription.vue'
 import cover from "./components/cover.vue";
 
 
@@ -38,6 +39,7 @@ export default {
         profileItemsBox,
         profileItemsEmpty,
         profileLiveClasses,
+        profileSubscription,
         calendarTab,
         cover,
         sbDialog,

@@ -19,27 +19,15 @@
         class="mt-sm-12 mt-2 mx-auto calendarSection"
         :globalFunctions="globalFunctions"
       />
+      <profileSubscription :id="id" />
       <profileLiveClasses :id="id" v-if="isTutor" />
       <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" />
       <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" />
       <profileItemsBox v-if="isMyProfile || showItems" class="mt-sm-12 mt-2" />
       <profileEarnMoney class="mt-0 mt-sm-5" v-if="showEarnMoney" />
-      <!-- <profileItemsEmpty class="mt-0 mt-sm-5 mb-2 mb-sm-4" v-show="showItemsEmpty" /> REQUEST BY @IDAN1  -->
       <profileReviewsBox v-if="showReviewBox" class="mt-sm-10 mt-2" />
-      <!-- <profileUserStickyMobile
-        :globalFunctions="globalFunctions"
-        v-if="$vuetify.breakpoint.mdAndDown"
-      /> -->
     </div>
-    <!-- SIDE -->
-    <!-- <div :class="['profile-sticky',{'profileUserSticky_bannerActive':getBannerParams}]">
-          <profileUserSticky class="mb-2" :globalFunctions="globalFunctions" v-if="$vuetify.breakpoint.lgAndUp && !isTutorPending"/>
-          <shareContent 
-              :link="shareContentParams.link"
-              :twitter="shareContentParams.twitter"
-              :whatsApp="shareContentParams.whatsApp"
-              :email="shareContentParams.email" v-if="getProfile && $vuetify.breakpoint.lgAndUp"/>
-    </div>-->
+    
     <sb-dialog
       :onclosefn="closeCouponDialog"
       :activateOverlay="false"
