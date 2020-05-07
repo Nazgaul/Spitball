@@ -192,4 +192,28 @@
   <data name="uf-uploading" xml:space="preserve">
     <value>Uploading file(s). Please wait</value>
   </data>
+  <data name="file_course_label" xml:space="preserve">
+    <value>Course</value>
+  </data>
+  <data name="file_description_label" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="file_price_label" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="file_title_label" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="free_all" xml:space="preserve">
+    <value>Free</value>
+  </data>
+  <data name="label_course_name" xml:space="preserve">
+    <value>Course</value>
+  </data>
+  <data name="label_price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="subscribers_only" xml:space="preserve">
+    <value>Subscribers only</value>
+  </data>
 </root>
