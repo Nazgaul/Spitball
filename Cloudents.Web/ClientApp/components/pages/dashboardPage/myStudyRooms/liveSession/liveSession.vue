@@ -117,6 +117,7 @@
                         :rules="[rules.required,rules.minimum]"
                         :label="$t('becomeTutor_placeholder_price', {'0' : getSymbol})"
                         :placeholder="$t('becomeTutor_placeholder_price', {'0' : getSymbol})"
+                        dense
                         height="50"
                         hide-details
                         outlined
@@ -124,15 +125,15 @@
                 </v-text-field>
                 </v-col>
             </v-row>
-
-            <v-row class="align-center pa-0 ma-0">
+            <!-- TODO: BRING WHEN SUBSCRIPTION FEATURE ALIVE -->
+            <!--v-row class="align-center pa-0 ma-0">
                 <v-col cols="8" sm="4" class="pa-0">
                     <div class="priceTitle" v-t="'dashboardPage_subscription_price'"></div>
                 </v-col>
                 <v-col cols="4" sm="4" class="pa-0">
                     <div class="ml-4 ml-sm-0 priceSubscription" v-t="'dashboardPage_subscription_free'"></div>
                 </v-col>
-            </v-row>
+            </v-row-->
 
         </div>
     </div>

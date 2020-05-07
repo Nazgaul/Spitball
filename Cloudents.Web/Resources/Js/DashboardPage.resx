@@ -375,6 +375,6 @@
     <value>Set your price</value>
   </data>
   <data name="visitor_price" xml:space="preserve">
-    <value>Price for visitors</value>
+    <value>Price</value>
   </data>
 </root>
