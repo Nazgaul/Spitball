@@ -303,6 +303,21 @@
   <data name="study_materials_mobile" xml:space="preserve">
     <value>התוכן של {1}</value>
   </data>
+  <data name="subscribe_btn" xml:space="preserve">
+    <value>רכישת מינוי</value>
+  </data>
+  <data name="subscribe_no_contract" xml:space="preserve">
+    <value>ללא התחייבות, ניתן לבטל בכל זמן</value>
+  </data>
+  <data name="subscribe_price_month" xml:space="preserve">
+    <value>מחיר מנויים</value>
+  </data>
+  <data name="subscribe_subtitle" xml:space="preserve">
+    <value>קבלו גישה לכל התכנים</value>
+  </data>
+  <data name="subscribe_title" xml:space="preserve">
+    <value>רכישת מינוי</value>
+  </data>
   <data name="tutor_follower" xml:space="preserve">
     <value>עוקב | עוקבים</value>
   </data>
