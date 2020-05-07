@@ -310,7 +310,7 @@
     <value>ללא התחייבות, ניתן לבטל בכל זמן</value>
   </data>
   <data name="subscribe_price_month" xml:space="preserve">
-    <value>מחיר מנויים</value>
+    <value>/ לחודש</value>
   </data>
   <data name="subscribe_subtitle" xml:space="preserve">
     <value>גישה לכל התכנים של {0}</value>

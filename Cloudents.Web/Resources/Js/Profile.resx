@@ -322,7 +322,7 @@
     <value>Monthly, no contract - Cancel any time</value>
   </data>
   <data name="subscribe_price_month" xml:space="preserve">
-    <value>price per month</value>
+    <value>/ Month</value>
   </data>
   <data name="subscribe_subtitle" xml:space="preserve">
     <value>Get access to {0}'s all content</value>
