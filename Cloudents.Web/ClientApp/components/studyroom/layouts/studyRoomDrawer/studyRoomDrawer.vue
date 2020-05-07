@@ -122,7 +122,6 @@ export default {
             }
          }
       }
-      // position: relative;
       .collapseIcon {
          position: absolute;
          top: 20px;

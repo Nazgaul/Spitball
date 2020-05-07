@@ -37,24 +37,16 @@
          <v-icon>sbf-3-dot</v-icon>
          <!--Need to open record ( if avaible and setting)-->
       </v-btn>
-      <sb-dialog
-        :showDialog="getDialogRoomEnd"
-        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
-        :popUpType="'endSessionConfirm'"
-        :maxWidth="'356'"
-        :onclosefn="closeEndDialog"
-        :activateOverlay="false"
-        :isPersistent="$vuetify.breakpoint.smAndUp"
-        :content-class="'session-end-confirm'"
-      >
-        <endSessionConfirm :id="$route.params.id"></endSessionConfirm>
-      </sb-dialog>
-
+      <v-dialog v-model="getDialogRoomEnd" 
+                  max-width="356px"
+                  :persistent="$vuetify.breakpoint.smAndUp" 
+                  :transition="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'">
+         <endSessionConfirm/>
+      </v-dialog>    
    </v-app-bar>
 </template>
 
 <script>
-import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
 import endSessionConfirm from "../../tutorHelpers/endSessionConfirm/endSessionConfirm.vue";
 
 import logoComponent from "../../../app/logo/logo.vue";
@@ -63,7 +55,6 @@ export default {
    components:{
       logoComponent,
 
-      sbDialog,
       endSessionConfirm
    },
    computed: {
@@ -107,9 +98,6 @@ export default {
       }
    },
    methods: {
-      closeEndDialog(){
-         this.$store.dispatch('updateEndDialog',false)
-      },
       resetItems(){
          let isExit = confirm(this.$t("login_are_you_sure_you_want_to_exit"),)
          if(isExit){
