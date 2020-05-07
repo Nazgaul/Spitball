@@ -304,7 +304,7 @@
     <value>התוכן של {1}</value>
   </data>
   <data name="subscribe_btn" xml:space="preserve">
-    <value>רכישת מינוי</value>
+    <value>רכישה עכשיו</value>
   </data>
   <data name="subscribe_no_contract" xml:space="preserve">
     <value>ללא התחייבות, ניתן לבטל בכל זמן</value>
@@ -313,10 +313,10 @@
     <value>מחיר מנויים</value>
   </data>
   <data name="subscribe_subtitle" xml:space="preserve">
-    <value>קבלו גישה לכל התכנים</value>
+    <value>גישה לכל התכנים של {0}</value>
   </data>
   <data name="subscribe_title" xml:space="preserve">
-    <value>רכישת מינוי</value>
+    <value>רכוש מינוי וקבל</value>
   </data>
   <data name="tutor_follower" xml:space="preserve">
     <value>עוקב | עוקבים</value>
