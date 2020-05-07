@@ -11,10 +11,10 @@
             <v-col cols="2" class="pa-sm-4">
                 <div v-t="'profile_live_visitors_title'"></div>
             </v-col>
-            <v-col cols="2" class="subscribers pa-sm--4">
+            <v-col cols="2" class="subscribers pa-sm-4">
                 <div v-t="'profile_live_subscribers_title'"></div>
             </v-col>
-            <v-col cols="2" class="pa-sm--4"></v-col>
+            <v-col cols="2" class="pa-sm-4"></v-col>
         </v-row>
 
         <v-row v-for="(session, index) in liveSessionsList" :key="index" class="trRow text-center" dense>
