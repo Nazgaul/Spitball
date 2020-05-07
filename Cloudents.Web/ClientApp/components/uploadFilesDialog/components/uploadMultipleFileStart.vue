@@ -1,18 +1,18 @@
 <template>
     <div class="uf-sDrop-container mb-4 mx-4" :class="{'uf-sDrop-container-active': isDraggin}">
         <span v-if="isDraggin" class="uf-sDrop-drop" v-t="'upload_uf_sDrop_drop'"></span>
-        <div class="uf-uploading-container" v-if="!errorFile && uploadStarted">
+        <div v-if="!errorFile && uploadStarted" class="uf-uploading-container">
             <div class="uf-uploading-text">
                 <span class="uf-bold" v-t="'upload_uf-uploading'"></span>
                 <span v-t="'upload_uf-take-time'"></span>
-                <span>{{progress}}%</span>
+                <span>{{files[0].progress}}%</span>
             </div>
-            <v-progress-linear color="success" v-model="progress"></v-progress-linear>
+            <v-progress-linear color="success" v-model="files[0].progress"></v-progress-linear>
         </div>
         <div class="uf-upload-screen-container" v-show="!uploadStarted">
             <template v-if="!isDraggin && !isMobile">
-                <span class="uf-sDrop-title" v-t="'upload_uf_sDrop_title'"/>
-                <span class="uf-sDrop-or" v-t="'upload_uf_sDrop_or'"/>
+                <span class="uf-sDrop-title" v-t="'upload_uf_sDrop_title'"></span>
+                <span class="uf-sDrop-or" v-t="'upload_uf_sDrop_or'"></span>
             </template> 
 
             <div class="uf-sDrop-btns">   
@@ -30,26 +30,25 @@
                         <span v-t="'upload_uf_sDrop_btn_dropbox'"></span>
                     </v-btn>
                 </template>
-
+                
                 <file-upload
-                    style="top: unset;"
+                    v-model="files"
+                    ref="upload"
+                    @input-file="inputFile"
                     id="upload-input"
                     class="file-upload-cmp"
-                    ref="upload"
                     :drop="true"
-                    v-model="files"
                     :post-action="uploadUrl"
-                    chunk-enabled
+                    style="top: unset;"
                     :multiple="true"
-                    @input-file="inputFile"
+                    :chunk-enabled="true"
                     
                     :chunk="{
                         action: uploadUrl,
                         minSize: 1,
                         maxRetries: 5,
-                        handler: customUploadHandlerClass,
                         progress: progressHandler
-                        }">
+                    }">
                 </file-upload>
                 <v-btn v-if="!isDraggin" class="uf-sDrop-btn" color="white" depressed rounded sel="my_computer">
                     <v-icon v-html="isMobile ? 'sbf-phone' : 'sbf-pc'"></v-icon>
@@ -68,7 +67,7 @@ import analyticsService from '../../../services/analytics.service';
 import { LanguageService } from "../../../services/language/languageService";
 
 import FileUpload from 'vue-upload-component';
-import customChunkHandler from './customChunkHandler.js'
+// import customChunkHandler from './customChunkHandler.js'
 
 export default {
     name: "upload-step-1",
@@ -80,7 +79,7 @@ export default {
                 return {}
             },
             required: false
-        }
+        },
     },
     data() {
         return {
@@ -89,12 +88,11 @@ export default {
             dbReady: false,
             files: [],
             showErrorUpload: '',
-            uploadError: false,
             errorText: '',
             nextStepCalled: false,
             uploadStarted: false,
             progress: 0,
-            customUploadHandlerClass: customChunkHandler
+            // customUploadHandlerClass: customChunkHandler
         }
     },
     computed: {
@@ -178,7 +176,6 @@ export default {
         },
         progressHandler(progress){
             this.progress = progress;
-            console.log(progress);
             if(progress >= 100){
                 this.goToNextStep()
             }
@@ -187,28 +184,29 @@ export default {
         // regular upload methods
         inputFile(newFile, oldFile) {
             this.uploadStarted = true;
-            //happens once file is added and upload starts
-            if (newFile && !oldFile) {
-                this.addFile(newFile, oldFile)
-            }
-            
-            // Upload progress
-            if (newFile && newFile.progress) {
+
+            if(newFile) {
+                // Upload progress
                 if (newFile.progress === 100) {
                     this.stopUploadProgress(newFile)
                 }
-            }
-            // Upload error
-            if (newFile && oldFile && newFile.error !== oldFile.error) {
-                this.uploadingError(newFile, oldFile)
-            }
-            // Get response data
-            if (newFile && oldFile && !newFile.active && oldFile.active) {
-                this.getResponse(newFile, oldFile)
-            }
-            if (newFile && oldFile && newFile.success !== oldFile.success) {
-                if (this.$refs.upload.active) {
-                    this.goToNextStep()
+                // happens once file is added and upload starts
+                if (!oldFile) {
+                    this.addFile(newFile, oldFile)
+                } else {
+                    // Upload error
+                    if (newFile.error !== oldFile.error) {
+                        this.uploadingError(newFile, oldFile)
+                    }
+                    // Get response data
+                    if (!newFile.active && oldFile.active) {
+                        this.getResponse(newFile, oldFile)
+                    }
+                    if (newFile.success !== oldFile.success) {
+                        if (this.$refs.upload.active) {
+                            this.goToNextStep()
+                        }
+                    }
                 }
             }
             if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
@@ -227,7 +225,6 @@ export default {
             }
         },
         uploadingError(newFile) {
-            // let index = this.getFileData.findIndex((file) => file.id === newFile.id);
             let text = LanguageService.getValueByKey("upload_multiple_error_upload_something_wrong");
             this.errorText = newFile.response.Name ? newFile.response.Name["0"] : text;
             let fileErrorObj = {
@@ -235,7 +232,6 @@ export default {
                 id: newFile.id,
                 error: true
             };
-            this.uploadError = true;
             this.showErrorUpload = newFile.response.model[0];
             this.updateFileErrorById(fileErrorObj);
             // add this file is not bla bla bla
