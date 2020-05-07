@@ -120,6 +120,27 @@
   <data name="CreateOk" xml:space="preserve">
     <value>המסמך שלך עלה! תוכל לצפות בו בקרוב.</value>
   </data>
+  <data name="file_course_label" xml:space="preserve">
+    <value>קורס</value>
+  </data>
+  <data name="file_description_label" xml:space="preserve">
+    <value>תיאור</value>
+  </data>
+  <data name="file_price_label" xml:space="preserve">
+    <value>מחיר</value>
+  </data>
+  <data name="file_title_label" xml:space="preserve">
+    <value>כותרת</value>
+  </data>
+  <data name="free_all" xml:space="preserve">
+    <value>חינם</value>
+  </data>
+  <data name="label_course_name" xml:space="preserve">
+    <value>קורס</value>
+  </data>
+  <data name="label_price" xml:space="preserve">
+    <value>מחיר</value>
+  </data>
   <data name="multiple_error_extension_title" xml:space="preserve">
     <value>סוג קובץ הזה לא נתמך</value>
   </data>
@@ -131,6 +152,9 @@
   </data>
   <data name="multiple_select_course_placeholder" xml:space="preserve">
     <value>עבור איזה קורס?</value>
+  </data>
+  <data name="subscribers_only" xml:space="preserve">
+    <value>מנויים בלבד</value>
   </data>
   <data name="uf-take-time" xml:space="preserve">
     <value>זה יכול לקחת קצת זמן</value>
