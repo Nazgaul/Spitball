@@ -145,7 +145,7 @@
     <value>החדר נפתח</value>
   </data>
   <data name="studyRoom_create" xml:space="preserve">
-    <value> צור חדר לימוד</value>
+    <value> צור חדר לימוד פרטני</value>
   </data>
   <data name="studyRoom_enter" xml:space="preserve">
     <value> כניסה לחדר לימוד</value>

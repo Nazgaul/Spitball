@@ -36,33 +36,36 @@ namespace Cloudents.Query.Tutor
                 UserStudyRoomDto? resultAlias = null!;
 
                 //TODO we can do it in linq
-                var detachedQuery = QueryOver.Of<StudyRoom>(()=> studyRoomAlias)
+                var detachedQuery = QueryOver.Of(()=> studyRoomAlias)
                     .Left.JoinAlias(x => x.Users, () => studyRoomUser)
                     .Where(() => studyRoomUser.User.Id == query.UserId || studyRoomAlias.Tutor.Id == query.UserId)
                     .Select(s => s.Id);
 
                 return await _session.QueryOver(() => studyRoomAlias)
                     .WithSubquery.WhereProperty(x => x.Id).In(detachedQuery)
-                    .Where(w=>w.BroadcastTime.IfNull(DateTime.UtcNow.AddDays(1)) > DateTime.UtcNow)
+                    .Where(w=>((BroadCastStudyRoom)w).BroadcastTime.IfNull(DateTime.UtcNow.AddDays(1)) > DateTime.UtcNow)
                     .SelectList(sl =>
                                 sl.Select(s => s.Id).WithAlias(() => resultAlias.Id)
                                 .Select(s=>s.Name).WithAlias(() => resultAlias.Name)
                                 .Select(s => s.DateTime.CreationTime).WithAlias(() => resultAlias.DateTime)
-                                .Select(s=>s.StudyRoomType).WithAlias(() => resultAlias.Type)
+                                .Select(s=> s.GetType()).WithAlias(() => resultAlias.Type)
+                                .Select(s=>((BroadCastStudyRoom)s).BroadcastTime).WithAlias(() => resultAlias.Scheduled)
                                 .Select(s => s.Identifier).WithAlias(() => resultAlias.ConversationId)
-                                    .SelectSubQuery(QueryOver.Of<StudyRoomSession>()
-                                        .Where(w=>w.StudyRoom.Id == studyRoomAlias.Id)
-                                        .OrderBy(x=>x.Created).Desc
-                                        .Select(s=>s.Created)
-                                        .Take(1)
-                                    ).WithAlias(() => resultAlias.LastSession)
+                                .SelectSubQuery(QueryOver.Of<StudyRoomSession>()
+                                    .Where(w=>w.StudyRoom.Id == studyRoomAlias.Id)
+                                    .OrderBy(x=>x.Created).Desc
+                                    .Select(s=>s.Created)
+                                    .Take(1)
+                                ).WithAlias(() => resultAlias.LastSession)
+                                .SelectSubQuery(QueryOver.Of<StudyRoomUser>()
+                                    .Where(w=>w.Room.Id == studyRoomAlias.Id)
+                                    .ToRowCountQuery()).WithAlias(() => resultAlias.AmountOfUsers)
+                                
                                
                     )
-                    .OrderBy(Projections.SqlFunction("COALESCE", NHibernateUtil.Object,
-                        Projections.Property(() => studyRoomAlias.DateTime.UpdateTime),
-                        Projections.Property(() => studyRoomAlias.DateTime.CreationTime))).Desc
-                    //TODO on nhibernate 5.3 need to fix.
-                    .TransformUsing(Transformers.AliasToBean<UserStudyRoomDto>())
+                    .OrderBy(()=> studyRoomAlias.DateTime.CreationTime).Desc
+                    //.TransformUsing(Transformers.AliasToBean<UserStudyRoomDto>())
+                    .TransformUsing(new SbAliasToBeanResultTransformer<UserStudyRoomDto>())
                     .UnderlyingCriteria.SetComment(nameof(UserStudyRoomQuery))
                     .ListAsync<UserStudyRoomDto>(token);
 

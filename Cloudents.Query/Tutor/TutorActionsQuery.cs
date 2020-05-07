@@ -38,11 +38,7 @@ namespace Cloudents.Query.Tutor
                     .Take(1)
                     .ToFutureValue();
 
-                //StudyRoom studyRoomAlias = null;
-                //StudyRoomUser studyRoomUserAlias = null;
-                //User userAlias = null;
-                //Core.Entities.Tutor tutorAlias = null;
-                //AdminTutor adminTutorAlias = null;
+    
 
                 var bookedSessionFuture = _session.Query<StudyRoomUser>()
                     .Fetch(f => f.Room)
@@ -52,16 +48,7 @@ namespace Cloudents.Query.Tutor
                     .ToFutureValue();
                 
 
-                //var bookedSessionFuture = _session.QueryOver(() => studyRoomAlias)
-                //   .JoinAlias(f => f.Users, () => studyRoomUserAlias)
-                //   .JoinEntityAlias(() => userAlias, () => userAlias.Id == studyRoomUserAlias.User.Id)
-                //   .JoinEntityAlias(() => tutorAlias, () => studyRoomAlias.Tutor.Id == tutorAlias.Id)
-                //   .JoinEntityAlias(() => adminTutorAlias, () => tutorAlias.Id == adminTutorAlias.Tutor.Id)
-                //    .Where(w => userAlias.Id == query.UserId)
-                //    .Where(w => adminTutorAlias.Id != null)
-                //    .Select(s => s.Id)
-                //    .Take(1)
-                //    .FutureValue<Guid?>();
+
 
                 var calendarShared = await calendarFuture.GetValueAsync(token) != null;
                 var haveHours = await hoursFuture.GetValueAsync(token) != null;

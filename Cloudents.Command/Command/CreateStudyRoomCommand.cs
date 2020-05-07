@@ -8,7 +8,7 @@ namespace Cloudents.Command.Command
     public class CreateStudyRoomCommand : ICommand
     {
         public CreateStudyRoomCommand(long tutorId, IEnumerable<long>? studentsId, string textMessage,
-            string name, decimal price, DateTime? broadcastTime, StudyRoomType type)
+            string name, decimal price, DateTime? broadcastTime, StudyRoomType type, string? description)
         {
             TutorId = tutorId;
             StudentsId = studentsId ?? Enumerable.Empty<long>();
@@ -17,6 +17,7 @@ namespace Cloudents.Command.Command
             Price = price;
             BroadcastTime = broadcastTime;
             Type = type;
+            Description = description;
         }
 
         public long TutorId { get; }
@@ -30,6 +31,7 @@ namespace Cloudents.Command.Command
         public DateTime? BroadcastTime { get; }
 
         public StudyRoomType Type { get; }
+        public string? Description { get; }
     }
 
     public class CreateStudyRoomCommandResult : ICommandResult

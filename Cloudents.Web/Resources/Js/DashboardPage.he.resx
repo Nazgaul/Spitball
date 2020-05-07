@@ -132,20 +132,29 @@
   <data name="course" xml:space="preserve">
     <value>קורס:</value>
   </data>
+  <data name="create_broadcast" xml:space="preserve">
+    <value>צור שידור חי</value>
+  </data>
+  <data name="create_private" xml:space="preserve">
+    <value>צור חדר לימוד פרטני</value>
+  </data>
   <data name="create_room_created_error" xml:space="preserve">
     <value>חדר לימוד זה כבר קיים</value>
   </data>
   <data name="create_room_create_btn" xml:space="preserve">
-    <value>יצירת חדר לימוד</value>
+    <value>צור חדר לימוד פרטני</value>
   </data>
   <data name="create_room_empty_error" xml:space="preserve">
     <value>לא נבחר אף סטודנט</value>
   </data>
   <data name="create_room_label" xml:space="preserve">
-    <value>שם חדר הלימוד</value>
+    <value>תן שם</value>
   </data>
   <data name="create_room_label_broadcast" xml:space="preserve">
     <value>שם החדר</value>
+  </data>
+  <data name="create_room_live_title" xml:space="preserve">
+    <value>לימוד בשידור חי</value>
   </data>
   <data name="create_room_max_error" xml:space="preserve">
     <value>מקסימום 4 סטודנטים בחדר לימוד</value>
@@ -153,8 +162,11 @@
   <data name="create_room_placeholder" xml:space="preserve">
     <value>שם</value>
   </data>
+  <data name="create_room_private_title" xml:space="preserve">
+    <value>צור חדר לימוד פרטני</value>
+  </data>
   <data name="create_room_title" xml:space="preserve">
-    <value>יצירת חדר לימוד חדש</value>
+    <value>לימוד פרטני</value>
   </data>
   <data name="date" xml:space="preserve">
     <value>תאריך</value>
@@ -174,6 +186,9 @@
   <data name="enter_room" xml:space="preserve">
     <value>כניסה לחדר</value>
   </data>
+  <data name="error_session_removed" xml:space="preserve">
+    <value>קרתה תקלה</value>
+  </data>
   <data name="info" xml:space="preserve">
     <value>מוצר
 </value>
@@ -181,14 +196,23 @@
   <data name="info_buy_points" xml:space="preserve">
     <value>רכישת נקודות</value>
   </data>
+  <data name="invite_students" xml:space="preserve">
+    <value>הזמינו תלמידים</value>
+  </data>
   <data name="joined" xml:space="preserve">
     <value>תאריך הצטרפות</value>
   </data>
   <data name="label_date" xml:space="preserve">
     <value>תאריך</value>
   </data>
+  <data name="label_live_title" xml:space="preserve">
+    <value>כותרת</value>
+  </data>
   <data name="label_minutes" xml:space="preserve">
     <value>דקות</value>
+  </data>
+  <data name="label_session_about" xml:space="preserve">
+    <value>סקירה כללית</value>
   </data>
   <data name="label_time" xml:space="preserve">
     <value>זמן</value>
@@ -201,6 +225,12 @@
   </data>
   <data name="likes" xml:space="preserve">
     <value>לייקים</value>
+  </data>
+  <data name="link_delete" xml:space="preserve">
+    <value>מחיקה</value>
+  </data>
+  <data name="link_share" xml:space="preserve">
+    <value>קישור</value>
   </data>
   <data name="link_studyroom" xml:space="preserve">
     <value>בדיקת חדר לימוד</value>
@@ -229,8 +259,11 @@
   <data name="my_sales_title" xml:space="preserve">
     <value>המכירות שלי</value>
   </data>
+  <data name="my_studyrooms_create_live" xml:space="preserve">
+    <value>לימוד בשידור חי</value>
+  </data>
   <data name="my_studyrooms_create_room" xml:space="preserve">
-    <value>צור חדר לימוד</value>
+    <value>לימוד פרטני</value>
   </data>
   <data name="name" xml:space="preserve">
     <value>שם</value>
@@ -277,6 +310,9 @@
   <data name="room_name" xml:space="preserve">
     <value>שם החדר:</value>
   </data>
+  <data name="scheduled" xml:space="preserve">
+    <value>תאריך שידור</value>
+  </data>
   <data name="send_email" xml:space="preserve">
     <value>שלח אימייל</value>
   </data>
@@ -292,8 +328,20 @@
   <data name="status" xml:space="preserve">
     <value>סטטוס</value>
   </data>
+  <data name="students" xml:space="preserve">
+    <value>מס' תלמידים</value>
+  </data>
   <data name="student_tutor" xml:space="preserve">
     <value>סטודנט / מורה פרטי</value>
+  </data>
+  <data name="subscription_free" xml:space="preserve">
+    <value>חינם</value>
+  </data>
+  <data name="subscription_price" xml:space="preserve">
+    <value>תעריף למנויים</value>
+  </data>
+  <data name="success_session_removed" xml:space="preserve">
+    <value>מחיקה בוצעה</value>
   </data>
   <data name="tutor_session" xml:space="preserve">
     <value>שיעור פרטי</value>
@@ -302,18 +350,27 @@
     <value>סוג</value>
   </data>
   <data name="type_broadcast" xml:space="preserve">
-    <value>ציבורי</value>
+    <value>שידור חי</value>
   </data>
   <data name="type_buy_points" xml:space="preserve">
     <value>נקודות</value>
   </data>
   <data name="type_private" xml:space="preserve">
-    <value>פרטי</value>
+    <value>פרטני</value>
   </data>
   <data name="video" xml:space="preserve">
     <value>וידאו</value>
   </data>
   <data name="views" xml:space="preserve">
     <value>צפיות</value>
+  </data>
+  <data name="visitors_free" xml:space="preserve">
+    <value>חינם</value>
+  </data>
+  <data name="visitors_set_price" xml:space="preserve">
+    <value>קבע מחיר</value>
+  </data>
+  <data name="visitor_price" xml:space="preserve">
+    <value>תעריף למבקרים</value>
   </data>
 </root>
