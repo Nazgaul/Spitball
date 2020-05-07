@@ -83,6 +83,7 @@ export default {
         }
         .noContract {
             color: @global-purple;
+            .responsive-property(font-size, 14px, null, 13px);
         }
     }
 }
