@@ -7,7 +7,7 @@
       <v-toolbar-title class="white--text">{{$t('studyRoom_live')}}</v-toolbar-title>
       <!-- <v-divider class="ml-3 divider" vertical inset color="white"></v-divider> -->
 
-      <v-btn-toggle v-if="isRoomTutor" mandatory :value="currentEditorMode" :ripple="false" active-class="editorActive"  borderless group class="editors">
+      <v-btn-toggle v-if="isRoomTutor" mandatory :value="getIsCurrentMode(currentEditorMode)" :ripple="false" active-class="editorActive"  borderless group class="editors">
          <v-btn v-for="(navTab, objectKey) in navTabs" :key="objectKey" 
                 :value="objectKey" text @click="actionHandler(objectKey)">
             <span><v-icon class="mr-2">{{navTab.icon}}</v-icon>{{navTab.text}}</span>
@@ -15,7 +15,10 @@
       </v-btn-toggle>
 
       <div v-else class="studentNavTab">
-         <v-icon class="mr-2" color="#4c59ff">{{navTabs[currentEditorMode].icon}}</v-icon>{{navTabs[currentEditorMode].text}}</span>
+         <v-icon class="mr-2" color="#4c59ff">
+            {{navTabs[getIsCurrentMode(currentEditorMode)].icon}}
+         </v-icon>
+         {{navTabs[getIsCurrentMode(currentEditorMode)].text}}
       </div>
 
       <v-spacer></v-spacer>
@@ -54,7 +57,6 @@ import { mapGetters } from 'vuex';
 export default {
    components:{
       logoComponent,
-
       endSessionConfirm
    },
    computed: {
@@ -71,10 +73,6 @@ export default {
       navTabs(){
          return {
             [this.roomModes.CLASS_MODE]:{
-               icon:'sbf-class',
-               text: this.$t('studyRoom_nav_class')
-            },
-            [this.roomModes.CLASS_SCREEN]:{
                icon:'sbf-class',
                text: this.$t('studyRoom_nav_class')
             },
@@ -117,9 +115,6 @@ export default {
       setClass() {
          this.$store.dispatch('updateActiveNavEditor',this.roomModes.CLASS_MODE)
       },
-      setClassScreen() {
-         this.$store.dispatch('updateActiveNavEditor',this.roomModes.CLASS_SCREEN)
-      },
       setShareScreen() {
          this.$store.dispatch('updateShareScreen',true)
          // this.$store.dispatch('updateActiveNavEditor',this.roomModes.SCREEN_MODE)
@@ -134,13 +129,19 @@ export default {
             [this.roomModes.TEXT_EDITOR]:this.setTextEditor,
             [this.roomModes.CODE_EDITOR]:this.setCodeEditor,
             [this.roomModes.CLASS_MODE]:this.setClass,
-            [this.roomModes.CLASS_SCREEN]:this.setClassScreen,
             [this.roomModes.SCREEN_MODE]:this.setShareScreen,
          }
          actionsOptions[editorType]()
       },
       muteAll(){
          this.$store.dispatch('updateToggleAudioParticipants')
+      },
+      getIsCurrentMode(modeName){
+         if(modeName == this.roomModes.CLASS_SCREEN){
+            return this.roomModes.CLASS_MODE
+         }else{
+            return modeName
+         }
       }
    },
 }

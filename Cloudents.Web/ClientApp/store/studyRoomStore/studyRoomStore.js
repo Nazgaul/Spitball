@@ -173,7 +173,7 @@ const actions = {
       if(val){
          dispatch('updateActiveNavEditor',ROOM_MODE.CLASS_SCREEN)
       }else{
-         dispatch('updateActiveNavEditor',ROOM_MODE.WHITE_BOARD)
+         dispatch('updateActiveNavEditor',ROOM_MODE.CLASS_MODE)
       }
    },
    updateFullScreen(context,participantId){

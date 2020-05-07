@@ -4,14 +4,16 @@
       <div class="videoLiner"></div>
       <div class="drawerVideoTools" v-if="isRoomTutor">
          <div class="drawerVideoBtns">
-            <v-tooltip top>
-               <template v-slot:activator="{ on }">
-                  <v-btn v-on="on" icon class="fullScreenBtn" text @click="openFullScreen">
-                     <v-icon size="22" class="ml-1" color="white">sbf-exp</v-icon>
-                  </v-btn>
-               </template>
-               <span v-text="$t('tutor_tooltip_fullscreen')"/>
-            </v-tooltip>
+            <template v-if="isClassMode">
+               <v-tooltip top>
+                  <template v-slot:activator="{ on }">
+                     <v-btn v-on="on" icon class="fullScreenBtn" text @click="openFullScreen">
+                        <v-icon size="22" class="ml-1" color="white">sbf-exp</v-icon>
+                     </v-btn>
+                  </template>
+                  <span v-text="$t('tutor_tooltip_fullscreen')"/>
+               </v-tooltip>
+            </template>
             <v-tooltip top>
                <template v-slot:activator="{ on }">
                   <v-btn v-on="on" :class="['drawerControlsBtn',{'btnIgnore':!isVideoActive}]" icon @click="toggleVideo" sel="video_enabling">
@@ -157,6 +159,9 @@ export default {
       isAudioActive() {
          return this.$store.getters.getIsAudioActive;
       },
+      isClassMode(){
+         return this.$store.getters.getActiveNavEditor == this.$store.getters.getRoomModeConsts.CLASS_MODE;
+      }
    },
 
 }
