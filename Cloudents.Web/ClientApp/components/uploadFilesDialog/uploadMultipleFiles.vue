@@ -1,7 +1,7 @@
 <template>
     <v-dialog :value="true" persistent :maxWidth="'718'" :fullscreen="$vuetify.breakpoint.xsOnly" :content-class="'upload-dialog'">
         <v-flex xs12>
-            <v-icon v-closeDialog class="uf-close" v-html="'sbf-close'" />
+            <v-icon @click="closeUpload" class="uf-close" v-html="'sbf-close'"></v-icon>
             <v-card class="uf-main elevation-0">
                 <v-stepper class="uf-mStepper elevation-0" v-model="currentStep">
                     
