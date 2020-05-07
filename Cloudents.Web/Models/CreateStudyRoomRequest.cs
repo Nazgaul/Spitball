@@ -42,5 +42,12 @@ namespace Cloudents.Web.Models
                     new[] { nameof(Name) });
             }
         }
+
+        public string? Description { get; set; }
+        
     }
+
+   
+
+   
 }

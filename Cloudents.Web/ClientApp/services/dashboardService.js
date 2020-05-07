@@ -60,6 +60,8 @@ const Item = {
       this.lastSession = objInit.lastSession;
       this.name = objInit.name;
       this.date = objInit.dateTime;
+      this.students = objInit.amountOfUsers;
+      this.scheduled = objInit.scheduled;
       this.type = objInit.type;
       this.showChat = this.type ==='Private';
    },
@@ -193,6 +195,9 @@ function getSpitballBlogs(){
 function getMarketingBlogs() {
    return connectivityModule.http.get('/blog/marketing').then(createBlogs).catch(ex => ex);
 }
+function removeStudyRoomSession(id) {
+   return connectivityModule.http.delete(`/StudyRoom/${id}`);
+}
 
 
 export default {
@@ -205,5 +210,6 @@ export default {
    getFollowersItems,
    getTutorActions,
    getSpitballBlogs,
-   getMarketingBlogs
+   getMarketingBlogs,
+   removeStudyRoomSession
 }

@@ -24,18 +24,18 @@ namespace Cloudents.Command.StudyRooms
             var studyRoom = await _studyRoomRepository.GetAsync(message.StudyRoomId, token);
             if (studyRoom == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(message.StudyRoomId), message.StudyRoomId.ToString());
             }
 
-            if (studyRoom.StudyRoomType == StudyRoomType.Private)
-            {
-                if (studyRoom.Tutor.User.Id == message.UserId)
-                {
-                    return;
-                }
-                var _ = studyRoom.Users.AsQueryable().Single(s => s.User.Id == message.UserId);
-                return;
-            }
+            //if (studyRoom.StudyRoomType == StudyRoomType.Private)
+            //{
+            //    if (studyRoom.Tutor.User.Id == message.UserId)
+            //    {
+            //        return;
+            //    }
+            //    var _ = studyRoom.Users.AsQueryable().Single(s => s.User.Id == message.UserId);
+            //    return;
+            //}
 
             var user = await _userRepository.LoadAsync(message.UserId, token);
             studyRoom.AddUserToStudyRoom(user);

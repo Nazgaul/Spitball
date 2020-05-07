@@ -132,6 +132,12 @@
   <data name="course" xml:space="preserve">
     <value>Course:</value>
   </data>
+  <data name="create_broadcast" xml:space="preserve">
+    <value>Create Live Broadcast</value>
+  </data>
+  <data name="create_private" xml:space="preserve">
+    <value>Create Study Room</value>
+  </data>
   <data name="create_room_created_error" xml:space="preserve">
     <value>This study room already exists</value>
   </data>
@@ -147,11 +153,17 @@
   <data name="create_room_label_broadcast" xml:space="preserve">
     <value>Room's name</value>
   </data>
+  <data name="create_room_live_title" xml:space="preserve">
+    <value>Create New Live Session</value>
+  </data>
   <data name="create_room_max_error" xml:space="preserve">
     <value>Maximum 4 students on a study room</value>
   </data>
   <data name="create_room_placeholder" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="create_room_private_title" xml:space="preserve">
+    <value>Create New Study Room</value>
   </data>
   <data name="create_room_title" xml:space="preserve">
     <value>Create a new study room</value>
@@ -177,6 +189,9 @@
   <data name="enter_room" xml:space="preserve">
     <value>Enter the room</value>
   </data>
+  <data name="error_session_removed" xml:space="preserve">
+    <value>An error occured</value>
+  </data>
   <data name="info" xml:space="preserve">
     <value>Product
 </value>
@@ -184,14 +199,23 @@
   <data name="info_buy_points" xml:space="preserve">
     <value>Points purchase</value>
   </data>
+  <data name="invite_students" xml:space="preserve">
+    <value>Invite students to the room</value>
+  </data>
   <data name="joined" xml:space="preserve">
     <value>Joined</value>
   </data>
   <data name="label_date" xml:space="preserve">
     <value>Date</value>
   </data>
+  <data name="label_live_title" xml:space="preserve">
+    <value>Live session title</value>
+  </data>
   <data name="label_minutes" xml:space="preserve">
     <value>Minutes</value>
+  </data>
+  <data name="label_session_about" xml:space="preserve">
+    <value>What is the session about?</value>
   </data>
   <data name="label_time" xml:space="preserve">
     <value>Time</value>
@@ -204,6 +228,12 @@
   </data>
   <data name="likes" xml:space="preserve">
     <value>Likes</value>
+  </data>
+  <data name="link_delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="link_share" xml:space="preserve">
+    <value>Share</value>
   </data>
   <data name="link_studyroom" xml:space="preserve">
     <value>Test study room</value>
@@ -232,6 +262,9 @@
   <data name="my_sales_title" xml:space="preserve">
     <value>My Sales</value>
   </data>
+  <data name="my_studyrooms_create_live" xml:space="preserve">
+    <value>Schedule a Live Broadcast</value>
+  </data>
   <data name="my_studyrooms_create_room" xml:space="preserve">
     <value>Create Study Room</value>
   </data>
@@ -255,7 +288,7 @@
  your {2}</value>
   </data>
   <data name="pick_time_error" xml:space="preserve">
-    <value>Time selected should be on the future</value>
+    <value>Schedule a future date</value>
   </data>
   <data name="placeholder_studyRoom_type" xml:space="preserve">
     <value>Study room type</value>
@@ -281,6 +314,9 @@
   <data name="room_name" xml:space="preserve">
     <value>Room name:</value>
   </data>
+  <data name="scheduled" xml:space="preserve">
+    <value>Scheduled</value>
+  </data>
   <data name="send_email" xml:space="preserve">
     <value>send email</value>
   </data>
@@ -296,8 +332,20 @@
   <data name="status" xml:space="preserve">
     <value>Status</value>
   </data>
+  <data name="students" xml:space="preserve">
+    <value>Students</value>
+  </data>
   <data name="student_tutor" xml:space="preserve">
     <value>Student / tutor</value>
+  </data>
+  <data name="subscription_free" xml:space="preserve">
+    <value>Free</value>
+  </data>
+  <data name="subscription_price" xml:space="preserve">
+    <value>Price for subscription</value>
+  </data>
+  <data name="success_session_removed" xml:space="preserve">
+    <value>Success: Session Deleted</value>
   </data>
   <data name="tutor_session" xml:space="preserve">
     <value>Tutoring Session</value>
@@ -319,5 +367,14 @@
   </data>
   <data name="views" xml:space="preserve">
     <value>Views</value>
+  </data>
+  <data name="visitors_free" xml:space="preserve">
+    <value>Free</value>
+  </data>
+  <data name="visitors_set_price" xml:space="preserve">
+    <value>Set your price</value>
+  </data>
+  <data name="visitor_price" xml:space="preserve">
+    <value>Price for visitors</value>
   </data>
 </root>
