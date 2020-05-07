@@ -1,35 +1,38 @@
 <template>
-   <v-app-bar height="62" app clipped-right color="#4c59ff" class="studyRoomHeader">
+   <v-app-bar height="62" app clipped-right color="#4c59ff" class="studyRoomHeader elevation-0">
       <a @click="resetItems()">
          <logoComponent/>
       </a>
       <div class="roundShape mr-2"></div>
       <v-toolbar-title class="white--text">{{$t('studyRoom_live')}}</v-toolbar-title>
-      <v-divider class="mx-6 divider" vertical inset color="white"></v-divider>
-      <v-btn-toggle mandatory :value="currentEditorMode" :ripple="false" active-class="editorActive"  borderless group class="editors">
-         <v-btn :value="roomModes.CLASS_MODE" text @click="actionHandler(roomModes.CLASS_MODE)">
-            <span><v-icon class="mr-2">sbf-class</v-icon>{{$t('studyRoom_nav_class')}}</span>
-         </v-btn>
-         <v-btn :value="roomModes.CLASS_SCREEN" text @click="actionHandler(roomModes.CLASS_SCREEN)">
-            <span><v-icon class="mr-2">sbf-class</v-icon>{{$t('studyRoom_nav_class')}} screen</span>
-         </v-btn>
-         <v-btn :value="roomModes.WHITE_BOARD" text @click="actionHandler(roomModes.WHITE_BOARD)">
-            <span><v-icon class="mr-2">sbf-whiteboard</v-icon>{{$t('studyRoom_nav_whiteboard')}}</span>
-         </v-btn>
-         <v-btn :value="roomModes.SCREEN_MODE" text @click="actionHandler(roomModes.SCREEN_MODE)">
-            <span><v-icon class="mr-2">sbf-shareScreen</v-icon>{{$t('studyRoom_nav_screen')}}</span>
-         </v-btn>
-         <v-btn :value="roomModes.TEXT_EDITOR" text @click="actionHandler(roomModes.TEXT_EDITOR)">
-            <span><v-icon class="mr-2">sbf-text</v-icon>{{$t('studyRoom_nav_text')}}</span>
-         </v-btn>
-         <v-btn :value="roomModes.CODE_EDITOR" text @click="actionHandler(roomModes.CODE_EDITOR)">
-            <span><v-icon class="mr-2">sbf-code</v-icon>{{$t('studyRoom_nav_code')}}</span>
+      <!-- <v-divider class="ml-3 divider" vertical inset color="white"></v-divider> -->
+
+      <v-btn-toggle v-if="isRoomTutor" mandatory :value="currentEditorMode" :ripple="false" active-class="editorActive"  borderless group class="editors">
+         <v-btn v-for="(navTab, objectKey) in navTabs" :key="objectKey" 
+                :value="objectKey" text @click="actionHandler(objectKey)">
+            <span><v-icon class="mr-2">{{navTab.icon}}</v-icon>{{navTab.text}}</span>
          </v-btn>
       </v-btn-toggle>
 
+      <div v-else class="studentNavTab">
+         <v-icon class="mr-2" color="#4c59ff">{{navTabs[currentEditorMode].icon}}</v-icon>{{navTabs[currentEditorMode].text}}</span>
+      </div>
+
       <v-spacer></v-spacer>
-      <v-btn v-if="isRoomTutor"  depressed class="ma-2" @click="MuteAll()">Mute All</v-btn>
-      <v-btn v-if="isRoomTutor" rounded depressed class="ma-2" @click="endSession()">End</v-btn>
+      <template v-if="isRoomTutor">
+         <v-btn text @click="muteAll()">
+            <div class="muteAllBtn">
+               <v-icon v-if="$store.getters.getIsAudioParticipants" size="16">sbf-microphone</v-icon>
+               <v-icon v-else size="16">sbf-mic-ignore</v-icon>
+               <span>{{$t($store.getters.getIsAudioParticipants?'tutor_mute_room':'tutor_unmute_room')}}</span>
+            </div>
+         </v-btn>
+         <v-btn class="endBtn" rounded depressed  @click="endSession()">
+            <div class="btnIcon"></div>
+            <span>{{$t('studyRoom_end')}}</span>
+         </v-btn>
+      </template>
+
       <v-btn icon>
          <v-icon>sbf-3-dot</v-icon>
          <!--Need to open record ( if avaible and setting)-->
@@ -73,6 +76,34 @@ export default {
       },
       currentEditorMode(){
          return this.$store.getters.getActiveNavEditor;
+      },
+      navTabs(){
+         return {
+            [this.roomModes.CLASS_MODE]:{
+               icon:'sbf-class',
+               text: this.$t('studyRoom_nav_class')
+            },
+            [this.roomModes.CLASS_SCREEN]:{
+               icon:'sbf-class',
+               text: this.$t('studyRoom_nav_class')
+            },
+            [this.roomModes.WHITE_BOARD]:{
+               icon:'sbf-whiteboard',
+               text: this.$t('studyRoom_nav_whiteboard')
+            },
+            [this.roomModes.SCREEN_MODE]:{
+               icon:'sbf-shareScreen',
+               text: this.$t('studyRoom_nav_screen')
+            },
+            [this.roomModes.TEXT_EDITOR]:{
+               icon:'sbf-text',
+               text: this.$t('studyRoom_nav_text')
+            },
+            [this.roomModes.CODE_EDITOR]:{
+               icon:'sbf-code',
+               text: this.$t('studyRoom_nav_code')
+            },
+         }
       }
    },
    methods: {
@@ -110,7 +141,6 @@ export default {
             this.$store.dispatch('updateEndDialog',true)
       },
       actionHandler(editorType){
-         // if(!this.isRoomTutor) return;
          let actionsOptions = {
             [this.roomModes.WHITE_BOARD]:this.setWhiteboard,
             [this.roomModes.TEXT_EDITOR]:this.setTextEditor,
@@ -120,6 +150,9 @@ export default {
             [this.roomModes.SCREEN_MODE]:this.setShareScreen,
          }
          actionsOptions[editorType]()
+      },
+      muteAll(){
+         this.$store.dispatch('updateToggleAudioParticipants')
       }
    },
 }
@@ -131,6 +164,47 @@ export default {
       }
       .logo {
          fill: #fff;
+      }
+      .studentNavTab{
+         margin-left: 26px;
+         background: white;
+         width: 130px;
+         height: 50px;
+         margin-top: 7px;
+         border-top-right-radius: 6px;
+         border-top-left-radius: 6px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         color: #4c59ff;
+         font-size: 12px;
+         font-weight: 600;
+      }
+      .muteAllBtn{
+         display: flex;
+         flex-direction: column;
+         color: white;
+         font-size: 12px;
+         margin-top: 2px;
+         font-weight: 600;
+         justify-content: space-between;
+         height: 36px;
+      }
+      .endBtn{
+         height: 36px;
+         border-radius: 18.5px;
+         padding: 0 18px;
+         color: #4c59ff;
+         font-size: 14px;
+         font-weight: 600;
+         .btnIcon{
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            margin-right: 12px;
+            margin-top: 2px;
+            background-color: #4c59ff;
+         }
       }
       .editors{
          button{

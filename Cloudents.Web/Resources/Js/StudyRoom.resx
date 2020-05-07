@@ -138,6 +138,9 @@
   <data name="created" xml:space="preserve">
     <value>Created on</value>
   </data>
+  <data name="end" xml:space="preserve">
+    <value>End</value>
+  </data>
   <data name="equation_btn" xml:space="preserve">
     <value>Add equation to the board</value>
   </data>
