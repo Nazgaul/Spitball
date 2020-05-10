@@ -33,7 +33,7 @@
           
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px; margin-left:30px;" vertical></v-divider>
 
-            <v-btn text icon @click="toggleRecord" class="recording_btn tutoringNavigationBtn" :ripple="false">
+            <!-- <v-btn text icon @click="toggleRecord" class="recording_btn tutoringNavigationBtn" :ripple="false">
               <span v-if="!getIsRecording" class="mt-1 d-flex">
                 <beginRecording class="white-btn mr-1"></beginRecording>
                 <span class="recording_btn_text" v-language:inner="'tutor_begain_recording'"></span>
@@ -42,23 +42,23 @@
                 <stopRecording class="mr-2"></stopRecording>
                 <span class="recording_btn_text" v-language:inner="'tutor_stop_recording'"></span>
               </span>
-            </v-btn>
+            </v-btn> -->
            
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px;" vertical></v-divider>
             
-            <div class="d-flex tutoringNavigationBtn">
+            <!-- <div class="d-flex tutoringNavigationBtn">
               <v-btn text icon @click="showIntercom" sel="help_draw">
                 <intercomSVG class="network-icon"/>
               </v-btn>
-            </div> 
+            </div>  -->
             
             
 
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px;" vertical></v-divider>
-            
-            <v-btn class="tutoringNavigationBtn" text icon @click="openSettingsDialog" sel="setting_draw">
+
+            <!-- <v-btn class="tutoringNavigationBtn" text icon @click="openSettingsDialog" sel="setting_draw">
               <v-icon class="white-btn">sbf-settings</v-icon>
-            </v-btn>
+            </v-btn> -->
             
           </div>
         </nav>
@@ -99,10 +99,6 @@
               >
                 <span v-language:inner>tutor_option_fullBoard</span>
               </v-btn>
-             
-                <!-- <v-flex xs6 > -->
-                 
-                <!-- </v-flex> -->
             </v-flex>
           </v-layout>
         </v-flex>
@@ -155,10 +151,10 @@
       >
           <studentConsentDialog></studentConsentDialog>
       </sb-dialog>
-      <studyRoomAudioVideoDialog
+      <!-- <studyRoomAudioVideoDialog
         v-if="settingDialogState"
         @closeAudioVideoSettingDialog="val => settingDialogState = val"
-      />
+      /> -->
       <studyRoomSettingsDialog v-if="id && !isRoomActive"/>
   </template>
 
@@ -186,20 +182,21 @@ import browserSupport from "./tutorHelpers/browserSupport/browserSupport.vue";
 import insightService from '../../services/insightService.js';
 import studyRoomSettingsDialog from "./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue";
 import intercomSVG from './images/icon-1-2.svg'
-import studyRoomRecordingService from './studyRoomRecordingService.js';
+// import studyRoomRecordingService from './studyRoomRecordingService.js';
 import errorWithAudioRecording from './tutorHelpers/errorWithAudioRecording/errorWithAudioRecording.vue';
 import studentConsentDialog from './tutorHelpers/studentConsentDialog/studentConsentDialog.vue';
-import stopRecording from './images/stop-recording.svg';
-import beginRecording from './images/begain-recording.svg';
-import studyRoomAudioVideoDialog from './tutorHelpers/studyRoomSettingsDialog/studyRoomAudioVideoDialog/studyRoomAudioVideoDialog.vue'
+// import stopRecording from './images/stop-recording.svg';
+// import beginRecording from './images/begain-recording.svg';
+// import studyRoomAudioVideoDialog from './tutorHelpers/studyRoomSettingsDialog/studyRoomAudioVideoDialog/studyRoomAudioVideoDialog.vue'
 
-import intercomSettings from '../../services/intercomService';
+// import intercomSettings from '../../services/intercomService';
+
 
 //store
 import storeService from "../../services/store/storeService";
 import tutoringCanvas from '../../store/studyRoomStore/tutoringCanvas.js';
 import codeEditor_store from '../../store/studyRoomStore/codeEditor_store.js';
-import roomRecording_store from '../../store/studyRoomStore/roomRecording_store.js';
+// import roomRecording_store from '../../store/studyRoomStore/roomRecording_store.js';
 
 import * as dialogNames from '../pages/global/dialogInjection/dialogNames.js';
 
@@ -222,14 +219,14 @@ export default {
     intercomSVG,
     errorWithAudioRecording,
     studentConsentDialog,
-    stopRecording,
-    beginRecording,
-    studyRoomAudioVideoDialog
+    // stopRecording,
+    // beginRecording,
+    // studyRoomAudioVideoDialog
   },
   name: "tutor",
   data() {
     return {
-      settingDialogState: false,
+      // settingDialogState: false,
       isBrowserSupportDialog:false,
       navs: [
         {
@@ -272,7 +269,7 @@ export default {
       "getPanX",
       "getPanY",
       "accountUser",
-      "getIsRecording",
+      // "getIsRecording",
       "getShowAudioRecordingError",
     ]),
     isRoomTutor(){
@@ -366,10 +363,10 @@ watch: {
     //       };
     //   });
     // },
-    openSettingsDialog(){
-      this.$ga.event("tutoringRoom", "openSettingsDialog");
-      this.settingDialogState = true;
-    },
+    // openSettingsDialog(){
+    //   this.$ga.event("tutoringRoom", "openSettingsDialog");
+    //   this.settingDialogState = true;
+    // },
     closeShowAudioRecordingError(){
       this.setShowAudioRecordingError(false);
     },
@@ -438,14 +435,14 @@ watch: {
         this.$router.push('/');
       }
     },
-    showIntercom(){
-      this.$ga.event("tutoringRoom", 'showIntercom');
-      intercomSettings.showDialog();
-    },
-    toggleRecord(){
-      this.$ga.event("tutoringRoom", 'toggleRecord');
-      studyRoomRecordingService.toggleRecord(this.isTutor);
-    },
+    // showIntercom(){
+    //   this.$ga.event("tutoringRoom", 'showIntercom');
+    //   intercomSettings.showDialog();
+    // },
+    // toggleRecord(){
+    //   this.$ga.event("tutoringRoom", 'toggleRecord');
+    //   studyRoomRecordingService.toggleRecord(this.isTutor);
+    // },
     closeUserConsentDialog(){
       this.updateDialogUserConsent(false);
     },
@@ -468,11 +465,11 @@ watch: {
     this.updateLockChat(false);
 
     storeService.unregisterModule(this.$store,'tutoringCanvas');
-    storeService.unregisterModule(this.$store,'roomRecording_store');
+    // storeService.unregisterModule(this.$store,'roomRecording_store');
     storeService.unregisterModule(this.$store,'codeEditor_store');
   },
   beforeCreate(){
-    storeService.registerModule(this.$store,'roomRecording_store',roomRecording_store);
+    // storeService.registerModule(this.$store,'roomRecording_store',roomRecording_store);
     storeService.registerModule(this.$store,'tutoringCanvas',tutoringCanvas);
     storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
   },

@@ -36,31 +36,64 @@
          </v-btn>
       </template>
 
-      <v-btn icon>
-         <v-icon>sbf-3-dot</v-icon>
-         <!--Need to open record ( if avaible and setting)-->
-      </v-btn>
-      <v-dialog v-model="getDialogRoomEnd" 
-                  max-width="356px"
+      <v-menu offset-y min-width="158" content-class="menuStudyRoom">
+         <template v-slot:activator="{ on }">
+            <v-btn icon>
+               <v-icon v-on="on">sbf-3-dot</v-icon>
+            </v-btn>
+         </template>
+     <v-list>
+        <v-list-item class="menuStudyRoomOption" @click="toggleRecord">
+           <template v-if="!getIsRecording">
+               <v-icon color="7a798c" class="mr-2" size="20">sbf-record</v-icon> 
+               {{$t('tutor_begain_recording')}}
+           </template>
+           <template v-else>
+               <v-icon color="7a798c" class="mr-2" size="20">sbf-record</v-icon> 
+               {{$t('tutor_stop_recording')}}
+           </template>
+
+        </v-list-item>
+        <v-list-item class="menuStudyRoomOption" sel="setting_draw" @click="openSettingsDialog">
+            <v-icon color="7a798c" class="mr-2" size="20">sbf-settings</v-icon> 
+            {{$t('studyRoom_menu_settings')}}
+        </v-list-item>
+        <v-list-item class="menuStudyRoomOption" sel="help_draw" @click="showIntercom">
+            <v-icon color="7a798c" class="mr-2" size="20">sbf-help-icon</v-icon> 
+            {{$t('studyRoom_menu_help')}}
+        </v-list-item>
+      </v-list>
+      </v-menu>
+      <v-dialog v-model="getDialogRoomEnd" max-width="356px"
                   :persistent="$vuetify.breakpoint.smAndUp" 
                   :transition="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'">
          <endSessionConfirm/>
       </v-dialog>    
+         <studyRoomAudioVideoDialog v-if="settingDialogState"
+        @closeAudioVideoSettingDialog="val => settingDialogState = val"/>
    </v-app-bar>
 </template>
 
 <script>
 import endSessionConfirm from "../../tutorHelpers/endSessionConfirm/endSessionConfirm.vue";
-
+import studyRoomRecordingService from '../../studyRoomRecordingService.js';
+import intercomSettings from '../../../../services/intercomService';
+import studyRoomAudioVideoDialog from '../../tutorHelpers/studyRoomSettingsDialog/studyRoomAudioVideoDialog/studyRoomAudioVideoDialog.vue';
 import logoComponent from "../../../app/logo/logo.vue";
 import { mapGetters } from 'vuex';
 export default {
+   data() {
+      return {
+         settingDialogState:false,
+      }
+   },
    components:{
       logoComponent,
-      endSessionConfirm
+      endSessionConfirm,
+      studyRoomAudioVideoDialog
    },
    computed: {
-      ...mapGetters(['getDialogRoomEnd']),
+      ...mapGetters(['getDialogRoomEnd','getIsRecording']),
       isRoomTutor(){
          return this.$store.getters.getRoomIsTutor;
       },
@@ -96,6 +129,18 @@ export default {
       }
    },
    methods: {
+      toggleRecord(){
+         this.$ga.event("tutoringRoom", 'toggleRecord');
+         studyRoomRecordingService.toggleRecord(this.isRoomTutor);
+      },
+      showIntercom(){
+         this.$ga.event("tutoringRoom", 'showIntercom');
+         intercomSettings.showDialog();
+      },
+      openSettingsDialog(){
+         this.$ga.event("tutoringRoom", "openSettingsDialog");
+         this.settingDialogState = true;
+      },
       resetItems(){
          let isExit = confirm(this.$t("login_are_you_sure_you_want_to_exit"),)
          if(isExit){
@@ -146,6 +191,12 @@ export default {
 }
 </script>
 <style lang="less">
+.menuStudyRoom{
+   .menuStudyRoomOption{
+      font-size: 14px;
+      color: #43425d;
+   }
+}
    .studyRoomHeader {
       .v-toolbar__content{
          padding-bottom: 0;

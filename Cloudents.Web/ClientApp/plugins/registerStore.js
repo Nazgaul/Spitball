@@ -1,6 +1,8 @@
 import * as routeNames from '../routes/routeNames.js';
 import codeEditor_store from "../store/studyRoomStore/codeEditor_store.js";
 import tutoringCanvas from  "../store/studyRoomStore/tutoringCanvas.js";
+import roomRecording_store from '../store/studyRoomStore/roomRecording_store.js';
+
 //const codeEditor_store = () => import("../store/studyRoomStore/codeEditor_store.js");
 //const tutoringCanvas = () => import("../store/studyRoomStore/tutoringCanvas.js");
 export default () => {
@@ -53,6 +55,8 @@ export default () => {
                     // })
                     registerModule('codeEditor_store', codeEditor_store);
                     registerModule('tutoringCanvas', tutoringCanvas);
+                    registerModule('roomRecording_store', roomRecording_store);
+                    
 
                 }
 

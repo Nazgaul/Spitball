@@ -147,6 +147,12 @@
   <data name="live" xml:space="preserve">
     <value>Live</value>
   </data>
+  <data name="menu_help" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="menu_settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="nav_class" xml:space="preserve">
     <value>Class</value>
   </data>
