@@ -51,7 +51,7 @@ namespace Cloudents.Web.Api
 
             _userManager.TryGetLongUserId(User, out var userId);
 
-            var result = await _feedService.GetFeedAsync(new GetFeedQuery(userId, page, request.Filter, profile.CountryRegion.Name), token);
+            var result = await _feedService.GetFeedAsync(new GetFeedQuery(userId, page, request.Filter, profile.CountryRegion), token);
             return GenerateResult(result,
                 new List<string>()
                 {
@@ -94,7 +94,7 @@ namespace Cloudents.Web.Api
         {
             _userManager.TryGetLongUserId(User, out var userId);
 
-            var result = await _feedService.GetFeedAsync(new GetFeedWithCourseQuery(userId, request.Page, request.Filter, profile.CountryRegion.Name, request.Course), token);
+            var result = await _feedService.GetFeedAsync(new GetFeedWithCourseQuery(userId, request.Page, request.Filter, profile.CountryRegion, request.Course), token);
 
             return GenerateResult(result,
                 new List<string>()

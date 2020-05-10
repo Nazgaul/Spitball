@@ -33,11 +33,11 @@ namespace Cloudents.Web.Seo
             var t = _session.Query<ReadTutor>();
             if (isFrymo)
             {
-                t = t.Where(w => w.Country == Country.India.Name);
+                t = t.Where(w => w.SbCountry == Country.India);
             }
             else
             {
-                t = t.Where(w => w.Country != Country.India.Name);
+                t = t.Where(w => w.SbCountry != Country.India);
             }
 
 

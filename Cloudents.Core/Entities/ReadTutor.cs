@@ -10,7 +10,7 @@ namespace Cloudents.Core.Entities
         public ReadTutor(long id, string name, string image, string imageName, 
             IReadOnlyList<string>? allSubjects,
             IReadOnlyList<string>? allCourses,
-            decimal price, double? rate, int rateCount, string bio, int lessons, string country, decimal? subsidizedPrice)
+            decimal price, double? rate, int rateCount, string bio, int lessons, Country country, decimal? subsidizedPrice)
         {
             Id = id;
             Name = name;
@@ -25,12 +25,12 @@ namespace Cloudents.Core.Entities
             RateCount = rateCount;
             Bio = bio;
             Lessons = lessons;
-            Country = country;
+           // Country = country;
             //case 115
             OverAllRating = (rate.GetValueOrDefault() * RateCount + 48 + Lessons * rate.GetValueOrDefault())
                             / (RateCount + 12 + Lessons);
             SubsidizedPrice = subsidizedPrice;
-           // SbCountry = Entities.Country.FromCountry(country);
+            SbCountry = country;
         }
 
         [SuppressMessage("ReSharper", "CS8618",Justification = "Nhibernate proxy")]
@@ -54,10 +54,10 @@ namespace Cloudents.Core.Entities
         public virtual int Lessons { get; protected set; }
         public virtual double OverAllRating { get; protected set; }
 
-        public virtual string Country { get; protected set; }
+        //public virtual string Country { get; protected set; }
         public virtual decimal? SubsidizedPrice { get; protected set; }
 
-       // public virtual Country SbCountry { get; protected set; }
+        public virtual Country SbCountry { get; protected set; }
 
     }
 }

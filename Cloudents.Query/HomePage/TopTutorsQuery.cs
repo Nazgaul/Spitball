@@ -42,14 +42,14 @@ namespace Cloudents.Query.HomePage
                                 readTutor,
                                 tutor
                             });
-                linqQuery = linqQuery.Where(w => w.readTutor.Country == query.Country.ToString());
+                linqQuery = linqQuery.Where(w => w.readTutor.SbCountry == query.Country);
 
                 return await linqQuery.Where(w => w.tutor.IsShownHomePage && w.tutor.State == Core.Enum.ItemState.Ok)
                     .OrderByDescending(o => o.readTutor.OverAllRating)
                     .Select(s => new TutorCardDto()
                 {
                     UserId = s.readTutor.Id,
-                    Country = s.readTutor.Country,
+                    Country = s.readTutor.SbCountry,
                     Name = s.readTutor.Name,
                     Image = s.readTutor.ImageName,
                     Price = s.readTutor.Price,

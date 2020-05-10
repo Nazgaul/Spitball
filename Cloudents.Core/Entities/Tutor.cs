@@ -18,8 +18,6 @@ namespace Cloudents.Core.Entities
             State = ItemState.Pending;
             Created = DateTime.UtcNow;
             Bio = bio;
-            //User.SetUserType(UserType.Teacher);
-            //Country country = user.Country;
             if (user.SbCountry == Country.India)
             {
                 Price = new TutorPrice(100, 0);
@@ -33,12 +31,11 @@ namespace Cloudents.Core.Entities
                 Price = new TutorPrice(price.Value);
             }
             AddEvent(new TutorCreatedEvent(this));
-            //SubsidizedPrice = subsidizedPrice;
-
 
         }
 
 
+        [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]
         protected Tutor()
         {
             //Price = Price ?? new TutorPrice();

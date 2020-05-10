@@ -47,13 +47,13 @@ namespace Cloudents.FunctionsV2
                     log.LogInformation($"Sync {update}");
                     updateOccur = true;
                     var courses = update.Courses?.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct().ToArray() ??
-                                  new string[0];
-                    var subjects = update.Subjects?.Where(w => !string.IsNullOrWhiteSpace(w)).ToArray() ?? new string[0];
+                                  Array.Empty<string>();
+                    var subjects = update.Subjects?.Where(w => !string.IsNullOrWhiteSpace(w)).ToArray() ?? Array.Empty<string>();
                     await indexInstance.AddAsync(new AzureSearchSyncOutput()
                     {
                         Item = new Tutor
                         {
-                            Country = update.Country.ToUpperInvariant(),
+                            Country = update.Country.Name.ToUpperInvariant(),
                             Id = update.UserId.ToString(),
                             Name = update.Name,
                             Courses = courses.ToArray(),

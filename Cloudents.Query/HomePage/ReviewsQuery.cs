@@ -43,7 +43,7 @@ namespace Cloudents.Query.HomePage
                             review,
                             tutor
                         })
-                    .Where(w => w.review.IsShownHomePage && w.tutor.Country == query.Country.ToString())
+                    .Where(w => w.review.IsShownHomePage && w.tutor.SbCountry == query.Country)
                         .Select(s => new ReviewDto()
                         {
                             Text = s.review.Review,

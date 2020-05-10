@@ -6,12 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Query.Documents
 {
     public class FeedAggregateQuery : IQuery<IEnumerable<FeedDto>>
     {
-        public FeedAggregateQuery(long userId, int page, string country, string course, int pageSize)
+        public FeedAggregateQuery(long userId, int page, Country country, string course, int pageSize)
         {
             Page = page;
             UserId = userId;
@@ -29,7 +30,7 @@ namespace Cloudents.Query.Documents
         private long UserId { get; }
         
 
-        private string Country { get; }
+        private Country Country { get; }
 
         private string Course { get; }
         private int PageSize { get; }

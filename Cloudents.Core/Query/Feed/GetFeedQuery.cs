@@ -1,10 +1,11 @@
-﻿using Cloudents.Core.Enum;
+﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Query.Feed
 {
     public class GetFeedQuery
     {
-        public GetFeedQuery(long userId, int page, FeedType? filter, string country)
+        public GetFeedQuery(long userId, int page, FeedType? filter, Country country)
         {
             UserId = userId;
             Page = page;
@@ -14,12 +15,12 @@ namespace Cloudents.Core.Query.Feed
         public long UserId { get; }
         public int Page { get; }
         public FeedType Filter { get; }
-        public string Country { get; }
+        public Country Country { get; }
     }
 
     public class GetFeedWithCourseQuery : GetFeedQuery
     {
-        public GetFeedWithCourseQuery(long userId, int page, FeedType? filter, string country, string? course) : base(
+        public GetFeedWithCourseQuery(long userId, int page, FeedType? filter, Country country, string? course) : base(
              userId,  page, filter,  country)
         {
           

@@ -69,8 +69,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(638, 0, "IL", "economics")]
         [InlineData(638, 1, "IL", null)]
 
-        public async Task DocumentAggregateQuery_Ok(long userId, int page, string country, string course)
+        public async Task DocumentAggregateQuery_Ok(long userId, int page, string countryStr, string course)
         {
+            var country = Country.FromCountry(countryStr);
             var query = new FeedAggregateQuery(userId, page, country, course, 18);
 
             var result = (await fixture.QueryBus.QueryAsync(query, default)).ToList();
@@ -86,8 +87,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData(0, 638, FeedType.Document, "IL", null, 20)]
         [InlineData(0, 638, FeedType.Document, "IL", "Economics", 20)]
-        public async Task DocumentFeedWithFilterQuery_Document_Ok(int page, long userId, FeedType? filter, string country, string course, int pageSize)
+        public async Task DocumentFeedWithFilterQuery_Document_Ok(int page, long userId, FeedType? filter, string countryStr, string course, int pageSize)
         {
+            var country = Country.FromCountry(countryStr);
             var query = new DocumentFeedWithFilterQuery(page, userId, filter, country, course, pageSize);
             var result = (await fixture.QueryBus.QueryAsync(query, default)).ToList();
             if (result.Count > 0)
@@ -102,8 +104,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData(0, 638, FeedType.Video, "IL", null, 20)]
         [InlineData(0, 638, FeedType.Video, "IL", "Temp", 20)]
-        public async Task DocumentFeedWithFilterQuery_Video_Ok(int page, long userId, FeedType? filter, string country, string course, int pageSize)
+        public async Task DocumentFeedWithFilterQuery_Video_Ok(int page, long userId, FeedType? filter, string countryStr, string course, int pageSize)
         {
+            var country = Country.FromCountry(countryStr);
             var query = new DocumentFeedWithFilterQuery(page, userId, filter, country, course, pageSize);
             var result = (await fixture.QueryBus.QueryAsync(query, default)).ToList();
             //result.Should().NotBeNullOrEmpty();
@@ -120,8 +123,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData(0, 638, "IL", null, 20)]
         [InlineData(0, 638, "IL", "Economics", 20)]
-        public async Task QuestionFeedWithFilterQuery_Ok(int page, long userId, string country, string course, int pageSize)
+        public async Task QuestionFeedWithFilterQuery_Ok(int page, long userId, string countryStr, string course, int pageSize)
         {
+            var country = Country.FromCountry(countryStr);
             var query = new QuestionFeedWithFilterQuery(page, userId, country, course, pageSize);
             var result = (await fixture.QueryBus.QueryAsync(query, default)).ToList();
             result.Should().NotBeNullOrEmpty();

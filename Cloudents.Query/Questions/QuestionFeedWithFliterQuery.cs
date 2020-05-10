@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Query.Questions
 {
     public class QuestionFeedWithFilterQuery : IQuery<IEnumerable<QuestionFeedDto>>
     {
-        public QuestionFeedWithFilterQuery(int page, long userId, string country, string course, int pageSize)
+        public QuestionFeedWithFilterQuery(int page, long userId, Country country, string course, int pageSize)
         {
             Page = page;
             UserId = userId;
@@ -22,7 +23,7 @@ namespace Cloudents.Query.Questions
 
         private long UserId { get; }
 
-        private string Country { get; }
+        private Country Country { get; }
 
         private string Course { get; }
         private int PageSize { get; }

@@ -31,7 +31,7 @@ namespace Cloudents.Persistence.Repositories
                     s.Bio,
                     s.Price.Price,
                     s.Price.SubsidizedPrice,
-                    s.User.Country
+                    s.User.SbCountry
                 }).ToFutureValue();
 
             var coursesFuture = Session.Query<UserCourse>()
@@ -85,7 +85,7 @@ namespace Cloudents.Persistence.Repositories
                 course.Where(w => !string.IsNullOrEmpty(w.SubjectName)).Select(s => s.SubjectName).Distinct().ToList(),
                 course.Select(s => s.CourseName).ToList(),
                 tutor.Price, average, count, tutor.Bio, 
-                lessons, tutor.Country, tutor.SubsidizedPrice);
+                lessons, tutor.SbCountry, tutor.SubsidizedPrice);
 
 
             return readTutor;

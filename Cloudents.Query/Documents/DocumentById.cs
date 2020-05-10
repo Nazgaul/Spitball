@@ -84,7 +84,7 @@ namespace Cloudents.Query.Documents
                             .Select(Projections.Property(() => tutorAlias.RateCount).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.ReviewsCount)}"))
                             .Select(Projections.Property(() => tutorAlias.Bio).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Bio)}"))
                             .Select(Projections.Property(() => tutorAlias.Lessons).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Lessons)}"))
-                            .Select(Projections.Property(() => tutorAlias.Country).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Country)}"))
+                            .Select(Projections.Property(() => tutorAlias.SbCountry).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Country)}"))
 
 
                     )

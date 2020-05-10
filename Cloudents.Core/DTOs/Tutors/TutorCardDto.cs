@@ -3,7 +3,7 @@ using Cloudents.Core.Enum;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.DTOs.Tutors
 {
@@ -17,7 +17,7 @@ namespace Cloudents.Core.DTOs.Tutors
 
         //public decimal TutorPrice { get; set; }
         public override FeedType Type => FeedType.Tutor;
-        public string Country { get; set; }
+        public Country Country { get; set; }
 
 
         [NonSerialized]
@@ -28,7 +28,7 @@ namespace Cloudents.Core.DTOs.Tutors
         [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Json return")]
         public decimal Price { get; set; }
 
-        public string Currency => new RegionInfo(Country).ISOCurrencySymbol;
+        public string Currency => Country.RegionInfo.ISOCurrencySymbol;
 
         public decimal? DiscountPrice { get; set; }
       

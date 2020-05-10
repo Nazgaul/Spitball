@@ -6,13 +6,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Query.Documents
 {
    public class DocumentFeedWithFilterQuery : IQuery<IEnumerable<DocumentFeedDto>>
     {
         public DocumentFeedWithFilterQuery(int page, long userId, FeedType? filter, 
-            string country, string course, int pageSize)
+            Country country, string course, int pageSize)
         {
             Page = page;
             UserId = userId;
@@ -26,7 +27,7 @@ namespace Cloudents.Query.Documents
         private long UserId { get; }
         private FeedType? Filter { get; }
 
-        private string Country { get; }
+        private Country Country { get; }
 
         private string Course { get; }
         private int PageSize { get; }

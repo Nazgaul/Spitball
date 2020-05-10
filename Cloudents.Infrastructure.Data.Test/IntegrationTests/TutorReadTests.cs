@@ -29,14 +29,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData("Economics", 638, "IN", 5)]
         [InlineData("xxx", 0, "IN", 5)]
 
-        public async Task TutorListByCourseQuery_Ok(string course, long userId, string country, int count)
+        public async Task TutorListByCourseQuery_Ok(string course, long userId, string countryStr, int count)
         {
-
+            var country = Country.FromCountry(countryStr);
             var query = new TutorListByCourseQuery(course, userId, country, count);
             var result = await _fixture.QueryBus.QueryAsync(query, default);
             foreach (var tutorCardDto in result)
             {
-                tutorCardDto.Country.Should().BeEquivalentTo(country);
+                tutorCardDto.Country.Should().BeEquivalentTo(countryStr);
             }
         }
 
@@ -46,8 +46,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(0, "IN", 0)]
         [InlineData(638, null, 0)]
 
-        public async Task TutorListQuery_Ok(long userId, string country, int page)
+        public async Task TutorListQuery_Ok(long userId, string countryStr, int page)
         {
+            Country country = null;
+            if (countryStr != null)
+            {
+                country = Country.FromCountry(countryStr);
+            }
+
             var query = new TutorListQuery(userId, country, page);
             var result = await _fixture.QueryBus.QueryAsync(query, default);
             result.Should().NotBeNull();
@@ -60,13 +66,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         public async Task TutorListQuery_PageCountOk(long userId)
         {
-            var query = new TutorListQuery(userId, "IL", 0, int.MaxValue);
+            var query = new TutorListQuery(userId, Country.Israel, 0, int.MaxValue);
             var result = await _fixture.QueryBus.QueryAsync(query, default);
             result.Should().NotBeNull();
             var count = result.Count;
             result.Count.Should().Be(result.Result.Count());
 
-            var query2 = new TutorListQuery(userId, "IL", 0);
+            var query2 = new TutorListQuery(userId, Country.Israel, 0);
             var result2 = await _fixture.QueryBus.QueryAsync(query2, default);
             result2.Count.Should().Be(count);
         }
