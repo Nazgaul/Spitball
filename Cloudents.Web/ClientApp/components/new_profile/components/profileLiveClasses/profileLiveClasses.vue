@@ -18,29 +18,36 @@
             </v-row>
         </v-row>
 
-        <v-row v-for="(session, index) in liveSessionsList" :key="index" class="trRow text-center px-4 px-sm-0 pb-2 pb-sm-0" :class="{'pt-2': index && isMobile}" dense>
+        <v-row 
+            v-for="(session, index) in liveSessionsList"
+            class="trRow text-center px-4 px-sm-0 pb-2 pb-sm-0"
+            :class="{'pt-2': index && isMobile}"
+            :key="index"
+            dense
+        >
             <v-col cols="12" sm="6" class="text-left d-flex flex-wrap mb-9 mb-sm-0 pa-4">
                 <div class="icons d-flex mb-3" dense>
                     <radioIcon v-if="isMobile" width="30" />
                     <tvIcon width="90" v-else />
-                    <div class="created ml-3 d-block d-sm-none">{{$d(new Date(session.created), 'long')}}</div>
+                    <div class="created ml-3 d-block d-sm-none">{{$d(session.created, 'long')}}</div>
                 </div>
 
                 <div class="details ml-sm-5 d-sm-flex" dense>
-                    <div class="created mb-3 d-none d-sm-block">{{$d(new Date(session.created), 'long')}}</div>
+                    <div class="created mb-3 d-none d-sm-block">{{$d(session.created, 'long')}}</div>
                     <div class="">
                         <div class="liveName mb-2 text-truncate">{{session.name}}</div>
-                        <div v-if="session.description && isMobile">
-                            <div class="description">
-                                {{session.description | truncate(isOpen, '...', textLimit)}}
-                            </div>
-                            <div class="d-none">
-                                {{session.description | restOfText(isOpen, '...', textLimit)}}
-                            </div>
-                            <span sel="bio_more" @click="isOpen = !isOpen" class="readMore" v-t="isOpen ? 'profile_read_less' : 'profile_read_more'"></span>
-                        </div>
-                        <div v-else>
-                            <div class="description" v-if="session.description">{{session.description}}</div>
+                        <div v-if="session.description">
+                            <template v-if="isMobile">                             
+                                <div class="description">
+                                    {{session.description | truncate(isOpen, '...', textLimit)}}
+                                </div>
+                                <div class="d-none">
+                                    {{session.description | restOfText(isOpen, '...', textLimit)}}
+                                </div>
+                                <span sel="bio_more" @click="isOpen = !isOpen" class="readMore" v-t="isOpen ? 'profile_read_less' : 'profile_read_more'"></span>                                    
+                                
+                            </template>
+                            <div v-else class="description">{{session.description}}</div>
                         </div>
                     </div>
                 </div>
@@ -74,11 +81,11 @@
                         </v-col>
                     </template>
                     <template v-else>
-                        <v-col cols="4" class="pa-0 rowCol">
+                        <v-col cols="4" class="pa-0 rowCol" :class="{'enroll': session.enrolled}">
                             <span class="numericPrice">{{$n(session.price, 'currency')}}</span>
                             <span class="hour" v-t="'profile_per_hour'"></span>
                         </v-col>
-                        <v-col cols="4" class="pa-0 rowCol">
+                        <v-col cols="4" class="pa-0 rowCol" :class="{'enroll': session.enrolled}">
                             <div v-t="'profile_live_subscribers_free'"></div>  
                         </v-col>
                     </template>
@@ -235,7 +242,7 @@ export default {
         }
     },
     filters: {
-        truncate(val, isOpen, suffix, textLimit){
+        truncate(val="aaabbb", isOpen, suffix, textLimit){
             if (val.length > textLimit && !isOpen) {
                 return val.substring(0, textLimit) +  suffix + ' ';
             } 
@@ -244,7 +251,7 @@ export default {
             }
             return val;
         },
-        restOfText(val, isOpen, suffix, textLimit){
+        restOfText(val="aaabbb", isOpen, suffix, textLimit){
             if (val.length > textLimit && !isOpen) {
                 return val.substring(textLimit) ;
             }
@@ -304,6 +311,7 @@ export default {
             &:last-child {
                 border-bottom: none;
             }
+
             .subscribers:nth-child(3) {
                 color: @global-purple;
                 font-size: 16px;
@@ -356,13 +364,14 @@ export default {
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    &.enroll {
-                        font-weight: 600;
-                        color: #bdc0d1;
-                    }
+
                     .numericPrice {
                         font-size: 22px;
                         font-weight: bold;
+                    }
+                    &.enroll {
+                        font-weight: 600;
+                        color: #bdc0d1 !important;
                     }
                     .hour {
                         font-size: 16px

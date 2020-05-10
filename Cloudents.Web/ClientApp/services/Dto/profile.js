@@ -51,7 +51,7 @@ export const Profile = {
       this.id = objInit.id;
       this.name = objInit.name;
       this.price = objInit.price
-      this.created = objInit.dateTime;
+      this.created = objInit.dateTime ? new Date(objInit.dateTime) : '';
       this.enrolled = objInit.enrolled;
    }
 }
