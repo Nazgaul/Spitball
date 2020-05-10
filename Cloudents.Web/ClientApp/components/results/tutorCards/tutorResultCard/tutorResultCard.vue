@@ -57,7 +57,7 @@
             
             <div class="classes-hours align-center">
               <clock />
-              <span class="font-weight-bold no-classes">{{ $tc('resultTutor_hour_completed', tutorData.lesson) }}</span>
+              <span class="font-weight-bold no-classes">{{ $tc('resultTutor_hour_completed', tutorData.lessons) }}</span>
             </div>                
 
             <div class="send-btn">
