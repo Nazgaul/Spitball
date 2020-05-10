@@ -80,8 +80,8 @@ namespace Cloudents.Web.Api
             [FromServices] ITutorSearch tutorSearch,
             CancellationToken token, int pageSize = 20)
         {
-            term = term ?? string.Empty;
-            course = course ?? string.Empty;
+            term ??= string.Empty;
+            course ??= string.Empty;
             term = $"{term} {course}".Trim();
             //TODO make it better
             if (string.IsNullOrWhiteSpace(term))
@@ -104,14 +104,8 @@ namespace Cloudents.Web.Api
             }
             else
             {
-                var query = new TutorListTabSearchQuery(term, profile.Country, page, pageSize);
+                var query = new TutorListTabSearchQuery(term, profile.CountryRegion, page, pageSize);
                 var result = await tutorSearch.SearchAsync(query, token);
-                //result.Result = result.Result.Select(s =>
-                //{
-                //    s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
-                //    return s;
-                //});
-               
                 return new WebResponseWithFacet<TutorCardDto>
                 {
                     Result = result.Result,

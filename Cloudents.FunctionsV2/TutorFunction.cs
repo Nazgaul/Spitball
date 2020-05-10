@@ -53,7 +53,8 @@ namespace Cloudents.FunctionsV2
                     {
                         Item = new Tutor
                         {
-                            Country = update.Country.Name.ToUpperInvariant(),
+                            Country = update.Country.ToUpperInvariant(),
+                            SbCountry = update.SbCountry.Id,
                             Id = update.UserId.ToString(),
                             Name = update.Name,
                             Courses = courses.ToArray(),
@@ -76,7 +77,7 @@ namespace Cloudents.FunctionsV2
                                 Lessons = Math.Max(update.LessonsCount, update.ReviewsCount),
                                 Bio = update.Bio,
                                 Price = update.Price,
-                                Country = update.Country,
+                                Country = update.SbCountry,
                                 Image = update.Image,
                                 NeedSerializer = true,
                                 DiscountPrice = update.SubsidizedPrice

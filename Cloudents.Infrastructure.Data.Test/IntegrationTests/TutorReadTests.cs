@@ -36,7 +36,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var result = await _fixture.QueryBus.QueryAsync(query, default);
             foreach (var tutorCardDto in result)
             {
-                tutorCardDto.Country.Should().BeEquivalentTo(countryStr);
+                tutorCardDto.Country.ToString().Should().BeEquivalentTo(countryStr);
             }
         }
 
@@ -44,15 +44,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData(0, "IL", 0)]
         [InlineData(0, "IN", 0)]
-        [InlineData(638, null, 0)]
+        [InlineData(638, "US", 0)]
 
         public async Task TutorListQuery_Ok(long userId, string countryStr, int page)
         {
-            Country country = null;
-            if (countryStr != null)
-            {
-                country = Country.FromCountry(countryStr);
-            }
+
+            var country = Country.FromCountry(countryStr);
+
 
             var query = new TutorListQuery(userId, country, page);
             var result = await _fixture.QueryBus.QueryAsync(query, default);

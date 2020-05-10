@@ -36,8 +36,12 @@ namespace Cloudents.Search.Entities
         [IsSearchable]
         public string[] Subjects { get; set; }
 
-        [IsFilterable]
+        [IsFilterable, Obsolete]
         public string Country { get; set; }
+
+
+        [IsFilterable]
+        public int SbCountry { get; set; }
 
         [JsonConverter(typeof(StringTypeConverter))]
         public TutorCardDto Data { get; set; }

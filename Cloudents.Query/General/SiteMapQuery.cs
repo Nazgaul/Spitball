@@ -70,11 +70,11 @@ namespace Cloudents.Query.General
 
                 if (query.IsFrymo)
                 {
-                    tutorCountFutureQuery.Where(w => w.SbCountry == (Country)Country.India.Id);
+                    tutorCountFutureQuery.Where(w => w.SbCountry == Country.India);
                 }
                 else
                 {
-                    tutorCountFutureQuery.Where(w => w.SbCountry != (Country)Country.India.Id);
+                    tutorCountFutureQuery.Where(w => w.SbCountry != Country.India);
 
                 }
                 var tutorCountFuture = tutorCountFutureQuery.ToRowCountQuery().FutureValue<int>();

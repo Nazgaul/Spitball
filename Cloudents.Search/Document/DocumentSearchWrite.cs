@@ -12,7 +12,6 @@ namespace Cloudents.Search.Document
         internal const string TagsCourseParameter = "Course";
         internal const string TagsUniversityParameter = "University";
         internal const string TagsCountryParameter = "Country";
-        //internal const string TagsTagsParameter = "Tag";
         internal const string ScoringProfile = "ScoringProfile2";
 
         public DocumentSearchWrite(SearchService client, ILogger logger) : base(client, client.GetClient(IndexName), logger)

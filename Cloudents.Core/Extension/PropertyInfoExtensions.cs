@@ -71,6 +71,20 @@ namespace Cloudents.Core.Extension
                 return;
             }
 
+            if (type.IsSubclassOf(typeof(Enumeration)))
+            {
+                //var val = Convert.ToInt32(value);
+                var methodName = nameof(Enumeration.FromValue);
+                var method = typeof(Enumeration).GetMethod(methodName,
+                    BindingFlags.Public | BindingFlags.Static).MakeGenericMethod(new[] { type });
+                var val = method.Invoke(null, new[] { value });
+                info.SetValue(obj, val);
+                return;
+                //Enumeration.FromValue<type>()
+                //var arg = type.GetGenericArguments()[0];
+                // Enumeration.FromValue<>(val);
+            }
+
             //var y = Convert.ChangeType(obj, type);
             info.SetValue(obj, value);
         }

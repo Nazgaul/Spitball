@@ -130,10 +130,10 @@ namespace Cloudents.Core.Entities
             return result;
         }
 
-        public static explicit operator Country(int s)
-        {
-            return FromValue<Country>(s);
-        }
+        //public static explicit operator Country(int s)
+        //{
+        //    return FromValue<Country>(s);
+        //}
 
         public const string IsraelStr = "IL";
         public const string IndiaStr = "IN";

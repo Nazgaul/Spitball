@@ -42,7 +42,7 @@ namespace Cloudents.Query.Tutor
                 
                 const string sql = @"Select rt.Id as UserId,
 rt.Name as 'Name', rt.ImageName as 'Image', rt.Courses, rt.Subjects, rt.Price,
-rt.Rate, rt.RateCount as ReviewsCount, rt.Bio,  rt.Lessons, rt.Country, rt.SubsidizedPrice as DiscountPrice
+rt.Rate, rt.RateCount as ReviewsCount, rt.Bio,  rt.Lessons, rt.SbCountry as Country, rt.SubsidizedPrice as DiscountPrice
 from sb.ReadTutor rt
 where rt.SbCountry = @country
 and rt.Id != @userId
@@ -69,7 +69,13 @@ from sb.ReadTutor rt
 where rt.SbCountry = @country
 and rt.Id != @userid;";
                 using var conn = _dapper.OpenConnection();
-                using var multi = await conn.QueryMultipleAsync(sql, new { query.UserId, query.Country, query.PageSize, @PageNumber = query.Page });
+                using var multi = await conn.QueryMultipleAsync(sql, new
+                {
+                    query.UserId,
+                    query.Country,
+                    query.PageSize,
+                    PageNumber = query.Page
+                });
                 var tutor = await multi.ReadAsync<TutorCardDto>();
                 var count = await multi.ReadFirstAsync<int>();
                 return new ListWithCountDto<TutorCardDto>()

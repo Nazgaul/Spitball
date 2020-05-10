@@ -11,7 +11,7 @@ namespace Cloudents.Search.Document
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var p = base.CreateProperty(member, memberSerialization);
-            if (p.PropertyType.IsEnum)
+            if (p.PropertyType?.IsEnum == true)
             {
                 p.PropertyType = typeof(int);
             }

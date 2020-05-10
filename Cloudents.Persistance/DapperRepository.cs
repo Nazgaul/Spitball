@@ -8,6 +8,10 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
+using Cloudents.Core;
+using Cloudents.Core.Entities;
+using NHibernate.Mapping;
 
 namespace Cloudents.Persistence
 {
@@ -25,7 +29,18 @@ namespace Cloudents.Persistence
             //var jsonObjectTypeHandler = new JsonObjectTypeHandler();
             SqlMapper.AddTypeHandler(new DapperCultureInfoTypeHandler());
             //used in tutor search query
+
+
+            foreach (var t in Assembly.GetAssembly(typeof(Country))
+                .GetTypes()
+                .Where(t => typeof(Enumeration).IsAssignableFrom(t)))
+            {
+                SqlMapper.AddTypeHandler(t, new EnumerationTypeHandler());
+            }
+
+
             SqlMapper.AddTypeHandler(typeof(IEnumerable<string>), new JsonArrayTypeHandler());
+            //SqlMapper.AddTypeHandler(typeof(Enumeration), new EnumerationTypeHandler());
             //SqlMapper.AddTypeHandler(typeof(FeedDto), new JsonObjectTypeHandler());
 
 
@@ -61,6 +76,25 @@ namespace Cloudents.Persistence
             }
         }
 
+        private class EnumerationTypeHandler : SqlMapper.ITypeHandler
+        {
+            public void SetValue(IDbDataParameter parameter, object value)
+            {
+                parameter.DbType = DbType.Int32;
+                var dbVal = (Enumeration) value;
+                parameter.Value = dbVal.Id;
+
+
+            }
+            public object Parse(Type destinationType, object value)
+            {
+                var methodName = nameof(Enumeration.FromValue);
+                var method = typeof(Enumeration).GetMethod(methodName,
+                    BindingFlags.Public | BindingFlags.Static).MakeGenericMethod(new[] { destinationType });
+                return  method.Invoke(null, new[] { value });
+                //info.SetValue(obj, val);
+            }
+        }
 
         private class JsonArrayTypeHandler : SqlMapper.ITypeHandler
         {

@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Search.Entities
 {
@@ -15,6 +16,7 @@ namespace Cloudents.Search.Entities
     public class Document : ISearchObject
     {
         public const string CourseNameField = "Course2";
+        public const string CountryNameField = "Country2";
         public const string TypeFieldName = "TypeFieldName";
 
         public static Document FromDto(DocumentSearchDto obj)
@@ -24,7 +26,7 @@ namespace Cloudents.Search.Entities
 
               
                 DateTime = obj.DateTime,
-                Country = obj.Country?.ToUpperInvariant(),
+                OldCountry = obj.Country?.ToUpperInvariant(),
                 Course = obj.Course?.ToUpperInvariant(),
                 Id = obj.ItemId.ToString(),
                 Name = obj.Name,
@@ -46,13 +48,13 @@ namespace Cloudents.Search.Entities
         public string[] Tags { get; set; }
         [IsFilterable, IsSearchable, JsonProperty(CourseNameField)]
         public string Course { get; set; }
-        [IsFilterable, IsFacetable]
-        public string Country { get; set; }
-        //[IsFilterable, IsSearchable, JsonProperty("University2")]
-        //public string UniversityName { get; set; }
+        
+        [IsFilterable, IsFacetable, JsonProperty("Country")]
+        public string OldCountry { get; set; }
 
-        //[IsFilterable, JsonProperty(UniversityIdFieldName)]
-        //public Guid? UniversityId { get; set; }
+        [IsFilterable, JsonProperty(CountryNameField)]
+        public Country Country { get; set; }
+        
 
         [IsSortable, IsFilterable]
         public DateTimeOffset? DateTime { get; set; }

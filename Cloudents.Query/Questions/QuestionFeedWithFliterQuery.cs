@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.DTOs.Feed;
+﻿using System;
+using Cloudents.Core.DTOs.Feed;
 using Cloudents.Core.Interfaces;
 using Dapper;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Cloudents.Query.Questions
         {
             Page = page;
             UserId = userId;
-            Country = country;
+            Country = country ?? throw new ArgumentNullException(nameof(country));
             Course = course;
             PageSize = pageSize;
         }
@@ -43,14 +44,7 @@ namespace Cloudents.Query.Questions
             // FeedAggregateQuery and DocumentFeedWithFilterQuery as well
             public async Task<IEnumerable<QuestionFeedDto>> GetAsync(QuestionFeedWithFilterQuery query, CancellationToken token)
             {
-                const string sqlWithCourse = @"with cte as (
-select top 1 * from(select 1 as o,   u.country as Country, u.id as userid
- from sb.[user] u
-  where u.id = @userid
- union
- select 2,  @country, 0) t
-    order by o
-)
+                const string sqlWithCourse = @"
 SELECT  'q' as type
 ,q.CourseId as Course
 ,q.Updated as DateTime
@@ -78,10 +72,10 @@ outer apply (
 select top 1 text, u.id, u.name, u.image, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
 ) as x
-join cte on  u.country = cte.country
 where
     q.Updated > GetUtcDATE() - 182
 and q.courseId = @course
+and u.SbCountry = @country
 and q.State = 'Ok'
 order by
 DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE())  +
@@ -90,15 +84,7 @@ case when case when (select UserId from sb.UsersRelationship ur where ur.Followe
 OFFSET @page*@pageSize ROWS
 FETCH NEXT @pageSize ROWS ONLY";
 
-                const string sqlWithoutCourse = @"with cte as (
-select top 1 * from (select 1 as o,  u.country as Country, u.id as userid
- from sb.[user] u
- where u.id = @userid
- union
- select 2,@country,0) t
- order by o
-)
-
+                const string sqlWithoutCourse = @"
 
 SELECT  'q' as type
 ,q.CourseId as Course
@@ -128,11 +114,11 @@ select  top 1 text,u.id,u.name,u.image, a.Created from sb.Answer a join sb.[user
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
 
 ) as x
-join cte on  u.country = cte.country
 where 
     q.Updated > GETUTCDATE() - 182
+and u.SbCountry = @country
 and q.State = 'Ok'
-and (q.CourseId in (select courseId from sb.usersCourses where userid = cte.userid) or @userid <= 0)
+and (q.CourseId in (select courseId from sb.usersCourses where userid = @userId) or @userid <= 0)
 order by
 DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) +
 DATEDiff(hour, q.Updated, GetUtcDATE()) +
@@ -148,7 +134,7 @@ FETCH NEXT @pageSize ROWS ONLY";
                 {
                     query.Page,
                     query.UserId,
-                    query.Country,
+                    Country = query.Country.Id,
                     query.Course,
                     query.PageSize
 
@@ -161,7 +147,7 @@ FETCH NEXT @pageSize ROWS ONLY";
                         var v = reader.GetString(colJson);
                         var questions = _jsonSerializer.Deserialize<IEnumerable<QuestionFeedDto>>(v);
                         result.Add(questions.First());
-                            
+
                     } while (reader.Read());
                 }
 

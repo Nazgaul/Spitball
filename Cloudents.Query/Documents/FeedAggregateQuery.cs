@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.DTOs.Documents;
+﻿using System;
+using Cloudents.Core.DTOs.Documents;
 using Cloudents.Core.DTOs.Feed;
 using Cloudents.Core.Interfaces;
 using Dapper;
@@ -16,7 +17,7 @@ namespace Cloudents.Query.Documents
         {
             Page = page;
             UserId = userId;
-            Country = country;
+            Country = country ?? throw new ArgumentNullException(nameof(country));
             if (!string.IsNullOrEmpty(course))
             {
                 Course = course;
@@ -56,16 +57,6 @@ namespace Cloudents.Query.Documents
             public async Task<IEnumerable<FeedDto>> GetAsync(FeedAggregateQuery query, CancellationToken token)
             {
                 const string sqlWithCourse = @"
-with cte as (
-select top 1 * from(select 1 as o,  u.country as Country, u.id as userid
- from sb.[user] u
- where u.id = @userid
- union
- select 2,  @country, 0) t
-    order by o
-)
-
-
 select R.*
 from
 (
@@ -85,7 +76,7 @@ select 'd' as type
 , d.[Views]
 , d.Downloads
 , d.VoteCount as 'Vote.Votes'
-, (select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = cte.userid) as 'Vote.Vote'
+, (select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = @userId) as 'Vote.Vote'
 ,(select count(1) from sb.[Transaction] where DocumentId = d.Id and [Action] = 'SoldDocument') as Purchased
 ,d.duration as Duration
 ,d.DocumentType as documentType for json path) as JsonArray,
@@ -93,11 +84,8 @@ case when d.DocumentType = 'Video' then 1 else 0 end as IsVideo,
 case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end as IsFollow
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
-
-join cte on  u.country = cte.country 
-where
-
-d.State = 'Ok'
+where u.sbCountry = @Country
+and d.State = 'Ok'
 and d.courseName = @course
 
 union all
@@ -132,14 +120,14 @@ outer apply (
 select top 1 text, u.id, u.name, u.ImageName, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
 ) as x
-,cte
+
 where
- u.country = cte.country
+ u.sbCountry = @Country
 and q.courseId = @course
 
 and q.State = 'Ok'
-  ) R,
-  cte
+  ) R
+
 order by
 DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE())  +
 DATEDiff(hour, R.DateTime, GetUtcDATE()) +
@@ -147,15 +135,7 @@ case when r.IsVideo = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE(
 case when r.IsFollow = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
 OFFSET @page*@pageSize ROWS
 FETCH NEXT @pageSize ROWS ONLY";
-                const string sqlWithoutCourse = @"with cte as (
-select top 1 * from (select 1 as o, u.country as Country, u.id as userid
- from sb.[user] u
-
- where u.id = @userid
- union
- select 2,@country,0) t
- order by o
-)
+                const string sqlWithoutCourse = @"
 
 select R.*
 from
@@ -176,7 +156,7 @@ select 'd' as type
 ,d.[Views]
 ,d.Downloads
 ,d.VoteCount as  'Vote.Votes'
-,(select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = cte.userid) as 'Vote.Vote'
+,(select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = @userId) as 'Vote.Vote'
 ,(select count(1) from sb.[Transaction] where DocumentId = d.Id and [Action] = 'SoldDocument') as Purchased
 ,d.duration as Duration
 ,d.DocumentType as documentType for json path) as JsonArray,
@@ -185,11 +165,12 @@ case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @use
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
 
-join cte on  u.country = cte.country 
+
 where
-    d.UpdateTime > GETUTCDATE() - 182
+ u.SbCountry = @Country 
+and d.UpdateTime > GETUTCDATE() - 182
 and d.State = 'Ok'
-and (d.CourseName in (select courseId from sb.usersCourses where userid = cte.userid) or @userid <= 0)
+and (d.CourseName in (select courseId from sb.usersCourses where userid = @userId) or @userid <= 0)
 
 union all
 
@@ -217,23 +198,20 @@ case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @use
 FROM sb.[Question] q
 join sb.[user] u
 	on q.UserId = u.Id
-
 outer apply (
 select  top 1 text,u.id,u.name,u.ImageName, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
 
 ) as x
-join cte on  u.country = cte.country 
-
 where
-    q.Updated > GETUTCDATE() - 182
-
+ u.SbCountry = @Country 
+and q.Updated > GETUTCDATE() - 182
 and q.State = 'Ok'
-and (q.CourseId in (select courseId from sb.usersCourses where userid = cte.userid) or @userid <= 0)
-  ) R,
-  cte
+and (q.CourseId in (select courseId from sb.usersCourses where userid = @userId) or @userid <= 0)
+  ) R
+  
 order by
-case when R.Course in (select courseId from sb.usersCourses where userid = cte.userid) then 0 else DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE())*2 end +
+case when R.Course in (select courseId from sb.usersCourses where userid = @userId) then 0 else DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE())*2 end +
 DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE())  +
 DATEDiff(hour, R.DateTime, GetUtcDATE()) +
 case when r.IsVideo = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end + 
@@ -246,55 +224,53 @@ FETCH NEXT @pageSize ROWS ONLY";
                 var sql = query.Course == null ? sqlWithoutCourse : sqlWithCourse;
                 //this is because we don't want to aggregate all the historical data
                 var result = new List<FeedDto>();
-                using (var conn = _dapperRepository.OpenConnection())
+                using var conn = _dapperRepository.OpenConnection();
+                using var reader = await conn.ExecuteReaderAsync(sql, new
                 {
-                    using var reader = await conn.ExecuteReaderAsync(sql, new
-                    {
-                        query.Page,
-                        query.UserId,
-                        query.Country,
-                        query.Course,
-                        query.PageSize
+                    query.Page,
+                    query.UserId,
+                    Country = query.Country.Id,
+                    query.Course,
+                    query.PageSize
 
-                    });
-                    if (reader.Read())
+                });
+                if (reader.Read())
+                {
+                    var col = reader.GetOrdinal("type");
+                    var colJson = reader.GetOrdinal("JsonArray");
+                    do
                     {
-                        var col = reader.GetOrdinal("type");
-                        var colJson = reader.GetOrdinal("JsonArray");
-                        do
+                        var v = reader.GetString(colJson);
+                        switch (reader.GetString(col))
                         {
-                            var v = reader.GetString(colJson);
-                            switch (reader.GetString(col))
-                            {
 
-                                case "q":
-                                    var question = _jsonSerializer.Deserialize<IEnumerable<QuestionFeedDto>>(v).First();
-                                    if (question.User.Image != null)
-                                    {
-                                        question.User.Image =
-                                            _urlBuilder.BuildUserImageEndpoint(question.User.Id, question.User.Image);
-                                    }
+                            case "q":
+                                var question = _jsonSerializer.Deserialize<IEnumerable<QuestionFeedDto>>(v).First();
+                                if (question.User.Image != null)
+                                {
+                                    question.User.Image =
+                                        _urlBuilder.BuildUserImageEndpoint(question.User.Id, question.User.Image);
+                                }
 
-                                    if (question.FirstAnswer?.User.Image != null)
-                                    {
-                                        question.FirstAnswer.User.Image = _urlBuilder.BuildUserImageEndpoint(question.FirstAnswer.User.Id, question.FirstAnswer.User.Image);
-                                    }
+                                if (question.FirstAnswer?.User.Image != null)
+                                {
+                                    question.FirstAnswer.User.Image = _urlBuilder.BuildUserImageEndpoint(question.FirstAnswer.User.Id, question.FirstAnswer.User.Image);
+                                }
 
-                                    result.Add(question);
-                                    break;
-                                case "d":
-                                    var document = _jsonSerializer.Deserialize<IEnumerable<DocumentFeedDto>>(v, JsonConverterTypes.TimeSpan).First();
-                                    if (document.User.Image != null)
-                                    {
-                                        document.User.Image =
-                                            _urlBuilder.BuildUserImageEndpoint(document.User.Id, document.User.Image);
-                                    }
+                                result.Add(question);
+                                break;
+                            case "d":
+                                var document = _jsonSerializer.Deserialize<IEnumerable<DocumentFeedDto>>(v, JsonConverterTypes.TimeSpan).First();
+                                if (document.User.Image != null)
+                                {
+                                    document.User.Image =
+                                        _urlBuilder.BuildUserImageEndpoint(document.User.Id, document.User.Image);
+                                }
 
-                                    result.Add(document);
-                                    break;
-                            }
-                        } while (reader.Read());
-                    }
+                                result.Add(document);
+                                break;
+                        }
+                    } while (reader.Read());
                 }
 
                 return result;

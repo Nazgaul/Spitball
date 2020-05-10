@@ -18,7 +18,7 @@ namespace Cloudents.Query.Tutor
         {
             CourseId = courseId;
             UserId = userId;
-            Country = country;
+            Country = country ?? throw new ArgumentNullException(nameof(country));
             Count = count;
             Page = page;
         }

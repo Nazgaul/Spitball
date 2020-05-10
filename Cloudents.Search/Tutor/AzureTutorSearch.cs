@@ -50,10 +50,7 @@ namespace Cloudents.Search.Tutor
                 ScoringProfile = TutorSearchWrite.ScoringProfile,
                 IncludeTotalResultCount = true
             };
-            if (!string.IsNullOrEmpty(query.Country))
-            {
-                searchParams.Filter = $"{nameof(Entities.Tutor.Country)} eq '{query.Country.ToUpperInvariant()}'";
-            }
+            searchParams.Filter = $"{nameof(Entities.Tutor.SbCountry)} eq '{query.Country}'";
             var result = await _client.Documents.SearchAsync<Entities.Tutor>(query.Term, searchParams, cancellationToken: token);
 
             var obj = new ListWithCountDto<TutorCardDto>()
@@ -61,16 +58,16 @@ namespace Cloudents.Search.Tutor
                 Result = result.Results.Where(w => w.Document.Data != null).Select(s =>
                 {
                     var tutor = s.Document.Data;
-                   var courses = (s.Highlights?[nameof(Entities.Tutor.Courses)] ?? Enumerable.Empty<string>()).Union(
-                       s.Document.Data.Courses).Take(3).Distinct(StringComparer.OrdinalIgnoreCase);
-                   if (tutor.Image != null)
-                   {
-                       s.Document.Data.Image = _urlBuilder.BuildUserImageEndpoint(tutor.UserId, tutor.Image);
-                   }
-                   s.Document.Data.Courses = courses;
-                   s.Document.Data.Subjects = s.Document.Data.Subjects?.Take(3);
-                   return s.Document.Data;
-               }),
+                    var courses = (s.Highlights?[nameof(Entities.Tutor.Courses)] ?? Enumerable.Empty<string>()).Union(
+                        s.Document.Data.Courses).Take(3).Distinct(StringComparer.OrdinalIgnoreCase);
+                    if (tutor.Image != null)
+                    {
+                        s.Document.Data.Image = _urlBuilder.BuildUserImageEndpoint(tutor.UserId, tutor.Image);
+                    }
+                    s.Document.Data.Courses = courses;
+                    s.Document.Data.Subjects = s.Document.Data.Subjects?.Take(3);
+                    return s.Document.Data;
+                }),
                 Count = result.Count
             };
             return obj;
