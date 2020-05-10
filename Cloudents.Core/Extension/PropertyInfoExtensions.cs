@@ -80,13 +80,10 @@ namespace Cloudents.Core.Extension
                 var val = method.Invoke(null, new[] { value });
                 info.SetValue(obj, val);
                 return;
-                //Enumeration.FromValue<type>()
-                //var arg = type.GetGenericArguments()[0];
-                // Enumeration.FromValue<>(val);
             }
-
-            //var y = Convert.ChangeType(obj, type);
-            info.SetValue(obj, value);
+            //We want to change string to int etc
+            var y = Convert.ChangeType(value, type);
+            info.SetValue(obj, y);
         }
 
         private static bool HandleEnum(PropertyInfo propertyInfo, object obj, object value)

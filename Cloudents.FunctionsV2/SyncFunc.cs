@@ -47,12 +47,11 @@ namespace Cloudents.FunctionsV2
                 {
                     log.LogError($"issue with {syncType}");
                     await starter.TerminateAsync(model.InstanceId, $"issue with {syncType}");
-                }
-                else
-                {
-                    log.LogInformation($"{model.InstanceId} is in status {existingInstance.RuntimeStatus}");
                     return;
                 }
+
+                log.LogInformation($"{model.InstanceId} is in status {existingInstance.RuntimeStatus}");
+                return;
             }
             await starter.StartNewAsync(SearchSyncName, model.InstanceId, model);
         }
@@ -116,13 +115,9 @@ namespace Cloudents.FunctionsV2
             CancellationToken token)
         {
             log.LogInformation($"Going to sync {input}");
-            using (var child = lifetimeScope.BeginLifetimeScope())
-            {
-                var syncObject = child.ResolveKeyed<IDbToSearchSync>(input.SyncType);
-                return await syncObject.DoSyncAsync(input.SyncAzureQuery, binder, token);
-            }
-
-
+            using var child = lifetimeScope.BeginLifetimeScope();
+            var syncObject = child.ResolveKeyed<IDbToSearchSync>(input.SyncType);
+            return await syncObject.DoSyncAsync(input.SyncAzureQuery, binder, token);
         }
 
         [FunctionName(GetSyncStatusFunctionName)]

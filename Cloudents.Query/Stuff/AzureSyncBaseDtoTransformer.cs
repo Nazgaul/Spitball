@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Query.Stuff
 {
@@ -57,8 +58,9 @@ namespace Cloudents.Query.Stuff
                 propertyInfo.SetValue(x, z);
                 return;
             }
-            var y = Convert.ChangeType(value, propertyInfo.PropertyType);
-            propertyInfo.SetValue(x, y);
+            propertyInfo.SetValueExtension(x,value);
+            //var y = Convert.ChangeType(value, propertyInfo.PropertyType);
+            //propertyInfo.SetValue(x, y);
         }
 
         private static bool HandleEnum(PropertyInfo propertyInfo, Type property, object x, object value)

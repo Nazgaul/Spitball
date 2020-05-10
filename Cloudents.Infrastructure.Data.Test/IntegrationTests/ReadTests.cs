@@ -18,6 +18,7 @@ using Cloudents.Query.Questions;
 using Cloudents.Query.General;
 using Cloudents.Core.DTOs.Feed;
 using Cloudents.Query.Session;
+using Cloudents.Query.Sync;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
@@ -53,6 +54,23 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task TutorSyncAzureSearchQuery_Ok(int version)
         {
             var query = new TutorSyncAzureSearchQuery(version);
+            //var query2 = new TutorSyncAzureSearchQuery(version);
+
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+            //await fixture.QueryBus.QueryAsync(query2, default);
+
+
+        }
+
+
+        [Theory]
+        [InlineData(0, 0)]
+        [InlineData(0, 1)]
+        [InlineData(1, 0)]
+        [InlineData(1, 1)]
+        public async Task DocumentSyncAzureSearchQuery_Ok(int version, int page)
+        {
+            var query = new SyncAzureQuery(version, page);
             //var query2 = new TutorSyncAzureSearchQuery(version);
 
             var _ = await fixture.QueryBus.QueryAsync(query, default);
@@ -287,7 +305,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
-       
+
 
         [Fact]
         public async Task UserReferralsQuery_Ok()
@@ -666,7 +684,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task TutorUpcomingBroadcastStudyRoomQuery_Ok()
         {
-            var query = new TutorUpcomingBroadcastStudyRoomQuery(638,159039);
+            var query = new TutorUpcomingBroadcastStudyRoomQuery(638, 159039);
             var result = await fixture.QueryBus.QueryAsync(query, default);
         }
 

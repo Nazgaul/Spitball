@@ -9,7 +9,7 @@ namespace Cloudents.FunctionsV2
     public static class DocumentSyncFunction
     {
         [FunctionName("DocumentSearchSync")]
-        public static async Task RunDocumentSearchAsync([TimerTrigger("0 10,40 * * * *")]
+        public static async Task RunDocumentSearchAsync([TimerTrigger("0 10,40 * * * *",RunOnStartup = true)]
             TimerInfo timer,
             [DurableClient]IDurableOrchestrationClient starter,
             ILogger log)

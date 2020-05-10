@@ -55,7 +55,7 @@ select d.Id as ItemId,
 				d.State as State,				
 				d.UpdateTime as DateTime, 	                   
 				u.Country as Country,
-u.SbCountry as SbCountry,	
+u.SbCountry as SbCountry
 				From sb.[Document] d  
 				join sb.[User] u 	  
 

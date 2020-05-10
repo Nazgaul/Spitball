@@ -32,22 +32,19 @@ namespace Cloudents.FunctionsV2
             var handlerType = typeof(ISystemOperation<>).MakeGenericType(message.GetType());
             var handlerCollectionType = typeof(IEnumerable<>).MakeGenericType(handlerType);
 
-            using (var child = lifetimeScope.BeginLifetimeScope())
+            using var child = lifetimeScope.BeginLifetimeScope();
+            if (child.Resolve(handlerCollectionType) is IEnumerable handlersCollection)
             {
-
-                if (child.Resolve(handlerCollectionType) is IEnumerable handlersCollection)
+                foreach (var handler in handlersCollection)
                 {
-                    foreach (var handler in handlersCollection)
+                    try
                     {
-                        try
-                        {
-                            dynamic operation = child.Resolve(handler.GetType());
-                            await operation.DoOperationAsync((dynamic)message, binder, token);
-                        }
-                        catch (Exception e)
-                        {
-                            log.LogInformation(e.Message);
-                        }
+                        dynamic operation = child.Resolve(handler.GetType());
+                        await operation.DoOperationAsync((dynamic)message, binder, token);
+                    }
+                    catch (Exception e)
+                    {
+                        log.LogInformation(e.Message);
                     }
                 }
             }
