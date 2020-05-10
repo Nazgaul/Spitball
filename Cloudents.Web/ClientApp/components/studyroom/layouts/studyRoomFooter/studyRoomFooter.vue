@@ -8,7 +8,7 @@
          :height="footerExtend ? 124 : 0"
          class="pa-0 studyRoomFooter"
       >
-         <v-btn icon class="collapseIcon" @click="footerExtend = !footerExtend" color="#fff">
+         <v-btn icon class="collapseIcon" :ripple="false" @click="footerExtend = !footerExtend" color="#fff">
             <v-icon v-if="footerExtend">sbf-arrow-down</v-icon>
             <v-icon v-else>sbf-arrow-up</v-icon>
          </v-btn>
@@ -57,10 +57,13 @@ export default {
    .studyRoomFooter {
       .collapseIcon {
          position: absolute;
-         top: -30px;
+         top: -24px;
          right: 60px;
          background: #212123;
          border-radius: 0%; //vuetify override
+         border-top-right-radius: 8px;
+         border-top-left-radius: 8px;
+         box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.21);
       }
       .sbf {
          color: #fff;
