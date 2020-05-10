@@ -30,14 +30,24 @@
                                         {{tutorPrice ? currencySymbol(tutorPrice) : currencySymbol(tutorDiscountPrice)}}
                                     </div>
                                     <div class="profileUserSticky_pricing_price">
-                                        <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? currencySymbol(tutorDiscountPrice) : currencySymbol(tutorPrice)}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
+                                        <template v-if="tutorPrice">
+                                        <i18n-n :value="tutorDiscountPrice || tutorPrice" :locale="'he-IL'" :format="{ key: 'currency', currency: currentProfileUser.tutorData.currency }">
+                                            <template v-slot:integer="slotProps"><span class="profileUserSticky_pricing_price_number">{{ slotProps.integer }}</span></template>
+                                            <template v-slot:currency="slotProps"><span class="profileUserSticky_pricing_price_number"> {{ slotProps.currency }}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/></template>
+                                        </i18n-n>
+                                        </template>
+                                        <template v-else>
+                                            <span class="profileUserSticky_pricing_price_number" v-t="'profile_free'"></span>
+                                        </template>
+                                            <!--  <span class="profileUserSticky_pricing_price_number"> {{isDiscount && tutorPrice !== 0  ? currencySymbol(tutorDiscountPrice) : currencySymbol(tutorPrice)}}</span>
+                                            /<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/> -->
                                     </div>
                                 </div>
                                 <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" v-if="currentProfileUser.isTutor" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
                             </template>
                             <div v-else>
-                                <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="isLogged && !currentProfileUser.isTutor">
-                                    <editSVG class="mr-1" v-if="isCurrentProfileUser" />
+                                <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="isCurrentProfileUser && !currentProfileUser.isTutor">
+                                    <editSVG class="mr-1" />
                                 </v-btn>
                             </div>
                         </div>
@@ -46,26 +56,22 @@
                     <!-- Rate And Follower -->
                     <div class="rateWrap d-flex mb-3 justify-center justify-sm-start" :class="[!currentProfileUser.isTutor ? 'mt-sm-n0' : 'mt-sm-n4']">
                         <template v-if="currentProfileUser.isTutor">
-                            <div class="pUb_dS_c_rating" v-if="currentProfileTutor.reviewCount">
-                                <userRating class="c_rating" :showRateNumber="false" :rating="currentProfileTutor.rate" :size="'18'" />
-                                <span @click="scrollToReviews" class="pUb_dS_c_r_span ml-1">{{$tc('resultTutor_review_one',currentProfileTutor.reviewCount)}}</span>
-                            </div>
-                            <div v-else class="pUb_dS_c_rating">
-                                <starEmptySVG class="pUb_dS_c_rating_star"/>
-                                <span class="no-reviews font-weight-bold caption" v-t="'resultTutor_no_reviews'"></span>
+                            <div  class="pUb_dS_c_rating">
+                                  <v-rating  v-model="currentProfileTutor.rate" color="#ffca54" background-color="#ffca54"
+                                        :length="currentProfileTutor.reviewCount > 0  ? 5 : 1"
+                                            :size="18" readonly />
+                                    <span  span @click="scrollToReviews" class="pUb_dS_c_r_span ml-1">{{$tc('resultTutor_review_one',currentProfileTutor.reviewCount)}}</span>
                             </div>
                         </template>
                         <div class="ml-3">
                             <followBtn sel="follow_btn" class="followBtnNew mr-sm-2" v-if="!isCurrentProfileUser"/>
-                            <!-- <span v-if="currentProfileUser.followers" class="defaultState_content_followers" 
-                            v-text="$Ph(dynamicDictionay(currentProfileUser.followers,'profile_tutor_followers','profile_tutor_follower'),[currentProfileUser.followers])"/> -->
                         </div>
                     </div>
 
                     <!-- courses teacher -->
                     <div sel="teach_courses" class="course mt-sm-3 mb-sm-3 mt-2 mb-3 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
                         <bdi class="iTeach mr-1" v-t="'profile_my_courses_teacher'"></bdi>
-                        <span class="courseName text-truncate">{{currentProfileUser.courses.toString().replace(/,/g, ", ")}}</span>
+                        <span class="courseName text-truncate">{{currentProfileUser.coursesString}}</span>
                     </div>
 
                     <!-- TUTOR BIO -->
@@ -73,7 +79,7 @@
                         <div v-if="isOpen" class="my-4">
                             <div class="course mb-1 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
                                 <bdi class="iTeach mr-1" v-t="'profile_my_courses'"></bdi>
-                                <span class="courseName text-truncate">{{currentProfileUser.courses.toString().replace(/,/g, ", ")}}</span>
+                                <span class="courseName text-truncate">{{currentProfileUser.coursesString}}</span>
                             </div>
                             <div class="course text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
                                 <bdi class="iTeach mr-1" v-t="'profile_my_subjects'"></bdi>
@@ -178,7 +184,6 @@
 import { mapGetters, mapActions } from 'vuex';
 
 import starSVG from './images/star.svg';
-import starEmptySVG from './images/stars-copy.svg';
 import studentsSVG from './images/students.svg';
 import onlineLessonSVG from './images/onlineLesson.svg';
 import followersSvg from './images/followers.svg';
@@ -189,7 +194,6 @@ import calendarSVG from '../profileUserSticky/images/calendarIcon.svg';
 import * as routeNames from '../../../../routes/routeNames'
 
 import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
-import userRating from '../../profileHelpers/profileBio/bioParts/userRating.vue'
 import uploadImage from '../../profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue';
 import followBtn from '../followBtn/followBtn.vue';
 
@@ -200,12 +204,10 @@ export default {
         studentsSVG,
         onlineLessonSVG,
         followersSvg,
-        userRating,
         userAvatarRect,
         uploadImage,
         editSVG,
         followBtn,
-        starEmptySVG,
         chatSVG,
         calendarSVG
     },
@@ -399,7 +401,8 @@ export default {
             .userName{
                 .responsive-property(font-size, 24px, null, 22px);
                 font-weight: 600;
-                width: 100%;
+                //width: 100%;
+                flex-grow: 1;
             }
             .course {
                 font-weight: 600;
