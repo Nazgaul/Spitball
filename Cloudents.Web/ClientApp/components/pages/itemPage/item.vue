@@ -23,7 +23,7 @@
                 <mainItem :isLoad="isLoad" :document="document"></mainItem>
 
                 <v-card class="itemActions pt-sm-11 pt-4 px-4 elevation-0">
-                    <div class="wrapper d-block d-sm-flex justify-sm-end text-center pb-4">
+                    <div class="wrapper d-block d-sm-flex justify-sm-center text-center pb-4">
                         <template v-if="getDocumentPrice && !getIsPurchased">
                             <div class="d-flex align-end mr-4 justify-center mb-2 mb-sm-0">
                                 <div class="mr-1 price">{{priceWithComma}}</div>
