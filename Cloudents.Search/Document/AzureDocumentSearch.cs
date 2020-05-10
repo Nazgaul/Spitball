@@ -12,6 +12,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Search.Document
 {
@@ -81,7 +82,7 @@ namespace Cloudents.Search.Document
         public async Task<(IEnumerable<DocumentSearchResultWithScore> result, IEnumerable<string> facetSubject)>
             SearchAsync(DocumentQuery query, UserProfile userProfile, CancellationToken token)
         {
-            var filters = new List<string> {$"{Entities.Document.CountryNameField} eq '{userProfile.CountryRegion}'"};
+            var filters = new List<string> {$"{nameof(Entities.Document.SbCountry)} eq '{userProfile.CountryRegion}'"};
             if (query.Course != null)
             {
                 var filterStr = $"{Entities.Document.CourseNameField} eq '{query.Course.ToUpperInvariant().Replace("'", "''")}'";
@@ -107,9 +108,8 @@ namespace Cloudents.Search.Document
                 ScoringProfile = DocumentSearchWrite.ScoringProfile,
                 ScoringParameters = new[]
                              {
-                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsUniversityParameter, (string)null),
+                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsVideoParameter, DocumentType.Video.ToString("G")),
                                  TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsCourseParameter,userProfile.Courses),
-                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsCountryParameter,(string)null)
                 },
                 Facets = new[]
                 {
@@ -117,7 +117,7 @@ namespace Cloudents.Search.Document
                 }
 
             };
-            IEnumerable<string> facetDocumentType = null;
+            IEnumerable<string>? facetDocumentType = null;
             var result = await
                 _client.Documents.SearchAsync<Entities.Document>(query.Term, searchParameter,
                     cancellationToken: token);

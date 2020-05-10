@@ -4,6 +4,7 @@ using System;
 using System.Reflection;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Search.Document
@@ -47,6 +48,11 @@ namespace Cloudents.Search.Document
                 if (att.ConverterType == typeof(CountryConverter))
                 {
                     p.PropertyType = typeof(int);
+                }
+
+                if (att.ConverterType == typeof(StringEnumConverter))
+                {
+                    p.PropertyType = typeof(string);
                 }
             }
            

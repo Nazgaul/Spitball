@@ -26,6 +26,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Infrastructure;
 using Cloudents.Query;
 using Cloudents.Query.Users;
+using Cloudents.Search.Document;
 using Cloudents.Search.Tutor;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using NHibernate.Criterion;
@@ -146,6 +147,10 @@ namespace ConsoleApp
         {
             var x = Container.Resolve<TutorSearchWrite>();
             await x.CreateOrUpdateAsync(default);
+
+
+            var xy = Container.Resolve<DocumentSearchWrite>();
+            await xy.CreateOrUpdateAsync(default);
 
             //BaseUser? userAlias = null!;
             //var session = Container.Resolve<IStatelessSession>();
