@@ -71,6 +71,20 @@
       </v-dialog>    
          <studyRoomAudioVideoDialog v-if="settingDialogState"
         @closeAudioVideoSettingDialog="val => settingDialogState = val"/>
+
+      <v-dialog v-model="getDialogUserConsent" max-width="356px"
+                  :persistent="$vuetify.breakpoint.smAndUp" 
+                  :transition="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'">
+          <studentConsentDialog></studentConsentDialog>
+      </v-dialog>
+
+      <v-dialog v-model="getShowAudioRecordingError" max-width="675px"
+                  :persistent="$vuetify.breakpoint.smAndUp" 
+                  :transition="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'">
+        <errorWithAudioRecording></errorWithAudioRecording>
+      </v-dialog>
+
+
    </v-app-bar>
 </template>
 
@@ -79,6 +93,9 @@ import endSessionConfirm from "../../tutorHelpers/endSessionConfirm/endSessionCo
 import studyRoomRecordingService from '../../studyRoomRecordingService.js';
 import intercomSettings from '../../../../services/intercomService';
 import studyRoomAudioVideoDialog from '../../tutorHelpers/studyRoomSettingsDialog/studyRoomAudioVideoDialog/studyRoomAudioVideoDialog.vue';
+import studentConsentDialog from '../../tutorHelpers/studentConsentDialog/studentConsentDialog.vue';
+import errorWithAudioRecording from '../../tutorHelpers/errorWithAudioRecording/errorWithAudioRecording.vue';
+
 import logoComponent from "../../../app/logo/logo.vue";
 import { mapGetters } from 'vuex';
 export default {
@@ -90,10 +107,12 @@ export default {
    components:{
       logoComponent,
       endSessionConfirm,
-      studyRoomAudioVideoDialog
+      studyRoomAudioVideoDialog,
+      studentConsentDialog,
+      errorWithAudioRecording
    },
    computed: {
-      ...mapGetters(['getDialogRoomEnd','getIsRecording']),
+      ...mapGetters(['getDialogRoomEnd','getIsRecording','getDialogUserConsent','getShowAudioRecordingError']),
       isRoomTutor(){
          return this.$store.getters.getRoomIsTutor;
       },

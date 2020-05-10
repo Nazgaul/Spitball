@@ -118,6 +118,8 @@ export default {
                font-size: 22px;
                font-weight: 600;
                color: #ffffff;
+               text-align: center;
+               padding: 0 50px;
             }
          }
          &.tutorStartPresenting{

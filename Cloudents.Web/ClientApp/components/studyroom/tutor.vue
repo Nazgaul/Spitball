@@ -27,9 +27,9 @@
             style="display: flex; align-items: center; max-height: 48px; justify-content: space-between;"
           >
 
-          <template v-if="isRoomActive && isRoomTutor">
+          <!-- <template v-if="isRoomActive && isRoomTutor">
             <startEndSessionBtn :id="id"></startEndSessionBtn>
-          </template>
+          </template> -->
           
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px; margin-left:30px;" vertical></v-divider>
 
@@ -117,7 +117,7 @@
         </transition>
       </v-flex>
     <template>
-      <sb-dialog
+      <!-- <sb-dialog
         :showDialog="isBrowserSupportDialog"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'browserDialog'"
@@ -127,9 +127,9 @@
         :content-class="'browser-dialog-unsupport'"
       >
           <browserSupport></browserSupport>
-      </sb-dialog>
+      </sb-dialog> -->
       <!--show only if not avaliable devices dialog is closed by user-->
-            <sb-dialog
+            <!-- <sb-dialog
         :showDialog="getShowAudioRecordingError"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'errorWithAudioRecording'"
@@ -139,8 +139,8 @@
         :isPersistent="$vuetify.breakpoint.smAndUp"
       >
         <errorWithAudioRecording></errorWithAudioRecording>
-      </sb-dialog>
-      <sb-dialog
+      </sb-dialog> -->
+      <!-- <sb-dialog
         :showDialog="getDialogUserConsent"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'userConsentDialog'"
@@ -150,12 +150,12 @@
         :content-class="'user-consent-dialog'"
       >
           <studentConsentDialog></studentConsentDialog>
-      </sb-dialog>
+      </sb-dialog> -->
       <!-- <studyRoomAudioVideoDialog
         v-if="settingDialogState"
         @closeAudioVideoSettingDialog="val => settingDialogState = val"
       /> -->
-      <studyRoomSettingsDialog v-if="id && !isRoomActive"/>
+      <!-- <studyRoomSettingsDialog v-if="id && !isRoomActive"/> -->
   </template>
 
     </div>
@@ -178,13 +178,13 @@ import chatService from "../../services/chatService";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import whiteBoardTools from "./whiteboard/whiteboardTools.vue";
 import startEndSessionBtn from "./tutorHelpers/startEndSessionBtn/startEndSessionBtn.vue";
-import browserSupport from "./tutorHelpers/browserSupport/browserSupport.vue";
+// import browserSupport from "./tutorHelpers/browserSupport/browserSupport.vue";
 import insightService from '../../services/insightService.js';
-import studyRoomSettingsDialog from "./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue";
+// import studyRoomSettingsDialog from "./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue";
 import intercomSVG from './images/icon-1-2.svg'
 // import studyRoomRecordingService from './studyRoomRecordingService.js';
-import errorWithAudioRecording from './tutorHelpers/errorWithAudioRecording/errorWithAudioRecording.vue';
-import studentConsentDialog from './tutorHelpers/studentConsentDialog/studentConsentDialog.vue';
+// import errorWithAudioRecording from './tutorHelpers/errorWithAudioRecording/errorWithAudioRecording.vue';
+// import studentConsentDialog from './tutorHelpers/studentConsentDialog/studentConsentDialog.vue';
 // import stopRecording from './images/stop-recording.svg';
 // import beginRecording from './images/begain-recording.svg';
 // import studyRoomAudioVideoDialog from './tutorHelpers/studyRoomSettingsDialog/studyRoomAudioVideoDialog/studyRoomAudioVideoDialog.vue'
@@ -193,9 +193,9 @@ import studentConsentDialog from './tutorHelpers/studentConsentDialog/studentCon
 
 
 //store
-import storeService from "../../services/store/storeService";
-import tutoringCanvas from '../../store/studyRoomStore/tutoringCanvas.js';
-import codeEditor_store from '../../store/studyRoomStore/codeEditor_store.js';
+// import storeService from "../../services/store/storeService";
+// import tutoringCanvas from '../../store/studyRoomStore/tutoringCanvas.js';
+// import codeEditor_store from '../../store/studyRoomStore/codeEditor_store.js';
 // import roomRecording_store from '../../store/studyRoomStore/roomRecording_store.js';
 
 import * as dialogNames from '../pages/global/dialogInjection/dialogNames.js';
@@ -213,12 +213,12 @@ export default {
     sbDialog,
     whiteBoardTools,
     startEndSessionBtn,
-    browserSupport,
-    studyRoomSettingsDialog,
+    // browserSupport,
+    // studyRoomSettingsDialog,
     codeEditorTools,
     intercomSVG,
-    errorWithAudioRecording,
-    studentConsentDialog,
+    // errorWithAudioRecording,
+    // studentConsentDialog,
     // stopRecording,
     // beginRecording,
     // studyRoomAudioVideoDialog
@@ -227,7 +227,7 @@ export default {
   data() {
     return {
       // settingDialogState: false,
-      isBrowserSupportDialog:false,
+      // isBrowserSupportDialog:false,
       navs: [
         {
           name: this.$t("tutor_nav_canvas"),
@@ -264,20 +264,20 @@ export default {
   computed: {
     ...mapGetters([
       "getRoomIsNeedPayment",
-      "getDialogUserConsent",
+      // "getDialogUserConsent",
       "getZoom",
       "getPanX",
       "getPanY",
       "accountUser",
       // "getIsRecording",
-      "getShowAudioRecordingError",
+      // "getShowAudioRecordingError",
     ]),
     isRoomTutor(){
       return this.$store.getters.getRoomIsTutor;
     },
-    isRoomActive(){
-      return this.$store.getters.getRoomIsActive;
-    },
+    // isRoomActive(){
+    //   return this.$store.getters.getRoomIsActive;
+    // },
     activeItem() {
       return this.$store.getters.getActiveNavEditor;
     },
@@ -321,8 +321,8 @@ watch: {
       "updateLockChat",
       "closeChat",
       "openChatInterface",
-      "setShowAudioRecordingError",
-      "updateDialogUserConsent",
+      // "setShowAudioRecordingError",
+      // "updateDialogUserConsent",
       "openChat"
     ]),
     handleNeedPayment(needPayment){
@@ -367,9 +367,9 @@ watch: {
     //   this.$ga.event("tutoringRoom", "openSettingsDialog");
     //   this.settingDialogState = true;
     // },
-    closeShowAudioRecordingError(){
-      this.setShowAudioRecordingError(false);
-    },
+    // closeShowAudioRecordingError(){
+    //   this.setShowAudioRecordingError(false);
+    // },
     updateActiveNav(value) {
       if(!this.$route.params.id || this.$route.params.id && this.isRoomTutor ){
         insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_navigation', {'roomId': this.id, 'userId': this.userId, 'navigatedTo': value}, null)
@@ -425,9 +425,9 @@ watch: {
         self.updateLockChat(true);
       });
     },
-    closeBrowserSupportDialog(){
-      this.isBrowserSupportDialog = false;
-    },
+    // closeBrowserSupportDialog(){
+    //   this.isBrowserSupportDialog = false;
+    // },
     resetItems(){
       let isExit = confirm(this.$t("login_are_you_sure_you_want_to_exit"),)
       if(isExit){
@@ -443,16 +443,16 @@ watch: {
     //   this.$ga.event("tutoringRoom", 'toggleRecord');
     //   studyRoomRecordingService.toggleRecord(this.isTutor);
     // },
-    closeUserConsentDialog(){
-      this.updateDialogUserConsent(false);
-    },
-    isBrowserSupport(){
-      let agent = navigator.userAgent;
-      if(agent.match(/Edge/)){
-        return false;
-      }
-      return agent.match(/Firefox|Chrome|Safari/);
-    }
+    // closeUserConsentDialog(){
+    //   this.updateDialogUserConsent(false);
+    // },
+    // isBrowserSupport(){
+    //   let agent = navigator.userAgent;
+    //   if(agent.match(/Edge/)){
+    //     return false;
+    //   }
+    //   return agent.match(/Firefox|Chrome|Safari/);
+    // }
   },
   destroyed(){
     if(this.isTutor) {
@@ -464,27 +464,27 @@ watch: {
     this.$store.dispatch('updateResetRoom');
     this.updateLockChat(false);
 
-    storeService.unregisterModule(this.$store,'tutoringCanvas');
+    // storeService.unregisterModule(this.$store,'tutoringCanvas');
     // storeService.unregisterModule(this.$store,'roomRecording_store');
-    storeService.unregisterModule(this.$store,'codeEditor_store');
+    // storeService.unregisterModule(this.$store,'codeEditor_store');
   },
   beforeCreate(){
     // storeService.registerModule(this.$store,'roomRecording_store',roomRecording_store);
-    storeService.registerModule(this.$store,'tutoringCanvas',tutoringCanvas);
-    storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
+    // storeService.registerModule(this.$store,'tutoringCanvas',tutoringCanvas);
+    // storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
   },
   async created() {
     // this.$store.commit('clearComponent') // added
     this.userId = this.accountUser?.id || 'GUEST';
 
-    if (!this.isBrowserSupport()) {
-      this.$nextTick(()=>{
-        this.isBrowserSupportDialog = true;
-        let roomId = this.id ? this.id : 'No-Id';
-        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_BrowserNotSupported', {'roomId': roomId, 'userId': this.userId}, null)
-      })
-      return;
-    }
+    // if (!this.isBrowserSupport()) {
+    //   this.$nextTick(()=>{
+    //     this.isBrowserSupportDialog = true;
+    //     let roomId = this.id ? this.id : 'No-Id';
+    //     insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_BrowserNotSupported', {'roomId': roomId, 'userId': this.userId}, null)
+    //   })
+    //   return;
+    // }
 
     if(this.id){
       if(this.$store.getters.accountUser?.id){
