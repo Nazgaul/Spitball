@@ -4,18 +4,28 @@
          <logoComponent/>
       </a>
       <div class="roundShape mr-2"></div>
-      <v-toolbar-title class="white--text">{{$t('studyRoom_live')}}</v-toolbar-title>
+      <v-toolbar-title class="white--text mr-7">{{$t('studyRoom_live')}}</v-toolbar-title>
       <!-- <v-divider class="ml-3 divider" vertical inset color="white"></v-divider> -->
 
-      <v-btn-toggle v-if="isRoomTutor" mandatory :value="getIsCurrentMode(currentEditorMode)" :ripple="false" active-class="editorActive"  borderless group class="editors">
+      <!-- <v-btn-toggle v-if="isRoomTutor" mandatory :value="getIsCurrentMode(currentEditorMode)" :ripple="false" active-class="editorActive"  borderless group class="editors">
          <v-btn v-for="(navTab, objectKey) in navTabs" :key="objectKey" 
                 :value="objectKey" text @click="actionHandler(objectKey)">
             <span><v-icon class="mr-2">{{navTab.icon}}</v-icon>{{navTab.text}}</span>
          </v-btn>
-      </v-btn-toggle>
-
+      </v-btn-toggle> -->
+      <template v-if="isRoomTutor" >
+         <template v-for="(navTab, objectKey) in navTabs">
+            <v-divider height="33px" class="divider" vertical inset color="white"></v-divider>
+            <button :key="objectKey" @click="actionHandler(objectKey)"
+               :class="['tutorNavTab', 
+                  {'tutorNavTab-active': navTab.icon == navTabs[getIsCurrentMode(currentEditorMode)].icon}]" >
+               <span><v-icon size="16" :color="navTab.icon == navTabs[getIsCurrentMode(currentEditorMode)].icon?'#4c59ff':'white'" class="mr-2">{{navTab.icon}}</v-icon>{{navTab.text}}</span>
+            </button>
+            
+         </template>
+      </template>
       <div v-else class="studentNavTab">
-         <v-icon class="mr-2" color="#4c59ff">
+         <v-icon size="16" class="mr-2" color="#4c59ff">
             {{navTabs[getIsCurrentMode(currentEditorMode)].icon}}
          </v-icon>
          {{navTabs[getIsCurrentMode(currentEditorMode)].text}}
@@ -223,8 +233,27 @@ export default {
       .logo {
          fill: #fff;
       }
+      .tutorNavTab{
+         outline: none;
+         margin-top: 8px;
+         font-size: 12px;
+         font-weight: 600;
+         color: white;
+         height: 50px;
+         width: 130px;
+         &.tutorNavTab-active{
+            color: #4c59ff;
+            // margin-left: 26px;
+            background: white;
+            border-top-right-radius: 6px;
+            border-top-left-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+         }
+      }
       .studentNavTab{
-         margin-left: 26px;
+         // margin-left: 26px;
          background: white;
          width: 130px;
          height: 50px;
@@ -278,6 +307,9 @@ export default {
             
       .divider{
          opacity: 0.28;
+         margin-top: 14px;
+         min-height: 0;
+         max-height: calc(100% - 22px);
       }
       .roundShape {
          width: 8px;
