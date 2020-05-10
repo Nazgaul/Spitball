@@ -175,7 +175,7 @@
     <value>Review</value>
   </data>
   <data name="tutor" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="resourses" xml:space="preserve">
     <value>{1} Contents</value>
@@ -314,5 +314,8 @@
   </data>
   <data name="my_book_session" xml:space="preserve">
     <value>Show my calendar</value>
+  </data>
+  <data name="free" xml:space="preserve">
+    <value>Free</value>
   </data>
 </root>
