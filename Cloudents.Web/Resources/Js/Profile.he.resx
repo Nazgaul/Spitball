@@ -229,7 +229,7 @@
     <value>שעה</value>
   </data>
   <data name="price_label" xml:space="preserve">
-    <value>מחיר לשעה</value>
+    <value>תעריף שעתי</value>
   </data>
   <data name="pricing" xml:space="preserve">
     <value>תמחור</value>
@@ -302,9 +302,6 @@
   </data>
   <data name="study_materials_mobile" xml:space="preserve">
     <value>התוכן של {1}</value>
-  </data>
-  <data name="tutor" xml:space="preserve">
-    <value>מורה פרטי</value>
   </data>
   <data name="tutor_follower" xml:space="preserve">
     <value>עוקב | עוקבים</value>

@@ -141,9 +141,20 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            
 
 
+            var session = Container.Resolve<IStatelessSession>();
+            var x = session.Query<BaseUser>()
+                .Where(w => w.Id == 36)
+                .Where(w=>((User)w).LockoutEnabled)
+                //.Where(w => ((User) w).LockoutReason == "xxx")
+                .Select(s => ((User) s).LockoutReason)
+                .Single();
+
+            var z= session.QueryOver<BaseUser>()
+                .Where(w => w.Id == 36)
+                .Where(w=>((User)w).LockoutEnabled)
+                .Select(s => ((User) s).LockoutReason).SingleOrDefault();
 
 
         }

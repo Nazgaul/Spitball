@@ -120,29 +120,26 @@
   <data name="about" xml:space="preserve">
     <value>About</value>
   </data>
-  <data name="aboutme" xml:space="preserve">
-    <value>About me</value>
-  </data>
-  <data name="become_title" xml:space="preserve">
-    <value>Teach On Spitball</value>
-  </data>
   <data name="become_tutor_btn" xml:space="preserve">
     <value>Become a tutor</value>
   </data>
-  <data name="become_txt" xml:space="preserve">
-    <value>Earn money by teaching what you know best. Access to the tools you need to create and sell education content and teach online.</value>
+  <data name="edit_image_text" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="points_hour" xml:space="preserve">
+    <value>hour</value>
+  </data>
+  <data name="read_more" xml:space="preserve">
+    <value>Read More</value>
+  </data>
+  <data name="reviews" xml:space="preserve">
+    <value>No Reviews | Review | Reviews</value>
+  </data>
+  <data name="aboutme" xml:space="preserve">
+    <value>About me</value>
   </data>
   <data name="bio_label" xml:space="preserve">
     <value>Bio</value>
-  </data>
-  <data name="book_session" xml:space="preserve">
-    <value>Book a lesson with me</value>
-  </data>
-  <data name="book_session_mobile" xml:space="preserve">
-    <value>Book a lesson</value>
-  </data>
-  <data name="book_session_mobile_xs" xml:space="preserve">
-    <value>Book</value>
   </data>
   <data name="btn_cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -153,80 +150,20 @@
   <data name="description_label" xml:space="preserve">
     <value>Title</value>
   </data>
-  <data name="earn_btn" xml:space="preserve">
-    <value>I want to earn money</value>
-  </data>
-  <data name="earn_desc" xml:space="preserve">
-    <value>Trust upload your documents/class notes that you already have and make passive income.</value>
-  </data>
-  <data name="earn_title" xml:space="preserve">
-    <value>Your study materials are worth money on Spitball!</value>
-  </data>
-  <data name="edit_image_text" xml:space="preserve">
-    <value>Edit</value>
-  </data>
   <data name="edit_tutor_title" xml:space="preserve">
     <value>Edit your Tutor profile</value>
   </data>
   <data name="edit_user_profile_title" xml:space="preserve">
     <value>Edit your profile</value>
   </data>
-  <data name="empty_title" xml:space="preserve">
-    <value>Nothing posted yet</value>
-  </data>
-  <data name="enroll" xml:space="preserve">
-    <value>Enroll</value>
-  </data>
-  <data name="enroll_error" xml:space="preserve">
-    <value>An error has occured</value>
-  </data>
-  <data name="enroll_success" xml:space="preserve">
-    <value>You have successfully enrolled</value>
-  </data>
-  <data name="enter_room" xml:space="preserve">
-    <value>Enter</value>
-  </data>
-  <data name="find_tutors" xml:space="preserve">
-    <value>Find Tutors at Spitball</value>
-  </data>
   <data name="firstName_label" xml:space="preserve">
     <value>First Name</value>
-  </data>
-  <data name="follow" xml:space="preserve">
-    <value>Follow</value>
-  </data>
-  <data name="following" xml:space="preserve">
-    <value>Following</value>
-  </data>
-  <data name="free" xml:space="preserve">
-    <value>Free</value>
   </data>
   <data name="lastName_label" xml:space="preserve">
     <value>Last Name</value>
   </data>
-  <data name="live_title" xml:space="preserve">
-    <value>Upcoming  Live classes by</value>
-  </data>
-  <data name="my_book_session" xml:space="preserve">
-    <value>Show my calendar</value>
-  </data>
-  <data name="my_courses" xml:space="preserve">
-    <value>My courses:</value>
-  </data>
-  <data name="my_courses_student" xml:space="preserve">
-    <value>My courses :</value>
-  </data>
-  <data name="my_courses_teacher" xml:space="preserve">
-    <value>I Teach :</value>
-  </data>
-  <data name="my_subjects" xml:space="preserve">
-    <value>My subjects:</value>
-  </data>
   <data name="personal_details" xml:space="preserve">
     <value>Personal details</value>
-  </data>
-  <data name="points_hour" xml:space="preserve">
-    <value>hour</value>
   </data>
   <data name="price_label" xml:space="preserve">
     <value>Price per Hour</value>
@@ -234,17 +171,38 @@
   <data name="pricing" xml:space="preserve">
     <value>Pricing</value>
   </data>
-  <data name="read_less" xml:space="preserve">
-    <value>Read less</value>
+  <data name="single_review" xml:space="preserve">
+    <value>Review</value>
   </data>
-  <data name="read_more" xml:space="preserve">
-    <value>Read More</value>
-  </data>
-  <data name="resourse" xml:space="preserve">
-    <value>{1} Content</value>
+  <data name="tutor" xml:space="preserve">
+    <value></value>
   </data>
   <data name="resourses" xml:space="preserve">
     <value>{1} Contents</value>
+  </data>
+  <data name="sessions" xml:space="preserve">
+    <value>{1} Lessons</value>
+  </data>
+  <data name="students" xml:space="preserve">
+    <value>{1} Students</value>
+  </data>
+  <data name="follow" xml:space="preserve">
+    <value>Follow</value>
+  </data>
+  <data name="following" xml:space="preserve">
+    <value>Following</value>
+  </data>
+  <data name="become_title" xml:space="preserve">
+    <value>Teach On Spitball</value>
+  </data>
+  <data name="become_txt" xml:space="preserve">
+    <value>Earn money by teaching what you know best. Access to the tools you need to create and sell education content and teach online.</value>
+  </data>
+  <data name="book_session" xml:space="preserve">
+    <value>Book a lesson with me</value>
+  </data>
+  <data name="find_tutors" xml:space="preserve">
+    <value>Find Tutors at Spitball</value>
   </data>
   <data name="response" xml:space="preserve">
     <value>Response time</value>
@@ -255,14 +213,50 @@
   <data name="response_hours" xml:space="preserve">
     <value>{1} hours</value>
   </data>
-  <data name="reviews" xml:space="preserve">
-    <value>No Reviews | Review | Reviews</value>
+  <data name="send_message" xml:space="preserve">
+    <value>Send me a message</value>
   </data>
-  <data name="see_all" xml:space="preserve">
-    <value>See all</value>
+  <data name="why_learn" xml:space="preserve">
+    <value>Why Learn at Spitball</value>
   </data>
-  <data name="see_less" xml:space="preserve">
-    <value>Hide</value>
+  <data name="book_session_mobile" xml:space="preserve">
+    <value>Book a lesson</value>
+  </data>
+  <data name="earn_btn" xml:space="preserve">
+    <value>I want to earn money</value>
+  </data>
+  <data name="earn_desc" xml:space="preserve">
+    <value>Trust upload your documents/class notes that you already have and make passive income.</value>
+  </data>
+  <data name="earn_title" xml:space="preserve">
+    <value>Your study materials are worth money on Spitball!</value>
+  </data>
+  <data name="study" xml:space="preserve">
+    <value>Study area:</value>
+  </data>
+  <data name="tutor_follower" xml:space="preserve">
+    <value>No Followers | Follower | Followers</value>
+  </data>
+  <data name="tutor_followers" xml:space="preserve">
+    <value>{1} Followers</value>
+  </data>
+  <data name="resourse" xml:space="preserve">
+    <value>{1} Content</value>
+  </data>
+  <data name="session" xml:space="preserve">
+    <value>No Lessons | Lesson | Lessons</value>
+  </data>
+  <data name="student" xml:space="preserve">
+    <value>No Students | Student | Students</value>
+  </data>
+  <data name="study_materials" xml:space="preserve">
+    <value>{1}’s study materials</value>
+  </data>
+  <data name="read_less" xml:space="preserve">
+    <value>Read less</value>
+  </data>
+  <data name="book_session_mobile_xs" xml:space="preserve">
+    <value>Book</value>
   </data>
   <data name="select_course" xml:space="preserve">
     <value>Select Course</value>
@@ -276,43 +270,49 @@
   <data name="select_item_type_videos" xml:space="preserve">
     <value>Videos</value>
   </data>
-  <data name="send_message" xml:space="preserve">
-    <value>Send me a message</value>
-  </data>
-  <data name="session" xml:space="preserve">
-    <value>No Lessons | Lesson | Lessons</value>
-  </data>
-  <data name="sessions" xml:space="preserve">
-    <value>{1} Lessons</value>
-  </data>
-  <data name="single_review" xml:space="preserve">
-    <value>Review</value>
-  </data>
-  <data name="student" xml:space="preserve">
-    <value>No Students | Student | Students</value>
-  </data>
-  <data name="students" xml:space="preserve">
-    <value>{1} Students</value>
-  </data>
-  <data name="study" xml:space="preserve">
-    <value>Study area:</value>
-  </data>
-  <data name="study_materials" xml:space="preserve">
-    <value>{1}’s study materials</value>
-  </data>
   <data name="study_materials_mobile" xml:space="preserve">
     <value>Content by {1}</value>
   </data>
-  <data name="tutor" xml:space="preserve">
-    <value>Tutor</value>
+  <data name="empty_title" xml:space="preserve">
+    <value>Nothing posted yet</value>
   </data>
-  <data name="tutor_follower" xml:space="preserve">
-    <value>No Followers | Follower | Followers</value>
+  <data name="my_courses_teacher" xml:space="preserve">
+    <value>I Teach :</value>
   </data>
-  <data name="tutor_followers" xml:space="preserve">
-    <value>{1} Followers</value>
+  <data name="my_courses_student" xml:space="preserve">
+    <value>My courses :</value>
   </data>
-  <data name="why_learn" xml:space="preserve">
-    <value>Why Learn at Spitball</value>
+  <data name="enroll" xml:space="preserve">
+    <value>Enroll</value>
+  </data>
+  <data name="enroll_error" xml:space="preserve">
+    <value>An error has occured</value>
+  </data>
+  <data name="enroll_success" xml:space="preserve">
+    <value>You have successfully enrolled</value>
+  </data>
+  <data name="enter_room" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="live_title" xml:space="preserve">
+    <value>Upcoming  Live classes by</value>
+  </data>
+  <data name="per_hour" xml:space="preserve">
+    <value>/hour</value>
+  </data>
+  <data name="see_all" xml:space="preserve">
+    <value>See all</value>
+  </data>
+  <data name="my_courses" xml:space="preserve">
+    <value>My courses:</value>
+  </data>
+  <data name="my_subjects" xml:space="preserve">
+    <value>My subjects:</value>
+  </data>
+  <data name="see_less" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="my_book_session" xml:space="preserve">
+    <value>Show my calendar</value>
   </data>
 </root>
