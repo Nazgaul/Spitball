@@ -2,6 +2,9 @@
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Reflection;
+using Cloudents.Core;
+using Cloudents.Core.Entities;
+using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Search.Document
 {
@@ -41,9 +44,39 @@ namespace Cloudents.Search.Document
                 {
                     p.PropertyType = typeof(string);
                 }
+                if (att.ConverterType == typeof(CountryConverter))
+                {
+                    p.PropertyType = typeof(int);
+                }
             }
+           
 
             return p;
+        }
+    }
+
+    public class CountryConverter : JsonConverter<Country?>
+    {
+        public override void WriteJson(JsonWriter writer, Country? value, JsonSerializer serializer)
+        {
+            if (value == null)
+            {
+                return;
+            }
+            writer.WriteValue(value.Id);
+        }
+
+        public override Country? ReadJson(JsonReader reader, Type objectType, Country existingValue, bool hasExistingValue,
+            JsonSerializer serializer)
+        {
+            var val = reader.Value;
+            if (val == null)
+            {
+                return null;
+            }
+            var id = (int)val;
+            return Enumeration.FromValue<Country>(id);
+
         }
     }
 

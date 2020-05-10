@@ -2,7 +2,6 @@ using Cloudents.Core.DTOs.Tutors;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.Query;
 using Cloudents.Query.SearchSync;
-using Cloudents.Search.Entities;
 using Cloudents.Search.Tutor;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
@@ -12,7 +11,9 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
+using Tutor = Cloudents.Search.Entities.Tutor;
 
 namespace Cloudents.FunctionsV2
 {
@@ -49,12 +50,18 @@ namespace Cloudents.FunctionsV2
                     var courses = update.Courses?.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct().ToArray() ??
                                   Array.Empty<string>();
                     var subjects = update.Subjects?.Where(w => !string.IsNullOrWhiteSpace(w)).ToArray() ?? Array.Empty<string>();
+
+                    // ReSharper disable once ConditionIsAlwaysTrueOrFalse - Temp
+                    if (update.SbCountry == null)
+                    {
+                        update.SbCountry = Country.FromCountry(update.Country);
+                    }
                     await indexInstance.AddAsync(new AzureSearchSyncOutput()
                     {
                         Item = new Tutor
                         {
                             Country = update.Country.ToUpperInvariant(),
-                            SbCountry = update.SbCountry.Id,
+                            SbCountry = update.SbCountry,
                             Id = update.UserId.ToString(),
                             Name = update.Name,
                             Courses = courses.ToArray(),
