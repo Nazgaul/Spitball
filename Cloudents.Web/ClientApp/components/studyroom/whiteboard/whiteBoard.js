@@ -13,7 +13,8 @@ import pencilSVG from '../images/noun-edit-684936.svg';
 import uploadSVG from '../images/outline-open-in-browser-24-px.svg';
 // import whiteBoardLayers from './innerComponents/whiteBoardLayers.vue'
 
-const HeaderHeight = 108;
+const HeaderHeight = 62;
+const tabsHeight = 30;
 
 export default {
     components: {
@@ -26,11 +27,13 @@ export default {
     },
     data() {
         return {
+            windowWidth: this.getWindowWidth(),
+            windowHeight: this.getWindowHeight(),
             canvas: null,
-            canvasWidth: 2800,
-            canvasHeight: 850,
-            windowWidth: global.innerWidth, // 10 stands for the scroll offset
-            windowHeight: global.innerHeight - HeaderHeight, 
+            // canvasWidth: 2800,
+            // canvasHeight: 850,
+            // windowWidth: global.innerWidth, // 10 stands for the scroll offset
+            // windowHeight: global.innerHeight - HeaderHeight, 
             showPickColorInterface: false,
             showHelper: false,
             formula: 'x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.',
@@ -297,14 +300,34 @@ export default {
         keyCodeChecker(e,keyCode){
             return (e.which == keyCode || e.keyCode == keyCode);
         },
+        getWindowWidth(){
+            let windowWidth = document.querySelector('main').clientWidth;
+            let paddingLeft = +document.querySelector('main').style.paddingLeft.replace('px','')
+            let paddingRight = +document.querySelector('main').style.paddingRight.replace('px','')
+            let windowSidePadding = paddingRight || paddingLeft;
+            let size = windowWidth - windowSidePadding
+            return size
+        },
+        getWindowHeight(){
+            let windowHeight = document.querySelector('main').clientHeight;
+            let paddingTop = HeaderHeight;
+            let paddingBottom = +document.querySelector('main').style.paddingBottom.replace('px','') + tabsHeight;
+            let windowYPadding = paddingTop + paddingBottom;
+            let size = windowHeight - windowYPadding
+            return size
+        },
         resizeCanvas() {
             // let canvas = document.getElementById('canvas');
             let ctx = this.canvas.getContext("2d");
             ctx.setTransform(1, 0, 0, 1, 0, 0);
-            this.windowWidth = global.innerWidth,
-                this.windowHeight = global.innerHeight - HeaderHeight,
-                this.canvas.width = this.canvasWidth;
-                this.canvas.height = this.canvasHeight;
+            this.windowWidth = this.getWindowWidth(),
+                this.windowHeight = this.getWindowHeight(),
+                this.canvas.width = this.windowWidth;
+                this.canvas.height = this.windowHeight;
+            // this.windowWidth = global.innerWidth,
+                // this.windowHeight = global.innerHeight - HeaderHeight,
+                // this.canvas.width = this.canvasWidth;
+                // this.canvas.height = this.canvasHeight;
             whiteBoardService.redraw(this.canvasData);
         },
         injectToTextArea(textToInject) {
@@ -420,8 +443,10 @@ export default {
     mounted() {
         this.canvas = document.querySelector('canvas');
         let canvasWrapper = document.querySelector('.canvas-wrapper');
-        this.canvas.width = this.canvasWidth;
-        this.canvas.height = this.canvasHeight;
+        this.canvas.width = this.windowWidth;
+        this.canvas.height = this.windowHeight;
+        // this.canvas.width = this.canvasWidth;
+        // this.canvas.height = this.canvasHeight;
         this.canvasData.context = this.canvas.getContext("2d");
         this.canvasData.context.font = `16px Open Sans`;
         this.canvasData.context.lineJoin = this.canvasData.lineJoin;
