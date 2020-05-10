@@ -12,7 +12,7 @@
             :borderRadius="4"
           />
           <div class="card-mobile-header-content">
-              <h3 class="text-truncate font-weight-bold card-mobile-tutor-name" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
+              <h3 class="text-truncate font-weight-bold card-mobile-tutor-name">{{tutorData.name}}</h3>
 
               <template>
                   <div class="user-rate align-center" v-if="tutorData.reviews > 0">
@@ -56,7 +56,7 @@
       <div class="card-mobile-footer">
           <v-btn class="btn-chat white--text text-truncate my-0" depressed rounded block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
                 <iconChat class="chat_icon_btn" />
-                <div class="text-truncate text_icon_btn" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
+                <div class="text-truncate text_icon_btn">{{$t('resultTutor_send_button',[showFirstName])}}</div>
           </v-btn>
       </div>
 
