@@ -76,7 +76,7 @@ export default {
     },
     computed: {
         countryCodesList(){
-            return codesJson.sort((a, b) => a.name.localeCompare(b.name))
+            return codesJson;//.sort((a, b) => a.name.localeCompare(b.name))
         },
         showError() {
             // TODO: need to retrive from server error type to know which error should show
