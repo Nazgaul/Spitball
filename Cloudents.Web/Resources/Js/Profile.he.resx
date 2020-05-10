@@ -210,7 +210,7 @@
   <data name="live_title" xml:space="preserve">
     <value>שיעורים פתוחים לקהל של</value>
   </data>
-  <data name="live_visitor" xml:space="preserve">
+  <data name="live_visitors_title" xml:space="preserve">
     <value>אורחים</value>
   </data>
   <data name="my_book_session" xml:space="preserve">
