@@ -1,7 +1,7 @@
 <template>
    <v-navigation-drawer app right clipped class="studyRoomDrawer" :width="drawerExtend ? 300 : 0">
    <v-btn icon class="collapseIcon" @click="drawerExtend = !drawerExtend" color="#fff">
-      <v-icon v-text="drawerExtend? 'sbf-arrow-right-carousel': 'sbf-arrow-left-carousel'"></v-icon>
+      <v-icon color="#7a798c" size="18" v-text="drawerExtend? 'sbf-arrow-right-carousel': 'sbf-arrow-left-carousel'"></v-icon>
    </v-btn>
    <div class="drawerContent flex-column d-flex justify-space-between align-center">
       <drawerVideoContainer :isShowVideo="isShowVideo" class="mt-2 d-flex flex-grow-0 flex-shrink-0 elevation-0"/>
@@ -126,8 +126,10 @@ export default {
          position: absolute;
          top: 20px;
          left: -35px;
-         background: #212123;
+         background: #ffffff;
          border-radius: 0%; //vuetify override
+         border-top-left-radius: 8px;
+         border-bottom-left-radius: 8px;
       }
    }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <v-sheet height="100%" width="100%" class="flex-column d-flex canvas-window">
+  <v-sheet color="#f5f5f5" height="100%" width="100%" class="flex-column d-flex canvas-window">
     <div class="d-flex flex-grow-1">
       <whiteBoard></whiteBoard>
       <whiteBoardFloatingTools/>
@@ -71,8 +71,8 @@ export default {
 .canvas-window {
   background: transparent; //overide vuetify
   background-size: 20px 20px;
-  background-image: linear-gradient(to right, #f5f5f5 1px, transparent 1px),
-    linear-gradient(to bottom, #f5f5f5 1px, transparent 1px);
+  background-image: linear-gradient(to right, #EBEBEB 1px, transparent 1px),
+    linear-gradient(to bottom, #EBEBEB 1px, transparent 1px);
 
   .tabs {
     background: #e0e0e1;
