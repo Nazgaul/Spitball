@@ -113,7 +113,7 @@ const mutations = {
 const getters = {    
     getEmail1: state => state.email,
     getPhone: state => state.phone,
-    getCountryCodesList: () => codesJson.sort((a, b) => a.name.localeCompare(b.name)),
+    getCountryCodesList: () => codesJson,
     getLocalCode: state => state.localCode,
     // getGlobalLoading: state => state.globalLoading,
     getErrorMessages: state => state.errorMessage,
