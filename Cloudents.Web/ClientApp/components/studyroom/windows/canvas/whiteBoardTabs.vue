@@ -1,11 +1,19 @@
 <template>
-   <v-btn-toggle :value="getCurrentSelectedTab" group dense borderless color="#4c59ff" background-color="#00FF00" mandatory>
+   <div>
+      <button v-for="(tab,index) in getCanvasTabs" 
+              @click="changeTab(tab)" :key="tab.id" :sel="`tab${index+1}`"
+              :class="['tabBtns',{'activeTabBtn':getCurrentSelectedTab.id == tab.id},{'disableClick':!isRoomTutor}]">
+         {{tab.name}}
+      </button>
+   </div>
+   <!-- <v-btn-toggle group dense borderless color="#4c59ff" background-color="#00FF00" mandatory>
+         {{getCurrentSelectedTab}}
       <template v-for="(tab,index) in getCanvasTabs">
-         <v-btn @click="changeTab(tab)" :key="tab.id" :sel="`tab${index+1}`">
+         <v-btn :input-value="getCurrentSelectedTab.id == tab.id" @click="changeTab(tab)" :key="tab.id" :sel="`tab${index+1}`">
             {{tab.name}}
          </v-btn>
       </template>
-   </v-btn-toggle>
+   </v-btn-toggle> -->
 </template>
 
 <script>
@@ -47,7 +55,22 @@ export default {
 </script>
 
 <style lang="less">
-.whiteBoardTabs{
-
+.tabBtns{
+   min-width: 88px;
+   height: 30px;
+   font-size: 14px;
+   border-right: 1px solid white;
+   background-color: #e0e0e1;
+   font-weight: 600;
+   color: #7a798c;
+   outline: none;
+   &.activeTabBtn{
+      background-color: white ;
+      font-weight: bold;
+      color: #4c59ff;
+   }
+   &.disableClick{
+      pointer-events: none;
+   }
 }
 </style>

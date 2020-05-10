@@ -207,8 +207,7 @@ export default {
             this.selectedRoomMode = ''
         },
         fullview() {
-            let roomModes = this.$store.getters.getRoomModeConsts
-            this.$store.dispatch('updateActiveNavEditor',roomModes.CLASS_SCREEN)
+            this.$store.dispatch('updateToggleTutorFullScreen',true)
             this.selectedRoomMode = ''
         },
         

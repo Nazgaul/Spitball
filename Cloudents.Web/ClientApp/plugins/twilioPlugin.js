@@ -21,11 +21,12 @@ function _changeState(localParticipant) {
 
    let stuffToSend =  {
       type: CURRENT_STATE_UPDATE,
-      // tab : STORE.getters.getActiveNavEditor,
-      // canvasTab : {
-      //    tab: STORE.getters.getCurrentSelectedTab,
-      //    canvas: STORE.getters.canvasDataStore
-      // },
+      tab : STORE.getters.getActiveNavEditor,
+      canvasTab : {
+         tab: STORE.getters.getCurrentSelectedTab,
+         canvas: STORE.getters.canvasDataStore
+      },
+      mute : STORE.getters.getIsAudioParticipants,
       // fullScreen: null
    };
    localParticipant.tracks.forEach((track) => {
@@ -37,23 +38,6 @@ function _changeState(localParticipant) {
          };
       }
    });
-   // if(!STORE.getters.getRoomIsTutor) return;
-   // let stuffToSend =  {
-   //    type: CURRENT_STATE_UPDATE,
-   //    tab : STORE.getters.getActiveNavEditor,
-   //    canvasTab : {
-   //       tab: STORE.getters.getCurrentSelectedTab,
-   //       canvas: STORE.getters.canvasDataStore
-   //    },
-   //   // mute : STORE.getters.getIsAudioParticipants,
-   //    fullScreen: null
-   // };
-   // localParticipant.tracks.forEach((track) => {
-   //    if(track.trackName === VIDEO_TRACK_NAME && STORE.getters.getIsFullScreen 
-   //       || track.trackName === SCREEN_TRACK_NAME){
-   //       stuffToSend.fullScreen = track.trackSid;
-   //    }
-   // });
    STORE.dispatch('sendDataTrack',JSON.stringify(stuffToSend));
 }
 
@@ -168,9 +152,9 @@ function _twilioListeners(room,store) {
          if(data.fullScreen){
             store.dispatch('updateFullScreen',data.fullScreen)
          }
-         //store.dispatch('updateAudioToggleByRemote',data.mute)
-         // store.dispatch('updateActiveNavEditor', data.tab)
-         // store.dispatch('tempWhiteBoardTabChanged', data.canvasTab)
+         store.dispatch('updateActiveNavEditor', data.tab)
+         store.dispatch('updateAudioToggleByRemote',data.mute);
+         store.dispatch('tempWhiteBoardTabChanged', data.canvasTab)
          store.dispatch('sendDataTrack', JSON.stringify({type : CURRENT_STATE_UPDATED}));
          return;
       }
