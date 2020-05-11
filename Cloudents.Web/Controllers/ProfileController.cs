@@ -63,7 +63,7 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
 
-            if (retVal.Tutor is null)
+            if (retVal.Tutor is null || !retVal.ShouldSerializeTutor())
             {
                 Response.Headers.Add("X-Robots-Tag", "noindex");
                 return View("Index");
