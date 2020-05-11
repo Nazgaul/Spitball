@@ -34,23 +34,19 @@
             <div class="ts-bottom">
                 <router-link event @click.native.stop="openCoupon" class="applyCoupon" to="/" v-language:inner="'resultTutor_apply_coupon'"></router-link>
 
-
                 <div class="ts-price">
-                    <template>
-                        <span v-if="isDiscount" class="ts-price-discount font-weight-bold">{{$n(tutor.discountPrice, 'currency')}}</span>
-                        <span class="ts-price-original font-weight-bold" v-else>{{$n(tutor.price, 'currency')}}</span>
-                    </template>
-                    <span>
-                        <span>/</span>
-                        <span v-language:inner="'tutorCardCarousel_hour'"></span>
-                    </span>
+                    <tutorPrice 
+                        :price="tutor.price"
+                        :discount="tutor.discountPrice"
+                        :currency="tutor.currency"
+                    />
                     <div class="striked ml-2" v-if="isDiscount">{{$n(tutor.price, 'currency')}}</div>
                 </div>
             </div>
             <v-btn depressed color="#4c59ff" class="tutor-btn">
                 <span class="text-truncate">
                     <button class="mr-1">
-                        <div class="contact-me-button">{{$t('resultTutor_send_button',[showFirstName])}}</div>
+                        <div class="contact-me-button">{{$t('resultTutor_send_button', [showFirstName])}}</div>
                     </button>
                 </span>
             </v-btn>
@@ -63,13 +59,14 @@ import { mapGetters, mapActions } from 'vuex';
 import analyticsService from '../../services/analytics.service';
 import { LanguageService } from "../../services/language/languageService.js";
 
+import tutorPrice from '../helpers/tutorPrice/tutorPrice.vue'
 import userRating from "../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
 import userAvatarRect from '../helpers/UserAvatar/UserAvatarRect.vue';
 
 import star from "./image/stars-copy.svg";
 
 export default {
-    components:{userRating,star,userAvatarRect},
+    components:{userRating,star,userAvatarRect, tutorPrice},
     data(){
         return{
             contactClickedbtn: false,
@@ -253,13 +250,20 @@ export default {
             &-original {
                 font-size: 18px;
             }
-            &-discount {
-                font-size: 18px;
-            }
-            .price-mark {
-                color: #43425d;
-                font-weight: bold;
-                font-size: 16px;
+            .tutorPrice {
+                .discount {
+                    font-size: 18px;
+                }
+                .number, .currency {
+                    color: #43425d;
+                    font-weight: bold;
+                    font-size: 16px;
+                }
+                .price {
+                    color: #43425d;
+                    font-weight: bold;
+                    font-size: 16px;
+                }
             }
             .striked {
                 margin: 0 0 0 auto;

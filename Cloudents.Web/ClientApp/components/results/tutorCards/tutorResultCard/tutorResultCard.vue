@@ -33,14 +33,11 @@
             <div class="price">
               <router-link class="applyCoupon" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name},  query: {coupon: true}}" v-t="'resultTutor_apply_coupon'"></router-link>
               <div class="user-rates-top">
-                <template>
-                    <span v-if="isDiscount" class="tutor-card-price font-weight-bold">{{$n(tutorData.discountPrice, 'currency')}}</span>
-                    <span class="tutor-card-price font-weight-bold" v-else>{{$n(tutorData.price, 'currency')}}</span>
-                </template>
-                <span class="caption">
-                  <span class="tutor-card-price-divider font-weight-bold">/</span>
-                  <span class="tutor-card-price-divider font-weight-bold" v-t="'resultTutor_hour'"></span>
-                </span>
+                <tutorPrice 
+                  :price="tutorData.price"
+                  :discount="tutorData.discountPrice"
+                  :currency="tutorData.currency"
+                />
                 <div class="striked mr-1" v-if="isDiscount">{{$n(tutorData.price, 'currency')}}</div>
                 <div class="striked no-discount" v-else></div>
               </div>
@@ -78,6 +75,7 @@ import analyticsService from "../../../../services/analytics.service";
 import chatService from '../../../../services/chatService';
 import { LanguageService } from "../../../../services/language/languageService.js";
 
+import tutorPrice from '../../../helpers/tutorPrice/tutorPrice.vue'
 import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
 
 import iconChat from '../icon-chat.svg';
@@ -88,7 +86,8 @@ export default {
   components: {
     clock,
     iconChat,
-    userAvatarRect
+    userAvatarRect,
+    tutorPrice
   },
   props: {
     tutorData: {},
@@ -243,13 +242,15 @@ export default {
         }
         .user-rates-top {
           align-items: baseline;
-          .tutor-card-currency {
-            font-size: 16px;
+          .tutorPrice {
+            font-weight: bold;
             color:#5158af;
-          }
-          .tutor-card-price {
-            font-size: 18px;
-            color:#5158af;
+            .currency {
+              font-size: 16px;
+            }
+            .number {
+              font-size: 18px;
+            }
           }
           .tutor-card-price-divider {
             font-size: 12px;

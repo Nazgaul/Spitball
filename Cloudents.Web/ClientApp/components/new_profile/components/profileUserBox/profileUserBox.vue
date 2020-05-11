@@ -26,21 +26,26 @@
                         <div class="profileUserSticky_pricing text-center" v-if="!isMobile">
                             <template v-if="currentProfileUser.isTutor">
                                 <div class="d-flex align-end justify-center">
-                                    <div class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
-                                        {{tutorPrice ? currencySymbol(tutorPrice) : currencySymbol(tutorDiscountPrice)}}
+                                    <div class="discount mr-2" v-if="isDiscount">
+                                        <tutorPrice
+                                            :discount="tutorDiscountPrice"
+                                            :price="tutorPrice"
+                                            :locale="locale"
+                                            :currency="currentProfileUser.tutorData.currency"
+                                        />
                                     </div>
                                     <div class="profileUserSticky_pricing_price">
                                         <template v-if="tutorPrice">
-                                        <i18n-n :value="tutorDiscountPrice || tutorPrice" :locale="'he-IL'" :format="{ key: 'currency', currency: currentProfileUser.tutorData.currency }">
-                                            <template v-slot:integer="slotProps"><span class="profileUserSticky_pricing_price_number">{{ slotProps.integer }}</span></template>
-                                            <template v-slot:currency="slotProps"><span class="profileUserSticky_pricing_price_number"> {{ slotProps.currency }}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/></template>
-                                        </i18n-n>
+                                            <tutorPrice 
+                                                :discount="tutorDiscountPrice"
+                                                :price="tutorPrice"
+                                                :locale="locale"
+                                                :currency="currentProfileUser.tutorData.currency"
+                                            />
                                         </template>
                                         <template v-else>
                                             <span class="profileUserSticky_pricing_price_number" v-t="'profile_free'"></span>
                                         </template>
-                                            <!--  <span class="profileUserSticky_pricing_price_number"> {{isDiscount && tutorPrice !== 0  ? currencySymbol(tutorDiscountPrice) : currencySymbol(tutorPrice)}}</span>
-                                            /<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/> -->
                                     </div>
                                 </div>
                                 <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" v-if="currentProfileUser.isTutor" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
@@ -105,12 +110,15 @@
                     <template v-if="isMobile">
                         <div class="profileUserSticky_pricing mb-4" v-if="currentProfileUser.isTutor">
                             <div class="d-flex align-end justify-center">
-                                <div class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
+                                <div class="discount mr-2" v-if="isDiscount">
                                     {{tutorPrice ? currencySymbol(tutorPrice) : currencySymbol(tutorDiscountPrice)}}
                                 </div>
-                                <div class="profileUserSticky_pricing_price">
-                                    <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? currencySymbol(tutorDiscountPrice) : currencySymbol(tutorPrice)}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
-                                </div>
+                                <tutorPrice 
+                                    :discount="tutorDiscountPrice"
+                                    :price="tutorPrice"
+                                    :locale="locale"
+                                    :currency="currentProfileUser.tutorData.currency"
+                                />
                             </div>
                             <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" class="profileUserSticky_coupon text-center mt-1" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
                         </div>
@@ -196,6 +204,7 @@ import * as routeNames from '../../../../routes/routeNames'
 import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
 import uploadImage from '../../profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue';
 import followBtn from '../followBtn/followBtn.vue';
+import tutorPrice from '../../../helpers/tutorPrice/tutorPrice.vue'
 
 export default {
     name:'profileUserBox',
@@ -209,7 +218,8 @@ export default {
         editSVG,
         followBtn,
         chatSVG,
-        calendarSVG
+        calendarSVG,
+        tutorPrice
     },
     props: {
         globalFunctions:{}
@@ -222,6 +232,9 @@ export default {
     },
     computed: {
         ...mapGetters(['getProfile','accountUser','getUserStatus', 'getUserLoggedInStatus']),
+        locale() {
+            return this.currentProfileTutor.tutorCountry.mainLanguage.info
+        },
         isLogged() {
             return this.getUserLoggedInStatus
         },
@@ -529,24 +542,24 @@ export default {
             }
         }
         .profileUserSticky_pricing{
-            .profileUserSticky_pricing_price{
-                .profileUserSticky_pricing_price_hour{
+            .tutorPrice {
+                .hour{
                     font-size: 16px;
                     font-weight: 600;
                 }
-                .profileUserSticky_pricing_price_currency{
+                .currency{
                     font-size: 18px;
                     font-weight: bold;
                 }
-                .profileUserSticky_pricing_price_number{
+                .number{
                     font-size: 26px;
                     font-weight: bold;
                 }
-            }
-            .profileUserSticky_pricing_discount{
-                font-size: 20px;
-                color: #b2b5c9;
-                text-decoration: line-through;
+                .discount{
+                    font-size: 20px;
+                    color: #b2b5c9;
+                    text-decoration: line-through;
+                }
             }
         }
         .profileUserSticky_coupon{

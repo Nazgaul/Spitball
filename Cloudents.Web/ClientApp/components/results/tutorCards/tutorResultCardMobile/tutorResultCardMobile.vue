@@ -27,12 +27,11 @@
 
               <div class="price align-center">
                   <div class="price_oneline">
-                      <template>
-                          <span v-if="isDiscount" class="price_oneline--count font-weight-bold">{{$n(tutorData.discountPrice, 'currency')}}</span>
-                          <span v-else class="price_oneline--count font-weight-bold">{{$n(tutorData.price, 'currency')}}</span>
-                          <span>/</span>
-                      </template>
-                      <span class="caption" v-language:inner="'resultTutor_hour'"></span>
+                    <tutorPrice 
+                      :price="tutorData.price"
+                      :discount="tutorData.discountPrice"
+                      :currency="tutorData.currency"
+                    />
                   </div>
                   <div class="striked ml-3" v-if="isDiscount">{{$n(tutorData.price, 'currency')}}</div>
               </div>
@@ -72,6 +71,7 @@ import analyticsService from "../../../../services/analytics.service";
 
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
 import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
+import tutorPrice from '../../../helpers/tutorPrice/tutorPrice.vue';
 
 import iconChat from '../icon-chat.svg';
 import star from '../stars-copy.svg';
@@ -82,7 +82,8 @@ export default {
     userRating,
     userAvatarRect,
     iconChat,
-    star
+    star,
+    tutorPrice
   },
   props: {
     tutorData: {},
@@ -202,14 +203,15 @@ export default {
           display: flex;
           align-items: flex-end;
           flex: .5;
-          // margin: 4px 0 1px 0;
           .price_oneline {
             display: flex;
             align-items: baseline;
             color: #5158af;
-
-            &--count {
-              font-size: 20px;
+            .tutorPrice {
+              font-weight: bold;
+              .number {
+                font-size: 20px;
+              }
             }
           }
           .striked {
