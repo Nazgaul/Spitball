@@ -94,7 +94,7 @@
                 <v-layout class="buymebtn">
                     <v-flex text-center>
                         <v-progress-circular v-show="isLoading" class="mb-4" size="80" width="2" indeterminate color="info"></v-progress-circular>
-                        <div v-show="!isLoading" id="paypal-button-container" style="width:400px; margin: 0 auto;"></div>
+                        <div v-show="!isLoading" id="paypal-button-container" @click="buyPoints()" style="width:400px; margin: 0 auto;">Buy Points</div>
                     </v-flex>
                 </v-layout>
 
@@ -103,7 +103,10 @@
     </div>
 </template>
 <script>
-import analyticsService from '../../../../../../../services/analytics.service';
+//import analyticsService from '../../../../../../../services/analytics.service';
+import { loadStripe } from '@stripe/stripe-js';
+const stripePromise = loadStripe('pk_test_8f8AdUcVw1yWhORtcRmmUICN00c2DsuxOk');
+import axios from 'axios';
 
 export default {
   name:'buyPointsUS',
@@ -153,54 +156,65 @@ export default {
         this.transactionId = this.products[val].pts;
       }
     },
+    async buyPoints() {
+debugger;
+        var {data} = await  axios.get('/wallet/stripe');
+        
+        // const { sessionId } = await fetchCheckoutSession();
+        // When the customer clicks on the button, redirect them to Checkout.
+        const stripe = await stripePromise;
+        const { error } = await stripe.redirectToCheckout({
+           sessionId:  data.sessionId,
+        });
+    }
   },
   mounted() {
-    let self = this;
-    let paypalUrl = `https://www.paypal.com/sdk/js?client-id=${window.paypalClientId}&intent=authorize`;
-    this.$loadScript(paypalUrl)
-        .then(() => {
-            window.paypal
-            .Buttons({
-                 style: {
-                    //layout:  'horizontal',
-                   // color:   'blue',
-                    shape:   'pill',
-                   // tagline : false
-                },
-                createOrder: function(data, actions) {
-                    analyticsService.sb_unitedEvent("BUY_POINTS", "PRODUCT_SELECTED", self.transactionId);
-                    return actions.order.create({
-                        purchase_units: [
-                            {
-                                reference_id: "points_" + self.products[self.selectedProduct].id,
-                                amount: {
-                                    value: self.products[self.selectedProduct].price,
-                                    currency: self.products[self.selectedProduct].currency
-                                }
-                            },
-                        ]
-                    });
-                },
-                onApprove: function(data) {
-                    self.isLoading = true;
-                    //actions.order.authorize().then((authorization) => {
-                        // var authorizationID = authorization.purchase_units[0]
-                        //         .payments.authorizations[0].id;
-                        //action.authorization.capture(authorizationID)
-                        self.$closeDialog();
-                        self.$store.dispatch('updatePaypalBuyTokens',data.orderID);
-                        self.$store.dispatch('updateToasterParams', {
-                        toasterText: self.$t("buyTokens_success_transaction"),
-                        showToaster: true,
-                        toasterTimeout: 5000
-                    //});
-                });
+   // let self = this;
+    // let paypalUrl = `https://www.paypal.com/sdk/js?client-id=${window.paypalClientId}&intent=authorize`;
+    // // this.$loadScript(paypalUrl)
+    //     .then(() => {
+    //         window.paypal
+    //         .Buttons({
+    //              style: {
+    //                 //layout:  'horizontal',
+    //                // color:   'blue',
+    //                 shape:   'pill',
+    //                // tagline : false
+    //             },
+    //             createOrder: function(data, actions) {
+    //                 analyticsService.sb_unitedEvent("BUY_POINTS", "PRODUCT_SELECTED", self.transactionId);
+    //                 return actions.order.create({
+    //                     purchase_units: [
+    //                         {
+    //                             reference_id: "points_" + self.products[self.selectedProduct].id,
+    //                             amount: {
+    //                                 value: self.products[self.selectedProduct].price,
+    //                                 currency: self.products[self.selectedProduct].currency
+    //                             }
+    //                         },
+    //                     ]
+    //                 });
+    //             },
+    //             onApprove: function(data) {
+    //                 self.isLoading = true;
+    //                 //actions.order.authorize().then((authorization) => {
+    //                     // var authorizationID = authorization.purchase_units[0]
+    //                     //         .payments.authorizations[0].id;
+    //                     //action.authorization.capture(authorizationID)
+    //                     self.$closeDialog();
+    //                     self.$store.dispatch('updatePaypalBuyTokens',data.orderID);
+    //                     self.$store.dispatch('updateToasterParams', {
+    //                     toasterText: self.$t("buyTokens_success_transaction"),
+    //                     showToaster: true,
+    //                     toasterTimeout: 5000
+    //                 //});
+    //             });
                     
-                    //TODO happy go lucky - update the balance of the user
-                }
-            })
-            .render('#paypal-button-container');
-        });
+    //                 //TODO happy go lucky - update the balance of the user
+    //             }
+    //         })
+    //         .render('#paypal-button-container');
+    //     });
   },
 };
 </script>

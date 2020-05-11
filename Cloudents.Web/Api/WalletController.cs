@@ -23,6 +23,8 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Infrastructure.Payments;
+using Schema.NET;
 
 namespace Cloudents.Web.Api
 {
@@ -221,7 +223,6 @@ namespace Cloudents.Web.Api
 
         [HttpPost("PayPal/StudyRoom")]
         public async Task<IActionResult> PayPal(PayPalOrderRequest model,
-            //[FromServices] IPayPal payPalService,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
@@ -256,5 +257,32 @@ namespace Cloudents.Web.Api
             return Ok();
         }
         #endregion
+
+        [HttpGet("Stripe")]
+        public async Task<IActionResult> GetStripe(
+            [FromHeader(Name = "referer")] string referer,
+            [FromServices] StripeClient service)
+        {
+
+            var uriBuilder = new UriBuilder(referer)
+            {
+                Query = string.Empty
+            };
+            var url = new UriBuilder(Url.RouteUrl("stripe-buy-points", new
+            {
+                // session_id = "{CHECKOUT_SESSION_ID}",
+                redirectUrl = uriBuilder.ToString()
+            }, "https"));
+
+            var successCallback = url.AddQuery(("sessionId", "{CHECKOUT_SESSION_ID}"), false).ToString();
+
+
+            var result = await service.BuyPointsAsync(successCallback, referer);
+            return Ok(new
+            {
+                sessionId = result
+            });
+        }
+
     }
 }

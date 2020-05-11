@@ -145,6 +145,15 @@ namespace Cloudents.Web.Controllers
         }
 
 
+        [Route("us-buy-points", Name = "stripe-buy-points")]
+        public async Task<IActionResult> StripeCallbackBuyPointsAsync(string redirectUrl, string sessionId)
+        {
+            var v = Url.IsLocalUrl(redirectUrl);
+
+            return View("Index");
+        }
+
+
         //[Route("google")]
         //public async Task<RedirectToActionResult> GoogleSigninAndroidAsync(string token,
         //    [FromServices] IGoogleAuth service,

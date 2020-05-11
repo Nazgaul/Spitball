@@ -11,4 +11,12 @@ namespace Cloudents.Core.Interfaces
         Task<PayPalDto> GetPaymentAsync(string transactionId, CancellationToken token);
         //Task UpdateAndConfirmOrderAsync(string orderId, decimal charge, CancellationToken token);
     }
+
+    public interface IPaymentStripe
+    {
+        Task<string> BuyPointsAsync(string successCallback, string fallbackCallback);
+
+
+       // Task Retrieve(string successCallback, string fallbackCallback);
+    }
 }

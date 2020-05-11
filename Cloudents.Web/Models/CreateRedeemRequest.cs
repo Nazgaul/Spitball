@@ -15,24 +15,7 @@ namespace Cloudents.Web.Models
         [Required]
         public int Points { get; set; }
 
-
-        //[System.AttributeUsage(System.AttributeTargets.All)]
-        //public sealed class RedeemValidatorAttribute : ValidationAttribute
-        //{
-        //    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        //    {
-        //        var val = (decimal)value;
-
-        //        var validValues = new[] { 1000M };
-
-
-        //        if (validValues.Contains(val))
-        //        {
-        //            return ValidationResult.Success;
-        //        }
-        //        return new ValidationResult(ErrorMessage);
-        //    }
-        //}
+       
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             try
@@ -47,19 +30,6 @@ namespace Cloudents.Web.Models
             {
                 ValidationResult.Success
             };
-            //foreach (var field in typeof(PointBundle).GetFields(BindingFlags.Public | BindingFlags.Static))
-            //{
-            //    if (field.IsLiteral)
-            //    {
-            //        continue;
-            //    }
-            //    var bundle =  (PointBundle)field.GetValue(null);
-
-            //    if (bundle.Amount != Amount)
-            //    {
-            //        yield return new ValidationResult("Invalid amount");
-            //    }
-            //}
         }
     }
 }
