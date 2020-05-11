@@ -3,7 +3,7 @@
       <a @click="resetItems()">
          <logoComponent/>
       </a>
-      <div class="roundShape mr-2"></div>
+      <div class="roundShape mr-1"></div>
       <v-toolbar-title class="white--text mr-7">{{$t('studyRoom_live')}}</v-toolbar-title>
       <!-- <v-divider class="ml-3 divider" vertical inset color="white"></v-divider> -->
 
@@ -19,13 +19,13 @@
             <button :key="objectKey" @click="actionHandler(objectKey)"
                :class="['tutorNavTab', 
                   {'tutorNavTab-active': navTab.icon == navTabs[getIsCurrentMode(currentEditorMode)].icon}]" >
-               <span><v-icon size="16" :color="navTab.icon == navTabs[getIsCurrentMode(currentEditorMode)].icon?'#4c59ff':'white'" class="mr-2">{{navTab.icon}}</v-icon>{{navTab.text}}</span>
+               <span><v-icon style="vertical-align: sub;"  size="16" :color="navTab.icon == navTabs[getIsCurrentMode(currentEditorMode)].icon?'#4c59ff':'white'" class="mr-2">{{navTab.icon}}</v-icon>{{navTab.text}}</span>
             </button>
             
          </template>
       </template>
       <div v-else class="studentNavTab">
-         <v-icon size="16" class="mr-2" color="#4c59ff">
+         <v-icon style="vertical-align: sub;" size="16" class="mr-2" color="#4c59ff">
             {{navTabs[getIsCurrentMode(currentEditorMode)].icon}}
          </v-icon>
          {{navTabs[getIsCurrentMode(currentEditorMode)].text}}
@@ -49,7 +49,7 @@
       <v-menu offset-y min-width="158" content-class="menuStudyRoom">
          <template v-slot:activator="{ on }">
             <v-btn icon>
-               <v-icon v-on="on">sbf-3-dot</v-icon>
+               <v-icon size="16" color="#CCCCCC" v-on="on">sbf-3-dot</v-icon>
             </v-btn>
          </template>
      <v-list>
@@ -74,55 +74,21 @@
         </v-list-item>
       </v-list>
       </v-menu>
-      <v-dialog v-model="getDialogRoomEnd" max-width="356px"
-                  :persistent="$vuetify.breakpoint.smAndUp" 
-                  :transition="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'">
-         <endSessionConfirm/>
-      </v-dialog>    
-         <studyRoomAudioVideoDialog v-if="settingDialogState"
-        @closeAudioVideoSettingDialog="val => settingDialogState = val"/>
-
-      <v-dialog v-model="getDialogUserConsent" max-width="356px"
-                  :persistent="$vuetify.breakpoint.smAndUp" 
-                  :transition="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'">
-          <studentConsentDialog></studentConsentDialog>
-      </v-dialog>
-
-      <v-dialog v-model="getShowAudioRecordingError" max-width="675px"
-                  :persistent="$vuetify.breakpoint.smAndUp" 
-                  :transition="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'">
-        <errorWithAudioRecording></errorWithAudioRecording>
-      </v-dialog>
-
-
    </v-app-bar>
 </template>
 
 <script>
-import endSessionConfirm from "../../tutorHelpers/endSessionConfirm/endSessionConfirm.vue";
 import studyRoomRecordingService from '../../studyRoomRecordingService.js';
 import intercomSettings from '../../../../services/intercomService';
-import studyRoomAudioVideoDialog from '../../tutorHelpers/studyRoomSettingsDialog/studyRoomAudioVideoDialog/studyRoomAudioVideoDialog.vue';
-import studentConsentDialog from '../../tutorHelpers/studentConsentDialog/studentConsentDialog.vue';
-import errorWithAudioRecording from '../../tutorHelpers/errorWithAudioRecording/errorWithAudioRecording.vue';
 
 import logoComponent from "../../../app/logo/logo.vue";
 import { mapGetters } from 'vuex';
 export default {
-   data() {
-      return {
-         settingDialogState:false,
-      }
-   },
    components:{
       logoComponent,
-      endSessionConfirm,
-      studyRoomAudioVideoDialog,
-      studentConsentDialog,
-      errorWithAudioRecording
    },
    computed: {
-      ...mapGetters(['getDialogRoomEnd','getIsRecording','getDialogUserConsent','getShowAudioRecordingError']),
+      ...mapGetters(['getIsRecording']),
       isRoomTutor(){
          return this.$store.getters.getRoomIsTutor;
       },
@@ -168,7 +134,7 @@ export default {
       },
       openSettingsDialog(){
          this.$ga.event("tutoringRoom", "openSettingsDialog");
-         this.settingDialogState = true;
+         this.$store.commit('toggleAudioVideoDialog',true)
       },
       resetItems(){
          let isExit = confirm(this.$t("login_are_you_sure_you_want_to_exit"),)
@@ -229,19 +195,21 @@ export default {
    .studyRoomHeader {
       .v-toolbar__content{
          padding-bottom: 0;
+         padding-top: 10px;
       }
       .logo {
          fill: #fff;
       }
       .tutorNavTab{
          outline: none;
-         margin-top: 8px;
+         margin-top: 2px;
          font-size: 12px;
          font-weight: 600;
          color: white;
          height: 50px;
          width: 130px;
          &.tutorNavTab-active{
+            border-radius: initial;
             color: #4c59ff;
             // margin-left: 26px;
             background: white;
@@ -253,11 +221,11 @@ export default {
          }
       }
       .studentNavTab{
-         // margin-left: 26px;
+         border-radius: initial;
          background: white;
          width: 130px;
          height: 50px;
-         margin-top: 8px;
+         margin-top: 2px;
          border-top-right-radius: 6px;
          border-top-left-radius: 6px;
          display: flex;
@@ -307,7 +275,7 @@ export default {
             
       .divider{
          opacity: 0.28;
-         margin-top: 14px;
+         margin-top: 10px;
          min-height: 0;
          max-height: calc(100% - 22px);
       }

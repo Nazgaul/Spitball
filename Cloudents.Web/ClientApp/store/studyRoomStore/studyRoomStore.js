@@ -62,6 +62,7 @@ const state = {
 
    roomProps: null,
    roomParticipants:{},
+   audioVideoDialog:false,
 }
 
 const mutations = {
@@ -140,6 +141,9 @@ const mutations = {
          state.roomParticipants[participantId][track.kind] = undefined;
       }
       state.roomParticipants = _newObjectPointer(state.roomParticipants)
+   },
+   toggleAudioVideoDialog(state,val){
+      state.audioVideoDialog = val;
    }
 }
 const getters = {
@@ -174,6 +178,7 @@ const getters = {
          return state.roomParticipants[state.roomTutor.tutorId]
       }
    },
+   getAudioVideoDialog:state => state.audioVideoDialog, 
 }
 const actions = {
    updateToggleTutorFullScreen({dispatch,commit},val){
