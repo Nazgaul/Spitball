@@ -151,9 +151,6 @@
   <data name="purchased" xml:space="preserve">
     <value>{n} Purchase | {n} Purchases</value>
   </data>
-  <data name="university" xml:space="preserve">
-    <value>School:</value>
-  </data>
   <data name="unsufficient_fund" xml:space="preserve">
     <value>Not have enough points</value>
   </data>

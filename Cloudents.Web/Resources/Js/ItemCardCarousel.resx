@@ -123,9 +123,6 @@
   <data name="pts" xml:space="preserve">
     <value>Free | {n} Pts |  {n} Pts</value>
   </data>
-  <data name="university" xml:space="preserve">
-    <value>College:</value>
-  </data>
   <data name="view" xml:space="preserve">
     <value>View | Views</value>
   </data>

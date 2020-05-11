@@ -171,9 +171,6 @@
   <data name="student_grade" xml:space="preserve">
     <value>הכיתה של התלמיד</value>
   </data>
-  <data name="university_title" xml:space="preserve">
-    <value>בחרו את מוסד הלימודים שלכם</value>
-  </data>
   <data name="what_grade" xml:space="preserve">
     <value>איזה כיתה?</value>
   </data>

@@ -171,20 +171,8 @@
   <data name="pricing" xml:space="preserve">
     <value>Pricing</value>
   </data>
-  <data name="single_review" xml:space="preserve">
-    <value>Review</value>
-  </data>
   <data name="tutor" xml:space="preserve">
     <value />
-  </data>
-  <data name="resourses" xml:space="preserve">
-    <value>{1} Contents</value>
-  </data>
-  <data name="sessions" xml:space="preserve">
-    <value>{1} Lessons</value>
-  </data>
-  <data name="students" xml:space="preserve">
-    <value>{1} Students</value>
   </data>
   <data name="follow" xml:space="preserve">
     <value>Follow</value>
@@ -204,23 +192,11 @@
   <data name="find_tutors" xml:space="preserve">
     <value>Find Tutors at Spitball</value>
   </data>
-  <data name="response" xml:space="preserve">
-    <value>Response time</value>
-  </data>
-  <data name="response_hour" xml:space="preserve">
-    <value>{1} hour</value>
-  </data>
-  <data name="response_hours" xml:space="preserve">
-    <value>{1} hours</value>
-  </data>
   <data name="send_message" xml:space="preserve">
     <value>Send me a message</value>
   </data>
   <data name="why_learn" xml:space="preserve">
     <value>Why Learn at Spitball</value>
-  </data>
-  <data name="book_session_mobile" xml:space="preserve">
-    <value>Book a lesson</value>
   </data>
   <data name="earn_btn" xml:space="preserve">
     <value>I want to earn money</value>
@@ -237,12 +213,6 @@
   <data name="tutor_follower" xml:space="preserve">
     <value>No Followers | Follower | Followers</value>
   </data>
-  <data name="tutor_followers" xml:space="preserve">
-    <value>{1} Followers</value>
-  </data>
-  <data name="resourse" xml:space="preserve">
-    <value>{1} Content</value>
-  </data>
   <data name="session" xml:space="preserve">
     <value>No Lessons | Lesson | Lessons</value>
   </data>
@@ -254,9 +224,6 @@
   </data>
   <data name="read_less" xml:space="preserve">
     <value>Read less</value>
-  </data>
-  <data name="book_session_mobile_xs" xml:space="preserve">
-    <value>Book</value>
   </data>
   <data name="select_course" xml:space="preserve">
     <value>Select Course</value>
@@ -272,9 +239,6 @@
   </data>
   <data name="study_materials_mobile" xml:space="preserve">
     <value>Content by {1}</value>
-  </data>
-  <data name="empty_title" xml:space="preserve">
-    <value>Nothing posted yet</value>
   </data>
   <data name="my_courses_teacher" xml:space="preserve">
     <value>I Teach :</value>
@@ -296,9 +260,6 @@
   </data>
   <data name="live_title" xml:space="preserve">
     <value>Upcoming  Live broadcasts by</value>
-  </data>
-  <data name="per_hour" xml:space="preserve">
-    <value>/hour</value>
   </data>
   <data name="see_all" xml:space="preserve">
     <value>See all</value>

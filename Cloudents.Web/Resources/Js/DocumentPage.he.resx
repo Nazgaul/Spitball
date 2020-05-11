@@ -135,12 +135,6 @@
   <data name="money_back" xml:space="preserve">
     <value>החזר כספי מובטח</value>
   </data>
-  <data name="need_help1" xml:space="preserve">
-    <value>צריך עזרה במקצוע זה?</value>
-  </data>
-  <data name="need_help2" xml:space="preserve">
-    <value>{1} יכול ללמד אותך</value>
-  </data>
   <data name="points" xml:space="preserve">
     <value>נק'</value>
   </data>

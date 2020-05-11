@@ -141,17 +141,11 @@
   <data name="create_room_created_error" xml:space="preserve">
     <value>This study room already exists</value>
   </data>
-  <data name="create_room_create_btn" xml:space="preserve">
-    <value>Create study room</value>
-  </data>
   <data name="create_room_empty_error" xml:space="preserve">
     <value>You didn't select any student</value>
   </data>
   <data name="create_room_label" xml:space="preserve">
     <value>Study room's name</value>
-  </data>
-  <data name="create_room_label_broadcast" xml:space="preserve">
-    <value>Room's name</value>
   </data>
   <data name="create_room_live_title" xml:space="preserve">
     <value>Create New Live Broadcast</value>
@@ -164,9 +158,6 @@
   </data>
   <data name="create_room_private_title" xml:space="preserve">
     <value>Create New Study Room</value>
-  </data>
-  <data name="create_room_title" xml:space="preserve">
-    <value>Create a new study room</value>
   </data>
   <data name="date" xml:space="preserve">
     <value>Date</value>
@@ -185,12 +176,6 @@
   </data>
   <data name="empty" xml:space="preserve">
     <value>Sorry, nothing to display here :(</value>
-  </data>
-  <data name="enter_room" xml:space="preserve">
-    <value>Enter the room</value>
-  </data>
-  <data name="error_session_removed" xml:space="preserve">
-    <value>An error occured</value>
   </data>
   <data name="info" xml:space="preserve">
     <value>Product
@@ -211,14 +196,8 @@
   <data name="label_live_title" xml:space="preserve">
     <value>Live broadcast title</value>
   </data>
-  <data name="label_minutes" xml:space="preserve">
-    <value>Minutes</value>
-  </data>
   <data name="label_session_about" xml:space="preserve">
     <value>What is the session about?</value>
-  </data>
-  <data name="label_time" xml:space="preserve">
-    <value>Time</value>
   </data>
   <data name="labe_hours" xml:space="preserve">
     <value>Hour</value>
@@ -234,9 +213,6 @@
   </data>
   <data name="link_share" xml:space="preserve">
     <value>Share</value>
-  </data>
-  <data name="link_studyroom" xml:space="preserve">
-    <value>Test study room</value>
   </data>
   <data name="my_content_title" xml:space="preserve">
     <value>My Content</value>
@@ -290,9 +266,6 @@
   <data name="pick_time_error" xml:space="preserve">
     <value>Schedule a future date</value>
   </data>
-  <data name="placeholder_studyRoom_type" xml:space="preserve">
-    <value>Study room type</value>
-  </data>
   <data name="price" xml:space="preserve">
     <value>Price</value>
   </data>
@@ -316,12 +289,6 @@
   </data>
   <data name="scheduled" xml:space="preserve">
     <value>Scheduled</value>
-  </data>
-  <data name="send_email" xml:space="preserve">
-    <value>send email</value>
-  </data>
-  <data name="send_whatsapp" xml:space="preserve">
-    <value>send whatsapp</value>
   </data>
   <data name="session" xml:space="preserve">
     <value>Tutoring session with {1}</value>

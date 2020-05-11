@@ -254,10 +254,6 @@
     <value>Password</value>
     <comment>1</comment>
   </data>
-  <data name="setemailpass_input_passconfirm" xml:space="preserve">
-    <value>Confirm Password</value>
-    <comment>1</comment>
-  </data>
   <data name="setemailpass_title" xml:space="preserve">
     <value>Personal details</value>
     <comment>1</comment>
