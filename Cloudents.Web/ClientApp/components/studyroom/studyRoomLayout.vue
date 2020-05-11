@@ -1,12 +1,18 @@
 <template>
   <div class="studyRoom">
-    <studyRoomDrawer @drawerExtendChanged="(val)=> isDrawerExtendReference = val"/>
-    <studyRoomHeader/>
-    <v-content>
-      <component style="height:100%" :is="activeWindow"></component>
-    </v-content>
-    <studyRoomFooter v-if="isShowFooter" @footerExtendChanged="(val)=> isFooterExtendReference = val"/>
-    <floatingVideoContainer v-if="!isRoomTutor" :isShowFloatingVideo="isShowFloatingVideo" :isFooter="isFooterExtendReference"></floatingVideoContainer>
+    <template v-if="isMobile">
+      <studyRoomMobile/>
+    </template>
+    <template v-else>
+      <studyRoomDrawer @drawerExtendChanged="(val)=> isDrawerExtendReference = val"/>
+      <studyRoomHeader/>
+      <v-content>
+        <component style="height:100%" :is="activeWindow"></component>
+      </v-content>
+      <studyRoomFooter v-if="isShowFooter" @footerExtendChanged="(val)=> isFooterExtendReference = val"/>
+      <floatingVideoContainer v-if="!isRoomTutor" :isShowFloatingVideo="isShowFloatingVideo" :isFooter="isFooterExtendReference"/>
+    </template>
+
     <studyRoomSettingsDialog v-if="id && !isRoomActive"/>
     <studyRoomDialogs/>
   </div>
@@ -15,8 +21,8 @@
 <script>
 const studyRoomDrawer = () => import('./layouts/studyRoomDrawer/studyRoomDrawer.vue');
 const studyRoomFooter = () => import('./layouts/studyRoomFooter/studyRoomFooter.vue');
-import studyRoomSettingsDialog from "./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue";
-import studyRoomHeader from './layouts/studyRoomHeader/studyRoomHeader.vue';
+const studyRoomSettingsDialog = () => import("./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue");
+const studyRoomHeader = () => import('./layouts/studyRoomHeader/studyRoomHeader.vue');
 import * as dialogNames from '../pages/global/dialogInjection/dialogNames.js';
 import chatService from "../../services/chatService";
 import { mapGetters } from 'vuex';
@@ -25,9 +31,10 @@ const codeEditor = () => import("./codeEditor/codeEditor.vue");
 const sharedDocument = () => import("./sharedDocument/sharedDocument.vue");
 const classMode = () => import('./windows/class/classRoom.vue');
 const classScreen = () => import('./windows/class/classFullScreen.vue');
-import floatingVideoContainer from './layouts/studyRoomDrawer/floatingVideoContainer.vue';
-import studyRoomDialogs from './studyRoomDialogs.vue';
-import screenMode from './windows/shareScreen/shareScreen.vue';
+const floatingVideoContainer = () => import('./layouts/studyRoomDrawer/floatingVideoContainer.vue');
+const studyRoomDialogs = () => import('./studyRoomDialogs.vue');
+const screenMode = () => import('./windows/shareScreen/shareScreen.vue');
+const studyRoomMobile = () => import('./studyRoomMobile.vue');
 export default {
   data() {
     return {
@@ -51,9 +58,13 @@ export default {
     floatingVideoContainer,
     studyRoomSettingsDialog,
     studyRoomDialogs,
+    studyRoomMobile,
   },
   computed: {
     ...mapGetters(['getRoomIsNeedPayment']),
+    isMobile(){
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     isShowFloatingVideo(){
       return !this.isDrawerExtendReference && this.currentEditor !== 'class-screen';
     },
