@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="tutorCarousel-bottom">
-            <div class="text-truncate ts_subjects" v-show="tutor.subjects.length > 0">
+            <div class="text-truncate ts_subjects" v-show="subjects">
                 <span class="mr-1 font-weight-bold" v-language:inner="'resultTutor_study-area'"></span>
                 <span class="">{{subjects}}</span>
             </div>
@@ -102,7 +102,7 @@ export default {
             return this.tutor.discountPrice !== undefined;
         },
         subjects() {
-            return this.tutor.subjects.join(', ');
+            return this.tutor.subjects;
         },
     },
     methods: {
@@ -116,9 +116,6 @@ export default {
             });
             this.updateRequestDialog(true);
         },
-        // reviewsPlaceHolder(reviews) {
-        //     return reviews === 0 ? reviews.toString() : reviews;
-        // },
         goToProfile(event){
             if(this.fromCarousel){
                     this.flagLocalClick = true;
