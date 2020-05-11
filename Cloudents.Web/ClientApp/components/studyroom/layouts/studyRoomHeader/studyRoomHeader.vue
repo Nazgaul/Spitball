@@ -40,12 +40,6 @@
                </span>
          </button>
       </template>
-      <!-- <div v-else class="studentNavTab">
-         <v-icon style="vertical-align: sub;" size="16" class="mr-2" color="#4c59ff">
-            {{navTabs[getIsCurrentMode(currentEditorMode)].icon}}
-         </v-icon>
-         {{navTabs[getIsCurrentMode(currentEditorMode)].text}}
-      </div> -->
       <v-spacer></v-spacer>
       <template v-if="isRoomTutor">
          <v-btn class="mb-2" :ripple="false" text @click="muteAll()">
@@ -239,22 +233,6 @@ export default {
             justify-content: center;
             align-items: center;
          }
-      }
-      .studentNavTab{
-         border-radius: initial;
-         background: white;
-         padding: 0 28px;
-         // width: 134px;
-         height: 50px;
-         margin-top: 2px;
-         border-top-right-radius: 6px;
-         border-top-left-radius: 6px;
-         display: flex;
-         justify-content: center;
-         align-items: center;
-         color: #4c59ff;
-         font-size: 13px;
-         font-weight: 600;
       }
       .muteAllBtn{
          display: flex;
