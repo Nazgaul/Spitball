@@ -170,7 +170,7 @@ namespace Cloudents.Infrastructure
                  type: type,
                  statusCallback: callBack,
                  statusCallbackMethod: HttpMethod.Post,
-                 recordParticipantsOnConnect: needRecord,
+                 recordParticipantsOnConnect: false,
                  mediaRegion:mediaRegion
             );
 
