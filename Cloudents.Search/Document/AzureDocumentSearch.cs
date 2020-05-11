@@ -82,7 +82,7 @@ namespace Cloudents.Search.Document
         public async Task<(IEnumerable<DocumentSearchResultWithScore> result, IEnumerable<string>? facetSubject)>
             SearchAsync(DocumentQuery query, UserProfile userProfile, CancellationToken token)
         {
-            var filters = new List<string> {$"{nameof(Entities.Document.SbCountry)} eq '{userProfile.CountryRegion}'"};
+            var filters = new List<string> {$"{nameof(Entities.Document.SbCountry)} eq {userProfile.CountryRegion.Id}"};
             if (query.Course != null)
             {
                 var filterStr = $"{Entities.Document.CourseNameField} eq '{query.Course.ToUpperInvariant().Replace("'", "''")}'";

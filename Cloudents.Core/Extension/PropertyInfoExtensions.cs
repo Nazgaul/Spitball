@@ -51,6 +51,7 @@ namespace Cloudents.Core.Extension
     {
         public static Type GetRealType(this PropertyInfo info)
         {
+            if (info == null) throw new ArgumentNullException(nameof(info));
             var propertyType = info.PropertyType;
             return Nullable.GetUnderlyingType(propertyType) ?? propertyType;
         }
@@ -71,7 +72,7 @@ namespace Cloudents.Core.Extension
                 return;
             }
 
-            if (type.IsSubclassOf(typeof(Enumeration)))
+            if (type.IsSubclassOf(typeof(Enumeration)) && value is int)
             {
                 //var val = Convert.ToInt32(value);
                 var methodName = nameof(Enumeration.FromValue);
@@ -81,9 +82,7 @@ namespace Cloudents.Core.Extension
                 info.SetValue(obj, val);
                 return;
             }
-            //We want to change string to int etc
-            var y = Convert.ChangeType(value, type);
-            info.SetValue(obj, y);
+            info.SetValue(obj, value);
         }
 
         private static bool HandleEnum(PropertyInfo propertyInfo, object obj, object value)

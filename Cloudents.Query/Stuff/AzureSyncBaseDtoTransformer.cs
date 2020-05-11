@@ -58,6 +58,13 @@ namespace Cloudents.Query.Stuff
                 propertyInfo.SetValue(x, z);
                 return;
             }
+
+            if (value is long l && propertyInfo.PropertyType == typeof(string))
+            {
+                propertyInfo.SetValue(x, l.ToString());
+                return;
+            }
+
             propertyInfo.SetValueExtension(x,value);
             //var y = Convert.ChangeType(value, propertyInfo.PropertyType);
             //propertyInfo.SetValue(x, y);

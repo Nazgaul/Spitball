@@ -49,7 +49,8 @@ namespace Cloudents.Query.HomePage
                     .Select(s => new TutorCardDto()
                 {
                     UserId = s.readTutor.Id,
-                    Country = s.readTutor.SbCountry,
+                    SbCountry = s.readTutor.SbCountry,
+                    Country = s.readTutor.Country,
                     Name = s.readTutor.Name,
                     Image = s.readTutor.ImageName,
                     Price = s.readTutor.Price,

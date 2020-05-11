@@ -36,7 +36,8 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var result = await _fixture.QueryBus.QueryAsync(query, default);
             foreach (var tutorCardDto in result)
             {
-                tutorCardDto.Country.ToString().Should().BeEquivalentTo(countryStr);
+                var test = Country.FromCountry(countryStr);
+                tutorCardDto.SbCountry.Should().BeEquivalentTo(test);
             }
         }
 

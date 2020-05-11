@@ -84,9 +84,9 @@ namespace Cloudents.FunctionsV2
                                 Lessons = Math.Max(update.LessonsCount, update.ReviewsCount),
                                 Bio = update.Bio,
                                 Price = update.Price,
-                                Country = update.SbCountry,
+                                //  SbCountry = update.SbCountry,
+                                //                                Country = update.Country,
                                 Image = update.Image,
-                                NeedSerializer = true,
                                 DiscountPrice = update.SubsidizedPrice
                             }
                         },

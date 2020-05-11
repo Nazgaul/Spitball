@@ -157,6 +157,8 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData(50084, 638)]
         [InlineData(45209, 638)]
+        [InlineData(29106, 638)]
+        [InlineData(29106, 0)]
         public async Task DocumentById_Ok(long documentId, long? userId)
         {
             var query = new DocumentById(documentId, userId);
@@ -420,6 +422,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(1L)]
         [InlineData(50039L)]
         [InlineData(50864)]
+        [InlineData(29106)]
 
         public async Task SimilarDocumentsQuery_Ok(long documentId)
         {

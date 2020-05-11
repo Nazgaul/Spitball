@@ -17,27 +17,41 @@ namespace Cloudents.Core.DTOs.Tutors
 
         //public decimal TutorPrice { get; set; }
         public override FeedType Type => FeedType.Tutor;
-        public Country Country { get; set; }
 
 
-        [NonSerialized]
-        public bool NeedSerializer;
+        public Country SbCountry { get; set; }
+        public string Country { get; set; }
+
+        public bool ShouldSerializeSbCountry() => false;
+        public bool ShouldSerializeCountry() => false;
 
 
 
         [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Json return")]
         public decimal Price { get; set; }
 
-        public string Currency => Country.RegionInfo.ISOCurrencySymbol;
+        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Json return")]
+        public string Currency
+        {
+            get
+            {
+                if (SbCountry != null)
+                {
+                    return SbCountry.RegionInfo.ISOCurrencySymbol;
+                }
+
+                return Entities.Country.FromCountry(Country).RegionInfo.ISOCurrencySymbol;
+            }
+        }
 
         public decimal? DiscountPrice { get; set; }
-      
-       
-        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Used by json.net")]
-        public bool ShouldSerializeTutorCountry()
-        {
-            return NeedSerializer;
-        }
+
+
+        //[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Used by json.net")]
+        //public bool ShouldSerializeTutorCountry()
+        //{
+        //    return NeedSerializer;
+        //}
 
 
         public double? Rate { get; set; }

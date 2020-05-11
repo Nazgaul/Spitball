@@ -97,7 +97,7 @@ namespace Cloudents.Query.Tutor
                              .Select(x => x.Rate).WithAlias(() => tutorCardDtoAlias.Rate)
                              .Select(x => x.RateCount).WithAlias(() => tutorCardDtoAlias.ReviewsCount)
                              .Select(x => x.Bio).WithAlias(() => tutorCardDtoAlias.Bio)
-                             .Select(x => x.SbCountry).WithAlias(() => tutorCardDtoAlias.Country)
+                             .Select(x => x.SbCountry).WithAlias(() => tutorCardDtoAlias.SbCountry)
                              .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons)
                      .Select(x=>x.SubsidizedPrice).WithAlias(() => tutorCardDtoAlias.DiscountPrice))
                      .OrderBy(o => o.OverAllRating).Desc
@@ -121,7 +121,7 @@ namespace Cloudents.Query.Tutor
                             .Select(x => x.Rate).WithAlias(() => tutorCardDtoAlias.Rate)
                             .Select(x => x.RateCount).WithAlias(() => tutorCardDtoAlias.ReviewsCount)
                             .Select(x => x.Bio).WithAlias(() => tutorCardDtoAlias.Bio)
-                            .Select(x => x.SbCountry).WithAlias(() => tutorCardDtoAlias.Country)
+                            .Select(x => x.SbCountry).WithAlias(() => tutorCardDtoAlias.SbCountry)
                             .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons))
 
                     .OrderBy(o => o.OverAllRating).Desc
