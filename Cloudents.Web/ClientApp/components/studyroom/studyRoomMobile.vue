@@ -6,8 +6,8 @@
             <div class="videoLiner"></div>
          </div>
          <div class="studyRoomMobileChatHeader mt-4">
-            <div class="headerTitle mb-5 text-truncate">{{$store.getters.getRoomName}}</div>
-            <div class="headerInfo d-flex justify-space-between mb-4">
+            <div class="px-4 headerTitle mb-5 text-truncate">{{$store.getters.getRoomName}}</div>
+            <div class="px-4 headerInfo d-flex justify-space-between mb-2">
                <span>
                   <v-icon class="mr-1">sbf-message-icon</v-icon>
                   {{$t('studyRoom_chat')}}
@@ -114,12 +114,12 @@ export default {
                width: 10px;
          }
          ::-webkit-scrollbar-thumb {
-               background: #b5b8d9 !important;
+               background: #bdc0d1 !important;
                border-radius: 4px !important;
          }
          height: ~"calc(100vh - 8px)";
          @media (max-width: @screen-xs) {
-            height: ~"calc(100vh - 68px)";
+            height: ~"calc(100vh - 56px)";
          }
          #studyRoomMobileVideo{
             width: 100%;
@@ -131,7 +131,7 @@ export default {
                font-size: 14px;
                font-weight: 600;
                color: #ffffff;
-               top: 8px;
+               top: 6px;
                left: 8px;
                z-index: 1;
             }
@@ -155,7 +155,7 @@ export default {
                   width: 100vw;
                   height: 100vh;
                   max-height: initial;
-                  z-index: 20;
+                  // z-index: 20;
                   background: #000;
                }
             }
@@ -164,11 +164,11 @@ export default {
             }
          }
          .studyRoomMobileChatHeader{
-            // @media (max-width: @screen-sm) and (orientation: landscape) {
-            //    display: none;
-            // }
+            @media (max-width: @screen-sm) and (orientation: landscape) {
+               display: none !important;;
+            }
             width: 100%;
-            padding: 0 12px;
+            // padding: 0 12px;
             .headerTitle{
                font-size: 14px;
                font-weight: 600;
@@ -181,9 +181,9 @@ export default {
             }
          }
          .chatContainer{
-            // @media (max-width: @screen-sm) and (orientation: landscape) {
-            //    display: none;
-            // }
+            @media (max-width: @screen-sm) and (orientation: landscape) {
+               display: none !important;
+            }
             width: 100%;
             margin-top: 14px;
             overflow-y: hidden;
@@ -203,6 +203,11 @@ export default {
                   .chat-input-container{
                      .chat-attach-file{
                         color: #4c59ff;
+                     }
+                     .chat-camera{
+                        .photo-camera_svg__chatUploadIconSvg{
+                           fill: #4c59ff !important;
+                        }
                      }
                      .chat-photo{
                         .outline-insert-photo_svg__chatUploadIconSvg{
