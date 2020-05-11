@@ -218,8 +218,9 @@ export default {
         let newItems = self.studyRoomItems.filter(item => item.id !== id)
         self.$store.commit('setStudyRoomItems', newItems)
         self.snackbar.text = 'dashboardPage_success_session_removed'
-      }).catch(() => {
-        self.snackbar.text = 'dashboardPage_error_session_removed'
+      }).catch(error => {
+        let { response: {data}} = error
+        self.snackbar.text = data["error"][0]
         self.snackbar.color = "error"
       }).finally(() => {
         self.snackbar.value = true;
