@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.DTOs.Documents;
+﻿using System;
+using Cloudents.Core.DTOs.Documents;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Dapper;
@@ -6,18 +7,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Query.Documents
 {
-   public class DocumentFeedWithFilterQuery : IQuery<IEnumerable<DocumentFeedDto>>
+    public class DocumentFeedWithFilterQuery : IQuery<IEnumerable<DocumentFeedDto>>
     {
-        public DocumentFeedWithFilterQuery(int page, long userId, FeedType? filter, 
-            string country, string course, int pageSize)
+        public DocumentFeedWithFilterQuery(int page, long userId, FeedType? filter,
+            Country country, string course, int pageSize)
         {
             Page = page;
             UserId = userId;
             Filter = filter;
-            Country = country;
+            Country = country ?? throw new ArgumentNullException(nameof(country));
             Course = course;
             PageSize = pageSize;
         }
@@ -26,7 +28,7 @@ namespace Cloudents.Query.Documents
         private long UserId { get; }
         private FeedType? Filter { get; }
 
-        private string Country { get; }
+        private Country Country { get; }
 
         private string Course { get; }
         private int PageSize { get; }
@@ -48,17 +50,7 @@ namespace Cloudents.Query.Documents
             // QuestionFeedWithFilterQuery and FeedAggregateQuery as well
             public async Task<IEnumerable<DocumentFeedDto>> GetAsync(DocumentFeedWithFilterQuery query, CancellationToken token)
             {
-                const string sqlWithCourse = @"with cte as (
-select top 1 * from(select 1 as o,   u.country as Country, u.id as userid
- from sb.[user] u
- 
- where u.id = @userid
- union
- select 2,  @country, 0) t
-    order by o
-)
-
-
+                const string sqlWithCourse = @"
 select 'd' as type
 , d.CourseName as Course
 , d.UpdateTime as DateTime
@@ -75,7 +67,7 @@ select 'd' as type
 , d.[Views]
 , d.Downloads
 , d.VoteCount as 'Vote.Votes'
-, (select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = cte.userid) as 'Vote.Vote'
+, (select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = @userId) as 'Vote.Vote'
 ,(select count(1) from sb.[Transaction] where DocumentId = d.Id and [Action] = 'SoldDocument') as Purchased
 ,d.duration as Duration
 ,d.DocumentType as documentType for json path) as JsonArray
@@ -84,9 +76,9 @@ select 'd' as type
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
 
-join cte on  u.country = cte.country
 where
 d.State = 'Ok'
+and u.sbCountry = @country
 and d.courseName = @course
 and COALESCE(d.DocumentType,'Document') = @documentType
 order by
@@ -97,15 +89,6 @@ case when case when (select UserId from sb.UsersRelationship ur where ur.Followe
 OFFSET @page*@pageSize ROWS
 FETCH NEXT @pageSize ROWS ONLY;";
                 const string sqlWithoutCourse = @"
-with cte as (
-select top 1 * from (select 1 as o, u.country as Country, u.id as userid
- from sb.[user] u
-
- where u.id = @userId
- union
- select 2,@country,0) t
- order by o
-)
 
 select 'd' as type
 ,d.CourseName as Course
@@ -126,7 +109,7 @@ select 'd' as type
 ,d.[Views]
 ,d.Downloads
 ,d.VoteCount as  'Vote.Votes'
-,(select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = cte.userid) as 'Vote.Vote'
+,(select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = @userId) as 'Vote.Vote'
 ,(select count(1) from sb.[Transaction] where DocumentId = d.Id and [Action] = 'SoldDocument') as Purchased
 ,d.duration as Duration
 ,d.DocumentType as documentType for json path) as JsonArray
@@ -134,13 +117,12 @@ select 'd' as type
 ,case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end as IsFollow
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
-
-join cte on  u.country = cte.country
 where
-    d.UpdateTime > GETUTCDATE() - 182
+    d.UpdateTime > GetUtcDate() - 182
+and u.SbCountry = @country
 and d.State = 'Ok'
 and COALESCE(d.DocumentType,'Document') = @documentType
-and (d.CourseName in (select courseId from sb.usersCourses where userid = cte.userid) or @userid <= 0)
+and (d.CourseName in (select courseId from sb.usersCourses where userid = @userId) or @userid <= 0)
 order by
 DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE())  +
 DATEDiff(hour, d.UpdateTime, GetUtcDATE()) +
@@ -157,7 +139,7 @@ FETCH NEXT @pageSize ROWS ONLY";
                 {
                     query.Page,
                     query.UserId,
-                    query.Country,
+                    Country = query.Country.Id,
                     query.Course,
                     query.PageSize,
                     documentType = query.Filter.ToString()

@@ -92,6 +92,16 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
         }
 
+        [Theory]
+        [InlineData("api/document/29106")]
+        [InlineData("api/document/similar?documentId=29106")]
+        public async Task GetAsync_Document_OKAsync(string url)
+        {
+            var response = await _client.GetAsync(url);
+
+            response.EnsureSuccessStatusCode();
+        }
+
         [Fact]
         public async Task PostAsync_Upload_Regular_FileNameAsync()
         {
@@ -167,14 +177,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
-        [Theory]
-        [InlineData("api/document/29106")]
-        [InlineData("api/document/similar?documentId=29106")]
-        public async Task GetAsync_Document_OKAsync(string url)
-        {
-            var response = await _client.GetAsync(url);
-
-            response.EnsureSuccessStatusCode();
-        }
+       
     }
 }

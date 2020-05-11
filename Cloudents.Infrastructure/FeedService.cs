@@ -247,7 +247,7 @@ namespace Cloudents.Infrastructure
             {
                 termToQuery = query.Term.Trim();
             }
-            var tutorQuery = new TutorListTabSearchQuery(termToQuery, query.Country, query.Page, _pageSize);
+            var tutorQuery = new TutorListTabSearchQuery(termToQuery, query.Profile.CountryRegion, query.Page, _pageSize);
             return await _tutorSearch.SearchAsync(tutorQuery, token).ContinueWith(r => r.Result.Result, token);
         }
     }

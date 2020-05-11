@@ -21,7 +21,7 @@ namespace Cloudents.Core.Entities
 
         public Document(string name,
             Course course,
-            User user, decimal price, DocumentType documentType, string description)
+            User user, decimal price, DocumentType documentType, string? description)
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
             Course = course ?? throw new ArgumentNullException(nameof(course));

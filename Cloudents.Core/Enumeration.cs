@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Cloudents.Core
 {
-    public abstract class Enumeration : IComparable
+    public abstract class Enumeration : IComparable 
     {
         public string Name { get; }
 

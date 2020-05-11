@@ -44,7 +44,8 @@ namespace Cloudents.Query.SearchSync
             public async Task<SearchWrapperDto<TutorSearchDto>> GetAsync(TutorSyncAzureSearchQuery query, CancellationToken token)
             {
                 const string firstQuery = @"Select 
-t.country ,
+t.SbCountry as SbCountry ,
+t.Country as Country ,
 t.id as UserId,
 t.name,
 t.allCourses as Courses,
@@ -67,7 +68,8 @@ fetch next @pageSize Rows only";
 
                 const string secondQuery = @" 
 Select 
-t.country ,
+t.SbCountry as SbCountry ,
+t.Country as Country ,
 t.id as UserId,
 t.name,
 t.allCourses as Courses,
@@ -94,7 +96,6 @@ fetch next @pageSize Rows only";
                     new
                     {
                         query.Version,
-                        // RowVersion =  query.RowVersion ?? new[] { Convert.ToByte(0) },
                         PageNumber = query.Page,
                         PageSize
                     })).ToList();

@@ -22,10 +22,14 @@ using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
+using Cloudents.Core.Enum;
 using Cloudents.Infrastructure;
 using Cloudents.Query;
 using Cloudents.Query.Users;
+using Cloudents.Search.Document;
+using Cloudents.Search.Tutor;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
+using NHibernate.Criterion;
 using NHibernate.Linq;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 
@@ -141,20 +145,37 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            var x = Container.Resolve<TutorSearchWrite>();
+            await x.CreateOrUpdateAsync(default);
 
 
-            var session = Container.Resolve<IStatelessSession>();
-            var x = session.Query<BaseUser>()
-                .Where(w => w.Id == 36)
-                .Where(w=>((User)w).LockoutEnabled)
-                //.Where(w => ((User) w).LockoutReason == "xxx")
-                .Select(s => ((User) s).LockoutReason)
-                .Single();
+            var xy = Container.Resolve<DocumentSearchWrite>();
+            await xy.CreateOrUpdateAsync(default);
 
-            var z= session.QueryOver<BaseUser>()
-                .Where(w => w.Id == 36)
-                .Where(w=>((User)w).LockoutEnabled)
-                .Select(s => ((User) s).LockoutReason).SingleOrDefault();
+            //BaseUser? userAlias = null!;
+            //var session = Container.Resolve<IStatelessSession>();
+
+            //var questionCountFutureQuery = session.QueryOver<Question>()
+            //    .JoinAlias(x => x.User, () => userAlias)
+            //    .Where(w => w.Status.State == ItemState.Ok);
+            //questionCountFutureQuery.Where(() => userAlias.SbCountry == Country.India);
+            
+            ////questionCountFutureQuery.Where(Restrictions.Eq(Projections.Property(()=> userAlias.SbCountry), Country.India));
+
+
+            //var questionCountFuture = questionCountFutureQuery.ToRowCountQuery().RowCount();
+
+            //var x = session.Query<BaseUser>()
+            //    .Where(w => w.Id == 36)
+            //    .Where(w=>((User)w).LockoutEnabled)
+            //    //.Where(w => ((User) w).LockoutReason == "xxx")
+            //    .Select(s => ((User) s).LockoutReason)
+            //    .Single();
+
+            //var z= session.QueryOver<BaseUser>()
+            //    .Where(w => w.Id == 36)
+            //    .Where(w=>((User)w).LockoutEnabled)
+            //    .Select(s => ((User) s).LockoutReason).SingleOrDefault();
 
 
         }

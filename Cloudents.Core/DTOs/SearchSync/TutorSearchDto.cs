@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.DTOs.SearchSync
 {
@@ -18,9 +19,11 @@ namespace Cloudents.Core.DTOs.SearchSync
         }
 
         public int ReviewsCount { get; set; }
-        public IEnumerable<string> Courses { get; set; }
-        public IEnumerable<string> Subjects { get; set; }
+        public IEnumerable<string>? Courses { get; set; }
+        public IEnumerable<string>? Subjects { get; set; }
+        public Country SbCountry { get; set; }
         public string Country { get; set; }
+
         [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Database value")]
         public long SYS_CHANGE_VERSION { get; set; }
 
@@ -32,7 +35,5 @@ namespace Cloudents.Core.DTOs.SearchSync
         public double OverAllRating { get; set; }
 
         public decimal? SubsidizedPrice { get; set; }
-        // public ItemState State { get; set; }
-        //public long VersionAsLong => BitConverter.ToInt64(Version.Reverse().ToArray(), 0);
     }
 }

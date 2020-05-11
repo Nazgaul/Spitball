@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
@@ -129,6 +130,11 @@ namespace Cloudents.Core.Entities
             return result;
         }
 
+        //public static explicit operator Country(int s)
+        //{
+        //    return FromValue<Country>(s);
+        //}
+
         public const string IsraelStr = "IL";
         public const string IndiaStr = "IN";
         public const string UsStr = "US";
@@ -136,7 +142,30 @@ namespace Cloudents.Core.Entities
         public static readonly Country India = new Country(2, IndiaStr, 1, Language.EnglishIndia);
         public static readonly Country UnitedStates = new Country(3, UsStr, 1 / 100M, Language.EnglishUsa);
 
+        private bool Equals(Country other)
+        {
+            return RegionInfo.Equals(other.RegionInfo);
+        }
 
+        public override bool Equals(object? obj)
+        {
+            return ReferenceEquals(this, obj) || obj is Country other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(RegionInfo);
+        }
+
+        public static bool operator ==(Country? left, Country? right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Country? left, Country? right)
+        {
+            return !Equals(left, right);
+        }
 
 
         public static readonly HashSet<string> CountriesNotSupported = new HashSet<string>()

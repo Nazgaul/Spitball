@@ -1,5 +1,4 @@
-﻿using System;
-using Cloudents.Query.Stuff;
+﻿using Cloudents.Query.Stuff;
 using NHibernate;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -7,10 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
-using NHibernate.Transform;
 using NHibernate.Linq;
 using Cloudents.Core.DTOs.Users;
-using NHibernate.SqlCommand;
 
 namespace Cloudents.Query.Users
 {
@@ -54,7 +51,7 @@ u.LastName as LastName,
 u.CoverImage as Cover,
 t.price as Tutor_Price, 
 t.SubsidizedPrice as Tutor_DiscountPrice,
-t.country as Tutor_TutorCountry,
+t.SbCountry as Tutor_TutorCountry,
 t.rate as Tutor_Rate,
 t.rateCount as Tutor_ReviewCount,
 t.Bio as Tutor_Bio,
@@ -131,8 +128,8 @@ and (u.LockoutEnd is null or u.LockoutEnd < GetUtcDate())";
                     }
                 }
 
-                result.DocumentCourses = documentCoursesFuture.GetEnumerable();
-                result.Courses = userCoursesFuture.GetEnumerable();
+                result.DocumentCourses = await documentCoursesFuture.GetEnumerableAsync(token);
+                result.Courses = await userCoursesFuture.GetEnumerableAsync(token);
                 result.Image = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Image);
                 result.Cover = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Cover);
 
@@ -146,11 +143,10 @@ and (u.LockoutEnd is null or u.LockoutEnd < GetUtcDate())";
             }
         }
 
-        public class CouponDto
+        private class CouponDto
         {
             public CouponType TypeEnum { get; set; }
 
-            // public CouponType TypeEnum => (CouponType)Enum.Parse(typeof(CouponType), Type, true);
 
             public decimal Value { get; set; }
         }

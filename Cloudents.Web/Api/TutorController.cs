@@ -80,14 +80,14 @@ namespace Cloudents.Web.Api
             [FromServices] ITutorSearch tutorSearch,
             CancellationToken token, int pageSize = 20)
         {
-            term = term ?? string.Empty;
-            course = course ?? string.Empty;
+            term ??= string.Empty;
+            course ??= string.Empty;
             term = $"{term} {course}".Trim();
             //TODO make it better
             if (string.IsNullOrWhiteSpace(term))
             {
                 _userManager.TryGetLongUserId(User, out var userId);
-                var query = new TutorListQuery(userId, profile.CountryRegion.Name, page, pageSize);
+                var query = new TutorListQuery(userId, profile.CountryRegion, page, pageSize);
                 var result = await _queryBus.QueryAsync(query, token);
                 result.Result = result.Result.Select(s =>
                 {
@@ -104,14 +104,8 @@ namespace Cloudents.Web.Api
             }
             else
             {
-                var query = new TutorListTabSearchQuery(term, profile.Country, page, pageSize);
+                var query = new TutorListTabSearchQuery(term, profile.CountryRegion, page, pageSize);
                 var result = await tutorSearch.SearchAsync(query, token);
-                //result.Result = result.Result.Select(s =>
-                //{
-                //    s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
-                //    return s;
-                //});
-               
                 return new WebResponseWithFacet<TutorCardDto>
                 {
                     Result = result.Result,
@@ -143,7 +137,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-            var query = new TutorListByCourseQuery(course, userId, profile.CountryRegion.Name, count.GetValueOrDefault(10));
+            var query = new TutorListByCourseQuery(course, userId, profile.CountryRegion, count.GetValueOrDefault(10));
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal.Select(item =>
             {

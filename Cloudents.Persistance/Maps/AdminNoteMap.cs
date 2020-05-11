@@ -3,7 +3,7 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistence.Maps
 {
-    public class AdminNoteMap : ClassMap<AdminNote>
+    public sealed class AdminNoteMap : ClassMap<AdminNote>
     {
         public AdminNoteMap()
         {
