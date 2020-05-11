@@ -325,7 +325,7 @@
     <value>/ Month</value>
   </data>
   <data name="subscribe_subtitle" xml:space="preserve">
-    <value>Get access to {0}'s all content</value>
+    <value>access to all of {0}'s content and Live Broadcasts</value>
   </data>
   <data name="subscribe_title" xml:space="preserve">
     <value>Subscribe and get</value>
