@@ -10,9 +10,11 @@ namespace Cloudents.Command.CommandHandler.Admin
     public class UpdatePhoneCommandHandler : ICommandHandler<UpdatePhoneCommand>
     {
         private readonly IRegularUserRepository _repository;
-        public UpdatePhoneCommandHandler(IRegularUserRepository repository)
+        private readonly IPhoneValidator _phoneValidator;
+        public UpdatePhoneCommandHandler(IRegularUserRepository repository, IPhoneValidator phoneValidator)
         {
             _repository = repository;
+            _phoneValidator = phoneValidator;
         }
 
         public async Task ExecuteAsync(UpdatePhoneCommand message, CancellationToken token)
@@ -27,7 +29,13 @@ namespace Cloudents.Command.CommandHandler.Admin
             {
                 throw new NullReferenceException();
             }
-            user.PhoneNumber = message.NewPhone;
+
+            var result = await _phoneValidator.ValidateNumberAsync(message.NewPhone,token);
+            if (result.phoneNumber == null)
+            {
+                throw new ArgumentException();
+            }
+            user.PhoneNumber = result.phoneNumber;
             await _repository.UpdateAsync(user, token);
         }
     }

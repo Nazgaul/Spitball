@@ -405,7 +405,7 @@ namespace Cloudents.Selenium.Test
             }
         }
 
-        [Fact]
+        [Fact(Skip ="Need to fix")]
         public void Feed_Search()
         {
             foreach (var driver in this._driver.Drivers)
@@ -950,10 +950,43 @@ namespace Cloudents.Selenium.Test
             }
         }
 
-        [Fact]
+        [Fact(Skip ="Need to fix")]
         public void SideMenuTest()
         {
             foreach (var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+                Login(driver, UserTypeAccounts.ElementAt(0));
+                
+                // Wait until this element shows
+                FindByClass(driver, "gH_i_r_chat");
+
+                driver.Navigate().GoToUrl(driver.Url + "?culture=en-US");
+
+                string[] elements = { "", "_overview", "_opportunities", "_myContent",
+                                      "_myStudyRooms", "_mySales", "_myFollowers", "_myPurchases" };
+
+                FindSel(driver, "sidemenu_home").Click();
+                foreach (var element in elements)
+                {
+                    FindSel(driver, $"sidemenu_dashboard{element}").Click();
+                }
+
+                string[] moreElements = { "", "_myCourses", "_myCalendar", "_testStudyRoom" };
+
+                foreach (var element in moreElements)
+                {
+                    FindSel(driver, $"sidemenu_settings{element}").Click();
+                }
+
+                Logout(driver);
+            }
+        }
+
+        [Fact]
+        public void CreateStudyRoomTest()
+        {
+            foreach(var driver in this._driver.Drivers)
             {
                 driver.Manage().Window.Maximize();
                 Login(driver, UserTypeAccounts.ElementAt(0));
@@ -961,15 +994,32 @@ namespace Cloudents.Selenium.Test
                 // Wait until this element shows
                 FindByClass(driver, "gH_i_r_chat");
 
-                FindSel(driver, "sidemenu_home").Click();
-                FindSel(driver, "sidemenu_dashboard").Click();
-                FindSel(driver, "sidemenu_dashboard_overview").Click();
-                FindSel(driver, "sidemenu_dashboard_opportunities").Click();
-                //FindSel(driver, "sidemenu_dashboard_myContent").Click();
-                FindSel(driver, "sidemenu_dashboard_myStudyRooms").Click();
-                FindSel(driver, "sidemenu_dashboard_mySales").Click();
-                FindSel(driver, "sidemenu_dashboard_myFollowers").Click();
-                FindSel(driver, "sidemenu_dashboard_myPurchases").Click();
+                driver.Navigate().GoToUrl("https://dev.spitball.co/study-rooms");
+
+                var createButtons = driver.FindElements(By.XPath("//*[contains(@class, 'tableTop')]//button"));
+
+                createButtons[0].Click();
+
+                // Make sure this element exists
+                FindContains(driver, "v-dialog--persistent");
+
+                FindContains(driver, "close-dialog").Click();
+
+                createButtons[1].Click();
+
+                // Make sure this element exists
+                FindContains(driver, "v-dialog--persistent");
+
+                Logout(driver);
+
+                Login(driver, UserTypeAccounts.ElementAt(1));
+
+                // Wait until this element shows
+                FindByClass(driver, "gH_i_r_chat");
+
+                driver.Navigate().GoToUrl("https://dev.spitball.co/study-rooms");
+
+                driver.FindElements(By.XPath("//*[contains(@class, 'tableTop')]//button")).Should().BeEmpty();
 
                 Logout(driver);
             }
