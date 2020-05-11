@@ -3,7 +3,6 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using NHibernate;
 using NHibernate.Linq;
-using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -42,7 +41,7 @@ namespace Cloudents.Persistence.Repositories
                 .Select(s => new
                 {
                     CourseName = s.Course.Id,
-                    SubjectName = s.Course.Subject.Name
+                    SubjectName = s.Course.Subject!.Name
                 }).ToFuture();
 
             var query = from e in Session.Query<TutorReview>()

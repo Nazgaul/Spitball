@@ -39,27 +39,27 @@ namespace Cloudents.Search.Document
 
         }
 
-        public async Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken)
-        {
-            try
-            {
-                var item =
-                    await
-                        _client.Documents.GetAsync<Entities.Document>
-                        (itemId.ToString(CultureInfo.InvariantCulture),
-                            new[] { nameof(Entities.Document.Content) }, cancellationToken: cancelToken);
-                return item.Content;
-            }
-            //item may not exists in the search....
-            catch (CloudException)
-            {
-                return null;
-            }
-        }
+        //public async Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken)
+        //{
+        //    try
+        //    {
+        //        var item =
+        //            await
+        //                _client.Documents.GetAsync<Entities.Document>
+        //                (itemId.ToString(CultureInfo.InvariantCulture),
+        //                    new[] { nameof(Entities.Document.Content) }, cancellationToken: cancelToken);
+        //        return item.Content;
+        //    }
+        //    //item may not exists in the search....
+        //    catch (CloudException)
+        //    {
+        //        return null;
+        //    }
+        //}
 
 
         // ReSharper disable once UnusedMember.Global - we used that for testing
-        public async Task<Entities.Document> ItemAsync(long itemId, CancellationToken cancelToken)
+        public async Task<Entities.Document?> ItemAsync(long itemId, CancellationToken cancelToken)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace Cloudents.Search.Document
 
 
 
-        public async Task<(IEnumerable<DocumentSearchResultWithScore> result, IEnumerable<string> facetSubject)>
+        public async Task<(IEnumerable<DocumentSearchResultWithScore> result, IEnumerable<string>? facetSubject)>
             SearchAsync(DocumentQuery query, UserProfile userProfile, CancellationToken token)
         {
             var filters = new List<string> {$"{nameof(Entities.Document.SbCountry)} eq '{userProfile.CountryRegion}'"};
@@ -134,26 +134,6 @@ namespace Cloudents.Search.Document
             }), facetDocumentType);
 
         }
-
-        //internal static IEnumerable<string> GenerateScoringParameterValues(IEnumerable<string> input)
-        //{
-        //    if (input == null)
-        //    {
-        //        return new string[] { null };
-        //    }
-
-        //    var inputList = input.ToList();
-        //    if (!inputList.Any())
-        //    {
-        //        return new string[] { null };
-        //    }
-
-        //    return inputList.Select(w => w.ToUpperInvariant());
-        //}
-
-        //internal static IEnumerable<string> GenerateScoringParameterValues(string input)
-        //{
-        //    return GenerateScoringParameterValues(new[] { input });
-        //}
+       
     }
 }
