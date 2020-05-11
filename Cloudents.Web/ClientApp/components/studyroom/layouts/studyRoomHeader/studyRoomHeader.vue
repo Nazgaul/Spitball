@@ -19,7 +19,7 @@
             <button :key="objectKey" @click="actionHandler(objectKey)"
                :class="['tutorNavTab', 
                   {'tutorNavTab-active': navTab.icon == navTabs[getIsCurrentMode(currentEditorMode)].icon}]" >
-               <span><v-icon style="vertical-align: sub;"  size="16" :color="navTab.icon == navTabs[getIsCurrentMode(currentEditorMode)].icon?'#4c59ff':'white'" class="mr-2">{{navTab.icon}}</v-icon>{{navTab.text}}</span>
+               <span><v-icon style="vertical-align: sub;"  size="15" :color="navTab.icon == navTabs[getIsCurrentMode(currentEditorMode)].icon?'#4c59ff':'white'" class="mr-2">{{navTab.icon}}</v-icon>{{navTab.text}}</span>
             </button>
             
          </template>

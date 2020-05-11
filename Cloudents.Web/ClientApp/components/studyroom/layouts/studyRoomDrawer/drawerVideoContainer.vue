@@ -173,7 +173,7 @@ export default {
 </script>
 <style lang="less">
    #tutorVideoDrawer{
-      border-radius: 6px;
+      border-radius: initial;
       .tutorName{
          position: absolute;
          font-size: 14px;
@@ -184,7 +184,6 @@ export default {
          z-index: 1;
       }
       .videoLiner{
-         border-radius: 6px;
          position: absolute;
          width: 100%;
          height: 100%;
@@ -208,7 +207,6 @@ export default {
          }
       }
       .drawerVideoTools{
-         border-radius: 6px;
          position: absolute;
          width: 100%;
          height: 100%;
@@ -243,7 +241,6 @@ export default {
          object-position: center;
          background-repeat: no-repeat;
          pointer-events: none;
-         border-radius: 6px;
       }
       video::-webkit-media-controls-enclosure {
          display: none !important;
