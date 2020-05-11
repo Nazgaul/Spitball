@@ -53,14 +53,13 @@ namespace Cloudents.Infrastructure
             return phoneNumber;
         }
 
-        public async Task<(string? phoneNumber, string? country)> ValidateNumberAsync(string phoneNumber, string countryCode, CancellationToken token)
+        public async Task<(string? phoneNumber, string? country)> ValidateNumberAsync(string phoneNumberWithCountryCode, CancellationToken token)
         {
-            phoneNumber = BuildPhoneNumber(phoneNumber, countryCode);
 
             try
             {
                 var result = await PhoneNumberResource.FetchAsync(
-                    pathPhoneNumber: phoneNumber,
+                    pathPhoneNumber: phoneNumberWithCountryCode,
                     type: new List<string>()
                     {
                         "carrier"
@@ -100,6 +99,13 @@ namespace Cloudents.Infrastructure
             {
                 return (null, null);
             }
+        }
+
+        public Task<(string? phoneNumber, string? country)> ValidateNumberAsync(string phoneNumber, string countryCode, CancellationToken token)
+        {
+            phoneNumber = BuildPhoneNumber(phoneNumber, countryCode);
+
+            return ValidateNumberAsync(phoneNumber, token);
         }
 
         public async Task SendVerificationCodeAsync(string phoneNumber, CancellationToken token)
