@@ -126,11 +126,13 @@ namespace ConsoleApp
             {
                 await RamMethod();
             }
-            else
+            else if(Environment.UserName == "Elad")
             {
 
-                await HadarMethod();
+                //await HadarMethod();
+                ResourcesMaintenance.DeleteStuffFromJs();
             }
+            
 
 
             Console.WriteLine("done");

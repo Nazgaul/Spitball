@@ -123,12 +123,6 @@
   <data name="balance" xml:space="preserve">
     <value>Your balance: {0} Pts</value>
   </data>
-  <data name="Change" xml:space="preserve">
-    <value>Change</value>
-  </data>
-  <data name="changeUniversity" xml:space="preserve">
-    <value>School</value>
-  </data>
   <data name="feedback" xml:space="preserve">
     <value>Feedback</value>
   </data>

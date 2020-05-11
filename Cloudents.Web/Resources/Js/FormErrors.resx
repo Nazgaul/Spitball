@@ -123,9 +123,6 @@
   <data name="integer" xml:space="preserve">
     <value>Whole numbers only</value>
   </data>
-  <data name="longer_10" xml:space="preserve">
-    <value>Must be longer than 10 characters</value>
-  </data>
   <data name="longer_4" xml:space="preserve">
     <value>Min.  4 characters</value>
   </data>
