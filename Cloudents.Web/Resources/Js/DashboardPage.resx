@@ -342,7 +342,7 @@
     <value>Free</value>
   </data>
   <data name="subscription_price" xml:space="preserve">
-    <value>Price for subscription</value>
+    <value>Price for subscribers</value>
   </data>
   <data name="success_session_removed" xml:space="preserve">
     <value>Success: Session Deleted</value>
@@ -375,6 +375,6 @@
     <value>Set your price</value>
   </data>
   <data name="visitor_price" xml:space="preserve">
-    <value>Price</value>
+    <value>Price for visitors</value>
   </data>
 </root>

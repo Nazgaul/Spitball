@@ -316,7 +316,7 @@
     <value>Show my calendar</value>
   </data>
   <data name="subscribe_btn" xml:space="preserve">
-    <value>Subscribe</value>
+    <value>Subscribe now</value>
   </data>
   <data name="subscribe_no_contract" xml:space="preserve">
     <value>Monthly, no contract - Cancel any time</value>

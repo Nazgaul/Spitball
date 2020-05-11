@@ -338,7 +338,7 @@
     <value>חינם</value>
   </data>
   <data name="subscription_price" xml:space="preserve">
-    <value>תעריף למנויים</value>
+    <value>מחיר למנויים</value>
   </data>
   <data name="success_session_removed" xml:space="preserve">
     <value>מחיקה בוצעה</value>
@@ -371,6 +371,6 @@
     <value>קבע מחיר</value>
   </data>
   <data name="visitor_price" xml:space="preserve">
-    <value>תעריף</value>
+    <value>מחיר למבקרים</value>
   </data>
 </root>

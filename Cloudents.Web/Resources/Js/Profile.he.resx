@@ -211,7 +211,7 @@
     <value>שיעורים פתוחים לקהל של</value>
   </data>
   <data name="live_visitors_title" xml:space="preserve">
-    <value>אורחים</value>
+    <value>מבקרים</value>
   </data>
   <data name="my_book_session" xml:space="preserve">
     <value>הצג את היומן שלי</value>
@@ -313,19 +313,19 @@
     <value>התוכן של {1}</value>
   </data>
   <data name="subscribe_btn" xml:space="preserve">
-    <value>רכישה עכשיו</value>
+    <value>מנוי חודשי</value>
   </data>
   <data name="subscribe_no_contract" xml:space="preserve">
-    <value>ללא התחייבות, ניתן לבטל בכל זמן</value>
+    <value>תשלום חודשי, ללא התחייבות - בטל בכל עת</value>
   </data>
   <data name="subscribe_price_month" xml:space="preserve">
     <value>/ לחודש</value>
   </data>
   <data name="subscribe_subtitle" xml:space="preserve">
-    <value>גישה לכל התכנים והשידורים החיים של {0}</value>
+    <value>גישה חופשית לכל התכנים של {0}</value>
   </data>
   <data name="subscribe_title" xml:space="preserve">
-    <value>רכוש מינוי וקבל</value>
+    <value>מנוי חודשי</value>
   </data>
   <data name="tutor_follower" xml:space="preserve">
     <value>עוקב | עוקבים</value>
