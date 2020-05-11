@@ -4,6 +4,11 @@
          <div :id="elementId" class="d-flex flex-grow-0 flex-shrink-0">
             <span class="tutorName">{{roomTutorName}}</span>
             <div class="videoLiner"></div>
+            <div class="videoPlaceHolderContainer" v-if="!tutorVideo">
+               <div class="cameraCircle">
+                  <v-icon size="26" color="#A9A9A9">sbf-camera-ignore</v-icon>
+               </div>
+            </div>
          </div>
          <div class="studyRoomMobileChatHeader mt-4">
             <div class="px-4 headerTitle mb-5 text-truncate">{{$store.getters.getRoomName}}</div>
@@ -107,20 +112,20 @@ export default {
    .studyRoomMobile {
       width: 100%;
       .studyRoomMobileContent{
-         ::-webkit-scrollbar-track {
-               background: #f5f5f5; 
-         }
-         ::-webkit-scrollbar {
-               width: 10px;
-         }
-         ::-webkit-scrollbar-thumb {
-               background: #bdc0d1 !important;
-               border-radius: 4px !important;
-         }
-         height: ~"calc(100vh - 8px)";
-         @media (max-width: @screen-xs) {
-            height: ~"calc(100vh - 56px)";
-         }
+            ::-webkit-scrollbar-track {
+                  background: #f5f5f5; 
+            }
+            ::-webkit-scrollbar {
+                  width: 10px;
+            }
+            ::-webkit-scrollbar-thumb {
+                  background: #bdc0d1 !important;
+                  border-radius: 4px !important;
+            }
+            height: ~"calc(100vh - 8px)";
+            @media (max-width: @screen-xs) {
+               height: ~"calc(100vh - 56px)";
+            }
          #studyRoomMobileVideo{
             width: 100%;
             min-height: 280px;
@@ -141,6 +146,23 @@ export default {
                height: 100%;
                background-image: linear-gradient(to top, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.1) 74%, rgba(0, 0, 0, 0.64));
             }
+            .videoPlaceHolderContainer{
+               position: absolute;
+               width: 100%;
+               height: 100%; 
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               .cameraCircle{
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  border-radius: 50%;
+                  width: 100px;
+                  height: 100px;
+                  background-color: #353537;
+               }
+            }
             video {
                width: 100%;
                height: 100%;
@@ -155,7 +177,6 @@ export default {
                   width: 100vw;
                   height: 100vh;
                   max-height: initial;
-                  // z-index: 20;
                   background: #000;
                }
             }
@@ -165,7 +186,7 @@ export default {
          }
          .studyRoomMobileChatHeader{
             @media (max-width: @screen-sm) and (orientation: landscape) {
-               display: none !important;;
+               display: none !important;
             }
             width: 100%;
             // padding: 0 12px;

@@ -1,7 +1,12 @@
 <template>
-   <v-card v-if="isShowVideo" :id="elementId" :color="'grey lighten-1'" height="210" width="276">
+   <v-card v-if="isShowVideo" :id="elementId" :color="'black'" height="210" width="276">
       <span class="tutorName">{{roomTutorName}}</span>
       <div class="videoLiner"></div>
+      <div class="videoPlaceHolderContainer" v-if="!tutorVideo">
+         <div class="cameraCircle">
+            <v-icon size="26" color="#A9A9A9">sbf-camera-ignore</v-icon>
+         </div>
+      </div>
       <div class="drawerVideoTools" v-if="isRoomTutor">
          <div class="drawerVideoBtns">
             <template v-if="isClassMode">
@@ -184,6 +189,23 @@ export default {
          width: 100%;
          height: 100%;
          background-image: linear-gradient(to top, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.1) 74%, rgba(0, 0, 0, 0.64));
+      }
+      .videoPlaceHolderContainer{
+         position: absolute;
+         width: 100%;
+         height: 100%; 
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         .cameraCircle{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            background-color: #353537;
+         }
       }
       .drawerVideoTools{
          border-radius: 6px;
