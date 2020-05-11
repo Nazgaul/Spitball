@@ -18,13 +18,14 @@ namespace Cloudents.Core.Interfaces
         Task DeleteImageAssetAsync(long id, CancellationToken token);
 
         Task DeleteAssetAsync(string assetName, CancellationToken token);
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="videoId"></param>
         /// <param name="token"></param>
         /// <returns>return url for stream - null if none exists</returns>
-        Task<string> GetShortStreamingUrlAsync(long videoId, CancellationToken token);
+        Task<string?> GetShortStreamingUrlAsync(long videoId, CancellationToken token);
         Task CreateShortStreamingLocator(long videoId, CancellationToken token);
         Task CreatePreviewJobAsync(long id, string url, System.TimeSpan videoLength, CancellationToken token);
 
@@ -35,7 +36,7 @@ namespace Cloudents.Core.Interfaces
         /// <param name="userId"></param>
         /// <param name="token"></param>
         /// <returns>return url for stream - null if none exists</returns>
-        Task<string> BuildUserStreamingLocatorAsync(long videoId, long userId, CancellationToken token);
+        Task<string?> BuildUserStreamingLocatorAsync(long videoId, long userId, CancellationToken token);
         Task CreateAudioPreviewJobAsync(long id, string url, CancellationToken token);
       //  Task CreateStudyRoomSessionEncoding(string id, string url, CancellationToken token);
         Task RemoveUnusedStreamingLocatorAsync(CancellationToken token);

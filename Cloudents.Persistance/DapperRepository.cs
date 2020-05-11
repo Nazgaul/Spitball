@@ -11,7 +11,6 @@ using System.Linq;
 using System.Reflection;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
-using NHibernate.Mapping;
 
 namespace Cloudents.Persistence
 {

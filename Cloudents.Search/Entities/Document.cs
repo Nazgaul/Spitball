@@ -28,7 +28,7 @@ namespace Cloudents.Search.Entities
 
                 DateTime = obj.DateTime,
                 Country = obj.Country?.ToUpperInvariant(),
-                Course = obj.Course?.ToUpperInvariant(),
+                Course = obj.Course,
                 Id = obj.ItemId.ToString(),
                 Name = obj.Name,
                 Type = obj.Type,
@@ -52,7 +52,7 @@ namespace Cloudents.Search.Entities
         public string Course { get; set; }
 
         [IsFilterable, IsFacetable, JsonProperty("Country"), Obsolete]
-        public string Country { get; set; }
+        public string? Country { get; set; }
 
         [IsFilterable, JsonConverter(typeof(CountryConverter))]
         public Country SbCountry { get; set; }

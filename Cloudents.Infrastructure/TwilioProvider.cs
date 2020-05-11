@@ -261,7 +261,7 @@ namespace Cloudents.Infrastructure
             return $"{userId}_{name.Truncate(30, true)}";
         }
 
-        public static (long userId, string name) ParseIdentity(string identity)
+        public static (long userId, string? name) ParseIdentity(string identity)
         {
             var userIdStr = identity.Split("_");
             if (userIdStr.Length == 2)
@@ -285,38 +285,38 @@ namespace Cloudents.Infrastructure
         }
 
 
-        public async Task ComposeVideo(string roomId)
-        {
-            var rooms = await RoomResource.ReadAsync(
-                status: RoomResource.RoomStatusEnum.Completed,
-                uniqueName: roomId);
-            var room = rooms.FirstOrDefault();
-            //var room = await RoomResource.FetchAsync(roomId);
+        //public async Task ComposeVideo(string roomId)
+        //{
+        //    var rooms = await RoomResource.ReadAsync(
+        //        status: RoomResource.RoomStatusEnum.Completed,
+        //        uniqueName: roomId);
+        //    var room = rooms.FirstOrDefault();
+        //    //var room = await RoomResource.FetchAsync(roomId);
             
-            var z = await ParticipantResource.ReadAsync(room.Sid);
-            var t = await RoomRecordingResource.ReadAsync(room.Sid);
-            var x = t.Where(s => s.Type == RoomRecordingResource.TypeEnum.Video);
+        //    var z = await ParticipantResource.ReadAsync(room.Sid);
+        //    var t = await RoomRecordingResource.ReadAsync(room.Sid);
+        //    var x = t.Where(s => s.Type == RoomRecordingResource.TypeEnum.Video);
 
 
-            var layout = new
-            {
-                transcode = new
-                {
-                    video_sources = new string[] { "*" }
-                }
-            };
+        //    var layout = new
+        //    {
+        //        transcode = new
+        //        {
+        //            video_sources = new string[] { "*" }
+        //        }
+        //    };
 
 
-            var composition = await CompositionResource.CreateAsync(
-                roomSid: room.Sid,
-                audioSources: new List<string>() { "*" },
-                videoLayout: layout,
-                trim: true,
-                resolution: "1280x720",
-                //statusCallback: new Uri('http://my.server.org/callbacks'),
-                format: CompositionResource.FormatEnum.Mp4
-            );
-        }
+        //    var composition = await CompositionResource.CreateAsync(
+        //        roomSid: room.Sid,
+        //        audioSources: new List<string>() { "*" },
+        //        videoLayout: layout,
+        //        trim: true,
+        //        resolution: "1280x720",
+        //        //statusCallback: new Uri('http://my.server.org/callbacks'),
+        //        format: CompositionResource.FormatEnum.Mp4
+        //    );
+        //}
 
 
 

@@ -19,7 +19,7 @@ namespace Cloudents.Persistence.Repositories
         {
             return await Session.Query<Course>()
                 .Fetch(f => f.Subject)
-                .Where(w => w.Subject.Id == subjectId)
+                .Where(w => w.Subject!.Id == subjectId)
                 .ToListAsync(token);
         }
 
