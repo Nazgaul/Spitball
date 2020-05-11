@@ -1,5 +1,5 @@
 <template>
-   <v-navigation-drawer app right clipped class="studyRoomDrawer" :width="drawerExtend ? 300 : 0">
+   <v-navigation-drawer mobile-break-point="960" app right clipped class="studyRoomDrawer" :width="drawerExtend ? 300 : 0">
    <v-btn icon class="collapseIcon" @click="drawerExtend = !drawerExtend" color="#fff">
       <v-icon color="#7a798c" size="18" v-text="drawerExtend? 'sbf-arrow-right-carousel': 'sbf-arrow-left-carousel'"></v-icon>
    </v-btn>
