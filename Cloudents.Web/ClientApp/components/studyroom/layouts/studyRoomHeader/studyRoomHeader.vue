@@ -215,6 +215,7 @@ export default {
          font-weight: 600;
          color: white;
          height: 50px;
+         min-width: 130px;
          // padding: 0 28px;
          // width: 130px;
 
