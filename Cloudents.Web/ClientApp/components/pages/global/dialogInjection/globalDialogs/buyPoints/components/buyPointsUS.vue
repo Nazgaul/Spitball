@@ -93,6 +93,7 @@
 
                 <v-layout class="buymebtn">
                     <v-flex text-center>
+                        <!--Design of btn like IL buy point -->
                         <v-progress-circular v-show="isLoading" class="mb-4" size="80" width="2" indeterminate color="info"></v-progress-circular>
                         <div v-show="!isLoading" id="paypal-button-container" @click="buyPoints()" style="width:400px; margin: 0 auto;">Buy Points</div>
                     </v-flex>
@@ -105,6 +106,7 @@
 <script>
 //import analyticsService from '../../../../../../../services/analytics.service';
 import { loadStripe } from '@stripe/stripe-js';
+//TODO get from window
 const stripePromise = loadStripe('pk_test_8f8AdUcVw1yWhORtcRmmUICN00c2DsuxOk');
 import axios from 'axios';
 
@@ -157,12 +159,15 @@ export default {
       }
     },
     async buyPoints() {
-debugger;
+        //TODO transfer the amount of points
+
         var {data} = await  axios.get('/wallet/stripe');
-        
+        //var clientSecret = data.client_secret;
         // const { sessionId } = await fetchCheckoutSession();
         // When the customer clicks on the button, redirect them to Checkout.
         const stripe = await stripePromise;
+
+        //TODO - investigate error
         const { error } = await stripe.redirectToCheckout({
            sessionId:  data.sessionId,
         });
