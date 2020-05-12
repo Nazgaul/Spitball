@@ -177,9 +177,9 @@ export default {
       .tutorName{
          position: absolute;
          font-size: 14px;
-         font-weight: 600;
+         font-weight: 500;
          color: #ffffff;
-         top: 8px;
+         top: 6px;
          left: 8px;
          z-index: 1;
       }

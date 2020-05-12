@@ -2,14 +2,14 @@
    <v-navigation-drawer 
          mobile-break-point="960" app right clipped
          class="studyRoomDrawer" :width="drawerExtend ? 300 : 12">
-   <v-btn icon class="collapseIcon" @click="drawerExtend = !drawerExtend" color="#fff">
-      <v-icon color="#7a798c" size="18" v-text="drawerExtend? 'sbf-arrow-right-carousel': 'sbf-arrow-left-carousel'"></v-icon>
-   </v-btn>
+   <button @click="drawerExtend = !drawerExtend" class="collapseBtnDrawer">
+      <v-icon class="pa-1" color="#7a798c" size="16" v-text="drawerExtend? 'sbf-arrow-right-carousel': 'sbf-arrow-left-carousel'"></v-icon>
+   </button>
    <div :class="[{'hiddenDrawer':!drawerExtend}]" class="drawerContent flex-column d-flex justify-space-between align-center">
-      <drawerVideoContainer :isShowVideo="isShowVideo" class="mt-2 d-flex flex-grow-0 flex-shrink-0 elevation-0"/>
-      <div class="drawerChatHeader mt-4">
+      <drawerVideoContainer :isShowVideo="isShowVideo" class="mt-3 d-flex flex-grow-0 flex-shrink-0 elevation-0"/>
+      <div class="drawerChatHeader mt-3">
          <div class="headerTitle mb-5 text-truncate">{{$store.getters.getRoomName}}</div>
-         <div class="headerInfo d-flex justify-space-between mb-4">
+         <div class="headerInfo d-flex justify-space-between mb-2">
             <span>
                <v-icon class="mr-1">sbf-message-icon</v-icon>
                {{$t('studyRoom_chat')}}
@@ -60,6 +60,7 @@ export default {
 <style lang="less">
    .studyRoomDrawer {
       overflow: initial; // to let the collapse btn to show
+      box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.11);
       &.v-navigation-drawer{
          left: auto !important;
          right: 0 !important;
@@ -75,7 +76,7 @@ export default {
                width: 10px;
          }
          ::-webkit-scrollbar-thumb {
-               background: #b5b8d9 !important;
+               background: #bdc0d1 !important;
                border-radius: 4px !important;
          }
          height: ~"calc(100vh - 68px)";
@@ -128,15 +129,23 @@ export default {
          }
       }
       .collapseIcon {
-         position: absolute;
          width: 32px;
-         top: 12px;
-         left: -30px;
-         background: #ffffff;
+
          border-radius: 0%; //vuetify override
          border-top-left-radius: 8px;
          border-bottom-left-radius: 8px;
+      }
+      .collapseBtnDrawer{
+         position: absolute;
+         left: -26px;
+         background: #ffffff;
+         width: 32px;
+         height: 32px;
+         top: 10px;
          z-index: 1;
+         border-top-left-radius: 8px;
+         border-bottom-left-radius: 8px;
+         outline: none;
       }
    }
 </style>
