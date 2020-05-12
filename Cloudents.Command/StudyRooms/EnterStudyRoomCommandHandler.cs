@@ -12,11 +12,13 @@ namespace Cloudents.Command.StudyRooms
     {
         private readonly IRepository<StudyRoom> _studyRoomRepository;
         private readonly IRegularUserRepository _userRepository;
+        private readonly IStudyRoomProvider _videoProvider;
 
-        public EnterStudyRoomCommandHandler(IRepository<StudyRoom> studyRoomRepository, IRegularUserRepository userRepository)
+        public EnterStudyRoomCommandHandler(IRepository<StudyRoom> studyRoomRepository, IRegularUserRepository userRepository, IStudyRoomProvider videoProvider)
         {
             _studyRoomRepository = studyRoomRepository;
             _userRepository = userRepository;
+            _videoProvider = videoProvider;
         }
 
         public async Task ExecuteAsync(EnterStudyRoomCommand message, CancellationToken token)
@@ -27,18 +29,21 @@ namespace Cloudents.Command.StudyRooms
                 throw new ArgumentNullException(nameof(message.StudyRoomId), message.StudyRoomId.ToString());
             }
 
-            //if (studyRoom.StudyRoomType == StudyRoomType.Private)
-            //{
-            //    if (studyRoom.Tutor.User.Id == message.UserId)
-            //    {
-            //        return;
-            //    }
-            //    var _ = studyRoom.Users.AsQueryable().Single(s => s.User.Id == message.UserId);
-            //    return;
-            //}
-
             var user = await _userRepository.LoadAsync(message.UserId, token);
             studyRoom.AddUserToStudyRoom(user);
+
+            var currentSession = studyRoom.GetCurrentSession();
+            if (currentSession != null)
+            {
+                var roomAvailable = await _videoProvider.GetRoomAvailableAsync(currentSession.SessionId);
+                if (roomAvailable)
+                {
+                    var jwt = _videoProvider.CreateRoomToken(
+                        currentSession.SessionId,
+                       user.Id, user.Name);
+                    message.JwtToken = jwt;
+                }
+            }
         }
     }
 }

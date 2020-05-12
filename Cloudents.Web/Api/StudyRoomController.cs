@@ -124,9 +124,10 @@ namespace Cloudents.Web.Api
             [FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
+            var command = new EnterStudyRoomCommand(id, userId);
             try
             {
-                await _commandBus.DispatchAsync(new EnterStudyRoomCommand(id, userId), default);
+                await _commandBus.DispatchAsync(command, default);
             }
             catch (InvalidOperationException)
             {
@@ -143,6 +144,7 @@ namespace Cloudents.Web.Api
             }
             result.NeedPayment = true;
             result.TutorImage = urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
+            result.Jwt = command.JwtToken;
             return result;
         }
 
