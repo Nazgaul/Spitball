@@ -52,6 +52,20 @@ export default {
       userPreview
    },
    watch: {
+      tutorAudioTrack:{
+         immediate:true,
+         deep:true,
+         handler(track){
+            if(track){
+               this.$nextTick(()=>{
+                  const localMediaContainer = document.getElementById('classFullScreenVideo');
+                  let audioTag = localMediaContainer.querySelector("audio");
+                  if (audioTag) {localMediaContainer.removeChild(audioTag)}
+                  localMediaContainer.appendChild(track.attach());
+               })
+            }
+         }
+      },
       tutorVideoTrack:{
          immediate:true,
          deep:true,
@@ -71,6 +85,9 @@ export default {
       ...mapGetters(['getRoomTutorParticipant']),
       tutorVideoTrack(){
          return this.getRoomTutorParticipant?.video;
+      },
+      tutorAudioTrack(){
+         return this.getRoomTutorParticipant?.audio;
       },
       isVideoActive() {
          return this.$store.getters.getIsVideoActive;
