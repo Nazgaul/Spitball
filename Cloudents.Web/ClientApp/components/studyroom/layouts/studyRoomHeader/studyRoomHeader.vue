@@ -17,7 +17,7 @@
       </v-btn-toggle> -->
       <template v-if="isRoomTutor" >
          <template v-for="(navTab, objectKey) in navTabs">
-            <v-divider height="33px" class="divider" vertical inset color="white"></v-divider>
+            <v-divider :key="`${objectKey}_1`" height="33px" class="divider" vertical inset color="white"></v-divider>
             <button :key="objectKey" @click="actionHandler(objectKey)"
                :class="['tutorNavTab', 'd-flex','flex-md-column','px-lg-5','px-md-4','align-md-center','flex-lg-row','justify-md-center',
                   {'tutorNavTab-active': navTab.icon == navTabs[getIsCurrentMode(currentEditorMode)].icon}]" >
