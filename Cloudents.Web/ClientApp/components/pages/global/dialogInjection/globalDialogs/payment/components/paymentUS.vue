@@ -66,7 +66,7 @@ export default {
     stripePay() {
       let self = this
       this.$store.dispatch('getStripeSecret').then(({data}) => {
-        self.stripe.confirmCardPayment(data.secret, {
+        self.stripe.confirmCardSetup(data.secret, {
           payment_method: {
             card: self.cardElement,
           }

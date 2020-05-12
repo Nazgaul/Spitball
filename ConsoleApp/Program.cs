@@ -24,6 +24,7 @@ using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Enum;
 using Cloudents.Infrastructure;
+using Cloudents.Infrastructure.Payments;
 using Cloudents.Query;
 using Cloudents.Query.Users;
 using Cloudents.Search.Document;
@@ -70,7 +71,7 @@ namespace ConsoleApp
                         Redis = ConfigurationManager.AppSettings["Redis"],
                         Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                         ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
-                       
+                        Stripe = "sk_test_Ihn6pkUZV9VFpDo7JWUGwT8700FAQ3Gbhf"
                     };
                 case EnvironmentSettings.Prod:
                     return new ConfigurationKeys
@@ -144,8 +145,8 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var x = Container.Resolve<TutorSearchWrite>();
-            await x.CreateOrUpdateAsync(default);
+            var x = Container.Resolve<StripeClient>();
+            await x.ChargeTheBastard();
 
 
             var xy = Container.Resolve<DocumentSearchWrite>();

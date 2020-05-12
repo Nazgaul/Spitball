@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -95,6 +96,54 @@ namespace Cloudents.Infrastructure.Payments
         {
             var result = await RetrieveCustomerAsync(email, token);
             return result?.Id;
+        }
+
+        public async Task ChargeTheBastard()
+        {
+            var customerId = await RetrieveCustomerIdAsync("ram@cloudents.com", default);
+            var optionsX = new PaymentMethodListOptions
+            {
+                Customer = customerId,
+                Type = "card",
+            };
+
+            var service2 = new PaymentMethodService();
+            var x = await service2.ListAsync(optionsX);
+            var z = x.Data.FirstOrDefault();
+
+            
+
+            try
+            {
+                var service = new PaymentIntentService();
+                var options = new PaymentIntentCreateOptions
+                {
+                    Amount = 20*100,
+                    Currency = "usd",
+                    Customer = customerId,
+                    PaymentMethod = z.Id,
+                    Confirm = true,
+                    OffSession = true,
+                };
+                service.Create(options);
+            }
+            catch (StripeException e)
+            {
+                switch (e.StripeError.ErrorType)
+                {
+                    case "card_error":
+                        // Error code will be authentication_required if authentication is needed
+                        Console.WriteLine("Error code: " + e.StripeError.Code);
+                        var paymentIntentId = e.StripeError.PaymentIntent.Id;
+                        var service = new PaymentIntentService();
+                        var paymentIntent = service.Get(paymentIntentId);
+
+                        Console.WriteLine(paymentIntent.Id);
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         public async Task<string> BuyPointsAsync(PointBundle bundle, string email, string successCallback, string fallbackCallback, CancellationToken token)
