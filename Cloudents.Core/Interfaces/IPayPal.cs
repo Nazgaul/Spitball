@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.Interfaces
@@ -20,6 +19,8 @@ namespace Cloudents.Core.Interfaces
 
         Task<(string receipt, long points)> GetSessionByIdAsync(string sessionId, CancellationToken token);
 
-        Task CreateCustomerAsync(User user, CancellationToken token);
+        Task<string> CreateCustomerAsync(User user, CancellationToken token);
+        Task<string> FutureCardPayments(string stripeClientId);
+        Task<string?> RetrieveCustomerIdAsync(string email, CancellationToken token);
     }
 }

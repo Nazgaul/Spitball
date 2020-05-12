@@ -17,14 +17,12 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
-using Cloudents.Infrastructure.Payments;
 
 namespace Cloudents.Web.Api
 {
@@ -250,13 +248,16 @@ namespace Cloudents.Web.Api
 
         #region Stripe
         [HttpPost("Stripe/StudyRoom")]
-        public async Task<IActionResult> StripeAsync(PayPalOrderRequest model,
+        public async Task<IActionResult> StripeAsync(
             CancellationToken token)
         {
-            //var userId = _userManager.GetLongUserId(User);
-            //var command = new AddPayPalOrderCommand(userId, model.OrderId, model.SessionId);
-            //await _commandBus.DispatchAsync(command, token);
-            return Ok();
+            var userId = _userManager.GetLongUserId(User);
+            var command = new AddStripeCustomerCommand(userId);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok(new
+            {
+                secret = command.ClientSecretId
+            });
         }
         
 
