@@ -7,7 +7,7 @@
       <studyRoomDrawer @drawerExtendChanged="(val)=> isDrawerExtendReference = val"/>
       <studyRoomHeader/>
       <v-content>
-        <component style="height:100%" :is="activeWindow"></component>
+        <component :isFooterActive="isFooterExtendReference" style="height:100%" :is="activeWindow"></component>
       </v-content>
       <studyRoomFooter v-if="isShowFooter" @footerExtendChanged="(val)=> isFooterExtendReference = val"/>
       <floatingVideoContainer v-if="!isRoomTutor" :isShowFloatingVideo="isShowFloatingVideo" :isFooter="isFooterExtendReference"/>

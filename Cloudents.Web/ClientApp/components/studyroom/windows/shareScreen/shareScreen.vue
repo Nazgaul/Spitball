@@ -1,8 +1,8 @@
 <template>
    <div class="shareScreenWindow">
-      <div class="shareScreenVideoContainer">
+      <div :class="['shareScreenVideoContainer',{'heightFooterActive':isFooterActive}]">
          <template v-if="!isRoomTutor">
-            <div id="shareScreenWindowVideo"></div>
+            <div id="shareScreenWindowVideo" :class="[{'heightFooterActive':isFooterActive}]"></div>
             <div class="presentCard studentPresentWaiting" v-if="!isTutorSharing">
                <img src="./image/studentStart.png" alt="">
                <div class="text">{{$t('studyRoom_start_present_student')}}</div>
@@ -39,6 +39,11 @@ export default {
    data() {
       return {
          isTutorSharing:false,
+      }
+   },
+   props:{
+      isFooterActive:{
+         type:Boolean
       }
    },
    watch: {
@@ -91,7 +96,10 @@ export default {
    .shareScreenVideoContainer{
       width: 100%;
       height: 100%;
-      max-height: ~"calc(100vh - 186px)"; // 124px footer + 62px header
+      &.heightFooterActive{
+         max-height: ~"calc(100vh - 186px)"; // 124px footer + 62px header
+      }
+      max-height: ~"calc(100vh - 86px)"; // 124px footer + 62px header
       overflow: hidden;
       position: relative;
       display: flex;
@@ -149,7 +157,11 @@ export default {
          }
       }
       #shareScreenWindowVideo{
-         height: ~"calc(100vh - 186px)"; // 124px footer + 62px header
+         &.heightFooterActive{
+            max-height: ~"calc(100vh - 186px)"; // 124px footer + 62px header
+         }
+         max-height: ~"calc(100vh - 86px)"; // 124px footer + 62px header
+         // height: ~"calc(100vh - 186px)"; // 124px footer + 62px header
 
          video {
             width: 100%;
