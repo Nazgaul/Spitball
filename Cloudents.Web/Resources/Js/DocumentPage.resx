@@ -132,12 +132,6 @@
   <data name="money_back" xml:space="preserve">
     <value>100% Money Back Guarantee</value>
   </data>
-  <data name="need_help1" xml:space="preserve">
-    <value>Need help with this subject?</value>
-  </data>
-  <data name="need_help2" xml:space="preserve">
-    <value>{1} can Tutor you</value>
-  </data>
   <data name="points" xml:space="preserve">
     <value>Pts</value>
   </data>

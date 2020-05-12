@@ -29,7 +29,7 @@ namespace Cloudents.FunctionsV2.Sync
         public async Task<SyncResponse> DoSyncAsync(SyncAzureQuery query, IBinder binder, CancellationToken token)
         {
             var (update, delete, version) =
-                await _bus.QueryAsync<(IEnumerable<DocumentSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
+                await _bus.QueryAsync(query, token);
 
             var syncService = await binder.BindAsync<
                 IAsyncCollector<AzureSearchSyncOutput>>(

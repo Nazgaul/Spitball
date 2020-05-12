@@ -3,7 +3,7 @@ using Cloudents.Core.Enum;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.DTOs.Tutors
 {
@@ -12,32 +12,46 @@ namespace Cloudents.Core.DTOs.Tutors
         public long UserId { get; set; }
         public string Name { get; set; }
         public string? Image { get; set; }
-        public IEnumerable<string> Courses { get; set; }
-        public IEnumerable<string> Subjects { get; set; }
+        public IEnumerable<string>? Courses { get; set; }
+        public IEnumerable<string>? Subjects { get; set; }
 
         //public decimal TutorPrice { get; set; }
         public override FeedType Type => FeedType.Tutor;
+
+
+        public Country SbCountry { get; set; }
         public string Country { get; set; }
 
-
-        [NonSerialized]
-        public bool NeedSerializer;
+        public bool ShouldSerializeSbCountry() => false;
+        public bool ShouldSerializeCountry() => false;
 
 
 
         [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Json return")]
         public decimal Price { get; set; }
 
-        public string Currency => new RegionInfo(Country).ISOCurrencySymbol;
+        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Json return")]
+        public string Currency
+        {
+            get
+            {
+                if (SbCountry != null)
+                {
+                    return SbCountry.RegionInfo.ISOCurrencySymbol;
+                }
+
+                return Entities.Country.FromCountry(Country).RegionInfo.ISOCurrencySymbol;
+            }
+        }
 
         public decimal? DiscountPrice { get; set; }
-      
-       
-        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Used by json.net")]
-        public bool ShouldSerializeTutorCountry()
-        {
-            return NeedSerializer;
-        }
+
+
+        //[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Used by json.net")]
+        //public bool ShouldSerializeTutorCountry()
+        //{
+        //    return NeedSerializer;
+        //}
 
 
         public double? Rate { get; set; }

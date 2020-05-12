@@ -28,13 +28,13 @@ namespace Cloudents.Search.Extensions
         {
             if (input == null)
             {
-                return new ScoringParameter(name, new string[] { null });
+                return new ScoringParameter(name, new string?[] { null });
             }
 
             var inputList = input.ToList();
             if (!inputList.Any())
             {
-                return new ScoringParameter(name, new string[] { null });
+                return new ScoringParameter(name, new string?[] { null });
             }
 
             return new ScoringParameter(name, inputList.Select(w => w.ToUpperInvariant()));
@@ -43,7 +43,7 @@ namespace Cloudents.Search.Extensions
         {
             if (input == null)
             {
-                return GenerateTagScoringParameter(name, (IEnumerable<string>)null);
+                return GenerateTagScoringParameter(name, (IEnumerable<string>?)null);
             }
             return GenerateTagScoringParameter(name, new[] { input });
         }

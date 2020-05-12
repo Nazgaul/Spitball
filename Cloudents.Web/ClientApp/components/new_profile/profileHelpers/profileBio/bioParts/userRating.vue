@@ -15,7 +15,7 @@
                         :hover="true" />
             </v-flex>
             <v-flex>
-                <div class="">
+                <div>
                    <span v-show="showRateNumber" :style="{ color: rateNumColor }" class="caption ml-1 pb-1 rating-number">
        {{ dynamicRating }}
       </span>
@@ -27,15 +27,14 @@
 <script>
     export default {
         name: "userReviews",
-        data() {
-            return {
-                ratingLength: 5,
-            }
-        },
         props: {
             callbackFn: {
                 type: Function,
                 required: false
+            },
+            ratingLength: {
+                type: Number,
+                default: 5
             },
             starColor: {
                 type: String,

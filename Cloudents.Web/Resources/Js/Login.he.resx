@@ -126,9 +126,6 @@
   <data name="email_sent" xml:space="preserve">
     <value>נשלח דוא"ל</value>
   </data>
-  <data name="error_not_matched" xml:space="preserve">
-    <value>הסיסמאות צריכות להיות זהות</value>
-  </data>
   <data name="Exit" xml:space="preserve">
     <value>יציאה</value>
   </data>

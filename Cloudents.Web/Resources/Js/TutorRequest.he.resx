@@ -138,14 +138,8 @@
   <data name="message_success_btn_showMe" xml:space="preserve">
     <value>הראו לי</value>
   </data>
-  <data name="message_success_btn_whatsapp" xml:space="preserve">
-    <value>וואטסאפ</value>
-  </data>
   <data name="message_success_tutor_1" xml:space="preserve">
     <value>ההודעה שלך נשלחה אל</value>
-  </data>
-  <data name="message_success_tutor_2" xml:space="preserve">
-    <value>התשובה של המורה תשלח דרך SMS ומייל, אך יתכן והדבר יקח זמן.</value>
   </data>
   <data name="message_success_tutor_3" xml:space="preserve">
     <value>האם תרצו לשוחח עם {0} עכשיו?</value>

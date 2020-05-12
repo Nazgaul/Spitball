@@ -123,9 +123,6 @@
   <data name="integer" xml:space="preserve">
     <value>מספרים שלמים בלבד</value>
   </data>
-  <data name="longer_10" xml:space="preserve">
-    <value>חייב להיות ארוך יותר מעשרה תווים</value>
-  </data>
   <data name="longer_4" xml:space="preserve">
     <value>מינימום 4 תווים</value>
   </data>

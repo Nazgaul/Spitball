@@ -1,12 +1,11 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Infrastructure.Video
 {
+    [SuppressMessage("ReSharper", "CS8618", Justification = "Configuration file")]
     public class ConfigWrapper
     {
-
-
-
         public string SubscriptionId { get; set; }
 
         public string ResourceGroup { get; set; }

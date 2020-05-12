@@ -250,12 +250,7 @@ namespace Cloudents.Admin2.Api
             return await _queryBus.QueryAsync(query, token);
         }
 
-        //[HttpGet("chat")]
-        //public async Task<IEnumerable<ConversationDto>> ConversationAsync(long id, CancellationToken token)
-        //{
-        //    var query = new AdminConversationsQuery(id, 0);
-        //    return await _queryBus.QueryAsync(query, token);
-        //}
+     
 
         [HttpGet("sessions")]
         public async Task<IEnumerable<SessionDto>> SessionsAsync(long id, CancellationToken token)
@@ -359,10 +354,13 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpPut("email")]
-        public async Task<IActionResult> UpdateEmailAsync([FromBody]UpdateEmailRequest model, CancellationToken token)
+        public async Task<IActionResult> UpdateEmailAsync(
+            [FromBody]UpdateEmailRequest model,
+            CancellationToken token)
         {
             try
             {
+                
                 var command = new UpdateEmailCommand(model.UserId, model.Email);
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
@@ -397,18 +395,6 @@ namespace Cloudents.Admin2.Api
             return await _queryBus.QueryAsync(query, token);
         }
 
-        //[HttpPost("type")]
-        //public async Task<IActionResult> SetUserTypeAsync([FromBody] SetUserTypeRequest request, CancellationToken token)
-        //{
-        //    var command = new SetUserTypeCommand(request.UserId, request.UserType);
-        //    await _commandBus.DispatchAsync(command, token);
-        //    return Ok();
-        //}
-
-        //[HttpGet("types")]
-        //public IEnumerable<string> GetAllTypes()
-        //{
-        //    return Enum.GetNames(typeof(UserType)).Select(s => s.ToCamelCase());
-        //}
+       
     }
 }

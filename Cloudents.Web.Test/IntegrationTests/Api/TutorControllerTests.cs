@@ -60,6 +60,8 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [InlineData("Math", true, 0)]
         [InlineData("", true, 0)]
         [InlineData("", true, 1)]
+        [InlineData("ram", true, 1)]
+        [InlineData("saul goodman", true, 1)]
         public async Task GetAsync_Search_Without_ResultsAsync(string term, bool logIn, int page)
         {
 
@@ -79,8 +81,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [Theory]
         //[InlineData("api/tutor")]
         [InlineData("api/tutor/search")]
-        [InlineData("api/tutor/search?term=ram")]
-        [InlineData("api/tutor/search?term=saul%20goodman")]
         [InlineData("api/tutor/reviews")]
         public async Task GetAsync_Tutor_OkAsync(string uri)
         {

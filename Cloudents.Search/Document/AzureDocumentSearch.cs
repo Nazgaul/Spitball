@@ -12,6 +12,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Search.Document
 {
@@ -38,27 +39,27 @@ namespace Cloudents.Search.Document
 
         }
 
-        public async Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken)
-        {
-            try
-            {
-                var item =
-                    await
-                        _client.Documents.GetAsync<Entities.Document>
-                        (itemId.ToString(CultureInfo.InvariantCulture),
-                            new[] { nameof(Entities.Document.Content) }, cancellationToken: cancelToken);
-                return item.Content;
-            }
-            //item may not exists in the search....
-            catch (CloudException)
-            {
-                return null;
-            }
-        }
+        //public async Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken)
+        //{
+        //    try
+        //    {
+        //        var item =
+        //            await
+        //                _client.Documents.GetAsync<Entities.Document>
+        //                (itemId.ToString(CultureInfo.InvariantCulture),
+        //                    new[] { nameof(Entities.Document.Content) }, cancellationToken: cancelToken);
+        //        return item.Content;
+        //    }
+        //    //item may not exists in the search....
+        //    catch (CloudException)
+        //    {
+        //        return null;
+        //    }
+        //}
 
 
         // ReSharper disable once UnusedMember.Global - we used that for testing
-        public async Task<Entities.Document> ItemAsync(long itemId, CancellationToken cancelToken)
+        public async Task<Entities.Document?> ItemAsync(long itemId, CancellationToken cancelToken)
         {
             try
             {
@@ -78,10 +79,10 @@ namespace Cloudents.Search.Document
 
 
 
-        public async Task<(IEnumerable<DocumentSearchResultWithScore> result, IEnumerable<string> facetSubject)>
+        public async Task<(IEnumerable<DocumentSearchResultWithScore> result, IEnumerable<string>? facetSubject)>
             SearchAsync(DocumentQuery query, UserProfile userProfile, CancellationToken token)
         {
-            var filters = new List<string> {$"{nameof(Entities.Document.Country)} eq '{userProfile.Country}'"};
+            var filters = new List<string> {$"{nameof(Entities.Document.SbCountry)} eq {userProfile.CountryRegion.Id}"};
             if (query.Course != null)
             {
                 var filterStr = $"{Entities.Document.CourseNameField} eq '{query.Course.ToUpperInvariant().Replace("'", "''")}'";
@@ -107,9 +108,8 @@ namespace Cloudents.Search.Document
                 ScoringProfile = DocumentSearchWrite.ScoringProfile,
                 ScoringParameters = new[]
                              {
-                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsUniversityParameter, (string)null),
+                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsVideoParameter, DocumentType.Video.ToString("G")),
                                  TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsCourseParameter,userProfile.Courses),
-                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsCountryParameter,(string)null)
                 },
                 Facets = new[]
                 {
@@ -117,7 +117,7 @@ namespace Cloudents.Search.Document
                 }
 
             };
-            IEnumerable<string> facetDocumentType = null;
+            IEnumerable<string>? facetDocumentType = null;
             var result = await
                 _client.Documents.SearchAsync<Entities.Document>(query.Term, searchParameter,
                     cancellationToken: token);
@@ -134,26 +134,6 @@ namespace Cloudents.Search.Document
             }), facetDocumentType);
 
         }
-
-        //internal static IEnumerable<string> GenerateScoringParameterValues(IEnumerable<string> input)
-        //{
-        //    if (input == null)
-        //    {
-        //        return new string[] { null };
-        //    }
-
-        //    var inputList = input.ToList();
-        //    if (!inputList.Any())
-        //    {
-        //        return new string[] { null };
-        //    }
-
-        //    return inputList.Select(w => w.ToUpperInvariant());
-        //}
-
-        //internal static IEnumerable<string> GenerateScoringParameterValues(string input)
-        //{
-        //    return GenerateScoringParameterValues(new[] { input });
-        //}
+       
     }
 }

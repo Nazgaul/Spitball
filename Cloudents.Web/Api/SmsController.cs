@@ -61,7 +61,7 @@ namespace Cloudents.Web.Api
             [FromServices] IIpToLocation service, CancellationToken token)
         {
             var result = await service.GetAsync(HttpContext.GetIpAddress(), token);
-            return new CallingCallResponse(result?.CallingCode);
+            return new CallingCallResponse(result?.CallingCode, result?.CountryCode);
         }
 
         [HttpPost]

@@ -5,6 +5,7 @@ using NHibernate;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using NHibernate.Criterion;
 
 namespace Cloudents.Query.General
 {
@@ -29,7 +30,7 @@ namespace Cloudents.Query.General
             public async Task<IList<SiteMapCountDto>> GetAsync(SiteMapQuery query, CancellationToken token)
             {
 
-                
+
                 BaseUser? userAlias = null!;
 
                 var documentCountFutureQuery = _session.QueryOver<Document>()
@@ -37,11 +38,12 @@ namespace Cloudents.Query.General
                     .Where(w => w.Status.State == ItemState.Ok);
                 if (query.IsFrymo)
                 {
-                    documentCountFutureQuery.Where(() => userAlias.Country == "IN");
+                    
+                    documentCountFutureQuery.Where(() => userAlias.SbCountry == Country.India);
                 }
                 else
                 {
-                    documentCountFutureQuery.Where(() => userAlias.Country != "IN");
+                    documentCountFutureQuery.Where(() => userAlias.SbCountry != Country.India);
 
                 }
                 var documentCountFuture = documentCountFutureQuery.ToRowCountQuery().UnderlyingCriteria.SetComment(nameof(SiteMapQuery)).FutureValue<int>();
@@ -53,25 +55,26 @@ namespace Cloudents.Query.General
 
                 if (query.IsFrymo)
                 {
-                    questionCountFutureQuery.Where(() => userAlias.Country == "IN");
+                    questionCountFutureQuery.Where(() => userAlias.SbCountry == Country.India);
                 }
                 else
                 {
-                    questionCountFutureQuery.Where(() => userAlias.Country != "IN");
+                    //questionCountFutureQuery.Where(Restrictions.Eq(Projections.Property(()=> userAlias.SbCountry), Country.India));
+                    questionCountFutureQuery.Where(() => userAlias.SbCountry != Country.India);
 
                 }
-                
+
                 var questionCountFuture = questionCountFutureQuery.ToRowCountQuery().FutureValue<int>();
 
                 var tutorCountFutureQuery = _session.QueryOver<ReadTutor>();
 
                 if (query.IsFrymo)
                 {
-                    tutorCountFutureQuery.Where(w=>w.Country == "IN");
+                    tutorCountFutureQuery.Where(w => w.SbCountry == Country.India);
                 }
                 else
                 {
-                    tutorCountFutureQuery.Where(w => w.Country != "IN");
+                    tutorCountFutureQuery.Where(w => w.SbCountry != Country.India);
 
                 }
                 var tutorCountFuture = tutorCountFutureQuery.ToRowCountQuery().FutureValue<int>();
@@ -85,17 +88,17 @@ namespace Cloudents.Query.General
                     .SelectList(t => t.SelectCountDistinct(() => userCourseAlias.Course.Id));
                 if (query.IsFrymo)
                 {
-                    tutorCoursesFutureQuery.Where(w => w.Country == "IN");
+                    tutorCoursesFutureQuery.Where(w => w.SbCountry == Country.India);
                 }
                 else
                 {
-                    tutorCoursesFutureQuery.Where(w => w.Country != "IN");
+                    tutorCoursesFutureQuery.Where(w => w.SbCountry != Country.India);
 
                 }
-                    
-                    
-                    
-                var tutorCoursesFuture  = tutorCoursesFutureQuery.FutureValue<int>();
+
+
+
+                var tutorCoursesFuture = tutorCoursesFutureQuery.FutureValue<int>();
 
 
 

@@ -51,28 +51,10 @@ namespace Cloudents.Persistence.Repositories
         public async Task<IEnumerable<User>> GetExpiredCreditCardsAsync(CancellationToken token)
         {
             return await Session.QueryOver<User>()
-                .Where(w => w.BuyerPayment.PaymentKeyExpiration < DateTime.UtcNow)
+                .Where(w => w.BuyerPayment!.PaymentKeyExpiration < DateTime.UtcNow)
                 .ListAsync<User>(token);
 
         }
-
-        /*  public Task<decimal> UserBalanceAsync(long userId, CancellationToken token)
-        {
-            return
-                Session.QueryOver<Transaction>()
-                    .Where(w => w.User.Id == userId)
-                    .Select(Projections.Sum<Transaction>(x => x.Price)).SingleOrDefaultAsync<decimal>(token);
-        }*/
-
-        //internal IQueryOver<Transaction, Transaction> UserBalanceByType(long userId, TransactionType type)
-        //{
-
-        //    return
-        //      Session.QueryOver<Transaction>()
-        //          .Where(w => w.User.Id == userId)
-        //          .Where(w => w.Type == type)
-        //          .Select(Projections.Sum<Transaction>(x => x.Price));
-        //}
 
         private IQueryOver<Transaction, Transaction> UserAvailableBalance(long userId)
         {

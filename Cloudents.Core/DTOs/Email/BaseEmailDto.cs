@@ -86,7 +86,7 @@ namespace Cloudents.Core.DTOs.Email
     {
         public string Course { get; set; }
         public string UserName { get; set; }
-        public string UserImage { get; set; }
+        public string? UserImage { get; set; }
         public long UserId { get; set; }
     }
 }

@@ -177,9 +177,6 @@
   <data name="student_grade" xml:space="preserve">
     <value>Student's grade</value>
   </data>
-  <data name="university_title" xml:space="preserve">
-    <value>Tell us where you go to school</value>
-  </data>
   <data name="what_grade" xml:space="preserve">
     <value>What grade are you in?</value>
   </data>

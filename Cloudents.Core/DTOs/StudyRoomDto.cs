@@ -36,7 +36,7 @@ namespace Cloudents.Core.DTOs
         public decimal TutorPrice { get; set; }
         public string Jwt { get; set; }
 
-        [EntityBind(nameof(StudyRoom.BroadcastTime))]
+        [EntityBind(nameof(BroadCastStudyRoom.BroadcastTime))]
         public DateTime? BroadcastTime { get; set; }
 
         [EntityBind(nameof(StudyRoom.Name))]
@@ -59,6 +59,9 @@ namespace Cloudents.Core.DTOs
 
         public StudyRoomType Type { get; set; }
 
+        public int AmountOfUsers { get; set; }
+        public DateTime? Scheduled { get; set; }
+
     }
 
     public class FutureBroadcastStudyRoomDto
@@ -70,5 +73,7 @@ namespace Cloudents.Core.DTOs
         public decimal Price { get; set; }
 
         public bool Enrolled { get; set; }
+
+        public string? Description { get; set; }
     }
 }

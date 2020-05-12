@@ -3,7 +3,6 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using NHibernate;
 using NHibernate.Linq;
-using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,6 +30,7 @@ namespace Cloudents.Persistence.Repositories
                     s.Bio,
                     s.Price.Price,
                     s.Price.SubsidizedPrice,
+                    s.User.SbCountry,
                     s.User.Country
                 }).ToFutureValue();
 
@@ -41,7 +41,7 @@ namespace Cloudents.Persistence.Repositories
                 .Select(s => new
                 {
                     CourseName = s.Course.Id,
-                    SubjectName = s.Course.Subject.Name
+                    SubjectName = s.Course.Subject!.Name
                 }).ToFuture();
 
             var query = from e in Session.Query<TutorReview>()
@@ -85,7 +85,7 @@ namespace Cloudents.Persistence.Repositories
                 course.Where(w => !string.IsNullOrEmpty(w.SubjectName)).Select(s => s.SubjectName).Distinct().ToList(),
                 course.Select(s => s.CourseName).ToList(),
                 tutor.Price, average, count, tutor.Bio, 
-                lessons, tutor.Country, tutor.SubsidizedPrice);
+                lessons,tutor.Country, tutor.SbCountry, tutor.SubsidizedPrice);
 
 
             return readTutor;

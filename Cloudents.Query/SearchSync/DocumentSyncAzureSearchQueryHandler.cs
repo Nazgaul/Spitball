@@ -26,6 +26,7 @@ namespace Cloudents.Query.SearchSync
 	                            d.State as State,
 	                            d.UpdateTime as DateTime, 
 	                            u.Country as Country,
+u.SbCountry as SbCountry,	
 	                            c.* 
                             From sb.[Document] d  
                             right outer join CHANGETABLE (CHANGES sb.[Document], :Version) AS c ON d.Id = c.id 
@@ -53,7 +54,8 @@ select d.Id as ItemId,
 				d.DocumentType as Type,						                 
 				d.State as State,				
 				d.UpdateTime as DateTime, 	                   
-				u.Country as Country,							
+				u.Country as Country,
+u.SbCountry as SbCountry
 				From sb.[Document] d  
 				join sb.[User] u 	  
 

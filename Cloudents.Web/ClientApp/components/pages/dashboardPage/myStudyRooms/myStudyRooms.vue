@@ -5,6 +5,7 @@
       :page.sync="paginationModel.page"
       :headers="headers"
       :items="studyRoomItems"
+      :mobile-breakpoint="0"
       :items-per-page="20"
       sort-by
       :item-key="'date'"
@@ -21,84 +22,128 @@
       <template v-slot:top>
         <div class="tableTop d-flex flex-sm-row flex-column align-sm-center justify-space-between">
           <div class="myStudyRooms_title pb-3 pb-sm-0" v-t="'schoolBlock_my_study_rooms'"></div>
-          <div>
+          <div v-if="isTutor && isTutorStateOk">
             <v-btn
-              v-if="isTutor"
-              v-openDialog="createStudyRoomDialog"
-              class="link white--text mr-0 mr-sm-4"
+              @click="openLiveSession"
+              class="link white--text mr-0 mr-sm-4 mb-4 mb-sm-0"
               depressed
               rounded
+              :block="$vuetify.breakpoint.xsOnly"
               color="#5360FC"
-              v-t="'dashboardPage_my_studyrooms_create_room'"
+              v-t="'dashboardPage_my_studyrooms_create_live'"
             ></v-btn>
             <v-btn
-              v-if="!$vuetify.breakpoint.xsOnly"
-              class="link btnTestStudyRoom"
-              :to="{name: routeNames.StudyRoom}"
+              @click="openPrivateSession"
+              class="link white--text"
               depressed
               rounded
-              outlined
-              v-t="'dashboardPage_link_studyroom'"
+              :block="$vuetify.breakpoint.xsOnly"
+              color="#5360FC"
+              v-t="'dashboardPage_my_studyrooms_create_room'"
             ></v-btn>
           </div>
         </div>
       </template>
-      <!-- <template v-slot:item.preview="{item}">
-            <user-avatar :user-id="item.userId"
-                  :user-image-url="item.image" 
-                  :size="'40'" 
-                  :user-name="item.name" >
-               </user-avatar>
-      </template>-->
-      <template v-slot:item.name="{item}">{{item.name}}</template>
+
       <template v-slot:item.date="{item}">{{ $d(new Date(item.date)) }}</template>
+      <template v-slot:item.name="{item}">{{item.name}}</template>
+
+      <template v-slot:item.type="{item}">
+        <div
+          class="sessionType"
+          :class="{'private': item.type === 'Private'}"
+          v-t="item.type === 'Private' ? 'dashboardPage_type_private' : 'dashboardPage_type_broadcast'"
+        >
+        </div>
+      </template>
+
+      <template v-slot:item.scheduled="{item}">
+        <div v-if="item.scheduled">{{ $d(new Date(item.scheduled)) }}</div>
+      </template>
+
+      <template v-slot:item.students="{item}">
+        <div class="amountStudents white--text" v-if="item.students">{{item.students}}</div>
+      </template>
+
       <template v-slot:item.lastSession="{item}">
         <template v-if="item.lastSession">{{ $d(new Date(item.lastSession)) }}</template>
       </template>
+      
       <template v-slot:item.action="{item}">
-        <v-btn
-          icon
-          v-if="item.showChat"
-          x-small
-          @click="sendMessage(item)"
-          :title="$t('schoolBlock_SendMessageTooltip')"
-          class="mr-5"
-        >
-          <iconChat />
-        </v-btn>
-        <v-tooltip :value="currentItemId === item.id" top transition="fade-transition" v-else>
-          <template v-slot:activator="{}">
-            <linkSVG
-              style="width:20px"
-              class="option link mr-4"
-              @click="copyLink(item)"
-            />
-          </template>
-          <span v-t="'shareContent_copy_tool'"></span>
-        </v-tooltip>
+        <div class="actionsWrapper d-flex align-center justify-center">
+                <div v-if="item.showChat" class="mr-9">
+                    <v-btn
+                      icon
+                      @click="sendMessage(item)"
+                      :title="$t('schoolBlock_SendMessageTooltip')"
+                    >
+                        <iconChat fill="#4c59ff" />
+                    </v-btn>
+                    <div v-t="'schoolBlock_SendMessageTooltip'"></div>
+                </div>
 
-        <v-btn
-          icon
-          x-small
-          @click="enterRoom(item.id)"
-          :title="$t('schoolBlock_EnterStudyRoomTooltip')"
-        >
-          <enterRoom />
-        </v-btn>
+                <div v-else class="copyLink mr-8 flex-shrink-0">
+                    <v-tooltip :value="currentItemId === item.id" top transition="fade-transition">
+                        <template v-slot:activator="{}">
+                            <linkSVG
+                              style="width:20px;height:36px;"
+                              class="option link"
+                              @click="copyLink(item)"
+                            />
+                        </template>
+                        <span v-t="'shareContent_copy_tool'"></span>
+                    </v-tooltip>
+                    <div v-t="'dashboardPage_link_share'"></div>
+                </div>
+
+                <div class="flex-shrink-0">
+                  <v-btn
+                    icon
+                    @click="enterRoom(item.id)"
+                    :title="$t('schoolBlock_EnterStudyRoomTooltip')"
+                  >
+                    <enterRoom width="18" />
+                  </v-btn>
+                  <div v-t="'schoolBlock_EnterStudyRoomTooltip'"></div>
+                </div>
+
+            <v-menu v-model="showMenu" offset-overflow>
+                <template v-slot:activator="{ on }">
+                    <div class="dotsIcon mr-2 ml-4 pb-5 pr-5 pr-sm-0" v-if="isTutor && item.type === 'Broadcast'">
+                        <v-icon color="#bbb" v-on="on" @click="openDeleteMenu(item.id)" slot="activator" small icon>sbf-3-dot</v-icon>
+                    </div>
+                    <div class="dotsIcon mr-2 ml-2 pb-5" v-else>
+                        <!-- <v-icon color="#bbb" v-on="on" @click="openDeleteMenu(item.id)" slot="activator" small icon>sbf-3-dot</v-icon> -->
+                    </div>
+                </template>
+                <v-list v-if="menuShowId === item.id">
+                  <v-list-item @click="deleteSession(item.id)" v-t="'dashboardPage_link_delete'"></v-list-item>
+                </v-list>
+            </v-menu>
+        </div>
       </template>
+
       <slot slot="no-data" name="tableEmptyState" />
     </v-data-table>
+
+    <v-snackbar
+      v-model="snackbar.value"
+      @input="snackbar.value = false"
+      :timeout="5000"
+      top
+    >
+      <div class="text-center flex-grow-1" v-t="snackbar.text"></div>
+    </v-snackbar>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-//import tablePreviewTd from '../global/tablePreviewTd.vue';
 import * as routeNames from "../../../../routes/routeNames";
 import * as dialogNames from "../../global/dialogInjection/dialogNames.js";
 
 import iconChat from "./images/icon-chat.svg";
-import enterRoom from "./images/enterRoom.svg";
+import enterRoom from "./images/enterRoomGreen.svg";
 import linkSVG from "../../global/shareContent/images/link.svg";
 
 export default {
@@ -110,6 +155,13 @@ export default {
   },
   data() {
     return {
+      snackbar: {
+        value: false,
+        text: ''
+      },
+      snackTest: '',
+      showMenu: false,
+      menuShowId: null,
       currentItemId: null,
       createStudyRoomDialog: dialogNames.CreateStudyRoom,
       routeNames,
@@ -118,9 +170,11 @@ export default {
         page: 1
       },
       headers: [
-        //  this.dictionary.headers['preview'],
-        this.dictionary.headers["name"],
         this.dictionary.headers["created"],
+        this.dictionary.headers["name"],
+        this.dictionary.headers["type"],
+        this.dictionary.headers["scheduled"],
+        this.dictionary.headers["students"],
         this.dictionary.headers["last_date"],
         this.dictionary.headers["action"]
       ]
@@ -134,8 +188,11 @@ export default {
   },
   computed: {
     ...mapGetters(["getStudyRoomItems"]),
+    isTutorStateOk() {
+      return this.$store.getters.accountUser?.isTutorState === 'ok';
+    },
     isTutor() {
-      return this.$store.getters.accountUser.isTutor;
+      return this.$store.getters.accountUser?.isTutor;
     },
     studyRoomItems() {
       return this.getStudyRoomItems;
@@ -146,8 +203,33 @@ export default {
       "updateStudyRoomItems",
       "dashboard_sort",
       "openChatInterface",
-      "setActiveConversationObj"
+      "setActiveConversationObj",
+      "deleteStudyRoomSession"
     ]),
+    openPrivateSession() {
+      this.$store.commit('setComponent', 'createPrivateSession')
+    },
+    openLiveSession() {
+      this.$store.commit('setComponent', 'createLiveSession')
+    },
+    deleteSession(id) {
+      let self = this
+      this.deleteStudyRoomSession(id).then(() => {
+        let newItems = self.studyRoomItems.filter(item => item.id !== id)
+        self.$store.commit('setStudyRoomItems', newItems)
+        self.snackbar.text = 'dashboardPage_success_session_removed'
+      }).catch(error => {
+        let { response: {data}} = error
+        self.snackbar.text = data["error"][0]
+        self.snackbar.color = "error"
+      }).finally(() => {
+        self.snackbar.value = true;
+      })
+    },
+    openDeleteMenu(id) {
+      this.menuShowId = id
+      this.showMenu = true
+    },
     sendMessage(item) {
       let currentConversationObj = {
         userId: item.userId,
@@ -176,26 +258,6 @@ export default {
         }, 2000);
       });
     }
-    // showFirstName(name) {
-    //    let maxChar = 4;
-    //    name = name.split(' ')[0];
-    //    if(name.length > maxChar) {
-    //    return this.$t('resultTutor_message_me');
-    //    }
-    //    return name;
-    // },
-    // changeSort(sortBy){
-    //    if(sortBy === 'info') return;
-
-    //    let sortObj = {
-    //       listName: 'studyRoomItems',
-    //       sortBy,
-    //       sortedBy: this.sortedBy
-    //    }
-    //    this.dashboard_sort(sortObj)
-    //    this.paginationModel.page = 1;
-    //    this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
-    // }
   },
   created() {
     this.updateStudyRoomItems();
@@ -230,12 +292,69 @@ export default {
       }
     }
   }
+  .sessionType {
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      background: #68D568;
+      width: 10px;
+      height: 10px;
+      top: 3px;
+      left: -20px;
+      border-radius: 50%;
+    }
+    &.private {
+      &::before {
+        content: '';
+        background: #5360fc;
+      }
+    }
+  }
+  .amountStudents {
+    background: #0294ff;
+    border-radius: 9px;
+    display: inline-block;
+    padding: 4px 10px;
+  }
+  .copyLink {
+    width: 100px;
+
+    @media(max-width: @screen-xs) {
+      width: 86px;
+    }
+  }
   tr {
-    height: 54px;
+    height: 70px;
+
+    .actionsWrapper {
+      transition: opacity 0.5s ease-out;
+      opacity: 0;
+      display: none;
+        
+      @media(max-width: @screen-xs) {
+        display: flex;
+        opacity: 1;
+      }
+    }
+    &:hover {
+      .actionsWrapper {
+        display: flex;
+        opacity: 1;
+        transition: opacity 0.5s ease-in;
+      } 
+    }
   }
   td {
     border: none !important;
   }
+  // td:last-child {
+  //     position: relative;
+  //     .dotsIcon {
+  //       position: absolute;
+  //       right: 12px;
+  //     }
+  // }
   td:first-child {
     white-space: nowrap;
   }
@@ -246,6 +365,7 @@ export default {
   }
   thead {
     tr {
+      height: 54px;
       th {
         color: #43425d !important;
         font-size: 14px;

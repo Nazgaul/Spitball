@@ -14,11 +14,11 @@ namespace Cloudents.Query.Tutor
 {
     public class TutorListByCourseQuery : IQuery<IEnumerable<TutorCardDto>>
     {
-        public TutorListByCourseQuery(string courseId, long userId, string country, int count, int page = 0)
+        public TutorListByCourseQuery(string courseId, long userId, Country country, int count, int page = 0)
         {
             CourseId = courseId;
             UserId = userId;
-            Country = country;
+            Country = country ?? throw new ArgumentNullException(nameof(country));
             Count = count;
             Page = page;
         }
@@ -33,7 +33,7 @@ namespace Cloudents.Query.Tutor
         /// </summary>
         private long UserId { get; }
 
-        private string Country { get; }
+        private Country Country { get; }
 
         private int Count { get; }
         private int Page { get;  }
@@ -75,9 +75,9 @@ namespace Cloudents.Query.Tutor
                         () => userCourseAlias.User.Id == tutorAlias.Id)
                     .JoinAlias(() => userCourseAlias.Course, () => courseAlias)
                     .Where(() => userCourseAlias.IsTeach)
-                    .WithSubquery.WhereProperty(() => courseAlias.Subject.Id).Eq(
+                    .WithSubquery.WhereProperty(() => courseAlias.Subject!.Id).Eq(
                         QueryOver.Of<Course>().Where(w => w.Id == query.CourseId)
-                            .Select(s => s.Subject.Id))
+                            .Select(s => s.Subject!.Id))
                     .Select(s => s.Id)
                     .Take(query.Count);
 
@@ -85,7 +85,7 @@ namespace Cloudents.Query.Tutor
                 var futureCourse = _session.QueryOver<ReadTutor>()
                      .WithSubquery.WhereProperty(w => w.Id).In(relevantTutorByCourse)
                      .Where(w => w.Id != query.UserId)
-                     .And(w => w.Country == query.Country)
+                     .And(w => w.SbCountry == query.Country)
                      .SelectList(s =>
                          s.Select(x => x.Id).WithAlias(() => tutorCardDtoAlias.UserId)
 
@@ -97,7 +97,7 @@ namespace Cloudents.Query.Tutor
                              .Select(x => x.Rate).WithAlias(() => tutorCardDtoAlias.Rate)
                              .Select(x => x.RateCount).WithAlias(() => tutorCardDtoAlias.ReviewsCount)
                              .Select(x => x.Bio).WithAlias(() => tutorCardDtoAlias.Bio)
-                             .Select(x => x.Country).WithAlias(() => tutorCardDtoAlias.Country)
+                             .Select(x => x.SbCountry).WithAlias(() => tutorCardDtoAlias.SbCountry)
                              .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons)
                      .Select(x=>x.SubsidizedPrice).WithAlias(() => tutorCardDtoAlias.DiscountPrice))
                      .OrderBy(o => o.OverAllRating).Desc
@@ -110,7 +110,7 @@ namespace Cloudents.Query.Tutor
                 var futureCourse2 = _session.QueryOver<ReadTutor>()
                     .WithSubquery.WhereProperty(w => w.Id).In(relevantTutorBySubject)
                     .Where(w => w.Id != query.UserId)
-                    .And(w => w.Country == query.Country)
+                    .And(w => w.SbCountry == query.Country)
                     .SelectList(s =>
                         s.Select(x => x.Id).WithAlias(() => tutorCardDtoAlias.UserId)
                             .Select(x => x.Name).WithAlias(() => tutorCardDtoAlias.Name)
@@ -121,7 +121,7 @@ namespace Cloudents.Query.Tutor
                             .Select(x => x.Rate).WithAlias(() => tutorCardDtoAlias.Rate)
                             .Select(x => x.RateCount).WithAlias(() => tutorCardDtoAlias.ReviewsCount)
                             .Select(x => x.Bio).WithAlias(() => tutorCardDtoAlias.Bio)
-                            .Select(x => x.Country).WithAlias(() => tutorCardDtoAlias.Country)
+                            .Select(x => x.SbCountry).WithAlias(() => tutorCardDtoAlias.SbCountry)
                             .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons))
 
                     .OrderBy(o => o.OverAllRating).Desc

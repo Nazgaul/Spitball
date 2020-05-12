@@ -138,12 +138,6 @@
   <data name="book_session" xml:space="preserve">
     <value>הזמינו איתי שיעור</value>
   </data>
-  <data name="book_session_mobile" xml:space="preserve">
-    <value>הזמנת שיעור</value>
-  </data>
-  <data name="book_session_mobile_xs" xml:space="preserve">
-    <value>הזמנה</value>
-  </data>
   <data name="btn_cancel" xml:space="preserve">
     <value>ביטול</value>
   </data>
@@ -171,9 +165,6 @@
   <data name="edit_user_profile_title" xml:space="preserve">
     <value>ערוך את הפרופיל שלך</value>
   </data>
-  <data name="empty_title" xml:space="preserve">
-    <value>לא הועלו חומרי לימוד</value>
-  </data>
   <data name="enroll" xml:space="preserve">
     <value>הרשמה</value>
   </data>
@@ -197,6 +188,9 @@
   </data>
   <data name="following" xml:space="preserve">
     <value>עוקב/ת</value>
+  </data>
+  <data name="free" xml:space="preserve">
+    <value>חינם</value>
   </data>
   <data name="lastName_label" xml:space="preserve">
     <value>שם משפחה</value>
@@ -222,14 +216,11 @@
   <data name="personal_details" xml:space="preserve">
     <value>פרטים אישיים</value>
   </data>
-  <data name="per_hour" xml:space="preserve">
-    <value>/שעה</value>
-  </data>
   <data name="points_hour" xml:space="preserve">
     <value>שעה</value>
   </data>
   <data name="price_label" xml:space="preserve">
-    <value>מחיר לשעה</value>
+    <value>תעריף שעתי</value>
   </data>
   <data name="pricing" xml:space="preserve">
     <value>תמחור</value>
@@ -239,21 +230,6 @@
   </data>
   <data name="read_more" xml:space="preserve">
     <value>קרא עוד</value>
-  </data>
-  <data name="resourse" xml:space="preserve">
-    <value>{1} חומר לימוד</value>
-  </data>
-  <data name="resourses" xml:space="preserve">
-    <value>{1} חומרי לימוד</value>
-  </data>
-  <data name="response" xml:space="preserve">
-    <value>זמן תגובה</value>
-  </data>
-  <data name="response_hour" xml:space="preserve">
-    <value>{1} שעה</value>
-  </data>
-  <data name="response_hours" xml:space="preserve">
-    <value>{1} שעות</value>
   </data>
   <data name="reviews" xml:space="preserve">
     <value>ביקורות</value>
@@ -282,17 +258,8 @@
   <data name="session" xml:space="preserve">
     <value>שיעור | שיעורים</value>
   </data>
-  <data name="sessions" xml:space="preserve">
-    <value>{1} שיעורים</value>
-  </data>
-  <data name="single_review" xml:space="preserve">
-    <value>ביקורת</value>
-  </data>
   <data name="student" xml:space="preserve">
     <value>סטודנט | סטודנטים</value>
-  </data>
-  <data name="students" xml:space="preserve">
-    <value>{1} תלמידים</value>
   </data>
   <data name="study" xml:space="preserve">
     <value>תחומי הוראה:</value>
@@ -303,14 +270,8 @@
   <data name="study_materials_mobile" xml:space="preserve">
     <value>התוכן של {1}</value>
   </data>
-  <data name="tutor" xml:space="preserve">
-    <value>מורה פרטי</value>
-  </data>
   <data name="tutor_follower" xml:space="preserve">
     <value>עוקב | עוקבים</value>
-  </data>
-  <data name="tutor_followers" xml:space="preserve">
-    <value>{1} עוקבים</value>
   </data>
   <data name="why_learn" xml:space="preserve">
     <value>למה כדאי ללמוד בספיטבול</value>

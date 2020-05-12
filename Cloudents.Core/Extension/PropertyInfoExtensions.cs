@@ -51,6 +51,7 @@ namespace Cloudents.Core.Extension
     {
         public static Type GetRealType(this PropertyInfo info)
         {
+            if (info == null) throw new ArgumentNullException(nameof(info));
             var propertyType = info.PropertyType;
             return Nullable.GetUnderlyingType(propertyType) ?? propertyType;
         }
@@ -71,7 +72,16 @@ namespace Cloudents.Core.Extension
                 return;
             }
 
-            //var y = Convert.ChangeType(obj, type);
+            if (type.IsSubclassOf(typeof(Enumeration)) && value is int)
+            {
+                //var val = Convert.ToInt32(value);
+                var methodName = nameof(Enumeration.FromValue);
+                var method = typeof(Enumeration).GetMethod(methodName,
+                    BindingFlags.Public | BindingFlags.Static).MakeGenericMethod(new[] { type });
+                var val = method.Invoke(null, new[] { value });
+                info.SetValue(obj, val);
+                return;
+            }
             info.SetValue(obj, value);
         }
 

@@ -18,7 +18,7 @@ namespace Cloudents.Persistence.Repositories
         }
 
 
-        public Task<ChatRoom> GetChatRoomAsync(IEnumerable<long> usersId, CancellationToken token)
+        public Task<ChatRoom?> GetChatRoomAsync(IEnumerable<long> usersId, CancellationToken token)
         {
             var identifier = ChatRoom.BuildChatRoomIdentifier(usersId);
             return GetChatRoomAsync(identifier, token);
@@ -38,7 +38,7 @@ namespace Cloudents.Persistence.Repositories
             return chatRoom;
         }
 
-        public async Task<ChatRoom> GetChatRoomAsync(string identifier, CancellationToken token)
+        public async Task<ChatRoom?> GetChatRoomAsync(string identifier, CancellationToken token)
         {
             return await Session.Query<ChatRoom>()
                 .Fetch(f => f.Extra)

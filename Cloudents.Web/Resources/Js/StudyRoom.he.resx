@@ -133,7 +133,7 @@
     <value>הקלק בכל מקום להתחיל לכתוב</value>
   </data>
   <data name="created" xml:space="preserve">
-    <value>נוצר ב-</value>
+    <value>תאריך יצירה</value>
   </data>
   <data name="equation_btn" xml:space="preserve">
     <value>הוסף משוואה ללוח</value>
@@ -152,9 +152,6 @@
   </data>
   <data name="toaster_left_the_room" xml:space="preserve">
     <value>סטודנט/ית עזב/ה את החדר</value>
-  </data>
-  <data name="toaster_session_start" xml:space="preserve">
-    <value>השיעור התחיל</value>
   </data>
   <data name="video" xml:space="preserve">
     <value>וידאו</value>

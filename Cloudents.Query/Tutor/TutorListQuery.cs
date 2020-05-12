@@ -1,26 +1,28 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Cloudents.Core.DTOs;
 using Dapper;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.DTOs.Tutors;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Query.Tutor
 {
     public class TutorListQuery : IQuery<ListWithCountDto<TutorCardDto>>
     {
-        public TutorListQuery(long userId, string country, int page, int pageSize = 20)
+        public TutorListQuery(long userId, Country country, int page, int pageSize = 20)
         {
             UserId = userId;
-            Country = country;
+            Country = country ?? throw new ArgumentNullException(nameof(country));
             Page = page;
             PageSize = pageSize;
         }
 
 
         private long UserId { get; }
-        private string Country { get; }
+        private Country Country { get; }
         private int Page { get; }
         private int PageSize { get;  }
 
@@ -37,11 +39,12 @@ namespace Cloudents.Query.Tutor
 
             public async Task<ListWithCountDto<TutorCardDto>> GetAsync(TutorListQuery query, CancellationToken token)
             {
+                
                 const string sql = @"Select rt.Id as UserId,
 rt.Name as 'Name', rt.ImageName as 'Image', rt.Courses, rt.Subjects, rt.Price,
-rt.Rate, rt.RateCount as ReviewsCount, rt.Bio,  rt.Lessons, rt.Country, rt.SubsidizedPrice as DiscountPrice
+rt.Rate, rt.RateCount as ReviewsCount, rt.Bio,  rt.Lessons, rt.SbCountry as Country, rt.SubsidizedPrice as DiscountPrice
 from sb.ReadTutor rt
-where rt.Country = coalesce(@country, (select country from sb.[user] where Id = @userId))
+where rt.SbCountry = @country
 and rt.Id != @userId
 order by
 CASE
@@ -63,10 +66,16 @@ FETCH NEXT @PageSize ROWS ONLY;
 
 Select count(distinct rt.Id) 
 from sb.ReadTutor rt
-where rt.Country = coalesce(@country, (select country from sb.[user] where Id = @userId))
+where rt.SbCountry = @country
 and rt.Id != @userid;";
                 using var conn = _dapper.OpenConnection();
-                using var multi = conn.QueryMultiple(sql, new { query.UserId, query.Country, query.PageSize, @PageNumber = query.Page });
+                using var multi = await conn.QueryMultipleAsync(sql, new
+                {
+                    query.UserId,
+                    query.Country,
+                    query.PageSize,
+                    PageNumber = query.Page
+                });
                 var tutor = await multi.ReadAsync<TutorCardDto>();
                 var count = await multi.ReadFirstAsync<int>();
                 return new ListWithCountDto<TutorCardDto>()
