@@ -70,10 +70,7 @@ namespace ConsoleApp
                         Redis = ConfigurationManager.AppSettings["Redis"],
                         Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                         ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
-                        PayPal = new PayPalCredentials(
-                            "AcaET-3DaTqu01QZ0Ad7-5C52pMZ5s4nx59TmbCqdn8gZpfJoM3UPLYCnZmDELZfc-22N_yhmaGEjS3e",
-                            "EPBamUk7w8Ibrld_eNRV18FYp1zqcYBqx8gCpBBUU9_W5h4tBf8_PhqYS9rzyBBjXJhZ0elFoXoLvdk8",
-                            true)
+                       
                     };
                 case EnvironmentSettings.Prod:
                     return new ConfigurationKeys

@@ -81,9 +81,9 @@ namespace Cloudents.Persistence.Maps
 
             //HasMany(x => x.UserComponents).Inverse().Cascade.AllDeleteOrphan();//.Inverse();
 
-            HasMany(x => x.UserTokens)
-                .Access.CamelCaseField(Prefix.Underscore)
-                .Cascade.AllDeleteOrphan();
+            //HasMany(x => x.UserTokens)
+            //    .Access.CamelCaseField(Prefix.Underscore)
+            //    .Cascade.AllDeleteOrphan();
 
 
             HasMany(x => x.Followers).Access.CamelCaseField(Prefix.Underscore)

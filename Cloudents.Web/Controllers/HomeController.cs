@@ -156,7 +156,7 @@ namespace Cloudents.Web.Controllers
             [FromServices] UserManager<User> userManager,
             CancellationToken token)
         {
-            var (receipt, points) = await stripeService.GetEventsAsync(sessionId,token);
+            var (receipt, points) = await stripeService.GetSessionByIdAsync(sessionId,token);
 
             var userId = userManager.GetLongUserId(User);
             var command = new TransferMoneyToPointsCommand(userId, points, receipt);

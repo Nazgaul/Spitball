@@ -199,9 +199,6 @@ namespace Cloudents.Core.Entities
         public virtual Gender Gender { get; protected set; }
         public virtual PaymentStatus PaymentExists { get; protected set; }
 
-        // public virtual UserType? UserType2 { get; protected set; }
-        private readonly ICollection<UserPaymentToken> _userTokens = new List<UserPaymentToken>();
-        public virtual IEnumerable<UserPaymentToken> UserTokens => _userTokens;
 
 
         public virtual DateTime? FinishRegistrationDate { get; set; }
@@ -214,19 +211,19 @@ namespace Cloudents.Core.Entities
         }
         
 
-        public virtual void AddPaymentToken(string orderId, string authorizationId, decimal amount, StudyRoom studyRoom)
-        {
-            if (orderId == null) throw new ArgumentNullException(nameof(orderId));
-            if (authorizationId == null) throw new ArgumentNullException(nameof(authorizationId));
-            if (studyRoom == null) throw new ArgumentNullException(nameof(studyRoom));
+        //public virtual void AddPaymentToken(string orderId, string authorizationId, decimal amount, StudyRoom studyRoom)
+        //{
+        //    if (orderId == null) throw new ArgumentNullException(nameof(orderId));
+        //    if (authorizationId == null) throw new ArgumentNullException(nameof(authorizationId));
+        //    if (studyRoom == null) throw new ArgumentNullException(nameof(studyRoom));
 
-            if (SbCountry != Entities.Country.UnitedStates)
-            {
-                throw new ArgumentException("Only usa country can use paypal");
-            }
-            _userTokens.Add(new UserPaymentToken(orderId, authorizationId, amount, studyRoom));
-            AddEvent(new StudentPaymentReceivedEvent(this));
-        }
+        //    if (SbCountry != Entities.Country.UnitedStates)
+        //    {
+        //        throw new ArgumentException("Only usa country can use paypal");
+        //    }
+        //    _userTokens.Add(new UserPaymentToken(orderId, authorizationId, amount, studyRoom));
+        //    AddEvent(new StudentPaymentReceivedEvent(this));
+        //}
 
         public virtual void AddPayment(string token, DateTime expiration, string buyerCardMask)
         {
