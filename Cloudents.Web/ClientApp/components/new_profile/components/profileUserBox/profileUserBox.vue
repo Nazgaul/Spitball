@@ -28,14 +28,13 @@
                                 <div class="d-flex align-end justify-center">
                                     <div class="discount mr-2" v-if="isDiscount">
                                         <tutorPrice
-                                            :discount="tutorDiscountPrice"
                                             :price="tutorPrice"
                                             :locale="locale"
                                             :currency="currentProfileUser.tutorData.currency"
                                         />
                                     </div>
-                                    <div class="profileUserSticky_pricing_price">
-                                        <template v-if="tutorPrice">
+                                    <div>
+                                        <template v-if="!tutorPrice">
                                             <tutorPrice 
                                                 :discount="tutorDiscountPrice"
                                                 :price="tutorPrice"
@@ -44,7 +43,7 @@
                                             />
                                         </template>
                                         <template v-else>
-                                            <span class="profileUserSticky_pricing_price_number" v-t="'profile_free'"></span>
+                                            <span class="priceFree" v-t="'profile_free'"></span>
                                         </template>
                                     </div>
                                 </div>
@@ -111,7 +110,11 @@
                         <div class="profileUserSticky_pricing mb-4" v-if="currentProfileUser.isTutor">
                             <div class="d-flex align-end justify-center">
                                 <div class="discount mr-2" v-if="isDiscount">
-                                    {{tutorPrice ? currencySymbol(tutorPrice) : currencySymbol(tutorDiscountPrice)}}
+                                    <tutorPrice 
+                                        :price="tutorPrice"
+                                        :locale="locale"
+                                        :currency="currentProfileUser.tutorData.currency"
+                                    />
                                 </div>
                                 <tutorPrice 
                                     :discount="tutorDiscountPrice"
@@ -555,11 +558,29 @@ export default {
                     font-size: 26px;
                     font-weight: bold;
                 }
-                .discount{
+            }
+            .discount{
+                .tutorPrice {
                     font-size: 20px;
                     color: #b2b5c9;
                     text-decoration: line-through;
+                    .hour{
+                        font-size: 16px;
+                        font-weight: normal;
+                    }
+                    .currency{
+                        font-size: 18px;
+                        font-weight: normal;
+                    }
+                    .number{
+                        font-size: 18px;
+                        font-weight: normal;
+                    }
                 }
+            }
+            .priceFree {
+                font-size: 22px;
+                font-weight: bold;
             }
         }
         .profileUserSticky_coupon{
