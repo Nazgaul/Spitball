@@ -13,6 +13,7 @@
 
         string ServiceBus { get; }
 
+        string Stripe { get; }
 
     }
 }

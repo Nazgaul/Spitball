@@ -12,6 +12,10 @@ namespace Cloudents.Infrastructure.Payments
 {
     public class StripeClient : IStripeService
     {
+        public StripeClient(IConfigurationKeys configuration)
+        {
+            StripeConfiguration.ApiKey = configuration.Stripe;
+        }
         static StripeClient()
         {
             StripeConfiguration.ApiKey = "sk_test_Ihn6pkUZV9VFpDo7JWUGwT8700FAQ3Gbhf";

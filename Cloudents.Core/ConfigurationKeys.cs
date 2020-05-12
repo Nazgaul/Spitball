@@ -21,7 +21,7 @@ namespace Cloudents.Core
         //public LocalStorageData LocalStorageData { get; set; }
         //public string FunctionEndpoint { get; set; }
 
-
+        public string Stripe { get; set; }
         public SiteEndPoints SiteEndPoint { get; set; }
         public string ServiceBus { get; set; }
     }
