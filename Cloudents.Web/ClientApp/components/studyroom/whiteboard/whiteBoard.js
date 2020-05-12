@@ -454,6 +454,7 @@ export default {
         canvasFinder.trackTransforms(this.canvasData.context);
         this.registerCanvasEvents(this.canvas, canvasWrapper);
         global.document.addEventListener("keydown", this.keyPressed);
+        whiteBoardService.redraw(this.canvasData);
     },
     updated() {
         this.$store.dispatch('tempUpdateCanvasStore',this.canvasData)
