@@ -1,14 +1,10 @@
 ﻿using Cloudents.Core.DTOs;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
 using Cloudents.Query.Stuff;
 using NHibernate;
-using NHibernate.Linq;
 
 namespace Cloudents.Query.Tutor
 {
@@ -27,11 +23,9 @@ namespace Cloudents.Query.Tutor
         internal sealed class StudyRoomQueryHandler : IQueryHandler<StudyRoomQuery, StudyRoomDto?>
         {
             private readonly IStatelessSession _statelessSession;
-            private readonly IStudyRoomProvider _videoProvider;
 
-            public StudyRoomQueryHandler(QuerySession repository, IStudyRoomProvider videoProvider)
+            public StudyRoomQueryHandler(QuerySession repository)
             {
-                _videoProvider = videoProvider;
                 _statelessSession = repository.StatelessSession;
             }
 
@@ -40,10 +34,10 @@ namespace Cloudents.Query.Tutor
                 //TODO: make it better
                 //  using var conn = _repository.OpenConnection();
 
-                var studyRoomSessionFuture = _statelessSession.Query<StudyRoomSession>()
-                    .WithOptions(w => w.SetComment(nameof(StudyRoomSession)))
-                    .Where(w => w.StudyRoom.Id == query.Id && w.Ended == null && w.Created > DateTime.UtcNow.AddHours(-6))
-                    .OrderByDescending(o => o.Id).Take(1).ToFutureValue();
+                //var studyRoomSessionFuture = _statelessSession.Query<StudyRoomSession>()
+                //    .WithOptions(w => w.SetComment(nameof(StudyRoomSession)))
+                //    .Where(w => w.StudyRoom.Id == query.Id && w.Ended == null && w.Created > DateTime.UtcNow.AddHours(-6))
+                //    .OrderByDescending(o => o.Id).Take(1).ToFutureValue();
 
                 var sqlQuery = _statelessSession.CreateSQLQuery(@"
 DECLARE @Id UNIQUEIDENTIFIER = :Id, @UserId int = :UserId
@@ -90,7 +84,7 @@ where sr.id = @Id;");
 
                 var result = await resultFuture.GetValueAsync(token);
 
-                var studyRoomSession = studyRoomSessionFuture.Value;
+               // var studyRoomSession = studyRoomSessionFuture.Value;
 
                 if (result is null)
                 {
@@ -101,17 +95,17 @@ where sr.id = @Id;");
                 {
                     return null;
                 }
-                if (studyRoomSession != null)
-                {
-                    var roomAvailable = await _videoProvider.GetRoomAvailableAsync(studyRoomSession.SessionId);
-                    if (roomAvailable)
-                    {
-                        var jwt = _videoProvider.CreateRoomToken(
-                            studyRoomSession.SessionId,
-                            query.UserId, result.Name);
-                        result.Jwt = jwt;
-                    }
-                }
+                //if (studyRoomSession != null)
+                //{
+                //    var roomAvailable = await _videoProvider.GetRoomAvailableAsync(studyRoomSession.SessionId);
+                //    if (roomAvailable)
+                //    {
+                //        var jwt = _videoProvider.CreateRoomToken(
+                //            studyRoomSession.SessionId,
+                //            query.UserId, result.Name);
+                //        result.Jwt = jwt;
+                //    }
+                //}
                 if (result.CouponType is null)
                 {
                     //no coupon
