@@ -1,9 +1,11 @@
 <template>
-   <v-navigation-drawer mobile-break-point="960" app right clipped class="studyRoomDrawer" :width="drawerExtend ? 300 : 0">
+   <v-navigation-drawer 
+         mobile-break-point="960" app right clipped
+         class="studyRoomDrawer" :width="drawerExtend ? 300 : 12">
    <v-btn icon class="collapseIcon" @click="drawerExtend = !drawerExtend" color="#fff">
       <v-icon color="#7a798c" size="18" v-text="drawerExtend? 'sbf-arrow-right-carousel': 'sbf-arrow-left-carousel'"></v-icon>
    </v-btn>
-   <div class="drawerContent flex-column d-flex justify-space-between align-center">
+   <div :class="[{'hiddenDrawer':!drawerExtend}]" class="drawerContent flex-column d-flex justify-space-between align-center">
       <drawerVideoContainer :isShowVideo="isShowVideo" class="mt-2 d-flex flex-grow-0 flex-shrink-0 elevation-0"/>
       <div class="drawerChatHeader mt-4">
          <div class="headerTitle mb-5 text-truncate">{{$store.getters.getRoomName}}</div>
@@ -63,6 +65,9 @@ export default {
          right: 0 !important;
       }
       .drawerContent{
+         &.hiddenDrawer{
+            visibility: hidden;
+         }
          ::-webkit-scrollbar-track {
                background: #f5f5f5; 
          }
@@ -124,12 +129,14 @@ export default {
       }
       .collapseIcon {
          position: absolute;
-         top: 20px;
-         left: -35px;
+         width: 32px;
+         top: 12px;
+         left: -30px;
          background: #ffffff;
          border-radius: 0%; //vuetify override
          border-top-left-radius: 8px;
          border-bottom-left-radius: 8px;
+         z-index: 1;
       }
    }
 </style>
