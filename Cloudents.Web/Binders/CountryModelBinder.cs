@@ -1,5 +1,4 @@
-﻿using Cloudents.Web.Services;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Extensions;

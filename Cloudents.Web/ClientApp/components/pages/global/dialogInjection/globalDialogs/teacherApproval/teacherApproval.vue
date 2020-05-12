@@ -133,7 +133,7 @@ export default {
     methods: {
         approveSession() {
             this.modifyDurationError = false;
-            if(this.newSessionDuration <= 0 || this.newSessionDuration > this.session.totalMinutes) {
+            if(this.newSessionDuration <= 0) {
                 this.modifyDurationError = true;
                 return
             }

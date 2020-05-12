@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core.Exceptions;
 using System.Collections.Generic;
 
-//[assembly: InternalsVisibleTo("Cloudents.Persistance")]
 namespace Cloudents.Core.Entities
 {
     public sealed class UserTransactions

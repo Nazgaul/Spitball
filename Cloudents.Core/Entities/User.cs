@@ -212,25 +212,7 @@ namespace Cloudents.Core.Entities
             PaymentExists = PaymentStatus.Done;
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
-
-        //public virtual void UseToken(StudyRoom studyRoom)
-        //{
-
-
-        //    if (SbCountry != Entities.Country.UnitedStates)
-        //    {
-        //        return;
-        //    }
-
-        //    var userToken = UserTokens
-        //        .FirstOrDefault(w => w.State == PaymentTokenState.NotUsed && w.StudyRoom.Id == studyRoom.Id);
-        //    if (userToken != null)
-        //    {
-        //        userToken.ChangeToUsedState();
-        //    }
-
-        //    UseCoupon(studyRoom.Tutor);
-        //}
+        
 
         public virtual void AddPaymentToken(string orderId, string authorizationId, decimal amount, StudyRoom studyRoom)
         {

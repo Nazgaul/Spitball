@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
@@ -13,10 +14,10 @@ namespace Cloudents.Core.Extension
             {
                 return builder;
             }
-            //var query = string.Join("&", val.AllKeys.Select(key => 
-            //   $"{WebUtility.UrlEncode(key)}={WebUtility.UrlEncode(val[key])}"));
 
-            var query = string.Join("&", nvc.AllKeys.SelectMany(key => (nvc.GetValues(key) ?? Enumerable.Empty<string>()).Select(val => string.Concat(key, "=", WebUtility.UrlEncode(val)))));
+            var query = string.Join("&", nvc.AllKeys.SelectMany(
+                key => (nvc.GetValues(key) ?? Enumerable.Empty<string>())
+                    .Select(val => string.Concat(key, "=", WebUtility.UrlEncode(val)))));
             if (builder.Query.Length > 1)
             {
                 builder.Query = builder.Query.Substring(1) + "&" + query;
@@ -27,6 +28,27 @@ namespace Cloudents.Core.Extension
             }
 
             return builder;
+        }
+
+        public static UriBuilder AddQuery(this UriBuilder builder, (string Key,string Value) keyValue,
+            bool needEncode = true)
+        {
+            
+            if (needEncode)
+            {
+                keyValue.Value = WebUtility.UrlEncode(keyValue.Value);
+            }
+            var query = keyValue.Key + "=" + keyValue.Value;
+            if (builder.Query.Length > 1)
+            {
+                builder.Query = builder.Query.Substring(1) + "&" + query;
+            }
+            else
+            {
+                builder.Query = query;
+            }
+
+            return builder; 
         }
 
         public static UriBuilder AddQuery(this UriBuilder builder, object? obj)

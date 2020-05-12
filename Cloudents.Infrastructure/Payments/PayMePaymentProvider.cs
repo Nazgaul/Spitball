@@ -1,16 +1,16 @@
-﻿using Cloudents.Core;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query.Payment;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query.Payment;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
-namespace Cloudents.Infrastructure
+namespace Cloudents.Infrastructure.Payments
 {
     public class PayMePaymentProvider : IPayment
     {
@@ -101,7 +101,7 @@ namespace Cloudents.Infrastructure
                 return new GenerateSale()
                 {
                     CaptureBuyer = 0,
-                    SalePrice = (price.Price * 100),
+                    SalePrice = (price.PriceInILS * 100),
                     SaleReturnUrl = saleReturnUrl,
                     SellerPaymeId = sellerId,
                     ProductName = "עבור קניית נקודות בספיטבול"

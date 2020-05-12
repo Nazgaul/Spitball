@@ -7,7 +7,7 @@
             <v-container px-4 pt-6 pb-0 class="buy-tokens-top-container">
                 <v-layout>
                     <v-flex text-center xs12>
-                        <span class="buy-tokens-title-text" v-language:inner="'buyTokens_get_points'"></span>
+                        <span class="buy-tokens-title-text" v-t="'buyTokens_get_points'"></span>
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -23,16 +23,16 @@
                     >
                         <div class="buy-tokens-center-price-title">
                             <span class="buy-tokens-points-num">{{products.basic.pts}}</span>&nbsp;
-                            <span v-language:inner="'buyTokens_points'"></span>
+                            <span v-t="'buyTokens_points'"></span>
                         </div>
                         <div>{{products.currency}}{{products.basic.price}}</div>
                         <div class="buy-tokens-text-small">
                             <span>{{products.currency}}</span>
                             <span>{{basicConversionRate}}</span>&nbsp;
-                            <span v-language:inner="'buyTokens_per_point'"></span>
+                            <span v-t="'buyTokens_per_point'"></span>
                         </div>
                         <div>
-                            <button class="buy-tokens-choose-button" v-language:inner="'buyTokens_choose'"></button>
+                            <button class="buy-tokens-choose-button" v-t="'buyTokens_choose'"></button>
                         </div>
                     </v-flex>
                     <v-flex
@@ -43,19 +43,19 @@
                             :class="{'item-selected': selectedProduct === 'inter'}"
                             @click="selectProduct('inter')"
                     >
-                        <div class="buy-tokens-text-absolute" v-language:inner="'buyTokens_most_popular'"></div>
+                        <div class="buy-tokens-text-absolute" v-t="'buyTokens_most_popular'"></div>
                         <div class="buy-tokens-center-price-title">
                             <span class="buy-tokens-points-num">{{products.inter.pts}}</span>&nbsp;
-                            <span v-language:inner="'buyTokens_points'"></span>
+                            <span v-t="'buyTokens_points'"></span>
                         </div>
                         <div>{{products.currency}}{{products.inter.price}}</div>
                         <div class="buy-tokens-text-small">
                             <span>{{products.currency}}</span>
                             <span>{{interConversionRate}}</span>&nbsp;
-                            <span v-language:inner="'buyTokens_per_point'"></span>
+                            <span v-t="'buyTokens_per_point'"></span>
                         </div>
                         <div>
-                            <button class="buy-tokens-choose-button middle-box" v-language:inner="'buyTokens_choose'"></button>
+                            <button class="buy-tokens-choose-button middle-box" v-t="'buyTokens_choose'"></button>
                         </div>
                     </v-flex>
                     <v-flex
@@ -68,16 +68,16 @@
                     >
                         <div class="buy-tokens-center-price-title">
                             <span class="buy-tokens-points-num">{{$n(products.pro.pts)}}</span>&nbsp;
-                            <span v-language:inner="'buyTokens_points'"></span>
+                            <span v-t="'buyTokens_points'"></span>
                         </div>
                         <div>{{products.currency}}{{products.pro.price}}</div>
                         <div class="buy-tokens-text-small">
                             <span>{{products.currency}}</span>
                             <span>{{proConversionRate}}</span>&nbsp;
-                            <span v-language:inner="'buyTokens_per_point'"></span>
+                            <span v-t="'buyTokens_per_point'"></span>
                         </div>
                         <div>
-                            <button class="buy-tokens-choose-button" v-language:inner="'buyTokens_choose'"></button>
+                            <button class="buy-tokens-choose-button" v-t="'buyTokens_choose'"></button>
                         </div>
                     </v-flex>
                 </v-layout>
@@ -85,8 +85,8 @@
                     <v-flex class="buy-tokens-details-container">
                         <img class="img-warning" src="./img/warning.png" alt=""/>
                         <div class="txt-buy-tokens">
-                            <p style="color:red;" v-language:inner="'buyTokens_bottom_1'" />
-                            <p v-language:inner="'buyTokens_bottom_2'" />
+                            <p style="color:red;" v-t="'buyTokens_bottom_1'" />
+                            <p v-t="'buyTokens_bottom_2'" />
                         </div>
                             </v-flex>
                  </v-layout>
@@ -95,7 +95,7 @@
                     <v-flex text-center>
                         <v-btn class="buyme-button white--text" depressed color="#4452fc" id="buyme-button" @click="openPaymeDialog">
                         <span class="mr-2 d-flex"><v-icon size="16">sbf-lock-icon</v-icon></span>
-                        <span class="font-weight-bold" v-html="$Ph('buyTokens_secure_payment', products[selectedProduct].pts)"></span>
+                        <span class="font-weight-bold" v-t="{path: 'buyTokens_secure_payment', args: [products[selectedProduct].pts]}"></span>
                         </v-btn>
                     </v-flex>
                 </v-layout>
@@ -105,6 +105,67 @@
     </div>
 </template>
 
-<script src="./buyPoints.js"></script>
+<script>
+import {mapGetters, mapActions} from 'vuex';
+import analyticsService from '../../../../../../../services/analytics.service';
+
+export default {
+  name:'buyPointsIL',
+  data() {
+    return {
+      selectedProduct: 'inter',
+      transactionId: 750,
+      products:{
+        currency: '₪',
+        basic:{
+            pts: 250,
+            price: 10,
+            currency: 'ILS'
+        },
+        inter:{
+            pts: 750,
+            price: 30,
+            currency: 'ILS'
+        },
+        pro:{
+            pts: 1500,
+            price: 60,
+            currency: 'ILS'
+        }
+      },
+      user: this.accountUser()
+    };
+  },
+  computed:{
+    basicConversionRate(){
+        return this.products.basic.price / this.products.basic.pts;
+    },
+    interConversionRate(){
+        return this.products.inter.price / this.products.inter.pts;
+    },
+    proConversionRate(){
+        return (this.products.pro.price / this.products.pro.pts).toFixed(2);
+    }
+  },
+  methods: {
+    ...mapGetters(['accountUser']),
+    ...mapActions(['updateToasterParams', 'buyToken']),
+
+    selectProduct(val) {
+      if (this.selectedProduct !== val) {
+        this.selectedProduct = val;
+        this.transactionId = this.products[val].pts;
+      }
+    },
+
+    openPaymeDialog() {
+      let transactionId = this.transactionId;
+      analyticsService.sb_unitedEvent("BUY_POINTS", "PRODUCT_SELECTED", transactionId);
+        this.buyToken({points : transactionId});
+        this.$closeDialog()
+    }
+  }
+};
+</script>
 
 <style lang="less" src="./buyPoints.less"></style>
