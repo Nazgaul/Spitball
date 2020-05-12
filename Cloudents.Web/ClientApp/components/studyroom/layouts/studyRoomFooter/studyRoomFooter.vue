@@ -5,14 +5,14 @@
          color="#212123"
          inset
          fixed
-         :height="footerExtend ? 124 : 0"
+         :height="footerExtend ? 124 : 12"
          class="pa-0 studyRoomFooter"
       >
-         <v-btn icon class="collapseIcon" :ripple="false" @click="footerExtend = !footerExtend" color="#fff">
+         <button class="collapseBtnFooter" @click="footerExtend = !footerExtend">
             <v-icon v-if="footerExtend">sbf-arrow-down</v-icon>
             <v-icon v-else>sbf-arrow-up</v-icon>
-         </v-btn>
-         <v-slide-group
+         </button>
+         <v-slide-group v-show="footerExtend"
             class="pa-0"
             active-class="success"
             show-arrows
@@ -55,15 +55,16 @@ export default {
 
 <style lang="less">
    .studyRoomFooter {
-      .collapseIcon {
+      .collapseBtnFooter{
          position: absolute;
          top: -24px;
-         right: 60px;
-         background: #212123;
-         border-radius: 0%; //vuetify override
-         border-top-right-radius: 8px;
-         border-top-left-radius: 8px;
+         right: 46px;
+         width: 30px;
+         height: 30px;
+         border-radius: 8px;
          box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.21);
+         outline: none;
+         background-color: #212123;
       }
       .sbf {
          color: #fff;
