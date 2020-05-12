@@ -7,8 +7,8 @@
          <v-tooltip top>
             <template v-slot:activator="{ on }">
                <v-btn v-on="on" :class="['userPreviewControlsBtn',{'userPreviewbtnIgnore':!isVideoActive}]" icon @click="toggleVideo" sel="video_enabling">
-                  <v-icon v-if="isVideoActive" size="11" class="ml-1" color="white">sbf-video-camera</v-icon>
-                  <v-icon v-else size="18" color="white">sbf-camera-ignore</v-icon>
+                  <v-icon v-if="isVideoActive" size="10" color="white">sbf-video-camera</v-icon>
+                  <v-icon v-else size="17" color="white">sbf-camera-ignore</v-icon>
                </v-btn>
             </template>
             <span v-text="$t(isVideoActive?'tutor_tooltip_video_pause':'tutor_tooltip_video_resume')"/>
@@ -53,7 +53,11 @@ export default {
         return this.getRoomParticipants[this.participant.id];
       },
       userName(){
-         return this.participant.name;
+         if(this.isCurrentParticipant){
+            return this.$t('studyRoom_user_preview_you')
+         }else{
+            return this.participant.name;
+         }
       },
       isVideoActive() {
          return this.$store.getters.getIsVideoActive;
@@ -183,12 +187,13 @@ export default {
 .userPreview{
    border-radius: 6px !important;
    .name{
-      margin-left: 8px;
       font-size: 14px;
       font-weight: 600;
       color: #ffffff;
       position: absolute;
       z-index: 1;
+      top: 2px;
+      left: 6px;
    }
    .linear{
       position: absolute;
@@ -208,8 +213,8 @@ export default {
       position: absolute;
       width: 100%;
       height: 100%;
-      bottom: 8px;
-      left: 12px;
+      bottom: 10px;
+      left: 10px;
    }
    .videoPreviewTools{
       position: absolute;
@@ -220,7 +225,7 @@ export default {
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      padding-bottom: 10px;
+      padding-bottom: 6px;
       z-index: 1;
       .userPreviewControlsBtn{
          width: 33px;

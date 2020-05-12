@@ -6,7 +6,7 @@
          inset
          fixed
          :height="footerExtend ? 124 : 12"
-         class="pa-0 studyRoomFooter"
+         class="pa-0 py-3 pl-2 studyRoomFooter"
       >
          <button class="pb-1 collapseBtnFooter" @click="footerExtend = !footerExtend">
             <v-icon v-if="footerExtend">sbf-arrow-down</v-icon>
@@ -20,7 +20,7 @@
             prev-icon="sbf-arrow-left-carousel"
             next-icon="sbf-arrow-right-carousel">
             <v-slide-item v-for="participant in roomParticipants" :key="participant.id">
-               <userPreview :participant="participant" class="ma-2"/>
+               <userPreview :participant="participant" class="mx-1" />
             </v-slide-item>
          </v-slide-group>
       </v-footer>
