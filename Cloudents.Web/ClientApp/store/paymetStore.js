@@ -3,6 +3,8 @@ import { LanguageService } from '../services/language/languageService';
 import * as dialogNames from '../components/pages/global/dialogInjection/dialogNames.js'
 
 import { router } from '../main.js';
+import { loadStripe } from '@stripe/stripe-js';
+//TODO get from window
 
 const state = {
     paymentURL: null,
@@ -24,6 +26,16 @@ const getters = {
 };
 
 const actions = {
+    buyPointsUS(context, points) {
+        walletService.stripeTransaction(points).then(async ({data}) => {
+            const stripePromise = loadStripe('pk_test_8f8AdUcVw1yWhORtcRmmUICN00c2DsuxOk');
+            const stripe = await stripePromise;
+            //TODO - investigate error
+            await stripe.redirectToCheckout({
+               sessionId:  data.sessionId,
+            });
+        })
+    },
     buyToken({dispatch ,commit}, points) {
         walletService.buyTokens(points).then(({ data }) => {
             dispatch('updatePaymentLink',data.link)
