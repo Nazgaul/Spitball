@@ -188,7 +188,7 @@ namespace Cloudents.Core.Entities
         public virtual UserTransactions Transactions { get; protected set; }
 
         public virtual string FirstName { get; protected set; }
-        public virtual string LastName { get; protected set; }
+        public virtual string? LastName { get; protected set; }
         public virtual string Description { get; set; }
 
         public virtual string CoverImage { get; protected set; }
@@ -248,7 +248,7 @@ namespace Cloudents.Core.Entities
 
 
 
-        public virtual void ChangeName(string firstName, string? lastName)
+        public virtual void ChangeName(string firstName, string lastName)
         {
             FirstName = firstName;
             LastName = lastName;

@@ -53,13 +53,14 @@ namespace Cloudents.Web.Identity
 
         public Task SetUserNameAsync(User user, string userName, CancellationToken cancellationToken)
         {
-            if (userName == null) throw new ArgumentNullException(nameof(userName));
-            var splitUserName = userName.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-            var firstName = splitUserName[0];
-            var lastName = splitUserName.ElementAtOrDefault(1);
+            throw new NotImplementedException();
+            //if (userName == null) throw new ArgumentNullException(nameof(userName));
+            //var splitUserName = userName.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+            //var firstName = splitUserName[0];
+            //var lastName = splitUserName.ElementAtOrDefault(1);
 
-            user.ChangeName(firstName, lastName);
-            return Task.CompletedTask;
+            //user.ChangeName(firstName, lastName);
+            //return Task.CompletedTask;
         }
 
         public Task<string> GetNormalizedUserNameAsync(User user, CancellationToken cancellationToken)
