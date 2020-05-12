@@ -1,6 +1,5 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.Command;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Extension;
@@ -24,7 +23,6 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Infrastructure.Payments;
-using Schema.NET;
 
 namespace Cloudents.Web.Api
 {
@@ -57,17 +55,6 @@ namespace Cloudents.Web.Api
 
             return retVal;
         }
-
-
-        //[HttpGet("transaction")]
-        //public async Task<IEnumerable<TransactionDto>> GetTransactionAsync(CancellationToken token)
-        //{
-        //    var userId = _userManager.GetLongUserId(User);
-
-        //    var retVal = await _queryBus.QueryAsync(new UserTransactionQuery(userId), token);
-
-        //    return retVal;
-        //}
 
 
 
@@ -261,7 +248,7 @@ namespace Cloudents.Web.Api
         [HttpGet("Stripe")]
         public async Task<IActionResult> GetStripe(
             [FromHeader(Name = "referer")] string referer,
-            [FromServices] StripeClient service)
+            [FromServices] IStripeService service)
         {
 
             var uriBuilder = new UriBuilder(referer)
@@ -270,12 +257,10 @@ namespace Cloudents.Web.Api
             };
             var url = new UriBuilder(Url.RouteUrl("stripe-buy-points", new
             {
-                // session_id = "{CHECKOUT_SESSION_ID}",
                 redirectUrl = uriBuilder.ToString()
             }, "https"));
 
             var successCallback = url.AddQuery(("sessionId", "{CHECKOUT_SESSION_ID}"), false).ToString();
-
 
             var result = await service.BuyPointsAsync(successCallback, referer);
             return Ok(new

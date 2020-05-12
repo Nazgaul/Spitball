@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Stripe;
@@ -6,11 +7,39 @@ using Stripe.Checkout;
 
 namespace Cloudents.Infrastructure.Payments
 {
-    public class StripeClient : IPaymentStripe
+    public class StripeClient : IStripeService
     {
-        public async Task<string> BuyPointsAsync(string successCallback, string fallbackCallback)
+        static StripeClient()
         {
             StripeConfiguration.ApiKey = "sk_test_Ihn6pkUZV9VFpDo7JWUGwT8700FAQ3Gbhf";
+
+        }
+        public async Task GetEventsAsync(string sessionId)
+        {
+            var service = new EventService();
+            var options = new EventListOptions
+            {
+                Type = "checkout.session.completed",
+                
+                Created = new DateRangeOptions
+                {
+                    // Check for events created in the last 24 hours.
+                    GreaterThan = DateTime.Now.Subtract(new TimeSpan(1, 0, 0)),
+                },
+            };
+            
+
+            foreach (var stripeEvent in service.ListAutoPaging(options))
+            {
+                var session = stripeEvent.Data.Object as Session;
+
+                // Fulfill the purchase...
+               // handleCheckoutSession(session);
+            }
+        }
+
+        public async Task<string> BuyPointsAsync(string successCallback, string fallbackCallback)
+        {
 
             var options = new SessionCreateOptions
             {
@@ -19,13 +48,20 @@ namespace Cloudents.Infrastructure.Payments
                 },
                 LineItems = new List<SessionLineItemOptions> {
                     new SessionLineItemOptions {
-                        Name = "T-shirt",
-                        Description = "Comfortable cotton t-shirt",
+                        Name = "Buy Points on Spitball",
+                        //Description = "Comfortable cotton t-shirt",
                         Amount = 500,
                         Currency = "usd",
                         Quantity = 1,
+                        
                     },
+                    
                 },
+                Metadata = new Dictionary<string, string>()
+                {
+                    ["Points"] = 100.ToString()
+                },
+                    
                 SuccessUrl = successCallback,
                 CancelUrl = fallbackCallback,
                 CustomerEmail = "ram@cloudents.com"

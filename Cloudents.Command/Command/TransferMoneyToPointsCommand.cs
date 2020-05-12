@@ -2,17 +2,17 @@
 {
     public class TransferMoneyToPointsCommand : ICommand
     {
-        public TransferMoneyToPointsCommand(long userId, decimal amount, string payPalTransactionId)
+        public TransferMoneyToPointsCommand(long userId, decimal amount, string transactionId)
         {
             UserId = userId;
             Amount = amount;
-            PayPalTransactionId = payPalTransactionId;
+            TransactionId = transactionId;
         }
 
         public long UserId { get; }
 
         public decimal Amount { get; }
 
-        public string PayPalTransactionId { get; }
+        public string TransactionId { get; }
     }
 }

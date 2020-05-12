@@ -12,11 +12,11 @@ namespace Cloudents.Core.Interfaces
         //Task UpdateAndConfirmOrderAsync(string orderId, decimal charge, CancellationToken token);
     }
 
-    public interface IPaymentStripe
+    public interface IStripeService
     {
         Task<string> BuyPointsAsync(string successCallback, string fallbackCallback);
+        Task GetEventsAsync(string sessionId);
 
-
-       // Task Retrieve(string successCallback, string fallbackCallback);
+        // Task Retrieve(string successCallback, string fallbackCallback);
     }
 }

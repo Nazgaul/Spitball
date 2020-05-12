@@ -26,7 +26,7 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<PayMePaymentProvider>().As<IPayment>();
             builder.RegisterType<PayPalClient>().As<IPayPalService>().SingleInstance();
-            builder.RegisterType<StripeClient>().As<IPaymentStripe>().AsSelf();
+            builder.RegisterType<StripeClient>().As<IStripeService>().AsSelf();
 
             builder.RegisterType<BinarySerializer>().As<IBinarySerializer>();
             builder.RegisterType<SbJsonSerializer>().As<IJsonSerializer>();

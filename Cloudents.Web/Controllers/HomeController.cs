@@ -14,6 +14,9 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
+using Cloudents.Web.Extensions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cloudents.Web.Controllers
 {
@@ -145,12 +148,21 @@ namespace Cloudents.Web.Controllers
         }
 
 
-        [Route("us-buy-points", Name = "stripe-buy-points")]
-        public async Task<IActionResult> StripeCallbackBuyPointsAsync(string redirectUrl, string sessionId)
+        [Route("us-buy-points", Name = "stripe-buy-points"), Authorize]
+        public async Task<IActionResult> StripeCallbackBuyPointsAsync(
+            string redirectUrl, string sessionId,
+            [FromServices] IStripeService stripeService,
+            [FromServices] ICommandBus commandBus,
+            [FromServices] UserManager<User> userManager,
+            CancellationToken token)
         {
             var v = Url.IsLocalUrl(redirectUrl);
+            await stripeService.GetEventsAsync(sessionId);
 
-            return View("Index");
+            var userId = userManager.GetLongUserId(User);
+            //var command = new TransferMoneyToPointsCommand(userId, amount, sessionId);
+            //await commandBus.DispatchAsync(command, token);
+            return Redirect(redirectUrl);
         }
 
 
