@@ -1,13 +1,13 @@
 ﻿using System.Globalization;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Interfaces;
 using PayPalCheckoutSdk.Core;
 using PayPalCheckoutSdk.Orders;
 using PayPalCheckoutSdk.Payments;
 
-namespace Cloudents.Infrastructure
+namespace Cloudents.Infrastructure.Payments
 {
     public class PayPalClient : IPayPalService
     {

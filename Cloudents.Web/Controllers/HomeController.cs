@@ -14,6 +14,9 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
+using Cloudents.Web.Extensions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cloudents.Web.Controllers
 {
@@ -145,28 +148,20 @@ namespace Cloudents.Web.Controllers
         }
 
 
-        //[Route("google")]
-        //public async Task<RedirectToActionResult> GoogleSigninAndroidAsync(string token,
-        //    [FromServices] IGoogleAuth service,
-        //    [FromServices] IDataProtectionProvider dataProtectProvider,
-        //    CancellationToken cancellationToken
-        //    )
-        //{
-        //    var result = await service.LogInAsync(token, cancellationToken);
-        //    if (result == null)
-        //    {
-        //        return RedirectToAction("Index");
-        //    }
+        [Route("BuyPoints", Name = "stripe-buy-points"), Authorize]
+        public async Task<IActionResult> StripeCallbackBuyPointsAsync(
+            string redirectUrl, string sessionId,
+            [FromServices] IStripeService stripeService,
+            [FromServices] ICommandBus commandBus,
+            [FromServices] UserManager<User> userManager,
+            CancellationToken token)
+        {
+            var (receipt, points) = await stripeService.GetEventsAsync(sessionId,token);
 
-        //    var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, true, true);
-
-        //    var user2 = await _userManager.FindByEmailAsync(result.Email);
-        //    var dataProtector = dataProtectProvider.CreateProtector("Spitball").ToTimeLimitedDataProtector();
-        //    var code = dataProtector.Protect(user2.Id.ToString(), DateTimeOffset.UtcNow.AddDays(5));
-        //    return RedirectToAction("Index", new
-        //    {
-        //        token = code
-        //    });
-        //}
+            var userId = userManager.GetLongUserId(User);
+            var command = new TransferMoneyToPointsCommand(userId, points, receipt);
+            await commandBus.DispatchAsync(command, token);
+            return Redirect(redirectUrl);
+        }
     }
 }
