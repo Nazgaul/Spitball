@@ -237,9 +237,9 @@ export default {
       video {
          width: 100%;
          height: 100%;
-         object-fit: cover;
-         object-position: center;
-         background-repeat: no-repeat;
+         // object-fit: cover;
+         // object-position: center;
+         // background-repeat: no-repeat;
          pointer-events: none;
       }
       video::-webkit-media-controls-enclosure {
