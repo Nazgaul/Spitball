@@ -5,7 +5,7 @@
             <template v-slot:activator="{on}">
                <v-btn icon v-on="on" sel="pen_draw" :class="{'active-tool': selectedOptionString === enumOptions.pan}"
                         class="nav-action" @click="setOptionType($event, enumOptions.pan)">
-                  <v-icon :color="selectedColor(enumOptions.pan)">sbf-pan</v-icon>
+                  <v-icon size="20" :color="selectedColor(enumOptions.pan)">sbf-pan</v-icon>
                </v-btn>
             </template>
             <span v-language:inner>tutor_tooltip_pan</span>
@@ -15,7 +15,7 @@
             <template v-slot:activator="{on}">
                <v-btn icon v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.select}"
                         class="nav-action" @click="setOptionType($event, enumOptions.select)">
-                  <v-icon :color="selectedColor(enumOptions.select)">sbf-mouse-pointer</v-icon>
+                  <v-icon  :color="selectedColor(enumOptions.select)">sbf-mouse-pointer</v-icon>
                </v-btn>
             </template>
             <span v-language:inner>tutor_tooltip_select</span>
@@ -150,7 +150,7 @@
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
                <v-btn icon sel="clear_all_canvas" v-on="on" class="nav-action" @click="clearCanvas()">
-                  <v-icon style="margin-top: 5px;">sbf-clearAll-icon</v-icon>
+                  <v-icon size="20" style="margin-top: 5px;">sbf-clearAll-icon</v-icon>
                </v-btn>
             </template>
             <span v-language:inner>tutor_tooltip_clearAll</span>
@@ -292,6 +292,12 @@ export default {
    max-width: fit-content;
    top: 12px;
    .nav-action{
+      border: none !important;
+      min-width: 40px !important;
+      height: 44px !important;
+      .v-icon {
+         font-size: 22px;
+      }
       &.active-tool{
          .v-icon {
             color:#4c59ff;
