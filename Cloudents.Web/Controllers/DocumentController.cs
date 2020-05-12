@@ -148,7 +148,7 @@ namespace Cloudents.Web.Controllers
 
             ViewBag.title = _localizer["Title", model.Document.Course, model.Document.Title];
             ViewBag.metaDescription = _localizer["Description", model.Document.Course];
-            Country country = model.Document.User.Country;
+            Country country = model.Document.User.Country ?? Country.UnitedStates;
 
             if (model.Document.DocumentType == DocumentType.Video && !string.IsNullOrEmpty(model.Document.Snippet))
             {
