@@ -28,7 +28,7 @@ const getters = {
 const actions = {
     buyPointsUS(context, points) {
         walletService.stripeTransaction(points).then(async ({data}) => {
-            const stripePromise = loadStripe('pk_test_8f8AdUcVw1yWhORtcRmmUICN00c2DsuxOk');
+            const stripePromise = loadStripe(window.stripe);
             const stripe = await stripePromise;
             //TODO - investigate error
             await stripe.redirectToCheckout({
