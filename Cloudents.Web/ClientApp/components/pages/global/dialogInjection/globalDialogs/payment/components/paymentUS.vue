@@ -72,7 +72,14 @@ export default {
           }
         })
         .then(function(result) {
-          console.log(result);
+            if (result.error) {
+            // Show error to your customer
+              console.log(result.error.message);
+            } else {
+            if (result.paymentIntent.status === 'succeeded') {
+              // The payment is complete!
+            }
+          }
         });
       })
     }
