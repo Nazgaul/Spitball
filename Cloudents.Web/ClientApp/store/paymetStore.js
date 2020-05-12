@@ -22,7 +22,7 @@ const mutations = {
 const getters = {
     getPaymentURL:state => state.paymentURL,
     getIsBuyPoints:state => state.isBuyPoints,
-    getStripeToken: () => window.stripeClientId || 'pk_test_8f8AdUcVw1yWhORtcRmmUICN00c2DsuxOk'
+    getStripeToken: () => window.stripe
 };
 
 const actions = {
