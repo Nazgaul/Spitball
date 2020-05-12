@@ -1,8 +1,8 @@
 <template>
    <div class="classRoom">
-      <userPreview 
-            v-for="participant in $store.getters.getRoomParticipants" 
-            :key="participant.id" :participant="participant"
+      <userPreview v-if="roomParticipants"
+            v-for="participant in roomParticipants" 
+            :key="Object.values(participant)[0].id" :participant="Object.values(participant)[0]"
             class="ma-2 classRoomCards"/>
    </div>
 </template>
@@ -13,6 +13,25 @@ export default {
    components:{
       userPreview
    },
+   computed: {
+      roomParticipants(){
+         if(this.$store.getters.getRoomParticipants){
+            let participants = Object.entries(this.$store.getters.getRoomParticipants).map((e) => ( { [e[0]]: e[1] } ));
+            let participantIdx;
+            let currentParticipant = participants.find((participant,index)=>{
+               participantIdx = index;
+               return Object.values(participant)[0].id == this.$store.getters.accountUser.id
+            })
+            if(currentParticipant){
+               participants.splice(participantIdx,1)
+               participants.unshift(currentParticipant)
+            }
+            return participants
+         }else{
+            return null
+         }
+      }
+   }
 }
 </script>
 

@@ -36,8 +36,8 @@
             color="#fff"
             prev-icon="sbf-arrow-left-carousel"
             next-icon="sbf-arrow-right-carousel">
-            <v-slide-item v-for="participant in $store.getters.getRoomParticipants" :key="participant.id">
-               <userPreview :participant="participant" class="mx-1"/>
+            <v-slide-item v-if="roomParticipants" v-for="participant in roomParticipants" :key="Object.values(participant)[0].id">
+               <userPreview :participant="Object.values(participant)[0]" class="mx-1"/>
             </v-slide-item>
          </v-slide-group>
       </v-footer>
@@ -81,6 +81,23 @@ export default {
       isRoomTutor(){
          return this.$store.getters.getRoomIsTutor;
       },
+      roomParticipants(){
+         if(this.$store.getters.getRoomParticipants){
+            let participants = Object.entries(this.$store.getters.getRoomParticipants).map((e) => ( { [e[0]]: e[1] } ));
+            let participantIdx;
+            let currentParticipant = participants.find((participant,index)=>{
+               participantIdx = index;
+               return Object.values(participant)[0].id == this.$store.getters.accountUser.id
+            })
+            if(currentParticipant){
+               participants.splice(participantIdx,1)
+               participants.unshift(currentParticipant)
+            }
+            return participants
+         }else{
+            return null
+         }
+      }
    },
    methods: {
       toggleVideo() {
@@ -102,6 +119,9 @@ export default {
 <style lang="less">
 .classFullScreen{
    background-color: #212123;
+   .v-footer{
+      justify-content: center;
+   }
    .videoContainer{
       width: 100%;
       height: 100%;
