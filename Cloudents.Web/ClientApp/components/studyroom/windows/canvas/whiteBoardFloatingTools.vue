@@ -284,12 +284,12 @@ export default {
 
 <style lang="less">
 .whiteBoardFloatingTools{
-   position: absolute;
+   position: absolute !important;
    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.1);
    left: 0;
    right: 0;
    margin: 0 auto;
-   max-width: fit-content;
+   max-width: fit-content !important;
    top: 12px;
    padding: 0 6px;
    .nav-action{
