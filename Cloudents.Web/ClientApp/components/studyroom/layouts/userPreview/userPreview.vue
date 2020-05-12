@@ -187,6 +187,7 @@ export default {
 .userPreview{
    border-radius: 6px !important;
    .name{
+      text-transform: capitalize;
       font-size: 14px;
       font-weight: 600;
       color: #ffffff;
