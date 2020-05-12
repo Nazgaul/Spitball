@@ -144,12 +144,6 @@
   <data name="referral_spitball" xml:space="preserve">
     <value>Refer a teacher</value>
   </data>
-  <data name="changeUniversity" xml:space="preserve">
-    <value>School</value>
-  </data>
-  <data name="Change" xml:space="preserve">
-    <value>Change</value>
-  </data>
   <data name="my_study_rooms" xml:space="preserve">
     <value>Test Study Room</value>
   </data>

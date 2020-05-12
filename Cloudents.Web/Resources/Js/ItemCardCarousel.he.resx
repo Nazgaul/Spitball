@@ -123,9 +123,6 @@
   <data name="pts" xml:space="preserve">
     <value>חינם | {n} נק' | {n} נק'</value>
   </data>
-  <data name="university" xml:space="preserve">
-    <value>מוסד לימוד:</value>
-  </data>
   <data name="view" xml:space="preserve">
     <value>צפייה | צפיות</value>
   </data>

@@ -147,9 +147,6 @@
   <data name="purchased" xml:space="preserve">
     <value>{n} רכישה | {n} רכישות</value>
   </data>
-  <data name="university" xml:space="preserve">
-    <value>מוסד לימוד:</value>
-  </data>
   <data name="unsufficient_fund" xml:space="preserve">
     <value>אין מספיק נקודות</value>
   </data>

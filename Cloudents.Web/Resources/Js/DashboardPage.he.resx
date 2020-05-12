@@ -141,17 +141,11 @@
   <data name="create_room_created_error" xml:space="preserve">
     <value>חדר לימוד זה כבר קיים</value>
   </data>
-  <data name="create_room_create_btn" xml:space="preserve">
-    <value>צור חדר לימוד פרטני</value>
-  </data>
   <data name="create_room_empty_error" xml:space="preserve">
     <value>לא נבחר אף סטודנט</value>
   </data>
   <data name="create_room_label" xml:space="preserve">
     <value>תן שם</value>
-  </data>
-  <data name="create_room_label_broadcast" xml:space="preserve">
-    <value>שם החדר</value>
   </data>
   <data name="create_room_live_title" xml:space="preserve">
     <value>לימוד בשידור חי</value>
@@ -164,9 +158,6 @@
   </data>
   <data name="create_room_private_title" xml:space="preserve">
     <value>צור חדר לימוד פרטני</value>
-  </data>
-  <data name="create_room_title" xml:space="preserve">
-    <value>לימוד פרטני</value>
   </data>
   <data name="date" xml:space="preserve">
     <value>תאריך</value>
@@ -182,12 +173,6 @@
   </data>
   <data name="empty" xml:space="preserve">
     <value>מצטערים, אין מידע להציג</value>
-  </data>
-  <data name="enter_room" xml:space="preserve">
-    <value>כניסה לחדר</value>
-  </data>
-  <data name="error_session_removed" xml:space="preserve">
-    <value>קרתה תקלה</value>
   </data>
   <data name="info" xml:space="preserve">
     <value>מוצר
@@ -208,14 +193,8 @@
   <data name="label_live_title" xml:space="preserve">
     <value>כותרת</value>
   </data>
-  <data name="label_minutes" xml:space="preserve">
-    <value>דקות</value>
-  </data>
   <data name="label_session_about" xml:space="preserve">
     <value>סקירה כללית</value>
-  </data>
-  <data name="label_time" xml:space="preserve">
-    <value>זמן</value>
   </data>
   <data name="labe_hours" xml:space="preserve">
     <value>שעה</value>
@@ -231,9 +210,6 @@
   </data>
   <data name="link_share" xml:space="preserve">
     <value>קישור</value>
-  </data>
-  <data name="link_studyroom" xml:space="preserve">
-    <value>בדיקת חדר לימוד</value>
   </data>
   <data name="my_content_title" xml:space="preserve">
     <value>התוכן שלי</value>
@@ -286,9 +262,6 @@
   <data name="pick_time_error" xml:space="preserve">
     <value>הזמן שנבחר צריך להיות בעתיד</value>
   </data>
-  <data name="placeholder_studyRoom_type" xml:space="preserve">
-    <value>סוג חדר</value>
-  </data>
   <data name="price" xml:space="preserve">
     <value>מחיר</value>
   </data>
@@ -312,12 +285,6 @@
   </data>
   <data name="scheduled" xml:space="preserve">
     <value>תאריך שידור</value>
-  </data>
-  <data name="send_email" xml:space="preserve">
-    <value>שלח אימייל</value>
-  </data>
-  <data name="send_whatsapp" xml:space="preserve">
-    <value>שלח הודעת וואטסאפ</value>
   </data>
   <data name="session" xml:space="preserve">
     <value>שיעור פרטי עם {1}</value>
