@@ -291,6 +291,7 @@ export default {
    margin: 0 auto;
    max-width: fit-content;
    top: 12px;
+   padding: 0 6px;
    .nav-action{
       border: none !important;
       min-width: 40px !important;

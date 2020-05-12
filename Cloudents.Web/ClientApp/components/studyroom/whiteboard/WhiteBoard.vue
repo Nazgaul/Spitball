@@ -221,7 +221,7 @@
         }
         .welcome-helper-top{
             position: absolute;
-            top: 13%;
+            top: 18%;
             left: 42.5%;
             .top-helper{
                 // box-shadow: 0px 4px 13px 0 rgba(0, 0, 0, 0.35);
