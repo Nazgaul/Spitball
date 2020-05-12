@@ -53,7 +53,7 @@ namespace Cloudents.Web.Identity
 
         public Task SetUserNameAsync(User user, string userName, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("use UpdateUserSettingsCommand");
             //if (userName == null) throw new ArgumentNullException(nameof(userName));
             //var splitUserName = userName.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
             //var firstName = splitUserName[0];
