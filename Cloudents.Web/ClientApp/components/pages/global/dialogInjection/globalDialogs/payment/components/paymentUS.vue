@@ -87,7 +87,7 @@ export default {
   mounted() {
     let self = this;
     this.$loadScript("https://js.stripe.com/v3/").then(() => {
-      self.stripe = Stripe(this.getStripeToken);
+      self.stripe = window.Stripe(this.getStripeToken);
 
       self.elements = self.stripe.elements();
       self.cardElement = self.elements.create('card', {
