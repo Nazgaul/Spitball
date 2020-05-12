@@ -1,6 +1,6 @@
 <template>
   <v-layout column class="payme-popup">
-    <v-icon class="exit-btn cursor-pointer" @click="closeDialog">sbf-close</v-icon>
+    <v-icon class="exit-btn cursor-pointer" @click="closeDialog">{{$vuetify.icons.values.close}}</v-icon>
     <div class="payme-popup-top pt-4">
       <div class="payme-top-title">{{$t('payme_top_title')}}</div>
       <v-layout justify-space-between wrap class="payme-content pt-4 pt-sm-8 pb-2 pb-sm-8 mx-sm-8">
@@ -19,15 +19,14 @@
             class="payme-content-txt pt-0 pt-sm-2">{{$t('payme_content_txt_hands')}}</span>
         </v-flex>
       </v-layout>
-      <v-flex v-show="isLoading" xs12>
-        <v-progress-circular class="mb-4" size="80" width="2" indeterminate color="info"></v-progress-circular>
-      </v-flex>
-      <v-flex v-show="!isLoading" sm4 id="paypal-button-container2"></v-flex>
     </div>
-    <div class="mx-8 my-4">
-      <div id="card-element"></div>
-      <div class="text-center mt-4">
-        <v-btn @click="stripePay" class="white--text" width="120" color="#4c59ff" rounded depressed>pay</v-btn>
+    <div class="stripeWrapper mx-auto my-4">
+      <div class="stripeLabel">
+        <span v-t="'payment_pay_with_card'"></span>
+      </div>
+      <div id="card-stripe"></div>
+      <div class="text-center mt-8">
+        <v-btn @click="stripePay" :loading="isLoading" class="white--text" width="120" color="#4c59ff" rounded depressed>pay</v-btn>
       </div>
     </div>
   </v-layout>
@@ -65,22 +64,23 @@ export default {
     },
     stripePay() {
       let self = this
+      this.isLoading = true
       this.$store.dispatch('getStripeSecret').then(({data}) => {
         self.stripe.confirmCardSetup(data.secret, {
           payment_method: {
-            card: self.cardElement,
+            card: self.cardElement
           }
-        })
-        .then(function(result) {
+        }).then((result) => {
             if (result.error) {
-            // Show error to your customer
               console.log(result.error.message);
-            } else {
-            if (result.paymentIntent.status === 'succeeded') {
-              // The payment is complete!
+              return
             }
-          }
-        });
+            if (result.setupIntent.status === 'succeeded') {
+              self.$closeDialog()
+            }
+        }).finally(() => {
+          self.isLoading = false
+        })
       })
     }
   },
@@ -93,7 +93,7 @@ export default {
       self.cardElement = self.elements.create('card', {
 
       });
-      self.cardElement.mount('#card-element');
+      self.cardElement.mount('#card-stripe');
     })
   }
 };
@@ -101,8 +101,10 @@ export default {
 
 <style lang="less">
 @import "../../../../../../../styles/mixin.less";
+@import "../../../../../../../styles/colors.less";
+
 .payme-popup {
-  // position: relative;
+  position: relative;
   border-radius: 4px;
   background-color: #ffffff;
   -webkit-overflow-scrolling: touch;
@@ -209,6 +211,26 @@ export default {
   }
   #paypal-button-container2 {
       margin:0 auto;
+  }
+  .stripeWrapper {
+    position: relative;
+    width: 400px;
+    .stripeLabel {
+    position: absolute; 
+    top: -10px;
+    width: 100%;
+    text-align: center;
+      span {
+        color: @global-purple;
+        background: #fff;
+        padding: 6px 10px;
+      }
+    }
+    #card-stripe {
+      border: 1px solid #e5e5e5;
+      border-radius: 6px;
+      padding: 10px;
+    }
   }
 }
 </style>
