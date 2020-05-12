@@ -62,20 +62,20 @@ namespace Cloudents.Core
         public int CompareTo(object other) => Id.CompareTo(((Enumeration)other).Id);
 
 
-        public static T FromValue<T>(int value) where T : Enumeration
+        public static T? FromValue<T>(int value) where T : Enumeration
         {
             var matchingItem = Parse<T>(item => item.Id == value);
             return matchingItem;
         }
 
-        protected static T FromDisplayName<T>(string displayName) where T : Enumeration
+        protected static T? FromDisplayName<T>(string displayName) where T : Enumeration
         {
             var matchingItem = Parse<T>(
                 item => string.Equals(item.Name, displayName, StringComparison.OrdinalIgnoreCase));
             return matchingItem;
         }
 
-        private static T Parse<T>(Func<T, bool> predicate) where T : Enumeration
+        private static T? Parse<T>(Func<T, bool> predicate) where T : Enumeration
         {
             var all = GetAll<T>();
             var matchingItem = all.FirstOrDefault(predicate);

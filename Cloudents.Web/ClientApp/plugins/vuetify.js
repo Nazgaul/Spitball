@@ -17,7 +17,7 @@ import en from '../../node_modules/vuetify/src/locale/en.ts';
 const MY_ICONS = {
 //  complete: '...',
  // cancel: '...',
- // close: '...',
+ close: 'sbf-close',
  // delete: '...', // delete (e.g. v-chip close)
   // clear: '...',
   // success: '...',
