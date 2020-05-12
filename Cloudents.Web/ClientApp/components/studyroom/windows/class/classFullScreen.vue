@@ -36,9 +36,11 @@
             color="#fff"
             prev-icon="sbf-arrow-left-carousel"
             next-icon="sbf-arrow-right-carousel">
-            <v-slide-item v-if="roomParticipants" v-for="participant in roomParticipants" :key="Object.values(participant)[0].id">
-               <userPreview :participant="Object.values(participant)[0]" class="mx-1"/>
-            </v-slide-item>
+            <template v-if="roomParticipants" >
+               <v-slide-item v-for="participant in roomParticipants" :key="Object.values(participant)[0].id">
+                  <userPreview :participant="Object.values(participant)[0]" class="mx-1"/>
+               </v-slide-item>
+            </template>
          </v-slide-group>
       </v-footer>
    </div>

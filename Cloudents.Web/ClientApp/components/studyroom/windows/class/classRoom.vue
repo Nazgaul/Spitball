@@ -1,9 +1,11 @@
 <template>
    <div class="classRoom">
-      <userPreview v-if="roomParticipants"
-            v-for="participant in roomParticipants" 
-            :key="Object.values(participant)[0].id" :participant="Object.values(participant)[0]"
-            class="ma-2 classRoomCards"/>
+      <template v-if="roomParticipants">
+         <userPreview 
+               v-for="participant in roomParticipants" 
+               :key="Object.values(participant)[0].id" :participant="Object.values(participant)[0]"
+               class="ma-2 classRoomCards"/>
+      </template>
    </div>
 </template>
 
