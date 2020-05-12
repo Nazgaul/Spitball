@@ -259,22 +259,34 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData(638, 0)]
-        [InlineData(11, 0)]
-        [InlineData(605, 638)]
-        [InlineData(36, 638)]
-        [InlineData(36, 0)]
-        [InlineData(150713, 638)]
-        [InlineData(160446, 638)]
-        [InlineData(161238, 638)]
-        [InlineData(159039, 160634)]
-        [InlineData(159039, 160468)]
-        [InlineData(160336, 160468)]
-        [InlineData(1697, 0)]
-
-        public async Task UserProfileQuery_Ok(long id, long userId)
+        [InlineData(0)]
+        [InlineData(638)]
+        [InlineData(160634)]
+        public async Task UserProfileTutorQuery_Ok(long userId)
         {
+            var id = await fixture.StatelessSession.Query<Tutor>()
+                .Where(w => w.State == ItemState.Ok).Select(s=>s.Id).Take(1).SingleAsync();
+            var query = new UserProfileQuery(id, userId);
 
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+
+            result.Should().NotBeNull();
+
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(638)]
+        [InlineData(160634)]
+        public async Task UserProfileNotTutorQuery_Ok(long userId)
+        {
+            var id = await fixture.StatelessSession.Query<User>()
+                .Fetch(f=>f.Tutor)
+                .Where(w => w.Tutor.State == null 
+                           // && w.PhoneNumberConfirmed 
+                           // && w.EmailConfirmed
+                            )
+                .Select(s=>s.Id).Take(1).SingleAsync();
             var query = new UserProfileQuery(id, userId);
 
             var result = await fixture.QueryBus.QueryAsync(query, default);
