@@ -24,6 +24,12 @@
       </v-flex>
       <v-flex v-show="!isLoading" sm4 id="paypal-button-container2"></v-flex>
     </div>
+    <div class="mx-8 my-4">
+      <div id="card-element"></div>
+      <div class="text-center mt-4">
+        <v-btn @click="stripePay" class="white--text" width="120" color="#4c59ff" rounded depressed>pay</v-btn>
+      </div>
+    </div>
   </v-layout>
 </template>
 
@@ -34,13 +40,20 @@ export default {
   data() {
     return {
       isLoading:false,
+      stripe: null,
+      elements: null,
+      cardElement: null,
+      stripeError: '',
+    }
+  },
+  computed: {
+    getStripeToken() {
+      return this.$store.getters.getStripeToken
     }
   },
   methods: {
     closeDialog() {
-      let isStudyRoom =
-        this.$store.getters.getRoomIdSession &&
-        this.$route.name === routeNames.StudyRoom;
+      let isStudyRoom = this.$store.getters.getRoomIdSession && this.$route.name === routeNames.StudyRoom;
       if (isStudyRoom) {
         let isExit = confirm(this.$t("payme_are_you_sure_exit"));
         if (isExit) {
@@ -49,38 +62,32 @@ export default {
       } else {
         this.$closeDialog();
       }
+    },
+    stripePay() {
+      let self = this
+      this.$store.dispatch('getStripeSecret').then(({data}) => {
+        self.stripe.confirmCardPayment(data.secret, {
+          payment_method: {
+            card: self.cardElement,
+          }
+        })
+        .then(function(result) {
+          console.log(result);
+        });
+      })
     }
   },
   mounted() {
     let self = this;
-    let paypalUrl = `https://www.paypal.com/sdk/js?client-id=${window.paypalClientId}&intent=authorize`;
-    this.$loadScript(paypalUrl).then(() => {
-      window.paypal
-        .Buttons({
-          createOrder: function(data, actions) {
-            return actions.order.create({
-              purchase_units: [
-                {
-                  reference_id: "PUHF",
-                  amount: {
-                    value: self.$store.getters.getRoomTutor.tutorPrice,
-                    currency: "USD"
-                  }
-                }
-              ]
-            });
-          },
-          onApprove: function(data) {
-            console.log(data);
-            self.isLoading = true;
-            self.$store.dispatch("updatePaypalStudyRoom", {
-              orderId: data.orderID,
-                sessionId: self.$store.getters.getRoomIdSession
-            });
-          }
-        })
-        .render("#paypal-button-container2");
-    });
+    this.$loadScript("https://js.stripe.com/v3/").then(() => {
+      self.stripe = Stripe(this.getStripeToken);
+
+      self.elements = self.stripe.elements();
+      self.cardElement = self.elements.create('card', {
+
+      });
+      self.cardElement.mount('#card-element');
+    })
   }
 };
 </script>
@@ -88,7 +95,7 @@ export default {
 <style lang="less">
 @import "../../../../../../../styles/mixin.less";
 .payme-popup {
-  position: relative;
+  // position: relative;
   border-radius: 4px;
   background-color: #ffffff;
   -webkit-overflow-scrolling: touch;
