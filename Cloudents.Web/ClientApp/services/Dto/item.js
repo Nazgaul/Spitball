@@ -14,11 +14,12 @@ export const Item = {
       this.votes = !!objInit.vote ? objInit.vote.votes : null;
       this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
       this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
-      this.price = objInit.price;
+      this.price = objInit.price ? objInit.price.toFixed(0) : 0;
       this.preview = objInit.preview;
       this.purchased = objInit.purchased;
       this.title = objInit.title;
       this.documentType = objInit.documentType;
+      this.subscribed = objInit.subscribed
       this.template = 'result-note';
    },
    Video: function (objInit) {
