@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Stripe;
 using Stripe.Checkout;
@@ -14,31 +16,16 @@ namespace Cloudents.Infrastructure.Payments
             StripeConfiguration.ApiKey = "sk_test_Ihn6pkUZV9VFpDo7JWUGwT8700FAQ3Gbhf";
 
         }
-        public async Task GetEventsAsync(string sessionId)
+        public async Task<(string receipt, long points)> GetEventsAsync(string sessionId, CancellationToken token)
         {
-            var service = new EventService();
-            var options = new EventListOptions
-            {
-                Type = "checkout.session.completed",
-                
-                Created = new DateRangeOptions
-                {
-                    // Check for events created in the last 24 hours.
-                    GreaterThan = DateTime.Now.Subtract(new TimeSpan(1, 0, 0)),
-                },
-            };
-            
-
-            foreach (var stripeEvent in service.ListAutoPaging(options))
-            {
-                var session = stripeEvent.Data.Object as Session;
-
-                // Fulfill the purchase...
-               // handleCheckoutSession(session);
-            }
+            var service2 = new SessionService();
+            var sessionxx = await service2.GetAsync(sessionId);
+            var amountOfPoints = long.Parse(sessionxx.Metadata["Points"]);
+            var paymentId = sessionxx.PaymentIntentId;
+            return (paymentId, amountOfPoints);
         }
 
-        public async Task<string> BuyPointsAsync(string successCallback, string fallbackCallback)
+        public async Task<string> BuyPointsAsync(PointBundle bundle,string email, string successCallback, string fallbackCallback, CancellationToken token)
         {
 
             var options = new SessionCreateOptions
@@ -49,26 +36,24 @@ namespace Cloudents.Infrastructure.Payments
                 LineItems = new List<SessionLineItemOptions> {
                     new SessionLineItemOptions {
                         Name = "Buy Points on Spitball",
-                        //Description = "Comfortable cotton t-shirt",
-                        Amount = 500,
+                        Amount = (long)(bundle.PriceInUsd * 100),
                         Currency = "usd",
-                        Quantity = 1,
-                        
+                        Quantity = 1
                     },
                     
                 },
                 Metadata = new Dictionary<string, string>()
                 {
-                    ["Points"] = 100.ToString()
+                    ["Points"] = bundle.Points.ToString()
                 },
                     
                 SuccessUrl = successCallback,
                 CancelUrl = fallbackCallback,
-                CustomerEmail = "ram@cloudents.com"
+                CustomerEmail = email
             };
 
             var service = new SessionService();
-            var session = await service.CreateAsync(options);
+            var session = await service.CreateAsync(options, cancellationToken: token);
             return session.Id;
 
             //var options = new PaymentIntentCreateOptions

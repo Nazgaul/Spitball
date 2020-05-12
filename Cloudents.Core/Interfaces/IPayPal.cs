@@ -14,8 +14,10 @@ namespace Cloudents.Core.Interfaces
 
     public interface IStripeService
     {
-        Task<string> BuyPointsAsync(string successCallback, string fallbackCallback);
-        Task GetEventsAsync(string sessionId);
+        Task<string> BuyPointsAsync(PointBundle bundle, string email, string successCallback, string fallbackCallback,
+            CancellationToken token);
+
+        Task<(string receipt, long points)> GetEventsAsync(string sessionId, CancellationToken token);
 
         // Task Retrieve(string successCallback, string fallbackCallback);
     }

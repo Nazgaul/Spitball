@@ -101,7 +101,7 @@ namespace Cloudents.Infrastructure.Payments
                 return new GenerateSale()
                 {
                     CaptureBuyer = 0,
-                    SalePrice = (price.Price * 100),
+                    SalePrice = (price.PriceInILS * 100),
                     SaleReturnUrl = saleReturnUrl,
                     SellerPaymeId = sellerId,
                     ProductName = "עבור קניית נקודות בספיטבול"

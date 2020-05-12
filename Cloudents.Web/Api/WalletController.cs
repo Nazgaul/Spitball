@@ -17,11 +17,13 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 using Cloudents.Infrastructure.Payments;
 
 namespace Cloudents.Web.Api
@@ -94,7 +96,8 @@ namespace Cloudents.Web.Api
                 points = model.Points
             }, "https");
 
-            var result = await _payment.Value.BuyTokens(PointBundle.Parse(model.Points), urlReturn, token);
+            var bundle = Enumeration.FromValue<PointBundle>(model.Points);
+            var result = await _payment.Value.BuyTokens(bundle!, urlReturn, token);
             var saleUrl = new UriBuilder(result.SaleUrl);
             saleUrl.AddQuery(new NameValueCollection()
             {
@@ -219,38 +222,40 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpPost("PayPal/BuyTokens")]
-        public async Task<IActionResult> BuyTokensAsync(PayPalTransactionRequest model,
-            [FromServices] IPayPalService payPal, CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var (authorizationId, amountToCharge) = await payPal.AuthorizationOrderAsync(model.Id, token);
-            await payPal.CaptureAuthorizedOrderAsync(authorizationId, amountToCharge, default);
+        //[HttpPost("PayPal/BuyTokens")]
+        //public async Task<IActionResult> BuyTokensAsync(PayPalTransactionRequest model,
+        //    [FromServices] IPayPalService payPal, CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    var (authorizationId, amountToCharge) = await payPal.AuthorizationOrderAsync(model.Id, token);
+        //    await payPal.CaptureAuthorizedOrderAsync(authorizationId, amountToCharge, default);
 
-            var result = await payPal.GetPaymentAsync(model.Id, token);
-
-
-            var amount = result.ReferenceId switch
-            {
-                "points_1" => 100,
-                "points_2" => 500,
-                "points_3" => 1000,
-                _ => throw new ArgumentException(message: "invalid value")
-            };
+        //    var result = await payPal.GetPaymentAsync(model.Id, token);
 
 
-            var command = new TransferMoneyToPointsCommand(userId, amount, model.Id);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
+        //    var amount = result.ReferenceId switch
+        //    {
+        //        "points_1" => 100,
+        //        "points_2" => 500,
+        //        "points_3" => 1000,
+        //        _ => throw new ArgumentException(message: "invalid value")
+        //    };
+
+
+        //    var command = new TransferMoneyToPointsCommand(userId, amount, model.Id);
+        //    await _commandBus.DispatchAsync(command, token);
+        //    return Ok();
+        //}
         #endregion
 
-        [HttpGet("Stripe")]
+        [HttpPost("Stripe")]
         public async Task<IActionResult> GetStripe(
+            BuyPointsRequest model,
             [FromHeader(Name = "referer")] string referer,
-            [FromServices] IStripeService service)
+            [FromServices] IStripeService service,
+            CancellationToken token)
         {
-
+            var user = await _userManager.GetUserAsync(User);
             var uriBuilder = new UriBuilder(referer)
             {
                 Query = string.Empty
@@ -259,10 +264,10 @@ namespace Cloudents.Web.Api
             {
                 redirectUrl = uriBuilder.ToString()
             }, "https"));
-
+            var bundle = Enumeration.FromValue<PointBundle>(model.Points);
             var successCallback = url.AddQuery(("sessionId", "{CHECKOUT_SESSION_ID}"), false).ToString();
 
-            var result = await service.BuyPointsAsync(successCallback, referer);
+            var result = await service.BuyPointsAsync(bundle!, user.Email, successCallback, referer, token);
             return Ok(new
             {
                 sessionId = result

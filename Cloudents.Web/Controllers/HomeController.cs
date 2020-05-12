@@ -148,7 +148,7 @@ namespace Cloudents.Web.Controllers
         }
 
 
-        [Route("us-buy-points", Name = "stripe-buy-points"), Authorize]
+        [Route("BuyPoints", Name = "stripe-buy-points"), Authorize]
         public async Task<IActionResult> StripeCallbackBuyPointsAsync(
             string redirectUrl, string sessionId,
             [FromServices] IStripeService stripeService,
@@ -156,38 +156,12 @@ namespace Cloudents.Web.Controllers
             [FromServices] UserManager<User> userManager,
             CancellationToken token)
         {
-            var v = Url.IsLocalUrl(redirectUrl);
-            await stripeService.GetEventsAsync(sessionId);
+            var (receipt, points) = await stripeService.GetEventsAsync(sessionId,token);
 
             var userId = userManager.GetLongUserId(User);
-            //var command = new TransferMoneyToPointsCommand(userId, amount, sessionId);
-            //await commandBus.DispatchAsync(command, token);
+            var command = new TransferMoneyToPointsCommand(userId, points, receipt);
+            await commandBus.DispatchAsync(command, token);
             return Redirect(redirectUrl);
         }
-
-
-        //[Route("google")]
-        //public async Task<RedirectToActionResult> GoogleSigninAndroidAsync(string token,
-        //    [FromServices] IGoogleAuth service,
-        //    [FromServices] IDataProtectionProvider dataProtectProvider,
-        //    CancellationToken cancellationToken
-        //    )
-        //{
-        //    var result = await service.LogInAsync(token, cancellationToken);
-        //    if (result == null)
-        //    {
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, true, true);
-
-        //    var user2 = await _userManager.FindByEmailAsync(result.Email);
-        //    var dataProtector = dataProtectProvider.CreateProtector("Spitball").ToTimeLimitedDataProtector();
-        //    var code = dataProtector.Protect(user2.Id.ToString(), DateTimeOffset.UtcNow.AddDays(5));
-        //    return RedirectToAction("Index", new
-        //    {
-        //        token = code
-        //    });
-        //}
     }
 }
