@@ -8,7 +8,7 @@
          :height="footerExtend ? 124 : 12"
          class="pa-0 studyRoomFooter"
       >
-         <button class="collapseBtnFooter" @click="footerExtend = !footerExtend">
+         <button class="pb-1 collapseBtnFooter" @click="footerExtend = !footerExtend">
             <v-icon v-if="footerExtend">sbf-arrow-down</v-icon>
             <v-icon v-else>sbf-arrow-up</v-icon>
          </button>
@@ -57,7 +57,7 @@ export default {
    .studyRoomFooter {
       .collapseBtnFooter{
          position: absolute;
-         top: -24px;
+         top: -22px;
          right: 46px;
          width: 30px;
          height: 30px;
