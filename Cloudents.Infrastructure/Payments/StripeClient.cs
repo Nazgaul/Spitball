@@ -11,6 +11,10 @@ namespace Cloudents.Infrastructure.Payments
 {
     public class StripeClient : IStripeService
     {
+        public StripeClient(IConfigurationKeys configuration)
+        {
+            StripeConfiguration.ApiKey = configuration.Stripe;
+        }
         static StripeClient()
         {
             StripeConfiguration.ApiKey = "sk_test_Ihn6pkUZV9VFpDo7JWUGwT8700FAQ3Gbhf";
@@ -25,7 +29,7 @@ namespace Cloudents.Infrastructure.Payments
             return (paymentId, amountOfPoints);
         }
 
-        public async Task<string> BuyPointsAsync(PointBundle bundle,string email, string successCallback, string fallbackCallback, CancellationToken token)
+        public async Task<string> BuyPointsAsync(PointBundle bundle, string email, string successCallback, string fallbackCallback, CancellationToken token)
         {
 
             var options = new SessionCreateOptions
@@ -40,13 +44,13 @@ namespace Cloudents.Infrastructure.Payments
                         Currency = "usd",
                         Quantity = 1
                     },
-                    
+
                 },
                 Metadata = new Dictionary<string, string>()
                 {
                     ["Points"] = bundle.Points.ToString()
                 },
-                    
+
                 SuccessUrl = successCallback,
                 CancelUrl = fallbackCallback,
                 CustomerEmail = email
