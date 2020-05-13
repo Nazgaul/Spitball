@@ -130,7 +130,7 @@
     <value>Secure payment processing</value>
   </data>
   <data name="content_txt_time" xml:space="preserve">
-    <value>Pay only once your lesson is complete</value>
+    <value>Spitball will authorize the payment at the start of your lesson</value>
   </data>
   <data name="top_title" xml:space="preserve">
     <value>Convenient, cashless payments</value>
