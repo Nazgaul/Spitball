@@ -108,7 +108,6 @@ export default {
       menuListNotLogged: [
         { title: 'header_find_tutors', icon: 'sbf-account-group', route: { name: routeNames.TutorList } },
         { title: 'profile_become_title', icon: 'sbf-find', url: 'https://teach.spitball.co/', notShowFrymo: true },
-        { title: 'menuList_my_study_rooms', icon: 'sbf-pc', route: { name: routeNames.StudyRoom } },
         { title: 'menuList_help', icon: 'sbf-help', url: satelliteService.getSatelliteUrlByName('faq') },
         { title: 'menuList_about_spitball',  icon: 'sbf-about', url: satelliteService.getSatelliteUrlByName('about') },
         { title: 'menuList_terms_of_service', icon: 'sbf-terms', url: satelliteService.getSatelliteUrlByName('terms') },
