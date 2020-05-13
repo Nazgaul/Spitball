@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="btn_share_screen" xml:space="preserve">
-    <value>שתף מסך</value>
+    <value>שיתוף מסך</value>
   </data>
   <data name="btn_stop_sharing" xml:space="preserve">
     <value>הפסק שיתוף מסך</value>
@@ -160,7 +160,7 @@
     <value>עורך קוד</value>
   </data>
   <data name="nav_text" xml:space="preserve">
-    <value>עורך טקסט</value>
+    <value>מסמך</value>
   </data>
   <data name="option_fullBoard" xml:space="preserve">
     <value>הצג לוח</value>
