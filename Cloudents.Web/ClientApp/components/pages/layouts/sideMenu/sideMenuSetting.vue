@@ -13,7 +13,6 @@
       <sideMenuListItem sel="sidemenu_settings_myCourses" :dashboardProps="settingProps" :item="myCoursesItem"/>
       <template v-if="isTutor">
          <sideMenuListItem sel="sidemenu_settings_myCalendar" :dashboardProps="settingProps" :item="myCalendarItem"/>
-         <sideMenuListItem sel="sidemenu_settings_testStudyRoom" :dashboardProps="settingProps" :item="testStudyRoomItem"/>
       </template>
    </v-list-group>
 </template>
@@ -29,7 +28,6 @@ export default {
          myProfileItem:{name: this.$t('schoolBlock_profile'),route: routeNames.Profile, icon:'sbf-user',sel:'sd_profile'},
          myCoursesItem:{name: this.$t('schoolBlock_courses'),route: routeNames.EditCourse, icon:'sbf-classes-icon', sel:'sd_edit_course'},
          myCalendarItem:{name: this.$t('schoolBlock_calendar'),route: routeNames.MyCalendar, icon:'sbf-calendar', sel:'sd_calendar'},
-         testStudyRoomItem:{name: this.$t('menuList_my_study_rooms'),route: routeNames.StudyRoom, icon:'sbf-pc',sel:'menu_row'},
       }
    },
    props:{

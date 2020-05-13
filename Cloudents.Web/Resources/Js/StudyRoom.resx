@@ -132,11 +132,41 @@
   <data name="boxs_top" xml:space="preserve">
     <value>Click anywhere to start drawing</value>
   </data>
+  <data name="chat" xml:space="preserve">
+    <value>Chat</value>
+  </data>
   <data name="created" xml:space="preserve">
     <value>Created on</value>
   </data>
+  <data name="end" xml:space="preserve">
+    <value>End</value>
+  </data>
   <data name="equation_btn" xml:space="preserve">
     <value>Add equation to the board</value>
+  </data>
+  <data name="live" xml:space="preserve">
+    <value>Live</value>
+  </data>
+  <data name="menu_help" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="menu_settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="nav_class" xml:space="preserve">
+    <value>Class</value>
+  </data>
+  <data name="nav_code" xml:space="preserve">
+    <value>Code Editor</value>
+  </data>
+  <data name="nav_screen" xml:space="preserve">
+    <value>Share Screen</value>
+  </data>
+  <data name="nav_text" xml:space="preserve">
+    <value>Text Editor</value>
+  </data>
+  <data name="nav_whiteboard" xml:space="preserve">
+    <value>Whiteboard</value>
   </data>
   <data name="not_browser" xml:space="preserve">
     <value>Browser not supported</value>
@@ -147,11 +177,29 @@
   <data name="premission_denied" xml:space="preserve">
     <value>You need to update your settings to enable screen sharing - &lt;a style="color:black" href="{0}" target="_Blank"&gt;more info&lt;/a&gt;</value>
   </data>
+  <data name="start_present" xml:space="preserve">
+    <value>Present now</value>
+  </data>
+  <data name="start_present_student" xml:space="preserve">
+    <value>Teacher presentation will be shown here in a few minutes</value>
+  </data>
+  <data name="start_present_text" xml:space="preserve">
+    <value>You are not presenting</value>
+  </data>
+  <data name="stop_present" xml:space="preserve">
+    <value>Stop presenting</value>
+  </data>
+  <data name="stop_present_text" xml:space="preserve">
+    <value>You are presenting to everyone</value>
+  </data>
   <data name="toaster_added_to_room" xml:space="preserve">
     <value>A student has entered the room</value>
   </data>
   <data name="toaster_left_the_room" xml:space="preserve">
     <value>A student has left the room</value>
+  </data>
+  <data name="user_preview_you" xml:space="preserve">
+    <value>You</value>
   </data>
   <data name="video" xml:space="preserve">
     <value>Video</value>
