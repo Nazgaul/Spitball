@@ -184,7 +184,7 @@
     <value>Teacher presentation will be shown here in a few minutes</value>
   </data>
   <data name="start_present_text" xml:space="preserve">
-    <value>You are’t presenting</value>
+    <value>You are not presenting</value>
   </data>
   <data name="stop_present" xml:space="preserve">
     <value>Stop presenting</value>
