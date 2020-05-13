@@ -74,7 +74,7 @@ export default {
       .collapseBtnFooter{
          position: absolute;
          top: -22px;
-         right: 46px;
+         right: 0;
          width: 30px;
          height: 30px;
          border-radius: 8px;
