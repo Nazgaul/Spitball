@@ -8,7 +8,7 @@ namespace Cloudents.Query.Admin
 {
     public class ConversationDetailsQuery : IQueryAdmin<IEnumerable<ConversationDetailsDto>>
     {
-        public ConversationDetailsQuery(string id, string country)
+        public ConversationDetailsQuery(string id, string? country)
         {
             Id = id;
             Country = country;

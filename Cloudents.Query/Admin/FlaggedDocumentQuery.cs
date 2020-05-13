@@ -42,8 +42,8 @@ namespace Cloudents.Query.Admin
                 .Select(s => new FlaggedDocumentDto
                 {
                     Id = s.Id,
-                    Reason = s.Status.FlagReason,
-                    FlaggedUserEmail = s.Status.FlaggedUser.Email
+                    Reason = s.Status.FlagReason!,
+                    FlaggedUserEmail = s.Status.FlaggedUser!.Email
                 }).ToListAsync(token);
             }
         }

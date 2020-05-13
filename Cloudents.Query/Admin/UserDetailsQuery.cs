@@ -62,9 +62,7 @@ namespace Cloudents.Query.Admin
                     EmailConfirmed = s.EmailConfirmed,
                     LastOnline = s.LastOnline,
                     LockoutReason = s.LockoutReason,
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                    TutorState = s.Tutor.State,
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+                    TutorState = s.Tutor!.State,
                     PaymentExists = s.PaymentExists == PaymentStatus.Done,
                     TutorPrice = s.Tutor.Price.SubsidizedPrice ?? s.Tutor.Price.Price,
                     CalendarExists = _session.Query<GoogleTokens>().Any(w => w.Id == s.Id.ToString()),
