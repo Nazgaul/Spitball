@@ -153,8 +153,8 @@ export default {
          video {
             width: 100%;
             height: 100%;
-            // object-fit: cover;
-            // object-position: center;
+            object-fit: cover;
+            object-position: center;
          }
            video::-webkit-media-controls-enclosure {
               display: none !important;
