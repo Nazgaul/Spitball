@@ -153,6 +153,9 @@
   <data name="done_btn" xml:space="preserve">
     <value>סיום</value>
   </data>
+  <data name="free" xml:space="preserve">
+    <value>חינם</value>
+  </data>
   <data name="full_view" xml:space="preserve">
     <value>מסך מלא</value>
   </data>
