@@ -51,7 +51,12 @@ export default {
         window.location = '/'
       }
     }
-  }
+  },
+  mounted() {
+    if(!this.$store.getters.accountUser?.id){
+      this.$store.commit('setComponent', 'login');
+    }
+  },
 }
 </script>
 

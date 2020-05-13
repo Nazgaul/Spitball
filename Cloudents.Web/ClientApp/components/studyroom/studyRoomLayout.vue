@@ -13,7 +13,7 @@
       <floatingVideoContainer v-if="!isRoomTutor" :isShowFloatingVideo="isShowFloatingVideo" :isFooter="isFooterExtendReference"/>
     </template>
 
-    <studyRoomSettingsDialog v-if="id && !isRoomActive"/>
+    <studyRoomSettingsDialog v-if="!isRoomActive"/>
     <studyRoomDialogs/>
   </div>
 </template>
@@ -132,8 +132,6 @@ export default {
       global.onbeforeunload = function() {     
         return "Are you sure you want to close the window?";
       };
-    }else{
-      this.$store.commit('setComponent', 'login');
     }
   },
   beforeDestroy() {
