@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
@@ -80,6 +81,40 @@ namespace Cloudents.Infrastructure.Payments
             return intent.ClientSecret;
         }
 
+        public async Task CreateProductAsync(Tutor tutor, decimal price, CancellationToken token)
+        {
+            var productOptions = new ProductCreateOptions
+            {
+                Name = $"Subscription With {tutor.User.Name}",
+                Metadata = new Dictionary<string, string>()
+                {
+                    ["Id"] = tutor.Id.ToString()
+                },
+
+            };
+            var productService = new ProductService();
+            var product = await productService.CreateAsync(productOptions, cancellationToken: token);
+            var options = new PriceCreateOptions
+            {
+                Currency = "usd",
+                Recurring = new PriceRecurringOptions
+                {
+                    Interval = "month",
+                },
+                UnitAmount = (long)(price * 100),
+            };
+
+            options.AssignProduct(product.Id);
+
+            var service = new PriceService();
+            await service.CreateAsync(options, cancellationToken: token);
+
+
+
+        }
+
+       
+
         private async Task<Customer?> RetrieveCustomerAsync(string email, CancellationToken token)
         {
             var options = new CustomerListOptions()
@@ -92,59 +127,13 @@ namespace Cloudents.Infrastructure.Payments
             return result.Data.FirstOrDefault();
         }
 
-        public async Task<string?> RetrieveCustomerIdAsync(string email, CancellationToken token)
+        private async Task<string?> RetrieveCustomerIdAsync(string email, CancellationToken token)
         {
             var result = await RetrieveCustomerAsync(email, token);
             return result?.Id;
         }
 
-        public async Task ChargeTheBastard()
-        {
-            var customerId = await RetrieveCustomerIdAsync("ram@cloudents.com", default);
-            var optionsX = new PaymentMethodListOptions
-            {
-                Customer = customerId,
-                Type = "card",
-            };
-
-            var service2 = new PaymentMethodService();
-            var x = await service2.ListAsync(optionsX);
-            var z = x.Data.FirstOrDefault();
-
-
-
-            //try
-            //{
-            var service = new PaymentIntentService();
-            var options = new PaymentIntentCreateOptions
-            {
-                Amount = 20 * 100,
-                Currency = "usd",
-                Customer = customerId,
-                PaymentMethod = z.Id,
-                Confirm = true,
-                OffSession = true,
-            };
-            service.Create(options);
-            //}
-            //catch (StripeException e)
-            //{
-            //    switch (e.StripeError.ErrorType)
-            //    {
-            //        case "card_error":
-            //            // Error code will be authentication_required if authentication is needed
-            //            Console.WriteLine("Error code: " + e.StripeError.Code);
-            //            var paymentIntentId = e.StripeError.PaymentIntent.Id;
-            //            var service = new PaymentIntentService();
-            //            var paymentIntent = service.Get(paymentIntentId);
-
-            //            Console.WriteLine(paymentIntent.Id);
-            //            break;
-            //        default:
-            //            break;
-            //    }
-            //}
-        }
+       
 
         public async Task<string> BuyPointsAsync(PointBundle bundle, string email, string successCallback, string fallbackCallback, CancellationToken token)
         {
@@ -228,6 +217,19 @@ namespace Cloudents.Infrastructure.Payments
         public Task<string> ChargeSessionBySpitballAsync(Tutor tutor, decimal price, CancellationToken token)
         {
             throw new NotImplementedException("We do not support this feature");
+        }
+
+
+
+
+    }
+
+    public static class PriceCreateOptionsExtensions
+    {
+        public static void AssignProduct(this PriceCreateOptions options, string productId)
+        {
+            var prop = options.GetType().GetProperty("Product", BindingFlags.NonPublic |BindingFlags.Instance);
+            prop.SetValue(options, productId);
         }
     }
 }
