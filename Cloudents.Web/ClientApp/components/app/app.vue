@@ -1,5 +1,5 @@
 ﻿<template>
-<div>
+<div class="d-flex flex-column">
     <!-- <component :is="layout"></component> -->
     <router-view name="banner"></router-view>
     <router-view name="header"></router-view>
