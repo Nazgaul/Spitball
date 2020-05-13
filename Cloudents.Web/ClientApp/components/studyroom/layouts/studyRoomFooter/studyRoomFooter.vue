@@ -5,8 +5,9 @@
          color="#212123"
          inset
          fixed
-         :height="footerExtend ? 124 : 12"
-         class="pa-0 py-3 pl-2 studyRoomFooter"
+         :height="footerExtend ? 124 : 0"
+         class="pa-0 pl-2 studyRoomFooter"
+         :class="{'py-3':footerExtend}"
       >
          <button class="pb-1 collapseBtnFooter" @click="footerExtend = !footerExtend">
             <v-icon v-if="footerExtend">sbf-arrow-down</v-icon>
