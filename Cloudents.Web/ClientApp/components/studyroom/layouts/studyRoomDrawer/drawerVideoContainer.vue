@@ -148,7 +148,11 @@ export default {
          return this.$store.getters.getRoomIsTutor;
       },
       tutorAudioTrack(){
-         return this.getRoomTutorParticipant?.audio;
+         if(!this.isRoomTutor){
+            return this.getRoomTutorParticipant?.audio;
+         }else{
+            return null
+         }
       },
       tutorVideoTrack(){
          return this.getRoomTutorParticipant?.video;

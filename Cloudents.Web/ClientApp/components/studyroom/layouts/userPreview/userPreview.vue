@@ -117,6 +117,8 @@ export default {
          this.$store.dispatch("updateAudioToggle");
       },
       handleAudioTrack(participant){
+         if(this.isCurrentParticipant) return; //user dont need his audio only the remote need
+
          if(participant.audio){
             if(this.audioTrack){
                return;

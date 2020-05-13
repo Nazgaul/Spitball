@@ -89,7 +89,11 @@ export default {
          return this.getRoomTutorParticipant?.video;
       },
       tutorAudioTrack(){
-         return this.getRoomTutorParticipant?.audio;
+         if(!this.isRoomTutor){
+            return this.getRoomTutorParticipant?.audio;
+         }else{
+            return null
+         }
       },
       isVideoActive() {
          return this.$store.getters.getIsVideoActive;
