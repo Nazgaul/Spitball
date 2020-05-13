@@ -224,24 +224,38 @@ namespace ConsoleApp
             var statelessSession = Container.Resolve<IStatelessSession>();
             var dbResult = await statelessSession.Query<StudyRoomSession>()
                 .Where(w => w.StudyRoomVersion == StudyRoomSession.StudyRoomNewVersion)
+                .Where(w=>w.Duration > StudyRoomSession.BillableStudyRoomSession)
                 .Where(w => !statelessSession.Query<StudyRoomSessionUser>().Any(w2 => w2.StudyRoomSession.Id == w.Id))
+                .OrderByDescending(o=>o.Created)
                 .ToListAsync();
 
             foreach (var studyRoomSession in dbResult)
             {
                 var sessionId = studyRoomSession.SessionId;
                 var roomId = studyRoomSession.StudyRoom.Id;
-                var result = await x.GetRoomParticipantInfoAsync(sessionId);
-                foreach (var (identity, duration) in result)
+                var result = (await x.GetRoomParticipantInfoAsync(sessionId)).ToList();
+
+                var distinctUsers = result.GroupBy(g => g.identity).Select(s => s.Key).Count();
+
+                var countOfUsers = await statelessSession.Query<StudyRoomUser>().Where(w => w.Room.Id == roomId).Select(s=>s.User.Id).ToListAsync();
+                if (distinctUsers != countOfUsers.Count)
                 {
-                    var command = new StudyRoomSessionUserConnectedCommand(roomId, sessionId, identity);
-                    await commandBus.DispatchAsync(command, default);
-
-
-                    var command2 = new StudyRoomSessionUserDisconnectedCommand(roomId, sessionId, identity, duration);
-
-                    await commandBus.DispatchAsync(command2, default);
+                    Console.WriteLine("HEYYY");
                 }
+                if (distinctUsers == 1)
+                {
+                    continue;
+                }
+                //foreach (var (identity, duration) in result)
+                //{
+                //    var command = new StudyRoomSessionUserConnectedCommand(roomId, sessionId, identity);
+                //    await commandBus.DispatchAsync(command, default);
+
+
+                //    var command2 = new StudyRoomSessionUserDisconnectedCommand(roomId, sessionId, identity, duration);
+
+                //    await commandBus.DispatchAsync(command2, default);
+                //}
             }
         }
 
