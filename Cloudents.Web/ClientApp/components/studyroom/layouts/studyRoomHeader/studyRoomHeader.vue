@@ -1,14 +1,12 @@
 <template>
    <v-app-bar height="62" app clipped-right color="#4c59ff" class="studyRoomHeader elevation-0">
-      <div dir="ltr" class="d-flex align-center">
-         <a class="headerLogo" @click="resetItems()">
-            <logoComponent/>
-         </a>
-         <div class="roundShape"></div>
-         <v-toolbar-title class="white--text">
-            <span class="liveText">{{$t('studyRoom_live')}}</span>
-         </v-toolbar-title>            
-      </div>
+      <a @click="resetItems()">
+         <logoComponent/>
+      </a>
+      <div class="roundShape"></div>
+      <v-toolbar-title class="white--text mr-7">
+         <span class="liveText">{{$t('studyRoom_live')}}</span>
+         </v-toolbar-title>
       <!-- <v-divider class="ml-3 divider" vertical inset color="white"></v-divider> -->
 
       <!-- <v-btn-toggle v-if="isRoomTutor" mandatory :value="getIsCurrentMode(currentEditorMode)" :ripple="false" active-class="editorActive"  borderless group class="editors">
@@ -203,26 +201,6 @@ export default {
    }
 }
    .studyRoomHeader {
-      .headerLogo{
-         margin-left: 0/*rtl:28px*/; ;
-      }
-      .roundShape {
-         width: 8px;
-         height: 8px;
-         background-color: #fff;
-         border-radius: 50%;
-         margin: 0 5px 2px 2px /*rtl:ignore */;
-      }
-      .v-toolbar__title{
-         flex-shrink: 0;
-         flex-grow: 0;
-         margin-right: 28px/*rtl:0*/;
-         .liveText{
-            font-size: 22px;
-            font-weight: 600;
-            vertical-align: super;
-         }
-      }
       .v-toolbar__content{
          padding-bottom: 0;
          padding-top: 10px;
@@ -309,6 +287,21 @@ export default {
          margin-top: 9px;
          height: 30px;
       }
-
+      .roundShape {
+         width: 8px;
+         height: 8px;
+         background-color: #fff;
+         border-radius: 50%;
+         margin: 0 5px 2px 2px;
+      }
+      .v-toolbar__title{
+         flex-shrink: 0;
+         flex-grow: 0;
+      }
+      .liveText{
+         font-size: 22px;
+         font-weight: 600;
+         vertical-align: super;
+      }
    }
 </style>
