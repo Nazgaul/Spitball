@@ -402,6 +402,7 @@ namespace Cloudents.Core.Entities
         public virtual void DeleteUserPayment()
         {
             BuyerPayment = null;
+            Payment = null;
             PaymentExists = PaymentStatus.None;
         }
 
