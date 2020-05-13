@@ -458,7 +458,7 @@ watch: {
     if(this.isTutor) {
       this.$store.commit('setComponent', 'linkToaster') 
     }
-    global.onbeforeunload = function() { };
+    // global.onbeforeunload = function() { };
   },
   beforeDestroy(){
     this.$store.dispatch('updateResetRoom');

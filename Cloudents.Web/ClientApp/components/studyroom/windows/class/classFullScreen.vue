@@ -89,7 +89,11 @@ export default {
          return this.getRoomTutorParticipant?.video;
       },
       tutorAudioTrack(){
-         return this.getRoomTutorParticipant?.audio;
+         if(!this.isRoomTutor){
+            return this.getRoomTutorParticipant?.audio;
+         }else{
+            return null
+         }
       },
       isVideoActive() {
          return this.$store.getters.getIsVideoActive;
@@ -153,8 +157,8 @@ export default {
          video {
             width: 100%;
             height: 100%;
-            // object-fit: cover;
-            // object-position: center;
+            object-fit: cover;
+            object-position: center;
          }
            video::-webkit-media-controls-enclosure {
               display: none !important;

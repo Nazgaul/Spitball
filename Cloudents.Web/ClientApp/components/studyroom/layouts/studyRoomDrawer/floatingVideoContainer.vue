@@ -77,6 +77,7 @@ export default {
 </script>
 <style lang="less">
    #floatingVideoContainer{
+      z-index: 5;//code editor issue
       border-radius: 50%;
       box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.26);
       position: fixed;

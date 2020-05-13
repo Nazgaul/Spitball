@@ -1,12 +1,14 @@
 <template>
    <v-app-bar height="62" app clipped-right color="#4c59ff" class="studyRoomHeader elevation-0">
-      <a @click="resetItems()">
-         <logoComponent/>
-      </a>
-      <div class="roundShape"></div>
-      <v-toolbar-title class="white--text mr-7">
-         <span class="liveText">{{$t('studyRoom_live')}}</span>
-         </v-toolbar-title>
+      <div dir="ltr" class="d-flex align-center">
+         <a class="headerLogo" @click="resetItems()">
+            <logoComponent/>
+         </a>
+         <div class="roundShape"></div>
+         <v-toolbar-title class="white--text">
+            <span class="liveText">{{$t('studyRoom_live')}}</span>
+         </v-toolbar-title>            
+      </div>
       <!-- <v-divider class="ml-3 divider" vertical inset color="white"></v-divider> -->
 
       <!-- <v-btn-toggle v-if="isRoomTutor" mandatory :value="getIsCurrentMode(currentEditorMode)" :ripple="false" active-class="editorActive"  borderless group class="editors">
@@ -49,10 +51,10 @@
                <span>{{$t($store.getters.getIsAudioParticipants?'tutor_mute_room':'tutor_unmute_room')}}</span>
             </div>
          </v-btn>
-         <v-btn class="endBtn mb-2" rounded depressed  @click="endSession()">
+         <button class="endBtn mb-2" @click="endSession()">
             <div class="btnIcon"></div>
             <span>{{$t('studyRoom_end')}}</span>
-         </v-btn>
+         </button>
       </template>
       <v-menu offset-y min-width="158" content-class="menuStudyRoom">
          <template v-slot:activator="{ on }">
@@ -193,6 +195,7 @@ export default {
 }
 </script>
 <style lang="less">
+@import '../../../../styles/mixin.less';
 .menuStudyRoom{
    .menuStudyRoomOption{
       font-size: 14px;
@@ -200,6 +203,26 @@ export default {
    }
 }
    .studyRoomHeader {
+      .headerLogo{
+         margin-left: 0/*rtl:28px*/; ;
+      }
+      .roundShape {
+         width: 8px;
+         height: 8px;
+         background-color: #fff;
+         border-radius: 50%;
+         margin: 0 5px 2px 2px /*rtl:ignore */;
+      }
+      .v-toolbar__title{
+         flex-shrink: 0;
+         flex-grow: 0;
+         margin-right: 28px/*rtl:0*/;
+         .liveText{
+            font-size: 22px;
+            font-weight: 600;
+            vertical-align: super;
+         }
+      }
       .v-toolbar__content{
          padding-bottom: 0;
          padding-top: 10px;
@@ -216,6 +239,10 @@ export default {
          color: white;
          height: 50px;
          min-width: 130px;
+         @media(max-width: @screen-md){
+            min-width: initial;
+         }
+
          // padding: 0 28px;
          // width: 130px;
 
@@ -246,12 +273,16 @@ export default {
          height: 36px;
       }
       .endBtn{
+         background: white;
          height: 36px;
          border-radius: 18.5px;
          padding: 0 18px;
          color: #4c59ff;
          font-size: 14px;
          font-weight: 600;
+         display: flex;
+         align-items: center;
+         outline: none;
          .btnIcon{
             width: 14px;
             height: 14px;
@@ -278,21 +309,6 @@ export default {
          margin-top: 9px;
          height: 30px;
       }
-      .roundShape {
-         width: 8px;
-         height: 8px;
-         background-color: #fff;
-         border-radius: 50%;
-         margin: 0 5px 2px 2px;
-      }
-      .v-toolbar__title{
-         flex-shrink: 0;
-         flex-grow: 0;
-      }
-      .liveText{
-         font-size: 22px;
-         font-weight: 600;
-         vertical-align: super;
-      }
+
    }
 </style>

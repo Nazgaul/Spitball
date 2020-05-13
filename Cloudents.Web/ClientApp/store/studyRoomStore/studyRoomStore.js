@@ -276,9 +276,10 @@ const actions = {
          commit(studyRoom_SETTERS.DIALOG_END_SESSION, false)
       })
    },
-   updateResetRoom({ commit }) {
+   updateResetRoom({dispatch, commit }) {
       commit(studyRoom_SETTERS.ROOM_ACTIVE, false);
       commit(studyRoom_SETTERS.ROOM_RESET)
+      dispatch('updateReviewDialog',false)
    },
    updateCreateStudyRoom({getters,commit},params){
       return studyRoomService.createRoom(params).then(({data})=>{

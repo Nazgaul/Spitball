@@ -138,6 +138,7 @@ export default {
   },
   beforeDestroy() {
     this.$store.dispatch('updateResetRoom');
+    global.onbeforeunload = function() { };
   },
 };
 </script>
