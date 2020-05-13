@@ -98,6 +98,9 @@ export default {
             width: 100%;
             margin-top: 14px;
             overflow-y: hidden;
+            .messages-container{
+               height: initial;
+            }
             .messages-body{
                padding-bottom: 0;
                margin-bottom: 0;
