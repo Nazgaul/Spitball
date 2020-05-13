@@ -144,6 +144,12 @@
   <data name="equation_btn" xml:space="preserve">
     <value>הוסף משוואה ללוח</value>
   </data>
+  <data name="menu_help" xml:space="preserve">
+    <value>עזרה</value>
+  </data>
+  <data name="menu_settings" xml:space="preserve">
+    <value>הגדרות</value>
+  </data>
   <data name="nav_class" xml:space="preserve">
     <value>כיתת הלימוד</value>
   </data>
