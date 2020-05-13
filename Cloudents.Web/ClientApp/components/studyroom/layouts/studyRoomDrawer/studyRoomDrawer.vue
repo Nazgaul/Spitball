@@ -141,7 +141,7 @@ export default {
          background: #ffffff;
          width: 32px;
          height: 32px;
-         top: 10px;
+         top: 0;
          z-index: 1;
          border-top-left-radius: 8px;
          border-bottom-left-radius: 8px;
