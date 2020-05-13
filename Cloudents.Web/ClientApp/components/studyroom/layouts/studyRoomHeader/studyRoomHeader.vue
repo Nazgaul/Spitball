@@ -49,10 +49,10 @@
                <span>{{$t($store.getters.getIsAudioParticipants?'tutor_mute_room':'tutor_unmute_room')}}</span>
             </div>
          </v-btn>
-         <v-btn class="endBtn mb-2" rounded depressed  @click="endSession()">
+         <button class="endBtn mb-2" @click="endSession()">
             <div class="btnIcon"></div>
             <span>{{$t('studyRoom_end')}}</span>
-         </v-btn>
+         </button>
       </template>
       <v-menu offset-y min-width="158" content-class="menuStudyRoom">
          <template v-slot:activator="{ on }">
@@ -193,6 +193,7 @@ export default {
 }
 </script>
 <style lang="less">
+@import '../../../../styles/mixin.less';
 .menuStudyRoom{
    .menuStudyRoomOption{
       font-size: 14px;
@@ -216,6 +217,10 @@ export default {
          color: white;
          height: 50px;
          min-width: 130px;
+         @media(max-width: @screen-md){
+            min-width: initial;
+         }
+
          // padding: 0 28px;
          // width: 130px;
 
@@ -246,12 +251,16 @@ export default {
          height: 36px;
       }
       .endBtn{
+         background: white;
          height: 36px;
          border-radius: 18.5px;
          padding: 0 18px;
          color: #4c59ff;
          font-size: 14px;
          font-weight: 600;
+         display: flex;
+         align-items: center;
+         outline: none;
          .btnIcon{
             width: 14px;
             height: 14px;
