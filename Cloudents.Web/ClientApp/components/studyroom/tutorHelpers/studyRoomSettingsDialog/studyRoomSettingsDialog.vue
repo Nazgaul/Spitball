@@ -47,7 +47,8 @@ export default {
       if(isExit){
         this.$ga.event("tutoringRoom", 'resetItems');
         this.closeDialog()
-        this.$router.push('/');
+        global.onbeforeunload = function() { };
+        window.location = '/'
       }
     }
   }

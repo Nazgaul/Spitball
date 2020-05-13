@@ -147,7 +147,8 @@ export default {
          let isExit = confirm(this.$t("login_are_you_sure_you_want_to_exit"),)
          if(isExit){
          this.$ga.event("tutoringRoom", 'resetItems');
-         this.$router.push('/');
+         global.onbeforeunload = function() { };
+         window.location = '/'
          }
       },
       setWhiteboard() {
