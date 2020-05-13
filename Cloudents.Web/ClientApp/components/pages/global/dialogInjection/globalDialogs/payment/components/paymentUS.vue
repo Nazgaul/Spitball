@@ -21,9 +21,6 @@
       </v-layout>
     </div>
     <div class="stripeWrapper mx-auto my-4">
-      <div class="stripeLabel">
-        <span v-t="'payment_pay_with_card'"></span>
-      </div>
       <div id="card-stripe"></div>
       <div class="text-center mt-8">
         <v-btn @click="stripePay" :loading="isLoading" class="white--text" width="120" color="#4c59ff" rounded depressed>pay</v-btn>
@@ -215,17 +212,6 @@ export default {
   .stripeWrapper {
     position: relative;
     width: 400px;
-    .stripeLabel {
-    position: absolute; 
-    top: -10px;
-    width: 100%;
-    text-align: center;
-      span {
-        color: @global-purple;
-        background: #fff;
-        padding: 6px 10px;
-      }
-    }
     #card-stripe {
       border: 1px solid #e5e5e5;
       border-radius: 6px;
