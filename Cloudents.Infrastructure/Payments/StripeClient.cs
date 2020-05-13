@@ -226,6 +226,7 @@ namespace Cloudents.Infrastructure.Payments
 
     public static class PriceCreateOptionsExtensions
     {
+        //Product is internal - maybe they'll fix them on future versions
         public static void AssignProduct(this PriceCreateOptions options, string productId)
         {
             var prop = options.GetType().GetProperty("Product", BindingFlags.NonPublic |BindingFlags.Instance);
