@@ -62,8 +62,8 @@ export default {
       overflow: initial; // to let the collapse btn to show
       box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.11);
       &.v-navigation-drawer{
-         left: auto !important;
-         right: 0 !important;
+         left: auto !important /*rtl:ignore */;
+         right: 0 !important /*rtl:ignore */;
       }
       .drawerContent{
          &.hiddenDrawer{
@@ -137,14 +137,14 @@ export default {
       }
       .collapseBtnDrawer{
          position: absolute;
-         left: -26px;
+         left: -26px/*rtl:ignore */;
          background: #ffffff;
          width: 32px;
          height: 32px;
          top: 0;
          z-index: 1;
-         border-top-left-radius: 8px;
-         border-bottom-left-radius: 8px;
+         border-top-left-radius: 8px /*rtl:ignore */;
+         border-bottom-left-radius: 8px /*rtl:ignore */;
          outline: none;
       }
    }
