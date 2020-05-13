@@ -183,6 +183,9 @@
   <data name="start_present_text" xml:space="preserve">
     <value>שיתוף מסך לא פעיל</value>
   </data>
+  <data name="stop_present" xml:space="preserve">
+    <value>הפסק שיתוף</value>
+  </data>
   <data name="stop_present_text" xml:space="preserve">
     <value>הנך משתף מסך</value>
   </data>
