@@ -396,6 +396,7 @@ namespace Cloudents.Core.Entities
 
         // public override int Score { get; protected set; }  //=> Transactions.Score;
         public override decimal Balance => Transactions.Balance;
+        protected internal virtual ICollection<UserDownloadDocument> DocumentDownloads { get; set; }
 
 
         public virtual void DeleteUserPayment()
