@@ -22,6 +22,10 @@ export const studyRoomRoutes = [
             layout : 'studyRoomLayout'
         },
         beforeEnter: (to, from, next) => {
+            if(!to.params?.id){
+                next('/');
+                return
+            }
             store.commit('clearComponent')
             next();
         }
