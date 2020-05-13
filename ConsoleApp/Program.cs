@@ -145,12 +145,18 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var x = Container.Resolve<StripeClient>();
-            await x.ChargeTheBastard();
+           // var z = Container.Resolve<IUnitOfWork>();
+            await UpdateTwilioParticipants();
+           // await Dbi();
 
 
-            var xy = Container.Resolve<DocumentSearchWrite>();
-            await xy.CreateOrUpdateAsync(default);
+
+            //var x = Container.Resolve<StripeClient>();
+            //await x.ChargeTheBastard();
+
+
+            //var xy = Container.Resolve<DocumentSearchWrite>();
+            //await xy.CreateOrUpdateAsync(default);
 
             //BaseUser? userAlias = null!;
             //var session = Container.Resolve<IStatelessSession>();
@@ -178,6 +184,33 @@ namespace ConsoleApp
             //    .Select(s => ((User) s).LockoutReason).SingleOrDefault();
 
 
+        }
+
+        private static async Task Dbi()
+        {
+            var session = Container.Resolve<IStatelessSession>();
+            var bus = Container.Resolve<ICommandBus>();
+            var usersWithPayment =await session.Query<User>()
+                .Where(w => w.PaymentExists == PaymentStatus.Done)
+                .ToListAsync();
+
+            foreach (var user in usersWithPayment)
+            {
+                if (user.BuyerPayment != null)
+                {
+                    if (user.Payment == null)
+                    {
+                        var command = new AddBuyerTokenCommand(user.Id,
+                            user.BuyerPayment.PaymentKey,
+                            user.BuyerPayment.PaymentKeyExpiration,
+                            user.BuyerPayment.CreditCardMask);
+                        await bus.DispatchAsync(command, default);
+                    }
+                }
+            }
+            
+
+            //AddBuyerTokenCommand
         }
 
         private static async Task UpdateTwilioParticipants()

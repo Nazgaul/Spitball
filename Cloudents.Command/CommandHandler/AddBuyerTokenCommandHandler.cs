@@ -2,6 +2,7 @@
 using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Command.CommandHandler
 {
@@ -17,7 +18,9 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(AddBuyerTokenCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            user.AddPayment(message.Token, message.Expiration, message.BuyerCardMask);
+            var paymePayment = new PaymePayment(message.Token, message.Expiration, message.BuyerCardMask);
+            user.AddPayment(paymePayment);
+           // user.AddPayment(message.Token, message.Expiration, message.BuyerCardMask);
         }
     }
 

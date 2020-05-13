@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Entities;
+﻿using System;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
 
@@ -56,6 +57,15 @@ namespace Cloudents.Persistence.Maps
                 y.Map(z => z!.CreditCardMask);
 
             });
+
+            ReferencesAny(x => x.Payment)
+                .MetaType<string>()
+                .IdentityType<Guid>()
+                .EntityIdentifierColumn("PaymentId")
+                .EntityTypeColumn("PaymentType")
+                .AddMetaValue<PaymePayment>("Payme")
+                .AddMetaValue<StripePayment>("Stripe").Cascade.All();
+
             Map(z => z.PaymentExists).CustomType<PaymentStatus>();
             Map(z => z.Gender).CustomType<Gender>().Nullable();
             //Map(x => x.UserType2).Column("UserType").CustomType<GenericEnumStringType<UserType>>().Nullable();
@@ -81,9 +91,7 @@ namespace Cloudents.Persistence.Maps
 
             //HasMany(x => x.UserComponents).Inverse().Cascade.AllDeleteOrphan();//.Inverse();
 
-            //HasMany(x => x.UserTokens)
-            //    .Access.CamelCaseField(Prefix.Underscore)
-            //    .Cascade.AllDeleteOrphan();
+         
 
 
             HasMany(x => x.Followers).Access.CamelCaseField(Prefix.Underscore)
@@ -96,6 +104,26 @@ namespace Cloudents.Persistence.Maps
 
             HasMany(x => x.Leads)
                 .Cascade.AllDeleteOrphan();
+        }
+    }
+
+    public class PaymePaymentMap : ClassMap<PaymePayment>
+    {
+        public PaymePaymentMap()
+        {
+            Id(x => x.Id).GeneratedBy.GuidComb();
+            Map(z => z!.PaymentKey);
+            Map(z => z!.PaymentKeyExpiration);
+            Map(z => z!.CreditCardMask);
+        }
+    }
+
+    public class StripePaymentMap : ClassMap<StripePayment>
+    {
+        public StripePaymentMap()
+        {
+            Id(x => x.Id).GeneratedBy.GuidComb();
+            Map(z => z!.PaymentKey);
         }
     }
 

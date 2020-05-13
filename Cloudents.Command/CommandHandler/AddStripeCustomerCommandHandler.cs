@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.CommandHandler
@@ -21,6 +22,8 @@ namespace Cloudents.Command.CommandHandler
             var user = await _userRepository.LoadAsync(message.UserId, token);
             var customerId = await _stripeService.CreateCustomerAsync(user, token);
 
+            var payment = new StripePayment(customerId);
+            user.AddPayment(payment);
             var futureCardPayment = await _stripeService.FutureCardPayments(customerId);
 
             message.ClientSecretId = futureCardPayment;

@@ -35,7 +35,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             if (message.StudentPay != 0)
             {
                 var response = await _payment.TransferPaymentAsync(tutor.SellerKey!,
-                    user.BuyerPayment!.PaymentKey!, message.StudentPay, token);
+                    user.BuyerPayment!.PaymentKey, message.StudentPay, token);
                 receipt = response.PaymeSaleId;
             }
 

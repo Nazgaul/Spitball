@@ -113,8 +113,8 @@ namespace Cloudents.Infrastructure.Payments
 
             
 
-            try
-            {
+            //try
+            //{
                 var service = new PaymentIntentService();
                 var options = new PaymentIntentCreateOptions
                 {
@@ -126,24 +126,24 @@ namespace Cloudents.Infrastructure.Payments
                     OffSession = true,
                 };
                 service.Create(options);
-            }
-            catch (StripeException e)
-            {
-                switch (e.StripeError.ErrorType)
-                {
-                    case "card_error":
-                        // Error code will be authentication_required if authentication is needed
-                        Console.WriteLine("Error code: " + e.StripeError.Code);
-                        var paymentIntentId = e.StripeError.PaymentIntent.Id;
-                        var service = new PaymentIntentService();
-                        var paymentIntent = service.Get(paymentIntentId);
+            //}
+            //catch (StripeException e)
+            //{
+            //    switch (e.StripeError.ErrorType)
+            //    {
+            //        case "card_error":
+            //            // Error code will be authentication_required if authentication is needed
+            //            Console.WriteLine("Error code: " + e.StripeError.Code);
+            //            var paymentIntentId = e.StripeError.PaymentIntent.Id;
+            //            var service = new PaymentIntentService();
+            //            var paymentIntent = service.Get(paymentIntentId);
 
-                        Console.WriteLine(paymentIntent.Id);
-                        break;
-                    default:
-                        break;
-                }
-            }
+            //            Console.WriteLine(paymentIntent.Id);
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //}
         }
 
         public async Task<string> BuyPointsAsync(PointBundle bundle, string email, string successCallback, string fallbackCallback, CancellationToken token)
