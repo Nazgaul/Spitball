@@ -32,6 +32,8 @@ namespace Cloudents.Core.Entities
     {
         bool IsValid();
         string PaymentKey { get; }
+
+        IPayment2 AvoidProxy { get; }
     }
 
     public class PaymePayment : Entity<Guid>, IPayment2
@@ -49,6 +51,7 @@ namespace Cloudents.Core.Entities
         }
 
         public virtual string PaymentKey { get; set; }
+        public virtual IPayment2 AvoidProxy => (IPayment2)Actual;
         public virtual DateTime PaymentKeyExpiration { get; set; }
 
         public virtual string CreditCardMask { get; set; }
@@ -75,7 +78,7 @@ namespace Cloudents.Core.Entities
         //public virtual DateTime PaymentKeyExpiration { get; set; }
 
         //public virtual string CreditCardMask { get; set; }
-
+        public virtual IPayment2 AvoidProxy => (IPayment2)Actual;
         public virtual bool IsValid()
         {
             return PaymentKey != null;// && PaymentKeyExpiration > DateTime.UtcNow;

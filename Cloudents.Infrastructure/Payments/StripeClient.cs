@@ -11,7 +11,7 @@ using Stripe.Checkout;
 
 namespace Cloudents.Infrastructure.Payments
 {
-    public class StripeClient : IStripeService
+    public class StripeClient : IStripeService, IPaymentProvider
     {
         public StripeClient(IConfigurationKeys configuration)
         {
@@ -111,21 +111,21 @@ namespace Cloudents.Infrastructure.Payments
             var x = await service2.ListAsync(optionsX);
             var z = x.Data.FirstOrDefault();
 
-            
+
 
             //try
             //{
-                var service = new PaymentIntentService();
-                var options = new PaymentIntentCreateOptions
-                {
-                    Amount = 20*100,
-                    Currency = "usd",
-                    Customer = customerId,
-                    PaymentMethod = z.Id,
-                    Confirm = true,
-                    OffSession = true,
-                };
-                service.Create(options);
+            var service = new PaymentIntentService();
+            var options = new PaymentIntentCreateOptions
+            {
+                Amount = 20 * 100,
+                Currency = "usd",
+                Customer = customerId,
+                PaymentMethod = z.Id,
+                Confirm = true,
+                OffSession = true,
+            };
+            service.Create(options);
             //}
             //catch (StripeException e)
             //{
@@ -192,6 +192,42 @@ namespace Cloudents.Infrastructure.Payments
             //var service = new PaymentIntentService();
             //var paymentIntent = await service.CreateAsync(options);
             //return paymentIntent
+        }
+
+        public async Task<string> ChargeSessionAsync(Tutor tutor, User user, decimal price, CancellationToken token)
+        {
+            var customerId = await RetrieveCustomerIdAsync(user.Payment!.PaymentKey, default);
+            var optionsX = new PaymentMethodListOptions
+            {
+                Customer = customerId,
+                Type = "card",
+            };
+
+            var service2 = new PaymentMethodService();
+            var stripeList = await service2.ListAsync(optionsX, cancellationToken: token);
+            var paymentMethod = stripeList.Data.First();
+
+
+
+            //try
+            //{
+            var service = new PaymentIntentService();
+            var options = new PaymentIntentCreateOptions
+            {
+                Amount = (int)(price * 100),
+                Currency = "usd",
+                Customer = customerId,
+                PaymentMethod = paymentMethod.Id,
+                Confirm = true,
+                OffSession = true
+            };
+            var result = await service.CreateAsync(options, cancellationToken: token);
+            return result.InvoiceId;
+        }
+
+        public Task<string> ChargeSessionBySpitballAsync(Tutor tutor, decimal price, CancellationToken token)
+        {
+            throw new NotImplementedException("We do not support this feature");
         }
     }
 }
