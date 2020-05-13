@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.Admin;
@@ -12,6 +14,7 @@ namespace Cloudents.Query.Admin
 {
     public class SessionPaymentsQuery : IQueryAdmin<IEnumerable<PaymentDto>>
     {
+        [Obsolete]
         public SessionPaymentsQuery(string country)
         {
             Country = country;
@@ -28,21 +31,21 @@ namespace Cloudents.Query.Admin
 
             public async Task<IEnumerable<PaymentDto>> GetAsync(SessionPaymentsQuery query, CancellationToken token)
             {
-                StudyRoomSession? studyRoomSessionAlias = null;
-                StudyRoom? studyRoomAlias = null;
-                Core.Entities.Tutor? tutorAlias = null;
-                StudyRoomUser? studyRoomUserAlias = null;
-                User? studentAlias = null;
-                User? tutorUserAlias = null;
+                StudyRoomSession? studyRoomSessionAlias = null!;
+                StudyRoom? studyRoomAlias = null!;
+                Core.Entities.Tutor? tutorAlias = null!;
+                StudyRoomUser? studyRoomUserAlias = null!;
+                User? studentAlias = null!;
+                User? tutorUserAlias = null!;
 
-                PaymentDto? resultDto = null;
+                PaymentDto? resultDto = null!;
 
-                
+
 
                 var res = _session.QueryOver(() => studyRoomSessionAlias)
                     .JoinAlias(x => x.StudyRoom, () => studyRoomAlias)
                     .JoinEntityAlias(() => tutorAlias, () => studyRoomAlias.Tutor.Id == tutorAlias.Id)
-                    .JoinEntityAlias(() => studyRoomUserAlias, 
+                    .JoinEntityAlias(() => studyRoomUserAlias,
                         () => studyRoomAlias.Id == studyRoomUserAlias.Room.Id &&
                               tutorAlias.Id != studyRoomUserAlias.User.Id)
                     .JoinEntityAlias(() => studentAlias, () => studyRoomUserAlias.User.Id == studentAlias.Id)
@@ -55,29 +58,33 @@ namespace Cloudents.Query.Admin
                     res = res.Where(w => tutorUserAlias.Country == query.Country);
                 }
 
-                return await res.SelectList(sl => 
+                return await res.SelectList(sl =>
                         sl.Select(s => s.Id).WithAlias(() => resultDto.StudyRoomSessionId)
                             .Select(s => s.Price).WithAlias(() => resultDto.Price)
-                            .Select(Projections.Conditional(
-                                Restrictions.IsNull(Projections.Property(() => tutorAlias.SellerKey)),
-                                Projections.Constant(false),
-                                Projections.Constant(true)
-                            )).WithAlias(() => resultDto.IsSellerKeyExists)
+                            //.Select(Projections.Conditional(
+                            //    Restrictions.IsNull(Projections.Property(() => tutorAlias.SellerKey)),
+                            //    Projections.Constant(false),
+                            //    Projections.Constant(true)
+                            //)).WithAlias(() => resultDto._sellerKey)
                             .Select(Projections.Conditional(
                                 Restrictions.Eq(Projections.Property(() => studentAlias.PaymentExists), PaymentStatus.None),
                                 Projections.Constant(false),
                                 Projections.Constant(true)
                             )).WithAlias(() => resultDto.IsPaymentKeyExists)
-                            .Select(s => tutorAlias.Id).WithAlias(() => resultDto.TutorId)
-                            .Select(s => tutorUserAlias.Name).WithAlias(() => resultDto.TutorName)
-                            .Select(s => studentAlias.Id).WithAlias(() => resultDto.UserId)
-                            .Select(s => studentAlias.Name).WithAlias(() => resultDto.UserName)
+                            .Select(() => tutorAlias.SellerKey).WithAlias(() => resultDto._sellerKey)
+                            .Select(() => tutorUserAlias.SbCountry).WithAlias(() => resultDto.TutorCountry)
+                            .Select(() => tutorAlias.Id).WithAlias(() => resultDto.TutorId)
+                            .Select(() => tutorUserAlias.Name).WithAlias(() => resultDto.TutorName)
+                            .Select(() => studentAlias.Id).WithAlias(() => resultDto.UserId)
+                            .Select(() => studentAlias.Name).WithAlias(() => resultDto.UserName)
                             .Select(s => s.Created).WithAlias(() => resultDto.Created)
                             .Select(s => s.Duration.Value).WithAlias(() => resultDto._duration)
                             .Select(s => s.RealDuration).WithAlias(() => resultDto._realDuration)
-              
-                    ).TransformUsing(Transformers.AliasToBean<PaymentDto>())
-                    .ListAsync<PaymentDto>(token);
+
+                     ).TransformUsing(Transformers.AliasToBean<PaymentDto>())
+                     .ListAsync<PaymentDto>(token);
+
+
             }
         }
     }

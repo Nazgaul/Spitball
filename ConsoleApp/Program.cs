@@ -145,6 +145,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            var r = Container.ResolveKeyed<IPaymentProvider>(typeof(StripePayment));
            // var z = Container.Resolve<IUnitOfWork>();
             await UpdateTwilioParticipants();
            // await Dbi();

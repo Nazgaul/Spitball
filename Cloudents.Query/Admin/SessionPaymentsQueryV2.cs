@@ -50,7 +50,8 @@ namespace Cloudents.Query.Admin
                     StudyRoomSessionId = s.StudyRoomSession.Id,
                     UserName = s.User.Name,
                     IsPaymentKeyExists = s.User.PaymentExists == PaymentStatus.Done,
-                    IsSellerKeyExists = s.StudyRoomSession.StudyRoom.Tutor.SellerKey != null,
+                    _sellerKey = s.StudyRoomSession.StudyRoom.Tutor.SellerKey,
+                    TutorCountry = s.StudyRoomSession.StudyRoom.Tutor.User.SbCountry,
                     TutorName = s.StudyRoomSession.StudyRoom.Tutor.User.Name,
                     _duration = s.Duration,
                     _realDuration = s.TutorApproveTime
