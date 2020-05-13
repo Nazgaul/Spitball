@@ -23,6 +23,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Web.Api
 {
@@ -122,9 +123,9 @@ namespace Cloudents.Web.Api
             try
             {
                 var user = await _userManager.GetUserAsync(User);
-                if (user.BuyerPayment != null && user.BuyerPayment.IsValid())
+                if (user.PaymentExists == PaymentStatus.Done)
                 {
-                    throw new ArgumentException();
+                    return BadRequest("Already have payment");
                 }
 
                 var url = Url.RouteUrl("PayMeCallback", new

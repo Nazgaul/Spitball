@@ -142,7 +142,6 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
-            result.NeedPayment = true;
             result.TutorImage = urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
             result.Jwt = command.JwtToken;
             return result;
