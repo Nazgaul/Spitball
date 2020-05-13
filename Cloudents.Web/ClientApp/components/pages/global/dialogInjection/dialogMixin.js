@@ -30,7 +30,7 @@ export default {
                 login: ["notAuth"],
                 exitRegister: [],
                 becomeTutor: ["auth"],
-                payment:["auth",'notFrymo'],
+                payment:['notFrymo'],
                 upload: ["auth","courses"],
                 createCoupon: ["auth","tutor"],
                 buyPoints:["auth"],
