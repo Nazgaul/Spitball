@@ -19,16 +19,15 @@
         class="mt-sm-12 mt-2 mx-auto calendarSection"
         :globalFunctions="globalFunctions"
       />
+      <profileSubscription :id="id" />
       <profileLiveClasses :id="id" v-if="isTutor" />
       <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" />
       <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" />
       <profileItemsBox v-if="isMyProfile || showItems" class="mt-sm-12 mt-2" />
       <profileEarnMoney class="mt-0 mt-sm-5" v-if="showEarnMoney" />
       <profileReviewsBox v-if="showReviewBox" class="mt-sm-10 mt-2" />
-     
     </div>
-    <!-- SIDE -->
-   
+    
     <sb-dialog
       :onclosefn="closeCouponDialog"
       :activateOverlay="false"
@@ -101,6 +100,7 @@ import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileLiveClasses from './components/profileLiveClasses/profileLiveClasses.vue'
 import calendarTab from '../calendar/calendarTab.vue';
+import profileSubscription from './components/profileSubscription/profileSubscription.vue';
 import cover from "./components/cover.vue";
 
 
@@ -117,6 +117,7 @@ export default {
         profileFindTutor,
         profileItemsBox,
         profileLiveClasses,
+        profileSubscription,
         calendarTab,
         cover,
         sbDialog,
