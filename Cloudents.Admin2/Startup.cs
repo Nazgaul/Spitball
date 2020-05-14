@@ -139,7 +139,8 @@ namespace Cloudents.Admin2
                     ),
                 Storage = Configuration["Storage"],
                 Redis = Configuration["Redis"],
-                ServiceBus = Configuration["ServiceBus"]
+                ServiceBus = Configuration["ServiceBus"],
+                Stripe = Configuration["Stripe:ClientSecret"]
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();

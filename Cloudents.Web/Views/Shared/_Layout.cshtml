@@ -16,7 +16,7 @@
     //var p = Provider.GetVendorTag();
     var cdnEndPoint = Constants.GetCdnEndpoint(Configuration);
     var isAuth = User.Identity.IsAuthenticated;
-    var result = System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft ? "rtl" : "ltr";
+    var result = ViewBag.isRtl ?? System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft ? "rtl" : "ltr";
 
 
     ViewBag.title = ViewBag.title ?? Localizer["Title"];

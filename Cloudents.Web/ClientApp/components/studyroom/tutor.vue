@@ -27,13 +27,13 @@
             style="display: flex; align-items: center; max-height: 48px; justify-content: space-between;"
           >
 
-          <template v-if="isRoomActive && isRoomTutor">
+          <!-- <template v-if="isRoomActive && isRoomTutor">
             <startEndSessionBtn :id="id"></startEndSessionBtn>
-          </template>
+          </template> -->
           
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px; margin-left:30px;" vertical></v-divider>
 
-            <v-btn text icon @click="toggleRecord" class="recording_btn tutoringNavigationBtn" :ripple="false">
+            <!-- <v-btn text icon @click="toggleRecord" class="recording_btn tutoringNavigationBtn" :ripple="false">
               <span v-if="!getIsRecording" class="mt-1 d-flex">
                 <beginRecording class="white-btn mr-1"></beginRecording>
                 <span class="recording_btn_text" v-language:inner="'tutor_begain_recording'"></span>
@@ -42,23 +42,23 @@
                 <stopRecording class="mr-2"></stopRecording>
                 <span class="recording_btn_text" v-language:inner="'tutor_stop_recording'"></span>
               </span>
-            </v-btn>
+            </v-btn> -->
            
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px;" vertical></v-divider>
             
-            <div class="d-flex tutoringNavigationBtn">
+            <!-- <div class="d-flex tutoringNavigationBtn">
               <v-btn text icon @click="showIntercom" sel="help_draw">
                 <intercomSVG class="network-icon"/>
               </v-btn>
-            </div> 
+            </div>  -->
             
             
 
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px;" vertical></v-divider>
-            
-            <v-btn class="tutoringNavigationBtn" text icon @click="openSettingsDialog" sel="setting_draw">
+
+            <!-- <v-btn class="tutoringNavigationBtn" text icon @click="openSettingsDialog" sel="setting_draw">
               <v-icon class="white-btn">sbf-settings</v-icon>
-            </v-btn>
+            </v-btn> -->
             
           </div>
         </nav>
@@ -99,10 +99,6 @@
               >
                 <span v-language:inner>tutor_option_fullBoard</span>
               </v-btn>
-             
-                <!-- <v-flex xs6 > -->
-                 
-                <!-- </v-flex> -->
             </v-flex>
           </v-layout>
         </v-flex>
@@ -121,21 +117,7 @@
         </transition>
       </v-flex>
     <template>
-
-      <sb-dialog
-        :showDialog="getReviewDialogState"
-        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
-        :popUpType="'reviewDilaog'"
-        :maxWidth="'596'"
-        :onclosefn="closeReviewDialog"
-        :activateOverlay="false"
-        :isPersistent="$vuetify.breakpoint.smAndUp"
-        :content-class="'review-dialog'"
-      >
-        <leave-review></leave-review>
-      </sb-dialog>
-
-      <sb-dialog
+      <!-- <sb-dialog
         :showDialog="isBrowserSupportDialog"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'browserDialog'"
@@ -145,23 +127,9 @@
         :content-class="'browser-dialog-unsupport'"
       >
           <browserSupport></browserSupport>
-      </sb-dialog>
+      </sb-dialog> -->
       <!--show only if not avaliable devices dialog is closed by user-->
-      <!--end session confirmation-->
-      <sb-dialog
-        :showDialog="getDialogRoomEnd"
-        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
-        :popUpType="'endSessionConfirm'"
-        :maxWidth="'356'"
-        :onclosefn="closeEndDialog"
-        :activateOverlay="false"
-        :isPersistent="$vuetify.breakpoint.smAndUp"
-        :content-class="'session-end-confirm'"
-      >
-        <endSessionConfirm :id="id"></endSessionConfirm>
-      </sb-dialog>
-      <!--show only if not avaliable devices dialog is closed by user-->
-            <sb-dialog
+            <!-- <sb-dialog
         :showDialog="getShowAudioRecordingError"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'errorWithAudioRecording'"
@@ -171,8 +139,8 @@
         :isPersistent="$vuetify.breakpoint.smAndUp"
       >
         <errorWithAudioRecording></errorWithAudioRecording>
-      </sb-dialog>
-      <sb-dialog
+      </sb-dialog> -->
+      <!-- <sb-dialog
         :showDialog="getDialogUserConsent"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'userConsentDialog'"
@@ -182,25 +150,12 @@
         :content-class="'user-consent-dialog'"
       >
           <studentConsentDialog></studentConsentDialog>
-      </sb-dialog>
-
-      <sb-dialog
-        :showDialog="getDialogSnapshot"
-        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
-        :popUpType="'studyroomSnapshotDialog'"
-        :maxWidth="'800'"
-        :onclosefn="closeSnapshotDialog"
-        :isPersistent="$vuetify.breakpoint.smAndUp"
-        :content-class="'studyroom-snapshot-dialog'"
-      >
-          <snapshotDialog></snapshotDialog>
-      </sb-dialog>
-
-      <studyRoomAudioVideoDialog
+      </sb-dialog> -->
+      <!-- <studyRoomAudioVideoDialog
         v-if="settingDialogState"
         @closeAudioVideoSettingDialog="val => settingDialogState = val"
-      />
-      <studyRoomSettingsDialog v-if="id && !isRoomActive"/>
+      /> -->
+      <!-- <studyRoomSettingsDialog v-if="id && !isRoomActive"/> -->
   </template>
 
     </div>
@@ -221,29 +176,27 @@ import testIcon from "./images/eq-system.svg";
 import chatIcon from "../../font-icon/message-icon.svg";
 import chatService from "../../services/chatService";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
-import leaveReview from "./tutorHelpers/leaveReview/leaveReview.vue";
 import whiteBoardTools from "./whiteboard/whiteboardTools.vue";
 import startEndSessionBtn from "./tutorHelpers/startEndSessionBtn/startEndSessionBtn.vue";
-import endSessionConfirm from "./tutorHelpers/endSessionConfirm/endSessionConfirm.vue";
-import browserSupport from "./tutorHelpers/browserSupport/browserSupport.vue";
+// import browserSupport from "./tutorHelpers/browserSupport/browserSupport.vue";
 import insightService from '../../services/insightService.js';
-import studyRoomSettingsDialog from "./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue";
+// import studyRoomSettingsDialog from "./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue";
 import intercomSVG from './images/icon-1-2.svg'
-import studyRoomRecordingService from './studyRoomRecordingService.js';
-import errorWithAudioRecording from './tutorHelpers/errorWithAudioRecording/errorWithAudioRecording.vue';
-import studentConsentDialog from './tutorHelpers/studentConsentDialog/studentConsentDialog.vue';
-import snapshotDialog from './tutorHelpers/snapshotDialog/snapshotDialog.vue';
-import stopRecording from './images/stop-recording.svg';
-import beginRecording from './images/begain-recording.svg';
-import studyRoomAudioVideoDialog from './tutorHelpers/studyRoomSettingsDialog/studyRoomAudioVideoDialog/studyRoomAudioVideoDialog.vue'
+// import studyRoomRecordingService from './studyRoomRecordingService.js';
+// import errorWithAudioRecording from './tutorHelpers/errorWithAudioRecording/errorWithAudioRecording.vue';
+// import studentConsentDialog from './tutorHelpers/studentConsentDialog/studentConsentDialog.vue';
+// import stopRecording from './images/stop-recording.svg';
+// import beginRecording from './images/begain-recording.svg';
+// import studyRoomAudioVideoDialog from './tutorHelpers/studyRoomSettingsDialog/studyRoomAudioVideoDialog/studyRoomAudioVideoDialog.vue'
 
-import intercomSettings from '../../services/intercomService';
+// import intercomSettings from '../../services/intercomService';
+
 
 //store
-import storeService from "../../services/store/storeService";
-import tutoringCanvas from '../../store/studyRoomStore/tutoringCanvas.js';
-import codeEditor_store from '../../store/studyRoomStore/codeEditor_store.js';
-import roomRecording_store from '../../store/studyRoomStore/roomRecording_store.js';
+// import storeService from "../../services/store/storeService";
+// import tutoringCanvas from '../../store/studyRoomStore/tutoringCanvas.js';
+// import codeEditor_store from '../../store/studyRoomStore/codeEditor_store.js';
+// import roomRecording_store from '../../store/studyRoomStore/roomRecording_store.js';
 
 import * as dialogNames from '../pages/global/dialogInjection/dialogNames.js';
 
@@ -258,26 +211,23 @@ export default {
     testIcon,
     chatIcon,
     sbDialog,
-    leaveReview,
     whiteBoardTools,
     startEndSessionBtn,
-    endSessionConfirm,
-    browserSupport,
-    studyRoomSettingsDialog,
+    // browserSupport,
+    // studyRoomSettingsDialog,
     codeEditorTools,
     intercomSVG,
-    errorWithAudioRecording,
-    studentConsentDialog,
-    snapshotDialog,
-    stopRecording,
-    beginRecording,
-    studyRoomAudioVideoDialog
+    // errorWithAudioRecording,
+    // studentConsentDialog,
+    // stopRecording,
+    // beginRecording,
+    // studyRoomAudioVideoDialog
   },
   name: "tutor",
   data() {
     return {
-      settingDialogState: false,
-      isBrowserSupportDialog:false,
+      // settingDialogState: false,
+      // isBrowserSupportDialog:false,
       navs: [
         {
           name: this.$t("tutor_nav_canvas"),
@@ -314,23 +264,20 @@ export default {
   computed: {
     ...mapGetters([
       "getRoomIsNeedPayment",
-      "getDialogUserConsent",
+      // "getDialogUserConsent",
       "getZoom",
       "getPanX",
       "getPanY",
-      "getReviewDialogState",
-      "getDialogRoomEnd",
       "accountUser",
-      "getIsRecording",
-      "getShowAudioRecordingError",
-      "getDialogSnapshot",
+      // "getIsRecording",
+      // "getShowAudioRecordingError",
     ]),
     isRoomTutor(){
       return this.$store.getters.getRoomIsTutor;
     },
-    isRoomActive(){
-      return this.$store.getters.getRoomIsActive;
-    },
+    // isRoomActive(){
+    //   return this.$store.getters.getRoomIsActive;
+    // },
     activeItem() {
       return this.$store.getters.getActiveNavEditor;
     },
@@ -372,14 +319,10 @@ watch: {
       "setActiveConversationObj",
       "getChatById",
       "updateLockChat",
-      "updateReviewDialog",
-      "updateReview",
       "closeChat",
       "openChatInterface",
-      "updateEndDialog",
-      "setShowAudioRecordingError",
-      "updateDialogUserConsent",
-      "updateDialogSnapshot",
+      // "setShowAudioRecordingError",
+      // "updateDialogUserConsent",
       "openChat"
     ]),
     handleNeedPayment(needPayment){
@@ -392,47 +335,41 @@ watch: {
       }
       this.setStudyRoom(this.id);
     },
-    initMathjax(){
-      this.$loadScript("https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG")
-        .then(() => {
-          MathJax.Hub.Config({
-            showMathMenu: false,
-            SVG: {
-              useGlobalCache: false,
-              useFontCache: false
-            }
-          });
-          MathJax.AuthorInit = function(texstring, callback) {
-            var input = texstring;
-            var wrapper = document.createElement("div");
-            wrapper.innerHTML = input;
-            var output = { svg: "" };
-            MathJax.Hub.Queue(["Typeset", MathJax.Hub, wrapper]);
-            MathJax.Hub.Queue(function() {
-              var mjOut = wrapper.getElementsByTagName("svg")[0];
-              if (!mjOut) {
-                return null;
-              }
-              mjOut.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-              output.svg = mjOut.outerHTML;
-              callback(output);
-            });
-          };
-      });
-    },
-    openSettingsDialog(){
-      this.$ga.event("tutoringRoom", "openSettingsDialog");
-      this.settingDialogState = true;
-    },
-    closeReviewDialog() {
-      this.updateReviewDialog(false);
-    },
-    closeEndDialog() {
-      this.updateEndDialog(false);
-    },
-    closeShowAudioRecordingError(){
-      this.setShowAudioRecordingError(false);
-    },
+    // initMathjax(){ // added
+    //   this.$loadScript("https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG")
+    //     .then(() => {
+    //       MathJax.Hub.Config({
+    //         showMathMenu: false,
+    //         SVG: {
+    //           useGlobalCache: false,
+    //           useFontCache: false
+    //         }
+    //       });
+    //       MathJax.AuthorInit = function(texstring, callback) {
+    //         var input = texstring;
+    //         var wrapper = document.createElement("div");
+    //         wrapper.innerHTML = input;
+    //         var output = { svg: "" };
+    //         MathJax.Hub.Queue(["Typeset", MathJax.Hub, wrapper]);
+    //         MathJax.Hub.Queue(function() {
+    //           var mjOut = wrapper.getElementsByTagName("svg")[0];
+    //           if (!mjOut) {
+    //             return null;
+    //           }
+    //           mjOut.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    //           output.svg = mjOut.outerHTML;
+    //           callback(output);
+    //         });
+    //       };
+    //   });
+    // },
+    // openSettingsDialog(){
+    //   this.$ga.event("tutoringRoom", "openSettingsDialog");
+    //   this.settingDialogState = true;
+    // },
+    // closeShowAudioRecordingError(){
+    //   this.setShowAudioRecordingError(false);
+    // },
     updateActiveNav(value) {
       if(!this.$route.params.id || this.$route.params.id && this.isRoomTutor ){
         insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_navigation', {'roomId': this.id, 'userId': this.userId, 'navigatedTo': value}, null)
@@ -479,7 +416,7 @@ watch: {
       }
     },
     setStudyRoom() {
-      this.initMathjax()
+      // this.initMathjax() // added
       let self = this;
       this.getChatById(this.$store.getters.getRoomConversationId).then(({ data }) => {
         insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_ChatById', data, null)
@@ -488,9 +425,9 @@ watch: {
         self.updateLockChat(true);
       });
     },
-    closeBrowserSupportDialog(){
-      this.isBrowserSupportDialog = false;
-    },
+    // closeBrowserSupportDialog(){
+    //   this.isBrowserSupportDialog = false;
+    // },
     resetItems(){
       let isExit = confirm(this.$t("login_are_you_sure_you_want_to_exit"),)
       if(isExit){
@@ -498,59 +435,56 @@ watch: {
         this.$router.push('/');
       }
     },
-    showIntercom(){
-      this.$ga.event("tutoringRoom", 'showIntercom');
-      intercomSettings.showDialog();
-    },
-    toggleRecord(){
-      this.$ga.event("tutoringRoom", 'toggleRecord');
-      studyRoomRecordingService.toggleRecord(this.isTutor);
-    },
-    closeUserConsentDialog(){
-      this.updateDialogUserConsent(false);
-    },
-    closeSnapshotDialog(){
-      this.updateDialogSnapshot(false);
-    },
-    isBrowserSupport(){
-      let agent = navigator.userAgent;
-      if(agent.match(/Edge/)){
-        return false;
-      }
-      return agent.match(/Firefox|Chrome|Safari/);
-    }
+    // showIntercom(){
+    //   this.$ga.event("tutoringRoom", 'showIntercom');
+    //   intercomSettings.showDialog();
+    // },
+    // toggleRecord(){
+    //   this.$ga.event("tutoringRoom", 'toggleRecord');
+    //   studyRoomRecordingService.toggleRecord(this.isTutor);
+    // },
+    // closeUserConsentDialog(){
+    //   this.updateDialogUserConsent(false);
+    // },
+    // isBrowserSupport(){
+    //   let agent = navigator.userAgent;
+    //   if(agent.match(/Edge/)){
+    //     return false;
+    //   }
+    //   return agent.match(/Firefox|Chrome|Safari/);
+    // }
   },
   destroyed(){
     if(this.isTutor) {
       this.$store.commit('setComponent', 'linkToaster') 
     }
-    global.onbeforeunload = function() { };
+    // global.onbeforeunload = function() { };
   },
   beforeDestroy(){
     this.$store.dispatch('updateResetRoom');
     this.updateLockChat(false);
 
-    storeService.unregisterModule(this.$store,'tutoringCanvas');
-    storeService.unregisterModule(this.$store,'roomRecording_store');
-    storeService.unregisterModule(this.$store,'codeEditor_store');
+    // storeService.unregisterModule(this.$store,'tutoringCanvas');
+    // storeService.unregisterModule(this.$store,'roomRecording_store');
+    // storeService.unregisterModule(this.$store,'codeEditor_store');
   },
   beforeCreate(){
-    storeService.registerModule(this.$store,'roomRecording_store',roomRecording_store);
-    storeService.registerModule(this.$store,'tutoringCanvas',tutoringCanvas);
-    storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
+    // storeService.registerModule(this.$store,'roomRecording_store',roomRecording_store);
+    // storeService.registerModule(this.$store,'tutoringCanvas',tutoringCanvas);
+    // storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
   },
   async created() {
-    this.$store.commit('clearComponent')
+    // this.$store.commit('clearComponent') // added
     this.userId = this.accountUser?.id || 'GUEST';
 
-    if (!this.isBrowserSupport()) {
-      this.$nextTick(()=>{
-        this.isBrowserSupportDialog = true;
-        let roomId = this.id ? this.id : 'No-Id';
-        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_BrowserNotSupported', {'roomId': roomId, 'userId': this.userId}, null)
-      })
-      return;
-    }
+    // if (!this.isBrowserSupport()) {
+    //   this.$nextTick(()=>{
+    //     this.isBrowserSupportDialog = true;
+    //     let roomId = this.id ? this.id : 'No-Id';
+    //     insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_BrowserNotSupported', {'roomId': roomId, 'userId': this.userId}, null)
+    //   })
+    //   return;
+    // }
 
     if(this.id){
       if(this.$store.getters.accountUser?.id){
@@ -570,7 +504,7 @@ watch: {
       }
     }else{
       //TODO - we need one place to invoke this.
-      this.initMathjax()
+      // this.initMathjax() //added
     }
   }
 };

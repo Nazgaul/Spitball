@@ -1,4 +1,5 @@
 import * as routeName from "./routeNames.js";
+import store from '../store'
 
 export const studyRoomRoutes = [
     {
@@ -16,6 +17,17 @@ export const studyRoomRoutes = [
             default: (route) => ({
                 id: route.params.id
             })
+        },
+        meta: {
+            layout : 'studyRoomLayout'
+        },
+        beforeEnter: (to, from, next) => {
+            if(!to.params?.id){
+                next('/');
+                return
+            }
+            store.commit('clearComponent')
+            next();
         }
     }
 ]

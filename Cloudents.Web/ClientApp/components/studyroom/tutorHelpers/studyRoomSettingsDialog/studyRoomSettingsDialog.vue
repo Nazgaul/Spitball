@@ -47,10 +47,16 @@ export default {
       if(isExit){
         this.$ga.event("tutoringRoom", 'resetItems');
         this.closeDialog()
-        this.$router.push('/');
+        global.onbeforeunload = function() { };
+        window.location = '/'
       }
     }
-  }
+  },
+  mounted() {
+    if(!this.$store.getters.accountUser?.id){
+      this.$store.commit('setComponent', 'login');
+    }
+  },
 }
 </script>
 

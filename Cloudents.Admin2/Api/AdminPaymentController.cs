@@ -1,7 +1,6 @@
 ﻿using Cloudents.Admin2.Models;
 using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
-using Cloudents.Core;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Extension;
 using Cloudents.Query;
@@ -12,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -39,7 +37,8 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<PaymentDto>> GetPayments(CancellationToken token)
         {
             var country = User.GetCountryClaim();
-            var queryV2 = new SessionPaymentsQueryV2(country);
+            var sbCountry = User.GetSbCountryClaim();
+            var queryV2 = new SessionPaymentsQueryV2(sbCountry);
             var query = new SessionPaymentsQuery(country);
             var taskRetVal1 = _queryBus.QueryAsync(query, token);
             var taskRetVal2 = _queryBus.QueryAsync(queryV2, token);
@@ -69,19 +68,18 @@ namespace Cloudents.Admin2.Api
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         public async Task<IActionResult> PayAsync([FromBody]PaymentRequest model,
-            [FromServices] PayMeCredentials payMeCredentials,
             [FromServices] TelemetryClient client,
             CancellationToken token)
         {
             try
             {
                 var command = new PaymentCommand(model.UserId, model.TutorId, model.StudentPay, model.SpitballPay,
-                    model.StudyRoomSessionId, payMeCredentials.BuyerKey, TimeSpan.FromMinutes(model.AdminDuration));
+                    model.StudyRoomSessionId, TimeSpan.FromMinutes(model.AdminDuration));
                 await _commandBus.DispatchAsync(command, token);
 
                 return Ok();
             }
-            catch (HttpRequestException ex)
+            catch (Exception ex)
             {
                 client.TrackException(ex, model.AsDictionary());
                 return BadRequest(ex.Message);

@@ -132,11 +132,38 @@
   <data name="boxs_top" xml:space="preserve">
     <value>הקלק בכל מקום להתחיל לכתוב</value>
   </data>
+  <data name="chat" xml:space="preserve">
+    <value>צ'אט</value>
+  </data>
   <data name="created" xml:space="preserve">
     <value>תאריך יצירה</value>
   </data>
+  <data name="end" xml:space="preserve">
+    <value>סיום שיעור</value>
+  </data>
   <data name="equation_btn" xml:space="preserve">
     <value>הוסף משוואה ללוח</value>
+  </data>
+  <data name="menu_help" xml:space="preserve">
+    <value>עזרה</value>
+  </data>
+  <data name="menu_settings" xml:space="preserve">
+    <value>הגדרות</value>
+  </data>
+  <data name="nav_class" xml:space="preserve">
+    <value>כיתת הלימוד</value>
+  </data>
+  <data name="nav_code" xml:space="preserve">
+    <value>עורך קוד</value>
+  </data>
+  <data name="nav_screen" xml:space="preserve">
+    <value>שיתוף מסך</value>
+  </data>
+  <data name="nav_text" xml:space="preserve">
+    <value>מסמך</value>
+  </data>
+  <data name="nav_whiteboard" xml:space="preserve">
+    <value>לוח כיתה</value>
   </data>
   <data name="not_browser" xml:space="preserve">
     <value>דפדפן זה אינו נתמך - השתמש בכרום או פיירפוקס</value>
@@ -146,6 +173,21 @@
   </data>
   <data name="premission_denied" xml:space="preserve">
     <value>בכדי לאשר שיתוף מסך, יש לעדכן את ההגדרות - &lt;a style="color:black" href="{0}" target="_Blank"&gt;למידע נוסף&lt;/a&gt;</value>
+  </data>
+  <data name="start_present" xml:space="preserve">
+    <value>הפעל שיתוף מסך</value>
+  </data>
+  <data name="start_present_student" xml:space="preserve">
+    <value>המצגת של המורה תוצג כאן תוך מספר דקות</value>
+  </data>
+  <data name="start_present_text" xml:space="preserve">
+    <value>שיתוף מסך לא פעיל</value>
+  </data>
+  <data name="stop_present" xml:space="preserve">
+    <value>הפסק שיתוף</value>
+  </data>
+  <data name="stop_present_text" xml:space="preserve">
+    <value>הנך משתף מסך</value>
   </data>
   <data name="toaster_added_to_room" xml:space="preserve">
     <value>סטודנט/ית נכנס/ה לחדר</value>

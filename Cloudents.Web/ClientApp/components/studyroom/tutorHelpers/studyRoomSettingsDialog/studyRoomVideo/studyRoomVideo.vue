@@ -44,8 +44,12 @@
             </div>
             <div class="videoOverlay" :class="{'videoPlaceholderWrap': !cameraOn || !placeholder}"></div>
         </v-row>
+        <v-dialog v-model="settingDialogState" max-width="570px" content-class="studyRoomAudioVideoDialog"
+                    :fullscreen="$vuetify.breakpoint.xsOnly" persistent
+                    :transition="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'">
+            <studyRoomAudioVideoDialog :streamsArray="streamsArray" @closeAudioVideoSettingDialog="val => settingDialogState = val"/>
+        </v-dialog>
 
-        <studyRoomAudioVideoDialog :streamsArray="streamsArray" v-if="settingDialogState" @closeAudioVideoSettingDialog="val => settingDialogState = val"/>
 
         <v-dialog v-model="permissionDialogState" width="512" :fullscreen="$vuetify.breakpoint.xsOnly" persistent content-class="premissionDeniedDialog text-center pa-6 pb-4">
             <div class="mb-4 mainTitle" v-t="'studyRoomSettings_block_title'"></div>

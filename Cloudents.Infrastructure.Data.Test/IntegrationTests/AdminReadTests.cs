@@ -131,8 +131,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(null)]
         [InlineData("IL")]
         [InlineData("US")]
-        public async Task SessionPaymentsQueryV2_Ok(string country)
+        public async Task SessionPaymentsQueryV2_Ok(string countryStr)
         {
+            var country = FromCountry(countryStr);
             var query = new SessionPaymentsQueryV2(country);
             var _ = await _fixture.QueryBus.QueryAsync(query, default);
         }

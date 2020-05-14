@@ -18,11 +18,7 @@ namespace Cloudents.Infrastructure.Payments
         {
             StripeConfiguration.ApiKey = configuration.Stripe;
         }
-        static StripeClient()
-        {
-            StripeConfiguration.ApiKey = "sk_test_Ihn6pkUZV9VFpDo7JWUGwT8700FAQ3Gbhf";
-
-        }
+        
         public async Task<(string receipt, long points)> GetSessionByIdAsync(string sessionId, CancellationToken token)
         {
             var service2 = new SessionService();
@@ -34,7 +30,7 @@ namespace Cloudents.Infrastructure.Payments
 
         public async Task<string> CreateCustomerAsync(User user, CancellationToken token)
         {
-            var customer = await RetrieveCustomerAsync(user.Email, token);
+            var customer = await RetrieveCustomerByEmailAsync(user.Email, token);
             var service = new CustomerService();
             if (customer == null)
             {
@@ -115,8 +111,7 @@ namespace Cloudents.Infrastructure.Payments
         }
 
 
-
-        private async Task<Customer?> RetrieveCustomerAsync(string email, CancellationToken token)
+        private async Task<Customer?> RetrieveCustomerByEmailAsync(string email, CancellationToken token)
         {
             var options = new CustomerListOptions()
             {
@@ -128,13 +123,16 @@ namespace Cloudents.Infrastructure.Payments
             return result.Data.FirstOrDefault();
         }
 
-        private async Task<string?> RetrieveCustomerIdAsync(string email, CancellationToken token)
+        private async Task<string> RetrieveCustomerByIdAsync(string id, CancellationToken token)
         {
-            var result = await RetrieveCustomerAsync(email, token);
-            return result?.Id;
+            var service = new CustomerService();
+            var result = await service.GetAsync(id, cancellationToken: token);
+            if (result == null) {
+                throw new NullReferenceException("no such customer");
+            }
+            //var result = await RetrieveCustomerAsync(emailId, token);
+            return result.Id;
         }
-
-
 
         public async Task<string> BuyPointsAsync(PointBundle bundle, string email, string successCallback, string fallbackCallback, CancellationToken token)
         {
@@ -167,26 +165,12 @@ namespace Cloudents.Infrastructure.Payments
             var service = new SessionService();
             var session = await service.CreateAsync(options, cancellationToken: token);
             return session.Id;
-
-            //var options = new PaymentIntentCreateOptions
-            //{
-            //    Amount = 1099,
-            //    Currency = "usd",
-            //    // Verify your integration in this guide by including this parameter
-            //    Metadata = new Dictionary<string, string>
-            //    {
-            //        { "integration_check", "accept_a_payment" },
-            //    },
-            //};
-
-            //var service = new PaymentIntentService();
-            //var paymentIntent = await service.CreateAsync(options);
-            //return paymentIntent
+          
         }
 
         public async Task<string> ChargeSessionAsync(Tutor tutor, User user, decimal price, CancellationToken token)
         {
-            var customerId = await RetrieveCustomerIdAsync(user.Payment!.PaymentKey, default);
+            var customerId = await RetrieveCustomerByIdAsync(user.Payment!.PaymentKey, default);
             var optionsX = new PaymentMethodListOptions
             {
                 Customer = customerId,

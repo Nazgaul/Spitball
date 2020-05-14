@@ -8,7 +8,6 @@
 <script>
 import {mapGetters} from 'vuex';
 import AppLogo from "./logo-spitball.svg";
-// import AppFrymo from "../../../../wwwroot/Images/frymo.svg";\
 import AppFrymo from "./frymo-logo.svg";
 export default {
     components:{
