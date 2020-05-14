@@ -42,7 +42,7 @@ namespace Cloudents.Persistence
             return x.GetHashCode();
         }
 
-        public object NullSafeGet(DbDataReader dr, string[] names, ISessionImplementor session, object owner)
+        public object? NullSafeGet(DbDataReader dr, string[] names, ISessionImplementor session, object owner)
         {
             if (dr == null)
             {
@@ -50,7 +50,13 @@ namespace Cloudents.Persistence
             }
             string amountColumn = names[0];
             string currencyColumn = names[1];
-            double val = (double)NHibernateUtil.Double.NullSafeGet(dr, amountColumn, session, owner);
+
+            var amountValue = NHibernateUtil.Double.NullSafeGet(dr, amountColumn, session, owner);
+            if (amountValue == null)
+            {
+                return null;
+            }
+            double val = (double)amountValue;
             string currency = NHibernateUtil.String.NullSafeGet(dr, currencyColumn, session, owner).ToString();
             Money money = new Money(val, currency);
 
@@ -72,22 +78,26 @@ namespace Cloudents.Persistence
             NHibernateUtil.String.NullSafeSet(cmd, currency, index + 1, session);
         }
 
-        public object DeepCopy(object value)
+        public object? DeepCopy(object value)
         {
+            if (value == null)
+            {
+                return null;
+            }
             return new Money(((Money)value).Amount, ((Money)value).Currency);
         }
 
-        public object Disassemble(object value, ISessionImplementor session)
+        public object? Disassemble(object value, ISessionImplementor session)
         {
             return DeepCopy(value);
         }
 
-        public object Assemble(object cached, ISessionImplementor session, object owner)
+        public object? Assemble(object cached, ISessionImplementor session, object owner)
         {
             return DeepCopy(cached);
         }
 
-        public object Replace(object original, object target, ISessionImplementor session, object owner)
+        public object? Replace(object original, object target, ISessionImplementor session, object owner)
         {
             return DeepCopy(original);
         }

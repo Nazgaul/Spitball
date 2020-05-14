@@ -85,6 +85,7 @@ namespace Cloudents.Infrastructure.Payments
         {
             var productOptions = new ProductCreateOptions
             {
+                Id = $"TutorSubscription{tutor.Id}",
                 Name = $"Subscription With {tutor.User.Name}",
                 Metadata = new Dictionary<string, string>()
                 {

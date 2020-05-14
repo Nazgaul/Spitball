@@ -54,7 +54,8 @@ namespace Cloudents.Core.Entities
 
         public virtual void ChangeSubscriptionPrice(double price)
         {
-            var money = new Money(price,User.SbCountry.RegionInfo.ISOCurrencySymbol);
+            var currency = User.SbCountry.RegionInfo.ISOCurrencySymbol;
+            var money = new Money(price, currency);
             SubscriptionPrice = money;
 
         }

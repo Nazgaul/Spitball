@@ -146,9 +146,15 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var x = Container.Resolve<ICommandBus>();
-            var query = new CreateTutorSubscriptionCommand(638,20);
-            await x.DispatchAsync(query, default);
+            var session = Container.Resolve<IRepository<Tutor>>();
+
+            var tutor = await session.LoadAsync(638L, default);
+
+            var z = Container.Resolve<IStripeService>();
+            await z.CreateProductAsync(tutor, default);
+            //var x = Container.Resolve<ICommandBus>();
+            //var query = new CreateTutorSubscriptionCommand(638,20);
+            //await x.DispatchAsync(query, default);
             // var z = Container.Resolve<IUnitOfWork>();
             //await UpdateTwilioParticipants();
             // await Dbi();

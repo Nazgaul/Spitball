@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.CommandHandler
@@ -20,8 +21,10 @@ namespace Cloudents.Command.CommandHandler
         {
             var tutor = await _tutorRepository.LoadAsync(message.TutorId, token);
             tutor.ChangeSubscriptionPrice(message.Price);
-
-            await _stripeService.CreateProductAsync(tutor, token);
+            if (tutor.User.SbCountry == Country.UnitedStates)
+            {
+                await _stripeService.CreateProductAsync(tutor, token);
+            }
         }
     }
 }

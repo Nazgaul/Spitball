@@ -25,7 +25,8 @@ namespace Cloudents.Persistence.Maps
 
 
             Map(x => x.SubscriptionPrice).Nullable()
-                .CustomType<MoneyCompositeUserType>().Columns.Clear().Columns.Add("SubscriptionPrice","SubscriptionCurrency");
+                .CustomType<MoneyCompositeUserType>().Columns.Clear()
+                .Columns.Add("SubscriptionPrice","SubscriptionCurrency");
             Map(x => x.SellerKey);
             HasMany(x => x.Reviews).Access.CamelCaseField(Prefix.Underscore).Cascade.AllDeleteOrphan().Inverse();
             HasMany(x => x.Calendars).Access.CamelCaseField(Prefix.Underscore)
@@ -58,12 +59,5 @@ namespace Cloudents.Persistence.Maps
         }
     }
 
-    internal class MoneyComponent : ComponentMap<Money>
-    {
-        public MoneyComponent()
-        {
-            Map(x => x.Amount).Not.Nullable();
-            Map(x => x.Currency).Not.Nullable();
-        }
-    }
+   
 }
