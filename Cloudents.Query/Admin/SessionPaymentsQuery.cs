@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.Admin;
@@ -15,7 +14,7 @@ namespace Cloudents.Query.Admin
     public class SessionPaymentsQuery : IQueryAdmin<IEnumerable<PaymentDto>>
     {
         [Obsolete]
-        public SessionPaymentsQuery(string country)
+        public SessionPaymentsQuery(string? country)
         {
             Country = country;
         }

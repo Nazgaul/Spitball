@@ -33,8 +33,17 @@ namespace Cloudents.Command.CommandHandler.Admin
             var tutor = await _tutorRepository.LoadAsync(message.TutorId, token);
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
+            if (tutor.User.SbCountry != user.SbCountry)
+            {
+                throw new ApplicationException("We cannot charge users from different country");
+            }
+
             var receipt = $"Payed in {DateTime.UtcNow}";
-            var payment = user.Payment.AvoidProxy;
+            var payment = user.Payment?.AvoidProxy;
+            if (payment == null)
+            {
+                throw new NullReferenceException("no payment on the user");
+            }
             var paymentProvider = _payments[payment.GetType()];
             if (message.StudentPay != 0)
             {

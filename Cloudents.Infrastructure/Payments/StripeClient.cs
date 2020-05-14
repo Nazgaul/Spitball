@@ -17,11 +17,7 @@ namespace Cloudents.Infrastructure.Payments
         {
             StripeConfiguration.ApiKey = configuration.Stripe;
         }
-        static StripeClient()
-        {
-            StripeConfiguration.ApiKey = "sk_test_Ihn6pkUZV9VFpDo7JWUGwT8700FAQ3Gbhf";
-
-        }
+        
         public async Task<(string receipt, long points)> GetSessionByIdAsync(string sessionId, CancellationToken token)
         {
             var service2 = new SessionService();
@@ -33,7 +29,7 @@ namespace Cloudents.Infrastructure.Payments
 
         public async Task<string> CreateCustomerAsync(User user, CancellationToken token)
         {
-            var customer = await RetrieveCustomerAsync(user.Email, token);
+            var customer = await RetrieveCustomerByEmailAsync(user.Email, token);
             var service = new CustomerService();
             if (customer == null)
             {
@@ -80,7 +76,7 @@ namespace Cloudents.Infrastructure.Payments
             return intent.ClientSecret;
         }
 
-        private async Task<Customer?> RetrieveCustomerAsync(string email, CancellationToken token)
+        private async Task<Customer?> RetrieveCustomerByEmailAsync(string email, CancellationToken token)
         {
             var options = new CustomerListOptions()
             {
@@ -92,59 +88,19 @@ namespace Cloudents.Infrastructure.Payments
             return result.Data.FirstOrDefault();
         }
 
-        public async Task<string?> RetrieveCustomerIdAsync(string email, CancellationToken token)
+        private async Task<string> RetrieveCustomerByIdAsync(string id, CancellationToken token)
         {
-            var result = await RetrieveCustomerAsync(email, token);
-            return result?.Id;
+            var service = new CustomerService();
+            var result = await service.GetAsync(id, cancellationToken: token);
+            if (result == null)
+            {
+                throw new NullReferenceException("no such customer");
+            }
+            //var result = await RetrieveCustomerAsync(emailId, token);
+            return result.Id;
         }
 
-        public async Task ChargeTheBastard()
-        {
-            var customerId = await RetrieveCustomerIdAsync("ram@cloudents.com", default);
-            var optionsX = new PaymentMethodListOptions
-            {
-                Customer = customerId,
-                Type = "card",
-            };
-
-            var service2 = new PaymentMethodService();
-            var x = await service2.ListAsync(optionsX);
-            var z = x.Data.FirstOrDefault();
-
-
-
-            //try
-            //{
-            var service = new PaymentIntentService();
-            var options = new PaymentIntentCreateOptions
-            {
-                Amount = 20 * 100,
-                Currency = "usd",
-                Customer = customerId,
-                PaymentMethod = z.Id,
-                Confirm = true,
-                OffSession = true,
-            };
-            service.Create(options);
-            //}
-            //catch (StripeException e)
-            //{
-            //    switch (e.StripeError.ErrorType)
-            //    {
-            //        case "card_error":
-            //            // Error code will be authentication_required if authentication is needed
-            //            Console.WriteLine("Error code: " + e.StripeError.Code);
-            //            var paymentIntentId = e.StripeError.PaymentIntent.Id;
-            //            var service = new PaymentIntentService();
-            //            var paymentIntent = service.Get(paymentIntentId);
-
-            //            Console.WriteLine(paymentIntent.Id);
-            //            break;
-            //        default:
-            //            break;
-            //    }
-            //}
-        }
+        
 
         public async Task<string> BuyPointsAsync(PointBundle bundle, string email, string successCallback, string fallbackCallback, CancellationToken token)
         {
@@ -196,7 +152,7 @@ namespace Cloudents.Infrastructure.Payments
 
         public async Task<string> ChargeSessionAsync(Tutor tutor, User user, decimal price, CancellationToken token)
         {
-            var customerId = await RetrieveCustomerIdAsync(user.Payment!.PaymentKey, default);
+            var customerId = await RetrieveCustomerByIdAsync(user.Payment!.PaymentKey, default);
             var optionsX = new PaymentMethodListOptions
             {
                 Customer = customerId,
