@@ -23,6 +23,7 @@ using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Payments;
 using Cloudents.Query;
@@ -146,80 +147,36 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var session = Container.Resolve<IRepository<Tutor>>();
-
-            var tutor = await session.LoadAsync(638L, default);
-
-            var z = Container.Resolve<IStripeService>();
-            await z.CreateProductAsync(tutor, default);
-            //var x = Container.Resolve<ICommandBus>();
-            //var query = new CreateTutorSubscriptionCommand(638,20);
-            //await x.DispatchAsync(query, default);
-            // var z = Container.Resolve<IUnitOfWork>();
-            //await UpdateTwilioParticipants();
-            // await Dbi();
-
-
-
-            //var x = Container.Resolve<StripeClient>();
-            //await x.ChargeTheBastard();
-
-
-            //var xy = Container.Resolve<DocumentSearchWrite>();
-            //await xy.CreateOrUpdateAsync(default);
-
-            //BaseUser? userAlias = null!;
             //var session = Container.Resolve<IStatelessSession>();
-
-            //var questionCountFutureQuery = session.QueryOver<Question>()
-            //    .JoinAlias(x => x.User, () => userAlias)
-            //    .Where(w => w.Status.State == ItemState.Ok);
-            //questionCountFutureQuery.Where(() => userAlias.SbCountry == Country.India);
-
-            ////questionCountFutureQuery.Where(Restrictions.Eq(Projections.Property(()=> userAlias.SbCountry), Country.India));
-
-
-            //var questionCountFuture = questionCountFutureQuery.ToRowCountQuery().RowCount();
+            //var x2 = session.Query<StudyRoomUser>().Fetch(f => f.Room)
+            //    .Where(w => w.Room.Tutor.Id == 638).Select(s=>s.User.Id).Distinct().Count();
 
             //var x = session.Query<BaseUser>()
             //    .Where(w => w.Id == 36)
-            //    .Where(w=>((User)w).LockoutEnabled)
+            //    .Where(w => ((User)w).LockoutEnabled)
             //    //.Where(w => ((User) w).LockoutReason == "xxx")
-            //    .Select(s => ((User) s).LockoutReason)
-            //    .Single();
+            //    .Select(s => ((User)s).LockoutReason)
+            //   .ToFutureValue();
 
-            //var z= session.QueryOver<BaseUser>()
-            //    .Where(w => w.Id == 36)
-            //    .Where(w=>((User)w).LockoutEnabled)
-            //    .Select(s => ((User) s).LockoutReason).SingleOrDefault();
-
-
+            //var z = session.QueryOver<Tutor>()
+            //    .Where(w => w.Id == 638).Select(s => s.Bio).FutureValue<string>();
+            //    //.Where(w => ((User) w).LockoutEnabled)
+            //    //.Select(s => ((User) s).LockoutReason).FutureValue<string>();
+            //    var xx = x.Value;
+            //var zz = z.Value;
+          
         }
         //  await ReduPreviewProcessingAsync();
 
         private static async Task Dbi()
         {
-            var session = Container.Resolve<IStatelessSession>();
-            var bus = Container.Resolve<ICommandBus>();
-            var usersWithPayment =await session.Query<User>()
-                .Where(w => w.PaymentExists == PaymentStatus.Done)
-                .ToListAsync();
+            /* alter table sb.[readTutor]
+ add Description nvarchar(255)
+add SubscriptionPrice float NULL
+add SubscriptionCurrency nvarchar(3)*/
+            await ResyncTutorRead();
+           
 
-            foreach (var user in usersWithPayment)
-            {
-                if (user.BuyerPayment != null)
-                {
-                    if (user.Payment == null)
-                    {
-                        var command = new AddBuyerTokenCommand(user.Id,
-                            user.BuyerPayment.PaymentKey,
-                            user.BuyerPayment.PaymentKeyExpiration,
-                            user.BuyerPayment.CreditCardMask);
-                        await bus.DispatchAsync(command, default);
-                    }
-                }
-            }
-            
 
             //AddBuyerTokenCommand
         }
@@ -270,24 +227,24 @@ namespace ConsoleApp
             }
         }
 
-        //        private static async Task ResyncTutorRead()
-        //        {
-        //            var session = Container.Resolve<IStatelessSession>();
-        //            var bus = Container.Resolve<ICommandBus>();
-        //            var eventHandler = Container.Resolve<IEventPublisher>();
+        private static async Task ResyncTutorRead()
+        {
+            var session = Container.Resolve<IStatelessSession>();
+            var bus = Container.Resolve<ICommandBus>();
+            var eventHandler = Container.Resolve<IEventPublisher>();
 
-        //            var x = await session.CreateSQLQuery(@"
-        //Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
+            var x = await session.CreateSQLQuery(@"
+        Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
 
-        //            foreach (dynamic z in x)
-        //            {
-        //                var e = new SetUniversityEvent(z);
-        //                await eventHandler.PublishAsync(e, default);
-        //                //var command = new TeachCourseCommand(z[0], z[1]);
-        //                //await bus.DispatchAsync(command, default);
-        //            }
-        //        }
+            foreach (dynamic z in x)
+            {
+                var e = new ChangeCountryEvent(z);
+                await eventHandler.PublishAsync(e, default);
+                //var command = new TeachCourseCommand(z[0], z[1]);
+                //await bus.DispatchAsync(command, default);
+            }
+        }
 
         private static async Task Convert()
         {
@@ -652,22 +609,6 @@ namespace ConsoleApp
         //    } while (blobToken != null);
 
         //}
-
-
-
-
-
-        private static async Task DeleteUserAsync(long id)
-        {
-            var session = Container.Resolve<ISession>();
-            var unitOfWork = Container.Resolve<IUnitOfWork>();
-
-            var user = await session.LoadAsync<User>(id);
-            await session.DeleteAsync(user);
-            await unitOfWork.CommitAsync(default);
-        }
-
-
 
         private static async Task<string> CopyBlobFromOldContainerAsync(string blobName, long itemId)
         {

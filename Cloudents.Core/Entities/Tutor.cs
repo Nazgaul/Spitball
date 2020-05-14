@@ -54,10 +54,14 @@ namespace Cloudents.Core.Entities
 
         public virtual void ChangeSubscriptionPrice(double price)
         {
+            if (User.SbCountry == null)
+            {
+                throw new ArgumentException("Tutor cannot have null country");
+            }
             var currency = User.SbCountry.RegionInfo.ISOCurrencySymbol;
             var money = new Money(price, currency);
             SubscriptionPrice = money;
-
+            AddEvent(new UpdateTutorSettingsEvent(Id));
         }
 
         public virtual void UpdateSettings(string bio, decimal? price)

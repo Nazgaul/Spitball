@@ -26,14 +26,14 @@ namespace Cloudents.Core.DTOs.Users
         [EntityBind(nameof(User.FirstName))]
         public string FirstName { get; set; }
         [EntityBind(nameof(User.LastName))]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
 
         [EntityBind(nameof(User.Followers))]
         public int Followers { get; set; }
 
         public bool IsFollowing { get; set; }
 
-        
+      
 
         public IEnumerable<string>? DocumentCourses { get; set; }
         public IEnumerable<string>? Courses { get; set; }

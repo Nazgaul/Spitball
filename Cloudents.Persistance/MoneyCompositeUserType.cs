@@ -65,10 +65,10 @@ namespace Cloudents.Persistence
 
         public void NullSafeSet(DbCommand cmd, object value, int index, bool[] settable, ISessionImplementor session)
         {
-            if (value == null)
-                return;
-            double amount = 0;
-            string currency = "";
+            //if (value == null)
+            //    return;
+            double? amount = null;
+            string? currency = null;
             if (value != null)
             {
                 amount = ((Money)value).Amount;
