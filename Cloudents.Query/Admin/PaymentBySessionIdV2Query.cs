@@ -69,7 +69,9 @@ namespace Cloudents.Query.Admin
                         TutorId = query.TutorId,
                         UserName = s.User.Name,
                         Created = s.StudyRoomSession.Created,
-                        CantPay = s.StudyRoomSession.StudyRoom.Tutor.SellerKey == null,
+                        _sellerKey = s.StudyRoomSession.StudyRoom.Tutor.SellerKey,
+                        TutorCountry = s.StudyRoomSession.StudyRoom.Tutor.User.SbCountry,
+                        //CantPay = s.StudyRoomSession.StudyRoom.Tutor.SellerKey == null,
                         _duration = s.TutorApproveTime ?? s.Duration,
                         TutorName = s.StudyRoomSession.StudyRoom.Tutor.User.Name,
                         StudyRoomSessionId = s.StudyRoomSession.Id

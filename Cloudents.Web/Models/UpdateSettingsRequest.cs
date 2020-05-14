@@ -9,6 +9,7 @@ namespace Cloudents.Web.Models
         [StringLength(255, MinimumLength = 2, ErrorMessage = "StringLength")]
         public string FirstName { get; set; }
         [StringLength(255, MinimumLength = 2, ErrorMessage = "StringLength")]
+        [Required]
         public string LastName { get; set; }
         [StringLength(255, MinimumLength = 15, ErrorMessage = "StringLength")]
         public string Description { get; set; }

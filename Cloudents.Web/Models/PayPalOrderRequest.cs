@@ -1,13 +1,13 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿//using System;
+//using System.ComponentModel.DataAnnotations;
 
-namespace Cloudents.Web.Models
-{
-    public class PayPalOrderRequest
-    {
-        [Required]
-        public string OrderId { get; set; }
+//namespace Cloudents.Web.Models
+//{
+//    public class PayPalOrderRequest
+//    {
+//        [Required]
+//        public string OrderId { get; set; }
 
-        public Guid SessionId { get; set; }
-    }
-}
+//        public Guid SessionId { get; set; }
+//    }
+//}

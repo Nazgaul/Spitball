@@ -96,7 +96,7 @@ namespace Cloudents.Core.Entities
 
         public virtual short Boost { get; set; }
 
-        public virtual void AddDownload(BaseUser user)
+        public virtual void AddDownload(User user)
         {
             if (!User.Equals(user))
             {

@@ -137,7 +137,6 @@ namespace Cloudents.Web.Api
             var query = new StudyRoomQuery(id, userId);
             var result = await _queryBus.QueryAsync(query, token);
 
-
             //TODO: need to add who is the tutor
             if (result == null)
             {

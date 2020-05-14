@@ -64,7 +64,6 @@ namespace Cloudents.Query.Tutor
                                
                     )
                     .OrderBy(()=> studyRoomAlias.DateTime.CreationTime).Desc
-                    //.TransformUsing(Transformers.AliasToBean<UserStudyRoomDto>())
                     .TransformUsing(new SbAliasToBeanResultTransformer<UserStudyRoomDto>())
                     .UnderlyingCriteria.SetComment(nameof(UserStudyRoomQuery))
                     .ListAsync<UserStudyRoomDto>(token);

@@ -93,40 +93,11 @@ namespace Cloudents.Core.Entities
             if (price < 0) throw new ArgumentException(nameof(price));
             _users = new HashSet<StudyRoomUser>(users.Select(s => new StudyRoomUser(s, this)));
             Tutor = tutor;
-           // StudyRoomType = type;
-            //if (StudyRoomType == StudyRoomType.Private )
-            //{
-            //    if (_users.Count == 0)
-            //    {
-            //        throw new ArgumentException();
-            //    }
-            //    //StudyRoomType = StudyRoomType.Private;
-            //    Identifier = ChatRoom.BuildChatRoomIdentifier(
-            //        _users.Select(s => s.User.Id).Union(new[] { tutor.Id }));
-            //}
-            //else
-            //{
-            //    if (!broadcastTime.HasValue)
-            //    {
-            //        throw new ArgumentException();
-            //    }
-            //    StudyRoomType = StudyRoomType.Broadcast;
-            //    Identifier = Guid.NewGuid().ToString();
-            //    ChatRoom = ChatRoom.FromStudyRoom(this);
-            //    BroadcastTime = broadcastTime!.Value;
-            //    //var chatRoom = ChatRoom.FromStudyRoom(Identifier);
-            //}
+          
 
             OnlineDocumentUrl = onlineDocumentUrl;
             Name = name;
-            //if (_users.Count < 10 && _users.Count > 0)
-            //{
-            //    Type = StudyRoomTopologyType.PeerToPeer;
-            //}
-            //else
-            //{
-            //    Type = StudyRoomTopologyType.GroupRoom;
-            //}
+          
 
             DateTime = new DomainTimeStamp();
             Price = price;
@@ -175,11 +146,6 @@ namespace Cloudents.Core.Entities
 
         public virtual decimal? Price { get; protected set; }
 
-        
-
-        [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")] 
-        private readonly ICollection<UserPaymentToken> _userTokens = new List<UserPaymentToken>();
-        public virtual IEnumerable<UserPaymentToken> UserTokens => _userTokens;
 
         public virtual StudyRoomSession? GetCurrentSession()
         {

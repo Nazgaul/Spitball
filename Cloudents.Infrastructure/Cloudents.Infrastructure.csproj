@@ -31,8 +31,6 @@
     <PackageReference Include="Google.Apis.Drive.v3" Version="1.44.1.1888" />
     <PackageReference Include="GoogleMeasurementProtocol" Version="2.1.0" />
     <PackageReference Include="Nager.Country" Version="1.0.4" />
-    <PackageReference Include="PayPalHttp" Version="1.0.0" />
-    <PackageReference Include="PayPalCheckoutSdk" Version="1.0.3" />
     <PackageReference Include="protobuf-net" Version="2.4.0" />
     <PackageReference Include="Stripe.net" Version="36.9.0" />
     <PackageReference Include="Twilio" Version="5.37.1" />

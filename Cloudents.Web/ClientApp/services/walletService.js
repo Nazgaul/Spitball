@@ -30,5 +30,9 @@ export default {
     },
     async stripeTransaction(points) {
         return await walletInstance.post('/stripe', points);
+    },
+    async getStripeSecret() {
+        return await walletInstance.post('/stripe/StudyRoom');
+        
     }
 }

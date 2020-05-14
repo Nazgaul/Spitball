@@ -106,7 +106,6 @@ namespace Cloudents.Web
                     ),
                 Storage = Configuration["Storage"],
                 ServiceBus = Configuration["ServiceBus"],
-                PayPal = new PayPalCredentials(Configuration["PayPal:ClientId"], Configuration["PayPal:ClientSecret"], !HostingEnvironment.IsProduction())
             };
 
 

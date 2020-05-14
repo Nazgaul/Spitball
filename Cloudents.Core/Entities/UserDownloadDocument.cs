@@ -6,7 +6,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate")]
     public class UserDownloadDocument : Entity<Guid>, IEquatable<UserDownloadDocument>
     {
-        public UserDownloadDocument(BaseUser user, Document document)
+        public UserDownloadDocument(User user, Document document)
         {
             if (user.Id == document.User.Id)
             {
@@ -20,7 +20,7 @@ namespace Cloudents.Core.Entities
         protected UserDownloadDocument()
 
         { }
-        public virtual BaseUser User { get; protected set; }
+        public virtual User User { get; protected set; }
         public virtual Document Document { get; protected set; }
         public virtual DateTime Created { get; }
 
@@ -42,8 +42,7 @@ namespace Cloudents.Core.Entities
 
         public override int GetHashCode()
         {
-            var t = (User.Id.GetHashCode() * 53) ^ (Document.Id.GetHashCode() * 37);
-            return t;
+            return HashCode.Combine(User.Id.GetHashCode() * 53, Document.Id.GetHashCode() * 37);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Cloudents.Core.Entities
             }
 
             UseCoupon();
-            UsePaymentToken();
+            //UsePaymentToken();
         }
         [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]
         protected StudyRoomSessionUser()
@@ -83,23 +83,23 @@ namespace Cloudents.Core.Entities
             //Use Copuon
         }
 
-        public virtual void UsePaymentToken()
-        {
-            if (User.SbCountry != Entities.Country.UnitedStates)
-            {
-                return;
-            }
+        //public virtual void UsePaymentToken()
+        //{
+        //    if (User.SbCountry != Entities.Country.UnitedStates)
+        //    {
+        //        return;
+        //    }
 
-            if (PricePerHour == 0)
-            {
-                return;
-            }
-            var userToken = this.StudyRoomSession.StudyRoom.UserTokens.FirstOrDefault(w => w.State == PaymentTokenState.NotUsed);
-            if (userToken != null)
-            {
-                userToken.ChangeToUsedState(this);
-            }
-        }
+        //    if (PricePerHour == 0)
+        //    {
+        //        return;
+        //    }
+        //    var userToken = this.StudyRoomSession.StudyRoom.UserTokens.FirstOrDefault(w => w.State == PaymentTokenState.NotUsed);
+        //    if (userToken != null)
+        //    {
+        //        userToken.ChangeToUsedState(this);
+        //    }
+        //}
 
         protected virtual void UseCoupon()
         {
