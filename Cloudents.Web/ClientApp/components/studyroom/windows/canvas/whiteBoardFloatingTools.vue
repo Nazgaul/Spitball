@@ -1,64 +1,50 @@
 <template>
    <v-btn-toggle class="whiteBoardFloatingTools" v-model="toggle_exclusive" rounded>
-      
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
-               <v-btn icon v-on="on" sel="pen_draw" :class="{'active-tool': selectedOptionString === enumOptions.pan}"
-                        class="nav-action" @click="setOptionType($event, enumOptions.pan)">
+               <button v-on="on" sel="pen_draw" class="nav-action" @click="setOptionType($event, enumOptions.pan)">
                   <v-icon size="20" :color="selectedColor(enumOptions.pan)">sbf-pan</v-icon>
-               </v-btn>
+               </button>
             </template>
             <span v-language:inner>tutor_tooltip_pan</span>
       </v-tooltip>
-
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
-               <v-btn icon v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.select}"
-                        class="nav-action" @click="setOptionType($event, enumOptions.select)">
-                  <v-icon  :color="selectedColor(enumOptions.select)">sbf-mouse-pointer</v-icon>
-               </v-btn>
+               <button v-on="on" class="nav-action" @click="setOptionType($event, enumOptions.select)">
+                  <v-icon :color="selectedColor(enumOptions.select)">sbf-mouse-pointer</v-icon>
+               </button>
             </template>
             <span v-language:inner>tutor_tooltip_select</span>
       </v-tooltip>
-
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
-               <v-btn icon v-on="on" sel="text_draw"
-                        :class="{'active-tool': selectedOptionString === enumOptions.text, 'mouse-text': selectedOptionString === enumOptions.text}"
-                        class="nav-action" @click="setOptionType($event, enumOptions.text)">
+               <button v-on="on" sel="text_draw" class="nav-action" @click="setOptionType($event, enumOptions.text)">
                   <v-icon :color="selectedColor(enumOptions.text)">sbf-text-icon</v-icon>
-               </v-btn>
+               </button>
             </template>
             <span v-language:inner>tutor_tooltip_text</span>
       </v-tooltip>
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
-               <v-btn icon v-on="on"
-                        :class="{'active-tool': selectedOptionString === enumOptions.equation}"
-                        class="nav-action" @click="setOptionType($event, enumOptions.equation)">
+               <button v-on="on" class="nav-action" @click="setOptionType($event, enumOptions.equation)">
                   <v-icon :color="selectedColor(enumOptions.equation)">sbf-equation-icon</v-icon>
-               </v-btn>
+               </button>
             </template>
             <span v-language:inner>tutor_tooltip_equation</span>
       </v-tooltip>
-
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
-               <v-btn icon v-on="on"
-                        :class="{'active-tool': selectedOptionString === enumOptions.iink}"
-                        class="nav-action" @click="setOptionType($event, enumOptions.iink)">
+               <button v-on="on" class="nav-action" @click="setOptionType($event, enumOptions.iink)">
                   <v-icon :color="selectedColor(enumOptions.iink)">sbf-fx-icon</v-icon>
-               </v-btn>
+               </button>
             </template>
             <span v-language:inner>tutor_tooltip_iink</span>
       </v-tooltip>
-            
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
-               <v-btn icon sel="color_picker" v-on="on" :class="{'active-tool': showPickColorInterface}" class="nav-action"
-                        @click="showColorPicker">
+               <button v-on="on" sel="color_picker" class="nav-action" @click="showColorPicker">
                   <v-icon class="selected-color" :style="{ color: canvasData.color.hex}">sbf-color-picked</v-icon>
-               </v-btn>
+               </button>
             </template>
             <span v-language:inner>tutor_tooltip_color</span>
       </v-tooltip>
@@ -68,90 +54,77 @@
                         v-model="canvasData.color"/>
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
-               <v-btn icon v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.draw}"
-                        class="nav-action" @click="setOptionType($event, enumOptions.draw)">
+               <button v-on="on" class="nav-action" @click="setOptionType($event, enumOptions.draw)">
                   <v-icon :color="selectedColor(enumOptions.draw)">sbf-pencil-empty</v-icon>
-               </v-btn>
+               </button>
             </template>
             <span v-language:inner>tutor_tooltip_pen</span>
       </v-tooltip>
-
-
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
-               <v-btn icon sel="line_draw" v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.line}"
-                        class="nav-action" @click="setOptionType($event, enumOptions.line)">
+               <button v-on="on" sel="line_draw" class="nav-action" @click="setOptionType($event, enumOptions.line)">
                   <v-icon :color="selectedColor(enumOptions.line)">sbf-connect-line</v-icon>
-               </v-btn>
+               </button>
             </template>
             <span v-language:inner>tutor_tooltip_line</span>
       </v-tooltip>
-
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
-               <v-btn icon sel="circle_draw" v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.circle}"
-                        class="nav-action" @click="setOptionType($event, enumOptions.circle)">
+               <button v-on="on" sel="circle_draw" class="nav-action" @click="setOptionType($event, enumOptions.circle)">
                   <v-icon :color="selectedColor(enumOptions.circle)">sbf-elipse-stroke</v-icon>
-               </v-btn>
+               </button>
             </template>
             <span v-language:inner>tutor_tooltip_circle</span>
       </v-tooltip>
-
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
-               <v-btn icon sel="square_draw" v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.rectangle}"
-                        class="nav-action" @click="setOptionType($event, enumOptions.rectangle)">
+               <button v-on="on" sel="square_draw" class="nav-action" @click="setOptionType($event, enumOptions.rectangle)">
                   <v-icon :color="selectedColor(enumOptions.rectangle)">sbf-rectangle-stroke</v-icon>
-               </v-btn>
+               </button>
             </template>
             <span v-language:inner>tutor_tooltip_square</span>
       </v-tooltip>
-
       <input class="nav-action" type="file" name="Image Upload" id="imageUpload" accept="image/*" v-show="false"/>
-                
-            
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
-               <v-btn icon v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.image}"
-                        class="nav-action" @click="setOptionType($event, enumOptions.image)">
+               <button v-on="on" class="nav-action" @click="setOptionType($event, enumOptions.image)">
                   <v-icon :color="selectedColor(enumOptions.image)">sbf-upload</v-icon>
-               </v-btn>
+               </button>
             </template>
             <span v-language:inner>tutor_tooltip_upload</span>
       </v-tooltip>
 
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
-               <v-btn icon sel="clear_all_canvas" v-on="on" class="nav-action" @click="takeSnapshot()">
-                  <v-icon style="margin-bottom: 2px;">sbf-capture-icon</v-icon>
-               </v-btn>
+               <button v-on="on" class="nav-action" @click="takeSnapshot">
+                  <v-icon color="black" style="margin-bottom: 2px;">sbf-capture-icon</v-icon>
+               </button>
             </template>
             <span v-language:inner>tutor_tooltip_takeSnapshot</span>
       </v-tooltip>
 
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
-               <v-btn icon v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.eraser}"
-                        class="nav-action" @click="setOptionType($event, enumOptions.eraser)">
+               <button v-on="on" class="nav-action" @click="setOptionType($event, enumOptions.eraser)">
                   <v-icon :color="selectedColor(enumOptions.eraser)" >sbf-eraser-empty</v-icon>
-               </v-btn>
+               </button>
             </template>
             <span v-language:inner>tutor_tooltip_eraser</span>
       </v-tooltip>
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
-               <v-btn icon sel="undo_draw" v-on="on" class="nav-action" :class="{'disabled': dragData.length === 0}" @click="undo()">
-                  <v-icon>sbf-undo</v-icon>
-               </v-btn>
+               <button v-on="on" sel="undo_draw" class="nav-action" :class="{'disabled': dragData.length === 0}" @click="undo()">
+                  <v-icon color="black">sbf-undo</v-icon>
+               </button>
             </template>
             <span v-language:inner>tutor_tooltip_undo</span>
       </v-tooltip>
 
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
-               <v-btn icon sel="clear_all_canvas" v-on="on" class="nav-action" @click="clearCanvas()">
-                  <v-icon size="20" style="margin-top: 5px;">sbf-clearAll-icon</v-icon>
-               </v-btn>
+               <button v-on="on" sel="clear_all_canvas" class="nav-action" @click="clearCanvas()">
+                  <v-icon color="black" size="20" style="margin-top: 5px;">sbf-clearAll-icon</v-icon>
+               </button>
             </template>
             <span v-language:inner>tutor_tooltip_clearAll</span>
       </v-tooltip>
@@ -227,7 +200,7 @@ export default {
    methods:{
       ...mapActions(['setShowPickColorInterface', 'setCurrentOptionSelected', 'setSelectedOptionString', 'setUndoClicked', 'setClearAllClicked', 'updateDialogSnapshot']),
       selectedColor(option){
-         return this.selectedOptionString === option? '#4c59ff':''
+         return this.selectedOptionString === option? '#4c59ff':'black'
       },
       showColorPicker() {
          this.$ga.event("tutoringRoom", "showColorPicker");
@@ -293,16 +266,12 @@ export default {
    top: 12px;
    padding: 0 6px;
    .nav-action{
-      border: none !important;
-      min-width: 40px !important;
-      height: 44px !important;
+      background: none;
+      outline: none;
+      width: 40px;
+      height: 44px;
       .v-icon {
          font-size: 22px;
-      }
-      &.active-tool{
-         .v-icon {
-            color:#4c59ff;
-         }
       }
    }
 }
