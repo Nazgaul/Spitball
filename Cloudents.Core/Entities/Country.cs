@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.Serialization;
 
 namespace Cloudents.Core.Entities
 {
@@ -153,6 +154,8 @@ namespace Cloudents.Core.Entities
         //    }
     }
 
+
+    [DataContract]
     public struct Money
 
     {
@@ -175,8 +178,10 @@ namespace Cloudents.Core.Entities
             decimal mantissa = ((decimal)quotient) - wholePart;
             return mantissa >= .5m ? .01 * (wholePart + 1) : .01 * wholePart;
         }
+        [DataMember]
         public double Amount { get; }
 
+        [DataMember]
         public string Currency { get; }
         public int Cents { get; }
 
