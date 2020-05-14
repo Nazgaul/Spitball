@@ -17,7 +17,8 @@ export const Profile = {
             firstName: objInit.firstName || '',
             lastName: objInit.lastName || '',
             isFollowing: objInit.isFollowing,
-            cover : objInit.cover || ''
+            cover : objInit.cover || '',
+            subscriptionPrice: objInit.tutor?.subscriptionPrice
          }
       )
    },

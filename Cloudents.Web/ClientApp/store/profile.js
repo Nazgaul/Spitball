@@ -59,7 +59,8 @@ const getters = {
    getRam: state => state.profile,
    getProfileReviews: state => state.profileReviews,
    getShowEditDataDialog: state => state.showEditDataDialog,
-   getProfileCoverImage: state => state.profile?.user?.cover || ''
+   getProfileCoverImage: state => state.profile?.user?.cover || '',
+   getProfileTutorSubscription: state => state.profile?.user.subscriptionPrice,
 }
 
 const actions = {

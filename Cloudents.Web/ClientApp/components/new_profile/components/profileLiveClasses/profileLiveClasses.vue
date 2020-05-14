@@ -12,7 +12,7 @@
                 <v-col cols="4" class="pa-0">
                     <div class="pa-3" v-t="'profile_live_visitors_title'"></div>
                 </v-col>
-                <v-col cols="4" class="titleSubscriber pa-0">
+                <v-col cols="4" class="titleSubscriber pa-0" v-show="isTutorSubscription">
                     <div class="pa-3" v-t="'profile_live_subscribers_title'"></div>
                 </v-col>
             </v-row>
@@ -91,8 +91,8 @@
                                 <span class="hour" v-t="'profile_points_hour'"></span>
                             </div>
                         </v-col>
-                        <v-col cols="4" class="pa-0 rowCol" :class="{'enroll': session.enrolled}">
-                            <div v-t="'profile_live_subscribers_free'"></div>  
+                        <v-col cols="4" class="pa-0 rowCol" :class="{'enroll': session.enrolled && isTutorSubscription}">
+                            <div v-t="'profile_live_subscribers_free'" v-show="isTutorSubscription"></div>  
                         </v-col>
                     </template>
                     <v-col cols="4" class="pa-0 rowCol d-flex d-sm-block ma-auto pa-2">
@@ -176,6 +176,12 @@ export default {
         }
     },
     computed: {
+        isTutorSubscription() {
+            return this.$store.getters.getIsTutorSubscription
+        },
+        tutorSubscriptionPrice() {
+            return this.$store.getters.getTutorSubscriptionPrice
+        },
         liveSessionsList() {
             let liveList = this.liveSessions
             if(this.isExpand) {
@@ -386,7 +392,7 @@ export default {
                     .hour {
                         font-size: 16px
                     }
-                    &:nth-child(2) {
+                    &.enroll:nth-child(2) {
                         background: #f5f5f5;
                         color: @global-purple;
                         font-size: 16px;

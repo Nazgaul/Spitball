@@ -19,7 +19,7 @@
         class="mt-sm-12 mt-2 mx-auto calendarSection"
         :globalFunctions="globalFunctions"
       />
-      <profileSubscription :id="id" />
+      <profileSubscription :id="id" v-if="isTutorSubscribe" />
       <profileLiveClasses :id="id" v-if="isTutor" />
       <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" />
       <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" />
@@ -152,8 +152,6 @@ export default {
             'updateRequestDialog',
             'setActiveConversationObj',
             'openChatInterface',
-
-
             'syncProfile',
             'resetProfileData',
             'updateToasterParams'
@@ -251,6 +249,10 @@ export default {
             'getBannerParams',
             'getUserLoggedInStatus'
         ]),
+        isTutorSubscribe() {
+          let subscribe = this.getProfile?.user?.subscriptionPrice
+          return subscribe && subscribe.hasOwnProperty('amount')
+        },
         shareContentParams(){
             let urlLink = `${global.location.origin}/p/${this.$route.params.id}?t=${Date.now()}` ;
             let userName = this.getProfile.user?.name;
