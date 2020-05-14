@@ -63,7 +63,7 @@
                                         <div class="px-3 py-2" v-t="'profile_live_visitors_title'"></div>
                                     </v-col>
                                     <v-col class="pa-0">
-                                        <div class="px-3 py-2">
+                                        <div class="px-3 py-2 d-flex align-center">
                                             <span class="numericPrice mb-1">{{$n(session.price, 'currency')}}</span>
                                             <div class="d-flex align-end">
                                                 <span>/</span>
