@@ -63,7 +63,7 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
 
-            if (retVal.Tutor is null || !retVal.ShouldSerializeTutor())
+            if (retVal.Tutor is null)
             {
                 Response.Headers.Add("X-Robots-Tag", "noindex");
                 return View("Index");
@@ -73,13 +73,13 @@ namespace Cloudents.Web.Controllers
             ViewBag.metaDescription = _localizer["Description", retVal.Tutor.Description];
             if (retVal.Image != null)
             {
-               // Country country = Country.FromCountry(retVal.Tutor.TutorCountry);
-
+                Country country = retVal.Tutor.TutorCountry ?? Country.UnitedStates;
+               
                 ViewBag.ogImage = _urlBuilder.BuildUserImageProfileShareEndpoint(retVal.Id, new
                 {
                     width = 1200,
                     height = 630,
-                    rtl = retVal.Tutor.TutorCountry.MainLanguage.Info.TextInfo.IsRightToLeft.ToString()
+                    rtl = country.MainLanguage.Info.TextInfo.IsRightToLeft.ToString()
                 });
                 ViewBag.ogImageWidth = 1200;
                 ViewBag.ogImageHeight = 630;
@@ -87,7 +87,7 @@ namespace Cloudents.Web.Controllers
                 if (retVal.Tutor.Subjects?.Any() == true)
                 {
                     ViewBag.ogDescription =
-                        _localizer.WithCulture(retVal.Tutor.TutorCountry.MainLanguage)["OgDescription",
+                        _localizer.WithCulture(country.MainLanguage)["OgDescription",
                             string.Join(", ", retVal.Tutor.Subjects)];
                 }
 

@@ -39,10 +39,10 @@ namespace Cloudents.Core.DTOs.Users
         public IEnumerable<string>? Courses { get; set; }
 
         //If the user is a tutor and then delete then the first name and the last name stays
-        public bool ShouldSerializeTutor()
-        {
-            // don't serialize the Manager property if an employee is their own manager
-            return Tutor?.TutorCountry != null;
-        }
+        //public bool ShouldSerializeTutor()
+        //{
+        //    // don't serialize the Manager property if an employee is their own manager
+        //    return Tutor?.TutorCountry != null;
+        //}
     }
 }
