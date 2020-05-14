@@ -420,7 +420,7 @@ export default {
             }, false);
         },
         windowChangeEvent(){
-            let MutationObserver = window.WebKitMutationObserver;
+            let MutationObserver = window.MutationObserver;
             let target = document.querySelector('main');
             let self = this;
             let observer = new MutationObserver(function(mutations) {
