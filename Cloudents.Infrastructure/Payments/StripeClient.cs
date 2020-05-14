@@ -81,7 +81,7 @@ namespace Cloudents.Infrastructure.Payments
             return intent.ClientSecret;
         }
 
-        public async Task CreateProductAsync(Tutor tutor, decimal price, CancellationToken token)
+        public async Task CreateProductAsync(Tutor tutor, CancellationToken token)
         {
             var productOptions = new ProductCreateOptions
             {
@@ -96,12 +96,12 @@ namespace Cloudents.Infrastructure.Payments
             var product = await productService.CreateAsync(productOptions, cancellationToken: token);
             var options = new PriceCreateOptions
             {
-                Currency = "usd",
+                Currency = tutor.SubscriptionPrice!.Value.Currency.ToLowerInvariant(),
                 Recurring = new PriceRecurringOptions
                 {
                     Interval = "month",
                 },
-                UnitAmount = (long)(price * 100),
+                UnitAmount = tutor.SubscriptionPrice!.Value.Cents,
             };
 
             options.AssignProduct(product.Id);
@@ -113,7 +113,7 @@ namespace Cloudents.Infrastructure.Payments
 
         }
 
-       
+
 
         private async Task<Customer?> RetrieveCustomerAsync(string email, CancellationToken token)
         {
@@ -133,7 +133,7 @@ namespace Cloudents.Infrastructure.Payments
             return result?.Id;
         }
 
-       
+
 
         public async Task<string> BuyPointsAsync(PointBundle bundle, string email, string successCallback, string fallbackCallback, CancellationToken token)
         {
@@ -229,7 +229,7 @@ namespace Cloudents.Infrastructure.Payments
         //Product is internal - maybe they'll fix them on future versions
         public static void AssignProduct(this PriceCreateOptions options, string productId)
         {
-            var prop = options.GetType().GetProperty("Product", BindingFlags.NonPublic |BindingFlags.Instance);
+            var prop = options.GetType().GetProperty("Product", BindingFlags.NonPublic | BindingFlags.Instance);
             prop.SetValue(options, productId);
         }
     }

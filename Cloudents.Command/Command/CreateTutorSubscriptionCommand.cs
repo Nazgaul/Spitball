@@ -2,7 +2,7 @@
 {
     public class CreateTutorSubscriptionCommand : ICommand
     {
-        public CreateTutorSubscriptionCommand(long tutorId, decimal price)
+        public CreateTutorSubscriptionCommand(long tutorId, double price)
         {
             TutorId = tutorId;
             Price = price;
@@ -10,6 +10,6 @@
 
         public long TutorId { get;  }
 
-        public decimal Price { get;  }
+        public double Price { get;  }
     }
 }

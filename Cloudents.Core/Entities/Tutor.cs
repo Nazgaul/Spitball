@@ -46,8 +46,18 @@ namespace Cloudents.Core.Entities
 
         public virtual TutorPrice Price { get; protected set; }
 
+        public virtual Money? SubscriptionPrice { get; protected set; }
+
         protected internal virtual ICollection<UserCoupon> UserCoupons { get; set; }
         protected internal virtual ICollection<Coupon> Coupons { get; set; }
+
+
+        public virtual void ChangeSubscriptionPrice(double price)
+        {
+            var money = new Money(price,User.SbCountry.RegionInfo.ISOCurrencySymbol);
+            SubscriptionPrice = money;
+
+        }
 
         public virtual void UpdateSettings(string bio, decimal? price)
         {

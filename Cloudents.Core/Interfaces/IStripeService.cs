@@ -16,7 +16,7 @@ namespace Cloudents.Core.Interfaces
         Task<string> FutureCardPayments(string stripeClientId);
 
 
-        Task CreateProductAsync(Tutor tutor, decimal price, CancellationToken token);
+        Task CreateProductAsync(Tutor tutor,CancellationToken token);
         //Task<string?> RetrieveCustomerIdAsync(string email, CancellationToken token);
     }
 }
