@@ -56,7 +56,8 @@ const getters = {
     },
     getPendingPayment: state => state.user?.pendingSessionsPayments,
     getUserBalance: state =>  state.user?.balance.toFixed(0) || 0,
-    getIsSold: state => state.user?.isSold
+    getIsSold: state => state.user?.isSold,
+    getIsTutorSubscription: (state, _getters) => _getters.getUserLoggedInStatus && state.user?.subscription
 };
 
 const actions = {

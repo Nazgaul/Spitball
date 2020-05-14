@@ -24,7 +24,6 @@ export const User = {
         this.pendingSessionsPayments = objInit.pendingSessionsPayments || null;
         this.description = objInit.description || '';
         this.tutorCountry = objInit.tutorCountry;
-        this.subscription = objInit.subscription;
     },
     Tutor: function (objInit) {
         return Object.assign(
@@ -64,8 +63,11 @@ export const User = {
             lastName: objInit.lastName,
             firstName: objInit.firstName,
             name: `${objInit.firstName} ${objInit.lastName}`,
+            image: objInit.image || '',
+            price: objInit.price || null,
             balance: objInit.balance,
             currencySymbol: objInit.currencySymbol,
+            subscription: objInit.tutorSubscription,
             needPayment: objInit.needPayment,
             isTutor: _createIsTutorState(objInit.isTutor) ? true : false,
             isTutorState: _createIsTutorState(objInit.isTutor),
@@ -76,8 +78,6 @@ export const User = {
             isSold: objInit.isSold,
             haveFollowers: objInit.haveFollowers,
             pendingSessionsPayments: objInit.pendingSessionsPayments,
-            price: objInit.price || null,
-            image: objInit.image || '',
         }
     },
     Stats: function(objInit){
