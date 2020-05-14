@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Payment;
 using Newtonsoft.Json;
@@ -12,7 +13,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace Cloudents.Infrastructure.Payments
 {
-    public class PayMePaymentProvider : IPayment
+    public class PayMePaymentProvider : IPaymeProvider, IPaymentProvider
     {
         private readonly HttpClient _client;
         private readonly PayMeCredentials _credentials;
@@ -35,7 +36,26 @@ namespace Cloudents.Infrastructure.Payments
             return await GenerateSaleAsync(token, generateSale);
         }
 
-        public async Task<GenerateSaleResponse> TransferPaymentAsync(string sellerKey, string buyerKey, decimal price, CancellationToken token)
+        public async Task<string> ChargeSessionAsync(Tutor tutor, User user, decimal price, CancellationToken token)
+        {
+            var sellerKey = tutor.SellerKey ?? throw new ArgumentNullException(nameof(tutor.SellerKey),"tutor seller key is empty");
+            var buyerKey = user.Payment?.PaymentKey ?? throw new ArgumentNullException(nameof(PaymePayment.PaymentKey),"buyer key is empty");
+
+            var result = await TransferPaymentAsync(sellerKey, buyerKey, price, token);
+            return result.PaymeSaleId;
+
+        }
+
+        public async Task<string> ChargeSessionBySpitballAsync(Tutor tutor, decimal price, CancellationToken token)
+        {
+            var sellerKey = tutor.SellerKey!;
+            var spitballKey = _credentials.BuyerKey;
+            var result = await TransferPaymentAsync(sellerKey, spitballKey, price, token);
+            return result.PaymeSaleId;
+
+        }
+
+        private async Task<GenerateSaleResponse> TransferPaymentAsync(string sellerKey, string buyerKey, decimal price, CancellationToken token)
         {
             var generateSale = GenerateSale.TransferMoney(sellerKey, buyerKey, price);
 
@@ -140,5 +160,7 @@ namespace Cloudents.Infrastructure.Payments
 
 
         }
+
+      
     }
 }

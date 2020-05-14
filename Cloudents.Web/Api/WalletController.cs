@@ -17,14 +17,13 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
-using Cloudents.Infrastructure.Payments;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Web.Api
 {
@@ -37,9 +36,9 @@ namespace Cloudents.Web.Api
         private readonly UserManager<User> _userManager;
         private readonly ILogger _logger;
         private readonly ICommandBus _commandBus;
-        private readonly Lazy<IPayment> _payment;
+        private readonly Lazy<IPaymeProvider> _payment;
 
-        public WalletController(UserManager<User> userManager, IQueryBus queryBus, ILogger logger, ICommandBus commandBus, Lazy<IPayment> payment)
+        public WalletController(UserManager<User> userManager, IQueryBus queryBus, ILogger logger, ICommandBus commandBus, Lazy<IPaymeProvider> payment)
         {
             _userManager = userManager;
             _queryBus = queryBus;
@@ -124,9 +123,9 @@ namespace Cloudents.Web.Api
             try
             {
                 var user = await _userManager.GetUserAsync(User);
-                if (user.BuyerPayment != null && user.BuyerPayment.IsValid())
+                if (user.PaymentExists == PaymentStatus.Done)
                 {
-                    throw new ArgumentException();
+                    return BadRequest("Already have payment");
                 }
 
                 var url = Url.RouteUrl("PayMeCallback", new
@@ -211,15 +210,15 @@ namespace Cloudents.Web.Api
 
         #region PayPal
 
-        [HttpPost("PayPal/StudyRoom")]
-        public async Task<IActionResult> PayPal(PayPalOrderRequest model,
-            CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new AddPayPalOrderCommand(userId, model.OrderId, model.SessionId);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
+        //[HttpPost("PayPal/StudyRoom")]
+        //public async Task<IActionResult> PayPal(PayPalOrderRequest model,
+        //    CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    var command = new AddPayPalOrderCommand(userId, model.OrderId, model.SessionId);
+        //    await _commandBus.DispatchAsync(command, token);
+        //    return Ok();
+        //}
 
 
         //[HttpPost("PayPal/BuyTokens")]
@@ -248,6 +247,22 @@ namespace Cloudents.Web.Api
         //}
         #endregion
 
+        #region Stripe
+        [HttpPost("Stripe/StudyRoom")]
+        public async Task<IActionResult> StripeAsync(
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new AddStripeCustomerCommand(userId);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok(new
+            {
+                secret = command.ClientSecretId
+            });
+        }
+        
+
+      
         [HttpPost("Stripe")]
         public async Task<IActionResult> GetStripe(
             BuyPointsRequest model,
@@ -273,6 +288,7 @@ namespace Cloudents.Web.Api
                 sessionId = result
             });
         }
+        #endregion
 
     }
 }

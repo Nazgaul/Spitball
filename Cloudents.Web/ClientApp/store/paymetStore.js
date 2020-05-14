@@ -4,7 +4,6 @@ import * as dialogNames from '../components/pages/global/dialogInjection/dialogN
 
 import { router } from '../main.js';
 import { loadStripe } from '@stripe/stripe-js';
-//TODO get from window
 
 const state = {
     paymentURL: null,
@@ -23,12 +22,13 @@ const mutations = {
 const getters = {
     getPaymentURL:state => state.paymentURL,
     getIsBuyPoints:state => state.isBuyPoints,
+    getStripeToken: () => window.stripe
 };
 
 const actions = {
-    buyPointsUS(context, points) {
+    buyPointsUS({getters}, points) {
         walletService.stripeTransaction(points).then(async ({data}) => {
-            const stripePromise = loadStripe(window.stripe);
+            const stripePromise = loadStripe(getters.getStripeToken);
             const stripe = await stripePromise;
             //TODO - investigate error
             await stripe.redirectToCheckout({
@@ -92,6 +92,9 @@ const actions = {
     },
     updatePaypalStudyRoom(context,model){
         return walletService.paypalStudyRoom(model)
+    },
+    getStripeSecret() {
+        return walletService.getStripeSecret()
     }
 };
 

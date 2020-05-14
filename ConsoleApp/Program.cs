@@ -24,6 +24,7 @@ using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Enum;
 using Cloudents.Infrastructure;
+using Cloudents.Infrastructure.Payments;
 using Cloudents.Query;
 using Cloudents.Query.Users;
 using Cloudents.Search.Document;
@@ -70,10 +71,7 @@ namespace ConsoleApp
                         Redis = ConfigurationManager.AppSettings["Redis"],
                         Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                         ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
-                        PayPal = new PayPalCredentials(
-                            "AcaET-3DaTqu01QZ0Ad7-5C52pMZ5s4nx59TmbCqdn8gZpfJoM3UPLYCnZmDELZfc-22N_yhmaGEjS3e",
-                            "EPBamUk7w8Ibrld_eNRV18FYp1zqcYBqx8gCpBBUU9_W5h4tBf8_PhqYS9rzyBBjXJhZ0elFoXoLvdk8",
-                            true)
+                        Stripe = "sk_test_Ihn6pkUZV9VFpDo7JWUGwT8700FAQ3Gbhf"
                     };
                 case EnvironmentSettings.Prod:
                     return new ConfigurationKeys
@@ -147,12 +145,19 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var x = Container.Resolve<TutorSearchWrite>();
-            await x.CreateOrUpdateAsync(default);
+            var x = Container.Resolve<IVideoService>();
+            // var z = Container.Resolve<IUnitOfWork>();
+            await UpdateTwilioParticipants();
+            // await Dbi();
 
 
-            var xy = Container.Resolve<DocumentSearchWrite>();
-            await xy.CreateOrUpdateAsync(default);
+
+            //var x = Container.Resolve<StripeClient>();
+            //await x.ChargeTheBastard();
+
+
+            //var xy = Container.Resolve<DocumentSearchWrite>();
+            //await xy.CreateOrUpdateAsync(default);
 
             //BaseUser? userAlias = null!;
             //var session = Container.Resolve<IStatelessSession>();
@@ -161,7 +166,7 @@ namespace ConsoleApp
             //    .JoinAlias(x => x.User, () => userAlias)
             //    .Where(w => w.Status.State == ItemState.Ok);
             //questionCountFutureQuery.Where(() => userAlias.SbCountry == Country.India);
-            
+
             ////questionCountFutureQuery.Where(Restrictions.Eq(Projections.Property(()=> userAlias.SbCountry), Country.India));
 
 
@@ -179,7 +184,41 @@ namespace ConsoleApp
             //    .Where(w=>((User)w).LockoutEnabled)
             //    .Select(s => ((User) s).LockoutReason).SingleOrDefault();
 
+            var bus = Container.Resolve<ICloudStorageProvider>();
+            var blobClient = bus.GetBlobClient();
+            var blob = blobClient.GetContainerReference("spitball-files")
+                .GetBlockBlobReference("files/256278/file-9701517f-d18f-4eb1-a403-8ce07ee6ceea-IMG_22241.MOV");
 
+            var uri = blob.GetDownloadLink(TimeSpan.FromHours(1));
+            await x.CreateVideoPreviewJobAsync(256278, uri.AbsoluteUri, default);
+        }
+        //  await ReduPreviewProcessingAsync();
+
+        private static async Task Dbi()
+        {
+            var session = Container.Resolve<IStatelessSession>();
+            var bus = Container.Resolve<ICommandBus>();
+            var usersWithPayment =await session.Query<User>()
+                .Where(w => w.PaymentExists == PaymentStatus.Done)
+                .ToListAsync();
+
+            foreach (var user in usersWithPayment)
+            {
+                if (user.BuyerPayment != null)
+                {
+                    if (user.Payment == null)
+                    {
+                        var command = new AddBuyerTokenCommand(user.Id,
+                            user.BuyerPayment.PaymentKey,
+                            user.BuyerPayment.PaymentKeyExpiration,
+                            user.BuyerPayment.CreditCardMask);
+                        await bus.DispatchAsync(command, default);
+                    }
+                }
+            }
+            
+
+            //AddBuyerTokenCommand
         }
 
         private static async Task UpdateTwilioParticipants()
@@ -193,24 +232,38 @@ namespace ConsoleApp
             var statelessSession = Container.Resolve<IStatelessSession>();
             var dbResult = await statelessSession.Query<StudyRoomSession>()
                 .Where(w => w.StudyRoomVersion == StudyRoomSession.StudyRoomNewVersion)
+                .Where(w=>w.Duration > StudyRoomSession.BillableStudyRoomSession)
                 .Where(w => !statelessSession.Query<StudyRoomSessionUser>().Any(w2 => w2.StudyRoomSession.Id == w.Id))
+                .OrderByDescending(o=>o.Created)
                 .ToListAsync();
 
             foreach (var studyRoomSession in dbResult)
             {
                 var sessionId = studyRoomSession.SessionId;
                 var roomId = studyRoomSession.StudyRoom.Id;
-                var result = await x.GetRoomParticipantInfoAsync(sessionId);
-                foreach (var (identity, duration) in result)
+                var result = (await x.GetRoomParticipantInfoAsync(sessionId)).ToList();
+
+                var distinctUsers = result.GroupBy(g => g.identity).Select(s => s.Key).Count();
+
+                var countOfUsers = await statelessSession.Query<StudyRoomUser>().Where(w => w.Room.Id == roomId).Select(s=>s.User.Id).ToListAsync();
+                if (distinctUsers != countOfUsers.Count)
                 {
-                    var command = new StudyRoomSessionUserConnectedCommand(roomId, sessionId, identity);
-                    await commandBus.DispatchAsync(command, default);
-
-
-                    var command2 = new StudyRoomSessionUserDisconnectedCommand(roomId, sessionId, identity, duration);
-
-                    await commandBus.DispatchAsync(command2, default);
+                    Console.WriteLine("HEYYY");
                 }
+                if (distinctUsers == 1)
+                {
+                    continue;
+                }
+                //foreach (var (identity, duration) in result)
+                //{
+                //    var command = new StudyRoomSessionUserConnectedCommand(roomId, sessionId, identity);
+                //    await commandBus.DispatchAsync(command, default);
+
+
+                //    var command2 = new StudyRoomSessionUserDisconnectedCommand(roomId, sessionId, identity, duration);
+
+                //    await commandBus.DispatchAsync(command2, default);
+                //}
             }
         }
 
@@ -387,82 +440,115 @@ namespace ConsoleApp
                 foreach (IListBlobItem blob in result.Results)
                 {
 
-                    //var fileNameWithoutDirectory = blob.Parent.Uri.MakeRelativeUri(blob.Uri).ToString();
                     var id = long.Parse(blob.Uri.Segments[3].TrimEnd('/'));
-                    if (!list.Add(id))
+                    if (blob.Uri.AbsoluteUri.Contains("file-"))
                     {
-                        continue;
-                    }
-                    var fileDir = container.GetDirectoryReference($"files/{id}");
+                        var fileItem = (CloudBlockBlob)blob;
+                        //var extension = Path.GetExtension(fileItem.Name);
 
-                    var blobs = (await fileDir.ListBlobsSegmentedAsync(false, BlobListingDetails.Metadata, null, null, null, null)).Results.ToList();
-
-                    var fileItem = (CloudBlockBlob)blobs.First(a => a.Uri.AbsoluteUri.Contains("file-"));
-                    var extension = Path.GetExtension(fileItem.Name);
-
-                    var blurFiles = blobs.Where(a => a.Uri.AbsoluteUri.Contains("blur-")).ToList();
-
-                    if (blurFiles.Count > 0)
-                    {
-                        foreach (var listBlobItem in blurFiles)
+                        if (fileItem.Name.Contains('[') || fileItem.Name.Contains(']'))
                         {
-                            var blobToDelete = (CloudBlockBlob)listBlobItem;
-                            await blobToDelete.DeleteAsync();
+                            var name = fileItem.Name;
+                            var charsToRemove = new[] { "[", "]" };
+                            foreach (var s in charsToRemove)
+                            {
+                                name = name.Replace(s, string.Empty);
+                            }
+
+                            await fileItem.RenameBlobAsync(name);
+
+                            var queue = queueClient.GetQueueReference("generate-blob-preview");
+                            var msg = new CloudQueueMessage(id.ToString());
+                            await queue.AddMessageAsync(msg);
+                            Console.WriteLine("Processing regular " + id);
                         }
                     }
 
-                    if (!FileTypesExtension.PowerPoint.Extensions.Contains(extension, StringComparer.OrdinalIgnoreCase))
+                    if (blob.Uri.AbsoluteUri.Contains("blur-"))
                     {
-                        continue;
-                        //var queue = queueClient.GetQueueReference("generate-blob-preview");
-                        //var msg = new CloudQueueMessage(id.ToString());
-                        //await queue.AddMessageAsync(msg);
-                        //Console.WriteLine("Processing regular " + id);
-                    }
-                    var textBlobItem = blobs.FirstOrDefault(a => a.Uri.AbsoluteUri.Contains("text.txt"));
-                    if (textBlobItem != null)
-                    {
-
-                        //var textBlob2 = (CloudBlockBlob)textBlobItem;
-                        //textBlob2.FetchAttributes();
-                        //if (!textBlob2.Metadata.ContainsKey("ProcessTags"))
-                        //{
-                        //    var queue = queueClient.GetQueueReference("generate-search-preview");
-                        //    var msg = new CloudQueueMessage(id.ToString());
-                        //    await queue.AddMessageAsync(msg);
-                        //    Console.WriteLine("Processing tags " + id);
-                        //}
+                        var blobToDelete = (CloudBlockBlob)blob;
+                        await blobToDelete.DeleteAsync();
                     }
 
-                    else
-                    {
-                        var queue = queueClient.GetQueueReference("generate-blob-preview");
-                        var msg = new CloudQueueMessage(id.ToString());
-                        await queue.AddMessageAsync(msg);
-                        Console.WriteLine("Processing regular " + id);
-                        continue;
-                    }
+                    //var fileNameWithoutDirectory = blob.Parent.Uri.MakeRelativeUri(blob.Uri).ToString();
 
-                    var previewFiles = blobs.Where(a => a.Uri.AbsoluteUri.Contains("preview")).ToList();
-                    var textBlob = (CloudBlockBlob)textBlobItem;
-                    // textBlob.FetchAttributes();
-                    textBlob.Metadata.TryGetValue("PageCount", out var pageCountStr);
-                    int.TryParse(pageCountStr, out var pageCount);
-                    if (previewFiles.Count == 0 || previewFiles.Count < pageCount)
-                    {
-                        var queue = queueClient.GetQueueReference("generate-blob-preview");
-                        var msg = new CloudQueueMessage(id.ToString());
-                        await queue.AddMessageAsync(msg);
-                        //             using (var file =
-                        //new StreamWriter(@"C:\Users\Ram\Documents\regular.txt", true))
-                        //             {
+                    //if (!list.Add(id))
+                    //{
+                    //    continue;
+                    //}
+                    //var fileDir = container.GetDirectoryReference($"files/{id}");
 
-                        //                 file.WriteLine(id);
+                    //var blobs = (await fileDir.ListBlobsSegmentedAsync(false, BlobListingDetails.Metadata, null, null, null, null)).Results.ToList();
 
-                        //             }
-                        Console.WriteLine("Processing regular " + id);
-                        continue;
-                    }
+                    //var fileItem = (CloudBlockBlob)blobs.First(a => a.Uri.AbsoluteUri.Contains("file-"));
+                    ////var extension = Path.GetExtension(fileItem.Name);
+
+                    //if (fileItem.Name.Contains('[') || fileItem.Name.Contains(']'))
+                    //{
+                    //    var name = fileItem.Name;
+                    //    var charsToRemove = new[] { "[", "]"};
+                    //    foreach (var s in charsToRemove)
+                    //    {
+                    //        name = name.Replace(s, string.Empty);
+                    //    }
+
+                    //    await fileItem.RenameBlobAsync(name);
+                    //}
+                    //var blurFiles = blobs.Where(a => a.Uri.AbsoluteUri.Contains("blur-")).ToList();
+
+                    //if (blurFiles.Count > 0)
+                    //{
+                    //    foreach (var listBlobItem in blurFiles)
+                    //    {
+                    //        var blobToDelete = (CloudBlockBlob)listBlobItem;
+                    //        await blobToDelete.DeleteAsync();
+                    //    }
+                    //}
+
+                    //if (!FileTypesExtension.PowerPoint.Extensions.Contains(extension, StringComparer.OrdinalIgnoreCase))
+                    //{
+                    //    continue;
+                    //    //var queue = queueClient.GetQueueReference("generate-blob-preview");
+                    //    //var msg = new CloudQueueMessage(id.ToString());
+                    //    //await queue.AddMessageAsync(msg);
+                    //    //Console.WriteLine("Processing regular " + id);
+                    //}
+                    //var textBlobItem = blobs.FirstOrDefault(a => a.Uri.AbsoluteUri.Contains("text.txt"));
+                    //if (textBlobItem != null)
+                    //{
+
+                    //    //var textBlob2 = (CloudBlockBlob)textBlobItem;
+                    //    //textBlob2.FetchAttributes();
+                    //    //if (!textBlob2.Metadata.ContainsKey("ProcessTags"))
+                    //    //{
+                    //    //    var queue = queueClient.GetQueueReference("generate-search-preview");
+                    //    //    var msg = new CloudQueueMessage(id.ToString());
+                    //    //    await queue.AddMessageAsync(msg);
+                    //    //    Console.WriteLine("Processing tags " + id);
+                    //    //}
+                    //}
+
+                    //else
+                    //{
+                    //    var queue = queueClient.GetQueueReference("generate-blob-preview");
+                    //    var msg = new CloudQueueMessage(id.ToString());
+                    //    await queue.AddMessageAsync(msg);
+                    //    Console.WriteLine("Processing regular " + id);
+                    //    continue;
+                    //}
+
+                    //var previewFiles = blobs.Where(a => a.Uri.AbsoluteUri.Contains("preview")).ToList();
+                    //var textBlob = (CloudBlockBlob)textBlobItem;
+                    //textBlob.Metadata.TryGetValue("PageCount", out var pageCountStr);
+                    //int.TryParse(pageCountStr, out var pageCount);
+                    //if (previewFiles.Count == 0 || previewFiles.Count < pageCount)
+                    //{
+                    //    var queue = queueClient.GetQueueReference("generate-blob-preview");
+                    //    var msg = new CloudQueueMessage(id.ToString());
+                    //    await queue.AddMessageAsync(msg);
+                    //    Console.WriteLine("Processing regular " + id);
+                    //    continue;
+                    //}
 
 
 

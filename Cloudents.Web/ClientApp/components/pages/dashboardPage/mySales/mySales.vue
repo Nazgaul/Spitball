@@ -118,7 +118,6 @@ import tableInfoTd from '../global/tableInfoTd.vue';
 import buyPointsLayout from './buyPointsLayout/buyPointsLayout.vue'
 import redeemPointsLayout from './redeemPointsLayout/redeemPointsLayout.vue'
 
-
 export default {
    name:'mySales',
    components:{tableInfoTd,buyPointsLayout,redeemPointsLayout},
@@ -199,7 +198,7 @@ export default {
    },
    created() {
       this.updateSalesItems()
-   },
+   }
 }
 </script>
 

@@ -7,7 +7,6 @@ using Cloudents.Query.Users;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -53,13 +52,14 @@ namespace Cloudents.Web.Identity
 
         public Task SetUserNameAsync(User user, string userName, CancellationToken cancellationToken)
         {
-            if (userName == null) throw new ArgumentNullException(nameof(userName));
-            var splitUserName = userName.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-            var firstName = splitUserName[0];
-            var lastName = splitUserName.ElementAtOrDefault(1);
+            throw new NotImplementedException("use UpdateUserSettingsCommand");
+            //if (userName == null) throw new ArgumentNullException(nameof(userName));
+            //var splitUserName = userName.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+            //var firstName = splitUserName[0];
+            //var lastName = splitUserName.ElementAtOrDefault(1);
 
-            user.ChangeName(firstName, lastName);
-            return Task.CompletedTask;
+            //user.ChangeName(firstName, lastName);
+            //return Task.CompletedTask;
         }
 
         public Task<string> GetNormalizedUserNameAsync(User user, CancellationToken cancellationToken)

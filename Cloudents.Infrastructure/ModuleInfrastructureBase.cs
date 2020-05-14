@@ -1,10 +1,13 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Mail;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using Cloudents.Core;
+using Cloudents.Core.Entities;
 using Cloudents.Infrastructure.Payments;
 using Module = Autofac.Module;
 
@@ -23,10 +26,10 @@ namespace Cloudents.Infrastructure
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(LogInterceptor));
 
+            //builder.RegisterType<PayMeCredentials>().AsSelf();
 
-            builder.RegisterType<PayMePaymentProvider>().As<IPayment>();
-            builder.RegisterType<PayPalClient>().As<IPayPalService>().SingleInstance();
-            builder.RegisterType<StripeClient>().As<IStripeService>().AsSelf();
+            builder.RegisterType<PayMePaymentProvider>().As<IPaymeProvider>().Keyed<IPaymentProvider>(typeof(PaymePayment));
+            builder.RegisterType<StripeClient>().As<IStripeService>().Keyed<IPaymentProvider>(typeof(StripePayment)).AsSelf();
 
             builder.RegisterType<BinarySerializer>().As<IBinarySerializer>();
             builder.RegisterType<SbJsonSerializer>().As<IJsonSerializer>();

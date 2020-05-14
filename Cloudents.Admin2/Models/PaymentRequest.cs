@@ -22,14 +22,14 @@ namespace Cloudents.Admin2.Models
         {
             var list = new[] { StudentPay, SpitballPay };
 
-            foreach (var @decimal in list)
+            foreach (var price in list)
             {
-                if (@decimal == 0)
+                if (price == 0)
                 {
                     continue;
                 }
 
-                if (@decimal < 5 || @decimal > 50000)
+                if (price < 5 || price > 50000)
                 {
                     yield return new ValidationResult(
                             "Invalid Price");

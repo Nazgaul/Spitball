@@ -10,13 +10,13 @@ using NHibernate.Linq;
 
 namespace Cloudents.Query.Admin
 {
-    public class SessionPaymentsQueryV2 : IQueryAdmin<IEnumerable<PaymentDto>>
+    public class SessionPaymentsQueryV2 : IQueryAdmin2<IEnumerable<PaymentDto>>
     {
-        public SessionPaymentsQueryV2(string country)
+        public SessionPaymentsQueryV2(Country? country)
         {
             Country = country;
         }
-        public string? Country { get; }
+        public Country? Country { get; }
         internal sealed class SessionPaymentsV2QueryHandler : IQueryHandler<SessionPaymentsQueryV2, IEnumerable<PaymentDto>>
         {
             private readonly IStatelessSession _session;
@@ -36,9 +36,10 @@ namespace Cloudents.Query.Admin
                     .Fetch(f => f.User)
                     .Where(w => w.Duration > StudyRoomSession.BillableStudyRoomSession)
                     .Where(w => w.Receipt == null);
-                if (!string.IsNullOrEmpty(query.Country))
+                if (query.Country != null)
                 {
-                    queryExpression = queryExpression.Where(w => w.StudyRoomSession.StudyRoom.Tutor.User.Country == query.Country);
+
+                    queryExpression = queryExpression.Where(w => w.StudyRoomSession.StudyRoom.Tutor.User.SbCountry == query.Country);
                 }
 
                 return await queryExpression.Select(s => new PaymentDto()
@@ -50,7 +51,8 @@ namespace Cloudents.Query.Admin
                     StudyRoomSessionId = s.StudyRoomSession.Id,
                     UserName = s.User.Name,
                     IsPaymentKeyExists = s.User.PaymentExists == PaymentStatus.Done,
-                    IsSellerKeyExists = s.StudyRoomSession.StudyRoom.Tutor.SellerKey != null,
+                    _sellerKey = s.StudyRoomSession.StudyRoom.Tutor.SellerKey,
+                    TutorCountry = s.StudyRoomSession.StudyRoom.Tutor.User.SbCountry,
                     TutorName = s.StudyRoomSession.StudyRoom.Tutor.User.Name,
                     _duration = s.Duration,
                     _realDuration = s.TutorApproveTime
