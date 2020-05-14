@@ -199,7 +199,7 @@ namespace Cloudents.Core.Entities
         public virtual IPayment2? Payment { get; protected set; }
 
         public virtual Gender Gender { get; protected set; }
-        public virtual PaymentStatus PaymentExists { get; protected set; }
+        public virtual PaymentStatus? PaymentExists { get; protected set; }
 
         public virtual DateTime? FinishRegistrationDate { get; set; }
 
@@ -208,12 +208,6 @@ namespace Cloudents.Core.Entities
             PaymentExists = PaymentStatus.Done;
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
-
-        //public virtual void AddPayment(string token, DateTime expiration, string buyerCardMask)
-        //{
-        //    PaymentExists = PaymentStatus.Done;
-        //    BuyerPayment = new BuyerPayment(token, expiration, buyerCardMask);
-        //}
 
         public virtual void AddPayment(IPayment2 payment)
         {
