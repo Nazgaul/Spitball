@@ -1,5 +1,4 @@
 <template>
-    <v-dialog :value="true" max-width="570" content-class="studyRoomAudioVideoDialog" :fullscreen="$vuetify.breakpoint.xsOnly" persistent>
         <div class="studyRoomSettingsWrapper">
             <div class="audioVideoTabs d-flex align-center text-center">
                 <div class="tabBtn video" :class="{'active': toggleVideoActiveClass}" @click="switchToVideo">
@@ -19,7 +18,7 @@
                 <div class="text-sm-right text-center btnWrap">
                     <v-btn
                       class="white--text text-truncate"
-                      @click="$emit('closeAudioVideoSettingDialog', false)"
+                      @click="closeDialog"
                       width="120"
                       color="#4c59ff"
                       rounded
@@ -30,7 +29,6 @@
                 </div>
             </div>
         </div>
-    </v-dialog>
 </template>
 
 <script>
@@ -56,6 +54,10 @@ export default {
   },
   props:['streamsArray'],
   methods: {
+    closeDialog(){
+      this.$emit('closeAudioVideoSettingDialog',false)
+      this.$store.commit('toggleAudioVideoDialog',false)
+    },
     switchToAudio() {
       this.currenctComponent = 'studyRoomAudioSetting'
       this.toggleAudioActiveClass = true

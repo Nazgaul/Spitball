@@ -197,14 +197,17 @@ export default {
         },
 
         whiteboard() {
+            let roomModes = this.$store.getters.getRoomModeConsts
+            this.$store.dispatch('updateActiveNavEditor',roomModes.WHITE_BOARD)
             this.selectedRoomMode = ''
         },
         present() {
-            this.$store.dispatch('updateShareScreen', true)
+            let roomModes = this.$store.getters.getRoomModeConsts
+            this.$store.dispatch('updateActiveNavEditor',roomModes.SCREEN_MODE)
             this.selectedRoomMode = ''
         },
         fullview() {
-            this.$store.dispatch('updateToggleTutorFullScreen', true);
+            this.$store.dispatch('updateToggleTutorFullScreen',true)
             this.selectedRoomMode = ''
         },
         

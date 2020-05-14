@@ -38,8 +38,9 @@ namespace Cloudents.Infrastructure.Payments
 
         public async Task<string> ChargeSessionAsync(Tutor tutor, User user, decimal price, CancellationToken token)
         {
-            var sellerKey = tutor.SellerKey!;
-            var buyerKey = user.Payment!.PaymentKey;
+            var sellerKey = tutor.SellerKey ?? throw new ArgumentNullException(nameof(tutor.SellerKey),"tutor seller key is empty");
+            var buyerKey = user.Payment?.PaymentKey ?? throw new ArgumentNullException(nameof(PaymePayment.PaymentKey),"buyer key is empty");
+
             var result = await TransferPaymentAsync(sellerKey, buyerKey, price, token);
             return result.PaymeSaleId;
 

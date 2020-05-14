@@ -27,27 +27,27 @@ const mutations = {
    [twilio_SETTERS.AUDIO_AVAILABLE]: (state,val) => state.isAudioAvailable = val,
    [twilio_SETTERS.AUDIO_TOGGLE]: (state,val) => state.isAudioActive = val,
    [twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE]: (state,val) => state.isShareScreen = val,
-   [twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK]: (state,videoTrack) => {
-      let remoteTrackId = `${videoTrack.sid || videoTrack.trackSid}`
-      videoTrack.sb_video_id = remoteTrackId;
-      let idx;
-      let isTrackInList = state.videoTracks.some((t,i)=>{idx = i;return t.sb_video_id == remoteTrackId})
-      if(isTrackInList){
-         state.videoTracks.splice(idx,1);
-      }else{
-         if(videoTrack.attach){
-            state.videoTracks.push(videoTrack)
-         }
-      }
-   },
-   [twilio_SETTERS.DELETE_REMOTE_VIDEO_TRACK]: (state,track) => {
-      if(!track.sb_video_id) return;
-      let idx;
-      let isInList = state.videoTracks.some((t,i)=>{idx = i;return t.sb_video_id == track.sb_video_id})
-      if(isInList){
-         state.videoTracks.splice(idx,1)
-      }
-   },
+   // [twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK]: (state,videoTrack) => {
+      // let remoteTrackId = `${videoTrack.sid || videoTrack.trackSid}`
+      // videoTrack.sb_video_id = remoteTrackId;
+      // let idx;
+      // let isTrackInList = state.videoTracks.some((t,i)=>{idx = i;return t.sb_video_id == remoteTrackId})
+      // if(isTrackInList){
+      //    state.videoTracks.splice(idx,1);
+      // }else{
+      //    if(videoTrack.attach){
+      //       state.videoTracks.push(videoTrack)
+      //    }
+      // }
+   // },
+   // [twilio_SETTERS.DELETE_REMOTE_VIDEO_TRACK]: (state,track) => {
+   //    if(!track.sb_video_id) return;
+   //    let idx;
+   //    let isInList = state.videoTracks.some((t,i)=>{idx = i;return t.sb_video_id == track.sb_video_id})
+   //    if(isInList){
+   //       state.videoTracks.splice(idx,1)
+   //    }
+   // },
    [twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN]:(state,val)=> state.isFullScreen = val,
    [twilio_SETTERS.TOGGLE_AUDIO_PARTICIPANTS]:(state,val)=> state.isAudioParticipants = val,
    [twilio_SETTERS.VIDEO_DEVICE_ID]:(state,id)=> state.videoDeviceId = id,
@@ -69,9 +69,6 @@ const getters = {
 const actions = {
    updateToggleAudioParticipants({commit,state}){
       commit(twilio_SETTERS.TOGGLE_AUDIO_PARTICIPANTS,!state.isAudioParticipants)
-   },
-   updateToggleTutorFullScreen({commit},val){
-      commit(twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN,val)
    },
    updateJwtToken({commit},token){
       commit(twilio_SETTERS.JWT_TOKEN,token)

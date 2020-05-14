@@ -14,7 +14,7 @@ namespace Cloudents.Query.Admin
     public class SessionPaymentsQuery : IQueryAdmin<IEnumerable<PaymentDto>>
     {
         [Obsolete]
-        public SessionPaymentsQuery(string country)
+        public SessionPaymentsQuery(string? country)
         {
             Country = country;
         }

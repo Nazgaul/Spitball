@@ -299,7 +299,10 @@ namespace Cloudents.Core.Entities
 
         public override string ToString()
         {
-            return $"{nameof(Id)}: {Id}, {nameof(EmailConfirmed)}: {EmailConfirmed}, {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}";
+            return $"{nameof(Id)}: {Id}, " +
+                   $"{nameof(EmailConfirmed)}: {EmailConfirmed}," +
+                   $" {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}" +
+                   $" {nameof(SbCountry)}: {SbCountry}";
         }
 
         public override void MakeTransaction(Transaction transaction)
