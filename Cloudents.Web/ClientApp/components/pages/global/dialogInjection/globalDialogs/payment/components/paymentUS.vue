@@ -73,7 +73,7 @@ export default {
               return
             }
             if (result.setupIntent.status === 'succeeded') {
-              self.$closeDialog()
+              self.$store.dispatch('updateRoomIsNeedPayment',false)
             }
         }).finally(() => {
           self.isLoading = false
