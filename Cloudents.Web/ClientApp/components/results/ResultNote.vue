@@ -23,8 +23,8 @@
           class="price-area"
           :class="{'isPurchased': isPurchased}"
         >
-          {{item.price ? item.price.toFixed(0): ''}}
-          <span v-language:inner>app_currency_dynamic</span>
+          {{item.price}}
+          <span v-t="'app_currency_dynamic'"></span>
         </div>
 
         <v-menu
@@ -71,7 +71,7 @@
           width="2"
           color="#514f7d"
         />
-        <div class="document-body-card">
+        <div class="document-body-card" :class="{'subscribed': isSubscribed}">
           <span v-show="(isVideo && item.itemDuration) && isPreviewReady" class="videoType">
             <vidSVG  />
             <span class="vidTime">{{item.itemDuration}}</span>
@@ -84,66 +84,38 @@
               alt
             />
           </intersection>
+          <div class="overlay text-center px-5" v-if="isSubscribed">
+              <div class="unlockText white--text mb-3" v-t="'resultNote_subscribe_unlock_btn'"></div>
+              <v-btn class="btn" color="#fff" rounded block>
+                <span v-t="{path: 'resultNote_subscribe_unlock_btn', args: { 0: subscribedPrice }}"></span>
+              </v-btn>
+          </div>
         </div>
       </template>
 
       <div class="type-wrap" :class="{'type-wrap--noPadding': fromItemPage}">
-        <v-flex grow class="data-row">
-          <div class="content-wrap">
-            <h1 class="item-title text-truncate">{{item.title}}</h1>
-            <span class="item-course text-truncate">
-              <span class="item-course">{{$t('resultNote_course')}}</span>
-              <h2 class="item-course">{{item.course}}</h2>
-            </span>
+          <div class="wrapHeight">
+            <v-flex grow class="data-row">
+              <div class="content-wrap">
+                <h1 class="item-title text-truncate">{{item.title}}</h1>
+                <span class="item-course text-truncate">
+                  <span class="item-course font-weight-bold">{{$t('resultNote_course')}}</span>
+                  <h2 class="item-course">{{item.course}}</h2>
+                </span>
+              </div>
+              <v-divider v-show="item.snippet" class="my-2"></v-divider>
+              <div class="doc-snippet" v-show="item.snippet">
+                <h6 class="doc-snippet-h6">{{item.snippet}}</h6>
+              </div>
+            </v-flex>
           </div>
-          <v-divider v-show="item.snippet" class="my-2"></v-divider>
-          <div class="doc-snippet" v-show="item.snippet">
-            <h6 class="doc-snippet-h6">{{item.snippet}}</h6>
-          </div>
-        </v-flex>
+
+          <documentLikes v-if="!isMobile" :item="item" />
       </div>
+      
     </v-flex>
 
-    <v-flex grow class="bottom-row">
-      <div class="left">
-        <span v-if="docViews" class="views-cont">
-          <span>{{ $tc('resultNote_view',docViews)}}</span>
-          <!-- <span
-            class="views"
-            v-language:inner="docViews > 1 ? 'resultNote_views' : 'resultNote_view'"
-          /> -->
-        </span>
-        <span v-if="docDownloads && !item.price">
-          <span>{{ $tc('resultNote_download',docDownloads)}}</span>
-          <!-- <span
-            class="downloads"
-            v-language:inner="docDownloads > 1 ? 'resultNote_downloads' : 'resultNote_download'"
-          /> -->
-        </span>
-        <span v-if="docPurchased && item.price">
-          <span>{{ $tc('resultNote_purchased',docPurchased)}}</span>
-          <!-- <span
-            class="downloads"
-            v-language:inner="docPurchased > 1 ? 'resultNote_purchaseds' : 'resultNote_purchased'"
-          /> -->
-        </span>
-      </div>
-      <span class="right" style="cursor:pointer">
-        <likeFilledSVG v-if="isLiked" @click.stop.prevent="upvoteDocument" class="likeSVG" />
-        <likeSVG v-if="!isLiked" @click.stop.prevent="upvoteDocument" class="likeSVG" />
-        <span v-if="item.votes>0">{{item.votes}}</span>
-      </span>
-      <v-spacer v-if="isMobile"></v-spacer>
-      <div
-        v-if="isMobile"
-        v-show="item.price"
-        class="price-area"
-        :class="{'isPurchased': isPurchased}"
-      >
-        {{item.price ? item.price.toFixed(0): ''}}
-        <span v-language:inner>app_currency_dynamic</span>
-      </div>
-    </v-flex>
+    <documentLikes v-if="isMobile" :item="item" />
 
     <sb-dialog
       :showDialog="showReport"
@@ -165,7 +137,7 @@
       <v-card class="price-change-wrap">
         <v-flex align-center justify-center class="relative-pos">
           <div class="title-wrap">
-            <span class="change-title" v-language:inner>resultNote_change_for</span>
+            <span class="change-title" v-t="'resultNote_change_for'"></span>
             <span class="change-title" style="max-width: 150px;">&nbsp;"{{item.title}}"</span>
           </div>
           <div class="input-wrap align-center justify-center">
@@ -186,10 +158,10 @@
         </v-flex>
         <div class="change-price-actions">
           <button @click="closeNewPriceDialog()" class="cancel mr-2">
-            <span v-language:inner>resultNote_action_cancel</span>
+            <span v-t="'resultNote_action_cancel'"></span>
           </button>
           <button @click="submitNewPrice()" class="change-price">
-            <span v-language:inner>resultNote_action_apply_price</span>
+            <span v-t="'resultNote_action_apply_price'"></span>
           </button>
         </div>
       </v-card>
@@ -206,23 +178,19 @@ import studyDocumentsStore from "../../store/studyDocuments_store";
 import storeService from "../../services/store/storeService";
 import documentService from "../../services/documentService";
 
-import { LanguageService } from "../../services/language/languageService";
-import utilitiesService from "../../services/utilities/utilitiesService.js"; // cannot async, js error
-
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
 const reportItem = () => import("./helpers/reportItem/reportItem.vue");
-const likeSVG = () => import("./img//like.svg");
-const likeFilledSVG = () => import("./img/like-filled.svg");
-const vidSVG = () => import("./svg/vid.svg");
+const documentLikes = () => import("./resultDocument/documentLikes.vue");
 const intersection = () => import('../pages/global/intersection/intersection.vue');
 import VueNumeric from 'vue-numeric'
+
+import vidSVG from "./svg/vid.svg";
 
 export default {
   components: {
     sbDialog,
     reportItem,
-    likeSVG,
-    likeFilledSVG,
+    documentLikes,
     vidSVG,
     intersection,
     VueNumeric
@@ -230,19 +198,18 @@ export default {
   data() {
     return {
       isPreviewReady: false,
-      isLiked: false,
       loading: false,
-      currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
+      currentCurrency: this.$t("app_currency_dynamic"),
       actions: [
         {
-          title: LanguageService.getValueByKey("questionCard_Report"),
+          title: this.$t("questionCard_Report"),
           action: this.reportItem,
           isDisabled: this.isDisabled,
           isVisible: this.isVisible,
           visible: true
         },
         {
-          title: LanguageService.getValueByKey("resultNote_change_price"),
+          title: this.$t("resultNote_change_price"),
           action: this.showPriceChangeDialog,
           isDisabled: this.isOwner,
           isVisible: this.isVisible,
@@ -250,7 +217,7 @@ export default {
           visible: true
         },
         {
-          title: LanguageService.getValueByKey("resultNote_action_delete_doc"),
+          title: this.$t("resultNote_action_delete_doc"),
           action: this.deleteDocument,
           isDisabled: this.isOwner,
           isVisible: this.isVisible,
@@ -262,13 +229,8 @@ export default {
       showMenu: false,
       priceDialog: false,
       newPrice: this.item.price ? this.item.price : 0,
-      rules: {
-        required: value => !!value || "Required.",
-        max: value => value.$options.filter <= 1000 || "max is 1000"
-      }
-    };
+    }
   },
-
   props: {
     item: { type: Object, required: true },
     index: { Number },
@@ -285,23 +247,21 @@ export default {
     }
   },
   computed: {
+    subscribedPrice() {
+      return '$15'
+    },
+    isSubscribed() {
+      return this.item?.subscribed
+    },
     isVideo() {
       return this.item.documentType === "Video";
     },
     userImageUrl() {
-      if (
-        this.item.user &&
-        this.item.user.image &&
-        this.item.user.image.length > 1
-      ) {
-        return `${this.item.user.image}`;
-      }
-      return "";
+      return this.item?.user.image
     },
     isPurchased() {
       return this.item.isPurchased;
     },
-
     authorName() {
       if (!!this.item.user) {
         return this.item.user.name;
@@ -310,62 +270,17 @@ export default {
       }
     },
     authorId() {
-      if (!!this.item && !!this.item.user && !!this.item.user.id) {
-        return this.item.user.id;
-      }else{
-        return null;
-      }
-    },
-    docViews() {
-      if (this.item) {
-        return this.item.views;
-      }else{
-        return null;
-      }
-    },
-    docDownloads() {
-      if (this.item) {
-        return this.item.downloads;
-      }else{
-        return null;
-      }
-    },
-    docPurchased() {
-      if (this.item) {
-        return this.item.purchased;
-      }else{
-        return null;
-      }
+      return this.item?.user.id
     },
     url() {
       return this.item.url;
-    },
-    isOurs() {
-      let ours;
-      if (this.item && this.item.source) {
-        ours = this.item.source.toLowerCase().includes("cloudents");
-      }
-      return ours;
     },
     isMobile() {
       return this.$vuetify.breakpoint.xs;
     },
     docPreviewImg() {
-      if (this.isMobile) {
-        return utilitiesService.proccessImageURL(
-          this.item.preview,
-          100,
-          106,
-          "crop&anchorPosition=top"
-        );
-      } else {
-        return utilitiesService.proccessImageURL(
-          this.item.preview,
-          148,
-          130,
-          "crop&anchorPosition=top"
-        );
-      }
+      let size = this.isMobile ? [110, 108] : [200, 162]
+      return this.$proccessImageUrl(this.item.preview,...size)
     },
     isPreview() {
       if (this.item && this.item.preview && this.loading) {
@@ -375,12 +290,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      "updateToasterParams",
-      "documentVote",
-      "removeItemFromList",
-      "removeDocItemAction"
-    ]),
+    ...mapActions(["updateToasterParams", "removeItemFromList", "removeDocItemAction"]),
     ...mapGetters(["accountUser"]),
 
     cardOwner() {
@@ -416,7 +326,6 @@ export default {
       this.priceDialog = false;
     },
     isOwner() {
-      // return true
       let owner = this.cardOwner();
       return !owner;
     },
@@ -437,14 +346,10 @@ export default {
     },
     deleteDocument() {
       let id = this.item.id;
-      
-      
       documentService.deleteDoc(id).then(
         () => {
           this.updateToasterParams({
-            toasterText: LanguageService.getValueByKey(
-              "resultNote_deleted_success"
-            ),
+            toasterText: this.$t("resultNote_deleted_success"),
             showToaster: true
           });
           if (this.$route.name === "document") {
@@ -457,9 +362,7 @@ export default {
         },
         () => {
           this.updateToasterParams({
-            toasterText: LanguageService.getValueByKey(
-              "resultNote_error_delete"
-            ),
+            toasterText: this.$t("resultNote_error_delete"),
             showToaster: true
           });
         }
@@ -470,32 +373,6 @@ export default {
     },
     showReportOptions() {
       this.showMenu = true;
-    },
-
-    isAuthUser() {
-      let user = this.accountUser();
-      if (user == null) {
-        // this.$openDialog('login')
-        this.$store.commit('setComponent', 'register')
-        return false;
-      }
-      return true;
-    },
-    upvoteDocument(e) {
-      e.stopImmediatePropagation();
-      if (this.isAuthUser()) {
-        this.isLiked = true;
-        let type = "up";
-        if (!!this.item.upvoted) {
-          type = "none";
-          this.isLiked = false;
-        }
-        let data = {
-          type,
-          id: this.item.id
-        };
-        this.documentVote(data);
-      }
     }
   },
   beforeDestroy() {
@@ -507,7 +384,6 @@ export default {
       "studyDocumentsStore",
       studyDocumentsStore
     );
-    this.isLiked = this.item.upvoted;
     this.$nextTick(() => {
       this.loading = true;
     });
