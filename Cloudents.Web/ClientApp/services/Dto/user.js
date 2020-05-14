@@ -1,4 +1,4 @@
-import {School} from './school.js';
+// import {School.} from './school.js';
 
 function _createIsTutorState(str){
     if(str && str.toLowerCase() === 'ok') return 'ok';
@@ -23,8 +23,8 @@ export const User = {
         this.subjects = objInit.subjects.toString().replace(/,/g, ", ");
         this.pendingSessionsPayments = objInit.pendingSessionsPayments || null;
         this.description = objInit.description || '';
-        this.tutorCountry = objInit.tutorCountry
-
+        this.tutorCountry = objInit.tutorCountry;
+        this.subscription = objInit.subscription;
     },
     Tutor: function (objInit) {
         return Object.assign(
@@ -56,27 +56,29 @@ export const User = {
         )
     },
     Account: function(objInit){
-        objInit.courses = objInit.courses || [];
-        objInit.isTutor  = objInit.isTutor  ||'';
-        return Object.assign(
-            new User.Default(objInit),
-            {
-                balance: objInit.balance,
-                email: objInit.email,
-                currencySymbol: objInit.currencySymbol,
-                needPayment: objInit.needPayment,
-                isTutor: _createIsTutorState(objInit.isTutor) ? true : false,
-                isTutorState: _createIsTutorState(objInit.isTutor),
-                courses: objInit.courses.map((course) => new School.Course(course)),
-                haveDocsWithPrice: objInit.haveDocsWithPrice,
-                haveContent: objInit.haveContent,
-                isPurchased: objInit.isPurchased,
-                isSold: objInit.isSold,
-                haveFollowers: objInit.haveFollowers,
-                pendingSessionsPayments: objInit.pendingSessionsPayments,
-                price: objInit.price || null
-            }
-        )
+        // objInit.courses = objInit.courses || [];
+        // objInit.isTutor  = objInit.isTutor  ||'';
+        return {
+            id: objInit.id,
+            email: objInit.email,
+            lastName: objInit.lastName,
+            firstName: objInit.firstName,
+            name: `${objInit.firstName} ${objInit.lastName}`,
+            balance: objInit.balance,
+            currencySymbol: objInit.currencySymbol,
+            needPayment: objInit.needPayment,
+            isTutor: _createIsTutorState(objInit.isTutor) ? true : false,
+            isTutorState: _createIsTutorState(objInit.isTutor),
+            // courses: objInit.courses.map((course) => new School.Course(course)),
+            haveDocsWithPrice: objInit.haveDocsWithPrice,
+            haveContent: objInit.haveContent,
+            isPurchased: objInit.isPurchased,
+            isSold: objInit.isSold,
+            haveFollowers: objInit.haveFollowers,
+            pendingSessionsPayments: objInit.pendingSessionsPayments,
+            price: objInit.price || null,
+            image: objInit.image || '',
+        }
     },
     Stats: function(objInit){
         this.revenue = objInit.revenue
