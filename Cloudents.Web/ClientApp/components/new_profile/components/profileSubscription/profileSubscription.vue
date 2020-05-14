@@ -5,7 +5,7 @@
             <div class="subTitle text-truncate" v-t="{path: 'profile_subscribe_subtitle', args: {0: firstName}}"></div>
 
             <div class="priceWrapper mt-8 mb-2">
-                <span class="price">15$</span>
+                <span class="price">{{$n(tutorSubscriptionPrice, 'currency')}}</span>
                 <span v-t="'profile_subscribe_price_month'"></span>
             </div>
 
@@ -27,6 +27,9 @@ export default {
         }
     },
     computed: {
+        tutorSubscriptionPrice() {
+            return this.$store.getters.getTutorSubscriptionPrice || 15
+        },
         firstName() {
             return this.$store.getters.accountUser?.firstName
         }
