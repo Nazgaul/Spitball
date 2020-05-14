@@ -4,13 +4,6 @@ using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.Interfaces
 {
-    //public interface IPayPalService
-    //{
-    //    Task<(string authorizationId, decimal amount)> AuthorizationOrderAsync(string orderId, CancellationToken token);
-    //    Task CaptureAuthorizedOrderAsync(string authorizationId, decimal newAmount, CancellationToken token);
-    //    Task<PayPalDto> GetPaymentAsync(string transactionId, CancellationToken token);
-    //    //Task UpdateAndConfirmOrderAsync(string orderId, decimal charge, CancellationToken token);
-    //}
 
     public interface IStripeService
     {
@@ -21,6 +14,9 @@ namespace Cloudents.Core.Interfaces
 
         Task<string> CreateCustomerAsync(User user, CancellationToken token);
         Task<string> FutureCardPayments(string stripeClientId);
-        Task<string?> RetrieveCustomerIdAsync(string email, CancellationToken token);
+
+
+        Task CreateProductAsync(Tutor tutor,CancellationToken token);
+        //Task<string?> RetrieveCustomerIdAsync(string email, CancellationToken token);
     }
 }

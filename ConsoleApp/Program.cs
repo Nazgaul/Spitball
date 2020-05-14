@@ -26,6 +26,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Payments;
 using Cloudents.Query;
+using Cloudents.Query.Tutor;
 using Cloudents.Query.Users;
 using Cloudents.Search.Document;
 using Cloudents.Search.Tutor;
@@ -145,9 +146,17 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var x = Container.Resolve<IVideoService>();
+            var session = Container.Resolve<IRepository<Tutor>>();
+
+            var tutor = await session.LoadAsync(638L, default);
+
+            var z = Container.Resolve<IStripeService>();
+            await z.CreateProductAsync(tutor, default);
+            //var x = Container.Resolve<ICommandBus>();
+            //var query = new CreateTutorSubscriptionCommand(638,20);
+            //await x.DispatchAsync(query, default);
             // var z = Container.Resolve<IUnitOfWork>();
-            await UpdateTwilioParticipants();
+            //await UpdateTwilioParticipants();
             // await Dbi();
 
 
@@ -184,13 +193,7 @@ namespace ConsoleApp
             //    .Where(w=>((User)w).LockoutEnabled)
             //    .Select(s => ((User) s).LockoutReason).SingleOrDefault();
 
-            var bus = Container.Resolve<ICloudStorageProvider>();
-            var blobClient = bus.GetBlobClient();
-            var blob = blobClient.GetContainerReference("spitball-files")
-                .GetBlockBlobReference("files/256278/file-9701517f-d18f-4eb1-a403-8ce07ee6ceea-IMG_22241.MOV");
 
-            var uri = blob.GetDownloadLink(TimeSpan.FromHours(1));
-            await x.CreateVideoPreviewJobAsync(256278, uri.AbsoluteUri, default);
         }
         //  await ReduPreviewProcessingAsync();
 
