@@ -1,9 +1,8 @@
 <template>
     <div class="profileLiveClasses pa-sm-4 pa-0" v-if="liveSessions.length">
-
         <div class="mainTitle px-4 py-2 pb-sm-6 text-truncate">
             <span v-t="'profile_live_title'"></span>
-            <span>{{tutorName}}</span>
+            <span>{{tutorFirstName}}</span>
         </div>
 
         <v-row class="headerRow text-center d-none d-sm-flex" dense>
@@ -12,7 +11,7 @@
                 <v-col cols="4" class="pa-0">
                     <div class="pa-3" v-t="'profile_live_visitors_title'"></div>
                 </v-col>
-                <v-col cols="4" class="titleSubscriber pa-0" v-show="isTutorSubscription">
+                <v-col cols="4" class="titleSubscriber pa-0" v-if="isTutorSubscription">
                     <div class="pa-3" v-t="'profile_live_subscribers_title'"></div>
                 </v-col>
             </v-row>
@@ -20,7 +19,7 @@
 
         <v-row 
             v-for="(session, index) in liveSessionsList"
-            class="trRow text-center px-4 px-sm-0 pb-2 pb-sm-0"
+            class="sessionRow text-center px-4 px-sm-0 pb-2 pb-sm-0"
             :class="{'pt-2': index && isMobile}"
             :key="index"
             dense
@@ -92,7 +91,7 @@
                             </div>
                         </v-col>
                         <v-col cols="4" class="pa-0 rowCol" :class="{'enroll': session.enrolled && isTutorSubscription}">
-                            <div v-t="'profile_live_subscribers_free'" v-show="isTutorSubscription"></div>  
+                            <div v-t="'profile_live_subscribers_free'" v-if="isTutorSubscription"></div>  
                         </v-col>
                     </template>
                     <v-col cols="4" class="pa-0 rowCol d-flex d-sm-block ma-auto pa-2">
@@ -180,7 +179,7 @@ export default {
             return this.$store.getters.getIsTutorSubscription
         },
         tutorSubscriptionPrice() {
-            return this.$store.getters.getTutorSubscriptionPrice
+            return this.$store.getters.getProfileTutorSubscription
         },
         liveSessionsList() {
             let liveList = this.liveSessions
@@ -192,8 +191,7 @@ export default {
         tutorCurrency() {
             return this.$store.getters.getProfile?.user?.tutorData?.currency
         },
-        tutorName() {
-            
+        tutorFirstName() {
             return this.$store.getters.getProfile?.user?.firstName
         },
         isMyProfile(){
@@ -309,7 +307,6 @@ export default {
                 background: #fff;
             }
         }
-
         .headerRow {
             color: #595475;
             font-size: 16px;
@@ -321,7 +318,7 @@ export default {
                 }
             }
         }
-        .trRow {
+        .sessionRow {
             border-bottom: 1px solid #ebebeb;
 
             &:last-child {

@@ -60,7 +60,7 @@ const getters = {
    getProfileReviews: state => state.profileReviews,
    getShowEditDataDialog: state => state.showEditDataDialog,
    getProfileCoverImage: state => state.profile?.user?.cover || '',
-   getProfileTutorSubscription: state => state.profile?.user.subscriptionPrice,
+   getProfileTutorSubscription: state => state.profile?.user?.subscriptionPrice,
 }
 
 const actions = {
