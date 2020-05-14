@@ -136,8 +136,11 @@
                     return this.getCode
                 },
                 set: debounce(function (val) {
+                    if(val == this.getCode) return
+                    else{
                         this.updateCode(val)
-                    }, 125)
+                    }
+                }, 125)
             }
         },
         methods: {

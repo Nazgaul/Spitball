@@ -10,7 +10,7 @@
                     </tr>
                     <tr>
                         <td class="" v-t="'studyRoomSettings_price'"></td>
-                        <td class="pl-4">{{$n(roomPrice, 'currency')}}</td>
+                        <td class="pl-4">{{roomPrice}}</td>
                     </tr>
                     <tr>
                         <td class="" v-t="'studyRoomSettings_share'"></td>
@@ -156,7 +156,11 @@ export default {
             return this.$store.getters?.getRoomName
         },
         roomPrice(){
-            return this.roomTutor?.tutorPrice;
+            if(this.roomTutor?.tutorPrice){
+                return this.$n(this.roomTutor.tutorPrice, 'currency')
+            }else{
+                return this.$t('studyRoomSettings_free')
+            }
         },
         roomTutor() {
             return this.$store.getters.getRoomTutor

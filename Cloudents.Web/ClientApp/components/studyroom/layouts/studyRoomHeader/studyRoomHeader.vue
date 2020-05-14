@@ -31,7 +31,7 @@
          </template>
       </template>
       <template v-else>
-         <button :class="['tutorNavTab','tutorNavTab-active','px-5']" >
+         <button :class="['tutorNavTab','tutorNavTab-active','px-5']" style="cursor:initial" >
                <v-icon class="mr-2" style="vertical-align: sub;" size="15" color="#4c59ff">
                   {{navTabs[getIsCurrentMode(currentEditorMode)].icon}}
                </v-icon>
