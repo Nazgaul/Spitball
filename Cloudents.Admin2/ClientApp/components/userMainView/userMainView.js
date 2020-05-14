@@ -52,7 +52,8 @@ export default {
                 email: false,
                 phone: false,
                 price: false,
-                type: false
+                type: false,
+                subscribe: false
             },
             currentFirstName: '',
             currentLastName: '',
@@ -64,6 +65,8 @@ export default {
             newEmail: '',
             newPhone: '',
             newPrice: '',
+            subscribePriceNewPrice: '',
+            subscribeCurrentPrice: '',
             suspendDialog: false,
             userComponentsShow: false,
             activeUserComponent: '',
@@ -128,7 +131,8 @@ export default {
             "updateUserPhone",
             "deletePayment",
             "updateTutorPrice",
-            "removeCalender"
+            "removeCalender",
+            "updateSubscribe"
         ]),
         showSuspendDialog() {
             this.setSuspendDialogState(true);
@@ -264,6 +268,9 @@ export default {
             this.dialogs.price = true;
             this.currentPrice = price.toString();
         },
+        openSubscribeDialog() {
+            this.dialogs.subscribe = true
+        },
         editName() {
             let nameObj = {
                 firstName: this.newFirstName,
@@ -325,6 +332,12 @@ export default {
                 this.dialogs.price = false;
                 this.newPrice = '';
             });            
+        },
+        createSubscribe() {
+            this.updateSubscribe({
+                tutorId: this.userIdentifier,
+                price: this.subscribePriceNewPrice
+            })
         },
         removePayment(id) {
             this.deletePayment(id).then(() => {
