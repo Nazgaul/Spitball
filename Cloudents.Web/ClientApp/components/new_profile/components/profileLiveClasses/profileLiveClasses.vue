@@ -256,7 +256,7 @@ export default {
         }
     },
     filters: {
-        truncate(val="aaabbb", isOpen, suffix, textLimit){
+        truncate(val, isOpen, suffix, textLimit){
             if (val.length > textLimit && !isOpen) {
                 return val.substring(0, textLimit) +  suffix + ' ';
             } 
@@ -265,7 +265,7 @@ export default {
             }
             return val;
         },
-        restOfText(val="aaabbb", isOpen, suffix, textLimit){
+        restOfText(val, isOpen, suffix, textLimit){
             if (val.length > textLimit && !isOpen) {
                 return val.substring(textLimit) ;
             }

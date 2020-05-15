@@ -108,12 +108,12 @@
             </v-flex>
           </div>
 
-          <documentLikes v-if="!isMobile" :item="item" />
+          <documentLikes v-if="!isMobile && !fromItemPage" :item="item" />
       </div>
       
     </v-flex>
 
-    <documentLikes v-if="isMobile" :item="item" />
+    <documentLikes v-if="isMobile && !fromItemPage" :item="item" />
 
     <sb-dialog
       :showDialog="showReport"
@@ -197,6 +197,8 @@ export default {
   },
   data() {
     return {
+      defOpen:false,
+      isExpand: false,
       isPreviewReady: false,
       loading: false,
       actions: [
@@ -297,6 +299,17 @@ export default {
         return false;
       }
     },
+    textLimit(){
+        return this.isMobile ? 30 : 0;
+    },
+    isOpen :{
+      get(){
+        return this.defOpen
+      },
+      set(val){
+        this.defOpen = val
+      }
+    },
   },
   methods: {
     ...mapActions(["updateToasterParams", "removeItemFromList", "removeDocItemAction"]),
@@ -366,6 +379,25 @@ export default {
     },
     showReportOptions() {
       this.showMenu = true;
+    }
+  },
+  filters: {
+    truncate(val, isOpen, suffix, textLimit){
+        if (val.length > textLimit && !isOpen) {
+            return val.substring(0, textLimit) +  suffix + ' ';
+        } 
+        if (val.length > textLimit && isOpen) {
+            return val + ' ';
+        }
+        return val;
+    },
+    restOfText(val, isOpen, suffix, textLimit){
+        if (val.length > textLimit && !isOpen) {
+            return val.substring(textLimit) ;
+        }
+        if (val.length > textLimit && isOpen) {
+            return '';
+        }
     }
   },
   beforeDestroy() {

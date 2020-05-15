@@ -250,13 +250,22 @@
         @media (max-width: @screen-xs) {
           padding-left: 8px;
         }
-        &--noPadding {
-          padding-left: 0;
-        }
         .wrapHeight {
           height: 140px;
           @media (max-width: @screen-xs) {
             height: auto;
+          }
+        }
+        &--noPadding {
+          padding-left: 0;
+          .wrapHeight {
+            height: auto;
+          }
+          .doc-snippet-h6{
+            .giveMeEllipsis(3, 22) !important;
+            @media (max-width: @screen-xs) {
+              .giveMeEllipsis(4, 16) !important;
+            }
           }
         }
         .videoType{
@@ -307,7 +316,7 @@
             }
             .giveMeEllipsis(2, 22);
             @media (max-width: @screen-xs) {
-              .giveMeEllipsis(2, 16);
+              .giveMeEllipsis(3, 16);
             }
           }
           

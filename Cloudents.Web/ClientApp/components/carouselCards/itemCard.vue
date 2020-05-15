@@ -4,7 +4,7 @@
             <intersection>
                 <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="$proccessImageUrl(item.preview,240,152)" alt="preview image">
             </intersection>
-            <div class="overlay text-center px-2 px-sm-5" v-if="!isSubscribed">
+            <div class="overlay text-center px-8" v-if="!isSubscribed">
                 <div class="unlockText white--text mb-3" v-t="subscribeText"></div>
                 <v-btn class="btn" color="#fff" rounded block>
                     <span v-t="{path: subscribeBtnText, args: { 0: subscribedPrice }}"></span>
@@ -21,7 +21,7 @@
             </div>
             <div class="item-title text-truncate mb-1">{{item.title}}</div>
             <div class="item-course text-truncate">
-                <span class="font-weight-bold">{{$t('itemCardCarousel_course')}}</span>
+                <span class="font-weight-bold" v-t="'itemCardCarousel_course'"></span>
                 <span>{{item.course}}</span>
             </div>
             <div class="item-user d-flex align-center" v-if="!isProfilePage">
@@ -91,6 +91,9 @@ export default {
         },
         enterItemPage(){
             this.$router.push(this.item.url)
+        },
+        subscribe() {
+            console.log("dsadasdasdasdasdas");
         }
     },  
 }
@@ -116,6 +119,7 @@ export default {
     .imageWrapper {
         position: relative;
         &.subscribed {
+            z-index: 10;
             &:before {
                 content: '';
                 position: absolute;
@@ -130,7 +134,7 @@ export default {
                 left: 0;
                 transform: translate(0,-50%);
                 .unlockText {
-                    .responsive-property(font-size, 15px, null, 13px);                
+                    font-size: 15px;
                     font-weight: 600;
                     line-height: 1.47;
                 }
