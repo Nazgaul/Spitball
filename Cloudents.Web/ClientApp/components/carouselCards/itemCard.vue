@@ -1,26 +1,37 @@
 <template>
     <router-link v-if="item.url" event @click.native.prevent="goToItem" :to="item.url" class="itemCarouselCard">
-        <intersection>
-            <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="$proccessImageUrl(item.preview,240,152)" alt="preview image">
-        </intersection>
-        <span class="itemCarouselCard_videoType" v-if="showVideoDuration">
-            <vidSVG class="vidSvg" />
-            <span class="vidTime">{{item.itemDuration}}</span>
-        </span>
-        <div class="item-cont pa-2">
-            <div class="item-title text-truncate">{{item.title}}</div>
-            <div class="item-course text-truncate">
-                <b>{{$t('itemCardCarousel_course')}}</b>{{item.course}}
-                 <div class="user-info" >{{$d(new Date(item.dateTime), 'short')}}</div>
+        <div class="imageWrapper subscribed">
+            <intersection>
+                <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="$proccessImageUrl(item.preview,240,152)" alt="preview image">
+            </intersection>
+            <div class="overlay text-center px-2 px-sm-5" v-if="!isSubscribed">
+                <div class="unlockText white--text mb-3" v-t="subscribeText"></div>
+                <v-btn class="btn" color="#fff" rounded block>
+                    <span v-t="{path: subscribeBtnText, args: { 0: subscribedPrice }}"></span>
+                </v-btn>
             </div>
-                <div class="item-user" v-if="!isProfilePage">
-                    <UserAvatar :size="'34'" :user-name="item.user.name" :user-id="item.user.id" :userImageUrl="item.user.image"/> 
-                    <div class="ml-2 user-info">
-                        <div class="text-truncate" >{{item.user.name}}</div>
-                    </div>
+        </div>
+        <div class="item-cont pa-2">
+            <div class="itemCarouselCard_videoType d-flex align-center justify-space-between mb-1">
+                <div class="itemDate" >{{$d(item.dateTime, 'short')}}</div>
+                <div class="d-flex" v-if="showVideoDuration">
+                    <span class="vidTime pr-1">{{item.itemDuration}}</span>
+                    <vidSVG class="vidSvg" width="17" />
                 </div>
+            </div>
+            <div class="item-title text-truncate mb-1">{{item.title}}</div>
+            <div class="item-course text-truncate">
+                <span class="font-weight-bold">{{$t('itemCardCarousel_course')}}</span>
+                <span>{{item.course}}</span>
+            </div>
+            <div class="item-user d-flex align-center" v-if="!isProfilePage">
+                <UserAvatar :size="'34'" :user-name="item.user.name" :user-id="item.user.id" :userImageUrl="item.user.image"/> 
+                <div class="ml-2 user-info">
+                    <div class="text-truncate" >{{item.user.name}}</div>
+                </div>
+            </div>
             <div class="itemCard-bottom mt-2">
-                <span class="item-purchases">{{item.views}} {{$tc('itemCardCarousel_view', item.views)}}</span>
+                <span class="item-purchases">{{item.purchased}} {{$tc('itemCardCarousel_view', item.purchased)}}</span>
                 <span class="item-pts">{{$tc('itemCardCarousel_pts',item.price)}}</span>
             </div>
         </div>
@@ -28,10 +39,10 @@
 </template>
 
 <script>
-const vidSVG = () => import("../../components/results/svg/vid.svg");
-
+import * as routeNames from '../../routes/routeNames';
 import intersection from '../pages/global/intersection/intersection.vue';
-import * as routeNames from '../../routes/routeNames'
+import vidSVG from '../../components/results/svg/vid.svg'
+
 export default {
     components:{vidSVG, intersection},
     props:{
@@ -56,7 +67,19 @@ export default {
         },
         isProfilePage() {
             return this.$route.name === routeNames.Profile
-        }
+        },
+        isSubscribed() {
+            return this.item?.subscribed
+        },
+        subscribeText() {
+            return this.isMobile ? 'resultNote_subscribe_mobile_text' : 'resultNote_subscribe_desktop_text'
+        },
+        subscribeBtnText() {
+            return this.isMobile ? 'resultNote_subscribe_mobile_btn' : 'resultNote_subscribe_desktop_btn'
+        },
+        subscribedPrice() {
+            return this.item.subscriberPrice || '$15'
+        },
     },
     methods: {
         goToItem(){
@@ -74,74 +97,96 @@ export default {
 </script>
 
 <style lang="less">
+@import '../../styles/mixin.less';
+@import '../../styles/colors.less';
+
 .itemCarouselCard{
     width: 242px;
-    height: 340px;
+    height: 320px;
     background: white;
     border-radius: 8px;
     border: solid 1px #c1c3d2;
-    color: #43425d !important;
+    color: @global-purple !important;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
-    .itemCarouselImg{
-        border-bottom:  solid 1px #c1c3d2;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-        width: 100%;
-        height: 100%;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+
+    .imageWrapper {
+        position: relative;
+        &.subscribed {
+            &:before {
+                content: '';
+                position: absolute;
+                background: rgba(0, 0, 0, .7);
+                height: 100%;
+                width: 100%;
+            }
+            .overlay {
+                position: absolute;
+                top: 50%;
+                right: 0;
+                left: 0;
+                transform: translate(0,-50%);
+                .unlockText {
+                    .responsive-property(font-size, 15px, null, 13px);                
+                    font-weight: 600;
+                    line-height: 1.47;
+                }
+                .btn {
+                    color: @global-purple;
+                    font-weight: 600;
+                }
+            }
+        }
+        .itemCarouselImg{
+            border-bottom:  solid 1px #c1c3d2;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            width: 100%;
+            height: 100%;
+        }
     }
     .itemCarouselCard_videoType {
         /*rtl:ignore*/
-        align-items: center;
-        display: flex;
-        position: absolute;
-        background: rgba(0, 0, 0, 0.8);
-        color: white;
-        right: 10px;
-        top: 130px;
-        padding-left: 4px;
-        padding-right: 4px;
-        height: 16px;
         .vidTime{
-            font-size: 12px;
-            padding-left: 4px;
+            font-size: 13px;
             vertical-align: top;
+        }
+        .vidSvg path{
+            fill: #69687d;
+        }
+        .itemDate {
+            color: #989bac;
+            font-size: 13px;
         }
         /*rtl:ignore*/
     }
     .item-cont{
-        height: inherit;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        // height: inherit;
+        // display: flex;
+        // flex-direction: column;
+        // justify-content: space-between;
 
         .item-title{
             overflow: hidden !important;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: bold;
         }
         .item-course{
-            margin: 8px 0;
             font-size: 12px;
         }
         .item-user{
-            margin-top: 30px;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: unset;
-            
+            margin-top: 22px;
             .userImg-item{
                 margin-right: 10px;
             }
         }
         .user-info{
-            font-size: 12px;
-            color: #43425d;
+            font-size: 13px;
+            color: @global-purple;
             min-width: 0;
-            display: table;
-            height: 100%;
             .text-truncate {
                 display: table-cell;
                 vertical-align: middle;
@@ -152,9 +197,9 @@ export default {
             justify-content: space-between;
             align-items: center;
             .item-purchases{
-                font-size: 12px;
-                font-weight: 600;
-                color: #43425d;
+                font-size: 13px;
+                font-weight: bold;
+                color: @global-purple;
             }
             .item-pts{
                 font-size: 14px;
