@@ -13,7 +13,7 @@
           <span class="document-header-name text-truncate">
             <span>{{authorName}}</span>
           </span>
-          <span class="date-area">{{$d(new Date(item.dateTime), 'short')}}</span>
+          <span class="date-area">{{$d(item.dateTime, 'short')}}</span>
         </div>
       </div>
       <div class="document-header-small-sagment">
@@ -51,7 +51,7 @@
               :disabled="prop.isDisabled()"
               :key="i"
             >
-              <v-list-item-title style="cursor:pointer;" @click="prop.action()">{{ prop.title }}</v-list-item-title>
+              <v-list-item-title style="cursor:pointer;" @click="prop.action()" v-t="prop.title"></v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -62,20 +62,14 @@
 
     <v-flex grow class="top-row">
       <template v-if="!fromItemPage">
-        <v-progress-circular
-          v-show="!isPreviewReady"
+        <v-skeleton-loader
+          v-if="!isPreviewReady"
           class="document-body-card-img"
-          :style="isMobile? 'height:108px; width:100%;' : 'height:130px'"
-          indeterminate
-          v-bind:size="164"
-          width="2"
-          color="#514f7d"
-        />
-        <div class="document-body-card" :class="{'subscribed': isSubscribed}">
-          <span v-show="(isVideo && item.itemDuration) && isPreviewReady" class="videoType">
-            <vidSVG  />
-            <span class="vidTime">{{item.itemDuration}}</span>
-          </span>
+          type="image"
+          :height="isMobile ? '108' : '162'"
+          :width="isMobile ? '110' : '200'"
+        ></v-skeleton-loader>
+        <div class="document-body-card" :class="{'subscribed': !isSubscribed && isPreviewReady}">
           <intersection>
             <img
               class="document-body-card-img"
@@ -84,10 +78,10 @@
               alt
             />
           </intersection>
-          <div class="overlay text-center px-5" v-if="isSubscribed">
-              <div class="unlockText white--text mb-3" v-t="'resultNote_subscribe_unlock_btn'"></div>
+          <div class="overlay text-center px-2 px-sm-5" v-if="!isSubscribed && isPreviewReady">
+              <div class="unlockText white--text mb-3" v-t="subscribeText"></div>
               <v-btn class="btn" color="#fff" rounded block>
-                <span v-t="{path: 'resultNote_subscribe_unlock_btn', args: { 0: subscribedPrice }}"></span>
+                <span v-t="{path: subscribeBtnText, args: { 0: subscribedPrice }}"></span>
               </v-btn>
           </div>
         </div>
@@ -99,9 +93,13 @@
               <div class="content-wrap">
                 <h1 class="item-title text-truncate">{{item.title}}</h1>
                 <span class="item-course text-truncate">
-                  <span class="item-course font-weight-bold">{{$t('resultNote_course')}}</span>
+                  <span class="item-course font-weight-bold" v-t="'resultNote_course'"></span>
                   <h2 class="item-course">{{item.course}}</h2>
                 </span>
+                <div class="videoType" v-show="(isVideo && item.itemDuration) && isPreviewReady">
+                  <span class="vidTime mr-1">{{item.itemDuration}}</span>
+                  <vidSVG class="videoIcon" width="16" />
+                </div>
               </div>
               <v-divider v-show="item.snippet" class="my-2"></v-divider>
               <div class="doc-snippet" v-show="item.snippet">
@@ -143,7 +141,7 @@
           <div class="input-wrap align-center justify-center">
             <div class="price-wrap">
               <vue-numeric
-                :currency="currentCurrency"
+                :currency="$t('app_currency_dynamic')"
                 class="sb-input-upload-price"
                 :minus="false"
                 :min="0"
@@ -178,6 +176,8 @@ import studyDocumentsStore from "../../store/studyDocuments_store";
 import storeService from "../../services/store/storeService";
 import documentService from "../../services/documentService";
 
+import * as routeNames from '../../routes/routeNames';
+
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
 const reportItem = () => import("./helpers/reportItem/reportItem.vue");
 const documentLikes = () => import("./resultDocument/documentLikes.vue");
@@ -199,17 +199,16 @@ export default {
     return {
       isPreviewReady: false,
       loading: false,
-      currentCurrency: this.$t("app_currency_dynamic"),
       actions: [
         {
-          title: this.$t("questionCard_Report"),
+          title: 'questionCard_Report',
           action: this.reportItem,
           isDisabled: this.isDisabled,
           isVisible: this.isVisible,
           visible: true
         },
         {
-          title: this.$t("resultNote_change_price"),
+          title: 'resultNote_change_price',
           action: this.showPriceChangeDialog,
           isDisabled: this.isOwner,
           isVisible: this.isVisible,
@@ -217,7 +216,7 @@ export default {
           visible: true
         },
         {
-          title: this.$t("resultNote_action_delete_doc"),
+          title: 'resultNote_action_delete_doc',
           action: this.deleteDocument,
           isDisabled: this.isOwner,
           isVisible: this.isVisible,
@@ -247,8 +246,16 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(["accountUser"]),
+
+    subscribeText() {
+      return this.isMobile ? 'resultNote_subscribe_mobile_text' : 'resultNote_subscribe_desktop_text'
+    },
+    subscribeBtnText() {
+      return this.isMobile ? 'resultNote_subscribe_mobile_btn' : 'resultNote_subscribe_desktop_btn'
+    },
     subscribedPrice() {
-      return '$15'
+      return this.item.subscriberPrice || '$15'
     },
     isSubscribed() {
       return this.item?.subscribed
@@ -282,25 +289,18 @@ export default {
       let size = this.isMobile ? [110, 108] : [200, 162]
       return this.$proccessImageUrl(this.item.preview,...size)
     },
-    isPreview() {
-      if (this.item && this.item.preview && this.loading) {
-        return false;
-      }
-      return true;
-    }
-  },
-  methods: {
-    ...mapActions(["updateToasterParams", "removeItemFromList", "removeDocItemAction"]),
-    ...mapGetters(["accountUser"]),
-
     cardOwner() {
-      let userAccount = this.accountUser();
+      let userAccount = this.accountUser;
       if (userAccount && this.item.user) {
         return userAccount.id === this.item.user.id; // will work once API call will also return userId
       } else {
         return false;
       }
     },
+  },
+  methods: {
+    ...mapActions(["updateToasterParams", "removeItemFromList", "removeDocItemAction"]),
+
     updateItemPrice(val) {
       if (val || val === 0) {
         return (this.item.price = val);
@@ -326,19 +326,14 @@ export default {
       this.priceDialog = false;
     },
     isOwner() {
-      let owner = this.cardOwner();
+      let owner = this.cardOwner;
       return !owner;
     },
     showPriceChangeDialog() {
       this.priceDialog = true;
     },
     isDisabled() {
-      let isOwner, account, notEnough;
-      isOwner = this.cardOwner();
-      account = this.accountUser();
-      if (isOwner || !account || notEnough) {
-        return true;
-      }
+      return this.cardOwner || !this.accountUser;
     },
     reportItem() {
       this.itemId = this.item.id;
@@ -346,19 +341,17 @@ export default {
     },
     deleteDocument() {
       let id = this.item.id;
-      documentService.deleteDoc(id).then(
-        () => {
+      documentService.deleteDoc(id).then(() => {
           this.updateToasterParams({
             toasterText: this.$t("resultNote_deleted_success"),
             showToaster: true
           });
-          if (this.$route.name === "document") {
-            this.$router.replace({name:"feed"});
+          if (this.$route.name === routeNames.Document) {
+            this.$router.replace({name: routeNames.Feed});
             return
           }
           this.removeItemFromList(id);
-          let objToDelete = { id };
-          this.removeDocItemAction(objToDelete);
+          this.removeDocItemAction({ id });
         },
         () => {
           this.updateToasterParams({

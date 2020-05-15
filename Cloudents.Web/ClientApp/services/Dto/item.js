@@ -10,7 +10,7 @@ export const Item = {
       this.views = objInit.views;
       this.downloads = objInit.downloads;
       this.url = objInit.url;
-      this.dateTime = objInit.dateTime;
+      this.dateTime = objInit.dateTime ? new Date(objInit.dateTime) : '';
       this.votes = !!objInit.vote ? objInit.vote.votes : null;
       this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
       this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;

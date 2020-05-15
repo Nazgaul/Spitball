@@ -154,7 +154,7 @@
     color: #848bbc;
     padding-top: 6px;
     @media (max-width: @screen-xs) {
-      padding-top: 10px;
+      padding-top: 20px;
       justify-content: initial;
       align-items: flex-end;
     }
@@ -204,25 +204,7 @@
       }
       .document-body-card{
         position: relative;
-        .videoType{
-          /*rtl:ignore*/
-          align-items: center;
-          display: flex;
-          position: absolute;
-          background: rgba(0, 0, 0, 0.8);
-          color: white;
-          right: 4px;
-          bottom: 12px;
-          padding-left: 4px;
-          padding-right: 4px;
-          height: 16px;
-            .vidTime{
-                font-size: 12px;
-                padding: 0 4px;
-                vertical-align: top;
-            }
-            /*rtl:ignore*/
-        }
+
         @media (max-width: @screen-xs) {
         }
         .document-body-card-img{
@@ -244,10 +226,11 @@
           .overlay {
             position: absolute;
             top: 50%;
+            right: 0;
+            left: 0;
             transform: translate(0,-50%);
-            bottom: 0;
             .unlockText {
-              font-size: 15px;
+              .responsive-property(font-size, 15px, null, 13px);                
               font-weight: 600;
               line-height: 1.47;
             }
@@ -266,14 +249,26 @@
         min-width: 0;
         @media (max-width: @screen-xs) {
           padding-left: 8px;
-          // width: 100%;
-          // padding-left: 0;
         }
         &--noPadding {
           padding-left: 0;
         }
         .wrapHeight {
-          height: 136px;
+          height: 140px;
+          @media (max-width: @screen-xs) {
+            height: auto;
+          }
+        }
+        .videoType{
+          .videoIcon {
+            vertical-align: middle;
+            path {
+              fill: #69687d;
+            }
+          }
+          .vidTime{
+              font-size: 12px;
+          }
         }
       }
     }
@@ -286,7 +281,6 @@
           color: @colorBlackNew;
           float: left;
           margin-right: 4px;
-          //height: 17px;
           display: unset;
           .sb-icon-arrow {
             font-size: 12px;

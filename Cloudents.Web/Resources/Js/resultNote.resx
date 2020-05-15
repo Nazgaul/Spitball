@@ -151,6 +151,19 @@
   <data name="purchased" xml:space="preserve">
     <value>{n} Purchase | {n} Purchases</value>
   </data>
+  <data name="subscribe_desktop_btn" xml:space="preserve">
+    <value>Join for {0}/mo</value>
+  </data>
+  <data name="subscribe_desktop_text" xml:space="preserve">
+    <value>Unlock all by
+subscribing to my site</value>
+  </data>
+  <data name="subscribe_mobile_btn" xml:space="preserve">
+    <value>{0}/mo</value>
+  </data>
+  <data name="subscribe_mobile_text" xml:space="preserve">
+    <value>Unlock all By subscribing</value>
+  </data>
   <data name="unsufficient_fund" xml:space="preserve">
     <value>Not have enough points</value>
   </data>
