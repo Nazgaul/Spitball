@@ -12,29 +12,24 @@
             </span>
         </div>
         <span class="right ml-2 ml-sm-0" style="cursor:pointer">
-            <likeFilledSVG v-if="isLiked" @click.stop.prevent="upvoteDocument" class="likeSVG" />
-            <likeSVG v-if="!isLiked" @click.stop.prevent="upvoteDocument" class="likeSVG" />
+            <likeFilledSVG v-if="isLiked" @click.stop.prevent="upvoteDocument" width="18" class="likeSVG" />
+            <likeSVG v-if="!isLiked" @click.stop.prevent="upvoteDocument" width="18" class="likeSVG" />
             <span v-if="item.votes>0">{{item.votes}}</span>
         </span>
         <v-spacer v-if="isMobile"></v-spacer>
-        <div
-            v-if="isMobile"
-            v-show="item.price"
-            class="price-area"
-            :class="{'isPurchased': item.isPurchased}"
-        >
-            {{item.price}}
-            <span v-t="'app_currency_dynamic'"></span>
-        </div>
+        <documentPrice :price="item.price" v-if="isMobile" />
     </v-flex>
 </template>
 
 <script>
-const likeSVG = () => import("../img//like.svg");
+const documentPrice = () => import('../../pages/global/documentPrice/documentPrice.vue')
+
+const likeSVG = () => import("../img/like.svg");
 const likeFilledSVG = () => import("../img/like-filled.svg");
 
 export default {
     components: {
+        documentPrice,
         likeSVG,
         likeFilledSVG,
     },

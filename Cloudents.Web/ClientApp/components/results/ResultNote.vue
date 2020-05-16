@@ -17,15 +17,7 @@
         </div>
       </div>
       <div class="document-header-small-sagment">
-        <div
-          v-if="!isMobile"
-          v-show="item.price"
-          class="price-area"
-          :class="{'isPurchased': isPurchased}"
-        >
-          {{item.price}}
-          <span v-t="'app_currency_dynamic'"></span>
-        </div>
+        <documentPrice :price="item.price" v-if="!isMobile" />
 
         <v-menu
           class="menu-area"
@@ -34,7 +26,7 @@
           content-class="card-user-actions"
           v-model="showMenu"
         >
-          <template v-slot:activator="{  }">  
+          <template v-slot:activator="{  }">
             <v-btn
               class="menu-area-btn"
               :depressed="true"
@@ -80,7 +72,7 @@
           </intersection>
           <div class="overlay text-center px-2 px-sm-5" v-if="!isSubscribed && isPreviewReady">
               <div class="unlockText white--text mb-3" v-t="subscribeText"></div>
-              <v-btn class="btn" color="#fff" rounded block>
+              <v-btn class="btn" color="#fff" @click.prevent="subscribe" rounded block>
                 <span v-t="{path: subscribeBtnText, args: { 0: subscribedPrice }}"></span>
               </v-btn>
           </div>
@@ -119,7 +111,7 @@
       :showDialog="showReport"
       :maxWidth="'438px'"
       :popUpType="'reportDialog'"
-      :content-class="`reportDialog` "
+      :content-class="`reportDialog`"
     >
       <report-item v-if="showReport" :closeReport="closeReportDialog" :itemType="'Document'" :itemId="itemId"></report-item>
     </sb-dialog>
@@ -182,6 +174,7 @@ const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
 const reportItem = () => import("./helpers/reportItem/reportItem.vue");
 const documentLikes = () => import("./resultDocument/documentLikes.vue");
 const intersection = () => import('../pages/global/intersection/intersection.vue');
+const documentPrice = () => import("../pages/global/documentPrice/documentPrice.vue");
 import VueNumeric from 'vue-numeric'
 
 import vidSVG from "./svg/vid.svg";
@@ -193,6 +186,7 @@ export default {
     documentLikes,
     vidSVG,
     intersection,
+    documentPrice,
     VueNumeric
   },
   data() {
@@ -313,7 +307,9 @@ export default {
   },
   methods: {
     ...mapActions(["updateToasterParams", "removeItemFromList", "removeDocItemAction"]),
-
+    subscribe() {
+      //TODO: add subscribe logic
+    },
     updateItemPrice(val) {
       if (val || val === 0) {
         return (this.item.price = val);

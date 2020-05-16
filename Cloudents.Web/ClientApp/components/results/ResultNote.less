@@ -118,7 +118,7 @@
     }
     .document-header-small-sagment {
       display: flex;
-      align-items: baseline;
+      // align-items: baseline;
       margin-top: -8px;
       margin-right: -16px;
       .price-area {
@@ -128,7 +128,6 @@
         &.sold {
           color: rgba(0, 0, 0, 0.38);
         }
-      
       }
       .menu-area {
         width: 20px;
@@ -144,14 +143,21 @@
       }
     }
   }
+  .documentPrice {
+    .docFree {
+      font-size: 18px;
+      color: @global-purple;
+      font-weight: 600;
+    }
+    .docIcon {}
+  }
   .bottom-row{
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    font-size: 12px;
     font-weight: bold;
     line-height: 1;
-    color: #848bbc;
+    color: @global-purple;
     padding-top: 6px;
     @media (max-width: @screen-xs) {
       padding-top: 20px;
@@ -161,9 +167,6 @@
     .left{
       .views-cont{
         margin-right: 22px;
-        // .views{
-        //   margin-left: 4px;
-        // }
       }
       .downloads{
         margin-left: 4px;
@@ -177,8 +180,7 @@
       align-items: flex-end;
       .likeSVG{
         margin-right: 4px;
-        width: 18px;
-        height: 18px;
+        fill: @global-purple;
       }
       
     }
