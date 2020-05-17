@@ -149,6 +149,9 @@ const actions = {
     },
     updateLoginStatus({commit},val){
         commit("changeLoginStatus", val);
+    },
+    subscribeNow(context, id) {
+        return accountService.subscribe(id)
     }
 };
 

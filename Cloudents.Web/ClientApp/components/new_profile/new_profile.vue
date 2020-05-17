@@ -397,6 +397,11 @@ export default {
                 });
             }
         },200);
+        this.$nextTick(() => {
+          if(this.$route.hash) {
+            this.$vuetify.goTo(this.$route.hash)
+          }
+        })
     }
 }
 </script>
@@ -405,21 +410,12 @@ export default {
 @import "../../styles/mixin.less";
 .profilePage {
   position: relative;
-  // display: flex;
-  // margin: 24px 0;
-  //  justify-content: center;
-
   margin-bottom: 30px;
- 
-  // margin: 24px 70px 26px 34px;
-
   @media (max-width: @screen-md) {
-    // margin: 20px;
     justify-content: center;
   }
   @media (max-width: @screen-xs) {
     margin: 0;
-    // margin-bottom: 40px;
     display: block;
   }
   .profile-sticky {
@@ -441,13 +437,9 @@ export default {
       &.content-center {
         margin: 0 auto;
       }
-      @media (max-width: @screen-md-plus) {
-        // margin-left: 0;
-      }
       @media (max-width: @screen-xs) {
         margin-left: 0;
         padding: 0;
-        // margin-bottom: 60px;
       }
       .question-container {
         margin: unset;

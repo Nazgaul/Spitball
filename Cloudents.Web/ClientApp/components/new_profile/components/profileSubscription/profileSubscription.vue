@@ -1,5 +1,5 @@
 <template>
-    <div class="profileSubscription pa-4 text-center">
+    <div class="profileSubscription pa-4 text-center" id="subscription">
         <div class="wrapper pa-4">
             <div class="mainTitle mb-1" v-t="'profile_subscribe_title'"></div>
             <div class="subTitle text-truncate" v-t="{path: 'profile_subscribe_subtitle', args: {0: firstName}}"></div>
@@ -36,7 +36,7 @@ export default {
     },
     methods: {
         subscribeNow() {
-
+            this.$store.dispatch('subscribeNow', this.id)
         }
     }
 }

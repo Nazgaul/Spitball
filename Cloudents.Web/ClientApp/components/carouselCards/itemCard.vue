@@ -1,12 +1,12 @@
 <template>
-    <router-link v-if="item.url" event @click.native.prevent="goToItem" :to="item.url" class="itemCarouselCard">
-        <div class="imageWrapper subscribed">
+    <router-link v-if="item.url" :to="item.url" class="itemCarouselCard">
+        <div class="imageWrapper" :class="{'subscribed': !isSubscribed && !isLearnRoute}">
             <intersection>
                 <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="$proccessImageUrl(item.preview,240,152)" alt="preview image">
             </intersection>
-            <div class="overlay text-center px-8" v-if="!isSubscribed">
+            <div class="overlay text-center px-8" v-if="!isSubscribed && !isLearnRoute">
                 <div class="unlockText white--text mb-3" v-t="subscribeText"></div>
-                <v-btn class="btn" color="#fff" rounded block>
+                <v-btn class="btn" color="#fff" rounded block @click.prevent="goSubscription">
                     <span v-t="{path: subscribeBtnText, args: { 0: subscribedPrice }}"></span>
                 </v-btn>
             </div>
@@ -56,14 +56,12 @@ export default {
             default: false
         }
     },
-    data() {
-        return {
-            routeNames
-        }
-    },
     computed: {
         showVideoDuration() {
             return (this.item && this.item.documentType === "Video" && this.item.itemDuration);
+        },
+        isLearnRoute() {
+            return this.$route.name === routeNames.Learning
         },
         isProfilePage() {
             return this.$route.name === routeNames.Profile
@@ -92,8 +90,19 @@ export default {
         enterItemPage(){
             this.$router.push(this.item.url)
         },
-        subscribe() {
-            console.log("dsadasdasdasdasdas");
+        goSubscription() {
+            if(!this.isProfilePage) {
+                this.$router.push({
+                    name: routeNames.Profile,
+                    params: {
+                        id: this.item.user.id,
+                        name: this.item.user.name
+                    },
+                    hash: '#subscription'
+                })
+            } else {
+                this.$vuetify.goTo('#subscription')
+            }
         }
     },  
 }
@@ -126,6 +135,7 @@ export default {
                 background: rgba(0, 0, 0, .7);
                 height: 100%;
                 width: 100%;
+                border-radius: 8px 8px 0 0;
             }
             .overlay {
                 position: absolute;
@@ -150,6 +160,10 @@ export default {
             border-top-right-radius: 8px;
             width: 100%;
             height: 100%;
+
+            img {
+                width: 100%;
+            }
         }
     }
     .itemCarouselCard_videoType {

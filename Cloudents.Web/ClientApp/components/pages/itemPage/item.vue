@@ -106,13 +106,28 @@
                         color="#4c59ff"
                     ></router-link>
                 </div>
-                <sbCarousel 
+                <!-- <sbCarousel 
                     class="carouselDocPreview" 
                     @select="enterItemCard" 
                     :arrows="$vuetify.breakpoint.mdAndUp ? true : false"
-                    :gap="20">
-                        <itemCard class="itemCard-itemPage" :fromCarousel="true" v-for="(item, index) in itemList" :item="item" :key="index"/>
-                </sbCarousel>
+                    :gap="20"> -->
+                <v-slide-group
+                    v-model="model"
+                    class="pa-0 itemSlider"
+                    active-class="success"
+                    :next-icon="$vuetify.icons.values.next"
+                    :prev-icon="$vuetify.icons.values.prev"
+                    show-arrows
+                    >
+                    <v-slide-item
+                        v-for="(item, index) in itemList"
+                        :key="index"
+                        v-slot:default="{ }"
+                    >
+                        <itemCard class="itemCard-itemPage" :fromCarousel="true" :item="item" :key="index" />
+                    </v-slide-item>
+                </v-slide-group>
+                <!-- </sbCarousel> -->
             </div>
 
             <div 
@@ -164,26 +179,20 @@ import studyDocumentsStore from '../../../store/studyDocuments_store';
 // components
 import mainItem from './components/mainItem/mainItem.vue';
 import resultNote from '../../results/ResultNote.vue';
-const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */'../../sbCarousel/sbCarousel.vue');
+// const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */'../../sbCarousel/sbCarousel.vue');
 import itemCard from '../../carouselCards/itemCard.vue';
 const tutorResultCard = () => import(/* webpackChunkName: "tutorResultCard" */ '../../results/tutorCards/tutorResultCard/tutorResultCard.vue');
 const tutorResultCardMobile = () => import(/* webpackChunkName: "tutorResultCardMobile" */ '../../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue');
-// import whyUsDesktop from './components/whyUs/whyUsDesktop.vue';
-// import whyUs from './components/whyUs/whyUs.vue';
-// import mobileUnlockDownload from './components/mobileUnlockDownload/mobileUnlockDownload.vue';
 import unlockDialog from './components/dialog/unlockDialog.vue';
 const shareContent = () => import(/* webpackChunkName: "shareContent" */'../global/shareContent/shareContent.vue');
 export default {
     name: 'itemPage',
     components: {
         resultNote,
-        sbCarousel,
+        // sbCarousel,
         tutorResultCard,
         tutorResultCardMobile,
         itemCard,
-        // whyUsDesktop,
-        // whyUs,
-        // mobileUnlockDownload,
         mainItem,
         unlockDialog,
         shareContent
@@ -195,6 +204,7 @@ export default {
     },
     data() {
         return {
+            model: null,
             docPage: 1,
             isLoad: false,
         }
@@ -327,21 +337,21 @@ export default {
             'downloadDocument'
         ]),
         
-        enterItemCard(vueElm){
-            //TODO DUplicate code
-            if(vueElm.enterItemPage){
-                vueElm.enterItemPage();
-            }else{
-                vueElm.$parent.enterItemPage();
-            }
-            this.isLoad = true;
-            setTimeout(()=>{
-                this.isLoad = false;
-            })
-            this.$nextTick(() => {
-                this.documentRequest(this.id);
-            })
-        },
+        // enterItemCard(vueElm){
+        //     //TODO DUplicate code
+        //     if(vueElm.enterItemPage){
+        //         vueElm.enterItemPage();
+        //     }else{
+        //         vueElm.$parent.enterItemPage();
+        //     }
+        //     this.isLoad = true;
+        //     setTimeout(()=>{
+        //         this.isLoad = false;
+        //     })
+        //     this.$nextTick(() => {
+        //         this.documentRequest(this.id);
+        //     })
+        // },
         closeDocument() {
             let regRoute = 'registration';
             let routeStackLength = this.getRouteStack.length;
@@ -610,18 +620,37 @@ export default {
                 &--margin {
                     margin-bottom: 100px;
                 }
-                .carouselDocPreview {
-                    .itemCard-itemPage {
-                        .item-cont {
-                            z-index: 3 !important; //flicking
-                            @media (max-width: @screen-xs) {
-                                overflow: visible !important; //flicking
-                            }
-                        }
+                // .carouselDocPreview {
+                //     .itemCard-itemPage {
+                //         // .item-cont {
+                //         //     z-index: 3 !important; //flicking
+                //         //     @media (max-width: @screen-xs) {
+                //         //         overflow: visible !important; //flicking
+                //         //     }
+                //         // }
+                //     }
+                //     .sbCarousel_btn {
+                //         i {
+                //             font-size: 18px;
+                //         }
+                //     }
+                // }
+                .itemSlider {
+                    .v-slide-group__content {
+                        white-space: normal;
                     }
-                    .sbCarousel_btn {
-                        i {
-                            font-size: 18px;
+                    .itemCard-itemPage {
+                        margin: 10px;
+                        height: auto;
+                        width: auto;
+                        border: none;
+                        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
+                        display: block;
+                        &:first-child{
+                            margin-left: 0;
+                        }
+                        &:last-child  {
+                            margin-right: 0;
                         }
                     }
                 }

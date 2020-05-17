@@ -47,5 +47,9 @@ export default {
     async getQuestions(){
         let {data} = await accountInstance.get('/questions')
         return data.map(question => searchService.createQuestionItem(question))
+    },
+    async subscribe(id) {
+        let {data} = await axios.post(`/Tutor/${id}/subscribe`)
+        return data.map(question => searchService.createQuestionItem(question))
     }
 }
