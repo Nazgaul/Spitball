@@ -135,17 +135,17 @@ namespace Cloudents.Infrastructure.Payments
                         }
                     }
                 },
-                LineItems = new List<SessionLineItemOptions> {
-                    new SessionLineItemOptions {
+                //LineItems = new List<SessionLineItemOptions> {
+                //    new SessionLineItemOptions {
                         
-                        //Name = "Buy Points on Spitball",
-                        //Amount = (long)(bundle.PriceInUsd * 100),
-                        //Currency = "usd",
-                        Quantity = 1,
+                //        //Name = "Buy Points on Spitball",
+                //        //Amount = (long)(bundle.PriceInUsd * 100),
+                //        //Currency = "usd",
+                //        Quantity = 1,
 
-                    },
+                //    },
 
-                },
+                //},
                 //Metadata = new Dictionary<string, string>()
                 //{
                 //    ["Points"] = bundle.Points.ToString()
