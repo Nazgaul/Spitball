@@ -26,6 +26,10 @@ namespace Cloudents.Core.Entities
             if (name == null) throw new ArgumentNullException(nameof(name));
             Course = course ?? throw new ArgumentNullException(nameof(course));
             User = user ?? throw new ArgumentNullException(nameof(user));
+            if (user.Tutor == null)
+            {
+                throw new UnauthorizedAccessException("Only tutor can upload files");
+            }
 
             TimeStamp = new DomainTimeStamp();
             DocumentDownloads = new HashSet<UserDownloadDocument>();

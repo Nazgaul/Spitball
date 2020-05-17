@@ -65,24 +65,7 @@ namespace Cloudents.Web.Api
             return res;
         }
 
-        // GET
-        //[Obsolete]
-
-        //[HttpGet("{id:long}/questions")]
-        //[ProducesResponseType(200)]
-
-        //public async Task<IEnumerable<QuestionFeedDto>> GetQuestionsAsync(long id, int page, CancellationToken token)
-        //{
-        //    var query = new UserQuestionsByIdQuery(id, page);
-            
-        //    var res =  await _queryBus.QueryAsync(query, token);
-        //    return res.Select(item =>
-        //    {
-        //        item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
-        //        return item;
-        //    });
-
-        //}
+      
 
         [HttpGet("{id:long}/documents")]
         [ProducesResponseType(200)]

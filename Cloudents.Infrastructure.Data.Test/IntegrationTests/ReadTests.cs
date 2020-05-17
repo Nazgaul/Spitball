@@ -195,7 +195,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task UserDocumentsQueryHandler_Ok(long userId, int page, int pageSize, DocumentType? documentType, string course)
         {
             var query = new UserDocumentsQuery(userId, page, pageSize, documentType, course);
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
         }
 
 

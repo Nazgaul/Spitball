@@ -12,7 +12,7 @@ namespace Cloudents.Query.Users
 {
     public class UserDocumentsQuery : IQuery<ListWithCountDto<DocumentFeedDto>>
     {
-        public UserDocumentsQuery(long id, int page, int pageSize, DocumentType? documentType, string course)
+        public UserDocumentsQuery(long id, int page, int pageSize, DocumentType? documentType, string? course)
         {
             Id = id;
             Page = page;
@@ -26,7 +26,7 @@ namespace Cloudents.Query.Users
         private int PageSize { get; }
 
         private DocumentType? DocumentType { get; }
-        private string Course { get;}
+        private string? Course { get;}
 
         internal sealed class UserDocumentsQueryHandler : IQueryHandler<UserDocumentsQuery, ListWithCountDto<DocumentFeedDto>>
         {
@@ -41,39 +41,24 @@ namespace Cloudents.Query.Users
                 var r = _session.Query<Document>()
                     .WithOptions(w => w.SetComment(nameof(UserDocumentsQuery)))
                     .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok);
-
-                var count = _session.Query<Document>()
-                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok);
-
                 if (query.DocumentType != null)
                 {
-                    r = r.Where(w => w.DocumentType == query.DocumentType ||
-                                    (query.DocumentType == Core.Enum.DocumentType.Document && w.DocumentType == null)
-                                );
-                    count = count.Where(w => w.DocumentType == query.DocumentType ||
-                                    (query.DocumentType == Core.Enum.DocumentType.Document && w.DocumentType == null));
+                    r = r.Where(w => w.DocumentType.GetValueOrDefault() == query.DocumentType);
                 }
                 if (!string.IsNullOrEmpty(query.Course))
                 {
                     r = r.Where(w => w.Course.Id == query.Course);
-                    count = count.Where(w => w.Course.Id == query.Course);
                 }
+                var count = r;
                 r = r.OrderByDescending(o => o.Boost).ThenByDescending(o => o.TimeStamp.UpdateTime);
                 var result = r.Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
-                    //User = new DocumentUserDto
-                    //{
-                    //    Id = s.User.Id,
-                    //    Name = s.User.Name,
-                    //    Image = s.User.ImageName,
-                    //},
                     DateTime = s.TimeStamp.UpdateTime,
                     Course = s.Course.Id,
                     Title = s.Name,
                     Views = s.Views,
                     Downloads = s.Downloads,
-                  //  University = s.University.Name,
                     Snippet = s.Description ?? s.MetaContent,
                     Price = s.Price,
                     Vote = new VoteDto
@@ -84,9 +69,7 @@ namespace Cloudents.Query.Users
                     Duration = s.Duration,
                     Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.Id && x.Action == TransactionActionType.SoldDocument)
 
-                }
-                    )
-                .Take(query.PageSize).Skip(query.Page * query.PageSize).ToFuture();
+                }).Take(query.PageSize).Skip(query.Page * query.PageSize).ToFuture();
 
                 var countFuture = count
                 .GroupBy(g => 1)
