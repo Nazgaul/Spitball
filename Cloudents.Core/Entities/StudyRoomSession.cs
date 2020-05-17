@@ -61,7 +61,14 @@ namespace Cloudents.Core.Entities
             {
                 return;
             }
-            var sessionUser = new StudyRoomSessionUser(this, user);
+
+            var pricePerHour = StudyRoom.Price ?? StudyRoom.Tutor.Price.GetPrice();
+            var isSubscriber = user.Following.FirstOrDefault(w => w.User.Id == StudyRoom.Tutor.Id)?.Subscriber ?? false;
+            if (isSubscriber)
+            {
+                pricePerHour = 0;
+            }
+            var sessionUser = new StudyRoomSessionUser(this, user,pricePerHour);
             _roomSessionUsers.Add(sessionUser);
         }
 

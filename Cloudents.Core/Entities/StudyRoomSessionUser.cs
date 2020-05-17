@@ -9,18 +9,11 @@ namespace Cloudents.Core.Entities
 {
     public class StudyRoomSessionUser : Entity<Guid>, IEquatable<StudyRoomSessionUser>
     {
-        public StudyRoomSessionUser(StudyRoomSession studyRoomSession, User user)
+        public StudyRoomSessionUser(StudyRoomSession studyRoomSession, User user,decimal pricePerHour)
         {
             StudyRoomSession = studyRoomSession;
             User = user;
-            if (studyRoomSession.StudyRoom.Price.HasValue)
-            {
-                PricePerHour = studyRoomSession.StudyRoom.Price.Value;
-            }
-            else
-            {
-                PricePerHour = studyRoomSession.StudyRoom.Tutor.Price.GetPrice();
-            }
+            PricePerHour = pricePerHour;
 
             UseCoupon();
             //UsePaymentToken();
