@@ -56,7 +56,7 @@ export default {
                 let self = this;
                 this.$nextTick(()=>{
                     for(let premissionType of currentDialogPremissionList){
-                        let result = self.dialogHandlerByType(premissionType,dialogNameFromRoute)
+                        let result = self.dialogHandlerByType(premissionType,dialogNameFromRoute)                        
                         if(result === 'break'){
                             self.component = 'break';
                             break;

@@ -1,35 +1,65 @@
 <template>
     <div class="uf-sEdit">
-        <v-layout wrap justify-space-between class="uf-sEdit-top pb-1 px-3" v-if="fileItems.length > 1 && !isError">
-            <v-flex xs12 sm6 :class="[{'pl-4':!isMobile}]">
-                <v-combobox 
-                    browser-autocomplete="abcd"
-                    :placeholder="coursePlaceHolder"
-                    class="text-truncate"
-                    flat hide-no-data
-                    :append-icon="''"
+        <v-row class="uf-sEdit-top ma-0 pa-0 pb-sm-1 px-3 justify-space-between" v-if="fileItems.length > 1 && !isError" dense>
+            <v-col cols="12" sm="6" class="pa-0">
+                <v-combobox
                     v-model="courseForAll"
                     :items="getSelectedClasses"
-                    :rules="[rules.matchCourse]"/>
-            </v-flex>
-            <v-flex xs6 sm3 :class="[{'pl-4':!isMobile}]">
-                <v-text-field v-model="priceForAll" 
-                              :placeholder="emptyPricePlaceholder"
-                              :rules="[rules.integer,rules.maximum,rules.minimum]"
-                              type="number"
-                              :suffix="priceForAll? pricePts :''"/>
-            </v-flex>
-            <v-flex xs5 sm3 :class="[{'pl-4':!isMobile}]">
-                <v-btn @click="applyAll" class="uf-sEdit-top-btn" color="white" depressed rounded>
-                    <span v-language:inner="'upload_uf_sEdit_top_btn'"/>
+                    :rules="[rules.required,rules.matchCourse]"
+                    :label="$t('upload_label_course_name')"
+                    :append-icon="'sbf-menu-down'"
+                    placeholder=" "
+                    color="#4c59ff"
+                    height="44"
+                    autocomplete="off"
+                    hide-no-data
+                    outlined
+                    dense
+                />
+            </v-col>
+            <v-col cols="6" sm="3" class="pa-0 pl-sm-4">
+                <!-- :placeholder="$t('upload_uf_price')" -->
+                <v-combobox
+                    v-model="currentPrice"
+                    v-if="true"
+                    :items="currentPriceItems"
+                    :rules="[rules.required]"
+                    :label="$t('upload_file_price_label')"
+                    :append-icon="'sbf-menu-down'"
+                    placeholder=" "
+                    color="#4c59ff"
+                    height="44"
+                    autocomplete="abcd"
+                    hide-no-data
+                    outlined
+                    dense
+                >
+                </v-combobox>
+                <v-text-field
+                    v-model="priceForAll"
+                    v-else
+                    type="number"
+                    :rules="[rules.required,rules.integer,rules.maximum,rules.minimum]"
+                    :label="$t('upload_label_price')"
+                    :suffix="priceForAll ? $t('upload_uf_price_pts') :''"
+                    placeholder=" "
+                    color="#4c59ff"
+                    height="44"
+                    dense
+                    outlined
+                >
+                </v-text-field>
+            </v-col>
+            <v-col cols="6" sm="3" class="pl-4">
+                <v-btn @click="applyAll" class="uf-sEdit-top-btn" color="#4c59ff" height="44" block depressed rounded outlined>
+                    <span v-t="'upload_uf_sEdit_top_btn'"/>
                 </v-btn>
-            </v-flex>
-        </v-layout>
-        <div :class="['uf-sEdit-items',isMobile?'py-3':'pt-4',isMobile? 'px-2': 'px-4']" class="">
-            <!-- <div v-if="isError" class="uf-sEdit-items-error mb-2" v-language:inner="'upload_uf_sEdit_items_error'"/> -->
+            </v-col>
+        </v-row>
+        <div class="uf-sEdit-items" :class="[isMobile ? 'pt-2 px-0' : 'py-4 px-4']">
             <v-form ref="filesDetailsForm">
-                <transition-group name="slide-x-transition">
-                    <div v-for="(fileItem, index) in fileItems" :key="fileItem.id">
+                <transition-group name="slide-x-transition" class="spanTransition" >
+                    <div class="fileWrapper" v-for="(fileItem, index) in fileItems" :key="fileItem.id">
                         <file-card v-if="!fileItem.error" :fileItem="fileItem" :singleFileIndex="index"/>
                         <file-card-error v-else :fileItem="fileItem" :singleFileIndex="index"/>                    
                     </div>
@@ -41,51 +71,50 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 
-import {LanguageService} from '../../../services/language/languageService.js'
 import { validationRules } from '../../../services/utilities/formValidationRules';
-
 
 import fileCard from './fileCard.vue';
 import fileCardError from './fileCardError.vue';
 
 export default {
     name: "filesDetails",
-    components: {fileCard,fileCardError},
+    components: {fileCard, fileCardError},
     data() {
         return {
-            coursePlaceHolder: LanguageService.getValueByKey("upload_uf_course_name"),
-            emptyPricePlaceholder: LanguageService.getValueByKey("upload_uf_price"),
-            pricePts: LanguageService.getValueByKey("upload_uf_price_pts"),
             someVal: '',
             priceForAll: '',
             fileItems: this.getFileData(),
             courseForAll:'',
+            currentPrice: '',
+            currentPriceItems: [
+                { text: this.$t('upload_free_all'), value: 'free' },
+                { text: this.$t('upload_subscriber_only'), value: 'subscriber' }
+            ],
             rules: {
-                matchCourse:() => (
-                    (   this.getSelectedClasses.length && 
-                        this.getSelectedClasses.some(course=>course.text === this.courseForAll.text)
-                        )) 
-                    || LanguageService.getValueByKey("tutorRequest_invalid"),
+                required: (value) => validationRules.required(value),
+                matchCourse:() => ((   
+                    this.getSelectedClasses.length && 
+                    this.getSelectedClasses.some(course=> course.text === this.courseForAll?.text)
+                )) || this.$t("tutorRequest_invalid"),
                 integer: (value) => validationRules.integer(value),
                 maximum: (value) => validationRules.maxVal(value, 1000),
                 minimum: (value) => validationRules.minVal(value,0),
             },
-            // suggestsCourses:[]
         }
     },
     props: {
-        propName: {
-            type:String,
-            default: ''
-        },
-        showError: {
-            type: Boolean,
-            default: false
-        },
-        errorText: {
-            type:String,
-            default: 'testin error'
-        },
+        // propName: {
+        //     type:String,
+        //     default: ''
+        // },
+        // showError: {
+        //     type: Boolean,
+        //     default: false
+        // },
+        // errorText: {
+        //     type:String,
+        //     default: 'testin error'
+        // },
         callBackmethods: {
             type: Object,
             default(){
@@ -158,6 +187,7 @@ export default {
         }
         .v-input__slot{
             margin-bottom:6px;
+            border-radius: 6px;
         }
         input{
             font-size: 14px;
@@ -168,26 +198,12 @@ export default {
                 ::placeholder{
                     font-size: 14px;
                     color: #a1a3b0;
-                    // font-weight:100;
                 }
             }
         }
-        .v-btn{
-            @media (max-width: @screen-xs) {
-                min-width: auto;
-            }
-            min-width: 150px;
-            height: 40px !important;
-            text-transform: capitalize !important;
-            margin-left: 0;
-            margin-right: 0;
-        }
         .uf-sEdit-top-btn{
-            color: @global-blue;
-            border: 1px solid @global-blue !important;
             font-size: 14px;
             font-weight: 600;
-            letter-spacing: -0.26px;
         }
 
    }
@@ -196,7 +212,7 @@ export default {
             height: 100%;
             max-height: unset;
         }
-        background:#f0f0f2;
+        background:#cfcfd0;
         border-top: 1px solid #e2e2e4;
         border-bottom: 1px solid #e2e2e4;
         max-height: 480px;
@@ -210,6 +226,15 @@ export default {
             text-align: center;
             color: #d16061;
             margin-top: -8px;
+        }
+        .spanTransition .fileWrapper:last-child {
+            .uf-sEdit-item {
+                margin-bottom: 0 !important;
+
+                @media (max-width: @screen-xs) {
+                    margin-bottom: 8px !important;    
+                }
+            }
         }
     }
 }
