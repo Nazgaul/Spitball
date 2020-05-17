@@ -19,13 +19,25 @@ namespace Cloudents.Infrastructure.Payments
             StripeConfiguration.ApiKey = configuration.Stripe;
         }
 
-        public async Task<(string receipt, long points)> GetSessionByIdAsync(string sessionId, CancellationToken token)
+        public async Task<(string receipt, long points)> GetBuyPointDataByIdAsync(string sessionId, CancellationToken token)
         {
-            var service2 = new SessionService();
-            var session = await service2.GetAsync(sessionId, cancellationToken: token);
+            var session = await GetSessionByIdAsync(sessionId,  token);
             var amountOfPoints = long.Parse(session.Metadata["Points"]);
             var paymentId = session.PaymentIntentId;
             return (paymentId, amountOfPoints);
+        }
+
+        public async Task<long> GetSubscriptionByIdAsync(string sessionId, CancellationToken token)
+        {
+            var session = await GetSessionByIdAsync(sessionId,  token);
+            var tutorId = long.Parse(session.Metadata["TutorId"]);
+            return tutorId;
+        }
+
+        private Task<Session> GetSessionByIdAsync(string sessionId, CancellationToken token)
+        {
+            var service2 = new SessionService();
+            return service2.GetAsync(sessionId, cancellationToken: token);
         }
 
         public async Task<string> CreateCustomerAsync(User user, CancellationToken token)
@@ -137,7 +149,7 @@ namespace Cloudents.Infrastructure.Payments
                 },
                 //LineItems = new List<SessionLineItemOptions> {
                 //    new SessionLineItemOptions {
-                        
+
                 //        //Name = "Buy Points on Spitball",
                 //        //Amount = (long)(bundle.PriceInUsd * 100),
                 //        //Currency = "usd",
@@ -146,10 +158,10 @@ namespace Cloudents.Infrastructure.Payments
                 //    },
 
                 //},
-                //Metadata = new Dictionary<string, string>()
-                //{
-                //    ["Points"] = bundle.Points.ToString()
-                //},
+                Metadata = new Dictionary<string, string>()
+                {
+                    ["TutorId"] = tutorId.ToString()
+                },
 
                 SuccessUrl = successCallback,
                 CancelUrl = fallbackCallback,

@@ -10,13 +10,11 @@ namespace Cloudents.Command.CommandHandler
 
         private readonly ITutorRepository _tutorRepository;
         private readonly IRegularUserRepository _userRepository;
-        private readonly IStripeService _stripeService;
 
-        public SubscribeToTutorCommandHandler(ITutorRepository tutorRepository, IRegularUserRepository userRepository, IStripeService stripeService)
+        public SubscribeToTutorCommandHandler(ITutorRepository tutorRepository, IRegularUserRepository userRepository)
         {
             _tutorRepository = tutorRepository;
             _userRepository = userRepository;
-            _stripeService = stripeService;
         }
 
         public async Task ExecuteAsync(SubscribeToTutorCommand message, CancellationToken token)
@@ -24,6 +22,7 @@ namespace Cloudents.Command.CommandHandler
             var tutor = await _tutorRepository.LoadAsync(message.TutorId, token);
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
+            tutor.User.AddSubscriber(user);
           //  _stripeService.SubscribeToTutorAsync(tutor,user,)
         }
     }

@@ -315,7 +315,24 @@ namespace Cloudents.Core.Entities
 
         public override void AddFollower(User follower)
         {
-            if (this == follower)
+            if (this.Id == follower.Id)
+            {
+                return;
+            }
+
+            if (Tutor == null)
+            {
+                return;
+            }
+
+
+            var follow = new Follow(this, follower);
+            _followers.Add(follow);
+        }
+
+        public virtual void AddSubscriber(User follower)
+        {
+            if (this.Id == follower.Id)
             {
                 return;
             }
@@ -327,9 +344,11 @@ namespace Cloudents.Core.Entities
 
             //if (!Equals(follower))
             //{
-            var follow = new Follow(this, follower);
+            var follow = new Follow(this, follower, true);
             _followers.Add(follow);
         }
+
+
 
         public virtual void AddFollowers(IEnumerable<User> followers)
         {

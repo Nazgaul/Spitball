@@ -10,7 +10,9 @@ namespace Cloudents.Core.Interfaces
         Task<string> BuyPointsAsync(PointBundle bundle, string email, string successCallback, string fallbackCallback,
             CancellationToken token);
 
-        Task<(string receipt, long points)> GetSessionByIdAsync(string sessionId, CancellationToken token);
+        Task<(string receipt, long points)> GetBuyPointDataByIdAsync(string sessionId, CancellationToken token);
+
+        Task<long> GetSubscriptionByIdAsync(string sessionId, CancellationToken token);
 
         Task<string> CreateCustomerAsync(User user, CancellationToken token);
         Task<string> FutureCardPayments(string stripeClientId);

@@ -3,32 +3,47 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.Entities
 {
-    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor",Justification = "nhibernate")]
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate")]
     public class Follow : Entity<Guid>, IEquatable<Follow>
     {
-        public Follow(User followed, User follower)
+        public Follow(User user, User follower)
         {
-            if (followed.Id == follower.Id)
+            if (user.Id == follower.Id)
             {
                 throw new ArgumentException();
             }
-            Followed = followed;
+            User = user;
             Follower = follower;
             Created = DateTime.UtcNow;
         }
 
-        [SuppressMessage("ReSharper", "CS8618",Justification = "Nhibernate proxy")]
-        protected Follow() 
+        public Follow(User user, User follower,bool subscriber)
+        {
+            if (user.Id == follower.Id)
+            {
+                throw new ArgumentException();
+            }
+            User = user;
+            Follower = follower;
+            Subscriber = subscriber;
+            Created = DateTime.UtcNow;
+        }
+
+        [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]
+        protected Follow()
         { }
-        public virtual User Followed { get; protected set; }
+        public virtual User User { get; protected set; }
         public virtual User Follower { get; protected set; }
+
+        public virtual bool? Subscriber { get; protected set; }
+
         public virtual DateTime Created { get; }
 
         public virtual bool Equals(Follow other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Equals(Followed.Id, other.Followed.Id) && Equals(Follower.Id, other.Follower.Id);
+            return Equals(User.Id, other.User.Id) && Equals(Follower.Id, other.Follower.Id);
         }
 
         public override bool Equals(object obj)
@@ -41,8 +56,7 @@ namespace Cloudents.Core.Entities
 
         public override int GetHashCode()
         {
-            var t = (Followed.Id.GetHashCode() * 101) ^ (Follower.Id.GetHashCode() * 107);
-            return t;
+            return (User.Id.GetHashCode() * 101) ^ (Follower.Id.GetHashCode() * 107);
         }
     }
 }

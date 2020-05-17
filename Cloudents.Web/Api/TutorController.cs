@@ -430,7 +430,7 @@ namespace Cloudents.Web.Api
             {
                 Query = string.Empty
             };
-            var url = new UriBuilder(Url.RouteUrl("stripe-buy-points", new
+            var url = new UriBuilder(Url.RouteUrl("stripe-subscribe", new
             {
                 redirectUrl = uriBuilder.ToString()
             }, "https"));

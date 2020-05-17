@@ -143,7 +143,7 @@ namespace Cloudents.Query.Users
                     .ToFuture();
 
                 var haveFollowersFuture = _session.Query<Follow>()
-                    .Where(w => w.Followed.Id == query.Id)
+                    .Where(w => w.User.Id == query.Id)
                     .Select(s => s.Id)
                     .Take(1)
                     .ToFuture();

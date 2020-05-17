@@ -36,6 +36,16 @@ const actions = {
             });
         })
     },
+    async subscribeToTutor({getters}, id) {
+       var data =  await walletService.subscribe(id);
+       const stripePromise = loadStripe(getters.getStripeToken);
+       const stripe = await stripePromise;
+           //TODO - investigate error
+       await stripe.redirectToCheckout({
+           sessionId: data.sessionId,
+       });
+        //var {data} =  await axios.post(`/Tutor/${id}/subscribe`);
+    },
     buyToken({dispatch ,commit}, points) {
         walletService.buyTokens(points).then(({ data }) => {
             dispatch('updatePaymentLink',data.link)

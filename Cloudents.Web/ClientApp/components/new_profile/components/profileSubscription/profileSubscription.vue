@@ -36,7 +36,7 @@ export default {
     },
     methods: {
         subscribeNow() {
-            this.$store.dispatch('subscribeNow', this.id)
+            this.$store.dispatch('subscribeToTutor', this.id)
         }
     }
 }

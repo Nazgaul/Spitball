@@ -55,9 +55,9 @@ namespace Cloudents.Query.Users
                           FirstName = ((User)s).FirstName,
                           LastName = ((User)s).LastName,
                           Cover = ((User)s).CoverImage,
-                          Followers = _session.Query<Follow>().Count(w => w.Followed.Id == query.Id),
+                          Followers = _session.Query<Follow>().Count(w => w.User.Id == query.Id),
                           IsFollowing = _session.Query<Follow>()
-                              .Any(w => w.Followed.Id == query.Id && w.Follower.Id == query.UserId)
+                              .Any(w => w.User.Id == query.Id && w.Follower.Id == query.UserId)
                       }).ToFutureValue();
 
                 var tutorFuture = _session.Query<ReadTutor>()
