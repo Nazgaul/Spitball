@@ -31,7 +31,7 @@ export default {
                 exitRegister: [],
                 becomeTutor: ["auth"],
                 payment:['notFrymo'],
-                upload: ["auth","courses"],
+                upload: ["auth"],
                 createCoupon: ["auth","tutor"],
                 buyPoints:["auth"],
                 teacherApproval:["auth", "tutor", "params"],
