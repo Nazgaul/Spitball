@@ -389,7 +389,7 @@ export default {
                     .hour {
                         font-size: 16px
                     }
-                    &.enroll:nth-child(2) {
+                    &:nth-child(2) {
                         background: #f5f5f5;
                         color: @global-purple;
                         font-size: 16px;
