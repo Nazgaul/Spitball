@@ -17,6 +17,10 @@ namespace Cloudents.Core.Interfaces
         //Task<string?> RetrieveCustomerIdAsync(string email, CancellationToken token);
 
         Task CreateProductAsync(Tutor tutor,CancellationToken token);
+
+        Task<string> SubscribeToTutorAsync(long tutorId, string userEmail, string successCallback,
+            string fallbackCallback, CancellationToken token);
+
         //Task<string?> RetrieveCustomerIdAsync(string email, CancellationToken token);
     }
 }

@@ -42,14 +42,8 @@ namespace Cloudents.Query.Users
 
             public async Task<UserProfileDto?> GetAsync(UserProfileQuery query, CancellationToken token)
             {
-                //ReadTutor readTutorAlias = null!;
-                //BaseUser baseUserAlias = null!;
-
-                //_session.QueryOver<BaseUser>(() => baseUserAlias)
-                //    .JoinEntityAlias(() => readTutorAlias,() => baseUserAlias.Id == readTutorAlias.Id,JoinType.LeftOuterJoin)
-                //    .Where(() =>baseUserAlias.Id == query.Id)
+            
                 var userFuture = _session.Query<BaseUser>()
-                      //.Fetch(f => ((User)f).Tutor)
                       .Where(w => w.Id == query.Id)
                       .Select(s => new UserProfileDto()
                       {

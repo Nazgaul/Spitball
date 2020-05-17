@@ -18,7 +18,7 @@ namespace Cloudents.Infrastructure.Payments
         {
             StripeConfiguration.ApiKey = configuration.Stripe;
         }
-        
+
         public async Task<(string receipt, long points)> GetSessionByIdAsync(string sessionId, CancellationToken token)
         {
             var service2 = new SessionService();
@@ -105,13 +105,64 @@ namespace Cloudents.Infrastructure.Payments
 
             var service = new PriceService();
             await service.CreateAsync(options, cancellationToken: token);
+        }
 
+        public async Task<string> SubscribeToTutorAsync(long tutorId, string userEmail, string successCallback,
+            string fallbackCallback, CancellationToken token)
+        {
+            var priceService = new PriceService();
+            var priceList = await priceService.ListAsync(new PriceListOptions()
+            {
+                Product = $"TutorSubscription{tutorId}"
+            }, cancellationToken: token);
+            var price = priceList.First();
 
+            var options = new SessionCreateOptions
+            {
 
+                PaymentMethodTypes = new List<string> {
+                    "card",
+                },
+                Mode = "subscription",
+                SubscriptionData = new SessionSubscriptionDataOptions()
+                {
+                    Items = new List<SessionSubscriptionDataItemOptions>()
+                    {
+                        new SessionSubscriptionDataItemOptions()
+                        {
+                            Plan = price.Id,
+                            Quantity = 1
+                        }
+                    }
+                },
+                LineItems = new List<SessionLineItemOptions> {
+                    new SessionLineItemOptions {
+                        
+                        //Name = "Buy Points on Spitball",
+                        //Amount = (long)(bundle.PriceInUsd * 100),
+                        //Currency = "usd",
+                        Quantity = 1,
+
+                    },
+
+                },
+                //Metadata = new Dictionary<string, string>()
+                //{
+                //    ["Points"] = bundle.Points.ToString()
+                //},
+
+                SuccessUrl = successCallback,
+                CancelUrl = fallbackCallback,
+                CustomerEmail = userEmail
+            };
+
+            var service = new SessionService();
+            var session = await service.CreateAsync(options, cancellationToken: token);
+            return session.Id;
         }
 
 
-        private async Task<Customer?> RetrieveCustomerByEmailAsync(string email, CancellationToken token)
+        private static async Task<Customer?> RetrieveCustomerByEmailAsync(string email, CancellationToken token)
         {
             var options = new CustomerListOptions()
             {
@@ -123,11 +174,12 @@ namespace Cloudents.Infrastructure.Payments
             return result.Data.FirstOrDefault();
         }
 
-        private async Task<string> RetrieveCustomerByIdAsync(string id, CancellationToken token)
+        private static async Task<string> RetrieveCustomerByIdAsync(string id, CancellationToken token)
         {
             var service = new CustomerService();
             var result = await service.GetAsync(id, cancellationToken: token);
-            if (result == null) {
+            if (result == null)
+            {
                 throw new NullReferenceException("no such customer");
             }
             //var result = await RetrieveCustomerAsync(emailId, token);
@@ -165,7 +217,7 @@ namespace Cloudents.Infrastructure.Payments
             var service = new SessionService();
             var session = await service.CreateAsync(options, cancellationToken: token);
             return session.Id;
-          
+
         }
 
         public async Task<string> ChargeSessionAsync(Tutor tutor, User user, decimal price, CancellationToken token)
