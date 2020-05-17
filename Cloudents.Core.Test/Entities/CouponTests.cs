@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Linq;
-using System.Reflection;
 using Cloudents.Core.Entities;
-using Moq;
 using Xunit;
 
 namespace Cloudents.Core.Test.Entities
@@ -20,7 +17,7 @@ namespace Cloudents.Core.Test.Entities
         [Fact]
         public void InitCoupon_NoCode_RaiseException()
         {
-            Assert.Throws<ArgumentNullException>(() => new Coupon(null, CouponType.Flat, null, 50, null,  null));
+            Assert.Throws<ArgumentNullException>(() => new Coupon(null!, CouponType.Flat, null, 50, null,  null));
         }
 
         [Fact]

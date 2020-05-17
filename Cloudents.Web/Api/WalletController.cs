@@ -1,6 +1,5 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.Command;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Extension;
@@ -23,6 +22,8 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Web.Api
 {
@@ -35,9 +36,9 @@ namespace Cloudents.Web.Api
         private readonly UserManager<User> _userManager;
         private readonly ILogger _logger;
         private readonly ICommandBus _commandBus;
-        private readonly Lazy<IPayment> _payment;
+        private readonly Lazy<IPaymeProvider> _payment;
 
-        public WalletController(UserManager<User> userManager, IQueryBus queryBus, ILogger logger, ICommandBus commandBus, Lazy<IPayment> payment)
+        public WalletController(UserManager<User> userManager, IQueryBus queryBus, ILogger logger, ICommandBus commandBus, Lazy<IPaymeProvider> payment)
         {
             _userManager = userManager;
             _queryBus = queryBus;
@@ -55,17 +56,6 @@ namespace Cloudents.Web.Api
 
             return retVal;
         }
-
-
-        //[HttpGet("transaction")]
-        //public async Task<IEnumerable<TransactionDto>> GetTransactionAsync(CancellationToken token)
-        //{
-        //    var userId = _userManager.GetLongUserId(User);
-
-        //    var retVal = await _queryBus.QueryAsync(new UserTransactionQuery(userId), token);
-
-        //    return retVal;
-        //}
 
 
 
@@ -105,7 +95,8 @@ namespace Cloudents.Web.Api
                 points = model.Points
             }, "https");
 
-            var result = await _payment.Value.BuyTokens(PointBundle.Parse(model.Points), urlReturn, token);
+            var bundle = Enumeration.FromValue<PointBundle>(model.Points);
+            var result = await _payment.Value.BuyTokens(bundle!, urlReturn, token);
             var saleUrl = new UriBuilder(result.SaleUrl);
             saleUrl.AddQuery(new NameValueCollection()
             {
@@ -132,9 +123,9 @@ namespace Cloudents.Web.Api
             try
             {
                 var user = await _userManager.GetUserAsync(User);
-                if (user.BuyerPayment != null && user.BuyerPayment.IsValid())
+                if (user.PaymentExists == PaymentStatus.Done)
                 {
-                    throw new ArgumentException();
+                    return BadRequest("Already have payment");
                 }
 
                 var url = Url.RouteUrl("PayMeCallback", new
@@ -219,42 +210,85 @@ namespace Cloudents.Web.Api
 
         #region PayPal
 
-        [HttpPost("PayPal/StudyRoom")]
-        public async Task<IActionResult> PayPal(PayPalOrderRequest model,
-            //[FromServices] IPayPal payPalService,
+        //[HttpPost("PayPal/StudyRoom")]
+        //public async Task<IActionResult> PayPal(PayPalOrderRequest model,
+        //    CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    var command = new AddPayPalOrderCommand(userId, model.OrderId, model.SessionId);
+        //    await _commandBus.DispatchAsync(command, token);
+        //    return Ok();
+        //}
+
+
+        //[HttpPost("PayPal/BuyTokens")]
+        //public async Task<IActionResult> BuyTokensAsync(PayPalTransactionRequest model,
+        //    [FromServices] IPayPalService payPal, CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    var (authorizationId, amountToCharge) = await payPal.AuthorizationOrderAsync(model.Id, token);
+        //    await payPal.CaptureAuthorizedOrderAsync(authorizationId, amountToCharge, default);
+
+        //    var result = await payPal.GetPaymentAsync(model.Id, token);
+
+
+        //    var amount = result.ReferenceId switch
+        //    {
+        //        "points_1" => 100,
+        //        "points_2" => 500,
+        //        "points_3" => 1000,
+        //        _ => throw new ArgumentException(message: "invalid value")
+        //    };
+
+
+        //    var command = new TransferMoneyToPointsCommand(userId, amount, model.Id);
+        //    await _commandBus.DispatchAsync(command, token);
+        //    return Ok();
+        //}
+        #endregion
+
+        #region Stripe
+        [HttpPost("Stripe/StudyRoom")]
+        public async Task<IActionResult> StripeAsync(
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new AddPayPalOrderCommand(userId, model.OrderId, model.SessionId);
+            var command = new AddStripeCustomerCommand(userId);
             await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
-
-
-        [HttpPost("PayPal/BuyTokens")]
-        public async Task<IActionResult> BuyTokensAsync(PayPalTransactionRequest model,
-            [FromServices] IPayPalService payPal, CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var (authorizationId, amountToCharge) = await payPal.AuthorizationOrderAsync(model.Id, token);
-            await payPal.CaptureAuthorizedOrderAsync(authorizationId, amountToCharge, default);
-
-            var result = await payPal.GetPaymentAsync(model.Id, token);
-
-
-            var amount = result.ReferenceId switch
+            return Ok(new
             {
-                "points_1" => 100,
-                "points_2" => 500,
-                "points_3" => 1000,
-                _ => throw new ArgumentException(message: "invalid value")
+                secret = command.ClientSecretId
+            });
+        }
+        
+
+      
+        [HttpPost("Stripe")]
+        public async Task<IActionResult> GetStripe(
+            BuyPointsRequest model,
+            [FromHeader(Name = "referer")] string referer,
+            [FromServices] IStripeService service,
+            CancellationToken token)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var uriBuilder = new UriBuilder(referer)
+            {
+                Query = string.Empty
             };
+            var url = new UriBuilder(Url.RouteUrl("stripe-buy-points", new
+            {
+                redirectUrl = uriBuilder.ToString()
+            }, "https"));
+            var bundle = Enumeration.FromValue<PointBundle>(model.Points);
+            var successCallback = url.AddQuery(("sessionId", "{CHECKOUT_SESSION_ID}"), false).ToString();
 
-
-            var command = new TransferMoneyToPointsCommand(userId, amount, model.Id);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
+            var result = await service.BuyPointsAsync(bundle!, user.Email, successCallback, referer, token);
+            return Ok(new
+            {
+                sessionId = result
+            });
         }
         #endregion
+
     }
 }

@@ -3,6 +3,7 @@ import { LanguageService } from '../services/language/languageService';
 import * as dialogNames from '../components/pages/global/dialogInjection/dialogNames.js'
 
 import { router } from '../main.js';
+import { loadStripe } from '@stripe/stripe-js';
 
 const state = {
     paymentURL: null,
@@ -21,9 +22,20 @@ const mutations = {
 const getters = {
     getPaymentURL:state => state.paymentURL,
     getIsBuyPoints:state => state.isBuyPoints,
+    getStripeToken: () => window.stripe
 };
 
 const actions = {
+    buyPointsUS({getters}, points) {
+        walletService.stripeTransaction(points).then(async ({data}) => {
+            const stripePromise = loadStripe(getters.getStripeToken);
+            const stripe = await stripePromise;
+            //TODO - investigate error
+            await stripe.redirectToCheckout({
+               sessionId:  data.sessionId,
+            });
+        })
+    },
     buyToken({dispatch ,commit}, points) {
         walletService.buyTokens(points).then(({ data }) => {
             dispatch('updatePaymentLink',data.link)
@@ -80,6 +92,9 @@ const actions = {
     },
     updatePaypalStudyRoom(context,model){
         return walletService.paypalStudyRoom(model)
+    },
+    getStripeSecret() {
+        return walletService.getStripeSecret()
     }
 };
 

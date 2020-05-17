@@ -147,9 +147,6 @@
   <data name="call_code" xml:space="preserve">
     <value>You wil get a call shortly</value>
   </data>
-  <data name="error_not_matched" xml:space="preserve">
-    <value>Passwords must match</value>
-  </data>
   <data name="text" xml:space="preserve">
     <value>Cancel</value>
   </data>

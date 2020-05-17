@@ -5,6 +5,7 @@ using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Newtonsoft.Json;
 using System;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Search.Entities
 {
@@ -36,8 +37,12 @@ namespace Cloudents.Search.Entities
         [IsSearchable]
         public string[] Subjects { get; set; }
 
-        [IsFilterable]
+        [IsFilterable, Obsolete]
         public string Country { get; set; }
+
+
+        [IsFilterable, JsonConverter(typeof(CountryConverter))]
+        public Country SbCountry { get; set; }
 
         [JsonConverter(typeof(StringTypeConverter))]
         public TutorCardDto Data { get; set; }

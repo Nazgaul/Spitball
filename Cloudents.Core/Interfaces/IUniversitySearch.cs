@@ -18,7 +18,7 @@ namespace Cloudents.Core.Interfaces
 
     public interface IDocumentsSearch
     {
-        Task<(IEnumerable<DocumentSearchResultWithScore> result,
-            IEnumerable<string> facetSubject)> SearchAsync(DocumentQuery query, UserProfile userProfile, CancellationToken token);
+        Task<(IEnumerable<DocumentSearchResultWithScore> result, IEnumerable<string>? facetSubject)> SearchAsync(
+            DocumentQuery query, UserProfile userProfile, CancellationToken token);
     }
 }

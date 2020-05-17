@@ -21,52 +21,24 @@ namespace Cloudents.FunctionsV2
         [SuppressMessage("ReSharper", "UnusedParameter.Global")]
         [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Used by azure function")]
         public static async Task UpdateReviewTextAsync([TimerTrigger("0 0 1 * * *")] TimerInfo myTimer,
-            [Inject] IDapperRepository dapperRepository,
-            ILogger log)
+            [Inject] IStatelessSession statelessSession,
+            ILogger log,
+            CancellationToken token)
         {
-            using var openConnection = dapperRepository.OpenConnection();
-            const string sql = @" update tr
-                    set Review = x.[text]
-                    from sb.TutorReview tr
-                join
-                    (
-                    Select  tri.Id, case when floor(Rate) = 1 then N'Not recommended'
-                     when floor(Rate) = 2 then N'Ok'
-                     when floor(Rate) = 3 then N'Good'
-                     when floor(Rate) = 4 then N'Very Good'
-                     when floor(Rate) = 5 then N'Excellent' end as Text
-                from sb.TutorReview tri
-                join sb.tutor t on tri.TutorId = t.id
-                    join sb.[user] u on u.id = t.id
-                    where tri.Review is null
-                     and u.Country != 'IL'
-                    ) x
-                    on x.Id = tr.Id";
+           await statelessSession.Query<ReadTutor>()
+                .Where(w => w.Country == "IL" && w.SbCountry == null)
+                .UpdateBuilder().Set(x => x.SbCountry, Country.Israel)
+                .UpdateAsync(token);
 
-            var result = await openConnection.ExecuteAsync(sql);
+           await statelessSession.Query<ReadTutor>()
+               .Where(w => w.Country == "IN" && w.SbCountry == null)
+               .UpdateBuilder().Set(x => x.SbCountry, Country.India)
+               .UpdateAsync(token);
 
-            log.LogInformation($"update non IL amount: {result}");
-
-            const string ilSQl = @"update tr
-set Review = x.[text]
-from sb.TutorReview tr
-join
-(
-Select tri.Id, case when floor(tri.Rate) = 1 then N'לא מומלץ'
- when floor(tri.Rate) = 2 then N'בסדר'
- when floor(tri.Rate) = 3 then N'טוב'
- when floor(tri.Rate) = 4 then N'טוב מאוד'
- when floor(tri.Rate) = 5 then N'מצויין' end  as [text]
-from sb.TutorReview tri
-join sb.tutor t on tri.TutorId = t.id
-join sb.[user] u on u.id = t.id
-where tri.Review is null
- and u.Country = 'IL'
-) x
-on x.Id = tr.Id";
-
-            result = await openConnection.ExecuteAsync(ilSQl);
-            log.LogInformation($"update IL amount: {result}");
+           await statelessSession.Query<ReadTutor>()
+               .Where(w => w.SbCountry == null)
+               .UpdateBuilder().Set(x => x.SbCountry, Country.UnitedStates)
+               .UpdateAsync(token);
         }
 
         [FunctionName("DeleteOldUserLocation")]

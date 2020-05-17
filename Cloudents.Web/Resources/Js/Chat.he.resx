@@ -141,15 +141,6 @@
   <data name="photo" xml:space="preserve">
     <value>תמונה</value>
   </data>
-  <data name="room_created" xml:space="preserve">
-    <value>החדר נפתח</value>
-  </data>
-  <data name="studyRoom_create" xml:space="preserve">
-    <value> צור חדר לימוד פרטני</value>
-  </data>
-  <data name="studyRoom_enter" xml:space="preserve">
-    <value> כניסה לחדר לימוד</value>
-  </data>
   <data name="type_message" xml:space="preserve">
     <value>הקלד הודעה</value>
   </data>

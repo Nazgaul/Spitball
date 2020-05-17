@@ -120,15 +120,6 @@
   <data name="messages" xml:space="preserve">
     <value>Messages</value>
   </data>
-  <data name="room_created" xml:space="preserve">
-    <value>Room created</value>
-  </data>
-  <data name="studyRoom_enter" xml:space="preserve">
-    <value>Join the study room</value>
-  </data>
-  <data name="studyRoom_create" xml:space="preserve">
-    <value>Create Study Room</value>
-  </data>
   <data name="type_message" xml:space="preserve">
     <value>Type something</value>
   </data>

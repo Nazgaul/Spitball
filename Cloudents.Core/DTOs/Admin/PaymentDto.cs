@@ -6,8 +6,12 @@ namespace Cloudents.Core.DTOs.Admin
 {
     public class PaymentDto
     {
+        [NonSerialized]
         public TimeSpan? _duration;
+        [NonSerialized]
         public TimeSpan? _realDuration;
+        [NonSerialized]
+        public string? _sellerKey;
 
         [EntityBind(nameof(StudyRoomSession.Id))]
         public Guid StudyRoomSessionId { get; set; } //
@@ -15,7 +19,18 @@ namespace Cloudents.Core.DTOs.Admin
         public decimal Price { get; set; } //
 
         [EntityBind(nameof(Tutor.SellerKey))]
-        public bool IsSellerKeyExists { get; set; } //
+        public bool IsSellerKeyExists
+        {
+            get
+            {
+                if (TutorCountry == Country.UnitedStates)
+                {
+                    return true;
+                }
+
+                return _sellerKey != null;
+            }
+        } //
         [EntityBind(nameof(Tutor.Id))]
         public long TutorId { get; set; } //
         [EntityBind(nameof(User.Name))]
@@ -26,6 +41,8 @@ namespace Cloudents.Core.DTOs.Admin
         public string UserName { get; set; } //
         [EntityBind(nameof(StudyRoomSession.Created))]
         public DateTime Created { get; set; } //
+
+        public Country TutorCountry { get; set; }
 
         public double Duration => _duration.GetValueOrDefault().TotalMinutes;
 
@@ -42,6 +59,8 @@ namespace Cloudents.Core.DTOs.Admin
     {
         [NonSerialized]
         public TimeSpan? _duration;
+        [NonSerialized]
+        public string? _sellerKey;
 
         [NonSerialized] public long? _duration2;
 
@@ -50,13 +69,25 @@ namespace Cloudents.Core.DTOs.Admin
         [EntityBind(nameof(Tutor.Price))]
         public decimal TutorPricePerHour { get; set; }
 
+        public Country TutorCountry { get; set; }
+
+        public bool CantPay
+        {
+            get
+            {
+                if (TutorCountry == Country.UnitedStates)
+                {
+                    return false;
+                }
+
+                return _sellerKey == null;
+            }
+        } //
+
 
         public decimal StudentPayPerHour { get; set; }
         public decimal SpitballPayPerHour { get; set; }
 
-
-        [EntityBind(nameof(Tutor.SellerKey))]
-        public bool CantPay { get; set; }
         [EntityBind(nameof(Tutor.Id))]
         public long TutorId { get; set; }
         [EntityBind(nameof(User.Name))]

@@ -1,6 +1,4 @@
-function lazyComponent(path) {
-   return () => import(`../components/${path}.vue`);
-}
+
 const routesDefaults = {
    banner: () => import(`../components/pages/layouts/banner/bannerWrapper.vue`),
    header: () => import(`../components/pages/layouts/header/header.vue`) ,
@@ -14,6 +12,5 @@ function staticComponents(components) {
    return defaultRoutes;
 }
 export{
-   lazyComponent,
    staticComponents,
 }

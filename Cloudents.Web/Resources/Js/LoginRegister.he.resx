@@ -276,9 +276,6 @@
   <data name="setemailpass_input_pass" xml:space="preserve">
     <value>סיסמה</value>
   </data>
-  <data name="setemailpass_input_passconfirm" xml:space="preserve">
-    <value>אשר סיסמא</value>
-  </data>
   <data name="setemailpass_last" xml:space="preserve">
     <value>שם משפחה</value>
   </data>

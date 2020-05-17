@@ -94,6 +94,7 @@ namespace Cloudents.Web
 
             var keys = new ConfigurationKeys()
             {
+                Stripe = Configuration["Stripe:ClientSecret"],
                 SiteEndPoint = { SpitballSite = Configuration["Site"], FunctionSite = Configuration["functionCdnEndpoint"] },
                 Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"),
                     Configuration["Redis"], dbAction)
@@ -105,7 +106,6 @@ namespace Cloudents.Web
                     ),
                 Storage = Configuration["Storage"],
                 ServiceBus = Configuration["ServiceBus"],
-                PayPal = new PayPalCredentials(Configuration["PayPal:ClientId"], Configuration["PayPal:ClientSecret"], !HostingEnvironment.IsProduction())
             };
 
 

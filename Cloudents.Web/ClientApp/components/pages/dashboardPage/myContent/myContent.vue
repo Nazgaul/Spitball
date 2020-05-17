@@ -213,7 +213,7 @@ export default {
                padding-top: 14px;
                padding-bottom: 14px;
                font-weight: normal;
-               min-width: 100px;
+               //min-width: 100px;
             }
             
          }

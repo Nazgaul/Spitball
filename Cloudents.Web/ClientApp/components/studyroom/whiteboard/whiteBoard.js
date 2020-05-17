@@ -2,7 +2,7 @@ import {VueMathjax} from 'vue-mathjax'
 
 import whiteBoardService from './whiteBoardService';
 import helperUtil from './utils/helper';
-import { mapGetters, mapActions, mapMutations } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import canvasFinder from "./utils/canvasFinder";
 import equationMapper from "./innerComponents/equationMapper.vue";
 // import iinkDrawer from "./innerComponents/iinkDrawer.vue";
@@ -13,7 +13,8 @@ import pencilSVG from '../images/noun-edit-684936.svg';
 import uploadSVG from '../images/outline-open-in-browser-24-px.svg';
 // import whiteBoardLayers from './innerComponents/whiteBoardLayers.vue'
 
-const HeaderHeight = 108;
+const HeaderHeight = 62;
+const tabsHeight = 30;
 
 export default {
     components: {
@@ -26,16 +27,15 @@ export default {
     },
     data() {
         return {
+            windowWidth: this.getWindowWidth(),
+            windowHeight: this.getWindowHeight(),
             canvas: null,
-            isEdit: false,
-            currentTabId: null,
-            canvasWidth: 2800,
-            canvasHeight: 850,
-            windowWidth: global.innerWidth, // 10 stands for the scroll offset
-            windowHeight: global.innerHeight - HeaderHeight, 
+            // canvasWidth: 2800,
+            // canvasHeight: 850,
+            // windowWidth: global.innerWidth, // 10 stands for the scroll offset
+            // windowHeight: global.innerHeight - HeaderHeight, 
             showPickColorInterface: false,
             showHelper: false,
-            tabEditId: null,
             formula: 'x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.',
             
             enumOptions: {
@@ -91,7 +91,6 @@ export default {
             'getDragData',
             'getZoom', 
             'selectedOptionString',
-            'getCanvasTabs', 
             'getCurrentSelectedTab', 
             'currentOptionSelected', 
             'canvasDataStore',
@@ -131,16 +130,10 @@ export default {
                 this.formula = val;
             }
         },
-        canvasTabs() {
-            return this.getCanvasTabs;
-        },
         canvasDataColor(){
             //activated from watch
             this.canvasData.color = this.canvasDataStore.color;
             return this.canvasDataStore.color;
-        },
-        isTutor() {
-            return this.$store.getters.getRoomIsTutor;
         },
         showAnchors(){
             let unsupportedResizeShapes = ["liveDraw", "textDraw", "equationDraw", "iink"];
@@ -165,6 +158,12 @@ export default {
         }
     },
     watch: {
+        canvasData:{
+            deep:true,
+            handler(newVal){
+                this.$store.dispatch('tempUpdateCanvasStore',newVal)
+            }
+        },
         canvasDataColor(newVal){
             //watch is activating the canvasDataColor computed
             this.canvasData.color = newVal;
@@ -185,43 +184,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateShowBoxHelper','updateImgLoader','resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString', 'changeSelectedTab', 'removeCanvasTab', 'setCurrentOptionSelected', 'setShowPickColorInterface', 'setFontSize']),
-        ...mapMutations(['setTabName']),
-        renameTab() {
-            console.log("Rename Tab");
-        },
-        editTabName(tabId){
-            this.isEdit = true;
-            this.currentTabId = tabId;
-            let tab = document.getElementById(tabId);
-            tab.contentEditable = "true";
-            let range = document.createRange();
-            range.selectNodeContents(tab);
-            let selection = global.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-        },
-        saveNewTabName(){
-            if(this.isEdit){
-                let newTabName = document.getElementById(this.currentTabId).innerText;
-                let tabData = {
-                    tabId: this.currentTabId,
-                    tabName: newTabName
-                };
-                let transferDataObj = {
-                    type: "updateTab",
-                    data: tabData
-                };
-                let normalizedData = JSON.stringify(transferDataObj);
-                this.$store.dispatch('sendDataTrack',normalizedData)
-    
-                let tab = document.getElementById(this.currentTabId);
-                let selection = global.getSelection();
-                selection.empty();
-                tab.contentEditable = "false";
-                this.isEdit = false;
-            }
-        },
+        ...mapActions(['updateShowBoxHelper','updateImgLoader','resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString', 'setCurrentOptionSelected', 'setShowPickColorInterface', 'setFontSize']),
         uploadImage(){
             this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, 'imageDraw')());
             this.setSelectedOptionString('imageDraw');
@@ -234,11 +197,6 @@ export default {
         finishEquation(){
             let mouseEvent = new MouseEvent("mousedown", {});
             this.canvas.dispatchEvent(mouseEvent);
-        },
-        deleteTab(tab) {
-            this.removeCanvasTab(tab);
-            this.changeTab(this.getCanvasTabs[0]);
-            console.log("Delete Tab");
         },
         showColorPicker() {
             this.setShowPickColorInterface(true);
@@ -342,34 +300,14 @@ export default {
         keyCodeChecker(e,keyCode){
             return (e.which == keyCode || e.keyCode == keyCode);
         },
-        changeTab(tab) {
-            if(!this.$route.params.id || this.$route.params.id && this.isTutor ){
-                this.$ga.event("tutoringRoom", `changeTab:${tab}`);
-                this.currentTabId = tab.id;
-                if (tab.id !== this.getCurrentSelectedTab.id) {
-                    let transferDataObj = {
-                        type: "updateTabById",
-                        data: {
-                            tab,
-                            canvas:this.canvasData
-                        }
-                    };
-                    let normalizedData = JSON.stringify(transferDataObj);
-                    this.$store.dispatch('sendDataTrack',normalizedData)
-                    this.changeSelectedTab(tab);
-                    whiteBoardService.hideHelper();
-                    whiteBoardService.redraw(this.canvasData);
-                }
-            }
-        },
         resizeCanvas() {
             // let canvas = document.getElementById('canvas');
             let ctx = this.canvas.getContext("2d");
             ctx.setTransform(1, 0, 0, 1, 0, 0);
-            this.windowWidth = global.innerWidth,
-                this.windowHeight = global.innerHeight - HeaderHeight,
-                this.canvas.width = this.canvasWidth;
-                this.canvas.height = this.canvasHeight;
+            this.windowWidth = this.getWindowWidth();
+            this.windowHeight = this.getWindowHeight();
+            this.canvas.width = this.windowWidth;
+            this.canvas.height = this.windowHeight;
             whiteBoardService.redraw(this.canvasData);
         },
         injectToTextArea(textToInject) {
@@ -384,7 +322,7 @@ export default {
         // },
         registerCanvasEvents(canvas, canvasWrapper) {
             let self = this;
-            global.addEventListener('resize', this.resizeCanvas, false);
+            // global.addEventListener('resize', this.resizeCanvas, false);
             let dropArea = canvas;
             dropArea.addEventListener('dragenter', () =>{
             }, false);
@@ -480,13 +418,46 @@ export default {
                 });
                 canvas.dispatchEvent(mouseEvent);
             }, false);
-        }
+        },
+        windowChangeEvent(){
+            let MutationObserver = window.MutationObserver;
+            let target = document.querySelector('main');
+            let self = this;
+            let observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if(mutation.oldValue.includes("padding:")){
+                        self.resizeCanvas()
+                    }
+                });    
+              });
+            let config = { attributes: true, attributeOldValue: true }
+            observer.observe(target, config);
+        },
+        getWindowWidth(){
+            let windowWidth = document.querySelector('main').clientWidth;
+            let paddingLeft = +document.querySelector('main').style.paddingLeft.replace('px','')
+            let paddingRight = +document.querySelector('main').style.paddingRight.replace('px','')
+            let windowSidePadding = paddingRight || paddingLeft;
+            let size = windowWidth - windowSidePadding
+            return size
+        },
+        getWindowHeight(){
+            let windowHeight = document.querySelector('main').clientHeight;
+            let paddingTop = HeaderHeight;
+            let paddingBottom = +document.querySelector('main').style.paddingBottom.replace('px','') + tabsHeight;
+            let windowYPadding = paddingTop + paddingBottom;
+            let size = windowHeight - windowYPadding
+            return size
+        },
     },
     mounted() {
+        this.windowChangeEvent()
         this.canvas = document.querySelector('canvas');
         let canvasWrapper = document.querySelector('.canvas-wrapper');
-        this.canvas.width = this.canvasWidth;
-        this.canvas.height = this.canvasHeight;
+        this.canvas.width = this.windowWidth;
+        this.canvas.height = this.windowHeight;
+        // this.canvas.width = this.canvasWidth;
+        // this.canvas.height = this.canvasHeight;
         this.canvasData.context = this.canvas.getContext("2d");
         this.canvasData.context.font = `16px Open Sans`;
         this.canvasData.context.lineJoin = this.canvasData.lineJoin;
@@ -494,5 +465,9 @@ export default {
         canvasFinder.trackTransforms(this.canvasData.context);
         this.registerCanvasEvents(this.canvas, canvasWrapper);
         global.document.addEventListener("keydown", this.keyPressed);
-    }
+        whiteBoardService.redraw(this.canvasData);
+    },
+    updated() {
+        this.$store.dispatch('tempUpdateCanvasStore',this.canvasData)
+    },
 }

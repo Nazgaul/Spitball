@@ -34,11 +34,6 @@
         data() {
             return {};
         },
-        props: {
-            id: {
-                required:true
-            },
-        },
         computed: {
             ...mapGetters(['accountUser']),
             userImageUrl(){

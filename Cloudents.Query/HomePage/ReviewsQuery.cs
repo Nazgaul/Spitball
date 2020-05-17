@@ -43,7 +43,7 @@ namespace Cloudents.Query.HomePage
                             review,
                             tutor
                         })
-                    .Where(w => w.review.IsShownHomePage && w.tutor.Country == query.Country.ToString())
+                    .Where(w => w.review.IsShownHomePage && w.tutor.SbCountry == query.Country)
                         .Select(s => new ReviewDto()
                         {
                             Text = s.review.Review,
@@ -68,7 +68,7 @@ namespace Cloudents.Query.HomePage
     {
         public string Text { get; set; }
         public string UserName { get; set; }
-        public string TutorImage { get; set; }
+        public string? TutorImage { get; set; }
         public string TutorName { get; set; }
 
         public double TutorReviews { get; set; }

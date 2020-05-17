@@ -31,7 +31,7 @@ namespace Cloudents.Persistence
             return x.GetHashCode();
         }
 
-        public object NullSafeGet(DbDataReader rs, string[] names, ISessionImplementor session, object owner)
+        public object? NullSafeGet(DbDataReader rs, string[] names, ISessionImplementor session, object owner)
         {
             if (names.Length == 0)
                 throw new ArgumentException("Expecting at least one column");
@@ -44,16 +44,7 @@ namespace Cloudents.Persistence
             }
 
             return null;
-
-
-
-
-            //return EnumerationExtensions.GetAll<T>().SingleOrDefault(s => Equals(s.Id, id));
-
-
-            // here you can grab your data from external service
-
-            //return val;
+         
         }
 
         public void NullSafeSet(DbCommand cmd, object value, int index, ISessionImplementor session)
@@ -91,7 +82,7 @@ namespace Cloudents.Persistence
         }
 
         public SqlType[] SqlTypes => new[] { new SqlType(DbType.Int32) };
-        public Type ReturnedType => typeof(int);
+        public Type ReturnedType => typeof(T);
         public bool IsMutable => false;
     }
 }

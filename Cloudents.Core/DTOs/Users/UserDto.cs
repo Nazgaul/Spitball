@@ -10,15 +10,6 @@ namespace Cloudents.Core.DTOs.Users
 {
     public class UserDto
     {
-        //public UserDto(long id, string name, string image)
-        //{
-        //    Id = id;
-        //    Name = name;
-        //    Image = image;
-        //}
-
-       
-
         public long Id { get; set; }
         public string Name { get; set; }
         public string? Image { get; set; }
@@ -70,10 +61,10 @@ namespace Cloudents.Core.DTOs.Users
     {
         public decimal Price { get; set; }
 
-        public string Currency => new RegionInfo(TutorCountry).ISOCurrencySymbol;
+        public string Currency => TutorCountry.RegionInfo.ISOCurrencySymbol;
 
-        [EntityBind(nameof(ReadTutor.Country))]
-        public string TutorCountry { get; set; }
+        [EntityBind(nameof(ReadTutor.SbCountry))]
+        public Country TutorCountry { get; set; }
 
         public decimal? DiscountPrice { get; set; }
 

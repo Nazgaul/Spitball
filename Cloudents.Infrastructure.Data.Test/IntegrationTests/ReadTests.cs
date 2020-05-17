@@ -18,6 +18,7 @@ using Cloudents.Query.Questions;
 using Cloudents.Query.General;
 using Cloudents.Core.DTOs.Feed;
 using Cloudents.Query.Session;
+using Cloudents.Query.Sync;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
@@ -53,10 +54,27 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task TutorSyncAzureSearchQuery_Ok(int version)
         {
             var query = new TutorSyncAzureSearchQuery(version);
-            var query2 = new TutorSyncAzureSearchQuery(version);
+            //var query2 = new TutorSyncAzureSearchQuery(version);
 
             var _ = await fixture.QueryBus.QueryAsync(query, default);
-            await fixture.QueryBus.QueryAsync(query2, default);
+            //await fixture.QueryBus.QueryAsync(query2, default);
+
+
+        }
+
+
+        [Theory]
+        [InlineData(0, 0)]
+        [InlineData(0, 1)]
+        [InlineData(1, 0)]
+        [InlineData(1, 1)]
+        public async Task DocumentSyncAzureSearchQuery_Ok(int version, int page)
+        {
+            var query = new SyncAzureQuery(version, page);
+            //var query2 = new TutorSyncAzureSearchQuery(version);
+
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+            //await fixture.QueryBus.QueryAsync(query2, default);
 
 
         }
@@ -69,8 +87,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(638, 0, "IL", "economics")]
         [InlineData(638, 1, "IL", null)]
 
-        public async Task DocumentAggregateQuery_Ok(long userId, int page, string country, string course)
+        public async Task DocumentAggregateQuery_Ok(long userId, int page, string countryStr, string course)
         {
+            var country = Country.FromCountry(countryStr);
             var query = new FeedAggregateQuery(userId, page, country, course, 18);
 
             var result = (await fixture.QueryBus.QueryAsync(query, default)).ToList();
@@ -86,8 +105,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData(0, 638, FeedType.Document, "IL", null, 20)]
         [InlineData(0, 638, FeedType.Document, "IL", "Economics", 20)]
-        public async Task DocumentFeedWithFilterQuery_Document_Ok(int page, long userId, FeedType? filter, string country, string course, int pageSize)
+        public async Task DocumentFeedWithFilterQuery_Document_Ok(int page, long userId, FeedType? filter, string countryStr, string course, int pageSize)
         {
+            var country = Country.FromCountry(countryStr);
             var query = new DocumentFeedWithFilterQuery(page, userId, filter, country, course, pageSize);
             var result = (await fixture.QueryBus.QueryAsync(query, default)).ToList();
             if (result.Count > 0)
@@ -102,8 +122,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData(0, 638, FeedType.Video, "IL", null, 20)]
         [InlineData(0, 638, FeedType.Video, "IL", "Temp", 20)]
-        public async Task DocumentFeedWithFilterQuery_Video_Ok(int page, long userId, FeedType? filter, string country, string course, int pageSize)
+        public async Task DocumentFeedWithFilterQuery_Video_Ok(int page, long userId, FeedType? filter, string countryStr, string course, int pageSize)
         {
+            var country = Country.FromCountry(countryStr);
             var query = new DocumentFeedWithFilterQuery(page, userId, filter, country, course, pageSize);
             var result = (await fixture.QueryBus.QueryAsync(query, default)).ToList();
             //result.Should().NotBeNullOrEmpty();
@@ -120,8 +141,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData(0, 638, "IL", null, 20)]
         [InlineData(0, 638, "IL", "Economics", 20)]
-        public async Task QuestionFeedWithFilterQuery_Ok(int page, long userId, string country, string course, int pageSize)
+        public async Task QuestionFeedWithFilterQuery_Ok(int page, long userId, string countryStr, string course, int pageSize)
         {
+            var country = Country.FromCountry(countryStr);
             var query = new QuestionFeedWithFilterQuery(page, userId, country, course, pageSize);
             var result = (await fixture.QueryBus.QueryAsync(query, default)).ToList();
             result.Should().NotBeNullOrEmpty();
@@ -135,6 +157,8 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData(50084, 638)]
         [InlineData(45209, 638)]
+        [InlineData(29106, 638)]
+        [InlineData(29106, 0)]
         public async Task DocumentById_Ok(long documentId, long? userId)
         {
             var query = new DocumentById(documentId, userId);
@@ -235,22 +259,34 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData(638, 0)]
-        [InlineData(11, 0)]
-        [InlineData(605, 638)]
-        [InlineData(36, 638)]
-        [InlineData(36, 0)]
-        [InlineData(150713, 638)]
-        [InlineData(160446, 638)]
-        [InlineData(161238, 638)]
-        [InlineData(159039, 160634)]
-        [InlineData(159039, 160468)]
-        [InlineData(160336, 160468)]
-        [InlineData(1697, 0)]
-
-        public async Task UserProfileQuery_Ok(long id, long userId)
+        [InlineData(0)]
+        [InlineData(638)]
+        [InlineData(160634)]
+        public async Task UserProfileTutorQuery_Ok(long userId)
         {
+            var id = await fixture.StatelessSession.Query<Tutor>()
+                .Where(w => w.State == ItemState.Ok).Select(s=>s.Id).Take(1).SingleAsync();
+            var query = new UserProfileQuery(id, userId);
 
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+
+            result.Should().NotBeNull();
+
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(638)]
+        [InlineData(160634)]
+        public async Task UserProfileNotTutorQuery_Ok(long userId)
+        {
+            var id = await fixture.StatelessSession.Query<User>()
+                .Fetch(f=>f.Tutor)
+                .Where(w => w.Tutor.State == null 
+                           // && w.PhoneNumberConfirmed 
+                           // && w.EmailConfirmed
+                            )
+                .Select(s=>s.Id).Take(1).SingleAsync();
             var query = new UserProfileQuery(id, userId);
 
             var result = await fixture.QueryBus.QueryAsync(query, default);
@@ -283,7 +319,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
-       
+
 
         [Fact]
         public async Task UserReferralsQuery_Ok()
@@ -398,6 +434,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(1L)]
         [InlineData(50039L)]
         [InlineData(50864)]
+        [InlineData(29106)]
 
         public async Task SimilarDocumentsQuery_Ok(long documentId)
         {
@@ -662,7 +699,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task TutorUpcomingBroadcastStudyRoomQuery_Ok()
         {
-            var query = new TutorUpcomingBroadcastStudyRoomQuery(638,159039);
+            var query = new TutorUpcomingBroadcastStudyRoomQuery(638, 159039);
             var result = await fixture.QueryBus.QueryAsync(query, default);
         }
 

@@ -14,7 +14,7 @@ namespace Cloudents.Core.Test.Entities
         [Fact]
         public void InitDocument__NullCourse_Error()
         {
-            Assert.Throws<ArgumentNullException>(() =>new Document("some name", null!, null, 0, DocumentType.Document, null));
+            Assert.Throws<ArgumentNullException>(() =>new Document("some name", null!, null!, 0, DocumentType.Document, null));
         }
 
         [Fact]
@@ -29,7 +29,7 @@ namespace Cloudents.Core.Test.Entities
         public void InitDocument_NullName_Error()
         {
             var course = new Course("Some name");
-            Assert.Throws<ArgumentNullException>(() =>new Document(null!, course, null, 0, DocumentType.Document, null));
+            Assert.Throws<ArgumentNullException>(() =>new Document(null!, course, null!, 0, DocumentType.Document, null));
         }
 
 

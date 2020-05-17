@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="browser_not" xml:space="preserve">
-    <value>Browser not supported</value>
-  </data>
-  <data name="btn_accept_and_start" xml:space="preserve">
-    <value>Accept and Start</value>
-  </data>
   <data name="btn_share_screen" xml:space="preserve">
     <value>Share Screen</value>
   </data>
@@ -132,23 +126,8 @@
   <data name="chrome_ext_btn_cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="chrome_ext_btn_install" xml:space="preserve">
-    <value>Install</value>
-  </data>
-  <data name="chrome_ext_install" xml:space="preserve">
-    <value>Please install and authorize the Spitball Chrome extension to enable screen sharing on your computer.</value>
-  </data>
-  <data name="chrome_ext_text" xml:space="preserve">
-    <value>Once the extension is installed please reload  the page for the screen sharing feature to be effective.</value>
-  </data>
-  <data name="chrome_ext_title" xml:space="preserve">
-    <value>Chrome Extension Installation</value>
-  </data>
   <data name="clearAll_warning_text" xml:space="preserve">
     <value>This action cannot be undone, are you sure you want to clear the canvas?</value>
-  </data>
-  <data name="close" xml:space="preserve">
-    <value>Close</value>
   </data>
   <data name="end_session" xml:space="preserve">
     <value>Finished the session?</value>
@@ -162,48 +141,17 @@
   <data name="nav_text" xml:space="preserve">
     <value>Text Editor</value>
   </data>
-  <data name="not_supported" xml:space="preserve">
-    <value>Study Room currently not supported by Mobile.
-Try connecting from a computer browser</value>
-  </data>
   <data name="option_fullBoard" xml:space="preserve">
     <value>Full Board</value>
   </data>
   <data name="option_videoChat" xml:space="preserve">
     <value>Video &amp; Chat</value>
   </data>
-  <data name="option_videoFull" xml:space="preserve">
-    <value>Full Video</value>
-  </data>
-  <data name="start_dialog_your_student" xml:space="preserve">
-    <value>Your student is</value>
-  </data>
-  <data name="start_dialog_your_tutor" xml:space="preserve">
-    <value>Your tutor is</value>
-  </data>
   <data name="start_to_share" xml:space="preserve">
     <value>Available while session is active</value>
   </data>
   <data name="stream_btn_end_session" xml:space="preserve">
     <value>End Session</value>
-  </data>
-  <data name="stream_btn_start_session" xml:space="preserve">
-    <value>Start Session</value>
-  </data>
-  <data name="stream_btn_start_session_student" xml:space="preserve">
-    <value>Join Session</value>
-  </data>
-  <data name="stream_btn_start_tutor" xml:space="preserve">
-    <value>Start Session</value>
-  </data>
-  <data name="stream_btn_waiting" xml:space="preserve">
-    <value>Waiting for student</value>
-  </data>
-  <data name="stream_btn_waiting_student" xml:space="preserve">
-    <value>Waiting for Tutor</value>
-  </data>
-  <data name="stream_btn_waiting_tutor" xml:space="preserve">
-    <value>Waiting for student</value>
   </data>
   <data name="tab" xml:space="preserve">
     <value>Tab</value>
@@ -280,24 +228,6 @@ Voice Recording?</value>
   </data>
   <data name="ewar-try-again" xml:space="preserve">
     <value>Try Again</value>
-  </data>
-  <data name="can_be_recorded" xml:space="preserve">
-    <value>This session might be recorded by the student</value>
-  </data>
-  <data name="start_dialog_session_time" xml:space="preserve">
-    <value>Session Duration:</value>
-  </data>
-  <data name="stream_btn_disconnected_student" xml:space="preserve">
-    <value>Session was disconnected. We are trying to bring it back </value>
-  </data>
-  <data name="stream_btn_disconnected_tutor" xml:space="preserve">
-    <value>Session was disconnected. We are trying to bring it back </value>
-  </data>
-  <data name="stream_btn_finished_student" xml:space="preserve">
-    <value>Session ended</value>
-  </data>
-  <data name="stream_btn_finished_tutor" xml:space="preserve">
-    <value>Session ended</value>
   </data>
   <data name="waiting_in_studyRoom" xml:space="preserve">
     <value>is waiting for you in your </value>

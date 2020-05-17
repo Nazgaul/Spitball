@@ -16,10 +16,11 @@ namespace Cloudents.Core.DTOs.SearchSync
         public string Course { get; set; }
         [EntityBind(nameof(Document.User.Country))]
         public string Country { get; set; }
-        //[EntityBind(nameof(Document.University.Id))]
-        //public Guid? UniversityId { get; set; }
-        //[EntityBind(nameof(Document.University.Name))]
-        //public string UniversityName { get; set; }
+
+
+        [EntityBind(nameof(Document.User.SbCountry))]
+        public Country SbCountry { get; set; }
+       
         [EntityBind(nameof(Document.TimeStamp.CreationTime))]
         public DateTime? DateTime { get; set; }
         [EntityBind(nameof(Document.Status.State))]

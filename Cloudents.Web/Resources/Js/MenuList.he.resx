@@ -126,12 +126,6 @@
   <data name="balance" xml:space="preserve">
     <value>היתרה שלך: {0} נק'</value>
   </data>
-  <data name="Change" xml:space="preserve">
-    <value>עריכה</value>
-  </data>
-  <data name="changeUniversity" xml:space="preserve">
-    <value>מוסד לימוד</value>
-  </data>
   <data name="feedback" xml:space="preserve">
     <value>משוב</value>
   </data>

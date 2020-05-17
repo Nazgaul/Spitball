@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="audio_indicator" xml:space="preserve">
-    <value>Indicator:</value>
-  </data>
   <data name="audio_input" xml:space="preserve">
     <value>Microphone</value>
   </data>
@@ -157,6 +154,9 @@
   <data name="done_btn" xml:space="preserve">
     <value>Done</value>
   </data>
+  <data name="free" xml:space="preserve">
+    <value>Free</value>
+  </data>
   <data name="full_view" xml:space="preserve">
     <value>Camera Fullscreen</value>
   </data>
@@ -184,9 +184,6 @@
   </data>
   <data name="start_in" xml:space="preserve">
     <value>Class starts in</value>
-  </data>
-  <data name="title" xml:space="preserve">
-    <value>Settings</value>
   </data>
   <data name="tutor_name" xml:space="preserve">
     <value>Teacher name</value>

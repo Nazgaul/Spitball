@@ -357,7 +357,7 @@ namespace Cloudents.Infrastructure.Video
         }
 
 
-        public async Task<string> BuildUserStreamingLocatorAsync(long videoId, long userId, CancellationToken token)
+        public async Task<string?> BuildUserStreamingLocatorAsync(long videoId, long userId, CancellationToken token)
         {
             var client = await _context;
             var locatorName = $"{videoId}-{userId}";
@@ -424,7 +424,7 @@ namespace Cloudents.Infrastructure.Video
             }
         }
 
-        private async Task<string> GetStreamingUrlAsync(string locatorName, CancellationToken token)
+        private async Task<string?> GetStreamingUrlAsync(string locatorName, CancellationToken token)
         {
             var client = await _context;
             //https://spitballdev-euno.streaming.media.azure.net/7a789e2a-f0a9-454b-a9fd-c6f9b2d55a93/file-f32a43d0-297d-44c4-94c2-daa.ism/manifest
@@ -457,7 +457,7 @@ namespace Cloudents.Infrastructure.Video
         }
 
         [Cache(TimeConst.Hour, "media-service", true)]
-        public Task<string> GetShortStreamingUrlAsync(long videoId, CancellationToken token)
+        public Task<string?> GetShortStreamingUrlAsync(long videoId, CancellationToken token)
         {
             return GetStreamingUrlAsync(GetShortStreamingLocatorName(videoId), token);
         }

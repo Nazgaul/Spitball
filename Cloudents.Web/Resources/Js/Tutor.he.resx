@@ -117,41 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="browser_not" xml:space="preserve">
-    <value>דפדפן לא נתמך</value>
-  </data>
-  <data name="btn_accept_and_start" xml:space="preserve">
-    <value>התחל שיעור</value>
-  </data>
   <data name="btn_share_screen" xml:space="preserve">
-    <value>שתף מסך</value>
+    <value>שיתוף מסך</value>
   </data>
   <data name="btn_stop_sharing" xml:space="preserve">
     <value>הפסק שיתוף מסך</value>
   </data>
-  <data name="can_be_recorded" xml:space="preserve">
-    <value>יתכן והשיעור יוקלט על ידי התלמיד</value>
-  </data>
   <data name="chrome_ext_btn_cancel" xml:space="preserve">
     <value>ביטול</value>
   </data>
-  <data name="chrome_ext_btn_install" xml:space="preserve">
-    <value>התקן</value>
-  </data>
-  <data name="chrome_ext_install" xml:space="preserve">
-    <value>בבקשה בצע התקנה ואישור שימוש בתוסף לדפדפן כרום בכדי לאפשר שיתוף מסך במחשב שלך.</value>
-  </data>
-  <data name="chrome_ext_text" xml:space="preserve">
-    <value>ברגע שהתוסף מותקן, בבקשה בצע רענון כדי שתוכל להשתמש בתוסף שיתוף המסך.</value>
-  </data>
-  <data name="chrome_ext_title" xml:space="preserve">
-    <value>התקנת תוסף לדפדפן כרום</value>
-  </data>
   <data name="clearAll_warning_text" xml:space="preserve">
     <value>לא ניתן להחזיר אחורה פעולה זו, האם ברצונך להמשיך?</value>
-  </data>
-  <data name="close" xml:space="preserve">
-    <value>סגור</value>
   </data>
   <data name="end_session" xml:space="preserve">
     <value>סיימת את השיעור?</value>
@@ -184,10 +160,7 @@
     <value>עורך קוד</value>
   </data>
   <data name="nav_text" xml:space="preserve">
-    <value>עורך טקסט</value>
-  </data>
-  <data name="not_supported" xml:space="preserve">
-    <value>דף זה אינו נתמך במובייל.</value>
+    <value>מסמך</value>
   </data>
   <data name="option_fullBoard" xml:space="preserve">
     <value>הצג לוח</value>
@@ -195,53 +168,11 @@
   <data name="option_videoChat" xml:space="preserve">
     <value>וידיאו וצ'ט</value>
   </data>
-  <data name="option_videoFull" xml:space="preserve">
-    <value>הצג וידיאו</value>
-  </data>
-  <data name="start_dialog_session_time" xml:space="preserve">
-    <value>משך השיעור:</value>
-  </data>
-  <data name="start_dialog_your_student" xml:space="preserve">
-    <value>הסטודנט שלך הוא</value>
-  </data>
-  <data name="start_dialog_your_tutor" xml:space="preserve">
-    <value>המורה הפרטי שלך הוא</value>
-  </data>
   <data name="start_to_share" xml:space="preserve">
     <value>זמין במהלך השיעור</value>
   </data>
-  <data name="stream_btn_disconnected_student" xml:space="preserve">
-    <value>הקשר נותק. אנחנו מנסים להתחבר חזרה</value>
-  </data>
-  <data name="stream_btn_disconnected_tutor" xml:space="preserve">
-    <value>הקשר נותק. אנחנו מנסים להתחבר חזרה</value>
-  </data>
   <data name="stream_btn_end_session" xml:space="preserve">
     <value>סיים שיעור</value>
-  </data>
-  <data name="stream_btn_finished_student" xml:space="preserve">
-    <value>השיעור הסתיים</value>
-  </data>
-  <data name="stream_btn_finished_tutor" xml:space="preserve">
-    <value>השיעור הסתיים</value>
-  </data>
-  <data name="stream_btn_start_session" xml:space="preserve">
-    <value>התחל שיעור</value>
-  </data>
-  <data name="stream_btn_start_session_student" xml:space="preserve">
-    <value>התחל שיעור</value>
-  </data>
-  <data name="stream_btn_start_tutor" xml:space="preserve">
-    <value>התחל שיעור</value>
-  </data>
-  <data name="stream_btn_waiting" xml:space="preserve">
-    <value>ממתין לסטודנט</value>
-  </data>
-  <data name="stream_btn_waiting_student" xml:space="preserve">
-    <value>ממתין למורה</value>
-  </data>
-  <data name="stream_btn_waiting_tutor" xml:space="preserve">
-    <value>ממתין לסטודנט</value>
   </data>
   <data name="tab" xml:space="preserve">
     <value>לשונית</value>

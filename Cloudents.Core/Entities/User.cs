@@ -56,7 +56,7 @@ namespace Cloudents.Core.Entities
         protected internal virtual ICollection<UserLocation> UserLocations { get; protected set; }
 
 
-        [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")] 
+        [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]
         private readonly ICollection<ChatUser> _chatUsers = new List<ChatUser>();
 
         public virtual IEnumerable<ChatUser> ChatUsers => _chatUsers;
@@ -109,7 +109,7 @@ namespace Cloudents.Core.Entities
                     throw new DuplicateRowException();
                 }
                 AddEvent(new ApplyCouponEvent(p));
-               
+
 
             }
 
@@ -128,7 +128,7 @@ namespace Cloudents.Core.Entities
             Country = country;
 
             SbCountry = Entities.Country.FromCountry(country);
-           
+
 
             AddEvent(new ChangeCountryEvent(Id));
         }
@@ -138,7 +138,7 @@ namespace Cloudents.Core.Entities
         {
             ChangeCountry(country);
             ChangeLanguage(Entities.Language.English);
-          
+
         }
 
 
@@ -156,7 +156,7 @@ namespace Cloudents.Core.Entities
         {
             var course = UserCourses.AsQueryable().First(w => w.Course.Id == courseName);
             course.ToggleCanTeach();
-          
+
         }
 
 
@@ -176,7 +176,7 @@ namespace Cloudents.Core.Entities
 
 
 
-        [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")] 
+        [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]
         private readonly ICollection<StudyRoomUser> _studyRooms = new List<StudyRoomUser>();
 
         public virtual IEnumerable<StudyRoomUser> StudyRooms => _studyRooms;
@@ -188,24 +188,20 @@ namespace Cloudents.Core.Entities
         public virtual UserTransactions Transactions { get; protected set; }
 
         public virtual string FirstName { get; protected set; }
-        public virtual string LastName { get; protected set; }
+        public virtual string? LastName { get; protected set; }
         public virtual string Description { get; set; }
 
         public virtual string CoverImage { get; protected set; }
         public virtual Tutor? Tutor { get; protected set; }
 
+        [Obsolete]
         public virtual BuyerPayment? BuyerPayment { get; protected set; }
+        public virtual IPayment2? Payment { get; protected set; }
 
         public virtual Gender Gender { get; protected set; }
         public virtual PaymentStatus PaymentExists { get; protected set; }
 
-        // public virtual UserType? UserType2 { get; protected set; }
-        private readonly ICollection<UserPaymentToken> _userTokens = new List<UserPaymentToken>();
-        public virtual IEnumerable<UserPaymentToken> UserTokens => _userTokens;
-
-
         public virtual DateTime? FinishRegistrationDate { get; set; }
-
 
         public virtual void CreditCardReceived()
         {
@@ -213,43 +209,16 @@ namespace Cloudents.Core.Entities
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
 
-        //public virtual void UseToken(StudyRoom studyRoom)
+        //public virtual void AddPayment(string token, DateTime expiration, string buyerCardMask)
         //{
-
-
-        //    if (SbCountry != Entities.Country.UnitedStates)
-        //    {
-        //        return;
-        //    }
-
-        //    var userToken = UserTokens
-        //        .FirstOrDefault(w => w.State == PaymentTokenState.NotUsed && w.StudyRoom.Id == studyRoom.Id);
-        //    if (userToken != null)
-        //    {
-        //        userToken.ChangeToUsedState();
-        //    }
-
-        //    UseCoupon(studyRoom.Tutor);
+        //    PaymentExists = PaymentStatus.Done;
+        //    BuyerPayment = new BuyerPayment(token, expiration, buyerCardMask);
         //}
 
-        public virtual void AddPaymentToken(string orderId, string authorizationId, decimal amount, StudyRoom studyRoom)
-        {
-            if (orderId == null) throw new ArgumentNullException(nameof(orderId));
-            if (authorizationId == null) throw new ArgumentNullException(nameof(authorizationId));
-            if (studyRoom == null) throw new ArgumentNullException(nameof(studyRoom));
-
-            if (SbCountry != Entities.Country.UnitedStates)
-            {
-                throw new ArgumentException("Only usa country can use paypal");
-            }
-            _userTokens.Add(new UserPaymentToken(orderId, authorizationId, amount, studyRoom));
-            AddEvent(new StudentPaymentReceivedEvent(this));
-        }
-
-        public virtual void AddPayment(string token, DateTime expiration, string buyerCardMask)
+        public virtual void AddPayment(IPayment2 payment)
         {
             PaymentExists = PaymentStatus.Done;
-            BuyerPayment = new BuyerPayment(token, expiration, buyerCardMask);
+            Payment = payment;
         }
 
 
@@ -266,7 +235,7 @@ namespace Cloudents.Core.Entities
 
 
 
-        public virtual void ChangeName(string firstName, string? lastName)
+        public virtual void ChangeName(string firstName, string lastName)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -330,7 +299,10 @@ namespace Cloudents.Core.Entities
 
         public override string ToString()
         {
-            return $"{nameof(Id)}: {Id}, {nameof(EmailConfirmed)}: {EmailConfirmed}, {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}";
+            return $"{nameof(Id)}: {Id}, " +
+                   $"{nameof(EmailConfirmed)}: {EmailConfirmed}," +
+                   $" {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}" +
+                   $" {nameof(SbCountry)}: {SbCountry}";
         }
 
         public override void MakeTransaction(Transaction transaction)
@@ -427,11 +399,13 @@ namespace Cloudents.Core.Entities
 
         // public override int Score { get; protected set; }  //=> Transactions.Score;
         public override decimal Balance => Transactions.Balance;
+        protected internal virtual ICollection<UserDownloadDocument> DocumentDownloads { get; set; }
 
 
         public virtual void DeleteUserPayment()
         {
             BuyerPayment = null;
+            Payment = null;
             PaymentExists = PaymentStatus.None;
         }
 

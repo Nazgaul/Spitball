@@ -232,11 +232,17 @@ namespace Cloudents.FunctionsV2
             var continue2 = true;
             while (continue2)
             {
+                if (token.IsCancellationRequested)
+                {
+                    log.LogInformation("Finish due to cancellation token");
+                    break;
+                }
                 var items = await session.Query<Core.Entities.Document>()
                     .Where(w => w.Status.State == ItemState.Ok && w.Md5 == null)
                     .OrderByDescending(x => x.Id)
                     .Select(s => s.Id).Take(100).ToListAsync(cancellationToken: token);
                 continue2 = false;
+
                 foreach (var id in items)
                 {
                     if (token.IsCancellationRequested)

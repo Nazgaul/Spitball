@@ -13,7 +13,7 @@
 
         string ServiceBus { get; }
 
-        PayPalCredentials PayPal { get; }
+        string Stripe { get; }
 
     }
 }

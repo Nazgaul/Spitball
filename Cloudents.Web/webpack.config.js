@@ -10,6 +10,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin");
 var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const { RetryChunkLoadPlugin } = require('webpack-retry-chunk-load-plugin');
+const UnusedWebpackPlugin = require('unused-webpack-plugin');
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
@@ -239,14 +240,8 @@ module.exports = (env) => {
                 }
             }),
             new VuetifyLoaderPlugin(),
-            new CaseSensitivePathsPlugin(),
-            new RetryChunkLoadPlugin({
-                // optional stringified function to get the cache busting query string appended to the script src
-                // if not set will default to appending the string `?cache-bust=true`
-                //cacheBust: `function() {
-                //        return Date.now();
-                //    }`
-            })
+           
+            
             //new BundleAnalyzerPlugin({
             //    analyzerMode: 'disabled',
             //    generateStatsFile: true,
@@ -254,13 +249,21 @@ module.exports = (env) => {
             //}),
         ].concat(isDevBuild
             ? [
-
+                new CaseSensitivePathsPlugin(),
                 new webpack.SourceMapDevToolPlugin({
                     filename: "[file].map", // Remove this line if you prefer inline source maps
                     moduleFilenameTemplate:
                         path.relative(bundleOutputDir,
                             "[resourcePath]") // Point sourcemap entries to the original file locations on disk
-                })
+                }),
+                new UnusedWebpackPlugin({
+                    // Source directories
+                    directories: [path.join(__dirname, 'ClientApp')],
+                    // Exclude patterns
+                    exclude: ['*.test.js', 'font-icon/*','*.spec.js'],
+                    // Root directory (optional)
+                   // root: path.join(__dirname, 'ClientApp'),
+                }),
             ]
             : [
                 new MiniCssExtractPluginRtl({
@@ -272,6 +275,13 @@ module.exports = (env) => {
                 }),
                 new webpackRtlPlugin({
                     minify: false
+                }),
+                new RetryChunkLoadPlugin({
+                    // optional stringified function to get the cache busting query string appended to the script src
+                    // if not set will default to appending the string `?cache-bust=true`
+                    //cacheBust: `function() {
+                    //        return Date.now();
+                    //    }`
                 })
             ]),
         mode: mode,
