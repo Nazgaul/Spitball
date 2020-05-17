@@ -1,10 +1,10 @@
 <template>
     <router-link v-if="item.url" :to="item.url" class="itemCarouselCard">
-        <div class="imageWrapper" :class="{'subscribed': !isSubscribed && !isLearnRoute}">
+        <div class="imageWrapper" :class="{'subscribed': isSubscribed && !isLearnRoute}">
             <intersection>
                 <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="$proccessImageUrl(item.preview,240,152)" alt="preview image">
             </intersection>
-            <div class="overlay text-center px-8" v-if="!isSubscribed && !isLearnRoute">
+            <div class="overlay text-center px-8" v-if="isSubscribed && !isLearnRoute">
                 <div class="unlockText white--text mb-3" v-t="subscribeText"></div>
                 <v-btn class="btn" color="#fff" rounded block @click.prevent="goSubscription">
                     <span v-t="{path: subscribeBtnText, args: { 0: subscribedPrice }}"></span>

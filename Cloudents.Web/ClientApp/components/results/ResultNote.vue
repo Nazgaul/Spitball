@@ -61,7 +61,7 @@
           :height="isMobile ? '108' : '162'"
           :width="isMobile ? '110' : '200'"
         ></v-skeleton-loader>
-        <div class="document-body-card" :class="{'subscribed': !isSubscribed && isPreviewReady}">
+        <div class="document-body-card" :class="{'subscribed': isSubscribed && isPreviewReady}">
           <intersection>
             <img
               class="document-body-card-img"
@@ -70,7 +70,7 @@
               alt
             />
           </intersection>
-          <div class="overlay text-center px-2 px-sm-5" v-if="!isSubscribed && isPreviewReady">
+          <div class="overlay text-center px-2 px-sm-5" v-if="isSubscribed && isPreviewReady">
               <div class="unlockText white--text mb-3" v-t="subscribeText"></div>
               <v-btn class="btn" color="#fff" @click.prevent="subscribe" rounded block>
                 <span v-t="{path: subscribeBtnText, args: { 0: subscribedPrice }}"></span>
