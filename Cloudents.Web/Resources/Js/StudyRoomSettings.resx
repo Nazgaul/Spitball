@@ -168,7 +168,7 @@
     <comment>בבקשה בחר מיקרופון</comment>
   </data>
   <data name="no_camera" xml:space="preserve">
-    <value>Camera is off</value>
+    <value>Spitball does not have access to your camera</value>
   </data>
   <data name="present" xml:space="preserve">
     <value>Present/Share Screen</value>
