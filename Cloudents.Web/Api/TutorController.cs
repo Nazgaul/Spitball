@@ -31,6 +31,7 @@ using System.Threading.Tasks;
 using Cloudents.Web.Services;
 using SbUserManager = Cloudents.Web.Identity.SbUserManager;
 using Cloudents.Core.DTOs.Tutors;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Web.Api
 {
@@ -415,10 +416,31 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpPost("{id:long}/subscribe"),Authorize]
-        public async Task<IActionResult> SubscribeToTutorAsync(long id)
+        [HttpPost("{tutorId:long}/subscribe"),Authorize]
+        public async Task<IActionResult> SubscribeToTutorAsync(
+            long tutorId,
+            [FromHeader(Name = "referer")] string referer,
+            [FromServices] IStripeService stripeService,
+            CancellationToken token)
         {
-            return Ok();
+            var user = await _userManager.GetUserAsync(User);
+            var email = await _userManager.GetEmailAsync(user);
+
+            var uriBuilder = new UriBuilder(referer)
+            {
+                Query = string.Empty
+            };
+            var url = new UriBuilder(Url.RouteUrl("stripe-buy-points", new
+            {
+                redirectUrl = uriBuilder.ToString()
+            }, "https"));
+            var successCallback = url.AddQuery(("sessionId", "{CHECKOUT_SESSION_ID}"), false).ToString();
+
+            var result = await stripeService.SubscribeToTutorAsync(tutorId, email, successCallback, referer, token);
+            return Ok(new
+            {
+                sessionId = result
+            });
         }
     }
 }
