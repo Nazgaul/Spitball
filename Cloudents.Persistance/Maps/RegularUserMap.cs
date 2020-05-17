@@ -104,7 +104,7 @@ namespace Cloudents.Persistence.Maps
                 .KeyColumn("UserId").Inverse().AsSet();
 
 
-            HasMany(x => x.Followed).KeyColumn("FollowerId")
+            HasMany(x => x.Following).KeyColumn("FollowerId")
                 .Cascade.AllDeleteOrphan().AsSet();
 
             HasMany(x => x.Leads)

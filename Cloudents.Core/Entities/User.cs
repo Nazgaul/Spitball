@@ -307,7 +307,7 @@ namespace Cloudents.Core.Entities
         }
 
 
-        protected internal virtual IEnumerable<Follow> Followed { get; set; }
+        protected internal virtual IEnumerable<Follow> Following { get; set; }
         protected internal virtual IEnumerable<Lead> Leads { get; set; }
 
         private readonly ISet<Follow> _followers = new HashSet<Follow>();
