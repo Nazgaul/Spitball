@@ -49,7 +49,7 @@ export default {
         return data.map(question => searchService.createQuestionItem(question))
     },
     async subscribe(id) {
-        let {data} = await axios.post(`/Tutor/${id}/subscribe`)
-        return data.map(question => searchService.createQuestionItem(question))
+        return await axios.post(`/Tutor/${id}/subscribe`)
+        
     }
 }

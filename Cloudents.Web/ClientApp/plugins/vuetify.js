@@ -24,6 +24,7 @@ const MY_ICONS = {
   // info: '...',
   // warning: '...',
   // error: '...',
+  lock: 'sbf-lock',
   prev: 'sbf-arrow-left-carousel',
   next: 'sbf-arrow-right-carousel',
   // checkboxOn: '...',

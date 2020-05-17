@@ -397,11 +397,11 @@ export default {
                 });
             }
         },200);
-        this.$nextTick(() => {
-          if(this.$route.hash) {
-            this.$vuetify.goTo(this.$route.hash)
-          }
-        })
+        // this.$nextTick(() => {
+        //   if(this.$route.hash) {
+        //     this.$vuetify.goTo(this.$route.hash)
+        //   }
+        // })
     }
 }
 </script>
