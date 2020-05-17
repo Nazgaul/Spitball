@@ -46,7 +46,7 @@ namespace Cloudents.Query.HomePage
                     .Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
-                    DocumentType = s.DocumentType ?? DocumentType.Document,
+                    DocumentType = s.DocumentType,
                     Duration = s.Duration,
                     Course = s.Course.Id,
                     Snippet = s.Description ?? s.MetaContent,

@@ -43,7 +43,7 @@ namespace Cloudents.Query.Users
                     .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok);
                 if (query.DocumentType != null)
                 {
-                    r = r.Where(w => w.DocumentType.GetValueOrDefault() == query.DocumentType);
+                    r = r.Where(w => w.DocumentType == query.DocumentType);
                 }
                 if (!string.IsNullOrEmpty(query.Course))
                 {
@@ -65,7 +65,7 @@ namespace Cloudents.Query.Users
                     {
                         Votes = s.VoteCount
                     },
-                    DocumentType = s.DocumentType ?? Core.Enum.DocumentType.Document,
+                    DocumentType = s.DocumentType,
                     Duration = s.Duration,
                     Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.Id && x.Action == TransactionActionType.SoldDocument)
 

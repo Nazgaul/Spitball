@@ -80,11 +80,13 @@ namespace Cloudents.Core.Entities
 
         //this is only for document
         public virtual int? PageCount { get; set; }
-        //public virtual long? OldId { get; protected set; }
 
         public virtual string? MetaContent { get; set; }
 
         public virtual decimal Price { get; protected set; }
+
+        //public virtual 
+
         // ReSharper disable once CollectionNeverUpdated.Local Resharper
         private readonly IList<Transaction> _transactions = new List<Transaction>();
         public virtual IEnumerable<Transaction> Transactions => _transactions;
@@ -121,8 +123,6 @@ namespace Cloudents.Core.Entities
                 throw new NotFoundException();
             }
 
-
-
             var vote = Votes.AsQueryable().FirstOrDefault(w => w.User == user);
             if (vote == null)
             {
@@ -131,7 +131,6 @@ namespace Cloudents.Core.Entities
             }
             vote.VoteType = type;
             VoteCount = Votes.Sum(s => (int)s.VoteType);
-
         }
 
         public virtual void MakePublic()
@@ -216,7 +215,7 @@ namespace Cloudents.Core.Entities
             User.MakeTransaction(new CommissionTransaction(Price));
         }
 
-        public virtual DocumentType? DocumentType { get; set; }
+        public virtual DocumentType DocumentType { get; set; }
 
         //This is only for video
         public virtual TimeSpan? Duration { get; set; }
