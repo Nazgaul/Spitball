@@ -53,17 +53,10 @@ namespace Cloudents.Query.Users
                       .Where(w => w.Id == query.Id)
                       .Select(s => new UserProfileDto()
                       {
+                          Id = s.Id,
                           Image = s.ImageName,
                           Name = s.Name,
                           Online = ((User)s).Online,
-                          //Tutor = new UserTutorProfileDto
-                          //{
-
-                          //    Price = ((User)s).Tutor.Price.Price,
-                          //    DiscountPrice = ((User)s).Tutor.Price.Price,
-                          //    TutorCountry = ((User)s).SbCountry,
-
-                          //},
                           CalendarShared = _session.Query<GoogleTokens>().Any(w => w.Id == query.Id.ToString()),
                           FirstName = ((User)s).FirstName,
                           LastName = ((User)s).LastName,

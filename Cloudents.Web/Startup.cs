@@ -172,7 +172,6 @@ namespace Cloudents.Web
                 {
                     x.MinificationSettings.AttributeQuotesRemovalMode = HtmlAttributeQuotesRemovalMode.KeepQuotes;
                 });
-            services.AddControllersWithViews();
             //services.AddRouting(x =>
             //{
             //    // x.ConstraintMap.Add("StorageContainerConstraint", typeof(StorageContainerRouteConstraint));
@@ -200,6 +199,7 @@ namespace Cloudents.Web
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 options.SerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { NamingStrategy = new CamelCaseNamingStrategy() });
                 options.SerializerSettings.Converters.Add(new RequestCultureConverter());
+                options.SerializerSettings.Converters.Add(new CountryConverter());
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
 
             })
