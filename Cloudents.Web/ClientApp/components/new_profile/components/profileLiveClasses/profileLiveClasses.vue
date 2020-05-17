@@ -176,11 +176,11 @@ export default {
     },
     computed: {
         isTutorSubscription() {
-            return this.$store.getters.getIsTutorSubscription
-        },
-        tutorSubscriptionPrice() {
             return this.$store.getters.getProfileTutorSubscription
         },
+        // tutorSubscriptionPrice() {
+        //     return this.$store.getters.getProfileTutorSubscription
+        // },
         liveSessionsList() {
             let liveList = this.liveSessions
             if(this.isExpand) {

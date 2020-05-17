@@ -33,6 +33,8 @@ namespace Cloudents.Core.DTOs.Users
 
         public Money? SubscriptionPrice { get; set; }
 
+        public bool IsSubscriber { get; set; }
+
         public string? Description { get; set; }
 
 

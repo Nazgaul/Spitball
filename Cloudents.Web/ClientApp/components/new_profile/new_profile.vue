@@ -247,11 +247,11 @@ export default {
             'getCouponError',
             "getProfile",
             'getBannerParams',
-            'getUserLoggedInStatus'
+            'getUserLoggedInStatus','getProfileTutorSubscription','getIsSubscriber'
         ]),
         isTutorSubscribe() {
-          let subscribe = this.getProfile?.user?.subscriptionPrice
-          return subscribe && subscribe.hasOwnProperty('amount')
+          //let subscribe =  this.getProfile?.user?.subscriptionPrice
+          return this.getProfileTutorSubscription && !this.getIsSubscriber
         },
         shareContentParams(){
             let urlLink = `${global.location.origin}/p/${this.$route.params.id}?t=${Date.now()}` ;

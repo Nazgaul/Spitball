@@ -3,9 +3,13 @@ import { Item } from './item.js';
 
 export const Profile = {
    Profile: function (objInit) {
-      return Object.assign(
-         new User.Default(objInit),
-         {
+      
+      return {
+           id : objInit.id ,
+            name :objInit.name,
+            firstName : objInit.firstName,
+            lastName : objInit.lastName,
+            image : objInit.image || '',
             documentCourses: objInit.documentCourses,
             courses:  objInit.courses, 
             coursesString: objInit.courses.toString().replace(/,/g, ", ") ,
@@ -14,13 +18,11 @@ export const Profile = {
             tutorData: objInit.tutor ? new User.Tutor(objInit.tutor) : '',
             isTutor: objInit.hasOwnProperty('tutor') || false,
             followers: objInit.followers || '',
-            firstName: objInit.firstName || '',
-            lastName: objInit.lastName || '',
             isFollowing: objInit.isFollowing,
             cover : objInit.cover || '',
-            subscriptionPrice: objInit.tutor?.subscriptionPrice
+            
          }
-      )
+      
    },
    ProfileItems: function (objInit) {
       this.result = objInit.result.map(objData => new Item[objData.documentType](objData));

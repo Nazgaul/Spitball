@@ -56,11 +56,15 @@ const mutations = {
 }
 const getters = {
    getProfile: state => state.profile,
-   getRam: state => state.profile,
    getProfileReviews: state => state.profileReviews,
    getShowEditDataDialog: state => state.showEditDataDialog,
    getProfileCoverImage: state => state.profile?.user?.cover || '',
-   getProfileTutorSubscription: state => state.profile?.user?.subscriptionPrice,
+   getProfileTutorSubscription: state => state.profile?.user?.tutorData?.subscriptionPrice,
+   getIsSubscriber: state => {
+      return state.profile?.user?.tutorData?.isSubscriber
+   },
+
+
 }
 
 const actions = {

@@ -56,8 +56,7 @@ namespace Cloudents.Query.Users
                           LastName = ((User)s).LastName,
                           Cover = ((User)s).CoverImage,
                           Followers = _session.Query<Follow>().Count(w => w.User.Id == query.Id),
-                          IsFollowing = _session.Query<Follow>()
-                              .Any(w => w.User.Id == query.Id && w.Follower.Id == query.UserId)
+                        
                       }).ToFutureValue();
 
                 var tutorFuture = _session.Query<ReadTutor>()
@@ -111,8 +110,14 @@ namespace Cloudents.Query.Users
                     .Take(20)
                     .Select(s => s.Course.Id).ToFuture();
 
+
+                var isFollowingFuture = _session.Query<Follow>()
+                    .Where(w => w.User.Id == query.Id && w.Follower.Id == query.UserId).ToFutureValue();
+
                 var result = await userFuture.GetValueAsync(token);
-             
+
+               
+
 
                 //var result = await profileValue.GetValueAsync(token);
 
@@ -126,6 +131,8 @@ namespace Cloudents.Query.Users
                 var tutorValue = tutorFuture.Value;
                 result.Tutor = tutorValue;
                 var couponResult = couponQuery.Value;
+                var isFollowing = isFollowingFuture.Value;
+                result.IsFollowing =isFollowing != null;
 
                 if (result.Tutor != null)
                 {
@@ -136,6 +143,8 @@ namespace Cloudents.Query.Users
                         result.Tutor.CouponValue = couponResult.Value;
 
                     }
+
+                    result.Tutor.IsSubscriber = isFollowing?.Subscriber ?? false;
                 }
 
                 result.DocumentCourses = await documentCoursesFuture.GetEnumerableAsync(token);

@@ -26,9 +26,16 @@ export const User = {
         this.tutorCountry = objInit.tutorCountry;
     },
     Tutor: function (objInit) {
-        return Object.assign(
-            new User.TutorDefault(objInit),
-            {
+        return{
+                price : objInit.price || 0,
+                currency: objInit.currency,
+                bio: objInit.bio || '',
+                lessons: objInit.lessons || 0,
+                discountPrice: objInit.discountPrice,
+                subjects: objInit.subjects.toString().replace(/,/g, ", "),
+                pendingSessionsPayments: objInit.pendingSessionsPayments || null,
+                description: objInit.description || '',
+                tutorCountry: objInit.tutorCountry,
                 contentCount: objInit.contentCount,
                 hasCoupon: objInit.hasCoupon,
                 rate: objInit.rate || 0,
@@ -36,8 +43,10 @@ export const User = {
                 firstName: objInit.firstName || '',
                 lastName: objInit.lastName || '',
                 students: objInit.students || 0,
-            }
-        )
+                subscriptionPrice: objInit.subscriptionPrice,
+                isSubscriber : objInit.isSubscriber
+        }
+        
     },
     TutorItem: function(objInit){
         return Object.assign(
