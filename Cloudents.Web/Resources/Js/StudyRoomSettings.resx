@@ -154,6 +154,9 @@
   <data name="done_btn" xml:space="preserve">
     <value>Done</value>
   </data>
+  <data name="free" xml:space="preserve">
+    <value>Free</value>
+  </data>
   <data name="full_view" xml:space="preserve">
     <value>Camera Fullscreen</value>
   </data>

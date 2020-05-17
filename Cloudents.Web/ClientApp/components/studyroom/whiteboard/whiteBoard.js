@@ -300,34 +300,14 @@ export default {
         keyCodeChecker(e,keyCode){
             return (e.which == keyCode || e.keyCode == keyCode);
         },
-        getWindowWidth(){
-            let windowWidth = document.querySelector('main').clientWidth;
-            let paddingLeft = +document.querySelector('main').style.paddingLeft.replace('px','')
-            let paddingRight = +document.querySelector('main').style.paddingRight.replace('px','')
-            let windowSidePadding = paddingRight || paddingLeft;
-            let size = windowWidth - windowSidePadding
-            return size
-        },
-        getWindowHeight(){
-            let windowHeight = document.querySelector('main').clientHeight;
-            let paddingTop = HeaderHeight;
-            let paddingBottom = +document.querySelector('main').style.paddingBottom.replace('px','') + tabsHeight;
-            let windowYPadding = paddingTop + paddingBottom;
-            let size = windowHeight - windowYPadding
-            return size
-        },
         resizeCanvas() {
             // let canvas = document.getElementById('canvas');
             let ctx = this.canvas.getContext("2d");
             ctx.setTransform(1, 0, 0, 1, 0, 0);
-            this.windowWidth = this.getWindowWidth(),
-                this.windowHeight = this.getWindowHeight(),
-                this.canvas.width = this.windowWidth;
-                this.canvas.height = this.windowHeight;
-            // this.windowWidth = global.innerWidth,
-                // this.windowHeight = global.innerHeight - HeaderHeight,
-                // this.canvas.width = this.canvasWidth;
-                // this.canvas.height = this.canvasHeight;
+            this.windowWidth = this.getWindowWidth();
+            this.windowHeight = this.getWindowHeight();
+            this.canvas.width = this.windowWidth;
+            this.canvas.height = this.windowHeight;
             whiteBoardService.redraw(this.canvasData);
         },
         injectToTextArea(textToInject) {
@@ -342,7 +322,7 @@ export default {
         // },
         registerCanvasEvents(canvas, canvasWrapper) {
             let self = this;
-            global.addEventListener('resize', this.resizeCanvas, false);
+            // global.addEventListener('resize', this.resizeCanvas, false);
             let dropArea = canvas;
             dropArea.addEventListener('dragenter', () =>{
             }, false);
@@ -438,9 +418,40 @@ export default {
                 });
                 canvas.dispatchEvent(mouseEvent);
             }, false);
-        }
+        },
+        windowChangeEvent(){
+            let MutationObserver = window.MutationObserver;
+            let target = document.querySelector('main');
+            let self = this;
+            let observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if(mutation.oldValue.includes("padding:")){
+                        self.resizeCanvas()
+                    }
+                });    
+              });
+            let config = { attributes: true, attributeOldValue: true }
+            observer.observe(target, config);
+        },
+        getWindowWidth(){
+            let windowWidth = document.querySelector('main').clientWidth;
+            let paddingLeft = +document.querySelector('main').style.paddingLeft.replace('px','')
+            let paddingRight = +document.querySelector('main').style.paddingRight.replace('px','')
+            let windowSidePadding = paddingRight || paddingLeft;
+            let size = windowWidth - windowSidePadding
+            return size
+        },
+        getWindowHeight(){
+            let windowHeight = document.querySelector('main').clientHeight;
+            let paddingTop = HeaderHeight;
+            let paddingBottom = +document.querySelector('main').style.paddingBottom.replace('px','') + tabsHeight;
+            let windowYPadding = paddingTop + paddingBottom;
+            let size = windowHeight - windowYPadding
+            return size
+        },
     },
     mounted() {
+        this.windowChangeEvent()
         this.canvas = document.querySelector('canvas');
         let canvasWrapper = document.querySelector('.canvas-wrapper');
         this.canvas.width = this.windowWidth;
