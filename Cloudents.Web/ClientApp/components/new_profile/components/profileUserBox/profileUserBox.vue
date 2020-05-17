@@ -27,18 +27,27 @@
                             <template v-if="currentProfileUser.isTutor">
                                 <div class="d-flex align-end justify-center">
                                     <div class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
-                                        {{tutorPrice ? currencySymbol(tutorPrice) : currencySymbol(tutorDiscountPrice)}}
+                                        <i18n-n :value="tutorDiscountPrice || tutorPrice" :format="{ key: 'currency', currency: currentProfileUser.tutorData.currency }">
+                                            <template v-slot:integer="slotProps">
+                                                <span class="profileUserSticky_pricing_price_number">{{ slotProps.integer }}</span>
+                                                <span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"></span></span>
+                                            </template>
+                                            <template v-slot:currency="slotProps"><span class="profileUserSticky_pricing_price_number"> {{ slotProps.currency }}</span></template>
+                                        </i18n-n>
                                     </div>
                                     <div class="profileUserSticky_pricing_price">
                                         <template v-if="tutorPrice">
-                                        <i18n-n :value="tutorDiscountPrice || tutorPrice" :locale="'he-IL'" :format="{ key: 'currency', currency: currentProfileUser.tutorData.currency }">
-                                            <template v-slot:integer="slotProps"><span class="profileUserSticky_pricing_price_number">{{ slotProps.integer }}</span></template>
-                                            <template v-slot:currency="slotProps"><span class="profileUserSticky_pricing_price_number"> {{ slotProps.currency }}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/></template>
-                                        </i18n-n>
+                                            <i18n-n :value="tutorPrice" :format="{ key: 'currency', currency: currentProfileUser.tutorData.currency }">
+                                                <template v-slot:integer="slotProps">
+                                                    <span class="profileUserSticky_pricing_price_number">{{ slotProps.integer }}</span>
+                                                    <span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"></span></span>
+                                                </template>
+                                                <template v-slot:currency="slotProps"><span class="profileUserSticky_pricing_price_number"> {{ slotProps.currency }}</span></template>
+                                            </i18n-n>
                                         </template>
-                                        <template v-else>
+                                        <!-- <template v-else>
                                             <span class="profileUserSticky_pricing_price_number" v-t="'profile_free'"></span>
-                                        </template>
+                                        </template> -->
                                             <!--  <span class="profileUserSticky_pricing_price_number"> {{isDiscount && tutorPrice !== 0  ? currencySymbol(tutorDiscountPrice) : currencySymbol(tutorPrice)}}</span>
                                             /<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/> -->
                                     </div>
@@ -106,10 +115,22 @@
                         <div class="profileUserSticky_pricing mb-4" v-if="currentProfileUser.isTutor">
                             <div class="d-flex align-end justify-center">
                                 <div class="profileUserSticky_pricing_discount mr-2" v-if="isDiscount">
-                                    {{tutorPrice ? currencySymbol(tutorPrice) : currencySymbol(tutorDiscountPrice)}}
+                                    <i18n-n :value="tutorDiscountPrice" :format="{ key: 'currency', currency: currentProfileUser.tutorData.currency }">
+                                        <template v-slot:integer="slotProps">
+                                            <span class="profileUserSticky_pricing_price_number">{{ slotProps.integer }}</span>
+                                            <span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"></span></span>
+                                        </template>
+                                        <template v-slot:currency="slotProps"><span class="profileUserSticky_pricing_price_number"> {{ slotProps.currency }}</span></template>
+                                    </i18n-n>
                                 </div>
                                 <div class="profileUserSticky_pricing_price">
-                                    <span class="profileUserSticky_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? currencySymbol(tutorDiscountPrice) : currencySymbol(tutorPrice)}}</span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"/>
+                                    <i18n-n :value="tutorPrice" :format="{ key: 'currency', currency: currentProfileUser.tutorData.currency }">
+                                        <template v-slot:integer="slotProps">
+                                            <span class="profileUserSticky_pricing_price_number">{{ slotProps.integer }}</span>
+                                            <span>/<span class="profileUserSticky_pricing_price_hour" v-t="'profile_points_hour'"></span></span>
+                                        </template>
+                                        <template v-slot:currency="slotProps"><span class="profileUserSticky_pricing_price_number"> {{ slotProps.currency }}</span></template>
+                                    </i18n-n>
                                 </div>
                             </div>
                             <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" class="profileUserSticky_coupon text-center mt-1" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
