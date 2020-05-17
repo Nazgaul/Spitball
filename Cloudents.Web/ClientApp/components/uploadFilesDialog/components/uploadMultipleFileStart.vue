@@ -184,7 +184,6 @@ export default {
         // regular upload methods
         inputFile(newFile, oldFile) {
             this.uploadStarted = true;
-debugger
             if(newFile) {
                 // Upload progress
                 if (newFile.progress === 100) {
