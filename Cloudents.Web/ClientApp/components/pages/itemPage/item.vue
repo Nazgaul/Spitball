@@ -276,7 +276,7 @@ export default {
             return {};
         },
         itemList() {
-            return this.getRelatedDocuments;
+            return this.getRelatedDocuments || 0;
         },
         firstName() {
             let user = this.docTutor;
