@@ -34,6 +34,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Infrastructure;
 using Cloudents.Web.Seo;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -199,7 +200,7 @@ namespace Cloudents.Web
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 options.SerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { NamingStrategy = new CamelCaseNamingStrategy() });
                 options.SerializerSettings.Converters.Add(new RequestCultureConverter());
-                options.SerializerSettings.Converters.Add(new CountryConverter());
+                options.SerializerSettings.Converters.Add(new EnumerationConverter<Country>());
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
 
             })

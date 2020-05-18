@@ -109,7 +109,7 @@ namespace Cloudents.Search.Document
                 ScoringParameters = new[]
                              {
                                  TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsVideoParameter, DocumentType.Video.ToString("G")),
-                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsCourseParameter,userProfile.Courses),
+                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsCourseParameter,(string?) null),
                 },
                 Facets = new[]
                 {

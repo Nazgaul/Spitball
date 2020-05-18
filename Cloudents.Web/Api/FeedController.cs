@@ -67,10 +67,6 @@ namespace Cloudents.Web.Api
         private WebResponseWithFacet<FeedDto> GenerateResult(
             IEnumerable<FeedDto> result, IEnumerable<string> filters)
         {
-
-
-
-
             return new WebResponseWithFacet<FeedDto>
             {
                 Result = result.Select(s =>
@@ -131,7 +127,7 @@ namespace Cloudents.Web.Api
         [HttpGet]
         public async Task<WebResponseWithFacet<FeedDto>> SearchInSpitballAsync(
             [RequiredFromQuery]  DocumentRequestSearch request,
-            [ProfileModelBinder(ProfileServiceQuery.Country | ProfileServiceQuery.Course)] UserProfile profile,
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
             var result = await _feedService.GetFeedAsync(new SearchFeedQuery(profile, 

@@ -24,4 +24,15 @@ namespace Cloudents.Core.DTOs
         public string Destination { get;  }
     }
 
+
+    //public class SubscriberDto
+    //{
+    //    public SubscriberDto(long id)
+    //    {
+    //        Id = id;
+    //    }
+
+    //    public long Id { get;  }
+    //}
+
 }

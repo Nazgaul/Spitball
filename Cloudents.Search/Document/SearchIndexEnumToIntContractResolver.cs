@@ -4,6 +4,7 @@ using System;
 using System.Reflection;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
+using Cloudents.Infrastructure;
 using Newtonsoft.Json.Converters;
 
 namespace Cloudents.Search.Document
@@ -60,6 +61,8 @@ namespace Cloudents.Search.Document
         }
     }
 
+
+    //TODO this is duplication of EnumerationConverter
     public class CountryConverter : JsonConverter<Country?>
     {
         public override void WriteJson(JsonWriter writer, Country? value, JsonSerializer serializer)

@@ -29,6 +29,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Models;
+using Cloudents.Web.Binders;
 using Wangkanai.Detection;
 
 namespace Cloudents.Web.Api
@@ -280,6 +282,7 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<DocumentFeedDto>> GetSimilarDocumentsAsync(
             [FromQuery] SimilarDocumentsRequest request,
             [FromServices] ICrawlerResolver crawlerResolver,
+            [ProfileModelBinder(ProfileServiceQuery.Subscribers)] UserProfile profile,
              CancellationToken token)
         {
             if (crawlerResolver.Crawler != null)
@@ -288,8 +291,14 @@ namespace Cloudents.Web.Api
             }
             var query = new SimilarDocumentsQuery(request.DocumentId);
             var res = await _queryBus.QueryAsync(query, token);
+
             return res.Select(s =>
             {
+                if (profile.Subscribers?.Contains(s.User.Id) == true)
+                {
+                    s.PriceType = PriceType.Free;
+                    s.Price = 0;
+                }
                 s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
                 return s;
             });
