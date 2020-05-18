@@ -51,7 +51,7 @@ namespace Cloudents.Persistence.Maps
             Component(x => x.DocumentPrice, y =>
             {
                 y.Map(z => z!.Price).CustomSqlType("smallMoney");
-                y.Map(z => z!.PriceType);
+                y.Map(z => z!.Type).Column("PriceType");
 
             });
         }

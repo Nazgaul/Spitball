@@ -7,18 +7,20 @@ using NHibernate.Linq;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Query.Users
 {
     public class UserDocumentsQuery : IQuery<ListWithCountDto<DocumentFeedDto>>
     {
-        public UserDocumentsQuery(long id, int page, int pageSize, DocumentType? documentType, string? course)
+        public UserDocumentsQuery(long id, int page, int pageSize, DocumentType? documentType, string? course, long userId)
         {
             Id = id;
             Page = page;
             PageSize = pageSize;
             DocumentType = documentType;
             Course = course;
+            UserId = userId;
         }
 
         private long Id { get; }
@@ -26,7 +28,9 @@ namespace Cloudents.Query.Users
         private int PageSize { get; }
 
         private DocumentType? DocumentType { get; }
-        private string? Course { get;}
+        private string? Course { get; }
+
+        private long UserId { get; }
 
         internal sealed class UserDocumentsQueryHandler : IQueryHandler<UserDocumentsQuery, ListWithCountDto<DocumentFeedDto>>
         {
@@ -65,6 +69,7 @@ namespace Cloudents.Query.Users
                     {
                         Votes = s.VoteCount
                     },
+                    PriceType = s.DocumentPrice.Type ?? PriceType.Free,
                     DocumentType = s.DocumentType,
                     Duration = s.Duration,
                     Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.Id && x.Action == TransactionActionType.SoldDocument)
@@ -76,10 +81,29 @@ namespace Cloudents.Query.Users
     .Select(s => s.Count()).ToFutureValue();
 
 
+                IFutureValue<bool?>? scribedQueryFuture = null;
+                if (query.UserId > 0)
+                {
+                    scribedQueryFuture = _session.Query<Follow>()
+                       .Where(w => w.Follower.Id == query.UserId)
+                       .Where(w => w.User.Id == query.Id)
+                       .Select(s => s.Subscriber).ToFutureValue();
+
+                }
+
                 //var countFuture = count.ToFuture();
 
                 var futureResult = await result.GetEnumerableAsync(token);
+                var isSubscribed = scribedQueryFuture?.Value ?? query.UserId == query.Id;
 
+                if (isSubscribed)
+                {
+                    futureResult = futureResult.Select(s =>
+                    {
+                        s.PriceType = PriceType.Free;
+                        return s;
+                    });
+                }
                 return new ListWithCountDto<DocumentFeedDto>()
                 {
                     Result = futureResult,

@@ -187,7 +187,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
 
-            if (DocumentPrice.PriceType == PriceType.Subscriber)
+            if (DocumentPrice.Type == PriceType.Subscriber)
             {
                 throw new ArgumentException("Subscribe cannot have price");
             }
@@ -238,7 +238,7 @@ namespace Cloudents.Core.Entities
         public const decimal PriceLimit = 1000M;
         public DocumentPrice(in decimal price, PriceType priceType)
         {
-            PriceType = priceType;
+            Type = priceType;
             Price = price;
             if (priceType == PriceType.Subscriber)
             {
@@ -248,7 +248,7 @@ namespace Cloudents.Core.Entities
 
             if (price == 0)
             {
-                PriceType = PriceType.Free;
+                Type = PriceType.Free;
             }
 
         }
@@ -273,14 +273,14 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public  PriceType PriceType { get; protected set; }
+        public  PriceType? Type { get; protected set; }
 
        
 
         public void ChangePrice(in decimal newPrice)
         {
             Price = newPrice;
-            PriceType = newPrice > 0 ? PriceType.HasPrice : PriceType.Free;
+            Type = newPrice > 0 ? PriceType.HasPrice : PriceType.Free;
         }
     }
 }
