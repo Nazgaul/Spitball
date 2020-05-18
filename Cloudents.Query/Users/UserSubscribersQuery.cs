@@ -36,6 +36,7 @@ namespace Cloudents.Query.Users
                     .Select(s => s.User.Id)
                     .ToListAsync(token);
 
+                result.Add(query.UserId);
                 return new HashSet<long>(result);
             }
         }
