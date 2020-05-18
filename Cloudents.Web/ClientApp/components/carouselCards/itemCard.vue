@@ -67,7 +67,7 @@ export default {
             return this.$route.name === routeNames.Profile
         },
         isSubscribed() {
-            return this.item?.subscribed
+            return this.item.priceType === 'Subscriber'
         },
         subscribeText() {
             return this.isMobile ? 'resultNote_subscribe_mobile_text' : 'resultNote_subscribe_desktop_text'

@@ -254,7 +254,7 @@ export default {
       return this.item.subscriberPrice || '$15'
     },
     isSubscribed() {
-      return this.item?.subscribed
+      return this.item.priceType === 'Subscriber'
     },
     isVideo() {
       return this.item.documentType === "Video";
