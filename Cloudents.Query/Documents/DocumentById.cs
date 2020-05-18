@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Entities;
+﻿using System.Linq;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Query.Stuff;
 using NHibernate;
@@ -10,6 +11,7 @@ using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs.Documents;
 using Cloudents.Core.DTOs.Tutors;
+using NHibernate.Linq;
 
 namespace Cloudents.Query.Documents
 {
@@ -101,7 +103,13 @@ namespace Cloudents.Query.Documents
                        .Where(w => w.User.Id == query.UserId.Value && w.Document.Id == query.Id && w.Type == TransactionType.Spent)
                        .UnderlyingCriteria.SetComment(nameof(DocumentById))
                        .FutureValue<DocumentTransaction>();
-                //.ToFutureValue()
+
+
+                var scribedQueryFuture = _session.Query<Follow>()
+                      .Where(w => w.Follower.Id == query.UserId)
+                      .Where(w => w.User.Id == query.Id)
+                      .Select(s => s.Subscriber).ToFutureValue();
+
                 var purchaseCountFuture = _session.QueryOver<DocumentTransaction>()
              .Where(w => w.Document.Id == query.Id && w.Type == TransactionType.Spent)
              .SelectList(s => s.SelectCount(c => c.Id)).FutureValue<int>();
@@ -144,7 +152,7 @@ namespace Cloudents.Query.Documents
                     else
                     {
                         var transactionResult = await purchaseFuture.GetValueAsync(token);
-                        result.IsPurchased = transactionResult != null;
+                        result.IsPurchased = scribedQueryFuture.Value ?? transactionResult != null;
                     }
                 }
                 result.Document.Purchased = await purchaseCountFuture.GetValueAsync(token);
