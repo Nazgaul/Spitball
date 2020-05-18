@@ -55,22 +55,17 @@ namespace Cloudents.Core.Test.Entities
         public void InitDocumentWithPrice_Ok_StateOk()
         {
             var course = new Course("Some name");
-            //var mockUser = new Mock<User>();
+            var mockUser = new Mock<User>();
             var mockTutor = new Mock<Tutor>();
-           //mockUser.Setup(s => s.Tutor).Returns(mockTutor.Object);
+            mockTutor.Setup(s => s.User).Returns(mockUser.Object);
             var date = DateTime.UtcNow;
-            var document = new Document("some name", course, mockTutor.Object, 10, DocumentType.Document, null, PriceType.Regular);
+            var document = new Document("some name", 
+                course, mockTutor.Object,
+                10, DocumentType.Document, null, PriceType.Regular);
             document.Status.State.Should().Be(ItemState.Ok);
             document.TimeStamp.CreationTime.Should().BeAfter(date);
         }
 
-        [Fact]
-        public void InitDocument_NoTutor_Error()
-        {
-            var course = new Course("Some name");
-            var mockTutor = new Mock<Tutor>();
-            var date = DateTime.UtcNow;
-            Assert.Throws<UnauthorizedAccessException>(() => new Document("some name", course, mockTutor.Object, 10, DocumentType.Document, null, PriceType.Regular));
-        }
+       
     }
 }

@@ -61,6 +61,12 @@ namespace Cloudents.Core.Entities
             var currency = User.SbCountry.RegionInfo.ISOCurrencySymbol;
             var money = new Money(price, currency);
             SubscriptionPrice = money;
+
+            foreach (var document in User.Documents)
+            {
+                document.ChangeToSubscribeMode();
+            }
+
             AddEvent(new UpdateTutorSettingsEvent(Id));
         }
 

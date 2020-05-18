@@ -7,7 +7,7 @@ namespace Cloudents.Web.Models
     {
         public long Id { get; set; }
 
-        [Range(0, (int)Document.PriceLimit)]
+        [Range(0, (int)DocumentPrice.PriceLimit)]
         public decimal Price { get; set; }
     }
 }

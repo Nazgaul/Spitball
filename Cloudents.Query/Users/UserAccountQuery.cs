@@ -82,7 +82,7 @@ namespace Cloudents.Query.Users
                     .ToFuture();
 
                 var haveDocsWithPriceFuture = _session.Query<Document>()
-                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok && w.Price > 0)
+                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok && w.DocumentPrice.Price > 0)
                     .Select(s => s.Id)
                     .Take(1)
                     .ToFuture();

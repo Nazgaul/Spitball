@@ -60,7 +60,7 @@ namespace Cloudents.Query.Documents
                             .Select(Projections.Property(() => documentAlias.Name).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Title)}"))
                             .Select(Projections.Property(() => documentAlias.TimeStamp.UpdateTime).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.DateTime)}"))
                             .Select(Projections.Property(() => documentAlias.Views).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Views)}"))
-                            .Select(Projections.Property(() => documentAlias.Price).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Price)}"))
+                            .Select(Projections.Property(() => documentAlias.DocumentPrice.Price).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Price)}"))
                             .Select(Projections.Property(() => documentAlias.Course.Id).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Course)}"))
                             .Select(Projections.Property(() => documentAlias.Downloads).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Downloads)}"))
                             .Select(Projections.Property(() => documentAlias.VoteCount).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Vote)}.{nameof(VoteDto.Votes)}"))

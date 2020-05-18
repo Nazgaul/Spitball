@@ -22,7 +22,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Description).Nullable();
             Map(x => x.MetaContent).Nullable();
             Map(x => x.Md5).Nullable();
-            Map(x => x.Price).Not.Nullable().CustomSqlType("smallmoney");
+            //Map(x => x.DocumentPrice.Price).Not.Nullable().CustomSqlType("smallmoney");
             //DO NOT PUT ANY CASCADE WE HANDLE THIS ON CODE - TAKE A LOOK AT ADMIN COMMAND AND REGULAR COMMAND
             HasMany(x => x.Transactions)
                 .KeyColumn("DocumentId")
@@ -46,7 +46,14 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Boost);
             Component(x => x.Status);
 
-            Map(x => x.PriceType);
+
+
+            Component(x => x.DocumentPrice, y =>
+            {
+                y.Map(z => z!.Price).CustomSqlType("smallMoney");
+                y.Map(z => z!.PriceType);
+
+            });
         }
     }
 

@@ -39,14 +39,14 @@ namespace Cloudents.Query.Users
                         Id = s.Id,
                         Name = s.Name,
                         Course = s.Course.Id,
-                        Type = s.DocumentType != null?  s.DocumentType.ToString() : "Document",
+                        Type = s.DocumentType.ToString(),
                         Likes = s.VoteCount,
-                        Price = s.Price,
+                        Price = s.DocumentPrice.Price,
                         //State = s.Status.State,
                         Date = s.TimeStamp.CreationTime,
                         Views = s.Views,
                         Downloads = s.Downloads,
-                        Purchased = s.Transactions.Where(w => w is DocumentTransaction).Count()
+                        Purchased = s.Transactions.Count(w => w is DocumentTransaction)
                     }).ToFuture<UserContentDto>();
 
 
