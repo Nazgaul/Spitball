@@ -24,6 +24,7 @@ namespace Cloudents.Core.Entities
             Tutor tutor, decimal price, DocumentType documentType, string? description, PriceType priceType)
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
+            if (tutor == null) throw new ArgumentNullException(nameof(tutor));
             Course = course ?? throw new ArgumentNullException(nameof(course));
             User = tutor.User;
             //if (user.Tutor == null)
@@ -48,12 +49,7 @@ namespace Cloudents.Core.Entities
             }
             DocumentType = documentType;
 
-           
-            PriceType = priceType;
-
-            Price = price;
-            
-
+            DocumentPrice = new DocumentPrice(price,priceType);
         }
 
       
@@ -88,28 +84,7 @@ namespace Cloudents.Core.Entities
 
         public virtual string? MetaContent { get; set; }
 
-        private decimal _price;
-
-        public virtual decimal Price
-        {
-            get => _price;
-            protected set
-            {
-                if (value > PriceLimit || value < 0)
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
-                _price = decimal.Round(value, 2);
-            }
-        }
-
-        public virtual PriceType PriceType { get; protected set; }
-
-        public virtual void ChangeToSubscribeMode()
-        {
-            PriceType = PriceType.Subscriber;
-            _price = 0;
-        }
+        
 
         //public virtual 
 
@@ -127,6 +102,8 @@ namespace Cloudents.Core.Entities
         protected internal virtual ISet<UserDownloadDocument> DocumentDownloads { get; set; }
 
         public virtual short Boost { get; set; }
+
+        public virtual DocumentPrice DocumentPrice { get; protected set; }
 
         public virtual void AddDownload(User user)
         {
@@ -201,21 +178,22 @@ namespace Cloudents.Core.Entities
             AddEvent(new DocumentUndeletedEvent(this));
         }
 
-        public const decimal PriceLimit = 1000M;
+      
 
         public virtual void ChangePrice(decimal newPrice)
         {
-            if (Price == newPrice)
+            if (DocumentPrice.Price == newPrice)
             {
                 return;
             }
 
-            if (PriceType == PriceType.Subscriber)
+            if (DocumentPrice.PriceType == PriceType.Subscriber)
             {
                 throw new ArgumentException("Subscribe cannot have price");
             }
-            Price = newPrice;
-            PriceType = newPrice > 0 ? PriceType.HasPrice : PriceType.Free;
+
+            DocumentPrice.ChangePrice(newPrice);
+            
             TimeStamp.UpdateTime = DateTime.UtcNow;
             AddEvent(new DocumentPriceChangeEvent(this));
         }
@@ -237,7 +215,7 @@ namespace Cloudents.Core.Entities
 
             buyer.MakeTransaction(DocumentTransaction.Buyer(this));
             User.MakeTransaction(DocumentTransaction.Seller(this));
-            User.MakeTransaction(new CommissionTransaction(Price));
+            User.MakeTransaction(new CommissionTransaction(DocumentPrice.Price));
         }
 
         public virtual DocumentType DocumentType { get; set; }
@@ -247,10 +225,61 @@ namespace Cloudents.Core.Entities
         public virtual bool IsShownHomePage { get; protected set; }
 
         public virtual string? Md5 { get; set; }
+
+
+        public virtual void ChangeToSubscribeMode()
+        {
+            DocumentPrice = new DocumentPrice(0,PriceType.Subscriber);
+        }
     }
 
     public class DocumentPrice
     {
+        public const decimal PriceLimit = 1000M;
+        public DocumentPrice(decimal price, PriceType priceType)
+        {
+            PriceType = priceType;
+            Price = price;
+            if (priceType == PriceType.Subscriber)
+            {
+                price = 0;
+            }
 
+            if (price == 0)
+            {
+                PriceType = PriceType.Free;
+            }
+
+        }
+
+        protected DocumentPrice()
+        {
+            
+        }
+
+        private decimal _price;
+
+        public virtual decimal Price
+        {
+            get => _price;
+            protected set
+            {
+                if (value > PriceLimit || value < 0)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                _price = decimal.Round(value, 2);
+            }
+        }
+
+        public  PriceType PriceType { get; protected set; }
+
+       
+
+        public void ChangePrice(in decimal newPrice)
+        {
+            Price = newPrice;
+            PriceType = newPrice > 0 ? PriceType.HasPrice : PriceType.Free;
+        }
     }
 }

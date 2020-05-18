@@ -64,7 +64,7 @@ namespace Cloudents.Query.HomePage
                     {
                         Votes = s.VoteCount
                     },
-                    Price = s.Price,
+                    Price = s.DocumentPrice.Price,
                     Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.Id && x.Action == TransactionActionType.SoldDocument)
                 }).Take(query.Count).ToListAsync(token);
             }
