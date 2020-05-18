@@ -64,7 +64,10 @@ namespace Cloudents.Core.Entities
 
             foreach (var document in User.Documents)
             {
-                document.ChangeToSubscribeMode();
+                if (document.DocumentPrice.Price > 0)
+                {
+                    document.ChangeToSubscribeMode();
+                }
             }
 
             AddEvent(new UpdateTutorSettingsEvent(Id));
