@@ -103,7 +103,13 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public virtual PriceType PriceType { get; protected set; } 
+        public virtual PriceType PriceType { get; protected set; }
+
+        public virtual void ChangeToSubscribeMode()
+        {
+            PriceType = PriceType.Subscriber;
+            _price = 0;
+        }
 
         //public virtual 
 
@@ -241,5 +247,10 @@ namespace Cloudents.Core.Entities
         public virtual bool IsShownHomePage { get; protected set; }
 
         public virtual string? Md5 { get; set; }
+    }
+
+    public class DocumentPrice
+    {
+
     }
 }

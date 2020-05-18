@@ -57,6 +57,10 @@ namespace Cloudents.Core.Entities
         public virtual IEnumerable<Question> Questions => _questions;
 
 
+        private readonly ICollection<Document> _documents = new List<Document>();
+        public virtual IEnumerable<Document> Documents => _documents;
+
+
         public virtual DateTime Created { get; protected set; }
 
         public virtual string Email { get; set; }
