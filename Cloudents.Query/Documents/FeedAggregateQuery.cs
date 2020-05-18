@@ -13,7 +13,7 @@ namespace Cloudents.Query.Documents
 {
     public class FeedAggregateQuery : IQuery<IEnumerable<FeedDto>>
     {
-        public FeedAggregateQuery(long userId, int page, Country country, string course, int pageSize)
+        public FeedAggregateQuery(long userId, int page, Country country, string? course, int pageSize)
         {
             Page = page;
             UserId = userId;
@@ -33,7 +33,7 @@ namespace Cloudents.Query.Documents
 
         private Country Country { get; }
 
-        private string Course { get; }
+        private string? Course { get; }
         private int PageSize { get; }
 
         internal sealed class DocumentAggregateQueryHandler : IQueryHandler<FeedAggregateQuery, IEnumerable<FeedDto>>
@@ -74,6 +74,7 @@ select 'd' as type
 , COALESCE(d.description,metaContent) as Snippet
 , d.Name as Title
 , d.[Views]
+,d.PriceType as PriceType
 , d.Downloads
 , d.VoteCount as 'Vote.Votes'
 , (select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = @userId) as 'Vote.Vote'
@@ -146,6 +147,7 @@ select 'd' as type
 ,(select d.Id --id,
 ,d.Price
 ,d.CourseName as Course
+,d.PriceType as PriceType
 ,d.UpdateTime as DateTime
 ,d.Language as CultureInfo
 ,u.Id as 'User.Id'

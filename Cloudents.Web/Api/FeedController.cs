@@ -51,7 +51,10 @@ namespace Cloudents.Web.Api
 
             _userManager.TryGetLongUserId(User, out var userId);
 
-            var result = await _feedService.GetFeedAsync(new GetFeedQuery(userId, page, request.Filter, profile.CountryRegion), token);
+            var result = 
+                await _feedService.GetFeedAsync(new GetFeedQuery(userId,
+                    page, request.Filter, profile.CountryRegion
+                    ), token);
             return GenerateResult(result,
                 new List<string>()
                 {
@@ -73,6 +76,7 @@ namespace Cloudents.Web.Api
                 {
                     if (s is DocumentFeedDto p)
                     {
+                        
                         p.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(p.Id);
                         p.Url = Url.DocumentUrl(p.Course, p.Id, p.Title);
                     }
