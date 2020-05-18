@@ -308,7 +308,14 @@ export default {
   methods: {
     ...mapActions(["updateToasterParams", "removeItemFromList", "removeDocItemAction"]),
     subscribe() {
-      //TODO: add subscribe logic
+      this.$router.push({
+        name: routeNames.Profile,
+        params: {
+          id: this.item.user.id,
+          name: this.item.user.name
+        },
+        hash: '#subscription'
+      })
     },
     updateItemPrice(val) {
       if (val || val === 0) {

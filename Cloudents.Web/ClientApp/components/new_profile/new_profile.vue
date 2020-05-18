@@ -19,7 +19,7 @@
         class="mt-sm-12 mt-2 mx-auto calendarSection"
         :globalFunctions="globalFunctions"
       />
-      <profileSubscription :id="id" v-if="isTutorSubscribe" />
+      <profileSubscription :id="id" v-if="isTutorSubscribe" ref="profileSubscription" />
       <profileLiveClasses :id="id" v-if="isTutor" />
       <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" />
       <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" />
@@ -250,7 +250,6 @@ export default {
             'getUserLoggedInStatus','getProfileTutorSubscription','getIsSubscriber'
         ]),
         isTutorSubscribe() {
-          //let subscribe =  this.getProfile?.user?.subscriptionPrice
           return this.getProfileTutorSubscription && !this.getIsSubscriber
         },
         shareContentParams(){
@@ -360,6 +359,16 @@ export default {
             if(val && this.getCouponError) {
                 this.$store.commit('setCouponError', false)
             }
+        },
+        isTutorSubscribe(val) {
+          if(val) {
+            this.$nextTick(() => {
+              let profileSubscriptionElement = this.$refs.profileSubscription
+              if(profileSubscriptionElement && this.$route.hash) {
+                this.$vuetify.goTo(this.$route.hash)
+              }
+            })
+          }
         }
     },
     beforeRouteLeave(to, from, next) {
@@ -397,11 +406,6 @@ export default {
                 });
             }
         },200);
-        // this.$nextTick(() => {
-        //   if(this.$route.hash) {
-        //     this.$vuetify.goTo(this.$route.hash)
-        //   }
-        // })
     }
 }
 </script>
