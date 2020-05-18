@@ -15,7 +15,7 @@ namespace Cloudents.Core.Test.Entities
         public void InitDocument__NullCourse_Error()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                new Document("some name", null!, null!, 0, DocumentType.Document, null, PriceType.Free));
+                new Document("some name", null!, null!, 0, DocumentType.Document, null, PriceType.Regular));
         }
 
         [Fact]
@@ -23,7 +23,7 @@ namespace Cloudents.Core.Test.Entities
         {
             var course = new Course("Some name");
             Assert.Throws<ArgumentNullException>(() => new Document("some name", course, null!, 0,
-                DocumentType.Document, null, PriceType.Free));
+                DocumentType.Document, null, PriceType.Regular));
         }
 
 
@@ -32,7 +32,7 @@ namespace Cloudents.Core.Test.Entities
         {
             var course = new Course("Some name");
             Assert.Throws<ArgumentNullException>(() => new Document(null!, course, null!, 0, DocumentType.Document, null,
-                PriceType.Free));
+                PriceType.Regular));
         }
 
 
@@ -40,12 +40,12 @@ namespace Cloudents.Core.Test.Entities
         public void InitDocument_Ok_StateOk()
         {
             var course = new Course("Some name");
-            var mockUser = new Mock<User>();
+            //var mockUser = new Mock<User>();
             var mockTutor = new Mock<Tutor>();
-            mockUser.Setup(s => s.Tutor).Returns(mockTutor.Object);
+            //mockUser.Setup(s => s.Tutor).Returns(mockTutor.Object);
 
             var date = DateTime.UtcNow;
-            var document = new Document("some name", course, mockUser.Object, 0, DocumentType.Document, null, PriceType.Free);
+            var document = new Document("some name", course, mockTutor.Object, 0, DocumentType.Document, null, PriceType.Regular);
             document.Status.State.Should().Be(ItemState.Ok);
             document.TimeStamp.CreationTime.Should().BeAfter(date);
         }
@@ -55,11 +55,11 @@ namespace Cloudents.Core.Test.Entities
         public void InitDocumentWithPrice_Ok_StateOk()
         {
             var course = new Course("Some name");
-            var mockUser = new Mock<User>();
+            //var mockUser = new Mock<User>();
             var mockTutor = new Mock<Tutor>();
-            mockUser.Setup(s => s.Tutor).Returns(mockTutor.Object);
+           //mockUser.Setup(s => s.Tutor).Returns(mockTutor.Object);
             var date = DateTime.UtcNow;
-            var document = new Document("some name", course, mockUser.Object, 10, DocumentType.Document, null, PriceType.Free);
+            var document = new Document("some name", course, mockTutor.Object, 10, DocumentType.Document, null, PriceType.Regular);
             document.Status.State.Should().Be(ItemState.Ok);
             document.TimeStamp.CreationTime.Should().BeAfter(date);
         }
@@ -68,9 +68,9 @@ namespace Cloudents.Core.Test.Entities
         public void InitDocument_NoTutor_Error()
         {
             var course = new Course("Some name");
-            var mockUser = new Mock<User>();
+            var mockTutor = new Mock<Tutor>();
             var date = DateTime.UtcNow;
-            Assert.Throws<UnauthorizedAccessException>(() => new Document("some name", course, mockUser.Object, 10, DocumentType.Document, null, PriceType.Free));
+            Assert.Throws<UnauthorizedAccessException>(() => new Document("some name", course, mockTutor.Object, 10, DocumentType.Document, null, PriceType.Regular));
         }
     }
 }

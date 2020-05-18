@@ -114,7 +114,10 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
             CancellationToken token)
         {
-            
+            if (model.Price.HasValue)
+            {
+                model.PriceType = PriceType.HasPrice;
+            }
             var userId = _userManager.GetLongUserId(User);
             if (!model.BlobName.StartsWith("file-", StringComparison.OrdinalIgnoreCase))
             {

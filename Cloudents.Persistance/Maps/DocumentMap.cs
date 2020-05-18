@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistence.Maps

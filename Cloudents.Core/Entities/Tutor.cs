@@ -64,6 +64,11 @@ namespace Cloudents.Core.Entities
             AddEvent(new UpdateTutorSettingsEvent(Id));
         }
 
+        public virtual bool HasSubscription()
+        {
+            return SubscriptionPrice != null;
+        }
+
         public virtual void UpdateSettings(string bio, decimal? price)
         {
             if (price.HasValue)

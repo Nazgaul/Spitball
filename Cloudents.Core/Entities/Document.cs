@@ -21,15 +21,15 @@ namespace Cloudents.Core.Entities
 
         public Document(string name,
             Course course,
-            User user, decimal price, DocumentType documentType, string? description, PriceType priceType)
+            Tutor tutor, decimal price, DocumentType documentType, string? description, PriceType priceType)
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
             Course = course ?? throw new ArgumentNullException(nameof(course));
-            User = user ?? throw new ArgumentNullException(nameof(user));
-            if (user.Tutor == null)
-            {
-                throw new UnauthorizedAccessException("Only tutor can upload files");
-            }
+            User = tutor.User;
+            //if (user.Tutor == null)
+            //{
+            //    throw new UnauthorizedAccessException("Only tutor can upload files");
+            //}
 
             TimeStamp = new DomainTimeStamp();
             DocumentDownloads = new HashSet<UserDownloadDocument>();
@@ -41,14 +41,18 @@ namespace Cloudents.Core.Entities
             {
                 Description = description;
             }
-            ChangePrice(price);
-            Status = GetInitState(user);
+            Status = GetInitState(tutor.User);
             if (Status == Public)
             {
                 MakePublic();
             }
             DocumentType = documentType;
+
+           
             PriceType = priceType;
+
+            Price = price;
+            
 
         }
 
@@ -84,7 +88,20 @@ namespace Cloudents.Core.Entities
 
         public virtual string? MetaContent { get; set; }
 
-        public virtual decimal Price { get; protected set; }
+        private decimal _price;
+
+        public virtual decimal Price
+        {
+            get => _price;
+            protected set
+            {
+                if (value > PriceLimit || value < 0)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                _price = decimal.Round(value, 2);
+            }
+        }
 
         public virtual PriceType PriceType { get; protected set; } 
 
@@ -187,15 +204,14 @@ namespace Cloudents.Core.Entities
                 return;
             }
 
-            if (newPrice > PriceLimit)
+            if (PriceType == PriceType.Subscriber)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentException("Subscribe cannot have price");
             }
-
-            Price = decimal.Round(newPrice, 2);
+            Price = newPrice;
+            PriceType = newPrice > 0 ? PriceType.HasPrice : PriceType.Free;
             TimeStamp.UpdateTime = DateTime.UtcNow;
             AddEvent(new DocumentPriceChangeEvent(this));
-
         }
 
         public virtual void Rename(string name)
