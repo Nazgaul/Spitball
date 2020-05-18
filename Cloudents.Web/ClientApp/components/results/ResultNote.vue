@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="document-header-small-sagment">
-        <documentPrice :price="item.price" v-if="!isMobile" />
+        <documentPrice :price="item.price" v-if="!isMobile" :isSubscribed="isSubscribed" />
 
         <v-menu
           class="menu-area"
@@ -254,7 +254,7 @@ export default {
       return this.item.subscriberPrice || '$15'
     },
     isSubscribed() {
-      return this.item?.subscribed
+      return this.item.priceType === 'Subscriber'
     },
     isVideo() {
       return this.item.documentType === "Video";
