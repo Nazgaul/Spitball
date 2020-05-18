@@ -87,7 +87,7 @@
                     </template>
                     <template v-else>
                         <v-col cols="4" class="pa-0 rowCol" :class="{'enroll': session.enrolled}">
-                            <div v-if="session.price">
+                            <div class="d-flex align-center" v-if="session.price">
                                 <span class="numericPrice mb-1">{{$n(session.price, 'currency')}}</span>
                                 <div class="d-flex align-end">
                                     <span>/</span>
