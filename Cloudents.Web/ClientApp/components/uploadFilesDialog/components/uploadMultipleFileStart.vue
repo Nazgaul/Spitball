@@ -5,11 +5,12 @@
             <div class="uf-uploading-text">
                 <span class="uf-bold" v-t="'upload_uf-uploading'"></span>
                 <span v-t="'upload_uf-take-time'"></span>
-                <span>{{files[0].progress.toFixed(0)}}%</span>
+                <span>{{files[0].progress}}%</span>
             </div>
             <v-progress-linear color="success" v-model="files[0].progress"></v-progress-linear>
         </div>
         <div class="uf-upload-screen-container" v-show="!uploadStarted">
+            
             <template v-if="!isDraggin && !isMobile">
                 <span class="uf-sDrop-title" v-t="'upload_uf_sDrop_title'"></span>
                 <span class="uf-sDrop-or" v-t="'upload_uf_sDrop_or'"></span>
@@ -67,7 +68,6 @@ import analyticsService from '../../../services/analytics.service';
 import { LanguageService } from "../../../services/language/languageService";
 
 import FileUpload from 'vue-upload-component';
-// import customChunkHandler from './customChunkHandler.js'
 
 export default {
     name: "upload-step-1",
@@ -92,7 +92,6 @@ export default {
             nextStepCalled: false,
             uploadStarted: false,
             progress: 0,
-            // customUploadHandlerClass: customChunkHandler
         }
     },
     computed: {
@@ -184,6 +183,7 @@ export default {
         // regular upload methods
         inputFile(newFile, oldFile) {
             this.uploadStarted = true;
+            
             if(newFile) {
                 // Upload progress
                 if (newFile.progress === 100) {

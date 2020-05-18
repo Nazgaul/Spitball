@@ -29,7 +29,7 @@
                     placeholder=" "
                     color="#4c59ff"
                     height="44"
-                    autocomplete="abcd"
+                    autocomplete="off"
                     hide-no-data
                     outlined
                     dense
@@ -87,8 +87,8 @@ export default {
             courseForAll:'',
             currentPrice: '',
             currentPriceItems: [
-                { text: this.$t('upload_free_all'), value: 'free' },
-                { text: this.$t('upload_subscriber_only'), value: 'subscriber' }
+                { text: this.$t('upload_free_all'), value: 'Free' },
+                { text: this.$t('upload_subscriber_only'), value: 'Subscriber' }
             ],
             rules: {
                 required: (value) => validationRules.required(value),
@@ -146,8 +146,8 @@ export default {
         ...mapGetters(['getFileData']),
         ...mapActions(['setAllPrice','setAllCourse']),
         applyAll(){
-            if(this.priceForAll){
-                this.setAllPrice(this.priceForAll)
+            if(this.currentPrice){
+                this.setAllPrice(this.currentPrice)
             }
             if(!!this.courseForAll){
                 this.setAllCourse(this.courseForAll)
