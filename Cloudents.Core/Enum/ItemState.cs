@@ -15,7 +15,6 @@ namespace Cloudents.Core.Enum
     {
         Free,
         HasPrice,
-        Regular,
         Subscriber
     }
 }

@@ -236,13 +236,14 @@ namespace Cloudents.Core.Entities
     public class DocumentPrice
     {
         public const decimal PriceLimit = 1000M;
-        public DocumentPrice(decimal price, PriceType priceType)
+        public DocumentPrice(in decimal price, PriceType priceType)
         {
             PriceType = priceType;
             Price = price;
             if (priceType == PriceType.Subscriber)
             {
-                price = 0;
+                Price = 0;
+                return;
             }
 
             if (price == 0)

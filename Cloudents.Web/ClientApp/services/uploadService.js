@@ -17,11 +17,11 @@ function FileData(objInit){
 }
 
 function ServerFormatFileData(objInit) {
-    this.blobName = objInit.blobName || '';
-    this.name= objInit.name || '';
-    this.course= objInit.course || '';
-    this.price = objInit.price || '';
-    this.description = objInit.description || '';
+    this.blobName = objInit.blobName;
+    this.name= objInit.name;
+    this.course= objInit.course;
+    this.price = objInit.price;
+    this.description = objInit.description;
     this.priceType = objInit.priceType
 }
 
