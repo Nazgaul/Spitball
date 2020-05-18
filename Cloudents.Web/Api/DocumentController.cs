@@ -127,6 +127,7 @@ namespace Cloudents.Web.Api
             var command = new CreateDocumentCommand(model.BlobName, model.Name,
                 model.Course, userId, model.Price, model.Description, model.PriceType);
             await _commandBus.DispatchAsync(command, token);
+
             
             return Ok();
         }
