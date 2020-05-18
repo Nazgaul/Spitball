@@ -2,6 +2,7 @@
 using Cloudents.Web.Extensions;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Web.Models
 {
@@ -19,9 +20,11 @@ namespace Cloudents.Web.Models
 
 
         [Range(0, (int)Document.PriceLimit)]
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
 
         public string? Description { get; set; }
+
+        public PriceType PriceType { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
@@ -30,6 +33,13 @@ namespace Cloudents.Web.Models
                 yield return new ValidationResult(
                     "File Name is invalid",
                     new[] { nameof(Name) });
+            }
+
+            if (PriceType == PriceType.HasPrice && Price == null)
+            {
+                yield return new ValidationResult(
+                    "Need to have price",
+                    new[] { nameof(Price) });
             }
         }
     }

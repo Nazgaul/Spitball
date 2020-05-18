@@ -33,7 +33,7 @@ namespace Cloudents.Command.CommandHandler
             var course = await _courseRepository.LoadAsync(message.Course, token);
             var extension = FileTypesExtensions.FileExtensionsMapping[Path.GetExtension(message.BlobName)];
             var document = new Document(message.Name,
-                course, user, message.Price, extension.DocumentType, message.ModelDescription);
+                course, user, message.Price.GetValueOrDefault(), extension.DocumentType, message.ModelDescription, message.PriceType);
 
             await _documentRepository.AddAsync(document, token);
             var id = document.Id;

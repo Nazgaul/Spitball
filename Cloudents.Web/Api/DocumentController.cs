@@ -86,7 +86,7 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
-            
+
             model.Document.User.Image = urlBuilder.BuildUserImageEndpoint(model.Document.User.Id, model.Document.User.Image);
             if (model.Tutor != null)
             {
@@ -96,7 +96,7 @@ namespace Cloudents.Web.Api
 
             var tQueue = queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
             var textTask = Task;
-            if (crawlerResolver.Crawler != null && model.Document.DocumentType == DocumentType.Document )
+            if (crawlerResolver.Crawler != null && model.Document.DocumentType == DocumentType.Document)
             {
                 textTask = _blobProvider.DownloadTextAsync("text.txt", query.Id.ToString(), token);
             }
@@ -114,6 +114,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
             CancellationToken token)
         {
+            
             var userId = _userManager.GetLongUserId(User);
             if (!model.BlobName.StartsWith("file-", StringComparison.OrdinalIgnoreCase))
             {
@@ -121,13 +122,9 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
             var command = new CreateDocumentCommand(model.BlobName, model.Name,
-                model.Course, userId, model.Price, model.Description);
+                model.Course, userId, model.Price, model.Description, model.PriceType);
             await _commandBus.DispatchAsync(command, token);
-
-            //var url = Url.RouteUrl("ShortDocumentLink", new
-            //{
-            //    base62 = new Base62(command.Id).ToString()
-            //});
+            
             return Ok();
         }
 
@@ -156,7 +153,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), "Cannot vote twice");
                 return BadRequest(ModelState);
             }
-          
+
             catch (UnauthorizedAccessException)
             {
                 ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteCantVote"]);

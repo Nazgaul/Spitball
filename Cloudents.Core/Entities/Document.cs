@@ -21,7 +21,7 @@ namespace Cloudents.Core.Entities
 
         public Document(string name,
             Course course,
-            User user, decimal price, DocumentType documentType, string? description)
+            User user, decimal price, DocumentType documentType, string? description, PriceType priceType)
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
             Course = course ?? throw new ArgumentNullException(nameof(course));
@@ -48,7 +48,8 @@ namespace Cloudents.Core.Entities
                 MakePublic();
             }
             DocumentType = documentType;
-      
+            PriceType = priceType;
+
         }
 
       
@@ -85,9 +86,11 @@ namespace Cloudents.Core.Entities
 
         public virtual decimal Price { get; protected set; }
 
+        public virtual PriceType PriceType { get; protected set; } 
+
         //public virtual 
 
-        // ReSharper disable once CollectionNeverUpdated.Local Resharper
+        // ReSharper disable once CollectionNeverUpdated.Local 
         private readonly IList<Transaction> _transactions = new List<Transaction>();
         public virtual IEnumerable<Transaction> Transactions => _transactions;
 
@@ -171,7 +174,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void UnDelete()
         {
-            Status = ItemStatus.Public;
+            Status = Public;
             AddEvent(new DocumentUndeletedEvent(this));
         }
 

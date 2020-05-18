@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistence.Maps
@@ -45,6 +46,8 @@ namespace Cloudents.Persistence.Maps
             Map(e => e.IsShownHomePage);
             Map(x => x.Boost);
             Component(x => x.Status);
+
+            Map(x => x.PriceType);
         }
     }
 
