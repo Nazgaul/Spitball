@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="document-header-small-sagment">
-        <documentPrice :price="item.price" v-if="!isMobile" />
+        <documentPrice :price="item.price" v-if="!isMobile" :isSubscribed="isSubscribed" />
 
         <v-menu
           class="menu-area"

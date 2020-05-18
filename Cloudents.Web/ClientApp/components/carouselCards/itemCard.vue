@@ -32,7 +32,8 @@
             </div>
             <div class="itemCard-bottom mt-2">
                 <span class="item-purchases">{{item.purchased}} {{$tc('itemCardCarousel_view', item.purchased)}}</span>
-                <span class="item-pts">{{$tc('itemCardCarousel_pts',item.price)}}</span>
+                <documentPrice :price="item.price" :isSubscribed="isSubscribed" />
+                <!-- <span class="item-pts">{{$tc('itemCardCarousel_pts',item.price)}}</span> -->
             </div>
         </div>
     </router-link>
@@ -40,11 +41,14 @@
 
 <script>
 import * as routeNames from '../../routes/routeNames';
+
+import documentPrice from '../pages/global/documentPrice/documentPrice.vue'
+
 import intersection from '../pages/global/intersection/intersection.vue';
 import vidSVG from '../../components/results/svg/vid.svg'
 
 export default {
-    components:{vidSVG, intersection},
+    components:{vidSVG, intersection, documentPrice},
     props:{
         item:{
             type:Object,
