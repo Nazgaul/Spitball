@@ -7,6 +7,7 @@ using Newtonsoft.Json.Converters;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Entities;
+using Cloudents.Infrastructure;
 using Cloudents.Search.Document;
 
 namespace Cloudents.Search.Entities
