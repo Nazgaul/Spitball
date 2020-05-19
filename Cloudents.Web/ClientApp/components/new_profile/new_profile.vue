@@ -19,7 +19,7 @@
         class="mt-sm-12 mt-2 mx-auto calendarSection"
         :globalFunctions="globalFunctions"
       />
-      <profileSubscription :id="id" v-if="isTutorSubscribe && !isMyProfile" ref="profileSubscription" />
+      <profileSubscription :id="id" v-if="isTutorSubscribe && !isMyProfile && isTutor" ref="profileSubscription" />
       <profileLiveClasses :id="id" v-if="isTutor" />
       <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" />
       <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" />
@@ -247,7 +247,10 @@ export default {
             'getCouponError',
             "getProfile",
             'getBannerParams',
-            'getUserLoggedInStatus','getProfileTutorSubscription','getIsSubscriber'
+            'getUserLoggedInStatus',
+            'getProfileTutorSubscription',
+            'getIsSubscriber',
+            'getIsMyProfile'
         ]),
         isTutorSubscribe() {
           return !this.getIsSubscriber || !this.getUserLoggedInStatus
@@ -285,7 +288,7 @@ export default {
             return !!this.getProfile && this.getProfile.user.isTutor
         },
         isMyProfile(){
-          return this.$store.getters.getIsMyProfile
+          return this.getIsMyProfile
         },
         // isMyProfile(){
         //     return !!this.getProfile && !!this.accountUser && this.accountUser?.id == this.getProfile?.user?.id

@@ -63,8 +63,6 @@ const getters = {
    getIsSubscriber: state => {
       return state.profile?.user?.tutorData?.isSubscriber
    },
-
-
 }
 
 const actions = {
