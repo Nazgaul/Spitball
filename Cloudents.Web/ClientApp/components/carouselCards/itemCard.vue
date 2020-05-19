@@ -150,11 +150,13 @@ export default {
                 left: 0;
                 transform: translate(0,-50%);
                 .unlockText {
+                    white-space: pre;
                     font-size: 15px;
                     font-weight: 600;
                     line-height: 1.47;
                 }
                 .btn {
+                    width: 100%;
                     color: @global-purple;
                     font-weight: 600;
                 }
