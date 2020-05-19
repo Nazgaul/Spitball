@@ -19,10 +19,9 @@
          <v-flex xs7 sm5 pr-3>
             <v-select class="filterSelect ma-0"
                :append-icon="'sbf-arrow-fill'" 
-               :items="[{name:'Show All',value:true},{name:'unRead',value:false}]"
+               :items="[{name: $t('chat_show_all'),value:true},{name:$t('chat_show_unread'),value:false}]"
                item-text="name"
                v-model="filter.isShowAll"
-               placeholder="Show all" 
                flat hide-details height="38" dense rounded/>
          </v-flex>
          <v-flex xs5 sm7>

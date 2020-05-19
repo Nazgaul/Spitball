@@ -153,4 +153,10 @@
   <data name="search_placeholder" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="show_all" xml:space="preserve">
+    <value>Show All</value>
+  </data>
+  <data name="show_unread" xml:space="preserve">
+    <value>unRead</value>
+  </data>
 </root>
