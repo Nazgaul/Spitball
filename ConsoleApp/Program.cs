@@ -155,28 +155,25 @@ namespace ConsoleApp
         {
             var session = Container.Resolve<ISession>();
             //var bus = Container.Resolve<ICommandBus>();
-            //var studyRoomUsers =await session.Query<StudyRoomSessionUser>()
-            //    .ToListAsync();
+            var studyRoomUsers = await session.Query<StudyRoomSessionUser>()
+                .Fetch(f => f.StudyRoomPayment)
+                .ToListAsync();
 
-            foreach (var user in session.Query<StudyRoomSessionUser>())
+            foreach (var user in studyRoomUsers)
             {
+                // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+                if (user.StudyRoomPayment != null)
+                {
+                    continue;
+                }
+                using var unitOfWork = Container.Resolve<IUnitOfWork>();
                 user.StudyRoomPayment = new StudyRoomPayment(user);
                 session.Flush();
-                //if (user.BuyerPayment != null)
-                //{
-                //    if (user.Payment == null)
-                //    {
-                //        var command = new AddBuyerTokenCommand(user.Id,
-                //            user.BuyerPayment.PaymentKey,
-                //            user.BuyerPayment.PaymentKeyExpiration,
-                //            user.BuyerPayment.CreditCardMask);
-                //        await bus.DispatchAsync(command, default);
-                //    }
-                //}
-            }
-            
+                await unitOfWork.CommitAsync(default);
 
-            //AddBuyerTokenCommand
+            }
+
+
         }
 
         private static async Task UpdateTwilioParticipants()
