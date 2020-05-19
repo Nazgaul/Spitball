@@ -40,9 +40,9 @@ namespace Cloudents.Core.Test.Entities
         public void InitDocument_Ok_StateOk()
         {
             var course = new Course("Some name");
-            //var mockUser = new Mock<User>();
+            var mockUser = new Mock<User>();
             var mockTutor = new Mock<Tutor>();
-            //mockUser.Setup(s => s.Tutor).Returns(mockTutor.Object);
+            mockTutor.Setup(s => s.User).Returns(mockUser.Object);
 
             var date = DateTime.UtcNow;
             var document = new Document("some name", course, mockTutor.Object, 0, DocumentType.Document, null, PriceType.Free);

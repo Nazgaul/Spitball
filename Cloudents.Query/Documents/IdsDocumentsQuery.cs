@@ -13,7 +13,7 @@ namespace Cloudents.Query.Documents
     /// <summary>
     /// This query is for search purposes
     /// </summary>
-    public class IdsDocumentsQuery : IQuery<IList<DocumentFeedDto>>
+    public class IdsDocumentsQuery : IQuery<IEnumerable<DocumentFeedDto>>
     {
         public IdsDocumentsQuery(IEnumerable<long> ids)
         {
@@ -23,7 +23,7 @@ namespace Cloudents.Query.Documents
         private IEnumerable<long> DocumentIds { get; }
 
 
-        internal sealed class DocumentsQueryHandler : IQueryHandler<IdsDocumentsQuery, IList<DocumentFeedDto>>
+        internal sealed class DocumentsQueryHandler : IQueryHandler<IdsDocumentsQuery, IEnumerable<DocumentFeedDto>>
         {
             private readonly IStatelessSession _session;
 
@@ -32,7 +32,7 @@ namespace Cloudents.Query.Documents
                 _session = session.StatelessSession;
             }
 
-            public async Task<IList<DocumentFeedDto>> GetAsync(IdsDocumentsQuery query, CancellationToken token)
+            public async Task<IEnumerable<DocumentFeedDto>> GetAsync(IdsDocumentsQuery query, CancellationToken token)
             {
                 var ids = query.DocumentIds.ToList();
 
@@ -60,13 +60,12 @@ namespace Cloudents.Query.Documents
                         Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.Id && x.Action == TransactionActionType.SoldDocument),
                         DocumentType = s.DocumentType,
                         Duration = s.Duration,
-                        PriceType = s.DocumentPrice.Type.GetValueOrDefault(),
+                        PriceType = s.DocumentPrice.Type ?? PriceType.Free,
                         Vote = new VoteDto()
                         {
                             Votes = s.VoteCount
                         }
-                    })
-                    .ToListAsync(token);
+                    }).ToListAsync(token);
                 return z;
             }
         }

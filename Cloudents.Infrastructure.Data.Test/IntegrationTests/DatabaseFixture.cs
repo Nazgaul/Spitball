@@ -42,15 +42,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             builder.RegisterModule<ModuleDb>();
             builder.RegisterModule<ModuleCore>();
             builder.RegisterModule<ModuleInfrastructureBase>();
-            // builder.RegisterModule<ModuleCache>();
             builder.RegisterType<GoogleService>().AsSelf()
               .As<ICalendarService>().SingleInstance();
 
             builder.RegisterType<DummyCacheProvider>().As<ICacheProvider>();
             builder.RegisterType<GoogleDataStore>()
                 .AsSelf().InstancePerDependency();
-            builder.RegisterModule<ModuleCore>();
-            builder.RegisterType<DapperRepository>().AsSelf();
             Container = builder.Build();
             QueryBus = Container.Resolve<IQueryBus>();
             DapperRepository = Container.Resolve<IDapperRepository>();
@@ -80,7 +77,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             return null;
         }
 
-        public T? Get<T>(string key, string region) where T : class
+        public T Get<T>(string key, string region)
         {
             return default;
         }
@@ -90,7 +87,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         }
 
-        public void Set<T>(string key, string region, T? value, TimeSpan expire, bool slideExpiration) where T : class
+        public void Set<T>(string key, string region, T value, TimeSpan expire, bool slideExpiration)
         {
            
         }
