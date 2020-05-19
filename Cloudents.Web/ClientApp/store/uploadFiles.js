@@ -8,9 +8,9 @@ const mutations = {
         let  objIndex =  state.fileData.findIndex((obj => obj.id === val.id));
         state.fileData[objIndex].progress = 100;
     },
-    updatePriceToAll(state, price){
+    updatePriceToAll(state, priceObj){
         state.fileData.forEach(file=>{
-            file.priceType = price;
+            file[priceObj.type] = priceObj.value;
         });
     },
     updateCourseToAll(state, course){
@@ -77,8 +77,8 @@ const actions = {
     stopUploadProgress({commit}, val) {
         commit('setUploadProgress', val);
     },
-    setAllPrice({commit}, price){
-        commit('updatePriceToAll', price);
+    setAllPrice({commit}, priceObj){
+        commit('updatePriceToAll', priceObj);
     },
     setAllCourse({commit}, course){
         commit('updateCourseToAll', course);

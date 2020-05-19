@@ -22,6 +22,7 @@
                 <v-select
                     v-model="currentPrice"
                     :items="currentPriceItems"
+                    v-if="!isTutorSubscribe"
                     :rules="[rules.required]"
                     :label="$t('upload_file_price_label')"
                     :append-icon="'sbf-menu-down'"
@@ -34,20 +35,21 @@
                     dense
                 >
                 </v-select>
-                <!-- <v-text-field
-                    v-model="priceForAll"
+                <v-text-field
+                    v-model="currentPrice"
                     v-else
                     type="number"
                     :rules="[rules.required,rules.integer,rules.maximum,rules.minimum]"
-                    :label="$t('upload_label_price')"
-                    :suffix="priceForAll ? $t('upload_uf_price_pts') :''"
+                    :label="$t('upload_file_price_label')"
+                    :suffix="currentPrice ? $t('upload_uf_price_pts') :''"
                     placeholder=" "
+                    autocomplete="off"
                     color="#4c59ff"
                     height="44"
                     dense
                     outlined
                 >
-                </v-text-field> -->
+                </v-text-field>
             </v-col>
             <v-col cols="6" sm="3" class="pl-4">
                 <v-btn @click="applyAll" class="uf-sEdit-top-btn" color="#4c59ff" height="44" block depressed rounded outlined>
@@ -134,6 +136,9 @@ export default {
     },
     computed: {
         ...mapGetters(['getSelectedClasses']),
+        isTutorSubscribe() {
+            return this.$store.getters.getIsTutorSubscription
+        },
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
         },
@@ -146,7 +151,11 @@ export default {
         ...mapActions(['setAllPrice','setAllCourse']),
         applyAll(){
             if(this.currentPrice){
-                this.setAllPrice(this.currentPrice)
+                let type = 'price'
+                if(!this.isTutorSubscribe) {
+                    type = 'priceType'
+                }
+                this.setAllPrice({type, value: this.currentPrice})
             }
             if(!!this.courseForAll){
                 this.setAllCourse(this.courseForAll)

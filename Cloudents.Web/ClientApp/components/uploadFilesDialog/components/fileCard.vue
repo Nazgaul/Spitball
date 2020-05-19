@@ -52,6 +52,7 @@
             <v-col cols="12" sm="3" class="pa-0" order="3" order-sm="4">
                 <v-select
                     v-model="item.priceType"
+                    v-if="!isTutorSubscribe"
                     :items="currentPriceItems"
                     :rules="[rules.required]"
                     :label="$t('upload_file_price_label')"
@@ -65,6 +66,21 @@
                     dense
                 >
                 </v-select>
+                <v-text-field class="uf_price pt-1"
+                    v-model="item.price" 
+                    v-else
+                    type="number"
+                    :label="$t('upload_file_price_label')"
+                    :rules="[rules.integer,rules.maximum,rules.minimum]"
+                    placeholder=" "
+                    :suffix="item.price ? $t('upload_uf_price_pts') : ''"
+                    color="#4c59ff"
+                    autocomplete="off"
+                    height="44"
+                    outlined
+                    dense
+                >
+                </v-text-field>
             </v-col>
         </v-row>
     </v-card>
@@ -82,6 +98,7 @@ export default {
         return {
             selectedCourse: '',
             isFromQuery: false,
+            currentPrice: null,
             currentPriceItems: [
                 { text: this.$t('upload_free_all'), value: 'Free' },
                 { text: this.$t('upload_subscriber_only'), value: 'Subscriber' }
@@ -90,7 +107,9 @@ export default {
                 required: (value) => validationRules.required(value),
                 integer: (value) => validationRules.integer(value),
                 matchCourse:() => ((this.getSelectedClasses.length && this.getSelectedClasses.some(course=>course.text === this.selectedCourse)
-                        ) || this.isFromQuery) || LanguageService.getValueByKey("tutorRequest_invalid")
+                        ) || this.isFromQuery) || LanguageService.getValueByKey("tutorRequest_invalid"),
+                maximum: (value) => validationRules.maxVal(value, 1000),
+                minimum: (value) => validationRules.minVal(value,0)
             }
         }
     },
@@ -127,7 +146,9 @@ export default {
     },
     computed: {
         ...mapGetters(['getFileData', 'getSelectedClasses']),
-
+        isTutorSubscribe() {
+            return this.$store.getters.getIsTutorSubscription
+        },
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
         },
