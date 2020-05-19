@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Query.Stuff;
 using NHibernate;
 using NHibernate.Linq;
 using PaymentStatus = Cloudents.Core.Enum.PaymentStatus;
@@ -72,54 +71,9 @@ namespace Cloudents.Query.Tutor
                    .Select(s => new {s.Coupon.CouponType, s.Coupon.Value})
                    .ToFutureValue();
 
-                    
-//                var sqlQuery = _statelessSession.CreateSQLQuery(@"
-//DECLARE @Id UNIQUEIDENTIFIER = :Id, @UserId int = :UserId
-//DECLARE @True bit = 1, @False bit = 0;
-//Select 
-//onlineDocumentUrl as OnlineDocument, 
-//sr.identifier as ConversationId,
-//sr.tutorId,
-//sr.BroadcastTime,
-//sr.StudyRoomType as Type,
-//sr.Name,
-//COALESCE(sr.Price,t.Price) as TutorPrice,
-//u.Name as TutorName,
-//u.ImageName as TutorImage,
-//x.*,
-//  coalesce (
-//    case when sr.price = 0 then @False else null end,
-//	case when t.price = 0 then @False else null end,
-//    case when t.id = @UserId then @False else null end ,
-//	case when COALESCE( (select u2.PaymentExists from sb.[user] u2 where id = @UserId),0) = 1 then @False else null end,
-//    case when u.Country = 'IN' then @False else null end,
-//	@True
-//) as NeedPayment
-//from sb.StudyRoom sr 
-//join sb.Tutor t on t.Id = sr.TutorId
-//join sb.[User] u on t.Id = u.Id
-//outer apply (
-//					Select 
-//							c.couponType,
-//							c.Value as CouponValue
-//                           	from  sb.userCoupon uc 
-//							join sb.coupon c on uc.couponId = c.id and uc.UsedAmount < c.AmountOfUsePerUser
-//								 where @UserId = uc.userid and t.id = uc.tutorId
-//					) x
-//where sr.id = @Id;");
-
-//                sqlQuery.SetGuid("Id", query.Id);
-//                sqlQuery.SetInt64("UserId", query.UserId);
-
-//                sqlQuery.SetResultTransformer(new SbAliasToBeanResultTransformer<StudyRoomDto>());
-//                var resultFuture = sqlQuery.FutureValue<StudyRoomDto>();
-
-//                var result = await resultFuture.GetValueAsync(token);
 
 
                 var result = await futureStudyRoom.GetValueAsync(token);
-
-               // var studyRoomSession = studyRoomSessionFuture.Value;
 
                 if (result is null)
                 {

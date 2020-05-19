@@ -47,7 +47,7 @@ namespace Cloudents.Core.Entities
         public virtual bool LockoutEnabled { get; set; }
 
 
-        public virtual string LockoutReason { get; set; }
+        public virtual string? LockoutReason { get; set; }
 
 
         protected internal virtual ICollection<Answer> Answers { get; protected set; }

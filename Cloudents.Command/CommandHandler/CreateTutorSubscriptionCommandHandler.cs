@@ -21,7 +21,7 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(CreateTutorSubscriptionCommand message, CancellationToken token)
         {
             var tutor = await _tutorRepository.LoadAsync(message.TutorId, token);
-            if (tutor.User.SbCountry == Country.UnitedStates)
+            if (tutor.User.SbCountry != Country.UnitedStates)
             {
                 throw new ArgumentException("Only for us at the moment");
             }
