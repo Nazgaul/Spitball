@@ -94,7 +94,7 @@
                                         <span>Delete</span>
                                     </v-tooltip>
                                     <v-tooltip top> 
-                                        <v-btn slot="activator" class="ma-0" icon small @click="openSubscribeDialog" v-if="infoItem.label == 'Has Subscribe' "><v-icon>add</v-icon></v-btn>
+                                        <v-btn slot="activator" class="ma-0" icon small @click="openSubscribeDialog" v-if="infoItem.label == 'Has Subscribe' && infoItem.value === false"><v-icon>add</v-icon></v-btn>
                                         <span>Add</span>
                                     </v-tooltip> 
                                 </div>
