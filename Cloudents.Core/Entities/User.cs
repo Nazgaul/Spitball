@@ -12,7 +12,7 @@ namespace Cloudents.Core.Entities
     public class User : BaseUser
     {
         public User(string email, string firstName, string lastName,
-            Language language, string country, Gender gender = Gender.None) : this()
+            Language language, string country, Gender gender = Gender.None)
         {
             Email = email;
             ChangeName(firstName, lastName);
@@ -23,6 +23,8 @@ namespace Cloudents.Core.Entities
             Country = country;
             SbCountry = Entities.Country.FromCountry(country);
             Gender = gender;
+            UserLogins = new List<UserLogin>();
+            Transactions = new UserTransactions();
         }
 
 
@@ -31,8 +33,8 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]
         protected User()
         {
-            UserLogins = new List<UserLogin>();
-            Transactions ??= new UserTransactions();
+           
+            
 
         }
 
@@ -297,13 +299,13 @@ namespace Cloudents.Core.Entities
             CoverImage = image;
         }
 
-        public override string ToString()
-        {
-            return $"{nameof(Id)}: {Id}, " +
-                   $"{nameof(EmailConfirmed)}: {EmailConfirmed}," +
-                   $" {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}" +
-                   $" {nameof(SbCountry)}: {SbCountry}";
-        }
+        //public override string ToString()
+        //{
+        //    return $"{nameof(Id)}: {Id}, " +
+        //           $"{nameof(EmailConfirmed)}: {EmailConfirmed}," +
+        //           $" {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}" +
+        //           $" {nameof(SbCountry)}: {SbCountry}";
+        //}
 
         public override void MakeTransaction(Transaction transaction)
         {
@@ -368,7 +370,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void CashOutMoney(/*decimal price*/)
         {
-            var t = new CashOutTransaction();
+            var t = CashOutTransaction.CashOut();
             MakeTransaction(t);
         }
 

@@ -9,9 +9,8 @@ namespace Cloudents.Persistence.Maps
         public TutorMap()
         {
             Id(x => x.Id).GeneratedBy.Foreign("User");
-            //CompositeId()
-            //    .KeyReference(x => x.User, "UserId");
-            //Id(x => x.UserId).GeneratedBy.Assigned();
+      
+
             HasOne(x => x.User).Constrained().Cascade.None();
             Map(x => x.Bio).Length(1000);
             Component(x => x.Price, y2 =>

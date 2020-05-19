@@ -11,7 +11,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.UpdateTime).Not.Nullable();
             Map(x => x.Identifier).Not.Nullable().Unique();
             // One 
-            HasOne(x => x.Extra)/*.LazyLoad(Laziness.NoProxy).Constrained()*/.Cascade.All();
+            HasOne(x => x.Extra).LazyLoad(Laziness.NoProxy).Constrained().Cascade.All();
             HasMany(x => x.Users).Cascade.AllDeleteOrphan()
                 .Inverse()
                 .ForeignKeyConstraintName("fChatUserChatRoom")

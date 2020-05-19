@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Cloudents.Core.Enum;
 
 //[assembly: InternalsVisibleTo("Cloudents.Persistance")]
 namespace Cloudents.Core.Entities
@@ -11,16 +10,14 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
     public class ChatRoom : Entity<Guid>, IAggregateRoot
     {
+        [SuppressMessage("ReSharper", "CS8618", Justification = "Proxy")]
         protected ChatRoom()
         {
-            Users ??= new HashSet<ChatUser>();
-            Messages = new List<ChatMessage>();
-            Extra = new ChatRoomAdmin(this);
-            UpdateTime = DateTime.UtcNow;
+
 
         }
 
-        public ChatRoom(IList<User> users) : this()
+        public ChatRoom(IList<User> users)
         {
             foreach (var user in users)
             {
@@ -28,6 +25,10 @@ namespace Cloudents.Core.Entities
             }
             Users = new HashSet<ChatUser>(users.Select(s => new ChatUser(this, s)));
             Identifier = BuildChatRoomIdentifier(users.Select(s => s.Id));
+            Users = new HashSet<ChatUser>();
+            Messages = new List<ChatMessage>();
+            Extra = new ChatRoomAdmin(this);
+            UpdateTime = DateTime.UtcNow;
         }
 
         internal static ChatRoom FromStudyRoom(StudyRoom studyRoom)
@@ -59,6 +60,7 @@ namespace Cloudents.Core.Entities
         public virtual ICollection<ChatMessage> Messages { get; protected set; }
 
         public virtual string Identifier { get; protected set; }
+
         public virtual ChatRoomAdmin Extra { get; set; }
 
         public virtual void AddTextMessage(User user, string message)
@@ -72,7 +74,7 @@ namespace Cloudents.Core.Entities
             UpdateTime = DateTime.UtcNow;
             if (StudyRoom != null)
             {
-                if (StudyRoom is PrivateStudyRoom _) 
+                if (StudyRoom is PrivateStudyRoom _)
                 {
                     foreach (var userInChat in Users)
                     {
@@ -105,7 +107,7 @@ namespace Cloudents.Core.Entities
                 //if (StudyRoom?.StudyRoomType == StudyRoomType.Broadcast
                 //) // we update unread only on not broadcast studyroom
                 //{
-                   
+
                 //}
             }
         }
