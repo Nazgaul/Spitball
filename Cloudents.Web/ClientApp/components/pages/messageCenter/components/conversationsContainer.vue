@@ -1,5 +1,5 @@
 <template>
-   <div class="conversationsContainer flex-grow-0 flex-shrink-0">
+   <v-flex xs12 sm6 md4 class="conversationsContainer">
       <div class="conversationsHeader d-flex align-center flex-grow-0 flex-shrink-0">
          <span class="cHeaderTitle">
             <v-icon class="mr-2" size="20">sbf-message-icon</v-icon>
@@ -9,7 +9,7 @@
       <v-sheet class="conversationsList d-flex flex-grow-1">
          <conversations></conversations>
       </v-sheet>
-   </div>
+   </v-flex>
 </template>
 
 <script>
@@ -29,17 +29,13 @@ export default {
    }
    .conversationsContainer{
       height: 100%;
-      width: 100%;
-      max-width: 408px;
-      @media(max-width: @screen-xs) {
-         max-width: initial;
-      }
       background: #ffffff;
       .conversationsHeader{
          width: 100%;
          height: @headerHeight;
          @media(max-width: @screen-xs) {
             background-color: #4c59ff;
+            border: none;
          }
          background-color: #efefef;
          border-right: 1px solid #e4e4e4;
@@ -58,6 +54,9 @@ export default {
          }
       }
       .conversationsList{
+         @media(max-width: @screen-xs) {
+            height: 100%;
+         }
          height: calc(~"100% - 62px");
       }
    }

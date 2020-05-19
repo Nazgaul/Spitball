@@ -2,7 +2,7 @@
 <div class="d-flex flex-column">
     <!-- <component :is="layout"></component> -->
     <router-view name="banner"></router-view>
-    <router-view name="header"></router-view>
+    <router-view v-if="showHeader" name="header"></router-view>
     <router-view name="sideMenu" v-if="isDrawer"></router-view>
     <v-content :class="[{'site-content': $route.path !== '/'}, {'hidden-sideMenu': drawerPlaceholder}]">
         <router-view class="main-container"></router-view>
@@ -76,8 +76,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
-
-
+import * as routeNames from '../../routes/routeNames.js';
 
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
 const AddQuestion = () => import("../question/askQuestion/askQuestion.vue");
@@ -164,6 +163,13 @@ export default {
         return this.getIsChatVisible;
       }
     },
+    showHeader(){
+      if(this.$route.name == routeNames.MessageCenter){
+        return !this.$vuetify.breakpoint.xsOnly 
+      }else{
+        return true;
+      }
+    }
   },
   updated: function() {
     this.$nextTick(function() {

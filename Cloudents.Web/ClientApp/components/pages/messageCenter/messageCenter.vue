@@ -1,8 +1,8 @@
 <template>
   <div class="messageCenter d-flex">
      <div class="messageCenter2 d-flex">
-      <conversationsContainer style="z-index:2" v-if="showConversationsList"/>
-      <currentConversationContainer style="z-index:2" v-if="showCurrentConversation"/>
+         <conversationsContainer style="z-index:2" v-if="showConversationsList"/>
+         <currentConversationContainer style="z-index:2" v-if="showCurrentConversation"/>
      </div>
   </div>
 </template>
@@ -65,7 +65,7 @@ export default {
    .messageCenter{
       .messageCenter2{
          width: 100%;
-         max-width: 896px;
+         max-width: 1302px;
          height: 100%;
          border-radius: 6px;
          overflow: hidden;
