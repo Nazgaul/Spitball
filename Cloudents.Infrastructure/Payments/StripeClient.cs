@@ -150,7 +150,7 @@ namespace Cloudents.Infrastructure.Payments
             //return paymentIntent
         }
 
-        public async Task<string> ChargeSessionAsync(Tutor tutor, User user, decimal price, CancellationToken token)
+        public async Task<string> ChargeSessionAsync(Tutor tutor, User user, double price, CancellationToken token)
         {
             var customerId = await RetrieveCustomerByIdAsync(user.Payment!.PaymentKey, default);
             var optionsX = new PaymentMethodListOptions
@@ -181,7 +181,7 @@ namespace Cloudents.Infrastructure.Payments
             return result.InvoiceId;
         }
 
-        public Task<string> ChargeSessionBySpitballAsync(Tutor tutor, decimal price, CancellationToken token)
+        public Task<string> ChargeSessionBySpitballAsync(Tutor tutor, double price, CancellationToken token)
         {
             throw new NotImplementedException("We do not support this feature");
         }

@@ -139,9 +139,9 @@ namespace Cloudents.Core.Entities
         }
 
         [Obsolete]
-        public virtual void SetRealDuration(TimeSpan realDuration, decimal price)
+        public virtual void SetRealDuration(TimeSpan realDuration, double price)
         {
-            Price = price;
+            Price = (decimal) price;
             RealDuration = realDuration;
         }
     }

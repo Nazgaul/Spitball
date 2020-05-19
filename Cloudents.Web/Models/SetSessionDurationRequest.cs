@@ -16,7 +16,7 @@ namespace Cloudents.Web.Models
         public long DurationInMinutes { get; set; }
 
         [Required]
-        public decimal Price { get; set; }
+        public double Price { get; set; }
 
     }
 }

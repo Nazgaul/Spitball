@@ -44,7 +44,7 @@ namespace Cloudents.Core.Entities
         public virtual void Disconnect(TimeSpan durationInRoom)
         {
             Duration = Duration.GetValueOrDefault(TimeSpan.Zero) + durationInRoom;
-            StudyRoomPayment.TotalPrice = (decimal)Duration.Value.TotalHours * StudyRoomPayment.PricePerHour;
+            StudyRoomPayment.TotalPrice = Duration.Value.TotalHours * StudyRoomPayment.PricePerHour;
             DisconnectCount++;
         }
 
@@ -97,18 +97,20 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public StudyRoomPayment(StudyRoomSessionUser studyRoomSessionUser)
         {
-            PricePerHour = studyRoomSessionUser.StudyRoomSession.StudyRoom.Price!.Value;
+            PricePerHour = (double) (studyRoomSessionUser.StudyRoomSession.StudyRoom.Price ??
+                                     studyRoomSessionUser.StudyRoomSession.StudyRoom.Tutor.Price.GetPrice());
             Tutor = studyRoomSessionUser.StudyRoomSession.StudyRoom.Tutor;
             User = studyRoomSessionUser.User;
             StudyRoomSessionUser = studyRoomSessionUser;
             Create = DateTime.UtcNow;;
         }
 
+        [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]
         protected StudyRoomPayment()
         {
         }
 
-        public virtual void ApproveSession(TimeSpan duration, decimal price)
+        public virtual void ApproveSession(TimeSpan duration, double price)
         {
             PricePerHour = price;
             ApproveSession(duration);
@@ -117,17 +119,17 @@ namespace Cloudents.Core.Entities
         protected virtual void ApproveSession(TimeSpan duration)
         {
             TutorApproveTime = duration;
-            TotalPrice = (decimal)TutorApproveTime.Value.TotalHours * PricePerHour;
+            TotalPrice = TutorApproveTime.Value.TotalHours * PricePerHour;
         }
 
         public virtual void NoPay()
         {
             Receipt = "No Pay";
-            TutorApproveTime = StudyRoomSessionUser.Duration;
+            TutorApproveTime ??= StudyRoomSessionUser?.Duration;
             TotalPrice = 0;
         }
 
-        public virtual void Pay(string receipt, TimeSpan duration,  decimal price)
+        public virtual void Pay(string receipt, TimeSpan duration,  double price)
         {
             Receipt = receipt;
             ApproveSession(duration);
@@ -138,9 +140,9 @@ namespace Cloudents.Core.Entities
 
         public virtual TimeSpan? TutorApproveTime { get; protected set; }
 
-        public virtual decimal PricePerHour { get; protected set; }
+        public virtual double PricePerHour { get; protected set; }
 
-        public virtual decimal TotalPrice { get;  set; }
+        public virtual double TotalPrice { get;  set; }
 
         public virtual string? Receipt { get; protected set; }
 

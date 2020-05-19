@@ -3,7 +3,7 @@ namespace Cloudents.Command.Command
 {
     public class SetSessionDurationCommand : ICommand
     {
-        public SetSessionDurationCommand(long tutorId, Guid sessionId, TimeSpan realDuration, long userId, decimal price)
+        public SetSessionDurationCommand(long tutorId, Guid sessionId, TimeSpan realDuration, long userId, double price)
         {
             TutorId = tutorId;
             SessionId = sessionId;
@@ -17,6 +17,6 @@ namespace Cloudents.Command.Command
 
         public long UserId { get; }
 
-        public decimal Price { get; }
+        public double Price { get; }
     }
 }

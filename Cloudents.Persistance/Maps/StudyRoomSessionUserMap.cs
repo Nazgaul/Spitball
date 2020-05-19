@@ -12,7 +12,8 @@ namespace Cloudents.Persistence.Maps
                 .Not.Nullable().UniqueKey("k_StudyRoomSessionUser");
             References(x => x.User).Not.Nullable().UniqueKey("k_StudyRoomSessionUser");
 
-            HasOne(x => x.StudyRoomPayment).Constrained().Cascade.All().LazyLoad(Laziness.NoProxy);
+            HasOne(x => x.StudyRoomPayment).Constrained()
+                .Cascade.All().LazyLoad(Laziness.NoProxy);
 
             Map(x => x.Duration).Nullable();
             Map(x => x.DisconnectCount);
@@ -31,7 +32,8 @@ namespace Cloudents.Persistence.Maps
             Id(x => x.Id).GeneratedBy.GuidComb();
            
 
-            HasOne(x => x.StudyRoomSessionUser).Cascade.None()/*.LazyLoad(Laziness.NoProxy)*/;
+            //HasOne(x => x.StudyRoomSessionUser).Cascade.None()/*.LazyLoad(Laziness.NoProxy)*/;
+            References(x => x.StudyRoomSessionUser).Unique().Cascade.None().LazyLoad();
 
             Map(x => x.PricePerHour);
             Map(x => x.TutorApproveTime);

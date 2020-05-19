@@ -16,9 +16,9 @@ namespace Cloudents.Core.Interfaces
 
     public interface IPaymentProvider
     {
-        Task<string> ChargeSessionAsync(Tutor tutor, User user, decimal price, CancellationToken token);
+        Task<string> ChargeSessionAsync(Tutor tutor, User user, double price, CancellationToken token);
 
-        Task<string> ChargeSessionBySpitballAsync(Tutor tutor, decimal price, CancellationToken token);
+        Task<string> ChargeSessionBySpitballAsync(Tutor tutor, double price, CancellationToken token);
 
     }
 
