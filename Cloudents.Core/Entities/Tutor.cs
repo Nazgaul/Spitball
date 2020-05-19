@@ -66,7 +66,7 @@ namespace Cloudents.Core.Entities
             {
                 if (document.DocumentPrice.Price > 0)
                 {
-                    document.ChangeToSubscribeMode();
+                    document.ChangeToSubscribeMode(this);
                 }
             }
 
