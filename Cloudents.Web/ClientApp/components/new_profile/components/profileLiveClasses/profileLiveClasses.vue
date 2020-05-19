@@ -98,8 +98,8 @@
                                 <div class="" v-t="'profile_live_subscribers_free'"></div>
                             </div>
                         </v-col>
-                        <v-col cols="4" class="pa-0 rowCol" :class="{'enroll': session.enrolled && isTutorSubscription}">
-                            <div v-t="'profile_live_subscribers_free'" v-if="isTutorSubscription"></div>  
+                        <v-col cols="4" class="pa-0 rowCol" :class="{'enroll': session.enrolled && isTutorSubscription}"  v-if="isTutorSubscription">
+                            <div v-t="'profile_live_subscribers_free'"></div>  
                         </v-col>
                     </template>
                     <v-col cols="4" class="pa-0 rowCol d-flex d-sm-block ma-auto pa-2">
