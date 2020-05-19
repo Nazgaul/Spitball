@@ -72,7 +72,7 @@ function UserInfo(objInit) {
 
     };
     this.hasSubscribed = {
-        value: objInit.subscribe || false,
+        value: objInit.hasSubscription || false,
         label: 'Has Subscribe'
     };
     //this.userType = { value: objInit.userType ? objInit.userType : '', label: 'User Type' };
