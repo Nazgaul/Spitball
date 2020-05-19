@@ -344,6 +344,12 @@ namespace Cloudents.Core.Entities
 
             //if (!Equals(follower))
             //{
+            var existingFollow = _followers.FirstOrDefault(f => f.Follower.Id == follower.Id);
+            if (existingFollow != null)
+            {
+                existingFollow.Subscriber = true;
+                return;
+            }
             var follow = new Follow(this, follower, true);
             _followers.Add(follow);
         }
