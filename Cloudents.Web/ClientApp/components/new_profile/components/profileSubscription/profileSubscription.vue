@@ -1,11 +1,11 @@
 <template>
     <div class="profileSubscription pa-4 text-center" id="subscription">
-        <div class="wrapper pa-4">
+        <div class="subscriptionWrapper pa-4">
             <div class="mainTitle mb-1" v-t="'profile_subscribe_title'"></div>
             <div class="subTitle text-truncate" v-t="{path: 'profile_subscribe_subtitle', args: {0: firstName}}"></div>
 
             <div class="priceWrapper mt-8 mb-2">
-                <span class="price">{{$n(profileTutorSubscription.amount, 'currency', 'en-US')}}</span>
+                <span class="price">{{$n(subscriptionAmount, 'currency', 'en-US')}}</span>
                 <span v-t="'profile_subscribe_price_month'"></span>
             </div>
 
@@ -27,8 +27,11 @@ export default {
         }
     },
     computed: {
+        subscriptionAmount() {
+            return this.profileTutorSubscription?.amount
+        },
         profileTutorSubscription() {
-            return this.$store.getters.getProfileTutorSubscription
+            return this.$store.getters?.getProfileTutorSubscription
         },
         firstName() {
             return this.$store.getters.getProfile?.user?.firstName
@@ -68,7 +71,7 @@ export default {
         border-radius: 0;
     }
 
-    .wrapper {
+    .subscriptionWrapper {
         border: solid 1.5px @greenColor;
         border-radius: 8px;
         .mainTitle {

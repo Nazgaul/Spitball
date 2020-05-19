@@ -19,7 +19,7 @@
         class="mt-sm-12 mt-2 mx-auto calendarSection"
         :globalFunctions="globalFunctions"
       />
-      <profileSubscription :id="id" v-if="isTutorSubscribe" ref="profileSubscription" />
+      <profileSubscription :id="id" v-if="isTutorSubscribe && !isMyProfile" ref="profileSubscription" />
       <profileLiveClasses :id="id" v-if="isTutor" />
       <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" />
       <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" />
@@ -250,7 +250,7 @@ export default {
             'getUserLoggedInStatus','getProfileTutorSubscription','getIsSubscriber'
         ]),
         isTutorSubscribe() {
-          return this.getProfileTutorSubscription && !this.getIsSubscriber
+          return !this.getIsSubscriber || !this.getUserLoggedInStatus
         },
         shareContentParams(){
             let urlLink = `${global.location.origin}/p/${this.$route.params.id}?t=${Date.now()}` ;
@@ -285,8 +285,11 @@ export default {
             return !!this.getProfile && this.getProfile.user.isTutor
         },
         isMyProfile(){
-            return !!this.getProfile && !!this.accountUser && this.accountUser?.id == this.getProfile?.user?.id
+          return this.$store.getters.getIsMyProfile
         },
+        // isMyProfile(){
+        //     return !!this.getProfile && !!this.accountUser && this.accountUser?.id == this.getProfile?.user?.id
+        // },
         showEarnMoney(){
             return this.isMyProfile && this.isTutor && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
         },
