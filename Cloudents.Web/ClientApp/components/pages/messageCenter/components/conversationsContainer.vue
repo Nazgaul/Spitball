@@ -6,8 +6,34 @@
             {{$t("chat_messages")}}
          </span>
       </div>
+      <v-layout row class="conversationsActions mx-3 justify-space-between">
+         <v-flex xs12 class="pt-3">
+            <v-text-field class="searchChat" v-model="filter.keyWord"
+               solo flat rounded height="38px" dense
+               prepend-inner-icon="sbf-search"
+               autocomplete="off"
+               hide-details
+               :label="$t('chat_search_placeholder')"
+            ></v-text-field>
+         </v-flex>
+         <v-flex xs7 sm5 pr-3>
+            <v-select class="filterSelect ma-0"
+               :append-icon="'sbf-arrow-fill'" 
+               :items="[{name:'Show All',value:true},{name:'unRead',value:false}]"
+               item-text="name"
+               v-model="filter.isShowAll"
+               placeholder="Show all" 
+               flat hide-details height="38" dense rounded/>
+         </v-flex>
+         <v-flex xs5 sm7>
+            <v-btn class="createBtn px-1" block height="40" color="#4452fc" rounded outlined>
+               <v-icon class="pr-1" size="16">sbf-plus-regular</v-icon>
+               <span>{{$t(isMobile?'chat_create_mobile':'chat_create')}}</span>
+            </v-btn>
+         </v-flex>
+         </v-layout>
       <v-sheet class="conversationsList d-flex flex-grow-1">
-         <conversations></conversations>
+         <conversations :filterOptions="filter"></conversations>
       </v-sheet>
    </v-flex>
 </template>
@@ -17,6 +43,19 @@ const conversations = () => import('../../../chat/components/conversations.vue')
 export default {
    components:{
       conversations
+   },
+   data() {
+      return {
+         filter:{
+            keyWord:'',
+            isShowAll:true,
+         }
+      }
+   },
+   computed: {
+      isMobile(){
+         return this.$vuetify.breakpoint.xsOnly
+      }
    }
 }
 </script>
@@ -53,11 +92,60 @@ export default {
             }
          }
       }
+      .conversationsActions{
+         // background-color: khaki;
+         height: 116px;
+         .searchChat{
+            border: solid 1px #ced0dc;
+            .v-input__slot{
+               padding: 0 10px;
+               .v-text-field__slot{
+                  .v-label{
+                     padding-left: 4px;
+                     font-size: 14px;
+                     color: #43425d;
+                  }
+               }
+               .v-icon{
+                  color: #69687d;
+                  font-size: 22px;
+               }
+            }
+         }
+         .filterSelect{
+            border: solid 1px #ced0dc;
+            color: #69687d;
+            .v-input__slot{
+               padding: 0 14px;
+               .v-select__selections{
+                  font-size: 14px;
+                  font-weight: 600;
+                  color: #4d4b69;
+                  input{
+                     &::placeholder{
+                        font-size: 14px;
+                        font-weight: 600;
+                        color: #4d4b69;
+                     }
+                  }
+               }
+            }
+            .v-icon{
+               font-size: 7px;
+            }
+         }
+         .createBtn{
+            font-size: 14px;
+            font-weight: 600;
+         }
+
+      }
       .conversationsList{
          @media(max-width: @screen-xs) {
             height: 100%;
+            height: calc(~"100% - 116px");
          }
-         height: calc(~"100% - 62px");
+         height: calc(~"100% - 178px"); // header height & search and sort height
       }
    }
 </style>

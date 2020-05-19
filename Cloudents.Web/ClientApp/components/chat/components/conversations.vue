@@ -24,10 +24,24 @@ export default {
     components:{
         conversationComp
     },
+    props:{
+        filterOptions:{
+            required:false,
+            type:Object
+        }
+    },
     computed:{
         ...mapGetters(['getConversations']),
         converations(){
-            return this.getConversations;
+            if(this.filterOptions){
+                let filterdList = this.getConversations.filter(c=>c.name.toLowerCase().includes(this.filterOptions.keyWord.toLowerCase()))
+                if(!this.filterOptions.isShowAll){
+                    filterdList = filterdList.filter(c=>c.unread > 0)
+                }
+                return filterdList
+            }else{
+                return this.getConversations;
+            }
         },
         hasConversations(){
             return Object.keys(this.converations).length > 0;
