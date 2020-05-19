@@ -1,5 +1,5 @@
 ﻿<template>
-<div class="d-flex flex-column">
+  <v-app>
     <!-- <component :is="layout"></component> -->
     <router-view name="banner"></router-view>
     <router-view name="header"></router-view>
@@ -68,9 +68,9 @@
     >
       <div class="text-wrap" v-html="getToasterText"></div>
     </v-snackbar>
-
+    <slot name="appInjections"></slot>
     <router-view name="footer"></router-view>
-  </div>
+  </v-app>
 </template>
 
 <script>
