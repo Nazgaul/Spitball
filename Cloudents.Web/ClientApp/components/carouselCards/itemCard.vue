@@ -135,7 +135,6 @@ export default {
         }
 
         &.subscribed {
-            z-index: 10;
             &:before {
                 content: '';
                 position: absolute;

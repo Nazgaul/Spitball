@@ -35,7 +35,7 @@ namespace Cloudents.Core.Entities
         public virtual User User { get; protected set; }
         public virtual User Follower { get; protected set; }
 
-        public virtual bool? Subscriber { get; protected set; }
+        public virtual bool? Subscriber { get;  set; }
 
         public virtual DateTime Created { get; }
 
