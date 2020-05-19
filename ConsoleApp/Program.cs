@@ -145,9 +145,24 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var x = Container.Resolve<IVideoService>();
+            await Dbi();
+            //using (var x = Container.Resolve<ISession>())
+            //{
+
+            //    var email = x.Query<User>().Where(w => w.Id == 638).Single();
+            //    Console.WriteLine("Email");
+            //    var z = x.Load<User>(638L);
+
+
+            //    Console.WriteLine("in here");
+
+            //    var v = z.EmailConfirmed;
+            //    Console.WriteLine(v);
+            //}
+
+            //Console.WriteLine("At the end");
             // var z = Container.Resolve<IUnitOfWork>();
-            await UpdateTwilioParticipants();
+            // await UpdateTwilioParticipants();
             // await Dbi();
 
 
@@ -184,37 +199,32 @@ namespace ConsoleApp
             //    .Where(w=>((User)w).LockoutEnabled)
             //    .Select(s => ((User) s).LockoutReason).SingleOrDefault();
 
-            var bus = Container.Resolve<ICloudStorageProvider>();
-            var blobClient = bus.GetBlobClient();
-            var blob = blobClient.GetContainerReference("spitball-files")
-                .GetBlockBlobReference("files/256278/file-9701517f-d18f-4eb1-a403-8ce07ee6ceea-IMG_22241.MOV");
 
-            var uri = blob.GetDownloadLink(TimeSpan.FromHours(1));
-            await x.CreateVideoPreviewJobAsync(256278, uri.AbsoluteUri, default);
         }
         //  await ReduPreviewProcessingAsync();
 
         private static async Task Dbi()
         {
-            var session = Container.Resolve<IStatelessSession>();
-            var bus = Container.Resolve<ICommandBus>();
-            var usersWithPayment =await session.Query<User>()
-                .Where(w => w.PaymentExists == PaymentStatus.Done)
-                .ToListAsync();
+            var session = Container.Resolve<ISession>();
+            //var bus = Container.Resolve<ICommandBus>();
+            //var studyRoomUsers =await session.Query<StudyRoomSessionUser>()
+            //    .ToListAsync();
 
-            foreach (var user in usersWithPayment)
+            foreach (var user in session.Query<StudyRoomSessionUser>().Take(1))
             {
-                if (user.BuyerPayment != null)
-                {
-                    if (user.Payment == null)
-                    {
-                        var command = new AddBuyerTokenCommand(user.Id,
-                            user.BuyerPayment.PaymentKey,
-                            user.BuyerPayment.PaymentKeyExpiration,
-                            user.BuyerPayment.CreditCardMask);
-                        await bus.DispatchAsync(command, default);
-                    }
-                }
+                user.StudyRoomPayment = new StudyRoomPayment(user);
+                session.Flush();
+                //if (user.BuyerPayment != null)
+                //{
+                //    if (user.Payment == null)
+                //    {
+                //        var command = new AddBuyerTokenCommand(user.Id,
+                //            user.BuyerPayment.PaymentKey,
+                //            user.BuyerPayment.PaymentKeyExpiration,
+                //            user.BuyerPayment.CreditCardMask);
+                //        await bus.DispatchAsync(command, default);
+                //    }
+                //}
             }
             
 

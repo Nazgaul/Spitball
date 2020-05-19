@@ -27,7 +27,7 @@ namespace Cloudents.Command.CommandHandler
             if (session.StudyRoomVersion == StudyRoomSession.StudyRoomNewVersion)
             {
                 var userSession = session.RoomSessionUsers.AsQueryable().Single(s => s.User.Id == message.UserId);
-                userSession.ApproveSession(message.RealDuration , message.Price);
+                userSession.StudyRoomPayment.ApproveSession(message.RealDuration , message.Price);
             }
             else
             {

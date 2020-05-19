@@ -76,12 +76,16 @@ namespace Cloudents.Core.Entities
             sessionUser.Disconnect(durationInRoom);
         }
 
+        [Obsolete]
         public virtual DateTime? PaymentApproved { get; protected set; }
+        [Obsolete]
         public virtual TimeSpan? AdminDuration { get; protected set; }
+        [Obsolete]
         public virtual TimeSpan? RealDuration { get; protected set; }
 
 
 
+        [Obsolete]
         protected virtual void CalculatePriceAndDuration()
         {
             Duration = Ended - Created;
@@ -89,6 +93,7 @@ namespace Cloudents.Core.Entities
            Price = ((decimal) Math.Floor(Duration.Value.TotalMinutes) / 60) * StudyRoom.Tutor.Price.GetPrice();
         }
 
+        [Obsolete]
         public virtual void EditDuration(int minutes)
         {
             if (Ended == null)
@@ -111,6 +116,7 @@ namespace Cloudents.Core.Entities
         }
         
 
+        [Obsolete]
         public virtual void SetReceipt(string receipt)
         {
             if (string.IsNullOrEmpty(receipt))
@@ -120,6 +126,7 @@ namespace Cloudents.Core.Entities
             Receipt = receipt;
         }
 
+        [Obsolete]
         public virtual void SetReceiptAndAdminDate(string receipt, TimeSpan adminDuration)
         {
             if (string.IsNullOrEmpty(receipt))
@@ -131,6 +138,7 @@ namespace Cloudents.Core.Entities
             AdminDuration = adminDuration;
         }
 
+        [Obsolete]
         public virtual void SetRealDuration(TimeSpan realDuration, decimal price)
         {
             Price = price;
