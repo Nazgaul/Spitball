@@ -35,7 +35,8 @@ export default {
                 createCoupon: ["auth","tutor"],
                 buyPoints:["auth"],
                 teacherApproval:["auth", "tutor", "params"],
-                createStudyRoom:["auth","tutor"]
+                createStudyRoom:["auth","tutor"],
+                teacherBillOffline:["auth"]
             }
         }
     },

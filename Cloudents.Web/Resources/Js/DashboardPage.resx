@@ -229,6 +229,12 @@
   <data name="my_sales_action_need_btn" xml:space="preserve">
     <value>Buy Points</value>
   </data>
+  <data name="my_sales_action_need_btn_tutor" xml:space="preserve">
+    <value>Bill Students</value>
+  </data>
+  <data name="my_sales_action_need_tutor" xml:space="preserve">
+    <value>Charge for your lesson</value>
+  </data>
   <data name="my_sales_action_redeem" xml:space="preserve">
     <value>You have {1} Pts</value>
   </data>

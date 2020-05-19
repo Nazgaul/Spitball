@@ -138,6 +138,9 @@
   <data name="minutes" xml:space="preserve">
     <value>minutes</value>
   </data>
+  <data name="select_student" xml:space="preserve">
+    <value>Select Student</value>
+  </data>
   <data name="session_duration" xml:space="preserve">
     <value>Session duration:</value>
   </data>
