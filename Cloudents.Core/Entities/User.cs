@@ -361,13 +361,12 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public override void RemoveFollower(BaseUser follower)
+        public virtual void RemoveFollower(User follower)
         {
-            if (follower is User u)
-            {
-                var follow = new Follow(this, u);
-                _followers.Remove(follow);
-            }
+
+            var follow = new Follow(this, follower);
+            _followers.Remove(follow);
+
         }
 
 

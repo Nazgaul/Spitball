@@ -8,16 +8,16 @@ namespace Cloudents.Command.CommandHandler
 {
     public class UnFollowUserCommandHandler : ICommandHandler<UnFollowUserCommand>
     {
-        private readonly IRepository<BaseUser> _userRepository;
-        public UnFollowUserCommandHandler(IRepository<BaseUser> userRepository)
+        private readonly IRepository<User> _userRepository;
+        public UnFollowUserCommandHandler(IRepository<User> userRepository)
         {
             _userRepository = userRepository;
         }
 
         public async Task ExecuteAsync(UnFollowUserCommand message, CancellationToken token)
         {
-            var followed = await _userRepository.LoadAsync(message.FollowedId, token);
-            var follower = await _userRepository.LoadAsync(message.FollowerId, token);
+            var followed = await _userRepository.LoadAsync(message.TutorToFollow, token);
+            var follower = await _userRepository.LoadAsync(message.UserId, token);
 
 
             followed.RemoveFollower(follower);

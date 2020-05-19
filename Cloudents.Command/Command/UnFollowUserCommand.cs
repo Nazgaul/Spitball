@@ -2,12 +2,12 @@
 {
     public class UnFollowUserCommand : ICommand
     {
-        public UnFollowUserCommand(long followedId, long followerId)
+        public UnFollowUserCommand(long tutorToFollow, long userId)
         {
-            FollowedId = followedId;
-            FollowerId = followerId;
+            TutorToFollow = tutorToFollow;
+            UserId = userId;
         }
-        public long FollowedId { get; set; }
-        public long FollowerId { get; set; }
+        public long TutorToFollow { get; }
+        public long UserId { get; }
     }
 }

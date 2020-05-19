@@ -93,7 +93,7 @@ namespace Cloudents.Core.Entities
         public abstract void AddFollower(User follower);
 
 
-        public abstract void RemoveFollower(BaseUser follower);
+//        public abstract void RemoveFollower(BaseUser follower);
        
     }
 }
