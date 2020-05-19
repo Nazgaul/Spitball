@@ -127,7 +127,7 @@ namespace Cloudents.Core.Entities
             TotalPrice = 0;
         }
 
-        public virtual void Pay(in string receipt, in TimeSpan duration, in decimal price)
+        public virtual void Pay(string receipt, TimeSpan duration,  decimal price)
         {
             Receipt = receipt;
             ApproveSession(duration);
