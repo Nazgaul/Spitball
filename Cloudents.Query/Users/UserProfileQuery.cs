@@ -1,5 +1,4 @@
-﻿using Cloudents.Query.Stuff;
-using NHibernate;
+﻿using NHibernate;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
@@ -9,7 +8,6 @@ using Cloudents.Core.Interfaces;
 using NHibernate.Linq;
 using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.Enum;
-using NHibernate.SqlCommand;
 
 namespace Cloudents.Query.Users
 {
@@ -93,11 +91,6 @@ namespace Cloudents.Query.Users
                           TypeEnum = s.Coupon.CouponType
                       }).ToFutureValue();
 
-
-
-                //var futureSubject = _session.Query<ReadTutor>().Where(t => t.Id == query.Id)
-                //    .Select(s => s.Subjects).ToFutureValue();
-
                 var documentCoursesFuture = _session.Query<Document>()
                     .Fetch(f => f.User)
                     .Where(w => w.User.Id == query.Id && w.Status.State == Core.Enum.ItemState.Ok)
@@ -115,13 +108,6 @@ namespace Cloudents.Query.Users
                     .Where(w => w.User.Id == query.Id && w.Follower.Id == query.UserId).ToFutureValue();
 
                 var result = await userFuture.GetValueAsync(token);
-
-               
-
-
-                //var result = await profileValue.GetValueAsync(token);
-
-               
 
                 if (result is null)
                 {

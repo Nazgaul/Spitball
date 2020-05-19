@@ -32,6 +32,8 @@ namespace Cloudents.Core.DTOs.Documents
         public string Preview { get; set; }
         public int Purchased { get; set; }
 
+        public PriceType PriceType { get; set; }
+
         public DocumentType DocumentType { get; set; }
 
         public TimeSpan? Duration

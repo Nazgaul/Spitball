@@ -29,7 +29,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             var projectDir = Directory.GetCurrentDirectory();
-            var configPath = Path.Combine(projectDir, "appsettings.json");
+            var configPath = Path.Combine(projectDir, "appsettings-test.json");
             builder.ConfigureAppConfiguration((context, conf) =>
             {
                 conf.AddJsonFile(configPath);

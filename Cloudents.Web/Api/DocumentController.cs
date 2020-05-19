@@ -29,6 +29,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Models;
+using Cloudents.Web.Binders;
 using Wangkanai.Detection;
 
 namespace Cloudents.Web.Api
@@ -86,7 +88,7 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
-            
+
             model.Document.User.Image = urlBuilder.BuildUserImageEndpoint(model.Document.User.Id, model.Document.User.Image);
             if (model.Tutor != null)
             {
@@ -96,7 +98,7 @@ namespace Cloudents.Web.Api
 
             var tQueue = queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
             var textTask = Task;
-            if (crawlerResolver.Crawler != null && model.Document.DocumentType == DocumentType.Document )
+            if (crawlerResolver.Crawler != null && model.Document.DocumentType == DocumentType.Document)
             {
                 textTask = _blobProvider.DownloadTextAsync("text.txt", query.Id.ToString(), token);
             }
@@ -114,6 +116,10 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
             CancellationToken token)
         {
+            if (model.Price.HasValue)
+            {
+                model.PriceType = PriceType.HasPrice;
+            }
             var userId = _userManager.GetLongUserId(User);
             if (!model.BlobName.StartsWith("file-", StringComparison.OrdinalIgnoreCase))
             {
@@ -121,13 +127,10 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
             var command = new CreateDocumentCommand(model.BlobName, model.Name,
-                model.Course, userId, model.Price, model.Description);
+                model.Course, userId, model.Price, model.Description, model.PriceType);
             await _commandBus.DispatchAsync(command, token);
 
-            //var url = Url.RouteUrl("ShortDocumentLink", new
-            //{
-            //    base62 = new Base62(command.Id).ToString()
-            //});
+            
             return Ok();
         }
 
@@ -156,7 +159,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), "Cannot vote twice");
                 return BadRequest(ModelState);
             }
-          
+
             catch (UnauthorizedAccessException)
             {
                 ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteCantVote"]);
@@ -279,6 +282,7 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<DocumentFeedDto>> GetSimilarDocumentsAsync(
             [FromQuery] SimilarDocumentsRequest request,
             [FromServices] ICrawlerResolver crawlerResolver,
+            [ProfileModelBinder(ProfileServiceQuery.Subscribers)] UserProfile profile,
              CancellationToken token)
         {
             if (crawlerResolver.Crawler != null)
@@ -287,8 +291,14 @@ namespace Cloudents.Web.Api
             }
             var query = new SimilarDocumentsQuery(request.DocumentId);
             var res = await _queryBus.QueryAsync(query, token);
+
             return res.Select(s =>
             {
+                if (profile.Subscribers?.Contains(s.User.Id) == true)
+                {
+                    s.PriceType = PriceType.Free;
+                    s.Price = 0;
+                }
                 s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
                 return s;
             });

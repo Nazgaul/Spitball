@@ -26,6 +26,7 @@ namespace Cloudents.Query.Users
 
             public async Task<IEnumerable<CourseDto>> GetAsync(UserCoursesQuery query, CancellationToken token)
             {
+                
                 token.ThrowIfCancellationRequested();
                 //We use Students, IsPending and IsTeaching in "My Courses" when a user edit his courses list
                 const string sql = @"select CourseId as [Name], 

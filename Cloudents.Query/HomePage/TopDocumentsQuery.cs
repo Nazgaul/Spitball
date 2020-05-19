@@ -46,7 +46,7 @@ namespace Cloudents.Query.HomePage
                     .Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
-                    DocumentType = s.DocumentType ?? DocumentType.Document,
+                    DocumentType = s.DocumentType,
                     Duration = s.Duration,
                     Course = s.Course.Id,
                     Snippet = s.Description ?? s.MetaContent,
@@ -64,7 +64,7 @@ namespace Cloudents.Query.HomePage
                     {
                         Votes = s.VoteCount
                     },
-                    Price = s.Price,
+                    Price = s.DocumentPrice.Price,
                     Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.Id && x.Action == TransactionActionType.SoldDocument)
                 }).Take(query.Count).ToListAsync(token);
             }

@@ -276,7 +276,7 @@ export default {
             return {};
         },
         itemList() {
-            return this.getRelatedDocuments;
+            return this.getRelatedDocuments || 0;
         },
         firstName() {
             let user = this.docTutor;
@@ -642,7 +642,7 @@ export default {
                     .itemCard-itemPage {
                         margin: 10px;
                         height: auto;
-                        width: auto;
+                        // width: auto;
                         border: none;
                         box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
                         display: block;

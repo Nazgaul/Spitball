@@ -56,10 +56,11 @@ namespace Cloudents.Query.Documents
                         Snippet = s.Description ?? s.MetaContent,
                         Views = s.Views,
                         Downloads = s.Downloads,
-                        Price = s.Price,
+                        Price = s.DocumentPrice.Price,
                         Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.Id && x.Action == TransactionActionType.SoldDocument),
-                        DocumentType = s.DocumentType ?? DocumentType.Document,
+                        DocumentType = s.DocumentType,
                         Duration = s.Duration,
+                        PriceType = s.DocumentPrice.Type.GetValueOrDefault(),
                         Vote = new VoteDto()
                         {
                             Votes = s.VoteCount

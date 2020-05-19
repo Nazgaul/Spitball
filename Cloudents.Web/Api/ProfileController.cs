@@ -73,42 +73,38 @@ namespace Cloudents.Web.Api
         public async Task<WebResponseWithFacet<DocumentFeedDto>> GetDocumentsAsync(
             [FromQuery] ProfileDocumentsRequest request, CancellationToken token = default)
         {
+            _userManager.TryGetLongUserId(User, out var userId);
             var query = new UserDocumentsQuery(request.Id, request.Page, request.PageSize,
-                request.DocumentType, request.Course);
-            var retValTask = _queryBus.QueryAsync(query, token);
+                request.DocumentType, request.Course,userId);
+            var retVal = await _queryBus.QueryAsync(query, token);
 
-            var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = _userManager.GetLongUserId(User);
-                var queryTags = new UserVotesByCategoryQuery(userId);
-                votesTask = _queryBus.QueryAsync(queryTags, token)
-                    .ContinueWith(
-                        t2 => { return t2.Result.ToDictionary(x => x.Id, s => s.Vote); }, token);
-            }
+           // var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    var userId = _userManager.GetLongUserId(User);
+            //    var queryTags = new UserVotesByCategoryQuery(userId);
+            //    votesTask = _queryBus.QueryAsync(queryTags, token)
+            //        .ContinueWith(
+            //            t2 => { return t2.Result.ToDictionary(x => x.Id, s => s.Vote); }, token);
+            //}
 
-            await Task.WhenAll(retValTask, votesTask);
-            foreach (var item in retValTask.Result.Result)
-            {
-                if (item.User != null)
-                {
-                    item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
-                }
-            }
+            //await Task.WhenAll(retValTask, votesTask);
+            //foreach (var item in retVal.Result)
+            //{
+            //    if (item.User != null)
+            //    {
+            //        item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
+            //    }
+            //}
             return new WebResponseWithFacet<DocumentFeedDto>()
             {
-                Result = retValTask.Result.Result.Select(s =>
+                Result = retVal.Result.Select(s =>
                 {
                     s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
                     s.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
-                    if (votesTask.Result != null && votesTask.Result.TryGetValue(s.Id, out var p))
-                    {
-                        s.Vote.Vote = p;
-                    }
-
                     return s;
                 }),
-                Count = retValTask.Result.Count
+                Count = retVal.Count
             };
         }
 

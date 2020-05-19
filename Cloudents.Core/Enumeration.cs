@@ -68,7 +68,7 @@ namespace Cloudents.Core
             return matchingItem;
         }
 
-        protected static T? FromDisplayName<T>(string displayName) where T : Enumeration
+        public static T? FromDisplayName<T>(string displayName) where T : Enumeration
         {
             var matchingItem = Parse<T>(
                 item => string.Equals(item.Name, displayName, StringComparison.OrdinalIgnoreCase));

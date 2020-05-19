@@ -1,4 +1,5 @@
-﻿using Cloudents.Command.Command;
+﻿using System;
+using Cloudents.Command.Command;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
@@ -6,18 +7,19 @@ using Cloudents.Core.Storage;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Command.CommandHandler
 {
     public class CreateDocumentCommandHandler : ICommandHandler<CreateDocumentCommand>
     {
         private readonly IDocumentDirectoryBlobProvider _blobProvider;
-        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<Tutor> _userRepository;
         private readonly IRepository<Document> _documentRepository;
         private readonly IRepository<Course> _courseRepository;
 
         public CreateDocumentCommandHandler(IDocumentDirectoryBlobProvider blobProvider,
-            IRepository<User> userRepository,
+            IRepository<Tutor> userRepository,
             IRepository<Document> documentRepository, IRepository<Course> courseRepository
             )
         {
@@ -29,11 +31,21 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(CreateDocumentCommand message, CancellationToken token)
         {
-            var user = await _userRepository.LoadAsync(message.UserId, token);
+            var tutor = await _userRepository.LoadAsync(message.UserId, token);
             var course = await _courseRepository.LoadAsync(message.Course, token);
             var extension = FileTypesExtensions.FileExtensionsMapping[Path.GetExtension(message.BlobName)];
+
+            if (tutor.HasSubscription() && message.Price > 0)
+            {
+                throw new ArgumentException("tutor with subscription can upload file");
+            }
+            if (!tutor.HasSubscription() && message.PriceType == PriceType.Subscriber)
+            {
+                throw new ArgumentException("Only tutor with subscription can upload subscribe plan");   
+            }
+
             var document = new Document(message.Name,
-                course, user, message.Price, extension.DocumentType, message.ModelDescription);
+                course, tutor, message.Price.GetValueOrDefault(), extension.DocumentType, message.ModelDescription, message.PriceType);
 
             await _documentRepository.AddAsync(document, token);
             var id = document.Id;

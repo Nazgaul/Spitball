@@ -1,13 +1,13 @@
-import { mutations } from '../Toaster'
-import { setComponent } from mutations
-console.log(mutations);
+// import { mutations } from '../Toaster'
+// import { setComponent } from mutations
+// console.log(mutations);
 
-describe('set component mutations', () => {
-    it('Receive', () => {
-        const state = ''
+// describe('set component mutations', () => {
+//     it('Receive', () => {
+//         const state = ''
 
-        setComponent('xxx')
+//         setComponent('xxx')
 
-        expect(state.isEmpty()).toBe(false)
-    })
-})
+//         expect(state.isEmpty()).toBe(false)
+//     })
+// })

@@ -62,12 +62,15 @@
                                         <div class="px-3 py-2" v-t="'profile_live_visitors_title'"></div>
                                     </v-col>
                                     <v-col class="pa-0">
-                                        <div class="px-3 py-2 d-flex align-center">
+                                        <div class="px-3 py-2 d-flex align-center" v-if="session.price">
                                             <span class="numericPrice mb-1">{{$n(session.price, 'currency')}}</span>
                                             <div class="d-flex align-end">
                                                 <span>/</span>
                                                 <span class="hour" v-t="'profile_points_hour'"></span>
                                             </div>
+                                        </div>
+                                        <div v-else>
+                                            <div class="subscribeFree px-3 py-2" v-t="'profile_live_subscribers_free'"></div>
                                         </div>
                                     </v-col>
                                 </v-col>
@@ -84,10 +87,15 @@
                     </template>
                     <template v-else>
                         <v-col cols="4" class="pa-0 rowCol" :class="{'enroll': session.enrolled}">
-                            <span class="numericPrice mb-1">{{$n(session.price, 'currency')}}</span>
-                            <div class="d-flex align-end">
-                                <span>/</span>
-                                <span class="hour" v-t="'profile_points_hour'"></span>
+                            <div class="d-flex align-center" v-if="session.price">
+                                <span class="numericPrice mb-1">{{$n(session.price, 'currency')}}</span>
+                                <div class="d-flex align-end">
+                                    <span>/</span>
+                                    <span class="hour" v-t="'profile_points_hour'"></span>
+                                </div>
+                            </div>
+                            <div v-else class="subscribeFree">
+                                <div class="" v-t="'profile_live_subscribers_free'"></div>
                             </div>
                         </v-col>
                         <v-col cols="4" class="pa-0 rowCol" :class="{'enroll': session.enrolled && isTutorSubscription}">
@@ -408,6 +416,10 @@ export default {
                         .enterIcon {
                             fill: #fff;
                         }
+                    }
+                    .subscribeFree {
+                        font-weight: 600;
+                        font-size: 16px;
                     }
                 }
                 .detailsMobile {

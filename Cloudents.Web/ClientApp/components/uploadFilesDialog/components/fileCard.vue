@@ -20,7 +20,6 @@
                 </v-text-field>
             </v-col>
             <v-col cols="12" sm="5" class="pa-0">
-                <!-- :placeholder="$t('upload_uf_course_name')" -->
                 <v-combobox
                     v-model="course"
                     :items="getSelectedClasses"
@@ -30,7 +29,7 @@
                     placeholder=" "
                     color="#4c59ff"
                     height="44"
-                    autocomplete="abcd"
+                    autocomplete="off"
                     hide-no-data
                     outlined
                     dense
@@ -52,7 +51,7 @@
             </v-col>
             <v-col cols="12" sm="3" class="pa-0" order="3" order-sm="4">
                 <v-combobox
-                    v-model="currentPrice"
+                    v-model="priceType"
                     v-if="true"
                     :items="currentPriceItems"
                     :rules="[rules.required]"
@@ -61,14 +60,14 @@
                     placeholder=" "
                     color="#4c59ff"
                     height="44"
-                    autocomplete="abcd"
+                    autocomplete="off"
                     hide-no-data
                     outlined
                     dense
                 >
                 </v-combobox>
                 <v-text-field class="uf_price pt-1"
-                    v-model="item.price" 
+                    v-model="item.price"
                     v-else
                     type="number"
                     :rules="[rules.integer,rules.maximum,rules.minimum]"
@@ -100,8 +99,8 @@ export default {
             selectedCourse: '',
             isFromQuery: false,
             currentPriceItems: [
-                { text: this.$t('upload_free_all'), value: 'free' },
-                { text: this.$t('upload_subscriber_only'), value: 'subscriber' }
+                { text: this.$t('upload_free_all'), value: 'Free' },
+                { text: this.$t('upload_subscriber_only'), value: 'Subscriber' }
             ],
             rules: {
                 required: (value) => validationRules.required(value),
@@ -157,6 +156,17 @@ export default {
         item() {
             return this.getFileData[this.singleFileIndex]
         },
+        priceType: {
+            get() {
+                // if(this.item.priceType) {
+                //     return 
+                // }
+                return this.currentPriceItems.filter(item => item.value === this.item.priceType)[0]
+            },
+            set(priceType) {
+                this.$store.commit('updatePriceToAll', priceType)
+            }
+        },
         course:{
             get(){
                 return this.item.course  
@@ -174,7 +184,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['changeFileByIndex', 'deleteFileByIndex']),
+        ...mapActions(['changeFileByIndex', 'deleteFileByIndex', 'updatePriceToAll']),
         deleteFile() {
             this.deleteFileByIndex(this.singleFileIndex)
         },

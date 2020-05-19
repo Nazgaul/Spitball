@@ -147,7 +147,18 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            //var session = Container.Resolve<IStatelessSession>();
+            var session = Container.Resolve<IStatelessSession>();
+            var command = session.CreateSQLQuery(@"update top (500) sb.Document
+set DocumentType = 'Document'
+where DocumentType is null
+and [state] = 'Ok'");
+
+            var i = 0;
+            do
+            {
+                i = await command.ExecuteUpdateAsync();
+
+            } while (i > 0);
             //var x2 = session.Query<StudyRoomUser>().Fetch(f => f.Room)
             //    .Where(w => w.Room.Tutor.Id == 638).Select(s=>s.User.Id).Distinct().Count();
 
@@ -164,7 +175,7 @@ namespace ConsoleApp
             //    //.Select(s => ((User) s).LockoutReason).FutureValue<string>();
             //    var xx = x.Value;
             //var zz = z.Value;
-          
+
         }
         //  await ReduPreviewProcessingAsync();
 
