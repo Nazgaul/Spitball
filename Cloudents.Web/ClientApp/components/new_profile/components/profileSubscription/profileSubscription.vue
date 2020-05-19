@@ -31,11 +31,18 @@ export default {
             return this.$store.getters.getProfileTutorSubscription
         },
         firstName() {
-            return this.$store.getters.accountUser?.firstName
+            return this.$store.getters.getProfile?.user?.firstName
+        },
+        isLogged() {
+            return this.$store.getters.getUserLoggedInStatus
         }
     },
     methods: {
         subscribeNow() {
+            if(!this.isLogged) {
+                this.$store.commit('setComponent', 'login')
+                return
+            }
             this.$store.dispatch('subscribeToTutor', this.id)
         }
     }
