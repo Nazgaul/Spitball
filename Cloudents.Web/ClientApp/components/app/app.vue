@@ -6,7 +6,7 @@
     <router-view name="sideMenu" v-if="isDrawer"></router-view>
     <v-content :class="[{'site-content': $route.path !== '/'}, {'hidden-sideMenu': drawerPlaceholder}]">
         <router-view class="main-container"></router-view>
-        <chat v-if="visible"/>
+        <!-- <chat v-if="visible"/> -->
       
         <!-- <div class="s-cookie-container" v-if="!cookiesShow">
           <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
