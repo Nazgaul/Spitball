@@ -51,7 +51,7 @@
             </v-col>
             <v-col cols="12" sm="3" class="pa-0" order="3" order-sm="4">
                 <v-select
-                    v-model="priceType"
+                    v-model="item.priceType"
                     :items="currentPriceItems"
                     :rules="[rules.required]"
                     :label="$t('upload_file_price_label')"
@@ -137,16 +137,6 @@ export default {
         },
         item() {
             return this.getFileData[this.singleFileIndex]
-        },
-        priceType: {
-            get() {
-                console.log(this.fileItem);
-                
-                return this.currentPriceItems.filter(item => item.value === this.item.priceType)[0]
-            },
-            set(priceType) {
-                this.$store.commit('updatePriceToAll', priceType)
-            }
         },
         course:{
             get(){
