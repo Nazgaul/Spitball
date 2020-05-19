@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="itemCard-bottom mt-8">
-                <span class="item-purchases">{{item.purchased}} {{$tc('itemCardCarousel_view', item.purchased)}}</span>
+                <span class="item-purchases">{{$tc('itemCardCarousel_purchased', item.purchased)}}</span>
                 <documentPrice :price="item.price" :isSubscribed="isSubscribed" />
             </div>
         </div>
