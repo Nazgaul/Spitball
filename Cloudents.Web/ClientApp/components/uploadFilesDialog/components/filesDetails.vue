@@ -19,7 +19,7 @@
             </v-col>
             <v-col cols="6" sm="3" class="pa-0 pl-sm-4">
                 <!-- :placeholder="$t('upload_uf_price')" -->
-                <v-combobox
+                <v-select
                     v-model="currentPrice"
                     v-if="true"
                     :items="currentPriceItems"
@@ -34,7 +34,7 @@
                     outlined
                     dense
                 >
-                </v-combobox>
+                </v-select>
                 <v-text-field
                     v-model="priceForAll"
                     v-else
@@ -189,7 +189,7 @@ export default {
             margin-bottom:6px;
             border-radius: 6px;
         }
-        input{
+        input, .v-select__selections{
             font-size: 14px;
             font-weight: 600;
             color: @global-purple; 

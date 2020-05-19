@@ -50,7 +50,7 @@
                 </v-text-field>
             </v-col>
             <v-col cols="12" sm="3" class="pa-0" order="3" order-sm="4">
-                <v-combobox
+                <v-select
                     v-model="priceType"
                     v-if="true"
                     :items="currentPriceItems"
@@ -65,7 +65,7 @@
                     outlined
                     dense
                 >
-                </v-combobox>
+                </v-select>
                 <v-text-field class="uf_price pt-1"
                     v-model="item.price"
                     v-else
@@ -158,12 +158,12 @@ export default {
         },
         priceType: {
             get() {
-                // if(this.item.priceType) {
-                //     return 
-                // }
+                console.log(this.fileItem);
+                
                 return this.currentPriceItems.filter(item => item.value === this.item.priceType)[0]
             },
             set(priceType) {
+                debugger
                 this.$store.commit('updatePriceToAll', priceType)
             }
         },
@@ -224,9 +224,6 @@ export default {
             font-weight: 600;
             color: @global-purple; 
         }
-        .v-messages__message {
-            // line-height: 1.2;
-        }
         .v-input__slot {
             margin-bottom:8px;
         }
@@ -238,7 +235,7 @@ export default {
             font-size: 14px;
             color: #a1a3b0;
         }
-        input{
+        input, .v-select__selections{
             font-size: 14px;
             font-weight: 600;
             color: @global-purple; 

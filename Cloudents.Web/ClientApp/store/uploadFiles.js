@@ -10,7 +10,7 @@ const mutations = {
     },
     updatePriceToAll(state, price){
         state.fileData.forEach(file=>{
-            file.priceType = price.value;
+            file.priceType = price;
         });
     },
     updateCourseToAll(state, course){
