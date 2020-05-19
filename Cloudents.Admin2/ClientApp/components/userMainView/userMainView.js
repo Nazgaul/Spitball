@@ -333,11 +333,12 @@ export default {
                 this.newPrice = '';
             });            
         },
-        createSubscribe() {
-            this.updateSubscribe({
+        async createSubscribe() {
+            await this.updateSubscribe({
                 tutorId: this.userIdentifier,
                 price: this.subscribePriceNewPrice
-            })
+            });
+            this.dialogs.subscribe = false;
         },
         removePayment(id) {
             this.deletePayment(id).then(() => {
