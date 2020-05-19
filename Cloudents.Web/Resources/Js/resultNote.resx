@@ -162,7 +162,7 @@ subscribing to my site</value>
     <value>{0}/mo</value>
   </data>
   <data name="subscribe_mobile_text" xml:space="preserve">
-    <value>Unlock all By subscribing</value>
+    <value>Unlock all by subscribing</value>
   </data>
   <data name="unsufficient_fund" xml:space="preserve">
     <value>Not have enough points</value>
