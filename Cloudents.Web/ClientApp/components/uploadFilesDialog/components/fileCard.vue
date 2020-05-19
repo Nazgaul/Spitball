@@ -163,7 +163,6 @@ export default {
                 return this.currentPriceItems.filter(item => item.value === this.item.priceType)[0]
             },
             set(priceType) {
-                debugger
                 this.$store.commit('updatePriceToAll', priceType)
             }
         },
