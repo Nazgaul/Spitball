@@ -49,7 +49,7 @@ namespace Cloudents.Core.Entities
             }
             DocumentType = documentType;
 
-            DocumentPrice = new DocumentPrice(price,priceType);
+            DocumentPrice = new DocumentPrice(price,priceType,tutor);
         }
 
       
@@ -227,22 +227,23 @@ namespace Cloudents.Core.Entities
         public virtual string? Md5 { get; set; }
 
 
-        public virtual void ChangeToSubscribeMode()
+        public virtual void ChangeToSubscribeMode(Tutor tutor)
         {
-            DocumentPrice = new DocumentPrice(0,PriceType.Subscriber);
+            DocumentPrice = new DocumentPrice(0,PriceType.Subscriber,tutor);
         }
     }
 
     public class DocumentPrice
     {
         public const decimal PriceLimit = 1000M;
-        public DocumentPrice(in decimal price, PriceType priceType)
+        public DocumentPrice(in decimal price, PriceType priceType, Tutor tutor)
         {
+            if (tutor == null) throw new ArgumentNullException(nameof(tutor));
             Type = priceType;
             Price = price;
             if (priceType == PriceType.Subscriber)
             {
-                Price = 0;
+                Price = (decimal) tutor.SubscriptionPrice.GetValueOrDefault().Amount;
                 return;
             }
 

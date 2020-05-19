@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
@@ -20,11 +21,15 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(CreateTutorSubscriptionCommand message, CancellationToken token)
         {
             var tutor = await _tutorRepository.LoadAsync(message.TutorId, token);
-            tutor.ChangeSubscriptionPrice(message.Price);
             if (tutor.User.SbCountry == Country.UnitedStates)
             {
-                await _stripeService.CreateProductAsync(tutor, token);
+                throw new ArgumentException("Only for us at the moment");
             }
+            tutor.ChangeSubscriptionPrice(message.Price);
+            //if (tutor.User.SbCountry == Country.UnitedStates)
+            //{
+            await _stripeService.CreateProductAsync(tutor, token);
+            //}
         }
     }
 }
