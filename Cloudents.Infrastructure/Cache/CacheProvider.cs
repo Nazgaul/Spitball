@@ -109,7 +109,7 @@ namespace Cloudents.Infrastructure.Cache
             return null;
         }
 
-        public T? Get<T>(string key, string region) where T : class
+        public T Get<T>(string key, string region)
         {
             try
             {
@@ -126,10 +126,10 @@ namespace Cloudents.Infrastructure.Cache
                 Cache.Remove(key, region);
             }
 
-            return default;
+            return default!;
         }
 
-        public void Set<T>(string key, string region, T? value, TimeSpan expire, bool slideExpiration) where T : class
+        public void Set<T>(string key, string region, T value, TimeSpan expire, bool slideExpiration)
         {
             if (value is null)
             {

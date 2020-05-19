@@ -7,7 +7,6 @@ using NHibernate.Linq;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Query.Users
 {
@@ -73,12 +72,11 @@ namespace Cloudents.Query.Users
                     DocumentType = s.DocumentType,
                     Duration = s.Duration,
                     Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.Id && x.Action == TransactionActionType.SoldDocument)
-
                 }).Take(query.PageSize).Skip(query.Page * query.PageSize).ToFuture();
 
                 var countFuture = count
                 .GroupBy(g => 1)
-    .Select(s => s.Count()).ToFutureValue();
+                .Select(s => s.Count()).ToFutureValue();
 
 
                 IFutureValue<bool?>? scribedQueryFuture = null;
@@ -91,7 +89,6 @@ namespace Cloudents.Query.Users
 
                 }
 
-                //var countFuture = count.ToFuture();
 
                 var futureResult = await result.GetEnumerableAsync(token);
                 var isSubscribed = scribedQueryFuture?.Value ?? query.UserId == query.Id;

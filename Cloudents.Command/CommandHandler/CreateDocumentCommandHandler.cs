@@ -45,7 +45,8 @@ namespace Cloudents.Command.CommandHandler
             }
 
             var document = new Document(message.Name,
-                course, tutor, message.Price.GetValueOrDefault(), extension.DocumentType, message.ModelDescription, message.PriceType);
+                course, tutor, message.Price.GetValueOrDefault(), extension.DocumentType,
+                message.ModelDescription, message.PriceType);
 
             await _documentRepository.AddAsync(document, token);
             var id = document.Id;

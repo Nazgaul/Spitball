@@ -147,18 +147,20 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var session = Container.Resolve<IStatelessSession>();
-            var command = session.CreateSQLQuery(@"update top (500) sb.Document
-set DocumentType = 'Document'
-where DocumentType is null
-and [state] = 'Ok'");
+            var session = Container.Resolve<ICommandBus>();
+            var command = new CreateTutorSubscriptionCommand(159039,22);
+            await session.DispatchAsync(command, default);
+//            var command = session.CreateSQLQuery(@"update top (500) sb.Document
+//set DocumentType = 'Document'
+//where DocumentType is null
+//and [state] = 'Ok'");
 
-            var i = 0;
-            do
-            {
-                i = await command.ExecuteUpdateAsync();
+//            var i = 0;
+//            do
+//            {
+//                i = await command.ExecuteUpdateAsync();
 
-            } while (i > 0);
+//            } while (i > 0);
             //var x2 = session.Query<StudyRoomUser>().Fetch(f => f.Room)
             //    .Where(w => w.Room.Tutor.Id == 638).Select(s=>s.User.Id).Distinct().Count();
 

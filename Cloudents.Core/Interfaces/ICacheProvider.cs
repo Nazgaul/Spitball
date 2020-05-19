@@ -6,7 +6,15 @@ namespace Cloudents.Core.Interfaces
     {
         object? Get(string key, string region);
 
-        T? Get<T>(string key, string region) where T : class;
+
+        /// <summary>
+        /// Return element from cache
+        /// </summary>
+        /// <typeparam name="T">return T or null if not found</typeparam>
+        /// <param name="key"></param>
+        /// <param name="region"></param>
+        /// <returns></returns>
+        T Get<T>(string key, string region);
 
         /// <summary>
         /// Add element to cache
@@ -19,7 +27,7 @@ namespace Cloudents.Core.Interfaces
         void Set(string key, string region, object? value, int expire, bool slideExpiration);
 
 
-        void Set<T>(string key, string region, T? value, TimeSpan expire, bool slideExpiration) where T : class;
+        void Set<T>(string key, string region, T value, TimeSpan expire, bool slideExpiration);
 
         void Set(string key, string region, object? value, TimeSpan expire, bool slideExpiration);
 

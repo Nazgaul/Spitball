@@ -77,25 +77,7 @@ namespace Cloudents.Web.Api
             var query = new UserDocumentsQuery(request.Id, request.Page, request.PageSize,
                 request.DocumentType, request.Course,userId);
             var retVal = await _queryBus.QueryAsync(query, token);
-
-           // var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    var userId = _userManager.GetLongUserId(User);
-            //    var queryTags = new UserVotesByCategoryQuery(userId);
-            //    votesTask = _queryBus.QueryAsync(queryTags, token)
-            //        .ContinueWith(
-            //            t2 => { return t2.Result.ToDictionary(x => x.Id, s => s.Vote); }, token);
-            //}
-
-            //await Task.WhenAll(retValTask, votesTask);
-            //foreach (var item in retVal.Result)
-            //{
-            //    if (item.User != null)
-            //    {
-            //        item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
-            //    }
-            //}
+          
             return new WebResponseWithFacet<DocumentFeedDto>()
             {
                 Result = retVal.Result.Select(s =>
