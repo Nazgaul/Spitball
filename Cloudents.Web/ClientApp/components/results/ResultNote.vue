@@ -59,7 +59,7 @@
           class="document-body-card-img"
           type="image"
           :height="isMobile ? '108' : '162'"
-          :width="isMobile ? '110' : '200'"
+          :min-width="isMobile ? '110' : '200'"
         ></v-skeleton-loader>
         <div class="document-body-card" :class="{'subscribed': isSubscribed && isPreviewReady}">
           <intersection>

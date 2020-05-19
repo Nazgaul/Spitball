@@ -30,10 +30,9 @@
                     <div class="text-truncate" >{{item.user.name}}</div>
                 </div>
             </div>
-            <div class="itemCard-bottom mt-2">
+            <div class="itemCard-bottom mt-8">
                 <span class="item-purchases">{{item.purchased}} {{$tc('itemCardCarousel_view', item.purchased)}}</span>
                 <documentPrice :price="item.price" :isSubscribed="isSubscribed" />
-                <!-- <span class="item-pts">{{$tc('itemCardCarousel_pts',item.price)}}</span> -->
             </div>
         </div>
     </router-link>
@@ -131,6 +130,10 @@ export default {
 
     .imageWrapper {
         position: relative;
+        .v-lazy {
+            height: 100%; // extra div added for overlay subscription box, image issue
+        }
+
         &.subscribed {
             z-index: 10;
             &:before {
