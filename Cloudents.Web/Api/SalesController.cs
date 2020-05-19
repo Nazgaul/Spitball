@@ -68,6 +68,12 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
+        [Route("offline")]
+        public IActionResult OfflinePaymentAsync([FromBody] OfflinePaymentRequest model)
+        {
+            return Ok();
+        }
+
         [HttpGet("session/{id}")]
         public async Task<PaymentDetailDto> GetPaymentAsync([FromRoute] Guid id, [FromQuery] long userId, CancellationToken token)
         {

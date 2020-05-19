@@ -115,7 +115,7 @@ namespace Cloudents.Core.Entities
         //}
 
 
-        public static decimal CalculatePrice(CouponType type, decimal price, decimal couponValue)
+        public static double CalculatePrice(CouponType type, double price, double couponValue)
         {
             var result = type switch
             {

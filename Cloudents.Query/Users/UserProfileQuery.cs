@@ -137,7 +137,7 @@ and (u.LockoutEnd is null or u.LockoutEnd < GetUtcDate())";
                 {
                     result.Tutor.HasCoupon = true;
                     result.Tutor.DiscountPrice = Coupon.CalculatePrice(result.Tutor.CouponType.Value, result.Tutor.Price,
-                        result.Tutor.CouponValue.Value);
+                        (double)result.Tutor.CouponValue.Value);
                 }
                 return result;
             }

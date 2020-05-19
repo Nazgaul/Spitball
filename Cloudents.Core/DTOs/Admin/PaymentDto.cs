@@ -16,7 +16,7 @@ namespace Cloudents.Core.DTOs.Admin
         [EntityBind(nameof(StudyRoomSession.Id))]
         public Guid StudyRoomSessionId { get; set; } //
         [EntityBind(nameof(Tutor.Price))]
-        public decimal Price { get; set; } //
+        public double Price { get; set; } //
 
         [EntityBind(nameof(Tutor.SellerKey))]
         public bool IsSellerKeyExists
@@ -67,7 +67,7 @@ namespace Cloudents.Core.DTOs.Admin
         [EntityBind(nameof(StudyRoomSession.Id))]
         public Guid StudyRoomSessionId { get; set; }
         [EntityBind(nameof(Tutor.Price))]
-        public decimal TutorPricePerHour { get; set; }
+        public double TutorPricePerHour { get; set; }
 
         public Country TutorCountry { get; set; }
 
@@ -85,8 +85,8 @@ namespace Cloudents.Core.DTOs.Admin
         } //
 
 
-        public decimal StudentPayPerHour { get; set; }
-        public decimal SpitballPayPerHour { get; set; }
+        public double StudentPayPerHour { get; set; }
+        public double SpitballPayPerHour { get; set; }
 
         [EntityBind(nameof(Tutor.Id))]
         public long TutorId { get; set; }

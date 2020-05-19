@@ -39,7 +39,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.TutorApproveTime);
             Map(x => x.TotalPrice);
             Map(x => x.Receipt).Nullable();
-            Map(x => x.Create);
+            Map(x => x.Created).Column("Create");
 
             References(x => x.User).Not.Nullable();
             References(x => x.Tutor).Not.Nullable();

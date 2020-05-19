@@ -59,14 +59,14 @@ namespace Cloudents.Core.DTOs.Users
 
     public class UserTutorProfileDto
     {
-        public decimal Price { get; set; }
+        public double Price { get; set; }
 
         public string Currency => TutorCountry.RegionInfo.ISOCurrencySymbol;
 
         [EntityBind(nameof(ReadTutor.SbCountry))]
         public Country TutorCountry { get; set; }
 
-        public decimal? DiscountPrice { get; set; }
+        public double? DiscountPrice { get; set; }
 
         [EntityBind(nameof(ReadTutor.Rate))]
         public double Rate { get; set; }

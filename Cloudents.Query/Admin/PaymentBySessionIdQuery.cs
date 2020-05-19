@@ -7,6 +7,7 @@ using Dapper;
 
 namespace Cloudents.Query.Admin
 {
+    [Obsolete]
     public class PaymentBySessionIdQuery : IQuery<PaymentDetailDto>
     {
         public PaymentBySessionIdQuery(Guid sessionId)
@@ -81,7 +82,7 @@ namespace Cloudents.Query.Admin
                     return result;
                 }
 
-                result.StudentPayPerHour = Coupon.CalculatePrice(result.CouponType.Value, result.TutorPricePerHour, result.CouponValue.GetValueOrDefault());
+                result.StudentPayPerHour = Coupon.CalculatePrice(result.CouponType.Value, result.TutorPricePerHour, (double)result.CouponValue.GetValueOrDefault());
 
                 if (result.CouponTutor is null)
                 {

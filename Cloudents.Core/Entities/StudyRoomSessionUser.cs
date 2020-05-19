@@ -102,7 +102,7 @@ namespace Cloudents.Core.Entities
             Tutor = studyRoomSessionUser.StudyRoomSession.StudyRoom.Tutor;
             User = studyRoomSessionUser.User;
             StudyRoomSessionUser = studyRoomSessionUser;
-            Create = DateTime.UtcNow;;
+            Created = DateTime.UtcNow;;
         }
 
         [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]
@@ -150,6 +150,6 @@ namespace Cloudents.Core.Entities
 
         public virtual Tutor Tutor { get;protected set; }
 
-        public virtual DateTime Create { get;protected set; }
+        public virtual DateTime Created { get;protected set; }
     }
 }

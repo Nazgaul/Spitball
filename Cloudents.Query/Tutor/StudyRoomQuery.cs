@@ -113,9 +113,9 @@ where sr.id = @Id;");
 
 
                 result.TutorPrice = Coupon.CalculatePrice(result.CouponType.Value,
-                    result.TutorPrice, result.CouponValue.GetValueOrDefault());
+                    result.TutorPrice, (double)result.CouponValue.GetValueOrDefault());
 
-                if (result.TutorPrice == 0)
+                if (result.TutorPrice.CompareTo(0) == 0)
                 {
                     result.NeedPayment = false;
                 }
