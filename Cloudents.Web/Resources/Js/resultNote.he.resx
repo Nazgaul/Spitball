@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="action_apply_name" xml:space="preserve">
+    <value>שנה שם</value>
+  </data>
   <data name="action_apply_price" xml:space="preserve">
     <value>אישור מחיר חדש</value>
   </data>
@@ -147,13 +150,17 @@
   <data name="purchased" xml:space="preserve">
     <value>{n} רכישה | {n} רכישות</value>
   </data>
+  <data name="subscribe_desktop_btn" xml:space="preserve">
+    <value>הצטרפו עכשיו {0} / לחודש</value>
+  </data>
+  <data name="subscribe_desktop_text" xml:space="preserve">
+    <value>קבלו גישה
+עשה מנוי לאתר שלי</value>
+  </data>
   <data name="unsufficient_fund" xml:space="preserve">
     <value>אין מספיק נקודות</value>
   </data>
   <data name="view" xml:space="preserve">
     <value>{n} צפייה | {n} צפיות</value>
-  </data>
-  <data name="action_apply_name" xml:space="preserve">
-    <value>שנה שם</value>
   </data>
 </root>
