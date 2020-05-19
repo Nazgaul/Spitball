@@ -52,7 +52,6 @@
             <v-col cols="12" sm="3" class="pa-0" order="3" order-sm="4">
                 <v-select
                     v-model="priceType"
-                    v-if="true"
                     :items="currentPriceItems"
                     :rules="[rules.required]"
                     :label="$t('upload_file_price_label')"
@@ -66,19 +65,6 @@
                     dense
                 >
                 </v-select>
-                <v-text-field class="uf_price pt-1"
-                    v-model="item.price"
-                    v-else
-                    type="number"
-                    :rules="[rules.integer,rules.maximum,rules.minimum]"
-                    :placeholder="$t('upload_uf_price')"
-                    :suffix="item.price ? $t('upload_uf_price_pts') : ''"
-                    color="#4c59ff"
-                    height="44"
-                    outlined
-                    dense
-                >
-                </v-text-field>
             </v-col>
         </v-row>
     </v-card>
@@ -94,8 +80,6 @@ export default {
     name: "fileCard",
     data() {
         return {
-            // fileNamePlaceholder: LanguageService.getValueByKey("upload_multiple_fileName_placeholder"),
-            currentPrice: '',
             selectedCourse: '',
             isFromQuery: false,
             currentPriceItems: [
@@ -106,9 +90,7 @@ export default {
                 required: (value) => validationRules.required(value),
                 integer: (value) => validationRules.integer(value),
                 matchCourse:() => ((this.getSelectedClasses.length && this.getSelectedClasses.some(course=>course.text === this.selectedCourse)
-                        ) || this.isFromQuery) || LanguageService.getValueByKey("tutorRequest_invalid"),
-                maximum: (value) => validationRules.maxVal(value, 1000),
-                minimum: (value) => validationRules.minVal(value,0)
+                        ) || this.isFromQuery) || LanguageService.getValueByKey("tutorRequest_invalid")
             }
         }
     },
@@ -163,7 +145,6 @@ export default {
                 return this.currentPriceItems.filter(item => item.value === this.item.priceType)[0]
             },
             set(priceType) {
-                debugger
                 this.$store.commit('updatePriceToAll', priceType)
             }
         },

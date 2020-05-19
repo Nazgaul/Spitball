@@ -229,7 +229,13 @@ export default {
                 font-size: 14px;
                 font-weight: bold;
             }
-
+            .documentPrice {
+                .docFree {
+                font-size: 13px;
+                color: @global-purple;
+                font-weight: 600;
+                }
+            }
         }
     }
 }
