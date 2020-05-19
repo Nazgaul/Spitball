@@ -12,6 +12,7 @@ const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCou
 const login = () => import('./globalDialogs/login/login.vue');
 const buyPoints = () => import('./globalDialogs/buyPoints/buyPointsWrapper.vue');
 const teacherApproval = () => import('./globalDialogs/teacherApproval/teacherApproval.vue');
+const teacherBillOffline = () => import('./globalDialogs/teacherApproval/teacherBillOffline.vue');
 
 const payment = () => import('./globalDialogs/payment/paymentWrapper.vue');
 const createStudyRoom = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue');
@@ -28,7 +29,8 @@ export default {
         payment,
         buyPoints,
         teacherApproval,
-        createStudyRoom
+        teacherBillOffline,
+        createStudyRoom,
     },
     data: () => ({
         component: ''
