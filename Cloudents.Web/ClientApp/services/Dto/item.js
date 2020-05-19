@@ -24,7 +24,6 @@ export const Item = {
       this.purchased = objInit.purchased;
       this.title = objInit.title;
       this.documentType = objInit.documentType;
-      this.subscribed = objInit.subscribed
       this.template = 'result-note';
    },
    Video: function (objInit) {
