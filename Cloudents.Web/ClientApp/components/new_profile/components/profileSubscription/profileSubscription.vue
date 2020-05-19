@@ -5,7 +5,7 @@
             <div class="subTitle text-truncate" v-t="{path: 'profile_subscribe_subtitle', args: {0: firstName}}"></div>
 
             <div class="priceWrapper mt-8 mb-2">
-                <span class="price">{{$n(profileTutorSubscription.amount, 'currency')}}</span>
+                <span class="price">{{$n(profileTutorSubscription.amount, 'currency', 'en-US')}}</span>
                 <span v-t="'profile_subscribe_price_month'"></span>
             </div>
 

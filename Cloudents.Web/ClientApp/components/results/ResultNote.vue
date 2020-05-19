@@ -73,7 +73,7 @@
           <div class="overlay text-center px-2 px-sm-5" v-if="isSubscribed && isPreviewReady">
               <div class="unlockText white--text mb-3" v-t="subscribeText"></div>
               <v-btn class="btn" color="#fff" @click.prevent="subscribe" rounded block>
-                <span v-t="{path: subscribeBtnText, args: { 0: subscribedPrice }}"></span>
+                <span v-t="{path: subscribeBtnText, args: { 0: $n(subscribedPrice, 'currency', 'en-US') }}"></span>
               </v-btn>
           </div>
         </div>
@@ -251,7 +251,7 @@ export default {
       return this.isMobile ? 'resultNote_subscribe_mobile_btn' : 'resultNote_subscribe_desktop_btn'
     },
     subscribedPrice() {
-      return this.item.subscriberPrice || '$15'
+      return this.item.price
     },
     isSubscribed() {
       return this.item.priceType === 'Subscriber'
