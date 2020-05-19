@@ -1,9 +1,10 @@
 <template>
-     <v-app>
-        <component :is="layout" class="v-content"></component>
-        <dialogInjection class="dialogInjection" />
-        <componentInjection class="componentInjection" />
-     </v-app>
+    <component :is="layout">
+        <template v-slot:appInjections>
+            <dialogInjection class="dialogInjection" />
+            <componentInjection class="componentInjection" />
+        </template>
+    </component>
 </template>
 
 <script>
