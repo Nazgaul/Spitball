@@ -146,62 +146,10 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             await Dbi();
-            //using (var x = Container.Resolve<ISession>())
-            //{
-
-            //    var email = x.Query<User>().Where(w => w.Id == 638).Single();
-            //    Console.WriteLine("Email");
-            //    var z = x.Load<User>(638L);
-
-
-            //    Console.WriteLine("in here");
-
-            //    var v = z.EmailConfirmed;
-            //    Console.WriteLine(v);
-            //}
-
-            //Console.WriteLine("At the end");
-            // var z = Container.Resolve<IUnitOfWork>();
-            // await UpdateTwilioParticipants();
-            // await Dbi();
-
-
-
-            //var x = Container.Resolve<StripeClient>();
-            //await x.ChargeTheBastard();
-
-
-            //var xy = Container.Resolve<DocumentSearchWrite>();
-            //await xy.CreateOrUpdateAsync(default);
-
-            //BaseUser? userAlias = null!;
-            //var session = Container.Resolve<IStatelessSession>();
-
-            //var questionCountFutureQuery = session.QueryOver<Question>()
-            //    .JoinAlias(x => x.User, () => userAlias)
-            //    .Where(w => w.Status.State == ItemState.Ok);
-            //questionCountFutureQuery.Where(() => userAlias.SbCountry == Country.India);
-
-            ////questionCountFutureQuery.Where(Restrictions.Eq(Projections.Property(()=> userAlias.SbCountry), Country.India));
-
-
-            //var questionCountFuture = questionCountFutureQuery.ToRowCountQuery().RowCount();
-
-            //var x = session.Query<BaseUser>()
-            //    .Where(w => w.Id == 36)
-            //    .Where(w=>((User)w).LockoutEnabled)
-            //    //.Where(w => ((User) w).LockoutReason == "xxx")
-            //    .Select(s => ((User) s).LockoutReason)
-            //    .Single();
-
-            //var z= session.QueryOver<BaseUser>()
-            //    .Where(w => w.Id == 36)
-            //    .Where(w=>((User)w).LockoutEnabled)
-            //    .Select(s => ((User) s).LockoutReason).SingleOrDefault();
+            
 
 
         }
-        //  await ReduPreviewProcessingAsync();
 
         private static async Task Dbi()
         {
@@ -210,7 +158,7 @@ namespace ConsoleApp
             //var studyRoomUsers =await session.Query<StudyRoomSessionUser>()
             //    .ToListAsync();
 
-            foreach (var user in session.Query<StudyRoomSessionUser>().Take(1))
+            foreach (var user in session.Query<StudyRoomSessionUser>())
             {
                 user.StudyRoomPayment = new StudyRoomPayment(user);
                 session.Flush();
