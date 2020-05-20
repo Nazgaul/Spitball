@@ -177,7 +177,7 @@
   <data name="unlock_video_subtitle" xml:space="preserve">
     <value>רוצים לראות את הסרטון המלא?</value>
   </data>
-  <data name="unlock_video_subtitle_subscriber" xml:space="preserve">
+  <data name="unlock_video_subtitle_subscribe" xml:space="preserve">
     <value>הצטרפו עכשיו למנוי לאתר של {0}</value>
   </data>
   <data name="why_spitball" xml:space="preserve">
