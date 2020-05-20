@@ -57,7 +57,14 @@ export default {
       }
    },
    computed: {
-      ...mapGetters(['accountUser','getBtnLoading', 'getDocumentPriceTypeFree', 'getDocumentPriceTypeSubscriber', 'getDocumentUserName']),
+      ...mapGetters([
+         'accountUser',
+         'getBtnLoading',
+         'getDocumentPriceTypeFree',
+         'getDocumentPriceTypeSubscriber',
+         'getDocumentUserName',
+         'getDocumentPrice',
+      ]),
       isFree() {
          return this.getDocumentPriceTypeFree
       },
@@ -65,7 +72,7 @@ export default {
          return this.getDocumentUserName;
       },
       unlockDocumentBtnText() {
-         return this.isFree ? 'documentPage_unlock_document_btn_free' : 'documentPage_unlock_document_btn_subscribe'
+         return this.isFree || this.getDocumentPriceTypeHasPrice ? 'documentPage_unlock_document_btn_free' : {path: 'documentPage_unlock_document_btn_subscribe', args: {0: this.getDocumentPrice}}
       },
       unlockVideoBtnText() {
          return this.isFree ? 'documentPage_unlock_video_btn_free' : 'documentPage_unlock_video_btn_subscribe'

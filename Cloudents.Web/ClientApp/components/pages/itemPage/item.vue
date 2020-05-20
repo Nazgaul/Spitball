@@ -242,7 +242,7 @@ export default {
             return this.getDocumentPriceTypeFree
         },
         unlockDocumentBtnText() {
-            return this.isFree ? 'documentPage_unlock_document_btn_free' : 'documentPage_unlock_document_btn_subscribe'
+         return this.isFree || this.getDocumentPriceTypeHasPrice ? 'documentPage_unlock_document_btn_free' : {path: 'documentPage_unlock_document_btn_subscribe', args: {0: this.getDocumentPrice}}
         },
         unlockVideoBtnText() {
             return this.isFree ? 'documentPage_unlock_video_btn_free' : 'documentPage_unlock_video_btn_subscribe'
