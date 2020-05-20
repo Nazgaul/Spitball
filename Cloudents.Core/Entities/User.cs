@@ -136,6 +136,13 @@ namespace Cloudents.Core.Entities
 
         public virtual void ChangeCountryAdmin(string country)
         {
+            if (Tutor != null)
+            {
+                if (Tutor.HasSubscription())
+                {
+                    throw new UnauthorizedAccessException("Cannot change country of tutor with subscription");
+                }
+            }
             ChangeCountry(country);
             ChangeLanguage(Entities.Language.English);
 
