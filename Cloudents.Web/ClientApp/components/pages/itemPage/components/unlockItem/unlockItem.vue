@@ -44,6 +44,8 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import * as routeNames from '../../../../../routes/routeNames';
+
 export default {
    name:'unlockItem',
    props:{
@@ -64,6 +66,7 @@ export default {
          'getDocumentPriceTypeSubscriber',
          'getDocumentUserName',
          'getDocumentPrice',
+         'getDocumentDetails',
       ]),
       isFree() {
          return this.getDocumentPriceTypeFree
@@ -75,7 +78,7 @@ export default {
          return this.isFree || this.getDocumentPriceTypeHasPrice ? 'documentPage_unlock_document_btn_free' : {path: 'documentPage_unlock_document_btn_subscribe', args: {0: this.getDocumentPrice}}
       },
       unlockVideoBtnText() {
-         return this.isFree ? 'documentPage_unlock_video_btn_free' : 'documentPage_unlock_video_btn_subscribe'
+         return this.isFree ? 'documentPage_unlock_video_btn' : {path: 'documentPage_unlock_video_btn_subscribe', args: {0: this.$n(this.getDocumentPrice,'currency', 'en')}}
       },
       isDocument(){
          return this.type === 'Document';
@@ -90,6 +93,17 @@ export default {
    methods: {
       ...mapActions(['updatePurchaseConfirmation']),
       openPurchaseDialog(){
+            if(!this.isDocument && this.getDocumentPriceTypeSubscriber) {
+               this.$router.push({
+                  name: routeNames.Profile,
+                  params: {
+                  id: this.getDocumentDetails.details.tutor.userId,
+                  name: this.getDocumentDetails.details.tutor.name
+                  },
+                  hash: '#subscription'
+               })
+               return
+            }
             if(!!this.accountUser) {
                 this.updatePurchaseConfirmation(true)
             } else {

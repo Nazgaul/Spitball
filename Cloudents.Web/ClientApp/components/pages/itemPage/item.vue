@@ -30,7 +30,7 @@
                                     <div class="mr-1 price">{{priceWithComma}}</div>
                                     <span class="points" v-t="'documentPage_points'"></span>
                                 </template>
-                                <div class="mr-1 price" v-else>{{$n(priceWithComma, 'currency', 'en')}}</div>
+                                <!-- <div class="mr-1 price" v-else>{{$n(priceWithComma, 'currency', 'en')}}</div> -->
                             </div>
                             <!-- <div v-t="'documentPage_credit_uploader'"></div> -->
                         </template>
@@ -43,7 +43,6 @@
                             @click="openPurchaseDialog"
                             v-if="!getIsPurchased"
                             height="42"
-                            width="215"
                             color="#4c59ff">
 
                                 <span v-if="isVideo" v-t="unlockVideoBtnText"></span>
@@ -57,7 +56,6 @@
                             target="_blank"
                             :loading="getBtnLoading"
                             class="itemPage__side__btn white--text"
-                            width="215"
                             height="42"
                             depressed
                             rounded
@@ -171,6 +169,8 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
+import * as routeNames from '../../../routes/routeNames';
+
 //services
 import * as dialogNames from '../global/dialogInjection/dialogNames.js';
 import { LanguageService } from "../../../services/language/languageService";
@@ -236,16 +236,17 @@ export default {
             'getShowItemToaster',
             'getBtnLoading',
             'getDocumentPriceTypeFree',
-            'getDocumentPriceTypeHasPrice'
+            'getDocumentPriceTypeHasPrice',
+            'getDocumentPriceTypeSubscriber',
         ]),
         isFree() {
             return this.getDocumentPriceTypeFree
         },
         unlockDocumentBtnText() {
-         return this.isFree || this.getDocumentPriceTypeHasPrice ? 'documentPage_unlock_document_btn_free' : {path: 'documentPage_unlock_document_btn_subscribe', args: {0: this.$n(this.getDocumentPrice,'currency', 'en')}}
+         return this.isFree || this.getDocumentPriceTypeHasPrice ? 'documentPage_unlock_document_btn' : {path: 'documentPage_unlock_document_btn_subscribe', args: {0: this.$n(this.getDocumentPrice,'currency', 'en')}}
         },
         unlockVideoBtnText() {
-            return this.isFree ? 'documentPage_unlock_video_btn_free' : 'documentPage_unlock_video_btn_subscribe'
+            return this.isFree || this.getDocumentPriceTypeHasPrice ? 'documentPage_unlock_video_btn' : {path: 'documentPage_unlock_video_btn_subscribe', args: {0: this.$n(this.getDocumentPrice,'currency', 'en')}}
         },
         shareContentParams(){
             let urlLink = `${global.location.origin}/d/${this.$route.params.id}?t=${Date.now()}` ;
@@ -413,6 +414,17 @@ export default {
             this.$openDialog(dialogNames.BuyPoints);
         },
         openPurchaseDialog() {
+            if(this.isVideo && this.getDocumentPriceTypeSubscriber) {
+                this.$router.push({
+                    name: routeNames.Profile,
+                    params: {
+                    id: this.doucmentDetails.tutor.userId,
+                    name: this.doucmentDetails.tutor.name
+                    },
+                    hash: '#subscription'
+                })
+                return
+            }
             if(this.accountUser) {
                 this.updatePurchaseConfirmation(true)
             } else {
