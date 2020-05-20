@@ -13,7 +13,6 @@ const state = {
     },
     chatState: "conversation",
     activeConversationObj: chatService.createActiveConversationObj({}), //points to conversation Obj
-    isVisible: false,// global.innerWidth < 600 ? false : false,
     isMinimized: true,
     totalUnread: 0,
     chatLocked: false,
@@ -23,7 +22,6 @@ const state = {
 };
 const getters = {
     getFileError: state => state.fileError,
-    getIsChatVisible:state=> state.isVisible,
     getIsChatMinimized:state=> state.isMinimized,
     getChatState:state=>state.chatState,
     getEnumChatState:state=>state.enumChatState,
@@ -143,12 +141,6 @@ const mutations = {
     expandChat:()=>{
         state.isMinimized = false;
     },
-    closeChat:(state)=>{
-        state.isVisible = false;
-    },
-    openChat:(state)=>{
-        state.isVisible = true;
-    },
     clearUnreadFromConversation:(state, conversationId)=>{
         state.conversations[conversationId].unread = 0;
     },
@@ -157,7 +149,6 @@ const mutations = {
         state.totalUnread = state.totalUnread + val;
     },
     lockChat:(state,val)=>{
-        state.isVisible = true;
         state.chatLocked = val;
     },
     activateLoader:(state, val)=>{
@@ -250,7 +241,7 @@ const actions = {
         commit('updateTotalUnread', totalUnread);
     },
     clearUnread:({commit, state}, conversationId)=>{
-        if(state.isMinimized) return; //when inside study room and activating chat dont clear unread unless chat is maximized
+        // if(state.isMinimized) return; //when inside study room and activating chat dont clear unread unless chat is maximized
         if(!conversationId) {
             conversationId = state.activeConversationObj.conversationId;
         }
@@ -281,7 +272,6 @@ const actions = {
     },
     getAllConversations:({commit, getters, dispatch, state})=>{
         if(!getters.accountUser) {
-            commit('closeChat');
             return;
         }
         chatService.getAllConversations().then(({data})=>{
@@ -298,9 +288,6 @@ const actions = {
                         dispatch('setUserStatus', userStatus);
                     })
                 });
-                if(global.innerWidth > 600){
-                    state.isVisible = true;
-                }
             }
         });
     },
@@ -382,15 +369,8 @@ const actions = {
             }
         }
     },
-    closeChat:({commit})=>{
-        commit('closeChat');
-    },
-    openChat:({commit})=>{
-        commit('openChat');
-    },
     openChatInterface:({commit, dispatch, state})=>{
         commit('expandChat');
-        dispatch('openChat');
         if(state.chatState === state.enumChatState.messages){
             dispatch('clearUnread');
         }

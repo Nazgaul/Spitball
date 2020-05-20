@@ -41,15 +41,17 @@ export default {
                   let conversation = newVal.find(c => c.conversationId == idFromRouteParam)
                   if(conversation){
                      let currentConversationObj = chatService.createActiveConversationObj(conversation)
-                     this.$store.dispatch('setActiveConversationObj',currentConversationObj);
+                     this.$store.dispatch('setActiveConversationObj',currentConversationObj).catch(()=>{});
                   }else{
                      if(!this.isMobile){
                         let firstConversation = newVal[0];
                         let currentConversationObj = chatService.createActiveConversationObj(firstConversation)
                         this.$store.dispatch('setActiveConversationObj',currentConversationObj);
-                        this.$router.push({...this.$route,params:{id:firstConversation.conversationId}})
+                        this.$router.push({...this.$route,params:{id:firstConversation.conversationId}}).catch(()=>{});
                      }else{
-                        this.$router.push({...this.$route,params:{id:undefined}})
+                        let currentConversationObj = chatService.createActiveConversationObj({})
+                        this.$store.dispatch('setActiveConversationObj',currentConversationObj);
+                        this.$router.push({...this.$route,params:{id:undefined}}).catch(()=>{});
                      }
                   }
                }
@@ -63,6 +65,35 @@ export default {
 <style lang="less">
    @import '../../../styles/mixin.less';
    .messageCenter{
+      height: 100%;
+      padding: 24px 32px 16px 32px;
+      max-height: calc(~"100vh - 70px"); //global header height;
+      background-color: #dddddd;
+      @media(max-width: @screen-xs) {
+         padding: 0;
+         max-height: calc(~"100vh - 62px");
+      }
+      &::before{
+         content: '';
+         position: absolute;
+         background: #4c59ff;
+         width: 100%;
+         top: 0;
+         left: 0;
+         right: 0;
+         height: 200px;
+         bottom: 0;
+      }
+      ::-webkit-scrollbar-track {
+         background: #f5f5f5; 
+      }
+      ::-webkit-scrollbar {
+         width: 6px;
+      }
+      ::-webkit-scrollbar-thumb {
+         background: #bdc0d1 !important;
+         border-radius: 4px !important;
+      }
       .messageCenter2{
          width: 100%;
          max-width: 1302px;
@@ -77,37 +108,6 @@ export default {
             overflow:initial;
             border-radius: 0;
          }
-      }
-      height: 100%;
-      @media(max-width: @screen-xs) {
-         padding: 0;
-      }
-      padding: 24px 32px 16px 32px;
-      max-height: calc(~"100vh - 70px"); //global header height;
-      background-color: #dddddd;
-      &::before{
-         content: '';
-         position: absolute;
-         background: #4c59ff;
-         width: 100%;
-         top: 0;
-         left: 0;
-         right: 0;
-         height: 200px;
-         bottom: 0;
-      }
-      @media(max-width: @screen-xs) {
-         max-height: calc(~"100vh - 60px"); //global header height;
-      }
-      ::-webkit-scrollbar-track {
-         background: #f5f5f5; 
-      }
-      ::-webkit-scrollbar {
-         width: 6px;
-      }
-      ::-webkit-scrollbar-thumb {
-         background: #bdc0d1 !important;
-         border-radius: 4px !important;
       }
    }
 </style>

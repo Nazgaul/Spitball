@@ -73,7 +73,7 @@ export default {
          background-repeat: repeat;
          background-color: #ced7e2;
          @media(max-width: @screen-xs) {
-            height: calc(~"100% - 50px");
+            height: calc(~"100% - 112px");
          }
          .message_wrap{
             margin-left: 12px;

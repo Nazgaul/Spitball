@@ -125,7 +125,6 @@ export default {
     ...mapActions([
       "updateChatState",
       "toggleChatMinimize",
-      "closeChat",
       "openChatInterface"
     ]),
     ...mapGetters(["getEnumChatState"]),
@@ -145,7 +144,6 @@ export default {
     },
     closeChatWindow() {
       this.OriginalChatState();
-      this.closeChat();
     }
   }
 };

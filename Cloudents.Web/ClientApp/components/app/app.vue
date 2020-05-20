@@ -6,8 +6,6 @@
     <router-view name="sideMenu" v-if="isDrawer"></router-view>
     <v-content :class="[{'site-content': $route.path !== '/'}, {'hidden-sideMenu': drawerPlaceholder}]">
         <router-view class="main-container"></router-view>
-        <!-- <chat v-if="visible"/> -->
-      
         <!-- <div class="s-cookie-container" v-if="!cookiesShow">
           <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
           <span class="cookie-approve">
@@ -82,7 +80,6 @@ const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
 const AddQuestion = () => import("../question/askQuestion/askQuestion.vue");
 const walletService = () => import("../../services/walletService");
 const mobileFooter = () => import("../pages/layouts/mobileFooter/mobileFooter.vue");
-const chat = () => import("../chat/chat.vue");
 const tutorRequest = () => import("../tutorRequestNEW/tutorRequest.vue");
 const referralDialog = () => import("../question/helpers/referralDialog/referral-dialog.vue");
 
@@ -91,10 +88,8 @@ export default {
     referralDialog,
     AddQuestion,
     sbDialog,
-    chat,
     mobileFooter,
     tutorRequest,
-   
   },
   data() {
     return {
@@ -113,7 +108,6 @@ export default {
       "getToasterText",
       "getMobileFooterState",
       "getRequestTutorDialog",
-      "getIsChatVisible",
       'getUserLoggedInStatus',
       'getIsTeacher',
       'getLoginDialog',
@@ -154,14 +148,6 @@ export default {
     },
     showMobileFooter() {
       return this.$vuetify.breakpoint.xsOnly && this.getMobileFooterState && !this.hideFooter && this.$route.name !== 'tutorLandingPage';
-    },
-    visible() {
-
-      if (this.accountUser === null) {
-        return false;
-      } else {
-        return this.getIsChatVisible;
-      }
     },
     showHeader(){
       if(this.$route.name == routeNames.MessageCenter){
@@ -219,16 +205,6 @@ export default {
         this.fireOptimizeActivate();
       });
     },
-    visible: function(val) {
-      if (!this.isMobile) {
-        return;
-      }
-      if (val) {
-        document.body.classList.add("noscroll");
-      } else {
-        document.body.classList.remove("noscroll");
-      }
-    }
   },
   methods: {
     ...mapActions([
@@ -236,7 +212,6 @@ export default {
       "updateToasterParams",
       "setCookieAccepted",
       "updateRequestDialog",
-      "openChatInterface",
       "setTutorRequestAnalyticsOpenedFrom",
       "fireOptimizeActivate",
       "updateBannerStatus"
@@ -281,15 +256,6 @@ export default {
     }
     this.updateBannerStatus(true);
 
-    if (this.$vuetify.breakpoint.xsOnly) {
-      if (!!this.$route.query && this.$route.query.chat) {
-        if (this.$route.query.chat.toLowerCase() === "expand") {
-          setTimeout(() => {
-            this.openChatInterface(true);
-          }, 170);
-        }
-      }
-    }
     this.acceptedCookies = this.getCookieAccepted();
     if (global.isMobileAgent) {
       global.addEventListener("resize", () => {

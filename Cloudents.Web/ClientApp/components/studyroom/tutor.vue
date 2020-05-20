@@ -319,11 +319,8 @@ watch: {
       "setActiveConversationObj",
       "getChatById",
       "updateLockChat",
-      "closeChat",
-      "openChatInterface",
       // "setShowAudioRecordingError",
       // "updateDialogUserConsent",
-      "openChat"
     ]),
     handleNeedPayment(needPayment){
       if(needPayment){
@@ -390,10 +387,8 @@ watch: {
       this.activeViewOption = param;
       if (this.activeViewOption === this.enumViewOptions.videoChat) {
         this.videoChat = !this.videoChat;
-        this.openChatInterface();
       } else if (this.activeViewOption === this.enumViewOptions.fullBoard) {
         this.videoChat = !this.videoChat;
-        this.closeChat();
       } else if (
         this.activeViewOption === this.enumViewOptions.fullScreenVideo
       ) {

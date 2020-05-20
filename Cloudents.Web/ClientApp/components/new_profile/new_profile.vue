@@ -102,6 +102,7 @@ import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileLiveClasses from './components/profileLiveClasses/profileLiveClasses.vue'
 import calendarTab from '../calendar/calendarTab.vue';
 import cover from "./components/cover.vue";
+import * as routeNames from '../../routes/routeNames.js';
 
 
 
@@ -150,8 +151,6 @@ export default {
             'setTutorRequestAnalyticsOpenedFrom',
             'updateRequestDialog',
             'setActiveConversationObj',
-            'openChatInterface',
-
 
             'syncProfile',
             'resetProfileData',
@@ -210,7 +209,7 @@ export default {
                }
                let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
                this.setActiveConversationObj(currentConversationObj);
-               this.openChatInterface();                    
+               this.$router.push({name:routeNames.MessageCenter,params:{id:currentConversationObj.conversationId}})
             }
         },
         fetchData() {

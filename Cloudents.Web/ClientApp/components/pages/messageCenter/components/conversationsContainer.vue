@@ -140,11 +140,7 @@ export default {
 
       }
       .conversationsList{
-         @media(max-width: @screen-xs) {
-            height: 100%;
-            height: calc(~"100% - 116px");
-         }
-         height: calc(~"100% - 178px"); // header height & search and sort height
+         height: calc(~"100% - 178px"); // header || mobile footer height & search and sort height
       }
    }
 </style>

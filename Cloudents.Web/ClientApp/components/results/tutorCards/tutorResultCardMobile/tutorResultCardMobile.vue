@@ -69,7 +69,7 @@ import { mapActions, mapGetters } from "vuex";
 import { LanguageService } from "../../../../services/language/languageService.js";
 import chatService from '../../../../services/chatService';
 import analyticsService from "../../../../services/analytics.service";
-
+import * as routeNames from '../../../../routes/routeNames.js'
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
 import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
 
@@ -92,7 +92,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["updateRequestDialog", 'updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom', 'openChatInterface', 'setActiveConversationObj']),
+    ...mapActions(["updateRequestDialog", 'updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom', 'setActiveConversationObj']),
 
     tutorCardClicked() {
       if(this.fromLandingPage){
@@ -122,7 +122,7 @@ export default {
           }
           let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
           this.setActiveConversationObj(currentConversationObj);
-          this.openChatInterface();                    
+          this.$router.push({name:routeNames.MessageCenter,params:{id:currentConversationObj.conversationId}})
       }
     }
   },

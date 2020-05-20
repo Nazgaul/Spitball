@@ -15,7 +15,8 @@ export const messageCenterRoutes = [
     //       })
     //   },
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        showMobileFooter: true,
       },
     //   beforeEnter: (to, from, next) => {
     //   }
