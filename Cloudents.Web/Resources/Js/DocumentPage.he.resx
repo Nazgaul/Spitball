@@ -156,6 +156,9 @@
   <data name="unlock_document_btn_free" xml:space="preserve">
     <value>הצטרפו עכשיו {0} / לחודש</value>
   </data>
+  <data name="unlock_document_btn_subscribe" xml:space="preserve">
+    <value>הצטרפו עכשיו {0} /לחודש</value>
+  </data>
   <data name="unlock_subtitle" xml:space="preserve">
     <value>רוצה לקרוא את כל {1} הדפים?</value>
   </data>
@@ -171,14 +174,14 @@
   <data name="unlock_video_btn_free" xml:space="preserve">
     <value>הצטרפו עכשיו {0} / לחודש</value>
   </data>
+  <data name="unlock_video_btn_subscribe" xml:space="preserve">
+    <value>הצטרפו עכשיו למנוי לאתר של {0}</value>
+  </data>
   <data name="unlock_video_btn_subtitle" xml:space="preserve">
     <value>הצטרפו עכשיו {0} /לחודש</value>
   </data>
   <data name="unlock_video_subtitle" xml:space="preserve">
     <value>רוצים לראות את הסרטון המלא?</value>
-  </data>
-  <data name="unlock_video_subtitle_subscribe" xml:space="preserve">
-    <value>הצטרפו עכשיו למנוי לאתר של {0}</value>
   </data>
   <data name="why_spitball" xml:space="preserve">
     <value>למה בספיטבול</value>
