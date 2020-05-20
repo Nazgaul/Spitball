@@ -20,8 +20,10 @@
      </div>
       <div v-else class="unlockItem_video">
          <div class="unlockItem_video_container">
-            <div class="unlockItem_video_title" v-t="'documentPage_unlock_title'"/>
-            <div class="unlockItem_video_subtitle" v-t="'documentPage_unlock_video_subtitle'"></div>
+            <div class="unlockItem_video_title" v-t="'documentPage_unlock_title'"></div>
+            
+            <div v-if="getIsDocumentTutorSubscriber" class="unlockItem_video_subtitle" v-t="{path: 'documentPage_unlock_video_subtitle_subscriber', args: {0: tutorName}}"></div>
+            <div v-else class="unlockItem_video_subtitle" v-t="'documentPage_unlock_video_subtitle'"></div>
 
             <v-btn
                class="unlockItem_video_btn white--text"
@@ -55,9 +57,9 @@ export default {
       }
    },
    computed: {
-      ...mapGetters(['accountUser','getBtnLoading', 'getDocumentPriceType']),
+      ...mapGetters(['accountUser','getBtnLoading', 'getDocumentPriceTypeFree', 'getIsDocumentTutorSubscriber']),
       isFree() {
-         return this.getDocumentPriceType === 'Free'
+         return this.getDocumentPriceTypeFree
       },
       unlockDocumentBtnText() {
          return this.isFree ? 'documentPage_unlock_document_btn_free' : 'documentPage_unlock_document_btn_subscribe'
