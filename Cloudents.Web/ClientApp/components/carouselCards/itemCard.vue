@@ -30,7 +30,7 @@
                     <div class="text-truncate" >{{item.user.name}}</div>
                 </div>
             </div>
-            <div class="itemCard-bottom mt-8">
+            <div class="itemCard-bottom mt-2">
                 <span class="item-purchases">{{$tc('itemCardCarousel_purchased', item.purchased)}}</span>
                 <documentPrice :price="item.price" :isSubscribed="isSubscribed" />
             </div>

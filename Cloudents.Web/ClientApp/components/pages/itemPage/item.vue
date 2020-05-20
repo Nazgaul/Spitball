@@ -112,6 +112,7 @@
                     @select="enterItemCard" 
                     :arrows="$vuetify.breakpoint.mdAndUp ? true : false"
                     :gap="20"> -->
+                    <div style="direction:ltr">
                 <v-slide-group
                     v-model="model"
                     class="pa-0 itemSlider"
@@ -128,6 +129,7 @@
                         <itemCard class="itemCard-itemPage" :fromCarousel="true" :item="item" :key="index" />
                     </v-slide-item>
                 </v-slide-group>
+                </div>
                 <!-- </sbCarousel> -->
             </div>
 
