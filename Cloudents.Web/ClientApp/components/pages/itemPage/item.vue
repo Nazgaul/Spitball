@@ -42,8 +42,9 @@
                             height="42"
                             width="215"
                             color="#4c59ff">
-                                <span v-if="isVideo" v-t="'documentPage_unlock_video_btn'"></span>
-                                <span v-else v-t="'documentPage_unlock_document_btn'"></span>
+
+                                <span v-if="isVideo" v-t="unlockVideoBtnText"></span>
+                                <span v-else v-t="unlockDocumentBtnText"></span>
                         </v-btn>
                         <v-btn
                             v-if="!isVideo && getIsPurchased"
@@ -229,7 +230,17 @@ export default {
             'getPurchaseConfirmation',
             'getShowItemToaster',
             'getBtnLoading',
+            'getDocumentPriceType'
         ]),
+        isFree() {
+            return this.getDocumentPriceType === 'Free'
+        },
+        unlockDocumentBtnText() {
+            return this.isFree ? 'documentPage_unlock_document_btn_free' : 'documentPage_unlock_document_btn_subscribe'
+        },
+        unlockVideoBtnText() {
+            return this.isFree ? 'documentPage_unlock_video_btn_free' : 'documentPage_unlock_video_btn_subscribe'
+        },
         shareContentParams(){
             let urlLink = `${global.location.origin}/d/${this.$route.params.id}?t=${Date.now()}` ;
             let itemType = this.getDocumentDetails.documentType;
