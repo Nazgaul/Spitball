@@ -80,7 +80,6 @@ namespace Cloudents.Core.Entities
         public virtual DateTime? PaymentApproved { get; protected set; }
         [Obsolete]
         public virtual TimeSpan? AdminDuration { get; protected set; }
-        [Obsolete]
         public virtual TimeSpan? RealDuration { get; protected set; }
 
 

@@ -681,7 +681,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
                 .ThenFetch(f => f.StudyRoom)
                 .Select(s => new
                 {
-                    SessionId = s.StudyRoomSession.Id,
+                    SessionId = s.Id,
                     UserId = s.User.Id,
                     TutorId = s.StudyRoomSession.StudyRoom.Tutor.Id
                 })
@@ -691,7 +691,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
                 return;
             }
 
-            var query = new SessionApprovalQuery(resultQuery.SessionId, resultQuery.UserId, resultQuery.TutorId);
+            var query = new SessionApprovalQuery(resultQuery.SessionId, /*resultQuery.UserId,*/ resultQuery.TutorId);
             var result = await fixture.QueryBus.QueryAsync(query, default);
             result.Should().NotBeNull();
         }
