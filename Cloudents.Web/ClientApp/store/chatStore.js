@@ -11,20 +11,16 @@ const state = {
         conversation: "conversation",
         messages: "messages"
     },
-    chatState: "conversation",
+    chatState: "conversation", //check if we need
     activeConversationObj: chatService.createActiveConversationObj({}), //points to conversation Obj
-    isMinimized: true,
+    isMinimized: true, //check if we need
     totalUnread: 0,
-    chatLocked: false,
     chatLoader: false,
     emptyState: [],
     isSyncing: true,
 };
 const getters = {
     getFileError: state => state.fileError,
-    getIsChatMinimized:state=> state.isMinimized,
-    getChatState:state=>state.chatState,
-    getEnumChatState:state=>state.enumChatState,
     getConversations: (state)=>{
         let conversations = Object.keys(state.conversations).map((prop)=>{
             return state.conversations[prop];
@@ -84,7 +80,6 @@ const getters = {
     },
     getActiveConversationObj:state=>state.activeConversationObj,
     getTotalUnread: state=>state.totalUnread,
-    getIsChatLocked: state=>state.chatLocked,
 };
 
 const mutations = {
@@ -135,21 +130,12 @@ const mutations = {
             state.chatState = newChatState;
         }
     },
-    collapseChat:(state)=>{
-        state.isMinimized = true;
-    },
-    expandChat:()=>{
-        state.isMinimized = false;
-    },
     clearUnreadFromConversation:(state, conversationId)=>{
         state.conversations[conversationId].unread = 0;
     },
     updateTotalUnread:(state, val)=>{
         //val could be negative value
         state.totalUnread = state.totalUnread + val;
-    },
-    lockChat:(state,val)=>{
-        state.chatLocked = val;
     },
     activateLoader:(state, val)=>{
         state.chatLoader = val;
@@ -181,7 +167,7 @@ const actions = {
                     if (message.fromSignalR) {
                         chatService.clearUnread(state.activeConversationObj.conversationId);
                     }
-                    if(state.isMinimized && message.fromSignalR){
+                    if(state.isMinimized && message.fromSignalR){  //check if we need
                         //in tutor room the conversation is auto loaded, so in case of refresh
                         //we dont want to update the total unread unless signalR message arrives
                         commit('addConversationUnread', message);
@@ -241,7 +227,6 @@ const actions = {
         commit('updateTotalUnread', totalUnread);
     },
     clearUnread:({commit, state}, conversationId)=>{
-        // if(state.isMinimized) return; //when inside study room and activating chat dont clear unread unless chat is maximized
         if(!conversationId) {
             conversationId = state.activeConversationObj.conversationId;
         }
@@ -268,7 +253,6 @@ const actions = {
         dispatch('syncMessagesByConversationId');
         dispatch('clearUnread', obj.conversationId);
         dispatch('updateChatState', state.enumChatState.messages);
-        
     },
     getAllConversations:({commit, getters, dispatch, state})=>{
         if(!getters.accountUser) {
@@ -359,24 +343,10 @@ const actions = {
         dispatch('addMessage', localMessageObj);
 
     },
-    toggleChatMinimize:({commit, state, dispatch})=>{
-        if(!state.isMinimized){
-            commit('collapseChat');
-        }else{
-            commit('expandChat');
-            if(state.chatState === state.enumChatState.messages){
-                dispatch('clearUnread');
-            }
-        }
-    },
     openChatInterface:({commit, dispatch, state})=>{
-        commit('expandChat');
         if(state.chatState === state.enumChatState.messages){
             dispatch('clearUnread');
         }
-    },
-    updateLockChat({commit},val){
-        commit('lockChat',val);
     },
     checkUnreadMessageFromSignalR({state}, obj) {
         let currentConversation = state.activeConversationObj.conversationId === obj.conversationId;

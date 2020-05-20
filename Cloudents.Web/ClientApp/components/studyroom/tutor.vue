@@ -318,7 +318,6 @@ watch: {
     ...mapActions([
       "setActiveConversationObj",
       "getChatById",
-      "updateLockChat",
       // "setShowAudioRecordingError",
       // "updateDialogUserConsent",
     ]),
@@ -417,7 +416,6 @@ watch: {
         insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_ChatById', data, null)
         let currentConversationObj = chatService.createActiveConversationObj(data);
         self.setActiveConversationObj(currentConversationObj);
-        self.updateLockChat(true);
       });
     },
     // closeBrowserSupportDialog(){
@@ -457,7 +455,6 @@ watch: {
   },
   beforeDestroy(){
     this.$store.dispatch('updateResetRoom');
-    this.updateLockChat(false);
 
     // storeService.unregisterModule(this.$store,'tutoringCanvas');
     // storeService.unregisterModule(this.$store,'roomRecording_store');
