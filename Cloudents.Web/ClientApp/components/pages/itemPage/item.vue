@@ -30,7 +30,7 @@
                                     <div class="mr-1 price">{{priceWithComma}}</div>
                                     <span class="points" v-t="'documentPage_points'"></span>
                                 </template>
-                                <div class="mr-1 price" v-else>{{$n(priceWithComma, 'currency')}}</div>
+                                <div class="mr-1 price" v-else>{{$n(priceWithComma, 'currency', 'en')}}</div>
                             </div>
                             <!-- <div v-t="'documentPage_credit_uploader'"></div> -->
                         </template>
@@ -242,7 +242,7 @@ export default {
             return this.getDocumentPriceTypeFree
         },
         unlockDocumentBtnText() {
-         return this.isFree || this.getDocumentPriceTypeHasPrice ? 'documentPage_unlock_document_btn_free' : {path: 'documentPage_unlock_document_btn_subscribe', args: {0: this.getDocumentPrice}}
+         return this.isFree || this.getDocumentPriceTypeHasPrice ? 'documentPage_unlock_document_btn_free' : {path: 'documentPage_unlock_document_btn_subscribe', args: {0: this.$n(this.getDocumentPrice,'currency', 'en')}}
         },
         unlockVideoBtnText() {
             return this.isFree ? 'documentPage_unlock_video_btn_free' : 'documentPage_unlock_video_btn_subscribe'
