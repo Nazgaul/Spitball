@@ -12,12 +12,12 @@ namespace Cloudents.Query.Chat
 {
     public class UserUnreadMessageQuery : IQuery<IList<UnreadMessageDto>>
     {
-        public UserUnreadMessageQuery(byte[] version)
+        public UserUnreadMessageQuery(byte[]? version)
         {
             Version = version;
         }
 
-        private byte[] Version { get; }
+        private byte[]? Version { get; }
 
         internal sealed class UserUnreadMessageQueryHandler : IQueryHandler<UserUnreadMessageQuery, IList<UnreadMessageDto>>
         {
@@ -33,25 +33,24 @@ namespace Cloudents.Query.Chat
                 User? userAlias = null!;
                 ChatUser? chatUserAlias = null!;
                 UnreadMessageDto? resultAlias = null!;
-                //Core.Entities.Tutor tutorAlias = null;
 
                 var z = _querySession.StatelessSession.QueryOver(() => chatUserAlias)
                     
                         .JoinAlias(x => x.User, () => userAlias)
                         .Where(w => w.Unread > 0)
-                        .And(() => userAlias.PhoneNumber != null);
+                        .And(() => userAlias.Email != null);
                 if (query.Version != null)
                 {
                     z.Where(Restrictions.Gt(nameof(ChatUser.Version), query.Version));
                 }
                 var result = await z.SelectList(s =>
 
-                        s.Select(() => userAlias.PhoneNumber).WithAlias(() => resultAlias.PhoneNumber)
-                        .Select(() => userAlias.Email).WithAlias(() => resultAlias.Email)
+                        //s.Select(() => userAlias.PhoneNumber).WithAlias(() => resultAlias.PhoneNumber)
+                        s.Select(() => userAlias.Email).WithAlias(() => resultAlias.Email)
                             .Select(() => userAlias.Id).WithAlias(() => resultAlias.UserId)
                             .Select(x => x.Version).WithAlias(() => resultAlias.Version)
                             .Select(() => userAlias.Language).WithAlias(() => resultAlias.CultureInfo)
-                            .Select(() => userAlias.Country).WithAlias(() => resultAlias.Country)
+                            .Select(() => userAlias.SbCountry).WithAlias(() => resultAlias.Country)
                             .SelectSubQuery(QueryOver.Of<ChatMessage>()
                                 .Where(w => w.ChatRoom.Id == chatUserAlias.ChatRoom.Id)
                                 .ToRowCountQuery()
@@ -82,15 +81,16 @@ namespace Cloudents.Query.Chat
             return $"{nameof(UserId)}: {UserId}, {nameof(CultureInfo)}: {CultureInfo}, {nameof(Country)}: {Country}, {nameof(IsTutor)}: {IsTutor}, {nameof(ChatUserId)}: {ChatUserId}, {nameof(ChatMessagesCount)}: {ChatMessagesCount}";
         }
 
-        public string Email{ get; set; }
-        public string PhoneNumber { get; set; }
+        public string Email{ get; set; } = null!;
+
+        //public string PhoneNumber { get; set; }
         public long UserId { get; set; }
 
-        public byte[] Version { get; set; }
+        public byte[] Version { get; set; } = null!;
 
         public CultureInfo CultureInfo { get; set; }
 
-        public string Country { get; set; }
+        public Country? Country { get; set; }
 
         public bool IsTutor => UserId != ChatUserId;
 

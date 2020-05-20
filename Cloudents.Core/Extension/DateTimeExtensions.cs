@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.Extension
 {
@@ -23,7 +24,21 @@ namespace Cloudents.Core.Extension
 
     public static class CultureInfoExtensions
     {
-        public static CultureInfo ChangeCultureBaseOnCountry(this CultureInfo cultureInfo, string country)
+        public static CultureInfo? ChangeCultureBaseOnCountry(this CultureInfo cultureInfo, string country)
+        {
+            if (cultureInfo is null)
+            {
+                return null;
+            }
+            if (country == null)
+            {
+                Debug.Assert(country == null, "this should not happen");
+                return cultureInfo;
+            }
+            return new CultureInfo($"{cultureInfo.ToString().Split('-')[0]}-{country}");
+        }
+
+        public static CultureInfo? ChangeCultureBaseOnCountry(this CultureInfo cultureInfo, Country country)
         {
             if (cultureInfo is null)
             {

@@ -26,7 +26,6 @@ namespace Cloudents.FunctionsV2
         [FunctionName("SmsUnreadQuery")]
         public static async Task SmsUnreadAsync([TimerTrigger("0 */10 * * * *")]TimerInfo myTimer,
             [Blob("spitball/chat/unread.txt")]CloudBlockBlob blob,
-            //[TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
             [SendGrid(ApiKey = "SendgridKey")] IAsyncCollector<SendGridMessage> emailProvider,
             [Inject] IQueryBus queryBus,
             [Inject] ICommandBus commandBus,
@@ -40,8 +39,9 @@ namespace Cloudents.FunctionsV2
             {
                 version = new byte[8];
                 await blob.DownloadToByteArrayAsync(version, 0);
+                log.LogInformation($"processing version {BitConverter.ToString(version).Replace("-","")}");
             }
-
+            
             var query = new UserUnreadMessageQuery(version);
             var result = (await queryBus.QueryAsync(query, token)).ToList();
             var dataProtector = dataProtectProvider.CreateProtector("Spitball")
@@ -69,31 +69,6 @@ namespace Cloudents.FunctionsV2
                     var command = new CreateShortUrlCommand(identifier, url.PathAndQuery, DateTime.UtcNow.AddDays(5));
                     await commandBus.DispatchAsync(command, token);
                     var urlShort = urlBuilder.BuildShortUrlEndpoint(identifier, unreadMessageDto.Country);
-
-
-                    //if (!unreadMessageDto.Country.Equals( Country.India.Name,StringComparison.OrdinalIgnoreCase))
-                    //{
-                    //    var text = GetText(unreadMessageDto.IsTutor, unreadMessageDto.ChatMessagesCount, false);
-                    //    var generatedText = text.Inject(new { link = urlShort });
-                    //    var messageOptions = new CreateMessageOptions(new PhoneNumber(unreadMessageDto.PhoneNumber))
-                    //    {
-                    //        Body = generatedText
-
-                    //    };
-                    //    if (unreadMessageDto.PhoneNumber.StartsWith("+972"))
-                    //    {
-                    //        messageOptions.From = "Spitball";
-                    //    }
-                    //    try
-                    //    {
-                    //         //await options.AddAsync(messageOptions, token);
-                    //         //await options.FlushAsync(token);
-                    //    }
-                    //    catch (Exception ex)
-                    //    {
-                    //        log.LogError(ex, $"Cant send sms to {unreadMessageDto}");
-                    //    }
-                    //}
 
                     var htmlBodyDirection = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft ? "rtl" : "ltr";
 
