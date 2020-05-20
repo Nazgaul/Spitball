@@ -26,8 +26,11 @@
                     <div class="wrapper d-block d-sm-flex justify-sm-center text-center pb-4">
                         <template v-if="getDocumentPrice && !getIsPurchased">
                             <div class="d-flex align-end mr-4 justify-center mb-2 mb-sm-0">
-                                <div class="mr-1 price">{{priceWithComma}}</div>
-                                <span class="points" v-t="'documentPage_points'"></span>
+                                <template  v-if="isFree || getDocumentPriceTypeHasPrice">
+                                    <div class="mr-1 price">{{priceWithComma}}</div>
+                                    <span class="points" v-t="'documentPage_points'"></span>
+                                </template>
+                                <div class="mr-1 price" v-else>{{$n(priceWithComma, 'currency')}}</div>
                             </div>
                             <!-- <div v-t="'documentPage_credit_uploader'"></div> -->
                         </template>
@@ -232,10 +235,11 @@ export default {
             'getPurchaseConfirmation',
             'getShowItemToaster',
             'getBtnLoading',
-            'getDocumentPriceType'
+            'getDocumentPriceTypeFree',
+            'getDocumentPriceTypeHasPrice'
         ]),
         isFree() {
-            return this.getDocumentPriceType === 'Free'
+            return this.getDocumentPriceTypeFree
         },
         unlockDocumentBtnText() {
             return this.isFree ? 'documentPage_unlock_document_btn_free' : 'documentPage_unlock_document_btn_subscribe'

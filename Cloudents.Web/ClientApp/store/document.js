@@ -48,6 +48,7 @@ const getters = {
     getRelatedDocuments: state => state.itemsList,
     getDocumentPriceTypeFree: state => state.document?.details?.priceType === 'Free',
     getDocumentPriceTypeSubscriber: state => state.document?.details?.priceType === 'Subscriber',
+    getDocumentPriceTypeHasPrice: state => state.document?.details?.priceType === 'HasPrice',
     //getIsDocumentTutorSubscriber: state => state.document?.details?.tutor?.subscriptionPrice,
     getDocumentUserName: state => state.document?.details?.user?.name
 
