@@ -159,4 +159,16 @@
   <data name="show_unread" xml:space="preserve">
     <value>unRead</value>
   </data>
+  <data name="create_already" xml:space="preserve">
+    <value>This group already exists</value>
+  </data>
+  <data name="create_btn_txt" xml:space="preserve">
+    <value>Create a group</value>
+  </data>
+  <data name="create_title" xml:space="preserve">
+    <value>Create a new group</value>
+  </data>
+  <data name="invite" xml:space="preserve">
+    <value>Invite students</value>
+  </data>
 </root>

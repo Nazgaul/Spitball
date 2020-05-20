@@ -25,7 +25,7 @@
                flat hide-details height="38" dense rounded/>
          </v-flex>
          <v-flex xs5 sm5 md7>
-            <v-btn class="createBtn px-1" block height="40" color="#4452fc" rounded outlined>
+            <v-btn @click="updateCreateGroupDialogState(true)" class="createBtn px-1" block height="40" color="#4452fc" rounded outlined>
                <v-icon class="pr-1" size="16">sbf-plus-regular</v-icon>
                <span>{{$t(isMobile?'chat_create_mobile':'chat_create')}}</span>
             </v-btn>
@@ -34,17 +34,23 @@
       <v-sheet class="conversationsList d-flex flex-grow-1">
          <conversations :filterOptions="filter"></conversations>
       </v-sheet>
+      <createGroupChatDialog v-if="createGroupDialogState" 
+            @updateCreateGroupDialogState="updateCreateGroupDialogState" 
+            :dialogState="createGroupDialogState"/>
    </v-flex>
 </template>
 
 <script>
 const conversations = () => import('../../../chat/components/conversations.vue');
+const createGroupChatDialog = () => import('./createGroupChatDialog.vue');
 export default {
    components:{
-      conversations
+      conversations,
+      createGroupChatDialog
    },
    data() {
       return {
+         createGroupDialogState:false,
          filter:{
             keyWord:'',
             isShowAll:true,
@@ -55,7 +61,12 @@ export default {
       isMobile(){
          return this.$vuetify.breakpoint.smAndDown
       }
-   }
+   },
+   methods: {
+      updateCreateGroupDialogState(val){
+         this.createGroupDialogState = val;
+      }
+   },
 }
 </script>
 
