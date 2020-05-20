@@ -405,6 +405,12 @@ const actions = {
     },
     updateSubscribe({commit}, subscribe) {
         return userMainService.addSubscription(subscribe).then(res => {
+
+            // this.hasSubscribed = {
+            //     value: objInit.hasSubscription || false,
+            //     label: 'Has Subscribe'
+            // };
+            state.userInfo.hasSubscribed.value =true;
             console.log(res);
         }).catch(ex => {
             console.log(ex);
