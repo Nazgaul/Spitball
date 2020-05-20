@@ -9,7 +9,7 @@ namespace Cloudents.Web.Models
         [Required, FromRoute]
         public Guid SessionId { get; set; }
 
-        public long UserId { get; set; }
+       // public long UserId { get; set; }
 
         [Required]
         [Range(1, 1000)]
