@@ -52,7 +52,7 @@
             <v-col cols="12" sm="3" class="pa-0" order="3" order-sm="4">
                 <v-select
                     v-model="item.priceType"
-                    v-if="!isTutorSubscribe"
+                    v-if="isTutorSubscribe"
                     :items="currentPriceItems"
                     :rules="[rules.required]"
                     :label="$t('upload_file_price_label')"

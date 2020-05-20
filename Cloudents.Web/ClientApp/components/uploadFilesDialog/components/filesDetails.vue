@@ -22,7 +22,7 @@
                 <v-select
                     v-model="currentPrice"
                     :items="currentPriceItems"
-                    v-if="!isTutorSubscribe"
+                    v-if="isTutorSubscribe"
                     :rules="[rules.required]"
                     :label="$t('upload_file_price_label')"
                     :append-icon="'sbf-menu-down'"
