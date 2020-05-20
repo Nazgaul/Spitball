@@ -132,6 +132,9 @@
   <data name="error" xml:space="preserve">
     <value>You have stated a session duration that is bigger than the actual time recorded. To process this payment, someone at Spitball will need to review this it be approved.</value>
   </data>
+  <data name="error_price" xml:space="preserve">
+    <value>you must enter a price</value>
+  </data>
   <data name="lesson_per_hour" xml:space="preserve">
     <value>Lesson rate (per hour):</value>
   </data>

@@ -4,11 +4,15 @@
             <div>
                 <div class="text-right pr-4 pr-sm-0 d-sm-none"><v-icon size="12" v-closeDialog>sbf-close</v-icon></div>
 
-                <div class="mainTitle text-center" :class="[modifyDurationError ? 'mb-3' : 'mb-12']" v-t="'teacherApproval_title'"></div>
+                <div class="mainTitle text-center" :class="[modifyDurationError || priceError ? 'mb-3' : 'mb-12']" v-t="'teacherApproval_title'"></div>
 
                 <div class="v-alert error tableEmptyState text-left mb-5 pa-2 align-start align-sm-center" v-if="modifyDurationError">
                     <whiteWarn class="image mr-2 mr-sm-4 pt-1 pt-sm-0" width="50" />
                     <span class="white--text" v-t="'teacherApproval_error'"></span>
+                </div>
+                <div class="v-alert error tableEmptyState text-left mb-5 pa-2 align-start align-sm-center" v-if="priceError">
+                    <whiteWarn class="image mr-2 mr-sm-4 pt-1 pt-sm-0" width="30"/>
+                    <span class="white--text" v-t="'teacherApproval_error_price'"></span>
                 </div>
 
                 <table class="table text-left">
@@ -109,6 +113,7 @@ export default {
             totalPrice: 0,
             newSessionDuration: 0,
             modifyDurationError: false,
+            priceError:false,
             MAX_DIGITS: 9999,
             myFollowers:[],
             selectedStudent:null,
@@ -133,12 +138,18 @@ export default {
             set(val) {
                 this.session.tutorPricePerHour = val
                 this.updateTotalPrice(this.newSessionDuration)
+                if(this.session.tutorPricePerHour <= 0){
+                    this.priceError = true;
+                }else{
+                    this.priceError = false;
+                }
             }
         }
     },
     methods: {
         approveSession() {
             this.modifyDurationError = false;
+            this.priceError = false;
             if(this.newSessionDuration <= 0) {
                 this.modifyDurationError = true;
                 return
@@ -146,21 +157,22 @@ export default {
             if(!this.$refs.selectUser.validate()){
                 return
             }
+            if(this.session.tutorPricePerHour <= 0){
+                this.priceError = true;
+                return
+            }
             let sessionParams = {
                 userId: this.selectedStudent.userId,
-                DurationInMinutes: this.newSessionDuration,
+                durationInMinutes: this.newSessionDuration,
                 price: this.session.tutorPricePerHour
             }
-            // // let self = this
-            // this.$store.dispatch('updateSessionDuration', sessionParams).then(() => {
-            // }).catch(ex => {
-            //     self.$appInsights.trackException({exception: new Error(ex)});
-            // }).finally(() => {
-            //     self.$closeDialog()
-            // })
+            let self = this
+            this.$store.dispatch('updateBillOffline',sessionParams)
+                .catch(ex => self.$appInsights.trackException({exception: new Error(ex)}))
+                .finally(()=>self.$closeDialog())
         },
         updateTotalPrice(duration) {
-            this.totalPrice = this.session.tutorPricePerHour * duration / 60;;
+            this.totalPrice = this.session.tutorPricePerHour * duration / 60;
         },
         inputRestriction(e) {
             this.modifyDurationError = false;
