@@ -55,7 +55,7 @@ namespace Cloudents.Web.Filters
                                 p.PriceType = PriceType.Free;
                             }
                             p.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(p.Id);
-                            p.Url = _linkGenerator.GetUriByRouteValues(context.HttpContext, SeoTypeString.Document, new
+                            p.Url = _linkGenerator.GetPathByRouteValues(context.HttpContext, SeoTypeString.Document, new
                             {
                                 courseName = FriendlyUrlHelper.GetFriendlyTitle(p.Course),
                                 id = p.Id,
