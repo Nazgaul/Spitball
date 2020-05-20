@@ -414,7 +414,7 @@ export default {
             this.$openDialog(dialogNames.BuyPoints);
         },
         openPurchaseDialog() {
-            if(this.isVideo && this.getDocumentPriceTypeSubscriber) {
+            if(this.getDocumentPriceTypeSubscriber) {
                 this.$router.push({
                     name: routeNames.Profile,
                     params: {

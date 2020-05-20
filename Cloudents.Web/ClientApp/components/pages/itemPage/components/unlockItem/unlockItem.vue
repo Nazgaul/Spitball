@@ -94,7 +94,7 @@ export default {
    methods: {
       ...mapActions(['updatePurchaseConfirmation']),
       openPurchaseDialog(){
-            if(!this.isDocument && this.getDocumentPriceTypeSubscriber) {
+            if(this.getDocumentPriceTypeSubscriber) {
                this.$router.push({
                   name: routeNames.Profile,
                   params: {
