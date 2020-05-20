@@ -19,7 +19,12 @@ export const Item = {
       //TODO REMOVE THIS
       this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
       this.price = objInit.price ? objInit.price.toFixed(0) : 0;
-      this.priceType = objInit.priceType || 'Free'; //Free,HasPrice,Subscriber
+
+      this.priceType =  objInit.priceType || 'Free'; //Free,HasPrice,Subscriber
+      if (this.price == 0 ) {
+         this.priceType = 'Free'
+      }
+
       this.preview = objInit.preview;
       this.purchased = objInit.purchased;
       this.title = objInit.title;

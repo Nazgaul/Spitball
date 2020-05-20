@@ -46,7 +46,12 @@ const getters = {
     getPurchaseConfirmation: state => state.showPurchaseConfirmation,
     getDocumentLoaded: state => state.documentLoaded,
     getRelatedDocuments: state => state.itemsList,
-    getDocumentPriceType: state => state.document?.details?.priceType,
+    getDocumentPriceTypeFree: state => state.document?.details?.priceType === 'Free',
+    getDocumentPriceTypeSubscriber: state => state.document?.details?.priceType === 'Subscriber',
+    //getIsDocumentTutorSubscriber: state => state.document?.details?.tutor?.subscriptionPrice,
+    getDocumentUserName: state => state.document?.details?.user?.name
+
+    // getIsDocumentFree: (state, _getters) => state.document?.details?.price > 0 && _getters.getDocumentSubscriber,
 };
 
 const mutations = {
