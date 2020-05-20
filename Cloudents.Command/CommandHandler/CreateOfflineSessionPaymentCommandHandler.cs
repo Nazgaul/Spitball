@@ -1,7 +1,9 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.CommandHandler
@@ -24,6 +26,10 @@ namespace Cloudents.Command.CommandHandler
 
             var tutor = await _tutorRepository.LoadAsync(message.TutorId, token);
             var user = await _userRepository.LoadAsync(message.UserId, token);
+            if (user.PaymentExists != PaymentStatus.Done)
+            {
+                throw new ArgumentException("user need credit card");
+            }
             var sessionPayment = new StudyRoomPayment(tutor, user, message.Duration, message.Price);
             await _studyRoomPaymentRepository.AddAsync(sessionPayment,token);
         }
