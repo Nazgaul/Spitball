@@ -166,7 +166,7 @@
     <value>You’ve reached the end of your free preview</value>
   </data>
   <data name="unlock_video_subtitle" xml:space="preserve">
-    <value>Want to see the full Video? Unlock all by subscribing to {0}'s site</value>
+    <value>Want to see the full Video? </value>
   </data>
   <data name="description" xml:space="preserve">
     <value>Description</value>
@@ -176,5 +176,8 @@
   </data>
   <data name="unlock_video_btn_free" xml:space="preserve">
     <value>Join now for {0} / month</value>
+  </data>
+  <data name="unlock_video_subtitle_subscriber" xml:space="preserve">
+    <value>Unlock all by subscribing to {0}'s site</value>
   </data>
 </root>
