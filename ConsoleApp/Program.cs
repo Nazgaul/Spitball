@@ -126,13 +126,13 @@ namespace ConsoleApp
             {
                 await RamMethod();
             }
-            else if(Environment.UserName == "Elad")
+            else if (Environment.UserName == "Elad")
             {
 
                 //await HadarMethod();
                 ResourcesMaintenance.DeleteStuffFromJs();
             }
-            
+
 
 
             Console.WriteLine("done");
@@ -147,49 +147,56 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var session = Container.Resolve<ICommandBus>();
-            var command = new CreateTutorSubscriptionCommand(159039,22);
-            await session.DispatchAsync(command, default);
-//            var command = session.CreateSQLQuery(@"update top (500) sb.Document
-//set DocumentType = 'Document'
-//where DocumentType is null
-//and [state] = 'Ok'");
+            await Dbi();
 
-//            var i = 0;
-//            do
-//            {
-//                i = await command.ExecuteUpdateAsync();
-
-//            } while (i > 0);
-            //var x2 = session.Query<StudyRoomUser>().Fetch(f => f.Room)
-            //    .Where(w => w.Room.Tutor.Id == 638).Select(s=>s.User.Id).Distinct().Count();
-
-            //var x = session.Query<BaseUser>()
-            //    .Where(w => w.Id == 36)
-            //    .Where(w => ((User)w).LockoutEnabled)
-            //    //.Where(w => ((User) w).LockoutReason == "xxx")
-            //    .Select(s => ((User)s).LockoutReason)
-            //   .ToFutureValue();
-
-            //var z = session.QueryOver<Tutor>()
-            //    .Where(w => w.Id == 638).Select(s => s.Bio).FutureValue<string>();
-            //    //.Where(w => ((User) w).LockoutEnabled)
-            //    //.Select(s => ((User) s).LockoutReason).FutureValue<string>();
-            //    var xx = x.Value;
-            //var zz = z.Value;
 
         }
-        //  await ReduPreviewProcessingAsync();
 
         private static async Task Dbi()
         {
-            /* alter table sb.[readTutor]
- add Description nvarchar(255)
-add SubscriptionPrice float NULL
-add SubscriptionCurrency nvarchar(3)*/
-            await ResyncTutorRead();
-           
+            var session = Container.Resolve<IStatelessSession>();
 
+
+            await session.Query<Document>()
+                .Where(w => w.DocumentPrice.Price == null)
+                .UpdateBuilder().Set(x => x.DocumentPrice.Type, PriceType.Free)
+                .Set(x => x.DocumentPrice.Price, 0)
+                .UpdateAsync(default);
+
+            int count;
+            do
+            {
+
+
+                var documents = await session.Query<Document>()
+                    .Where(w => w.Status.State == ItemState.Ok)
+                    .Where(w => w.DocumentPrice.Type == null && w.DocumentPrice.Price > 0)
+                    .Take(100)
+                    .Select(s => s.Id).ToListAsync();
+                count = documents.Count;
+                await session.Query<Document>()
+                    .Where(w => documents.Contains(w.Id))
+                    .UpdateBuilder().Set(x => x.DocumentPrice.Type, PriceType.HasPrice)
+                    .UpdateAsync(default);
+
+            } while (count > 0);
+
+            do
+            {
+
+
+                var documents = await session.Query<Document>()
+                    .Where(w => w.Status.State == ItemState.Ok)
+                    .Where(w => w.DocumentPrice.Type == null && w.DocumentPrice.Price == 0)
+                    .Take(500)
+                    .Select(s => s.Id).ToListAsync();
+                count = documents.Count;
+                await session.Query<Document>()
+                    .Where(w => documents.Contains(w.Id))
+                    .UpdateBuilder().Set(x => x.DocumentPrice.Type, PriceType.Free)
+                    .UpdateAsync(default);
+
+            } while (count > 0);
 
             //AddBuyerTokenCommand
         }
@@ -205,9 +212,9 @@ add SubscriptionCurrency nvarchar(3)*/
             var statelessSession = Container.Resolve<IStatelessSession>();
             var dbResult = await statelessSession.Query<StudyRoomSession>()
                 .Where(w => w.StudyRoomVersion == StudyRoomSession.StudyRoomNewVersion)
-                .Where(w=>w.Duration > StudyRoomSession.BillableStudyRoomSession)
+                .Where(w => w.Duration > StudyRoomSession.BillableStudyRoomSession)
                 .Where(w => !statelessSession.Query<StudyRoomSessionUser>().Any(w2 => w2.StudyRoomSession.Id == w.Id))
-                .OrderByDescending(o=>o.Created)
+                .OrderByDescending(o => o.Created)
                 .ToListAsync();
 
             foreach (var studyRoomSession in dbResult)
@@ -218,7 +225,7 @@ add SubscriptionCurrency nvarchar(3)*/
 
                 var distinctUsers = result.GroupBy(g => g.identity).Select(s => s.Key).Count();
 
-                var countOfUsers = await statelessSession.Query<StudyRoomUser>().Where(w => w.Room.Id == roomId).Select(s=>s.User.Id).ToListAsync();
+                var countOfUsers = await statelessSession.Query<StudyRoomUser>().Where(w => w.Room.Id == roomId).Select(s => s.User.Id).ToListAsync();
                 if (distinctUsers != countOfUsers.Count)
                 {
                     Console.WriteLine("HEYYY");
