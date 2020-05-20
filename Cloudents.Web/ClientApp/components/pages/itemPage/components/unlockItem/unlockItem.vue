@@ -75,7 +75,7 @@ export default {
          return this.getDocumentUserName;
       },
       unlockDocumentBtnText() {
-         return this.isFree || this.getDocumentPriceTypeHasPrice ? 'documentPage_unlock_document_btn_free' : {path: 'documentPage_unlock_document_btn_subscribe', args: {0: this.getDocumentPrice}}
+         return this.isFree || this.getDocumentPriceTypeHasPrice ? 'documentPage_unlock_document_btn' : {path: 'documentPage_unlock_document_btn_subscribe', args: {0: this.getDocumentPrice}}
       },
       unlockVideoBtnText() {
          return this.isFree ? 'documentPage_unlock_video_btn' : {path: 'documentPage_unlock_video_btn_subscribe', args: {0: this.$n(this.getDocumentPrice,'currency', 'en')}}
