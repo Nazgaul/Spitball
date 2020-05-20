@@ -23,7 +23,7 @@
                 <mainItem :isLoad="isLoad" :document="document"></mainItem>
 
                 <v-card class="itemActions pt-sm-11 pt-4 px-4 elevation-0">
-                    <div class="wrapper d-block d-sm-flex justify-sm-center text-center pb-4">
+                    <div class="docWrapper d-block d-sm-flex justify-sm-center text-center pb-4">
                         <template v-if="getDocumentPrice && !getIsPurchased">
                             <div class="d-flex align-end mr-4 justify-center mb-2 mb-sm-0">
                                 <template  v-if="isFree || getDocumentPriceTypeHasPrice">
@@ -534,7 +534,7 @@ export default {
                     @media (max-width: @screen-xs) {
                         border-top: 1px solid #ddd
                     }
-                    .wrapper {
+                    .docWrapper {
                         border-bottom: 1px solid #ddd;
                         font-weight: 600;
                         @media (max-width: @screen-xs) {
