@@ -172,13 +172,13 @@
     <value>Description</value>
   </data>
   <data name="unlock_document_btn_free" xml:space="preserve">
-    <value>Join now for {0} / month</value>
+    <value>Download</value>
   </data>
   <data name="unlock_video_btn_free" xml:space="preserve">
     <value>Join now for {0} / month</value>
   </data>
   <data name="unlock_video_btn_subscribe" xml:space="preserve">
-    <value>Unlock all by subscribing to {0}'s site</value>
+    <value>Join now for {0} / month</value>
   </data>
   <data name="unlock_video_btn_subtitle" xml:space="preserve">
     <value>Join now for {0} / month</value>
