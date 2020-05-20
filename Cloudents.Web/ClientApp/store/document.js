@@ -46,6 +46,7 @@ const getters = {
     getPurchaseConfirmation: state => state.showPurchaseConfirmation,
     getDocumentLoaded: state => state.documentLoaded,
     getRelatedDocuments: state => state.itemsList,
+    getDocumentPriceType: state => state.document?.details?.priceType,
 };
 
 const mutations = {

@@ -19,7 +19,7 @@
         class="mt-sm-12 mt-2 mx-auto calendarSection"
         :globalFunctions="globalFunctions"
       />
-      <profileSubscription :id="id" v-if="isTutorSubscribe && !isMyProfile && isTutor" ref="profileSubscription" />
+      <profileSubscription :id="id" v-if="showProfileSubscription" ref="profileSubscription" />
       <profileLiveClasses :id="id" v-if="isTutor" />
       <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" />
       <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" />
@@ -248,12 +248,15 @@ export default {
             "getProfile",
             'getBannerParams',
             'getUserLoggedInStatus',
+            'getIsSubscriber',// profile isSubscriber
             'getProfileTutorSubscription',
-            'getIsSubscriber',
-            'getIsMyProfile'
+            'getIsMyProfile'// is my profile
         ]),
-        isTutorSubscribe() {
-          return !this.getIsSubscriber || !this.getUserLoggedInStatus
+        showProfileSubscription() {
+            if(this.getProfileTutorSubscription && Object.keys(this.getProfileTutorSubscription).length > 0 && !this.getIsSubscriber) {
+              return true
+            }
+            return false
         },
         shareContentParams(){
             let urlLink = `${global.location.origin}/p/${this.$route.params.id}?t=${Date.now()}` ;
@@ -270,11 +273,6 @@ export default {
             return paramObJ
         },
         isShowCouponDialog(){
-            // if(this.getCouponDialog){
-            //     setTimeout(() => {
-            //         document.querySelector('.profile-coupon_input').focus()
-            //     }, 100);
-            // }
             return this.getCouponDialog;
         },
         showReviewBox(){
@@ -366,7 +364,7 @@ export default {
                 this.$store.commit('setCouponError', false)
             }
         },
-        isTutorSubscribe(val) {
+        showProfileSubscription(val) {
           if(val) {
             this.$nextTick(() => {
               let profileSubscriptionElement = this.$refs.profileSubscription

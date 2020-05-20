@@ -101,7 +101,8 @@ export default {
         },
     },
     computed: {
-        ...mapGetters(['getDocumentLoaded']),
+        ...mapGetters(['getDocumentLoaded', 'getDocumentPriceType']),
+
         showUnlockPage(){
             return (this.docPage > 1 && !this.isPurchased)
         },

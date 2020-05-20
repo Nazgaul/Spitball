@@ -153,6 +153,9 @@
   <data name="unlock_document_btn" xml:space="preserve">
     <value>פתח מסמך</value>
   </data>
+  <data name="unlock_document_btn_free" xml:space="preserve">
+    <value>הצטרפו עכשיו {0} / לחודש</value>
+  </data>
   <data name="unlock_subtitle" xml:space="preserve">
     <value>רוצה לקרוא את כל {1} הדפים?</value>
   </data>
