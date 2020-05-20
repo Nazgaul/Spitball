@@ -68,7 +68,7 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [Route("offline")]
+        [HttpPost("offline")]
         public IActionResult OfflinePaymentAsync([FromBody] OfflinePaymentRequest model)
         {
             return Ok();
