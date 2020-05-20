@@ -23,7 +23,7 @@ namespace Cloudents.Core.Extension
 
     public static class CultureInfoExtensions
     {
-        public static CultureInfo ChangeCultureBaseOnCountry(this CultureInfo cultureInfo, string country)
+        public static CultureInfo? ChangeCultureBaseOnCountry(this CultureInfo cultureInfo, string country)
         {
             if (cultureInfo is null)
             {
