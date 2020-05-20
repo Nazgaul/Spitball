@@ -157,6 +157,12 @@
     <value>קבלו גישה
 עשו מנוי לאתר שלי</value>
   </data>
+  <data name="subscribe_mobile_btn" xml:space="preserve">
+    <value>{0}/חודש</value>
+  </data>
+  <data name="subscribe_mobile_text" xml:space="preserve">
+    <value>עשו מנוי וקבלו גישה</value>
+  </data>
   <data name="unsufficient_fund" xml:space="preserve">
     <value>אין מספיק נקודות</value>
   </data>
