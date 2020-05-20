@@ -174,4 +174,7 @@
   <data name="unlock_document_btn_free" xml:space="preserve">
     <value>Join now for {0} / month</value>
   </data>
+  <data name="unlock_video_btn_free" xml:space="preserve">
+    <value>Join now for {0} / month</value>
+  </data>
 </root>
