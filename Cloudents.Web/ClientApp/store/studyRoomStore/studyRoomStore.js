@@ -125,7 +125,8 @@ const mutations = {
    [studyRoom_SETTERS.ADD_ROOM_PARTICIPANT_TRACK]: (state, track) => {
       if(track.attach){
          let participantId = _getIdFromIdentity(track.identity);
-         if(track.name == 'screenTrack'){
+         let isParticipantTutor = (participantId == state.roomTutor.tutorId)
+         if(track.name == 'screenTrack' && isParticipantTutor){
             state.roomParticipants[participantId].screen = track;
          }else{
             state.roomParticipants[participantId][track.kind] = track;
@@ -135,7 +136,8 @@ const mutations = {
    },
    [studyRoom_SETTERS.DELETE_ROOM_PARTICIPANT_TRACK]: (state, track) => {
       let participantId = _getIdFromIdentity(track.identity);
-      if(track.name == 'screenTrack'){
+      let isParticipantTutor = (participantId == state.roomTutor.tutorId);
+      if(track.name == 'screenTrack' && isParticipantTutor){
          state.roomParticipants[participantId].screen = undefined;
       }else{
          state.roomParticipants[participantId][track.kind] = undefined;

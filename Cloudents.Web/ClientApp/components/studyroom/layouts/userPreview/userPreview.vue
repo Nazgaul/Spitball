@@ -1,9 +1,28 @@
 <template>
    <v-card :id="participant.id" color="black" 
    :class="['userPreview',{'expandVideoMode':isExpandVideoMode}]" >
-      <v-icon :size="isExpandVideoMode? 30 :20" v-if="showExpandVideoBtn" 
-         @click="toggleExpandScreen" 
-         :class="['expandScreenBtn',{'collapseScreenBtn':isExpandVideoMode}]">{{isExpandVideoMode? 'sbf-minis':'sbf-exp'}}</v-icon>
+   <div :class="['previewControls',{'previewControlsExpanded':isExpandVideoMode}]">
+      <v-tooltip top>
+         <template v-slot:activator="{ on }">
+            <v-icon v-on="on" :size="isExpandVideoMode? 30 :20" v-if="isCurrentParticipant"
+                  @click="isShareScreen? stopShareScreen() : startShareScreen()" color="#ffffff"
+                  class="mr-2">{{isShareScreen? 'sbf-stop-share' : 'sbf-shareScreen'}}
+            </v-icon>
+         </template>
+         <span v-text="$t(isShareScreen?'btn_stop_sharing':'btn_share_screen')"/>
+      </v-tooltip>
+
+      <v-tooltip top>
+         <template v-slot:activator="{ on }">
+            <v-icon v-on="on" :size="isExpandVideoMode? 30 :18" v-if="showExpandVideoBtn" 
+                  @click="toggleExpandScreen" color="#ffffff">
+                  {{isExpandVideoMode? 'sbf-minis':'sbf-exp'}}
+            </v-icon>
+         </template>
+         <span v-text="$t(isExpandVideoMode?'tutor_tooltip_fullscreen_exit':'tutor_tooltip_fullscreen')"/>
+      </v-tooltip>
+   </div>
+
       <span class="name">{{userName}}</span>
       <div class="linear"></div>
       <div class="linear2"></div>
@@ -73,15 +92,13 @@ export default {
       isCurrentParticipant(){
          return this.currentParticipant?.id == this.$store.getters.accountUser?.id
       },
-      isClassRomm(){
-         let classMode = this.$store.getters.getRoomModeConsts.CLASS_MODE;
-         let currentRoomMode = this.$store.getters.getActiveNavEditor;
-         return currentRoomMode == classMode;
-      },
       showExpandVideoBtn(){
-         return this.isClassRomm && this.videoTrack;
+         let isClassRoom = this.$store.getters.getActiveNavEditor == this.$store.getters.getRoomModeConsts.CLASS_MODE;
+         return isClassRoom && this.videoTrack;
       },
-
+      isShareScreen(){
+         return this.$store.getters.getIsShareScreen;
+      }
    },
    methods: {
       processInput(){
@@ -157,7 +174,7 @@ export default {
       },
       handleVideoTrack(participant){
          if(participant.video){
-            if(this.videoTrack){
+            if(this.videoTrack && participant.video == this.videoTrack.name){
                return;
             }else{
                this.videoTrack = participant.video;
@@ -175,6 +192,12 @@ export default {
       },
       toggleExpandScreen(){
          this.isExpandVideoMode = !this.isExpandVideoMode
+      },
+      startShareScreen(){
+         this.$store.dispatch('updateShareScreen',true)
+      },
+      stopShareScreen(){
+         this.$store.dispatch('updateShareScreen',false)
       }
    },
    watch: {
@@ -216,14 +239,12 @@ export default {
          object-fit: contain;
       }
    }
-   .expandScreenBtn{
+   .previewControls{
       position: absolute;
-      color: white;
       right: 6px;
       top: 6px;
       z-index: 2;
-      &.collapseScreenBtn{
-         // right: 12px;
+      &.previewControlsExpanded{
          bottom: 12px;
          top: initial;
          right: 16px;
