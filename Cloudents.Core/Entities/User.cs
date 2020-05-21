@@ -33,9 +33,6 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]
         protected User()
         {
-           
-            
-
         }
 
         public virtual string? PhoneNumber { get; set; }
@@ -128,10 +125,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
             Country = country;
-
             SbCountry = Entities.Country.FromCountry(country);
-
-
             AddEvent(new ChangeCountryEvent(Id));
         }
 
@@ -145,6 +139,7 @@ namespace Cloudents.Core.Entities
                     throw new UnauthorizedAccessException("Cannot change country of tutor with subscription");
                 }
             }
+            PaymentExists = PaymentStatus.None;
             ChangeCountry(country);
             ChangeLanguage(Entities.Language.English);
 
