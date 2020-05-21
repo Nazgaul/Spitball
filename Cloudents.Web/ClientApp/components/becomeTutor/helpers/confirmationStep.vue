@@ -61,16 +61,9 @@ export default {
                         showToaster: true,
                         toasterTimeout: 5000
                     });
-
-                    if(self.$route.name === routeNames.RegisterType){
-                        analyticsService.sb_unitedEvent('teacher-registration', 'complete');
-                        self.$router.push({name: routeNames.AddCourse,query:{filter:'Question'}})
-                        self.updateAccountUserToTutor(true);
-                    }else{
-                        self.$root.$emit('becomeTutorStep', 5);
-                        self.updateAccountUserToTutor(true);
-                        self.updateTeachingClasses();
-                    }
+                    self.$root.$emit('becomeTutorStep', 5);
+                    self.updateAccountUserToTutor(true);
+                    self.updateTeachingClasses();
                 },(error) => {
                     let isConflict = error.response.status === 409;
                     if(isConflict) {

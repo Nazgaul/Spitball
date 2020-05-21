@@ -6,20 +6,6 @@ export const LoginEmailConfirmed = 'emailConfirmed';
 export const LoginForgotPassword = 'forgotPassword';
 export const LoginResetPassword = 'resetPassword';
 
-// Register:
-export const Register = 'register';
-export const RegisterSetEmailPassword = 'setEmailPassword';
-export const RegisterEmailConfirmed = 'registerEmailConfirmed';
-export const RegisterSetPhone = 'setPhone';
-export const RegisterVerifyPhone = 'verifyPhone';
-export const RegisterType = 'registerType';
-export const RegisterStudentSchool = 'studentSchool';
-export const RegisterCourse = 'registerCourse';
-export const RegisterStudentCollege = 'studentCollege';
-export const RegisterCourseCollege = 'registerCourseCollege';
-export const RegisterParent = 'parent';
-export const RegisterCourseParent = 'registerCourseParent';
-
 // Marketing:
 export const Marketing = 'marketing';
 export const MarketingPromote = 'promote';
