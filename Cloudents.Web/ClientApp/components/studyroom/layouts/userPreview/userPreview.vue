@@ -1,5 +1,28 @@
 <template>
-   <v-card :id="participant.id" color="black" class="userPreview" height="100" width="154">
+   <v-card :id="participant.id" color="black" 
+   :class="['userPreview',{'expandVideoMode':isExpandVideoMode}]" >
+   <div :class="['previewControls',{'previewControlsExpanded':isExpandVideoMode}]">
+      <v-tooltip top>
+         <template v-slot:activator="{ on }">
+            <v-icon v-on="on" :size="isExpandVideoMode? 30 :20" v-show="isCurrentParticipant"
+                  @click="isShareScreen? stopShareScreen() : startShareScreen()" color="#ffffff"
+                  class="mr-2">{{isShareScreen? 'sbf-stop-share' : 'sbf-shareScreen'}}
+            </v-icon>
+         </template>
+         <span v-text="$t(isShareScreen?'tutor_btn_stop_sharing':'tutor_btn_share_screen')"/>
+      </v-tooltip>
+
+      <v-tooltip top>
+         <template v-slot:activator="{ on }">
+            <v-icon v-on="on" :size="isExpandVideoMode? 30 :18" v-show="showExpandVideoBtn" 
+                  @click="toggleExpandScreen" color="#ffffff">
+                  {{isExpandVideoMode? 'sbf-minis':'sbf-exp'}}
+            </v-icon>
+         </template>
+         <span v-text="$t(isExpandVideoMode?'tutor_tooltip_fullscreen_exit':'tutor_tooltip_fullscreen')"/>
+      </v-tooltip>
+   </div>
+
       <span class="name">{{userName}}</span>
       <div class="linear"></div>
       <div class="linear2"></div>
@@ -45,6 +68,7 @@ export default {
          input:null,
          analyser:null,
          scriptProcessor:null,
+         isExpandVideoMode:false,
       }
    },
    computed: {
@@ -67,6 +91,13 @@ export default {
       },
       isCurrentParticipant(){
          return this.currentParticipant?.id == this.$store.getters.accountUser?.id
+      },
+      showExpandVideoBtn(){
+         let isClassRoom = this.$store.getters.getActiveNavEditor == this.$store.getters.getRoomModeConsts.CLASS_MODE;
+         return isClassRoom && this.videoTrack;
+      },
+      isShareScreen(){
+         return this.$store.getters.getIsShareScreen;
       }
    },
    methods: {
@@ -143,7 +174,7 @@ export default {
       },
       handleVideoTrack(participant){
          if(participant.video){
-            if(this.videoTrack){
+            if(this.videoTrack && participant.video == this.videoTrack.name){
                return;
             }else{
                this.videoTrack = participant.video;
@@ -159,6 +190,15 @@ export default {
             this.videoTrack = null;
          }
       },
+      toggleExpandScreen(){
+         this.isExpandVideoMode = !this.isExpandVideoMode
+      },
+      startShareScreen(){
+         this.$store.dispatch('updateShareScreen',true)
+      },
+      stopShareScreen(){
+         this.$store.dispatch('updateShareScreen',false)
+      }
    },
    watch: {
       currentParticipant:{
@@ -188,6 +228,28 @@ export default {
 <style lang="less">
 .userPreview{
    border-radius: 6px !important;
+   position: relative;
+   &.expandVideoMode{
+      position: absolute;
+      margin: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      z-index: 3;
+      video{
+         object-fit: contain;
+      }
+   }
+   .previewControls{
+      position: absolute;
+      right: 6px;
+      top: 6px;
+      z-index: 2;
+      &.previewControlsExpanded{
+         bottom: 12px;
+         top: initial;
+         right: 16px;
+      }
+   }
    .name{
       text-transform: capitalize;
       font-size: 14px;

@@ -300,6 +300,10 @@ export default () => {
                if(mutation.payload && !_localScreenTrack){ 
                   navigator.mediaDevices.getDisplayMedia({video:true,audio: false}).then(stream=>{
                      _localScreenTrack = new twillioClient.LocalVideoTrack(stream.getTracks()[0],{name:SCREEN_TRACK_NAME});
+                     let isRoomStudent = !store.getters.getRoomIsTutor;
+                     if(isRoomStudent && _localVideoTrack){
+                        _unPublishTrack(_activeRoom,_localVideoTrack);
+                     }
                      // if(_localVideoTrack){
                      //    _unPublishTrack(_activeRoom,_localVideoTrack)
                      // }

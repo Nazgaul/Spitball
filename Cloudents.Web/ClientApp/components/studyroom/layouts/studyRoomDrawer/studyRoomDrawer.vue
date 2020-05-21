@@ -50,7 +50,7 @@ export default {
       drawerExtend:{
          immediate:true,
          handler(newVal){
-            this.$emit('drawerExtendChanged',newVal)
+            this.$store.commit('setStudyRoomDrawer',newVal);
          }
       }
    },
