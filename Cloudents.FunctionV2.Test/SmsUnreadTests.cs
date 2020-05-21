@@ -42,14 +42,14 @@ namespace Cloudents.FunctionsV2.Test
                 .Returns(new Uri("http://tempuri.org/blob"));
 
             _mockUriBuilder.Setup(s => s.BuildShortUrlEndpoint(It.IsAny<string>(),
-                It.Is<string>(s2 => s2 != null && s2.Equals("IN", StringComparison.OrdinalIgnoreCase) == false)))
+                It.Is<Country>(s2 => s2 != Country.India)))
                 .Returns(_shortUrl);
 
             _mockUriBuilder.Setup(s => s.BuildShortUrlEndpoint(It.IsAny<string>(),
                     null)).Returns(_shortUrl);
 
             _mockUriBuilder.Setup(s => s.BuildShortUrlEndpoint(It.IsAny<string>(),
-                    It.Is<string>(s2 =>s2 != null && s2.Equals("IN", StringComparison.OrdinalIgnoreCase))))
+                    It.Is<Country>(s2 =>s2 == Country.India)))
                 .Returns(_shortUrlIndia);
         }
 
@@ -191,7 +191,7 @@ namespace Cloudents.FunctionsV2.Test
 
           //  var body = _mockedResultSms.Result.Single().Body;
             CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture = new CultureInfo(culture);
-            var expectedResult = ResourceWrapper.GetString("unread_message_first_message_tutor").InjectSingleValue("link", _shortUrl);
+            //var expectedResult = ResourceWrapper.GetString("unread_message_first_message_tutor").InjectSingleValue("link", _shortUrl);
            // body.Should().BeEquivalentTo(expectedResult);
             var emailExpectedResult = ResourceWrapper.GetString("unread_message_first_message_tutor_email").InjectSingleValue("link", _shortUrl);
             _mockedResultEmail.Result.Single().Contents.First().Value.Should().Contain(emailExpectedResult);

@@ -1,4 +1,5 @@
 ﻿using System;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.Interfaces
 {
@@ -18,7 +19,9 @@ namespace Cloudents.Core.Interfaces
         Uri BuildChatEndpoint(string token, object? parameters = null);
 
         Uri BuildShortUrlEndpoint(string identifier, object? parameters = null);
-        Uri BuildShortUrlEndpoint(string identifier, string country);
+       // Uri BuildShortUrlEndpoint(string identifier, string country);
+
+        Uri BuildShortUrlEndpoint(string identifier, Country? country);
 
 
         string BuildDocumentEndPoint(long id, object? parameters = null);
