@@ -2,7 +2,7 @@
    <v-dialog :value="true" persistent :maxWidth="'580'" :content-class="'teacherBillOffline'" :fullscreen="$vuetify.breakpoint.xsOnly">
         <div class="py-4 pa-sm-4 text-center wrapper">
             <div>
-                <div class="text-right pr-4 pr-sm-0 d-sm-none"><v-icon size="12" v-closeDialog>sbf-close</v-icon></div>
+                <div class="text-right pr-4 pr-sm-0 d-sm-none"><v-icon size="12" @click="closeDialog()">sbf-close</v-icon></div>
 
                 <div class="mainTitle text-center" :class="[modifyDurationError || priceError ? 'mb-3' : 'mb-12']" v-t="'teacherApproval_title'"></div>
 
@@ -84,7 +84,7 @@
                 <v-btn icon color="#5A66FF" @click="openIntercom" :ripples="false" depressed><needHelpIcon/></v-btn>
 
                 <div class="bottomActions d-flex text-center">
-                    <v-btn width="140" height="40" color="#4452fc" class="d-none d-sm-block mr-3" rounded outlined v-closeDialog>{{$t('teacherApproval_btn_cancel')}}</v-btn>
+                    <v-btn width="140" height="40" color="#4452fc" class="d-none d-sm-block mr-3" rounded outlined @click="closeDialog()">{{$t('teacherApproval_btn_cancel')}}</v-btn>
                     <v-btn width="140" height="40" color="#4452fc" class="white--text" @click="approveSession" rounded depressed>{{$t('teacherApproval_btn_approve')}}</v-btn>
                 </div>
             </div>
@@ -147,6 +147,13 @@ export default {
         }
     },
     methods: {
+        closeDialog(){
+            if(this.$store.getters.getPendingPayment > 0) {
+                this.$store.commit('setComponent', 'linkToaster');
+            }else{
+                this.$store.commit('setComponent', '')
+            }
+        },
         approveSession() {
             this.modifyDurationError = false;
             this.priceError = false;
@@ -169,7 +176,7 @@ export default {
             let self = this
             this.$store.dispatch('updateBillOffline',sessionParams)
                 .catch(ex => self.$appInsights.trackException({exception: new Error(ex)}))
-                .finally(()=>self.$closeDialog())
+                .finally(()=>self.closeDialog())
         },
         updateTotalPrice(duration) {
             this.totalPrice = this.session.tutorPricePerHour * duration / 60;

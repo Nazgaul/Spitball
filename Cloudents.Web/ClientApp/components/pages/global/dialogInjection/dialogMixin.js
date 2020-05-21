@@ -36,7 +36,6 @@ export default {
                 buyPoints:["auth"],
                 teacherApproval:["auth", "tutor", "params"],
                 createStudyRoom:["auth","tutor"],
-                teacherBillOffline:["auth"]
             }
         }
     },

@@ -34,7 +34,7 @@ export default {
          this.$openDialog(dialogNames.BuyPoints)
       },   
       openBillStudents(){
-         this.$openDialog('teacherBillOffline')
+         this.$store.commit('setComponent', 'teacherBillOfflineDialog')
       }   
    },
 }
