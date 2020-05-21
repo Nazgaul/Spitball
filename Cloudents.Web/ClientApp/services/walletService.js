@@ -34,5 +34,10 @@ export default {
     async getStripeSecret() {
         return await walletInstance.post('/stripe/StudyRoom');
         
+    },
+    async subscribe(id) {
+        var {data} =  await axios.post(`/Tutor/${id}/subscribe`);
+        return data;
+       
     }
 }

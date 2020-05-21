@@ -123,6 +123,9 @@
   <data name="pts" xml:space="preserve">
     <value>Free | {n} Pts |  {n} Pts</value>
   </data>
+  <data name="purchased" xml:space="preserve">
+    <value>{n} Purchase | {n} Purchases</value>
+  </data>
   <data name="view" xml:space="preserve">
     <value>View | Views</value>
   </data>

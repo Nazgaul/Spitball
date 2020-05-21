@@ -23,11 +23,14 @@
                 <mainItem :isLoad="isLoad" :document="document"></mainItem>
 
                 <v-card class="itemActions pt-sm-11 pt-4 px-4 elevation-0">
-                    <div class="wrapper d-block d-sm-flex justify-sm-center text-center pb-4">
+                    <div class="docWrapper d-block d-sm-flex justify-sm-center text-center pb-4">
                         <template v-if="getDocumentPrice && !getIsPurchased">
                             <div class="d-flex align-end mr-4 justify-center mb-2 mb-sm-0">
-                                <div class="mr-1 price">{{priceWithComma}}</div>
-                                <span class="points" v-t="'documentPage_points'"></span>
+                                <template  v-if="isFree || getDocumentPriceTypeHasPrice">
+                                    <div class="mr-1 price">{{priceWithComma}}</div>
+                                    <span class="points" v-t="'documentPage_points'"></span>
+                                </template>
+                                <!-- <div class="mr-1 price" v-else>{{$n(priceWithComma, 'currency', 'en')}}</div> -->
                             </div>
                             <!-- <div v-t="'documentPage_credit_uploader'"></div> -->
                         </template>
@@ -40,10 +43,10 @@
                             @click="openPurchaseDialog"
                             v-if="!getIsPurchased"
                             height="42"
-                            width="215"
                             color="#4c59ff">
-                                <span v-if="isVideo" v-t="'documentPage_unlock_video_btn'"></span>
-                                <span v-else v-t="'documentPage_unlock_document_btn'"></span>
+
+                                <span v-if="isVideo" v-t="unlockVideoBtnText"></span>
+                                <span v-else v-t="unlockDocumentBtnText"></span>
                         </v-btn>
                         <v-btn
                             v-if="!isVideo && getIsPurchased"
@@ -53,7 +56,6 @@
                             target="_blank"
                             :loading="getBtnLoading"
                             class="itemPage__side__btn white--text"
-                            width="215"
                             height="42"
                             depressed
                             rounded
@@ -106,13 +108,30 @@
                         color="#4c59ff"
                     ></router-link>
                 </div>
-                <sbCarousel 
+                <!-- <sbCarousel 
                     class="carouselDocPreview" 
                     @select="enterItemCard" 
                     :arrows="$vuetify.breakpoint.mdAndUp ? true : false"
-                    :gap="20">
-                        <itemCard class="itemCard-itemPage" :fromCarousel="true" v-for="(item, index) in itemList" :item="item" :key="index"/>
-                </sbCarousel>
+                    :gap="20"> -->
+                    <div style="direction:ltr">
+                <v-slide-group
+                    v-model="model"
+                    class="pa-0 itemSlider"
+                    active-class="success"
+                    :next-icon="$vuetify.icons.values.next"
+                    :prev-icon="$vuetify.icons.values.prev"
+                    show-arrows
+                    >
+                    <v-slide-item
+                        v-for="(item, index) in itemList"
+                        :key="index"
+                        v-slot:default="{ }"
+                    >
+                        <itemCard class="itemCard-itemPage" :fromCarousel="true" :item="item" :key="index" />
+                    </v-slide-item>
+                </v-slide-group>
+                </div>
+                <!-- </sbCarousel> -->
             </div>
 
             <div 
@@ -150,6 +169,8 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
+import * as routeNames from '../../../routes/routeNames';
+
 //services
 import * as dialogNames from '../global/dialogInjection/dialogNames.js';
 import { LanguageService } from "../../../services/language/languageService";
@@ -162,26 +183,20 @@ import studyDocumentsStore from '../../../store/studyDocuments_store';
 // components
 import mainItem from './components/mainItem/mainItem.vue';
 import resultNote from '../../results/ResultNote.vue';
-const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */'../../sbCarousel/sbCarousel.vue');
+// const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */'../../sbCarousel/sbCarousel.vue');
 import itemCard from '../../carouselCards/itemCard.vue';
 const tutorResultCard = () => import(/* webpackChunkName: "tutorResultCard" */ '../../results/tutorCards/tutorResultCard/tutorResultCard.vue');
 const tutorResultCardMobile = () => import(/* webpackChunkName: "tutorResultCardMobile" */ '../../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue');
-// import whyUsDesktop from './components/whyUs/whyUsDesktop.vue';
-// import whyUs from './components/whyUs/whyUs.vue';
-// import mobileUnlockDownload from './components/mobileUnlockDownload/mobileUnlockDownload.vue';
 import unlockDialog from './components/dialog/unlockDialog.vue';
 const shareContent = () => import(/* webpackChunkName: "shareContent" */'../global/shareContent/shareContent.vue');
 export default {
     name: 'itemPage',
     components: {
         resultNote,
-        sbCarousel,
+        // sbCarousel,
         tutorResultCard,
         tutorResultCardMobile,
         itemCard,
-        // whyUsDesktop,
-        // whyUs,
-        // mobileUnlockDownload,
         mainItem,
         unlockDialog,
         shareContent
@@ -193,6 +208,7 @@ export default {
     },
     data() {
         return {
+            model: null,
             docPage: 1,
             isLoad: false,
         }
@@ -217,7 +233,19 @@ export default {
             'getPurchaseConfirmation',
             'getShowItemToaster',
             'getBtnLoading',
+            'getDocumentPriceTypeFree',
+            'getDocumentPriceTypeHasPrice',
+            'getDocumentPriceTypeSubscriber',
         ]),
+        isFree() {
+            return this.getDocumentPriceTypeFree
+        },
+        unlockDocumentBtnText() {
+         return this.isFree || this.getDocumentPriceTypeHasPrice ? 'documentPage_unlock_document_btn' : {path: 'documentPage_unlock_document_btn_subscribe', args: {0: this.$n(this.getDocumentPrice,'currency', 'en')}}
+        },
+        unlockVideoBtnText() {
+            return this.isFree || this.getDocumentPriceTypeHasPrice ? 'documentPage_unlock_video_btn' : {path: 'documentPage_unlock_video_btn_subscribe', args: {0: this.$n(this.getDocumentPrice,'currency', 'en')}}
+        },
         shareContentParams(){
             let urlLink = `${global.location.origin}/d/${this.$route.params.id}?t=${Date.now()}` ;
             let itemType = this.getDocumentDetails.documentType;
@@ -264,7 +292,7 @@ export default {
             return {};
         },
         itemList() {
-            return this.getRelatedDocuments;
+            return this.getRelatedDocuments || 0;
         },
         firstName() {
             let user = this.docTutor;
@@ -320,21 +348,21 @@ export default {
             'downloadDocument'
         ]),
         
-        enterItemCard(vueElm){
-            //TODO DUplicate code
-            if(vueElm.enterItemPage){
-                vueElm.enterItemPage();
-            }else{
-                vueElm.$parent.enterItemPage();
-            }
-            this.isLoad = true;
-            setTimeout(()=>{
-                this.isLoad = false;
-            })
-            this.$nextTick(() => {
-                this.documentRequest(this.id);
-            })
-        },
+        // enterItemCard(vueElm){
+        //     //TODO DUplicate code
+        //     if(vueElm.enterItemPage){
+        //         vueElm.enterItemPage();
+        //     }else{
+        //         vueElm.$parent.enterItemPage();
+        //     }
+        //     this.isLoad = true;
+        //     setTimeout(()=>{
+        //         this.isLoad = false;
+        //     })
+        //     this.$nextTick(() => {
+        //         this.documentRequest(this.id);
+        //     })
+        // },
         closeDocument() {
             let regRoute = 'registration';
             let routeStackLength = this.getRouteStack.length;
@@ -354,6 +382,17 @@ export default {
             this.$openDialog(dialogNames.BuyPoints);
         },
         openPurchaseDialog() {
+            if(this.getDocumentPriceTypeSubscriber) {
+                this.$router.push({
+                    name: routeNames.Profile,
+                    params: {
+                    id: this.doucmentDetails.tutor.userId,
+                    name: this.doucmentDetails.tutor.name
+                    },
+                    hash: '#subscription'
+                })
+                return
+            }
             if(this.accountUser) {
                 this.updatePurchaseConfirmation(true)
             } else {
@@ -463,7 +502,7 @@ export default {
                     @media (max-width: @screen-xs) {
                         border-top: 1px solid #ddd
                     }
-                    .wrapper {
+                    .docWrapper {
                         border-bottom: 1px solid #ddd;
                         font-weight: 600;
                         @media (max-width: @screen-xs) {
@@ -578,18 +617,37 @@ export default {
                 &--margin {
                     margin-bottom: 100px;
                 }
-                .carouselDocPreview {
-                    .itemCard-itemPage {
-                        .item-cont {
-                            z-index: 3 !important; //flicking
-                            @media (max-width: @screen-xs) {
-                                overflow: visible !important; //flicking
-                            }
-                        }
+                // .carouselDocPreview {
+                //     .itemCard-itemPage {
+                //         // .item-cont {
+                //         //     z-index: 3 !important; //flicking
+                //         //     @media (max-width: @screen-xs) {
+                //         //         overflow: visible !important; //flicking
+                //         //     }
+                //         // }
+                //     }
+                //     .sbCarousel_btn {
+                //         i {
+                //             font-size: 18px;
+                //         }
+                //     }
+                // }
+                .itemSlider {
+                    .v-slide-group__content {
+                        white-space: normal;
                     }
-                    .sbCarousel_btn {
-                        i {
-                            font-size: 18px;
+                    .itemCard-itemPage {
+                        margin: 10px;
+                        height: auto;
+                        // width: auto;
+                        border: none;
+                        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
+                        display: block;
+                        &:first-child{
+                            margin-left: 0;
+                        }
+                        &:last-child  {
+                            margin-right: 0;
                         }
                     }
                 }

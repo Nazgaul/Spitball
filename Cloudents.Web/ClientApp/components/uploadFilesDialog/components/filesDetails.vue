@@ -19,30 +19,31 @@
             </v-col>
             <v-col cols="6" sm="3" class="pa-0 pl-sm-4">
                 <!-- :placeholder="$t('upload_uf_price')" -->
-                <v-combobox
+                <v-select
                     v-model="currentPrice"
-                    v-if="true"
                     :items="currentPriceItems"
+                    v-if="isTutorSubscribe"
                     :rules="[rules.required]"
                     :label="$t('upload_file_price_label')"
                     :append-icon="'sbf-menu-down'"
                     placeholder=" "
                     color="#4c59ff"
                     height="44"
-                    autocomplete="abcd"
+                    autocomplete="off"
                     hide-no-data
                     outlined
                     dense
                 >
-                </v-combobox>
+                </v-select>
                 <v-text-field
-                    v-model="priceForAll"
+                    v-model="currentPrice"
                     v-else
                     type="number"
                     :rules="[rules.required,rules.integer,rules.maximum,rules.minimum]"
-                    :label="$t('upload_label_price')"
-                    :suffix="priceForAll ? $t('upload_uf_price_pts') :''"
+                    :label="$t('upload_file_price_label')"
+                    :suffix="currentPrice ? $t('upload_uf_price_pts') :''"
                     placeholder=" "
+                    autocomplete="off"
                     color="#4c59ff"
                     height="44"
                     dense
@@ -87,8 +88,8 @@ export default {
             courseForAll:'',
             currentPrice: '',
             currentPriceItems: [
-                { text: this.$t('upload_free_all'), value: 'free' },
-                { text: this.$t('upload_subscriber_only'), value: 'subscriber' }
+                { text: this.$t('upload_free_all'), value: 'Free' },
+                { text: this.$t('upload_subscriber_only'), value: 'Subscriber' }
             ],
             rules: {
                 required: (value) => validationRules.required(value),
@@ -135,6 +136,9 @@ export default {
     },
     computed: {
         ...mapGetters(['getSelectedClasses']),
+        isTutorSubscribe() {
+            return this.$store.getters.getIsTutorSubscription
+        },
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
         },
@@ -146,8 +150,12 @@ export default {
         ...mapGetters(['getFileData']),
         ...mapActions(['setAllPrice','setAllCourse']),
         applyAll(){
-            if(this.priceForAll){
-                this.setAllPrice(this.priceForAll)
+            if(this.currentPrice){
+                let type = 'price'
+                if(!this.isTutorSubscribe) {
+                    type = 'priceType'
+                }
+                this.setAllPrice({type, value: this.currentPrice})
             }
             if(!!this.courseForAll){
                 this.setAllCourse(this.courseForAll)
@@ -189,7 +197,7 @@ export default {
             margin-bottom:6px;
             border-radius: 6px;
         }
-        input{
+        input, .v-select__selections{
             font-size: 14px;
             font-weight: 600;
             color: @global-purple; 

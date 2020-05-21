@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 namespace Cloudents.Query
 {
     public class CacheQueryHandlerDecorator<TQuery, TQueryResult> :
-        IQueryHandler<TQuery, TQueryResult> where TQuery : IQuery<TQueryResult>
+        IQueryHandler<TQuery, TQueryResult>
+        where TQuery : IQuery<TQueryResult>
+        
     {
         private readonly IQueryHandler<TQuery, TQueryResult> _decoratee;
         private readonly Lazy<ICacheProvider>? _cacheProvider;
@@ -51,7 +53,7 @@ namespace Cloudents.Query
 
             result = await _decoratee.GetAsync(query, token);
 
-            _cacheProvider.Value.Set(cacheKey, attr.Region, result, attr.Duration, attr.Slide);
+            _cacheProvider.Value.Set<TQueryResult>(cacheKey, attr.Region, result, TimeSpan.FromMinutes(attr.Duration), attr.Slide);
             return result;
 
 

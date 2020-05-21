@@ -259,7 +259,7 @@
     <value>Enter</value>
   </data>
   <data name="live_title" xml:space="preserve">
-    <value>Upcoming  Live broadcasts by</value>
+    <value>Upcoming  Live Broadcasts by</value>
   </data>
   <data name="see_all" xml:space="preserve">
     <value>See all</value>
@@ -278,5 +278,29 @@
   </data>
   <data name="free" xml:space="preserve">
     <value>Free</value>
+  </data>
+  <data name="subscribe_btn" xml:space="preserve">
+    <value>Subscribe now</value>
+  </data>
+  <data name="subscribe_no_contract" xml:space="preserve">
+    <value>Monthly, no contract - Cancel any time</value>
+  </data>
+  <data name="subscribe_price_month" xml:space="preserve">
+    <value>/ Month</value>
+  </data>
+  <data name="subscribe_subtitle" xml:space="preserve">
+    <value>access to all of {0}'s content and Live Broadcasts</value>
+  </data>
+  <data name="subscribe_title" xml:space="preserve">
+    <value>Subscribe and get</value>
+  </data>
+  <data name="live_subscribers_free" xml:space="preserve">
+    <value>Free</value>
+  </data>
+  <data name="live_subscribers_title" xml:space="preserve">
+    <value>Subscribers</value>
+  </data>
+  <data name="live_visitors_title" xml:space="preserve">
+    <value>Visitors</value>
   </data>
 </root>

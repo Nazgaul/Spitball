@@ -47,9 +47,7 @@ namespace Cloudents.Query.Users
                         Id = s.Document.Id,
                         Name = s.Document.Name,
                         Course = s.Document.Course.Id,
-                        Type = s.Document.DocumentType != null ?
-                            (ContentType)s.Document.DocumentType :
-                            ContentType.Document,
+                        Type = (ContentType)s.Document.DocumentType,
                         Date = s.Created,
                         Price = s.Price
 

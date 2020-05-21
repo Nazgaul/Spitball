@@ -11,7 +11,9 @@ namespace Cloudents.Core.Entities
         public ReadTutor(long id, string name, string image, string imageName, 
             IReadOnlyList<string>? allSubjects,
             IReadOnlyList<string>? allCourses,
-            decimal price, double? rate, int rateCount, string bio, int lessons,string country, Country sbCountry, decimal? subsidizedPrice)
+            decimal price, double? rate, int rateCount, string bio,
+            int lessons,string country, Country sbCountry,
+            decimal? subsidizedPrice, Money? subscriptionPrice, string? description)
         {
             Id = id;
             Name = name;
@@ -31,13 +33,14 @@ namespace Cloudents.Core.Entities
             OverAllRating = (rate.GetValueOrDefault() * RateCount + 48 + Lessons * rate.GetValueOrDefault())
                             / (RateCount + 12 + Lessons);
             SubsidizedPrice = subsidizedPrice;
+            SubscriptionPrice = subscriptionPrice;
+            Description = description;
             SbCountry = sbCountry;
         }
 
         [SuppressMessage("ReSharper", "CS8618",Justification = "Nhibernate proxy")]
         protected ReadTutor()
         {
-
         }
 
 
@@ -60,6 +63,9 @@ namespace Cloudents.Core.Entities
         public virtual decimal? SubsidizedPrice { get; protected set; }
 
         public virtual Country SbCountry { get; protected set; }
+
+        public virtual Money? SubscriptionPrice { get;protected set; }
+        public virtual string? Description { get;protected set; }
 
     }
 }

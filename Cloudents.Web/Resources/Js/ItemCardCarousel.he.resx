@@ -123,6 +123,9 @@
   <data name="pts" xml:space="preserve">
     <value>חינם | {n} נק' | {n} נק'</value>
   </data>
+  <data name="purchased" xml:space="preserve">
+    <value>{n} רכישה | {n} רכישות</value>
+  </data>
   <data name="view" xml:space="preserve">
     <value>צפייה | צפיות</value>
   </data>

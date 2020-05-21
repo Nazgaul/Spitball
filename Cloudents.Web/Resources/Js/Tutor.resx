@@ -289,4 +289,7 @@ Voice Recording?</value>
   <data name="unmute_room" xml:space="preserve">
     <value>Unmute Students</value>
   </data>
+  <data name="tooltip_fullscreen_exit" xml:space="preserve">
+    <value>close full screen</value>
+  </data>
 </root>

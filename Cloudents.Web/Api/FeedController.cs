@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Filters;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,6 +25,7 @@ namespace Cloudents.Web.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [TypeFilter(typeof(GenerateFeedResultFilter))]
     public class FeedController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
@@ -51,40 +53,51 @@ namespace Cloudents.Web.Api
 
             _userManager.TryGetLongUserId(User, out var userId);
 
-            var result = await _feedService.GetFeedAsync(new GetFeedQuery(userId, page, request.Filter, profile.CountryRegion), token);
-            return GenerateResult(result,
-                new List<string>()
+            var result =
+                await _feedService.GetFeedAsync(new GetFeedQuery(userId,
+                    page, request.Filter, profile.CountryRegion
+                    ), token);
+            return new WebResponseWithFacet<FeedDto>()
+            {
+                Filters = new List<string>()
                 {
                     FeedType.Document.ToString("G"),
                     FeedType.Video.ToString("G"),
                     FeedType.Question.ToString("G"),
                     FeedType.Tutor.ToString("G")
-                });
-        }
-
-
-
-        private WebResponseWithFacet<FeedDto> GenerateResult(
-            IEnumerable<FeedDto> result, IEnumerable<string> filters)
-        {
-
-
-
-
-            return new WebResponseWithFacet<FeedDto>
-            {
-                Result = result.Select(s =>
-                {
-                    if (s is DocumentFeedDto p)
-                    {
-                        p.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(p.Id);
-                        p.Url = Url.DocumentUrl(p.Course, p.Id, p.Title);
-                    }
-                    return s;
-                }),
-                Filters = filters
+                },
+                Result = result
             };
+            //return GenerateResult(result,
+            //    new List<string>()
+            //    {
+            //        FeedType.Document.ToString("G"),
+            //        FeedType.Video.ToString("G"),
+            //        FeedType.Question.ToString("G"),
+            //        FeedType.Tutor.ToString("G")
+            //    });
         }
+
+
+
+        //private WebResponseWithFacet<FeedDto> GenerateResult(
+        //    IEnumerable<FeedDto> result, IEnumerable<string> filters)
+        //{
+        //    return new WebResponseWithFacet<FeedDto>
+        //    {
+        //        Result = result.Select(s =>
+        //        {
+        //            if (s is DocumentFeedDto p)
+        //            {
+
+        //                p.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(p.Id);
+        //                p.Url = Url.DocumentUrl(p.Course, p.Id, p.Title);
+        //            }
+        //            return s;
+        //        }),
+        //        Filters = filters
+        //    };
+        //}
 
         [HttpGet]
         public async Task<WebResponseWithFacet<FeedDto>> SpecificCourseAsync(
@@ -96,14 +109,26 @@ namespace Cloudents.Web.Api
 
             var result = await _feedService.GetFeedAsync(new GetFeedWithCourseQuery(userId, request.Page, request.Filter, profile.CountryRegion, request.Course), token);
 
-            return GenerateResult(result,
-                new List<string>()
+
+            return new WebResponseWithFacet<FeedDto>()
+            {
+                Filters = new List<string>()
                 {
                     FeedType.Document.ToString("G"),
                     FeedType.Video.ToString("G"),
                     FeedType.Question.ToString("G"),
                     FeedType.Tutor.ToString("G")
-                });
+                },
+                Result = result
+            };
+            //return GenerateResult(result,
+            //    new List<string>()
+            //    {
+            //        FeedType.Document.ToString("G"),
+            //        FeedType.Video.ToString("G"),
+            //        FeedType.Question.ToString("G"),
+            //        FeedType.Tutor.ToString("G")
+            //    });
         }
 
 
@@ -114,16 +139,27 @@ namespace Cloudents.Web.Api
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
-            var result = await _feedService.GetFeedAsync(new SearchFeedQuery(profile, 
-                request.Term, request.Page, request.Filter,  request.Course), token);
+            var result = await _feedService.GetFeedAsync(new SearchFeedQuery(profile,
+                request.Term, request.Page, request.Filter, request.Course), token);
 
-            return GenerateResult(result,
-                new List<string>()
+            return new WebResponseWithFacet<FeedDto>()
+            {
+                Filters = new List<string>()
                 {
                     FeedType.Document.ToString("G"),
                     FeedType.Video.ToString("G"),
+                   // FeedType.Question.ToString("G"),
                     FeedType.Tutor.ToString("G")
-                });
+                },
+                Result = result
+            };
+            //return GenerateResult(result,
+            //    new List<string>()
+            //    {
+            //        FeedType.Document.ToString("G"),
+            //        FeedType.Video.ToString("G"),
+            //        FeedType.Tutor.ToString("G")
+            //    });
         }
 
         //this is search
@@ -131,22 +167,32 @@ namespace Cloudents.Web.Api
         [HttpGet]
         public async Task<WebResponseWithFacet<FeedDto>> SearchInSpitballAsync(
             [RequiredFromQuery]  DocumentRequestSearch request,
-            [ProfileModelBinder(ProfileServiceQuery.Country | ProfileServiceQuery.Course)] UserProfile profile,
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
-            var result = await _feedService.GetFeedAsync(new SearchFeedQuery(profile, 
-                request.Term, request.Page, request.Filter,  null), token);
-            return GenerateResult(result,
-                new List<string>()
+            var result = await _feedService.GetFeedAsync(new SearchFeedQuery(profile,
+                request.Term, request.Page, request.Filter, null), token);
+            return new WebResponseWithFacet<FeedDto>()
+            {
+                Filters = new List<string>()
                 {
                     FeedType.Document.ToString("G"),
                     FeedType.Video.ToString("G"),
+                  //  FeedType.Question.ToString("G"),
                     FeedType.Tutor.ToString("G")
-                });
+                },
+                Result = result
+            };
+            //return GenerateResult(result,
+            //    new List<string>()
+            //    {
+            //        FeedType.Document.ToString("G"),
+            //        FeedType.Video.ToString("G"),
+            //        FeedType.Tutor.ToString("G")
+            //    });
         }
 
         [HttpGet("courses")]
-        // [Authorize]
         public async Task<IEnumerable<string>> GetUserCoursesAsync([FromServices] IQueryBus queryBus, CancellationToken token)
         {
             if (!_userManager.TryGetLongUserId(User, out var userId))

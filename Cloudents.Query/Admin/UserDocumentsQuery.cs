@@ -48,7 +48,7 @@ namespace Cloudents.Query.Admin
                     Id = s.Id,
                     Name = s.Name,
                     State = s.Status.State,
-                    Price = s.Price,
+                    Price = s.DocumentPrice.Price,
                     Created = s.TimeStamp.CreationTime,
 
                 }).OrderBy(o => o.Id)

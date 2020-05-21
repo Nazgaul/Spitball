@@ -10,4 +10,11 @@ namespace Cloudents.Core.Enum
         Pending,
         Flagged
     }
+
+    public enum PriceType
+    {
+        Free,
+        HasPrice,
+        Subscriber
+    }
 }
