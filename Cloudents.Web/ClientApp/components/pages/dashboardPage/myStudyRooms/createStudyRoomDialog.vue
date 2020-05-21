@@ -126,8 +126,8 @@ export default {
          }
       },
       createLiveSession() {
-         let childComponent = this.$refs.childComponent
-         let userChooseDate = new Date(`${childComponent.date} ${childComponent.hour}`)
+         let childComponent = this.$refs.childComponent;
+         let userChooseDate = new Date(`${childComponent.date}T${childComponent.hour}:00`)
          let today = new Date()
          if(childComponent.date === today.FormatDateToString()) {
             
