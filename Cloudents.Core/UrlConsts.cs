@@ -3,6 +3,7 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using System;
 using System.Collections.Specialized;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Core
 {
@@ -87,11 +88,11 @@ namespace Cloudents.Core
             return builder.Uri;
         }
 
-        public Uri BuildShortUrlEndpoint(string identifier, string country)
+        public Uri BuildShortUrlEndpoint(string identifier, Country? country)
         {
             var nvc = new NameValueCollection();
             var webSiteEndpoint = _webSiteEndPoint;
-            if (country?.Equals("IN", StringComparison.OrdinalIgnoreCase) == true)
+            if (country == Country.India)
             {
                 webSiteEndpoint = _indiaWebSiteEndpoint;
             }
