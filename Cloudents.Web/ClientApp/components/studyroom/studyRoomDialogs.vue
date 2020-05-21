@@ -9,6 +9,7 @@
       </v-dialog>
 
       <v-dialog 
+      
          v-model="isBrowserSupportDialog" 
          max-width="612.5px"
          :transition="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"

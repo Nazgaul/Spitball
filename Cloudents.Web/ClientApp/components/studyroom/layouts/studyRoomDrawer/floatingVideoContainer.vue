@@ -2,8 +2,7 @@
    <v-slide-x-transition>
       <v-card v-if="tutorVideoTrack && isShowFloatingVideo" 
               :id="elementId" 
-              height="164" width="164"
-              :class="{'footerActive':isFooter}">
+              height="164" width="164">
       </v-card>
    </v-slide-x-transition>
 </template>
@@ -15,14 +14,6 @@ export default {
       return {
          elementId: 'floatingVideoContainer',
          tutorVideo: null,
-      }
-   },
-   props:{
-      isShowFloatingVideo:{
-         type: Boolean
-      },
-      isFooter:{
-         type: Boolean
       }
    },
    watch: {
@@ -70,7 +61,12 @@ export default {
       tutorVideoTrack(){
          return this.getRoomTutorParticipant?.video;
       },
-
+      isShowFloatingVideo(){
+         let currentEditorMode = this.$store.getters.getActiveNavEditor;
+         let classScreenMode = this.$store.getters.getRoomModeConsts.CLASS_SCREEN;
+         let drawerState = this.$store.getters.getStudyRoomDrawerState;
+         return !drawerState && currentEditorMode !== classScreenMode;
+      },
    },
 
 }
@@ -80,13 +76,10 @@ export default {
       z-index: 5;//code editor issue
       border-radius: 50%;
       box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.26);
-      position: fixed;
+      position: absolute;
       bottom: 64px;
       left: 24px;
       padding: 4px;
-      &.footerActive{
-         bottom: 190px; // 64px + footer height 124px
-      }
       video {
          width: 100%;
          height: 100%;

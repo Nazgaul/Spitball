@@ -42,8 +42,8 @@ export default {
    background-color: #212123;
    .classRoomCards{
       float: left;
-      width: 236px !important;
-      height: 149px !important;
+      width: 236px;
+      height: 149px;
    }
 }
 </style>
