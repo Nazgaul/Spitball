@@ -4,7 +4,7 @@
    <div :class="['previewControls',{'previewControlsExpanded':isExpandVideoMode}]">
       <v-tooltip top>
          <template v-slot:activator="{ on }">
-            <v-icon v-on="on" :size="isExpandVideoMode? 30 :20" v-if="isCurrentParticipant"
+            <v-icon v-on="on" :size="isExpandVideoMode? 30 :20" v-show="isCurrentParticipant"
                   @click="isShareScreen? stopShareScreen() : startShareScreen()" color="#ffffff"
                   class="mr-2">{{isShareScreen? 'sbf-stop-share' : 'sbf-shareScreen'}}
             </v-icon>
@@ -14,7 +14,7 @@
 
       <v-tooltip top>
          <template v-slot:activator="{ on }">
-            <v-icon v-on="on" :size="isExpandVideoMode? 30 :18" v-if="showExpandVideoBtn" 
+            <v-icon v-on="on" :size="isExpandVideoMode? 30 :18" v-show="showExpandVideoBtn" 
                   @click="toggleExpandScreen" color="#ffffff">
                   {{isExpandVideoMode? 'sbf-minis':'sbf-exp'}}
             </v-icon>
