@@ -45,7 +45,7 @@ namespace Cloudents.Query.Users
                        {
                            Id = s.User.Id,
                            Image = s.User.ImageName,
-                           ReviewText = s.Review,
+                           ReviewText = s.Review!,
                            Rate = s.Rate,
                            Created = s.DateTime,
                            Name = s.User.Name

@@ -31,6 +31,7 @@ using System.Threading.Tasks;
 using Cloudents.Web.Services;
 using SbUserManager = Cloudents.Web.Identity.SbUserManager;
 using Cloudents.Core.DTOs.Tutors;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Web.Api
 {
@@ -50,7 +51,7 @@ namespace Cloudents.Web.Api
 
 
         public TutorController(IQueryBus queryBus, SbUserManager userManager,
-             ICommandBus commandBus, IStringLocalizer<TutorController> stringLocalizer, IUrlBuilder urlBuilder)
+            ICommandBus commandBus, IStringLocalizer<TutorController> stringLocalizer, IUrlBuilder urlBuilder)
         {
             _queryBus = queryBus;
             _userManager = userManager;
@@ -72,10 +73,12 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("search", Name = "TutorSearch")]
-        [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { "*" })]
+        [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client,
+            VaryByQueryKeys = new[] {"*"})]
         public async Task<WebResponseWithFacet<TutorCardDto>> GetAsync(
             string term, string course,
-            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
+            [ProfileModelBinder(ProfileServiceQuery.Country)]
+            UserProfile profile,
             int page,
             [FromServices] ITutorSearch tutorSearch,
             CancellationToken token, int pageSize = 20)
@@ -99,7 +102,7 @@ namespace Cloudents.Web.Api
                 {
                     Result = result.Result,
                     Count = result.Count,
-                    NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page })
+                    NextPageLink = Url.RouteUrl("TutorSearch", new {page = ++page})
                 };
             }
             else
@@ -109,7 +112,7 @@ namespace Cloudents.Web.Api
                 return new WebResponseWithFacet<TutorCardDto>
                 {
                     Result = result.Result,
-                    NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page, term }),
+                    NextPageLink = Url.RouteUrl("TutorSearch", new {page = ++page, term}),
                     Count = result.Count
                 };
             }
@@ -130,9 +133,10 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Any, VaryByQueryKeys = new[] { "*" })]
+        [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Any, VaryByQueryKeys = new[] {"*"})]
         public async Task<IEnumerable<TutorCardDto>> GetTutorsAsync([RequiredFromQuery] string course,
-            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
+            [ProfileModelBinder(ProfileServiceQuery.Country)]
+            UserProfile profile,
             int? count,
             CancellationToken token)
         {
@@ -144,12 +148,13 @@ namespace Cloudents.Web.Api
                 item.Image = _urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
                 return item;
             });
-           
+
         }
 
         [HttpPost("request"), ValidateRecaptcha("6LfyBqwUAAAAALL7JiC0-0W_uWX1OZvBY4QS_OfL"), ValidateEmail]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary),
+            StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> RequestTutorAsync(RequestTutorRequest model,
             [FromServices] IIpToLocation ipLocation,
@@ -174,6 +179,7 @@ namespace Cloudents.Web.Api
                     client.TrackTrace("Need to have phone 2");
                     return BadRequest(ModelState);
                 }
+
                 var location = await ipLocation.GetAsync(HttpContext.GetIpAddress(), token);
 
                 var user = await _userManager.FindByEmailAsync(model.Email);
@@ -282,7 +288,7 @@ namespace Cloudents.Web.Api
                 item.Image = _urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
                 return item;
             });
-            
+
         }
 
 
@@ -318,7 +324,7 @@ namespace Cloudents.Web.Api
             }
             catch (NotFoundException)
             {
-                return StatusCode(555, new { massege = "permission denied" });
+                return StatusCode(555, new {massege = "permission denied"});
             }
         }
 
@@ -331,7 +337,8 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var command =
-                new AddTutorCalendarsCommand(userId, model.Select(s => new AddTutorCalendarsCommand.Calendar(s.Id, s.Name)));
+                new AddTutorCalendarsCommand(userId,
+                    model.Select(s => new AddTutorCalendarsCommand.Calendar(s.Id, s.Name)));
             await _commandBus.DispatchAsync(command, token);
             //var res = await calendarService.GetUserCalendarsAsync(userId, token);
             return Ok();
@@ -348,12 +355,12 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(555)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<IEnumerable<DateTime>>> GetTutorCalendarAsync(
-            [FromQuery]CalendarEventRequest model,
+            [FromQuery] CalendarEventRequest model,
             CancellationToken token)
         {
             try
             {
-                var query = new CalendarEventsQuery(model.TutorId, 
+                var query = new CalendarEventsQuery(model.TutorId,
                     model.From.GetValueOrDefault(DateTime.UtcNow),
                     model.To.GetValueOrDefault(DateTime.UtcNow.AddMonths(1)));
                 var res = await _queryBus.QueryAsync(query, token);
@@ -361,17 +368,18 @@ namespace Cloudents.Web.Api
             }
             catch (NotFoundException)
             {
-                return StatusCode(555, new { massege = "permission denied" });
+                return StatusCode(555, new {massege = "permission denied"});
             }
         }
 
 
         [HttpPost("calendar/events"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary),
+            StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> SetTutorCalendarAsync(
-            [FromBody]CalendarSetEvent model,
+            [FromBody] CalendarSetEvent model,
             CancellationToken token)
         {
             try
@@ -380,7 +388,8 @@ namespace Cloudents.Web.Api
 
                 Debug.Assert(model.From != null, "model.From != null");
 
-                var command = new AddTutorCalendarEventCommand(userId, model.TutorId, model.From.Value, model.From.Value.AddHours(1));
+                var command = new AddTutorCalendarEventCommand(userId, model.TutorId, model.From.Value,
+                    model.From.Value.AddHours(1));
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
@@ -401,26 +410,37 @@ namespace Cloudents.Web.Api
         {
 
             var userId = _userManager.GetLongUserId(User);
-            var command = new UpdateTutorHoursCommand(userId, model.TutorDailyHours.Select(s => new TutorAvailabilitySlot(s.Day, s.From, s.To)));
+            var command = new UpdateTutorHoursCommand(userId,
+                model.TutorDailyHours.Select(s => new TutorAvailabilitySlot(s.Day, s.From, s.To)));
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
-        //[HttpPost("calendar/updateHours")]
-        //public async Task<IActionResult> UpdateTutorHoursAsync([FromBody] TutorHoursRequest model,
-        //    CancellationToken token)
-        //{
-        //    var userId = _userManager.GetLongUserId(User);
-        //    var command = new UpdateTutorHoursCommand(userId, model.TutorDailyHours.Select(s => new TutorDailyHours(s.Day, s.From, s.To)));
-        //    await _commandBus.DispatchAsync(command, token);
-        //    return Ok();
-        //}
+        [HttpPost("{tutorId:long}/subscribe"),Authorize]
+        public async Task<IActionResult> SubscribeToTutorAsync(
+            long tutorId,
+            [FromHeader(Name = "referer")] string referer,
+            [FromServices] IStripeService stripeService,
+            CancellationToken token)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var email = await _userManager.GetEmailAsync(user);
 
-        //[HttpGet("phone")]
-        //public async Task<string> GetPhoneNumberAsync(long tutorId, CancellationToken token)
-        //{
-        //    var query = new GetPhoneNumberQuery(tutorId);
-        //    return await _queryBus.QueryAsync(query, token);
-        //}
+            var uriBuilder = new UriBuilder(referer)
+            {
+                Query = string.Empty
+            };
+            var url = new UriBuilder(Url.RouteUrl("stripe-subscribe", new
+            {
+                redirectUrl = uriBuilder.ToString()
+            }, "https"));
+            var successCallback = url.AddQuery(("sessionId", "{CHECKOUT_SESSION_ID}"), false).ToString();
+
+            var result = await stripeService.SubscribeToTutorAsync(tutorId, email, successCallback, referer, token);
+            return Ok(new
+            {
+                sessionId = result
+            });
+        }
     }
 }

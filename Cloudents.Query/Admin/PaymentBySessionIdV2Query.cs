@@ -89,7 +89,7 @@ namespace Cloudents.Query.Admin
                     return payment;
                 }
 
-                payment.StudentPayPerHour = Coupon.CalculatePrice(couponResult.CouponType, payment.TutorPricePerHour, (double)couponResult.Value);
+                payment.StudentPayPerHour = Coupon.CalculatePrice(couponResult.CouponType, payment.TutorPricePerHour, couponResult.Value);
 
                 if (couponResult.TutorId == 0)
                 {

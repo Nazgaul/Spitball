@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Entities;
+﻿using System;
+using Cloudents.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
@@ -8,6 +9,7 @@ namespace Cloudents.Web.Extensions
     {
         public static long GetLongUserId(this UserManager<User> userManager, ClaimsPrincipal principal)
         {
+            if (userManager == null) throw new ArgumentNullException(nameof(userManager));
             return long.Parse(userManager.GetUserId(principal));
         }
 

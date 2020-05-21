@@ -21,6 +21,8 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Models;
+using Cloudents.Web.Binders;
 using Microsoft.Extensions.Localization;
 using Schema.NET;
 
@@ -113,6 +115,7 @@ namespace Cloudents.Web.Api
         /// </summary>
         /// <param name="id"></param>
         /// <param name="urlBuilder"></param>
+        /// <param name="profile">No use in swagger</param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("{id:guid}")]
@@ -122,7 +125,9 @@ namespace Cloudents.Web.Api
 
 
         public async Task<ActionResult<StudyRoomDto>> GetStudyRoomAsync(Guid id,
-            [FromServices] IUrlBuilder urlBuilder, CancellationToken token)
+            [FromServices] IUrlBuilder urlBuilder,
+            [ProfileModelBinder(ProfileServiceQuery.Subscribers)] UserProfile profile,
+            CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new EnterStudyRoomCommand(id, userId);
@@ -142,6 +147,11 @@ namespace Cloudents.Web.Api
             if (result == null)
             {
                 return NotFound();
+            }
+
+            if (profile.Subscribers?.Contains(result.TutorId) == true)
+            {
+                result.TutorPrice = 0;
             }
             result.TutorImage = urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
             result.Jwt = command.JwtToken;

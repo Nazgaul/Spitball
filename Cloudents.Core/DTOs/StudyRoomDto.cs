@@ -10,36 +10,58 @@ namespace Cloudents.Core.DTOs
     [SuppressMessage("Style", "CS8618", Justification = "Dapper")]
     public class StudyRoomDto
     {
+        [NonSerialized]
+        public bool _UserPaymentExists;
 
-        [EntityBind(nameof(StudyRoom.OnlineDocumentUrl))]
+        [NonSerialized] public Country TutorCountry;
+        [NonSerialized] public long UserId;
+
         public string OnlineDocument { get; set; }
-        [EntityBind(nameof(ChatRoom.Id))]
         public string ConversationId { get; set; }
-        [EntityBind(nameof(Tutor.Id))]
         public long TutorId { get; set; }
-        [EntityBind(nameof(User.ImageName))]
         public string? TutorImage { get; set; }
-        [EntityBind(nameof(User.Name))]
         public string TutorName { get; set; }
 
-        [EntityBind(nameof(User.PaymentExists), nameof(User.BuyerPayment.PaymentKeyExpiration))]
-        public bool NeedPayment { get; set; }
+        public bool NeedPayment
+        {
+            get
+            {
+                if (TutorPrice == 0)
+                {
+                    return false;
+                }
 
-        public CouponType? CouponType { get; set; }
+                if (_UserPaymentExists)
+                {
+                    return false;
+                }
 
-        public bool ShouldSerializeCouponType() => false;
-        public bool ShouldSerializeCouponValue() => false;
+                if (TutorCountry == Country.India)
+                {
+                    return false;
+                }
 
-        public decimal? CouponValue { get; set; }
+                if (UserId == TutorId)
+                {
+                    return false;
+                }
 
-        [EntityBind(nameof(StudyRoom.Price), nameof(Tutor.Price))]
-        public double TutorPrice { get; set; }
+                return true;
+            }
+        }
+
+       // public CouponType? CouponType { get; set; }
+
+       // public bool ShouldSerializeCouponType() => false;
+      //  public bool ShouldSerializeCouponValue() => false;
+
+      //  public decimal? CouponValue { get; set; }
+
+        public decimal TutorPrice { get; set; }
         public string Jwt { get; set; }
 
-        [EntityBind(nameof(BroadCastStudyRoom.BroadcastTime))]
         public DateTime? BroadcastTime { get; set; }
 
-        [EntityBind(nameof(StudyRoom.Name))]
         public string Name { get; set; }
 
 

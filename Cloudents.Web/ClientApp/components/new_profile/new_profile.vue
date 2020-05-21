@@ -19,16 +19,15 @@
         class="mt-sm-12 mt-2 mx-auto calendarSection"
         :globalFunctions="globalFunctions"
       />
+      <profileSubscription :id="id" v-if="showProfileSubscription" ref="profileSubscription" />
       <profileLiveClasses :id="id" v-if="isTutor" />
       <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" />
       <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" />
       <profileItemsBox v-if="isMyProfile || showItems" class="mt-sm-12 mt-2" />
       <profileEarnMoney class="mt-0 mt-sm-5" v-if="showEarnMoney" />
       <profileReviewsBox v-if="showReviewBox" class="mt-sm-10 mt-2" />
-     
     </div>
-    <!-- SIDE -->
-   
+    
     <sb-dialog
       :onclosefn="closeCouponDialog"
       :activateOverlay="false"
@@ -101,6 +100,7 @@ import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileLiveClasses from './components/profileLiveClasses/profileLiveClasses.vue'
 import calendarTab from '../calendar/calendarTab.vue';
+import profileSubscription from './components/profileSubscription/profileSubscription.vue';
 import cover from "./components/cover.vue";
 
 
@@ -117,6 +117,7 @@ export default {
         profileFindTutor,
         profileItemsBox,
         profileLiveClasses,
+        profileSubscription,
         calendarTab,
         cover,
         sbDialog,
@@ -151,8 +152,6 @@ export default {
             'updateRequestDialog',
             'setActiveConversationObj',
             'openChatInterface',
-
-
             'syncProfile',
             'resetProfileData',
             'updateToasterParams'
@@ -248,8 +247,17 @@ export default {
             'getCouponError',
             "getProfile",
             'getBannerParams',
-            'getUserLoggedInStatus'
+            'getUserLoggedInStatus',
+            'getIsSubscriber',// profile isSubscriber
+            'getProfileTutorSubscription',
+            'getIsMyProfile'// is my profile
         ]),
+        showProfileSubscription() {
+            if(this.getProfileTutorSubscription && Object.keys(this.getProfileTutorSubscription).length > 0 && !this.getIsSubscriber) {
+              return true
+            }
+            return false
+        },
         shareContentParams(){
             let urlLink = `${global.location.origin}/p/${this.$route.params.id}?t=${Date.now()}` ;
             let userName = this.getProfile.user?.name;
@@ -265,11 +273,6 @@ export default {
             return paramObJ
         },
         isShowCouponDialog(){
-            // if(this.getCouponDialog){
-            //     setTimeout(() => {
-            //         document.querySelector('.profile-coupon_input').focus()
-            //     }, 100);
-            // }
             return this.getCouponDialog;
         },
         showReviewBox(){
@@ -283,8 +286,11 @@ export default {
             return !!this.getProfile && this.getProfile.user.isTutor
         },
         isMyProfile(){
-            return !!this.getProfile && !!this.accountUser && this.accountUser?.id == this.getProfile?.user?.id
+          return this.getIsMyProfile
         },
+        // isMyProfile(){
+        //     return !!this.getProfile && !!this.accountUser && this.accountUser?.id == this.getProfile?.user?.id
+        // },
         showEarnMoney(){
             return this.isMyProfile && this.isTutor && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
         },
@@ -357,6 +363,16 @@ export default {
             if(val && this.getCouponError) {
                 this.$store.commit('setCouponError', false)
             }
+        },
+        showProfileSubscription(val) {
+          if(val) {
+            this.$nextTick(() => {
+              let profileSubscriptionElement = this.$refs.profileSubscription
+              if(profileSubscriptionElement && this.$route.hash) {
+                this.$vuetify.goTo(this.$route.hash)
+              }
+            })
+          }
         }
     },
     beforeRouteLeave(to, from, next) {
@@ -402,21 +418,12 @@ export default {
 @import "../../styles/mixin.less";
 .profilePage {
   position: relative;
-  // display: flex;
-  // margin: 24px 0;
-  //  justify-content: center;
-
   margin-bottom: 30px;
- 
-  // margin: 24px 70px 26px 34px;
-
   @media (max-width: @screen-md) {
-    // margin: 20px;
     justify-content: center;
   }
   @media (max-width: @screen-xs) {
     margin: 0;
-    // margin-bottom: 40px;
     display: block;
   }
   .profile-sticky {
@@ -438,13 +445,9 @@ export default {
       &.content-center {
         margin: 0 auto;
       }
-      @media (max-width: @screen-md-plus) {
-        // margin-left: 0;
-      }
       @media (max-width: @screen-xs) {
         margin-left: 0;
         padding: 0;
-        // margin-bottom: 60px;
       }
       .question-container {
         margin: unset;

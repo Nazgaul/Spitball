@@ -7,8 +7,6 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Query.Chat
 {
-    
-
     public class ChatConversationsQuery : IQuery<IEnumerable<ChatDto>>
     {
         public ChatConversationsQuery(long userId)
@@ -16,10 +14,7 @@ namespace Cloudents.Query.Chat
             UserId = userId;
         }
 
-       
-
         private long UserId { get; }
-
         internal sealed class ChatConversationsQueryHandler : IQueryHandler<ChatConversationsQuery, IEnumerable<ChatDto>>
         {
             private readonly IDapperRepository _dapper;
@@ -30,7 +25,6 @@ namespace Cloudents.Query.Chat
                 _dapper = dapper;
                 _urlBuilder = urlBuilder;
             }
-
 
             public async Task<IEnumerable<ChatDto>> GetAsync(ChatConversationsQuery query, CancellationToken token)
             {
@@ -57,7 +51,6 @@ order by cr.UpdateTime desc", new {id = query.UserId});
                 var chatParser = reader.GetRowParser<ChatDto>();
                 var chatUserParser = reader.GetRowParser<ChatUserDto>();
 
-
                 var typeColumnIndex = reader.GetOrdinal("ConversationId");
                 var conversation = new Dictionary<string,ChatDto>();
                 while (reader.Read())
@@ -76,9 +69,7 @@ order by cr.UpdateTime desc", new {id = query.UserId});
 
                     user.Image = _urlBuilder.BuildUserImageEndpoint(user.UserId, user.Image);
                     v.Users.Add(user);
-                    
                 }
-
                 return conversation.Values;
             }
         }

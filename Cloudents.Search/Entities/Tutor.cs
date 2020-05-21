@@ -6,6 +6,7 @@ using Microsoft.Azure.Search.Models;
 using Newtonsoft.Json;
 using System;
 using Cloudents.Core.Entities;
+using Cloudents.Infrastructure;
 
 namespace Cloudents.Search.Entities
 {

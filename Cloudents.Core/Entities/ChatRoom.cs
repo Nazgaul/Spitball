@@ -11,10 +11,13 @@ namespace Cloudents.Core.Entities
     public class ChatRoom : Entity<Guid>, IAggregateRoot
     {
         [SuppressMessage("ReSharper", "CS8618", Justification = "Proxy")]
+        [SuppressMessage("Code Quality", "CA8618")]
         protected ChatRoom()
         {
-
-
+            Messages = new List<ChatMessage>();
+            Users = new HashSet<ChatUser>();
+            Extra = new ChatRoomAdmin(this);
+            UpdateTime = DateTime.UtcNow;
         }
 
         public ChatRoom(IList<User> users)
@@ -25,13 +28,12 @@ namespace Cloudents.Core.Entities
             }
             Users = new HashSet<ChatUser>(users.Select(s => new ChatUser(this, s)));
             Identifier = BuildChatRoomIdentifier(users.Select(s => s.Id));
-            Users = new HashSet<ChatUser>();
             Messages = new List<ChatMessage>();
             Extra = new ChatRoomAdmin(this);
             UpdateTime = DateTime.UtcNow;
         }
 
-        internal static ChatRoom FromStudyRoom(StudyRoom studyRoom)
+        public static ChatRoom FromStudyRoom(StudyRoom studyRoom)
         {
             return new ChatRoom
             {
@@ -74,21 +76,25 @@ namespace Cloudents.Core.Entities
             UpdateTime = DateTime.UtcNow;
             if (StudyRoom != null)
             {
-                if (StudyRoom is PrivateStudyRoom _)
+                if (StudyRoom is BroadCastStudyRoom _)
                 {
-                    foreach (var userInChat in Users)
-                    {
-                        if (userInChat.User.Id != message.User.Id)
-                        {
-                            userInChat.UnreadMessage();
-                        }
-                        else
-                        {
-                            userInChat.ResetUnread();
-                        }
-                    }
+                    return;
                 }
             }
+
+            foreach (var userInChat in Users)
+            {
+                if (userInChat.User.Id != message.User.Id)
+                {
+                    userInChat.UnreadMessage();
+                }
+                else
+                {
+                    userInChat.ResetUnread();
+                }
+            }
+
+
 
             Messages.Add(message);
             AddEvent(new ChatMessageEvent(message));

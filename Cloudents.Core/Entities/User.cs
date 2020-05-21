@@ -49,7 +49,7 @@ namespace Cloudents.Core.Entities
         public virtual bool LockoutEnabled { get; set; }
 
 
-        public virtual string LockoutReason { get; set; }
+        public virtual string? LockoutReason { get; set; }
 
 
         protected internal virtual ICollection<Answer> Answers { get; protected set; }
@@ -138,6 +138,13 @@ namespace Cloudents.Core.Entities
 
         public virtual void ChangeCountryAdmin(string country)
         {
+            if (Tutor != null)
+            {
+                if (Tutor.HasSubscription())
+                {
+                    throw new UnauthorizedAccessException("Cannot change country of tutor with subscription");
+                }
+            }
             ChangeCountry(country);
             ChangeLanguage(Entities.Language.English);
 
@@ -201,7 +208,7 @@ namespace Cloudents.Core.Entities
         public virtual IPayment2? Payment { get; protected set; }
 
         public virtual Gender Gender { get; protected set; }
-        public virtual PaymentStatus PaymentExists { get; protected set; }
+        public virtual PaymentStatus? PaymentExists { get; protected set; }
 
         public virtual DateTime? FinishRegistrationDate { get; set; }
 
@@ -210,12 +217,6 @@ namespace Cloudents.Core.Entities
             PaymentExists = PaymentStatus.Done;
             AddEvent(new StudentPaymentReceivedEvent(this));
         }
-
-        //public virtual void AddPayment(string token, DateTime expiration, string buyerCardMask)
-        //{
-        //    PaymentExists = PaymentStatus.Done;
-        //    BuyerPayment = new BuyerPayment(token, expiration, buyerCardMask);
-        //}
 
         public virtual void AddPayment(IPayment2 payment)
         {
@@ -315,7 +316,7 @@ namespace Cloudents.Core.Entities
         }
 
 
-        protected internal virtual IEnumerable<Follow> Followed { get; set; }
+        protected internal virtual IEnumerable<Follow> Following { get; set; }
         protected internal virtual IEnumerable<Lead> Leads { get; set; }
 
         private readonly ISet<Follow> _followers = new HashSet<Follow>();
@@ -323,7 +324,24 @@ namespace Cloudents.Core.Entities
 
         public override void AddFollower(User follower)
         {
-            if (this == follower)
+            if (this.Id == follower.Id)
+            {
+                return;
+            }
+
+            if (Tutor == null)
+            {
+                return;
+            }
+
+
+            var follow = new Follow(this, follower);
+            _followers.Add(follow);
+        }
+
+        public virtual void AddSubscriber(User follower)
+        {
+            if (this.Id == follower.Id)
             {
                 return;
             }
@@ -335,9 +353,17 @@ namespace Cloudents.Core.Entities
 
             //if (!Equals(follower))
             //{
-            var follow = new Follow(this, follower);
+            var existingFollow = _followers.FirstOrDefault(f => f.Follower.Id == follower.Id);
+            if (existingFollow != null)
+            {
+                existingFollow.Subscriber = true;
+                return;
+            }
+            var follow = new Follow(this, follower, true);
             _followers.Add(follow);
         }
+
+
 
         public virtual void AddFollowers(IEnumerable<User> followers)
         {
@@ -350,13 +376,12 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public override void RemoveFollower(BaseUser follower)
+        public virtual void RemoveFollower(User follower)
         {
-            if (follower is User u)
-            {
-                var follow = new Follow(this, u);
-                _followers.Remove(follow);
-            }
+
+            var follow = new Follow(this, follower);
+            _followers.Remove(follow);
+
         }
 
 

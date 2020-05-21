@@ -23,9 +23,11 @@ using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Payments;
 using Cloudents.Query;
+using Cloudents.Query.Tutor;
 using Cloudents.Query.Users;
 using Cloudents.Search.Document;
 using Cloudents.Search.Tutor;
@@ -124,13 +126,13 @@ namespace ConsoleApp
             {
                 await RamMethod();
             }
-            else if(Environment.UserName == "Elad")
+            else if (Environment.UserName == "Elad")
             {
 
                 //await HadarMethod();
                 ResourcesMaintenance.DeleteStuffFromJs();
             }
-            
+
 
 
             Console.WriteLine("done");
@@ -146,15 +148,12 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             await Dbi();
-            
-
-
         }
 
         private static async Task Dbi()
         {
+            int count = 0;
             var session = Container.Resolve<ISession>();
-            //var bus = Container.Resolve<ICommandBus>();
             var studyRoomUsers = await session.Query<StudyRoomSessionUser>()
                 .Fetch(f => f.StudyRoomPayment)
                 .ToListAsync();
@@ -164,16 +163,12 @@ namespace ConsoleApp
                 // ReSharper disable once ConditionIsAlwaysTrueOrFalse
                 if (user.StudyRoomPayment != null)
                 {
-                    continue;
+                    using var unitOfWork = Container.Resolve<IUnitOfWork>();
+                    user.StudyRoomPayment = new StudyRoomPayment(user);
+                    await session.FlushAsync();
+                    await unitOfWork.CommitAsync(default);
                 }
-                using var unitOfWork = Container.Resolve<IUnitOfWork>();
-                user.StudyRoomPayment = new StudyRoomPayment(user);
-                session.Flush();
-                await unitOfWork.CommitAsync(default);
-
             }
-
-
         }
 
         private static async Task UpdateTwilioParticipants()
@@ -187,9 +182,9 @@ namespace ConsoleApp
             var statelessSession = Container.Resolve<IStatelessSession>();
             var dbResult = await statelessSession.Query<StudyRoomSession>()
                 .Where(w => w.StudyRoomVersion == StudyRoomSession.StudyRoomNewVersion)
-                .Where(w=>w.Duration > StudyRoomSession.BillableStudyRoomSession)
+                .Where(w => w.Duration > StudyRoomSession.BillableStudyRoomSession)
                 .Where(w => !statelessSession.Query<StudyRoomSessionUser>().Any(w2 => w2.StudyRoomSession.Id == w.Id))
-                .OrderByDescending(o=>o.Created)
+                .OrderByDescending(o => o.Created)
                 .ToListAsync();
 
             foreach (var studyRoomSession in dbResult)
@@ -200,7 +195,7 @@ namespace ConsoleApp
 
                 var distinctUsers = result.GroupBy(g => g.identity).Select(s => s.Key).Count();
 
-                var countOfUsers = await statelessSession.Query<StudyRoomUser>().Where(w => w.Room.Id == roomId).Select(s=>s.User.Id).ToListAsync();
+                var countOfUsers = await statelessSession.Query<StudyRoomUser>().Where(w => w.Room.Id == roomId).Select(s => s.User.Id).ToListAsync();
                 if (distinctUsers != countOfUsers.Count)
                 {
                     Console.WriteLine("HEYYY");
@@ -222,24 +217,24 @@ namespace ConsoleApp
             }
         }
 
-        //        private static async Task ResyncTutorRead()
-        //        {
-        //            var session = Container.Resolve<IStatelessSession>();
-        //            var bus = Container.Resolve<ICommandBus>();
-        //            var eventHandler = Container.Resolve<IEventPublisher>();
+        private static async Task ResyncTutorRead()
+        {
+            var session = Container.Resolve<IStatelessSession>();
+            var bus = Container.Resolve<ICommandBus>();
+            var eventHandler = Container.Resolve<IEventPublisher>();
 
-        //            var x = await session.CreateSQLQuery(@"
-        //Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
+            var x = await session.CreateSQLQuery(@"
+        Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
 
-        //            foreach (dynamic z in x)
-        //            {
-        //                var e = new SetUniversityEvent(z);
-        //                await eventHandler.PublishAsync(e, default);
-        //                //var command = new TeachCourseCommand(z[0], z[1]);
-        //                //await bus.DispatchAsync(command, default);
-        //            }
-        //        }
+            foreach (dynamic z in x)
+            {
+                var e = new ChangeCountryEvent(z);
+                await eventHandler.PublishAsync(e, default);
+                //var command = new TeachCourseCommand(z[0], z[1]);
+                //await bus.DispatchAsync(command, default);
+            }
+        }
 
         private static async Task Convert()
         {
@@ -604,22 +599,6 @@ namespace ConsoleApp
         //    } while (blobToken != null);
 
         //}
-
-
-
-
-
-        private static async Task DeleteUserAsync(long id)
-        {
-            var session = Container.Resolve<ISession>();
-            var unitOfWork = Container.Resolve<IUnitOfWork>();
-
-            var user = await session.LoadAsync<User>(id);
-            await session.DeleteAsync(user);
-            await unitOfWork.CommitAsync(default);
-        }
-
-
 
         private static async Task<string> CopyBlobFromOldContainerAsync(string blobName, long itemId)
         {

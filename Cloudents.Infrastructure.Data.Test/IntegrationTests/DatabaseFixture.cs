@@ -42,15 +42,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             builder.RegisterModule<ModuleDb>();
             builder.RegisterModule<ModuleCore>();
             builder.RegisterModule<ModuleInfrastructureBase>();
-            // builder.RegisterModule<ModuleCache>();
             builder.RegisterType<GoogleService>().AsSelf()
               .As<ICalendarService>().SingleInstance();
 
             builder.RegisterType<DummyCacheProvider>().As<ICacheProvider>();
             builder.RegisterType<GoogleDataStore>()
                 .AsSelf().InstancePerDependency();
-            builder.RegisterModule<ModuleCore>();
-            builder.RegisterType<DapperRepository>().AsSelf();
             Container = builder.Build();
             QueryBus = Container.Resolve<IQueryBus>();
             DapperRepository = Container.Resolve<IDapperRepository>();
@@ -87,12 +84,17 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         public void Set(string key, string region, object value, int expire, bool slideExpiration)
         {
-            
+
+        }
+
+        public void Set<T>(string key, string region, T value, TimeSpan expire, bool slideExpiration)
+        {
+           
         }
 
         public void Set(string key, string region, object value, TimeSpan expire, bool slideExpiration)
         {
-            
+
         }
 
         public bool Exists(string key, string region)
@@ -102,12 +104,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         public void DeleteRegion(string region)
         {
-           
+
         }
 
         public void DeleteKey(string region, string key)
         {
-            
+
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Cloudents.Core.Entities
     public class StudyRoomSessionUser : Entity<Guid>, IEquatable<StudyRoomSessionUser>
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public StudyRoomSessionUser(StudyRoomSession studyRoomSession, User user)
+        public StudyRoomSessionUser(StudyRoomSession studyRoomSession, User user,decimal pricePerHour)
         {
             StudyRoomSession = studyRoomSession;
             User = user;

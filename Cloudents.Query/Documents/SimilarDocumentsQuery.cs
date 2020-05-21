@@ -32,7 +32,7 @@ namespace Cloudents.Query.Documents
         {
             const string sql = @"with cte as
                                 (
-                                select  CourseName, u.Country
+                                select  CourseName, u.SbCountry
                                 from sb.Document d 
                                 join sb.[user] u
 	                                on d.UserId = u.Id
@@ -40,10 +40,13 @@ namespace Cloudents.Query.Documents
                                 )
 
                                 select top 10 d.Id, d.UpdateTime as DateTime, 
-                                d.CourseName as Course, d.Name as Title,  
-                                
-                                coalesce(d.Description, d.MetaContent) as Snippet, d.Views, d.Downloads, d.Price, 
-                                d.DocumentType, d.Duration,  
+                                d.CourseName as Course,
+d.Name as Title,  
+                                coalesce(d.Description, d.MetaContent) as Snippet,
+d.Views, 
+d.Downloads,
+d.Price, 
+                                d.DocumentType, d.Duration,  d.PriceType,
                                 (
 	                                select count(1)
 	                                from sb.[Transaction] t 
@@ -57,7 +60,7 @@ namespace Cloudents.Query.Documents
                                 from sb.[Document] d 
                                 inner join sb.[User] u on d.UserId=u.Id ,
                                 cte
-                                where d.CourseName = cte.CourseName and u.Country = cte.Country
+                                where d.CourseName = cte.CourseName and u.SbCountry = cte.SbCountry
                                 and d.Id != :Id and d.[State]='ok'
                                 order by d.DocumentType desc, d.UpdateTime desc;
                                 ";

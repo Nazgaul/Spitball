@@ -22,7 +22,7 @@ namespace Cloudents.Persistence.Maps
                 .ForeignKeyConstraintName("fChatMessageChatRoom")
                 .KeyColumn("ChatRoomId");
 
-            References(x => x.StudyRoom).Nullable();
+            References(x => x.StudyRoom).Nullable().LazyLoad(Laziness.NoProxy);
         }
     }
 

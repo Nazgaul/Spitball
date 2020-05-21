@@ -212,7 +212,7 @@ namespace Cloudents.Core.Entities
             return new DocumentTransaction(document)
             {
                 Action = TransactionActionType.PurchaseDocument,
-                Price = -document.Price,
+                Price = -document.DocumentPrice.Price,
                 Type = TransactionType.Spent
             };
         }
@@ -222,7 +222,7 @@ namespace Cloudents.Core.Entities
             return new DocumentTransaction(document)
             {
                 Action = TransactionActionType.SoldDocument,
-                Price = document.Price,
+                Price = document.DocumentPrice.Price,
                 Type = TransactionType.Earned,
                 // _awardScore = 1
 

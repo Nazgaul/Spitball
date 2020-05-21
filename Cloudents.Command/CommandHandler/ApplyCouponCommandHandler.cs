@@ -41,7 +41,7 @@ namespace Cloudents.Command.CommandHandler
 
             var tutorPrice = (double)tutor.Price.Price;
 
-            message.NewPrice = Coupon.CalculatePrice(coupon.CouponType, tutorPrice, (double)coupon.Value);
+            message.NewPrice = Coupon.CalculatePrice(coupon.CouponType, tutorPrice, coupon.Value);
 
         }
     }

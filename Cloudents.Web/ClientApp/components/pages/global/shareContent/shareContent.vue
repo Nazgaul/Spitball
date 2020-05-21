@@ -232,7 +232,8 @@ export default {
 .shareContent {
   padding: 16px;
   height: 52px;
- 
+  .flexSameSize();
+
   color: #43425d;
   display: flex;
   align-items: center;

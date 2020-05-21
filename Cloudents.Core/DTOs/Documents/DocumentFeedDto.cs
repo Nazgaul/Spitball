@@ -14,7 +14,7 @@ namespace Cloudents.Core.DTOs.Documents
         private TimeSpan? _duration;
         public override FeedType Type => FeedType.Document;
         public string Course { get; set; }
-        public string Snippet { get; set; }
+        public string? Snippet { get; set; }
         public string Title { get; set; }
         public DocumentUserDto User { get; set; }
         public int? Views { get; set; }
@@ -31,6 +31,8 @@ namespace Cloudents.Core.DTOs.Documents
         public decimal? Price { get; set; }
         public string Preview { get; set; }
         public int Purchased { get; set; }
+
+        public PriceType PriceType { get; set; }
 
         public DocumentType DocumentType { get; set; }
 

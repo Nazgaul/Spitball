@@ -30,13 +30,13 @@ namespace Cloudents.Command.Documents.PurchaseDocument
             {
                 throw new NotFoundException();
             }
-            if (document.Price == 0 || document.User.Id == message.UserId)
+            if (document.DocumentPrice.Price == 0 || document.User.Id == message.UserId)
             {
                 throw new ArgumentException();
             }
 
             var balance = await _transactionRepository.GetBalanceAsync(message.UserId, token);
-            if (balance < document.Price)
+            if (balance < document.DocumentPrice.Price)
             {
                 throw new InsufficientFundException();
             }
