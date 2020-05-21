@@ -191,7 +191,7 @@ export default {
     },
     created() {
         this.$store.dispatch('updateFollowersItems').then(()=>{
-            this.myFollowers = this.$store.getters.getFollowersItems
+            this.myFollowers = this.$store.getters.getFollowersItems.filter(u=>u.hasCreditCard);
         })
     },
 }
