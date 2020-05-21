@@ -38,6 +38,11 @@ namespace Cloudents.Persistence.Maps
                 .Cascade.AllDeleteOrphan();
 
 
+            HasMany(x => x.Documents).Access.CamelCaseField(Prefix.Underscore).KeyColumn("UserId")
+                .Inverse()
+                .Cascade.AllDeleteOrphan();
+
+
          
 
             Table("User"); //if not there is sql error

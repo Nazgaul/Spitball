@@ -206,7 +206,7 @@ namespace Cloudents.Query.Users
                                             from sb.UsersRelationship
                                             where UserId = :UserId and Created < :to;";*/
                 return _session.Query<Follow>()
-                     .Where(w => w.Followed.Id == query.UserId)
+                     .Where(w => w.User.Id == query.UserId)
                      .Where(w => w.Created >= query.From && w.Created <= query.To)
                      .GroupBy(g => 1)
                      .Select(s => s.Count())

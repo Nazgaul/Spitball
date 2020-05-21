@@ -24,7 +24,7 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate proxy")]
         protected UserCoupon()
         {
-            StudyRoomSessionUser = null;
+           
         }
 
         public virtual User User { get; protected set; }

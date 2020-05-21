@@ -6,7 +6,7 @@ namespace Cloudents.Core.Models
 {
     public class UserProfile
     {
-        public IEnumerable<string>? Courses { get; set; }
+        public HashSet<long>? Subscribers { get; set; }
 
 
         public string? Country { get; set; }

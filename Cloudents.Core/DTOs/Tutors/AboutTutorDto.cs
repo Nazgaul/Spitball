@@ -14,6 +14,6 @@ namespace Cloudents.Core.DTOs.Tutors
         [EntityBind(nameof(TutorReview.Rate))]
         public decimal Rate { get; set; }
         [EntityBind(nameof(BaseUser.ImageName))]
-        public string Image { get; set; }
+        public string? Image { get; set; }
     }
 }

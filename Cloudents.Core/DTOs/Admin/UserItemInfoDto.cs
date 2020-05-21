@@ -35,24 +35,6 @@ namespace Cloudents.Core.DTOs.Admin
         [EntityBind(nameof(Question.Status.State))]
         public ItemState State { get; set; }
     }
-    public class UserDocumentsDto
-    {
-        [EntityBind(nameof(Document.Id))]
-        public long Id { get; set; }
-        [EntityBind(nameof(Document.Name))]
-        public string Name { get; set; }
-        [EntityBind(nameof(Document.TimeStamp.CreationTime))]
-        public DateTime Created { get; set; }
-        [EntityBind(nameof(Document.Course.Id))]
-        public string Course { get; set; }
-        [EntityBind(nameof(Document.Price))]
-        public decimal? Price { get; set; }
-        [EntityBind(nameof(Document.Status.State))]
-        public ItemState State { get; set; }
-
-        public Uri Preview { get; set; }
-        public string SiteLink { get; set; }
-    }
 
     public class UserPurchasedDocsDto
     {

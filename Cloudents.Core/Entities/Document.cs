@@ -21,11 +21,16 @@ namespace Cloudents.Core.Entities
 
         public Document(string name,
             Course course,
-            User user, decimal price, DocumentType documentType, string? description)
+            Tutor tutor, decimal price, DocumentType documentType, string? description, PriceType priceType)
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
+            if (tutor == null) throw new ArgumentNullException(nameof(tutor));
             Course = course ?? throw new ArgumentNullException(nameof(course));
-            User = user ?? throw new ArgumentNullException(nameof(user));
+            User = tutor.User;
+            //if (user.Tutor == null)
+            //{
+            //    throw new UnauthorizedAccessException("Only tutor can upload files");
+            //}
 
             TimeStamp = new DomainTimeStamp();
             DocumentDownloads = new HashSet<UserDownloadDocument>();
@@ -37,14 +42,14 @@ namespace Cloudents.Core.Entities
             {
                 Description = description;
             }
-            ChangePrice(price);
-            Status = GetInitState(user);
+            Status = GetInitState(tutor.User);
             if (Status == Public)
             {
                 MakePublic();
             }
             DocumentType = documentType;
-      
+
+            DocumentPrice = new DocumentPrice(price,priceType,tutor);
         }
 
       
@@ -76,12 +81,14 @@ namespace Cloudents.Core.Entities
 
         //this is only for document
         public virtual int? PageCount { get; set; }
-        //public virtual long? OldId { get; protected set; }
 
         public virtual string? MetaContent { get; set; }
 
-        public virtual decimal Price { get; protected set; }
-        // ReSharper disable once CollectionNeverUpdated.Local Resharper
+        
+
+        //public virtual 
+
+        // ReSharper disable once CollectionNeverUpdated.Local 
         private readonly IList<Transaction> _transactions = new List<Transaction>();
         public virtual IEnumerable<Transaction> Transactions => _transactions;
 
@@ -95,6 +102,8 @@ namespace Cloudents.Core.Entities
         protected internal virtual ISet<UserDownloadDocument> DocumentDownloads { get; set; }
 
         public virtual short Boost { get; set; }
+
+        public virtual DocumentPrice DocumentPrice { get; protected set; }
 
         public virtual void AddDownload(User user)
         {
@@ -117,8 +126,6 @@ namespace Cloudents.Core.Entities
                 throw new NotFoundException();
             }
 
-
-
             var vote = Votes.AsQueryable().FirstOrDefault(w => w.User == user);
             if (vote == null)
             {
@@ -127,7 +134,6 @@ namespace Cloudents.Core.Entities
             }
             vote.VoteType = type;
             VoteCount = Votes.Sum(s => (int)s.VoteType);
-
         }
 
         public virtual void MakePublic()
@@ -168,28 +174,28 @@ namespace Cloudents.Core.Entities
 
         public virtual void UnDelete()
         {
-            Status = ItemStatus.Public;
+            Status = Public;
             AddEvent(new DocumentUndeletedEvent(this));
         }
 
-        public const decimal PriceLimit = 1000M;
+      
 
         public virtual void ChangePrice(decimal newPrice)
         {
-            if (Price == newPrice)
+            if (DocumentPrice.Price == newPrice)
             {
                 return;
             }
 
-            if (newPrice > PriceLimit)
+            if (DocumentPrice.Type == PriceType.Subscriber)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentException("Subscribe cannot have price");
             }
 
-            Price = decimal.Round(newPrice, 2);
+            DocumentPrice.ChangePrice(newPrice);
+            
             TimeStamp.UpdateTime = DateTime.UtcNow;
             AddEvent(new DocumentPriceChangeEvent(this));
-
         }
 
         public virtual void Rename(string name)
@@ -209,15 +215,73 @@ namespace Cloudents.Core.Entities
 
             buyer.MakeTransaction(DocumentTransaction.Buyer(this));
             User.MakeTransaction(DocumentTransaction.Seller(this));
-            User.MakeTransaction(new CommissionTransaction(Price));
+            User.MakeTransaction(new CommissionTransaction(DocumentPrice.Price));
         }
 
-        public virtual DocumentType? DocumentType { get; set; }
+        public virtual DocumentType DocumentType { get; set; }
 
         //This is only for video
         public virtual TimeSpan? Duration { get; set; }
         public virtual bool IsShownHomePage { get; protected set; }
 
         public virtual string? Md5 { get; set; }
+
+
+        public virtual void ChangeToSubscribeMode(Tutor tutor)
+        {
+            DocumentPrice = new DocumentPrice(0,PriceType.Subscriber,tutor);
+        }
+    }
+
+    public class DocumentPrice
+    {
+        public const decimal PriceLimit = 1000M;
+        public DocumentPrice(in decimal price, PriceType priceType, Tutor tutor)
+        {
+            if (tutor == null) throw new ArgumentNullException(nameof(tutor));
+            Type = priceType;
+            Price = price;
+            if (priceType == PriceType.Subscriber)
+            {
+                Price = (decimal) tutor.SubscriptionPrice.GetValueOrDefault().Amount;
+                return;
+            }
+
+            if (price == 0)
+            {
+                Type = PriceType.Free;
+            }
+
+        }
+
+        protected DocumentPrice()
+        {
+            
+        }
+
+        private decimal _price;
+
+        public virtual decimal Price
+        {
+            get => _price;
+            protected set
+            {
+                if (value > PriceLimit || value < 0)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                _price = decimal.Round(value, 2);
+            }
+        }
+
+        public  PriceType? Type { get; protected set; }
+
+       
+
+        public void ChangePrice(in decimal newPrice)
+        {
+            Price = newPrice;
+            Type = newPrice > 0 ? PriceType.HasPrice : PriceType.Free;
+        }
     }
 }

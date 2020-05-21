@@ -46,8 +46,37 @@ namespace Cloudents.Core.Entities
 
         public virtual TutorPrice Price { get; protected set; }
 
+        public virtual Money? SubscriptionPrice { get; protected set; }
+
         protected internal virtual ICollection<UserCoupon> UserCoupons { get; set; }
         protected internal virtual ICollection<Coupon> Coupons { get; set; }
+
+
+        public virtual void ChangeSubscriptionPrice(double price)
+        {
+            if (User.SbCountry == null)
+            {
+                throw new ArgumentException("Tutor cannot have null country");
+            }
+            var currency = User.SbCountry.RegionInfo.ISOCurrencySymbol;
+            var money = new Money(price, currency);
+            SubscriptionPrice = money;
+
+            foreach (var document in User.Documents)
+            {
+                if (document.DocumentPrice.Price > 0)
+                {
+                    document.ChangeToSubscribeMode(this);
+                }
+            }
+
+            AddEvent(new UpdateTutorSettingsEvent(Id));
+        }
+
+        public virtual bool HasSubscription()
+        {
+            return SubscriptionPrice != null;
+        }
 
         public virtual void UpdateSettings(string bio, decimal? price)
         {
@@ -165,5 +194,7 @@ namespace Cloudents.Core.Entities
                 _calendars.Add(hours);
             }
         }
+
+      
     }
 }

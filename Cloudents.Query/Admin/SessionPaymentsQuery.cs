@@ -77,7 +77,7 @@ namespace Cloudents.Query.Admin
                             .Select(() => studentAlias.Id).WithAlias(() => resultDto.UserId)
                             .Select(() => studentAlias.Name).WithAlias(() => resultDto.UserName)
                             .Select(s => s.Created).WithAlias(() => resultDto.Created)
-                            .Select(s => s.Duration.Value).WithAlias(() => resultDto._duration)
+                            .Select(s => s.Duration!.Value).WithAlias(() => resultDto._duration)
                             .Select(s => s.RealDuration).WithAlias(() => resultDto._realDuration)
 
                      ).TransformUsing(Transformers.AliasToBean<PaymentDto>())

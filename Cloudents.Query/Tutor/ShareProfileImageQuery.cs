@@ -34,14 +34,14 @@ namespace Cloudents.Query.Tutor
             {
                 return  await _statelessSession.Query<ReadTutor>()
                     .WithOptions(w => w.SetComment(nameof(ShareProfileImageQuery)))
-                    .Join(_statelessSession.Query<User>(),x=>x.Id,x=>x.Id,((tutor, user) => new  {tutor,user}))
-                    .Where(w => w.tutor.Id == query.Id)
+                    //.Join(_statelessSession.Query<User>(),x=>x.Id,x=>x.Id,((tutor, user) => new  {tutor,user}))
+                    .Where(w => w.Id == query.Id)
                     .Select(s => new ShareProfileImageDto()
                     {
-                        Image = s.tutor.ImageName,
-                        Name = s.tutor.Name,
-                        Rate = s.tutor.Rate.GetValueOrDefault(),
-                        Description = s.user.Description
+                        Image = s.ImageName,
+                        Name = s.Name,
+                        Rate = s.Rate.GetValueOrDefault(),
+                        Description = s.Description
                     }).SingleOrDefaultAsync(token);
             }
         }
