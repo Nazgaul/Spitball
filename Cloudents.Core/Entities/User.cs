@@ -190,7 +190,7 @@ namespace Cloudents.Core.Entities
 
 
         public virtual DateTime? LastOnline { get; protected set; }
-        public virtual bool Online { get; protected set; }
+        public virtual bool? Online { get; protected set; }
 
         public virtual UserTransactions Transactions { get; protected set; }
 
