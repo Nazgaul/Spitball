@@ -48,7 +48,7 @@ namespace Cloudents.Query.Users
                           Id = s.Id,
                           Image = s.ImageName,
                           Name = s.Name,
-                          Online = ((User)s).Online,
+                          Online = ((User)s).Online.GetValueOrDefault(),
                           CalendarShared = _session.Query<GoogleTokens>().Any(w => w.Id == query.Id.ToString()),
                           FirstName = ((User)s).FirstName,
                           LastName = ((User)s).LastName,

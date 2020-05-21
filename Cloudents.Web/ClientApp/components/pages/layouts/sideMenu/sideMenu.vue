@@ -11,19 +11,26 @@
         
         <v-list class="sideMenu_list_cont" dense>
 
-          <sideMenuHome />
+          <sideMenuListItem :dashboardProps="propsListDashboard" :item="overviewItem"/>
+          <sideMenuListItem :dashboardProps="propsListDashboard" :item="myQuestionsItem"/>
+          <template v-if="showMyContent">
+            <sideMenuListItem :dashboardProps="propsListDashboard" :item="myContentItem"/>
+          </template>
+          <sideMenuListItem :dashboardProps="propsListDashboard" :item="myStudyRoomsItem"/>
+          <template v-if="showMySales">
+            <sideMenuListItem :dashboardProps="propsListDashboard" :item="mySalesItem"/>
+          </template>
+          <template v-if="showMyFollowers">
+            <sideMenuListItem :dashboardProps="propsListDashboard" :item="myFollowersItem"/>
+          </template>
+          <template v-if="showMyPurchases">
+            <sideMenuListItem :dashboardProps="propsListDashboard" :item="myPurchasesItem"/>
+          </template>
 
-          <sideMenuDashboard :dashboardProps="{
-                              model:dashboardModel,
-                              showSchoolBlock:getShowSchoolBlock,
-                              goTo:goTo,
-                              openSideMenu:openSideMenu}"/>
 
-          <sideMenuSetting :settingProps="{
-                              model:settingModel,
-                              showSchoolBlock: getShowSchoolBlock,
-                              goTo:goTo,
-                              openSideMenu:openSideMenu}"/>
+          <sideMenuListItem :dashboardProps="propsListDashboard" :item="myProfileItem"/>
+          <sideMenuListItem :dashboardProps="propsListDashboard" :item="myCoursesItem"/>
+          <sideMenuListItem :dashboardProps="propsListDashboard" :item="myCalendarItem"/>
         </v-list>
       </div>
     </v-navigation-drawer>
@@ -32,22 +39,29 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 
-import sideMenuHome from './sideMenuHome.vue';
-import sideMenuDashboard from './sideMenuDashboard.vue'
-import sideMenuSetting from './sideMenuSetting.vue';
 import * as routeNames from '../../../../routes/routeNames.js';
 import * as feedFilters from '../../../../routes/consts/feedFilters.js';
+import sideMenuListItem from './sideMenuListItem.vue';
 
 export default {
   name: "sideMenu",
-  components:{sideMenuSetting,sideMenuHome,sideMenuDashboard},
+  components:{sideMenuListItem},
   data() {
     return {
       sideMenulistElm: null,
       isRtl: global.isRtl,
-      dashboardModel: false,
-      settingModel:false,
-      coursesModel:false,
+
+      overviewItem:{name: this.$t('schoolBlock_overview'),route: routeNames.Dashboard, icon:'sbf-eye', sel:'sidemenu_dashboard_overview'},
+      mySalesItem:{name: this.$t('schoolBlock_my_sales'),route: routeNames.MySales, icon:'sbf-my-sales', sel:'sidemenu_dashboard_mySales'},
+      myFollowersItem:{name: this.$t('schoolBlock_my_followers'),route: routeNames.MyFollowers, icon:'sbf-follow', sel:'sidemenu_dashboard_myFollowers'},
+      myPurchasesItem:{name: this.$t('schoolBlock_purchases'),route: routeNames.MyPurchases, icon:'sbf-cart', sel:'sidemenu_dashboard_myPurchases'},
+      myContentItem:{name: this.$t('schoolBlock_my_content'),route: routeNames.MyContent, icon:'sbf-my-content', sel:'sidemenu_dashboard_myContent'},
+      myStudyRoomsItem:{name: this.$t('schoolBlock_study'),route: routeNames.MyStudyRooms, icon:'sbf-studyroom-icon', sel:'sidemenu_dashboard_myStudyRooms'},
+      myQuestionsItem:{name: this.$t('schoolBlock_my_Questions'),route:'myQuestions',icon:'sbf-my-questions',sel:'sidemenu_dashboard_opportunities'},
+
+      myProfileItem:{name: this.$t('schoolBlock_my_site'),route: routeNames.Profile, icon:'sbf-user',sel:'sidemenu_settings_myProfile'},
+      myCoursesItem:{name: this.$t('schoolBlock_courses'),route: routeNames.EditCourse, icon:'sbf-classes-icon', sel:'sidemenu_settings_myCourses'},
+      myCalendarItem:{name: this.$t('schoolBlock_calendar'),route: routeNames.MyCalendar, icon:'sbf-calendar', sel:'sidemenu_settings_myCalendar'},
     };
   },
   computed: {
@@ -63,36 +77,26 @@ export default {
         this.updateDrawerValue(val)
       }
     },
-  },
-  watch: {
-    $route() {
-      this.checkRoutes()
-    }
+    propsListDashboard(){
+      return { goTo:this.goTo,
+               openSideMenu:this.openSideMenu}
+    },
+    showMyContent(){
+        return this.accountUser?.haveContent;
+    },
+    showMySales(){
+        return this.accountUser.isSold;
+    },
+    showMyFollowers(){
+        return this.accountUser.haveFollowers;
+    },
+    showMyPurchases(){
+        return this.accountUser.isPurchased;
+    },
   },
   methods: {
     ...mapActions(["toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
-    checkRoutes(){
-      let isCourseRoute = [routeNames.EditCourse,routeNames.AddCourse,routeNames.SetCourse].find(route=> route === this.$route.name);
-      let dashboardRoutes = [routeNames.Dashboard,routeNames.MySales,routeNames.MyFollowers,routeNames.MyPurchases,routeNames.MyContent,routeNames.MyStudyRooms];
-      let settingRoutes = [isCourseRoute,routeNames.MyCalendar,routeNames.Profile];
-      let coursesRoutes = [routeNames.Document,routeNames.Question,routeNames.Feed];
-
-      this.dashboardModel = [...settingRoutes,...coursesRoutes].every(route=>route !== this.$route.name);
-      this.settingModel = [...dashboardRoutes,...coursesRoutes].every(route=>route !== this.$route.name);
-      this.coursesModel = [...settingRoutes,...dashboardRoutes].every(route=>route !== this.$route.name);
-      
-      if(this.$route.name === routeNames.Feed && this.$route.query.filter === feedFilters.Question){
-        this.coursesModel = false;
-        this.dashboardModel = true;
-      }
-    },
     goTo(name){
-      if (this.accountUser == null) {
-        // TODO: check if we needed
-        // this.$openDialog('login')
-        this.$store.commit('setComponent', 'register')
-        return
-      }
       if(name === "myQuestions"){
         this.$router.push({name: routeNames.Feed,query:{filter:feedFilters.Question}})
         return
@@ -136,9 +140,6 @@ export default {
   mounted(){
     this.sideMenulistElm = document.querySelector('.sideMenu');
     this.sideMenulistElm.addEventListener('click', this.clickEventMiniMenuOpen);
-  },
-  created() {
-      this.checkRoutes()
   },
 };
 </script>

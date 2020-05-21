@@ -1,6 +1,6 @@
 <template>
    <v-list-item class="group_list_sideMenu_dash" :to="{name: item.route}" event :sel="item.sel"
-      @click.native.prevent="dashboardProps.showSchoolBlock ? dashboardProps.goTo(item.route) : dashboardProps.openSideMenu()">
+      @click.native.prevent="getShowSchoolBlock ? dashboardProps.goTo(item.route) : dashboardProps.openSideMenu()">
       <v-list-item-content> 
          <v-list-item-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker(item.route)}]">
             <v-icon size="18" class="group_list_icon_dash">{{item.icon}}</v-icon>
@@ -13,6 +13,7 @@
 <script>
 import * as routeNames from '../../../../routes/routeNames.js';
 import * as feedFilters from '../../../../routes/consts/feedFilters.js';
+import { mapGetters } from 'vuex';
 export default {
    props:{
       dashboardProps:{
@@ -21,6 +22,9 @@ export default {
       item:{
          required:true,
       }
+   },
+   computed: {
+      ...mapGetters(['getShowSchoolBlock']),
    },
    methods: {
       currentPageChecker(pathName){
