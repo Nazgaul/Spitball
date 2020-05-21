@@ -13,12 +13,13 @@ namespace Cloudents.Core.DTOs.Admin
         [NonSerialized]
         public string? _sellerKey;
 
-        [EntityBind(nameof(StudyRoomSession.Id))]
-        public Guid StudyRoomSessionId { get; set; } //
-        [EntityBind(nameof(Tutor.Price))]
-        public double Price { get; set; } //
+        [NonSerialized] public decimal _oldPrice;
+        [NonSerialized] public double? _price;
 
-        [EntityBind(nameof(Tutor.SellerKey))]
+
+        public Guid StudyRoomSessionId { get; set; } //
+        public double Price => _price ?? (double) _oldPrice;
+
         public bool IsSellerKeyExists
         {
             get
@@ -31,18 +32,13 @@ namespace Cloudents.Core.DTOs.Admin
                 return _sellerKey != null;
             }
         } //
-        [EntityBind(nameof(Tutor.Id))]
         public long TutorId { get; set; } //
-        [EntityBind(nameof(User.Name))]
         public string TutorName { get; set; } //
-        [EntityBind(nameof(User.Id))]
         public long UserId { get; set; } //
-        [EntityBind(nameof(User.Name))]
         public string UserName { get; set; } //
-        [EntityBind(nameof(StudyRoomSession.Created))]
         public DateTime Created { get; set; } //
 
-        public Country TutorCountry { get; set; }
+        public Country? TutorCountry { get; set; }
 
         public double Duration => _duration.GetValueOrDefault().TotalMinutes;
 
@@ -69,7 +65,7 @@ namespace Cloudents.Core.DTOs.Admin
         [EntityBind(nameof(Tutor.Price))]
         public double TutorPricePerHour { get; set; }
 
-        public Country TutorCountry { get; set; }
+        public Country? TutorCountry { get; set; }
 
         public bool CantPay
         {

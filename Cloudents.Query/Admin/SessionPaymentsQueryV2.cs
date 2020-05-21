@@ -30,12 +30,8 @@ namespace Cloudents.Query.Admin
             {
                 var queryExpression = _session.Query<StudyRoomPayment>()
                     .Fetch(f=>f.StudyRoomSessionUser)
-                    //.Fetch(f => f.StudyRoomSession)
-                    //.ThenFetch(f => f.StudyRoom)
                     .Fetch(f => f.Tutor)
                     .Fetch(f => f.User)
-                    //.Fetch(f => f.User)
-                    //.Where(w => w.Duration > StudyRoomSession.BillableStudyRoomSession)
                     .Where(w => w.Receipt == null);
                 if (query.Country != null)
                 {
@@ -46,7 +42,7 @@ namespace Cloudents.Query.Admin
                 {
                     TutorId = s.Tutor.Id,
                     UserId = s.User.Id,
-                    Price = s.TotalPrice,
+                    _price = s.TotalPrice,
                     Created = s.Created,
                     StudyRoomSessionId = s.Id,
                     UserName = s.User.Name,

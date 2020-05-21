@@ -61,7 +61,6 @@ namespace Cloudents.Query.Users
 
                 var newPendingSessionPayment = _session.Query<StudyRoomSessionUser>()
                     .Fetch(f => f.StudyRoomPayment)
-                    //.ThenFetch(f => f.StudyRoom)
                     .Where(w => w.StudyRoomPayment.Tutor.Id == query.Id
                                 && w.Duration > StudyRoomSession.BillableStudyRoomSession
                                 && w.StudyRoomPayment.TutorApproveTime == null)
