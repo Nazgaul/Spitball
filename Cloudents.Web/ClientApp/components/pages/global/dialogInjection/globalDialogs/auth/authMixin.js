@@ -61,7 +61,10 @@ export default {
 
                     if(self.presetRouting()) return
                     
-                    self.$store.dispatch('userStatus')
+                    
+                    self.$store.dispatch('userStatus').then(() => {
+                        self.fromWixRegister()
+                    })
                 }).catch(error => {      
                     let { response: { data } } = error
 
@@ -85,10 +88,11 @@ export default {
                         return
                     }
                     analyticsService.sb_unitedEvent('Login', 'Start Google')
-
                     if(self.presetRouting()) return
 
-                    self.$store.dispatch('userStatus')
+                    self.$store.dispatch('userStatus').then(() => {
+                        self.fromWixRegister()
+                    })
                 }).catch(error => {
                     if(error) {
                         self.$emit('showToasterError');
@@ -218,6 +222,11 @@ export default {
         },
         goStep(step) {
             this.component = step
+        },
+        fromWixRegister() {
+            if(this.$route.path === '/register2') {
+                this.$router.push({name: this.routeNames.LoginRedirect})
+            }
         }
     },
     mounted() {

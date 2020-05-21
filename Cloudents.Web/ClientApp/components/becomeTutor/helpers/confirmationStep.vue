@@ -30,8 +30,6 @@
 
 <script>
 import { mapActions } from 'vuex';
-import * as routeNames from '../../../routes/routeNames.js';
-import analyticsService from '../../../services/analytics.service.js';
 
 export default {
     name: "confirmationStep",
