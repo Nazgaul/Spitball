@@ -6,9 +6,9 @@ namespace Cloudents.Admin2.Models
 {
     public class PaymentRequest : IValidatableObject
     {
-        public decimal StudentPay { get; set; }
+        public double StudentPay { get; set; }
         //[Range(5, 50000)]
-        public decimal SpitballPay { get; set; }
+        public double SpitballPay { get; set; }
 
         public long UserId { get; set; }
         public long TutorId { get; set; }

@@ -22,7 +22,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             if (session.StudyRoomVersion.GetValueOrDefault() == StudyRoomSession.StudyRoomNewVersion)
             {
                 var sessionUser = session.RoomSessionUsers.AsQueryable().Single(s => s.User.Id == message.UserId);
-                sessionUser.NoPay();
+                sessionUser.StudyRoomPayment.NoPay();
             }
             else
             {

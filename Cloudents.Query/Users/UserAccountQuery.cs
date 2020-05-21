@@ -60,11 +60,10 @@ namespace Cloudents.Query.Users
                     .ToFutureValue();
 
                 var newPendingSessionPayment = _session.Query<StudyRoomSessionUser>()
-                    .Fetch(f => f.StudyRoomSession)
-                    .ThenFetch(f => f.StudyRoom)
-                    .Where(w => w.StudyRoomSession.StudyRoom.Tutor.Id == query.Id
+                    .Fetch(f => f.StudyRoomPayment)
+                    .Where(w => w.StudyRoomPayment.Tutor.Id == query.Id
                                 && w.Duration > StudyRoomSession.BillableStudyRoomSession
-                                && w.TutorApproveTime == null)
+                                && w.StudyRoomPayment.TutorApproveTime == null)
                     .GroupBy(g => 1)
                     .Select(s => s.Count())
                     .ToFutureValue();
@@ -123,16 +122,6 @@ namespace Cloudents.Query.Users
                     .Select(s => s.Id)
                     .Take(1)
                     .ToFuture();
-
-                //var isSoldQuestionFuture = _session.Query<QuestionTransaction>()
-                //    .Fetch(f => f.Answer)
-                //    .Fetch(f => f.Question)
-                //    .Where(w => w.Question != null)
-                //    .Where(w => w.User.Id == query.Id)
-                //    .Where(w => w.Type == TransactionType.Earned)
-                //    .Select(s => s.Id)
-                //    .Take(1)
-                //    .ToFuture();
 
                 var isSoldSessionFuture = _session.Query<StudyRoomSession>()
                     .Fetch(f => f.StudyRoom)

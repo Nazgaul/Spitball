@@ -1,29 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 
 namespace Cloudents.Core.Entities
 {
     public class StudyRoomSessionUser : Entity<Guid>, IEquatable<StudyRoomSessionUser>
     {
+        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public StudyRoomSessionUser(StudyRoomSession studyRoomSession, User user,decimal pricePerHour)
         {
             StudyRoomSession = studyRoomSession;
             User = user;
-            PricePerHour = pricePerHour;
-
+            StudyRoomPayment = new StudyRoomPayment(this);
             UseCoupon();
-            //UsePaymentToken();
         }
         [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]
         protected StudyRoomSessionUser()
         {
         }
-
-
 
         public virtual StudyRoomSession StudyRoomSession { get; protected set; }
 
@@ -33,66 +28,25 @@ namespace Cloudents.Core.Entities
 
         public virtual int DisconnectCount { get; protected set; }
 
+        [Obsolete]
         public virtual decimal PricePerHour { get; protected set; }
 
+        [Obsolete]
         public virtual TimeSpan? TutorApproveTime { get; protected set; }
 
+        [Obsolete]
         public virtual decimal TotalPrice { get; protected set; }
 
+        [Obsolete]
         public virtual string? Receipt { get; protected set; }
+     
 
         public virtual void Disconnect(TimeSpan durationInRoom)
         {
             Duration = Duration.GetValueOrDefault(TimeSpan.Zero) + durationInRoom;
-            TotalPrice = (decimal)Duration.Value.TotalHours * PricePerHour;
+            StudyRoomPayment.TotalPrice = Duration.Value.TotalHours * StudyRoomPayment.PricePerHour;
             DisconnectCount++;
         }
-
-        public virtual void ApproveSession(TimeSpan duration, decimal price)
-        {
-            PricePerHour = price;
-            ApproveSession(duration);
-        }
-
-        protected virtual void ApproveSession(TimeSpan duration)
-        {
-            TutorApproveTime = duration;
-            TotalPrice = (decimal)TutorApproveTime.Value.TotalHours * PricePerHour;
-        }
-
-        public virtual void NoPay()
-        {
-            Receipt = "No Pay";
-            TutorApproveTime = Duration;
-            TotalPrice = 0;
-        }
-
-        public virtual void Pay( string receipt,  TimeSpan duration,  decimal price)
-        {
-            Receipt = receipt;
-            ApproveSession(duration);
-            TotalPrice = price;
-
-            //Use Copuon
-        }
-
-        //public virtual void UsePaymentToken()
-        //{
-        //    if (User.SbCountry != Entities.Country.UnitedStates)
-        //    {
-        //        return;
-        //    }
-
-        //    if (PricePerHour == 0)
-        //    {
-        //        return;
-        //    }
-        //    var userToken = this.StudyRoomSession.StudyRoom.UserTokens.FirstOrDefault(w => w.State == PaymentTokenState.NotUsed);
-        //    if (userToken != null)
-        //    {
-        //        userToken.ChangeToUsedState(this);
-        //    }
-        //}
 
         protected virtual void UseCoupon()
         {
@@ -134,16 +88,7 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        //public static bool operator ==(StudyRoomSessionUser left, StudyRoomSessionUser right)
-        //{
-        //    return Equals(left, right);
-        //}
+        public virtual StudyRoomPayment StudyRoomPayment { get; set; }
 
-        //public static bool operator !=(StudyRoomSessionUser left, StudyRoomSessionUser right)
-        //{
-        //    return !Equals(left, right);
-        //}
-
-     
     }
 }
