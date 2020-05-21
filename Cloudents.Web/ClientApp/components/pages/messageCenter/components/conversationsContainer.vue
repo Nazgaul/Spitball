@@ -16,7 +16,7 @@
                :label="$t('chat_search_placeholder')"
             ></v-text-field>
          </v-flex>
-         <v-flex xs7 sm7 md5 pr-3>
+         <v-flex xs7 sm7 md5 :class="[{'pr-3':isTutor}]">
             <v-select class="filterSelect ma-0"
                :append-icon="'sbf-arrow-fill'" 
                :items="[{name: $t('chat_show_all'),value:true},{name:$t('chat_show_unread'),value:false}]"
@@ -24,7 +24,7 @@
                v-model="filter.isShowAll"
                flat hide-details height="38" dense rounded/>
          </v-flex>
-         <v-flex xs5 sm5 md7>
+         <v-flex xs5 sm5 md7 v-if="isTutor">
             <v-btn @click="updateCreateGroupDialogState(true)" class="createBtn px-1" block height="40" color="#4452fc" rounded outlined>
                <v-icon class="pr-1" size="16">sbf-plus-regular</v-icon>
                <span>{{$t(isMobile?'chat_create_mobile':'chat_create')}}</span>
@@ -60,6 +60,9 @@ export default {
    computed: {
       isMobile(){
          return this.$vuetify.breakpoint.smAndDown
+      },
+      isTutor(){
+         return this.$store.getters.getIsTutorState;
       }
    },
    methods: {
