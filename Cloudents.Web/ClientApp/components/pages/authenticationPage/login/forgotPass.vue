@@ -1,8 +1,8 @@
 <template>
     <form class="forgotPass" @submit.prevent="resetPass">
         <div class="top">
-            <p>{{$t('loginRegister_forgot_title')}}</p>
-            <span>{{$t('loginRegister_forgot_subtitle')}}</span>
+            <p v-t="'loginRegister_forgot_title'"></p>
+            <span v-t="'loginRegister_forgot_subtitle'"></span>
         </div>
 
         <sb-input 
@@ -22,7 +22,7 @@
                 <span>{{$t('loginRegister_forgot_btn')}}</span>
         </v-btn>
 
-        <router-link class="bottom" :to="{name: 'setPassword'}">{{$t('loginRegister_forgot_remember')}}</router-link>
+        <button class="bottom" @click="rememberNow" v-t="'loginRegister_forgot_remember'"></button>
     </form>
 </template>
 
@@ -56,6 +56,10 @@ export default {
         ...mapMutations(['setErrorMessages']),
         resetPass(){
             this.resetPassword()
+        },
+        rememberNow() {
+            this.$router.push('/')
+            this.$store.commit('setComponent', 'login')
         }
     },
     watch: {
