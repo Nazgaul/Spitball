@@ -1,5 +1,9 @@
 <template>
-   <v-card :id="participant.id" color="black" class="userPreview" height="100" width="154">
+   <v-card :id="participant.id" color="black" 
+   :class="['userPreview',{'expandVideoMode':isExpandVideoMode}]" >
+      <v-icon :size="isExpandVideoMode? 30 :20" v-if="showExpandVideoBtn" 
+         @click="toggleExpandScreen" 
+         :class="['expandScreenBtn',{'collapseScreenBtn':isExpandVideoMode}]">{{isExpandVideoMode? 'sbf-minis':'sbf-exp'}}</v-icon>
       <span class="name">{{userName}}</span>
       <div class="linear"></div>
       <div class="linear2"></div>
@@ -45,6 +49,7 @@ export default {
          input:null,
          analyser:null,
          scriptProcessor:null,
+         isExpandVideoMode:false,
       }
    },
    computed: {
@@ -67,7 +72,16 @@ export default {
       },
       isCurrentParticipant(){
          return this.currentParticipant?.id == this.$store.getters.accountUser?.id
-      }
+      },
+      isClassRomm(){
+         let classMode = this.$store.getters.getRoomModeConsts.CLASS_MODE;
+         let currentRoomMode = this.$store.getters.getActiveNavEditor;
+         return currentRoomMode == classMode;
+      },
+      showExpandVideoBtn(){
+         return this.isClassRomm && this.videoTrack;
+      },
+
    },
    methods: {
       processInput(){
@@ -159,6 +173,9 @@ export default {
             this.videoTrack = null;
          }
       },
+      toggleExpandScreen(){
+         this.isExpandVideoMode = !this.isExpandVideoMode
+      }
    },
    watch: {
       currentParticipant:{
@@ -188,6 +205,30 @@ export default {
 <style lang="less">
 .userPreview{
    border-radius: 6px !important;
+   position: relative;
+   &.expandVideoMode{
+      position: absolute;
+      margin: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      z-index: 3;
+      video{
+         object-fit: contain;
+      }
+   }
+   .expandScreenBtn{
+      position: absolute;
+      color: white;
+      right: 6px;
+      top: 6px;
+      z-index: 2;
+      &.collapseScreenBtn{
+         // right: 12px;
+         bottom: 12px;
+         top: initial;
+         right: 16px;
+      }
+   }
    .name{
       text-transform: capitalize;
       font-size: 14px;

@@ -38,7 +38,7 @@
             next-icon="sbf-arrow-right-carousel">
             <template v-if="roomParticipants" >
                <v-slide-item v-for="participant in roomParticipants" :key="Object.values(participant)[0].id">
-                  <userPreview :participant="Object.values(participant)[0]" class="mx-1"/>
+                  <userPreview :participant="Object.values(participant)[0]" class="classRoomCards mx-1"/>
                </v-slide-item>
             </template>
          </v-slide-group>
@@ -192,6 +192,10 @@ export default {
       }
    }
    .classFooter{
+      .classRoomCards{
+         width: 154px;
+         height: 100px;
+      }
       .sbf {
          color: #fff;
       }
