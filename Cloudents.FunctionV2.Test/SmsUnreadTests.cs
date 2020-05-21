@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Cloudents.Command;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
@@ -41,14 +42,14 @@ namespace Cloudents.FunctionsV2.Test
                 .Returns(new Uri("http://tempuri.org/blob"));
 
             _mockUriBuilder.Setup(s => s.BuildShortUrlEndpoint(It.IsAny<string>(),
-                It.Is<string>(s2 => s2 != null && s2.Equals("IN", StringComparison.OrdinalIgnoreCase) == false)))
+                It.Is<Country>(s2 => s2 != Country.India)))
                 .Returns(_shortUrl);
 
             _mockUriBuilder.Setup(s => s.BuildShortUrlEndpoint(It.IsAny<string>(),
                     null)).Returns(_shortUrl);
 
             _mockUriBuilder.Setup(s => s.BuildShortUrlEndpoint(It.IsAny<string>(),
-                    It.Is<string>(s2 =>s2 != null && s2.Equals("IN", StringComparison.OrdinalIgnoreCase))))
+                    It.Is<Country>(s2 =>s2 == Country.India)))
                 .Returns(_shortUrlIndia);
         }
 
@@ -65,18 +66,18 @@ namespace Cloudents.FunctionsV2.Test
                     UserId = 1,
                     Version = BitConverter.GetBytes(1L),
                     ChatMessagesCount = 1,
-                    PhoneNumber = "+972523556456",
+                    //PhoneNumber = "+972523556456",
                     Email = "hadar@cloudents.com",
-                    Country = "IL"
+                    Country = Country.Israel
                 },
                 new UnreadMessageDto()
                 {
                     UserId = 1,
                     Version = BitConverter.GetBytes(2L),
                     ChatMessagesCount = 1,
-                     PhoneNumber = "+972523556456",
+                    // PhoneNumber = "+972523556456",
                     Email = "hadar@cloudents.com",
-                    Country = "IL"
+                    Country = Country.Israel
 
                 }
             };
@@ -105,10 +106,10 @@ namespace Cloudents.FunctionsV2.Test
                     UserId = 1,
                     Version = BitConverter.GetBytes(1L),
                     ChatMessagesCount = 1,
-                    PhoneNumber = "+91523556456",
+                   // PhoneNumber = "+91523556456",
                     Email = "hadar@cloudents.com",
                     CultureInfo = new CultureInfo("en"),
-                    Country = "IN"
+                    Country = Country.India
                 }
             };
             _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
@@ -137,10 +138,10 @@ namespace Cloudents.FunctionsV2.Test
                     UserId = 1,
                     Version = BitConverter.GetBytes(1L),
                     ChatMessagesCount = 1,
-                    PhoneNumber = "+72523556456",
+                    //PhoneNumber = "+72523556456",
                     Email = "hadar@cloudents.com",
                     CultureInfo = new CultureInfo("en"),
-                    Country = "Il"
+                    Country = Country.Israel
                 }
             };
             _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
@@ -164,8 +165,9 @@ namespace Cloudents.FunctionsV2.Test
         [InlineData("en", "US")]
        // [InlineData("en", "IN")]
         [InlineData("he", "IL")]
-        public async Task SmsUnreadAsync_FirstMessage_ResourceOk(string culture, string country)
+        public async Task SmsUnreadAsync_FirstMessage_ResourceOk(string culture, string countryStr)
         {
+            var country = Country.FromCountry(countryStr);
             var result = new List<UnreadMessageDto>()
             {
                 new UnreadMessageDto()
@@ -173,7 +175,7 @@ namespace Cloudents.FunctionsV2.Test
                     UserId = 1,
                     Version = BitConverter.GetBytes(1L),
                     ChatMessagesCount = 1,
-                    PhoneNumber = "+972523556456",
+                    //PhoneNumber = "+972523556456",
                     Email = "hadar@cloudents.com",
                     CultureInfo = new CultureInfo(culture),
                     Country = country
@@ -189,7 +191,7 @@ namespace Cloudents.FunctionsV2.Test
 
           //  var body = _mockedResultSms.Result.Single().Body;
             CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture = new CultureInfo(culture);
-            var expectedResult = ResourceWrapper.GetString("unread_message_first_message_tutor").InjectSingleValue("link", _shortUrl);
+            //var expectedResult = ResourceWrapper.GetString("unread_message_first_message_tutor").InjectSingleValue("link", _shortUrl);
            // body.Should().BeEquivalentTo(expectedResult);
             var emailExpectedResult = ResourceWrapper.GetString("unread_message_first_message_tutor_email").InjectSingleValue("link", _shortUrl);
             _mockedResultEmail.Result.Single().Contents.First().Value.Should().Contain(emailExpectedResult);
@@ -206,10 +208,10 @@ namespace Cloudents.FunctionsV2.Test
                     Version = BitConverter.GetBytes(1L),
                     ChatMessagesCount = 1,
                     // FirstMessageStudentName = "Ram",
-                    PhoneNumber = "+972523556456",
+                    //PhoneNumber = "+972523556456",
                     Email = "hadar@cloudents.com",
                     CultureInfo = new CultureInfo("en"),
-                    Country = "In"
+                    Country = Country.India
                     // CourseName = "Ram"
                 }
 
