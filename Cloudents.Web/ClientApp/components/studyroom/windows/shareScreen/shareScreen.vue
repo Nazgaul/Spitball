@@ -41,11 +41,6 @@ export default {
          isTutorSharing:false,
       }
    },
-   props:{
-      isFooterActive:{
-         type:Boolean
-      }
-   },
    watch: {
       tutorScreenTrack:{
          immediate:true,
@@ -69,6 +64,9 @@ export default {
    },
    computed: {
       ...mapGetters(['getRoomTutorParticipant']),
+      isFooterActive(){
+         return this.$store.getters.getStudyRoomFooterState;
+      },
       tutorScreenTrack(){
          return this.getRoomTutorParticipant?.screen;
       },
