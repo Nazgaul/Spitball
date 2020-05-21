@@ -1,5 +1,5 @@
 <template>
-  <div class="studyRoom">
+  <v-app>
     <template v-if="isMobile">
       <studyRoomMobile/>
     </template>
@@ -15,7 +15,8 @@
 
     <studyRoomSettingsDialog v-if="!isRoomActive"/>
     <studyRoomDialogs/>
-  </div>
+    <slot name="appInjections"></slot>
+  </v-app>
 </template>
 
 <script>

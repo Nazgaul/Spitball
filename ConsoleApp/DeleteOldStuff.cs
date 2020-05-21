@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
@@ -10,8 +11,10 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Query;
+using Google.Apis.Docs.v1.Data;
 using NHibernate;
 using NHibernate.Linq;
+using Document = Cloudents.Core.Entities.Document;
 
 namespace ConsoleApp
 {
@@ -23,35 +26,35 @@ namespace ConsoleApp
 
         public static async Task DoStuff()
         {
-            await DeleteDocumentFromNotSupportCountries();
-           // await DeleteFlaggedDocument();
+            await DeleteFlaggedDocument();
+            // await DeleteFlaggedDocument();
             await DeleteOldQuestion();
             await DeleteOldDocuments();
-            await DeleteNotUsedCourses();
-            await ResyncTutorRead();
+            //await DeleteNotUsedCourses();
+            //await ResyncTutorRead();
         }
 
-//        private static async Task DeleteFlaggedDocument()
-//        {
-//            var statelessSession = Container.Resolve<IStatelessSession>();
-//            int i;
-//            do
-//            {
-//                Console.WriteLine("Turn to delete");
-//                var sqlQuery = statelessSession.CreateSQLQuery(@"
-//            update top(1000) sb.Document
-//            set state = 'Deleted', DeletedOn = '2020-02-16 18:39:13.9970249'
-//            where state = 'Ok' and CourseName in ('Small Talk',
-//'Reading for Elementary Students',
-//'Justice Administration',
-//'Life Science',
-//'PADP 6920 Public Personnel Administration',
-//'PADP 7110 Research Methods of Public Administration',
-//'Preschool Math')");
+        private static async Task DeleteFlaggedDocument()
+        {
+            var statelessSession = Container.Resolve<IStatelessSession>();
+            int i;
+            do
+            {
+                Console.WriteLine("Turn to delete");
+                var sqlQuery = statelessSession.CreateSQLQuery(@"
+            update top(1000) sb.Document
+            set state = 'Deleted', DeletedOn = '2020-02-16 18:39:13.9970249'
+            where id in (Select  top 1000 d.id
+from sb.Document D  join sb.[User] U
+on D.userid=U.id
+where D.state='ok'
+and (U.country not in ('US','IL','IN') or Country is NULL)
+and D.UpdateTime <'01-01-2020')
+");
 
-//                i = await sqlQuery.ExecuteUpdateAsync();
-//            } while (i > 0);
-//        }
+                i = await sqlQuery.ExecuteUpdateAsync();
+            } while (i > 0);
+        }
 
 
 
@@ -208,11 +211,12 @@ COMMIT;  ";
 
 
                 var v = await statelessSession.Query<Document>().Fetch(f => f.User)
+
                     .Where(w => Country.CountriesNotSupported.Contains(w.User.Country))
                     .Where(w => w.Status.State == ItemState.Ok)
                     .OrderBy(o => o.Id)
                     .Take(100)
-                    
+
                     .Select(s => s.Id).ToListAsync();
                 count = v.Count;
                 if (count > 0)
@@ -229,9 +233,9 @@ COMMIT;  ";
 
         private static async Task DeleteOldDocuments()
         {
+
             var statelessSession = Container.Resolve<IStatelessSession>();
 
-            var blobProvider = Container.Resolve<IDocumentDirectoryBlobProvider>();
 
             while (true)
             {
@@ -240,7 +244,8 @@ COMMIT;  ";
                 var deletedDocuments = await statelessSession.Query<Document>()
                     .Where(w => w.Status.State == ItemState.Deleted && w.Status.DeletedOn < DateTime.UtcNow
                     .AddDays(-60))
-                    .Take(100)
+                    .Take(30)
+                    .Select(s => s.Id)
                     .ToListAsync();
                 Console.WriteLine("document " + deletedDocuments.Count);
                 if (deletedDocuments.Count == 0)
@@ -248,61 +253,67 @@ COMMIT;  ";
                     break;
 
                 }
+
+
+
+
+                var tasks = new List<Task>();
+
+
+
                 foreach (var deletedDocument in deletedDocuments)
                 {
 
-                    Console.WriteLine(deletedDocument.Id);
-                    var v = await blobProvider.FilesInDirectoryAsync("", deletedDocument.Id.ToString(), default);
-                    if (v.Any())
-                    {
-                        await blobProvider.DeleteDirectoryAsync(deletedDocument.Id.ToString(), default);
-                    }
-
-                    var sqlQuery =
-                        statelessSession.CreateSQLQuery("delete from sb.DocumentsTags where documentid = :Id");
-                    sqlQuery.SetInt64("Id", deletedDocument.Id);
-                    sqlQuery.ExecuteUpdate();
+                    var t =  DeleteDocument(deletedDocument);
 
 
-                    //var sqlQuery2 =
-                    //    statelessSession.CreateSQLQuery("delete from  sb.Vote where documentid = :Id");
-                    //sqlQuery2.SetInt64("Id", deletedDocument.Id);
-                    //sqlQuery2.ExecuteUpdate();
-
-
-                    //var sqlQuery3 =
-                    //    statelessSession.CreateSQLQuery("delete from  sb.DocumentDownload where documentid = :Id");
-                    //sqlQuery3.SetInt64("Id", deletedDocument.Id);
-                    //sqlQuery3.ExecuteUpdate();
-
-
-                    try
-                    {
-                        await statelessSession.Query<Document>().Where(w => w.Id == deletedDocument.Id)
-                            .DeleteAsync(default);
-                    }
-                    catch
-                    {
-                        using (var child = Container.BeginLifetimeScope())
-                        {
-                            var unitOfWork = child.Resolve<IUnitOfWork>();
-                            var session = child.Resolve<ISession>();
-                            var d = await session.GetAsync<Document>(deletedDocument.Id);
-                            await session.DeleteAsync(d);
-                            await unitOfWork.CommitAsync(default);
-
-                        }
-                        await statelessSession.Query<Document>().Where(w => w.Id == deletedDocument.Id)
-                            .DeleteAsync(default);
-                    }
-                    //var d = await _session.GetAsync<Document>(deletedDocument.Id);
-                    //await _session.DeleteAsync(d);
-                    //await unitOfWork.CommitAsync(default);
-
-
-                    //   blobProvider.DeleteDirectoryAsync(eventMessage.Document.Id.ToString(), token);
+                    tasks.Add(t);
                 }
+
+                await Task.WhenAll(tasks);
             }
+        }
+
+
+        private static async Task DeleteDocument(long id)
+        {
+            using var child = Container.BeginLifetimeScope() ;
+            var blobProvider = child.Resolve<IDocumentDirectoryBlobProvider>();
+
+            var statelessSession = child.Resolve<IStatelessSession>();
+            Console.WriteLine(id);
+            var v = await blobProvider.FilesInDirectoryAsync("", id.ToString(), default);
+            if (v.Any())
+            {
+                await blobProvider.DeleteDirectoryAsync(id.ToString(), default);
+            }
+
+            var sqlQuery =
+                statelessSession.CreateSQLQuery("delete from sb.DocumentsTags where documentid = :Id");
+            sqlQuery.SetInt64("Id", id);
+            await sqlQuery.ExecuteUpdateAsync();
+
+
+            try
+            {
+                await statelessSession.Query<Document>().Where(w => w.Id == id)
+                    .DeleteAsync(default);
+            }
+            catch
+            {
+                using (var child2 = Container.BeginLifetimeScope())
+                {
+                    var unitOfWork = child2.Resolve<IUnitOfWork>();
+                    var session = child2.Resolve<ISession>();
+                    var d = await session.GetAsync<Document>(id);
+                    await session.DeleteAsync(d);
+                    await unitOfWork.CommitAsync(default);
+                }
+
+                await statelessSession.Query<Document>().Where(w => w.Id == id)
+                    .DeleteAsync(default);
+            }
+
         }
     }
 }
