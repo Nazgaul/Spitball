@@ -1,6 +1,5 @@
 <template>
     <div class="liveSession">
-
         <v-row class="d-flex ma-0 pa-0 mb-3" dense>
             <v-col cols="12" sm="6" class="pa-0">
                 <v-menu ref="datePickerMenu" v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290" min-width="290px">
@@ -125,15 +124,15 @@
                 </v-text-field>
                 </v-col>
             </v-row>
-            <!-- TODO: BRING WHEN SUBSCRIPTION FEATURE ALIVE -->
-            <!--v-row class="align-center pa-0 ma-0">
+
+            <v-row class="align-center pa-0 ma-0" v-if="isTutorSubscribed">
                 <v-col cols="8" sm="4" class="pa-0">
                     <div class="priceTitle" v-t="'dashboardPage_subscription_price'"></div>
                 </v-col>
                 <v-col cols="4" sm="4" class="pa-0">
                     <div class="ml-4 ml-sm-0 priceSubscription" v-t="'dashboardPage_subscription_free'"></div>
                 </v-col>
-            </v-row-->
+            </v-row>
 
         </div>
     </div>
@@ -189,6 +188,9 @@ export default {
         }
     },
     computed: {
+        isTutorSubscribed() {
+            return this.$store.getters.getIsTutorSubscription
+        },
         myPrice: {
             get() {
                 return this.price

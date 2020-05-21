@@ -4,6 +4,8 @@ using StackExchange.Redis;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cloudents.Core.Entities;
+using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Cache
 {
@@ -47,9 +49,11 @@ namespace Cloudents.Infrastructure.Cache
 
             try
             {
+                var jsonSettings = new JsonSerializerSettings();
+                jsonSettings.Converters.Add(new EnumerationConverter<Country>());
                 _distributedCache = CacheFactory.Build(
                     s => s
-                        .WithJsonSerializer()
+                        .WithJsonSerializer(jsonSettings,jsonSettings)
                         .WithDictionaryHandle()
                         .WithExpiration(ExpirationMode.Absolute, TimeSpan.FromSeconds(5))
                         .And
@@ -64,7 +68,7 @@ namespace Cloudents.Infrastructure.Cache
                 _logger.Exception(e);
             }
         }
-      
+
 
         private ICacheManager<object> Cache
         {
@@ -86,7 +90,7 @@ namespace Cloudents.Infrastructure.Cache
         }
 
 
-        public object Get(string key, string region)
+        public object? Get(string key, string region)
         {
             try
             {
@@ -119,12 +123,26 @@ namespace Cloudents.Infrastructure.Cache
                     ["Key"] = key,
                     ["Region"] = region
                 });
+                Cache.Remove(key, region);
             }
 
-            return default;
+            return default!;
         }
 
-        public void Set(string key, string region, object value, TimeSpan expire, bool slideExpiration)
+        public void Set<T>(string key, string region, T value, TimeSpan expire, bool slideExpiration)
+        {
+            if (value is null)
+            {
+                return;
+            }
+            var cacheItem = new CacheItem<object>(key, region, value,
+                slideExpiration ? ExpirationMode.Sliding : ExpirationMode.Absolute,
+                expire);
+           
+            Cache.Put(cacheItem);
+        }
+
+        public void Set(string key, string region, object? value, TimeSpan expire, bool slideExpiration)
         {
             if (value is null)
             {
@@ -133,10 +151,10 @@ namespace Cloudents.Infrastructure.Cache
             try
             {
                 var obj = ConvertEnumerableToList(value);
-                if (obj == null)
-                {
-                    return;
-                }
+                //if (obj == null)
+                //{
+                //    return;
+                //}
 
                 if (!_distributedEnabled && expire > TimeSpan.FromMinutes(5))
                 {
@@ -174,20 +192,20 @@ namespace Cloudents.Infrastructure.Cache
 
             //return obj;
         }
-        
+
 
         public void DeleteRegion(string region)
         {
-         
+
             Cache.ClearRegion(region);
-           
+
         }
 
         public void DeleteKey(string region, string key)
         {
-          
+
             Cache.Remove(key, region);
-           
+
         }
 
         /// <summary>
@@ -202,6 +220,7 @@ namespace Cloudents.Infrastructure.Cache
                           && t.GetGenericTypeDefinition() == typeof(IEnumerable<>));
             if (p != null)
             {
+                
                 var t = p.GetGenericArguments()[0];
                 var listType = typeof(List<>);
                 var constructedListType = listType.MakeGenericType(t);

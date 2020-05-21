@@ -57,6 +57,10 @@ namespace Cloudents.Core.Entities
         public virtual IEnumerable<Question> Questions => _questions;
 
 
+        private readonly ICollection<Document> _documents = new List<Document>();
+        public virtual IEnumerable<Document> Documents => _documents;
+
+
         public virtual DateTime Created { get; protected set; }
 
         public virtual string Email { get; set; }
@@ -78,8 +82,8 @@ namespace Cloudents.Core.Entities
             Language = lang;
         }
 
-        public virtual string Country { get; protected set; }
-        public virtual Country SbCountry { get; protected set; }
+        public virtual string? Country { get; protected set; }
+        public virtual Country? SbCountry { get; protected set; }
 
         public virtual byte[] Version { get; protected set; }
 
@@ -89,7 +93,7 @@ namespace Cloudents.Core.Entities
         public abstract void AddFollower(User follower);
 
 
-        public abstract void RemoveFollower(BaseUser follower);
+//        public abstract void RemoveFollower(BaseUser follower);
        
     }
 }

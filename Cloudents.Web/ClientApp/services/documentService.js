@@ -23,6 +23,7 @@ function DocumentItem(obj) {
     this.views = ObjInit.views || 0;
     this.pages = ObjInit.pages || 0;
     this.price = ObjInit.price || 0;
+    this.priceType = ObjInit.priceType;
     this.isPurchased = obj.isPurchased || false;
     this.uploaderName = ObjInit.uploaderName;
     this.tutor = ObjInitTutor ? searchService.createTutorItem(ObjInitTutor) : null;

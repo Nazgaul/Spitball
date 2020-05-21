@@ -344,6 +344,7 @@
         .user-image {
             border-radius: 6px;
             border: 1px solid #f0f0f7;
+            width: 100%;
         }
         .user-no-image {
             cursor: pointer;

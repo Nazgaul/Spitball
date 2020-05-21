@@ -1,5 +1,4 @@
-﻿using Cloudents.Query.Stuff;
-using NHibernate;
+﻿using NHibernate;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
@@ -8,6 +7,7 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using NHibernate.Linq;
 using Cloudents.Core.DTOs.Users;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Query.Users
 {
@@ -40,43 +40,45 @@ namespace Cloudents.Query.Users
 
             public async Task<UserProfileDto?> GetAsync(UserProfileQuery query, CancellationToken token)
             {
-                const string sql = @"select u.id,
-u.ImageName as Image,
-u.Name,
-u.description as Tutor_Description,
-u.online,
-cast ((select count(*) from sb.GoogleTokens gt where u.Id = gt.Id) as bit) as CalendarShared,
-u.FirstName as FirstName,
-u.LastName as LastName,
-u.CoverImage as Cover,
-t.price as Tutor_Price, 
-t.SubsidizedPrice as Tutor_DiscountPrice,
-t.SbCountry as Tutor_TutorCountry,
-t.rate as Tutor_Rate,
-t.rateCount as Tutor_ReviewCount,
-t.Bio as Tutor_Bio,
-t.Lessons as Tutor_Lessons,
-(select count(*) from sb.document d where d.userid = u.id and d.state = 'Ok')
-+ (select count(*) from sb.Question d where d.userid = u.id and d.state = 'Ok')
-as Tutor_ContentCount,
-(select count(distinct UserId) from sb.StudyRoom sr
-join sb.StudyRoomUser sru on sr.Id = sru.StudyRoomId
-where sr.TutorId = :profileId and sru.UserId != :profileId) as Tutor_Students,
-(select count(1) from sb.UsersRelationship where UserId = u.Id) as Followers,
-case when exists (select * from sb.UsersRelationship ur where ur.UserId = :profileId and ur.FollowerId = :userid) then cast(1 as bit) else cast(0 as bit) end as IsFollowing
-from sb.[user] u 
-left join sb.readTutor t 
-	on U.Id = t.Id 
-where u.id = :profileId
-and (u.LockoutEnd is null or u.LockoutEnd < GetUtcDate())";
+            
+                var userFuture = _session.Query<BaseUser>()
+                      .Where(w => w.Id == query.Id)
+                      .Select(s => new UserProfileDto()
+                      {
+                          Id = s.Id,
+                          Image = s.ImageName,
+                          Name = s.Name,
+                          Online = ((User)s).Online,
+                          CalendarShared = _session.Query<GoogleTokens>().Any(w => w.Id == query.Id.ToString()),
+                          FirstName = ((User)s).FirstName,
+                          LastName = ((User)s).LastName,
+                          Cover = ((User)s).CoverImage,
+                          Followers = _session.Query<Follow>().Count(w => w.User.Id == query.Id),
+                        
+                      }).ToFutureValue();
 
-
-
-                var sqlQuery = _session.CreateSQLQuery(sql);
-                sqlQuery.SetInt64("profileId", query.Id);
-                sqlQuery.SetInt64("userid", query.UserId);
-                sqlQuery.SetResultTransformer(new DeepTransformer<UserProfileDto>('_'));
-                var profileValue = sqlQuery.FutureValue<UserProfileDto>();
+                var tutorFuture = _session.Query<ReadTutor>()
+                    .Where(w => w.Id == query.Id)
+                    .Select(s => new UserTutorProfileDto()
+                    {
+                        Price = s.Price,
+                        DiscountPrice = s.SubsidizedPrice,
+                        TutorCountry = s.SbCountry,
+                        Rate = s.Rate.GetValueOrDefault(),
+                        ReviewCount = s.RateCount,
+                        Bio = s.Bio,
+                        Lessons = s.Lessons,
+                        
+                        ContentCount = _session.Query<Document>()
+                                           .Count(w => w.Status.State == ItemState.Ok && w.User.Id == query.Id) +
+                                       _session.Query<Question>().Count(w =>
+                                           w.Status.State == ItemState.Ok && w.User.Id == query.Id),
+                        Students = _session.Query<StudyRoomUser>()
+                            .Where(w => w.Room.Tutor.Id == query.Id).Select(s=>s.User.Id).Distinct().Count(),
+                        SubscriptionPrice = s.SubscriptionPrice,
+                        Subjects = s.Subjects,
+                        Description = s.Description
+                    }).ToFutureValue();
 
 
                 var couponQuery = _session.Query<UserCoupon>()
@@ -88,11 +90,6 @@ and (u.LockoutEnd is null or u.LockoutEnd < GetUtcDate())";
                           Value = s.Coupon.Value,
                           TypeEnum = s.Coupon.CouponType
                       }).ToFutureValue();
-
-
-
-                var futureSubject = _session.Query<ReadTutor>().Where(t => t.Id == query.Id)
-                    .Select(s => s.Subjects).ToFutureValue();
 
                 var documentCoursesFuture = _session.Query<Document>()
                     .Fetch(f => f.User)
@@ -107,25 +104,33 @@ and (u.LockoutEnd is null or u.LockoutEnd < GetUtcDate())";
                     .Select(s => s.Course.Id).ToFuture();
 
 
+                var isFollowingFuture = _session.Query<Follow>()
+                    .Where(w => w.User.Id == query.Id && w.Follower.Id == query.UserId).ToFutureValue();
 
-                var result = await profileValue.GetValueAsync(token);
-
-                var couponResult = couponQuery.Value;
+                var result = await userFuture.GetValueAsync(token);
 
                 if (result is null)
                 {
                     return null;
                 }
 
+                var tutorValue = tutorFuture.Value;
+                result.Tutor = tutorValue;
+                var couponResult = couponQuery.Value;
+                var isFollowing = isFollowingFuture.Value;
+                result.IsFollowing =isFollowing != null;
+
                 if (result.Tutor != null)
                 {
-                    result.Tutor.Subjects = futureSubject.Value;
+                    //result.Tutor.Subjects = futureSubject.Value;
                     if (couponResult != null)
                     {
                         result.Tutor.CouponType = couponResult.TypeEnum;
                         result.Tutor.CouponValue = couponResult.Value;
 
                     }
+
+                    result.Tutor.IsSubscriber = isFollowing?.Subscriber ?? false;
                 }
 
                 result.DocumentCourses = await documentCoursesFuture.GetEnumerableAsync(token);
@@ -146,8 +151,6 @@ and (u.LockoutEnd is null or u.LockoutEnd < GetUtcDate())";
         private class CouponDto
         {
             public CouponType TypeEnum { get; set; }
-
-
             public decimal Value { get; set; }
         }
 

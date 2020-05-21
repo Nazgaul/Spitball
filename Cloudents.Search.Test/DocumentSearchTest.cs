@@ -39,7 +39,7 @@ namespace Cloudents.Search.Test
             var ids = documentResult.Select(s => s.Id);
             var queryDb = new IdsDocumentsQuery(ids);
             var dbResult = await _queryBus.QueryAsync(queryDb, default);
-            if (dbResult.Count > 0)
+            if (dbResult.Any())
             {
                 dbResult.Should().OnlyContain(o => o.Course == course);
             }

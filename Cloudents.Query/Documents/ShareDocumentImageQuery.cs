@@ -41,7 +41,7 @@ namespace Cloudents.Query.Documents
                     {
                         Name = s.Name,
                         CourseName = s.Course.Id,
-                        Type = s.DocumentType ?? DocumentType.Document
+                        Type = s.DocumentType
 
                     }).SingleOrDefaultAsync(token);
             }

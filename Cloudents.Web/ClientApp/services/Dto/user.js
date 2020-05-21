@@ -1,4 +1,4 @@
-import {School} from './school.js';
+// import {School.} from './school.js';
 
 function _createIsTutorState(str){
     if(str && str.toLowerCase() === 'ok') return 'ok';
@@ -23,13 +23,19 @@ export const User = {
         this.subjects = objInit.subjects.toString().replace(/,/g, ", ");
         this.pendingSessionsPayments = objInit.pendingSessionsPayments || null;
         this.description = objInit.description || '';
-        this.tutorCountry = objInit.tutorCountry
-
+        this.tutorCountry = objInit.tutorCountry;
     },
     Tutor: function (objInit) {
-        return Object.assign(
-            new User.TutorDefault(objInit),
-            {
+        return{
+                price : objInit.price || 0,
+                currency: objInit.currency,
+                bio: objInit.bio || '',
+                lessons: objInit.lessons || 0,
+                discountPrice: objInit.discountPrice,
+                subjects: objInit.subjects.toString().replace(/,/g, ", "),
+                pendingSessionsPayments: objInit.pendingSessionsPayments || null,
+                description: objInit.description || '',
+                tutorCountry: objInit.tutorCountry,
                 contentCount: objInit.contentCount,
                 hasCoupon: objInit.hasCoupon,
                 rate: objInit.rate || 0,
@@ -37,8 +43,10 @@ export const User = {
                 firstName: objInit.firstName || '',
                 lastName: objInit.lastName || '',
                 students: objInit.students || 0,
-            }
-        )
+                subscriptionPrice: objInit.subscriptionPrice,
+                isSubscriber : objInit.isSubscriber
+        }
+        
     },
     TutorItem: function(objInit){
         return Object.assign(
@@ -56,27 +64,30 @@ export const User = {
         )
     },
     Account: function(objInit){
-        objInit.courses = objInit.courses || [];
-        objInit.isTutor  = objInit.isTutor  ||'';
-        return Object.assign(
-            new User.Default(objInit),
-            {
-                balance: objInit.balance,
-                email: objInit.email,
-                currencySymbol: objInit.currencySymbol,
-                needPayment: objInit.needPayment,
-                isTutor: _createIsTutorState(objInit.isTutor) ? true : false,
-                isTutorState: _createIsTutorState(objInit.isTutor),
-                courses: objInit.courses.map((course) => new School.Course(course)),
-                haveDocsWithPrice: objInit.haveDocsWithPrice,
-                haveContent: objInit.haveContent,
-                isPurchased: objInit.isPurchased,
-                isSold: objInit.isSold,
-                haveFollowers: objInit.haveFollowers,
-                pendingSessionsPayments: objInit.pendingSessionsPayments,
-                price: objInit.price || null
-            }
-        )
+        // objInit.courses = objInit.courses || [];
+        // objInit.isTutor  = objInit.isTutor  ||'';
+        return {
+            id: objInit.id,
+            email: objInit.email,
+            lastName: objInit.lastName,
+            firstName: objInit.firstName,
+            name: `${objInit.firstName} ${objInit.lastName}`,
+            image: objInit.image || '',
+            price: objInit.price || null,
+            balance: objInit.balance,
+            currencySymbol: objInit.currencySymbol,
+            subscription: objInit.tutorSubscription,
+            needPayment: objInit.needPayment,
+            isTutor: _createIsTutorState(objInit.isTutor) ? true : false,
+            isTutorState: _createIsTutorState(objInit.isTutor),
+            // courses: objInit.courses.map((course) => new School.Course(course)),
+            haveDocsWithPrice: objInit.haveDocsWithPrice,
+            haveContent: objInit.haveContent,
+            isPurchased: objInit.isPurchased,
+            isSold: objInit.isSold,
+            haveFollowers: objInit.haveFollowers,
+            pendingSessionsPayments: objInit.pendingSessionsPayments,
+        }
     },
     Stats: function(objInit){
         this.revenue = objInit.revenue
