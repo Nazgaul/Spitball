@@ -6,6 +6,9 @@
 
                 <div class="mainTitle text-center" :class="[modifyDurationError || priceError ? 'mb-3' : 'mb-12']" v-t="'teacherApproval_title'"></div>
 
+                <div class="v-alert green tableEmptyState text-left mb-5 pa-2 align-start align-sm-center" v-if="showSuccess">
+                    <span class="white--text" v-t="'teacherApproval_success'"></span>
+                </div>
                 <div class="v-alert error tableEmptyState text-left mb-5 pa-2 align-start align-sm-center" v-if="modifyDurationError">
                     <whiteWarn class="image mr-2 mr-sm-4 pt-1 pt-sm-0" width="50" />
                     <span class="white--text" v-t="'teacherApproval_error'"></span>
@@ -85,7 +88,7 @@
 
                 <div class="bottomActions d-flex text-center">
                     <v-btn width="140" height="40" color="#4452fc" class="d-none d-sm-block mr-3" rounded outlined @click="closeDialog()">{{$t('teacherApproval_btn_cancel')}}</v-btn>
-                    <v-btn width="140" height="40" color="#4452fc" class="white--text" @click="approveSession" rounded depressed>{{$t('teacherApproval_btn_approve')}}</v-btn>
+                    <v-btn :loading="isLoading" width="140" height="40" color="#4452fc" class="white--text" @click="approveSession" rounded depressed>{{$t('teacherApproval_btn_approve')}}</v-btn>
                 </div>
             </div>
 
@@ -110,6 +113,8 @@ export default {
             session: {
                 tutorPricePerHour:0,
             },
+            isLoading:false,
+            showSuccess:false,
             totalPrice: 0,
             newSessionDuration: 0,
             modifyDurationError: false,
@@ -174,9 +179,18 @@ export default {
                 price: this.session.tutorPricePerHour
             }
             let self = this
+            this.isLoading = true;
             this.$store.dispatch('updateBillOffline',sessionParams)
-                .catch(ex => self.$appInsights.trackException({exception: new Error(ex)}))
-                .finally(()=>self.closeDialog())
+                .then(()=>{
+                    self.showSuccess = true;
+                    setTimeout(() => {
+                        self.isLoading = false;
+                        self.closeDialog();
+                    }, 3000);
+                }).catch(ex => {
+                    self.isLoading = false;
+                    self.$appInsights.trackException({exception: new Error(ex)})
+                })
         },
         updateTotalPrice(duration) {
             this.totalPrice = this.session.tutorPricePerHour * duration / 60;

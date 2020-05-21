@@ -150,6 +150,9 @@
   <data name="student" xml:space="preserve">
     <value>Student name:</value>
   </data>
+  <data name="success" xml:space="preserve">
+    <value>success text</value>
+  </data>
   <data name="title" xml:space="preserve">
     <value>Teacher Approval Form</value>
   </data>
