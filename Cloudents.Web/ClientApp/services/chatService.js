@@ -80,15 +80,6 @@ function createMessage(objInit, id, fromSignalR){
     }
 }
 
-// function ServerMessageObj(objInit){
-//     this.message = objInit.message;
-//     this.otherUser = objInit.otherUser;
-// }
-
-// function createServerMessageObj(objInit){
-//     return new ServerMessageObj(objInit);
-// }
-
 const getAllConversations = () => {
     return connectivityModule.http.get(`Chat`);
 };
@@ -124,7 +115,6 @@ export default {
     getMessageById,
     createMessage,
     sendChatMessage,
-   // createServerMessageObj,
     clearUnread,
     createActiveConversationObj,
     createConversationId,

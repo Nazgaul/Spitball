@@ -223,9 +223,6 @@ const actions = {
     getChatById:(context, conversationId)=>{
         return chatService.getChatById(conversationId);
     },
-    setTotalUnread:({commit}, totalUnread)=>{
-        commit('updateTotalUnread', totalUnread);
-    },
     clearUnread:({commit, state}, conversationId)=>{
         if(!conversationId) {
             conversationId = state.activeConversationObj.conversationId;
@@ -251,10 +248,10 @@ const actions = {
         commit('setSyncStatus', true);
         commit('setActiveConversationObj', obj);
         dispatch('syncMessagesByConversationId');
-        dispatch('clearUnread', obj.conversationId);
+        dispatch('clearUnread', obj.conversationId);//maybe we dont need it here
         dispatch('updateChatState', state.enumChatState.messages);
     },
-    getAllConversations:({commit, getters, dispatch, state})=>{
+    getAllConversations:({commit, getters, dispatch})=>{
         if(!getters.accountUser) {
             return;
         }
@@ -343,7 +340,7 @@ const actions = {
         dispatch('addMessage', localMessageObj);
 
     },
-    openChatInterface:({commit, dispatch, state})=>{
+    openChatInterface:({dispatch, state})=>{
         if(state.chatState === state.enumChatState.messages){
             dispatch('clearUnread');
         }
