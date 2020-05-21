@@ -30,6 +30,11 @@ namespace Cloudents.Command.CommandHandler
             {
                 throw new ArgumentException("user need credit card");
             }
+
+            if (tutor.User.SbCountry != user.SbCountry)
+            {
+                throw new ArgumentException("user need to be in the same country");
+            }
             var sessionPayment = new StudyRoomPayment(tutor, user, message.Duration, message.Price);
             await _studyRoomPaymentRepository.AddAsync(sessionPayment,token);
         }
