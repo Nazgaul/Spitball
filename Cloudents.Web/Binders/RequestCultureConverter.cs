@@ -17,7 +17,7 @@ namespace Cloudents.Web.Binders
         public override RequestCulture ReadJson(JsonReader reader, Type objectType, RequestCulture existingValue, bool hasExistingValue,
             JsonSerializer serializer)
         {
-            var s = reader.Value.ToString();
+            var s = reader.Value?.ToString();
             if (string.IsNullOrEmpty(s))
             {
                 return null;

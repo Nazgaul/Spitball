@@ -172,14 +172,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Fact]
-        public async Task AdminUserFlagsOthersQuery_Ok()
+        [Theory]
+        [InlineData(3, 0, "IL")]
+        [InlineData(2, 2, "IL")]
+        public async Task AdminUserFlagsOthersQuery_Ok(int minFlags, int page, string country)
         {
-            var q1 = new UserFlagsOthersQuery(3, 0, "IL");
-            var q2 = new UserFlagsOthersQuery(2, 2, "IL");
-            var t1 = _fixture.QueryBus.QueryAsync(q1, default);
-            var t2 = _fixture.QueryBus.QueryAsync(q2, default);
-            await Task.WhenAll(t1, t2);
+            var q1 = new UserFlagsOthersQuery(minFlags, page, country);
+            var x = await _fixture.QueryBus.QueryAsync(q1, default);
         }
 
         [Theory]

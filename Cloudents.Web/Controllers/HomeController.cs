@@ -156,10 +156,29 @@ namespace Cloudents.Web.Controllers
             [FromServices] UserManager<User> userManager,
             CancellationToken token)
         {
-            var (receipt, points) = await stripeService.GetSessionByIdAsync(sessionId,token);
+            var (receipt, points) = await stripeService.GetBuyPointDataByIdAsync(sessionId,token);
 
             var userId = userManager.GetLongUserId(User);
             var command = new TransferMoneyToPointsCommand(userId, points, receipt);
+            await commandBus.DispatchAsync(command, token);
+            return Redirect(redirectUrl);
+        }
+
+
+        [Route("Subscribe", Name = "stripe-subscribe"), Authorize]
+        public async Task<IActionResult> StripeCallSubscribeAsync(
+            string redirectUrl, string sessionId,
+            [FromServices] IStripeService stripeService,
+            [FromServices] ICommandBus commandBus,
+            [FromServices] UserManager<User> userManager,
+            CancellationToken token)
+        {
+            var tutorId = await stripeService.GetSubscriptionByIdAsync(sessionId,token);
+
+            var userId = userManager.GetLongUserId(User);
+
+            var command = new SubscribeToTutorCommand(userId, tutorId);
+            //var command = new TransferMoneyToPointsCommand(userId, points, receipt);
             await commandBus.DispatchAsync(command, token);
             return Redirect(redirectUrl);
         }

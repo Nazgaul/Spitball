@@ -92,6 +92,10 @@
                                     <v-tooltip top> 
                                         <v-btn slot="activator" class="ma-0" icon small @click="deleteCalender()" v-if="infoItem.label == 'Has Calendar' && infoItem.value === true"><v-icon>delete</v-icon></v-btn>
                                         <span>Delete</span>
+                                    </v-tooltip>
+                                    <v-tooltip top> 
+                                        <v-btn slot="activator" class="ma-0" icon small @click="openSubscribeDialog" v-if="infoItem.label == 'Has Subscribe' && infoItem.value === false"><v-icon>add</v-icon></v-btn>
+                                        <span>Add</span>
                                     </v-tooltip> 
                                 </div>
                             </v-layout>
@@ -283,6 +287,37 @@
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="blue darken-1" flat @click="dialogs.price = false">Close</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
+        <v-dialog v-model="dialogs.subscribe" persistent max-width="600px" lazy v-if="dialogs.subscribe">
+            <v-card>
+                <v-card-title>
+                    <span class="headline">Add Subscribe</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-container grid-list-md>
+                        <v-layout wrap>
+                            <v-flex xs12 sm12 md12>
+                                <v-text-field
+                                    v-model="userIdentifier"
+                                    label="Tutor ID"
+                                    readonly
+                                ></v-text-field>
+                                <v-text-field
+                                    v-model="subscribePriceNewPrice"
+                                    label="Tutor Subscribe Price"
+                                    :placeholder="subscribeCurrentPrice"
+                                ></v-text-field>
+                                <v-btn @click="createSubscribe()">Send</v-btn>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" flat @click="dialogs.subscribe = false">Close</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>

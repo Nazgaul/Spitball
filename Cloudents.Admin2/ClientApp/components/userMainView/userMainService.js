@@ -71,7 +71,10 @@ function UserInfo(objInit) {
          buttonText: "delete"
 
     };
-
+    this.hasSubscribed = {
+        value: objInit.hasSubscription || false,
+        label: 'Has Subscribe'
+    };
     //this.userType = { value: objInit.userType ? objInit.userType : '', label: 'User Type' };
 }
 
@@ -366,6 +369,9 @@ export default {
     },
     deletePayment: (id) => {
         return connectivityModule.http.delete(`AdminPayment/deletePayment?userId=${id}`);
+    },
+    addSubscription(subscribeObj) {
+        return connectivityModule.http.post(`AdminTutor/subscription`, subscribeObj);
     },
     addUserNote : (data) => {
         let path = `AdminUser/note`;

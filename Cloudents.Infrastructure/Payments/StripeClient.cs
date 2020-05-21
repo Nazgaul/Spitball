@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
@@ -17,14 +18,26 @@ namespace Cloudents.Infrastructure.Payments
         {
             StripeConfiguration.ApiKey = configuration.Stripe;
         }
-        
-        public async Task<(string receipt, long points)> GetSessionByIdAsync(string sessionId, CancellationToken token)
+
+        public async Task<(string receipt, long points)> GetBuyPointDataByIdAsync(string sessionId, CancellationToken token)
         {
-            var service2 = new SessionService();
-            var session = await service2.GetAsync(sessionId, cancellationToken: token);
+            var session = await GetSessionByIdAsync(sessionId,  token);
             var amountOfPoints = long.Parse(session.Metadata["Points"]);
             var paymentId = session.PaymentIntentId;
             return (paymentId, amountOfPoints);
+        }
+
+        public async Task<long> GetSubscriptionByIdAsync(string sessionId, CancellationToken token)
+        {
+            var session = await GetSessionByIdAsync(sessionId,  token);
+            var tutorId = long.Parse(session.Metadata["TutorId"]);
+            return tutorId;
+        }
+
+        private Task<Session> GetSessionByIdAsync(string sessionId, CancellationToken token)
+        {
+            var service2 = new SessionService();
+            return service2.GetAsync(sessionId, cancellationToken: token);
         }
 
         public async Task<string> CreateCustomerAsync(User user, CancellationToken token)
@@ -76,7 +89,92 @@ namespace Cloudents.Infrastructure.Payments
             return intent.ClientSecret;
         }
 
-        private async Task<Customer?> RetrieveCustomerByEmailAsync(string email, CancellationToken token)
+        public async Task CreateProductAsync(Tutor tutor, CancellationToken token)
+        {
+            var productOptions = new ProductCreateOptions
+            {
+                Id = $"TutorSubscription{tutor.Id}",
+                Name = $"Subscription With {tutor.User.Name}",
+                Metadata = new Dictionary<string, string>()
+                {
+                    ["Id"] = tutor.Id.ToString()
+                },
+
+            };
+            var productService = new ProductService();
+            var product = await productService.CreateAsync(productOptions, cancellationToken: token);
+            var options = new PriceCreateOptions
+            {
+                Currency = tutor.SubscriptionPrice!.Value.Currency.ToLowerInvariant(),
+                Recurring = new PriceRecurringOptions
+                {
+                    Interval = "month",
+                },
+                UnitAmount = tutor.SubscriptionPrice!.Value.Cents,
+            };
+
+            options.AssignProduct(product.Id);
+
+            var service = new PriceService();
+            await service.CreateAsync(options, cancellationToken: token);
+        }
+
+        public async Task<string> SubscribeToTutorAsync(long tutorId, string userEmail, string successCallback,
+            string fallbackCallback, CancellationToken token)
+        {
+            var priceService = new PriceService();
+            var priceList = await priceService.ListAsync(new PriceListOptions()
+            {
+                Product = $"TutorSubscription{tutorId}"
+            }, cancellationToken: token);
+            var price = priceList.First();
+
+            var options = new SessionCreateOptions
+            {
+
+                PaymentMethodTypes = new List<string> {
+                    "card",
+                },
+                Mode = "subscription",
+                SubscriptionData = new SessionSubscriptionDataOptions()
+                {
+                    Items = new List<SessionSubscriptionDataItemOptions>()
+                    {
+                        new SessionSubscriptionDataItemOptions()
+                        {
+                            Plan = price.Id,
+                            Quantity = 1
+                        }
+                    }
+                },
+                //LineItems = new List<SessionLineItemOptions> {
+                //    new SessionLineItemOptions {
+
+                //        //Name = "Buy Points on Spitball",
+                //        //Amount = (long)(bundle.PriceInUsd * 100),
+                //        //Currency = "usd",
+                //        Quantity = 1,
+
+                //    },
+
+                //},
+                Metadata = new Dictionary<string, string>()
+                {
+                    ["TutorId"] = tutorId.ToString()
+                },
+
+                SuccessUrl = successCallback,
+                CancelUrl = fallbackCallback,
+                CustomerEmail = userEmail
+            };
+
+            var service = new SessionService();
+            var session = await service.CreateAsync(options, cancellationToken: token);
+            return session.Id;
+        }
+
+
+        private static async Task<Customer?> RetrieveCustomerByEmailAsync(string email, CancellationToken token)
         {
             var options = new CustomerListOptions()
             {
@@ -88,7 +186,7 @@ namespace Cloudents.Infrastructure.Payments
             return result.Data.FirstOrDefault();
         }
 
-        private async Task<string> RetrieveCustomerByIdAsync(string id, CancellationToken token)
+        private static async Task<string> RetrieveCustomerByIdAsync(string id, CancellationToken token)
         {
             var service = new CustomerService();
             var result = await service.GetAsync(id, cancellationToken: token);
@@ -99,8 +197,6 @@ namespace Cloudents.Infrastructure.Payments
             //var result = await RetrieveCustomerAsync(emailId, token);
             return result.Id;
         }
-
-        
 
         public async Task<string> BuyPointsAsync(PointBundle bundle, string email, string successCallback, string fallbackCallback, CancellationToken token)
         {
@@ -134,20 +230,6 @@ namespace Cloudents.Infrastructure.Payments
             var session = await service.CreateAsync(options, cancellationToken: token);
             return session.Id;
 
-            //var options = new PaymentIntentCreateOptions
-            //{
-            //    Amount = 1099,
-            //    Currency = "usd",
-            //    // Verify your integration in this guide by including this parameter
-            //    Metadata = new Dictionary<string, string>
-            //    {
-            //        { "integration_check", "accept_a_payment" },
-            //    },
-            //};
-
-            //var service = new PaymentIntentService();
-            //var paymentIntent = await service.CreateAsync(options);
-            //return paymentIntent
         }
 
         public async Task<string> ChargeSessionAsync(Tutor tutor, User user, decimal price, CancellationToken token)
@@ -184,6 +266,20 @@ namespace Cloudents.Infrastructure.Payments
         public Task<string> ChargeSessionBySpitballAsync(Tutor tutor, decimal price, CancellationToken token)
         {
             throw new NotImplementedException("We do not support this feature");
+        }
+
+
+
+
+    }
+
+    public static class PriceCreateOptionsExtensions
+    {
+        //Product is internal - maybe they'll fix them on future versions
+        public static void AssignProduct(this PriceCreateOptions options, string productId)
+        {
+            var prop = options.GetType().GetProperty("Product", BindingFlags.NonPublic | BindingFlags.Instance);
+            prop.SetValue(options, productId);
         }
     }
 }

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Command.Command;
 using Country = Cloudents.Core.Entities.Country;
 
 namespace Cloudents.Admin2.Api
@@ -53,7 +54,6 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
         public async Task<IActionResult> DeleteTutorAsync(long id,
                 CancellationToken token)
         {
@@ -71,7 +71,6 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpPost("suspend")]
-        [Authorize]
         public async Task<IActionResult> SuspendTutorAsync([FromBody] SuspendTutorRequest model, CancellationToken token)
         {
             var command = new SuspendTutorCommand(model.TutorId);
@@ -79,8 +78,7 @@ namespace Cloudents.Admin2.Api
             return Ok();
         }
 
-        [HttpPost("unsuspend")]
-        [Authorize]
+        [HttpPost("unSuspend")]
         public async Task<IActionResult> SuspendTutorAsync([FromBody] UnSuspendTutorRequest model, CancellationToken token)
         {
             var command = new UnSuspendTutorCommand(model.TutorId);
@@ -99,6 +97,15 @@ namespace Cloudents.Admin2.Api
             var query = new TutorSearchQuery(model.Term, model.State, country);
             var result = await _queryBus.QueryAsync(query, token);
             return result;
+        }
+
+
+        [HttpPost("subscription")]
+        public async Task<IActionResult> AddTutorSubscriptionAsync([FromBody] TutorSubscriptionRequest model, CancellationToken token)
+        {
+            var command = new CreateTutorSubscriptionCommand(model.TutorId,model.Price);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
         }
     }
 }

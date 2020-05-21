@@ -22,13 +22,13 @@ namespace Cloudents.Core.EventHandler
         {
             var doc = new DocumentSearchDto
             {
-                Country = eventMessage.Document.User.Country.ToUpperInvariant(),
+                Country = eventMessage.Document.User.Country?.ToUpperInvariant(),
                 
                 Course = eventMessage.Document.Course.Id.ToUpperInvariant(),
                 DateTime = eventMessage.Document.TimeStamp.UpdateTime,
                 ItemId = eventMessage.Document.Id,
                 Name = eventMessage.Document.Name,
-                Type = eventMessage.Document.DocumentType.GetValueOrDefault(),
+                Type = eventMessage.Document.DocumentType,
                 SbCountry = eventMessage.Document.User.SbCountry
             };
             return _queueProvider.InsertMessageAsync(new DocumentSearchMessage(doc, true), token);
@@ -47,12 +47,12 @@ namespace Cloudents.Core.EventHandler
         {
             var doc = new DocumentSearchDto
             {
-                Country = eventMessage.Document.User.Country.ToUpperInvariant(),
+                Country = eventMessage.Document.User.Country?.ToUpperInvariant(),
                 Course = eventMessage.Document.Course.Id.ToUpperInvariant(),
                 DateTime = eventMessage.Document.TimeStamp.UpdateTime,
                 ItemId = eventMessage.Document.Id,
                 Name = eventMessage.Document.Name,
-                Type = eventMessage.Document.DocumentType.GetValueOrDefault(),
+                Type = eventMessage.Document.DocumentType,
                 SbCountry = eventMessage.Document.User.SbCountry
             };
             return _queueProvider.InsertMessageAsync(new DocumentSearchMessage(doc, true), token);

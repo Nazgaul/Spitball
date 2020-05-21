@@ -26,24 +26,5 @@ namespace Cloudents.Core.Query
         public UserProfile UserProfile { get; }
     }
 
-    //public abstract class VerticalQuery
-    //{
-
-
-    //    protected VerticalQuery(UserProfile userProfile, string term, string course)
-    //    {
-    //        UserProfile = userProfile;
-    //        Term = term;
-    //        Course = course;
-    //    }
-
-    //    public string Term { get; }
-    //    public string Course { get; }
-
-    //    public int Page { get; set; }
-
-    //    public UserProfile UserProfile { get; }
-
-
-    //}
+   
 }

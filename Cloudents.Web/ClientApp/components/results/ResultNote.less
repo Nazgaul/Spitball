@@ -118,7 +118,7 @@
     }
     .document-header-small-sagment {
       display: flex;
-      align-items: baseline;
+      // align-items: baseline;
       margin-top: -8px;
       margin-right: -16px;
       .price-area {
@@ -128,7 +128,6 @@
         &.sold {
           color: rgba(0, 0, 0, 0.38);
         }
-      
       }
       .menu-area {
         width: 20px;
@@ -144,26 +143,30 @@
       }
     }
   }
+  .documentPrice {
+    .docFree {
+      font-size: 18px;
+      color: @global-purple;
+      font-weight: 600;
+    }
+    .docIcon {}
+  }
   .bottom-row{
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    font-size: 12px;
     font-weight: bold;
     line-height: 1;
-    color: #848bbc;
+    color: @global-purple;
     padding-top: 6px;
     @media (max-width: @screen-xs) {
-      padding-top: 10px;
+      padding-top: 20px;
       justify-content: initial;
       align-items: flex-end;
     }
     .left{
       .views-cont{
         margin-right: 22px;
-        // .views{
-        //   margin-left: 4px;
-        // }
       }
       .downloads{
         margin-left: 4px;
@@ -177,8 +180,7 @@
       align-items: flex-end;
       .likeSVG{
         margin-right: 4px;
-        width: 18px;
-        height: 18px;
+        fill: @global-purple;
       }
       
     }
@@ -204,25 +206,7 @@
       }
       .document-body-card{
         position: relative;
-        .videoType{
-          /*rtl:ignore*/
-          align-items: center;
-          display: flex;
-          position: absolute;
-          background: rgba(0, 0, 0, 0.8);
-          color: white;
-          right: 4px;
-          bottom: 12px;
-          padding-left: 4px;
-          padding-right: 4px;
-          height: 16px;
-            .vidTime{
-                font-size: 12px;
-                padding: 0 4px;
-                vertical-align: top;
-            }
-            /*rtl:ignore*/
-        }
+
         @media (max-width: @screen-xs) {
         }
         .document-body-card-img{
@@ -233,6 +217,36 @@
           }
             
         }
+        &.subscribed {
+          &:before {
+            content: '';
+            position: absolute;
+            background: rgba(0, 0, 0, .7);
+            height: 100%;
+            width: 100%;
+          }
+          .overlay {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            left: 0;
+            transform: translate(0,-50%);
+            .unlockText {
+              white-space: pre;
+              .responsive-property(font-size, 15px, null, 13px);                
+              font-weight: 600;
+              line-height: 1.47;
+              @media (max-width: @screen-xs) {
+                white-space: unset;
+              }
+            }
+            .btn {
+              width: 100%;
+              color: @global-purple;
+              font-weight: 600;
+            }
+          }
+        }
       }
       .type-wrap {
         flex-grow: 1;
@@ -242,11 +256,35 @@
         min-width: 0;
         @media (max-width: @screen-xs) {
           padding-left: 8px;
-          // width: 100%;
-          // padding-left: 0;
+        }
+        .wrapHeight {
+          height: 140px;
+          @media (max-width: @screen-xs) {
+            height: auto;
+          }
         }
         &--noPadding {
           padding-left: 0;
+          .wrapHeight {
+            height: auto;
+          }
+          .doc-snippet-h6{
+            .giveMeEllipsis(3, 22) !important;
+            @media (max-width: @screen-xs) {
+              .giveMeEllipsis(4, 16) !important;
+            }
+          }
+        }
+        .videoType{
+          .videoIcon {
+            vertical-align: middle;
+            path {
+              fill: #69687d;
+            }
+          }
+          .vidTime{
+              font-size: 12px;
+          }
         }
       }
     }
@@ -259,7 +297,6 @@
           color: @colorBlackNew;
           float: left;
           margin-right: 4px;
-          //height: 17px;
           display: unset;
           .sb-icon-arrow {
             font-size: 12px;
@@ -286,7 +323,7 @@
             }
             .giveMeEllipsis(2, 22);
             @media (max-width: @screen-xs) {
-              .giveMeEllipsis(2, 16);
+              .giveMeEllipsis(3, 16);
             }
           }
           
@@ -295,7 +332,7 @@
         display: flex;
         flex-direction: column;
         .item-title{
-          font-size: 14px;
+          font-size: 18px;
           font-weight: bold;
           color: @global-purple;
         }

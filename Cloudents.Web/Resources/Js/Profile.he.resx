@@ -195,8 +195,17 @@
   <data name="lastName_label" xml:space="preserve">
     <value>שם משפחה</value>
   </data>
+  <data name="live_subscribers_free" xml:space="preserve">
+    <value>חינם</value>
+  </data>
+  <data name="live_subscribers_title" xml:space="preserve">
+    <value>מנויים</value>
+  </data>
   <data name="live_title" xml:space="preserve">
     <value>שיעורים פתוחים לקהל של</value>
+  </data>
+  <data name="live_visitors_title" xml:space="preserve">
+    <value>מבקרים</value>
   </data>
   <data name="my_book_session" xml:space="preserve">
     <value>הצג את היומן שלי</value>
@@ -269,6 +278,21 @@
   </data>
   <data name="study_materials_mobile" xml:space="preserve">
     <value>התוכן של {1}</value>
+  </data>
+  <data name="subscribe_btn" xml:space="preserve">
+    <value>מנוי חודשי</value>
+  </data>
+  <data name="subscribe_no_contract" xml:space="preserve">
+    <value>תשלום חודשי, ללא התחייבות - בטל בכל עת</value>
+  </data>
+  <data name="subscribe_price_month" xml:space="preserve">
+    <value>/ לחודש</value>
+  </data>
+  <data name="subscribe_subtitle" xml:space="preserve">
+    <value>גישה חופשית לכל התכנים של {0}</value>
+  </data>
+  <data name="subscribe_title" xml:space="preserve">
+    <value>מנוי חודשי</value>
   </data>
   <data name="tutor_follower" xml:space="preserve">
     <value>עוקב | עוקבים</value>

@@ -52,7 +52,8 @@ export default {
                 email: false,
                 phone: false,
                 price: false,
-                type: false
+                type: false,
+                subscribe: false
             },
             currentFirstName: '',
             currentLastName: '',
@@ -64,6 +65,8 @@ export default {
             newEmail: '',
             newPhone: '',
             newPrice: '',
+            subscribePriceNewPrice: '',
+            subscribeCurrentPrice: '',
             suspendDialog: false,
             userComponentsShow: false,
             activeUserComponent: '',
@@ -128,7 +131,8 @@ export default {
             "updateUserPhone",
             "deletePayment",
             "updateTutorPrice",
-            "removeCalender"
+            "removeCalender",
+            "updateSubscribe"
         ]),
         showSuspendDialog() {
             this.setSuspendDialogState(true);
@@ -264,6 +268,9 @@ export default {
             this.dialogs.price = true;
             this.currentPrice = price.toString();
         },
+        openSubscribeDialog() {
+            this.dialogs.subscribe = true
+        },
         editName() {
             let nameObj = {
                 firstName: this.newFirstName,
@@ -326,6 +333,14 @@ export default {
                 this.newPrice = '';
             });            
         },
+         createSubscribe() {
+             this.updateSubscribe({
+                tutorId: this.userIdentifier,
+                price: this.subscribePriceNewPrice
+            }).finally(() => {
+                this.dialogs.subscribe = false;
+            });
+        },
         removePayment(id) {
             this.deletePayment(id).then(() => {
                 this.$toaster.success(`Success: delete user payment`);
@@ -333,26 +348,7 @@ export default {
                 this.$toaster.error(`Error: delete user payment`);
             });
         },
-        // openEditUserTypeDialog(id){
-        //     let self = this;
-        //     if(self.userTypes.length == 0){
-        //     self.getUserTypes(id).then((data) =>{
-        //         self.dialogs.type = true;
-        //         self.userIdentifier = id;
-        //         self.userTypes = data;
-        //     });
-        //     } else { 
-        //         self.dialogs.type = true;
-        //     }
-        // },
-        // editUserType(){
-        //     this.updateUserType({userId: this.userIdentifier, userType: this.selectedType}).then(() =>{
-        //         this.dialogs.type = false;
-        //         this.$toaster.success(`Success: edit user type`)
-        //         }).catch(() => {
-        //             this.$toaster.error(`Error: edit user type`);
-        //         });
-        // }
+       
     },
 
     created() {

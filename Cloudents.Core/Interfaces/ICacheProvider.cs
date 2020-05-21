@@ -2,10 +2,18 @@
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface ICacheProvider
+    public interface ICacheProvider 
     {
         object? Get(string key, string region);
 
+
+        /// <summary>
+        /// Return element from cache
+        /// </summary>
+        /// <typeparam name="T">return T or null if not found</typeparam>
+        /// <param name="key"></param>
+        /// <param name="region"></param>
+        /// <returns></returns>
         T Get<T>(string key, string region);
 
         /// <summary>
@@ -17,6 +25,9 @@ namespace Cloudents.Core.Interfaces
         /// <param name="expire">time till expire in seconds</param>
         /// <param name="slideExpiration">true is we want sliding   </param>
         void Set(string key, string region, object? value, int expire, bool slideExpiration);
+
+
+        void Set<T>(string key, string region, T value, TimeSpan expire, bool slideExpiration);
 
         void Set(string key, string region, object? value, TimeSpan expire, bool slideExpiration);
 

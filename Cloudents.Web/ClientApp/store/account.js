@@ -56,7 +56,11 @@ const getters = {
     },
     getPendingPayment: state => state.user?.pendingSessionsPayments,
     getUserBalance: state =>  state.user?.balance.toFixed(0) || 0,
-    getIsSold: state => state.user?.isSold
+    getIsSold: state => state.user?.isSold,
+    getIsTutorSubscription: state => state.user?.subscription,
+    getIsMyProfile: (state, _getters) => {
+        return _getters.getUserLoggedInStatus && (state.user.id === _getters.getProfile?.user.id)
+    }
 };
 
 const actions = {
@@ -148,7 +152,11 @@ const actions = {
     },
     updateLoginStatus({commit},val){
         commit("changeLoginStatus", val);
-    }
+    },
+    // subscribeNow(context, id) {
+    //     commit("subscribeToTutor", id);
+    //     //return accountService.subscribe(id)
+    // }
 };
 
 

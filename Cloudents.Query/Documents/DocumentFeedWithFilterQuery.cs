@@ -66,6 +66,7 @@ select 'd' as type
 , d.Name as Title
 , d.[Views]
 , d.Downloads
+, d.PriceType as PriceType
 , d.VoteCount as 'Vote.Votes'
 , (select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = @userId) as 'Vote.Vote'
 ,(select count(1) from sb.[Transaction] where DocumentId = d.Id and [Action] = 'SoldDocument') as Purchased
@@ -112,6 +113,7 @@ select 'd' as type
 ,(select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = @userId) as 'Vote.Vote'
 ,(select count(1) from sb.[Transaction] where DocumentId = d.Id and [Action] = 'SoldDocument') as Purchased
 ,d.duration as Duration
+,d.PriceType as PriceType
 ,d.DocumentType as documentType for json path) as JsonArray
 ,case when d.DocumentType = 'Video' then 1 else 0 end as IsVideo
 ,case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end as IsFollow
