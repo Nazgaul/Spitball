@@ -33,7 +33,7 @@ namespace Cloudents.Persistence.Maps
            
 
             //HasOne(x => x.StudyRoomSessionUser).Cascade.None()/*.LazyLoad(Laziness.NoProxy)*/;
-            References(x => x.StudyRoomSessionUser).Unique().Cascade.None().LazyLoad();
+            References(x => x.StudyRoomSessionUser).Cascade.None().LazyLoad();
 
             Map(x => x.PricePerHour);
             Map(x => x.TutorApproveTime);

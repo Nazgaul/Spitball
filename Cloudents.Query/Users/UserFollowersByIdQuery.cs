@@ -1,10 +1,12 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using NHibernate;
-using NHibernate.Transform;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using NHibernate.Linq;
+using PaymentStatus = Cloudents.Core.Enum.PaymentStatus;
 
 namespace Cloudents.Query.Users
 {
@@ -27,29 +29,20 @@ namespace Cloudents.Query.Users
 
             public async Task<IEnumerable<FollowersDto>> GetAsync(UserFollowersByIdQuery query, CancellationToken token)
             {
-                User userAlias = null;
-                Follow followAlias = null;
-                User followerAlias = null;
+                return await _session.Query<Follow>()
+                       .Fetch(f => f.Follower)
+                       .Where(w => w.User.Id == query.UserId)
+                       .Select(s => new FollowersDto()
+                       {
+                           Email = s.Follower.Email,
+                           Created = s.Created,
+                           Name = s.Follower.Name,
+                           PhoneNumber = s.Follower.PhoneNumber,
+                           Image = s.Follower.ImageName,
+                           UserId = s.Follower.Id,
+                           HasCreditCard = s.Follower.PaymentExists == PaymentStatus.Done
+                       }).ToListAsync(token);
 
-                FollowersDto resultAlias = null;
-
-                var res = await _session.QueryOver(() => userAlias)
-                    .JoinAlias(x => x.Followers, () => followAlias)
-                    .JoinEntityAlias(() => followerAlias, () => followAlias.Follower.Id == followerAlias.Id)
-                    .Where(w => w.Id == query.UserId)
-                    .SelectList(sl =>
-                    sl.Select(() => followerAlias.Id).WithAlias(() => resultAlias.UserId)
-                    .Select(() => followerAlias.Name).WithAlias(() => resultAlias.Name)
-                    .Select(() => followerAlias.ImageName).WithAlias(() => resultAlias.Image)
-                    .Select(() => followerAlias.Email).WithAlias(() => resultAlias.Email)
-                    .Select(() => followerAlias.PhoneNumber).WithAlias(() => resultAlias.PhoneNumber)
-                    .Select(() => followAlias.Created).WithAlias(() => resultAlias.Created)
-                    )
-                    .TransformUsing(Transformers.AliasToBean<FollowersDto>())
-                    .UnderlyingCriteria.SetComment(nameof(UserFollowersByIdQuery))
-                     .ListAsync<FollowersDto>(token);
-
-                return res;
             }
         }
     }

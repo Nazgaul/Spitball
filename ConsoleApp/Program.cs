@@ -160,8 +160,7 @@ namespace ConsoleApp
 
             foreach (var user in studyRoomUsers)
             {
-                // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-                if (user.StudyRoomPayment != null)
+                if (user.StudyRoomPayment == null)
                 {
                     using var unitOfWork = Container.Resolve<IUnitOfWork>();
                     user.StudyRoomPayment = new StudyRoomPayment(user);
