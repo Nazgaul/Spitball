@@ -10,8 +10,8 @@ namespace Cloudents.Persistence.Maps
             Id(x => x.Id).GeneratedBy.GuidComb();
             Map(x => x.UpdateTime).Not.Nullable();
             Map(x => x.Identifier).Not.Nullable().Unique();
-            // One 
-            HasOne(x => x.Extra).LazyLoad(Laziness.NoProxy).Constrained().Cascade.All();
+            // You can't put constarint because only one relationship can have it. and chatroomadmin already have it
+            HasOne(x => x.Extra).LazyLoad(Laziness.NoProxy)/*.Constrained()*/.Cascade.All();
             HasMany(x => x.Users).Cascade.AllDeleteOrphan()
                 .Inverse()
                 .ForeignKeyConstraintName("fChatUserChatRoom")
