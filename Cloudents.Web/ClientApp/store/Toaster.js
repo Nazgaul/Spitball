@@ -13,7 +13,7 @@ const state = {
     },
     component: ''
 };
-const mutations = {
+export const mutations = {
     //OLD CODE IGNORE!!!!
     [TOASTER.UPDATE_PARAMS](state,val) {
         if(!val.hasOwnProperty('toasterTimeout')){

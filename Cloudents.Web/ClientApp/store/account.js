@@ -11,7 +11,7 @@ const state = {
     user: null,
     usersReferred: 0,
 };
-const mutations = {
+export const mutations = {
     changeIsUserTutor(state, val) {
         state.user.isTutor = val;
     },

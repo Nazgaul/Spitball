@@ -1,5 +1,5 @@
-import userOnlineStatus from '../userOnlineStatus';
-import userOnlineStatusService from './../../services/userOnlineStatusService';
+import userOnlineStatus from '../../store/userOnlineStatus';
+import userOnlineStatusService from '../../services/userOnlineStatusService';
 
 describe('STORE_userOnlineStatus_GETTER_getUserStatus', ()=>{
     it('should return user status', ()=>{
