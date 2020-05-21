@@ -63,7 +63,7 @@ export default {
       footerExtend:{
          immediate:true,
          handler(newVal){
-            this.$emit('footerExtendChanged',newVal)
+            this.$store.commit('setStudyRoomFooterState',newVal)
          }
       }
    },
