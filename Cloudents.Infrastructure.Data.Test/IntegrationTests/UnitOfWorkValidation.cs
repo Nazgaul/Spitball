@@ -38,7 +38,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             }
         }
 
-        [Fact(Skip = "No need to run on pipeline")]
+        [Fact(Skip = "No need to run this all build because it will fail")]
         public void ValidateDataBaseProdSchema()
         {
             using var mock = AutoMock.GetLoose();

@@ -59,12 +59,8 @@ namespace Cloudents.Query.Admin
 
                 return await res.SelectList(sl =>
                         sl.Select(s => s.Id).WithAlias(() => resultDto.StudyRoomSessionId)
-                            .Select(s => s.Price).WithAlias(() => resultDto.Price)
-                            //.Select(Projections.Conditional(
-                            //    Restrictions.IsNull(Projections.Property(() => tutorAlias.SellerKey)),
-                            //    Projections.Constant(false),
-                            //    Projections.Constant(true)
-                            //)).WithAlias(() => resultDto._sellerKey)
+                            .Select(s => s.Price).WithAlias(() => resultDto._oldPrice)
+                          
                             .Select(Projections.Conditional(
                                 Restrictions.Eq(Projections.Property(() => studentAlias.PaymentExists), PaymentStatus.None),
                                 Projections.Constant(false),

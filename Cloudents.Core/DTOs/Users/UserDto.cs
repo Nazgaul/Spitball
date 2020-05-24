@@ -17,8 +17,10 @@ namespace Cloudents.Core.DTOs.Users
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global" , Justification = "Dto json serialize")]
     public class UserAccountDto
     {
+        public decimal? Price { get; set; }
         [NonSerialized]
         public bool _needPayment;
+        public double? DiscountPrice { get; set; }
 
         public Country? country;
 
@@ -59,7 +61,6 @@ namespace Cloudents.Core.DTOs.Users
        
         public int PendingSessionsPayments { get; set; }
 
-        public decimal? Price { get; set; }
 
         public string CurrencySymbol => (country ?? Country.UnitedStates).RegionInfo.CurrencySymbol;
     }

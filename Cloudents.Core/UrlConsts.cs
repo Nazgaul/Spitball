@@ -69,7 +69,7 @@ namespace Cloudents.Core
             return builder.ToString();
         }
 
-        public Uri BuildChatEndpoint(string token, object? parameters = null)
+        public Uri BuildChatEndpoint(string token,string identifier,  object? parameters = null)
         {
             var nvc = new NameValueCollection();
 
@@ -79,8 +79,8 @@ namespace Cloudents.Core
                     nvc.Add(property.Name, property.GetValue(parameters).ToString());
             }
             nvc.Add("token", token);
-            nvc.Add("channel", CommunicationChannel.Phone.ToString("G"));
-            nvc.Add("chat", "expand");
+            nvc.Add("channel", CommunicationChannel.Email.ToString("G"));
+            //nvc.Add("chat", "expand");
 
 
             var builder = new UriBuilder(_webSiteEndPoint);

@@ -33,12 +33,21 @@ namespace Cloudents.Core.Entities
         public virtual bool? Approved { get; set; }
         public virtual string DeclinedReason { get; set; }
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public CashOutTransaction()
+        protected CashOutTransaction()
         {
-            Price = -1000;
-            Action = TransactionActionType.CashOut;
-            Type = TransactionType.Spent;
         }
+
+
+        public static CashOutTransaction CashOut()
+        {
+            return new CashOutTransaction
+            {
+                Price = -1000,
+                Action = TransactionActionType.CashOut,
+                Type = TransactionType.Spent
+            };
+        }
+
         public virtual void Approve()
         {
             Approved = true;

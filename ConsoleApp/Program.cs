@@ -148,57 +148,26 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             await Dbi();
-
-
         }
 
         private static async Task Dbi()
         {
-            var session = Container.Resolve<IStatelessSession>();
+            int count = 0;
+            var session = Container.Resolve<ISession>();
+            var studyRoomUsers = await session.Query<StudyRoomSessionUser>()
+                .Fetch(f => f.StudyRoomPayment)
+                .ToListAsync();
 
-
-            await session.Query<Document>()
-                .Where(w => w.DocumentPrice.Price == null)
-                .UpdateBuilder().Set(x => x.DocumentPrice.Type, PriceType.Free)
-                .Set(x => x.DocumentPrice.Price, 0)
-                .UpdateAsync(default);
-
-            int count;
-            do
+            foreach (var user in studyRoomUsers)
             {
-
-
-                var documents = await session.Query<Document>()
-                    .Where(w => w.Status.State == ItemState.Ok)
-                    .Where(w => w.DocumentPrice.Type == null && w.DocumentPrice.Price > 0)
-                    .Take(100)
-                    .Select(s => s.Id).ToListAsync();
-                count = documents.Count;
-                await session.Query<Document>()
-                    .Where(w => documents.Contains(w.Id))
-                    .UpdateBuilder().Set(x => x.DocumentPrice.Type, PriceType.HasPrice)
-                    .UpdateAsync(default);
-
-            } while (count > 0);
-
-            do
-            {
-
-
-                var documents = await session.Query<Document>()
-                    .Where(w => w.Status.State == ItemState.Ok)
-                    .Where(w => w.DocumentPrice.Type == null && w.DocumentPrice.Price == 0)
-                    .Take(500)
-                    .Select(s => s.Id).ToListAsync();
-                count = documents.Count;
-                await session.Query<Document>()
-                    .Where(w => documents.Contains(w.Id))
-                    .UpdateBuilder().Set(x => x.DocumentPrice.Type, PriceType.Free)
-                    .UpdateAsync(default);
-
-            } while (count > 0);
-
-            //AddBuyerTokenCommand
+                if (user.StudyRoomPayment == null)
+                {
+                    using var unitOfWork = Container.Resolve<IUnitOfWork>();
+                    user.StudyRoomPayment = new StudyRoomPayment(user);
+                    await session.FlushAsync();
+                    await unitOfWork.CommitAsync(default);
+                }
+            }
         }
 
         private static async Task UpdateTwilioParticipants()

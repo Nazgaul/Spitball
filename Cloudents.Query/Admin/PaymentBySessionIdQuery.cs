@@ -7,6 +7,7 @@ using Dapper;
 
 namespace Cloudents.Query.Admin
 {
+    [Obsolete]
     public class PaymentBySessionIdQuery : IQuery<PaymentDetailDto>
     {
         public PaymentBySessionIdQuery(Guid sessionId)
