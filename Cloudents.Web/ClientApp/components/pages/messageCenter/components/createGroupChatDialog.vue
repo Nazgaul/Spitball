@@ -97,7 +97,10 @@ export default {
             // this.isLoading = false;
             return;
          }
-         let conversationId = Array.from(this.selected.map(user=> user.userId)).sort((a,b)=> a - b).join('_')
+         let currentUserId = this.$store.getters?.accountUser?.id;
+         let conversationId = Array.from(this.selected.map(user=> user.userId));
+         conversationId.push(currentUserId);
+         conversationId = conversationId.sort((a,b)=> a - b).join('_');
          let isChatAlreadyCreated = this.$store.getters.getConversations.find(c=>c.conversationId == conversationId)
          if(isChatAlreadyCreated){
             this.errors.showErrorAlreadyCreated = true;
