@@ -45,7 +45,7 @@ namespace Cloudents.Query.Email
                                     join sb.[User] as ut
 	                                    on t.Id = ut.Id
                                     join sb.[user] u
-	                                    on l.UserId = u.Id  u.Country = 'il'
+	                                    on l.UserId = u.Id and  u.SbCountry = 1
                                     where l.Id =  @LeadId";
                 using var conn = _dapper.OpenConnection();
                 var res = await conn.QueryAsync<RequestTutorAdminEmailDto>(sql, new
