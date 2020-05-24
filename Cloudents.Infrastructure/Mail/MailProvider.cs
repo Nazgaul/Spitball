@@ -41,7 +41,7 @@ namespace Cloudents.Infrastructure.Mail
 
             var result = s.ToJsonReader<Rootobject>();
 
-            return result.Result.Score > 0.44;
+            return result.Result.Score >= 33.75;
             //return result.Result.Verdict == "Valid";
            
         }
