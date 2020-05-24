@@ -43,6 +43,7 @@ const Item = {
    Question:function(objInit){
       this.text = objInit.text || objInit.questionText;
       this.answerText = objInit.answerText || '';
+      this.url = `/question/${objInit.questionId || objInit.id}`
    },
    Session:function(objInit){
       this.sessionId = objInit.sessionId
@@ -52,6 +53,7 @@ const Item = {
       this.totalMinutes = Math.floor(objInit.totalMinutes)
       this.duration = buildSessionDuration(objInit.totalMinutes)
       this.roomName = objInit.studyRoomName || '';
+      this.url = `/profile/${objInit.tutorId}/${this.name}`
    },
    StudyRoom:function(objInit){
      // this.online = objInit.online;

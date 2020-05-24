@@ -23,7 +23,7 @@
                   <div>
                      <v-btn
                         @click="$store.commit('setComponent', 'upload')"
-                        class="white--text mr-0 mr-sm-4 mb-4 mb-sm-0"
+                        class="white--text"
                         depressed
                         rounded
                         :block="$vuetify.breakpoint.xsOnly"
@@ -37,12 +37,11 @@
             <template v-slot:item.preview="{item}">
                   <img v-if="item.type === 'BuyPoints'" :src="item.image" class="tablePreview_img buyPointsLayoutPreview">
    
-                  <router-link v-else :to="dynamicRouter(item)" class="tablePreview">
+                  <router-link v-else :to="item.url" class="tablePreview">
                      <span v-if="item.online" class="tablePreview_online"></span>
-                     <img v-if="item.image || item.preview || item.type == 'Question' || 
-                     item.type == 'Answer'" width="80" height="80" :src="formatImg(item)" class="tablePreview_img" />
+                     <img v-if="item.image || item.preview || checkIsQuestion(item.type)" :src="formatImg(item)" class="tablePreview_img" width="80" height="80" />
                      
-                     <v-avatar v-else :tile="true" tag="v-avatar" :class="'tablePreview_img tablePreview_no_image userColor' + strToACII(item.name)" :style="{width: `80px`, height: `80px`, fontSize: `22px`}">
+                     <v-avatar v-else tile tag="v-avatar" :class="'tablePreview_img tablePreview_no_image userColor' + strToACII(item.name)" :style="{width: `80px`, height: `80px`, fontSize: `22px`}">
                         <span class="white--text">{{item.name.slice(0,2).toUpperCase()}}</span>
                      </v-avatar>
                   </router-link>
@@ -55,7 +54,7 @@
                         <span>{{$t('dashboardPage_info_buy_points')}}</span>
                      </div>
                   </template>
-                  <router-link v-else class="tableInfo_router" :to="dynamicRouter(item)">
+                  <router-link v-else class="tableInfo_router" :to="item.url">
                      <template v-if="item.type === 'TutoringSession'">
                         <div class="text-truncate">
                            <div v-if="item.roomName" class="text-truncate">
@@ -75,7 +74,7 @@
                            <span>{{item.name}}</span>
                         </div>
                      </template>
-                     <template v-if="item.type === 'Question' || item.type === 'Answer'">
+                     <template v-if="checkIsQuestion(item.type)">
                         <div class="text-truncate">
                            <span class="font-weight-bold" v-t="'dashboardPage_question'"></span>
                            <span class="text-truncate">{{item.text}}</span>
@@ -109,10 +108,10 @@
             <template v-slot:item.action="{item}">
                <v-menu bottom left v-model="showMenu" v-if="!checkIsQuestion(item.type)">
                   <template v-slot:activator="{ on }">
-                     <v-icon @click="currentItemIndex = indexItem(item.id)" v-on="on" slot="activator" small icon>{{$vuetify.icons.values.dotMenu}}</v-icon>
+                     <v-icon @click="currentItemIndex = item.itemId" v-on="on" slot="activator" small icon>{{$vuetify.icons.values.dotMenu}}</v-icon>
                   </template>
                
-                  <v-list v-if="indexItem(item.id) == currentItemIndex">
+                  <v-list v-if="item.itemId == currentItemIndex">
                      <v-list-item style="cursor:pointer;" @click="openChangeNameDialog(item)" v-t="'dashboardPage_rename'"></v-list-item>
                      <v-list-item style="cursor:pointer;" @click="openChangePriceDialog(item)" v-t="'resultNote_change_price'"></v-list-item>
                   </v-list>
@@ -184,7 +183,7 @@ export default {
       ...mapGetters(['getContentItems','accountUser']),
       contentItems(){
          // avoiding duplicate key becuase we have id that are the same,
-         // vuetify default key is "id", making new key "itemId" for index table items
+         // vuetify default key is "id", making new key "itemId" for unique index table items
          return this.getContentItems && this.getContentItems.map((item, index) => {
             return {
                itemId: index,
@@ -200,12 +199,14 @@ export default {
             price = Math.abs(price)
          }
          price = Math.round(+price).toLocaleString();
+         let currency;
          if(type === 'Document' || type === 'Video' ){
-            return `${price} ${this.$t('dashboardPage_pts')}`
+            currency = this.$t('dashboardPage_pts')
          }
          if(type === 'TutoringSession' || type === 'BuyPoints'){
-            return `${price} ${this.accountUser.currencySymbol}`
+            currency = this.accountUser.currencySymbol
          }
+         return `${price} ${currency}`
       },
       openChangeNameDialog(item){
          this.currentItem = item;
@@ -220,37 +221,17 @@ export default {
          this.isChangePriceDialog = false;
          this.currentItem = '';
       },
-      checkIsQuestion(prop){
-         return prop === 'Question' || prop === 'Answer';
-      },
-      indexItem(id) {
-         return this.contentItems.filter(i => i.id === id)[0]
+      checkIsQuestion(type){
+         return type === 'Question' || type === 'Answer';
       },
       formatImg(item){
          if(item.preview || item.image){
             return this.$proccessImageUrl(item.preview,80,80)
          }
-         if(item.type === 'Question' || item.type === 'Answer'){
+         if(this.checkIsQuestion(item.type)){
             return require('../global/images/qs.png') 
          }
-      },
-      dynamicRouter(item){
-         if(item.url){
-            return item.url;
-         }
-         if(item.type === 'Question' || item.type === 'Answer'){
-            return {path:'/question/'+item.id}
-         }
-         if(item.type === 'TutoringSession'){
-            return {name: 'profile',params: {id: item.id, name: item.name}}
-         }
-         if(item.conversationId){
-            return {name: 'profile',params: {id: item.userId, name: item.name}}
-         }
-         if(item.userId && !item.conversationId && !item.type){
-            return {name: 'profile',params: {id: item.userId, name: item.name}}
-         }
-      },
+      }
    },
    created() {
       this.$store.dispatch('updateContentItems')
@@ -260,6 +241,7 @@ export default {
 
 <style lang="less">
 @import "../../../../styles/mixin.less";
+@import "../../../../styles/colors.less";
 .pop-dashboard-container {
    background: #fff;
 }
@@ -267,24 +249,24 @@ export default {
    max-width: 1366px;
    .myContent_title{
       font-size: 22px;
-      color: #43425d;
+      color: @global-purple;
       font-weight: 600;
       padding: 30px;
       line-height: 1.3px;
    }
    .myContent_table{
-      thead{
-         tr{
+      thead {
+         tr {
             height: auto;
             th{
-               color: #43425d !important;
+               color: @global-purple !important;
                font-size: 14px;
                padding-top: 14px;
                padding-bottom: 14px;
                font-weight: normal;
             }
          }
-         color: #43425d !important;
+         color: @global-purple !important;
       }
       .tablePreview{
          line-height: 0;
@@ -347,20 +329,20 @@ export default {
          max-width: 400px;
          min-width: 300px;
          .tableInfo_router{
-            color: #43425d !important;
+            color: @global-purple !important;
             line-height: 1.6;
          }
       }
 
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
          transform: none /*rtl:rotate(180deg)*/;
-         color: #43425d !important;
+         color: @global-purple !important;
          height: inherit;
          font-size: 14px;
       }
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
          transform: none /*rtl:rotate(180deg)*/;
-         color: #43425d !important;
+         color: @global-purple !important;
          height: inherit;
          font-size: 14px;
       }
@@ -368,7 +350,7 @@ export default {
          padding: 6px 0;
          .v-data-footer__pagination {
             font-size: 14px;
-            color: #43425d;
+            color: @global-purple;
          }
       }
    }
