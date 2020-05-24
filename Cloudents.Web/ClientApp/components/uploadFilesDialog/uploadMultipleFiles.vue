@@ -147,7 +147,7 @@ export default {
         },
         closeUpload() {
             this.resetUploadData();
-            this.$closeDialog()
+            this.$store.commit('setComponent', '')
         },
         nextStep() {
             if (this.currentStep === this.steps) {

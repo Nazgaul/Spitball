@@ -11,6 +11,8 @@ const simpleErrorToaster = () => import('./simpleErrorToaster.vue')
 const pendingPayment = () => import('./pendingPayment.vue')
 const errorLinkToaster = () => import('./errorLinkToaster.vue')
 
+const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue')
+
 const studRoomSettings = () => import('../../../studyroom/tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue')
 const createStudyRoomDialog = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue')
 const teacherBillOfflineDialog = () => import('../dialogInjection/globalDialogs/teacherApproval/teacherBillOffline.vue');
@@ -21,6 +23,7 @@ export default {
         simpleErrorToaster,
         pendingPayment,
         errorLinkToaster,
+        upload,
         studRoomSettings,
         createStudyRoomDialog,
         teacherBillOfflineDialog
@@ -111,6 +114,9 @@ export default {
                     params: {
                         type: 'broadcast'
                     }
+                },
+                upload: {
+                    name: 'upload',
                 }
             }
         }

@@ -25,7 +25,7 @@ export default {
             this.$router.push({name: "addCourse"})
             return
           }
-          this.$openDialog(this.uploadDialog)
+          this.$store.commit('setComponent', 'upload')
       })
     }
   }
