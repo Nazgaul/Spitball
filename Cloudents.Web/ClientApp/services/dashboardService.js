@@ -26,7 +26,7 @@ function buildSessionDuration(totalMinutes) {
 const Item = {
    Default:function(objInit){
       this.type = objInit.type;
-      this.date = objInit.date;
+      this.date = objInit.date ? new Date(objInit.date) : '';
       this.course = objInit.course || '';
       this.id = objInit.id || objInit.questionId || objInit.tutorId || objInit.studentId;
    },
