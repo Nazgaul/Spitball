@@ -24,8 +24,8 @@ namespace Cloudents.FunctionsV2
     public static class SmsUnread
     {
         [FunctionName("SmsUnreadQuery")]
-        public static async Task SmsUnreadAsync([TimerTrigger("0 */10 * * * *")]TimerInfo myTimer,
-            [Blob("spitball/chat/unread.txt")]CloudBlockBlob blob,
+        public static async Task SmsUnreadAsync([TimerTrigger("0 */10 * * * *")] TimerInfo myTimer,
+            [Blob("spitball/chat/unread.txt")] CloudBlockBlob blob,
             [SendGrid(ApiKey = "SendgridKey")] IAsyncCollector<SendGridMessage> emailProvider,
             [Inject] IQueryBus queryBus,
             [Inject] ICommandBus commandBus,
@@ -39,9 +39,9 @@ namespace Cloudents.FunctionsV2
             {
                 version = new byte[8];
                 await blob.DownloadToByteArrayAsync(version, 0);
-                log.LogInformation($"processing version {BitConverter.ToString(version).Replace("-","")}");
+                log.LogInformation($"processing version {BitConverter.ToString(version).Replace("-", "")}");
             }
-            
+
             var query = new UserUnreadMessageQuery(version);
             var result = (await queryBus.QueryAsync(query, token)).ToList();
             var dataProtector = dataProtectProvider.CreateProtector("Spitball")
@@ -58,14 +58,14 @@ namespace Cloudents.FunctionsV2
                     if (unreadMessageDto.Country is null)
                     {
                         continue;
-                    
+
                     }
                     log.LogInformation($"processing {unreadMessageDto}");
                     CultureInfo.DefaultThreadCurrentCulture = unreadMessageDto.CultureInfo.ChangeCultureBaseOnCountry(unreadMessageDto.Country);
 
                     var code = dataProtector.Protect(unreadMessageDto.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(5));
                     var identifier = ShortId.Generate(true, false);
-                    var url = urlBuilder.BuildChatEndpoint(code, new { utm_source = "SMS-auto" });
+                    var url = urlBuilder.BuildChatEndpoint(code, unreadMessageDto.Identifier, new { utm_source = "SMS-auto" });
                     var command = new CreateShortUrlCommand(identifier, url.PathAndQuery, DateTime.UtcNow.AddDays(5));
                     await commandBus.DispatchAsync(command, token);
                     var urlShort = urlBuilder.BuildShortUrlEndpoint(identifier, unreadMessageDto.Country);

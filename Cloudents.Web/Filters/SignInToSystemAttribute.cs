@@ -71,10 +71,10 @@ namespace Cloudents.Web.Filters
                         {
                             case CommunicationChannel.None:
                                 break;
-                            case CommunicationChannel.Phone:
-                                user.PhoneNumberConfirmed = true;
+                            //case CommunicationChannel.Phone:
+                            //    user.PhoneNumberConfirmed = true;
 
-                                break;
+                            //    break;
                             case CommunicationChannel.Email:
                                 user.EmailConfirmed = true;
                                 break;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Email
 {
-    public class RequestTutorAdminEmailQuery : IQuery<IEnumerable<RequestTutorAdminEmailDto>>
+    public class RequestTutorAdminEmailQuery : IQuery<IEnumerable<RequestTutorAdminEmailDto>?>
     {
         public RequestTutorAdminEmailQuery(Guid leadId)
         {
@@ -16,7 +16,7 @@ namespace Cloudents.Query.Email
 
         private Guid LeadId { get; }
 
-        internal sealed class RequestTutorAdminEmailQueryHandler : IQueryHandler<RequestTutorAdminEmailQuery, IEnumerable<RequestTutorAdminEmailDto>>
+        internal sealed class RequestTutorAdminEmailQueryHandler : IQueryHandler<RequestTutorAdminEmailQuery, IEnumerable<RequestTutorAdminEmailDto>?>
         {
             private readonly IDapperRepository _dapper;
 
@@ -25,12 +25,14 @@ namespace Cloudents.Query.Email
                 _dapper = dapper;
             }
 
-            public async Task<IEnumerable<RequestTutorAdminEmailDto>> GetAsync(RequestTutorAdminEmailQuery query, CancellationToken token)
+            public async Task<IEnumerable<RequestTutorAdminEmailDto>?> GetAsync(RequestTutorAdminEmailQuery query, CancellationToken token)
             {
+                //TODO - nhiberante
                 const string sql = @"select l.CourseId as CourseName,
 	                                    ut.Name as TutorName,
 	                                    u.PhoneNumberHash as UserPhone,
-	                                    u.Id as UserId
+	                                    u.Id as UserId,
+                                    cr.Identifier
                                     from sb.[Lead] l
                                     join sb.ChatRoomAdmin cra
 	                                    on l.Id = cra.LeadId
@@ -43,7 +45,7 @@ namespace Cloudents.Query.Email
                                     join sb.[User] as ut
 	                                    on t.Id = ut.Id
                                     join sb.[user] u
-	                                    on l.UserId = u.Id and u.PhoneNumberConfirmed = 1 and u.Country = 'il'
+	                                    on l.UserId = u.Id  u.Country = 'il'
                                     where l.Id =  @LeadId";
                 using var conn = _dapper.OpenConnection();
                 var res = await conn.QueryAsync<RequestTutorAdminEmailDto>(sql, new
