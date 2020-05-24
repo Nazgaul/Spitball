@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Query.Email
 {
@@ -35,27 +36,28 @@ namespace Cloudents.Query.Email
             public async Task<IEnumerable<UpdateUserEmailDto>> GetAsync(GetUpdatesEmailUsersQuery query, CancellationToken token)
             {
 
-                const string sql = @"Select distinct u.Name as UserName,
+                const string sql = @"
+Select distinct u.Name as UserName,
 u.Email as ToEmailAddress,
 u.Language,
 u.Id as UserId 
 from sb.[user] u
-join sb.UsersCourses uc on u.id = uc.UserId
+join sb.UsersRelationship uc on u.id = uc.FollowerId
 join
- (Select d.CourseName  from sb.Document  d
+ (Select d.UserId  from sb.Document  d
 where state = 'Ok'
 and d.CreationTime > @Since
 union 
-Select q.CourseId as CourseName  from sb.question  q
+Select q.UserId   from sb.question  q
 where state = 'Ok'
 and q.Created > @Since
 ) t
-on  t.CourseName  = uc.CourseId
-where u.EmailConfirmed = 1
-and u.country = 'IL'
+on  t.UserId  = uc.UserId
+where u.SbCountry <> @Country
+--and u.EmailConfirmed = 1
 --Temp for now of emails
 and u.LastOnline > getUtcDate()-90
-order by id
+order by u.id
      OFFSET @pageSize * @PageNumber ROWS
                 FETCH NEXT @pageSize ROWS ONLY;";
 
@@ -63,6 +65,7 @@ order by id
                 return await conn.QueryAsync<UpdateUserEmailDto>(sql, new
                 {
                     query.Since,
+                    Country = Country.India,
                     PageSize = 100,
                     PageNumber = query.Page
                 });
