@@ -120,6 +120,15 @@
   <data name="conversations_empty_state" xml:space="preserve">
     <value>לא קיבלת הודעות עדיין</value>
   </data>
+  <data name="create" xml:space="preserve">
+    <value>יצירת צ'ט קבוצתי</value>
+  </data>
+  <data name="create_btn_txt" xml:space="preserve">
+    <value>יצירת צ'ט קבוצתי</value>
+  </data>
+  <data name="create_title" xml:space="preserve">
+    <value>יצירת צ'ט קבוצתי</value>
+  </data>
   <data name="emptyState_message1" xml:space="preserve">
     <value>היי, נעים מאוד שמי</value>
   </data>
@@ -140,6 +149,15 @@
   </data>
   <data name="photo" xml:space="preserve">
     <value>תמונה</value>
+  </data>
+  <data name="search_placeholder" xml:space="preserve">
+    <value>חיפוש</value>
+  </data>
+  <data name="show_all" xml:space="preserve">
+    <value>הצג הכל</value>
+  </data>
+  <data name="show_unread" xml:space="preserve">
+    <value>הודעות חדשות</value>
   </data>
   <data name="type_message" xml:space="preserve">
     <value>הקלד הודעה</value>
