@@ -5,6 +5,7 @@
             :items="contentItems"
             :items-per-page="5"
             :mobile-breakpoint="0"
+            :item-key="'itemId'"
             sort-by
             class="elevation-1 myContent_table"
             :footer-props="{
@@ -182,7 +183,14 @@ export default {
    computed: {
       ...mapGetters(['getContentItems','accountUser']),
       contentItems(){
-         return this.getContentItems
+         // avoiding duplicate key becuase we have id that are the same,
+         // vuetify default key is "id", making new key "itemId" for index table items
+         return this.getContentItems && this.getContentItems.map((item, index) => {
+            return {
+               itemId: index,
+               ...item
+            }
+         })
       }
    },
    methods: {
