@@ -9,14 +9,26 @@ namespace Cloudents.Web.Models
         [Required, FromRoute]
         public Guid SessionId { get; set; }
 
-        public long UserId { get; set; }
+       // public long UserId { get; set; }
 
         [Required]
         [Range(1, 1000)]
         public long DurationInMinutes { get; set; }
 
         [Required]
-        public decimal Price { get; set; }
+        public double Price { get; set; }
 
+    }
+
+
+    public class OfflinePaymentRequest
+    {
+        public long UserId { get; set; }
+        [Required]
+        [Range(1, 1000)]
+        public long DurationInMinutes { get; set; }
+
+        [Required]
+        public double Price { get; set; }
     }
 }

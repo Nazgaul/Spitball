@@ -4,7 +4,7 @@ namespace Cloudents.Command.Command.Admin
 {
     public class PaymentCommand : ICommand
     {
-        public PaymentCommand(long userId, long tutorId, decimal studentPay, decimal spitballPay,
+        public PaymentCommand(long userId, long tutorId, double studentPay, double spitballPay,
             Guid studyRoomSessionId,  TimeSpan adminDuration)
         {
             UserId = userId;
@@ -17,8 +17,8 @@ namespace Cloudents.Command.Command.Admin
 
         public long UserId { get; }
         public long TutorId { get; }
-        public decimal StudentPay { get; }
-        public decimal SpitballPay { get; }
+        public double StudentPay { get; }
+        public double SpitballPay { get; }
 
         public Guid StudyRoomSessionId { get; }
         

@@ -226,6 +226,12 @@
   <data name="my_sales_action_need_btn" xml:space="preserve">
     <value>קנה נקודות</value>
   </data>
+  <data name="my_sales_action_need_btn_tutor" xml:space="preserve">
+    <value>חייב את התלמיד/ה</value>
+  </data>
+  <data name="my_sales_action_need_tutor" xml:space="preserve">
+    <value>לימדת במקום אחר?</value>
+  </data>
   <data name="my_sales_action_redeem" xml:space="preserve">
     <value>יש לך {1} נק' למימוש</value>
   </data>

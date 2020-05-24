@@ -138,6 +138,9 @@
   <data name="minutes" xml:space="preserve">
     <value>דקות</value>
   </data>
+  <data name="select_student" xml:space="preserve">
+    <value>בחר סטודנט/ית</value>
+  </data>
   <data name="session_duration" xml:space="preserve">
     <value>משך השיעור:</value>
   </data>

@@ -12,7 +12,7 @@
         public string Coupon { get;  }
         public long UserId { get;  }
 
-        public decimal NewPrice { get; set; }
+        public double NewPrice { get; set; }
         public long TutorId { get;  }
     }
 }

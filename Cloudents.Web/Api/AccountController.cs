@@ -279,6 +279,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("followers")]
+        [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client)]
         public async Task<IEnumerable<FollowersDto>> GetFollowersAsync(
             CancellationToken token)
         {

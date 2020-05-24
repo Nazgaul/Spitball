@@ -46,7 +46,7 @@ namespace Cloudents.Query.Users
                         Course = s.Document.Course.Id,
                         Type =  (ContentType) s.Document.DocumentType,
                         Date = s.Created,
-                        Price = s.Price
+                        _price = s.Price
                     }).ToFuture<SaleDto>();
 
 
@@ -61,7 +61,7 @@ namespace Cloudents.Query.Users
                         Id = s.Question.Id,
                         Course = s.Question.Course.Id,
                         Date = s.Created,
-                        Price = s.Price,
+                        _price = s.Price,
                         Text = s.Question.Text,
                         AnswerText = s.Answer.Text
                     }).ToFuture<SaleDto>();
@@ -80,13 +80,9 @@ namespace Cloudents.Query.Users
                             s.Receipt != null ? PaymentStatus.Approved:
                             s.RealDuration != null ? PaymentStatus.PendingSystem :
                                 PaymentStatus.PendingTutor,
-                            //string.IsNullOrEmpty(s.Receipt) && s.RealDuration == null
-                            //? PaymentStatus.PendingTutor
-                            //: string.IsNullOrEmpty(s.Receipt)
-                            //    ? PaymentStatus.PendingSystem
-                            //    : PaymentStatus.Approved,
+                          
                         Date = s.Created,
-                        Price = s.Price ?? 0,
+                        _oldPrice = s.Price ?? 0,
                         StudentName = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Name)
                             .FirstOrDefault(),
                         Duration = s.RealDuration.GetValueOrDefault(s.Duration!.Value),
@@ -98,20 +94,20 @@ namespace Cloudents.Query.Users
 
 
                 var sessionFuture2 = _session.Query<StudyRoomSessionUser>()
+                    .Fetch(f=>f.StudyRoomPayment)
                     .Fetch(f => f.StudyRoomSession)
                     .ThenFetch(f => f.StudyRoom)
-                    .Fetch(f => f.User)
-                    .Where(w => w.StudyRoomSession.StudyRoom.Tutor.Id == query.Id && w.Duration > StudyRoomSession.BillableStudyRoomSession)
+                    .Where(w=>w.StudyRoomPayment.Tutor.Id == query.Id && w.Duration > StudyRoomSession.BillableStudyRoomSession)
                     .Select(s => new SessionSaleDto()
                     {
-                        SessionId = s.StudyRoomSession.Id,
-                        PaymentStatus = s.Receipt != null ? PaymentStatus.Approved :
-                            s.TutorApproveTime != null ? PaymentStatus.PendingSystem :
+                        SessionId = s.Id,
+                        PaymentStatus = s.StudyRoomPayment.Receipt != null ? PaymentStatus.Approved :
+                            s.StudyRoomPayment.TutorApproveTime != null ? PaymentStatus.PendingSystem :
                             PaymentStatus.PendingTutor,
                         Date = s.StudyRoomSession.Created,
-                        Price = s.TotalPrice,
+                        _price = s.StudyRoomPayment.TotalPrice,
                         StudentName = s.User.Name,
-                        Duration = s.TutorApproveTime ?? s.Duration!.Value,
+                        Duration = s.StudyRoomPayment.TutorApproveTime ?? s.Duration!.Value,
                         StudentImage = s.User.ImageName,
                         StudyRoomName = s.StudyRoomSession.StudyRoom.Name,
                         StudentId = s.User.Id
@@ -121,7 +117,7 @@ namespace Cloudents.Query.Users
                 var documentResult = await documentFuture.GetEnumerableAsync(token);
                 var questionResult = await questionFuture.GetEnumerableAsync(token);
                 var sessionResult = await sessionFuture.GetEnumerableAsync(token);
-                var sessionV2Result = sessionFuture2.GetEnumerable();
+                var sessionV2Result = await sessionFuture2.GetEnumerableAsync(token);
 
                 return documentResult
                     .Union(questionResult)
