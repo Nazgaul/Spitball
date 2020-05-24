@@ -127,5 +127,18 @@ namespace Cloudents.Core.Entities
             return Math.Max(result, 0);
         }
 
+        public static double CalculatePrice(CouponType type, double price, decimal couponValue)
+        {
+            var d = (double) couponValue;
+            var result = type switch
+            {
+                CouponType.Flat => (price - d),
+                CouponType.Percentage => (price * ((100 - d) / 100)),
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            return Math.Max(result, 0);
+        }
+
     }
 }

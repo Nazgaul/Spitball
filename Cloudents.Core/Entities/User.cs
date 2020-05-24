@@ -12,7 +12,7 @@ namespace Cloudents.Core.Entities
     public class User : BaseUser
     {
         public User(string email, string firstName, string lastName,
-            Language language, string country, Gender gender = Gender.None) : this()
+            Language language, string country, Gender gender = Gender.None)
         {
             Email = email;
             ChangeName(firstName, lastName);
@@ -23,6 +23,8 @@ namespace Cloudents.Core.Entities
             Country = country;
             SbCountry = Entities.Country.FromCountry(country);
             Gender = gender;
+            UserLogins = new List<UserLogin>();
+            Transactions = new UserTransactions();
         }
 
 
@@ -31,9 +33,6 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]
         protected User()
         {
-            UserLogins = new List<UserLogin>();
-            Transactions ??= new UserTransactions();
-
         }
 
         public virtual string? PhoneNumber { get; set; }
@@ -126,10 +125,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
             Country = country;
-
             SbCountry = Entities.Country.FromCountry(country);
-
-
             AddEvent(new ChangeCountryEvent(Id));
         }
 
@@ -143,6 +139,7 @@ namespace Cloudents.Core.Entities
                     throw new UnauthorizedAccessException("Cannot change country of tutor with subscription");
                 }
             }
+            PaymentExists = PaymentStatus.None;
             ChangeCountry(country);
             ChangeLanguage(Entities.Language.English);
 
@@ -190,7 +187,7 @@ namespace Cloudents.Core.Entities
 
 
         public virtual DateTime? LastOnline { get; protected set; }
-        public virtual bool Online { get; protected set; }
+        public virtual bool? Online { get; protected set; }
 
         public virtual UserTransactions Transactions { get; protected set; }
 
@@ -298,13 +295,13 @@ namespace Cloudents.Core.Entities
             CoverImage = image;
         }
 
-        public override string ToString()
-        {
-            return $"{nameof(Id)}: {Id}, " +
-                   $"{nameof(EmailConfirmed)}: {EmailConfirmed}," +
-                   $" {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}" +
-                   $" {nameof(SbCountry)}: {SbCountry}";
-        }
+        //public override string ToString()
+        //{
+        //    return $"{nameof(Id)}: {Id}, " +
+        //           $"{nameof(EmailConfirmed)}: {EmailConfirmed}," +
+        //           $" {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}" +
+        //           $" {nameof(SbCountry)}: {SbCountry}";
+        //}
 
         public override void MakeTransaction(Transaction transaction)
         {
@@ -393,7 +390,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void CashOutMoney(/*decimal price*/)
         {
-            var t = new CashOutTransaction();
+            var t = CashOutTransaction.CashOut();
             MakeTransaction(t);
         }
 

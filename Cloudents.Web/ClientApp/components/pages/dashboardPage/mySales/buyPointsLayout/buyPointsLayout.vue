@@ -5,9 +5,13 @@
             <img class="buyPointsLayout_img" src="./image/cardBuyPoints.jpg" alt="">
          </v-flex>
          <v-flex class="buyPointsLayout_action" text-center>
-            <p class="buyPointsLayout_title" v-language:inner="'dashboardPage_my_sales_action_need'"/>
-            <v-btn @click="openSblToken" class="buyPointsLayout_btn white--text" depressed color="#4c59ff">
-               <span v-language:inner="'dashboardPage_my_sales_action_need_btn'"/>
+            <p class="buyPointsLayout_title">
+               {{$t(isTeacher?'dashboardPage_my_sales_action_need_tutor':'dashboardPage_my_sales_action_need')}}
+            </p>
+            <v-btn @click="isTeacher? openBillStudents() : openSblToken()" class="buyPointsLayout_btn white--text" depressed color="#4c59ff">
+               <span>
+                  {{$t(isTeacher? 'dashboardPage_my_sales_action_need_btn_tutor': 'dashboardPage_my_sales_action_need_btn')}}
+               </span>
             </v-btn>
          </v-flex>
       </v-layout>
@@ -19,11 +23,19 @@ import analyticsService from '../../../../../services/analytics.service';
 import * as dialogNames from '../../../global/dialogInjection/dialogNames.js'; 
 export default {
    name:"buyPointsLayout",
+   computed: {
+      isTeacher(){
+         return this.$store.getters.getIsTeacher;
+      }
+   },
    methods: {
       openSblToken(){
          analyticsService.sb_unitedEvent("BUY_POINTS", "ENTER");
          this.$openDialog(dialogNames.BuyPoints)
       },   
+      openBillStudents(){
+         this.$store.commit('setComponent', 'teacherBillOfflineDialog')
+      }   
    },
 }
 </script>

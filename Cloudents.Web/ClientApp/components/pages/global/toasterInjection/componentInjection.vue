@@ -13,7 +13,7 @@ const errorLinkToaster = () => import('./errorLinkToaster.vue')
 
 const studRoomSettings = () => import('../../../studyroom/tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue')
 const createStudyRoomDialog = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue')
-
+const teacherBillOfflineDialog = () => import('../dialogInjection/globalDialogs/teacherApproval/teacherBillOffline.vue');
 export default {
     components: {
         auth,
@@ -23,11 +23,15 @@ export default {
         errorLinkToaster,
         studRoomSettings,
         createStudyRoomDialog,
+        teacherBillOfflineDialog
     },
     data() {
         return {
             component: '',
             componentObj: {
+                teacherBillOfflineDialog:{
+                    name:'teacherBillOfflineDialog'
+                },
                 linkToaster: {
                     name: "pendingPayment",
                 },

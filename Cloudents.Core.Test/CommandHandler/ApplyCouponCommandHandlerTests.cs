@@ -85,7 +85,7 @@ namespace Cloudents.Core.Test.CommandHandler
         [Theory]
         [InlineData(100, 2, 98)]
         [InlineData(2, 50, 0)]
-        public async Task ExecuteAsync_FlatCalculation_Ok(decimal price, decimal discount, decimal total)
+        public async Task ExecuteAsync_FlatCalculation_Ok(decimal price, decimal discount, double total)
         {
 
             const string someCoupon = "xxxxxx";
@@ -116,7 +116,7 @@ namespace Cloudents.Core.Test.CommandHandler
         [InlineData(100, 2, 98)]
         [InlineData(2, 50, 1)]
         [InlineData(2, 100, 0)]
-        public async Task ExecuteAsync_PercentageCalculation_Ok(decimal price, decimal discount, decimal total)
+        public async Task ExecuteAsync_PercentageCalculation_Ok(decimal price, decimal discount, double total)
         {
 
             const string someCoupon = "xxxxxx";

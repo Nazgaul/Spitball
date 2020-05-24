@@ -36,7 +36,7 @@ namespace Cloudents.Infrastructure.Payments
             return await GenerateSaleAsync(token, generateSale);
         }
 
-        public async Task<string> ChargeSessionAsync(Tutor tutor, User user, decimal price, CancellationToken token)
+        public async Task<string> ChargeSessionAsync(Tutor tutor, User user, double price, CancellationToken token)
         {
             var sellerKey = tutor.SellerKey ?? throw new ArgumentNullException(nameof(tutor.SellerKey),"tutor seller key is empty");
             var buyerKey = user.Payment?.PaymentKey ?? throw new ArgumentNullException(nameof(PaymePayment.PaymentKey),"buyer key is empty");
@@ -46,7 +46,7 @@ namespace Cloudents.Infrastructure.Payments
 
         }
 
-        public async Task<string> ChargeSessionBySpitballAsync(Tutor tutor, decimal price, CancellationToken token)
+        public async Task<string> ChargeSessionBySpitballAsync(Tutor tutor, double price, CancellationToken token)
         {
             var sellerKey = tutor.SellerKey!;
             var spitballKey = _credentials.BuyerKey;
@@ -55,7 +55,7 @@ namespace Cloudents.Infrastructure.Payments
 
         }
 
-        private async Task<GenerateSaleResponse> TransferPaymentAsync(string sellerKey, string buyerKey, decimal price, CancellationToken token)
+        private async Task<GenerateSaleResponse> TransferPaymentAsync(string sellerKey, string buyerKey, double price, CancellationToken token)
         {
             var generateSale = GenerateSale.TransferMoney(sellerKey, buyerKey, price);
 
@@ -100,7 +100,7 @@ namespace Cloudents.Infrastructure.Payments
 
         private class GenerateSale
         {
-            public static GenerateSale TransferMoney(string sellerId, string buyerId, decimal price)
+            public static GenerateSale TransferMoney(string sellerId, string buyerId, double price)
             {
                 return new GenerateSale()
                 {

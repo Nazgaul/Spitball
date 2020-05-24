@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Cloudents.Core.Enum;
 
 //[assembly: InternalsVisibleTo("Cloudents.Persistance")]
 namespace Cloudents.Core.Entities
@@ -11,7 +10,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
     public class ChatRoom : Entity<Guid>, IAggregateRoot
     {
-        [SuppressMessage("ReSharper", "CS8618")]
+        [SuppressMessage("ReSharper", "CS8618", Justification = "Proxy")]
         [SuppressMessage("Code Quality", "CA8618")]
         protected ChatRoom()
         {
@@ -63,6 +62,7 @@ namespace Cloudents.Core.Entities
         public virtual ICollection<ChatMessage> Messages { get; protected set; }
 
         public virtual string Identifier { get; protected set; }
+
         public virtual ChatRoomAdmin Extra { get; set; }
 
         public virtual void AddTextMessage(User user, string message)

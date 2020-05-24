@@ -63,6 +63,8 @@ const state = {
    roomProps: null,
    roomParticipants:{},
    audioVideoDialog:false,
+   studyRoomDrawerState:true,
+   studyRoomFooterState:true,
 }
 
 const mutations = {
@@ -125,7 +127,8 @@ const mutations = {
    [studyRoom_SETTERS.ADD_ROOM_PARTICIPANT_TRACK]: (state, track) => {
       if(track.attach){
          let participantId = _getIdFromIdentity(track.identity);
-         if(track.name == 'screenTrack'){
+         let isParticipantTutor = (participantId == state.roomTutor.tutorId)
+         if(track.name == 'screenTrack' && isParticipantTutor){
             state.roomParticipants[participantId].screen = track;
          }else{
             state.roomParticipants[participantId][track.kind] = track;
@@ -135,7 +138,8 @@ const mutations = {
    },
    [studyRoom_SETTERS.DELETE_ROOM_PARTICIPANT_TRACK]: (state, track) => {
       let participantId = _getIdFromIdentity(track.identity);
-      if(track.name == 'screenTrack'){
+      let isParticipantTutor = (participantId == state.roomTutor.tutorId);
+      if(track.name == 'screenTrack' && isParticipantTutor){
          state.roomParticipants[participantId].screen = undefined;
       }else{
          state.roomParticipants[participantId][track.kind] = undefined;
@@ -144,7 +148,13 @@ const mutations = {
    },
    toggleAudioVideoDialog(state,val){
       state.audioVideoDialog = val;
-   }
+   },
+   setStudyRoomDrawer(state,val){
+      state.studyRoomDrawerState = val;
+   },
+   setStudyRoomFooterState(state,val){
+      state.studyRoomFooterState = val;
+   },
 }
 const getters = {
    getActiveNavEditor: state => state.activeNavEditor,
@@ -179,6 +189,8 @@ const getters = {
       }
    },
    getAudioVideoDialog:state => state.audioVideoDialog, 
+   getStudyRoomDrawerState:state => state.studyRoomDrawerState, 
+   getStudyRoomFooterState:state => state.studyRoomFooterState, 
 }
 const actions = {
    updateToggleTutorFullScreen({dispatch,commit},val){

@@ -14,4 +14,6 @@ namespace Cloudents.Web.Models
         public float Rate { get; set; }
 
     }
+
+   
 }
