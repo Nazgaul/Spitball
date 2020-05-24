@@ -77,7 +77,8 @@ namespace Cloudents.Persistence.Maps
                 .Cascade.AllDeleteOrphan()
                 .KeyColumn("UserId").Inverse();
 
-            HasOne(x => x.Tutor).Cascade.None().LazyLoad(Laziness.NoProxy);
+            //On sms api - we got  No persister for: UserProxyForFieldInterceptor if we put no Proxy on lazy type
+            HasOne(x => x.Tutor).Cascade.None()/*.LazyLoad(Laziness.NoProxy)*/;
 
             HasMany(x => x.UserCoupon).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan()
