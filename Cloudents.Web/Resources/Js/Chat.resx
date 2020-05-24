@@ -171,6 +171,9 @@
   <data name="invite" xml:space="preserve">
     <value>Invite students</value>
   </data>
+  <data name="participants" xml:space="preserve">
+    <value>Participants</value>
+  </data>
   <data name="teacher_btn_book" xml:space="preserve">
     <value>Book a session with me</value>
   </data>

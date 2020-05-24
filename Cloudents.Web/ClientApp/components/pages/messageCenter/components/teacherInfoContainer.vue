@@ -3,10 +3,20 @@
       <div class="teacherInfoHeader pl-4 d-flex flex-grow-0 flex-shrink-0 align-center ">
          <span v-t="'chat_teacher_info'"/>
       </div>
-      <div class="teacherInfoContent px-5">
-         <div class="teacherAvatar">
+      <div class="teacherInfoContent px-5 py-3">
+         <div class="teacherAvatar text-center">
             <user-avatar class="pt-2" :size="'107'" :userImageUrl="teacherAvatar" :user-name="teacherName"/>
             <div class="teacherAvatarName text-center pt-2" v-t="{path:'chat_teacher_name',args:{0:teacherName}}"/>
+            <template v-if="isPrivetChat">
+               <div class="teacherTeach pt-2">I teach : Math, Precalculus, Trigonometry and 7 more subjects. </div>
+            <!-- <div  class="user-rank align-center">
+              <v-rating  v-model="tutorData.rating" color="#ffca54" background-color="#ffca54"
+                                      :length="isReviews  ? 5 : 1"
+                                          :size="18" readonly />
+              <span :class="{'reviews': isReviews,'no-reviews font-weight-bold': !isReviews}">{{$tc('resultTutor_review_one',tutorData.reviews)}}</span>
+              
+            </div> -->
+            </template>
          </div>
          <div class="actionBoxs pt-4">
             <div class="actionBox mb-3">
@@ -27,7 +37,7 @@
             </div>
          </div>
 
-         <div class="participantList">
+         <div class="participantList" v-if="!isPrivetChat">
             <div class="listHeader px-4 d-flex justify-space-between align-center flex-grow-0 flex-shrink-0">
                <span class="participantsTitle" v-t="'chat_participants'"/>
                <span>
@@ -35,22 +45,20 @@
                   {{chatCounter}}
                </span>
             </div>
-            <div class="list">
-               <v-list>
-                  <template v-for="(item, index) in chatCounter">
-                     <v-divider :key="index+'_'"
-                        v-if="index > 0"
-                        class="px-5"
-                     ></v-divider>
-                     <v-list-item :key="index">
-                        <div class="d-flex align-center">
-                           <user-avatar class="mr-4" :size="'32'" :userImageUrl="teacherAvatar" :user-name="teacherName"/>
-                           <span class="listUserTitle">{{teacherName}}</span>
-                        </div>
-                     </v-list-item>
-                  </template>
-               </v-list>
-            </div>
+            <v-list class="list flex-grow-1">
+               <template v-for="(item, index) in chatCounter">
+                  <v-divider :key="index+'_'"
+                     v-if="index > 0"
+                     class="dividerList"
+                  ></v-divider>
+                  <v-list-item :key="index">
+                     <div class="d-flex align-center">
+                        <user-avatar class="mr-4" :size="'32'" :userImageUrl="teacherAvatar" :user-name="teacherName"/>
+                        <span class="listUserTitle">{{teacherName}}</span>
+                     </div>
+                  </v-list-item>
+               </template>
+            </v-list>
          </div>
       </div>
    </v-flex>
@@ -61,6 +69,9 @@ import { mapGetters } from 'vuex'
 export default {
    computed: {
       ...mapGetters(['accountUser','getActiveConversationObj']),
+      isPrivetChat(){
+         return this.chatCounter <= 2
+      },
       teacherAvatar(){
          return this.accountUser?.image;
       },
@@ -84,6 +95,7 @@ export default {
       @headerHeight: 60px;
    }
    height: 100%;
+
    .teacherInfoHeader{
       max-width: 100%;
       height: @headerHeight;
@@ -98,12 +110,19 @@ export default {
       }
    }
    .teacherInfoContent{
+      max-width: 320px;
+      height: calc(~"100% - 62px");
+      overflow-y: auto;
       .teacherAvatar{
+         color: #43425d;
+         font-weight: 600;
+
          .teacherAvatarName{
             font-size: 16px;
-            font-weight: 600;
-            color: #43425d;
             text-transform: capitalize;
+         }
+         .teacherTeach{
+            font-size: 14px;
          }
       }
       .actionBoxs{
@@ -139,7 +158,11 @@ export default {
             }
          }
          .list{
-            overflow-y: scroll;
+            overflow-y: auto;
+            .dividerList{
+               margin: 0 auto;
+               width: calc(~"100% - 40px");
+            }
             .listUserTitle{
                font-size: 14px;
                font-weight: 600;

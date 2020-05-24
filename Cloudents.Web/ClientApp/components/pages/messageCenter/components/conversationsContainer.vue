@@ -1,5 +1,5 @@
 <template>
-   <v-flex xs12 sm6 md4 class="conversationsContainer">
+   <v-flex xs12 sm6 md4 lg3 class="conversationsContainer">
       <div class="conversationsHeader d-flex align-center flex-grow-0 flex-shrink-0">
          <span class="cHeaderTitle">
             <v-icon class="mr-2" size="20">sbf-message-icon</v-icon>
