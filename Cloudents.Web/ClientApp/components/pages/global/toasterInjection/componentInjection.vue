@@ -30,7 +30,7 @@ export default {
     },
     data() {
         return {
-            component: '',
+            component: {},
             componentObj: {
                 teacherBillOfflineDialog:{
                     name:'teacherBillOfflineDialog'
@@ -126,7 +126,7 @@ export default {
     },
     methods: {
         showComponent(componentName = "") {
-            let componentInject = this.componentObj[componentName] || {component: '', params: ''};
+            let componentInject = this.componentObj[componentName] || {name: '', params: ''};
             this.component = componentInject;
         }
     }
