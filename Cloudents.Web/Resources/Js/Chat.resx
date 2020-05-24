@@ -171,4 +171,22 @@
   <data name="invite" xml:space="preserve">
     <value>Invite students</value>
   </data>
+  <data name="teacher_btn_book" xml:space="preserve">
+    <value>Book a session with me</value>
+  </data>
+  <data name="teacher_btn_mail" xml:space="preserve">
+    <value>Send me an email</value>
+  </data>
+  <data name="teacher_btn_studyroom" xml:space="preserve">
+    <value>Go to study room</value>
+  </data>
+  <data name="teacher_btn_whatsapp" xml:space="preserve">
+    <value>Send me a WhatsApp</value>
+  </data>
+  <data name="teacher_info" xml:space="preserve">
+    <value>Teacher info</value>
+  </data>
+  <data name="teacher_name" xml:space="preserve">
+    <value>Hi, I’m {0}</value>
+  </data>
 </root>

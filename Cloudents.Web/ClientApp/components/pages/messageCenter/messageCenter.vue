@@ -3,6 +3,7 @@
      <div class="messageCenter2 d-flex">
          <conversationsContainer style="z-index:2" v-if="showConversationsList"/>
          <currentConversationContainer style="z-index:2" v-if="showCurrentConversation"/>
+         <teacherInfoContainer style="z-index:2"/>
      </div>
   </div>
 </template>
@@ -12,11 +13,12 @@ import { mapGetters } from 'vuex';
 import chatService from '../../../services/chatService.js'
 const conversationsContainer = () => import('./components/conversationsContainer.vue');
 const currentConversationContainer = () => import('./components/currentConversationContainer.vue');
-
+const teacherInfoContainer = () => import('./components/teacherInfoContainer.vue');
 export default {
    components:{
       conversationsContainer,
-      currentConversationContainer
+      currentConversationContainer,
+      teacherInfoContainer
    },
    computed: {
       ...mapGetters(['getConversations']),

@@ -1,5 +1,5 @@
 <template>
-   <v-flex xs12 sm6 md8 class="currentConversationContainer">
+   <v-flex xs12 sm6 md5 class="currentConversationContainer">
       <div class="cMessagesHeader d-flex flex-grow-0 flex-shrink-0 align-center ">
          <v-icon @click="backToChatList" class="ml-4 d-flex d-sm-none" size="16" color="#ffffff">sbf-arrow-left-carousel</v-icon>
          <user-avatar class="ml-4" :size="'40'" :userImageUrl="currentAvatar" :user-name="currentConversationObj.name"/>
