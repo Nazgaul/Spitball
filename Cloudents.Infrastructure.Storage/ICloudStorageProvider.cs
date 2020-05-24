@@ -6,6 +6,6 @@ namespace Cloudents.Infrastructure.Storage
     public interface ICloudStorageProvider
     {
         CloudBlobClient GetBlobClient();
-        CloudQueueClient GetQueueClient();
+       // CloudQueueClient GetQueueClient();
     }
 }

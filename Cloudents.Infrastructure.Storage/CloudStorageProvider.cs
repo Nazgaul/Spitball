@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAzure.Storage;
+﻿using Azure.Storage.Queues;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
@@ -32,14 +33,10 @@ namespace Cloudents.Infrastructure.Storage
         private CloudBlobClient GetCloudBlobClient()
         {
             var blobClient = CloudStorage.CreateCloudBlobClient();
+            
             //var att = container.GetType().GetField(container.ToString()).GetCustomAttribute<StorageAttribute>();
             //var con = blobClient.GetContainerReference(att.Name.ToLowerInvariant());
             return blobClient;
-        }
-
-        public CloudQueueClient GetQueueClient()
-        {
-            return CloudStorage.CreateCloudQueueClient();
         }
 
         public StorageCredentials GetCredentials()

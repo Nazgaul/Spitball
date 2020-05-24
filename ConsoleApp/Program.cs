@@ -310,11 +310,11 @@ namespace ConsoleApp
 
         private static async Task ResetVideo()
         {
-            var bus = Container.Resolve<ICloudStorageProvider>();
+            var queueClient = Container.Resolve<QueueProvider>();
             var d = Container.Resolve<DapperRepository>();
             IEnumerable<long> ids; // 49538
             var mediaServices = Container.Resolve<MediaServices>();
-            var queueClient = bus.GetQueueClient();
+            //var queueClient = bus.GetQueueClient();
             using (var con = d.OpenConnection())
             {
                 var sql = "Select id from sb.document where documenttype = 'video' and id = 49704";
@@ -327,8 +327,8 @@ namespace ConsoleApp
                 await mediaServices.DeleteAssetAsync(id, AssetType.Thumbnail, CancellationToken.None);
                 await mediaServices.DeleteAssetAsync(id, AssetType.Short, CancellationToken.None);
                 await mediaServices.DeleteAssetAsync(id, AssetType.Long, CancellationToken.None);
-                var queue = queueClient.GetQueueReference("generate-blob-preview");
-                await queue.AddMessageAsync(new CloudQueueMessage(id.ToString()), null, TimeSpan.FromSeconds(30), null, null);
+                await queueClient.InsertBlobReprocessAsync(id);
+                //await queue.AddMessageAsync(new CloudQueueMessage(id.ToString()), null, TimeSpan.FromSeconds(30), null, null);
             }
         }
 
@@ -368,7 +368,9 @@ namespace ConsoleApp
 
             var bus = Container.Resolve<ICloudStorageProvider>();
             var blobClient = bus.GetBlobClient();
-            var queueClient = bus.GetQueueClient();
+
+            var queueClient = Container.Resolve<QueueProvider>();
+            //var queueClient = bus.GetQueueClient();
 
 
             var container = blobClient.GetContainerReference("spitball-files");
@@ -406,9 +408,7 @@ namespace ConsoleApp
 
                             await fileItem.RenameBlobAsync(name);
 
-                            var queue = queueClient.GetQueueReference("generate-blob-preview");
-                            var msg = new CloudQueueMessage(id.ToString());
-                            await queue.AddMessageAsync(msg);
+                            await queueClient.InsertBlobReprocessAsync(id);
                             Console.WriteLine("Processing regular " + id);
                         }
                     }
