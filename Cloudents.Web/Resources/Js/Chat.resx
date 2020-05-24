@@ -157,7 +157,7 @@
     <value>Show All</value>
   </data>
   <data name="show_unread" xml:space="preserve">
-    <value>unRead</value>
+    <value>Unread</value>
   </data>
   <data name="create_already" xml:space="preserve">
     <value>This group already exists</value>
