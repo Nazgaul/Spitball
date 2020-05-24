@@ -13,7 +13,7 @@
     <PackageReference Include="Autofac.Extras.Moq" Version="4.3.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="NHibernate" Version="5.2.7" />
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.112" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.112.2" />
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.analyzers" Version="0.10.0" />

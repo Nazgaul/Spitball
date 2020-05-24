@@ -133,11 +133,11 @@ namespace Cloudents.Infrastructure.Storage
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(blockId));
         }
 
-        public Task<bool> ExistsAsync(string blobName, CancellationToken token)
-        {
-            var blob = GetBlob(blobName);
-            return blob.ExistsAsync();
-        }
+        //public Task<bool> ExistsAsync(string blobName, CancellationToken token)
+        //{
+        //    var blob = GetBlob(blobName);
+        //    return blob.ExistsAsync();
+        //}
 
         public async Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token)
         {
@@ -199,13 +199,13 @@ namespace Cloudents.Infrastructure.Storage
             await Task.WhenAll(l);
         }
 
-        public async Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token)
-        {
-            var destinationDirectory = BlobDirectory.GetDirectoryReference(directory);
-            var result = await destinationDirectory.ListBlobsSegmentedAsync(true, BlobListingDetails.None,
-                1000, null, null, null, token);
-            return result.Results.Select(s => s.Uri);
-        }
+        //public async Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token)
+        //{
+        //    var destinationDirectory = BlobDirectory.GetDirectoryReference(directory);
+        //    var result = await destinationDirectory.ListBlobsSegmentedAsync(true, BlobListingDetails.None,
+        //        1000, null, null, null, token);
+        //    return result.Results.Select(s => s.Uri);
+        //}
 
         public async Task<IEnumerable<Uri>> FilesInContainerAsync(CancellationToken token)
         {
