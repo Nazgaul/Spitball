@@ -24,6 +24,7 @@ namespace Cloudents.Core.Test.Entities
             var chatRoom = new ChatRoom(users);
             chatRoom.AddTextMessage(users[0], "Hi Man");
             var resultExpected = chatRoom.Users.Any(a => a.Unread > 0);
+            chatRoom.Messages.Count.Should().Be(1);
             resultExpected.Should().BeTrue();
         }
 
@@ -53,6 +54,7 @@ namespace Cloudents.Core.Test.Entities
 
             chatRoom.AddTextMessage(users[0], "Hi Man");
             var resultExpected = chatRoom.Users.All(a => a.Unread == 0);
+            chatRoom.Messages.Count.Should().Be(1);
             resultExpected.Should().BeTrue();
         }
     }
