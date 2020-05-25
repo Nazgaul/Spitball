@@ -44,12 +44,6 @@ namespace Cloudents.Infrastructure
             {
                 return null;
             }
-
-            //if (ipDto.Latitude == null && ipDto.Longitude == null)
-            //{
-            //    return null;
-            //}
-            //var address = new Address(ipDto.City, ipDto.RegionCode, ipDto.CountryCode);
             return new Location(ipDto.CountryCode, ipDto.Location?.CallingCode);
         }
 

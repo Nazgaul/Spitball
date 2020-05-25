@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.General
 {
-    public class CountryByIpQuery : IQuery<string>
+    public class CountryByIpQuery : IQuery<string?>
     {
         public CountryByIpQuery(string ip)
         {
@@ -17,7 +17,7 @@ namespace Cloudents.Query.General
 
         private string Ip { get; }
 
-        internal sealed class CountryByIpQueryQueryHandler : IQueryHandler<CountryByIpQuery, string>
+        internal sealed class CountryByIpQueryQueryHandler : IQueryHandler<CountryByIpQuery, string?>
         {
             private readonly IStatelessSession _session;
 
@@ -26,15 +26,24 @@ namespace Cloudents.Query.General
                 _session = session.StatelessSession;
             }
 
-            public async Task<string> GetAsync(CountryByIpQuery query, CancellationToken token)
+            public async Task<string?> GetAsync(CountryByIpQuery query, CancellationToken token)
             {
 
-                return await _session.Query<UserLocation>()
-                    .WithOptions(w => w.SetComment(nameof(CountryByIpQuery)))
-                    .Fetch(f => f.User)
-                    .Where(w => w.Ip == query.Ip && w.TimeStamp.CreationTime > DateTime.UtcNow.AddDays(-15))
-                    .Select(s => s.Country)
-                    .FirstOrDefaultAsync(token);
+                using var c = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+                using var source = CancellationTokenSource.CreateLinkedTokenSource(token, c.Token);
+                try
+                {
+                    return await _session.Query<UserLocation>()
+                        .WithOptions(w => w.SetComment(nameof(CountryByIpQuery)))
+                        .Fetch(f => f.User)
+                        .Where(w => w.Ip == query.Ip && w.TimeStamp.CreationTime > DateTime.UtcNow.AddDays(-30))
+                        .Select(s => s.Country)
+                        .FirstOrDefaultAsync(source.Token);
+                }
+                catch (OperationCanceledException)
+                {
+                    return null;
+                }
             }
         }
     }
