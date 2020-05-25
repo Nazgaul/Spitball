@@ -152,6 +152,7 @@ export default {
          .createBtn{
             font-size: 14px;
             font-weight: 600;
+            text-transform: initial;
          }
 
       }
