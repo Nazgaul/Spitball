@@ -24,13 +24,14 @@ namespace Cloudents.Persistence.Repositories
             return GetChatRoomAsync(identifier, token);
         }
 
-        public async Task<ChatRoom> GetOrAddChatRoomAsync(IList<long> userIds, CancellationToken token)
+        public async Task<ChatRoom> GetOrAddChatRoomAsync(IEnumerable<long> userIds, CancellationToken token)
         {
-            var identifier = ChatRoom.BuildChatRoomIdentifier(userIds);
+            var userIdsLists = userIds.ToList();
+            var identifier = ChatRoom.BuildChatRoomIdentifier(userIdsLists);
             var chatRoom = await GetChatRoomAsync(identifier, token);
             if (chatRoom == null)
             {
-                var users = userIds.Select(s => Session.Load<User>(s)).ToList();
+                var users = userIdsLists.Select(s => Session.Load<User>(s)).ToList();
                 chatRoom = new ChatRoom(users);
                 await AddAsync(chatRoom, token);
             }
