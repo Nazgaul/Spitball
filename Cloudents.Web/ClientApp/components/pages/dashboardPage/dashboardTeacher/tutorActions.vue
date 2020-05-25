@@ -27,7 +27,7 @@
                     <circleArrow width="23" :stroke="action.color || 'blue'" />
                     <div class="ml-4">{{action.text}}</div>
                 </div>
-                <v-btn class="btn" rounded outlined depressed color="#4c59ff" width="120">book</v-btn>
+                <v-btn class="btn" rounded outlined depressed color="#4c59ff" width="120" :to="action.routeName" v-t="'dashboardTeacher_btn_text'"></v-btn>
             </div>
         </div>
 
@@ -45,6 +45,11 @@ export default {
     components: {
         analyticOverview,
         circleArrow
+    },
+    data() {
+        return {
+            
+        }
     },
     computed: {
         tutorActions() {
