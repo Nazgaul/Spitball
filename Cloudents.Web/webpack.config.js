@@ -142,7 +142,7 @@ module.exports = (env) => {
                     test: /\.s[ac]ss$/i,
                     include: path.resolve(__dirname, "./node_modules/vuetify/src/"),
                     use:
-                        isDevBuild ? ["vue-style-loader", "rtl-css-loader",
+                        isDevBuild ? ["vue-style-loader",  "css-loader",
                             {
                                 loader: "sass-loader",
                                 options: {
@@ -186,14 +186,15 @@ module.exports = (env) => {
                         isDevBuild ? [
 
                             {loader: "vue-style-loader"},
-                            {
-                                loader: "postcss-loader",
-                                options: {
-                                    plugins: function () {
-                                      //  return [ postcssRtl ]
-                                      }
-                                    //exec:true
-                                }
+                            {loader: "rtl-css-loader"
+
+                                // loader: "postcss-loader",
+                                // options: {
+                                //     plugins: function () {
+                                //         return [ postcssRtl ]
+                                //       }
+                                //     //exec:true
+                                // }
                             },
                             {loader: "less-loader"}
                             ]
