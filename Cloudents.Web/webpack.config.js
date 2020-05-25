@@ -1,9 +1,9 @@
 ﻿const path = require("path");
 const webpack = require("webpack");
 const bundleOutputDir = "./wwwroot/dist";
-const MiniCssExtractPluginRtl = require("@automattic/mini-css-extract-plugin-with-rtl");
+const MiniCssExtractPluginRtl = require("mini-css-extract-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const webpackRtlPlugin = require("webpack-rtl-plugin");
+//const webpackRtlPlugin = require("webpack-rtl-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 //const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const TerserPlugin = require("terser-webpack-plugin");
@@ -11,6 +11,7 @@ const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin");
 var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const { RetryChunkLoadPlugin } = require('webpack-retry-chunk-load-plugin');
 const UnusedWebpackPlugin = require('unused-webpack-plugin');
+const postcssRtl = require('postcss-rtl')
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
@@ -182,7 +183,20 @@ module.exports = (env) => {
                     test: /\.less(\?|$)/,
                     include: path.resolve(__dirname, "ClientApp"),
                     use:
-                        isDevBuild ? ["vue-style-loader", "rtl-css-loader", "less-loader"]
+                        isDevBuild ? [
+
+                            {loader: "vue-style-loader"},
+                            {
+                                loader: "postcss-loader",
+                                options: {
+                                    plugins: function () {
+                                      //  return [ postcssRtl ]
+                                      }
+                                    //exec:true
+                                }
+                            },
+                            {loader: "less-loader"}
+                            ]
                             :
                             [
                                 {
@@ -191,8 +205,17 @@ module.exports = (env) => {
                                         publicPath: "/dist/"
                                     }
                                 },
+                                {loader: "css-loader"},
                                 {
-                                    loader: "css-loader"
+
+                                    loader: "postcss-loader",
+
+                                    options: {
+                                        plugins: function () {
+                                            return [ postcssRtl ]
+                                          }
+                                        //exec:true
+                                    }
                                 },
                                 {
                                     loader: "less-loader"
@@ -268,14 +291,14 @@ module.exports = (env) => {
             : [
                 new MiniCssExtractPluginRtl({
                     filename: "site.[contenthash].css",
-                    rtlEnabled: true,
+                   // rtlEnabled: true,
                     ignoreOrder: true
                     // allChunks: true
 
                 }),
-                new webpackRtlPlugin({
-                    minify: false
-                }),
+                // new webpackRtlPlugin({
+                //     minify: false
+                // }),
                 new RetryChunkLoadPlugin({
                     // optional stringified function to get the cache busting query string appended to the script src
                     // if not set will default to appending the string `?cache-bust=true`
