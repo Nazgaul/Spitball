@@ -2,8 +2,6 @@
    <div class="studyRoomWrapper">
       <component :is="activeWindow" style="height:100%"></component>
       <floatingVideoContainer v-if="!isRoomTutor"/>
-      <studyRoomDialogs/>
-      <studyRoomSettingsDialog v-if="!isRoomActive"/>
    </div>
 </template>
 
@@ -15,8 +13,6 @@ const classMode = () => import('./class/classRoom.vue');
 const classScreen = () => import('./class/classFullScreen.vue');
 const screenMode = () => import('./shareScreen/shareScreen.vue');
 const floatingVideoContainer = () => import('../layouts/studyRoomDrawer/floatingVideoContainer.vue');
-const studyRoomDialogs = () => import('../studyRoomDialogs.vue');
-const studyRoomSettingsDialog = () => import("../tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue");
 export default {
    components:{
       canvasWrap,
@@ -26,8 +22,6 @@ export default {
       classScreen,
       screenMode,
       floatingVideoContainer,
-      studyRoomDialogs,
-      studyRoomSettingsDialog,
    },
    computed: {
       activeWindow(){
@@ -38,10 +32,7 @@ export default {
       },
       isRoomTutor(){
          return this.$store.getters.getRoomIsTutor;
-      },
-      isRoomActive(){
-         return this.$store.getters.getRoomIsActive;
-      },
+      }
    },
 }
 </script>

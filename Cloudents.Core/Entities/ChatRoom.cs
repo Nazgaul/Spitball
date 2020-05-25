@@ -74,6 +74,8 @@ namespace Cloudents.Core.Entities
         public virtual void AddMessage(ChatMessage message)
         {
             UpdateTime = DateTime.UtcNow;
+            Messages.Add(message);
+            AddEvent(new ChatMessageEvent(message));
             if (StudyRoom != null)
             {
                 if (StudyRoom is BroadCastStudyRoom _)
@@ -93,11 +95,7 @@ namespace Cloudents.Core.Entities
                     userInChat.ResetUnread();
                 }
             }
-
-
-
-            Messages.Add(message);
-            AddEvent(new ChatMessageEvent(message));
+           
         }
 
         public virtual void AddUserToChat(User user)
