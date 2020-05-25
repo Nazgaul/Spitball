@@ -11,6 +11,8 @@
       </v-content>
       <studyRoomFooter v-if="isShowFooter"/>
     </template>
+    <studyRoomSettingsDialog v-if="!isRoomActive"/>
+    <studyRoomDialogs/>
     <slot name="appInjections"></slot>
   </v-app>
 </template>
@@ -24,6 +26,9 @@ import chatService from "../../services/chatService";
 import { mapGetters } from 'vuex';
 const studyRoomMobile = () => import('./studyRoomMobile.vue');
 const studyRoomWrapper = () => import('./windows/studyRoomWrapper.vue');
+const studyRoomSettingsDialog = () => import("./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue");
+const studyRoomDialogs = () => import('./studyRoomDialogs.vue');
+
 export default {
   data() {
     return {
@@ -37,6 +42,9 @@ export default {
 
     studyRoomMobile,
     studyRoomWrapper,
+    studyRoomSettingsDialog,
+    studyRoomDialogs,
+
   },
   computed: {
     ...mapGetters(['getRoomIsNeedPayment']),
@@ -48,6 +56,9 @@ export default {
     },
     isShowFooter(){
       return this.currentEditor !== 'class-mode' && this.currentEditor !== 'class-screen'
+    },
+    isRoomActive(){
+      return this.$store.getters.getRoomIsActive;
     },
   },
   watch: {
