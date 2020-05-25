@@ -28,11 +28,11 @@
         </div>
         <div class="tutorCarousel-bottom">
             <div class="text-truncate ts_subjects" v-show="subjects">
-                <span class="mr-1 font-weight-bold" v-language:inner="'resultTutor_study-area'"></span>
+                <span class="mr-1 font-weight-bold" v-t="'resultTutor_study-area'"></span>
                 <span class="">{{subjects}}</span>
             </div>
             <div class="ts-bottom">
-                <router-link event @click.native.stop="openCoupon" class="applyCoupon" to="/" v-language:inner="'resultTutor_apply_coupon'"></router-link>
+                <router-link event @click.native.stop="openCoupon" class="applyCoupon" to="/" v-t="'resultTutor_apply_coupon'"></router-link>
 
 
                 <div class="ts-price">
@@ -42,7 +42,7 @@
                     </template>
                     <span>
                         <span>/</span>
-                        <span v-language:inner="'tutorCardCarousel_hour'"></span>
+                        <span v-t="'tutorCardCarousel_hour'"></span>
                     </span>
                     <div class="striked ml-2" v-if="isDiscount">{{$n(tutor.price, 'currency')}}</div>
                 </div>

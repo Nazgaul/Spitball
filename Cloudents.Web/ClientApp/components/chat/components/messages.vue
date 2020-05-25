@@ -7,7 +7,7 @@
             <div class="messages-body">
                 <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index" :lastMsgIndex="index === messages.length - 1"></message>
             </div>
-            <span class="error-file-span" v-if="fileError" v-language:inner="'chat_file_error'"></span>
+            <span class="error-file-span" v-if="fileError" v-t="'chat_file_error'"></span>
 
             <div class="messages-input" :class="{'messages-input-disabled': !getIsSignalRConnected}">
                 <span class="messages-mobile-button" v-if="typing" @click="sendMessage"><v-icon class="">sbf-path</v-icon></span>
