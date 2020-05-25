@@ -38,7 +38,7 @@
           </button>
         </template>
         <span
-          v-language:inner="isAudioActive ? 'tutor_tooltip_mic_mute':'tutor_tooltip_mic_unmute'"
+          v-t="isAudioActive ? 'tutor_tooltip_mic_mute':'tutor_tooltip_mic_unmute'"
         />
       </v-tooltip>
       <v-tooltip top>
@@ -58,7 +58,7 @@
           </button>
         </template>
         <span
-          v-language:inner="isVideoActive ? 'tutor_tooltip_video_pause':'tutor_tooltip_video_resume'"
+          v-t="isVideoActive ? 'tutor_tooltip_video_pause':'tutor_tooltip_video_resume'"
         />
       </v-tooltip>
     </div>

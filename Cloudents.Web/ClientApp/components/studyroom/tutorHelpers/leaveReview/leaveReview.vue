@@ -7,7 +7,7 @@
         </div>
         <div class="review_sub_title text-center mt-1" :class="{'mb-6': !showNextStep}">
             <span v-if="!showNextStep" v-html="$Ph('leaveReview_sub_title_step1', tutorName)"></span>
-            <span class="review_sub_title_step2" v-else v-language:inner="'leaveReview_sub_title_step2'"></span>
+            <span class="review_sub_title_step2" v-else v-t="'leaveReview_sub_title_step2'"></span>
         </div>
         <div class="review_user_rate" v-if="!showNextStep">
             <user-avatar class="tutor-img-wrap mr-2" :size="imgSize" :userImageUrl="tutorImg" :user-name="tutorName" :user-id="tutorId"/>
@@ -63,7 +63,7 @@
                 <span v-language:inner="btnText"/>
             </v-btn>
             <v-btn :loading="btnLoading" @click="showNextStep ? sendPost() : goNextStep()" class="review_btn review_btn-next white--text" depressed rounded color="#4452fc" sel="submit_tutor_request">
-                <span v-language:inner="'leaveReview_send'"/>
+                <span v-t="'leaveReview_send'"/>
             </v-btn>
         </div>
     </div>
