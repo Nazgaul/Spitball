@@ -121,13 +121,19 @@
     <value>לא קיבלת הודעות עדיין</value>
   </data>
   <data name="create" xml:space="preserve">
-    <value>יצירת צ'ט קבוצתי</value>
+    <value>צור חדר צ'ט</value>
+  </data>
+  <data name="create_already" xml:space="preserve">
+    <value>חדר צ'ט כזה כבר קיים</value>
   </data>
   <data name="create_btn_txt" xml:space="preserve">
-    <value>יצירת צ'ט קבוצתי</value>
+    <value>יצירת חדר צ'ט</value>
+  </data>
+  <data name="create_mobile" xml:space="preserve">
+    <value>צ'ט חדש</value>
   </data>
   <data name="create_title" xml:space="preserve">
-    <value>יצירת צ'ט קבוצתי</value>
+    <value>יצירת חדר צ'ט</value>
   </data>
   <data name="emptyState_message1" xml:space="preserve">
     <value>היי, נעים מאוד שמי</value>
@@ -143,6 +149,9 @@
   </data>
   <data name="go_study" xml:space="preserve">
     <value>חדרי הלימוד שלי</value>
+  </data>
+  <data name="invite" xml:space="preserve">
+    <value>הזמנת תלמידים</value>
   </data>
   <data name="messages" xml:space="preserve">
     <value>הודעות</value>
