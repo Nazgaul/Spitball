@@ -123,6 +123,9 @@
   <data name="create" xml:space="preserve">
     <value>צור חדר צ'ט</value>
   </data>
+  <data name="create_already" xml:space="preserve">
+    <value>חדר צ'ט כזה כבר קיים</value>
+  </data>
   <data name="create_btn_txt" xml:space="preserve">
     <value>יצירת חדר צ'ט</value>
   </data>
