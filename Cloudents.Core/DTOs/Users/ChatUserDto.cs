@@ -12,8 +12,7 @@ namespace Cloudents.Core.DTOs.Users
         [EntityBind(nameof(BaseUser.ImageName))]
         public string? Image { get; set; }
 
-        [EntityBind(nameof(ChatUser.Unread))]
-        public int Unread { get; set; }
+      
 
         [EntityBind(nameof(User.Online))]
         public bool Online { get; set; }
