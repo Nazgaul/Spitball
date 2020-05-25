@@ -57,7 +57,7 @@
                 @{
                     var c2 = @Url.Content($"~/dist/{main.Js}");
                 }
-                window.publicPath = '/dist';
+                window.publicPath = '/dist/';
                 document.write(
                     '@JavaScriptEncoder.Default.Encode($"<script src='{c2}' crossorigin='anonymous'></script>")')
             }
