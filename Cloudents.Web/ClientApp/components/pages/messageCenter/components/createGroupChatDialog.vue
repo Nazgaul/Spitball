@@ -35,7 +35,7 @@
             <div class="mb-4">
                <span v-if="currentError" class="error--text" v-t="currentError"></span>
             </div>
-            <v-btn :loading="isLoading" @click="createChat" width="160" depressed height="40" color="#4452fc" class="white--text" rounded >{{$t('chat_create_btn_txt')}}</v-btn>
+            <v-btn @click="createChat" width="160" depressed height="40" color="#4452fc" class="white--text" rounded >{{$t('chat_create_btn_txt')}}</v-btn>
          </div>
       </div>
    </v-dialog>
@@ -54,24 +54,20 @@ export default {
       return {
          selected:[],
          myFollowers:[],
-         isLoading:false,
          currentError: '',
          errorsResource:{
             showErrorEmpty: 'dashboardPage_create_room_empty_error',
-            showErrorAlreadyCreated: 'chat_create_already',
             showErrorMaxUsers: 'dashboardPage_create_room_max_error',
          },
          errors: {
             showErrorEmpty: false,
-            showErrorAlreadyCreated: false
          },
          MAX_PARTICIPANT: 49,
       }
    },
    computed: {
-      isNoErrors() {
-         return !this.errors.showErrorAlreadyCreated && !this.errors.showErrorEmpty &&
-                !this.errors.showErrorMaxUsers;
+      isErrors() {
+         return this.errors.showErrorEmpty || this.errors.showErrorMaxUsers;
       }
    },
    watch: {
@@ -83,42 +79,33 @@ export default {
       resetErrors(){
          this.errors.showErrorEmpty = false;
          this.errors.showErrorMaxUsers = false;
-         this.errors.showErrorAlreadyCreated = false;
          this.currentError = '';
       },
       createChat(){
-         if(!this.isNoErrors) return;
+         if(this.isErrors) return;
          
-         // this.isLoading = true;
-
          if(!this.selected.length) {
             this.errors.showErrorEmpty = true
             this.currentError = this.errorsResource.showErrorEmpty;
-            // this.isLoading = false;
             return;
          }
          let currentUserId = this.$store.getters?.accountUser?.id;
          let conversationId = Array.from(this.selected.map(user=> user.userId));
          conversationId.push(currentUserId);
          conversationId = conversationId.sort((a,b)=> a - b).join('_');
-         let isChatAlreadyCreated = this.$store.getters.getConversations.find(c=>c.conversationId == conversationId)
-         if(isChatAlreadyCreated){
-            this.errors.showErrorAlreadyCreated = true;
-            this.currentError = this.errorsResource.showErrorAlreadyCreated;
-            return;
-         }else{
-            let params = {
+         let conversation = this.$store.getters.getConversations.find(c=>c.conversationId == conversationId)
+         
+         if(!conversation){
+            conversation = {
                conversationId: conversationId,
                name: this.selected.map(u=>u.name).join(" ,"),
                image: this.selected[0].image,
             }
-            let currentConversationObj = chatService.createActiveConversationObj(params);
-            this.$store.dispatch('setActiveConversationObj',currentConversationObj);
-            this.$router.push({...this.$route,params:{id:currentConversationObj.conversationId}}).catch(()=>{})
-            this.$emit('updateCreateGroupDialogState',false);
-            // this.isLoading = false;
-
          }
+         let currentConversationObj = chatService.createActiveConversationObj(conversation);
+         this.$store.dispatch('setActiveConversationObj',currentConversationObj);
+         this.$router.push({...this.$route,params:{id:currentConversationObj.conversationId}}).catch(()=>{})
+         this.$emit('updateCreateGroupDialogState',false);
       },
       addSelectedUser(user){
          let idx;
