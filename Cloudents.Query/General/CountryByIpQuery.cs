@@ -34,7 +34,11 @@ namespace Cloudents.Query.General
                 try
                 {
                     return await _session.Query<UserLocation>()
-                        .WithOptions(w => w.SetComment(nameof(CountryByIpQuery)))
+                        .WithOptions(w =>
+                        {
+                            w.SetComment(nameof(CountryByIpQuery));
+                            w.SetTimeout(5);
+                        })
                         .Fetch(f => f.User)
                         .Where(w => w.Ip == query.Ip && w.TimeStamp.CreationTime > DateTime.UtcNow.AddDays(-30))
                         .Select(s => s.Country)
