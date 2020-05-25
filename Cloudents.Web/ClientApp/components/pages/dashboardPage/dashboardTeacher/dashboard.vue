@@ -1,8 +1,8 @@
 <template>
   <div id="dashboard">
       <div class="dashboardMain mr-md-6">
-        <tutorActions></tutorActions>
-        <teacherTasks v-if="$vuetify.breakpoint.smAndDown"></teacherTasks>
+        <dashboardTutorActions></dashboardTutorActions>
+        <dashboardNotifications></dashboardNotifications>
         <marketingTools></marketingTools>
         <uploadContent v-if="$vuetify.breakpoint.smAndUp"></uploadContent>
         <spitballTips v-if="$vuetify.breakpoint.mdAndUp"></spitballTips>
@@ -11,21 +11,23 @@
   </div>
 </template>
 <script>
-const tutorActions = () => import('./tutorActions.vue');
+const dashboardTutorActions = () => import('./dashboardTutorActions.vue');
+const dashboardNotifications = () => import('./dashboardNotifications.vue');
 const marketingTools = () => import('./marketingTools.vue');
 const uploadContent = () => import('./uploadContent.vue');
 const spitballTips = () => import('./spitballTips.vue');
 const answerStudent = () => import('./answerStudent.vue');
-const teacherTasks = () => import('./teacherTasks.vue');
+// const teacherTasks = () => import('./teacherTasks.vue');
 
 export default {
   components: {
-    tutorActions,
+    dashboardTutorActions,
+    dashboardNotifications,
     marketingTools,
     uploadContent,
     spitballTips,
     answerStudent,
-    teacherTasks,
+    // teacherTasks,
   },
   watch: {
     isTutor(newVal) {
