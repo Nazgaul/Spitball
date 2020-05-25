@@ -121,18 +121,6 @@ const actions = {
          return;
       }
    },
-   updateStudentsAnswersQuestion() {
-      return accountService.getQuestions().then((data) => {
-         return data;
-      }, (err) => {
-         return Promise.reject(err);
-      }).finally(()=>{
-         return
-      });
-   },
-   updateTutorActions() {
-      return dashboardService.getTutorActions()
-   },
    updateSpitballBlogs() {
       return dashboardService.getSpitballBlogs()
    },

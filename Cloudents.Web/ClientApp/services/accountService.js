@@ -44,9 +44,4 @@ export default {
         let { data } = await couponInstance.get();
         return data.map(coupon => new Coupon.Default(coupon))
     },
-    async getQuestions() {
-        let { data } = await accountInstance.get('/questions')
-        return data.map(question => searchService.createQuestionItem(question))
-    },
-
 }

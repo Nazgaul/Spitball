@@ -27,7 +27,7 @@
             <sideMenuListItem :dashboardProps="propsListDashboard" :item="myPurchasesItem"/>
           </template>
 
-
+          <sideMenuListItem :dashboardProps="propsListDashboard" :item="myMarketingTools"/>
           <sideMenuListItem :dashboardProps="propsListDashboard" :item="myProfileItem"/>
           <sideMenuListItem :dashboardProps="propsListDashboard" :item="myCoursesItem"/>
           <sideMenuListItem :dashboardProps="propsListDashboard" :item="myCalendarItem"/>
@@ -58,6 +58,8 @@ export default {
       myContentItem:{name: this.$t('schoolBlock_my_content'),route: routeNames.MyContent, icon:'sbf-my-content', sel:'sidemenu_dashboard_myContent'},
       myStudyRoomsItem:{name: this.$t('schoolBlock_study'),route: routeNames.MyStudyRooms, icon:'sbf-studyroom-icon', sel:'sidemenu_dashboard_myStudyRooms'},
       myQuestionsItem:{name: this.$t('schoolBlock_my_Questions'),route:'myQuestions',icon:'sbf-my-questions',sel:'sidemenu_dashboard_opportunities'},
+
+      myMarketingTools:{name: this.$t('schoolBlock_my_marekting'),route: routeNames.Marketing, icon:'sbf-marketing',sel:'sidemenu_settings_myMarketing'},
 
       myProfileItem:{name: this.$t('schoolBlock_my_site'),route: routeNames.Profile, icon:'sbf-user',sel:'sidemenu_settings_myProfile'},
       myCoursesItem:{name: this.$t('schoolBlock_courses'),route: routeNames.EditCourse, icon:'sbf-classes-icon', sel:'sidemenu_settings_myCourses'},

@@ -1,13 +1,12 @@
 <template>
-  <!-- <div id="dashboard"> -->
-      <div class="dashboardMain mr-md-6">
-        <dashboardTutorActions></dashboardTutorActions>
-        <dashboardNotifications></dashboardNotifications>
-        <marketingTools></marketingTools>
-        <spitballTips v-if="$vuetify.breakpoint.mdAndUp"></spitballTips>
-      </div>
-  <!-- </div> -->
+  <div class="dashboardMain mr-md-6">
+    <dashboardTutorActions />
+    <dashboardNotifications />
+    <marketingTools />
+    <spitballTips />
+  </div>
 </template>
+
 <script>
 const dashboardTutorActions = () => import('./dashboardTutorActions.vue');
 const dashboardNotifications = () => import('./dashboardNotifications.vue');
@@ -24,22 +23,9 @@ export default {
 }
 </script>
 <style lang="less">
-  @import '../../../../styles/mixin.less';
-  @mainBlock: 890px;
-  // #dashboard {
-    // margin: 24px 34px;
-    // display: flex;
-    // @media (max-width: @screen-xs) {
-    //   margin: 0
-    // }
-    // @media (max-width: @screen-md) {
-    //   justify-content: center;
-    // }
-    .dashboardMain {
-      width: 100%;
-      max-width: @mainBlock;
-      margin: 24px 34px;
-      // display: flex;
-    }
-  // }
+  .dashboardMain {
+    width: 100%;
+    max-width: 890px;
+    margin: 24px 34px;
+  }
 </style>
