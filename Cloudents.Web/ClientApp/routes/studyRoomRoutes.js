@@ -19,7 +19,7 @@ export const studyRoomRoutes = [
             })
         },
         meta: {
-            layout : 'studyRoomLayout'
+            layout : 'appSession'
         },
         beforeEnter: (to, from, next) => {
             if(!to.params?.id){

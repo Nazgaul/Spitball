@@ -10,7 +10,7 @@
 <script>
 
 const defaultLayout = () => import('./app.vue');
-const studyRoomLayout = () => import('./../studyroom/studyRoomLayout.vue');
+const appSession = () => import('./../studyroom/appSession.vue');
 
 //This should not be async since we can loose events if the components not loading in time
 import dialogInjection from '../pages/global/dialogInjection/dialogInjection.vue';
@@ -19,7 +19,7 @@ import componentInjection from '../pages/global/toasterInjection/componentInject
 export default {
     components: {
         defaultLayout,
-        studyRoomLayout,
+        appSession,
         dialogInjection,
         componentInjection,
     },
