@@ -1,0 +1,8 @@
+export default {
+    UPLOAD: "UPLOAD",
+    CALENDAR: "CALENDAR",
+    TEACH: "TEACH",
+    SESSIONS: "SESSIONS",
+    MARKETING: "MARKETING",
+    BOOK: "BOOK"
+ }

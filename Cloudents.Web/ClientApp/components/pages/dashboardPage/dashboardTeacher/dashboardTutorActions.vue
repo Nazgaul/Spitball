@@ -24,7 +24,7 @@
             <div class="linkWrap d-flex align-center justify-space-between py-4" v-for="(action, index) in tutorActions" :key="index">
                 <div class="linkBorded"></div>
                 <div class="link d-flex align-center">
-                    <circleArrow width="23" :stroke="action.color || 'blue'" />
+                    <circleArrow class="arrowIcon" width="23" :stroke="action.color || 'blue'" />
                     <div class="ml-4">{{action.text}}</div>
                 </div>
                 <v-btn class="btn" rounded outlined depressed color="#4c59ff" width="120" :to="action.routeName" v-t="'dashboardTeacher_btn_text'"></v-btn>
@@ -40,6 +40,8 @@
 const analyticOverview = () => import(/* webpackChunkName: "analyticsOverview" */'../../global/analyticOverview/analyticOverview.vue');
 import circleArrow from './images/circle-arrow.svg';
 
+import constants from '../../../../store/constants/dashboardConstants';
+
 export default {
     name: 'dashboardTutorActions',
     components: {
@@ -48,7 +50,38 @@ export default {
     },
     data() {
         return {
-            
+            items: {
+                [constants.UPLOAD]: {
+                    color: '#4c59ff',
+                    text: 'dashboardTeacher_link',
+                    routeName: 'my-content'
+                },
+                [constants.CALENDAR]: {
+                    color: '#4c59ff',
+                    text: 'dashboardTeacher_link',
+                    routeName: 'my-calendar'
+                },
+                [constants.TEACH]: {
+                    color: '#4c59ff',
+                    text: 'dashboardTeacher_link',
+                    routeName: ''
+                },
+                [constants.SESSIONS]: {
+                    color: '#41c4bc',
+                    text: 'dashboardTeacher_link',
+                    routeName: ''
+                },
+                [constants.MARKETING]: {
+                    color: '#41c4bc',
+                    text: 'dashboardTeacher_link',
+                    routeName: ''
+                },
+                [constants.BOOK]: {
+                    color: '#eac569',
+                    text: 'dashboardTeacher_link',
+                    routeName: ''
+                },
+            }
         }
     },
     computed: {
@@ -117,6 +150,10 @@ export default {
                     font-size: 15px;
                     color:#69687d;
                     font-weight: 600;
+
+                    .arrowIcon {
+                        transform: none /*rtl:scaleX(-1)*/;
+                    }
                 }
             }
         }

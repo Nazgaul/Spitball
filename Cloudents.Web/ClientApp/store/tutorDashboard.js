@@ -1,11 +1,19 @@
 import axios from 'axios'
-
+import constants from './constants/dashboardConstants';
 // const dashboardInstance = axios.create({
 //     baseURL: '/'
 // })
 
 const state = {
-    tutorListActions: []
+    tutorState: {
+        [constants.UPLOAD]: false,
+        [constants.CALENDAR]: false,
+        [constants.TEACH]: false,
+        [constants.SESSIONS]: false,
+        [constants.MARKETING]: false,
+        [constants.BOOK]: false,
+    },
+    tutorListActions: {}
 }
 
 const getters = {
@@ -14,13 +22,8 @@ const getters = {
 
 const mutations = {
     setTutorListActions(state, data) {
-        function TutorLink(objInit) {
-            this.text = 'lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum';
-            this.routeName = '/feed';
-        }
-
         for(var i=0;i<6;i++) {
-            state.tutorListActions.push(new TutorLink())
+            state.tutorListActions.push()
         }
 
         // data.map((link) => {
