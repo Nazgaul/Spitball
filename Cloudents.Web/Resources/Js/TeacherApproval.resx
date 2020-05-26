@@ -151,7 +151,7 @@
     <value>Student name:</value>
   </data>
   <data name="success" xml:space="preserve">
-    <value>success text</value>
+    <value>A new payment request was created</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>Teacher Approval Form</value>
