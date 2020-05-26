@@ -1,5 +1,5 @@
 <template>
-    <div class="profileLiveClasses pa-sm-4 pa-0" v-if="liveSessions.length">
+    <div class="profileLiveClasses pa-sm-4 pa-0" id="broadcast" v-if="liveSessions.length">
         <div class="mainTitle px-4 py-2 pb-sm-6 text-truncate">
             <span v-t="'profile_live_title'"></span>
             <span>{{tutorFirstName}}</span>
@@ -258,7 +258,7 @@ export default {
             this.$store.dispatch('getStudyroomLiveSessions', this.id)
                 .then(res => {
                     self.liveSessions = res
-                    // self.$emit('isComponentReady')
+                    self.$emit('isComponentReady')
                 }).catch(ex => {
                     self.$appInsights.trackException({exception: new Error(ex)});
                 })
