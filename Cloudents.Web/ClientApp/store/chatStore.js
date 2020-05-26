@@ -1,5 +1,4 @@
 import chatService from '../services/chatService';
-import { LanguageService } from '../services/language/languageService';
 import analyticsService from '../services/analytics.service';
 
 
@@ -18,7 +17,6 @@ const state = {
     totalUnread: 0,
     chatLocked: false,
     chatLoader: false,
-    emptyState: [],
     isSyncing: true,
 };
 const getters = {
@@ -36,35 +34,14 @@ const getters = {
           });
     },
     getMessages: (state, {getConversationIdCurrentUserId})=>{
-        //can get only messages of the current conversation room
-        state.emptyState.length = 0;
+        //can get only messages of the current conversation room;
         if(!!state.activeConversationObj.conversationId){
             if(!!state.messages[state.activeConversationObj.conversationId]){
                 let messages = state.messages[state.activeConversationObj.conversationId];
                 return messages;
             }else{
                 if(!state.isSyncing){
-                    let messageObject = chatService.createMessage({
-                        dateTime: null,
-                        fromSignalR: false,
-                        name: state.activeConversationObj.name,
-                        text: `${LanguageService.getValueByKey('chat_emptyState_message1')} ${state.activeConversationObj.name}`,
-                        type: "text",
-                        isDummy: true,
-                        userId: state.activeConversationObj.userId
-                    }, state.activeConversationObj.conversationId);
-                    state.emptyState.push(messageObject);
-                    messageObject = chatService.createMessage({
-                        dateTime: null,
-                        fromSignalR: false,
-                        name: state.activeConversationObj.name,
-                        text: `${LanguageService.getValueByKey('chat_emptyState_message2')}`,
-                        type: "text",
-                        isDummy: true,
-                        userId: state.activeConversationObj.userId
-                    }, state.activeConversationObj.conversationId);
-                    state.emptyState.push(messageObject);
-                    return state.emptyState;
+                    return [];
                 }
             }
         }else if(!!state.activeConversationObj.userId){
