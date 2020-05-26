@@ -60,7 +60,7 @@ const opts = {
   icons: {
     values: MY_ICONS
   },
-  rtl: true
+  rtl: global.isRtl
 }
 
 export default new Vuetify(opts)
