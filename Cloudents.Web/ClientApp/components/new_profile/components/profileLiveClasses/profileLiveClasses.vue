@@ -98,7 +98,7 @@
                                 <div class="" v-t="'profile_live_subscribers_free'"></div>
                             </div>
                         </v-col>
-                        <v-col cols="4" class="pa-0 rowCol" :class="{'enroll': session.enrolled && isTutorSubscription}"  v-if="isTutorSubscription">
+                        <v-col cols="4" class="pa-0 rowCol" :class="{'enroll': session.enrolled && isTutorSubscription}" v-show="isTutorSubscription">
                             <div v-t="'profile_live_subscribers_free'"></div>  
                         </v-col>
                     </template>
@@ -228,7 +228,7 @@ export default {
     methods: {
         enrollSession(studyRoomId) {
             if(!this.isLogged) {
-                this.$store.commit('setComponent', 'login')
+                this.$store.commit('setComponent', 'register')
                 return
             }
 
