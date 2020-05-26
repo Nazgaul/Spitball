@@ -22,14 +22,12 @@ const getters = {
 
 const mutations = {
     setTutorListActions(state, data) {
-        for(var i=0;i<6;i++) {
-            state.tutorListActions.push()
+
+        for (const key in state.tutorState) {
+            if(key) {
+                state.tutorListActions[key] = state.tutorState[key]
+            }
         }
-
-        // data.map((link) => {
-        //     state.tutorListActions.push(new TutorLink(link))
-        // })
-
     }
 }
 

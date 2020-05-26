@@ -86,7 +86,17 @@ export default {
     },
     computed: {
         tutorActions() {
-            return this.$store.getters.getTutorListActions
+            let list = this.$store.getters.getTutorListActions
+    
+            return list.map(l => {
+                debugger
+                return {
+                    ...items[l]
+                }
+            })
+
+            console.log(list);
+            // return list
         },
         userId() {
             return this.$store.getters.getAccountId
