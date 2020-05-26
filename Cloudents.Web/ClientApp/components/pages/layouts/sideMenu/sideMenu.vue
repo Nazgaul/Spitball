@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer touchless permanent app clipped :right="isRtl" width="220" mini-variant-width="62"
+    <v-navigation-drawer touchless permanent app clipped  width="220" mini-variant-width="62"
                          :temporary="!isMiniSideMenu && $vuetify.breakpoint.mdAndDown"
                          class="sideMenu"
                          :value="getShowSchoolBlock"
@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       sideMenulistElm: null,
-      isRtl: global.isRtl,
+     // isRtl: global.isRtl,
 
       overviewItem:{name: this.$t('schoolBlock_overview'),route: routeNames.Dashboard, icon:'sbf-eye', sel:'sidemenu_dashboard_overview'},
       mySalesItem:{name: this.$t('schoolBlock_my_sales'),route: routeNames.MySales, icon:'sbf-my-sales', sel:'sidemenu_dashboard_mySales'},
