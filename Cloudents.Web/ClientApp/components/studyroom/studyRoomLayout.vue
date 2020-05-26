@@ -13,7 +13,8 @@
     </template>
     <studyRoomSettingsDialog v-if="!isRoomActive"/>
     <studyRoomDialogs/>
-    <slot name="appInjections"></slot>
+    <dialogInjection class="dialogInjection" />
+    <componentInjection class="componentInjection" />
   </v-app>
 </template>
 
@@ -28,6 +29,9 @@ const studyRoomMobile = () => import('./studyRoomMobile.vue');
 const studyRoomWrapper = () => import('./windows/studyRoomWrapper.vue');
 const studyRoomSettingsDialog = () => import("./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue");
 const studyRoomDialogs = () => import('./studyRoomDialogs.vue');
+//This should not be async since we can loose events if the components not loading in time
+import dialogInjection from '../pages/global/dialogInjection/dialogInjection.vue';
+import componentInjection from '../pages/global/toasterInjection/componentInjection.vue';
 
 export default {
   data() {
@@ -45,6 +49,8 @@ export default {
     studyRoomSettingsDialog,
     studyRoomDialogs,
 
+    dialogInjection,
+    componentInjection,
   },
   computed: {
     ...mapGetters(['getRoomIsNeedPayment']),

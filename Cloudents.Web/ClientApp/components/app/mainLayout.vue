@@ -15,8 +15,6 @@ const studyRoomLayout = () => import('./../studyroom/studyRoomLayout.vue');
 //This should not be async since we can loose events if the components not loading in time
 import dialogInjection from '../pages/global/dialogInjection/dialogInjection.vue';
 import componentInjection from '../pages/global/toasterInjection/componentInjection.vue';
-//const dialogInjection = () => import('../pages/global/dialogInjection/dialogInjection.vue');
-//const componentInjection = () => import('../pages/global/toasterInjection/componentInjection.vue');
 
 export default {
     components: {
