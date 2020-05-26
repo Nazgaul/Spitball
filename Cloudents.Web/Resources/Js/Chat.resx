@@ -145,7 +145,7 @@
     <value>Go to my study rooms</value>
   </data>
   <data name="create" xml:space="preserve">
-    <value>New group chat</value>
+    <value>New chat</value>
   </data>
   <data name="create_mobile" xml:space="preserve">
     <value>New chat</value>
@@ -163,10 +163,10 @@
     <value>This group already exists</value>
   </data>
   <data name="create_btn_txt" xml:space="preserve">
-    <value>Create group chat</value>
+    <value>Create chat</value>
   </data>
   <data name="create_title" xml:space="preserve">
-    <value>Group chat</value>
+    <value>Create a new chat</value>
   </data>
   <data name="invite" xml:space="preserve">
     <value>Invite students</value>
