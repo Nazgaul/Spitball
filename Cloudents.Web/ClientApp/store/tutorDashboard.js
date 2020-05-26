@@ -5,7 +5,8 @@ const dashboardInstance = axios.create({
 })
 
 const state = {
-    tutorState: {
+    tutorLinkActions: {},
+    tutorLinkState: {
         [constants.UPLOAD]: {
             value: false,
             priority: 1
@@ -31,22 +32,52 @@ const state = {
             priority: 3
         },
     },
-    tutorListActions: {}
+    tutorNotificationsActions: {},
+    tutorNotificationsState: {
+        [constants.FOLLOWERS]: {
+            value: false,
+            new: 0
+        },
+        [constants.QUESTIONS]: {
+            value: false,
+            new: 0
+        },
+        [constants.PAYMENTS]: {
+            value: false,
+            new: 0
+        },
+    }
 }
 
 const getters = {
-    getTutorListActions: state => state.tutorListActions
+    getTutorListActions: state => state.tutorLinkActions,
+    getUserNotifications: state => state.tutorNotificationsActions
 }
 
 const mutations = {
     setTutorListActions(state, data) {
-        for (const key in state.tutorState) {
+        for (const key in state.tutorLinkState) {
             if(key) {
-                state.tutorListActions[key] = {
-                    value: state.tutorState[key].value
+                state.tutorLinkActions[key] = {
+                    value: state.tutorLinkState[key].value
                 }
             }
         }
+    },
+    setTutorNotifications(state, notifications) {
+        for (const key in state.tutorNotificationsState) {
+            if(key) {
+                state.tutorNotificationsActions[key] = {
+                    value: state.tutorNotificationsState[key].value
+                }
+            }
+        }
+        // function Notifications(objInit) {
+        //     // this.
+        // }
+        // notifications.map(notify => {
+        //     state.tutorNotificationsActions
+        // })
     }
 }
 
@@ -55,6 +86,15 @@ const actions = {
         // return dashboardInstance.getTutorDashboardList()
             // .then(({data}) => {
                 commit('setTutorListActions')
+                // commit('setTutorListActions', data)
+                // }).catch(ex => {
+                // console.log(ex);
+            // })
+    },
+    updateTutorNotifications({commit}) {
+        // return dashboardInstance.getTutorNotifications()
+            // .then(({data}) => {
+                commit('setTutorNotifications')
                 // commit('setTutorListActions', data)
                 // }).catch(ex => {
                 // console.log(ex);

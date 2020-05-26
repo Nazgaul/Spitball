@@ -2,26 +2,34 @@
     <div class="dashboardNotifications pa-5 mb-2 mb-sm-4">
 
         <div class="topHeader d-flex align-center mb-10">
-            <fillBellIcon width="35" />
-            <div class="notificationTitle ml-4" v-t="'dashboardTeacher_notification_title'"></div>
+            <fillBellIcon class="flex-shrink-0" width="35" />
+            <div class="notificationTitle ms-4 text-truncate" v-t="'dashboardTeacher_notification_title'"></div>
         </div>
 
-        <div class="center d-flex align-center justify-space-between" v-for="(notification, index) in tutorNotifications" :key="index">
-            <div class="d-flex align-center">
+        <router-link 
+            class="center d-flex align-center justify-space-between"
+            v-for="notification in tutorNotifications"
+            :key="notification.name"
+            :to="{ name: notification.routeName }"
+        >
+            <div class="notifyWrap d-flex align-center">
                 <div class="blueDot"></div>
                 <bellIcon class="" width="20px" />
-                <div class="notificateText ml-4">dasdsa</div>
+                <div class="notificateText text-truncate mx-4" v-t="notification.text"></div>
             </div>
-            <arrowRight width="20" class="arrowRight d-sm-none"/> 
-        </div>
+            <arrowRight width="20" class="arrowRight d-sm-none" /> 
+        </router-link>
 
     </div>
 </template>
 
 <script>
-import fillBellIcon from './images/fillBell.svg';
-import bellIcon from './images/bell.svg';
-import arrowRight from './images/arrow-right-copy-6.svg';
+import * as routeName from '../../../../routes/routeNames'
+import constants from '../../../../store/constants/dashboardConstants'
+
+import fillBellIcon from './images/fillBell.svg'
+import bellIcon from './images/bell.svg'
+import arrowRight from './images/arrow-right-copy-6.svg'
 
 export default {
     name: 'dashboardNotifications',
@@ -30,14 +38,38 @@ export default {
         bellIcon,
         arrowRight
     },
+    data() {
+        return {
+            notifyItems: {
+                [constants.FOLLOWERS]: {
+                    text: 'dashboardTeacher_notify_follower',
+                    routeName: routeName.MyFollowers
+                },
+                [constants.QUESTIONS]: {
+                    text: 'dashboardTeacher_notify_question',
+                    routeName: routeName.MyContent
+                },
+                [constants.PAYMENTS]: {
+                    text: 'dashboardTeacher_notify_payments',
+                    routeName: routeName.MySales
+                }
+            }
+        }
+    },
     computed: {
         tutorNotifications() {
-            return [1,2,3]
-            return this.$store.getters.getUserNotifications;
+            let notifylist = this.$store.getters.getUserNotifications
+            
+            return Object.keys(notifylist).map(notify => {
+                return {
+                    ...this.notifyItems[notify],
+                    name: notify
+                }
+            })
         }
     },
     created() {
-        // this.$store.dispatch('updateUserNotifications')
+        this.$store.dispatch('updateTutorNotifications')
     }
 }
 </script>
@@ -71,23 +103,27 @@ export default {
             border-bottom: solid 1px #eeeeee;
             padding: 16px 0;
             position: relative;
-            .blueDot {
-                position: absolute;
-                background: #4c59ff;
-                top: 18px;
-                left: 12px;
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-            }
+
             &:last-child {
                 border-bottom: none;
                 padding-bottom: 0;
             }
-            .notificateText {
-                color: #69687d;
-                font-size: 15px;
-                font-weight: 600;
+            .notifyWrap {
+                min-width: 0;;
+                .blueDot {
+                    position: absolute;
+                    background: #4c59ff;
+                    top: 18px;
+                    left: 12px;
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                }
+                .notificateText {
+                    color: #69687d;
+                    font-size: 15px;
+                    font-weight: 600;
+                }
             }
             .arrowRight {
                 transform: none /*rtl:scaleX(-1)*/;

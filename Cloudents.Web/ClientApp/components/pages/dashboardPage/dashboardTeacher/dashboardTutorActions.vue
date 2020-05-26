@@ -1,19 +1,20 @@
 <template>
     <div class="dashboardTutorActions pa-5 pb-0 mb-2 mb-sm-4">
 
-        <div class="tutorInfo d-flex align-center justify-space-between">
+        <div class="tutorInfo d-flex align-center justify-space-between pb-7">
             <div class="leftSide d-flex align-md-center">
                 <userAvatar
                     size="74"
+                    class="mb-4"
                     :userId="userId"
                     :userName="userName"
                     :userImageUrl="userImage"
                 />
                 <div class="infoWrap mx-5">
                     <div class="tutorName mb-2">{{userName}}</div>
-                    <button class="tutorUrl text-truncate">{{userUrl}}</button>
+                    <button class="tutorUrl text-truncate me-4 mb-4">{{userUrl}}</button>
                     <v-btn 
-                        class="btn align-self-end ms-4 mt-4 mt-sm-0"
+                        class="btn align-self-end"
                         :to="{
                             name: profileName,
                             params: {
@@ -39,19 +40,19 @@
         </div>
 
         <div class="tutorLinks">
-            <div class="linkWrap d-flex align-center justify-space-between py-4" v-for="(action) in tutorActionsList" :key="action.name">
+            <div class="linkWrap d-flex align-center justify-space-between py-4" v-for="action in tutorActionsList" :key="action.name">
                 <div class="linkBorded" :style="{background: action.color}"></div>
                 <div class="link d-flex align-center" :class="{'mobileLayout': isMobile}">
                     <component :is="isMobile ? 'router-link' : 'div'" class="linkWrapper d-flex" :to="isMobile ? {name: action.routeName} : null">
                         <circleArrow class="arrowIcon" width="23" :stroke="action.color" />
                     </component>
-                    <div class="ms-sm-4">{{action.text}}</div>
+                    <div class="ms-sm-4 me-2 text-truncate" v-t="action.text"></div>
                 </div>
                 <v-btn v-if="!isMobile" class="btn" rounded outlined depressed color="#4c59ff" width="120" :to="{name: action.routeName}" v-t="action.btnText"></v-btn>
             </div>
         </div>
 
-        <analyticOverview />
+        <analyticOverview class="px-0" />
 
     </div>
 </template>
@@ -73,7 +74,7 @@ export default {
     data() {
         return {
             profileName: routeName.Profile,
-            items: {
+            linksItems: {
                 [constants.UPLOAD]: {
                     color: '#4c59ff',
                     text: 'dashboardTeacher_link_text_upload',
@@ -119,7 +120,7 @@ export default {
             return Object.keys(list).map(item => {
                 return {
                     name: item,
-                    ...this.items[item]
+                    ...this.linksItems[item]
                 }
             })
         },
@@ -196,6 +197,7 @@ export default {
                     border-radius: 0 6px 6px 0;
                 }
                 .link {
+                    min-width: 0;
                     font-size: 15px;
                     color:#69687d;
                     font-weight: 600;
