@@ -17,8 +17,6 @@ import myCalendar from './myCalendar/myCalendar.vue';
 import myFollowers from './myFollowers/myFollowers.vue';
 
 import tableEmptyState from './global/tableEmptyState.vue';
-
-import { LanguageService } from '../../../services/language/languageService';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -28,34 +26,34 @@ export default {
       return {
          dictionary:{
             types:{
-               'Question': LanguageService.getValueByKey('dashboardPage_qa'),
-               'Answer': LanguageService.getValueByKey('dashboardPage_qa'),
-               'Document': LanguageService.getValueByKey('dashboardPage_document'),
-               'Video': LanguageService.getValueByKey('dashboardPage_video'),
-               'TutoringSession': LanguageService.getValueByKey('dashboardPage_tutor_session'),
-               'BuyPoints': LanguageService.getValueByKey('dashboardPage_type_buy_points')
+               'Question': this.$t('dashboardPage_qa'),
+               'Answer': this.$t('dashboardPage_qa'),
+               'Document': this.$t('dashboardPage_document'),
+               'Video': this.$t('dashboardPage_video'),
+               'TutoringSession': this.$t('dashboardPage_tutor_session'),
+               'BuyPoints': this.$t('dashboardPage_type_buy_points')
             },
             headers:{
                'preview': {text: '', align:'left', sortable: false, value:'preview'},
-               'info': {text: LanguageService.getValueByKey('dashboardPage_info'), align:'left', sortable: false, value:'info'},
-               'type': {text: LanguageService.getValueByKey('dashboardPage_type'), align:'left', sortable: true, value:'type'},
-               'likes': {text:LanguageService.getValueByKey('dashboardPage_likes'), align:'left', sortable: true, value:'likes'},
-               'views': {text:LanguageService.getValueByKey('dashboardPage_views'), align:'left', sortable: true, value:'views'},
-               'downloads': {text:LanguageService.getValueByKey('dashboardPage_downloads'), align:'left', sortable: true, value:'downloads'},
-               'purchased': {text:LanguageService.getValueByKey('dashboardPage_purchased'), align:'left', sortable: true, value:'purchased'},
-               'price': {text:LanguageService.getValueByKey('dashboardPage_price'), align:'left', sortable: true, value:'price'},
-               'date': {text: LanguageService.getValueByKey('dashboardPage_date'), align:'left', sortable: true, value:'date'},
+               'info': {text: this.$t('dashboardPage_info'), align:'left', sortable: false, value:'info'},
+               'type': {text: this.$t('dashboardPage_type'), align:'left', sortable: true, value:'type'},
+               'likes': {text:this.$t('dashboardPage_likes'), align:'left', sortable: true, value:'likes'},
+               'views': {text:this.$t('dashboardPage_views'), align:'left', sortable: true, value:'views'},
+               'downloads': {text:this.$t('dashboardPage_downloads'), align:'left', sortable: true, value:'downloads'},
+               'purchased': {text:this.$t('dashboardPage_purchased'), align:'left', sortable: true, value:'purchased'},
+               'price': {text:this.$t('dashboardPage_price'), align:'left', sortable: true, value:'price'},
+               'date': {text: this.$t('dashboardPage_date'), align:'left', sortable: true, value:'date'},
                'action': {text: '', align:'center', sortable: false, value:'action'},
-               'status': {text: LanguageService.getValueByKey('dashboardPage_status'), align:'left', sortable: true, value:'paymentStatus'},
-               'points': {text: LanguageService.getValueByKey('wallet_Tokens'), align:'center', sortable: true, value:'points'},
-               'value': {text: LanguageService.getValueByKey('wallet_Value'), align:'center', sortable: true, value:'value'},
-               'student_tutor': {text: LanguageService.getValueByKey('dashboardPage_student_tutor'), align:'left', sortable: true, value:'name'},
-               'created': {text: LanguageService.getValueByKey('studyRoom_created'), align:'left', sortable: true, value:'date'},
-               'last_date': {text: LanguageService.getValueByKey('dashboardPage_last_date'), align:'left', sortable: true, value:'lastSession'},
-               'joined': {text: LanguageService.getValueByKey('dashboardPage_joined'), align:'left', sortable: true, value:'date'},
-               'name': {text: LanguageService.getValueByKey('dashboardPage_name'), align:'left', sortable: true, value:'name'},
-               'students': {text: LanguageService.getValueByKey('dashboardPage_students'), align:'left', sortable: true, value:'students'},
-               'scheduled': {text: LanguageService.getValueByKey('dashboardPage_scheduled'), align:'left', sortable: true, value:'scheduled'},
+               'status': {text: this.$t('dashboardPage_status'), align:'left', sortable: true, value:'paymentStatus'},
+               'points': {text: this.$t('wallet_Tokens'), align:'center', sortable: true, value:'points'},
+               'value': {text: this.$t('wallet_Value'), align:'center', sortable: true, value:'value'},
+               'student_tutor': {text: this.$t('dashboardPage_student_tutor'), align:'left', sortable: true, value:'name'},
+               'created': {text: this.$t('studyRoom_created'), align:'left', sortable: true, value:'date'},
+               'last_date': {text: this.$t('dashboardPage_last_date'), align:'left', sortable: true, value:'lastSession'},
+               'joined': {text: this.$t('dashboardPage_joined'), align:'left', sortable: true, value:'date'},
+               'name': {text: this.$t('dashboardPage_name'), align:'left', sortable: true, value:'name'},
+               'students': {text: this.$t('dashboardPage_students'), align:'left', sortable: true, value:'students'},
+               'scheduled': {text: this.$t('dashboardPage_scheduled'), align:'left', sortable: true, value:'scheduled'},
             }
          },
       }
@@ -71,7 +69,6 @@ export default {
    },
    computed: {
       ...mapGetters(['accountUser'])
-      
    },
 }
 </script>

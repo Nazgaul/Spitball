@@ -147,7 +147,7 @@ export default {
         },
         closeUpload() {
             this.resetUploadData();
-            this.$closeDialog()
+            this.$store.commit('setComponent', '')
         },
         nextStep() {
             if (this.currentStep === this.steps) {
@@ -164,8 +164,20 @@ export default {
         },
         send(){
             this.chackValidation = !this.chackValidation;
-        }
+        },
     },
+    created() {
+        let self = this
+        self.$store.dispatch('getManageCourses').then(courses => {
+            if(courses.length === 0){
+                // fix shadow overlay issue 
+                setTimeout(() => {
+                    self.$store.commit('setComponent')
+                }, 200)
+                self.$router.push({name: "addCourse"})
+            }
+        })
+    }
 }
 </script>
 

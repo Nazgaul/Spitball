@@ -132,12 +132,12 @@ export default {
       let isRoutes = [
       'feed',
       'question',
-      'myFollowers',
-      'mySales',
-      'myContent',
-      'myPurchases',
-      'myStudyRooms',
-      'myCalendar',
+      // 'myFollowers',
+      // 'mySales',
+      // 'myContent',
+      // 'myPurchases',
+      // 'myStudyRooms',
+      // 'myCalendar',
       'addCourse',
       'editCourse'].some(route => this.$route.name === route)
       return isRoutes
