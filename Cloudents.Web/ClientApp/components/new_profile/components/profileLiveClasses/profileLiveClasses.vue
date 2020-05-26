@@ -26,7 +26,7 @@
         >
             <v-col cols="12" sm="6" class="text-left d-flex flex-wrap mb-9 mb-sm-0 pa-4">
                 <div class="icons d-flex mb-3" dense>
-                    <radioIcon v-if="isMobile" width="30" />
+                    <radioIcon class="radioIcon" v-if="isMobile" width="30" />
                     <tvIcon width="90" v-else />
                     <div class="created ml-3 d-block d-sm-none">{{$d(session.created, 'long')}}</div>
                 </div>
@@ -442,6 +442,9 @@ export default {
             @media(max-width: @screen-xs) {
                 width: 100%;
                 margin-top: 2px;
+            }
+            .radioIcon {
+                height: 100%;
             }
         }
         
