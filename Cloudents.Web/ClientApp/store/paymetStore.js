@@ -57,7 +57,6 @@ const actions = {
                 showToaster: true,
                 toasterTimeout: 5000
             });
-            global.localStorage.setItem("sb_transactionError", points);
         });
     },
     requestPaymentURL({dispatch,getters}){
