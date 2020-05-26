@@ -1,6 +1,6 @@
 ﻿<template>
   <v-app>
-    <router-view name="banner"></router-view>
+        <router-view name="banner"></router-view>
     <router-view v-if="showHeader" name="header"></router-view>
     <router-view name="sideMenu" v-if="isDrawer"></router-view>
     <v-content :class="[{'site-content': $route.path !== '/'}, {'hidden-sideMenu': drawerPlaceholder}]">
