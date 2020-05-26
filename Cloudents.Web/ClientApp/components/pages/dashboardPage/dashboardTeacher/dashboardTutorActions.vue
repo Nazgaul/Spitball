@@ -2,20 +2,20 @@
     <div class="dashboardTutorActions pa-5 pb-0 mb-2 mb-sm-4">
 
         <div class="tutorInfo d-flex align-center justify-space-between">
-            <div class="d-flex align-center">
+            <div class="leftSide d-flex align-center">
                 <userAvatar
                     size="74"
                     :userId="userId"
                     :userName="userName"
                     :userImageUrl="userImage"
                 />
-                <div class="mx-5">
+                <div class="infoWrap mx-5">
                     <div class="tutorName mb-2">{{userName}}</div>
-                    <button class="tutorUrl">{{userUrl}}</button>
+                    <button class="tutorUrl text-truncate">{{userUrl}}</button>
+                    <v-btn class="btn align-self-end" rounded outlined depressed color="#4c59ff" width="120" dense height="34">
+                        <span v-t="'dashboardTeacher_btn_edit'"></span>
+                    </v-btn>
                 </div>
-                <v-btn class="btn align-self-end" rounded outlined depressed color="#4c59ff" width="120" dense height="34">
-                    <span v-t="'dashboardTeacher_btn_edit'"></span>
-                </v-btn>
             </div>
             <div class="d-none d-sm-block">
                 <video src="" width="250" height="150" poster="./images/bitmap.png"></video>
@@ -143,6 +143,14 @@ export default {
         .tutorInfo {
             border-bottom: 2px solid #f5f5f5;
             font-weight: 600;
+
+            .leftSide {
+                min-width: 0;
+
+                .infoWrap {
+                    min-width: inherit;
+                }
+            }
             .tutorName {
                 font-size: 22px;
                 color: @global-purple;
@@ -150,6 +158,9 @@ export default {
             .tutorUrl {
                 color: @global-auth-text;
                 outline: none;
+                @media (max-width: @screen-xs) {
+                    width: 100%;
+                }
             }
         }
         .tutorLinks {
