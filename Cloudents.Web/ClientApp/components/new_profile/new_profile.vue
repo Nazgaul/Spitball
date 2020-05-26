@@ -380,7 +380,7 @@ export default {
             this.$nextTick(() => {
               let profileLiveClassesElement = this.$refs.profileLiveClassesElement
               if(profileLiveClassesElement && this.$route.hash === '#broadcast') {
-                this.$vuetify.goTo(this.$route.hash)
+                this.$vuetify.goTo(this.$route.hash, {offset: 20})
               }
             })
           }
