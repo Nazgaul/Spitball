@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex';
+import {mapGetters} from 'vuex';
 import {LanguageChange } from "../../../../services/language/languageService";
 import languagesLocales from "../../../../services/language/localeLanguage";
 import * as routeNames from '../../../../routes/routeNames.js';
@@ -169,9 +169,8 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
     },
     },
     methods: {
-        ...mapActions(['openChatInterface']),
         openChatWindow(){
-            this.openChatInterface();
+            this.$router.push({name: routeNames.MessageCenter})
         },
         resetItems(){
             this.$router.push('/');

@@ -43,7 +43,7 @@
                 </div>
                 <div class="input-container mb-4">
                     <div class="link-container">
-                        <sb-input v-if="!isMultiple" id="sb_referralLink" class="referral-input" :disabled="true"
+                        <sb-input ref="inputCopy" v-if="!isMultiple" id="sb_referralLink" class="referral-input" :disabled="true"
                                   v-model="userReferralLink"
                                   name="referralLink" type="text" :prependInnerIcon="'sbf-share-icon'"></sb-input>
                         <v-select
@@ -204,21 +204,19 @@
                 if (this.isCopied) {
                     this.isCopied = false;
                 }
-
             },
             doCopy() {
-                let self = this;
-                if (!self.isMultiple) {
-                    this.$copyText(this.userReferralLink).then(() => {
-                        self.isCopied = true;
-                    }, () => {
-                    })
-                } else {
-                    this.$copyText(this.singleRefLink).then(() => {
-                        self.isCopied = true;
-                    }, () => {
-                    })
+                let link;
+                if (!this.isMultiple) {
+                    link = this.userReferralLink;
+                }else{
+                    link = this.singleRefLink;
                 }
+                let self = this;
+                this.$copyText(link,this.$refs.inputCopy.$el).then(() => {
+                    self.isCopied = true;
+                    }, () => {
+                })
             },
             shareOnSocialMedia(socialMedia) {
                 let message = getReferallMessages(this.referralType, this.isMultiple ? this.singleRefLink : this.userReferralLink);

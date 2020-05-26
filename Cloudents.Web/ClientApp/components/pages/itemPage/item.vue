@@ -174,8 +174,6 @@ import * as routeNames from '../../../routes/routeNames';
 //services
 import * as dialogNames from '../global/dialogInjection/dialogNames.js';
 import { LanguageService } from "../../../services/language/languageService";
-import analyticsService from '../../../services/analytics.service';
-import chatService from '../../../services/chatService';
 
 //store
 import storeService from '../../../services/store/storeService';
@@ -345,11 +343,6 @@ export default {
             'documentRequest', 
             'clearDocument', 
             'getStudyDocuments', 
-            'updateCurrTutor', 
-            'setTutorRequestAnalyticsOpenedFrom', 
-            'updateRequestDialog',
-            'setActiveConversationObj',
-            'openChatInterface',
             'updateItemToaster',
             'updatePurchaseConfirmation',
             'downloadDocument'
@@ -378,31 +371,6 @@ export default {
                 this.$router.back();
             } else {
                 this.$router.push({ name: "feed" });
-            }
-        },
-        sendMessage() {
-            let user = this.docTutor;
-            if (this.accountUser == null) {
-                analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_item_page', `userId:GUEST`);
-                this.updateCurrTutor(user);
-                this.setTutorRequestAnalyticsOpenedFrom({
-                    component: 'tutorCard',
-                    path: this.$route.path
-                });
-                this.updateRequestDialog(true);
-            } 
-            else {
-                analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
-                let conversationObj = {
-                    userId: user.userId,
-                    image: user.image,
-                    name: user.name,
-                    conversationId: chatService.createConversationId([user.userId, this.accountUser.id]),
-                }
-                let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
-                this.setActiveConversationObj(currentConversationObj);
-                
-                this.openChatInterface();                    
             }
         },
         moveDownToTutorItem() {
