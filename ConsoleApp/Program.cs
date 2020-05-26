@@ -101,7 +101,7 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Dev;
+            var env = EnvironmentSettings.Prod;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
@@ -147,7 +147,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await Dbi();
+            var adminUserId = Guid.Parse("81b24922-6451-47b2-bcb0-4084c8a3ec13");
+            var command = new DeleteUserCommand(506639,adminUserId);
+            var bus = Container.Resolve<ICommandBus>();
+            await bus.DispatchAsync(command, default);
         }
 
         private static async Task Dbi()
