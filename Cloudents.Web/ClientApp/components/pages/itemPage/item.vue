@@ -617,36 +617,25 @@ export default {
                 &--margin {
                     margin-bottom: 100px;
                 }
-                // .carouselDocPreview {
-                //     .itemCard-itemPage {
-                //         // .item-cont {
-                //         //     z-index: 3 !important; //flicking
-                //         //     @media (max-width: @screen-xs) {
-                //         //         overflow: visible !important; //flicking
-                //         //     }
-                //         // }
-                //     }
-                //     .sbCarousel_btn {
-                //         i {
-                //             font-size: 18px;
-                //         }
-                //     }
-                // }
                 .itemSlider {
                     .v-slide-group__content {
                         white-space: normal;
                     }
+                    .item-cont {
+                        direction: ltr;/* rtl:direction:ltr */
+                    }
                     .itemCard-itemPage {
                         margin: 10px;
                         height: auto;
-                        // width: auto;
                         border: none;
                         box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
                         display: block;
                         &:first-child{
+                            /*rtl:ignore */
                             margin-left: 0;
                         }
                         &:last-child  {
+                            /*rtl:ignore */
                             margin-right: 0;
                         }
                     }
