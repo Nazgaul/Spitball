@@ -2,7 +2,7 @@
     <div class="dashboardTutorActions pa-5 pb-0 mb-2 mb-sm-4">
 
         <div class="tutorInfo d-flex align-center justify-space-between">
-            <div class="leftSide d-flex align-center">
+            <div class="leftSide d-flex align-md-center">
                 <userAvatar
                     size="74"
                     :userId="userId"
@@ -12,7 +12,7 @@
                 <div class="infoWrap mx-5">
                     <div class="tutorName mb-2">{{userName}}</div>
                     <button class="tutorUrl text-truncate">{{userUrl}}</button>
-                    <v-btn class="btn align-self-end" rounded outlined depressed color="#4c59ff" width="120" dense height="34">
+                    <v-btn class="btn align-self-end ms-4 mt-4 mt-sm-0" rounded outlined depressed color="#4c59ff" width="120" dense height="34">
                         <span v-t="'dashboardTeacher_btn_edit'"></span>
                     </v-btn>
                 </div>
@@ -26,7 +26,9 @@
             <div class="linkWrap d-flex align-center justify-space-between py-4" v-for="(action) in tutorActionsList" :key="action.name">
                 <div class="linkBorded" :style="{background: action.color}"></div>
                 <div class="link d-flex align-center" :class="{'mobileLayout': isMobile}">
-                    <circleArrow class="arrowIcon" width="23" :stroke="action.color" />
+                    <component :is="isMobile ? 'router-link' : 'div'" router class="linkWrapper" :to="{name: action.routeName}">
+                        <circleArrow class="arrowIcon" width="23" :stroke="action.color" />
+                    </component>
                     <div class="ms-sm-4">{{action.text}}</div>
                 </div>
                 <v-btn v-if="!isMobile" class="btn" rounded outlined depressed color="#4c59ff" width="120" :to="{name: action.routeName}" v-t="action.btnText"></v-btn>
@@ -158,6 +160,7 @@ export default {
             .tutorUrl {
                 color: @global-auth-text;
                 outline: none;
+                text-align: left;
                 @media (max-width: @screen-xs) {
                     width: 100%;
                 }
@@ -184,9 +187,9 @@ export default {
                     }
 
                     &.mobileLayout {
-                        flex: 1;
                         justify-content: space-between;
-                        .arrowIcon {
+                        flex: 1;
+                        .linkWrapper {
                             order: 1;
                         }
                     }
