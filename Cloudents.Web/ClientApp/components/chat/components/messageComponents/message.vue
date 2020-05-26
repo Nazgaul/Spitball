@@ -89,11 +89,11 @@ export default {
                 margin: 0;
                 border-radius: 3px;
                 a {
+                    display: flex;
                     img {
-                    border: 2px solid #dcdbe1;
+                    // border: 2px solid #dcdbe1;
                     border-radius: 4px;
                     height: 144px;
-                    border-radius: 4px;
                     }
                 }
             }

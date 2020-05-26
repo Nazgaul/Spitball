@@ -20,7 +20,7 @@
         :globalFunctions="globalFunctions"
       />
       <profileSubscription :id="id" v-if="showProfileSubscription" ref="profileSubscription" />
-      <profileLiveClasses :id="id" v-if="isTutor" />
+      <profileLiveClasses :id="id" v-if="isTutor" @isComponentReady="val => goToLiveClasses = true" ref="profileLiveClassesElement" />
       <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" />
       <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" />
       <profileItemsBox v-if="isMyProfile || showItems" class="mt-sm-12 mt-2" />
@@ -102,6 +102,7 @@ import profileLiveClasses from './components/profileLiveClasses/profileLiveClass
 import calendarTab from '../calendar/calendarTab.vue';
 import profileSubscription from './components/profileSubscription/profileSubscription.vue';
 import cover from "./components/cover.vue";
+import * as routeNames from '../../routes/routeNames.js';
 
 
 
@@ -130,6 +131,7 @@ export default {
     },
     data() {
         return {
+            goToLiveClasses: false,
             globalFunctions:{
                 sendMessage: this.sendMessage,
                 openCalendar: this.openCalendar,
@@ -151,7 +153,6 @@ export default {
             'setTutorRequestAnalyticsOpenedFrom',
             'updateRequestDialog',
             'setActiveConversationObj',
-            'openChatInterface',
             'syncProfile',
             'resetProfileData',
             'updateToasterParams'
@@ -209,7 +210,7 @@ export default {
                }
                let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
                this.setActiveConversationObj(currentConversationObj);
-               this.openChatInterface();                    
+               this.$router.push({name:routeNames.MessageCenter,params:{id:currentConversationObj.conversationId}})
             }
         },
         fetchData() {
@@ -368,8 +369,18 @@ export default {
           if(val) {
             this.$nextTick(() => {
               let profileSubscriptionElement = this.$refs.profileSubscription
-              if(profileSubscriptionElement && this.$route.hash) {
+              if(profileSubscriptionElement && this.$route.hash === '#subscription') {
                 this.$vuetify.goTo(this.$route.hash)
+              }
+            })
+          }
+        },
+        goToLiveClasses(val) {
+          if(val) {
+            this.$nextTick(() => {
+              let profileLiveClassesElement = this.$refs.profileLiveClassesElement
+              if(profileLiveClassesElement && this.$route.hash === '#broadcast') {
+                this.$vuetify.goTo(this.$route.hash, {offset: 20})
               }
             })
           }

@@ -174,8 +174,6 @@ import * as routeNames from '../../../routes/routeNames';
 //services
 import * as dialogNames from '../global/dialogInjection/dialogNames.js';
 import { LanguageService } from "../../../services/language/languageService";
-import analyticsService from '../../../services/analytics.service';
-import chatService from '../../../services/chatService';
 
 //store
 import storeService from '../../../services/store/storeService';
@@ -345,11 +343,6 @@ export default {
             'documentRequest', 
             'clearDocument', 
             'getStudyDocuments', 
-            'updateCurrTutor', 
-            'setTutorRequestAnalyticsOpenedFrom', 
-            'updateRequestDialog',
-            'setActiveConversationObj',
-            'openChatInterface',
             'updateItemToaster',
             'updatePurchaseConfirmation',
             'downloadDocument'
@@ -378,31 +371,6 @@ export default {
                 this.$router.back();
             } else {
                 this.$router.push({ name: "feed" });
-            }
-        },
-        sendMessage() {
-            let user = this.docTutor;
-            if (this.accountUser == null) {
-                analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_item_page', `userId:GUEST`);
-                this.updateCurrTutor(user);
-                this.setTutorRequestAnalyticsOpenedFrom({
-                    component: 'tutorCard',
-                    path: this.$route.path
-                });
-                this.updateRequestDialog(true);
-            } 
-            else {
-                analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
-                let conversationObj = {
-                    userId: user.userId,
-                    image: user.image,
-                    name: user.name,
-                    conversationId: chatService.createConversationId([user.userId, this.accountUser.id]),
-                }
-                let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
-                this.setActiveConversationObj(currentConversationObj);
-                
-                this.openChatInterface();                    
             }
         },
         moveDownToTutorItem() {
@@ -649,36 +617,24 @@ export default {
                 &--margin {
                     margin-bottom: 100px;
                 }
-                // .carouselDocPreview {
-                //     .itemCard-itemPage {
-                //         // .item-cont {
-                //         //     z-index: 3 !important; //flicking
-                //         //     @media (max-width: @screen-xs) {
-                //         //         overflow: visible !important; //flicking
-                //         //     }
-                //         // }
-                //     }
-                //     .sbCarousel_btn {
-                //         i {
-                //             font-size: 18px;
-                //         }
-                //     }
-                // }
                 .itemSlider {
                     .v-slide-group__content {
                         white-space: normal;
                     }
+                    .item-cont {
+                        direction: ltr;/* rtl:direction:ltr */
+                    }
                     .itemCard-itemPage {
                         margin: 10px;
-                        height: auto;
-                        // width: auto;
                         border: none;
                         box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
                         display: block;
                         &:first-child{
+                            /*rtl:ignore */
                             margin-left: 0;
                         }
                         &:last-child  {
+                            /*rtl:ignore */
                             margin-right: 0;
                         }
                     }
