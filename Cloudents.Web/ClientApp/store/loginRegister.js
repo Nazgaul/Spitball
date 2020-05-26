@@ -208,21 +208,9 @@ const actions = {
                 return Promise.reject(error);
             });
     },
-    resendEmail({dispatch}) {
+    resendEmail() {
         _analytics(['Registration', 'Resend Email']);
-        registrationService.emailResend()
-            .then(() => {
-                dispatch('updateToasterParams', {
-                    toasterText: _dictionary("login_email_sent"),
-                    showToaster: true,
-                });
-            }, () => {
-                dispatch('updateToasterParams', {
-                    toasterText: LanguageService.getValueByKey("put some error"),
-                    showToaster: true,
-                    toasterType: 'error-toaster'
-                });
-            });
+        return registrationService.emailResend();
     },
     sendSMScode({dispatch, commit, state}) {
         registrationService.smsRegistration(state.localCode,state.phone)
