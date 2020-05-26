@@ -12,7 +12,23 @@
                 <div class="infoWrap mx-5">
                     <div class="tutorName mb-2">{{userName}}</div>
                     <button class="tutorUrl text-truncate">{{userUrl}}</button>
-                    <v-btn class="btn align-self-end ms-4 mt-4 mt-sm-0" rounded outlined depressed color="#4c59ff" width="120" dense height="34">
+                    <v-btn 
+                        class="btn align-self-end ms-4 mt-4 mt-sm-0"
+                        :to="{
+                            name: profileName,
+                            params: {
+                                id: userId,
+                                name: userName
+                            }
+                        }"
+                        rounded
+                        outlined
+                        depressed
+                        color="#4c59ff"
+                        width="120"
+                        dense
+                        height="34"
+                    >
                         <span v-t="'dashboardTeacher_btn_edit'"></span>
                     </v-btn>
                 </div>
@@ -56,6 +72,7 @@ export default {
     },
     data() {
         return {
+            profileName: routeName.Profile,
             items: {
                 [constants.UPLOAD]: {
                     color: '#4c59ff',
