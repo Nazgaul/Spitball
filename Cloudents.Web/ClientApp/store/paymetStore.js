@@ -47,17 +47,13 @@ const actions = {
         //var {data} =  await axios.post(`/Tutor/${id}/subscribe`);
     },
     buyToken({dispatch ,commit}, points) {
-        walletService.buyTokens(points).then(({ data }) => {
+        return walletService.buyTokens(points).then(({ data }) => {
             dispatch('updatePaymentLink',data.link)
             commit('setIsBuyPoints',true)
             router.push({query:{...router.currentRoute.query,dialog: dialogNames.Payment}})
         }).catch(() => {
-            dispatch('updateToasterParams', {
-                toasterText: LanguageService.getValueByKey("buyTokens_failed_transaction"),
-                showToaster: true,
-                toasterTimeout: 5000
-            });
             global.localStorage.setItem("sb_transactionError", points);
+            return Promise.reject()
         });
     },
     requestPaymentURL({dispatch,getters}){
