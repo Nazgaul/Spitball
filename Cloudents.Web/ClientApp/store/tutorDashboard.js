@@ -1,8 +1,8 @@
 import axios from 'axios'
 import constants from './constants/dashboardConstants';
-// const dashboardInstance = axios.create({
-//     baseURL: '/'
-// })
+const dashboardInstance = axios.create({
+    baseURL: '/'
+})
 
 const state = {
     tutorState: {
@@ -22,7 +22,6 @@ const getters = {
 
 const mutations = {
     setTutorListActions(state, data) {
-
         for (const key in state.tutorState) {
             if(key) {
                 state.tutorListActions[key] = state.tutorState[key]
@@ -33,7 +32,13 @@ const mutations = {
 
 const actions = {
     updateTutorLinks({commit}) {
-        commit('setTutorListActions')
+        // return dashboardInstance.getTutorDashboardList()
+            // .then(({data}) => {
+                commit('setTutorListActions')
+                // commit('setTutorListActions', data)
+                // }).catch(ex => {
+                // console.log(ex);
+            // })
     }
 }
 
