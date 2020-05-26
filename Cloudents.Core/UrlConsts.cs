@@ -83,7 +83,7 @@ namespace Cloudents.Core
             //nvc.Add("chat", "expand");
 
 
-            var builder = new UriBuilder(_webSiteEndPoint);
+            var builder = new UriBuilder(_webSiteEndPoint) {Path = $"messages/{identifier}" };
             builder.AddQuery(nvc);
             return builder.Uri;
         }
