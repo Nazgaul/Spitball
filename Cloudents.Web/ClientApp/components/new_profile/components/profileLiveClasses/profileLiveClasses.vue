@@ -53,9 +53,9 @@
             </v-col>
 
             <v-col cols="12" sm="6" class="pa-0">
-                <v-row dense class="rowHeight pa-0 align-center">
+                <v-row dense class="rowHeight pa-0">
                     <template v-if="isMobile">
-                        <v-col cols="8" class="detailsMobile pa-0 d-flex align-center">
+                        <v-col cols="8" class="detailsMobile pa-0 d-flex">
                             <v-row dense class="pa-0 ma-0 text-left flex-column">
                                 <v-col class="d-flex align-center pa-0">
                                     <v-col class="pa-0">
@@ -258,6 +258,7 @@ export default {
             this.$store.dispatch('getStudyroomLiveSessions', this.id)
                 .then(res => {
                     self.liveSessions = res
+                    // self.$emit('isComponentReady')
                 }).catch(ex => {
                     self.$appInsights.trackException({exception: new Error(ex)});
                 })
