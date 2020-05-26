@@ -2,7 +2,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import User from "./User";
 import Question from "./question";
 import Account from "./account";
 import Toaster from "./Toaster";
@@ -78,7 +77,6 @@ const plugins = [
 Vue.use(Vuex);
 const store = new Vuex.Store({
     modules: {
-        User,
         Account,
         Question,
         Toaster,

@@ -18,9 +18,6 @@ export const signlaREvents = {
                 paymentreceived: function(){
                     store.dispatch("signalR_ReleasePaymeStatus");
                 },
-                enterstudyroom: function(data){
-                    store.dispatch("signalR_TutorEnterStudyRoom", data);
-                }
             };  
             arrEventObj.forEach((action)=>{
                 if(!userActions[action.type]){

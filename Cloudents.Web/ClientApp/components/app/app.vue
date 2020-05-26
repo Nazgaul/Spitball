@@ -1,24 +1,10 @@
 ﻿<template>
   <v-app>
-    <!-- <component :is="layout"></component> -->
     <router-view name="banner"></router-view>
     <router-view v-if="showHeader" name="header"></router-view>
     <router-view name="sideMenu" v-if="isDrawer"></router-view>
     <v-content :class="[{'site-content': $route.path !== '/'}, {'hidden-sideMenu': drawerPlaceholder}]">
         <router-view class="main-container"></router-view>
-        <!-- <div class="s-cookie-container" v-if="!cookiesShow">
-          <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
-          <span class="cookie-approve">
-            <button
-              @click="removeCookiesPopup()"
-              style="outline:none;"
-              v-language:inner
-            >app_cookie_toaster_action</button>
-          </span>
-        </div> -->
-
-      
-
         <sb-dialog
           :isPersistent="true"
           :showDialog="newQuestionDialogSate"
@@ -138,14 +124,6 @@ export default {
     isMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
-    cookiesShow() {
-      if (global.country === "IL") return true;
-      if (!this.accountUser) {
-        return this.getCookieAccepted();
-      } else {
-        return true;
-      }
-    },
     showMobileFooter() {
       return this.$vuetify.breakpoint.xsOnly && this.getMobileFooterState && !this.hideFooter && this.$route.name !== 'tutorLandingPage';
     },
@@ -210,19 +188,14 @@ export default {
     ...mapActions([
       "updateReferralDialog",
       "updateToasterParams",
-      "setCookieAccepted",
       "updateRequestDialog",
       "setTutorRequestAnalyticsOpenedFrom",
       "fireOptimizeActivate",
       "updateBannerStatus"
     ]),
-    ...mapGetters(["getCookieAccepted"]),
 
     closeReferralDialog() {
       this.updateReferralDialog(false);
-    },
-    removeCookiesPopup: function() {
-      this.setCookieAccepted();
     },
     tryBuyTokens(transactionObjectError) {
       walletService.buyTokens(transactionObjectError).then(
@@ -256,7 +229,6 @@ export default {
     }
     this.updateBannerStatus(true);
 
-    this.acceptedCookies = this.getCookieAccepted();
     if (global.isMobileAgent) {
       global.addEventListener("resize", () => {
         if (
