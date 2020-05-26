@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer touchless permanent app clipped  width="220" mini-variant-width="62"
+    <v-navigation-drawer touchless permanent app clipped  width="220" mini-variant-width="62" :right="$vuetify.rtl"
                          :temporary="!isMiniSideMenu && $vuetify.breakpoint.mdAndDown"
                          class="sideMenu"
                          :value="getShowSchoolBlock"
