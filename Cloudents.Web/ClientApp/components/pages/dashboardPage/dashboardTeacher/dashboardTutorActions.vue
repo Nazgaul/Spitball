@@ -97,13 +97,12 @@ export default {
     computed: {
         tutorActionsList() {
             let list = this.$store.getters.getTutorListActions
-            let newItems = Object.keys(list).map(item => {
+            return Object.keys(list).map(item => {
                 return {
                     name: item,
                     ...this.items[item]
                 }
             })
-            return newItems
         },
         userId() {
             return this.$store.getters.getAccountId

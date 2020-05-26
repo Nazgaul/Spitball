@@ -6,12 +6,30 @@ const dashboardInstance = axios.create({
 
 const state = {
     tutorState: {
-        [constants.UPLOAD]: false,
-        [constants.CALENDAR]: false,
-        [constants.TEACH]: false,
-        [constants.SESSIONS]: false,
-        [constants.MARKETING]: false,
-        [constants.BOOK]: false,
+        [constants.UPLOAD]: {
+            value: false,
+            priority: 1
+        },
+        [constants.CALENDAR]: {
+            value: false,
+            priority: 1
+        },
+        [constants.TEACH]: {
+            value: false,
+            priority: 1
+        },
+        [constants.SESSIONS]: {
+            value: false,
+            priority: 2
+        },
+        [constants.MARKETING]: {
+            value: false,
+            priority: 2
+        },
+        [constants.BOOK]: {
+            value: false,
+            priority: 3
+        },
     },
     tutorListActions: {}
 }
@@ -24,7 +42,9 @@ const mutations = {
     setTutorListActions(state, data) {
         for (const key in state.tutorState) {
             if(key) {
-                state.tutorListActions[key] = state.tutorState[key]
+                state.tutorListActions[key] = {
+                    value: state.tutorState[key].value
+                }
             }
         }
     }
