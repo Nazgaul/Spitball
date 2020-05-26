@@ -25,11 +25,11 @@
         <div class="tutorLinks">
             <div class="linkWrap d-flex align-center justify-space-between py-4" v-for="(action) in tutorActionsList" :key="action.name">
                 <div class="linkBorded" :style="{background: action.color}"></div>
-                <div class="link d-flex align-center">
+                <div class="link d-flex align-center" :class="{'mobileLayout': isMobile}">
                     <circleArrow class="arrowIcon" width="23" :stroke="action.color" />
-                    <div class="ml-4">{{action.text}}</div>
+                    <div class="ms-sm-4">{{action.text}}</div>
                 </div>
-                <v-btn class="btn" rounded outlined depressed color="#4c59ff" width="120" :to="{name: action.routeName}" v-t="action.btnText"></v-btn>
+                <v-btn v-if="!isMobile" class="btn" rounded outlined depressed color="#4c59ff" width="120" :to="{name: action.routeName}" v-t="action.btnText"></v-btn>
             </div>
         </div>
 
@@ -104,6 +104,9 @@ export default {
                 }
             })
         },
+        isMobile() {
+            return this.$vuetify.breakpoint.xsOnly
+        },
         userId() {
             return this.$store.getters.getAccountId
         },
@@ -167,6 +170,14 @@ export default {
                     font-weight: 600;
                     .arrowIcon {
                         transform: none /*rtl:scaleX(-1)*/;
+                    }
+
+                    &.mobileLayout {
+                        flex: 1;
+                        justify-content: space-between;
+                        .arrowIcon {
+                            order: 1;
+                        }
                     }
                 }
             }

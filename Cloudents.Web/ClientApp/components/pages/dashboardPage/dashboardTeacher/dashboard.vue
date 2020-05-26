@@ -23,9 +23,13 @@ export default {
 }
 </script>
 <style lang="less">
+  @import '../../../../styles/mixin.less';
   .dashboardMain {
-    width: 100%;
     max-width: 890px;
     margin: 24px 34px;
+
+    @media (max-width: @screen-xs) {
+      margin: 24px 0;
+    }
   }
 </style>

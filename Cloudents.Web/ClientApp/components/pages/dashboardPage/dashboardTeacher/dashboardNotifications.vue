@@ -8,6 +8,7 @@
 
         <div class="center d-flex align-center justify-space-between" v-for="(notification, index) in tutorNotifications" :key="index">
             <div class="d-flex align-center">
+                <div class="blueDot"></div>
                 <bellIcon class="" width="20px" />
                 <div class="notificateText ml-4">dasdsa</div>
             </div>
@@ -69,6 +70,16 @@ export default {
         .center {
             border-bottom: solid 1px #eeeeee;
             padding: 16px 0;
+            position: relative;
+            .blueDot {
+                position: absolute;
+                background: #4c59ff;
+                top: 18px;
+                left: 12px;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+            }
             &:last-child {
                 border-bottom: none;
                 padding-bottom: 0;
