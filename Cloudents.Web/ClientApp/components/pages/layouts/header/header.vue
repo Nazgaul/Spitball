@@ -111,7 +111,7 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
             languageChoisesAval: [],
             currLanguage: document.documentElement.lang,
             clickOnce: false,
-            isRtl: global.isRtl
+          //  isRtl: global.isRtl
         }
     },
     props: {
