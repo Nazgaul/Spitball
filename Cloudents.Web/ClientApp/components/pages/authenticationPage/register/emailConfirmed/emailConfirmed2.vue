@@ -44,8 +44,14 @@ export default {
         resend(){
             if(this.isRegisterPath){
                 this.resendEmail()
-            } else{
-                this.resendEmailPassword()
+            }else{
+                this.resendEmailPassword().then(() => {
+                    let text = this.$t('login_email_sent')
+                    this.$store.dispatch('updateToasterParams',{
+                        toasterText: text,
+                        showToaster: true,
+                    });
+            });
             }
         }
     }

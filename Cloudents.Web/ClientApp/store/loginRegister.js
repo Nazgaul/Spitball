@@ -314,15 +314,9 @@ const actions = {
                 commit('setErrorMessages',{email: error.response.data["ForgotPassword"] ? error.response.data["ForgotPassword"][0] : error.response.data["Email"][0]});
             });
     },
-    resendEmailPassword({dispatch}){
+    resendEmailPassword(){
         _analytics(['Registration', 'Resend Email']);
-        registrationService.EmailforgotPasswordResend()
-            .then(() => {
-                dispatch('updateToasterParams',{
-                    toasterText: _dictionary("login_email_sent"),
-                    showToaster: true,
-                });
-            });
+        return registrationService.EmailforgotPasswordResend()
     },
     changePassword({commit,dispatch},params) {
         let {id, code, password, confirmPassword} = params;
