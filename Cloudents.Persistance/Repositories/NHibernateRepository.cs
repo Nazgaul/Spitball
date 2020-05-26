@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Persistence.Repositories
 {
@@ -49,6 +50,11 @@ namespace Cloudents.Persistence.Repositories
 
         public virtual Task DeleteAsync(T entity, CancellationToken token)
         {
+            if (entity is ISoftDelete f)
+            {
+                f.Delete();
+                return Session.UpdateAsync(entity, token);
+            }
             return Session.DeleteAsync(entity, token);
         }
 
