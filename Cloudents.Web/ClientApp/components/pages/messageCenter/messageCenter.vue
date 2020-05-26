@@ -56,6 +56,9 @@ export default {
          }
       },
    },
+   beforeDestroy(){
+      this.$store.dispatch('setActiveConversationObj',chatService.createActiveConversationObj({}));
+   }
 }
 </script>
 

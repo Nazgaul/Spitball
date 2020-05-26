@@ -202,7 +202,7 @@ const actions = {
                         }
                         let conversationObj = chatService.createConversation(newData);
                         commit('addConversation', conversationObj);
-                        commit('addConversationUnread', message);
+                        // commit('addConversationUnread', message);
                         commit('updateTotalUnread', 1);
                     });
                 }
