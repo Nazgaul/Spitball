@@ -224,29 +224,10 @@ namespace Cloudents.Core.Entities
                 Action = TransactionActionType.SoldDocument,
                 Price = document.DocumentPrice.Price,
                 Type = TransactionType.Earned,
-                // _awardScore = 1
 
             };
         }
-
-        //public static void MakerTransaction(User buyer, BaseUser seller, Document d)
-        //{
-        //    var t = buyer.Transactions.TransactionsReadOnly.AsQueryable().Where(w => w is DocumentTransaction)
-        //        .Any(f => ((DocumentTransaction) f).Document.Id == d.Id);
-
-        //    if (t)
-        //    {
-        //        throw new DuplicateRowException();
-        //    }
-
-        //    buyer.MakeTransaction(Buyer(d));
-        //    seller.MakeTransaction(Seller(d));
-        //    seller.MakeTransaction(new CommissionTransaction(d.Price));
-        //}
-
-        //private int _awardScore ;
-
-        //public override int AwardScore => _awardScore;
+        
     }
 
     public sealed class AwardsTransaction

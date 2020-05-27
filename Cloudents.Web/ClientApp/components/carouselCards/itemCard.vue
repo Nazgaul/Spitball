@@ -31,7 +31,8 @@
                 </div>
             </div>
             <div class="itemCard-bottom mt-2">
-                <span class="item-purchases">{{$tc('itemCardCarousel_purchased', item.purchased)}}</span>
+                <span v-if="item.price" class="item-purchases">{{$tc('itemCardCarousel_purchased', item.purchased)}}</span>
+                <span v-else class="item-purchases">{{$tc('itemCardCarousel_downloaded', item.downloads)}}</span>
                 <documentPrice :price="item.price" :isSubscribed="isSubscribed" />
             </div>
         </div>
