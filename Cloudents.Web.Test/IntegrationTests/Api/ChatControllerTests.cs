@@ -102,7 +102,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
            
         }
 
-        [Fact]
+        [Fact(Skip = "No good api ")]
         public async Task PostAsync_Send_MessageAsync()
         {
             await _client.LogInAsync();
@@ -155,7 +155,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         }
 
-        [Fact]
+        [Fact(Skip = "For now")]
         public async Task PostAsync_Chat_Read_OKAsync()
         {
             await _client.LogInAsync();

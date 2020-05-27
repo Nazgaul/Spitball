@@ -7,5 +7,7 @@
         public string TutorName { get; set; }
         public string UserPhone { get; set; }
         public long UserId { get; set; }
+
+        public string Identifier { get; set; }
     }
 }
