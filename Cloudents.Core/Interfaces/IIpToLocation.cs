@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Core.Interfaces
 {
-    //public interface IIpToLocation
-    //{
-    //    Task<Location?> GetAsync(IPAddress ipAddress, CancellationToken token);
-    //}
+    public interface IIpToLocation
+    {
+        Task<Location?> GetLocationAsync(string ipAddress, CancellationToken token);
+    }
 
     public interface ICountryProvider
     {

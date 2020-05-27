@@ -72,7 +72,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> SetUserPhoneNumberAsync(
-            [FromBody]PhoneNumberRequest model,
+            [FromBody] PhoneNumberRequest model,
             CancellationToken token)
         {
             if (User.Identity.IsAuthenticated)
@@ -125,7 +125,7 @@ namespace Cloudents.Web.Api
                 await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.MaxValue);
                 ModelState.AddModelError(nameof(model.PhoneNumber), _smsLocalizer["CountryNotSupported"]);
                 var t2 = _signInManager.SignOutAsync();
-                await Task.WhenAll( t2);
+                await Task.WhenAll(t2);
                 return BadRequest(ModelState);
             }
             if (retVal.Errors.Any(a => a.Code == "InvalidPhoneNumber"))
@@ -149,7 +149,7 @@ namespace Cloudents.Web.Api
 
         [HttpPost("verify")]
         public async Task<IActionResult> VerifySmsAsync(
-            [FromBody]CodeRequest model,
+            [FromBody] CodeRequest model,
             [ModelBinder(typeof(CountryModelBinder))] string country,
             [FromHeader(Name = "User-Agent")] string agent,
             CancellationToken token)
@@ -166,14 +166,14 @@ namespace Cloudents.Web.Api
             if (v.Succeeded)
             {
                 agent = agent.Substring(0, Math.Min(agent.Length, 255));
-                return await FinishRegistrationAsync(user, country, agent, token);
+                return await FinishRegistrationAsync(user, agent, token);
             }
             _logger.Warning($"userid: {user.Id} is not verified reason: {v}");
             ModelState.AddIdentityModelError(v);
             return BadRequest(ModelState);
         }
 
-        private async Task<IActionResult> FinishRegistrationAsync(User user, string country,
+        private async Task<IActionResult> FinishRegistrationAsync(User user,
             string userAgent, CancellationToken token)
         {
             if (TempData[HomeController.Referral] != null)
@@ -198,7 +198,7 @@ namespace Cloudents.Web.Api
             }
             TempData.Clear();
 
-            var command2 = new AddUserLocationCommand(user, country, HttpContext.GetIpAddress(), userAgent);
+            var command2 = new AddUserLocationCommand(user, HttpContext.GetIpAddress(), userAgent);
             var registrationBonusCommand = new FinishRegistrationCommand(user.Id);
             var t1 = _commandBus.DispatchAsync(command2, token);
             var t2 = _signInManager.SignInAsync(user, false);

@@ -4,12 +4,10 @@ using Cloudents.Core.Models;
 using Cloudents.Query;
 using System;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
 using NHibernate;
 using NHibernate.Linq;
 using ICountryProvider = Cloudents.Core.Interfaces.ICountryProvider;
@@ -28,13 +26,12 @@ namespace Cloudents.Infrastructure
         internal sealed class CountryByIpQueryQueryHandler : IQueryHandler<CountryByIpQuery, Location?>
         {
             private readonly IStatelessSession _session;
-            //private readonly IRestClient _restClient;
-            private readonly HttpClient _httpClient;
+            private readonly IIpToLocation _restClient;
             private readonly ICountryProvider _countryProvider;
 
-            public CountryByIpQueryQueryHandler(QuerySession session, HttpClient restClient, ICountryProvider countryProvider)
+            public CountryByIpQueryQueryHandler(QuerySession session, IIpToLocation restClient, ICountryProvider countryProvider)
             {
-                _httpClient = restClient;
+                _restClient = restClient;
                 _countryProvider = countryProvider;
                 _session = session.StatelessSession;
             }
@@ -52,16 +49,16 @@ namespace Cloudents.Infrastructure
                         {
                             w.SetComment(nameof(CountryByIpQuery));
                             w.SetTimeout(5);
-                           
+
                         })
                         .Fetch(f => f.User)
                         .Where(w => w.Ip == query.Ip && w.TimeStamp.CreationTime > DateTime.UtcNow.AddDays(-30))
                         .Select(s => s.Country)
                         .FirstOrDefaultAsync(newToken);
-                   
 
 
-                  
+
+
                     if (result != null)
                     {
                         var callingCode = _countryProvider.GetCallingCode(result);
@@ -72,13 +69,8 @@ namespace Cloudents.Infrastructure
                         return null;
                     }
 
-                    var uri = new Uri($"http://api.ipstack.com/{query.Ip}?access_key=0b561be1266ad6b1d01f2daedc4703cd");
-                    var ipDto = await _httpClient.GetFromJsonAsync<IpDto>(uri, newToken);
-                    if (ipDto == null)
-                    {
-                        return null;
-                    }
-                    return new Location(ipDto.CountryCode, ipDto.Location?.CallingCode);
+                    return await _restClient.GetLocationAsync(query.Ip, newToken);
+
                 }
                 catch (OperationCanceledException)
                 {
@@ -86,30 +78,12 @@ namespace Cloudents.Infrastructure
                 }
             }
         }
-        public class IpDto
-        {
 
-            [JsonPropertyName("country_code")]
-            public string CountryCode { get; set; }
-            // public string RegionCode { get; set; }
-            //public string City { get; set; }
-            //public float? Latitude { get; set; }
-            //public float? Longitude { get; set; }
-            public IpLocation Location { get; set; }
-        }
-
-        public class IpLocation
-        {
-
-            [JsonPropertyName("calling_code")]
-            public string CallingCode { get; set; }
-
-        }
     }
-    
+
     //public class IpToLocation : IIpToLocation
     //{
-      
+
     //    private readonly IQueryBus _queryBus;
     //    private readonly IStatelessSession _session;
 

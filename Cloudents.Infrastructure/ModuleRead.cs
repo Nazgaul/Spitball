@@ -23,7 +23,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<DocumentFeedService>().AsSelf().Keyed<IFeedTypeService>(Core.Enum.FeedType.Video);
             builder.RegisterType<AggregateFeedService>().Keyed<IFeedTypeService>(Core.Enum.FeedType.All);
 
-            //builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
+            builder.RegisterType<IpStackProvider>().As<IIpToLocation>();//.EnableInterfaceInterceptors()
             //    .InterceptedBy(typeof(CacheResultInterceptor));
 
             builder.RegisterType<GoogleService>().AsSelf()
