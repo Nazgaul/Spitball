@@ -12,7 +12,7 @@ namespace Cloudents.Core.Entities
     public class User : BaseUser
     {
         public User(string email, string firstName, string lastName,
-            Language language, string country, Gender gender = Gender.None)
+            Language language, string country, Gender gender = Enum.Gender.None)
         {
             Email = email;
             ChangeName(firstName, lastName);
@@ -202,7 +202,7 @@ namespace Cloudents.Core.Entities
         public virtual BuyerPayment? BuyerPayment { get; protected set; }
         public virtual IPayment2? Payment { get; protected set; }
 
-        public virtual Gender Gender { get; protected set; }
+        public virtual Gender? Gender { get; protected set; }
         public virtual PaymentStatus? PaymentExists { get; protected set; }
 
         public virtual DateTime? FinishRegistrationDate { get; set; }
