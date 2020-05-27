@@ -42,7 +42,7 @@ export default {
     },
     data(){
         return{
-            myStudyRoomsRoute: routeNames.MyStudyRooms,
+            myStudyRoomsRoute: routeNames.MyStudyRoomsLive,
             studyRoomRoute: routeNames.StudyRoom,
 
             messageText: "",

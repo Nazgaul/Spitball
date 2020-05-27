@@ -11,24 +11,27 @@
         
         <v-list class="sideMenu_list_cont" dense>
 
-          <sideMenuListItem :dashboardProps="propsListDashboard" :item="overviewItem"/>
+          <sideMenuListItem :dashboardProps="propsListDashboard" :item="myDashboard"/>
           <sideMenuListItem :dashboardProps="propsListDashboard" :item="myQuestionsItem"/>
-          <template v-if="showMyContent">
-            <sideMenuListItem :dashboardProps="propsListDashboard" :item="myContentItem"/>
-          </template>
-          <sideMenuListItem :dashboardProps="propsListDashboard" :item="myStudyRoomsItem"/>
-          <template v-if="showMySales">
-            <sideMenuListItem :dashboardProps="propsListDashboard" :item="mySalesItem"/>
-          </template>
-          <template v-if="showMyFollowers">
-            <sideMenuListItem :dashboardProps="propsListDashboard" :item="myFollowersItem"/>
-          </template>
-          <template v-if="showMyPurchases">
-            <sideMenuListItem :dashboardProps="propsListDashboard" :item="myPurchasesItem"/>
-          </template>
+          <!-- <template v-if="showMyContent"> -->
+          <sideMenuListItem :dashboardProps="propsListDashboard" :item="myContentItem"/>
+          <!-- </template> -->
+          <sideMenuListItem :dashboardProps="propsListDashboard" :item="myLiveSession"/>
+          <sideMenuListItem :dashboardProps="propsListDashboard" :item="myBroadcast"/>
 
-          <!-- <sideMenuListItem :dashboardProps="propsListDashboard" :item="myMarketingTools"/> -->
-          <sideMenuListItem :dashboardProps="propsListDashboard" :item="myProfileItem"/>
+          <!-- <sideMenuListItem :dashboardProps="propsListDashboard" :item="myStudyRoomsItem"/> -->
+          <!-- <template v-if="showMySales"> -->
+          <sideMenuListItem :dashboardProps="propsListDashboard" :item="myMarketingTools"/>
+          <sideMenuListItem :dashboardProps="propsListDashboard" :item="mySalesItem"/>
+          <!-- </template> -->
+          <!-- <template v-if="showMyFollowers"> -->
+          <sideMenuListItem :dashboardProps="propsListDashboard" :item="myFollowersItem"/>
+          <!-- </template> -->
+          <!-- <template v-if="showMyPurchases"> -->
+          <sideMenuListItem :dashboardProps="propsListDashboard" :item="myPurchasesItem"/>
+          <!-- </template> -->
+
+          <!-- <sideMenuListItem :dashboardProps="propsListDashboard" :item="myProfileItem"/> -->
           <sideMenuListItem :dashboardProps="propsListDashboard" :item="myCoursesItem"/>
           <sideMenuListItem :dashboardProps="propsListDashboard" :item="myCalendarItem"/>
         </v-list>
@@ -51,17 +54,17 @@ export default {
       sideMenulistElm: null,
       isRtl: global.isRtl,
 
-      overviewItem:{name: this.$t('schoolBlock_overview'),route: routeNames.Dashboard, icon:'sbf-eye', sel:'sidemenu_dashboard_overview'},
+      myDashboard:{name: this.$t('schoolBlock_dashboard'),route: routeNames.Dashboard, icon:'sbf-dashboard-sideMenu', sel:'sidemenu_dashboard_overview'},
+      myContentItem:{name: this.$t('schoolBlock_my_content'),route: routeNames.MyContent, icon:'sbf-my-content', sel:'sidemenu_dashboard_myContent'},
+      myLiveSession:{name: this.$t('schoolBlock_live_session'),route: routeNames.MyStudyRoomsLive, icon:'sbf-myLive', sel:'sidemenu_dashboard_live_session'},
+      myBroadcast:{name: this.$t('schoolBlock_live_session'),route: routeNames.MyStudyRoomsBroadcast, icon:'sbf-studyroom-icon', sel:'sidemenu_dashboard_live_session'},
+      myMarketingTools:{name: this.$t('schoolBlock_my_marekting'),route: routeNames.Marketing, icon:'sbf-myMarketing',sel:'sidemenu_settings_myMarketing'},
       mySalesItem:{name: this.$t('schoolBlock_my_sales'),route: routeNames.MySales, icon:'sbf-my-sales', sel:'sidemenu_dashboard_mySales'},
       myFollowersItem:{name: this.$t('schoolBlock_my_followers'),route: routeNames.MyFollowers, icon:'sbf-follow', sel:'sidemenu_dashboard_myFollowers'},
       myPurchasesItem:{name: this.$t('schoolBlock_purchases'),route: routeNames.MyPurchases, icon:'sbf-cart', sel:'sidemenu_dashboard_myPurchases'},
-      myContentItem:{name: this.$t('schoolBlock_my_content'),route: routeNames.MyContent, icon:'sbf-my-content', sel:'sidemenu_dashboard_myContent'},
-      myStudyRoomsItem:{name: this.$t('schoolBlock_study'),route: routeNames.MyStudyRooms, icon:'sbf-studyroom-icon', sel:'sidemenu_dashboard_myStudyRooms'},
       myQuestionsItem:{name: this.$t('schoolBlock_my_Questions'),route:'myQuestions',icon:'sbf-my-questions',sel:'sidemenu_dashboard_opportunities'},
 
-      // myMarketingTools:{name: this.$t('schoolBlock_my_marekting'),route: routeNames.Marketing, icon:'sbf-marketing',sel:'sidemenu_settings_myMarketing'},
-
-      myProfileItem:{name: this.$t('schoolBlock_my_site'),route: routeNames.Profile, icon:'sbf-user',sel:'sidemenu_settings_myProfile'},
+      // myProfileItem:{name: this.$t('schoolBlock_my_site'),route: routeNames.Profile, icon:'sbf-user',sel:'sidemenu_settings_myProfile'},
       myCoursesItem:{name: this.$t('schoolBlock_courses'),route: routeNames.EditCourse, icon:'sbf-classes-icon', sel:'sidemenu_settings_myCourses'},
       myCalendarItem:{name: this.$t('schoolBlock_calendar'),route: routeNames.MyCalendar, icon:'sbf-calendar', sel:'sidemenu_settings_myCalendar'},
     };
@@ -83,18 +86,18 @@ export default {
       return { goTo:this.goTo,
                openSideMenu:this.openSideMenu}
     },
-    showMyContent(){
-        return this.accountUser?.haveContent;
-    },
-    showMySales(){
-        return this.accountUser.isSold;
-    },
-    showMyFollowers(){
-        return this.accountUser.haveFollowers;
-    },
-    showMyPurchases(){
-        return this.accountUser.isPurchased;
-    },
+    // showMyContent(){
+    //     return this.accountUser?.haveContent;
+    // },
+    // showMySales(){
+    //     return this.accountUser.isSold;
+    // },
+    // showMyFollowers(){
+    //     return this.accountUser.haveFollowers;
+    // },
+    // showMyPurchases(){
+    //     return this.accountUser.isPurchased;
+    // },
   },
   methods: {
     ...mapActions(["toggleShowSchoolBlock","setShowSchoolBlockMobile"]),

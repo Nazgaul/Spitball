@@ -260,7 +260,9 @@ export default {
     }
   },
   created() {
-    this.updateStudyRoomItems();
+    let studyRoomType = this.$route.meta.type
+    
+    this.updateStudyRoomItems({type: studyRoomType});
   }
 };
 </script>

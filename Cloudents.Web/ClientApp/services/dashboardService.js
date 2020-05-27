@@ -183,8 +183,8 @@ function getPurchasesItems(){
    return connectivityModule.http.get('/Account/purchases').then(createPurchasesItems).catch(ex => ex);
 }
 // TODO: move to studyroom service
-function getStudyRoomItems(){
-   return connectivityModule.http.get('StudyRoom').then(createStudyRoomItems).catch(ex => ex);
+function getStudyRoomItems(type){
+   return connectivityModule.http.get('StudyRoom', {params: type}).then(createStudyRoomItems).catch(ex => ex);
 }
 function getFollowersItems(){
    return connectivityModule.http.get('/Account/followers').then(createFollowersItems).catch(ex => ex);

@@ -72,18 +72,34 @@ export const dashboardRoutes = [
        },
    },
    {
-       path: "/study-rooms",
-       components: dashboardPages,
-       name: "myStudyRooms",
-       props: {
+        path: "/study-rooms-live",
+        components: dashboardPages,
+        name: "myStudyRoomsLive",
+        props: {
            default: (route) => ({
                component: route.name,
-           })
-       },
-       meta: {
-           requiresAuth: true,
-           showMobileFooter: true,
-       },
+            }),
+        },
+        meta: {
+            type: 'live',
+            requiresAuth: true,
+            showMobileFooter: true,
+        },
+    },
+    {
+        path: "/study-rooms-broadcast",
+        components: dashboardPages,
+        name: "myStudyRoomsBroadcast",
+        props: {
+            default: (route) => ({
+                component: route.name,
+            }),
+        },
+        meta: {
+            type: 'broadcast',
+            requiresAuth: true,
+            showMobileFooter: true,
+        },
     },
     {
         path: "/my-calendar",

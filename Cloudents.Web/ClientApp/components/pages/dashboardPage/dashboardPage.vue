@@ -1,6 +1,7 @@
 <template>
    <div class="dashboardPage">
-      <component v-if="!!accountUser" :dictionary="dictionary" :is="component">
+      {{type}}
+      <component v-if="!!accountUser" :dictionary="dictionary" :is="component" :type="type">
          <template slot="tableEmptyState">
             <tableEmptyState/>
          </template>
@@ -12,7 +13,10 @@
 import mySales from './mySales/mySales.vue';
 import myContent from './myContent/myContent.vue';
 import myPurchases from './myPurchases/myPurchases.vue';
-import myStudyRooms from './myStudyRooms/myStudyRooms.vue';
+// import myStudyRooms from './myStudyRooms/myStudyRooms.vue';
+import myStudyRoomsLive from './myStudyRooms/myStudyRooms.vue';
+import myStudyRoomsBroadcast from './myStudyRooms/myStudyRooms.vue';
+
 import myCalendar from './myCalendar/myCalendar.vue';
 import myFollowers from './myFollowers/myFollowers.vue';
 
@@ -21,7 +25,7 @@ import { mapGetters } from 'vuex';
 
 export default {
    name:'dashboardPage',
-   props:['component'],
+   props:['component', 'type'],
    data() {
       return {
          dictionary:{
@@ -62,14 +66,16 @@ export default {
       mySales,
       myContent,
       myPurchases,
-      myStudyRooms,
+      // myStudyRooms,
+      myStudyRoomsLive,
+      myStudyRoomsBroadcast,
       myCalendar,
       myFollowers,
       tableEmptyState,
    },
    computed: {
       ...mapGetters(['accountUser'])
-   },
+   }
 }
 </script>
 

@@ -28,7 +28,8 @@ export const MySales = 'mySales';
 export const MyFollowers = 'myFollowers';
 export const MyPurchases = 'myPurchases';
 export const MyContent = 'myContent';
-export const MyStudyRooms = 'myStudyRooms';
+export const MyStudyRoomsLive = 'myStudyRoomsLive';
+export const MyStudyRoomsBroadcast = 'myStudyRoomsBroadcast';
 export const MyCalendar = 'myCalendar';
 
 // Home Page:

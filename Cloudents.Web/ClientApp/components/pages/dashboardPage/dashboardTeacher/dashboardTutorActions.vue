@@ -97,7 +97,7 @@ export default {
                     color: '#41c4bc',
                     text: 'dashboardTeacher_link_text_session',
                     btnText: 'dashboardTeacher_btn_text_session',
-                    routeName: routeName.MyStudyRooms
+                    routeName: routeName.MyStudyRoomsLive
                 },
                 [constants.MARKETING]: {
                     color: '#41c4bc',
