@@ -73,12 +73,10 @@ export const dashboardRoutes = [
    },
    {
         path: "/study-rooms-live",
-        components: dashboardPages,
         name: "myStudyRooms",
-        props: {
-           default: (route) => ({
-               component: route.name,
-            }),
+        components: {
+            default: () => import(`../components/pages/dashboardPage/myStudyRooms/myStudyRooms.vue`),
+            ...staticComponents(['banner', 'header', 'sideMenu'])
         },
         meta: {
             type: 'live',
@@ -88,8 +86,11 @@ export const dashboardRoutes = [
     },
     {
         path: "/study-rooms-broadcast",
-        components: dashboardPages,
         name: "myStudyRoomsBroadcast",
+        components: {
+            default: () => import(`../components/pages/dashboardPage/myStudyRooms/myStudyRooms.vue`),
+            ...staticComponents(['banner', 'header', 'sideMenu'])
+        },
         props: {
             default: (route) => ({
                 component: route.name,

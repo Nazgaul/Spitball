@@ -53,7 +53,7 @@
       <template v-slot:item.type="{item}">
         <div
           class="sessionType"
-          :class="{'private': item.type === 'Private'}"
+          :class="{'private': !isStudyroomLive}"
           v-t="item.type === 'Private' ? 'dashboardPage_type_private' : 'dashboardPage_type_broadcast'"
         >
         </div>
@@ -73,45 +73,45 @@
       
       <template v-slot:item.action="{item}">
         <div class="actionsWrapper d-flex align-center justify-center">
-                <div v-if="item.showChat" class="mr-9">
-                    <v-btn
-                      icon
-                      @click="sendMessage(item)"
-                      :title="$t('schoolBlock_SendMessageTooltip')"
-                    >
-                        <iconChat fill="#4c59ff" />
-                    </v-btn>
-                    <div v-t="'schoolBlock_SendMessageTooltip'"></div>
-                </div>
+            <div v-if="item.showChat" class="mr-9">
+                <v-btn
+                  icon
+                  @click="sendMessage(item)"
+                  :title="$t('schoolBlock_SendMessageTooltip')"
+                >
+                    <iconChat fill="#4c59ff" />
+                </v-btn>
+                <div v-t="'schoolBlock_SendMessageTooltip'"></div>
+            </div>
 
-                <div v-else class="copyLink mr-8 flex-shrink-0">
-                    <v-tooltip :value="currentItemId === item.id" top transition="fade-transition">
-                        <template v-slot:activator="{}">
-                            <linkSVG
-                              style="width:20px;height:36px;"
-                              class="option link"
-                              @click="copyLink(item)"
-                            />
-                        </template>
-                        <span v-t="'shareContent_copy_tool'"></span>
-                    </v-tooltip>
-                    <div v-t="'dashboardPage_link_share'"></div>
-                </div>
+            <div v-else class="copyLink mr-8 flex-shrink-0">
+                <v-tooltip :value="currentItemId === item.id" top transition="fade-transition">
+                    <template v-slot:activator="{}">
+                        <linkSVG
+                          style="width:20px;height:36px;"
+                          class="option link"
+                          @click="copyLink(item)"
+                        />
+                    </template>
+                    <span v-t="'shareContent_copy_tool'"></span>
+                </v-tooltip>
+                <div v-t="'dashboardPage_link_share'"></div>
+            </div>
 
-                <div class="flex-shrink-0">
-                  <v-btn
-                    icon
-                    @click="enterRoom(item.id)"
-                    :title="$t('schoolBlock_EnterStudyRoomTooltip')"
-                  >
-                    <enterRoom width="18" />
-                  </v-btn>
-                  <div v-t="'schoolBlock_EnterStudyRoomTooltip'"></div>
-                </div>
+            <div class="flex-shrink-0">
+              <v-btn
+                icon
+                @click="enterRoom(item.id)"
+                :title="$t('schoolBlock_EnterStudyRoomTooltip')"
+              >
+                <enterRoom width="18" />
+              </v-btn>
+              <div v-t="'schoolBlock_EnterStudyRoomTooltip'"></div>
+            </div>
 
             <v-menu v-model="showMenu" offset-overflow>
                 <template v-slot:activator="{ on }">
-                    <div class="dotsIcon mr-2 ml-4 pb-5 pr-5 pr-sm-0" v-if="isTutor && item.type === 'Broadcast'">
+                    <div class="dotsIcon mr-2 ml-4 pb-5 pr-5 pr-sm-0" v-if="isTutor && isStudyroomLive">
                         <v-icon color="#bbb" v-on="on" @click="openDeleteMenu(item.id)" slot="activator" small icon>sbf-3-dot</v-icon>
                     </div>
                     <div class="dotsIcon mr-2 ml-2 pb-5" v-else>
@@ -162,32 +162,22 @@ export default {
         value: false,
         text: ''
       },
-      snackTest: '',
       showMenu: false,
       menuShowId: null,
       currentItemId: null,
-      createStudyRoomDialog: dialogNames.CreateStudyRoom,
-      routeNames,
-      sortedBy: "",
       paginationModel: {
         page: 1
       },
       headers: [
-        this.dictionary.headers["created"],
-        this.dictionary.headers["name"],
-        this.dictionary.headers["type"],
-        this.dictionary.headers["scheduled"],
-        this.dictionary.headers["students"],
-        this.dictionary.headers["last_date"],
-        this.dictionary.headers["action"]
+        {text: this.$t('studyRoom_created'), align:'left', sortable: true, value:'date'},
+        {text: this.$t('dashboardPage_name'), align:'left', sortable: true, value:'name'},
+        {text: this.$t('dashboardPage_type'), align:'left', sortable: true, value:'type'},
+        {text: this.$t('dashboardPage_scheduled'), align:'left', sortable: true, value:'scheduled'},
+        {text: this.$t('dashboardPage_students'), align:'left', sortable: true, value:'students'},
+        {text: this.$t('dashboardPage_last_date'), align:'left', sortable: true, value:'lastSession'},
+        {text: '', align:'center', sortable: false, value:'action'},
       ]
     };
-  },
-  props: {
-    dictionary: {
-      type: Object,
-      required: true
-    }
   },
   computed: {
     ...mapGetters(["getStudyRoomItems"]),
@@ -285,7 +275,13 @@ export default {
 @import "../../../../styles/colors.less";
 
 .myStudyRooms {
+  padding: 30px;
   max-width: 1334px;
+  @media (max-width: @screen-xs) {
+    padding: 30px 0;
+    width: 100%;
+    height: 100%;
+  }
   .tableTop {
     padding: 30px;
     color: @global-purple !important;
