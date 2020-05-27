@@ -72,10 +72,9 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(200)]
 
         public async Task<WebResponseWithFacet<DocumentFeedDto>> GetDocumentsAsync(
-            [FromQuery] ProfileDocumentsRequest request, CancellationToken token = default)
+            [FromQuery] ProfileDocumentsRequest request, CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-
             var query = new UserDocumentsQuery(request.Id, request.Page, request.PageSize,
                 request.DocumentType, request.Course,userId);
             var retVal = await _queryBus.QueryAsync(query, token);
