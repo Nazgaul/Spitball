@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading;
@@ -27,6 +28,7 @@ using Cloudents.Core.Event;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Payments;
 using Cloudents.Query;
+using Cloudents.Query.General;
 using Cloudents.Query.Tutor;
 using Cloudents.Query.Users;
 using Cloudents.Search.Document;
@@ -101,7 +103,7 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Dev;
+            var env = EnvironmentSettings.Prod;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
@@ -147,7 +149,12 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await Dbi();
+            var x = Container.Resolve<IQueryBus>();
+            var q = new CountryByIpQuery("147.243.90.127");
+            var x2 = await x.QueryAsync(q, default);
+
+           // var i = Container.Resolve<IIpToLocation>();
+           //var z2 = await i.GetAsync(IPAddress.Parse("147.243.90.137"), default);
         }
 
         private static async Task Dbi()
@@ -513,15 +520,7 @@ namespace ConsoleApp
         }
 
 
-        private static async Task HadarMethod()
-        {
-            //var t = new PlaylistUpdates();
-            //t.Create();
-
-            var s = new UploadVideo();
-            s.Upload();
-
-        }
+     
 
 
 

@@ -19,6 +19,8 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Infrastructure;
+using Cloudents.Query;
 using Microsoft.AspNetCore.Components;
 using SbUserManager = Cloudents.Web.Identity.SbUserManager;
 
@@ -57,10 +59,10 @@ namespace Cloudents.Web.Api
         [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client)]
 
         public async Task<CallingCallResponse> GetCountryCallingCodeAsync(
-
-            [FromServices] IIpToLocation service, CancellationToken token)
+            [FromServices] IQueryBus service, CancellationToken token)
         {
-            var result = await service.GetAsync(HttpContext.GetIpAddress(), token);
+            var query = new CountryByIpQuery(HttpContext.GetIpAddress().ToString());
+            var result = await service.QueryAsync(query, token);
             return new CallingCallResponse(result?.CallingCode, result?.CountryCode);
         }
 
