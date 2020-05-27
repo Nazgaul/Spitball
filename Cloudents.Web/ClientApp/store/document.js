@@ -1,6 +1,5 @@
 import documentService from "../services/documentService";
 import analyticsService from '../services/analytics.service';
-import { LanguageService } from "../services/language/languageService";
 import { router } from '../main.js';
 
 const state = {
@@ -121,12 +120,8 @@ const actions = {
                 analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_PURCHASED', item.price);
                 dispatch('documentRequest', item.id);
                 },
-                (error) => {
-                    console.log('purchased Error', error);
-                    dispatch('updateToasterParams', {
-                        toasterText: LanguageService.getValueByKey("resultNote_unsufficient_fund"),
-                        showToaster: true,
-                    });
+                () => {
+                    return Promise.reject()
             }).finally(() => {
                 setTimeout(() => {
                     commit('setBtnLoading', false);
