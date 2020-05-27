@@ -37,7 +37,7 @@ namespace Cloudents.Command.CommandHandler.Admin
                     await _chatRoomRepository.DeleteAsync(chatUser.ChatRoom, token);
                 }
             }
-
+            user.Delete();
             await _userRepository.DeleteAsync(user, token);
         }
     }

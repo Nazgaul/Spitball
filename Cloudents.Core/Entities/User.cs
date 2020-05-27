@@ -431,6 +431,11 @@ namespace Cloudents.Core.Entities
             PaymentExists = PaymentStatus.None;
         }
 
+        public virtual void Delete()
+        {
+            AddEvent(new DeleteUserEvent(this));
+        }
+
         //public virtual void SetUserType(UserType userType)
         //{
 

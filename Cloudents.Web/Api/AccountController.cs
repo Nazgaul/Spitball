@@ -21,6 +21,7 @@ using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -38,6 +39,7 @@ namespace Cloudents.Web.Api
     [Produces("application/json")]
     [Route("api/[controller]")]
     [Authorize, ApiController]
+    [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
 
     public class AccountController : ControllerBase
     {
