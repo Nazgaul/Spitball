@@ -8,7 +8,6 @@
                 <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index" :lastMsgIndex="index === messages.length - 1"></message>
             </div>
             <span class="error-file-span" v-if="fileError" v-language:inner="'chat_file_error'"></span>
-
             <div class="messages-input" :class="{'messages-input-disabled': !getIsSignalRConnected}">
                 <span class="messages-mobile-button" v-if="typing" @click="sendMessage"><v-icon class="">sbf-path</v-icon></span>
                 <chat-upload-file :typing="typing"></chat-upload-file>
@@ -24,7 +23,6 @@
                     v-model="messageText" auto-grow>
                 </v-textarea>
             </div>
-
         </v-layout>
     </div>
 </template>
@@ -33,8 +31,8 @@
 import message from "./messageComponents/message.vue"
 import chatUploadFile from './messageComponents/chatUploadFile.vue';
 import {mapGetters, mapActions} from 'vuex';
-import { LanguageService } from '../../../services/language/languageService';
 import * as routeNames from '../../../routes/routeNames.js';
+import chatService from '../../../services/chatService.js';
 export default {
     components:{
         message,
@@ -46,8 +44,7 @@ export default {
             studyRoomRoute: routeNames.StudyRoom,
 
             messageText: "",
-            placeHolderText: LanguageService.getValueByKey("chat_type_message"),
-            emptyStateMessages: [],
+            placeHolderText: this.$t("chat_type_message"),
             lastMsgIndex: null
         }
     },
@@ -58,7 +55,35 @@ export default {
         },
         messages(){
             this.scrollToEnd();
-            return this.getMessages;            
+            if(this.getMessages?.length){
+                return this.getMessages;
+            }else{
+                let emptyStateMessages = [];
+                let currentActiveConversation = this.$store.getters?.getActiveConversationObj;
+                let messageObject = chatService.createMessage({
+                        dateTime: null,
+                        fromSignalR: false,
+                        name: currentActiveConversation.name,
+                        text: `${this.$t('chat_emptyState_message1')} ${currentActiveConversation.name}`,
+                        type: "text",
+                        isDummy: true,
+                        userId: currentActiveConversation.userId
+                    }, currentActiveConversation.conversationId);
+
+                emptyStateMessages.push(messageObject)
+
+                messageObject = chatService.createMessage({
+                    dateTime: null,
+                    fromSignalR: false,
+                    name: currentActiveConversation.name,
+                    text: `${this.$t('chat_emptyState_message2')}`,
+                    type: "text",
+                    isDummy: true,
+                    userId: currentActiveConversation.userId
+                }, currentActiveConversation.conversationId);
+                emptyStateMessages.push(messageObject)
+                return emptyStateMessages
+            }
         },
         typing() {
             return !!this.messageText;
