@@ -16,8 +16,8 @@
           <!-- <template v-if="showMyContent"> -->
           <sideMenuListItem :dashboardProps="propsListDashboard" :item="myContentItem"/>
           <!-- </template> -->
-          <sideMenuListItem :dashboardProps="propsListDashboard" :item="myLiveSession"/>
           <sideMenuListItem :dashboardProps="propsListDashboard" :item="myBroadcast"/>
+          <sideMenuListItem :dashboardProps="propsListDashboard" :item="mySessions"/>
 
           <!-- <sideMenuListItem :dashboardProps="propsListDashboard" :item="myStudyRoomsItem"/> -->
           <!-- <template v-if="showMySales"> -->
@@ -56,8 +56,8 @@ export default {
 
       myDashboard:{name: this.$t('schoolBlock_dashboard'),route: routeNames.Dashboard, icon:'sbf-dashboard-sideMenu', sel:'sidemenu_dashboard_overview'},
       myContentItem:{name: this.$t('schoolBlock_my_content'),route: routeNames.MyContent, icon:'sbf-my-content', sel:'sidemenu_dashboard_myContent'},
-      myLiveSession:{name: this.$t('schoolBlock_live_session'),route: routeNames.MyStudyRooms, icon:'sbf-myLive', sel:'sidemenu_dashboard_live_session'},
       myBroadcast:{name: this.$t('schoolBlock_live_session'),route: routeNames.MyStudyRoomsBroadcast, icon:'sbf-studyroom-icon', sel:'sidemenu_dashboard_live_session'},
+      mySessions:{name: this.$t('schoolBlock_private_session'),route: routeNames.MyStudyRooms, icon:'sbf-myLive', sel:'sidemenu_dashboard_live_session'},
       myMarketingTools:{name: this.$t('schoolBlock_my_marekting'),route: routeNames.Marketing, icon:'sbf-myMarketing',sel:'sidemenu_settings_myMarketing'},
       mySalesItem:{name: this.$t('schoolBlock_my_sales'),route: routeNames.MySales, icon:'sbf-my-sales', sel:'sidemenu_dashboard_mySales'},
       myFollowersItem:{name: this.$t('schoolBlock_my_followers'),route: routeNames.MyFollowers, icon:'sbf-follow', sel:'sidemenu_dashboard_myFollowers'},

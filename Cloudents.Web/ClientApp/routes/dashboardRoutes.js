@@ -72,14 +72,14 @@ export const dashboardRoutes = [
        },
    },
    {
-        path: "/study-rooms-live",
+        path: "/study-rooms",
         name: "myStudyRooms",
         components: {
             default: () => import(`../components/pages/dashboardPage/myStudyRooms/myStudyRooms.vue`),
             ...staticComponents(['banner', 'header', 'sideMenu'])
         },
         meta: {
-            type: 'live',
+            type: 'private',
             requiresAuth: true,
             showMobileFooter: true,
         },

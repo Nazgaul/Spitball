@@ -21,28 +21,19 @@
     >
       <template v-slot:top>
         <div class="tableTop d-flex flex-sm-row flex-column align-sm-center justify-space-between">
-          <div class="myStudyRooms_title pb-3 pb-sm-0" v-t="'schoolBlock_my_study_rooms'"></div>
+          <div class="myStudyRooms_title pb-3 pb-sm-0" v-t="myStudyroomTitle"></div>
           <div v-if="isTutor && isTutorStateOk">
             <v-btn
-              @click="openLiveSession"
+              @click="isStudyroomLive ? openLiveSession() : openPrivateSession()"
               class="link white--text"
-              v-if="isStudyroomLive"
               depressed
               rounded
               :block="$vuetify.breakpoint.xsOnly"
               color="#5360FC"
-              v-t="'dashboardPage_my_studyrooms_create_live'"
-            ></v-btn>
-            <v-btn
-              @click="openPrivateSession"
-              class="link white--text"
-              v-else
-              depressed
-              rounded
-              :block="$vuetify.breakpoint.xsOnly"
-              color="#5360FC"
-              v-t="'dashboardPage_my_studyrooms_create_room'"
-            ></v-btn>
+              >
+                <v-icon size="24" left>sbf-plus-circle</v-icon>
+                <span v-t="btnText"></span>
+            </v-btn>
           </div>
         </div>
       </template>
@@ -54,7 +45,7 @@
         <div
           class="sessionType"
           :class="{'private': !isStudyroomLive}"
-          v-t="item.type === 'Private' ? 'dashboardPage_type_private' : 'dashboardPage_type_broadcast'"
+          v-t="!isStudyroomLive ? 'dashboardPage_type_private' : 'dashboardPage_type_broadcast'"
         >
         </div>
       </template>
@@ -181,8 +172,14 @@ export default {
   },
   computed: {
     ...mapGetters(["getStudyRoomItems"]),
+    btnText() {
+      return this.isStudyroomLive ? 'dashboardPage_my_studyrooms_create_live' : 'dashboardPage_my_studyrooms_create_room'
+    },
+    myStudyroomTitle() {
+      return this.isStudyroomLive ? 'dashboardPage_title_live' : 'dashboardPage_title_private';
+    },
     isStudyroomLive() {
-      return this.studyRoomType === 'live'
+      return this.studyRoomType === 'broadcast'
     },
     isTutorStateOk() {
       return this.$store.getters.accountUser?.isTutorState === 'ok';
