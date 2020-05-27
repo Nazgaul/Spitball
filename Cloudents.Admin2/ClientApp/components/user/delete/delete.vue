@@ -1,6 +1,7 @@
 <template>
     <v-container class="changeCountry-cont">
         <h2 class="mb-3">Delete User</h2>
+        <p>Note if the user is a tutor you need to delete it from tutor / temporary</p>
         <v-form @submit.prevent="deleteUser">
             <div class="changeCountry">
                     <v-text-field
