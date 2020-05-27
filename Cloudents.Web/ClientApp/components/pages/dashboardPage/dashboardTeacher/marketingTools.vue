@@ -23,7 +23,7 @@
     </div>
 </template>
 <script>
-import * as dialogNames from '../../global/dialogInjection/dialogNames.js';
+// import * as dialogNames from '../../global/dialogInjection/dialogNames.js';
 import shareIcon from './images/share.svg';
 import createCouponIcon from './images/createCoupon.svg';
 
