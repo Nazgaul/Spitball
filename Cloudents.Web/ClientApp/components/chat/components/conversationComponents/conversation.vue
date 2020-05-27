@@ -118,10 +118,10 @@ export default {
         min-height: 36px;
         align-items: center;
         .conversation-desc{
-          .giveMeEllipsis(2, 18);
+          .giveMeEllipsis(1, 18);
           display: block;
           text-align: left;
-          font-size: 12px;
+          font-size: 14px;
           color: #919095;
           align-items: center;
           width: 200px;
@@ -137,7 +137,7 @@ export default {
           }
         }
         .conversation-unread{
-          background: #5158af;
+          background: #4c59ff;
           color: #fff;
           border-radius: 50%;
           height: 20px;

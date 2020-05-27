@@ -202,7 +202,6 @@ export default {
     ...mapActions([
       "updateStudyRoomItems",
       "dashboard_sort",
-      "openChatInterface",
       "setActiveConversationObj",
       "deleteStudyRoomSession"
     ]),
@@ -238,7 +237,7 @@ export default {
         image: item.image || null
       };
       this.setActiveConversationObj(currentConversationObj);
-      this.openChatInterface();
+      this.$router.push({name:routeNames.MessageCenter,params:{id:currentConversationObj.conversationId}})
     },
     enterRoom(id) {
       let routeData = this.$router.resolve({

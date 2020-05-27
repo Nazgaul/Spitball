@@ -54,6 +54,11 @@ namespace Cloudents.Core.Entities
             return string.Join("_", userIdsList);
         }
 
+        public static IEnumerable<long> IdentifierToUserIds(string identifier)
+        {
+            return identifier.Split("_").Select(long.Parse);
+        }
+
         public virtual StudyRoom? StudyRoom { get; protected set; }
 
         public virtual DateTime UpdateTime { get; protected set; }

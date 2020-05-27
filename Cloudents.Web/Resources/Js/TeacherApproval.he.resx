@@ -147,6 +147,9 @@
   <data name="student" xml:space="preserve">
     <value>תלמיד:</value>
   </data>
+  <data name="success" xml:space="preserve">
+    <value>יצירת בקשת תשלום הצליחה</value>
+  </data>
   <data name="title" xml:space="preserve">
     <value>אישור תשלום למורה</value>
   </data>
