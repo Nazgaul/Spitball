@@ -1,11 +1,20 @@
 <template>
-    <v-navigation-drawer touchless permanent app clipped :right="isRtl" width="220" mini-variant-width="62"
-                         :temporary="!isMiniSideMenu && $vuetify.breakpoint.mdAndDown"
-                         class="sideMenu"
-                         :value="getShowSchoolBlock"
-                         @input="updateDrawerValue"
-                         :mini-variant.sync="isMiniSideMenu"
-                         :class="[{'higherIndex':!isMiniSideMenu && $vuetify.breakpoint.mdAndDown}]">
+    <v-navigation-drawer
+      class="sideMenu"
+      @input="updateDrawerValue"
+      :class="{'higherIndex':!isMiniSideMenu && $vuetify.breakpoint.mdAndDown}"
+      :value="getShowSchoolBlock"
+      :temporary="!isMiniSideMenu && $vuetify.breakpoint.mdAndDown"
+      :mini-variant.sync="isMiniSideMenu"
+      :right="isRtl"
+      width="220"
+      mini-variant-width="62"
+      app
+      permanent
+      clipped
+      touchless
+    >
+
       <div class="sideMenu_cont">
         <div @click="toggleMiniSideMenu" v-if="!isMiniSideMenu && $vuetify.breakpoint.mdAndDown" class="sideMenu_btn"/>
         

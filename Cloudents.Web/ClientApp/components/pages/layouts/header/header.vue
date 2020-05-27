@@ -1,6 +1,7 @@
 ﻿<template>
     <div>
     <v-app-bar :class="{'homePageWrapper': isHomePage, 'borderBottom': isShowBorderBottom}" class="globalHeader elevation-0" color="white" :height="isMobile? 60 : 70" app fixed clipped-left clipped-right>
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <router-link @click.prevent="resetItems()" to="/" class="globalHeader_logo">
             <logoComponent/>
         </router-link>

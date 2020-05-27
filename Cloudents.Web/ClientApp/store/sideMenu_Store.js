@@ -11,7 +11,6 @@ const getters = {
         }else{
             return state.showSchoolBlock;
         }
-       
     },
 };
 
