@@ -159,9 +159,17 @@ export default {
     },
 
     openPaymeDialog() {
-      let transactionId = this.transactionId;
-      analyticsService.sb_unitedEvent("BUY_POINTS", "PRODUCT_SELECTED", transactionId);
-        this.buyToken({points : transactionId});
+        let transactionId = this.transactionId;
+        analyticsService.sb_unitedEvent("BUY_POINTS", "PRODUCT_SELECTED", transactionId);
+        let self = this;
+        let text = this.$t("buyTokens_failed_transaction");
+        this.buyToken({points : transactionId}).catch(()=>{
+            self.$store.dispatch('updateToasterParams', {
+                toasterText: text,
+                showToaster: true,
+                toasterTimeout: 5000
+            });
+        });
         this.$closeDialog()
     }
   }

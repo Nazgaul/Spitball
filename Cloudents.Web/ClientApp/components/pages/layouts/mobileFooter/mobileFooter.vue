@@ -1,5 +1,4 @@
 <template>
-    <!-- <div> -->
         <v-bottom-navigation
                 height="62px"
                 :v-model="activeTab"
@@ -17,11 +16,11 @@
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_tutors'"/>
                 <v-icon class="mF_icon" v-html="'sbf-account-group'"/>
             </v-btn>
-            <v-btn :ripple="false" class="mF_btns" text value='upload' v-openDialog="uploadDialog">
+            <v-btn v-if="isTutor" :ripple="false" class="mF_btns" text value='upload' v-openDialog="uploadDialog">
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_upload'"/>
                 <v-icon class="mF_icon" v-html="'sbf-button-add'" />
             </v-btn> -->
-            <v-btn :ripple="false" class="mF_btns" text value="chat" @click="openChat">
+            <v-btn :ripple="false" class="mF_btns" text value="messages" @click="changeActiveTab('messages')">
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_chat'"/>
                 <span class="mF_chat">
                     <v-icon class="mF_icon" v-html="'sbf-btm-msg'"/>
@@ -33,12 +32,12 @@
                 <v-icon class="mF_icon" v-html="'sbf-account'"/>
             </v-btn>
         </v-bottom-navigation>
-    <!-- </div> -->
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-import * as dialogNames from '../../global/dialogInjection/dialogNames.js'
+import { mapGetters } from 'vuex';
+import * as dialogNames from '../../global/dialogInjection/dialogNames.js';
+import * as routeNames from '../../../../routes/routeNames.js';
 export default {
     name: "mobileFooter",
     data() {
@@ -49,6 +48,9 @@ export default {
     },
     computed: {
         ...mapGetters(['getTotalUnread', 'accountUser']),
+        isTutor(){
+            return this.$store.getters.getIsTeacher;
+        },
         totalUnread(){
             return this.getTotalUnread
         },
@@ -61,12 +63,12 @@ export default {
             }
         }
     },
-        watch:{
+    watch:{
         '$route'(route){
-            if(this.$route.name === 'profile'){
+            if(this.$route.name === routeNames.Profile){
                 if(!!this.accountUser){
                     if(this.$route.params.id == this.accountUser.id){
-                        this.currentActiveTab = 'profile';
+                        this.currentActiveTab = routeNames.Profile;
                         }else{
                             this.currentActiveTab = null;
                         }
@@ -87,29 +89,31 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['openChatInterface','closeChat']),
-        openChat(){
-            if (this.accountUser == null) {
-                // this.$openDialog('login');
-                this.$store.commit('setComponent', 'register')
-            }else{
-                this.openChatInterface();
-            }
-        },
         changeActiveTab(tabName){
-            this.closeChat();
             if(tabName === 'feed' && this.activeTab !== tabName){
-                this.$router.push({name:'feed'})
+                this.$router.push({name:routeNames.Feed})
+                return
             }
             if(tabName === 'tutorLandingPage' && this.activeTab !== tabName){
-                this.$router.push({name:'tutorLandingPage'});
+                this.$router.push({name:routeNames.TutorList});
+                return
             }
             if(tabName === 'profile' && this.activeTab !== tabName){
                 if(this.accountUser == null) {
-                    // this.$openDialog('login');
                     this.$store.commit('setComponent', 'register')
+                    return
                 }else{
-                    this.$router.push({name:'profile',params:{id: this.accountUser.id,name: this.accountUser.name}})
+                    this.$router.push({name:routeNames.Profile,params:{id: this.accountUser.id,name: this.accountUser.name}})
+                    return
+                }
+            }
+            if(tabName === 'messages' && this.activeTab !== tabName){
+                if(this.accountUser == null) {
+                    this.$store.commit('setComponent', 'register')
+                    return
+                }else{
+                    this.$router.push({name:routeNames.MessageCenter})
+                    return
                 }
             }
             this.activeTab = 'feed'

@@ -66,3 +66,6 @@ export const Question = 'question';
 
 // Tutor List:
 export const TutorList = 'tutorLandingPage';
+
+// Message Center:
+export const MessageCenter = 'messages';

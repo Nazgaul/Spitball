@@ -180,9 +180,13 @@ export default {
             font-size: 13px;
             vertical-align: top;
         }
-        .vidSvg path{
-            fill: #69687d;
+        .vidSvg {
+            height: 100%;
+            path {
+                fill: #69687d;
+            }
         }
+
         .itemDate {
             color: #989bac;
             font-size: 13px;
@@ -190,11 +194,6 @@ export default {
         /*rtl:ignore*/
     }
     .item-cont{
-        // height: inherit;
-        // display: flex;
-        // flex-direction: column;
-        // justify-content: space-between;
-
         .item-title{
             overflow: hidden !important;
             font-size: 15px;

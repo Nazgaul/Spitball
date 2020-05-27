@@ -61,7 +61,9 @@ export default {
 
                     if(self.presetRouting()) return
                     
-                    self.$store.dispatch('userStatus')
+                    self.$store.dispatch('userStatus').then(() => {
+                        self.$router.push({name: self.routeNames.LoginRedirect})
+                    })
                 }).catch(error => {      
                     let { response: { data } } = error
 
@@ -88,7 +90,6 @@ export default {
 
                     if(self.presetRouting()) return
                     window.location.reload()
-                    // self.$store.dispatch('userStatus')
                 }).catch(error => {
                     if(error) {
                         self.$emit('showToasterError');

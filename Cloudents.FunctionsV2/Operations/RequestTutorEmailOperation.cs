@@ -44,7 +44,7 @@ namespace Cloudents.FunctionsV2.Operations
                 var code = _dataProtectionService.ProtectData(obj.TutorId.ToString(), DateTimeOffset.UtcNow.AddDays(5));
                 var identifierChat = ShortId.Generate(true, false);
 
-                var url = _urlBuilder.BuildChatEndpoint(code, new { utm_source = "request-tutor-email" });
+                var url = _urlBuilder.BuildChatEndpoint(code, obj.ChatIdentifier, new { utm_source = "request-tutor-email" });
                 var commandChat = new CreateShortUrlCommand(identifierChat, url.PathAndQuery, DateTime.UtcNow.AddDays(5));
                 await _commandBus.DispatchAsync(commandChat, token);
 
@@ -66,7 +66,7 @@ namespace Cloudents.FunctionsV2.Operations
                 var identifierWhatsApp = ShortId.Generate(true, false);
                 var commandWhatsApp = new CreateShortUrlCommand(identifierWhatsApp, whatsAppLink.ToString(), DateTime.UtcNow.AddDays(30));
                 await _commandBus.DispatchAsync(commandWhatsApp, token);
-                var urlShortWhatsApp = _urlBuilder.BuildShortUrlEndpoint(identifierWhatsApp,new 
+                var urlShortWhatsApp = _urlBuilder.BuildShortUrlEndpoint(identifierWhatsApp, new
                 {
                     eventCategory = "After tutor Submit",
                     eventAction = "Whatsapp email",

@@ -10,7 +10,8 @@ namespace Cloudents.Admin2.Models
         private static readonly Regex PhoneNumberRegex = new Regex(@"^\+{1}?[1-9]\d{1,14}$", RegexOptions.Compiled);
 
         public long UserId { get; set; }
-        public string NewPhone { get; set; }
+       [Required]
+       public string NewPhone { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
