@@ -37,6 +37,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<TwilioProvider>().AsSelf().As<IPhoneValidator>().As<IStudyRoomProvider>().SingleInstance();
             builder.RegisterType<CountryProvider>().As<ICountryProvider>();
             builder.RegisterType<WixBlogProvider>().As<IBlogProvider>();
+            builder.RegisterType<IpStackProvider>().As<IIpToLocation>();
             //.EnableInterfaceInterceptors()
             //.InterceptedBy(typeof(CacheResultInterceptor));
         }
