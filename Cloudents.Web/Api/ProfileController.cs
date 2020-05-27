@@ -76,12 +76,6 @@ namespace Cloudents.Web.Api
         {
             _userManager.TryGetLongUserId(User, out var userId);
 
-
-            await Task.Delay(TimeSpan.FromSeconds(5));
-
-
-
-
             var query = new UserDocumentsQuery(request.Id, request.Page, request.PageSize,
                 request.DocumentType, request.Course,userId);
             var retVal = await _queryBus.QueryAsync(query, token);

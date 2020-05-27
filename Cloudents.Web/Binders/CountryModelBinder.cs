@@ -21,10 +21,6 @@ namespace Cloudents.Web.Binders
         {
             var query = new CountryByIpQuery(bindingContext.HttpContext.GetIpAddress().ToString());
             var result = await _ipToLocation.QueryAsync(query, bindingContext.HttpContext.RequestAborted);
-            //var result = await _ipToLocation.GetAsync(bindingContext.HttpContext.GetIpAddress(),
-            //    bindingContext.HttpContext.RequestAborted);
-
-            //var result = await _ipToLocation.GetUserCountryAsync(bindingContext.HttpContext.RequestAborted);
             if (result == null)
             {
                 bindingContext.Result = ModelBindingResult.Failed();

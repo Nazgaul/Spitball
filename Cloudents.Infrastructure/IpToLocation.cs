@@ -36,7 +36,7 @@ namespace Cloudents.Infrastructure
                 _session = session.StatelessSession;
             }
 
-            [Cache(TimeConst.Day, "IpToLocation" + "3", true)]
+            [Cache(TimeConst.Hour, "IpToLocation" + "3", true)]
             public async Task<Location?> GetAsync(CountryByIpQuery query, CancellationToken token2)
             {
                 using var c = new CancellationTokenSource(TimeSpan.FromSeconds(5));

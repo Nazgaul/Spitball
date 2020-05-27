@@ -22,7 +22,7 @@ namespace Cloudents.Web.Services
         private readonly ICountryProvider _conCountryProvider;
         private readonly ILogger _logger;
         private readonly ConfigurationService _configurationService;
-        private const string CookieName = "country";
+        private const string CookieName = "country2";
 
         public CountryService(IQueryBus ipToLocation, IHttpContextAccessor httpContext,
             ILogger logger, 
@@ -95,7 +95,12 @@ namespace Cloudents.Web.Services
                 }
                 
             }
-            _httpContext.HttpContext.Response.Cookies.Append(CookieName, cookieValue);
+            _httpContext.HttpContext.Response.Cookies.Append(CookieName, cookieValue,new CookieOptions()
+            {
+                HttpOnly = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTimeOffset.UtcNow.AddHours(1)
+            });
             return cookieValue;
         }
 
