@@ -41,7 +41,7 @@
       <template v-slot:item.date="{item}">{{ $d(new Date(item.date)) }}</template>
       <template v-slot:item.name="{item}">{{item.name}}</template>
 
-      <template v-slot:item.type="{item}">
+      <template v-slot:item.type>
         <div
           class="sessionType"
           :class="{'private': !isStudyroomLive}"
@@ -133,7 +133,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import * as routeNames from "../../../../routes/routeNames";
-import * as dialogNames from "../../global/dialogInjection/dialogNames.js";
+// import * as dialogNames from "../../global/dialogInjection/dialogNames.js";
 
 import iconChat from "./images/icon-chat.svg";
 import enterRoom from "./images/enterRoomGreen.svg";
