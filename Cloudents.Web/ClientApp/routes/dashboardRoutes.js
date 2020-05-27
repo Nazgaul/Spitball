@@ -103,7 +103,7 @@ export const dashboardRoutes = [
         path: '/dashboard',
         name: 'dashboardTeacher',
         components: {
-            default: () => import('../components/pages/dashboardPage/dashboardTeacher/dashboard.vue'),
+            default: () => import('../components/pages/dashboardPage/dashboardTeacherOld/dashboard.vue'),
             ...staticComponents(['banner', 'header', 'sideMenu'])
         },
         beforeEnter: (to, from, next) => {

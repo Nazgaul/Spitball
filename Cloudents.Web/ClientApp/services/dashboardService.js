@@ -189,6 +189,9 @@ function getStudyRoomItems(){
 function getFollowersItems(){
    return connectivityModule.http.get('/Account/followers').then(createFollowersItems).catch(ex => ex);
 }
+function getTutorActions(){
+   return connectivityModule.http.get('/Account/tutorActions').then(createTutorActions).catch(ex => ex);
+}
 function getSpitballBlogs(){
    return connectivityModule.http.get('/blog').then(createBlogs).catch(ex => ex);
 }
@@ -208,6 +211,7 @@ export default {
    getPurchasesItems,
    getStudyRoomItems,
    getFollowersItems,
+   getTutorActions,
    getSpitballBlogs,
    getMarketingBlogs,
    removeStudyRoomSession

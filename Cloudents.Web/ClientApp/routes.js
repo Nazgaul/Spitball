@@ -8,7 +8,9 @@ import {itemRoutes} from './routes/itemRoutes.js';
 import {feedRoutes} from './routes/feedRoutes.js';
 import {courseRoutes} from './routes/courseRoutes.js';
 import {globalRoutes} from './routes/globalRoutes.js';
-import {marketingRoutes} from './routes/marketingRoutes.js';
+// import {marketingRoutes} from './routes/marketingRoutes.js';
+import {marketingRoutes} from './routes/marketingRoutesOld.js';
+
 
 let routes2 = [
     ...landingRoutes,
