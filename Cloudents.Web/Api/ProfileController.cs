@@ -1,4 +1,5 @@
-﻿using Cloudents.Command;
+﻿using System;
+using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
@@ -65,7 +66,7 @@ namespace Cloudents.Web.Api
             return res;
         }
 
-      
+
 
         [HttpGet("{id:long}/documents")]
         [ProducesResponseType(200)]
@@ -74,6 +75,13 @@ namespace Cloudents.Web.Api
             [FromQuery] ProfileDocumentsRequest request, CancellationToken token = default)
         {
             _userManager.TryGetLongUserId(User, out var userId);
+
+
+            await Task.Delay(TimeSpan.FromSeconds(5));
+
+
+
+
             var query = new UserDocumentsQuery(request.Id, request.Page, request.PageSize,
                 request.DocumentType, request.Course,userId);
             var retVal = await _queryBus.QueryAsync(query, token);
