@@ -164,7 +164,7 @@ export default {
                 { text: 'User Id', value: 'userId' },
                 { text: 'User Name', value: 'userName' },
                 { text: 'Date', value: 'created' },
-                { text: 'RealDuration (min)', value : 'realDuration' },
+                { text: 'Tutor Approve Duration (min)', value : 'realDuration' },
                 { text: 'Duration (min)', value: 'duration' },
                 { text: 'Tutor Price', value: 'price' },
                 { text: 'Lessons Price', value: 'totalPrice' },

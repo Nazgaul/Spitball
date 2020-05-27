@@ -94,7 +94,7 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Dev;
+            var env = EnvironmentSettings.Prod;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();

@@ -104,7 +104,7 @@ namespace Cloudents.Web.Api
             }
 
             var taskFiles = generatorIndex[model.Document.DocumentType].GeneratePreviewAsync(model, userId.GetValueOrDefault(-1), token);
-            await System.Threading.Tasks.Task.WhenAll(tQueue, textTask, taskFiles);
+            await System.Threading.Tasks.Task.WhenAll(tQueue, textTask,taskFiles);
             model.Document.Url = Url.DocumentUrl(model.Document.Course, model.Document.Id, model.Document.Title);
             var files = await taskFiles;
             var text = await textTask;
