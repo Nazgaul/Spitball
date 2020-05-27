@@ -166,6 +166,16 @@ export default {
             this.chackValidation = !this.chackValidation;
         }
     },
+    created() {
+        if(!this.getSelectedClasses.length){
+            this.$store.dispatch('getManageCourses').then(courses => {
+                if(courses.length === 0){
+                    this.$router.push({name: "addCourse"})
+                    return
+                }
+            })
+        }
+    },
 }
 </script>
 
