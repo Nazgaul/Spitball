@@ -1,7 +1,6 @@
 <template>
    <div class="dashboardPage">
-      {{type}}
-      <component v-if="!!accountUser" :dictionary="dictionary" :is="component" :type="type">
+      <component v-if="!!accountUser" :dictionary="dictionary" :is="component">
          <template slot="tableEmptyState">
             <tableEmptyState/>
          </template>
@@ -13,8 +12,7 @@
 import mySales from './mySales/mySales.vue';
 import myContent from './myContent/myContent.vue';
 import myPurchases from './myPurchases/myPurchases.vue';
-// import myStudyRooms from './myStudyRooms/myStudyRooms.vue';
-import myStudyRoomsLive from './myStudyRooms/myStudyRooms.vue';
+import myStudyRooms from './myStudyRooms/myStudyRooms.vue';
 import myStudyRoomsBroadcast from './myStudyRooms/myStudyRooms.vue';
 
 import myCalendar from './myCalendar/myCalendar.vue';
@@ -25,7 +23,7 @@ import { mapGetters } from 'vuex';
 
 export default {
    name:'dashboardPage',
-   props:['component', 'type'],
+   props:['component'],
    data() {
       return {
          dictionary:{
@@ -66,8 +64,7 @@ export default {
       mySales,
       myContent,
       myPurchases,
-      // myStudyRooms,
-      myStudyRoomsLive,
+      myStudyRooms,
       myStudyRoomsBroadcast,
       myCalendar,
       myFollowers,

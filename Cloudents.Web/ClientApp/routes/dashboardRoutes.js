@@ -74,7 +74,7 @@ export const dashboardRoutes = [
    {
         path: "/study-rooms-live",
         components: dashboardPages,
-        name: "myStudyRoomsLive",
+        name: "myStudyRooms",
         props: {
            default: (route) => ({
                component: route.name,

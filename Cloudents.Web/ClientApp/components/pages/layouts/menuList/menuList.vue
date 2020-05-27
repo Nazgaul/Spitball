@@ -124,7 +124,7 @@ export default {
       menuListStudent: [
         { title: 'menuList_account_setting', icon: 'sbf-settings', route: routeNames.Profile },
         { title: 'menuList_my_purchases', icon: 'sbf-cart', route: routeNames.MyPurchases },
-        { title: 'menuList_my_studyroom', icon: 'sbf-studyroom-icon', route: routeNames.MyStudyRoomsLive },
+        { title: 'menuList_my_studyroom', icon: 'sbf-studyroom-icon', route: routeNames.MyStudyRooms },
         { title: 'menuList_my_sales', icon: 'sbf-my-sales', route: routeNames.MySales },
         { title: 'menuList_help', icon: 'sbf-help', url: satelliteService.getSatelliteUrlByName('faq') }
       ]

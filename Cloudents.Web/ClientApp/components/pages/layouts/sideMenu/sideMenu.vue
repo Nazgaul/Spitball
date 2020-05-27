@@ -56,7 +56,7 @@ export default {
 
       myDashboard:{name: this.$t('schoolBlock_dashboard'),route: routeNames.Dashboard, icon:'sbf-dashboard-sideMenu', sel:'sidemenu_dashboard_overview'},
       myContentItem:{name: this.$t('schoolBlock_my_content'),route: routeNames.MyContent, icon:'sbf-my-content', sel:'sidemenu_dashboard_myContent'},
-      myLiveSession:{name: this.$t('schoolBlock_live_session'),route: routeNames.MyStudyRoomsLive, icon:'sbf-myLive', sel:'sidemenu_dashboard_live_session'},
+      myLiveSession:{name: this.$t('schoolBlock_live_session'),route: routeNames.MyStudyRooms, icon:'sbf-myLive', sel:'sidemenu_dashboard_live_session'},
       myBroadcast:{name: this.$t('schoolBlock_live_session'),route: routeNames.MyStudyRoomsBroadcast, icon:'sbf-studyroom-icon', sel:'sidemenu_dashboard_live_session'},
       myMarketingTools:{name: this.$t('schoolBlock_my_marekting'),route: routeNames.Marketing, icon:'sbf-myMarketing',sel:'sidemenu_settings_myMarketing'},
       mySalesItem:{name: this.$t('schoolBlock_my_sales'),route: routeNames.MySales, icon:'sbf-my-sales', sel:'sidemenu_dashboard_mySales'},

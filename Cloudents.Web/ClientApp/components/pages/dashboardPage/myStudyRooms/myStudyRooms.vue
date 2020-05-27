@@ -25,7 +25,8 @@
           <div v-if="isTutor && isTutorStateOk">
             <v-btn
               @click="openLiveSession"
-              class="link white--text mr-0 mr-sm-4 mb-4 mb-sm-0"
+              class="link white--text"
+              v-if="isStudyroomLive"
               depressed
               rounded
               :block="$vuetify.breakpoint.xsOnly"
@@ -35,6 +36,7 @@
             <v-btn
               @click="openPrivateSession"
               class="link white--text"
+              v-else
               depressed
               rounded
               :block="$vuetify.breakpoint.xsOnly"
@@ -155,6 +157,7 @@ export default {
   },
   data() {
     return {
+      studyRoomType: '',
       snackbar: {
         value: false,
         text: ''
@@ -188,6 +191,9 @@ export default {
   },
   computed: {
     ...mapGetters(["getStudyRoomItems"]),
+    isStudyroomLive() {
+      return this.studyRoomType === 'live'
+    },
     isTutorStateOk() {
       return this.$store.getters.accountUser?.isTutorState === 'ok';
     },
@@ -196,6 +202,11 @@ export default {
     },
     studyRoomItems() {
       return this.getStudyRoomItems;
+    }
+  },
+  watch: {
+    "$route.meta.type"(val) {
+      this.getSessions(val)
     }
   },
   methods: {
@@ -257,12 +268,14 @@ export default {
           self.currentItemId = null
         }, 2000);
       });
+    },
+    getSessions(type) {
+      this.studyRoomType = type
+      this.updateStudyRoomItems({type: this.studyRoomType});
     }
   },
   created() {
-    let studyRoomType = this.$route.meta.type
-    
-    this.updateStudyRoomItems({type: studyRoomType});
+    this.getSessions(this.$route.meta.type)
   }
 };
 </script>
