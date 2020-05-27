@@ -24,6 +24,7 @@ const actions = {
     },
     signalR_TutorEnterStudyRoom({ dispatch, rootState }, notificationObj){
         // TODO: clean reference to roomSetting (old studyRoomSetting)
+        // TODO: check if we need it;
         if(rootState.route.name !== 'tutoring' && rootState.route.name !== 'roomSettings'){
             let id = notificationObj.studyRoomId;
             let userName = notificationObj.userName;

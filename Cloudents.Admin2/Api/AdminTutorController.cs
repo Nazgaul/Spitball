@@ -1,4 +1,5 @@
-﻿using Cloudents.Admin2.Models;
+﻿using System;
+using Cloudents.Admin2.Models;
 using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
@@ -103,9 +104,16 @@ namespace Cloudents.Admin2.Api
         [HttpPost("subscription")]
         public async Task<IActionResult> AddTutorSubscriptionAsync([FromBody] TutorSubscriptionRequest model, CancellationToken token)
         {
-            var command = new CreateTutorSubscriptionCommand(model.TutorId,model.Price);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
+            try
+            {
+                var command = new CreateTutorSubscriptionCommand(model.TutorId, model.Price);
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest("Only us can subscribe to the system");
+            }
         }
     }
 }

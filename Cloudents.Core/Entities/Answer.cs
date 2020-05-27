@@ -66,7 +66,6 @@ namespace Cloudents.Core.Entities
 
         public virtual void Delete()
         {
-            //_votes.Clear();
             Status = ItemStatus.Delete();
         }
     }

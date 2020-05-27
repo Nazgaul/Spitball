@@ -20,19 +20,12 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
-using Cloudents.Command.Command;
-using Cloudents.Command.Command.Admin;
+using Cloudents.Command.Documents.PurchaseDocument;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Infrastructure;
-using Cloudents.Infrastructure.Payments;
 using Cloudents.Query;
-using Cloudents.Query.Tutor;
-using Cloudents.Query.Users;
-using Cloudents.Search.Document;
-using Cloudents.Search.Tutor;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
-using NHibernate.Criterion;
 using NHibernate.Linq;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 
@@ -101,7 +94,7 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Dev;
+            var env = EnvironmentSettings.Prod;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
@@ -148,26 +141,41 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             await Dbi();
+
+
+
+            // var i = Container.Resolve<IIpToLocation>();
+            //var z2 = await i.GetAsync(IPAddress.Parse("147.243.90.137"), default);
         }
 
         private static async Task Dbi()
         {
-            int count = 0;
-            var session = Container.Resolve<ISession>();
-            var studyRoomUsers = await session.Query<StudyRoomSessionUser>()
-                .Fetch(f => f.StudyRoomPayment)
-                .ToListAsync();
-
-            foreach (var user in studyRoomUsers)
+            List<Document> purchaseDocument;
+            do
             {
-                if (user.StudyRoomPayment == null)
+
+
+                //int count = 0;
+                var session = Container.Resolve<ISession>();
+                purchaseDocument = await session.Query<Document>()
+                     .Where(w => w.PurchaseCount != session.Query<DocumentTransaction>().Count(w2 => w2.Document.Id == w.Id) / 2)
+                     .Where(w => w.DocumentPrice.Type == PriceType.HasPrice)
+                     .Take(100)
+                     .ToListAsync();
+
+                foreach (var documentId in purchaseDocument)
                 {
+
+                    //if (user.StudyRoomPayment == null)
+                    //{
                     using var unitOfWork = Container.Resolve<IUnitOfWork>();
-                    user.StudyRoomPayment = new StudyRoomPayment(user);
+                    documentId.SyncPurchaseCount();
+                    //user.StudyRoomPayment = new StudyRoomPayment(user);
                     await session.FlushAsync();
                     await unitOfWork.CommitAsync(default);
+                    //}
                 }
-            }
+            } while (purchaseDocument.Count > 0);
         }
 
         private static async Task UpdateTwilioParticipants()
@@ -513,15 +521,7 @@ namespace ConsoleApp
         }
 
 
-        private static async Task HadarMethod()
-        {
-            //var t = new PlaylistUpdates();
-            //t.Create();
 
-            var s = new UploadVideo();
-            s.Upload();
-
-        }
 
 
 

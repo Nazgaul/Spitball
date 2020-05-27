@@ -37,12 +37,12 @@ namespace ConsoleApp
                 // The file token.json stores the user's access and refresh tokens, and is created
                 // automatically when the authorization flow completes for the first time.
                 string credPath = "token2.json";
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
                     GoogleClientSecrets.Load(stream).Secrets,
                     _scopes,
                     "user",
                     CancellationToken.None,
-                    new FileDataStore(credPath, true)).Result;
+                    new FileDataStore(credPath, true)).ConfigureAwait(false);
                 //Console.WriteLine("Credential file saved to: " + credPath);
             }
 

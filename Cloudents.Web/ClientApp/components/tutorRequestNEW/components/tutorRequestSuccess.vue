@@ -97,7 +97,17 @@ export default {
                 tutorId: this.tutorId,
                 moreTutors: this.getMoreTutors
             } 
+            let self = this;
             this.sendTutorRequest(serverObj)
+                .catch(err=>{
+                    let serverResponse = err.response.data || { error : [self.$t('tutorRequest_request_error')]};
+                    let errorMsg = serverResponse[Object.keys(serverResponse)[0]][0];
+                    self.$store.dispatch('updateToasterParams',{
+                        toasterText: errorMsg,
+                        showToaster: true,
+                        toasterType: 'error-toaster'
+                    });
+                })
         }
     },
     mounted() {

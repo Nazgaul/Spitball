@@ -121,7 +121,7 @@ export default {
           .giveMeEllipsis(1, 18);
           display: block;
           text-align: left;
-          font-size: 12px;
+          font-size: 14px;
           color: #919095;
           align-items: center;
           width: 200px;
