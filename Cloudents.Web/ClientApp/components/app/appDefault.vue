@@ -7,8 +7,8 @@
 
       <v-content :class="[{'site-content': $route.path !== '/'},{'hidden-sideMenu': drawerPlaceholder}]">
          <router-view class="main-container"></router-view>
-         <mobile-footer v-if="showMobileFooter" />
       </v-content>
+      <mobile-footer v-if="showMobileFooter" />
       <router-view name="footer"></router-view>
 
       <dialogInjection class="dialogInjection" />
@@ -133,7 +133,10 @@ export default {
          return this.$vuetify.breakpoint.smAndDown;
       },
       showMobileFooter() {
-         return this.$vuetify.breakpoint.xsOnly && this.getMobileFooterState && !this.hideFooter && this.$route.name !== 'tutorLandingPage';
+         return this.$vuetify.breakpoint.xsOnly && 
+         this.getMobileFooterState && 
+         !this.hideFooter && 
+         this.$route.name !== 'tutorLandingPage';
       },
       showHeader(){
          if(this.$route.name == routeNames.MessageCenter){
