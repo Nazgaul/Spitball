@@ -92,7 +92,15 @@ export default {
                 id: this.document.details.id,
                 price: this.document.details.price
             };
-            this.purchaseDocument(item);
+            let self = this;
+            this.purchaseDocument(item)
+              .catch(()=>{
+                let text = self.$t('resultNote_unsufficient_fund')
+                this.$store.dispatch('updateToasterParams', {
+                  toasterText: text,
+                  showToaster: true,
+                });
+            });
             this.updatePurchaseConfirmation(false);
         },
     }
