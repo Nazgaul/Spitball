@@ -91,10 +91,7 @@ export default {
                     if(self.presetRouting()) return
                     window.location.reload()
                 }).catch(error => {
-                    self.googleLoading = false;
-                    if(error) {
-                        self.$emit('showToasterError', error.response.data["Google"] ? error.response.data["Google"][0] : '');
-                    }
+                    self.$emit('showToasterError', error);
                     self.googleLoading = false;
                     self.$appInsights.trackException(error)
                 })

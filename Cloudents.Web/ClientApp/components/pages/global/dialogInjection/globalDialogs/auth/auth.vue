@@ -58,7 +58,11 @@ export default {
             this.teacher = val;
         },
         showToasterError(error) {
-            this.gmailError = error
+            if(error.error === 'popup_closed_by_user') {
+                this.gmailError = this.$t('loginRegister_google_signin_error')
+            }else if(error) {
+                this.gmailError = ('showToasterError', error.response.data["Google"] ? error.response.data["Google"][0] : '');
+            }
             this.snackbar = true
         }
     },
