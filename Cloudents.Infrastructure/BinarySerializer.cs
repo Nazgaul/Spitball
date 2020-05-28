@@ -4,6 +4,8 @@ using ProtoBuf;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Message.System;
 
 namespace Cloudents.Infrastructure
 {
@@ -39,6 +41,17 @@ namespace Cloudents.Infrastructure
         public string Serialize(object o)
         {
             return JsonConvert.SerializeObject(o);
+        }
+
+        public string Serialize(ISystemQueueMessage obj)
+        {
+            var serializationSettings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+            serializationSettings.Converters.Add(new EnumerationConverter<Country>());
+            var json = JsonConvert.SerializeObject(obj,serializationSettings);
+            return json;
         }
 
         public T Deserialize<T>(string sr)

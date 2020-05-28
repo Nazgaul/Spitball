@@ -1,4 +1,4 @@
-// GLOBALS:
+// OBSELETE
 import { router } from '../main.js';
 import codesJson from '../components/pages/authenticationPage/CountryCallingCodes';
 
@@ -161,10 +161,10 @@ const actions = {
         return registrationService.updateUserRegisterType({ userType: regType })
     },
     googleSigning({commit, state,dispatch}) {
-        if (window.Android) {
-            Android.onLogin();
-            return;
-        }
+        // if (window.Android) {
+        //     Android.onLogin();
+        //     return;
+        // }
         let authInstance = gapi.auth2.getAuthInstance();
 
         return authInstance.signIn().then((googleUser) => {
@@ -183,7 +183,8 @@ const actions = {
                 commit('setErrorMessages', { gmail: error.response.data["Google"] ? error.response.data["Google"][0] : '' });
                 return Promise.reject(error);
             });
-        }, error => {
+        }, error => { 
+            //THIS error should return the red banner
             return Promise.reject(error);
         });
     },
