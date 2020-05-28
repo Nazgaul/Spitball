@@ -68,7 +68,7 @@ export default {
                     let { response: { data } } = error
 
                     self.errors.password = data["Password"] ? error.response.data["Password"][0] : ''
-                    self.$appInsights.trackException({exception: new Error(error)})
+                    self.$appInsights.trackException(error)
                 })
         },
         gmailRegister() {
@@ -96,7 +96,7 @@ export default {
                         self.$emit('showToasterError', error.response.data["Google"] ? error.response.data["Google"][0] : '');
                     }
                     self.googleLoading = false;
-                    self.$appInsights.trackException({exception: new Error(error)})
+                    self.$appInsights.trackException(error)
                 })
         },
         verifyPhone(){
@@ -133,7 +133,7 @@ export default {
                     })
 				}).catch(error => {
                     self.errors.code = self.$t('loginRegister_invalid_code')
-                    self.$appInsights.trackException({exception: new Error(error)});
+                    self.$appInsights.trackException(error);
                 })
         },
         presetRouting() {
@@ -180,7 +180,7 @@ export default {
                     let { response: { data } } = error
                     
                     self.errors.phone = data && data["PhoneNumber"] ? data["PhoneNumber"][0] : ''
-                    self.$appInsights.trackException({exception: new Error(error)});
+                    self.$appInsights.trackException(error);
                 })
         },
         phoneCall(){
@@ -192,7 +192,7 @@ export default {
 						showToaster: true,
 					});
 				}).catch(error => {
-                    self.$appInsights.trackException({exception: new Error(error)});
+                    self.$appInsights.trackException(error);
                 })
         },
         fromTutorReuqest() {
@@ -229,7 +229,7 @@ export default {
                 .then(()=>{
                     self.$store.dispatch('gapiLoad');
                 }).catch(ex => {
-                    self.$appInsights.trackException({exception: new Error(ex)});
+                    self.$appInsights.trackException(ex);
                 })
         });
     }

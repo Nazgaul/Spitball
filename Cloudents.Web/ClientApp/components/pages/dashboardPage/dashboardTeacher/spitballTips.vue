@@ -49,7 +49,7 @@ export default {
       this.$store.dispatch('updateSpitballBlogs').then(blog => {
         self.tips = blog;
       }).catch(ex => {
-        self.$appInsights.trackException({exception: new Error(ex)});
+        self.$appInsights.trackException(ex);
       })
     }
   },
