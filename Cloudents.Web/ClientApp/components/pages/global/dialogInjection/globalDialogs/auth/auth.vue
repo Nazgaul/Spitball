@@ -17,7 +17,9 @@
             :timeout="5000"
             top
         >
-            <div class="text-center flex-grow-1" v-t="'loginRegister_google_signin_error'"></div>
+            <div class="text-center flex-grow-1">
+                {{gmailError}}
+            </div>
         </v-snackbar>
     </v-dialog>
 </template>
@@ -37,6 +39,7 @@ export default {
     },
     data() {
         return {
+            gmailError: '',
             tempComponent: '',
             teacher: false,
             snackbar: false
@@ -54,7 +57,8 @@ export default {
         updateRegisterType(val) {
             this.teacher = val;
         },
-        showToasterError() {
+        showToasterError(error) {
+            this.gmailError = error
             this.snackbar = true
         }
     },
