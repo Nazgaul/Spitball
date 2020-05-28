@@ -12,14 +12,14 @@
       width="220"
       mini-variant-width="62"
       app
-      permanent
+      fixed
       clipped
       touchless
     >
 
       <div class="sideMenu_cont">
         <!-- <div @click="toggleMiniSideMenu" v-if="isMediumAndUp" class="sideMenu_btn"/> -->
-          <div @click="isMiniSideMenu = true" v-if="isMediumAndUp" class="sideMenu_btn"></div>
+          <div @click="isMiniSideMenu = true" v-if="isMediumAndUp && !$vuetify.breakpoint.xsOnly" class="sideMenu_btn"></div>
         
           <v-list class="sideMenu_list_cont" dense>
 
@@ -174,7 +174,7 @@ export default {
         if(this.$route.name === pathName){
           return true;
         }
-    }
+    },
     // toggleMiniSideMenu(){
     //   if(this.isMiniSideMenu){
     //     this.openSideMenu();

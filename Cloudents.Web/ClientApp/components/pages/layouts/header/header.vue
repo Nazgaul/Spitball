@@ -77,9 +77,17 @@
             </div>
         </template>
     </v-app-bar>
-        <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
-                        fixed app v-if="$vuetify.breakpoint.xsOnly" class="drawerIndex"
-                        width="280">
+        <v-navigation-drawer
+            temporary
+            v-model="drawer"
+            light
+            :right="!isRtl"
+            fixed
+            app
+            v-if="$vuetify.breakpoint.xsOnly"
+            class="drawerIndex"
+            width="280"
+        >
             <menuList @closeMenu="closeDrawer"/>
         </v-navigation-drawer>
     </div>
