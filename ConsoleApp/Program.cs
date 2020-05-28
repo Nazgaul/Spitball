@@ -97,7 +97,7 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Prod;
+            var env = EnvironmentSettings.Dev;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
@@ -145,11 +145,6 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
           
-
-
-
-            // var i = Container.Resolve<IIpToLocation>();
-            //var z2 = await i.GetAsync(IPAddress.Parse("147.243.90.137"), default);
         }
 
         private static async Task Dbi()
