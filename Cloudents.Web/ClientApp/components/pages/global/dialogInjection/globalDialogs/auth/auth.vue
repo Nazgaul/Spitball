@@ -63,10 +63,10 @@ export default {
             // }else if(error) {
             //     this.gmailError = ('showToasterError', error.response.data["Google"] ? error.response.data["Google"][0] : '');
             // }
-            if(error) {
+            if(error && error.response) {
                 this.gmailError = ('showToasterError', error.response.data["Google"] ? error.response.data["Google"][0] : '');
+                this.snackbar = true
             }
-            this.snackbar = true
         }
     },
     created() {
