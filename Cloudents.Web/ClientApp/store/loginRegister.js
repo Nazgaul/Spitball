@@ -1,4 +1,4 @@
-// GLOBALS:
+// OBSELETE
 import { router } from '../main.js';
 import codesJson from '../components/pages/authenticationPage/CountryCallingCodes';
 
@@ -183,7 +183,8 @@ const actions = {
                 commit('setErrorMessages', { gmail: error.response.data["Google"] ? error.response.data["Google"][0] : '' });
                 return Promise.reject(error);
             });
-        }, error => {
+        }, error => { 
+            //THIS error should return the red banner
             return Promise.reject(error);
         });
     },

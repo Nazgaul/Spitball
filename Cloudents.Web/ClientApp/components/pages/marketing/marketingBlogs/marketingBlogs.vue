@@ -56,7 +56,7 @@ export default {
           self.$store.dispatch('updateMarketingBlogs').then(blogs => {
               self.blogs = blogs
           }).catch(ex => {
-              self.$appInsights.trackException({exception: new Error(ex)});
+              self.$appInsights.trackException(ex);
           })
       }
     },
