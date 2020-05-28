@@ -161,10 +161,10 @@ const actions = {
         return registrationService.updateUserRegisterType({ userType: regType })
     },
     googleSigning({commit, state,dispatch}) {
-        if (window.Android) {
-            Android.onLogin();
-            return;
-        }
+        // if (window.Android) {
+        //     Android.onLogin();
+        //     return;
+        // }
         let authInstance = gapi.auth2.getAuthInstance();
 
         return authInstance.signIn().then((googleUser) => {
