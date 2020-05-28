@@ -50,8 +50,8 @@ namespace Cloudents.Persistence.Repositories
 
         public async Task<IEnumerable<User>> GetExpiredCreditCardsAsync(CancellationToken token)
         {
-            return await Session.QueryOver<User>()
-                .Where(w => w.BuyerPayment!.PaymentKeyExpiration < DateTime.UtcNow)
+            return await Session.QueryOver<PaymePayment>()
+                .Where(w => w.PaymentKeyExpiration < DateTime.UtcNow)
                 .ListAsync<User>(token);
 
         }
