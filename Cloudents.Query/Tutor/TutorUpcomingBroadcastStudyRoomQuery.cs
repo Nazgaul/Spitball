@@ -34,7 +34,8 @@ namespace Cloudents.Query.Tutor
             {
                 return await _session.Query<BroadCastStudyRoom>()
                     .Where(w => w.Tutor.Id == query.TutorId &&
-                                w.BroadcastTime.AddHours(1) > DateTime.UtcNow)
+                                //Add to broadcast time date is not supported
+                                w.BroadcastTime > DateTime.UtcNow.AddHours(-1))
                     .OrderBy(o=>o.BroadcastTime)
                     .Select(s => new FutureBroadcastStudyRoomDto()
                     {
