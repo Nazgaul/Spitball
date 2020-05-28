@@ -117,8 +117,8 @@ export default {
     isDrawer() {
       let isLogged = this.getUserLoggedInStatus
       let isTeacher = this.getIsTeacher
-      let isMobile = this.$vuetify.breakpoint.xsOnly
-      return isLogged && isTeacher && !isMobile
+      // let isMobile = this.$vuetify.breakpoint.xsOnly
+      return isLogged && isTeacher
     },
     drawerPlaceholder() {
       // need to think of better way to check if placeholder

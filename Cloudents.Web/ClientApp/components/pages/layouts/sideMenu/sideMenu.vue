@@ -162,7 +162,6 @@ export default {
         return
       }
       this.$router.push({name})
-      // this.closeSideMenu();
     },
     currentPageChecker(pathName){
         let isMyQuestions = (this.$route.name === routeNames.Feed && this.$route.query?.filter === feedFilters.Question)
@@ -206,6 +205,11 @@ export default {
     //   } 
     // }
   },
+  created() {
+    this.$root.$on('openSideMenu', () => {
+      this.drawer = true
+    })
+  }
   // beforeDestroy(){
   //   this.sideMenulistElm.removeEventListener('click', this.clickEventMiniMenuOpen);
   // },
