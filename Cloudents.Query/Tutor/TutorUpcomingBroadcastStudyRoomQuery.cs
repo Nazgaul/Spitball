@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using NHibernate;
 using NHibernate.Linq;
 
@@ -35,7 +34,7 @@ namespace Cloudents.Query.Tutor
             {
                 return await _session.Query<BroadCastStudyRoom>()
                     .Where(w => w.Tutor.Id == query.TutorId &&
-                                w.BroadcastTime > DateTime.UtcNow)
+                                w.BroadcastTime.AddHours(1) > DateTime.UtcNow)
                     .OrderBy(o=>o.BroadcastTime)
                     .Select(s => new FutureBroadcastStudyRoomDto()
                     {
