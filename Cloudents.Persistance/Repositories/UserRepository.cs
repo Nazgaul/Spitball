@@ -5,8 +5,10 @@ using NHibernate;
 using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using NHibernate.Linq;
 
 namespace Cloudents.Persistence.Repositories
 {
@@ -50,8 +52,8 @@ namespace Cloudents.Persistence.Repositories
 
         public async Task<IEnumerable<User>> GetExpiredCreditCardsAsync(CancellationToken token)
         {
-            return await Session.QueryOver<User>()
-                .Where(w => w.BuyerPayment!.PaymentKeyExpiration < DateTime.UtcNow)
+            return await Session.QueryOver<PaymePayment>()
+                .Where(w => w.PaymentKeyExpiration < DateTime.UtcNow)
                 .ListAsync<User>(token);
 
         }
@@ -65,5 +67,32 @@ namespace Cloudents.Persistence.Repositories
                   .Select(Projections.Sum<Transaction>(x => x.Price));
         }
 
+
+        public override async Task DeleteAsync(User entity, CancellationToken token)
+        {
+            var documents = await entity.Documents.AsQueryable().Select(s => s.Id).ToListAsync(cancellationToken: token);
+
+            if (documents.Count > 0)
+            {
+                var sqlQuery =
+                    Session.CreateSQLQuery("delete from sb.DocumentsTags where documentid in (:Id)");
+                sqlQuery.SetParameterList("Id", documents);
+
+                await sqlQuery.ExecuteUpdateAsync(token);
+            }
+
+            var sqlQuery2 =
+                Session.CreateSQLQuery("delete from sb.UsersTags where userId = :Id");
+            sqlQuery2.SetInt64("Id", entity.Id);
+            await sqlQuery2.ExecuteUpdateAsync(token);
+
+
+            var sqlQuery3 =
+                Session.CreateSQLQuery("delete from sb.UserExtension where userId = :Id");
+            sqlQuery3.SetInt64("Id", entity.Id);
+            await sqlQuery3.ExecuteUpdateAsync(token);
+
+            await base.DeleteAsync(entity, token);
+        }
     }
 }
