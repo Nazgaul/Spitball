@@ -275,7 +275,7 @@ namespace Cloudents.Infrastructure.Payments
                 OffSession = true
             };
             var result = await service.CreateAsync(options, cancellationToken: token);
-            return result.InvoiceId;
+            return result.Id;
         }
 
         public Task<string> ChargeSessionBySpitballAsync(Tutor tutor, double price, CancellationToken token)
