@@ -12,7 +12,7 @@ namespace Cloudents.Core.Entities
     public class User : BaseUser
     {
         public User(string email, string firstName, string lastName,
-            Language language, string country, Gender gender = Gender.None)
+            Language language, string country, Gender gender = Enum.Gender.None)
         {
             Email = email;
             ChangeName(firstName, lastName);
@@ -49,9 +49,11 @@ namespace Cloudents.Core.Entities
         public virtual string? LockoutReason { get; set; }
 
 
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
         protected internal virtual ICollection<Answer> Answers { get; protected set; }
         protected internal virtual ICollection<UserLogin> UserLogins { get; protected set; }
 
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
         protected internal virtual ICollection<UserLocation> UserLocations { get; protected set; }
 
 
@@ -202,7 +204,7 @@ namespace Cloudents.Core.Entities
         public virtual BuyerPayment? BuyerPayment { get; protected set; }
         public virtual IPayment2? Payment { get; protected set; }
 
-        public virtual Gender Gender { get; protected set; }
+        public virtual Gender? Gender { get; protected set; }
         public virtual PaymentStatus? PaymentExists { get; protected set; }
 
         public virtual DateTime? FinishRegistrationDate { get; set; }
@@ -311,8 +313,11 @@ namespace Cloudents.Core.Entities
         }
 
 
-        protected internal virtual IEnumerable<Follow> Following { get; set; }
-        protected internal virtual IEnumerable<Lead> Leads { get; set; }
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
+
+        protected internal virtual IEnumerable<Follow> Following { get; protected set; }
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
+        protected internal virtual IEnumerable<Lead> Leads { get; protected set; }
 
         private readonly ISet<Follow> _followers = new HashSet<Follow>();
         public virtual IEnumerable<Follow> Followers => _followers;
@@ -421,7 +426,9 @@ namespace Cloudents.Core.Entities
 
         // public override int Score { get; protected set; }  //=> Transactions.Score;
         public override decimal Balance => Transactions.Balance;
-        protected internal virtual ICollection<UserDownloadDocument> DocumentDownloads { get; set; }
+
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
+        protected internal virtual ICollection<UserDownloadDocument> DocumentDownloads { get; protected set; }
 
 
         public virtual void DeleteUserPayment()

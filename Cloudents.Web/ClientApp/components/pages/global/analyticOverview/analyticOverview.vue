@@ -92,7 +92,7 @@ export default {
       this.$store.dispatch('updateUserStats', this.selectedItem.value).then((data) => {
         self.results = data;
       }).catch(ex => {
-        self.$appInsights.trackException({exception: new Error(ex)});
+        self.$appInsights.trackException(ex);
       })
     },
     deltaCalc(key) {
