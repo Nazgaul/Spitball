@@ -9,6 +9,7 @@
       :mini-variant.sync="isMiniSideMenu"
       :temporary="isMediumAndUp"
       :right="isRtl"
+      :permanent="!$vuetify.breakpoint.xsOnly"
       width="220"
       mini-variant-width="62"
       app
@@ -116,6 +117,7 @@ export default {
     //   "getShowSchoolBlock",
     // ]),
     isMediumAndUp() {
+      if(this.$vuetify.breakpoint.xsOnly) return true
       return !this.isMiniSideMenuState && this.$vuetify.breakpoint.mdAndDown
     },
     isMiniSideMenu: {
@@ -153,9 +155,6 @@ export default {
       if(this.isMiniSideMenuState && this.$vuetify.breakpoint.mdAndDown) {
         this.isMiniSideMenuState = false
         return
-      }
-      if(this.$vuetify.breakpoint.mdAndDown) {
-        this.isMiniSideMenuState = true
       }
       if(name === "myQuestions"){
         this.$router.push({name: routeNames.Feed,query:{filter:feedFilters.Question}})

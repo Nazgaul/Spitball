@@ -1,7 +1,9 @@
 ﻿<template>
     <div>
     <v-app-bar :class="{'homePageWrapper': isHomePage, 'borderBottom': isShowBorderBottom}" class="globalHeader elevation-0" color="white" :height="isMobile? 60 : 70" app fixed clipped-left clipped-right>
-        <v-app-bar-nav-icon @click.stop="$root.$emit('openSideMenu')"></v-app-bar-nav-icon>
+        <v-btn :class="[{'d-block d-sm-none': !isHomePage},{'d-none':isHomePage || !loggedIn}]" :ripple="false" icon @click="$root.$emit('openSideMenu')">
+            <hamburgerIcon class="ml-2 hamburgerIcon"/>
+        </v-btn>
         <router-link @click.prevent="resetItems()" to="/" class="globalHeader_logo">
             <logoComponent/>
         </router-link>
@@ -158,7 +160,8 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
             return showRoutes.includes(this.currentRoute)
         },
         isHomePage(){
-            return this.currentRoute === undefined;
+            let showRoutes = [routeNames.Learning,routeNames.HomePage];
+            return showRoutes.indexOf(this.currentRoute) !== -1
         },
         shouldShowFindTutor(){ 
             if(this.accountUser?.isTutor) return false
