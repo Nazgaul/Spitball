@@ -2,28 +2,31 @@
     <div class="marketingTools mb-2 mb-sm-4">
 
         <div class="headerTools pa-0 mb-4 mb-sm-2 d-block d-sm-none">
-            <div class="titleTools">{{$t('marketing_title')}}</div>
+            <div class="titleTools" v-t="'marketing_title'"></div>
         </div>
 
         <div class="wrapper d-flex text-center">
             <div class="sharePost me-2 py-4">
               <shareIcon width="92" />
-              <div>Share a social post</div>
-              <div>Stand out on Facebook & Instagram</div>
-              <v-btn>Share</v-btn>
+              <div class="text1 mt-4 mb-1" v-t="'marketing_tools_share_title1'"></div>
+              <div class="text2 mb-4" v-t="'marketing_tools_share_title2'"></div>
+              <v-btn color="#4c59ff" rounded outlined depressed>
+                <span class="btnText" v-t="'marketing_tools_share_btn'"></span>
+              </v-btn>
             </div>
 
             <div class="createCoupon ms-2 py-4">
               <createCouponIcon width="125" />
-              <div>Create a coupon</div>
-              <div>Create custom coupons and promotions</div>
-              <v-btn>Create</v-btn>
+              <div class="text1 mt-4 mb-1" v-t="'marketing_tools_coupon_title1'"></div>
+              <div class="text2 mb-4" v-t="'marketing_tools_coupon_title2'"></div>
+              <v-btn color="#4c59ff" rounded outlined depressed>
+                <span class="btnText" v-t="'marketing_tools_coupon_btn'"></span>
+              </v-btn>
             </div>
         </div>
     </div>
 </template>
 <script>
-import * as dialogNames from '../../global/dialogInjection/dialogNames.js';
 import shareIcon from './images/share.svg';
 import createCouponIcon from './images/createCoupon.svg';
 
@@ -60,14 +63,23 @@ export default {
    }
 
   .wrapper {
+    color: @global-purple;
     .sharePost, .createCoupon {
       border-radius: 8px;
       flex: 1;
       background: white;
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
     }
-    .sharePost {}
-    .createCoupon {}
+    .text1 {
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .text2 {
+      font-size: 12px;
+    }
+    .btnText {
+      font-weight: 600;
+    }
   }
   // .mainBlogs {
     
