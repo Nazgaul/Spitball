@@ -141,7 +141,7 @@ namespace Cloudents.Web.Api
             //}
             var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
             var url = Url.ImageUrl(imageProperties);
-            var fileName = uri.AbsolutePath.Split('/').LastOrDefault();
+            var fileName = uri.AbsolutePath.Split('/').Last();
             var command = new UpdateUserImageCommand(userId, url, fileName);
             await _commandBus.DispatchAsync(command, token);
             return Ok(url);
@@ -176,7 +176,7 @@ namespace Cloudents.Web.Api
             //   var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
             //var url = Url.ImageUrl(imageProperties);
 
-            var fileName = uri.AbsolutePath.Split('/').LastOrDefault();
+            var fileName = uri.AbsolutePath.Split('/').Last();
             var command = new UpdateUserCoverImageCommand(userId,  fileName);
             await _commandBus.DispatchAsync(command, token);
 
