@@ -30,13 +30,11 @@ namespace Cloudents.Query.Tutor
                 var calendarFuture = _session.Query<GoogleTokens>()
                     .WithOptions(w => w.SetComment(nameof(TutorActionsQuery)))
                     .Where(w => w.Id == query.UserId.ToString())
-                    .Take(1)
-                    .ToFutureValue();
+                    .ToFutureValue(f => f.Any());
 
                 var hoursFuture = _session.Query<TutorHours>()
                     .Where(w => w.Tutor.Id == query.UserId)
-                    .Take(1)
-                    .ToFutureValue();
+                    .ToFutureValue(f=>f.Any());
 
     
 
