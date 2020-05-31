@@ -1,9 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="74" height="73" viewBox="0 0 74 73">
     <defs>
-        <ellipse id="prefix__a" cx="308" cy="190.5" rx="37" ry="36.5"/>
+        <ellipse id="prefix__a" cx="37" cy="36.5" rx="37" ry="36.5"/>
         <mask id="prefix__b" width="74" height="73" x="0" y="0" fill="#fff" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox">
             <use xlink:href="#prefix__a"/>
         </mask>
     </defs>
-    <use fill="none" fill-rule="evenodd" stroke="#B8C0D1" stroke-dasharray="3 3" stroke-linejoin="round" stroke-width="2" mask="url(#prefix__b)" transform="translate(-271 -154)" xlink:href="#prefix__a"/>
+    <g fill="none" fill-rule="evenodd">
+        <use stroke="#B8C0D1" stroke-dasharray="3 3" stroke-linejoin="round" stroke-width="2" mask="url(#prefix__b)" xlink:href="#prefix__a"/>
+        <g>
+            <path fill="#BDC0D1" fill-rule="nonzero" d="M18.367 26.633c2.536 0 4.592-2.056 4.592-4.592 0-2.536-2.056-4.592-4.592-4.592-2.536 0-4.591 2.056-4.591 4.592 0 2.536 2.055 4.592 4.591 4.592z" transform="translate(17 17)"/>
+            <path fill="#BDC0D1" fill-rule="nonzero" d="M13.96 7.347l-2.69 2.96H6.612c-1.616 0-2.939 1.33-2.939 2.958V31.02c0 1.628 1.323 2.96 2.94 2.96h23.51c1.616 0 2.938-1.332 2.938-2.96V13.265c0-1.627-1.322-2.959-2.939-2.959h-4.658l-2.688-2.96h-8.817zm4.407 22.194c-4.055 0-7.347-3.314-7.347-7.398s3.292-7.398 7.347-7.398c4.056 0 7.347 3.314 7.347 7.398s-3.291 7.398-7.347 7.398z" transform="translate(17 17)"/>
+            <path d="M0 0L45 0 45 36.735 0 36.735z" transform="translate(17 17)"/>
+            <path fill="#BDC0D1" d="M35.587 12.857L37.883 12.857 37.883 9.413 41.327 9.413 41.327 7.117 37.883 7.117 37.883 3.673 35.587 3.673 35.587 7.117 32.143 7.117 32.143 9.413 35.587 9.413z" transform="translate(17 17)"/>
+        </g>
+    </g>
 </svg>

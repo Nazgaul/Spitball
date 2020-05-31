@@ -1,7 +1,7 @@
 <template>
     <div class="dashboardTutorActions pa-5 pb-0 mb-2 mb-sm-4">
 
-        <div class="tutorInfo d-flex align-center justify-space-between pb-7">
+        <div class="tutorInfo d-flex align-center justify-space-between flex-column flex-sm-row pb-6">
             <div class="leftSide d-flex align-md-center">
                 <userAvatar
                     size="74"
@@ -9,7 +9,9 @@
                     :userId="userId"
                     :userName="userName"
                     :userImageUrl="userImage"
+                    v-if="userImage"
                 />
+                <emptyUserIcon class="mb-4" v-else />
                 <div class="infoWrap mx-5">
                     <div class="tutorName mb-2">{{userName}}</div>
                     <button class="tutorUrl text-truncate me-4 mb-4">{{userUrl}}</button>
@@ -22,6 +24,7 @@
                                 name: userName
                             }
                         }"
+                        v-if="isEditActionComplete"
                         rounded
                         outlined
                         depressed
@@ -34,13 +37,13 @@
                     </v-btn>
                 </div>
             </div>
-            <div class="d-none d-sm-block">
-                <video src="" width="250" height="150" poster="./images/bitmap.png"></video>
+            <div class="rightSide mt-8 mt-sm-0">
+                <video class="dashboardVideo" src="" width="250" height="150" poster="./images/bitmap.png"></video>
             </div>
         </div>
 
         <div class="tutorLinks">
-            <div class="linkWrap d-flex align-center justify-space-between py-4" v-for="action in tutorActionsList" :key="action.name">
+            <div class="linkWrap d-flex align-center justify-space-between py-4" v-for="action in tutorActionsFilterList" :key="action.name">
                 <div class="linkBorded" :style="{background: action.color}"></div>
                 <div class="link d-flex align-center" :class="{'mobileLayout': isMobile}">
                     <component :is="isMobile ? 'router-link' : 'div'" class="linkWrapper d-flex" :to="isMobile ? {name: action.routeName} : null">
@@ -63,64 +66,97 @@ import constants from '../../../../store/constants/dashboardConstants'
 
 const analyticOverview = () => import(/* webpackChunkName: "analyticsOverview" */'../../global/analyticOverview/analyticOverview.vue')
 
+import emptyUserIcon from './images/emptyUser.svg'
 import circleArrow from './images/circle-arrow.svg'
 
 export default {
     name: 'dashboardTutorActions',
     components: {
         analyticOverview,
+        emptyUserIcon,
         circleArrow
     },
     data() {
         return {
             profileName: routeName.Profile,
             linksItems: {
-                [constants.UPLOAD]: {
+                [constants.PHONE]: {
                     color: '#4c59ff',
-                    text: 'dashboardTeacher_link_text_upload',
-                    btnText: 'dashboardTeacher_btn_text_upload',
-                    routeName: routeName.MyContent
+                    text: 'dashboardTeacher_link_text_phone',
+                    btnText: 'dashboardTeacher_btn_text_phone',
+                    routeName: routeName.Profile// TODO: where to route
+                },
+                [constants.EMAIL]: {
+                    color: '#4c59ff',
+                    text: 'dashboardTeacher_link_text_email',
+                    btnText: 'dashboardTeacher_btn_text_email',
+                    routeName: routeName.Profile// TODO: where to route
+                },
+                [constants.EDIT]: {
+                    color: '#4c59ff',
+                    text: 'dashboardTeacher_link_text_edit',
+                    btnText: 'dashboardTeacher_btn_text_edit',
+                    routeName: routeName.Profile// TODO: where to route
+                },
+                [constants.BOOK]: {
+                    color: '#4c59ff',
+                    text: 'dashboardTeacher_link_text_book',
+                    btnText: 'dashboardTeacher_btn_text_book',
+                    routeName: routeName.Feed // TODO: where to route
+                },
+                [constants.COURSES]: {
+                    color: '#4c59ff',
+                    text: 'dashboardTeacher_link_text_courses',
+                    btnText: 'dashboardTeacher_btn_text_courses',
+                    routeName: routeName.EditCourse //TODO: where to route
+                },
+                [constants.STRIPE]: {
+                    color: '#4c59ff',
+                    text: 'dashboardTeacher_link_text_stripe',
+                    btnText: 'dashboardTeacher_btn_text_stripe',
+                    routeName: routeName.Feed //TODO: stripe
                 },
                 [constants.CALENDAR]: {
-                    color: '#4c59ff',
+                    color: '#41c4bc',
                     text: 'dashboardTeacher_link_text_calendar',
                     btnText: 'dashboardTeacher_btn_text_calendar',
                     routeName: routeName.MyCalendar
                 },
                 [constants.TEACH]: {
-                    color: '#4c59ff',
+                    color: '#41c4bc',
                     text: 'dashboardTeacher_link_text_teach',
                     btnText: 'dashboardTeacher_btn_text_teach',
                     routeName: routeName.AddCourse
                 },
                 [constants.SESSIONS]: {
-                    color: '#41c4bc',
+                    color: '#eac569',
                     text: 'dashboardTeacher_link_text_session',
                     btnText: 'dashboardTeacher_btn_text_session',
                     routeName: routeName.MyStudyRooms
                 },
-                [constants.MARKETING]: {
-                    color: '#41c4bc',
-                    text: 'dashboardTeacher_link_text_marketing',
-                    btnText: 'dashboardTeacher_btn_text_marketing',
-                    routeName: routeName.Marketing
-                },
-                [constants.BOOK]: {
+                [constants.UPLOAD]: {
                     color: '#eac569',
-                    text: 'dashboardTeacher_link_text_book',
-                    btnText: 'dashboardTeacher_btn_text_book',
-                    routeName: routeName.Feed
+                    text: 'dashboardTeacher_link_text_upload',
+                    btnText: 'dashboardTeacher_btn_text_upload',
+                    routeName: routeName.MyContent
                 },
             }
         }
     },
     computed: {
+        isEditActionComplete() {
+            return this.$store.getters.getTutorListActions[constants.EDIT]?.value
+        },
+        tutorActionsFilterList() {
+            return this.tutorActionsList.filter(action => action.value === false)
+        },
         tutorActionsList() {
             let list = this.$store.getters.getTutorListActions
             return Object.keys(list).map(item => {
                 return {
+                    ...this.linksItems[item],
+                    ...list[item],
                     name: item,
-                    ...this.linksItems[item]
                 }
             })
         },
@@ -166,9 +202,19 @@ export default {
 
             .leftSide {
                 min-width: 0;
-
+                width: 100%;
                 .infoWrap {
                     min-width: inherit;
+                }
+            }
+            .rightSide {
+
+                @media (max-width: @screen-xs) {
+                    width: 100%;
+                }
+                .dashboardVideo {
+                    width: 100%;
+                    height: 100%;
                 }
             }
             .tutorName {
