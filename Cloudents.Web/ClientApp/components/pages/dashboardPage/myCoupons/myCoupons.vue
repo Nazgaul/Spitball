@@ -1,18 +1,21 @@
 <template>
     <div id="couponPage">
+        <tableCoupon />
     </div>
 </template>
 
 <script>
+import tableCoupon from './tableCoupon/tableCoupon.vue'
 
 export default {
     components: {
+        tableCoupon
     }
 }
 </script>
 
 <style lang="less">
-@import '../../../styles/mixin.less';
+@import '../../../../styles/mixin.less';
 #couponPage {
     max-width: 944px;
     margin: 24px 34px;

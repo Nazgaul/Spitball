@@ -57,8 +57,8 @@
 </template>
 
 <script>
-import storeService from '../../../../services/store/storeService';
-import couponStore from '../../../../store/couponStore';
+import storeService from '../../../../../services/store/storeService';
+import couponStore from '../../../../../store/couponStore';
 
 export default {
     name: "tableCoupon",
@@ -122,8 +122,8 @@ export default {
 </script>
 
 <style lang="less">
-    @import '../../../../styles/mixin.less';
-    @import '../../../../styles/colors.less';
+    @import '../../../../../styles/mixin.less';
+    @import '../../../../../styles/colors.less';
     .tableCoupon  {
         background: #fff;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);

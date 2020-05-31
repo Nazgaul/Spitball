@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       marketingRoute: routeName.Marketing,
-      couponRoute: routeName.Coupon,
+      couponRoute: routeName.MyCoupons,
     }
   }
 }

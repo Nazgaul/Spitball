@@ -21,7 +21,6 @@ export const RegisterParent = 'parent';
 export const RegisterCourseParent = 'registerCourseParent';
 
 // Marketing:
-export const Coupon = 'coupon';
 export const Marketing = 'marketing';
 export const MarketingPromote = 'promote';
 export const MarketingPromoteStepper = 'promoteStepper';
@@ -31,6 +30,7 @@ export const MyPurchases = 'myPurchases';
 export const MyContent = 'myContent';
 export const MyStudyRooms = 'myStudyRooms';
 export const MyCalendar = 'myCalendar';
+export const MyCoupons = 'myCoupons';
 
 // Home Page:
 export const HomePage = 'homePage';

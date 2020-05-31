@@ -21,23 +21,5 @@ export const marketingRoutes = [
             }
             next('/')
         }
-    },
-    {
-        path: "/coupon",
-        name: routeName.Coupon,
-        components: {
-            default: () => import('../components/pages/marketing/coupon.vue'),
-            ...staticComponents(['banner', 'header', 'sideMenu']),
-        },
-        meta: {
-            requiresAuth: true
-        },
-        beforeEnter: (to, from, next) => {
-            if(store.getters.getUserLoggedInStatus && store.getters.accountUser.isTutor){
-                next()
-                return
-            }
-            next('/')
-        }
     }
 ]
