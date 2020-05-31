@@ -125,15 +125,15 @@ export default {
       let isRoutes = [
       'feed',
       'question',
-      // 'myFollowers',
-      // 'mySales',
-      // 'myContent',
-      // 'myPurchases',
-      // 'myStudyRooms',
-      // 'myCalendar',
+      'myFollowers',
+      'mySales',
+      'myContent',
+      'myPurchases',
+      'myStudyRooms',
+      'myCalendar',
       'addCourse',
       'editCourse'].some(route => this.$route.name === route)
-      return isRoutes
+      return isRoutes && !this.getIsTeacher
     },
     isMobile() {
       return this.$vuetify.breakpoint.smAndDown;
