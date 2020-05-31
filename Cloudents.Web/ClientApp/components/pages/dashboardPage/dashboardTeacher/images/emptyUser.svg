@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="74" height="73" viewBox="0 0 74 73">
+    <defs>
+        <ellipse id="prefix__a" cx="308" cy="190.5" rx="37" ry="36.5"/>
+        <mask id="prefix__b" width="74" height="73" x="0" y="0" fill="#fff" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox">
+            <use xlink:href="#prefix__a"/>
+        </mask>
+    </defs>
+    <use fill="none" fill-rule="evenodd" stroke="#B8C0D1" stroke-dasharray="3 3" stroke-linejoin="round" stroke-width="2" mask="url(#prefix__b)" transform="translate(-271 -154)" xlink:href="#prefix__a"/>
+</svg>

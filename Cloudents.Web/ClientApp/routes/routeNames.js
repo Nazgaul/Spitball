@@ -21,6 +21,7 @@ export const RegisterParent = 'parent';
 export const RegisterCourseParent = 'registerCourseParent';
 
 // Marketing:
+export const Coupon = 'coupon';
 export const Marketing = 'marketing';
 export const MarketingPromote = 'promote';
 export const MarketingPromoteStepper = 'promoteStepper';

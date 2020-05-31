@@ -10,7 +10,7 @@
               <shareIcon width="92" />
               <div class="text1 mt-4 mb-1" v-t="'marketing_tools_share_title1'"></div>
               <div class="text2 mb-4" v-t="'marketing_tools_share_title2'"></div>
-              <v-btn color="#4c59ff" rounded outlined depressed :to="{name: marektingRoute}">
+              <v-btn color="#4c59ff" rounded outlined depressed :to="{name: marketingRoute}">
                 <span class="btnText" v-t="'marketing_tools_share_btn'"></span>
               </v-btn>
             </div>
@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      marektingRoute: routeName.Marketing,
+      marketingRoute: routeName.Marketing,
       couponRoute: routeName.Coupon,
     }
   }
