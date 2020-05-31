@@ -1,4 +1,5 @@
-﻿using Cloudents.Command;
+﻿using System;
+using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,6 +25,7 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]"), ApiController]
+    [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
     public class ProfileController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
@@ -65,13 +68,13 @@ namespace Cloudents.Web.Api
             return res;
         }
 
-      
+
 
         [HttpGet("{id:long}/documents")]
         [ProducesResponseType(200)]
 
         public async Task<WebResponseWithFacet<DocumentFeedDto>> GetDocumentsAsync(
-            [FromQuery] ProfileDocumentsRequest request, CancellationToken token = default)
+            [FromQuery] ProfileDocumentsRequest request, CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
             var query = new UserDocumentsQuery(request.Id, request.Page, request.PageSize,

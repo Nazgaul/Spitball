@@ -189,7 +189,7 @@ export default {
                     }, 3000);
                 }).catch(ex => {
                     self.isLoading = false;
-                    self.$appInsights.trackException({exception: new Error(ex)})
+                    self.$appInsights.trackException(ex)
                 })
         },
         updateTotalPrice(duration) {

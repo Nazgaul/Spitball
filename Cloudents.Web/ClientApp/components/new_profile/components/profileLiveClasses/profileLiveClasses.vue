@@ -245,7 +245,7 @@ export default {
                 }).catch(ex => {
                     self.color = 'error'
                     self.toasterText = 'profile_enroll_error'
-                    self.$appInsights.trackException({exception: new Error(ex)});
+                    self.$appInsights.trackException(ex);
                 }).finally(() => {
                     self.showSnack = true
                 })
@@ -260,7 +260,7 @@ export default {
                     self.liveSessions = res
                     self.$emit('isComponentReady')
                 }).catch(ex => {
-                    self.$appInsights.trackException({exception: new Error(ex)});
+                    self.$appInsights.trackException(ex);
                 })
         }
     },
