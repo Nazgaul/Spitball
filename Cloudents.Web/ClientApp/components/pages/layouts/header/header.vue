@@ -1,7 +1,7 @@
 ﻿<template>
     <div>
     <v-app-bar :class="{'homePageWrapper': isHomePage, 'borderBottom': isShowBorderBottom}" class="globalHeader elevation-0" color="white" :height="isMobile? 60 : 70" app fixed clipped-left clipped-right>
-        <v-btn v-if="getIsTeacher" class="d-sm-none" :class="[{'d-block': showHamburgerTutorMenu}]" :ripple="false" icon @click="$root.$emit('openSideMenu')">
+        <v-btn v-if="showHamburgerIcon" class="d-sm-none" :class="[{'d-block': classChangeHamburgerTutorMenu}]" :ripple="false" icon @click="$root.$emit('openSideMenu')">
             <hamburgerIcon class="ml-2 hamburgerIcon"/>
         </v-btn>
         <router-link @click.prevent="resetItems()" to="/" class="globalHeader_logo">
@@ -171,7 +171,11 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
         showChangeLanguage() {
             return global.country === 'IL' && this.isHomePage;
         },
-        showHamburgerTutorMenu() {
+        showHamburgerIcon() {
+            let showRoutes = [routeNames.Profile, routeNames.TutorList, routeNames.Document];
+            return this.getIsTeacher && showRoutes.indexOf(this.currentRoute) === -1
+        },
+        classChangeHamburgerTutorMenu() {
             return this.isHomePage || !this.loggedIn
         }
     },
