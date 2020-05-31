@@ -17,7 +17,7 @@ namespace Cloudents.Query.Tutor
         }
 
         private long UserId { get; }
-        public Country Country { get; }
+        private Country Country { get; }
 
         internal sealed class TutorActionsQueryHandler : IQueryHandler<TutorActionsQuery, TutorActionsDto>
         {
