@@ -133,7 +133,7 @@
     <value>Course:</value>
   </data>
   <data name="create_broadcast" xml:space="preserve">
-    <value>Create Live Lessons</value>
+    <value>Create Live Class</value>
   </data>
   <data name="create_private" xml:space="preserve">
     <value>Create Study Room</value>
@@ -148,7 +148,7 @@
     <value>Study room's name</value>
   </data>
   <data name="create_room_live_title" xml:space="preserve">
-    <value>Create New Live Lessons</value>
+    <value>Create A New Live Class</value>
   </data>
   <data name="create_room_max_error" xml:space="preserve">
     <value>Maximum 4 students on a study room</value>
@@ -248,7 +248,7 @@
     <value>My Sales</value>
   </data>
   <data name="my_studyrooms_create_live" xml:space="preserve">
-    <value>Schedule Live Lessons</value>
+    <value>Schedule A Live Class</value>
   </data>
   <data name="my_studyrooms_create_room" xml:space="preserve">
     <value>Create Study Room</value>
@@ -324,7 +324,7 @@
     <value>Success: Session Deleted</value>
   </data>
   <data name="title_live" xml:space="preserve">
-    <value>My Live Lessons</value>
+    <value>My Live Classes</value>
   </data>
   <data name="title_private" xml:space="preserve">
     <value>My Study Rooms</value>
