@@ -68,48 +68,48 @@ namespace Cloudents.Query.Users
                     .Select(s => s.Count())
                     .ToFutureValue();
 
-                var haveDocsFuture = _session.Query<Document>()
-                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
-                    .Select(s => s.Id)
-                    .Take(1)
-                    .ToFuture();
+                //var haveDocsFuture = _session.Query<Document>()
+                //    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
+                //    .Select(s => s.Id)
+                //    .Take(1)
+                //    .ToFuture();
 
-                var haveQuestionsFuture = _session.Query<Question>()
-                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
-                    .Select(s => s.Id)
-                    .Take(1)
-                    .ToFuture();
+                //var haveQuestionsFuture = _session.Query<Question>()
+                //    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
+                //    .Select(s => s.Id)
+                //    .Take(1)
+                //    .ToFuture();
 
-                var haveDocsWithPriceFuture = _session.Query<Document>()
-                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok && w.DocumentPrice.Price > 0)
-                    .Select(s => s.Id)
-                    .Take(1)
-                    .ToFuture();
+                //var haveDocsWithPriceFuture = _session.Query<Document>()
+                //    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok && w.DocumentPrice.Price > 0)
+                //    .Select(s => s.Id)
+                //    .Take(1)
+                //    .ToFuture();
 
-                var purchasedDocsFuture = _session.Query<DocumentTransaction>()
-                    .Fetch(f => f.User)
-                    .Fetch(f => f.Document)
-                    .Where(w => w.User.Id == query.Id)
-                    .Where(w => w.Document.Status.State == ItemState.Ok)
-                    .Where(w => w.Type == TransactionType.Spent)
-                    .Select(s => s.Id)
-                    .Take(1)
-                    .ToFuture();
+                //var purchasedDocsFuture = _session.Query<DocumentTransaction>()
+                //    .Fetch(f => f.User)
+                //    .Fetch(f => f.Document)
+                //    .Where(w => w.User.Id == query.Id)
+                //    .Where(w => w.Document.Status.State == ItemState.Ok)
+                //    .Where(w => w.Type == TransactionType.Spent)
+                //    .Select(s => s.Id)
+                //    .Take(1)
+                //    .ToFuture();
 
-                var buyPointsFuture = _session.Query<BuyPointsTransaction>()
-                    .Where(w => w.User.Id == query.Id)
-                    .Select(s => s.Id)
-                    .Take(1)
-                    .ToFuture();
+                //var buyPointsFuture = _session.Query<BuyPointsTransaction>()
+                //    .Where(w => w.User.Id == query.Id)
+                //    .Select(s => s.Id)
+                //    .Take(1)
+                //    .ToFuture();
 
-                var purchasedSessionsFuture = _session.Query<StudyRoomSession>()
-                    .Fetch(f => f.StudyRoom)
-                    .ThenFetch(f => f.Users)
-                    .Where(w => w.StudyRoom.Users.Select(s => s.User.Id).Any(a => a == query.Id) && query.Id != w.StudyRoom.Tutor.Id)
-                    .Where(w => w.Ended != null)
-                    .Select(s => s.Id)
-                    .Take(1)
-                    .ToFuture();
+                //var purchasedSessionsFuture = _session.Query<StudyRoomSession>()
+                //    .Fetch(f => f.StudyRoom)
+                //    .ThenFetch(f => f.Users)
+                //    .Where(w => w.StudyRoom.Users.Select(s => s.User.Id).Any(a => a == query.Id) && query.Id != w.StudyRoom.Tutor.Id)
+                //    .Where(w => w.Ended != null)
+                //    .Select(s => s.Id)
+                //    .Take(1)
+                //    .ToFuture();
 
 
 
@@ -131,11 +131,11 @@ namespace Cloudents.Query.Users
                     .Take(1)
                     .ToFuture();
 
-                var haveFollowersFuture = _session.Query<Follow>()
-                    .Where(w => w.User.Id == query.Id)
-                    .Select(s => s.Id)
-                    .Take(1)
-                    .ToFuture();
+                //var haveFollowersFuture = _session.Query<Follow>()
+                //    .Where(w => w.User.Id == query.Id)
+                //    .Select(s => s.Id)
+                //    .Take(1)
+                //    .ToFuture();
 
                 var result = await userFuture.GetValueAsync(token);
                 if (result is null)
@@ -143,20 +143,20 @@ namespace Cloudents.Query.Users
                     return null;
                 }
 
-                result.HaveContent = (await haveDocsFuture.GetEnumerableAsync(token)).Any()
-                                     || (await haveQuestionsFuture.GetEnumerableAsync(token)).Any();
+                //result.HaveContent = (await haveDocsFuture.GetEnumerableAsync(token)).Any()
+                //                     || (await haveQuestionsFuture.GetEnumerableAsync(token)).Any();
 
-                result.HaveDocsWithPrice = (await haveDocsWithPriceFuture.GetEnumerableAsync(token)).Any();
+                //result.HaveDocsWithPrice = (await haveDocsWithPriceFuture.GetEnumerableAsync(token)).Any();
 
-                result.IsPurchased = (await purchasedDocsFuture.GetEnumerableAsync(token)).Any()
-                                     || (await purchasedSessionsFuture.GetEnumerableAsync(token)).Any()
-                                     || (await buyPointsFuture.GetEnumerableAsync(token)).Any();
+                //result.IsPurchased = (await purchasedDocsFuture.GetEnumerableAsync(token)).Any()
+                //                     || (await purchasedSessionsFuture.GetEnumerableAsync(token)).Any()
+                //                     || (await buyPointsFuture.GetEnumerableAsync(token)).Any();
 
 
                 result.IsSold = (await isSoldDocumentFuture.GetEnumerableAsync(token)).Any()
                                 || (await isSoldSessionFuture.GetEnumerableAsync(token)).Any();
 
-                result.HaveFollowers = (await haveFollowersFuture.GetEnumerableAsync(token)).Any();
+                //result.HaveFollowers = (await haveFollowersFuture.GetEnumerableAsync(token)).Any();
                 result.PendingSessionsPayments =
                      pendingSessionsPaymentsFuture.Value + newPendingSessionPayment.Value;
                 return result;
