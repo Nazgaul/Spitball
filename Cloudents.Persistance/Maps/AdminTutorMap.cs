@@ -10,6 +10,9 @@ namespace Cloudents.Persistence.Maps
             Id(x => x.Id).GeneratedBy.GuidComb();
             References(x => x.Tutor)
                 .Column("TutorId").Not.Nullable().ForeignKey("FK_admin_tutor");
+
+            Map(x => x.Country).CustomType<EnumerationType<Country>>();
+            ReadOnly();
         }
     }
 }

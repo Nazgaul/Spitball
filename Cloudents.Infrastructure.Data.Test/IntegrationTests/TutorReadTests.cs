@@ -82,8 +82,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(638)]
         public async Task TutorActionsQuery_Ok(long userId)
         {
-            var query = new TutorActionsQuery(userId);
-            var result = await _fixture.QueryBus.QueryAsync(query, default);
+            var country = _fixture.StatelessSession.Query<User>().Where(w => w.Id == userId).Select(s => s.SbCountry).Single();
+            var query = new TutorActionsQuery(userId, country!);
+            var result = await _fixture.QueryBus.QueryAsync(query);
             result.Should().NotBeNull();
         }
 

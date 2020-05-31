@@ -17,5 +17,7 @@ namespace Cloudents.Core.Entities
         public virtual Guid Id { get; protected set; }
         public virtual Tutor Tutor { get; protected set; }
 
+        public virtual Country Country { get; set; }
+
     }
 }

@@ -315,10 +315,12 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("tutorActions")]
-        public async Task<TutorActionsDto> GetTutorActionsAsync(CancellationToken token)
+        public async Task<TutorActionsDto> GetTutorActionsAsync(
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
+            CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var query = new TutorActionsQuery(userId);
+            var query = new TutorActionsQuery(userId, profile.CountryRegion);
             return await _queryBus.QueryAsync(query, token);
         }
 

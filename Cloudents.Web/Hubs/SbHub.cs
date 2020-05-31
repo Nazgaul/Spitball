@@ -95,9 +95,9 @@ namespace Cloudents.Web.Hubs
             }
             //if (header.ToString().Contains("spi"))
 
-            var country = Context.User.Claims.FirstOrDefault(f =>
-                string.Equals(f.Type, AppClaimsPrincipalFactory.Country,
-                    StringComparison.OrdinalIgnoreCase))?.Value;
+            //var country = Context.User.Claims.FirstOrDefault(f =>
+            //    string.Equals(f.Type, AppClaimsPrincipalFactory.Country,
+            //        StringComparison.OrdinalIgnoreCase))?.Value;
 
             Connections.Add(currentUserId, Context.ConnectionId);
             var connectionCount = Connections.GetConnections(currentUserId).Count();
@@ -115,11 +115,11 @@ namespace Cloudents.Web.Hubs
                 //_logger.Value.Warning($"Investigate online {currentUserId}");
             }
 
-            if (country != null)
-            {
+            //if (country != null)
+            //{
 
-                await Groups.AddToGroupAsync(Context.ConnectionId, $"country_{country.ToLowerInvariant()}");
-            }
+            //    await Groups.AddToGroupAsync(Context.ConnectionId, $"country_{country.ToLowerInvariant()}");
+            //}
 
         }
 
