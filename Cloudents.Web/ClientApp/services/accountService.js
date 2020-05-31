@@ -48,5 +48,4 @@ export default {
         let { data } = await accountInstance.get('/questions')
         return data.map(question => searchService.createQuestionItem(question))
     },
-
 }

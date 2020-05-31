@@ -1,6 +1,9 @@
 ﻿<template>
     <div>
     <v-app-bar :class="{'homePageWrapper': isHomePage, 'borderBottom': isShowBorderBottom}" class="globalHeader elevation-0" color="white" :height="isMobile? 60 : 70" app fixed clipped-left clipped-right>
+        <v-btn v-if="showHamburgerIcon" class="d-sm-none" :class="[{'d-block': classChangeHamburgerTutorMenu}]" :ripple="false" icon @click="$root.$emit('openSideMenu')">
+            <hamburgerIcon class="ml-2 hamburgerIcon"/>
+        </v-btn>
         <router-link @click.prevent="resetItems()" to="/" class="globalHeader_logo">
             <logoComponent/>
         </router-link>
@@ -76,9 +79,17 @@
             </div>
         </template>
     </v-app-bar>
-        <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
-                        fixed app v-if="$vuetify.breakpoint.xsOnly" class="drawerIndex"
-                        width="280">
+        <v-navigation-drawer
+            temporary
+            v-model="drawer"
+            light
+            :right="!isRtl"
+            fixed
+            app
+            v-if="$vuetify.breakpoint.xsOnly"
+            class="drawerIndex"
+            width="280"
+        >
             <menuList @closeMenu="closeDrawer"/>
         </v-navigation-drawer>
     </div>
@@ -118,7 +129,7 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
         layoutClass: {}
     },
     computed: {
-        ...mapGetters(['accountUser','getTotalUnread','getBannerParams','getUserLoggedInStatus','getUserBalance']),
+        ...mapGetters(['accountUser','getTotalUnread','getBannerParams','getUserLoggedInStatus','getUserBalance', 'getIsTeacher']),
         loggedIn() {
             return this.getUserLoggedInStatus;
         },
@@ -149,7 +160,8 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
             return showRoutes.includes(this.currentRoute)
         },
         isHomePage(){
-            return this.currentRoute === undefined;
+            let showRoutes = [routeNames.Learning,routeNames.HomePage];
+            return showRoutes.indexOf(this.currentRoute) !== -1
         },
         shouldShowFindTutor(){ 
             if(this.accountUser?.isTutor) return false
@@ -158,6 +170,13 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
         },
         showChangeLanguage() {
             return global.country === 'IL' && this.isHomePage;
+        },
+        showHamburgerIcon() {
+            let showRoutes = [routeNames.Profile, routeNames.TutorList, routeNames.Document];
+            return this.getIsTeacher && showRoutes.indexOf(this.currentRoute) === -1
+        },
+        classChangeHamburgerTutorMenu() {
+            return this.isHomePage || !this.loggedIn
         }
     },
     watch: {
