@@ -217,6 +217,9 @@
   <data name="my_content_title" xml:space="preserve">
     <value>My Content</value>
   </data>
+  <data name="my_content_upload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
   <data name="my_followers_title" xml:space="preserve">
     <value>My Followers</value>
   </data>
