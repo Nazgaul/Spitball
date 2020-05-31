@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]"), ApiController]
+    [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
     public class ProfileController : ControllerBase
     {
         private readonly IQueryBus _queryBus;

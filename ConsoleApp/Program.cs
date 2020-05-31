@@ -13,6 +13,7 @@ using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -20,6 +21,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
+using Cloudents.Command.Command.Admin;
 using Cloudents.Command.Documents.PurchaseDocument;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
@@ -36,6 +38,7 @@ namespace ConsoleApp
     {
         public static IContainer Container;
 
+        private static readonly Guid RamAdminId = Guid.Parse("81B24922-6451-47B2-BCB0-4084C8A3EC13");
         public enum EnvironmentSettings
         {
             Dev,
@@ -94,7 +97,7 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Prod;
+            var env = EnvironmentSettings.Dev;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
@@ -138,14 +141,10 @@ namespace ConsoleApp
 
 
 
+        [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
-            await Dbi();
-
-
-
-            // var i = Container.Resolve<IIpToLocation>();
-            //var z2 = await i.GetAsync(IPAddress.Parse("147.243.90.137"), default);
+          
         }
 
         private static async Task Dbi()

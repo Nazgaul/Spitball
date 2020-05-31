@@ -1,14 +1,14 @@
 <template>
     <general-page :mdAndDown="$vuetify.breakpoint.mdAndDown" :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="$route.name">
         <div slot="main" class="feedWrap">
-            <template>
-                <request-box class="request-box mb-0"/>
+            <template v-if="!getIsTeacher">
+                <request-box class="request-box mb-0" />
             </template>
             <v-flex xs12 class="analyticWrapper" v-if="showAnalyticStats">
                 <analyticOverview />
             </v-flex>
 
-            <div class="feed_filters pa-3 pa-sm-0 my-4">
+            <div class="feed_filters pa-3 pa-sm-0" :class="[getIsTeacher ? 'mt-0 mb-4' : 'my-4']">
                 <v-flex xs2 sm4 class="pr-0 pr-sm-4 d-flex d-sm-block" justify-end>
                     <v-menu offset-y sel="filter_type">
                         <template v-slot:activator="{ on }">
@@ -78,7 +78,7 @@
         </div>
         <template slot="rightSide">
             <div :class="['feed-sticky',{'feed-sticky_bannerActive':getBannerParams}]">
-                <buyPointsLayout v-if="getUserLoggedInStatus" class="buyPointsFeed"/>
+                <buyPointsLayout v-if="getUserLoggedInStatus && !getIsTeacher" class="buyPointsFeed"/>
             </div>
         </template>
     </general-page>

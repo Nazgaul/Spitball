@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
@@ -9,10 +6,15 @@ namespace Cloudents.Web.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class StudyRoomController : Controller
     {
-        [Route("studyroom/{id:guid}")]
-        public IActionResult Index(Guid id)
+        [Route("StudyRoom/{id:guid}")]
+        public IActionResult Index(Guid id, [FromQuery] string? dialog)
         {
             ViewBag.isRtl = false;
+            if (dialog == "payment")
+            {
+                // this hotfix that happens on client side
+                return RedirectToAction("Index");
+            }
             return View("Index");
         }
     }

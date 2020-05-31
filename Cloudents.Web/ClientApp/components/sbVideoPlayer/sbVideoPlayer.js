@@ -112,7 +112,7 @@ export default {
 
         Promise.all([this.$loadScript(ampUrlScript), this.$loadStyle(ampUrlStyle, id)])
             .then(() => self.initVideoPlayer())
-            .catch(ex => self.$appInsights.trackException({exception: new Error(ex)}))
+            .catch(ex => self.$appInsights.trackException(ex))
     },
     beforeDestroy() {
         this.myPlayer.dispose()

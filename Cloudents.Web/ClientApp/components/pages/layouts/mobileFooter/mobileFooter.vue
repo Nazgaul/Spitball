@@ -16,7 +16,7 @@
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_tutors'"/>
                 <v-icon class="mF_icon" v-html="'sbf-account-group'"/>
             </v-btn>
-            <v-btn v-if="isTutor" :ripple="false" class="mF_btns" text value='upload' v-openDialog="uploadDialog">
+            <v-btn v-if="isTutor" :ripple="false" class="mF_btns" text value='upload' @click="$store.commit('setComponent', 'upload')">
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_upload'"/>
                 <v-icon class="mF_icon" v-html="'sbf-button-add'" />
             </v-btn> -->
@@ -36,14 +36,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import * as dialogNames from '../../global/dialogInjection/dialogNames.js';
 import * as routeNames from '../../../../routes/routeNames.js';
 export default {
     name: "mobileFooter",
     data() {
         return {
             currentActiveTab:this.$route.name,
-            uploadDialog: dialogNames.Upload,
         }
     },
     computed: {

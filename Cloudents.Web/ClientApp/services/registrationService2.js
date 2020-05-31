@@ -22,10 +22,10 @@ authInstance.interceptors.response.use((config) => {
 
 
 function googleRegistration() {
-    if (window.Android) {
-        Android.onLogin();
-        return Promise.reject();
-    }
+    // if (window.Android) {
+    //     Android.onLogin();
+    //     return Promise.reject();
+    // }
 
     let gapiInstance = gapi.auth2.getAuthInstance();
     
