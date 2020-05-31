@@ -1,8 +1,8 @@
 <template>
     <div class="dashboardNotifications pa-5 mb-2 mb-sm-4">
 
-        <div class="topHeader d-flex align-center mb-10">
-            <fillBellIcon class="flex-shrink-0" width="35" />
+        <div class="topHeader d-flex align-center mb-8">
+            <fillBellIcon class="flex-shrink-0" width="40" />
             <div class="notificationTitle ms-4 text-truncate" v-t="'dashboardTeacher_notification_title'"></div>
         </div>
 
@@ -95,13 +95,13 @@ export default {
             font-weight: 600;
         }
 
-        .topHeader {
+        // .topHeader {
 
-        }
+        // }
 
         .center {
             border-bottom: solid 1px #eeeeee;
-            padding: 16px 0;
+            padding: 16px 10px;
             position: relative;
 
             &:last-child {
