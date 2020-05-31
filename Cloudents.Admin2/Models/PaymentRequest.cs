@@ -21,10 +21,14 @@ namespace Cloudents.Admin2.Models
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var list = new[] { StudentPay, SpitballPay };
-
+            if (StudentPay < 5 && SpitballPay < 5)
+            {
+                yield return new ValidationResult(
+                    "Invalid Price");
+            }
             foreach (var price in list)
             {
-                if (price == 0)
+                if (price.CompareTo(0) == 0)
                 {
                     continue;
                 }
