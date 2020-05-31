@@ -1,14 +1,14 @@
 <template>
     <div class="dashboardNotifications pa-5 mb-2 mb-sm-4">
 
-        <div class="topHeader d-flex align-center mb-8">
+        <div class="topHeader d-flex align-center" :class="{'mb-8': tutorNotifications.length}">
             <fillBellIcon class="flex-shrink-0" width="40" />
             <div class="notificationTitle ms-4 text-truncate" v-t="'dashboardTeacher_notification_title'"></div>
         </div>
 
         <router-link 
-            class="center d-flex align-center justify-space-between"
-            v-for="notification in tutorNotifications"
+            class="center py-4 d-flex align-center justify-space-between"
+            v-for="notification in tutorNotificationsFilterList"
             :key="notification.name"
             :to="{ name: notification.routeName }"
         >
@@ -57,12 +57,15 @@ export default {
         }
     },
     computed: {
+        tutorNotificationsFilterList() {
+            return this.tutorNotifications.filter(notify => notify.value === true) 
+        },
         tutorNotifications() {
             let notifylist = this.$store.getters.getUserNotifications
-            
             return Object.keys(notifylist).map(notify => {
                 return {
                     ...this.notifyItems[notify],
+                    ...notifylist[notify],
                     name: notify
                 }
             })
@@ -101,12 +104,11 @@ export default {
 
         .center {
             border-bottom: solid 1px #eeeeee;
-            padding: 16px 10px;
             position: relative;
 
             &:last-child {
                 border-bottom: none;
-                padding-bottom: 0;
+                padding-bottom: 0 !important;
             }
             .notifyWrap {
                 min-width: 0;;
