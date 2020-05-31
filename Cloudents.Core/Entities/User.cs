@@ -200,8 +200,8 @@ namespace Cloudents.Core.Entities
         public virtual string CoverImage { get; protected set; }
         public virtual Tutor? Tutor { get; protected set; }
 
-        [Obsolete]
-        public virtual BuyerPayment? BuyerPayment { get; protected set; }
+        //[Obsolete]
+        //public virtual BuyerPayment? BuyerPayment { get; protected set; }
         public virtual IPayment2? Payment { get; protected set; }
 
         public virtual Gender? Gender { get; protected set; }
@@ -433,7 +433,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void DeleteUserPayment()
         {
-            BuyerPayment = null;
+            //BuyerPayment = null;
             Payment = null;
             PaymentExists = PaymentStatus.None;
         }
