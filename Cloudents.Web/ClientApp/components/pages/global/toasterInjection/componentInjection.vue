@@ -12,6 +12,7 @@ const pendingPayment = () => import('./pendingPayment.vue')
 const errorLinkToaster = () => import('./errorLinkToaster.vue')
 
 const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue')
+const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
 
 const studRoomSettings = () => import('../../../studyroom/tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue')
 const createStudyRoomDialog = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue')
@@ -24,6 +25,7 @@ export default {
         pendingPayment,
         errorLinkToaster,
         upload,
+        createCoupon,
         studRoomSettings,
         createStudyRoomDialog,
         teacherBillOfflineDialog
@@ -117,6 +119,9 @@ export default {
                 },
                 upload: {
                     name: 'upload',
+                },
+                createCoupon: {
+                    name: 'createCoupon'
                 }
             }
         }
