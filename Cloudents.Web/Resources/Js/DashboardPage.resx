@@ -320,6 +320,9 @@
   <data name="success_session_removed" xml:space="preserve">
     <value>Success: Session Deleted</value>
   </data>
+  <data name="title_private" xml:space="preserve">
+    <value>My Study Rooms</value>
+  </data>
   <data name="tutor_session" xml:space="preserve">
     <value>Tutoring Session</value>
   </data>

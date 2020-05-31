@@ -316,6 +316,9 @@
   <data name="success_session_removed" xml:space="preserve">
     <value>מחיקה בוצעה</value>
   </data>
+  <data name="title_private" xml:space="preserve">
+    <value>חדרי הלימוד שלי</value>
+  </data>
   <data name="tutor_session" xml:space="preserve">
     <value>שיעור פרטי</value>
   </data>
