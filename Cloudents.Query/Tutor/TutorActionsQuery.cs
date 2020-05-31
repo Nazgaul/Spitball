@@ -11,7 +11,7 @@ namespace Cloudents.Query.Tutor
     public class TutorActionsQuery : IQuery<TutorActionsDto>
     {
         public TutorActionsQuery(long userId)
-        { 
+        {
             UserId = userId;
         }
 
@@ -19,7 +19,7 @@ namespace Cloudents.Query.Tutor
 
         internal sealed class TutorActionsQueryHandler : IQueryHandler<TutorActionsQuery, TutorActionsDto>
         {
-           
+
             private readonly IStatelessSession _session;
             public TutorActionsQueryHandler(QuerySession session)
             {
@@ -34,29 +34,61 @@ namespace Cloudents.Query.Tutor
 
                 var hoursFuture = _session.Query<TutorHours>()
                     .Where(w => w.Tutor.Id == query.UserId)
-                    .ToFutureValue(f=>f.Any());
+                    .ToFutureValue(f => f.Any());
 
-    
+
 
                 var bookedSessionFuture = _session.Query<StudyRoomUser>()
                     .Fetch(f => f.Room)
                     .Where(w => w.User.Id == query.UserId)
-                    .Where(w => _session.Query<AdminTutor>().Select(s => s.Tutor.Id).Contains(w.Room.Tutor.Id))
+                    .Where(w => _session.Query<AdminTutor>()
+                        .Select(s => s.Tutor.Id).Contains(w.Room.Tutor.Id))
                     .Take(1)
-                    .ToFutureValue();
-                
+                    .ToFutureValue(f => f.Any());
+
+                var userDetailsFuture = _session.Query<User>()
+                    .Fetch(f => f.Tutor)
+                    .Where(w => w.Id == query.UserId)
+                    .Select(s => new
+                    {
+                        s.PhoneNumberConfirmed,
+                        s.EmailConfirmed,
+                        s.Description,
+                        s.Tutor!.Bio,
+                        s.CoverImage
+                    }).ToFutureValue();
+
+                var coursesFuture = _session.Query<UserCourse>()
+                    .Where(w => w.User.Id == query.UserId)
+                    .ToFutureValue(f => f.Any());
+
+                var liveSessionFuture = _session.Query<BroadCastStudyRoom>()
+                     .Where(w => w.Tutor.Id == query.UserId)
+                     .ToFutureValue(f => f.Any());
+
+                var documentFuture = _session.Query<Document>()
+                    .Where(w => w.User.Id == query.UserId)
+                    .ToFutureValue(f => f.Any());
 
 
 
-                var calendarShared = await calendarFuture.GetValueAsync(token) != null;
-                var haveHours = await hoursFuture.GetValueAsync(token) != null;
-                var bookedSession = await bookedSessionFuture.GetValueAsync(token) != null;
+
+
+                var calendarShared = await calendarFuture.GetValueAsync(token);
+                var haveHours = await hoursFuture.GetValueAsync(token);
+                var bookedSession = await bookedSessionFuture.GetValueAsync(token);
+                var userDetails = userDetailsFuture.Value;
 
                 var res = new TutorActionsDto()
                 {
                     CalendarShared = calendarShared,
                     HaveHours = haveHours,
-                    BookedSession = bookedSession
+                    PhoneVerified = userDetails.PhoneNumberConfirmed,
+                    EmailVerified = userDetails.EmailConfirmed,
+                    Courses = coursesFuture.Value,
+                    LiveSession = liveSessionFuture.Value,
+                    UploadContent = documentFuture.Value,
+                    EditProfile = userDetails.Description != null || userDetails.Bio != null || userDetails.CoverImage != null
                 };
 
                 return res;

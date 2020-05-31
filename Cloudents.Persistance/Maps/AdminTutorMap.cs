@@ -8,7 +8,8 @@ namespace Cloudents.Persistence.Maps
         public AdminTutorMap()
         {
             Id(x => x.Id).GeneratedBy.GuidComb();
-            References(x => x.Tutor).Column("TutorId").Not.Nullable().ForeignKey("FK_admin_tutor");
+            References(x => x.Tutor)
+                .Column("TutorId").Not.Nullable().ForeignKey("FK_admin_tutor");
         }
     }
 }

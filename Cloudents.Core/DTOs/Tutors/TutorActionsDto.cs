@@ -17,4 +17,6 @@ namespace Cloudents.Core.DTOs.Tutors
 
         public bool UploadContent { get; set; }
     }
+
+    
 }
