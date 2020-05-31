@@ -20,13 +20,14 @@ export default {
   },
   methods: {
     openDialog() {
-      this.$store.dispatch('getManageCourses').then(courses => {
-          if(courses.length === 0){
-            this.$router.push({name: "addCourse"})
-            return
-          }
-          this.$openDialog(this.uploadDialog)
-      })
+      this.$store.commit('setComponent', 'upload')
+      // this.$store.dispatch('getManageCourses').then(courses => {
+      //     if(courses.length === 0){
+      //       this.$router.push({name: "addCourse"})
+      //       return
+      //     }
+      //     // this.$openDialog(this.uploadDialog)
+      // })
     }
   }
 }

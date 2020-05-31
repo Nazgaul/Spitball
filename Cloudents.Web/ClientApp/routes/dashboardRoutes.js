@@ -72,18 +72,35 @@ export const dashboardRoutes = [
        },
    },
    {
-       path: "/study-rooms",
-       components: dashboardPages,
-       name: "myStudyRooms",
-       props: {
-           default: (route) => ({
-               component: route.name,
-           })
-       },
-       meta: {
-           requiresAuth: true,
-           showMobileFooter: true,
-       },
+        path: "/study-rooms",
+        name: "myStudyRooms",
+        components: {
+            default: () => import(`../components/pages/dashboardPage/myStudyRooms/myStudyRooms.vue`),
+            ...staticComponents(['banner', 'header', 'sideMenu'])
+        },
+        meta: {
+            type: 'private',
+            requiresAuth: true,
+            showMobileFooter: true,
+        },
+    },
+    {
+        path: "/study-rooms-broadcast",
+        name: "myStudyRoomsBroadcast",
+        components: {
+            default: () => import(`../components/pages/dashboardPage/myStudyRooms/myStudyRooms.vue`),
+            ...staticComponents(['banner', 'header', 'sideMenu'])
+        },
+        props: {
+            default: (route) => ({
+                component: route.name,
+            }),
+        },
+        meta: {
+            type: 'broadcast',
+            requiresAuth: true,
+            showMobileFooter: true,
+        },
     },
     {
         path: "/my-calendar",

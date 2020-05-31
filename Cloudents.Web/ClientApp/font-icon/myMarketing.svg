@@ -1,9 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23" height="23" viewBox="0 0 23 23">
-    <defs>
-        <path id="prefix__a" d="M0 0.011L3.793 0.011 3.793 18.713 0 18.713z"/>
-        <path id="prefix__c" d="M0.009 0.011L9.03 0.011 9.03 18.713 0.009 18.713z"/>
-        <path id="prefix__e" d="M1 22.822L22.93 22.822 22.93 0.083 1 0.083z"/>
-    </defs>
     <g fill="none" fill-rule="evenodd" transform="matrix(-1 0 0 1 23 0)">
         <g transform="translate(0 .072)">
             <mask id="prefix__b" fill="#fff">

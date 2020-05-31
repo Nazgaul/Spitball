@@ -168,16 +168,27 @@ export default {
     },
     created() {
         let self = this
-        self.$store.dispatch('getManageCourses').then(courses => {
-            if(courses.length === 0){
-                // fix shadow overlay issue 
-                setTimeout(() => {
-                    self.$store.commit('setComponent')
-                }, 200)
-                self.$router.push({name: "addCourse"})
-            }
-        })
-    }
+            this.$store.dispatch('getManageCourses').then(courses => {
+                if(courses.length === 0){
+                    // fix shadow overlay issue 
+                    setTimeout(() => {
+                        self.$store.commit('setComponent')
+                    }, 200)
+                    self.$router.push({name: "addCourse"})
+                }
+            })
+        }
+
+    // this code open the dialog with no restriction
+        // if(!this.getSelectedClasses.length){
+        //     this.$store.dispatch('getManageCourses').then(courses => {
+        //         if(courses.length === 0){
+        //             this.$router.push({name: "addCourse"})
+        //             return
+        //         }
+        //     })
+        // }
+    // },
 }
 </script>
 

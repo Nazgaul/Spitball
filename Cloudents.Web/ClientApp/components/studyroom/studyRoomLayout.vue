@@ -89,7 +89,6 @@ export default {
       this.$store.dispatch('getChatById',this.$store.getters.getRoomConversationId).then(({ data }) => {
         let currentConversationObj = chatService.createActiveConversationObj(data);
         self.$store.dispatch('setActiveConversationObj',currentConversationObj);
-        self.$store.dispatch('updateLockChat',true);
       });
     },
   },

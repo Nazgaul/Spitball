@@ -1,8 +1,8 @@
-import axios from 'axios'
+// import axios from 'axios'
 import constants from './constants/dashboardConstants';
-const dashboardInstance = axios.create({
-    baseURL: '/'
-})
+// const dashboardInstance = axios.create({
+//     baseURL: '/'
+// })
 
 const state = {
     tutorLinkActions: {},
@@ -56,6 +56,8 @@ const getters = {
 
 const mutations = {
     setTutorListActions(state, data) {
+        console.log(data);
+        
         for (const key in state.tutorLinkState) {
             if(key) {
                 state.tutorLinkActions[key] = {
@@ -65,6 +67,8 @@ const mutations = {
         }
     },
     setTutorNotifications(state, notifications) {
+        console.log(notifications);
+        
         for (const key in state.tutorNotificationsState) {
             if(key) {
                 state.tutorNotificationsActions[key] = {

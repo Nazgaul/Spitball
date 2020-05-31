@@ -29,6 +29,7 @@ export const MyFollowers = 'myFollowers';
 export const MyPurchases = 'myPurchases';
 export const MyContent = 'myContent';
 export const MyStudyRooms = 'myStudyRooms';
+export const MyStudyRoomsBroadcast = 'myStudyRoomsBroadcast';
 export const MyCalendar = 'myCalendar';
 export const MyCoupons = 'myCoupons';
 
@@ -66,3 +67,6 @@ export const Question = 'question';
 
 // Tutor List:
 export const TutorList = 'tutorLandingPage';
+
+// Message Center:
+export const MessageCenter = 'messages';

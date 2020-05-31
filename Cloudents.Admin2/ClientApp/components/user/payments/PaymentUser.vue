@@ -164,7 +164,7 @@ export default {
                 { text: 'User Id', value: 'userId' },
                 { text: 'User Name', value: 'userName' },
                 { text: 'Date', value: 'created' },
-                { text: 'RealDuration (min)', value : 'realDuration' },
+                { text: 'Tutor Approve Duration (min)', value : 'realDuration' },
                 { text: 'Duration (min)', value: 'duration' },
                 { text: 'Tutor Price', value: 'price' },
                 { text: 'Lessons Price', value: 'totalPrice' },
@@ -229,7 +229,15 @@ export default {
                 this.editedIndex = -1;
             },
                 (error) => {
-                    this.$toaster.error(`Error can't approve the payment ${error.response.data}`);
+                    let data = error.response.data;
+                    debugger
+                    if (typeof(data) === "string") {
+                        this.$toaster.error(`Error can't approve the payment ${data}`);
+                        return;
+                    }
+                    let errors = data.errors;
+                    this.$toaster.error(`Error can't approve the payment ${JSON.stringify(errors)}`);
+                    
                 }
             )
         },

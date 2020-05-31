@@ -103,17 +103,19 @@ namespace Cloudents.Web.Api
                 textTask = _blobProvider.DownloadTextAsync("text.txt", query.Id.ToString(), token);
             }
 
-            var files = await generatorIndex[model.Document.DocumentType].GeneratePreviewAsync(model, userId.GetValueOrDefault(-1), token);
-            await System.Threading.Tasks.Task.WhenAll(tQueue, textTask);
+            var taskFiles = generatorIndex[model.Document.DocumentType].GeneratePreviewAsync(model, userId.GetValueOrDefault(-1), token);
+            await System.Threading.Tasks.Task.WhenAll(tQueue, textTask,taskFiles);
             model.Document.Url = Url.DocumentUrl(model.Document.Course, model.Document.Id, model.Document.Title);
-            return new DocumentPreviewResponse(model, files, textTask.Result);
+            var files = await taskFiles;
+            var text = await textTask;
+            return new DocumentPreviewResponse(model, files, text);
         }
 
         [HttpPost, Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
+        public async Task<IActionResult> CreateDocumentAsync([FromBody] CreateDocumentRequest model,
             CancellationToken token)
         {
             if (model.Price.HasValue)
@@ -130,7 +132,7 @@ namespace Cloudents.Web.Api
                 model.Course, userId, model.Price, model.Description, model.PriceType);
             await _commandBus.DispatchAsync(command, token);
 
-            
+
             return Ok();
         }
 
@@ -244,7 +246,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> DeleteDocumentAsync([FromRoute]DeleteDocumentRequest model, CancellationToken token)
+        public async Task<IActionResult> DeleteDocumentAsync([FromRoute] DeleteDocumentRequest model, CancellationToken token)
         {
             try
             {

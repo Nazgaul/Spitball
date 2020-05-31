@@ -56,8 +56,14 @@ export default {
         }
     },
     beforeCreate() {
+        let self = this;
         this.$store.dispatch('requestPaymentURL').then(()=>{}).catch(()=>{
-            this.$closeDialog()
+            self.$store.dispatch('updateToasterParams', {
+                    toasterText: self.$t("buyTokens_failed_transaction"),
+                    showToaster: true,
+                    toasterTimeout: 5000
+                });
+            self.$closeDialog()
         })
     },
     beforeDestroy() {

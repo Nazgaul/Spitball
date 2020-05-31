@@ -10,7 +10,7 @@ namespace Cloudents.Query.Admin
 {
     public class CoursesQuery : IQueryAdmin2<IEnumerable<PendingCoursesDto>>
     {
-        public CoursesQuery(ItemState state, Country? country, string term)
+        public CoursesQuery(ItemState state, Country? country, string? term)
         {
             State = state;
             Country = country;
@@ -18,7 +18,7 @@ namespace Cloudents.Query.Admin
         }
         public ItemState State { get; }
         public Country? Country { get; }
-        public string Term { get; }
+        public string? Term { get; }
     }
 
     internal class PendingCoursesQueryHandler : IQueryHandler<CoursesQuery, IEnumerable<PendingCoursesDto>>

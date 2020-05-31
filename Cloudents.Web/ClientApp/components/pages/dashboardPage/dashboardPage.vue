@@ -9,15 +9,16 @@
 </template>
 
 <script>
-import mySales from './mySales/mySales.vue';
-import myContent from './myContent/myContent.vue';
-import myPurchases from './myPurchases/myPurchases.vue';
-import myStudyRooms from './myStudyRooms/myStudyRooms.vue';
-import myCalendar from './myCalendar/myCalendar.vue';
-import myFollowers from './myFollowers/myFollowers.vue';
-
-import tableEmptyState from './global/tableEmptyState.vue';
 import { mapGetters } from 'vuex';
+
+const mySales = () => import('./mySales/mySales.vue');
+const myContent = () => import('./myContent/myContent.vue');
+const myPurchases = () => import('./myPurchases/myPurchases.vue');
+const myStudyRooms = () => import('./myStudyRooms/myStudyRooms.vue');
+const myStudyRoomsBroadcast = () => import('./myStudyRooms/myStudyRooms.vue');
+const myCalendar = () => import('./myCalendar/myCalendar.vue');
+const myFollowers = () => import('./myFollowers/myFollowers.vue');
+const tableEmptyState = () => import('./global/tableEmptyState.vue');
 
 export default {
    name:'dashboardPage',
@@ -63,13 +64,14 @@ export default {
       myContent,
       myPurchases,
       myStudyRooms,
+      myStudyRoomsBroadcast,
       myCalendar,
       myFollowers,
       tableEmptyState,
    },
    computed: {
       ...mapGetters(['accountUser'])
-   },
+   }
 }
 </script>
 

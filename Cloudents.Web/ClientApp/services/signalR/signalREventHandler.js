@@ -19,6 +19,7 @@ export const signlaREvents = {
                     store.dispatch("signalR_ReleasePaymeStatus");
                 },
                 enterstudyroom: function(data){
+                    // TODO: check if we need it
                     store.dispatch("signalR_TutorEnterStudyRoom", data);
                 }
             };  

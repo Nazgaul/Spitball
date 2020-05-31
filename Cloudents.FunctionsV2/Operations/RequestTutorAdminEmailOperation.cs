@@ -15,7 +15,7 @@ using shortid;
 
 namespace Cloudents.FunctionsV2.Operations
 {
-    
+
     public class RequestTutorAdminEmailOperation : ISystemOperation<RequestTutorMessage>
     {
         private readonly ICommandBus _commandBus;
@@ -35,11 +35,10 @@ namespace Cloudents.FunctionsV2.Operations
             _configuration = configuration;
         }
 
-        
+
         public async Task DoOperationAsync(RequestTutorMessage message2, IBinder binder, CancellationToken token)
         {
             if (_configuration.Search.IsDevelop)
-            //if (bool.Parse(_configuration["IsDevelop"]))
             {
                 _email = "elad@cloudents.com";
             }
@@ -54,9 +53,10 @@ namespace Cloudents.FunctionsV2.Operations
             foreach (var obj in result)
             {
                 var code = _dataProtectionService.ProtectData(obj.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(5));
-                var identifierChat = ShortId.Generate(true, false);
+                var url = _urlBuilder.BuildChatEndpoint(code, obj.Identifier, new { utm_source = "request-tutor-admin-email" });
 
-                var url = _urlBuilder.BuildChatEndpoint(code, new { utm_source = "request-tutor-admin-email" });
+
+                var identifierChat = ShortId.Generate(true, false);
                 var commandChat = new CreateShortUrlCommand(identifierChat, url.PathAndQuery, DateTime.UtcNow.AddDays(5));
                 await _commandBus.DispatchAsync(commandChat, token);
 

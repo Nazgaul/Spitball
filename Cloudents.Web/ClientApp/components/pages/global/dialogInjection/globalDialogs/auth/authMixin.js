@@ -61,12 +61,14 @@ export default {
 
                     if(self.presetRouting()) return
                     
-                    self.$store.dispatch('userStatus')
+                    self.$store.dispatch('userStatus').then(() => {
+                        self.$router.push({name: self.routeNames.LoginRedirect})
+                    })
                 }).catch(error => {      
                     let { response: { data } } = error
 
                     self.errors.password = data["Password"] ? error.response.data["Password"][0] : ''
-                    self.$appInsights.trackException({exception: new Error(error)})
+                    self.$appInsights.trackException(error)
                 })
         },
         gmailRegister() {
@@ -88,13 +90,10 @@ export default {
 
                     if(self.presetRouting()) return
                     window.location.reload()
-                    // self.$store.dispatch('userStatus')
                 }).catch(error => {
-                    if(error) {
-                        self.$emit('showToasterError');
-                    }
+                    self.$emit('showToasterError', error);
                     self.googleLoading = false;
-                    self.$appInsights.trackException({exception: new Error(error)})
+                    self.$appInsights.trackException(error)
                 })
         },
         verifyPhone(){
@@ -131,7 +130,7 @@ export default {
                     })
 				}).catch(error => {
                     self.errors.code = self.$t('loginRegister_invalid_code')
-                    self.$appInsights.trackException({exception: new Error(error)});
+                    self.$appInsights.trackException(error);
                 })
         },
         presetRouting() {
@@ -178,7 +177,7 @@ export default {
                     let { response: { data } } = error
                     
                     self.errors.phone = data && data["PhoneNumber"] ? data["PhoneNumber"][0] : ''
-                    self.$appInsights.trackException({exception: new Error(error)});
+                    self.$appInsights.trackException(error);
                 })
         },
         phoneCall(){
@@ -190,7 +189,7 @@ export default {
 						showToaster: true,
 					});
 				}).catch(error => {
-                    self.$appInsights.trackException({exception: new Error(error)});
+                    self.$appInsights.trackException(error);
                 })
         },
         fromTutorReuqest() {
@@ -227,7 +226,7 @@ export default {
                 .then(()=>{
                     self.$store.dispatch('gapiLoad');
                 }).catch(ex => {
-                    self.$appInsights.trackException({exception: new Error(ex)});
+                    self.$appInsights.trackException(ex);
                 })
         });
     }

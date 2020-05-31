@@ -40,8 +40,10 @@ namespace Cloudents.Query.Email
 	                                    u.FirstName as TutorFirstName,
 	                                    t.Id as TutorId,
 	                                    u.Email as TutorEmail,
-	                                    u.Country as TutorCountry
+	                                    u.Country as TutorCountry,
+                                        cr.Identifier as ChatIdentifier
                                     from sb.ChatRoomAdmin cra
+                                    join sb.ChatRoom cr on cra.id = cr.id
                                     join sb.[Lead] l
 	                                    on cra.LeadId = l.Id
                                     join sb.ChatUser cu

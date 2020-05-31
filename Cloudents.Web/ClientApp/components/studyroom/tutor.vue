@@ -318,12 +318,8 @@ watch: {
     ...mapActions([
       "setActiveConversationObj",
       "getChatById",
-      "updateLockChat",
-      "closeChat",
-      "openChatInterface",
       // "setShowAudioRecordingError",
       // "updateDialogUserConsent",
-      "openChat"
     ]),
     handleNeedPayment(needPayment){
       if(needPayment){
@@ -390,10 +386,8 @@ watch: {
       this.activeViewOption = param;
       if (this.activeViewOption === this.enumViewOptions.videoChat) {
         this.videoChat = !this.videoChat;
-        this.openChatInterface();
       } else if (this.activeViewOption === this.enumViewOptions.fullBoard) {
         this.videoChat = !this.videoChat;
-        this.closeChat();
       } else if (
         this.activeViewOption === this.enumViewOptions.fullScreenVideo
       ) {
@@ -422,7 +416,6 @@ watch: {
         insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_ChatById', data, null)
         let currentConversationObj = chatService.createActiveConversationObj(data);
         self.setActiveConversationObj(currentConversationObj);
-        self.updateLockChat(true);
       });
     },
     // closeBrowserSupportDialog(){
@@ -462,7 +455,6 @@ watch: {
   },
   beforeDestroy(){
     this.$store.dispatch('updateResetRoom');
-    this.updateLockChat(false);
 
     // storeService.unregisterModule(this.$store,'tutoringCanvas');
     // storeService.unregisterModule(this.$store,'roomRecording_store');

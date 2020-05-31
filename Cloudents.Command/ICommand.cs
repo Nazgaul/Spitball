@@ -35,5 +35,9 @@ namespace Cloudents.Command
 
         Task DispatchAsync<TCommand>(TCommand command, CancellationToken token)
             where TCommand : ICommand;
+
+
+        Task DispatchAsync<TCommand>(TCommand command)
+            where TCommand : ICommand => DispatchAsync(command, default);
     }
 }
