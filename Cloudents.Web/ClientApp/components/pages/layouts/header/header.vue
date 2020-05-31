@@ -1,7 +1,7 @@
 ﻿<template>
     <div>
     <v-app-bar :class="{'homePageWrapper': isHomePage, 'borderBottom': isShowBorderBottom}" class="globalHeader elevation-0" color="white" :height="isMobile? 60 : 70" app fixed clipped-left clipped-right>
-        <v-btn :class="[{'d-block d-sm-none': !isHomePage},{'d-none':isHomePage || !loggedIn}]" :ripple="false" icon @click="$root.$emit('openSideMenu')">
+        <v-btn v-if="getIsTeacher" class="d-sm-none" :class="[{'d-block': showHamburgerTutorMenu}]" :ripple="false" icon @click="$root.$emit('openSideMenu')">
             <hamburgerIcon class="ml-2 hamburgerIcon"/>
         </v-btn>
         <router-link @click.prevent="resetItems()" to="/" class="globalHeader_logo">
@@ -129,7 +129,7 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
         layoutClass: {}
     },
     computed: {
-        ...mapGetters(['accountUser','getTotalUnread','getBannerParams','getUserLoggedInStatus','getUserBalance']),
+        ...mapGetters(['accountUser','getTotalUnread','getBannerParams','getUserLoggedInStatus','getUserBalance', 'getIsTeacher']),
         loggedIn() {
             return this.getUserLoggedInStatus;
         },
@@ -170,6 +170,9 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
         },
         showChangeLanguage() {
             return global.country === 'IL' && this.isHomePage;
+        },
+        showHamburgerTutorMenu() {
+            return this.isHomePage || !this.loggedIn
         }
     },
     watch: {
