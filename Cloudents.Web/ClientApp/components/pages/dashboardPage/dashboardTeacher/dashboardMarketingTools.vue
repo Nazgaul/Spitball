@@ -19,7 +19,7 @@
               <createCouponIcon width="125" />
               <div class="text1 mt-4 mb-1" v-t="'marketing_tools_coupon_title1'"></div>
               <div class="text2 mb-4" v-t="'marketing_tools_coupon_title2'"></div>
-              <v-btn color="#4c59ff" rounded outlined depressed :to="{name: couponRoute}">
+              <v-btn color="#4c59ff" rounded outlined depressed :to="{name: marketingRoute, query: {dialog: 'createCoupon'}}">
                 <span class="btnText" v-t="'marketing_tools_coupon_btn'"></span>
               </v-btn>
             </div>

@@ -1,4 +1,5 @@
 <template>
+<!-- DELETE FILE -->
     <div class="tableCoupon fullWidth mt-2 mt-sm-4 pa-4 pb-2 pb-sm-0 ma-0">
         <v-data-table
             :headers="headers"
