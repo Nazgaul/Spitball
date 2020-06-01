@@ -221,6 +221,8 @@ export default () => {
          if (mutation.type === 'setRouteStack' && mutation.payload.name === routeNames.StudyRoom) {
             import('twilio-video').then(async (Twilio) => { 
                twillioClient = Twilio;
+               let strAlert = `isSupported: ${twillioClient.isSupported}`
+               alert(strAlert)
             });
             _debugMode = mutation.payload.query?.debug ? 'debug' : 'off';
          }
