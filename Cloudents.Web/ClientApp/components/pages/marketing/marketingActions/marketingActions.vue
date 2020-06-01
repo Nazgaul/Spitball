@@ -1,12 +1,12 @@
 <template>
     <v-row class="marketingActions pa-0 text-center">
         <v-col class="pa-0 mb-6 d-flex justify-space-between" cols="12">
-            <div class="text text-left" v-if="$route.name === routeNames.Marketing" v-t="'marketing_title'"></div>
-            <div class="text text-left d-block d-sm-none" v-else v-t="'promote_title'"></div>
+            <div class="text text-left" v-if="$route.name === routeNames.Dashboard">{{$t('marketing_title')}}</div>
+            <div class="text text-left d-block d-sm-none" v-else>{{$t('promote_title')}}</div>
         </v-col>
         
         <template v-for="(data, index) in resource">
-            <actionBox :key="index" :data="data"></actionBox>
+            <actionBox :key="index" :data="data" :len="resource.length" :isDashboard="$route.name === routeNames.Dashboard"></actionBox>
         </template>
     </v-row>
 </template>

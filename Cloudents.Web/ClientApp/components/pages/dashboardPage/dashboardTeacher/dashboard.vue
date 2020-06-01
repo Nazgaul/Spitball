@@ -8,9 +8,10 @@
 </template>
 
 <script>
+
 const dashboardTutorActions = () => import('./dashboardTutorActions.vue');
 const dashboardNotifications = () => import('./dashboardNotifications.vue');
-const dashboardMarketingTools = () => import('./dashboardMarketingTools.vue');
+const dashboardMarketingTools = () => import('../dashboardTeacher/dashboardMarketingTools.vue')
 const spitballTips = () => import('./spitballTips.vue');
 
 export default {
