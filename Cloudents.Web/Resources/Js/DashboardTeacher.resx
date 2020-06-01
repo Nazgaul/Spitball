@@ -136,7 +136,7 @@
     <value>Book</value>
   </data>
   <data name="btn_text_calendar" xml:space="preserve">
-    <value>Set</value>
+    <value>Connect</value>
   </data>
   <data name="btn_text_courses" xml:space="preserve">
     <value>Set</value>
@@ -193,7 +193,7 @@
     <value>Verify your email</value>
   </data>
   <data name="link_text_session" xml:space="preserve">
-    <value>Set a live class</value>
+    <value>Create a live class</value>
   </data>
   <data name="link_text_stripe" xml:space="preserve">
     <value>Set your account on Stripe</value>
@@ -202,7 +202,7 @@
     <value>Set your working hours</value>
   </data>
   <data name="link_text_upload" xml:space="preserve">
-    <value>Upload content</value>
+    <value>Upload a movie or document to your site</value>
   </data>
   <data name="notification_title" xml:space="preserve">
     <value>Notifications</value>
