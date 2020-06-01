@@ -263,6 +263,7 @@ export default {
                 color: @global-purple;
             }
             .tutorUrl {
+                cursor: text;
                 color: @global-auth-text;
                 outline: none;
                 text-align: left;
