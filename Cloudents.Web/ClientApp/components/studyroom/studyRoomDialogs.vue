@@ -9,11 +9,11 @@
       </v-dialog>
 
       <v-dialog 
-      
-         v-model="isBrowserSupportDialog" 
+         v-model="getIsBrowserNotSupport" 
          max-width="612.5px"
+         :fullscreen="$vuetify.breakpoint.xsOnly"
          :transition="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
-         :persistent="$vuetify.breakpoint.smAndUp"
+         persistent
          :content-class="'browser-dialog-unsupport'"
          >
           <browserSupport></browserSupport>
@@ -54,11 +54,6 @@ import studyRoomAudioVideoDialog from './tutorHelpers/studyRoomSettingsDialog/st
 import { mapGetters } from 'vuex';
 
 export default {
-   data() {
-      return {
-         isBrowserSupportDialog:false,
-      }
-   },
    components:{
       leaveReview,
       browserSupport,
@@ -68,26 +63,15 @@ export default {
       studyRoomAudioVideoDialog
    },
    computed: {
-      ...mapGetters(['getAudioVideoDialog','getReviewDialogState','getShowAudioRecordingError','getDialogUserConsent','getDialogRoomEnd'])
-   },
-   methods: {
-      isBrowserSupport(){
-         let agent = navigator.userAgent;
-         if(agent.match(/Edge/)){
-            return false;
-         }
-         return agent.match(/Firefox|Chrome|Safari/);
-      }
-   },
-   created() {
-      if (!this.isBrowserSupport()) {
-         let self = this.isBrowserSupportDialog
-         this.$nextTick(()=>{
-            self.isBrowserSupportDialog = true;
-         })
-         return;
-      }
-   },
+      ...mapGetters([
+         'getIsBrowserNotSupport',
+         'getAudioVideoDialog',
+         'getReviewDialogState',
+         'getShowAudioRecordingError',
+         'getDialogUserConsent',
+         'getDialogRoomEnd'
+      ])
+   }
 }
 </script>
 <style lang="less">
