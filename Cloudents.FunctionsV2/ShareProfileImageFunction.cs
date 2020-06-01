@@ -154,7 +154,7 @@ namespace Cloudents.FunctionsV2
 
         }
 
-        private static async Task<Image<Rgba32>> BuildDescriptionImageAsync(string description)
+        private static async Task<Image<Rgba32>> BuildDescriptionImageAsync(string? description)
         {
             await using var quoteSr = await Blobs.Single(w => w.Name == "share-placeholder/quote.png").OpenReadAsync();
 

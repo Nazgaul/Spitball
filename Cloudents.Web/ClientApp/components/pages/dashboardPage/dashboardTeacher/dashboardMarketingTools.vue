@@ -1,7 +1,8 @@
 <template>
     <div class="marketingTools mb-2 mb-sm-4">
 
-        <div class="headerTools pa-0 mb-4 mb-sm-2 d-block d-sm-none">
+    <marketingAction :resource="resource" />
+        <!-- <div class="headerTools pa-0 mb-4 mb-sm-2 d-block d-sm-none">
             <div class="titleTools" v-t="'marketing_title'"></div>
         </div>
 
@@ -23,25 +24,42 @@
                 <span class="btnText" v-t="'marketing_tools_coupon_btn'"></span>
               </v-btn>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 <script>
-import * as routeName from '../../../../routes/routeNames';
-
-import shareIcon from './images/share.svg';
-import createCouponIcon from './images/createCoupon.svg';
+import * as routeNames from '../../../../routes/routeNames'
+import marketingAction from '../../marketing/marketingActions/marketingActions.vue'
+// import shareIcon from './images/share.svg';
+// import createCouponIcon from './images/createCoupon.svg';
 
 export default {
   name: "marketingTools",
   components: {
-    shareIcon,
-    createCouponIcon,
+    marketingAction,
+    // shareIcon,
+    // createCouponIcon,
   },
   data() {
     return {
-      marketingRoute: routeName.Marketing,
-      couponRoute: routeName.MyCoupons,
+        resource: {
+          box1: {
+              title1: this.$t('marketing_sharePost_title1'),
+              title2: this.$t('marketing_sharePost_title2'),
+              image: require('./images/sharePost.png'),
+              buttonText: this.$t('marketing_lets_go'),
+              route: {name: routeNames.Marketing}
+          },
+          box2: {
+              title1: this.$t('marketing_createOffer_title1'),
+              title2: this.$t('marketing_createOffer_title2'),
+              image: require('./images/specialOffer.png'),
+              buttonText: this.$t('marketing_get_started'),
+              route: {name: routeNames.Marketing, query: {dialog:"createCoupon"}}
+          }
+      },
+      // marketingRoute: routeNames.Marketing,
+      // couponRoute: routeNames.MyCoupons,
     }
   }
 }
@@ -51,9 +69,9 @@ export default {
 @import '../../../../styles/colors.less';
 
 .marketingTools {
-  // padding: 16px;
-  // background: white;
-  // box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  background: white;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
   border-radius: 8px;
   @media (max-width: @screen-xs) {
     box-shadow: none;
