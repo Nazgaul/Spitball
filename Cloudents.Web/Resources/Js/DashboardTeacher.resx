@@ -189,6 +189,9 @@
   <data name="link_text_upload" xml:space="preserve">
     <value>Upload content</value>
   </data>
+  <data name="notification_title" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
   <data name="no_task" xml:space="preserve">
     <value>You’re all caught up</value>
   </data>

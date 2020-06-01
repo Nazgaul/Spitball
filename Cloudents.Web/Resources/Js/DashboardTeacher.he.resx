@@ -189,6 +189,9 @@
   <data name="link_text_upload" xml:space="preserve">
     <value>העלאת תוכן לימודי</value>
   </data>
+  <data name="notification_title" xml:space="preserve">
+    <value>התראות</value>
+  </data>
   <data name="no_task" xml:space="preserve">
     <value>השלמתם את כל המשימות</value>
   </data>
