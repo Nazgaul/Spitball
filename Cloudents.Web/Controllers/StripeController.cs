@@ -17,15 +17,15 @@ namespace Cloudents.Web.Controllers
     [Authorize]
     public class StripeController : Controller
     {
-        private readonly IStripeService stripeService;
-        private readonly ICommandBus commandBus;
-        private readonly UserManager<User> userManager;
+        private readonly IStripeService _stripeService;
+        private readonly ICommandBus _commandBus;
+        private readonly UserManager<User> _userManager;
 
         public StripeController(IStripeService stripeService, ICommandBus commandBus, UserManager<User> userManager)
         {
-            this.stripeService = stripeService;
-            this.commandBus = commandBus;
-            this.userManager = userManager;
+            _stripeService = stripeService;
+            _commandBus = commandBus;
+            _userManager = userManager;
         }
 
         [Route("BuyPoints", Name = "stripe-buy-points"), Authorize]
@@ -33,11 +33,11 @@ namespace Cloudents.Web.Controllers
             string redirectUrl, string sessionId,
             CancellationToken token)
         {
-            var (receipt, points) = await stripeService.GetBuyPointDataByIdAsync(sessionId,token);
+            var (receipt, points) = await _stripeService.GetBuyPointDataByIdAsync(sessionId,token);
 
-            var userId = userManager.GetLongUserId(User);
+            var userId = _userManager.GetLongUserId(User);
             var command = new TransferMoneyToPointsCommand(userId, points, receipt);
-            await commandBus.DispatchAsync(command, token);
+            await _commandBus.DispatchAsync(command, token);
             return Redirect(redirectUrl);
         }
 
@@ -47,14 +47,15 @@ namespace Cloudents.Web.Controllers
             string redirectUrl, string sessionId,
             CancellationToken token)
         {
-            var tutorId = await stripeService.GetSubscriptionByIdAsync(sessionId,token);
+            var tutorId = await _stripeService.GetSubscriptionByIdAsync(sessionId,token);
 
-            var userId = userManager.GetLongUserId(User);
+            var userId = _userManager.GetLongUserId(User);
 
             var command = new SubscribeToTutorCommand(userId, tutorId);
             //var command = new TransferMoneyToPointsCommand(userId, points, receipt);
-            await commandBus.DispatchAsync(command, token);
+            await _commandBus.DispatchAsync(command, token);
             return Redirect(redirectUrl);
         }
+        
     }
 }
