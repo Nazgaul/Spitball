@@ -26,7 +26,7 @@ function buildSessionDuration(totalMinutes) {
 const Item = {
    Default:function(objInit){
       this.type = objInit.type;
-      this.date = objInit.date;
+      this.date = objInit.date ? new Date(objInit.date) : '';
       this.course = objInit.course || '';
       this.id = objInit.id || objInit.questionId || objInit.tutorId || objInit.studentId;
    },
@@ -43,6 +43,7 @@ const Item = {
    Question:function(objInit){
       this.text = objInit.text || objInit.questionText;
       this.answerText = objInit.answerText || '';
+      this.url = `/question/${objInit.questionId || objInit.id}`
    },
    Session:function(objInit){
       this.sessionId = objInit.sessionId
@@ -52,6 +53,7 @@ const Item = {
       this.totalMinutes = Math.floor(objInit.totalMinutes)
       this.duration = buildSessionDuration(objInit.totalMinutes)
       this.roomName = objInit.studyRoomName || '';
+      this.url = `/profile/${objInit.tutorId}/${this.name}`
    },
    StudyRoom:function(objInit){
      // this.online = objInit.online;
@@ -181,8 +183,8 @@ function getPurchasesItems(){
    return connectivityModule.http.get('/Account/purchases').then(createPurchasesItems).catch(ex => ex);
 }
 // TODO: move to studyroom service
-function getStudyRoomItems(){
-   return connectivityModule.http.get('StudyRoom').then(createStudyRoomItems).catch(ex => ex);
+function getStudyRoomItems(type){
+   return connectivityModule.http.get('StudyRoom', {params: type}).then(createStudyRoomItems).catch(ex => ex);
 }
 function getFollowersItems(){
    return connectivityModule.http.get('/Account/followers').then(createFollowersItems).catch(ex => ex);

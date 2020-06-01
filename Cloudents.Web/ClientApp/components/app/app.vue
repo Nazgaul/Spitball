@@ -99,8 +99,8 @@ export default {
     isDrawer() {
       let isLogged = this.getUserLoggedInStatus
       let isTeacher = this.getIsTeacher
-      let isMobile = this.$vuetify.breakpoint.xsOnly
-      return isLogged && isTeacher && !isMobile
+      // let isMobile = this.$vuetify.breakpoint.xsOnly
+      return isLogged && isTeacher
     },
     drawerPlaceholder() {
       // need to think of better way to check if placeholder
@@ -115,7 +115,7 @@ export default {
       'myCalendar',
       'addCourse',
       'editCourse'].some(route => this.$route.name === route)
-      return isRoutes
+      return isRoutes && !this.getIsTeacher
     },
     isMobile() {
       return this.$vuetify.breakpoint.smAndDown;

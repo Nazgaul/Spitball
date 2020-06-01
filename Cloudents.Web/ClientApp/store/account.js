@@ -60,7 +60,10 @@ const getters = {
     getIsTutorSubscription: state => state.user?.subscription,
     getIsMyProfile: (state, _getters) => {
         return _getters.getUserLoggedInStatus && (state.user.id === _getters.getProfile?.user.id)
-    }
+    },
+    getAccountId: state => state.user?.id,
+    getAccountName: state => state.user?.name,
+    getAccountImage: state => state.user?.image,
 };
 
 const actions = {

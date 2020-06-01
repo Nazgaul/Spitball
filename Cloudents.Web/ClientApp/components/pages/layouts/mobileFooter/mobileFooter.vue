@@ -1,5 +1,4 @@
 <template>
-    <!-- <div> -->
         <v-bottom-navigation
                 height="62px"
                 :v-model="activeTab"
@@ -17,7 +16,7 @@
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_tutors'"/>
                 <v-icon class="mF_icon" v-html="'sbf-account-group'"/>
             </v-btn>
-            <v-btn :ripple="false" class="mF_btns" text value='upload' v-openDialog="uploadDialog">
+            <v-btn v-if="isTutor" :ripple="false" class="mF_btns" text value='upload' @click="$store.commit('setComponent', 'upload')">
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_upload'"/>
                 <v-icon class="mF_icon" v-html="'sbf-button-add'" />
             </v-btn> -->
@@ -33,23 +32,23 @@
                 <v-icon class="mF_icon" v-html="'sbf-account'"/>
             </v-btn>
         </v-bottom-navigation>
-    <!-- </div> -->
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import * as dialogNames from '../../global/dialogInjection/dialogNames.js';
 import * as routeNames from '../../../../routes/routeNames.js';
 export default {
     name: "mobileFooter",
     data() {
         return {
             currentActiveTab:this.$route.name,
-            uploadDialog: dialogNames.Upload,
         }
     },
     computed: {
         ...mapGetters(['getTotalUnread', 'accountUser']),
+        isTutor(){
+            return this.$store.getters.getIsTeacher;
+        },
         totalUnread(){
             return this.getTotalUnread
         },

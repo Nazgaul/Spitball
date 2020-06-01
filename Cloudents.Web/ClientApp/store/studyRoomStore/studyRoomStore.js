@@ -192,6 +192,9 @@ const getters = {
    getAudioVideoDialog:state => state.audioVideoDialog, 
    getStudyRoomDrawerState:state => state.studyRoomDrawerState, 
    getStudyRoomFooterState:state => state.studyRoomFooterState, 
+   getRoomAudioTracks(state){
+      return Object.values(state.roomParticipants).map(p=>p.audio)
+   }
 }
 const actions = {
    updateToggleTutorFullScreen({dispatch,commit},val){

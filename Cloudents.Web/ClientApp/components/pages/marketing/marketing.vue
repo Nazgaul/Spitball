@@ -1,8 +1,21 @@
 <template>
     <div id="marketing">
-        <router-view :name="$route.name"></router-view>
+        <promoteStteper class="mb-2 mb-sm-4" />
+        <marketingBlogs />
     </div>
 </template>
+
+<script>
+const promoteStteper = () => import('../marketing/promote/promoteStteper.vue')
+const marketingBlogs = () => import('../marketing/marketingBlogs/marketingBlogs.vue')
+
+export default {
+    components: {
+        promoteStteper,
+        marketingBlogs
+    }
+}
+</script>
 
 <style lang="less">
 @import '../../../styles/mixin.less';

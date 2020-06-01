@@ -11,6 +11,8 @@ const simpleErrorToaster = () => import('./simpleErrorToaster.vue')
 const pendingPayment = () => import('./pendingPayment.vue')
 const errorLinkToaster = () => import('./errorLinkToaster.vue')
 
+const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue')
+
 const studRoomSettings = () => import('../../../studyroom/tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue')
 const createStudyRoomDialog = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue')
 const teacherBillOfflineDialog = () => import('../dialogInjection/globalDialogs/teacherApproval/teacherBillOffline.vue');
@@ -21,13 +23,14 @@ export default {
         simpleErrorToaster,
         pendingPayment,
         errorLinkToaster,
+        upload,
         studRoomSettings,
         createStudyRoomDialog,
         teacherBillOfflineDialog
     },
     data() {
         return {
-            component: '',
+            component: {},
             componentObj: {
                 teacherBillOfflineDialog:{
                     name:'teacherBillOfflineDialog'
@@ -111,6 +114,9 @@ export default {
                     params: {
                         type: 'broadcast'
                     }
+                },
+                upload: {
+                    name: 'upload',
                 }
             }
         }
@@ -120,7 +126,7 @@ export default {
     },
     methods: {
         showComponent(componentName = "") {
-            let componentInject = this.componentObj[componentName] || {component: '', params: ''};
+            let componentInject = this.componentObj[componentName] || {name: '', params: ''};
             this.component = componentInject;
         }
     }

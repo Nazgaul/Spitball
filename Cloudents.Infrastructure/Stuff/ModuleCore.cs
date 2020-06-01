@@ -6,6 +6,7 @@ using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using System.Linq;
+using System.Reflection;
 using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure.Stuff
@@ -31,9 +32,11 @@ namespace Cloudents.Infrastructure.Stuff
                 .Select(i => new KeyedService("handler2", i)));
 
 
-            builder.RegisterAssemblyTypes(typeof(IQueryHandler<,>).Assembly).As(o => o.GetInterfaces()
+            builder.RegisterAssemblyTypes(typeof(IQueryHandler<,>).Assembly, Assembly.GetExecutingAssembly()).As(o => o.GetInterfaces()
                 .Where(i => i.IsClosedTypeOf(typeof(IQueryHandler<,>)))
                 .Select(i => new KeyedService("handler", i)));
+
+            
 
             builder.RegisterGenericDecorator(
                 typeof(CacheQueryHandlerDecorator<,>),

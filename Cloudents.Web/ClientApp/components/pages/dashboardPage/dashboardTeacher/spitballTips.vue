@@ -5,7 +5,7 @@
             <a sel="see_all_blog" class="seeAll" :href="blogsLink" target="_blank">{{$t('dashboardTeacher_see_all')}}</a>
         </v-col>
         <template v-if="tips.length">
-            <v-col class="tipsList d-flex pa-0" cols="4" v-for="(tip, index) in tips" :key="index">
+            <v-col class="tipsList d-flex pa-0" cols="3" v-for="(tip, index) in tips" :key="index">
                 <a class="tipsListBox" :href="tip.url" target="_blank">
                     <div class="top">
                         <img :src="tip.image" alt="image" width="200" height="100" />
@@ -21,7 +21,7 @@
             </v-col>
         </template>
         <template v-else>
-            <v-col class="" cols="4" v-for="n in 3" :key="n">
+            <v-col class="" cols="3" v-for="n in 4" :key="n">
                 <v-skeleton-loader
                   class=""
                   height="200"
@@ -49,7 +49,7 @@ export default {
       this.$store.dispatch('updateSpitballBlogs').then(blog => {
         self.tips = blog;
       }).catch(ex => {
-        self.$appInsights.trackException({exception: new Error(ex)});
+        self.$appInsights.trackException(ex);
       })
     }
   },
