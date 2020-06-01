@@ -125,14 +125,14 @@ namespace Cloudents.Web.Hubs
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            var country = Context.User.Claims.FirstOrDefault(f =>
-                string.Equals(f.Type, AppClaimsPrincipalFactory.Country,
-                    StringComparison.OrdinalIgnoreCase))?.Value;
-            if (country != null)
-            {
+            //var country = Context.User.Claims.FirstOrDefault(f =>
+            //    string.Equals(f.Type, AppClaimsPrincipalFactory.Country,
+            //        StringComparison.OrdinalIgnoreCase))?.Value;
+            //if (country != null)
+            //{
 
-                await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"country_{country.ToLowerInvariant()}");
-            }
+            //    await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"country_{country.ToLowerInvariant()}");
+            //}
 
             var currentUserId = long.Parse(Context.UserIdentifier);
             Connections.Remove(currentUserId, Context.ConnectionId);
