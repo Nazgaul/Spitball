@@ -1,8 +1,8 @@
 <template>
     <v-row class="marketingActions pa-0 text-center">
         <v-col class="pa-0 mb-6 d-flex justify-space-between" cols="12">
-            <div class="text text-left" v-if="$route.name === routeNames.Dashboard">{{$t('marketing_title')}}</div>
-            <div class="text text-left d-block d-sm-none" v-else>{{$t('promote_title')}}</div>
+            <div class="text text-left" v-if="$route.name === routeNames.Dashboard && $vuetify.breakpoint.xsOnly">{{$t('marketing_title')}}</div>
+            <div class="text text-left d-block d-sm-none" v-if="$route.name === routeNames.Marketing">{{$t('promote_title')}}</div>
         </v-col>
         
         <template v-for="(data, index) in resource">
