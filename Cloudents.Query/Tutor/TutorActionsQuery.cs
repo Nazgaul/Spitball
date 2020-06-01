@@ -65,7 +65,8 @@ namespace Cloudents.Query.Tutor
                         s.EmailConfirmed,
                         s.Description,
                         s.Tutor!.Bio,
-                        s.CoverImage
+                        s.CoverImage,
+                        s.SbCountry
                     }).ToFutureValue();
 
                 var coursesFuture = _session.Query<UserCourse>()
@@ -94,7 +95,7 @@ namespace Cloudents.Query.Tutor
                 var res = new TutorActionsDto()
                 {
                     CalendarShared = calendarShared,
-                    HaveHours = haveHours,
+                    HaveHours = haveHours || userDetails.SbCountry != Country.Israel,
                     PhoneVerified = userDetails.PhoneNumberConfirmed,
                     EmailVerified = userDetails.EmailConfirmed,
                     Courses = coursesFuture.Value,
