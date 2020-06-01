@@ -1,5 +1,5 @@
 <template>
-    <v-row class="analyticOverview mt-sm-0 mt-2 mb-2 mb-sm-4 pb-2 pb-sm-0" :class="{'inFeed': $route.name}">
+    <v-row class="analyticOverview mt-sm-0 mt-2 mb-2 mb-sm-4 pb-2 pb-sm-0" :class="{'inFeed': $route.name === feedRoute}">
         <v-col class="space pa-0 mb-2 mb-sm-0" cols="7">
             <div class="text">{{$t('dashboardTeacher_analytic_title')}}</div>
         </v-col>
@@ -54,6 +54,7 @@
     </v-row>
 </template>
 <script>
+import * as routeName from '../../../../routes/routeNames'
 import arrowDownIcon from '../../layouts/header/images/arrowDownIcon.svg';
 
 export default {
@@ -62,6 +63,7 @@ export default {
     arrowDownIcon
   },
   data: () => ({
+    feedRoute: routeName.Feed,
     selectedItem: { title: 'Last 7 days', value: 7 },
     results: [],
     navigation: {
@@ -132,11 +134,12 @@ export default {
   .analyticOverview {
     padding: 16px;
     background: white;
-    //need to put it for feed page
-    // box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
     border-radius: 8px;
     width: 100%;
     margin: 0 auto;
+    &.inFeed {
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+    }
     @media (max-width: @screen-xs) {
       box-shadow: none;
       padding: 14px;
