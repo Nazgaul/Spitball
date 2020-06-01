@@ -290,7 +290,7 @@ export default {
                     color:#69687d;
                     font-weight: 600;
                     .arrowIcon {
-                        transform: none /*rtl:scaleX(-1)*/;
+                        transform: scaleX(1) /*rtl:scaleX(-1)*/;
                     }
 
                     &.mobileLayout {
