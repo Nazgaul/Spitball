@@ -19,6 +19,9 @@ namespace Cloudents.Query.Tutor
         private long UserId { get; }
         private Country Country { get; }
 
+        /// <summary>
+        /// Return actions - true if the user done it
+        /// </summary>
         internal sealed class TutorActionsQueryHandler : IQueryHandler<TutorActionsQuery, TutorActionsDto>
         {
 
@@ -32,12 +35,12 @@ namespace Cloudents.Query.Tutor
                 var calendarFuture = _session.Query<GoogleTokens>()
                     .WithOptions(w => w.SetComment(nameof(TutorActionsQuery)))
                     .Where(w => w.Id == query.UserId.ToString())
-                    .Select(s=>s.Id)
+                    .Select(s => s.Id)
                     .ToFutureValue(f => f.Any());
 
                 var hoursFuture = _session.Query<TutorHours>()
                     .Where(w => w.Tutor.Id == query.UserId)
-                    .Select(s=>s.Id)
+                    .Select(s => s.Id)
                     .ToFutureValue(f => f.Any());
 
 
@@ -50,11 +53,13 @@ namespace Cloudents.Query.Tutor
                     .Select(s => new
                     {
                         s.Id,
-                        TutorId = _session.Query<AdminTutor>().Where(w2 => w2.Country == query.Country)
-                           .Select(s2 => s2.Tutor.Id).SingleOrDefault()
+
                     })
                     .Take(1)
                     .ToFutureValue();
+
+                var adminFuture = _session.Query<AdminTutor>().Where(w2 => w2.Country == query.Country)
+                    .Select(s2 => s2.Tutor.Id).ToFutureValue();
 
                 var userDetailsFuture = _session.Query<User>()
                     .Fetch(f => f.Tutor)
@@ -65,21 +70,22 @@ namespace Cloudents.Query.Tutor
                         s.EmailConfirmed,
                         s.Description,
                         s.Tutor!.Bio,
-                        s.CoverImage
+                        s.CoverImage,
+                        s.SbCountry
                     }).ToFutureValue();
 
                 var coursesFuture = _session.Query<UserCourse>()
                     .Where(w => w.User.Id == query.UserId)
-                    .Select(s=>s.IsTeach)
+                    .Select(s => s.IsTeach)
                     .ToFutureValue(f => f.Any());
 
                 var liveSessionFuture = _session.Query<BroadCastStudyRoom>()
                      .Where(w => w.Tutor.Id == query.UserId)
-                     .Select(s=>s.Id)
+                     .Select(s => s.Id)
                      .ToFutureValue(f => f.Any());
 
                 var documentFuture = _session.Query<Document>()
-                    .Where(w => w.User.Id == query.UserId).Select(s=>s.Id)
+                    .Where(w => w.User.Id == query.UserId).Select(s => s.Id)
                     .ToFutureValue(f => f.Any());
 
 
@@ -94,7 +100,7 @@ namespace Cloudents.Query.Tutor
                 var res = new TutorActionsDto()
                 {
                     CalendarShared = calendarShared,
-                    HaveHours = haveHours,
+                    HaveHours = haveHours || userDetails.SbCountry != Country.Israel,
                     PhoneVerified = userDetails.PhoneNumberConfirmed,
                     EmailVerified = userDetails.EmailConfirmed,
                     Courses = coursesFuture.Value,
@@ -104,7 +110,7 @@ namespace Cloudents.Query.Tutor
                     BookedSession = new BookedSession()
                     {
                         Exists = bookedSession?.Id != null,
-                        _TutorId = bookedSession?.TutorId
+                        _TutorId = adminFuture.Value
                     },
                     EditProfile = userDetails.Description != null || userDetails.Bio != null || userDetails.CoverImage != null
                 };

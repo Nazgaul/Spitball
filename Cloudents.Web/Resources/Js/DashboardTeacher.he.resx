@@ -184,13 +184,13 @@
     <value>הפעלת האימייל</value>
   </data>
   <data name="link_text_session" xml:space="preserve">
-    <value>יצירת הקמפיין השיווקי הראשון שלך</value>
+    <value>צור שידור חי</value>
   </data>
   <data name="link_text_stripe" xml:space="preserve">
     <value>יצירת שידור חי</value>
   </data>
   <data name="link_text_teach" xml:space="preserve">
-    <value>עריכה</value>
+    <value>מה הן השעות שתוכלו ללמד</value>
   </data>
   <data name="link_text_upload" xml:space="preserve">
     <value>העלאת תוכן לימודי</value>
