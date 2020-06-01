@@ -221,12 +221,16 @@ export default () => {
          if (mutation.type === 'setRouteStack' && mutation.payload.name === routeNames.StudyRoom) {
             import('twilio-video').then(async (Twilio) => { 
                twillioClient = Twilio;
-               let strAlert = `isSupported: ${twillioClient.isSupported}`
-               alert(strAlert)
+               if(!twillioClient.isSupported){
+                  store.commit(studyRoom_SETTERS.BROWSER_NOT_SUPPORT,true)
+               }
             });
             _debugMode = mutation.payload.query?.debug ? 'debug' : 'off';
          }
          if (mutation.type === twilio_SETTERS.JWT_TOKEN && mutation.payload) {
+            if(store.getters.getIsBrowserNotSupport){
+               return
+            }
             if(_activeRoom?.state == 'connected'){
                return
             }

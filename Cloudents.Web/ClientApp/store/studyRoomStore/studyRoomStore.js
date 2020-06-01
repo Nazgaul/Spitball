@@ -59,12 +59,12 @@ const state = {
    dialogEndSession: false,
    dialogUserConsent: false,
    dialogSnapshot: false,
-
    roomProps: null,
    roomParticipants:{},
    audioVideoDialog:false,
    studyRoomDrawerState:true,
    studyRoomFooterState:true,
+   isBrowserNotSupport:false,
 }
 
 const mutations = {
@@ -104,6 +104,7 @@ const mutations = {
       state.roomProps = null;
       state.roomType = null;
       state.roomName = null;
+      state.isBrowserNotSupport = false;
       state.roomParticipants = {}
    },
    [studyRoom_SETTERS.DIALOG_USER_CONSENT]: (state, val) => state.dialogUserConsent = val,
@@ -156,6 +157,7 @@ const mutations = {
    setStudyRoomFooterState(state,val){
       state.studyRoomFooterState = val;
    },
+   [studyRoom_SETTERS.BROWSER_NOT_SUPPORT]: (state, val) => state.isBrowserNotSupport = val,
 }
 const getters = {
    getActiveNavEditor: state => state.activeNavEditor,
@@ -194,7 +196,8 @@ const getters = {
    getStudyRoomFooterState:state => state.studyRoomFooterState, 
    getRoomAudioTracks(state){
       return Object.values(state.roomParticipants).map(p=>p.audio)
-   }
+   },
+   getIsBrowserNotSupport:state => state.isBrowserNotSupport, 
 }
 const actions = {
    updateToggleTutorFullScreen({dispatch,commit},val){
