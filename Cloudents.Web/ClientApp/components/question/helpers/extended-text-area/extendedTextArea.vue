@@ -17,35 +17,19 @@
 </template>
 <script>
 export default {
-    props: {
-        value: {type: String},
-        error: {},
-        actionType: {type: String, default: 'answer'},
-        isFocused: {
-          type:Boolean,
-          default:false
-        },
-        uploadUrl: {type: String},
-        isAttachVisible: {type: Boolean, default: true, required: false}
+  props: {
+    value: {type: String},
+    error: {},
+    isFocused: {
+      type:Boolean,
+      default:false
     },
-    data() {
-        return {
-            //
-        };
+  },
+  methods: {
+    updateValue: function (value) {
+        this.$emit('input', value);
     },
-    computed: {
-        setPlaceholder() {
-            return `extendedTextArea_type_your_${this.actionType}`
-        }
-    },
-    methods: {
-        updateValue: function (value) {
-            this.$emit('input', value);
-        },
-        remove(file) {
-            this.$refs.upload.remove(file);
-        },
-    },
+  },
 }
 </script>
 <style lang="less">

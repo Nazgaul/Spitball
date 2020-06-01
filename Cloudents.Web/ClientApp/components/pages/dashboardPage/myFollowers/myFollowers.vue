@@ -147,7 +147,6 @@ export default {
       sendWhatsapp(user) {
          let defaultMessage = LanguageService.getValueByKey("dashboardPage_default_message")
          window.open(`https://api.whatsapp.com/send?phone=${user.phoneNumber}&text=%20${defaultMessage}`);
-         this.tutorRequestDialogClose();
       },
    },
    created() {

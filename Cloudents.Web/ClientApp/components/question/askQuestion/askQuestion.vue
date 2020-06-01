@@ -1,7 +1,7 @@
 <template>
     <transition name="fade">
         <div class="add-question-container">
-            <v-form  v-model="validQuestionForm" ref="questionForm">
+            <v-form ref="questionForm">
                 <v-layout class="question-header">
                     <div class="mx-auto" v-language:inner="'addQuestion_title'"></div>
                 </v-layout>
@@ -63,6 +63,89 @@
 </template>
 
 
-<script src="./askQuestion.js"></script>
 
 <style lang="less" src="./askQuestion.less"></style>
+<script>
+import { mapActions, mapGetters } from 'vuex';
+import { validationRules } from "../../../services/utilities/formValidationRules";
+import questionService from "../../../services/questionService";
+import analyticsService from "../../../services/analytics.service";
+
+export default {
+    data() {
+        return {
+            questionCourse: '',
+            questionText: '',
+            suggestsCourses: [],
+            btnQuestionLoading: false,
+            errorMessage: '',
+            rules: {
+                required: (value) => validationRules.required(value),
+                maximumChars: (value) => validationRules.maximumChars(value, 255),
+                minimumChars: (value) => validationRules.minimumChars(value, 15),
+            },
+            topicPlaceholder: this.$t('addQuestion_ask_your_question_placeholder'),
+        };
+    },
+    computed: {
+        ...mapGetters(['accountUser']),
+        userImageUrl() {
+            if(this.accountUser && this.accountUser.image.length > 1) {
+                return `${this.accountUser.image}`;
+            }
+            return '';
+        },
+        userName() {
+            if(this.accountUser && this.accountUser.name) {
+                return this.accountUser.name;
+            }
+            return '';
+        }
+    },
+    methods: {
+        ...mapActions(['updateNewQuestionDialogState']),
+        requestAskClose() {
+            this.updateNewQuestionDialogState(false);
+        },
+        submitQuestion() {
+            let self = this;
+            if(self.$refs.questionForm.validate()) {
+                self.btnQuestionLoading =true;
+                let serverQuestionObj = {
+                    text: self.questionText,
+                    course: self.questionCourse.text ? self.questionCourse.text : self.questionCourse,
+                };
+                questionService.postQuestion(serverQuestionObj).then(() => {
+                    analyticsService.sb_unitedEvent("Submit_question", "Homework help");
+                    self.btnQuestionLoading =false;
+                    //close dialog after question submitted
+                    self.requestAskClose(false);
+                    self.$router.push({path: '/'});
+                }, (error) => {                    
+                    let errorMessage = self.$t('addQuestion_error_general');
+                    if (error && error.response && error.response.data && error.response.data[""] && error.response.data[""][0]) {
+                        errorMessage = error.response.data[""][0];
+                    }
+                    self.errorMessage = errorMessage;
+                }).finally(()=>{
+                    self.btnQuestionLoading =false;
+                });
+            }
+        },
+        closeAddQuestionDialog() {
+            this.updateNewQuestionDialogState(false);
+        },
+    },
+    created() {
+        this.$store.dispatch('updateFeedCourses').then(({data}) => {
+            this.suggestsCourses = data
+        })
+        if(this.$route.query && this.$route.query.term){
+            this.questionCourse = this.$route.query.term;
+        }
+        if(this.$route.query && this.$route.query.Course){
+            this.questionCourse = this.$route.query.Course;
+        }
+    }
+};
+</script>

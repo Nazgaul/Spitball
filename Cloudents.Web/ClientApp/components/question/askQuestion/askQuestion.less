@@ -9,9 +9,6 @@
     width: 100%;
     display: inline-block;
   }
-  .pt-12{
-    padding-top: 12px;
-  }
   .add-question-container {
     display: flex;
     flex-direction: column;
@@ -26,128 +23,6 @@
       color: #43425d;
       font-weight: 600;
       line-height: normal;
-    }
-    .question-subject-class-container {
-      width: 100%;
-      background-color: #fff;
-      max-height: 72px;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      .question-select {
-        width: 100%;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-        height: auto;
-        border-radius: 4px;
-        &.left {
-          margin-left: 8px;
-          margin-right: 4px;
-        }
-        &.right {
-          margin-left: 4px;
-          margin-right: 8px;
-        }
-        .v-select__selection--comma {
-          display: unset;
-          line-height: 20px;
-          text-overflow: ellipsis;
-          overflow: hidden;
-        }
-      }
-      .v-text-field {
-        .v-input__control {
-          .v-input__slot {
-            min-height: unset;
-            background: @systemBackgroundColor !important; //vuetify overwrite
-            border: solid 1px rgba(67, 66, 93, 0.17);
-            &:hover {
-              border: 1px solid rgba(0, 0, 0, .3);
-            }
-            .v-select__slot {
-              label {
-                top: unset;
-                font-size: 14px;
-                letter-spacing: -0.4px;
-                color: rgba(0, 0, 0, 0.87);
-                left: auto !important;
-                right: auto !important;
-              }
-              .v-select__selections {
-                width: 100%;
-                padding-top: 0;
-                :not(:first-child) {
-                  display: none; //remove the label element from taking mass
-                }
-                input{
-                  .placeholder-color(@color-black)
-                }
-              }
-              .v-input__append-inner {
-                //select arrow
-                position: absolute;
-                right: -7px;
-                margin-top: 3px;
-                align-self: unset;
-                display: unset;
-                .v-input__icon {
-                  i {
-                    color: rgba(0, 0, 0, 0.54) !important;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    .add-files{
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: start;
-    }
-    .btn-upload-wrap {
-      max-width: 160px;
-    }
-    .question-files-btn {
-      height: 32px;
-      border-radius: 16px;
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
-      background-color: @color-white;
-      font-size: 12px;
-      color: @textColor;
-      position: relative;
-    }
-    .attach-icon {
-      color: @purpleBright;
-      font-size: 18px;
-      transform: rotate(-45deg);
-      border: 1px solid  #2a2a2a;
-      border-radius: 12px;
-      padding: 2px;
-
-    }
-    .file-uploads {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      margin: 0;
-      label {
-        cursor: pointer;
-      }
-    }
-    .question-options-part {
-      display: flex;
-      width: 100%;
-      i {
-        font-size: 20px;
-        line-height: 18px;
-      }
     }
     .question-textarea-upper-part {
       display: flex;
@@ -224,12 +99,6 @@
           background-color: #fff;
           border: 1px solid @global-blue;
           color: @global-blue;
-        }
-        .v-btn__content {
-          // padding: 0 26px;
-          @media (max-width: @screen-xss) {
-            // padding: 0 34px;
-          }
         }
       }
     }

@@ -3,14 +3,12 @@ import searchService from "../services/searchService";
 import reportService from "../services/cardActionService";
 const emptyStateSelection = {key:'Empty',value:''};
 const state = {
-    queItems: [],
     items: {},
     dataLoaded: false,
     isFeedLoading: false,
 };
 
 const getters = {
-    Feeds_getIsLoading: state => state.isFeedLoading,
     Feeds_getItems: (state) => {
         return (state.isFeedLoading) ? state.dataLoaded : state.items.data;
     },
@@ -55,37 +53,11 @@ const mutations = {
     Feeds_UpdateItems(state, data) {
         state.items.data = state.items.data.concat(data.data);
     },
-    Feeds_ResetQue(state) {
-        state.queItems = [];
-    },
-    Feeds_AddQuestion(state, questionObj) {
-        if (!!state.items && !!state.items.data && state.items.data.length > 0) {
-            if (!!questionObj.user) {
-                let authorId = questionObj.question.userId;
-                let currentUser = questionObj.user;
-                let questionToAdd = questionObj.question;
-                if (currentUser.id === authorId) {
-                    state.items.data.unshift(questionToAdd);
-                } else {
-                    state.queItems.unshift(questionToAdd);
-                }
-            } else {
-                state.queItems.unshift(questionObj.question);
-            }
-        }
-    },
     Feeds_removeQuestion(state, questionIndex) {
         state.items.data.splice(questionIndex, 1);
     },
     Feeds_removeDocItem(state, itemIndex) {
         state.items.data.splice(itemIndex, 1);
-    },
-    Feeds_markQuestionAsCorrect(state, questionObj) {
-        state.items.data[questionObj.questionIndex].hasCorrectAnswer = true;
-        state.items.data[questionObj.questionIndex].correctAnswerId = questionObj.answerId;
-    },
-    Feeds_updateAnswersCounter(state, {counter,questionIndex}) {
-        state.items.data[questionIndex].answers += counter;
     },
 };
 
@@ -108,10 +80,9 @@ const actions = {
     Feeds_updateData({commit}, data) {
         commit('Feeds_UpdateItems', data);
     },
-    Feeds_fetchingData({commit, dispatch}, {params}) {
+    Feeds_fetchingData({dispatch}, {params}) {
         dispatch('Feeds_updateDataLoaded', false);
         dispatch('Feeds_UpdateLoading',true)
-        commit('Feeds_ResetQue');
         let paramsList = {...params};
         if(paramsList.filter?.key || paramsList.filter === 'Question' && paramsList.term){
             delete paramsList.filter;
