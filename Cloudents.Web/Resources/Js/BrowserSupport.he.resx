@@ -127,10 +127,12 @@
     <value>ספארי</value>
   </data>
   <data name="supported_text" xml:space="preserve">
-    <value>נעשה שימוש בדפדפן שאינו נתמך באופן מלא על ידי ספיטבול. כדי לקבל ביצועים טובים יותר, הורד אחד מהגרסאות האחרונות של הדפדפנים המופיעים למטה</value>
+    <value>אנו מתנצלים, אין אפשרות לגשת למצלמה והמיקרופון שלך בדפדפן זה.
+
+אנו ממליצים לעבור להשתמש בדפדפן ברירת המחדל של מערכת ההפעלה IOS - ספארי.</value>
   </data>
   <data name="unsupported_browser" xml:space="preserve">
-    <value>דפדפן לא נתמך</value>
+    <value>אנא עברו לספארי</value>
   </data>
   <data name="update_browser" xml:space="preserve">
     <value>הדפדפן שלך לא נתמך</value>
