@@ -139,13 +139,13 @@
     <value>חיבור</value>
   </data>
   <data name="btn_text_courses" xml:space="preserve">
-    <value>הוספה</value>
+    <value>עידכון</value>
   </data>
   <data name="btn_text_edit" xml:space="preserve">
     <value>עריכה</value>
   </data>
   <data name="btn_text_email" xml:space="preserve">
-    <value>הפעלה</value>
+    <value>אימות</value>
   </data>
   <data name="btn_text_session" xml:space="preserve">
     <value>יצירה</value>
@@ -154,7 +154,7 @@
     <value>עריכה</value>
   </data>
   <data name="btn_text_teach" xml:space="preserve">
-    <value>עריכה</value>
+    <value>עידכון</value>
   </data>
   <data name="btn_text_upload" xml:space="preserve">
     <value>העלאה</value>
@@ -178,31 +178,31 @@
     <value>{0} הימים האחרונים</value>
   </data>
   <data name="link_text_book" xml:space="preserve">
-    <value>קביעת שיעור היכרות עם מדריך בכיר בספיטבול</value>
+    <value>קבעו זמן הדרכה עם נציג ספיטבול</value>
   </data>
   <data name="link_text_calendar" xml:space="preserve">
-    <value>חיבור יומן גוגל שלך</value>
+    <value>הציגו את יומן הפגישות שלכם</value>
   </data>
   <data name="link_text_courses" xml:space="preserve">
-    <value>הוספת הקורסים שברצונך ללמד</value>
+    <value>ציינו נושאי לימוד</value>
   </data>
   <data name="link_text_edit" xml:space="preserve">
-    <value>ערכו את דף הפרופיל שלכם</value>
+    <value>עדכנו את דף הבית שלכם</value>
   </data>
   <data name="link_text_email" xml:space="preserve">
-    <value>הפעלת האימייל</value>
+    <value>אמתו את האימייל שלכם</value>
   </data>
   <data name="link_text_session" xml:space="preserve">
-    <value>צור שידור חי</value>
+    <value>צרו שיעור בשידור חי</value>
   </data>
   <data name="link_text_stripe" xml:space="preserve">
     <value>יצירת שידור חי</value>
   </data>
   <data name="link_text_teach" xml:space="preserve">
-    <value>מה הן השעות שתוכלו ללמד</value>
+    <value>עדכנו את זמינותכם</value>
   </data>
   <data name="link_text_upload" xml:space="preserve">
-    <value>העלאת תוכן לימודי</value>
+    <value>העלו סרטונים או מסמכים לדף הבית שלכם</value>
   </data>
   <data name="notification_title" xml:space="preserve">
     <value>התראות</value>
