@@ -136,7 +136,7 @@
     <value>Book</value>
   </data>
   <data name="btn_text_calendar" xml:space="preserve">
-    <value>Set your calendar</value>
+    <value>Set</value>
   </data>
   <data name="btn_text_courses" xml:space="preserve">
     <value>Set</value>
@@ -144,11 +144,14 @@
   <data name="btn_text_email" xml:space="preserve">
     <value>Activate</value>
   </data>
+  <data name="btn_text_session" xml:space="preserve">
+    <value>Create</value>
+  </data>
   <data name="btn_text_stripe" xml:space="preserve">
     <value>Set</value>
   </data>
   <data name="btn_text_teach" xml:space="preserve">
-    <value>Set a live sessions</value>
+    <value>Set</value>
   </data>
   <data name="btn_text_upload" xml:space="preserve">
     <value>Upload</value>
@@ -172,19 +175,22 @@
     <value>Book an onboarding session with a Spitball specialist</value>
   </data>
   <data name="link_text_calendar" xml:space="preserve">
-    <value>Set</value>
+    <value>Set your calendar</value>
   </data>
   <data name="link_text_courses" xml:space="preserve">
-    <value>Set your courses</value>
+    <value>Set the courses or subjects you want to teach</value>
   </data>
   <data name="link_text_email" xml:space="preserve">
     <value>Activate your email</value>
+  </data>
+  <data name="link_text_session" xml:space="preserve">
+    <value>Create your first marketing campaign</value>
   </data>
   <data name="link_text_stripe" xml:space="preserve">
     <value>Set your account on Stripe</value>
   </data>
   <data name="link_text_teach" xml:space="preserve">
-    <value>Set</value>
+    <value>Set a live session</value>
   </data>
   <data name="link_text_upload" xml:space="preserve">
     <value>Upload content</value>
