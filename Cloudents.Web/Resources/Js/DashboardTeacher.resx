@@ -184,13 +184,13 @@
     <value>Activate your email</value>
   </data>
   <data name="link_text_session" xml:space="preserve">
-    <value>Create your first marketing campaign</value>
+    <value>Set a live class</value>
   </data>
   <data name="link_text_stripe" xml:space="preserve">
     <value>Set your account on Stripe</value>
   </data>
   <data name="link_text_teach" xml:space="preserve">
-    <value>Set a live session</value>
+    <value>Set your working hours</value>
   </data>
   <data name="link_text_upload" xml:space="preserve">
     <value>Upload content</value>
