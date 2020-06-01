@@ -1,9 +1,9 @@
 <template>
     <div class="browserSupport">
-        <v-flex pb-12 only>
+        <v-flex pb-6 only>
             <v-layout wrap align-center justify-space-between class="browserSupport-header">
               <h4 v-language:inner="'browserSupport_unsupported_browser'"></h4>
-              <!-- <v-icon class="close" @click="closeDialog()">sbf-close</v-icon> -->
+              <v-icon class="closeBtn" size="12" @click="closeDialog()">sbf-close</v-icon>
             </v-layout>
         </v-flex>
 
@@ -17,35 +17,16 @@
         <div class="browserSupport-center-text">
             <p v-language:inner="'browserSupport_supported_text'"></p>
         </div>
-
-        <v-flex pb-4>
-            <v-layout :class="{'column': isMobile}" align-center justify-center text-center class="browserSupport-center-footer">
-                <div>
-                    <img src="../../images/Safari.png" alt="Safari">
-                    <p v-language:inner="'browserSupport_supported_safari'"></p>
-                </div>
-                <div>
-                    <img src="../../images/Chrome.png" alt="Chrome">
-                    <p v-language:inner="'browserSupport_supported_chrome'"></p>
-                </div>
-                <div>
-                    <img src="../../images/Firefox.png" alt="Firefox">
-                    <p v-language:inner="'browserSupport_supported_firefox'"></p>
-                </div>
-            </v-layout>
-        </v-flex>
-
     </div>
 </template>
-
 <script>
 export default {
-  computed:{
-    isMobile(){
-      return this.$vuetify.breakpoint.xsOnly;
+  methods: {
+    closeDialog(){
+      global.onbeforeunload = function() { };
+      window.location = '/'
     }
   }
-
 }
 </script>
 
@@ -55,15 +36,14 @@ export default {
     background-color: #fff;
 
    .browserSupport-header {
+      position: relative;
       background-color: #f0f0f7;
       h4 {
         padding: 9px 0 11px 24px;
       }
-      .close {
-        font-size: 12px;
-        padding: 14px;
-        opacity: .4;
-        cursor: pointer;
+      .closeBtn{
+        position: absolute;
+        right: 8px;
       }
     }
 
@@ -89,14 +69,6 @@ export default {
          }
        }
     }
-
-    .browserSupport-center-footer {
-      p {
-        color: rgba(68, 82, 252, 0.87);
-        font-weight: 600;
-      }
-
-      }
 }
 
 </style>

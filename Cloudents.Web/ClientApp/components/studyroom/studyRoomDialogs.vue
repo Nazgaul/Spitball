@@ -11,8 +11,9 @@
       <v-dialog 
          v-model="getIsBrowserNotSupport" 
          max-width="612.5px"
+         :fullscreen="$vuetify.breakpoint.xsOnly"
          :transition="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
-         :persistent="$vuetify.breakpoint.smAndUp"
+         persistent
          :content-class="'browser-dialog-unsupport'"
          >
           <browserSupport></browserSupport>
