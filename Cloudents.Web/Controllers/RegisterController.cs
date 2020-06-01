@@ -34,10 +34,10 @@ namespace Cloudents.Web.Controllers
         {
 
             // return View("Index");
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    return Redirect("/feed");
-            //}
+            if (User.Identity.IsAuthenticated)
+            {
+                return Redirect("/");
+            }
 
 
 
