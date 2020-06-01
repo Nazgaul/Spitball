@@ -16,8 +16,8 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import calendar from './calendar.vue'
-import calendarEmptyState from './calendarEmptyState.vue'
+const calendar = () => import('./calendar.vue');
+const calendarEmptyState = () => import('./calendarEmptyState.vue');
 
 export default {
     components:{

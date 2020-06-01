@@ -11,7 +11,7 @@ using NHibernate.Linq;
 
 namespace Cloudents.Query.Documents
 {
-    public class ShareDocumentImageQuery : IQuery<ShareDocumentImageDto>
+    public class ShareDocumentImageQuery : IQuery<ShareDocumentImageDto?>
     {
         public ShareDocumentImageQuery(long id)
         {
@@ -22,7 +22,7 @@ namespace Cloudents.Query.Documents
 
 
 
-        internal sealed class ShareDocumentImageQueryHandler : IQueryHandler<ShareDocumentImageQuery, ShareDocumentImageDto>
+        internal sealed class ShareDocumentImageQueryHandler : IQueryHandler<ShareDocumentImageQuery, ShareDocumentImageDto?>
         {
             private readonly IStatelessSession _statelessSession;
 
@@ -32,11 +32,11 @@ namespace Cloudents.Query.Documents
             }
 
             [Cache(TimeConst.Minute * 10, "share-document", false)]
-            public async Task<ShareDocumentImageDto> GetAsync(ShareDocumentImageQuery query, CancellationToken token)
+            public Task<ShareDocumentImageDto?> GetAsync(ShareDocumentImageQuery query, CancellationToken token)
             {
-                return await _statelessSession.Query<Document>()
+                return _statelessSession.Query<Document>()
                     .WithOptions(w => w.SetComment(nameof(ShareDocumentImageQuery)))
-                    .Where(w => w.Id == query.Id)
+                    .Where(w => w.Id == query.Id && w.Status.State == ItemState.Ok)
                     .Select(s => new ShareDocumentImageDto()
                     {
                         Name = s.Name,

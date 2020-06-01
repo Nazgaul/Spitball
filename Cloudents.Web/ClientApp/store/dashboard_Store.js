@@ -1,6 +1,7 @@
 import dashboardService from '../services/dashboardService.js';
 import walletService from '../services/walletService.js';
 import accountService from '../services/accountService';
+import salesService from '../services/salesService.js';
 
 const state = {
    salesItems: [],
@@ -81,8 +82,8 @@ const actions = {
          commit('setBalancesItems', items);
       });
    },
-   updateStudyRoomItems({commit}){
-      dashboardService.getStudyRoomItems().then(items=>{
+   updateStudyRoomItems({commit}, type){
+      dashboardService.getStudyRoomItems(type).then(items=>{
          commit('setStudyRoomItems', items);
       });
    },
@@ -146,6 +147,9 @@ const actions = {
    },
    deleteStudyRoomSession(context, id) {
       return dashboardService.removeStudyRoomSession(id)
+   },
+   updateBillOffline(context,params){
+      return salesService.updateBillOffline(params);
    }
 };
 

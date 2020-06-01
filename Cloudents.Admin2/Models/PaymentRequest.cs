@@ -6,9 +6,9 @@ namespace Cloudents.Admin2.Models
 {
     public class PaymentRequest : IValidatableObject
     {
-        public decimal StudentPay { get; set; }
+        public double StudentPay { get; set; }
         //[Range(5, 50000)]
-        public decimal SpitballPay { get; set; }
+        public double SpitballPay { get; set; }
 
         public long UserId { get; set; }
         public long TutorId { get; set; }
@@ -21,10 +21,14 @@ namespace Cloudents.Admin2.Models
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var list = new[] { StudentPay, SpitballPay };
-
+            if (StudentPay < 5 && SpitballPay < 5)
+            {
+                yield return new ValidationResult(
+                    "Invalid Price");
+            }
             foreach (var price in list)
             {
-                if (price == 0)
+                if (price.CompareTo(0) == 0)
                 {
                     continue;
                 }

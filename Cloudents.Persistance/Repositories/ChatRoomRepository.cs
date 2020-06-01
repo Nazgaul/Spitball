@@ -18,40 +18,60 @@ namespace Cloudents.Persistence.Repositories
         }
 
 
-        public Task<ChatRoom?> GetChatRoomAsync(IEnumerable<long> usersId, CancellationToken token)
-        {
-            var identifier = ChatRoom.BuildChatRoomIdentifier(usersId);
-            return GetChatRoomAsync(identifier, token);
-        }
+        //public Task<ChatRoom?> GetChatRoomAsync(IEnumerable<long> usersId, CancellationToken token)
+        //{
+        //    var identifier = ChatRoom.BuildChatRoomIdentifier(usersId);
+        //    return GetChatRoomAsync(identifier, token);
+        //}
 
-        public async Task<ChatRoom> GetOrAddChatRoomAsync(IList<long> userIds, CancellationToken token)
+        public async Task<ChatRoom> GetOrAddChatRoomAsync(IEnumerable<long> userIds, Tutor tutor, CancellationToken token)
         {
-            var identifier = ChatRoom.BuildChatRoomIdentifier(userIds);
+            var userIdsLists = userIds.ToList();
+            var identifier = ChatRoom.BuildChatRoomIdentifier(userIdsLists);
             var chatRoom = await GetChatRoomAsync(identifier, token);
             if (chatRoom == null)
             {
-                var users = userIds.Select(s => Session.Load<User>(s)).ToList();
-                chatRoom = new ChatRoom(users);
+                var users = userIdsLists.Select(s => Session.Load<User>(s)).ToList();
+                chatRoom = new ChatRoom(users, tutor);
                 await AddAsync(chatRoom, token);
             }
 
             return chatRoom;
         }
 
-        public async Task<ChatRoom?> GetChatRoomAsync(string identifier, CancellationToken token)
+        public Task<ChatRoom> GetOrAddChatRoomAsync(IEnumerable<long> userIds, CancellationToken token)
         {
-            return await Session.Query<ChatRoom>()
+            var userIdsLists = userIds.ToList();
+            var tutor = userIdsLists.Select(s => Session.Get<Tutor>(s)).Single(w => w != null);
+            return GetOrAddChatRoomAsync(userIdsLists, tutor, token);
+            //var identifier = ChatRoom.BuildChatRoomIdentifier(userIdsLists);
+            //var chatRoom = await GetChatRoomAsync(identifier, token);
+
+            //if (chatRoom == null)
+            //{
+            //    var users = userIdsLists.Select(s => Session.Load<User>(s)).ToList();
+
+            //    chatRoom = new ChatRoom(users, );
+            //    await AddAsync(chatRoom, token);
+            //}
+
+            //return chatRoom;
+        }
+
+
+        public Task<ChatRoom?> GetChatRoomAsync(string identifier, CancellationToken token)
+        {
+            return Session.Query<ChatRoom>()
                 .Fetch(f => f.Extra)
                 .Where(t => t.Identifier == identifier).SingleOrDefaultAsync(token);
         }
 
-        public async Task UpdateNonDayOldConversationToActiveAsync(CancellationToken token)
+        public Task UpdateNonDayOldConversationToActiveAsync(CancellationToken token)
         {
-            await Session.Query<ChatRoomAdmin>()
+            return Session.Query<ChatRoomAdmin>()
                 .Where(w => (Session.Query<ChatRoom>()
-                .Where(w2 => w2.UpdateTime > DateTime.UtcNow.AddDays(-1)).Select(s => s.Id).Contains(w.Id)))
+                    .Where(w2 => w2.UpdateTime > DateTime.UtcNow.AddDays(-1)).Select(s => s.Id).Contains(w.Id)))
                 .UpdateAsync(x => new { Status = ChatRoomStatus.New }, token);
-
         }
 
 

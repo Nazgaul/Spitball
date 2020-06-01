@@ -69,8 +69,9 @@ namespace Cloudents.Command.CommandHandler
 
             foreach (var userId in tutorsIds.Distinct())
             {
+                var tutor2 = await _tutorRepository.LoadAsync(userId, token);
                 var users = new[] { userId, message.UserId };
-                var chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, token);
+                var chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, tutor2, token);
                 if (chatRoom.Extra == null)
                 {
                     chatRoom.Extra = new ChatRoomAdmin(chatRoom);

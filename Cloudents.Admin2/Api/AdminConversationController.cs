@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ namespace Cloudents.Admin2.Api
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
+    [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
     public class AdminConversationController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
@@ -38,7 +40,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<ConversationDto>> ConversationAsync([FromQuery] ConversationDetailsRequest request
             , CancellationToken token)
         {
-            ChatRoomStatus p = null;
+            ChatRoomStatus? p = null;
             if (request.Status.HasValue)
             {
                 p = Enumeration.FromValue<ChatRoomStatus>(request.Status.Value);
@@ -93,6 +95,10 @@ namespace Cloudents.Admin2.Api
             }
 
             var p = Enumeration.FromValue<ChatRoomStatus>(model.Status);
+            if (p == null)
+            {
+                return BadRequest();
+            }
 
             var command = new ChangeConversationStatusCommand(identifier, p);
             await _commandBus.DispatchAsync(command, token);

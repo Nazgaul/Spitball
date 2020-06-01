@@ -105,7 +105,7 @@ export default {
         self.$store.dispatch('getUserCoupons').then(coupons => {
           self.coupons = coupons;
         }).catch(ex => {
-          self.$appInsights.trackException({exception: new Error(ex)});
+          self.$appInsights.trackException(ex);
         }).finally(() => {
             self.tableLoading = false;
         })

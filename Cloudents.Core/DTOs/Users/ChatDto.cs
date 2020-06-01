@@ -21,5 +21,18 @@ namespace Cloudents.Core.DTOs.Users
 
         [EntityBind(nameof(ChatMessage))]
         public string LastMessage { get; set; }
+
+        [EntityBind(nameof(ChatUser.Unread))]
+        public int Unread { get; set; }
+    }
+
+    public class ChatConversationDetailsDto
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string? Image { get; set; }
+        public Guid? StudyRoomId { get; set; }
+        public string Email { get; set; }
+        public string? PhoneNumber { get; set; }
     }
 }

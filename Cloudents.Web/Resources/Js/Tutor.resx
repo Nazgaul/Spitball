@@ -281,7 +281,7 @@ Voice Recording?</value>
     <value>To record, you must allow your browser to access your microphone</value>
   </data>
   <data name="tooltip_fullscreen" xml:space="preserve">
-    <value>full screen</value>
+    <value>Full screen</value>
   </data>
   <data name="mute_room" xml:space="preserve">
     <value>Mute Students</value>

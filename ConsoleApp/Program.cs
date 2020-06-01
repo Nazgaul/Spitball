@@ -13,6 +13,7 @@ using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -20,19 +21,13 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
-using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
+using Cloudents.Command.Documents.PurchaseDocument;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Infrastructure;
-using Cloudents.Infrastructure.Payments;
 using Cloudents.Query;
-using Cloudents.Query.Tutor;
-using Cloudents.Query.Users;
-using Cloudents.Search.Document;
-using Cloudents.Search.Tutor;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
-using NHibernate.Criterion;
 using NHibernate.Linq;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 
@@ -43,6 +38,7 @@ namespace ConsoleApp
     {
         public static IContainer Container;
 
+        private static readonly Guid RamAdminId = Guid.Parse("81B24922-6451-47B2-BCB0-4084C8A3EC13");
         public enum EnvironmentSettings
         {
             Dev,
@@ -145,60 +141,84 @@ namespace ConsoleApp
 
 
 
+        [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
             await Dbi();
-
-
         }
 
         private static async Task Dbi()
         {
-            var session = Container.Resolve<IStatelessSession>();
-
-
-            await session.Query<Document>()
-                .Where(w => w.DocumentPrice.Price == null)
-                .UpdateBuilder().Set(x => x.DocumentPrice.Type, PriceType.Free)
-                .Set(x => x.DocumentPrice.Price, 0)
-                .UpdateAsync(default);
-
-            int count;
+            List<ChatRoom> someList;
             do
             {
 
 
-                var documents = await session.Query<Document>()
-                    .Where(w => w.Status.State == ItemState.Ok)
-                    .Where(w => w.DocumentPrice.Type == null && w.DocumentPrice.Price > 0)
-                    .Take(100)
-                    .Select(s => s.Id).ToListAsync();
-                count = documents.Count;
-                await session.Query<Document>()
-                    .Where(w => documents.Contains(w.Id))
-                    .UpdateBuilder().Set(x => x.DocumentPrice.Type, PriceType.HasPrice)
-                    .UpdateAsync(default);
+                //int count = 0;
+                var session = Container.Resolve<ISession>();
+                someList = await session.Query<ChatRoom>().Fetch(f => f.Extra)
+                    .Where(w => w.Tutor == null)
+                     .Take(5)
+                     .ToListAsync();
 
-            } while (count > 0);
+                foreach (var someObject in someList)
+                {
+                    Console.WriteLine(someObject.Id);
+                    //if (user.StudyRoomPayment == null)
+                    //{
+                    using var unitOfWork = Container.Resolve<IUnitOfWork>();
 
-            do
-            {
+                    if (someObject.StudyRoom != null)
+                    {  
+                        someObject.Tutor = someObject.StudyRoom.Tutor;
+                        await unitOfWork.CommitAsync(default);
+                        continue;
 
+                    }
 
-                var documents = await session.Query<Document>()
-                    .Where(w => w.Status.State == ItemState.Ok)
-                    .Where(w => w.DocumentPrice.Type == null && w.DocumentPrice.Price == 0)
-                    .Take(500)
-                    .Select(s => s.Id).ToListAsync();
-                count = documents.Count;
-                await session.Query<Document>()
-                    .Where(w => documents.Contains(w.Id))
-                    .UpdateBuilder().Set(x => x.DocumentPrice.Type, PriceType.Free)
-                    .UpdateAsync(default);
+                    var users = someObject.Users;
+                    if (users.Count > 2)
+                    {
+                        var user = someObject.Messages.AsQueryable().OrderBy(o => o.Id).Select(s => s.User).First();
+                        var tutor = user.Tutor;
+                        someObject.Tutor = tutor;
+                        await unitOfWork.CommitAsync(default);
+                        continue;
+                    }
 
-            } while (count > 0);
+                    var tutors = someObject.Users.Where(s => s.User.Tutor != null).ToList();//.User.Tutor;
+                    if (tutors.Count == 0)
+                    {
+                        session.Delete(someObject);
+                        await unitOfWork.CommitAsync(default);
+                        continue;
+                        //remove this
+                    }
 
-            //AddBuyerTokenCommand
+                    if (tutors.Count == 1)
+                    {
+                        someObject.Tutor = tutors[0].User.Tutor;
+                        await unitOfWork.CommitAsync(default);
+                        continue;
+                    }
+
+                    if (tutors.Count > 1)
+                    {
+                        if (someObject.Users.Count == 2)
+                        {
+                            var userId = someObject.Messages.AsQueryable().OrderBy(o => o.Id).Select(s => s.User.Id).First();
+                           var tutor = someObject.Users.Where(w => w.User.Id != userId).Single(s => s.User.Tutor != null).User
+                                .Tutor;
+                            someObject.Tutor = tutor;
+                            await unitOfWork.CommitAsync(default);
+                            continue;
+                        }
+                    }
+                    throw new ApplicationException();
+
+                    //}
+                }
+            } while (someList.Count > 0);
         }
 
         private static async Task UpdateTwilioParticipants()
@@ -544,15 +564,7 @@ namespace ConsoleApp
         }
 
 
-        private static async Task HadarMethod()
-        {
-            //var t = new PlaylistUpdates();
-            //t.Create();
 
-            var s = new UploadVideo();
-            s.Upload();
-
-        }
 
 
 

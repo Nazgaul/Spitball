@@ -38,7 +38,7 @@ namespace Cloudents.FunctionsV2.Test
         private readonly Uri _shortUrlIndia = new Uri("http://www.somesite2.com?site=xxx");
         public SmsUnreadTests()
         {
-            _mockUriBuilder.Setup(s => s.BuildChatEndpoint(It.IsAny<string>(), It.IsAny<object>()))
+            _mockUriBuilder.Setup(s => s.BuildChatEndpoint(It.IsAny<string>(),It.IsAny<string>(), It.IsAny<object>()))
                 .Returns(new Uri("http://tempuri.org/blob"));
 
             _mockUriBuilder.Setup(s => s.BuildShortUrlEndpoint(It.IsAny<string>(),

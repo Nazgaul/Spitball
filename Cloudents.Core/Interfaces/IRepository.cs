@@ -37,8 +37,8 @@ namespace Cloudents.Core.Interfaces
 
     public interface IDocumentRepository : IRepository<Document>
     {
-        Task UpdateNumberOfViews(long id, CancellationToken token);
-        Task UpdateNumberOfDownloads(long id, CancellationToken token);
+        Task UpdateNumberOfViewsAsync(long id, CancellationToken token);
+        Task UpdateNumberOfDownloadsAsync(long id, CancellationToken token);
     }
 
     public interface IQuestionRepository : IRepository<Question>
@@ -50,16 +50,16 @@ namespace Cloudents.Core.Interfaces
 
     public interface IAnswerRepository : IRepository<Answer>
     {
-        Task<int> GetNumberOfPendingAnswer(long userId, CancellationToken token);
+        Task<int> GetNumberOfPendingAnswerAsync(long userId, CancellationToken token);
     }
 
     public interface IChatRoomRepository : IRepository<ChatRoom>
     {
-        Task<ChatRoom?> GetChatRoomAsync(IEnumerable<long> usersId, CancellationToken token);
+        Task<ChatRoom> GetOrAddChatRoomAsync(IEnumerable<long> userIds, CancellationToken token);
 
-        Task<ChatRoom> GetOrAddChatRoomAsync(IList<long> userIds, CancellationToken token);
         Task<ChatRoom?> GetChatRoomAsync(string identifier, CancellationToken token);
         Task UpdateNonDayOldConversationToActiveAsync(CancellationToken token);
+        Task<ChatRoom> GetOrAddChatRoomAsync(IEnumerable<long> userIds, Tutor tutor, CancellationToken token);
     }
 
     public interface ITutorRepository : IRepository<Tutor>
@@ -83,7 +83,7 @@ namespace Cloudents.Core.Interfaces
     //}
     public interface ICourseSubjectRepository : IRepository<CourseSubject>
     {
-        Task<CourseSubject?> GetCourseSubjectByName(string name, CancellationToken token);
+        Task<CourseSubject?> GetCourseSubjectByNameAsync(string name, CancellationToken token);
     }
 
     public interface ILeadRepository : IRepository<Lead>

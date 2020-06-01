@@ -154,6 +154,13 @@ export const registrationRoutes = [
         path: '/register2',
         components: {
             default: () => import(`../components/pages/authenticationPage/authenticationPage2.vue`)
+        },
+        beforeEnter: (to, from, next) => {
+            if(global.isAuth) {
+                next('/');
+            } else {
+                next();
+            }
         }
     }
 ]

@@ -11,21 +11,16 @@ function createConversationId(arrIds){
 
 function Conversation(objInit){
     if(objInit.users !== undefined){
-        let unreads = objInit.users.map(u=>u.unread);
-        const reducer = (accumulator, currentValue) => accumulator + currentValue;
         let isRoom = objInit.users.length > 1; 
-        
         this.image = isRoom? '': objInit.users[0].image;
-        this.online = objInit.users.some(u=>u.online);
-        this.unread = unreads.reduce(reducer);
+        this.online = false;
         this.name = objInit.users.map(u=>u.name).join(" ,");
     }else{
         this.image = objInit.image;
         this.online = objInit.online;
-        this.unread = objInit.unread;
         this.name = objInit.name;
     }
-    // this.userId = objInit.userId; TODO remove it globaly
+    this.unread = objInit.unread;
     this.conversationId = objInit.conversationId;
     this.lastMessage = objInit.lastMessage || createLastImageMsg();
     this.dateTime = objInit.dateTime || new Date().toISOString();

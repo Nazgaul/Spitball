@@ -110,15 +110,24 @@ const registerRecorderEvents = function(){
 };
 
 function createRemoteAudioStream(){
-  let remoteAudioTrack = store.getters.getCurrentAudioTrack;
-  if(remoteAudioTrack){
-    let remoteAudioTrackStream = remoteAudioTrack.mediaStreamTrack;
-    let remoteMediaStream = new store.getters.getCurrentAudioTrack._MediaStream();
-    remoteMediaStream.addTrack(remoteAudioTrackStream);
-    return remoteMediaStream;
-  }else{
-    return null;
-  }
+  let mediaStream = new MediaStream();
+  let audioTracks = store.getters.getRoomAudioTracks;
+  audioTracks.forEach(track=>{
+    let remoteAudioTrackStream = track.mediaStreamTrack;
+    mediaStream.addTrack(remoteAudioTrackStream);
+  })
+  return mediaStream;
+
+
+  // let remoteAudioTrack = store.getters.getCurrentAudioTrack;
+  // if(remoteAudioTrack){
+  //   let remoteAudioTrackStream = remoteAudioTrack.mediaStreamTrack;
+  //   let remoteMediaStream = new store.getters.getCurrentAudioTrack._MediaStream();
+  //   remoteMediaStream.addTrack(remoteAudioTrackStream);
+  //   return remoteMediaStream;
+  // }else{
+  //   return null;
+  // }
 }
 
 async function activateRecord(){
@@ -209,7 +218,5 @@ async function toggleRecord(isTutor){
   export default{
     toggleRecord,
     stopRecord,
-    createRemoteAudioStream,
-    createCombinedMediaStreams,
     activateRecord
   }

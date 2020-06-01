@@ -37,8 +37,8 @@ namespace Cloudents.Query.Email
                 Question questionAlias = null!;
                 QuestionUpdateEmailDto questionEmailDtoAlias = null!;
 
-                var queryCourse = QueryOver.Of<UserCourse>().Where(w => w.User.Id == query.UserId)
-                    .Select(s => s.Course.Id);
+                var followCourse = QueryOver.Of<Follow>().Where(w => w.Follower.Id == query.UserId)
+                    .Select(s => s.User.Id);
 
                 var firstAnswer = QueryOver.Of<Answer>().Where(w => w.Question.Id == questionAlias.Id)
                     .Where(w => w.Status.State == ItemState.Ok)
@@ -46,15 +46,15 @@ namespace Cloudents.Query.Email
                     .Take(1);
 
 
-                var queryCountry = QueryOver.Of<User>().Where(w => w.Id == query.UserId)
-                    .Select(s => s.Country);
+                //var queryCountry = QueryOver.Of<User>().Where(w => w.Id == query.UserId)
+                //    .Select(s => s.Country);
 
                 var questionFuture = _session.QueryOver(() => questionAlias)
                      .JoinAlias(x => x.User, () => userAlias)
                      .Where(x => x.Created > query.Since)
                      .And(x => x.Status.State == ItemState.Ok)
-                     .WithSubquery.WhereProperty(x => x.Course.Id).In(queryCourse)
-                     .WithSubquery.WhereProperty(() => userAlias.Country).Eq(queryCountry)
+                     .WithSubquery.WhereProperty(x => x.User.Id).In(followCourse)
+                     //.WithSubquery.WhereProperty(() => userAlias.Country).Eq(queryCountry)
                      .And(x => x.User.Id != query.UserId)
 
 
@@ -79,8 +79,8 @@ namespace Cloudents.Query.Email
                     .JoinAlias(x => x.User, () => userAlias)
                     .Where(x => x.TimeStamp.CreationTime > query.Since)
                     .And(x => x.Status.State == ItemState.Ok)
-                    .WithSubquery.WhereProperty(x => x.Course.Id).In(queryCourse)
-                    .WithSubquery.WhereProperty(() => userAlias.Country).Eq(queryCountry)
+                    .WithSubquery.WhereProperty(x => x.User.Id).In(followCourse)
+                    //.WithSubquery.WhereProperty(() => userAlias.Country).Eq(queryCountry)
                     .And(x => x.User.Id != query.UserId)
 
 

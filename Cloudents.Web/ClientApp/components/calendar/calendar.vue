@@ -138,6 +138,7 @@ import { mapGetters, mapActions } from "vuex";
 import { LanguageService } from "../../services/language/languageService.js";
 import Schedule from "./images/schedule.svg";
 import * as dialogNames from "../pages/global/dialogInjection/dialogNames.js";
+import moment from "moment";
 export default {
   components: {
     Schedule
@@ -309,11 +310,13 @@ export default {
     },
     insertNewEvent() {
       this.isLoading = true;
+
+      let fromISO =   moment(this.selectedDate+"T"+this.selectedTime).format();
       let paramObj = {
         date: this.selectedDate,
         time: this.selectedTime
       };
-      this.insertEvent(paramObj).then(
+      this.insertEvent(fromISO).then(
         () => {
           this.isEventSent = true;
           this.calendarEvents.push(paramObj);

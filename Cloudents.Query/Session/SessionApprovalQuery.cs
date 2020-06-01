@@ -11,15 +11,15 @@ namespace Cloudents.Query.Session
 {
     public class SessionApprovalQuery : IQuery<PaymentDetailDto?>
     {
-        public SessionApprovalQuery(Guid sessionId, long userId, long tutorId)
+        public SessionApprovalQuery(Guid sessionId, /*long userId,*/ long tutorId)
         {
             SessionId = sessionId;
-            UserId = userId;
+           // UserId = userId;
             TutorId = tutorId;
         }
 
         private Guid SessionId { get; }
-        private long UserId { get; }
+        //private long UserId { get; }
         private long TutorId { get; }
 
         internal sealed class SessionApprovalQueryHandler : IQueryHandler<SessionApprovalQuery, PaymentDetailDto?>
@@ -49,12 +49,13 @@ namespace Cloudents.Query.Session
 
 
                 var studyRoomUserFuture =  _stateless.Query<StudyRoomSessionUser>()
+                    .Fetch(f=>f.StudyRoomPayment)
                     .Fetch(f => f.StudyRoomSession)
-                    .Where(w => w.User.Id == query.UserId)
-                    .Where(w => w.StudyRoomSession.Id == query.SessionId)
+                    //.Where(w => w.User.Id == query.UserId)
+                    .Where(w => w.Id == query.SessionId)
                     .Select(s => new PaymentDetailDto
                     {
-                        TutorPricePerHour = s.PricePerHour
+                        TutorPricePerHour = s.StudyRoomPayment.PricePerHour
                     }).ToFutureValue();
 
 

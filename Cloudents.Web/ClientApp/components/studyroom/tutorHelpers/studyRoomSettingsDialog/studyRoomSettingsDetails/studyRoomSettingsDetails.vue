@@ -196,7 +196,7 @@ export default {
                 this.$store.dispatch('updateRoomIsJoined',true);
                 this.actions[this.selectedRoomMode]();
             }).catch(ex => {
-                self.$appInsights.trackException({exception: new Error(ex)});
+                self.$appInsights.trackException(ex);
             })
         },
 

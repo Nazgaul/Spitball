@@ -1,7 +1,7 @@
 <template>
    <v-flex xs12 sm6 md5 lg6 class="currentConversationContainer">
       <div class="cMessagesHeader d-flex flex-grow-0 flex-shrink-0 align-center ">
-         <v-icon @click="backToChatList" class="ml-4 d-flex d-sm-none" size="16" color="#ffffff">sbf-arrow-left-carousel</v-icon>
+         <v-icon @click="backToChatList" class="ml-4 d-flex d-sm-none" size="16" color="#ffffff">{{isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'}}</v-icon>
          <user-avatar class="ml-4" :size="'40'" :userImageUrl="currentAvatar" :user-name="currentConversationObj.name"/>
          <div class="px-3 text-truncate">
             <div class="chatName text-truncate">{{currentName}}</div>
@@ -17,6 +17,11 @@
 const messages = () => import('../../../chat/components/messages.vue');
 
 export default {
+   data() {
+      return {
+         isRtl: global.isRtl,
+      }
+   },
    components:{messages},
    computed: {
       currentConversationObj(){
@@ -71,7 +76,8 @@ export default {
          border-radius: 0;
          background-image: url('../group-10.png');
          background-repeat: repeat;
-         background-color: #ced7e2;
+         // background-color: #ced7e2;
+         background-color: #a6bcd8;
          @media(max-width: @screen-xs) {
             height: calc(~"100% - 112px");
          }

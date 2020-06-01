@@ -39,8 +39,6 @@ namespace Cloudents.Query.Admin
 
                 var couponFuture = _stateless.Query<UserCoupon>()
                     .Fetch(f => f.Coupon)
-                    //.Where(w => w.User.Id == query.UserId && w.Tutor.Id == query.TutorId)
-                    //.Where(w => w.UsedAmount < w.Coupon.AmountOfUsePerUser)
                     .Where(w => w.StudyRoomSessionUser!.StudyRoomSession.Id == query.SessionId)
                     .Select(s => new CouponClass
                     {
@@ -54,27 +52,27 @@ namespace Cloudents.Query.Admin
                     .ToFutureValue();
 
 
-                var paymentFuture = _stateless.Query<StudyRoomSessionUser>()
-                    .Fetch(f => f.StudyRoomSession)
-                    .ThenFetch(f => f.StudyRoom)
-                    .ThenFetch(f => f.Tutor)
+                var paymentFuture = _stateless.Query<StudyRoomPayment>()
+                    .Fetch(f=>f.StudyRoomSessionUser)
+                   // .Fetch(f => f.StudyRoomSession)
+                    //.ThenFetch(f => f.StudyRoom)
+                    .Fetch(f => f.Tutor)
                     .ThenFetch(f => f.User)
                     .Fetch(f => f.User)
                     .Where(w => w.User.Id == query.UserId)
-                    .Where(w => w.StudyRoomSession.Id == query.SessionId)
+                    .Where(w => w.Id == query.SessionId)
                     .Select(s => new PaymentDetailDto
                     {
                         TutorPricePerHour = s.PricePerHour,
                         UserId = s.User.Id,
                         TutorId = query.TutorId,
                         UserName = s.User.Name,
-                        Created = s.StudyRoomSession.Created,
-                        _sellerKey = s.StudyRoomSession.StudyRoom.Tutor.SellerKey,
-                        TutorCountry = s.StudyRoomSession.StudyRoom.Tutor.User.SbCountry,
-                        //CantPay = s.StudyRoomSession.StudyRoom.Tutor.SellerKey == null,
-                        _duration = s.TutorApproveTime ?? s.Duration,
-                        TutorName = s.StudyRoomSession.StudyRoom.Tutor.User.Name,
-                        StudyRoomSessionId = s.StudyRoomSession.Id
+                        Created = s.Created,
+                        _sellerKey = s.Tutor.SellerKey,
+                        TutorCountry = s.Tutor.User.SbCountry,
+                        _duration = s.TutorApproveTime ?? s.StudyRoomSessionUser!.Duration,
+                        TutorName = s.Tutor.User.Name,
+                        StudyRoomSessionId = s.Id
 
                     }).ToFutureValue();
 

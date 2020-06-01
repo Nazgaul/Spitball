@@ -111,7 +111,7 @@ export default {
         this.bookedSession = res.bookedSession;
         this.updateTaksNumberCompleted()
       }).catch(ex => {
-        self.$appInsights.trackException({exception: new Error(ex)});
+        self.$appInsights.trackException(ex);
       })
     },
     updateTaksNumberCompleted() {

@@ -12,7 +12,7 @@ namespace Cloudents.Core.Entities
     public class User : BaseUser
     {
         public User(string email, string firstName, string lastName,
-            Language language, string country, Gender gender = Gender.None) : this()
+            Language language, string country, Gender gender = Enum.Gender.None)
         {
             Email = email;
             ChangeName(firstName, lastName);
@@ -23,6 +23,8 @@ namespace Cloudents.Core.Entities
             Country = country;
             SbCountry = Entities.Country.FromCountry(country);
             Gender = gender;
+            UserLogins = new List<UserLogin>();
+            Transactions = new UserTransactions();
         }
 
 
@@ -31,9 +33,6 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]
         protected User()
         {
-            UserLogins = new List<UserLogin>();
-            Transactions ??= new UserTransactions();
-
         }
 
         public virtual string? PhoneNumber { get; set; }
@@ -50,9 +49,11 @@ namespace Cloudents.Core.Entities
         public virtual string? LockoutReason { get; set; }
 
 
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
         protected internal virtual ICollection<Answer> Answers { get; protected set; }
         protected internal virtual ICollection<UserLogin> UserLogins { get; protected set; }
 
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
         protected internal virtual ICollection<UserLocation> UserLocations { get; protected set; }
 
 
@@ -126,10 +127,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
             Country = country;
-
             SbCountry = Entities.Country.FromCountry(country);
-
-
             AddEvent(new ChangeCountryEvent(Id));
         }
 
@@ -143,6 +141,7 @@ namespace Cloudents.Core.Entities
                     throw new UnauthorizedAccessException("Cannot change country of tutor with subscription");
                 }
             }
+            PaymentExists = PaymentStatus.None;
             ChangeCountry(country);
             ChangeLanguage(Entities.Language.English);
 
@@ -205,7 +204,7 @@ namespace Cloudents.Core.Entities
         public virtual BuyerPayment? BuyerPayment { get; protected set; }
         public virtual IPayment2? Payment { get; protected set; }
 
-        public virtual Gender Gender { get; protected set; }
+        public virtual Gender? Gender { get; protected set; }
         public virtual PaymentStatus? PaymentExists { get; protected set; }
 
         public virtual DateTime? FinishRegistrationDate { get; set; }
@@ -298,13 +297,13 @@ namespace Cloudents.Core.Entities
             CoverImage = image;
         }
 
-        public override string ToString()
-        {
-            return $"{nameof(Id)}: {Id}, " +
-                   $"{nameof(EmailConfirmed)}: {EmailConfirmed}," +
-                   $" {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}" +
-                   $" {nameof(SbCountry)}: {SbCountry}";
-        }
+        //public override string ToString()
+        //{
+        //    return $"{nameof(Id)}: {Id}, " +
+        //           $"{nameof(EmailConfirmed)}: {EmailConfirmed}," +
+        //           $" {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}" +
+        //           $" {nameof(SbCountry)}: {SbCountry}";
+        //}
 
         public override void MakeTransaction(Transaction transaction)
         {
@@ -314,8 +313,11 @@ namespace Cloudents.Core.Entities
         }
 
 
-        protected internal virtual IEnumerable<Follow> Following { get; set; }
-        protected internal virtual IEnumerable<Lead> Leads { get; set; }
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
+
+        protected internal virtual IEnumerable<Follow> Following { get; protected set; }
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
+        protected internal virtual IEnumerable<Lead> Leads { get; protected set; }
 
         private readonly ISet<Follow> _followers = new HashSet<Follow>();
         public virtual IEnumerable<Follow> Followers => _followers;
@@ -393,7 +395,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void CashOutMoney(/*decimal price*/)
         {
-            var t = new CashOutTransaction();
+            var t = CashOutTransaction.CashOut();
             MakeTransaction(t);
         }
 
@@ -424,7 +426,9 @@ namespace Cloudents.Core.Entities
 
         // public override int Score { get; protected set; }  //=> Transactions.Score;
         public override decimal Balance => Transactions.Balance;
-        protected internal virtual ICollection<UserDownloadDocument> DocumentDownloads { get; set; }
+
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
+        protected internal virtual ICollection<UserDownloadDocument> DocumentDownloads { get; protected set; }
 
 
         public virtual void DeleteUserPayment()
@@ -432,6 +436,11 @@ namespace Cloudents.Core.Entities
             BuyerPayment = null;
             Payment = null;
             PaymentExists = PaymentStatus.None;
+        }
+
+        public virtual void Delete()
+        {
+            AddEvent(new DeleteUserEvent(this));
         }
 
         //public virtual void SetUserType(UserType userType)
