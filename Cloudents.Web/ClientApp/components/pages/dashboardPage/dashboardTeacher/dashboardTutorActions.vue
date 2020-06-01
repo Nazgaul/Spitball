@@ -118,7 +118,7 @@ export default {
                     color: colors.blue,
                     text: 'dashboardTeacher_link_text_book',
                     btnText: 'dashboardTeacher_btn_text_book',
-                    routeName: { name: routeName.Profile } // TODO: where to route // go to admin tutor
+                    method: this.bookSession
                 },
                 [constants.COURSES]: {
                     color: colors.blue,
@@ -163,6 +163,9 @@ export default {
         isEditActionComplete() {
             return this.$store.getters.getTutorListActions[constants.EDIT]?.value
         },
+        bookSessionTutorId() {
+            return this.$store.getters.getTutorListActions[constants.BOOK]?.tutorId
+        },
         tutorActionsFilterList() {
             return this.tutorActionsList.filter(action => action.value === false)
         },
@@ -195,6 +198,15 @@ export default {
     methods: {
         openPhoneDialog() {
             this.$store.commit('setComponent', 'phoneVerify')
+        },
+        bookSession() {
+            this.$router.push({
+                name: routeName.Profile,
+                params: {
+                    name: 'admin',
+                    id: this.bookSessionTutorId
+                }
+            })
         },
         verifyEmail() {
             this.$store.dispatch('verifyTutorEmail').then(() => {

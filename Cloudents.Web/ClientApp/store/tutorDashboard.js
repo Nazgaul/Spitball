@@ -83,15 +83,6 @@ const actions = {
                 console.log(ex);
         });
     },
-    updateTutorNotifications({commit}) {
-        // return axios.get('/Account/tutorActions')
-        //     .then(({data}) => {
-        //         commit('setTutorNotifications', data)
-        //     })
-        //     .catch(ex => {
-        //         console.log(ex);
-        // });
-    },
     verifyTutorEmail() {
         return axios.post('/register/verifyEmail')
     }
