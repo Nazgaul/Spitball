@@ -58,21 +58,31 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("session/{id}")]
-        public async Task<IActionResult> SetSessionDurationAsync([FromBody] SetSessionDurationRequest model, CancellationToken token)
+        public async Task<IActionResult> SetSessionDurationAsync([FromBody] SetSessionDurationRequest model,
+            CancellationToken token)
         {
             var tutorId = _userManager.GetLongUserId(User);
             var command = new SetSessionDurationCommand(tutorId,
                 model.SessionId,
-                TimeSpan.FromMinutes(model.DurationInMinutes), model.UserId, model.Price);
+                TimeSpan.FromMinutes(model.DurationInMinutes), model.Price);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpPost("offline")]
+        public async Task<IActionResult> OfflinePaymentAsync([FromBody] OfflinePaymentRequest model, CancellationToken token)
+        {
+            var tutorId = _userManager.GetLongUserId(User);
+            var command = new CreateOfflineSessionPaymentCommand(tutorId, model.UserId, TimeSpan.FromMinutes(model.DurationInMinutes), model.Price);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
         [HttpGet("session/{id}")]
-        public async Task<PaymentDetailDto> GetPaymentAsync([FromRoute] Guid id, [FromQuery] long userId, CancellationToken token)
+        public async Task<PaymentDetailDto> GetPaymentAsync([FromRoute] Guid id, /*[FromQuery] long userId,*/ CancellationToken token)
         {
             var tutorId = _userManager.GetLongUserId(User);
-            var querySessionV2 = new SessionApprovalQuery(id, userId, tutorId);
+            var querySessionV2 = new SessionApprovalQuery(id, tutorId);
 
             var result = await _queryBus.QueryAsync(querySessionV2, token);
             if (result is null)

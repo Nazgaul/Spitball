@@ -1,5 +1,5 @@
 <template>
-    <div class="profileLiveClasses pa-sm-4 pa-0" v-if="liveSessions.length">
+    <div class="profileLiveClasses pa-sm-4 pa-0" id="broadcast" v-if="liveSessions.length">
         <div class="mainTitle px-4 py-2 pb-sm-6 text-truncate">
             <span v-t="'profile_live_title'"></span>
             <span>{{tutorFirstName}}</span>
@@ -26,8 +26,8 @@
         >
             <v-col cols="12" sm="6" class="text-left d-flex flex-wrap mb-9 mb-sm-0 pa-4">
                 <div class="icons d-flex mb-3" dense>
-                    <radioIcon v-if="isMobile" width="30" />
-                    <tvIcon width="90" v-else />
+                    <radioIcon class="radioIcon" v-if="isMobile" width="30" />
+                    <tvIcon class="radioIcon" width="90" v-else />
                     <div class="created ml-3 d-block d-sm-none">{{$d(session.created, 'long')}}</div>
                 </div>
 
@@ -53,9 +53,9 @@
             </v-col>
 
             <v-col cols="12" sm="6" class="pa-0">
-                <v-row dense class="rowHeight pa-0 align-center">
+                <v-row dense class="rowHeight pa-0">
                     <template v-if="isMobile">
-                        <v-col cols="8" class="detailsMobile pa-0 d-flex align-center">
+                        <v-col cols="8" class="detailsMobile pa-0 d-flex">
                             <v-row dense class="pa-0 ma-0 text-left flex-column">
                                 <v-col class="d-flex align-center pa-0">
                                     <v-col class="pa-0">
@@ -98,7 +98,7 @@
                                 <div class="" v-t="'profile_live_subscribers_free'"></div>
                             </div>
                         </v-col>
-                        <v-col cols="4" class="pa-0 rowCol" :class="{'enroll': session.enrolled && isTutorSubscription}"  v-if="isTutorSubscription">
+                        <v-col cols="4" class="pa-0 rowCol" :class="{'enroll': session.enrolled && isTutorSubscription}" v-show="isTutorSubscription">
                             <div v-t="'profile_live_subscribers_free'"></div>  
                         </v-col>
                     </template>
@@ -228,7 +228,7 @@ export default {
     methods: {
         enrollSession(studyRoomId) {
             if(!this.isLogged) {
-                this.$store.commit('setComponent', 'login')
+                this.$store.commit('setComponent', 'register')
                 return
             }
 
@@ -245,7 +245,7 @@ export default {
                 }).catch(ex => {
                     self.color = 'error'
                     self.toasterText = 'profile_enroll_error'
-                    self.$appInsights.trackException({exception: new Error(ex)});
+                    self.$appInsights.trackException(ex);
                 }).finally(() => {
                     self.showSnack = true
                 })
@@ -258,8 +258,9 @@ export default {
             this.$store.dispatch('getStudyroomLiveSessions', this.id)
                 .then(res => {
                     self.liveSessions = res
+                    self.$emit('isComponentReady')
                 }).catch(ex => {
-                    self.$appInsights.trackException({exception: new Error(ex)});
+                    self.$appInsights.trackException(ex);
                 })
         }
     },
@@ -441,6 +442,9 @@ export default {
             @media(max-width: @screen-xs) {
                 width: 100%;
                 margin-top: 2px;
+            }
+            .radioIcon {
+                height: 100%;
             }
         }
         

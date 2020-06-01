@@ -214,6 +214,9 @@
   <data name="my_content_title" xml:space="preserve">
     <value>התוכן שלי</value>
   </data>
+  <data name="my_content_upload" xml:space="preserve">
+    <value>העלאת תוכן</value>
+  </data>
   <data name="my_followers_title" xml:space="preserve">
     <value>העוקבים שלי</value>
   </data>
@@ -225,6 +228,12 @@
   </data>
   <data name="my_sales_action_need_btn" xml:space="preserve">
     <value>קנה נקודות</value>
+  </data>
+  <data name="my_sales_action_need_btn_tutor" xml:space="preserve">
+    <value>חייב את התלמיד/ה</value>
+  </data>
+  <data name="my_sales_action_need_tutor" xml:space="preserve">
+    <value>לימדת במקום אחר?</value>
   </data>
   <data name="my_sales_action_redeem" xml:space="preserve">
     <value>יש לך {1} נק' למימוש</value>
@@ -309,6 +318,12 @@
   </data>
   <data name="success_session_removed" xml:space="preserve">
     <value>מחיקה בוצעה</value>
+  </data>
+  <data name="title_live" xml:space="preserve">
+    <value>השידורים החיים שלי</value>
+  </data>
+  <data name="title_private" xml:space="preserve">
+    <value>חדרי הלימוד שלי</value>
   </data>
   <data name="tutor_session" xml:space="preserve">
     <value>שיעור פרטי</value>

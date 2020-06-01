@@ -146,6 +146,7 @@ export default {
       resetItems(){
          let isExit = confirm(this.$t("login_are_you_sure_you_want_to_exit"),)
          if(isExit){
+         this.$store.dispatch('updateResetRoom');
          this.$ga.event("tutoringRoom", 'resetItems');
          global.onbeforeunload = function() { };
          window.location = '/'

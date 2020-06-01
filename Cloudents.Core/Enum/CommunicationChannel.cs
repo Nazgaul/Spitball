@@ -3,7 +3,7 @@
     public enum CommunicationChannel
     {
         None,
-        Phone,
+        //Phone,
         Email
     }
 }

@@ -28,7 +28,7 @@ export default {
         payment,
         buyPoints,
         teacherApproval,
-        createStudyRoom
+        createStudyRoom,
     },
     data: () => ({
         component: ''

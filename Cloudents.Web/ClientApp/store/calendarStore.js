@@ -1,6 +1,7 @@
 import calendarService from "../services/calendarService";
 import paymentService from '../services/payment/paymentService.js';
 import {router} from '../main.js';
+//import moment from "moment";
 
 const state = {
     intervalFirst: 8,
@@ -181,22 +182,28 @@ const actions ={
                 });
         }
     },
-    insertEvent({state},{date,time}){
-        let dateTime = new Date(`${date}T${time}`);
-        //let hour = +time.split(':')[0];
+    async insertEvent({state},dateTime){
 
-        //let from = new Date(dateTime.setHours(hour));
-        let fromISO = dateTime.toISOString();
+      //let moment = await  import("moment");
+      //debugger;
+      //let fromISO =   moment(date+"T"+time).format()
+
+        // let dateTime = new Date(`${date}T${time}`);
+        // console.log(dateTime,date,time);
+        // //let hour = +time.split(':')[0];
+
+        // //let from = new Date(dateTime.setHours(hour));
+        // let fromISO = dateTime.toISOString();
 
        //let to = new Date(dateTime.setHours(hour + 1))
        // let toISO = to.toISOString();
 
         let insertEventObj = {
-            from: fromISO,
+            from: dateTime,
          //   to: toISO,
             tutorId: state.tutorId
         };
-        return calendarService.addEvent(insertEventObj);
+        return await calendarService.addEvent(insertEventObj);
     },
     updateNeedPayment({commit},val){
         commit('setNeedPayment',val);

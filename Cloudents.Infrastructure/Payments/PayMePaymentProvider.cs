@@ -18,7 +18,7 @@ namespace Cloudents.Infrastructure.Payments
         private readonly HttpClient _client;
         private readonly PayMeCredentials _credentials;
 
-        public PayMePaymentProvider(HttpClient client,  PayMeCredentials credentials)
+        public PayMePaymentProvider(HttpClient client, PayMeCredentials credentials)
         {
             _client = client;
             _credentials = credentials ?? throw new ArgumentNullException(nameof(credentials));
@@ -36,17 +36,25 @@ namespace Cloudents.Infrastructure.Payments
             return await GenerateSaleAsync(token, generateSale);
         }
 
-        public async Task<string> ChargeSessionAsync(Tutor tutor, User user, decimal price, CancellationToken token)
+        public async Task<string> ChargeSessionAsync(Tutor tutor, User user, Guid id, double price, CancellationToken token)
         {
-            var sellerKey = tutor.SellerKey ?? throw new ArgumentNullException(nameof(tutor.SellerKey),"tutor seller key is empty");
-            var buyerKey = user.Payment?.PaymentKey ?? throw new ArgumentNullException(nameof(PaymePayment.PaymentKey),"buyer key is empty");
+
+            var sellerKey = tutor.SellerKey ?? throw new ArgumentNullException(nameof(tutor.SellerKey), "tutor seller key is empty");
+            var buyerKey = user.Payment?.PaymentKey ?? throw new ArgumentNullException(nameof(PaymePayment.PaymentKey), "buyer key is empty");
 
             var result = await TransferPaymentAsync(sellerKey, buyerKey, price, token);
             return result.PaymeSaleId;
+        }
+
+        public Task<string> ChargeSessionAsync(StudyRoomPayment sessionPayment, double price, CancellationToken token)
+        {
+            var tutor = sessionPayment.Tutor;
+            var user = sessionPayment.User;
+            return ChargeSessionAsync(tutor, user, sessionPayment.Id, price, token);
 
         }
 
-        public async Task<string> ChargeSessionBySpitballAsync(Tutor tutor, decimal price, CancellationToken token)
+        public async Task<string> ChargeSessionBySpitballAsync(Tutor tutor, double price, CancellationToken token)
         {
             var sellerKey = tutor.SellerKey!;
             var spitballKey = _credentials.BuyerKey;
@@ -55,7 +63,7 @@ namespace Cloudents.Infrastructure.Payments
 
         }
 
-        private async Task<GenerateSaleResponse> TransferPaymentAsync(string sellerKey, string buyerKey, decimal price, CancellationToken token)
+        private async Task<GenerateSaleResponse> TransferPaymentAsync(string sellerKey, string buyerKey, double price, CancellationToken token)
         {
             var generateSale = GenerateSale.TransferMoney(sellerKey, buyerKey, price);
 
@@ -100,7 +108,7 @@ namespace Cloudents.Infrastructure.Payments
 
         private class GenerateSale
         {
-            public static GenerateSale TransferMoney(string sellerId, string buyerId, decimal price)
+            public static GenerateSale TransferMoney(string sellerId, string buyerId, double price)
             {
                 return new GenerateSale()
                 {
@@ -148,7 +156,7 @@ namespace Cloudents.Infrastructure.Payments
             public string SellerPaymeId { get; private set; }
 
             public int SalePrice { get; private set; }
-            [SuppressMessage("ReSharper", "UnusedMember.Local",Justification = "Used for serialize")] 
+            [SuppressMessage("ReSharper", "UnusedMember.Local", Justification = "Used for serialize")]
             public string Currency => "ILS";
             public string ProductName { get; private set; }
             public int? CaptureBuyer { get; private set; }
@@ -161,6 +169,6 @@ namespace Cloudents.Infrastructure.Payments
 
         }
 
-      
+
     }
 }

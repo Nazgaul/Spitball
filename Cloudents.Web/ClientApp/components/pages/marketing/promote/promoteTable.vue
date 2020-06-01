@@ -99,7 +99,7 @@ export default {
       this.$store.dispatch('getPromoteData').then(items => {
         this.items = items.filter(item => item.type === this.dataType);
       }).catch(ex => {
-        this.$appInsights.trackException({exception: new Error(ex)});
+        this.$appInsights.trackException(ex);
       })
     }
   },

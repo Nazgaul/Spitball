@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Cloudents.Core.Enum;
 
 //[assembly: InternalsVisibleTo("Cloudents.Persistance")]
 namespace Cloudents.Core.Entities
@@ -11,7 +10,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
     public class ChatRoom : Entity<Guid>, IAggregateRoot
     {
-        [SuppressMessage("ReSharper", "CS8618")]
+        [SuppressMessage("ReSharper", "CS8618", Justification = "Proxy")]
         [SuppressMessage("Code Quality", "CA8618")]
         protected ChatRoom()
         {
@@ -55,6 +54,11 @@ namespace Cloudents.Core.Entities
             return string.Join("_", userIdsList);
         }
 
+        public static IEnumerable<long> IdentifierToUserIds(string identifier)
+        {
+            return identifier.Split("_").Select(long.Parse);
+        }
+
         public virtual StudyRoom? StudyRoom { get; protected set; }
 
         public virtual DateTime UpdateTime { get; protected set; }
@@ -63,6 +67,7 @@ namespace Cloudents.Core.Entities
         public virtual ICollection<ChatMessage> Messages { get; protected set; }
 
         public virtual string Identifier { get; protected set; }
+
         public virtual ChatRoomAdmin Extra { get; set; }
 
         public virtual void AddTextMessage(User user, string message)
@@ -74,6 +79,8 @@ namespace Cloudents.Core.Entities
         public virtual void AddMessage(ChatMessage message)
         {
             UpdateTime = DateTime.UtcNow;
+            Messages.Add(message);
+            AddEvent(new ChatMessageEvent(message));
             if (StudyRoom != null)
             {
                 if (StudyRoom is BroadCastStudyRoom _)
@@ -93,11 +100,7 @@ namespace Cloudents.Core.Entities
                     userInChat.ResetUnread();
                 }
             }
-
-
-
-            Messages.Add(message);
-            AddEvent(new ChatMessageEvent(message));
+           
         }
 
         public virtual void AddUserToChat(User user)

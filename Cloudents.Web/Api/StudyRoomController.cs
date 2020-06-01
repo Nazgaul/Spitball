@@ -18,12 +18,16 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
 using Cloudents.Web.Binders;
 using Microsoft.Extensions.Localization;
+using Schema.NET;
 
 namespace Cloudents.Web.Api
 {
@@ -31,6 +35,7 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]"), ApiController]
     [Authorize]
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Return to client")]
+    [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting", Justification = "Api")]
     public class StudyRoomController : ControllerBase
     {
 
@@ -181,15 +186,17 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Get study rooms data of user - used in study room url
         /// </summary>
+        /// <param name="type"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<UserStudyRoomDto>> GetStudyRoomsAsync(
+        public async Task<IEnumerable<UserStudyRoomDto>> GetStudyRoomsAsync(StudyRoomType type,
              CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserStudyRoomQuery(userId);
-            return await _queryBus.QueryAsync(query, token);
+            var result =  await _queryBus.QueryAsync(query, token);
+            return result.Where(w => w.Type == type);
 
         }
 
@@ -293,5 +300,7 @@ namespace Cloudents.Web.Api
             }
             return Ok();
         }
+
+      
     }
 }

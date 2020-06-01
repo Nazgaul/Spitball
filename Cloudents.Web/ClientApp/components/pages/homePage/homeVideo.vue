@@ -2,13 +2,13 @@
     <div class="homeVideo">
         <video
             ref="video"
-            poster="./images/Spitball_original_homepage_poster.jpg"
+            poster="https://az32006.vo.msecnd.net/spitball-user/home-page/poster.png"
             class="video"
             loop
             autoplay
             muted
         >
-            <source src="https://az32006.vo.msecnd.net/spitball-user/Spitball-HP-video.mp4" type="video/mp4">
+            <source src="https://az32006.vo.msecnd.net/spitball-user/home-page/websitemovie_Trim.mp4" type="video/mp4">
         </video>
 
         <div class="actions">
@@ -43,7 +43,7 @@ export default {
         
         if (playPromise !== undefined) {
             playPromise.then(() => {}).catch(error => {
-                self.$appInsights.trackException({exception: new Error(error)})
+                self.$appInsights.trackException(error)
             });
         }
     }

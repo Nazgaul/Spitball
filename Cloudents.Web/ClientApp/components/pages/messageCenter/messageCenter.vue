@@ -45,22 +45,22 @@ export default {
                      let currentConversationObj = chatService.createActiveConversationObj(conversation)
                      this.$store.dispatch('setActiveConversationObj',currentConversationObj).catch(()=>{});
                   }else{
+                     let firstConversation = {};
                      if(!this.isMobile){
-                        let firstConversation = newVal[0];
-                        let currentConversationObj = chatService.createActiveConversationObj(firstConversation)
-                        this.$store.dispatch('setActiveConversationObj',currentConversationObj);
-                        this.$router.push({...this.$route,params:{id:firstConversation.conversationId}}).catch(()=>{});
-                     }else{
-                        let currentConversationObj = chatService.createActiveConversationObj({})
-                        this.$store.dispatch('setActiveConversationObj',currentConversationObj);
-                        this.$router.push({...this.$route,params:{id:undefined}}).catch(()=>{});
+                        firstConversation = newVal[0];
                      }
+                     let currentConversationObj = chatService.createActiveConversationObj(firstConversation)
+                     this.$store.dispatch('setActiveConversationObj',currentConversationObj);
+                     this.$router.push({...this.$route,params:{id:firstConversation?.conversationId}}).catch(()=>{});
                   }
                }
             }
          }
       },
    },
+   beforeDestroy(){
+      this.$store.dispatch('setActiveConversationObj',chatService.createActiveConversationObj({}));
+   }
 }
 </script>
 

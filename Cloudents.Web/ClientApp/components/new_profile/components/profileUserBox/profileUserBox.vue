@@ -27,15 +27,15 @@
                             <template v-if="currentProfileUser.isTutor">
                                 <div class="d-flex align-center justify-center">
                                     <div class="profileUserSticky_pricing_discount d-flex align-center mr-2" v-if="isDiscount">
-                                        <span class="profileUserSticky_pricing_price_number mb-1">{{$n(tutorDiscountPrice, 'currency')}}</span>
+                                        <span class="profileUserSticky_pricing_price_number mb-1">{{$n(tutorPrice, 'currency')}}</span>
                                         <div class="d-flex align-end profileUserSticky_pricing_price_hour">
                                             <span>/</span>
                                             <span class="hour" v-t="'profile_points_hour'"></span>
                                         </div>
                                     </div>
                                     <div class="profileUserSticky_pricing_price">
-                                        <div class="d-flex align-center"  v-if="tutorPrice">
-                                            <span class="profileUserSticky_pricing_price_number mb-1">{{$n(tutorPrice, 'currency')}}</span>
+                                        <div class="d-flex align-center" v-if="tutorPrice">
+                                            <span class="profileUserSticky_pricing_price_number mb-1">{{$n(tutorDiscountPrice || tutorPrice, 'currency')}}</span>
                                             <div class="d-flex align-end profileUserSticky_pricing_price_hour">
                                                 <span>/</span>
                                                 <span class="hour" v-t="'profile_points_hour'"></span>
@@ -107,7 +107,7 @@
                         <div class="profileUserSticky_pricing mb-4" v-if="currentProfileUser.isTutor">
                             <div class="d-flex align-center justify-center">
                                 <div class="profileUserSticky_pricing_discount d-flex align-center mr-2" v-if="isDiscount">
-                                    <span class="profileUserSticky_pricing_price_number mb-1">{{$n(tutorDiscountPrice, 'currency')}}</span>
+                                    <span class="profileUserSticky_pricing_price_number mb-1">{{$n(tutorPrice, 'currency')}}</span>
                                     <div class="d-flex align-end profileUserSticky_pricing_price_hour">
                                         <span>/</span>
                                         <span class="hour" v-t="'profile_points_hour'"></span>
@@ -115,7 +115,7 @@
                                 </div>
                                 <div class="profileUserSticky_pricing_price">
                                     <div class="d-flex align-center" v-if="tutorPrice">
-                                        <span class="profileUserSticky_pricing_price_number mb-1">{{$n(tutorPrice, 'currency')}}</span>
+                                        <span class="profileUserSticky_pricing_price_number mb-1">{{$n(tutorDiscountPrice || tutorPrice, 'currency')}}</span>
                                         <div class="d-flex align-end profileUserSticky_pricing_price_hour">
                                             <span>/</span>
                                             <span class="hour" v-t="'profile_points_hour'"></span>

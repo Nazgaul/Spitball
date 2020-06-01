@@ -366,14 +366,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
 
             var resultQuery = await _fixture.StatelessSession.Query<StudyRoomSessionUser>()
-                .Fetch(f => f.StudyRoomSession)
-                .ThenFetch(f => f.StudyRoom)
+                .Fetch(f => f.StudyRoomPayment)
                 .OrderByDescending(o => o.StudyRoomSession.Created)
                 .Select(s => new
                 {
-                    SessionId = s.StudyRoomSession.Id,
+                    SessionId = s.StudyRoomPayment.Id,
                     UserId = s.User.Id,
-                    TutorId = s.StudyRoomSession.StudyRoom.Tutor.Id
+                    TutorId = s.StudyRoomPayment.Tutor.Id
                 })
 
                 .Take(1).SingleOrDefaultAsync();

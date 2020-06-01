@@ -9,7 +9,6 @@
                sort-by
                hide-default-footer
                hide-default-header
-               :item-key="'date'"
                class="elevation-1 mySales_table">
                <template v-slot:header="{props}">
                   <thead>
@@ -54,7 +53,7 @@
          :items="salesItems"
          :items-per-page="20"
          sort-by
-         :item-key="'date'"
+         :item-key="'sessionId'"
          class="elevation-1 mySales_table-full"
          :footer-props="{
             showFirstLastPage: false,
@@ -88,7 +87,7 @@
                {{formatItemStatus(item.paymentStatus)}}
             </template>
             <template v-slot:item.date="{item}">
-               {{ $d(new Date(item.date)) }}
+               {{ $d(item.date) }}
             </template>
             <template v-slot:item.price="{item}">
                {{formatPrice(item.price,item.type)}}

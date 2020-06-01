@@ -110,6 +110,7 @@ const mutations = {
    [studyRoom_SETTERS.DIALOG_SNAPSHOT]: (state, val) => state.dialogSnapshot = val,
    [studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT]: (state, val) => state.roomParticipantCount = val,
    [studyRoom_SETTERS.ROOM_JOINED]: (state, val) => state.roomIsJoined = val,
+   [studyRoom_SETTERS.RESET_ROOM_PARTICIPANTS]: (state) => state.roomParticipants = {},
    [studyRoom_SETTERS.ADD_ROOM_PARTICIPANT]: (state, participant) => {
       let participantId = _getIdFromIdentity(participant.identity)
       let participantObj = {
@@ -191,6 +192,9 @@ const getters = {
    getAudioVideoDialog:state => state.audioVideoDialog, 
    getStudyRoomDrawerState:state => state.studyRoomDrawerState, 
    getStudyRoomFooterState:state => state.studyRoomFooterState, 
+   getRoomAudioTracks(state){
+      return Object.values(state.roomParticipants).map(p=>p.audio)
+   }
 }
 const actions = {
    updateToggleTutorFullScreen({dispatch,commit},val){
@@ -309,7 +313,8 @@ const actions = {
    },
    updateRoomDisconnected({commit,getters,dispatch}){
       commit(twilio_SETTERS.VIDEO_AVAILABLE,false);
-      commit(twilio_SETTERS.AUDIO_AVAILABLE,false)
+      commit(twilio_SETTERS.AUDIO_AVAILABLE,false);
+      commit(studyRoom_SETTERS.RESET_ROOM_PARTICIPANTS);
       if(!getters.getRoomIsTutor){
          dispatch('updateReviewDialog',true)
       }
