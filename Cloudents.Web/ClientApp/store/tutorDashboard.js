@@ -33,47 +33,19 @@ const mutations = {
         let tutorActions = new TutorAction(data)
         
         function TutorAction(objInit) {
-            this.PHONE = { 
-                value: objInit.phoneVerified,
-                priority: 1
-            }
-            this.EMAIL = { 
-                value: objInit.emailVerified,
-                priority: 1
-            }
-            this.EDIT = { 
-                value: objInit.editProfile,
-                priority: 1
-            }
+            this.PHONE = { value: objInit.phoneVerified }
+            this.EMAIL = { value: objInit.emailVerified }
+            this.EDIT = { value: objInit.editProfile }
             this.BOOK = { 
                 value: objInit.bookedSession.exists,
                 tutorId: objInit.bookedSession.tutorId,
-                priority: 1
             }
-            this.COURSES = { 
-                value: objInit.courses,
-                priority: 1
-            }
-            this.STRIPE = { 
-                value: objInit.stripeAccount,
-                priority: 1
-            }
-            this.CALENDAR = { 
-                value: objInit.calendarShared,
-                priority: 2
-            }
-            this.TEACH = { 
-                value: objInit.haveHours,
-                priority: 2
-            }
-            this.SESSIONS = { 
-                value: objInit.liveSession,
-                priority: 3
-            }
-            this.UPLOAD = { 
-                value: objInit.uploadContent,
-                priority: 3
-            }
+            this.COURSES = { value: objInit.courses, }
+            this.STRIPE = { value: objInit.stripeAccount, }
+            this.CALENDAR = { value: objInit.calendarShared, }
+            this.TEACH = { value: objInit.haveHours, }
+            this.SESSIONS = { value: objInit.liveSession, }
+            this.UPLOAD = { value: objInit.uploadContent, }
         }
         
         state.tutorLinkActions = tutorActions
@@ -95,6 +67,9 @@ const mutations = {
         }
 
         state.tutorNotificationsActions = notifyObj
+    },
+    setEmailTask(state, email) {
+        state.tutorLinkActions[email].value = true
     }
 }
 
@@ -109,13 +84,16 @@ const actions = {
         });
     },
     updateTutorNotifications({commit}) {
-        return axios.get('/Account/tutorActions')
-            .then(({data}) => {
-                commit('setTutorNotifications', data)
-            })
-            .catch(ex => {
-                console.log(ex);
-        });
+        // return axios.get('/Account/tutorActions')
+        //     .then(({data}) => {
+        //         commit('setTutorNotifications', data)
+        //     })
+        //     .catch(ex => {
+        //         console.log(ex);
+        // });
+    },
+    verifyTutorEmail() {
+        return axios.post('/register/verifyEmail')
     }
 }
 

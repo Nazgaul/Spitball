@@ -46,17 +46,26 @@
             <div class="linkWrap d-flex align-center justify-space-between py-4" v-for="action in tutorActionsFilterList" :key="action.name">
                 <div class="linkBorded" :style="{background: action.color}"></div>
                 <div class="link d-flex align-center" :class="{'mobileLayout': isMobile}">
-                    <component :is="isMobile ? 'router-link' : 'div'" class="linkWrapper d-flex" :to="isMobile ? {name: action.routeName} : null">
+                    <component :is="isMobile ? 'router-link' : 'div'" class="linkWrapper d-flex" @click="action.method ? action.method() : ''" :to="isMobile ? action.routeName : null">
                         <circleArrow class="arrowIcon" width="23" :stroke="action.color" />
                     </component>
                     <div class="ms-sm-4 me-2 text-truncate" v-t="action.text"></div>
                 </div>
-                <v-btn v-if="!isMobile" class="btn" rounded outlined depressed color="#4c59ff" width="120" :to="{name: action.routeName}" v-t="action.btnText"></v-btn>
+                <v-btn v-if="!isMobile" class="btn" rounded outlined depressed color="#4c59ff" width="120" @click="action.method ? action.method() : ''" :to="action.routeName" v-t="action.btnText"></v-btn>
             </div>
         </div>
 
         <analyticOverview class="px-0" />
 
+
+        <v-snackbar
+            absolute
+            top
+            :timeout="4000"
+            :value="verifyEmailState"
+        >
+            <div class="text-wrap" v-t="'dashboardTeacher_email_verify'"></div>
+        </v-snackbar>
     </div>
 </template>
 
@@ -69,6 +78,12 @@ const analyticOverview = () => import(/* webpackChunkName: "analyticsOverview" *
 import emptyUserIcon from './images/emptyUser.svg'
 import circleArrow from './images/circle-arrow.svg'
 
+const colors = {
+    blue: '#4c59ff',
+    green: '#41c4bc',
+    yellow: '#eac569',
+}
+
 export default {
     name: 'dashboardTutorActions',
     components: {
@@ -78,67 +93,68 @@ export default {
     },
     data() {
         return {
+            verifyEmailState: false,
             profileName: routeName.Profile,
             linksItems: {
                 [constants.PHONE]: {
-                    color: '#4c59ff',
+                    color: colors.blue,
                     text: 'dashboardTeacher_link_text_phone',
                     btnText: 'dashboardTeacher_btn_text_phone',
-                    routeName: routeName.Profile// TODO: where to route
+                    method: this.openPhoneDialog
                 },
                 [constants.EMAIL]: {
-                    color: '#4c59ff',
+                    color: colors.blue,
                     text: 'dashboardTeacher_link_text_email',
                     btnText: 'dashboardTeacher_btn_text_email',
-                    routeName: routeName.Profile// TODO: where to route
+                    method: this.verifyEmail
                 },
                 [constants.EDIT]: {
-                    color: '#4c59ff',
+                    color: colors.blue,
                     text: 'dashboardTeacher_link_text_edit',
                     btnText: 'dashboardTeacher_btn_text_edit',
-                    routeName: routeName.Profile// TODO: where to route
+                    routeName: { name: routeName.Profile }
                 },
                 [constants.BOOK]: {
-                    color: '#4c59ff',
+                    color: colors.blue,
                     text: 'dashboardTeacher_link_text_book',
                     btnText: 'dashboardTeacher_btn_text_book',
-                    routeName: routeName.Feed // TODO: where to route
+                    routeName: { name: routeName.Profile } // TODO: where to route // go to admin tutor
                 },
                 [constants.COURSES]: {
-                    color: '#4c59ff',
+                    color: colors.blue,
                     text: 'dashboardTeacher_link_text_courses',
                     btnText: 'dashboardTeacher_btn_text_courses',
-                    routeName: routeName.EditCourse //TODO: where to route
+                    routeName: { name: routeName.EditCourse }
                 },
                 [constants.STRIPE]: {
-                    color: '#4c59ff',
+                    color: colors.blue,
                     text: 'dashboardTeacher_link_text_stripe',
                     btnText: 'dashboardTeacher_btn_text_stripe',
-                    routeName: routeName.Feed //TODO: stripe
+                    routeName: { name: routeName.Feed }//TODO: stripe // need to do 
                 },
                 [constants.CALENDAR]: {
-                    color: '#41c4bc',
+                    color: colors.green,
                     text: 'dashboardTeacher_link_text_calendar',
                     btnText: 'dashboardTeacher_btn_text_calendar',
-                    routeName: routeName.MyCalendar
+                    routeName: { name: routeName.MyCalendar }
                 },
                 [constants.TEACH]: {
-                    color: '#41c4bc',
+                    color: colors.green,
                     text: 'dashboardTeacher_link_text_teach',
                     btnText: 'dashboardTeacher_btn_text_teach',
-                    routeName: routeName.AddCourse
+                    routeName: { name: routeName.MyCalendar }
                 },
                 [constants.SESSIONS]: {
-                    color: '#eac569',
+                    color: colors.yellow,
                     text: 'dashboardTeacher_link_text_session',
                     btnText: 'dashboardTeacher_btn_text_session',
-                    routeName: routeName.MyStudyRooms
+                    routeName: { name: routeName.MyStudyRooms }
                 },
                 [constants.UPLOAD]: {
-                    color: '#eac569',
+                    color: colors.yellow,
                     text: 'dashboardTeacher_link_text_upload',
                     btnText: 'dashboardTeacher_btn_text_upload',
-                    routeName: routeName.MyContent
+                    routeName: { name: routeName.MyContent }
                 },
             }
         }
@@ -156,7 +172,7 @@ export default {
                 return {
                     ...this.linksItems[item],
                     ...list[item],
-                    name: item,
+                    name: item
                 }
             })
         },
@@ -174,6 +190,19 @@ export default {
         },
         userUrl() {
             return `${window.location.origin}/${this.userName}`
+        }
+    },
+    methods: {
+        openPhoneDialog() {
+            this.$store.commit('setComponent', 'phoneVerify')
+        },
+        verifyEmail() {
+            this.$store.dispatch('verifyTutorEmail').then(() => {
+                this.verifyEmailState = true
+                this.$store.commit('setEmailTask', constants.EMAIL)
+            }).catch(ex => {
+                console.log(ex);
+            })
         }
     },
     created() {

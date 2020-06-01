@@ -228,6 +228,8 @@ export default {
         }
     },
     created() {      
+        debugger
+        this.component = this.params.goTo
         let captchaLangCode = global.lang === "he" ? "iw" : "en";
         this.$loadScript(`https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit&hl=${captchaLangCode}`);
     },
