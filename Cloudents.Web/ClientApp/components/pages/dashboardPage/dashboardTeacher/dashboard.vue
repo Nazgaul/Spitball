@@ -1,7 +1,7 @@
 <template>
   <div class="dashboardMain mr-md-6">
     <dashboardTutorActions />
-    <dashboardNotifications />
+    <!-- <dashboardNotifications /> -->
     <dashboardMarketingTools />
     <spitballTips />
   </div>
@@ -10,14 +10,14 @@
 <script>
 
 const dashboardTutorActions = () => import('./dashboardTutorActions.vue');
-const dashboardNotifications = () => import('./dashboardNotifications.vue');
+// const dashboardNotifications = () => import('./dashboardNotifications.vue');
 const dashboardMarketingTools = () => import('../dashboardTeacher/dashboardMarketingTools.vue')
 const spitballTips = () => import('./spitballTips.vue');
 
 export default {
   components: {
     dashboardTutorActions,
-    dashboardNotifications,
+    // dashboardNotifications,
     dashboardMarketingTools,
     spitballTips,
   }

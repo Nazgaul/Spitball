@@ -51,7 +51,7 @@
                     </component>
                     <div class="ms-sm-4 me-2 text-truncate" v-t="action.text"></div>
                 </div>
-                <v-btn v-if="!isMobile" class="btn" rounded outlined depressed color="#4c59ff" width="120" @click="action.method ? action.method() : ''" :to="action.routeName" v-t="action.btnText"></v-btn>
+                <v-btn v-if="!isMobile" class="btn" rounded outlined exact depressed color="#4c59ff" width="120" @click="action.method ? action.method() : ''" :to="action.routeName" v-t="action.btnText"></v-btn>
             </div>
         </div>
 
