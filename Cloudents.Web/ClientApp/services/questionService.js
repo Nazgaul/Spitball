@@ -12,7 +12,7 @@ export default {
         let res = searchService.createQuestionItem(data);
         return { ...res};
     }),
-    answerQuestion: (questionId, text, files) => {
-       return connectivityModule.http.post("/Answer", {questionId, text, files});
+    answerQuestion: (questionId, text) => {
+       return connectivityModule.http.post("/Answer", {questionId, text});
     },
 }

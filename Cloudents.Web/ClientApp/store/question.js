@@ -1,19 +1,12 @@
 import questionService from '../services/questionService'
 
 const state = {
-    deletedAnswer: false,
     question: null,
     cardOwner: false
 };
 const mutations = {
-    updateDeleted(state, data) {
-        state.deletedAnswer = data;
-    },
     updateQuestion(state, data){
         state.question = data;
-    },
-    addAnswer(state, answer){
-        state.question.answers.push(answer);
     },
     removeAnswer(state, answerId){
         let answerIndex = -1;
@@ -27,20 +20,8 @@ const mutations = {
             state.question.answers.splice(answerIndex, 1);
         }
     },
-    markAsCorrect(state, answerId){
-        state.question.hasCorrectAnswer = true;
-        state.question.correctAnswerId = answerId;
-    },
 };
 const getters = {
-    getCorrectAnswer: (state) => {
-        if(!!state.question){
-            return state.question.hasOwnProperty('correctAnswerId');
-        }else{
-            return false;
-        }
-    },
-    isDeletedAnswer: (state) => state.deletedAnswer,
     getQuestion: (state) => state.question,
     isCardOwner: (state, {accountUser}) =>{
         if(!accountUser) return false;
@@ -50,21 +31,10 @@ const getters = {
 };
 const actions = {
     resetQuestion({commit}) {
-        commit('updateDeleted', false);
         commit('updateQuestion', null);
     },
-    removeDeletedAnswer({commit}) {
-        commit('updateDeleted', false);
-    },
     deleteQuestion(context, id) {
-        return questionService.deleteQuestion(id).then(()=>{
-            if (id.type === 'Answer') {
-                context.commit('updateDeleted', true);
-            }
-        });
-    },
-    correctAnswer(context, id) {
-        return questionService.markAsCorrectAnswer(id);
+        return questionService.deleteQuestion(id);
     },
     setQuestion({commit}, id){
         return questionService.getQuestion(id)

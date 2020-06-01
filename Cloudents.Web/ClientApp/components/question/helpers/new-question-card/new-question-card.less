@@ -22,9 +22,6 @@
       min-width: 0;
       display: flex;
       width: 100%;
-      // @media (max-width: @screen-xs) {
-      //   margin-top: -10px;
-      // }
       .avatar-area {
         @media (max-width: @screen-xs) {
           margin-top: 10px;
@@ -37,12 +34,6 @@
           // flex-direction: column-reverse;
           // margin-left: 8px;
           // align-items: start;
-        }
-        .rank-area {
-          margin: 10px 8px 0 12px;
-          @media (max-width: @screen-xs) {
-            margin-left: 0px;
-          }
         }
         .user-question {
           margin-left: 10px;
@@ -128,21 +119,6 @@
           .lineClamp()
         }
         .question-course{
-          flex-shrink: 0;
-          color: rgba(0, 0, 0, 0.54);
-          display: flex;
-          align-items: center;
-          margin-left: 5px;
-          .dot{
-            height: 3px;
-            width: 3px;
-            opacity: .9;
-            background-color: #d8d8d8;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 5px;
-            margin-top: 4px;
-          }
           .lineClamp{
             .lineClamp()
           }
@@ -163,9 +139,6 @@
           @media (max-width: @screen-xs) {
             padding-right: 0;
           }
-        }
-        &.align-switch-l {
-          direction: ltr;
         }
         &.question-ellipsis {
             .giveMeEllipsis(3, 22);
@@ -200,59 +173,10 @@
           }
         }
       }
-
-      .gallery {
-        height: 300px !important;
-        @media (max-width: @screen-xs) {
-          height: 238px !important;
-        }
-        .v-carousel {
-          height: 300px !important;
-          cursor: pointer;
-          .v-jumbotron__wrapper {
-            .v-jumbotron__image {
-              height: auto;
-              width: 100%;
-              cursor: pointer;
-            }
-          }
-          @media (max-width: @screen-xs) {
-            height: 238px !important;
-            padding: 25px;
-          }
-          box-shadow: none;
-          button {
-            width: 40px;
-            height: @btnHeight;
-            &:before {
-              opacity: 0.2;
-              background-color: #000000;
-            }
-            .v-icon {
-              font-size: 20px !important;
-              &.left {
-                transform: scale(-1, 1);
-                margin-right: 3px;
-              }
-              &.right {
-                transform: scale(1, 1);
-                margin-left: 4px;
-              }
-            }
-          }
-          .v-carousel__item {
-            height: 300px !important;
-            @media (max-width: @screen-xs) {
-              height: 238px !important;
-            }
-            .v-image__image--cover {
-              background-size: contain;
-            }
-          }
-        }
-      }
     }
   }
+
+
   .question-footer-container {
     margin-top: 5px;
     line-height: 30px;
@@ -299,69 +223,6 @@
           letter-spacing: normal;
           color: #43425d;
           margin-left: 44px;
-        }
-      }
-      .answers-delta-number-container {
-        margin-left: 25px;
-        
-        color: rgba(0, 0, 0, 0.54);
-      }
-      .answer-icon {
-        margin-right: -12px;
-        background-color: #e8e8e8;
-        width: 28px;
-        height: 28px;
-        border-radius: 28px;
-        opacity: 1;
-        border: 2px solid #fff;
-        font-size: 12px;
-        float: right;
-      }
-      .answer-currently-watching-container {
-        opacity: 0.9;      
-        font-size: 12px;
-        letter-spacing: -0.2px;
-        color: @color-blue-new;
-        &.space {
-          margin-left: 20px;
-        }
-      }
-    }
-    .answers-info-container {
-      display: flex;
-      flex-direction: row;
-      .answers-attachments-container {
-        display: flex;
-        width: 25px;
-        justify-content: space-between;
-        color: rgba(0, 0, 0, 0.54);
-        i {
-          font-size: 14px;
-          @media (max-width: @screen-xs) {
-            font-size: 14px;
-          }
-        }
-        span {
-          @media (max-width: @screen-xs) {
-            font-size: 12px;
-          }
-        }
-      }
-      .answers-viewers-container {
-        i {
-          color: rgba(0, 0, 0, 0.25);
-          font-size: 18px;
-          @media (max-width: @screen-xs) {
-            font-size: 14px;
-          }
-        }
-        span {
-          opacity: 0.9;
-          
-          color: rgba(0, 0, 0, 0.54);
-          @media (max-width: @screen-xs) {
-            font-size: 12px;
-          }
         }
       }
     }

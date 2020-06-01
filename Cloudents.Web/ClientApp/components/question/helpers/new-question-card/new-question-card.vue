@@ -42,26 +42,7 @@
                             <h2 class="question-body-course_name_h2"> {{cardData.course}}</h2>
                         </div>
                     </div>
-                    <div class="gallery" v-if="cardData.files && cardData.files.length">
-                        <v-carousel 
-                            :prev-icon="isRtl ? 'sbf-arrow-right rigth' : 'sbf-arrow-right left'"
-                            :next-icon="isRtl ? 'sbf-arrow-right left': 'sbf-arrow-right right'"
-                            interval="600000" 
-                            cycle 
-                            full-screen
-                            hide-delimiters 
-                            :hide-controls="cardData.files.length === 1">
-                            <v-carousel-item v-for="(item,i) in cardData.files" v-bind:src="item" :key="i" @click.native="showBigImage(item)"></v-carousel-item>
-                        </v-carousel>
-                    </div>
                 </div>
-                <v-dialog v-if="showDialog"
-                          v-model="showDialog"
-                          max-width="720px"
-                          transition="scale-transition"
-                          content-class="zoom-image">
-                    <img :src="selectedImage" alt="" height="auto" width="100%" class="zoomed-image">
-                </v-dialog>
             </div>
             <div class="question-footer-container" :class="{'ml-12': !$vuetify.breakpoint.xsOnly}">
                 <div class="answer-display-container">
@@ -141,9 +122,6 @@ export default {
             ],
             showReportReasons: false,
             itemId: 0,
-            isRtl: global.isRtl,
-            showDialog: false,
-            selectedImage: '',
             isQuestionPage: false,
         };
     },
@@ -173,7 +151,7 @@ export default {
             return this.detailedView;
         },
         isSold() {            
-            return this.cardData.hasCorrectAnswer || this.cardData.correctAnswerId;
+            return false;
         },
         answersCount() {
             return this.cardData.answers;
@@ -215,10 +193,6 @@ export default {
             } else{
                 return false;
             }
-        },
-        showBigImage(src) {
-            this.showDialog = true;
-            this.selectedImage = src;
         },
         removeQuestion() {
             let questionId = this.cardData.id;

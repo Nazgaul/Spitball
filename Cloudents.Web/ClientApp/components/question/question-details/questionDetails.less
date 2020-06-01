@@ -67,46 +67,6 @@
       background-color: #fff;
     }
   }
-
-  .chat-wrapper {
-    max-height: 45px;
-   
-    position: -webkit-sticky;
-    position: -moz-sticky;
-    position: -ms-sticky;
-    position: -o-sticky;
-    position: sticky;
-    &.position-static{
-      position: static;
-    }
-    top: 0px; /* required */
-    //top: 75px; /* required */
-    width: 100%;
-    max-width: 304px;
-    margin-left: 32px;
-    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
-    border-radius: 4px;
-    background-color: @color-white;
-
-    .chat-title {
-      //margin bottom -3px hack for iframe border-radius top fix (not possible to overwrite iframe style) this hides small gaps
-      margin-bottom: -3px;
-      color: @color-main-purple;
-      font-size: 18px;
-      font-weight: 400;
-      background-color: #f0f0f0;
-      border-radius: 4px 4px 0 0;
-      border-left: 1px solid rgba(0, 0, 0, 0.1);
-      border-right: 1px solid rgba(0, 0, 0, 0.1);
-    }
-    iframe {
-      border-radius: 0 0 4px 4px;
-      max-height: 608px;
-    }
-    .chat-container {
-      margin-bottom: -4px;
-    }
-  }
   .question-card {
     margin: 0 auto;
   }
@@ -181,13 +141,6 @@
       letter-spacing: -0.3px;
       color: @color-main-purple;
     }
-  }
-  .chat-iframe {
-    @media (max-width: @screen-xs) {
-      width: 100%;
-      height: ~"calc(100% - 260px)";
-    }
-
   }
   // change for ios to fit the screen in case of need, will effect ALL small devices
 
