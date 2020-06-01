@@ -84,6 +84,7 @@
             id: {Number}, // got it from route
         },
         data() {
+            
             return {
                 textAreaValue: "",
                 errorDuplicatedAnswer:'',
