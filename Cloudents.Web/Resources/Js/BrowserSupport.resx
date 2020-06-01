@@ -132,7 +132,7 @@
 We recommend that you use the IOS default browser  - Safari.</value>
   </data>
   <data name="unsupported_browser" xml:space="preserve">
-    <value>Use Safari instead</value>
+    <value>Please use Safari instead</value>
   </data>
   <data name="update_browser" xml:space="preserve">
     <value>Browser is not supported</value>
