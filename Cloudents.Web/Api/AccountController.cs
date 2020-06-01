@@ -168,14 +168,6 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            //if (uri == null)
-            //{
-            //    ModelState.AddModelError("x", "not an image");
-            //    return BadRequest(ModelState);
-            //}
-            //   var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
-            //var url = Url.ImageUrl(imageProperties);
-
             var fileName = uri.AbsolutePath.Split('/').Last();
             var command = new UpdateUserCoverImageCommand(userId,  fileName);
             await _commandBus.DispatchAsync(command, token);
