@@ -129,6 +129,30 @@
   <data name="book_session" xml:space="preserve">
     <value>קבעו פגישת הדרכה על המערכת</value>
   </data>
+  <data name="btn_edit" xml:space="preserve">
+    <value>עריכה</value>
+  </data>
+  <data name="btn_text_book" xml:space="preserve">
+    <value>רישום</value>
+  </data>
+  <data name="btn_text_calendar" xml:space="preserve">
+    <value>חיבור יומן גוגל שלך</value>
+  </data>
+  <data name="btn_text_courses" xml:space="preserve">
+    <value>הוספה</value>
+  </data>
+  <data name="btn_text_email" xml:space="preserve">
+    <value>הפעלה</value>
+  </data>
+  <data name="btn_text_stripe" xml:space="preserve">
+    <value />
+  </data>
+  <data name="btn_text_teach" xml:space="preserve">
+    <value>יצירת שידור חי</value>
+  </data>
+  <data name="btn_text_upload" xml:space="preserve">
+    <value>העלאה</value>
+  </data>
   <data name="connect_btn" xml:space="preserve">
     <value>התחברו</value>
   </data>
@@ -143,6 +167,27 @@
   </data>
   <data name="last_days" xml:space="preserve">
     <value>{0} הימים האחרונים</value>
+  </data>
+  <data name="link_text_book" xml:space="preserve">
+    <value>קביעת שיעור היכרות עם מדריך בכיר בספיטבול</value>
+  </data>
+  <data name="link_text_calendar" xml:space="preserve">
+    <value>עריכה</value>
+  </data>
+  <data name="link_text_courses" xml:space="preserve">
+    <value>הוספת הקורסים שלך</value>
+  </data>
+  <data name="link_text_email" xml:space="preserve">
+    <value>הפעלת האימייל</value>
+  </data>
+  <data name="link_text_stripe" xml:space="preserve">
+    <value />
+  </data>
+  <data name="link_text_teach" xml:space="preserve">
+    <value>עריכה</value>
+  </data>
+  <data name="link_text_upload" xml:space="preserve">
+    <value>העלאת תוכן לימודי</value>
   </data>
   <data name="no_task" xml:space="preserve">
     <value>השלמתם את כל המשימות</value>
