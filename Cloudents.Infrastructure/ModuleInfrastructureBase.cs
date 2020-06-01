@@ -1,10 +1,12 @@
-﻿using Autofac;
-//using Autofac.Extras.DynamicProxy;
+﻿using System;
+using Autofac;
+using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Mail;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Infrastructure.Payments;
 using Module = Autofac.Module;
@@ -18,11 +20,11 @@ namespace Cloudents.Infrastructure
         {
             base.Load(builder);
             var assembly = Assembly.GetExecutingAssembly();
-            //builder.RegisterAssemblyTypes(assembly)
-            //    .AsClosedTypesOf(typeof(BaseTaskInterceptor<>));
-            builder.RegisterType<RestClient>().As<IRestClient>();
-                //.EnableInterfaceInterceptors()
-                //.InterceptedBy(typeof(LogInterceptor));
+            builder.RegisterAssemblyTypes(assembly)
+                .AsClosedTypesOf(typeof(BaseTaskInterceptor<>));
+            builder.RegisterType<RestClient>().As<IRestClient>()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(typeof(LogInterceptor));
 
             //builder.RegisterType<PayMeCredentials>().AsSelf();
 
@@ -36,10 +38,9 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<SmsProvider>().As<ISmsProvider>();
             builder.RegisterType<TwilioProvider>().AsSelf().As<IPhoneValidator>().As<IStudyRoomProvider>().SingleInstance();
             builder.RegisterType<CountryProvider>().As<ICountryProvider>();
-            builder.RegisterType<WixBlogProvider>().As<IBlogProvider>();
-            builder.RegisterType<IpStackProvider>().As<IIpToLocation>();
-            //.EnableInterfaceInterceptors()
-            //.InterceptedBy(typeof(CacheResultInterceptor));
+            builder.RegisterType<WixBlogProvider>().As<IBlogProvider>()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(typeof(CacheResultInterceptor));
         }
     }
 }

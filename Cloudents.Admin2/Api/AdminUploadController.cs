@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -19,7 +18,6 @@ namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]"), ApiController]
     [Authorize]
-    [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
     public class AdminUploadController : ControllerBase
     {
         private readonly IAdminDirectoryBlobProvider _blobProvider;

@@ -43,27 +43,9 @@ export default {
         },
         resend(){
             if(this.isRegisterPath){
-                this.resendEmail().then(() => {
-                    let text = this.$t('login_email_sent');
-                    this.$store.dispatch('updateToasterParams', {
-                        toasterText: text,
-                        showToaster: true,
-                    });
-                }).catch(()=>{
-                    this.$store.dispatch('updateToasterParams', {
-                        toasterText: 'Something went wrong, please try again',
-                        showToaster: true,
-                        toasterType: 'error-toaster'
-                    });
-                })
-            }else{
-                this.resendEmailPassword().then(() => {
-                    let text = this.$t('login_email_sent')
-                    this.$store.dispatch('updateToasterParams',{
-                        toasterText: text,
-                        showToaster: true,
-                    });
-            });
+                this.resendEmail()
+            } else{
+                this.resendEmailPassword()
             }
         }
     }

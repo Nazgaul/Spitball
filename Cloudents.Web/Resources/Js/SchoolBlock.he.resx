@@ -132,9 +132,6 @@
   <data name="home" xml:space="preserve">
     <value>ראשי</value>
   </data>
-  <data name="live_session" xml:space="preserve">
-    <value>השידורים החיים שלי</value>
-  </data>
   <data name="my" xml:space="preserve">
     <value>הקורסים שלי</value>
   </data>
@@ -143,9 +140,6 @@
   </data>
   <data name="my_followers" xml:space="preserve">
     <value>העוקבים שלי</value>
-  </data>
-  <data name="my_marketing" xml:space="preserve">
-    <value>כלי השיווק שלי</value>
   </data>
   <data name="my_Questions" xml:space="preserve">
     <value>הזדמנויות</value>
@@ -162,9 +156,6 @@
   <data name="overview" xml:space="preserve">
     <value>סקירה כללית</value>
   </data>
-  <data name="private_session" xml:space="preserve">
-    <value>חדרי הלימוד שלי</value>
-  </data>
   <data name="profile" xml:space="preserve">
     <value>הפרופיל שלי</value>
   </data>
@@ -176,5 +167,8 @@
   </data>
   <data name="settings" xml:space="preserve">
     <value>הגדרות</value>
+  </data>
+  <data name="study" xml:space="preserve">
+    <value>חדרי הלימוד שלי</value>
   </data>
 </root>

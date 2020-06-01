@@ -23,7 +23,7 @@ namespace Cloudents.Query
             }
         }
 
-        private ITransaction? _transaction;
+        private ITransaction _transaction;
 
 
 

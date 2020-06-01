@@ -87,8 +87,7 @@ namespace Cloudents.Persistence.Maps
         public DocumentTransactionMap()
         {
             DiscriminatorValue("Document");
-            References(x => x.Document)
-                .Column("DocumentId").ForeignKey("Transaction_Document");
+            References(x => x.Document).Column("DocumentId").ForeignKey("Transaction_Document").Nullable();
         }
     }
 

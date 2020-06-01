@@ -1,4 +1,5 @@
 import studyRoomService from '../../services/studyRoomService.js'
+import {LanguageService} from '../../services/language/languageService'
 import whiteBoardService from '../../components/studyroom/whiteboard/whiteBoardService'
 
 const state = {
@@ -23,7 +24,44 @@ const state = {
     },
     selectedOptionString: 'liveDraw',
     shapesSelected: {},
-    currentSelectedTab: {id: 'tab-0'},
+    canvasTabs: [
+        {
+            name: LanguageService.getValueByKey('tutor_tab') + ' 1',
+            id: 'tab-0'
+        },
+        {
+            name: LanguageService.getValueByKey('tutor_tab') + ' 2',
+            id: 'tab-1'
+        },
+        {
+            name: LanguageService.getValueByKey('tutor_tab') + ' 3',
+            id: 'tab-2'
+        },
+        {
+            name: LanguageService.getValueByKey('tutor_tab') + ' 4',
+            id: 'tab-3'
+        },
+        {
+            name: LanguageService.getValueByKey('tutor_tab') + ' 5',
+            id: 'tab-4'
+        },
+        {
+            name: LanguageService.getValueByKey('tutor_tab') + ' 6',
+            id: 'tab-5'
+        },
+        {
+            name: LanguageService.getValueByKey('tutor_tab') + ' 7',
+            id: 'tab-6'
+        },
+        {
+            name: LanguageService.getValueByKey('tutor_tab') + ' 8',
+            id: 'tab-7'
+        },
+    ],
+    currentSelectedTab: {
+        name: LanguageService.getValueByKey('tutor_tab') + ' 1',
+        id: 'tab-0'
+    },
     imgLoader: false,
     showBoxHelper: true,
     fontSize: '40'
@@ -35,6 +73,7 @@ const getters = {
     getPanY: state => state.pan.y,
     selectedOptionString: state => state.selectedOptionString,
     getShapesSelected: state => state.shapesSelected,
+    getCanvasTabs: state => state.canvasTabs,
     getCurrentSelectedTab: state => state.currentSelectedTab,
     getAllDragData: state => state.dragData,
     currentOptionSelected: state => state.currentOptionSelected,
@@ -208,8 +247,13 @@ const actions = {
     clearShapesSelected({commit}){
         commit('clearShapesSelected');
     },
-    changeSelectedTab({commit}, tab){
-        commit('changeSelectedTab', tab);
+    changeSelectedTab({commit, state}, tab){
+        let isExists = state.canvasTabs.filter((currentTab)=>{
+            return currentTab.id === tab.id;
+        });
+        if(isExists.length > 0){
+            commit('changeSelectedTab', tab);
+        }
     },
     setCurrentOptionSelected({commit}, val){
         commit('setCurrentOptionSelected', val);

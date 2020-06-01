@@ -7,9 +7,6 @@ using NHibernate.Linq;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Query.Users
 {
@@ -42,11 +39,9 @@ namespace Cloudents.Query.Users
             {
                 _session = session.StatelessSession;
             }
-            [Cache(TimeConst.Hour, "UserDocumentsQuery", false)]
             public async Task<ListWithCountDto<DocumentFeedDto>> GetAsync(UserDocumentsQuery query, CancellationToken token)
             {
                 var r = _session.Query<Document>()
-
                     .WithOptions(w => w.SetComment(nameof(UserDocumentsQuery)))
                     .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok);
                 if (query.DocumentType != null)
@@ -76,10 +71,13 @@ namespace Cloudents.Query.Users
                     PriceType = s.DocumentPrice.Type ?? PriceType.Free,
                     DocumentType = s.DocumentType,
                     Duration = s.Duration,
-                    Purchased = s.PurchaseCount.GetValueOrDefault()
-                }).Take(query.PageSize).Skip(query.Page*query.PageSize).ToFuture();
+                    Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.Id && x.Action == TransactionActionType.SoldDocument)
+                }).Take(query.PageSize).Skip(query.Page * query.PageSize).ToFuture();
 
-                var countFuture = count.ToFutureValue(f => f.Count());
+                var countFuture = count
+                .GroupBy(g => 1)
+                .Select(s => s.Count()).ToFutureValue();
+
 
                 IFutureValue<bool?>? scribedQueryFuture = null;
                 if (query.UserId > 0)

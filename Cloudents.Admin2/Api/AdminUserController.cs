@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -24,7 +23,6 @@ namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]"), ApiController]
     [Authorize]
-    [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
     public class AdminUserController : ControllerBase
     {
         private readonly ICommandBus _commandBus;

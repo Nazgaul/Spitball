@@ -5,11 +5,11 @@
             <div class="d-flex pa-2 pa-sm-0 justify-sm-space-between documentTitle">
                 <v-icon
                     size="16"
-                    class="hidden-md-and-up me-4 document-header-large-sagment--arrow" 
+                    class="hidden-md-and-up pr-4 document-header-large-sagment--arrow" 
                     @click="closeDocument" 
                     v-html="'sbf-arrow-left-carousel'">
                 </v-icon>
-                <h1 class="ps-sm-4 text-center text-sm-left text-truncate">{{getDocumentName}}</h1>
+                <h1 class="pl-sm-4 text-center text-sm-left text-truncate">{{getDocumentName}}</h1>
                 <shareContent
                     v-if="getDocumentDetails && !isMobile"
                     :link="shareContentParams.link"
@@ -445,6 +445,12 @@ export default {
         .azuremediaplayer {
             background: #fff !important;
         }
+        .document-header-large-sagment {
+            &--arrow {
+                color: @global-purple;
+                transform: none /*rtl:scaleX(-1)*/;
+            }
+        }
         //end hacks to finish this fast
         .documentTitle {
             background: #fff;
@@ -458,12 +464,6 @@ export default {
                 font-weight: 600;
                 color: #43425d;
                 align-self: center;
-            }
-            .document-header-large-sagment {
-                &--arrow {
-                    color: @global-purple;
-                    transform: none /*rtl:scaleX(-1)*/;
-                }
             }
         }
         position: relative;
@@ -617,24 +617,36 @@ export default {
                 &--margin {
                     margin-bottom: 100px;
                 }
+                // .carouselDocPreview {
+                //     .itemCard-itemPage {
+                //         // .item-cont {
+                //         //     z-index: 3 !important; //flicking
+                //         //     @media (max-width: @screen-xs) {
+                //         //         overflow: visible !important; //flicking
+                //         //     }
+                //         // }
+                //     }
+                //     .sbCarousel_btn {
+                //         i {
+                //             font-size: 18px;
+                //         }
+                //     }
+                // }
                 .itemSlider {
                     .v-slide-group__content {
                         white-space: normal;
                     }
-                    .item-cont {
-                        direction: ltr;/* rtl:direction:ltr */
-                    }
                     .itemCard-itemPage {
                         margin: 10px;
+                        height: auto;
+                        // width: auto;
                         border: none;
                         box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
                         display: block;
                         &:first-child{
-                            /*rtl:ignore */
                             margin-left: 0;
                         }
                         &:last-child  {
-                            /*rtl:ignore */
                             margin-right: 0;
                         }
                     }

@@ -221,7 +221,7 @@ export default {
 
                     self.errors.email = data["Email"] ? data["Email"][0] : '', // TODO
                     self.errors.password = data["Password"] ? data["Password"][0] : '' // TODO
-                    self.$appInsights.trackException(error);
+                    self.$appInsights.trackException({exception: new Error(error)});
                 }).finally(() => {
                     self.$refs.recaptcha.reset()
                 })

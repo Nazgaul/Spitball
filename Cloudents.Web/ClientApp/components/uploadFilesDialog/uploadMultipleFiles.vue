@@ -147,7 +147,7 @@ export default {
         },
         closeUpload() {
             this.resetUploadData();
-            this.$store.commit('setComponent', '')
+            this.$closeDialog()
         },
         nextStep() {
             if (this.currentStep === this.steps) {
@@ -164,31 +164,8 @@ export default {
         },
         send(){
             this.chackValidation = !this.chackValidation;
-        },
-    },
-    created() {
-        let self = this
-            this.$store.dispatch('getManageCourses').then(courses => {
-                if(courses.length === 0){
-                    // fix shadow overlay issue 
-                    setTimeout(() => {
-                        self.$store.commit('setComponent')
-                    }, 200)
-                    self.$router.push({name: "addCourse"})
-                }
-            })
         }
-
-    // this code open the dialog with no restriction
-        // if(!this.getSelectedClasses.length){
-        //     this.$store.dispatch('getManageCourses').then(courses => {
-        //         if(courses.length === 0){
-        //             this.$router.push({name: "addCourse"})
-        //             return
-        //         }
-        //     })
-        // }
-    // },
+    },
 }
 </script>
 

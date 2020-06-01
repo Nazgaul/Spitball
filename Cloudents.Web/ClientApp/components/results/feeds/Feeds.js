@@ -64,7 +64,7 @@ export default {
         ...mapGetters([
             'getBannerParams','accountUser','Feeds_getItems',
             'Feeds_getFilters','Feeds_getCurrentQuery',
-            'getUserLoggedInStatus', 'getProfile', 'getIsTeacher'
+            'getUserLoggedInStatus', 'getProfile'
         ]),
         items(){
             return this.Feeds_getItems

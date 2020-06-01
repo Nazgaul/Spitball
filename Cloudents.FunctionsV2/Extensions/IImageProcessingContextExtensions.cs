@@ -32,16 +32,13 @@ namespace Cloudents.FunctionsV2.Extensions
 
         public static IImageProcessingContext DrawText(
             this IImageProcessingContext source,
-            string? text,
+            string text,
             int fontSize,
             string color,
             Size size,
             SixLabors.Primitives.Point location)
         {
-            if (text == null)
-            {
-                return source;
-            }
+
             using var myBitmap = new Bitmap(size.Width, size.Height + 10);
 
             var x = new Span<char>(text.ToCharArray());

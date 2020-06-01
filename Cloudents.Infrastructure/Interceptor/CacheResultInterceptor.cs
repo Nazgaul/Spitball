@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Castle.DynamicProxy;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -8,16 +11,16 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Interceptor
 {
-    public class CacheResultInterceptor //: BaseTaskInterceptor<CacheAttribute>
+    public class CacheResultInterceptor : BaseTaskInterceptor<CacheAttribute>
     {
-        //private readonly ICacheProvider _cacheProvider;
-        //private readonly ILogger _logger;
+        private readonly ICacheProvider _cacheProvider;
+        private readonly ILogger _logger;
 
-        //public CacheResultInterceptor(ICacheProvider cacheProvider, ILogger logger)
-        //{
-        //    _cacheProvider = cacheProvider;
-        //    _logger = logger;
-        //}
+        public CacheResultInterceptor(ICacheProvider cacheProvider, ILogger logger)
+        {
+            _cacheProvider = cacheProvider;
+            _logger = logger;
+        }
 
         private static string BuildArgument(IEnumerable<object> argument)
         {
@@ -93,61 +96,61 @@ namespace Cloudents.Infrastructure.Interceptor
                 $"-{BuildArgument(arguments)}";
         }
 
-        //private static string GetInvocationSignature(IInvocation invocation)
-        //{
-        //    return GetCacheKey(invocation.TargetType, invocation.Method.Name, invocation.Arguments);
-        //}
+        private static string GetInvocationSignature(IInvocation invocation)
+        {
+            return GetCacheKey(invocation.TargetType, invocation.Method.Name, invocation.Arguments);
+        }
 
-        //private static Task<T> ConvertAsync<T>(T data)
-        //{
-        //    return Task.FromResult(data);
-        //}
+        private static Task<T> ConvertAsync<T>(T data)
+        {
+            return Task.FromResult(data);
+        }
 
-        //protected override void BeforeAction(IInvocation invocation)
-        //{
-        //    var key = GetInvocationSignature(invocation);
+        protected override void BeforeAction(IInvocation invocation)
+        {
+            var key = GetInvocationSignature(invocation);
 
-        //    var method = invocation.MethodInvocationTarget;
-        //    var att = invocation.GetCustomAttribute<CacheAttribute>();
-        //    var data = _cacheProvider.Get(key, att.Region);
+            var method = invocation.MethodInvocationTarget;
+            var att = invocation.GetCustomAttribute<CacheAttribute>();
+            var data = _cacheProvider.Get(key, att.Region);
 
-        //    if (data == null) return;
-        //    if (typeof(Task).IsAssignableFrom(method.ReturnType))
-        //    {
-        //        //invocation.ReturnValue = ConvertAsync(data);
-        //        var taskReturnType = method.ReturnType; //e.g. Task<int>
+            if (data == null) return;
+            if (typeof(Task).IsAssignableFrom(method.ReturnType))
+            {
+                //invocation.ReturnValue = ConvertAsync(data);
+                var taskReturnType = method.ReturnType; //e.g. Task<int>
 
-        //        var type = taskReturnType.GetGenericArguments()[0]; //get the result type, e.g. int
+                var type = taskReturnType.GetGenericArguments()[0]; //get the result type, e.g. int
 
-        //        var convertMethod =
-        //            GetType().GetMethod(nameof(ConvertAsync), BindingFlags.Static | BindingFlags.NonPublic)
-        //                ?.MakeGenericMethod(type); //Get the closed version of the Convert method, e.g. Convert<int>
+                var convertMethod =
+                    GetType().GetMethod(nameof(ConvertAsync), BindingFlags.Static | BindingFlags.NonPublic)
+                        ?.MakeGenericMethod(type); //Get the closed version of the Convert method, e.g. Convert<int>
 
-        //        if (convertMethod != null)
-        //        {
-        //            try
-        //            {
-        //                invocation.ReturnValue =
-        //                    convertMethod.Invoke(null,
-        //                        new[] { data }); //Call the convert method and return the generic Task, e.g. Task<int>
-        //            }
-        //            catch (ArgumentException ex)
-        //            {
-        //                _logger.Exception(ex);
-        //                return;
-        //            }
-        //        }
+                if (convertMethod != null)
+                {
+                    try
+                    {
+                        invocation.ReturnValue =
+                            convertMethod.Invoke(null,
+                                new[] { data }); //Call the convert method and return the generic Task, e.g. Task<int>
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        _logger.Exception(ex);
+                        return;
+                    }
+                }
 
-        //        return;
-        //    }
-        //    invocation.ReturnValue = data;
-        //}
+                return;
+            }
+            invocation.ReturnValue = data;
+        }
 
-        //protected override void AfterAction<T>(ref T val, IInvocation invocation)
-        //{
-        //    var key = GetInvocationSignature(invocation);
-        //    var att = invocation.GetCustomAttribute<CacheAttribute>();
-        //    _cacheProvider.Set(key, att.Region, val, att.Duration, att.Slide); // cacheAttr.Duration);
-        //}
+        protected override void AfterAction<T>(ref T val, IInvocation invocation)
+        {
+            var key = GetInvocationSignature(invocation);
+            var att = invocation.GetCustomAttribute<CacheAttribute>();
+            _cacheProvider.Set(key, att.Region, val, att.Duration, att.Slide); // cacheAttr.Duration);
+        }
     }
 }

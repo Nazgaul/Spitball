@@ -132,9 +132,6 @@
   <data name="home" xml:space="preserve">
     <value>Home</value>
   </data>
-  <data name="live_session" xml:space="preserve">
-    <value>My Live Classes</value>
-  </data>
   <data name="my" xml:space="preserve">
     <value>My courses</value>
   </data>
@@ -143,9 +140,6 @@
   </data>
   <data name="my_followers" xml:space="preserve">
     <value>My Followers</value>
-  </data>
-  <data name="my_marketing" xml:space="preserve">
-    <value>Marketing Tools</value>
   </data>
   <data name="my_Questions" xml:space="preserve">
     <value>Opportunities</value>
@@ -162,9 +156,6 @@
   <data name="overview" xml:space="preserve">
     <value>Overview</value>
   </data>
-  <data name="private_session" xml:space="preserve">
-    <value>My Study Rooms</value>
-  </data>
   <data name="profile" xml:space="preserve">
     <value>My Profile</value>
   </data>
@@ -176,5 +167,8 @@
   </data>
   <data name="settings" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="study" xml:space="preserve">
+    <value>My Study Rooms</value>
   </data>
 </root>

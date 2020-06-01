@@ -82,8 +82,8 @@ const actions = {
          commit('setBalancesItems', items);
       });
    },
-   updateStudyRoomItems({commit}, type){
-      dashboardService.getStudyRoomItems(type).then(items=>{
+   updateStudyRoomItems({commit}){
+      dashboardService.getStudyRoomItems().then(items=>{
          commit('setStudyRoomItems', items);
       });
    },

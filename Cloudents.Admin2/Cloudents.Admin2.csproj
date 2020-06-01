@@ -8,7 +8,6 @@
     <UserSecretsId>c7287bd7-40f9-4313-80be-15164120e460</UserSecretsId>
     <ApplicationInsightsResourceId>/subscriptions/3b3c3105-0178-45af-a7b8-9876894fc161/resourcegroups/Zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/3b3c3105-0178-45af-a7b8-9876894fc161/resourcegroups/Zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsAnnotationResourceId>
-	<nullable>enable</nullable>
   </PropertyGroup>
 
   <ItemGroup>

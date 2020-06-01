@@ -7,12 +7,15 @@ namespace Cloudents.Admin2.Models
     public class CouponRequest
     {
 
-       
+        /// <summary>
+        /// meta description
+        /// </summary>
+        public string Owner { get; set; }
 
         /// <summary>
         /// meta description
         /// </summary>
-        public string? Description { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
         /// optional - When the coupon expire

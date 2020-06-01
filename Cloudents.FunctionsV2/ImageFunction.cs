@@ -127,11 +127,9 @@ namespace Cloudents.FunctionsV2
                 var t2 = binder.BindAsync<Stream>(new BlobAttribute(blobPath, FileAccess.Read),
                     token);
                 await Task.WhenAll(t1, t2);
-
-                var result = await t2;
-                await using (result)
+                await using (t2.Result)
                 {
-                    var image = ProcessImage(result, mutation);
+                    var image = ProcessImage(t2.Result, mutation);
                     return new ImageResult(image, TimeSpan.Zero);
                 }
             }
@@ -203,10 +201,9 @@ namespace Cloudents.FunctionsV2
                     var t2 = binder.BindAsync<Stream>(new BlobAttribute(blobPath, FileAccess.Read),
                         token);
                     await Task.WhenAll(t1, t2);
-                    var result = await t2;
-                    await using (result)
+                    await using (t2.Result)
                     {
-                        var image = ProcessImage(result, mutation);
+                        var image = ProcessImage(t2.Result, mutation);
                         return new ImageResult(image, TimeSpan.Zero);
                     }
 

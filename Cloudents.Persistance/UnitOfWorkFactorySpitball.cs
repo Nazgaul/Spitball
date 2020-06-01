@@ -84,7 +84,7 @@ namespace Cloudents.Persistence
 #endif
             // var eventPublisherListener = new PublishEventsListener(_publisher);
             config.SetListener(ListenerType.PostCommitDelete, _publisher);
-            //config.SetListener(ListenerType.Delete, new SoftDeleteEventListener());
+            config.SetListener(ListenerType.Delete, new SoftDeleteEventListener());
             config.SetListener(ListenerType.PostCommitInsert, _publisher);
             config.SetListener(ListenerType.PostCommitUpdate, _publisher);
             config.SetListener(ListenerType.PostCollectionUpdate, _publisher);

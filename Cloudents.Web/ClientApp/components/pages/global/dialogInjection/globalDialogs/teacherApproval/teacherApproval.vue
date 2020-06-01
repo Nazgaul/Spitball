@@ -153,7 +153,7 @@ export default {
                     self.$store.commit('clearComponent')
                 }
             }).catch(ex => {
-                self.$appInsights.trackException(ex);
+                self.$appInsights.trackException({exception: new Error(ex)});
             }).finally(() => {
                 self.$closeDialog()
             })

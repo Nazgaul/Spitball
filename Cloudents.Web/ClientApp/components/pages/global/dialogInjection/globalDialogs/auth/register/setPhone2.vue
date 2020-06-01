@@ -103,7 +103,7 @@ export default {
                 self.localCode = data.code
                 this.$emit('updateCode', data.code)
             }).catch(ex => {
-                self.$appInsights.trackException(ex);
+                self.$appInsights.trackException({exception: new Error(ex)});
             })
         }
     },

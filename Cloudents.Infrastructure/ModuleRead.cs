@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Google;
 using Cloudents.Infrastructure.Interceptor;
@@ -23,8 +24,8 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<DocumentFeedService>().AsSelf().Keyed<IFeedTypeService>(Core.Enum.FeedType.Video);
             builder.RegisterType<AggregateFeedService>().Keyed<IFeedTypeService>(Core.Enum.FeedType.All);
 
-          //.EnableInterfaceInterceptors()
-            //    .InterceptedBy(typeof(CacheResultInterceptor));
+            builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
+                .InterceptedBy(typeof(CacheResultInterceptor));
 
             builder.RegisterType<GoogleService>().AsSelf()
                 .As<IGoogleDocument>()

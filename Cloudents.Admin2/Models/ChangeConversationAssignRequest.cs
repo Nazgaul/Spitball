@@ -2,6 +2,6 @@
 {
     public class ChangeConversationAssignRequest
     {
-        public string? AssignTo { get; set; }
+        public string AssignTo { get; set; }
     }
 }

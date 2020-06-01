@@ -43,7 +43,7 @@ export default {
         
         if (playPromise !== undefined) {
             playPromise.then(() => {}).catch(error => {
-                self.$appInsights.trackException(error)
+                self.$appInsights.trackException({exception: new Error(error)})
             });
         }
     }

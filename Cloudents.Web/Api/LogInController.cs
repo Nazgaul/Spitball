@@ -40,6 +40,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> PostAsync(
+            [ModelBinder(typeof(CountryModelBinder))] string country,
             [FromBody]LoginRequest model,
             [FromHeader(Name = "User-Agent")] string? agent,
             CancellationToken token)
@@ -55,7 +56,7 @@ namespace Cloudents.Web.Api
             if (result == SignInResult.Success)
             {
                 agent = agent?.Substring(0, Math.Min(agent.Length, 255));
-                var command = new AddUserLocationCommand(user,  HttpContext.GetIpAddress(), agent);
+                var command = new AddUserLocationCommand(user, country, HttpContext.GetIpAddress(), agent);
                 var t1 = _commandBus.DispatchAsync(command, token);
                 var t2 = _userManager.ResetAccessFailedCountAsync(user);
                 var t3 = _signInManager.SignInAsync(user, true);

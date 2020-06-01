@@ -23,12 +23,6 @@
             <chat></chat>
          </v-sheet>
       </div>
-      <!-- hotfix for mobile audios -->
-      <div v-show="false" v-if="roomParticipants">
-         <div v-for="participant in roomParticipants" :key="Object.values(participant)[0].id">
-            <userPreview :participant="Object.values(participant)[0]" class="classRoomCards mx-1"/>
-         </div>
-      </div>
    </div>
 </template>
 
@@ -36,11 +30,9 @@
 
 import chat from '../chat/components/messages.vue';
 import { mapGetters } from 'vuex';
-import userPreview from './layouts/userPreview/userPreview.vue';
 export default {
    components:{
       chat,
-      userPreview
    },
    data() {
       return {
@@ -60,14 +52,6 @@ export default {
       roomTutorName(){
          return this.$store.getters.getRoomTutor.tutorName;
       },
-      roomParticipants(){
-         if(this.$store.getters.getRoomParticipants){
-            let participants = Object.entries(this.$store.getters.getRoomParticipants).map((e) => ( { [e[0]]: e[1] } ));
-           return participants
-         }else{
-            return null
-         }
-      }
    },
    watch: {
       tutorAudioTrack:{

@@ -31,8 +31,7 @@
                 </div>
             </div>
             <div class="itemCard-bottom mt-2">
-                <span v-if="item.price" class="item-purchases">{{$tc('itemCardCarousel_purchased', item.purchased)}}</span>
-                <span v-else class="item-purchases">{{$tc('itemCardCarousel_downloaded', item.downloads)}}</span>
+                <span class="item-purchases">{{$tc('itemCardCarousel_purchased', item.purchased)}}</span>
                 <documentPrice :price="item.price" :isSubscribed="isSubscribed" />
             </div>
         </div>
@@ -181,13 +180,9 @@ export default {
             font-size: 13px;
             vertical-align: top;
         }
-        .vidSvg {
-            height: 100%;
-            path {
-                fill: #69687d;
-            }
+        .vidSvg path{
+            fill: #69687d;
         }
-
         .itemDate {
             color: #989bac;
             font-size: 13px;
@@ -195,6 +190,11 @@ export default {
         /*rtl:ignore*/
     }
     .item-cont{
+        // height: inherit;
+        // display: flex;
+        // flex-direction: column;
+        // justify-content: space-between;
+
         .item-title{
             overflow: hidden !important;
             font-size: 15px;

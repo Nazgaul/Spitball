@@ -120,9 +120,6 @@
   <data name="course" xml:space="preserve">
     <value>קורס:</value>
   </data>
-  <data name="downloaded" xml:space="preserve">
-    <value>{n} הורדה | {n} הורדות</value>
-  </data>
   <data name="pts" xml:space="preserve">
     <value>חינם | {n} נק' | {n} נק'</value>
   </data>

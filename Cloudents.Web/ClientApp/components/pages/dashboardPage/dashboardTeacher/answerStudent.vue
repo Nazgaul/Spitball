@@ -31,7 +31,7 @@ export default {
       this.$store.dispatch('updateStudentsAnswersQuestion').then((answers) => {
         self.answers = answers
       }).catch(ex => {
-        self.$appInsights.trackException(ex);
+        self.$appInsights.trackException({exception: new Error(ex)});
       })
     }
   },

@@ -1,5 +1,6 @@
 import analyticsService from '../services/analytics.service.js';
 import tutorService from '../services/tutorService.js'
+import { LanguageService } from '../services/language/languageService';
 
 const state = {
     requestDialog: false,
@@ -13,6 +14,9 @@ const state = {
     selectedCourse:'',
     moreTutors:false,
     currentTutorPhoneNumber: null,
+    guestName: '',
+    guestMail: '',
+    guestPhone: '',
     registerStepFromTutorRequest: false,
 };
 
@@ -25,6 +29,9 @@ const getters = {
     getSelectedCourse: state => state.selectedCourse,
     getMoreTutors: state => state.moreTutors,
     getCurrentTutorPhoneNumber: state => state.currentTutorPhoneNumber,
+    getGuestName: state => state.guestName,
+    getGuestMail: state => state.guestMail,
+    getGuestPhone: state => state.guestPhone,
     getIsFromTutorStep: state => state.registerStepFromTutorRequest,
 };
 
@@ -55,6 +62,9 @@ const mutations = {
         state.moreTutors = false;
         state.currentTutorPhoneNumber = null;
         state.registerStepFromTutorRequest = false
+        state.guestName = '';
+        state.guestMail = '';
+        state.guestPhone = '';
         state.currTutor = null
     },
     setMoreTutors(state, val) {
@@ -62,6 +72,15 @@ const mutations = {
     },
     setCurrentTutorPhoneNumber(state, number) {
         state.currentTutorPhoneNumber = number;
+    },
+    setGuestName(state, name) {
+        state.guestName = name;
+    },
+    setGuestMail(state, mail) {
+        state.guestMail = mail;
+    },
+    setGuestPhone(state, phone) {
+        state.guestPhone = phone;
     },
     setIsFromTutorStep(state, val) {
         state.registerStepFromTutorRequest = val
@@ -100,6 +119,15 @@ const actions = {
                     }
                     dispatch('updateTutorReqStep','tutorRequestSuccess');
                 }).catch((err)=>{
+                   
+                    // Same converntaion as the server
+                    let serverResponse = err.response.data || { error : [LanguageService.getValueByKey("tutorRequest_request_error")]};
+                    let errorMsg = serverResponse[Object.keys(serverResponse)[0]][0];
+                    dispatch('updateToasterParams',{
+                        toasterText: errorMsg,
+                        showToaster: true,
+                        toasterType: 'error-toaster'
+                    });
                    throw err;
                 });
     },
@@ -119,6 +147,16 @@ const actions = {
     updateMoreTutors({commit},val){
         commit('setMoreTutors',val);
     },
+    setGuestName({commit}, name) {
+        commit('setGuestName', name)
+    },
+    setGuestMail({commit}, mail) {
+        commit('setGuestMail', mail)
+    },
+    setGuestPhone({commit}, phone) {
+        commit('setGuestPhone', phone)
+    },
+
 };
 export default {
     state,

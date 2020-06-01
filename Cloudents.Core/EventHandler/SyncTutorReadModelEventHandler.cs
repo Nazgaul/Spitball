@@ -29,44 +29,44 @@ namespace Cloudents.Core.EventHandler
             _unitOfWork = unitOfWork;
         }
 
-        public Task HandleAsync(TutorApprovedEvent eventMessage, CancellationToken token)
+        public async Task HandleAsync(TutorApprovedEvent eventMessage, CancellationToken token)
         {
-            return AddAsync(eventMessage.TutorId, token);
+            await AddAsync(eventMessage.TutorId, token);
         }
 
-        public Task HandleAsync(TutorUnSuspendedEvent eventMessage, CancellationToken token)
+        public async Task HandleAsync(TutorUnSuspendedEvent eventMessage, CancellationToken token)
         {
-            return AddAsync(eventMessage.Id, token);
+            await AddAsync(eventMessage.Id, token);
         }
 
-        public Task HandleAsync(TutorAddReviewEvent eventMessage, CancellationToken token)
+        public async Task HandleAsync(TutorAddReviewEvent eventMessage, CancellationToken token)
         {
-            return UpdateAsync(eventMessage.UserId, token);
+            await UpdateAsync(eventMessage.UserId, token);
         }
 
-        public Task HandleAsync(UpdateTutorSettingsEvent eventMessage, CancellationToken token)
+        public async Task HandleAsync(UpdateTutorSettingsEvent eventMessage, CancellationToken token)
         {
-            return UpdateAsync(eventMessage.UserId, token);
+            await UpdateAsync(eventMessage.UserId, token);
         }
 
-        public Task HandleAsync(CanTeachCourseEvent eventMessage, CancellationToken token)
+        public async Task HandleAsync(CanTeachCourseEvent eventMessage, CancellationToken token)
         {
-            return UpdateAsync(eventMessage.UserCourse.User.Id, token);
+            await UpdateAsync(eventMessage.UserCourse.User.Id, token);
         }
 
-        public Task HandleAsync(UpdateImageEvent eventMessage, CancellationToken token)
+        public async Task HandleAsync(UpdateImageEvent eventMessage, CancellationToken token)
         {
-            return UpdateAsync(eventMessage.UserId, token);
+            await UpdateAsync(eventMessage.UserId, token);
         }
 
-        public Task HandleAsync(EndStudyRoomSessionEvent eventMessage, CancellationToken token)
+        public async Task HandleAsync(EndStudyRoomSessionEvent eventMessage, CancellationToken token)
         {
-            return UpdateAsync(eventMessage.Session.StudyRoom.Tutor.Id, token);
+            await UpdateAsync(eventMessage.Session.StudyRoom.Tutor.Id, token);
         }
 
-        private Task AddAsync(long userId, CancellationToken token)
+        private async Task AddAsync(long userId, CancellationToken token)
         {
-            return UpdateAsync(userId, _repository.AddAsync, token);
+            await UpdateAsync(userId, _repository.AddAsync, token);
         }
 
         private async Task UpdateAsync(long tutorId, Func<ReadTutor, CancellationToken, Task> addOrUpdate, CancellationToken token)
@@ -81,9 +81,9 @@ namespace Cloudents.Core.EventHandler
             await _unitOfWork.CommitAsync(token);
         }
 
-        private Task UpdateAsync(long userId, CancellationToken token)
+        private async Task UpdateAsync(long userId, CancellationToken token)
         {
-            return UpdateAsync(userId, _repository.UpdateAsync, token);
+            await UpdateAsync(userId, _repository.UpdateAsync, token);
         }
 
         public void Dispose()
@@ -91,14 +91,14 @@ namespace Cloudents.Core.EventHandler
             _unitOfWork.Dispose();
         }
 
-        public Task HandleAsync(RemoveCourseEvent eventMessage, CancellationToken token)
+        public async Task HandleAsync(RemoveCourseEvent eventMessage, CancellationToken token)
         {
-            return UpdateAsync(eventMessage.UserId, token);
+            await UpdateAsync(eventMessage.UserId, token);
         }
 
-        public Task HandleAsync(ChangeCountryEvent eventMessage, CancellationToken token)
+        public async Task HandleAsync(ChangeCountryEvent eventMessage, CancellationToken token)
         {
-            return UpdateAsync(eventMessage.UserId, token);
+            await UpdateAsync(eventMessage.UserId, token);
         }
 
         public async Task HandleAsync(CourseChangeSubjectEvent eventMessage, CancellationToken token)

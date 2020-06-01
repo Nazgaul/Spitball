@@ -58,8 +58,6 @@ namespace Cloudents.Core.DTOs.Admin
         [NonSerialized]
         public string? _sellerKey;
 
-        [NonSerialized] public Country? TutorCountry;
-
         [NonSerialized] public long? _duration2;
 
         [EntityBind(nameof(StudyRoomSession.Id))]
@@ -67,7 +65,7 @@ namespace Cloudents.Core.DTOs.Admin
         [EntityBind(nameof(Tutor.Price))]
         public double TutorPricePerHour { get; set; }
 
-        //public Country? TutorCountry { get; set; }
+        public Country? TutorCountry { get; set; }
 
         public bool CantPay
         {

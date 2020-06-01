@@ -115,6 +115,7 @@ export default {
         ...mapActions(['updateRequestDialog',
                        'updateCourseDescription',
                        'updateSelectedCourse',
+                       'updateTutorReqStep',
                        'resetRequestTutor',
                        'sendTutorRequest',
                        'updateMoreTutors',
@@ -157,6 +158,7 @@ export default {
                 
                 this.$store.commit('setIsFromTutorStep', true)
                 this.$store.commit('setComponent', 'register')
+                // this.updateTutorReqStep('tutorRequestUserInfo')
             let analyticsObject = {
                 userId: this.isLoggedIn ? this.accountUser.id : 'GUEST',
                 course: this.tutorCourse,
@@ -190,22 +192,11 @@ export default {
                     tutorId: tutorId,
                     moreTutors: this.moreTutors
                 }                    
-                let self = this;
-                this.sendTutorRequest(serverObj)
-                    .catch(err=>{
-                        let serverResponse = err.response.data || { error : [self.$t('tutorRequest_request_error')]};
-                        let errorMsg = serverResponse[Object.keys(serverResponse)[0]][0];
-                        self.$store.dispatch('updateToasterParams',{
-                            toasterText: errorMsg,
-                            showToaster: true,
-                            toasterType: 'error-toaster'
-                        });
-                    })
-                    .finally(()=>{
-                        this.isLoading = false;
-                        analyticsService.sb_unitedEvent('Request Tutor Submit', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
-                        this.updateSelectedCourse(this.tutorCourse)
-                    })
+                this.sendTutorRequest(serverObj).finally(()=>{
+                    this.isLoading = false;
+                    analyticsService.sb_unitedEvent('Request Tutor Submit', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
+                    this.updateSelectedCourse(this.tutorCourse)
+                })
             }
         },
         onCourseChange(e) {
