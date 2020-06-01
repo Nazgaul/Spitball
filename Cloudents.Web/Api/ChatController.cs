@@ -57,6 +57,21 @@ namespace Cloudents.Web.Api
             return result;
         }
 
+        [HttpGet("conversation/{id}/tutor")]
+        public async Task<ActionResult<ChatConversationDetailsDto>> GetConversationDetailAsync(string id, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var result = await _queryBus.QueryAsync(new ChatConversationDetailQuery(id, userId), token);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return result;
+        }
+
+
+
         /// <summary>
         /// Get User info - Used in StudyRoom
         /// </summary>
@@ -71,7 +86,6 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var result = await _queryBus.QueryAsync(new ChatConversationQuery(id, userId), token);
-            //var result = results.FirstOrDefault(f => f.ConversationId == id);
             if (result == null)
             {
                 return BadRequest();
@@ -125,10 +139,7 @@ namespace Cloudents.Web.Api
             try
             {
                 var userId = _userManager.GetLongUserId(User);
-                //if (userId == model.OtherUserId)
-                //{
-                //    return BadRequest();
-                //}
+              
                 var command = new ResetUnreadInChatCommand(userId, model.ConversationId);
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();

@@ -703,6 +703,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var result = await fixture.QueryBus.QueryAsync(query, default);
         }
 
+        [Fact]
+        public async Task ChatConversationDetailQuery_Ok()
+        {
+            var identifier = await fixture.StatelessSession.Query<ChatUser>().Where(w => w.User.Id == 638).Select(s => s.ChatRoom.Identifier).FirstAsync();
+            var query = new ChatConversationDetailQuery(identifier,638);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+
+        }
+
 
     }
 }
