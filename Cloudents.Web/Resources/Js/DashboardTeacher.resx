@@ -181,16 +181,16 @@
     <value>Book an onboarding session with a Spitball specialist</value>
   </data>
   <data name="link_text_calendar" xml:space="preserve">
-    <value>Set your calendar</value>
+    <value>Connect your calendar</value>
   </data>
   <data name="link_text_courses" xml:space="preserve">
     <value>Set the courses or subjects you want to teach</value>
   </data>
   <data name="link_text_edit" xml:space="preserve">
-    <value>Edit your profile page</value>
+    <value>Edit your site</value>
   </data>
   <data name="link_text_email" xml:space="preserve">
-    <value>Activate your email</value>
+    <value>Verify your email</value>
   </data>
   <data name="link_text_session" xml:space="preserve">
     <value>Set a live class</value>
