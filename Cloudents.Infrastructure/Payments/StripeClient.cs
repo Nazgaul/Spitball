@@ -283,6 +283,21 @@ namespace Cloudents.Infrastructure.Payments
             throw new NotImplementedException("We do not support this feature");
         }
 
+        public async Task<string> CreateStripeUrlAsync()
+        {
+            var options = new OAuthTokenCreateOptions
+            {
+                GrantType = "authorization_code",
+                Code = "ac_123456789",
+            };
+
+            var service = new OAuthTokenService();
+            var response = await service.CreateAsync(options);
+
+// Access the connected account id in the response
+            return response.StripeUserId;
+        }
+
 
 
 
