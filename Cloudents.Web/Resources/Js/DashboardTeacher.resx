@@ -165,6 +165,9 @@
   <data name="earn_money" xml:space="preserve">
     <value>Earn money by selling education content</value>
   </data>
+  <data name="email_verify" xml:space="preserve">
+    <value>An email sent, check your email</value>
+  </data>
   <data name="followers" xml:space="preserve">
     <value>Followers</value>
   </data>

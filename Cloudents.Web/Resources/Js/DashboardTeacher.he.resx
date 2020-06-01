@@ -165,6 +165,9 @@
   <data name="earn_money" xml:space="preserve">
     <value>הרוויחו כסף מחומרי הלימוד שלכם</value>
   </data>
+  <data name="email_verify" xml:space="preserve">
+    <value>דוא"ל נשלח</value>
+  </data>
   <data name="followers" xml:space="preserve">
     <value>עוקבים</value>
   </data>
