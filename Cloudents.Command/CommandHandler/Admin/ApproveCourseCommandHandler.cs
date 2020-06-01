@@ -20,7 +20,7 @@ namespace Cloudents.Command.CommandHandler.Admin
         public async Task ExecuteAsync(ApproveCourseCommand message, CancellationToken token)
         {
             var course = await _courseRepository.LoadAsync(message.Course, token);
-            var subject = await _subjectRepository.GetCourseSubjectByName(message.Subject
+            var subject = await _subjectRepository.GetCourseSubjectByNameAsync(message.Subject
                     , token);
             course.Approve();
             course.SetSubject(subject);
