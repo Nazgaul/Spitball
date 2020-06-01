@@ -14,16 +14,10 @@
                 <emptyUserIcon class="mb-4" v-else />
                 <div class="infoWrap mx-5">
                     <div class="tutorName mb-2">{{userName}}</div>
-                    <button class="tutorUrl text-truncate me-4 mb-4">{{userUrl}}</button>
+                    <button class="tutorUrl text-truncate me-4 mb-4" @click="$router.push(myProfileRedirect)">{{userUrl}}</button>
                     <v-btn 
                         class="btn align-self-end"
-                        :to="{
-                            name: profileName,
-                            params: {
-                                id: userId,
-                                name: userName
-                            }
-                        }"
+                        :to="myProfileRedirect"
                         v-if="isEditActionComplete"
                         rounded
                         outlined
@@ -193,6 +187,15 @@ export default {
         },
         userUrl() {
             return `${window.location.origin}/${this.userName}`
+        },
+        myProfileRedirect() {
+            return {
+                name: this.profileName,
+                params: {
+                    id: this.userId,
+                    name: this.userName
+                }
+            }
         }
     },
     methods: {
@@ -263,7 +266,6 @@ export default {
                 color: @global-purple;
             }
             .tutorUrl {
-                cursor: text;
                 color: @global-auth-text;
                 outline: none;
                 text-align: left;
