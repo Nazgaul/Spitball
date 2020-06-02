@@ -103,27 +103,21 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
 
-            if (user.PhoneNumberConfirmed)
-            {
-                if (isExternal)
-                {
-                    await _signInManager.SignInAsync(user, false);
-                    return ReturnSignUserResponse.SignIn();
-                }
+            //if (user.PhoneNumberConfirmed)
+            //{
+            //    if (isExternal)
+            //    {
+            //        await _signInManager.SignInAsync(user, false);
+            //        return ReturnSignUserResponse.SignIn();
+            //    }
 
-                throw new ArgumentException();
-            }
+            //    throw new ArgumentException();
+            //}
 
             if (user.PhoneNumber != null)
             {
-                var t1 = _signInManager.TempSignInAsync(user);
-                var t2 = _smsSender.SendSmsAsync(user, token);
-
-                await Task.WhenAll(t1, t2);
-                return new ReturnSignUserResponse(RegistrationStep.RegisterVerifyPhone, new
-                {
-                    phoneNumber = user.PhoneNumber
-                });
+                await _signInManager.SignInAsync(user, true);
+                return ReturnSignUserResponse.SignIn();
             }
 
             if (!user.EmailConfirmed)
