@@ -73,8 +73,7 @@ export default {
             return this.Feeds_getFilters;
         },
         showAnalyticStats() {
-            let user = this.$store.getters.accountUser;
-            return user && user.haveDocsWithPrice;
+            return this.$store.getters.getIsTeacher;
         }
     },
     watch: {

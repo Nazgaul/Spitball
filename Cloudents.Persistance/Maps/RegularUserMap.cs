@@ -50,13 +50,13 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Description);
             Map(x => x.CoverImage);
 
-            Component(x => x.BuyerPayment, y =>
-            {
-                y.Map(z => z!.PaymentKey);
-                y.Map(z => z!.PaymentKeyExpiration);
-                y.Map(z => z!.CreditCardMask);
+            //Component(x => x.BuyerPayment, y =>
+            //{
+            //    y.Map(z => z!.PaymentKey);
+            //    y.Map(z => z!.PaymentKeyExpiration);
+            //    y.Map(z => z!.CreditCardMask);
 
-            });
+            //});
 
             ReferencesAny(x => x.Payment)
                 .MetaType<string>()

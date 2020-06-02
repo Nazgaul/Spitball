@@ -1,8 +1,6 @@
 <template>
-    <v-row class="tableCoupon fullWidth mt-2 mt-sm-4 pa-4 pb-2 pb-sm-0 ma-0">
-        <v-col cols="12" class="pa-0">
-            <div class="mainTitle mb-2">{{$t('marketing_tableCoupon_title')}}</div>
-        </v-col>
+<!-- DELETE FILE -->
+    <div class="tableCoupon fullWidth mt-2 mt-sm-4 pa-4 pb-2 pb-sm-0 ma-0">
         <v-data-table
             :headers="headers"
             :items="coupons"
@@ -16,23 +14,40 @@
                 itemsPerPageOptions: [5]
             }">
 
+            <template v-slot:top>
+                <div class="tableTop d-flex flex-sm-row flex-column align-sm-center justify-space-between">
+                    <div class="myCoupons_title pb-3 pb-sm-0" v-t="'marketing_tableCoupon_title'"></div>
+                    <div>
+                        <v-btn
+                            @click="$store.commit('setComponent', 'createCoupon')"
+                            class="white--text"
+                            depressed
+                            rounded
+                            :block="$vuetify.breakpoint.xsOnly"
+                            color="#5360FC"
+                            v-t="'dashboardPage_my_content_upload'"
+                        ></v-btn>
+                    </div>
+               </div>
+            </template>
+
             <template v-slot:header.code="{header}">
-                {{$t(header.text)}}
+                <span v-t="header.text"></span>
             </template>
             <template v-slot:header.couponType="{header}">
-                {{$t(header.text)}}
+                <span v-t="header.text"></span>
             </template>
             <template v-slot:header.value="{header}">
-                {{$t(header.text)}}
+                <span v-t="header.text"></span>
             </template>
             <template v-slot:header.amountOfUsers="{header}">
-                {{$t(header.text)}}
+                <span v-t="header.text"></span>
             </template>
             <template v-slot:header.createTime="{header}">
-                {{$t(header.text)}}
+                <span v-t="header.text"></span>
             </template>
             <template v-slot:header.expiration="{header}">
-                {{$t(header.text)}}
+                <span v-t="header.text"></span>
             </template>
 
 
@@ -53,12 +68,12 @@
                 {{$t('marketing_tableCoupon_noCoupons')}}
             </template>
         </v-data-table>
-    </v-row>
+    </div>
 </template>
 
 <script>
-import storeService from '../../../../services/store/storeService';
-import couponStore from '../../../../store/couponStore';
+import storeService from '../../../../../services/store/storeService';
+import couponStore from '../../../../../store/couponStore';
 
 export default {
     name: "tableCoupon",
@@ -122,8 +137,8 @@ export default {
 </script>
 
 <style lang="less">
-    @import '../../../../styles/mixin.less';
-    @import '../../../../styles/colors.less';
+    @import '../../../../../styles/mixin.less';
+    @import '../../../../../styles/colors.less';
     .tableCoupon  {
         background: #fff;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
@@ -133,7 +148,7 @@ export default {
             box-shadow: none;
             border-radius: 0;
         }
-        .mainTitle {
+        .myCoupons_title {
             font-weight: 600;
             font-size: 16px;
             color: @global-purple;

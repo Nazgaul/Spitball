@@ -12,6 +12,9 @@ const pendingPayment = () => import('./pendingPayment.vue')
 const errorLinkToaster = () => import('./errorLinkToaster.vue')
 
 const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue')
+const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
+
+const phoneVerify = () => import('../dialogInjection/globalDialogs/auth/register/setPhone2.vue')
 
 const studRoomSettings = () => import('../../../studyroom/tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue')
 const createStudyRoomDialog = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue')
@@ -24,6 +27,8 @@ export default {
         pendingPayment,
         errorLinkToaster,
         upload,
+        createCoupon,
+        phoneVerify,
         studRoomSettings,
         createStudyRoomDialog,
         teacherBillOfflineDialog
@@ -117,6 +122,16 @@ export default {
                 },
                 upload: {
                     name: 'upload',
+                },
+                createCoupon: {
+                    name: 'createCoupon'
+                },
+                phoneVerify: {
+                    name: 'auth',
+                    params: {
+                        component: 'register',
+                        goTo: 'setPhone2'
+                    }
                 }
             }
         }

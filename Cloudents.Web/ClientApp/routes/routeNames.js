@@ -31,6 +31,7 @@ export const MyContent = 'myContent';
 export const MyStudyRooms = 'myStudyRooms';
 export const MyStudyRoomsBroadcast = 'myStudyRoomsBroadcast';
 export const MyCalendar = 'myCalendar';
+export const MyCoupons = 'myCoupons';
 
 // Home Page:
 export const HomePage = 'homePage';

@@ -1,6 +1,4 @@
-﻿using Cloudents.Command;
-using Cloudents.Command.Command;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
@@ -71,7 +69,7 @@ namespace Cloudents.Web.Api
             {
                 try
                 {
-                    return await MakeDecisionAsync(user, false,  token);
+                    return await MakeDecisionAsync(user, false, token);
                 }
                 catch (ArgumentException)
                 {
@@ -82,13 +80,13 @@ namespace Cloudents.Web.Api
             }
 
             var countryCode = await _countryProvider.GetUserCountryAsync(token);
-            user = new User(model.Email, model.FirstName, model.LastName, 
+            user = new User(model.Email, model.FirstName, model.LastName,
                 CultureInfo.CurrentCulture, countryCode, model.Gender);
             var p = await _userManager.CreateAsync(user, model.Password);
 
             if (p.Succeeded)
             {
-                var t2 =  GenerateEmailAsync(user,  token);
+                var t2 = GenerateEmailAsync(user, token);
                 var t1 = _signInManager.TempSignIn(user);
                 await Task.WhenAll(t1, t2);
                 return new ReturnSignUserResponse(RegistrationStep.RegisterSetPhone);
@@ -218,7 +216,7 @@ namespace Cloudents.Web.Api
                         }
                     }
                     await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-                    return await MakeDecisionAsync(user, true,  cancellationToken);
+                    return await MakeDecisionAsync(user, true, cancellationToken);
                 }
                 logClient.TrackTrace($"failed to register {string.Join(", ", result3.Errors)}");
 
@@ -232,23 +230,32 @@ namespace Cloudents.Web.Api
             }
 
             await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-            return await MakeDecisionAsync(user, true,  cancellationToken);
+            return await MakeDecisionAsync(user, true, cancellationToken);
         }
 
 
 
 
-        private async Task GenerateEmailAsync(User user,  CancellationToken token)
+        private async Task GenerateEmailAsync(User user, CancellationToken token)
         {
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             code = UrlEncoder.Default.Encode(code);
-          
+
             TempData[EmailTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
 
-            var link = Url.Link("ConfirmEmail", new { user.Id, code,  referral = TempData[HomeController.Referral] });
+            var link = Url.Link("ConfirmEmail", new { user.Id, code, referral = TempData[HomeController.Referral] });
             TempData[Email] = user.Email;
             var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link), CultureInfo.CurrentUICulture);
             await _queueProvider.InsertMessageAsync(message, token);
+        }
+
+        [Authorize]
+        [HttpPost("verifyEmail")]
+        public async Task<IActionResult> TutorVerifyEmail(CancellationToken token)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            await GenerateEmailAsync(user, token);
+            return Ok();
         }
 
         [HttpPost("resend")]
@@ -284,7 +291,7 @@ namespace Cloudents.Web.Api
             }
 
             TempData[EmailTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
-            await GenerateEmailAsync(user,  token);
+            await GenerateEmailAsync(user, token);
             return Ok();
         }
 
@@ -298,7 +305,7 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("childName"), Authorize]
-        public  IActionResult SetChildNameAsync()
+        public IActionResult SetChildNameAsync()
         {
             //var userId = _userManager.GetLongUserId(User);
             //var command = new SetChildNameCommand(userId, model.Name, model.Grade);
@@ -309,7 +316,7 @@ namespace Cloudents.Web.Api
         [HttpPost("grade")]
         public IActionResult SetUserGradeAsync()
         {
-          
+
             return Ok();
         }
     }

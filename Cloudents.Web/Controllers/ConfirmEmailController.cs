@@ -34,10 +34,10 @@ namespace Cloudents.Web.Controllers
                 return Redirect("/");
             }
 
-            if (User.Identity.IsAuthenticated)
-            {
-                return Redirect("/");
-            }
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    return Redirect("/");
+            //}
             model.Code = System.Net.WebUtility.UrlDecode(model.Code);
             var user = await _userManager.FindByIdAsync(model.Id.ToString());
             if (user is null)
@@ -46,10 +46,10 @@ namespace Cloudents.Web.Controllers
                 return Redirect("/");
             }
 
-            if (user.PhoneNumberConfirmed)
-            {
-                return RedirectToRoute(RegisterController.Signin);
-            }
+            //if (user.PhoneNumberConfirmed)
+            //{
+            //    return RedirectToRoute(RegisterController.Signin);
+            //}
             if (user.EmailConfirmed)
             {
                 return RedirectToRoute(RegisterController.Signin);
