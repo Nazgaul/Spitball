@@ -5,8 +5,8 @@
       </div>
       <div class="teacherInfoContent px-5 py-3">
          <div class="teacherAvatar text-center">
-            <user-avatar class="pt-2" :size="'107'" :userImageUrl="teacherAvatar" :user-name="teacherName"/>
-            <div class="teacherAvatarName text-center pt-2" v-t="{path:'chat_teacher_name',args:{0:teacherName}}"/>
+            <user-avatar class="pt-2" :size="'107'" :userImageUrl="tutorAvatar" :user-name="tutorName"/>
+            <div class="teacherAvatarName text-center pt-2" v-t="{path:'chat_teacher_name',args:{0:tutorName}}"/>
             <template v-if="isPrivetChat">
                <div class="teacherTeach pt-2">I teach : Math, Precalculus, Trigonometry and 7 more subjects. </div>
             <!-- <div  class="user-rank align-center">
@@ -19,22 +19,22 @@
             </template>
          </div>
          <div class="actionBoxs pt-4">
-            <div class="actionBox mb-3">
+            <v-btn block depressed text class="actionBox mb-3 cursor-pointer">
                <v-icon color="#4c59ff" size="20">sbf-book-calendar</v-icon>
                <div class="actionName" v-t="'chat_teacher_btn_book'"/>
-            </div>
-            <div class="actionBox mb-3">
+            </v-btn>
+            <v-btn v-if="showStudyRoomBtn" block depressed text class="actionBox mb-3 cursor-pointer" @click="isStudyRoom ? goToStudyRoom():createStudyRoom()">
                <v-icon color="#41c4bc" size="20">sbf-enter-room</v-icon>
-               <div class="actionName" v-t="'chat_teacher_btn_studyroom'"/>
-            </div>
-            <div class="actionBox mb-3">
+               <div class="actionName" v-t="isStudyRoom?'chat_teacher_btn_studyroom':'dashboardPage_my_studyrooms_create_room'"/>
+            </v-btn>
+            <v-btn :href="`mailto:${tutorEmail}`" block depressed text class="actionBox mb-3 cursor-pointer">
                <v-icon color="#de5642" size="16">sbf-email-chat</v-icon>
                <div class="actionName" v-t="'chat_teacher_btn_mail'"/>
-            </div>
-            <div class="actionBox mb-5">
+            </v-btn>
+            <v-btn block depressed text class="actionBox mb-5 cursor-pointer" @click="sendWhatsApp">
                <v-icon color="#29d367" size="20">sbf-whatsup-share</v-icon>
                <div class="actionName" v-t="'chat_teacher_btn_whatsapp'"/>
-            </div>
+            </v-btn>
          </div>
 
          <div class="participantList" v-if="!isPrivetChat">
@@ -46,15 +46,12 @@
                </span>
             </div>
             <v-list class="list flex-grow-1">
-               <template v-for="(item, index) in chatCounter">
-                  <v-divider :key="index+'_'"
-                     v-if="index > 0"
-                     class="dividerList"
-                  ></v-divider>
+               <template v-for="(item, index) in participants">
+                  <v-divider :key="index+'_'" v-if="index > 0" class="dividerList"></v-divider>
                   <v-list-item :key="index">
                      <div class="d-flex align-center">
-                        <user-avatar class="mr-4" :size="'32'" :userImageUrl="teacherAvatar" :user-name="teacherName"/>
-                        <span class="listUserTitle">{{teacherName}}</span>
+                        <user-avatar class="mr-4" :size="'32'" :userImageUrl="item.image" :user-name="item.name"/>
+                        <span class="listUserTitle">{{item.name}}</span>
                      </div>
                   </v-list-item>
                </template>
@@ -65,24 +62,69 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex';
+import * as routeNames from '../../../../routes/routeNames.js';
+
 export default {
    computed: {
       ...mapGetters(['accountUser','getActiveConversationObj']),
+      currentConversation(){
+         return this.getActiveConversationObj;
+      },
+      currentTutor(){
+         return this.$store.getters.getActiveConversationTutor;
+      },
+      tutorName(){
+         return this.currentTutor?.name
+      },
+      tutorEmail(){
+         return this.currentTutor?.email
+      },
+      tutorAvatar(){
+         if(this.currentTutor?.id){
+            let url = `https://spitball-dev-function.azureedge.net:443/api/image/user/${this.currentTutor?.id}/${this.currentTutor.image}`
+            return this.$proccessImageUrl(url)
+         }else{
+            return ''
+         }
+      },
       isPrivetChat(){
-         return this.chatCounter <= 2
-      },
-      teacherAvatar(){
-         return this.accountUser?.image;
-      },
-      teacherName(){
-         return this.accountUser?.name
+         return !this.currentConversation.users
       },
       chatCounter(){
-         return this.getActiveConversationObj?.conversationId?.split('_').length;
+         return this.currentConversation?.users?.length
+      },
+      participants(){
+         return this.currentConversation?.users
+      },
+      isStudyRoom(){ 
+         return this.currentTutor?.studyRoomId.split('0').join('').split('-').join('');
+      },
+      showStudyRoomBtn(){
+         if(this.isStudyRoom) return true;
+         return this.currentTutor?.id == this.$store.getters.accountUser?.id;
       }
    },
-
+   methods: {
+      goToStudyRoom(){
+         let routeParams = {
+            name: routeNames.StudyRoom,
+            params: {
+               id: this.currentTutor.studyRoomId
+            }
+         }
+         let routeData = this.$router.resolve(routeParams);
+         global.open(routeData.href, "_self");
+      },
+      createStudyRoom(){
+         this.$store.commit('setComponent', 'createPrivateSession')
+      },
+      sendWhatsApp(){
+         let phoneNumber = this.currentTutor.phoneNumber.replace('+','')
+         let defaultMessage = encodeURIComponent(this.$t('chat_whatsapp_default'));
+         window.open(`https://wa.me/${phoneNumber}?text=${defaultMessage}`);
+      },
+   },
 }
 </script>
 
@@ -133,8 +175,11 @@ export default {
             border: solid 1.5px #ced0dc75;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: space-evenly;
+            .v-btn__content{
+               flex-direction: column;
+               align-items: center;
+               justify-content: space-evenly;
+            }
             .actionName{
                font-size: 14px;
                font-weight: 600;
@@ -143,7 +188,7 @@ export default {
          }
       }
       .participantList{
-         height: 296px;
+         // height: 296px;
          border-radius: 6px;
          border: solid 1.5px #ced0dc75;
          display: flex;

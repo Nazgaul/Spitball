@@ -192,4 +192,7 @@
   <data name="teacher_name" xml:space="preserve">
     <value>Hi, I’m {0}</value>
   </data>
+  <data name="whatsapp_default" xml:space="preserve">
+    <value />
+  </data>
 </root>

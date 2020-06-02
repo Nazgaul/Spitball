@@ -1,3 +1,9 @@
+import axios from 'axios'
+
+const chatInstance = axios.create({
+    baseURL:'/api/chat'
+})
+
 import { connectivityModule } from "./connectivity.module";
 import { LanguageService } from './language/languageService';
 
@@ -12,6 +18,9 @@ function createConversationId(arrIds){
 function Conversation(objInit){
     if(objInit.users !== undefined){
         let isRoom = objInit.users.length > 1; 
+        if(isRoom){
+            this.users = objInit.users
+        }
         this.image = isRoom? '': objInit.users[0].image;
         this.online = false;
         this.name = objInit.users.map(u=>u.name).join(" ,");
@@ -30,6 +39,14 @@ function createConversation(objInit){
     return new Conversation(objInit);
 }
 
+function ConversationTutor(objInit){
+    this.id = objInit.id;
+    this.name = objInit.name;
+    this.image = objInit.image;
+    this.studyRoomId = objInit.studyRoomId;
+    this.email = objInit.email;
+    this.phoneNumber = objInit.phoneNumber;
+}
 function TextMessage(objInit, id, fromSignalR){
     this.userId= objInit.userId;
     this.text = objInit.text;
@@ -114,5 +131,9 @@ export default {
     createActiveConversationObj,
     createConversationId,
     createLastImageMsg,
-    uploadCapturedImage
+    uploadCapturedImage,
+    async getConversationTutor(id){ 
+        let {data} = await chatInstance.get(`conversation/${id}/tutor`);
+        return new ConversationTutor(data)
+    }
 }

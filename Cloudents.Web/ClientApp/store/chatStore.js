@@ -1,5 +1,6 @@
 import chatService from '../services/chatService';
 import analyticsService from '../services/analytics.service';
+import {chat_SETTERS,chat_ACTIONS} from './constants/chatConstants.js';
 
 
 const state = {
@@ -16,6 +17,7 @@ const state = {
     totalUnread: 0,
     chatLoader: false,
     isSyncing: true,
+    conversationsTutor:{},
 };
 const getters = {
     getFileError: state => state.fileError,
@@ -56,10 +58,15 @@ const getters = {
         })[0];
     },
     getActiveConversationObj:state=>state.activeConversationObj,
+    getActiveConversationTutor:state=> state.conversationsTutor[state.activeConversationObj.conversationId],
     getTotalUnread: state=>state.totalUnread,
 };
 
 const mutations = {
+    [chat_SETTERS.ACTIVE_CONVERSATION_TUTOR]:(state,tutorInfo) =>{
+        let currentConversationId = state.activeConversationObj.conversationId;
+        state.conversationsTutor = { ...state.conversationsTutor, [currentConversationId]:tutorInfo};
+    },
     setFileError(state,val){
         state.fileError = val;
     },
@@ -227,6 +234,7 @@ const actions = {
         dispatch('syncMessagesByConversationId');
         dispatch('clearUnread', obj.conversationId);//maybe we dont need it here
         dispatch('updateChatState', state.enumChatState.messages);
+        dispatch(chat_ACTIONS.UPDATE_CONVERSATION_TUTOR,obj.conversationId)
     },
     getAllConversations:({commit, getters, dispatch})=>{
         if(!getters.accountUser) {
@@ -334,6 +342,14 @@ const actions = {
     uploadCapturedImage(context, formData) {
         return chatService.uploadCapturedImage(formData);
     },
+    [chat_ACTIONS.UPDATE_CONVERSATION_TUTOR]: ({state,commit},conversationId) => {
+        if(!conversationId) return;
+        if(state.conversationsTutor[conversationId]) return;
+        
+        chatService.getConversationTutor(conversationId).then(tutorInfo=>{
+            commit(chat_SETTERS.ACTIVE_CONVERSATION_TUTOR,tutorInfo)
+        })
+    }
 };
 
 export default {
