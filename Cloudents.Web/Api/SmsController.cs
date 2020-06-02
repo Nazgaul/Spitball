@@ -241,7 +241,7 @@ namespace Cloudents.Web.Api
             });
         }
 
-        [HttpPost("resend")]
+        [HttpPost("resend"),Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -261,20 +261,7 @@ namespace Cloudents.Web.Api
                 return Ok();
             }
 
-
-            if (User.Identity.IsAuthenticated)
-            {
-                _logger.Error("Set User Phone number User is already sign in");
-                return Unauthorized();
-            }
-
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            if (user == null)
-            {
-                ModelState.AddModelError(string.Empty, _smsLocalizer["CannotResendSms"]);
-                return BadRequest(ModelState);
-            }
-
+            var user = await _userManager.GetUserAsync(User);
             TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
             await _client.SendSmsAsync(user, token);
             return Ok();
