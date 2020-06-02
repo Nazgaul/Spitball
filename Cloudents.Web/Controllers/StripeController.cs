@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 namespace Cloudents.Web.Controllers
 {
     [Authorize]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class StripeController : Controller
     {
         private readonly IStripeService _stripeService;
