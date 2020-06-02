@@ -12,6 +12,6 @@ namespace Cloudents.Web.Models
         /// <summary>
         /// The vote - None if you want to cancel the vote
         /// </summary>
-        public VoteType VoteType { get; set; }
+        public VoteType? VoteType { get; set; }
     }
 }

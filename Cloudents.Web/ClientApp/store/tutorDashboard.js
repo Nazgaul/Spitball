@@ -1,4 +1,4 @@
-// import axios from 'axios'
+import axios from 'axios'
 import constants from './constants/dashboardConstants';
 // const dashboardInstance = axios.create({
 //     baseURL: '/'
@@ -6,32 +6,6 @@ import constants from './constants/dashboardConstants';
 
 const state = {
     tutorLinkActions: {},
-    tutorLinkState: {
-        [constants.UPLOAD]: {
-            value: false,
-            priority: 1
-        },
-        [constants.CALENDAR]: {
-            value: false,
-            priority: 1
-        },
-        [constants.TEACH]: {
-            value: false,
-            priority: 1
-        },
-        [constants.SESSIONS]: {
-            value: false,
-            priority: 2
-        },
-        [constants.MARKETING]: {
-            value: false,
-            priority: 2
-        },
-        [constants.BOOK]: {
-            value: false,
-            priority: 3
-        },
-    },
     tutorNotificationsActions: {},
     tutorNotificationsState: {
         [constants.FOLLOWERS]: {
@@ -56,53 +30,61 @@ const getters = {
 
 const mutations = {
     setTutorListActions(state, data) {
-        console.log(data);
+        let tutorActions = new TutorAction(data)
         
-        for (const key in state.tutorLinkState) {
-            if(key) {
-                state.tutorLinkActions[key] = {
-                    value: state.tutorLinkState[key].value
-                }
+        function TutorAction(objInit) {
+            this.PHONE = { value: objInit.phoneVerified }
+            this.EMAIL = { value: objInit.emailVerified }
+            this.EDIT = { value: objInit.editProfile }
+            this.BOOK = { 
+                value: objInit.bookedSession.exists,
+                tutorId: objInit.bookedSession.tutorId,
             }
+            this.COURSES = { value: objInit.courses, }
+            this.STRIPE = { value: objInit.stripeAccount, }
+            this.CALENDAR = { value: objInit.calendarShared, }
+            this.TEACH = { value: objInit.haveHours, }
+            this.SESSIONS = { value: objInit.liveSession, }
+            this.UPLOAD = { value: objInit.uploadContent, }
         }
+        
+        state.tutorLinkActions = tutorActions
     },
-    setTutorNotifications(state, notifications) {
-        console.log(notifications);
-        
+    setTutorNotifications(state, data) {
+        let notifyObj = {}
+        let notifications = new Notifications(data)
+
         for (const key in state.tutorNotificationsState) {
-            if(key) {
-                state.tutorNotificationsActions[key] = {
-                    value: state.tutorNotificationsState[key].value
-                }
+            notifyObj[key] = {
+                value: notifications[key]
             }
         }
-        // function Notifications(objInit) {
-        //     // this.
-        // }
-        // notifications.map(notify => {
-        //     state.tutorNotificationsActions
-        // })
+
+        function Notifications(objInit) {
+            this.FOLLOWERS = objInit.calendarShared;
+            this.QUESTIONS = objInit.bookedSession;
+            this.PAYMENTS = objInit.haveHours;
+        }
+
+        state.tutorNotificationsActions = notifyObj
+    },
+    setEmailTask(state, email) {
+        state.tutorLinkActions[email].value = true
     }
 }
 
 const actions = {
     updateTutorLinks({commit}) {
-        // return dashboardInstance.getTutorDashboardList()
-            // .then(({data}) => {
-                commit('setTutorListActions')
-                // commit('setTutorListActions', data)
-                // }).catch(ex => {
-                // console.log(ex);
-            // })
+        return axios.get('/Account/tutorActions')
+            .then(({data}) => {
+                commit('setTutorListActions', data)
+            })
+            .catch(ex => {
+                console.log(ex);
+        });
     },
-    updateTutorNotifications({commit}) {
-        // return dashboardInstance.getTutorNotifications()
-            // .then(({data}) => {
-                commit('setTutorNotifications')
-                // commit('setTutorListActions', data)
-                // }).catch(ex => {
-                // console.log(ex);
-            // })
+    verifyTutorEmail() {
+        return axios.post('/register/verifyEmail')
     }
 }
 

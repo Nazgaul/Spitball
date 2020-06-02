@@ -120,7 +120,7 @@ export const dashboardRoutes = [
         path: '/dashboard',
         name: 'dashboardTeacher',
         components: {
-            default: () => import('../components/pages/dashboardPage/dashboardTeacherOld/dashboard.vue'),
+            default: () => import('../components/pages/dashboardPage/dashboardTeacher/dashboard.vue'),
             ...staticComponents(['banner', 'header', 'sideMenu'])
         },
         beforeEnter: (to, from, next) => {
@@ -137,8 +137,29 @@ export const dashboardRoutes = [
 
         },
     },
+    // {
+    //     path: "/my-coupons",
+    //     name: routeName.MyCoupons,
+    //     components: {
+    //         default: () => import('../components/pages/dashboardPage/myCoupons/myCoupons.vue'),
+    //         ...staticComponents(['banner', 'header', 'sideMenu']),
+    //     },
+    //     beforeEnter: (to, from, next) => {
+    //         if(store.getters.getIsTeacher){
+    //             next()
+    //             return
+    //         }
+    //         // Redirect to root
+    //         next('/')
+    //     },
+    //     meta: {
+    //         showMobileFooter: true,
+    //         requiresAuth: true,
+
+    //     }
+    // },
     {
         path: "/wallet",
         redirect: { name: routeName.MySales }
-    },
+    }
 ]

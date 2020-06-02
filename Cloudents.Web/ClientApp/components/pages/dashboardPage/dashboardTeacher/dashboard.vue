@@ -1,23 +1,24 @@
 <template>
   <div class="dashboardMain mr-md-6">
     <dashboardTutorActions />
-    <dashboardNotifications />
-    <marketingTools />
+    <!-- <dashboardNotifications /> -->
+    <dashboardMarketingTools />
     <spitballTips />
   </div>
 </template>
 
 <script>
+
 const dashboardTutorActions = () => import('./dashboardTutorActions.vue');
-const dashboardNotifications = () => import('./dashboardNotifications.vue');
-const marketingTools = () => import('./marketingTools.vue');
+// const dashboardNotifications = () => import('./dashboardNotifications.vue');
+const dashboardMarketingTools = () => import('../dashboardTeacher/dashboardMarketingTools.vue')
 const spitballTips = () => import('./spitballTips.vue');
 
 export default {
   components: {
     dashboardTutorActions,
-    dashboardNotifications,
-    marketingTools,
+    // dashboardNotifications,
+    dashboardMarketingTools,
     spitballTips,
   }
 }

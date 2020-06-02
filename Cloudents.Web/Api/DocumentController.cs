@@ -152,7 +152,7 @@ namespace Cloudents.Web.Api
             var userId = _userManager.GetLongUserId(User);
             try
             {
-                var command = new AddVoteDocumentCommand(userId, model.Id, model.VoteType);
+                var command = new AddVoteDocumentCommand(userId, model.Id, model.VoteType.GetValueOrDefault(VoteType.None));
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
