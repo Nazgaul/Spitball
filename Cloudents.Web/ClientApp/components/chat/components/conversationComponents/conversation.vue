@@ -8,7 +8,7 @@
       <v-flex class="top-detail-container">
 
         <v-flex class="top-detail-container-wrap">
-          <div class="conversation-name text-truncate">{{conversation.name}}</div>
+          <div :class="['conversation-name','text-truncate',{'font-weight-bold':isConversationUnread}]" class="">{{conversation.name}}</div>
           <span class="conversation-date">{{date}}</span>
         </v-flex>
 
@@ -46,6 +46,9 @@ export default {
     },
     userImg() {
       return utilitiesService.proccessImageURL(this.conversation.image, 46, 46);
+    },
+    isConversationUnread(){
+      return this.conversation.unread > 0;
     }
   }
 };
@@ -87,7 +90,6 @@ export default {
         .conversation-name{
           max-width: 160px;
           font-size: 14px;
-          font-weight: bold;
           color: #43425d;
           align-items: center;
           word-break: break-all;
