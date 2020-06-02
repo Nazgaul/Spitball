@@ -84,10 +84,10 @@ const actions = {
                 console.log(ex);
         });
     },
-    updatePhoneCode({commit}) {
+    updatePhoneCode() {
         return registerService.sendSmsCode()
             .then(() => {
-                commit('setComponent', 'verifyPhone')
+                // commit('setComponent', 'verifyPhone')
                 return
             }).catch(ex => ex)
     },

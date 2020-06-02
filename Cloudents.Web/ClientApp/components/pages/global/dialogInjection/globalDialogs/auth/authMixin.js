@@ -43,6 +43,9 @@ export default {
         policyLink() {
             let isFrymo = this.$store.getters.isFrymo
             return isFrymo ? 'https://help.frymo.com/en/policies' : 'https://help.spitball.co/en/article/privacy-policy'
+        },
+        isLogged() {
+            return this.$store.getters.getUserLoggedInStatus
         }
     },
     methods: {
@@ -134,7 +137,13 @@ export default {
             }
             return false
         },
-        sendSms(){
+        sendSms() {
+            // when tutor is in dashboard and want change number
+            if(this.isLogged) {
+                this.component = 'verifyPhone'
+                return
+            }
+
             let childComp = this.$refs.childComponent
             let smsObj = {
                 countryCode: childComp.localCode,

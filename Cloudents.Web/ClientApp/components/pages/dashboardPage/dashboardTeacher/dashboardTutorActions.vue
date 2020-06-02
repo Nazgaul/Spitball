@@ -213,15 +213,7 @@ export default {
     },
     methods: {
         openPhoneDialog() {
-            let self = this
-            this.$store.dispatch('updatePhoneCode').then(() => {
-                self.$store.dispatch('updateToasterParams',{
-                    toasterText: self.$t("login_verification_code_sent_to_phone"),
-                    showToaster: true,
-                });
-            }).catch(ex => {
-                self.$appInsights.trackException(ex);
-            })
+            this.$store.commit('setComponent', 'verifyPhone')
         },
         bookSession() {
             this.$router.push({
