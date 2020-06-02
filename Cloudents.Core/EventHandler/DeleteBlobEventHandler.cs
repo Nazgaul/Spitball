@@ -21,7 +21,7 @@ namespace Cloudents.Core.EventHandler
             return _blobProvider.DeleteDirectoryAsync(eventMessage.Document.Id.ToString(), token);
         }
 
-        public async Task HandleAsync(DeleteUserEvent eventMessage, CancellationToken token)
+        public Task HandleAsync(DeleteUserEvent eventMessage, CancellationToken token)
         {
             var tasks = new List<Task>();
             foreach (var document in eventMessage.User.Documents)
@@ -29,7 +29,7 @@ namespace Cloudents.Core.EventHandler
                 tasks.Add(  _blobProvider.DeleteDirectoryAsync(document.Id.ToString(), token));
             }
 
-            await Task.WhenAll(tasks);
+            return Task.WhenAll(tasks);
         }
     }
 }
