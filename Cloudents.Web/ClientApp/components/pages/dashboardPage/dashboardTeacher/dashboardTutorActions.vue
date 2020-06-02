@@ -155,7 +155,7 @@ export default {
                     color: colors.yellow,
                     text: 'dashboardTeacher_link_text_session',
                     btnText: 'dashboardTeacher_btn_text_session',
-                    routeName: { name: routeName.MyStudyRooms }
+                    routeName: { name: routeName.MyStudyRoomsBroadcast }
                 },
                 [constants.UPLOAD]: {
                     color: colors.yellow,
