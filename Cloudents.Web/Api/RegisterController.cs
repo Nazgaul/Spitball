@@ -87,7 +87,7 @@ namespace Cloudents.Web.Api
             if (p.Succeeded)
             {
                 var t2 = GenerateEmailAsync(user, token);
-                var t1 = _signInManager.TempSignIn(user);
+                var t1 = _signInManager.TempSignInAsync(user);
                 await Task.WhenAll(t1, t2);
                 return new ReturnSignUserResponse(RegistrationStep.RegisterSetPhone);
             }
@@ -116,7 +116,7 @@ namespace Cloudents.Web.Api
 
             if (user.PhoneNumber != null)
             {
-                var t1 = _signInManager.TempSignIn(user);
+                var t1 = _signInManager.TempSignInAsync(user);
                 var t2 = _smsSender.SendSmsAsync(user, token);
 
                 await Task.WhenAll(t1, t2);
@@ -130,7 +130,7 @@ namespace Cloudents.Web.Api
             {
                 await GenerateEmailAsync(user, token);
             }
-            await _signInManager.TempSignIn(user);
+            await _signInManager.TempSignInAsync(user);
             return new ReturnSignUserResponse(RegistrationStep.RegisterSetPhone);
         }
 
