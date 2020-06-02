@@ -94,6 +94,10 @@ namespace Cloudents.Persistence.Maps
                 .KeyColumn("UserId").Cascade.AllDeleteOrphan()
                 .Inverse();
 
+            HasMany(x => x.SessionPayments)
+                .KeyColumn("UserId").Cascade.AllDeleteOrphan()
+                .Inverse();
+
             //We are using cascade all because we need to save the tutor in Become Tutor command handler
 
             //HasMany(x => x.UserComponents).Inverse().Cascade.AllDeleteOrphan();//.Inverse();
