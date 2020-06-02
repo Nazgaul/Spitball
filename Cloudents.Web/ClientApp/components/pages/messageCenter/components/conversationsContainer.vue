@@ -156,6 +156,7 @@ export default {
 
       }
       .conversationsList{
+         padding-right: 2px;
          height: calc(~"100% - 178px"); // header || mobile footer height & search and sort height
       }
    }

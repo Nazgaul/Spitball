@@ -1,5 +1,6 @@
 <template>
 <div class="message_wrap" >
+    <!-- <component v-if="isMine" :message="message" :is="currentMessageComponent"></component> -->
     <div class="message-wrapper" :class="{'myMessage': isMine}">
         <div class="message" :class="{'myMessage': isMine, 'imgMessage': message.type === 'file'}" >
             <div dir="auto" v-html="$chatMessage(message)"></div>
@@ -19,10 +20,11 @@
 import {mapGetters} from 'vuex';
 import doubleCheck from '../../images/group-2.svg';
 import timeAgoService from '../../../../services/language/timeAgoService';
-
+import myMessage from './myMessage.vue';
 export default {
     components: {
-        doubleCheck
+        doubleCheck,
+        myMessage,
     },
     props:{
         message:{
@@ -39,7 +41,11 @@ export default {
         date() {
             return timeAgoService.timeAgoFormat(this.message.dateTime)
         },
-    }
+        currentMessageComponent(){
+            return 'myMessage'
+        }
+    },
+
 }
 
 </script>
