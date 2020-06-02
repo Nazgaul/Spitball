@@ -97,6 +97,7 @@
             .timer-icon{
                 fill: @color-white;
                 max-width: 24px;
+                height: 24px; // overide global svg height
             }
         }
     }

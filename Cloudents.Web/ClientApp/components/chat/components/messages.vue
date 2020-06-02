@@ -1,9 +1,9 @@
 <template>
     <div class="messages-container">
         <v-layout column class="messages-wrapper">
-            <router-link v-if="$route.name !== studyRoomRoute" class="messages-header" :to="{name:myStudyRoomsRoute}">
+            <!-- <router-link v-if="$route.name !== studyRoomRoute" class="messages-header" :to="{name:myStudyRoomsRoute}">
                 {{$t('chat_go_study')}}
-            </router-link>
+            </router-link> -->
             <div class="messages-body">
                 <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index" :lastMsgIndex="index === messages.length - 1"></message>
             </div>

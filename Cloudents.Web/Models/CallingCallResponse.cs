@@ -1,7 +1,5 @@
 ﻿namespace Cloudents.Web.Models
 {
-   
-
     public class CallingCallResponse
     {
         public CallingCallResponse(string? code, string? country)
@@ -14,16 +12,4 @@
 
         public string? Country { get; }
     }
-
-    //public enum NextStep
-    //{
-    //    EmailConfirmed,
-    //    VerifyPhone,
-    //    EnterPhone,
-    //    EmailPassword,
-    //    ExpiredStep,
-    //    // ReSharper disable once IdentifierTypo - this is because client sucks
-    //    Loginstep,
-    //    StartStep
-    //}
 }
