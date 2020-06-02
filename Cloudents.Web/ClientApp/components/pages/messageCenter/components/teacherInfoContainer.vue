@@ -11,7 +11,8 @@
                <div class="teacherAvatarName text-center pt-2" v-t="{path:'chat_teacher_name',args:{0:tutorName}}"/>
             </div>
             <div class="actionBoxs pt-4">
-               <v-btn block depressed text class="actionBox mb-3 cursor-pointer" @click="bookSession">
+               <v-btn v-if="isBookSession" block depressed text class="actionBox mb-3 cursor-pointer" 
+                  :to="{name: profileRoute,params: {id: currentTutor.id,name: currentTutor.name}}">
                   <v-icon color="#4c59ff" size="20">sbf-book-calendar</v-icon>
                   <div class="actionName" v-t="'chat_teacher_btn_book'"/>
                </v-btn>
@@ -61,7 +62,8 @@ import * as routeNames from '../../../../routes/routeNames.js';
 export default {
    data() {
       return {
-         isRtl:global.isRtl
+         isRtl:global.isRtl,
+         profileRoute: routeNames.Profile,
       }
    },
    computed: {
@@ -90,8 +92,7 @@ export default {
          return this.currentConversation?.users
       },
       isStudyRoom(){ 
-         // TODO: remove it when ram fix the api call
-         return this.currentTutor?.studyRoomId.split('0').join('').split('-').join('');
+         return this.currentTutor?.studyRoomId
       },
       showStudyRoomBtn(){
          if(this.isStudyRoom) return true;
@@ -102,6 +103,9 @@ export default {
       },
       isMobile(){
          return this.$vuetify.breakpoint.xsOnly;
+      },
+      isBookSession(){
+         return this.currentTutor?.calendar;
       }
    },
    methods: {
@@ -109,7 +113,7 @@ export default {
          let routeParams = {
             name: routeNames.StudyRoom,
             params: {
-               id: this.currentTutor.studyRoomId
+               id: this.currentTutor?.studyRoomId
             }
          }
          let routeData = this.$router.resolve(routeParams);
@@ -122,9 +126,6 @@ export default {
          let phoneNumber = this.currentTutor.phoneNumber.replace('+','')
          let defaultMessage = encodeURIComponent(this.$t('chat_whatsapp_default'));
          window.open(`https://wa.me/${phoneNumber}?text=${defaultMessage}`);
-      },
-      bookSession(){
-         // TODO: when ram fix the api call,if calendar so send to his profile
       }
    },
 }

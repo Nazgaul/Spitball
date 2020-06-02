@@ -41,9 +41,10 @@ function ConversationTutor(objInit){
     this.id = objInit.id;
     this.name = objInit.name;
     this.image = objInit.image;
-    this.studyRoomId = objInit.studyRoomId;
+    this.studyRoomId = objInit.studyRoomId || null;
     this.email = objInit.email;
     this.phoneNumber = objInit.phoneNumber;
+    this.calendar = objInit.calendar;
 }
 function TextMessage(objInit, id, fromSignalR){
     this.userId= objInit.userId;

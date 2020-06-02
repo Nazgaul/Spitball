@@ -20,11 +20,11 @@
 import {mapGetters} from 'vuex';
 import doubleCheck from '../../images/group-2.svg';
 import timeAgoService from '../../../../services/language/timeAgoService';
-import myMessage from './myMessage.vue';
+// import myMessage from './myMessage.vue';
 export default {
     components: {
         doubleCheck,
-        myMessage,
+        // myMessage,
     },
     props:{
         message:{

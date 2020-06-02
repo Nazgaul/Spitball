@@ -1,11 +1,7 @@
 <template>
    <v-card color="#deedff" tile class="myMessageContainer pa-3">
-      <v-card-title class="messageTitle pa-0">
-         {{userName}}:
-      </v-card-title>
-      <v-card-text tag="p" dir="auto" class="messageText px-0 pb-0 pt-1">
-            {{message.text}}
-      </v-card-text>
+      <v-card-title class="messageTitle pa-0" v-text="userName + ':'"/>
+      <v-card-text dir="auto" class="messageText px-0 pb-0 pt-1" v-text="message.text"/>
    </v-card>
 </template>
 
@@ -19,7 +15,6 @@ export default {
    },
    computed: {
       userName(){
-         console.log(this.message.text)
          return this.$store.getters.accountUser?.name
       }
    },
@@ -44,10 +39,9 @@ export default {
    .messageText{
       font-size: 14px;
       color: black !important;
-      // line-height: normal;
-      // white-space: pre-wrap;
-      // white-space: pre-line;
-      // word-break: break-word;
+      line-height: normal;
+      white-space: pre-wrap;
+      word-break: break-word;
    }
 }
 </style>
