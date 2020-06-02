@@ -36,14 +36,14 @@ const mutations = {
             this.EDIT = { value: objInit.editProfile }
             this.BOOK = { 
                 value: objInit.bookedSession.exists,
-                tutorId: objInit.bookedSession.tutorId,
+                tutorId: objInit.bookedSession.tutorId
             }
-            this.COURSES = { value: objInit.courses, }
-            this.STRIPE = { value: objInit.stripeAccount, }
-            this.CALENDAR = { value: objInit.calendarShared, }
-            this.TEACH = { value: objInit.haveHours, }
-            this.SESSIONS = { value: objInit.liveSession, }
-            this.UPLOAD = { value: objInit.uploadContent, }
+            this.COURSES = { value: objInit.courses }
+            this.STRIPE = { value: objInit.stripeAccount }
+            this.CALENDAR = { value: objInit.calendarShared }
+            this.TEACH = { value: objInit.haveHours }
+            this.SESSIONS = { value: objInit.liveSession }
+            this.UPLOAD = { value: objInit.uploadContent }
         }
         
         state.tutorLinkActions = tutorActions

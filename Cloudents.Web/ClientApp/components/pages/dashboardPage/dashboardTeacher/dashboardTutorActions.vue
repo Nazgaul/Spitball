@@ -14,16 +14,10 @@
                 <emptyUserIcon class="mb-4" v-else />
                 <div class="infoWrap mx-5">
                     <div class="tutorName mb-2">{{userName}}</div>
-                    <button class="tutorUrl text-truncate me-4 mb-4">{{userUrl}}</button>
+                    <button class="tutorUrl text-truncate me-4 mb-4" @click="$router.push(myProfileRedirect)">{{userUrl}}</button>
                     <v-btn 
                         class="btn align-self-end"
-                        :to="{
-                            name: profileName,
-                            params: {
-                                id: userId,
-                                name: userName
-                            }
-                        }"
+                        :to="myProfileRedirect"
                         v-if="isEditActionComplete"
                         rounded
                         outlined
@@ -46,12 +40,25 @@
             <div class="linkWrap d-flex align-center justify-space-between py-4" v-for="action in tutorActionsFilterList" :key="action.name">
                 <div class="linkBorded" :style="{background: action.color}"></div>
                 <div class="link d-flex align-center" :class="{'mobileLayout': isMobile}">
-                    <component :is="isMobile ? 'router-link' : 'div'" class="linkWrapper d-flex" @click="action.method ? action.method() : ''" :to="isMobile ? action.routeName : null">
+                    <component :is="isMobile ? 'router-link' : 'div'" class="linkWrapper d-flex" @click="action.method ? action.method() : ''" :to="action.routeName ? action.routeName : ''">
                         <circleArrow class="arrowIcon" width="23" :stroke="action.color" />
                     </component>
                     <div class="ms-sm-4 me-2 text-truncate" v-t="action.text"></div>
                 </div>
-                <v-btn v-if="!isMobile" class="btn" rounded outlined exact depressed color="#4c59ff" width="120" @click="action.method ? action.method() : ''" :to="action.routeName" v-t="action.btnText"></v-btn>
+                <v-btn 
+                    v-if="!isMobile" 
+                    @click="action.method ? action.method() : ''"
+                    :to="action.routeName ? action.routeName : ''"
+                    v-t="action.btnText"
+                    class="btn"
+                    rounded
+                    outlined
+                    exact
+                    depressed
+                    color="#4c59ff"
+                    width="120"
+                >
+                </v-btn>
             </div>
         </div>
 
@@ -148,7 +155,7 @@ export default {
                     color: colors.yellow,
                     text: 'dashboardTeacher_link_text_session',
                     btnText: 'dashboardTeacher_btn_text_session',
-                    routeName: { name: routeName.MyStudyRooms }
+                    routeName: { name: routeName.MyStudyRoomsBroadcast }
                 },
                 [constants.UPLOAD]: {
                     color: colors.yellow,
@@ -193,6 +200,15 @@ export default {
         },
         userUrl() {
             return `${window.location.origin}/${this.userName}`
+        },
+        myProfileRedirect() {
+            return {
+                name: this.profileName,
+                params: {
+                    id: this.userId,
+                    name: this.userName
+                }
+            }
         }
     },
     methods: {
@@ -274,7 +290,6 @@ export default {
                 color: @global-purple;
             }
             .tutorUrl {
-                cursor: text;
                 color: @global-auth-text;
                 outline: none;
                 text-align: left;
@@ -301,7 +316,8 @@ export default {
                     color:#69687d;
                     font-weight: 600;
                     .arrowIcon {
-                        transform: scaleX(1) /*rtl:scaleX(-1)*/;
+                        transform: scaleX(1)/*rtl:append:scaleX(-1)*/; 
+                        width: auto; //only to support the rtl rule
                     }
 
                     &.mobileLayout {
