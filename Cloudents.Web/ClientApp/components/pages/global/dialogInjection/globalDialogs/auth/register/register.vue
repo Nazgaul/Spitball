@@ -199,9 +199,9 @@ export default {
                 lastName: childComp.lastName,
                 email: childComp.email,
                 password: childComp.password,
-                captcha: this.recaptcha
+                captcha: this.recaptcha,
+                userType: this.teacher ? 'tutor' : 'student'
             }
-
             let self = this
             registrationService.emailRegistration(emailRegister)
                 .then(({data}) => {

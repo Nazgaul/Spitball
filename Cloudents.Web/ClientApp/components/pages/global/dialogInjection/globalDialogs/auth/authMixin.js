@@ -74,7 +74,8 @@ export default {
         gmailRegister() {
             this.googleLoading = true;
             let self = this
-            registrationService.googleRegistration()
+            let userType = this.teacher ? 'tutor' : 'student'
+            registrationService.googleRegistration(userType)
                 .then(({data}) => {
                     self.googleLoading = false;
                     if (!data.isSignedIn) {
