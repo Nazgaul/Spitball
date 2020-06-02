@@ -23,7 +23,7 @@ namespace Cloudents.Core.Interfaces
         Task<string> SubscribeToTutorAsync(long tutorId, string userEmail, string successCallback,
             string fallbackCallback, CancellationToken token);
 
-        Task<string> CreateStripeUrlAsync(string code, CancellationToken token);
+        Task<string> GetStripeUserIdAsync(string code, CancellationToken token);
         //Task<string?> RetrieveCustomerIdAsync(string email, CancellationToken token);
     }
 }

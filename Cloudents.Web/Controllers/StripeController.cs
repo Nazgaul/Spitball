@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
@@ -15,7 +13,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Stripe;
 
 namespace Cloudents.Web.Controllers
 {
@@ -65,12 +62,12 @@ namespace Cloudents.Web.Controllers
             return Redirect(redirectUrl);
         }
 
-        [Route("finish-connect", Name = "stripe-finish-connect")]
+        [Route("stripe-finish-connect", Name = "stripe-finish-connect")]
         public async Task<IActionResult> StripeFinishConnect([FromQuery]string code, CancellationToken token)
         {
             var user = await _userManager.GetUserAsync(User);
-            var tokenXX = await _stripeService.CreateStripeUrlAsync(code, token);
-            var command = new AddSellerTokenCommand(user.Email, tokenXX);
+            var stripeUserId = await _stripeService.GetStripeUserIdAsync(code, token);
+            var command = new AddSellerTokenCommand(user.Email, stripeUserId);
             await _commandBus.DispatchAsync(command, token);
             return RedirectToAction("Index", "Home");
         }
@@ -81,6 +78,10 @@ namespace Cloudents.Web.Controllers
         {
             var clientId = _configuration["Stripe:Connect"];
             var user = await _userManager.GetUserAsync(User);
+            if (user.Tutor == null)
+            {
+                return Redirect("/");
+            }
             var homePage = Url.RouteUrl("stripe-finish-connect");
             var profileUrl = Url.RouteUrl(SeoTypeString.Tutor, new
             {

@@ -283,7 +283,7 @@ namespace Cloudents.Infrastructure.Payments
             throw new NotImplementedException("We do not support this feature");
         }
 
-        public async Task<string> CreateStripeUrlAsync(string code, CancellationToken token)
+        public async Task<string> GetStripeUserIdAsync(string code, CancellationToken token)
         {
             var options = new OAuthTokenCreateOptions
             {

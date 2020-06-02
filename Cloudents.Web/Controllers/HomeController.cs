@@ -14,9 +14,6 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
-using Cloudents.Web.Extensions;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Cloudents.Web.Controllers
 {
