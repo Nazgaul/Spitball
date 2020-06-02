@@ -89,7 +89,9 @@ namespace Cloudents.Query.Tutor
                     .ToFutureValue(f => f.Any());
 
 
-
+                var stripeConnectFuture = _session.Query<Core.Entities.Tutor>()
+                    .Where(w => w.Id == query.UserId)
+                    .Select(s => s.SellerKey).ToFutureValue();
 
 
                 var calendarShared = await calendarFuture.GetValueAsync(token);
@@ -106,7 +108,7 @@ namespace Cloudents.Query.Tutor
                     Courses = coursesFuture.Value,
                     LiveSession = liveSessionFuture.Value,
                     UploadContent = documentFuture.Value,
-                    StripeAccount = true,
+                    StripeAccount = stripeConnectFuture.Value != null && userDetails.SbCountry == Country.UnitedStates,
                     BookedSession = new BookedSession()
                     {
                         Exists = bookedSession?.Id != null,
