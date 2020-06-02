@@ -88,8 +88,9 @@ export default {
                         return
                     }
                     analyticsService.sb_unitedEvent('Login', 'Start Google')
-
+                    
                     if(self.presetRouting()) return
+
                     window.location.reload()
                 }).catch(error => {
                     self.$emit('showToasterError', error);

@@ -22,7 +22,7 @@ const errorHandler = function (err) {
     analyticsService.sb_fireTimingAnalytic(this.requestMethod, this.path, endTime - this.startTime, "ERROR");
 
     if (err.response.status === 401) {
-        global.location = '/signin';
+        global.location = '/?authDialog=register';
     } else if (err.response.status === 404) {
         global.location = '/error/notfound';
     } else {

@@ -137,7 +137,12 @@ export default {
         }
     },
     watch: {
-        "$store.getters.getComponent": "showComponent"
+        "$store.getters.getComponent":{
+            immediate:true,
+            handler(newVal){
+                this.showComponent(newVal)
+            }
+        },
     },
     methods: {
         showComponent(componentName = "") {
