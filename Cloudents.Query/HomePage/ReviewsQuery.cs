@@ -66,7 +66,7 @@ namespace Cloudents.Query.HomePage
 
     public class ReviewDto
     {
-        public string Text { get; set; }
+        public string? Text { get; set; }
         public string UserName { get; set; }
         public string? TutorImage { get; set; }
         public string TutorName { get; set; }

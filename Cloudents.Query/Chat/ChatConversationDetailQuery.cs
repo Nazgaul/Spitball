@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.Users;
@@ -59,7 +60,7 @@ namespace Cloudents.Query.Chat
                {
                    return null;
                }
-               details.StudyRoomId = studyRoomFuture.Value;
+               details.StudyRoomId = studyRoomFuture.Value == Guid.Empty ? new Guid?() : studyRoomFuture.Value;
                return details;
             }
         }
