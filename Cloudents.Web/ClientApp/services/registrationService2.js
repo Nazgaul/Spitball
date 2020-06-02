@@ -45,10 +45,11 @@ export default {
     // resetPassword: email => authInstance.post("/ForgotPassword", email), // ok
     // emailForgotPasswordResend: () => authInstance.post("/ForgotPassword/resend"), // not ok ?? not sure if need it anymore @idan ///// signin/forgot-password
     // updatePassword: (password, id, code) => authInstance.post("/ForgotPassword/reset", {id, code, password}), // not ok // what about change password
-    smsRegistration: smsObj => authInstance.post("/sms", smsObj), // ok
-    // voiceConfirmation: () => authInstance.post("/sms/call"), // ok
-    smsCodeVerification: data => authInstance.post("/sms/verify", data), // ok
+    smsRegistration: smsObj => authInstance.post("/sms", smsObj),
+    voiceConfirmation: () => authInstance.post("/sms/call"),
+    smsCodeVerification: data => authInstance.post("/sms/verify", data),
     getLocalCode: () => authInstance.get("/sms/code"), // ok
+    sendSmsCode: () => authInstance.post("/sms/sendCode"),
+    resendCode: () => authInstance.post("/sms/resend"),
     // emailResend: () => authInstance.post("Register/resend"),
-    // resendCode: () => authInstance.post("/sms/resend"),
 }

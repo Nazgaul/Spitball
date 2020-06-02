@@ -197,7 +197,15 @@ export default {
     },
     methods: {
         openPhoneDialog() {
-            this.$store.commit('setComponent', 'phoneVerify')
+            let self = this
+            this.$store.dispatch('updatePhoneCode').then(() => {
+                self.$store.dispatch('updateToasterParams',{
+                    toasterText: self.$t("login_verification_code_sent_to_phone"),
+                    showToaster: true,
+                });
+            }).catch(ex => {
+                self.$appInsights.trackException(ex);
+            })
         },
         bookSession() {
             this.$router.push({
@@ -211,9 +219,9 @@ export default {
         verifyEmail() {
             this.$store.dispatch('verifyTutorEmail').then(() => {
                 this.verifyEmailState = true
-                this.$store.commit('setEmailTask', constants.EMAIL)
+                this.$store.commit('setEmailTaskComplete', constants.EMAIL)
             }).catch(ex => {
-                console.log(ex);
+                self.$appInsights.trackException(ex);
             })
         },
         addStripe() {

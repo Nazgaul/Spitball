@@ -96,43 +96,20 @@ export default {
                     self.$appInsights.trackException(error)
                 })
         },
-        // verifyPhone(){
-        //     let childComp = this.$refs.childComponent
+        verifyPhone(){
+            let childComp = this.$refs.childComponent
 
-		// 	let self = this
-		// 	registrationService.smsCodeVerification({number: childComp.smsCode})
-		// 		.then(userId => {
-        //             let { dispatch } = self.$store
-
-        //             analyticsService.sb_unitedEvent('Registration', 'Phone Verified');
-        //             if(!!userId){
-        //                 analyticsService.sb_unitedEvent('Registration', 'User Id', userId.data.id);
-        //             }
-
-        //             if(self.presetRouting()) return
-
-		// 			dispatch('userStatus').then(user => {
-        //                 // when user is register and pick teacher, redirect him to his profile page
-        //                 if(self.teacher) {
-        //                     self.$router.push({
-        //                         name: self.routeNames.Profile,
-        //                         params: {
-        //                             id: user.id,
-        //                             name: user.name,
-        //                         },
-        //                         query: {
-        //                             dialog: 'becomeTutor'
-        //                         }
-        //                     })
-        //                     return
-        //                 }
-        //                 self.$router.push({name: self.routeNames.LoginRedirect})
-        //             })
-		// 		}).catch(error => {
-        //             self.errors.code = self.$t('loginRegister_invalid_code')
-        //             self.$appInsights.trackException(error);
-        //         })
-        // },
+			let self = this
+			registrationService.smsCodeVerification({number: childComp.smsCode})
+				.then(() => {
+                    analyticsService.sb_unitedEvent('Registration', 'Phone Verified');
+                    self.$store.commit('setComponent', '');
+                    self.$store.commit('setPhoneTaskComplete');
+				}).catch(error => {
+                    self.errors.code = self.$t('loginRegister_invalid_code')
+                    self.$appInsights.trackException(error);
+                })
+        },
         presetRouting() {
             this.setStatusLogin()
 
@@ -167,12 +144,28 @@ export default {
                 .then(function (){
                     let { dispatch } = self.$store
 
-                    dispatch('updateToasterParams',{
-                        toasterText: self.$t("login_verification_code_sent_to_phone"),
-                        showToaster: true,
-                    });
                     analyticsService.sb_unitedEvent('Registration', 'Phone Submitted');
-                    self.component = 'verifyPhone'
+
+                    if(self.presetRouting()) return
+
+					dispatch('userStatus').then(user => {
+                        // when user is register and pick teacher, redirect him to his profile page
+                        if(self.teacher) {
+                            self.$router.push({
+                                name: self.routeNames.Profile,
+                                params: {
+                                    id: user.id,
+                                    name: user.name,
+                                },
+                                query: {
+                                    dialog: 'becomeTutor'
+                                }
+                            })
+                            return
+                        }
+                        self.$router.push({name: self.routeNames.LoginRedirect})
+                    })
+
                 }).catch(error => {
                     let { response: { data } } = error
                     

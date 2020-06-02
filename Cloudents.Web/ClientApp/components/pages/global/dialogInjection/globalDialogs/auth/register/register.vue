@@ -46,7 +46,7 @@
 
             <div class="bottom">
 
-                <!-- <template v-if="isVerifyPhone">
+                <template v-if="isVerifyPhone">
                     <div class="verifyPhone mb-11">
                         <div class="d-flex justify-center text-center mb-6">
                             <div class="divider"></div>
@@ -65,7 +65,7 @@
                             </div>
                         </div>
                     </div>
-                </template> -->
+                </template>
 
                 <v-btn
                     type="submit"
@@ -122,7 +122,7 @@ import VueRecaptcha from "vue-recaptcha";
 
 const emailRegister = () => import('./emailRegister.vue');
 const setPhone2 = () => import('./setPhone2.vue');
-// const verifyPhone = () => import('./verifyPhone.vue');
+const verifyPhone = () => import('./verifyPhone.vue');
 
 import gIcon from '../images/g-icon.svg'
 import changeNumber from '../images/changeNumber.svg'
@@ -133,7 +133,7 @@ export default {
     components: {
         emailRegister,
         setPhone2,
-        // verifyPhone,
+        verifyPhone,
         VueRecaptcha,
         changeNumber,
         phoneCall,
@@ -152,8 +152,7 @@ export default {
     },
     computed: {
         globalBtnText() {
-            // return this.isVerifyPhone ? 'loginRegister_setemailpass_btn_verify' : 'loginRegister_setemailpass_btn'
-            return 'loginRegister_setemailpass_btn'
+            return this.isVerifyPhone ? 'loginRegister_setemailpass_btn_verify' : 'loginRegister_setemailpass_btn'
         },
         isEmailRegister() {
             return this.component === 'emailRegister'
@@ -177,9 +176,9 @@ export default {
                     case 'setPhone2':
                         this.sendSms()
                         break;
-                    // case 'verifyPhone':
-                    //     this.verifyPhone()
-                    //     break;
+                    case 'verifyPhone':
+                        this.verifyPhone()
+                        break;
                     default:
                         return
                 }
