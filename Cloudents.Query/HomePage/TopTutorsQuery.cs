@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
+using Cloudents.Core.Attributes;
 
 namespace Cloudents.Query.HomePage
 {
@@ -29,7 +31,7 @@ namespace Cloudents.Query.HomePage
                 _session = session.StatelessSession;
             }
 
-            // [Cache(TimeConst.Day, "homePage-tutors", false)]
+            [Cache(TimeConst.Day, "homePage-tutors", false)]
             //We cant put cache due to serialize issue
             public async Task<IEnumerable<TutorCardDto>> GetAsync(TopTutorsQuery query, CancellationToken token)
             {
@@ -50,7 +52,6 @@ namespace Cloudents.Query.HomePage
                 {
                     UserId = s.readTutor.Id,
                     SbCountry = s.readTutor.SbCountry,
-                    Country = s.readTutor.Country,
                     Name = s.readTutor.Name,
                     Image = s.readTutor.ImageName,
                     Price = s.readTutor.Price,
