@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
 using NHibernate;
 using NHibernate.Linq;
 
@@ -23,9 +24,11 @@ namespace Cloudents.Query.Chat
         internal sealed class ChatConversationDetailQueryHandler : IQueryHandler<ChatConversationDetailQuery, ChatConversationDetailsDto?>
         {
             private readonly IStatelessSession _statelessSession;
+            private readonly IUrlBuilder _urlBuilder;
 
-            public ChatConversationDetailQueryHandler(QuerySession statelessSession)
+            public ChatConversationDetailQueryHandler(QuerySession statelessSession, IUrlBuilder urlBuilder)
             {
+                _urlBuilder = urlBuilder;
                 _statelessSession = statelessSession.StatelessSession;
             }
 
@@ -48,7 +51,7 @@ namespace Cloudents.Query.Chat
                         Email = s.Tutor.User.Email,
                         Id = s.Tutor.Id,
                         Name = s.Tutor.User.Name,
-                        Image = s.Tutor.User.ImageName,
+                        Image = _urlBuilder.BuildUserImageEndpoint(s.Tutor.Id, s.Tutor.User.ImageName),
                         PhoneNumber = s.Tutor.User.PhoneNumber,
                         Calendar = _statelessSession.Query<GoogleTokens>().Any(w2 => w2.Id == s.Tutor.Id.ToString())
                     }).ToFutureValue();
