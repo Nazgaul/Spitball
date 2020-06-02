@@ -81,7 +81,6 @@ export const User = {
             isTutor: _createIsTutorState(objInit.isTutor) ? true : false,
             isTutorState: _createIsTutorState(objInit.isTutor),
             // courses: objInit.courses.map((course) => new School.Course(course)),
-            haveDocsWithPrice: objInit.haveDocsWithPrice,
             haveContent: objInit.haveContent,
             isPurchased: objInit.isPurchased,
             isSold: objInit.isSold,

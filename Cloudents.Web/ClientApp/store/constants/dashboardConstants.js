@@ -1,11 +1,15 @@
 export default {
     // tutorLinkState
-    UPLOAD: "UPLOAD",
+    PHONE: "PHONE",
+    EMAIL: "EMAIL",
+    EDIT: "EDIT",
+    BOOK: "BOOK",
+    COURSES: "COURSES",
+    STRIPE: "STRIPE",
     CALENDAR: "CALENDAR",
     TEACH: "TEACH",
     SESSIONS: "SESSIONS",
-    MARKETING: "MARKETING",
-    BOOK: "BOOK",
+    UPLOAD: "UPLOAD",
 
     // tutorNotificationsState
     FOLLOWERS: "FOLLOWERS",

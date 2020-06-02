@@ -1,7 +1,7 @@
 <template>
     <div class="dashboardTutorActions pa-5 pb-0 mb-2 mb-sm-4">
 
-        <div class="tutorInfo d-flex align-center justify-space-between pb-7">
+        <div class="tutorInfo d-flex align-center justify-space-between flex-column flex-sm-row pb-6">
             <div class="leftSide d-flex align-md-center">
                 <userAvatar
                     size="74"
@@ -9,19 +9,16 @@
                     :userId="userId"
                     :userName="userName"
                     :userImageUrl="userImage"
+                    v-if="userImage"
                 />
+                <emptyUserIcon class="mb-4" v-else />
                 <div class="infoWrap mx-5">
                     <div class="tutorName mb-2">{{userName}}</div>
-                    <button class="tutorUrl text-truncate me-4 mb-4">{{userUrl}}</button>
+                    <button class="tutorUrl text-truncate me-4 mb-4" @click="$router.push(myProfileRedirect)">{{userUrl}}</button>
                     <v-btn 
                         class="btn align-self-end"
-                        :to="{
-                            name: profileName,
-                            params: {
-                                id: userId,
-                                name: userName
-                            }
-                        }"
+                        :to="myProfileRedirect"
+                        v-if="isEditActionComplete"
                         rounded
                         outlined
                         depressed
@@ -34,26 +31,48 @@
                     </v-btn>
                 </div>
             </div>
-            <div class="d-none d-sm-block">
-                <video src="" width="250" height="150" poster="./images/bitmap.png"></video>
+            <div class="rightSide mt-8 mt-sm-0">
+                <video class="dashboardVideo" src="" width="250" height="150" poster="./images/bitmap.png"></video>
             </div>
         </div>
 
         <div class="tutorLinks">
-            <div class="linkWrap d-flex align-center justify-space-between py-4" v-for="action in tutorActionsList" :key="action.name">
+            <div class="linkWrap d-flex align-center justify-space-between py-4" v-for="action in tutorActionsFilterList" :key="action.name">
                 <div class="linkBorded" :style="{background: action.color}"></div>
                 <div class="link d-flex align-center" :class="{'mobileLayout': isMobile}">
-                    <component :is="isMobile ? 'router-link' : 'div'" class="linkWrapper d-flex" :to="isMobile ? {name: action.routeName} : null">
+                    <component :is="isMobile ? 'router-link' : 'div'" class="linkWrapper d-flex" @click="action.method ? action.method() : ''" :to="action.routeName ? action.routeName : ''">
                         <circleArrow class="arrowIcon" width="23" :stroke="action.color" />
                     </component>
                     <div class="ms-sm-4 me-2 text-truncate" v-t="action.text"></div>
                 </div>
-                <v-btn v-if="!isMobile" class="btn" rounded outlined depressed color="#4c59ff" width="120" :to="{name: action.routeName}" v-t="action.btnText"></v-btn>
+                <v-btn 
+                    v-if="!isMobile" 
+                    @click="action.method ? action.method() : ''"
+                    :to="action.routeName ? action.routeName : ''"
+                    v-t="action.btnText"
+                    class="btn"
+                    rounded
+                    outlined
+                    exact
+                    depressed
+                    color="#4c59ff"
+                    width="120"
+                >
+                </v-btn>
             </div>
         </div>
 
         <analyticOverview class="px-0" />
 
+
+        <v-snackbar
+            absolute
+            top
+            :timeout="4000"
+            :value="verifyEmailState"
+        >
+            <div class="text-wrap" v-t="'dashboardTeacher_email_verify'"></div>
+        </v-snackbar>
     </div>
 </template>
 
@@ -63,64 +82,107 @@ import constants from '../../../../store/constants/dashboardConstants'
 
 const analyticOverview = () => import(/* webpackChunkName: "analyticsOverview" */'../../global/analyticOverview/analyticOverview.vue')
 
+import emptyUserIcon from './images/emptyUser.svg'
 import circleArrow from './images/circle-arrow.svg'
+
+const colors = {
+    blue: '#4c59ff',
+    green: '#41c4bc',
+    yellow: '#eac569',
+}
 
 export default {
     name: 'dashboardTutorActions',
     components: {
         analyticOverview,
+        emptyUserIcon,
         circleArrow
     },
     data() {
         return {
+            verifyEmailState: false,
             profileName: routeName.Profile,
             linksItems: {
-                [constants.UPLOAD]: {
-                    color: '#4c59ff',
-                    text: 'dashboardTeacher_link_text_upload',
-                    btnText: 'dashboardTeacher_btn_text_upload',
-                    routeName: routeName.MyContent
+                [constants.PHONE]: {
+                    color: colors.blue,
+                    text: 'dashboardTeacher_link_text_phone',
+                    btnText: 'dashboardTeacher_btn_text_phone',
+                    method: this.openPhoneDialog
                 },
-                [constants.CALENDAR]: {
-                    color: '#4c59ff',
-                    text: 'dashboardTeacher_link_text_calendar',
-                    btnText: 'dashboardTeacher_btn_text_calendar',
-                    routeName: routeName.MyCalendar
+                [constants.EMAIL]: {
+                    color: colors.blue,
+                    text: 'dashboardTeacher_link_text_email',
+                    btnText: 'dashboardTeacher_btn_text_email',
+                    method: this.verifyEmail
                 },
-                [constants.TEACH]: {
-                    color: '#4c59ff',
-                    text: 'dashboardTeacher_link_text_teach',
-                    btnText: 'dashboardTeacher_btn_text_teach',
-                    routeName: routeName.AddCourse
-                },
-                [constants.SESSIONS]: {
-                    color: '#41c4bc',
-                    text: 'dashboardTeacher_link_text_session',
-                    btnText: 'dashboardTeacher_btn_text_session',
-                    routeName: routeName.MyStudyRooms
-                },
-                [constants.MARKETING]: {
-                    color: '#41c4bc',
-                    text: 'dashboardTeacher_link_text_marketing',
-                    btnText: 'dashboardTeacher_btn_text_marketing',
-                    routeName: routeName.Marketing
+                [constants.EDIT]: {
+                    color: colors.blue,
+                    text: 'dashboardTeacher_link_text_edit',
+                    btnText: 'dashboardTeacher_btn_text_edit',
+                    routeName: { name: routeName.Profile }
                 },
                 [constants.BOOK]: {
-                    color: '#eac569',
+                    color: colors.blue,
                     text: 'dashboardTeacher_link_text_book',
                     btnText: 'dashboardTeacher_btn_text_book',
-                    routeName: routeName.Feed
+                    method: this.bookSession
+                },
+                [constants.COURSES]: {
+                    color: colors.blue,
+                    text: 'dashboardTeacher_link_text_courses',
+                    btnText: 'dashboardTeacher_btn_text_courses',
+                    routeName: { name: routeName.EditCourse }
+                },
+                [constants.STRIPE]: {
+                    color: colors.blue,
+                    text: 'dashboardTeacher_link_text_stripe',
+                    btnText: 'dashboardTeacher_btn_text_stripe',
+                    routeName: { name: routeName.Feed }//TODO: stripe // need to do 
+                },
+                [constants.CALENDAR]: {
+                    color: colors.green,
+                    text: 'dashboardTeacher_link_text_calendar',
+                    btnText: 'dashboardTeacher_btn_text_calendar',
+                    routeName: { name: routeName.MyCalendar }
+                },
+                [constants.TEACH]: {
+                    color: colors.green,
+                    text: 'dashboardTeacher_link_text_teach',
+                    btnText: 'dashboardTeacher_btn_text_teach',
+                    routeName: { name: routeName.MyCalendar }
+                },
+                [constants.SESSIONS]: {
+                    color: colors.yellow,
+                    text: 'dashboardTeacher_link_text_session',
+                    btnText: 'dashboardTeacher_btn_text_session',
+                    routeName: { name: routeName.MyStudyRoomsBroadcast }
+                },
+                [constants.UPLOAD]: {
+                    color: colors.yellow,
+                    text: 'dashboardTeacher_link_text_upload',
+                    btnText: 'dashboardTeacher_btn_text_upload',
+                    routeName: { name: routeName.MyContent }
                 },
             }
         }
     },
     computed: {
+        isEditActionComplete() {
+            return this.$store.getters.getTutorListActions[constants.EDIT]?.value
+        },
+        bookSessionTutorId() {
+            return this.$store.getters.getTutorListActions[constants.BOOK]?.tutorId
+        },
+        tutorActionsFilterList() {
+            return this.tutorActionsList.filter(action => action.value === false)
+        },
         tutorActionsList() {
             let list = this.$store.getters.getTutorListActions
             return Object.keys(list).map(item => {
                 return {
-                    name: item,
-                    ...this.linksItems[item]
+                    ...this.linksItems[item],
+                    ...list[item],
+                    name: item
                 }
             })
         },
@@ -138,6 +200,37 @@ export default {
         },
         userUrl() {
             return `${window.location.origin}/${this.userName}`
+        },
+        myProfileRedirect() {
+            return {
+                name: this.profileName,
+                params: {
+                    id: this.userId,
+                    name: this.userName
+                }
+            }
+        }
+    },
+    methods: {
+        openPhoneDialog() {
+            this.$store.commit('setComponent', 'phoneVerify')
+        },
+        bookSession() {
+            this.$router.push({
+                name: routeName.Profile,
+                params: {
+                    name: 'admin',
+                    id: this.bookSessionTutorId
+                }
+            })
+        },
+        verifyEmail() {
+            this.$store.dispatch('verifyTutorEmail').then(() => {
+                this.verifyEmailState = true
+                this.$store.commit('setEmailTask', constants.EMAIL)
+            }).catch(ex => {
+                console.log(ex);
+            })
         }
     },
     created() {
@@ -166,9 +259,19 @@ export default {
 
             .leftSide {
                 min-width: 0;
-
+                width: 100%;
                 .infoWrap {
                     min-width: inherit;
+                }
+            }
+            .rightSide {
+
+                @media (max-width: @screen-xs) {
+                    width: 100%;
+                }
+                .dashboardVideo {
+                    width: 100%;
+                    height: 100%;
                 }
             }
             .tutorName {
@@ -202,7 +305,8 @@ export default {
                     color:#69687d;
                     font-weight: 600;
                     .arrowIcon {
-                        transform: none /*rtl:scaleX(-1)*/;
+                        transform: scaleX(1)/*rtl:append:scaleX(-1)*/; 
+                        width: auto; //only to support the rtl rule
                     }
 
                     &.mobileLayout {

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
@@ -15,6 +16,7 @@ using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFacto
 namespace Cloudents.Web.Hubs
 {
     [Authorize]
+    [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting", Justification = "signalr endpoint")]
     public class SbHub : Hub
     {
         private readonly Lazy<TelemetryClient> _logger;
@@ -48,17 +50,15 @@ namespace Cloudents.Web.Hubs
             await Groups.AddToGroupAsync(Context.ConnectionId, $"studyRoom-{roomId}");
         }
 
-        private async Task ChangeOnlineStatus(long currentUserId, bool isOnline)
+        private async Task ChangeOnlineStatusAsync(long currentUserId, bool isOnline)
         {
             try
             {
                 if (_canUpdateDb)
                 {
                     const string sql = @"update sb.[user] set Online = @IsOnline, LastOnline = GETUTCDATE() where Id = @Id";
-                    using (var connection = _dapper.OpenConnection())
-                    {
-                        await connection.ExecuteAsync(sql, new { Id = currentUserId, IsOnline = isOnline });
-                    }
+                    using var connection = _dapper.OpenConnection();
+                    await connection.ExecuteAsync(sql, new { Id = currentUserId, IsOnline = isOnline });
                 }
             }
             catch (Exception e)
@@ -95,15 +95,15 @@ namespace Cloudents.Web.Hubs
             }
             //if (header.ToString().Contains("spi"))
 
-            var country = Context.User.Claims.FirstOrDefault(f =>
-                string.Equals(f.Type, AppClaimsPrincipalFactory.Country,
-                    StringComparison.OrdinalIgnoreCase))?.Value;
+            //var country = Context.User.Claims.FirstOrDefault(f =>
+            //    string.Equals(f.Type, AppClaimsPrincipalFactory.Country,
+            //        StringComparison.OrdinalIgnoreCase))?.Value;
 
             Connections.Add(currentUserId, Context.ConnectionId);
             var connectionCount = Connections.GetConnections(currentUserId).Count();
             if (connectionCount == 1)
             {
-                await ChangeOnlineStatus(currentUserId, true);
+                await ChangeOnlineStatusAsync(currentUserId, true);
             }
             else
             {
@@ -115,24 +115,24 @@ namespace Cloudents.Web.Hubs
                 //_logger.Value.Warning($"Investigate online {currentUserId}");
             }
 
-            if (country != null)
-            {
+            //if (country != null)
+            //{
 
-                await Groups.AddToGroupAsync(Context.ConnectionId, $"country_{country.ToLowerInvariant()}");
-            }
+            //    await Groups.AddToGroupAsync(Context.ConnectionId, $"country_{country.ToLowerInvariant()}");
+            //}
 
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            var country = Context.User.Claims.FirstOrDefault(f =>
-                string.Equals(f.Type, AppClaimsPrincipalFactory.Country,
-                    StringComparison.OrdinalIgnoreCase))?.Value;
-            if (country != null)
-            {
+            //var country = Context.User.Claims.FirstOrDefault(f =>
+            //    string.Equals(f.Type, AppClaimsPrincipalFactory.Country,
+            //        StringComparison.OrdinalIgnoreCase))?.Value;
+            //if (country != null)
+            //{
 
-                await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"country_{country.ToLowerInvariant()}");
-            }
+            //    await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"country_{country.ToLowerInvariant()}");
+            //}
 
             var currentUserId = long.Parse(Context.UserIdentifier);
             Connections.Remove(currentUserId, Context.ConnectionId);
@@ -141,7 +141,7 @@ namespace Cloudents.Web.Hubs
 
             if (connectionCount == 0)
             {
-                await ChangeOnlineStatus(currentUserId, false);
+                await ChangeOnlineStatusAsync(currentUserId, false);
             }
             else
             {

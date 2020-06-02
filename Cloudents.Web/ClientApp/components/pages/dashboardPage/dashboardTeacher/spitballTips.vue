@@ -5,7 +5,7 @@
             <a sel="see_all_blog" class="seeAll" :href="blogsLink" target="_blank">{{$t('dashboardTeacher_see_all')}}</a>
         </v-col>
         <template v-if="tips.length">
-            <v-col class="tipsList d-flex pa-0" cols="3" v-for="(tip, index) in tips" :key="index">
+            <v-col class="tipsList d-flex pa-0" :cols="$vuetify.breakpoint.xsOnly ? '4' : '3'" v-for="(tip, index) in tips" :key="index">
                 <a class="tipsListBox" :href="tip.url" target="_blank">
                     <div class="top">
                         <img :src="tip.image" alt="image" width="200" height="100" />
