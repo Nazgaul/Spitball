@@ -193,9 +193,6 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
             }
         );
         },
-        goLogin(){
-            this.$router.push({path:'/signin'});
-        }
     },
     created() {
         this.$root.$on("closeDrawer", ()=>{
