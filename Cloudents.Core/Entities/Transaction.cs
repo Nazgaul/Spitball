@@ -32,6 +32,7 @@ namespace Cloudents.Core.Entities
     {
         public virtual bool? Approved { get; set; }
         public virtual string DeclinedReason { get; set; }
+
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         protected CashOutTransaction()
         {
@@ -125,32 +126,18 @@ namespace Cloudents.Core.Entities
 
         }
 
-        private static readonly SortedSet<string> Tier1Users =
-            new SortedSet<string>(StringComparer.OrdinalIgnoreCase)
-            {
-                //"US", "CA", "AU" , "GB", "IE",
-                "IL","US"
-                //"NZ", "MX", "SE" ,
-                //"NO", "DK", "FI", "NL", "BE","LU","DE","CH","AT","ZA"
-            };
-
-        //public static AwardMoneyTransaction FinishRegistration(User user)
-        //{
-        //    var initBalance = 0;
-        //    //var awardScore = 0;
-        //    if (Tier1Users.Contains(user.Country))
+        //private static readonly SortedSet<string> Tier1Users =
+        //    new SortedSet<string>(StringComparer.OrdinalIgnoreCase)
         //    {
-        //        initBalance = 150;
-        //        //awardScore = 2;
-        //    }
-        //    //Score
-        //    return new AwardMoneyTransaction(initBalance)
-        //    {
-        //        Action = TransactionActionType.SignUp,
-        //        //  _awardScore = awardScore
+        //        //"US", "CA", "AU" , "GB", "IE",
+        //        "IL","US"
+        //        //"NZ", "MX", "SE" ,
+        //        //"NO", "DK", "FI", "NL", "BE","LU","DE","CH","AT","ZA"
         //    };
-        //}
+
+
     }
+
     /// <summary>
     /// Question Transaction - we keep this because of older transactions
     /// </summary>
@@ -186,8 +173,6 @@ namespace Cloudents.Core.Entities
         {
 
         }
-
-        // public override int AwardScore => 0;
     }
 
     public class DocumentTransaction : Transaction
@@ -196,13 +181,10 @@ namespace Cloudents.Core.Entities
         private DocumentTransaction(Document document)
         {
             Document = document;
-
-
         }
 
         protected DocumentTransaction()
         {
-
         }
 
         public virtual Document Document { get; protected set; }
@@ -227,7 +209,7 @@ namespace Cloudents.Core.Entities
 
             };
         }
-        
+
     }
 
     public sealed class AwardsTransaction
@@ -237,59 +219,8 @@ namespace Cloudents.Core.Entities
             Action = type;
             Price = price;
         }
+
         public TransactionActionType Action { get; }
         public decimal Price { get; }
     }
-
-
-
-    //public class SessionTransaction : Transaction
-    //{
-    //    private SessionTransaction(StudyRoomSession session)
-    //    {
-    //        Session = session;
-
-
-    //    }
-
-    //    protected SessionTransaction()
-    //    {
-
-    //    }
-
-    //    public virtual StudyRoomSession Session { get; protected set; }
-
-    //    private static Transaction Buyer(StudyRoomSession session, Country country)
-    //    {
-    //        return new SessionTransaction(session)
-    //        {
-    //            Action = TransactionActionType.PurchaseSession,
-    //            Price = -session.Price / country.ConversationRate ?? 0,
-    //            Type = TransactionType.Spent
-    //        };
-    //    }
-
-    //    private static Transaction Seller(StudyRoomSession session, Country country)
-    //    {
-    //        return new SessionTransaction(session)
-    //        {
-    //            Action = TransactionActionType.SoldSession,
-    //            Price = session.Price / country.ConversationRate ?? 0,
-    //            Type = TransactionType.Earned
-    //        };
-    //    }
-
-    //    public static void MakerTransaction(User buyer, Tutor seller, StudyRoomSession s)
-    //    {
-    //        if (s.Price != null)
-    //        {
-    //            Country country = seller.User.Country;
-    //            buyer.MakeTransaction(Buyer(s, country));
-    //            seller.User.MakeTransaction(Seller(s, country));
-    //            seller.User.MakeTransaction(new CommissionTransaction((decimal)s.Price / country.ConversationRate));
-    //        }
-    //    }
-
-    //}
-
 }

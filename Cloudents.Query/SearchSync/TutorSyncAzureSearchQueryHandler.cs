@@ -21,14 +21,7 @@ namespace Cloudents.Query.SearchSync
 
         }
 
-
-        // ReSharper disable once MemberCanBePrivate.Global Need for serialization
-        // public byte[] RowVersion { get;  set; }
-
-        // ReSharper disable once MemberCanBePrivate.Global Need for serialization
         public long Version { get; set; }
-
-        // ReSharper disable once MemberCanBePrivate.Global Need for serialization
         public int Page { get; set; }
 
 
@@ -60,6 +53,7 @@ t.SubsidizedPrice  as SubsidizedPrice,
 cTable.*
 from sb.ReadTutor  t
 CROSS APPLY CHANGETABLE(VERSION sb.readTutor, (Id), (t.Id)) AS cTable
+where t.State = 'Ok'
 order by t.id
 offset @pageSize * @PageNumber rows
 fetch next @pageSize Rows only";
@@ -83,6 +77,7 @@ t.SubsidizedPrice  as SubsidizedPrice,
 cTable.* 
 from sb.ReadTutor  t
 right outer join CHANGETABLE (changes sb.[readTutor], @version) AS cTable ON t.Id = cTable.id
+where t.State = 'Ok'
 order by t.id
 offset @pageSize * @PageNumber rows
 fetch next @pageSize Rows only";

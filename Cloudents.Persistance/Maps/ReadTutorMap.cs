@@ -27,7 +27,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.SubscriptionPrice).Nullable().CustomType<MoneyCompositeUserType>().Columns.Clear()
                 .Columns.Add("SubscriptionPrice", "SubscriptionCurrency"); ;
             Map(x => x.Description);
-
+            Map(x => x.State);
 
             Table("ReadTutor");
             DynamicUpdate();
