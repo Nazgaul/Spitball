@@ -81,12 +81,7 @@ export default {
          return this.currentTutor?.email
       },
       tutorAvatar(){
-         if(this.currentTutor?.id){
-            let url = `https://spitball-dev-function.azureedge.net:443/api/image/user/${this.currentTutor?.id}/${this.currentTutor.image}`
-            return this.$proccessImageUrl(url)
-         }else{
-            return ''
-         }
+         return this.currentTutor?.image;
       },
       participants(){
          return this.currentConversation?.users
