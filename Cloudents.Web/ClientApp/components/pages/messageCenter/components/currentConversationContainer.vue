@@ -4,7 +4,7 @@
          <v-icon @click="$emit('toggleTeacherInfo')" class="openTeacherInfoIcon ml-4 d-flex d-md-none" size="14" :color="isMobile? '#ffffff' : '#69687d'">sbf-read-more</v-icon>
          <v-icon @click="backToChatList" class="ml-4 d-flex d-sm-none" size="16" color="#ffffff">{{isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'}}</v-icon>
          <user-avatar class="ml-4" :size="'40'" :userImageUrl="currentAvatar" :user-name="currentConversationObj.name"/>
-         <div class="px-3 text-truncate">
+         <div class="pl-3 pr-md-3 pr-12 text-truncate">
             <div class="chatName text-truncate">{{currentName}}</div>
          </div>
       </div>
@@ -68,6 +68,7 @@ export default {
          .openTeacherInfoIcon{
             position: absolute;
             right: 16px;
+            top: 24px;
          }
          .chatName{
             @media(max-width: @screen-xs) {
