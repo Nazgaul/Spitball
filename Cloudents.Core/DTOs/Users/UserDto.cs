@@ -22,7 +22,9 @@ namespace Cloudents.Core.DTOs.Users
         public bool _needPayment;
         public double? DiscountPrice { get; set; }
 
-        public Country? country;
+        [NonSerialized]
+        public Country? Country;
+        private ItemState? _isTutor;
 
 
         public decimal Balance { get; set; }
@@ -35,8 +37,20 @@ namespace Cloudents.Core.DTOs.Users
         public string? LastName { get; set; }
 
         public string? Image { get; set; }
-        
-        public ItemState? IsTutor { get; set; }
+
+        public ItemState? IsTutor
+        {
+            get
+            {
+                if (_isTutor == null)
+                {
+                    return null;
+                }
+                
+                return ItemState.Ok;
+            }
+            set => _isTutor = value;
+        }
 
         public bool TutorSubscription { get; set; }
 
@@ -44,7 +58,7 @@ namespace Cloudents.Core.DTOs.Users
         {
             get
             {
-                if (country == Country.India)
+                if (Country == Country.India)
                 {
                     return false;
                 }
@@ -62,6 +76,6 @@ namespace Cloudents.Core.DTOs.Users
         public int PendingSessionsPayments { get; set; }
 
 
-        public string CurrencySymbol => (country ?? Country.UnitedStates).RegionInfo.CurrencySymbol;
+        public string CurrencySymbol => (Country ?? Country.UnitedStates).RegionInfo.CurrencySymbol;
     }
 }

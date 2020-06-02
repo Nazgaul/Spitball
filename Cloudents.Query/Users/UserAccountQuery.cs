@@ -42,7 +42,7 @@ namespace Cloudents.Query.Users
                         LastName = s.LastName,
                         Image = s.ImageName,
                         Email = s.Email,
-                        country = s.SbCountry,
+                        Country = s.SbCountry,
                         IsTutor =  s.Tutor!.State,
                         TutorSubscription = s.Tutor.SubscriptionPrice != null,
                         Price =  s.Tutor.Price.Price,

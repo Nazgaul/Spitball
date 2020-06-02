@@ -81,7 +81,7 @@ namespace Cloudents.Web.Api
 
             var countryCode = await _countryProvider.GetUserCountryAsync(token);
             user = new User(model.Email, model.FirstName, model.LastName,
-                CultureInfo.CurrentCulture, countryCode, model.Gender);
+                CultureInfo.CurrentCulture, countryCode);
             var p = await _userManager.CreateAsync(user, model.Password);
 
             if (p.Succeeded)
