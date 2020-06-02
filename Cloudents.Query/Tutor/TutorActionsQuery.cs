@@ -108,7 +108,7 @@ namespace Cloudents.Query.Tutor
                     Courses = coursesFuture.Value,
                     LiveSession = liveSessionFuture.Value,
                     UploadContent = documentFuture.Value,
-                    StripeAccount = stripeConnectFuture.Value != null && userDetails.SbCountry == Country.UnitedStates,
+                    StripeAccount = stripeConnectFuture.Value != null && userDetails.SbCountry != Country.UnitedStates,
                     BookedSession = new BookedSession()
                     {
                         Exists = bookedSession?.Id != null,

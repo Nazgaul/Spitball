@@ -83,6 +83,12 @@ namespace Cloudents.Web.Controllers
             {
                 return Redirect("/");
             }
+
+            if (user.SbCountry != Country.UnitedStates)
+            {
+                return Redirect("/");
+
+            }
             var homePage = Url.RouteUrl("stripe-finish-connect");
             var profileUrl = Url.RouteUrl(SeoTypeString.Tutor, new
             {
