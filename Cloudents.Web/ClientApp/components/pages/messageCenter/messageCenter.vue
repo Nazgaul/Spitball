@@ -2,8 +2,8 @@
   <div class="messageCenter d-flex">
      <div class="messageCenter2 d-flex">
          <conversationsContainer style="z-index:2" v-if="showConversationsList"/>
-         <currentConversationContainer style="z-index:2" v-if="showCurrentConversation"/>
-         <teacherInfoContainer style="z-index:2"/>
+         <currentConversationContainer @toggleTeacherInfo="isTeacherInfoOpen = !isTeacherInfoOpen" style="z-index:2" v-if="showCurrentConversation"/>
+         <teacherInfoContainer @toggleTeacherInfo="isTeacherInfoOpen = false" style="z-index:2" v-if="showTeacherInfo"/>
      </div>
   </div>
 </template>
@@ -15,6 +15,11 @@ const conversationsContainer = () => import('./components/conversationsContainer
 const currentConversationContainer = () => import('./components/currentConversationContainer.vue');
 const teacherInfoContainer = () => import('./components/teacherInfoContainer.vue');
 export default {
+   data() {
+      return {
+         isTeacherInfoOpen:false,
+      }
+   },
    components:{
       conversationsContainer,
       currentConversationContainer,
@@ -25,14 +30,20 @@ export default {
       isMobile(){
          return this.$vuetify.breakpoint.xsOnly;
       },
-      showCurrentConversation(){
-         return !this.isMobile || this.$store.getters.getActiveConversationObj?.conversationId
-      },
       showConversationsList(){
-         return !this.isMobile || !this.$store.getters.getActiveConversationObj?.conversationId
+         return !this.isMobile || !this.$store.getters.getActiveConversationObj?.conversationId;
+      },
+      showCurrentConversation(){
+         return this.$vuetify.breakpoint.mdAndUp || this.$store.getters.getActiveConversationObj?.conversationId && !this.isTeacherInfoOpen;
+      },
+      showTeacherInfo(){
+         return this.$vuetify.breakpoint.mdAndUp || this.isTeacherInfoOpen;
       }
    },
    watch: {
+      "$route.params.id": function(){
+         this.isTeacherInfoOpen = false;
+      },
       getConversations:{
          immediate:true,
          handler(newVal){

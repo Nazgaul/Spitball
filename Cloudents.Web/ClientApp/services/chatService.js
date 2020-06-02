@@ -18,9 +18,6 @@ function createConversationId(arrIds){
 function Conversation(objInit){
     if(objInit.users !== undefined){
         let isRoom = objInit.users.length > 1; 
-        if(isRoom){
-            this.users = objInit.users
-        }
         this.image = isRoom? '': objInit.users[0].image;
         this.online = false;
         this.name = objInit.users.map(u=>u.name).join(" ,");
@@ -29,6 +26,7 @@ function Conversation(objInit){
         this.online = objInit.online;
         this.name = objInit.name;
     }
+    this.users = objInit.users || [];
     this.unread = objInit.unread;
     this.conversationId = objInit.conversationId;
     this.lastMessage = objInit.lastMessage || createLastImageMsg();

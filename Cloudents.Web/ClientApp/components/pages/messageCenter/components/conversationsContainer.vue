@@ -93,7 +93,6 @@ export default {
          }
          background-color: #efefef;
          border-right: 1px solid #e4e4e4;
-         border-bottom: 1px solid #e4e4e4;
          .cHeaderTitle{
             font-size: 16px;
             font-weight: 600;

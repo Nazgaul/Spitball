@@ -1,6 +1,7 @@
 <template>
    <v-flex xs12 sm6 md5 lg6 class="currentConversationContainer">
       <div class="cMessagesHeader d-flex flex-grow-0 flex-shrink-0 align-center ">
+         <v-icon @click="$emit('toggleTeacherInfo')" class="openTeacherInfoIcon ml-4 d-flex d-md-none" size="14" :color="isMobile? '#ffffff' : '#69687d'">sbf-read-more</v-icon>
          <v-icon @click="backToChatList" class="ml-4 d-flex d-sm-none" size="16" color="#ffffff">{{isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'}}</v-icon>
          <user-avatar class="ml-4" :size="'40'" :userImageUrl="currentAvatar" :user-name="currentConversationObj.name"/>
          <div class="px-3 text-truncate">
@@ -32,6 +33,9 @@ export default {
       },
       currentName(){
          return this.currentConversationObj?.name;
+      },
+      isMobile(){
+         return this.$vuetify.breakpoint.xsOnly;
       }
    },
    methods: {
@@ -55,14 +59,16 @@ export default {
          @media(max-width: @screen-xs) {
             background-color: #4c59ff;
             color: #ffffff;
-            border: none;
          }
          max-width: 100%;
          height: @headerHeight;
          background-color: #efefef;
-         border-right: 1px solid #e4e4e4;
-         border-bottom: 1px solid #e4e4e4;
          color: #43425d;
+         position: relative;
+         .openTeacherInfoIcon{
+            position: absolute;
+            right: 16px;
+         }
          .chatName{
             @media(max-width: @screen-xs) {
                font-size: 14px;
