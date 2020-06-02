@@ -265,7 +265,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task UserProfileTutorQuery_Ok(long userId)
         {
             var id = await fixture.StatelessSession.Query<Tutor>()
-                .Where(w => w.State == ItemState.Ok).Select(s=>s.Id).Take(1).SingleAsync();
+               .Select(s=>s.Id).Take(1).SingleAsync();
             var query = new UserProfileQuery(id, userId);
 
             var result = await fixture.QueryBus.QueryAsync(query, default);
@@ -282,10 +282,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
             var id = await fixture.StatelessSession.Query<User>()
                 .Fetch(f=>f.Tutor)
-                .Where(w => w.Tutor.State == null 
-                           // && w.PhoneNumberConfirmed 
-                           // && w.EmailConfirmed
-                            )
+                .Where(w => w.Tutor.State == null)
                 .Select(s=>s.Id).Take(1).SingleAsync();
             var query = new UserProfileQuery(id, userId);
 
