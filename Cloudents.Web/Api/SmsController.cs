@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -36,8 +37,8 @@ namespace Cloudents.Web.Api
         private readonly IStringLocalizer<SmsController> _smsLocalizer;
         private readonly ILogger _logger;
 
-        // private const string SmsTime = "SmsTime";
-        //private const string PhoneCallTime = "phoneCallTime";
+        private const string SmsTime = "SmsTime";
+        private const string PhoneCallTime = "phoneCallTime";
 
         public SmsController(SignInManager<User> signInManager, SbUserManager userManager,
             ISmsSender client, ICommandBus commandBus,
@@ -74,12 +75,20 @@ namespace Cloudents.Web.Api
             [FromHeader(Name = "User-Agent")] string? agent,
             CancellationToken token)
         {
+            User user;
             if (User.Identity.IsAuthenticated)
             {
-                _logger.Error("Set User Phone number User is already sign in");
-                return Unauthorized();
+                user = await _userManager.GetUserAsync(User);
+                if (user.Tutor == null)
+                {
+                    return Unauthorized();
+                }
             }
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            else
+            {
+                user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            }
+
             if (user == null)
             {
                 _logger.Error("Set User Phone number We can't identify the user");
@@ -90,7 +99,8 @@ namespace Cloudents.Web.Api
                 return Unauthorized();
             }
 
-            var retVal = await _userManager.SetPhoneNumberAndCountryAsync(user, model.PhoneNumber, model.CountryCode.ToString(), token);
+            var retVal = await _userManager.SetPhoneNumberAndCountryAsync(user,
+                model.PhoneNumber, model.CountryCode.ToString(), token);
 
             //Ram: I disable this - we have an issue that sometime we get the wrong ip look at id 
             //3DCDBF98-6545-473A-8EAA-A9DF00787C70 of UserLocation table in dev sql
@@ -111,9 +121,14 @@ namespace Cloudents.Web.Api
 
             if (retVal.Succeeded)
             {
-                //TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
-                //TempData[PhoneCallTime] = DateTime.UtcNow.AddMinutes(-2).ToString(CultureInfo.InvariantCulture);
-                //await _client.SendSmsAsync(user, token);
+                if (User.Identity.IsAuthenticated)
+                {
+                    TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+                    TempData[PhoneCallTime] = DateTime.UtcNow.AddMinutes(-2).ToString(CultureInfo.InvariantCulture);
+                    await _client.SendSmsAsync(user, token);
+                    return Ok();
+                }
+            
                 return await FinishRegistrationAsync(user, agent, token);
             }
 
@@ -226,74 +241,74 @@ namespace Cloudents.Web.Api
             });
         }
 
-        //[HttpPost("resend")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesDefaultResponseType]
-        //public async Task<IActionResult> ResendAsync(CancellationToken token)
-        //{
-        //    var t = TempData.Peek(SmsTime);
-        //    if (t == null)
-        //    {
-        //        TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
-        //        return Ok();
-        //    }
+        [HttpPost("resend")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> ResendAsync(CancellationToken token)
+        {
+            var t = TempData.Peek(SmsTime);
+            if (t == null)
+            {
+                TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+                return Ok();
+            }
 
-        //    var temp = DateTime.Parse(t.ToString(), CultureInfo.InvariantCulture);
-        //    if (temp > DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(0.5)))
-        //    {
-        //        return Ok();
-        //    }
+            var temp = DateTime.Parse(t.ToString(), CultureInfo.InvariantCulture);
+            if (temp > DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(0.5)))
+            {
+                return Ok();
+            }
 
 
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        _logger.Error("Set User Phone number User is already sign in");
-        //        return Unauthorized();
-        //    }
+            if (User.Identity.IsAuthenticated)
+            {
+                _logger.Error("Set User Phone number User is already sign in");
+                return Unauthorized();
+            }
 
-        //    var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-        //    if (user == null)
-        //    {
-        //        ModelState.AddModelError(string.Empty, _smsLocalizer["CannotResendSms"]);
-        //        return BadRequest(ModelState);
-        //    }
+            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, _smsLocalizer["CannotResendSms"]);
+                return BadRequest(ModelState);
+            }
 
-        //    TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
-        //    await _client.SendSmsAsync(user, token);
-        //    return Ok();
-        //}
+            TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+            await _client.SendSmsAsync(user, token);
+            return Ok();
+        }
 
-        //[HttpPost("call")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesDefaultResponseType]
-        //public async Task<IActionResult> CallUserAsync(CancellationToken token)
-        //{
-        //    var t = TempData.Peek(PhoneCallTime);
-        //    if (t == null)
-        //    {
-        //        TempData[PhoneCallTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
-        //        return Ok();
-        //    }
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        _logger.Error("Set User Phone number User is already sign in");
-        //        return Unauthorized();
-        //    }
+        [HttpPost("call")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> CallUserAsync(CancellationToken token)
+        {
+            var t = TempData.Peek(PhoneCallTime);
+            if (t == null)
+            {
+                TempData[PhoneCallTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+                return Ok();
+            }
+            if (User.Identity.IsAuthenticated)
+            {
+                _logger.Error("Set User Phone number User is already sign in");
+                return Unauthorized();
+            }
 
-        //    var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-        //    if (user == null)
-        //    {
-        //        ModelState.AddModelError(string.Empty, _smsLocalizer["CannotResendSms"]);
-        //        return BadRequest(ModelState);
-        //    }
+            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, _smsLocalizer["CannotResendSms"]);
+                return BadRequest(ModelState);
+            }
 
-        //    TempData[PhoneCallTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
-        //    await _client.SendPhoneAsync(user, token);
-        //    return Ok();
-        //}
+            TempData[PhoneCallTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+            await _client.SendPhoneAsync(user, token);
+            return Ok();
+        }
     }
 }
