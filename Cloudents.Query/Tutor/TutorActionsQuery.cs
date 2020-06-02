@@ -112,7 +112,7 @@ namespace Cloudents.Query.Tutor
                         Exists = bookedSession?.Id != null,
                         _TutorId = adminFuture.Value
                     },
-                    EditProfile = userDetails.Description == null && userDetails.Bio == null && userDetails.CoverImage == null
+                    EditProfile = userDetails.Description != null || userDetails.Bio != null || userDetails.CoverImage != null
                 };
 
                 return res;
