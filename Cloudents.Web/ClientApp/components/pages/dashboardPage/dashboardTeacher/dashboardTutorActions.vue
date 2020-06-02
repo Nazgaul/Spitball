@@ -199,7 +199,7 @@ export default {
             return this.$store.getters.getAccountImage
         },
         userUrl() {
-            return `${window.location.origin}/${this.userId}/${this.userName}`
+            return `${window.location.origin}/profile/${this.userId}/${this.userName}`
         },
         myProfileRedirect() {
             return {
