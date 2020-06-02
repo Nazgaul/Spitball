@@ -147,6 +147,9 @@
   <data name="btn_text_email" xml:space="preserve">
     <value>Activate</value>
   </data>
+  <data name="btn_text_phone" xml:space="preserve">
+    <value>Verify</value>
+  </data>
   <data name="btn_text_session" xml:space="preserve">
     <value>Create</value>
   </data>
@@ -191,6 +194,9 @@
   </data>
   <data name="link_text_email" xml:space="preserve">
     <value>Verify your email</value>
+  </data>
+  <data name="link_text_phone" xml:space="preserve">
+    <value>Verify your phone number</value>
   </data>
   <data name="link_text_session" xml:space="preserve">
     <value>Create a live class</value>
