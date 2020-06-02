@@ -24,7 +24,7 @@ namespace Cloudents.Command.CommandHandler
 
             var payment = new StripePayment(customerId);
             user.AddPayment(payment);
-            var futureCardPayment = await _stripeService.FutureCardPayments(customerId);
+            var futureCardPayment = await _stripeService.FutureCardPaymentsAsync(customerId);
 
             message.ClientSecretId = futureCardPayment;
 
