@@ -81,12 +81,12 @@ export const User = {
             isTutor: _createIsTutorState(objInit.isTutor) ? true : false,
             isTutorState: _createIsTutorState(objInit.isTutor),
             // courses: objInit.courses.map((course) => new School.Course(course)),
-            haveContent: objInit.haveContent,
-            isPurchased: objInit.isPurchased,
+            // haveContent: objInit.haveContent,
+            // isPurchased: objInit.isPurchased,
             isSold: objInit.isSold,
-            haveFollowers: objInit.haveFollowers,
+            // haveFollowers: objInit.haveFollowers,
             pendingSessionsPayments: objInit.pendingSessionsPayments,
-        }
+        }        
     },
     Stats: function(objInit){
         this.revenue = objInit.revenue

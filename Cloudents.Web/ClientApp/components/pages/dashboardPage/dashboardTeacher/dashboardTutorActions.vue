@@ -130,7 +130,7 @@ export default {
                     color: colors.blue,
                     text: 'dashboardTeacher_link_text_stripe',
                     btnText: 'dashboardTeacher_btn_text_stripe',
-                    routeName: { name: routeName.Feed }//TODO: stripe // need to do 
+                    method: this.addStripe
                 },
                 [constants.CALENDAR]: {
                     color: colors.green,
@@ -215,6 +215,9 @@ export default {
             }).catch(ex => {
                 console.log(ex);
             })
+        },
+        addStripe() {
+            window.location = '/stripe-connect'
         }
     },
     created() {
