@@ -1,11 +1,11 @@
 <template>
 <div class="message_wrap" >
-    <!-- <component v-if="isMine" :message="message" :is="currentMessageComponent"></component> -->
-    <div class="message-wrapper" :class="{'myMessage': isMine}">
+    <component :message="message" :is="currentMessageComponent"></component>
+    <!-- <div class="message-wrapper" :class="{'myMessage': isMine}">
         <div class="message" :class="{'myMessage': isMine, 'imgMessage': message.type === 'file'}" >
             <div dir="auto" v-html="$chatMessage(message)"></div>
         </div>
-    </div>
+    </div> -->
     <div class="time_wrapper" :class="{'myMessage': isMine}">
         <span class="message-text-date">{{date}}</span>
         <double-check v-show="isMine && !message.unreadMessage" />
@@ -20,11 +20,13 @@
 import {mapGetters} from 'vuex';
 import doubleCheck from '../../images/group-2.svg';
 import timeAgoService from '../../../../services/language/timeAgoService';
-// import myMessage from './myMessage.vue';
+import myMessage from './myMessage.vue';
+import remoteMessage from './remoteMessage.vue';
 export default {
     components: {
         doubleCheck,
-        // myMessage,
+        myMessage,
+        remoteMessage,
     },
     props:{
         message:{
@@ -42,7 +44,7 @@ export default {
             return timeAgoService.timeAgoFormat(this.message.dateTime)
         },
         currentMessageComponent(){
-            return 'myMessage'
+            return this.isMine? 'myMessage' : 'remoteMessage'
         }
     },
 

@@ -1,5 +1,5 @@
 <template>
-   <v-card color="#deedff" tile class="myMessageContainer pa-3 pb-1">
+   <v-card color="#ffffff" tile class="remoteMessageContainer pa-3 pb-1">
       <v-card-title class="messageTitle pa-0" v-text="userName + ':'"/>
       <v-card-text v-if="isTextMessage" dir="auto" class="messageText px-0 pb-0 pt-1" v-text="message.text"/>
       <div class="pt-2" v-else>
@@ -7,9 +7,8 @@
             <v-img :src="fileSrc" height="140px" width="190px"/>
          </a>
       </div>
-      <v-card-actions class="messageBottom d-flex align-baseline px-0 pb-0 pt-1">
+      <v-card-actions class="messageBottom d-flex align-baseline justify-end px-0 pb-0 pt-1">
          <span class="messageDate">14:56</span>
-         <v-icon :color="message.unreadMessage? '#00000077':'#4fc3f7'" class="ml-1" size="10">sbf-readIcon</v-icon>
       </v-card-actions>
    </v-card>
 </template>
@@ -27,7 +26,7 @@ export default {
          return this.message.type == 'text'
       },
       userName(){
-         return this.$store.getters.accountUser?.name
+         return this.message.name
       },
       fileSrc(){
          return this.$proccessImageUrl(this.message.src, 190, 140, 'crop')
@@ -38,13 +37,13 @@ export default {
 </script>
 
 <style lang="less">
-.myMessageContainer{
-   border-radius: 8px 8px 0px 8px;
+.remoteMessageContainer{
+   border-radius: 8px 8px 8px 0px;
    max-width: 70%;
    width: fit-content;
    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
-   margin-right: unset;
-   margin-left: auto;
+   margin-right: auto;
+   margin-left: unset;
    .messageTitle{
       font-size: 14px;
       font-weight: 600;
