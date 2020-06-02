@@ -31,10 +31,10 @@ namespace Cloudents.Web.Services
             return code;
         }
 
-        public async Task SendPhoneAsync(User user, CancellationToken token)
-        {
-            var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber);
-            await SendSmsAsync(user.PhoneNumber, code, SmsMessage.MessageType.Phone, token);
-        }
+        //public async Task SendPhoneAsync(User user, CancellationToken token)
+        //{
+        //    var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber);
+        //    await SendSmsAsync(user.PhoneNumber, code, SmsMessage.MessageType.Phone, token);
+        //}
     }
 }
