@@ -63,18 +63,18 @@ namespace Cloudents.Infrastructure.Payments
 
         }
 
-        private async Task<GenerateSaleResponse> TransferPaymentAsync(string sellerKey, string buyerKey, double price, CancellationToken token)
+        private Task<GenerateSaleResponse> TransferPaymentAsync(string sellerKey, string buyerKey, double price, CancellationToken token)
         {
             var generateSale = GenerateSale.TransferMoney(sellerKey, buyerKey, price);
 
-            return await GenerateSaleAsync(token, generateSale);
+            return GenerateSaleAsync(token, generateSale);
         }
 
-        public async Task<GenerateSaleResponse> BuyTokens(PointBundle price, string successRedirect, CancellationToken token)
+        public Task<GenerateSaleResponse> BuyTokens(PointBundle price, string successRedirect, CancellationToken token)
         {
             var generateSale = GenerateSale.BuyTokens(price, successRedirect, _credentials.SellerId);
 
-            return await GenerateSaleAsync(token, generateSale);
+            return GenerateSaleAsync(token, generateSale);
         }
 
         private async Task<GenerateSaleResponse> GenerateSaleAsync(CancellationToken token, GenerateSale generateSale)
