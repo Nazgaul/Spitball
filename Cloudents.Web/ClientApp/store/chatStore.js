@@ -13,7 +13,6 @@ const state = {
     },
     chatState: "conversation", //check if we need
     activeConversationObj: chatService.createActiveConversationObj({}), //points to conversation Obj
-    isMinimized: true, //check if we need
     totalUnread: 0,
     chatLoader: false,
     isSyncing: true,
@@ -151,12 +150,6 @@ const actions = {
                     if (message.fromSignalR) {
                         chatService.clearUnread(state.activeConversationObj.conversationId);
                     }
-                    if(state.isMinimized && message.fromSignalR){  //check if we need
-                        //in tutor room the conversation is auto loaded, so in case of refresh
-                        //we dont want to update the total unread unless signalR message arrives
-                        commit('addConversationUnread', message);
-                        commit('updateTotalUnread', 1);
-                    }
                 }else{
                         //update unread conversations
                         commit('addConversationUnread', message);
@@ -186,7 +179,6 @@ const actions = {
                         }
                         let conversationObj = chatService.createConversation(newData);
                         commit('addConversation', conversationObj);
-                        // commit('addConversationUnread', message);
                         commit('updateTotalUnread', 1);
                     });
                 }
