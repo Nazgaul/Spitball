@@ -23,7 +23,6 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Bio).Length(1000);
             Map(x => x.Lessons);
             Map(x => x.OverAllRating).Column("Rating");
-            Map(x => x.Country).Length(2);
             Map(x => x.SbCountry).CustomType<EnumerationType<Country>>();
             Map(x => x.SubscriptionPrice).Nullable().CustomType<MoneyCompositeUserType>().Columns.Clear()
                 .Columns.Add("SubscriptionPrice", "SubscriptionCurrency"); ;

@@ -87,7 +87,7 @@ namespace Cloudents.Persistence.Repositories
                 course.Where(w => !string.IsNullOrEmpty(w.SubjectName)).Select(s => s.SubjectName).Distinct().ToList(),
                 course.Select(s => s.CourseName).ToList(),
                 tutor.Price, average, count, tutor.Bio,
-                lessons, tutor.Country, tutor.SbCountry, tutor.SubsidizedPrice, tutor.SubscriptionPrice, tutor.Description);
+                lessons, tutor.SbCountry, tutor.SubsidizedPrice, tutor.SubscriptionPrice, tutor.Description);
 
 
             return readTutor;

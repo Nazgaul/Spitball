@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
-using Cloudents.Query;
-using Dapper;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using NHibernate;
@@ -17,29 +14,29 @@ namespace Cloudents.FunctionsV2
 {
     public static class UpdateFunction
     {
-        [FunctionName("UpdateReviewText")]
-        [SuppressMessage("ReSharper", "UnusedParameter.Global")]
-        [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Used by azure function")]
-        public static async Task UpdateReviewTextAsync([TimerTrigger("0 0 1 * * *")] TimerInfo myTimer,
-            [Inject] IStatelessSession statelessSession,
-            ILogger log,
-            CancellationToken token)
-        {
-           await statelessSession.Query<ReadTutor>()
-                .Where(w => w.Country == "IL" && w.SbCountry == null)
-                .UpdateBuilder().Set(x => x.SbCountry, Country.Israel)
-                .UpdateAsync(token);
+        //[FunctionName("UpdateReviewText")]
+        //[SuppressMessage("ReSharper", "UnusedParameter.Global")]
+        //[SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Used by azure function")]
+        //public static async Task UpdateReviewTextAsync([TimerTrigger("0 0 1 * * *")] TimerInfo myTimer,
+        //    [Inject] IStatelessSession statelessSession,
+        //    ILogger log,
+        //    CancellationToken token)
+        //{
+        //   await statelessSession.Query<ReadTutor>()
+        //        .Where(w => w.Country == "IL" && w.SbCountry == null)
+        //        .UpdateBuilder().Set(x => x.SbCountry, Country.Israel)
+        //        .UpdateAsync(token);
 
-           await statelessSession.Query<ReadTutor>()
-               .Where(w => w.Country == "IN" && w.SbCountry == null)
-               .UpdateBuilder().Set(x => x.SbCountry, Country.India)
-               .UpdateAsync(token);
+        //   await statelessSession.Query<ReadTutor>()
+        //       .Where(w => w.Country == "IN" && w.SbCountry == null)
+        //       .UpdateBuilder().Set(x => x.SbCountry, Country.India)
+        //       .UpdateAsync(token);
 
-           await statelessSession.Query<ReadTutor>()
-               .Where(w => w.SbCountry == null)
-               .UpdateBuilder().Set(x => x.SbCountry, Country.UnitedStates)
-               .UpdateAsync(token);
-        }
+        //   await statelessSession.Query<ReadTutor>()
+        //       .Where(w => w.SbCountry == null)
+        //       .UpdateBuilder().Set(x => x.SbCountry, Country.UnitedStates)
+        //       .UpdateAsync(token);
+        //}
 
         [FunctionName("DeleteOldUserLocation")]
         public static async Task DeleteOldUserLocationAsync([TimerTrigger("0 0 2 * * *")] TimerInfo myTimer,

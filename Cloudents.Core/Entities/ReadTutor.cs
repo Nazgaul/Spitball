@@ -12,7 +12,7 @@ namespace Cloudents.Core.Entities
             IReadOnlyList<string>? allSubjects,
             IReadOnlyList<string>? allCourses,
             decimal price, double? rate, int rateCount, string bio,
-            int lessons,string country, Country sbCountry,
+            int lessons, Country sbCountry,
             decimal? subsidizedPrice, Money? subscriptionPrice, string? description)
         {
             Id = id;
@@ -28,7 +28,6 @@ namespace Cloudents.Core.Entities
             RateCount = rateCount;
             Bio = bio;
             Lessons = lessons;
-            Country = country;
             //case 115
             OverAllRating = (rate.GetValueOrDefault() * RateCount + 48 + Lessons * rate.GetValueOrDefault())
                             / (RateCount + 12 + Lessons);
@@ -58,8 +57,7 @@ namespace Cloudents.Core.Entities
         public virtual int Lessons { get; protected set; }
         public virtual double OverAllRating { get; protected set; }
 
-        [Obsolete]
-        public virtual string Country { get; protected set; }
+      
         public virtual decimal? SubsidizedPrice { get; protected set; }
 
         public virtual Country SbCountry { get; protected set; }
