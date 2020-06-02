@@ -12,12 +12,10 @@ namespace Cloudents.Web.Controllers
     public class RegisterController : Controller
     {
         private readonly SignInManager<User> _signInManager;
-        private readonly ISmsSender _client;
 
-        public RegisterController(SignInManager<User> signInManager, ISmsSender client)
+        public RegisterController(SignInManager<User> signInManager)
         {
             _signInManager = signInManager;
-            _client = client;
         }
 
         internal const string RegisterRouteName = "Register";
@@ -48,23 +46,23 @@ namespace Cloudents.Web.Controllers
 
             }
 
-            if (step.Equals(RegistrationStep.RegisterEmailConfirmed))
-            {
-                var val = TempData.Peek(Api.RegisterController.Email);
-                if (val is null)
-                {
-                    return RedirectToRouteWithoutStep();
-                }
-            }
+            //if (step.Equals(RegistrationStep.RegisterEmailConfirmed))
+            //{
+            //    var val = TempData.Peek(Api.RegisterController.Email);
+            //    if (val is null)
+            //    {
+            //        return RedirectToRouteWithoutStep();
+            //    }
+            //}
 
-            if (step.Equals(RegistrationStep.RegisterVerifyPhone))
-            {
-                var userVerified = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-                if (userVerified is null)
-                {
-                    return RedirectToRouteWithoutStep();
-                }
-            }
+            //if (step.Equals(RegistrationStep.RegisterVerifyPhone))
+            //{
+            //    var userVerified = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            //    if (userVerified is null)
+            //    {
+            //        return RedirectToRouteWithoutStep();
+            //    }
+            //}
 
             if (step.Equals(RegistrationStep.RegisterSetPhone))
             {
@@ -74,14 +72,14 @@ namespace Cloudents.Web.Controllers
                     return RedirectToRouteWithoutStep();
                 }
 
-                if (user.PhoneNumber != null && !user.PhoneNumberConfirmed)
-                {
-                    await _client.SendSmsAsync(user, token);
-                    return RedirectToRoute(RegisterRouteName, new
-                    {
-                        page = RegistrationStep.RegisterVerifyPhone.RoutePath
-                    });
-                }
+                //if (user.PhoneNumber != null && !user.PhoneNumberConfirmed)
+                //{
+                //   // await _client.SendSmsAsync(user, token);
+                //    return RedirectToRoute(RegisterRouteName, new
+                //    {
+                //        page = RegistrationStep.RegisterVerifyPhone.RoutePath
+                //    });
+                //}
             }
 
             return View("Index");
