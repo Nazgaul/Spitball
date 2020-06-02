@@ -37,6 +37,9 @@ namespace Cloudents.Query.Chat
                     .Where(w => w.ChatRoom.Identifier == query.Id)
                     .ToFutureValue(f => f.Any());
 
+                //var calendarFuture = _statelessSession.Query<GoogleTokens>()
+                //    .Where(w=>w.Id == query.Id)
+
                var detailsFuture = _statelessSession.Query<ChatRoom>()
                     .Fetch(f => f.Tutor).ThenFetch(f => f.User)
                     .Where(w => w.Identifier == query.Id)
@@ -46,7 +49,8 @@ namespace Cloudents.Query.Chat
                         Id = s.Tutor.Id,
                         Name = s.Tutor.User.Name,
                         Image = s.Tutor.User.ImageName,
-                        PhoneNumber = s.Tutor.User.PhoneNumber
+                        PhoneNumber = s.Tutor.User.PhoneNumber,
+                        Calendar = _statelessSession.Query<GoogleTokens>().Any(w2 => w2.Id == s.Tutor.Id.ToString())
                     }).ToFutureValue();
                var studyRoomFuture = _statelessSession.Query<StudyRoom>()
                    .Where(w => w.Identifier == query.Id)

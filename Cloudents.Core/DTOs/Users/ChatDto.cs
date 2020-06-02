@@ -34,5 +34,7 @@ namespace Cloudents.Core.DTOs.Users
         public Guid? StudyRoomId { get; set; }
         public string Email { get; set; }
         public string? PhoneNumber { get; set; }
+
+        public bool Calendar { get; set; }
     }
 }
