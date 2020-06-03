@@ -33,11 +33,11 @@ export const registrationRoutes = [
                 name: routeName.LoginForgotPassword,
                 component: () => import(`../components/pages/authenticationPage/login/forgotPass.vue`)
             },
-            // {
-            //     path: 'reset-password',
-            //     name: routeName.LoginResetPassword,
-            //     component: () => import(`../components/pages/authenticationPage/login/resetPassword.vue`)
-            // },
+            {
+                path: 'reset-password',
+                name: routeName.LoginResetPassword,
+                component: () => import(`../components/pages/authenticationPage/login/resetPassword.vue`)
+            },
         ],
         beforeEnter: (to, from, next) => {
             //TODO why do we need this
