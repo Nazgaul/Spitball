@@ -68,13 +68,13 @@ const mutations = {
     setReflectChangeToPage(state) {
         state.reflectChangeToPage++;
     },
-    setAllClassesTeaching(state){
-        if(state.selectedClasses && state.selectedClasses.length){
-            state.selectedClasses.forEach((item, index)=>{
-                return state.selectedClasses[index].isTeaching = true;
-            });
-        }
-    },
+    // setAllClassesTeaching(state){
+    //     if(state.selectedClasses && state.selectedClasses.length){
+    //         state.selectedClasses.forEach((item, index)=>{
+    //             return state.selectedClasses[index].isTeaching = true;
+    //         });
+    //     }
+    // },
     setLock_selectedClass(state, val){
         state.lock_selectedClass = val;
     },
@@ -87,9 +87,9 @@ const actions = {
     updateTeachCourse(context,courseName){
         return courseService.teachCourse(courseName)
     },
-    updateTeachingClasses({commit}){
-        commit('setAllClassesTeaching');
-    },
+    // updateTeachingClasses({commit}){
+    //     commit('setAllClassesTeaching');
+    // },
     clearClassesCahce({commit}){
         commit('clearClassesCahce');
     },

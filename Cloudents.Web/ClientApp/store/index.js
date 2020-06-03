@@ -11,7 +11,6 @@ import uploadFiles from  "./uploadFiles";
 import University from "./university";
 import mobileFooter from './mobileFooter';
 import chatStore from './chatStore';
-import becomeTutor from './becomeTutor';
 import userOnlineStatus from './userOnlineStatus';
 import leaveReview from './leaveReview';
 import requestTutor from './requestTutor';
@@ -95,7 +94,6 @@ const store = new Vuex.Store({
         mobileFooter,
         //onBoardGuide,
         chatStore,
-        becomeTutor,
         leaveReview,
         userOnlineStatus,
         requestTutor,
