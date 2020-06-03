@@ -35,13 +35,6 @@ export const dashboardRoutes = [
            requiresAuth: true,
            showMobileFooter: true,
        },
-       beforeEnter: (to, from, next) => {
-            if(store.getters.accountUser?.isSold){
-                next()
-                return
-            }
-            next('/')
-        },
    },
    {
        path: "/my-content",
