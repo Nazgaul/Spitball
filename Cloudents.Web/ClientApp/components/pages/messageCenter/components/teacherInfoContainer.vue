@@ -21,7 +21,7 @@
                   <div class="actionName" v-t="isStudyRoom?'chat_teacher_btn_studyroom':'dashboardPage_my_studyrooms_create_room'"/>
                </v-btn>
                <v-btn :href="`mailto:${tutorEmail}`" block depressed text class="actionBox mb-3 cursor-pointer">
-                  <v-icon color="#de5642" size="16">sbf-email-chat</v-icon>
+                  <v-icon color="#de5642" size="14">sbf-email-chat</v-icon>
                   <div class="actionName" v-t="'chat_teacher_btn_mail'"/>
                </v-btn>
                <v-btn block depressed text class="actionBox mb-5 cursor-pointer" @click="sendWhatsApp">
@@ -34,7 +34,7 @@
                <div class="listHeader px-4 d-flex justify-space-between align-center flex-grow-0 flex-shrink-0">
                   <span class="participantsTitle" v-t="'chat_participants'"/>
                   <span>
-                     <v-icon size="16" color="#7a798c" class="pr-1">sbf-users</v-icon>
+                     <v-icon size="14" color="#7a798c" class="pr-1">sbf-users</v-icon>
                      {{participantsCount}}
                   </span>
                </div>
@@ -187,6 +187,9 @@ export default {
             }
          }
          .participantList{
+            ::-webkit-scrollbar-track {
+               background:none; 
+            }
             max-height: 296px;
             // height: 296px;
             border-radius: 6px;
