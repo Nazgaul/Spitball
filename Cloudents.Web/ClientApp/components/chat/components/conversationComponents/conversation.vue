@@ -1,10 +1,10 @@
 <template>
   <div class="conversation-container">
     <v-flex class="avatar-container">
-        <user-avatar :size="'46'" :userImageUrl="userImg" :user-name="conversation.name"/>
+        <user-avatar :size="'49'" :userImageUrl="userImg" :user-name="conversation.name"/>
         <userOnlineStatus class="user-status" :userId="conversation.userId"></userOnlineStatus>
     </v-flex>
-    <v-flex class="user-detail-container">
+    <v-flex class="user-detail-container text-truncate">
       <v-flex class="top-detail-container">
 
         <v-flex class="top-detail-container-wrap">
@@ -14,7 +14,7 @@
 
         <v-flex class="date-unread-container">
           <template>
-            <div class="conversation-desc" v-html="conversation.lastMessage"></div>
+            <div class="conversation-desc text-truncate" v-html="conversation.lastMessage"></div>
           </template>
           <div>
             <span v-show="conversation.unread > 0" class="conversation-unread">{{conversation.unread}}</span>
@@ -67,16 +67,18 @@ export default {
 @import '../../../../styles/mixin.less';
 
 .conversation-container {
+  padding: 12px 0px 12px 16px;
+  border-bottom: solid 1px rgba(238, 238, 238, 0.8);
+  height: 76px;
   display: flex;
   width: 100%;
   align-items: center;
   &:hover{
-    background: #f7f7f7;
+    background: #f0f3f6;
   }
   .avatar-container {
     position:relative;
     flex-grow: 0;
-    margin-left: 12px;
     .user-status{
       bottom: 2px;
       position: absolute;
@@ -84,9 +86,9 @@ export default {
     }
   }
   .user-detail-container {
-    border-bottom: solid 1px #dfdfe4;
-    padding: 6px 0;
-    margin: 0 10px;
+    margin-left: 16px;
+    padding-right: 10px ;
+    height: 100%;
     .top-detail-container {
           display: flex;
           flex-direction: column;
@@ -96,15 +98,16 @@ export default {
         justify-content: space-between;
         display: flex;
         align-items: center;
+        padding-top: 2px;
         .conversation-name{
           max-width: 160px;
-          font-size: 14px;
+          font-size: 16px;
           color: #43425d;
           align-items: center;
-          word-break: break-all;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          overflow: hidden;
+          // word-break: break-all;
+          // text-overflow: ellipsis;
+          // white-space: nowrap;
+          // overflow: hidden;
           font-family: sans-serif;
           @media (max-width: 425px) {
             max-width: 200px;
@@ -117,34 +120,24 @@ export default {
           }
         }
         .conversation-date{
-          font-size: 12px;
-          color: #919095;
+          font-size: 13px;
+          color: #69687d;
         }
       }
       .date-unread-container{
         display: flex;
         justify-content: space-between;
-        text-align: right;
-        max-height: 50px;
-        min-height: 36px;
         align-items: center;
         .conversation-desc{
           .giveMeEllipsis(1, 18);
           display: block;
           text-align: left;
           font-size: 14px;
-          color: #919095;
+          color: #69687d;
           align-items: center;
-          width: 200px;
-          @media (max-width: @screen-xs) {
-            width: 300px;
-          }
-          @media (max-width: @screen-xss) {
-            width: 220px;
-          }
+          width: 86%;
           img {
             margin-right: 4px;
-            vertical-align: middle;
           }
         }
         .conversation-unread{

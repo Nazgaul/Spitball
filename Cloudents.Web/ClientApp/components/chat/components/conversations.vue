@@ -71,6 +71,7 @@ export default {
     overflow: auto;
     overscroll-behavior: none;
     .conversations-wrapper{
+        margin-right: 4px;
         cursor: pointer;
         &.conversation-active{
             background-color: #f0f3f6;
