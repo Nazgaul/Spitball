@@ -1,8 +1,7 @@
 <template>
     <v-row class="marketingActions pa-0 text-center">
-        <v-col class="pa-0 mb-6 d-flex justify-space-between" cols="12">
-            <div class="text text-left" v-if="$route.name === routeNames.Dashboard && $vuetify.breakpoint.xsOnly">{{$t('marketing_title')}}</div>
-            <div class="text text-left d-block d-sm-none" v-if="$route.name === routeNames.Marketing">{{$t('promote_title')}}</div>
+        <v-col class="pa-0 mb-6 d-block d-sm-none justify-space-between" cols="12">
+            <div class="text text-left" v-t="'marketing_title'"></div>
         </v-col>
         
         <template v-for="(data, index) in resource">
@@ -44,10 +43,7 @@ export default {
         .text {
             color: @global-purple;
             font-weight: 600;
-            font-size: 20px;
-            @media (max-width: @screen-xs) {
-                font-size: 18px;
-            }
+            .responsive-property(font-size, 20px, null, 16px);
         }
 
         .box {
