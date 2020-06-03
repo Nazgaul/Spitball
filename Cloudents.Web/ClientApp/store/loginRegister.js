@@ -1,6 +1,6 @@
 // GLOBALS:
 import { router } from '../main.js';
-import codesJson from '../components/pages/authenticationPage/CountryCallingCodes';
+// import codesJson from '../components/pages/authenticationPage/CountryCallingCodes';
 
 const Fingerprint2 = require('fingerprintjs2');
 
@@ -113,7 +113,7 @@ const mutations = {
 const getters = {    
     getEmail1: state => state.email,
     getPhone: state => state.phone,
-    getCountryCodesList: () => codesJson,
+    // getCountryCodesList: () => codesJson,
     getLocalCode: state => state.localCode,
     // getGlobalLoading: state => state.globalLoading,
     getErrorMessages: state => state.errorMessage,
