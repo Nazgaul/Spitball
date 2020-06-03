@@ -2,7 +2,7 @@
     <div class="registerDialog">
         <v-form @submit.prevent="submit" ref="form" class="registerForm pa-4">  
             <div>
-                <div class="closeIcon">
+                <div class="closeIcon" v-if="!isSetPhoneStep">
                     <v-icon size="12" color="#aaa" @click="closeRegister">sbf-close</v-icon>
                 </div>
 
@@ -153,6 +153,9 @@ export default {
     computed: {
         globalBtnText() {
             return this.isVerifyPhone ? 'loginRegister_setemailpass_btn_verify' : 'loginRegister_setemailpass_btn'
+        },
+        isSetPhoneStep() {
+            return this.component === 'setPhone2'
         },
         isEmailRegister() {
             return this.component === 'emailRegister'
