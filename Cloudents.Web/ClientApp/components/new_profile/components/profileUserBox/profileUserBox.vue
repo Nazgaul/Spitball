@@ -35,6 +35,9 @@
                                     </div>
                                     <div class="profileUserSticky_pricing_price">
                                         <div class="d-flex align-center" v-if="tutorPrice">
+                                            <v-btn @click="openEditInfo" v-ripple="false" icon text v-if="isCurrentProfileUser && currentProfileUser.isTutor">
+                                                <editSVG class="mr-1" />
+                                            </v-btn>
                                             <span class="profileUserSticky_pricing_price_number mb-1">{{$n(tutorDiscountPrice || tutorPrice, 'currency')}}</span>
                                             <div class="d-flex align-end profileUserSticky_pricing_price_hour">
                                                 <span>/</span>
@@ -138,7 +141,7 @@
                         <div class="profileUserSticky_btn_txt" v-t="'profile_send_message'"/>
                     </v-btn>
                     <div class="calendarBtnWrap align-center align-sm-end" :class="{'ml-3': !getProfile.user.calendarShared}">
-                        <editSVG sel="edit" class="pUb_edit_user mr-1" v-if="isCurrentProfileUser && !isMobile" @click="openEditInfo"/>
+                        <editSVG sel="edit" class="pUb_edit_user mr-1" v-if="isCurrentProfileUser && !isMobile && !getIsTeacher" @click="openEditInfo"/>
                         <v-btn
                             @click="globalFunctions.openCalendar"
                             class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-sm-2 mt-4"
@@ -233,7 +236,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getProfile','accountUser','getUserStatus', 'getUserLoggedInStatus']),
+        ...mapGetters(['getProfile','accountUser','getUserStatus', 'getUserLoggedInStatus', 'getIsTeacher']),
         isLogged() {
             return this.getUserLoggedInStatus
         },
@@ -619,6 +622,7 @@ export default {
             .icon {
                 align-self: baseline;
                 margin-top: 8px;
+                height: auto;
             }
             .number {
                 font-weight: 600;
