@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Entities;
 using Cloudents.Web.Models;
-using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
