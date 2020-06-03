@@ -37,7 +37,7 @@ namespace Cloudents.FunctionsV2.Operations
             await Task.Delay(TimeSpan.FromSeconds(30), token);
             var query = new GetDocumentPurchasedEmailQuery(msg.TransactionId);
             var data = await _queryBus.QueryAsync(query, token);
-            var template = await GetEmail("DocumentPurchased", data.Language, _queryBus, token);
+            var template = await GetEmailAsync("DocumentPurchased", data.Language, _queryBus, token);
             var dataProtector = _dataProtectProvider.CreateProtector("Spitball")
                 .ToTimeLimitedDataProtector();
             var code = dataProtector.Protect(data.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(5));
@@ -61,11 +61,11 @@ namespace Cloudents.FunctionsV2.Operations
                 Subject = template.Subject.InjectSingleValue("Tokens", data.Tokens.ToString("f2")),
                 To = data.ToEmailAddress,
             };
-            await BuildEmail(data.ToEmailAddress, data.Language, binder, templateData, "DocumentPurchased", token);
+            await BuildEmailAsync(data.ToEmailAddress, data.Language, binder, templateData, "DocumentPurchased", token);
 
         }
 
-        private static async Task<EmailObjectDto> GetEmail(string @event,
+        private static async Task<EmailObjectDto?> GetEmailAsync(string @event,
             Language language, IQueryBus queryBus, CancellationToken token)
         {
 
@@ -100,7 +100,7 @@ namespace Cloudents.FunctionsV2.Operations
             return template;
         }
 
-        private static async Task BuildEmail(string toAddress, Language language, IBinder binder,
+        private static async Task BuildEmailAsync(string toAddress, Language language, IBinder binder,
             TemplateData templateData,
             string category,
             CancellationToken token)

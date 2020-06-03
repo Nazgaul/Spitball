@@ -30,12 +30,12 @@ namespace Cloudents.FunctionsV2
     {
 
         private static readonly Dictionary<Star, byte[]> StarDictionary = new Dictionary<Star, byte[]>();
-        internal static List<CloudBlockBlob> Blobs;
+        internal static List<CloudBlockBlob> Blobs = new List<CloudBlockBlob>();
 
         private const int SquareProfileImageDimension = 245;
 
         [FunctionName("ShareProfileImageFunction")]
-        public static async Task<IActionResult> Run(
+        public static async Task<IActionResult> RunAsync(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "share/profile/{id:long}")] HttpRequest req, long id,
             [Blob("spitball/share-placeholder")] IEnumerable<CloudBlockBlob> directoryBlobs,
             [HttpClientFactory] HttpClient client,
@@ -212,7 +212,7 @@ namespace Cloudents.FunctionsV2
 
         internal static void InitData(IEnumerable<CloudBlockBlob> directoryBlobs)
         {
-            if (Blobs is null)
+            if (Blobs.Count == 0)
             {
                 Blobs = directoryBlobs.ToList();
             }

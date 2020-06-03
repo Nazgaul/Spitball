@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 
 namespace Cloudents.FunctionsV2.GhostScript
@@ -10,7 +11,7 @@ namespace Cloudents.FunctionsV2.GhostScript
     {
         #region Globals
 
-        private static readonly string[] ARGS = new string[] {
+        private static readonly string[] Args = new string[] {
             // Keep gs from writing information to standard output
             "-q",                     
             "-dQUIET",
@@ -74,6 +75,10 @@ namespace Cloudents.FunctionsV2.GhostScript
         /// <param name="outputPath">Path to the output file</param>
         /// <param name="firstPage">The page of the file to start on</param>
         /// <param name="lastPage">The page of the file to end on</param>
+        /// <param name="dpix"></param>
+        /// <param name="dpiy"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
         private static string[] GetArgs(string inputPath,
             string outputPath,
             int firstPage,
@@ -85,12 +90,13 @@ namespace Cloudents.FunctionsV2.GhostScript
         {
             // To maintain backwards compatibility, this method uses previous hardcoded values.
 
-            GhostscriptSettings s = new GhostscriptSettings();
-            s.Device = GhostscriptDevices.jpeg;
-            s.Page.Start = firstPage;
-            s.Page.End = lastPage;
-            s.Resolution = new System.Drawing.Size(dpix, dpiy);
-			
+            GhostscriptSettings s = new GhostscriptSettings
+            {
+                Device = GhostscriptDevices.jpeg,
+                Page = {Start = firstPage, End = lastPage},
+                Resolution = new Size(dpix, dpiy)
+            };
+
             GhostscriptPageSize pageSize = new GhostscriptPageSize();
             if (width == 0 && height == 0)
             {
@@ -116,7 +122,7 @@ namespace Cloudents.FunctionsV2.GhostScript
             string outputPath,
             GhostscriptSettings settings)
         {
-            System.Collections.ArrayList args = new System.Collections.ArrayList(ARGS);
+            System.Collections.ArrayList args = new System.Collections.ArrayList(Args);
 
             if (settings.Device == GhostscriptDevices.UNDEFINED)
             {
@@ -188,31 +194,31 @@ namespace Cloudents.FunctionsV2.GhostScript
     {
         private GhostscriptDevices _device;
         private GhostscriptPages _pages = new GhostscriptPages();
-        private System.Drawing.Size _resolution;
+        private Size _resolution;
         private GhostscriptPageSize _size = new GhostscriptPageSize();
 
         public GhostscriptDevices Device
         {
-            get { return this._device; }
-            set { this._device = value; }
+            get { return _device; }
+            set { _device = value; }
         }
 
         public GhostscriptPages Page
         {
-            get { return this._pages; }
-            set { this._pages = value; }
+            get { return _pages; }
+            set { _pages = value; }
         }
 
-        public System.Drawing.Size Resolution
+        public Size Resolution
         {
-            get { return this._resolution; }
-            set { this._resolution = value; }
+            get { return _resolution; }
+            set { _resolution = value; }
         }
 
         public GhostscriptPageSize Size
         {
-            get { return this._size; }
-            set { this._size = value; }
+            get { return _size; }
+            set { _size = value; }
         }
     }
 
@@ -232,13 +238,13 @@ namespace Cloudents.FunctionsV2.GhostScript
         {
             set
             {
-                this._start = -1;
-                this._end = -1;
-                this._allPages = true;
+                _start = -1;
+                _end = -1;
+                _allPages = true;
             }
             get
             {
-                return this._allPages;
+                return _allPages;
             }
         }
 
@@ -249,12 +255,12 @@ namespace Cloudents.FunctionsV2.GhostScript
         {
             set
             {
-                this._allPages = false;
-                this._start = value;
+                _allPages = false;
+                _start = value;
             }
             get
             {
-                return this._start;
+                return _start;
             }
         }
 
@@ -265,12 +271,12 @@ namespace Cloudents.FunctionsV2.GhostScript
         {
             set
             {
-                this._allPages = false;
-                this._end = value;
+                _allPages = false;
+                _end = value;
             }
             get
             {
-                return this._end;
+                return _end;
             }
         }
     }
@@ -278,6 +284,7 @@ namespace Cloudents.FunctionsV2.GhostScript
     /// <summary>
     /// Output devices for GhostScript
     /// </summary>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public enum GhostscriptDevices
     {
         UNDEFINED,
@@ -332,21 +339,21 @@ namespace Cloudents.FunctionsV2.GhostScript
     public class GhostscriptPageSize
     {
         private GhostscriptPageSizes _fixed;
-        private System.Drawing.Size _manual;
+        private Size _manual;
 
         /// <summary>
         /// Custom document size
         /// </summary>
-        public System.Drawing.Size Manual
+        public Size Manual
         {
             set
             {
-                this._fixed = GhostscriptPageSizes.UNDEFINED;
-                this._manual = value;
+                _fixed = GhostscriptPageSizes.UNDEFINED;
+                _manual = value;
             }
             get
             {
-                return this._manual;
+                return _manual;
             }
         }
 
@@ -357,12 +364,12 @@ namespace Cloudents.FunctionsV2.GhostScript
         {
             set
             {
-                this._fixed = value;
-                this._manual = new System.Drawing.Size(0, 0);
+                _fixed = value;
+                _manual = new Size(0, 0);
             }
             get
             {
-                return this._fixed;
+                return _fixed;
             }
         }
 
@@ -375,6 +382,7 @@ namespace Cloudents.FunctionsV2.GhostScript
     /// Missing 11x17 as enums can't start with a number, and I can't be bothered
     /// to add in logic to handle it - if you need it, do it yourself.
     /// </remarks>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public enum GhostscriptPageSizes
     {
         UNDEFINED,

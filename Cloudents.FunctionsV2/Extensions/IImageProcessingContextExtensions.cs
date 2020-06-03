@@ -16,20 +16,6 @@ namespace Cloudents.FunctionsV2.Extensions
 {
     public static class DrawTextExtensions
     {
-
-        //public static IImageProcessingContext DrawTextWithHebrew(
-        //    this IImageProcessingContext source,
-        //    TextGraphicsOptions options,
-        //    string text,
-        //    Font font,
-        //    Color color,
-        //    PointF location)
-        //{
-        //    var textToApply = text;
-        //    return source.DrawText(options, textToApply, font, color, location);
-        //}
-
-
         public static IImageProcessingContext DrawText(
             this IImageProcessingContext source,
             string? text,
@@ -62,16 +48,11 @@ namespace Cloudents.FunctionsV2.Extensions
             }
 
             var textToDraw = new string(x);
-            //pfcoll.AddFontFile(Server.MapPath("~/Fonts/" + fontName));
-            //FontFamily ff = pfcoll.Families[0];
             var colorToWorkWith = ColorTranslator.FromHtml(color);
             using (var g = Graphics.FromImage(myBitmap))
             {
                 g.SmoothingMode = SmoothingMode.AntiAlias;
                 g.TextRenderingHint = TextRenderingHint.AntiAlias;
-
-                //var colorToWorkWith = System.Drawing.Color.FromArgb(color.ToArgb());
-
 
                 var brush = new System.Drawing.SolidBrush(colorToWorkWith);
                 g.DrawString(textToDraw,
@@ -84,10 +65,6 @@ namespace Cloudents.FunctionsV2.Extensions
                         Trimming = StringTrimming.Word,
 
                     });
-                //g.DrawString("My Text very very nice",
-                //    new Font("Tahoma", 20),
-                //    Brushes.White,
-                //    new PointF(0, 0));
             }
 
             using var ms = new MemoryStream();
@@ -100,24 +77,6 @@ namespace Cloudents.FunctionsV2.Extensions
         public static IImageProcessingContext CropBottomEdge(this IImageProcessingContext ctx)
         {
             return ctx.ApplyProcessor(new CropImageProcessorCreator());
-
-            // ctx.ApplyProcessor(new )
-            //var pixelToLookFor = new Rgba32(colorToWorkWith.R, colorToWorkWith.G, colorToWorkWith.B, colorToWorkWith.A);
-            ////    var size = ctx.GetCurrentSize();
-            //int y;
-
-            ////    ctx.ApplyProcessor()
-            //for (y = ctx.Height - 1; y >= 0; y--)
-            //{
-
-            //    Span<Rgba32> pixelRowSpan = ctx.GetPixelRowSpan(y);
-            //    var i = pixelRowSpan.IndexOf(pixelToLookFor);
-            //    if (i != -1)
-            //    {
-            //        break;
-
-            //    }
-            //}
         }
 
 

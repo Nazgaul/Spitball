@@ -5,6 +5,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
@@ -22,7 +23,7 @@ namespace Cloudents.FunctionsV2
         private const string SetSyncStatusFunctionName = "SearchSyncSetProgress";
 
 
-        internal static async Task StartSearchSync(IDurableOrchestrationClient starter,
+        internal static async Task StartSearchSyncAsync(IDurableOrchestrationClient starter,
             ILogger log, SyncType syncType)
 
         {
@@ -57,7 +58,7 @@ namespace Cloudents.FunctionsV2
         }
 
         [FunctionName(SearchSyncName)]
-        public static async Task SearchSync(
+        public static async Task SearchSyncAsync(
             [OrchestrationTrigger] IDurableOrchestrationContext context,
             ILogger log)
         {
@@ -107,7 +108,8 @@ namespace Cloudents.FunctionsV2
         //}
 
         [FunctionName(DoSyncFunctionName)]
-        public static async Task<SyncResponse> DoSearchSync(
+        [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
+        public static async Task<SyncResponse> DoSearchSyncAsync(
             [ActivityTrigger] SearchSyncInput input,
             [Inject] ILifetimeScope lifetimeScope,
             IBinder binder,
@@ -121,7 +123,7 @@ namespace Cloudents.FunctionsV2
         }
 
         [FunctionName(GetSyncStatusFunctionName)]
-        public static async Task<SyncAzureQuery> GetSyncProgress(
+        public static async Task<SyncAzureQuery> GetSyncProgressAsync(
             [ActivityTrigger] string blobName, IBinder binder, CancellationToken token)
         {
             var dynamicBlobAttribute =
@@ -135,7 +137,7 @@ namespace Cloudents.FunctionsV2
 
 
         [FunctionName(SetSyncStatusFunctionName)]
-        public static async Task SetSyncProgress(
+        public static async Task SetSyncProgressAsync(
             [ActivityTrigger] SearchSyncInput searchSyncInput, IBinder binder, CancellationToken token)
         {
             var dynamicBlobAttribute =
