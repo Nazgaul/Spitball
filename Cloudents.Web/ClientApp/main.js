@@ -28,6 +28,7 @@ import './prototypes/prototypes.js';
 
 // Directives
 import { openDialog,closeDialog } from './directives/dialog.js';
+import {strLinkify} from './directives/strLinkify.js';
 
 if(!window.IntersectionObserver){ // Intersection observer support
     import('intersection-observer');
@@ -84,6 +85,7 @@ Vue.use(VueAnalytics, {
 Vue.directive('language', Language);
 Vue.directive('openDialog',openDialog);
 Vue.directive('closeDialog',closeDialog);
+Vue.directive('strLinkify',strLinkify);
 
 global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
 global.isEdgeRtl = false;

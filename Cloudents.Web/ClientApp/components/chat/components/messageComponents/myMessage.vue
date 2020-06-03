@@ -1,7 +1,7 @@
 <template>
    <v-card color="#deedff" tile class="myMessageContainer pa-2 pb-1">
       <v-card-title class="messageTitle pa-0" v-text="userName"/>
-      <v-card-text v-if="isTextMessage" dir="auto" class="messageText px-0 pb-0 pt-2" v-text="message.text"/>
+      <v-card-text v-strLinkify="''" v-if="isTextMessage" dir="auto" class="messageText px-0 pb-0 pt-2" v-text="message.text"/>
       <div class="pt-2" v-else>
          <a :href="message.href" target="_blank">
             <v-img :src="fileSrc" height="140px" width="190px"/>
@@ -46,6 +46,36 @@ export default {
          }
       }
    },
+   // methods: {
+      // stringy(str,linkClassName = ''){
+      //    let urlPattern = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim;
+      //    let pseudoUrlPattern = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+      //    let emailAddressPattern = /[\w.]+@[a-zA-Z_-]+?(?:\.[a-zA-Z]{2,6})+/gim;
+      //    let modifiedText = str;
+      //    let matchedResults = modifiedText.match(urlPattern) || modifiedText.match(pseudoUrlPattern) || modifiedText.match(emailAddressPattern) ;
+      //    if(matchedResults){
+      //       matchedResults.forEach(result=>{
+      //          let prefix = result.toLowerCase().indexOf('http') === -1 && result.toLowerCase().indexOf('ftp') === -1 ? '//' : '';
+      //          if(result.match(urlPattern)?.length){
+      //             modifiedText = modifiedText.replace(result, `<a class="${linkClassName}" href="${prefix + result.trim()}" target="_blank">${result}</a>`)
+      //          }
+      //          if(result.match(pseudoUrlPattern)?.length){
+      //             modifiedText = modifiedText.replace(result, `<a class="${linkClassName}" href="${prefix + result.trim()}" target="_blank">${result}</a>`)
+      //          }
+      //          if(result.match(emailAddressPattern)?.length){
+      //             modifiedText = modifiedText.replace(result, `<a class="${linkClassName}" href="mailto:${result}">${result}</a>`)
+      //          }
+      //       }); 
+      //    }
+      //    return modifiedText
+      // }
+   // },
+   // mounted() {
+   //    let el = document.getElementById(`messageText_${this.message.index}`)
+   //    if(el){
+   //       el.innerHTML = this.stringy(this.message.text)
+   //    }
+   // },
 
 }
 </script>
