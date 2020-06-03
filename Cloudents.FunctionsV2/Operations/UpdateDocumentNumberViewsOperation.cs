@@ -16,10 +16,10 @@ namespace Cloudents.FunctionsV2.Operations
             _documentRepository = documentRepository;
         }
 
-        public async Task DoOperationAsync(UpdateDocumentNumberOfViews msg, IBinder binder, CancellationToken token)
+        public Task DoOperationAsync(UpdateDocumentNumberOfViews msg, IBinder binder, CancellationToken token)
         {
             var command = new IncrementDocumentNumberOfViewsCommand(msg.Id);
-            await _documentRepository.DispatchAsync(command, token);
+            return _documentRepository.DispatchAsync(command, token);
         }
     }
 }

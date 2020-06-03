@@ -38,7 +38,7 @@ export default {
     isCurrentProfileUser() {
       let profileUser = this.getProfile?.user;
       if (profileUser && this.getUserLoggedInStatus) {
-        return profileUser.id == this.accountUser.id;
+        return profileUser.id == this.accountUser?.id;
       }
       return false;
     },

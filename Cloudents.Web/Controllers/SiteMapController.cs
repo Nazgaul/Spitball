@@ -74,11 +74,7 @@ namespace Cloudents.Web.Controllers
             }
             var document = new XDocument(
                  new XDeclaration("1.0", "utf-8", ""), root);
-            return new FileCallbackResult("application/xml",
-                async (stream, context) =>
-                {
-                    await document.SaveAsync(stream, SaveOptions.OmitDuplicateNamespaces, token);
-                });
+            return new FileCallbackResult("application/xml", (stream, context) => document.SaveAsync(stream, SaveOptions.OmitDuplicateNamespaces, token));
         }
 
 

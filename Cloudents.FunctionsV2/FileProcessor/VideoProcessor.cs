@@ -28,7 +28,7 @@ namespace Cloudents.FunctionsV2.FileProcessor
             _commandBus = commandBus;
         }
 
-        public async Task ProcessFileAsync(long id, CloudBlockBlob blob, IBinder binder, ILogger log, CancellationToken token)
+        public Task ProcessFileAsync(long id, CloudBlockBlob blob, IBinder binder, ILogger log, CancellationToken token)
         {
             var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
             {
@@ -38,7 +38,7 @@ namespace Cloudents.FunctionsV2.FileProcessor
 
             });
             var url = new Uri(blob.Uri, signedUrl);
-            await _videoService.CreateVideoPreviewJobAsync(id, url.AbsoluteUri, token);
+            return _videoService.CreateVideoPreviewJobAsync(id, url.AbsoluteUri, token);
         }
 
         //public async Task MoveStudyRoomVideoAsync(string assetName, IBinder binder, CancellationToken token)

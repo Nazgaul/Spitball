@@ -1,8 +1,6 @@
 import axios from 'axios'
 import constants from './constants/dashboardConstants';
-// const dashboardInstance = axios.create({
-//     baseURL: '/'
-// })
+import registerService from '../services/registrationService2';
 
 const state = {
     tutorLinkActions: {},
@@ -68,8 +66,11 @@ const mutations = {
 
         state.tutorNotificationsActions = notifyObj
     },
-    setEmailTask(state, email) {
+    setEmailTaskComplete(state, email) {
         state.tutorLinkActions[email].value = true
+    },
+    setPhoneTaskComplete(state) {
+        state.tutorLinkActions[constants.PHONE].value = true
     }
 }
 
@@ -82,6 +83,9 @@ const actions = {
             .catch(ex => {
                 console.log(ex);
         });
+    },
+    updatePhoneCode() {
+        return registerService.sendSmsCode()
     },
     verifyTutorEmail() {
         return axios.post('/register/verifyEmail')
