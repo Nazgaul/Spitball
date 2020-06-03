@@ -21,7 +21,7 @@
       />
       <profileSubscription :id="id" v-if="showProfileSubscription" ref="profileSubscription" />
       <profileLiveClasses :id="id" v-if="isTutor" @isComponentReady="val => goToLiveClasses = true" ref="profileLiveClassesElement" />
-      <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" />
+      <!-- <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" /> -->
       <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" />
       <profileItemsBox v-if="isMyProfile || showItems" class="mt-sm-12 mt-2" />
       <profileEarnMoney class="mt-0 mt-sm-5" v-if="showEarnMoney" />
