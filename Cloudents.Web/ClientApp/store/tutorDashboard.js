@@ -86,10 +86,6 @@ const actions = {
     },
     updatePhoneCode() {
         return registerService.sendSmsCode()
-            .then(() => {
-                // commit('setComponent', 'verifyPhone')
-                return
-            }).catch(ex => ex)
     },
     verifyTutorEmail() {
         return axios.post('/register/verifyEmail')
