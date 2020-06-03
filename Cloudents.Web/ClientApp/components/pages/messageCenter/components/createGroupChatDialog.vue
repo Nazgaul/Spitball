@@ -103,6 +103,13 @@ export default {
             }
          }
          let currentConversationObj = chatService.createActiveConversationObj(conversation);
+         let tutorInfo = {
+            id: this.$store.getters.accountUser.id,
+            name: this.$store.getters.accountUser.firstName + ' ' + this.$store.getters.accountUser.lastName,
+            image: this.$store.getters.accountUser.image,
+            email: this.$store.getters.accountUser.email,
+         }
+         this.$store.commit('ACTIVE_CONVERSATION_TUTOR',{tutorInfo,conversationId})
          this.$store.dispatch('setActiveConversationObj',currentConversationObj);
          this.$router.push({...this.$route,params:{id:currentConversationObj.conversationId}}).catch(()=>{})
          this.$emit('updateCreateGroupDialogState',false);

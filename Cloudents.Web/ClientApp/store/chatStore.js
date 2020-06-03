@@ -62,8 +62,8 @@ const getters = {
 };
 
 const mutations = {
-    [chat_SETTERS.ACTIVE_CONVERSATION_TUTOR]:(state,tutorInfo) =>{
-        let currentConversationId = state.activeConversationObj.conversationId;
+    [chat_SETTERS.ACTIVE_CONVERSATION_TUTOR]:(state,{tutorInfo,conversationId}) =>{
+        let currentConversationId = conversationId;
         state.conversationsTutor = { ...state.conversationsTutor, [currentConversationId]:tutorInfo};
     },
     setFileError(state,val){
@@ -339,7 +339,7 @@ const actions = {
         if(state.conversationsTutor[conversationId]) return;
         
         chatService.getConversationTutor(conversationId).then(tutorInfo=>{
-            commit(chat_SETTERS.ACTIVE_CONVERSATION_TUTOR,tutorInfo)
+            commit(chat_SETTERS.ACTIVE_CONVERSATION_TUTOR,{tutorInfo,conversationId})
         })
     }
 };
