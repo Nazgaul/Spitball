@@ -31,7 +31,7 @@
                   <div class="type">{{ $t(analyticTypeResource(key)) }}</div>
                   <div class="result my-0 my-sm-1" v-if="val > 0">{{$n(Math.round(val), key === 'revenue' ? 'currency' : '')}}</div>
                   <div class="minus" v-else>-</div>
-                  <div class="rate font-weight-bold">
+                  <div class="rate font-weight-bold" v-if="val > 0">
                       <arrowDownIcon class="arrow" v-show="percentage(key)" :class="[showIcon(key) ? 'arrowDown' : 'arrowUp']" />
                       <bdi class="precent mr-1" :class="{'down': showIcon(key)}">{{percentage(key)}} <span v-show="percentage(key)">&#37;</span></bdi>
                   </div>
