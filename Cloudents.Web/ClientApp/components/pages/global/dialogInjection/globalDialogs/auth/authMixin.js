@@ -59,14 +59,12 @@ export default {
             let self = this
             registrationService.emailLogin(loginObj)
                 .then(({data}) => {
-                    global.country = data.country; // should we need this? @idan
+                    global.country = data.country;
                     analyticsService.sb_unitedEvent('Login', 'Start');
 
                     if(self.presetRouting()) return
-                    
-                    self.$store.dispatch('userStatus').then(() => {
-                        self.$router.push({name: self.routeNames.LoginRedirect})
-                    })
+
+                    window.location.reload()
                 }).catch(error => {      
                     let { response: { data } } = error
 
@@ -174,7 +172,7 @@ export default {
                             })
                             return
                         }
-                        self.$router.push({name: self.routeNames.LoginRedirect})
+                        // self.$router.push({name: self.routeNames.LoginRedirect})
                     })
 
                 }).catch(error => {
