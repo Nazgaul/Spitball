@@ -14,7 +14,7 @@
         <div class="item-cont pa-2">
             <div class="itemCarouselCard_videoType d-flex align-center justify-space-between mb-1">
                 <div class="itemDate" >{{$d(item.dateTime, 'short')}}</div>
-                <div class="d-flex" v-if="showVideoDuration">
+                <div class="d-flex align-center" v-if="showVideoDuration">
                     <span class="vidTime pr-1">{{item.itemDuration}}</span>
                     <vidSVG class="vidSvg" width="17" />
                 </div>
