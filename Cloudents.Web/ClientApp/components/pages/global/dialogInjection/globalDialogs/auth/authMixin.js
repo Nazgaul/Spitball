@@ -136,12 +136,6 @@ export default {
             return false
         },
         sendSms() {
-            // when tutor is in dashboard and want change number
-            if(this.isLogged) {
-                this.component = 'verifyPhone'
-                return
-            }
-
             let childComp = this.$refs.childComponent
             let smsObj = {
                 countryCode: childComp.localCode,
@@ -151,9 +145,16 @@ export default {
             let self = this
             registrationService.smsRegistration(smsObj)
                 .then(function (){
+                    
                     let { dispatch } = self.$store
 
                     analyticsService.sb_unitedEvent('Registration', 'Phone Submitted');
+
+                    // when tutor is in dashboard and want change number
+                    if(self.isLogged) {
+                        self.component = 'verifyPhone'
+                        return
+                    }
 
                     if(self.presetRouting()) return
 
