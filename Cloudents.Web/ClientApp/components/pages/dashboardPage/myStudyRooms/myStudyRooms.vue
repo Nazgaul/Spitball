@@ -22,7 +22,7 @@
       <template v-slot:top>
         <div class="tableTop d-flex flex-sm-row flex-column align-sm-center justify-space-between">
           <div class="myStudyRooms_title pb-3 pb-sm-0" v-t="myStudyroomTitle"></div>
-          <div v-if="isTutor && isTutorStateOk">
+          <div v-if="isTutor">
             <v-btn
               @click="isStudyroomLive ? openLiveSession() : openPrivateSession()"
               class="link white--text"
@@ -180,9 +180,6 @@ export default {
     },
     isStudyroomLive() {
       return this.studyRoomType === 'broadcast'
-    },
-    isTutorStateOk() {
-      return this.$store.getters.accountUser?.isTutorState === 'ok';
     },
     isTutor() {
       return this.$store.getters.accountUser?.isTutor;

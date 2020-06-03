@@ -41,21 +41,21 @@
                             <v-layout align-center justify-end class="pr-2 grow">
                                 <v-flex shrink class="d-flex align-center" v-if="!singleClass.isLoading">
                                     <div v-show="isUserTutor">
-                                    <v-btn v-if="!singleClass.isTeaching" rounded @click="teachCourseToggle(singleClass)"
-                                           :loading="singleClass.isLoading && teachingActive"
-                                           class="outline-btn elevation-0 text-none align-center justify-center rounded-btn">
-                                        <span>
-                                            <v-icon color="#a3a0fb" class="btn-icon mr-1">sbf-face-icon</v-icon>
-                                            <span class="purple-text caption" v-html="$Ph('courses_teach')"></span>
-                                        </span>
-                                    </v-btn>
-                                    <v-btn v-else rounded @click="teachCourseToggle(singleClass)"
-                                           class="solid-btn elevation-0 text-none align-center justify-center rounded-btn">
-                                        <span>
-                                            <v-icon class="btn-icon mr-1">sbf-checkmark</v-icon>
-                                            <span class="caption" v-html="$Ph('courses_teaching')"></span>
-                                        </span>
-                                    </v-btn>
+                                        <v-btn v-if="!singleClass.isTeaching" rounded @click="teachCourseToggle(singleClass)"
+                                            :loading="singleClass.isLoading && teachingActive"
+                                            class="outline-btn elevation-0 text-none align-center justify-center rounded-btn">
+                                            <span>
+                                                <v-icon color="#a3a0fb" class="btn-icon mr-1">sbf-face-icon</v-icon>
+                                                <span class="purple-text caption" v-html="$Ph('courses_teach')"></span>
+                                            </span>
+                                        </v-btn>
+                                        <v-btn v-else rounded @click="teachCourseToggle(singleClass)"
+                                            class="solid-btn elevation-0 text-none align-center justify-center rounded-btn">
+                                            <span>
+                                                <v-icon class="btn-icon mr-1">sbf-checkmark</v-icon>
+                                                <span class="caption" v-html="$Ph('courses_teaching')"></span>
+                                            </span>
+                                        </v-btn>
                                     </div>
                                     <span>
                                         <v-icon @click="removeClass(singleClass)" v-show="!singleClass.isLoading" class="delete-sbf-icon">sbf-delete-outline</v-icon>
@@ -96,13 +96,13 @@
             }
         },
         computed: {
-            ...mapGetters(['getSelectedClasses', 'getIsTeacher', 'getIsTutorState']),
+            ...mapGetters(['getSelectedClasses']),
             
             classesSelected() {
                 return this.getSelectedClasses;
             },
             isUserTutor(){
-                return this.getIsTeacher || (this.getIsTutorState && this.getIsTutorState === 'pending');            
+                return this.$store.getters.getIsTeacher          
             },
             coursesQuantaty() {
                 return this.getSelectedClasses.length;

@@ -55,7 +55,7 @@
                     type="text"
                     @keyup.enter="applyCoupon"
                     v-model="coupon"
-                    :placeholder="couponPlaceholder"
+                    :placeholder="$t('coupon_placeholder')"
                     class="profile-coupon_input"
                     autofocus
                   />
@@ -84,7 +84,6 @@
 import { mapActions, mapGetters } from 'vuex';
 
 import analyticsService from '../../services/analytics.service';
-import { LanguageService } from "../../services/language/languageService";
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
 import storeService from '../../services/store/storeService';
 import couponStore from '../../store/couponStore';
@@ -136,7 +135,6 @@ export default {
                 openCoupon: this.openCoupon
             },
             coupon: '',
-            couponPlaceholder: LanguageService.getValueByKey('coupon_placeholder'),
             disableApplyBtn: false,
             activeTab: 1,
             componentRenderKey: 0
@@ -405,19 +403,19 @@ export default {
             this.openCalendar();
         }
     },
-    mounted() {
-        setTimeout(()=>{
-            if((this.$route.params && this.$route.params.id) && 
-               (this.$route.params.id == this.accountUser.id) && 
-               this.accountUser.isTutorState === "pending"){
-                this.updateToasterParams({
-                    toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
-                    showToaster: true,
-                    toasterTimeout: 3600000
-                });
-            }
-        },200);
-    }
+    // mounted() {
+    //     setTimeout(()=>{
+    //         if((this.$route.params && this.$route.params.id) && 
+    //            (this.$route.params.id == this.accountUser.id) && 
+    //            this.accountUser.isTutorState === "pending"){
+    //             this.updateToasterParams({
+    //                 toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
+    //                 showToaster: true,
+    //                 toasterTimeout: 3600000
+    //             });
+    //         }
+    //     },200);
+    // }
 }
 </script>
 

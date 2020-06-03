@@ -87,9 +87,6 @@ const actions = {
          }
       }
    },
-   resetProfileData(context) {
-      context.commit('resetProfile');
-   },
    toggleProfileFollower({ state, commit }, val) {
       if (val) {
          return profileService.followProfile(state.profile.user.id).then(() => {
