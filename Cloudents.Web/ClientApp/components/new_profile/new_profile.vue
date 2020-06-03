@@ -95,7 +95,7 @@ import profileUserBox from './components/profileUserBox/profileUserBox.vue';
 import profileDialogs from './components/profileDialogs/profileDialogs.vue';
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
 import profileEarnMoney from './components/profileEarnMoney/profileEarnMoney.vue';
-import profileBecomeTutor from './components/profileBecomeTutor/profileBecomeTutor.vue';
+// import profileBecomeTutor from './components/profileBecomeTutor/profileBecomeTutor.vue';
 import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue';
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileLiveClasses from './components/profileLiveClasses/profileLiveClasses.vue'
@@ -114,7 +114,7 @@ export default {
         profileDialogs,
         profileReviewsBox,
         profileEarnMoney,
-        profileBecomeTutor,
+        // profileBecomeTutor,
         profileFindTutor,
         profileItemsBox,
         profileLiveClasses,
