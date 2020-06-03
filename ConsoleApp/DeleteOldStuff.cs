@@ -18,7 +18,7 @@ using Document = Cloudents.Core.Entities.Document;
 
 namespace ConsoleApp
 {
-    public class DeleteOldStuff
+    public static class DeleteOldStuff
     {
 
         private static IContainer Container = Program.Container;
@@ -58,14 +58,14 @@ and D.UpdateTime <'01-01-2020')
 
 
 
-        private static async Task ResyncTutorRead()
+        public static async Task ResyncTutorRead()
         {
             var session = Container.Resolve<IStatelessSession>();
             //var bus = Container.Resolve<ICommandBus>();
             var eventHandler = Container.Resolve<IEventPublisher>();
 
             var x = await session.CreateSQLQuery(@"
-Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
+Select id from sb.tutor t").ListAsync();
 
 
             foreach (dynamic z in x)

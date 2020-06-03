@@ -13,7 +13,11 @@ namespace Cloudents.Persistence.Repositories
     {
         public ReadTutorRepository(ISession session) : base(session)
         {
+        }
 
+        public Task AddOrUpdateAsync(ReadTutor entity, CancellationToken token)
+        {
+            return Session.SaveOrUpdateAsync(entity, token);
         }
 
         public async Task<ReadTutor?> GetReadTutorAsync(long userId, CancellationToken token)

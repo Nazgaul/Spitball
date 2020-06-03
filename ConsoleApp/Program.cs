@@ -144,37 +144,12 @@ namespace ConsoleApp
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
-          
+            await Dbi();
         }
 
         private static async Task Dbi()
         {
-            List<Document> purchaseDocument;
-            do
-            {
-
-
-                //int count = 0;
-                var session = Container.Resolve<ISession>();
-                purchaseDocument = await session.Query<Document>()
-                     .Where(w => w.PurchaseCount != session.Query<DocumentTransaction>().Count(w2 => w2.Document.Id == w.Id) / 2)
-                     .Where(w => w.DocumentPrice.Type == PriceType.HasPrice)
-                     .Take(100)
-                     .ToListAsync();
-
-                foreach (var documentId in purchaseDocument)
-                {
-
-                    //if (user.StudyRoomPayment == null)
-                    //{
-                    using var unitOfWork = Container.Resolve<IUnitOfWork>();
-                    documentId.SyncPurchaseCount();
-                    //user.StudyRoomPayment = new StudyRoomPayment(user);
-                    await session.FlushAsync();
-                    await unitOfWork.CommitAsync(default);
-                    //}
-                }
-            } while (purchaseDocument.Count > 0);
+            await DeleteOldStuff.ResyncTutorRead();
         }
 
         private static async Task UpdateTwilioParticipants()

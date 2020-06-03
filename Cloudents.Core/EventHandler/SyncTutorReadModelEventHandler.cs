@@ -71,26 +71,20 @@ namespace Cloudents.Core.EventHandler
 
         private async Task SubmitAsync(long tutorId, CancellationToken token)
         {
+
             var tutor = await _repository.GetReadTutorAsync(tutorId, token);
             if (tutor is null)
             {
                 return;
             }
-            var readTutor = _repository.GetAsync(tutorId, token);
-            if (readTutor == null)
-            {
-                await _repository.AddAsync(tutor, token);
-            }
-            else
-            {
-                await _repository.UpdateAsync(tutor, token);
-            }
+
+            await _repository.AddOrUpdateAsync(tutor, token);
             await _unitOfWork.CommitAsync(token);
         }
 
         private Task UpdateAsync(long userId, CancellationToken token)
         {
-            return SubmitAsync(userId,  token);
+            return SubmitAsync(userId, token);
         }
 
         public void Dispose()
@@ -120,7 +114,7 @@ namespace Cloudents.Core.EventHandler
 
         }
 
-        public  Task HandleAsync(TutorCreatedEvent eventMessage, CancellationToken token)
+        public Task HandleAsync(TutorCreatedEvent eventMessage, CancellationToken token)
         {
             return SubmitAsync(eventMessage.Tutor.Id, token);
         }
