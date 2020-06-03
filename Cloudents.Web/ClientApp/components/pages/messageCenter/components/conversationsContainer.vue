@@ -16,7 +16,7 @@
                :label="$t('chat_search_placeholder')"
             ></v-text-field>
          </v-flex>
-         <div class="d-flex justify-space-between">            
+         <div class="d-flex justify-space-between flex-grow-1">            
             <v-flex class="flex-grow-1" :class="[{'pr-3':isTutor}]">
                <v-select class="filterSelect ma-0"
                   :append-icon="'sbf-arrow-fill'" 
@@ -26,7 +26,7 @@
                   flat hide-details height="38" dense rounded/>
             </v-flex>
             <v-flex v-if="isTutor" class="flex-grow-0 flex-shrink-0">
-               <v-btn @click="updateCreateGroupDialogState(true)" class="createBtn pl-1 pr-2" height="40" color="#4452fc" rounded outlined>
+               <v-btn @click="updateCreateGroupDialogState(true)" class="createBtn pl-2 pr-3" height="40" color="#4452fc" rounded outlined>
                   <v-icon class="pr-1" size="16">sbf-plus-regular</v-icon>
                   <span>{{$t(isMobile?'chat_create_mobile':'chat_create')}}</span>
                </v-btn>
@@ -64,7 +64,7 @@ export default {
          return this.$vuetify.breakpoint.smAndDown
       },
       isTutor(){
-         return this.$store.getters.getIsTutorState;
+         return this.$store.getters.getIsTeacher;
       }
    },
    methods: {
@@ -130,7 +130,7 @@ export default {
             border: solid 1px #ced0dc;
             color: #69687d;
             .v-input__slot{
-               padding: 0 14px;
+               padding: 0 8px 0 14px;
                .v-select__selections{
                   font-size: 14px;
                   font-weight: 600;

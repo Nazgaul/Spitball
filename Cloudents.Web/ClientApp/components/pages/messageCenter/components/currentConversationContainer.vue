@@ -4,8 +4,8 @@
          <v-icon @click="$emit('toggleTeacherInfo')" class="openTeacherInfoIcon ml-4 d-flex d-md-none" size="14" :color="isMobile? '#ffffff' : '#69687d'">sbf-read-more</v-icon>
          <v-icon @click="backToChatList" class="ml-4 d-flex d-sm-none" size="16" color="#ffffff">{{isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'}}</v-icon>
          <user-avatar class="ml-4" :size="'40'" :userImageUrl="currentAvatar" :user-name="currentConversationObj.name"/>
-         <div class="pl-3 pr-md-3 pr-12 text-truncate">
-            <div class="chatName text-truncate">{{currentName}}</div>
+         <div class="pl-3 pr-12 pr-md-7 text-truncate">
+            <div class="chatName text-truncate pr-6 pr-sm-3 pr-md-0">{{currentName}}</div>
          </div>
       </div>
       <v-sheet class="currentMessages d-flex flex-grow-1">
@@ -71,9 +71,6 @@ export default {
             top: 24px;
          }
          .chatName{
-            @media(max-width: @screen-xs) {
-               font-size: 14px;
-            }
             font-size: 16px;
             font-weight: 600;
          }
@@ -89,7 +86,6 @@ export default {
             height: calc(~"100% - 112px");
          }
          .message_wrap{
-            margin-left: 12px;
             .message-wrapper{
                .message{
                   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);

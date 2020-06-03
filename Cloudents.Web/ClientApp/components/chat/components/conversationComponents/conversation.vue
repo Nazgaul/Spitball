@@ -87,7 +87,7 @@ export default {
   }
   .user-detail-container {
     margin-left: 16px;
-    padding-right: 10px ;
+    padding-right: 8px ;
     height: 100%;
     .top-detail-container {
           display: flex;
@@ -99,15 +99,12 @@ export default {
         display: flex;
         align-items: center;
         padding-top: 2px;
+        padding-bottom: 2px;
         .conversation-name{
           max-width: 160px;
           font-size: 16px;
           color: #43425d;
           align-items: center;
-          // word-break: break-all;
-          // text-overflow: ellipsis;
-          // white-space: nowrap;
-          // overflow: hidden;
           font-family: sans-serif;
           @media (max-width: 425px) {
             max-width: 200px;

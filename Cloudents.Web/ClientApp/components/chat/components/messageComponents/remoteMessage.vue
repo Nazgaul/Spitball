@@ -1,13 +1,13 @@
 <template>
-   <v-card color="#ffffff" tile class="remoteMessageContainer pa-3 pb-1">
-      <v-card-title class="messageTitle pa-0" v-text="userName + ':'"/>
-      <v-card-text v-if="isTextMessage" dir="auto" class="messageText px-0 pb-0 pt-1" v-text="message.text"/>
+   <v-card color="#ffffff" tile class="remoteMessageContainer pa-2 pb-1">
+      <v-card-title class="messageTitle pa-0" v-text="userName"/>
+      <v-card-text v-if="isTextMessage" dir="auto" class="messageText px-0 pb-0 pt-2" v-text="message.text"/>
       <div class="pt-2" v-else>
          <a :href="message.href" target="_blank">
             <v-img :src="fileSrc" height="140px" width="190px"/>
          </a>
       </div>
-      <v-card-actions class="messageBottom d-flex align-baseline justify-end px-0 pb-0 pt-1">
+      <v-card-actions class="messageBottom d-flex align-baseline justify-end px-0 pb-0 pt-2">
          <span class="messageDate">{{messageDate}}</span>
       </v-card-actions>
    </v-card>

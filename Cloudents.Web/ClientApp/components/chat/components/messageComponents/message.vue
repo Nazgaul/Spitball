@@ -54,7 +54,7 @@ export default {
 
 <style lang='less'>
 .message_wrap{
-    margin-bottom: 14px;
+    margin-bottom: 16px;
     font-size: 14px;
     .message-wrapper{
         max-width: 70%;

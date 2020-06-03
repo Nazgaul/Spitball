@@ -135,7 +135,7 @@ export default {
             }
             .messages-body{
                 flex :2;
-                padding: 12px 10px 20px 10px;
+                padding: 16px 16px 0 16px;
                 margin: 0 0 4px 0;
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
@@ -145,11 +145,6 @@ export default {
                         margin-bottom: 40px;
                     }
                 }
-            }
-            .messages-body-disabled {
-                padding: 15px 10px 0 10px;
-                margin: 22px 0 4px 0;
-                overflow: auto;
             }
             .chat-upload-loader{
                 position: absolute;
