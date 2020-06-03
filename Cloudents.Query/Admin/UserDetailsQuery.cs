@@ -31,7 +31,7 @@ namespace Cloudents.Query.Admin
                 _session = session.StatelessSession;
             }
 
-            public async Task<UserDetailsDto> GetAsync(UserDetailsQuery query, CancellationToken token)
+            public Task<UserDetailsDto> GetAsync(UserDetailsQuery query, CancellationToken token)
             {
 
                 long.TryParse(query.UserId, out var tmpId);
@@ -46,7 +46,7 @@ namespace Cloudents.Query.Admin
                     dbQuery = dbQuery.Where(w => w.SbCountry == query.Country);
                 }
 
-                return await dbQuery.Select(s => new UserDetailsDto()
+                return dbQuery.Select(s => new UserDetailsDto()
                 {
                     Id = s.Id,
                     Name = s.Name,

@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,17 +14,17 @@ namespace Cloudents.Core.EventHandler
             _serviceBusProvider = serviceBusProvider;
         }
 
-        protected Task SendEmail(BaseEmail obj, CancellationToken token)
+        protected Task SendEmailAsync(BaseEmail obj, CancellationToken token)
         {
             return _serviceBusProvider.InsertMessageAsync(obj, token);
 
         }
 
-        protected Task SendEmail(BaseEmail obj, TimeSpan delay, CancellationToken token)
-        {
-            return _serviceBusProvider.InsertMessageAsync(obj, delay, token);
+        //protected Task SendEmail(BaseEmail obj, TimeSpan delay, CancellationToken token)
+        //{
+        //    return _serviceBusProvider.InsertMessageAsync(obj, delay, token);
 
-        }
+        //}
 
 
     }

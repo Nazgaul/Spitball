@@ -57,15 +57,7 @@ namespace Cloudents.Web.Seo
             }
 
             var query = t.GroupBy(x => x.course.Course.Id).Select(s => new { Course = s.Key, Count = s.Count() });
-
-
-            //var query = from tutor in _session.Query<Tutor>().Fetch(f => f.User)
-            //            join userCourse in _session.Query<UserCourse>() on tutor.Id equals userCourse.User.Id
-            //            where tutor.State == ItemState.Ok
-            //            where CountryFilter(userCourse, tutor, isFrymo)
-            //            group userCourse by userCourse.Course.Id
-            //    into newGroup
-            //            select new { Course = newGroup.Key, Count = newGroup.Count() };
+          
             foreach (var group in query)
             {
                 for (var i = 0; i <= group.Count / pageSize; i++)
@@ -87,14 +79,5 @@ namespace Cloudents.Web.Seo
 
             }
         }
-
-        //private static bool CountryFilter(UserCourse userCourse, Tutor tutor, bool isFrymo)
-        //{
-        //    if (isFrymo)
-        //    {
-        //        return userCourse.IsTeach && tutor.User.Country == Country.India.Name;
-        //    }
-        //    return userCourse.IsTeach && tutor.User.Country != Country.India.Name;
-        //}
     }
 }

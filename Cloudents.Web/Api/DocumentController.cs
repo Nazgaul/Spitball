@@ -187,11 +187,11 @@ namespace Cloudents.Web.Api
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
-            catch (NoEnoughScoreException)
+            catch (UnauthorizedAccessException)
             {
-                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteNotEnoughScore"]);
-                return BadRequest(ModelState);
+                return BadRequest("Cannot flag you own document");
             }
+            
         }
 
 
