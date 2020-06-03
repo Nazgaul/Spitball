@@ -8,6 +8,8 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <LangVersion>latest</LangVersion>
+	<SpaRoot>ClientApp\</SpaRoot>
+	<DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
     <!--<Nullable>enable</Nullable>-->
   </PropertyGroup>
 
@@ -38,6 +40,16 @@
     <ProjectReference Include="..\Cloudents.Query\Cloudents.Query.csproj" />
     <ProjectReference Include="..\Cloudents.Search\Cloudents.Search.csproj" />
   </ItemGroup>
+	<ItemGroup>
+		<!-- Don't publish the SPA source files, but do show them in the project files list -->
+		<Content Remove="$(SpaRoot)**" />
+		<None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Include="ClientApp\.eslintrc.json" />
+	  <Content Include="ClientApp\package-lock.json" />
+	  <Content Include="ClientApp\package.json" />
+	</ItemGroup>
  <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist')">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">
@@ -49,7 +61,7 @@
          a different machine, so rebuild them if not already present. -->
     <Message Importance="high" Text="Performing first-run Webpack build..." />
     <!-- xExec Command="node node_modules/webpack/bin/webpack.js -config webpack.config.vendor.js" zz -->
-    <Exec Command="node node_modules/webpack/bin/webpack.js" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="node node_modules/webpack/bin/webpack.js" />
   </Target>
 
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
@@ -57,7 +69,7 @@
     <!--We do not need this for now since devops is doing that-->
     <!--<Exec Command="npm install" />-->
 
-    <Exec Command="node node_modules/webpack/bin/webpack.js --env.prod" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="node node_modules/webpack/bin/webpack.js --env.prod" />
 
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>

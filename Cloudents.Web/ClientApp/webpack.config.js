@@ -1,6 +1,6 @@
 ﻿const path = require("path");
 const webpack = require("webpack");
-const bundleOutputDir = "./wwwroot/dist";
+const bundleOutputDir = "./../wwwroot/dist";
 const MiniCssExtractPluginRtl = require("@automattic/mini-css-extract-plugin-with-rtl");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const webpackRtlPlugin = require("webpack-rtl-plugin");
@@ -23,7 +23,8 @@ module.exports = (env) => {
             rules: [
                 {
                     test: /\.svg$/,
-                    include: path.resolve(__dirname, "ClientApp"),
+                    include: path.resolve(__dirname),
+                    exclude: path.resolve(__dirname ,'node_modules'),
                     use: [
                         {
                             loader: "vue-svg-loader",
@@ -53,7 +54,8 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.(png|jpg|jpeg|gif)$/,
-                    include: path.resolve(__dirname, "ClientApp"),
+                    include: path.resolve(__dirname),
+                    exclude: path.resolve(__dirname ,'node_modules'),
                     use: [
                         {
                             loader: "url-loader",
@@ -79,7 +81,8 @@ module.exports = (env) => {
 
                 },
                 {
-                    test: path.resolve(__dirname, "./ClientApp/myFont.font.js"),
+                    test: path.resolve(__dirname, "./myFont.font.js"),
+                    exclude: path.resolve(__dirname ,'node_modules'),
                     use: isDevBuild ? [
                         {
                             loader: "vue-style-loader"
@@ -111,27 +114,32 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.(ogg|mp3|wav)$/i,
-                    loader: "file-loader"
+                    loader: "file-loader",
+                    exclude: path.resolve(__dirname ,'node_modules'),
+
                 },
                 {
                     test: /\.js$/,
-                    include: path.resolve(__dirname, "ClientApp"),
-                    loader: "babel-loader"
+                    include: path.resolve(__dirname),
+                    loader: "babel-loader",
+                    exclude: path.resolve(__dirname ,'node_modules'),
                 },
                 {
                     test: /\.vue$/,
                     include: [
-                        path.resolve(__dirname, "ClientApp")
+                        path.resolve(__dirname)
                     ],
                     loader: "vue-loader",
+                    exclude: path.resolve(__dirname ,'node_modules'),
                 },
                 {
                     test: /\.css(\?|$)/,
                     include: [
-                        path.resolve(__dirname, "ClientApp"),
+                        path.resolve(__dirname),
                         path.resolve(__dirname, "./node_modules/codemirror/addon"),
                         path.resolve(__dirname, "./node_modules/vue-mathjax/dist/vue-mathjax.css")
                     ],
+                   // exclude: 'node_modules/*',
                     use:
                         isDevBuild ? ["vue-style-loader", "rtl-css-loader"]
                             :
@@ -150,7 +158,7 @@ module.exports = (env) => {
                                         fiber: require("fibers"),
                                         indentedSyntax: true, // optional
                                     },
-                                    prependData: `@import "./ClientApp/variables.scss"`,
+                                    prependData: `@import "./variables.scss"`,
                                 }
                             }
                         ]
@@ -173,14 +181,15 @@ module.exports = (env) => {
                                             fiber: require("fibers"),
                                             indentedSyntax: true // optional
                                         },
-                                        prependData: `@import "./ClientApp/variables.scss"`
+                                        prependData: `@import "./variables.scss"`
                                     }
                                 }
                             ]
                 },
                 {
                     test: /\.less(\?|$)/,
-                    include: path.resolve(__dirname, "ClientApp"),
+                    include: path.resolve(__dirname),
+                    exclude: path.resolve(__dirname ,'node_modules'),
                     use:
                         isDevBuild ? ["vue-style-loader", "rtl-css-loader", "less-loader"]
                             :
@@ -258,9 +267,9 @@ module.exports = (env) => {
                 }),
                 new UnusedWebpackPlugin({
                     // Source directories
-                    directories: [path.join(__dirname, 'ClientApp')],
+                    directories: [path.join(__dirname)],
                     // Exclude patterns
-                    exclude: ['*.test.js', 'font-icon/*','*.spec.js'],
+                    exclude: ['*.test.js', 'font-icon/*','*.spec.js','node_modules/*'],
                     // Root directory (optional)
                    // root: path.join(__dirname, 'ClientApp'),
                 }),
@@ -285,7 +294,7 @@ module.exports = (env) => {
                 })
             ]),
         mode: mode,
-        entry: { main: ["@babel/polyfill", "./ClientApp/client.js"] },
+        entry: { main: ["@babel/polyfill", "./client.js"] },
         output: {
             path: path.join(__dirname, bundleOutputDir),
             publicPath: "dist/",

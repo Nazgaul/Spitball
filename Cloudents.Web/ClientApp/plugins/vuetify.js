@@ -10,8 +10,8 @@ Vue.use(Vuetify, {
   components: { VBtn, VImg, VAvatar, VDialog, VLayout, VIcon,VFlex,VRow,VCol,VContainer }
 });
 
-import he from '../../node_modules/vuetify/src/locale/he.ts';
-import en from '../../node_modules/vuetify/src/locale/en.ts';
+import he from '../node_modules/vuetify/src/locale/he.ts';
+import en from '../node_modules/vuetify/src/locale/en.ts';
 
 //https://vuetifyjs.com/en/customization/icons/
 const MY_ICONS = {
