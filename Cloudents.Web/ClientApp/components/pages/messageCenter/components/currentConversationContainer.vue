@@ -80,28 +80,9 @@ export default {
          border-radius: 0;
          background-image: url('../group-10.png');
          background-repeat: repeat;
-         // background-color: #ced7e2;
          background-color: #a6bcd8;
          @media(max-width: @screen-xs) {
             height: calc(~"100% - 112px");
-         }
-         .message_wrap{
-            .message-wrapper{
-               .message{
-                  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
-                  background-color: #ffffff;
-                  &.myMessage{
-                     background-color: #deedff;
-                  }
-               }
-            }
-            .time_wrapper{
-               .message-text-date{
-                  font-size: 12px;
-                  font-weight: 600;
-                  color: #69687d; 
-               }
-            }
          }
          .messages-input {
             top: initial !important;

@@ -2,7 +2,7 @@
     <div class="messages-container">
         <v-layout column class="messages-wrapper">
             <div class="messages-body">
-                <message :message="singleMessage" v-for="(singleMessage, index) in messages" :key="index" :lastMsgIndex="index === messages.length - 1"></message>
+                <message :message="{...singleMessage, isLastMessage:index === messages.length - 1}" v-for="(singleMessage, index) in messages" :key="index"></message>
             </div>
             <span class="error-file-span" v-if="fileError" v-language:inner="'chat_file_error'"></span>
             <div class="messages-input" :class="{'messages-input-disabled': !getIsSignalRConnected}">
@@ -38,7 +38,6 @@ export default {
         return{
             messageText: "",
             placeHolderText: this.$t("chat_type_message"),
-            lastMsgIndex: null
         }
     },
     computed:{
@@ -145,14 +144,6 @@ export default {
                         margin-bottom: 40px;
                     }
                 }
-            }
-            .chat-upload-loader{
-                position: absolute;
-                width: 100%;
-                right: 0;
-                left: 0;
-                bottom: 0;
-                top: 0;
             }
             .messages-input{
                 display: flex;
