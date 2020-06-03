@@ -111,8 +111,5 @@ export default {
             top: initial !important;
          }
       }
-      .messages-header{
-         display: none;
-      }
    }
 </style>

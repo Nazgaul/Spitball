@@ -29,7 +29,6 @@
 <script>
 import utilitiesService from "../../../../services/utilities/utilitiesService";
 import userOnlineStatus from "../../../helpers/userOnlineStatus/userOnlineStatus.vue";
-import timeAgoService from '../../../../services/language/timeAgoService';
 
 export default {
   components: {
@@ -42,7 +41,17 @@ export default {
   },
   computed: {
     date() {
-        return timeAgoService.timeAgoFormat(this.conversation.dateTime)
+      let momentDate = this.$moment(this.conversation.dateTime);
+      let isToday = momentDate.isSame(this.$moment(), 'day');
+      if(isToday){
+            return momentDate.format('LT');
+      }else{
+        if (this.$moment().diff(momentDate, 'days') >= 1) {
+          return momentDate.format('l');
+        }else{
+          return momentDate.calendar().split(' ')[0];
+        }
+      }
     },
     userImg() {
       return utilitiesService.proccessImageURL(this.conversation.image, 46, 46);

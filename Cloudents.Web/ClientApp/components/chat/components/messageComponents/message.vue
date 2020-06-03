@@ -6,10 +6,10 @@
             <div dir="auto" v-html="$chatMessage(message)"></div>
         </div>
     </div> -->
-    <div class="time_wrapper" :class="{'myMessage': isMine}">
+    <!-- <div class="time_wrapper" :class="{'myMessage': isMine}">
         <span class="message-text-date">{{date}}</span>
         <double-check v-show="isMine && !message.unreadMessage" />
-    </div>
+    </div> -->
     <div class="chat-loader" :class="{'my_message': isMine}" v-if="getChatLoader && lastMsgIndex">
         <v-progress-circular indeterminate v-bind:size="30" color="#43425d"></v-progress-circular>
     </div>

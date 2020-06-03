@@ -8,7 +8,7 @@
          </a>
       </div>
       <v-card-actions class="messageBottom d-flex align-baseline justify-end px-0 pb-0 pt-1">
-         <span class="messageDate">14:56</span>
+         <span class="messageDate">{{messageDate}}</span>
       </v-card-actions>
    </v-card>
 </template>
@@ -30,6 +30,19 @@ export default {
       },
       fileSrc(){
          return this.$proccessImageUrl(this.message.src, 190, 140, 'crop')
+      },
+      messageDate(){
+         let momentDate = this.$moment(this.message.dateTime);
+         let isToday = momentDate.isSame(this.$moment(), 'day');
+         if(isToday){
+            return momentDate.format('LT');
+         }else{
+            if (this.$moment().diff(momentDate, 'days') >= 1) {
+               return momentDate.format('l');
+            }else{
+               return momentDate.calendar();
+            }
+         }
       }
    },
 

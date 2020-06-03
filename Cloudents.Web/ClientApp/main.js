@@ -10,6 +10,7 @@ import VueClipboard from 'vue-clipboard2';
 import VueAppInsights from 'vue-application-insights';
 import VueFlicking from "@egjs/vue-flicking";
 import {i18n, loadLanguageAsync } from './plugins/t-i18n';
+import Moment from 'moment';
 
 // Global Components
 import App from "./components/app/mainLayout.vue";
@@ -91,6 +92,8 @@ if (document.documentMode || /Edge/.test(navigator.userAgent)) {
         global.isEdgeRtl = true;
     }
 }
+Moment.locale(global.lang);
+Object.defineProperty( Vue.prototype, '$moment', { value: Moment });
 
 router.beforeEach((to, from, next) => {
     store.dispatch('setRouteStack', to);
