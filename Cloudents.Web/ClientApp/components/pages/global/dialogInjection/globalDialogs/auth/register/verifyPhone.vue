@@ -92,7 +92,10 @@ export default {
 	},
 	created() {
 		let self = this
-		this.$store.dispatch('updatePhoneCode').then(() => {
+		this.$store.dispatch('updatePhoneCode').then(({data}) => {
+			if(data.phoneNumber) {
+				self.$emit('updatePhone', data.phoneNumber)
+			}
 			self.$store.dispatch('updateToasterParams',{
 				toasterText: self.$t("login_verification_code_sent_to_phone"),
 				showToaster: true,
