@@ -40,7 +40,12 @@
             <div class="linkWrap d-flex align-center justify-space-between py-4" v-for="action in tutorActionsFilterList" :key="action.name">
                 <div class="linkBorded" :style="{background: action.color}"></div>
                 <div class="link d-flex align-center" :class="{'mobileLayout': isMobile}">
-                    <component :is="isMobile ? 'router-link' : 'div'" class="linkWrapper d-flex" @click="action.method ? action.method() : ''" :to="action.routeName ? action.routeName : ''">
+                    <component 
+                        :is="action.routeName ? 'router-link' : 'div'"
+                        class="linkWrapper d-flex"
+                        @click="action.method ? action.method() : ''" 
+                        :to="action.routeName ? action.routeName : ''"
+                    >
                         <circleArrow class="arrowIcon" width="23" :stroke="action.color" />
                     </component>
                     <div class="ms-sm-4 me-2 text-truncate" v-t="action.text"></div>
