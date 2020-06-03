@@ -34,7 +34,6 @@ namespace Cloudents.Web.Api
         private readonly SbSignInManager _signInManager;
 
         private readonly IQueueProvider _queueProvider;
-        private readonly ISmsSender _smsSender;
         private readonly IStringLocalizer<RegisterController> _localizer;
         private readonly IStringLocalizer<LogInController> _loginLocalizer;
         private readonly ILogger _logger;
@@ -44,12 +43,11 @@ namespace Cloudents.Web.Api
         private const string EmailTime = "EmailTime";
 
         public RegisterController(SbUserManager userManager, SbSignInManager signInManager,
-             IQueueProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger, ICountryService countryProvider)
+             IQueueProvider queueProvider, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger, ICountryService countryProvider)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _queueProvider = queueProvider;
-            _smsSender = client;
             _localizer = localizer;
             _loginLocalizer = loginLocalizer;
             _logger = logger;
@@ -116,8 +114,12 @@ namespace Cloudents.Web.Api
 
             if (user.PhoneNumber != null)
             {
-                await _signInManager.SignInAsync(user, true);
-                return ReturnSignUserResponse.SignIn();
+                if (isExternal)
+                {
+                    await _signInManager.SignInAsync(user, false);
+                    return ReturnSignUserResponse.SignIn();
+                }
+                throw new ArgumentException();
             }
 
             if (!user.EmailConfirmed)
@@ -198,7 +200,7 @@ namespace Cloudents.Web.Api
                                 mimeType.ToString(), cancellationToken);
                             var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
                             var url = Url.ImageUrl(imageProperties);
-                            var fileName = uri.AbsolutePath.Split('/').LastOrDefault();
+                            var fileName = uri.AbsolutePath.Split('/').Last();
                             user.UpdateUserImage(url, fileName);
                         }
                         catch (ArgumentException e)
