@@ -159,9 +159,6 @@
   <data name="edit_image_text" xml:space="preserve">
     <value>ערוך</value>
   </data>
-  <data name="edit_tutor_title" xml:space="preserve">
-    <value>ערוך את פרופיל המרצה שלך</value>
-  </data>
   <data name="edit_user_profile_title" xml:space="preserve">
     <value>ערוך את הפרופיל שלך</value>
   </data>
