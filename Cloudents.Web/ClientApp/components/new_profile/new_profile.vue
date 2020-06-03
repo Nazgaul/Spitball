@@ -21,7 +21,6 @@
       />
       <profileSubscription :id="id" v-if="showProfileSubscription" ref="profileSubscription" />
       <profileLiveClasses :id="id" v-if="isTutor" @isComponentReady="val => goToLiveClasses = true" ref="profileLiveClassesElement" />
-      <!-- <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" /> -->
       <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" />
       <profileItemsBox v-if="isMyProfile || showItems" class="mt-sm-12 mt-2" />
       <profileEarnMoney class="mt-0 mt-sm-5" v-if="showEarnMoney" />
@@ -95,7 +94,6 @@ import profileUserBox from './components/profileUserBox/profileUserBox.vue';
 import profileDialogs from './components/profileDialogs/profileDialogs.vue';
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
 import profileEarnMoney from './components/profileEarnMoney/profileEarnMoney.vue';
-// import profileBecomeTutor from './components/profileBecomeTutor/profileBecomeTutor.vue';
 import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue';
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileLiveClasses from './components/profileLiveClasses/profileLiveClasses.vue'
@@ -114,7 +112,6 @@ export default {
         profileDialogs,
         profileReviewsBox,
         profileEarnMoney,
-        // profileBecomeTutor,
         profileFindTutor,
         profileItemsBox,
         profileLiveClasses,
@@ -154,7 +151,6 @@ export default {
             'updateRequestDialog',
             'setActiveConversationObj',
             'syncProfile',
-            'resetProfileData',
             'updateToasterParams'
         ]),
         closeCouponDialog() {
@@ -317,12 +313,12 @@ export default {
             }
             return this.activeTab === 5 && isCalendar
         },
-        isTutorPending(){
-            return this.isMyProfile && (!!this.accountUser && this.accountUser.isTutorState === "pending")
-        },
-        showBecomeTutor(){
-            return this.isMyProfile && !this.isTutor && !this.isTutorPending;
-        },
+        // isTutorPending(){
+        //     return this.isMyProfile && (!!this.accountUser && this.accountUser.isTutorState === "pending")
+        // },
+        // showBecomeTutor(){
+        //     return this.isMyProfile && !this.isTutor && !this.isTutorPending;
+        // },
         showFindTutor(){
             return (!this.isMyProfile && !this.isTutor)
         },
@@ -339,24 +335,24 @@ export default {
         },
     },
     watch: {
-        "$route.params.id": function(val, oldVal){ 
+        "$route.params.id": function(val, oldVal){
             let old = Number(oldVal,10);
             let newVal = Number(val,10);
             this.activeTab = 1;
             this.componentRenderKey += 1;
             if (newVal !== old) {
-                this.resetProfileData();
-                if((newVal == this.accountUser.id) && this.accountUser.isTutorState === "pending"){
-                    this.updateToasterParams({
-                        toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
-                        showToaster: true,
-                        toasterTimeout: 3600000
-                    });
-                }else{
-                    this.updateToasterParams({
-                        showToaster: false
-                    }); 
-                }
+                this.$store.commit('resetProfile');
+                // if((newVal == this.accountUser.id) && this.accountUser.isTutorState === "pending"){
+                //     this.updateToasterParams({
+                //         toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
+                //         showToaster: true,
+                //         toasterTimeout: 3600000
+                //     });
+                // }else{
+                //     this.updateToasterParams({
+                //         showToaster: false
+                //     }); 
+                // }
                 this.fetchData();
             }
         },
@@ -390,7 +386,7 @@ export default {
         this.updateToasterParams({
             showToaster: false
         });
-        this.resetProfileData();
+        this.$store.commit('resetProfile');
         next();
     },
     beforeDestroy(){
