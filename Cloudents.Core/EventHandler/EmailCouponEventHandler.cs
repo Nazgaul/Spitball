@@ -18,11 +18,11 @@ namespace Cloudents.Core.EventHandler
             _queueProvider = queueProvider;
         }
 
-        public async Task HandleAsync(UseCouponEvent eventMessage, CancellationToken token)
+        public Task HandleAsync(UseCouponEvent eventMessage, CancellationToken token)
         {
             var message = new CouponActionEmail(eventMessage.UserCoupon.User.Id, eventMessage.UserCoupon.User.PhoneNumber, eventMessage.UserCoupon.User.Email,
-                    eventMessage.UserCoupon.Coupon.Code, eventMessage.UserCoupon.Tutor?.User.Name, CouponAction.Use.ToString());
-            await _queueProvider.InsertMessageAsync(message, token);
+                    eventMessage.UserCoupon.Coupon.Code, eventMessage.UserCoupon.Tutor.User.Name, CouponAction.Use.ToString());
+            return _queueProvider.InsertMessageAsync(message, token);
         }
 
         public async Task HandleAsync(ApplyCouponEvent eventMessage, CancellationToken token)

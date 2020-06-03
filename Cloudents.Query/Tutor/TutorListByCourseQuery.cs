@@ -9,14 +9,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.DTOs.Tutors;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Query.Tutor
 {
     public class TutorListByCourseQuery : IQuery<IEnumerable<TutorCardDto>>
     {
-        public TutorListByCourseQuery(string courseId, long userId, Country country, int count, int page = 0)
+        public TutorListByCourseQuery(string? courseId, long userId, Country country, int count, int page = 0)
         {
-            CourseId = courseId;
+            CourseId = courseId ?? throw new ArgumentNullException(nameof(courseId));
             UserId = userId;
             Country = country ?? throw new ArgumentNullException(nameof(country));
             Count = count;
@@ -56,6 +57,7 @@ namespace Cloudents.Query.Tutor
                 {
                     throw  new ArgumentException("query count cannot be 0");
                 }
+
                 //TODO maybe we can fix this query
                 ReadTutor tutorAlias = null!;
                 UserCourse userCourseAlias = null!;
@@ -86,6 +88,7 @@ namespace Cloudents.Query.Tutor
                      .WithSubquery.WhereProperty(w => w.Id).In(relevantTutorByCourse)
                      .Where(w => w.Id != query.UserId)
                      .And(w => w.SbCountry == query.Country)
+                     .And(w=>w.State == ItemState.Ok)
                      .SelectList(s =>
                          s.Select(x => x.Id).WithAlias(() => tutorCardDtoAlias.UserId)
 

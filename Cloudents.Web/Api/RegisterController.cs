@@ -67,7 +67,7 @@ namespace Cloudents.Web.Api
             {
                 try
                 {
-                    return await MakeDecisionAsync(user, false, token);
+                    return await MakeDecisionAsync(user, false, model.Password, token);
                 }
                 catch (ArgumentException)
                 {
@@ -79,7 +79,7 @@ namespace Cloudents.Web.Api
 
             var countryCode = await _countryProvider.GetUserCountryAsync(token);
             user = new User(model.Email, model.FirstName, model.LastName,
-                CultureInfo.CurrentCulture, countryCode, model.Gender);
+                CultureInfo.CurrentCulture, countryCode);
             var p = await _userManager.CreateAsync(user, model.Password);
 
             if (p.Succeeded)
@@ -97,7 +97,7 @@ namespace Cloudents.Web.Api
 
 
         private async Task<ReturnSignUserResponse> MakeDecisionAsync(User user,
-            bool isExternal,
+            bool isExternal, string? password,
             CancellationToken token)
         {
 
@@ -122,9 +122,20 @@ namespace Cloudents.Web.Api
                 throw new ArgumentException();
             }
 
+
             if (!user.EmailConfirmed)
             {
                 await GenerateEmailAsync(user, token);
+            }
+
+            if (!isExternal)
+            {
+                var result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
+                if (!result.Succeeded)
+                {
+                    throw new ArgumentException();
+                }
+                //passwod
             }
             await _signInManager.TempSignInAsync(user);
             return new ReturnSignUserResponse(RegistrationStep.RegisterSetPhone);
@@ -212,7 +223,7 @@ namespace Cloudents.Web.Api
                         }
                     }
                     await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-                    return await MakeDecisionAsync(user, true, cancellationToken);
+                    return await MakeDecisionAsync(user, true, null, cancellationToken);
                 }
                 logClient.TrackTrace($"failed to register {string.Join(", ", result3.Errors)}");
 
@@ -226,7 +237,7 @@ namespace Cloudents.Web.Api
             }
 
             await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-            return await MakeDecisionAsync(user, true, cancellationToken);
+            return await MakeDecisionAsync(user, true,null, cancellationToken);
         }
 
 

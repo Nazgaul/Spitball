@@ -52,15 +52,12 @@ namespace Cloudents.FunctionsV2
                     var subjects = update.Subjects?.Where(w => !string.IsNullOrWhiteSpace(w)).ToArray() ?? Array.Empty<string>();
 
                     // ReSharper disable once ConditionIsAlwaysTrueOrFalse - Temp
-                    if (update.SbCountry == null)
-                    {
-                        update.SbCountry = Country.FromCountry(update.Country);
-                    }
+                   
                     await indexInstance.AddAsync(new AzureSearchSyncOutput()
                     {
                         Item = new Tutor
                         {
-                            Country = update.Country.ToUpperInvariant(),
+                            //Country = update.Country.ToUpperInvariant(),
                             SbCountry = update.SbCountry,
                             Id = update.UserId.ToString(),
                             Name = update.Name,

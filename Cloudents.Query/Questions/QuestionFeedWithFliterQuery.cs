@@ -12,7 +12,7 @@ namespace Cloudents.Query.Questions
 {
     public class QuestionFeedWithFilterQuery : IQuery<IEnumerable<QuestionFeedDto>>
     {
-        public QuestionFeedWithFilterQuery(int page, long userId, Country country, string course, int pageSize)
+        public QuestionFeedWithFilterQuery(int page, long userId, Country country, string? course, int pageSize)
         {
             Page = page;
             UserId = userId;
@@ -26,7 +26,7 @@ namespace Cloudents.Query.Questions
 
         private Country Country { get; }
 
-        private string Course { get; }
+        private string? Course { get; }
         private int PageSize { get; }
 
         internal sealed class DocumentFeedWithFilterQueryHandler : IQueryHandler<QuestionFeedWithFilterQuery, IEnumerable<QuestionFeedDto>>

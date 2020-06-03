@@ -74,7 +74,7 @@ namespace Cloudents.Query.Users
                                        _session.Query<Question>().Count(w =>
                                            w.Status.State == ItemState.Ok && w.User.Id == query.Id),
                         Students = _session.Query<StudyRoomUser>()
-                            .Where(w => w.Room.Tutor.Id == query.Id).Select(s=>s.User.Id).Distinct().Count(),
+                            .Where(w => w.Room.Tutor.Id == query.Id).Select(s2=>s2.User.Id).Distinct().Count(),
                         SubscriptionPrice = s.SubscriptionPrice,
                         Subjects = s.Subjects,
                         Description = s.Description

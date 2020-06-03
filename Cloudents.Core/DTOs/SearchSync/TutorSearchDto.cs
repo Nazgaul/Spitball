@@ -22,7 +22,6 @@ namespace Cloudents.Core.DTOs.SearchSync
         public IEnumerable<string>? Courses { get; set; }
         public IEnumerable<string>? Subjects { get; set; }
         public Country SbCountry { get; set; }
-        public string Country { get; set; }
 
         [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Database value")]
         public long SYS_CHANGE_VERSION { get; set; }

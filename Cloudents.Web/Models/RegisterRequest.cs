@@ -25,8 +25,8 @@ namespace Cloudents.Web.Models
         //[Compare("Password", ErrorMessage = "PasswordNotMatch")]
         //public string ConfirmPassword { get; set; }
 
-        [Required(ErrorMessage = "Required")]
-        public Gender Gender { get; set; }
+        //[Required(ErrorMessage = "Required")]
+        //public Gender Gender { get; set; }
 
         //[Required(ErrorMessage = "Required")]
         //public string PhoneNumber { get; set; }
