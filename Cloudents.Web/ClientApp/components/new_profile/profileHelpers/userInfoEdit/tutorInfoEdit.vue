@@ -8,7 +8,7 @@
                 </v-flex>
             </v-layout>
             <v-layout class="px-3 mt-4" wrap>
-                <v-flex xs12 sm4  :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
+                <v-flex xs12 sm6  :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
                     <v-layout column>
                         <v-flex xs12 sm6  class="pl-2 mb-2">
                             <span class="subtitle" v-t="'profile_personal_details'"></span>
@@ -16,7 +16,7 @@
                         <v-flex xs12>
                             <v-text-field
                                     :rules="[rules.required, rules.minimumChars]"
-                                    :label="firstNameLabel"
+                                    :label="$t('profile_firstName_label')"
                                     class="tutor-edit-firstname"
                                     v-model.trim="firstName"
                                     outlined
@@ -24,7 +24,7 @@
                         </v-flex>
                     </v-layout>
                 </v-flex>
-                <v-flex xs12 sm4 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'pr-2']">
+                <v-flex xs12 sm6 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'pr-2']">
                     <v-layout column>
                         <v-flex v-if="$vuetify.breakpoint.smAndUp" xs12 sm6  class="mb-2 pl-2" grow>
                             <span class="subtitle" style="visibility: hidden">hidden</span>
@@ -32,7 +32,7 @@
                         <v-flex>
                             <v-text-field
                                     :rules="[rules.required, rules.minimumChars]"
-                                    :label="lastNameLabel"
+                                    :label="$t('profile_lastName_label')"
                                     class="tutor-edit-lastname"
                                     v-model.trim="lastName"
                                     outlined
@@ -40,7 +40,7 @@
                         </v-flex>
                     </v-layout>
                 </v-flex>
-                <v-flex xs12 sm4 :class="{'mt-4': $vuetify.breakpoint.xsOnly}" v-if="!isFrymo">
+                <!-- <v-flex xs12 sm4 :class="{'mt-4': $vuetify.breakpoint.xsOnly}" v-if="!isFrymo">
                     <v-layout column>
                         <v-flex xs12 sm6  class="mb-2 pl-2">
                             <span class="subtitle" v-t="'profile_pricing'"></span>
@@ -58,7 +58,7 @@
                             ></v-text-field>
                         </v-flex>
                     </v-layout>
-                </v-flex>
+                </v-flex> -->
             </v-layout>
 
             <v-layout class="px-3" column :class="[$vuetify.breakpoint.xsOnly ? 'mt-4' : '']">
@@ -67,41 +67,36 @@
                 </v-flex>
                 <v-flex>
                     <v-textarea
-                            rows="2"
-                            outlined
-                            v-model="description"
-                            :rules="[rules.maximumChars, rules.descriptionMinChars]"
-                            class="tutor-edit-description"
-                            name="input-about"
-                            :label="titleLabel"
+                        rows="2"
+                        outlined
+                        v-model="description"
+                        :rules="[rules.maximumChars, rules.descriptionMinChars]"
+                        class="tutor-edit-description"
+                        name="input-about"
+                        :label="$t('profile_description_label')"
                     ></v-textarea>
                 </v-flex>
             </v-layout>
             <v-layout class="px-3">
                 <v-flex>
                     <v-textarea
-                            rows="5"
-                            outlined
-                            :rules="[rules.maximumChars, rules.descriptionMinChars]"
-                            v-model="bio"
-                            class="tutor-edit-bio"
-                            name="input-bio"
-                            :label="bioLabel"
+                        rows="5"
+                        outlined
+                        :rules="[rules.maximumChars, rules.descriptionMinChars]"
+                        v-model="bio"
+                        class="tutor-edit-bio"
+                        name="input-bio"
+                        :label="$t('profile_bio_label')"
                     ></v-textarea>
                 </v-flex>
             </v-layout>
-            <v-layout align-center class="px-3"
-                      :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between' : 'justify-end']">
-                <!-- <v-flex xs5 sm2 > -->
-                    <v-btn :disabled="btnLoading" width="120" depressed color="#4452fc" class="shallow-blue ml-0" rounded outlined primary @click="closeDialog">
-                        <span v-t="'profile_btn_cancel'"></span>
-                    </v-btn>
-                <!-- </v-flex> -->
-                <!-- <v-flex xs5 sm2 :class="{'mr-4': $vuetify.breakpoint.smAndUp}"> -->
-                    <v-btn class="blue-btn ml-sm-4" width="120" depressed color="#4452fc" rounded @click="saveChanges()" :loading="btnLoading">
-                        <span v-t="'profile_btn_save_changes'"></span>
-                    </v-btn>
-                <!-- </v-flex> -->
+            <v-layout align-center class="px-3" :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between' : 'justify-end']">
+                <v-btn :disabled="btnLoading" width="120" depressed color="#4452fc" class="shallow-blue ml-0" rounded outlined primary @click="closeDialog">
+                    <span v-t="'profile_btn_cancel'"></span>
+                </v-btn>
+                <v-btn class="blue-btn ml-sm-4" width="120" depressed color="#4452fc" rounded @click="saveChanges()" :loading="btnLoading">
+                    <span v-t="'profile_btn_save_changes'"></span>
+                </v-btn>
             </v-layout>
         </v-form>
     </v-card>
@@ -110,38 +105,29 @@
 <script>
     import accountService from '../../../../services/accountService';
     import { mapActions, mapGetters } from 'vuex';
-    import { LanguageService } from "../../../../services/language/languageService";
     import { validationRules } from '../../../../services/utilities/formValidationRules';
 
     export default {
         name: "tutorInfoEdit",
         data() {
             return {
-                firstNameLabel: LanguageService.getValueByKey("profile_firstName_label"),
-                lastNameLabel: LanguageService.getValueByKey("profile_lastName_label"),
-                priceLabel: LanguageService.getValueByKey("profile_price_label"),
-                bioLabel: LanguageService.getValueByKey("profile_bio_label"),
-                titleLabel: LanguageService.getValueByKey("profile_description_label"),
                 editedBio: '',
                 editedDescription: '',
                 editedFirstName: '',
                 editedLastName: '',
-                editedPrice: null,
                 rules: {
                     required: (value) => validationRules.required(value),
-                    minimum: (value) => validationRules.minVal(value, 35),
                     maximum: (value) => validationRules.maxVal(value, 1000),
                     maximumChars: (value) => validationRules.maximumChars(value, 1000),
                     minimumChars: (value) => validationRules.minimumChars(value, 2),
-                    descriptionMinChars: (value) => validationRules.minimumChars(value, 15),
-                    integer: (value) => validationRules.integer(value)
+                    descriptionMinChars: (value) => validationRules.minimumChars(value, 15)
                 },
                 valid: false,
                 btnLoading: false
             };
         },
         computed: {
-            ...mapGetters(['getProfile','accountUser', 'isFrymo']),
+            ...mapGetters(['getProfile','accountUser']),
             bio: {
                 get() {
                     return this.getProfile.user.tutorData.bio
@@ -150,14 +136,14 @@
                     this.editedBio = newVal;
                 }
             },
-            price: {
-                get() {
-                    return this.getProfile.user.tutorData.price;
-                },
-                set(newVal) {
-                    this.editedPrice = newVal;
-                }
-            },
+            // price: {
+            //     get() {
+            //         return this.getProfile.user.tutorData.price;
+            //     },
+            //     set(newVal) {
+            //         this.editedPrice = newVal;
+            //     }
+            // },
             firstName: {
                 get() {
                     return this.getProfile.user.firstName;
@@ -190,14 +176,14 @@
                 if(this.$refs.formTutor.validate()) {
                     let firstName = this.editedFirstName || this.firstName;
                     let lastName = this.editedLastName || this.lastName;
-                    let price = this.editedPrice || this.price;
+                    // let price = this.editedPrice || this.price;
                     let bio = this.editedBio || this.bio;
                     let description = this.editedDescription || this.description;
                     let editsData = {
                         name: `${firstName} ${lastName}`,
                         lastName,
                         firstName,
-                        price,
+                        // price,
                         bio,
                         description,
                     };
@@ -205,7 +191,7 @@
                     let serverFormat = {
                         firstName,
                         lastName,
-                        price,
+                        // price,
                         bio,
                         description,
                     };
@@ -278,12 +264,12 @@
             color: @global-purple;
             font-size: 18px;
         }
-        .v-text-field--outline > .v-input__control > .v-input__slot {
-            border: 1px solid rgba(0, 0, 0, 0.19);
-            &:hover {
-                border: 1px solid rgba(0, 0, 0, 0.19) !important;
-            }
-        }
+        // .v-text-field--outline > .v-input__control > .v-input__slot {
+        //     border: 1px solid rgba(0, 0, 0, 0.19);
+        //     &:hover {
+        //         border: 1px solid rgba(0, 0, 0, 0.19) !important;
+        //     }
+        // }
         // .tutor-edit-pricing, .tutor-edit-firstname, .tutor-edit-lastname, .tutor-edit-description, .tutor-edit-bio {
         //     .v-messages__message {
         //         line-height: normal;
