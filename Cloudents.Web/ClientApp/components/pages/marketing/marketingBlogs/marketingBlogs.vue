@@ -7,7 +7,7 @@
         </div>
 
         <div class="mainBlogs d-flex-column d-sm-flex">
-            <div class="leftBlogs pt-sm-5 pt-2 mr-2">
+            <div class="leftBlogs pt-sm-5 pt-2 mr-2" v-if="isMarketingRoute">
                 <div class="titleWrap">
                     <div class="title1 mb-2">
                       {{$t('marketing_blog_text1')}}
@@ -41,6 +41,8 @@
 </template>
 
 <script>
+import * as routeName from '../../../../routes/routeNames'
+
 export default {
     data: () => ({
         blogs: []
@@ -48,6 +50,9 @@ export default {
     computed: {
       blogsLink() {
         return global.country === "IL" ? 'https://www.blog.spitball.co/blog/categories/hebrew' : 'https://www.blog.spitball.co/blog/categories/english';
+      },
+      isMarketingRoute() {
+        return this.$route.name === routeName.Marketing
       }
     },
     methods: {
