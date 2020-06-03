@@ -34,7 +34,7 @@ namespace Cloudents.FunctionsV2
             ILogger log,
             CancellationToken token)
         {
-            byte[] version = null;
+            byte[]? version = null;
             if (await blob.ExistsAsync())
             {
                 version = new byte[8];

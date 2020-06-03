@@ -15,7 +15,7 @@ namespace Cloudents.Core.Interfaces
         Task<long> GetSubscriptionByIdAsync(string sessionId, CancellationToken token);
 
         Task<string> CreateCustomerAsync(User user, CancellationToken token);
-        Task<string> FutureCardPayments(string stripeClientId);
+        Task<string> FutureCardPaymentsAsync(string stripeClientId);
         //Task<string?> RetrieveCustomerIdAsync(string email, CancellationToken token);
 
         Task CreateProductAsync(Tutor tutor,CancellationToken token);
@@ -23,6 +23,7 @@ namespace Cloudents.Core.Interfaces
         Task<string> SubscribeToTutorAsync(long tutorId, string userEmail, string successCallback,
             string fallbackCallback, CancellationToken token);
 
+        Task<string> GetStripeUserIdAsync(string code, CancellationToken token);
         //Task<string?> RetrieveCustomerIdAsync(string email, CancellationToken token);
     }
 }

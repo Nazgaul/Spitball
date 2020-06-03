@@ -46,7 +46,7 @@ namespace Cloudents.Web.Binders
         public override string ReadJson(JsonReader reader, Type objectType, string existingValue, bool hasExistingValue,
             JsonSerializer serializer)
         {
-            var str = reader.Value.ToString();
+            var str = reader.Value?.ToString() ?? string.Empty;
             return System.Net.WebUtility.HtmlEncode(str);
         }
     }

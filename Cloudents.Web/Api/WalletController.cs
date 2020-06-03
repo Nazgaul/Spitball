@@ -207,45 +207,7 @@ namespace Cloudents.Web.Api
 
         #endregion
 
-
-        #region PayPal
-
-        //[HttpPost("PayPal/StudyRoom")]
-        //public async Task<IActionResult> PayPal(PayPalOrderRequest model,
-        //    CancellationToken token)
-        //{
-        //    var userId = _userManager.GetLongUserId(User);
-        //    var command = new AddPayPalOrderCommand(userId, model.OrderId, model.SessionId);
-        //    await _commandBus.DispatchAsync(command, token);
-        //    return Ok();
-        //}
-
-
-        //[HttpPost("PayPal/BuyTokens")]
-        //public async Task<IActionResult> BuyTokensAsync(PayPalTransactionRequest model,
-        //    [FromServices] IPayPalService payPal, CancellationToken token)
-        //{
-        //    var userId = _userManager.GetLongUserId(User);
-        //    var (authorizationId, amountToCharge) = await payPal.AuthorizationOrderAsync(model.Id, token);
-        //    await payPal.CaptureAuthorizedOrderAsync(authorizationId, amountToCharge, default);
-
-        //    var result = await payPal.GetPaymentAsync(model.Id, token);
-
-
-        //    var amount = result.ReferenceId switch
-        //    {
-        //        "points_1" => 100,
-        //        "points_2" => 500,
-        //        "points_3" => 1000,
-        //        _ => throw new ArgumentException(message: "invalid value")
-        //    };
-
-
-        //    var command = new TransferMoneyToPointsCommand(userId, amount, model.Id);
-        //    await _commandBus.DispatchAsync(command, token);
-        //    return Ok();
-        //}
-        #endregion
+       
 
         #region Stripe
         [HttpPost("Stripe/StudyRoom")]
@@ -288,6 +250,10 @@ namespace Cloudents.Web.Api
                 sessionId = result
             });
         }
+
+        
+
+        
         #endregion
 
     }

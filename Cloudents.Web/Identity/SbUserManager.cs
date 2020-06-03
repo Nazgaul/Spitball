@@ -62,11 +62,11 @@ namespace Cloudents.Web.Identity
             return await SetPhoneNumberAsync(user, result.phoneNumber);
         }
 
-        public async Task<User> FindByPhoneAsync(string phoneNumber, string countryCallingCode)
+        public Task<User> FindByPhoneAsync(string phoneNumber, string countryCallingCode)
         {
             var phoneNumberWithCallingCode = TwilioProvider.BuildPhoneNumber(phoneNumber, countryCallingCode);
             Expression<Func<User, bool>> expression = s => s.PhoneNumber == phoneNumberWithCallingCode;
-            return await _queryBus.QueryAsync(new UserDataExpressionQuery(expression), CancellationToken.None);
+            return _queryBus.QueryAsync(new UserDataExpressionQuery(expression), CancellationToken.None);
 
         }
 

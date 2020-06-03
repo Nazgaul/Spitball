@@ -49,7 +49,7 @@ namespace Cloudents.FunctionsV2
             {
                 try
                 {
-                    mutation.CenterCords = await GetCenterCordsFromBlob(blob);
+                    mutation.CenterCords = await GetCenterCordsFromBlobAsync(blob);
                     await using var sr = await blob.OpenReadAsync();
                     var image = ProcessImage(sr, mutation);
                     return new ImageResult(image, TimeSpan.FromDays(365));
@@ -138,7 +138,7 @@ namespace Cloudents.FunctionsV2
         }
 
         [FunctionName("ImageFunction")]
-        public static async Task<IActionResult> Run(
+        public static async Task<IActionResult> RunAsync(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/{hash}")]
             HttpRequest req, string hash,
             IBinder binder,
@@ -182,7 +182,7 @@ namespace Cloudents.FunctionsV2
             try
             {
                 await using var sr = await blob.OpenReadAsync();
-                mutation.CenterCords = await GetCenterCordsFromBlob(blob);
+                mutation.CenterCords = await GetCenterCordsFromBlobAsync(blob);
                 var image = ProcessImage(sr, mutation);
                 return new ImageResult(image, TimeSpan.FromDays(365));
             }
@@ -218,7 +218,7 @@ namespace Cloudents.FunctionsV2
         }
 
 
-        private static async Task<(float x, float y)?> GetCenterCordsFromBlob(CloudBlob blob)
+        private static async Task<(float x, float y)?> GetCenterCordsFromBlobAsync(CloudBlob blob)
         {
             await blob.FetchAttributesAsync();
             if (blob.Metadata.TryGetValue("face", out var faceStr))
@@ -411,6 +411,6 @@ namespace Cloudents.FunctionsV2
 
         public ImageProperties.BlurEffect BlurEffect { get; set; }
         public AnchorPositionMode Position { get; }
-        public string Background { get; set; }
+        public string? Background { get; set; }
     }
 }

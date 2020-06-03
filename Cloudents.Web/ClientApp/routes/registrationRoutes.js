@@ -7,21 +7,21 @@ export const registrationRoutes = [
             default: () => import(`../components/pages/authenticationPage/authenticationPage.vue`)
         },
         children: [
-            {
-                path: '',
-                name: routeName.Login,
-                component: () => import(`../components/pages/authenticationPage/getStarted.vue`)
-            },
-            {
-                path: 'set-email',
-                name: routeName.LoginSetEmail,
-                component: () => import(`../components/pages/authenticationPage/login/setEmail.vue`)
-            },
-            {
-                path: 'set-password',
-                name: routeName.LoginSetPassword,
-                component: () => import(`../components/pages/authenticationPage/login/setPassword.vue`)
-            },
+            // {
+            //     path: '',
+            //     name: routeName.Login,
+            //     component: () => import(`../components/pages/authenticationPage/getStarted.vue`)
+            // },
+            // {
+            //     path: 'set-email',
+            //     name: routeName.LoginSetEmail,
+            //     component: () => import(`../components/pages/authenticationPage/login/setEmail.vue`)
+            // },
+            // {
+            //     path: 'set-password',
+            //     name: routeName.LoginSetPassword,
+            //     component: () => import(`../components/pages/authenticationPage/login/setPassword.vue`)
+            // },
             {
                 path: 'email-confirmed',
                 name: routeName.LoginEmailConfirmed,
@@ -47,108 +47,6 @@ export const registrationRoutes = [
                 next();
             }
         }
-    },
-
-    {
-        path: '/register',
-        components: {
-            default: () => import(`../components/pages/authenticationPage/authenticationPage.vue`)
-        },
-        children: [
-            {
-                path: '',
-                name: routeName.Register,
-                component: () => import(`../components/pages/authenticationPage/getStarted.vue`)
-            },
-            {
-                path: 'personal-details',
-                name: routeName.RegisterSetEmailPassword,
-                component: () => import(`../components/pages/authenticationPage/register/setEmailPassword/setEmailPassword.vue`)
-            },
-            {
-                path: 'email-confirmed',
-                name: routeName.RegisterEmailConfirmed,
-                component: () => import(`../components/pages/authenticationPage/register/emailConfirmed/emailConfirmed2.vue`)
-            },
-            {
-                path: 'set-phone',
-                name: routeName.RegisterSetPhone,
-                component: () => import(`../components/pages/authenticationPage/register/setPhone/setPhone.vue`)
-            },
-            {
-                path: 'verify-phone',
-                name: routeName.RegisterVerifyPhone,
-                component: () => import(`../components/pages/authenticationPage/register/verifyPhone/verifyPhone2.vue`) //() => import(`../components/${path}.vue`)('Pages/authenticationPage/register/verifyPhone/verifyPhone')
-            },
-            {
-                path: 'type',
-                name: routeName.RegisterType,
-                component: () => import(`../components/pages/authenticationPage/register/registerType/registerType.vue`)
-            },
-            {
-                path: 'student-school',
-                name: routeName.RegisterStudentSchool,
-                component: () => import(`../components/pages/authenticationPage/register/student/registerStudentSchool.vue`),
-                children: [
-                    {
-                        path: 'course',
-                        name: routeName.RegisterCourse,
-                        meta: {nextStep: 'feed', backStep: routeName.RegisterType, dynamicClass: true},
-                        component: () => import(`../components/pages/authenticationPage/register/registerCourse/registerCourse.vue`)
-                    },
-                    {
-                        path: '',
-                        redirect: { name: routeName.RegisterCourse } 
-                    },
-                ]
-            },
-            {
-                path: 'student-college',
-                name: routeName.RegisterStudentCollege,
-                component: () => import(`../components/pages/authenticationPage/register/student/registerStudentCollege.vue`),
-                children: [
-                    {
-                        path: '',
-                        name: routeName.RegisterCourseCollege,
-                        meta: {nextStep: 'feed', backStep: routeName.RegisterType, dynamicClass: true},
-                        component: () => import(`../components/pages/authenticationPage/register/registerCourse/registerCourse.vue`)
-                    },
-                ]
-            },
-            {
-                path: 'parent',
-                name: routeName.RegisterParent,
-                component: () => import(`../components/pages/authenticationPage/register/parent/registerParent.vue`),
-                children: [
-                    {
-                        path: 'course',
-                        name: routeName.RegisterCourseParent,
-                        meta: {nextStep: {name: routeName.Feed,query:{filter:'Tutor'}}, backStep: routeName.RegisterType, dynamicClass: true},
-                    },
-                    {
-                        path: '',
-                        redirect: { name: 'registerCourseParent' } 
-                    },
-                ]
-            },
-            // V2 register  teacher
-            // {
-            //     path: 'teacher',
-            //     name: 'teacher',
-            //     components: {
-            //         default: () => import(`../components/${path}.vue`)('pages/authenticationPage/register/parent/registerTeacher'),
-            //     }
-            // },
-        ],
-        // removed restriction to register routes
-        // beforeEnter: (to, from, next) => {
-        //     if(global.isAuth) {
-        //         //TODO why do we need this
-        //         next('/feed');
-        //     } else {
-        //         next();
-        //     }
-        // }
     },
     {
         path: '/register2',

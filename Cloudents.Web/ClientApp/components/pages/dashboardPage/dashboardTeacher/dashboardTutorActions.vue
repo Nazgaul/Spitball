@@ -40,7 +40,12 @@
             <div class="linkWrap d-flex align-center justify-space-between py-4" v-for="action in tutorActionsFilterList" :key="action.name">
                 <div class="linkBorded" :style="{background: action.color}"></div>
                 <div class="link d-flex align-center" :class="{'mobileLayout': isMobile}">
-                    <component :is="isMobile ? 'router-link' : 'div'" class="linkWrapper d-flex" @click="action.method ? action.method() : ''" :to="action.routeName ? action.routeName : ''">
+                    <component 
+                        :is="action.routeName ? 'router-link' : 'div'"
+                        class="linkWrapper d-flex"
+                        @click="action.method ? action.method() : ''" 
+                        :to="action.routeName ? action.routeName : ''"
+                    >
                         <circleArrow class="arrowIcon" width="23" :stroke="action.color" />
                     </component>
                     <div class="ms-sm-4 me-2 text-truncate" v-t="action.text"></div>
@@ -137,7 +142,7 @@ export default {
                     color: colors.blue,
                     text: 'dashboardTeacher_link_text_stripe',
                     btnText: 'dashboardTeacher_btn_text_stripe',
-                    routeName: { name: routeName.Feed }//TODO: stripe // need to do 
+                    method: this.addStripe
                 },
                 [constants.CALENDAR]: {
                     color: colors.green,
@@ -199,7 +204,7 @@ export default {
             return this.$store.getters.getAccountImage
         },
         userUrl() {
-            return `${window.location.origin}/${this.userName}`
+            return `${window.location.origin}/profile/${this.userId}/${this.userName}`
         },
         myProfileRedirect() {
             return {
@@ -213,7 +218,7 @@ export default {
     },
     methods: {
         openPhoneDialog() {
-            this.$store.commit('setComponent', 'phoneVerify')
+            this.$store.commit('setComponent', 'verifyPhone')
         },
         bookSession() {
             this.$router.push({
@@ -227,10 +232,13 @@ export default {
         verifyEmail() {
             this.$store.dispatch('verifyTutorEmail').then(() => {
                 this.verifyEmailState = true
-                this.$store.commit('setEmailTask', constants.EMAIL)
+                this.$store.commit('setEmailTaskComplete', constants.EMAIL)
             }).catch(ex => {
-                console.log(ex);
+                self.$appInsights.trackException(ex);
             })
+        },
+        addStripe() {
+            window.location = '/stripe-connect'
         }
     },
     created() {

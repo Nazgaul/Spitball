@@ -18,7 +18,7 @@ namespace Cloudents.Web.Identity
             services.AddIdentity<User, UserRole>(options =>
             {
                options.SignIn.RequireConfirmedEmail = false;
-               options.SignIn.RequireConfirmedPhoneNumber = true;
+               options.SignIn.RequireConfirmedPhoneNumber = false;
                options.User.AllowedUserNameCharacters = null;
 
                options.User.RequireUniqueEmail = true;
@@ -29,7 +29,7 @@ namespace Cloudents.Web.Identity
                options.Password.RequireNonAlphanumeric = false;
                options.Password.RequireUppercase = false;
                options.Password.RequiredUniqueChars = 0;
-               options.Lockout.MaxFailedAccessAttempts = 3;
+               options.Lockout.MaxFailedAccessAttempts = 5;
             }).AddDefaultTokenProviders()
                 .AddClaimsPrincipalFactory<AppClaimsPrincipalFactory>()
                 .AddUserManager<SbUserManager>()
