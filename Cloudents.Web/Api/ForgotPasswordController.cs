@@ -53,17 +53,17 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError("ForgotPassword", _localizer["UserDoesntExists"]);
                 return BadRequest(ModelState);
             }
-            var emailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
-            var phoneConfirmed = await _userManager.IsPhoneNumberConfirmedAsync(user);
+            //var emailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
+            //var phoneConfirmed = await _userManager.IsPhoneNumberConfirmedAsync(user);
             var userLockedOut = await _userManager.GetLockoutEndDateAsync(user) ?? DateTimeOffset.MinValue;
 
-            if (phoneConfirmed && !emailConfirmed)
-            {
-                await GenerateEmailAsync(user, token);
-                return Ok();
-            }
+            //if (phoneConfirmed && !emailConfirmed)
+            //{
+            //    await GenerateEmailAsync(user, token);
+            //    return Ok();
+            //}
 
-            if (!emailConfirmed || !phoneConfirmed || userLockedOut == DateTimeOffset.MaxValue)
+            if (userLockedOut == DateTimeOffset.MaxValue)
             {
                 ModelState.AddModelError("ForgotPassword", _localizer["UserDoesntExists"]);
                 return BadRequest(ModelState);
@@ -111,16 +111,13 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> ResetPasswordAsync([FromBody]ResetPasswordRequest model, [FromHeader(Name = "referer")] Uri referer, CancellationToken token)
+        public async Task<IActionResult> ResetPasswordAsync([FromBody] ResetPasswordRequest model, [FromHeader(Name = "referer")] Uri referer, CancellationToken token)
         {
             var queryString = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(referer.Query);
             if (queryString.TryGetValue("id", out var id) &&
                 queryString.TryGetValue("code", out var code)
             )
             {
-                //  var id = queryString["id"];
-                //var code = queryString["code"];
-                //var from = queryString["byPass"];
                 if (id == StringValues.Empty || code == StringValues.Empty)
                 {
                     return BadRequest();
@@ -140,20 +137,9 @@ namespace Cloudents.Web.Api
                 var result = await _userManager.ResetPasswordAsync(user, code, model.Password);
                 if (result.Succeeded)
                 {
-                    //if (from != null)
-                    //{
-                    //    await _signInManager.SignInAsync(user, false);
-                    //    return Ok();
-                    //}
-                    if (user.PhoneNumberConfirmed)
-                    {
-                        await _signInManager.SignInAsync(user, false);
-                        return Ok();
-                    }
-
+                  
+                    await _signInManager.SignInAsync(user, false);
                     return Ok();
-                    //ModelState.AddModelError(nameof(model.Password), _localizer["UserDoesntExists"]);
-                    //return BadRequest(ModelState);
 
                 }
                 //TODO: Localize

@@ -3,15 +3,17 @@ using Microsoft.Azure.WebJobs.Extensions.SignalRService;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.FunctionsV2
 {
+    [SuppressMessage("ReSharper", "AsyncConverter.ConfigureAwaitHighlighting")]
     public static class SignalrFunction
     {
         [FunctionName("SignalRMessage")]
-        public static async Task Run2(
+        public static async Task Run2Async(
             [ServiceBusTrigger("signalr", Connection = "AzureWebJobsServiceBus")]
             string receivedMessage,
             IDictionary<string, object> userProperties,

@@ -11,9 +11,9 @@ namespace Cloudents.Core
     [SuppressMessage("Microsoft.Performance", "CA2225", Justification = "Online code")]
     public struct Base62
     {
-        private string _stringValue;
+        private string? _stringValue;
 
-        public Base62(string value)
+        public Base62(string? value)
         {
             Value = 0;
             if (value == null)
@@ -55,7 +55,7 @@ namespace Cloudents.Core
             _stringValue = value;
         }
 
-        public static bool TryParse(string s, out Base62 val)
+        public static bool TryParse(string? s, out Base62 val)
         {
             try
             {
@@ -108,7 +108,7 @@ namespace Cloudents.Core
 
         public override string ToString()
         {
-            return _stringValue ?? (_stringValue = ConvertToString(Value));
+            return _stringValue ??= ConvertToString(Value);
         }
 
         public override bool Equals(object obj)

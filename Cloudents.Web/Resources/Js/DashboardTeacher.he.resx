@@ -147,6 +147,9 @@
   <data name="btn_text_email" xml:space="preserve">
     <value>אימות</value>
   </data>
+  <data name="btn_text_phone" xml:space="preserve">
+    <value>אימות</value>
+  </data>
   <data name="btn_text_session" xml:space="preserve">
     <value>יצירה</value>
   </data>
@@ -191,6 +194,9 @@
   </data>
   <data name="link_text_email" xml:space="preserve">
     <value>אמתו את האימייל שלכם</value>
+  </data>
+  <data name="link_text_phone" xml:space="preserve">
+    <value>אמתו את מספר הטלפון שלכם</value>
   </data>
   <data name="link_text_session" xml:space="preserve">
     <value>צרו שיעור בשידור חי</value>

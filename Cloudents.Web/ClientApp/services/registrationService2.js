@@ -21,7 +21,8 @@ authInstance.interceptors.response.use((config) => {
 });
 
 
-function googleRegistration() {
+function googleRegistration(userType) {
+    
     // if (window.Android) {
     //     Android.onLogin();
     //     return Promise.reject();
@@ -31,7 +32,7 @@ function googleRegistration() {
     
     return gapiInstance.signIn().then((googleUser) => {
         let token = googleUser.getAuthResponse().id_token;
-        return authInstance.post("/register/google", { token })
+        return authInstance.post("/register/google", { token, userType })
     }, error => {
         return Promise.reject(error);
     });
@@ -42,13 +43,14 @@ export default {
     googleRegistration, // ok
     emailLogin: logObj => authInstance.post("/LogIn", logObj), // ok
     emailRegistration: regObj => authInstance.post("/Register", regObj), // ok
+    smsRegistration: smsObj => authInstance.post("/sms", smsObj),
+    voiceConfirmation: () => authInstance.post("/sms/call"),
+    smsCodeVerification: data => authInstance.post("/sms/verify", data),
+    getLocalCode: () => authInstance.get("/sms/code"), // ok
+    sendSmsCode: () => authInstance.post("/sms/sendCode"),
+    resendCode: () => authInstance.post("/sms/resend"),
     // resetPassword: email => authInstance.post("/ForgotPassword", email), // ok
     // emailForgotPasswordResend: () => authInstance.post("/ForgotPassword/resend"), // not ok ?? not sure if need it anymore @idan ///// signin/forgot-password
     // updatePassword: (password, id, code) => authInstance.post("/ForgotPassword/reset", {id, code, password}), // not ok // what about change password
-    smsRegistration: smsObj => authInstance.post("/sms", smsObj), // ok
-    voiceConfirmation: () => authInstance.post("/sms/call"), // ok
-    smsCodeVerification: data => authInstance.post("/sms/verify", data), // ok
-    getLocalCode: () => authInstance.get("/sms/code"), // ok
     // emailResend: () => authInstance.post("Register/resend"),
-    resendCode: () => authInstance.post("/sms/resend"),
 }

@@ -14,7 +14,7 @@ namespace Cloudents.FunctionsV2
             [DurableClient]IDurableOrchestrationClient starter,
             ILogger log)
         {
-            await SyncFunc.StartSearchSync(starter, log, SyncType.Document);
+            await SyncFunc.StartSearchSyncAsync(starter, log, SyncType.Document);
         }
     }
 }

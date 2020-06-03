@@ -27,14 +27,13 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
 using Cloudents.Web.Binders;
 using Microsoft.Extensions.Localization;
-using Schema.NET;
 
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]"), ApiController]
     [Authorize]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Return to client")]
+    [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Return to client")]
     [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting", Justification = "Api")]
     public class StudyRoomController : ControllerBase
     {

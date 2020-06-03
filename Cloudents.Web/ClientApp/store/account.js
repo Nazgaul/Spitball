@@ -59,7 +59,7 @@ const getters = {
     getIsSold: state => state.user?.isSold,
     getIsTutorSubscription: state => state.user?.subscription,
     getIsMyProfile: (state, _getters) => {
-        return _getters.getUserLoggedInStatus && (state.user.id === _getters.getProfile?.user.id)
+        return _getters.getUserLoggedInStatus && (state.user?.id === _getters.getProfile?.user.id)
     },
     getAccountId: state => state.user?.id,
     getAccountName: state => state.user?.name,

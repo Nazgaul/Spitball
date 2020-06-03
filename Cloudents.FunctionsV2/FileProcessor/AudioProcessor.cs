@@ -17,7 +17,7 @@ namespace Cloudents.FunctionsV2.FileProcessor
             _videoService = videoService;
         }
 
-        public async Task ProcessFileAsync(long id, CloudBlockBlob blob,IBinder binder, ILogger log, CancellationToken token)
+        public Task ProcessFileAsync(long id, CloudBlockBlob blob,IBinder binder, ILogger log, CancellationToken token)
         {
             var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
             {
@@ -27,7 +27,7 @@ namespace Cloudents.FunctionsV2.FileProcessor
 
             });
             var url = new Uri(blob.Uri, signedUrl);
-            await _videoService.CreateAudioPreviewJobAsync(id, url.AbsoluteUri, token);
+            return _videoService.CreateAudioPreviewJobAsync(id, url.AbsoluteUri, token);
         }
     }
 }
