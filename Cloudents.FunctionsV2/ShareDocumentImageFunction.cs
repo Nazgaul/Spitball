@@ -31,7 +31,7 @@ namespace Cloudents.FunctionsV2
     public static class ShareDocumentImageFunction
     {
         [FunctionName("ShareDocumentImageFunction")]
-        public static async Task<IActionResult> Run(
+        public static async Task<IActionResult> RunAsync(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "share/document/{id:long}")] HttpRequest req, long id,
             [Blob("spitball/share-placeholder")] IEnumerable<CloudBlockBlob> directoryBlobs,
             [HttpClientFactory] HttpClient client,
