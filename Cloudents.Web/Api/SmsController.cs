@@ -96,6 +96,7 @@ namespace Cloudents.Web.Api
             }
             if (user.PhoneNumberConfirmed)
             {
+                _logger.Error("Phone number is confirmed Unauthorized");
                 return Unauthorized();
             }
 
@@ -128,7 +129,7 @@ namespace Cloudents.Web.Api
                     await _client.SendSmsAsync(user, token);
                     return Ok();
                 }
-            
+
                 return await FinishRegistrationAsync(user, agent, token);
             }
 
@@ -176,7 +177,10 @@ namespace Cloudents.Web.Api
 
             }
             await _client.SendSmsAsync(user, token);
-            return Ok();
+            return Ok(new
+            {
+                phoneNumber = user.PhoneNumber
+            });
         }
 
 
@@ -241,7 +245,7 @@ namespace Cloudents.Web.Api
             });
         }
 
-        [HttpPost("resend"),Authorize]
+        [HttpPost("resend"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -267,7 +271,7 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpPost("call"),Authorize]
+        [HttpPost("call"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -275,9 +279,13 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> CallUserAsync(CancellationToken token)
         {
             var t = TempData.Peek(PhoneCallTime);
-            if (t == null)
+            var temp = DateTime.UtcNow.AddDays(-1);
+            if (t != null)
             {
-                TempData[PhoneCallTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+                temp = DateTime.Parse(t.ToString(), CultureInfo.InvariantCulture);
+            }
+            if (temp > DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(0.5)))
+            {
                 return Ok();
             }
             var user = await _userManager.GetUserAsync(User);
