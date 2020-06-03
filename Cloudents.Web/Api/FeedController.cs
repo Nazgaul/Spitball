@@ -68,36 +68,7 @@ namespace Cloudents.Web.Api
                 },
                 Result = result
             };
-            //return GenerateResult(result,
-            //    new List<string>()
-            //    {
-            //        FeedType.Document.ToString("G"),
-            //        FeedType.Video.ToString("G"),
-            //        FeedType.Question.ToString("G"),
-            //        FeedType.Tutor.ToString("G")
-            //    });
         }
-
-
-
-        //private WebResponseWithFacet<FeedDto> GenerateResult(
-        //    IEnumerable<FeedDto> result, IEnumerable<string> filters)
-        //{
-        //    return new WebResponseWithFacet<FeedDto>
-        //    {
-        //        Result = result.Select(s =>
-        //        {
-        //            if (s is DocumentFeedDto p)
-        //            {
-
-        //                p.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(p.Id);
-        //                p.Url = Url.DocumentUrl(p.Course, p.Id, p.Title);
-        //            }
-        //            return s;
-        //        }),
-        //        Filters = filters
-        //    };
-        //}
 
         [HttpGet]
         public async Task<WebResponseWithFacet<FeedDto>> SpecificCourseAsync(
@@ -121,14 +92,7 @@ namespace Cloudents.Web.Api
                 },
                 Result = result
             };
-            //return GenerateResult(result,
-            //    new List<string>()
-            //    {
-            //        FeedType.Document.ToString("G"),
-            //        FeedType.Video.ToString("G"),
-            //        FeedType.Question.ToString("G"),
-            //        FeedType.Tutor.ToString("G")
-            //    });
+          
         }
 
 
@@ -153,13 +117,7 @@ namespace Cloudents.Web.Api
                 },
                 Result = result
             };
-            //return GenerateResult(result,
-            //    new List<string>()
-            //    {
-            //        FeedType.Document.ToString("G"),
-            //        FeedType.Video.ToString("G"),
-            //        FeedType.Tutor.ToString("G")
-            //    });
+           
         }
 
         //this is search

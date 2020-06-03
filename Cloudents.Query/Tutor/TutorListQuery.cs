@@ -42,7 +42,7 @@ namespace Cloudents.Query.Tutor
                 
                 const string sql = @"Select rt.Id as UserId,
 rt.Name as 'Name', rt.ImageName as 'Image', rt.Courses, rt.Subjects, rt.Price,
-rt.Rate, rt.RateCount as ReviewsCount, rt.Bio,  rt.Lessons, rt.SbCountry as Country, rt.SubsidizedPrice as DiscountPrice
+rt.Rate, rt.RateCount as ReviewsCount, rt.Bio,  rt.Lessons, rt.SbCountry as SbCountry, rt.SubsidizedPrice as DiscountPrice
 from sb.ReadTutor rt
 where rt.SbCountry = @country
 and rt.Id != @userId

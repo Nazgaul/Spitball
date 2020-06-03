@@ -18,7 +18,8 @@ namespace Cloudents.Core.DTOs.Tutors
         public override FeedType Type => FeedType.Tutor;
 
 
-        public Country SbCountry { get; set; } = null!;
+        //Document by id need to have nullable
+        public Country? SbCountry { get; set; }
 
         public bool ShouldSerializeSbCountry() => false;
 
@@ -28,7 +29,7 @@ namespace Cloudents.Core.DTOs.Tutors
         public decimal Price { get; set; }
 
         [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Json return")]
-        public string Currency => SbCountry.RegionInfo.ISOCurrencySymbol;
+        public string Currency => (SbCountry ?? Country.UnitedStates).RegionInfo.ISOCurrencySymbol;
 
         public decimal? DiscountPrice { get; set; }
 
