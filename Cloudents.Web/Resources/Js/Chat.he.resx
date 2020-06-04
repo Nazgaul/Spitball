@@ -181,7 +181,7 @@
     <value>שלחו לי הודעת וואטסאפ</value>
   </data>
   <data name="teacher_info" xml:space="preserve">
-    <value>אודות המורה</value>
+    <value>פרטי המורה</value>
   </data>
   <data name="teacher_name" xml:space="preserve">
     <value>היי, אני {0}</value>
