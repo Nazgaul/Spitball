@@ -1,5 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Microsoft.Azure.WebJobs;
@@ -13,22 +11,19 @@ namespace Cloudents.FunctionsV2
     public static class ProfileFaceDetectFunction
     {
         [FunctionName("ProfileFaceDetectFunction")]
-        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Invoke from outside")]
-        public static async Task RunAsync(
-            [BlobTrigger("spitball-user/profile/{id}/{filename}.{extension}")]CloudBlockBlob myBlob,
+        public static async Task Run([BlobTrigger("spitball-user/profile/{id}/{filename}.{extension}")]CloudBlockBlob myBlob,
             string id,
             [Inject] ICognitiveService cognitiveService,
-            ILogger log, CancellationToken token)
+            ILogger log)
         {
             await myBlob.FetchAttributesAsync();
             if (myBlob.Metadata.TryGetValue("face", out _))
             {
-                //already process the file
                 return;
             }
             log.LogInformation($"Processing {id}");
             await using var sr = await myBlob.OpenReadAsync();
-            var result = await cognitiveService.DetectCenterFaceAsync(sr, token);
+            var result = await cognitiveService.DetectCenterFaceAsync(sr);
             if (result is null)
             {
                 return;

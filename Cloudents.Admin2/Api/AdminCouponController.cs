@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using Cloudents.Command;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +18,6 @@ namespace Cloudents.Admin2.Api
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
     public class AdminCouponController : ControllerBase
     {
         private readonly ICommandBus _commandBus;

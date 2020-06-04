@@ -11,18 +11,15 @@ namespace Cloudents.Command.CommandHandler
     public class AddUserLocationCommandHandler : ICommandHandler<AddUserLocationCommand>
     {
         private readonly IRepository<UserLocation> _repository;
-        private readonly IIpToLocation _ipToLocation;
 
-        public AddUserLocationCommandHandler(IRepository<UserLocation> repository, IIpToLocation ipToLocation)
+        public AddUserLocationCommandHandler(IRepository<UserLocation> repository)
         {
             _repository = repository;
-            _ipToLocation = ipToLocation;
         }
 
         public async Task ExecuteAsync(AddUserLocationCommand message, CancellationToken token)
         {
-            var result = await _ipToLocation.GetLocationAsync(message.Ip.ToString(), token);
-            var location = new UserLocation(message.User, message.Ip.ToString(), result!.CountryCode,  message.UserAgent);
+            var location = new UserLocation(message.User, message.Ip.ToString(), message.Country,  message.UserAgent);
 
             await _repository.AddAsync(location, token);
         }

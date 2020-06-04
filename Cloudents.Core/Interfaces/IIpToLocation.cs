@@ -7,7 +7,7 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IIpToLocation
     {
-        Task<Location?> GetLocationAsync(string ipAddress, CancellationToken token);
+        Task<Location?> GetAsync(IPAddress ipAddress, CancellationToken token);
     }
 
     public interface ICountryProvider

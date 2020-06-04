@@ -15,7 +15,6 @@ using Google.Apis.Drive.v3.Data;
 using Google.Apis.Services;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -27,7 +26,6 @@ using Document = Google.Apis.Docs.v1.Data.Document;
 using User = Cloudents.Core.Entities.User;
 using System.IdentityModel.Tokens.Jwt;
 using Cloudents.Core.Entities;
-using Google;
 using Google.Apis.Json;
 using Newtonsoft.Json;
 
@@ -42,7 +40,7 @@ namespace Cloudents.Infrastructure.Google
         private const string PrimaryGoogleCalendarId = "primary";
         private readonly ILifetimeScope _container;
         private readonly GoogleAnalyticsRequestFactory _factory;
-        // private readonly JwtSecurityTokenHandler _tokenHandler;
+       // private readonly JwtSecurityTokenHandler _tokenHandler;
 
         public GoogleService(ILifetimeScope container)
         {
@@ -128,7 +126,7 @@ namespace Cloudents.Infrastructure.Google
             var request = service.Documents.Create(doc);
 
             doc = await request.ExecuteAsync(token);
-
+                
             await driveService.Permissions.Create(new Permission()
             {
                 Role = "writer",
@@ -153,7 +151,7 @@ namespace Cloudents.Infrastructure.Google
         public async Task<IEnumerable<CalendarDto>> GetUserCalendarsAsync(long userId, CancellationToken cancellationToken)
         {
             using var child = _container.BeginLifetimeScope();
-            var credential = await GetCredentialAsync(userId, child, cancellationToken);
+            var credential = await GetCredential(userId, child, cancellationToken);
 
 
             using var service = new CalendarService(new BaseClientService.Initializer()
@@ -178,7 +176,7 @@ namespace Cloudents.Infrastructure.Google
         {
             if (calendarsIds == null) throw new ArgumentNullException(nameof(calendarsIds));
             using var child = _container.BeginLifetimeScope();
-            var credential = await GetCredentialAsync(userId, child, cancellationToken);
+            var credential = await GetCredential(userId, child, cancellationToken);
 
 
             using var service = new CalendarService(new BaseClientService.Initializer()
@@ -186,9 +184,9 @@ namespace Cloudents.Infrastructure.Google
                 HttpClientInitializer = credential
 
             });
-            if (from < DateTime.UtcNow)
+            if (@from < DateTime.UtcNow)
             {
-                from = DateTime.UtcNow;
+                @from = DateTime.UtcNow;
             }
             try
             {
@@ -199,7 +197,7 @@ namespace Cloudents.Infrastructure.Google
 
 
                     request.SingleEvents = true;
-                    request.TimeMin = from;
+                    request.TimeMin = @from;
                     request.TimeMax = max;
 
 
@@ -245,7 +243,7 @@ namespace Cloudents.Infrastructure.Google
             }
         }
 
-        private static async Task<UserCredential> GetCredentialAsync(long userId, ILifetimeScope child, CancellationToken cancellationToken)
+        private static async Task<UserCredential> GetCredential(long userId, ILifetimeScope child, CancellationToken cancellationToken)
         {
             var initializer = new GoogleAuthorizationCodeFlow.Initializer
             {
@@ -263,11 +261,11 @@ namespace Cloudents.Infrastructure.Google
         }
 
 
-        public Task BookCalendarEventAsync(User tutor, User student, GoogleTokens? googleTokens,
+        public async Task BookCalendarEventAsync(User tutor, User student, GoogleTokens? googleTokens,
              DateTime from, DateTime to,
             CancellationToken cancellationToken)
         {
-
+         
             var resourceManager = new System.Resources.ResourceManager(typeof(CalendarResources));
             var eventName = resourceManager.GetString("TutorCalendarMessage", CultureInfo.CurrentUICulture) ?? "Tutor Session In Spitball";
             eventName = string.Format(eventName, tutor.Name, student.Name);
@@ -283,17 +281,16 @@ namespace Cloudents.Infrastructure.Google
                 attendees.Add(tutorCalendarEmail.Value.ToString());
             }
 
-            return SendCalendarInviteAsync(attendees, @from, to, eventName, cancellationToken);
-
+            await SendCalendarInviteAsync(attendees, from, to, eventName, cancellationToken);
+          
         }
 
-        [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting", Justification = "Using")]
-        private static async Task SendCalendarInviteAsync(IEnumerable<string> emails, DateTime from, DateTime to,
+        private async Task SendCalendarInviteAsync(IEnumerable<string> emails, DateTime @from, DateTime to,
             string title, CancellationToken cancellationToken)
         {
-            var cred = SpitballCalendarCred;
+             var cred = SpitballCalendarCred;
 
-
+            
             using var service = new CalendarService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = cred
@@ -301,7 +298,7 @@ namespace Cloudents.Infrastructure.Google
 
             var event2 = service.Events.Insert(new Event
             {
-                Attendees = emails.Select(s => new EventAttendee()
+                Attendees = emails.Select(s=>new EventAttendee()
                 {
                     Email = s
                 }).ToList(),
@@ -316,22 +313,22 @@ namespace Cloudents.Infrastructure.Google
                     DateTime = to,
                     TimeZone = "Etc/UTC"
                 }
-
+                
             }, PrimaryGoogleCalendarId);
             event2.SendUpdates = EventsResource.InsertRequest.SendUpdatesEnum.All;
             event2.ConferenceDataVersion = 1;
             await event2.ExecuteAsync(cancellationToken);
         }
 
-        public Task EnrollUserEventAsync(string studyRoomName, Tutor tutor, User student, DateTime broadcastTime, CancellationToken cancellationToken)
+        public async Task EnrollUserEventAsync(string studyRoomName, Tutor tutor, User student, DateTime broadcastTime, CancellationToken cancellationToken)
         {
             var x = new System.Resources.ResourceManager(typeof(CalendarResources));
-            var eventName = x.GetString("EnrollCalendarMessage", CultureInfo.CurrentUICulture)
+            var eventName = x.GetString("EnrollCalendarMessage", CultureInfo.CurrentUICulture) 
                             ?? $"Spitball Live session - {studyRoomName}";
             eventName = string.Format(eventName, tutor.User.Name, student.Name);
 
-            var attendees = new[] { tutor.User, student }.Select(s => s.Email);
-            return SendCalendarInviteAsync(attendees, broadcastTime, broadcastTime.AddHours(1), eventName, cancellationToken);
+            var attendees = new[] {tutor.User, student}.Select(s => s.Email);
+            await SendCalendarInviteAsync(attendees, broadcastTime, broadcastTime.AddHours(1), eventName, cancellationToken);
         }
 
         private static ServiceAccountCredential SpitballCalendarCred
@@ -363,44 +360,17 @@ namespace Cloudents.Infrastructure.Google
             request.SingleEvents = true;
             var result = await request.ExecuteAsync(cancellationToken);
             var declinedEvent = result.Items.Where(w => w.Attendees.Any(w2 => w2.ResponseStatus == "declined"));//.Select(s => s.Id);
-            Task oneTask = null!;
-            try
+            var tasks = declinedEvent.Select(s =>
             {
-                var tasks = declinedEvent.Select(s =>
-                {
-                    // ReSharper disable once AccessToDisposedClosure There is await in using
-                    var request2 = service.Events.Delete(PrimaryGoogleCalendarId, s.Id);
-                    request2.SendUpdates = EventsResource.DeleteRequest.SendUpdatesEnum.All;
-                    return request2.ExecuteAsync(cancellationToken);
+                // ReSharper disable once AccessToDisposedClosure There is await in using
+                var request2 = service.Events.Delete(PrimaryGoogleCalendarId, s.Id);
+                request2.SendUpdates = EventsResource.DeleteRequest.SendUpdatesEnum.All;
+                return request2.ExecuteAsync(cancellationToken);
 
-                });
-                oneTask = Task.WhenAll(tasks);
-                await oneTask;
-            }
-            catch (Exception)
-            {
-                var errorResult = oneTask.Exception.InnerExceptions.All(a =>
-                {
-                    if (a is GoogleApiException p)
-                    {
-                        if (p.Error.Code == 410)
-                        {
-                            return true;
-                        }
-                    }
-
-                    return false;
-                });
-                if (Equals(errorResult))
-                {
-                    return;
-                }
-                throw;
-            }
-
+            });
+            await Task.WhenAll(tasks);
         }
 
-        [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting", Justification = "we have using")]
         public async Task SaveTokenAsync(string token, long userId, string uri,
             CancellationToken cancellationToken)
         {
@@ -417,7 +387,6 @@ namespace Cloudents.Infrastructure.Google
             await flow.ExchangeCodeForTokenAsync(userId.ToString(), token,
                 uri, // need to be in from google console
                 cancellationToken);
-
         }
 
 

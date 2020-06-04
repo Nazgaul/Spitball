@@ -120,9 +120,6 @@
   <data name="course" xml:space="preserve">
     <value>Course:</value>
   </data>
-  <data name="downloaded" xml:space="preserve">
-    <value>{n} Download | {n} Downloads</value>
-  </data>
   <data name="pts" xml:space="preserve">
     <value>Free | {n} Pts |  {n} Pts</value>
   </data>

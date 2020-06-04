@@ -124,7 +124,8 @@
     <value>Account cannot be found, please sign up</value>
   </data>
   <data name="LockOut" xml:space="preserve">
-    <value>Your account is locked due to too many failed login attempts, please try again in 5 minutes</value>
+    <value>Your account has been suspended
+Reason: fraudulent behavior against our T&amp;C</value>
   </data>
   <data name="NotAllowed" xml:space="preserve">
     <value>Please finish sign up process</value>

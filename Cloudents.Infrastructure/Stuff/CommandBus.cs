@@ -1,12 +1,10 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Autofac;
+﻿using Autofac;
 using Cloudents.Command;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Stuff
 {
-    [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting", Justification = "inline using")]
     public sealed class CommandBus : ICommandBus
     {
         public CommandBus(ILifetimeScope container)

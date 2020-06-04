@@ -86,7 +86,7 @@ export default {
                         showToaster: true,
                     });
 				}).catch(error => {
-					self.$appInsights.trackException(error);
+					self.$appInsights.trackException({exception: new Error(error)});
 				})
 		}
 	}

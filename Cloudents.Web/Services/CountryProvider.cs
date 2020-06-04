@@ -8,8 +8,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
-using Cloudents.Infrastructure;
-using Cloudents.Query;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 using ILogger = Cloudents.Core.Interfaces.ILogger;
 
@@ -17,14 +15,14 @@ namespace Cloudents.Web.Services
 {
     public class CountryService : ICountryService
     {
-        private readonly IQueryBus _ipToLocation;
+        private readonly IIpToLocation _ipToLocation;
         private readonly IHttpContextAccessor _httpContext;
         private readonly ICountryProvider _conCountryProvider;
         private readonly ILogger _logger;
         private readonly ConfigurationService _configurationService;
-        private const string CookieName = "country2";
+        private const string CookieName = "country";
 
-        public CountryService(IQueryBus ipToLocation, IHttpContextAccessor httpContext,
+        public CountryService(IIpToLocation ipToLocation, IHttpContextAccessor httpContext,
             ILogger logger, 
             ConfigurationService configurationService, ICountryProvider conCountryProvider)
         {
@@ -75,8 +73,9 @@ namespace Cloudents.Web.Services
             {
                 try
                 {
-                    var query = new CountryByIpQuery(_httpContext.HttpContext.GetIpAddress().ToString());
-                    var result = await _ipToLocation.QueryAsync(query, token);
+
+                    var result = await _ipToLocation.GetAsync(_httpContext.HttpContext.GetIpAddress(),
+                        token);
                     cookieValue = result?.CountryCode;
                 }
                 catch (Exception e)
@@ -95,12 +94,7 @@ namespace Cloudents.Web.Services
                 }
                 
             }
-            _httpContext.HttpContext.Response.Cookies.Append(CookieName, cookieValue,new CookieOptions()
-            {
-                HttpOnly = true,
-                SameSite = SameSiteMode.Strict,
-                Expires = DateTimeOffset.UtcNow.AddHours(1)
-            });
+            _httpContext.HttpContext.Response.Cookies.Append(CookieName, cookieValue);
             return cookieValue;
         }
 

@@ -80,9 +80,11 @@ namespace Cloudents.Infrastructure.Cache
                 }
                 if (_distributedEnabled)
                 {
+                    Console.WriteLine("distributed");
                     return _distributedCache;
                 }
 
+                Console.WriteLine("Memory");
                 return _inMemory;
             }
         }
@@ -92,7 +94,6 @@ namespace Cloudents.Infrastructure.Cache
         {
             try
             {
-               
                 return Cache.Get(key, region);
             }
             catch (Exception ex)
@@ -126,18 +127,6 @@ namespace Cloudents.Infrastructure.Cache
             }
 
             return default!;
-        }
-
-        public T GetOrAdd<T>(string key, string region, Func<T> valueFactory,TimeSpan expire, bool slideExpiration = false)
-        {
-            var val = Get<T>(key, region);
-            if (val == null)
-            {
-                val = valueFactory();
-                Set(key,region,val,expire,slideExpiration);
-            }
-           
-            return val;
         }
 
         public void Set<T>(string key, string region, T value, TimeSpan expire, bool slideExpiration)

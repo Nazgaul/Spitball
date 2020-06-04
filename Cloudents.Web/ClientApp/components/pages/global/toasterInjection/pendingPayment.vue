@@ -2,7 +2,7 @@
     <v-snackbar
         absolute
         top
-        :timeout="10000"
+        :timeout="0"
         :value="showToaster"
         @input="onCloseToaster"
     >

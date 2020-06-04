@@ -2,7 +2,7 @@
 <div class="message_wrap" >
     <div class="message-wrapper" :class="{'myMessage': isMine}">
         <div class="message" :class="{'myMessage': isMine, 'imgMessage': message.type === 'file'}" >
-            <div dir="auto" v-html="$chatMessage(message)"></div>
+            <div v-html="$chatMessage(message)"></div>
         </div>
     </div>
     <div class="time_wrapper" :class="{'myMessage': isMine}">
@@ -70,6 +70,7 @@ export default {
             display: flex;
             flex-direction: column;
             color: #1d1d21;
+            text-align: left;
             div {
                     white-space: pre-wrap;
                 }

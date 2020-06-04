@@ -22,7 +22,6 @@ const MY_ICONS = {
   // clear: '...',
   // success: '...',
   // info: '...',
-  dotMenu: 'sbf-3-dot',
   // warning: '...',
   // error: '...',
   lock: 'sbf-lock',
@@ -32,7 +31,7 @@ const MY_ICONS = {
   // checkboxOff: '...',
   // checkboxIndeterminate: '...',
  // delimiter: '...', // for carousel
-  sort: 'sbf-arrow-up',
+  // sort: '...',
   // expand: '...',
   // menu: '...',
   // subgroup: '...',

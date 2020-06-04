@@ -17,9 +17,7 @@
             :timeout="5000"
             top
         >
-            <div class="text-center flex-grow-1">
-                {{gmailError}}
-            </div>
+            <div class="text-center flex-grow-1" v-t="'loginRegister_google_signin_error'"></div>
         </v-snackbar>
     </v-dialog>
 </template>
@@ -39,7 +37,6 @@ export default {
     },
     data() {
         return {
-            gmailError: '',
             tempComponent: '',
             teacher: false,
             snackbar: false
@@ -57,16 +54,8 @@ export default {
         updateRegisterType(val) {
             this.teacher = val;
         },
-        showToasterError(error) {
-            // if(error.error === 'popup_closed_by_user') {
-            //     this.gmailError = this.$t('loginRegister_google_signin_error')
-            // }else if(error) {
-            //     this.gmailError = ('showToasterError', error.response.data["Google"] ? error.response.data["Google"][0] : '');
-            // }
-            if(error && error.response) {
-                this.gmailError = ('showToasterError', error.response.data["Google"] ? error.response.data["Google"][0] : '');
-                this.snackbar = true
-            }
+        showToasterError() {
+            this.snackbar = true
         }
     },
     created() {

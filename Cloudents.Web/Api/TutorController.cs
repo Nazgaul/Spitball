@@ -32,7 +32,6 @@ using Cloudents.Web.Services;
 using SbUserManager = Cloudents.Web.Identity.SbUserManager;
 using Cloudents.Core.DTOs.Tutors;
 using Cloudents.Core.Extension;
-using Cloudents.Infrastructure;
 
 namespace Cloudents.Web.Api
 {
@@ -158,6 +157,7 @@ namespace Cloudents.Web.Api
             StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> RequestTutorAsync(RequestTutorRequest model,
+            [FromServices] IIpToLocation ipLocation,
             [FromServices] TelemetryClient client,
             [FromHeader(Name = "referer")] Uri referer,
             [FromServices] ICountryService countryService,
@@ -180,9 +180,7 @@ namespace Cloudents.Web.Api
                     return BadRequest(ModelState);
                 }
 
-
-                var query = new CountryByIpQuery(HttpContext.GetIpAddress().ToString());
-                var location = await _queryBus.QueryAsync(query, token);
+                var location = await ipLocation.GetAsync(HttpContext.GetIpAddress(), token);
 
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user != null)

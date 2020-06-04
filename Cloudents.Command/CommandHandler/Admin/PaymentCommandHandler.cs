@@ -2,6 +2,7 @@
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac.Features.Indexed;
@@ -34,9 +35,9 @@ namespace Cloudents.Command.CommandHandler.Admin
         {
 
          
+            var session = await _studyRoomSessionRepository.LoadAsync(message.StudyRoomSessionId, token);
             var tutor = await _tutorRepository.LoadAsync(message.TutorId, token);
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            var studyRoomPayment = await _studyRoomPaymentRepository.GetAsync(message.StudyRoomSessionId,token);
 
             if (tutor.User.SbCountry != user.SbCountry)
             {
@@ -52,7 +53,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             var paymentProvider = _payments[payment.GetType()];
             if (message.StudentPay.CompareTo(0) != 0)
             {
-                receipt = await paymentProvider.ChargeSessionAsync(tutor, user,message.StudyRoomSessionId, message.StudentPay, token);
+                receipt = await paymentProvider.ChargeSessionAsync(tutor, user, message.StudentPay, token);
             }
 
             if (message.SpitballPay.CompareTo(0) != 0)
@@ -60,13 +61,12 @@ namespace Cloudents.Command.CommandHandler.Admin
                 await paymentProvider.ChargeSessionBySpitballAsync(tutor, message.SpitballPay, token);
             }
 
+            var studyRoomPayment = await _studyRoomPaymentRepository.GetAsync(message.StudyRoomSessionId,token);
             if (studyRoomPayment != null)
             {
                 studyRoomPayment.Pay(receipt, message.AdminDuration, message.StudentPay + message.SpitballPay);
                 return;
             }
-
-            var session = await _studyRoomSessionRepository.LoadAsync(message.StudyRoomSessionId, token);
 
             if (session.StudyRoomVersion.GetValueOrDefault() == 0)
             {

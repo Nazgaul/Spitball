@@ -76,8 +76,7 @@ export default {
          border-radius: 0;
          background-image: url('../group-10.png');
          background-repeat: repeat;
-         // background-color: #ced7e2;
-         background-color: #a6bcd8;
+         background-color: #ced7e2;
          @media(max-width: @screen-xs) {
             height: calc(~"100% - 112px");
          }

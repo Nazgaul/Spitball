@@ -107,10 +107,8 @@ namespace Cloudents.Core.Entities
         public virtual void Delete()
         {
             Status = ItemStatus.Delete();
-            foreach (var entityAnswer in Answers)
-            {
-                entityAnswer.Delete();
-            }
+            _answers.Clear();
+
         }
 
 

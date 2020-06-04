@@ -53,11 +53,11 @@ namespace Cloudents.Core.DTOs.Users
             } 
         }
 
-        //public bool HaveContent { get; set; }
-        //public bool HaveDocsWithPrice { get; set; }
-       // public bool IsPurchased { get; set; }
+        public bool HaveContent { get; set; }
+        public bool HaveDocsWithPrice { get; set; }
+        public bool IsPurchased { get; set; }
         public bool IsSold { get; set; }
-        //public bool HaveFollowers { get; set; }
+        public bool HaveFollowers { get; set; }
        
         public int PendingSessionsPayments { get; set; }
 

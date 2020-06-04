@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure
 
         private readonly IIndex<FeedType, IFeedTypeService> _services;
 
-        public FeedService(IIndex<FeedType, IFeedTypeService> services)
+        public FeedService( IIndex<FeedType, IFeedTypeService> services)
         {
             _services = services;
         }
@@ -59,7 +59,7 @@ namespace Cloudents.Infrastructure
             return await _services[query.Filter].GetFeedAsync(query, token);
 
 
-
+           
         }
     }
 
@@ -88,10 +88,10 @@ namespace Cloudents.Infrastructure
 
 
             var tutorsTask = _tutorFeedService.GetFeedAsync(query, token);
-            var result = await Task.WhenAll(itemsTask, tutorsTask);
+            await Task.WhenAll(itemsTask, tutorsTask);
 
-            return SortFeed(result[0].ToList(),
-                result[1].ToList(),
+            return SortFeed(itemsTask.Result.ToList(),
+                tutorsTask.Result.ToList(),
                 query.Page);
         }
 
@@ -102,10 +102,10 @@ namespace Cloudents.Infrastructure
 
 
             var tutorsTask = _tutorFeedService.GetFeedAsync(query, token);
-            var result = await Task.WhenAll(itemsTask, tutorsTask);
+            await Task.WhenAll(itemsTask, tutorsTask);
 
-            return SortFeed(result[0].ToList(),
-                result[1].ToList(),
+            return SortFeed(itemsTask.Result.ToList(),
+                tutorsTask.Result.ToList(),
                 query.Page);
         }
 
@@ -114,10 +114,10 @@ namespace Cloudents.Infrastructure
             var itemsTask = _documentFeedService.GetFeedAsync(query, token);
             var tutorsTask = _tutorFeedService.GetFeedAsync(query, token);
 
-            var result = await Task.WhenAll(itemsTask, tutorsTask);
+            await Task.WhenAll(itemsTask, tutorsTask);
 
-            return SortFeed(result[0].ToList(),
-                result[1].ToList(),
+            return SortFeed(itemsTask.Result.ToList(),
+                tutorsTask.Result.ToList(),
                 query.Page);
         }
 
@@ -227,9 +227,7 @@ namespace Cloudents.Infrastructure
         public async Task<IEnumerable<FeedDto>> GetFeedAsync(GetFeedQuery query, CancellationToken token)
         {
             var tutorQuery = new TutorListQuery(query.UserId, query.Country, query.Page, _pageSize);
-            var result = await _queryBus.QueryAsync(tutorQuery, token);
-            return result.Result;
-
+            return await _queryBus.QueryAsync(tutorQuery, token).ContinueWith(r => r.Result.Result, token);
         }
 
         public async Task<IEnumerable<FeedDto>> GetFeedAsync(GetFeedWithCourseQuery query, CancellationToken token)
@@ -250,8 +248,7 @@ namespace Cloudents.Infrastructure
                 termToQuery = query.Term.Trim();
             }
             var tutorQuery = new TutorListTabSearchQuery(termToQuery, query.Profile.CountryRegion, query.Page, _pageSize);
-            var result = await _tutorSearch.SearchAsync(tutorQuery, token);
-            return result.Result;
+            return await _tutorSearch.SearchAsync(tutorQuery, token).ContinueWith(r => r.Result.Result, token);
         }
     }
 

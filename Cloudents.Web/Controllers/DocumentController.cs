@@ -202,9 +202,7 @@ namespace Cloudents.Web.Controllers
 
             await Task.WhenAll(tItem, tFiles);
 
-            
-
-            var item = await tItem;
+            var item = tItem.Result;
 
             if (item == null)
             {
@@ -219,7 +217,7 @@ namespace Cloudents.Web.Controllers
                 return Unauthorized();
             }
 
-            var files = await tFiles;
+            var files = tFiles.Result;
             var uri = files.First();
             var file = uri.Segments.Last();
 

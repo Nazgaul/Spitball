@@ -49,10 +49,10 @@ namespace Cloudents.Core.Entities
             }
             DocumentType = documentType;
 
-            DocumentPrice = new DocumentPrice(price, priceType, tutor);
+            DocumentPrice = new DocumentPrice(price,priceType,tutor);
         }
 
-
+      
 
         [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate")]
         protected Document()
@@ -84,7 +84,7 @@ namespace Cloudents.Core.Entities
 
         public virtual string? MetaContent { get; set; }
 
-
+        
 
         //public virtual 
 
@@ -99,11 +99,9 @@ namespace Cloudents.Core.Entities
 
         public virtual int VoteCount { get; protected set; }
 
-        public virtual int? PurchaseCount { get; protected set; }
-
         protected internal virtual ISet<UserDownloadDocument> DocumentDownloads { get; set; }
 
-        public virtual short? Boost { get; set; }
+        public virtual short Boost { get; set; }
 
         public virtual DocumentPrice DocumentPrice { get; protected set; }
 
@@ -180,7 +178,7 @@ namespace Cloudents.Core.Entities
             AddEvent(new DocumentUndeletedEvent(this));
         }
 
-
+      
 
         public virtual void ChangePrice(decimal newPrice)
         {
@@ -195,7 +193,7 @@ namespace Cloudents.Core.Entities
             }
 
             DocumentPrice.ChangePrice(newPrice);
-
+            
             TimeStamp.UpdateTime = DateTime.UtcNow;
             AddEvent(new DocumentPriceChangeEvent(this));
         }
@@ -215,31 +213,23 @@ namespace Cloudents.Core.Entities
                 throw new DuplicateRowException();
             }
 
-
-            SyncPurchaseCount();
-            PurchaseCount++;
             buyer.MakeTransaction(DocumentTransaction.Buyer(this));
             User.MakeTransaction(DocumentTransaction.Seller(this));
             User.MakeTransaction(new CommissionTransaction(DocumentPrice.Price));
-        }
-
-        public virtual void SyncPurchaseCount()
-        {
-            PurchaseCount = _transactions.Count / 2;
         }
 
         public virtual DocumentType DocumentType { get; set; }
 
         //This is only for video
         public virtual TimeSpan? Duration { get; set; }
-        public virtual bool? IsShownHomePage { get; protected set; }
+        public virtual bool IsShownHomePage { get; protected set; }
 
         public virtual string? Md5 { get; set; }
 
 
         public virtual void ChangeToSubscribeMode(Tutor tutor)
         {
-            DocumentPrice = new DocumentPrice(0, PriceType.Subscriber, tutor);
+            DocumentPrice = new DocumentPrice(0,PriceType.Subscriber,tutor);
         }
     }
 
@@ -253,7 +243,7 @@ namespace Cloudents.Core.Entities
             Price = price;
             if (priceType == PriceType.Subscriber)
             {
-                Price = (decimal)tutor.SubscriptionPrice.GetValueOrDefault().Amount;
+                Price = (decimal) tutor.SubscriptionPrice.GetValueOrDefault().Amount;
                 return;
             }
 
@@ -266,7 +256,7 @@ namespace Cloudents.Core.Entities
 
         protected DocumentPrice()
         {
-
+            
         }
 
         private decimal _price;
@@ -284,9 +274,9 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public PriceType? Type { get; protected set; }
+        public  PriceType? Type { get; protected set; }
 
-
+       
 
         public void ChangePrice(in decimal newPrice)
         {

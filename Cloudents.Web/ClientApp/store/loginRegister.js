@@ -1,4 +1,4 @@
-// OBSELETE
+// GLOBALS:
 import { router } from '../main.js';
 import codesJson from '../components/pages/authenticationPage/CountryCallingCodes';
 
@@ -161,10 +161,10 @@ const actions = {
         return registrationService.updateUserRegisterType({ userType: regType })
     },
     googleSigning({commit, state,dispatch}) {
-        // if (window.Android) {
-        //     Android.onLogin();
-        //     return;
-        // }
+        if (window.Android) {
+            Android.onLogin();
+            return;
+        }
         let authInstance = gapi.auth2.getAuthInstance();
 
         return authInstance.signIn().then((googleUser) => {
@@ -183,8 +183,7 @@ const actions = {
                 commit('setErrorMessages', { gmail: error.response.data["Google"] ? error.response.data["Google"][0] : '' });
                 return Promise.reject(error);
             });
-        }, error => { 
-            //THIS error should return the red banner
+        }, error => {
             return Promise.reject(error);
         });
     },
@@ -209,9 +208,21 @@ const actions = {
                 return Promise.reject(error);
             });
     },
-    resendEmail() {
+    resendEmail({dispatch}) {
         _analytics(['Registration', 'Resend Email']);
-        return registrationService.emailResend();
+        registrationService.emailResend()
+            .then(() => {
+                dispatch('updateToasterParams', {
+                    toasterText: _dictionary("login_email_sent"),
+                    showToaster: true,
+                });
+            }, () => {
+                dispatch('updateToasterParams', {
+                    toasterText: LanguageService.getValueByKey("put some error"),
+                    showToaster: true,
+                    toasterType: 'error-toaster'
+                });
+            });
     },
     sendSMScode({dispatch, commit, state}) {
         registrationService.smsRegistration(state.localCode,state.phone)
@@ -303,9 +314,15 @@ const actions = {
                 commit('setErrorMessages',{email: error.response.data["ForgotPassword"] ? error.response.data["ForgotPassword"][0] : error.response.data["Email"][0]});
             });
     },
-    resendEmailPassword(){
+    resendEmailPassword({dispatch}){
         _analytics(['Registration', 'Resend Email']);
-        return registrationService.EmailforgotPasswordResend()
+        registrationService.EmailforgotPasswordResend()
+            .then(() => {
+                dispatch('updateToasterParams',{
+                    toasterText: _dictionary("login_email_sent"),
+                    showToaster: true,
+                });
+            });
     },
     changePassword({commit,dispatch},params) {
         let {id, code, password, confirmPassword} = params;

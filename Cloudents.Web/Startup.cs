@@ -381,10 +381,9 @@ namespace Cloudents.Web
 
             app.UseRequestLocalization(o =>
             {
-                var isFrymo = Configuration["siteName"] == "frymo";
                 o.DefaultRequestCulture = new RequestCulture(Language.English);
                 o.SupportedUICultures = o.SupportedCultures =
-                    Language.SystemSupportLanguage(isFrymo).Select(s => (CultureInfo)s).ToList(); // SupportedCultures;
+                    Language.SystemSupportLanguage().Select(s => (CultureInfo)s).ToList(); // SupportedCultures;
 
                 o.RequestCultureProviders.Clear();
                 o.RequestCultureProviders.Add(new FrymoCultureProvider());
