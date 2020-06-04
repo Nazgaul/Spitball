@@ -32,7 +32,7 @@
         <div class="user-rates">
             <div class="price">
               <router-link class="applyCoupon" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name},  query: {coupon: true}}" v-t="'resultTutor_apply_coupon'"></router-link>
-              <div class="user-rates-top">
+              <!-- <div class="user-rates-top">
                 <template>
                     <span v-if="isDiscount" class="tutor-card-price font-weight-bold">{{$n(tutorData.discountPrice, 'currency')}}</span>
                     <span class="tutor-card-price font-weight-bold" v-else>{{$n(tutorData.price, 'currency')}}</span>
@@ -43,7 +43,7 @@
                 </span>
                 <div class="striked mr-1" v-if="isDiscount">{{$n(tutorData.price, 'currency')}}</div>
                 <div class="striked no-discount" v-else></div>
-              </div>
+              </div> -->
             </div>
 
              
@@ -241,31 +241,31 @@ export default {
           font-size: 12px;
           margin-top: 6px;
         }
-        .user-rates-top {
-          align-items: baseline;
-          .tutor-card-currency {
-            font-size: 16px;
-            color:#5158af;
-          }
-          .tutor-card-price {
-            font-size: 18px;
-            color:#5158af;
-          }
-          .tutor-card-price-divider {
-            font-size: 12px;
-            color:#5158af;
-          }
-          .menu-area {
-              margin-top: -12px;
-              width: 21px;
-            .v-btn__content {
-              i {
-                font-size: 16px;
-                color: rgba(0, 0, 0, 0.25);
-              }
-            }
-          }
-        }
+        // .user-rates-top {
+        //   align-items: baseline;
+        //   .tutor-card-currency {
+        //     font-size: 16px;
+        //     color:#5158af;
+        //   }
+        //   .tutor-card-price {
+        //     font-size: 18px;
+        //     color:#5158af;
+        //   }
+        //   .tutor-card-price-divider {
+        //     font-size: 12px;
+        //     color:#5158af;
+        //   }
+        //   .menu-area {
+        //       margin-top: -12px;
+        //       width: 21px;
+        //     .v-btn__content {
+        //       i {
+        //         font-size: 16px;
+        //         color: rgba(0, 0, 0, 0.25);
+        //       }
+        //     }
+        //   }
+        // }
         .price-default-height {
           .heightMinMax(16px);
         }

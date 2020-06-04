@@ -186,18 +186,12 @@ export default {
         isTutorSubscription() {
             return this.$store.getters.getProfileTutorSubscription
         },
-        // tutorSubscriptionPrice() {
-        //     return this.$store.getters.getProfileTutorSubscription
-        // },
         liveSessionsList() {
             let liveList = this.liveSessions
             if(this.isExpand) {
                 return liveList
             }
             return liveList.slice(0, 3)
-        },
-        tutorCurrency() {
-            return this.$store.getters.getProfile?.user?.tutorData?.currency
         },
         tutorFirstName() {
             return this.$store.getters.getProfile?.user?.firstName

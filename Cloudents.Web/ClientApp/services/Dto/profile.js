@@ -5,8 +5,8 @@ export const Profile = {
    Profile: function (objInit) {
       
       return {
-           id : objInit.id ,
-            name :objInit.name,
+            id : objInit.id ,
+            name: `${objInit.firstName} ${objInit.lastName}`,
             firstName : objInit.firstName,
             lastName : objInit.lastName,
             image : objInit.image || '',
@@ -20,7 +20,6 @@ export const Profile = {
             followers: objInit.followers || '',
             isFollowing: objInit.isFollowing,
             cover : objInit.cover || '',
-            
          }
       
    },
