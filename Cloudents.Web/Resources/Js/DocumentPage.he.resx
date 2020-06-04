@@ -135,6 +135,9 @@
   <data name="money_back" xml:space="preserve">
     <value>החזר כספי מובטח</value>
   </data>
+  <data name="my_create_coupon" xml:space="preserve">
+    <value>יצירת קופון</value>
+  </data>
   <data name="points" xml:space="preserve">
     <value>נק'</value>
   </data>
