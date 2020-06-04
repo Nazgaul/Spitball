@@ -9,9 +9,8 @@
                     :userId="userId"
                     :userName="userName"
                     :userImageUrl="userImage"
-                    v-if="userImage"
                 />
-                <emptyUserIcon class="mb-4" v-else />
+                <!-- <emptyUserIcon class="mb-4" v-else /> -->
                 <div class="infoWrap mx-5">
                     <div class="tutorName text-truncate mb-2">{{userName}}</div>
                     <button class="tutorUrl me-4 mb-4" :class="{'text-truncate': isMobile}" @click="$router.push(myProfileRedirect)">{{userUrl}}</button>
