@@ -61,8 +61,6 @@ namespace Cloudents.Query.Users
                     .Where(w => w.Id == query.Id)
                     .Select(s => new UserTutorProfileDto()
                     {
-                        Price = s.Price,
-                        DiscountPrice = s.SubsidizedPrice,
                         TutorCountry = s.SbCountry,
                         Rate = s.Rate.GetValueOrDefault(),
                         ReviewCount = s.RateCount,
@@ -141,8 +139,8 @@ namespace Cloudents.Query.Users
                 if (result.Tutor?.CouponValue != null && result.Tutor?.CouponType != null)
                 {
                     result.Tutor.HasCoupon = true;
-                    result.Tutor.DiscountPrice = Coupon.CalculatePrice(result.Tutor.CouponType.Value, result.Tutor.Price,
-                        result.Tutor.CouponValue.Value);
+                    //result.Tutor.DiscountPrice = Coupon.CalculatePrice(result.Tutor.CouponType.Value, result.Tutor.Price,
+                    //    result.Tutor.CouponValue.Value);
                 }
                 return result;
             }

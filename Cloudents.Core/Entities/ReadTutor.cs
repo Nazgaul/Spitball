@@ -12,9 +12,9 @@ namespace Cloudents.Core.Entities
         public ReadTutor(long id, string name, string image, string imageName,
             IReadOnlyList<string>? allSubjects,
             IReadOnlyList<string>? allCourses,
-            decimal price, double? rate, int rateCount, string bio,
+            double? rate, int rateCount, string bio,
             int lessons, Country sbCountry,
-            decimal? subsidizedPrice, Money? subscriptionPrice, string? description, ItemState state)
+            Money? subscriptionPrice, string? description, ItemState state)
         {
             Id = id;
             Name = name;
@@ -24,7 +24,6 @@ namespace Cloudents.Core.Entities
             AllSubjects = allSubjects;
             Courses = allCourses?.OrderBy(o => o).Take(3);
             AllCourses = allCourses;
-            Price = price;
             Rate = rate;
             RateCount = rateCount;
             Bio = bio;
@@ -32,7 +31,6 @@ namespace Cloudents.Core.Entities
             //case 115
             OverAllRating = (rate.GetValueOrDefault() * RateCount + 48 + Lessons * rate.GetValueOrDefault())
                             / (RateCount + 12 + Lessons);
-            SubsidizedPrice = subsidizedPrice;
             SubscriptionPrice = subscriptionPrice;
             Description = description;
             SbCountry = sbCountry;
@@ -52,7 +50,6 @@ namespace Cloudents.Core.Entities
         public virtual IEnumerable<string>? AllSubjects { get; protected set; }
         public virtual IEnumerable<string>? Courses { get; protected set; }
         public virtual IEnumerable<string>? AllCourses { get; protected set; }
-        public virtual decimal Price { get; protected set; }
         public virtual double? Rate { get; protected set; }
         public virtual int RateCount { get; protected set; }
         public virtual string Bio { get; protected set; }
@@ -60,7 +57,6 @@ namespace Cloudents.Core.Entities
         public virtual double OverAllRating { get; protected set; }
 
         public virtual ItemState State { get; set; }
-        public virtual decimal? SubsidizedPrice { get; protected set; }
 
         public virtual Country SbCountry { get; protected set; }
 

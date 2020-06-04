@@ -29,7 +29,7 @@ namespace Cloudents.Core.DTOs.Admin
         public string? LockoutReason { get; set; }
         public bool PaymentExists { get; set; }
         public bool CalendarExists { get; set; }
-        public decimal? TutorPrice { get; set; }
+       // public decimal? TutorPrice { get; set; }
 
         public bool HasSubscription { get; set; }
 

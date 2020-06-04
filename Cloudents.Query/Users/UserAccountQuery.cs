@@ -45,7 +45,6 @@ namespace Cloudents.Query.Users
                         Country = s.SbCountry,
                         IsTutor =  s.Tutor!.State,
                         TutorSubscription = s.Tutor.SubscriptionPrice != null,
-                        Price =  s.Tutor.Price!.Price,
                         _needPayment = s.PaymentExists.GetValueOrDefault(PaymentStatus.None) == PaymentStatus.None
                     }).ToFutureValue();
                 

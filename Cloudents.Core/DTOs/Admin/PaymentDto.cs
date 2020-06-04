@@ -64,7 +64,7 @@ namespace Cloudents.Core.DTOs.Admin
 
         [EntityBind(nameof(StudyRoomSession.Id))]
         public Guid StudyRoomSessionId { get; set; }
-        [EntityBind(nameof(Tutor.Price))]
+        [EntityBind(nameof(StudyRoom.Price))]
         public double TutorPricePerHour { get; set; }
 
         //public Country? TutorCountry { get; set; }

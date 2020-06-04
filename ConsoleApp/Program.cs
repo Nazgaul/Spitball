@@ -149,7 +149,26 @@ namespace ConsoleApp
 
         private static async Task Dbi()
         {
-            await DeleteOldStuff.ResyncTutorRead();
+            var session = Container.Resolve<ISession>();
+            var result = session.Query<StudyRoom>()
+                .Where(w => w.Price == null).Select(s=>s.Id).ToList();
+
+            foreach (var guid in result)
+            {
+                var studyRoom = session.Get<StudyRoom>(guid);
+                var x = studyRoom.Sessions.FirstOrDefault();
+                if (x == null)
+                {
+                    var price = session
+                        .CreateSQLQuery(
+                            "Select price from sb.TutorHistory where BeginDate < :xxx and :xxx < EndDate and id =  :Id")
+                        .SetInt64("Id", studyRoom.Tutor.Id)
+                        .SetDateTime("xxx", studyRoom.DateTime.CreationTime)
+                        .List<decimal>().First();
+                    studyRoom.SetPrice( price);
+
+                }
+            }
         }
 
         private static async Task UpdateTwilioParticipants()

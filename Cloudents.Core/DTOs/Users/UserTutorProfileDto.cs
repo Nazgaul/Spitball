@@ -6,13 +6,8 @@ namespace Cloudents.Core.DTOs.Users
 {
     public class UserTutorProfileDto
     {
-        public decimal Price { get; set; }
-
-        public string Currency => (TutorCountry ?? Country.UnitedStates).RegionInfo.ISOCurrencySymbol;
-
         public Country? TutorCountry { get; set; }
 
-        public decimal? DiscountPrice { get; set; }
 
         public double Rate { get; set; }
         public int ReviewCount { get; set; }

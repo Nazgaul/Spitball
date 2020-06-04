@@ -98,7 +98,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
             firstName.Should().Be("Tester");
             lastName.Should().Be("User");
-            price.Should().Be(55M);
         }
 
        

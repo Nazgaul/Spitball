@@ -32,8 +32,6 @@ namespace Cloudents.Persistence.Repositories
                     s.User.ImageName,
                     s.User.Image,
                     s.Bio,
-                    Price = s.Price.Price ?? 0M,
-                    SubsidizedPrice = s.Price.SubsidizedPrice ?? null,
                     s.User.SbCountry,
                     s.User.Country,
                     s.User.Description,
@@ -91,8 +89,8 @@ namespace Cloudents.Persistence.Repositories
             var readTutor = new ReadTutor(tutor.Id, tutor.Name, tutor.Image, tutor.ImageName,
                 course.Where(w => !string.IsNullOrEmpty(w.SubjectName)).Select(s => s.SubjectName).Distinct().ToList(),
                 course.Select(s => s.CourseName).ToList(),
-                tutor.Price, average, count, tutor.Bio,
-                lessons, tutor.SbCountry, tutor.SubsidizedPrice, tutor.SubscriptionPrice, tutor.Description, tutor.State);
+                 average, count, tutor.Bio,
+                lessons, tutor.SbCountry, tutor.SubscriptionPrice, tutor.Description, tutor.State);
 
 
             return readTutor;

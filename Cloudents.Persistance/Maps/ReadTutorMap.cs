@@ -16,8 +16,8 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.AllSubjects).CustomType<EnumerableJsonStringMapping>();
             Map(x => x.Courses).CustomType<EnumerableJsonStringMapping>();
             Map(x => x.AllCourses).CustomType<EnumerableJsonStringMapping>();
-            Map(x => x.Price).CustomSqlType("smallmoney");
-            Map(x => x.SubsidizedPrice).CustomSqlType("smallMoney");
+            //Map(x => x.Price).CustomSqlType("smallmoney");
+            //Map(x => x.SubsidizedPrice).CustomSqlType("smallMoney");
             Map(x => x.Rate);
             Map(x => x.RateCount);
             Map(x => x.Bio).Length(1000);

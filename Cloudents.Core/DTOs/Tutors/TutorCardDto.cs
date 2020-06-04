@@ -19,19 +19,19 @@ namespace Cloudents.Core.DTOs.Tutors
 
 
         //Document by id need to have nullable
-        public Country? SbCountry { get; set; }
+        //public Country? SbCountry { get; set; }
 
-        public bool ShouldSerializeSbCountry() => false;
+        //public bool ShouldSerializeSbCountry() => false;
 
 
 
-        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Json return")]
-        public decimal Price { get; set; }
+        //[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Json return")]
+        //public decimal Price { get; set; }
 
-        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Json return")]
-        public string Currency => (SbCountry ?? Country.UnitedStates).RegionInfo.ISOCurrencySymbol;
+        //[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Json return")]
+        //public string Currency => (SbCountry ?? Country.UnitedStates).RegionInfo.ISOCurrencySymbol;
 
-        public decimal? DiscountPrice { get; set; }
+        //public decimal? DiscountPrice { get; set; }
 
 
         //[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Used by json.net")]

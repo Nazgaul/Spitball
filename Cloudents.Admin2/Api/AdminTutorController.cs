@@ -63,13 +63,13 @@ namespace Cloudents.Admin2.Api
             return Ok();
         }
 
-        [HttpPost("Price")]
-        public async Task<IActionResult> ChangePriceAsync([FromBody] ChangePriceRequest model, CancellationToken token)
-        {
-            var command = new ChangeTutorPriceCommand(model.TutorId, model.Price);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
+        //[HttpPost("Price")]
+        //public async Task<IActionResult> ChangePriceAsync([FromBody] ChangePriceRequest model, CancellationToken token)
+        //{
+        //    var command = new ChangeTutorPriceCommand(model.TutorId, model.Price);
+        //    await _commandBus.DispatchAsync(command, token);
+        //    return Ok();
+        //}
 
         [HttpPost("suspend")]
         public async Task<IActionResult> SuspendTutorAsync([FromBody] SuspendTutorRequest model, CancellationToken token)

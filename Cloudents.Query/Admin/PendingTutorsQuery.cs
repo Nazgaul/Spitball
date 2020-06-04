@@ -27,7 +27,7 @@ namespace Cloudents.Query.Admin
             public async Task<IEnumerable<PendingTutorsDto>> GetAsync(PendingTutorsQuery query, CancellationToken token)
             {
                 const string sql = @"select u.Id, u.FirstName, u.LastName,
-u.Email, t.Bio, t.Price, t.Created, 
+u.Email, t.Bio, t.Created, 
 (select STRING_AGG(dt.CourseId, ', ') FROM(select top 10 courseId
 from sb.UsersCourses dt 
 where u.Id = dt.UserId and dt.CanTeach = 1) dt) as courses,

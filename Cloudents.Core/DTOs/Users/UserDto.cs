@@ -17,7 +17,6 @@ namespace Cloudents.Core.DTOs.Users
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global" , Justification = "Dto json serialize")]
     public class UserAccountDto
     {
-        public decimal? Price { get; set; }
         [NonSerialized]
         public bool _needPayment;
         public double? DiscountPrice { get; set; }

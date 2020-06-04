@@ -64,7 +64,7 @@ namespace Cloudents.Query.Admin
                     LockoutReason = s.LockoutReason,
                     TutorState = s.Tutor!.State,
                     PaymentExists = s.PaymentExists == PaymentStatus.Done,
-                    TutorPrice = s.Tutor.Price.SubsidizedPrice ?? s.Tutor.Price.Price,
+                   // TutorPrice = s.Tutor.Price.SubsidizedPrice ?? s.Tutor.Price.Price,
                     CalendarExists = _session.Query<GoogleTokens>().Any(w => w.Id == s.Id.ToString()),
                     HasSubscription = s.Tutor.SubscriptionPrice != null
                 }).SingleOrDefaultAsync(token);
