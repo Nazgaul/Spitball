@@ -83,7 +83,7 @@
             temporary 
             v-model="drawer" 
             light 
-            :right="$vuetify.rtl"
+            :right="!$vuetify.rtl"
             fixed 
             app 
             v-if="$vuetify.breakpoint.xsOnly" 
