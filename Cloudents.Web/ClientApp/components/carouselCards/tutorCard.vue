@@ -17,7 +17,7 @@
                             
                         </div>
                         <div class="user-rate-ts align-center" v-else>
-                            <star class="mr-1 icon-star" />
+                            <star class="me-1 icon-star" />
                             <span class="reviews-ts">{{$tc('resultTutor_review_one',tutor.reviews)}}</span>
                         </div>
                     </template>
@@ -28,7 +28,7 @@
         </div>
         <div class="tutorCarousel-bottom">
             <div class="text-truncate ts_subjects" v-show="subjects">
-                <span class="mr-1 font-weight-bold" v-language:inner="'resultTutor_study-area'"></span>
+                <span class="me-1 font-weight-bold" v-language:inner="'resultTutor_study-area'"></span>
                 <span class="">{{subjects}}</span>
             </div>
             <div class="ts-bottom">
@@ -49,7 +49,7 @@
             </div>
             <v-btn depressed color="#4c59ff" class="tutor-btn">
                 <span class="text-truncate">
-                    <button class="mr-1">
+                    <button class="me-1">
                         <div class="contact-me-button">{{$t('resultTutor_send_button',[showFirstName])}}</div>
                     </button>
                 </span>
