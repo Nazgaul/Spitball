@@ -2,9 +2,6 @@
   "version": "1.0.0",
   "name": "asp.net",
   "private": true,
-  "engines": {
-    "node": "8.9.3"
-  },
   "scripts": {
     "test": "jest",
     "client-prod": "node node_modules/webpack/bin/webpack.js --env.prod",
@@ -15,8 +12,8 @@
     "build": "npm run client",
     "start": "npm run client && cd .. && dotnet run",
     "all": "npm run build && npm run start",
-    "lint": "node node_modules/eslint/bin/eslint.js ClientApp/**/*.{js,vue}",
-    "stylelint": "node node_modules/stylelint/bin/stylelint.js ClientApp/**/*.{vue,less}"
+    "lint": "node node_modules/eslint/bin/eslint.js /**/*.{js,vue}",
+    "stylelint": "node node_modules/stylelint/bin/stylelint.js /**/*.{vue,less}"
   },
   "devDependencies": {
     "@automattic/mini-css-extract-plugin-with-rtl": "^0.8.0",
