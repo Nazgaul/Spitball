@@ -52,6 +52,9 @@ export default {
             }else{
                 let emptyStateMessages = [];
                 let currentActiveConversation = this.$store.getters?.getActiveConversationObj;
+                if(this.$store.getters.getActiveConversationTutor?.id == this.$store.getters.accountUser?.id){
+                    return [];
+                }
                 let messageObject = chatService.createMessage({
                         dateTime: null,
                         fromSignalR: false,
