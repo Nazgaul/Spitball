@@ -19,7 +19,6 @@ namespace Cloudents.Core.DTOs.Users
     {
         [NonSerialized]
         public bool _needPayment;
-        public double? DiscountPrice { get; set; }
 
         [NonSerialized]
         public Country? Country;
@@ -66,15 +65,11 @@ namespace Cloudents.Core.DTOs.Users
             } 
         }
 
-        //public bool HaveContent { get; set; }
-        //public bool HaveDocsWithPrice { get; set; }
-       // public bool IsPurchased { get; set; }
         public bool IsSold { get; set; }
-        //public bool HaveFollowers { get; set; }
        
         public int PendingSessionsPayments { get; set; }
 
 
-        public string CurrencySymbol => (Country ?? Country.UnitedStates).RegionInfo.CurrencySymbol;
+        public string CurrencySymbol => (Country ?? Country.UnitedStates).RegionInfo.ISOCurrencySymbol;
     }
 }

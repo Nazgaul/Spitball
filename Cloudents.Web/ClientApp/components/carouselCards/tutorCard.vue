@@ -31,20 +31,7 @@
                 <span class="mr-1 font-weight-bold" v-t="'resultTutor_study-area'"></span>
                 <span class="">{{subjects}}</span>
             </div>
-            <!-- <div class="ts-bottom"> -->
-                <!-- <router-link event @click.native.stop="openCoupon" class="applyCoupon" to="/" v-t="'resultTutor_apply_coupon'"></router-link>
-                <div class="ts-price">
-                    <template>
-                        <span v-if="isDiscount" class="ts-price-discount font-weight-bold">{{$n(tutor.discountPrice, 'currency')}}</span>
-                        <span class="ts-price-original font-weight-bold" v-else>{{$n(tutor.price, 'currency')}}</span>
-                    </template>
-                    <span>
-                        <span>/</span>
-                        <span v-t="'tutorCardCarousel_hour'"></span>
-                    </span>
-                    <div class="striked ml-2" v-if="isDiscount">{{$n(tutor.price, 'currency')}}</div>
-                </div> -->
-            <!-- </div> -->
+           
             <v-btn depressed color="#4c59ff" class="tutor-btn">
                 <span class="text-truncate">
                     <button class="mr-1">
