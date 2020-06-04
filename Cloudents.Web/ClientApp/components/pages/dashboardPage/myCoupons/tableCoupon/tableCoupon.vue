@@ -26,7 +26,7 @@
                             rounded
                             :block="$vuetify.breakpoint.xsOnly"
                             color="#5360FC"
-                            v-t="'dashboardPage_my_content_upload'"
+                            v-t="'dashboardPage_my_create_coupon'"
                         ></v-btn>
                     </div>
                </div>
