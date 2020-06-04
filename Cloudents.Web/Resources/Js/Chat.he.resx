@@ -183,6 +183,9 @@
   <data name="teacher_info" xml:space="preserve">
     <value>אודות המורה</value>
   </data>
+  <data name="teacher_name" xml:space="preserve">
+    <value>היי, אני {0}</value>
+  </data>
   <data name="type_message" xml:space="preserve">
     <value>הקלד הודעה</value>
   </data>
