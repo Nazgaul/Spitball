@@ -151,23 +151,42 @@ namespace ConsoleApp
         {
             var session = Container.Resolve<ISession>();
             var result = session.Query<StudyRoom>()
-                .Where(w => w.Price == null).Select(s=>s.Id).ToList();
+                .Where(w => w.Price == null).Select(s => s.Id).ToList();
 
             foreach (var guid in result)
             {
+                using var uow = Container.Resolve<IUnitOfWork>();
                 var studyRoom = session.Get<StudyRoom>(guid);
                 var x = studyRoom.Sessions.FirstOrDefault();
-                if (x == null)
+                if (x != null)
                 {
-                    var price = session
-                        .CreateSQLQuery(
-                            "Select price from sb.TutorHistory where BeginDate < :xxx and :xxx < EndDate and id =  :Id")
-                        .SetInt64("Id", studyRoom.Tutor.Id)
-                        .SetDateTime("xxx", studyRoom.DateTime.CreationTime)
-                        .List<decimal>().First();
-                    studyRoom.SetPrice( price);
+                    if (x.Price.HasValue)
+                    {
+                        studyRoom.SetPrice(x.Price.Value);
+                        session.Flush();
+                        await uow.CommitAsync();
+                        continue;
+                    }
 
                 }
+
+                var price = session
+                    .CreateSQLQuery(
+                        "Select price from sb.TutorHistory where BeginDate < :xxx and :xxx < EndDate and id =  :Id")
+                    .SetInt64("Id", studyRoom.Tutor.Id)
+                    .SetDateTime("xxx", studyRoom.DateTime.CreationTime)
+                    .List<decimal?>().FirstOrDefault();
+                if (price == null)
+                {
+                    price = session
+                         .CreateSQLQuery(
+                             "Select price from sb.Tutor where id =  :Id")
+                         .SetInt64("Id", studyRoom.Tutor.Id)
+                         .List<decimal>().First();
+                }
+                studyRoom.SetPrice(price.Value);
+                await uow.CommitAsync();
+
             }
         }
 
