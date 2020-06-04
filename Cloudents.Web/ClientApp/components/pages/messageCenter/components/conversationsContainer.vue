@@ -64,7 +64,7 @@ export default {
          return this.$vuetify.breakpoint.smAndDown
       },
       isTutor(){
-         return this.$store.getters.getIsTutorState;
+         return this.$store.getters.getIsTeacher;
       }
    },
    methods: {

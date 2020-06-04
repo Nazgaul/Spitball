@@ -5,7 +5,7 @@
 <script>
 //import { mapGetters } from 'vuex';
 //import * as dialogNames from './dialogNames.js'
-const becomeTutor = () => import('../../../becomeTutor/becomeTutor.vue');
+// const becomeTutor = () => import('../../../becomeTutor/becomeTutor.vue');
 const exitRegister = () => import('../../authenticationPage/login/exitRegisterDialog.vue');
 const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue');
 const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
@@ -20,7 +20,7 @@ import dialogMixin from './dialogMixin.js'
 export default {
     mixins: [dialogMixin],
      components: {
-        becomeTutor,
+        // becomeTutor,
         exitRegister,
         upload,
         createCoupon,

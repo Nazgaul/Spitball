@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import axios from 'axios'
-
+import messages from '../locales/en.json'
 Vue.use(VueI18n)
 
 // function loadLocaleMessages () {
@@ -52,13 +52,13 @@ const dateTimeFormats = {
       month: 'short', day: 'numeric'
     },
     justDay: {
-      weekday:'short'
+      weekday: 'short'
     },
     calendarDesktop: {
-      weekday:'short'
+      weekday: 'short'
     },
     calendarMobile: {
-      weekday:'narrow'
+      weekday: 'narrow'
     },
     long: {
       year: 'numeric', month: 'short', day: 'numeric',
@@ -85,10 +85,10 @@ const dateTimeFormats = {
       month: 'short', day: 'numeric'
     },
     calendarDesktop: {
-      weekday:'short'
+      weekday: 'short'
     },
     calendarMobile: {
-      weekday:'narrow'
+      weekday: 'narrow'
     },
     long: {
       year: 'numeric', month: 'short', day: 'numeric',
@@ -109,10 +109,10 @@ const dateTimeFormats = {
   }
 }
 
-export const i18n =  new VueI18n({
-  locale:  lang,
+export const i18n = new VueI18n({
+  locale: lang,
   fallbackLocale: 'en',
-  messages:{},
+  messages: messages,
   numberFormats,
   dateTimeFormats
   //messages: loadLocaleMessages()
@@ -128,7 +128,7 @@ const loadedLanguages = [] // our default language that is preloaded
 //   return lang
 // }
 
-export function loadLanguageAsync() {
+export async function loadLanguageAsync() {
   // If the same language
   // if (i18n.locale === lang) {
   //   return Promise.resolve()
@@ -136,28 +136,38 @@ export function loadLanguageAsync() {
 
   // If the language was already loaded
   if (loadedLanguages.includes(lang)) {
-    return Promise.resolve()
+    return;// Promise.resolve()
   }
 
-//  let dictionaryType = `?v=${global.version}&culture=${global.lang}-${global.country}`;
+  //  let dictionaryType = `?v=${global.version}&culture=${global.lang}-${global.country}`;
   // if(!!type){
   //     //version is for anti caching ability
   //     dictionaryType += `&resource=${type}`;
   // }else{
   //     dictionaryType += '';
   // }
+  try {
+    var messages = await import(/* webpackChunkName: "lang-[request]" */ `../locales/${lang}.json`);
+    i18n.setLocaleMessage(lang, messages.default);
+    loadedLanguages.push(lang);
+  } catch {
+    console.error("no resource",lang);
+  }
+
   //return connectivityModule.http.get(`/Locale${dictionaryType}`).then((dictionary)=>{
-  return axios.get('/locale', {
-    params : {
-      v : global.version,
-      culture : lang
+  var { data } = await axios.get('/locale', {
+    params: {
+      v: global.version,
+      culture: lang
     }
-  }).then(({data}) => {
-    i18n.mergeLocaleMessage(lang, data)
-    loadedLanguages.push(lang)
-    return Promise.resolve(lang)
-    //return lang;
-  })
+  });
+  i18n.mergeLocaleMessage(lang, data)
+  loadedLanguages.push(lang)
+  // .then(({data}) => {
+
+  //   return Promise.resolve(lang)
+  //   //return lang;
+  // })
   // If the language hasn't been loaded yet
   // return import(/* webpackChunkName: "lang-[request]" */ `@/i18n/messages/${lang}.js`).then(
   //   messages => {

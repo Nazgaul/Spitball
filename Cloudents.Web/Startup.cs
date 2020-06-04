@@ -30,6 +30,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Newtonsoft.Json;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
@@ -322,7 +323,10 @@ namespace Cloudents.Web
                 {
                     app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                     {
-                        HotModuleReplacement = true
+                        HotModuleReplacement = true,
+                        ProjectPath =   Path.Combine(Directory.GetCurrentDirectory(), "ClientApp"),
+                        ConfigFile = "webpack.config.js"
+                        
                     });
                 }
 

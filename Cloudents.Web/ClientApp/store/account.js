@@ -12,12 +12,12 @@ const state = {
     usersReferred: 0,
 };
 const mutations = {
-    changeIsUserTutor(state, val) {
-        state.user.isTutor = val;
-    },
-    setIsTutorState(state, val) {
-        state.user.isTutorState = val;
-    },
+    // changeIsUserTutor(state, val) {
+    //     state.user.isTutor = val;
+    // },
+    // setIsTutorState(state, val) {
+    //     state.user.isTutorState = val;
+    // },
     setRefferedNumber(state, data) {
         state.usersReferred = data;
     },
@@ -40,27 +40,23 @@ const mutations = {
 };
 
 const getters = {
-    getIsTutorState: state => {
-        if (state.user && state.user.isTutorState) {
-            return state.user.isTutorState;
-        } else {
-            return false;
-        }
-    },
+    // getIsTutorState: state => {
+    //     if (state.user && state.user.isTutorState) {
+    //         return state.user.isTutorState;
+    //     } else {
+    //         return false;
+    //     }
+    // },
     //TODO need to change this to accountretive
     getUserLoggedInStatus: state => state.isUserLoggedIn || global.isAuth,
     getIsTeacher: (state, _getters) => _getters.getUserLoggedInStatus && state.user?.isTutor,
     usersReffered: state => state.usersReferred,
-    accountUser: (state) => {
-        return state.user;
-    },
+    accountUser: (state) => state.user,
     getPendingPayment: state => state.user?.pendingSessionsPayments,
     getUserBalance: state =>  state.user?.balance.toFixed(0) || 0,
     getIsSold: state => state.user?.isSold,
     getIsTutorSubscription: state => state.user?.subscription,
-    getIsMyProfile: (state, _getters) => {
-        return _getters.getUserLoggedInStatus && (state.user?.id === _getters.getProfile?.user.id)
-    },
+    getIsMyProfile: (state, _getters) => _getters.getUserLoggedInStatus && (state.user?.id === _getters.getProfile?.user.id),
     getAccountId: state => state.user?.id,
     getAccountName: state => state.user?.name,
     getAccountImage: state => state.user?.image,
@@ -146,10 +142,10 @@ const actions = {
         }
         commit('updateUser', { ...state.user, balance: newBalance, dollar: dollarCalculate(newBalance) });
     },
-    updateAccountUserToTutor(context, val) {
-        context.commit('changeIsUserTutor', val);
-        context.commit('setIsTutorState', 'pending');
-    },
+    // updateAccountUserToTutor(context, val) {
+        // context.commit('changeIsUserTutor', val);
+        // context.commit('setIsTutorState', 'pending');
+    // },
     updateUserStats(context, lastDays) {
         return accountService.getAccountStats(lastDays)
     },

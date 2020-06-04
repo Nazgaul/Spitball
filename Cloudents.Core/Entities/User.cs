@@ -12,9 +12,12 @@ namespace Cloudents.Core.Entities
     public class User : BaseUser
     {
         public User(string email, string firstName, string lastName,
-            Language language, string country)
+            Language language, string country, bool isTutor = false)
         {
-            Email = email;
+            if (firstName == null) throw new ArgumentNullException(nameof(firstName));
+            if (lastName == null) throw new ArgumentNullException(nameof(lastName));
+            if (country == null) throw new ArgumentNullException(nameof(country));
+            Email = email ?? throw new ArgumentNullException(nameof(email));
             ChangeName(firstName, lastName);
             FirstName = firstName;
             LastName = lastName;
@@ -24,6 +27,10 @@ namespace Cloudents.Core.Entities
             SbCountry = Entities.Country.FromCountry(country);
             UserLogins = new List<UserLogin>();
             Transactions = new UserTransactions();
+            if (isTutor)
+            {
+                Tutor = new Tutor(this);
+            }
         }
 
 
@@ -166,18 +173,18 @@ namespace Cloudents.Core.Entities
 
 
 
-        public virtual void BecomeTutor(string bio, decimal? price, string description, string firstName, string lastName)
-        {
+        //public virtual void BecomeTutor(string bio, decimal? price, string description, string firstName, string lastName)
+        //{
 
-            Tutor = new Tutor(bio, this, price);
-            Description = description;
-            //SetUserType(UserType.Teacher);
-            ChangeName(firstName, lastName);
-            foreach (var userCourse in UserCourses)
-            {
-                userCourse.CanTeach();
-            }
-        }
+        //    Tutor = new Tutor(bio, this, price);
+        //    Description = description;
+        //    //SetUserType(UserType.Teacher);
+        //    ChangeName(firstName, lastName);
+        //    foreach (var userCourse in UserCourses)
+        //    {
+        //        userCourse.CanTeach();
+        //    }
+        //}
 
 
 
