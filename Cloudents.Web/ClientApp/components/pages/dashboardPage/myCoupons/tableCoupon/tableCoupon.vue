@@ -18,9 +18,10 @@
                 <div class="tableTop d-flex flex-sm-row flex-column align-sm-center justify-space-between">
                     <div class="myCoupons_title pb-3 pb-sm-0" v-t="'marketing_tableCoupon_title'"></div>
                     <div>
+                        <!-- @click="$store.commit('setComponent', 'createCoupon')" -->
                         <v-btn
-                            @click="$store.commit('setComponent', 'createCoupon')"
                             class="white--text"
+                            v-openDialog="'createCoupon'"
                             depressed
                             rounded
                             :block="$vuetify.breakpoint.xsOnly"

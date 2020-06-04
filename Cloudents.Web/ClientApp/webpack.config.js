@@ -114,7 +114,7 @@ module.exports = (env) => {
                         ]
                 },
                 {
-                    test: /\.(ogg|mp3|wav)$/i,
+                    test: /\.(ogg|mp3|wav|mp4)$/i,
                     loader: "file-loader",
                     exclude: path.resolve(__dirname ,'node_modules'),
 
