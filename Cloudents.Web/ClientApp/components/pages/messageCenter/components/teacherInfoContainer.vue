@@ -18,7 +18,7 @@
                </v-btn>
                <v-btn v-if="showStudyRoomBtn" block depressed text class="actionBox mb-3 cursor-pointer" @click="isStudyRoom ? goToStudyRoom() : createStudyRoom()">
                   <v-icon color="#41c4bc" size="20">sbf-enter-room</v-icon>
-                  <div class="actionName" v-t="isStudyRoom?'chat_teacher_btn_studyroom':'dashboardPage_my_studyrooms_create_room'"/>
+                  <div class="actionName" v-t="isStudyRoom?'chat_teacher_btn_studyroom':'chat_teacher_btn_studyroom_create'"/>
                </v-btn>
                <v-btn v-if="tutorEmail" :href="`mailto:${tutorEmail}`" block depressed text class="actionBox mb-3 cursor-pointer">
                   <v-icon color="#de5642" size="14">sbf-email-chat</v-icon>
