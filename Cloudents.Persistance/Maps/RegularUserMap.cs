@@ -50,13 +50,13 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Description);
             Map(x => x.CoverImage);
 
-            Component(x => x.BuyerPayment, y =>
-            {
-                y.Map(z => z!.PaymentKey);
-                y.Map(z => z!.PaymentKeyExpiration);
-                y.Map(z => z!.CreditCardMask);
+            //Component(x => x.BuyerPayment, y =>
+            //{
+            //    y.Map(z => z!.PaymentKey);
+            //    y.Map(z => z!.PaymentKeyExpiration);
+            //    y.Map(z => z!.CreditCardMask);
 
-            });
+            //});
 
             ReferencesAny(x => x.Payment)
                 .MetaType<string>()
@@ -67,7 +67,7 @@ namespace Cloudents.Persistence.Maps
                 .AddMetaValue<StripePayment>("Stripe").Cascade.All();
 
             Map(z => z.PaymentExists).CustomType<PaymentStatus>();
-            Map(z => z.Gender).CustomType<Gender>().Nullable();
+            //Map(z => z.Gender).CustomType<Gender>().Nullable();
             //Map(x => x.UserType2).Column("UserType").CustomType<GenericEnumStringType<UserType>>().Nullable();
             HasMany(x => x.UserCourses).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan()
@@ -91,6 +91,10 @@ namespace Cloudents.Persistence.Maps
 
 
             HasMany(x => x.DocumentDownloads)
+                .KeyColumn("UserId").Cascade.AllDeleteOrphan()
+                .Inverse();
+
+            HasMany(x => x.SessionPayments)
                 .KeyColumn("UserId").Cascade.AllDeleteOrphan()
                 .Inverse();
 

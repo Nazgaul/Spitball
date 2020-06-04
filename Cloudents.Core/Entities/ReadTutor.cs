@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate")]
     public class ReadTutor : Entity<long>
     {
-        public ReadTutor(long id, string name, string image, string imageName, 
+        public ReadTutor(long id, string name, string image, string imageName,
             IReadOnlyList<string>? allSubjects,
             IReadOnlyList<string>? allCourses,
             decimal price, double? rate, int rateCount, string bio,
-            int lessons,string country, Country sbCountry,
-            decimal? subsidizedPrice, Money? subscriptionPrice, string? description)
+            int lessons, Country sbCountry,
+            decimal? subsidizedPrice, Money? subscriptionPrice, string? description, ItemState state)
         {
             Id = id;
             Name = name;
@@ -28,7 +29,6 @@ namespace Cloudents.Core.Entities
             RateCount = rateCount;
             Bio = bio;
             Lessons = lessons;
-            Country = country;
             //case 115
             OverAllRating = (rate.GetValueOrDefault() * RateCount + 48 + Lessons * rate.GetValueOrDefault())
                             / (RateCount + 12 + Lessons);
@@ -36,6 +36,7 @@ namespace Cloudents.Core.Entities
             SubscriptionPrice = subscriptionPrice;
             Description = description;
             SbCountry = sbCountry;
+            State = state;
         }
 
         [SuppressMessage("ReSharper", "CS8618",Justification = "Nhibernate proxy")]
@@ -58,8 +59,7 @@ namespace Cloudents.Core.Entities
         public virtual int Lessons { get; protected set; }
         public virtual double OverAllRating { get; protected set; }
 
-        [Obsolete]
-        public virtual string Country { get; protected set; }
+        public virtual ItemState State { get; set; }
         public virtual decimal? SubsidizedPrice { get; protected set; }
 
         public virtual Country SbCountry { get; protected set; }

@@ -38,8 +38,8 @@ namespace Cloudents.Search.Entities
         [IsSearchable]
         public string[] Subjects { get; set; }
 
-        [IsFilterable, Obsolete]
-        public string Country { get; set; }
+        //[IsFilterable, Obsolete]
+        //public string Country { get; set; }
 
 
         [IsFilterable, JsonConverter(typeof(CountryConverter))]

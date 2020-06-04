@@ -57,7 +57,7 @@ namespace Cloudents.Core.Interfaces
     {
         Task<ChatRoom?> GetChatRoomAsync(IEnumerable<long> usersId, CancellationToken token);
 
-        Task<ChatRoom> GetOrAddChatRoomAsync(IList<long> userIds, CancellationToken token);
+        Task<ChatRoom> GetOrAddChatRoomAsync(IEnumerable<long> userIds, CancellationToken token);
         Task<ChatRoom?> GetChatRoomAsync(string identifier, CancellationToken token);
         Task UpdateNonDayOldConversationToActiveAsync(CancellationToken token);
     }
@@ -94,6 +94,7 @@ namespace Cloudents.Core.Interfaces
     public interface IReadTutorRepository : IRepository<ReadTutor>
     {
         Task<ReadTutor?> GetReadTutorAsync(long userId, CancellationToken token);
+        Task AddOrUpdateAsync(ReadTutor entity, CancellationToken token);
     }
 
     public interface ICouponRepository : IRepository<Coupon>

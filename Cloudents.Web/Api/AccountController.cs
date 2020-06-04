@@ -21,6 +21,7 @@ using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -38,6 +39,7 @@ namespace Cloudents.Web.Api
     [Produces("application/json")]
     [Route("api/[controller]")]
     [Authorize, ApiController]
+    [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
 
     public class AccountController : ControllerBase
     {
@@ -139,7 +141,7 @@ namespace Cloudents.Web.Api
             //}
             var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
             var url = Url.ImageUrl(imageProperties);
-            var fileName = uri.AbsolutePath.Split('/').LastOrDefault();
+            var fileName = uri.AbsolutePath.Split('/').Last();
             var command = new UpdateUserImageCommand(userId, url, fileName);
             await _commandBus.DispatchAsync(command, token);
             return Ok(url);
@@ -166,15 +168,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            //if (uri == null)
-            //{
-            //    ModelState.AddModelError("x", "not an image");
-            //    return BadRequest(ModelState);
-            //}
-            //   var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
-            //var url = Url.ImageUrl(imageProperties);
-
-            var fileName = uri.AbsolutePath.Split('/').LastOrDefault();
+            var fileName = uri.AbsolutePath.Split('/').Last();
             var command = new UpdateUserCoverImageCommand(userId,  fileName);
             await _commandBus.DispatchAsync(command, token);
 
@@ -313,10 +307,12 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("tutorActions")]
-        public async Task<TutorActionsDto> GetTutorActionsAsync(CancellationToken token)
+        public async Task<TutorActionsDto> GetTutorActionsAsync(
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
+            CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var query = new TutorActionsQuery(userId);
+            var query = new TutorActionsQuery(userId, profile.CountryRegion);
             return await _queryBus.QueryAsync(query, token);
         }
 

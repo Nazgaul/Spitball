@@ -129,6 +129,39 @@
   <data name="book_session" xml:space="preserve">
     <value>Book an onboarding session</value>
   </data>
+  <data name="btn_edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="btn_text_book" xml:space="preserve">
+    <value>Book</value>
+  </data>
+  <data name="btn_text_calendar" xml:space="preserve">
+    <value>Connect</value>
+  </data>
+  <data name="btn_text_courses" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="btn_text_edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="btn_text_email" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="btn_text_phone" xml:space="preserve">
+    <value>Verify</value>
+  </data>
+  <data name="btn_text_session" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="btn_text_stripe" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="btn_text_teach" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="btn_text_upload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
   <data name="connect_btn" xml:space="preserve">
     <value>Connect</value>
   </data>
@@ -138,11 +171,47 @@
   <data name="earn_money" xml:space="preserve">
     <value>Earn money by selling education content</value>
   </data>
+  <data name="email_verify" xml:space="preserve">
+    <value>An email sent, check your email</value>
+  </data>
   <data name="followers" xml:space="preserve">
     <value>Followers</value>
   </data>
   <data name="last_days" xml:space="preserve">
     <value>Last {0} days</value>
+  </data>
+  <data name="link_text_book" xml:space="preserve">
+    <value>Book an onboarding session with a Spitball specialist</value>
+  </data>
+  <data name="link_text_calendar" xml:space="preserve">
+    <value>Connect your calendar</value>
+  </data>
+  <data name="link_text_courses" xml:space="preserve">
+    <value>Set the courses or subjects you want to teach</value>
+  </data>
+  <data name="link_text_edit" xml:space="preserve">
+    <value>Edit your site</value>
+  </data>
+  <data name="link_text_email" xml:space="preserve">
+    <value>Verify your email</value>
+  </data>
+  <data name="link_text_phone" xml:space="preserve">
+    <value>Verify your phone number</value>
+  </data>
+  <data name="link_text_session" xml:space="preserve">
+    <value>Create a live class</value>
+  </data>
+  <data name="link_text_stripe" xml:space="preserve">
+    <value>Set your account on Stripe</value>
+  </data>
+  <data name="link_text_teach" xml:space="preserve">
+    <value>Set your working hours</value>
+  </data>
+  <data name="link_text_upload" xml:space="preserve">
+    <value>Upload a movie or document to your site</value>
+  </data>
+  <data name="notification_title" xml:space="preserve">
+    <value>Notifications</value>
   </data>
   <data name="no_task" xml:space="preserve">
     <value>You’re all caught up</value>

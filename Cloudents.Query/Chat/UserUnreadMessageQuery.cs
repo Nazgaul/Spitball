@@ -33,10 +33,12 @@ namespace Cloudents.Query.Chat
                 User? userAlias = null!;
                 ChatUser? chatUserAlias = null!;
                 UnreadMessageDto? resultAlias = null!;
+                ChatRoom chatRoomAlias = null!;
 
                 var z = _querySession.StatelessSession.QueryOver(() => chatUserAlias)
                     
                         .JoinAlias(x => x.User, () => userAlias)
+                        .JoinAlias(x=>x.ChatRoom, () => chatRoomAlias)
                         .Where(w => w.Unread > 0)
                         .And(() => userAlias.Email != null);
                 if (query.Version != null)
@@ -51,6 +53,7 @@ namespace Cloudents.Query.Chat
                             .Select(x => x.Version).WithAlias(() => resultAlias.Version)
                             .Select(() => userAlias.Language).WithAlias(() => resultAlias.CultureInfo)
                             .Select(() => userAlias.SbCountry).WithAlias(() => resultAlias.Country)
+                            .Select(() => chatRoomAlias.Identifier).WithAlias(() => resultAlias.Identifier)
                             .SelectSubQuery(QueryOver.Of<ChatMessage>()
                                 .Where(w => w.ChatRoom.Id == chatUserAlias.ChatRoom.Id)
                                 .ToRowCountQuery()
@@ -120,5 +123,6 @@ namespace Cloudents.Query.Chat
         }
 
         public static IEqualityComparer<UnreadMessageDto> UserIdComparer { get; } = new UserIdEqualityComparer();
+        public string Identifier { get; set; }
     }
 }

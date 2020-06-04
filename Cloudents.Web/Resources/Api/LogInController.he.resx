@@ -124,7 +124,7 @@
     <value>חשבון לא קיים, בבקשה הרשם</value>
   </data>
   <data name="LockOut" xml:space="preserve">
-    <value>המשתמש נעול</value>
+    <value>חשבונכם ננעל עקב ניסיונות כניסה מרובים, נסו להיכנס שוב בעוד 5 דקות</value>
   </data>
   <data name="NotAllowed" xml:space="preserve">
     <value>אנא סיים את תהליך ההרשמה</value>

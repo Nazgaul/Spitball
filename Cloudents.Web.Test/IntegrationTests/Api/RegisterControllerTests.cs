@@ -34,7 +34,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
                 FirstName = "xxx",
                 LastName = "yyy",
                 Email = "ram@cloudents.com", // TODO: not good hard coded
-                Gender = Gender.Female,
                 Password = "123123123",
                 Captcha = "SomeCaptcha"
             };

@@ -35,6 +35,11 @@ namespace Cloudents.Command.CommandHandler
             if (!string.IsNullOrEmpty(message.Identifier))
             {
                 chatRoom = await _chatRoomRepository.GetChatRoomAsync(message.Identifier, token);
+                if (chatRoom == null)
+                {
+                    var users = ChatRoom.IdentifierToUserIds(message.Identifier);
+                    chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, token);
+                }
             }
 
             if (chatRoom == null)
@@ -48,7 +53,7 @@ namespace Cloudents.Command.CommandHandler
             }
 
 
-            var user = _userRepository.Load(message.UserSendingId);
+            var user = await _userRepository.LoadAsync(message.UserSendingId, token);
             var chatMessage = new ChatAttachmentMessage(user, message.Blob, chatRoom);
             chatRoom.AddMessage(chatMessage);
             await _chatRoomRepository.UpdateAsync(chatRoom, token);

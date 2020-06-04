@@ -31,6 +31,7 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 namespace Cloudents.FunctionsV2
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Azure function")]
+    [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting", Justification = "Azure function")]
     public static class CommunicationFunction
     {
         [FunctionName("FunctionEmail")]
@@ -52,13 +53,13 @@ namespace Cloudents.FunctionsV2
                 return;
             }
 
-            await ProcessEmail(emailProvider, log, topicMessage, token);
+            await ProcessEmailAsync(emailProvider, log, topicMessage, token);
 
             log.LogInformation("finish sending email");
         }
 
 
-        private static async Task ProcessEmail(IAsyncCollector<SendGridMessage> emailProvider, ILogger log,
+        private static async Task ProcessEmailAsync(IAsyncCollector<SendGridMessage> emailProvider, ILogger log,
             BaseEmail topicMessage, CancellationToken token)
         {
             var message = new SendGridMessage();

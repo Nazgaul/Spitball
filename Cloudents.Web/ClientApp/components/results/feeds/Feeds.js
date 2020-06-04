@@ -64,7 +64,7 @@ export default {
         ...mapGetters([
             'getBannerParams','accountUser','Feeds_getItems',
             'Feeds_getFilters','Feeds_getCurrentQuery',
-            'getUserLoggedInStatus', 'getProfile'
+            'getUserLoggedInStatus', 'getProfile', 'getIsTeacher'
         ]),
         items(){
             return this.Feeds_getItems
@@ -73,8 +73,7 @@ export default {
             return this.Feeds_getFilters;
         },
         showAnalyticStats() {
-            let user = this.$store.getters.accountUser;
-            return user && user.haveDocsWithPrice;
+            return this.$store.getters.getIsTeacher;
         }
     },
     watch: {

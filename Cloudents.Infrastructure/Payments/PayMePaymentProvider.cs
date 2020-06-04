@@ -18,7 +18,7 @@ namespace Cloudents.Infrastructure.Payments
         private readonly HttpClient _client;
         private readonly PayMeCredentials _credentials;
 
-        public PayMePaymentProvider(HttpClient client,  PayMeCredentials credentials)
+        public PayMePaymentProvider(HttpClient client, PayMeCredentials credentials)
         {
             _client = client;
             _credentials = credentials ?? throw new ArgumentNullException(nameof(credentials));
@@ -36,13 +36,21 @@ namespace Cloudents.Infrastructure.Payments
             return await GenerateSaleAsync(token, generateSale);
         }
 
-        public async Task<string> ChargeSessionAsync(Tutor tutor, User user, double price, CancellationToken token)
+        public async Task<string> ChargeSessionAsync(Tutor tutor, User user, Guid id, double price, CancellationToken token)
         {
-            var sellerKey = tutor.SellerKey ?? throw new ArgumentNullException(nameof(tutor.SellerKey),"tutor seller key is empty");
-            var buyerKey = user.Payment?.PaymentKey ?? throw new ArgumentNullException(nameof(PaymePayment.PaymentKey),"buyer key is empty");
+
+            var sellerKey = tutor.SellerKey ?? throw new ArgumentNullException(nameof(tutor.SellerKey), "tutor seller key is empty");
+            var buyerKey = user.Payment?.PaymentKey ?? throw new ArgumentNullException(nameof(PaymePayment.PaymentKey), "buyer key is empty");
 
             var result = await TransferPaymentAsync(sellerKey, buyerKey, price, token);
             return result.PaymeSaleId;
+        }
+
+        public Task<string> ChargeSessionAsync(StudyRoomPayment sessionPayment, double price, CancellationToken token)
+        {
+            var tutor = sessionPayment.Tutor;
+            var user = sessionPayment.User;
+            return ChargeSessionAsync(tutor, user, sessionPayment.Id, price, token);
 
         }
 
@@ -55,18 +63,18 @@ namespace Cloudents.Infrastructure.Payments
 
         }
 
-        private async Task<GenerateSaleResponse> TransferPaymentAsync(string sellerKey, string buyerKey, double price, CancellationToken token)
+        private Task<GenerateSaleResponse> TransferPaymentAsync(string sellerKey, string buyerKey, double price, CancellationToken token)
         {
             var generateSale = GenerateSale.TransferMoney(sellerKey, buyerKey, price);
 
-            return await GenerateSaleAsync(token, generateSale);
+            return GenerateSaleAsync(token, generateSale);
         }
 
-        public async Task<GenerateSaleResponse> BuyTokens(PointBundle price, string successRedirect, CancellationToken token)
+        public Task<GenerateSaleResponse> BuyTokens(PointBundle price, string successRedirect, CancellationToken token)
         {
             var generateSale = GenerateSale.BuyTokens(price, successRedirect, _credentials.SellerId);
 
-            return await GenerateSaleAsync(token, generateSale);
+            return GenerateSaleAsync(token, generateSale);
         }
 
         private async Task<GenerateSaleResponse> GenerateSaleAsync(CancellationToken token, GenerateSale generateSale)
@@ -148,7 +156,7 @@ namespace Cloudents.Infrastructure.Payments
             public string SellerPaymeId { get; private set; }
 
             public int SalePrice { get; private set; }
-            [SuppressMessage("ReSharper", "UnusedMember.Local",Justification = "Used for serialize")] 
+            [SuppressMessage("ReSharper", "UnusedMember.Local", Justification = "Used for serialize")]
             public string Currency => "ILS";
             public string ProductName { get; private set; }
             public int? CaptureBuyer { get; private set; }
@@ -161,6 +169,6 @@ namespace Cloudents.Infrastructure.Payments
 
         }
 
-      
+
     }
 }

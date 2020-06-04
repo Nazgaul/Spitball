@@ -5,7 +5,7 @@ namespace Cloudents.Core.Query
 {
     public class DocumentQuery 
     {
-        public DocumentQuery(UserProfile userProfile, string term, string course, int page, int pageSize, DocumentType? filter)
+        public DocumentQuery(UserProfile userProfile, string term, string? course, int page, int pageSize, DocumentType? filter)
         {
             Filter = filter;
             PageSize = pageSize;
@@ -19,7 +19,7 @@ namespace Cloudents.Core.Query
         public int PageSize { get; }
 
         public string Term { get; }
-        public string Course { get; }
+        public string? Course { get; }
 
         public int Page { get; set; }
 

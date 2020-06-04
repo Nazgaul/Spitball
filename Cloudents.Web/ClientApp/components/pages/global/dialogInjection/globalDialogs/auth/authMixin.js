@@ -43,6 +43,9 @@ export default {
         policyLink() {
             let isFrymo = this.$store.getters.isFrymo
             return isFrymo ? 'https://help.frymo.com/en/policies' : 'https://help.spitball.co/en/article/privacy-policy'
+        },
+        isLogged() {
+            return this.$store.getters.getUserLoggedInStatus
         }
     },
     methods: {
@@ -56,23 +59,24 @@ export default {
             let self = this
             registrationService.emailLogin(loginObj)
                 .then(({data}) => {
-                    global.country = data.country; // should we need this? @idan
+                    global.country = data.country;
                     analyticsService.sb_unitedEvent('Login', 'Start');
 
                     if(self.presetRouting()) return
-                    
-                    self.$store.dispatch('userStatus')
+
+                    window.location.reload()
                 }).catch(error => {      
                     let { response: { data } } = error
 
                     self.errors.password = data["Password"] ? error.response.data["Password"][0] : ''
-                    self.$appInsights.trackException({exception: new Error(error)})
+                    self.$appInsights.trackException(error)
                 })
         },
         gmailRegister() {
             this.googleLoading = true;
             let self = this
-            registrationService.googleRegistration()
+            let userType = this.teacher ? 'tutor' : 'student'
+            registrationService.googleRegistration(userType)
                 .then(({data}) => {
                     self.googleLoading = false;
                     if (!data.isSignedIn) {
@@ -85,16 +89,14 @@ export default {
                         return
                     }
                     analyticsService.sb_unitedEvent('Login', 'Start Google')
-
+                    
                     if(self.presetRouting()) return
+
                     window.location.reload()
-                    // self.$store.dispatch('userStatus')
                 }).catch(error => {
-                    if(error) {
-                        self.$emit('showToasterError');
-                    }
+                    self.$emit('showToasterError', error);
                     self.googleLoading = false;
-                    self.$appInsights.trackException({exception: new Error(error)})
+                    self.$appInsights.trackException(error)
                 })
         },
         verifyPhone(){
@@ -102,36 +104,13 @@ export default {
 
 			let self = this
 			registrationService.smsCodeVerification({number: childComp.smsCode})
-				.then(userId => {
-                    let { dispatch } = self.$store
-
+				.then(() => {
                     analyticsService.sb_unitedEvent('Registration', 'Phone Verified');
-                    if(!!userId){
-                        analyticsService.sb_unitedEvent('Registration', 'User Id', userId.data.id);
-                    }
-
-                    if(self.presetRouting()) return
-
-					dispatch('userStatus').then(user => {
-                        // when user is register and pick teacher, redirect him to his profile page
-                        if(self.teacher) {
-                            self.$router.push({
-                                name: self.routeNames.Profile,
-                                params: {
-                                    id: user.id,
-                                    name: user.name,
-                                },
-                                query: {
-                                    dialog: 'becomeTutor'
-                                }
-                            })
-                            return
-                        }
-                        self.$router.push({name: self.routeNames.LoginRedirect})
-                    })
+                    self.$store.commit('setComponent', '');
+                    self.$store.commit('setPhoneTaskComplete');
 				}).catch(error => {
                     self.errors.code = self.$t('loginRegister_invalid_code')
-                    self.$appInsights.trackException({exception: new Error(error)});
+                    self.$appInsights.trackException(error);
                 })
         },
         presetRouting() {
@@ -156,7 +135,7 @@ export default {
             }
             return false
         },
-        sendSms(){
+        sendSms() {
             let childComp = this.$refs.childComponent
             let smsObj = {
                 countryCode: childComp.localCode,
@@ -166,19 +145,42 @@ export default {
             let self = this
             registrationService.smsRegistration(smsObj)
                 .then(function (){
+                    
                     let { dispatch } = self.$store
 
-                    dispatch('updateToasterParams',{
-                        toasterText: self.$t("login_verification_code_sent_to_phone"),
-                        showToaster: true,
-                    });
                     analyticsService.sb_unitedEvent('Registration', 'Phone Submitted');
-                    self.component = 'verifyPhone'
+
+                    // when tutor is in dashboard and want change number
+                    if(self.isLogged) {
+                        self.component = 'verifyPhone'
+                        return
+                    }
+
+                    if(self.presetRouting()) return
+
+					dispatch('userStatus').then(user => {
+                        // when user is register and pick teacher, redirect him to his profile page
+                        if(self.teacher) {
+                            self.$router.push({
+                                name: self.routeNames.Profile,
+                                params: {
+                                    id: user.id,
+                                    name: user.name,
+                                },
+                                query: {
+                                    dialog: 'becomeTutor'
+                                }
+                            })
+                            return
+                        }
+                        // self.$router.push({name: self.routeNames.LoginRedirect})
+                    })
+
                 }).catch(error => {
                     let { response: { data } } = error
                     
                     self.errors.phone = data && data["PhoneNumber"] ? data["PhoneNumber"][0] : ''
-                    self.$appInsights.trackException({exception: new Error(error)});
+                    self.$appInsights.trackException(error);
                 })
         },
         phoneCall(){
@@ -190,7 +192,7 @@ export default {
 						showToaster: true,
 					});
 				}).catch(error => {
-                    self.$appInsights.trackException({exception: new Error(error)});
+                    self.$appInsights.trackException(error);
                 })
         },
         fromTutorReuqest() {
@@ -227,7 +229,7 @@ export default {
                 .then(()=>{
                     self.$store.dispatch('gapiLoad');
                 }).catch(ex => {
-                    self.$appInsights.trackException({exception: new Error(ex)});
+                    self.$appInsights.trackException(ex);
                 })
         });
     }

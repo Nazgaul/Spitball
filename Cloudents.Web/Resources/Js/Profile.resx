@@ -202,7 +202,7 @@
     <value>I want to earn money</value>
   </data>
   <data name="earn_desc" xml:space="preserve">
-    <value>Trust upload your documents/class notes that you already have and make passive income.</value>
+    <value>Just upload your documents/class notes that you already have and make passive income.</value>
   </data>
   <data name="earn_title" xml:space="preserve">
     <value>Your study materials are worth money on Spitball!</value>
@@ -259,7 +259,7 @@
     <value>Enter</value>
   </data>
   <data name="live_title" xml:space="preserve">
-    <value>Upcoming  Live Broadcasts by</value>
+    <value>Upcoming  Live Classes by</value>
   </data>
   <data name="see_all" xml:space="preserve">
     <value>See all</value>
@@ -289,7 +289,7 @@
     <value>/ Month</value>
   </data>
   <data name="subscribe_subtitle" xml:space="preserve">
-    <value>access to all of {0}'s content and Live Broadcasts</value>
+    <value>access to all of {0}'s content and Live Lessons</value>
   </data>
   <data name="subscribe_title" xml:space="preserve">
     <value>Subscribe and get</value>

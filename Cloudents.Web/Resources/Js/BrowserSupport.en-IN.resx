@@ -118,7 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="supported_text" xml:space="preserve">
-    <value>Your’e using a web browser that isn’t fully supported by Frymo.
-              To get a better experience go to one of these sites and get the latest version of your preferred browser</value>
+    <value>Sorry, but we were not able to access your camera and microphone from your browser.
+
+We recommend that you use the IOS default browser  - Safari.</value>
   </data>
 </root>

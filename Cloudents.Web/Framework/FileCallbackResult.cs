@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Features;
@@ -36,31 +37,18 @@ namespace Cloudents.Web.Framework
         public FileCallbackResult(MediaTypeHeaderValue contentType, Func<Stream, ActionContext, Task> callback)
             : base(contentType?.ToString())
         {
-            if (callback == null)
-            {
-                throw new ArgumentNullException(nameof(callback));
-            }
-
-            Callback = callback;
+            Callback = callback ?? throw new ArgumentNullException(nameof(callback));
         }
 
         /// <summary>
         /// Gets or sets the callback responsible for writing the file content to the output stream.
         /// </summary>
-        public Func<Stream, ActionContext, Task> Callback
+        private Func<Stream, ActionContext, Task> Callback
         {
-            get
-            {
-                return _callback;
-            }
+            get => _callback;
             set
             {
-                if (value == null)
-                {
-                    throw new ArgumentNullException(nameof(value));
-                }
-
-                _callback = value;
+                _callback = value ?? throw new ArgumentNullException(nameof(value));
             }
         }
 
@@ -83,7 +71,8 @@ namespace Cloudents.Web.Framework
             {
             }
 
-            public Task ExecuteAsync(ActionContext context, FileCallbackResult result)
+            [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
+            public async Task ExecuteAsync(ActionContext context, FileCallbackResult result)
             {
                 //https://github.com/aspnet/AspNetCore/issues/7644
                 var syncIoFeature = context.HttpContext.Features.Get<IHttpBodyControlFeature>();
@@ -93,7 +82,7 @@ namespace Cloudents.Web.Framework
                 }
                 SetHeadersAndLog(context, result, null, true);
                 
-                return result.Callback(context.HttpContext.Response.Body, context);
+                await result.Callback(context.HttpContext.Response.Body, context);
                 //await context.HttpContext.Response.Body.FlushAsync();
             }
         }

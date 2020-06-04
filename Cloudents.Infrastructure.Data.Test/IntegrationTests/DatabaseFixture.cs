@@ -6,6 +6,7 @@ using Cloudents.Infrastructure.Stuff;
 using Cloudents.Persistence;
 using Cloudents.Query;
 using System;
+using System.Net.Http;
 using NHibernate;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
@@ -41,9 +42,11 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             builder.RegisterType<QueryBus>().As<IQueryBus>();
             builder.RegisterModule<ModuleDb>();
             builder.RegisterModule<ModuleCore>();
-            builder.RegisterModule<ModuleInfrastructureBase>();
-            builder.RegisterType<GoogleService>().AsSelf()
-              .As<ICalendarService>().SingleInstance();
+            builder.Register(c => new HttpClient()).AsSelf().SingleInstance();
+            //builder.RegisterModule<ModuleInfrastructureBase>();
+            builder.RegisterAssemblyModules(typeof(ModuleInfrastructureBase).Assembly);
+            //builder.RegisterType<GoogleService>().AsSelf()
+            //  .As<ICalendarService>().SingleInstance();
 
             builder.RegisterType<DummyCacheProvider>().As<ICacheProvider>();
             builder.RegisterType<GoogleDataStore>()

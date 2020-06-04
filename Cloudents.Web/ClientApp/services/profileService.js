@@ -5,13 +5,22 @@ const profileInstance = axios.create({
     baseURL:'/api/profile'
 })
 
+let cancelTokenList;
+
 export default {
    async getProfile(id){ 
       let {data} = await profileInstance.get(`${id}`)
       return new Profile.ProfileUserData(data)
    },
    async getProfileDocuments(id,params){ 
-      let {data} = await profileInstance.get(`${id}/documents`, { params })
+
+      cancelTokenList?.cancel();
+      // cancelTokenList.forEach(f=> {
+      //    f.cancel();
+      // });
+      const axiosSource = axios.CancelToken.source();
+      cancelTokenList = axiosSource;
+      let {data} = await profileInstance.get(`${id}/documents`, { params, cancelToken : axiosSource.token })
       return new Profile.ProfileItems(data)
    },
    async followProfile(id){ 

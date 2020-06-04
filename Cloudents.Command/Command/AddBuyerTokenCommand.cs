@@ -19,19 +19,6 @@ namespace Cloudents.Command.Command
         public string BuyerCardMask { get; }
     }
 
-    public class AddSellerTokenCommand : ICommand
-    {
-        public AddSellerTokenCommand(string userEmail, string token)
-        {
-            UserEmail = userEmail;
-            Token = token;
-        }
-
-        public string UserEmail { get; }
-        public string Token { get; }
-
-    }
-
     public class ConfirmPaymentCommand : ICommand
     {
         public ConfirmPaymentCommand(long userId)

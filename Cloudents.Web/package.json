@@ -87,6 +87,7 @@
     "cssnano": "^4.1.10",
     "fingerprintjs2": "^2.1.0",
     "intersection-observer": "^0.7.0",
+    "moment": "^2.26.0",
     "myscript": "^4.3.0",
     "postcss-loader": "^3.0.0",
     "postcss-rtl": "^1.7.3",
