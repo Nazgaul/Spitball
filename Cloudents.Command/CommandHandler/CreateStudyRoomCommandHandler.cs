@@ -25,6 +25,7 @@ namespace Cloudents.Command.CommandHandler
             _googleDocument = googleDocument;
             _chatRoomRepository = chatRoomRepository;
             _tutorRepository = tutorRepository;
+            
         }
 
         public async Task ExecuteAsync(CreateStudyRoomCommand message,
