@@ -44,7 +44,7 @@ namespace Cloudents.Core.Entities
 
         public virtual User User { get; protected set; }
 
-        public virtual TutorPrice Price { get; protected set; }
+        public virtual TutorPrice? Price { get; protected set; }
 
         public virtual Money? SubscriptionPrice { get; protected set; }
 
