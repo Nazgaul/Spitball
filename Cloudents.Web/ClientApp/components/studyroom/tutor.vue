@@ -316,7 +316,6 @@ watch: {
 },
   methods: {
     ...mapActions([
-      "setActiveConversationObj",
       "getChatById",
       // "setShowAudioRecordingError",
       // "updateDialogUserConsent",
@@ -411,11 +410,8 @@ watch: {
     },
     setStudyRoom() {
       // this.initMathjax() // added
-      let self = this;
       this.getChatById(this.$store.getters.getRoomConversationId).then(({ data }) => {
         insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_ChatById', data, null)
-        let currentConversationObj = chatService.createActiveConversationObj(data);
-        self.setActiveConversationObj(currentConversationObj);
       });
     },
     // closeBrowserSupportDialog(){

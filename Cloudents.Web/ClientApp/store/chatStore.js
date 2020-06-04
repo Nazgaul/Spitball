@@ -58,6 +58,7 @@ const getters = {
     },
     getActiveConversationObj:state=>state.activeConversationObj,
     getActiveConversationTutor:state=> state.conversationsTutor[state.activeConversationObj.conversationId],
+    getIsActiveConversationTutor: state => (conversationId) => (state.conversations[conversationId]),
     getTotalUnread: state=>state.totalUnread,
 };
 

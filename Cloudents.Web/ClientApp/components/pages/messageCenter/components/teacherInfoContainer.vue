@@ -20,17 +20,17 @@
                   <v-icon color="#41c4bc" size="20">sbf-enter-room</v-icon>
                   <div class="actionName" v-t="isStudyRoom?'chat_teacher_btn_studyroom':'dashboardPage_my_studyrooms_create_room'"/>
                </v-btn>
-               <v-btn :href="`mailto:${tutorEmail}`" block depressed text class="actionBox mb-3 cursor-pointer">
+               <v-btn v-if="tutorEmail" :href="`mailto:${tutorEmail}`" block depressed text class="actionBox mb-3 cursor-pointer">
                   <v-icon color="#de5642" size="14">sbf-email-chat</v-icon>
                   <div class="actionName" v-t="'chat_teacher_btn_mail'"/>
                </v-btn>
-               <v-btn block depressed text class="actionBox mb-5 cursor-pointer" @click="sendWhatsApp">
+               <v-btn v-if="tutorPhoneNumber" block depressed text class="actionBox mb-5 cursor-pointer" @click="sendWhatsApp">
                   <v-icon color="#29d367" size="20">sbf-whatsup-share</v-icon>
                   <div class="actionName" v-t="'chat_teacher_btn_whatsapp'"/>
                </v-btn>
             </div>
 
-            <div class="participantList">
+            <div v-if="participants" class="participantList">
                <div class="listHeader px-4 d-flex justify-space-between align-center flex-grow-0 flex-shrink-0">
                   <span class="participantsTitle" v-t="'chat_participants'"/>
                   <span>
@@ -79,6 +79,9 @@ export default {
       },
       tutorEmail(){
          return this.currentTutor?.email
+      },
+      tutorPhoneNumber(){
+         return this.currentTutor?.phoneNumber
       },
       tutorAvatar(){
          return this.currentTutor?.image;

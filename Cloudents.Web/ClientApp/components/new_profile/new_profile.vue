@@ -208,6 +208,18 @@ export default {
                   name: currentProfile.user.name,
                   conversationId: chatService.createConversationId([currentProfile.user.id, this.accountUser.id]),
                }
+              let isNewConversation = !(this.$store.getters.getIsActiveConversationTutor(conversationObj.conversationId))
+              if(isNewConversation){
+                let tutorInfo = {
+                  id: currentProfile.user.id,
+                  name: currentProfile.user.name,
+                  image: currentProfile.user.image,
+                  calendar: currentProfile.user.calendarShared,
+                }
+                this.$store.commit('ACTIVE_CONVERSATION_TUTOR',{tutorInfo,conversationId:conversationObj.conversationId})
+              }
+              
+
                let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
                this.setActiveConversationObj(currentConversationObj);
                this.$router.push({name:routeNames.MessageCenter,params:{id:currentConversationObj.conversationId}})
