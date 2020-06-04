@@ -3,7 +3,6 @@ using Cloudents.Command.Command;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Core.Storage;
@@ -20,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -183,12 +181,12 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new UpdateUserSettingsCommand(userId, model.FirstName, model.LastName,
-                model.Description, model.Bio, model.Price);
+                model.Description, model.Bio);
             await _commandBus.DispatchAsync(command, token);
-            var culture = CultureInfo.CurrentCulture.ChangeCultureBaseOnCountry(profile.Country);
+            //var culture = CultureInfo.CurrentCulture.ChangeCultureBaseOnCountry(profile.Country);
             return Ok(new
             {
-                newPrice = model.Price?.ToString("C0", culture)
+                //newPrice = model.Price?.ToString("C0", culture)
             });
         }
 

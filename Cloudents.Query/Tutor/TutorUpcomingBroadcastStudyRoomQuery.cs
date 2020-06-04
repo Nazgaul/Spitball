@@ -40,7 +40,7 @@ namespace Cloudents.Query.Tutor
                     .Select(s => new FutureBroadcastStudyRoomDto()
                     {
                         Id = s.Id,
-                        Price = s.Price.GetValueOrDefault(),
+                        Price = s.Price,
                         Name = s.Name,
                         DateTime = s.BroadcastTime,
                         Description = s.Description,

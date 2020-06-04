@@ -144,8 +144,12 @@ namespace Cloudents.Core.Entities
 
         public virtual IEnumerable<StudyRoomSession> Sessions => _sessions;
 
-        public virtual decimal? Price { get; protected set; }
+        public virtual decimal Price { get; protected set; }
 
+        public virtual void SetPrice(decimal price)
+        {
+            Price = price;
+        }
 
         public virtual StudyRoomSession? GetCurrentSession()
         {

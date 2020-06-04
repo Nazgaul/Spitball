@@ -51,17 +51,14 @@ namespace Cloudents.Query.HomePage
                     .Select(s => new TutorCardDto()
                 {
                     UserId = s.readTutor.Id,
-                    SbCountry = s.readTutor.SbCountry,
                     Name = s.readTutor.Name,
                     Image = s.readTutor.ImageName,
-                    Price = s.readTutor.Price,
                     Rate = s.readTutor.Rate,
                     Bio = s.readTutor.Bio,
                     Courses = s.readTutor.Courses,
                     Lessons = s.readTutor.Lessons,
                     ReviewsCount = s.readTutor.RateCount,
                     Subjects = s.readTutor.Subjects,
-                    DiscountPrice = s.readTutor.SubsidizedPrice
                 }).Take(query.Count).ToListAsync(token);
                
 

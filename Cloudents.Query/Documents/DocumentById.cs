@@ -77,17 +77,14 @@ namespace Cloudents.Query.Documents
                             .Select(Projections.Property(() => userAlias.ImageName).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.User)}.{nameof(DocumentUserDto.Image)}"))
                             .Select(Projections.Property(() => documentAlias.DocumentType).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.DocumentType)}"))
                             .Select(Projections.Property(() => tutorAlias.Id).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.UserId)}"))
-                            .Select(Projections.Property(() => tutorAlias.SubsidizedPrice).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.DiscountPrice)}"))
                             .Select(Projections.Property(() => tutorAlias.Name).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Name)}"))
                             .Select(Projections.Property(() => tutorAlias.ImageName).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Image)}"))
                             .Select(Projections.Property(() => tutorAlias.Courses).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Courses)}"))
                             .Select(Projections.Property(() => tutorAlias.Subjects).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Subjects)}"))
-                            .Select(Projections.Property(() => tutorAlias.Price).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Price)}"))
                             .Select(Projections.Property(() => tutorAlias.Rate).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Rate)}"))
                             .Select(Projections.Property(() => tutorAlias.RateCount).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.ReviewsCount)}"))
                             .Select(Projections.Property(() => tutorAlias.Bio).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Bio)}"))
                             .Select(Projections.Property(() => tutorAlias.Lessons).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Lessons)}"))
-                            .Select(Projections.Property(() => tutorAlias.SbCountry).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.SbCountry)}"))
 
 
                     )
