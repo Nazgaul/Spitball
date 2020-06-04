@@ -90,9 +90,6 @@ const actions = {
     verifyTutorEmail() {
         return axios.post('/register/verifyEmail')
     },
-    updatePhoneCode() {
-        return registerService.sendSmsCode()
-    },
 }
 
 export default {
