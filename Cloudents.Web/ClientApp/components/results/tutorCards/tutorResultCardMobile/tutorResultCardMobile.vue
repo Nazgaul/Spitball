@@ -39,7 +39,7 @@
                   <div class="striked ml-3" v-if="isDiscount">{{$n(tutorData.price, 'currency')}}</div> -->
               <!-- </div> -->
 
-              <router-link class="applyCoupon" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name},  query: {coupon: true}}" v-language:inner="'resultTutor_apply_coupon'"></router-link>
+              <!-- <router-link class="applyCoupon" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name},  query: {coupon: true}}" v-language:inner="'resultTutor_apply_coupon'"></router-link> -->
           </div>
       </div>
 
@@ -222,12 +222,12 @@ export default {
       //           text-decoration: line-through;
       //       }
       //  }
-       .applyCoupon {
-          color: #4c59ff;
-          font-weight: 600;
-          font-size: 12px;
-          // margin-top: 6px;
-        }
+      //  .applyCoupon {
+      //     color: #4c59ff;
+      //     font-weight: 600;
+      //     font-size: 12px;
+      //     // margin-top: 6px;
+      //   }
     }
     .card-mobile-center {
       margin: 10px 0;
