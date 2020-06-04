@@ -158,22 +158,8 @@ export default {
 
                     if(self.presetRouting()) return
 
-					dispatch('userStatus').then(user => {
-                        // when user is register and pick teacher, redirect him to his profile page
-                        if(self.teacher) {
-                            self.$router.push({
-                                name: self.routeNames.Profile,
-                                params: {
-                                    id: user.id,
-                                    name: user.name,
-                                },
-                                query: {
-                                    dialog: 'becomeTutor'
-                                }
-                            })
-                            return
-                        }
-                        // self.$router.push({name: self.routeNames.LoginRedirect})
+					dispatch('userStatus').then(() => {
+                        self.$router.push({name: self.routeNames.LoginRedirect})
                     })
 
                 }).catch(error => {

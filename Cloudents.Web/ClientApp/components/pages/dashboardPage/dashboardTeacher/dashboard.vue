@@ -3,12 +3,13 @@
     <dashboardTutorActions />
     <!-- <dashboardNotifications /> -->
     <dashboardMarketingTools />
-    <spitballTips />
+    <marketingBlogs v-if="$vuetify.breakpoint.xsOnly" />
+    <spitballTips v-else />
   </div>
 </template>
 
 <script>
-
+const marketingBlogs = () => import('../../marketing/marketingBlogs/marketingBlogs.vue')
 const dashboardTutorActions = () => import('./dashboardTutorActions.vue');
 // const dashboardNotifications = () => import('./dashboardNotifications.vue');
 const dashboardMarketingTools = () => import('../dashboardTeacher/dashboardMarketingTools.vue')
@@ -18,6 +19,7 @@ export default {
   components: {
     dashboardTutorActions,
     // dashboardNotifications,
+    marketingBlogs,
     dashboardMarketingTools,
     spitballTips,
   }
@@ -30,7 +32,7 @@ export default {
     margin: 24px 34px;
 
     @media (max-width: @screen-xs) {
-      margin: 24px 0;
+      margin: 8px 0;
     }
   }
 </style>

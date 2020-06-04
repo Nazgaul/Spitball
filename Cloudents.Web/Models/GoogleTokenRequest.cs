@@ -7,5 +7,7 @@ namespace Cloudents.Web.Models
         [Required(ErrorMessage = "Required")]
         public string Token { get; set; }
 
+        public UserType UserType { get; set; }
+
     }
 }

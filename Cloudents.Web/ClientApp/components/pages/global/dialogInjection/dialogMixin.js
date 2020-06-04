@@ -1,6 +1,5 @@
 import { mapGetters } from 'vuex';
 import * as dialogNames from './dialogNames.js'
-// const becomeTutor = () => import('../../../becomeTutor/becomeTutor.vue');
 // const exitRegister = () => import('../../authenticationPage/login/exitRegisterDialog.vue');
 // const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue');
 // const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
@@ -14,7 +13,6 @@ import * as dialogNames from './dialogNames.js'
 
 export default {
     // components: {
-    //     becomeTutor,
     //     exitRegister,
     //     upload,
     //     createCoupon,
@@ -29,7 +27,6 @@ export default {
             dialogsPremissions: {
                 login: ["notAuth"],
                 exitRegister: [],
-                becomeTutor: ["auth"],
                 payment:['notFrymo'],
                 upload: ["auth"],
                 createCoupon: ["auth","tutor"],

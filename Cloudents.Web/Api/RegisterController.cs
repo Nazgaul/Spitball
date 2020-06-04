@@ -79,7 +79,7 @@ namespace Cloudents.Web.Api
 
             var countryCode = await _countryProvider.GetUserCountryAsync(token);
             user = new User(model.Email, model.FirstName, model.LastName,
-                CultureInfo.CurrentCulture, countryCode);
+                CultureInfo.CurrentCulture, countryCode, model.UserType == UserType.Tutor);
             var p = await _userManager.CreateAsync(user, model.Password);
 
             if (p.Succeeded)
@@ -190,7 +190,7 @@ namespace Cloudents.Web.Api
                 var country = await _countryProvider.GetUserCountryAsync(cancellationToken);
                 user = new User(result.Email,
                     result.FirstName, result.LastName,
-                    result.Language, country)
+                    result.Language, country,model.UserType == UserType.Tutor)
                 {
                     EmailConfirmed = true
                 };
@@ -237,7 +237,7 @@ namespace Cloudents.Web.Api
             }
 
             await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-            return await MakeDecisionAsync(user, true,null, cancellationToken);
+            return await MakeDecisionAsync(user, true, null, cancellationToken);
         }
 
 

@@ -1,9 +1,5 @@
-// import {School.} from './school.js';
-
 function _createIsTutorState(str){
-    if(str && str.toLowerCase() === 'ok') return 'ok';
-    else if(str && str.toLowerCase() === 'pending') return 'pending';
-    else return null;
+    return str && str.toLowerCase() === 'ok'
 }
 
 export const User = {
@@ -78,8 +74,8 @@ export const User = {
             currencySymbol: objInit.currencySymbol,
             subscription: objInit.tutorSubscription,
             needPayment: objInit.needPayment,
-            isTutor: _createIsTutorState(objInit.isTutor) ? true : false,
-            isTutorState: _createIsTutorState(objInit.isTutor),
+            isTutor: _createIsTutorState(objInit.isTutor),
+            // isTutorState: _createIsTutorState(objInit.isTutor),
             // courses: objInit.courses.map((course) => new School.Course(course)),
             // haveContent: objInit.haveContent,
             // isPurchased: objInit.isPurchased,

@@ -12,24 +12,24 @@ namespace Cloudents.Core.Entities
     {
         public const int MaximumPrice = 214748;
         public const int MinimumPrice = 35; // also on client side
-        public Tutor(string bio, User user, decimal? price) : this()
+        public Tutor(User user) : this()
         {
             User = user ?? throw new ArgumentNullException(nameof(user));
             State = ItemState.Pending;
             Created = DateTime.UtcNow;
-            Bio = bio;
-            if (user.SbCountry == Country.India)
-            {
-                Price = new TutorPrice(100, 0);
-            }
-            else
-            {
-                if (price is null)
-                {
-                    throw new ArgumentException("Price is null");
-                }
-                Price = new TutorPrice(price.Value);
-            }
+            //Bio = bio;
+            //if (user.SbCountry == Country.India)
+            //{
+            //    Price = new TutorPrice(100, 0);
+            //}
+            //else
+            //{
+            //    if (price is null)
+            //    {
+            //        throw new ArgumentException("Price is null");
+            //    }
+            //    Price = new TutorPrice(price.Value);
+            //}
             AddEvent(new TutorCreatedEvent(this));
 
         }
@@ -44,7 +44,7 @@ namespace Cloudents.Core.Entities
 
         public virtual User User { get; protected set; }
 
-        public virtual TutorPrice Price { get; protected set; }
+        public virtual TutorPrice? Price { get; protected set; }
 
         public virtual Money? SubscriptionPrice { get; protected set; }
 

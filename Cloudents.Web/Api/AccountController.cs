@@ -11,13 +11,11 @@ using Cloudents.Query;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
-using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -194,47 +192,47 @@ namespace Cloudents.Web.Api
             });
         }
 
-        [HttpPost("BecomeTutor")]
-        [ProducesResponseType(Status200OK)]
-        [ProducesResponseType(Status400BadRequest)]
-        [ProducesResponseType(Status409Conflict)]
-        [ProducesDefaultResponseType]
-        public async Task<IActionResult> BecomeTutorAsync(
-            [FromBody]UpdateSettingsRequest model,
-            [FromServices] ConfigurationService configurationService,
-            CancellationToken token)
-        {
-            try
-            {
+        //[HttpPost("BecomeTutor")]
+        //[ProducesResponseType(Status200OK)]
+        //[ProducesResponseType(Status400BadRequest)]
+        //[ProducesResponseType(Status409Conflict)]
+        //[ProducesDefaultResponseType]
+        //public async Task<IActionResult> BecomeTutorAsync(
+        //    [FromBody]UpdateSettingsRequest model,
+        //    [FromServices] ConfigurationService configurationService,
+        //    CancellationToken token)
+        //{
+        //    try
+        //    {
 
-                if (configurationService.GetSiteName() == ConfigurationService.Site.Frymo)
-                {
-                    model.Price = null;
-                }
-                else
-                {
-                    if (model.Price == null)
-                    {
-                        return BadRequest();
-                    }
-                }
+        //        if (configurationService.GetSiteName() == ConfigurationService.Site.Frymo)
+        //        {
+        //            model.Price = null;
+        //        }
+        //        else
+        //        {
+        //            if (model.Price == null)
+        //            {
+        //                return BadRequest();
+        //            }
+        //        }
 
 
-                var userId = _userManager.GetLongUserId(User);
-                var command = new BecomeTutorCommand(userId, model.FirstName, model.LastName,
-                    model.Description, model.Bio, model.Price);
-                await _commandBus.DispatchAsync(command, token);
-                return Ok();
-            }
-            catch (ArgumentException)
-            {
-                return Conflict();
-            }
-            catch (NonUniqueObjectException)
-            {
-                return BadRequest();
-            }
-        }
+        //        var userId = _userManager.GetLongUserId(User);
+        //        var command = new BecomeTutorCommand(userId, model.FirstName, model.LastName,
+        //            model.Description, model.Bio, model.Price);
+        //        await _commandBus.DispatchAsync(command, token);
+        //        return Ok();
+        //    }
+        //    catch (ArgumentException)
+        //    {
+        //        return Conflict();
+        //    }
+        //    catch (NonUniqueObjectException)
+        //    {
+        //        return BadRequest();
+        //    }
+        //}
 
         [HttpGet("content")]
         public async Task<IEnumerable<UserContentDto>> GetUserContentAsync(CancellationToken token)
