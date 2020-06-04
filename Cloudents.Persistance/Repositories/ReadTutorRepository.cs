@@ -33,7 +33,7 @@ namespace Cloudents.Persistence.Repositories
                     s.User.Image,
                     s.Bio,
                     Price = s.Price.Price ?? 0M,
-                    SubsidizedPrice = s.Price.SubsidizedPrice ?? 0M,
+                    SubsidizedPrice = s.Price.SubsidizedPrice ?? null,
                     s.User.SbCountry,
                     s.User.Country,
                     s.User.Description,
