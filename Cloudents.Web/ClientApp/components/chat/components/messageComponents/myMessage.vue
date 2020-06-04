@@ -1,5 +1,5 @@
 <template>
-   <v-card color="#deedff" tile class="myMessageContainer pa-2 pb-1">
+   <v-card :color="messageColor" tile class="myMessageContainer pa-2 pb-1">
       <v-card-title class="messageTitle pa-0" v-text="userName"/>
       <v-card-text v-strLinkify="''" v-if="isTextMessage" dir="auto" class="messageText px-0 pb-0 pt-2" v-text="message.text"/>
       <div class="pt-2" v-else>
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import * as routeNames from '../../../../routes/routeNames.js'
 export default {
    props:{
       message:{
@@ -23,6 +24,9 @@ export default {
       }
    },
    computed: {
+      messageColor(){
+         return this.$route.name == routeNames.MessageCenter ? '#deedff' : '#E4F1FE';
+      },
       isTextMessage(){
          return this.message.type == 'text'
       },
