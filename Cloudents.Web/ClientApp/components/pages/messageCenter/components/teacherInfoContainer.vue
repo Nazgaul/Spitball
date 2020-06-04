@@ -186,6 +186,7 @@ export default {
                   font-size: 14px;
                   font-weight: 600;
                   color: #69687d;
+                  text-transform: none;
                }
             }
          }
