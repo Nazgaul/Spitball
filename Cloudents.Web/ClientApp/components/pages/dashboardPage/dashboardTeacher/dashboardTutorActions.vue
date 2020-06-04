@@ -9,12 +9,11 @@
                     :userId="userId"
                     :userName="userName"
                     :userImageUrl="userImage"
-                    v-if="userImage"
                 />
-                <emptyUserIcon class="mb-4" v-else />
+                <!-- <emptyUserIcon class="mb-4" v-else /> -->
                 <div class="infoWrap mx-5">
                     <div class="tutorName text-truncate mb-2">{{userName}}</div>
-                    <button class="tutorUrl me-4 mb-4" @click="$router.push(myProfileRedirect)">{{userUrl}}</button>
+                    <button class="tutorUrl me-4 mb-4" :class="{'text-truncate': isMobile}" @click="$router.push(myProfileRedirect)">{{userUrl}}</button>
                     <v-btn 
                         class="btn align-self-end"
                         :to="myProfileRedirect"
@@ -32,7 +31,7 @@
                 </div>
             </div>
             <div class="rightSide mt-8 mt-sm-0">
-                <video class="dashboardVideo" src="" width="250" height="150" poster="./images/bitmap.png"></video>
+                <video class="dashboardVideo" ref="dashboardTutor" :src="onBoardingVideo" width="250" height="150" poster="./images/group-14-copy-2@2x.png" controls></video>
             </div>
         </div>
 
@@ -105,6 +104,7 @@ export default {
     },
     data() {
         return {
+            video: null,
             verifyEmailState: false,
             profileName: routeName.Profile,
             linksItems: {
@@ -191,6 +191,9 @@ export default {
                 }
             })
         },
+        onBoardingVideo() {
+            return require('./OnboardingVideo.mp4').default
+        },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
         },
@@ -239,10 +242,20 @@ export default {
         },
         addStripe() {
             window.location = '/stripe-connect'
+        },
+        addEventToVideo() {
+            this.$ga.event("Dashboard", "Watching spitball video");
         }
+    },
+    beforeDestroy() {
+        this.video.addEventListener("play", this.addEventToVideo);
     },
     created() {
         this.$store.dispatch('updateTutorLinks')
+    },
+    mounted() {
+        this.video = this.$refs.dashboardTutor
+        this.video.addEventListener("play", this.addEventToVideo);
     }
 }
 </script>
@@ -274,12 +287,12 @@ export default {
             }
             .rightSide {
 
-                @media (max-width: @screen-xs) {
-                    width: 100%;
-                }
                 .dashboardVideo {
-                    width: 100%;
-                    height: 100%;
+                    @media (max-width: @screen-xs) {
+                        height: 100%;
+                        width: 100%;
+                        object-fit: cover;
+                    }
                 }
             }
             .tutorName {

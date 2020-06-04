@@ -220,6 +220,9 @@
   <data name="my_content_upload" xml:space="preserve">
     <value>Upload Content</value>
   </data>
+  <data name="my_create_coupon" xml:space="preserve">
+    <value>Create a coupon</value>
+  </data>
   <data name="my_followers_title" xml:space="preserve">
     <value>My Followers</value>
   </data>

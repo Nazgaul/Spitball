@@ -217,6 +217,9 @@
   <data name="my_content_upload" xml:space="preserve">
     <value>העלאת תוכן</value>
   </data>
+  <data name="my_create_coupon" xml:space="preserve">
+    <value>יצירת קופון</value>
+  </data>
   <data name="my_followers_title" xml:space="preserve">
     <value>העוקבים שלי</value>
   </data>
