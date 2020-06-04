@@ -1,8 +1,9 @@
 <template>
     <div class="loginDetails text-center">
         <!-- <div class="loginTitle mb-6" v-t="'loginRegister_setemail_title'"></div> -->
-
         <v-text-field 
+        autocomplete="on"
+        focus
             v-model="currentEmail"
             type="email"
             :label="$t('loginRegister_setemailpass_input_email')"

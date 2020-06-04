@@ -10,8 +10,6 @@ namespace Cloudents.Web.Identity
     {
         public const string Country = "country";
         public const string SbCountry = "SbCountry";
-        //public const string University = "university";
-        //internal const string Profile = "profile";
 
         public AppClaimsPrincipalFactory(UserManager<User> userManager,
             IOptions<IdentityOptions> options) :
@@ -25,7 +23,7 @@ namespace Cloudents.Web.Identity
 
             if (!user.PhoneNumberConfirmed) return p;
             p.AddClaim(new Claim(Country, user.Country));
-            p.AddClaim(new Claim(SbCountry,user.SbCountry?.Name));
+            p.AddClaim(new Claim(SbCountry,user.SbCountry.Name));
             //if (user.University?.Id != null)
             //{
             //    p.AddClaim(new Claim(University, user.University.Id.ToString()));

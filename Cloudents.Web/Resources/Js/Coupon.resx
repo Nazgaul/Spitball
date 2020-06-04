@@ -151,7 +151,7 @@
     <value>You have successfully created a coupon code</value>
   </data>
   <data name="create_title" xml:space="preserve">
-    <value>Create a special offer</value>
+    <value>Create a coupon</value>
   </data>
   <data name="label_code" xml:space="preserve">
     <value>Coupon code</value>

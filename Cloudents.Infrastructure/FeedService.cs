@@ -28,38 +28,35 @@ namespace Cloudents.Infrastructure
 
 
 
-        public async Task<IEnumerable<FeedDto>> GetFeedAsync(GetFeedQuery query, CancellationToken token)
+        public Task<IEnumerable<FeedDto>> GetFeedAsync(GetFeedQuery query, CancellationToken token)
         {
             if (query is null)
             {
                 throw new ArgumentNullException(nameof(query));
             }
 
-            return await _services[query.Filter].GetFeedAsync(query, token);
+            return _services[query.Filter].GetFeedAsync(query, token);
         }
 
-        public async Task<IEnumerable<FeedDto>> GetFeedAsync(GetFeedWithCourseQuery query, CancellationToken token)
+        public Task<IEnumerable<FeedDto>> GetFeedAsync(GetFeedWithCourseQuery query, CancellationToken token)
         {
             if (query is null)
             {
                 throw new ArgumentNullException(nameof(query));
             }
 
-            return await _services[query.Filter].GetFeedAsync(query, token);
+            return _services[query.Filter].GetFeedAsync(query, token);
         }
 
 
-        public async Task<IEnumerable<FeedDto>> GetFeedAsync(SearchFeedQuery query, CancellationToken token)
+        public Task<IEnumerable<FeedDto>> GetFeedAsync(SearchFeedQuery query, CancellationToken token)
         {
             if (query is null)
             {
                 throw new ArgumentNullException(nameof(query));
             }
 
-            return await _services[query.Filter].GetFeedAsync(query, token);
-
-
-
+            return _services[query.Filter].GetFeedAsync(query, token);
         }
     }
 
@@ -124,10 +121,10 @@ namespace Cloudents.Infrastructure
 
         private static IEnumerable<FeedDto> SortFeed(IList<FeedDto>? itemsFeed, IList<FeedDto>? tutorsFeed, int page)
         {
-
+           
             if (itemsFeed is null)
             {
-                return tutorsFeed;
+                return tutorsFeed ?? Enumerable.Empty<FeedDto>();
             }
             if (tutorsFeed is null)
             {
@@ -188,7 +185,7 @@ namespace Cloudents.Infrastructure
             return await _queryBus.QueryAsync(feedQuery, token);
         }
 
-        public async Task<IEnumerable<FeedDto>> GetFeedAsync(SearchFeedQuery query, CancellationToken token)
+        public Task<IEnumerable<FeedDto>> GetFeedAsync(SearchFeedQuery query, CancellationToken token)
         {
             DocumentType? filter = null;
             switch (query.Filter)
@@ -203,7 +200,7 @@ namespace Cloudents.Infrastructure
                     //    //throw new ArgumentOutOfRangeException();
             }
             var documentQuery = new DocumentQuery(query.Profile, query.Term, query.Course, query.Page, _pageSize, filter);
-            return await _searchProvider.SearchDocumentsAsync(documentQuery, token);
+            return _searchProvider.SearchDocumentsAsync(documentQuery, token);
         }
     }
 

@@ -49,7 +49,7 @@ namespace Cloudents.Web.EventHandler
 
             var culture = question.User.Language.ChangeCultureBaseOnCountry(question.User.Country);
             var link = _urlBuilder.BuildQuestionEndPoint(question.Id, new { token = code });
-            await SendEmail(
+            await SendEmailAsync(
                    new GotAnswerEmail(question.Text, question.User.Email, eventMessage.Answer.Text, link,
                        culture)
 

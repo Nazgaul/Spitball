@@ -23,7 +23,11 @@ namespace Cloudents.Command.CommandHandler.Admin
 
         public async Task ExecuteAsync(DeleteUserCommand message, CancellationToken token)
         {
-            var user = await _userRepository.LoadAsync(message.Id, token);
+            var user = await _userRepository.GetAsync(message.Id, token);
+            if (user == null)
+            {
+                return;
+            }
             var adminUser = await _adminUserRepository.LoadAsync(message.UserId, token);
             if (adminUser.SbCountry != null && user.SbCountry != adminUser.SbCountry)
             {

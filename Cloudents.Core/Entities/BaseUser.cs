@@ -83,8 +83,8 @@ namespace Cloudents.Core.Entities
             Language = lang;
         }
 
-        public virtual string? Country { get; protected set; }
-        public virtual Country? SbCountry { get; protected set; }
+        public virtual string Country { get; protected set; }
+        public virtual Country SbCountry { get; protected set; }
 
         public virtual byte[] Version { get; protected set; }
 

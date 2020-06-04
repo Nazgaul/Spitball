@@ -13,10 +13,10 @@ namespace Cloudents.Core.EventHandler
         {
         }
 
-        public async Task HandleAsync(UserUnSuspendEvent eventMessage, CancellationToken token)
+        public Task HandleAsync(UserUnSuspendEvent eventMessage, CancellationToken token)
         {
-            await SendEmail(
-                  new UnSuspendUserEmail(eventMessage.User.Email, eventMessage.User.Language), token);
+            return SendEmailAsync(
+                new UnSuspendUserEmail(eventMessage.User.Email, eventMessage.User.Language), token);
         }
     }
 }

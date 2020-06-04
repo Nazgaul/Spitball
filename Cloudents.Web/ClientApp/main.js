@@ -103,7 +103,7 @@ router.beforeEach((to, from, next) => {
     let isLogged = store.getters.getUserLoggedInStatus;
     
     if (!isLogged && to.meta && to.meta.requiresAuth) {
-        next("/signin");
+        next({path: '/', query: {authDialog: 'register'}});
         return;
     }
     let getAccountUser = store.dispatch('userStatus');

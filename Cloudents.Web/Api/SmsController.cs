@@ -4,11 +4,9 @@ using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
-using Cloudents.Web.Binders;
 using Cloudents.Web.Controllers;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
-using Cloudents.Web.Resources;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -21,13 +19,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Infrastructure;
 using Cloudents.Query;
-using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Authorization;
 using SbUserManager = Cloudents.Web.Identity.SbUserManager;
 
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Microsoft.AspNetCore.Mvc.Route("api/[controller]"), ApiController]
+    [Route("api/[controller]"), ApiController]
 
     public class SmsController : Controller
     {
@@ -35,7 +33,7 @@ namespace Cloudents.Web.Api
         private readonly SbUserManager _userManager;
         private readonly ISmsSender _client;
         private readonly ICommandBus _commandBus;
-        private readonly IStringLocalizer<DataAnnotationSharedResource> _localizer;
+        //private readonly IStringLocalizer<DataAnnotationSharedResource> _localizer;
         private readonly IStringLocalizer<SmsController> _smsLocalizer;
         private readonly ILogger _logger;
 
@@ -43,14 +41,15 @@ namespace Cloudents.Web.Api
         private const string PhoneCallTime = "phoneCallTime";
 
         public SmsController(SignInManager<User> signInManager, SbUserManager userManager,
-            ISmsSender client, ICommandBus commandBus, IStringLocalizer<DataAnnotationSharedResource> localizer,
+            ISmsSender client, ICommandBus commandBus,
+            //IStringLocalizer<DataAnnotationSharedResource> localizer,
             ILogger logger, IStringLocalizer<SmsController> smsLocalizer)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _client = client;
             _commandBus = commandBus;
-            _localizer = localizer;
+            // _localizer = localizer;
             _logger = logger;
             _smsLocalizer = smsLocalizer;
         }
@@ -73,14 +72,23 @@ namespace Cloudents.Web.Api
         [ProducesDefaultResponseType]
         public async Task<IActionResult> SetUserPhoneNumberAsync(
             [FromBody] PhoneNumberRequest model,
+            [FromHeader(Name = "User-Agent")] string? agent,
             CancellationToken token)
         {
+            User user;
             if (User.Identity.IsAuthenticated)
             {
-                _logger.Error("Set User Phone number User is already sign in");
-                return Unauthorized();
+                user = await _userManager.GetUserAsync(User);
+                if (user.Tutor == null)
+                {
+                    return Unauthorized();
+                }
             }
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            else
+            {
+                user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            }
+
             if (user == null)
             {
                 _logger.Error("Set User Phone number We can't identify the user");
@@ -88,10 +96,12 @@ namespace Cloudents.Web.Api
             }
             if (user.PhoneNumberConfirmed)
             {
+                _logger.Error("Phone number is confirmed Unauthorized");
                 return Unauthorized();
             }
 
-            var retVal = await _userManager.SetPhoneNumberAndCountryAsync(user, model.PhoneNumber, model.CountryCode.ToString(), token);
+            var retVal = await _userManager.SetPhoneNumberAndCountryAsync(user,
+                model.PhoneNumber, model.CountryCode.ToString(), token);
 
             //Ram: I disable this - we have an issue that sometime we get the wrong ip look at id 
             //3DCDBF98-6545-473A-8EAA-A9DF00787C70 of UserLocation table in dev sql
@@ -112,10 +122,15 @@ namespace Cloudents.Web.Api
 
             if (retVal.Succeeded)
             {
-                TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
-                TempData[PhoneCallTime] = DateTime.UtcNow.AddMinutes(-2).ToString(CultureInfo.InvariantCulture);
-                await _client.SendSmsAsync(user, token);
-                return Ok();
+                if (User.Identity.IsAuthenticated)
+                {
+                    TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+                    TempData[PhoneCallTime] = DateTime.UtcNow.AddMinutes(-2).ToString(CultureInfo.InvariantCulture);
+                    await _client.SendSmsAsync(user, token);
+                    return Ok();
+                }
+
+                return await FinishRegistrationAsync(user, agent, token);
             }
 
             if (retVal.Errors.Any(a => a.Code == "CountryNotSupported"))
@@ -146,27 +161,47 @@ namespace Cloudents.Web.Api
             return BadRequest(ModelState);
         }
 
+        [Authorize]
+        [HttpPost("sendCode")]
+        public async Task<IActionResult> SendVerificationCodeAsync(CancellationToken token)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user.PhoneNumberConfirmed)
+            {
+                return BadRequest();
+            }
+
+            if (user.Tutor == null)
+            {
+                return BadRequest();
+
+            }
+            await _client.SendSmsAsync(user, token);
+            return Ok(new
+            {
+                phoneNumber = user.PhoneNumber
+            });
+        }
+
 
         [HttpPost("verify")]
+        [Authorize]
         public async Task<IActionResult> VerifySmsAsync(
             [FromBody] CodeRequest model,
-            [ModelBinder(typeof(CountryModelBinder))] string country,
-            [FromHeader(Name = "User-Agent")] string agent,
             CancellationToken token)
         {
 
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 _logger.Error("VerifySmsAsync We can't identify the user");
                 return Unauthorized();
             }
-
+            token.ThrowIfCancellationRequested();
             var v = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number);
             if (v.Succeeded)
             {
-                agent = agent.Substring(0, Math.Min(agent.Length, 255));
-                return await FinishRegistrationAsync(user, agent, token);
+                return Ok();
             }
             _logger.Warning($"userid: {user.Id} is not verified reason: {v}");
             ModelState.AddIdentityModelError(v);
@@ -178,7 +213,7 @@ namespace Cloudents.Web.Api
         {
             if (TempData[HomeController.Referral] != null)
             {
-                if (Base62.TryParse(TempData[HomeController.Referral].ToString(), out var base62))
+                if (Base62.TryParse(TempData[HomeController.Referral]?.ToString(), out var base62))
                 {
                     try
                     {
@@ -210,7 +245,7 @@ namespace Cloudents.Web.Api
             });
         }
 
-        [HttpPost("resend")]
+        [HttpPost("resend"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -230,26 +265,13 @@ namespace Cloudents.Web.Api
                 return Ok();
             }
 
-
-            if (User.Identity.IsAuthenticated)
-            {
-                _logger.Error("Set User Phone number User is already sign in");
-                return Unauthorized();
-            }
-
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            if (user == null)
-            {
-                ModelState.AddModelError(string.Empty, _smsLocalizer["CannotResendSms"]);
-                return BadRequest(ModelState);
-            }
-
+            var user = await _userManager.GetUserAsync(User);
             TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
             await _client.SendSmsAsync(user, token);
             return Ok();
         }
 
-        [HttpPost("call")]
+        [HttpPost("call"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -257,24 +279,16 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> CallUserAsync(CancellationToken token)
         {
             var t = TempData.Peek(PhoneCallTime);
-            if (t == null)
+            var temp = DateTime.UtcNow.AddDays(-1);
+            if (t != null)
             {
-                TempData[PhoneCallTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+                temp = DateTime.Parse(t.ToString(), CultureInfo.InvariantCulture);
+            }
+            if (temp > DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(0.5)))
+            {
                 return Ok();
             }
-            if (User.Identity.IsAuthenticated)
-            {
-                _logger.Error("Set User Phone number User is already sign in");
-                return Unauthorized();
-            }
-
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            if (user == null)
-            {
-                ModelState.AddModelError(string.Empty, _smsLocalizer["CannotResendSms"]);
-                return BadRequest(ModelState);
-            }
-
+            var user = await _userManager.GetUserAsync(User);
             TempData[PhoneCallTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
             await _client.SendPhoneAsync(user, token);
             return Ok();

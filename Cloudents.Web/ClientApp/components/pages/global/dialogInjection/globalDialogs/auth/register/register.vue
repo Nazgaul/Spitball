@@ -2,7 +2,7 @@
     <div class="registerDialog">
         <v-form @submit.prevent="submit" ref="form" class="registerForm pa-4">  
             <div>
-                <div class="closeIcon">
+                <div class="closeIcon" v-if="!isSetPhoneStep">
                     <v-icon size="12" color="#aaa" @click="closeRegister">sbf-close</v-icon>
                 </div>
 
@@ -154,6 +154,9 @@ export default {
         globalBtnText() {
             return this.isVerifyPhone ? 'loginRegister_setemailpass_btn_verify' : 'loginRegister_setemailpass_btn'
         },
+        isSetPhoneStep() {
+            return this.component === 'setPhone2'
+        },
         isEmailRegister() {
             return this.component === 'emailRegister'
         },
@@ -180,7 +183,7 @@ export default {
                         this.verifyPhone()
                         break;
                     default:
-                        return                       
+                        return
                 }
             }
         },
@@ -198,11 +201,10 @@ export default {
                 firstName: childComp.firstName,
                 lastName: childComp.lastName,
                 email: childComp.email,
-                // gender: childComp.gender,
                 password: childComp.password,
-                captcha: this.recaptcha
+                captcha: this.recaptcha,
+                userType: this.teacher ? 'tutor' : 'student'
             }
-
             let self = this
             registrationService.emailRegistration(emailRegister)
                 .then(({data}) => {
@@ -219,8 +221,9 @@ export default {
                     // if(data.Email) self.errors.email = self.$t('loginRegister_invalid_email')
                     // if(data.Password) self.errors.password = self.$t('loginRegister_invalid_password')
 
-                    self.errors.email = data["Email"] ? data["Email"][0] : '', // TODO
-                    self.errors.password = data["Password"] ? data["Password"][0] : '' // TODO
+                    self.errors.email = data["Email"] ? data["Email"][0] : '',
+                    self.errors.password = data["Password"] ? data["Password"][0] : ''
+
                     self.$appInsights.trackException(error);
                 }).finally(() => {
                     self.$refs.recaptcha.reset()

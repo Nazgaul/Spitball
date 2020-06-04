@@ -34,7 +34,6 @@ namespace Cloudents.Web.Api
         private readonly SbSignInManager _signInManager;
 
         private readonly IQueueProvider _queueProvider;
-        private readonly ISmsSender _smsSender;
         private readonly IStringLocalizer<RegisterController> _localizer;
         private readonly IStringLocalizer<LogInController> _loginLocalizer;
         private readonly ILogger _logger;
@@ -44,12 +43,11 @@ namespace Cloudents.Web.Api
         private const string EmailTime = "EmailTime";
 
         public RegisterController(SbUserManager userManager, SbSignInManager signInManager,
-             IQueueProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger, ICountryService countryProvider)
+             IQueueProvider queueProvider, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger, ICountryService countryProvider)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _queueProvider = queueProvider;
-            _smsSender = client;
             _localizer = localizer;
             _loginLocalizer = loginLocalizer;
             _logger = logger;
@@ -69,7 +67,7 @@ namespace Cloudents.Web.Api
             {
                 try
                 {
-                    return await MakeDecisionAsync(user, false, token);
+                    return await MakeDecisionAsync(user, false, model.Password, token);
                 }
                 catch (ArgumentException)
                 {
@@ -81,13 +79,13 @@ namespace Cloudents.Web.Api
 
             var countryCode = await _countryProvider.GetUserCountryAsync(token);
             user = new User(model.Email, model.FirstName, model.LastName,
-                CultureInfo.CurrentCulture, countryCode, model.Gender);
+                CultureInfo.CurrentCulture, countryCode);
             var p = await _userManager.CreateAsync(user, model.Password);
 
             if (p.Succeeded)
             {
                 var t2 = GenerateEmailAsync(user, token);
-                var t1 = _signInManager.TempSignIn(user);
+                var t1 = _signInManager.TempSignInAsync(user);
                 await Task.WhenAll(t1, t2);
                 return new ReturnSignUserResponse(RegistrationStep.RegisterSetPhone);
             }
@@ -99,38 +97,47 @@ namespace Cloudents.Web.Api
 
 
         private async Task<ReturnSignUserResponse> MakeDecisionAsync(User user,
-            bool isExternal,
+            bool isExternal, string? password,
             CancellationToken token)
         {
 
-            if (user.PhoneNumberConfirmed)
+            //if (user.PhoneNumberConfirmed)
+            //{
+            //    if (isExternal)
+            //    {
+            //        await _signInManager.SignInAsync(user, false);
+            //        return ReturnSignUserResponse.SignIn();
+            //    }
+
+            //    throw new ArgumentException();
+            //}
+
+            if (user.PhoneNumber != null)
             {
                 if (isExternal)
                 {
                     await _signInManager.SignInAsync(user, false);
                     return ReturnSignUserResponse.SignIn();
                 }
-
                 throw new ArgumentException();
             }
 
-            if (user.PhoneNumber != null)
-            {
-                var t1 = _signInManager.TempSignIn(user);
-                var t2 = _smsSender.SendSmsAsync(user, token);
-
-                await Task.WhenAll(t1, t2);
-                return new ReturnSignUserResponse(RegistrationStep.RegisterVerifyPhone, new
-                {
-                    phoneNumber = user.PhoneNumber
-                });
-            }
 
             if (!user.EmailConfirmed)
             {
                 await GenerateEmailAsync(user, token);
             }
-            await _signInManager.TempSignIn(user);
+
+            if (!isExternal)
+            {
+                var result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
+                if (!result.Succeeded)
+                {
+                    throw new ArgumentException();
+                }
+                //passwod
+            }
+            await _signInManager.TempSignInAsync(user);
             return new ReturnSignUserResponse(RegistrationStep.RegisterSetPhone);
         }
 
@@ -204,7 +211,7 @@ namespace Cloudents.Web.Api
                                 mimeType.ToString(), cancellationToken);
                             var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
                             var url = Url.ImageUrl(imageProperties);
-                            var fileName = uri.AbsolutePath.Split('/').LastOrDefault();
+                            var fileName = uri.AbsolutePath.Split('/').Last();
                             user.UpdateUserImage(url, fileName);
                         }
                         catch (ArgumentException e)
@@ -216,7 +223,7 @@ namespace Cloudents.Web.Api
                         }
                     }
                     await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-                    return await MakeDecisionAsync(user, true, cancellationToken);
+                    return await MakeDecisionAsync(user, true, null, cancellationToken);
                 }
                 logClient.TrackTrace($"failed to register {string.Join(", ", result3.Errors)}");
 
@@ -230,7 +237,7 @@ namespace Cloudents.Web.Api
             }
 
             await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-            return await MakeDecisionAsync(user, true, cancellationToken);
+            return await MakeDecisionAsync(user, true,null, cancellationToken);
         }
 
 

@@ -31,10 +31,10 @@ namespace Cloudents.Command.CommandHandler
             CancellationToken token)
         {
             var tutor = await _tutorRepository.LoadAsync(message.TutorId, token);
-            if (tutor.State != ItemState.Ok)
-            {
-                throw new InvalidOperationException($"user is not a tutor {message.TutorId}");
-            }
+            //if (tutor.Tutor?.State != ItemState.Ok)
+            //{
+            //    throw new InvalidOperationException($"user is not a tutor {message.TutorId}");
+            //}
 
             var students = message.StudentsId.Select(s => _userRepository.Load(s)).ToList();
             var usersId = message.StudentsId.Union(new[] { tutor.Id }).ToList();

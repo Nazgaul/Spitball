@@ -199,10 +199,10 @@
     <value>Teacher</value>
   </data>
   <data name="teacher_text" xml:space="preserve">
-    <value>Get your own stunning teaching site, built for you. Reach &amp; teach students anytime anywhere</value>
+	  <value>Get your own stunning teaching site with all the tools to: sell content, create subscriptions and teach students online</value>
   </data>
   <data name="video_title" xml:space="preserve">
-    <value>The platform that helps teachers connect with their audience</value>
+    <value>Teach and Learn live and in person</value>
   </data>
   <data name="student_btn_register" xml:space="preserve">
     <value>Register as a student</value>
@@ -217,7 +217,7 @@
     <value>Search</value>
   </data>
   <data name="online_teach" xml:space="preserve">
-    <value>Online teaching platform with video and whiteboard</value>
+	  <value>Interactive online teaching platform for up to 50 students</value>
   </data>
   <data name="online_teach_link" xml:space="preserve">
     <value>See it for yourself</value>
@@ -229,7 +229,7 @@
     <value>Learn more</value>
   </data>
   <data name="quote" xml:space="preserve">
-    <value>Spitball helps students learn and teachers teach. Just enter the site and start a real-time lesson, no need for extra apps, and no need to leave your house.</value>
+    <value>Spitball helps students learn and teachers teach. Just enter the site and start an interactive real-time lesson in seconds, no need for extra apps, and no need to leave your house.</value>
   </data>
   <data name="quote_name" xml:space="preserve">
     <value>Shlomi Levi</value>
