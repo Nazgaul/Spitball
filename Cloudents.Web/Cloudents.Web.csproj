@@ -61,7 +61,7 @@
          a different machine, so rebuild them if not already present. -->
     <Message Importance="high" Text="Performing first-run Webpack build..." />
     <!-- xExec Command="node node_modules/webpack/bin/webpack.js -config webpack.config.vendor.js" zz -->
-    <Exec WorkingDirectory="$(SpaRoot)" Command="node node_modules/webpack/bin/webpack.js" />
+    <!--<Exec WorkingDirectory="$(SpaRoot)" Command="node node_modules/webpack/bin/webpack.js" />-->
   </Target>
 
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">

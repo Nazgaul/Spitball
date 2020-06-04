@@ -55,9 +55,9 @@ const opts = {
     locales: { en, he },
     current: global.lang,
   },
-  theme: {
-    theme : 'disabled'
-  },
+  // theme: {
+  //   theme : 'disabled'
+  // },
   icons: {
     values: MY_ICONS
   }

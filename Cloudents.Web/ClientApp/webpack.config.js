@@ -1,4 +1,5 @@
-﻿const path = require("path");
+﻿/* eslint-disable no-undef */
+const path = require("path");
 const webpack = require("webpack");
 const bundleOutputDir = "./../wwwroot/dist";
 const MiniCssExtractPluginRtl = require("@automattic/mini-css-extract-plugin-with-rtl");

@@ -2,9 +2,6 @@
   "version": "1.0.0",
   "name": "asp.net",
   "private": true,
-  "engines": {
-    "node": "8.9.3"
-  },
   "scripts": {
     "test": "jest",
     "client-prod": "node node_modules/webpack/bin/webpack.js --env.prod",
