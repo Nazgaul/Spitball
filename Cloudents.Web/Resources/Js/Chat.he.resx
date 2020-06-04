@@ -156,6 +156,9 @@
   <data name="messages" xml:space="preserve">
     <value>הודעות</value>
   </data>
+  <data name="participants" xml:space="preserve">
+    <value>משתתפים</value>
+  </data>
   <data name="photo" xml:space="preserve">
     <value>תמונה</value>
   </data>
@@ -167,6 +170,18 @@
   </data>
   <data name="show_unread" xml:space="preserve">
     <value>הודעות חדשות</value>
+  </data>
+  <data name="teacher_btn_mail" xml:space="preserve">
+    <value>שלחו לי אימייל</value>
+  </data>
+  <data name="teacher_btn_studyroom" xml:space="preserve">
+    <value>לחדר הלימוד</value>
+  </data>
+  <data name="teacher_btn_whatsapp" xml:space="preserve">
+    <value>שלחו לי הודעת וואטסאפ</value>
+  </data>
+  <data name="teacher_info" xml:space="preserve">
+    <value>אודות המורה</value>
   </data>
   <data name="type_message" xml:space="preserve">
     <value>הקלד הודעה</value>
