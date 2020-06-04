@@ -8,8 +8,7 @@ namespace Cloudents.Core.DTOs.Users
     {
         [EntityBind(nameof(User.Id))]
         public long Id { get; set; }
-        [EntityBind(nameof(User.ImageName))]
-        public string Name { get; set; }
+      //  public string Name { get; set; }
         [EntityBind(nameof(User.ImageName))]
         public string? Image { get; set; }
 

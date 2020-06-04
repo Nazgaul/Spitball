@@ -47,7 +47,6 @@ namespace Cloudents.Query.Users
                       {
                           Id = s.Id,
                           Image = s.ImageName,
-                          Name = s.Name,
                           Online = ((User)s).Online.GetValueOrDefault(),
                           CalendarShared = _session.Query<GoogleTokens>().Any(w => w.Id == query.Id.ToString()),
                           FirstName = ((User)s).FirstName,
@@ -91,7 +90,7 @@ namespace Cloudents.Query.Users
 
                 var documentCoursesFuture = _session.Query<Document>()
                     .Fetch(f => f.User)
-                    .Where(w => w.User.Id == query.Id && w.Status.State == Core.Enum.ItemState.Ok)
+                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
                     .Select(s => s.Course.Id).Distinct()
                     .ToFuture();
 
