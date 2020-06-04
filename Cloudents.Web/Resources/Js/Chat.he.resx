@@ -171,6 +171,9 @@
   <data name="show_unread" xml:space="preserve">
     <value>הודעות חדשות</value>
   </data>
+  <data name="teacher_btn_book" xml:space="preserve">
+    <value>לקבוע שיעור איתי</value>
+  </data>
   <data name="teacher_btn_mail" xml:space="preserve">
     <value>שלחו לי אימייל</value>
   </data>
@@ -181,7 +184,7 @@
     <value>שלחו לי הודעת וואטסאפ</value>
   </data>
   <data name="teacher_info" xml:space="preserve">
-    <value>אודות המורה</value>
+    <value>פרטי המורה</value>
   </data>
   <data name="teacher_name" xml:space="preserve">
     <value>היי, אני {0}</value>
