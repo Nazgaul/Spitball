@@ -27,7 +27,7 @@
       <profileReviewsBox v-if="showReviewBox" class="mt-sm-10 mt-2" />
     </div>
     
-    <sb-dialog
+    <!-- <sb-dialog
       :onclosefn="closeCouponDialog"
       :activateOverlay="false"
       :showDialog="isShowCouponDialog"
@@ -76,7 +76,7 @@
           </v-flex>
         </v-layout>
       </v-card>
-    </sb-dialog>
+    </sb-dialog> -->
   </div>
 </template>
 
@@ -135,7 +135,7 @@ export default {
                 openCoupon: this.openCoupon
             },
             coupon: '',
-            disableApplyBtn: false,
+            // disableApplyBtn: false,
             activeTab: 1,
             componentRenderKey: 0
         };
@@ -167,21 +167,21 @@ export default {
                 this.$store.commit('setComponent', 'register')
             }
         },
-        applyCoupon() {
-            if(this.isTutor) {
-                this.disableApplyBtn = true;
-                let tutorId = this.getProfile.user.id;
-                let coupon = this.coupon;
-                let self = this
-                this.updateCoupon({coupon, tutorId}).finally(() => {
-                self.coupon = ''
-                self.disableApplyBtn = false;
-                if(!self.getCouponError) {
-                    analyticsService.sb_unitedEvent('Tutor_Engagement', 'Redeem_Coupon_Success', `${this.$route.path}`);
-                }
-                })
-            }
-        },
+        // applyCoupon() {
+        //     if(this.isTutor) {
+        //         this.disableApplyBtn = true;
+        //         let tutorId = this.getProfile.user.id;
+        //         let coupon = this.coupon;
+        //         let self = this
+        //         this.updateCoupon({coupon, tutorId}).finally(() => {
+        //         self.coupon = ''
+        //         self.disableApplyBtn = false;
+        //         if(!self.getCouponError) {
+        //             analyticsService.sb_unitedEvent('Tutor_Engagement', 'Redeem_Coupon_Success', `${this.$route.path}`);
+        //         }
+        //         })
+        //     }
+        // },
         sendMessage(){
             if(this.isMyProfile) {return}
             if(this.accountUser == null) {
@@ -495,59 +495,6 @@ export default {
   .calendarSection {
     max-width: 960px;
     border-radius: 8px !important;
-  }
-}
-.coupon-dialog {
-  border-radius: 6px;
-  background: white;
-  display: flex;
-  flex-direction: column;
-  .coupon-dialog-header {
-    text-align: center;
-    font-weight: 600;
-    font-size: 18px;
-    color: #43425d;
-    .coupon-close {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-      font-size: 12px;
-      fill: #adadba;
-      cursor: pointer;
-    }
-  }
-  .coupon {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    &__dialog {
-      &--flex {
-        display: flex;
-      }
-      .profile-coupon_input {
-        outline: none;
-        border-radius: 6px 0 0 6px;
-        width: 200px;
-        border: 1px solid #bbb;
-        padding: 10px 2px 11px 8px;
-        margin-right: -5px;
-      }
-      .profile-coupon_btn {
-        border-radius: 0 6px 6px 0;
-        background-color: #4c59ff;
-        font-size: 12px;
-        padding: 8px 20px;
-        font-weight: 600;
-        outline: none;
-      }
-      .profile-coupon_error {
-        width: 236px;
-        margin-top: 4px;
-        text-align: left;
-        font-size: 11px;
-        color: #ff5252;
-      }
-    }
   }
 }
 </style>

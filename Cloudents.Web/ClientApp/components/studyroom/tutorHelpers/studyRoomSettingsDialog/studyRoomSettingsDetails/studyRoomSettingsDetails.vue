@@ -10,7 +10,10 @@
                     </tr>
                     <tr>
                         <td class="" v-t="'studyRoomSettings_price'"></td>
-                        <td class="pl-4">{{roomPrice}}</td>
+                        <td class="ps-4">
+                            <span class="pe-2">{{roomPrice}}</span>
+                            <button class="couponBtn" v-t="'studyRoomSettings_apply_coupon'" @click="$store.commit('setComponent', 'applyCoupon')"></button>
+                        </td>
                     </tr>
                     <tr>
                         <td class="" v-t="'studyRoomSettings_share'"></td>
@@ -259,6 +262,9 @@ export default {
                             width: 8px !important;
                         }
                     }
+                }
+                .couponBtn {
+                    outline: none;
                 }
                 .option.link  {
                     visibility: hidden !important;
