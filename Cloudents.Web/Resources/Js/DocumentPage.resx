@@ -189,7 +189,4 @@
   <data name="unlock_video_subtitle_subscriber" xml:space="preserve">
     <value>Unlock all by subscribing to {0}'s site</value>
   </data>
-  <data name="my_create_coupon" xml:space="preserve">
-    <value>Create a coupon</value>
-  </data>
 </root>
