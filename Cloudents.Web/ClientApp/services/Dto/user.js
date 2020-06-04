@@ -12,26 +12,24 @@ export const User = {
     },
     TutorDefault: function(objInit){
         this.price = objInit.price || 0;
-        this.currency = objInit.currency;
+        // this.currency = objInit.currency;
         this.bio = objInit.bio || '';
         this.lessons = objInit.lessons || 0;
         this.discountPrice = objInit.discountPrice;
         this.subjects = objInit.subjects.toString().replace(/,/g, ", ");
         this.pendingSessionsPayments = objInit.pendingSessionsPayments || null;
         this.description = objInit.description || '';
-        this.tutorCountry = objInit.tutorCountry;
     },
     Tutor: function (objInit) {
         return{
                 price : objInit.price || 0,
-                currency: objInit.currency,
+                // currency: objInit.currency,
                 bio: objInit.bio || '',
                 lessons: objInit.lessons || 0,
                 discountPrice: objInit.discountPrice,
                 subjects: objInit.subjects.toString().replace(/,/g, ", "),
                 pendingSessionsPayments: objInit.pendingSessionsPayments || null,
                 description: objInit.description || '',
-                tutorCountry: objInit.tutorCountry,
                 contentCount: objInit.contentCount,
                 hasCoupon: objInit.hasCoupon,
                 rate: objInit.rate || 0,
@@ -60,8 +58,6 @@ export const User = {
         )
     },
     Account: function(objInit){
-        // objInit.courses = objInit.courses || [];
-        // objInit.isTutor  = objInit.isTutor  ||'';
         return {
             id: objInit.id,
             email: objInit.email,
@@ -69,18 +65,12 @@ export const User = {
             firstName: objInit.firstName,
             name: `${objInit.firstName} ${objInit.lastName}`,
             image: objInit.image || '',
-            price: objInit.price || null,
             balance: objInit.balance,
             currencySymbol: objInit.currencySymbol,
             subscription: objInit.tutorSubscription,
             needPayment: objInit.needPayment,
             isTutor: _createIsTutorState(objInit.isTutor),
-            // isTutorState: _createIsTutorState(objInit.isTutor),
-            // courses: objInit.courses.map((course) => new School.Course(course)),
-            // haveContent: objInit.haveContent,
-            // isPurchased: objInit.isPurchased,
             isSold: objInit.isSold,
-            // haveFollowers: objInit.haveFollowers,
             pendingSessionsPayments: objInit.pendingSessionsPayments,
         }        
     },

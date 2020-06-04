@@ -12,21 +12,23 @@
             :borderRadius="4"
           />
           <div class="card-mobile-header-content">
-              <h3 class="text-truncate font-weight-bold card-mobile-tutor-name">{{tutorData.name}}</h3>
+              <div>
+                <h3 class="text-truncate font-weight-bold card-mobile-tutor-name mb-2">{{tutorData.name}}</h3>
 
-              <template>
-                  <div class="user-rate align-center" v-if="tutorData.reviews > 0">
-                    <user-rating :rating="tutorData.rating" :showRateNumber="false" :size="'18'" class="flex-grow-0 mr-2" />
-                    <span class="reviews">{{$tc('resultTutor_review_one',tutorData.reviews)}}</span> 
-                  </div>
-                  <div class="user-rate align-center" v-else>
-                    <star class="mr-1 icon-star" />
-                    <span class="reviews">{{$tc('resultTutor_review_one',tutorData.reviews)}}</span>
-                  </div>
-              </template>
+                <template>
+                    <div class="user-rate align-center" v-if="tutorData.reviews > 0">
+                      <user-rating :rating="tutorData.rating" :showRateNumber="false" :size="'18'" class="flex-grow-0 mr-2" />
+                      <span class="reviews">{{$tc('resultTutor_review_one',tutorData.reviews)}}</span> 
+                    </div>
+                    <div class="user-rate align-center" v-else>
+                      <star class="mr-1 icon-star" />
+                      <span class="reviews">{{$tc('resultTutor_review_one',tutorData.reviews)}}</span>
+                    </div>
+                </template>
+              </div>
 
-              <div class="price align-center">
-                  <div class="price_oneline">
+              <!-- <div class="price align-center"> -->
+                  <!-- <div class="price_oneline">
                       <template>
                           <span v-if="isDiscount" class="price_oneline--count font-weight-bold">{{$n(tutorData.discountPrice, 'currency')}}</span>
                           <span v-else class="price_oneline--count font-weight-bold">{{$n(tutorData.price, 'currency')}}</span>
@@ -34,8 +36,8 @@
                       </template>
                       <span class="caption" v-language:inner="'resultTutor_hour'"></span>
                   </div>
-                  <div class="striked ml-3" v-if="isDiscount">{{$n(tutorData.price, 'currency')}}</div>
-              </div>
+                  <div class="striked ml-3" v-if="isDiscount">{{$n(tutorData.price, 'currency')}}</div> -->
+              <!-- </div> -->
 
               <router-link class="applyCoupon" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name},  query: {coupon: true}}" v-language:inner="'resultTutor_apply_coupon'"></router-link>
           </div>
@@ -198,28 +200,28 @@ export default {
               display: inline;
             }
         }
-        .price {
-          display: flex;
-          align-items: flex-end;
-          flex: .5;
-          // margin: 4px 0 1px 0;
-          .price_oneline {
-            display: flex;
-            align-items: baseline;
-            color: #5158af;
+      //   .price {
+      //     display: flex;
+      //     align-items: flex-end;
+      //     flex: .5;
+      //     // margin: 4px 0 1px 0;
+      //     .price_oneline {
+      //       display: flex;
+      //       align-items: baseline;
+      //       color: #5158af;
 
-            &--count {
-              font-size: 20px;
-            }
-          }
-          .striked {
-                margin: 0 0 0 auto;
-                max-width: max-content;
-                color: #a0a4be;
-                font-size: 14px;
-                text-decoration: line-through;
-            }
-       }
+      //       &--count {
+      //         font-size: 20px;
+      //       }
+      //     }
+      //     .striked {
+      //           margin: 0 0 0 auto;
+      //           max-width: max-content;
+      //           color: #a0a4be;
+      //           font-size: 14px;
+      //           text-decoration: line-through;
+      //       }
+      //  }
        .applyCoupon {
           color: #4c59ff;
           font-weight: 600;
