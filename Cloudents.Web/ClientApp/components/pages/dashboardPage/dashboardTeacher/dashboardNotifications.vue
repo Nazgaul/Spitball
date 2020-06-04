@@ -1,7 +1,7 @@
 <template>
     <div class="dashboardNotifications pa-5 mb-2 mb-sm-4">
 
-        <div class="topHeader d-flex align-center" :class="{'mb-8': tutorNotifications.length}">
+        <div class="topHeader d-flex align-center" :class="{'mb-8': tutorNotificationsFilterList.length}">
             <fillBellIcon class="flex-shrink-0" width="40" />
             <div class="notificationTitle ms-4 text-truncate" v-t="'dashboardTeacher_notification_title'"></div>
         </div>
@@ -15,7 +15,7 @@
             <div class="notifyWrap d-flex align-center">
                 <div class="blueDot"></div>
                 <bellIcon class="" width="20px" />
-                <div class="notificateText text-truncate mx-4" v-t="notification.text"></div>
+                <div class="notificateText mx-4" v-t="{path: notification.text, args: {0: notification.amount}}"></div>
             </div>
             <arrowRight width="20" class="arrowRight d-sm-none" /> 
         </router-link>
@@ -41,6 +41,14 @@ export default {
     data() {
         return {
             notifyItems: {
+                [constants.CHAT]: {
+                    text: 'dashboardTeacher_notify_chat',
+                    routeName: routeName.MessageCenter
+                },
+                [constants.BROADCAST]: {
+                    text: 'dashboardTeacher_notify_broadcast',
+                    routeName: routeName.MyFollowers
+                },
                 [constants.FOLLOWERS]: {
                     text: 'dashboardTeacher_notify_follower',
                     routeName: routeName.MyFollowers
@@ -91,17 +99,11 @@ export default {
             padding: 14px;
             border-radius: 0;
         }
-
         .notificationTitle {
             color: @global-purple;
             font-size: 18px;
             font-weight: 600;
         }
-
-        // .topHeader {
-
-        // }
-
         .center {
             border-bottom: solid 1px #eeeeee;
             position: relative;
@@ -111,12 +113,11 @@ export default {
                 padding-bottom: 0 !important;
             }
             .notifyWrap {
-                min-width: 0;;
                 .blueDot {
-                    position: absolute;
+                    position: relative;
                     background: #4c59ff;
-                    top: 18px;
-                    left: 12px;
+                    bottom: 8px;
+                    left: 20px;
                     width: 8px;
                     height: 8px;
                     border-radius: 50%;

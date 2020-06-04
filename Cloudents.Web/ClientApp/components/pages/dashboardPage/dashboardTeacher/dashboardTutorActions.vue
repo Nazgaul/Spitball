@@ -13,8 +13,8 @@
                 />
                 <emptyUserIcon class="mb-4" v-else />
                 <div class="infoWrap mx-5">
-                    <div class="tutorName mb-2">{{userName}}</div>
-                    <button class="tutorUrl text-truncate me-4 mb-4" @click="$router.push(myProfileRedirect)">{{userUrl}}</button>
+                    <div class="tutorName text-truncate mb-2">{{userName}}</div>
+                    <button class="tutorUrl me-4 mb-4" @click="$router.push(myProfileRedirect)">{{userUrl}}</button>
                     <v-btn 
                         class="btn align-self-end"
                         :to="myProfileRedirect"
@@ -232,7 +232,7 @@ export default {
         verifyEmail() {
             this.$store.dispatch('verifyTutorEmail').then(() => {
                 this.verifyEmailState = true
-                this.$store.commit('setEmailTaskComplete', constants.EMAIL)
+                this.$store.commit('setEmailTaskComplete')
             }).catch(ex => {
                 self.$appInsights.trackException(ex);
             })

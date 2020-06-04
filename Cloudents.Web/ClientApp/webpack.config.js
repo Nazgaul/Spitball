@@ -159,7 +159,7 @@ module.exports = (env) => {
                                         fiber: require("fibers"),
                                         indentedSyntax: true, // optional
                                     },
-                                    prependData: `@import "./variables.scss"`,
+                                    prependData: "@import './styles/variables.scss'",
                                 }
                             }
                         ]
@@ -182,7 +182,7 @@ module.exports = (env) => {
                                             fiber: require("fibers"),
                                             indentedSyntax: true // optional
                                         },
-                                        prependData: `@import "./variables.scss"`
+                                        prependData: "@import './styles/variables.scss'"
                                     }
                                 }
                             ]

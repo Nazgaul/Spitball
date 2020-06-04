@@ -12,6 +12,8 @@ export default {
     UPLOAD: "UPLOAD",
 
     // tutorNotificationsState
+    CHAT: "CHAT",
+    BROADCAST: "BROADCAST",
     FOLLOWERS: "FOLLOWERS",
     QUESTIONS: "QUESTIONS",
     PAYMENTS: "PAYMENTS",
