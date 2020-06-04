@@ -151,7 +151,7 @@ export async function loadLanguageAsync() {
     i18n.setLocaleMessage(lang, messages.default);
     loadedLanguages.push(lang);
   } catch {
-    console.error("no resource");
+    console.error("no resource",lang);
   }
 
   //return connectivityModule.http.get(`/Locale${dictionaryType}`).then((dictionary)=>{
