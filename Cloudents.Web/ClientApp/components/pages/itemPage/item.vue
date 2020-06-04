@@ -25,12 +25,12 @@
                 <v-card class="itemActions pt-sm-11 pt-4 px-4 elevation-0">
                     <div class="docWrapper d-block d-sm-flex justify-sm-center text-center pb-4">
                         <template v-if="getDocumentPrice && !getIsPurchased">
-                            <div class="d-flex align-end mr-4 justify-center mb-2 mb-sm-0">
+                            <div class="d-flex align-end me-4 justify-center mb-2 mb-sm-0">
                                 <template  v-if="isFree || getDocumentPriceTypeHasPrice">
-                                    <div class="mr-1 price">{{priceWithComma}}</div>
+                                    <div class="me-1 price">{{priceWithComma}}</div>
                                     <span class="points" v-t="'documentPage_points'"></span>
                                 </template>
-                                <!-- <div class="mr-1 price" v-else>{{$n(priceWithComma, 'currency', 'en')}}</div> -->
+                                <!-- <div class="me-1 price" v-else>{{$n(priceWithComma, 'currency', 'en')}}</div> -->
                             </div>
                             <!-- <div v-t="'documentPage_credit_uploader'"></div> -->
                         </template>

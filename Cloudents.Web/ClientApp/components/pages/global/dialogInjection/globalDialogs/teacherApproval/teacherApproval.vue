@@ -7,7 +7,7 @@
                 <div class="mainTitle text-center" :class="[modifyDurationError ? 'mb-3' : 'mb-12']" v-t="'teacherApproval_title'"></div>
 
                 <div class="v-alert error tableEmptyState text-left mb-5 pa-2 align-start align-sm-center" v-if="modifyDurationError">
-                    <whiteWarn class="image mr-2 mr-sm-4 pt-1 pt-sm-0" width="50" />
+                    <whiteWarn class="image me-2 me-sm-4 pt-1 pt-sm-0" width="50" />
                     <span class="white--text" v-t="'teacherApproval_error'"></span>
                 </div>
 
@@ -76,7 +76,7 @@
                 <v-btn icon color="#5A66FF" @click="openIntercom" :ripples="false" depressed><needHelpIcon/></v-btn>
 
                 <div class="bottomActions d-flex text-center">
-                    <v-btn width="140" height="40" color="#4452fc" class="d-none d-sm-block mr-3" rounded outlined v-closeDialog>{{$t('teacherApproval_btn_cancel')}}</v-btn>
+                    <v-btn width="140" height="40" color="#4452fc" class="d-none d-sm-block me-3" rounded outlined v-closeDialog>{{$t('teacherApproval_btn_cancel')}}</v-btn>
                     <v-btn width="140" height="40" color="#4452fc" class="white--text" @click="approveSession" rounded depressed>{{$t('teacherApproval_btn_approve')}}</v-btn>
                 </div>
             </div>

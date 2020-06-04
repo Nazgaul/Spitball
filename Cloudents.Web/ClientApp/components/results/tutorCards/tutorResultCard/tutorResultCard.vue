@@ -17,11 +17,11 @@
                   <div class="user-bio">{{tutorData.bio}}</div>
                 </div>
                 <div class="study-area mb-2 text-truncate" :class="{'study-area-hidden': !isSubjects}">
-                  <span class="mr-1 font-weight-bold" v-t="'resultTutor_study-area'"></span>
+                  <span class="me-1 font-weight-bold" v-t="'resultTutor_study-area'"></span>
                   <span>{{subjects}}</span>
                 </div>
                 <div class="courses text-truncate" v-if="isCourses">
-                  <span class="mr-2 font-weight-bold" v-t="'resultTutor_courses'"></span>
+                  <span class="me-2 font-weight-bold" v-t="'resultTutor_courses'"></span>
                   <span>{{courses}}</span> 
                 </div>
             </div>
@@ -41,7 +41,7 @@
                   <span class="tutor-card-price-divider font-weight-bold">/</span>
                   <span class="tutor-card-price-divider font-weight-bold" v-t="'resultTutor_hour'"></span>
                 </span>
-                <div class="striked mr-1" v-if="isDiscount">{{$n(tutorData.price, 'currency')}}</div>
+                <div class="striked me-1" v-if="isDiscount">{{$n(tutorData.price, 'currency')}}</div>
                 <div class="striked no-discount" v-else></div>
               </div>
             </div>

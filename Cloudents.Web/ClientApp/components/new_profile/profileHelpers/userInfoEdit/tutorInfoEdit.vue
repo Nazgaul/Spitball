@@ -3,7 +3,7 @@
         <v-form v-model="valid" ref="formTutor">
             <v-layout class="header pa-4 mb-4">
                 <v-flex>
-                    <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
+                    <v-icon class="edit-icon me-2">sbf-edit-icon</v-icon>
                     <span v-language:inner>profile_edit_tutor_title</span>
                 </v-flex>
             </v-layout>
@@ -24,7 +24,7 @@
                         </v-flex>
                     </v-layout>
                 </v-flex>
-                <v-flex xs12 sm4 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'pr-2']">
+                <v-flex xs12 sm4 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 me-0' : 'pr-2']">
                     <v-layout column>
                         <v-flex v-if="$vuetify.breakpoint.smAndUp" xs12 sm6  class="mb-2 pl-2" grow>
                             <span class="subtitle" style="visibility: hidden">hidden</span>
@@ -97,7 +97,7 @@
                         <span v-language:inner>profile_btn_cancel</span>
                     </v-btn>
                 <!-- </v-flex> -->
-                <!-- <v-flex xs5 sm2 :class="{'mr-4': $vuetify.breakpoint.smAndUp}"> -->
+                <!-- <v-flex xs5 sm2 :class="{'me-4': $vuetify.breakpoint.smAndUp}"> -->
                     <v-btn class="blue-btn ml-sm-4" width="120" depressed color="#4452fc" rounded @click="saveChanges()" :loading="btnLoading">
                         <span v-language:inner>profile_btn_save_changes</span>
                     </v-btn>

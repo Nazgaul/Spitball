@@ -9,7 +9,7 @@
             <div class="px-4 headerTitle mb-5 text-truncate">{{$store.getters.getRoomName}}</div>
             <div class="px-4 headerInfo d-flex justify-space-between mb-2">
                <span>
-                  <v-icon class="mr-1">sbf-message-icon</v-icon>
+                  <v-icon class="me-1">sbf-message-icon</v-icon>
                   {{$t('studyRoom_chat')}}
                </span>
                <span v-if="$store.getters.getRoomIsBroadcast">

@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboardMain mr-md-6">
+  <div class="dashboardMain me-md-6">
     <dashboardTutorActions />
     <!-- <dashboardNotifications /> -->
     <dashboardMarketingTools />

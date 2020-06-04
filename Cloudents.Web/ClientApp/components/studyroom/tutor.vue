@@ -19,7 +19,7 @@
               v-for="(singleNav, index) in navs"
               :class="{'active-nav': singleNav.value === activeItem, 'tutor-nav-disabled': singleNav.value !== 'white-board' && singleNav.value !== 'code-editor' && !id}"
               :key="index" :sel="`${singleNav.name.toLowerCase().replace(' ','_')}_tab`">
-              <v-icon class="mr-2 nav-icon">{{singleNav.icon}}</v-icon>
+              <v-icon class="me-2 nav-icon">{{singleNav.icon}}</v-icon>
               <a class="tutor-nav-item-link">{{singleNav.name}}</a>
             </div>
           </div>
@@ -35,11 +35,11 @@
 
             <!-- <v-btn text icon @click="toggleRecord" class="recording_btn tutoringNavigationBtn" :ripple="false">
               <span v-if="!getIsRecording" class="mt-1 d-flex">
-                <beginRecording class="white-btn mr-1"></beginRecording>
+                <beginRecording class="white-btn me-1"></beginRecording>
                 <span class="recording_btn_text" v-language:inner="'tutor_begain_recording'"></span>
               </span>
               <span v-else class="mt-1 d-flex">
-                <stopRecording class="mr-2"></stopRecording>
+                <stopRecording class="me-2"></stopRecording>
                 <span class="recording_btn_text" v-language:inner="'tutor_stop_recording'"></span>
               </span>
             </v-btn> -->

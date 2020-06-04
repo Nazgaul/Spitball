@@ -1,6 +1,6 @@
 <template>
   <div id="dashboard">
-      <div class="dashboardMain mr-md-6">
+      <div class="dashboardMain me-md-6">
         <analyticOverview></analyticOverview>
         <teacherTasks v-if="$vuetify.breakpoint.smAndDown"></teacherTasks>
         <marketingTools></marketingTools>

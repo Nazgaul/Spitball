@@ -16,7 +16,7 @@
                         <span class="panelImage flex-grow-0 px-4">
                             <studentIcon />
                         </span>
-                        <v-divider class="mr-4 my-2" vertical></v-divider>
+                        <v-divider class="me-4 my-2" vertical></v-divider>
                         <span class="panel_title text-center" v-t="'loginRegister_student'"></span>
                     </v-expansion-panel-header>
                 </v-expansion-panel>
@@ -26,7 +26,7 @@
                         <span class="panelImage flex-grow-0 px-4">
                             <teacherIcon />
                         </span>
-                        <v-divider class="mr-4 my-2" vertical></v-divider>
+                        <v-divider class="me-4 my-2" vertical></v-divider>
                         <span class="panel_title text-center" v-t="'loginRegister_teacher'"></span>
                     </v-expansion-panel-header>
                 </v-expansion-panel>

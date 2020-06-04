@@ -2,7 +2,7 @@
     <div class="btn-wrapper">
         <v-flex>
             <button class="end-session" @click="endSession()">
-                <stopIcon class="stop-icon mr-2"></stopIcon>
+                <stopIcon class="stop-icon me-2"></stopIcon>
                 <span v-language:inner>tutor_stream_btn_end_session</span>
             </button>
         </v-flex>

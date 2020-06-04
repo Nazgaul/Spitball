@@ -20,7 +20,7 @@
                 <template v-if="!isDraggin">
                     <v-btn
                         @click="DbFilesList()"
-                        class="uf-sDrop-btn mr-sm-2 mt-4 mt-sm-0"
+                        class="uf-sDrop-btn me-sm-2 mt-4 mt-sm-0"
                         :disabled="!dbReady"
                         color="#fff"
                         sel="dropbox"

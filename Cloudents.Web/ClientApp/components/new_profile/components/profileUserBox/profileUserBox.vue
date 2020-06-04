@@ -1,7 +1,7 @@
 <template>
     <div class="profileUserBox pa-4 pa-sm-5" v-if="currentProfileUser">
         <div class="profileUserBox_top d-block d-sm-flex justify-space-between">
-            <div class="leftSide mr-sm-6 mb-2 mb-sm-0 d-flex justify-center">
+            <div class="leftSide me-sm-6 mb-2 mb-sm-0 d-flex justify-center">
                 <div class="pUb_dot" sel="online_icon" v-if="isOnline"></div>
                 <uploadImage sel="photo" class="pUb_edit_img" v-if="isCurrentProfileUser" />
                 <userAvatarRect sel="avatar_image"
@@ -18,15 +18,15 @@
             <div class="rightSide flex-grow-1">
                 <div class="detailsWrap d-flex d-sm-block">
                     <div class="d-flex justify-space-between text-center text-sm-left">
-                        <h1  sel="username_title" class="userName text-truncate mr-sm-2">
-                            <span v-if="currentProfileUser.isTutor" class="mr-1" v-t="'profile_tutor'"></span>
+                        <h1  sel="username_title" class="userName text-truncate me-sm-2">
+                            <span v-if="currentProfileUser.isTutor" class="me-1" v-t="'profile_tutor'"></span>
                             <span>{{currentProfileUser.name}}</span>
                         </h1>
 
                         <div class="profileUserSticky_pricing text-center" v-if="!isMobile">
                             <template v-if="currentProfileUser.isTutor">
                                 <div class="d-flex align-center justify-center">
-                                    <div class="profileUserSticky_pricing_discount d-flex align-center mr-2" v-if="isDiscount">
+                                    <div class="profileUserSticky_pricing_discount d-flex align-center me-2" v-if="isDiscount">
                                         <span class="profileUserSticky_pricing_price_number mb-1">{{$n(tutorPrice, 'currency')}}</span>
                                         <div class="d-flex align-end profileUserSticky_pricing_price_hour">
                                             <span>/</span>
@@ -48,7 +48,7 @@
                             </template>
                             <div v-else>
                                 <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="isCurrentProfileUser && !currentProfileUser.isTutor">
-                                    <editSVG class="mr-1" />
+                                    <editSVG class="me-1" />
                                 </v-btn>
                             </div>
                         </div>
@@ -65,25 +65,25 @@
                             </div>
                         </template>
                         <div class="ml-3">
-                            <followBtn sel="follow_btn" class="followBtnNew mr-sm-2" v-if="!isCurrentProfileUser"/>
+                            <followBtn sel="follow_btn" class="followBtnNew me-sm-2" v-if="!isCurrentProfileUser"/>
                         </div>
                     </div>
 
                     <!-- courses teacher -->
                     <div sel="teach_courses" class="course mt-sm-3 mb-sm-3 mt-2 mb-3 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
-                        <bdi class="iTeach mr-1" v-t="'profile_my_courses_teacher'"></bdi>
+                        <bdi class="iTeach me-1" v-t="'profile_my_courses_teacher'"></bdi>
                         <span class="courseName text-truncate">{{currentProfileUser.coursesString}}</span>
                     </div>
 
                     <!-- TUTOR BIO -->
-                    <div class="userBio mb-5 mb-sm-0 mr-sm-2" v-if="currentProfileTutor.bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}
+                    <div class="userBio mb-5 mb-sm-0 me-sm-2" v-if="currentProfileTutor.bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}
                         <div v-if="isOpen" class="my-4">
                             <div class="course mb-1 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
-                                <bdi class="iTeach mr-1" v-t="'profile_my_courses'"></bdi>
+                                <bdi class="iTeach me-1" v-t="'profile_my_courses'"></bdi>
                                 <span class="courseName text-truncate">{{currentProfileUser.coursesString}}</span>
                             </div>
                             <div class="course text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
-                                <bdi class="iTeach mr-1" v-t="'profile_my_subjects'"></bdi>
+                                <bdi class="iTeach me-1" v-t="'profile_my_subjects'"></bdi>
                                 <span class="courseName text-truncate">{{currentProfileTutor.subjects.toString().replace(/,/g, ", ")}}</span>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
 
                     <!-- Courses Student -->
                     <div class="course mt-2 text-truncate" v-if="!currentProfileUser.isTutor && currentProfileUser.courses.length">
-                        <span class="profileUserBox_bottom_title mr-1" v-t="'profile_my_courses_student'"></span>
+                        <span class="profileUserBox_bottom_title me-1" v-t="'profile_my_courses_student'"></span>
                         <span v-for="(course, index) in currentProfileUser.courses" :key="index">
                             {{course}}{{index + 1 == currentProfileUser.courses.length ? '' : ', '}}
                         </span>
@@ -106,7 +106,7 @@
                     <template v-if="isMobile">
                         <div class="profileUserSticky_pricing mb-4" v-if="currentProfileUser.isTutor">
                             <div class="d-flex align-center justify-center">
-                                <div class="profileUserSticky_pricing_discount d-flex align-center mr-2" v-if="isDiscount">
+                                <div class="profileUserSticky_pricing_discount d-flex align-center me-2" v-if="isDiscount">
                                     <span class="profileUserSticky_pricing_price_number mb-1">{{$n(tutorPrice, 'currency')}}</span>
                                     <div class="d-flex align-end profileUserSticky_pricing_price_hour">
                                         <span>/</span>
@@ -133,12 +133,12 @@
                             <editSVG v-if="isCurrentProfileUser" />
                         </v-btn>
                     </template>
-                    <v-btn sel="send" height="42" :width="isMobile ? 286 : 220" :disabled="isCurrentProfileUser" v-if="currentProfileUser.isTutor" class="profileUserSticky_btn white--text mr-sm-4" :class="{'isMyProfile': isCurrentProfileUser}" depressed rounded color="#4c59ff" @click="globalFunctions.sendMessage">
+                    <v-btn sel="send" height="42" :width="isMobile ? 286 : 220" :disabled="isCurrentProfileUser" v-if="currentProfileUser.isTutor" class="profileUserSticky_btn white--text me-sm-4" :class="{'isMyProfile': isCurrentProfileUser}" depressed rounded color="#4c59ff" @click="globalFunctions.sendMessage">
                         <chatSVG class="profileUserSticky_btn_icon"/>
                         <div class="profileUserSticky_btn_txt" v-t="'profile_send_message'"/>
                     </v-btn>
                     <div class="calendarBtnWrap align-center align-sm-end" :class="{'ml-3': !getProfile.user.calendarShared}">
-                        <editSVG sel="edit" class="pUb_edit_user mr-1" v-if="isCurrentProfileUser && !isMobile" @click="openEditInfo"/>
+                        <editSVG sel="edit" class="pUb_edit_user me-1" v-if="isCurrentProfileUser && !isMobile" @click="openEditInfo"/>
                         <v-btn
                             @click="globalFunctions.openCalendar"
                             class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-sm-2 mt-4"

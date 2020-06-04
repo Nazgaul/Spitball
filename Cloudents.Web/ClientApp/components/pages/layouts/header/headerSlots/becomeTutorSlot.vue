@@ -1,5 +1,5 @@
 <template>
-   <a target="_blank" :href="urlLink" class="becomeTutorSlot mr-3 mr-sm-7" v-language:inner="'profile_become_title'"/>
+   <a target="_blank" :href="urlLink" class="becomeTutorSlot me-3 me-sm-7" v-language:inner="'profile_become_title'"/>
 </template>
 
 <script>

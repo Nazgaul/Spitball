@@ -1,6 +1,6 @@
 <template>
   <button :class="['followBtn',getProfile.user.isFollowing?'following':'follow']" @click="followToggler">
-    <followSVG width="20" v-if="!getProfile.user.isFollowing" class="mr-1" />
+    <followSVG width="20" v-if="!getProfile.user.isFollowing" class="me-1" />
     <span v-language:inner="getProfile.user.isFollowing? 'profile_following' :'profile_follow'"/>
   </button>
 </template>

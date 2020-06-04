@@ -12,7 +12,7 @@
                 <h3><span v-language:inner="'tutorListLanding_rates'"></span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></h3> -->
             <v-flex class="pb-sm-6">
                 <span class="rating_tutorLanding">
-                    <span class="mr-1">95%</span>&nbsp;<v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp;<span class="ml-1" v-language:inner="'tutorListLanding_reviews'"></span>
+                    <span class="me-1">95%</span>&nbsp;<v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp;<span class="ml-1" v-language:inner="'tutorListLanding_reviews'"></span>
                 </span>
             </v-flex>
         </v-layout>

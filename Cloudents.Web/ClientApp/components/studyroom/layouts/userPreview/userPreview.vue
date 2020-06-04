@@ -6,7 +6,7 @@
          <template v-slot:activator="{ on }">
             <v-icon v-on="on" :size="isExpandVideoMode? 30 :20" v-show="isCurrentParticipant"
                   @click="isShareScreen? stopShareScreen() : startShareScreen()" color="#ffffff"
-                  class="mr-2">{{isShareScreen? 'sbf-stop-share' : 'sbf-shareScreen'}}
+                  class="me-2">{{isShareScreen? 'sbf-stop-share' : 'sbf-shareScreen'}}
             </v-icon>
          </template>
          <span v-text="$t(isShareScreen?'tutor_btn_stop_sharing':'tutor_btn_share_screen')"/>

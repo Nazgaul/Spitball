@@ -2,7 +2,7 @@
     <v-card class="course-created-wrap pt-4">
 
             <v-layout class="close-toolbar"  :class="[$vuetify.breakpoint.xsOnly ? 'column align-center pb-4 mx-3 shrink': 'mx-4 pb-4']">
-                <v-flex xs12 sm1  order-xs2 order-sm1  class="mr-2" :class="{'mb-4 mr-0': $vuetify.breakpoint.xsOnly}">
+                <v-flex xs12 sm1  order-xs2 order-sm1  class="me-2" :class="{'mb-4 me-0': $vuetify.breakpoint.xsOnly}">
                     <v-icon class="check-icon">sbf-check-circle</v-icon>
                 </v-flex>
                 <v-flex d-flex xs12 order-xs3 order-sm2 >

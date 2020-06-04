@@ -4,7 +4,7 @@
          <logoComponent/>
       </a>
       <div class="roundShape"></div>
-      <v-toolbar-title class="white--text mr-7">
+      <v-toolbar-title class="white--text me-7">
          <span class="liveText">{{$t('studyRoom_live')}}</span>
          </v-toolbar-title>
       <!-- <v-divider class="ml-3 divider" vertical inset color="white"></v-divider> -->
@@ -12,7 +12,7 @@
       <!-- <v-btn-toggle v-if="isRoomTutor" mandatory :value="getIsCurrentMode(currentEditorMode)" :ripple="false" active-class="editorActive"  borderless group class="editors">
          <v-btn v-for="(navTab, objectKey) in navTabs" :key="objectKey" 
                 :value="objectKey" text @click="actionHandler(objectKey)">
-            <span><v-icon class="mr-2">{{navTab.icon}}</v-icon>{{navTab.text}}</span>
+            <span><v-icon class="me-2">{{navTab.icon}}</v-icon>{{navTab.text}}</span>
          </v-btn>
       </v-btn-toggle> -->
       <template v-if="isRoomTutor" >
@@ -21,7 +21,7 @@
             <button :key="objectKey" @click="actionHandler(objectKey)"
                :class="['tutorNavTab', 'd-flex','flex-md-column','px-lg-5','px-md-4','align-md-center','flex-lg-row','justify-md-center',
                   {'tutorNavTab-active': navTab.icon == navTabs[getIsCurrentMode(currentEditorMode)].icon}]" >
-                  <v-icon class="mr-md-0 mr-lg-2" style="vertical-align: sub;" size="15" :color="navTab.icon == navTabs[getIsCurrentMode(currentEditorMode)].icon?'#4c59ff':'white'">
+                  <v-icon class="me-md-0 me-lg-2" style="vertical-align: sub;" size="15" :color="navTab.icon == navTabs[getIsCurrentMode(currentEditorMode)].icon?'#4c59ff':'white'">
                      {{navTab.icon}}
                   </v-icon>
                   <span>
@@ -32,7 +32,7 @@
       </template>
       <template v-else>
          <button :class="['tutorNavTab','tutorNavTab-active','px-5']" style="cursor:initial" >
-               <v-icon class="mr-2" style="vertical-align: sub;" size="15" color="#4c59ff">
+               <v-icon class="me-2" style="vertical-align: sub;" size="15" color="#4c59ff">
                   {{navTabs[getIsCurrentMode(currentEditorMode)].icon}}
                </v-icon>
                <span>
@@ -63,20 +63,20 @@
          <v-list>
             <v-list-item class="menuStudyRoomOption" @click="toggleRecord">
                <template v-if="!getIsRecording">
-                     <v-icon color="7a798c" class="mr-2" size="20">sbf-record</v-icon> 
+                     <v-icon color="7a798c" class="me-2" size="20">sbf-record</v-icon> 
                      {{$t('tutor_begain_recording')}}
                </template>
                <template v-else>
-                     <v-icon color="7a798c" class="mr-2" size="20">sbf-record</v-icon> 
+                     <v-icon color="7a798c" class="me-2" size="20">sbf-record</v-icon> 
                      {{$t('tutor_stop_recording')}}
                </template>
             </v-list-item>
             <v-list-item class="menuStudyRoomOption" sel="setting_draw" @click="openSettingsDialog">
-                  <v-icon color="7a798c" class="mr-2" size="20">sbf-settings</v-icon> 
+                  <v-icon color="7a798c" class="me-2" size="20">sbf-settings</v-icon> 
                   {{$t('studyRoom_menu_settings')}}
             </v-list-item>
             <v-list-item class="menuStudyRoomOption" sel="help_draw" @click="showIntercom">
-                  <v-icon color="7a798c" class="mr-2" size="20">sbf-help-icon</v-icon> 
+                  <v-icon color="7a798c" class="me-2" size="20">sbf-help-icon</v-icon> 
                   {{$t('studyRoom_menu_help')}}
             </v-list-item>
             </v-list>

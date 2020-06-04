@@ -50,7 +50,7 @@
                     <v-btn 
                         :loading="loadings[roomModes.whiteboard]" 
                         @click="tutorActions(roomModes.whiteboard)" 
-                        class="mr-sm-2 mr-0 mb-4"
+                        class="me-sm-2 me-0 mb-4"
                         color="#4c59ff" height="44" min-width="140" depressed rounded outlined :block="$vuetify.breakpoint.xsOnly">
                         <whiteboardSvg width="18" />
                         <div class="flex-grow-1 btnText ml-sm-1 ma-0 pr-2 pr-sm-0 ml-1">{{$t('studyRoomSettings_whiteboard')}}</div>

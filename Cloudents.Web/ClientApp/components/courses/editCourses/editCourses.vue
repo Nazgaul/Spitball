@@ -13,9 +13,9 @@
                 </v-flex>
                 <v-flex shrink class="d-flex justify-start">
                     <v-btn sel="add_courses_button" rounded color="#4452FC" class="add-btn py-1 my-0 elevation-0"
-                           :class="{'mr-2': $vuetify.breakpoint.xsOnly }"
+                           :class="{'me-2': $vuetify.breakpoint.xsOnly }"
                            @click="goToAddMore()">
-                        <v-icon class="mr-1 vicon">sbf-plus-regular</v-icon>
+                        <v-icon class="me-1 vicon">sbf-plus-regular</v-icon>
                         <span>{{$t('courses_add')}}</span>
                     </v-btn>
                 </v-flex>
@@ -45,14 +45,14 @@
                                            :loading="singleClass.isLoading && teachingActive"
                                            class="outline-btn elevation-0 text-none align-center justify-center rounded-btn">
                                         <span>
-                                            <v-icon color="#a3a0fb" class="btn-icon mr-1">sbf-face-icon</v-icon>
+                                            <v-icon color="#a3a0fb" class="btn-icon me-1">sbf-face-icon</v-icon>
                                             <span class="purple-text caption" v-html="$Ph('courses_teach')"></span>
                                         </span>
                                     </v-btn>
                                     <v-btn v-else rounded @click="teachCourseToggle(singleClass)"
                                            class="solid-btn elevation-0 text-none align-center justify-center rounded-btn">
                                         <span>
-                                            <v-icon class="btn-icon mr-1">sbf-checkmark</v-icon>
+                                            <v-icon class="btn-icon me-1">sbf-checkmark</v-icon>
                                             <span class="caption" v-html="$Ph('courses_teaching')"></span>
                                         </span>
                                     </v-btn>

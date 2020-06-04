@@ -4,7 +4,7 @@
             <v-flex grow :class="isFromRegister ? 'xs12' : 'xs6'">
                 <div class="d-inline-flex justify-center shrink add-courses-wrap-title">
                     <slot name="fromRegisterBtn">
-                        <v-icon @click="goToEditCourses()" class="course-back-btn mr-4">sbf-arrow-back</v-icon>
+                        <v-icon @click="goToEditCourses()" class="course-back-btn me-4">sbf-arrow-back</v-icon>
                     </slot>
                     <slot name="fromRegisterTitle">
                         <span class="font-weight-bold" v-language:inner="'courses_join'"></span>
@@ -44,7 +44,7 @@
                     <div class="class-list selected-classes-list pa-4"
                          ref="listCourse">
                         <div 
-                            class="selected-class-item d-inline-flex text-truncate font-weight-bold align-center justify-center pl-4 pr-1 py-1 mr-2"
+                            class="selected-class-item d-inline-flex text-truncate font-weight-bold align-center justify-center pl-4 pr-1 py-1 me-2"
                             v-for="(selectedClass, index) in localSelectedClasses"
                             :key="index"
                         >
@@ -85,16 +85,16 @@
                         <v-layout align-center justify-end class="minimize-width">
                             <div v-if="!singleClass.isFollowing">
                                 <v-flex shrink v-if="singleClass.isSelected" class="d-flex align-center">
-                                    <span class="light-purple caption font-weight-medium mr-2" v-html="$Ph('courses_joined')"></span>
+                                    <span class="light-purple caption font-weight-medium me-2" v-html="$Ph('courses_joined')"></span>
                                     <span><v-icon class="checked-icon">sbf-check-circle</v-icon></span>
                                 </v-flex>
                                 <v-flex shrink v-else class="d-flex align-center">
-                                    <span class="light-purple caption font-weight-medium mr-2" v-html="$Ph('courses_join')"></span>
+                                    <span class="light-purple caption font-weight-medium me-2" v-html="$Ph('courses_join')"></span>
                                     <span><v-icon class="cursor-pointer add-sbf-icon">sbf-plus-circle</v-icon></span>
                                 </v-flex>
                             </div>
                             <v-flex v-else shrink class="d-flex align-end">
-                                <span class="light-purple caption font-weight-medium mr-2" v-html="$Ph('courses_joined')"></span>
+                                <span class="light-purple caption font-weight-medium me-2" v-html="$Ph('courses_joined')"></span>
                             </v-flex>
                         </v-layout>
                     </div>

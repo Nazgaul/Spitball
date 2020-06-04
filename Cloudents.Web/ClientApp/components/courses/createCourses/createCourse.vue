@@ -4,7 +4,7 @@
             <v-flex grow>
                 <span class="font-weight-bold dialog-heading" v-language:inner>courses_new_title</span>
             </v-flex>
-            <v-flex shrink class="mr-2">
+            <v-flex shrink class="me-2">
                 <v-icon @click="closeDialog()" class="subtitle-1 course-close-icon">sbf-close</v-icon>
             </v-flex>
         </v-layout>

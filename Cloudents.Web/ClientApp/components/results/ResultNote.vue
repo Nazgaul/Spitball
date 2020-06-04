@@ -89,7 +89,7 @@
                   <h2 class="item-course">{{item.course}}</h2>
                 </span>
                 <div class="videoType" v-show="(isVideo && item.itemDuration) && isPreviewReady">
-                  <span class="vidTime mr-1">{{item.itemDuration}}</span>
+                  <span class="vidTime me-1">{{item.itemDuration}}</span>
                   <vidSVG class="videoIcon" width="16" />
                 </div>
               </div>
@@ -147,7 +147,7 @@
           </div>
         </v-flex>
         <div class="change-price-actions">
-          <button @click="closeNewPriceDialog()" class="cancel mr-2">
+          <button @click="closeNewPriceDialog()" class="cancel me-2">
             <span v-t="'resultNote_action_cancel'"></span>
           </button>
           <button @click="submitNewPrice()" class="change-price">

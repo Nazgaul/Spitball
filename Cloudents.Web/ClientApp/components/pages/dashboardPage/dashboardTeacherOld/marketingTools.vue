@@ -6,7 +6,7 @@
         </div>
 
         <div class="mainBlogs d-flex-column d-sm-flex">
-            <div class="leftBlogs mr-sm-2 mr-0 pb-4 pb-sm-0 mb-sm-1 justify-space-around">
+            <div class="leftBlogs me-sm-2 me-0 pb-4 pb-sm-0 mb-sm-1 justify-space-around">
                 <div class="titleWrap">
                     <div class="title1 mb-2">
                         {{$t('marketing_tools_title1')}}
@@ -18,7 +18,7 @@
                 <v-btn sel="marketing_btn" :to="{name: 'marketing'}" class="btn" rounded outlined color="#4c59ff" width="120">{{$t('marketing_lets_go')}}</v-btn>
             </div>
 
-            <div class="rightBlogs d-flex-column d-sm-flex pa-0 mr-md-8">
+            <div class="rightBlogs d-flex-column d-sm-flex pa-0 me-md-8">
                 <img :src="marketingImage" alt="">
             </div>
         </div>

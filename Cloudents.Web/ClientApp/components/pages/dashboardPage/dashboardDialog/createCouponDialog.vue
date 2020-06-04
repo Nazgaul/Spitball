@@ -62,8 +62,8 @@
         </template>
       </div>
       <div class="btns-wrap">
-        <v-btn v-closeDialog class="dialog-btn btn-cancel mr-1 mr-sm-3" color="white" height="40" rounded depressed>
-        <!-- <v-btn @click="$store.commit('setComponent', '')" class="dialog-btn btn-cancel mr-1 mr-sm-3" color="white" height="40" rounded depressed> -->
+        <v-btn v-closeDialog class="dialog-btn btn-cancel me-1 me-sm-3" color="white" height="40" rounded depressed>
+        <!-- <v-btn @click="$store.commit('setComponent', '')" class="dialog-btn btn-cancel me-1 me-sm-3" color="white" height="40" rounded depressed> -->
           <span v-t="showSuccess?'coupon_btn_exit':'coupon_btn_cancel'"/>
         </v-btn>
         <v-btn :loading="loadingBtn" @click="showSuccess? copyCode() : createMyCoupon()" class="ml-1 ml-sm-0 dialog-btn white--text" height="40" rounded depressed color="#4c59ff">

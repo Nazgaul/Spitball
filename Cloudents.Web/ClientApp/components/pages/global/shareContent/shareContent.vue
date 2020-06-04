@@ -21,7 +21,7 @@
         :ripple="false"
         @click="shareOnSocialMedia('whatsApp')"
       >
-        <whatsappSVG right style="width:20px" class="option whatsapp mr-2" />
+        <whatsappSVG right style="width:20px" class="option whatsapp me-2" />
       </v-btn>
       <v-btn
         class="shareBtns"
@@ -31,7 +31,7 @@
         :ripple="false"
         @click="shareOnSocialMedia('twitter')"
       >
-        <twitterSVG right style="width:20px" class="option twitter mr-2" />
+        <twitterSVG right style="width:20px" class="option twitter me-2" />
       </v-btn>
       <v-btn
         class="shareBtns"
@@ -41,7 +41,7 @@
         :ripple="false"
         @click="shareOnSocialMedia('email')"
       >
-        <emailSVG right style="width:21px" class="option email mr-2" />
+        <emailSVG right style="width:21px" class="option email me-2" />
       </v-btn>
     </div>
 

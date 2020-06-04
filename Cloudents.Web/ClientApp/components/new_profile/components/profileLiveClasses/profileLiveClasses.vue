@@ -114,7 +114,7 @@
                                 depressed
                                 :rounded="isMobile ? false : true"
                             >
-                                <enterIcon class="enterIcon mr-sm-2" width="18" />
+                                <enterIcon class="enterIcon me-sm-2" width="18" />
                                 <span :class="{'flex-grow-1 pl-2': isMobile}" v-t="'profile_enter_room'"></span>
                             </v-btn>
                             <v-btn

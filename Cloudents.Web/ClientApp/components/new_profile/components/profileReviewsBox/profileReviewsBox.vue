@@ -15,7 +15,7 @@
             </div>
             <div class="profileReviewsBox_state_stats">
                <div class="profileReviewsBox_state_stats_lines" v-if="!$vuetify.breakpoint.xsOnly">
-                  <v-progress-linear v-for="(rate, index) in rates" :key="index" class="mr-3" color="#ffca54" height="13" :value="rate.rate * 20"/>
+                  <v-progress-linear v-for="(rate, index) in rates" :key="index" class="me-3" color="#ffca54" height="13" :value="rate.rate * 20"/>
                </div>
                <div class="profileReviewsBox_state_stats_stars">
                   <div class="profileReviewsBox_state_stats_stars_row" v-for="(rate, index) in rates" :key="index">

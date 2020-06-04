@@ -33,7 +33,7 @@
                   <div class="minus" v-else>-</div>
                   <div class="rate font-weight-bold">
                       <arrowDownIcon class="arrow" v-show="percentage(key)" :class="[showIcon(key) ? 'arrowDown' : 'arrowUp']" />
-                      <bdi class="precent mr-1" :class="{'down': showIcon(key)}">{{percentage(key)}} <span v-show="percentage(key)">&#37;</span></bdi>
+                      <bdi class="precent me-1" :class="{'down': showIcon(key)}">{{percentage(key)}} <span v-show="percentage(key)">&#37;</span></bdi>
                   </div>
                 </router-link>
             </v-col>

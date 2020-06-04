@@ -18,7 +18,7 @@
                     color="#da6156"
                     depressed
                 >
-                    <gIcon class="mr-2" />
+                    <gIcon class="me-2" />
                     <span class="googleBtnText" v-t="'loginRegister_getstarted_btn_google_signin'"></span>
                 </v-btn>
             </template>

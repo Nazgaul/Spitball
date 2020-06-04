@@ -12,7 +12,7 @@
          </div>
       </v-flex>
       <div class="change-name-actions">
-         <button @click="$emit('closeDialog')" class="cancel mr-2">
+         <button @click="$emit('closeDialog')" class="cancel me-2">
             <span v-language:inner="'resultNote_action_cancel'"/>
          </button>
          <button @click.prevent="submitNewName()" class="change-name">

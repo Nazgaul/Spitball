@@ -22,7 +22,7 @@
                     single-line
                 ></v-select>                      
                 <v-layout class="indicator-audio-meter ml-sm-4 mt-3 mt-sm-0">
-                    <microphoneImage class="image mr-1" width="24" />
+                    <microphoneImage class="image me-1" width="24" />
                     <div id="audio-input-meter1"></div>
                 </v-layout>
             </div>
@@ -30,7 +30,7 @@
         <div class="studyRoom-audio-settings-speaker-container mt-8">
             <h4 class="studyRoom-audio-settings-speaker-label mb-3" v-t="'studyRoomSettings_audio_output'"></h4>
             <div class="audio-output-controls">
-                <speakerImage width="20" class="mr-2" />
+                <speakerImage width="20" class="me-2" />
                 <button @click="playTestSound" v-if="!isPlaying" v-t='"studyRoomSettings_audio_test_sound"'></button>
                 <button @click="stopSound" v-else v-t='"studyRoomSettings_audio_stop_sound"'></button>
                 <v-flex v-if="isPlaying" class="eq-image-container">

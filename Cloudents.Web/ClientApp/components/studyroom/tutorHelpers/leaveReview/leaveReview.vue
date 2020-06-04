@@ -10,7 +10,7 @@
             <span class="review_sub_title_step2" v-else v-language:inner="'leaveReview_sub_title_step2'"></span>
         </div>
         <div class="review_user_rate" v-if="!showNextStep">
-            <user-avatar class="tutor-img-wrap mr-2" :size="imgSize" :userImageUrl="tutorImg" :user-name="tutorName" :user-id="tutorId"/>
+            <user-avatar class="tutor-img-wrap me-2" :size="imgSize" :userImageUrl="tutorImg" :user-name="tutorName" :user-id="tutorId"/>
             <v-rating
                 v-model="rating"
                 ref="hahahahau"

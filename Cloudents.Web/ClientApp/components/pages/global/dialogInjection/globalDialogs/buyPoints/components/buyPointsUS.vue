@@ -93,7 +93,7 @@
                 <v-layout class="buymebtn">
                     <v-flex text-center>
                         <v-btn class="buyme-button white--text" :loading="isLoading" depressed color="#4452fc" @click="buyPoints">
-                            <span class="mr-2 d-flex"><v-icon size="16">sbf-lock-icon</v-icon></span>
+                            <span class="me-2 d-flex"><v-icon size="16">sbf-lock-icon</v-icon></span>
                             <span class="font-weight-bold" v-t="{path: 'buyTokens_secure_payment', args: [products[selectedProduct].pts]}"></span>
                         </v-btn>
                     </v-flex>

@@ -2,7 +2,7 @@
    <v-flex xs12 sm6 md4 class="conversationsContainer">
       <div class="conversationsHeader d-flex align-center flex-grow-0 flex-shrink-0">
          <span class="cHeaderTitle">
-            <v-icon class="mr-2" size="20">sbf-message-icon</v-icon>
+            <v-icon class="me-2" size="20">sbf-message-icon</v-icon>
             {{$t("chat_messages")}}
          </span>
       </div>

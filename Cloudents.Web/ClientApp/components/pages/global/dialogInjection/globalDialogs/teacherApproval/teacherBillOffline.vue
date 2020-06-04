@@ -10,11 +10,11 @@
                     <span class="white--text" v-t="'teacherApproval_success'"></span>
                 </div>
                 <div class="v-alert error tableEmptyState text-left mb-5 pa-2 align-start align-sm-center" v-if="modifyDurationError">
-                    <whiteWarn class="image mr-2 mr-sm-4 pt-1 pt-sm-0" width="50" />
+                    <whiteWarn class="image me-2 me-sm-4 pt-1 pt-sm-0" width="50" />
                     <span class="white--text" v-t="'teacherApproval_error'"></span>
                 </div>
                 <div class="v-alert error tableEmptyState text-left mb-5 pa-2 align-start align-sm-center" v-if="priceError">
-                    <whiteWarn class="image mr-2 mr-sm-4 pt-1 pt-sm-0" width="30"/>
+                    <whiteWarn class="image me-2 me-sm-4 pt-1 pt-sm-0" width="30"/>
                     <span class="white--text" v-t="'teacherApproval_error_price'"></span>
                 </div>
 
@@ -87,7 +87,7 @@
                 <v-btn icon color="#5A66FF" @click="openIntercom" :ripples="false" depressed><needHelpIcon/></v-btn>
 
                 <div class="bottomActions d-flex text-center">
-                    <v-btn width="140" height="40" color="#4452fc" class="d-none d-sm-block mr-3" rounded outlined @click="closeDialog()">{{$t('teacherApproval_btn_cancel')}}</v-btn>
+                    <v-btn width="140" height="40" color="#4452fc" class="d-none d-sm-block me-3" rounded outlined @click="closeDialog()">{{$t('teacherApproval_btn_cancel')}}</v-btn>
                     <v-btn :loading="isLoading" width="140" height="40" color="#4452fc" class="white--text" @click="approveSession" rounded depressed>{{$t('teacherApproval_btn_approve')}}</v-btn>
                 </div>
             </div>

@@ -8,7 +8,7 @@
             </v-flex>
             <v-flex xs4 sm2  shrink class="justify-end d-inline-flex">
                 <v-btn rounded color="#4452FC" class="add-btn py-1 px-0 font-weight-bold my-0" @click="goToAddCourses()">
-                    <v-icon class="mr-1">sbf-plus-regular</v-icon>
+                    <v-icon class="me-1">sbf-plus-regular</v-icon>
                     <span v-language:inner>courses_add</span>
                 </v-btn>
             </v-flex>

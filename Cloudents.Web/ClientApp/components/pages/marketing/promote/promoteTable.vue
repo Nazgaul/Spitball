@@ -31,7 +31,7 @@
             <tr @click="selectDocument(props)">
                 <td class="product pa-0">
                     <div class="wrap d-flex pa-2">
-                        <v-radio-group class="mr-n2 mt-5" :value="props.item.id === selectedId ? `radio-${props.index}` : ''" columns>
+                        <v-radio-group class="me-n2 mt-5" :value="props.item.id === selectedId ? `radio-${props.index}` : ''" columns>
                             <v-radio :value="`radio-${props.index}`" on-icon="sbf-radioOn" off-icon="sbf-radioOff"></v-radio>
                         </v-radio-group>
                       <div class="d-flex align-center">
