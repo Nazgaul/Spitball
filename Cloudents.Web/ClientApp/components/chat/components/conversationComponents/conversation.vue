@@ -2,7 +2,7 @@
   <div class="conversation-container">
     <v-flex class="avatar-container">
         <user-avatar :size="'49'" :userImageUrl="userImg" :user-name="conversation.name"/>
-        <userOnlineStatus class="user-status" :userId="conversation.userId"></userOnlineStatus>
+        <div v-if="conversation.online" class="onlineDot"></div>
     </v-flex>
     <v-flex class="user-detail-container text-truncate">
       <v-flex class="top-detail-container">
@@ -28,12 +28,8 @@
 
 <script>
 import utilitiesService from "../../../../services/utilities/utilitiesService";
-import userOnlineStatus from "../../../helpers/userOnlineStatus/userOnlineStatus.vue";
 
 export default {
-  components: {
-    userOnlineStatus
-  },
   props: {
     conversation: {
       type: Object
@@ -79,9 +75,13 @@ export default {
   .avatar-container {
     position:relative;
     flex-grow: 0;
-    .user-status{
-      bottom: 2px;
+    .onlineDot{
       position: absolute;
+      width: 12px;
+      height: 12px;
+      background-color: #2dfe14;
+      border-radius: 50%;
+      bottom: 0px;
       right: 0;
     }
   }

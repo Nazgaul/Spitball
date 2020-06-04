@@ -120,11 +120,6 @@ export default {
             position:absolute;
             top: 55px;
             left: 10px;
-            .user-status{
-                position: absolute;
-                bottom: 0px;
-                right: -2px;
-            }
         }
         .messages-wrapper{
             height: 100%;

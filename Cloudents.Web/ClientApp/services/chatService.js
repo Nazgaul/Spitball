@@ -19,7 +19,7 @@ function Conversation(objInit){
     if(objInit.users !== undefined){
         let isRoom = objInit.users.length > 1; 
         this.image = isRoom? '': objInit.users[0].image;
-        this.online = false;
+        this.online = !isRoom? objInit.users[0].online : false;
         this.name = objInit.users.map(u=>u.name).join(" ,");
     }else{
         this.image = objInit.image;
