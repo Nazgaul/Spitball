@@ -6,7 +6,15 @@
         :to="userId ? {name: 'profile', params: { id: userId, name: userName }} : ''"
     >
         <div v-if="userImageUrl" class="user-avatar-image-wrap" :style="{width: `${width}px`}">
-            <v-skeleton-loader v-if="!isLoaded" class="skeletonAvatar" :type="tile ? 'image' : 'avatar'" :width="width" :height="height"></v-skeleton-loader>
+            <v-skeleton-loader
+                v-if="!isLoaded"
+                class="skeletonAvatar"
+                :type="tile ? 'image' : 'avatar'"
+                :width="width"
+                :height="height"
+                :style="{borderRadius: tile ? `${borderRadius}px` : `50%`}"
+            >
+            </v-skeleton-loader>
             <intersection>
                 <img 
                     draggable="false"
@@ -51,25 +59,26 @@ export default {
             type: String,
             required: false
         },
-        width: {
-            type: Number,
-            required: false
-        },
         tile: {
             type: Boolean,
             required: false
         },
+        width: {
+            type: Number,
+            required: true
+        },
         height: {
             type: Number,
-            required: false
+            required: true
         },
         fontSize: {
             type: Number,
-            required: false
+            required: true
         },
         borderRadius: {
             type: Number,
             required: false,
+            default: 0
         }
     },
     data(){
@@ -115,6 +124,7 @@ export default {
                 .v-skeleton-loader__image, .v-skeleton-loader__avatar {
                     height: inherit;
                     width: inherit;
+                    border-radius: inherit;
                 }
             }
         }
