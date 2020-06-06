@@ -31,7 +31,8 @@
                 </div>
             </div>
             <div class="rightSide mt-8 mt-sm-0">
-                <video class="dashboardVideo" ref="dashboardTutor" :src="onBoardingVideo" width="250" height="150" poster="./images/group-14-copy-2@2x.png" controls></video>
+                <video class="dashboardVideo" @click="startVideo" :controls="controls" :autoplay="autoplay" :src="onBoardingVideo" width="250" height="150" poster="./images/group-14-copy-2@2x.png"></video>
+                <!-- <video class="dashboardVideo" ref="dashboardTutor" :src="onBoardingVideo" width="250" height="150" poster="./images/group-14-copy-2@2x.png" controls></video> -->
             </div>
         </div>
 
@@ -104,7 +105,9 @@ export default {
     },
     data() {
         return {
-            video: null,
+            controls: false,
+            autoplay: false,
+            // video: null,
             verifyEmailState: false,
             profileName: routeName.Profile,
             linksItems: {
@@ -220,6 +223,12 @@ export default {
         }
     },
     methods: {
+        startVideo() {
+            if(this.controls && this.autoplay) return
+            this.controls = true
+            this.autoplay = true
+            this.$ga.event("Dashboard Video", "Get Started How It Works");
+        },
         openPhoneDialog() {
             this.$store.commit('setComponent', 'verifyPhone')
         },
@@ -243,20 +252,20 @@ export default {
         addStripe() {
             window.location = '/stripe-connect'
         },
-        addEventToVideo() {
-            this.$ga.event("Dashboard", "Watching spitball video");
-        }
+        // addEventToVideo() {
+        //     this.$ga.event("Dashboard", "Watching spitball video");
+        // }
     },
-    beforeDestroy() {
-        this.video.addEventListener("play", this.addEventToVideo);
-    },
+    // beforeDestroy() {
+    //     this.video.addEventListener("play", this.addEventToVideo);
+    // },
     created() {
         this.$store.dispatch('updateTutorLinks')
     },
-    mounted() {
-        this.video = this.$refs.dashboardTutor
-        this.video.addEventListener("play", this.addEventToVideo);
-    }
+    // mounted() {
+    //     this.video = this.$refs.dashboardTutor
+    //     this.video.addEventListener("play", this.addEventToVideo);
+    // }
 }
 </script>
 
@@ -288,10 +297,11 @@ export default {
             .rightSide {
 
                 .dashboardVideo {
+                    object-fit: cover;
+                    outline: none;
                     @media (max-width: @screen-xs) {
                         height: 100%;
                         width: 100%;
-                        object-fit: cover;
                     }
                 }
             }
