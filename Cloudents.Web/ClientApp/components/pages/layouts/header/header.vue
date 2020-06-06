@@ -47,10 +47,12 @@
                     <template v-slot:activator="{on}">
                         <div v-on="on" class="gH_i_r_menuList" sel="menu">
                             <div @click.prevent="drawer=!drawer">
-                                <user-avatar
-                                    size="40"
+                                <UserAvatarNew
+                                    :width="40"
+                                    :height="40"
                                     :userImageUrl="userImageUrl"
-                                    :user-name="userName"
+                                    :userName="userName"
+                                    :fontSize="14"
                                 />
                             </div>
                             <template v-if="loggedIn">

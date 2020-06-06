@@ -14,6 +14,7 @@ import {i18n, loadLanguageAsync } from './plugins/t-i18n';
 // Global Components
 import App from "./components/app/mainLayout.vue";
 import UserAvatar from './components/helpers/UserAvatar/UserAvatar.vue';
+import userAvatarNew from './components/helpers/UserAvatar/userAvatar2.vue';
 
 // Global Services
 import { Language } from "./services/language/langDirective";
@@ -61,6 +62,7 @@ Vue.use(LoadScript);
 Vue.use(VueClipboard);
 
 Vue.component("UserAvatar",UserAvatar);
+Vue.component("UserAvatarNew",userAvatarNew);
 
 //this need to be below the configuration of vue router
 Vue.use(VueAnalytics, {
