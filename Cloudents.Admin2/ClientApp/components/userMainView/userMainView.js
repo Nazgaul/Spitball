@@ -132,7 +132,8 @@ export default {
             "deletePayment",
             "updateTutorPrice",
             "removeCalender",
-            "updateSubscribe"
+            "updateSubscribe",
+            "updateBecomeTutor"
         ]),
         showSuspendDialog() {
             this.setSuspendDialogState(true);
