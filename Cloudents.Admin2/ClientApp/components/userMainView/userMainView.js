@@ -210,6 +210,15 @@ export default {
                 this.$toaster.error(`ERROR: failed to suspend tutor ${id}`);
             });
         },
+        becomeTutor() {
+            let id = this.$route.params.userId;
+
+            this.updateBecomeTutor(id).then(() => {
+                this.$toaster.success(`User has become tutor ${id}`);
+            }, () => {
+                this.$toaster.error(`ERROR: failed change user to tutor ${id}`);
+            });
+        },
         deleteCalender(){
             var self = this;
             var id = self.$route.params.userId;

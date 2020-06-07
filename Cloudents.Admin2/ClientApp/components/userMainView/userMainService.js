@@ -364,6 +364,7 @@ export default {
     removeTutor: (id) => {
         return connectivityModule.http.delete(`AdminTutor/${id}`);
     },
+    updateBecomeTutor: (id) => connectivityModule.http.post(`AdminTutor/tutor`, id),
     removeCalender: (id) => {
         return connectivityModule.http.delete(`AdminUser/calendar/?id=${id}`);
     },
