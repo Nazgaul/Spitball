@@ -58,7 +58,7 @@ const getters = {
     },
     getActiveConversationObj:state=>state.activeConversationObj,
     getActiveConversationTutor:state=> state.conversationsTutor[state.activeConversationObj.conversationId],
-    getIsActiveConversationTutor: state => (conversationId) => (state.conversations[conversationId]),
+    getIsActiveConversationTutor: state => (conversationId) => (state.conversationsTutor[conversationId]),
     getTotalUnread: state=>state.totalUnread,
 };
 
@@ -297,11 +297,12 @@ const actions = {
     },
     sendChatMessage:({state, dispatch, getters}, message)=>{
         //send message to server.
+        let currentConversationTutorId = getters.getIsActiveConversationTutor(state.activeConversationObj.conversationId)?.id
         let messageObj = {
+            tutorId: currentConversationTutorId,
             message: message,
             otherUser: state.activeConversationObj.userId,
             conversationId: state.activeConversationObj.conversationId
-
         };
         chatService.sendChatMessage(messageObj);
 
