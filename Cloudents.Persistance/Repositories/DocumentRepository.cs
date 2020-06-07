@@ -15,7 +15,7 @@ namespace Cloudents.Persistence.Repositories
 
 
         }
-        public Task UpdateNumberOfViews(long id, CancellationToken token)
+        public Task UpdateNumberOfViewsAsync(long id, CancellationToken token)
         {
             return Session.Query<Document>().Where(w => w.Id == id)
                   .UpdateBuilder()
@@ -23,7 +23,7 @@ namespace Cloudents.Persistence.Repositories
                   .UpdateAsync(token);
         }
 
-        public Task UpdateNumberOfDownloads(long id, CancellationToken token)
+        public Task UpdateNumberOfDownloadsAsync(long id, CancellationToken token)
         {
             return Session.Query<Document>().Where(w => w.Id == id)
                 .UpdateBuilder()

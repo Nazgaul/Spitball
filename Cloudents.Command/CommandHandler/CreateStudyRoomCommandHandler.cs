@@ -9,26 +9,29 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler
 {
-    public class CreateStudyRoomCommandHandler : ICommandHandler<CreateStudyRoomCommand, CreateStudyRoomCommandResult>
+    public class CreateStudyRoomCommandHandler : ICommandHandler<CreateStudyRoomCommand>
     {
         private readonly IRegularUserRepository _userRepository;
+        private readonly ITutorRepository _tutorRepository;
         private readonly IRepository<StudyRoom> _studyRoomRepository;
         private readonly IGoogleDocument _googleDocument;
         private readonly IChatRoomRepository _chatRoomRepository;
 
         public CreateStudyRoomCommandHandler(IRegularUserRepository userRepository,
-            IRepository<StudyRoom> studyRoomRepository, IGoogleDocument googleDocument, IChatRoomRepository chatRoomRepository)
+            IRepository<StudyRoom> studyRoomRepository, IGoogleDocument googleDocument, IChatRoomRepository chatRoomRepository, ITutorRepository tutorRepository)
         {
             _userRepository = userRepository;
             _studyRoomRepository = studyRoomRepository;
             _googleDocument = googleDocument;
             _chatRoomRepository = chatRoomRepository;
+            _tutorRepository = tutorRepository;
+            
         }
 
-        public async Task<CreateStudyRoomCommandResult> ExecuteAsync(CreateStudyRoomCommand message,
+        public async Task ExecuteAsync(CreateStudyRoomCommand message,
             CancellationToken token)
         {
-            var tutor = await _userRepository.LoadAsync(message.TutorId, token);
+            var tutor = await _tutorRepository.LoadAsync(message.TutorId, token);
             //if (tutor.Tutor?.State != ItemState.Ok)
             //{
             //    throw new InvalidOperationException($"user is not a tutor {message.TutorId}");
@@ -39,9 +42,9 @@ namespace Cloudents.Command.CommandHandler
 
             if (usersId.Count > 1)
             {
-                var chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(usersId, token);
-                chatRoom.AddTextMessage(tutor, message.TextMessage);
-                tutor.AddFollowers(students);
+                var chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(usersId, tutor, token);
+                chatRoom.AddTextMessage(tutor.User, message.TextMessage);
+                tutor.User.AddFollowers(students);
             }
 
             var documentName = $"{message.Name}-{Guid.NewGuid()}";
@@ -51,18 +54,21 @@ namespace Cloudents.Command.CommandHandler
             StudyRoom studyRoom;
             if (message.Type == StudyRoomType.Broadcast)
             {
-                studyRoom = new BroadCastStudyRoom(tutor.Tutor, students, googleDocUrl,
+                studyRoom = new BroadCastStudyRoom(tutor, students, googleDocUrl,
                    message.Name, message.Price, message.BroadcastTime!.Value, message.Description);
                 await _studyRoomRepository.AddAsync(studyRoom, token);
             }
             else
             {
-                studyRoom = new PrivateStudyRoom(tutor.Tutor, students, googleDocUrl,
+                studyRoom = new PrivateStudyRoom(tutor, students, googleDocUrl,
                    message.Name, message.Price);
                 await _studyRoomRepository.AddAsync(studyRoom, token);
             }
 
-            return new CreateStudyRoomCommandResult(studyRoom.Id, studyRoom.Identifier);
+            await _studyRoomRepository.AddAsync(studyRoom, token);
+            message.StudyRoomId = studyRoom.Id;
+            message.Identifier = studyRoom.Identifier;
+            //return new CreateStudyRoomCommandResult(studyRoom.Id, studyRoom.Identifier);
         }
     }
 }
