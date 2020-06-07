@@ -180,6 +180,9 @@
   <data name="teacher_btn_studyroom" xml:space="preserve">
     <value>לחדר הלימוד</value>
   </data>
+  <data name="teacher_btn_studyroom_create" xml:space="preserve">
+    <value>יצירת חדר לימוד</value>
+  </data>
   <data name="teacher_btn_whatsapp" xml:space="preserve">
     <value>שלחו לי הודעת וואטסאפ</value>
   </data>
@@ -191,5 +194,8 @@
   </data>
   <data name="type_message" xml:space="preserve">
     <value>הקלד הודעה</value>
+  </data>
+  <data name="whatsapp_default" xml:space="preserve">
+    <value>שליחת הודעת וואטסאפ</value>
   </data>
 </root>
