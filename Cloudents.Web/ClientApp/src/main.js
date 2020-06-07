@@ -21,7 +21,8 @@ import { Language } from "./services/language/langDirective";
 import utilitiesService from './services/utilities/utilitiesService';
 
 // Fonts
-import '../ClientApp/myFont.font.js'; 
+//WHY?
+import './myFont.font.js'; 
 
 // Vue Prototypes
 import './prototypes/prototypes.js'; 
