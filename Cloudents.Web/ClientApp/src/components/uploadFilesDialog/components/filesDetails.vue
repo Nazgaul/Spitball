@@ -152,7 +152,7 @@ export default {
         applyAll(){
             if(this.currentPrice){
                 let type = 'price'
-                if(!this.isTutorSubscribe) {
+                if(this.isTutorSubscribe) {
                     type = 'priceType'
                 }
                 this.setAllPrice({type, value: this.currentPrice})
