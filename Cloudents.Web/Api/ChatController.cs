@@ -125,7 +125,7 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
 
-            var command = new SendChatTextMessageCommand(model.Message, userId, null, model.ConversationId);
+            var command = new SendChatTextMessageCommand(model.Message, userId, model.ConversationId, model.TutorId);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
@@ -139,7 +139,7 @@ namespace Cloudents.Web.Api
             try
             {
                 var userId = _userManager.GetLongUserId(User);
-              
+
                 var command = new ResetUnreadInChatCommand(userId, model.ConversationId);
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
@@ -162,7 +162,7 @@ namespace Cloudents.Web.Api
                 }
                 var command = new SendChatFileMessageCommand(blobName,
                     userId,
-                    new[] { chatModel.OtherUser }, chatModel.ConversationId);
+                    chatModel.TutorId, chatModel.ConversationId);
                 await _commandBus.DispatchAsync(command, token);
 
             }
@@ -175,7 +175,8 @@ namespace Cloudents.Web.Api
 
         [HttpPost("uploadForm")]
         public async Task<ActionResult<UploadStartResponse>> UploadSingleFileAsync(
-            [FromForm] long otherUser,
+            [FromForm] long tutorId,
+            [FromForm] string conversationId,
             [Required] IFormFile file, CancellationToken token)
         {
             var extension = Path.GetExtension(file.FileName);
@@ -187,7 +188,7 @@ namespace Cloudents.Web.Api
 
             var blobName = BlobFileName(Guid.NewGuid(), file.FileName);
             await BlobProvider.UploadStreamAsync(blobName, file.OpenReadStream(), token: token);
-            var command = new SendChatFileMessageCommand(blobName, userId, new[] { otherUser });
+            var command = new SendChatFileMessageCommand(blobName, userId, tutorId,conversationId);
             await _commandBus.DispatchAsync(command, token);
             return new UploadStartResponse(blobName);
         }

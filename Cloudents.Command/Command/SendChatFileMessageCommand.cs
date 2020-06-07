@@ -4,11 +4,13 @@ namespace Cloudents.Command.Command
 {
     public class SendChatFileMessageCommand : ICommand
     {
-        public SendChatFileMessageCommand(string blob, long userSendingId, IEnumerable<long> usersId , string? identifier = null)
+        public SendChatFileMessageCommand(string blob, long userSendingId,
+           long? tutorId,
+            string? identifier = null)
         {
             Blob = blob;
             UserSendingId = userSendingId;
-            ToUsersId = usersId;
+            TutorId = tutorId;
             Blob = blob;
             Identifier = identifier;
         }
@@ -17,8 +19,8 @@ namespace Cloudents.Command.Command
         public long UserSendingId { get; }
 
         public string Blob { get; }
-        public string? Identifier { get;  }
-
-        public IEnumerable<long> ToUsersId { get; }
+        public string? Identifier { get; }
+        public long? TutorId { get; }
+        //public IEnumerable<long> ToUsersId { get; }
     }
 }
