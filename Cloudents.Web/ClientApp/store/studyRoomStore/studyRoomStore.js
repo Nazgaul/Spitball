@@ -310,7 +310,12 @@ const actions = {
          }
          let myStudyRooms = getters.getStudyRoomItems;
          myStudyRooms.unshift(newStudyRoomParams);
-         commit('setStudyRoomItems',myStudyRooms)
+         commit('setStudyRoomItems',myStudyRooms);
+         let chatParams = {
+            conversationId:data.identifier,
+            studyRoomId:data.studyRoomId
+         }
+         commit('ADD_CONVERSATION_STUDYROOM',chatParams)
          return
       })
    },
