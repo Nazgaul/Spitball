@@ -151,7 +151,7 @@ namespace ConsoleApp
         {
             var session = Container.Resolve<ISession>();
             var result = session.Query<StudyRoom>()
-                .Where(w => w.OldPrice == null || w.Price == null).Select(s => s.Id).ToList();
+                .Where(w => w.OldPrice == null).Select(s => s.Id).ToList();
 
             foreach (var guid in result)
             {
