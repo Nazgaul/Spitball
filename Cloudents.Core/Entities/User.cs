@@ -431,6 +431,7 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
         protected internal virtual ICollection<UserDownloadDocument> DocumentDownloads { get; protected set; }
         protected internal virtual ICollection<StudyRoomPayment> SessionPayments { get; protected set; }
+        protected internal virtual ICollection<StudyRoomSessionUser> StudyRoomSessionUsers { get; protected set; }
 
         public virtual void DeleteUserPayment()
         {
