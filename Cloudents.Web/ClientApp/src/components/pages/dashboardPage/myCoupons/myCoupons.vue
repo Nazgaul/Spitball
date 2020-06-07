@@ -193,10 +193,10 @@ export default {
                     line-height: initial;
                     }
                     background: #fff;
+                }
 
-                    .couponBtn {
-                        text-transform: initial;
-                    }
+                .couponBtn {
+                    text-transform: initial !important;
                 }
             }
         }
