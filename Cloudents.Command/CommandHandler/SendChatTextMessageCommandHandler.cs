@@ -11,13 +11,15 @@ namespace Cloudents.Command.CommandHandler
     {
         private readonly IChatRoomRepository _chatRoomRepository;
         private readonly IRegularUserRepository _userRepository;
+        private readonly ITutorRepository _tutorRepository;
 
 
         public SendChatTextMessageCommandHandler(IChatRoomRepository chatRoomRepository,
-            IRegularUserRepository userRepository)
+            IRegularUserRepository userRepository, ITutorRepository tutorRepository)
         {
             _chatRoomRepository = chatRoomRepository;
             _userRepository = userRepository;
+            _tutorRepository = tutorRepository;
         }
 
         public async Task ExecuteAsync(SendChatTextMessageCommand message, CancellationToken token)
@@ -30,15 +32,16 @@ namespace Cloudents.Command.CommandHandler
                 if (chatRoom == null)
                 {
                     var users = ChatRoom.IdentifierToUserIds(message.Identifier);
-                    chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, token);
+                    var tutor = await _tutorRepository.LoadAsync(message.TutorId!.Value, token);
+                    chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, tutor, token);
                 }
 
             }
-            if (chatRoom == null && message.ToUsersId.HasValue)
-            {
-                var users2 = new[] { message.ToUsersId.Value, message.UserSendingId };
-                chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users2, token);
-            }
+            //if (chatRoom == null && message.ToUsersId.HasValue)
+            //{
+            //    var users2 = new[] { message.ToUsersId.Value, message.UserSendingId };
+            //    chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users2, token);
+            //}
             if (chatRoom == null)
             {
                 throw new ArgumentException("Cant create new chat message");

@@ -57,6 +57,16 @@ namespace Cloudents.Core.Entities
             return string.Join("_", userIdsList);
         }
 
+        public static string BuildChatRoomIdentifier(params long[] userIds)
+        {
+            var userIdsList = userIds.Distinct().OrderBy(o => o).ToList();
+            if (userIdsList.Count == 1)
+            {
+                throw new ArgumentException("need more then one participant");
+            }
+            return string.Join("_", userIdsList);
+        }
+
         public static IEnumerable<long> IdentifierToUserIds(string identifier)
         {
             return identifier.Split("_").Select(long.Parse);
