@@ -5,7 +5,7 @@
             <div class="subTitle text-truncate" v-t="{path: 'profile_subscribe_subtitle', args: {0: firstName}}"></div>
 
             <div class="priceWrapper mt-8 mb-2">
-                <span class="price">{{$n(subscriptionAmount, 'currency', 'en-US')}}</span>
+                <span class="price">{{$n(subscriptionAmount, {'style':'currency','currency': subscriptionCurrency, minimumFractionDigits: 0})}}</span>
                 <span v-t="'profile_subscribe_price_month'"></span>
             </div>
 
@@ -17,7 +17,6 @@
         </div>
     </div>
 </template>
-
 <script>
 export default {
     name: 'profileSubscription',
@@ -30,6 +29,9 @@ export default {
         subscriptionAmount() {
             //TODO - you are not doing it right
             return this.profileTutorSubscription?.amount
+        },
+        subscriptionCurrency() {
+            return this.profileTutorSubscription?.currency
         },
         profileTutorSubscription() {
             return this.$store.getters?.getProfileTutorSubscription
