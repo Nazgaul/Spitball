@@ -89,6 +89,10 @@ const mutations = {
             // add a properly this way allow the computed to be fired!
             state.messages = { ...state.messages, [id]:[] };
         }
+        let isMsgAlreadyExists = state.messages[id].find(m=>m.dateTime == message.dateTime)
+        if(isMsgAlreadyExists){
+            return ;
+        }
         state.messages[id].push(message);
         if(message.type === 'text'){
             state.conversations[id].lastMessage = message.text;
