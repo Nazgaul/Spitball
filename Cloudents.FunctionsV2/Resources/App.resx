@@ -134,7 +134,7 @@
 Click on the link to read your message {{link}}</value>
   </data>
   <data name="unread_message_email" xml:space="preserve">
-    <value>You have a new message from your {0} on Spitball. 
+    <value>Someone has sent you a message on Spitball. 
 &lt;br&gt;
 Click on the &lt;a href="{{link}}"&gt;link&lt;/a&gt; to read your message</value>
   </data>
