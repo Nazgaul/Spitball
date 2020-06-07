@@ -17,7 +17,8 @@
                             maxRetries: 5,
                             finishBody : {
                             OtherUser: otherUserId,
-                            conversationId:conversationId
+                            conversationId:conversationId,
+                            tutorId: conversationTutorId
                         }}"
                         id="chat-image"
                         :input-id="componentUniqueIdImage"
@@ -42,7 +43,8 @@
                         maxRetries: 5,
                         finishBody : {
                         OtherUser: otherUserId,
-                        conversationId:conversationId
+                        conversationId:conversationId,
+                        tutorId: conversationTutorId
                     }}"
                     id="file-input"
                     :input-id="componentUniqueIdFile"
@@ -144,11 +146,11 @@
                 let formData = new FormData();
 
                 formData.append("file", file);
-                formData.append('otherUser', this.otherUserId)
                 formData.append('conversationId', this.conversationId)
+                let tutorId = this.conversationTutorId
+                formData.append('tutorId', tutorId)
 
                 this.uploadCapturedImage(formData).then(()=> {
-                    
                 }).catch(() => {
                     this.updateFileError(true)
                 }).finally(() => {
@@ -157,13 +159,16 @@
             }
         },
         computed:{
-            ...mapGetters(['getActiveConversationObj']),
+            ...mapGetters(['getActiveConversationObj','getIsActiveConversationTutor']),
             conversationId(){
                 return this.getActiveConversationObj.conversationId
             },
             otherUserId(){
                 return this.getActiveConversationObj.userId
-            }
+            },
+            conversationTutorId(){
+                return this.getIsActiveConversationTutor(this.conversationId)?.id
+            },
         }
     }
 </script>
