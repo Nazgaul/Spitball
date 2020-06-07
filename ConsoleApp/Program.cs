@@ -61,7 +61,7 @@ namespace ConsoleApp
                         SiteEndPoint = { SpitballSite = "https://dev.spitball.co", FunctionSite = "https://spitball-function.azureedge.net" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                             ConfigurationManager.AppSettings["Redis"],
-                            DbConnectionString.DataBaseIntegration.Update),
+                            DbConnectionString.DataBaseIntegration.None),
                         Search = new SearchServiceCredentials(
 
                             ConfigurationManager.AppSettings["AzureSearchServiceName"],
@@ -160,13 +160,14 @@ namespace ConsoleApp
                 var x = studyRoom.Sessions.FirstOrDefault();
                 if (x != null)
                 {
-                    if (x.Price.HasValue)
-                    {
-                        studyRoom.SetPrice(x.Price.Value);
-                        session.Flush();
-                        await uow.CommitAsync();
-                        continue;
-                    }
+                    //TODO
+                    //if (x.Price.HasValue)
+                    //{
+                    //    studyRoom.SetPrice(x.Price.Value);
+                    //    session.Flush();
+                    //    await uow.CommitAsync();
+                    //    continue;
+                    //}
 
                 }
 
