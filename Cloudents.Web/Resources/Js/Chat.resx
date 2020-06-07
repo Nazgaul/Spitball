@@ -193,9 +193,9 @@
     <value>Hi, I’m {0}</value>
   </data>
   <data name="whatsapp_default" xml:space="preserve">
-    <value>elad put resx here</value>
+    <value>Send Whatsapp message</value>
   </data>
   <data name="teacher_btn_studyroom_create" xml:space="preserve">
-    <value>elad put resx here</value>
+    <value>Create new study room</value>
   </data>
 </root>
