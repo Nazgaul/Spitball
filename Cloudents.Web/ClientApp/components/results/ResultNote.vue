@@ -73,7 +73,7 @@
           <div class="overlay text-center px-2 px-sm-5" v-if="isSubscribed && isPreviewReady">
               <div class="unlockText white--text mb-3" v-t="subscribeText"></div>
               <v-btn class="btn" color="#fff" @click.prevent="subscribe" rounded block>
-                <span v-t="{path: subscribeBtnText, args: { 0: $n(subscribedPrice, 'currency', 'en-US') }}"></span>
+                <span v-t="{path: subscribeBtnText, args: { 0: $n(subscribedPrice, {'style':'currency','currency': 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0}) }}"></span>
               </v-btn>
           </div>
         </div>

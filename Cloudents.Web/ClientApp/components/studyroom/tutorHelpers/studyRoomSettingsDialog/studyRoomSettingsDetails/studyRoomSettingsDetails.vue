@@ -158,9 +158,13 @@ export default {
         roomName() {
             return this.$store.getters?.getRoomName
         },
+        currencySymbol() {
+            return this.$store.getters.accountUser?.currencySymbol
+        },
         roomPrice(){
             if(this.roomTutor?.tutorPrice){
-                return this.$n(this.roomTutor.tutorPrice, 'currency')
+                // TODO: Currency Change
+                return this.$n(this.roomTutor.tutorPrice, {'style':'currency','currency': this.currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})
             }else{
                 return this.$t('studyRoomSettings_free')
             }

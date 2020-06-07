@@ -241,10 +241,10 @@ export default {
             return this.getDocumentPriceTypeFree
         },
         unlockDocumentBtnText() {
-         return this.isFree || this.getDocumentPriceTypeHasPrice ? 'documentPage_unlock_document_btn' : {path: 'documentPage_unlock_document_btn_subscribe', args: {0: this.$n(this.getDocumentPrice,'currency', 'en')}}
+         return this.isFree || this.getDocumentPriceTypeHasPrice ? 'documentPage_unlock_document_btn' : {path: 'documentPage_unlock_document_btn_subscribe', args: {0: this.$n(this.getDocumentPrice,{'style':'currency', 'currency': 'USD', minimumFractionDigits: 0})}}
         },
         unlockVideoBtnText() {
-            return this.isFree || this.getDocumentPriceTypeHasPrice ? 'documentPage_unlock_video_btn' : {path: 'documentPage_unlock_video_btn_subscribe', args: {0: this.$n(this.getDocumentPrice,'currency', 'en')}}
+            return this.isFree || this.getDocumentPriceTypeHasPrice ? 'documentPage_unlock_video_btn' : {path: 'documentPage_unlock_video_btn_subscribe', args: {0: this.$n(this.getDocumentPrice,{'style':'currency', 'currency': 'USD', minimumFractionDigits: 0})}}
         },
         shareContentParams(){
             let urlLink = `${global.location.origin}/d/${this.$route.params.id}?t=${Date.now()}` ;

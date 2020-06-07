@@ -7,7 +7,8 @@
             <div class="overlay text-center px-8" v-if="isSubscribed && !isLearnRoute">
                 <div class="unlockText white--text mb-3" v-t="subscribeText"></div>
                 <v-btn class="btn" color="#fff" rounded block @click.prevent="goSubscription">
-                    <span v-t="{path: subscribeBtnText, args: { 0: $n(subscribedPrice, 'currency', 'en-US') }}"></span>
+                    <!-- TODO: Currency Change -->
+                    <span v-t="{path: subscribeBtnText, args: { 0: $n(subscribedPrice, {'style':'currency','currency': 'USD', minimumFractionDigits: 0}) }}"></span>
                 </v-btn>
             </div>
         </div>
