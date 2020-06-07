@@ -301,7 +301,6 @@ const actions = {
         let messageObj = {
             tutorId: currentConversationTutorId,
             message: message,
-            otherUser: state.activeConversationObj.userId,
             conversationId: state.activeConversationObj.conversationId
         };
         chatService.sendChatMessage(messageObj);

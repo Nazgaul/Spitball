@@ -16,7 +16,6 @@
                             minSize: 1,
                             maxRetries: 5,
                             finishBody : {
-                            OtherUser: otherUserId,
                             conversationId:conversationId,
                             tutorId: conversationTutorId
                         }}"
@@ -42,7 +41,6 @@
                         minSize: 1,
                         maxRetries: 5,
                         finishBody : {
-                        OtherUser: otherUserId,
                         conversationId:conversationId,
                         tutorId: conversationTutorId
                     }}"
@@ -162,9 +160,6 @@
             ...mapGetters(['getActiveConversationObj','getIsActiveConversationTutor']),
             conversationId(){
                 return this.getActiveConversationObj.conversationId
-            },
-            otherUserId(){
-                return this.getActiveConversationObj.userId
             },
             conversationTutorId(){
                 return this.getIsActiveConversationTutor(this.conversationId)?.id
