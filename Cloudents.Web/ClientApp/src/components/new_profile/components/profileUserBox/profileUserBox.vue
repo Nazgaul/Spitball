@@ -37,15 +37,19 @@
                             </div>
                         </div>
                     </div>
-                    <!-- :class="[!currentProfileUser.isTutor ? 'mt-sm-n0' : 'mt-sm-n4']" -->
+
                     <!-- Rate And Follower -->
                     <div class="rateWrap d-flex my-2 justify-center justify-sm-start">
                         <template v-if="currentProfileUser.isTutor">
                             <div  class="pUb_dS_c_rating">
-                                  <v-rating  v-model="currentProfileTutor.rate" color="#ffca54" background-color="#ffca54"
-                                        :length="currentProfileTutor.reviewCount > 0  ? 5 : 1"
-                                            :size="18" readonly />
-                                    <span  span @click="scrollToReviews" class="pUb_dS_c_r_span ml-1">{{$tc('resultTutor_review_one',currentProfileTutor.reviewCount)}}</span>
+                                <v-rating
+                                    v-model="currentProfileTutor.rate"
+                                    color="#ffca54"
+                                    background-color="#ffca54"
+                                    :length="currentProfileTutor.reviewCount > 0  ? 5 : 1"
+                                    :size="18" readonly
+                                />
+                                <span  span @click="scrollToReviews" class="pUb_dS_c_r_span ml-1">{{$tc('resultTutor_review_one',currentProfileTutor.reviewCount)}}</span>
                             </div>
                         </template>
                         <div class="ml-3">
@@ -53,26 +57,15 @@
                         </div>
                     </div>
 
-                    <!-- courses teacher -->
-                    <div sel="teach_courses" class="course mt-sm-3 mb-sm-3 mt-2 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
-                        <bdi class="iTeach mr-1" v-t="'profile_my_courses_teacher'"></bdi>
-                        <span class="courseName text-truncate">{{currentProfileUser.coursesString}}</span>
-                    </div>
-
                     <!-- TUTOR BIO -->
-                    <div class="userBio mb-5 mb-sm-0 mr-sm-2" v-if="currentProfileTutor.bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}
-                        <div v-if="isOpen" class="my-4">
-                            <div class="course mb-1 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
-                                <bdi class="iTeach mr-1" v-t="'profile_my_courses'"></bdi>
-                                <span class="courseName text-truncate">{{currentProfileUser.coursesString}}</span>
-                            </div>
-                            <div class="course text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
-                                <bdi class="iTeach mr-1" v-t="'profile_my_subjects'"></bdi>
-                                <span class="courseName text-truncate">{{currentProfileTutor.subjects.toString().replace(/,/g, ", ")}}</span>
-                            </div>
+                    <div class="userBio my-4 mb-sm-0 me-sm-2">
+                        <div class="userDescriptionText mb-3" v-if="currentProfileTutor.description">
+                            <div>{{currentProfileTutor.description | truncate(isOpen, '...', textLimit)}}</div>
+                            <div class="d-none">{{currentProfileTutor.description | restOfText(isOpen, '...', textLimit)}}</div>
                         </div>
-                        <div class="d-none">
-                            <div>{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</div>
+                        <div class="userBioText mb-2" v-if="currentProfileTutor.bio">
+                            <div>{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}</div>
+                            <div class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</div>
                         </div>
                         <span sel="bio_more" @click="isOpen = !isOpen" class="readMore" v-t="isOpen ? 'profile_read_less' : 'profile_read_more'"></span>
                     </div>
@@ -198,7 +191,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getProfile','accountUser','getUserStatus', 'getUserLoggedInStatus', 'getIsTeacher']),
+        ...mapGetters(['getProfile','accountUser','getUserStatus', 'getUserLoggedInStatus']),
         isLogged() {
             return this.getUserLoggedInStatus
         },
@@ -223,7 +216,7 @@ export default {
             return this.getUserStatus[this.currentProfileUser.id] || false;
         },
         textLimit(){
-            return this.isMobile ? 140 : 200;
+            return this.isMobile ? 76 : 130;
         },
         isOpen :{
             get(){
@@ -240,18 +233,18 @@ export default {
                 return false;
             }
         },
-        isDiscount() {
-            return !!this.getProfile && (this.getProfile.user.tutorData.discountPrice || this.getProfile.user.tutorData.discountPrice === 0)
-        },
-        tutorDiscountPrice() {
-            return !!this.getProfile && this.getProfile.user.tutorData.discountPrice ? this.getProfile.user.tutorData.discountPrice : null;
-        },
-        tutorPrice() {
-            if (this.getProfile.user?.tutorData) {
-                return this.getProfile.user.tutorData.price;
-            }
-            return 0;
-        },
+        // isDiscount() {
+        //     return !!this.getProfile && (this.getProfile.user.tutorData.discountPrice || this.getProfile.user.tutorData.discountPrice === 0)
+        // },
+        // tutorDiscountPrice() {
+        //     return !!this.getProfile && this.getProfile.user.tutorData.discountPrice ? this.getProfile.user.tutorData.discountPrice : null;
+        // },
+        // tutorPrice() {
+        //     if (this.getProfile.user?.tutorData) {
+        //         return this.getProfile.user.tutorData.price;
+        //     }
+        //     return 0;
+        // },
         calendarBtnResource() {
             return this.isCurrentProfileUser ? 'profile_my_book_session' : 'profile_book_session'
         }
@@ -304,7 +297,6 @@ export default {
 @import '../../../../styles/mixin.less';
 .profileUserBox {
     max-width: 762px;
-    // width: 100%;
     margin: 0 auto;
     border-radius: 8px;
     box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.38);
@@ -319,9 +311,7 @@ export default {
     .profileUserBox_top{
         margin-bottom: 20px;
         @media (max-width: @screen-xs) {
-            // justify-content: center;
             justify-content: flex-start;
-            // height: 126px;
             position: relative;
             margin: -100px 0 16px 0;
         }
@@ -386,9 +376,9 @@ export default {
                 .responsive-property(font-size, 16px, null, 14px);
             }
             .rateWrap {
-                @media (max-width: @screen-xs) {
-                    order: 1;
-                }
+                // @media (max-width: @screen-xs) {
+                //     order: 1;
+                // }
                 .pUb_dS_c_rating{
                     display: inline-flex;
                     align-items: center;
@@ -422,23 +412,23 @@ export default {
             .userBio {
                 line-height: 1.64;
                 font-weight: normal; // html h4 
-                @media (max-width: @screen-xs) {
-                    order: 1;
-                }
+                // @media (max-width: @screen-xs) {
+                //     order: 1;
+                // }
                 .readMore {
                     color: #43425d;
                     font-weight: 600;
                     cursor: pointer;
                 }
-                .course {
-                    font-weight: 600;
-                    font-size: 14px;
+                // .course {
+                //     font-weight: 600;
+                //     font-size: 14px;
 
-                    .courseName {
-                        font-weight: normal;
-                    }
-                    // .responsive-property(font-size, 16px, null, 14px);
-                }
+                //     .courseName {
+                //         font-weight: normal;
+                //     }
+                //     // .responsive-property(font-size, 16px, null, 14px);
+                // }
             }
         }
         .calendarBtnWrap {
