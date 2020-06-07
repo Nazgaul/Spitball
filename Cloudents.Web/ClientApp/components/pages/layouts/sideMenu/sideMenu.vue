@@ -97,7 +97,7 @@ export default {
       drawer: false,
       dashboardList: {
         myDashboard:{name: this.$t('schoolBlock_dashboard'), route: routeNames.Dashboard, icon:'sbf-dashboard-sideMenu', sel:'sidemenu_dashboard_overview'},
-        myQuestionsItem:{name: this.$t('schoolBlock_my_Questions'), route:'myQuestions', icon:'sbf-my-questions', sel:'sidemenu_dashboard_opportunities'},
+        myQuestionsItem:{name: this.$t('schoolBlock_my_Questions'), route: routeNames.Feed, icon:'sbf-my-questions', sel:'sidemenu_dashboard_opportunities'},
         myMarketingTools:{name: this.$t('schoolBlock_my_marketing'), route: routeNames.Marketing, icon:'sbf-myMarketing', sel:'sidemenu_settings_myMarketing'},
         myFollowersItem:{name: this.$t('schoolBlock_my_followers'), route: routeNames.MyFollowers, icon:'sbf-follow', sel:'sidemenu_dashboard_myFollowers'},
         mySessions:{name: this.$t('schoolBlock_private_session'), route: routeNames.MyStudyRooms, icon:'sbf-studyroom-icon', sel:''},
@@ -156,17 +156,17 @@ export default {
         this.isMiniSideMenuState = false
         return
       }
-      if(name === "myQuestions"){
+      if(name === routeNames.Feed){
         this.$router.push({name: routeNames.Feed,query:{filter:feedFilters.Question}})
         return
       }
       this.$router.push({name})
     },
     currentPageChecker(pathName){
-        let isMyQuestions = (this.$route.name === routeNames.Feed && this.$route.query?.filter === feedFilters.Question)
-        if(pathName === 'myQuestions' && isMyQuestions){
-          return true;
-        }
+        // let isMyQuestions = (this.$route.name === routeNames.Feed && this.$route.query?.filter === feedFilters.Question)
+        // if(pathName === 'myQuestions' && isMyQuestions){
+        //   return true;
+        // }
         if(pathName.toLowerCase().includes('course') && this.$route.path.includes('courses')){
           return true;
         }
