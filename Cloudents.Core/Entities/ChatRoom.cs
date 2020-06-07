@@ -20,12 +20,14 @@ namespace Cloudents.Core.Entities
             UpdateTime = DateTime.UtcNow;
         }
 
-        public ChatRoom(IList<User> users)
+        public ChatRoom(IList<User> users, Tutor tutor)
         {
             foreach (var user in users)
             {
                 user.AddFollowers(users);
             }
+
+            Tutor = tutor;
             Users = new HashSet<ChatUser>(users.Select(s => new ChatUser(this, s)));
             Identifier = BuildChatRoomIdentifier(users.Select(s => s.Id));
             Messages = new List<ChatMessage>();
@@ -37,14 +39,25 @@ namespace Cloudents.Core.Entities
         {
             return new ChatRoom
             {
+                Tutor = studyRoom.Tutor,
                 Identifier = studyRoom.Identifier,
                 StudyRoom = studyRoom
             };
         }
 
-
+        public virtual Tutor Tutor { get; set; }
 
         public static string BuildChatRoomIdentifier(IEnumerable<long> userIds)
+        {
+            var userIdsList = userIds.Distinct().OrderBy(o => o).ToList();
+            if (userIdsList.Count == 1)
+            {
+                throw new ArgumentException("need more then one participant");
+            }
+            return string.Join("_", userIdsList);
+        }
+
+        public static string BuildChatRoomIdentifier(params long[] userIds)
         {
             var userIdsList = userIds.Distinct().OrderBy(o => o).ToList();
             if (userIdsList.Count == 1)

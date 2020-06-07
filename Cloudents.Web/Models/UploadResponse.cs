@@ -78,6 +78,8 @@ namespace Cloudents.Web.Models
     {
         public long OtherUser { get; set; }
 
+        public long? TutorId { get; set; }
+
         public string ConversationId { get; set; }
     }
 
