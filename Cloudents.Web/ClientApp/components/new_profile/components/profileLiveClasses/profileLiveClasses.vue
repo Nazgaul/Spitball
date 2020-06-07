@@ -63,7 +63,8 @@
                                     </v-col>
                                     <v-col class="pa-0">
                                         <div class="px-3 py-2 d-flex align-center" v-if="session.price">
-                                            <span class="numericPrice mb-1">{{$n(session.price, 'currency')}}</span>
+                                            <!-- TODO: Currency Change -->
+                                            <span class="numericPrice mb-1">{{$n(session.price, {'style':'currency','currency': accountCurrency, minimumFractionDigits: 0, maximumFractionDigits: 0})}}</span>
                                             <div class="d-flex align-end">
                                                 <span>/</span>
                                                 <span class="hour" v-t="'profile_points_hour'"></span>
@@ -88,7 +89,8 @@
                     <template v-else>
                         <v-col cols="4" class="pa-0 rowCol" :class="{'enroll': session.enrolled}">
                             <div class="d-flex align-center" v-if="session.price">
-                                <span class="numericPrice mb-1">{{$n(session.price, 'currency')}}</span>
+                                <!-- TODO: Currency Change -->
+                                <span class="numericPrice mb-1">{{$n(session.price, {'style':'currency','currency': accountCurrency, minimumFractionDigits: 0, maximumFractionDigits: 0})}}</span>
                                 <div class="d-flex align-end">
                                     <span>/</span>
                                     <span class="hour" v-t="'profile_points_hour'"></span>
@@ -195,6 +197,9 @@ export default {
         },
         tutorFirstName() {
             return this.$store.getters.getProfile?.user?.firstName
+        },
+        accountCurrency() {
+            return this.$store.getters.accountUser?.currencySymbol
         },
         isMyProfile(){
             let accountId = this.$store.getters?.accountUser?.id

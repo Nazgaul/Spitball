@@ -61,13 +61,15 @@
                             <div v-t="'teacherApproval_coupon_discount'"></div>
                         </td>
                         <td class="pb-4">
-                            <div class="pl-2">- {{$n(session.couponValue, 'currency')}} ({{session.couponCode}})</div>
+                            <!-- TODO: Currency Change -->
+                            <div class="pl-2">- {{$n(session.couponValue, {'style':'currency','currency': currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})}} ({{session.couponCode}})</div>
                         </td>
                     </tr>
 
                     <tr class="bordeTop font-weight-bold">
                         <td class="pt-4"><div class="totalText" v-t="'teacherApproval_total_session'"></div></td>
-                        <td class="pt-4 pl-2"><div class="totalNumber">{{$n(totalPrice, 'currency')}}</div></td>
+                        <!-- TODO: Currency Change -->
+                        <td class="pt-4 pl-2"><div class="totalNumber">{{$n(totalPrice, {'style':'currency','currency': currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})}}</div></td>
                     </tr>
                 </table>
             </div>
@@ -111,6 +113,9 @@ export default {
         }
     },
     computed: {
+        currencySymbol() {
+            return this.$store.getters.accountUser?.currencySymbol
+        },
         formatDate() {
             if(this.session.date) {
                 return this.$d(new Date(this.session.date))
