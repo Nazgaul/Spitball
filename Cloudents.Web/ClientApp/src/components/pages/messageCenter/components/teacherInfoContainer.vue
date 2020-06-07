@@ -118,7 +118,7 @@ export default {
          global.open(routeData.href, "_blank");
       },
       createStudyRoom(){
-         this.$store.commit('setComponent', 'createPrivateSession')
+         this.$router.push({name:routeNames.MyStudyRooms})
       },
       sendWhatsApp(){
          let phoneNumber = this.currentTutor.phoneNumber.replace('+','')
