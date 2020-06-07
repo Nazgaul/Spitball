@@ -2,6 +2,8 @@
     <div class="messages-container">
         <v-layout column class="messages-wrapper">
             <div class="messages-body">
+            <v-skeleton-loader v-if="showSkeleton" height="94" width="70%" type="list-item-two-line">
+            </v-skeleton-loader>
                 <message :message="{...singleMessage, isLastMessage:index === messages.length - 1}" v-for="(singleMessage, index) in messages" :key="index"></message>
             </div>
             <span class="error-file-span" v-if="fileError" v-language:inner="'chat_file_error'"></span>
@@ -42,10 +44,14 @@ export default {
     },
     computed:{
         ...mapGetters(['getMessages', 'getChatLoader', 'getIsSignalRConnected','getFileError']),
+        showSkeleton(){
+            return typeof this.$store.getters.getMessages == 'undefined';
+        },
         fileError(){
             return this.getFileError
         },
         messages(){
+            if(!Array.isArray(this.getMessages)) return [];
             this.scrollToEnd();
             if(this.getMessages?.length){
                 return this.getMessages;
