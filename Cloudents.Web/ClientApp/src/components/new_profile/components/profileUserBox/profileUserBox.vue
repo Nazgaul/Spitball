@@ -31,6 +31,9 @@
                                 <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" v-if="currentProfileUser.isTutor" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
                             </template>
                             <div v-else>
+                                <v-btn @click="openEditInfo" v-ripple="false" icon text v-if="isCurrentProfileUser && !currentProfileUser.isTutor">
+                                    <editSVG class="mr-1" />
+                                </v-btn>
                                 <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="isCurrentProfileUser && !currentProfileUser.isTutor">
                                     <editSVG class="mr-1" />
                                 </v-btn>
