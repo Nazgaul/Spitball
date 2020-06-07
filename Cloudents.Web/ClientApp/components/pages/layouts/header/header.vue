@@ -27,16 +27,17 @@
                         </template>
                         <span v-language:inner="'header_tooltip_help'"/>
                     </v-tooltip>
-                    
-                    <v-tooltip bottom v-if="loggedIn">
-                        <template v-slot:activator="{on}">
-                            <div v-on="on" class="gH_i_r_chat">
-                                <chatIcon class="gH_i_r_chat_i" @click="openChatWindow"/>
-                                <span @click="openChatWindow" class="unread_circle_nav" v-show="totalUnread > 0" :class="[totalUnread > 9 ? 'longer_nav' :'']">{{totalUnread}}</span>
-                            </div>
-                        </template>
-                        <span v-language:inner="'header_tooltip_chat'"/>
-                    </v-tooltip>
+                    <template v-if="Object.keys($store.getters.getConversations).length">
+                        <v-tooltip bottom v-if="loggedIn">
+                            <template v-slot:activator="{on}">
+                                <div v-on="on" class="gH_i_r_chat">
+                                    <chatIcon class="gH_i_r_chat_i" @click="openChatWindow"/>
+                                    <span @click="openChatWindow" class="unread_circle_nav" v-show="totalUnread > 0" :class="[totalUnread > 9 ? 'longer_nav' :'']">{{totalUnread}}</span>
+                                </div>
+                            </template>
+                            <span v-language:inner="'header_tooltip_chat'"/>
+                        </v-tooltip>
+                    </template>
                 </template>
                 <template v-if="!$vuetify.breakpoint.smAndDown && !loggedIn">
                     <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$store.commit('setComponent', 'login')" v-language:inner="'tutorListLanding_topnav_btn_login'"/>
