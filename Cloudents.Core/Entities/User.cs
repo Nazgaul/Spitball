@@ -88,17 +88,12 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        //public virtual void UseCoupon(Tutor tutor)
-        //{
-        //    var userCoupon = UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id 
-        //                                            && w.UsedAmount < w.Coupon.AmountOfUsePerUser);
-        //    if (userCoupon is null) // we do not check before if user have coupon on that user
-        //    {
-        //        return;
-        //    }
-        //    userCoupon.UsedAmount++;
-        //    AddEvent(new UseCouponEvent(userCoupon));
-        //}
+        public virtual void BecomeTutor()
+        {
+            Tutor = new Tutor(this);
+        }
+
+     
 
 
         public virtual void ApplyCoupon(Coupon coupon, Tutor tutor)
