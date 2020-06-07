@@ -20,11 +20,11 @@
                   <v-icon color="#41c4bc" size="20">sbf-enter-room</v-icon>
                   <div class="actionName" v-t="isStudyRoom?'chat_teacher_btn_studyroom':'chat_teacher_btn_studyroom_create'"/>
                </v-btn>
-               <v-btn v-if="tutorEmail" :href="`mailto:${tutorEmail}`" block depressed text class="actionBox mb-3 cursor-pointer">
+               <v-btn v-if="tutorEmail" target="_blank" :href="`mailto:${tutorEmail}`" block depressed text class="actionBox mb-3 cursor-pointer">
                   <v-icon color="#de5642" size="14">sbf-email-chat</v-icon>
                   <div class="actionName" v-t="'chat_teacher_btn_mail'"/>
                </v-btn>
-               <v-btn v-if="tutorPhoneNumber" block depressed text class="actionBox mb-5 cursor-pointer" @click="sendWhatsApp">
+               <v-btn target="_blank" v-if="tutorPhoneNumber" block depressed text class="actionBox mb-5 cursor-pointer" @click="sendWhatsApp">
                   <v-icon color="#29d367" size="20">sbf-whatsup-share</v-icon>
                   <div class="actionName" v-t="'chat_teacher_btn_whatsapp'"/>
                </v-btn>
@@ -115,7 +115,7 @@ export default {
             }
          }
          let routeData = this.$router.resolve(routeParams);
-         global.open(routeData.href, "_self");
+         global.open(routeData.href, "_blank");
       },
       createStudyRoom(){
          this.$store.commit('setComponent', 'createPrivateSession')
