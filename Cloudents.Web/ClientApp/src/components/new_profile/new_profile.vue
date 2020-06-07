@@ -84,7 +84,7 @@
 import { mapActions, mapGetters } from 'vuex';
 
 import analyticsService from '../../services/analytics.service';
-import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
+// import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
 import storeService from '../../services/store/storeService';
 import couponStore from '../../store/couponStore';
 import chatService from '../../services/chatService.js';
@@ -117,7 +117,7 @@ export default {
         profileSubscription,
         calendarTab,
         cover,
-        sbDialog,
+        // sbDialog,
         shareContent,
     },
     props: {
