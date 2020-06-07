@@ -19,12 +19,15 @@
                 <div class="detailsWrap d-flex d-sm-block">
                     <div class="d-flex justify-space-between text-center text-sm-left">
                         <h1  sel="username_title" class="userName text-truncate mr-sm-2">
-                            <span v-if="currentProfileUser.isTutor" class="mr-1" v-t="'profile_tutor'"></span>
+                            <!-- <span v-if="currentProfileUser.isTutor" class="mr-1" v-t="'profile_tutor'"></span> -->
                             <span>{{currentProfileUser.name}}</span>
                         </h1>
 
-                        <div class="profileUserSticky_pricing text-center" v-if="!isMobile">
+                        <div class="profileUserSticky_pricing flex-shrink-0 text-center" v-if="!isMobile">
                             <template v-if="currentProfileUser.isTutor">
+                                <v-btn class="mr-10" @click="openEditInfo" v-ripple="false" icon text v-if="isCurrentProfileUser && currentProfileUser.isTutor">
+                                    <editSVG />
+                                </v-btn>
                                 <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" v-if="currentProfileUser.isTutor" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
                             </template>
                             <div v-else>
@@ -51,7 +54,7 @@
                     </div>
 
                     <!-- courses teacher -->
-                    <div sel="teach_courses" class="course mt-sm-3 mb-sm-3 mt-2 mb-3 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
+                    <div sel="teach_courses" class="course mt-sm-3 mb-sm-3 mt-2 text-truncate text-center text-sm-left" v-if="currentProfileUser.isTutor && currentProfileUser.courses.length">
                         <bdi class="iTeach mr-1" v-t="'profile_my_courses_teacher'"></bdi>
                         <span class="courseName text-truncate">{{currentProfileUser.coursesString}}</span>
                     </div>
@@ -100,7 +103,7 @@
                         <div class="profileUserSticky_btn_txt" v-t="'profile_send_message'"/>
                     </v-btn>
                     <div class="calendarBtnWrap align-center align-sm-end" :class="{'ml-3': !getProfile.user.calendarShared}">
-                        <editSVG sel="edit" class="pUb_edit_user mr-1" v-if="isCurrentProfileUser && !isMobile" @click="openEditInfo"/>
+                        <!-- <editSVG sel="edit" class="pUb_edit_user mr-1" v-if="isCurrentProfileUser && !isMobile" @click="openEditInfo"/> -->
                         <v-btn
                             @click="globalFunctions.openCalendar"
                             class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-sm-2 mt-4"
@@ -375,7 +378,7 @@ export default {
             .userName{
                 .responsive-property(font-size, 24px, null, 22px);
                 font-weight: 600;
-                //width: 100%;
+                width: 100%;
                 flex-grow: 1;
             }
             .course {
