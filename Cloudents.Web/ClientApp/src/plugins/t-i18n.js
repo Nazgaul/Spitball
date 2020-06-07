@@ -141,7 +141,6 @@ const loadedLanguages = [] // our default language that is preloaded
 // }
 
 export async function loadLanguageAsync() {
-  debugger;
   let lang = `${global.lang}-${global.country}`;
   // eslint-disable-next-line no-constant-condition
   while (true) {
