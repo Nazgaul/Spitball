@@ -68,8 +68,10 @@ const mutations = {
         state.conversationsTutor = { ...state.conversationsTutor, [currentConversationId]:tutorInfo};
     },
     [chat_SETTERS.ADD_CONVERSATION_STUDYROOM]:(state,{conversationId,studyRoomId}) =>{
-        state.conversationsTutor[conversationId].studyRoomId = studyRoomId;
-        state.conversationsTutor = {...state.conversationsTutor}
+        if(state.conversationsTutor[conversationId]){
+            state.conversationsTutor[conversationId].studyRoomId = studyRoomId;
+            state.conversationsTutor = {...state.conversationsTutor}
+        }
     },
     setFileError(state,val){
         state.fileError = val;
