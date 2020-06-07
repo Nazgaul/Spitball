@@ -200,7 +200,7 @@ export default {
 
 .menuList {
   width: 280px;
-  padding: 0 0 18px;
+  padding: 0 0 18px !important;
   @media (max-width: @screen-xs) {
     padding-top: 0;
   }
