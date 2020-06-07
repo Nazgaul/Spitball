@@ -26,8 +26,8 @@
                         <div class="profileUserSticky_pricing text-center" v-if="!isMobile">
                             <template v-if="currentProfileUser.isTutor">
                              
-                                {{$n(50, {'style':'currency','currency': 'ILS'})}}
-                                {{$n(50, 'currency')}}
+                                <!-- {{$n(50, {'style':'currency','currency': 'ILS'})}}
+                                {{$n(50, 'currency')}} -->
                                 <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" v-if="currentProfileUser.isTutor" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
                             </template>
                             <div v-else>

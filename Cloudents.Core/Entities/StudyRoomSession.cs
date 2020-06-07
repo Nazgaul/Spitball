@@ -62,7 +62,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
 
-            var pricePerHour = StudyRoom.Price;
+            var pricePerHour = StudyRoom.OldPrice;
             var isSubscriber = user.Following.FirstOrDefault(w => w.User.Id == StudyRoom.Tutor.Id)?.Subscriber ?? false;
             if (isSubscriber)
             {
@@ -96,7 +96,7 @@ namespace Cloudents.Core.Entities
         {
             Duration = Ended - Created;
            // var tutorPrice = StudyRoom.Tutor.Price.SubsidizedPrice ??
-           Price = ((decimal) Math.Floor(Duration.Value.TotalMinutes) / 60) * StudyRoom.Price;
+           Price = ((decimal) Math.Floor(Duration.Value.TotalMinutes) / 60) * StudyRoom.OldPrice;
         }
 
         [Obsolete]

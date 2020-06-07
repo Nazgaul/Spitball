@@ -28,7 +28,10 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.Users).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse().Cascade.AllDeleteOrphan().AsSet();
 
-            Map(x => x.Price).CustomType(nameof(NHibernateUtil.Currency));
+            Map(x => x.OldPrice).Column("Price").CustomType(nameof(NHibernateUtil.Currency));
+
+            Map(x => x.Price)
+                .CustomType<MoneyCompositeUserType>();
            
             //Map(x => x.StudyRoomType).CustomType<GenericEnumStringType<StudyRoomType>>();
 

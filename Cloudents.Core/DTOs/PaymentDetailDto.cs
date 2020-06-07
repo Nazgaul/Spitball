@@ -5,7 +5,7 @@ namespace Cloudents.Core.DTOs
 {
     public class PaymentDetailDto
     {
-        [EntityBind(nameof(StudyRoom.Price))]
+        [EntityBind(nameof(StudyRoom.OldPrice))]
         public double TutorPricePerHour { get; set; }
         [EntityBind(nameof(Coupon.Code))]
         public string? CouponCode { get; set; }

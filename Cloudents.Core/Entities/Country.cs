@@ -159,6 +159,12 @@ namespace Cloudents.Core.Entities
     public struct Money
 
     {
+        public Money(decimal amount, string currency) : this((double) amount, currency)
+        {
+
+        }
+       
+
         public Money(double amount, string currency)
         {
             Amount = RoundToNearestPenny(amount);

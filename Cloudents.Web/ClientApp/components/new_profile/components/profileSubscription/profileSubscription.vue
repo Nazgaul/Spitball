@@ -28,6 +28,7 @@ export default {
     },
     computed: {
         subscriptionAmount() {
+            //TODO - you are not doing it right
             return this.profileTutorSubscription?.amount
         },
         profileTutorSubscription() {

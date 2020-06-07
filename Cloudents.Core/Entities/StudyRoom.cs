@@ -100,7 +100,7 @@ namespace Cloudents.Core.Entities
           
 
             DateTime = new DomainTimeStamp();
-            Price = price;
+            OldPrice = price;
            
             AddEvent(new StudyRoomCreatedEvent(this));
         }
@@ -144,11 +144,15 @@ namespace Cloudents.Core.Entities
 
         public virtual IEnumerable<StudyRoomSession> Sessions => _sessions;
 
-        public virtual decimal Price { get; protected set; }
+        [Obsolete]
+        public virtual decimal OldPrice { get; protected set; }
 
+       
+        public virtual Money Price { get; protected set; }
         public virtual void SetPrice(decimal price)
         {
-            Price = price;
+            OldPrice = price;
+            Price = new Money(price,Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
         }
 
         public virtual StudyRoomSession? GetCurrentSession()

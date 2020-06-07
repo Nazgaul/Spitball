@@ -61,7 +61,7 @@ namespace ConsoleApp
                         SiteEndPoint = { SpitballSite = "https://dev.spitball.co", FunctionSite = "https://spitball-function.azureedge.net" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                             ConfigurationManager.AppSettings["Redis"],
-                            DbConnectionString.DataBaseIntegration.None),
+                            DbConnectionString.DataBaseIntegration.Update),
                         Search = new SearchServiceCredentials(
 
                             ConfigurationManager.AppSettings["AzureSearchServiceName"],
@@ -151,7 +151,7 @@ namespace ConsoleApp
         {
             var session = Container.Resolve<ISession>();
             var result = session.Query<StudyRoom>()
-                .Where(w => w.Price == null).Select(s => s.Id).ToList();
+                .Where(w => w.OldPrice == null || w.Price == null).Select(s => s.Id).ToList();
 
             foreach (var guid in result)
             {
