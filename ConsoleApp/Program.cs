@@ -188,6 +188,15 @@ namespace ConsoleApp
                 studyRoom.SetPrice(price.Value);
                 await uow.CommitAsync();
             }
+            var result2 = session.Query<StudyRoom>()
+                .Where(w => w.Price == null).Select(s => s.Id).ToList();
+            foreach (var guid in result2)
+            {
+                using var uow = Container.Resolve<IUnitOfWork>();
+                var studyRoom = session.Get<StudyRoom>(guid);
+                studyRoom.SetPrice(studyRoom.OldPrice);
+                await uow.CommitAsync();
+            }
 
         }
 
