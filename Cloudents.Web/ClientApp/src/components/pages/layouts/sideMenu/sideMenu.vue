@@ -1,7 +1,4 @@
 <template>
-      <!-- :value="getShowSchoolBlock"
-      :mini-variant.sync="isMiniSideMenu"
-      @input="updateDrawerValue" -->
     <v-navigation-drawer
       v-model="drawer"
       class="sideMenu"
@@ -19,7 +16,6 @@
     >
 
       <div class="sideMenu_cont">
-        <!-- <div @click="toggleMiniSideMenu" v-if="isMediumAndUp" class="sideMenu_btn"/> -->
           <div @click="isMiniSideMenu = true" v-if="isMediumAndUp && !$vuetify.breakpoint.xsOnly" class="sideMenu_btn"></div>
         
           <v-list class="sideMenu_list_cont" dense>
@@ -41,39 +37,6 @@
                     </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-
-                <!-- <sideMenuListItem
-                  v-for="(val, key) in dashboardList"
-                  @goTo="goTo"
-                  :currentPageChecker="currentPageChecker"
-                  :item="val"
-                  :key="key"
-                /> -->
-
-                <!-- <sideMenuListItem :dashboardProps="propsListDashboard" :item="myDashboard"/> -->
-                <!-- <sideMenuListItem :dashboardProps="propsListDashboard" :item="myQuestionsItem"/> -->
-                <!-- <template v-if="showMyContent"> -->
-                <!-- <sideMenuListItem :dashboardProps="propsListDashboard" :item="myContentItem"/> -->
-                <!-- </template> -->
-                <!-- <sideMenuListItem :dashboardProps="propsListDashboard" :item="myBroadcast"/> -->
-                <!-- <sideMenuListItem :dashboardProps="propsListDashboard" :item="mySessions"/> -->
-
-                <!-- <sideMenuListItem :dashboardProps="propsListDashboard" :item="myStudyRoomsItem"/> -->
-                <!-- <template v-if="showMySales"> -->
-                <!-- <sideMenuListItem :dashboardProps="propsListDashboard" :item="myMarketingTools"/> -->
-                <!-- <sideMenuListItem :dashboardProps="propsListDashboard" :item="mySalesItem"/> -->
-                <!-- </template> -->
-                <!-- <template v-if="showMyFollowers"> -->
-                <!-- <sideMenuListItem :dashboardProps="propsListDashboard" :item="myFollowersItem"/> -->
-                <!-- </template> -->
-                <!-- <template v-if="showMyPurchases"> -->
-                <!-- <sideMenuListItem :dashboardProps="propsListDashboard" :item="myPurchasesItem"/> -->
-                <!-- </template> -->
-
-                <!-- <sideMenuListItem :dashboardProps="propsListDashboard" :item="myProfileItem"/> -->
-                <!-- <sideMenuListItem :dashboardProps="propsListDashboard" :item="myCoursesItem"/>
-                <sideMenuListItem :dashboardProps="propsListDashboard" :item="myCalendarItem"/> -->
-
             </v-list>
         </div>
     </v-navigation-drawer>
@@ -105,6 +68,7 @@ export default {
         myContentItem:{name: this.$t('schoolBlock_my_content'), route: routeNames.MyContent, icon:'sbf-my-content', sel:'sidemenu_dashboard_myContent'},
         mySalesItem:{name: this.$t('schoolBlock_my_sales'), route: routeNames.MySales, icon:'sbf-my-sales', sel:'sidemenu_dashboard_mySales'},
         myPurchasesItem:{name: this.$t('schoolBlock_purchases'), route: routeNames.MyPurchases, icon:'sbf-cart', sel:'sidemenu_dashboard_myPurchases'},
+        myCoupons:{name: this.$t('schoolBlock_coupons'), route: routeNames.MyCoupons, icon:'sbf-cart', sel:'sidemenu_dashboard_myCoupons'},
         // myProfileItem:{name: this.$t('schoolBlock_my_site'), route: routeNames.Profile, icon:'sbf-user', sel:'sidemenu_settings_myProfile'},
         myCoursesItem:{name: this.$t('schoolBlock_courses'), route: routeNames.EditCourse, icon:'sbf-classes-icon', sel:'sidemenu_settings_myCourses'},
         myCalendarItem:{name: this.$t('schoolBlock_calendar'), route: routeNames.MyCalendar, icon:'sbf-calendar', sel:'sidemenu_settings_myCalendar'},
