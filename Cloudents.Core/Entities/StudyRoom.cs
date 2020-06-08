@@ -148,7 +148,7 @@ namespace Cloudents.Core.Entities
         [Obsolete]
         public virtual decimal OldPrice { get; protected set; }
 
-       
+
         public virtual Money Price { get; protected set; }
         public virtual void SetPrice(decimal price)
         {

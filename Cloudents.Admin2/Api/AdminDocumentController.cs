@@ -132,7 +132,7 @@ namespace Cloudents.Admin2.Api
             ([FromServices] IBlobProvider blobProvider, CancellationToken token)
         {
 
-            var query = new FlaggedDocumentQuery(User.GetCountryClaim());
+            var query = new FlaggedDocumentQuery(User.GetSbCountryClaim());
             var retVal = await _queryBus.QueryAsync(query, token);
             var tasks = new Lazy<List<Task>>();
 

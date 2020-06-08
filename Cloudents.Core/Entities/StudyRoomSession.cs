@@ -96,7 +96,7 @@ namespace Cloudents.Core.Entities
         {
             Duration = Ended - Created;
            // var tutorPrice = StudyRoom.Tutor.Price.SubsidizedPrice ??
-           Price = ((decimal) Math.Floor(Duration.Value.TotalMinutes) / 60) * StudyRoom.OldPrice;
+           Price = (decimal)( Math.Floor(Duration.Value.TotalMinutes) / 60 * StudyRoom.Price.Amount);
         }
 
         [Obsolete]
