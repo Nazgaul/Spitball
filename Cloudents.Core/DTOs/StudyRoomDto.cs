@@ -68,6 +68,12 @@ namespace Cloudents.Core.DTOs
         public StudyRoomType Type { get; set; }
     };
 
+    public class StudyRoomSeoDto
+    {
+        public string Name { get; set; }
+        public string TutorName { get; set; }
+        public string Description { get; set; }
+    }
 
 
     public class UserStudyRoomDto
