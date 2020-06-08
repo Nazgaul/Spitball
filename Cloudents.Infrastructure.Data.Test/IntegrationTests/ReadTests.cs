@@ -693,10 +693,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             result.Should().NotBeNull();
         }
 
-        [Fact]
-        public async Task TutorUpcomingBroadcastStudyRoomQuery_Ok()
+        [Theory]
+        [InlineData(638,159039)]
+        [InlineData(160171,159039)]
+        public async Task TutorUpcomingBroadcastStudyRoomQuery_Ok(long tutorId, long userId)
         {
-            var query = new TutorUpcomingBroadcastStudyRoomQuery(638, 159039);
+            var query = new TutorUpcomingBroadcastStudyRoomQuery(tutorId, userId);
             var result = await fixture.QueryBus.QueryAsync(query, default);
         }
 
