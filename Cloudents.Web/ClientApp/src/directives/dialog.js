@@ -8,6 +8,7 @@ function _openDialog(el){
       if (!target) {
          break;
       }
+      
       options = target.options;
       if (options) {
          break;
