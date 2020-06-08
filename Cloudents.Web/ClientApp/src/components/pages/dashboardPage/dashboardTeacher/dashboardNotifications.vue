@@ -1,23 +1,24 @@
 <template>
     <div class="dashboardNotifications pa-5 mb-2 mb-sm-4">
 
-        <div class="topHeader d-flex align-center" :class="{'mb-8': tutorNotifications.length}">
+        <div class="topHeader d-flex align-center mb-8">
             <fillBellIcon class="flex-shrink-0" width="40" />
             <div class="notificationTitle ms-4 text-truncate" v-t="'dashboardTeacher_notification_title'"></div>
         </div>
 
         <router-link 
             class="center py-4 d-flex align-center justify-space-between"
-            v-for="notification in tutorNotifications"
+            tag="div"
+            v-for="notification in notifyItems"
             :key="notification.name"
             :to="{ name: notification.routeName }"
         >
             <div class="notifyWrap d-flex align-center">
                 <div class="blueDot"></div>
                 <bellIcon class="" width="20px" />
-                <div class="notificateText mx-4" v-t="{path: notification.text, args: {0: notification.amount}}"></div>
+                <div class="notificateText mx-4">{{notification.text}}</div>
             </div>
-            <arrowRight width="20" class="arrowRight d-sm-none" /> 
+            <!-- <arrowRight width="20" class="arrowRight d-sm-none" />  -->
         </router-link>
 
     </div>
@@ -29,60 +30,65 @@ import constants from '../../../../store/constants/dashboardConstants'
 
 import fillBellIcon from './images/fillBell.svg'
 import bellIcon from './images/bell.svg'
-import arrowRight from './images/arrow-right-copy-6.svg'
+// import arrowRight from './images/arrow-right-copy-6.svg'
 
 export default {
     name: 'dashboardNotifications',
     components: {
         fillBellIcon,
         bellIcon,
-        arrowRight
+        // arrowRight
     },
     data() {
         return {
-            notifyItems: {
-                [constants.CHAT]: {
-                    text: 'chats your did not reply',
-                    // text: 'dashboardTeacher_notify_chat',
-                    // routeName: routeName.MessageCenter
-                },
-                [constants.BROADCAST]: {
-                    text: 'of students that registered to you live class',
-                    // text: 'dashboardTeacher_notify_broadcast',
-                    // routeName: routeName.MyFollowers
-                },
-                [constants.FOLLOWERS]: {
-                    text: 'of new followers that do not have a chat ',
-                    // text: 'dashboardTeacher_notify_follower',
-                    // routeName: routeName.MyFollowers
-                },
-                [constants.QUESTIONS]: {
-                    text: 'questions that you did not answer',
-                    // text: 'dashboardTeacher_notify_question',
-                    // routeName: routeName.MyContent
-                },
-                [constants.PAYMENTS]: {
-                    text: 'pending payments you did not approve',
-                    // text: 'dashboardTeacher_notify_payments',
-                    // routeName: routeName.MySales
-                }
-            }
+
         }
     },
     computed: {
+        notifyItems() {
+            let notifylist = this.$store.getters.getUserNotifications
+
+            return {
+                [constants.CHAT]: {
+                    text: this.$tc('dashboardTeacher_notify_chat', notifylist[constants.CHAT]),
+                    amount: notifylist[constants.CHAT]
+                    // routeName: routeName.MessageCenter
+                },
+                [constants.BROADCAST]: {
+                    text: this.$tc('dashboardTeacher_notify_broadcast', notifylist[constants.BROADCAST]),
+                    amount: notifylist[constants.BROADCAST]
+                    // routeName: routeName.MyFollowers
+                },
+                [constants.FOLLOWERS]: {
+                    text: this.$tc('dashboardTeacher_notify_follower', notifylist[constants.FOLLOWERS]),
+                    amount: notifylist[constants.FOLLOWERS]
+                    // routeName: routeName.MyFollowers
+                },
+                [constants.QUESTIONS]: {
+                    text: this.$tc('dashboardTeacher_notify_question', notifylist[constants.QUESTIONS]),
+                    amount: notifylist[constants.QUESTIONS]
+                    // routeName: routeName.MyContent
+                },
+                [constants.PAYMENTS]: {
+                    text: this.$tc('dashboardTeacher_notify_payments', notifylist[constants.PAYMENTS]),
+                    amount: notifylist[constants.PAYMENTS]
+                    // routeName: routeName.MySales
+                }
+            }
+        },
         // tutorNotificationsFilterList() {
         //     return this.tutorNotifications.filter(notify => notify.value === true) 
         // },
-        tutorNotifications() {
-            let notifylist = this.$store.getters.getUserNotifications
-            return Object.keys(notifylist).map(notify => {
-                return {
-                    ...this.notifyItems[notify],
-                    amount: notifylist[notify],
-                    name: notify
-                }
-            })
-        }
+        // tutorNotifications() {
+        //     let notifylist = this.$store.getters.getUserNotifications
+        //     return Object.keys(notifylist).map(notify => {
+        //         return {
+        //             ...this.notifyItems[notify],
+        //             amount: notifylist[notify],
+        //             name: notify
+        //         }
+        //     })
+        // }
     },
     created() {
         this.$store.dispatch('updateTutorNotifications')
