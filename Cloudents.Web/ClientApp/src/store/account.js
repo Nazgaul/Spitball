@@ -91,7 +91,6 @@ const actions = {
             );
     },
     logout({ commit }) {
-        debugger;
         //intercomeService.restrartService();
         commit("logout");
         global.location.replace("/logout");
