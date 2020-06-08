@@ -127,7 +127,8 @@ export default {
       },
       createLiveSession() {
          let childComponent = this.$refs.childComponent;
-         let userChooseDate = new Date(`${childComponent.date}T${childComponent.hour}:00`)
+         //let userChooseDate = new Date(`${childComponent.date}T${childComponent.hour}:00`)
+         let userChooseDate =  this.$moment(`${childComponent.date}T${childComponent.hour}:00`).format();         
          let today = new Date()
          if(childComponent.date === today.FormatDateToString()) {
             
@@ -147,8 +148,8 @@ export default {
          }
          return {
             date: userChooseDate,
-            name: childComponent.liveSessionTitle || '',
-            about: childComponent.sessionAboutText || '',
+            name: childComponent.liveSessionTitle,
+            about: childComponent.sessionAboutText,
             price: childComponent.currentVisitorPriceSelect.value === 'free' ? 0 : childComponent.price,
          }
       },
