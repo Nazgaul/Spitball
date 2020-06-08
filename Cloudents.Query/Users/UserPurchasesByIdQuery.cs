@@ -64,28 +64,31 @@ namespace Cloudents.Query.Users
                     .Select(s => new PurchasedSessionDto()
                     {
                         Date = s.Created,
-                        Price = s.Price.GetValueOrDefault(),
+                        _oldPrice = s.Price.GetValueOrDefault(),
                         Duration = s.Duration,
                         TutorName = s.StudyRoom.Tutor.User.Name,
                         TutorId = s.StudyRoom.Tutor.Id,
-                        TutorImage = _urlBuilder.BuildUserImageEndpoint(s.StudyRoom.Tutor.Id, s.StudyRoom.Tutor.User.ImageName, s.StudyRoom.Tutor.User.Name, null)
+                        TutorImage = _urlBuilder.BuildUserImageEndpoint(s.StudyRoom.Tutor.Id,
+                            s.StudyRoom.Tutor.User.ImageName,
+                            s.StudyRoom.Tutor.User.Name, null)
                     }).ToFuture<UserPurchaseDto>();
 
 
-                var newSessionFuture = _session.Query<StudyRoomSessionUser>()
-                    .Fetch(f=>f.StudyRoomSession)
-                    .ThenFetch(f=>f.StudyRoom)
-                    .Where(w=>w.User.Id == query.Id && w.StudyRoomSession.Ended != null)
-                    .Where(w=>w.Duration > StudyRoomSession.BillableStudyRoomSession)
+                var newSessionFuture = _session.Query<StudyRoomPayment>()
+                    .Fetch(f=>f.StudyRoomSessionUser)
+                    //.Fetch(f=>f.StudyRoomSession)
+                    //.ThenFetch(f=>f.StudyRoom)
+                    .Where(w=>w.User.Id == query.Id) // && w.StudyRoomSession.Ended != null)
+                   // .Where(w=>w. > StudyRoomSession.BillableStudyRoomSession)
                     .Select(s => new PurchasedSessionDto()
                     {
-                        Date = s.StudyRoomSession.Created,
-                        Price = s.TotalPrice,
-                        Duration = s.Duration,
-                        TutorName = s.StudyRoomSession.StudyRoom.Tutor.User.Name,
-                        TutorId = s.StudyRoomSession.StudyRoom.Tutor.Id,
-                        TutorImage = _urlBuilder.BuildUserImageEndpoint(s.StudyRoomSession.StudyRoom.Tutor.Id, 
-                            s.StudyRoomSession.StudyRoom.Tutor.User.ImageName, s.StudyRoomSession.StudyRoom.Tutor.User.Name, null)
+                        Date = s.Created,
+                        _price = s.TotalPrice,
+                        Duration = s.TutorApproveTime,
+                        TutorName = s.Tutor.User.Name,
+                        TutorId = s.Tutor.Id,
+                        TutorImage = _urlBuilder.BuildUserImageEndpoint(s.Tutor.Id, 
+                            s.User.ImageName, s.Tutor.User.Name, null)
                     }).ToFuture<UserPurchaseDto>();
 
 
