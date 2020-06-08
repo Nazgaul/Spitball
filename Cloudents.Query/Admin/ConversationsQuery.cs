@@ -39,9 +39,9 @@ namespace Cloudents.Query.Admin
             private readonly IStatelessSession _statelessSession;
 
 
-            public AllConversationsQueryHandler(QuerySession statelessSession)
+            public AllConversationsQueryHandler(IStatelessSession statelessSession)
             {
-                _statelessSession = statelessSession.StatelessSession;
+                _statelessSession = statelessSession;
             }
 
             public async Task<IEnumerable<ConversationDto>> GetAsync(ConversationsQuery query, CancellationToken token)

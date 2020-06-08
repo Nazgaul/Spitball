@@ -23,9 +23,9 @@ namespace Cloudents.Query.General
         {
             private readonly IStatelessSession _statelessSession;
 
-            public ShortUrlQueryHandler(QuerySession statelessSession)
+            public ShortUrlQueryHandler(IStatelessSession statelessSession)
             {
-                _statelessSession = statelessSession.StatelessSession;
+                _statelessSession = statelessSession;
             }
 
 

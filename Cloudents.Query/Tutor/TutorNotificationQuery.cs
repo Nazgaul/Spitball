@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs.Tutors;
 using Cloudents.Core.Entities;
 using NHibernate;
@@ -18,16 +19,16 @@ namespace Cloudents.Query.Tutor
 
         private long TutorId { get; }
 
+        
         internal sealed class TutorNotificationQueryHandler : IQueryHandler<TutorNotificationQuery, TutorNotificationDto>
         {
             private readonly IStatelessSession _session;
 
 
-            public TutorNotificationQueryHandler(QuerySession statelessSession)
+            public TutorNotificationQueryHandler(IStatelessSession statelessSession)
             {
-                _session = statelessSession.StatelessSession;
+                _session = statelessSession;
             }
-
             public async Task<TutorNotificationDto> GetAsync(TutorNotificationQuery query, CancellationToken token)
             {
                 var newPendingSessionPayment = _session.Query<StudyRoomSessionUser>()

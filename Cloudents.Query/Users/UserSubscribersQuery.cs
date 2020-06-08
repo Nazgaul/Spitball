@@ -23,9 +23,9 @@ namespace Cloudents.Query.Users
         {
             private readonly IStatelessSession _session;
 
-            public UserSubscribersQueryHandler(QuerySession session)
+            public UserSubscribersQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
             [Cache(TimeConst.Hour, "user-subscriber", false)]
             public async Task<HashSet<long>> GetAsync(UserSubscribersQuery query, CancellationToken token)

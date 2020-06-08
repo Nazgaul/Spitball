@@ -26,9 +26,9 @@ namespace Cloudents.Query.Admin
 
             private readonly IStatelessSession _session;
 
-            public UserDetailsQueryHandler(QuerySession session)
+            public UserDetailsQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             public Task<UserDetailsDto> GetAsync(UserDetailsQuery query, CancellationToken token)

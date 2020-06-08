@@ -17,9 +17,9 @@ namespace Cloudents.Query.HomePage
         {
             private readonly IStatelessSession _session;
 
-            public StatsQueryHandler(QuerySession session)
+            public StatsQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
             //TODO add cache
 

@@ -5,9 +5,31 @@ using System;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Autofac.Features.Decorators;
 
 namespace Cloudents.Query
 {
+    public class TransactionQueryDecorator<TQuery, TQueryResult> :
+        IQueryHandler<TQuery, TQueryResult>
+        where TQuery : IQuery<TQueryResult>
+
+    {
+        private readonly IQueryHandler<TQuery, TQueryResult> _decoratee;
+        private readonly ReadDbTransaction _transaction;
+
+
+        public TransactionQueryDecorator(IQueryHandler<TQuery, TQueryResult> decoratee, ReadDbTransaction transaction)
+        {
+            _decoratee = decoratee;
+            _transaction = transaction;
+        }
+
+        public async Task<TQueryResult> GetAsync(TQuery query, CancellationToken token)
+        {
+            return await _decoratee.GetAsync(query, token);
+        }
+    }
+
     public class CacheQueryHandlerDecorator<TQuery, TQueryResult> :
         IQueryHandler<TQuery, TQueryResult>
         where TQuery : IQuery<TQueryResult>
@@ -15,22 +37,28 @@ namespace Cloudents.Query
     {
         private readonly IQueryHandler<TQuery, TQueryResult> _decoratee;
         private readonly Lazy<ICacheProvider>? _cacheProvider;
+        private readonly IDecoratorContext _context;
+       // private readonly IDecoratedService
 
-        public CacheQueryHandlerDecorator(IQueryHandler<TQuery, TQueryResult> decoratee, Lazy<ICacheProvider> cacheProvider)
+        public CacheQueryHandlerDecorator(IQueryHandler<TQuery, TQueryResult> decoratee,
+            Lazy<ICacheProvider> cacheProvider, IDecoratorContext context)
         {
             _decoratee = decoratee;
             _cacheProvider = cacheProvider;
+            _context = context;
         }
 
-        public CacheQueryHandlerDecorator(IQueryHandler<TQuery, TQueryResult> decoratee)
+        public CacheQueryHandlerDecorator(IQueryHandler<TQuery, TQueryResult> decoratee, IDecoratorContext context)
         {
             _decoratee = decoratee;
+            _context = context;
             // _cacheProvider = cacheProvider;
         }
 
         public async Task<TQueryResult> GetAsync(TQuery query, CancellationToken token)
         {
-            var attr = _decoratee.GetType().GetMethod("GetAsync")?.GetCustomAttribute<CacheAttribute>();
+            
+            var attr = _context.ImplementationType.GetMethod("GetAsync")?.GetCustomAttribute<CacheAttribute>();
             if (attr == null)
             {
                 return await _decoratee.GetAsync(query, token);

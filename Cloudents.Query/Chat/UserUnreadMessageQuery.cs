@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using NHibernate;
 
 namespace Cloudents.Query.Chat
 {
@@ -21,9 +22,9 @@ namespace Cloudents.Query.Chat
 
         internal sealed class UserUnreadMessageQueryHandler : IQueryHandler<UserUnreadMessageQuery, IList<UnreadMessageDto>>
         {
-            private readonly QuerySession _querySession;
+            private readonly IStatelessSession _querySession;
 
-            public UserUnreadMessageQueryHandler(QuerySession querySession)
+            public UserUnreadMessageQueryHandler(IStatelessSession querySession)
             {
                 _querySession = querySession;
             }
@@ -35,7 +36,7 @@ namespace Cloudents.Query.Chat
                 UnreadMessageDto? resultAlias = null!;
                 ChatRoom chatRoomAlias = null!;
 
-                var z = _querySession.StatelessSession.QueryOver(() => chatUserAlias)
+                var z = _querySession.QueryOver(() => chatUserAlias)
                     
                         .JoinAlias(x => x.User, () => userAlias)
                         .JoinAlias(x=>x.ChatRoom, () => chatRoomAlias)

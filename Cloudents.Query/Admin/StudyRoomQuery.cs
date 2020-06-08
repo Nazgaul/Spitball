@@ -24,9 +24,9 @@ namespace Cloudents.Query.Admin
             private readonly IStatelessSession _statelessSession;
 
 
-            public StudyRoomQueryHandler(QuerySession read)
+            public StudyRoomQueryHandler(IStatelessSession read)
             {
-                _statelessSession = read.StatelessSession;
+                _statelessSession = read;
             }
 
             public async Task<IEnumerable<StudyRoomDto>> GetAsync(StudyRoomQuery query, CancellationToken token)

@@ -25,9 +25,9 @@ namespace Cloudents.Query.HomePage
         {
             private readonly IStatelessSession _session;
 
-            public TopTutorsQueryHandler(QuerySession session)
+            public TopTutorsQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             [Cache(TimeConst.Day, "homePage-reviews3", false)]

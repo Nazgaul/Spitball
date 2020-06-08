@@ -37,9 +37,9 @@ namespace Cloudents.Query.Users
         {
             private readonly IStatelessSession _session;
 
-            public UserDocumentsQueryHandler(QuerySession session)
+            public UserDocumentsQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
             [Cache(TimeConst.Hour, "UserDocumentsQuery", false)]
             public async Task<ListWithCountDto<DocumentFeedDto>> GetAsync(UserDocumentsQuery query, CancellationToken token)

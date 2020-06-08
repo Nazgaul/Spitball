@@ -26,10 +26,10 @@ namespace Cloudents.Query.Chat
             private readonly IStatelessSession _statelessSession;
             private readonly IUrlBuilder _urlBuilder;
 
-            public ChatConversationDetailQueryHandler(QuerySession statelessSession, IUrlBuilder urlBuilder)
+            public ChatConversationDetailQueryHandler(IStatelessSession statelessSession, IUrlBuilder urlBuilder)
             {
                 _urlBuilder = urlBuilder;
-                _statelessSession = statelessSession.StatelessSession;
+                _statelessSession = statelessSession;
             }
 
             public async Task<ChatConversationDetailsDto?> GetAsync(ChatConversationDetailQuery query, CancellationToken token)
