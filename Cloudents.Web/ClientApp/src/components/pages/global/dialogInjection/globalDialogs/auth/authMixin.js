@@ -13,6 +13,7 @@ export default {
     },
     data() {
         return {
+            googleLoaded:false,
             googleLoading: false,
             routeNames,
             localCode: '',
@@ -214,6 +215,7 @@ export default {
             this.$loadScript("https://apis.google.com/js/client:platform.js")
                 .then(()=>{
                     self.$store.dispatch('gapiLoad');
+                    self.googleLoaded = true;
                 }).catch(ex => {
                     self.$appInsights.trackException(ex);
                 })
