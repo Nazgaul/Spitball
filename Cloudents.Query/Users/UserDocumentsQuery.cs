@@ -65,8 +65,8 @@ namespace Cloudents.Query.Users
                     DateTime = s.TimeStamp.UpdateTime,
                     Course = s.Course.Id,
                     Title = s.Name,
-                    Views = s.Views,
-                    Downloads = s.Downloads,
+                    //Views = s.Views,
+                    //Downloads = s.Downloads,
                     Snippet = s.Description ?? s.MetaContent,
                     Price = s.DocumentPrice.Price,
                     Vote = new VoteDto
@@ -76,7 +76,7 @@ namespace Cloudents.Query.Users
                     PriceType = s.DocumentPrice.Type ?? PriceType.Free,
                     DocumentType = s.DocumentType,
                     Duration = s.Duration,
-                    Purchased = s.PurchaseCount.GetValueOrDefault()
+                    //Purchased = s.PurchaseCount.GetValueOrDefault()
                 }).Take(query.PageSize).Skip(query.Page*query.PageSize).ToFuture();
 
                 var countFuture = count.ToFutureValue(f => f.Count());

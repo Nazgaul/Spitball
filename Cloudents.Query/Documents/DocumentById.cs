@@ -61,11 +61,11 @@ namespace Cloudents.Query.Documents
                             .Select(Projections.Property(() => documentAlias.Id).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Id)}"))
                             .Select(Projections.Property(() => documentAlias.Name).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Title)}"))
                             .Select(Projections.Property(() => documentAlias.TimeStamp.UpdateTime).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.DateTime)}"))
-                            .Select(Projections.Property(() => documentAlias.Views).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Views)}"))
+                            //.Select(Projections.Property(() => documentAlias.Views).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Views)}"))
                             .Select(Projections.Property(() => documentAlias.DocumentPrice.Price).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Price)}"))
                             .Select(Projections.Property(() => documentAlias.Course.Id).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Course)}"))
                             .Select(Projections.Property(() => documentAlias.DocumentPrice.Type).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.PriceType)}"))
-                            .Select(Projections.Property(() => documentAlias.Downloads).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Downloads)}"))
+                            //.Select(Projections.Property(() => documentAlias.Downloads).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Downloads)}"))
                             .Select(Projections.Property(() => documentAlias.VoteCount).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Vote)}.{nameof(VoteDto.Votes)}"))
                             .Select(Projections.SqlFunction("COALESCE", NHibernateUtil.String
                                , Projections.Property<Document>(documentAlias2 => documentAlias2.Description)
@@ -108,9 +108,9 @@ namespace Cloudents.Query.Documents
                       .Where(w => w.User.Id == query.Id)
                       .Select(s => s.Subscriber).ToFutureValue();
 
-                var purchaseCountFuture = _session.QueryOver<DocumentTransaction>()
-             .Where(w => w.Document.Id == query.Id && w.Type == TransactionType.Spent)
-             .SelectList(s => s.SelectCount(c => c.Id)).FutureValue<int>();
+             //   var purchaseCountFuture = _session.QueryOver<DocumentTransaction>()
+             //.Where(w => w.Document.Id == query.Id && w.Type == TransactionType.Spent)
+             //.SelectList(s => s.SelectCount(c => c.Id)).FutureValue<int>();
 
                 var voteQuery = _session.QueryOver<Vote>()
                     .Where(w => w.User.Id == query.UserId && w.Document.Id == query.Id).Select(s => s.VoteType)
@@ -153,7 +153,7 @@ namespace Cloudents.Query.Documents
                         result.IsPurchased = scribedQueryFuture.Value ?? transactionResult != null;
                     }
                 }
-                result.Document.Purchased = await purchaseCountFuture.GetValueAsync(token);
+               // result.Document.Purchased = await purchaseCountFuture.GetValueAsync(token);
                 return result;
             }
         }
