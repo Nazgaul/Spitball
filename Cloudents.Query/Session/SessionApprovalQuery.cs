@@ -55,7 +55,7 @@ namespace Cloudents.Query.Session
                     .Where(w => w.Id == query.SessionId)
                     .Select(s => new PaymentDetailDto
                     {
-                        TutorPricePerHour = s.StudyRoomPayment.PricePerHour.Amount
+                        TutorPricePerHour = s.StudyRoomPayment.PricePerHour
                     }).ToFutureValue();
 
 
