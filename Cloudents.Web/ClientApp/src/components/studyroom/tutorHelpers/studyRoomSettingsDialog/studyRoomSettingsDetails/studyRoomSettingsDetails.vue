@@ -162,9 +162,9 @@ export default {
             return this.$store.getters.accountUser?.currencySymbol
         },
         roomPrice(){
-            if(this.roomTutor?.tutorPrice){
+            let priceObj = this.roomTutor?.tutorPrice
+            if(priceObj > 0){
                 // TODO: Currency Change
-                let priceObj = this.roomTutor.tutorPrice
                 return this.$price(priceObj.amount, priceObj.currency)
                 // return this.$n(this.roomTutor.tutorPrice, {'style':'currency','currency': this.currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})
             }else{
