@@ -19,7 +19,7 @@ namespace Cloudents.Core.DTOs.Users
 
         public string? Bio { get; set; }
 
-        public IEnumerable<string>? Subjects { get; set; }
+       // public IEnumerable<string>? Subjects { get; set; }
 
         public int Lessons { get; set; }
 
