@@ -68,7 +68,7 @@ export default {
         myContentItem:{name: this.$t('schoolBlock_my_content'), route: routeNames.MyContent, icon:'sbf-my-content', sel:'sidemenu_dashboard_myContent'},
         mySalesItem:{name: this.$t('schoolBlock_my_sales'), route: routeNames.MySales, icon:'sbf-my-sales', sel:'sidemenu_dashboard_mySales'},
         myPurchasesItem:{name: this.$t('schoolBlock_purchases'), route: routeNames.MyPurchases, icon:'sbf-cart', sel:'sidemenu_dashboard_myPurchases'},
-        myCoupons:{name: this.$t('schoolBlock_coupons'), route: routeNames.MyCoupons, icon:'sbf-cart', sel:'sidemenu_dashboard_myCoupons'},
+        myCoupons:{name: this.$t('schoolBlock_coupons'), route: routeNames.MyCoupons, icon:'sbf-my-coupon', sel:'sidemenu_dashboard_myCoupons'},
         // myProfileItem:{name: this.$t('schoolBlock_my_site'), route: routeNames.Profile, icon:'sbf-user', sel:'sidemenu_settings_myProfile'},
         myCoursesItem:{name: this.$t('schoolBlock_courses'), route: routeNames.EditCourse, icon:'sbf-classes-icon', sel:'sidemenu_settings_myCourses'},
         myCalendarItem:{name: this.$t('schoolBlock_calendar'), route: routeNames.MyCalendar, icon:'sbf-calendar', sel:'sidemenu_settings_myCalendar'},
