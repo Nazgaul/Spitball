@@ -8,7 +8,7 @@ namespace Cloudents.Core.Entities
     {
         public StudyRoomPayment(StudyRoomSessionUser studyRoomSessionUser)
         {
-            PricePerHour = studyRoomSessionUser.StudyRoomSession.StudyRoom.Price;
+            PricePerHour = studyRoomSessionUser.StudyRoomSession.StudyRoom.Price.Amount;
             Tutor = studyRoomSessionUser.StudyRoomSession.StudyRoom.Tutor;
             User = studyRoomSessionUser.User;
             StudyRoomSessionUser = studyRoomSessionUser;
@@ -17,7 +17,7 @@ namespace Cloudents.Core.Entities
 
         public StudyRoomPayment(Tutor tutor, User user,TimeSpan duration,double price)
         {
-            PricePerHour = new Money(price,tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
+            PricePerHour = price;// new Money(price,tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
             Tutor = tutor;
             User = user;
             ApproveSession(duration, price);
@@ -32,14 +32,14 @@ namespace Cloudents.Core.Entities
 
         public virtual void ApproveSession(TimeSpan duration, double price)
         {
-            PricePerHour = PricePerHour.ChangePrice(price);
+            PricePerHour = price;
             ApproveSession(duration);
         }
 
         protected virtual void ApproveSession(TimeSpan duration)
         {
             TutorApproveTime = duration;
-            TotalPrice = TutorApproveTime.Value.TotalHours * PricePerHour.Amount;
+            TotalPrice = TutorApproveTime.Value.TotalHours * PricePerHour;
         }
 
         public virtual void NoPay()
@@ -60,7 +60,7 @@ namespace Cloudents.Core.Entities
 
         public virtual TimeSpan? TutorApproveTime { get; protected set; }
 
-        public virtual Money PricePerHour { get; protected set; }
+        public virtual double PricePerHour { get; protected set; }
 
         public virtual double TotalPrice { get;  set; }
 
