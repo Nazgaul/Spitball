@@ -72,7 +72,7 @@ const mutations = {
 
 const actions = {
     updateTutorLinks({commit}) {
-        return axios.get('/Account/tutorActions')
+        return axios.get('/dashboard/actions')
             .then(({data}) => {
                 commit('setTutorListActions', data)
             })

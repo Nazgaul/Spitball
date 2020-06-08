@@ -190,48 +190,6 @@ namespace Cloudents.Web.Api
             });
         }
 
-        //[HttpPost("BecomeTutor")]
-        //[ProducesResponseType(Status200OK)]
-        //[ProducesResponseType(Status400BadRequest)]
-        //[ProducesResponseType(Status409Conflict)]
-        //[ProducesDefaultResponseType]
-        //public async Task<IActionResult> BecomeTutorAsync(
-        //    [FromBody]UpdateSettingsRequest model,
-        //    [FromServices] ConfigurationService configurationService,
-        //    CancellationToken token)
-        //{
-        //    try
-        //    {
-
-        //        if (configurationService.GetSiteName() == ConfigurationService.Site.Frymo)
-        //        {
-        //            model.Price = null;
-        //        }
-        //        else
-        //        {
-        //            if (model.Price == null)
-        //            {
-        //                return BadRequest();
-        //            }
-        //        }
-
-
-        //        var userId = _userManager.GetLongUserId(User);
-        //        var command = new BecomeTutorCommand(userId, model.FirstName, model.LastName,
-        //            model.Description, model.Bio, model.Price);
-        //        await _commandBus.DispatchAsync(command, token);
-        //        return Ok();
-        //    }
-        //    catch (ArgumentException)
-        //    {
-        //        return Conflict();
-        //    }
-        //    catch (NonUniqueObjectException)
-        //    {
-        //        return BadRequest();
-        //    }
-        //}
-
         [HttpGet("content")]
         public async Task<IEnumerable<UserContentDto>> GetUserContentAsync(CancellationToken token)
         {
@@ -302,15 +260,7 @@ namespace Cloudents.Web.Api
             return result;
         }
 
-        [HttpGet("tutorActions")]
-        public async Task<TutorActionsDto> GetTutorActionsAsync(
-            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
-            CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var query = new TutorActionsQuery(userId, profile.CountryRegion);
-            return await _queryBus.QueryAsync(query, token);
-        }
+        
 
         [HttpGet("questions")]
         public async Task<IEnumerable<AccountQuestionDto>> GetQuestionsAsync(

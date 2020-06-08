@@ -190,7 +190,7 @@ function getFollowersItems(){
    return connectivityModule.http.get('/Account/followers').then(createFollowersItems).catch(ex => ex);
 }
 function getTutorActions(){
-   return connectivityModule.http.get('/Account/tutorActions').then(createTutorActions).catch(ex => ex);
+   return connectivityModule.http.get('/dashboard/tutorActions').then(createTutorActions);
 }
 function getSpitballBlogs(){
    return connectivityModule.http.get('/blog').then(createBlogs).catch(ex => ex);
