@@ -44,7 +44,6 @@ export default {
    data() {
       return {
          elementId: 'tutorVideoDrawer',
-         tutorAudio: null,
          tutorVideo: null,
       }
    },
@@ -72,8 +71,6 @@ export default {
             let localMediaContainer = document.getElementById(this.elementId);
             let videoTag = localMediaContainer.querySelector("video");
             if (videoTag) {localMediaContainer.removeChild(videoTag)} 
-            let audioTag = localMediaContainer.querySelector("audio");
-            if (audioTag) {localMediaContainer.removeChild(audioTag)}
          }
          if(newVal && this.tutorVideo){
             let self = this;
@@ -83,37 +80,6 @@ export default {
                if (videoTag) {localMediaContainer.removeChild(videoTag)} 
                localMediaContainer.appendChild(self.tutorVideo.attach());
             })
-         }
-         if(newVal && this.tutorAudio){
-            let self = this;
-            this.$nextTick(()=>{
-               let localMediaContainer = document.getElementById(self.elementId);
-               let audioTag = localMediaContainer.querySelector("audio");
-               if (audioTag) {localMediaContainer.removeChild(audioTag)} 
-               localMediaContainer.appendChild(self.tutorAudio.attach());
-            })
-         }
-      },
-      tutorAudioTrack:{
-         immediate:true,
-         deep:true,
-         handler(track){
-            if(track){
-               let self = this;
-               this.$nextTick(()=>{
-                  self.tutorAudio = track;
-                  const localMediaContainer = document.getElementById(self.elementId);
-                  if(localMediaContainer){
-                     let audioTag = localMediaContainer.querySelector("audio");
-                     if (audioTag) {localMediaContainer.removeChild(audioTag)}
-                     localMediaContainer.appendChild(track.attach());
-                     return
-                  }
-               })
-            }
-            if(this.tutorAudio && !track){
-               this.tutorAudio = null;
-            }
          }
       },
       tutorVideoTrack:{
@@ -147,13 +113,6 @@ export default {
       isRoomTutor(){
          return this.$store.getters.getRoomIsTutor;
       },
-      tutorAudioTrack(){
-         if(!this.isRoomTutor){
-            return this.getRoomTutorParticipant?.audio;
-         }else{
-            return null
-         }
-      },
       tutorVideoTrack(){
          return this.getRoomTutorParticipant?.video;
       },
@@ -167,7 +126,6 @@ export default {
          return this.$store.getters.getActiveNavEditor == this.$store.getters.getRoomModeConsts.CLASS_MODE;
       }
    },
-
 }
 </script>
 <style lang="less">

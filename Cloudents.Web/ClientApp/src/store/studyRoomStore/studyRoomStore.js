@@ -198,6 +198,14 @@ const getters = {
       return Object.values(state.roomParticipants).map(p=>p.audio)
    },
    getIsBrowserNotSupport:state => state.isBrowserNotSupport, 
+   getRoomParticipantsAudio:state =>{
+      return Object.entries(state.roomParticipants).map(e=>({
+            id: e[1].id,
+            name: e[1].name,
+            audio: e[1].audio
+         })
+      ).filter(e=>e.audio)
+   }
 }
 const actions = {
    updateToggleTutorFullScreen({dispatch,commit},val){
