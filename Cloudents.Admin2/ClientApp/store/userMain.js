@@ -396,6 +396,11 @@ const actions = {
             return dispatch('getUserData', payload.userId);
         });
     },
+    updateBecomeTutor({dispatch }, payload) {
+        return userMainService.updateBecomeTutor(payload).then(() => {
+            return dispatch('getUserData', payload);
+        });
+    },
     updateTutorPrice({commit}, priceObj) {
         return userMainService.updateTutorPrice(priceObj).then(() => {
             state.userInfo.tutorPrice.value = priceObj.price;
