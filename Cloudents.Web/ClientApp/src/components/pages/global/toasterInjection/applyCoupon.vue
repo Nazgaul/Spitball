@@ -12,7 +12,7 @@
             </v-layout>
             <v-layout class="px-4" column>
                 <v-flex class="mb-2">
-                    <div class="coupon coupon__dialog" v-if="isTutor && !isMyProfile">
+                    <div class="coupon coupon__dialog">
                         <div class="text-xs-right">
                             <div class="coupon__dialog--flex">
                                 <input
@@ -44,6 +44,9 @@
 </template>
 
 <script>
+import storeService from '../../../../services/store/storeService';
+import couponStore from '../../../../store/couponStore';
+
 export default {
     name: 'applyCoupon',
     data() {
@@ -63,8 +66,8 @@ export default {
         isTutor() {
             return this.$store.getters.getIsTeacher
         },
-        isMyProfile() {
-            return this.$store.getters.getIsMyProfile
+        roomTutor() {
+            return this.$store.getters.getRoomTutor
         },
         isCouponError() {
             return this.$store.getters.getCouponError
@@ -72,25 +75,30 @@ export default {
     },
     methods: {
         applyCoupon() {
-            if(this.isTutor) {
-                this.disableApplyBtn = true;
-                let tutorId = this.getProfile.user.id;
-                let coupon = this.coupon;
-                let self = this
-                this.updateCoupon({coupon, tutorId}).finally(() => {
+            this.disableApplyBtn = true;
+            let tutorId = this.roomTutor.tutorId
+            let coupon = this.coupon;
+            let self = this
+            this.$store.dispatch('updateCoupon', {coupon, tutorId}).finally(() => {
                 self.coupon = ''
                 self.disableApplyBtn = false;
                 if(!self.getCouponError) {
                     this.$ga.event('Tutor_Engagement', 'Redeem_Coupon_Success', `${this.$route.path}`);
                 }
-                })
-            }
+                self.closeCouponDialog()
+            })
         },
         closeCouponDialog() {
             this.coupon = ''
             this.$store.commit('setComponent')
             // this.$store.dispatch('updateCouponDialog', false);
         },
+    },
+    beforeDestroy(){
+        storeService.unregisterModule(this.$store, 'couponStore');
+     },
+    created() {
+        storeService.registerModule(this.$store, 'couponStore', couponStore);
     }
 }
 </script>
