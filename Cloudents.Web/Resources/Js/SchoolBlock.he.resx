@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="calendar" xml:space="preserve">
-    <value>היומן שלי</value>
+    <value>יומן</value>
   </data>
   <data name="courses" xml:space="preserve">
     <value>ניהול קורסים</value>
@@ -163,7 +163,7 @@
     <value>סקירה כללית</value>
   </data>
   <data name="private_session" xml:space="preserve">
-    <value>חדרי הלימוד שלי</value>
+    <value>חדרי לימוד</value>
   </data>
   <data name="profile" xml:space="preserve">
     <value>הפרופיל שלי</value>
