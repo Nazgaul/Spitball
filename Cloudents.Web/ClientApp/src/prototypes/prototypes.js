@@ -2,7 +2,7 @@ import Vue from 'vue';
 import { router } from '../main.js';
 import { LanguageService } from '../services/language/languageService';
 import utilitiesService from '../services/utilities/utilitiesService';
-
+import { i18n } from '../plugins/t-i18n'
 
 Vue.prototype.$openDialog = function(dialogName, params){
     router.push({query:{...router.currentRoute.query,dialog:dialogName}, params: {...params}}).catch(()=>{})
@@ -69,6 +69,15 @@ Vue.prototype.$chatMessage = function (message) {
         return userName + modifiedMessage
     }
 };
+Vue.prototype.$price = function(price, currency, minFraction = 0, maxFraction = 0) {
+    let options = {
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: minFraction,
+        maximumFractionDigits: maxFraction
+    }
+    return i18n.n(price, options)
+}
 Date.prototype.FormatDateToString = function() {
     //https://stackoverflow.com/questions/23593052/format-javascript-date-as-yyyy-mm-dd
     var d = new Date(this),

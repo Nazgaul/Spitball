@@ -6,7 +6,7 @@
 
             <div class="priceWrapper mt-8 mb-2">
                 <!-- TODO: Currency Change -->
-                <span class="price">{{$n(subscriptionAmount, {'style':'currency', 'currency': 'USD', minimumFractionDigits: 0})}}</span>
+                <span class="price">{{$price(subscriptionAmount.amount, subscriptionAmount.currency)}}</span>
                 <span v-t="'profile_subscribe_price_month'"></span>
             </div>
 
@@ -29,10 +29,7 @@ export default {
     computed: {
         subscriptionAmount() {
             //TODO - you are not doing it right
-            return this.profileTutorSubscription?.amount
-        },
-        subscriptionCurrency() {
-            return this.profileTutorSubscription?.currency
+            return this.profileTutorSubscription
         },
         profileTutorSubscription() {
             return this.$store.getters?.getProfileTutorSubscription

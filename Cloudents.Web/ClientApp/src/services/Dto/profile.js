@@ -53,7 +53,10 @@ export const Profile = {
    BroadCastSessions: function(objInit) {
       this.id = objInit.id;
       this.name = objInit.name;
-      this.price = objInit.price
+      this.price = {
+         amount: objInit.price.amount,
+         currency: objInit.price.currency
+      }
       this.created = objInit.dateTime ? new Date(objInit.dateTime) : '';
       this.enrolled = objInit.enrolled;
       this.description = objInit.description;
