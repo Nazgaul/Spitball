@@ -88,7 +88,7 @@ namespace Cloudents.Query.Users
                         TutorName = s.Tutor.User.Name,
                         TutorId = s.Tutor.Id,
                         TutorImage = _urlBuilder.BuildUserImageEndpoint(s.Tutor.Id, 
-                            s.User.ImageName, s.Tutor.User.Name, null)
+                            s.Tutor.User.ImageName, s.Tutor.User.Name, null)
                     }).ToFuture<UserPurchaseDto>();
 
 
