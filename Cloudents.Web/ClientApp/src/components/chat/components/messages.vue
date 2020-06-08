@@ -6,7 +6,7 @@
             </v-skeleton-loader>
                 <message :message="{...singleMessage, isLastMessage:index === messages.length - 1}" v-for="(singleMessage, index) in messages" :key="index"></message>
             </div>
-            <span class="error-file-span" v-if="fileError" v-language:inner="'chat_file_error'"></span>
+            <span class="error-file-span" v-if="fileError" v-t="'chat_file_error'"></span>
             <div class="messages-input" :class="{'messages-input-disabled': !getIsSignalRConnected}">
                 <span class="messages-mobile-button" v-if="typing" @click="sendMessage"><v-icon class="">sbf-path</v-icon></span>
                 <chat-upload-file :typing="typing"></chat-upload-file>

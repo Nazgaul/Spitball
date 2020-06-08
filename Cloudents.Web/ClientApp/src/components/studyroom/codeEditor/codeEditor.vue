@@ -189,7 +189,7 @@
 
 @import './helperStyles/codeMirror.less';
 //@import './themes/vscode-dark.css';
-@import './themes/coda.css';
+@import './themes/coda.less';
 
 
 .code-editor-wrap {
