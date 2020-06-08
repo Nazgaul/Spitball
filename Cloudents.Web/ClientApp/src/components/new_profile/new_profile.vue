@@ -26,57 +26,6 @@
       <profileEarnMoney class="mt-0 mt-sm-5" v-if="showEarnMoney" />
       <profileReviewsBox v-if="showReviewBox" class="mt-sm-10 mt-2" />
     </div>
-    
-    <!-- <sb-dialog
-      :onclosefn="closeCouponDialog"
-      :activateOverlay="false"
-      :showDialog="isShowCouponDialog"
-      :maxWidth="'410px'"
-      :popUpType="'coupon'"
-      :content-class="'coupon-dialog'"
-      :isPersistent="true"
-    >
-      <v-card class="pb-4 coupon-dialog-card" :class="{'d-block': $vuetify.breakpoint.xsOnly}">
-        <v-layout class="header py-6">
-          <v-flex
-            class="text-xs-center coupon-dialog-header"
-            :class="{'mt-5': $vuetify.breakpoint.xsOnly}"
-          >
-            <span v-t="'coupon_title'"></span>
-            <v-icon @click="closeCouponDialog" class="coupon-close" v-html="'sbf-close'" />
-          </v-flex>
-        </v-layout>
-        <v-layout class="px-4" column>
-          <v-flex class="mb-2">
-            <div class="coupon coupon__dialog" v-if="isTutor && !isMyProfile">
-              <div class="text-xs-right">
-                <div class="coupon__dialog--flex">
-                  <input
-                    type="text"
-                    @keyup.enter="applyCoupon"
-                    v-model="coupon"
-                    :placeholder="$t('coupon_placeholder')"
-                    class="profile-coupon_input"
-                    autofocus
-                  />
-                  <button
-                    class="profile-coupon_btn white--text"
-                    :disabled="disableApplyBtn"
-                    @click="applyCoupon"
-                    v-t="'coupon_apply_btn'"
-                  ></button>
-                </div>
-                <div
-                  class="profile-coupon_error"
-                  v-t="'coupon_apply_error'"
-                  v-if="getCouponError"
-                ></div>
-              </div>
-            </div>
-          </v-flex>
-        </v-layout>
-      </v-card>
-    </sb-dialog> -->
   </div>
 </template>
 
@@ -84,9 +33,6 @@
 import { mapActions, mapGetters } from 'vuex';
 
 import analyticsService from '../../services/analytics.service';
-// import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
-import storeService from '../../services/store/storeService';
-import couponStore from '../../store/couponStore';
 import chatService from '../../services/chatService.js';
 
 import profileUserBox from './components/profileUserBox/profileUserBox.vue';
@@ -132,9 +78,9 @@ export default {
                 sendMessage: this.sendMessage,
                 openCalendar: this.openCalendar,
                 closeCalendar: this.closeCalendar,
-                openCoupon: this.openCoupon
+                // openCoupon: this.openCoupon
             },
-            coupon: '',
+            // coupon: '',
             // disableApplyBtn: false,
             activeTab: 1,
             componentRenderKey: 0
@@ -142,8 +88,8 @@ export default {
     },
     methods: {
         ...mapActions([
-            'updateCouponDialog',
-            'updateCoupon',
+            // 'updateCouponDialog',
+            // 'updateCoupon',
             'updateCurrTutor',
             'setTutorRequestAnalyticsOpenedFrom',
             'updateRequestDialog',
@@ -151,22 +97,22 @@ export default {
             'syncProfile',
             'updateToasterParams'
         ]),
-        closeCouponDialog() {
-            this.coupon = ''
-            this.updateCouponDialog(false);
-        },
-        openCoupon(){
-            if(this.getUserLoggedInStatus) {
-            if(this.accountUser) {          
-                if(this.$route.params.id != this.accountUser.id) {
-                    this.updateCouponDialog(true)
-                    analyticsService.sb_unitedEvent('Tutor_Engagement', 'Click_Redeem_Coupon', `${this.$route.path}`);
-                }
-            }
-            } else {
-                this.$store.commit('setComponent', 'register')
-            }
-        },
+        // closeCouponDialog() {
+        //     this.coupon = ''
+        //     this.updateCouponDialog(false);
+        // },
+        // openCoupon(){
+        //     if(this.getUserLoggedInStatus) {
+        //     if(this.accountUser) {          
+        //         if(this.$route.params.id != this.accountUser.id) {
+        //             this.updateCouponDialog(true)
+        //             analyticsService.sb_unitedEvent('Tutor_Engagement', 'Click_Redeem_Coupon', `${this.$route.path}`);
+        //         }
+        //     }
+        //     } else {
+        //         this.$store.commit('setComponent', 'register')
+        //     }
+        // },
         // applyCoupon() {
         //     if(this.isTutor) {
         //         this.disableApplyBtn = true;
@@ -250,8 +196,8 @@ export default {
     computed: {
         ...mapGetters([
             "accountUser",
-            'getCouponDialog',
-            'getCouponError',
+            // 'getCouponDialog',
+            // 'getCouponError',
             "getProfile",
             'getBannerParams',
             'getUserLoggedInStatus',
@@ -279,9 +225,9 @@ export default {
             }
             return paramObJ
         },
-        isShowCouponDialog(){
-            return this.getCouponDialog;
-        },
+        // isShowCouponDialog(){
+        //     return this.getCouponDialog;
+        // },
         showReviewBox(){
             if((!!this.getProfile && this.getProfile.user.isTutor) && (this.getProfile.user.tutorData.rate)){
                 return true;
@@ -366,11 +312,11 @@ export default {
                 this.fetchData();
             }
         },
-        coupon(val) {
-            if(val && this.getCouponError) {
-                this.$store.commit('setCouponError', false)
-            }
-        },
+        // coupon(val) {
+        //     if(val && this.getCouponError) {
+        //         this.$store.commit('setCouponError', false)
+        //     }
+        // },
         showProfileSubscription(val) {
           if(val) {
             this.$nextTick(() => {
@@ -399,18 +345,18 @@ export default {
         this.$store.commit('resetProfile');
         next();
     },
-    beforeDestroy(){
-        this.closeCouponDialog();
-        storeService.unregisterModule(this.$store, 'couponStore');
-     },
+    // beforeDestroy(){
+    //     this.closeCouponDialog();
+    //     storeService.unregisterModule(this.$store, 'couponStore');
+    //  },
     created() {
         this.fetchData();
-        storeService.registerModule(this.$store, 'couponStore', couponStore);
-        if(!!this.$route.query.coupon) {
-            setTimeout(() => {
-                this.openCoupon();
-            },200)
-        }
+        // storeService.registerModule(this.$store, 'couponStore', couponStore);
+        // if(!!this.$route.query.coupon) {
+        //     setTimeout(() => {
+        //         this.openCoupon();
+        //     },200)
+        // }
         if(this.$route.params.openCalendar) {
             this.openCalendar();
         }
