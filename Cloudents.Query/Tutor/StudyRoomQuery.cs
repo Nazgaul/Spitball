@@ -60,12 +60,12 @@ namespace Cloudents.Query.Tutor
                          _UserPaymentExists =
                              _statelessSession.Query<User>().Where(w => w.Id == query.UserId)
                                  .Select(s2 => s2.PaymentExists).First() == PaymentStatus.Done,
-                         TutorCountry = s.Tutor.User.SbCountry ?? Country.UnitedStates
+                         TutorCountry = s.Tutor.User.SbCountry
                      }).ToFutureValue();
 
                 var futureCoupon = _statelessSession.Query<UserCoupon>()
                     .Where(w => w.User.Id == query.UserId)
-                    .Where(w => w.Tutor.Id == _statelessSession.Query<StudyRoom>().Where(w => w.Id == query.Id)
+                    .Where(w => w.Tutor.Id == _statelessSession.Query<StudyRoom>().Where(w2 => w2.Id == query.Id)
                         .Select(s => s.Tutor.Id).First())
                     .Where(w => w.UsedAmount < 1)
                     .Select(s => new { s.Coupon.CouponType, s.Coupon.Value })
