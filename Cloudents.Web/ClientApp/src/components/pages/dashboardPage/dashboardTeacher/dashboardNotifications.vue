@@ -1,14 +1,14 @@
 <template>
     <div class="dashboardNotifications pa-5 mb-2 mb-sm-4">
 
-        <div class="topHeader d-flex align-center" :class="{'mb-8': tutorNotificationsFilterList.length}">
+        <div class="topHeader d-flex align-center" :class="{'mb-8': tutorNotifications.length}">
             <fillBellIcon class="flex-shrink-0" width="40" />
             <div class="notificationTitle ms-4 text-truncate" v-t="'dashboardTeacher_notification_title'"></div>
         </div>
 
         <router-link 
             class="center py-4 d-flex align-center justify-space-between"
-            v-for="notification in tutorNotificationsFilterList"
+            v-for="notification in tutorNotifications"
             :key="notification.name"
             :to="{ name: notification.routeName }"
         >
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import * as routeName from '../../../../routes/routeNames'
+// import * as routeName from '../../../../routes/routeNames'
 import constants from '../../../../store/constants/dashboardConstants'
 
 import fillBellIcon from './images/fillBell.svg'
@@ -42,38 +42,43 @@ export default {
         return {
             notifyItems: {
                 [constants.CHAT]: {
-                    text: 'dashboardTeacher_notify_chat',
-                    routeName: routeName.MessageCenter
+                    text: 'chats your did not reply',
+                    // text: 'dashboardTeacher_notify_chat',
+                    // routeName: routeName.MessageCenter
                 },
                 [constants.BROADCAST]: {
-                    text: 'dashboardTeacher_notify_broadcast',
-                    routeName: routeName.MyFollowers
+                    text: 'of students that registered to you live class',
+                    // text: 'dashboardTeacher_notify_broadcast',
+                    // routeName: routeName.MyFollowers
                 },
                 [constants.FOLLOWERS]: {
-                    text: 'dashboardTeacher_notify_follower',
-                    routeName: routeName.MyFollowers
+                    text: 'of new followers that do not have a chat ',
+                    // text: 'dashboardTeacher_notify_follower',
+                    // routeName: routeName.MyFollowers
                 },
                 [constants.QUESTIONS]: {
-                    text: 'dashboardTeacher_notify_question',
-                    routeName: routeName.MyContent
+                    text: 'questions that you did not answer',
+                    // text: 'dashboardTeacher_notify_question',
+                    // routeName: routeName.MyContent
                 },
                 [constants.PAYMENTS]: {
-                    text: 'dashboardTeacher_notify_payments',
-                    routeName: routeName.MySales
+                    text: 'pending payments you did not approve',
+                    // text: 'dashboardTeacher_notify_payments',
+                    // routeName: routeName.MySales
                 }
             }
         }
     },
     computed: {
-        tutorNotificationsFilterList() {
-            return this.tutorNotifications.filter(notify => notify.value === true) 
-        },
+        // tutorNotificationsFilterList() {
+        //     return this.tutorNotifications.filter(notify => notify.value === true) 
+        // },
         tutorNotifications() {
             let notifylist = this.$store.getters.getUserNotifications
             return Object.keys(notifylist).map(notify => {
                 return {
                     ...this.notifyItems[notify],
-                    ...notifylist[notify],
+                    amount: notifylist[notify],
                     name: notify
                 }
             })
