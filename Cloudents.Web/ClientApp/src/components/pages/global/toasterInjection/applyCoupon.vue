@@ -85,11 +85,12 @@ export default {
                 if(!self.getCouponError) {
                     this.$ga.event('Tutor_Engagement', 'Redeem_Coupon_Success', `${this.$route.path}`);
                 }
-                self.closeCouponDialog()
+                // self.closeCouponDialog()
             })
         },
         closeCouponDialog() {
             this.coupon = ''
+            this.$store.commit('setCouponError', '')
             this.$store.commit('setComponent')
             // this.$store.dispatch('updateCouponDialog', false);
         },
