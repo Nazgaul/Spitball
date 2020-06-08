@@ -7,7 +7,7 @@
                         <v-icon @click="goToEditCourses()" class="course-back-btn mr-4">sbf-arrow-back</v-icon>
                     </slot>
                     <slot name="fromRegisterTitle">
-                        <span class="font-weight-bold" v-language:inner="'courses_join'"></span>
+                        <span class="font-weight-bold" v-t="'courses_join'"></span>
                     </slot>
                     <span class="subtitle-1 font-weight-bold" v-if="quantatySelected">&nbsp;({{quantatySelected}})</span>
                 </div>
@@ -16,7 +16,7 @@
             <slot name="fromRegisterDoneBtn">
                 <v-flex xs6 shrink class="d-flex justify-end">
                     <v-btn sel="done_add_courses" depressed rounded class="elevation-0 done-btn py-1 font-weight-bold my-0 text-capitalize" @click="goEditCourse()">
-                        <span v-language:inner="'courses_btn_done'"></span>
+                        <span v-t="'courses_btn_done'"></span>
                     </v-btn>
                 </v-flex>
             </slot>
@@ -78,7 +78,7 @@
                             </v-flex>
                             <v-flex class="students-enrolled pt-1">
                                 {{singleClass.students}}
-                                <span class="students-enrolled" v-language:inner="'courses_students'"></span>
+                                <span class="students-enrolled" v-t="'courses_students'"></span>
                             </v-flex>
                         </v-layout>
 
@@ -100,8 +100,8 @@
                     </div>
                     <!--create new course-->
                     <v-flex class="text-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer" @click="openCreateDialog(true)">
-                        <span v-language:inner="'courses_cant_find'"></span>
-                        <span class="pl-1 add-item" v-language:inner="'courses_create_new'"></span>
+                        <span v-t="'courses_cant_find'"></span>
+                        <span class="pl-1 add-item" v-t="'courses_create_new'"></span>
                     </v-flex>
                 </div>
             </v-flex>

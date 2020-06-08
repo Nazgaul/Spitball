@@ -47,7 +47,6 @@ namespace Cloudents.Query.Users
                       {
                           Id = s.Id,
                           Image = s.ImageName,
-                          Name = s.Name,
                           Online = ((User)s).Online.GetValueOrDefault(),
                           CalendarShared = _session.Query<GoogleTokens>().Any(w => w.Id == query.Id.ToString()),
                           FirstName = ((User)s).FirstName,
@@ -74,7 +73,7 @@ namespace Cloudents.Query.Users
                         Students = _session.Query<StudyRoomUser>()
                             .Where(w => w.Room.Tutor.Id == query.Id).Select(s2=>s2.User.Id).Distinct().Count(),
                         SubscriptionPrice = s.SubscriptionPrice,
-                        Subjects = s.Subjects,
+                        //Subjects = s.Subjects,
                         Description = s.Description
                     }).ToFutureValue();
 

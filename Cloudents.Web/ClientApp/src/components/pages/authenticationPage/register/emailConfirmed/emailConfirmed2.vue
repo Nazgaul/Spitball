@@ -3,7 +3,6 @@
         <div class="top" v-language:inner="isRegisterPath? 'loginRegister_emailconfirm_title':'loginRegister_emailconfirm_title_reset'"/>
         <div class="middle" v-if="isRegisterPath">
             <span>
-                <!-- <span v-language:inner="'loginRegister_emailconfirm_to'"/> -->
                 <span class="email"> {{userEmail}}</span>
             </span>
             <p class="notYou font-weight-bold" @click="goToRegister()" v-language:inner="'loginRegister_emailconfirm_notyou'"/>

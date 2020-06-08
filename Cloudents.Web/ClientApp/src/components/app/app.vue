@@ -6,16 +6,7 @@
     <router-view name="sideMenu" v-if="isDrawer"></router-view>
     <v-content :class="[{'site-content': $route.path !== '/'}, {'hidden-sideMenu': drawerPlaceholder}]">
         <router-view class="main-container"></router-view>
-        <!-- <div class="s-cookie-container" v-if="!cookiesShow">
-          <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
-          <span class="cookie-approve">
-            <button
-              @click="removeCookiesPopup()"
-              style="outline:none;"
-              v-language:inner
-            >app_cookie_toaster_action</button>
-          </span>
-        </div> -->
+
 
       
 

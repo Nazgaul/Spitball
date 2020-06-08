@@ -20,7 +20,7 @@ function DocumentItem(obj) {
     this.course = ObjInit.course;
     this.id = ObjInit.id;
     this.user = !!ObjInit.user ? searchService.createTutorItem(ObjInit.user) : new documentUserItem(ObjInit);
-    this.views = ObjInit.views || 0;
+    //this.views = ObjInit.views || 0;
     this.pages = ObjInit.pages || 0;
     this.price = ObjInit.price || 0;
     this.priceType = ObjInit.priceType;

@@ -74,7 +74,7 @@ namespace Cloudents.Web.Controllers
             if (retVal.Image != null)
             {
                 Country country = retVal.Tutor.TutorCountry ?? Country.UnitedStates;
-               
+
                 ViewBag.ogImage = _urlBuilder.BuildUserImageProfileShareEndpoint(retVal.Id, new
                 {
                     width = 1200,
@@ -84,12 +84,8 @@ namespace Cloudents.Web.Controllers
                 ViewBag.ogImageWidth = 1200;
                 ViewBag.ogImageHeight = 630;
                 ViewBag.ogTitle = retVal.Name;
-                if (retVal.Tutor.Subjects?.Any() == true)
-                {
-                    ViewBag.ogDescription =
-                        _localizer.WithCulture(country.MainLanguage)["OgDescription",
-                            string.Join(", ", retVal.Tutor.Subjects)];
-                }
+                ViewBag.ogDescription = retVal.Tutor.Description;
+
 
             }
 
