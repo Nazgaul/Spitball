@@ -216,6 +216,11 @@ namespace Cloudents.Core.Entities
         {
             return !left.Equals(right);
         }
+
+        public Money ChangePrice(double newMoney)
+        {
+            return new Money(newMoney,this.Currency);
+        }
         //public Money Add(Money other)
 
         //{

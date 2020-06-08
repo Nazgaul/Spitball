@@ -26,7 +26,7 @@ namespace Cloudents.Core.DTOs
         {
             get
             {
-                if (TutorPrice == 0)
+                if (TutorPrice.Cents == 0)
                 {
                     return false;
                 }
@@ -57,7 +57,7 @@ namespace Cloudents.Core.DTOs
 
       //  public decimal? CouponValue { get; set; }
 
-        public decimal TutorPrice { get; set; }
+        public Money TutorPrice { get; set; }
         public string Jwt { get; set; }
 
         public DateTime? BroadcastTime { get; set; }

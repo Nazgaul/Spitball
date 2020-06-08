@@ -54,7 +54,7 @@ namespace Cloudents.Query.Tutor
                          BroadcastTime = ((BroadCastStudyRoom)s).BroadcastTime,
                          Type = s is BroadCastStudyRoom ? StudyRoomType.Broadcast : StudyRoomType.Private,
                          Name = s.Name,
-                         TutorPrice = s.OldPrice,
+                         TutorPrice = s.Price,
                          TutorName = s.Tutor.User.Name,
                          TutorImage = s.Tutor.User.ImageName,
                          _UserPaymentExists =
@@ -96,8 +96,9 @@ namespace Cloudents.Query.Tutor
                 }
 
 
-                result.TutorPrice = Coupon.CalculatePrice(coupon.CouponType,
-                                  result.TutorPrice, coupon.Value);
+                var newPrice = Coupon.CalculatePrice(coupon.CouponType,
+                    result.TutorPrice.Amount, coupon.Value);
+                result.TutorPrice = new Money(newPrice,result.TutorPrice.Currency);
 
 
 

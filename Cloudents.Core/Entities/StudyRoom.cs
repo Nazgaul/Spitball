@@ -100,8 +100,8 @@ namespace Cloudents.Core.Entities
           
 
             DateTime = new DomainTimeStamp();
-            //OldPrice = price;
-            SetPrice(price);
+            OldPrice = price;
+            Price = new Money(price,Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
            
             AddEvent(new StudyRoomCreatedEvent(this));
         }
