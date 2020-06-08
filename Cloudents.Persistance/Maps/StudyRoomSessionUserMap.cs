@@ -35,7 +35,9 @@ namespace Cloudents.Persistence.Maps
             //HasOne(x => x.StudyRoomSessionUser).Cascade.None()/*.LazyLoad(Laziness.NoProxy)*/;
             References(x => x.StudyRoomSessionUser).Cascade.None().LazyLoad();
 
-            Map(x => x.PricePerHour);
+            Map(x => x.PricePerHour)
+                .CustomType<MoneyCompositeUserType>()
+                .Columns.Clear().Columns.Add("PricePerHour","PricePerCurrency");
             Map(x => x.TutorApproveTime);
             Map(x => x.TotalPrice);
             Map(x => x.Receipt).Nullable();

@@ -63,7 +63,7 @@ namespace Cloudents.Query.Admin
                     .Where(w => w.Id == query.SessionId)
                     .Select(s => new PaymentDetailDto
                     {
-                        TutorPricePerHour = s.PricePerHour,
+                        TutorPricePerHour = s.PricePerHour.Amount,
                         UserId = s.User.Id,
                         TutorId = query.TutorId,
                         UserName = s.User.Name,

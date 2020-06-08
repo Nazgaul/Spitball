@@ -11,7 +11,7 @@ namespace Cloudents.Query.Session
 {
     public class SessionApprovalQuery : IQuery<PaymentDetailDto?>
     {
-        public SessionApprovalQuery(Guid sessionId, /*long userId,*/ long tutorId)
+        public SessionApprovalQuery(Guid sessionId, long tutorId)
         {
             SessionId = sessionId;
            // UserId = userId;
@@ -55,7 +55,7 @@ namespace Cloudents.Query.Session
                     .Where(w => w.Id == query.SessionId)
                     .Select(s => new PaymentDetailDto
                     {
-                        TutorPricePerHour = s.StudyRoomPayment.PricePerHour
+                        TutorPricePerHour = s.StudyRoomPayment.PricePerHour.Amount
                     }).ToFutureValue();
 
 
