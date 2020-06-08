@@ -164,7 +164,9 @@ export default {
         roomPrice(){
             if(this.roomTutor?.tutorPrice){
                 // TODO: Currency Change
-                return this.$n(this.roomTutor.tutorPrice, {'style':'currency','currency': this.currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})
+                let priceObj = this.roomTutor.tutorPrice
+                return this.$price(priceObj.amount, priceObj.currency)
+                // return this.$n(this.roomTutor.tutorPrice, {'style':'currency','currency': this.currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})
             }else{
                 return this.$t('studyRoomSettings_free')
             }
