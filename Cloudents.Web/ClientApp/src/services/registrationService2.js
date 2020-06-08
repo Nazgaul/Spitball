@@ -40,17 +40,15 @@ function googleRegistration(userType) {
 
 
 export default {
-    googleRegistration, // ok
-    emailLogin: logObj => authInstance.post("/LogIn", logObj), // ok
-    emailRegistration: regObj => authInstance.post("/Register", regObj), // ok
+    googleRegistration,
+    emailLogin: logObj => authInstance.post("/LogIn", logObj),
+    emailRegistration: regObj => authInstance.post("/Register", regObj),
     smsRegistration: smsObj => authInstance.post("/sms", smsObj),
     voiceConfirmation: () => authInstance.post("/sms/call"),
     smsCodeVerification: data => authInstance.post("/sms/verify", data),
-    getLocalCode: () => authInstance.get("/sms/code"), // ok
+    getLocalCode: () => authInstance.get("/sms/code"),
     sendSmsCode: () => authInstance.post("/sms/sendCode"),
     resendCode: () => authInstance.post("/sms/resend"),
-    // resetPassword: email => authInstance.post("/ForgotPassword", email), // ok
-    // emailForgotPasswordResend: () => authInstance.post("/ForgotPassword/resend"), // not ok ?? not sure if need it anymore @idan ///// signin/forgot-password
-    // updatePassword: (password, id, code) => authInstance.post("/ForgotPassword/reset", {id, code, password}), // not ok // what about change password
-    // emailResend: () => authInstance.post("Register/resend"),
+    forgotPasswordReset: email => authInstance.post("ForgotPassword", {email}),
+    emailforgotPasswordResend: () => authInstance.post("ForgotPassword/resend"),
 }
