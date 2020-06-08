@@ -187,8 +187,8 @@ namespace ConsoleApp
                 }
                 studyRoom.SetPrice(price.Value);
                 await uow.CommitAsync();
-
             }
+
         }
 
         private static async Task UpdateTwilioParticipants()

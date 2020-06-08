@@ -17,7 +17,7 @@ namespace Cloudents.Core.Entities
 
         public StudyRoomPayment(Tutor tutor, User user,TimeSpan duration,double price)
         {
-            PricePerHour = price;
+            PricePerHour = price;// new Money(price,tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
             Tutor = tutor;
             User = user;
             ApproveSession(duration, price);
