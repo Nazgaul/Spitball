@@ -11,11 +11,11 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
     public class User : BaseUser
     {
-        public User(string email, string firstName, string lastName,
+        public User(string email, string firstName, string? lastName,
             Language language, string country, bool isTutor = false)
         {
             if (firstName == null) throw new ArgumentNullException(nameof(firstName));
-            if (lastName == null) throw new ArgumentNullException(nameof(lastName));
+            //if (lastName == null) throw new ArgumentNullException(nameof(lastName));
             if (country == null) throw new ArgumentNullException(nameof(country));
             Email = email ?? throw new ArgumentNullException(nameof(email));
             ChangeName(firstName, lastName);
@@ -236,7 +236,7 @@ namespace Cloudents.Core.Entities
 
 
 
-        public virtual void ChangeName(string firstName, string lastName)
+        public virtual void ChangeName(string firstName, string? lastName)
         {
             FirstName = firstName;
             LastName = lastName;
