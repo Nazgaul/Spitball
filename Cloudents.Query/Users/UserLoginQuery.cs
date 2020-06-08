@@ -22,9 +22,9 @@ namespace Cloudents.Query.Users
         {
             private readonly IStatelessSession _session;
 
-            public UserLoginQueryHandler(QuerySession session)
+            public UserLoginQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
             public Task<User> GetAsync(UserLoginQuery query, CancellationToken token)
             {

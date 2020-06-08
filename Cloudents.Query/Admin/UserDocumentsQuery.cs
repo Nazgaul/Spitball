@@ -25,9 +25,9 @@ namespace Cloudents.Query.Admin
             private readonly IStatelessSession _session;
 
 
-            public UserDocumentsQueryHandler(QuerySession session)
+            public UserDocumentsQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
             private const int PageSize = 25;
 

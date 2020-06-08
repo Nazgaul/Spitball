@@ -3,6 +3,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Query.Sync;
 using System.Collections.Generic;
 using System.Linq;
+using NHibernate;
 
 namespace Cloudents.Query.SearchSync
 {
@@ -11,7 +12,7 @@ namespace Cloudents.Query.SearchSync
     {
 
 
-        public DocumentSyncAzureSearchQueryHandler(QuerySession session) : base(session)
+        public DocumentSyncAzureSearchQueryHandler(IStatelessSession session) : base(session)
         {
         }
 

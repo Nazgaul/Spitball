@@ -26,9 +26,9 @@ namespace Cloudents.Query.Tutor
         {
 
             private readonly IStatelessSession _session;
-            public TutorActionsQueryHandler(QuerySession session)
+            public TutorActionsQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
             public async Task<TutorActionsDto> GetAsync(TutorActionsQuery query, CancellationToken token)
             {

@@ -15,9 +15,9 @@ namespace Cloudents.Query.Admin
         {
             private readonly IStatelessSession _session;
 
-            public AssignToQueryHandler(QuerySession session)
+            public AssignToQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
 

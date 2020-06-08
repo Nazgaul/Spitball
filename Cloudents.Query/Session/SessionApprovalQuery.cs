@@ -26,9 +26,9 @@ namespace Cloudents.Query.Session
         {
             private readonly IStatelessSession _stateless;
 
-            public SessionApprovalQueryHandler(QuerySession querySession)
+            public SessionApprovalQueryHandler(IStatelessSession querySession)
             {
-                _stateless = querySession.StatelessSession;
+                _stateless = querySession;
             }
 
             public async Task<PaymentDetailDto?> GetAsync(SessionApprovalQuery query, CancellationToken token)

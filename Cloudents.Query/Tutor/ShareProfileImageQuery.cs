@@ -24,9 +24,9 @@ namespace Cloudents.Query.Tutor
         {
             private readonly IStatelessSession _statelessSession;
 
-            public ShareProfileImageQueryHandler(QuerySession statelessSession)
+            public ShareProfileImageQueryHandler(IStatelessSession statelessSession)
             {
-                _statelessSession = statelessSession.StatelessSession;
+                _statelessSession = statelessSession;
             }
 
             [Cache(TimeConst.Minute * 10, "share-production", false)]

@@ -21,9 +21,9 @@ namespace Cloudents.Query.Admin
         internal sealed class SubjectsTranslationQueryHandler : IQueryHandler<SubjectsQuery, IEnumerable<SubjectDto>>
         {
             private readonly IStatelessSession _statelessSession;
-            public SubjectsTranslationQueryHandler(QuerySession dapperRepository)
+            public SubjectsTranslationQueryHandler(IStatelessSession dapperRepository)
             {
-                _statelessSession = dapperRepository.StatelessSession;
+                _statelessSession = dapperRepository;
             }
 
             public async Task<IEnumerable<SubjectDto>> GetAsync(SubjectsQuery query,
