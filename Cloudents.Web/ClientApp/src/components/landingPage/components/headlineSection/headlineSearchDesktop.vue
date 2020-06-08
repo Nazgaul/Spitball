@@ -1,8 +1,8 @@
 <template>
     <div class="headlineSearchDesktop">
       <div class="headlineTitlesDesktop">
-        <h1 class="hd-titleDesktop" v-language:inner="'homePage_hd_title'"/>
-        <h2 :class="['hd-subtitleDesktop','my-6']" v-language:inner="'homePage_hd_subtitle'"/>
+        <h1 class="hd-titleDesktop" v-t="'homePage_hd_title'"/>
+        <h2 :class="['hd-subtitleDesktop','my-6']" v-t="'homePage_hd_subtitle'"/>
         <div class="hd-searchDesktop">
           <div class="search-input-cont">
             <v-text-field
@@ -17,7 +17,7 @@
               type="search"
             ></v-text-field>
           </div>
-          <div @click="searchQuery" class="search-btn" v-language:inner="'homePage_hd_search'" />
+          <div @click="searchQuery" class="search-btn" v-t="'homePage_hd_search'" />
         </div>
       </div>
       <div class="headline-img">

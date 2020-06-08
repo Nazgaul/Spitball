@@ -9,22 +9,22 @@
       <template v-if="stats.documents">
         <span class="hidden-sm-and-down">
           <b>{{(stats.documents).toLocaleString('en')}}</b>
-          <span v-language:inner="'homePage_hd_stats_docs'" />
+          <span v-t="'homePage_hd_stats_docs'" />
         </span>
         <v-flex class="landing-headelien-headlineStatus-stars">
           <span>95%</span>
           <v-layout class="landing-headelien-headlineStatus-startsrating" align-center wrap>
             <v-flex class="star" v-for="(star, index) in 5" :key="index"></v-flex>
           </v-layout>
-          <span v-language:inner="'landingPage_main_stats_reviews'"></span>
+          <span v-t="'landingPage_main_stats_reviews'"></span>
         </v-flex>
         <span>
           <b>{{(stats.tutors).toLocaleString('en')}}</b>
-          <span v-language:inner="'homePage_hd_stats_tutors'" />
+          <span v-t="'homePage_hd_stats_tutors'" />
         </span>
         <span>
           <b>{{(stats.students).toLocaleString('en')}}</b>
-          <span v-language:inner="'homePage_hd_stats_students'" />
+          <span v-t="'homePage_hd_stats_students'" />
         </span>
       </template>
     </v-layout>
