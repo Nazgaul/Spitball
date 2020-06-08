@@ -73,12 +73,9 @@ select 'd' as type
 , u.ImageName as 'User.Image'
 , COALESCE(d.description,metaContent) as Snippet
 , d.Name as Title
-, d.[Views]
 ,d.PriceType as PriceType
-, d.Downloads
 , d.VoteCount as 'Vote.Votes'
 , (select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = @userId) as 'Vote.Vote'
-,(select count(1) from sb.[Transaction] where DocumentId = d.Id and [Action] = 'SoldDocument') as Purchased
 ,d.duration as Duration
 ,d.DocumentType as documentType for json path) as JsonArray,
 case when d.DocumentType = 'Video' then 1 else 0 end as IsVideo,
@@ -155,11 +152,8 @@ select 'd' as type
 ,u.ImageName as 'User.Image'
 ,COALESCE(d.description,metaContent) as Snippet
 ,d.Name as Title
-,d.[Views]
-,d.Downloads
 ,d.VoteCount as  'Vote.Votes'
 ,(select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = @userId) as 'Vote.Vote'
-,(select count(1) from sb.[Transaction] where DocumentId = d.Id and [Action] = 'SoldDocument') as Purchased
 ,d.duration as Duration
 ,d.DocumentType as documentType for json path) as JsonArray,
 case when d.DocumentType = 'Video' then 1 else 0 end as IsVideo,
@@ -170,7 +164,7 @@ join sb.[user] u on d.UserId = u.Id
 
 where
  u.SbCountry = @Country 
-and d.UpdateTime > GETUTCDATE() - 182
+and d.UpdateTime > GetUtcDate() - 182
 and d.State = 'Ok'
 and (d.CourseName in (select courseId from sb.usersCourses where userid = @userId) or @userid <= 0)
 
@@ -207,7 +201,7 @@ where a.QuestionId = q.Id and state = 'Ok' order by a.created
 ) as x
 where
  u.SbCountry = @Country 
-and q.Updated > GETUTCDATE() - 182
+and q.Updated > GetUtcDate() - 182
 and q.State = 'Ok'
 and (q.CourseId in (select courseId from sb.usersCourses where userid = @userId) or @userid <= 0)
   ) R

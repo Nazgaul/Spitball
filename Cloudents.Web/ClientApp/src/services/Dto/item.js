@@ -10,8 +10,8 @@ export const Item = {
       if (objInit.user) {
          this.user = new User.Default(objInit.user);
       }
-      this.views = objInit.views;
-      this.downloads = objInit.downloads;
+     // this.views = objInit.views;
+     // this.downloads = objInit.downloads;
       this.url = objInit.url;
       this.dateTime = new Date(objInit.dateTime);
       this.votes = !!objInit.vote ? objInit.vote.votes : null;
@@ -26,7 +26,7 @@ export const Item = {
       }
 
       this.preview = objInit.preview;
-      this.purchased = objInit.purchased;
+    //  this.purchased = objInit.purchased;
       this.title = objInit.title;
       this.documentType = objInit.documentType;
       this.template = 'result-note';

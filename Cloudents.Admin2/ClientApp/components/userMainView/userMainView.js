@@ -132,7 +132,8 @@ export default {
             "deletePayment",
             "updateTutorPrice",
             "removeCalender",
-            "updateSubscribe"
+            "updateSubscribe",
+            "updateBecomeTutor"
         ]),
         showSuspendDialog() {
             this.setSuspendDialogState(true);
@@ -208,6 +209,15 @@ export default {
                 this.$toaster.success(`tutor been suspend ${id}`);
             }, () => {
                 this.$toaster.error(`ERROR: failed to suspend tutor ${id}`);
+            });
+        },
+        becomeTutor() {
+            let id = this.$route.params.userId;
+
+            this.updateBecomeTutor(id).then(() => {
+                this.$toaster.success(`User has become tutor ${id}`);
+            }, () => {
+                this.$toaster.error(`ERROR: failed change user to tutor ${id}`);
             });
         },
         deleteCalender(){

@@ -72,6 +72,10 @@
                                     <v-tooltip top> 
                                         <v-btn slot="activator" class="ma-0" icon small @click="deleteTutor()" v-if="infoItem.label == 'Tutor State'"><v-icon>delete</v-icon></v-btn>
                                         <span>Delete</span>
+                                    </v-tooltip>
+                                    <v-tooltip top> 
+                                        <v-btn slot="activator" class="ma-0" icon small @click="becomeTutor()" v-if="infoItem.label == 'Tutor State' && infoItem.value !== 'ok'"><v-icon>add</v-icon></v-btn>
+                                        <span>Add</span>
                                     </v-tooltip> 
                                     <!-- <v-tooltip top> 
                                         <v-btn slot="activator" class="ma-0" icon small @click="openEditUserTypeDialog(userInfo.id.value)" v-if="infoItem.label == 'User Type'"><v-icon>edit</v-icon></v-btn>

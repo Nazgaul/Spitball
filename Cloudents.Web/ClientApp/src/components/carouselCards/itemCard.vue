@@ -32,8 +32,8 @@
                 </div>
             </div>
             <div class="itemCard-bottom mt-2">
-                <span v-if="item.price" class="item-purchases">{{$tc('itemCardCarousel_purchased', item.purchased)}}</span>
-                <span v-else class="item-purchases">{{$tc('itemCardCarousel_downloaded', item.downloads)}}</span>
+                <!-- <span v-if="item.price" class="item-purchases">{{$tc('itemCardCarousel_purchased', item.purchased)}}</span>
+                <span v-else class="item-purchases">{{$tc('itemCardCarousel_downloaded', item.downloads)}}</span> -->
                 <documentPrice :price="item.price" :isSubscribed="isSubscribed" />
             </div>
         </div>
@@ -221,8 +221,9 @@ export default {
         }
         .itemCard-bottom{
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            //justify-content: space-between;
+            justify-content: flex-end;
+            //align-items: center;
             .item-purchases{
                 font-size: 13px;
                 font-weight: bold;

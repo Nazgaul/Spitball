@@ -1,7 +1,7 @@
 <template>
     <v-flex grow class="bottom-row">
         <div class="left">
-            <span v-if="docViews" class="views-cont">
+            <!-- <span v-if="docViews" class="views-cont">
                 <span>{{ $tc('resultNote_view',docViews)}}</span>
             </span>
             <span v-if="docDownloads && !item.price">
@@ -9,7 +9,7 @@
             </span>
             <span v-if="docPurchased && item.price">
                 <span>{{ $tc('resultNote_purchased',docPurchased)}}</span>
-            </span>
+            </span> -->
         </div>
         <span class="right ml-2 ml-sm-0" style="cursor:pointer">
             <likeFilledSVG v-if="isLiked" @click.stop.prevent="upvoteDocument" width="18" class="likeSVG" />

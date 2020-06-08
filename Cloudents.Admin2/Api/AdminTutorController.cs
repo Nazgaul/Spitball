@@ -54,6 +54,14 @@ namespace Cloudents.Admin2.Api
             return Ok();
         }
 
+        [HttpPost("{id:long}/becomeTutor")]
+        public async Task<IActionResult> BecomeTutorAsync([FromRoute] long id, CancellationToken token)
+        {
+            var command = new BecomeTutorCommand(id);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTutorAsync(long id,
                 CancellationToken token)
