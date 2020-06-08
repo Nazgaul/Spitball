@@ -60,10 +60,10 @@ namespace Cloudents.Query.HomePage
                    // Views = s.Views,
                    // Downloads = s.Downloads,
                     DateTime = s.TimeStamp.UpdateTime,
-                    Vote = new VoteDto()
-                    {
-                        Votes = s.VoteCount
-                    },
+                    //Vote = new VoteDto()
+                    //{
+                    //    Votes = s.VoteCount
+                    //},
                     Price = s.DocumentPrice.Price,
                   //  Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.Id && x.Action == TransactionActionType.SoldDocument)
                 }).Take(query.Count).ToListAsync(token);

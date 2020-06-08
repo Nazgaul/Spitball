@@ -66,7 +66,7 @@ namespace Cloudents.Query.Documents
                             .Select(Projections.Property(() => documentAlias.Course.Id).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Course)}"))
                             .Select(Projections.Property(() => documentAlias.DocumentPrice.Type).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.PriceType)}"))
                             //.Select(Projections.Property(() => documentAlias.Downloads).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Downloads)}"))
-                            .Select(Projections.Property(() => documentAlias.VoteCount).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Vote)}.{nameof(VoteDto.Votes)}"))
+                            //.Select(Projections.Property(() => documentAlias.VoteCount).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Vote)}.{nameof(VoteDto.Votes)}"))
                             .Select(Projections.SqlFunction("COALESCE", NHibernateUtil.String
                                , Projections.Property<Document>(documentAlias2 => documentAlias2.Description)
                                , Projections.Property<Document>(documentAlias2 => documentAlias2.MetaContent))

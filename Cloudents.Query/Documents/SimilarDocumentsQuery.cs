@@ -45,7 +45,6 @@ d.Name as Title,
                                 coalesce(d.Description, d.MetaContent) as Snippet,
 d.Price, 
                                 d.DocumentType, d.Duration,  d.PriceType,
-                                d.VoteCount as [Vote.Votes],
                                 u.Id as [User.Id], u.Name as [User.Name], 
                                 u.ImageName as [User.Image]
                                 from sb.[Document] d 

@@ -9,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Query.Users
 {
@@ -69,10 +68,10 @@ namespace Cloudents.Query.Users
                     //Downloads = s.Downloads,
                     Snippet = s.Description ?? s.MetaContent,
                     Price = s.DocumentPrice.Price,
-                    Vote = new VoteDto
-                    {
-                        Votes = s.VoteCount
-                    },
+                    //Vote = new VoteDto
+                    //{
+                    //    Votes = s.VoteCount
+                    //},
                     PriceType = s.DocumentPrice.Type ?? PriceType.Free,
                     DocumentType = s.DocumentType,
                     Duration = s.Duration,
