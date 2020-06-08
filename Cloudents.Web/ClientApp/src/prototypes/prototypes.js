@@ -31,7 +31,7 @@ Vue.prototype.$proccessImageUrl = function(url, width, height, mode){
     }
 };
 Vue.prototype.$Ph = function (key, placeholders) {
-    let rawKey = LanguageService.getValueByKey(key);
+    let rawKey = i18n.t(key);
     //if no placeholders return the Key without the replace
     if (!placeholders) {
         //console.error(`${key} have no placeholders to replace`)

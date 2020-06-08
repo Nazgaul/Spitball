@@ -100,7 +100,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { LanguageService } from '../../../../services/language/languageService';
 
 export default {
    name:'myFollowers',
@@ -145,7 +144,7 @@ export default {
          this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
       },
       sendWhatsapp(user) {
-         let defaultMessage = LanguageService.getValueByKey("dashboardPage_default_message")
+         let defaultMessage = this.$t("dashboardPage_default_message")
          window.open(`https://api.whatsapp.com/send?phone=${user.phoneNumber}&text=%20${defaultMessage}`);
          this.tutorRequestDialogClose();
       },

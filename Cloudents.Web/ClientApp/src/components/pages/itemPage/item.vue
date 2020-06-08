@@ -167,7 +167,6 @@ import * as routeNames from "../../../routes/routeNames";
 
 //services
 import * as dialogNames from "../global/dialogInjection/dialogNames.js";
-import { LanguageService } from "../../../services/language/languageService";
 
 //store
 import storeService from "../../../services/store/storeService";
@@ -353,7 +352,7 @@ export default {
       if (user.name) {
         let name = user.name.split(" ")[0];
         if (name.length > maxChar) {
-          return LanguageService.getValueByKey("resultTutor_message_me");
+          return this.$t("resultTutor_message_me");
         }
         return name;
       }

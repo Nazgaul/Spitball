@@ -72,7 +72,6 @@
 <script>
     import { mapActions, mapGetters } from 'vuex';
 
-    import { LanguageService } from "../../../../services/language/languageService";
     import utilitiesService from "../../../../services/utilities/utilitiesService";
     import closeIcon from '../../../../font-icon/close.svg'
     import { validationRules } from '../../../../services/utilities/formValidationRules';
@@ -91,15 +90,15 @@
                 showNextStep: false,
                 roomId: 0,
                 rating: 0,
-                reviewPlaceholder: LanguageService.getValueByKey("leaveReview_review_placeholder"),
+                reviewPlaceholder: this.$t("leaveReview_review_placeholder"),
                 imgSize: '42',
                 starRate: [
                     '',
-                    LanguageService.getValueByKey("leaveReview_star_1"),
-                    LanguageService.getValueByKey("leaveReview_star_2"),
-                    LanguageService.getValueByKey("leaveReview_star_3"),
-                    LanguageService.getValueByKey("leaveReview_star_4"),
-                    LanguageService.getValueByKey("leaveReview_star_5"),
+                    this.$t("leaveReview_star_1"),
+                    this.$t("leaveReview_star_2"),
+                    this.$t("leaveReview_star_3"),
+                    this.$t("leaveReview_star_4"),
+                    this.$t("leaveReview_star_5"),
                 ],
                 ratingScore: 0,
                 rules: {
@@ -200,7 +199,7 @@
             },
             setReviewError(err) {
                 this.reviewsError = true;
-                this.errorText = LanguageService.getValueByKey(err)
+                this.errorText = this.$t(err)
             },
             closeReviewDialog() {
                 this.updateReviewDialog(false);

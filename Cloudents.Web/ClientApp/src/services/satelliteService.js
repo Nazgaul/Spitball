@@ -1,5 +1,5 @@
 ﻿// import { connectivityModule } from "./connectivity.module";
-import {LanguageService} from './language/languageService';
+import { i18n } from '../plugins/t-i18n'
 import store from '../store/index';
 // let cacheControl = `?v=${global.version}&l=${global.lang}`;
 const isFrymo = store.getters['isFrymo'];
@@ -25,7 +25,7 @@ function urlForEnglishUsers(type){
 
 const sattelites = {
     about:{
-        title: LanguageService.getValueByKey('tutorListLanding_footer_links_about'), 
+        title: i18n.t('tutorListLanding_footer_links_about'), 
         icon: 'sbf-about',
         url:{
             en: urlForEnglishUsers('about'),
@@ -33,7 +33,7 @@ const sattelites = {
         } 
     },
     feedback:{
-        title: LanguageService.getValueByKey('tutorListLanding_footer_links_feedback'),
+        title: i18n.t('tutorListLanding_footer_links_feedback'),
         
         url:{
             en: urlForEnglishUsers('feedback'),
@@ -41,7 +41,7 @@ const sattelites = {
         } 
     },
     terms: {
-        title: LanguageService.getValueByKey('tutorListLanding_footer_links_terms'),
+        title: i18n.t('tutorListLanding_footer_links_terms'),
         icon: 'sbf-terms',
         url:{
             en: urlForEnglishUsers('terms'),
@@ -49,7 +49,7 @@ const sattelites = {
         } 
     },
     privacy:{
-        title: LanguageService.getValueByKey('tutorListLanding_footer_links_privacy'),
+        title: i18n.t('tutorListLanding_footer_links_privacy'),
         icon: 'sbf-privacy',
         url:{
             en: urlForEnglishUsers('privacy'),
@@ -57,7 +57,7 @@ const sattelites = {
         } 
     },
     faq:{
-        title: LanguageService.getValueByKey('tutorListLanding_footer_links_faq'),
+        title: i18n.t('tutorListLanding_footer_links_faq'),
         icon: 'sbf-help',
          url:{
             en: urlForEnglishUsers('faq'),
@@ -65,14 +65,14 @@ const sattelites = {
         } 
     },
     contact:{
-        title: LanguageService.getValueByKey('tutorListLanding_footer_links_contact'),
+        title: i18n.t('tutorListLanding_footer_links_contact'),
          url:{
             en: urlForEnglishUsers('contact'),
             he:"https://help.spitball.co/he/contact"
         } 
     },
     blog:{
-        title: LanguageService.getValueByKey('tutorListLanding_footer_links_blog'),
+        title: i18n.t('tutorListLanding_footer_links_blog'),
          url:{
             en:'https://www.blog.spitball.co/blog/categories/english',
             he:"https://www.blog.spitball.co/blog/categories/hebrew"

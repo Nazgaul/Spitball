@@ -64,7 +64,6 @@
 <script>
 const itemCard = () => import(/* webpackChunkName: "itemCard" */ '../../../carouselCards/itemCard.vue');
 import resultNote from "../../../results/ResultNote.vue";
-import { LanguageService } from "../../../../services/language/languageService";
 
 import { mapGetters } from 'vuex'
 export default {
@@ -75,16 +74,16 @@ export default {
    },
    data() {
       return {
-         selectPlaceholder: LanguageService.getValueByKey('profile_select_course'),
+         selectPlaceholder: this.$t('profile_select_course'),
          typeItems:[
-            {name: LanguageService.getValueByKey('profile_select_item_type_all'),value:''},
-            {name: LanguageService.getValueByKey('profile_select_item_type_docs'),value:0},
-            {name: LanguageService.getValueByKey('profile_select_item_type_videos'),value:1},
+            {name: this.$t('profile_select_item_type_all'),value:''},
+            {name: this.$t('profile_select_item_type_docs'),value:0},
+            {name: this.$t('profile_select_item_type_videos'),value:1},
             // {name:'Answer',value:'answers'},
             // {name:'Question',value:'questions'},
          ],
          selectedModel:{
-            itemType:{name: LanguageService.getValueByKey('profile_select_item_type_all'),value:''},
+            itemType:{name: this.$t('profile_select_item_type_all'),value:''},
             itemCourse:''
          },
          query:{

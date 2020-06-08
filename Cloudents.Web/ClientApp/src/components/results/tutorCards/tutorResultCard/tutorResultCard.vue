@@ -65,7 +65,6 @@ import { mapActions, mapGetters } from "vuex";
 
 import analyticsService from "../../../../services/analytics.service";
 import chatService from '../../../../services/chatService';
-import { LanguageService } from "../../../../services/language/languageService.js";
 import * as routeNames from '../../../../routes/routeNames.js'
 import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
 
@@ -155,7 +154,7 @@ export default {
       let maxChar = 5;
       let name = this.tutorData.name.split(' ')[0];
       if(name.length > maxChar) {
-        return LanguageService.getValueByKey('resultTutor_message_me');
+        return this.$t('resultTutor_message_me');
       }
       return name;
     },

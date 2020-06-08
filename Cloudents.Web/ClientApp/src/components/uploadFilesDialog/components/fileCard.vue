@@ -89,7 +89,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
-import { LanguageService } from "../../../services/language/languageService";
 import { validationRules } from '../../../services/utilities/formValidationRules';
 
 export default {
@@ -107,7 +106,7 @@ export default {
                 required: (value) => validationRules.required(value),
                 integer: (value) => validationRules.integer(value),
                 matchCourse:() => ((this.getSelectedClasses.length && this.getSelectedClasses.some(course=>course.text === this.selectedCourse)
-                        ) || this.isFromQuery) || LanguageService.getValueByKey("tutorRequest_invalid"),
+                        ) || this.isFromQuery) || this.$t("tutorRequest_invalid"),
                 maximum: (value) => validationRules.maxVal(value, 1000),
                 minimum: (value) => validationRules.minVal(value,0)
             }

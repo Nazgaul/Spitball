@@ -65,7 +65,6 @@ import { mapGetters, mapActions } from 'vuex';
 
 import uploadService from "../../../services/uploadService";
 import analyticsService from '../../../services/analytics.service';
-import { LanguageService } from "../../../services/language/languageService";
 
 import FileUpload from 'vue-upload-component';
 
@@ -224,7 +223,7 @@ export default {
             }
         },
         uploadingError(newFile) {
-            let text = LanguageService.getValueByKey("upload_multiple_error_upload_something_wrong");
+            let text = this.$t("upload_multiple_error_upload_something_wrong");
             this.errorText = newFile.response.Name ? newFile.response.Name["0"] : text;
             let fileErrorObj = {
                 errorText: newFile.response.Name ? newFile.response.Name["0"] : text,

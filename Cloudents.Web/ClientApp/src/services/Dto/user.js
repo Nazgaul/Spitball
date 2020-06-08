@@ -27,7 +27,7 @@ export const User = {
                 bio: objInit.bio || '',
                 lessons: objInit.lessons || 0,
                 discountPrice: objInit.discountPrice,
-                subjects: objInit.subjects.toString().replace(/,/g, ", "),
+                // subjects: objInit.subjects.toString().replace(/,/g, ", "),
                 pendingSessionsPayments: objInit.pendingSessionsPayments || null,
                 description: objInit.description || '',
                 contentCount: objInit.contentCount,

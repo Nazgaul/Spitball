@@ -27,14 +27,13 @@
 </template>
 
 <script>
-import { LanguageService } from "../../../../services/language/languageService.js";
 import { mapGetters } from 'vuex';
 
 export default {
   data() {
     return {
       search: "",
-      phSearch: LanguageService.getValueByKey("homePage_hd_search_ph")
+      phSearch: this.$t("homePage_hd_search_ph")
     };
   },
   methods: {

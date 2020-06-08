@@ -64,7 +64,6 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { LanguageService } from "../../services/language/languageService";
 import * as routeNames from '../../routes/routeNames.js';
 
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
@@ -219,7 +218,7 @@ export default {
       walletService.buyTokens(transactionObjectError).then(
         () => {
           this.updateToasterParams({
-            toasterText: LanguageService.getValueByKey("buyToken_success"),
+            toasterText: this.$t("buyToken_success"),
             showToaster: true
           });
         },

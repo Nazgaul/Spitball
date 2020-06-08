@@ -5,7 +5,6 @@ import {
 import whiteBoardService from '../whiteBoardService';
 import canvasFinder from '../utils/canvasFinder';
 import store from '../../../../store/index';
-import {LanguageService} from '../../../../services/language/languageService.js'
 
 const optionType = 'imageDraw';
 
@@ -122,7 +121,7 @@ const handleImage = function (e,isDragged) {
         };
         img.onerror = function () {
             store.dispatch('updateToasterParams', {
-                toasterText: LanguageService.getValueByKey("upload_multiple_error_extension_title"),
+                toasterText: this.$t("upload_multiple_error_extension_title"),
                 showToaster: true,
                 toasterType: 'error-toaster'
             });
@@ -133,7 +132,7 @@ const handleImage = function (e,isDragged) {
     },()=>{
         store.dispatch("updateImgLoader", false);
         store.dispatch('updateToasterParams', {
-            toasterText: LanguageService.getValueByKey("upload_multiple_error_extension_title"),
+            toasterText: this.$t("upload_multiple_error_extension_title"),
             showToaster: true,
             toasterType: 'error-toaster'
         });

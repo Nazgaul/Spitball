@@ -49,7 +49,6 @@
 
 <script>
     import { mapActions, mapGetters } from 'vuex';
-    import { LanguageService } from "../../../services/language/languageService";
 
     export default {
         name: "createCourse",
@@ -59,10 +58,10 @@
                 btnLoad: false,
                 validCourseForm:false,
                 newCourseRules: [
-                    v => !!v || LanguageService.getValueByKey("formErrors_required"),
-                    v => (v.trim() && v.length >= 4) || LanguageService.getValueByKey("formErrors_longer_4"),
+                    v => !!v || this.$t("formErrors_required"),
+                    v => (v.trim() && v.length >= 4) || this.$t("formErrors_longer_4"),
                 ],
-                newCoursePlaceholder: LanguageService.getValueByKey("courses_new_placeholder")
+                newCoursePlaceholder: this.$t("courses_new_placeholder")
             };
         },
         methods: {

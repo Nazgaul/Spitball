@@ -1,10 +1,10 @@
-import { LanguageService } from "../language/languageService";
+import { i18n } from '../../plugins/t-i18n'
 
 // TODO clean!
 const balanceNameByType = {
-    'Earned': LanguageService.getValueByKey(`wallet_earned`),
-    'Spent': LanguageService.getValueByKey(`wallet_spent`),
-    'Total': LanguageService.getValueByKey(`wallet_total`),
+    'Earned': i18n.t(`wallet_earned`),
+    'Spent': i18n.t(`wallet_spent`),
+    'Total': i18n.t(`wallet_total`),
 }
 
 export const Wallet = {

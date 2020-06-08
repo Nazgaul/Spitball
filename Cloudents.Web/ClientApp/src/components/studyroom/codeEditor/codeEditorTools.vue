@@ -30,12 +30,11 @@
 </template>
 
 <script>
-import {LanguageService} from '../../../services/language/languageService.js'
 import {mapGetters, mapActions} from 'vuex';
 export default {
     data() {
         return {
-            switchThemeResx: LanguageService.getValueByKey("tutor_tooltip_code_theme_switch"),
+            switchThemeResx: this.$t("tutor_tooltip_code_theme_switch"),
             show:false,
             languagesList: [
                 {langName: 'C', langMode: 'text/x-c++src', langIcon:'./images/c.png'},
