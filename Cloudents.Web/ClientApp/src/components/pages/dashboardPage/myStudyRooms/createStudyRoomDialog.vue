@@ -91,7 +91,7 @@ export default {
             }
 
             if(params === false) return
-
+            
             params.type = this.studyRoomType
 
             let self = this
@@ -127,24 +127,18 @@ export default {
       },
       createLiveSession() {
          let childComponent = this.$refs.childComponent;
-         //let userChooseDate = new Date(`${childComponent.date}T${childComponent.hour}:00`)
-         let userChooseDate =  this.$moment(`${childComponent.date}T${childComponent.hour}:00`).format();         
-         let today = new Date()
-         if(childComponent.date === today.FormatDateToString()) {
-            
-            if(userChooseDate.getHours() < today.getHours()) {
+         let userChooseDate =  this.$moment(`${childComponent.date}T${childComponent.hour}:00`);         
+         let isToday = userChooseDate.isSame(this.$moment(), 'day');
+
+         if(isToday) {
+            let isValidDateToday = userChooseDate.isAfter(this.$moment().format())
+
+            if(!isValidDateToday) {
                this.errors.showErrorWrongTime = true
                this.currentError = 'showErrorWrongTime'
                return false
-            }
-            if(userChooseDate.getHours() === today.getHours()) {
-               let isWrongMinutes = today.getMinutes() < Number(userChooseDate.getMinutes())
-               if(!isWrongMinutes) {
-                  this.errors.showErrorWrongTime = true
-                  this.currentError = 'showErrorWrongTime'
-                  return false
-               }
-            }
+            } 
+
          }
          return {
             date: userChooseDate,
@@ -166,7 +160,7 @@ export default {
       }
    },
    created() {
-      this.studyRoomType = this.params.type
+      this.studyRoomType = this.params?.type
       this.price = this.$store.getters.accountUser.price
    },
 }
