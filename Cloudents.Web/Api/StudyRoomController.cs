@@ -154,7 +154,7 @@ namespace Cloudents.Web.Api
 
             if (profile.Subscribers?.Contains(result.TutorId) == true)
             {
-                result.TutorPrice = 0;
+                result.TutorPrice = result.TutorPrice.ChangePrice(0);
             }
             result.TutorImage = urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
             result.Jwt = command.JwtToken;
