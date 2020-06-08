@@ -14,12 +14,9 @@
       clipped
       touchless
     >
-
       <div class="sideMenu_cont">
           <div @click="isMiniSideMenu = true" v-if="isMediumAndUp && !$vuetify.breakpoint.xsOnly" class="sideMenu_btn"></div>
-        
           <v-list class="sideMenu_list_cont" dense>
-
                 <v-list-item
                   v-for="(item, key) in dashboardList"
                   class="group_list_sideMenu_dash"
@@ -33,7 +30,7 @@
                       :class="{'active_list_dash': currentPageChecker(item.route)}"
                     >
                         <v-icon size="18" class="group_list_icon_dash">{{item.icon}}</v-icon>
-                        <span class="group_list_title_dash ml-3" v-t="item.name"></span>
+                        <span class="group_list_title_dash ml-3">{{item.name}}</span>
                     </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
@@ -43,18 +40,13 @@
 </template>
 
 <script>
-// import { mapGetters, mapActions } from "vuex";
-
 import * as routeNames from '../../../../routes/routeNames.js';
 import * as feedFilters from '../../../../routes/consts/feedFilters.js';
-// import sideMenuListItem from './sideMenuListItem.vue';
 
 export default {
   name: "sideMenu",
-  // components:{ sideMenuListItem },
   data() {
     return {
-      // sideMenulistElm: null,
       isMiniSideMenuState: false,
       isRtl: global.isRtl,
       drawer: false,
@@ -69,17 +61,12 @@ export default {
         mySalesItem:{name: this.$t('schoolBlock_my_sales'), route: routeNames.MySales, icon:'sbf-my-sales', sel:'sidemenu_dashboard_mySales'},
         myPurchasesItem:{name: this.$t('schoolBlock_purchases'), route: routeNames.MyPurchases, icon:'sbf-cart', sel:'sidemenu_dashboard_myPurchases'},
         myCoupons:{name: this.$t('schoolBlock_coupons'), route: routeNames.MyCoupons, icon:'sbf-my-coupon', sel:'sidemenu_dashboard_myCoupons'},
-        // myProfileItem:{name: this.$t('schoolBlock_my_site'), route: routeNames.Profile, icon:'sbf-user', sel:'sidemenu_settings_myProfile'},
         myCoursesItem:{name: this.$t('schoolBlock_courses'), route: routeNames.EditCourse, icon:'sbf-classes-icon', sel:'sidemenu_settings_myCourses'},
         myCalendarItem:{name: this.$t('schoolBlock_calendar'), route: routeNames.MyCalendar, icon:'sbf-calendar', sel:'sidemenu_settings_myCalendar'},
       },
     };
   },
   computed: {
-    // ...mapGetters([
-    //   "accountUser",
-    //   "getShowSchoolBlock",
-    // ]),
     isMediumAndUp() {
       if(this.$vuetify.breakpoint.xsOnly) return true
       return !this.isMiniSideMenuState && this.$vuetify.breakpoint.mdAndDown
@@ -87,34 +74,13 @@ export default {
     isMiniSideMenu: {
       get() {
         return this.isMiniSideMenuState && (this.$vuetify.breakpoint.mdOnly || this.$vuetify.breakpoint.smOnly)
-        // return (this.$vuetify.breakpoint.mdOnly || this.$vuetify.breakpoint.smOnly)
       },
       set(val) {
         this.isMiniSideMenuState = val
-        // if(this.isMiniSideMenuState && (this.$vuetify.breakpoint.mdOnly || this.$vuetify.breakpoint.smOnly)) {
-        //   this.isMiniSideMenuState = true
-        // }
-        // this.updateDrawerValue(val)
       }
     },
-    // propsListDashboard(){
-    //   return { goTo: this.goTo }
-    // },
-    // showMyContent(){
-    //     return this.accountUser?.haveContent;
-    // },
-    // showMySales(){
-    //     return this.accountUser.isSold;
-    // },
-    // showMyFollowers(){
-    //     return this.accountUser.haveFollowers;
-    // },
-    // showMyPurchases(){
-    //     return this.accountUser.isPurchased;
-    // },
   },
   methods: {
-    // ...mapActions(["toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
     goTo(name){
       if(this.isMiniSideMenuState && this.$vuetify.breakpoint.mdAndDown) {
         this.isMiniSideMenuState = false
@@ -127,10 +93,6 @@ export default {
       this.$router.push({name})
     },
     currentPageChecker(pathName){
-        // let isMyQuestions = (this.$route.name === routeNames.Feed && this.$route.query?.filter === feedFilters.Question)
-        // if(pathName === 'myQuestions' && isMyQuestions){
-        //   return true;
-        // }
         if(pathName.toLowerCase().includes('course') && this.$route.path.includes('courses')){
           return true;
         }
@@ -138,48 +100,12 @@ export default {
           return true;
         }
     },
-    // toggleMiniSideMenu(){
-    //   if(this.isMiniSideMenu){
-    //     this.openSideMenu();
-    //   }else{
-    //     this.closeSideMenu();
-    //   } 
-    // },
-    // openSideMenu(){
-    //   if(this.$vuetify.breakpoint.xsOnly || this.$vuetify.breakpoint.mdOnly || this.$vuetify.breakpoint.smOnly){
-    //     this.setShowSchoolBlockMobile(true);
-    //     this.toggleShowSchoolBlock(true);
-    //   }
-    // },
-    // closeSideMenu(){
-    //   if(this.$vuetify.breakpoint.xsOnly || this.$vuetify.breakpoint.mdOnly || this.$vuetify.breakpoint.smOnly){
-    //     this.setShowSchoolBlockMobile(false);
-    //     this.toggleShowSchoolBlock(false);
-    //   }
-    // },
-    // updateDrawerValue(val){
-    //   if(this.isMiniSideMenu) {
-    //     this.toggleShowSchoolBlock(!val);
-    //   }
-    // },
-    // clickEventMiniMenuOpen(e){
-    //   if(e.target.classList.contains('v-navigation-drawer--mini-variant')){
-    //     this.openSideMenu();
-    //   } 
-    // }
   },
   created() {
     this.$root.$on('openSideMenu', () => {
       this.drawer = true
     })
   }
-  // beforeDestroy(){
-  //   this.sideMenulistElm.removeEventListener('click', this.clickEventMiniMenuOpen);
-  // },
-  // mounted(){
-  //   this.sideMenulistElm = document.querySelector('.sideMenu');
-  //   this.sideMenulistElm.addEventListener('click', this.clickEventMiniMenuOpen);
-  // },
 };
 </script>
 
