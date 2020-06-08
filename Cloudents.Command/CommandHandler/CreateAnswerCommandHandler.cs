@@ -42,7 +42,7 @@ namespace Cloudents.Command.CommandHandler
             Country country = user.SbCountry;
             if (country == Country.India)
             {
-                var pendingAnswers = await _answerRepository.GetNumberOfPendingAnswer(user.Id, token);
+                var pendingAnswers = await _answerRepository.GetNumberOfPendingAnswerAsync(user.Id, token);
                 var pendingAnswerAfterThisInsert = pendingAnswers + 1;
                 if (pendingAnswerAfterThisInsert > 5)
                 {

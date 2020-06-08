@@ -129,9 +129,6 @@
   <data name="dialog_bottom_text" xml:space="preserve">
     <value>ככל שתשיגו יותר חברים בספיטבול, ככה הציונים של כולם יהיו יותר טובים!</value>
   </data>
-  <data name="dialog_bottom_text2" xml:space="preserve">
-    <value>מוגבל לחמש הזמנות</value>
-  </data>
   <data name="dialog_friends_joined" xml:space="preserve">
     <value> חברים שהוזמנו הצטרפו</value>
   </data>

@@ -127,16 +127,16 @@
     <value>Copy Link</value>
   </data>
   <data name="dialog_bottom_text" xml:space="preserve">
-    <value>The more classmates you get on Spitball, the better everyone’s grades will be!</value>
+    <value>The more tutors there are, the more connections and referrals you’ll get.</value>
   </data>
   <data name="dialog_bottom_text2" xml:space="preserve">
-    <value>Limited to 5 referrals</value>
+    <value></value>
   </data>
   <data name="dialog_friends_joined" xml:space="preserve">
     <value> invited friends have joined</value>
   </data>
   <data name="dialog_subtitle" xml:space="preserve">
-    <value>Earn 10 points for each one that joins</value>
+    <value>Earn 100 ₪ for each teacher who teaches on Spitball</value>
   </data>
   <data name="dialog_title_invite" xml:space="preserve">
     <value>Spread the word at </value>

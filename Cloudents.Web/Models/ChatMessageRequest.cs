@@ -13,6 +13,8 @@ namespace Cloudents.Web.Models
 
         [Required]
         public string ConversationId { get; set; }
+
+        public long? TutorId { get; set; }
     }
 
 

@@ -16,7 +16,7 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(IncrementDocumentNumberOfViewsCommand message, CancellationToken token)
         {
-            await _documentRepository.UpdateNumberOfViews(message.Id, token);
+            await _documentRepository.UpdateNumberOfViewsAsync(message.Id, token);
         }
     }
 
@@ -31,7 +31,7 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(IncrementDocumentNumberOfDownloadsCommand message, CancellationToken token)
         {
-            await _documentRepository.UpdateNumberOfDownloads(message.Id, token);
+            await _documentRepository.UpdateNumberOfDownloadsAsync(message.Id, token);
         }
     }
 }
