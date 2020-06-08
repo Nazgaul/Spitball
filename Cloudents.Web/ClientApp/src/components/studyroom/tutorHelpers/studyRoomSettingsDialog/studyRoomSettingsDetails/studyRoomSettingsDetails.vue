@@ -269,12 +269,13 @@ export default {
                         }
                     }
                 }
-                .couponBtn {
-                    outline: none;
-                }
                 .option.link  {
                     visibility: hidden !important;
                 }
+            }
+            .couponBtn {
+                outline: none;
+                color: #bbb;
             }
         }
     }
