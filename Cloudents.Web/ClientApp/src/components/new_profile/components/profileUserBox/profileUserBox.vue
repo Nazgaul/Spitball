@@ -25,10 +25,10 @@
 
                         <div class="profileUserSticky_pricing flex-shrink-0 text-center" v-if="!isMobile">
                             <template v-if="currentProfileUser.isTutor">
-                                <v-btn class="mr-10" @click="openEditInfo" v-ripple="false" icon text v-if="isCurrentProfileUser && currentProfileUser.isTutor">
+                                <v-btn @click="openEditInfo" v-ripple="false" icon text v-if="isCurrentProfileUser && currentProfileUser.isTutor">
                                     <editSVG />
                                 </v-btn>
-                                <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" v-if="currentProfileUser.isTutor" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
+                                <!-- <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" v-if="currentProfileUser.isTutor" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/> -->
                             </template>
                             <div v-else>
                                 <v-btn @click="openEditInfo" v-ripple="false" icon text v-if="isCurrentProfileUser && !currentProfileUser.isTutor">
@@ -84,9 +84,9 @@
 
                 <div class="profileUserSticky_btns d-block d-sm-flex align-end text-center mt-sm-1" :class="{'student': !currentProfileUser.isTutor && isCurrentProfileUser}">
                     <template v-if="isMobile">
-                        <div class="profileUserSticky_pricing mb-4" v-if="currentProfileUser.isTutor">
+                        <!-- <div class="profileUserSticky_pricing mb-4" v-if="currentProfileUser.isTutor">
                             <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" class="profileUserSticky_coupon text-center mt-1" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
-                        </div>
+                        </div> -->
                         <div class="text-sm-right text-center mb-2" v-if="isCurrentProfileUser">
                             <editSVG sel="edit" class="pUb_edit_user" @click="openEditInfo"/>
                         </div>
