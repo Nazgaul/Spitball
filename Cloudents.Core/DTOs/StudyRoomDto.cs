@@ -92,7 +92,7 @@ namespace Cloudents.Core.DTOs
         public string Name { get; set; }
         public Guid Id { get; set; }
 
-        public decimal Price { get; set; }
+        public Money Price { get; set; }
 
         public bool Enrolled { get; set; }
 

@@ -100,7 +100,8 @@ namespace Cloudents.Core.Entities
           
 
             DateTime = new DomainTimeStamp();
-            OldPrice = price;
+            //OldPrice = price;
+            SetPrice(price);
            
             AddEvent(new StudyRoomCreatedEvent(this));
         }
