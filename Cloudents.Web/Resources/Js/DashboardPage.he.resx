@@ -299,7 +299,7 @@
     <value>תאריך שידור</value>
   </data>
   <data name="session" xml:space="preserve">
-    <value>שיעור פרטי עם {1}</value>
+    <value>שיעור פרטי עם {0}</value>
   </data>
   <data name="session_on" xml:space="preserve">
     <value>לא הסתיים</value>

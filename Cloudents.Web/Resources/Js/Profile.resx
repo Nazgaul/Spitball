@@ -208,7 +208,7 @@
     <value>No Students | Student | Students</value>
   </data>
   <data name="study_materials" xml:space="preserve">
-    <value>{1}’s study materials</value>
+    <value>{0}’s study materials</value>
   </data>
   <data name="read_less" xml:space="preserve">
     <value>Read less</value>
@@ -226,7 +226,7 @@
     <value>Videos</value>
   </data>
   <data name="study_materials_mobile" xml:space="preserve">
-    <value>Content by {1}</value>
+    <value>Content by {0}</value>
   </data>
   <data name="my_courses_teacher" xml:space="preserve">
     <value>I Teach :</value>
