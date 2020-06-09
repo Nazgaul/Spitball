@@ -121,7 +121,7 @@
     <value>Credit the uploader with points to unlock</value>
   </data>
   <data name="docPage" xml:space="preserve">
-    <value>Page {1} out of {2}</value>
+    <value>Page {0} out of {1}</value>
   </data>
   <data name="download_btn" xml:space="preserve">
     <value>Download</value>
