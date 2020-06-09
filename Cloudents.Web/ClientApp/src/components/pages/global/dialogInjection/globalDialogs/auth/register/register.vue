@@ -152,7 +152,7 @@ export default {
     },
     computed: {
         globalBtnText() {
-            return this.isVerifyPhone ? 'loginRegister_setemailpass_btn_verify' : 'loginRegister_setemailpass_btn'
+            return this.isVerifyPhone ? this.$t('loginRegister_setemailpass_btn_verify') : this.$t('loginRegister_setemailpass_btn')
         },
         isSetPhoneStep() {
             return this.component === 'setPhone2'
@@ -217,9 +217,6 @@ export default {
                     self.component = 'setPhone2'
                 }).catch(error => {
                     let { response: { data } } = error
-
-                    // if(data.Email) self.errors.email = self.$t('loginRegister_invalid_email')
-                    // if(data.Password) self.errors.password = self.$t('loginRegister_invalid_password')
 
                     self.errors.email = data["Email"] ? data["Email"][0] : '',
                     self.errors.password = data["Password"] ? data["Password"][0] : ''

@@ -125,7 +125,7 @@
       :timeout="5000"
       top
     >
-      <div class="text-center flex-grow-1" v-t="snackbar.text"></div>
+      <div class="text-center flex-grow-1">{{snackbar.text}}</div>
     </v-snackbar>
   </div>
 </template>
@@ -173,10 +173,10 @@ export default {
   computed: {
     ...mapGetters(["getStudyRoomItems"]),
     btnText() {
-      return this.isStudyroomLive ? 'dashboardPage_my_studyrooms_create_live' : 'dashboardPage_my_studyrooms_create_room'
+      return this.isStudyroomLive ? this.$t('dashboardPage_my_studyrooms_create_live') : this.$t('dashboardPage_my_studyrooms_create_room')
     },
     myStudyroomTitle() {
-      return this.isStudyroomLive ? 'dashboardPage_title_live' : 'dashboardPage_title_private';
+      return this.isStudyroomLive ? this.$t('dashboardPage_title_live') : this.$t('dashboardPage_title_private');
     },
     isStudyroomLive() {
       return this.studyRoomType === 'broadcast'
@@ -211,7 +211,7 @@ export default {
       this.deleteStudyRoomSession(id).then(() => {
         let newItems = self.studyRoomItems.filter(item => item.id !== id)
         self.$store.commit('setStudyRoomItems', newItems)
-        self.snackbar.text = 'dashboardPage_success_session_removed'
+        self.snackbar.text = self.$t('dashboardPage_success_session_removed')
       }).catch(error => {
         let { response: {data}} = error
         self.snackbar.text = data["error"][0]

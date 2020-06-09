@@ -59,8 +59,7 @@
                     </div>
                 </div>
             </template>
-            <!-- <span class="helpLinks" @click="linksAction" v-t="remmberForgotLink" v-if="component !== 'resetPassword'"></span> -->
-            <span class="helpLinks" @click="linksAction" v-if="isLoginDetails" v-t="remmberForgotLink"></span>
+            <span class="helpLinks" @click="linksAction" v-if="isLoginDetails">{{remmberForgotLink}}</span>
             <v-btn
                 type="submit"
                 depressed
@@ -70,7 +69,7 @@
                 class="btns white--text mt-6"
                 color="#4452fc"
             >
-                <span v-t="btnResource"></span>
+                <span>{{btnResource}}</span>
             </v-btn>
             
             <div class="getStartedBottom mt-2" v-if="isLoginDetails">
@@ -121,16 +120,14 @@ export default {
         },
         btnResource() {
             let resource = {
-                loginDetails: 'loginRegister_setemail_btn',
-                setPhone2: 'loginRegister_setemailpass_btn',
-                verifyPhone: 'loginRegister_setemailpass_btn_verify'
-                // forgotPassword: 'loginRegister_forgot_btn',
-                // resetPassword: 'loginRegister_resest_btn',
+                loginDetails: this.$t('loginRegister_setemail_btn'),
+                setPhone2: this.$t('loginRegister_setemailpass_btn'),
+                verifyPhone: this.$t('loginRegister_setemailpass_btn_verify')
             }
             return resource[this.component]
         },
         remmberForgotLink() {
-            return this.isLoginDetails ? 'loginRegister_setpass_forgot' : 'loginRegister_forgot_remember'
+            return this.isLoginDetails ? this.$t('loginRegister_setpass_forgot') : this.$t('loginRegister_forgot_remember')
         }
     },
     methods: {

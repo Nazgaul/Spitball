@@ -69,10 +69,10 @@ export default {
          return this.studyRoomType === 'private'
       },
       btnCreateText() {
-         return this.isPrivate ? 'dashboardPage_create_private' : 'dashboardPage_create_broadcast'
+         return this.isPrivate ? this.$t('dashboardPage_create_private') : this.$t('dashboardPage_create_broadcast')
       },
       createSessionTitle() {
-         return this.isPrivate ? 'dashboardPage_create_room_private_title' : 'dashboardPage_create_room_live_title'
+         return this.isPrivate ? this.$t('dashboardPage_create_room_private_title') : this.$t('dashboardPage_create_room_live_title')
       },
       isNoErrors() {
          return !this.errors.showErrorAlreadyCreated && !this.errors.showErrorEmpty &&
