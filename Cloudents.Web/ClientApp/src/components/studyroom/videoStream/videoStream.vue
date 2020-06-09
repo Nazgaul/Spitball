@@ -4,11 +4,12 @@
       <div class="video-holder">
         <div :class="['remote_video_container',{'studentRemote': !$store.getters.getRoomIsTutor}]">
           <localVideoTrack />
-          <remoteVideoTrack
-            v-for="(track, index) in $store.getters.getVideoTrackList"
+          <!-- // TODO: REMOVE THIS CMP -->
+          <!-- <remoteVideoTrack
+            v-for="(track, index) in $store.getters."
             :key="index"
             :track="track"
-          />
+          /> -->
           <div id="remoteTrack"></div>
         </div>
       </div>

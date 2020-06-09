@@ -15,7 +15,6 @@ let isTwilioStarted = false;
 
 let intervalTime = null;
 
-   // STORE.commit(twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK,track)
 function _changeState(localParticipant) {
    if(!STORE.getters.getRoomIsTutor) return;
 
@@ -44,7 +43,6 @@ function _changeState(localParticipant) {
 function _detachTracks(tracks){
    tracks.forEach((track) => {
       if (track?.detach) {
-         // store.commit(twilio_SETTERS.DELETE_REMOTE_VIDEO_TRACK,track)
          track.detach().forEach((detachedElement) => {
             detachedElement.remove();
          });
