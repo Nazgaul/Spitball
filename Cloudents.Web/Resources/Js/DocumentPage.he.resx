@@ -160,7 +160,7 @@
     <value>הצטרפו עכשיו {0} /לחודש</value>
   </data>
   <data name="unlock_subtitle" xml:space="preserve">
-    <value>רוצה לקרוא את כל {1} הדפים?</value>
+    <value>רוצה לקרוא את כל {0} הדפים?</value>
   </data>
   <data name="unlock_title" xml:space="preserve">
     <value>הגעת לסוף התצוגה המקדימה</value>

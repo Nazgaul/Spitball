@@ -3,7 +3,7 @@
      <div v-if="isDocument" class="unlockItem_document">
          <div class="unlockItem_document_container">
             <div class="unlockItem_document_title" v-t="'documentPage_unlock_title'"/>
-            <div class="unlockItem_document_subtitle" v-text="$Ph('documentPage_unlock_subtitle',docLength)"/>
+            <div class="unlockItem_document_subtitle">{{$t('documentPage_unlock_subtitle',[docLength])}}</div>
             <v-btn
                class="unlockItem_document_btn white--text"
                @click="openPurchaseDialog"

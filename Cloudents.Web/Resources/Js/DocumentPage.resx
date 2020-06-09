@@ -160,7 +160,7 @@
     <value>Why Spitball</value>
   </data>
   <data name="unlock_subtitle" xml:space="preserve">
-    <value>Want to read all {1} pages?</value>
+    <value>Want to read all {0} pages?</value>
   </data>
   <data name="unlock_title" xml:space="preserve">
     <value>You’ve reached the end of your free preview</value>
