@@ -2,7 +2,7 @@ import accountService from "../services/accountService";
 import { dollarCalculate } from "./constants";
 import analyticsService from '../services/analytics.service';
 import insightService from '../services/insightService';
-import { LanguageService } from '../services/language/languageService';
+import { i18n } from '../plugins/t-i18n'
 import intercomeService from '../services/intercomService';
 import { router } from "../main";
 
@@ -135,7 +135,7 @@ const actions = {
         }
         if (getters.getIsBuyPoints || state.user.balance > newBalance) {
             dispatch('updateToasterParams', {
-                toasterText: LanguageService.getValueByKey("buyTokens_success_transaction"),
+                toasterText: i18n.t("buyTokens_success_transaction"),
                 showToaster: true,
                 toasterTimeout: 5000
             });

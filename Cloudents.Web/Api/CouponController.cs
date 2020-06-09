@@ -78,7 +78,7 @@ namespace Cloudents.Web.Api
             try
             {
                 var userId = _userManager.GetLongUserId(User);
-                var command = new ApplyCouponCommand(model.Coupon, userId, model.TutorId);
+                var command = new ApplyCouponCommand(model.Coupon, userId, model.TutorId, model.RoomId);
                 await _commandBus.DispatchAsync(command, token);
                 return Ok(new
                 {

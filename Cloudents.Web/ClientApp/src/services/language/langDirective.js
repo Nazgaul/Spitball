@@ -1,4 +1,4 @@
-import { LanguageService } from './languageService'
+import { i18n } from '../../plugins/t-i18n'
 const swapKeyWithValue = function(el, binding){
     const INNER_HTML = "inner";
         
@@ -13,12 +13,12 @@ const swapKeyWithValue = function(el, binding){
         //inner arg will replace the inner HTML
         if(attr === INNER_HTML){
             let fixedKey = binding.value ? binding.value.trim() : el.innerHTML.trim();
-            key = LanguageService.getValueByKey(fixedKey);
+            key = i18n.t(fixedKey);
             el.innerHTML = key;
         }else{
             //other will set the 
             keyValue = binding.value ? binding.value.trim() : el.getAttribute(attr);
-            key = LanguageService.getValueByKey(keyValue);
+            key = i18n.t(keyValue);
             el.setAttribute(attr, key);
         }
     });

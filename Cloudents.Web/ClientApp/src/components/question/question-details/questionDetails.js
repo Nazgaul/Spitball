@@ -7,7 +7,6 @@ import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
 import questionService from "../../../services/questionService";
 import disableForm from "../../mixins/submitDisableMixin.js";
 import analyticsService from '../../../services/analytics.service';
-import { LanguageService } from "../../../services/language/languageService";
 
 export default {
     mixins: [disableForm],
@@ -52,14 +51,14 @@ export default {
             
             if (!this.textAreaValue || this.textAreaValue.trim().length < 15) {
                 this.errorLength= {
-                    errorText: LanguageService.getValueByKey("questionDetails_error_minChar"),
+                    errorText: this.$t("questionDetails_error_minChar"),
                     errorClass: true
                 };
                 return;
             }
             if (!this.textAreaValue || this.textAreaValue.trim().length > 540) {
                 this.errorLength= {
-                    errorText: LanguageService.getValueByKey("questionDetails_error_maxChar"),
+                    errorText: this.$t("questionDetails_error_maxChar"),
                     errorClass: true
                 };
                 return;
@@ -67,7 +66,7 @@ export default {
             var self = this;
             if(this.hasDuplicatiedAnswer(self.textAreaValue, self.questionData.answers)) {
                 console.log("duplicated answer detected");
-                this.errorDuplicatedAnswer = LanguageService.getValueByKey("questionDetails_error_duplicated");
+                this.errorDuplicatedAnswer = this.$t("questionDetails_error_duplicated");
                 return;
             }else{
                 this.errorDuplicatedAnswer = '';

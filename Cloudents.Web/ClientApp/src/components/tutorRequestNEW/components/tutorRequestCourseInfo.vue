@@ -47,7 +47,6 @@
 </template>
 
 <script>
-import {LanguageService} from '../../../services/language/languageService.js'
 import {validationRules} from '../../../services/utilities/formValidationRules.js'
 import courseService from '../../../services/courseService.js'
 import debounce from "lodash/debounce";
@@ -76,13 +75,13 @@ export default {
                     (   this.suggestsCourses.length && 
                         this.suggestsCourses.some(course=>course.text === this.tutorCourse.text)
                         ) || this.isFromMounted ) 
-                    || LanguageService.getValueByKey("tutorRequest_invalid"),
+                    || this.$t("tutorRequest_invalid"),
                 matchLocalCourse:() => (
                     (   this.getSelectedClasses.length && 
                         this.getSelectedClasses.some(course=>course.text === this.tutorCourse.text)
                         ) || this.isFromMounted ) 
-                    || LanguageService.getValueByKey("tutorRequest_invalid"),
-                matchTutorCourse:() => (this.currentTutorCourses.length && this.currentTutorCourses.some(course=>course.text === this.tutorCourse.text)) || LanguageService.getValueByKey("tutorRequest_invalid") 
+                    || this.$t("tutorRequest_invalid"),
+                matchTutorCourse:() => (this.currentTutorCourses.length && this.currentTutorCourses.some(course=>course.text === this.tutorCourse.text)) || this.$t("tutorRequest_invalid") 
             },
         }
     },

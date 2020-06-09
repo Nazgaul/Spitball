@@ -112,7 +112,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { LanguageService } from '../../../../services/language/languageService';
 
 import tableInfoTd from '../global/tableInfoTd.vue';
 import buyPointsLayout from './buyPointsLayout/buyPointsLayout.vue'
@@ -183,7 +182,7 @@ export default {
       },
       formatBalancePts(pts){
          pts = Math.round(+pts).toLocaleString(`${global.lang}-${global.country}`);
-         return `${pts} ${LanguageService.getValueByKey('dashboardPage_pts')}`
+         return `${pts} ${this.$t('dashboardPage_pts')}`
       },
       formatItemStatus(paymentStatus){
          if(paymentStatus === 'Approved'){

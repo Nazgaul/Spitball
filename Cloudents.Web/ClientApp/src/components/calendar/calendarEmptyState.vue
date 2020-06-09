@@ -21,7 +21,6 @@
 </template>
 <script>
     import { mapActions} from 'vuex';
-    import {LanguageService} from '../../services/language/languageService.js'
     import selectCalendarCMP from './calendarSelect.vue';
     import calendarHoursCMP from './calendarHours.vue'
 
@@ -69,7 +68,7 @@
                     this.isLoading = false;
                     if(err.error) return 
                     this.updateToasterParams({
-                        toasterText: LanguageService.getValueByKey("tutorRequest_request_error"),
+                        toasterText: this.$t("tutorRequest_request_error"),
                         showToaster: true,
                         toasterType: "error-toaster"
                     });

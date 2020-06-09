@@ -1,6 +1,5 @@
 ﻿import { USER } from './mutation-types'
-import {LanguageService} from '../services/language/languageService';
-
+import { i18n } from '../plugins/t-i18n'
 const state = {
     cookieAccepted: global.localStorage.getItem("sb-acceptedCookies") === 'true',
 };
@@ -29,8 +28,8 @@ const actions = {
             let id = notificationObj.studyRoomId;
             let userName = notificationObj.userName;
             let location = global.location.origin;
-            let textLang = LanguageService.getValueByKey('tutor_waiting_in_studyRoom');
-            let textLangStudyRoom = LanguageService.getValueByKey('tutor_waiting_in_studyRoom_link');
+            let textLang = i18n.t('tutor_waiting_in_studyRoom');
+            let textLangStudyRoom = i18n.t('tutor_waiting_in_studyRoom_link');
             let textElm = `<a style="text-decoration: none;" href="${location}/studyroomSettings/${id}">
                 <span>${userName} ${textLang}</span> <span style="text-decoration: underline;">${textLangStudyRoom}</span> 
             </a>`;

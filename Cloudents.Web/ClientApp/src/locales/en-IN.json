@@ -1,12 +1,7 @@
 {
   "calendar_header": "Book a lesson with me",
-  "dashboardTeacher_notify_broadcast": "",
-  "dashboardTeacher_notify_chat": "",
-  "dashboardTeacher_notify_follower": "",
-  "dashboardTeacher_notify_payments": "",
-  "dashboardTeacher_notify_question": "",
   "profile_edit_user_profile_title": "Edit your profile",
   "profile_firstName_label": "First Name",
   "profile_personal_details": "Personal details",
-  "schoolBlock_coupons": ""
+  "studyRoomSettings_apply_coupon": "Apply coupon"
 }

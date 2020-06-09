@@ -162,7 +162,6 @@ function createBlogs({data}) {
 }
 
 
-
 function getSalesItems(){
    return connectivityModule.http.get('/Sales').then(createSalesItems).catch(ex => ex);
 }
@@ -172,7 +171,7 @@ function getSalesSessions(params){
    return connectivityModule.http.get(`/Sales/session/${sessionId}`,{params:{userId}}).then(createSalesSession).catch(ex => ex);
 }
 function updateSessionDuration(session){
-   let sessionId = session.SessionId;
+   let sessionId = session.sessionId;
    delete session.SessionId;
    return connectivityModule.http.post(`/Sales/session/${sessionId}`, session)
 }

@@ -1,7 +1,6 @@
 ﻿
 
 import debounce from "lodash/debounce";
-import { LanguageService } from "../../../../services/language/languageService";
 import courseService from "../../../../services/courseService";
 import analyticsService from '../../../../services/analytics.service';
 
@@ -11,7 +10,7 @@ export default {
         placeholder:{
             type:String,
             required:false,
-            default: LanguageService.getValueByKey('tutorListLanding_search_placeholder'),
+            default: this.$t('tutorListLanding_search_placeholder'),
         }
     },
     data: () => ({

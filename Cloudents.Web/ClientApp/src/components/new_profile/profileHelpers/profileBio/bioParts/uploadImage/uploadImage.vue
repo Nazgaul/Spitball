@@ -10,7 +10,7 @@
                    ref="profileImage" v-show="false"/>
             <label for="profile-picture" >
                 <v-icon class="attach-icon">sbf-camera</v-icon>
-                <span class="image-edit-text" v-t>profile_edit_image_text</span>
+                <span class="image-edit-text" v-t="'profile_edit_image_text'"></span>
             </label>
         </div>
     </div>
@@ -18,7 +18,6 @@
 
 <script>
     import { mapActions } from 'vuex';
-    import { LanguageService } from '../../../../../../services/language/languageService';
 
     export default {
         name: "uploadImage",
@@ -32,7 +31,7 @@
                 self.uploadAccountImage(formData).then((res) => {
                     if(!res) {
                         this.updateToasterParams({
-                            toasterText: LanguageService.getValueByKey("chat_file_error"),
+                            toasterText: this.$t("chat_file_error"),
                             showToaster: true
                         });
                     }

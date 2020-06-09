@@ -46,7 +46,6 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import analyticsService from '../../services/analytics.service';
-import { LanguageService } from "../../services/language/languageService.js";
 
 import userRating from "../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
 import userAvatarRect from '../helpers/UserAvatar/UserAvatarRect.vue';
@@ -79,7 +78,7 @@ export default {
             let maxChar = 5;
             let name = this.tutor.name.split(' ')[0];
             if(name.length > maxChar) {
-                return LanguageService.getValueByKey('resultTutor_message_me');
+                return this.$t('resultTutor_message_me');
             }
             return name;
         },

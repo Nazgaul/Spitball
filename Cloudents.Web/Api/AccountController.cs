@@ -24,10 +24,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 using Cloudents.Query.Users;
-using Cloudents.Query.Tutor;
 using Cloudents.Query.Questions;
 using Cloudents.Core.DTOs.Users;
-using Cloudents.Core.DTOs.Tutors;
 using Cloudents.Core.DTOs.Questions;
 
 namespace Cloudents.Web.Api

@@ -54,7 +54,6 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 
-import { LanguageService } from "../../../../services/language/languageService.js";
 import chatService from '../../../../services/chatService';
 import analyticsService from "../../../../services/analytics.service";
 import * as routeNames from '../../../../routes/routeNames.js'
@@ -143,7 +142,7 @@ export default {
       let maxChar = 5;
       let name = this.tutorData.name.split(' ')[0];
       if(name.length > maxChar) {
-        return LanguageService.getValueByKey('resultTutor_message_me');
+        return this.$t('resultTutor_message_me');
       }
       return name;
     },

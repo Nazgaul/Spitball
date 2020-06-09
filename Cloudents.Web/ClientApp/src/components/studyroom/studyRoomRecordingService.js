@@ -1,7 +1,6 @@
 import store from '../../store/index';
 import {Decoder, tools, Reader} from 'ts-ebml';
 import insightService from '../../services/insightService';
-import { LanguageService } from '../../services/language/languageService';
 
 let userMedia = null;
 let displayMedia = null;
@@ -201,7 +200,7 @@ async function toggleRecord(isTutor){
       if(global.location.pathname === '/studyroom'){
         let userMediaTest = await getUserMedia();
         if(!userMediaTest){
-          let msg = LanguageService.getValueByKey('tutor_microphone_blocked')
+          let msg = this.$t('tutor_microphone_blocked')
           alert(msg)
           return
         }  

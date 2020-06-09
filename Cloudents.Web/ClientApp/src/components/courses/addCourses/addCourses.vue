@@ -111,7 +111,6 @@
 
 <script>
     import { mapActions, mapGetters, mapMutations } from "vuex";
-    import { LanguageService } from "../../../services/language/languageService";
     import debounce from "lodash/debounce";
 
     export default {
@@ -122,7 +121,7 @@
                 isComplete: false,
                 page: 0,
                 term: '',
-                classNamePlaceholder: LanguageService.getValueByKey("courses_placeholder_find"),
+                classNamePlaceholder: this.$t("courses_placeholder_find"),
                 localSelectedClasses: [],
                 doneButtonLoading: false
             };

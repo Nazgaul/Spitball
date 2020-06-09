@@ -61,7 +61,6 @@ import compSVG from "../images/com.svg";
 import pplSVG from "../images/ppl.svg";
 import vidSVG from "../images/vid.svg";
 const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */"../../sbCarousel/sbCarousel.vue");
-import { LanguageService } from "../../../services/language/languageService.js";
 
 export default {
   components: {
@@ -85,7 +84,7 @@ export default {
     categoriesCardsCarousel(){
       return Array.from(Array(5),(item,index)=>{
         return {
-          name: LanguageService.getValueByKey(`categoriesSection_category_name_${index+1}`),
+          name: this.$t(`categoriesSection_category_name_${index+1}`),
           img: `./staticCardImgs/category_${index+1}.png`
         }
       })
@@ -93,7 +92,7 @@ export default {
     categoriesCardsCarousel2(){
       return Array.from(Array(3),(item,index)=>{
         return {
-          name: LanguageService.getValueByKey(`categoriesSection_category2_name_${index+1}`),
+          name: this.$t(`categoriesSection_category2_name_${index+1}`),
           img: `./staticCardImgs/category2_${index+1}.png`
         }
       })

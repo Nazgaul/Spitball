@@ -23,7 +23,6 @@
    </v-form>
 </template>
 <script>
-import { LanguageService } from '../../../../services/language/languageService';
 import documentService from '../../../../services/documentService.js';
 import { validationRules } from '../../../../services/utilities/formValidationRules';
 import { mapActions } from 'vuex';
@@ -35,7 +34,7 @@ export default {
       return {
          validationName:false,
          editedName: this.dialogData.name,
-         title:LanguageService.getValueByKey('dashboardPage_rename'),
+         title: this.$t('dashboardPage_rename'),
          rules:{
             required: (value) => validationRules.required(value),
             minimumChars: (value) => validationRules.minimumChars(value, 4),
