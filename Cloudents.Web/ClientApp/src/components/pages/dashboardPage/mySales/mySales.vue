@@ -1,6 +1,6 @@
 <template>
    <div class="mySales">
-      <div class="mySales_title" v-language:inner="'dashboardPage_my_sales_title'"/>
+      <div class="mySales_title" v-t="'dashboardPage_my_sales_title'"/>
       <v-layout wrap class="mySales_wallet mb-1 mb-md-7 mb-sm-4" v-if="!!accountUser && accountUser.id">
          <v-flex sm12 md6>
             <v-data-table
