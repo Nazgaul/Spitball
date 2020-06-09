@@ -53,32 +53,6 @@ function _insightEvent(...args) {
    //use https://www.npmjs.com/package/vue-application-insights
    insightService.track.event(insightService.EVENT_TYPES.LOG, ...args);
 }
-function _publishTrack(activeRoom,track){
-   activeRoom.localParticipant.publishTrack(track);
-   _addParticipantTrack(track,activeRoom.localParticipant)
-
-   //On share screen we want to update all the users in the room
-   _changeState( activeRoom.localParticipant);
-}
-function _unPublishTrack(activeRoom,track){
-   activeRoom.localParticipant.unpublishTrack(track);
-   _deleteParticipantTrack(track,activeRoom.localParticipant)
-
-   //On share screen we want to update all the users in the room
-   _changeState( activeRoom.localParticipant);
-}
-function _toggleTrack(tracks,trackType,value){
-   let {track} = tracks.find(track=>track.kind === trackType);
-   if(track){
-      // value: FLASE - USER TURNED OFF / TRUE - USER TURNED ON
-      if(!value){
-         track.disable()
-      }
-      if(value){
-         track.enable()
-      }
-   }
-}
 function _twilioListeners(room,store) { 
    store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,room.participants.size)
    if(!store.getters.getRoomIsBroadcast && room.localParticipant.tracks.size){
@@ -306,18 +280,15 @@ export default () => {
                      _localScreenTrack = new twillioClient.LocalVideoTrack(stream.getTracks()[0],{name:SCREEN_TRACK_NAME});
                      let isRoomStudent = !store.getters.getRoomIsTutor;
                      if(isRoomStudent && _localVideoTrack){
-                        _unPublishTrack(_activeRoom,_localVideoTrack);
+                        _unPublishTrack(_localVideoTrack);
                      }
-                     // if(_localVideoTrack){
-                     //    _unPublishTrack(_activeRoom,_localVideoTrack)
-                     // }
-                     _publishTrack(_activeRoom,_localScreenTrack);
+                     _publishTrack(_localScreenTrack);
                      store.commit(twilio_SETTERS.VIDEO_AVAILABLE,true)
                      _localScreenTrack.on('stopped',(track)=>{
-                        _unPublishTrack(_activeRoom,track)
+                        _unPublishTrack(track)
                         store.commit(twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE,false);
                         if(_localVideoTrack){
-                           _publishTrack(_activeRoom,_localVideoTrack)
+                           _publishTrack(_localVideoTrack)
                         }else{
                            //why it is not all the time
                            store.commit(twilio_SETTERS.VIDEO_AVAILABLE,false)
@@ -339,7 +310,7 @@ export default () => {
                         if (error.message === "Permission denied") {
                            store.commit(twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE,false);
                            if(_localVideoTrack){
-                              _publishTrack(_activeRoom,_localVideoTrack)
+                              _publishTrack(_localVideoTrack)
                            }
                            return;
                         }
@@ -359,7 +330,7 @@ export default () => {
             }
             if (mutation.type === twilio_SETTERS.CHANGE_VIDEO_DEVICE){
                if(_localVideoTrack){
-                  _unPublishTrack(_activeRoom,_localVideoTrack)
+                  _unPublishTrack(_localVideoTrack)
                }
                let params = {deviceId: {exact: mutation.payload},name:VIDEO_TRACK_NAME}
                twillioClient.createLocalVideoTrack(params).then(track=>{
@@ -368,7 +339,7 @@ export default () => {
             }
             if (mutation.type === twilio_SETTERS.CHANGE_AUDIO_DEVICE){
                if(_localAudioTrack){
-                  _unPublishTrack(_activeRoom,_localAudioTrack)
+                  _unPublishTrack(_localAudioTrack)
                }
                let params = {deviceId: {exact: mutation.payload},name:AUDIO_TRACK_NAME}
                twillioClient.createLocalAudioTrack(params).then(track=>{
@@ -404,18 +375,40 @@ export default () => {
 
       // plugin functions:
       function _setLocalVideoTrack(track){
-         // const localMediaContainer = document.getElementById(LOCAL_TRACK_DOM_ELEMENT);
-         // let videoTag = localMediaContainer.querySelector("video");
-         // if (videoTag) {localMediaContainer.removeChild(videoTag)}
-         // localMediaContainer.appendChild(track.attach());
          _localVideoTrack = track;
-         _publishTrack(_activeRoom,track)
+         _publishTrack(_localVideoTrack)
          store.commit(twilio_SETTERS.VIDEO_AVAILABLE,true)
       }
       function _setLocalAudioTrack(track){
          _localAudioTrack = track;
-         _publishTrack(_activeRoom,_localAudioTrack)
+         _publishTrack(_localAudioTrack)
          store.commit(twilio_SETTERS.AUDIO_AVAILABLE,true)
+      }
+      function _publishTrack(track){
+         _activeRoom.localParticipant.publishTrack(track);
+         _addParticipantTrack(track,_activeRoom.localParticipant)
+      
+         //On share screen we want to update all the users in the room
+         _changeState( _activeRoom.localParticipant);
+      }
+      function _unPublishTrack(track){
+         _activeRoom.localParticipant.unpublishTrack(track);
+         _deleteParticipantTrack(track,_activeRoom.localParticipant)
+      
+         //On share screen we want to update all the users in the room
+         _changeState( _activeRoom.localParticipant);
+      }
+      function _toggleTrack(tracks,trackType,value){
+         let {track} = tracks.find(track=>track.kind === trackType);
+         if(track){
+            // value: FLASE - USER TURNED OFF / TRUE - USER TURNED ON
+            if(!value){
+               track.disable()
+            }
+            if(value){
+               track.enable()
+            }
+         }
       }
    }
 }
