@@ -83,7 +83,7 @@ export default {
       formData.append("file", file);
       self.uploadCoverImage(formData).then(() => {
         // this.updateToasterParams({
-        //    // toasterText: LanguageService.getValueByKey("chat_file_error"),
+        //    // toasterText: this.$t("chat_file_error"),
         //     showToaster: true
         // });
       });
