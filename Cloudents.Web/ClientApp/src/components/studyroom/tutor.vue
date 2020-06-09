@@ -443,9 +443,9 @@ watch: {
     // }
   },
   destroyed(){
-    if(this.isTutor) {
-      this.$store.commit('setComponent', 'linkToaster') 
-    }
+    // if(this.isTutor) {
+    //   this.$store.commit('setComponent', 'linkToaster') 
+    // }
     // global.onbeforeunload = function() { };
   },
   beforeDestroy(){
