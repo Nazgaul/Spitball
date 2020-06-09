@@ -10,9 +10,15 @@
                     </tr>
                     <tr>
                         <td class="" v-t="'studyRoomSettings_price'"></td>
-                        <td class="ps-4">
-                            <span class="pe-2">{{roomPrice}}</span>
-                            <button class="couponBtn" v-t="'studyRoomSettings_apply_coupon'" @click="$store.commit('setComponent', 'applyCoupon')"></button>
+                        <td class="ps-4 d-flex">
+                            <div class="pe-2" v-if="roomPrice">
+                                <span>{{roomPrice}}</span>
+                                <span class="strike" v-if="couponDiscountPrice">
+                                    {{couponDiscountPrice}}
+                                </span>
+                            </div>
+                            <span v-else v-t="'studyRoomSettings_free'"></span>
+                            <button v-if="roomPrice" class="couponBtn" v-t="'studyRoomSettings_apply_coupon'" @click="$store.commit('setComponent', 'applyCoupon')"></button>
                         </td>
                     </tr>
                     <tr>
@@ -104,6 +110,7 @@ export default {
     },
     data() {
         return {
+            couponDiscountPrice: '',
             waitingForTutor:false,
             clickOccur: false,
             loadings:{
@@ -163,13 +170,12 @@ export default {
         },
         roomPrice(){
             let priceObj = this.roomTutor?.tutorPrice
-            if(priceObj > 0){
+            if(priceObj?.amount > 0){
                 // TODO: Currency Change
                 return this.$price(priceObj.amount, priceObj.currency)
                 // return this.$n(this.roomTutor.tutorPrice, {'style':'currency','currency': this.currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})
-            }else{
-                return this.$t('studyRoomSettings_free')
             }
+            return 0
         },
         roomTutor() {
             return this.$store.getters.getRoomTutor
@@ -223,7 +229,10 @@ export default {
             this.$store.dispatch('updateToggleTutorFullScreen',true)
             this.selectedRoomMode = ''
         },
-        
+        updateCouponPrice(price) {
+            debugger
+            this.couponDiscountPrice = price
+        }
     },
     beforeDestroy() {
         this.waitingForTutor = false;
@@ -234,6 +243,9 @@ export default {
             this.loadings.student = false;
         }
     },
+    created() {
+        this.$root.$on('couponPrice', this.updateCouponPrice)
+    }
 }
 </script>
 
