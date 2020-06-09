@@ -36,7 +36,7 @@ const actions = {
             commit('setCouponDialog', false);
         }).catch(ex => {
             commit('setCouponError', true);
-            console.log(ex);
+            console.error(ex);
         });
     },
     updateCouponDialog({commit}, val) {
