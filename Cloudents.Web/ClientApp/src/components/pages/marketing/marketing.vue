@@ -2,21 +2,20 @@
     <div id="marketing">
         <promoteStteper class="mb-2 mb-sm-4" />
         <marketingBlogs />
-        <tableCoupon />
+        <!-- <tableCoupon /> -->
     </div>
 </template>
 
 <script>
 const promoteStteper = () => import('../marketing/promote/promoteStteper.vue')
 const marketingBlogs = () => import('../marketing/marketingBlogs/marketingBlogs.vue')
-const tableCoupon = () => import('../dashboardPage/myCoupons/tableCoupon/tableCoupon.vue');
-// const tableCoupon = () => import('../marketingOld/tableCoupon/tableCoupon.vue');
+// const tableCoupon = () => import('../dashboardPage/myCoupons/tableCoupon/tableCoupon.vue');
 
 export default {
     components: {
         promoteStteper,
         marketingBlogs,
-        tableCoupon
+        // tableCoupon
     }
 }
 </script>

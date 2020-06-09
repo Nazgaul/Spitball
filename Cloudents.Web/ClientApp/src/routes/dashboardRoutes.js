@@ -127,30 +127,27 @@ export const dashboardRoutes = [
         meta: {
             showMobileFooter: true,
             requiresAuth: true,
-
         },
     },
-    // {
-    //     path: "/my-coupons",
-    //     name: routeName.MyCoupons,
-    //     components: {
-    //         default: () => import('../components/pages/dashboardPage/myCoupons/myCoupons.vue'),
-    //         ...staticComponents(['banner', 'header', 'sideMenu']),
-    //     },
-    //     beforeEnter: (to, from, next) => {
-    //         if(store.getters.getIsTeacher){
-    //             next()
-    //             return
-    //         }
-    //         // Redirect to root
-    //         next('/')
-    //     },
-    //     meta: {
-    //         showMobileFooter: true,
-    //         requiresAuth: true,
-
-    //     }
-    // },
+    {
+        path: "/my-coupons",
+        name: routeName.MyCoupons,
+        components: {
+            default: () => import('../components/pages/dashboardPage/myCoupons/myCoupons.vue'),
+            ...staticComponents(['banner', 'header', 'sideMenu']),
+        },
+        beforeEnter: (to, from, next) => {
+            if(store.getters.getIsTeacher){
+                next()
+                return
+            }
+            next('/')
+        },
+        meta: {
+            showMobileFooter: true,
+            requiresAuth: true,
+        }
+    },
     {
         path: "/wallet",
         redirect: { name: routeName.MySales }

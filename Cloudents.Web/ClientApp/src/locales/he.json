@@ -1,6 +1,12 @@
 {
   "calendar_header": "הזמינו איתי שיעור",
+  "dashboardTeacher_notify_broadcast": "",
+  "dashboardTeacher_notify_chat": "",
+  "dashboardTeacher_notify_follower": "",
+  "dashboardTeacher_notify_payments": "",
+  "dashboardTeacher_notify_question": "",
   "profile_edit_user_profile_title": "ערוך את הפרופיל שלך",
   "profile_firstName_label": "שם פרטי",
-  "profile_personal_details": "פרטים אישיים"
+  "profile_personal_details": "פרטים אישיים",
+  "schoolBlock_coupons": "הקופונים שלי"
 }

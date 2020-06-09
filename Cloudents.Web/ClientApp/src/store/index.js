@@ -20,7 +20,6 @@ import calendarStore from './calendarStore'
 import gapiStore from './gapiStore';
 import paymetStore from './paymetStore.js'
 import homePage_store from './homePage_store.js'
-// import sideMenu_Store from './sideMenu_Store'
 import dialog_Store from './dialogStore/dialog_Store.js'
 import utils_Store from './utils_Store'
 import banner_Store from './banner_Store.js'
@@ -105,7 +104,6 @@ const store = new Vuex.Store({
         gapiStore,
         paymetStore,
         homePage_store,
-        // sideMenu_Store,
         dialog_Store,
         utils_Store,
         banner_Store,
