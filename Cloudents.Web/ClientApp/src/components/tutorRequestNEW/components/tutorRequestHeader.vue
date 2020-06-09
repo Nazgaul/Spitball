@@ -8,8 +8,8 @@
        
             <img v-else  class="tutorRequest-img" v-show="isLoaded"  @load="loaded" :src="defaultImage" alt="Yaniv Image" width="66" height="66">
       
-        <p class="text-center" v-if="!getCurrTutor" v-language:inner="'tutorRequest_send_msg_yaniv'"/>
-        <p class="text-center" v-else v-html="$Ph(isMobile? 'tutorRequest_send_msg_tutor_mobile' :'tutorRequest_send_msg_tutor', getCurrTutor.name)" />
+        <p class="text-center" v-if="!getCurrTutor" v-t="'tutorRequest_send_msg_yaniv'"/>
+        <p class="text-center" v-else>{{getText}}</p>
     </div>
 </template>
 
@@ -29,7 +29,12 @@ export default {
     },
     computed: {
         ...mapGetters(['getCurrTutor', 'isFrymo']),
-        
+        getText() {
+            if (this.isMobile) {
+              return  this.$t('tutorRequest_send_msg_tutor_mobile', [ this.getCurrTutor.name] )
+            }
+            return this.$t('tutorRequest_send_msg_tutor' [this.getCurrTutor.name])
+        },
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
         },

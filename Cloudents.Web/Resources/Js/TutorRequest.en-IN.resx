@@ -173,11 +173,11 @@
     <value>Send</value>
   </data>
   <data name="send_msg_tutor" xml:space="preserve">
-    <value>Send a message to {1}</value>
+    <value>Send a message to {0}</value>
   </data>
   <data name="send_msg_tutor_mobile" xml:space="preserve">
     <value>Send a message to
-{1}</value>
+{0}</value>
   </data>
   <data name="send_msg_yaniv" xml:space="preserve">
     <value>Aditya from Frymo will help you find a tutor</value>
