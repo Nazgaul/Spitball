@@ -1,7 +1,7 @@
 {
   "calendar_header": "Book a lesson with me",
-  "dashboardTeacher_notify_broadcast": "No new students register | {n} Of student that registered to you live class | {n} Of students that registered to you live class ",
-  "dashboardTeacher_notify_chat": "No new chat | {n} Chat your did not reply | {n} Chats your did not reply",
+  "dashboardTeacher_notify_broadcast": "No new students register | {n} Of student that registered to your live class | {n} Of students that registered to your live class",
+  "dashboardTeacher_notify_chat": "No new chat | {n} Chat you did not reply | {n} Chats you did not reply",
   "dashboardTeacher_notify_follower": "No new followers | {n} Of new follower that do not have a chat | {n} Of new followers that do not have a chat",
   "dashboardTeacher_notify_payments": "No new pending payments | {n} Pending payment you did not approve | {n} Pending payments you did not approve",
   "dashboardTeacher_notify_question": "No new questions |  {n} Question that you did not answer | {n} Questions that you did not answer",
