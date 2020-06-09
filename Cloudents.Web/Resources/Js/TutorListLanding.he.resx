@@ -170,7 +170,7 @@
     <value>מורים פרטיים מעולים שמחויבים להצלחה שלך</value>
   </data>
   <data name="header_get_lesson_subject" xml:space="preserve">
-    <value>מורים פרטיים מעולים ב{1} שמחויבים להצלחה שלך</value>
+    <value>מורים פרטיים מעולים ב{0} שמחויבים להצלחה שלך</value>
   </data>
   <data name="reviews" xml:space="preserve">
     <value>ביקורות</value>
