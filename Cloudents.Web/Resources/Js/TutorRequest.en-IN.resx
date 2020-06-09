@@ -152,7 +152,7 @@
     <value>In the meantime, would you like to see other tutors that teach this course?</value>
   </data>
   <data name="more_tutors" xml:space="preserve">
-    <value>I would like to hear from 2-3 other Tutors like {1}</value>
+    <value>I would like to hear from 2-3 other Tutors like {0}</value>
   </data>
   <data name="name" xml:space="preserve">
     <value>Name</value>
