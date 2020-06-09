@@ -37,13 +37,13 @@ export default {
       if(this.$vuetify.breakpoint.smAndDown) {
         return this.$t('requestActions_btn_tutor_mob')
       }
-      return this.$t('requestActions_btn_tutor_mob')
+      return this.$t('requestActions_btn_tutor')
     },
     btnAskText() {
       if(this.$vuetify.breakpoint.smAndDown) {
-        return this.$t('requestActions_btn_tutor_mob')
+        return this.$t('requestActions_btn_ask_mob')
       }
-      return this.$t('requestActions_btn_tutor_mob')
+      return this.$t('requestActions_btn_ask')
     },
     userImageUrl() {
       if(this.getUserLoggedInStatus && this.accountUser?.image && this.accountUser.image.length > 1) {
