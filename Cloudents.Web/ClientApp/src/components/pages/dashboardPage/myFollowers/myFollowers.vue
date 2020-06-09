@@ -144,7 +144,7 @@ export default {
          this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
       },
       sendWhatsapp(user) {
-         let defaultMessage = this.$t("dashboardPage_default_message")
+         let defaultMessage = '';// this.$t("dashboardPage_default_message")
          window.open(`https://api.whatsapp.com/send?phone=${user.phoneNumber}&text=%20${defaultMessage}`);
          this.tutorRequestDialogClose();
       },
