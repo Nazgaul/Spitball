@@ -1,7 +1,7 @@
 <template>
     <div class="studyRoomVideoSettings">
         <div class="studyRoom-video-settings-title">
-            <h4 class="studyRoom-video-settings-label mb-3" v-language:inner='"studyRoomSettings_camera_label"'></h4>
+            <h4 class="studyRoom-video-settings-label mb-3" v-t='"studyRoomSettings_camera_label"'></h4>
             <v-select
                 :value="getVideoDeviceId"
                 class="videoSelect"
