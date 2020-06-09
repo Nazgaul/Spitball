@@ -51,17 +51,20 @@ export default {
             showErrorWrongTime: false,
             showErrorAlreadyCreated: false
          },
-         errorsResource: {
-            showErrorEmpty: 'dashboardPage_create_room_empty_error',
-            showErrorAlreadyCreated: 'dashboardPage_create_room_created_error',
-            showErrorMaxUsers: 'dashboardPage_create_room_max_error',
-            showErrorWrongTime: 'dashboardPage_pick_time_error',
-         },
+
          currentError: '',
          price: 0
       }
    },
    computed: {
+      errorsResource() {
+         return {
+            showErrorEmpty: this.$t('dashboardPage_create_room_empty_error'),
+            showErrorAlreadyCreated: this.$t('dashboardPage_create_room_created_error'),
+            showErrorMaxUsers: this.$t('dashboardPage_create_room_max_error'),
+            showErrorWrongTime: this.$t('dashboardPage_pick_time_error'),
+         }
+      },
       isPrivate() {
          return this.studyRoomType === 'private'
       },
