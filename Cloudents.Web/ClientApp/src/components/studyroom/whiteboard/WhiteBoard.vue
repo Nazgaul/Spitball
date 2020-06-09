@@ -63,7 +63,7 @@
         <div v-if="getShowBoxHelper && dragData.length === 0" class="welcome-helper-top">
             <div class="top-helper">
                 <pencilSVG class="icon-helper"/>
-                <span v-language:inner="'studyRoom_boxs_top'"/>
+                <span v-t="'studyRoom_boxs_top'"/>
             </div>
         </div>
         <div v-if="getShowBoxHelper && dragData.length === 0" class="welcome-helper-bottom">
@@ -71,10 +71,10 @@
                 <div class="bottom-helper-cont">
                     <uploadSVG class="icon-helper"/>
                     <div>
-                        <p v-language:inner="'studyRoom_boxs_bottom_add'"/>
+                        <p v-t="'studyRoom_boxs_bottom_add'"/>
                         <span>
-                            <span v-language:inner="'studyRoom_boxs_bottom_or'"/> 
-                            <span @click="uploadImage" class="underlined" v-language:inner="'studyRoom_boxs_bottom_link'"/>
+                            <span v-t="'studyRoom_boxs_bottom_or'"/> 
+                            <span @click="uploadImage" class="underlined" v-t="'studyRoom_boxs_bottom_link'"/>
                         </span>
                     </div>
 
@@ -117,7 +117,7 @@
                          :formula="`$$${helperStyle.text}$$`"
                          class="math-jax"></vue-mathjax>
                 <div style="align-self: flex-end;">
-                    <v-btn @click="finishEquation" class="white--text" rounded color="#514f7d" v-language:inner="'studyRoom_equation_btn'"/>
+                    <v-btn @click="finishEquation" class="white--text" rounded color="#514f7d" v-t="'studyRoom_equation_btn'"/>
                 </div>
             </div>
             
@@ -130,7 +130,7 @@
              </div>
             <div class="equation-text-area" style="justify-content: space-between;">
                 <div style="align-self: flex-end;">
-                    <v-btn @click="finishEquation" class="white--text" rounded color="#514f7d" v-language:inner="'studyRoom_equation_btn'"/>
+                    <v-btn @click="finishEquation" class="white--text" rounded color="#514f7d" v-t="'studyRoom_equation_btn'"/>
                 </div>
             </div>
         </div>
