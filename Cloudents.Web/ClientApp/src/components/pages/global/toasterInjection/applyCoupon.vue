@@ -77,15 +77,16 @@ export default {
         applyCoupon() {
             this.disableApplyBtn = true;
             let tutorId = this.roomTutor.tutorId
+            let roomId = this.$route.params.id
             let coupon = this.coupon;
             let self = this
-            this.$store.dispatch('updateCoupon', {coupon, tutorId}).finally(() => {
+            this.$store.dispatch('updateCoupon', {coupon, tutorId, roomId}).finally(() => {
                 self.coupon = ''
                 self.disableApplyBtn = false;
                 if(!self.getCouponError) {
                     this.$ga.event('Tutor_Engagement', 'Redeem_Coupon_Success', `${this.$route.path}`);
                 }
-                // self.closeCouponDialog()
+                this.$root.$on('couponPrice', this.updateCouponPrice)
             })
         },
         closeCouponDialog() {
