@@ -99,6 +99,7 @@ namespace Cloudents.Query.Users
                     futureResult = futureResult.Select(s =>
                     {
                         s.PriceType = PriceType.Free;
+                        s.Price = null;
                         return s;
                     });
                 }

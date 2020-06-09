@@ -105,7 +105,8 @@ namespace Cloudents.Query.Documents
 
                 var scribedQueryFuture = _session.Query<Follow>()
                       .Where(w => w.Follower.Id == query.UserId)
-                      .Where(w => w.User.Id == query.Id)
+                      .Where(w=> w.User.Id == _session.Query<Document>().Where(w=>w.Id == query.Id).Select(s=>s.User.Id).Single())
+                      //.Where(w => w.User.Id == query.Id)
                       .Select(s => s.Subscriber).ToFutureValue();
 
              //   var purchaseCountFuture = _session.QueryOver<DocumentTransaction>()
