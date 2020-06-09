@@ -66,7 +66,7 @@ namespace Cloudents.Query.Tutor
 
               var unAnsweredQuestion = _session.Query<Question>()
                     .Where(w => followersQueryable.Contains(w.User.Id))
-                    .Where(w => w.Answers.Any(a => a.User.Id != query.TutorId))
+                    .Where(w => w.Answers.All(a => a.User.Id != query.TutorId))
                     .ToFutureValue(f => f.Count());
 
                 var result = new TutorNotificationDto
