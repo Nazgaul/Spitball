@@ -131,7 +131,7 @@
                         titleSpread: this.$t("referralDialog_spread"),
                         subTitle: this.$t("referralDialog_dialog_subtitle"),
                         bottomText: this.$t("referralDialog_dialog_bottom_text"),
-                        bottomTextSm: this.$t("referralDialog_dialog_bottom_text2"),
+                        bottomTextSm: '', // this.$t("referralDialog_dialog_bottom_text2"),
                         friendsJoined: this.$t("referralDialog_dialog_friends_joined"),
                     }
                 }

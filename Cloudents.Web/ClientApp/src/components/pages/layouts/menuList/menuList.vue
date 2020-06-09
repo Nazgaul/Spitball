@@ -157,6 +157,7 @@ export default {
     ...mapActions(['updateReferralDialog', 'logout']),
 
     changeLanguage(id) {
+      //the same as header
       LanguageChange.setUserLanguage(id).then(
         () => {
           global.location.reload(true);

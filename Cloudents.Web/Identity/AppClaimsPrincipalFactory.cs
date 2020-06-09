@@ -22,14 +22,9 @@ namespace Cloudents.Web.Identity
         {
             var p = await base.GenerateClaimsAsync(user);
             var isTutor = user.Tutor != null;
-            if (!user.PhoneNumberConfirmed) return p;
             p.AddClaim(new Claim(Country, user.Country));
             p.AddClaim(new Claim(SbCountry,user.SbCountry.Name));
             p.AddClaim(new Claim(TutorClaim,isTutor.ToString()));
-            //if (user.University?.Id != null)
-            //{
-            //    p.AddClaim(new Claim(University, user.University.Id.ToString()));
-            //}
             return p;
         }
     }
