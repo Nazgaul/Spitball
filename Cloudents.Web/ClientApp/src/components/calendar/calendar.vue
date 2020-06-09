@@ -43,9 +43,7 @@
               v-t="'calendar_add_event_payment'"
             />
             <span
-              v-if="!isEventSent && !isNeedPayment"
-              v-html="$Ph('calendar_add_event_title',[tutorName])"
-            />
+              v-if="!isEventSent && !isNeedPayment">{{$t('calendar_add_event_title',[tutorName])}}</span>
             <span
               v-if="isEventSent && !isNeedPayment"
               v-t="'calendar_add_event_thank'"
