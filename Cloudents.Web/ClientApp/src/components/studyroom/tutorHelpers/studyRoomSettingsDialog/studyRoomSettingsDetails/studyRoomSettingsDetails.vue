@@ -11,12 +11,7 @@
                     <tr>
                         <td class="" v-t="'studyRoomSettings_price'"></td>
                         <td class="ps-4 d-flex">
-                            <div class="pe-2" v-if="roomPrice">
-                                <span>{{roomPrice}}</span>
-                                <span class="strike" v-if="couponDiscountPrice">
-                                    {{couponDiscountPrice}}
-                                </span>
-                            </div>
+                            <span class="pe-2" v-if="roomPrice">{{roomPrice}}</span>
                             <span v-else v-t="'studyRoomSettings_free'"></span>
                             <button v-if="roomPrice" class="couponBtn" v-t="'studyRoomSettings_apply_coupon'" @click="$store.commit('setComponent', 'applyCoupon')"></button>
                         </td>
@@ -110,7 +105,6 @@ export default {
     },
     data() {
         return {
-            couponDiscountPrice: '',
             waitingForTutor:false,
             clickOccur: false,
             loadings:{
@@ -228,10 +222,6 @@ export default {
         fullview() {
             this.$store.dispatch('updateToggleTutorFullScreen',true)
             this.selectedRoomMode = ''
-        },
-        updateCouponPrice(price) {
-            debugger
-            this.couponDiscountPrice = price
         }
     },
     beforeDestroy() {
@@ -242,9 +232,6 @@ export default {
         }else{
             this.loadings.student = false;
         }
-    },
-    created() {
-        this.$root.$on('couponPrice', this.updateCouponPrice)
     }
 }
 </script>

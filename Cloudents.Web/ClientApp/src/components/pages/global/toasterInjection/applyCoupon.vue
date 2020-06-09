@@ -86,7 +86,6 @@ export default {
                 if(!self.getCouponError) {
                     this.$ga.event('Tutor_Engagement', 'Redeem_Coupon_Success', `${this.$route.path}`);
                 }
-                this.$root.$on('couponPrice', this.updateCouponPrice)
             })
         },
         closeCouponDialog() {

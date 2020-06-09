@@ -23,7 +23,7 @@ const actions = {
     updateCoupon({commit, getters}, couponObj){
         return accountService.applyCoupon(couponObj).then(({data}) => {
             let tutorUser = getters.getRoomTutor;
-            tutorUser.discountPrice = data.price;
+            tutorUser.tutorPrice.amount = data.price;
             
             commit('setCouponError', false);
             commit('setCouponDialog', false);
