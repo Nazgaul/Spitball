@@ -119,10 +119,10 @@ const supportedLanguges = ['en', 'en-US', 'en-IN', 'he'];
 export const i18n = new VueI18n({
   locale: lang,
   //fallbackLocale: 'en',
-  fallbackLocale: {
-    'he-IL': 'he',
-    default: 'en'
-  },
+  // fallbackLocale: {
+  //   'he-IL': 'he',
+  //   default: 'en'
+  // },
   messages: messages,
   numberFormats,
   dateTimeFormats
@@ -167,13 +167,8 @@ export async function loadLanguageAsync() {
   } catch (error) {
     console.error("no resource", lang, error);
   }
-
-  
-
-  //return connectivityModule.http.get(`/Locale${dictionaryType}`).then((dictionary)=>{
- 
  // messages = { ...messages,...data};
-  i18n.setLocaleMessage(lang, messages)
+  i18n.setLocaleMessage(lang, {...messages})
 
   i18n.locale = lang;
   loadedLanguages.push(lang)

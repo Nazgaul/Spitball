@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs.Tutors;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using NHibernate;
 using NHibernate.Linq;
 
@@ -19,7 +20,7 @@ namespace Cloudents.Query.Tutor
 
         private long TutorId { get; }
 
-        
+
         internal sealed class TutorNotificationQueryHandler : IQueryHandler<TutorNotificationQuery, TutorNotificationDto>
         {
             private readonly IStatelessSession _session;
@@ -44,9 +45,9 @@ namespace Cloudents.Query.Tutor
                     .ToFutureValue(f => f.Sum(s => s.Unread));
 
                 var enrolledStudents = _session.Query<StudyRoomUser>()
-                    .Fetch(f=>f.Room)
-                    .Where(w=>w.Room.Tutor.Id == query.TutorId)
-                    .Where(w=>((BroadCastStudyRoom)w.Room).BroadcastTime > DateTime.UtcNow)
+                    .Fetch(f => f.Room)
+                    .Where(w => w.Room.Tutor.Id == query.TutorId)
+                    .Where(w => ((BroadCastStudyRoom)w.Room).BroadcastTime > DateTime.UtcNow)
                     .ToFutureValue(f => f.Count());
 
                 var chatUserQueryable = _session.Query<ChatUser>()
@@ -60,11 +61,12 @@ namespace Cloudents.Query.Tutor
 
 
                 var noChat = followersQueryable
-                    .Where(w=> !chatUserQueryable.Contains(w))
+                    .Where(w => !chatUserQueryable.Contains(w))
                     .ToFutureValue(f => f.Count());
 
 
-              var unAnsweredQuestion = _session.Query<Question>()
+                var unAnsweredQuestion = _session.Query<Question>()
+                    .Where(w => w.Status.State == ItemState.Ok)
                     .Where(w => followersQueryable.Contains(w.User.Id))
                     .Where(w => w.Answers.All(a => a.User.Id != query.TutorId))
                     .ToFutureValue(f => f.Count());
