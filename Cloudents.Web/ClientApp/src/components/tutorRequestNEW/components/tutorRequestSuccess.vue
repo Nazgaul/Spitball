@@ -22,7 +22,7 @@
 
         <div class="tutorRequest-success-bottom">
             <v-btn sel="cancel_tutor_request" @click="tutorRequestDialogClose" class="tutorRequest-btn-back" color="white" depressed rounded>
-                <span>{{$t(isTutor? 'tutorRequest_close' : 'tutorRequest_message_success_btn_noThanks')}}</span>
+                <span>{{btnText}}</span>
             </v-btn>
             <template v-if="!isTutor">
                 <v-btn @click="showMoreTutors" sel="show_more_tutors" class="tutorRequest-btn-showme white--text" color="#4452fc" depressed rounded>
@@ -43,7 +43,9 @@ export default {
     name:'tutorRequestSuccess',
     computed:{
         ...mapGetters(['accountUser', 'getCurrTutor', 'getSelectedCourse', 'getCurrentTutorPhoneNumber', 'getCourseDescription', 'getMoreTutors']),
-
+        btnText() {
+            return this.isTutor ? this.$t('tutorRequest_close') : this.$t('tutorRequest_message_success_btn_noThanks')
+        },
         isTutor(){
             return !!this.getCurrTutor;
         },
