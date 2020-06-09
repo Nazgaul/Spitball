@@ -162,9 +162,6 @@
   <data name="date" xml:space="preserve">
     <value>Date</value>
   </data>
-  <data name="default_message" xml:space="preserve">
-    <value />
-  </data>
   <data name="document" xml:space="preserve">
     <value>Doc</value>
   </data>
