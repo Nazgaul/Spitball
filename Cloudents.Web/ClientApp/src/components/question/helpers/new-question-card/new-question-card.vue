@@ -38,7 +38,7 @@
                     </div>
                     <div class="question-body-course-container" :class="[answers ? 'mb-4' : 'mb-0']">
                         <div class="question-body-course_name text-truncate" v-if="cardData.course">
-                            <span class="question-body-course_name_span" v-language:inner="'resultNote_course'"></span>
+                            <span class="question-body-course_name_span" v-t="'resultNote_course'"></span>
                             <h2 class="question-body-course_name_h2"> {{cardData.course}}</h2>
                         </div>
                     </div>
