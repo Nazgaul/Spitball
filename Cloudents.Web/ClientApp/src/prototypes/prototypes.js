@@ -30,23 +30,6 @@ Vue.prototype.$proccessImageUrl = function(url, width, height, mode){
         return '';
     }
 };
-Vue.prototype.$Ph = function (key, placeholders) {
-    let rawKey = i18n.t(key);
-    //if no placeholders return the Key without the replace
-    if (!placeholders) {
-        //console.error(`${key} have no placeholders to replace`)
-        return rawKey;
-    }
-
-    let argumentsToSend = [];
-    //placeholders must be an array
-    if (Array.isArray(placeholders)) {
-        argumentsToSend = placeholders;
-    } else {
-        argumentsToSend = [placeholders];
-    }
-    return LanguageService.changePlaceHolders(rawKey, argumentsToSend);
-};
 Vue.prototype.$chatMessage = function (message) {
     let userName = this.$store.getters.accountUser.id == message.userId ? '' : `<span style="font-weight: 600;display: block;margin-bottom: 6px;">${message.name}:</span>`
     if(message.type === 'text'){
