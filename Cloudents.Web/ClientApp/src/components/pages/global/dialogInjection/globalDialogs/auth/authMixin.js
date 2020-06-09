@@ -155,13 +155,16 @@ export default {
                     }
 
                     if(self.presetRouting()) return
-
+                    console.log("fsda;klfmasdkl; gfsdjagjklsgjklsgjkls");
+                    
 					// dispatch('userStatus').then(() => {
                     //     self.$router.push({name: self.routeNames.LoginRedirect})
                     // })
                     window.location.reload()
 
                 }).catch(error => {
+                    console.error(error);
+                    
                     let { response: { data } } = error
                     
                     self.errors.phone = data && data["PhoneNumber"] ? data["PhoneNumber"][0] : ''
@@ -186,7 +189,7 @@ export default {
 
             this.$store.dispatch('updateRequestDialog', true);
             this.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
-            this.$store.dispatch('toggleProfileFollower', true)
+            // this.$store.dispatch('toggleProfileFollower', true)
         },
         fromStudyRoom() {
             if(this.$route.name === this.routeNames.StudyRoom){
