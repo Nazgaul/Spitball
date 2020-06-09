@@ -204,6 +204,7 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
             intercomService.showDialog();
         },
         changeLanguage() {
+            //TODO - put axios(?) and remove language service
         LanguageChange.setUserLanguage(this.languageChoisesAval.id).then(
             resp => {
             console.log("language responce success", resp);

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
-import axios from 'axios'
 import messages from '../locales/en.json'
 Vue.use(VueI18n)
 
@@ -169,14 +168,11 @@ export async function loadLanguageAsync() {
     console.error("no resource", lang, error);
   }
 
+  
+
   //return connectivityModule.http.get(`/Locale${dictionaryType}`).then((dictionary)=>{
-  var { data } = await axios.get('/locale', {
-    params: {
-      v: global.version,
-      culture: lang
-    }
-  });
-  messages = { ...messages,...data};
+ 
+ // messages = { ...messages,...data};
   i18n.setLocaleMessage(lang, messages)
 
   i18n.locale = lang;
