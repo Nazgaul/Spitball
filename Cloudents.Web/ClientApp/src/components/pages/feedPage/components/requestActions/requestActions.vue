@@ -8,13 +8,13 @@
       <v-flex xs6 class="rA_btn">
         <v-btn :ripple="false" depressed text block @click="openRequestTutor()" sel="request">
           <rTutor class="rA_i" />
-          <span v-t="$vuetify.breakpoint.smAndDown ?'requestActions_btn_tutor_mob':'requestActions_btn_tutor'"/>
+          <span>{{btnTutorText}}</span>
         </v-btn>
       </v-flex>
       <v-flex xs6 class="rA_btn">
         <v-btn :ripple="false" text block @click="openAskQuestion()" sel="ask">
           <aQuestion class="rA_i" />
-          <span v-t="$vuetify.breakpoint.smAndDown ?'requestActions_btn_ask_mob':'requestActions_btn_ask'"/>
+          <span>{{btnAskText}}</span>
         </v-btn>
       </v-flex>
     </v-layout>
@@ -33,6 +33,18 @@ export default {
   components: {rTutor, aQuestion },
   computed: {
     ...mapGetters(["accountUser",'getUserLoggedInStatus']),
+    btnTutorText() {
+      if(this.$vuetify.breakpoint.smAndDown) {
+        return this.$t('requestActions_btn_tutor_mob')
+      }
+      return this.$t('requestActions_btn_tutor_mob')
+    },
+    btnAskText() {
+      if(this.$vuetify.breakpoint.smAndDown) {
+        return this.$t('requestActions_btn_tutor_mob')
+      }
+      return this.$t('requestActions_btn_tutor_mob')
+    },
     userImageUrl() {
       if(this.getUserLoggedInStatus && this.accountUser?.image && this.accountUser.image.length > 1) {
         return `${this.accountUser.image}`;
