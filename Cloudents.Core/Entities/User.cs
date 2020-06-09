@@ -11,6 +11,15 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
     public class User : BaseUser
     {
+        /// <summary>
+        /// Create a new user
+        /// </summary>
+        /// <param name="email">the user email</param>
+        /// <param name="firstName">first name</param>
+        /// <param name="lastName">last name - note google can sometime doesn't return</param>
+        /// <param name="language">the user culture</param>
+        /// <param name="country">hte user country</param>
+        /// <param name="isTutor">if the user want to be tutor</param>
         public User(string email, string firstName, string? lastName,
             Language language, string country, bool isTutor = false)
         {
