@@ -81,7 +81,7 @@
                 :input-value="activeViewOption == enumViewOptions.videoChat"
                 active-class="v-btn--active control-btn-active"
               >
-                <span v-language:inner>tutor_option_videoChat</span>
+                <span v-t="'tutor_option_videoChat'"></span>
               </v-btn>
               <v-btn :style="{'visibility': isRoomTutor? 'visible':'hidden'}"
                 @click="$store.dispatch('updateToggleAudioParticipants')"
@@ -97,7 +97,7 @@
                 :input-value="activeViewOption == enumViewOptions.fullBoard"
                 active-class="v-btn--active control-btn-active"
               >
-                <span v-language:inner>tutor_option_fullBoard</span>
+                <span v-t="'tutor_option_fullBoard'"></span>
               </v-btn>
             </v-flex>
           </v-layout>
