@@ -24,8 +24,9 @@
             <v-flex  class="text-center"  :class="[ $vuetify.breakpoint.xsOnly ? 'shrink mt-1': '']">
                 <span class="font-weight-bold title" v-t="'courses_invite_classmates'"></span>
             </v-flex>
+            
             <v-flex>
-                <!-- <span class="small-text" v-language:inner>courses_sub_title_invite</span> -->
+                <!-- TODO: check if we need this empty v-flex before we remove it -->
             </v-flex>
         </v-layout>
         <v-layout align-center justify-center class="mt-4 mb-4" column :class="{'shrink mt-5 pt-2': $vuetify.breakpoint.xsOnly}">

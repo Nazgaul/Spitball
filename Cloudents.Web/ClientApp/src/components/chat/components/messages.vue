@@ -15,8 +15,7 @@
                     class="pa-2 messages-textarea" solo 
                     type="text" hide-details 
                     :disabled="!getIsSignalRConnected" 
-                    :placeholder="placeHolderText" 
-                    v-language:placeholder
+                    :placeholder="$t('chat_type_message')" 
                     @keydown.enter.prevent="sendMessage" 
                     ref="chatTextArea"
                     v-model="messageText" auto-grow>
@@ -39,7 +38,6 @@ export default {
     data(){
         return{
             messageText: "",
-            placeHolderText: this.$t("chat_type_message"),
         }
     },
     computed:{

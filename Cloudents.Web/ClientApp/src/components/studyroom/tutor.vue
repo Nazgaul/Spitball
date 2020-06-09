@@ -36,11 +36,11 @@
             <!-- <v-btn text icon @click="toggleRecord" class="recording_btn tutoringNavigationBtn" :ripple="false">
               <span v-if="!getIsRecording" class="mt-1 d-flex">
                 <beginRecording class="white-btn mr-1"></beginRecording>
-                <span class="recording_btn_text" v-language:inner="'tutor_begain_recording'"></span>
+                <span class="recording_btn_text" v-t="'tutor_begain_recording'"></span>
               </span>
               <span v-else class="mt-1 d-flex">
                 <stopRecording class="mr-2"></stopRecording>
-                <span class="recording_btn_text" v-language:inner="'tutor_stop_recording'"></span>
+                <span class="recording_btn_text" v-t="'tutor_stop_recording'"></span>
               </span>
             </v-btn> -->
            
