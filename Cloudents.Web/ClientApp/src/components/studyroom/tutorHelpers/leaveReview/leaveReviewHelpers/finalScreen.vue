@@ -5,10 +5,10 @@
                 <v-icon class="star-icon">sbf-star-rating-full</v-icon>
             </v-flex>
             <v-flex xs12   class="text-center pt-4">
-                <span class="font-weight-black final-review-title" v-language:inner>leaveReview_final_title</span>
+                <span class="font-weight-black final-review-title" v-t="'leaveReview_final_title'"></span>
             </v-flex>
             <v-flex xs12   class="text-center pt-4 pb-5">
-                <span @click="goToReview()" class="body-2 blue-text cursor-pointer" v-language:inner>leaveReview_final_goTo</span>
+                <span @click="goToReview()" class="body-2 blue-text cursor-pointer" v-t="'leaveReview_final_goTo'"></span>
             </v-flex>
         </v-layout>
     </div>
