@@ -70,7 +70,9 @@
                             <div>{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}</div>
                             <div class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</div>
                         </div>
-                        <span sel="bio_more" @click="isOpen = !isOpen" class="readMore" v-t="isOpen ? 'profile_read_less' : 'profile_read_more'"></span>
+                        <span sel="bio_more" @click="isOpen = !isOpen" class="readMore">
+                            {{readMoreText}}
+                        </span>
                     </div>
 
                     <!-- Courses Student -->
@@ -113,7 +115,9 @@
                             rounded
                         >
                             <calendarSVG width="20" class="profileUserSticky_btn_icon"/>
-                            <div class="profileUserSticky_btn_txt" v-t="calendarBtnResource"/>
+                            <div class="profileUserSticky_btn_txt">
+                                {{calendarBtnResource}}
+                            </div>
                         </v-btn>
                     </div>
                 </div>
@@ -195,6 +199,9 @@ export default {
     },
     computed: {
         ...mapGetters(['getProfile','accountUser','getUserStatus', 'getUserLoggedInStatus']),
+        readMoreText() {
+            return this.isOpen ? this.$t('profile_read_less') : this.$t('profile_read_more')
+        },
         isLogged() {
             return this.getUserLoggedInStatus
         },
@@ -249,7 +256,7 @@ export default {
         //     return 0;
         // },
         calendarBtnResource() {
-            return this.isCurrentProfileUser ? 'profile_my_book_session' : 'profile_book_session'
+            return this.isCurrentProfileUser ? this.$t('profile_my_book_session') : this.$t('profile_book_session')
         }
     },
     methods: {
