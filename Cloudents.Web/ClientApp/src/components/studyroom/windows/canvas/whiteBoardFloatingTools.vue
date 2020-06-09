@@ -6,7 +6,7 @@
                   <v-icon size="20" :color="selectedColor(enumOptions.pan)">sbf-pan</v-icon>
                </button>
             </template>
-            <span v-language:inner>tutor_tooltip_pan</span>
+            <span v-t="'tutor_tooltip_pan'"></span>
       </v-tooltip>
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
@@ -14,7 +14,7 @@
                   <v-icon :color="selectedColor(enumOptions.select)">sbf-mouse-pointer</v-icon>
                </button>
             </template>
-            <span v-language:inner>tutor_tooltip_select</span>
+            <span v-t="'tutor_tooltip_select'"></span>
       </v-tooltip>
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
@@ -22,7 +22,7 @@
                   <v-icon :color="selectedColor(enumOptions.text)">sbf-text-icon</v-icon>
                </button>
             </template>
-            <span v-language:inner>tutor_tooltip_text</span>
+            <span v-t="'tutor_tooltip_text'"></span>
       </v-tooltip>
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
@@ -30,7 +30,7 @@
                   <v-icon :color="selectedColor(enumOptions.equation)">sbf-equation-icon</v-icon>
                </button>
             </template>
-            <span v-language:inner>tutor_tooltip_equation</span>
+            <span v-t="'tutor_tooltip_equation'"></span>
       </v-tooltip>
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
@@ -38,7 +38,7 @@
                   <v-icon :color="selectedColor(enumOptions.iink)">sbf-fx-icon</v-icon>
                </button>
             </template>
-            <span v-language:inner>tutor_tooltip_iink</span>
+            <span v-t="'tutor_tooltip_iink'"></span>
       </v-tooltip>
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
@@ -46,7 +46,7 @@
                   <v-icon class="selected-color" :style="{ color: canvasData.color.hex}">sbf-color-picked</v-icon>
                </button>
             </template>
-            <span v-language:inner>tutor_tooltip_color</span>
+            <span v-t="'tutor_tooltip_color'"></span>
       </v-tooltip>
          <slider-picker class="color-picker" 
                         :palette="predefinedColors" 
@@ -58,7 +58,7 @@
                   <v-icon :color="selectedColor(enumOptions.draw)">sbf-pencil-empty</v-icon>
                </button>
             </template>
-            <span v-language:inner>tutor_tooltip_pen</span>
+            <span v-t="'tutor_tooltip_pen'"></span>
       </v-tooltip>
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
@@ -66,7 +66,7 @@
                   <v-icon :color="selectedColor(enumOptions.line)">sbf-connect-line</v-icon>
                </button>
             </template>
-            <span v-language:inner>tutor_tooltip_line</span>
+            <span v-t="'tutor_tooltip_line'"></span>
       </v-tooltip>
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
@@ -74,7 +74,7 @@
                   <v-icon :color="selectedColor(enumOptions.circle)">sbf-elipse-stroke</v-icon>
                </button>
             </template>
-            <span v-language:inner>tutor_tooltip_circle</span>
+            <span v-t="'tutor_tooltip_circle'"></span>
       </v-tooltip>
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
@@ -82,7 +82,7 @@
                   <v-icon :color="selectedColor(enumOptions.rectangle)">sbf-rectangle-stroke</v-icon>
                </button>
             </template>
-            <span v-language:inner>tutor_tooltip_square</span>
+            <span v-t="'tutor_tooltip_square'"></span>
       </v-tooltip>
       <input class="nav-action" type="file" name="Image Upload" id="imageUpload" accept="image/*" v-show="false"/>
       <v-tooltip bottom>
@@ -91,7 +91,7 @@
                   <v-icon :color="selectedColor(enumOptions.image)">sbf-upload</v-icon>
                </button>
             </template>
-            <span v-language:inner>tutor_tooltip_upload</span>
+            <span v-t="'tutor_tooltip_upload'"></span>
       </v-tooltip>
 
       <v-tooltip bottom>
@@ -100,7 +100,7 @@
                   <v-icon color="black" style="margin-bottom: 2px;">sbf-capture-icon</v-icon>
                </button>
             </template>
-            <span v-language:inner>tutor_tooltip_takeSnapshot</span>
+            <span v-t="'tutor_tooltip_takeSnapshot'"></span>
       </v-tooltip>
 
       <v-tooltip bottom>
@@ -109,7 +109,7 @@
                   <v-icon :color="selectedColor(enumOptions.eraser)" >sbf-eraser-empty</v-icon>
                </button>
             </template>
-            <span v-language:inner>tutor_tooltip_eraser</span>
+            <span v-t="'tutor_tooltip_eraser'"></span>
       </v-tooltip>
       <v-tooltip bottom>
             <template v-slot:activator="{on}">
@@ -117,7 +117,7 @@
                   <v-icon color="black">sbf-undo</v-icon>
                </button>
             </template>
-            <span v-language:inner>tutor_tooltip_undo</span>
+            <span v-t="'tutor_tooltip_undo'"></span>
       </v-tooltip>
 
       <v-tooltip bottom>
@@ -126,7 +126,7 @@
                   <v-icon color="black" size="20" style="margin-top: 5px;">sbf-clearAll-icon</v-icon>
                </button>
             </template>
-            <span v-language:inner>tutor_tooltip_clearAll</span>
+            <span v-t="'tutor_tooltip_clearAll'"></span>
       </v-tooltip>
    </v-btn-toggle>
 </template>
