@@ -14,7 +14,7 @@
             <v-btn color="#4452FC" rounded :loading='isLoading'
                     class="white--text elevation-0 calbtnshare"
                     @click="emptyStateFunctions">
-                <span v-t="emptyStateResources"/>
+                <span>{{emptyStateResources}}</span>
             </v-btn>
         </v-layout>
     </div>
@@ -40,17 +40,17 @@
             },
             emptyStateResources(){
                 if(!this.isSelectCalendar && !this.isSelectHours){
-                    return `becomeTutor_btn_cal_connect`
+                    return this.$t(`becomeTutor_btn_cal_connect`)
                 }
                 if(this.isSelectCalendar && !this.isSelectHours){
                     if(global.country === "IL"){
-                        return `becomeTutor_btn_next`
+                        return this.$t(`becomeTutor_btn_next`)
                     }else{
-                        return `becomeTutor_connect_mobile`
+                        return this.$t(`becomeTutor_connect_mobile`)
                     }
                 }
                 if(!this.isSelectCalendar && this.isSelectHours){
-                    return `becomeTutor_connect_mobile`
+                    return this.$t(`becomeTutor_connect_mobile`)
                 }
                 return '';
             }

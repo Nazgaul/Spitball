@@ -43,7 +43,7 @@
                                 <div class="d-none">
                                     {{session.description | restOfText(isOpen, '...', textLimit)}}
                                 </div>
-                                <span sel="bio_more" @click="isOpen = !isOpen" class="readMore" v-t="isOpen ? 'profile_read_less' : 'profile_read_more'"></span>                                    
+                                <span sel="bio_more" @click="isOpen = !isOpen" class="readMore">{{readBtnText}}</span>                                    
                                 
                             </template>
                             <div v-else class="description">{{session.description}}</div>
@@ -138,7 +138,7 @@
         </v-row>
 
         <div class="showMore pa-3 pt-sm-4 pb-sm-0 text-center" v-if="liveSessions.length > 3">
-            <button class="showBtn" v-t="isExpand ? 'profile_see_less' : 'profile_see_all'" @click="isExpand = !isExpand"></button>
+            <button class="showBtn" @click="isExpand = !isExpand">{{seeBtnText}}</button>
         </div>
 
         <v-snackbar
@@ -149,7 +149,7 @@
             @input="showSnack = false"
             :value="showSnack"
         >
-            <div class="text-wrap white--text" v-t="toasterText"></div>
+            <div class="text-wrap white--text">{{toasterText}}</div>
         </v-snackbar>
 
     </div>
@@ -185,6 +185,12 @@ export default {
         }
     },
     computed: {
+        seeBtnText() {
+            return this.isExpand ? this.$t('profile_see_less') : this.$t('profile_see_all')
+        },
+        readBtnText() {
+            return this.isOpen ? this.$t('profile_read_less') : this.$t('profile_read_more')
+        },
         isTutorSubscription() {
             return this.$store.getters.getProfileTutorSubscription
         },
@@ -238,12 +244,12 @@ export default {
             let self = this
             this.$store.dispatch('updateStudyroomLiveSessions', session)
                 .then(() => {
-                    self.toasterText = 'profile_enroll_success'
+                    self.toasterText = this.$t('profile_enroll_success')
                     let currentSession = self.liveSessions.filter(s => s.id === studyRoomId)[0]
                     currentSession.enrolled = true
                 }).catch(ex => {
                     self.color = 'error'
-                    self.toasterText = 'profile_enroll_error'
+                    self.toasterText = this.$t('profile_enroll_error')
                     self.$appInsights.trackException(ex);
                 }).finally(() => {
                     self.showSnack = true

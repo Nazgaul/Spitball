@@ -5,7 +5,7 @@
             <img class="success-img" src="../images/success.png" alt="" />
             <template v-if="isTutor">
                 <p class="message_1">
-                    <span class="sentMessage" v-language:inner="'tutorRequest_message_success_tutor_1'"></span>
+                    <span class="sentMessage" v-t="'tutorRequest_message_success_tutor_1'"></span>
                     <span>{{firstName}}</span>
                 </p>
                 <div class="message_3">
@@ -14,9 +14,9 @@
                 </div>
             </template>
             <template v-else>
-                <p class="message_1" v-language:inner="'tutorRequest_message_success_yaniv_1'"></p>
-                <p class="message_2" v-language:inner="'tutorRequest_message_success_yaniv_2'"></p>
-                <p class="message_3" v-language:inner="'tutorRequest_message_success_yaniv_3'"></p>
+                <p class="message_1" v-t="'tutorRequest_message_success_yaniv_1'"></p>
+                <p class="message_2" v-t="'tutorRequest_message_success_yaniv_2'"></p>
+                <p class="message_3" v-t="'tutorRequest_message_success_yaniv_3'"></p>
             </template>
         </div>
 
@@ -26,7 +26,7 @@
             </v-btn>
             <template v-if="!isTutor">
                 <v-btn @click="showMoreTutors" sel="show_more_tutors" class="tutorRequest-btn-showme white--text" color="#4452fc" depressed rounded>
-                    <span v-language:inner="'tutorRequest_message_success_btn_showMe'"></span>
+                    <span v-t="'tutorRequest_message_success_btn_showMe'"></span>
                 </v-btn>
             </template>
         </div>

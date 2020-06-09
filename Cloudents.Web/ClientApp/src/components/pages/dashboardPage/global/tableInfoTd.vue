@@ -12,7 +12,7 @@
                   <span class="font-weight-bold">{{$t('dashboardPage_room_name')}}</span> 
                   <span>{{item.roomName}}</span>
                </div>
-               <span v-text="$Ph('dashboardPage_session',item.name)"/>
+               <span>{{$t('dashboardPage_session',[item.name])}}</span>
                <div class="text-truncate">
                   <span class="font-weight-bold" v-t="'dashboardPage_duration'"/> 
                   <span v-if="item.duration">{{item.duration}}</span>

@@ -239,7 +239,7 @@
     <value>לימדת במקום אחר?</value>
   </data>
   <data name="my_sales_action_redeem" xml:space="preserve">
-    <value>יש לך {1} נק' למימוש</value>
+    <value>יש לך {0} נק' למימוש</value>
   </data>
   <data name="my_sales_action_redeem_btn" xml:space="preserve">
     <value>ממש 1,000 נקודות</value>
@@ -299,7 +299,7 @@
     <value>תאריך שידור</value>
   </data>
   <data name="session" xml:space="preserve">
-    <value>שיעור פרטי עם {1}</value>
+    <value>שיעור פרטי עם {0}</value>
   </data>
   <data name="session_on" xml:space="preserve">
     <value>לא הסתיים</value>
