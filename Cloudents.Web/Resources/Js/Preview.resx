@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="about_to_buy" xml:space="preserve">
-    <value>Confirm sending {1} points to {2} for</value>
+    <value>Confirm sending {0} points to {1} for</value>
   </data>
   <data name="buy_btn" xml:space="preserve">
     <value>Send &amp; Download</value>

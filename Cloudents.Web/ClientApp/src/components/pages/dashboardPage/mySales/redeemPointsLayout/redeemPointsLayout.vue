@@ -5,9 +5,9 @@
             <img class="redeemPointsLayout_img" :src="redeemImg" alt="">
          </v-flex>
          <v-flex class="redeemPointsLayout_action" text-center>
-            <p class="redeemPointsLayout_title" v-text="$Ph('dashboardPage_my_sales_action_redeem',userPts)"/>
+            <p class="redeemPointsLayout_title">{{$t('dashboardPage_my_sales_action_redeem',[userPts])}}</p>
             <v-btn @click="redeem(cost)" :disabled="!isAvailable" :loading="isLoading" class="redeemPointsLayout_btn white--text" depressed color="#4c59ff">
-               <span v-text="$Ph('dashboardPage_my_sales_action_redeem_btn',cost.toLocaleString())"/>
+               <span v-t="'dashboardPage_my_sales_action_redeem_btn'"/>
             </v-btn>
          </v-flex>
       </v-layout>

@@ -157,7 +157,7 @@
     <value>מצוין</value>
   </data>
   <data name="sub_title_step1" xml:space="preserve">
-    <value>הענק ציון כללי וחוות דעת על המורה {1} אחרי שסיימת את השיעור</value>
+    <value>הענק ציון כללי וחוות דעת על המורה {0} אחרי שסיימת את השיעור</value>
   </data>
   <data name="sub_title_step2" xml:space="preserve">
     <value>אתם יכולים לעזור לסטודנטים אחרים על ידי כתיבת חוות דעת</value>

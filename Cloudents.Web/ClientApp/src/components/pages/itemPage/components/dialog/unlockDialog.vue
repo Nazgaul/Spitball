@@ -9,7 +9,7 @@
     >
         <v-card class="confirm-purchase-card">
         <v-card-title class="confirm-headline">
-            <span v-html="$Ph('preview_about_to_buy', [docPrice, uploaderName])"></span>
+            <span>{{$t('preview_about_to_buy', [docPrice, uploaderName])}}</span>
         </v-card-title>
         <v-card-actions class="card-actions">
             <div class="doc-details">
