@@ -1,3 +1,6 @@
+//TODO: Account new store clean @idan
+
+import axios from 'axios';
 import accountService from "../services/accountService";
 import { dollarCalculate } from "./constants";
 import analyticsService from '../services/analytics.service';
@@ -152,6 +155,14 @@ const actions = {
     updateLoginStatus({commit},val){
         commit("changeLoginStatus", val);
     },
+    changeLanguage(context, locale) {
+        axios.post("/Account/language", { culture: locale }).then(resp => {
+            console.log("language response success", resp);
+            global.location.reload(true);
+        }).catch(ex => {
+            console.log("language error error", ex);
+        })
+    }
     // subscribeNow(context, id) {
     //     commit("subscribeToTutor", id);
     //     //return accountService.subscribe(id)

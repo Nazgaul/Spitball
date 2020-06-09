@@ -156,13 +156,14 @@ export default {
   methods: {           
     ...mapActions(['updateReferralDialog', 'logout']),
 
+    //TODO: Account new store clean @idan
+    // logout change to mutations, uncomment when change
+    // to new account store and clean logout from mapActions
+    // logout() {
+    //   this.$store.commit('logout')
+    // },
     changeLanguage(id) {
-      //the same as header
-      LanguageChange.setUserLanguage(id).then(
-        () => {
-          global.location.reload(true);
-        }     
-      );
+      this.$store.dispatch('changeLanguage', id)
     },
     startIntercom() {
       intercomSettings.showDialog();
