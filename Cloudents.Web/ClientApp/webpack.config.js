@@ -271,6 +271,7 @@ module.exports = (env) => {
                     directories: [path.join(__dirname,'.src')],
                     // Exclude patterns
                     exclude: ['*.test.js', 'font-icon/*','*.spec.js'],
+                   // failOnUnused : true
                     // Root directory (optional)
                    // root: path.join(__dirname, 'ClientApp'),
                 }),

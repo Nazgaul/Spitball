@@ -103,7 +103,9 @@ export default {
             }
         },
         getSymbol() {
-            let v =  this.$n(1,'currency');
+            // TODO: Currency Change
+            let accountUser = this.$store.getters.accountUser
+            let v = this.$n(1, {'style':'currency','currency': accountUser?.currencySymbol});
             return v.replace(/\d|[.,]/g,'').trim();
         },
     },

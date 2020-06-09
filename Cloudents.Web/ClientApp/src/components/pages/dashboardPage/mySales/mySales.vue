@@ -31,7 +31,8 @@
                      </td> 
                      <td class="text-center">
                         <span class="font-weight-bold">
-                           {{$n(props.item.value, 'currency')}}
+                           <!-- TODO: Currency Change -->
+                           {{$n(props.item.value, {'style':'currency','currency': accountUser.currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})}}
                         </span>
                      </td> 
                   </tr>
@@ -111,7 +112,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { LanguageService } from '../../../../services/language/languageService';
 
 import tableInfoTd from '../global/tableInfoTd.vue';
 import buyPointsLayout from './buyPointsLayout/buyPointsLayout.vue'
@@ -176,12 +176,13 @@ export default {
             return `${price} ${this.$t('dashboardPage_pts')}`
          }
          if(type === 'TutoringSession' || type === 'BuyPoints'){
-            return this.$n(price, 'currency')
+            // TODO: Currency Change
+            return this.$n(price, {'style':'currency','currency': this.accountUser.currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})
          }
       },
       formatBalancePts(pts){
          pts = Math.round(+pts).toLocaleString(`${global.lang}-${global.country}`);
-         return `${pts} ${LanguageService.getValueByKey('dashboardPage_pts')}`
+         return `${pts} ${this.$t('dashboardPage_pts')}`
       },
       formatItemStatus(paymentStatus){
          if(paymentStatus === 'Approved'){

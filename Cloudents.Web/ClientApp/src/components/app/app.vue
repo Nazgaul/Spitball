@@ -6,16 +6,7 @@
     <router-view name="sideMenu" v-if="isDrawer"></router-view>
     <v-content :class="[{'site-content': $route.path !== '/'}, {'hidden-sideMenu': drawerPlaceholder}]">
         <router-view class="main-container"></router-view>
-        <!-- <div class="s-cookie-container" v-if="!cookiesShow">
-          <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
-          <span class="cookie-approve">
-            <button
-              @click="removeCookiesPopup()"
-              style="outline:none;"
-              v-language:inner
-            >app_cookie_toaster_action</button>
-          </span>
-        </div> -->
+
 
       
 
@@ -73,7 +64,6 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { LanguageService } from "../../services/language/languageService";
 import * as routeNames from '../../routes/routeNames.js';
 
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
@@ -228,7 +218,7 @@ export default {
       walletService.buyTokens(transactionObjectError).then(
         () => {
           this.updateToasterParams({
-            toasterText: LanguageService.getValueByKey("buyToken_success"),
+            toasterText: this.$t("buyToken_success"),
             showToaster: true
           });
         },

@@ -17,7 +17,6 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import walletService from '../../../../../services/walletService';
-import { LanguageService } from '../../../../../services/language/languageService';
 import paymentService from '../../../../../services/payment/paymentService.js'
 
 export default {
@@ -47,7 +46,7 @@ export default {
          walletService.redeem(amount)
             .then(() => {
                this.updateToasterParams({
-                     toasterText: LanguageService.getValueByKey('cashoutcard_Cashed'),
+                     toasterText: this.$t('cashoutcard_Cashed'),
                      showToaster: true,
                });
                this.updateBalancesItems();

@@ -8,7 +8,7 @@
                 </v-flex>
             </v-layout>
             <v-layout class="px-3 mt-4" wrap>
-                <v-flex xs12 sm4  :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
+                <v-flex xs12 sm6  :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
                     <v-layout column>
                         <v-flex xs12 sm6  class="pl-2 mb-2">
                             <span class="subtitle" v-t="'profile_personal_details'"></span>
@@ -24,7 +24,7 @@
                         </v-flex>
                     </v-layout>
                 </v-flex>
-                <v-flex xs12 sm4 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'pr-2']">
+                <v-flex xs12 sm6 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'pr-2']">
                     <v-layout column>
                         <v-flex v-if="$vuetify.breakpoint.smAndUp" xs12 sm6  class="mb-2 pl-2" grow>
                             <span class="subtitle" style="visibility: hidden">hidden</span>
@@ -40,7 +40,7 @@
                         </v-flex>
                     </v-layout>
                 </v-flex>
-                <v-flex xs12 sm4 :class="{'mt-4': $vuetify.breakpoint.xsOnly}" v-if="!isFrymo">
+                <!-- <v-flex xs12 sm4 :class="{'mt-4': $vuetify.breakpoint.xsOnly}" v-if="!isFrymo">
                     <v-layout column>
                         <v-flex xs12 sm6  class="mb-2 pl-2">
                             <span class="subtitle" v-t="'profile_pricing'"></span>
@@ -51,14 +51,14 @@
                                         :label="$t('profile_price_label')"
                                         v-model="price"
                                         outlined
-                                        :prefix="accountUser.currencySymbol"
+                                       // :prefix="accountUser.currencySymbol"
                                         class="tutor-edit-pricing"
                                         type="number"
                                         :hide-details="$vuetify.breakpoint.xsOnly"
                             ></v-text-field>
                         </v-flex>
                     </v-layout>
-                </v-flex>
+                </v-flex> -->
             </v-layout>
 
             <v-layout class="px-3" column :class="[$vuetify.breakpoint.xsOnly ? 'mt-4' : '']">
@@ -138,14 +138,14 @@
                     this.editedBio = newVal;
                 }
             },
-            price: {
-                get() {
-                    return this.getProfile.user.tutorData.price;
-                },
-                set(newVal) {
-                    this.editedPrice = newVal;
-                }
-            },
+            // price: {
+            //     get() {
+            //         return this.getProfile.user.tutorData.price;
+            //     },
+            //     set(newVal) {
+            //         this.editedPrice = newVal;
+            //     }
+            // },
             firstName: {
                 get() {
                     return this.getProfile.user.firstName;
@@ -178,14 +178,14 @@
                 if(this.$refs.formTutor.validate()) {
                     let firstName = this.editedFirstName || this.firstName;
                     let lastName = this.editedLastName || this.lastName;
-                    let price = this.editedPrice || this.price;
+                    //let price = this.editedPrice || this.price;
                     let bio = this.editedBio || this.bio;
                     let description = this.editedDescription || this.description;
                     let editsData = {
                         name: `${firstName} ${lastName}`,
                         lastName,
                         firstName,
-                        price,
+                        //price,
                         bio,
                         description,
                     };
@@ -193,7 +193,7 @@
                     let serverFormat = {
                         firstName,
                         lastName,
-                        price,
+                       // price,
                         bio,
                         description,
                     };
@@ -201,13 +201,14 @@
                         .then(() => {
                             //update profile store
                             this.updateEditedProfile(editsData);
-                            this.btnLoading = false;
                             this.closeDialog();
                             this.updateEditDialog(false)
                         }, (error) => {
                             console.log('Error', error);
-                            this.btnLoading = false;
                             //TODO : error callback
+                        }).finally(() => {
+                            this.btnLoading = false;
+
                         });
                 }
             },

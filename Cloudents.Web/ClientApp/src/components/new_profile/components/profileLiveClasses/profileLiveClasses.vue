@@ -62,8 +62,9 @@
                                         <div class="px-3 py-2" v-t="'profile_live_visitors_title'"></div>
                                     </v-col>
                                     <v-col class="pa-0">
-                                        <div class="px-3 py-2 d-flex align-center" v-if="session.price">
-                                            <span class="numericPrice mb-1">{{$n(session.price, 'currency')}}</span>
+                                        <div class="px-3 py-2 d-flex align-center" v-if="session.price.amount">
+                                            <!-- TODO: Currency Change -->
+                                            <span class="numericPrice mb-1">{{$price(session.price.amount, session.price.currency)}}</span>
                                             <div class="d-flex align-end">
                                                 <span>/</span>
                                                 <span class="hour" v-t="'profile_points_hour'"></span>
@@ -87,8 +88,9 @@
                     </template>
                     <template v-else>
                         <v-col cols="4" class="pa-0 rowCol" :class="{'enroll': session.enrolled}">
-                            <div class="d-flex align-center" v-if="session.price">
-                                <span class="numericPrice mb-1">{{$n(session.price, 'currency')}}</span>
+                            <div class="d-flex align-center" v-if="session.price.amount">
+                                <!-- TODO: Currency Change -->
+                                <span class="numericPrice mb-1">{{$price(session.price.amount, session.price.currency)}}</span>
                                 <div class="d-flex align-end">
                                     <span>/</span>
                                     <span class="hour" v-t="'profile_points_hour'"></span>
@@ -186,9 +188,6 @@ export default {
         isTutorSubscription() {
             return this.$store.getters.getProfileTutorSubscription
         },
-        // tutorSubscriptionPrice() {
-        //     return this.$store.getters.getProfileTutorSubscription
-        // },
         liveSessionsList() {
             let liveList = this.liveSessions
             if(this.isExpand) {
@@ -196,12 +195,12 @@ export default {
             }
             return liveList.slice(0, 3)
         },
-        tutorCurrency() {
-            return this.$store.getters.getProfile?.user?.tutorData?.currency
-        },
         tutorFirstName() {
             return this.$store.getters.getProfile?.user?.firstName
         },
+        // accountCurrency() {
+        //     // return this.$store.getters.accountUser?.currencySymbol
+        // },
         isMyProfile(){
             let accountId = this.$store.getters?.accountUser?.id
             let profileId = this.$store.getters.getProfile?.user?.id

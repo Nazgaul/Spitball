@@ -3,7 +3,7 @@
         <v-layout  column wrap align-center justify-center class="calendar-step-wrap-cont">
             <template v-if="!isSelectCalendar && !isSelectHours">
                 <img src="./images/calendar.png" alt="">
-                <p class="pEmptyCalendar" v-language:inner="'becomeTutor_cal_step'"/>
+                <p class="pEmptyCalendar" v-t="'becomeTutor_cal_step'"/>
             </template>
 
             <selectCalendarCMP v-if="isSelectCalendar  && !isSelectHours"/>
@@ -14,14 +14,13 @@
             <v-btn color="#4452FC" rounded :loading='isLoading'
                     class="white--text elevation-0 calbtnshare"
                     @click="emptyStateFunctions">
-                <span v-language:inner="emptyStateResources"/>
+                <span v-t="emptyStateResources"/>
             </v-btn>
         </v-layout>
     </div>
 </template>
 <script>
     import { mapActions} from 'vuex';
-    import {LanguageService} from '../../services/language/languageService.js'
     import selectCalendarCMP from './calendarSelect.vue';
     import calendarHoursCMP from './calendarHours.vue'
 
@@ -69,7 +68,7 @@
                     this.isLoading = false;
                     if(err.error) return 
                     this.updateToasterParams({
-                        toasterText: LanguageService.getValueByKey("tutorRequest_request_error"),
+                        toasterText: this.$t("tutorRequest_request_error"),
                         showToaster: true,
                         toasterType: "error-toaster"
                     });

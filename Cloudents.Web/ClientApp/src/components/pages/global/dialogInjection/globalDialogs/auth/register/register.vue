@@ -21,7 +21,6 @@
                         class="btns white--text mb-6"
                     >
                         <gIcon class="mr-2" />
-                        <!-- <img width="40" src="../../../../../authenticationPage/images/G icon@2x.png" /> -->
                         <span class="googleBtnText" v-t="'loginRegister_getstarted_btn_google_signup'"></span>
                     </v-btn>
 

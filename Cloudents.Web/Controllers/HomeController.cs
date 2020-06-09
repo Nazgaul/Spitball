@@ -70,13 +70,13 @@ namespace Cloudents.Web.Controllers
             {
                 return Redirect("/");
             }
-            var message = new SignalRTransportType(SignalRType.User, SignalREventAction.Logout,
-                new object());
+            //var message = new SignalRTransportType(SignalRType.User, SignalREventAction.Logout,
+            //    new object());
 
-            await hubContext.Clients.User(signInManager.UserManager.GetUserId(User)).SendCoreAsync("Message", new object[]
-            {
-                message
-            }, token);
+            //await hubContext.Clients.User(signInManager.UserManager.GetUserId(User)).SendCoreAsync("Message", new object[]
+            //{
+            //    message
+            //}, token);
             await signInManager.SignOutAsync();
             TempData.Clear();
 

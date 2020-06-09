@@ -36,7 +36,6 @@
 
 <script>
     import { mapActions } from 'vuex';
-    import {LanguageService} from "../../../../services/language/languageService";
 
     export default {
         data() {
@@ -45,7 +44,7 @@
                 width: 800,
                 height: 600,
                 scale: 1,
-                snapshotBtnText: LanguageService.getValueByKey('tutor_take_snapshot_btn'),
+                snapshotBtnText: this.$t('tutor_take_snapshot_btn'),
                 timerCountdown: null,
                 lang: global.lang,
                 audio: null,

@@ -9,13 +9,12 @@
 import headlineSearchDesktop from './headlineSection/headlineSearchDesktop.vue';
 import headlineSearchMobile from './headlineSection/headlineSearchMobile.vue';
 import headlineStatus from "./headlineStatus.vue";
-import { LanguageService } from "../../../services/language/languageService.js";
 
 export default {
   components: { headlineStatus, headlineSearchDesktop, headlineSearchMobile },
   data() {
     return {
-      phSearch: LanguageService.getValueByKey("homePage_hd_search_ph")
+      phSearch: this.$t("homePage_hd_search_ph")
     };
   },
   computed: {

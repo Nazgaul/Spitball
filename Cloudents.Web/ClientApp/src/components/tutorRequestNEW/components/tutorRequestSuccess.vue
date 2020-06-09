@@ -37,9 +37,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
-import { LanguageService } from '../../../services/language/languageService';
 import analyticsService from '../../../services/analytics.service';
-
 
 export default {
     name:'tutorRequestSuccess',
@@ -56,7 +54,7 @@ export default {
             return this.getCurrentTutorPhoneNumber;
         },
         defaultMessage() {
-            return LanguageService.getValueByKey('whatsapp_message');
+            return this.$t('whatsapp_message');
         },
         tutorId() {
             return this.getCurrTutor?.userId;

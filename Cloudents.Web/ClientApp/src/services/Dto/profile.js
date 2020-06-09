@@ -5,8 +5,8 @@ export const Profile = {
    Profile: function (objInit) {
       
       return {
-           id : objInit.id ,
-            name :objInit.name,
+            id : objInit.id ,
+            name: `${objInit.firstName} ${objInit.lastName}`,
             firstName : objInit.firstName,
             lastName : objInit.lastName,
             image : objInit.image || '',
@@ -20,7 +20,6 @@ export const Profile = {
             followers: objInit.followers || '',
             isFollowing: objInit.isFollowing,
             cover : objInit.cover || '',
-            
          }
       
    },
@@ -54,7 +53,10 @@ export const Profile = {
    BroadCastSessions: function(objInit) {
       this.id = objInit.id;
       this.name = objInit.name;
-      this.price = objInit.price
+      this.price = {
+         amount: objInit.price.amount,
+         currency: objInit.price.currency
+      }
       this.created = objInit.dateTime ? new Date(objInit.dateTime) : '';
       this.enrolled = objInit.enrolled;
       this.description = objInit.description;

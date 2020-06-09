@@ -96,13 +96,10 @@ namespace Cloudents.Query.Tutor
                              .Select(x => x.ImageName).WithAlias(() => tutorCardDtoAlias.Image)
                              .Select(x => x.Courses).WithAlias(() => tutorCardDtoAlias.Courses)
                              .Select(x => x.Subjects).WithAlias(() => tutorCardDtoAlias.Subjects)
-                             .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.Price)
                              .Select(x => x.Rate).WithAlias(() => tutorCardDtoAlias.Rate)
                              .Select(x => x.RateCount).WithAlias(() => tutorCardDtoAlias.ReviewsCount)
                              .Select(x => x.Bio).WithAlias(() => tutorCardDtoAlias.Bio)
-                             .Select(x => x.SbCountry).WithAlias(() => tutorCardDtoAlias.SbCountry)
-                             .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons)
-                     .Select(x=>x.SubsidizedPrice).WithAlias(() => tutorCardDtoAlias.DiscountPrice))
+                             .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons))
                      .OrderBy(o => o.OverAllRating).Desc
 
                      .TransformUsing(Transformers.AliasToBean<TutorCardDto>())
@@ -120,11 +117,9 @@ namespace Cloudents.Query.Tutor
                             .Select(x => x.ImageName).WithAlias(() => tutorCardDtoAlias.Image)
                             .Select(x => x.Courses).WithAlias(() => tutorCardDtoAlias.Courses)
                             .Select(x => x.Subjects).WithAlias(() => tutorCardDtoAlias.Subjects)
-                            .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.Price)
                             .Select(x => x.Rate).WithAlias(() => tutorCardDtoAlias.Rate)
                             .Select(x => x.RateCount).WithAlias(() => tutorCardDtoAlias.ReviewsCount)
                             .Select(x => x.Bio).WithAlias(() => tutorCardDtoAlias.Bio)
-                            .Select(x => x.SbCountry).WithAlias(() => tutorCardDtoAlias.SbCountry)
                             .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons))
 
                     .OrderBy(o => o.OverAllRating).Desc

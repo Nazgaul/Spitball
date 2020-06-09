@@ -135,7 +135,6 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { LanguageService } from "../../services/language/languageService.js";
 import Schedule from "./images/schedule.svg";
 import * as dialogNames from "../pages/global/dialogInjection/dialogNames.js";
 export default {
@@ -325,7 +324,7 @@ export default {
           this.addEventDialog = false;
           this.isLoading = false;
           this.updateToasterParams({
-            toasterText: LanguageService.getValueByKey(
+            toasterText: this.$t(
               "calendar_error_create_event"
             ),
             showToaster: true,

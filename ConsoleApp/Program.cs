@@ -149,76 +149,55 @@ namespace ConsoleApp
 
         private static async Task Dbi()
         {
-            List<ChatRoom> someList;
-            do
+            var session = Container.Resolve<ISession>();
+            var result = session.Query<StudyRoom>()
+                .Where(w => w.OldPrice == null).Select(s => s.Id).ToList();
+
+            foreach (var guid in result)
             {
-
-
-                //int count = 0;
-                var session = Container.Resolve<ISession>();
-                someList = await session.Query<ChatRoom>().Fetch(f => f.Extra)
-                    .Where(w => w.Tutor == null)
-                     .Take(5)
-                     .ToListAsync();
-
-                foreach (var someObject in someList)
+                using var uow = Container.Resolve<IUnitOfWork>();
+                var studyRoom = session.Get<StudyRoom>(guid);
+                var x = studyRoom.Sessions.FirstOrDefault();
+                if (x != null)
                 {
-                    Console.WriteLine(someObject.Id);
-                    //if (user.StudyRoomPayment == null)
+                    //TODO
+                    //if (x.Price.HasValue)
                     //{
-                    using var unitOfWork = Container.Resolve<IUnitOfWork>();
-
-                    if (someObject.StudyRoom != null)
-                    {  
-                        someObject.Tutor = someObject.StudyRoom.Tutor;
-                        await unitOfWork.CommitAsync(default);
-                        continue;
-
-                    }
-
-                    var users = someObject.Users;
-                    if (users.Count > 2)
-                    {
-                        var user = someObject.Messages.AsQueryable().OrderBy(o => o.Id).Select(s => s.User).First();
-                        var tutor = user.Tutor;
-                        someObject.Tutor = tutor;
-                        await unitOfWork.CommitAsync(default);
-                        continue;
-                    }
-
-                    var tutors = someObject.Users.Where(s => s.User.Tutor != null).ToList();//.User.Tutor;
-                    if (tutors.Count == 0)
-                    {
-                        session.Delete(someObject);
-                        await unitOfWork.CommitAsync(default);
-                        continue;
-                        //remove this
-                    }
-
-                    if (tutors.Count == 1)
-                    {
-                        someObject.Tutor = tutors[0].User.Tutor;
-                        await unitOfWork.CommitAsync(default);
-                        continue;
-                    }
-
-                    if (tutors.Count > 1)
-                    {
-                        if (someObject.Users.Count == 2)
-                        {
-                            var userId = someObject.Messages.AsQueryable().OrderBy(o => o.Id).Select(s => s.User.Id).First();
-                           var tutor = someObject.Users.Where(w => w.User.Id != userId).Single(s => s.User.Tutor != null).User
-                                .Tutor;
-                            someObject.Tutor = tutor;
-                            await unitOfWork.CommitAsync(default);
-                            continue;
-                        }
-                    }
-                    throw new ApplicationException();
-
+                    //    studyRoom.SetPrice(x.Price.Value);
+                    //    session.Flush();
+                    //    await uow.CommitAsync();
+                    //    continue;
                     //}
+
                 }
-            } while (someList.Count > 0);
+
+                var price = session
+                    .CreateSQLQuery(
+                        "Select price from sb.TutorHistory where BeginDate < :xxx and :xxx < EndDate and id =  :Id")
+                    .SetInt64("Id", studyRoom.Tutor.Id)
+                    .SetDateTime("xxx", studyRoom.DateTime.CreationTime)
+                    .List<decimal?>().FirstOrDefault();
+                if (price == null)
+                {
+                    price = session
+                         .CreateSQLQuery(
+                             "Select price from sb.Tutor where id =  :Id")
+                         .SetInt64("Id", studyRoom.Tutor.Id)
+                         .List<decimal>().First();
+                }
+                studyRoom.SetPrice(price.Value);
+                await uow.CommitAsync();
+            }
+            var result2 = session.Query<StudyRoom>()
+                .Where(w => w.Price == null).Select(s => s.Id).ToList();
+            foreach (var guid in result2)
+            {
+                using var uow = Container.Resolve<IUnitOfWork>();
+                var studyRoom = session.Get<StudyRoom>(guid);
+                studyRoom.SetPrice(studyRoom.OldPrice);
+                await uow.CommitAsync();
+            }
+
         }
 
         private static async Task UpdateTwilioParticipants()

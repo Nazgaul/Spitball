@@ -16,6 +16,7 @@ const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCou
 
 const verifyPhone = () => import('../dialogInjection/globalDialogs/auth/register/verifyPhone.vue')
 
+const applyCoupon = () => import('./applyCoupon.vue')
 const studRoomSettings = () => import('../../../studyroom/tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue')
 const createStudyRoomDialog = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue')
 const teacherBillOfflineDialog = () => import('../dialogInjection/globalDialogs/teacherApproval/teacherBillOffline.vue');
@@ -29,6 +30,7 @@ export default {
         upload,
         createCoupon,
         verifyPhone,
+        applyCoupon,
         studRoomSettings,
         createStudyRoomDialog,
         teacherBillOfflineDialog
@@ -132,6 +134,9 @@ export default {
                         component: 'register',
                         goTo: 'verifyPhone'
                     }
+                },
+                applyCoupon: {
+                    name: 'applyCoupon'
                 }
             }
         }

@@ -8,7 +8,7 @@ namespace Cloudents.Core.Entities
     public class StudyRoomSessionUser : Entity<Guid>, IEquatable<StudyRoomSessionUser>
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public StudyRoomSessionUser(StudyRoomSession studyRoomSession, User user,decimal pricePerHour)
+        public StudyRoomSessionUser(StudyRoomSession studyRoomSession, User user)
         {
             StudyRoomSession = studyRoomSession;
             User = user;
@@ -28,17 +28,17 @@ namespace Cloudents.Core.Entities
 
         public virtual int DisconnectCount { get; protected set; }
 
-        [Obsolete]
-        public virtual decimal PricePerHour { get; protected set; }
+        //[Obsolete]
+        //public virtual decimal PricePerHour { get; protected set; }
 
-        [Obsolete]
-        public virtual TimeSpan? TutorApproveTime { get; protected set; }
+        //[Obsolete]
+        //public virtual TimeSpan? TutorApproveTime { get; protected set; }
 
-        [Obsolete]
-        public virtual decimal TotalPrice { get; protected set; }
+        //[Obsolete]
+        //public virtual decimal TotalPrice { get; protected set; }
 
-        [Obsolete]
-        public virtual string? Receipt { get; protected set; }
+        //[Obsolete]
+        //public virtual string? Receipt { get; protected set; }
      
 
         public virtual void Disconnect(TimeSpan durationInRoom)

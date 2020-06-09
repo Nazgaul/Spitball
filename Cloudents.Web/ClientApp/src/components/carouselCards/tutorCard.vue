@@ -27,26 +27,11 @@
             </div>
         </div>
         <div class="tutorCarousel-bottom">
-            <div class="text-truncate ts_subjects" v-show="subjects">
-                <span class="mr-1 font-weight-bold" v-language:inner="'resultTutor_study-area'"></span>
+            <div class="text-truncate ts_subjects mb-2" v-show="subjects">
+                <span class="mr-1 font-weight-bold" v-t="'resultTutor_study-area'"></span>
                 <span class="">{{subjects}}</span>
             </div>
-            <div class="ts-bottom">
-                <router-link event @click.native.stop="openCoupon" class="applyCoupon" to="/" v-language:inner="'resultTutor_apply_coupon'"></router-link>
-
-
-                <div class="ts-price">
-                    <template>
-                        <span v-if="isDiscount" class="ts-price-discount font-weight-bold">{{$n(tutor.discountPrice, 'currency')}}</span>
-                        <span class="ts-price-original font-weight-bold" v-else>{{$n(tutor.price, 'currency')}}</span>
-                    </template>
-                    <span>
-                        <span>/</span>
-                        <span v-language:inner="'tutorCardCarousel_hour'"></span>
-                    </span>
-                    <div class="striked ml-2" v-if="isDiscount">{{$n(tutor.price, 'currency')}}</div>
-                </div>
-            </div>
+           
             <v-btn depressed color="#4c59ff" class="tutor-btn">
                 <span class="text-truncate">
                     <button class="mr-1">
@@ -61,7 +46,6 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import analyticsService from '../../services/analytics.service';
-import { LanguageService } from "../../services/language/languageService.js";
 
 import userRating from "../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
 import userAvatarRect from '../helpers/UserAvatar/UserAvatarRect.vue';
@@ -94,13 +78,13 @@ export default {
             let maxChar = 5;
             let name = this.tutor.name.split(' ')[0];
             if(name.length > maxChar) {
-                return LanguageService.getValueByKey('resultTutor_message_me');
+                return this.$t('resultTutor_message_me');
             }
             return name;
         },
-        isDiscount() {
-            return this.tutor.discountPrice !== undefined;
-        },
+        // isDiscount() {
+        //     return this.tutor.discountPrice !== undefined;
+        // },
         subjects() {
             return this.tutor.subjects;
         },
@@ -121,10 +105,12 @@ export default {
                     this.flagLocalClick = true;
                     if(event.target.querySelector('.contact-me-button') || event.target.classList.contains('contact-me-button')){
                         this.contactClickedbtn = true;
-                    }else if(event.target.querySelector('.applyCoupon') || event.target.classList.contains('applyCoupon')){
-                        this.contactClickedbtn = false;
-                        this.openCoupon();
-                    } else {
+                    }
+                    // else if(event.target.querySelector('.applyCoupon') || event.target.classList.contains('applyCoupon')){
+                    //     this.contactClickedbtn = false;
+                    //     this.openCoupon();
+                    // } 
+                    else {
                         this.contactClickedbtn = false;
                     }
                     //this flag protects us from mouse up after drag
@@ -149,9 +135,9 @@ export default {
                 }
             }
         },
-        openCoupon() {
-            this.$router.push({name: 'profile', params: {id: this.tutor.id, name: this.tutor.name},  query: {coupon: true}})
-        }
+        // openCoupon() {
+        //     this.$router.push({name: 'profile', params: {id: this.tutor.id, name: this.tutor.name},  query: {coupon: true}})
+        // }
     },
 }
 </script>
@@ -229,63 +215,63 @@ export default {
         min-width: 100%;
         margin: 0;
     }
-    .ts-bottom {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        margin-bottom: 8px;
+    // .ts-bottom {
+    //     display: flex;
+    //     justify-content: space-between;
+    //     align-items: baseline;
+    //     margin-bottom: 8px;
 
-        @media(max-width: @screen-xs) {
-            margin-bottom: 10px;
-        }
-        .applyCoupon {
-          color: #4c59ff;
-          font-weight: 600;
-          font-size: 13px;
-          margin-top: 6px;
-        }
-        .ts-price {
-            display: flex;
-            font-size: 12px;
-            font-weight: normal;
-            line-height: 1;
-            align-items: baseline;
-            &-original {
-                font-size: 18px;
-            }
-            &-discount {
-                font-size: 18px;
-            }
-            .price-mark {
-                color: #43425d;
-                font-weight: bold;
-                font-size: 16px;
-            }
-            .striked {
-                margin: 0 0 0 auto;
-                max-width: max-content;
-                color: #a0a4be;
-                font-size: 14px;
-                text-decoration: line-through;
-            }
-            // .striked {
-            //     margin: 0 0 0 auto;
-            //     max-width: max-content;
-            //     position: relative;
-            //     color: #a0a4be;
-            //     font-size: 14px;
-            //     &:after {
-            //         content: "";
-            //         width: 100%;
-            //         border-bottom: solid 1px #a0a4be;
-            //         position: absolute;
-            //         left: -2px;
-            //         top: 50%;
-            //         z-index: 1;
-            //     }
-            // }
-        }
-        }
+    //     @media(max-width: @screen-xs) {
+    //         margin-bottom: 10px;
+    //     }
+    //     .applyCoupon {
+    //       color: #4c59ff;
+    //       font-weight: 600;
+    //       font-size: 13px;
+    //       margin-top: 6px;
+    //     }
+    //     .ts-price {
+    //         display: flex;
+    //         font-size: 12px;
+    //         font-weight: normal;
+    //         line-height: 1;
+    //         align-items: baseline;
+    //         &-original {
+    //             font-size: 18px;
+    //         }
+    //         &-discount {
+    //             font-size: 18px;
+    //         }
+    //         .price-mark {
+    //             color: #43425d;
+    //             font-weight: bold;
+    //             font-size: 16px;
+    //         }
+    //         .striked {
+    //             margin: 0 0 0 auto;
+    //             max-width: max-content;
+    //             color: #a0a4be;
+    //             font-size: 14px;
+    //             text-decoration: line-through;
+    //         }
+    //         // .striked {
+    //         //     margin: 0 0 0 auto;
+    //         //     max-width: max-content;
+    //         //     position: relative;
+    //         //     color: #a0a4be;
+    //         //     font-size: 14px;
+    //         //     &:after {
+    //         //         content: "";
+    //         //         width: 100%;
+    //         //         border-bottom: solid 1px #a0a4be;
+    //         //         position: absolute;
+    //         //         left: -2px;
+    //         //         top: 50%;
+    //         //         z-index: 1;
+    //         //     }
+    //         // }
+    //     }
+    //     }
     }
 }
 </style>

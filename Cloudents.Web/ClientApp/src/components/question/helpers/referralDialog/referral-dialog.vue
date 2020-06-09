@@ -108,7 +108,6 @@
     import SbInput from "../sbInput/sbInput.vue"
     import { mapGetters, mapActions } from "vuex"
     import Base62 from "base62"
-    import { LanguageService } from '../../../../services/language/languageService'
     import { getReferallMessages } from "./consts.js";
 
     export default {
@@ -125,15 +124,15 @@
                 },
                 isCopied: false,
                 singleRefLink: '',
-                referralSelectPlace: LanguageService.getValueByKey("referralDialog_ref_placeholder"),
+                referralSelectPlace: this.$t("referralDialog_ref_placeholder"),
                 text: {
                     dialog: {
-                        title: LanguageService.getValueByKey("referralDialog_dialog_title_invite"),
-                        titleSpread: LanguageService.getValueByKey("referralDialog_spread"),
-                        subTitle: LanguageService.getValueByKey("referralDialog_dialog_subtitle"),
-                        bottomText: LanguageService.getValueByKey("referralDialog_dialog_bottom_text"),
-                        bottomTextSm: LanguageService.getValueByKey("referralDialog_dialog_bottom_text2"),
-                        friendsJoined: LanguageService.getValueByKey("referralDialog_dialog_friends_joined"),
+                        title: this.$t("referralDialog_dialog_title_invite"),
+                        titleSpread: this.$t("referralDialog_spread"),
+                        subTitle: this.$t("referralDialog_dialog_subtitle"),
+                        bottomText: this.$t("referralDialog_dialog_bottom_text"),
+                        bottomTextSm: this.$t("referralDialog_dialog_bottom_text2"),
+                        friendsJoined: this.$t("referralDialog_dialog_friends_joined"),
                     }
                 }
             }

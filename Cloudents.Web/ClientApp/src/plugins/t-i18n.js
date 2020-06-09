@@ -17,21 +17,25 @@ Vue.use(VueI18n)
 //   })
 //   return messages
 // }
-const lang = `${global.lang}-${global.country}`;
 
 
 const numberFormats = {
-  'en': {
+  'en-US': {
     currency: {
       style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0
     },
   },
-  'en-IL': {
-    currency: {
-      style: 'currency', currency: 'ILS', minimumFractionDigits: 0, maximumFractionDigits: 0
-    },
-  },
-  'he-IL': {
+  // 'en-IL': {
+  //   currency: {
+  //     style: 'currency', currency: 'ILS', minimumFractionDigits: 0, maximumFractionDigits: 0
+  //   },
+  // },
+  // 'he-IL': {
+  //   currency: {
+  //     style: 'currency', currency: 'ILS', minimumFractionDigits: 0, maximumFractionDigits: 0
+  //   },
+  // },
+  'he': {
     currency: {
       style: 'currency', currency: 'ILS', minimumFractionDigits: 0, maximumFractionDigits: 0
     },
@@ -108,10 +112,18 @@ const dateTimeFormats = {
     }
   }
 }
+const lang = `${global.lang}-${global.country}`;
 
+const supportedLanguges = ['en', 'en-US', 'en-IN', 'he'];
+
+//TODO we can put a loop in here
 export const i18n = new VueI18n({
   locale: lang,
-  fallbackLocale: 'en',
+  //fallbackLocale: 'en',
+  fallbackLocale: {
+    'he-IL': 'he',
+    default: 'en'
+  },
   messages: messages,
   numberFormats,
   dateTimeFormats
@@ -129,29 +141,32 @@ const loadedLanguages = [] // our default language that is preloaded
 // }
 
 export async function loadLanguageAsync() {
-  // If the same language
-  // if (i18n.locale === lang) {
-  //   return Promise.resolve()
-  // }
+  let lang = `${global.lang}-${global.country}`;
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    if (supportedLanguges.indexOf(lang) !== -1) {
+      break;
+    }
+    let lang2 = lang.split('-')[0];
+    if (lang2 == lang) {
+      lang = 'en';
+      break;
+    }
+    lang = lang2;
 
-  // If the language was already loaded
-  if (loadedLanguages.includes(lang)) {
-    return;// Promise.resolve()
   }
 
-  //  let dictionaryType = `?v=${global.version}&culture=${global.lang}-${global.country}`;
-  // if(!!type){
-  //     //version is for anti caching ability
-  //     dictionaryType += `&resource=${type}`;
-  // }else{
-  //     dictionaryType += '';
-  // }
+  if (loadedLanguages.includes(lang)) {
+    return;
+  }
+  var messages;
   try {
-    var messages = await import(/* webpackChunkName: "lang-[request]" */ `../locales/${lang}.json`);
-    i18n.setLocaleMessage(lang, messages.default);
-    loadedLanguages.push(lang);
-  } catch {
-    console.error("no resource",lang);
+    let xxx = await import(/* webpackChunkName: "lang-[request]" */ `../locales/${lang}.json`);
+    messages = xxx.default;
+    //i18n.setLocaleMessage(lang, messages.default);
+    //oadedLanguages.push(lang);
+  } catch (error) {
+    console.error("no resource", lang, error);
   }
 
   //return connectivityModule.http.get(`/Locale${dictionaryType}`).then((dictionary)=>{
@@ -161,7 +176,10 @@ export async function loadLanguageAsync() {
       culture: lang
     }
   });
-  i18n.mergeLocaleMessage(lang, data)
+  messages = { ...messages,...data};
+  i18n.setLocaleMessage(lang, messages)
+
+  i18n.locale = lang;
   loadedLanguages.push(lang)
   // .then(({data}) => {
 

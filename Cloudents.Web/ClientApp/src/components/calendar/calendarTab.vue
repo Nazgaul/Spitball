@@ -8,7 +8,7 @@
                 <calendarEmptyState v-if="showEmptyState && !getShowCalendar"/>
             </v-card>
             <v-card class="caltab" v-show="studentEmptyState">
-                <span v-language:inner="'calendar_empty_state_student'"></span>
+                <span v-t="'calendar_empty_state_student'"></span>
             </v-card>
         </v-flex>
     </v-layout>

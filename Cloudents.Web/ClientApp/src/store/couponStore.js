@@ -22,21 +22,14 @@ const mutations = {
 const actions = {
     updateCoupon({commit, getters}, couponObj){
         return accountService.applyCoupon(couponObj).then(({data}) => {
-            let tutorUser = getters.getProfile.user.tutorData;
-            if(data.price === 0) {
-                tutorUser.discountPrice = tutorUser.price;
-                tutorUser.price = data.price;
-            } else {
-                tutorUser.discountPrice = data.price;
-            }
+            let tutorUser = getters.getRoomTutor;
+            tutorUser.tutorPrice.amount = data.price;
             
-            if(!tutorUser.hasCoupon)  tutorUser.hasCoupon = true;
-
             commit('setCouponError', false);
             commit('setCouponDialog', false);
         }).catch(ex => {
             commit('setCouponError', true);
-            console.log(ex);
+            console.error(ex);
         });
     },
     updateCouponDialog({commit}, val) {

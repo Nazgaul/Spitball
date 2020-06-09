@@ -46,7 +46,7 @@ namespace Cloudents.Query.Users
                         Date = s.TimeStamp.CreationTime,
                         Views = s.Views,
                         Downloads = s.Downloads,
-                        Purchased = s.Transactions.Count(w => w is DocumentTransaction)
+                        Purchased = s.PurchaseCount ?? 0
                     }).ToFuture<UserContentDto>();
 
 

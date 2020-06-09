@@ -5,10 +5,9 @@ const chatInstance = axios.create({
 })
 
 import { connectivityModule } from "./connectivity.module";
-import { LanguageService } from './language/languageService';
-
+import { i18n } from '../plugins/t-i18n'
 function createLastImageMsg() {
-    return `<img src="${require('../components/chat/images/photo-camera-small.png')}" /><span>${LanguageService.getValueByKey('chat_photo')}</span>`;
+    return `<img src="${require('../components/chat/images/photo-camera-small.png')}" /><span>${i18n.t('chat_photo')}</span>`;
 }
 
 function createConversationId(arrIds){

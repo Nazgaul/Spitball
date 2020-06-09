@@ -30,35 +30,24 @@
         <v-divider vertical class="mx-4"></v-divider>
 
         <div class="user-rates">
-            <div class="price">
-              <router-link class="applyCoupon" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name},  query: {coupon: true}}" v-t="'resultTutor_apply_coupon'"></router-link>
-              <div class="user-rates-top">
-                <template>
-                    <span v-if="isDiscount" class="tutor-card-price font-weight-bold">{{$n(tutorData.discountPrice, 'currency')}}</span>
-                    <span class="tutor-card-price font-weight-bold" v-else>{{$n(tutorData.price, 'currency')}}</span>
-                </template>
-                <span class="caption">
-                  <span class="tutor-card-price-divider font-weight-bold">/</span>
-                  <span class="tutor-card-price-divider font-weight-bold" v-t="'resultTutor_hour'"></span>
-                </span>
-                <div class="striked mr-1" v-if="isDiscount">{{$n(tutorData.price, 'currency')}}</div>
-                <div class="striked no-discount" v-else></div>
+            <div class="my-auto">
+              <div class="user-rank align-center mb-5">
+                <v-rating 
+                  v-model="tutorData.rating"
+                  color="#ffca54"
+                  background-color="#ffca54"
+                  :length="isReviews ? 5 : 1"
+                  :size="18" readonly
+                />
+                <span :class="{'reviews': isReviews,'no-reviews font-weight-bold': !isReviews}">{{$tc('resultTutor_review_one',tutorData.reviews)}}</span>
+                
               </div>
-            </div>
-
-             
-            <div  class="user-rank align-center">
-              <v-rating  v-model="tutorData.rating" color="#ffca54" background-color="#ffca54"
-                                      :length="isReviews  ? 5 : 1"
-                                          :size="18" readonly />
-              <span :class="{'reviews': isReviews,'no-reviews font-weight-bold': !isReviews}">{{$tc('resultTutor_review_one',tutorData.reviews)}}</span>
               
-            </div>
-            
-            <div class="classes-hours align-center">
-              <clock />
-              <span class="font-weight-bold no-classes">{{ $tc('resultTutor_hour_completed', tutorData.lessons) }}</span>
-            </div>                
+              <div class="classes-hours align-center">
+                <clock />
+                <span class="font-weight-bold no-classes">{{ $tc('resultTutor_hour_completed', tutorData.lessons) }}</span>
+              </div>
+            </div>               
 
             <div class="send-btn">
                 <v-btn class="btn-chat white--text" depressed rounded block color="#4452fc" @click.prevent="sendMessage(tutorData)">
@@ -76,7 +65,6 @@ import { mapActions, mapGetters } from "vuex";
 
 import analyticsService from "../../../../services/analytics.service";
 import chatService from '../../../../services/chatService';
-import { LanguageService } from "../../../../services/language/languageService.js";
 import * as routeNames from '../../../../routes/routeNames.js'
 import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
 
@@ -166,7 +154,7 @@ export default {
       let maxChar = 5;
       let name = this.tutorData.name.split(' ')[0];
       if(name.length > maxChar) {
-        return LanguageService.getValueByKey('resultTutor_message_me');
+        return this.$t('resultTutor_message_me');
       }
       return name;
     },
@@ -239,46 +227,46 @@ export default {
           min-height: 19px;
         }
       }
-      .price {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: -20px;
-        .applyCoupon {
-          color: #5a61ba;
-          font-weight: 600;
-          font-size: 12px;
-          margin-top: 6px;
-        }
-        .user-rates-top {
-          align-items: baseline;
-          .tutor-card-currency {
-            font-size: 16px;
-            color:#5158af;
-          }
-          .tutor-card-price {
-            font-size: 18px;
-            color:#5158af;
-          }
-          .tutor-card-price-divider {
-            font-size: 12px;
-            color:#5158af;
-          }
-          .menu-area {
-              margin-top: -12px;
-              width: 21px;
-            .v-btn__content {
-              i {
-                font-size: 16px;
-                color: rgba(0, 0, 0, 0.25);
-              }
-            }
-          }
-        }
-        .price-default-height {
-          .heightMinMax(16px);
-        }
-      }
+      // .price {
+      //   width: 100%;
+      //   display: flex;
+      //   justify-content: space-between;
+      //   margin-bottom: -20px;
+        // .applyCoupon {
+        //   color: #5a61ba;
+        //   font-weight: 600;
+        //   font-size: 12px;
+        //   margin-top: 6px;
+        // }
+        // .user-rates-top {
+        //   align-items: baseline;
+        //   .tutor-card-currency {
+        //     font-size: 16px;
+        //     color:#5158af;
+        //   }
+        //   .tutor-card-price {
+        //     font-size: 18px;
+        //     color:#5158af;
+        //   }
+        //   .tutor-card-price-divider {
+        //     font-size: 12px;
+        //     color:#5158af;
+        //   }
+        //   .menu-area {
+        //       margin-top: -12px;
+        //       width: 21px;
+        //     .v-btn__content {
+        //       i {
+        //         font-size: 16px;
+        //         color: rgba(0, 0, 0, 0.25);
+        //       }
+        //     }
+        //   }
+        // }
+      //   .price-default-height {
+      //     .heightMinMax(16px);
+      //   }
+      // }
       .classes-hours {
         margin-left: 3px;
         display: flex;
@@ -301,7 +289,7 @@ export default {
       }
       .user-rank {
         display: flex;
-        margin-bottom: -20px;
+        // padding-top: 35px;
         .reviews {
           font-size: 12px;
           color: #4452fc;

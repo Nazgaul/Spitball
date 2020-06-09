@@ -11,7 +11,6 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using Tutor = Cloudents.Search.Entities.Tutor;
 
@@ -80,11 +79,11 @@ namespace Cloudents.FunctionsV2
                                 Rate = (float)update.Rate,
                                 Lessons = Math.Max(update.LessonsCount, update.ReviewsCount),
                                 Bio = update.Bio,
-                                Price = update.Price,
+                              //  Price = update.Price,
                                 //  SbCountry = update.SbCountry,
                                 //                                Country = update.Country,
                                 Image = update.Image,
-                                DiscountPrice = update.SubsidizedPrice
+                                //DiscountPrice = update.SubsidizedPrice
                             }
                         },
                         Insert = true

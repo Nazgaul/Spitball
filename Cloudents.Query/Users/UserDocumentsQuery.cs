@@ -9,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Query.Users
 {
@@ -65,18 +64,18 @@ namespace Cloudents.Query.Users
                     DateTime = s.TimeStamp.UpdateTime,
                     Course = s.Course.Id,
                     Title = s.Name,
-                    Views = s.Views,
-                    Downloads = s.Downloads,
+                    //Views = s.Views,
+                    //Downloads = s.Downloads,
                     Snippet = s.Description ?? s.MetaContent,
                     Price = s.DocumentPrice.Price,
-                    Vote = new VoteDto
-                    {
-                        Votes = s.VoteCount
-                    },
+                    //Vote = new VoteDto
+                    //{
+                    //    Votes = s.VoteCount
+                    //},
                     PriceType = s.DocumentPrice.Type ?? PriceType.Free,
                     DocumentType = s.DocumentType,
                     Duration = s.Duration,
-                    Purchased = s.PurchaseCount.GetValueOrDefault()
+                    //Purchased = s.PurchaseCount.GetValueOrDefault()
                 }).Take(query.PageSize).Skip(query.Page*query.PageSize).ToFuture();
 
                 var countFuture = count.ToFutureValue(f => f.Count());

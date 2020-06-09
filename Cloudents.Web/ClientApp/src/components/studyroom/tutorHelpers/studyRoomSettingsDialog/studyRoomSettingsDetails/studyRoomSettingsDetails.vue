@@ -10,7 +10,11 @@
                     </tr>
                     <tr>
                         <td class="" v-t="'studyRoomSettings_price'"></td>
-                        <td class="pl-4">{{roomPrice}}</td>
+                        <td class="ps-4 d-flex">
+                            <span class="pe-2" v-if="roomPrice">{{roomPrice}}</span>
+                            <span v-else v-t="'studyRoomSettings_free'"></span>
+                            <button v-if="roomPrice" class="couponBtn" v-t="'studyRoomSettings_apply_coupon'" @click="$store.commit('setComponent', 'applyCoupon')"></button>
+                        </td>
                     </tr>
                     <tr>
                         <td class="" v-t="'studyRoomSettings_share'"></td>
@@ -155,12 +159,17 @@ export default {
         roomName() {
             return this.$store.getters?.getRoomName
         },
+        currencySymbol() {
+            return this.$store.getters.accountUser?.currencySymbol
+        },
         roomPrice(){
-            if(this.roomTutor?.tutorPrice){
-                return this.$n(this.roomTutor.tutorPrice, 'currency')
-            }else{
-                return this.$t('studyRoomSettings_free')
+            let priceObj = this.roomTutor?.tutorPrice
+            if(priceObj?.amount > 0){
+                // TODO: Currency Change
+                return this.$price(priceObj.amount, priceObj.currency)
+                // return this.$n(this.roomTutor.tutorPrice, {'style':'currency','currency': this.currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})
             }
+            return 0
         },
         roomTutor() {
             return this.$store.getters.getRoomTutor
@@ -213,8 +222,7 @@ export default {
         fullview() {
             this.$store.dispatch('updateToggleTutorFullScreen',true)
             this.selectedRoomMode = ''
-        },
-        
+        }
     },
     beforeDestroy() {
         this.waitingForTutor = false;
@@ -224,7 +232,7 @@ export default {
         }else{
             this.loadings.student = false;
         }
-    },
+    }
 }
 </script>
 
@@ -263,6 +271,10 @@ export default {
                 .option.link  {
                     visibility: hidden !important;
                 }
+            }
+            .couponBtn {
+                outline: none;
+                color: #bbb;
             }
         }
     }

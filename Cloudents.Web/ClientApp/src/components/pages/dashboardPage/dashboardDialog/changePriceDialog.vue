@@ -32,7 +32,6 @@
    </v-card>
 </template>
 <script>
-import { LanguageService } from '../../../../services/language/languageService';
 import documentService from '../../../../services/documentService.js';
 import { validationRules } from '../../../../services/utilities/formValidationRules';
 
@@ -46,8 +45,8 @@ export default {
       return {
          editedPrice: this.dialogData.price,
          validationPrice:false,
-         currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
-         title:LanguageService.getValueByKey('resultNote_change_price'),
+         currentCurrency: this.$t("app_currency_dynamic"),
+         title: this.$t('resultNote_change_price'),
          rules:{
             integer: (value) => validationRules.integer(value),
             maximum: (value) => validationRules.maxVal(value, 1000),
