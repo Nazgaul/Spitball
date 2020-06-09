@@ -2,7 +2,7 @@
   <div class="requestActions mb-4">
     <div class="rA_top text-truncate">
       <userAvatar :size="'34'" :userImageUrl="userImageUrl" :user-name="previewName" :user-id="userID"/>
-      <span @click="openAskQuestion()" class="rA_txt text-truncate" v-html="$Ph('requestActions_title',userName)" />
+      <span @click="openAskQuestion()" class="rA_txt text-truncate">{{$t('requestActions_title',[userName])}}</span>
     </div>
     <v-layout class="rA_bottom">
       <v-flex xs6 class="rA_btn">
