@@ -100,7 +100,7 @@
                   width="120"
                   depressed
                   rounded
-                  v-if="pendingPayments && item.paymentStatus === 'PendingTutor' && item.type === 'TutoringSession'"
+                  v-if=" item.paymentStatus === 'PendingTutor' && item.type === 'TutoringSession'"
                   @click="$openDialog('teacherApproval', {item: item})">
                      {{$t('dashboardPage_btn_approve')}}
                </v-btn>

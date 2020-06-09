@@ -37,9 +37,7 @@ namespace Cloudents.Query.Tutor
                       .Where(w => w.StudyRoomPayment.Tutor.Id == query.TutorId
                                   && w.Duration > StudyRoomSession.BillableStudyRoomSession
                                   && w.StudyRoomPayment.TutorApproveTime == null)
-                      .GroupBy(g => 1)
-                      .Select(s => s.Count())
-                      .ToFutureValue();
+                      .ToFutureValue(f=>f.Count());
 
                 var unreadMessages = _session.Query<ChatUser>().Where(w => w.User.Id == query.TutorId)
                     .ToFutureValue(f => f.Sum(s => s.Unread));
