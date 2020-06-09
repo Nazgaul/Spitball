@@ -169,7 +169,7 @@
     <value>Professional private tutors that help you succeed</value>
   </data>
   <data name="header_get_lesson_subject" xml:space="preserve">
-    <value>Professional private tutors in {1} that help you succeed</value>
+    <value>Professional private tutors in {0} that help you succeed</value>
   </data>
   <data name="reviews" xml:space="preserve">
     <value>reviews</value>
