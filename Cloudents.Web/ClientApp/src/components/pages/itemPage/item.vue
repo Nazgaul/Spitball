@@ -111,10 +111,10 @@
         <div class="itemPage__main__carousel__header">
           <div
             class="itemPage__main__carousel__header__title"
-            v-language:inner="'documentPage_related_content'"
+            v-t="'documentPage_related_content'"
           ></div>
           <router-link
-            v-language:inner="'documentPage_full_list'"
+            v-t="'documentPage_full_list'"
             :to="{name: 'feed', query: {Course: courseName}}"
             class="itemPage__main__carousel__header--seeAll"
             color="#4c59ff"
@@ -151,10 +151,10 @@
     <unlockDialog :document="document"></unlockDialog>
     <v-snackbar v-model="snackbar" :top="true" :timeout="8000">
       <div>
-        <span v-language:inner="'resultNote_unsufficient_fund'"></span>
+        <span v-t="'resultNote_unsufficient_fund'"></span>
       </div>
       <v-btn class="px-4" outlined rounded @click="openBuyTokenDialog">
-        <span v-language:inner="'dashboardPage_my_sales_action_need_btn'"></span>
+        <span v-t="'dashboardPage_my_sales_action_need_btn'"></span>
       </v-btn>
     </v-snackbar>
   </div>
