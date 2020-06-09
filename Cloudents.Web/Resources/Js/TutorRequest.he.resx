@@ -154,7 +154,7 @@
     <value>בינתיים, תרצו לראות מורים אחרים אשר מלמדים את הקורס הזה?</value>
   </data>
   <data name="more_tutors" xml:space="preserve">
-    <value>אני רוצה לשמוע מעוד 2-3 מורים כמו {1}</value>
+    <value>אני רוצה לשמוע מעוד 2-3 מורים כמו {0}</value>
   </data>
   <data name="name" xml:space="preserve">
     <value>שם מלא</value>
