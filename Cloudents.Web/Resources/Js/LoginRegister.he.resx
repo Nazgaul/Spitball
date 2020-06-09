@@ -316,10 +316,10 @@
     <value>הרשמה לספיטבול</value>
   </data>
   <data name="setphone_sub_title" xml:space="preserve">
-    <value>קבלת מסרון עם קוד אימות</value>
+    <value>הכניסו את מספר הטלפון שלכם</value>
   </data>
   <data name="setphone_title" xml:space="preserve">
-    <value>קבלת מסרון עם קוד אימות</value>
+    <value>הכניסו את מספר הטלפון שלכם</value>
   </data>
   <data name="smsconfirm_btn" xml:space="preserve">
     <value>המשך</value>
