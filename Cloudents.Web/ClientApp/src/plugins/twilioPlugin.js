@@ -11,6 +11,11 @@ const VIDEO_TRACK_NAME = 'videoTrack';
 const SCREEN_TRACK_NAME = 'screenTrack';
 const CURRENT_STATE_UPDATE = '1';
 const CURRENT_STATE_UPDATED = '2';
+const PRIORITY = {
+   HIGH:'high',
+   STANDARD:'standard',
+   LOW:'low',
+}
 let isTwilioStarted = false;
 
 let intervalTime = null;
@@ -224,7 +229,40 @@ export default () => {
                }
             };
             _insightEvent('connectToRoom', {'token': jwtToken}, null);
-            twillioClient.connect(jwtToken, options).then((room) => {
+            let isMobileMode = document.body.clientWidth < 960;
+            let videoConfig = isMobileMode? { height: 480, frameRate: 24, width: 640 } : { height: 720, frameRate: 24, width: 1280 }
+            let renderDimensionsCongig = isMobileMode? undefined : {
+               [PRIORITY.HIGH]: {height:1080, width:1920},
+               [PRIORITY.STANDARD]: {height:720, width:1280},
+               [PRIORITY.LOW]: {height:236, width:149}
+            }
+            let collaborationRoomMode = {
+               logLevel: _debugMode,
+               tracks: [dataTrack],
+               networkQuality: {local:3, remote: 3},
+
+               video: videoConfig,
+               bandwidthProfile: {
+                  video: {
+                     mode: 'collaboration',
+                     trackSwitchOffMode:'predicted',
+                     maxSubscriptionBitrate: isMobileMode? 2500000 : 0,
+                     dominantSpeakerPriority: PRIORITY.STANDARD,
+                     maxTracks: isMobileMode ? 5 : 10,
+                     renderDimensions: renderDimensionsCongig
+                  }
+               },
+               dominantSpeaker: true,
+               maxAudioBitrate: 16000, //For music remove this line
+               preferredVideoCodecs: [
+                  { codec: 'VP8', simulcast: true },
+                  // { codec: 'H264', simulcast: true }
+               ],
+               
+            }
+
+
+            twillioClient.connect(jwtToken, collaborationRoomMode).then((room) => {
                _activeRoom = room; // for global using in this plugin
                _insightEvent('TwilioConnect', _activeRoom, null);
                _twilioListeners(_activeRoom,store); // start listen to twilio events;
@@ -385,7 +423,7 @@ export default () => {
          store.commit(twilio_SETTERS.AUDIO_AVAILABLE,true)
       }
       function _publishTrack(track){
-         _activeRoom.localParticipant.publishTrack(track);
+         _activeRoom.localParticipant.publishTrack(track,{priority: store.getters.getRoomIsTutor? PRIORITY.HIGH : PRIORITY.STANDARD});
          _addParticipantTrack(track,_activeRoom.localParticipant)
       
          //On share screen we want to update all the users in the room
