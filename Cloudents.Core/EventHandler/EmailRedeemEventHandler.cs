@@ -18,11 +18,11 @@ namespace Cloudents.Core.EventHandler
             _queueProvider = serviceBusProvider;
         }
 
-        public async Task HandleAsync(TransactionEvent redeemEventMessage, CancellationToken token)
+        public  Task HandleAsync(TransactionEvent redeemEventMessage, CancellationToken token)
         {
             if (redeemEventMessage.Transaction.Action == TransactionActionType.CashOut)
             {
-                await _queueProvider.InsertMessageAsync(
+                return _queueProvider.InsertMessageAsync(
                     new RedeemTransactionMessage(redeemEventMessage.Transaction.Id), token);
             }
 
@@ -30,8 +30,9 @@ namespace Cloudents.Core.EventHandler
             {
                 var message = new DocumentPurchasedMessage(redeemEventMessage.Transaction.Id);
 
-                await _queueProvider.InsertMessageAsync(message, token);
+                return _queueProvider.InsertMessageAsync(message, token);
             }
+            return Task.CompletedTask;
         }
     }
 
@@ -44,10 +45,10 @@ namespace Cloudents.Core.EventHandler
             _queueProvider = queueProvider;
         }
 
-        public async Task HandleAsync(LeadEvent eventMessage, CancellationToken token)
+        public Task HandleAsync(LeadEvent eventMessage, CancellationToken token)
         {
             var message = new RequestTutorMessage(eventMessage.Lead.Id);
-            await _queueProvider.InsertMessageAsync(message, token);
+            return _queueProvider.InsertMessageAsync(message, token);
         }
     }
 }

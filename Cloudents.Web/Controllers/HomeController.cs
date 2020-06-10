@@ -14,9 +14,6 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
-using Cloudents.Web.Extensions;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Cloudents.Web.Controllers
 {
@@ -73,13 +70,13 @@ namespace Cloudents.Web.Controllers
             {
                 return Redirect("/");
             }
-            var message = new SignalRTransportType(SignalRType.User, SignalREventAction.Logout,
-                new object());
+            //var message = new SignalRTransportType(SignalRType.User, SignalREventAction.Logout,
+            //    new object());
 
-            await hubContext.Clients.User(signInManager.UserManager.GetUserId(User)).SendCoreAsync("Message", new object[]
-            {
-                message
-            }, token);
+            //await hubContext.Clients.User(signInManager.UserManager.GetUserId(User)).SendCoreAsync("Message", new object[]
+            //{
+            //    message
+            //}, token);
             await signInManager.SignOutAsync();
             TempData.Clear();
 
@@ -148,39 +145,6 @@ namespace Cloudents.Web.Controllers
         }
 
 
-        [Route("BuyPoints", Name = "stripe-buy-points"), Authorize]
-        public async Task<IActionResult> StripeCallbackBuyPointsAsync(
-            string redirectUrl, string sessionId,
-            [FromServices] IStripeService stripeService,
-            [FromServices] ICommandBus commandBus,
-            [FromServices] UserManager<User> userManager,
-            CancellationToken token)
-        {
-            var (receipt, points) = await stripeService.GetBuyPointDataByIdAsync(sessionId,token);
-
-            var userId = userManager.GetLongUserId(User);
-            var command = new TransferMoneyToPointsCommand(userId, points, receipt);
-            await commandBus.DispatchAsync(command, token);
-            return Redirect(redirectUrl);
-        }
-
-
-        [Route("Subscribe", Name = "stripe-subscribe"), Authorize]
-        public async Task<IActionResult> StripeCallSubscribeAsync(
-            string redirectUrl, string sessionId,
-            [FromServices] IStripeService stripeService,
-            [FromServices] ICommandBus commandBus,
-            [FromServices] UserManager<User> userManager,
-            CancellationToken token)
-        {
-            var tutorId = await stripeService.GetSubscriptionByIdAsync(sessionId,token);
-
-            var userId = userManager.GetLongUserId(User);
-
-            var command = new SubscribeToTutorCommand(userId, tutorId);
-            //var command = new TransferMoneyToPointsCommand(userId, points, receipt);
-            await commandBus.DispatchAsync(command, token);
-            return Redirect(redirectUrl);
-        }
+      
     }
 }

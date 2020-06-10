@@ -6,7 +6,7 @@
             string chatText,
             long userId,
             string referer,
-            string leadText,
+            string? leadText,
 
             long? tutorId,
             string utmSource, bool moreTutors)
@@ -28,7 +28,7 @@
         public long UserId { get; }
         public string ChatText { get; }
         public string Referer { get; }
-        public string LeadText { get; }
+        public string? LeadText { get; }
         public long? TutorId { get; }
         public string UtmSource { get; }
 

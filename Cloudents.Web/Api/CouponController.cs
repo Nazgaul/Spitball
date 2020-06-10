@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Query;
@@ -20,6 +21,7 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
     [Authorize, ApiController]
     public class CouponController : ControllerBase
     {
@@ -76,7 +78,7 @@ namespace Cloudents.Web.Api
             try
             {
                 var userId = _userManager.GetLongUserId(User);
-                var command = new ApplyCouponCommand(model.Coupon, userId, model.TutorId);
+                var command = new ApplyCouponCommand(model.Coupon, userId, model.TutorId, model.RoomId);
                 await _commandBus.DispatchAsync(command, token);
                 return Ok(new
                 {

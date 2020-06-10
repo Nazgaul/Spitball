@@ -102,8 +102,8 @@ namespace Cloudents.Persistence
             return DeepCopy(original);
         }
 
-        public string[] PropertyNames => new string[2] { "Amount", "Currency" };
-        public IType[] PropertyTypes => new IType[2] { NHibernateUtil.Double, NHibernateUtil.String };
+        public string[] PropertyNames => new [] { "Amount", "Currency" };
+        public IType[] PropertyTypes => new IType[] { NHibernateUtil.Double, NHibernateUtil.String };
         public Type ReturnedClass => typeof(Money);
         public bool IsMutable => false;
     }

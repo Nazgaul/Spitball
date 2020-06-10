@@ -11,7 +11,6 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using Tutor = Cloudents.Search.Entities.Tutor;
 
@@ -52,15 +51,12 @@ namespace Cloudents.FunctionsV2
                     var subjects = update.Subjects?.Where(w => !string.IsNullOrWhiteSpace(w)).ToArray() ?? Array.Empty<string>();
 
                     // ReSharper disable once ConditionIsAlwaysTrueOrFalse - Temp
-                    if (update.SbCountry == null)
-                    {
-                        update.SbCountry = Country.FromCountry(update.Country);
-                    }
+                   
                     await indexInstance.AddAsync(new AzureSearchSyncOutput()
                     {
                         Item = new Tutor
                         {
-                            Country = update.Country.ToUpperInvariant(),
+                            //Country = update.Country.ToUpperInvariant(),
                             SbCountry = update.SbCountry,
                             Id = update.UserId.ToString(),
                             Name = update.Name,
@@ -83,11 +79,11 @@ namespace Cloudents.FunctionsV2
                                 Rate = (float)update.Rate,
                                 Lessons = Math.Max(update.LessonsCount, update.ReviewsCount),
                                 Bio = update.Bio,
-                                Price = update.Price,
+                              //  Price = update.Price,
                                 //  SbCountry = update.SbCountry,
                                 //                                Country = update.Country,
                                 Image = update.Image,
-                                DiscountPrice = update.SubsidizedPrice
+                                //DiscountPrice = update.SubsidizedPrice
                             }
                         },
                         Insert = true

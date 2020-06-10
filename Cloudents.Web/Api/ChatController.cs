@@ -57,6 +57,21 @@ namespace Cloudents.Web.Api
             return result;
         }
 
+        [HttpGet("conversation/{id}/tutor")]
+        public async Task<ActionResult<ChatConversationDetailsDto>> GetConversationDetailAsync(string id, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var result = await _queryBus.QueryAsync(new ChatConversationDetailQuery(id, userId), token);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return result;
+        }
+
+
+
         /// <summary>
         /// Get User info - Used in StudyRoom
         /// </summary>
@@ -71,7 +86,6 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var result = await _queryBus.QueryAsync(new ChatConversationQuery(id, userId), token);
-            //var result = results.FirstOrDefault(f => f.ConversationId == id);
             if (result == null)
             {
                 return BadRequest();
@@ -107,14 +121,11 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> PostAsync([FromBody]ChatMessageRequest model, CancellationToken token)
+        public async Task<IActionResult> PostAsync([FromBody] ChatMessageRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            if (userId == model.OtherUser)
-            {
-                return BadRequest();
-            }
-            var command = new SendChatTextMessageCommand(model.Message, userId, model.OtherUser, model.ConversationId);
+
+            var command = new SendChatTextMessageCommand(model.Message, userId, model.ConversationId, model.TutorId);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
@@ -128,10 +139,7 @@ namespace Cloudents.Web.Api
             try
             {
                 var userId = _userManager.GetLongUserId(User);
-                //if (userId == model.OtherUserId)
-                //{
-                //    return BadRequest();
-                //}
+
                 var command = new ResetUnreadInChatCommand(userId, model.ConversationId);
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
@@ -154,7 +162,7 @@ namespace Cloudents.Web.Api
                 }
                 var command = new SendChatFileMessageCommand(blobName,
                     userId,
-                    new[] { chatModel.OtherUser }, chatModel.ConversationId);
+                    chatModel.TutorId, chatModel.ConversationId);
                 await _commandBus.DispatchAsync(command, token);
 
             }
@@ -167,7 +175,8 @@ namespace Cloudents.Web.Api
 
         [HttpPost("uploadForm")]
         public async Task<ActionResult<UploadStartResponse>> UploadSingleFileAsync(
-            [FromForm] long otherUser,
+            [FromForm] long tutorId,
+            [FromForm] string conversationId,
             [Required] IFormFile file, CancellationToken token)
         {
             var extension = Path.GetExtension(file.FileName);
@@ -179,7 +188,7 @@ namespace Cloudents.Web.Api
 
             var blobName = BlobFileName(Guid.NewGuid(), file.FileName);
             await BlobProvider.UploadStreamAsync(blobName, file.OpenReadStream(), token: token);
-            var command = new SendChatFileMessageCommand(blobName, userId, new[] { otherUser });
+            var command = new SendChatFileMessageCommand(blobName, userId, tutorId,conversationId);
             await _commandBus.DispatchAsync(command, token);
             return new UploadStartResponse(blobName);
         }

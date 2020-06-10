@@ -19,5 +19,6 @@ namespace Cloudents.Query
     public interface IQueryBus
     {
         Task<TQueryResult> QueryAsync<TQueryResult>(IQuery<TQueryResult> query, CancellationToken token);
+        Task<TQueryResult> QueryAsync<TQueryResult>(IQuery<TQueryResult> query) => QueryAsync(query, default);
     }
 }

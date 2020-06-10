@@ -87,16 +87,16 @@ namespace Cloudents.Core.Entities
 
         public static readonly HashSet<string> CountriesNotSupported = new HashSet<string>()
         {
-            "DZ", "AO", "BJ", "BW", "BF", "BI", "CM",
-            "CV", "CF", "KM", "CD", "DJ", "EG", "GQ", "ER", "ET", "GA", "GM", "GH", "GN", "GW", "CI", "KE",
-            "LS", "LR", "LY",
-            "MG", "MW", "ML", "MR", "MU", "MA", "MZ", "NA", "NE", "NG", "CG", "RE", "RW", "SH", "ST", "SN",
-            "SC", "SL", "SO",
-            "SS", "SD", "SZ", "TZ", "TG", "TN", "UG", "EH", "ZM", "ZW", "AF", "AM", "AZ", "BH", "BD", "BT",
-            "BN", "KH",
-            "ID", "IR", "IQ", "JO", "KZ", "KW", "KG", "LA", "LB", "MO", "MY", "MV", "MN", "MM", "NP",
-            "KP", "OM", "PK",
-            "PH", "QA", "SA", "LK", "SY", "TW", "TJ", "TH", "TR", "TM", "AE", "UZ", "VN", "YE"
+            //"DZ", "AO", "BJ", "BW", "BF", "BI", "CM",
+            //"CV", "CF", "KM", "CD", "DJ", "EG", "GQ", "ER", "ET", "GA", "GM", "GH", "GN", "GW", "CI", "KE",
+            //"LS", "LR", "LY",
+            //"MG", "MW", "ML", "MR", "MU", "MA", "MZ", "NA", "NE", "NG", "CG", "RE", "RW", "SH", "ST", "SN",
+            //"SC", "SL", "SO",
+            //"SS", "SD", "SZ", "TZ", "TG", "TN", "UG", "EH", "ZM", "ZW", "AF", "AM", "AZ", "BH", "BD", "BT",
+            //"BN", "KH",
+            //"ID", "IR", "IQ", "JO", "KZ", "KW", "KG", "LA", "LB", "MO", "MY", "MV", "MN", "MM", "NP",
+            //"KP", "OM", "PK",
+            //"PH", "QA", "SA", "LK", "SY", "TW", "TJ", "TH", "TR", "TM", "AE", "UZ", "VN", "YE"
         };
         //    public static Country Palestine = new Country("PS", CountryGroup.Israel);
 
@@ -159,6 +159,12 @@ namespace Cloudents.Core.Entities
     public struct Money
 
     {
+        public Money(decimal amount, string currency) : this((double) amount, currency)
+        {
+
+        }
+       
+
         public Money(double amount, string currency)
         {
             Amount = RoundToNearestPenny(amount);
@@ -209,6 +215,11 @@ namespace Cloudents.Core.Entities
         public static bool operator !=(Money left, Money right)
         {
             return !left.Equals(right);
+        }
+
+        public Money ChangePrice(double newMoney)
+        {
+            return new Money(newMoney,this.Currency);
         }
         //public Money Add(Money other)
 

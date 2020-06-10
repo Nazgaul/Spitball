@@ -261,18 +261,31 @@ namespace Cloudents.FunctionsV2
                     var md5 = blob.Properties.ContentMD5;
                     if (string.IsNullOrEmpty(md5))
                     {
-                        log.LogInformation("no md5 calculating");
-                        await using var sr = await blob.OpenReadAsync();
-                        md5 = CalculateMd5(sr);
-                        blob.Properties.ContentMD5 = md5;
-                        await blob.SetPropertiesAsync();
+                        var length = blob.Properties.Length;
+                        const long hugeFileThatWontFinishProcess = 16492145881;
+                        if (length < hugeFileThatWontFinishProcess)
+                        {
+                            //var etag = blob.Properties.ETag;
+                            // if (blob.Properties.Length)
+                            log.LogInformation("no md5 calculating");
+                            await using var sr = await blob.OpenReadAsync();
+                            md5 = CalculateMd5(sr);
+                            blob.Properties.ContentMD5 = md5;
+                            await blob.SetPropertiesAsync();
+                        }
+
 
                     }
 
-                    await session.Query<Core.Entities.Document>().Where(w => w.Id == id)
-                        .UpdateBuilder()
-                        .Set(c => c.Md5, x => md5)
-                        .UpdateAsync(token);
+                    md5 ??= blob.Properties.ETag;
+
+                    if (md5 != null)
+                    {
+                        await session.Query<Core.Entities.Document>().Where(w => w.Id == id)
+                            .UpdateBuilder()
+                            .Set(c => c.Md5, x => md5)
+                            .UpdateAsync(token);
+                    }
                 }
             }
         }

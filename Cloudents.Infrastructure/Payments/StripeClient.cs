@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure.Payments
 
         public async Task<(string receipt, long points)> GetBuyPointDataByIdAsync(string sessionId, CancellationToken token)
         {
-            var session = await GetSessionByIdAsync(sessionId,  token);
+            var session = await GetSessionByIdAsync(sessionId, token);
             var amountOfPoints = long.Parse(session.Metadata["Points"]);
             var paymentId = session.PaymentIntentId;
             return (paymentId, amountOfPoints);
@@ -29,12 +29,12 @@ namespace Cloudents.Infrastructure.Payments
 
         public async Task<long> GetSubscriptionByIdAsync(string sessionId, CancellationToken token)
         {
-            var session = await GetSessionByIdAsync(sessionId,  token);
+            var session = await GetSessionByIdAsync(sessionId, token);
             var tutorId = long.Parse(session.Metadata["TutorId"]);
             return tutorId;
         }
 
-        private Task<Session> GetSessionByIdAsync(string sessionId, CancellationToken token)
+        private static Task<Session> GetSessionByIdAsync(string sessionId, CancellationToken token)
         {
             var service2 = new SessionService();
             return service2.GetAsync(sessionId, cancellationToken: token);
@@ -77,7 +77,7 @@ namespace Cloudents.Infrastructure.Payments
             return customer.Id;
         }
 
-        public async Task<string> FutureCardPayments(string stripeClientId)
+        public async Task<string> FutureCardPaymentsAsync(string stripeClientId)
         {
             var intentCreateOptions = new SetupIntentCreateOptions
             {
@@ -232,13 +232,22 @@ namespace Cloudents.Infrastructure.Payments
 
         }
 
-        public async Task<string> ChargeSessionAsync(Tutor tutor, User user, double price, CancellationToken token)
+        public Task<string> ChargeSessionAsync(StudyRoomPayment sessionPayment, double price, CancellationToken token)
         {
+            var user = sessionPayment.User;
+            var tutor = sessionPayment.Tutor;
+            return ChargeSessionAsync(tutor, user, sessionPayment.Id, price, token);
+        }
+
+        public async Task<string> ChargeSessionAsync(Tutor tutor, User user, Guid id, double price, CancellationToken token)
+        {
+
             var customerId = await RetrieveCustomerByIdAsync(user.Payment!.PaymentKey, default);
             var optionsX = new PaymentMethodListOptions
             {
                 Customer = customerId,
                 Type = "card",
+
             };
 
             var service2 = new PaymentMethodService();
@@ -256,16 +265,38 @@ namespace Cloudents.Infrastructure.Payments
                 Currency = "usd",
                 Customer = customerId,
                 PaymentMethod = paymentMethod.Id,
+                Metadata = new Dictionary<string, string>()
+                {
+                    ["TutorId"] = tutor.Id.ToString(),
+                    ["UserId"] = user.Id.ToString(),
+                    ["SessionId"] = id.ToString()
+                },
                 Confirm = true,
                 OffSession = true
             };
             var result = await service.CreateAsync(options, cancellationToken: token);
-            return result.InvoiceId;
+            return result.Id;
         }
 
         public Task<string> ChargeSessionBySpitballAsync(Tutor tutor, double price, CancellationToken token)
         {
             throw new NotImplementedException("We do not support this feature");
+        }
+
+        public async Task<string> GetStripeUserIdAsync(string code, CancellationToken token)
+        {
+            var options = new OAuthTokenCreateOptions
+            {
+                GrantType = "authorization_code",
+                Code = code,
+            };
+            
+
+            var service = new OAuthTokenService();
+            var response = await service.CreateAsync(options, cancellationToken: token);
+
+// Access the connected account id in the response
+            return response.StripeUserId;
         }
 
 

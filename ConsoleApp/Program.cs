@@ -13,6 +13,7 @@ using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -20,19 +21,13 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
-using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
+using Cloudents.Command.Documents.PurchaseDocument;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Infrastructure;
-using Cloudents.Infrastructure.Payments;
 using Cloudents.Query;
-using Cloudents.Query.Tutor;
-using Cloudents.Query.Users;
-using Cloudents.Search.Document;
-using Cloudents.Search.Tutor;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
-using NHibernate.Criterion;
 using NHibernate.Linq;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 
@@ -43,6 +38,7 @@ namespace ConsoleApp
     {
         public static IContainer Container;
 
+        private static readonly Guid RamAdminId = Guid.Parse("81B24922-6451-47B2-BCB0-4084C8A3EC13");
         public enum EnvironmentSettings
         {
             Dev,
@@ -145,6 +141,7 @@ namespace ConsoleApp
 
 
 
+        [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
             await Dbi();
@@ -152,22 +149,55 @@ namespace ConsoleApp
 
         private static async Task Dbi()
         {
-            int count = 0;
             var session = Container.Resolve<ISession>();
-            var studyRoomUsers = await session.Query<StudyRoomSessionUser>()
-                .Fetch(f => f.StudyRoomPayment)
-                .ToListAsync();
+            var result = session.Query<StudyRoom>()
+                .Where(w => w.OldPrice == null).Select(s => s.Id).ToList();
 
-            foreach (var user in studyRoomUsers)
+            foreach (var guid in result)
             {
-                if (user.StudyRoomPayment == null)
+                using var uow = Container.Resolve<IUnitOfWork>();
+                var studyRoom = session.Get<StudyRoom>(guid);
+                var x = studyRoom.Sessions.FirstOrDefault();
+                if (x != null)
                 {
-                    using var unitOfWork = Container.Resolve<IUnitOfWork>();
-                    user.StudyRoomPayment = new StudyRoomPayment(user);
-                    await session.FlushAsync();
-                    await unitOfWork.CommitAsync(default);
+                    //TODO
+                    //if (x.Price.HasValue)
+                    //{
+                    //    studyRoom.SetPrice(x.Price.Value);
+                    //    session.Flush();
+                    //    await uow.CommitAsync();
+                    //    continue;
+                    //}
+
                 }
+
+                var price = session
+                    .CreateSQLQuery(
+                        "Select price from sb.TutorHistory where BeginDate < :xxx and :xxx < EndDate and id =  :Id")
+                    .SetInt64("Id", studyRoom.Tutor.Id)
+                    .SetDateTime("xxx", studyRoom.DateTime.CreationTime)
+                    .List<decimal?>().FirstOrDefault();
+                if (price == null)
+                {
+                    price = session
+                         .CreateSQLQuery(
+                             "Select price from sb.Tutor where id =  :Id")
+                         .SetInt64("Id", studyRoom.Tutor.Id)
+                         .List<decimal>().First();
+                }
+                studyRoom.SetPrice(price.Value);
+                await uow.CommitAsync();
             }
+            var result2 = session.Query<StudyRoom>()
+                .Where(w => w.Price == null).Select(s => s.Id).ToList();
+            foreach (var guid in result2)
+            {
+                using var uow = Container.Resolve<IUnitOfWork>();
+                var studyRoom = session.Get<StudyRoom>(guid);
+                studyRoom.SetPrice(studyRoom.OldPrice);
+                await uow.CommitAsync();
+            }
+
         }
 
         private static async Task UpdateTwilioParticipants()
@@ -513,15 +543,7 @@ namespace ConsoleApp
         }
 
 
-        private static async Task HadarMethod()
-        {
-            //var t = new PlaylistUpdates();
-            //t.Create();
 
-            var s = new UploadVideo();
-            s.Upload();
-
-        }
 
 
 

@@ -265,7 +265,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task UserProfileTutorQuery_Ok(long userId)
         {
             var id = await fixture.StatelessSession.Query<Tutor>()
-                .Where(w => w.State == ItemState.Ok).Select(s=>s.Id).Take(1).SingleAsync();
+               .Select(s=>s.Id).Take(1).SingleAsync();
             var query = new UserProfileQuery(id, userId);
 
             var result = await fixture.QueryBus.QueryAsync(query, default);
@@ -282,10 +282,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
             var id = await fixture.StatelessSession.Query<User>()
                 .Fetch(f=>f.Tutor)
-                .Where(w => w.Tutor.State == null 
-                           // && w.PhoneNumberConfirmed 
-                           // && w.EmailConfirmed
-                            )
+                .Where(w => w.Tutor.State == null)
                 .Select(s=>s.Id).Take(1).SingleAsync();
             var query = new UserProfileQuery(id, userId);
 
@@ -696,11 +693,22 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             result.Should().NotBeNull();
         }
 
-        [Fact]
-        public async Task TutorUpcomingBroadcastStudyRoomQuery_Ok()
+        [Theory]
+        [InlineData(638,159039)]
+        [InlineData(160171,159039)]
+        public async Task TutorUpcomingBroadcastStudyRoomQuery_Ok(long tutorId, long userId)
         {
-            var query = new TutorUpcomingBroadcastStudyRoomQuery(638, 159039);
+            var query = new TutorUpcomingBroadcastStudyRoomQuery(tutorId, userId);
             var result = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task ChatConversationDetailQuery_Ok()
+        {
+            var identifier = await fixture.StatelessSession.Query<ChatUser>().Where(w => w.User.Id == 638).Select(s => s.ChatRoom.Identifier).FirstAsync();
+            var query = new ChatConversationDetailQuery(identifier,638);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+
         }
 
 

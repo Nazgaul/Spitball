@@ -47,7 +47,6 @@ namespace Cloudents.Query.Users
                       {
                           Id = s.Id,
                           Image = s.ImageName,
-                          Name = s.Name,
                           Online = ((User)s).Online.GetValueOrDefault(),
                           CalendarShared = _session.Query<GoogleTokens>().Any(w => w.Id == query.Id.ToString()),
                           FirstName = ((User)s).FirstName,
@@ -61,8 +60,6 @@ namespace Cloudents.Query.Users
                     .Where(w => w.Id == query.Id)
                     .Select(s => new UserTutorProfileDto()
                     {
-                        Price = s.Price,
-                        DiscountPrice = s.SubsidizedPrice,
                         TutorCountry = s.SbCountry,
                         Rate = s.Rate.GetValueOrDefault(),
                         ReviewCount = s.RateCount,
@@ -74,9 +71,9 @@ namespace Cloudents.Query.Users
                                        _session.Query<Question>().Count(w =>
                                            w.Status.State == ItemState.Ok && w.User.Id == query.Id),
                         Students = _session.Query<StudyRoomUser>()
-                            .Where(w => w.Room.Tutor.Id == query.Id).Select(s=>s.User.Id).Distinct().Count(),
+                            .Where(w => w.Room.Tutor.Id == query.Id).Select(s2=>s2.User.Id).Distinct().Count(),
                         SubscriptionPrice = s.SubscriptionPrice,
-                        Subjects = s.Subjects,
+                        //Subjects = s.Subjects,
                         Description = s.Description
                     }).ToFutureValue();
 
@@ -141,8 +138,8 @@ namespace Cloudents.Query.Users
                 if (result.Tutor?.CouponValue != null && result.Tutor?.CouponType != null)
                 {
                     result.Tutor.HasCoupon = true;
-                    result.Tutor.DiscountPrice = Coupon.CalculatePrice(result.Tutor.CouponType.Value, result.Tutor.Price,
-                        result.Tutor.CouponValue.Value);
+                    //result.Tutor.DiscountPrice = Coupon.CalculatePrice(result.Tutor.CouponType.Value, result.Tutor.Price,
+                    //    result.Tutor.CouponValue.Value);
                 }
                 return result;
             }

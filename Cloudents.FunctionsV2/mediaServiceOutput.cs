@@ -12,7 +12,7 @@ namespace Cloudents.FunctionsV2
     public static class MediaServiceOutput
     {
         [FunctionName("media-service-event")]
-        public static async Task Run(
+        public static async Task RunAsync(
             [QueueTrigger("media-service")] string message,
             [Inject] VideoProcessor videoProvider,
             IBinder binder,

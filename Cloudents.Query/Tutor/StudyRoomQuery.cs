@@ -54,18 +54,18 @@ namespace Cloudents.Query.Tutor
                          BroadcastTime = ((BroadCastStudyRoom)s).BroadcastTime,
                          Type = s is BroadCastStudyRoom ? StudyRoomType.Broadcast : StudyRoomType.Private,
                          Name = s.Name,
-                         TutorPrice = s.Price ?? s.Tutor.Price.SubsidizedPrice ?? s.Tutor.Price.Price,
+                         TutorPrice = s.Price,
                          TutorName = s.Tutor.User.Name,
                          TutorImage = s.Tutor.User.ImageName,
                          _UserPaymentExists =
                              _statelessSession.Query<User>().Where(w => w.Id == query.UserId)
                                  .Select(s2 => s2.PaymentExists).First() == PaymentStatus.Done,
-                         TutorCountry = s.Tutor.User.SbCountry ?? Country.UnitedStates
+                         TutorCountry = s.Tutor.User.SbCountry
                      }).ToFutureValue();
 
                 var futureCoupon = _statelessSession.Query<UserCoupon>()
                     .Where(w => w.User.Id == query.UserId)
-                    .Where(w => w.Tutor.Id == _statelessSession.Query<StudyRoom>().Where(w => w.Id == query.Id)
+                    .Where(w => w.Tutor.Id == _statelessSession.Query<StudyRoom>().Where(w2 => w2.Id == query.Id)
                         .Select(s => s.Tutor.Id).First())
                     .Where(w => w.UsedAmount < 1)
                     .Select(s => new { s.Coupon.CouponType, s.Coupon.Value })
@@ -96,8 +96,9 @@ namespace Cloudents.Query.Tutor
                 }
 
 
-                result.TutorPrice = Coupon.CalculatePrice(coupon.CouponType,
-                                  result.TutorPrice, coupon.Value);
+                var newPrice = Coupon.CalculatePrice(coupon.CouponType,
+                    result.TutorPrice.Amount, coupon.Value);
+                result.TutorPrice = new Money(newPrice,result.TutorPrice.Currency);
 
 
 

@@ -12,9 +12,9 @@ namespace Cloudents.Core.EventHandler
         {
             _videoProvider = videoProvider;
         }
-        public async Task HandleAsync(EndStudyRoomSessionEvent eventMessage, CancellationToken token)
+        public Task HandleAsync(EndStudyRoomSessionEvent eventMessage, CancellationToken token)
         {
-            await _videoProvider.CloseRoomAsync(eventMessage.Session.SessionId);
+            return _videoProvider.CloseRoomAsync(eventMessage.Session.SessionId);
         }
     }
 }

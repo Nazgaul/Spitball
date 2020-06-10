@@ -130,7 +130,7 @@
     <value>Percentage</value>
   </data>
   <data name="createOffer_title1" xml:space="preserve">
-    <value>Create special offers</value>
+    <value>Create a coupon</value>
   </data>
   <data name="createOffer_title2" xml:space="preserve">
     <value>Create custom coupons and promotions</value>

@@ -15,7 +15,7 @@ namespace Cloudents.FunctionsV2.FileProcessor
         {
             _providers = appenders;
         }
-        public IFileProcessor GetProcessor(CloudBlockBlob blob)
+        public IFileProcessor? GetProcessor(CloudBlockBlob blob)
         {
             var process = _providers.FirstOrDefault(f =>
             {

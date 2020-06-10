@@ -12,7 +12,7 @@ namespace Cloudents.Core.Test.Entities
         public void DocumentPrice_New_Subscriber()
         {
             var tutorMoq = new Mock<Tutor>();
-            tutorMoq.Setup(s => s.SubscriptionPrice).Returns(new Money(30, "USD"));
+            tutorMoq.Setup(s => s.SubscriptionPrice).Returns(new Money(30d, "USD"));
 
 
             var documentPrice = new DocumentPrice(50, PriceType.Subscriber,tutorMoq.Object);

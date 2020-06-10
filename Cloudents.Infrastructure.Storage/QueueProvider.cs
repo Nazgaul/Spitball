@@ -6,6 +6,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Storage.Queues;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure.Storage
 {
@@ -13,11 +14,12 @@ namespace Cloudents.Infrastructure.Storage
     {
         private readonly string _connectionString;
         //private readonly QueueClient _queueClient;
+        private readonly IJsonSerializer _jsonSerializer;
 
-        public QueueProvider(string connectionString)
+        public QueueProvider(IConfigurationKeys connectionString, IJsonSerializer jsonSerializer)
         {
-            _connectionString = connectionString;
-
+            _connectionString = connectionString.Storage;
+            _jsonSerializer = jsonSerializer;
             // _queueClient = storageProvider.GetQueueClient();
         }
 
@@ -51,20 +53,20 @@ namespace Cloudents.Infrastructure.Storage
             return InsertMessageAsync(obj, TimeSpan.Zero, token);
         }
 
-        public async Task InsertBlobReprocessAsync(long id)
+        public Task InsertBlobReprocessAsync(long id)
         {
             var queue = GetQueueReference("generate-blob-preview");
-            await queue.SendMessageAsync(id.ToString());
+            return queue.SendMessageAsync(id.ToString());
         }
 
         public Task InsertMessageAsync(ISystemQueueMessage obj, TimeSpan delay, CancellationToken token)
         {
             var queue = GetQueueReference(QueueName.BackgroundQueue.Name);
-            var json = JsonConvert.SerializeObject(obj, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All
-            });
+
+            var json = _jsonSerializer.Serialize(obj);
             return queue.SendMessageAsync(json, delay, cancellationToken: token);
         }
+
+      
     }
 }

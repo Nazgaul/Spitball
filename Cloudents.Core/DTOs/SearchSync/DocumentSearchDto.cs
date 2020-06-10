@@ -19,7 +19,7 @@ namespace Cloudents.Core.DTOs.SearchSync
 
 
         [EntityBind(nameof(Document.User.SbCountry))]
-        public Country? SbCountry { get; set; }
+        public Country SbCountry { get; set; }
        
         [EntityBind(nameof(Document.TimeStamp.CreationTime))]
         public DateTime? DateTime { get; set; }

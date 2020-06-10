@@ -22,9 +22,9 @@ namespace Cloudents.Search.Tutor
             _client = client.GetClient(TutorSearchWrite.IndexName);
         }
 
-        public async Task<Microsoft.Azure.Search.Models.Document> GetByIdAsync(long id)
+        public Task<Microsoft.Azure.Search.Models.Document> GetByIdAsync(long id)
         {
-            return await _client.Documents.GetAsync(id.ToString());
+            return _client.Documents.GetAsync(id.ToString());
             //return await _client.Documents.GetAsync<Entities.Tutor>(id.ToString());
         }
         public async Task<ListWithCountDto<TutorCardDto>> SearchAsync(TutorListTabSearchQuery query, CancellationToken token)
@@ -34,7 +34,7 @@ namespace Cloudents.Search.Tutor
             {
                 Top = query.PageSize,
                 Skip = query.Page * query.PageSize,
-                Select = new[] {nameof(Entities.Tutor.Data),},
+                Select = new[] {nameof(Entities.Tutor.Data), nameof(Entities.Tutor.SbCountry)},
                 HighlightFields = new[] {nameof(Entities.Tutor.Courses)},
                 HighlightPostTag = string.Empty,
                 HighlightPreTag = string.Empty,
@@ -62,7 +62,7 @@ namespace Cloudents.Search.Tutor
                         s.Document.Data.Image = _urlBuilder.BuildUserImageEndpoint(tutor.UserId, tutor.Image);
                     }
 
-                    s.Document.Data.SbCountry = s.Document.SbCountry;
+                    //s.Document.Data.SbCountry = s.Document.SbCountry;
                     s.Document.Data.Courses = courses;
                     s.Document.Data.Subjects = s.Document.Data.Subjects?.Take(3);
                     return s.Document.Data;

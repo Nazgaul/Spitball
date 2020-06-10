@@ -41,11 +41,7 @@ namespace Cloudents.Infrastructure.Storage
                 .Keyed<IBlobProvider>(StorageContainer.Admin);
 
 
-            builder.Register<QueueProvider>( c =>
-            {
-                var key = c.Resolve<IConfigurationKeys>().Storage;
-                return new QueueProvider(key);
-            }).AsImplementedInterfaces();
+            builder.RegisterType<QueueProvider>().AsImplementedInterfaces();
             builder.RegisterType<ServiceBusProvider>().As<IServiceBusProvider>();
         }
     }

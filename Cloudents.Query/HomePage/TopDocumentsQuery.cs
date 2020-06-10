@@ -42,7 +42,7 @@ namespace Cloudents.Query.HomePage
 
                 sessionQuery = sessionQuery.Where(w => w.User.Country == query.Country.ToString());
 
-                return await sessionQuery.Where(w => w.IsShownHomePage && w.Status.State == ItemState.Ok)
+                return await sessionQuery.Where(w => w.IsShownHomePage == true && w.Status.State == ItemState.Ok)
                     .Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
@@ -57,15 +57,15 @@ namespace Cloudents.Query.HomePage
                         Name = s.User.Name,
                         Image = s.User.ImageName
                     },
-                    Views = s.Views,
-                    Downloads = s.Downloads,
+                   // Views = s.Views,
+                   // Downloads = s.Downloads,
                     DateTime = s.TimeStamp.UpdateTime,
-                    Vote = new VoteDto()
-                    {
-                        Votes = s.VoteCount
-                    },
+                    //Vote = new VoteDto()
+                    //{
+                    //    Votes = s.VoteCount
+                    //},
                     Price = s.DocumentPrice.Price,
-                    Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.Id && x.Action == TransactionActionType.SoldDocument)
+                  //  Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.Id && x.Action == TransactionActionType.SoldDocument)
                 }).Take(query.Count).ToListAsync(token);
             }
         }

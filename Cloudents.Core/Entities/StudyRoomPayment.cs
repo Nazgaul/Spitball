@@ -8,8 +8,7 @@ namespace Cloudents.Core.Entities
     {
         public StudyRoomPayment(StudyRoomSessionUser studyRoomSessionUser)
         {
-            PricePerHour = (double) (studyRoomSessionUser.StudyRoomSession.StudyRoom.Price ??
-                                     studyRoomSessionUser.StudyRoomSession.StudyRoom.Tutor.Price.GetPrice());
+            PricePerHour = studyRoomSessionUser.StudyRoomSession.StudyRoom.Price.Amount;
             Tutor = studyRoomSessionUser.StudyRoomSession.StudyRoom.Tutor;
             User = studyRoomSessionUser.User;
             StudyRoomSessionUser = studyRoomSessionUser;
@@ -18,7 +17,7 @@ namespace Cloudents.Core.Entities
 
         public StudyRoomPayment(Tutor tutor, User user,TimeSpan duration,double price)
         {
-            PricePerHour = price;
+            PricePerHour = price;// new Money(price,tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
             Tutor = tutor;
             User = user;
             ApproveSession(duration, price);

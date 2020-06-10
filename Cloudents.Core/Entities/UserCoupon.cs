@@ -33,7 +33,7 @@ namespace Cloudents.Core.Entities
 
         public virtual Tutor Tutor { get; protected set; }
 
-        public virtual StudyRoomSessionUser StudyRoomSessionUser { get; protected set; }
+        public virtual StudyRoomSessionUser? StudyRoomSessionUser { get; protected set; }
 
         public static readonly Expression<Func<UserCoupon, bool>> IsUsedExpression = x => x.UsedAmount < 1;
 

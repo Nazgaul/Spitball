@@ -28,8 +28,9 @@ namespace Cloudents.Core.Entities
         public virtual string? SecurityStamp { get; set; }
 
         // ReSharper disable once UnusedAutoPropertyAccessor.Global reserved for later use
+        [Obsolete]
         public virtual string Image { get; protected set; }
-        public virtual string ImageName { get; protected set; }
+        public virtual string? ImageName { get; protected set; }
 
         public virtual string AuthenticatorKey { get; set; }
 
@@ -82,8 +83,8 @@ namespace Cloudents.Core.Entities
             Language = lang;
         }
 
-        public virtual string? Country { get; protected set; }
-        public virtual Country? SbCountry { get; protected set; }
+        public virtual string Country { get; protected set; }
+        public virtual Country SbCountry { get; protected set; }
 
         public virtual byte[] Version { get; protected set; }
 

@@ -27,8 +27,22 @@ namespace Cloudents.Core.Entities
             yield return EnglishIndia;
             yield return EnglishUsa;
             // yield return EnglishIsrael;
-
         }
+
+        public static IEnumerable<Language> SystemSupportLanguage(bool isFrymo)
+        {
+            if (isFrymo)
+            {
+                yield return EnglishIndia;
+            }
+            else
+            {
+                yield return English;
+                yield return Hebrew;
+                yield return EnglishUsa;
+            }
+        }
+
 
 
 

@@ -3,7 +3,6 @@ using Cloudents.Command.Command;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Core.Storage;
@@ -11,17 +10,15 @@ using Cloudents.Query;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
-using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Globalization;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,6 +35,7 @@ namespace Cloudents.Web.Api
     [Produces("application/json")]
     [Route("api/[controller]")]
     [Authorize, ApiController]
+    [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
 
     public class AccountController : ControllerBase
     {
@@ -139,7 +137,7 @@ namespace Cloudents.Web.Api
             //}
             var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
             var url = Url.ImageUrl(imageProperties);
-            var fileName = uri.AbsolutePath.Split('/').LastOrDefault();
+            var fileName = uri.AbsolutePath.Split('/').Last();
             var command = new UpdateUserImageCommand(userId, url, fileName);
             await _commandBus.DispatchAsync(command, token);
             return Ok(url);
@@ -166,15 +164,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            //if (uri == null)
-            //{
-            //    ModelState.AddModelError("x", "not an image");
-            //    return BadRequest(ModelState);
-            //}
-            //   var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
-            //var url = Url.ImageUrl(imageProperties);
-
-            var fileName = uri.AbsolutePath.Split('/').LastOrDefault();
+            var fileName = uri.AbsolutePath.Split('/').Last();
             var command = new UpdateUserCoverImageCommand(userId,  fileName);
             await _commandBus.DispatchAsync(command, token);
 
@@ -191,56 +181,56 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new UpdateUserSettingsCommand(userId, model.FirstName, model.LastName,
-                model.Description, model.Bio, model.Price);
+                model.Description, model.Bio);
             await _commandBus.DispatchAsync(command, token);
-            var culture = CultureInfo.CurrentCulture.ChangeCultureBaseOnCountry(profile.Country);
+            //var culture = CultureInfo.CurrentCulture.ChangeCultureBaseOnCountry(profile.Country);
             return Ok(new
             {
-                newPrice = model.Price?.ToString("C0", culture)
+                //newPrice = model.Price?.ToString("C0", culture)
             });
         }
 
-        [HttpPost("BecomeTutor")]
-        [ProducesResponseType(Status200OK)]
-        [ProducesResponseType(Status400BadRequest)]
-        [ProducesResponseType(Status409Conflict)]
-        [ProducesDefaultResponseType]
-        public async Task<IActionResult> BecomeTutorAsync(
-            [FromBody]UpdateSettingsRequest model,
-            [FromServices] ConfigurationService configurationService,
-            CancellationToken token)
-        {
-            try
-            {
+        //[HttpPost("BecomeTutor")]
+        //[ProducesResponseType(Status200OK)]
+        //[ProducesResponseType(Status400BadRequest)]
+        //[ProducesResponseType(Status409Conflict)]
+        //[ProducesDefaultResponseType]
+        //public async Task<IActionResult> BecomeTutorAsync(
+        //    [FromBody]UpdateSettingsRequest model,
+        //    [FromServices] ConfigurationService configurationService,
+        //    CancellationToken token)
+        //{
+        //    try
+        //    {
 
-                if (configurationService.GetSiteName() == ConfigurationService.Site.Frymo)
-                {
-                    model.Price = null;
-                }
-                else
-                {
-                    if (model.Price == null)
-                    {
-                        return BadRequest();
-                    }
-                }
+        //        if (configurationService.GetSiteName() == ConfigurationService.Site.Frymo)
+        //        {
+        //            model.Price = null;
+        //        }
+        //        else
+        //        {
+        //            if (model.Price == null)
+        //            {
+        //                return BadRequest();
+        //            }
+        //        }
 
 
-                var userId = _userManager.GetLongUserId(User);
-                var command = new BecomeTutorCommand(userId, model.FirstName, model.LastName,
-                    model.Description, model.Bio, model.Price);
-                await _commandBus.DispatchAsync(command, token);
-                return Ok();
-            }
-            catch (ArgumentException)
-            {
-                return Conflict();
-            }
-            catch (NonUniqueObjectException)
-            {
-                return BadRequest();
-            }
-        }
+        //        var userId = _userManager.GetLongUserId(User);
+        //        var command = new BecomeTutorCommand(userId, model.FirstName, model.LastName,
+        //            model.Description, model.Bio, model.Price);
+        //        await _commandBus.DispatchAsync(command, token);
+        //        return Ok();
+        //    }
+        //    catch (ArgumentException)
+        //    {
+        //        return Conflict();
+        //    }
+        //    catch (NonUniqueObjectException)
+        //    {
+        //        return BadRequest();
+        //    }
+        //}
 
         [HttpGet("content")]
         public async Task<IEnumerable<UserContentDto>> GetUserContentAsync(CancellationToken token)
@@ -313,10 +303,12 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("tutorActions")]
-        public async Task<TutorActionsDto> GetTutorActionsAsync(CancellationToken token)
+        public async Task<TutorActionsDto> GetTutorActionsAsync(
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
+            CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var query = new TutorActionsQuery(userId);
+            var query = new TutorActionsQuery(userId, profile.CountryRegion);
             return await _queryBus.QueryAsync(query, token);
         }
 

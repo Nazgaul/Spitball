@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Entities;
-using Cloudents.Core.Event;
+﻿using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using System;
 using System.Threading;
@@ -9,8 +8,9 @@ namespace Cloudents.Core.EventHandler
 {
     public sealed class TutorDeletedEventHandler :
         IEventHandler<TutorDeletedEvent>,
-        IEventHandler<TutorSuspendedEvent>,
+        //IEventHandler<TutorSuspendedEvent>,
         IEventHandler<UserSuspendEvent>,
+        IEventHandler<DeleteUserEvent>,
         IDisposable
     {
         private readonly IReadTutorRepository _repository;
@@ -28,11 +28,11 @@ namespace Cloudents.Core.EventHandler
             return DeleteAsync(eventMessage.Id, token);
         }
 
-        public Task HandleAsync(TutorSuspendedEvent eventMessage, CancellationToken token)
-        {
+        //public Task HandleAsync(TutorSuspendedEvent eventMessage, CancellationToken token)
+        //{
 
-            return DeleteAsync(eventMessage.Id, token);
-        }
+        //    return DeleteAsync(eventMessage.Id, token);
+        //}
 
         public Task HandleAsync(UserSuspendEvent eventMessage, CancellationToken token)
         {
@@ -54,6 +54,11 @@ namespace Cloudents.Core.EventHandler
         public void Dispose()
         {
             _unitOfWork.Dispose();
+        }
+
+        public Task HandleAsync(DeleteUserEvent eventMessage, CancellationToken token)
+        {
+            return DeleteAsync(eventMessage.User.Id, token);
         }
     }
 }

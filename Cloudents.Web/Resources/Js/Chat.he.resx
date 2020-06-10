@@ -120,6 +120,21 @@
   <data name="conversations_empty_state" xml:space="preserve">
     <value>לא קיבלת הודעות עדיין</value>
   </data>
+  <data name="create" xml:space="preserve">
+    <value>יצירת קבוצה</value>
+  </data>
+  <data name="create_already" xml:space="preserve">
+    <value>חדר צ'ט כזה כבר קיים</value>
+  </data>
+  <data name="create_btn_txt" xml:space="preserve">
+    <value>יצירת קבוצה</value>
+  </data>
+  <data name="create_mobile" xml:space="preserve">
+    <value>יצירת קבוצה</value>
+  </data>
+  <data name="create_title" xml:space="preserve">
+    <value>יצירת קבוצה</value>
+  </data>
   <data name="emptyState_message1" xml:space="preserve">
     <value>היי, נעים מאוד שמי</value>
   </data>
@@ -135,13 +150,52 @@
   <data name="go_study" xml:space="preserve">
     <value>חדרי הלימוד שלי</value>
   </data>
+  <data name="invite" xml:space="preserve">
+    <value>הזמנת תלמידים</value>
+  </data>
   <data name="messages" xml:space="preserve">
     <value>הודעות</value>
+  </data>
+  <data name="participants" xml:space="preserve">
+    <value>משתתפים</value>
   </data>
   <data name="photo" xml:space="preserve">
     <value>תמונה</value>
   </data>
+  <data name="search_placeholder" xml:space="preserve">
+    <value>חיפוש</value>
+  </data>
+  <data name="show_all" xml:space="preserve">
+    <value>הצג הכל</value>
+  </data>
+  <data name="show_unread" xml:space="preserve">
+    <value>הודעות חדשות</value>
+  </data>
+  <data name="teacher_btn_book" xml:space="preserve">
+    <value>לקביעת שיעור ביומן</value>
+  </data>
+  <data name="teacher_btn_mail" xml:space="preserve">
+    <value>שלחו לי אימייל</value>
+  </data>
+  <data name="teacher_btn_studyroom" xml:space="preserve">
+    <value>לחדר הלימוד</value>
+  </data>
+  <data name="teacher_btn_studyroom_create" xml:space="preserve">
+    <value>יצירת חדר לימוד</value>
+  </data>
+  <data name="teacher_btn_whatsapp" xml:space="preserve">
+    <value>שלחו לי הודעת וואטסאפ</value>
+  </data>
+  <data name="teacher_info" xml:space="preserve">
+    <value>פרטי המורה</value>
+  </data>
+  <data name="teacher_name" xml:space="preserve">
+    <value>היי, אני {0}</value>
+  </data>
   <data name="type_message" xml:space="preserve">
     <value>הקלד הודעה</value>
+  </data>
+  <data name="whatsapp_default" xml:space="preserve">
+    <value>שליחת הודעת וואטסאפ</value>
   </data>
 </root>

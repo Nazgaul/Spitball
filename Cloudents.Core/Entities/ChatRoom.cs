@@ -20,12 +20,14 @@ namespace Cloudents.Core.Entities
             UpdateTime = DateTime.UtcNow;
         }
 
-        public ChatRoom(IList<User> users)
+        public ChatRoom(IList<User> users, Tutor tutor)
         {
             foreach (var user in users)
             {
                 user.AddFollowers(users);
             }
+
+            Tutor = tutor;
             Users = new HashSet<ChatUser>(users.Select(s => new ChatUser(this, s)));
             Identifier = BuildChatRoomIdentifier(users.Select(s => s.Id));
             Messages = new List<ChatMessage>();
@@ -37,12 +39,13 @@ namespace Cloudents.Core.Entities
         {
             return new ChatRoom
             {
+                Tutor = studyRoom.Tutor,
                 Identifier = studyRoom.Identifier,
                 StudyRoom = studyRoom
             };
         }
 
-
+        public virtual Tutor Tutor { get; set; }
 
         public static string BuildChatRoomIdentifier(IEnumerable<long> userIds)
         {
@@ -52,6 +55,21 @@ namespace Cloudents.Core.Entities
                 throw new ArgumentException("need more then one participant");
             }
             return string.Join("_", userIdsList);
+        }
+
+        public static string BuildChatRoomIdentifier(params long[] userIds)
+        {
+            var userIdsList = userIds.Distinct().OrderBy(o => o).ToList();
+            if (userIdsList.Count == 1)
+            {
+                throw new ArgumentException("need more then one participant");
+            }
+            return string.Join("_", userIdsList);
+        }
+
+        public static IEnumerable<long> IdentifierToUserIds(string identifier)
+        {
+            return identifier.Split("_").Select(long.Parse);
         }
 
         public virtual StudyRoom? StudyRoom { get; protected set; }
@@ -74,6 +92,8 @@ namespace Cloudents.Core.Entities
         public virtual void AddMessage(ChatMessage message)
         {
             UpdateTime = DateTime.UtcNow;
+            Messages.Add(message);
+            AddEvent(new ChatMessageEvent(message));
             if (StudyRoom != null)
             {
                 if (StudyRoom is BroadCastStudyRoom _)
@@ -93,11 +113,7 @@ namespace Cloudents.Core.Entities
                     userInChat.ResetUnread();
                 }
             }
-
-
-
-            Messages.Add(message);
-            AddEvent(new ChatMessageEvent(message));
+           
         }
 
         public virtual void AddUserToChat(User user)

@@ -14,7 +14,7 @@ namespace Cloudents.Web.Identity
       
 
 
-        public async Task TempSignIn(User user)
+        public async Task TempSignInAsync(User user)
         {
 
             var userId = await UserManager.GetUserIdAsync(user);

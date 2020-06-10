@@ -18,20 +18,23 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
 using Cloudents.Web.Binders;
 using Microsoft.Extensions.Localization;
-using Schema.NET;
 
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]"), ApiController]
     [Authorize]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Return to client")]
+    [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Return to client")]
+    [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting", Justification = "Api")]
     public class StudyRoomController : ControllerBase
     {
 
@@ -60,7 +63,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<CreateStudyRoomCommandResult>> CreateStudyRoomAsync(CreateStudyRoomRequest model,
+        public async Task<ActionResult<CreateStudyRoomResponse>> CreateStudyRoomAsync(CreateStudyRoomRequest model,
             [FromServices] TelemetryClient client,
             CancellationToken token)
         {
@@ -69,9 +72,9 @@ namespace Cloudents.Web.Api
             {
                 var chatTextMessage = _localizer["StudyRoomCreatedChatMessage", model.Name];
                 var command = new CreateStudyRoomCommand(tutorId, model.UserId,
-                    chatTextMessage, model.Name, model.Price, model.Date, model.Type,model.Description);
-                var result = await _commandBus.DispatchAsync<CreateStudyRoomCommand, CreateStudyRoomCommandResult>(command, token);
-                return result;
+                    chatTextMessage, model.Name, model.Price, model.Date, model.Type, model.Description);
+                await _commandBus.DispatchAsync(command, token);
+                return new CreateStudyRoomResponse(command.StudyRoomId, command.Identifier);
             }
             catch (DuplicateRowException)
             {
@@ -151,7 +154,7 @@ namespace Cloudents.Web.Api
 
             if (profile.Subscribers?.Contains(result.TutorId) == true)
             {
-                result.TutorPrice = 0;
+                result.TutorPrice = result.TutorPrice.ChangePrice(0);
             }
             result.TutorImage = urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
             result.Jwt = command.JwtToken;
@@ -182,15 +185,17 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Get study rooms data of user - used in study room url
         /// </summary>
+        /// <param name="type"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<UserStudyRoomDto>> GetStudyRoomsAsync(
+        public async Task<IEnumerable<UserStudyRoomDto>> GetStudyRoomsAsync(StudyRoomType type,
              CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserStudyRoomQuery(userId);
-            return await _queryBus.QueryAsync(query, token);
+            var result = await _queryBus.QueryAsync(query, token);
+            return result.Where(w => w.Type == type);
 
         }
 
@@ -295,6 +300,6 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-      
+
     }
 }

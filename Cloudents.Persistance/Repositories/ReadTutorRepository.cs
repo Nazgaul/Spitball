@@ -13,14 +13,18 @@ namespace Cloudents.Persistence.Repositories
     {
         public ReadTutorRepository(ISession session) : base(session)
         {
+        }
 
+        public Task AddOrUpdateAsync(ReadTutor entity, CancellationToken token)
+        {
+            return Session.SaveOrUpdateAsync(entity, token);
         }
 
         public async Task<ReadTutor?> GetReadTutorAsync(long userId, CancellationToken token)
         {
             var tutorFutureValue = Session.Query<Tutor>()
                 .Fetch(f => f.User)
-                .Where(w => w.Id == userId && w.State == ItemState.Ok)
+                .Where(w => w.Id == userId)
                 .Select(s => new
                 {
                     s.User.Id,
@@ -28,12 +32,11 @@ namespace Cloudents.Persistence.Repositories
                     s.User.ImageName,
                     s.User.Image,
                     s.Bio,
-                    s.Price.Price,
-                    s.Price.SubsidizedPrice,
                     s.User.SbCountry,
                     s.User.Country,
                     s.User.Description,
-                    s.SubscriptionPrice
+                    s.SubscriptionPrice,
+                    s.State
                 }).ToFutureValue();
 
             var coursesFuture = Session.Query<UserCourse>()
@@ -86,8 +89,8 @@ namespace Cloudents.Persistence.Repositories
             var readTutor = new ReadTutor(tutor.Id, tutor.Name, tutor.Image, tutor.ImageName,
                 course.Where(w => !string.IsNullOrEmpty(w.SubjectName)).Select(s => s.SubjectName).Distinct().ToList(),
                 course.Select(s => s.CourseName).ToList(),
-                tutor.Price, average, count, tutor.Bio,
-                lessons, tutor.Country, tutor.SbCountry, tutor.SubsidizedPrice, tutor.SubscriptionPrice, tutor.Description);
+                 average, count, tutor.Bio,
+                lessons, tutor.SbCountry, tutor.SubscriptionPrice, tutor.Description, tutor.State);
 
 
             return readTutor;

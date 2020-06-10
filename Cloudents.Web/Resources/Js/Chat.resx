@@ -144,4 +144,58 @@
   <data name="go_study" xml:space="preserve">
     <value>Go to my study rooms</value>
   </data>
+  <data name="create" xml:space="preserve">
+    <value>New chat</value>
+  </data>
+  <data name="create_mobile" xml:space="preserve">
+    <value>New chat</value>
+  </data>
+  <data name="search_placeholder" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="show_all" xml:space="preserve">
+    <value>Show all</value>
+  </data>
+  <data name="show_unread" xml:space="preserve">
+    <value>Unread</value>
+  </data>
+  <data name="create_already" xml:space="preserve">
+    <value>This group already exists</value>
+  </data>
+  <data name="create_btn_txt" xml:space="preserve">
+    <value>Create chat</value>
+  </data>
+  <data name="create_title" xml:space="preserve">
+    <value>Create a new chat</value>
+  </data>
+  <data name="invite" xml:space="preserve">
+    <value>Invite students</value>
+  </data>
+  <data name="participants" xml:space="preserve">
+    <value>Participants</value>
+  </data>
+  <data name="teacher_btn_book" xml:space="preserve">
+    <value>Book a session with me</value>
+  </data>
+  <data name="teacher_btn_mail" xml:space="preserve">
+    <value>Send me an email</value>
+  </data>
+  <data name="teacher_btn_studyroom" xml:space="preserve">
+    <value>Go to study room</value>
+  </data>
+  <data name="teacher_btn_whatsapp" xml:space="preserve">
+    <value>Send me a WhatsApp</value>
+  </data>
+  <data name="teacher_info" xml:space="preserve">
+    <value>Teacher info</value>
+  </data>
+  <data name="teacher_name" xml:space="preserve">
+    <value>Hi, I’m {0}</value>
+  </data>
+  <data name="whatsapp_default" xml:space="preserve">
+    <value>Send Whatsapp message</value>
+  </data>
+  <data name="teacher_btn_studyroom_create" xml:space="preserve">
+    <value>Create new study room</value>
+  </data>
 </root>

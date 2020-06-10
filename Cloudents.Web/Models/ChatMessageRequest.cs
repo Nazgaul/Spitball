@@ -10,9 +10,11 @@ namespace Cloudents.Web.Models
         [Required, JsonConverter(typeof(StringHtmlEncoderConverter))]
         public string Message { get; set; }
 
-        public long OtherUser { get; set; }
 
+        [Required]
         public string ConversationId { get; set; }
+
+        public long? TutorId { get; set; }
     }
 
 

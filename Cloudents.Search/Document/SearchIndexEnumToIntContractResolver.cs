@@ -55,7 +55,7 @@ namespace Cloudents.Search.Document
                     p.PropertyType = typeof(string);
                 }
             }
-           
+
 
             return p;
         }
@@ -82,7 +82,9 @@ namespace Cloudents.Search.Document
             {
                 return null;
             }
-            var id = (int)val;
+
+            var id = (int)Convert.ChangeType(val, TypeCode.Int32);
+            //var id = (int)val;
             return Enumeration.FromValue<Country>(id);
 
         }
@@ -104,7 +106,7 @@ namespace Cloudents.Search.Document
 
         public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
-            
+
             var json = reader.Value?.ToString();
             if (json == null)
             {

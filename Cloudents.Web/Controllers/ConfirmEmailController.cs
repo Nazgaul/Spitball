@@ -3,10 +3,8 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
-using SbSignInManager = Cloudents.Web.Identity.SbSignInManager;
 
 namespace Cloudents.Web.Controllers
 {
@@ -15,14 +13,12 @@ namespace Cloudents.Web.Controllers
     public class ConfirmEmailController : Controller
     {
         private readonly UserManager<User> _userManager;
-        private readonly SbSignInManager _signInManager;
         private readonly ILogger _logger;
 
 
-        public ConfirmEmailController(UserManager<User> userManager, SbSignInManager signInManager, ILogger logger)
+        public ConfirmEmailController(UserManager<User> userManager, ILogger logger)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
             _logger = logger;
         }
 
@@ -34,10 +30,10 @@ namespace Cloudents.Web.Controllers
                 return Redirect("/");
             }
 
-            if (User.Identity.IsAuthenticated)
-            {
-                return Redirect("/");
-            }
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    return Redirect("/");
+            //}
             model.Code = System.Net.WebUtility.UrlDecode(model.Code);
             var user = await _userManager.FindByIdAsync(model.Id.ToString());
             if (user is null)
@@ -46,10 +42,10 @@ namespace Cloudents.Web.Controllers
                 return Redirect("/");
             }
 
-            if (user.PhoneNumberConfirmed)
-            {
-                return RedirectToRoute(RegisterController.Signin);
-            }
+            //if (user.PhoneNumberConfirmed)
+            //{
+            //    return RedirectToRoute(RegisterController.Signin);
+            //}
             if (user.EmailConfirmed)
             {
                 return RedirectToRoute(RegisterController.Signin);

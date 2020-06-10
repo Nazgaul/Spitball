@@ -11,10 +11,13 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
     public class User : BaseUser
     {
-        public User(string email, string firstName, string lastName,
-            Language language, string country, Gender gender = Gender.None)
+        public User(string email, string firstName, string? lastName,
+            Language language, string country, bool isTutor = false)
         {
-            Email = email;
+            if (firstName == null) throw new ArgumentNullException(nameof(firstName));
+            //if (lastName == null) throw new ArgumentNullException(nameof(lastName));
+            if (country == null) throw new ArgumentNullException(nameof(country));
+            Email = email ?? throw new ArgumentNullException(nameof(email));
             ChangeName(firstName, lastName);
             FirstName = firstName;
             LastName = lastName;
@@ -22,9 +25,12 @@ namespace Cloudents.Core.Entities
             Created = DateTime.UtcNow;
             Country = country;
             SbCountry = Entities.Country.FromCountry(country);
-            Gender = gender;
             UserLogins = new List<UserLogin>();
             Transactions = new UserTransactions();
+            if (isTutor)
+            {
+                Tutor = new Tutor(this);
+            }
         }
 
 
@@ -49,9 +55,11 @@ namespace Cloudents.Core.Entities
         public virtual string? LockoutReason { get; set; }
 
 
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
         protected internal virtual ICollection<Answer> Answers { get; protected set; }
         protected internal virtual ICollection<UserLogin> UserLogins { get; protected set; }
 
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
         protected internal virtual ICollection<UserLocation> UserLocations { get; protected set; }
 
 
@@ -80,17 +88,12 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        //public virtual void UseCoupon(Tutor tutor)
-        //{
-        //    var userCoupon = UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id 
-        //                                            && w.UsedAmount < w.Coupon.AmountOfUsePerUser);
-        //    if (userCoupon is null) // we do not check before if user have coupon on that user
-        //    {
-        //        return;
-        //    }
-        //    userCoupon.UsedAmount++;
-        //    AddEvent(new UseCouponEvent(userCoupon));
-        //}
+        public virtual void BecomeTutor()
+        {
+            Tutor = new Tutor(this);
+        }
+
+     
 
 
         public virtual void ApplyCoupon(Coupon coupon, Tutor tutor)
@@ -165,18 +168,18 @@ namespace Cloudents.Core.Entities
 
 
 
-        public virtual void BecomeTutor(string bio, decimal? price, string description, string firstName, string lastName)
-        {
+        //public virtual void BecomeTutor(string bio, decimal? price, string description, string firstName, string lastName)
+        //{
 
-            Tutor = new Tutor(bio, this, price);
-            Description = description;
-            //SetUserType(UserType.Teacher);
-            ChangeName(firstName, lastName);
-            foreach (var userCourse in UserCourses)
-            {
-                userCourse.CanTeach();
-            }
-        }
+        //    Tutor = new Tutor(bio, this, price);
+        //    Description = description;
+        //    //SetUserType(UserType.Teacher);
+        //    ChangeName(firstName, lastName);
+        //    foreach (var userCourse in UserCourses)
+        //    {
+        //        userCourse.CanTeach();
+        //    }
+        //}
 
 
 
@@ -198,11 +201,11 @@ namespace Cloudents.Core.Entities
         public virtual string CoverImage { get; protected set; }
         public virtual Tutor? Tutor { get; protected set; }
 
-        [Obsolete]
-        public virtual BuyerPayment? BuyerPayment { get; protected set; }
+        //[Obsolete]
+        //public virtual BuyerPayment? BuyerPayment { get; protected set; }
         public virtual IPayment2? Payment { get; protected set; }
 
-        public virtual Gender Gender { get; protected set; }
+        //public virtual Gender? Gender { get; protected set; }
         public virtual PaymentStatus? PaymentExists { get; protected set; }
 
         public virtual DateTime? FinishRegistrationDate { get; set; }
@@ -233,7 +236,7 @@ namespace Cloudents.Core.Entities
 
 
 
-        public virtual void ChangeName(string firstName, string lastName)
+        public virtual void ChangeName(string firstName, string? lastName)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -311,8 +314,11 @@ namespace Cloudents.Core.Entities
         }
 
 
-        protected internal virtual IEnumerable<Follow> Following { get; set; }
-        protected internal virtual IEnumerable<Lead> Leads { get; set; }
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
+
+        protected internal virtual IEnumerable<Follow> Following { get; protected set; }
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
+        protected internal virtual IEnumerable<Lead> Leads { get; protected set; }
 
         private readonly ISet<Follow> _followers = new HashSet<Follow>();
         public virtual IEnumerable<Follow> Followers => _followers;
@@ -421,14 +427,22 @@ namespace Cloudents.Core.Entities
 
         // public override int Score { get; protected set; }  //=> Transactions.Score;
         public override decimal Balance => Transactions.Balance;
-        protected internal virtual ICollection<UserDownloadDocument> DocumentDownloads { get; set; }
 
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
+        protected internal virtual ICollection<UserDownloadDocument> DocumentDownloads { get; protected set; }
+        protected internal virtual ICollection<StudyRoomPayment> SessionPayments { get; protected set; }
+        protected internal virtual ICollection<StudyRoomSessionUser> StudyRoomSessionUsers { get; protected set; }
 
         public virtual void DeleteUserPayment()
         {
-            BuyerPayment = null;
+            //BuyerPayment = null;
             Payment = null;
             PaymentExists = PaymentStatus.None;
+        }
+
+        public virtual void Delete()
+        {
+            AddEvent(new DeleteUserEvent(this));
         }
 
         //public virtual void SetUserType(UserType userType)

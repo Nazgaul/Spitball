@@ -58,14 +58,16 @@ namespace Cloudents.Core.DTOs.Admin
         [NonSerialized]
         public string? _sellerKey;
 
+        [NonSerialized] public Country? TutorCountry;
+
         [NonSerialized] public long? _duration2;
 
         [EntityBind(nameof(StudyRoomSession.Id))]
         public Guid StudyRoomSessionId { get; set; }
-        [EntityBind(nameof(Tutor.Price))]
+        [EntityBind(nameof(StudyRoom.OldPrice))]
         public double TutorPricePerHour { get; set; }
 
-        public Country? TutorCountry { get; set; }
+        //public Country? TutorCountry { get; set; }
 
         public bool CantPay
         {

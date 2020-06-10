@@ -12,11 +12,11 @@ namespace Cloudents.Persistence.Maps
            
             HasOne(x => x.User).Constrained().Cascade.None();
             Map(x => x.Bio).Length(1000);
-            Component(x => x.Price, y2 =>
-            {
-                y2.Map(z => z.Price).CustomSqlType("smallMoney");
-                y2.Map(z => z.SubsidizedPrice).CustomSqlType("smallMoney");
-            });
+            //Component(x => x.Price, y2 =>
+            //{
+            //    y2.Map(z => z.Price).CustomSqlType("smallMoney");
+            //    y2.Map(z => z.SubsidizedPrice).CustomSqlType("smallMoney");
+            //});
 
 
        
