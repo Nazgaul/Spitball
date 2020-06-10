@@ -61,7 +61,10 @@
     "vue/max-attributes-per-line": "off",
     "no-mixed-spaces-and-tabs": "off",
     "vue-i18n/no-dynamic-keys": "error",
-    "vue-i18n/no-missing-keys" : "error"
+    "vue-i18n/no-missing-keys" : "error",
+    "vue-i18n/no-raw-text": ["warn", {
+      "ignoreNodes": ["v-icon"]
+    }]
   },
   "settings": {
     "vue-i18n": {
