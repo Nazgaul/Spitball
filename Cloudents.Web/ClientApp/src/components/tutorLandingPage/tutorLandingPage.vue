@@ -10,7 +10,7 @@
             </v-flex>
             <v-flex class="pb-sm-6">
                 <span class="rating_tutorLanding">
-                    <span class="mr-1">95%</span>&nbsp;<v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp;<span class="ml-1" v-language:inner="'tutorListLanding_reviews'"></span>
+                    <span class="mr-1">95%</span>&nbsp;<v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp;<span class="ml-1" v-t="'tutorListLanding_reviews'"></span>
                 </span>
             </v-flex>
         </v-layout>
@@ -39,7 +39,7 @@
                     :prev-icon="`sbf-arrow-left-carousel`"/>
         </div>
         <v-layout align-center py-12 justify-space-around class="tutor-landing-status-row">
-            <span class="hidden-xs-only"><span>95%</span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></span>
+            <span class="hidden-xs-only"><span>95%</span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-t="'tutorListLanding_reviews'"></span></span>
             <span class="hidden-xs-only" v-t="'tutorListLanding_courses'"></span>
             <span v-t="'tutorListLanding_tutors'"></span>
         </v-layout>

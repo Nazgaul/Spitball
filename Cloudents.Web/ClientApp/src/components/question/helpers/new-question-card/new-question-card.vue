@@ -91,7 +91,7 @@
                 <div class="question-input-container d-flex">
                     <user-avatar class="avatar-area mr-2" :user-name="accountUser.name" :userImageUrl="accountUser.image" :user-id="accountUser.id" v-if="accountUser" />
                     <user-avatar class="avatar-area mr-2" :user-name="'JD'" :userImageUrl="''" v-else />
-                    <input class="question-input" placeholder="questionCard_Answer_placeholder" v-language:placeholder type="text">
+                    <input class="question-input" :placeholder="$t('questionCard_Answer_placeholder')" type="text">
                     <questionNote class="question-input-icon"/>
                 </div>
             </div>

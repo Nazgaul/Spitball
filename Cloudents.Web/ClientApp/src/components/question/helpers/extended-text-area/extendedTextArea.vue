@@ -4,12 +4,12 @@
             <div class="text-block">
                 <span class="error-message" v-if="error.errorClass">{{error.errorText}}</span>
                 <textarea 
-                    rows="9" 
-                    required
-                    @input="updateValue($event.target.value)"
-                    :value="value" autofocus="isFocused"
-                    :placeholder="'extendedTextArea_type_your_answer'" 
-                    v-language:placeholder>
+                  rows="9" 
+                  required
+                  @input="updateValue($event.target.value)"
+                  :value="value" autofocus="isFocused"
+                  :placeholder="$t('extendedTextArea_type_your_answer')" 
+                >
                 </textarea>
             </div>
         </div>

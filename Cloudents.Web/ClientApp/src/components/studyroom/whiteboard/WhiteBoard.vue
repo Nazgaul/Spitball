@@ -83,7 +83,7 @@
         </div>
         <div :style="{'top':helperStyle.top, 'left':helperStyle.left, 'flex-direction': isRtl ?  'row-reverse': ''}" class="text-helper-container" v-if="helperShow && selectedOptionString === enumOptions.text">
                 <div style="width:240px;height:40px">
-                    <input type="text" v-language:placeholder="'tutor_enter_text'"
+                    <input type="text" :placeholder="$t('tutor_enter_text')"
                     v-model="helperStyle.text"
                     :class="[helperClass, helperStyle.id]"
                     :style="{'color': helperStyle.color, 'direction':isRtl ? 'rtl' : 'ltr' }"/>

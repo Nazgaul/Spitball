@@ -140,6 +140,10 @@ const loadedLanguages = [] // our default language that is preloaded
 // }
 
 export async function loadLanguageAsync() {
+  let isFrymo = global.location.hostname.toLowerCase();
+  
+  // https://www.frymo.com/
+  
   let lang = `${global.lang}-${global.country}`;
   // eslint-disable-next-line no-constant-condition
   while (true) {
@@ -150,6 +154,10 @@ export async function loadLanguageAsync() {
     if (lang2 == lang) {
       lang = 'en';
       break;
+    }
+    if(isFrymo === 'www.frymo.com') {
+      lang = supportedLanguges[2] // en-IN for frymo
+      break
     }
     lang = lang2;
 
@@ -168,8 +176,6 @@ export async function loadLanguageAsync() {
   } catch (error) {
     console.error("no resource", lang, error);
   }
-
-  
 
   //return connectivityModule.http.get(`/Locale${dictionaryType}`).then((dictionary)=>{
  

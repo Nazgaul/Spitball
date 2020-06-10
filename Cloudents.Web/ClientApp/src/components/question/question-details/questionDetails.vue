@@ -45,7 +45,7 @@
                 </v-flex>
                     <!--TODO V 20  SPITBALL-851 Remove the discussion board from question pages -->
                 <!--<v-flex v-if ="accountUser" class="chat-wrapper" >-->
-                    <!--<div class="chat-title pa-2" v-language:inner>questionDetails_Discussion_Board</div>-->
+                    <!--<div class="chat-title pa-2" v-t="'questionDetails_Discussion_Board'"></div>-->
                     <!--<div ref="chat-area" class="chat-container"></div>-->
 
                 <!--</v-flex>-->
@@ -59,7 +59,7 @@
                     <v-tabs-slider color="blue"></v-tabs-slider>
                     <v-tab :href="'#tab-1'" :key="'1'"><span v-t="'questionDetails_Question'"></span></v-tab>
                       <!--TODO V 20  SPITBALL-851 Remove the discussion board from question pages -->
-                    <!--<v-tab :href="'#tab-2'" :key="'2'" v-if="accountUser"><span v-language:inner>questionDetails_Chat</span></v-tab>-->
+                    <!--<v-tab :href="'#tab-2'" :key="'2'" v-if="accountUser"><span v-t="'questionDetails_Chat'"></span></v-tab>-->
 
                 <v-tab-item :key="'1'" :id="'tab-1'" class="tab-padding">
                         <v-flex xs12 class="question-data" >
