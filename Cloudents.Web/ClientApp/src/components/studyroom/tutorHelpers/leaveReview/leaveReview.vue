@@ -175,7 +175,7 @@
                         this.reviewsError = false;
                     }
                 } else {
-                    this.setReviewError('leaveReview_emptyStarError');
+                    this.setReviewError(this.$t('leaveReview_emptyStarError'));
                 }
             },
             sendReview() {
@@ -190,7 +190,7 @@
                     this.closeReviewDialog();
                 },
                 () => {
-                    this.setReviewError('leaveReview_sendReviewError')
+                    this.setReviewError(this.$t('leaveReview_sendReviewError'))
                 }
                 ).finally(() => {
                     this.btnLoading = false;
@@ -199,7 +199,7 @@
             },
             setReviewError(err) {
                 this.reviewsError = true;
-                this.errorText = this.$t(err)
+                this.errorText = err
             },
             closeReviewDialog() {
                 this.updateReviewDialog(false);

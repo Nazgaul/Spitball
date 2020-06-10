@@ -4,7 +4,7 @@
         <v-icon v-if="prependInnerIcon" class="prepend-icon">{{prependInnerIcon}}</v-icon>
         <input :required="required" :class="['input-field', prependInnerIcon ? 'inputPrepIcon': '', {errorTextStr :'invalid'}]"
                :name="name" :type="type" :bottomError="bottomError" :disabled="disabled" :readonly="isReadOnly"
-               :placeholder="$t(placeholder)"  :value="value" :hint="hint"
+               :placeholder="placeholder"  :value="value" :hint="hint"
                @change="hideError()"
                @input="updateValue($event.target.value)" :autofocus="autofocus">
         <v-icon v-if="icon">{{icon}}</v-icon>

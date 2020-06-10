@@ -21,7 +21,7 @@
     >
       <template v-slot:top>
         <div class="tableTop d-flex flex-sm-row flex-column align-sm-center justify-space-between">
-          <div class="myStudyRooms_title pb-3 pb-sm-0" v-t="myStudyroomTitle"></div>
+          <div class="myStudyRooms_title pb-3 pb-sm-0">{{myStudyroomTitle}}</div>
           <div v-if="isTutor">
             <v-btn
               @click="isStudyroomLive ? openLiveSession() : openPrivateSession()"
@@ -32,7 +32,7 @@
               color="#5360FC"
               >
                 <v-icon size="24" left>sbf-plus-circle</v-icon>
-                <span v-t="btnText"></span>
+                <span>{{btnText}}</span>
             </v-btn>
           </div>
         </div>

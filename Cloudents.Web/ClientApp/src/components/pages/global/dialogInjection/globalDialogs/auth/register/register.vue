@@ -76,7 +76,7 @@
                     class="btns white--text"
                     color="#4452fc"
                 >
-                    <span v-t="globalBtnText"></span>
+                    <span>{{globalBtnText}}</span>
                 </v-btn>
 
                 <template v-if="isEmailRegister">

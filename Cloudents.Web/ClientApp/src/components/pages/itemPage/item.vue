@@ -44,8 +44,8 @@
               height="42"
               color="#4c59ff"
             >
-              <span v-if="isVideo" v-t="unlockVideoBtnText"></span>
-              <span v-else v-t="unlockDocumentBtnText"></span>
+              <span v-if="isVideo">{{unlockVideoBtnText}}</span>
+              <span v-else>{{unlockDocumentBtnText}}</span>
             </v-btn>
             <v-btn
               v-if="!isVideo && getIsPurchased"
@@ -246,32 +246,16 @@ export default {
       return this.getDocumentPriceTypeFree;
     },
     unlockDocumentBtnText() {
-      return this.isFree || this.getDocumentPriceTypeHasPrice
-        ? "documentPage_unlock_document_btn"
-        : {
-            path: "documentPage_unlock_document_btn_subscribe",
-            args: {
-              0: this.$n(this.getDocumentPrice, {
-                style: "currency",
-                currency: "USD",
-                minimumFractionDigits: 0
-              })
-            }
-          };
+      if(this.isFree || this.getDocumentPriceTypeHasPrice) {
+        return this.$t('documentPage_unlock_document_btn')
+      }
+      return this.$t('documentPage_unlock_document_btn_subscribe', [this.$price(this.getDocumentPrice, 'USD')])
     },
     unlockVideoBtnText() {
-      return this.isFree || this.getDocumentPriceTypeHasPrice
-        ? "documentPage_unlock_video_btn"
-        : {
-            path: "documentPage_unlock_video_btn_subscribe",
-            args: {
-              0: this.$n(this.getDocumentPrice, {
-                style: "currency",
-                currency: "USD",
-                minimumFractionDigits: 0
-              })
-            }
-          };
+      if(this.isFree || this.getDocumentPriceTypeHasPrice) {
+        return this.$t('documentPage_unlock_video_btn')
+      }
+      return this.$t('documentPage_unlock_video_btn_subscribe', [this.$price(this.getDocumentPrice, 'USD')])
     },
     shareContentParams() {
       let urlLink = `${global.location.origin}/d/${

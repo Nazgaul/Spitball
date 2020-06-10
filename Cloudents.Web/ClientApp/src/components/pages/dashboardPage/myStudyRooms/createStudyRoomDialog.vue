@@ -4,7 +4,7 @@
 
          <v-form class="justify-space-between input-room-name mb-3" ref="createRoomValidation">
             <v-icon class="close-dialog" v-text="'sbf-close'" @click="$store.commit('setComponent')" />
-            <div class="createStudyRoomDialog-title text-center" v-t="createSessionTitle"></div>
+            <div class="createStudyRoomDialog-title text-center">{{createSessionTitle}}</div>
 
             <component
                :is="studyRoomType"
@@ -22,7 +22,7 @@
             <div class="mb-4">
                <span v-if="currentError" class="error--text" v-t="errorsResource[currentError]"></span>
             </div>
-            <v-btn :loading="isLoading" @click="createStudyRoom" width="160" depressed height="40" color="#4452fc" class="white--text" rounded >{{$t(btnCreateText)}}</v-btn>
+            <v-btn :loading="isLoading" @click="createStudyRoom" width="160" depressed height="40" color="#4452fc" class="white--text" rounded >{{btnCreateText}}</v-btn>
          </div>
       </div>
    </v-dialog>
