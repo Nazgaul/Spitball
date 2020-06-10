@@ -77,7 +77,7 @@ namespace Cloudents.Persistence
             {
 
                 //I want to clear the domain event since AsQueryable reinject the publish event and then again... and stack-overflow exception 
-                var list = p.DomainEvents.Distinct().Distinct().ToList();
+                var list = p.DomainEvents.Distinct().ToList();
                 p.ClearEvents();
                 foreach (var ev in list)
                 {

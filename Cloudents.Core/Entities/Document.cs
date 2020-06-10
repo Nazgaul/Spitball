@@ -36,13 +36,9 @@ namespace Cloudents.Core.Entities
                 Description = description;
             }
             Status = GetInitState(tutor.User);
-            if (Status == Public)
-            {
-                MakePublic();
-            }
             DocumentType = documentType;
-
             DocumentPrice = new DocumentPrice(price, priceType, tutor);
+            AddEvent(new DocumentCreatedEvent(this));
           
         }
 

@@ -156,12 +156,12 @@ export default {
                 
                 this.$store.commit('setIsFromTutorStep', true)
                 this.$store.commit('setComponent', 'register')
-            let analyticsObject = {
-                userId: this.isLoggedIn ? this.accountUser.id : 'GUEST',
-                course: this.tutorCourse,
-                fromDialogPath: this.getTutorRequestAnalyticsOpenedFrom.path,
-                fromDialogComponent: this.getTutorRequestAnalyticsOpenedFrom.component
-            };
+                let analyticsObject = {
+                    userId: this.isLoggedIn ? this.accountUser.id : 'GUEST',
+                    course: this.tutorCourse,
+                    fromDialogPath: this.getTutorRequestAnalyticsOpenedFrom.path,
+                    fromDialogComponent: this.getTutorRequestAnalyticsOpenedFrom.component
+                };
                 analyticsService.sb_unitedEvent('Request Tutor Next', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
             }
         },
@@ -178,7 +178,6 @@ export default {
                 fromDialogPath: this.getTutorRequestAnalyticsOpenedFrom.path,
                 fromDialogComponent: this.getTutorRequestAnalyticsOpenedFrom.component
             };
-
                 let serverObj = {
                     captcha: null,
                     text: this.description,

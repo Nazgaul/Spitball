@@ -40,7 +40,7 @@ namespace Cloudents.Query.Tutor
                       .ToFutureValue(f=>f.Count());
 
                 var unreadMessages = _session.Query<ChatUser>().Where(w => w.User.Id == query.TutorId)
-                    .ToFutureValue(f => f.Sum(s => s.Unread));
+                    .ToFutureValue(f => f.Sum(s => (int?)s.Unread));
 
                 var enrolledStudents = _session.Query<StudyRoomUser>()
                     .Fetch(f => f.Room)
@@ -72,7 +72,7 @@ namespace Cloudents.Query.Tutor
                 var result = new TutorNotificationDto
                 {
                     PendingPayment = await newPendingSessionPayment.GetValueAsync(token),
-                    UnreadChatMessages = unreadMessages.Value,
+                    UnreadChatMessages = unreadMessages.Value ?? 0,
                     LiveClassRegisteredUser = enrolledStudents.Value,
                     FollowerNoCommunication = noChat.Value,
                     UnansweredQuestion = unAnsweredQuestion.Value
