@@ -156,7 +156,7 @@ export async function loadLanguageAsync() {
       break;
     }
     if(isFrymo === 'www.frymo.com') {
-      lang = supportedLanguges[2] // en-IN for frymo
+      lang = 'en-IN'
       break
     }
     lang = lang2;

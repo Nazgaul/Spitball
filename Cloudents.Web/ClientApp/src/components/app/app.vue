@@ -214,23 +214,23 @@ export default {
     removeCookiesPopup: function() {
       this.setCookieAccepted();
     },
-    tryBuyTokens(transactionObjectError) {
-      walletService.buyTokens(transactionObjectError).then(
-        () => {
-          this.updateToasterParams({
-            toasterText: this.$t("buyToken_success"),
-            showToaster: true
-          });
-        },
-        error => {
-          global.localStorage.setItem(
-            "sb_transactionError",
-            transactionObjectError.points
-          );
-          console.log(error);
-        }
-      );
-    }
+    // tryBuyTokens(transactionObjectError) {
+    //   walletService.buyTokens(transactionObjectError).then(
+    //     () => {
+    //       this.updateToasterParams({
+    //         toasterText: this.$t("buyToken_success"),
+    //         showToaster: true
+    //       });
+    //     },
+    //     error => {
+    //       global.localStorage.setItem(
+    //         "sb_transactionError",
+    //         transactionObjectError.points
+    //       );
+    //       console.log(error);
+    //     }
+    //   );
+    // }
   },
   created() {
     if (!!this.$route.query && this.$route.query.requesttutor) {
@@ -265,16 +265,16 @@ export default {
       event.preventDefault();
     });
 
-    let failedTranscationId = global.localStorage.getItem(
-      "sb_transactionError"
-    );
-    if (failedTranscationId) {
-      global.localStorage.removeItem("sb_transactionError");
-      let transactionObjectError = {
-        points: failedTranscationId
-      };
-      this.tryBuyTokens(transactionObjectError);
-    }
+    // let failedTranscationId = global.localStorage.getItem(
+    //   "sb_transactionError"
+    // );
+    // if (failedTranscationId) {
+    //   global.localStorage.removeItem("sb_transactionError");
+    //   let transactionObjectError = {
+    //     points: failedTranscationId
+    //   };
+      // this.tryBuyTokens(transactionObjectError);
+    // }
   }
 };
 </script>
