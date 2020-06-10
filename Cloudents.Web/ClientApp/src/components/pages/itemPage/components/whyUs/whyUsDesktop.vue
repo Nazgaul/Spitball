@@ -4,9 +4,9 @@
             <template v-if="!zeroPrice && !isPurchased">
                 <div class="itemPage__side__top">
                     <div class="itemPage__side__top__price">{{priceWithComma}}</div>
-                    <span class="itemPage__side__top__pts" v-language:inner="'documentPage_points'"></span>
+                    <span class="itemPage__side__top__pts" v-t="'documentPage_points'"></span>
                 </div>
-                <div class="itemPage__side__credit" v-language:inner="'documentPage_credit_uploader'"></div>
+                <div class="itemPage__side__credit" v-t="'documentPage_credit_uploader'"></div>
             </template>
             <v-btn 
                 class="itemPage__side__btn white--text"
@@ -18,8 +18,8 @@
                 @click="openPurchaseDialog"
                 v-if="!isPurchased || isVideo"
                 color="#4c59ff">
-                    <span v-if="isVideo" v-language:inner="'documentPage_unlock_video_btn'"></span>
-                    <span v-else v-language:inner="'documentPage_unlock_document_btn'"></span>
+                    <span v-if="isVideo" v-t="'documentPage_unlock_video_btn'"></span>
+                    <span v-else v-t="'documentPage_unlock_document_btn'"></span>
             </v-btn>
             <v-btn
                 v-else
@@ -30,20 +30,20 @@
                 :loading="isLoading"
                 class="itemPage__side__btn white--text"
                 depressed block rounded @click="downloadDoc" color="#4c59ff">
-                <span v-language:inner="'documentPage_download_btn'"></span>
+                <span v-t="'documentPage_download_btn'"></span>
             </v-btn>
             <div class="itemPage__side__bottom">
                 <div class="itemPage__side__bottom__cont mb-3">
                     <shield class="itemPage__side__bottom__cont__icon"></shield>
-                    <span class="itemPage__side__bottom__cont__span" v-language:inner="'documentPage_money_back'"></span>
+                    <span class="itemPage__side__bottom__cont__span" v-t="'documentPage_money_back'"></span>
                 </div>
                 <div class="itemPage__side__bottom__cont mb-3">
                     <secure class="itemPage__side__bottom__cont__icon"></secure>
-                    <span class="itemPage__side__bottom__cont__span" v-language:inner="'documentPage_secure_payment'"></span>
+                    <span class="itemPage__side__bottom__cont__span" v-t="'documentPage_secure_payment'"></span>
                 </div>
                 <div class="itemPage__side__bottom__cont mb-3">
                     <exams class="itemPage__side__bottom__cont__icon"></exams>
-                    <span class="itemPage__side__bottom__cont__span" v-language:inner="'documentPage_prepared_exams'"></span>
+                    <span class="itemPage__side__bottom__cont__span" v-t="'documentPage_prepared_exams'"></span>
                 </div>
             </div>
         </template>

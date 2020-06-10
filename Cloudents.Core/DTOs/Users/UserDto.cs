@@ -67,7 +67,6 @@ namespace Cloudents.Core.DTOs.Users
 
         public bool IsSold { get; set; }
        
-        public int PendingSessionsPayments { get; set; }
 
 
         public string CurrencySymbol => (Country ?? Country.UnitedStates).RegionInfo.ISOCurrencySymbol;

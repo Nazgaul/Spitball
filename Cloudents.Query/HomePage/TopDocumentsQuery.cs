@@ -27,9 +27,9 @@ namespace Cloudents.Query.HomePage
         internal sealed class TopDocumentsHandler : IQueryHandler<TopDocumentsQuery, IEnumerable<DocumentFeedDto>>
         {
             private readonly IStatelessSession _session;
-            public TopDocumentsHandler(QuerySession session)
+            public TopDocumentsHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             [Cache(TimeConst.Day, "homePage-documents", false)]

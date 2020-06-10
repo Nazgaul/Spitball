@@ -2,14 +2,14 @@
     <div class="tutorRequest-middle-courseInfo" v-if="isReady">
     <v-form v-model="validRequestTutorForm" ref="tutorRequestForm" :class="{'tutorProfile':isTutor}">
             <fieldset class="fieldset-textArea mb-6 px-2 py-1">
-                <legend v-language:inner="'tutorRequest_type_legend'"/>
+                <legend v-t="'tutorRequest_type_legend'"/>
                   <v-textarea sel="free_text"
                     :rows="isMobile?6:3"
                     v-model="description"
                     :rules="[rules.required, rules.maximumChars,rules.notSpaces]"/>
             </fieldset>
             <fieldset  class="fieldset-select px-2">
-                <legend v-language:inner="'tutorRequest_select_course_placeholder'"/>
+                <legend v-t="'tutorRequest_select_course_placeholder'"/>
                 <v-combobox sel="course_request"
                     v-if="!isLoggedIn"
                     class="text-truncate"
@@ -30,17 +30,17 @@
                     :items="getSelectedClasses"/>
             </fieldset>
             <v-checkbox v-if="isTutor" :ripple="false" class="checkbox-userinfo"
-                        :label="$Ph('tutorRequest_more_tutors', getCurrTutor.name)" 
+                        :label="$t('tutorRequest_more_tutors', [getCurrTutor.name])" 
                         v-model="moreTutors" off-icon="sbf-check-box-un" 
                         on-icon="sbf-check-box-done"/>
     </v-form>
         <div class="tutorRequest-bottom" :class="{'mt-6': !getCurrTutor}">
             <v-btn @click="tutorRequestDialogClose" class="tutorRequest-btn-back" color="white" depressed rounded sel="cancel_tutor_request">
-                <span v-language:inner="'tutorRequest_cancel'"/>
+                <span v-t="'tutorRequest_cancel'"/>
             </v-btn>
             <v-btn :loading="isLoading" class="tutorRequest-btn-next" depressed rounded sel="submit_tutor_request" @click="!isLoggedIn? next() : sumbit()" color="#4452fc">
-                <span v-if="!isLoggedIn" v-language:inner="'tutorRequest_next'"/> 
-                <span v-else v-language:inner="'tutorRequest_submit'"/>
+                <span v-if="!isLoggedIn" v-t="'tutorRequest_next'"/> 
+                <span v-else v-t="'tutorRequest_submit'"/>
             </v-btn>
         </div>
     </div>
@@ -156,12 +156,12 @@ export default {
                 
                 this.$store.commit('setIsFromTutorStep', true)
                 this.$store.commit('setComponent', 'register')
-            let analyticsObject = {
-                userId: this.isLoggedIn ? this.accountUser.id : 'GUEST',
-                course: this.tutorCourse,
-                fromDialogPath: this.getTutorRequestAnalyticsOpenedFrom.path,
-                fromDialogComponent: this.getTutorRequestAnalyticsOpenedFrom.component
-            };
+                let analyticsObject = {
+                    userId: this.isLoggedIn ? this.accountUser.id : 'GUEST',
+                    course: this.tutorCourse,
+                    fromDialogPath: this.getTutorRequestAnalyticsOpenedFrom.path,
+                    fromDialogComponent: this.getTutorRequestAnalyticsOpenedFrom.component
+                };
                 analyticsService.sb_unitedEvent('Request Tutor Next', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
             }
         },
@@ -178,7 +178,6 @@ export default {
                 fromDialogPath: this.getTutorRequestAnalyticsOpenedFrom.path,
                 fromDialogComponent: this.getTutorRequestAnalyticsOpenedFrom.component
             };
-
                 let serverObj = {
                     captcha: null,
                     text: this.description,

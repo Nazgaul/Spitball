@@ -26,9 +26,9 @@ namespace Cloudents.Query.Email
         {
             private readonly IStatelessSession _session;
 
-            public GetUpdatesEmailQuestionsQueryHandler(QuerySession querySession)
+            public GetUpdatesEmailQuestionsQueryHandler(IStatelessSession querySession)
             {
-                _session = querySession.StatelessSession;
+                _session = querySession;
             }
 
             public async Task<IEnumerable<UpdateEmailDto>> GetAsync(GetUpdatesEmailByUserQuery query, CancellationToken token)

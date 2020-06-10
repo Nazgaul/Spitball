@@ -702,6 +702,19 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var result = await fixture.QueryBus.QueryAsync(query, default);
         }
 
+        [Theory]
+        [InlineData("9f54280c-103e-46a6-8184-aabf00801beb")]
+        [InlineData("0362bc01-9991-43a5-a7e3-aba600e2c4cc")]
+        public async Task SeoStudyRoomQuery_Ok(string id)
+        {
+            var guidId = Guid.Parse(id);
+            var query = new SeoStudyRoomQuery(guidId);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        
+
+
         [Fact]
         public async Task ChatConversationDetailQuery_Ok()
         {

@@ -1,7 +1,7 @@
 <template>
     <div class="studyRoom-audio-settings-container">
         <div class="studyRoom-audio-settings-microphone-container">
-            <h4 class="studyRoom-audio-settings-microphone-label mb-3" v-language:inner="'studyRoomSettings_audio_input'"></h4>
+            <h4 class="studyRoom-audio-settings-microphone-label mb-3" v-t="'studyRoomSettings_audio_input'"></h4>
             <div class="audioSelect cameraListWrap d-sm-flex d-block align-center">
                 <v-select 
                     v-model="singleMicrophoneId"

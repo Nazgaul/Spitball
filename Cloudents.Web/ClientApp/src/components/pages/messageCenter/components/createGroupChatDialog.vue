@@ -33,7 +33,7 @@
          </v-form>
          <div class="d-flex flex-column align-center pt-4">
             <div class="mb-4">
-               <span v-if="currentError" class="error--text" v-t="currentError"></span>
+               <span v-if="currentError" class="error--text">{{currentError}}</span>
             </div>
             <v-btn @click="createChat" width="160" depressed height="40" color="#4452fc" class="white--text" rounded >{{$t('chat_create_btn_txt')}}</v-btn>
          </div>
@@ -55,10 +55,6 @@ export default {
          selected:[],
          myFollowers:[],
          currentError: '',
-         errorsResource:{
-            showErrorEmpty: 'dashboardPage_create_room_empty_error',
-            showErrorMaxUsers: 'dashboardPage_create_room_max_error',
-         },
          errors: {
             showErrorEmpty: false,
          },
@@ -66,6 +62,12 @@ export default {
       }
    },
    computed: {
+      errorsResource() {
+         return  {
+            showErrorEmpty: this.$t('dashboardPage_create_room_empty_error'),
+            showErrorMaxUsers: this.$t('dashboardPage_create_room_max_error')
+         }
+      },
       isErrors() {
          return this.errors.showErrorEmpty || this.errors.showErrorMaxUsers;
       }

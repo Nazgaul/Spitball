@@ -298,17 +298,6 @@ export default {
             this.componentRenderKey += 1;
             if (newVal !== old) {
                 this.$store.commit('resetProfile');
-                // if((newVal == this.accountUser.id) && this.accountUser.isTutorState === "pending"){
-                //     this.updateToasterParams({
-                //         toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
-                //         showToaster: true,
-                //         toasterTimeout: 3600000
-                //     });
-                // }else{
-                //     this.updateToasterParams({
-                //         showToaster: false
-                //     }); 
-                // }
                 this.fetchData();
             }
         },
@@ -361,19 +350,6 @@ export default {
             this.openCalendar();
         }
     },
-    // mounted() {
-    //     setTimeout(()=>{
-    //         if((this.$route.params && this.$route.params.id) && 
-    //            (this.$route.params.id == this.accountUser.id) && 
-    //            this.accountUser.isTutorState === "pending"){
-    //             this.updateToasterParams({
-    //                 toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
-    //                 showToaster: true,
-    //                 toasterTimeout: 3600000
-    //             });
-    //         }
-    //     },200);
-    // }
 }
 </script>
 

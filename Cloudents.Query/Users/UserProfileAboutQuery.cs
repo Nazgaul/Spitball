@@ -27,10 +27,10 @@ namespace Cloudents.Query.Users
             private readonly IStatelessSession _statelessSession;
             private readonly IUrlBuilder _urlBuilder;
 
-            public UserProfileAboutQueryHandler(QuerySession querySession, IUrlBuilder urlBuilder)
+            public UserProfileAboutQueryHandler(IStatelessSession querySession, IUrlBuilder urlBuilder)
             {
                 _urlBuilder = urlBuilder;
-                _statelessSession = querySession.StatelessSession;
+                _statelessSession = querySession;
             }
 
             public async Task<UserProfileAboutDto> GetAsync(UserProfileAboutQuery query, CancellationToken token)

@@ -1,13 +1,13 @@
 <template>
   <div class="error-with-audio-recording-container">
       <v-container class="ewar-wrapper" justify-center align-center>
-          <h1 v-language:inner="'tutor_ewar-continue-without-recording'"></h1>
+          <h1 v-t="'tutor_ewar-continue-without-recording'"></h1>
           <v-layout>
               <img :src="voiceErrorImg" alt="">
           </v-layout>
           <v-layout class="ewar-btns-container">
-              <v-btn @click="tryAgain" depressed rounded class="actions-try"><span v-language:inner="'tutor_ewar-try-again'"></span></v-btn>
-              <v-btn @click="ignoreError" depressed rounded class="actions-continue"><span v-language:inner="'tutor_ewar-continue-without-audio'"></span></v-btn>
+              <v-btn @click="tryAgain" depressed rounded class="actions-try"><span v-t="'tutor_ewar-try-again'"></span></v-btn>
+              <v-btn @click="ignoreError" depressed rounded class="actions-continue"><span v-t="'tutor_ewar-continue-without-audio'"></span></v-btn>
           </v-layout>
       </v-container>
   </div>

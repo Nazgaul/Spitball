@@ -71,9 +71,9 @@
             />
           </intersection>
           <div class="overlay text-center px-2 px-sm-5" v-if="isSubscribed && isPreviewReady">
-              <div class="unlockText white--text mb-3" v-t="subscribeText"></div>
+              <div class="unlockText white--text mb-3">{{subscribeText}}</div>
               <v-btn class="btn" color="#fff" @click.prevent="subscribe" rounded block>
-                <span v-t="{path: subscribeBtnText, args: { 0: $n(subscribedPrice, {'style':'currency','currency': 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0}) }}"></span>
+                <span>{{subscribeBtnText}}</span>
               </v-btn>
           </div>
         </div>
@@ -245,10 +245,11 @@ export default {
     ...mapGetters(["accountUser"]),
 
     subscribeText() {
-      return this.isMobile ? 'resultNote_subscribe_mobile_text' : 'resultNote_subscribe_desktop_text'
+      return this.isMobile ? this.$t('resultNote_subscribe_mobile_text') : this.$t('resultNote_subscribe_desktop_text')
     },
     subscribeBtnText() {
-      return this.isMobile ? 'resultNote_subscribe_mobile_btn' : 'resultNote_subscribe_desktop_btn'
+      let price = this.$price(this.subscribedPrice, 'USD')
+      return this.isMobile ? this.$t('resultNote_subscribe_mobile_btn', [price]) : this.$t('resultNote_subscribe_desktop_btn', [price])
     },
     subscribedPrice() {
       return this.item.price

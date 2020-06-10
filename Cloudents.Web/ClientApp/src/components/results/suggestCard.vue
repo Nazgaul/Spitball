@@ -2,11 +2,11 @@
     <v-container @click="openRequestTutor()" class="suggestCard-container" >
         <v-layout align-center xs12 sm6 wrap class="suggestCard-sections">
             <div class="suggestCard-texts">
-                <h3 v-language:inner="isMobile ? 'suggestCard_title_mobile' : 'suggestCard_title'"></h3>
-                <h4 v-language:inner="'suggestCard_body'"></h4>
+                <h3>{{suggestText}}</h3>
+                <h4 v-t="'suggestCard_body'"></h4>
             </div>
             <div class="suggestCard-btn-section">
-                <button class="suggestCard-btn" v-language:inner="'suggestCard_btn'"></button>
+                <button class="suggestCard-btn" v-t="'suggestCard_btn'"></button>
             </div>
         </v-layout>
     </v-container>
@@ -19,6 +19,12 @@ export default {
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
+        suggestText() {
+            if(this.isMobile) {
+                return this.$t('suggestCard_title_mobile')
+            }
+            return this.$t('suggestCard_title')
+        }
     },
     methods: {
         ...mapActions(['setTutorRequestAnalyticsOpenedFrom','updateRequestDialog']),

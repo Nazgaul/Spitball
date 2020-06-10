@@ -130,6 +130,6 @@
     <value>תרגול</value>
   </data>
   <data name="title" xml:space="preserve">
-    <value>מה היית רוצה לעשות עכשיו{1}</value>
+    <value>מה היית רוצה לעשות עכשיו{0}</value>
   </data>
 </root>

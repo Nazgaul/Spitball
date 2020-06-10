@@ -157,7 +157,7 @@
     <value>Excellent</value>
   </data>
   <data name="sub_title_step1" xml:space="preserve">
-    <value>Rate and review tutor {1} based on your session</value>
+    <value>Rate and review tutor {0} based on your session</value>
   </data>
   <data name="sub_title_step2" xml:space="preserve">
     <value>You can help other students by also adding a review</value>

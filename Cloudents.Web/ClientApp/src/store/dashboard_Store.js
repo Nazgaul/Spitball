@@ -1,5 +1,6 @@
 import dashboardService from '../services/dashboardService.js';
 import walletService from '../services/walletService.js';
+//TODO: Account new store clean @idan
 import accountService from '../services/accountService';
 import salesService from '../services/salesService.js';
 
@@ -121,6 +122,7 @@ const actions = {
          return;
       }
    },
+   //TODO: Account new store clean @idan
    updateStudentsAnswersQuestion() {
       return accountService.getQuestions().then((data) => {
          return data;

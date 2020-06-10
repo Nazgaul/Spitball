@@ -1,19 +1,19 @@
 <template>
     <div class="EmailConfirmed">
-        <div class="top" v-language:inner="isRegisterPath? 'loginRegister_emailconfirm_title':'loginRegister_emailconfirm_title_reset'"/>
+        <div class="top">{{titleText}}</div>
         <div class="middle" v-if="isRegisterPath">
             <span>
                 <span class="email"> {{userEmail}}</span>
             </span>
-            <p class="notYou font-weight-bold" @click="goToRegister()" v-language:inner="'loginRegister_emailconfirm_notyou'"/>
+            <p class="notYou font-weight-bold" @click="goToRegister()" v-t="'loginRegister_emailconfirm_notyou'"/>
         </div>
         <div>
             <div class="bottom">
-                <span v-language:inner="isRegisterPath? 'loginRegister_emailconfirm_bottom' : 'loginRegister_emailconfirm_bottom_reset'"/>
-                <span v-if="!isRegisterPath" v-language:inner="'loginRegister_emailconfirm_bottom_reset_or'"/>
+                <span>{{bottomText}}</span>
+                <span v-if="!isRegisterPath" v-t="'loginRegister_emailconfirm_bottom_reset_or'"></span>
                 <div>
-                    <span class="link" @click="resend()" v-language:inner="'loginRegister_emailconfirm_resend'"/>&nbsp;
-                    <span v-if="isRegisterPath" v-language:inner="'loginRegister_emailconfirm_rest'"/>
+                    <span class="link" @click="resend()" v-t="'loginRegister_emailconfirm_resend'"/>&nbsp;
+                    <span v-if="isRegisterPath" v-t="'loginRegister_emailconfirm_rest'"/>
                 </div>
             </div>
         </div>
@@ -28,6 +28,18 @@ import { RegisterEmailConfirmed } from '../../../../../routes/routeNames'
 export default {
     computed: {
         ...mapGetters(['getEmail1']),
+        titleText() {
+            if(this.isRegisterPath) {
+                return this.$t('loginRegister_emailconfirm_title')
+            }
+            return this.$t('loginRegister_emailconfirm_title_reset')
+        },
+        bottomText() {
+            if(this.isRegisterPath) {
+                return this.$t('loginRegister_emailconfirm_bottom')
+            }
+            return this.$t('loginRegister_emailconfirm_bottom_reset')
+        },
         userEmail(){
             return this.getEmail1
         },

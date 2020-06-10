@@ -8,7 +8,7 @@
                         <v-icon>sbf-pan</v-icon>
                     </button>
                 </template>
-                <span v-language:inner>tutor_tooltip_pan</span>
+                <span v-t="'tutor_tooltip_pan'"></span>
             </v-tooltip>
 
             <!--Select-->
@@ -19,7 +19,7 @@
                         <v-icon>sbf-mouse-pointer</v-icon>
                     </button>
                 </template>
-                <span v-language:inner>tutor_tooltip_select</span>
+                <span v-t="'tutor_tooltip_select'"></span>
             </v-tooltip>
 
             <!--Text-->
@@ -31,7 +31,7 @@
                         <v-icon>sbf-text-icon</v-icon>
                     </button>
                 </template>
-                <span v-language:inner>tutor_tooltip_text</span>
+                <span v-t="'tutor_tooltip_text'"></span>
             </v-tooltip>
             <!--Equation-->
             <v-tooltip bottom>
@@ -42,7 +42,7 @@
                         <v-icon>sbf-equation-icon</v-icon>
                     </button>
                 </template>
-                <span v-language:inner>tutor_tooltip_equation</span>
+                <span v-t="'tutor_tooltip_equation'"></span>
             </v-tooltip>
             <!--iink Draw-->
             <v-tooltip bottom>
@@ -53,7 +53,7 @@
                         <v-icon>sbf-fx-icon</v-icon>
                     </button>
                 </template>
-                <span v-language:inner>tutor_tooltip_iink</span>
+                <span v-t="'tutor_tooltip_iink'"></span>
             </v-tooltip>
             <!--Color Picker-->
             <v-tooltip bottom>
@@ -63,7 +63,7 @@
                         <v-icon class="selected-color" :style="{ color: canvasData.color.hex}">sbf-color-picked</v-icon>
                     </button>
                 </template>
-                <span v-language:inner>tutor_tooltip_color</span>
+                <span v-t="'tutor_tooltip_color'"></span>
             </v-tooltip>
             <slider-picker class="color-picker" :palette="predefinedColors" v-show="showPickColorInterface"
                            v-model="canvasData.color"/>
@@ -77,7 +77,7 @@
                         <v-icon>sbf-pencil-empty</v-icon>
                     </button>
                 </template>
-                <span v-language:inner>tutor_tooltip_pen</span>
+                <span v-t="'tutor_tooltip_pen'"></span>
             </v-tooltip>
 
             <!--Line-->
@@ -88,7 +88,7 @@
                         <v-icon>sbf-connect-line</v-icon>
                     </button>
                 </template>
-                <span v-language:inner>tutor_tooltip_line</span>
+                <span v-t="'tutor_tooltip_line'"></span>
             </v-tooltip>
 
             <!--Circle-->
@@ -99,7 +99,7 @@
                         <v-icon>sbf-elipse-stroke</v-icon>
                     </button>
                 </template>
-                <span v-language:inner>tutor_tooltip_circle</span>
+                <span v-t="'tutor_tooltip_circle'"></span>
             </v-tooltip>
 
             <!--Square-->
@@ -110,7 +110,7 @@
                         <v-icon>sbf-rectangle-stroke</v-icon>
                     </button>
                 </template>
-                <span v-language:inner>tutor_tooltip_square</span>
+                <span v-t="'tutor_tooltip_square'"></span>
             </v-tooltip>
 
             <!--Upload Image-->
@@ -124,7 +124,7 @@
                         <v-icon>sbf-upload</v-icon>
                     </button>
                 </template>
-                <span v-language:inner>tutor_tooltip_upload</span>
+                <span v-t="'tutor_tooltip_upload'"></span>
             </v-tooltip>
 
             <!--snapshot-->
@@ -134,7 +134,7 @@
                         <v-icon style="margin-bottom: 2px;">sbf-capture-icon</v-icon>
                     </button>
                 </template>
-                <span v-language:inner>tutor_tooltip_takeSnapshot</span>
+                <span v-t="'tutor_tooltip_takeSnapshot'"></span>
             </v-tooltip>
 
             <!--eraser-->
@@ -145,7 +145,7 @@
                         <v-icon>sbf-eraser-empty</v-icon>
                     </button>
                 </template>
-                <span v-language:inner>tutor_tooltip_eraser</span>
+                <span v-t="'tutor_tooltip_eraser'"></span>
             </v-tooltip>
 
             <!--Undo-->
@@ -155,7 +155,7 @@
                         <v-icon>sbf-undo</v-icon>
                     </button>
                 </template>
-                <span v-language:inner>tutor_tooltip_undo</span>
+                <span v-t="'tutor_tooltip_undo'"></span>
             </v-tooltip>
 
             <!--Clear All-->
@@ -165,7 +165,7 @@
                         <v-icon style="margin-top: 5px;">sbf-clearAll-icon</v-icon>
                     </button>
                 </template>
-                <span v-language:inner>tutor_tooltip_clearAll</span>
+                <span v-t="'tutor_tooltip_clearAll'"></span>
             </v-tooltip>
         </div>
 </template>

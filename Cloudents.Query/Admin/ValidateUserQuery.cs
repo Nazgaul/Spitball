@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using NHibernate;
 
 namespace Cloudents.Query.Admin
 {
@@ -21,16 +22,16 @@ namespace Cloudents.Query.Admin
 
         internal sealed class CoursesByTermQueryHandler : IQueryHandler<ValidateUserQuery, UserRolesDto?>
         {
-            private readonly QuerySession _session;
+            private readonly IStatelessSession _session;
 
-            public CoursesByTermQueryHandler(QuerySession session)
+            public CoursesByTermQueryHandler(IStatelessSession session)
             {
                 _session = session;
             }
 
             public async Task<UserRolesDto?> GetAsync(ValidateUserQuery query, CancellationToken token)
             {
-                var result = await _session.StatelessSession.Query<AdminUser>()
+                var result = await _session.Query<AdminUser>()
                     .WithOptions(w => w.SetComment(nameof(ValidateUserQuery)))
                       .Where(w => w.Email == query.Email)
                       .SingleOrDefaultAsync(token);

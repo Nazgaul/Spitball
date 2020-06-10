@@ -11,4 +11,14 @@ namespace Cloudents.Core.Event
 
         public long UserId { get; private set; }
     }
+
+    public class TutorSubscriptionEvent : IEvent
+    {
+        public TutorSubscriptionEvent(long userId)
+        {
+            UserId = userId;
+        }
+
+        public long UserId { get; private set; }
+    }
 }

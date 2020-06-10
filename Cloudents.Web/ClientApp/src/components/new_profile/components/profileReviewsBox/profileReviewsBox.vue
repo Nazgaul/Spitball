@@ -29,7 +29,7 @@
       <profileSingleReview v-for="(review, index) in reviews" :review="review" :key="index"/>
       <div class="profileReviewsBox_more" v-if="getProfileReviews.reviews.length > 2">
          <button sel="more_reviews" @click="isExpand = !isExpand">
-            <span v-language:inner="isExpand?'reviewBox_see_less':'reviewBox_see_more'"/>
+            <span>{{reviewsText}}</span>
          </button>
       </div>
    </div> 
@@ -56,6 +56,12 @@ export default {
    },
    computed: {
       ...mapGetters(['getProfile','getProfileReviews']),
+      reviewsText() {
+         if(this.isExpand) {
+            return this.$t('reviewBox_see_less')
+         }
+         return this.$t('reviewBox_see_more')
+      },
       reviews(){
          if(this.getProfileReviews == null) {return}
          let reviewsList = this.getProfileReviews.reviews;

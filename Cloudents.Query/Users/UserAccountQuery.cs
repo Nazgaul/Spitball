@@ -24,9 +24,9 @@ namespace Cloudents.Query.Users
         {
             private readonly IStatelessSession _session;
 
-            public UserAccountDataQueryHandler(QuerySession session)
+            public UserAccountDataQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             public async Task<UserAccountDto?> GetAsync(UserAccountQuery query, CancellationToken token)
@@ -48,24 +48,7 @@ namespace Cloudents.Query.Users
                         _needPayment = s.PaymentExists.GetValueOrDefault(PaymentStatus.None) == PaymentStatus.None
                     }).ToFutureValue();
                 
-                var pendingSessionsPaymentsFuture = _session.Query<StudyRoomSession>()
-                    .Fetch(f => f.StudyRoom)
-                    .Where(w => w.StudyRoom.Tutor.Id == query.Id)
-                    .Where(w => w.StudyRoomVersion.GetValueOrDefault() == 0)
-                    .Where(w => w.Duration > StudyRoomSession.BillableStudyRoomSession
-                                && w.RealDuration == null && w.Receipt == null)
-                    .GroupBy(g => 1)
-                    .Select(s => s.Count())
-                    .ToFutureValue();
-
-                var newPendingSessionPayment = _session.Query<StudyRoomSessionUser>()
-                    .Fetch(f => f.StudyRoomPayment)
-                    .Where(w => w.StudyRoomPayment.Tutor.Id == query.Id
-                                && w.Duration > StudyRoomSession.BillableStudyRoomSession
-                                && w.StudyRoomPayment.TutorApproveTime == null)
-                    .GroupBy(g => 1)
-                    .Select(s => s.Count())
-                    .ToFutureValue();
+             
 
                 //var haveDocsFuture = _session.Query<Document>()
                 //    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
@@ -141,23 +124,9 @@ namespace Cloudents.Query.Users
                 {
                     return null;
                 }
-
-                //result.HaveContent = (await haveDocsFuture.GetEnumerableAsync(token)).Any()
-                //                     || (await haveQuestionsFuture.GetEnumerableAsync(token)).Any();
-
-                //result.HaveDocsWithPrice = (await haveDocsWithPriceFuture.GetEnumerableAsync(token)).Any();
-
-                //result.IsPurchased = (await purchasedDocsFuture.GetEnumerableAsync(token)).Any()
-                //                     || (await purchasedSessionsFuture.GetEnumerableAsync(token)).Any()
-                //                     || (await buyPointsFuture.GetEnumerableAsync(token)).Any();
-
-
                 result.IsSold = (await isSoldDocumentFuture.GetEnumerableAsync(token)).Any()
                                 || (await isSoldSessionFuture.GetEnumerableAsync(token)).Any();
 
-                //result.HaveFollowers = (await haveFollowersFuture.GetEnumerableAsync(token)).Any();
-                result.PendingSessionsPayments =
-                     pendingSessionsPaymentsFuture.Value + newPendingSessionPayment.Value;
                 return result;
             }
         }

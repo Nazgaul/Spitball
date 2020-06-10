@@ -1,8 +1,8 @@
 <template>
   <v-dialog :value="true" max-width="550px" max-height="310px" :fullscreen="$vuetify.breakpoint.xsOnly" persistent>
     <div class="createCouponDialog">
-      <v-icon class="close-dialog" v-text="'sbf-close'" v-closeDialog></v-icon>
-      <!-- <v-icon class="close-dialog" v-text="'sbf-close'" @click="$store.commit('setComponent', '')"></v-icon> -->
+      <!-- <v-icon class="close-dialog" v-text="'sbf-close'" v-closeDialog></v-icon> -->
+      <v-icon class="close-dialog" v-text="'sbf-close'" @click="$store.commit('setComponent', '')"></v-icon>
       <div class="text-wrap pt-4 pt-sm-0">
         <template v-if="!showSuccess">
           <div class="dialog-title pb-10 pb-sm-11">{{$t('coupon_create_title')}}</div>
@@ -62,8 +62,8 @@
         </template>
       </div>
       <div class="btns-wrap">
-        <v-btn v-closeDialog class="dialog-btn btn-cancel mr-1 mr-sm-3" color="white" height="40" rounded depressed>
-        <!-- <v-btn @click="$store.commit('setComponent', '')" class="dialog-btn btn-cancel mr-1 mr-sm-3" color="white" height="40" rounded depressed> -->
+        <!-- <v-btn v-closeDialog class="dialog-btn btn-cancel mr-1 mr-sm-3" color="white" height="40" rounded depressed> -->
+        <v-btn @click="$store.commit('setComponent', '')" class="dialog-btn btn-cancel mr-1 mr-sm-3" color="white" height="40" rounded depressed>
           <span v-t="showSuccess?'coupon_btn_exit':'coupon_btn_cancel'"/>
         </v-btn>
         <v-btn :loading="loadingBtn" @click="showSuccess? copyCode() : createMyCoupon()" class="ml-1 ml-sm-0 dialog-btn white--text" height="40" rounded depressed color="#4c59ff">

@@ -25,10 +25,10 @@ namespace Cloudents.Query.HomePage
             private readonly IStatelessSession _session;
             private readonly ICacheProvider _cacheProvider;
 
-            public GetBannerQueryHandler(QuerySession session, ICacheProvider cacheProvider)
+            public GetBannerQueryHandler(IStatelessSession session, ICacheProvider cacheProvider)
             {
                 _cacheProvider = cacheProvider;
-                _session = session.StatelessSession;
+                _session = session;
             }
             public async Task<BannerDto?> GetAsync(GetBannerQuery query, CancellationToken token)
             {

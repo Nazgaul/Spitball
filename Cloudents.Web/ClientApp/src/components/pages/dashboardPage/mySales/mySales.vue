@@ -1,6 +1,6 @@
 <template>
    <div class="mySales">
-      <div class="mySales_title" v-language:inner="'dashboardPage_my_sales_title'"/>
+      <div class="mySales_title" v-t="'dashboardPage_my_sales_title'"/>
       <v-layout wrap class="mySales_wallet mb-1 mb-md-7 mb-sm-4" v-if="!!accountUser && accountUser.id">
          <v-flex sm12 md6>
             <v-data-table
@@ -100,7 +100,7 @@
                   width="120"
                   depressed
                   rounded
-                  v-if="pendingPayments && item.paymentStatus === 'PendingTutor' && item.type === 'TutoringSession'"
+                  v-if="item.paymentStatus === 'PendingTutor' && item.type === 'TutoringSession'"
                   @click="$openDialog('teacherApproval', {item: item})">
                      {{$t('dashboardPage_btn_approve')}}
                </v-btn>
@@ -160,9 +160,9 @@ export default {
       balancesItems(){
          return this.getBalancesItems;
       },
-      pendingPayments() {
-         return this.$store.getters.getPendingPayment
-      }
+      // pendingPayments() {
+      //    return this.$store.getters.getPendingPayment
+      // }
    },
    methods: {
       ...mapActions(['updateSalesItems']),
