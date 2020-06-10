@@ -81,7 +81,8 @@ namespace Cloudents.Core.DTOs
     public class UserStudyRoomDto
     {
         public UserStudyRoomDto(string name, Guid id, DateTime dateTime,
-            string conversationId, DateTime? lastSession, StudyRoomType type, DateTime? scheduled, IEnumerable<string> userNames)
+            string conversationId, DateTime? lastSession, StudyRoomType type, 
+            DateTime? scheduled, IEnumerable<string> userNames)
         {
             Name = name;
             Id = id;

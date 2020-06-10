@@ -32,7 +32,7 @@ namespace Cloudents.Query.Tutor
             public async Task<IEnumerable<UserStudyRoomDto>> GetAsync(UserStudyRoomQuery query, CancellationToken token)
             {
                 return await _session.Query<StudyRoom>()
-                     .Where(w => w.Tutor.Id == 638 || w.Users.Any(a => a.User.Id == 638))
+                     .Where(w => w.Tutor.Id == query.UserId || w.Users.Any(a => a.User.Id == query.UserId))
                      .Where(w => (((BroadCastStudyRoom)w).BroadcastTime != null ? ((BroadCastStudyRoom)w).BroadcastTime : DateTime.UtcNow.AddDays(1)) > DateTime.UtcNow)
                      .OrderByDescending(o => o.DateTime.CreationTime)
                      .Select(s => new UserStudyRoomDto(
@@ -41,7 +41,7 @@ namespace Cloudents.Query.Tutor
                          s.DateTime.CreationTime,
                          s.Identifier,
                          s.DateTime.UpdateTime,
-                         StudyRoomType.Broadcast,
+                         (s is BroadCastStudyRoom) ? StudyRoomType.Broadcast : StudyRoomType.Private,
                          (s as BroadCastStudyRoom) != null ? ((BroadCastStudyRoom)s).BroadcastTime : new DateTime?(),
                          s.Users.Select(s2 => s2.User.FirstName).ToList()))
 
