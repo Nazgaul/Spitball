@@ -220,14 +220,14 @@ export default () => {
 
             dataTrack = new twillioClient.LocalDataTrack();
             let jwtToken = mutation.payload;
-            let options = {
-               logLevel: _debugMode,
-               tracks: [dataTrack],
-               networkQuality: { // this is reserved down the road
-                  local: 3,
-                  remote: 3
-               }
-            };
+            // let options = {
+            //    logLevel: _debugMode,
+            //    tracks: [dataTrack],
+            //    networkQuality: { // this is reserved down the road
+            //       local: 3,
+            //       remote: 3
+            //    }
+            // };
             _insightEvent('connectToRoom', {'token': jwtToken}, null);
             let isMobileMode = document.body.clientWidth < 960;
             let videoConfig = isMobileMode? { height: 480, frameRate: 24, width: 640 } : { height: 720, frameRate: 24, width: 1280 }

@@ -17,13 +17,13 @@
   </v-container>
 </template>
 <script>
-import remoteVideoTrack from "./components/remoteVideoTrack.vue";
+// import remoteVideoTrack from "./components/remoteVideoTrack.vue";
 import localVideoTrack from "./components/localVideoTrack.vue";
 
 export default {
   name: "videoStream",
   components: {
-    remoteVideoTrack,
+    // remoteVideoTrack,
     localVideoTrack
   }
 };
