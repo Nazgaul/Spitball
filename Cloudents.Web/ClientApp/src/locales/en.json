@@ -118,7 +118,7 @@
   "coupon_apply_coupon": "Apply Coupon",
   "coupon_apply_error": "The coupon code entered is not valid. Perhaps you used the wrong coupon code?",
   "coupon_btn_calendar_cancel": "Cancel",
-  "coupon_btn_calendar_ok": "Ok",
+  "coupon_btn_calendar_ok": "@:calendar_add_event_ok",
   "coupon_btn_cancel": "Cancel",
   "coupon_btn_copy": "Copy",
   "coupon_btn_exit": "Exit",
