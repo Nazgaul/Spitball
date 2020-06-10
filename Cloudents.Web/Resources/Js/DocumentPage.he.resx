@@ -124,7 +124,7 @@
     <value>פירוט</value>
   </data>
   <data name="docPage" xml:space="preserve">
-    <value>עמוד {1} מתוך {2}</value>
+    <value>עמוד {0} מתוך {1}</value>
   </data>
   <data name="download_btn" xml:space="preserve">
     <value>הורדה</value>
@@ -160,7 +160,7 @@
     <value>הצטרפו עכשיו {0} /לחודש</value>
   </data>
   <data name="unlock_subtitle" xml:space="preserve">
-    <value>רוצה לקרוא את כל {1} הדפים?</value>
+    <value>רוצה לקרוא את כל {0} הדפים?</value>
   </data>
   <data name="unlock_title" xml:space="preserve">
     <value>הגעת לסוף התצוגה המקדימה</value>

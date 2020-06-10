@@ -23,10 +23,10 @@ namespace Cloudents.Query.Documents
         private readonly IStatelessSession _session;
         private readonly IUrlBuilder _urlBuilder;
 
-        public SimilarDocumentsQueryHandler(QuerySession session, IUrlBuilder urlBuilder)
+        public SimilarDocumentsQueryHandler(IStatelessSession session, IUrlBuilder urlBuilder)
         {
             _urlBuilder = urlBuilder;
-            _session = session.StatelessSession;
+            _session = session;
         }
         public async Task<IEnumerable<DocumentFeedDto>> GetAsync(SimilarDocumentsQuery query, CancellationToken token)
         {

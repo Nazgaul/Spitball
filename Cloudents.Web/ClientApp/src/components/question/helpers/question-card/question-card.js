@@ -126,9 +126,9 @@ export default {
             let self = this
             this.delete({id: this.cardData.id, type: (this.typeAnswer ? 'Answer' : 'Question')})
                 .then(() => {
-                        let text = self.typeAnswer ? 'helpers_questionCard_toasterDeleted_answer' : 'helpers_questionCard_toasterDeleted_question'
+                        let text = self.typeAnswer ? self.$t('helpers_questionCard_toasterDeleted_answer') : self.$t('helpers_questionCard_toasterDeleted_question')
                         self.updateToasterParams({
-                            toasterText: self.$t(text),
+                            toasterText: text,
                             showToaster: true
                         });
                         if (!self.typeAnswer) {

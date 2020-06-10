@@ -22,13 +22,11 @@
                     <template slot="item" slot-scope="item">{{timeFormat(item.item)}}</template>
                 </v-select>
                 
-                <span v-if="!isDayOff && (selectedHourTo < 23 && !isAddTimeSlot)"
-                      @click="isAddTimeSlot = true" class="addTime"
-                      v-t="isMobile?'calendar_add_time_mobile':'calendar_add_time'"/>
+                <span v-if="!isDayOff && (selectedHourTo < 23 && !isAddTimeSlot)" @click="isAddTimeSlot = true" class="addTime">
+                    {{addTimeBtnText}}
+                </span>
 
-                    <span class="dividersAnd" 
-                           v-t="'calendar_and'"
-                           v-show="isMobile &&(!isDayOff && isAddTimeSlot)"/>
+                    <span class="dividersAnd" v-t="'calendar_and'" v-show="isMobile &&(!isDayOff && isAddTimeSlot)"></span>
 
                     <span class="dividers" v-t="'calendar_and'" 
                           v-show="!isMobile &&(!isDayOff && isAddTimeSlot)"/>
@@ -87,6 +85,12 @@ export default {
     },
     computed: {
         ...mapGetters(['getIsCalendarShared','getIntervalFirst','getCalendarAvailabilityState','accountUser','getProfile']),
+        addTimeBtnText() {
+            if(this.isMobile) {
+                return this.$t('calendar_add_time_mobile')
+            }
+            return this.$t('calendar_add_time')
+        },
         availabilityDayState(){
             if(this.getCalendarAvailabilityState !== null){
                 let calendarDayList = []

@@ -121,6 +121,7 @@
                         lastName
                     };
                     this.btnLoading = true;
+                    //TODO: Account new store clean @idan
                     accountService.saveUserInfo(serverFormat).then(() => {
                         this.updateEditedProfile(editsData);
                         this.btnLoading = false;

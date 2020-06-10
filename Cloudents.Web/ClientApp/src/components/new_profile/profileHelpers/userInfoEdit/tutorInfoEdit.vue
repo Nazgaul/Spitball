@@ -197,6 +197,7 @@
                         bio,
                         description,
                     };
+                    //TODO: Account new store clean @idan
                     accountService.saveUserInfo(serverFormat)
                         .then(() => {
                             //update profile store

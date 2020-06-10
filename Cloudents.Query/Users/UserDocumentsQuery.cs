@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
+using Cloudents.Core.EventHandler;
 
 namespace Cloudents.Query.Users
 {
@@ -37,11 +38,11 @@ namespace Cloudents.Query.Users
         {
             private readonly IStatelessSession _session;
 
-            public UserDocumentsQueryHandler(QuerySession session)
+            public UserDocumentsQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
-            [Cache(TimeConst.Hour, "UserDocumentsQuery", false)]
+            [Cache(TimeConst.Hour, CacheRegions.ProfilePageDocument, false)]
             public async Task<ListWithCountDto<DocumentFeedDto>> GetAsync(UserDocumentsQuery query, CancellationToken token)
             {
                 var r = _session.Query<Document>()
@@ -99,6 +100,7 @@ namespace Cloudents.Query.Users
                     futureResult = futureResult.Select(s =>
                     {
                         s.PriceType = PriceType.Free;
+                        s.Price = null;
                         return s;
                     });
                 }

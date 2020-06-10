@@ -19,9 +19,9 @@ namespace Cloudents.Query.Users
         {
             private readonly IStatelessSession _session;
 
-            public UserDataByIdQueryHandler(QuerySession session)
+            public UserDataByIdQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             public Task<User> GetAsync(UserDataByIdQuery query, CancellationToken token)

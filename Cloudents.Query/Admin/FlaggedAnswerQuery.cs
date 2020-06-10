@@ -23,9 +23,9 @@ namespace Cloudents.Query.Admin
             private readonly IStatelessSession _session;
 
 
-            public FlaggedAnswerEmptyQueryHandler(QuerySession session)
+            public FlaggedAnswerEmptyQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             public async Task<IEnumerable<FlaggedAnswerDto>> GetAsync(FlaggedAnswerQuery query, CancellationToken token)

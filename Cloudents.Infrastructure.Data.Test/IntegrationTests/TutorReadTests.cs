@@ -60,6 +60,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
+        [InlineData(638)]
+        public async Task TutorNotificationQuery_Ok(long userId)
+        {
+            var query = new TutorNotificationQuery(userId);
+            var result = await _fixture.QueryBus.QueryAsync(query);
+        }
+
+        [Theory]
         [InlineData(0)]
         [InlineData(638)]
 

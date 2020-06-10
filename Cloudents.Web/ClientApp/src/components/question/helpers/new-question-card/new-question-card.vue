@@ -38,7 +38,7 @@
                     </div>
                     <div class="question-body-course-container" :class="[answers ? 'mb-4' : 'mb-0']">
                         <div class="question-body-course_name text-truncate" v-if="cardData.course">
-                            <span class="question-body-course_name_span" v-language:inner="'resultNote_course'"></span>
+                            <span class="question-body-course_name_span" v-t="'resultNote_course'"></span>
                             <h2 class="question-body-course_name_h2"> {{cardData.course}}</h2>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
                         </div>
                         <div class="user_answer">{{answers.text}}</div>
                     </div>
-                    <div v-if="cardData.answers > 1" class="more-answers">{{$t(moreAnswersDictionary, {0: answersCount -1})}}</div>
+                    <div v-if="cardData.answers > 1" class="more-answers">{{moreAnswersDictionary}}</div>
                     <div v-else class="mt-4"></div>
                 </div>
                 
@@ -91,7 +91,7 @@
                 <div class="question-input-container d-flex">
                     <user-avatar class="avatar-area mr-2" :user-name="accountUser.name" :userImageUrl="accountUser.image" :user-id="accountUser.id" v-if="accountUser" />
                     <user-avatar class="avatar-area mr-2" :user-name="'JD'" :userImageUrl="''" v-else />
-                    <input class="question-input" placeholder="questionCard_Answer_placeholder" v-language:placeholder type="text">
+                    <input class="question-input" :placeholder="$t('questionCard_Answer_placeholder')" type="text">
                     <questionNote class="question-input-icon"/>
                 </div>
             </div>
@@ -107,5 +107,185 @@
     </div>
 </template>
 
-<script src="./new-question-card.js"></script>
+<script>
+import { mapGetters, mapActions } from 'vuex';
+
+import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
+import reportItem from "../../../results/helpers/reportItem/reportItem.vue"
+
+import questionNote from './question-note.svg';
+
+export default {
+    components: {
+        sbDialog,
+        reportItem,
+        questionNote,
+    },
+    data() {
+        return {
+            actions: [
+                {
+                    title: this.$t("questionCard_Report"),
+                    action: this.reportItem,
+                    isDisabled: this.isDisabled,
+                    isVisible: true,
+                    icon: 'sbf-flag'
+                },
+                {
+                    title: this.$t("questionCard_Delete"),
+                    action: this.removeQuestion,
+                    isDisabled: this.canDelete,
+                    isVisible: true,
+                    icon: 'sbf-delete'
+                }
+            ],
+            showReportReasons: false,
+            itemId: 0,
+            maximumAnswersToDisplay: 3,
+            isRtl: global.isRtl,
+            showDialog: false,
+            selectedImage: '',
+            isQuestionPage: false,
+        };
+    },
+    props: {
+        cardData: {
+            required: true
+        },
+        detailedView: {
+            type: Boolean,
+            default: false
+        },
+        suggestion:{
+            type: Boolean,
+            default: false
+        }
+    },
+    computed: {
+        ...mapGetters(['accountUser']),
+
+        userImageUrl(){
+            if( this.cardData && this.cardData.user &&  this.cardData.user.image && this.cardData.user.image.length > 1){
+                return `${this.cardData.user.image}`;
+            }
+            return '';
+        },
+        hideAnswerInput() {           
+            return this.detailedView;
+        },
+        isSold() {            
+            return this.cardData.hasCorrectAnswer || this.cardData.correctAnswerId;
+        },
+        answersCount() {
+            return this.cardData.answers;
+        },
+        answers() {           
+            return this.cardData.firstAnswer;
+        },
+        answersNumber() {
+            let answersNum = this.cardData.answers;
+            let numericValue;
+            if (typeof answersNum !== 'number') {
+                numericValue = answersNum.length;
+            } else {
+                numericValue = answersNum;
+            }
+            if (numericValue > this.maximumAnswersToDisplay) {
+                return this.maximumAnswersToDisplay;
+            }
+            return numericValue;
+        },
+        answersDeltaNumber() {
+            let answersNum = this.cardData.answers || 1;
+            let numericValue;
+            if (typeof answersNum !== 'number') {
+                numericValue = answersNum.length;
+            } else {
+                numericValue = answersNum;
+            }
+            let delta = 0;
+            if (numericValue > this.maximumAnswersToDisplay) {
+                delta = numericValue - this.maximumAnswersToDisplay;
+            }
+            return delta;
+        },
+        moreAnswersDictionary() {
+            let answerCount = this.answersCount - 1
+            return this.cardData.answers > 2 ? this.$t('questionCard_Answers', [answerCount]) : this.$t('questionCard_Answer_one', [answerCount]);
+        }
+        
+    },
+    methods: {
+        ...mapActions([
+            'deleteQuestion',
+            'updateToasterParams',
+            'removeQuestionItemAction',
+        ]),
+
+        isDisabled() {
+            let isOwner = this.cardOwner();
+            let account = this.accountUser;
+            if (isOwner || !account ) {
+                return true;
+            }
+            return false;
+
+        },
+        cardOwner() {
+            let userAccount = this.accountUser;
+            if (userAccount && this.cardData.userId) {
+                return userAccount.id === this.cardData.userId; // will work once API call will also return userId
+            }
+            return false;
+        },
+        canDelete() {
+            let isOwner = this.cardOwner();
+            if (!isOwner) {
+                return true;
+            } else{
+                return false;
+            }
+        },
+        showBigImage(src) {
+            this.showDialog = true;
+            this.selectedImage = src;
+        },
+        removeQuestion() {
+            let questionId = this.cardData.id;
+            this.deleteQuestion({id: questionId, type: 'Question'}).then(() => {
+                this.updateToasterParams({
+                    toasterText: this.$t("helpers_questionCard_toasterDeleted_question"),
+                    showToaster: true
+                });
+                let objToDelete = {
+                    id: parseInt(questionId)
+                };
+                this.$ga.event("Delete_question", "Homework help");
+                this.removeQuestionItemAction(objToDelete);
+                if (this.$route.name === 'question') {
+                    //redirect only if question got deleted from the question page
+                    this.$router.push('/');
+                }
+            },
+            (error) => {
+                console.error(error);
+                this.updateToasterParams({
+                    toasterText: this.$t("questionCard_error_delete"),
+                    showToaster: true
+                });
+            });
+        },
+        reportItem() {
+            this.itemId = this.cardData.id;
+            this.showReportReasons = !this.showReportReasons;
+        },
+        closeReportDialog() {
+            this.showReportReasons = false;
+        }
+    },
+    created() {
+        this.isQuestionPage = (this.$route.name === 'question');
+    },
+};
+</script>
 <style lang="less" src="./new-question-card.less"></style>

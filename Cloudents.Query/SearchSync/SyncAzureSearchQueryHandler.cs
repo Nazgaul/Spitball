@@ -19,9 +19,9 @@ namespace Cloudents.Query.SearchSync
 
         private readonly IStatelessSession _session;
 
-        protected SyncAzureSearchQueryHandler(QuerySession session)
+        protected SyncAzureSearchQueryHandler(IStatelessSession session)
         {
-            _session = session.StatelessSession;
+            _session = session;
         }
 
         /// <summary>

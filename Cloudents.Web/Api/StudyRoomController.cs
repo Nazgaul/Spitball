@@ -125,8 +125,6 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-
-
         public async Task<ActionResult<StudyRoomDto>> GetStudyRoomAsync(Guid id,
             [FromServices] IUrlBuilder urlBuilder,
             [ProfileModelBinder(ProfileServiceQuery.Subscribers)] UserProfile profile,

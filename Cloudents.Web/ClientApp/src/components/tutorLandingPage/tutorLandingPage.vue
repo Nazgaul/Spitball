@@ -2,17 +2,15 @@
     <div  class="tutor-landing-page-container">
         <v-layout class="pt-2 pt-sm-1 pb-sm-4 tutor-landing-page-header"  px-6 align-center justify-center column>
             <v-flex pt-6 pb-4>
-                <div v-if="subjectName" class="tutor-landing-title" v-text="$Ph('tutorListLanding_header_get_lesson_subject',subjectName)" />
-                <div v-else class="tutor-landing-title" v-language:inner="'tutorListLanding_header_get_lesson'"/>
+                <div v-if="subjectName" class="tutor-landing-title" v-text="$t('tutorListLanding_header_get_lesson_subject',[subjectName])" />
+                <div v-else class="tutor-landing-title" v-t="'tutorListLanding_header_get_lesson'"/>
             </v-flex>
             <v-flex pb-6>
-                <div class="tutor-landing-subtitle" v-language:inner="'tutorListLanding_header_find_tutors'"></div>
+                <div class="tutor-landing-subtitle" v-t="'tutorListLanding_header_find_tutors'"></div>
             </v-flex>
-            <!-- <v-flex class="pb-6">
-                <h3><span v-language:inner="'tutorListLanding_rates'"></span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></h3> -->
             <v-flex class="pb-sm-6">
                 <span class="rating_tutorLanding">
-                    <span class="mr-1">95%</span>&nbsp;<v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp;<span class="ml-1" v-language:inner="'tutorListLanding_reviews'"></span>
+                    <span class="mr-1">95%</span>&nbsp;<v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp;<span class="ml-1" v-t="'tutorListLanding_reviews'"></span>
                 </span>
             </v-flex>
         </v-layout>
@@ -40,12 +38,10 @@
                     :next-icon="`sbf-arrow-right-carousel`"
                     :prev-icon="`sbf-arrow-left-carousel`"/>
         </div>
-        <!-- <v-layout align-center py-12 justify-space-around class="tutor-landing-status-row">
-            <span class="hidden-xs-only"><span v-language:inner="'tutorListLanding_rates'"></span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></span> -->
         <v-layout align-center py-12 justify-space-around class="tutor-landing-status-row">
-            <span class="hidden-xs-only"><span>95%</span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></span>
-            <span class="hidden-xs-only" v-language:inner="'tutorListLanding_courses'"></span>
-            <span v-language:inner="'tutorListLanding_tutors'"></span>
+            <span class="hidden-xs-only"><span>95%</span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-t="'tutorListLanding_reviews'"></span></span>
+            <span class="hidden-xs-only" v-t="'tutorListLanding_courses'"></span>
+            <span v-t="'tutorListLanding_tutors'"></span>
         </v-layout>
         <v-layout class="tutor-landing-card-bottom" v-if="getHPReviews.length">
             <div class="testimonialCarousel-tutorList" :style="{'pointer-events':$vuetify.breakpoint.smAndDown?'':'none'}">

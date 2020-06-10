@@ -154,7 +154,7 @@
     <value>בינתיים, תרצו לראות מורים אחרים אשר מלמדים את הקורס הזה?</value>
   </data>
   <data name="more_tutors" xml:space="preserve">
-    <value>אני רוצה לשמוע מעוד 2-3 מורים כמו {1}</value>
+    <value>אני רוצה לשמוע מעוד 2-3 מורים כמו {0}</value>
   </data>
   <data name="name" xml:space="preserve">
     <value>שם מלא</value>
@@ -175,10 +175,10 @@
     <value>שליחה</value>
   </data>
   <data name="send_msg_tutor" xml:space="preserve">
-    <value>שליחת הודעה ל{1}</value>
+    <value>שליחת הודעה ל{0}</value>
   </data>
   <data name="send_msg_tutor_mobile" xml:space="preserve">
-    <value>שליחת הודעה ל{1}</value>
+    <value>שליחת הודעה ל{0}</value>
   </data>
   <data name="send_msg_yaniv" xml:space="preserve">
     <value>יניב מספיטבול יסייע לך למצוא מורה פרטי</value>

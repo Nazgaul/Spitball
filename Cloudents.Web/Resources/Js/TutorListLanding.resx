@@ -124,19 +124,19 @@
     <value>Private lessons online: Find private teachers in a variety of courses and subjects</value>
   </data>
   <data name="footer_h1_course" xml:space="preserve">
-    <value>Private {1} lessons online: Find {2} teachers online in a variety of courses and subjects</value>
+    <value>Private {0} lessons online: Find {1} teachers online in a variety of courses and subjects</value>
   </data>
   <data name="footer_h2" xml:space="preserve">
     <value>Find your next private tutor and arrange a video meeting where you’ll learn online lessons according to your needs.</value>
   </data>
   <data name="footer_h2_course" xml:space="preserve">
-    <value>Find your next private {1} tutor and arrange a video meeting where you’ll learn online math lessons according to your needs.</value>
+    <value>Find your next private {0} tutor and arrange a video meeting where you’ll learn online math lessons according to your needs.</value>
   </data>
   <data name="footer_h3" xml:space="preserve">
     <value>Professional private teachers who are committed to your success</value>
   </data>
   <data name="footer_h3_course" xml:space="preserve">
-    <value>Professional private teachers who are committed to your success in {1}</value>
+    <value>Professional private teachers who are committed to your success in {0}</value>
   </data>
   <data name="footer_links_about" xml:space="preserve">
     <value>About Spitball</value>
@@ -169,7 +169,7 @@
     <value>Professional private tutors that help you succeed</value>
   </data>
   <data name="header_get_lesson_subject" xml:space="preserve">
-    <value>Professional private tutors in {1} that help you succeed</value>
+    <value>Professional private tutors in {0} that help you succeed</value>
   </data>
   <data name="reviews" xml:space="preserve">
     <value>reviews</value>

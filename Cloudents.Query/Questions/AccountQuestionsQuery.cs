@@ -24,9 +24,9 @@ namespace Cloudents.Query.Questions
         {
             private readonly IStatelessSession _session;
             private readonly IUrlBuilder _urlBuilder;
-            public AccountQuestionsQueryHandler(QuerySession session, IUrlBuilder urlBuilder)
+            public AccountQuestionsQueryHandler(IStatelessSession session, IUrlBuilder urlBuilder)
             {
-                _session = session.StatelessSession;
+                _session = session;
                 _urlBuilder = urlBuilder;
             }
 

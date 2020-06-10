@@ -26,9 +26,9 @@ namespace Cloudents.Query.Admin
             private readonly IStatelessSession _session;
 
 
-            public UserPurchasedDocsQueryHandler(QuerySession dapper)
+            public UserPurchasedDocsQueryHandler(IStatelessSession dapper)
             {
-                _session = dapper.StatelessSession;
+                _session = dapper;
             }
             private const int PageSize = 200;
 
