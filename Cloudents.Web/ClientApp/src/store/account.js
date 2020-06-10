@@ -4,7 +4,6 @@ import analyticsService from '../services/analytics.service';
 import intercomeService from '../services/intercomService';
 import insightService from '../services/insightService';
 import { dollarCalculate } from "./constants";
-import { i18n } from '../plugins/t-i18n'
 import { router } from "../main";
 
 const accountInstance = axios.create({
@@ -52,7 +51,7 @@ const mutations = {
     setUserPendingPayment(state, payments) {
         state.user.pendingSessionsPayments = payments
     },
-    setAccount(state, data) {
+    updateUser(state, data) {
         const user = new Account(data)
 
         function Account(objInit) {
@@ -83,7 +82,7 @@ const actions = {
         if (getters.getUserLoggedInStatus) {
            return accountInstance.get().then(({data}) => {
                 // setAccount must be first to initialize userAccount variable
-                commit('setAccount', data);
+                commit('updateUser', data);
                 const userAccount = state.user
     
                 analyticsService.sb_setUserId(userAccount.id);
@@ -140,16 +139,13 @@ const actions = {
             return data.map(stats => new Stats(stats))
         })
     },
-    signalR_SetBalance({ commit, state, dispatch, getters }, newBalance) {
+    signalR_SetBalance({ commit, state, getters }, newBalance) {
+
         if(router.currentRoute.query?.dialog){
             router.push({query:{...router.currentRoute.query, dialog: undefined}})
         }
         if (getters.getIsBuyPoints || state.user.balance > newBalance) {
-            dispatch('updateToasterParams', {
-                toasterText: i18n.t("buyTokens_success_transaction"),
-                showToaster: true,
-                toasterTimeout: 5000
-            });
+            commit('setComponent', 'buyPointsTransaction')
         }
         commit('updateUser', { ...state.user, balance: newBalance, dollar: dollarCalculate(newBalance) });
     },
