@@ -164,11 +164,11 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData(159039, 0, "IL")]
-        [InlineData(159039, 0, null)]
-        public async Task AdminUserDocumentsQuery_Ok(long userId, int page, string country)
+        [InlineData(159039, "IL")]
+        [InlineData(159039, null)]
+        public async Task AdminUserDocumentsQuery_Ok(long userId, string country)
         {
-            var query = new UserDocumentsQuery(userId, page, FromCountry(country));
+            var query = new UserDocumentsQuery(userId, FromCountry(country));
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -429,6 +429,6 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await _fixture.QueryBus.QueryAsync(query, default);
         }
 
-        
+
     }
 }
