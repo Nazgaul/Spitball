@@ -80,7 +80,8 @@ namespace Cloudents.Core.DTOs
 
     public class UserStudyRoomDto
     {
-        public UserStudyRoomDto(string name, Guid id, DateTime dateTime, string conversationId, DateTime? lastSession, StudyRoomType type, dynamic? scheduled, IEnumerable<string> userNames)
+        public UserStudyRoomDto(string name, Guid id, DateTime dateTime,
+            string conversationId, DateTime? lastSession, StudyRoomType type, DateTime? scheduled, IEnumerable<string> userNames)
         {
             Name = name;
             Id = id;
@@ -90,6 +91,7 @@ namespace Cloudents.Core.DTOs
             Type = type;
             Scheduled = scheduled;
             UserNames = userNames;
+
         }
 
         public UserStudyRoomDto()
@@ -106,7 +108,7 @@ namespace Cloudents.Core.DTOs
         public StudyRoomType Type { get; set; }
 
         public int AmountOfUsers => UserNames.Count();
-        public dynamic? Scheduled { get; set; }
+        public DateTime? Scheduled { get; set; }
 
         public IEnumerable<string> UserNames { get; set; }
 
