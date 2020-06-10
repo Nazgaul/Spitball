@@ -13,8 +13,8 @@
             :key="notification.name"
             :to="{ name: notification.routeName }"
         >
-            <div class="notifyWrap d-flex align-center">
-                <div class="blueDot"></div>
+            <div class="notifyWrap d-flex align-center" :class="{'ms-2': !notification.amount}">
+                <div class="blueDot" v-if="notification.amount > 0"></div>
                 <bellIcon class="" width="20px" />
                 <div class="notificateText mx-4">{{notification.text}}</div>
             </div>
