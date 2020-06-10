@@ -17,11 +17,13 @@ const mutations = {
       state.profile = null;
    },
    setProfileFollower(state, val) {
-      state.profile.user.isFollowing = val;
-      if (val) {
-         state.profile.user.followers += 1;
-      } else {
-         state.profile.user.followers -= 1;
+      if(state.profile?.user) {
+         state.profile.user.isFollowing = val;
+         if (val) {
+            state.profile.user.followers += 1;
+         } else {
+            state.profile.user.followers -= 1;
+         }
       }
    },
    setEditDialog(state, val) {
@@ -87,14 +89,15 @@ const actions = {
          }
       }
    },
-   toggleProfileFollower({ state, commit }, val) {
+   toggleProfileFollower({ state, commit, getters }, val) {
+      let tutorId = getters.getCurrTutor?.id || state.profile?.user?.id    
       if (val) {
-         return profileService.followProfile(state.profile.user.id).then(() => {
+         return profileService.followProfile(tutorId).then(() => {
             commit('setProfileFollower', true)
             return Promise.resolve()
          })
       } else {
-         return profileService.unfollowProfile(state.profile.user.id).then(() => {
+         return profileService.unfollowProfile(tutorId).then(() => {
             commit('setProfileFollower', false)
             return Promise.resolve()
          })
