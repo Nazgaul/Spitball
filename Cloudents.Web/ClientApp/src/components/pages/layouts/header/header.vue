@@ -100,7 +100,6 @@
 
 <script>
 import {mapGetters} from 'vuex';
-import {LanguageChange } from "../../../../services/language/languageService";
 import languagesLocales from "../../../../services/language/localeLanguage";
 import * as routeNames from '../../../../routes/routeNames.js';
 

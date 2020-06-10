@@ -78,7 +78,6 @@
 import { mapGetters, mapActions } from "vuex";
 
 import languagesLocales from "../../../../services/language/localeLanguage";
-import { LanguageChange } from "../../../../services/language/languageService";
 import satelliteService from '../../../../services/satelliteService';
 import intercomSettings from '../../../../services/intercomService';
 
