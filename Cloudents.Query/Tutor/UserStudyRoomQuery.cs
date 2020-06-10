@@ -51,12 +51,8 @@ namespace Cloudents.Query.Tutor
                                 .Select(s=> s.GetType()).WithAlias(() => resultAlias.Type)
                                 .Select(s=>((BroadCastStudyRoom)s).BroadcastTime).WithAlias(() => resultAlias.Scheduled)
                                 .Select(s => s.Identifier).WithAlias(() => resultAlias.ConversationId)
-                                .SelectSubQuery(QueryOver.Of<StudyRoomSession>()
-                                    .Where(w=>w.StudyRoom.Id == studyRoomAlias.Id)
-                                    .OrderBy(x=>x.Created).Desc
-                                    .Select(s=>s.Created)
-                                    .Take(1)
-                                ).WithAlias(() => resultAlias.LastSession)
+                                .Select(s=>s.DateTime.UpdateTime).WithAlias(() => resultAlias.LastSession)
+
                                 .SelectSubQuery(QueryOver.Of<StudyRoomUser>()
                                     .Where(w=>w.Room.Id == studyRoomAlias.Id)
                                     .ToRowCountQuery()).WithAlias(() => resultAlias.AmountOfUsers)
