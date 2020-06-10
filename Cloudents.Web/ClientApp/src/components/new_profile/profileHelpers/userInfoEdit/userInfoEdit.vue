@@ -58,7 +58,6 @@
 </template>
 
 <script>
-    import accountService from '../../../../services/accountService';
     import { mapGetters, mapActions } from 'vuex';
     import { validationRules } from "../../../../services/utilities/formValidationRules";
 
@@ -121,8 +120,7 @@
                         lastName
                     };
                     this.btnLoading = true;
-                    //TODO: Account new store clean @idan
-                    accountService.saveUserInfo(serverFormat).then(() => {
+                    this.$store.dispatch('saveUserInfo', serverFormat).then(() => {
                         this.updateEditedProfile(editsData);
                         this.btnLoading = false;
                         this.closeDialog();

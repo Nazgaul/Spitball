@@ -1,55 +1,23 @@
-//TODO: Account new store clean @idan
+import axios from 'axios'
 
-import axios from 'axios';
-import accountService from "../services/accountService";
-import { dollarCalculate } from "./constants";
 import analyticsService from '../services/analytics.service';
-import insightService from '../services/insightService';
-import { i18n } from '../plugins/t-i18n'
 import intercomeService from '../services/intercomService';
+import insightService from '../services/insightService';
+import { dollarCalculate } from "./constants";
+import { i18n } from '../plugins/t-i18n'
 import { router } from "../main";
+
+const accountInstance = axios.create({
+    baseURL: '/api/account'
+})
 
 const state = {
     isUserLoggedIn:false,
     user: null,
     usersReferred: 0,
 };
-const mutations = {
-    // changeIsUserTutor(state, val) {
-    //     state.user.isTutor = val;
-    // },
-    // setIsTutorState(state, val) {
-    //     state.user.isTutorState = val;
-    // },
-    setRefferedNumber(state, data) {
-        state.usersReferred = data;
-    },
-    logout(state) {
-        state.isUserLoggedIn = false;
-        state.user = null;
-    },
-    updateUser(state, val) {
-        state.user = val;
-    },
-    changeLoginStatus(state, val) {
-        state.isUserLoggedIn = val;
-    },
-    setAccountPicture(state, imageUrl) {
-        state.user = { ...state.user, image: imageUrl };
-    },
-    setUserPendingPayment(state, payments) {
-        state.user.pendingSessionsPayments = payments
-    }
-};
 
 const getters = {
-    // getIsTutorState: state => {
-    //     if (state.user && state.user.isTutorState) {
-    //         return state.user.isTutorState;
-    //     } else {
-    //         return false;
-    //     }
-    // },
     //TODO need to change this to accountretive
     getUserLoggedInStatus: state => state.isUserLoggedIn || global.isAuth,
     getIsTeacher: (state, _getters) => _getters.getUserLoggedInStatus && state.user?.isTutor,
@@ -65,76 +33,116 @@ const getters = {
     getAccountImage: state => state.user?.image,
 };
 
-const actions = {
-    
-    uploadAccountImage(context, obj) {
-        return accountService.uploadImage(obj).then((resp) => {
-            let imageUrl = resp.data;
-            context.commit('setAccountPicture', imageUrl);
-            context.commit('setProfilePicture', imageUrl)
-            return true;
-        });
+const mutations = {
+    setRefferedNumber(state, data) {
+        state.usersReferred = data;
     },
-    uploadCoverImage(context, obj) {
-        return accountService.uploadCover(obj).then((resp) => {
-            let imageUrl = resp.data;
-           // context.commit('setAccountPicture', imageUrl);
-            context.commit('setCoverPicture', imageUrl)
-        });
-    },
-    getRefferedUsersNum(context, id) {
-        accountService.getNumberReffered(id)
-            .then(({ data }) => {
-                let refNumber = data.referrals ? data.referrals : 0;
-                context.commit('setRefferedNumber', refNumber);
-            },
-                (error) => {
-                    console.error(error);
-                }
-            );
-    },
-    logout({ commit }) {
-        //intercomeService.restrartService();
-        commit("logout");
+    logout(state) {
+        state.isUserLoggedIn = false;
+        state.user = null;
         global.location.replace("/logout");
+        //intercomeService.restrartService();
     },
-    getUserAccountForRegister({dispatch}) {
-        return accountService.getAccount().then((userAccount) => {
-            dispatch('updateAccountUser',userAccount)
-            return userAccount;
-        })
+    changeLoginStatus(state, val) {
+        state.isUserLoggedIn = val;
     },
-    updateAccountUser({commit,dispatch},userAccount){
-        intercomeService.startService(userAccount);
-        commit("updateUser", userAccount);
-        // dispatch("syncUniData", userAccount); // uni
-        dispatch("getAllConversations");
-        analyticsService.sb_setUserId(userAccount.id);
-        insightService.authenticate.set(userAccount.id);
-        dispatch('updateLoginStatus',true);
+    setAccountPicture(state, imageUrl) {
+        state.user = { ...state.user, image: imageUrl };
     },
-    userStatus({state,dispatch,getters}) {
+    setUserPendingPayment(state, payments) {
+        state.user.pendingSessionsPayments = payments
+    },
+    setAccount(state, data) {
+        const user = new Account(data)
+
+        function Account(objInit) {
+            this.id = objInit.id
+            this.email = objInit.email
+            this.lastName = objInit.lastName
+            this.firstName = objInit.firstName
+            this.name = `${objInit.firstName} ${objInit.lastName}`
+            this.image = objInit.image || ''
+            this.balance = objInit.balance
+            this.currencySymbol = objInit.currencySymbol
+            this.subscription = objInit.tutorSubscription
+            this.needPayment = objInit.needPayment
+            this.isTutor = objInit.isTutor && objInit.isTutor.toLowerCase() === 'ok'
+            this.isSold = objInit.isSold
+            this.pendingSessionsPayments = objInit.pendingSessionsPayments
+        }
+        
+        state.user = user
+    }
+};
+
+const actions = {
+    userStatus({state, commit, dispatch, getters}) {
         if(state.user !== null && state.user.hasOwnProperty('id')){
             return Promise.resolve()
         }
         if (getters.getUserLoggedInStatus) {
-           return accountService.getAccount().then((userAccount) => {
-                dispatch('updateAccountUser',userAccount);
+           return accountInstance.get().then(({data}) => {
+                // setAccount must be first to initialize userAccount variable
+                commit('setAccount', data);
+                const userAccount = state.user
+    
+                analyticsService.sb_setUserId(userAccount.id);
+                intercomeService.startService(userAccount);
+                insightService.authenticate.set(userAccount.id);
+                dispatch("getAllConversations");
+                commit("changeLoginStatus", true);
+    
                 return Promise.resolve(userAccount)
-            }, () => {
-                //TODO what is that....
+            }).catch(ex => {
                 intercomeService.restrartService();
-                dispatch('updateLoginStatus',false)
-            });
+                console.error(ex);
+                commit("changeLoginStatus", false);
+            })
         }
         else {
             intercomeService.startService();
             return Promise.resolve()
         }
     },
+    uploadAccountImage({ commit }, obj) {
+        return accountInstance.post('/image', obj).then(({data}) => {
+            let imageUrl = data;
+            commit('setAccountPicture', imageUrl);
+            commit('setProfilePicture', imageUrl)
+            return true;
+        })
+    },
+    uploadCoverImage({ commit }, obj) {
+        return accountInstance.post('/cover', obj).then(({data}) => {
+            let imageUrl = data;
+            commit('setCoverPicture', imageUrl)
+        });
+    },
+    getRefferedUsersNum({ commit }) {
+        accountInstance.get('/referrals').then(({ data }) => {
+            let refNumber = data.referrals ? data.referrals : 0;
+            commit('setRefferedNumber', refNumber);
+        }).catch(ex => {
+            console.error(ex);
+        })
+    },
+    saveUserInfo(context, params) {
+        return accountInstance.post('/settings', params)
+    },
+    updateUserStats(context, days) {
+        return accountInstance.get('/stats', { params: { days } }).then(({data}) => {
+            function Stats(objInit) {
+                this.revenue = objInit.revenue
+                this.sales = objInit.sales
+                this.views = objInit.views
+                this.followers = objInit.followers
+            }
+            return data.map(stats => new Stats(stats))
+        })
+    },
     signalR_SetBalance({ commit, state, dispatch, getters }, newBalance) {
         if(router.currentRoute.query?.dialog){
-            router.push({query:{...router.currentRoute.query,dialog:undefined}})
+            router.push({query:{...router.currentRoute.query, dialog: undefined}})
         }
         if (getters.getIsBuyPoints || state.user.balance > newBalance) {
             dispatch('updateToasterParams', {
@@ -145,16 +153,6 @@ const actions = {
         }
         commit('updateUser', { ...state.user, balance: newBalance, dollar: dollarCalculate(newBalance) });
     },
-    // updateAccountUserToTutor(context, val) {
-        // context.commit('changeIsUserTutor', val);
-        // context.commit('setIsTutorState', 'pending');
-    // },
-    updateUserStats(context, lastDays) {
-        return accountService.getAccountStats(lastDays)
-    },
-    updateLoginStatus({commit},val){
-        commit("changeLoginStatus", val);
-    },
     changeLanguage(context, locale) {
         axios.post("/Account/language", { culture: locale }).then(resp => {
             console.log("language response success", resp);
@@ -163,10 +161,6 @@ const actions = {
             console.log("language error error", ex);
         })
     }
-    // subscribeNow(context, id) {
-    //     commit("subscribeToTutor", id);
-    //     //return accountService.subscribe(id)
-    // }
 };
 
 
