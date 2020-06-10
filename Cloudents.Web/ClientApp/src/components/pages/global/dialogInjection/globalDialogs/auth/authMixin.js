@@ -146,9 +146,6 @@ export default {
             let self = this
             registrationService.smsRegistration(smsObj)
                 .then(function (){
-                    
-                    let { dispatch } = self.$store
-
                     analyticsService.sb_unitedEvent('Registration', 'Phone Submitted');
 
                     // when tutor is in dashboard and want change number
@@ -158,12 +155,16 @@ export default {
                     }
 
                     if(self.presetRouting()) return
-
-					dispatch('userStatus').then(() => {
-                        self.$router.push({name: self.routeNames.LoginRedirect})
-                    })
+                    console.log("fsda;klfmasdkl; gfsdjagjklsgjklsgjkls");
+                    
+					// dispatch('userStatus').then(() => {
+                    //     self.$router.push({name: self.routeNames.LoginRedirect})
+                    // })
+                    window.location.reload()
 
                 }).catch(error => {
+                    console.error(error);
+                    
                     let { response: { data } } = error
                     
                     self.errors.phone = data && data["PhoneNumber"] ? data["PhoneNumber"][0] : ''

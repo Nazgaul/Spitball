@@ -9,7 +9,7 @@
             v-model="email"
             class="widther"
             :errorMessage="errorMessages.email"
-            placeholder="loginRegister_setpass_input_email"
+            :placeholder="$t('loginRegister_setpass_input_email')"
             icon="sbf-email" 
             :bottomError="true"
             :autofocus="true" 

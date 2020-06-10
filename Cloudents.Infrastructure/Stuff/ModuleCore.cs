@@ -32,16 +32,18 @@ namespace Cloudents.Infrastructure.Stuff
                 .Select(i => new KeyedService("handler2", i)));
 
 
-            builder.RegisterAssemblyTypes(typeof(IQueryHandler<,>).Assembly, Assembly.GetExecutingAssembly()).As(o => o.GetInterfaces()
-                .Where(i => i.IsClosedTypeOf(typeof(IQueryHandler<,>)))
-                .Select(i => new KeyedService("handler", i)));
+            builder.RegisterAssemblyTypes(typeof(IQueryHandler<,>).Assembly, Assembly.GetExecutingAssembly()).As(o => o
+                .GetInterfaces()
+                .Where(i => i.IsClosedTypeOf(typeof(IQueryHandler<,>))));
 
             
-
+            //https://alexmg.com/posts/upcoming-decorator-enhancements-in-autofac-4-9
+            builder.RegisterGenericDecorator(
+                typeof(TransactionQueryDecorator<,>),
+                typeof(IQueryHandler<,>));
             builder.RegisterGenericDecorator(
                 typeof(CacheQueryHandlerDecorator<,>),
-                typeof(IQueryHandler<,>),
-                fromKey: "handler");
+                typeof(IQueryHandler<,>));
 
             builder.RegisterGenericDecorator(
                 typeof(CommitUnitOfWorkCommandHandlerDecorator<>),

@@ -32,10 +32,10 @@ namespace Cloudents.Query.Tutor
             private readonly IStatelessSession _statelessSession;
             private readonly ICalendarService _calendarService;
 
-            public CalendarEventsQueryHandler(QuerySession session, ICalendarService calendarService)
+            public CalendarEventsQueryHandler(IStatelessSession session, ICalendarService calendarService)
             {
                 _calendarService = calendarService;
-                _statelessSession = session.StatelessSession;
+                _statelessSession = session;
             }
 
             public async Task<CalendarEventDto> GetAsync(CalendarEventsQuery query, CancellationToken token)

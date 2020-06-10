@@ -22,9 +22,9 @@ namespace Cloudents.Query.Users
         {
             private readonly IStatelessSession _session;
 
-            public UserFollowersByIdQueryHandler(QuerySession session)
+            public UserFollowersByIdQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             public async Task<IEnumerable<FollowersDto>> GetAsync(UserFollowersByIdQuery query, CancellationToken token)

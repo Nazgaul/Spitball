@@ -22,9 +22,9 @@ namespace Cloudents.Query.Users
         {
             private readonly IStatelessSession _session;
 
-            public UserCouponsQueryHandler(QuerySession session)
+            public UserCouponsQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             public async Task<IEnumerable<CouponDto>> GetAsync(UserCouponsQuery query, CancellationToken token)

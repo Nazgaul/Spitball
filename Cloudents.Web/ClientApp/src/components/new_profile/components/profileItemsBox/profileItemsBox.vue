@@ -1,8 +1,7 @@
 <template>
 <div id="profileItemsBox">
    <div class="profileItemsBox-header mb-sm-8">
-      <div class="profileItemsBox_title text-truncate" 
-      v-text="$Ph($vuetify.breakpoint.xsOnly? 'profile_study_materials_mobile':'profile_study_materials',userName)"/>   
+      <div class="profileItemsBox_title text-truncate">{{profile_study_materials}}</div> 
       <div class="profileItemsBox_filters">
          <v-flex xs2 sm4 class="pr-0 pr-sm-4 d-flex d-sm-block" :class="{'filterbox':$vuetify.breakpoint.xsOnly}" justify-end>
             <v-menu offset-y sel="filter_type">
@@ -104,6 +103,12 @@ export default {
    },
    computed: {
       ...mapGetters(['getProfile']),
+      profile_study_materials() {
+         if (this.$vuetify.breakpoint.xsOnly) {
+            return this.$t('profile_study_materials_mobile',[this.userName]);
+         }
+         return this.$t('profile_study_materials',[this.userName]);
+      },
       pageCount(){
          return Math.ceil(this.getProfile.documents.count / this.query.pageSize);
       },

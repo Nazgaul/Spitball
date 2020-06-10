@@ -22,9 +22,9 @@ namespace Cloudents.Query.General
         {
             private readonly IStatelessSession _session;
 
-            public SeoItemCountQueryHandler(QuerySession session)
+            public SeoItemCountQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             public async Task<IList<SiteMapCountDto>> GetAsync(SiteMapQuery query, CancellationToken token)

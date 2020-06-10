@@ -26,9 +26,9 @@ namespace Cloudents.Query.Users
         internal sealed class UserStatsQueryHandler : IQueryHandler<UserStatsQuery, IEnumerable<UserStatsDto>>
         {
             private readonly IStatelessSession _session;
-            public UserStatsQueryHandler(QuerySession session)
+            public UserStatsQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
 

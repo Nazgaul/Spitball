@@ -15,9 +15,9 @@ namespace Cloudents.Query.Questions
         {
             private readonly IStatelessSession _session;
 
-            public FictivePendingQuestionEmptyQueryHandler(QuerySession session)
+            public FictivePendingQuestionEmptyQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
             public async Task<IList<FictivePendingQuestionDto>> GetAsync(FictivePendingQuestionEmptyQuery query, CancellationToken token)
             {

@@ -27,6 +27,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Infrastructure;
 using Cloudents.Query;
+using Cloudents.Query.Tutor;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using NHibernate.Linq;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
@@ -144,7 +145,9 @@ namespace ConsoleApp
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
-            await Dbi();
+            var bus = Container.Resolve<IQueryBus>();
+            var q= new TutorNotificationQuery(159039);
+            var z = await bus.QueryAsync(q);
         }
 
         private static async Task Dbi()

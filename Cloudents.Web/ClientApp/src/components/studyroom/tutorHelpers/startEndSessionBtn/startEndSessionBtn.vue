@@ -3,7 +3,7 @@
         <v-flex>
             <button class="end-session" @click="endSession()">
                 <stopIcon class="stop-icon mr-2"></stopIcon>
-                <span v-language:inner>tutor_stream_btn_end_session</span>
+                <span v-t="'tutor_stream_btn_end_session'"></span>
             </button>
         </v-flex>
     </div>

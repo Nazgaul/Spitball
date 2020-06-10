@@ -16,8 +16,8 @@ namespace Cloudents.Core.EventHandler
         IEventHandler<UpdateImageEvent>,
         IEventHandler<EndStudyRoomSessionEvent>,
         IEventHandler<ChangeCountryEvent>,
-        //IEventHandler<TutorUnSuspendedEvent>,
         IEventHandler<CourseChangeSubjectEvent>,
+        IEventHandler<TutorSubscriptionEvent>,
         IDisposable
     {
         private readonly IReadTutorRepository _repository;
@@ -117,6 +117,11 @@ namespace Cloudents.Core.EventHandler
         public Task HandleAsync(TutorCreatedEvent eventMessage, CancellationToken token)
         {
             return SubmitAsync(eventMessage.Tutor.Id, token);
+        }
+
+        public Task HandleAsync(TutorSubscriptionEvent eventMessage, CancellationToken token)
+        {
+            return UpdateAsync(eventMessage.UserId, token);
         }
     }
 }

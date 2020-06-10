@@ -32,11 +32,11 @@
       <div class="card-mobile-center">{{tutorData.bio}}</div>
 
       <div class="courses text-truncate" v-if="subjects">
-          <div class="courses-title font-weight-bold" v-language:inner="'resultTutor_study-area'"></div>
+          <div class="courses-title font-weight-bold" v-t="'resultTutor_study-area'"></div>
           <div class="text-truncate">{{subjects}}</div>
       </div> 
       <div class="courses text-truncate" v-else>
-          <div class="courses-title font-weight-bold" v-language:inner="'resultTutor_courses'"></div>
+          <div class="courses-title font-weight-bold" v-t="'resultTutor_courses'"></div>
           <div class="text-truncate">{{courses}}</div>
       </div> 
 

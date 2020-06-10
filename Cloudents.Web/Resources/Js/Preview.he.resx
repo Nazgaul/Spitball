@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="about_to_buy" xml:space="preserve">
-    <value>אישור העברת {1} נקודות ל- {2} עבור</value>
+    <value>אישור העברת {0} נקודות ל- {1} עבור</value>
   </data>
   <data name="buy_btn" xml:space="preserve">
     <value>שליחה והורדה</value>

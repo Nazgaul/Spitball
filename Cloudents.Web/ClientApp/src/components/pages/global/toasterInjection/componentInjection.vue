@@ -8,7 +8,6 @@ const auth = () => import('../../global/dialogInjection/globalDialogs/auth/auth.
 
 const simpleToaster = () => import('./simpleToaster.vue');
 const simpleErrorToaster = () => import('./simpleErrorToaster.vue')
-const pendingPayment = () => import('./pendingPayment.vue')
 const errorLinkToaster = () => import('./errorLinkToaster.vue')
 
 const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue')
@@ -25,7 +24,6 @@ export default {
         auth,
         simpleToaster,
         simpleErrorToaster,
-        pendingPayment,
         errorLinkToaster,
         upload,
         createCoupon,
@@ -41,9 +39,6 @@ export default {
             componentObj: {
                 teacherBillOfflineDialog:{
                     name:'teacherBillOfflineDialog'
-                },
-                linkToaster: {
-                    name: "pendingPayment",
                 },
                 errorToaster_notBrowser:{
                     name:'simpleErrorToaster',
