@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
+using Cloudents.Core.EventHandler;
 
 namespace Cloudents.Query.Users
 {
@@ -41,7 +42,7 @@ namespace Cloudents.Query.Users
             {
                 _session = session;
             }
-            [Cache(TimeConst.Hour, "UserDocumentsQuery", false)]
+            [Cache(TimeConst.Hour, CacheRegions.ProfilePageDocument, false)]
             public async Task<ListWithCountDto<DocumentFeedDto>> GetAsync(UserDocumentsQuery query, CancellationToken token)
             {
                 var r = _session.Query<Document>()

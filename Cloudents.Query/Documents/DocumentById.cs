@@ -11,6 +11,7 @@ using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs.Documents;
 using Cloudents.Core.DTOs.Tutors;
+using Cloudents.Core.EventHandler;
 using NHibernate.Linq;
 
 namespace Cloudents.Query.Documents
@@ -37,7 +38,7 @@ namespace Cloudents.Query.Documents
             {
                 _session = session;
             }
-            [Cache(TimeConst.Minute * 2, "document-by-id", false)]
+            [Cache(TimeConst.Minute * 2, CacheRegions.DocumentById, false)]
             public async Task<DocumentDetailDto?> GetAsync(DocumentById query, CancellationToken token)
             {
 
