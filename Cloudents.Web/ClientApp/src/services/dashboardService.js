@@ -62,7 +62,9 @@ const Item = {
       this.lastSession = objInit.lastSession;
       this.name = objInit.name;
       this.date = objInit.dateTime;
-      this.students = objInit.amountOfUsers;
+      // this.students = objInit.amountOfUsers;
+      this.amountStudent = objInit.userNames.length
+      this.userNames = objInit.userNames
       this.scheduled = objInit.scheduled;
       this.type = objInit.type;
       this.showChat = this.type ==='Private';
