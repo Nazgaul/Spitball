@@ -42,7 +42,7 @@ namespace Cloudents.Query.Users
             {
                 _session = session;
             }
-            [Cache(TimeConst.Hour, CacheRegions.ProfilePageDocument, false)]
+            [Cache(TimeConst.Minute * 15, CacheRegions.ProfilePageDocument, false)]
             public async Task<ListWithCountDto<DocumentFeedDto>> GetAsync(UserDocumentsQuery query, CancellationToken token)
             {
                 var r = _session.Query<Document>()
@@ -58,7 +58,7 @@ namespace Cloudents.Query.Users
                     r = r.Where(w => w.Course.Id == query.Course);
                 }
                 var count = r;
-                r = r.OrderByDescending(o => o.Boost).ThenByDescending(o => o.TimeStamp.UpdateTime);
+                r = r.OrderByDescending(o => o.Boost ?? 0).ThenByDescending(o => o.TimeStamp.UpdateTime);
                 var result = r.Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
@@ -77,7 +77,7 @@ namespace Cloudents.Query.Users
                     DocumentType = s.DocumentType,
                     Duration = s.Duration,
                     //Purchased = s.PurchaseCount.GetValueOrDefault()
-                }).Take(query.PageSize).Skip(query.Page*query.PageSize).ToFuture();
+                }).Take(query.PageSize).Skip(query.Page * query.PageSize).ToFuture();
 
                 var countFuture = count.ToFutureValue(f => f.Count());
 
