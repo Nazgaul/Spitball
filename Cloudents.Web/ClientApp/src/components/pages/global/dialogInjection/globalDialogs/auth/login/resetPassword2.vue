@@ -1,6 +1,8 @@
+<!-- THIS FILE WAS MAKE WHEN WE CHANGE RESEP PASSWORD TO DIALOG -->
+
 <template>
     <div class="resetPassword text-center">
-        <div class="resetTitle mb-8" v-t="'loginRegister_reset_main_title'"></div>
+        <div class="resetTitle mb-8"></div>
 
         <v-text-field 
             v-model="password"
@@ -54,7 +56,7 @@ export default {
             rules: {
                 required: (value) => validationRules.required(value),
                 minimumCharsPass: (value) => validationRules.minimumChars(value, 8),
-                passwordMatch: (value) => this.password === value || this.$t('loginRegister_password_not_match')
+                // passwordMatch: (value) => this.password === value || this.$t('loginRegister_password_not_match')
             }
         }
     }

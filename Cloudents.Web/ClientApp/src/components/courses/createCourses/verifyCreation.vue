@@ -13,7 +13,7 @@
         </v-layout>
         <v-layout align-center justify-center :class="[ $vuetify.breakpoint.xsOnly ? 'shrink mt-4': '']">
             <v-flex class="text-center">
-                <span class="font-weight-bold heading-text" v-t="'courses_before_reating'"></span>
+                <span class="font-weight-bold heading-text" v-t="'courses_before_creating'"></span>
             </v-flex>
         </v-layout>
         <v-layout align-center justify-center :class="[ $vuetify.breakpoint.xsOnly ? 'shrink mt-4': '']">
@@ -29,7 +29,7 @@
                     <span class="font-weight-bold text-capitalize" v-t="'courses_create_course'"></span>
                 </button>
             </v-flex>
-            <v-flex shrink xs5  sm3>
+            <v-flex shrink xs5 sm3>
                 <button @click="closeDialog()" class="min-width solid d-flex align-center justify-center py-2 px-3">
                     <span class="font-weight-bold text-capitalize" v-t="'courses_try_again'"></span>
                 </button>

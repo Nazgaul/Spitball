@@ -55,9 +55,6 @@ export default {
         tutorPhoneNumber() {
             return this.getCurrentTutorPhoneNumber;
         },
-        defaultMessage() {
-            return this.$t('whatsapp_message');
-        },
         tutorId() {
             return this.getCurrTutor?.userId;
         },
