@@ -79,7 +79,7 @@ export default {
             return this.isMobile ? this.$t('resultNote_subscribe_mobile_text') : this.$t('resultNote_subscribe_desktop_text')
         },
         subscribeBtnText() {
-            let price = this.$price(this.item.price)
+            let price = this.$price(this.item.price, 'USD')
             return this.isMobile ? this.$t('resultNote_subscribe_mobile_btn', [price]) : this.$t('resultNote_subscribe_desktop_btn', [price])
         },
         subscribedPrice() {
