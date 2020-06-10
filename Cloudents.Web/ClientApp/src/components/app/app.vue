@@ -68,7 +68,7 @@ import * as routeNames from '../../routes/routeNames.js';
 
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
 const AddQuestion = () => import("../question/askQuestion/askQuestion.vue");
-const walletService = () => import("../../services/walletService");
+// const walletService = () => import("../../services/walletService");
 const mobileFooter = () => import("../pages/layouts/mobileFooter/mobileFooter.vue");
 const tutorRequest = () => import("../tutorRequestNEW/tutorRequest.vue");
 const referralDialog = () => import("../question/helpers/referralDialog/referral-dialog.vue");
