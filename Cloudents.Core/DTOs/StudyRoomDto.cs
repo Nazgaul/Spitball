@@ -108,7 +108,6 @@ namespace Cloudents.Core.DTOs
 
         public StudyRoomType Type { get; set; }
 
-        public int AmountOfUsers => UserNames.Count();
         public DateTime? Scheduled { get; set; }
 
         public IEnumerable<string> UserNames { get; set; }
