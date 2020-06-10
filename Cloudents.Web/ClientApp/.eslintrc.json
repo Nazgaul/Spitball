@@ -60,7 +60,8 @@
     "vue/html-closing-bracket-newline": "off",
     "vue/max-attributes-per-line": "off",
     "no-mixed-spaces-and-tabs": "off",
-    "vue-i18n/no-dynamic-keys": "error"
+    "vue-i18n/no-dynamic-keys": "error",
+    "vue-i18n/no-missing-keys" : "error"
   },
   "settings": {
     "vue-i18n": {
