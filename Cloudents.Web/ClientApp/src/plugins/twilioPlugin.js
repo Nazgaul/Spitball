@@ -423,7 +423,7 @@ export default () => {
          store.commit(twilio_SETTERS.AUDIO_AVAILABLE,true)
       }
       function _publishTrack(track){
-         _activeRoom.localParticipant.publishTrack(track,{priority: store.getters.getRoomIsTutor? PRIORITY.HIGH : PRIORITY.STANDARD});
+         _activeRoom.localParticipant.publishTrack(track,{priority: store.getters.getRoomIsTutor? PRIORITY.HIGH : PRIORITY.LOW});
          _addParticipantTrack(track,_activeRoom.localParticipant)
       
          //On share screen we want to update all the users in the room
