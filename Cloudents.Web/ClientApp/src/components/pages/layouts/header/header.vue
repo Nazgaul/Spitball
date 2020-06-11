@@ -27,7 +27,7 @@
                         </template>
                         <span v-t="'header_tooltip_help'"/>
                     </v-tooltip>
-                    <template v-if="Object.keys($store.getters.getConversations).length">
+                    <template v-if="showChat">
                         <v-tooltip bottom v-if="loggedIn">
                             <template v-slot:activator="{on}">
                                 <div v-on="on" class="gH_i_r_chat">
@@ -149,6 +149,9 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
         },
         totalUnread(){
             return this.getTotalUnread;
+        },
+        showChat(){
+            return this.$store.getters.getIsAccountChat
         },
         isShowBorderBottom(){
             let filteredRoutes = [routeNames.Profile, routeNames.Document];

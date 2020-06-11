@@ -20,7 +20,7 @@
                 <span class="mF_title" v-t="'mobileFooter_btn_upload'"/>
                 <v-icon class="mF_icon" v-html="'sbf-button-add'" />
             </v-btn>
-            <v-btn v-if="Object.keys($store.getters.getConversations).length" :ripple="false" class="mF_btns" text value="messages" @click="changeActiveTab('messages')">
+            <v-btn v-if="showChat.length" :ripple="false" class="mF_btns" text value="messages" @click="changeActiveTab('messages')">
                 <span class="mF_title" v-t="'mobileFooter_btn_chat'"/>
                 <span class="mF_chat">
                     <v-icon class="mF_icon" v-html="'sbf-btm-msg'"/>
@@ -46,6 +46,9 @@ export default {
     },
     computed: {
         ...mapGetters(['getTotalUnread', 'accountUser']),
+        showChat(){
+            return this.$store.getters.getIsAccountChat;
+        },
         isTutor(){
             return this.$store.getters.getIsTeacher;
         },
