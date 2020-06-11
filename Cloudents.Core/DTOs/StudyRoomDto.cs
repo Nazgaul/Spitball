@@ -64,7 +64,7 @@ namespace Cloudents.Core.DTOs
 
         public string Name { get; set; }
 
-
+        public StudyRoomTopologyType TopologyType { get; set; }
         public StudyRoomType Type { get; set; }
     };
 
