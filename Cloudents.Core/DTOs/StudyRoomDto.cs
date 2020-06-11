@@ -1,7 +1,9 @@
 ﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
@@ -78,6 +80,25 @@ namespace Cloudents.Core.DTOs
 
     public class UserStudyRoomDto
     {
+        public UserStudyRoomDto(string name, Guid id, DateTime dateTime,
+            string conversationId, DateTime? lastSession, StudyRoomType type, 
+            DateTime? scheduled, IEnumerable<string> userNames)
+        {
+            Name = name;
+            Id = id;
+            DateTime = dateTime;
+            ConversationId = conversationId;
+            LastSession = lastSession;
+            Type = type;
+            Scheduled = scheduled;
+            UserNames = userNames;
+
+        }
+
+        public UserStudyRoomDto()
+        {
+        }
+
         public string Name { get; set; }
         public Guid Id { get; set; }
         public DateTime DateTime { get; set; }
@@ -87,8 +108,9 @@ namespace Cloudents.Core.DTOs
 
         public StudyRoomType Type { get; set; }
 
-        public int AmountOfUsers { get; set; }
         public DateTime? Scheduled { get; set; }
+
+        public IEnumerable<string> UserNames { get; set; }
 
     }
 
