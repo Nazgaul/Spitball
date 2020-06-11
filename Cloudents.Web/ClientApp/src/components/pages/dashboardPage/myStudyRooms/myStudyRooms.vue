@@ -55,7 +55,14 @@
       </template>
 
       <template v-slot:item.students="{item}">
-        <div class="amountStudents white--text" v-if="item.students">{{item.students}}</div>
+        <v-tooltip :value="currentItemId === item.id" top transition="fade-transition">
+          <template v-slot:activator="{on}">
+            <div v-on="on" class="amountStudents white--text">{{item.amountStudent}}</div>
+          </template>
+            <div v-for="(user, index) in item.userNames" :key="index">
+              {{user}}
+            </div>
+        </v-tooltip>
       </template>
 
       <template v-slot:item.lastSession="{item}">
