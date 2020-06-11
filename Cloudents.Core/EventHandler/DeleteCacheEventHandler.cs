@@ -8,7 +8,7 @@ using static Cloudents.Core.EventHandler.CacheRegions;
 namespace Cloudents.Core.EventHandler
 {
     public class DeleteCacheEventHandler :
-        //IEventHandler<TransactionEvent>,
+        IEventHandler<TransactionEvent>,
         IEventHandler<DocumentPriceChangeEvent>, 
         IEventHandler<DocumentFlaggedEvent>,
         IEventHandler<DocumentDeletedEvent>,
@@ -27,6 +27,18 @@ namespace Cloudents.Core.EventHandler
         {
             _cacheProvider.DeleteRegion(DocumentById);
             _cacheProvider.DeleteRegion(ProfilePageDocument);
+            return Task.CompletedTask;
+        }
+        public Task HandleAsync(TransactionEvent eventMessage, CancellationToken token)
+        {
+            //Document purchased
+            if (eventMessage.Transaction is DocumentTransaction _)
+            {
+                
+                _cacheProvider.DeleteRegion(DocumentById);
+                _cacheProvider.DeleteRegion(ProfilePageDocument);
+            }
+
             return Task.CompletedTask;
         }
 
@@ -68,7 +80,7 @@ namespace Cloudents.Core.EventHandler
 
     public static class CacheRegions
     {
-        public const string DocumentById = "document-by-id";
+        public const string DocumentById = "document-by-id2";
         public const string ProfilePageDocument = "UserDocumentsQuery2";
     }
 }

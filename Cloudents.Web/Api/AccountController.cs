@@ -24,9 +24,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 using Cloudents.Query.Users;
-using Cloudents.Query.Questions;
 using Cloudents.Core.DTOs.Users;
-using Cloudents.Core.DTOs.Questions;
 
 namespace Cloudents.Web.Api
 {
@@ -260,15 +258,15 @@ namespace Cloudents.Web.Api
 
         
 
-        [HttpGet("questions")]
-        public async Task<IEnumerable<AccountQuestionDto>> GetQuestionsAsync(
-            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
-            CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var query = new AccountQuestionsQuery(userId, profile.Country);
-            return await _queryBus.QueryAsync(query, token);
-        }
+        //[HttpGet("questions")]
+        //public async Task<IEnumerable<AccountQuestionDto>> GetQuestionsAsync(
+        //    [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
+        //    CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    var query = new AccountQuestionsQuery(userId, profile.Country);
+        //    return await _queryBus.QueryAsync(query, token);
+        //}
 
         [HttpGet("courses")]
         public async Task<IEnumerable<CourseDto>> GetCoursesAsync(CancellationToken token)

@@ -31,24 +31,24 @@ const LanguageChange = {
     },
 };
 
-const GetDictionary = (type) => {
-    let dictionaryType = `?v=${global.version}&culture=${global.lang}-${global.country}`;
-    if(!!type){
-        //version is for anti caching ability
-        dictionaryType += `&resource=${type}`;
-    }else{
-        dictionaryType += '';
-    }
-    return connectivityModule.http.get(`/Locale${dictionaryType}`).then((dictionary)=>{
-        for(let prop in dictionary.data){
-            //add the key to the dictionary
-            locale[prop] = dictionary.data[prop];
-        }
-        return Promise.resolve(true);
-    }, (err)=>{
-        return Promise.reject(err);
-    });
-};
+// const GetDictionary = (type) => {
+//     let dictionaryType = `?v=${global.version}&culture=${global.lang}-${global.country}`;
+//     if(!!type){
+//         //version is for anti caching ability
+//         dictionaryType += `&resource=${type}`;
+//     }else{
+//         dictionaryType += '';
+//     }
+//     return connectivityModule.http.get(`/Locale${dictionaryType}`).then((dictionary)=>{
+//         for(let prop in dictionary.data){
+//             //add the key to the dictionary
+//             locale[prop] = dictionary.data[prop];
+//         }
+//         return Promise.resolve(true);
+//     }, (err)=>{
+//         return Promise.reject(err);
+//     });
+// };
 
 const GetVersion = () => {
     return connectivityModule.http.get(`/homepage/version`).then( (response) =>{
@@ -78,6 +78,6 @@ global.dictionaryContainsKey = function(value){
 export{
     LanguageService,
     LanguageChange,
-    GetDictionary,
+   // GetDictionary,
     GetVersion,
 }
