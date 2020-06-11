@@ -45,7 +45,7 @@ namespace Cloudents.Command.StudyRooms
                 room.Tutor.User.Country,
                 true,
                 url,
-                room.TopologyType.GetValueOrDefault(StudyRoomTopologyType.PeerToPeer)
+                room.TopologyType
                 );
             room.AddSession(sessionName);
             var jwtToken = _videoProvider.CreateRoomToken(sessionName, tutor.Id, tutor.User.Name);
