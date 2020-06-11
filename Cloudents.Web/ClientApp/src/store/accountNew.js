@@ -77,7 +77,7 @@ const mutations = {
 };
 
 const actions = {
-    userStatus({state, commit, dispatch, getters}) {
+    userStatus({state, commit, getters}) {
         if(state.user !== null && state.user.hasOwnProperty('id')){
             return Promise.resolve()
         }
