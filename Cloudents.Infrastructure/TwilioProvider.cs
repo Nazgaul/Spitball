@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
@@ -66,7 +65,7 @@ namespace Cloudents.Infrastructure
                     }
                 );
 
-               
+
 
                 if (result == null)
                 {
@@ -112,14 +111,14 @@ namespace Cloudents.Infrastructure
         {
             return VerificationResource.CreateAsync(
                 to: phoneNumber,
-                channel:"sms",
+                channel: "sms",
                 pathServiceSid: "VA54583e5d91fabd4433a82fc263a8a696"
             );
 
             // return (null, null);
         }
 
-        public async Task<bool> VerifyCodeAsync(string phoneNumber,string code, CancellationToken token)
+        public async Task<bool> VerifyCodeAsync(string phoneNumber, string code, CancellationToken token)
         {
             // var service = Twilio.Rest.Verify.V2.ServiceResource.Create(friendlyName: "My Verify Service");
             // phoneNumber = BuildPhoneNumber(phoneNumber, countryCode);
@@ -142,7 +141,7 @@ namespace Cloudents.Infrastructure
         }
 
 
-        public Task CreateRoomAsync(string id, string country, 
+        public Task CreateRoomAsync(string id, string country,
             bool needRecord, Uri callBack, StudyRoomTopologyType studyRoomType)
         {
             var type = RoomResource.RoomTypeEnum.PeerToPeer;
@@ -181,17 +180,85 @@ namespace Cloudents.Infrastructure
                 statusCallback: callBack,
                 statusCallbackMethod: HttpMethod.Post,
                 recordParticipantsOnConnect: false,
-                mediaRegion:mediaRegion
+                mediaRegion: mediaRegion
             );
 
 
         }
 
+        private const string Germany = "de1";
+        private const string Brazil = "br1";
+        private const string UsEastCost = "us1";
+        private const string India = "in1";
+        private const string Ireland = "ie1";
+        private const string Singapore = "sg1";
+        private const string Japan = "jp1";
+
         public static readonly Dictionary<string, string> CountryToRegionMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            ["IL"] = "de1",
-            ["US"] = "us1",
-            ["IN"] = "in1"
+            ["IL"] = Germany,
+            ["US"] = UsEastCost, //
+            ["IN"] = India,
+            ["TR"] = Germany,
+            ["PE"] = Brazil,
+            ["GH"] = Germany,
+            ["UA"] = Germany,
+            ["DE"] = Germany,
+            ["CL"] = Brazil,
+            ["GB"] = Ireland,
+            ["RS"] = Germany,
+            ["CO"] = Brazil,
+            ["PH"] = Singapore,
+            ["OM"] = India,
+            ["BA"] = Germany,
+            ["ME"] = Germany,
+            ["ZM"] = Germany,
+            ["CZ"] = Germany,
+            ["MA"] = Germany,
+            ["TT"] = UsEastCost,
+            ["IT"] = Germany,
+            ["ZW"] = Germany,
+            ["NL"] = Germany,
+            ["TW"] = Japan,
+            ["GR"] = Germany,
+            ["IS"] = Ireland,
+            ["HK"] = Singapore,
+            ["MX"] = UsEastCost,
+            ["HN"] = UsEastCost,
+            ["TZ"] = Germany,
+            ["RO"] = Germany,
+            ["KE"] = Germany,
+            ["LA"] = Singapore,
+            ["PK"] = India,
+            ["CA"] = UsEastCost,
+            ["KH"] = Singapore,
+            ["EG"] = Germany,
+            ["KW"] = India,
+            ["DO"] = UsEastCost,
+            ["PR"] = UsEastCost,
+            ["BG"] = Germany,
+            ["BR"] = Brazil,
+            ["ZA"] = Germany,
+            ["CH"] = Germany,
+            ["IE"] = Ireland,
+            ["TH"] = Singapore,
+            ["LV"] = Germany,
+            ["RW"] = Germany,
+            ["CY"] = Germany,
+            ["FR"] = Germany,
+            ["ID"] = Singapore,
+            ["ET"] = Germany,
+            ["LK"] = India,
+            ["MY"] = Singapore,
+            ["QA"] = India,
+            ["BD"] = India,
+            ["AE"] = India,
+            ["RU"] = Germany,
+            ["KG"] = India,
+            ["ES"] = Germany,
+            ["NP"] = India,
+            ["CN"] = India,
+            ["GE"] = Germany
         };
 
         public Task CloseRoomAsync(string id)
@@ -267,7 +334,7 @@ namespace Cloudents.Infrastructure
                 AccountSid,
                 ApiKey,
                 SecretVideo,
-                CreateIdentity(userId,name),
+                CreateIdentity(userId, name),
                 grants: grants);
 
             return token.ToJwt();
@@ -309,7 +376,7 @@ namespace Cloudents.Infrastructure
         //        uniqueName: roomId);
         //    var room = rooms.FirstOrDefault();
         //    //var room = await RoomResource.FetchAsync(roomId);
-            
+
         //    var z = await ParticipantResource.ReadAsync(room.Sid);
         //    var t = await RoomRecordingResource.ReadAsync(room.Sid);
         //    var x = t.Where(s => s.Type == RoomRecordingResource.TypeEnum.Video);
