@@ -142,6 +142,7 @@ export default {
 <style lang="less">
 .classFullScreen{
    background-color: #212123;
+   display: block; //Just to remove cache
    .v-footer{
       justify-content: center;
    }
