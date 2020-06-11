@@ -72,6 +72,7 @@ export const User = {
             isTutor: _createIsTutorState(objInit.isTutor),
             isSold: objInit.isSold,
             pendingSessionsPayments: objInit.pendingSessionsPayments,
+            chatUnread: objInit.chatUnread,
         }        
     },
     Stats: function(objInit){

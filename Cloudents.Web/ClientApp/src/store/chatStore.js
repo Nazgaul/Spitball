@@ -1,3 +1,9 @@
+import axios from 'axios'
+
+const chatInstance = axios.create({
+    baseURL:'/api/chat'
+})
+
 import chatService from '../services/chatService';
 import analyticsService from '../services/analytics.service';
 import {chat_SETTERS,chat_ACTIONS} from './constants/chatConstants.js';
@@ -239,16 +245,16 @@ const actions = {
         dispatch('updateChatState', state.enumChatState.messages);
         dispatch(chat_ACTIONS.UPDATE_CONVERSATION_TUTOR,obj.conversationId)
     },
-    getAllConversations:({commit, getters, dispatch})=>{
+    async getAllConversations ({commit, getters, dispatch}) {
         if(!getters.accountUser) {
             return;
         }
-        chatService.getAllConversations().then(({data})=>{
+        return await chatInstance.get().then(({data})=>{
             if(data.length > 0){
                 data.forEach(conversation => {
                     let conversationObj = chatService.createConversation(conversation);
                     commit('addConversation', conversationObj);
-                    commit('updateTotalUnread', conversationObj.unread);
+                    // commit('updateTotalUnread', conversationObj.unread);
                     conversation.users.forEach(user=>{
                         let userStatus = {
                             id: user.userId,
