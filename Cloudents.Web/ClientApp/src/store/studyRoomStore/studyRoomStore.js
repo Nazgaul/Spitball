@@ -52,6 +52,7 @@ const state = {
    roomIsNeedPayment: false,
    roomTutor: {},
    roomIsJoined: false,
+   roomTopologyType: 'PeerToPeer',
    // TODO: change it to roomId after u clean all
    studyRoomId: null,
    roomParticipantCount: 0,
@@ -84,6 +85,7 @@ const mutations = {
       state.roomType = props.type;
       state.roomName = props.name;
       state.roomDate = props.broadcastTime;
+      state.roomTopologyType = props.topologyType; 
    },
    [studyRoom_SETTERS.DIALOG_END_SESSION]: (state, val) => state.dialogEndSession = val,
    [studyRoom_SETTERS.ROOM_ACTIVE]: (state, isConnected) => {
@@ -105,7 +107,8 @@ const mutations = {
       state.roomType = null;
       state.roomName = null;
       state.isBrowserNotSupport = false;
-      state.roomParticipants = {}
+      state.roomParticipants = {};
+      state.roomTopologyType = 'PeerToPeer';
    },
    [studyRoom_SETTERS.DIALOG_USER_CONSENT]: (state, val) => state.dialogUserConsent = val,
    [studyRoom_SETTERS.DIALOG_SNAPSHOT]: (state, val) => state.dialogSnapshot = val,
@@ -198,6 +201,7 @@ const getters = {
       return Object.values(state.roomParticipants).map(p=>p.audio)
    },
    getIsBrowserNotSupport:state => state.isBrowserNotSupport, 
+   getRoomTopologyType:state => state.roomTopologyType, 
 }
 const actions = {
    updateToggleTutorFullScreen({dispatch,commit},val){
