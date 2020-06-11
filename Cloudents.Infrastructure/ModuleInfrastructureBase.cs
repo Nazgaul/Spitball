@@ -1,10 +1,7 @@
 ﻿using Autofac;
-//using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Mail;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using Cloudents.Core.Entities;
 using Cloudents.Infrastructure.Payments;
 using Module = Autofac.Module;
@@ -17,14 +14,7 @@ namespace Cloudents.Infrastructure
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            var assembly = Assembly.GetExecutingAssembly();
-            //builder.RegisterAssemblyTypes(assembly)
-            //    .AsClosedTypesOf(typeof(BaseTaskInterceptor<>));
             builder.RegisterType<RestClient>().As<IRestClient>();
-                //.EnableInterfaceInterceptors()
-                //.InterceptedBy(typeof(LogInterceptor));
-
-            //builder.RegisterType<PayMeCredentials>().AsSelf();
 
             builder.RegisterType<PayMePaymentProvider>().As<IPaymeProvider>().Keyed<IPaymentProvider>(typeof(PaymePayment));
             builder.RegisterType<StripeClient>().As<IStripeService>().Keyed<IPaymentProvider>(typeof(StripePayment)).AsSelf();
@@ -38,8 +28,6 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<CountryProvider>().As<ICountryProvider>();
             builder.RegisterType<WixBlogProvider>().As<IBlogProvider>();
             builder.RegisterType<IpStackProvider>().As<IIpToLocation>();
-            //.EnableInterfaceInterceptors()
-            //.InterceptedBy(typeof(CacheResultInterceptor));
         }
     }
 }

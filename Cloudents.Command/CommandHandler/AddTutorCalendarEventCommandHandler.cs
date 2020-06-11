@@ -2,9 +2,11 @@
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Command.Resources;
 
 namespace Cloudents.Command.CommandHandler
 {
@@ -63,13 +65,22 @@ namespace Cloudents.Command.CommandHandler
             var user = await _userRepository.LoadAsync(message.UserId, token);
             tutor.User.AddFollower(user);
             var googleTokens = await _googleTokenRepository.GetAsync(message.TutorId.ToString(), token);
+            
             if (googleTokens != null)
             {
-                await _calendarService.BookCalendarEventAsync(tutor.User, user, googleTokens,
-                    message.From, message.To, token);
+                var resourceManager = new System.Resources.ResourceManager(typeof(CalendarResources));
+                var eventName = resourceManager.GetString("TutorCalendarMessage", CultureInfo.CurrentUICulture) ?? "Tutor Session In Spitball";
+                eventName = string.Format(eventName, tutor.User.Name, user.Name);
+                var calendarEmail = _calendarService.GetEmailFromToken(googleTokens.Value);
+                await _calendarService.SendCalendarInviteAsync(
+                    new []{tutor.User.Email,user.Email,calendarEmail},
+                    message.From,
+                    message.To,
+                    eventName,
+                    null,
+                    token
+                    );
             }
-           
-
         }
 
         private static bool IsBetween(DateTime dateToCheck, DateTime startDate, DateTime endDate)
