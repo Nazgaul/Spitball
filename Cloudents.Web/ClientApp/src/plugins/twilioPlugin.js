@@ -256,7 +256,7 @@ export default () => {
                maxAudioBitrate: 16000, //For music remove this line
                preferredVideoCodecs: [
                   { codec: 'VP8', simulcast: true },
-                  // { codec: 'H264', simulcast: true }
+                  { codec: 'H264', simulcast: true }
                ],
                
             }
