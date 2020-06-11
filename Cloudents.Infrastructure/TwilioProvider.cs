@@ -108,15 +108,15 @@ namespace Cloudents.Infrastructure
             return ValidateNumberAsync(phoneNumber, token);
         }
 
-        public async Task SendVerificationCodeAsync(string phoneNumber, CancellationToken token)
+        public Task SendVerificationCodeAsync(string phoneNumber, CancellationToken token)
         {
-             await VerificationResource.CreateAsync(
+            return VerificationResource.CreateAsync(
                 to: phoneNumber,
                 channel:"sms",
                 pathServiceSid: "VA54583e5d91fabd4433a82fc263a8a696"
             );
 
-           // return (null, null);
+            // return (null, null);
         }
 
         public async Task<bool> VerifyCodeAsync(string phoneNumber,string code, CancellationToken token)
@@ -142,7 +142,7 @@ namespace Cloudents.Infrastructure
         }
 
 
-        public async Task CreateRoomAsync(string id, Country country, 
+        public Task CreateRoomAsync(string id, string country, 
             bool needRecord, Uri callBack, StudyRoomTopologyType studyRoomType)
         {
             var type = RoomResource.RoomTypeEnum.PeerToPeer;
@@ -159,29 +159,40 @@ namespace Cloudents.Infrastructure
                     break;
             }
             //https://www.twilio.com/blog/2017/12/introducing-gll-for-group-rooms.html
-            var mediaRegion = "us1";
-            if (country == Country.Israel)
-            {
-                mediaRegion = "de1";
-            }
-            if (country == Country.India)
-            {
-                mediaRegion = "in1";
-            }
 
-            await RoomResource.CreateAsync(
-                 uniqueName: id,
-                 //enableTurn: true,
-                 //maxParticipants: 2,
-                 type: type,
-                 statusCallback: callBack,
-                 statusCallbackMethod: HttpMethod.Post,
-                 recordParticipantsOnConnect: false,
-                 mediaRegion:mediaRegion
+            if (!CountryToRegionMap.TryGetValue(country, out var mediaRegion))
+            {
+                mediaRegion = "us1";
+            }
+            //if (country == Country.Israel)
+            //{
+            //    mediaRegion = "de1";
+            //}
+            //if (country == Country.India)
+            //{
+            //    mediaRegion = "in1";
+            //}
+
+            return RoomResource.CreateAsync(
+                uniqueName: id,
+                //enableTurn: true,
+                //maxParticipants: 2,
+                type: type,
+                statusCallback: callBack,
+                statusCallbackMethod: HttpMethod.Post,
+                recordParticipantsOnConnect: false,
+                mediaRegion:mediaRegion
             );
 
 
         }
+
+        public static readonly Dictionary<string, string> CountryToRegionMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        {
+            ["IL"] = "de1",
+            ["US"] = "us1",
+            ["IN"] = "in1"
+        };
 
         public Task CloseRoomAsync(string id)
         {
