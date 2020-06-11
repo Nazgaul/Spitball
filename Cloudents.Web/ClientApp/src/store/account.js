@@ -63,6 +63,7 @@ const getters = {
     getAccountId: state => state.user?.id,
     getAccountName: state => state.user?.name,
     getAccountImage: state => state.user?.image,
+    getIsAccountChat: state => state.user?.chatUnread !== null && state.user?.chatUnread !== undefined,
 };
 
 const actions = {
@@ -108,7 +109,7 @@ const actions = {
         intercomeService.startService(userAccount);
         commit("updateUser", userAccount);
         // dispatch("syncUniData", userAccount); // uni
-        dispatch("getAllConversations");
+        commit('updateTotalUnread',userAccount.chatUnread || 0)
         analyticsService.sb_setUserId(userAccount.id);
         insightService.authenticate.set(userAccount.id);
         dispatch('updateLoginStatus',true);

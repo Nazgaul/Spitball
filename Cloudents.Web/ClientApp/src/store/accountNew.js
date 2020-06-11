@@ -69,6 +69,7 @@ const mutations = {
             this.isTutor = objInit.isTutor && objInit.isTutor.toLowerCase() === 'ok'
             this.isSold = objInit.isSold
             this.pendingSessionsPayments = objInit.pendingSessionsPayments
+            this.chatUnread = objInit.chatUnread
         }
         
         state.user = user
@@ -89,7 +90,7 @@ const actions = {
                 analyticsService.sb_setUserId(userAccount.id);
                 intercomeService.startService(userAccount);
                 insightService.authenticate.set(userAccount.id);
-                dispatch("getAllConversations");
+                commit('updateTotalUnread',userAccount.chatUnread || 0)
                 commit("changeLoginStatus", true);
     
                 return Promise.resolve(userAccount)

@@ -129,7 +129,7 @@ namespace Cloudents.Query.Users
                 result.IsSold = (await isSoldDocumentFuture.GetEnumerableAsync(token)).Any()
                                 || (await isSoldSessionFuture.GetEnumerableAsync(token)).Any();
 
-                result.ChatUnread = unreadMessages.Value ?? 0;
+                result.ChatUnread = unreadMessages.Value;
 
                 return result;
             }

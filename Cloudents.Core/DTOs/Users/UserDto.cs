@@ -35,7 +35,7 @@ namespace Cloudents.Core.DTOs.Users
         public string? LastName { get; set; }
 
         public string? Image { get; set; }
-        public int ChatUnread { get; set; }
+        public int? ChatUnread { get; set; }
         public ItemState? IsTutor
         {
             get
