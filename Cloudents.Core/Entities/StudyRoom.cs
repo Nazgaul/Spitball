@@ -166,7 +166,7 @@ namespace Cloudents.Core.Entities
             return result.SingleOrDefault(w => w.Ended == null);
         }
 
-        public virtual StudyRoomTopologyType? TopologyType { get; protected set; }
+        public virtual StudyRoomTopologyType TopologyType { get; protected set; }
 
         public virtual void AddSession(string sessionName)
         {
