@@ -421,7 +421,7 @@ export default () => {
          let defaultRoomSettings = {
             logLevel: _debugMode,
             tracks: [dataTrack],
-            networkQuality: {local:3, remote: 3},
+            networkQuality: {local:1, remote: 3}, //https://www.twilio.com/docs/video/using-network-quality-api
             maxAudioBitrate:16000,//For music remove this line
             // video: isMobileMode? { height: 480, frameRate: 24, width: 640 } : { height: 720, frameRate: 24, width: 1280 },
          }
