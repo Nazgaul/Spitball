@@ -44,12 +44,19 @@
                   </div>
          </template>
       <template v-slot:item.preview="{item}">
-           <user-avatar :user-id="item.userId" 
+           <!-- <user-avatar :user-id="item.userId" 
                :user-image-url="item.image" 
                :size="'40'" 
                :user-name="item.name" >
-               </user-avatar>
-          
+               </user-avatar> -->
+            <userAvatarNew 
+               class="text-center"
+               :user-image-url="item.image"
+               :user-name="item.name"
+               :width="40"
+               :height="40"
+               :fontSize="14"
+            />
            
       </template>
       <!-- <template v-slot:item.name="{item}">
