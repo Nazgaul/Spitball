@@ -65,7 +65,8 @@ export const landingRoutes = [
         path: "/tutor-list/:course?",
         name: routeNames.TutorList,
         components: {
-            default: () => import(`../components/tutorLandingPage/tutorLandingPage.vue`),
+            // default: () => import(`../components/tutorLandingPage/tutorLandingPage.vue`),
+            default: () => import(`../views/tutorList.vue`),
             ...staticComponents(['banner', 'header', 'footer']),
         },
         meta: {

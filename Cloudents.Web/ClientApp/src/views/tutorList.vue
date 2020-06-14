@@ -54,15 +54,15 @@
 </template>
 
 <script>
-const tutorResultCard = () => import(/* webpackChunkName: "tutorResultCard" */ '../results/tutorCards/tutorResultCard/tutorResultCard.vue');
-const tutorResultCardMobile = () => import(/* webpackChunkName: "tutorResultCardMobile" */ '../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue');
-const tutorSearchComponent = () => import('./components/tutorSearchInput/tutorSearchInput.vue');
-const suggestCard = () => import('../results/suggestCard.vue');
-const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */'../sbCarousel/sbCarousel.vue');
+const tutorResultCard = () => import(/* webpackChunkName: "tutorResultCard" */ '../components/results/tutorCards/tutorResultCard/tutorResultCard.vue');
+const tutorResultCardMobile = () => import(/* webpackChunkName: "tutorResultCardMobile" */ '../components/results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue');
+const tutorSearchComponent = () => import('../components/tutorList/tutorSearchInput.vue');
+const suggestCard = () => import('../components/results/suggestCard.vue');
+const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */'../components/sbCarousel/sbCarousel.vue');
 
-import testimonialCard from '../carouselCards/testimonialCard.vue'; // cant make it async ASK MAOR
-import tutorLandingPageService from './tutorLandingPageService';
-import courseService from '../../services/courseService.js';
+import testimonialCard from '../components/carouselCards/testimonialCard.vue'; // cant make it async ASK MAOR
+import tutorLandingPageService from '../components/tutorList/tutorLandingPageService';
+import courseService from '../services/courseService.js';
 
 import { mapActions,mapGetters } from 'vuex'
 export default {
@@ -177,7 +177,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../styles/mixin.less";
+@import "../styles/mixin.less";
 .tutor-landing-page-container{
     max-width: 100%;
     padding: 0;

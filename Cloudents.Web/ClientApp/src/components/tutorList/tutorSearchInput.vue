@@ -31,8 +31,8 @@
 
 <script>
 import debounce from "lodash/debounce";
-import courseService from "../../../../services/courseService";
-import analyticsService from '../../../../services/analytics.service';
+import courseService from "../../services/courseService";
+import analyticsService from '../../services/analytics.service';
 
 export default {
     name: "tutor-search-input",
@@ -178,7 +178,7 @@ export default {
 };
 </script>
 <style lang="less">
-@import "../../../../styles/mixin.less";
+@import "../../styles/mixin.less";
 .tutor-search-input {
   width: 100%;
   min-width: auto;
