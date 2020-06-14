@@ -10,6 +10,7 @@
                     :userId="userId"
                     :userName="userName"
                     :userImageUrl="userImage"
+                    :fontSize="18"
                 />
                 <div class="infoWrap mx-5">
                     <div class="tutorName text-truncate mb-2">{{userName}}</div>
