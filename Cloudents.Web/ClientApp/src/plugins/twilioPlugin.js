@@ -433,7 +433,7 @@ export default () => {
                      trackSwitchOffMode:'predicted',
                      // maxSubscriptionBitrate: isMobileMode? 2500000 : 0,
                      dominantSpeakerPriority: PRIORITY.STANDARD,
-                     maxTracks: isMobileMode ? 3 : 10,
+                     // maxTracks: isMobileMode ? 3 : 10,
                      renderDimensions: isMobileMode? undefined : {
                         [PRIORITY.HIGH]: {height:1080, width:1920},
                         [PRIORITY.STANDARD]: {height:720, width:1280},
