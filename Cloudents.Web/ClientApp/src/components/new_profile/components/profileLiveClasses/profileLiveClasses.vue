@@ -120,6 +120,18 @@
                                 <span :class="{'flex-grow-1 pl-2': isMobile}" v-t="'profile_enter_room'"></span>
                             </v-btn>
                             <v-btn
+                                v-else-if="session.isFull"
+                                disabled
+                                class="btn white--text"
+                                :height="isMobile ? '46' : '38'"
+                                color="#41c4bc"
+                                block
+                                depressed
+                                :rounded="isMobile ? false : true"
+                            >
+                                <span :class="{'flex-grow-1 pl-2': isMobile}" v-t="'profile_room_full'"></span>
+                            </v-btn>
+                            <v-btn
                                 v-else
                                 @click="enrollSession(session.id)"
                                 class="btn white--text"
