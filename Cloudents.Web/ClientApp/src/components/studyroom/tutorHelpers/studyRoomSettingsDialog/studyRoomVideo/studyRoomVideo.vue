@@ -1,6 +1,6 @@
 <template>
     <div class="srVideoSettingsVideoContainerWrap mb-1 mb-sm-5 mb-md-0">
-    <v-responsive :max-height="$vuetify.breakpoint.xsOnly?'30vh':''" :aspect-ratio="16/9">
+    <v-responsive :max-height="$vuetify.breakpoint.xsOnly?'24vh':''" :aspect-ratio="16/9">
         <v-row class="srVideoSettingsVideoContainer ma-md-0 ma-auto elevation-2">
             <div class="cameraTextWrap text-center">
                 <div class="noCamera white--text" v-if="!cameraOn && (permissionDialogState || !videoBlockPermission)" v-t="'studyRoomSettings_no_camera'"></div>
