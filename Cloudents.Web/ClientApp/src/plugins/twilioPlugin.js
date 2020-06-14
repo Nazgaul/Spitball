@@ -418,7 +418,7 @@ export default () => {
             logLevel: _debugMode,
             tracks: [dataTrack],
             networkQuality: {local:3, remote: 3},
-            maxAudioBitrate:16000,//For music remove this line
+            // maxAudioBitrate:16000,//For music remove this line
             video: isMobileMode? { height: 480, frameRate: 24, width: 640 } : { height: 720, frameRate: 24, width: 1280 },
          }
          if(roomTopologyType == 'PeerToPeer'){
@@ -430,9 +430,9 @@ export default () => {
                   video: {
                      mode: 'collaboration',
                      trackSwitchOffMode:'predicted',
-                     maxSubscriptionBitrate: isMobileMode? 2500000 : 0,
+                     // maxSubscriptionBitrate: isMobileMode? 2500000 : 0,
                      dominantSpeakerPriority: PRIORITY.STANDARD,
-                     maxTracks: isMobileMode ? 5 : 10,
+                     maxTracks: isMobileMode ? 2 : 10,
                      renderDimensions: isMobileMode? undefined : {
                         [PRIORITY.HIGH]: {height:1080, width:1920},
                         [PRIORITY.STANDARD]: {height:720, width:1280},
