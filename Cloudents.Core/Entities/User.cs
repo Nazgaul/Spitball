@@ -102,7 +102,7 @@ namespace Cloudents.Core.Entities
             Tutor = new Tutor(this);
         }
 
-     
+
 
 
         public virtual void ApplyCoupon(Coupon coupon, Tutor tutor)
@@ -174,22 +174,6 @@ namespace Cloudents.Core.Entities
             course.ToggleCanTeach();
 
         }
-
-
-
-        //public virtual void BecomeTutor(string bio, decimal? price, string description, string firstName, string lastName)
-        //{
-
-        //    Tutor = new Tutor(bio, this, price);
-        //    Description = description;
-        //    //SetUserType(UserType.Teacher);
-        //    ChangeName(firstName, lastName);
-        //    foreach (var userCourse in UserCourses)
-        //    {
-        //        userCourse.CanTeach();
-        //    }
-        //}
-
 
 
         [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]
