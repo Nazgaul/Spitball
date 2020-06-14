@@ -182,7 +182,7 @@ import calendarSVG from '../profileUserSticky/images/calendarIcon.svg';
 
 import * as routeNames from '../../../../routes/routeNames'
 
-import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
+// import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
 import uploadImage from '../../profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue';
 import followBtn from '../followBtn/followBtn.vue';
 
@@ -193,7 +193,7 @@ export default {
         studentsSVG,
         onlineLessonSVG,
         followersSvg,
-        userAvatarRect,
+        // userAvatarRect,
         uploadImage,
         editSVG,
         followBtn,
