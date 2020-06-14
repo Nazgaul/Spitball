@@ -15,6 +15,7 @@ export default {
         return {
             googleLoaded:false,
             googleLoading: false,
+            googleFailed: false,
             routeNames,
             localCode: '',
             phoneNumber: '',
@@ -49,6 +50,7 @@ export default {
             return this.$store.getters.getUserLoggedInStatus
         }
     },
+   
     methods: {
         login(){
             let childComp = this.$refs.childComponent
@@ -215,9 +217,15 @@ export default {
         this.$nextTick(function () {
             this.$loadScript("https://apis.google.com/js/client:platform.js")
                 .then(()=>{
-                    self.$store.dispatch('gapiLoad');
-                    self.googleLoaded = true;
+                    //self.$store.dispatch('gapiLoad');
+                    return self.$store.dispatch('gapiLoad').then(() => {
+                        // console.log(x);
+                        // console.log(gapi.auth2.getAuthInstance());
+                        self.googleLoaded = true;
+                    });
                 }).catch(ex => {
+                    self.googleFailed = true;
+                    console.error(ex);
                     self.$appInsights.trackException(ex);
                 })
         });
