@@ -54,10 +54,10 @@ function _detachTracks(tracks){
    });
 }
 function _insightEvent(...args) {
-   let x = {...args};
-   let string = JSON.parse(x);
+   //let x = {...args};
+   //let string = JSON.parse(x);
    //use https://www.npmjs.com/package/vue-application-insights
-   insightService.track.event(insightService.EVENT_TYPES.LOG, string);
+   insightService.track.event(insightService.EVENT_TYPES.LOG, ...args);
 }
 function _twilioListeners(room,store) { 
    store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,room.participants.size)
