@@ -244,7 +244,14 @@ export default () => {
                //    devicesList.push(createLocalVideoTrack({name:VIDEO_TRACK_NAME,deviceId: {exact: store.getters.getVideoDeviceId}}))
                // }
                Promise.allSettled([
-                  createLocalVideoTrack({name:VIDEO_TRACK_NAME,deviceId: {exact: store.getters.getVideoDeviceId}}),
+                  createLocalVideoTrack(
+                     {
+                        name:VIDEO_TRACK_NAME,
+                        deviceId: 
+                        {
+                           exact: store.getters.getVideoDeviceId
+                        }
+                     }),
                   createLocalAudioTrack({name:AUDIO_TRACK_NAME}),
                ]).then((tracks) => {
                   tracks.forEach(({value}) => {
@@ -279,7 +286,21 @@ export default () => {
             if (mutation.type === twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE){
                if(mutation.payload && !_localScreenTrack){ 
                   navigator.mediaDevices.getDisplayMedia({video:true,audio: false}).then(stream=>{
-                     _localScreenTrack = new twillioClient.LocalVideoTrack(stream.getTracks()[0],{name:SCREEN_TRACK_NAME});
+                     _localScreenTrack = new twillioClient.LocalVideoTrack(stream.getTracks()[0],{
+                        name:SCREEN_TRACK_NAME,
+                        video: window.clientWidth < 960 ?
+                        {
+                            height: 480,
+                            frameRate: 15,
+                            width: 640 
+                        } 
+                           : 
+                        { height: 720,
+                          frameRate: 15,
+                          width: 1280 
+                        },
+
+                     });
                      let isRoomStudent = !store.getters.getRoomIsTutor;
                      if(isRoomStudent && _localVideoTrack){
                         _unPublishTrack(_localVideoTrack);
@@ -421,22 +442,24 @@ export default () => {
          let defaultRoomSettings = {
             logLevel: _debugMode,
             tracks: [dataTrack],
-            networkQuality: {local:1, remote: 3}, //https://www.twilio.com/docs/video/using-network-quality-api
+            networkQuality: {local:1, remote: 1}, //https://www.twilio.com/docs/video/using-network-quality-api
             maxAudioBitrate:16000,//For music remove this line
-            // video: isMobileMode? { height: 480, frameRate: 24, width: 640 } : { height: 720, frameRate: 24, width: 1280 },
+            maxVideoBitrate : isMobileMode ? 500000 : 2000000, // TODO check performance and quality
+            video: isMobileMode? { height: 480, frameRate: 24, width: 640 } : { height: 720, frameRate: 24, width: 1280 },
          }
          if(roomTopologyType == 'PeerToPeer'){
             return defaultRoomSettings
          }else{
             let groupRoomSettings = {
                ...defaultRoomSettings,
+               
                bandwidthProfile: {
                   video: {
                      mode: 'collaboration',
                      trackSwitchOffMode:'detected',
-                     // maxSubscriptionBitrate: isMobileMode? 2500000 : 0,
+                     maxSubscriptionBitrate: isMobileMode? 2500000 : 0,
                      dominantSpeakerPriority: PRIORITY.STANDARD,
-                     // maxTracks: isMobileMode ? 3 : 10,
+                     maxTracks: isMobileMode ? 3 : 10,
                      renderDimensions: isMobileMode? undefined : {
                         [PRIORITY.HIGH]: {height:720, width:1280}, //{height:1080, width:1920},
                         [PRIORITY.STANDARD]: {height:720, width:1280},
@@ -447,7 +470,7 @@ export default () => {
                dominantSpeaker: true,
                preferredVideoCodecs: [
                   { codec: 'VP8', simulcast: true },
-                  { codec: 'H264', simulcast: true }
+                  { codec: 'H264', simulcast: true } // this is for iphone and Safari
                ],
             }
             return groupRoomSettings;
