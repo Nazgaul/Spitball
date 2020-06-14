@@ -92,8 +92,7 @@ const verifyPhone = () => import('../register/verifyPhone.vue');
 import phoneCall from '../images/phoneCall.svg'
 import changeNumber from '../images/changeNumber.svg'
 
-// const forgotPassword = () => import('./forgotPassword.vue')
-// const resetPassword = () => import('./resetPassword2.vue')
+
 import gIcon from '../images/g-icon.svg'
 
 export default {
@@ -105,8 +104,7 @@ export default {
         verifyPhone,
         phoneCall,
         changeNumber
-        // forgotPassword,
-        // resetPassword
+       
     },
     data() {
         return {
@@ -148,55 +146,13 @@ export default {
                     case 'verifyPhone':
                         this.verifyPhone()
                         break;
-                    // case 'forgotPassword':
-                    //     this.forgotPassword()
-                    //     break;
-                    // case 'resetPassword':
-                    //     this.resetPassword()
-                    //     break;
+                   
                     default:
                         return                        
                 }
             }
         },
-        // forgotPassword() {
-        //     let self = this
-        //     registrationService.resetPassword({email: this.email})
-        //         .then(() =>{
-        //             analyticsService.sb_unitedEvent('Forgot Password', 'Reset email send');
-        //             // TODO: what is the next step @idan
-        //         }).catch(error => {
-        //             let { response: { data } } = error
-
-        //             self.errors.email = data["ForgotPassword"] ? data["ForgotPassword"][0] : data["Email"][0]
-        //             // if(data.Password) {
-        //             //     self.errors.password = self.$t('loginRegister_error_forgot_password')
-        //             // }
-        //             // if(data.Email) {
-        //             //     self.errors.email = self.$t('loginRegister_error_forgot_email')
-        //             // }
-        //             self.$appInsights.trackException({exception: new Error(error)})
-        //         })
-        // },
-        // resetPassword() {
-        //     let childComp = this.$refs.childComponent
-        //     let passwordObj = {
-        //         id: childComp.id,
-        //         code: childComp.code,
-        //         password: childComp.password
-        //     }
-            
-        //     let self = this
-        //     registrationService.updatePassword(passwordObj)
-        //         .then(() => {
-        //             console.log();
-        //         }).catch(error => {
-        //             let { response: { data } } = error
-
-        //             self.errors.password = data["Password"] ? data["Password"][0] : data["ConfirmPassword"][0]
-        //             self.$appInsights.trackException({exception: new Error(error)})
-        //         })
-        // },
+        
         updateEmail(email) {
             this.email = email
         },
