@@ -54,6 +54,8 @@ function _detachTracks(tracks){
    });
 }
 function _insightEvent(...args) {
+   //let x = {...args};
+   //let string = JSON.parse(x);
    //use https://www.npmjs.com/package/vue-application-insights
    insightService.track.event(insightService.EVENT_TYPES.LOG, ...args);
 }
@@ -90,6 +92,7 @@ function _twilioListeners(room,store) {
       }
    })
    room.localParticipant.on('networkQualityLevelChanged', (networkQualityLevel,networkQualityStats) => {
+
       _insightEvent('networkQuality',networkQualityStats, networkQualityLevel)
    });
    room.localParticipant.on('trackPublished',(track)=>{
@@ -418,8 +421,8 @@ export default () => {
          let defaultRoomSettings = {
             logLevel: _debugMode,
             tracks: [dataTrack],
-            networkQuality: {local:3, remote: 3},
-            // maxAudioBitrate:16000,//For music remove this line
+            networkQuality: {local:1, remote: 3}, //https://www.twilio.com/docs/video/using-network-quality-api
+            maxAudioBitrate:16000,//For music remove this line
             // video: isMobileMode? { height: 480, frameRate: 24, width: 640 } : { height: 720, frameRate: 24, width: 1280 },
          }
          if(roomTopologyType == 'PeerToPeer'){
@@ -430,12 +433,12 @@ export default () => {
                bandwidthProfile: {
                   video: {
                      mode: 'collaboration',
-                     trackSwitchOffMode:'predicted',
+                     trackSwitchOffMode:'detected',
                      // maxSubscriptionBitrate: isMobileMode? 2500000 : 0,
                      dominantSpeakerPriority: PRIORITY.STANDARD,
-                     maxTracks: isMobileMode ? 3 : 10,
+                     // maxTracks: isMobileMode ? 3 : 10,
                      renderDimensions: isMobileMode? undefined : {
-                        [PRIORITY.HIGH]: {height:1080, width:1920},
+                        [PRIORITY.HIGH]: {height:720, width:1280}, //{height:1080, width:1920},
                         [PRIORITY.STANDARD]: {height:720, width:1280},
                         [PRIORITY.LOW]: {height:236, width:149}
                      }
