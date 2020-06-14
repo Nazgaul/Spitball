@@ -51,6 +51,7 @@ export const User = {
                 country: objInit.country,
                 rating:  objInit.rate ? Number(objInit.rate.toFixed(2)): null,
                 reviews: objInit.reviewsCount || 0,
+                // eslint-disable-next-line vue-i18n/no-raw-text
                 template: 'tutor-result-card',
                 classes: objInit.classes || 0,
                 isTutor: true,

@@ -3,7 +3,7 @@
       <div class="createStudyRoomDialog pa-4 d-sm-block d-flex flex-column justify-space-between">
 
          <v-form class="justify-space-between input-room-name mb-3" ref="createRoomValidation">
-            <v-icon class="close-dialog" v-text="'sbf-close'" @click="$store.commit('setComponent')" />
+            <v-icon class="close-dialog" @click="$store.commit('setComponent')">sbf-close</v-icon>
             <div class="createStudyRoomDialog-title text-center">{{createSessionTitle}}</div>
 
             <component

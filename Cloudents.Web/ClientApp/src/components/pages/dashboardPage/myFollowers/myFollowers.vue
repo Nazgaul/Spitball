@@ -66,10 +66,10 @@
       </template>
         <template v-slot:item.action="{item}">
          <v-btn class="mr-1" icon @click="sendWhatsapp(item)" depressed rounded color="#4caf50" x-small>
-            <v-icon v-text="'sbf-whatsup-share'"/>
+            <v-icon>sbf-whatsup-share</v-icon>
          </v-btn>
          <v-btn link icon :href="`mailto:${item.email}`" depressed rounded  color="#69687d" x-small>
-            <v-icon v-text="'sbf-email'"/>
+            <v-icon>sbf-email</v-icon>
          </v-btn>
       </template>
          <!-- <template v-slot:item="props">

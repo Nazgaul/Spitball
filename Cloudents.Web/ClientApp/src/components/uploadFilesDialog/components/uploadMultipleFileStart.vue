@@ -5,6 +5,7 @@
             <div class="uf-uploading-text">
                 <span class="uf-bold" v-t="'upload_uf-uploading'"></span>
                 <span v-t="'upload_uf-take-time'"></span>
+                <!-- eslint-disable-next-line vue-i18n/no-raw-text -->
                 <span>{{files[0].progress}}%</span>
             </div>
             <v-progress-linear color="success" v-model="files[0].progress"></v-progress-linear>

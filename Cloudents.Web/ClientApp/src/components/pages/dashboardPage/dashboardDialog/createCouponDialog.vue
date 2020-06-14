@@ -2,7 +2,7 @@
   <v-dialog :value="true" max-width="550px" max-height="310px" :fullscreen="$vuetify.breakpoint.xsOnly" persistent>
     <div class="createCouponDialog">
       <!-- <v-icon class="close-dialog" v-text="'sbf-close'" v-closeDialog></v-icon> -->
-      <v-icon class="close-dialog" v-text="'sbf-close'" @click="$store.commit('setComponent', '')"></v-icon>
+      <v-icon class="close-dialog" @click="$store.commit('setComponent', '')">sbf-close</v-icon>
       <div class="text-wrap pt-4 pt-sm-0">
         <template v-if="!showSuccess">
           <div class="dialog-title pb-10 pb-sm-11">{{$t('coupon_create_title')}}</div>

@@ -3,7 +3,7 @@
       <div class="createGroupChatDialog pa-4 d-sm-block d-flex flex-column justify-space-between">
 
          <v-form class="justify-space-between input-room-name mb-3" ref="createChatValidation">
-            <v-icon class="close-dialog" v-text="'sbf-close'" @click="$emit('updateCreateGroupDialogState',false)" />
+            <v-icon class="close-dialog" @click="$emit('updateCreateGroupDialogState',false)">sbf-close</v-icon>
             <div class="createGroupChatDialog-title text-center" v-t="'chat_create_title'"></div>
             <div class="createGroupChatDialog-list">
                <div class="listTitle mb-3" v-t="'chat_invite'"></div>

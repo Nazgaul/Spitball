@@ -18,10 +18,10 @@ h<template>
         </v-layout>
         <div v-if="isTutorList" class="tutorList_footer">
             <h1 class="tutorList_footer_txt" v-if="!courseTerm" v-t="'tutorListLanding_footer_h1'"/>
-            <h1 class="tutorList_footer_txt" v-else> {{$t('tutorListLanding_footer_h1_course',[courseTerm,courseTerm])}}"></h1>
+            <h1 class="tutorList_footer_txt" v-else> {{$t('tutorListLanding_footer_h1_course',[courseTerm,courseTerm])}}</h1>
     
             <h2 class="tutorList_footer_txt" v-if="!courseTerm" v-t="'tutorListLanding_footer_h2'"/>
-            <h2 class="tutorList_footer_txt" v-else> {{$t('tutorListLanding_footer_h2_course',[courseTerm,courseTerm])}}"</h2>
+            <h2 class="tutorList_footer_txt" v-else> {{$t('tutorListLanding_footer_h2_course',[courseTerm,courseTerm])}}</h2>
 
             <h3 class="tutorList_footer_txt" v-if="!courseTerm" v-t="'tutorListLanding_footer_h3'"/>
             <h3 class="tutorList_footer_txt" v-else>{{$t('tutorListLanding_footer_h3_course',[courseTerm])}}</h3>
