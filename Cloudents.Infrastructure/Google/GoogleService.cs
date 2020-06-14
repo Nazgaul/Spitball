@@ -296,6 +296,10 @@ namespace Cloudents.Infrastructure.Google
         public async Task SendCalendarInviteAsync(IEnumerable<string> emails, DateTime from, DateTime to,
             string title, string? description, CancellationToken cancellationToken)
         {
+            if (from < DateTime.UtcNow)
+            {
+                return;
+            }
             var cred = SpitballCalendarCred;
 
 
