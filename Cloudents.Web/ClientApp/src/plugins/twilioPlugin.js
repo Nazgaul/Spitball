@@ -44,7 +44,6 @@ function _changeState(localParticipant) {
    });
    STORE.dispatch('sendDataTrack',JSON.stringify(stuffToSend));
 }
-
 function _detachTracks(tracks){
    tracks.forEach((track) => {
       if (track?.detach) {
@@ -220,49 +219,11 @@ export default () => {
 
             dataTrack = new twillioClient.LocalDataTrack();
             let jwtToken = mutation.payload;
-            // let options = {
-            //    logLevel: _debugMode,
-            //    tracks: [dataTrack],
-            //    networkQuality: { // this is reserved down the road
-            //       local: 3,
-            //       remote: 3
-            //    }
-            // };
+
+            let roomOptions = _getRoomConfigByTopologyType(store.getters.getRoomTopologyType);
+
             _insightEvent('connectToRoom', {'token': jwtToken}, null);
-            let isMobileMode = document.body.clientWidth < 960;
-            let videoConfig = isMobileMode? { height: 480, frameRate: 24, width: 640 } : { height: 720, frameRate: 24, width: 1280 }
-            let renderDimensionsCongig = isMobileMode? undefined : {
-               [PRIORITY.HIGH]: {height:1080, width:1920},
-               [PRIORITY.STANDARD]: {height:720, width:1280},
-               [PRIORITY.LOW]: {height:236, width:149}
-            }
-            let collaborationRoomMode = {
-               logLevel: _debugMode,
-               tracks: [dataTrack],
-               networkQuality: {local:3, remote: 3},
-
-               video: videoConfig,
-               bandwidthProfile: {
-                  video: {
-                     mode: 'collaboration',
-                     trackSwitchOffMode:'predicted',
-                     maxSubscriptionBitrate: isMobileMode? 2500000 : 0,
-                     dominantSpeakerPriority: PRIORITY.STANDARD,
-                     maxTracks: isMobileMode ? 5 : 10,
-                     renderDimensions: renderDimensionsCongig
-                  }
-               },
-               dominantSpeaker: true,
-               maxAudioBitrate: 16000, //For music remove this line
-               preferredVideoCodecs: [
-                  { codec: 'VP8', simulcast: true },
-                  { codec: 'H264', simulcast: true }
-               ],
-               
-            }
-
-
-            twillioClient.connect(jwtToken, collaborationRoomMode).then((room) => {
+            twillioClient.connect(jwtToken, roomOptions).then((room) => {
                _activeRoom = room; // for global using in this plugin
                _insightEvent('TwilioConnect', _activeRoom, null);
                _twilioListeners(_activeRoom,store); // start listen to twilio events;
@@ -439,6 +400,7 @@ export default () => {
       function _toggleTrack(tracks,trackType,value){
          let {track} = tracks.find(track=>track.kind === trackType);
          if(track){
+            // if user was fasle by local dont change it by remote
             // value: FLASE - USER TURNED OFF / TRUE - USER TURNED ON
             if(!value){
                track.disable()
@@ -446,6 +408,46 @@ export default () => {
             if(value){
                track.enable()
             }
+         }
+      }
+      function _getRoomConfigByTopologyType(roomTopologyType){
+         // SmallGroup,
+         // PeerToPeer,
+         // GroupRoom
+         let isMobileMode = document.body.clientWidth < 960;
+         let defaultRoomSettings = {
+            logLevel: _debugMode,
+            tracks: [dataTrack],
+            networkQuality: {local:3, remote: 3},
+            // maxAudioBitrate:16000,//For music remove this line
+            // video: isMobileMode? { height: 480, frameRate: 24, width: 640 } : { height: 720, frameRate: 24, width: 1280 },
+         }
+         if(roomTopologyType == 'PeerToPeer'){
+            return defaultRoomSettings
+         }else{
+            let groupRoomSettings = {
+               ...defaultRoomSettings,
+               bandwidthProfile: {
+                  video: {
+                     mode: 'collaboration',
+                     trackSwitchOffMode:'predicted',
+                     // maxSubscriptionBitrate: isMobileMode? 2500000 : 0,
+                     dominantSpeakerPriority: PRIORITY.STANDARD,
+                     maxTracks: isMobileMode ? 3 : 10,
+                     renderDimensions: isMobileMode? undefined : {
+                        [PRIORITY.HIGH]: {height:1080, width:1920},
+                        [PRIORITY.STANDARD]: {height:720, width:1280},
+                        [PRIORITY.LOW]: {height:236, width:149}
+                     }
+                  }
+               },
+               dominantSpeaker: true,
+               preferredVideoCodecs: [
+                  { codec: 'VP8', simulcast: true },
+                  { codec: 'H264', simulcast: true }
+               ],
+            }
+            return groupRoomSettings;
          }
       }
    }

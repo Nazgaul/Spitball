@@ -82,7 +82,7 @@ const actions = {
       }
    },
    updateAudioToggleByRemote({commit,state},val){
-      if(state.isAudioAvailable){
+      if(state.isAudioAvailable && !val){
          commit(twilio_SETTERS.AUDIO_TOGGLE,val);
       }
    },
