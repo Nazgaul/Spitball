@@ -1,5 +1,6 @@
 <template>
     <div class="srVideoSettingsVideoContainerWrap mb-1 mb-sm-5 mb-md-0">
+    <v-responsive :max-height="$vuetify.breakpoint.xsOnly?'30vh':''" :aspect-ratio="16/9">
         <v-row class="srVideoSettingsVideoContainer ma-md-0 ma-auto elevation-2">
             <div class="cameraTextWrap text-center">
                 <div class="noCamera white--text" v-if="!cameraOn && (permissionDialogState || !videoBlockPermission)" v-t="'studyRoomSettings_no_camera'"></div>
@@ -44,6 +45,7 @@
             </div>
             <div class="videoOverlay" :class="{'videoPlaceholderWrap': !cameraOn || !placeholder}"></div>
         </v-row>
+    </v-responsive>
         <v-dialog v-model="settingDialogState" max-width="570px" content-class="studyRoomAudioVideoDialog"
                     :fullscreen="$vuetify.breakpoint.xsOnly" persistent
                     :transition="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'">
