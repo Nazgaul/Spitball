@@ -32,7 +32,7 @@ namespace Cloudents.Query.Tutor
             }
             public async Task<IEnumerable<FutureBroadcastStudyRoomDto>> GetAsync(TutorUpcomingBroadcastStudyRoomQuery query, CancellationToken token)
             {
-                const int studyRoomMaxUsers = 2;
+                const int studyRoomMaxUsers = 48;
                 return await _session.Query<BroadCastStudyRoom>()
                     .Where(w => w.Tutor.Id == query.TutorId &&
                                 //Add to broadcast time date is not supported
