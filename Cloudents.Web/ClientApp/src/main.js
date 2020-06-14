@@ -1,3 +1,4 @@
+import "../publicPath";
 import Vue from "vue";
 import vuetify from './plugins/vuetify';
 import { sync } from 'vuex-router-sync';
@@ -118,7 +119,7 @@ router.beforeEach((to, from, next) => {
 sync(store, router);
 
 const app = new Vue({
-    //el: "#app",
+    el: "#app",
     router: router,
     store,
     vuetify,
