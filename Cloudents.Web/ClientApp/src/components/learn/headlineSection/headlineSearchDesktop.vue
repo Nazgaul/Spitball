@@ -47,12 +47,12 @@ export default {
     ...mapGetters(['isFrymo']),
     handImg(){
       if(this.isFrymo){
-        return require('../../images/Hand_Frymo.png')
+        return require('../images/Hand_Frymo.png')
       }else{
         if(global.isRtl){
-          return require('../../images/Hand_he.png')
+          return require('../images/Hand_he.png')
         }else{
-          return require('../../images/Hand_en.png')
+          return require('../images/Hand_en.png')
         }
       }
     }
@@ -61,7 +61,7 @@ export default {
 </script>
 
 <style lang="less" >
-@import "../../../../styles/mixin.less";
+@import "../../../styles/mixin.less";
 
 .headlineSearchDesktop {
     .responsiveLandingPage(1354px, 0px);

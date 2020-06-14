@@ -22,7 +22,7 @@ export default {
       return this.$vuetify.breakpoint.xsOnly;
     },
     backgroundImg(){
-      return global.isRtl? require('../images/bg_he.png') : require('../images/bg_en.jpg')
+      return global.isRtl? require('./images/bg_he.png') : require('./images/bg_en.jpg')
     },
     
   }
@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../../styles/mixin.less";
+@import "../../styles/mixin.less";
 
 .headlineSection {
   width: 100%;

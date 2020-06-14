@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../../styles/mixin.less";
+@import "../../styles/mixin.less";
 .hd-cont {
   position: absolute;
   bottom: 0;
@@ -84,7 +84,7 @@ export default {
           width: 21px;
           height: 21px;
           margin: 0 2px;
-          background-image: url("../images/star.png");
+          background-image: url("./images/star.png");
           background-size: 21px;
         }
         @media (max-width: @screen-xss) {

@@ -11,8 +11,8 @@
 </template>
 
 <script>
-const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */"../../sbCarousel/sbCarousel.vue");
-import tutorCard from "../../carouselCards/tutorCard.vue"
+const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */"../sbCarousel/sbCarousel.vue");
+import tutorCard from "../carouselCards/tutorCard.vue"
 import { mapActions, mapGetters } from "vuex";
 export default {
   components: {sbCarousel,tutorCard},
@@ -40,7 +40,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../../styles/mixin.less";
+@import "../../styles/mixin.less";
 
 .tutorsSections {
   .responsiveLandingPage(1354px, 80px);

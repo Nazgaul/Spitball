@@ -12,8 +12,8 @@
 </template>
 
 <script>
-const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */'../../sbCarousel/sbCarousel.vue');
-import testimonialCard from '../../carouselCards/testimonialCard.vue'
+const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */'../sbCarousel/sbCarousel.vue');
+import testimonialCard from '../carouselCards/testimonialCard.vue'
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
@@ -34,7 +34,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../../styles/mixin.less";
+@import "../../styles/mixin.less";
     .testimonialsSection{
         overflow: -webkit-paged-y;
         width: 100%;
@@ -43,11 +43,6 @@ export default {
         .tss-subtitle{
             padding-top: 20px;
             font-size: 16px;
-            // font-weight: normal;
-            // font-stretch: normal;
-            // font-style: normal;
-            // line-height: normal;
-            // letter-spacing: normal;
             text-align: center;
             color: #43425d;
             padding-bottom: 5px;
@@ -58,10 +53,6 @@ export default {
             }
             font-size: 30px;
             font-weight: bold;
-            // font-stretch: normal;
-            // font-style: normal;
-            // line-height: normal;
-            // letter-spacing: normal;
             text-align: center;
             color: #43425d;
         }

@@ -11,9 +11,8 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */'../../sbCarousel/sbCarousel.vue');
-//const itemCard = () => import(/* webpackChunkName: "itemCard" */ '../../carouselCards/itemCard.vue');
-import itemCard from '../../carouselCards/itemCard.vue';
+const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */'../sbCarousel/sbCarousel.vue');
+import itemCard from '../carouselCards/itemCard.vue';
 
 export default {
     components:{sbCarousel,itemCard},
@@ -39,7 +38,7 @@ export default {
 }
 </script>
 <style lang="less">
-@import "../../../styles/mixin.less";
+@import "../../styles/mixin.less";
 .itemsSection{
     .responsiveLandingPage(1354px,80px);
     @media (max-width: @screen-xs) {

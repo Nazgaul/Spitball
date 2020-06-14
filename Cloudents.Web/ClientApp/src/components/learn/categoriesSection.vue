@@ -57,10 +57,10 @@
 </template>
 
 <script>
-import compSVG from "../images/com.svg";
-import pplSVG from "../images/ppl.svg";
-import vidSVG from "../images/vid.svg";
-const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */"../../sbCarousel/sbCarousel.vue");
+import compSVG from "./images/com.svg";
+import pplSVG from "./images/ppl.svg";
+import vidSVG from "./images/vid.svg";
+const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */"../sbCarousel/sbCarousel.vue");
 
 export default {
   components: {
@@ -102,7 +102,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../../styles/mixin.less";
+@import "../../styles/mixin.less";
 
 .categoriesSection {
   .responsiveLandingPage(1354px, 80px);

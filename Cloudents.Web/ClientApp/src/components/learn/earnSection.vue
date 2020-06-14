@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import intersection from '../../pages/global/intersection/intersection.vue';
+import intersection from '../pages/global/intersection/intersection.vue';
 
 import { mapGetters } from 'vuex';
 export default {
@@ -38,7 +38,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../../styles/mixin.less";
+@import "../../styles/mixin.less";
 .earnSection{
     padding: 64px 0;
     .responsiveLandingPage(1354px,80px);
@@ -53,7 +53,7 @@ export default {
             height: unset;
             padding: 15px 0;
         }
-        background-image: url('../images/earn.png');
+        background-image: url('./images/earn.png');
         background-repeat: no-repeat;
         background-size: cover; 
         background-position: center;
