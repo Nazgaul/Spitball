@@ -1,4 +1,4 @@
-import * as routeNames from '../../../routes/routeNames'
+import * as routeNames from '../../routes/routeNames'
 
 export default {
 

@@ -51,7 +51,7 @@ export default {
 </script>
 
 <style lang="less">
-    @import "../../../styles/mixin.less";
+    @import "../../styles/mixin.less";
   .homeVideo {
     position: relative;
     height: 730px;

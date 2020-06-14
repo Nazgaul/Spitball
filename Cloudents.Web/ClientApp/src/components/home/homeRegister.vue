@@ -29,7 +29,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../../styles/mixin.less";
+@import "../../styles/mixin.less";
 
 .homeRegister {
     .responsive-property(margin-bottom, 170px, null, 54px);

@@ -6,7 +6,7 @@
 </template>
 
 <style lang="less">
-@import "../../../styles/mixin.less";
+@import "../../styles/mixin.less";
 .homeBtns {
     .responsive-property(justify-content, space-evenly, null, null);
 

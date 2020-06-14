@@ -10,10 +10,10 @@
 </template>
 
 <script>
-const homeVideo = () => import('./homeVideo.vue')
-const homeQuote = () => import('./homeQuote.vue')
-const homeRegister = () => import('./homeRegister.vue')
-const homeBoxes = () => import('./homeBoxes.vue')
+const homeVideo = () => import('../components/home/homeVideo.vue')
+const homeQuote = () => import('../components/home/homeQuote.vue')
+const homeRegister = () => import('../components/home/homeRegister.vue')
+const homeBoxes = () => import('../components/home/homeBoxes.vue')
 
 export default {
     components: { homeVideo, homeQuote, homeRegister, homeBoxes }

@@ -7,7 +7,8 @@ export const landingRoutes = [
         path: "/",
         name: routeNames.HomePage,
         components: {
-            default: () => import(`../components/pages/homePage/homePage.vue`),
+            // default: () => import(`../components/pages/homePage/homePage.vue`),
+            default: () => import(`../views/home.vue`),
             ...staticComponents(['banner', 'header', 'footer']),
         },
         beforeEnter: (to, from, next) => {    
@@ -43,6 +44,7 @@ export const landingRoutes = [
         name: routeNames.Learning,
         components: {
             default: () => import(`../components/landingPage/learn.vue`),
+            // default: () => import(`../views/learn.vue`),
             ...staticComponents(['banner', 'header', 'footer']),
         },
         beforeEnter: (to, from, next) => {

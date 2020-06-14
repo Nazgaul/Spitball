@@ -45,7 +45,7 @@ import bubbleBlueMobileIcon from './images/bubble-blue-small.svg'
 import bubbleYellowMobileIcon from './images/bubble-yellow-small.svg'
 
 import arrow from './images/arrow.svg'
-import * as routeNames from '../../../routes/routeNames'
+import * as routeNames from '../../routes/routeNames'
 
 export default {
     components: {
@@ -75,8 +75,8 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../../styles/mixin.less";
-@import "../../../styles/colors.less";
+@import "../../styles/mixin.less";
+@import "../../styles/colors.less";
 
 .homeBoxes {
     .responsive-property(margin-bottom, 90px, null, 60px);
