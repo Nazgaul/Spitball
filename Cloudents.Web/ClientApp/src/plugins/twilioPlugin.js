@@ -419,7 +419,7 @@ export default () => {
             tracks: [dataTrack],
             networkQuality: {local:3, remote: 3},
             // maxAudioBitrate:16000,//For music remove this line
-            video: isMobileMode? { height: 480, frameRate: 24, width: 640 } : { height: 720, frameRate: 24, width: 1280 },
+            // video: isMobileMode? { height: 480, frameRate: 24, width: 640 } : { height: 720, frameRate: 24, width: 1280 },
          }
          if(roomTopologyType == 'PeerToPeer'){
             return defaultRoomSettings
