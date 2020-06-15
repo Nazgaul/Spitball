@@ -292,7 +292,7 @@ export default () => {
                   navigator.mediaDevices.getDisplayMedia({video:true,audio: false}).then(stream=>{
                      _localScreenTrack = new twillioClient.LocalVideoTrack(stream.getTracks()[0],{
                         name:SCREEN_TRACK_NAME,
-                        video: window.clientWidth < 960 ?
+                        video: document.body.clientWidth < 960 ?
                         {
                             height: 480,
                             frameRate: 15,
@@ -461,9 +461,9 @@ export default () => {
                bandwidthProfile: {
                   video: {
                      mode: 'collaboration',
-                     trackSwitchOffMode:'detected',
+                     trackSwitchOffMode:'predicted',
                      maxSubscriptionBitrate: isMobileMode? 2500000 : 0,
-                     dominantSpeakerPriority: PRIORITY.HIGH,
+                     dominantSpeakerPriority: PRIORITY.STANDARD,
                      maxTracks: isMobileMode ? 3 : 10,
                      renderDimensions: isMobileMode? undefined : {
                         [PRIORITY.HIGH]: {height:720, width:1280}, //{height:1080, width:1920},
