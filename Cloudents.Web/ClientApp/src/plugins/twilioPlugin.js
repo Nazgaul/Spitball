@@ -460,7 +460,7 @@ export default () => {
                bandwidthProfile: {
                   video: {
                      mode: 'collaboration',
-                     // trackSwitchOffMode:'detected',
+                     trackSwitchOffMode:'detected',
                      maxSubscriptionBitrate: isMobileMode? 2500000 : 0,
                      dominantSpeakerPriority: PRIORITY.STANDARD,
                      maxTracks: isMobileMode ? 3 : 10,
