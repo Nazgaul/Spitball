@@ -62,7 +62,7 @@
 
 <script>
 const itemCard = () => import(/* webpackChunkName: "itemCard" */ '../../../carouselCards/itemCard.vue');
-import resultNote from "../../../results/ResultNote.vue";
+import resultNote from "../../../feed/ResultNote.vue";
 
 import { mapGetters } from 'vuex'
 export default {

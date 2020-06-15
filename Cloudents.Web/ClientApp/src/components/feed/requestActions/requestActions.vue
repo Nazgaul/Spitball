@@ -23,10 +23,10 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import analyticsService from "../../../../../services/analytics.service";
+import analyticsService from "../../../services/analytics.service";
 
-import aQuestion from "./image/aQuestion.svg";
-import rTutor from "./image/rTutor.svg";
+import aQuestion from "../image/aQuestion.svg";
+import rTutor from "../image/rTutor.svg";
 
 export default {
   name: "requestActions",
@@ -106,7 +106,7 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../../../../styles/mixin.less';
+@import '../../../styles/mixin.less';
 .requestActions {
   width: 100%;
   height: 138px;

@@ -84,10 +84,171 @@
     </general-page>
 </template>
 
-<script src="./Feeds.js"></script>
+<script>
+import { mapActions, mapGetters } from 'vuex';
+
+import generalPage from '../components/helpers/generalPage.vue';
+import scrollList from '../components/helpers/infinateScroll.vue';
+
+import feedSkeleton from '../components/feed/feedSkeleton.vue';
+import resultItem from '../components/feed/ResultItem.vue';
+import resultAsk from "../components/feed/ResultAsk.vue";
+import resultNote from "../components/feed/ResultNote.vue";
+import requestBox from '../components/feed/requestActions/requestActions.vue';
+
+import suggestCard from '../components/results/suggestCard.vue';
+import emptyStateCard from '../components/results/emptyStateCard/emptyStateCard.vue';
+
+const tutorResultCardMobile = () => import( /* webpackChunkName: "tutorResultCardMobile" */ '../components/results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue');
+const tutorResultCard = () => import( /* webpackChunkName: "tutorResultCard" */ '../components/results/tutorCards/tutorResultCard/tutorResultCard.vue');
+const analyticOverview = () => import(/* webpackChunkName: "analyticsOverview" */'../components/pages/global/analyticOverview/analyticOverview.vue');
+
+import buyPointsLayout from '../components/pages/dashboardPage/mySales/buyPointsLayout/buyPointsLayout.vue'
+import emptyState from "../components/feed/image/no-match-icon.svg";
+
+export default {
+    components: {
+        generalPage,
+        scrollList,
+        resultItem,
+        resultAsk,
+        resultNote,
+        tutorResultCard,
+        tutorResultCardMobile,
+        feedSkeleton,
+        suggestCard,
+        emptyState,
+        emptyStateCard,
+        requestBox,
+        analyticOverview,
+        buyPointsLayout
+    },
+    data() {
+        return {
+            courses: [],
+            query:{
+                filter:this.$route.query.filter,
+                course:this.$route.query.course
+            },
+            scrollBehaviour:{
+                isLoading: false,
+                isComplete: false,
+                page: 1
+            },
+            dictionary:{
+                'Document':this.$t('feed_select_document'),
+                'Video':this.$t('feed_select_video'),
+                'Question':this.$t('feed_select_question'),
+                'Tutor':this.$t('feed_select_tutor'),
+                'Empty':this.$t('feed_select_all'),
+            },
+            selectCoursePlaceholder: this.$t('profile_select_course'),
+        };
+    },
+    computed: {
+        ...mapGetters([
+            'getBannerParams','accountUser','Feeds_getItems',
+            'Feeds_getFilters','Feeds_getCurrentQuery',
+            'getUserLoggedInStatus', 'getProfile', 'getIsTeacher'
+        ]),
+        items(){
+            return this.Feeds_getItems
+        },
+        filters(){
+            return this.Feeds_getFilters;
+        },
+        showAnalyticStats() {
+            return this.$store.getters.getIsTeacher;
+        }
+    },
+    watch: {
+        Feeds_getCurrentQuery:{
+            immediate:true,
+            handler(newVal,oldVal){
+                this.scrollBehaviour.page = 1;
+                this.query.filter = this.Feeds_getCurrentQuery.filter
+                this.query.course = this.Feeds_getCurrentQuery.course
+                if(JSON.stringify(newVal) !== JSON.stringify(oldVal)){
+                    this.scrollBehaviour.isComplete = true;
+                    this.fetchData({params:newVal}).finally(()=>{
+                        this.scrollBehaviour.isLoading = false;
+                        this.scrollBehaviour.isComplete = false;
+                    });
+                }
+            }
+        }
+    },
+    methods: {
+        ...mapActions(['Feeds_fetchingData','Feeds_nextPage']),
+        scrollFunc(){
+            this.scrollBehaviour.isLoading = true;
+            let nextPageQuery = {...this.$route.query,page: this.scrollBehaviour.page}
+            let nextPageUrl = 'api/feed?'+ Object.keys(nextPageQuery).map(key => key + '=' + nextPageQuery[key]).join('&')
+            if(!nextPageUrl) return this.scrollBehaviour.isLoading = false;
+
+            this.Feeds_nextPage({url: nextPageUrl}).then((res) => {
+                if (res.data && res.data.length) {
+                    this.scrollBehaviour.isLoading = false;
+                } else {
+                    this.scrollBehaviour.isComplete = true;
+                }
+                this.scrollBehaviour.page++
+            }).catch(() => {
+                this.scrollBehaviour.isComplete = true;
+            });
+        },
+        setTemplate(template) {
+            if(template === 'tutor-result-card') {
+                if(this.$vuetify.breakpoint.xsOnly) {
+                    return 'tutor-result-card-mobile';
+                }
+            } else {
+                if(template === 'item') {
+                    return 'result-item';
+                }
+            }
+            return template;
+        },
+        fetchData(objParams){
+            return this.Feeds_fetchingData(objParams)
+        },
+        menuSelect(itemType) {
+            this.query.filter = itemType;
+            this.handleSelects()
+        },
+        handleSelects(){
+            let objParams = {
+                ...this.$route.query,
+                ...this.query,
+            }
+            Object.keys(objParams).forEach((key) => {
+                let isInArray = [undefined, ''].indexOf(objParams[key]) !== -1;
+                let isInObj = typeof objParams[key] === 'object'
+                if (isInArray || isInObj) {
+                    delete objParams[key]
+                }
+            });
+             
+            this.$router.push({name:'feed',query:{...objParams}})
+            this.scrollBehaviour.page = 1;
+        },
+        getSelectedName(item){
+            return this.dictionary[item.key]
+        },
+        getCourses() {
+            this.$store.dispatch('updateFeedCourses').then(({data}) => {
+                this.courses = data
+            })
+        }
+    },
+    created() {
+        this.getCourses()
+    }
+};
+</script>
 
 <style lang="less">
-@import "../../../styles/mixin.less";
+@import "../styles/mixin.less";
 
 .feed-sticky{
     position: sticky;

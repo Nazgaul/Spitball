@@ -175,7 +175,7 @@ import studyDocumentsStore from "../../../store/studyDocuments_store";
 
 // components
 import mainItem from "./components/mainItem/mainItem.vue";
-import resultNote from "../../results/ResultNote.vue";
+import resultNote from "../../feed/ResultNote.vue";
 // const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */'../../sbCarousel/sbCarousel.vue');
 import itemCard from "../../carouselCards/itemCard.vue";
 const tutorResultCard = () =>

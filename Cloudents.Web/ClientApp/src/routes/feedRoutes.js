@@ -1,14 +1,15 @@
 import {staticComponents} from './routesUtils.js';
+import * as routeName from './routeNames'
 
-const feedPage = {
-    default: () => import('../components/results/feeds/Feeds.vue'),
-    ...staticComponents(['banner','header', 'sideMenu'])
-};
 export const feedRoutes = [
     {
-        path: "/" + 'feed',
-        name: "feed",
-        components: feedPage,
+        path: "/feed",
+        name: routeName.Feed,
+        components: {
+            // default: () => import('../components/results/feeds/Feeds.vue'),
+            default: () => import('../views/feed.vue'),
+            ...staticComponents(['banner','header', 'sideMenu'])
+        },
         meta: {
             isAcademic: true,
             showMobileFooter: true,
