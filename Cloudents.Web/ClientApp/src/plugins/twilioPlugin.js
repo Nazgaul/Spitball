@@ -412,6 +412,7 @@ export default () => {
          store.commit(twilio_SETTERS.AUDIO_AVAILABLE,true)
       }
       function _publishTrack(track){
+         console.log(store.getters.getRoomIsTutor? PRIORITY.HIGH : PRIORITY.LOW);
          _activeRoom.localParticipant.publishTrack(track,{priority: store.getters.getRoomIsTutor? PRIORITY.HIGH : PRIORITY.LOW});
          _addParticipantTrack(track,_activeRoom.localParticipant)
       
@@ -462,7 +463,7 @@ export default () => {
                      mode: 'collaboration',
                      trackSwitchOffMode:'detected',
                      maxSubscriptionBitrate: isMobileMode? 2500000 : 0,
-                     dominantSpeakerPriority: PRIORITY.STANDARD,
+                     dominantSpeakerPriority: PRIORITY.HIGH,
                      maxTracks: isMobileMode ? 3 : 10,
                      renderDimensions: isMobileMode? undefined : {
                         [PRIORITY.HIGH]: {height:720, width:1280}, //{height:1080, width:1920},
