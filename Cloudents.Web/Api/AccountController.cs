@@ -125,16 +125,10 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError("x", "not an image");
                 return BadRequest(ModelState);
             }
-
-            //if (uri == null)
-            //{
-            //    ModelState.AddModelError("x", "not an image");
-            //    return BadRequest(ModelState);
-            //}
             var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
             var url = Url.ImageUrl(imageProperties);
             var fileName = uri.AbsolutePath.Split('/').Last();
-            var command = new UpdateUserImageCommand(userId, url, fileName);
+            var command = new UpdateUserImageCommand(userId,  fileName);
             await _commandBus.DispatchAsync(command, token);
             return Ok(url);
         }
@@ -256,18 +250,6 @@ namespace Cloudents.Web.Api
             return result;
         }
 
-        
-
-        //[HttpGet("questions")]
-        //public async Task<IEnumerable<AccountQuestionDto>> GetQuestionsAsync(
-        //    [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
-        //    CancellationToken token)
-        //{
-        //    var userId = _userManager.GetLongUserId(User);
-        //    var query = new AccountQuestionsQuery(userId, profile.Country);
-        //    return await _queryBus.QueryAsync(query, token);
-        //}
-
         [HttpGet("courses")]
         public async Task<IEnumerable<CourseDto>> GetCoursesAsync(CancellationToken token)
         {
@@ -275,6 +257,5 @@ namespace Cloudents.Web.Api
             var query = new UserCoursesQuery(userId);
             return await _queryBus.QueryAsync(query, token);
         }
-
     }
 }
