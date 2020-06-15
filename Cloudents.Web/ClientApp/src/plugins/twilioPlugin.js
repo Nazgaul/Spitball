@@ -113,8 +113,8 @@ function _twilioListeners(room,store) {
       _insightEvent('TwilioTrackSubscribed', track, null);
    })
    room.on('dominantSpeakerChanged', participant => {
-      _insightEvent('dominantSpeakerChanged', JSON.parse(participant || {}), null);
-      console.log('The new dominant speaker in the Room is:', participant);
+      _insightEvent('dominantSpeakerChanged', participant?.identity, null);
+      console.log('The new dominant speaker in the Room is:',participant?.identity);
     });
    room.on('trackUnsubscribed', (track,trackPublication,participant) => {
       _insightEvent('TwilioTrackUnsubscribed', track, null);
