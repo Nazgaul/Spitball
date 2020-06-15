@@ -91,9 +91,19 @@ function _twilioListeners(room,store) {
          store.commit(twilio_SETTERS.AUDIO_AVAILABLE,false)
       }
    })
-   room.localParticipant.on('networkQualityLevelChanged', (networkQualityLevel,networkQualityStats) => {
-
-      _insightEvent('networkQuality',networkQualityStats, networkQualityLevel)
+   room.localParticipant.on('networkQualityLevelChanged', (networkQualityLevel,networkQualityStats,a,b) => {
+      let params = {
+         level:networkQualityLevel,
+         audio: networkQualityStats?.audio? {
+            recv: networkQualityStats.audio.recv,
+            send: networkQualityStats.audio.send,
+         } : undefined,
+         video: networkQualityStats?.video? {
+            recv: networkQualityStats.video.recv,
+            send: networkQualityStats.video.send,
+         } : undefined
+      }
+      _insightEvent('networkQuality',JSON.stringify(params))
    });
    room.localParticipant.on('trackPublished',(track)=>{
       store.commit(studyRoom_SETTERS.ROOM_ACTIVE,true)
@@ -447,7 +457,7 @@ export default () => {
          let defaultRoomSettings = {
             logLevel: _debugMode,
             tracks: [dataTrack],
-            networkQuality: {local:1, remote: 1}, //https://www.twilio.com/docs/video/using-network-quality-api
+            networkQuality: {local:2, remote: 2}, //https://www.twilio.com/docs/video/using-network-quality-api
             maxAudioBitrate:16000,//For music remove this line
             maxVideoBitrate : isMobileMode ? 500000 : 2000000, // TODO check performance and quality
             video: isMobileMode? { height: 480, frameRate: 24, width: 640 } : { height: 720, frameRate: 24, width: 1280 },
