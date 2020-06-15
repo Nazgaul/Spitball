@@ -262,7 +262,7 @@ namespace Cloudents.FunctionsV2
                     if (string.IsNullOrEmpty(md5))
                     {
                         var length = blob.Properties.Length;
-                        const long hugeFileThatWontFinishProcess = 16492145881;
+                        const long hugeFileThatWontFinishProcess = 13505445017;
                         if (length < hugeFileThatWontFinishProcess)
                         {
                             //var etag = blob.Properties.ETag;
