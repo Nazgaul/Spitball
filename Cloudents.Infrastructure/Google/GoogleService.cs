@@ -401,7 +401,7 @@ namespace Cloudents.Infrastructure.Google
 
                     return false;
                 });
-                if (Equals(errorResult))
+                if (errorResult)
                 {
                     return;
                 }
