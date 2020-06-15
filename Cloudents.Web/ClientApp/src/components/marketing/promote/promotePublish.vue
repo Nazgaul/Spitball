@@ -16,7 +16,7 @@
     </div>
 </template>
 <script>
-const shareContent = () => import(/* webpackChunkName: "shareContent" */'../../global/shareContent/shareContent.vue');
+const shareContent = () => import(/* webpackChunkName: "shareContent" */'../../pages/global/shareContent/shareContent.vue');
 
 export default {
   components: { shareContent },
@@ -85,8 +85,8 @@ export default {
 }
 </script>
 <style lang="less">
-@import '../../../../styles/mixin.less';
-@import '../../../../styles/colors.less';
+@import '../../../styles/mixin.less';
+@import '../../../styles/colors.less';
 .promotePublish {
   max-width: 454px;
   border-radius: 8px;

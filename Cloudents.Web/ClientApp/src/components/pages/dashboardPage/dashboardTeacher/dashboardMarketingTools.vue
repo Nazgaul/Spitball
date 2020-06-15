@@ -29,7 +29,7 @@
 </template>
 <script>
 import * as routeNames from '../../../../routes/routeNames'
-import marketingAction from '../../marketing/marketingActions/marketingActions.vue'
+import marketingAction from '../../../marketing/marketingActions/marketingActions.vue'
 // import shareIcon from './images/share.svg';
 // import createCouponIcon from './images/createCoupon.svg';
 

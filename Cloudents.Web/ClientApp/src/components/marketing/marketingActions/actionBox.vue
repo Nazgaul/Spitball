@@ -17,8 +17,8 @@
 </template>
 
 <style lang="less" scoped >
-    @import '../../../../styles/mixin.less';
-    @import '../../../../styles/colors.less';
+    @import '../../../styles/mixin.less';
+    @import '../../../styles/colors.less';
     .box {
         display: flex;
         flex-direction: column;

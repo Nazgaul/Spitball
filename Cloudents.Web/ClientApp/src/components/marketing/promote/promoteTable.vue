@@ -60,8 +60,8 @@
     </v-data-table>
 </template>
 <script>
-import storeService from '../../../../services/store/storeService';
-import marketingStore from '../../../../store/marketingStore'
+import storeService from '../../../services/store/storeService';
+import marketingStore from '../../../store/marketingStore'
 
 export default {
   props: {
@@ -113,8 +113,8 @@ export default {
 }
 </script>
 <style lang="less">
-@import '../../../../styles/colors.less';
-@import '../../../../styles/mixin.less';
+@import '../../../styles/colors.less';
+@import '../../../styles/mixin.less';
 
 .promoteTable {
   color: @global-purple !important;

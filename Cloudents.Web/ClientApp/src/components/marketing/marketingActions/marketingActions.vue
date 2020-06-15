@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import * as routeNames from '../../../../routes/routeNames'
+import * as routeNames from '../../../routes/routeNames'
 import actionBox from './actionBox.vue';
 
 export default {
@@ -34,8 +34,8 @@ export default {
 </script>
 
 <style lang="less">
-    @import '../../../../styles/mixin.less';
-    @import '../../../../styles/colors.less';
+    @import '../../../styles/mixin.less';
+    @import '../../../styles/colors.less';
     .marketingActions {
         width: 100%;
         margin: 0 auto;

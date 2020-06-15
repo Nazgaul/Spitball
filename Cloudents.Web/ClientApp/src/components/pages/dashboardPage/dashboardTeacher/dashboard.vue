@@ -9,7 +9,7 @@
 </template>
 
 <script>
-const marketingBlogs = () => import('../../marketing/marketingBlogs/marketingBlogs.vue')
+const marketingBlogs = () => import('../../../marketing/marketingBlogs/marketingBlogs.vue')
 const dashboardTutorActions = () => import('./dashboardTutorActions.vue');
 const dashboardNotifications = () => import('./dashboardNotifications.vue');
 const dashboardMarketingTools = () => import('../dashboardTeacher/dashboardMarketingTools.vue')

@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import * as routeName from '../../../../routes/routeNames'
+import * as routeName from '../../../routes/routeNames'
 
 export default {
     data: () => ({
@@ -72,8 +72,8 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../../../styles/mixin.less';
-@import '../../../../styles/colors.less';
+@import '../../../styles/mixin.less';
+@import '../../../styles/colors.less';
 .spitballBlogs {
   padding: 16px;
   background: white;

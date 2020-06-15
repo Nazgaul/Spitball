@@ -2,26 +2,23 @@
     <div id="marketing">
         <promoteStteper class="mb-2 mb-sm-4" />
         <marketingBlogs />
-        <!-- <tableCoupon /> -->
     </div>
 </template>
 
 <script>
-const promoteStteper = () => import('../marketing/promote/promoteStteper.vue')
-const marketingBlogs = () => import('../marketing/marketingBlogs/marketingBlogs.vue')
-// const tableCoupon = () => import('../dashboardPage/myCoupons/tableCoupon/tableCoupon.vue');
+const promoteStteper = () => import('../components/marketing/promote/promoteStteper.vue')
+const marketingBlogs = () => import('../components/marketing/marketingBlogs/marketingBlogs.vue')
 
 export default {
     components: {
         promoteStteper,
         marketingBlogs,
-        // tableCoupon
     }
 }
 </script>
 
 <style lang="less">
-@import '../../../styles/mixin.less';
+@import '../styles/mixin.less';
 #marketing {
     max-width: 944px;
     margin: 24px 34px;

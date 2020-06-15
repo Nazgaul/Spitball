@@ -8,7 +8,8 @@ export const marketingRoutes = [
         path: "/marketing",
         name: routeName.Marketing,
         components: {
-            default: () => import('../components/pages/marketing/marketing.vue'),
+            // default: () => import('../components/pages/marketing/marketing.vue'),
+            default: () => import('../views/marketing.vue'),
             ...staticComponents(['banner', 'header', 'sideMenu']),
         },
         meta: {

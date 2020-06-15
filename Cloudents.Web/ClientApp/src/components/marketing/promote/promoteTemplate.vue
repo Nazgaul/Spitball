@@ -75,8 +75,8 @@ export default {
 }
 </script>
 <style lang="less">
-@import '../../../../styles/mixin.less';
-@import '../../../../styles/colors.less';
+@import '../../../styles/mixin.less';
+@import '../../../styles/colors.less';
 .promoteTemplate {
   .top {
     margin: 50px 0;
