@@ -36,14 +36,10 @@ namespace Cloudents.Core.Entities
             _users.Add(studyRoomUser);
             ChatRoom.AddUserToChat(user);
             Tutor.User.AddFollower(user);
-            
+            AddEvent(new AddUserBroadcastStudyRoomEvent(this,user));
         }
 
-        public virtual void EnrollToStudyRoom(User user)
-        {
-            AddEvent(new AddUserBroadcastStudyRoomEvent(this));
-            AddUserToStudyRoom(user);
-        }
+       
 
         public override StudyRoomType Type => StudyRoomType.Broadcast;
     }

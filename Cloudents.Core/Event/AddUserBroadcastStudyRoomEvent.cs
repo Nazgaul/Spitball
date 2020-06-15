@@ -5,11 +5,13 @@ namespace Cloudents.Core.Event
 {
     public class AddUserBroadcastStudyRoomEvent : IEvent
     {
-        public BroadCastStudyRoom BroadCastStudyRoom { get; private set; }
+        public BroadCastStudyRoom BroadCastStudyRoom { get; }
+        public User User { get; }
 
-        public AddUserBroadcastStudyRoomEvent(BroadCastStudyRoom broadCastStudyRoom)
+        public AddUserBroadcastStudyRoomEvent(BroadCastStudyRoom broadCastStudyRoom, User user)
         {
             BroadCastStudyRoom = broadCastStudyRoom;
+            User = user;
         }
     }
 }
