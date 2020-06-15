@@ -13,19 +13,23 @@ namespace Cloudents.Query
             _transaction = session.BeginTransaction(IsolationLevel.ReadUncommitted);
         }
 
+        public void FinishTransaction()
+        {
+            if (_transaction == null) return;
+            if (_transaction.IsActive)
+            {
+                _transaction.Rollback();
+            }
+        }
+
         
         public void Dispose()
         {
-            if (_transaction != null)
+            if (_transaction?.IsActive == true)
             {
-                if (_transaction.IsActive)
-                {
-                    _transaction.Rollback();
-                    _transaction?.Dispose();
-                }
+                //_transaction.Rollback();
+                _transaction?.Dispose();
             }
-
-            //Session?.Dispose();
         }
     }
 

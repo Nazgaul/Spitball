@@ -22,7 +22,7 @@ namespace Cloudents.Query.Tutor
         private long UserId { get; }
 
 
-        internal sealed class TutorUpcomingBroadcastStudyRoomQueryHandler: IQueryHandler<TutorUpcomingBroadcastStudyRoomQuery, IEnumerable<FutureBroadcastStudyRoomDto>>
+        internal sealed class TutorUpcomingBroadcastStudyRoomQueryHandler : IQueryHandler<TutorUpcomingBroadcastStudyRoomQuery, IEnumerable<FutureBroadcastStudyRoomDto>>
         {
             private readonly IStatelessSession _session;
 
@@ -32,11 +32,12 @@ namespace Cloudents.Query.Tutor
             }
             public async Task<IEnumerable<FutureBroadcastStudyRoomDto>> GetAsync(TutorUpcomingBroadcastStudyRoomQuery query, CancellationToken token)
             {
+                const int studyRoomMaxUsers = 48;
                 return await _session.Query<BroadCastStudyRoom>()
                     .Where(w => w.Tutor.Id == query.TutorId &&
                                 //Add to broadcast time date is not supported
                                 w.BroadcastTime > DateTime.UtcNow.AddHours(-1))
-                    .OrderBy(o=>o.BroadcastTime)
+                    .OrderBy(o => o.BroadcastTime)
                     .Select(s => new FutureBroadcastStudyRoomDto()
                     {
                         Id = s.Id,
@@ -44,6 +45,7 @@ namespace Cloudents.Query.Tutor
                         Name = s.Name,
                         DateTime = s.BroadcastTime,
                         Description = s.Description,
+                        IsFull = _session.Query<StudyRoomUser>().Count(w => w.Room.Id == s.Id) >= studyRoomMaxUsers,
                         Enrolled = _session.Query<StudyRoomUser>().Any(w => w.Room.Id == s.Id && w.User.Id == query.UserId)
                     }).ToListAsync(token);
             }

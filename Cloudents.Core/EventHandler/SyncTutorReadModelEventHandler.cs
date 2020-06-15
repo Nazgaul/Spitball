@@ -18,6 +18,10 @@ namespace Cloudents.Core.EventHandler
         IEventHandler<ChangeCountryEvent>,
         IEventHandler<CourseChangeSubjectEvent>,
         IEventHandler<TutorSubscriptionEvent>,
+        IEventHandler<TutorSuspendedEvent>,
+        IEventHandler<TutorUnSuspendedEvent>,
+        IEventHandler<UserChangeNameEvent>,
+
         IDisposable
     {
         private readonly IReadTutorRepository _repository;
@@ -41,27 +45,27 @@ namespace Cloudents.Core.EventHandler
 
         public Task HandleAsync(TutorAddReviewEvent eventMessage, CancellationToken token)
         {
-            return UpdateAsync(eventMessage.UserId, token);
+            return SubmitAsync(eventMessage.UserId, token);
         }
 
         public Task HandleAsync(UpdateTutorSettingsEvent eventMessage, CancellationToken token)
         {
-            return UpdateAsync(eventMessage.UserId, token);
+            return SubmitAsync(eventMessage.UserId, token);
         }
 
         public Task HandleAsync(CanTeachCourseEvent eventMessage, CancellationToken token)
         {
-            return UpdateAsync(eventMessage.UserCourse.User.Id, token);
+            return SubmitAsync(eventMessage.UserCourse.User.Id, token);
         }
 
         public Task HandleAsync(UpdateImageEvent eventMessage, CancellationToken token)
         {
-            return UpdateAsync(eventMessage.UserId, token);
+            return SubmitAsync(eventMessage.UserId, token);
         }
 
         public Task HandleAsync(EndStudyRoomSessionEvent eventMessage, CancellationToken token)
         {
-            return UpdateAsync(eventMessage.Session.StudyRoom.Tutor.Id, token);
+            return SubmitAsync(eventMessage.Session.StudyRoom.Tutor.Id, token);
         }
 
         //private Task AddAsync(long userId, CancellationToken token)
@@ -82,10 +86,10 @@ namespace Cloudents.Core.EventHandler
             await _unitOfWork.CommitAsync(token);
         }
 
-        private Task UpdateAsync(long userId, CancellationToken token)
-        {
-            return SubmitAsync(userId, token);
-        }
+        //private Task UpdateAsync(long userId, CancellationToken token)
+        //{
+        //    return SubmitAsync(userId, token);
+        //}
 
         public void Dispose()
         {
@@ -94,12 +98,12 @@ namespace Cloudents.Core.EventHandler
 
         public Task HandleAsync(RemoveCourseEvent eventMessage, CancellationToken token)
         {
-            return UpdateAsync(eventMessage.UserId, token);
+            return SubmitAsync(eventMessage.UserId, token);
         }
 
         public Task HandleAsync(ChangeCountryEvent eventMessage, CancellationToken token)
         {
-            return UpdateAsync(eventMessage.UserId, token);
+            return SubmitAsync(eventMessage.UserId, token);
         }
 
         public async Task HandleAsync(CourseChangeSubjectEvent eventMessage, CancellationToken token)
@@ -108,7 +112,7 @@ namespace Cloudents.Core.EventHandler
             {
                 if (courseUser.User.Tutor != null)
                 {
-                    await UpdateAsync(courseUser.User.Tutor.Id, token);
+                    await SubmitAsync(courseUser.User.Tutor.Id, token);
                 }
             }
 
@@ -121,7 +125,24 @@ namespace Cloudents.Core.EventHandler
 
         public Task HandleAsync(TutorSubscriptionEvent eventMessage, CancellationToken token)
         {
-            return UpdateAsync(eventMessage.UserId, token);
+            return SubmitAsync(eventMessage.UserId, token);
+        }
+
+        public Task HandleAsync(TutorSuspendedEvent eventMessage, CancellationToken token)
+        {
+            return SubmitAsync(eventMessage.Id, token);
+
+        }
+
+        public Task HandleAsync(TutorUnSuspendedEvent eventMessage, CancellationToken token)
+        {
+            return SubmitAsync(eventMessage.Id, token);
+
+        }
+
+        public  Task HandleAsync(UserChangeNameEvent eventMessage, CancellationToken token)
+        {
+            return SubmitAsync(eventMessage.UserId, token);
         }
     }
 }
