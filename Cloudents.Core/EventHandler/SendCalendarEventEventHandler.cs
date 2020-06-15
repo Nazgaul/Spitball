@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
