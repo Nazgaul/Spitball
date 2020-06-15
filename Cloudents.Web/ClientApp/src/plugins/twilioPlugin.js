@@ -445,7 +445,7 @@ export default () => {
             networkQuality: {local:1, remote: 1}, //https://www.twilio.com/docs/video/using-network-quality-api
             maxAudioBitrate:16000,//For music remove this line
             maxVideoBitrate : isMobileMode ? 500000 : 2000000, // TODO check performance and quality
-            // video: isMobileMode? { height: 480, frameRate: 24, width: 640 } : { height: 720, frameRate: 24, width: 1280 },
+            video: isMobileMode? { height: 480, frameRate: 24, width: 640 } : { height: 720, frameRate: 24, width: 1280 },
          }
          if(roomTopologyType == 'PeerToPeer'){
             return defaultRoomSettings
@@ -456,7 +456,7 @@ export default () => {
                bandwidthProfile: {
                   video: {
                      mode: 'collaboration',
-                     trackSwitchOffMode:'detected',
+                     // trackSwitchOffMode:'detected',
                      maxSubscriptionBitrate: isMobileMode? 2500000 : 0,
                      dominantSpeakerPriority: PRIORITY.STANDARD,
                      maxTracks: isMobileMode ? 3 : 10,
