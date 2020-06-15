@@ -216,10 +216,6 @@ export default {
       this.setCookieAccepted();
     },
     checkAppVersion() {
-      global.lang = document.getElementsByTagName("html")[0].getAttribute("lang");
-      global.mainCdn = true;
-      global.client_id = '341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com';
-
       function versionCheck() {
         let inStudyRoom = global.location.pathname.indexOf('studyroom') > -1;
         if (!inStudyRoom) {
