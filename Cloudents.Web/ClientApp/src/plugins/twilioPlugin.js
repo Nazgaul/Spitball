@@ -91,7 +91,7 @@ function _twilioListeners(room,store) {
          store.commit(twilio_SETTERS.AUDIO_AVAILABLE,false)
       }
    })
-   room.localParticipant.on('networkQualityLevelChanged', (networkQualityLevel,networkQualityStats,a,b) => {
+   room.localParticipant.on('networkQualityLevelChanged', (networkQualityLevel,networkQualityStats) => {
       let params = {
          level:networkQualityLevel,
          audio: networkQualityStats?.audio? {
