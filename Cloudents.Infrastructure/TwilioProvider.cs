@@ -141,7 +141,7 @@ namespace Cloudents.Infrastructure
         }
 
 
-        public Task CreateRoomAsync(string id, string country,
+        public Task CreateRoomAsync(string id, 
             bool needRecord, Uri callBack, StudyRoomTopologyType studyRoomType)
         {
             var type = RoomResource.RoomTypeEnum.PeerToPeer;
@@ -159,107 +159,21 @@ namespace Cloudents.Infrastructure
             }
             //https://www.twilio.com/blog/2017/12/introducing-gll-for-group-rooms.html
 
-            if (!CountryToRegionMap.TryGetValue(country, out var mediaRegion))
-            {
-                mediaRegion = "us1";
-            }
-            //if (country == Country.Israel)
-            //{
-            //    mediaRegion = "de1";
-            //}
-            //if (country == Country.India)
-            //{
-            //    mediaRegion = "in1";
-            //}
+           
 
             return RoomResource.CreateAsync(
                 uniqueName: id,
-                //enableTurn: true,
-                //maxParticipants: 2,
                 type: type,
                 statusCallback: callBack,
                 statusCallbackMethod: HttpMethod.Post,
                 recordParticipantsOnConnect: false,
-                mediaRegion: mediaRegion
+                mediaRegion: "gll"
             );
 
 
         }
 
-        private const string Germany = "de1";
-        private const string Brazil = "br1";
-        private const string UsEastCost = "us1";
-        private const string India = "in1";
-        private const string Ireland = "ie1";
-        private const string Singapore = "sg1";
-        private const string Japan = "jp1";
-
-        public static readonly Dictionary<string, string> CountryToRegionMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
-        {
-            ["IL"] = Germany,
-            ["US"] = UsEastCost, //
-            ["IN"] = India,
-            ["TR"] = Germany,
-            ["PE"] = Brazil,
-            ["GH"] = Germany,
-            ["UA"] = Germany,
-            ["DE"] = Germany,
-            ["CL"] = Brazil,
-            ["GB"] = Ireland,
-            ["RS"] = Germany,
-            ["CO"] = Brazil,
-            ["PH"] = Singapore,
-            ["OM"] = India,
-            ["BA"] = Germany,
-            ["ME"] = Germany,
-            ["ZM"] = Germany,
-            ["CZ"] = Germany,
-            ["MA"] = Germany,
-            ["TT"] = UsEastCost,
-            ["IT"] = Germany,
-            ["ZW"] = Germany,
-            ["NL"] = Germany,
-            ["TW"] = Japan,
-            ["GR"] = Germany,
-            ["IS"] = Ireland,
-            ["HK"] = Singapore,
-            ["MX"] = UsEastCost,
-            ["HN"] = UsEastCost,
-            ["TZ"] = Germany,
-            ["RO"] = Germany,
-            ["KE"] = Germany,
-            ["LA"] = Singapore,
-            ["PK"] = India,
-            ["CA"] = UsEastCost,
-            ["KH"] = Singapore,
-            ["EG"] = Germany,
-            ["KW"] = India,
-            ["DO"] = UsEastCost,
-            ["PR"] = UsEastCost,
-            ["BG"] = Germany,
-            ["BR"] = Brazil,
-            ["ZA"] = Germany,
-            ["CH"] = Germany,
-            ["IE"] = Ireland,
-            ["TH"] = Singapore,
-            ["LV"] = Germany,
-            ["RW"] = Germany,
-            ["CY"] = Germany,
-            ["FR"] = Germany,
-            ["ID"] = Singapore,
-            ["ET"] = Germany,
-            ["LK"] = India,
-            ["MY"] = Singapore,
-            ["QA"] = India,
-            ["BD"] = India,
-            ["AE"] = India,
-            ["RU"] = Germany,
-            ["KG"] = India,
-            ["ES"] = Germany,
-            ["NP"] = India,
-            ["CN"] = India,
-            ["GE"] = Germany
-        };
+      
 
         public Task CloseRoomAsync(string id)
         {

@@ -280,9 +280,9 @@ namespace Cloudents.Core.Entities
             Transactions.UpdateBalance(balance);
         }
 
-        public virtual void UpdateUserImage(string image, string imageName)
+        public virtual void UpdateUserImage(string imageName)
         {
-            Image = image;
+            //Image = image;
             ImageName = imageName;
             AddEvent(new UpdateImageEvent(Id));
         }

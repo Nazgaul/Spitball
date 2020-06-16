@@ -92,8 +92,19 @@ function _twilioListeners(room,store) {
       }
    })
    room.localParticipant.on('networkQualityLevelChanged', (networkQualityLevel,networkQualityStats) => {
-
-      _insightEvent('networkQuality',networkQualityStats, networkQualityLevel)
+      let params = {
+         level:networkQualityLevel,
+         audio: networkQualityStats?.audio? {
+            recv: networkQualityStats.audio.recv,
+            send: networkQualityStats.audio.send,
+         } : undefined,
+         video: networkQualityStats?.video? {
+            recv: networkQualityStats.video.recv,
+            send: networkQualityStats.video.send,
+         } : undefined
+      }
+      store.commit(studyRoom_SETTERS.ROOM_NETWORK_QUALITY,networkQualityLevel || 0)
+      _insightEvent('networkQuality',JSON.stringify(params))
    });
    room.localParticipant.on('trackPublished',(track)=>{
       store.commit(studyRoom_SETTERS.ROOM_ACTIVE,true)
@@ -447,9 +458,9 @@ export default () => {
          let defaultRoomSettings = {
             logLevel: _debugMode,
             tracks: [dataTrack],
-            networkQuality: {local:1, remote: 1}, //https://www.twilio.com/docs/video/using-network-quality-api
+            networkQuality: {local:2, remote: 2}, //https://www.twilio.com/docs/video/using-network-quality-api
             maxAudioBitrate:16000,//For music remove this line
-            maxVideoBitrate : isMobileMode ? 500000 : 2000000, // TODO check performance and quality
+            maxVideoBitrate : isMobileMode ? 500000 : undefined, // problem with screen share maybe we should put in on the student side only cuz he have only 1 video track 
             video: isMobileMode? { height: 480, frameRate: 24, width: 640 } : { height: 720, frameRate: 24, width: 1280 },
          }
          if(roomTopologyType == 'PeerToPeer'){
