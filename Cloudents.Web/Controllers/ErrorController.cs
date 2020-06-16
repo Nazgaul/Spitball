@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Net;
-using Cloudents.Core.Extension;
 using Microsoft.ApplicationInsights;
 
 namespace Cloudents.Web.Controllers
