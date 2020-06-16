@@ -1,16 +1,27 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Net;
+using Cloudents.Core.Extension;
+using Microsoft.ApplicationInsights;
 
 namespace Cloudents.Web.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     public class ErrorController : Controller
     {
+        private readonly TelemetryClient _telemetryClient;
+
+        public ErrorController(TelemetryClient telemetryClient)
+        {
+            _telemetryClient = telemetryClient;
+        }
+
         [ActionName("NotFound")]
         public ActionResult Error404()
         {
+            _telemetryClient.TrackTrace("headers - not found",Request.Headers.ToDictionary(x=>x.Key,y=>y.Value.ToString()));
             Response.StatusCode = 404;
             return View("NotFound");
         }

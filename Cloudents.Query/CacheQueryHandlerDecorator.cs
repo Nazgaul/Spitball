@@ -9,27 +9,6 @@ using Autofac.Features.Decorators;
 
 namespace Cloudents.Query
 {
-    public class TransactionQueryDecorator<TQuery, TQueryResult> :
-        IQueryHandler<TQuery, TQueryResult>
-        where TQuery : IQuery<TQueryResult>
-
-    {
-        private readonly IQueryHandler<TQuery, TQueryResult> _decoratee;
-        private readonly ReadDbTransaction _transaction;
-
-
-        public TransactionQueryDecorator(IQueryHandler<TQuery, TQueryResult> decoratee, ReadDbTransaction transaction)
-        {
-            _decoratee = decoratee;
-            _transaction = transaction;
-        }
-
-        public async Task<TQueryResult> GetAsync(TQuery query, CancellationToken token)
-        {
-            return await _decoratee.GetAsync(query, token);
-        }
-    }
-
     public class CacheQueryHandlerDecorator<TQuery, TQueryResult> :
         IQueryHandler<TQuery, TQueryResult>
         where TQuery : IQuery<TQueryResult>
@@ -78,13 +57,9 @@ namespace Cloudents.Query
                 return result;
             }
 
-
             result = await _decoratee.GetAsync(query, token);
-
             _cacheProvider.Value.Set<TQueryResult>(cacheKey, attr.Region, result, TimeSpan.FromMinutes(attr.Duration), attr.Slide);
             return result;
-
-
         }
     }
 }

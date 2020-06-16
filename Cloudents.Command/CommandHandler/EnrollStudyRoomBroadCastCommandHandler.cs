@@ -10,25 +10,22 @@ namespace Cloudents.Command.CommandHandler
     {
         private readonly IRegularUserRepository _userRepository;
         private readonly IRepository<BroadCastStudyRoom> _studyRoomRepository;
-        private readonly ICalendarService _calendarService;
+       
 
-        public EnrollStudyRoomBroadCastCommandHandler(IRegularUserRepository userRepository, IRepository<BroadCastStudyRoom> studyRoomRepository, ICalendarService calendarService)
+        public EnrollStudyRoomBroadCastCommandHandler(IRegularUserRepository userRepository, 
+            IRepository<BroadCastStudyRoom> studyRoomRepository)
         {
             _userRepository = userRepository;
             _studyRoomRepository = studyRoomRepository;
-            _calendarService = calendarService;
         }
 
         public async Task ExecuteAsync(EnrollStudyRoomBroadCastCommand message, CancellationToken token)
         {
-            var studyRoom  = await _studyRoomRepository.LoadAsync(message.StudyRoomId, token);
+            var studyRoom = await _studyRoomRepository.LoadAsync(message.StudyRoomId, token);
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
             studyRoom.AddUserToStudyRoom(user);
-
-            await _calendarService.EnrollUserEventAsync(studyRoom.Name, studyRoom.Tutor,
-                user,
-                studyRoom.BroadcastTime, token);
+           
         }
     }
 }

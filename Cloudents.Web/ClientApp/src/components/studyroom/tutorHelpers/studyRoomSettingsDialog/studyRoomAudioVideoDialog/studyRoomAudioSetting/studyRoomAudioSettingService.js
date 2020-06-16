@@ -29,7 +29,7 @@ const createAudioContext = function (elId, myPreferredCameraDeviceId) {
 
         // Handle the incoming audio stream
         /* global webkitAudioContext */
-        audioContext = new (AudioContext || webkitAudioContext)();
+        audioContext = new (window.AudioContext || webkitAudioContext)();
         input = audioContext.createMediaStreamSource(stream);
         analyser = audioContext.createAnalyser();
         scriptProcessor = audioContext.createScriptProcessor();

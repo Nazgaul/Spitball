@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
@@ -66,7 +65,7 @@ namespace Cloudents.Infrastructure
                     }
                 );
 
-               
+
 
                 if (result == null)
                 {
@@ -108,18 +107,18 @@ namespace Cloudents.Infrastructure
             return ValidateNumberAsync(phoneNumber, token);
         }
 
-        public async Task SendVerificationCodeAsync(string phoneNumber, CancellationToken token)
+        public Task SendVerificationCodeAsync(string phoneNumber, CancellationToken token)
         {
-             await VerificationResource.CreateAsync(
+            return VerificationResource.CreateAsync(
                 to: phoneNumber,
-                channel:"sms",
+                channel: "sms",
                 pathServiceSid: "VA54583e5d91fabd4433a82fc263a8a696"
             );
 
-           // return (null, null);
+            // return (null, null);
         }
 
-        public async Task<bool> VerifyCodeAsync(string phoneNumber,string code, CancellationToken token)
+        public async Task<bool> VerifyCodeAsync(string phoneNumber, string code, CancellationToken token)
         {
             // var service = Twilio.Rest.Verify.V2.ServiceResource.Create(friendlyName: "My Verify Service");
             // phoneNumber = BuildPhoneNumber(phoneNumber, countryCode);
@@ -142,7 +141,7 @@ namespace Cloudents.Infrastructure
         }
 
 
-        public async Task CreateRoomAsync(string id, Country country, 
+        public Task CreateRoomAsync(string id, 
             bool needRecord, Uri callBack, StudyRoomTopologyType studyRoomType)
         {
             var type = RoomResource.RoomTypeEnum.PeerToPeer;
@@ -159,29 +158,22 @@ namespace Cloudents.Infrastructure
                     break;
             }
             //https://www.twilio.com/blog/2017/12/introducing-gll-for-group-rooms.html
-            var mediaRegion = "us1";
-            if (country == Country.Israel)
-            {
-                mediaRegion = "de1";
-            }
-            if (country == Country.India)
-            {
-                mediaRegion = "in1";
-            }
 
-            await RoomResource.CreateAsync(
-                 uniqueName: id,
-                 //enableTurn: true,
-                 //maxParticipants: 2,
-                 type: type,
-                 statusCallback: callBack,
-                 statusCallbackMethod: HttpMethod.Post,
-                 recordParticipantsOnConnect: false,
-                 mediaRegion:mediaRegion
+           
+
+            return RoomResource.CreateAsync(
+                uniqueName: id,
+                type: type,
+                statusCallback: callBack,
+                statusCallbackMethod: HttpMethod.Post,
+                recordParticipantsOnConnect: false,
+                mediaRegion: "gll"
             );
 
 
         }
+
+      
 
         public Task CloseRoomAsync(string id)
         {
@@ -256,7 +248,7 @@ namespace Cloudents.Infrastructure
                 AccountSid,
                 ApiKey,
                 SecretVideo,
-                CreateIdentity(userId,name),
+                CreateIdentity(userId, name),
                 grants: grants);
 
             return token.ToJwt();
@@ -298,7 +290,7 @@ namespace Cloudents.Infrastructure
         //        uniqueName: roomId);
         //    var room = rooms.FirstOrDefault();
         //    //var room = await RoomResource.FetchAsync(roomId);
-            
+
         //    var z = await ParticipantResource.ReadAsync(room.Sid);
         //    var t = await RoomRecordingResource.ReadAsync(room.Sid);
         //    var x = t.Where(s => s.Type == RoomRecordingResource.TypeEnum.Video);

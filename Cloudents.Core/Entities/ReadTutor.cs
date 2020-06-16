@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Cloudents.Core.Enum;
@@ -9,7 +8,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate")]
     public class ReadTutor : Entity<long>
     {
-        public ReadTutor(long id, string name, string image, string imageName,
+        public ReadTutor(long id, string name, string? imageName,
             IReadOnlyList<string>? allSubjects,
             IReadOnlyList<string>? allCourses,
             double? rate, int rateCount, string bio,
@@ -18,7 +17,6 @@ namespace Cloudents.Core.Entities
         {
             Id = id;
             Name = name;
-            Image = image;
             ImageName = imageName;
             Subjects = allSubjects?.OrderBy(o => o).Take(3);
             AllSubjects = allSubjects;
@@ -44,8 +42,7 @@ namespace Cloudents.Core.Entities
 
 
         public virtual string Name { get; protected set; }
-        public virtual string Image { get; protected set; }
-        public virtual string ImageName { get; protected set; }
+        public virtual string? ImageName { get; protected set; }
         public virtual IEnumerable<string>? Subjects { get; protected set; }
         public virtual IEnumerable<string>? AllSubjects { get; protected set; }
         public virtual IEnumerable<string>? Courses { get; protected set; }

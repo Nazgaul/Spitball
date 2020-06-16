@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using System;
 using System.Threading;
@@ -42,7 +41,6 @@ namespace Cloudents.Command.StudyRooms
             var sessionName = $"{message.StudyRoomId}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
             var url = _urlBuilder.BuildTwilioWebHookEndPoint(room.Id);
             await _videoProvider.CreateRoomAsync(sessionName,
-                room.Tutor.User.SbCountry,
                 true,
                 url,
                 room.TopologyType
