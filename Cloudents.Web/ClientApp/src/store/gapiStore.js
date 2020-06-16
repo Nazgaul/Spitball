@@ -26,10 +26,11 @@ const actions = {
     gapiLoad({commit, state}, scopeName){
         if(state.auth2) return Promise.resolve();
         let returnValue = new Promise((resolve,reject) => {
+            let client_id = '341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com';
             gapi.load('auth2', function() { 
                 //let scopesToUse = state.scopes[scopeName];      
                 let auth2InitParams = {
-                    client_id: global.client_id,
+                    client_id: client_id,
                 }
                 
                 if(!! state.scopes[scopeName]){

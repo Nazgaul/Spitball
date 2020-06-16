@@ -1,6 +1,5 @@
 ﻿using System;
 using Cloudents.Core;
-using Cloudents.Core.Entities;
 using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure

@@ -290,7 +290,7 @@ module.exports = (env) => {
                 })
             ]),
         mode: mode,
-        entry: { main: ["@babel/polyfill", "./src/client.js"] },
+        entry: { main: ["@babel/polyfill", "./src/main.js"] },
         output: {
             path: path.join(__dirname, bundleOutputDir),
             publicPath: "dist/",

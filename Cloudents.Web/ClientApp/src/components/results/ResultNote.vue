@@ -2,12 +2,21 @@
   <router-link v-show="url && !fromItemPage" class="d-block note-block" :class="{'no-cursor': fromItemPage}" :to="!fromItemPage ? url : ''">
     <div class="document-header-container">
       <div class="document-header-large-sagment">
-        <user-avatar
+        <!-- <user-avatar
           size="34"
           v-if="authorName"
           :userImageUrl="userImageUrl"
           :user-name="authorName"
           :user-id="authorId"
+        /> -->
+        <userAvatarNew 
+          v-if="authorName"
+          :userImageUrl="userImageUrl"
+          :user-name="authorName"
+          :user-id="authorId"
+          :width="34"
+          :height="34"
+          :fontSize="14"
         />
         <div class="document-header-name-container">
           <span class="document-header-name text-truncate">
