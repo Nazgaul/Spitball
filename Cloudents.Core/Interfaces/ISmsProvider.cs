@@ -17,7 +17,7 @@ namespace Cloudents.Core.Interfaces
 
     public interface IStudyRoomProvider
     {
-        Task CreateRoomAsync(string id, string country, bool needRecord, Uri callBack, StudyRoomTopologyType studyRoomType);
+        Task CreateRoomAsync(string id, bool needRecord, Uri callBack, StudyRoomTopologyType studyRoomType);
         Task CloseRoomAsync(string id);
 
         Task<bool> GetRoomAvailableAsync(string id);
