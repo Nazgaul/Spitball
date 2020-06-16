@@ -65,6 +65,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import * as routeNames from '../../routes/routeNames.js';
+import {  GetVersion } from '../../services/language/languageService'
 
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
 const AddQuestion = () => import("../question/askQuestion/askQuestion.vue");
@@ -214,6 +215,24 @@ export default {
     removeCookiesPopup: function() {
       this.setCookieAccepted();
     },
+    checkAppVersion() {
+      function versionCheck() {
+        let inStudyRoom = global.location.pathname.indexOf('studyroom') > -1;
+        if (!inStudyRoom) {
+          GetVersion().then(version => { 
+            if (version !== global.version) {
+              this.$ga.event('VERSION_UPGRADE', `Previous_Version: ${global.version} Current_Version: ${version}`);
+              location.reload(true);
+            }
+          });
+        }
+      }
+
+      let minute = 60000;
+      window.setInterval(versionCheck, minute * 30);
+
+      versionCheck();
+    }
     // tryBuyTokens(transactionObjectError) {
     //   walletService.buyTokens(transactionObjectError).then(
     //     () => {
@@ -233,6 +252,7 @@ export default {
     // }
   },
   created() {
+    this.checkAppVersion()
     if (!!this.$route.query && this.$route.query.requesttutor) {
       if (this.$route.query.requesttutor.toLowerCase() === "open") {
         setTimeout(() => {

@@ -103,6 +103,7 @@ function _twilioListeners(room,store) {
             send: networkQualityStats.video.send,
          } : undefined
       }
+      store.commit(studyRoom_SETTERS.ROOM_NETWORK_QUALITY,networkQualityLevel || 0)
       _insightEvent('networkQuality',JSON.stringify(params))
    });
    room.localParticipant.on('trackPublished',(track)=>{
