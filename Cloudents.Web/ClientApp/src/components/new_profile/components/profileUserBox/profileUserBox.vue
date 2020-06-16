@@ -148,7 +148,7 @@
                 <onlineLessonSVG class="icon" width="17" />
                 <div class="ml-3">
                     <div class="number text-left">{{currentProfileTutor.lessons || 0}}</div>
-                    <div class="type" v-t="''">{{$tc('profile_session', currentProfileTutor.lessons)}}</div>
+                    <div class="type" >{{$tc('profile_session', currentProfileTutor.lessons)}}</div>
                 </div>
             </v-col>
             <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-3 pa-sm-0">
