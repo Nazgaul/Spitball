@@ -18,16 +18,17 @@ const actions = {
     gapiLoad({commit, state}, scopeName){
         if(state.auth2) return;
         return gapi.load('auth2', function() { 
-        let scopesToUse = state.scopes[scopeName];      
+        let client_id = '341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com';
+        let scopesToUse = state.scopes[scopeName];
         let auth2;
         if(!!scopesToUse){
             auth2 = gapi.auth2.init({
-                client_id: global.client_id,
+                client_id,
                 'scope': scopesToUse
             });
         }else{
             auth2 = gapi.auth2.init({
-                client_id: global.client_id,
+                client_id
             });
         }
         commit('setAuth2', auth2);

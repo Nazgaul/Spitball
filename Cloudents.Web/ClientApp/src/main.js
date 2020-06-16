@@ -97,7 +97,6 @@ global.lang = htmlElement.getAttribute("lang");
 global.isRtl = htmlElement.getAttribute("dir") === "rtl";
 global.isEdgeRtl = false;
 global.mainCdn = true;
-global.client_id = '341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com';
 
 if (document.documentMode || /Edge/.test(navigator.userAgent)) {
     if (global.isRtl) {
