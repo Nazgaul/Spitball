@@ -8,7 +8,7 @@
       :mobile-breakpoint="0"
       :items-per-page="20"
       sort-by
-      :item-key="'date'"
+      :item-key="'itemId'"
       class="elevation-1"
       :footer-props="{
             showFirstLastPage: false,
@@ -55,13 +55,13 @@
       </template>
 
       <template v-slot:item.students="{item}">
-        <v-tooltip :value="currentItemId === item.id" top transition="fade-transition">
+        <v-tooltip :value="currentItemId === item.itemId" top transition="fade-transition">
           <template v-slot:activator="{on}">
-            <div v-on="on" class="amountStudents white--text">{{item.amountStudent}}</div>
+            <div v-on="item.userNames.length ? on : null" class="amountStudents white--text">{{item.amountStudent || 0}}</div>
           </template>
-            <div v-for="(user, index) in item.userNames" :key="index">
-              {{user}}
-            </div>
+          <div v-for="(user, index) in item.userNames" :key="index">
+            <div>{{user}}</div>
+          </div>
         </v-tooltip>
       </template>
 
@@ -83,7 +83,7 @@
             </div>
 
             <div v-else class="copyLink mr-8 flex-shrink-0">
-                <v-tooltip :value="currentItemId === item.id" top transition="fade-transition">
+                <v-tooltip :value="currentItemId === item.itemId" top transition="fade-transition">
                     <template v-slot:activator="{}">
                         <linkSVG
                           style="width:20px;height:36px;"
@@ -192,7 +192,12 @@ export default {
       return this.$store.getters.accountUser?.isTutor;
     },
     studyRoomItems() {
-      return this.getStudyRoomItems;
+      return this.getStudyRoomItems && this.getStudyRoomItems.map((item, index) => {
+        return {
+            itemId: index,
+            ...item
+        }
+      })
     }
   },
   watch: {
@@ -252,7 +257,7 @@ export default {
       let link = `${window.origin}/studyroom/${item.id}`
       let self = this
       this.$copyText(link).then(({text}) => {
-        self.currentItemId = item.id
+        self.currentItemId = item.itemId
         self.$ga.event('Share', 'Link', text);
         setTimeout(() => {
           self.currentItemId = null
