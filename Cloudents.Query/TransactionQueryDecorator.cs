@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Query
@@ -9,10 +10,11 @@ namespace Cloudents.Query
 
     {
         private readonly IQueryHandler<TQuery, TQueryResult> _decoratee;
-        private readonly ReadDbTransaction _transaction;
+        private readonly Lazy<ReadDbTransaction> _transaction;
 
 
-        public TransactionQueryDecorator(IQueryHandler<TQuery, TQueryResult> decoratee, ReadDbTransaction transaction)
+        public TransactionQueryDecorator(IQueryHandler<TQuery, TQueryResult> decoratee,
+            Lazy<ReadDbTransaction> transaction)
         {
             _decoratee = decoratee;
             _transaction = transaction;
@@ -20,9 +22,9 @@ namespace Cloudents.Query
 
         public async Task<TQueryResult> GetAsync(TQuery query, CancellationToken token)
         {
+            var t = _transaction.Value;
             var x =  await _decoratee.GetAsync(query, token);
-
-            _transaction.FinishTransaction();
+            t.FinishTransaction();
             return x;
         }
     }

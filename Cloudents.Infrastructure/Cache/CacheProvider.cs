@@ -197,13 +197,13 @@ namespace Cloudents.Infrastructure.Cache
 
         }
 
-        public void Set(string key, string region, object value, int expire, bool slideExpiration)
-        {
-            Set(key, region, value, TimeSpan.FromSeconds(expire), slideExpiration);
+        //public void Set(string key, string region, object value, int expire, bool slideExpiration)
+        //{
+        //    Set(key, region, value, TimeSpan.FromSeconds(expire), slideExpiration);
 
 
-            //return obj;
-        }
+        //    //return obj;
+        //}
 
 
         public void DeleteRegion(string region)
