@@ -162,7 +162,7 @@ if(touchSupported){
 
 //initSignalRService();
 
-//app.$mount("#app");
+//
 //This is for cdn fallback do not touch
 
 //injects the route to the store via the rootState.route
@@ -174,8 +174,9 @@ Vue.use(VueAppInsights, {
     id : global.applicationId,
     router
 });
+app.$mount("#app");
 
-export {
-    app,
-    router
-};
+// export {
+//     app,
+//     router
+// };
