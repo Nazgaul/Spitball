@@ -58,7 +58,7 @@
                         <template v-if="currentProfileUser.isTutor">
                             <div  class="pUb_dS_c_rating">
                                 <v-rating
-                                    v-model="currentProfileTutor.rate"
+                                    :value="Math.round(currentProfileTutor.rate)"
                                     color="#ffca54"
                                     background-color="#ffca54"
                                     :length="currentProfileTutor.reviewCount > 0  ? 5 : 1"

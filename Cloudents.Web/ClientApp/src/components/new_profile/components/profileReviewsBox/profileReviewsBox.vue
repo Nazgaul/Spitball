@@ -8,7 +8,7 @@
                   {{getProfile.user.tutorData.rate.toFixed(1)}}
                </div>
                <div class="profileReviewsBox_state_score_rating">
-                  <userRating class="state_score_rating" :showRateNumber="false" :rating="getProfile.user.tutorData.rate" :size="'20'" />
+                  <userRating class="state_score_rating" :showRateNumber="false" :rating="Math.round(getProfile.user.tutorData.rate)" :size="'20'" />
                   <span class="state_score_rating_span pl-1" >{{$tc('resultTutor_review_one',getProfile.user.tutorData.reviewCount)}}</span>
                 
                </div>
