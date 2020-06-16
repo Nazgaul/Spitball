@@ -14,7 +14,6 @@
                     height="44"
                     dir="ltr"
                     outlined
-                    readonly
                     dense
                 >
                 </v-text-field>
