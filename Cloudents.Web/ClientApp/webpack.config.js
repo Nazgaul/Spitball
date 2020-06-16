@@ -242,10 +242,10 @@ module.exports = (env) => {
                     NODE_ENV: JSON.stringify(isDevBuild ? "development" : "production")
                 }
             }),
-            new webpack.ContextReplacementPlugin(
-                /moment[/\\]locale$/,
-                /en|he|in/
-            ),
+            // new webpack.ContextReplacementPlugin(
+            //     /moment[/\\]locale$/,
+            //     /en|he|in/
+            // ),
             new VuetifyLoaderPlugin(),
             // new webpack.SourceMapDevToolPlugin({
             //     filename: "[name].js.map", // Remove this line if you prefer inline source maps
