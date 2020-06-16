@@ -91,7 +91,7 @@ function _twilioListeners(room,store) {
          store.commit(twilio_SETTERS.AUDIO_AVAILABLE,false)
       }
    })
-   room.localParticipant.on('networkQualityLevelChanged', (networkQualityLevel,networkQualityStats,a,b) => {
+   room.localParticipant.on('networkQualityLevelChanged', (networkQualityLevel,networkQualityStats) => {
       let params = {
          level:networkQualityLevel,
          audio: networkQualityStats?.audio? {
@@ -103,6 +103,7 @@ function _twilioListeners(room,store) {
             send: networkQualityStats.video.send,
          } : undefined
       }
+      store.commit(studyRoom_SETTERS.ROOM_NETWORK_QUALITY,networkQualityLevel || 0)
       _insightEvent('networkQuality',JSON.stringify(params))
    });
    room.localParticipant.on('trackPublished',(track)=>{

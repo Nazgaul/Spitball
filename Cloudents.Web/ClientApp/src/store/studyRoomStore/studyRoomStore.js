@@ -66,6 +66,7 @@ const state = {
    studyRoomDrawerState:true,
    studyRoomFooterState:true,
    isBrowserNotSupport:false,
+   roomNetworkQuality: 0,
 }
 
 const mutations = {
@@ -109,6 +110,7 @@ const mutations = {
       state.isBrowserNotSupport = false;
       state.roomParticipants = {};
       state.roomTopologyType = 'PeerToPeer';
+      state.roomNetworkQuality = 0;
    },
    [studyRoom_SETTERS.DIALOG_USER_CONSENT]: (state, val) => state.dialogUserConsent = val,
    [studyRoom_SETTERS.DIALOG_SNAPSHOT]: (state, val) => state.dialogSnapshot = val,
@@ -161,6 +163,7 @@ const mutations = {
       state.studyRoomFooterState = val;
    },
    [studyRoom_SETTERS.BROWSER_NOT_SUPPORT]: (state, val) => state.isBrowserNotSupport = val,
+   [studyRoom_SETTERS.ROOM_NETWORK_QUALITY]: (state, val) => state.roomNetworkQuality = val,
 }
 const getters = {
    getActiveNavEditor: state => state.activeNavEditor,
@@ -202,6 +205,7 @@ const getters = {
    },
    getIsBrowserNotSupport:state => state.isBrowserNotSupport, 
    getRoomTopologyType:state => state.roomTopologyType, 
+   getRoomNetworkQuality:state => state.roomNetworkQuality, 
 }
 const actions = {
    updateToggleTutorFullScreen({dispatch,commit},val){
