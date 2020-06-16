@@ -134,17 +134,6 @@ namespace Cloudents.Persistence.Maps
         }
     }
 
-    public class StripePaymentMap : ClassMap<StripePayment>
-    {
-        public StripePaymentMap()
-        {
-            Id(x => x.Id).GeneratedBy.GuidComb();
-            Map(z => z!.PaymentKey);
-        }
-    }
-
-
-
 
     //public class UserComponentMap : ClassMap<UserComponent>
     //{
