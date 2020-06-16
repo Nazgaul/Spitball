@@ -4,7 +4,7 @@
             <div class="leftSide mr-sm-6 mb-2 mb-sm-0 d-flex justify-center">
                 <div class="pUb_dot" sel="online_icon" v-if="isOnline"></div>
                 <uploadImage sel="photo" class="pUb_edit_img" v-if="isCurrentProfileUser" />
-                <userAvatarRect sel="avatar_image"
+                <!-- <userAvatarRect sel="avatar_image"
                     class="pUb_dS_img"
                     :userName="currentProfileUser.name"
                     :userImageUrl="currentProfileUser.image"
@@ -13,6 +13,18 @@
                     :userId="currentProfileUser.id"
                     :fontSize="36"
                     :borderRadius="8"
+                /> -->
+                <userAvatarNew
+                    sel="avatar_image"
+                    class="pUb_dS_img"
+                    :userName="currentProfileUser.name"
+                    :userImageUrl="currentProfileUser.image"
+                    :width="isMobile? 130: 190"
+                    :height="isMobile? 161 : 235"
+                    :userId="currentProfileUser.id"
+                    :fontSize="36"
+                    :borderRadius="8"
+                    :tile="true"
                 />
             </div>
             <div class="rightSide flex-grow-1">
@@ -170,7 +182,7 @@ import calendarSVG from '../profileUserSticky/images/calendarIcon.svg';
 
 import * as routeNames from '../../../../routes/routeNames'
 
-import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
+// import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
 import uploadImage from '../../profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue';
 import followBtn from '../followBtn/followBtn.vue';
 
@@ -181,7 +193,7 @@ export default {
         studentsSVG,
         onlineLessonSVG,
         followersSvg,
-        userAvatarRect,
+        // userAvatarRect,
         uploadImage,
         editSVG,
         followBtn,
