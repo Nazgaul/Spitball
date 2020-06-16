@@ -1,3 +1,4 @@
+import "../publicPath";
 import Vue from "vue";
 import vuetify from './plugins/vuetify';
 import { sync } from 'vuex-router-sync';
@@ -90,8 +91,13 @@ Vue.directive('openDialog',openDialog);
 Vue.directive('closeDialog',closeDialog);
 Vue.directive('strLinkify',strLinkify);
 
-global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
+let htmlElement = document.getElementsByTagName("html")[0]
+
+global.lang = htmlElement.getAttribute("lang");
+global.isRtl = htmlElement.getAttribute("dir") === "rtl";
 global.isEdgeRtl = false;
+global.mainCdn = true;
+
 if (document.documentMode || /Edge/.test(navigator.userAgent)) {
     if (global.isRtl) {
         global.isEdgeRtl = true;
@@ -118,7 +124,7 @@ router.beforeEach((to, from, next) => {
 sync(store, router);
 
 const app = new Vue({
-    //el: "#app",
+    el: "#app",
     router: router,
     store,
     vuetify,
