@@ -74,7 +74,7 @@ namespace Cloudents.Core.DTOs
     {
         public string Name { get; set; }
         public string TutorName { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
     }
 
 

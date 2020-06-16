@@ -1,6 +1,7 @@
 ﻿using Cloudents.Core.DTOs.Email;
 using Dapper;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,6 +27,7 @@ namespace Cloudents.Query.Email
                 _dapper = dapper;
             }
 
+            [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting", Justification = "Using")]
             public async Task<DocumentPurchaseEmailDto> GetAsync(GetDocumentPurchasedEmailQuery query, CancellationToken token)
             {
                 const string sql = @"Select 

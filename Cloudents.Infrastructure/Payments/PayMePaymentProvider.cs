@@ -70,7 +70,7 @@ namespace Cloudents.Infrastructure.Payments
             return GenerateSaleAsync(token, generateSale);
         }
 
-        public Task<GenerateSaleResponse> BuyTokens(PointBundle price, string successRedirect, CancellationToken token)
+        public Task<GenerateSaleResponse> BuyTokensAsync(PointBundle price, string successRedirect, CancellationToken token)
         {
             var generateSale = GenerateSale.BuyTokens(price, successRedirect, _credentials.SellerId);
 

@@ -403,7 +403,7 @@ namespace Cloudents.Infrastructure.Video
             return await GetStreamingUrlAsync(locatorName, token);
         }
 
-        public async Task CreateShortStreamingLocator(long videoId, CancellationToken token)
+        public async Task CreateShortStreamingLocatorAsync(long videoId, CancellationToken token)
         {
             var client = await _context;
             try

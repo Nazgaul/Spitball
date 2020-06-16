@@ -106,17 +106,11 @@ namespace Cloudents.Query.Documents
 
                 var scribedQueryFuture = _session.Query<Follow>()
                       .Where(w => w.Follower.Id == query.UserId)
-                      .Where(w=> w.User.Id == _session.Query<Document>().Where(w=>w.Id == query.Id).Select(s=>s.User.Id).Single())
+                      .Where(w=> w.User.Id == _session.Query<Document>().Where(w2=>w2.Id == query.Id).Select(s=>s.User.Id).Single())
                       //.Where(w => w.User.Id == query.Id)
                       .Select(s => s.Subscriber).ToFutureValue();
 
-             //   var purchaseCountFuture = _session.QueryOver<DocumentTransaction>()
-             //.Where(w => w.Document.Id == query.Id && w.Type == TransactionType.Spent)
-             //.SelectList(s => s.SelectCount(c => c.Id)).FutureValue<int>();
-
-                //var voteQuery = _session.QueryOver<Vote>()
-                //    .Where(w => w.User.Id == query.UserId && w.Document.Id == query.Id).Select(s => s.VoteType)
-                //    .Take(1).FutureValue<VoteType>();
+           
 
 
 
@@ -128,15 +122,7 @@ namespace Cloudents.Query.Documents
                     return null;
                 }
                 result.IsPurchased = true;
-              //  var voteResult = await voteQuery.GetValueAsync(token);
-                //if (voteResult == VoteType.None)
-                //{
-                //    result.Document.Vote.Vote = null;
-                //}
-                //else
-                //{
-                //    result.Document.Vote.Vote = voteResult;
-                //}
+           
                 if (result.Document.Price.GetValueOrDefault() <= 0) return result;
                 if (purchaseFuture == null)
                 {
@@ -155,7 +141,6 @@ namespace Cloudents.Query.Documents
                         result.IsPurchased = scribedQueryFuture.Value ?? transactionResult != null;
                     }
                 }
-               // result.Document.Purchased = await purchaseCountFuture.GetValueAsync(token);
                 return result;
             }
         }

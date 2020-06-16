@@ -58,7 +58,7 @@ namespace Cloudents.Query
             }
 
             result = await _decoratee.GetAsync(query, token);
-            _cacheProvider.Value.Set<TQueryResult>(cacheKey, attr.Region, result, TimeSpan.FromMinutes(attr.Duration), attr.Slide);
+            _cacheProvider.Value.Set(cacheKey, attr.Region, result, TimeSpan.FromMinutes(attr.Duration), attr.Slide);
             return result;
         }
     }

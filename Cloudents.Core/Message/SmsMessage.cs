@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Runtime.Serialization;
 
 namespace Cloudents.Core.Message
@@ -14,7 +15,7 @@ namespace Cloudents.Core.Message
             CultureInfo = CultureInfo.CurrentUICulture;
         }
 
-
+        [SuppressMessage("ReSharper","CS8618", Justification = "Serialization ctor")]
         protected SmsMessage()
         {
         }

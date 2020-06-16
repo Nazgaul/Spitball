@@ -25,17 +25,17 @@ namespace Cloudents.Query.Courses
             {
                 _session = session;
             }
-            public async Task<SubjectDto> GetAsync(CourseSubjectQuery query, CancellationToken token)
+            public Task<SubjectDto> GetAsync(CourseSubjectQuery query, CancellationToken token)
             {
-                return await _session.Query<Course>()
+                return _session.Query<Course>()
                     .WithOptions(w => w.SetComment(nameof(CourseSubjectQuery)))
-                       .Fetch(f => f.Subject)
-                       .Where(w => w.Id == query.CourseName)
-                       .Select(s => new SubjectDto
-                       {
-                           Name = s.Subject.Name
-                       })
-                       .FirstOrDefaultAsync(token);
+                    .Fetch(f => f.Subject)
+                    .Where(w => w.Id == query.CourseName)
+                    .Select(s => new SubjectDto
+                    {
+                        Name = s.Subject!.Name
+                    })
+                    .FirstOrDefaultAsync(token);
             }
         }
     }

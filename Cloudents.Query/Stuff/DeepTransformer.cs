@@ -13,7 +13,7 @@ namespace Cloudents.Query.Stuff
     {
         private readonly char _complexChar;
         private readonly IResultTransformer _baseTransformer;
-        private readonly Dictionary<string, PropertyInfo> _resultClassProperties;
+      // private readonly Dictionary<string, PropertyInfo> _resultClassProperties;
 
         public DeepTransformer(char complexChar = '.') :
             this(complexChar, Transformers.AliasToBean<TEntity>())
@@ -26,23 +26,23 @@ namespace Cloudents.Query.Stuff
         {
             _baseTransformer = transformer;
             _complexChar = complexChar;
-            _resultClassProperties = typeof(TEntity).GetProperties(BindingFlags.NonPublic
-                                                                   | BindingFlags.Instance
-                                                                   | BindingFlags.Public).ToDictionary(x => x.Name, z => z);
+            //_resultClassProperties = typeof(TEntity).GetProperties(BindingFlags.NonPublic
+            //                                                       | BindingFlags.Instance
+            //                                                       | BindingFlags.Public).ToDictionary(x => x.Name, z => z);
         }
 
-        private Dictionary<string, object> _aliasToTupleMap;
+        //private Dictionary<string, object> _aliasToTupleMap;
 
-        private void MapProperties(object[] tuple, string[] aliases)
+        private void MapProperties(object[] tuple, string?[] aliases)
         {
-            _aliasToTupleMap = new Dictionary<string, object>();
+           // _aliasToTupleMap = new Dictionary<string, object>();
 
             for (var i = 0; i < aliases.Length; i++)
             {
                 var alias = aliases[i];
                 if (alias.Contains(_complexChar))
                 {
-                    _aliasToTupleMap.Add(alias, tuple[i]);
+                   // _aliasToTupleMap.Add(alias, tuple[i]);
                     aliases[i] = null;
                 }
             }
@@ -53,7 +53,7 @@ namespace Cloudents.Query.Stuff
         {
             var list = new List<string>(aliases);
 
-            var propertyAliases = new List<string>(list);
+            var propertyAliases = new List<string?>(list);
             var complexAliases = new List<string>();
 
             for (var i = 0; i < list.Count; i++)
@@ -145,7 +145,7 @@ namespace Cloudents.Query.Stuff
         }
 
 
-        public bool Equals(DeepTransformer<TEntity> other)
+        public bool Equals(DeepTransformer<TEntity>? other)
         {
             if (ReferenceEquals(null, other))
             {

@@ -27,8 +27,8 @@ namespace Cloudents.Query.Questions
                 // ReSharper disable once LoopCanBeConvertedToQuery - nhibernate doesn't response well for this
                 foreach (var county in counties)
                 {
-                    Question? questionAlias = null;
-                    SystemUser? userAlias = null;
+                    Question questionAlias = null!;
+                    SystemUser userAlias = null!;
 
                     var future = _session.QueryOver(() => questionAlias)
 

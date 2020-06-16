@@ -47,7 +47,7 @@ namespace Cloudents.Core.Extension
         /// <param name="formatString">The format string, containing keys like {foo} and {foo:SomeFormat}.</param>
         /// <param name="attributes">A <see cref="Hashtable"/> with keys and values to inject into the string</param>
         /// <returns>A version of the formatString string with hastable keys replaced by (formatted) key values.</returns>
-        public static string Inject(this string formatString, Hashtable attributes)
+        public static string Inject(this string formatString, Hashtable? attributes)
         {
             string result = formatString;
             if (attributes == null || formatString == null)
@@ -102,9 +102,9 @@ namespace Cloudents.Core.Extension
         /// </summary>
         /// <param name="properties">The object from which to get the properties</param>
         /// <returns>A <see cref="Hashtable"/> containing the object instance's property names and their values</returns>
-        private static Hashtable GetPropertyHash(object properties)
+        private static Hashtable? GetPropertyHash(object properties)
         {
-            Hashtable values = null;
+            Hashtable? values = null;
             if (properties != null)
             {
                 values = new Hashtable();

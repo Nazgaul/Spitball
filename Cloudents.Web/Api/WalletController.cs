@@ -96,7 +96,7 @@ namespace Cloudents.Web.Api
             }, "https");
 
             var bundle = Enumeration.FromValue<PointBundle>(model.Points);
-            var result = await _payment.Value.BuyTokens(bundle!, urlReturn, token);
+            var result = await _payment.Value.BuyTokensAsync(bundle!, urlReturn, token);
             var saleUrl = new UriBuilder(result.SaleUrl);
             saleUrl.AddQuery(new NameValueCollection()
             {
