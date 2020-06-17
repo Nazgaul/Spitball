@@ -3,12 +3,14 @@
 
         <div class="tutorInfo d-flex align-center justify-space-between flex-column flex-sm-row pb-6">
             <div class="leftSide d-flex align-md-center">
-                <userAvatar
-                    size="74"
+                <userAvatarNew
+                    :width="74"
+                    :height="74"
                     class="mb-4"
                     :userId="userId"
                     :userName="userName"
                     :userImageUrl="userImage"
+                    :fontSize="18"
                 />
                 <div class="infoWrap mx-5">
                     <div class="tutorName text-truncate mb-2">{{userName}}</div>

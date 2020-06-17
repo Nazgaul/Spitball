@@ -2,7 +2,7 @@
     <router-link class="tutor-result-card-desktop pa-4" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
 
         <v-flex class="user-details">
-            <user-avatar-rect 
+            <!-- <user-avatar-rect 
               :userName="tutorData.name" 
               :userImageUrl="tutorData.image" 
               class="user-avatar-rect" 
@@ -10,6 +10,17 @@
               :width="148" 
               :height="182"
               :borderRadius="4"
+            /> -->
+            <userAvatarNew 
+              :userName="tutorData.name" 
+              :userImageUrl="tutorData.image" 
+              class="user-avatar-rect" 
+              :userId="tutorData.userId"
+              :width="148" 
+              :height="182"
+              :borderRadius="4"
+              :fontSize="24"
+              :tile="true"
             />
             <div class="main-card">
                 <h3 class="font-weight-bold text-truncate mb-8">{{tutorData.name}}</h3>
@@ -66,7 +77,7 @@ import { mapActions, mapGetters } from "vuex";
 import analyticsService from "../../../../services/analytics.service";
 import chatService from '../../../../services/chatService';
 import * as routeNames from '../../../../routes/routeNames.js'
-import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
+// import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
 
 import iconChat from '../icon-chat.svg';
 import clock from './clock.svg';
@@ -76,7 +87,7 @@ export default {
   components: {
     clock,
     iconChat,
-    userAvatarRect
+    // userAvatarRect
   },
   props: {
     tutorData: {},

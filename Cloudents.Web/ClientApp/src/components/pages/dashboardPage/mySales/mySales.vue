@@ -71,11 +71,19 @@
                   </v-avatar>
                </router-link>
                <router-link v-if="item.sessionId" :to="{name: 'profile',params: {id: item.id, name: item.name}}">
-                  <user-avatar :user-id="item.userId" 
+                  <!-- <user-avatar :user-id="item.userId" 
                   :user-image-url="item.image" 
                   :size="'40'" 
                   :user-name="item.name" >
-                  </user-avatar>
+                  </user-avatar> -->
+                  <userAvatarNew
+                     class="mySalesUserAvatar"
+                     :userImageUrl="item.image"
+                     :user-name="item.name"
+                     :width="40"
+                     :height="40"
+                     :fontSize="14"
+                  />
                </router-link>
             </template>
             <template v-slot:item.info="{item}">
@@ -270,6 +278,15 @@ export default {
          .v-data-footer__pagination {
             font-size: 14px;
             color: #43425d;
+         }
+      }
+   }
+   .mySalesUserAvatar {
+      .user-avatar-image-wrap {
+         margin: 0 auto;
+
+         .v-lazy {
+            display: flex;
          }
       }
    }
