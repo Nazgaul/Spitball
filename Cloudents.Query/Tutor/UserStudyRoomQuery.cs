@@ -43,42 +43,9 @@ namespace Cloudents.Query.Tutor
                          s.DateTime.UpdateTime,
                          (s is BroadCastStudyRoom) ? StudyRoomType.Broadcast : StudyRoomType.Private,
                          (s as BroadCastStudyRoom) != null ? ((BroadCastStudyRoom)s).BroadcastTime : new DateTime?(),
-                         s.Users.Select(s2 => s2.User.FirstName).ToList()))
-
+                         s.Users.Select(s2 => s2.User.FirstName).ToList(), 
+                         s.Price))
                      .ToListAsync(token);
-                //StudyRoom? studyRoomAlias = null!;
-                //StudyRoomUser? studyRoomUser = null!;
-                //UserStudyRoomDto? resultAlias = null!;
-
-                //var detachedQuery = QueryOver.Of(()=> studyRoomAlias)
-                //    .Left.JoinAlias(x => x.Users, () => studyRoomUser)
-                //    .Where(() => studyRoomUser.User.Id == query.UserId || studyRoomAlias.Tutor.Id == query.UserId)
-                //    .Select(s => s.Id);
-
-                //return await _session.QueryOver(() => studyRoomAlias)
-                //    .WithSubquery.WhereProperty(x => x.Id).In(detachedQuery)
-                //    .Where(w=>((BroadCastStudyRoom)w).BroadcastTime.IfNull(DateTime.UtcNow.AddDays(1)) > DateTime.UtcNow.AddHours(-6))
-                //    .SelectList(sl =>
-                //                sl.Select(s => s.Id).WithAlias(() => resultAlias.Id)
-                //                .Select(s=>s.Name).WithAlias(() => resultAlias.Name)
-                //                .Select(s => s.DateTime.CreationTime).WithAlias(() => resultAlias.DateTime)
-                //                .Select(s=> s.GetType()).WithAlias(() => resultAlias.Type)
-                //                .Select(s=>((BroadCastStudyRoom)s).BroadcastTime).WithAlias(() => resultAlias.Scheduled)
-                //                .Select(s => s.Identifier).WithAlias(() => resultAlias.ConversationId)
-                //                .Select(s=>s.DateTime.UpdateTime).WithAlias(() => resultAlias.LastSession)
-
-                //                .SelectSubQuery(QueryOver.Of<StudyRoomUser>()
-                //                    .Where(w=>w.Room.Id == studyRoomAlias.Id)
-                //                    .ToRowCountQuery()).WithAlias(() => resultAlias.AmountOfUsers)
-
-
-                //    )
-                //    .OrderBy(()=> studyRoomAlias.DateTime.CreationTime).Desc
-                //    .TransformUsing(new SbAliasToBeanResultTransformer<UserStudyRoomDto>())
-                //    .UnderlyingCriteria.SetComment(nameof(UserStudyRoomQuery))
-                //    .ListAsync<UserStudyRoomDto>(token);
-
-
             }
         }
     }
