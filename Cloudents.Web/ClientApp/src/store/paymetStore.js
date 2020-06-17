@@ -2,7 +2,6 @@ import walletService from '../services/walletService.js';
 import * as dialogNames from '../components/pages/global/dialogInjection/dialogNames.js'
 
 import { router } from '../main.js';
-import { loadStripe } from '@stripe/stripe-js';
 
 const state = {
     paymentURL: null,
@@ -27,23 +26,21 @@ const getters = {
 const actions = {
     buyPointsUS({getters}, points) {
         walletService.stripeTransaction(points).then(async ({data}) => {
-            const stripePromise = loadStripe(getters.getStripeToken);
+            const stripePromise = window.Stripe(getters.getStripeToken);
             const stripe = await stripePromise;
-            //TODO - investigate error
             await stripe.redirectToCheckout({
                sessionId:  data.sessionId,
             });
         })
     },
     async subscribeToTutor({getters}, id) {
-       var data =  await walletService.subscribe(id);
-       const stripePromise = loadStripe(getters.getStripeToken);
-       const stripe = await stripePromise;
-           //TODO - investigate error
-       await stripe.redirectToCheckout({
-           sessionId: data.sessionId,
-       });
-        //var {data} =  await axios.post(`/Tutor/${id}/subscribe`);
+        let data = await walletService.subscribe(id);
+        const stripePromise = window.Stripe(getters.getStripeToken);
+        const stripe = await stripePromise;
+
+        await stripe.redirectToCheckout({
+            sessionId: data.sessionId,
+        });
     },
     buyToken({dispatch ,commit}, points) {
         return walletService.buyTokens(points).then(({ data }) => {
