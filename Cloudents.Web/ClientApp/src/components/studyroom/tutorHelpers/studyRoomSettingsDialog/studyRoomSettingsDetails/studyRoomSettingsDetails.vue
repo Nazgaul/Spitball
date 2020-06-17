@@ -8,7 +8,7 @@
                         <td class="" v-t="'studyRoomSettings_tutor_name'"></td>
                         <td class="pl-4">{{roomTutor.tutorName}}</td>
                     </tr>
-                    <tr>
+                    <tr v-if="!isMyRoom">
                         <td class="" v-t="'studyRoomSettings_price'"></td>
                         <td class="ps-4 d-flex">
                             <span class="pe-2" v-if="roomPrice">{{roomPrice}}</span>
@@ -170,6 +170,9 @@ export default {
                 // return this.$n(this.roomTutor.tutorPrice, {'style':'currency','currency': this.currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})
             }
             return 0
+        },
+        isMyRoom() {
+            return this.roomTutor?.tutorId === this.$store.getters.accountUser?.id
         },
         roomTutor() {
             return this.$store.getters.getRoomTutor
