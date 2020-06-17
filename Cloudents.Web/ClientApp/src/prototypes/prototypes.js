@@ -50,7 +50,15 @@ Vue.prototype.$proccessImageUrl = function(url, width, height, mode){
 //         return userName + modifiedMessage
 //     }
 // };
-Vue.prototype.$price = function(price, currency, minFraction = 0, maxFraction = 0) {
+
+Vue.prototype.$price = function(price, currency,freeText = false, minFraction = 0, maxFraction = 0) {
+    if (price instanceof Object) {
+        currency = price.currency;
+        price = price.price;
+    }
+    if (freeText && price === 0) {
+        return i18n.t('free');
+    }
     let options = {
         style: 'currency',
         currency: currency,

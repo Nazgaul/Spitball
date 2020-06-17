@@ -208,8 +208,8 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new CreateStudyRoomSessionCommand(id, userId);
-            var result = await _commandBus.DispatchAsync<CreateStudyRoomSessionCommand, CreateStudyRoomSessionCommandResult>(command, token);
-            return new CreateStudyRoomSessionResponse(result.JwtToken);
+            await _commandBus.DispatchAsync(command, token);
+            return new CreateStudyRoomSessionResponse(command.JwtToken);
 
         }
 

@@ -123,10 +123,6 @@ export default {
     margin-bottom: 26px;
     font-size: 24px;
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #43425d;
   }
   .categories-top {

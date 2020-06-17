@@ -5,7 +5,6 @@ import scrollList from '../../helpers/infinateScroll.vue';
 import resultItem from '../ResultItem.vue';
 import resultAsk from "../ResultAsk.vue";
 import resultNote from "../ResultNote.vue";
-import suggestCard from '../suggestCard.vue';
 import emptyStateCard from '../emptyStateCard/emptyStateCard.vue';
 import { mapActions, mapGetters } from 'vuex';
 import requestBox from '../../pages/feedPage/components/requestActions/requestActions.vue';
@@ -29,7 +28,6 @@ export default {
         ResultNote: resultNote,
         tutorResultCardMobile,
         tutorResultCard,
-        SuggestCard: suggestCard,
         emptyState,
         emptyStateCard,
         requestBox,

@@ -66,9 +66,9 @@
                                         class="cell">
                                     </component>
                             </v-flex>
-                            <v-flex class="suggestCard result-cell mb-4 xs-12 order-xs4">
+                            <!-- <v-flex class="suggestCard result-cell mb-4 xs-12 order-xs4">
                                 <suggestCard/>   
-                            </v-flex>
+                            </v-flex> -->
                         </v-layout>
                     </v-container>
                 </scrollList>
@@ -134,15 +134,15 @@
     }
 }
 .feedWrap {
-    .results-section{
-        .results-wrapper{
-            .suggestCard{
-                cursor: pointer;
-                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
-                .responsive-property(margin-bottom, 16px, null, 8px);
-            }
-        }
-    }
+    // .results-section{
+    //     .results-wrapper{
+    //         // .suggestCard{
+    //         //     cursor: pointer;
+    //         //     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+    //         //     .responsive-property(margin-bottom, 16px, null, 8px);
+    //         // }
+    //     }
+    // }
     .analyticWrapper {
         .analyticOverview {
             max-width: 720px;

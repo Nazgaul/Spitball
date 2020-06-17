@@ -14,16 +14,7 @@ namespace Cloudents.Command.StudyRooms
 
 
         public long UserId { get; }
-    }
 
-
-    public class CreateStudyRoomSessionCommandResult : ICommandResult
-    {
-        public CreateStudyRoomSessionCommandResult(string jwtToken)
-        {
-            JwtToken = jwtToken;
-        }
-
-        public string JwtToken { get; }
+        public string JwtToken { get; set; }
     }
 }
