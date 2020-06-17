@@ -153,17 +153,21 @@ export default {
     data() {
         var currentTime = new Date();
         var currentHour = currentTime.getHours().toString().padStart(2,'0')
-        var currentMinutes = (Math.round(currentTime.getMinutes() / 15) * 15).toString().padStart(2,'0')
+        var currentMinutes = (Math.ceil(currentTime.getMinutes() / 15) * 15);
+        if (currentMinutes === 60) {
+            currentHour++;
+            currentMinutes = 0;
+        }
         return {
             isRtl: global.isRtl,
             liveSessionTitle: '',
             sessionAboutText: '',
             date: new Date().FormatDateToString(),
-            hour:  `${currentHour}:${currentMinutes}`,
+            hour:  `${currentHour}:${currentMinutes.toString().padStart(2,'0')}`,
             datePickerMenu: false,
             currentVisitorPriceSelect: { text: this.$t('dashboardPage_visitors_free'), value: 'free' },
             items: [
-                { text: this.$t('dashboardPage_visitors_free'), value: 'free' },
+                { text: this.$t('free'), value: 'free' },
                 { text: this.$t('dashboardPage_visitors_set_price'), value: 'price' }
             ],
             rules: {
