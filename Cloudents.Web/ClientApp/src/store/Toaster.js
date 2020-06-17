@@ -11,7 +11,7 @@ const state = {
         toasterType: '', //class name
         toasterTimeout: 5000
     },
-    component: ''
+    component: []
 };
 const mutations = {
     //OLD CODE IGNORE!!!!
@@ -28,10 +28,27 @@ const mutations = {
         }
     },
     setComponent(state, component) {
-        state.component = component
+        if(component){
+            state.component = [component]
+        }else{
+            state.component = [];
+        }
     },
     clearComponent(state) {
-        state.component = '';
+        state.component = [];
+    },
+    addComponent(state,componentName){
+        if(state.component.includes(componentName)){
+            // 
+        }else{
+            state.component.push(componentName) 
+        }
+    },
+    removeComponent(state,componentName){
+        const index = state.component.indexOf(componentName);
+        if (index > -1) {
+            state.component.splice(index, 1);
+        }
     }
 };
 const getters = {

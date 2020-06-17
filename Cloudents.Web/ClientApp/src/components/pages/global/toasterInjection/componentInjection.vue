@@ -1,5 +1,7 @@
 <template>
-    <component :is="component.name" :params="component.params"></component>
+    <div>
+        <component v-for="(item, index) in componentsList" :key="index" :is="item.name" :params="item.params"></component>
+    </div>
 </template>
 
 <script>
@@ -137,17 +139,17 @@ export default {
         }
     },
     watch: {
-        "$store.getters.getComponent":{
+        componentsList:{
+            deep:true,
             immediate:true,
-            handler(newVal){
-                this.showComponent(newVal)
-            }
+            handler(){}
         },
     },
-    methods: {
-        showComponent(componentName = "") {
-            let componentInject = this.componentObj[componentName] || {name: '', params: ''};
-            this.component = componentInject;
+    computed: {
+        componentsList(){
+            return this.$store.getters.getComponent.map(cmp=>{
+                return this.componentObj[cmp] || {name: '', params: ''};
+            })
         }
     }
 }
