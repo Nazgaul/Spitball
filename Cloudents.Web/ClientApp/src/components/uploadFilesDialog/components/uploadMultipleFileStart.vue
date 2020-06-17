@@ -359,7 +359,6 @@ export default {
             margin-top: 30px;
         }
         .v-btn{
-            margin: 6px 0;
             &:before {
             background-color: transparent !important;
             transition: none !important;
