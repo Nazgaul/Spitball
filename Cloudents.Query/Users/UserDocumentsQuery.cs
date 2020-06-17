@@ -86,7 +86,7 @@ namespace Cloudents.Query.Users
 
 
                 var futureResult = await result.GetEnumerableAsync(token);
-                var isSubscribed = scribedQueryFuture?.Value ?? query.UserId == query.Id;
+                var isSubscribed = scribedQueryFuture?.Value ?? false;// ?? query.UserId == query.Id;
 
                 if (isSubscribed)
                 {

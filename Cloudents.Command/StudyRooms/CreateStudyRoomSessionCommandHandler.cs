@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Command.StudyRooms
 {
-    public class CreateStudyRoomSessionCommandHandler : ICommandHandler<CreateStudyRoomSessionCommand, CreateStudyRoomSessionCommandResult>
+    public class CreateStudyRoomSessionCommandHandler : ICommandHandler<CreateStudyRoomSessionCommand>
     {
         private readonly IRepository<StudyRoom> _studyRoomRepository;
         private readonly IStudyRoomProvider _videoProvider;
@@ -18,7 +18,7 @@ namespace Cloudents.Command.StudyRooms
             _urlBuilder = urlBuilder;
         }
 
-        public async Task<CreateStudyRoomSessionCommandResult> ExecuteAsync(CreateStudyRoomSessionCommand message, CancellationToken token)
+        public async Task ExecuteAsync(CreateStudyRoomSessionCommand message, CancellationToken token)
         {
             var room = await _studyRoomRepository.LoadAsync(message.StudyRoomId, token);
             if (room.Tutor.Id != message.UserId) //only tutor can open a session
@@ -34,7 +34,8 @@ namespace Cloudents.Command.StudyRooms
                 if (roomAvailable)
                 {
                     var jwtToken2 = _videoProvider.CreateRoomToken(lastSession.SessionId, tutor.Id, tutor.User.Name);
-                    return new CreateStudyRoomSessionCommandResult(jwtToken2);
+                    message.JwtToken = jwtToken2;
+                    return;
                 }
                 lastSession.EndSession();
             }
@@ -47,7 +48,7 @@ namespace Cloudents.Command.StudyRooms
                 );
             room.AddSession(sessionName);
             var jwtToken = _videoProvider.CreateRoomToken(sessionName, tutor.Id, tutor.User.Name);
-            return new CreateStudyRoomSessionCommandResult(jwtToken);
+            message.JwtToken = jwtToken;
         }
     }
 }

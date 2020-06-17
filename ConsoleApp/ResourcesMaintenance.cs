@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+using Newtonsoft.Json;
+using Formatting = Newtonsoft.Json.Formatting;
 
 namespace ConsoleApp
 {
@@ -25,100 +27,76 @@ namespace ConsoleApp
                 directoryName = Directory.GetParent(directoryName).ToString();
             }
             string[] resourceFiles =
-                Directory.GetFiles($@"{directoryName}\Cloudents.Web\Resources\Js\",
-                "*.resx", SearchOption.AllDirectories);
-            string[] jsFiles = Directory.GetFiles($@"{directoryName}\Cloudents.Web\ClientApp",
+                Directory.GetFiles($@"{directoryName}\Cloudents.Web\ClientApp\src\locales\",
+                "*.json", SearchOption.AllDirectories);
+            string[] jsFiles = Directory.GetFiles($@"{directoryName}\Cloudents.Web\ClientApp\src",
                 "*", SearchOption.AllDirectories);
 
             for (int j = resourceFiles.Length - 1; j >= 0; j--)
             {
                 var resourceFile = resourceFiles[j];
 
-                var v = Path.GetFileNameWithoutExtension(resourceFile).Contains('.');
 
-                //ResXResourceReader rr = new ResXResourceReader(resourceFile);
-                //rr.UseResXDataNodes = true;
 
-                //IDictionaryEnumerator dict = rr.GetEnumerator();
-                //while (dict.MoveNext())
+
+                string content = File.ReadAllText(resourceFile);
+                //using (StreamReader streamReader = new StreamReader(resourceFile, Encoding.UTF8))
                 //{
-                //    ResXDataNode node = (ResXDataNode)dict.Value;
-                //    Console.WriteLine(string.Format("{0} {1} {2}",node.Name,node.GetValue((ITypeResolutionService)null),node.Comment));
-
-
-                //    var resourceString = $"{Path.GetFileNameWithoutExtension(resourceFile).Split('.')[0]}_{node.Name}";
-                //    var occurrence = false;
-                //    foreach (string file in jsFiles)
-                //    {
-                //        if (!_fileContentCache.TryGetValue(file, out var lines))
-                //        {
-                //            lines = File.ReadAllLines(file);
-                //            _fileContentCache[file] = lines;
-                //        }
-                //        //string[] lines = File.ReadAllLines(file); 
-                //        occurrence = lines.Any(l => l.Contains(resourceString, StringComparison.OrdinalIgnoreCase));
-                //        if (occurrence)
-                //        {
-                //            break;
-                //        }
-                //    }
-
-                //    if (!occurrence)
-                //    {
-                //        Console.WriteLine($"file path: {resourceFile}, element name: {node.Name}");
-
-                //        var p = dataElement[i].ParentNode;
-                //        p.RemoveChild(dataElement[i]);
-                //    }
-
+                //    content = streamReader.ReadToEnd();
                 //}
 
-                string content;
-                using (StreamReader streamReader = new StreamReader(resourceFile, Encoding.UTF8))
+                var values = JsonConvert.DeserializeObject<Dictionary<string, string>>(content);
+              
+
+                foreach (var (key, value) in values)
                 {
-                    content = streamReader.ReadToEnd();
-                }
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.LoadXml(content);
-                XmlNodeList dataElement = xmlDoc.GetElementsByTagName("data");
-
-
+                    
+                
 
                 //foreach (XmlNode element in dataElement)
-                for (int i = dataElement.Count - 1; i >= 0; i--)
-                {
-                    var element = dataElement[i];
+                //for (int i = values.Count - 1; i >= 0; i--)
+                //{
+                   // var element = values[i];
                     var occurrence = false;
-                    foreach (var elementChildNode in element.ChildNodes)
-                    {
-                        if (elementChildNode is XmlElement p)
-                        {
-                            if (p.InnerText == "dynamic")
-                            {
-                                occurrence = true;
-                                break;
-                            }
-                        }
-                    }
+                    //foreach (var elementChildNode in element.ChildNodes)
+                    //{
+                    //    if (elementChildNode is XmlElement p)
+                    //    {
+                    //        if (p.InnerText == "dynamic")
+                    //        {
+                    //            occurrence = true;
+                    //            break;
+                    //        }
+                    //    }
+                    //}
 
-                    if (occurrence)
-                    {
-                        break;
-                    }
+                    //if (occurrence)
+                    //{
+                    //    break;
+                    //}
 
-                    var name = dataElement[i].Attributes["name"].Value;
+                   // var name = dataElement[i].Attributes["name"].Value;
 
-                    var resourceString = $"{Path.GetFileNameWithoutExtension(resourceFile).Split('.')[0]}_{name}";
+                   // var resourceString = $"{Path.GetFileNameWithoutExtension(resourceFile).Split('.')[0]}_{name}";
 
                     foreach (string file in jsFiles)
                     {
+                        var path = Path.GetExtension(file);
+                        var extensionsNotToSearch = new string[]
+                        {
+                            ".less", ".json", ".css"
+                        };
+                        if (extensionsNotToSearch.Contains(path, StringComparer.OrdinalIgnoreCase))
+                        {
+                            continue;
+                        }
                         if (!FileContentCache.TryGetValue(file, out var lines))
                         {
                             lines = File.ReadAllLines(file);
                             FileContentCache[file] = lines;
                         }
                         //string[] lines = File.ReadAllLines(file); 
-                        occurrence = lines.Any(l => l.Contains(resourceString, StringComparison.OrdinalIgnoreCase));
+                        occurrence = lines.Any(l => l.Contains(key, StringComparison.OrdinalIgnoreCase));
                         if (occurrence)
                         {
                             break;
@@ -126,21 +104,29 @@ namespace ConsoleApp
                     }
                     if (!occurrence)
                     {
-                        Console.WriteLine($"file path: {resourceFile}, element name: {name}");
-
-                        var p = dataElement[i].ParentNode;
-                        p.RemoveChild(dataElement[i]);
+                        //Console.WriteLine($"file path: {resourceFile}, element name: {name}");
+                        values.Remove(key);
+                        //var p = dataElement[i].ParentNode;
+                        //p.RemoveChild(dataElement[i]);
                     }
                 }
-                xmlDoc.Save(resourceFile);
-                dataElement = xmlDoc.GetElementsByTagName("data");
-                if (dataElement.Count == 0)
-                {
-                    var file = new FileInfo(resourceFile);
-                    file.Delete();
-                    Console.WriteLine($"Deleting: {resourceFile}");
-                    //Need to remove the file
-                }
+
+                var x = JsonConvert.SerializeObject(values, Formatting.Indented);
+                File.WriteAllText(resourceFile,x);
+                //using (var streamReader = new StreamWriter(resourceFile, Encoding.UTF8))
+                //{
+                //    content = streamReader.ReadToEnd();
+                //}
+
+                //xmlDoc.Save(resourceFile);
+                //dataElement = xmlDoc.GetElementsByTagName("data");
+                //if (dataElement.Count == 0)
+                //{
+                //    var file = new FileInfo(resourceFile);
+                //    file.Delete();
+                //    Console.WriteLine($"Deleting: {resourceFile}");
+                //    //Need to remove the file
+                //}
             }
         }
 
@@ -247,9 +233,9 @@ namespace ConsoleApp
                 directoryName = Directory.GetParent(directoryName).ToString();
             }
             string[] svgFiles =
-                Directory.GetFiles($@"{directoryName}\Cloudents.Web\ClientApp\font-icon\",
+                Directory.GetFiles($@"{directoryName}\Cloudents.Web\ClientApp\src\font-icon\",
                 "*.*", SearchOption.AllDirectories);
-            string[] jsFiles = Directory.GetFiles($@"{directoryName}\Cloudents.Web\ClientApp",
+            string[] jsFiles = Directory.GetFiles($@"{directoryName}\Cloudents.Web\ClientApp\src\",
                 "*", SearchOption.AllDirectories);
 
             //var dic = new Dictionary<string,string[]>();
