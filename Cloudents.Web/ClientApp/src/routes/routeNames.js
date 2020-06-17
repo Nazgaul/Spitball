@@ -56,3 +56,5 @@ export const TutorList = 'tutorLandingPage';
 
 // Message Center:
 export const MessageCenter = 'messages';
+
+export const notFound = '404'

@@ -69,15 +69,22 @@ const getters = {
 
 const actions = {
    syncProfile(context, { id, type, params }) {
-      profileService.getProfile(id).then(profileUserData => {
+
+
+
+
+
+      return profileService.getProfile(id).then(profileUserData => {
          context.commit('setProfile', profileUserData);
          context.dispatch('updateProfileItemsByType', { id, type, params });
          context.dispatch('setUserStatus', profileUserData.user);
+         // TODO: think what to do if to move to component or keep in store 
          if (profileUserData.user.isTutor) {
             profileService.getProfileReviews(id).then(val => {
                context.commit('setProfileReviews', val);
             })
          }
+         return profileUserData
       });
    },
    updateProfileItemsByType({ state, commit }, { id, type, params }) {

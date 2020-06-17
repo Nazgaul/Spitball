@@ -8,28 +8,33 @@ export const profileRoutes = [
         redirect: { name: routeName.Feed }
     },
     {
-        name: routeName.Profile,
         path: "/profile/:id/:name",
+        name: routeName.Profile,
         components: {
             default: () => import(`../components/new_profile/new_profile.vue`),
             ...staticComponents(['banner', 'header'])
         },
         beforeEnter: (to, from, next) => {
-            if (to.params?.id) {
-                next()
-            } else {
-                if (store.getters.accountUser?.id) {
-                    let { id, name } = store.getters.accountUser;
-                    next({ name: routeName.Profile, params: { id, name } })
-                } else {
-                    next({ name: routeName.Feed })
+            store.dispatch('syncProfile', to.params).then(({user}) => {
+                if(user.isTutor) {
+                    next()
+                    return
                 }
-            }
+                if(from.fullPath) {
+                    next(from.fullPath)
+                    return
+                }
+                next('/')
+            }).catch(() => {
+                next({name: routeName.notFound})
+            })
         },
         props: {
-            default: (route) => ({
-                id: route.params.id
-            })
+            default: (route) => {
+                return {
+                    id: route.params.id
+                }
+            }
         }
     },
 ]
