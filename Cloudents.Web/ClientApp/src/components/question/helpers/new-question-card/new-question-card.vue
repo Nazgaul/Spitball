@@ -4,7 +4,16 @@
             <div class="question-header-container">
                 <div class="question-header-large-sagment">
                     <div class="rank-date-container">
-                        <user-avatar class="mr-1" size="34" :userImageUrl="cardData.user.image" :user-name="cardData.user.name" :user-id="cardData.user.id"/>
+                        <!-- <user-avatar class="mr-1" size="34" :userImageUrl="cardData.user.image" :user-name="cardData.user.name" :user-id="cardData.user.id"/> -->
+                        <userAvatarNew 
+                            class="mr-1"
+                            :userImageUrl="cardData.user.image"
+                            :user-name="cardData.user.name"
+                            :user-id="cardData.user.id"
+                            :width="34"
+                            :height="34"
+                            :fontSize="14"
+                        />
                         <div class="user-question">
                             <div class="user-question-name text-truncate">{{cardData.user.name}}</div>
                             <div class="user-question-date">{{$d(new Date(cardData.dateTime), 'short')}}</div>
