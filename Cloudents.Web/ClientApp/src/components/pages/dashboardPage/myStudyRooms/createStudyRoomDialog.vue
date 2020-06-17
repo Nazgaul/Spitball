@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import Broadcast from './liveSession/liveSession.vue'
-import Private from './privateSession/privateSession.vue'
+const Broadcast = () => import('./liveSession/liveSession.vue');
+const Private = () => import('./privateSession/privateSession.vue');
 
 export default {
    name:'createStudyRoom',

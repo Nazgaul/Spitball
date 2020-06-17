@@ -115,7 +115,6 @@
                         color="#304FFE"
                         :rules="[rules.required,rules.minimum]"
                         :label="$t('becomeTutor_placeholder_price', {'0' : getSymbol})"
-                        :placeholder="$t('becomeTutor_placeholder_price', {'0' : getSymbol})"
                         dense
                         height="50"
                         hide-details
@@ -152,12 +151,15 @@ export default {
         },
     },
     data() {
+        var currentTime = new Date();
+        var currentHour = currentTime.getHours().toString().padStart(2,'0')
+        var currentMinutes = (Math.round(currentTime.getMinutes() / 15) * 15).toString().padStart(2,'0')
         return {
             isRtl: global.isRtl,
             liveSessionTitle: '',
             sessionAboutText: '',
             date: new Date().FormatDateToString(),
-            hour: '00:00',
+            hour:  `${currentHour}:${currentMinutes}`,
             datePickerMenu: false,
             currentVisitorPriceSelect: { text: this.$t('dashboardPage_visitors_free'), value: 'free' },
             items: [
