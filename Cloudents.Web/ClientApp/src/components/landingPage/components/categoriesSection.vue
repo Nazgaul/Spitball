@@ -84,7 +84,7 @@ export default {
     categoriesCardsCarousel(){
       return Array.from(Array(5),(item,index)=>{
         return {
-          name: `categoriesSection_category_name_${index+1}`,
+          name: this.$t(`categoriesSection_category_name_${index+1}`),
           img: `./staticCardImgs/category_${index+1}.png`
         }
       })
