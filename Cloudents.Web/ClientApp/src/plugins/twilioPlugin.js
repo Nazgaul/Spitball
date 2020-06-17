@@ -98,8 +98,21 @@ function _twilioListeners(room,store) {
          audio: networkQualityStats?.audio? 'recv:'+networkQualityStats.audio.recv+' send:'+networkQualityStats.audio.send : undefined,
          video: networkQualityStats?.video? 'recv:'+networkQualityStats.video.recv+' send:'+networkQualityStats.video.send : undefined,
       }
-      store.commit(studyRoom_SETTERS.ROOM_NETWORK_QUALITY,networkQualityLevel || 0)
       _insightEvent('networkQuality',params,null)
+      let localNetworkStats = 0;
+
+      let isAudioTrack = (room.localParticipant.audioTracks.size);
+      let isVideoTrack = (room.localParticipant.videoTracks.size);
+      localNetworkStats = isAudioTrack? + networkQualityStats?.audio.send : + 0;
+      localNetworkStats = isVideoTrack? + networkQualityStats?.video.send : + 0;
+      
+      if(isAudioTrack && isVideoTrack){
+         localNetworkStats = Math.floor(localNetworkStats / 2);
+      }
+      if(!localNetworkStats){
+         localNetworkStats = networkQualityLevel
+      }
+      store.commit(studyRoom_SETTERS.ROOM_NETWORK_QUALITY,localNetworkStats || 0)
    });
    room.localParticipant.on('trackPublished',(track)=>{
       store.commit(studyRoom_SETTERS.ROOM_ACTIVE,true)
