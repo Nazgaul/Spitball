@@ -82,17 +82,29 @@ export default {
       return this.$vuetify.breakpoint.xsOnly;
     },
     categoriesCardsCarousel(){
+      let categoriesResource = {
+        0: this.$t(`categoriesSection_category_name_1`),
+        1: this.$t(`categoriesSection_category_name_2`),
+        2: this.$t(`categoriesSection_category_name_3`),
+        3: this.$t(`categoriesSection_category_name_4`),
+        4: this.$t(`categoriesSection_category_name_5`)
+      }
       return Array.from(Array(5),(item,index)=>{
         return {
-          name: this.$t(`categoriesSection_category_name_${index+1}`),
+          name: categoriesResource[index],
           img: `./staticCardImgs/category_${index+1}.png`
         }
       })
     },
     categoriesCardsCarousel2(){
+      let categoriesResource = {
+        0: this.$t(`categoriesSection_category2_name_1`),
+        1: this.$t(`categoriesSection_category2_name_2`),
+        2: this.$t(`categoriesSection_category2_name_3`),
+      }
       return Array.from(Array(3),(item,index)=>{
         return {
-          name: this.$t(`categoriesSection_category2_name_${index+1}`),
+          name: categoriesResource[index],
           img: `./staticCardImgs/category2_${index+1}.png`
         }
       })
