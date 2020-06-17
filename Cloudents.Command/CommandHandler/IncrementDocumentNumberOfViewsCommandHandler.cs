@@ -14,9 +14,9 @@ namespace Cloudents.Command.CommandHandler
             _documentRepository = documentRepository;
         }
 
-        public async Task ExecuteAsync(IncrementDocumentNumberOfViewsCommand message, CancellationToken token)
+        public Task ExecuteAsync(IncrementDocumentNumberOfViewsCommand message, CancellationToken token)
         {
-            await _documentRepository.UpdateNumberOfViewsAsync(message.Id, token);
+            return _documentRepository.UpdateNumberOfViewsAsync(message.Id, token);
         }
     }
 
@@ -29,9 +29,9 @@ namespace Cloudents.Command.CommandHandler
             _documentRepository = documentRepository;
         }
 
-        public async Task ExecuteAsync(IncrementDocumentNumberOfDownloadsCommand message, CancellationToken token)
+        public Task ExecuteAsync(IncrementDocumentNumberOfDownloadsCommand message, CancellationToken token)
         {
-            await _documentRepository.UpdateNumberOfDownloadsAsync(message.Id, token);
+            return _documentRepository.UpdateNumberOfDownloadsAsync(message.Id, token);
         }
     }
 }
