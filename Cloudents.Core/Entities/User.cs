@@ -239,7 +239,7 @@ namespace Cloudents.Core.Entities
             {
                 Name = $"{Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0]}";
             }
-            AddEvent(new UserChangeNameEvent(Id));
+            AddEvent(new UserChangeNameEvent(this));
         }
 
         public virtual void ChangeEmail(string email)

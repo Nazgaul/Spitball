@@ -27,9 +27,9 @@ namespace Cloudents.Infrastructure.Stuff
                 .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<>)))
                 .Select(i => new KeyedService("handler", i)));
 
-            builder.RegisterAssemblyTypes(typeof(ICommandHandler<,>).Assembly).As(o => o.GetInterfaces()
-                .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<,>)))
-                .Select(i => new KeyedService("handler2", i)));
+            //builder.RegisterAssemblyTypes(typeof(ICommandHandler<,>).Assembly).As(o => o.GetInterfaces()
+            //    .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<,>)))
+            //    .Select(i => new KeyedService("handler2", i)));
 
 
             builder.RegisterAssemblyTypes(typeof(IQueryHandler<,>).Assembly, Assembly.GetExecutingAssembly()).As(o => o
@@ -50,10 +50,10 @@ namespace Cloudents.Infrastructure.Stuff
                 typeof(ICommandHandler<>),
                 fromKey: "handler");
 
-            builder.RegisterGenericDecorator(
-                typeof(CommitUnitOfWorkCommandHandlerDecorator2<,>),
-                typeof(ICommandHandler<,>),
-                fromKey: "handler2");
+            //builder.RegisterGenericDecorator(
+            //    typeof(CommitUnitOfWorkCommandHandlerDecorator2<,>),
+            //    typeof(ICommandHandler<,>),
+            //    fromKey: "handler2");
 
             builder.RegisterAssemblyTypes(typeof(IEventHandler<>).Assembly).AsClosedTypesOf(typeof(IEventHandler<>));
 
