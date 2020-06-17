@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "name": "asp.net",
+  "name": "spitball",
   "private": true,
   "scripts": {
     "test": "jest",
@@ -11,6 +11,7 @@
     "bundle-report": "webpack-bundle-analyzer --port 4200 wwwroot/dist/stats.json",
     "build": "npm run client",
     "start": "npm run client && cd .. && dotnet run",
+    "prod": "npm run client-prod && cd .. && dotnet run  --launch-profile Cloudents.Web.Prod",
     "all": "npm run build && npm run start",
     "lint": "node node_modules/eslint/bin/eslint.js **/*.{js,vue}",
     "stylelint": "node node_modules/stylelint/bin/stylelint.js **/*.{vue,less}"

@@ -12,13 +12,13 @@
         </component>
 
         <v-snackbar
-            v-model="snackbar"
+            v-model="showSnackBar"
             class="error-toaster getStartedToaster"
             :timeout="5000"
             top
         >
             <div class="text-center flex-grow-1">
-                {{gmailError}}
+                {{showError}}
             </div>
         </v-snackbar>
     </v-dialog>
@@ -35,6 +35,19 @@ export default {
         params: {
             type: Object,
             required: false,
+        }
+    },
+    computed : {
+        showSnackBar: {
+            get() {
+                return this.snackbar || this.$store.getters.getIsFaliure
+            },
+            set(val) {
+                this.snackbar = val
+            }
+        },
+        showError() {
+            return this.gmailError ||  this.$store.getters.getFaliureReason
         }
     },
     data() {

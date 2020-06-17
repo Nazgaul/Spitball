@@ -44,12 +44,19 @@
                   </div>
          </template>
       <template v-slot:item.preview="{item}">
-           <user-avatar :user-id="item.userId" 
+           <!-- <user-avatar :user-id="item.userId" 
                :user-image-url="item.image" 
                :size="'40'" 
                :user-name="item.name" >
-               </user-avatar>
-          
+               </user-avatar> -->
+            <userAvatarNew
+               class="followersUserAvatar"
+               :user-image-url="item.image"
+               :user-name="item.name"
+               :width="40"
+               :height="40"
+               :fontSize="14"
+            />
            
       </template>
       <!-- <template v-slot:item.name="{item}">
@@ -210,6 +217,15 @@ export default {
       .v-data-footer__pagination {
          font-size: 14px;
          color: #43425d;
+      }
+   }
+   .followersUserAvatar {
+      .user-avatar-image-wrap {
+         margin: 0 auto;
+
+         .v-lazy {
+            display: flex;
+         }
       }
    }
   // }

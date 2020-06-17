@@ -210,9 +210,9 @@ namespace Cloudents.Web.Api
                             var uri = await blobProvider.UploadImageAsync(user.Id, result.Picture, sr,
                                 mimeType.ToString(), cancellationToken);
                             var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
-                            var url = Url.ImageUrl(imageProperties);
+                           // var url = Url.ImageUrl(imageProperties);
                             var fileName = uri.AbsolutePath.Split('/').Last();
-                            user.UpdateUserImage(url, fileName);
+                            user.UpdateUserImage( fileName);
                         }
                         catch (ArgumentException e)
                         {

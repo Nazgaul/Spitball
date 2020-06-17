@@ -125,5 +125,7 @@ namespace Cloudents.Core.DTOs
         public bool Enrolled { get; set; }
 
         public string? Description { get; set; }
+
+        public bool IsFull { get; set; }
     }
 }

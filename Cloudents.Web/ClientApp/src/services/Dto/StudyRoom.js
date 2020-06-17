@@ -1,5 +1,6 @@
 export const StudyRoom = {
    RoomProps:function(objInit, roomId) {
+      this.topologyType = objInit.topologyType
       this.conversationId = objInit.conversationId ;
       this.name = objInit.name;
       this.needPayment = objInit.needPayment;

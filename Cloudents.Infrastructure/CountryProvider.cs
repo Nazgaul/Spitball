@@ -19,6 +19,17 @@ namespace Cloudents.Infrastructure
             return country != null;
         }
 
+        public (string iso2Code, string country,string region ,string subregion)? GetCountryParams(string countryCode)
+        {
+            var country = Item.GetCountry(countryCode);
+            if (country == null)
+            {
+                return null;
+            }
+
+            return (country.Alpha2Code.ToString("G"), country.OfficialName, country.Region.ToString("G"), country.SubRegion.ToString("G"));
+        }
+
         //public decimal ConvertPointsToLocalCurrency(string countryCode, decimal points)
         //{
         //    var country = Item.GetCountry(countryCode);
