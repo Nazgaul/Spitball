@@ -121,7 +121,7 @@ export default {
             this.currentError = 'showErrorEmpty'
             return false
          }
-
+         //TODO: need to get the currency for update on the fly
          return {
             userId: Array.from(childComponent.selected.map(user=> user.userId)),
             name: childComponent.roomName,

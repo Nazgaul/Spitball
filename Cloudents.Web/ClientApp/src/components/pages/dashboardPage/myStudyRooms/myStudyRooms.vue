@@ -1,6 +1,13 @@
 <template>
   <div class="myStudyRooms">
+    <v-skeleton-loader
+      v-if="skeleton"
+      class="mx-auto"
+      max-width="1274"
+      type="table"
+    ></v-skeleton-loader>
     <v-data-table
+      v-else
       calculate-widths
       :page.sync="paginationModel.page"
       :headers="headers"
@@ -8,7 +15,7 @@
       :mobile-breakpoint="0"
       :items-per-page="20"
       sort-by
-      :item-key="'date'"
+      :item-key="'itemId'"
       class="elevation-1"
       :footer-props="{
             showFirstLastPage: false,
@@ -56,9 +63,14 @@
       <template v-slot:item.students="{item}">
         <v-tooltip :value="currentItemId === item.id" top transition="fade-transition">
           <template v-slot:activator="{on}">
-            <div v-on="on" class="amountStudents white--text">{{item.amountStudent}}</div>
+            <div
+              v-on="item.userNames && item.userNames.length ? on : null"
+              class="amountStudents white--text"
+            >
+              {{item.amountStudent || 0}}
+            </div>
           </template>
-          <div v-for="(user, index) in item.userNames" :key="index">{{user}}</div>
+          <div v-for="(user, index) in item.userNames" :key="index">{{user}}</div>          
         </v-tooltip>
       </template>
 
@@ -137,7 +149,6 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import * as routeNames from "../../../../routes/routeNames";
-// import * as dialogNames from "../../global/dialogInjection/dialogNames.js";
 
 import iconChat from "./images/icon-chat.svg";
 import enterRoom from "./images/enterRoomGreen.svg";
@@ -152,6 +163,7 @@ export default {
   },
   data() {
     return {
+      skeleton: true,
       studyRoomType: "",
       snackbar: {
         value: false,
@@ -236,12 +248,21 @@ export default {
     isTutor() {
       return this.$store.getters.accountUser?.isTutor;
     },
+    
     studyRoomItems() {
-      return this.getStudyRoomItems;
+        // avoiding duplicate key becuase we have id that are the same,
+        // vuetify default key is "id", making new key "itemId" for unique index table items
+        return this.getStudyRoomItems && this.getStudyRoomItems.map((item, index) => {
+            return {
+               itemId: index,
+               ...item
+            }
+         })
     }
   },
   watch: {
     "$route.meta.type"(val) {
+      this.skeleton = true
       this.getSessions(val);
     }
   },
@@ -314,7 +335,9 @@ export default {
     },
     getSessions(type) {
       this.studyRoomType = type;
-      this.updateStudyRoomItems({ type: this.studyRoomType });
+      this.updateStudyRoomItems({ type: this.studyRoomType }).then(() => {
+        this.skeleton = false
+      })
     }
   },
   created() {
@@ -412,13 +435,6 @@ export default {
   td {
     border: none !important;
   }
-  // td:last-child {
-  //     position: relative;
-  //     .dotsIcon {
-  //       position: absolute;
-  //       right: 12px;
-  //     }
-  // }
   td:first-child {
     white-space: nowrap;
   }
