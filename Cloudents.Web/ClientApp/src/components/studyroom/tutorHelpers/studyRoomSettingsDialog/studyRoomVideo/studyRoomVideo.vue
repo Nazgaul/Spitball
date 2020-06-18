@@ -54,27 +54,27 @@
 
 
         <v-dialog v-model="permissionDialogState" width="512" :fullscreen="$vuetify.breakpoint.xsOnly" persistent content-class="premissionDeniedDialog text-center pa-6 pb-4">
-            <template v-if="$vuetify.breakpoint.xsOnly">
-                <video autoplay :src="getBlockPermissionVideoSrc"></video>
+            <template v-if="$vuetify.breakpoint.xsOnly && !isSafari">
+                <img style="border:1.5px solid #00000068 ;border-radius:8px" class="mb-2" src="./android.gif" alt="">
             </template>
             <template v-else>
                 <div class="mb-4 mainTitle" v-t="'studyRoomSettings_block_title'"></div>
                 <i18n path="studyRoomSettings_block_permission" tag="div" class="blockPermission mb-6">
                     <cameraBlock class="cameraBlock mx-1 mt-1" width="20" />
                 </i18n>
-                <div class="text-center">
-                    <v-btn
-                        @click="permissionDialogState = false"
-                        class="white--text"
-                        color="#5360FC"
-                        width="140"
-                        rounded
-                        depressed
-                    >
-                        {{$t('studyRoomSettings_dismiss')}}
-                    </v-btn>
-                </div>
             </template>
+            <div class="text-center">
+                <v-btn
+                    @click="permissionDialogState = false"
+                    class="white--text"
+                    color="#5360FC"
+                    width="140"
+                    rounded
+                    depressed
+                >
+                    {{$t('studyRoomSettings_dismiss')}}
+                </v-btn>
+            </div>
         </v-dialog>
     </div>
 </template>
@@ -113,6 +113,7 @@ export default {
             audioDeviceNotFound: false,
             permissionDialogState: false,
             settingDialogState: false,
+            isSafari:false,
         }
     },
     mixins: [settingMixin],
@@ -130,14 +131,6 @@ export default {
         ...mapGetters(['getVideoDeviceId','getAudioDeviceId'])
     },
     methods:{
-        getBlockPermissionVideoSrc(){
-            let isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
-            if(isSafari){
-                return ''
-            }else{
-                return ''
-            }
-        },
         createVideoPreview(deviceId){
             let videoParams = {
                 audio: false,
@@ -245,7 +238,8 @@ export default {
     },
     created(){
         this.startPreview()
-        navigator.mediaDevices.ondevicechange = this.startPreview
+        navigator.mediaDevices.ondevicechange = this.startPreview;
+        this.isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
     },
     beforeDestroy() {
         this.MIXIN_cleanStreams(this.streamsArray)
