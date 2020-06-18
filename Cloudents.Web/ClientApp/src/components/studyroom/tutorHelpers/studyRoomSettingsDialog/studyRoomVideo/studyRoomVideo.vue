@@ -55,7 +55,7 @@
 
         <v-dialog v-model="permissionDialogState" width="512" :fullscreen="$vuetify.breakpoint.xsOnly" persistent content-class="premissionDeniedDialog text-center pa-6 pb-4">
             <template v-if="$vuetify.breakpoint.xsOnly">
-                <video style="border-radius:8px" class="mb-2" :src="getPermissionBlockedVideo()" autoplay loop></video>
+                <video @loadeddata="playVideo" ref="permissionDialogVideo" loop autoplay muted class="dialogPermissionVideo mb-2" :src="getPermissionBlockedVideo()"></video>
             </template>
             <template v-else>
                 <div class="mb-4 mainTitle" v-t="'studyRoomSettings_block_title'"></div>
@@ -136,7 +136,17 @@ export default {
             if(isSafari){
                 return require('./ISO_VIDEO.mp4').default
             }else{
-                return require('./Androaid_Video_600K.mp4').default
+                return require('./ANDROID_VIDEO.mp4').default
+            }
+        },
+        playVideo(){
+            let playPromise = this.$refs.permissionDialogVideo.play()
+            let self = this
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {}).catch(error => {
+                    self.$appInsights.trackException(error)
+                });
             }
         },
         createVideoPreview(deviceId){
@@ -383,6 +393,9 @@ export default {
 .premissionDeniedDialog {
     background: #fff !important;
     border-radius: 8px;
+    .dialogPermissionVideo{
+        max-height: calc(~"100% - 46px");
+    }
     .mainTitle {
         color: @global-purple;
         font-weight: 600;
