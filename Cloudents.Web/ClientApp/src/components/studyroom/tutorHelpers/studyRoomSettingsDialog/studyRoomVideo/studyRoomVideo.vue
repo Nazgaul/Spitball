@@ -55,7 +55,7 @@
 
         <v-dialog v-model="permissionDialogState" width="512" :fullscreen="$vuetify.breakpoint.xsOnly" persistent content-class="premissionDeniedDialog text-center pa-6 pb-4">
             <template v-if="$vuetify.breakpoint.xsOnly">
-                <video @loadeddata="playVideo" ref="permissionDialogVideo" loop autoplay muted class="dialogPermissionVideo mb-2" :src="getPermissionBlockedVideo()"></video>
+                <video playsinline @loadeddata="playVideo" ref="permissionDialogVideo" loop autoplay muted class="dialogPermissionVideo mb-2" :src="getPermissionBlockedVideo()"></video>
             </template>
             <template v-else>
                 <div class="mb-4 mainTitle" v-t="'studyRoomSettings_block_title'"></div>
