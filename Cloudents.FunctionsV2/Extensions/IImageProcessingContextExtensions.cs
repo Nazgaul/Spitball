@@ -90,17 +90,20 @@ namespace Cloudents.FunctionsV2.Extensions
             var size = ctx.GetCurrentSize();
             IPathCollection corners = BuildCorners(size.Width, size.Height, cornerRadius);
 
-            var graphicOptions = new GraphicsOptions()
+           
+            ctx.SetGraphicsOptions(new GraphicsOptions()
             {
                 Antialias = true,
-                AlphaCompositionMode =
-                    PixelAlphaCompositionMode
-                        .DestOut // enforces that any part of this shape that has color is punched out of the background
-            };
+                AlphaCompositionMode = PixelAlphaCompositionMode.DestOut // enforces that any part of this shape that has color is punched out of the background
+            });
             // mutating in here as we already have a cloned original
             // use any color (not Transparent), so the corners will be clipped
             //ctx.ApplyProcessor()
-            return ctx.Fill(Color.LimeGreen, corners);
+            foreach (var c in corners)
+            {
+                ctx = ctx.Fill(Color.Red, c);
+            }
+            return ctx;//.Fill(Color.LimeGreen, corners);
         }
 
         private static IPathCollection BuildCorners(int imageWidth, int imageHeight, float cornerRadius)
