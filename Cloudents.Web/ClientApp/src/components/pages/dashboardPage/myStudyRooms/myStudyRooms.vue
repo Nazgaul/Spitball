@@ -78,7 +78,7 @@
         <template v-if="item.lastSession">{{ $d(new Date(item.lastSession)) }}</template>
       </template>
 
-      <template v-slot:item.price="{item}">{{$price(item.price,null,true)}}</template>
+      <template v-slot:item.price="{item}">{{$price(item.price,item.currency,true)}}</template>
 
       <template v-slot:item.action="{item}">
         <div class="actionsWrapper d-flex align-center justify-center">

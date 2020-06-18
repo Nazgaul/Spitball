@@ -313,9 +313,11 @@ const actions = {
          let newStudyRoomParams = {
             date: params.date || new Date().toISOString(),
             id: data.studyRoomId,
+            currency: params.currency || '',
             name: params.name,
             price: params.price,
             conversationId: data.identifier,
+            lastSession: params.date || new Date().toISOString()
          }
          let myStudyRooms = getters.getStudyRoomItems;
          myStudyRooms.unshift(newStudyRoomParams);
