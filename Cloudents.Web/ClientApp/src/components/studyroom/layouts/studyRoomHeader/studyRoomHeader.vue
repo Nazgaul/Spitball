@@ -1,5 +1,5 @@
 <template>
-   <v-app-bar height="62" app clipped-right color="#4c59ff" class="studyRoomHeader elevation-0">
+   <v-app-bar v-if="!isMobile" height="62" app clipped-right color="#4c59ff" class="studyRoomHeader elevation-0">
       <a @click="resetItems()">
          <logoComponent/>
       </a>
@@ -96,6 +96,9 @@ export default {
    },
    computed: {
       ...mapGetters(['getIsRecording']),
+      isMobile(){
+         return this.$vuetify.breakpoint.smAndDown;
+      },
       isRoomTutor(){
          return this.$store.getters.getRoomIsTutor;
       },

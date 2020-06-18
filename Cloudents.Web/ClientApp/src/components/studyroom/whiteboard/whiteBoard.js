@@ -236,7 +236,13 @@ export default {
                 };
                 let transferDataObj = {
                     type: "passData",
-                    data: data
+                    data: {
+                        ...data,
+                        sizes:{
+                            width: this.canvas.width,
+                            height: this.canvas.height,
+                        }
+                    }
                 };
                 let normalizedData = JSON.stringify(transferDataObj);
                 this.$store.dispatch('sendDataTrack',normalizedData)

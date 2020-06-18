@@ -1,16 +1,20 @@
 <template>
   <v-app>
-    <template v-if="isMobile">
+
+    <!-- <template v-if="isMobile">
       <studyRoomMobile/>
-    </template>
-    <template v-else>
+    </template> -->
+
+    <!-- <template v-else> -->
       <studyRoomDrawer/>
       <studyRoomHeader/>
+      <studyRoomDrawer/>
       <v-content>
         <studyRoomWrapper style="height:100%"/>
       </v-content>
       <studyRoomFooter v-if="isShowFooter"/>
-    </template>
+    <!-- </template> -->
+
     <studyRoomAudio/>
     <studyRoomSettingsDialog v-if="!isRoomActive"/>
     <studyRoomDialogs/>
@@ -58,7 +62,7 @@ export default {
       return this.$store.getters.getActiveNavEditor 
     },
     isShowFooter(){
-      return this.currentEditor !== 'class-mode' && this.currentEditor !== 'class-screen'
+      return !this.isMobile && this.currentEditor !== 'class-mode' && this.currentEditor !== 'class-screen'
     },
     isRoomActive(){
       return this.$store.getters.getRoomIsActive;

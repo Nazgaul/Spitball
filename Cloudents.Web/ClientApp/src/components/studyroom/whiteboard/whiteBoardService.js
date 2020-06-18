@@ -15,6 +15,14 @@ import helper from './utils/helper'
 
 let dragData = [];
 
+function getNewPosX(remoteCanvasWidth,localCanvasWidth,posX){
+    let posXpres = posX*100/remoteCanvasWidth;
+    return localCanvasWidth / 100 * posXpres
+}
+function getNewPosY(remoteCanvasHeight,localCanvasHeight,posY){
+    let posYpres = posY*100/remoteCanvasHeight;
+    return localCanvasHeight / 100 * posYpres
+}
 const getDragData = function(){
     return store.getters['getDragData'];
 };
@@ -158,7 +166,7 @@ const cleanCanvas = function(ctx){
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clears the canvas
 };
 
-const passData = function(canvasData, changedDragData){
+const passData = function(canvasData, changedDragData,canvasSizes){
     if(changedDragData.isGhost){
         ghostByAction[changedDragData.actionType](changedDragData.actionObj);
     }
@@ -167,6 +175,26 @@ const passData = function(canvasData, changedDragData){
         tab: tabToDraw,
         data: changedDragData
     };
+    let canvas; 
+    if(Object.keys(canvasData.context).length === 0){
+        canvas = getContext();
+    }else{
+        canvas = {...canvasData.context}
+    }
+    let remoteCanvasWidth = canvasSizes.width;
+    let remoteCanvasHeight = canvasSizes.height;
+
+    let localCanvasWidth = canvas.canvas.width;
+    let localCanvasHeight = canvas.canvas.height;
+
+    data.data.points.forEach(p=>{
+        p.mouseX = getNewPosX(remoteCanvasWidth, localCanvasWidth,p.mouseX)
+        p.mouseY = getNewPosY(remoteCanvasHeight,localCanvasHeight,p.mouseY)
+        if(p.width){
+            p.width = getNewPosX(remoteCanvasWidth, localCanvasWidth,p.width)
+            p.height = getNewPosX(remoteCanvasWidth, localCanvasWidth,p.height)
+        }
+    })
     store.dispatch('updateDragData', data);
     redraw(canvasData);
 };

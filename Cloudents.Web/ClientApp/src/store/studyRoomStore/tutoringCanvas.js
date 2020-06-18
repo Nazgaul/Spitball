@@ -144,7 +144,7 @@ const actions = {
         // TODO: clean it!
         let parsedData = data.data;
         if (data.type === 'passData') {
-            whiteBoardService.passData(parsedData.canvasContext, parsedData.dataContext);
+            whiteBoardService.passData(parsedData.canvasContext, parsedData.dataContext,parsedData.sizes);
         } else if (data.type === 'undoData') {
             whiteBoardService.undo(parsedData, data.tab);
         } else if (data.type === 'clearCanvas') {

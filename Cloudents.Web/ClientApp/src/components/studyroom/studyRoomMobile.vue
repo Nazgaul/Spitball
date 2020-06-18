@@ -1,10 +1,15 @@
 <template>
    <div class="studyRoomMobile">
       <div class="studyRoomMobileContent flex-column d-flex justify-space-between align-center">
-         <div :id="elementId" class="d-flex flex-grow-0 flex-shrink-0">
+         <div style="height:50vh; width:100%" class="d-flex flex-grow-0 flex-shrink-0">
+           
+         <slot></slot>
+         </div>
+
+         <!-- <div :id="elementId" class="d-flex flex-grow-0 flex-shrink-0">
             <span class="tutorName">{{roomTutorName}}</span>
             <div class="videoLiner"></div>
-         </div>
+         </div> -->
          <div class="studyRoomMobileChatHeader mt-4">
             <div class="px-4 headerTitle mb-5 text-truncate">{{$store.getters.getRoomName}}</div>
             <div class="px-4 headerInfo d-flex justify-space-between mb-2">

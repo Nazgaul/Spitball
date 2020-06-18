@@ -1,5 +1,5 @@
 <template>
-   <v-navigation-drawer 
+   <v-navigation-drawer v-if="!isMobile"
          mobile-break-point="960" app right clipped
          class="studyRoomDrawer" :width="drawerExtend ? 300 : 12">
    <button @click="drawerExtend = !drawerExtend" class="collapseBtnDrawer">
@@ -44,6 +44,9 @@ export default {
    computed: {
       isShowVideo(){
          return this.$store.getters.getActiveNavEditor !== 'class-screen'
+      },
+      isMobile(){
+         return this.$vuetify.breakpoint.smAndDown;
       },
    },
    watch: {
