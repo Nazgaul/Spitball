@@ -314,6 +314,7 @@ const actions = {
             date: params.date || new Date().toISOString(),
             id: data.studyRoomId,
             name: params.name,
+            price: params.price,
             conversationId: data.identifier,
          }
          let myStudyRooms = getters.getStudyRoomItems;
