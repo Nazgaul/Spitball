@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure.Storage
 {
@@ -19,7 +20,7 @@ namespace Cloudents.Infrastructure.Storage
             ["image/bmp"] = ".bmp",
         };
 
-        public UserDirectoryBlobProvider(ICloudStorageProvider storageProvider)
+        public UserDirectoryBlobProvider(IConfigurationKeys storageProvider)
             : base(storageProvider, StorageContainer.User)
         {
         }

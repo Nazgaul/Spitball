@@ -52,13 +52,13 @@ namespace Cloudents.Admin2.Api
             foreach (var document in retVal)
             {
                 id = document.Id;
-                var files = await _blobProvider.FilesInDirectoryAsync("preview-0", document.Id.ToString(), token);
-                var file = files.FirstOrDefault();
+                var file = await _blobProvider.FilesInDirectoryAsync("preview-0", document.Id.ToString(), token).FirstOrDefaultAsync(token);
+
                 if (file != null)
                 {
 
                     document.Preview =
-                        blobProvider.GeneratePreviewLink(file,
+                      await blobProvider.GeneratePreviewLinkAsync(file,
                             TimeSpan.FromMinutes(20));
 
                     counter++;
@@ -110,14 +110,14 @@ namespace Cloudents.Admin2.Api
             return Ok();
         }
 
-        [HttpPost("unDelete")]
-        [Authorize]
-        public async Task<IActionResult> UnDelete([FromBody] UnDeleteDocumentRequest model, CancellationToken token)
-        {
-            var command = new UnDeleteDocumentCommand(model.Id);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
+        //[HttpPost("unDelete")]
+        //[Authorize]
+        //public async Task<IActionResult> UnDelete([FromBody] UnDeleteDocumentRequest model, CancellationToken token)
+        //{
+        //    var command = new UnDeleteDocumentCommand(model.Id);
+        //    await _commandBus.DispatchAsync(command, token);
+        //    return Ok();
+        //}
 
         [HttpPost]
         public async Task<IActionResult> ApproveAsync([FromBody] ApproveDocumentRequest model, CancellationToken token)
@@ -139,12 +139,12 @@ namespace Cloudents.Admin2.Api
             foreach (var document in retVal)
             {
 
-                var files = await _blobProvider.FilesInDirectoryAsync("preview-0", document.Id.ToString(), token);
-                var file = files.FirstOrDefault();
+                var file = await _blobProvider.FilesInDirectoryAsync("preview-0", document.Id.ToString(), token).FirstOrDefaultAsync(token);
+
                 if (file != null)
                 {
                     document.Preview =
-                        blobProvider.GeneratePreviewLink(file,
+                     await blobProvider.GeneratePreviewLinkAsync(file,
                             TimeSpan.FromMinutes(20));
 
                     document.SiteLink = Url.RouteUrl("DocumentDownload", new { id = document.Id });

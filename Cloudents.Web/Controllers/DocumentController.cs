@@ -126,7 +126,7 @@ namespace Cloudents.Web.Controllers
         [Route("document/{courseName}/{name}/{id:long}",
              Name = SeoTypeString.Document)]
         [ActionName("Index"), SignInWithToken]
-        public async Task<IActionResult> IndexAsync([FromQuery]string theme, long id, CancellationToken token)
+        public async Task<IActionResult> IndexAsync([FromQuery] string theme, long id, CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
             var query = new DocumentById(id, userId);
@@ -198,11 +198,13 @@ namespace Cloudents.Web.Controllers
             var user = _userManager.GetLongUserId(User);
             var query = new DocumentById(id, user);
             var tItem = _queryBus.QueryAsync(query, token);
-            var tFiles = _blobProvider.FilesInDirectoryAsync("file-", id.ToString(), token);
-
-            await Task.WhenAll(tItem, tFiles);
-
+            var tFiles = _blobProvider.FilesInDirectoryAsync("file-", id.ToString(), token).FirstAsync(cancellationToken: token);
             
+            //await Task.WhenAll(tItem, tFiles);
+
+
+
+
 
             var item = await tItem;
 
@@ -219,8 +221,8 @@ namespace Cloudents.Web.Controllers
                 return Unauthorized();
             }
 
-            var files = await tFiles;
-            var uri = files.First();
+            var uri = await tFiles;
+            //var uri = files.First();
             var file = uri.Segments.Last();
 
             Task followTask = Task.CompletedTask;
@@ -237,7 +239,7 @@ namespace Cloudents.Web.Controllers
 
             var nameToDownload = item.Document.Title;
             var extension = Path.GetExtension(file);
-            var url = blobProvider2.GenerateDownloadLink(uri, TimeSpan.FromMinutes(30), nameToDownload + extension);
+            var url = await blobProvider2.GenerateDownloadLinkAsync(uri, TimeSpan.FromMinutes(30), nameToDownload + extension);
             return Redirect(url.AbsoluteUri);
         }
     }
