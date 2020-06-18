@@ -7,7 +7,6 @@ import canvasFinder from "./utils/canvasFinder";
 import equationMapper from "./innerComponents/equationMapper.vue";
 // import iinkDrawer from "./innerComponents/iinkDrawer.vue";
 const iinkDrawer = () => import("./innerComponents/iinkDrawer.vue");
-import { LanguageService } from '../../../services/language/languageService';
 import imageDraw from './options/imageDraw';
 import pencilSVG from '../images/noun-edit-684936.svg';
 import uploadSVG from '../images/outline-open-in-browser-24-px.svg';
@@ -70,19 +69,19 @@ export default {
             },
             textScales:[
                 {
-                    text: LanguageService.getValueByKey('tutor_fontSize_small'),
+                    text: this.$t('tutor_fontSize_small'),
                     value: '20'
                 },
                 {
-                    text: LanguageService.getValueByKey('tutor_fontSize_normal'),
+                    text: this.$t('tutor_fontSize_normal'),
                     value: '40'
                 },
                 {
-                    text: LanguageService.getValueByKey('tutor_fontSize_large'),
+                    text: this.$t('tutor_fontSize_large'),
                     value: '60'
                 }
             ],
-            sizeText: LanguageService.getValueByKey('tutor_size_label'),
+            sizeText: this.$t('tutor_size_label'),
             isRtl: global.isRtl
         };
     },
@@ -177,7 +176,7 @@ export default {
                 }
             },
         clearAllClicked(){
-            let shouldClear = window.confirm(LanguageService.getValueByKey('tutor_clearAll_warning_text'));
+            let shouldClear = window.confirm(this.$t('tutor_clearAll_warning_text'));
             if(shouldClear){
                 this.clearCanvas();
             }

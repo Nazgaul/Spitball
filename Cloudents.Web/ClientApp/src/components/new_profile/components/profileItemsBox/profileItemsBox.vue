@@ -1,8 +1,7 @@
 <template>
 <div id="profileItemsBox">
    <div class="profileItemsBox-header mb-sm-8">
-      <div class="profileItemsBox_title text-truncate" 
-      v-text="$Ph($vuetify.breakpoint.xsOnly? 'profile_study_materials_mobile':'profile_study_materials',userName)"/>   
+      <div class="profileItemsBox_title text-truncate">{{profile_study_materials}}</div> 
       <div class="profileItemsBox_filters">
          <v-flex xs2 sm4 class="pr-0 pr-sm-4 d-flex d-sm-block" :class="{'filterbox':$vuetify.breakpoint.xsOnly}" justify-end>
             <v-menu offset-y sel="filter_type">
@@ -64,7 +63,6 @@
 <script>
 const itemCard = () => import(/* webpackChunkName: "itemCard" */ '../../../carouselCards/itemCard.vue');
 import resultNote from "../../../results/ResultNote.vue";
-import { LanguageService } from "../../../../services/language/languageService";
 
 import { mapGetters } from 'vuex'
 export default {
@@ -75,16 +73,16 @@ export default {
    },
    data() {
       return {
-         selectPlaceholder: LanguageService.getValueByKey('profile_select_course'),
+         selectPlaceholder: this.$t('profile_select_course'),
          typeItems:[
-            {name: LanguageService.getValueByKey('profile_select_item_type_all'),value:''},
-            {name: LanguageService.getValueByKey('profile_select_item_type_docs'),value:0},
-            {name: LanguageService.getValueByKey('profile_select_item_type_videos'),value:1},
+            {name: this.$t('profile_select_item_type_all'),value:''},
+            {name: this.$t('profile_select_item_type_docs'),value:0},
+            {name: this.$t('profile_select_item_type_videos'),value:1},
             // {name:'Answer',value:'answers'},
             // {name:'Question',value:'questions'},
          ],
          selectedModel:{
-            itemType:{name: LanguageService.getValueByKey('profile_select_item_type_all'),value:''},
+            itemType:{name: this.$t('profile_select_item_type_all'),value:''},
             itemCourse:''
          },
          query:{
@@ -105,6 +103,12 @@ export default {
    },
    computed: {
       ...mapGetters(['getProfile']),
+      profile_study_materials() {
+         if (this.$vuetify.breakpoint.xsOnly) {
+            return this.$t('profile_study_materials_mobile',[this.userName]);
+         }
+         return this.$t('profile_study_materials',[this.userName]);
+      },
       pageCount(){
          return Math.ceil(this.getProfile.documents.count / this.query.pageSize);
       },

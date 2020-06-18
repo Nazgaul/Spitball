@@ -121,7 +121,7 @@
     <value>Credit the uploader with points to unlock</value>
   </data>
   <data name="docPage" xml:space="preserve">
-    <value>Page {1} out of {2}</value>
+    <value>Page {0} out of {1}</value>
   </data>
   <data name="download_btn" xml:space="preserve">
     <value>Download</value>
@@ -160,7 +160,7 @@
     <value>Why Spitball</value>
   </data>
   <data name="unlock_subtitle" xml:space="preserve">
-    <value>Want to read all {1} pages?</value>
+    <value>Want to read all {0} pages?</value>
   </data>
   <data name="unlock_title" xml:space="preserve">
     <value>You’ve reached the end of your free preview</value>

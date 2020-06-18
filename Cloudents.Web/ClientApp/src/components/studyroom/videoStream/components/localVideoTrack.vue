@@ -37,9 +37,7 @@
             <microphoneImageIgnore v-if="!isAudioActive" class="mic-ignore" />
           </button>
         </template>
-        <span
-          v-language:inner="isAudioActive ? 'tutor_tooltip_mic_mute':'tutor_tooltip_mic_unmute'"
-        />
+        <span>{{micText}}</span>
       </v-tooltip>
       <v-tooltip top>
         <template v-slot:activator="{ on }">
@@ -57,9 +55,7 @@
             <videoCameraImageIgnore v-else class="cam-ignore" />
           </button>
         </template>
-        <span
-          v-language:inner="isVideoActive ? 'tutor_tooltip_video_pause':'tutor_tooltip_video_resume'"
-        />
+        <span>{{vidText}}</span>
       </v-tooltip>
     </div>
   </div>
@@ -84,6 +80,18 @@ export default {
     videoCameraImage
   },
   computed: {
+    micText() {
+      if(this.isAudioActive) {
+        return this.$t('tutor_tooltip_mic_mute')
+      }
+      return this.$t('tutor_tooltip_mic_unmute')
+    },
+    vidText() {
+      if(this.isAudioActive) {
+        return this.$t('tutor_tooltip_video_pause')
+      }
+      return this.$t('tutor_tooltip_video_resume')
+    },
     isVideoActive() {
       return this.$store.getters.getIsVideoActive;
     },

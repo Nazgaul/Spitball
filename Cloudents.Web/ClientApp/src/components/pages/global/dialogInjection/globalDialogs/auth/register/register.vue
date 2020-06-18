@@ -10,6 +10,7 @@
                     <div class="mainTitle text-center mb-8" v-t="'loginRegister_setemailpass_title'"></div>
 
                     <v-btn 
+                        :disabled="!googleLoaded"
                         @click="gmailRegister"
                         depressed
                         :loading="googleLoading"
@@ -20,7 +21,6 @@
                         class="btns white--text mb-6"
                     >
                         <gIcon class="mr-2" />
-                        <!-- <img width="40" src="../../../../../authenticationPage/images/G icon@2x.png" /> -->
                         <span class="googleBtnText" v-t="'loginRegister_getstarted_btn_google_signup'"></span>
                     </v-btn>
 
@@ -76,7 +76,7 @@
                     class="btns white--text"
                     color="#4452fc"
                 >
-                    <span v-t="globalBtnText"></span>
+                    <span>{{globalBtnText}}</span>
                 </v-btn>
 
                 <template v-if="isEmailRegister">
@@ -152,7 +152,7 @@ export default {
     },
     computed: {
         globalBtnText() {
-            return this.isVerifyPhone ? 'loginRegister_setemailpass_btn_verify' : 'loginRegister_setemailpass_btn'
+            return this.isVerifyPhone ? this.$t('loginRegister_setemailpass_btn_verify') : this.$t('loginRegister_setemailpass_btn')
         },
         isSetPhoneStep() {
             return this.component === 'setPhone2'
@@ -217,9 +217,6 @@ export default {
                     self.component = 'setPhone2'
                 }).catch(error => {
                     let { response: { data } } = error
-
-                    // if(data.Email) self.errors.email = self.$t('loginRegister_invalid_email')
-                    // if(data.Password) self.errors.password = self.$t('loginRegister_invalid_password')
 
                     self.errors.email = data["Email"] ? data["Email"][0] : '',
                     self.errors.password = data["Password"] ? data["Password"][0] : ''

@@ -1,4 +1,4 @@
-<template>
+h<template>
     <div class="footer">
         <v-layout align-center class="footer-warp">
             <ul v-if="links" class="footer-wrap-list w-list-unstyled">
@@ -17,20 +17,19 @@
             </div>
         </v-layout>
         <div v-if="isTutorList" class="tutorList_footer">
-            <h1 class="tutorList_footer_txt" v-if="!courseTerm" v-language:inner="'tutorListLanding_footer_h1'"/>
-            <h1 class="tutorList_footer_txt" v-else v-html="$Ph('tutorListLanding_footer_h1_course',[courseTerm,courseTerm])"/>
+            <h1 class="tutorList_footer_txt" v-if="!courseTerm" v-t="'tutorListLanding_footer_h1'"/>
+            <h1 class="tutorList_footer_txt" v-else> {{$t('tutorListLanding_footer_h1_course',[courseTerm,courseTerm])}}"></h1>
     
-            <h2 class="tutorList_footer_txt" v-if="!courseTerm" v-language:inner="'tutorListLanding_footer_h2'"/>
-            <h2 class="tutorList_footer_txt" v-else v-html="$Ph('tutorListLanding_footer_h2_course',[courseTerm,courseTerm])"/>
+            <h2 class="tutorList_footer_txt" v-if="!courseTerm" v-t="'tutorListLanding_footer_h2'"/>
+            <h2 class="tutorList_footer_txt" v-else> {{$t('tutorListLanding_footer_h2_course',[courseTerm,courseTerm])}}"</h2>
 
-            <h3 class="tutorList_footer_txt" v-if="!courseTerm" v-language:inner="'tutorListLanding_footer_h3'"/>
-            <h3 class="tutorList_footer_txt" v-else v-html="$Ph('tutorListLanding_footer_h3_course',courseTerm)"/>
+            <h3 class="tutorList_footer_txt" v-if="!courseTerm" v-t="'tutorListLanding_footer_h3'"/>
+            <h3 class="tutorList_footer_txt" v-else>{{$t('tutorListLanding_footer_h3_course',[courseTerm])}}</h3>
         </div>
     </div>
 </template>
 
 <script>
-import {LanguageService} from '../../../../services/language/languageService';
 import satelliteService from '../../../../services/satelliteService';
 import logoComponent from '../../../app/logo/logo.vue';
 
@@ -46,37 +45,37 @@ import logoComponent from '../../../app/logo/logo.vue';
                 links:[
                     {   
                         name:'about',
-                        title: LanguageService.getValueByKey('tutorListLanding_footer_links_about'), 
+                        title: this.$t('tutorListLanding_footer_links_about'), 
                         url: satelliteService.getSatelliteUrlByName('about')
                     },
                     {
                         name:'feedback',
-                        title: LanguageService.getValueByKey('tutorListLanding_footer_links_feedback'),
+                        title: this.$t('tutorListLanding_footer_links_feedback'),
                         url: satelliteService.getSatelliteUrlByName('feedback')
                     },
                     {
                         name:'terms',
-                        title: LanguageService.getValueByKey('tutorListLanding_footer_links_terms'),
+                        title: this.$t('tutorListLanding_footer_links_terms'),
                         url: satelliteService.getSatelliteUrlByName('terms')
                     },
                     {
                         name:'privacy',
-                        title: LanguageService.getValueByKey('tutorListLanding_footer_links_privacy'),
+                        title: this.$t('tutorListLanding_footer_links_privacy'),
                         url: satelliteService.getSatelliteUrlByName('privacy')
                     },
                     {
                         name:'faq',
-                        title: LanguageService.getValueByKey('tutorListLanding_footer_links_faq'),
+                        title: this.$t('tutorListLanding_footer_links_faq'),
                         url: satelliteService.getSatelliteUrlByName('faq')
                     },
                     {
                         name:'contact',
-                        title: LanguageService.getValueByKey('tutorListLanding_footer_links_contact'),
+                        title: this.$t('tutorListLanding_footer_links_contact'),
                         url: satelliteService.getSatelliteUrlByName('contact')
                     },
                     {
                         name:'blog',
-                        title: LanguageService.getValueByKey('tutorListLanding_footer_links_blog'),
+                        title: this.$t('tutorListLanding_footer_links_blog'),
                         url: satelliteService.getSatelliteUrlByName('blog')
                     }
                 ],

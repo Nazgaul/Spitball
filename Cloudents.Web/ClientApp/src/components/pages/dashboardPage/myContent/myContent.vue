@@ -201,10 +201,12 @@ export default {
          price = Math.round(+price).toLocaleString();
          let currency;
          if(type === 'Document' || type === 'Video' ){
-            currency = this.$t('dashboardPage_pts')
+            currency = this.$t('dashboardPage_pts');
+            return `${price} ${currency}`
          }
          if(type === 'TutoringSession' || type === 'BuyPoints'){
             currency = this.accountUser.currencySymbol
+            return this.$n(price, {'style':'currency','currency': this.accountUser.currencySymbol});
          }
          return `${price} ${currency}`
       },

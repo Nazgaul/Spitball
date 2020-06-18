@@ -3,14 +3,15 @@
 
         <div class="tutorInfo d-flex align-center justify-space-between flex-column flex-sm-row pb-6">
             <div class="leftSide d-flex align-md-center">
-                <userAvatar
-                    size="74"
+                <userAvatarNew
+                    :width="74"
+                    :height="74"
                     class="mb-4"
                     :userId="userId"
                     :userName="userName"
                     :userImageUrl="userImage"
+                    :fontSize="18"
                 />
-                <!-- <emptyUserIcon class="mb-4" v-else /> -->
                 <div class="infoWrap mx-5">
                     <div class="tutorName text-truncate mb-2">{{userName}}</div>
                     <button class="tutorUrl me-4 mb-4" :class="{'text-truncate': isMobile}" @click="$router.push(myProfileRedirect)">{{userUrl}}</button>
@@ -31,7 +32,7 @@
                 </div>
             </div>
             <div class="rightSide mt-8 mt-sm-0">
-                <video class="dashboardVideo" ref="dashboardTutor" :src="onBoardingVideo" width="250" height="150" poster="./images/group-14-copy-2@2x.png" controls></video>
+                <video class="dashboardVideo" @click="startVideo" :controls="controls" :autoplay="autoplay" :src="onBoardingVideo" width="250" height="150" poster="./images/group-14-copy-2@2x.png"></video>
             </div>
         </div>
 
@@ -104,68 +105,69 @@ export default {
     },
     data() {
         return {
-            video: null,
+            controls: false,
+            autoplay: false,
             verifyEmailState: false,
             profileName: routeName.Profile,
             linksItems: {
                 [constants.PHONE]: {
                     color: colors.blue,
-                    text: 'dashboardTeacher_link_text_phone',
-                    btnText: 'dashboardTeacher_btn_text_phone',
+                    text: this.$t('dashboardTeacher_link_text_phone'),
+                    btnText: this.$t('dashboardTeacher_btn_text_phone'),
                     method: this.openPhoneDialog
                 },
                 [constants.EMAIL]: {
                     color: colors.blue,
-                    text: 'dashboardTeacher_link_text_email',
-                    btnText: 'dashboardTeacher_btn_text_email',
+                    text: this.$t('dashboardTeacher_link_text_email'),
+                    btnText: this.$t('dashboardTeacher_btn_text_email'),
                     method: this.verifyEmail
                 },
                 [constants.EDIT]: {
                     color: colors.blue,
-                    text: 'dashboardTeacher_link_text_edit',
-                    btnText: 'dashboardTeacher_btn_text_edit',
+                    text: this.$t('dashboardTeacher_link_text_edit'),
+                    btnText: this.$t('dashboardTeacher_btn_text_edit'),
                     routeName: { name: routeName.Profile }
                 },
                 [constants.BOOK]: {
                     color: colors.blue,
-                    text: 'dashboardTeacher_link_text_book',
-                    btnText: 'dashboardTeacher_btn_text_book',
+                    text: this.$t('dashboardTeacher_link_text_book'),
+                    btnText: this.$t('dashboardTeacher_btn_text_book'),
                     method: this.bookSession
                 },
                 [constants.COURSES]: {
                     color: colors.blue,
-                    text: 'dashboardTeacher_link_text_courses',
-                    btnText: 'dashboardTeacher_btn_text_courses',
+                    text: this.$t('dashboardTeacher_link_text_courses'),
+                    btnText: this.$t('dashboardTeacher_btn_text_courses'),
                     routeName: { name: routeName.EditCourse }
                 },
                 [constants.STRIPE]: {
                     color: colors.blue,
-                    text: 'dashboardTeacher_link_text_stripe',
-                    btnText: 'dashboardTeacher_btn_text_stripe',
+                    text: this.$t('dashboardTeacher_link_text_stripe'),
+                    btnText: this.$t('dashboardTeacher_btn_text_stripe'),
                     method: this.addStripe
                 },
                 [constants.CALENDAR]: {
                     color: colors.green,
-                    text: 'dashboardTeacher_link_text_calendar',
-                    btnText: 'dashboardTeacher_btn_text_calendar',
+                    text: this.$t('dashboardTeacher_link_text_calendar'),
+                    btnText: this.$t('dashboardTeacher_btn_text_calendar'),
                     routeName: { name: routeName.MyCalendar }
                 },
                 [constants.TEACH]: {
                     color: colors.green,
-                    text: 'dashboardTeacher_link_text_teach',
-                    btnText: 'dashboardTeacher_btn_text_teach',
+                    text: this.$t('dashboardTeacher_link_text_teach'),
+                    btnText: this.$t('dashboardTeacher_btn_text_teach'),
                     routeName: { name: routeName.MyCalendar }
                 },
                 [constants.SESSIONS]: {
                     color: colors.yellow,
-                    text: 'dashboardTeacher_link_text_session',
-                    btnText: 'dashboardTeacher_btn_text_session',
+                    text: this.$t('dashboardTeacher_link_text_session'),
+                    btnText: this.$t('dashboardTeacher_btn_text_session'),
                     routeName: { name: routeName.MyStudyRoomsBroadcast }
                 },
                 [constants.UPLOAD]: {
                     color: colors.yellow,
-                    text: 'dashboardTeacher_link_text_upload',
-                    btnText: 'dashboardTeacher_btn_text_upload',
+                    text: this.$t('dashboardTeacher_link_text_upload'),
+                    btnText: this.$t('dashboardTeacher_btn_text_upload'),
                     routeName: { name: routeName.MyContent }
                 },
             }
@@ -220,6 +222,12 @@ export default {
         }
     },
     methods: {
+        startVideo() {
+            if(this.controls && this.autoplay) return
+            this.controls = true
+            this.autoplay = true
+            this.$ga.event("Dashboard Video", "Get Started How It Works");
+        },
         openPhoneDialog() {
             this.$store.commit('setComponent', 'verifyPhone')
         },
@@ -243,20 +251,10 @@ export default {
         addStripe() {
             window.location = '/stripe-connect'
         },
-        addEventToVideo() {
-            this.$ga.event("Dashboard", "Watching spitball video");
-        }
-    },
-    beforeDestroy() {
-        this.video.addEventListener("play", this.addEventToVideo);
     },
     created() {
         this.$store.dispatch('updateTutorLinks')
     },
-    mounted() {
-        this.video = this.$refs.dashboardTutor
-        this.video.addEventListener("play", this.addEventToVideo);
-    }
 }
 </script>
 
@@ -288,10 +286,11 @@ export default {
             .rightSide {
 
                 .dashboardVideo {
+                    object-fit: cover;
+                    outline: none;
                     @media (max-width: @screen-xs) {
                         height: 100%;
                         width: 100%;
-                        object-fit: cover;
                     }
                 }
             }

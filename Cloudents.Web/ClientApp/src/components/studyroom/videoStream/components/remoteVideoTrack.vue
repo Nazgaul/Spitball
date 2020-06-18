@@ -1,5 +1,5 @@
 <template>
-  <div class="remoteVideoStream" :id="track.sb_video_id"></div>
+  <div class="remoteVideoStream"></div>
 </template>
 
 <script>
@@ -13,18 +13,19 @@ export default {
   },
   methods: {
     openFullScreen() {
-      var video = document.querySelector(`#${this.track.sb_video_id} video`);
-      if (!video) return;
+      // TODO: REMOVE THIS CMP
+      // var video = document.querySelector(`#${this.track.} video`);
+      // if (!video) return;
 
-      if (video.requestFullscreen) {
-        video.requestFullscreen();
-        return;
-      }
+      // if (video.requestFullscreen) {
+      //   video.requestFullscreen();
+      //   return;
+      // }
     }
   },
   mounted() {
-    let previewContainer = document.getElementById(this.track.sb_video_id);
-    previewContainer.appendChild(this.track.attach());
+    // let previewContainer = document.getElementById(this.track.);
+    // previewContainer.appendChild(this.track.attach());
   }
 };
 </script>

@@ -159,14 +159,8 @@
   <data name="grade9" xml:space="preserve">
     <value>9th grade (Freshman Year)</value>
   </data>
-  <data name="parent_subtitle" xml:space="preserve">
-    <value />
-  </data>
   <data name="school_grade_error" xml:space="preserve">
     <value>Grade selection is required</value>
-  </data>
-  <data name="school_subtitle" xml:space="preserve">
-    <value />
   </data>
   <data name="school_title" xml:space="preserve">
     <value>Let's get started</value>

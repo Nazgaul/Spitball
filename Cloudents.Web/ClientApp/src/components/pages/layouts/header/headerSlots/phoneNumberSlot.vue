@@ -8,7 +8,6 @@
 
 <script>
 // TODO we need to fix it with global class/object
-import {LanguageService } from "../../../../../services/language/languageService";
 
 import whatsAppIcon from './whatsAppIcon.svg';
 export default {
@@ -20,7 +19,7 @@ export default {
             IL:{
                previewNumber:'052-507-5638',
                fullNumber:'972525075638',
-               text: LanguageService.getValueByKey(`headerSlots_phoneNumberSlot_text`),
+               text: this.$t(`headerSlots_phoneNumberSlot_text`),
             },
             IN:{
                previewNumber:'+91 8618134279',

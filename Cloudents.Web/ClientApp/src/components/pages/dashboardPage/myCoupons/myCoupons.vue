@@ -19,7 +19,7 @@
                     <div>
                         <v-btn
                             @click="$store.commit('setComponent', 'createCoupon')"
-                            class="white--text"
+                            class="couponBtn white--text"
                             depressed
                             rounded
                             :block="$vuetify.breakpoint.xsOnly"
@@ -142,7 +142,7 @@ export default {
         background: #fff;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
         border-radius: 8px;
-        max-width: 944px;
+        max-width: 1366px;
         margin: 24px 34px;
         @media (max-width: @screen-xs) {
             box-shadow: none;
@@ -193,6 +193,10 @@ export default {
                     line-height: initial;
                     }
                     background: #fff;
+                }
+
+                .couponBtn {
+                    text-transform: initial !important;
                 }
             }
         }

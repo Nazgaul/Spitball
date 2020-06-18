@@ -1,6 +1,6 @@
 <template>
     <div class="calendarSelect">
-        <p class="calendarSelectP"  v-language:inner="isMobile?'becomeTutor_select_calendar_title_mobile':'becomeTutor_select_calendar_title'"/>   
+        <p class="calendarSelectP">{{calendarSelectp}}</p>   
         <div class="calendarLines" :style="paddingScroll">
             <div v-for="calendar in calendarsList" :key="calendar.id">
                 <div class="singleCalendarLine">
@@ -30,6 +30,12 @@ export default {
         ...mapGetters(['getCalendarsList']),
         calendarsList(){
             return this.getCalendarsList
+        },
+        calendarSelectp() {
+            if (this.isMobile) {
+                return this.$t('becomeTutor_select_calendar_title_mobile')
+            }
+            return this.$t('becomeTutor_select_calendar_title')
         },
         isMobile() {
             return this.$vuetify.breakpoint.smAndDown;

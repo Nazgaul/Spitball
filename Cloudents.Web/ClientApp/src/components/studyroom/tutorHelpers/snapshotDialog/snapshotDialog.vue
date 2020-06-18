@@ -7,10 +7,10 @@
         </v-layout>
         <v-layout wrap align-center>
             <v-flex xs12 class="pt-3 text-center">
-                <span class="snapshot_dialog_wrap_title font-weight-bold" v-language:inner="'tutor_take_snapshot_title'"></span>
+                <span class="snapshot_dialog_wrap_title font-weight-bold" v-t="'tutor_take_snapshot_title'"></span>
             </v-flex>
             <v-flex xs12 class="pt-2 text-center">
-                <span v-language:inner="'tutor_take_snapshot_message'"></span>
+                <span v-t="'tutor_take_snapshot_message'"></span>
             </v-flex>
             <v-flex class="snapshot_video_container pt-2 text-center" v-show="!noCameraError" id="videoElementContainer" xs12>
                <video autoplay="true" id="videoElement" style="width:640px; height:480px; display:none;"></video>
@@ -36,7 +36,6 @@
 
 <script>
     import { mapActions } from 'vuex';
-    import {LanguageService} from "../../../../services/language/languageService";
 
     export default {
         data() {
@@ -45,7 +44,7 @@
                 width: 800,
                 height: 600,
                 scale: 1,
-                snapshotBtnText: LanguageService.getValueByKey('tutor_take_snapshot_btn'),
+                snapshotBtnText: this.$t('tutor_take_snapshot_btn'),
                 timerCountdown: null,
                 lang: global.lang,
                 audio: null,

@@ -25,9 +25,9 @@ namespace Cloudents.Query.Questions
         {
             private readonly IStatelessSession _session;
 
-            public QuestionDetailQueryHandler(QuerySession session)
+            public QuestionDetailQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
 

@@ -1,5 +1,4 @@
 <template>
-<!-- DELETE FILE -->
     <div class="tableCoupon fullWidth mt-2 mt-sm-4 pa-4 pb-2 pb-sm-0 ma-0">
         <v-data-table
             :headers="headers"
@@ -20,7 +19,7 @@
                     <div>
                         <!-- @click="$store.commit('setComponent', 'createCoupon')" -->
                         <v-btn
-                            class="white--text"
+                            class="couponBtn white--text"
                             v-openDialog="'createCoupon'"
                             depressed
                             rounded
@@ -153,6 +152,9 @@ export default {
             font-weight: 600;
             font-size: 16px;
             color: @global-purple;
+        }
+        .couponBtn {
+            text-transform: initial;
         }
         .dataTable {
             width: 100%;

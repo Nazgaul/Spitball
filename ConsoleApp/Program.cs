@@ -18,6 +18,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
@@ -27,6 +28,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Infrastructure;
 using Cloudents.Query;
+using Cloudents.Query.Tutor;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using NHibernate.Linq;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
@@ -149,76 +151,56 @@ namespace ConsoleApp
 
         private static async Task Dbi()
         {
-            List<ChatRoom> someList;
+            var session = Container.Resolve<ISession>();
+
+
+            List<long> users;
             do
             {
+                users =  await session.Query<User>()
+                    .Where(w => w.FirstName == null && w.LastName == null)
+                    .Take(100).Select(s=>s.Id).ToListAsync();
 
-
-                //int count = 0;
-                var session = Container.Resolve<ISession>();
-                someList = await session.Query<ChatRoom>().Fetch(f => f.Extra)
-                    .Where(w => w.Tutor == null)
-                     .Take(5)
-                     .ToListAsync();
-
-                foreach (var someObject in someList)
+                foreach (var userId in users)
                 {
-                    Console.WriteLine(someObject.Id);
-                    //if (user.StudyRoomPayment == null)
-                    //{
-                    using var unitOfWork = Container.Resolve<IUnitOfWork>();
-
-                    if (someObject.StudyRoom != null)
-                    {  
-                        someObject.Tutor = someObject.StudyRoom.Tutor;
-                        await unitOfWork.CommitAsync(default);
+                    using var uow = Container.Resolve<IUnitOfWork>();
+                    var user = await session.GetAsync<User>(userId);
+                    var name = user.Name;
+                
+                    var value = name.Split(" ");
+                    if (value.Length == 2)
+                    {
+                        value[1] = Regex.Replace(value[1], @"[\d-]", string.Empty).Replace(".",string.Empty);
+                        user.ChangeName(value[0], value[1]);
+                        await uow.CommitAsync();
                         continue;
 
                     }
 
-                    var users = someObject.Users;
-                    if (users.Count > 2)
+                    if (value.Length == 1)
                     {
-                        var user = someObject.Messages.AsQueryable().OrderBy(o => o.Id).Select(s => s.User).First();
-                        var tutor = user.Tutor;
-                        someObject.Tutor = tutor;
-                        await unitOfWork.CommitAsync(default);
-                        continue;
-                    }
-
-                    var tutors = someObject.Users.Where(s => s.User.Tutor != null).ToList();//.User.Tutor;
-                    if (tutors.Count == 0)
-                    {
-                        session.Delete(someObject);
-                        await unitOfWork.CommitAsync(default);
-                        continue;
-                        //remove this
-                    }
-
-                    if (tutors.Count == 1)
-                    {
-                        someObject.Tutor = tutors[0].User.Tutor;
-                        await unitOfWork.CommitAsync(default);
-                        continue;
-                    }
-
-                    if (tutors.Count > 1)
-                    {
-                        if (someObject.Users.Count == 2)
+                        if (value.Contains("."))
                         {
-                            var userId = someObject.Messages.AsQueryable().OrderBy(o => o.Id).Select(s => s.User.Id).First();
-                           var tutor = someObject.Users.Where(w => w.User.Id != userId).Single(s => s.User.Tutor != null).User
-                                .Tutor;
-                            someObject.Tutor = tutor;
-                            await unitOfWork.CommitAsync(default);
-                            continue;
-                        }
-                    }
-                    throw new ApplicationException();
+                            value = value[0].Split(".");
+                            if (int.TryParse(value[1], out var _))
+                            {
 
-                    //}
+                                user.ChangeName(value[0], null);
+                                await uow.CommitAsync();
+                                continue;
+
+                            }
+                        }
+                        user.ChangeName(value[0], null);
+                        await uow.CommitAsync();
+                        continue;
+                    }
+
+                    Console.WriteLine("no");
                 }
-            } while (someList.Count > 0);
+            } while (users.Count > 0);
+
+            await DeleteOldStuff.ResyncTutorRead();
         }
 
         private static async Task UpdateTwilioParticipants()

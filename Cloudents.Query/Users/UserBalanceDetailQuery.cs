@@ -30,9 +30,9 @@ namespace Cloudents.Query.Users
 
             private readonly IStatelessSession _statelessSession;
 
-            public UserBalanceDetailQueryHandler(QuerySession session)
+            public UserBalanceDetailQueryHandler(IStatelessSession session)
             {
-                _statelessSession = session.StatelessSession;
+                _statelessSession = session;
             }
 
             public async Task<IEnumerable<BalanceDto>> GetAsync(UserBalanceQuery query, CancellationToken token)

@@ -5,7 +5,7 @@
             <div class="uf-uploading-text">
                 <span class="uf-bold" v-t="'upload_uf-uploading'"></span>
                 <span v-t="'upload_uf-take-time'"></span>
-                <span>{{files[0].progress}}%</span>
+                <span>{{files[0].progress}}&#37;</span>
             </div>
             <v-progress-linear color="success" v-model="files[0].progress"></v-progress-linear>
         </div>
@@ -42,13 +42,13 @@
                     :post-action="uploadUrl"
                     style="top: unset;"
                     :multiple="true"
+                    :timeout="600 * 10000"
                     :chunk-enabled="true"
                     
                     :chunk="{
                         action: uploadUrl,
                         minSize: 1,
                         maxRetries: 5,
-                        progress: progressHandler
                     }">
                 </file-upload>
                 <v-btn v-if="!isDraggin" class="uf-sDrop-btn" color="white" depressed rounded sel="my_computer">
@@ -65,7 +65,6 @@ import { mapGetters, mapActions } from 'vuex';
 
 import uploadService from "../../../services/uploadService";
 import analyticsService from '../../../services/analytics.service';
-import { LanguageService } from "../../../services/language/languageService";
 
 import FileUpload from 'vue-upload-component';
 
@@ -173,17 +172,15 @@ export default {
             };
             global.Dropbox.choose(options);
         },
-        progressHandler(progress){
-            this.progress = progress;
-            if(progress >= 100){
-                this.goToNextStep()
-            }
-            
-        },
+        // progressHandler(progress){
+        //     this.progress = progress;
+        //     if(progress >= 100){
+        //         this.goToNextStep()
+        //     }
+        // },
         // regular upload methods
         inputFile(newFile, oldFile) {
             this.uploadStarted = true;
-            
             if(newFile) {
                 // Upload progress
                 if (newFile.progress === 100) {
@@ -224,7 +221,7 @@ export default {
             }
         },
         uploadingError(newFile) {
-            let text = LanguageService.getValueByKey("upload_multiple_error_upload_something_wrong");
+            let text = this.$t("upload_multiple_error_upload_something_wrong");
             this.errorText = newFile.response.Name ? newFile.response.Name["0"] : text;
             let fileErrorObj = {
                 errorText: newFile.response.Name ? newFile.response.Name["0"] : text,
@@ -362,7 +359,6 @@ export default {
             margin-top: 30px;
         }
         .v-btn{
-            margin: 6px 0;
             &:before {
             background-color: transparent !important;
             transition: none !important;

@@ -21,7 +21,6 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import {LanguageService } from "../../../../services/language/languageService";
 
 export default {
   props: {
@@ -33,7 +32,7 @@ export default {
   data() {
     return {
       search: this.$route.query.term,
-      searchBtnText: LanguageService.getValueByKey('search_search_btn')
+      searchBtnText: this.$t('search_search_btn')
     };
   },
   watch: {

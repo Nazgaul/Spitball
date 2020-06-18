@@ -11,7 +11,7 @@ namespace Cloudents.Query.Session
 {
     public class SessionApprovalQuery : IQuery<PaymentDetailDto?>
     {
-        public SessionApprovalQuery(Guid sessionId, /*long userId,*/ long tutorId)
+        public SessionApprovalQuery(Guid sessionId, long tutorId)
         {
             SessionId = sessionId;
            // UserId = userId;
@@ -26,16 +26,16 @@ namespace Cloudents.Query.Session
         {
             private readonly IStatelessSession _stateless;
 
-            public SessionApprovalQueryHandler(QuerySession querySession)
+            public SessionApprovalQueryHandler(IStatelessSession querySession)
             {
-                _stateless = querySession.StatelessSession;
+                _stateless = querySession;
             }
 
             public async Task<PaymentDetailDto?> GetAsync(SessionApprovalQuery query, CancellationToken token)
             {
                 var couponFuture = _stateless.Query<UserCoupon>()
                      .Fetch(f => f.Coupon)
-                     .Where(w => w.StudyRoomSessionUser!.StudyRoomSession.Id == query.SessionId)
+                     .Where(w => w.StudyRoomSessionUser!.Id == query.SessionId)
                      //.Where(w => w.UsedAmount < w.Coupon.AmountOfUsePerUser)
                      .Select(s => new
                      {

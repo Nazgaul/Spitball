@@ -14,8 +14,7 @@ namespace Cloudents.Core.DTOs.Admin
         public string LastName { get; set; }
         [EntityBind(nameof(Tutor.Bio))]
         public string Bio { get; set; }
-        [EntityBind(nameof(Tutor.Price))]
-        public decimal Price { get; set; }
+       
         [EntityBind(nameof(BaseUser.Email))]
         public string Email { get; set; }
 

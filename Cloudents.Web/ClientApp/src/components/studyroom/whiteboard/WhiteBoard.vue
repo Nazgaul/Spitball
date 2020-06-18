@@ -63,7 +63,7 @@
         <div v-if="getShowBoxHelper && dragData.length === 0" class="welcome-helper-top">
             <div class="top-helper">
                 <pencilSVG class="icon-helper"/>
-                <span v-language:inner="'studyRoom_boxs_top'"/>
+                <span v-t="'studyRoom_boxs_top'"/>
             </div>
         </div>
         <div v-if="getShowBoxHelper && dragData.length === 0" class="welcome-helper-bottom">
@@ -71,10 +71,10 @@
                 <div class="bottom-helper-cont">
                     <uploadSVG class="icon-helper"/>
                     <div>
-                        <p v-language:inner="'studyRoom_boxs_bottom_add'"/>
+                        <p v-t="'studyRoom_boxs_bottom_add'"/>
                         <span>
-                            <span v-language:inner="'studyRoom_boxs_bottom_or'"/> 
-                            <span @click="uploadImage" class="underlined" v-language:inner="'studyRoom_boxs_bottom_link'"/>
+                            <span v-t="'studyRoom_boxs_bottom_or'"/> 
+                            <span @click="uploadImage" class="underlined" v-t="'studyRoom_boxs_bottom_link'"/>
                         </span>
                     </div>
 
@@ -83,7 +83,7 @@
         </div>
         <div :style="{'top':helperStyle.top, 'left':helperStyle.left, 'flex-direction': isRtl ?  'row-reverse': ''}" class="text-helper-container" v-if="helperShow && selectedOptionString === enumOptions.text">
                 <div style="width:240px;height:40px">
-                    <input type="text" v-language:placeholder="'tutor_enter_text'"
+                    <input type="text" :placeholder="$t('tutor_enter_text')"
                     v-model="helperStyle.text"
                     :class="[helperClass, helperStyle.id]"
                     :style="{'color': helperStyle.color, 'direction':isRtl ? 'rtl' : 'ltr' }"/>
@@ -117,7 +117,7 @@
                          :formula="`$$${helperStyle.text}$$`"
                          class="math-jax"></vue-mathjax>
                 <div style="align-self: flex-end;">
-                    <v-btn @click="finishEquation" class="white--text" rounded color="#514f7d" v-language:inner="'studyRoom_equation_btn'"/>
+                    <v-btn @click="finishEquation" class="white--text" rounded color="#514f7d" v-t="'studyRoom_equation_btn'"/>
                 </div>
             </div>
             
@@ -130,7 +130,7 @@
              </div>
             <div class="equation-text-area" style="justify-content: space-between;">
                 <div style="align-self: flex-end;">
-                    <v-btn @click="finishEquation" class="white--text" rounded color="#514f7d" v-language:inner="'studyRoom_equation_btn'"/>
+                    <v-btn @click="finishEquation" class="white--text" rounded color="#514f7d" v-t="'studyRoom_equation_btn'"/>
                 </div>
             </div>
         </div>

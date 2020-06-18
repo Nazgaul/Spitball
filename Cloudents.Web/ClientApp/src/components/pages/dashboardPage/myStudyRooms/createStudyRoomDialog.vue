@@ -4,7 +4,7 @@
 
          <v-form class="justify-space-between input-room-name mb-3" ref="createRoomValidation">
             <v-icon class="close-dialog" v-text="'sbf-close'" @click="$store.commit('setComponent')" />
-            <div class="createStudyRoomDialog-title text-center" v-t="createSessionTitle"></div>
+            <div class="createStudyRoomDialog-title text-center">{{createSessionTitle}}</div>
 
             <component
                :is="studyRoomType"
@@ -22,15 +22,15 @@
             <div class="mb-4">
                <span v-if="currentError" class="error--text" v-t="errorsResource[currentError]"></span>
             </div>
-            <v-btn :loading="isLoading" @click="createStudyRoom" width="160" depressed height="40" color="#4452fc" class="white--text" rounded >{{$t(btnCreateText)}}</v-btn>
+            <v-btn :loading="isLoading" @click="createStudyRoom" width="160" depressed height="40" color="#4452fc" class="white--text" rounded >{{btnCreateText}}</v-btn>
          </div>
       </div>
    </v-dialog>
 </template>
 
 <script>
-import Broadcast from './liveSession/liveSession.vue'
-import Private from './privateSession/privateSession.vue'
+const Broadcast = () => import('./liveSession/liveSession.vue');
+const Private = () => import('./privateSession/privateSession.vue');
 
 export default {
    name:'createStudyRoom',
@@ -51,25 +51,28 @@ export default {
             showErrorWrongTime: false,
             showErrorAlreadyCreated: false
          },
-         errorsResource: {
-            showErrorEmpty: 'dashboardPage_create_room_empty_error',
-            showErrorAlreadyCreated: 'dashboardPage_create_room_created_error',
-            showErrorMaxUsers: 'dashboardPage_create_room_max_error',
-            showErrorWrongTime: 'dashboardPage_pick_time_error',
-         },
+
          currentError: '',
          price: 0
       }
    },
    computed: {
+      errorsResource() {
+         return {
+            showErrorEmpty: this.$t('dashboardPage_create_room_empty_error'),
+            showErrorAlreadyCreated: this.$t('dashboardPage_create_room_created_error'),
+            showErrorMaxUsers: this.$t('dashboardPage_create_room_max_error'),
+            showErrorWrongTime: this.$t('dashboardPage_pick_time_error'),
+         }
+      },
       isPrivate() {
          return this.studyRoomType === 'private'
       },
       btnCreateText() {
-         return this.isPrivate ? 'dashboardPage_create_private' : 'dashboardPage_create_broadcast'
+         return this.isPrivate ? this.$t('dashboardPage_create_private') : this.$t('dashboardPage_create_broadcast')
       },
       createSessionTitle() {
-         return this.isPrivate ? 'dashboardPage_create_room_private_title' : 'dashboardPage_create_room_live_title'
+         return this.isPrivate ? this.$t('dashboardPage_create_room_private_title') : this.$t('dashboardPage_create_room_live_title')
       },
       isNoErrors() {
          return !this.errors.showErrorAlreadyCreated && !this.errors.showErrorEmpty &&
@@ -91,7 +94,7 @@ export default {
             }
 
             if(params === false) return
-
+            
             params.type = this.studyRoomType
 
             let self = this
@@ -127,28 +130,23 @@ export default {
       },
       createLiveSession() {
          let childComponent = this.$refs.childComponent;
-         let userChooseDate = new Date(`${childComponent.date}T${childComponent.hour}:00`)
-         let today = new Date()
-         if(childComponent.date === today.FormatDateToString()) {
-            
-            if(userChooseDate.getHours() < today.getHours()) {
+         let userChooseDate =  this.$moment(`${childComponent.date}T${childComponent.hour}:00`);         
+         let isToday = userChooseDate.isSame(this.$moment(), 'day');
+
+         if(isToday) {
+            let isValidDateToday = userChooseDate.isAfter(this.$moment().format())
+
+            if(!isValidDateToday) {
                this.errors.showErrorWrongTime = true
                this.currentError = 'showErrorWrongTime'
                return false
-            }
-            if(userChooseDate.getHours() === today.getHours()) {
-               let isWrongMinutes = today.getMinutes() < Number(userChooseDate.getMinutes())
-               if(!isWrongMinutes) {
-                  this.errors.showErrorWrongTime = true
-                  this.currentError = 'showErrorWrongTime'
-                  return false
-               }
-            }
+            } 
+
          }
          return {
             date: userChooseDate,
-            name: childComponent.liveSessionTitle || '',
-            about: childComponent.sessionAboutText || '',
+            name: childComponent.liveSessionTitle,
+            about: childComponent.sessionAboutText,
             price: childComponent.currentVisitorPriceSelect.value === 'free' ? 0 : childComponent.price,
          }
       },
@@ -165,7 +163,7 @@ export default {
       }
    },
    created() {
-      this.studyRoomType = this.params.type
+      this.studyRoomType = this.params?.type
       this.price = this.$store.getters.accountUser.price
    },
 }

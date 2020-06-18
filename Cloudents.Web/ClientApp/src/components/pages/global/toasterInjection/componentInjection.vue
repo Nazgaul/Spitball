@@ -8,7 +8,6 @@ const auth = () => import('../../global/dialogInjection/globalDialogs/auth/auth.
 
 const simpleToaster = () => import('./simpleToaster.vue');
 const simpleErrorToaster = () => import('./simpleErrorToaster.vue')
-const pendingPayment = () => import('./pendingPayment.vue')
 const errorLinkToaster = () => import('./errorLinkToaster.vue')
 
 const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue')
@@ -16,6 +15,7 @@ const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCou
 
 const verifyPhone = () => import('../dialogInjection/globalDialogs/auth/register/verifyPhone.vue')
 
+const applyCoupon = () => import('./applyCoupon.vue')
 const studRoomSettings = () => import('../../../studyroom/tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue')
 const createStudyRoomDialog = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue')
 const teacherBillOfflineDialog = () => import('../dialogInjection/globalDialogs/teacherApproval/teacherBillOffline.vue');
@@ -24,11 +24,11 @@ export default {
         auth,
         simpleToaster,
         simpleErrorToaster,
-        pendingPayment,
         errorLinkToaster,
         upload,
         createCoupon,
         verifyPhone,
+        applyCoupon,
         studRoomSettings,
         createStudyRoomDialog,
         teacherBillOfflineDialog
@@ -39,9 +39,6 @@ export default {
             componentObj: {
                 teacherBillOfflineDialog:{
                     name:'teacherBillOfflineDialog'
-                },
-                linkToaster: {
-                    name: "pendingPayment",
                 },
                 errorToaster_notBrowser:{
                     name:'simpleErrorToaster',
@@ -132,6 +129,9 @@ export default {
                         component: 'register',
                         goTo: 'verifyPhone'
                     }
+                },
+                applyCoupon: {
+                    name: 'applyCoupon'
                 }
             }
         }

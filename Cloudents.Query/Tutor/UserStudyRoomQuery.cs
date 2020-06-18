@@ -2,12 +2,12 @@
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using NHibernate;
-using NHibernate.Criterion;
-using NHibernate.Transform;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Query.Stuff;
+using Cloudents.Core.Enum;
+using NHibernate.Linq;
 
 namespace Cloudents.Query.Tutor
 {
@@ -24,51 +24,28 @@ namespace Cloudents.Query.Tutor
         {
             private readonly IStatelessSession _session;
 
-            public UserStudyRoomQueryHandler(QuerySession session)
+            public UserStudyRoomQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             public async Task<IEnumerable<UserStudyRoomDto>> GetAsync(UserStudyRoomQuery query, CancellationToken token)
             {
-                StudyRoom? studyRoomAlias = null!;
-                StudyRoomUser? studyRoomUser = null!;
-                UserStudyRoomDto? resultAlias = null!;
-
-                //TODO we can do it in linq
-                var detachedQuery = QueryOver.Of(()=> studyRoomAlias)
-                    .Left.JoinAlias(x => x.Users, () => studyRoomUser)
-                    .Where(() => studyRoomUser.User.Id == query.UserId || studyRoomAlias.Tutor.Id == query.UserId)
-                    .Select(s => s.Id);
-
-                return await _session.QueryOver(() => studyRoomAlias)
-                    .WithSubquery.WhereProperty(x => x.Id).In(detachedQuery)
-                    .Where(w=>((BroadCastStudyRoom)w).BroadcastTime.IfNull(DateTime.UtcNow.AddDays(1)) > DateTime.UtcNow.AddHours(-6))
-                    .SelectList(sl =>
-                                sl.Select(s => s.Id).WithAlias(() => resultAlias.Id)
-                                .Select(s=>s.Name).WithAlias(() => resultAlias.Name)
-                                .Select(s => s.DateTime.CreationTime).WithAlias(() => resultAlias.DateTime)
-                                .Select(s=> s.GetType()).WithAlias(() => resultAlias.Type)
-                                .Select(s=>((BroadCastStudyRoom)s).BroadcastTime).WithAlias(() => resultAlias.Scheduled)
-                                .Select(s => s.Identifier).WithAlias(() => resultAlias.ConversationId)
-                                .SelectSubQuery(QueryOver.Of<StudyRoomSession>()
-                                    .Where(w=>w.StudyRoom.Id == studyRoomAlias.Id)
-                                    .OrderBy(x=>x.Created).Desc
-                                    .Select(s=>s.Created)
-                                    .Take(1)
-                                ).WithAlias(() => resultAlias.LastSession)
-                                .SelectSubQuery(QueryOver.Of<StudyRoomUser>()
-                                    .Where(w=>w.Room.Id == studyRoomAlias.Id)
-                                    .ToRowCountQuery()).WithAlias(() => resultAlias.AmountOfUsers)
-                                
-                               
-                    )
-                    .OrderBy(()=> studyRoomAlias.DateTime.CreationTime).Desc
-                    .TransformUsing(new SbAliasToBeanResultTransformer<UserStudyRoomDto>())
-                    .UnderlyingCriteria.SetComment(nameof(UserStudyRoomQuery))
-                    .ListAsync<UserStudyRoomDto>(token);
-
-
+                return await _session.Query<StudyRoom>()
+                     .Where(w => w.Tutor.Id == query.UserId || w.Users.Any(a => a.User.Id == query.UserId))
+                     .Where(w => (((BroadCastStudyRoom)w).BroadcastTime != null ? ((BroadCastStudyRoom)w).BroadcastTime : DateTime.UtcNow.AddDays(1)) > DateTime.UtcNow)
+                     .OrderByDescending(o => o.DateTime.CreationTime)
+                     .Select(s => new UserStudyRoomDto(
+                         s.Name,
+                         s.Id,
+                         s.DateTime.CreationTime,
+                         s.Identifier,
+                         s.DateTime.UpdateTime,
+                         (s is BroadCastStudyRoom) ? StudyRoomType.Broadcast : StudyRoomType.Private,
+                         (s as BroadCastStudyRoom) != null ? ((BroadCastStudyRoom)s).BroadcastTime : new DateTime?(),
+                         s.Users.Select(s2 => s2.User.FirstName).ToList(), 
+                         s.Price))
+                     .ToListAsync(token);
             }
         }
     }

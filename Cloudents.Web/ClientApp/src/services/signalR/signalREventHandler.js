@@ -10,6 +10,10 @@ export const signlaREvents = {
         action: function(arrEventObj){
             let userActions = {
                 logout: function(data){
+                    //TODO: Account new store clean @idan
+                    // changed logout to mutation
+                    // store.commit("logout", data);
+                    
                     store.dispatch("logout", data);
                 },
                 onlinestatus: function(data){

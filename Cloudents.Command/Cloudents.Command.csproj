@@ -12,4 +12,10 @@
 		<ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\CalendarResources.resx">
+			<Generator></Generator>
+		</EmbeddedResource>
+	</ItemGroup>
+
 </Project>

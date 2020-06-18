@@ -54,6 +54,14 @@ namespace Cloudents.Admin2.Api
             return Ok();
         }
 
+        [HttpPost("{id:long}/becomeTutor")]
+        public async Task<IActionResult> BecomeTutorAsync([FromRoute] long id, CancellationToken token)
+        {
+            var command = new BecomeTutorCommand(id);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTutorAsync(long id,
                 CancellationToken token)
@@ -63,13 +71,13 @@ namespace Cloudents.Admin2.Api
             return Ok();
         }
 
-        [HttpPost("Price")]
-        public async Task<IActionResult> ChangePriceAsync([FromBody] ChangePriceRequest model, CancellationToken token)
-        {
-            var command = new ChangeTutorPriceCommand(model.TutorId, model.Price);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
+        //[HttpPost("Price")]
+        //public async Task<IActionResult> ChangePriceAsync([FromBody] ChangePriceRequest model, CancellationToken token)
+        //{
+        //    var command = new ChangeTutorPriceCommand(model.TutorId, model.Price);
+        //    await _commandBus.DispatchAsync(command, token);
+        //    return Ok();
+        //}
 
         [HttpPost("suspend")]
         public async Task<IActionResult> SuspendTutorAsync([FromBody] SuspendTutorRequest model, CancellationToken token)

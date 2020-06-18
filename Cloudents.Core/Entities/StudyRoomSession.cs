@@ -62,13 +62,13 @@ namespace Cloudents.Core.Entities
                 return;
             }
 
-            var pricePerHour = StudyRoom.Price ?? StudyRoom.Tutor.Price.GetPrice();
+            var pricePerHour = StudyRoom.Price;
             var isSubscriber = user.Following.FirstOrDefault(w => w.User.Id == StudyRoom.Tutor.Id)?.Subscriber ?? false;
             if (isSubscriber)
             {
-                pricePerHour = 0;
+                pricePerHour = pricePerHour.ChangePrice(0);
             }
-            var sessionUser = new StudyRoomSessionUser(this, user,pricePerHour);
+            var sessionUser = new StudyRoomSessionUser(this, user);
             _roomSessionUsers.Add(sessionUser);
         }
 
@@ -96,7 +96,7 @@ namespace Cloudents.Core.Entities
         {
             Duration = Ended - Created;
            // var tutorPrice = StudyRoom.Tutor.Price.SubsidizedPrice ??
-           Price = ((decimal) Math.Floor(Duration.Value.TotalMinutes) / 60) * StudyRoom.Tutor.Price.GetPrice();
+           Price = (decimal)( Math.Floor(Duration.Value.TotalMinutes) / 60 * StudyRoom.Price.Amount);
         }
 
         [Obsolete]

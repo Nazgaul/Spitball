@@ -55,10 +55,6 @@ function TutorItem(objInit) {
     this.name = objInit.name || '';
     this.image = objInit.image;
     this.courses = objInit.courses || [];
-    this.price = objInit.price || 0;
-    this.discountPrice = objInit.discountPrice;
-    this.country = objInit.country;
-    this.currency = objInit.currency;
     this.rating =  objInit.rate ? Number(objInit.rate.toFixed(2)): null;
     this.reviews = objInit.reviewsCount || 0;
     this.template = 'tutor-result-card';

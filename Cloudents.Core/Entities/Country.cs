@@ -159,6 +159,12 @@ namespace Cloudents.Core.Entities
     public struct Money
 
     {
+        public Money(decimal amount, string currency) : this((double) amount, currency)
+        {
+
+        }
+       
+
         public Money(double amount, string currency)
         {
             Amount = RoundToNearestPenny(amount);
@@ -209,6 +215,11 @@ namespace Cloudents.Core.Entities
         public static bool operator !=(Money left, Money right)
         {
             return !left.Equals(right);
+        }
+
+        public Money ChangePrice(double newMoney)
+        {
+            return new Money(newMoney,this.Currency);
         }
         //public Money Add(Money other)
 

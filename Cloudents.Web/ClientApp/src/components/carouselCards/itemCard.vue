@@ -5,9 +5,11 @@
                 <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="$proccessImageUrl(item.preview,240,152)" alt="preview image">
             </intersection>
             <div class="overlay text-center px-8" v-if="isSubscribed && !isLearnRoute">
-                <div class="unlockText white--text mb-3" v-t="subscribeText"></div>
+                <div class="unlockText white--text mb-3">{{subscribeText}}</div>
                 <v-btn class="btn" color="#fff" rounded block @click.prevent="goSubscription">
-                    <span v-t="{path: subscribeBtnText, args: { 0: $n(subscribedPrice, 'currency', 'en-US') }}"></span>
+                    <!-- TODO: Currency Change -->
+                    <span>{{subscribeBtnText}}</span>
+                    <!-- <span v-t="{path: subscribeBtnText, args: { 0: $n(subscribedPrice, {'style':'currency','currency': 'USD', minimumFractionDigits: 0}) }}"></span> -->
                 </v-btn>
             </div>
         </div>
@@ -31,8 +33,8 @@
                 </div>
             </div>
             <div class="itemCard-bottom mt-2">
-                <span v-if="item.price" class="item-purchases">{{$tc('itemCardCarousel_purchased', item.purchased)}}</span>
-                <span v-else class="item-purchases">{{$tc('itemCardCarousel_downloaded', item.downloads)}}</span>
+                <!-- <span v-if="item.price" class="item-purchases">{{$tc('itemCardCarousel_purchased', item.purchased)}}</span>
+                <span v-else class="item-purchases">{{$tc('itemCardCarousel_downloaded', item.downloads)}}</span> -->
                 <documentPrice :price="item.price" :isSubscribed="isSubscribed" />
             </div>
         </div>
@@ -74,10 +76,11 @@ export default {
             return this.item.priceType === 'Subscriber'
         },
         subscribeText() {
-            return this.isMobile ? 'resultNote_subscribe_mobile_text' : 'resultNote_subscribe_desktop_text'
+            return this.isMobile ? this.$t('resultNote_subscribe_mobile_text') : this.$t('resultNote_subscribe_desktop_text')
         },
         subscribeBtnText() {
-            return this.isMobile ? 'resultNote_subscribe_mobile_btn' : 'resultNote_subscribe_desktop_btn'
+            let price = this.$price(this.item.price, 'USD')
+            return this.isMobile ? this.$t('resultNote_subscribe_mobile_btn', [price]) : this.$t('resultNote_subscribe_desktop_btn', [price])
         },
         subscribedPrice() {
             return this.item.price
@@ -220,8 +223,9 @@ export default {
         }
         .itemCard-bottom{
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            //justify-content: space-between;
+            justify-content: flex-end;
+            //align-items: center;
             .item-purchases{
                 font-size: 13px;
                 font-weight: bold;

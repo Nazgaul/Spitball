@@ -7,14 +7,14 @@
         </v-layout>
         <v-layout column align-center>
             <v-flex xs12 class="pt-12">
-                <span class="subheading font-weight-bold" v-language:inner="'tutor_user_consent_dialog_title'"></span>
+                <span class="subheading font-weight-bold" v-t="'tutor_user_consent_dialog_title'"></span>
             </v-flex>
             <v-flex xs12 style="text-align: center;" class="pt-2">
-                <span v-language:inner="'tutor_user_consent_dialog_message'"></span>
+                <span v-t="'tutor_user_consent_dialog_message'"></span>
             </v-flex>
             <v-flex xs12 class="pt-4">
                 <v-btn class="accept-consent-btn elevation-0 align-center justify-center" @click="accept()">
-                    <span class="text-capitalize" v-language:inner="'tutor_user_consent_dialog_accept'"></span>
+                    <span class="text-capitalize" v-t="'tutor_user_consent_dialog_accept'"></span>
                 </v-btn>
             </v-flex>
         </v-layout>

@@ -125,8 +125,6 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-
-
         public async Task<ActionResult<StudyRoomDto>> GetStudyRoomAsync(Guid id,
             [FromServices] IUrlBuilder urlBuilder,
             [ProfileModelBinder(ProfileServiceQuery.Subscribers)] UserProfile profile,
@@ -154,7 +152,7 @@ namespace Cloudents.Web.Api
 
             if (profile.Subscribers?.Contains(result.TutorId) == true)
             {
-                result.TutorPrice = 0;
+                result.TutorPrice = result.TutorPrice.ChangePrice(0);
             }
             result.TutorImage = urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
             result.Jwt = command.JwtToken;
@@ -210,8 +208,8 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new CreateStudyRoomSessionCommand(id, userId);
-            var result = await _commandBus.DispatchAsync<CreateStudyRoomSessionCommand, CreateStudyRoomSessionCommandResult>(command, token);
-            return new CreateStudyRoomSessionResponse(result.JwtToken);
+            await _commandBus.DispatchAsync(command, token);
+            return new CreateStudyRoomSessionResponse(command.JwtToken);
 
         }
 

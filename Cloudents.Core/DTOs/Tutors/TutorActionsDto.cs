@@ -21,6 +21,15 @@ namespace Cloudents.Core.DTOs.Tutors
         public bool UploadContent { get; set; }
     }
 
+    public class TutorNotificationDto
+    {
+        public int PendingPayment { get; set; }
+        public int UnreadChatMessages { get; set; }
+        public int UnansweredQuestion { get; set; }
+        public int LiveClassRegisteredUser { get; set; }
+        public int FollowerNoCommunication { get; set; }
+    }
+
     public class BookedSession
     {
         [NonSerialized] public long? _TutorId;

@@ -11,11 +11,15 @@ const VIDEO_TRACK_NAME = 'videoTrack';
 const SCREEN_TRACK_NAME = 'screenTrack';
 const CURRENT_STATE_UPDATE = '1';
 const CURRENT_STATE_UPDATED = '2';
+const PRIORITY = {
+   HIGH:'high',
+   STANDARD:'standard',
+   LOW:'low',
+}
 let isTwilioStarted = false;
 
 let intervalTime = null;
 
-   // STORE.commit(twilio_SETTERS.ADD_REMOTE_VIDEO_TRACK,track)
 function _changeState(localParticipant) {
    if(!STORE.getters.getRoomIsTutor) return;
 
@@ -40,11 +44,9 @@ function _changeState(localParticipant) {
    });
    STORE.dispatch('sendDataTrack',JSON.stringify(stuffToSend));
 }
-
 function _detachTracks(tracks){
    tracks.forEach((track) => {
       if (track?.detach) {
-         // store.commit(twilio_SETTERS.DELETE_REMOTE_VIDEO_TRACK,track)
          track.detach().forEach((detachedElement) => {
             detachedElement.remove();
          });
@@ -52,34 +54,10 @@ function _detachTracks(tracks){
    });
 }
 function _insightEvent(...args) {
+   //let x = {...args};
+   //let string = JSON.parse(x);
    //use https://www.npmjs.com/package/vue-application-insights
    insightService.track.event(insightService.EVENT_TYPES.LOG, ...args);
-}
-function _publishTrack(activeRoom,track){
-   activeRoom.localParticipant.publishTrack(track);
-   _addParticipantTrack(track,activeRoom.localParticipant)
-
-   //On share screen we want to update all the users in the room
-   _changeState( activeRoom.localParticipant);
-}
-function _unPublishTrack(activeRoom,track){
-   activeRoom.localParticipant.unpublishTrack(track);
-   _deleteParticipantTrack(track,activeRoom.localParticipant)
-
-   //On share screen we want to update all the users in the room
-   _changeState( activeRoom.localParticipant);
-}
-function _toggleTrack(tracks,trackType,value){
-   let {track} = tracks.find(track=>track.kind === trackType);
-   if(track){
-      // value: FLASE - USER TURNED OFF / TRUE - USER TURNED ON
-      if(!value){
-         track.disable()
-      }
-      if(value){
-         track.enable()
-      }
-   }
 }
 function _twilioListeners(room,store) { 
    store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,room.participants.size)
@@ -114,7 +92,14 @@ function _twilioListeners(room,store) {
       }
    })
    room.localParticipant.on('networkQualityLevelChanged', (networkQualityLevel,networkQualityStats) => {
-      _insightEvent('networkQuality',networkQualityStats, networkQualityLevel)
+      let params = {
+         participant: room.localParticipant.identity,
+         level:networkQualityLevel,
+         audio: networkQualityStats?.audio? 'recv:'+networkQualityStats.audio.recv+' send:'+networkQualityStats.audio.send : undefined,
+         video: networkQualityStats?.video? 'recv:'+networkQualityStats.video.recv+' send:'+networkQualityStats.video.send : undefined,
+      }
+      store.commit(studyRoom_SETTERS.ROOM_NETWORK_QUALITY,networkQualityLevel || 0)
+      _insightEvent('networkQuality',params,null)
    });
    room.localParticipant.on('trackPublished',(track)=>{
       store.commit(studyRoom_SETTERS.ROOM_ACTIVE,true)
@@ -133,6 +118,10 @@ function _twilioListeners(room,store) {
    room.on('trackSubscribed', (track) => {
       _insightEvent('TwilioTrackSubscribed', track, null);
    })
+   room.on('dominantSpeakerChanged', participant => {
+      _insightEvent('dominantSpeakerChanged', participant?.identity, null);
+      console.log('The new dominant speaker in the Room is:',participant?.identity);
+    });
    room.on('trackUnsubscribed', (track,trackPublication,participant) => {
       _insightEvent('TwilioTrackUnsubscribed', track, null);
       _deleteParticipantTrack(track,participant)
@@ -243,16 +232,11 @@ export default () => {
 
             dataTrack = new twillioClient.LocalDataTrack();
             let jwtToken = mutation.payload;
-            let options = {
-               logLevel: _debugMode,
-               tracks: [dataTrack],
-               networkQuality: { // this is reserved down the road
-                  local: 3,
-                  remote: 3
-               }
-            };
+
+            let roomOptions = _getRoomConfigByTopologyType(store.getters.getRoomTopologyType);
+
             _insightEvent('connectToRoom', {'token': jwtToken}, null);
-            twillioClient.connect(jwtToken, options).then((room) => {
+            twillioClient.connect(jwtToken, roomOptions).then((room) => {
                _activeRoom = room; // for global using in this plugin
                _insightEvent('TwilioConnect', _activeRoom, null);
                _twilioListeners(_activeRoom,store); // start listen to twilio events;
@@ -270,7 +254,14 @@ export default () => {
                //    devicesList.push(createLocalVideoTrack({name:VIDEO_TRACK_NAME,deviceId: {exact: store.getters.getVideoDeviceId}}))
                // }
                Promise.allSettled([
-                  createLocalVideoTrack({name:VIDEO_TRACK_NAME,deviceId: {exact: store.getters.getVideoDeviceId}}),
+                  createLocalVideoTrack(
+                     {
+                        name:VIDEO_TRACK_NAME,
+                        deviceId: 
+                        {
+                           exact: store.getters.getVideoDeviceId
+                        }
+                     }),
                   createLocalAudioTrack({name:AUDIO_TRACK_NAME}),
                ]).then((tracks) => {
                   tracks.forEach(({value}) => {
@@ -305,21 +296,32 @@ export default () => {
             if (mutation.type === twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE){
                if(mutation.payload && !_localScreenTrack){ 
                   navigator.mediaDevices.getDisplayMedia({video:true,audio: false}).then(stream=>{
-                     _localScreenTrack = new twillioClient.LocalVideoTrack(stream.getTracks()[0],{name:SCREEN_TRACK_NAME});
+                     _localScreenTrack = new twillioClient.LocalVideoTrack(stream.getTracks()[0],{
+                        name:SCREEN_TRACK_NAME,
+                        video: document.body.clientWidth < 960 ?
+                        {
+                            height: 480,
+                            frameRate: 15,
+                            width: 640 
+                        } 
+                           : 
+                        { height: 720,
+                          frameRate: 15,
+                          width: 1280 
+                        },
+
+                     });
                      let isRoomStudent = !store.getters.getRoomIsTutor;
                      if(isRoomStudent && _localVideoTrack){
-                        _unPublishTrack(_activeRoom,_localVideoTrack);
+                        _unPublishTrack(_localVideoTrack);
                      }
-                     // if(_localVideoTrack){
-                     //    _unPublishTrack(_activeRoom,_localVideoTrack)
-                     // }
-                     _publishTrack(_activeRoom,_localScreenTrack);
+                     _publishTrack(_localScreenTrack);
                      store.commit(twilio_SETTERS.VIDEO_AVAILABLE,true)
                      _localScreenTrack.on('stopped',(track)=>{
-                        _unPublishTrack(_activeRoom,track)
+                        _unPublishTrack(track)
                         store.commit(twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE,false);
                         if(_localVideoTrack){
-                           _publishTrack(_activeRoom,_localVideoTrack)
+                           _publishTrack(_localVideoTrack)
                         }else{
                            //why it is not all the time
                            store.commit(twilio_SETTERS.VIDEO_AVAILABLE,false)
@@ -341,7 +343,7 @@ export default () => {
                         if (error.message === "Permission denied") {
                            store.commit(twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE,false);
                            if(_localVideoTrack){
-                              _publishTrack(_activeRoom,_localVideoTrack)
+                              _publishTrack(_localVideoTrack)
                            }
                            return;
                         }
@@ -361,7 +363,7 @@ export default () => {
             }
             if (mutation.type === twilio_SETTERS.CHANGE_VIDEO_DEVICE){
                if(_localVideoTrack){
-                  _unPublishTrack(_activeRoom,_localVideoTrack)
+                  _unPublishTrack(_localVideoTrack)
                }
                let params = {deviceId: {exact: mutation.payload},name:VIDEO_TRACK_NAME}
                twillioClient.createLocalVideoTrack(params).then(track=>{
@@ -370,7 +372,7 @@ export default () => {
             }
             if (mutation.type === twilio_SETTERS.CHANGE_AUDIO_DEVICE){
                if(_localAudioTrack){
-                  _unPublishTrack(_activeRoom,_localAudioTrack)
+                  _unPublishTrack(_localAudioTrack)
                }
                let params = {deviceId: {exact: mutation.payload},name:AUDIO_TRACK_NAME}
                twillioClient.createLocalAudioTrack(params).then(track=>{
@@ -406,18 +408,84 @@ export default () => {
 
       // plugin functions:
       function _setLocalVideoTrack(track){
-         // const localMediaContainer = document.getElementById(LOCAL_TRACK_DOM_ELEMENT);
-         // let videoTag = localMediaContainer.querySelector("video");
-         // if (videoTag) {localMediaContainer.removeChild(videoTag)}
-         // localMediaContainer.appendChild(track.attach());
          _localVideoTrack = track;
-         _publishTrack(_activeRoom,track)
+         _publishTrack(_localVideoTrack)
          store.commit(twilio_SETTERS.VIDEO_AVAILABLE,true)
       }
       function _setLocalAudioTrack(track){
          _localAudioTrack = track;
-         _publishTrack(_activeRoom,_localAudioTrack)
+         _publishTrack(_localAudioTrack)
          store.commit(twilio_SETTERS.AUDIO_AVAILABLE,true)
+      }
+      function _publishTrack(track){
+         console.log(store.getters.getRoomIsTutor? PRIORITY.HIGH : PRIORITY.LOW);
+         _activeRoom.localParticipant.publishTrack(track,{priority: store.getters.getRoomIsTutor? PRIORITY.HIGH : PRIORITY.LOW});
+         _addParticipantTrack(track,_activeRoom.localParticipant)
+      
+         //On share screen we want to update all the users in the room
+         _changeState( _activeRoom.localParticipant);
+      }
+      function _unPublishTrack(track){
+         _activeRoom.localParticipant.unpublishTrack(track);
+         _deleteParticipantTrack(track,_activeRoom.localParticipant)
+      
+         //On share screen we want to update all the users in the room
+         _changeState( _activeRoom.localParticipant);
+      }
+      function _toggleTrack(tracks,trackType,value){
+         let {track} = tracks.find(track=>track.kind === trackType);
+         if(track){
+            // if user was fasle by local dont change it by remote
+            // value: FLASE - USER TURNED OFF / TRUE - USER TURNED ON
+            if(!value){
+               track.disable()
+            }
+            if(value){
+               track.enable()
+            }
+         }
+      }
+      function _getRoomConfigByTopologyType(roomTopologyType){
+         // SmallGroup,
+         // PeerToPeer,
+         // GroupRoom
+         let isMobileMode = document.body.clientWidth < 960;
+         let defaultRoomSettings = {
+            logLevel: _debugMode,
+            tracks: [dataTrack],
+            networkQuality: {local:2, remote: 2}, //https://www.twilio.com/docs/video/using-network-quality-api
+            maxAudioBitrate:16000,//For music remove this line
+            maxVideoBitrate : isMobileMode ? 500000 : undefined, // problem with screen share maybe we should put in on the student side only cuz he have only 1 video track 
+            video: isMobileMode? { height: 480, frameRate: 24, width: 640 } : { height: 720, frameRate: 24, width: 1280 },
+         }
+         if(roomTopologyType == 'PeerToPeer'){
+            return defaultRoomSettings
+         }else{ 
+            let groupRoomSettings = {
+               ...defaultRoomSettings,
+               
+               bandwidthProfile: {
+                  video: {
+                     mode: 'collaboration',
+                     trackSwitchOffMode:'predicted', //DO NOT CHANGE THAT
+                     maxSubscriptionBitrate: isMobileMode? 2500000 : 0,
+                     dominantSpeakerPriority: PRIORITY.STANDARD,
+                     maxTracks: isMobileMode ? 3 : 10,
+                     renderDimensions: isMobileMode? undefined : {
+                        [PRIORITY.HIGH]: {height:720, width:1280}, //{height:1080, width:1920},
+                        [PRIORITY.STANDARD]: {height:720, width:1280},
+                        [PRIORITY.LOW]: {height:236, width:149}
+                     }
+                  }
+               },
+               dominantSpeaker: true,
+               preferredVideoCodecs: [
+                  { codec: 'VP8', simulcast: true },
+                  { codec: 'H264', simulcast: true } // this is for iphone and Safari
+               ],
+            }
+            return groupRoomSettings;
+         }
       }
    }
 }

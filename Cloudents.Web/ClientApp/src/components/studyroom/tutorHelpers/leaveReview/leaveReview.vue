@@ -3,11 +3,11 @@
         <closeIcon class="body-2 review_close_icon d-flex d-sm-none" @click="closeReviewDialog"></closeIcon>
         <!-- <v-icon class="body-2 review_close_icon d-flex d-sm-none" @click="closeReviewDialog">sbf-close</v-icon> -->
         <div class="d-flex">
-            <div class="review_title text-center font-weight-bold mx-auto" v-language:inner="reviewsTitle"></div>
+            <div class="review_title text-center font-weight-bold mx-auto">{{reviewsTitle}}</div>
         </div>
         <div class="review_sub_title text-center mt-1" :class="{'mb-6': !showNextStep}">
-            <span v-if="!showNextStep" v-html="$Ph('leaveReview_sub_title_step1', tutorName)"></span>
-            <span class="review_sub_title_step2" v-else v-language:inner="'leaveReview_sub_title_step2'"></span>
+            <span v-if="!showNextStep"> {{$t('leaveReview_sub_title_step1', [tutorName])}}"></span>
+            <span class="review_sub_title_step2" v-else v-t="'leaveReview_sub_title_step2'"></span>
         </div>
         <div class="review_user_rate" v-if="!showNextStep">
             <user-avatar class="tutor-img-wrap mr-2" :size="imgSize" :userImageUrl="tutorImg" :user-name="tutorName" :user-id="tutorId"/>
@@ -60,10 +60,10 @@
         
         <div class="text-center mt-4">
             <v-btn :loading="btnLoadingNoThx" @click="!showNextStep ? closeReviewDialog() : noThanks()" class="review_btn review_btn-back" outlined depressed rounded>
-                <span v-language:inner="btnText"/>
+                <span>{{btnText}}</span>
             </v-btn>
             <v-btn :loading="btnLoading" @click="showNextStep ? sendPost() : goNextStep()" class="review_btn review_btn-next white--text" depressed rounded color="#4452fc" sel="submit_tutor_request">
-                <span v-language:inner="'leaveReview_send'"/>
+                <span v-t="'leaveReview_send'"></span>
             </v-btn>
         </div>
     </div>
@@ -72,7 +72,6 @@
 <script>
     import { mapActions, mapGetters } from 'vuex';
 
-    import { LanguageService } from "../../../../services/language/languageService";
     import utilitiesService from "../../../../services/utilities/utilitiesService";
     import closeIcon from '../../../../font-icon/close.svg'
     import { validationRules } from '../../../../services/utilities/formValidationRules';
@@ -91,15 +90,15 @@
                 showNextStep: false,
                 roomId: 0,
                 rating: 0,
-                reviewPlaceholder: LanguageService.getValueByKey("leaveReview_review_placeholder"),
+                reviewPlaceholder: this.$t("leaveReview_review_placeholder"),
                 imgSize: '42',
                 starRate: [
                     '',
-                    LanguageService.getValueByKey("leaveReview_star_1"),
-                    LanguageService.getValueByKey("leaveReview_star_2"),
-                    LanguageService.getValueByKey("leaveReview_star_3"),
-                    LanguageService.getValueByKey("leaveReview_star_4"),
-                    LanguageService.getValueByKey("leaveReview_star_5"),
+                    this.$t("leaveReview_star_1"),
+                    this.$t("leaveReview_star_2"),
+                    this.$t("leaveReview_star_3"),
+                    this.$t("leaveReview_star_4"),
+                    this.$t("leaveReview_star_5"),
                 ],
                 ratingScore: 0,
                 rules: {
@@ -136,10 +135,10 @@
                 }
             },
             reviewsTitle() {
-                return this.showNextStep ? 'leaveReview_title_step2' : 'leaveReview_title_step1';
+                return this.showNextStep ? this.$t('leaveReview_title_step2') : this.$t('leaveReview_title_step1');
             },
             btnText() {
-                return this.showNextStep ? 'leaveReview_noThanks' : 'leaveReview_back';
+                return this.showNextStep ? this.$t('leaveReview_noThanks') : this.$t('leaveReview_back');
             },
         },
         watch: {
@@ -176,7 +175,7 @@
                         this.reviewsError = false;
                     }
                 } else {
-                    this.setReviewError('leaveReview_emptyStarError');
+                    this.setReviewError(this.$t('leaveReview_emptyStarError'));
                 }
             },
             sendReview() {
@@ -191,7 +190,7 @@
                     this.closeReviewDialog();
                 },
                 () => {
-                    this.setReviewError('leaveReview_sendReviewError')
+                    this.setReviewError(this.$t('leaveReview_sendReviewError'))
                 }
                 ).finally(() => {
                     this.btnLoading = false;
@@ -200,7 +199,7 @@
             },
             setReviewError(err) {
                 this.reviewsError = true;
-                this.errorText = LanguageService.getValueByKey(err)
+                this.errorText = err
             },
             closeReviewDialog() {
                 this.updateReviewDialog(false);

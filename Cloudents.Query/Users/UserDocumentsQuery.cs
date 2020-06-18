@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
-using Cloudents.Core.Interfaces;
+using Cloudents.Core.EventHandler;
 
 namespace Cloudents.Query.Users
 {
@@ -38,11 +38,11 @@ namespace Cloudents.Query.Users
         {
             private readonly IStatelessSession _session;
 
-            public UserDocumentsQueryHandler(QuerySession session)
+            public UserDocumentsQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
-            [Cache(TimeConst.Hour, "UserDocumentsQuery", false)]
+            [Cache(TimeConst.Minute * 15, CacheRegions.ProfilePageDocument, false)]
             public async Task<ListWithCountDto<DocumentFeedDto>> GetAsync(UserDocumentsQuery query, CancellationToken token)
             {
                 var r = _session.Query<Document>()
@@ -58,26 +58,19 @@ namespace Cloudents.Query.Users
                     r = r.Where(w => w.Course.Id == query.Course);
                 }
                 var count = r;
-                r = r.OrderByDescending(o => o.Boost).ThenByDescending(o => o.TimeStamp.UpdateTime);
+                r = r.OrderByDescending(o => o.Boost ?? 0).ThenByDescending(o => o.TimeStamp.UpdateTime);
                 var result = r.Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
                     DateTime = s.TimeStamp.UpdateTime,
                     Course = s.Course.Id,
                     Title = s.Name,
-                    Views = s.Views,
-                    Downloads = s.Downloads,
                     Snippet = s.Description ?? s.MetaContent,
                     Price = s.DocumentPrice.Price,
-                    Vote = new VoteDto
-                    {
-                        Votes = s.VoteCount
-                    },
                     PriceType = s.DocumentPrice.Type ?? PriceType.Free,
                     DocumentType = s.DocumentType,
                     Duration = s.Duration,
-                    Purchased = s.PurchaseCount.GetValueOrDefault()
-                }).Take(query.PageSize).Skip(query.Page*query.PageSize).ToFuture();
+                }).Take(query.PageSize).Skip(query.Page * query.PageSize).ToFuture();
 
                 var countFuture = count.ToFutureValue(f => f.Count());
 
@@ -93,13 +86,14 @@ namespace Cloudents.Query.Users
 
 
                 var futureResult = await result.GetEnumerableAsync(token);
-                var isSubscribed = scribedQueryFuture?.Value ?? query.UserId == query.Id;
+                var isSubscribed = scribedQueryFuture?.Value ?? false;// ?? query.UserId == query.Id;
 
                 if (isSubscribed)
                 {
                     futureResult = futureResult.Select(s =>
                     {
                         s.PriceType = PriceType.Free;
+                        s.Price = null;
                         return s;
                     });
                 }

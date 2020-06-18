@@ -11,11 +11,20 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
     public class User : BaseUser
     {
-        public User(string email, string firstName, string lastName,
+        /// <summary>
+        /// Create a new user
+        /// </summary>
+        /// <param name="email">the user email</param>
+        /// <param name="firstName">first name</param>
+        /// <param name="lastName">last name - note google can sometime doesn't return</param>
+        /// <param name="language">the user culture</param>
+        /// <param name="country">hte user country</param>
+        /// <param name="isTutor">if the user want to be tutor</param>
+        public User(string email, string firstName, string? lastName,
             Language language, string country, bool isTutor = false)
         {
             if (firstName == null) throw new ArgumentNullException(nameof(firstName));
-            if (lastName == null) throw new ArgumentNullException(nameof(lastName));
+            //if (lastName == null) throw new ArgumentNullException(nameof(lastName));
             if (country == null) throw new ArgumentNullException(nameof(country));
             Email = email ?? throw new ArgumentNullException(nameof(email));
             ChangeName(firstName, lastName);
@@ -88,17 +97,12 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        //public virtual void UseCoupon(Tutor tutor)
-        //{
-        //    var userCoupon = UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id 
-        //                                            && w.UsedAmount < w.Coupon.AmountOfUsePerUser);
-        //    if (userCoupon is null) // we do not check before if user have coupon on that user
-        //    {
-        //        return;
-        //    }
-        //    userCoupon.UsedAmount++;
-        //    AddEvent(new UseCouponEvent(userCoupon));
-        //}
+        public virtual void BecomeTutor()
+        {
+            Tutor = new Tutor(this);
+        }
+
+
 
 
         public virtual void ApplyCoupon(Coupon coupon, Tutor tutor)
@@ -172,22 +176,6 @@ namespace Cloudents.Core.Entities
         }
 
 
-
-        //public virtual void BecomeTutor(string bio, decimal? price, string description, string firstName, string lastName)
-        //{
-
-        //    Tutor = new Tutor(bio, this, price);
-        //    Description = description;
-        //    //SetUserType(UserType.Teacher);
-        //    ChangeName(firstName, lastName);
-        //    foreach (var userCourse in UserCourses)
-        //    {
-        //        userCourse.CanTeach();
-        //    }
-        //}
-
-
-
         [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]
         private readonly ICollection<StudyRoomUser> _studyRooms = new List<StudyRoomUser>();
 
@@ -241,7 +229,7 @@ namespace Cloudents.Core.Entities
 
 
 
-        public virtual void ChangeName(string firstName, string lastName)
+        public virtual void ChangeName(string firstName, string? lastName)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -251,6 +239,7 @@ namespace Cloudents.Core.Entities
             {
                 Name = $"{Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0]}";
             }
+            AddEvent(new UserChangeNameEvent(this));
         }
 
         public virtual void ChangeEmail(string email)
@@ -291,9 +280,9 @@ namespace Cloudents.Core.Entities
             Transactions.UpdateBalance(balance);
         }
 
-        public virtual void UpdateUserImage(string image, string imageName)
+        public virtual void UpdateUserImage(string imageName)
         {
-            Image = image;
+            //Image = image;
             ImageName = imageName;
             AddEvent(new UpdateImageEvent(Id));
         }
@@ -367,6 +356,7 @@ namespace Cloudents.Core.Entities
             }
             var follow = new Follow(this, follower, true);
             _followers.Add(follow);
+            AddEvent(new SubscribeToTutorEvent(this));
         }
 
 
@@ -436,6 +426,7 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
         protected internal virtual ICollection<UserDownloadDocument> DocumentDownloads { get; protected set; }
         protected internal virtual ICollection<StudyRoomPayment> SessionPayments { get; protected set; }
+        protected internal virtual ICollection<StudyRoomSessionUser> StudyRoomSessionUsers { get; protected set; }
 
         public virtual void DeleteUserPayment()
         {

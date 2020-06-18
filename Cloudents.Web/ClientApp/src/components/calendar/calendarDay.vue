@@ -12,7 +12,7 @@
                     <template slot="item" slot-scope="item">{{timeFormat(item.item)}}</template>
                 </v-select>
 
-                <span v-if="!isDayOff" class="dividers" v-language:inner="'calendar_to'"/>
+                <span v-if="!isDayOff" class="dividers" v-t="'calendar_to'"/>
 
                 <v-select v-if="!isDayOff" class="select-cal" height="30" dense tag="span"
                             v-model="selectedHourTo"
@@ -22,15 +22,13 @@
                     <template slot="item" slot-scope="item">{{timeFormat(item.item)}}</template>
                 </v-select>
                 
-                <span v-if="!isDayOff && (selectedHourTo < 23 && !isAddTimeSlot)"
-                      @click="isAddTimeSlot = true" class="addTime"
-                      v-language:inner="isMobile?'calendar_add_time_mobile':'calendar_add_time'"/>
+                <span v-if="!isDayOff && (selectedHourTo < 23 && !isAddTimeSlot)" @click="isAddTimeSlot = true" class="addTime">
+                    {{addTimeBtnText}}
+                </span>
 
-                    <span class="dividersAnd" 
-                           v-language:inner="'calendar_and'"
-                           v-show="isMobile &&(!isDayOff && isAddTimeSlot)"/>
+                    <span class="dividersAnd" v-t="'calendar_and'" v-show="isMobile &&(!isDayOff && isAddTimeSlot)"></span>
 
-                    <span class="dividers" v-language:inner="'calendar_and'" 
+                    <span class="dividers" v-t="'calendar_and'" 
                           v-show="!isMobile &&(!isDayOff && isAddTimeSlot)"/>
                 <div :style="{'display':isMobile?'':'inline-block'}" :class="!showAdditional || isDayOff?'additionalHoursDisplay':''" > 
                         <v-select class="select-cal" height="30" dense
@@ -41,7 +39,7 @@
                             <template slot="item" slot-scope="item">{{timeFormat(item.item)}}</template>
                         </v-select>
 
-                        <span class="dividers" v-language:inner="'calendar_to'"/>
+                        <span class="dividers" v-t="'calendar_to'"/>
 
                         <v-select :class="['select-cal',{'mt-2':isMobile}]" height="30" dense
                                 v-model="selectedAdditionalHourTo"
@@ -60,7 +58,6 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import removeTimeSVG from './images/removeTime.svg';
-import { LanguageService } from "../../services/language/languageService";
 
 export default {
     components:{removeTimeSVG},
@@ -74,7 +71,7 @@ export default {
     data() {
         return {
             isAddTimeSlot: false,
-            hoursList:[`${LanguageService.getValueByKey("calendar_day_off")}`,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+            hoursList:[`${this.$t("calendar_day_off")}`,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
             selectedHourTo:21,
             selectedAdditionalHourFrom:'',
             selectedAdditionalHourTo:'',
@@ -88,6 +85,12 @@ export default {
     },
     computed: {
         ...mapGetters(['getIsCalendarShared','getIntervalFirst','getCalendarAvailabilityState','accountUser','getProfile']),
+        addTimeBtnText() {
+            if(this.isMobile) {
+                return this.$t('calendar_add_time_mobile')
+            }
+            return this.$t('calendar_add_time')
+        },
         availabilityDayState(){
             if(this.getCalendarAvailabilityState !== null){
                 let calendarDayList = []
@@ -211,12 +214,12 @@ export default {
                 let rangeArray = new Array(difference + 1).fill(undefined).map((val, key) => {
                     return start > end ? start - key : start + key;
                 })
-                rangeArray.unshift(LanguageService.getValueByKey("calendar_day_off"))
+                rangeArray.unshift(this.$t("calendar_day_off"))
                 this.hoursList = rangeArray
                 this.selectedHourFrom = +this.availabilityDayState[0].from.split(':')[0];
                 this.selectedHourTo = +this.availabilityDayState[0].to.split(':')[0]; 
             }else{
-                this.selectedHourFrom = LanguageService.getValueByKey("calendar_day_off")
+                this.selectedHourFrom = this.$t("calendar_day_off")
             }
         },
         initialAdditionalHoursList(){

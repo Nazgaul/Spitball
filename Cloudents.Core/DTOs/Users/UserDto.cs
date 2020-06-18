@@ -17,10 +17,8 @@ namespace Cloudents.Core.DTOs.Users
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global" , Justification = "Dto json serialize")]
     public class UserAccountDto
     {
-        public decimal? Price { get; set; }
         [NonSerialized]
         public bool _needPayment;
-        public double? DiscountPrice { get; set; }
 
         [NonSerialized]
         public Country? Country;
@@ -37,7 +35,7 @@ namespace Cloudents.Core.DTOs.Users
         public string? LastName { get; set; }
 
         public string? Image { get; set; }
-
+        public int? ChatUnread { get; set; }
         public ItemState? IsTutor
         {
             get
@@ -67,15 +65,10 @@ namespace Cloudents.Core.DTOs.Users
             } 
         }
 
-        //public bool HaveContent { get; set; }
-        //public bool HaveDocsWithPrice { get; set; }
-       // public bool IsPurchased { get; set; }
         public bool IsSold { get; set; }
-        //public bool HaveFollowers { get; set; }
        
-        public int PendingSessionsPayments { get; set; }
 
 
-        public string CurrencySymbol => (Country ?? Country.UnitedStates).RegionInfo.CurrencySymbol;
+        public string CurrencySymbol => (Country ?? Country.UnitedStates).RegionInfo.ISOCurrencySymbol;
     }
 }

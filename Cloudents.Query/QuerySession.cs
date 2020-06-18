@@ -4,47 +4,76 @@ using System.Data;
 
 namespace Cloudents.Query
 {
-    public sealed class QuerySession : IDisposable
+
+    public sealed class ReadDbTransaction : IDisposable
     {
-        private readonly Lazy<IStatelessSession> _statelessSession;
-
-
-
-        public IStatelessSession StatelessSession
+        private readonly ITransaction _transaction;
+        public ReadDbTransaction(IStatelessSession session)
         {
-            get
+            _transaction = session.BeginTransaction(IsolationLevel.ReadUncommitted);
+        }
+
+        public void FinishTransaction()
+        {
+            if (_transaction == null) return;
+            if (_transaction.IsActive)
             {
-                if (_statelessSession.IsValueCreated)
-                {
-                    return _statelessSession.Value;
-                }
-                _transaction = _statelessSession.Value.BeginTransaction(IsolationLevel.ReadUncommitted);
-                return _statelessSession.Value;
+                _transaction.Rollback();
             }
         }
 
-        private ITransaction? _transaction;
-
-
-
-        public QuerySession(Lazy<IStatelessSession> statelessSession)
-        {
-            _statelessSession = statelessSession;
-
-
-        }
+        
         public void Dispose()
         {
-            if (_transaction != null)
+            if (_transaction?.IsActive == true)
             {
-                if (_transaction.IsActive)
-                {
-                    _transaction.Rollback();
-                    _transaction?.Dispose();
-                }
+                //_transaction.Rollback();
+                _transaction?.Dispose();
             }
-
-            //Session?.Dispose();
         }
     }
+
+    //public sealed class QuerySession : IDisposable
+    //{
+    //    private readonly Lazy<IStatelessSession> _statelessSession;
+
+
+
+    //    public IStatelessSession StatelessSession
+    //    {
+    //        get
+    //        {
+    //            if (_statelessSession.IsValueCreated)
+    //            {
+    //                return _statelessSession.Value;
+    //            }
+    //            _transaction = _statelessSession.Value.BeginTransaction(IsolationLevel.ReadUncommitted);
+    //            return _statelessSession.Value;
+    //        }
+    //    }
+
+    //    private ITransaction? _transaction;
+
+
+
+    //    public QuerySession(Lazy<IStatelessSession> statelessSession)
+    //    {
+    //        _statelessSession = statelessSession;
+
+
+    //    }
+    //    public void Dispose()
+    //    {
+    //        if (_transaction != null)
+    //        {
+    //            if (_transaction.IsActive)
+    //            {
+    //                _transaction.Rollback();
+    //                _transaction?.Dispose();
+    //            }
+    //        }
+
+    //        //Session?.Dispose();
+    //    }
+    //}
 }

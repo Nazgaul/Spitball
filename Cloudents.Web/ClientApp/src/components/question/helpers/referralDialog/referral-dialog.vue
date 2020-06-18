@@ -26,19 +26,19 @@
                 <div class="share-icon-container">
                     <span @click="shareOnSocialMedia(socialMedias.facebook)" class="share-btn facebook-share-btn">
                         <v-icon class="share-icon">sbf-facebook-share</v-icon>
-                        <span class="share-text" v-language:inner>referralDialog_share_facebook</span>
+                        <span class="share-text" v-t="'referralDialog_share_facebook'"></span>
                     </span>
                     <span @click="shareOnSocialMedia(socialMedias.twitter)" class="share-btn twitter-share-btn">
                         <v-icon class="share-icon referral-twitter-icon">sbf-tweeter-share</v-icon>
-                        <span class="share-text referral-twitter" v-language:inner>referralDialog_share_tweeter</span>
+                        <span class="share-text referral-twitter" v-t="'referralDialog_share_tweeter'"></span>
                     </span>
                     <span @click="shareOnSocialMedia(socialMedias.gmail)" class="share-btn gmail-share-btn">
                         <v-icon class="share-icon referral-gmail-icon">sbf-google-share</v-icon>
-                        <span class="share-text" v-language:inner>referralDialog_share_google</span>
+                        <span class="share-text" v-t="'referralDialog_share_google'"></span>
                     </span>
                     <span @click="shareOnSocialMedia(socialMedias.whatsApp)" class="share-btn whatsup-share-btn">
                         <v-icon class="share-icon">sbf-whatsup-share</v-icon>
-                        <span class="share-text" v-language:inner>referralDialog_share_whatsup</span>
+                        <span class="share-text" v-t="'referralDialog_share_whatsup'"></span>
                     </span>
                 </div>
                 <div class="input-container mb-4">
@@ -67,9 +67,9 @@
                             <v-icon class="copy-check-icon" transition="fade-transition"
                                     v-show="isCopied">sbf-checkmark
                             </v-icon>
-                            <span v-show="!isCopied && !isMultiple" v-language:inner>referralDialog_copy</span>
-                            <span v-show="!isCopied && isMultiple" v-language:inner>referralDialog_copy_link</span>
-                            <span v-show="isCopied" v-language:inner>referralDialog_copied</span>
+                            <span v-show="!isCopied && !isMultiple" v-t="'referralDialog_copy'"></span>
+                            <span v-show="!isCopied && isMultiple" v-t="'referralDialog_copy_link'"></span>
+                            <span v-show="isCopied" v-t="'referralDialog_copied'"></span>
                         </button>
 
                     </div>
@@ -108,7 +108,6 @@
     import SbInput from "../sbInput/sbInput.vue"
     import { mapGetters, mapActions } from "vuex"
     import Base62 from "base62"
-    import { LanguageService } from '../../../../services/language/languageService'
     import { getReferallMessages } from "./consts.js";
 
     export default {
@@ -125,15 +124,15 @@
                 },
                 isCopied: false,
                 singleRefLink: '',
-                referralSelectPlace: LanguageService.getValueByKey("referralDialog_ref_placeholder"),
+                referralSelectPlace: this.$t("referralDialog_ref_placeholder"),
                 text: {
                     dialog: {
-                        title: LanguageService.getValueByKey("referralDialog_dialog_title_invite"),
-                        titleSpread: LanguageService.getValueByKey("referralDialog_spread"),
-                        subTitle: LanguageService.getValueByKey("referralDialog_dialog_subtitle"),
-                        bottomText: LanguageService.getValueByKey("referralDialog_dialog_bottom_text"),
-                        bottomTextSm: LanguageService.getValueByKey("referralDialog_dialog_bottom_text2"),
-                        friendsJoined: LanguageService.getValueByKey("referralDialog_dialog_friends_joined"),
+                        title: this.$t("referralDialog_dialog_title_invite"),
+                        titleSpread: this.$t("referralDialog_spread"),
+                        subTitle: this.$t("referralDialog_dialog_subtitle"),
+                        bottomText: this.$t("referralDialog_dialog_bottom_text"),
+                        bottomTextSm: '', // this.$t("referralDialog_dialog_bottom_text2"),
+                        friendsJoined: this.$t("referralDialog_dialog_friends_joined"),
                     }
                 }
             }
@@ -245,9 +244,10 @@
             }
         },
         created() {
-            let id = this.accountUser.id;
+            //TODO: Account new store clean @idan
+            // clean becuase no used id 
             if(this.referralType != 'uploadReffer'){
-                this.getRefferedUsersNum(id)
+                this.getRefferedUsersNum()
             }
         },
 

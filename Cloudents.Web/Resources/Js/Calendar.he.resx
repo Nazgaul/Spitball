@@ -136,7 +136,7 @@
     <value>תודה!</value>
   </data>
   <data name="add_event_title" xml:space="preserve">
-    <value>קבע שיעור פרטי עם {1}</value>
+    <value>קבע שיעור פרטי עם {0}</value>
   </data>
   <data name="add_time" xml:space="preserve">
     <value>הוספה</value>

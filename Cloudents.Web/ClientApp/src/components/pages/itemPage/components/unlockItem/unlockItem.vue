@@ -3,7 +3,7 @@
      <div v-if="isDocument" class="unlockItem_document">
          <div class="unlockItem_document_container">
             <div class="unlockItem_document_title" v-t="'documentPage_unlock_title'"/>
-            <div class="unlockItem_document_subtitle" v-text="$Ph('documentPage_unlock_subtitle',docLength)"/>
+            <div class="unlockItem_document_subtitle">{{$t('documentPage_unlock_subtitle',[docLength])}}</div>
             <v-btn
                class="unlockItem_document_btn white--text"
                @click="openPurchaseDialog"
@@ -13,7 +13,7 @@
                rounded
                color="#4c59ff"
             >
-               <span v-t="unlockDocumentBtnText"></span>
+               <span>{{unlockDocumentBtnText}}</span>
             </v-btn>
             <img class="unlockItem_document_img" src="./lockdoc.png" alt="">
          </div>
@@ -22,7 +22,9 @@
          <div class="unlockItem_video_container">
             <div class="unlockItem_video_title" v-t="'documentPage_unlock_title'"></div>
             
-            <div v-if="getDocumentPriceTypeSubscriber" class="unlockItem_video_subtitle" v-t="{path: 'documentPage_unlock_video_subtitle_subscriber', args: {0: tutorName}}"></div>
+            <div v-if="getDocumentPriceTypeSubscriber" class="unlockItem_video_subtitle">
+               {{$t('documentPage_unlock_video_subtitle_subscriber', [tutorName])}}
+            </div>
             <div v-else class="unlockItem_video_subtitle" v-t="'documentPage_unlock_video_subtitle'"></div>
 
             <v-btn
@@ -34,7 +36,7 @@
                rounded
                color="#4c59ff"
             >
-               <span v-t="unlockVideoBtnText"></span>
+               <span>{{unlockVideoBtnText}}</span>
             </v-btn>
             <img class="unlockItem_video_img" src="./lockvid.png" alt="">
          </div>
@@ -76,10 +78,18 @@ export default {
          return this.getDocumentUserName;
       },
       unlockDocumentBtnText() {
-         return this.isFree || this.getDocumentPriceTypeHasPrice ? 'documentPage_unlock_document_btn' : {path: 'documentPage_unlock_document_btn_subscribe', args: {0: this.$n(this.getDocumentPrice,'currency', 'en')}}
+         if(this.isFree || this.getDocumentPriceTypeHasPrice) {
+            return this.$t('documentPage_unlock_document_btn')
+         }
+         return this.$t('documentPage_unlock_document_btn_subscribe', [this.$price(this.getDocumentPrice, 'USD')])
+         // return {path: '', args: {0: this.$n(this.getDocumentPrice,{'style':'currency', 'currency': 'USD', minimumFractionDigits: 0})}}
       },
       unlockVideoBtnText() {
-         return this.isFree || this.getDocumentPriceTypeHasPrice ? 'documentPage_unlock_video_btn' : {path: 'documentPage_unlock_video_btn_subscribe', args: {0: this.$n(this.getDocumentPrice,'currency', 'en')}}
+         if(this.isFree || this.getDocumentPriceTypeHasPrice) {
+            return this.$t('documentPage_unlock_video_btn')
+         }
+         return this.$t('documentPage_unlock_video_btn_subscribe', [this.$price(this.getDocumentPrice, 'USD')])
+         // return {path: 'documentPage_unlock_video_btn_subscribe', args: {0: this.$n(this.getDocumentPrice,{'style':'currency', 'currency': 'USD', minimumFractionDigits: 0})}}
       },
       isDocument(){
          return this.type === 'Document';

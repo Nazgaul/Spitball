@@ -262,10 +262,10 @@
     <value>תחומי הוראה:</value>
   </data>
   <data name="study_materials" xml:space="preserve">
-    <value>חומרי הלימוד של {1}</value>
+    <value>חומרי הלימוד של {0}</value>
   </data>
   <data name="study_materials_mobile" xml:space="preserve">
-    <value>התוכן של {1}</value>
+    <value>התוכן של {0}</value>
   </data>
   <data name="subscribe_btn" xml:space="preserve">
     <value>מנוי חודשי</value>

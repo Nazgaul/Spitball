@@ -27,29 +27,19 @@ namespace Cloudents.Core.Entities
             if (tutor == null) throw new ArgumentNullException(nameof(tutor));
             Course = course ?? throw new ArgumentNullException(nameof(course));
             User = tutor.User;
-            //if (user.Tutor == null)
-            //{
-            //    throw new UnauthorizedAccessException("Only tutor can upload files");
-            //}
-
             TimeStamp = new DomainTimeStamp();
             DocumentDownloads = new HashSet<UserDownloadDocument>();
-
             Name = Path.GetFileNameWithoutExtension(name.Replace("+", "-"));
-
             Views = 0;
             if (!string.IsNullOrEmpty(description))
             {
                 Description = description;
             }
             Status = GetInitState(tutor.User);
-            if (Status == Public)
-            {
-                MakePublic();
-            }
             DocumentType = documentType;
-
             DocumentPrice = new DocumentPrice(price, priceType, tutor);
+            AddEvent(new DocumentCreatedEvent(this));
+          
         }
 
 

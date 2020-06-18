@@ -46,14 +46,14 @@
                                             class="outline-btn elevation-0 text-none align-center justify-center rounded-btn">
                                             <span>
                                                 <v-icon color="#a3a0fb" class="btn-icon mr-1">sbf-face-icon</v-icon>
-                                                <span class="purple-text caption" v-html="$Ph('courses_teach')"></span>
+                                                <span class="purple-text caption" v-t="'courses_teach'"></span>
                                             </span>
                                         </v-btn>
                                         <v-btn v-else rounded @click="teachCourseToggle(singleClass)"
                                             class="solid-btn elevation-0 text-none align-center justify-center rounded-btn">
                                             <span>
                                                 <v-icon class="btn-icon mr-1">sbf-checkmark</v-icon>
-                                                <span class="caption" v-html="$Ph('courses_teaching')"></span>
+                                                <span class="caption" v-t="'courses_teaching'"></span>
                                             </span>
                                         </v-btn>
                                     </div>

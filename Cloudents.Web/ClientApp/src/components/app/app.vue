@@ -6,16 +6,7 @@
     <router-view name="sideMenu" v-if="isDrawer"></router-view>
     <v-content :class="[{'site-content': $route.path !== '/'}, {'hidden-sideMenu': drawerPlaceholder}]">
         <router-view class="main-container"></router-view>
-        <!-- <div class="s-cookie-container" v-if="!cookiesShow">
-          <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
-          <span class="cookie-approve">
-            <button
-              @click="removeCookiesPopup()"
-              style="outline:none;"
-              v-language:inner
-            >app_cookie_toaster_action</button>
-          </span>
-        </div> -->
+
 
       
 
@@ -73,12 +64,11 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { LanguageService } from "../../services/language/languageService";
 import * as routeNames from '../../routes/routeNames.js';
 
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
 const AddQuestion = () => import("../question/askQuestion/askQuestion.vue");
-const walletService = () => import("../../services/walletService");
+// const walletService = () => import("../../services/walletService");
 const mobileFooter = () => import("../pages/layouts/mobileFooter/mobileFooter.vue");
 const tutorRequest = () => import("../tutorRequestNEW/tutorRequest.vue");
 const referralDialog = () => import("../question/helpers/referralDialog/referral-dialog.vue");
@@ -224,23 +214,23 @@ export default {
     removeCookiesPopup: function() {
       this.setCookieAccepted();
     },
-    tryBuyTokens(transactionObjectError) {
-      walletService.buyTokens(transactionObjectError).then(
-        () => {
-          this.updateToasterParams({
-            toasterText: LanguageService.getValueByKey("buyToken_success"),
-            showToaster: true
-          });
-        },
-        error => {
-          global.localStorage.setItem(
-            "sb_transactionError",
-            transactionObjectError.points
-          );
-          console.log(error);
-        }
-      );
-    }
+    // tryBuyTokens(transactionObjectError) {
+    //   walletService.buyTokens(transactionObjectError).then(
+    //     () => {
+    //       this.updateToasterParams({
+    //         toasterText: this.$t("buyToken_success"),
+    //         showToaster: true
+    //       });
+    //     },
+    //     error => {
+    //       global.localStorage.setItem(
+    //         "sb_transactionError",
+    //         transactionObjectError.points
+    //       );
+    //       console.log(error);
+    //     }
+    //   );
+    // }
   },
   created() {
     if (!!this.$route.query && this.$route.query.requesttutor) {
@@ -275,16 +265,16 @@ export default {
       event.preventDefault();
     });
 
-    let failedTranscationId = global.localStorage.getItem(
-      "sb_transactionError"
-    );
-    if (failedTranscationId) {
-      global.localStorage.removeItem("sb_transactionError");
-      let transactionObjectError = {
-        points: failedTranscationId
-      };
-      this.tryBuyTokens(transactionObjectError);
-    }
+    // let failedTranscationId = global.localStorage.getItem(
+    //   "sb_transactionError"
+    // );
+    // if (failedTranscationId) {
+    //   global.localStorage.removeItem("sb_transactionError");
+    //   let transactionObjectError = {
+    //     points: failedTranscationId
+    //   };
+      // this.tryBuyTokens(transactionObjectError);
+    // }
   }
 };
 </script>

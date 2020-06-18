@@ -38,28 +38,12 @@ const mutations = {
         let notifications = new Notifications(data)
 
         function Notifications(objInit) {
-            this.CHAT = { 
-                value: objInit?.unReplyChat,
-                amount: objInit?.amount
-            };
-            this.BROADCAST = { 
-                value: objInit?.newRegisterStudent,
-                amount: objInit?.amount
-            };
-            this.FOLLOWERS = { 
-                value: objInit?.newFollower,
-                amount: objInit?.amount
-            };
-            this.QUESTIONS = { 
-                value: objInit?.unAnswerQuestions,
-                amount: objInit?.amount
-            };
-            this.PAYMENTS = { 
-                value: objInit?.pendingPayments,
-                amount: objInit?.amount
-            };
+            this.CHAT = objInit.unreadChatMessages
+            this.BROADCAST = objInit.liveClassRegisteredUser
+            this.FOLLOWERS = objInit.followerNoCommunication
+            this.QUESTIONS = objInit.unansweredQuestion
+            this.PAYMENTS = objInit.pendingPayment
         }
-
         state.tutorNotificationsActions = notifications
     },
     setEmailTaskComplete(state) {
@@ -72,17 +56,16 @@ const mutations = {
 
 const actions = {
     updateTutorLinks({commit}) {
-        return axios.get('/Account/tutorActions')
+        return axios.get('/dashboard/actions')
             .then(({data}) => {
                 commit('setTutorListActions', data)
             })
     },
     updateTutorNotifications({commit}) {
-        // return axios.get('/Account/notifications')
-            // .then(({data}) => {
-                // commit('setTutorNotifications', data)
-                commit('setTutorNotifications')
-            // })
+        return axios.get('/dashboard/notification')
+            .then(({data}) => {
+                commit('setTutorNotifications', data)
+            })
     },
     updatePhoneCode() {
         return registerService.sendSmsCode()

@@ -116,14 +116,12 @@ module.exports = (env) => {
                     test: /\.(ogg|mp3|wav|mp4)$/i,
                     loader: "file-loader",
                     include: path.resolve(__dirname,'src'),
-                    //exclude: path.resolve(__dirname ,'./node_modules'),
 
                 },
                 {
                     test: /\.js$/,
                     include: path.resolve(__dirname,'src'),
                     loader: "babel-loader",
-                    //exclude: path.resolve(__dirname ,'./node_modules'),
                 },
                 {
                     test: /\.vue$/,
@@ -131,7 +129,6 @@ module.exports = (env) => {
                         path.resolve(__dirname,'src')
                     ],
                     loader: "vue-loader",
-                    //exclude: path.resolve(__dirname ,'./node_modules'),
                 },
                 {
                     test: /\.css(\?|$)/,
@@ -140,7 +137,6 @@ module.exports = (env) => {
                         path.resolve(__dirname, "./node_modules/codemirror/addon"),
                         path.resolve(__dirname, "./node_modules/vue-mathjax/dist/vue-mathjax.css")
                     ],
-                   // exclude: 'node_modules/*',
                     use:
                         isDevBuild ? ["vue-style-loader", "rtl-css-loader"]
                             :
@@ -212,12 +208,9 @@ module.exports = (env) => {
 
             ]
         },
-        devtool: false,
+        devtool: 'source-map',
         optimization: {
             minimize: !isDevBuild,
-            //splitChunks: {
-            //    chunks: 'all'
-            //},
             minimizer: !isDevBuild ? [
                 new TerserPlugin({
                     terserOptions: {
@@ -250,7 +243,12 @@ module.exports = (env) => {
                 }
             }),
             new VuetifyLoaderPlugin(),
-           
+            // new webpack.SourceMapDevToolPlugin({
+            //     filename: "[name].js.map", // Remove this line if you prefer inline source maps
+            //     // moduleFilenameTemplate:
+            //     //     path.relative(bundleOutputDir,
+            //     //         "[resourcePath]") // Point sourcemap entries to the original file locations on disk
+            // }),
             
             //new BundleAnalyzerPlugin({
             //    analyzerMode: 'disabled',
@@ -260,17 +258,13 @@ module.exports = (env) => {
         ].concat(isDevBuild
             ? [
                 new CaseSensitivePathsPlugin(),
-                new webpack.SourceMapDevToolPlugin({
-                    filename: "[file].map", // Remove this line if you prefer inline source maps
-                    moduleFilenameTemplate:
-                        path.relative(bundleOutputDir,
-                            "[resourcePath]") // Point sourcemap entries to the original file locations on disk
-                }),
+               
                 new UnusedWebpackPlugin({
                     // Source directories
                     directories: [path.join(__dirname,'.src')],
                     // Exclude patterns
                     exclude: ['*.test.js', 'font-icon/*','*.spec.js'],
+                   // failOnUnused : true
                     // Root directory (optional)
                    // root: path.join(__dirname, 'ClientApp'),
                 }),
@@ -289,9 +283,10 @@ module.exports = (env) => {
                 new RetryChunkLoadPlugin({
                     // optional stringified function to get the cache busting query string appended to the script src
                     // if not set will default to appending the string `?cache-bust=true`
-                    //cacheBust: `function() {
-                    //        return Date.now();
-                    //    }`
+                    cacheBust: `function() {
+                           return Date.now();
+                       }`,
+                    maxRetries: 5,
                 })
             ]),
         mode: mode,

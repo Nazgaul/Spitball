@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using System;
 using System.Threading;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Command.StudyRooms
 {
-    public class CreateStudyRoomSessionCommandHandler : ICommandHandler<CreateStudyRoomSessionCommand, CreateStudyRoomSessionCommandResult>
+    public class CreateStudyRoomSessionCommandHandler : ICommandHandler<CreateStudyRoomSessionCommand>
     {
         private readonly IRepository<StudyRoom> _studyRoomRepository;
         private readonly IStudyRoomProvider _videoProvider;
@@ -19,7 +18,7 @@ namespace Cloudents.Command.StudyRooms
             _urlBuilder = urlBuilder;
         }
 
-        public async Task<CreateStudyRoomSessionCommandResult> ExecuteAsync(CreateStudyRoomSessionCommand message, CancellationToken token)
+        public async Task ExecuteAsync(CreateStudyRoomSessionCommand message, CancellationToken token)
         {
             var room = await _studyRoomRepository.LoadAsync(message.StudyRoomId, token);
             if (room.Tutor.Id != message.UserId) //only tutor can open a session
@@ -35,21 +34,21 @@ namespace Cloudents.Command.StudyRooms
                 if (roomAvailable)
                 {
                     var jwtToken2 = _videoProvider.CreateRoomToken(lastSession.SessionId, tutor.Id, tutor.User.Name);
-                    return new CreateStudyRoomSessionCommandResult(jwtToken2);
+                    message.JwtToken = jwtToken2;
+                    return;
                 }
                 lastSession.EndSession();
             }
             var sessionName = $"{message.StudyRoomId}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
             var url = _urlBuilder.BuildTwilioWebHookEndPoint(room.Id);
             await _videoProvider.CreateRoomAsync(sessionName,
-                room.Tutor.User.SbCountry,
                 true,
                 url,
-                room.TopologyType.GetValueOrDefault(StudyRoomTopologyType.PeerToPeer)
+                room.TopologyType
                 );
             room.AddSession(sessionName);
             var jwtToken = _videoProvider.CreateRoomToken(sessionName, tutor.Id, tutor.User.Name);
-            return new CreateStudyRoomSessionCommandResult(jwtToken);
+            message.JwtToken = jwtToken;
         }
     }
 }

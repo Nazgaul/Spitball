@@ -10,8 +10,8 @@ namespace Cloudents.Command.Command
             StudyRoomId = studyRoomId;
         }
 
-        public long UserId { get; private set; }
+        public long UserId { get;  }
 
-        public Guid StudyRoomId { get; set; }
+        public Guid StudyRoomId { get; }
     }
 }

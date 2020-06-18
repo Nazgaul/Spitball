@@ -62,7 +62,7 @@ namespace Cloudents.Search.Tutor
                         s.Document.Data.Image = _urlBuilder.BuildUserImageEndpoint(tutor.UserId, tutor.Image);
                     }
 
-                    s.Document.Data.SbCountry = s.Document.SbCountry;
+                    //s.Document.Data.SbCountry = s.Document.SbCountry;
                     s.Document.Data.Courses = courses;
                     s.Document.Data.Subjects = s.Document.Data.Subjects?.Take(3);
                     return s.Document.Data;

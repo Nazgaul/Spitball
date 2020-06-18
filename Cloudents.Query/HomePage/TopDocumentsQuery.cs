@@ -27,9 +27,9 @@ namespace Cloudents.Query.HomePage
         internal sealed class TopDocumentsHandler : IQueryHandler<TopDocumentsQuery, IEnumerable<DocumentFeedDto>>
         {
             private readonly IStatelessSession _session;
-            public TopDocumentsHandler(QuerySession session)
+            public TopDocumentsHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             [Cache(TimeConst.Day, "homePage-documents", false)]
@@ -57,15 +57,15 @@ namespace Cloudents.Query.HomePage
                         Name = s.User.Name,
                         Image = s.User.ImageName
                     },
-                    Views = s.Views,
-                    Downloads = s.Downloads,
+                   // Views = s.Views,
+                   // Downloads = s.Downloads,
                     DateTime = s.TimeStamp.UpdateTime,
-                    Vote = new VoteDto()
-                    {
-                        Votes = s.VoteCount
-                    },
+                    //Vote = new VoteDto()
+                    //{
+                    //    Votes = s.VoteCount
+                    //},
                     Price = s.DocumentPrice.Price,
-                    Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.Id && x.Action == TransactionActionType.SoldDocument)
+                  //  Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.Id && x.Action == TransactionActionType.SoldDocument)
                 }).Take(query.Count).ToListAsync(token);
             }
         }

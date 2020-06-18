@@ -1,18 +1,18 @@
 <template>
   <div class="whyUs">
-      <div class="whyUs__div" v-language:inner="'documentPage_why_spitball'"></div>
+      <div class="whyUs__div" v-t="'documentPage_why_spitball'"></div>
       <div class="whyUs__bottom">
           <div class="whyUs__bottom__cont">
               <sheild class="whyUs__bottom__cont__icon"/>
-              <span class="whyUs__bottom__cont__span" v-language:inner="'documentPage_money_back'"></span>
+              <span class="whyUs__bottom__cont__span" v-t="'documentPage_money_back'"></span>
           </div>
           <div class="whyUs__bottom__cont">
               <secure class="whyUs__bottom__cont__icon"/>
-              <span class="whyUs__bottom__cont__span" v-language:inner="'documentPage_secure_payment'"></span>
+              <span class="whyUs__bottom__cont__span" v-t="'documentPage_secure_payment'"></span>
           </div>
           <div class="whyUs__bottom__cont">
               <exams class="whyUs__bottom__cont__icon"/>
-              <span class="whyUs__bottom__cont__span" v-language:inner="'documentPage_prepared_exams'"></span>
+              <span class="whyUs__bottom__cont__span" v-t="'documentPage_prepared_exams'"></span>
           </div>
       </div>
   </div>

@@ -6,11 +6,11 @@
          </v-flex>
          <v-flex class="buyPointsLayout_action" text-center>
             <p class="buyPointsLayout_title">
-               {{$t(isTeacher?'dashboardPage_my_sales_action_need_tutor':'dashboardPage_my_sales_action_need')}}
+               {{titleText}}
             </p>
             <v-btn @click="isTeacher? openBillStudents() : openSblToken()" class="buyPointsLayout_btn white--text" depressed color="#4c59ff">
                <span>
-                  {{$t(isTeacher? 'dashboardPage_my_sales_action_need_btn_tutor': 'dashboardPage_my_sales_action_need_btn')}}
+                  {{btnText}}
                </span>
             </v-btn>
          </v-flex>
@@ -24,6 +24,12 @@ import * as dialogNames from '../../../global/dialogInjection/dialogNames.js';
 export default {
    name:"buyPointsLayout",
    computed: {
+      titleText() {
+         return this.isTeacher ? this.$t('dashboardPage_my_sales_action_need_tutor') : this.$t('dashboardPage_my_sales_action_need')
+      },
+      btnText() {
+         return this.isTeacher ? this.$t('dashboardPage_my_sales_action_need_btn_tutor') : this.$t('dashboardPage_my_sales_action_need_btn')
+      },
       isTeacher(){
          return this.$store.getters.getIsTeacher;
       }

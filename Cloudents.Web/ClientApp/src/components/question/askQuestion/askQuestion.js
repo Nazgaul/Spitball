@@ -1,5 +1,4 @@
 import { mapActions, mapGetters } from 'vuex';
-import { LanguageService } from "../../../services/language/languageService";
 import { validationRules } from "../../../services/utilities/formValidationRules";
 import questionService from "../../../services/questionService";
 import analyticsService from "../../../services/analytics.service";
@@ -18,8 +17,8 @@ export default {
                 maximumChars: (value) => validationRules.maximumChars(value, 255),
                 minimumChars: (value) => validationRules.minimumChars(value, 15),
             },
-            coursePlaceholder: LanguageService.getValueByKey("addQuestion_class_placeholder"),
-            topicPlaceholder: LanguageService.getValueByKey("addQuestion_ask_your_question_placeholder"),
+            coursePlaceholder: this.$t("addQuestion_class_placeholder"),
+            topicPlaceholder: this.$t("addQuestion_ask_your_question_placeholder"),
         };
     },
     computed: {
@@ -57,7 +56,7 @@ export default {
                     self.requestAskClose(false);
                     self.$router.push({path: '/'});
                 }, (error) => {                    
-                    let errorMessage = LanguageService.getValueByKey('addQuestion_error_general');
+                    let errorMessage = this.$t('addQuestion_error_general');
                     if (error && error.response && error.response.data && error.response.data[""] && error.response.data[""][0]) {
                         errorMessage = error.response.data[""][0];
                     }

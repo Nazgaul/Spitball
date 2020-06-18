@@ -653,13 +653,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             result.Count().Should().Be(2);
         }
 
-        [Fact]
-        public async Task AccountQuestionsQuery_Ok()
-        {
-            var query = new AccountQuestionsQuery(159039, "IL");
-            var result = await fixture.QueryBus.QueryAsync(query, default);
-            result.Should().NotBeNull();
-        }
+        //[Fact]
+        //public async Task AccountQuestionsQuery_Ok()
+        //{
+        //    var query = new AccountQuestionsQuery(159039, "IL");
+        //    var result = await fixture.QueryBus.QueryAsync(query, default);
+        //    result.Should().NotBeNull();
+        //}
 
         [Fact]
         public async Task PaymentBySessionIdQuery_Ok()
@@ -693,12 +693,27 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             result.Should().NotBeNull();
         }
 
-        [Fact]
-        public async Task TutorUpcomingBroadcastStudyRoomQuery_Ok()
+        [Theory]
+        [InlineData(638,159039)]
+        [InlineData(160171,159039)]
+        public async Task TutorUpcomingBroadcastStudyRoomQuery_Ok(long tutorId, long userId)
         {
-            var query = new TutorUpcomingBroadcastStudyRoomQuery(638, 159039);
+            var query = new TutorUpcomingBroadcastStudyRoomQuery(tutorId, userId);
             var result = await fixture.QueryBus.QueryAsync(query, default);
         }
+
+        [Theory]
+        [InlineData("9f54280c-103e-46a6-8184-aabf00801beb")]
+        [InlineData("0362bc01-9991-43a5-a7e3-aba600e2c4cc")]
+        public async Task SeoStudyRoomQuery_Ok(string id)
+        {
+            var guidId = Guid.Parse(id);
+            var query = new SeoStudyRoomQuery(guidId);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        
+
 
         [Fact]
         public async Task ChatConversationDetailQuery_Ok()

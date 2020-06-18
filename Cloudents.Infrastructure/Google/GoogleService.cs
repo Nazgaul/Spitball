@@ -2,7 +2,6 @@
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Google.Resources;
 using Google.Apis.Auth;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.OAuth2.Flows;
@@ -24,9 +23,7 @@ using System.Threading.Tasks;
 using GoogleMeasurementProtocol;
 using GoogleMeasurementProtocol.Parameters.User;
 using Document = Google.Apis.Docs.v1.Data.Document;
-using User = Cloudents.Core.Entities.User;
 using System.IdentityModel.Tokens.Jwt;
-using Cloudents.Core.Entities;
 using Google;
 using Google.Apis.Json;
 using Newtonsoft.Json;
@@ -262,35 +259,47 @@ namespace Cloudents.Infrastructure.Google
             return credential;
         }
 
-
-        public Task BookCalendarEventAsync(User tutor, User student, GoogleTokens? googleTokens,
-             DateTime from, DateTime to,
-            CancellationToken cancellationToken)
+        public string GetEmailFromToken(string token)
         {
-
-            var resourceManager = new System.Resources.ResourceManager(typeof(CalendarResources));
-            var eventName = resourceManager.GetString("TutorCalendarMessage", CultureInfo.CurrentUICulture) ?? "Tutor Session In Spitball";
-            eventName = string.Format(eventName, tutor.Name, student.Name);
-
-
-            var attendees = new[] { tutor, student }.Select(s => s.Email).ToList();
-            if (googleTokens != null)
-            {
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var tutorToken = NewtonsoftJsonSerializer.Instance.Deserialize<GoogleTokensValue>(googleTokens.Value);
-                var tutorCalendarEmail = tokenHandler.ReadJwtToken(tutorToken.IdToken).Payload
-                    .SingleOrDefault(w => w.Key == "email");
-                attendees.Add(tutorCalendarEmail.Value.ToString());
-            }
-
-            return SendCalendarInviteAsync(attendees, @from, to, eventName, cancellationToken);
-
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tutorToken = NewtonsoftJsonSerializer.Instance.Deserialize<GoogleTokensValue>(token);
+            var tutorCalendarEmail = tokenHandler.ReadJwtToken(tutorToken.IdToken).Payload
+                .SingleOrDefault(w => w.Key == "email");
+            return tutorCalendarEmail.Value.ToString();
         }
 
+        //public Task BookCalendarEventAsync(User tutor, User student, GoogleTokens? googleTokens,
+        //     DateTime from, DateTime to,
+        //    CancellationToken cancellationToken)
+        //{
+
+        //    var resourceManager = new System.Resources.ResourceManager(typeof(CalendarResources));
+        //    var eventName = resourceManager.GetString("TutorCalendarMessage", CultureInfo.CurrentUICulture) ?? "Tutor Session In Spitball";
+        //    eventName = string.Format(eventName, tutor.Name, student.Name);
+
+
+        //    var attendees = new[] { tutor, student }.Select(s => s.Email).ToList();
+        //    if (googleTokens != null)
+        //    {
+        //        var tokenHandler = new JwtSecurityTokenHandler();
+        //        var tutorToken = NewtonsoftJsonSerializer.Instance.Deserialize<GoogleTokensValue>(googleTokens.Value);
+        //        var tutorCalendarEmail = tokenHandler.ReadJwtToken(tutorToken.IdToken).Payload
+        //            .SingleOrDefault(w => w.Key == "email");
+        //        attendees.Add(tutorCalendarEmail.Value.ToString());
+        //    }
+
+        //    return SendCalendarInviteAsync(attendees, @from, to, eventName, cancellationToken);
+
+        //}
+
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting", Justification = "Using")]
-        private static async Task SendCalendarInviteAsync(IEnumerable<string> emails, DateTime from, DateTime to,
-            string title, CancellationToken cancellationToken)
+        public async Task SendCalendarInviteAsync(IEnumerable<string> emails, DateTime from, DateTime to,
+            string title, string? description, CancellationToken cancellationToken)
         {
+            if (from < DateTime.UtcNow)
+            {
+                return;
+            }
             var cred = SpitballCalendarCred;
 
 
@@ -303,9 +312,10 @@ namespace Cloudents.Infrastructure.Google
             {
                 Attendees = emails.Select(s => new EventAttendee()
                 {
-                    Email = s
+                    Email = s,
                 }).ToList(),
                 Summary = title,
+                Description = description,
                 Start = new EventDateTime()
                 {
                     DateTime = from,
@@ -315,24 +325,24 @@ namespace Cloudents.Infrastructure.Google
                 {
                     DateTime = to,
                     TimeZone = "Etc/UTC"
-                }
-
+                },
             }, PrimaryGoogleCalendarId);
             event2.SendUpdates = EventsResource.InsertRequest.SendUpdatesEnum.All;
             event2.ConferenceDataVersion = 1;
             await event2.ExecuteAsync(cancellationToken);
         }
 
-        public Task EnrollUserEventAsync(string studyRoomName, Tutor tutor, User student, DateTime broadcastTime, CancellationToken cancellationToken)
-        {
-            var x = new System.Resources.ResourceManager(typeof(CalendarResources));
-            var eventName = x.GetString("EnrollCalendarMessage", CultureInfo.CurrentUICulture)
-                            ?? $"Spitball Live session - {studyRoomName}";
-            eventName = string.Format(eventName, tutor.User.Name, student.Name);
+        //public Task EnrollUserEventAsync(string studyRoomName, Tutor tutor, User student,
+        //    DateTime broadcastTime, CancellationToken cancellationToken)
+        //{
+        //    var x = new System.Resources.ResourceManager(typeof(CalendarResources));
+        //    var eventName = x.GetString("EnrollCalendarMessage", CultureInfo.CurrentUICulture)
+        //                    ?? $"Spitball Live session - {studyRoomName}";
+        //    eventName = string.Format(eventName, tutor.User.Name, student.Name);
 
-            var attendees = new[] { tutor.User, student }.Select(s => s.Email);
-            return SendCalendarInviteAsync(attendees, broadcastTime, broadcastTime.AddHours(1), eventName, cancellationToken);
-        }
+        //    var attendees = new[] { tutor.User, student }.Select(s => s.Email);
+        //    return SendCalendarInviteAsync(attendees, broadcastTime, broadcastTime.AddHours(1), eventName, cancellationToken);
+        //}
 
         private static ServiceAccountCredential SpitballCalendarCred
         {
@@ -391,7 +401,7 @@ namespace Cloudents.Infrastructure.Google
 
                     return false;
                 });
-                if (Equals(errorResult))
+                if (errorResult)
                 {
                     return;
                 }

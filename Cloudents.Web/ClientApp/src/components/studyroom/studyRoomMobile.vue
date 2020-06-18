@@ -6,10 +6,18 @@
          <slot></slot>
          </div>
 
-         <!-- <div :id="elementId" class="d-flex flex-grow-0 flex-shrink-0">
+         <!-- 
             <span class="tutorName">{{roomTutorName}}</span>
             <div class="videoLiner"></div>
          </div> -->
+            <div class="videoLiner">
+               <v-btn icon @click="toggleAudio" sel="audio_enabling"
+               :class="['micControl','drawerControlsBtn',{'btnIgnore':!isAudioActive},'mb-2']" >
+                  <v-icon v-if="isAudioActive" size="30" color="white">sbf-microphone</v-icon>
+                  <v-icon v-else size="30" color="white">sbf-mic-ignore</v-icon>
+               </v-btn>
+            </div>
+         </div>
          <div class="studyRoomMobileChatHeader mt-4">
             <div class="px-4 headerTitle mb-5 text-truncate">{{$store.getters.getRoomName}}</div>
             <div class="px-4 headerInfo d-flex justify-space-between mb-2">
@@ -52,7 +60,18 @@ export default {
       },
       roomTutorName(){
          return this.$store.getters.getRoomTutor.tutorName;
-      }
+      },
+      roomParticipants(){
+         if(this.$store.getters.getRoomParticipants){
+            let participants = Object.entries(this.$store.getters.getRoomParticipants).map((e) => ( { [e[0]]: e[1] } ));
+           return participants
+         }else{
+            return null
+         }
+      },
+      isAudioActive() {
+         return this.$store.getters.getIsAudioActive;
+      },
    },
    watch: {
       tutorVideoTrack:{
@@ -76,6 +95,12 @@ export default {
                this.tutorVideo = null;
             }
          }
+      },
+   },
+   methods: {
+      toggleAudio() {
+         this.$ga.event("tutoringRoom", "toggleAudio");
+         this.$store.dispatch("updateAudioToggle");
       },
    },
 }
@@ -115,10 +140,36 @@ export default {
                z-index: 1;
             }
             .videoLiner{
+
+               @media (max-width: @screen-sm) and (orientation: landscape) {
+                  top: 0;
+                  left: 0;
+                  right: 0;
+                  bottom: 0;
+                  width: 100vw;
+                  height: 100vh;
+               }
+
                position: absolute;
                width: 100%;
                height: 100%;
                background-image: linear-gradient(to top, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.1) 74%, rgba(0, 0, 0, 0.64));
+               display: flex;
+               align-items: flex-end;
+               justify-content: center;
+
+               .micControl{
+                  z-index: 1;
+                  &.drawerControlsBtn{
+                  width: 60px;
+                  height: 60px;
+                  background-color: rgba(0, 0, 0, 0.589);
+                  border-radius: 50%;
+                     &.btnIgnore{
+                        background-color: rgba(255, 0, 0, 0.589);
+                     }
+                  }
+               }
             }
             video {
                width: 100%;

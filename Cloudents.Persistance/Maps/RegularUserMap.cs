@@ -99,6 +99,10 @@ namespace Cloudents.Persistence.Maps
                 .KeyColumn("UserId").Cascade.AllDeleteOrphan()
                 .Inverse();
 
+            HasMany(x => x.StudyRoomSessionUsers)
+                .KeyColumn("UserId").Cascade.AllDeleteOrphan()
+                .Inverse();
+
             //We are using cascade all because we need to save the tutor in Become Tutor command handler
 
             //HasMany(x => x.UserComponents).Inverse().Cascade.AllDeleteOrphan();//.Inverse();
@@ -129,17 +133,6 @@ namespace Cloudents.Persistence.Maps
             Map(z => z!.CreditCardMask);
         }
     }
-
-    public class StripePaymentMap : ClassMap<StripePayment>
-    {
-        public StripePaymentMap()
-        {
-            Id(x => x.Id).GeneratedBy.GuidComb();
-            Map(z => z!.PaymentKey);
-        }
-    }
-
-
 
 
     //public class UserComponentMap : ClassMap<UserComponent>

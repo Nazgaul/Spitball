@@ -10,15 +10,15 @@
                 <userAvatar :user-name="userName"  :userImageUrl="userImageUrl" :user-id="userId" :size="'58'" ></userAvatar>
             </v-flex>
             <v-flex xs12  class="pt-3">
-                <span class="student-start-wrap_title font-weight-bold" v-language:inner>tutor_end_session</span>
+                <span class="student-start-wrap_title font-weight-bold" v-t="'tutor_end_session'"></span>
             </v-flex>
             <v-card-actions class="pt-12">
                 <button class="cancel-btn elevation-0 align-center justify-center mr-2" @click="closeDialog()">
-                    <span class="text-capitalize" v-language:inner>tutor_chrome_ext_btn_cancel</span>
+                    <span class="text-capitalize" v-t="'tutor_chrome_ext_btn_cancel'"></span>
                 </button>
                 <button class="end-session-btn elevation-0 align-center justify-center" @click="endSession()">
                     <stopIcon class="timer-icon mr-2"></stopIcon>
-                    <span class="text-capitalize" v-language:inner>tutor_stream_btn_end_session</span>
+                    <span class="text-capitalize" v-t="'tutor_stream_btn_end_session'"></span>
                 </button>
             </v-card-actions>
         </v-layout>

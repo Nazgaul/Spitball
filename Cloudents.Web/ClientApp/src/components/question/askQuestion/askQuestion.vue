@@ -3,7 +3,7 @@
         <div class="add-question-container">
             <v-form  v-model="validQuestionForm" ref="questionForm">
                 <v-layout class="question-header">
-                    <div class="mx-auto" v-language:inner="'addQuestion_title'"></div>
+                    <div class="mx-auto" v-t="'addQuestion_title'"></div>
                 </v-layout>
 
                 <div class="question-textarea-container">
@@ -26,7 +26,7 @@
 
                 <div class="question-textarea-courses">
                     <fieldset class="question-fieldset px-2">
-                        <legend v-language:inner="'addQuestion_class_placeholder'"/>
+                        <legend v-t="'addQuestion_class_placeholder'"/>
                         <v-combobox 
                             class="text-truncate pa-0"
                             flat
@@ -45,14 +45,14 @@
                             class="question-add-button font-weight-bold px-3 button_cancel" 
                             text 
                             @click="closeAddQuestionDialog">
-                                <span v-language:inner="'addQuestion_cancel_button'"></span>
+                                <span v-t="'addQuestion_cancel_button'"></span>
                         </v-btn>
                         <v-btn sel="post"
                             :loading="btnQuestionLoading"
                             text
                             class="question-add-button font-weight-bold px-3"
                             @click="submitQuestion">
-                                <span v-language:inner="'addQuestion_add_button'"></span>
+                                <span v-t="'addQuestion_add_button'"></span>
                         </v-btn>
                     </v-flex>
                     <v-flex xs12 v-if="errorMessage" class="error--text">{{errorMessage}}</v-flex>

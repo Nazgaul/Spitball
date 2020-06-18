@@ -10,8 +10,8 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
     public class Tutor : Entity<long>
     {
-        public const int MaximumPrice = 214748;
-        public const int MinimumPrice = 35; // also on client side
+        //public const int MaximumPrice = 214748;
+        //public const int MinimumPrice = 35; // also on client side
         public Tutor(User user) : this()
         {
             User = user ?? throw new ArgumentNullException(nameof(user));
@@ -44,7 +44,7 @@ namespace Cloudents.Core.Entities
 
         public virtual User User { get; protected set; }
 
-        public virtual TutorPrice? Price { get; protected set; }
+        //public virtual TutorPrice? Price { get; protected set; }
 
         public virtual Money? SubscriptionPrice { get; protected set; }
 
@@ -70,7 +70,7 @@ namespace Cloudents.Core.Entities
                 }
             }
 
-            AddEvent(new UpdateTutorSettingsEvent(Id));
+            AddEvent(new TutorSubscriptionEvent(Id));
         }
 
         public virtual bool HasSubscription()
@@ -78,25 +78,14 @@ namespace Cloudents.Core.Entities
             return SubscriptionPrice != null;
         }
 
-        public virtual void UpdateSettings(string bio, decimal? price)
+        public virtual void UpdateSettings(string bio)
         {
-            if (price.HasValue)
-            {
-                if (price < MinimumPrice || price > MaximumPrice) throw new ArgumentOutOfRangeException(nameof(price));
-
-                Price = new TutorPrice(price.Value);
-            }
+        
             Bio = bio;
             AddEvent(new UpdateTutorSettingsEvent(Id));
         }
 
-        public virtual void AdminChangePrice(decimal newPrice)
-        {
-            if (newPrice < 0) throw new ArgumentOutOfRangeException(nameof(newPrice));
-
-            Price = new TutorPrice(newPrice);
-            AddEvent(new UpdateTutorSettingsEvent(Id));
-        }
+     
 
         public virtual void Approve()
         {

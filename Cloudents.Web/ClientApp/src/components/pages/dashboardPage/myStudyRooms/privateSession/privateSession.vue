@@ -6,7 +6,7 @@
                     v-model="roomName"
                     class="roomName"
                     :rules="[rules.required]"
-                    :placeholder="$t('dashboardPage_create_room_label')"
+                    placeholder=" "
                     :label="$t('dashboardPage_create_room_placeholder')"
                     color="#304FFE"
                     height="50"
@@ -21,7 +21,7 @@
                     type="number"
                     class="pl-sm-4 roomPrice"
                     :rules="[rules.required,rules.minimum]"
-                    :placeholder="$t('becomeTutor_placeholder_price', {'0' : getSymbol})"
+                    placeholder=" "
                     :label="$t('becomeTutor_placeholder_price', {'0' : getSymbol})"
                     color="#304FFE"
                     height="50"
@@ -103,7 +103,9 @@ export default {
             }
         },
         getSymbol() {
-            let v =  this.$n(1,'currency');
+            // TODO: Currency Change
+            let accountUser = this.$store.getters.accountUser
+            let v = this.$n(1, {'style':'currency','currency': accountUser?.currencySymbol});
             return v.replace(/\d|[.,]/g,'').trim();
         },
     },

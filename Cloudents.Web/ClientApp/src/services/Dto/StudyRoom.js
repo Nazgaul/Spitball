@@ -1,5 +1,6 @@
 export const StudyRoom = {
    RoomProps:function(objInit, roomId) {
+      this.topologyType = objInit.topologyType
       this.conversationId = objInit.conversationId ;
       this.name = objInit.name;
       this.needPayment = objInit.needPayment;
@@ -7,7 +8,10 @@ export const StudyRoom = {
       this.tutorId = objInit.tutorId;
       this.tutorImage = objInit.tutorImage || null;
       this.tutorName = objInit.tutorName;
-      this.tutorPrice = objInit.tutorPrice;
+      this.tutorPrice = {
+         amount: objInit.tutorPrice.amount,
+         currency: objInit.tutorPrice.currency
+      };
       this.type = objInit.type;
       this.roomId = roomId;
       this.jwt = objInit.jwt || null;

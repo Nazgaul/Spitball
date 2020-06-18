@@ -45,6 +45,17 @@ export const landingRoutes = [
             default: () => import(`../components/landingPage/learn.vue`),
             ...staticComponents(['banner', 'header', 'footer']),
         },
+        beforeEnter: (to, from, next) => {
+            if(store.getters.getUserLoggedInStatus){
+                let nextRoute = {name: routeNames.Feed};
+                if(store.getters.getIsTeacher){
+                    nextRoute = {name: routeNames.Dashboard};
+                }
+                next({name: nextRoute.name,query: to.query});
+                return;
+            }
+            next();
+        },
         // meta:{
         //     headerSlot: (global.siteName === 'frymo')? '': 'becomeTutorSlot',
         // },

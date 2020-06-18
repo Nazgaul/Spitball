@@ -62,13 +62,13 @@ export default {
          return  this.userDocuments.filter(f=> f.state === this.filterValue);
     }
   },
-  watch: {
-    needScroll(val, oldval) {
-      if (val && val != oldval) {
-        this.getUserDocumentsData();
-      }
-    }
-  },
+  // watch: {
+  //   needScroll(val, oldval) {
+  //     if (val && val != oldval) {
+  //       this.getUserDocumentsData();
+  //     }
+  //   }
+  // },
   methods: {
     ...mapActions(["getUserDocuments"]),
     nextPage() {
