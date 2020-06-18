@@ -135,13 +135,19 @@ export default {
                     pageSize: this.$vuetify.breakpoint.xsOnly ? 3 : 8,
                 }
             }
+            let self = this
             this.syncProfile(syncObj).then(({user}) => {
+              let currentRoute = self.$store.getters.getRouteStack[self.$store.getters.getRouteStack.length - 2] // check if there is last route that user come from
               if(!user.isTutor) {
-                this.$router.push('/')
+                if(currentRoute) {
+                  self.$router.go(-1)
+                  return
+                }
+                self.$router.push('/')
               }
             }).catch((ex) => {
                 console.error(ex);
-                this.$router.push({name: routeNames.notFound})
+                self.$router.push({name: routeNames.notFound})
             })
         },
         openCalendar() {
