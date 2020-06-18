@@ -132,7 +132,8 @@ export default {
     methods:{
         getPermissionBlockedVideo(){
             // eslint-disable-next-line no-undef
-            let isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+            // let isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+            let isSafari = window.safari !== undefined
             if(isSafari){
                 return require('./ISO_VIDEO.mp4').default
             }else{
