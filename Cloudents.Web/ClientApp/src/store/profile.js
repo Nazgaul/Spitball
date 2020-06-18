@@ -102,18 +102,11 @@ const mutations = {
       state.profileReviews = profileReviews;
    },
    updateEditedData(state, newData) {
-      if (state.profile.user.isTutor) {
-         state.profile.user.tutorData.bio = newData.bio;
-         state.profile.user.firstName = newData.firstName;
-         state.profile.user.lastName = newData.lastName;
-         state.profile.user.tutorData.description = newData.description;
-         state.profile.user.tutorData.price = newData.price;
-      } else {
-         state.profile.user.name = newData.name;
-         state.profile.user.firstName = newData.firstName;
-         state.profile.user.lastName = newData.lastName;
-         state.profile.user.description = newData.description;
-      }
+      state.profile.user.tutorData.bio = newData.bio;
+      state.profile.user.firstName = newData.firstName;
+      state.profile.user.lastName = newData.lastName;
+      state.profile.user.tutorData.description = newData.description;
+      state.profile.user.tutorData.price = newData.price;
    },
    setProfilePicture(state, imageUrl) {
       if (state.profile && state.profile.user) {

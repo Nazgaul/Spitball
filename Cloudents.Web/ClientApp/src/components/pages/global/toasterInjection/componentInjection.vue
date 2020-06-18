@@ -11,13 +11,17 @@ const simpleErrorToaster = () => import('./simpleErrorToaster.vue')
 const errorLinkToaster = () => import('./errorLinkToaster.vue')
 
 const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue')
+
 const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
+const applyCoupon = () => import('./applyCoupon.vue')
+
+const editStudentInfo = () => import('../../../new_profile/profileHelpers/userInfoEdit/userInfoEdit.vue')
 
 const verifyPhone = () => import('../dialogInjection/globalDialogs/auth/register/verifyPhone.vue')
 
-const applyCoupon = () => import('./applyCoupon.vue')
 const studRoomSettings = () => import('../../../studyroom/tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue')
 const createStudyRoomDialog = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue')
+
 const teacherBillOfflineDialog = () => import('../dialogInjection/globalDialogs/teacherApproval/teacherBillOffline.vue');
 export default {
     components: {
@@ -28,6 +32,7 @@ export default {
         upload,
         createCoupon,
         verifyPhone,
+        editStudentInfo,
         applyCoupon,
         studRoomSettings,
         createStudyRoomDialog,
@@ -132,6 +137,9 @@ export default {
                 },
                 applyCoupon: {
                     name: 'applyCoupon'
+                },
+                editStudentInfo: {
+                    name: 'editStudentInfo'
                 }
             }
         }

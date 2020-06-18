@@ -73,6 +73,11 @@ const mutations = {
         }
         
         state.user = user
+    },
+    setStudentInfo(state, studentInfo) {
+        state.user.name = `${studentInfo.firstName} ${studentInfo.lastName}`
+        state.user.firstName = studentInfo.firstName
+        state.user.lastName = studentInfo.lastName
     }
 };
 

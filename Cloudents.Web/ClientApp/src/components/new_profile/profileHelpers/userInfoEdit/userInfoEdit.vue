@@ -1,4 +1,5 @@
 <template>
+    <v-dialog :value="true" :content-class="'edit-dialog'" persistent max-width="760px" :fullscreen="$vuetify.breakpoint.xsOnly">
     <v-card class="user-edit-wrap pb-4">
         <v-form v-model="validUserForm" ref="formUser" @submit.prevent>
         <v-layout class="header pa-4 pt-3 mb-4">
@@ -6,6 +7,9 @@
                 <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
                 <span>{{$t('profile_edit_user_profile_title')}}</span>
             </v-flex>
+            <v-btn :to="{name: courseRoute}" @click="$store.commit('setComponent', '')" icon small>
+                <editSVG />
+            </v-btn>
         </v-layout>
         <v-layout class="px-3 mt-3" wrap>
             <v-flex xs12 sm6 :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
@@ -15,10 +19,10 @@
                     </v-flex>
                     <v-flex xs12>
                         <v-text-field
-                                :rules="[rules.required, rules.minimumChars]"
-                                :label="firstNameLabel"
+                                :rules="[rules.required, rules.minimumChars, rules.matchFirstName]"
+                                :label="$t('profile_firstName_label')"
                                 class="tutor-edit-firstname"
-                                v-model.trim="firstName"
+                                v-model="firstName"
                                 outlined
                         ></v-text-field>
                     </v-flex>
@@ -31,10 +35,10 @@
                     </v-flex>
                     <v-flex>
                         <v-text-field
-                                :rules="[rules.required, rules.minimumChars]"
-                                :label="lastNameLabel"
+                                :rules="[rules.required, rules.minimumChars, rules.matchLastName]"
+                                :label="$t('profile_lastName_label')"
                                 class="tutor-edit-lastname"
-                                v-model.trim="lastName"
+                                v-model="lastName"
                                 outlined
                         ></v-text-field>
                     </v-flex>
@@ -43,7 +47,7 @@
         </v-layout>
         <v-layout  align-center class="bottomActions px-3" :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between ' : 'justify-end']">
             <v-flex xs5 sm2  >
-                <v-btn class="shallow-blue ml-0" rounded outlined primary @click="closeDialog">
+                <v-btn class="shallow-blue ml-0" rounded outlined primary @click="$store.commit('setComponent', '')">
                     <span>{{$t('profile_btn_cancel')}}</span>
                 </v-btn>
             </v-flex>
@@ -55,85 +59,72 @@
         </v-layout>
         </v-form>
     </v-card>
+    </v-dialog>
 </template>
 
 <script>
-    import accountService from '../../../../services/accountService';
-    import { mapGetters, mapActions } from 'vuex';
-    import { validationRules } from "../../../../services/utilities/formValidationRules";
+import * as routeName from '../../../../routes/routeNames'
+import accountService from '../../../../services/accountService';
+import { validationRules } from "../../../../services/utilities/formValidationRules";
+import editSVG from '../../components/profileUserBox/images/edit.svg';
 
-    export default {
-        name: "userInfoEdit",
-        data() {
-            return {
-                firstNameLabel: this.$t("profile_firstName_label"),
-                lastNameLabel: this.$t("profile_lastName_label"),
-                editedLastName:'',
-                editedFirstName:'',
-                rules: {
-                    required:(value)=> validationRules.required(value),
-                    minimumChars: (value) => validationRules.minimumChars(value, 2),
-                },
-                validUserForm: false,
-                btnLoading: false,
+export default {
+    name: "userInfoEdit",
+    components: {
+        editSVG
+    },
+    data() {
+        return {
+            courseRoute: routeName.EditCourse,
+            editedLastName:'',
+            editedFirstName:'',
+            rules: {
+                required:(value)=> validationRules.required(value),
+                minimumChars: (value) => validationRules.minimumChars(value, 2),
+                matchFirstName: value => value !== this.firstName ? true : this.$t('change'),
+                matchLastName: value => value !== this.lastName ? true : this.$t('change')
+            },
+            validUserForm: false,
+            btnLoading: false,
+        }
+    },
+    computed: {
 
+        firstName:{
+            get(){
+                return this.$store.getters.getAccountFirstName
+            },
+            set(newVal){
+                this.editedFirstName = newVal;
             }
         },
-        props: {
-            closeCallback: {
-                type: Function,
-                required: false
+        lastName:{
+            get(){
+                return this.$store.getters.getAccountLastName
             },
+            set(newVal){
+                this.editedLastName = newVal;
+            }
         },
-        computed: {
-            ...mapGetters(['getProfile']),
-
-            firstName:{
-              get(){
-                 return this.getProfile.user.firstName
-              },
-              set(newVal){
-                  this.editedFirstName = newVal;
-              }
-            },
-            lastName:{
-              get(){
-                 return this.getProfile.user.lastName
-              },
-              set(newVal){
-                  this.editedLastName = newVal;
-              }
-            },
-        },
-        methods: {
-            ...mapActions(['updateEditedProfile','updateEditDialog']),
-            saveChanges() {
-                if(this.$refs.formUser.validate()) {
-                   let firstName = this.editedFirstName || this.firstName  ;
-                   let lastName = this.editedLastName|| this.lastName
-                    let editsData = {
-                        name: `${firstName} ${lastName}` ,
-                        firstName,
-                        lastName,
-                        };
-                    let serverFormat = {
-                        firstName,
-                        lastName
-                    };
-                    this.btnLoading = true;
-                    //TODO: Account new store clean @idan
-                    accountService.saveUserInfo(serverFormat).then(() => {
-                        this.updateEditedProfile(editsData);
-                        this.btnLoading = false;
-                        this.closeDialog();
-                    })
-                }
-            },
-            closeDialog() {
-                this.updateEditDialog(false);
-            },
-        },
+    },
+    methods: {
+        saveChanges() {
+            if(this.$refs.formUser.validate()) {
+                this.btnLoading = true;
+                let studentInfo = {
+                    firstName: this.editedFirstName,
+                    lastName: this.editedLastName
+                };
+                //TODO: Account new store clean @idan
+                accountService.saveUserInfo(studentInfo).then(() => {
+                    this.btnLoading = false;
+                    this.$store.commit('setStudentInfo', studentInfo)
+                    this.$store.commit('setComponent', '')
+                })
+            }
+        }
     }
+}
 </script>
 
 <style lang="less">
