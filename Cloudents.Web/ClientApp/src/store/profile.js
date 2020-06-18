@@ -17,36 +17,43 @@ const mutations = {
       let profile = new Profile(data)
 
       function Profile(objInit) {
-         this.id = objInit.id
-         this.firstName = objInit.firstName
-         this.lastName = objInit.lastName
-         this.name = `${objInit.firstName} ${objInit.lastName}`
-         this.image = objInit.image || ''
-         this.documentCourses = objInit.documentCourses
-         this.courses = objInit.courses,
-         this.coursesString = objInit.courses.toString().replace(/,/g, ", ")
-         this.online = objInit.online || false
-         this.calendarShared = objInit.calendarShared || false
-         this.isTutor = objInit.hasOwnProperty('tutor') || false
-         this.followers = objInit.followers || ''
-         this.isFollowing = objInit.isFollowing
-         this.cover = objInit.cover || ''
-         this.tutorData = {
-            price: objInit.price || 0,
-            bio: objInit.bio || '',
-            lessons: objInit.lessons || 0,
-            discountPrice: objInit.discountPrice,
-            pendingSessionsPayments: objInit.pendingSessionsPayments || null,
-            description: objInit.description || '',
-            contentCount: objInit.contentCount,
-            hasCoupon: objInit.hasCoupon,
-            rate: objInit.rate || 0,
-            reviewCount: objInit.reviewCount || 0,
-            firstName: objInit.firstName || '',
-            lastName: objInit.lastName || '',
-            students: objInit.students || 0,
-            subscriptionPrice: objInit.subscriptionPrice,
-            isSubscriber : objInit.isSubscriber
+
+         this.questions = [];
+         this.answers = [];
+         this.documents = [];
+         this.purchasedDocuments = [];
+         this.user = {
+            id: objInit.id,
+            firstName: objInit.firstName,
+            lastName: objInit.lastName,
+            name: `${objInit.firstName} ${objInit.lastName}`,
+            image: objInit.image || '',
+            documentCourses: objInit.documentCourses,
+            courses: objInit.courses,
+            coursesString: objInit.courses.toString().replace(/,/g, ", "),
+            online: objInit.online || false,
+            calendarShared: objInit.calendarShared || false,
+            isTutor: objInit.hasOwnProperty('tutor') || false,
+            followers: objInit.followers || '',
+            isFollowing: objInit.isFollowing,
+            cover: objInit.cover || '',
+            tutorData: {
+               price: objInit.tutor.price || 0,
+               bio: objInit.tutor.bio || '',
+               lessons: objInit.tutor.lessons || 0,
+               discountPrice: objInit.tutor.discountPrice,
+               pendingSessionsPayments: objInit.tutor.pendingSessionsPayments || null,
+               description: objInit.tutor.description || '',
+               contentCount: objInit.tutor.contentCount,
+               hasCoupon: objInit.tutor.hasCoupon,
+               rate: objInit.tutor.rate || 0,
+               reviewCount: objInit.tutor.reviewCount || 0,
+               firstName: objInit.tutor.firstName || '',
+               lastName: objInit.tutor.lastName || '',
+               students: objInit.tutor.students || 0,
+               subscriptionPrice: objInit.tutor.subscriptionPrice,
+               isSubscriber : objInit.tutor.isSubscriber
+            }
          }
       }
 
@@ -91,6 +98,7 @@ const mutations = {
             return !!objInit.rates[key] ? objInit.rates[key] : { rate: 0, users: 0 };
          })
       }
+
       state.profileReviews = profileReviews;
    },
    updateEditedData(state, newData) {
@@ -114,7 +122,6 @@ const mutations = {
    },
    setCoverPicture(state,imageUrl) {
       state.profile.user.cover = imageUrl;
-      //state.profile.user.cover = imageUrl;
    }
 }
 const getters = {
@@ -130,30 +137,18 @@ const getters = {
 
 const actions = {
    syncProfile({commit, dispatch, state}, { id, type, params }) {
-      if(state.profile) return Promise.resolve(state.profile)
-      const profile = profileInstance.get(`${id}`)
-      const profileReviews = profileInstance.get(`${id}/about`)
-
-      return Promise.all([profile, profileReviews]).then(res => {
-         commit('setProfile', res[0].data)
-         commit('setProfileReviews', res[1].data)
+      return profileInstance.get(`${id}`).then((res) => {
+         if(!res.data.tutor) return { user: { isTutor: false } }
+         commit('setProfile', res.data)
          dispatch('updateProfileItemsByType', { id, type, params });
+
          const profileUserData = state.profile
          dispatch('setUserStatus', profileUserData.user);
-         return profileUserData
+         return profileInstance.get(`${id}/about`).then((res2) => {
+            commit('setProfileReviews', res2.data)
+            return profileUserData
+         })
       })
-      
-      // return profileService.getProfile(id).then(profileUserData => {
-      //    commit('setProfile', profileUserData);
-      //    dispatch('updateProfileItemsByType', { id, type, params });
-      //    dispatch('setUserStatus', profileUserData.user);
-      //    if (profileUserData.user.isTutor) {
-      //       profileService.getProfileReviews(id).then(val => {
-      //          commit('setProfileReviews', val);
-      //       })
-      //    }
-      //    return profileUserData
-      // });
    },
    updateProfileItemsByType({ state, commit }, { id, type, params }) {
       if (!!state.profile && !!state.profile.user) {

@@ -47,8 +47,6 @@ import profileSubscription from './components/profileSubscription/profileSubscri
 import cover from "./components/cover.vue";
 import * as routeNames from '../../routes/routeNames.js';
 
-
-
 const shareContent = () => import(/* webpackChunkName: "shareContent" */'../pages/global/shareContent/shareContent.vue');
 export default {
     name: "new_profile",
@@ -63,7 +61,6 @@ export default {
         profileSubscription,
         calendarTab,
         cover,
-        // sbDialog,
         shareContent,
     },
     props: {
@@ -78,18 +75,13 @@ export default {
                 sendMessage: this.sendMessage,
                 openCalendar: this.openCalendar,
                 closeCalendar: this.closeCalendar,
-                // openCoupon: this.openCoupon
             },
-            // coupon: '',
-            // disableApplyBtn: false,
             activeTab: 1,
             componentRenderKey: 0
         };
     },
     methods: {
         ...mapActions([
-            // 'updateCouponDialog',
-            // 'updateCoupon',
             'updateCurrTutor',
             'setTutorRequestAnalyticsOpenedFrom',
             'updateRequestDialog',
@@ -97,37 +89,6 @@ export default {
             'syncProfile',
             'updateToasterParams'
         ]),
-        // closeCouponDialog() {
-        //     this.coupon = ''
-        //     this.updateCouponDialog(false);
-        // },
-        // openCoupon(){
-        //     if(this.getUserLoggedInStatus) {
-        //     if(this.accountUser) {          
-        //         if(this.$route.params.id != this.accountUser.id) {
-        //             this.updateCouponDialog(true)
-        //             analyticsService.sb_unitedEvent('Tutor_Engagement', 'Click_Redeem_Coupon', `${this.$route.path}`);
-        //         }
-        //     }
-        //     } else {
-        //         this.$store.commit('setComponent', 'register')
-        //     }
-        // },
-        // applyCoupon() {
-        //     if(this.isTutor) {
-        //         this.disableApplyBtn = true;
-        //         let tutorId = this.getProfile.user.id;
-        //         let coupon = this.coupon;
-        //         let self = this
-        //         this.updateCoupon({coupon, tutorId}).finally(() => {
-        //         self.coupon = ''
-        //         self.disableApplyBtn = false;
-        //         if(!self.getCouponError) {
-        //             analyticsService.sb_unitedEvent('Tutor_Engagement', 'Redeem_Coupon_Success', `${this.$route.path}`);
-        //         }
-        //         })
-        //     }
-        // },
         sendMessage(){
             if(this.isMyProfile) {return}
             if(this.accountUser == null) {
@@ -171,10 +132,17 @@ export default {
                 type:'documents',
                 params:{
                     page: 0,
-                    pageSize:this.$vuetify.breakpoint.xsOnly? 3 : 8,
+                    pageSize: this.$vuetify.breakpoint.xsOnly ? 3 : 8,
                 }
             }
-            this.syncProfile(syncObj);
+            this.syncProfile(syncObj).then(({user}) => {
+              if(!user.isTutor) {
+                this.$router.push('/')
+              }
+            }).catch((ex) => {
+                console.error(ex);
+                this.$router.push({name: routeNames.notFound})
+            })
         },
         openCalendar() {
             if(!!this.accountUser) {
@@ -196,8 +164,6 @@ export default {
     computed: {
         ...mapGetters([
             "accountUser",
-            // 'getCouponDialog',
-            // 'getCouponError',
             "getProfile",
             'getBannerParams',
             'getUserLoggedInStatus',
@@ -238,12 +204,12 @@ export default {
         isTutor(){
             return !!this.getProfile && this.getProfile.user.isTutor
         },
-        isMyProfile(){
-          return this.getIsMyProfile
-        },
         // isMyProfile(){
-        //     return !!this.getProfile && !!this.accountUser && this.accountUser?.id == this.getProfile?.user?.id
+        //   return this.getIsMyProfile
         // },
+        isMyProfile(){
+            return !!this.getProfile && !!this.accountUser && this.accountUser?.id == this.getProfile?.user?.id
+        },
         showEarnMoney(){
             return this.isMyProfile && this.isTutor && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
         },
@@ -252,11 +218,7 @@ export default {
         },
         showItems(){
             if(!!this.getProfile){
-                // if(this.isTutor) {
-                //     return true;
-                // }else{
-                    return this.uploadedDocuments?.result?.length
-                // }
+              return this.uploadedDocuments?.result?.length
             }
             return false
         },
@@ -269,19 +231,11 @@ export default {
             }
             return this.activeTab === 5 && isCalendar
         },
-        // isTutorPending(){
-        //     return this.isMyProfile && (!!this.accountUser && this.accountUser.isTutorState === "pending")
-        // },
-        // showBecomeTutor(){
-        //     return this.isMyProfile && !this.isTutor && !this.isTutorPending;
-        // },
         showFindTutor(){
             return (!this.isMyProfile && !this.isTutor)
         },
         profileData() {
-            //if (!!this.getProfile) {
-                return this.getProfile;
-            //}
+          return this.getProfile;
         },
         uploadedDocuments() {
             if(this.profileData && this.profileData.documents) {
@@ -301,11 +255,6 @@ export default {
                 this.fetchData();
             }
         },
-        // coupon(val) {
-        //     if(val && this.getCouponError) {
-        //         this.$store.commit('setCouponError', false)
-        //     }
-        // },
         showProfileSubscription(val) {
           if(val) {
             this.$nextTick(() => {
@@ -334,18 +283,8 @@ export default {
         this.$store.commit('resetProfile');
         next();
     },
-    // beforeDestroy(){
-    //     this.closeCouponDialog();
-    //     storeService.unregisterModule(this.$store, 'couponStore');
-    //  },
     created() {
-        this.fetchData();
-        // storeService.registerModule(this.$store, 'couponStore', couponStore);
-        // if(!!this.$route.query.coupon) {
-        //     setTimeout(() => {
-        //         this.openCoupon();
-        //     },200)
-        // }
+      this.fetchData()
         if(this.$route.params.openCalendar) {
             this.openCalendar();
         }
