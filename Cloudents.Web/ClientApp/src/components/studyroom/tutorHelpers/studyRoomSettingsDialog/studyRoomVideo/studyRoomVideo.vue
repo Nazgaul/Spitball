@@ -239,6 +239,7 @@ export default {
     created(){
         this.startPreview()
         navigator.mediaDevices.ondevicechange = this.startPreview;
+        // eslint-disable-next-line no-undef
         this.isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
     },
     beforeDestroy() {
