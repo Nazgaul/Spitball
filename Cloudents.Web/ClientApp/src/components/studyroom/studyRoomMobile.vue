@@ -6,7 +6,7 @@
          <slot></slot>
          </div>
 
-         <!-- 
+         <!-- <div :id="elementId" class="d-flex flex-grow-0 flex-shrink-0">
             <span class="tutorName">{{roomTutorName}}</span>
             <div class="videoLiner"></div>
          </div> -->
@@ -17,7 +17,7 @@
                   <v-icon v-else size="30" color="white">sbf-mic-ignore</v-icon>
                </v-btn>
             </div>
-         </div>
+         <!-- </div> -->
          <div class="studyRoomMobileChatHeader mt-4">
             <div class="px-4 headerTitle mb-5 text-truncate">{{$store.getters.getRoomName}}</div>
             <div class="px-4 headerInfo d-flex justify-space-between mb-2">
