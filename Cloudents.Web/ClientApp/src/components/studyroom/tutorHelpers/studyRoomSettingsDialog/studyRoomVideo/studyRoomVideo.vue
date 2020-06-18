@@ -54,8 +54,8 @@
 
 
         <v-dialog v-model="permissionDialogState" width="512" :fullscreen="$vuetify.breakpoint.xsOnly" persistent content-class="premissionDeniedDialog text-center pa-6 pb-4">
-            <template v-if="$vuetify.breakpoint.xsOnly && !isSafari">
-                <img style="border:1.5px solid #00000068 ;border-radius:8px" class="mb-2" src="./android.gif" alt="">
+            <template v-if="$vuetify.breakpoint.xsOnly">
+                <video style="border-radius:8px" class="mb-2" :src="getPermissionBlockedVideo()" autoplay loop></video>
             </template>
             <template v-else>
                 <div class="mb-4 mainTitle" v-t="'studyRoomSettings_block_title'"></div>
@@ -113,7 +113,6 @@ export default {
             audioDeviceNotFound: false,
             permissionDialogState: false,
             settingDialogState: false,
-            isSafari:false,
         }
     },
     mixins: [settingMixin],
@@ -131,6 +130,15 @@ export default {
         ...mapGetters(['getVideoDeviceId','getAudioDeviceId'])
     },
     methods:{
+        getPermissionBlockedVideo(){
+            // eslint-disable-next-line no-undef
+            let isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+            if(isSafari){
+                return require('./ISO_VIDEO.mp4').default
+            }else{
+                return require('./Androaid_Video_600K.mp4').default
+            }
+        },
         createVideoPreview(deviceId){
             let videoParams = {
                 audio: false,
@@ -239,8 +247,6 @@ export default {
     created(){
         this.startPreview()
         navigator.mediaDevices.ondevicechange = this.startPreview;
-        // eslint-disable-next-line no-undef
-        this.isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
     },
     beforeDestroy() {
         this.MIXIN_cleanStreams(this.streamsArray)
