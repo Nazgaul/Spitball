@@ -20,8 +20,8 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using SixLabors.Primitives;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
+using Point = SixLabors.ImageSharp.Point;
 
 namespace Cloudents.FunctionsV2
 {
@@ -122,7 +122,7 @@ namespace Cloudents.FunctionsV2
                     }
 
                     var point = new Point(pointX, 475);
-                    context.DrawImage(starImage, point, GraphicsOptions.Default);
+                    context.DrawImage(starImage, point, new GraphicsOptions());
                 });
             }
 
@@ -140,7 +140,7 @@ namespace Cloudents.FunctionsV2
                     pointX = x.GetCurrentSize().Width - pointX - descriptionImage.Width;
                 }
 
-                x.DrawImage(descriptionImage, new Point(pointX, middleY), GraphicsOptions.Default);
+                x.DrawImage(descriptionImage, new Point(pointX, middleY), new GraphicsOptions());
             });
 
             if (width > 0 && height > 0)
@@ -167,7 +167,7 @@ namespace Cloudents.FunctionsV2
             {
                 var size = context.GetCurrentSize();
                 var middle = size.Width / 2 - quoteImage.Width / 2;
-                context.DrawImage(quoteImage, new Point(middle, 0), GraphicsOptions.Default);
+                context.DrawImage(quoteImage, new Point(middle, 0), new GraphicsOptions());
                 var location = new Point(0, quoteImage.Height + marginBetweenQuote);
 
                 context.DrawText(description, 38, "#43425d", new Size(size.Width, descriptionSize), location);
@@ -206,8 +206,9 @@ namespace Cloudents.FunctionsV2
             {
                 pointX = context.GetCurrentSize().Width - offsetOfImage - profileImage.Width;
             }
+            
             profileImage.Mutate(x => x.ApplyRoundedCorners(SquareProfileImageDimension / 2f));
-            context.DrawImage(profileImage, new Point(pointX, 135), GraphicsOptions.Default);
+            context.DrawImage(profileImage, new Point(pointX, 135), new GraphicsOptions());
         }
 
         internal static void InitData(IEnumerable<CloudBlockBlob> directoryBlobs)
