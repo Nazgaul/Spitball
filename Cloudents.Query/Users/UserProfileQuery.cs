@@ -65,12 +65,19 @@ namespace Cloudents.Query.Users
 
 
                 var lessonsQuery = _session.Query<StudyRoomSession>()
-                    .Fetch(f => f.StudyRoom).Where(w => w.StudyRoom.Tutor.Id == query.Id)
+                    .Fetch(f => f.StudyRoom)
+                    .Where(w => w.StudyRoom.Tutor.Id == query.Id)
                     .ToFutureValue(f => f.Count());
 
                 var rateQuery = _session.Query<TutorReview>()
                     .Where(w => w.Tutor.Id == query.Id)
-                    .ToFutureValue(f => f.Count());
+                    .GroupBy(g=>1)
+                    .Select(f =>new
+                    {
+                        Count = f.Count(),
+                        Total = f.Sum(s=>(float?)s.Rate)
+                    })
+                    .ToFutureValue();
 
                 //var couponQuery = _session.Query<UserCoupon>()
                 //      .Where(w => w.User.Id == query.UserId)
@@ -112,7 +119,8 @@ namespace Cloudents.Query.Users
                 var isFollowing = isFollowingFuture.Value;
                 result.IsFollowing = isFollowing != null;
                 result.Lessons = lessonsQuery.Value;
-                result.ReviewCount = rateQuery.Value;
+                result.ReviewCount = rateQuery.Value.Count;
+                result.Rate = rateQuery.Value.Total.GetValueOrDefault() / rateQuery.Value.Count;
                 //result.Tutor.Subjects = futureSubject.Value;
                 //if (couponResult != null)
                 //{

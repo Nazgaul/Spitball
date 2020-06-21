@@ -51,7 +51,7 @@ const mutations = {
                contentCount: objInit.contentCount,
                   //TODO remove this
                hasCoupon: objInit.tutor.hasCoupon,
-                  //TODO remove this
+                  //TODO - Obselete - will be  remove next version
                rate: objInit.tutor.rate || 0,
                reviewCount: objInit.reviewCount || 0,
                 //TODO remove this - duplicate
