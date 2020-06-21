@@ -5,6 +5,10 @@
 </template>
 
 <script>
+import * as componentConsts from './componentConsts.js';
+
+const PAYMENT_DIALOG = () => import('../dialogInjection/globalDialogs/payment/paymentWrapper.vue');
+
 
 const auth = () => import('../../global/dialogInjection/globalDialogs/auth/auth.vue')
 
@@ -23,6 +27,8 @@ const createStudyRoomDialog = () => import('../../dashboardPage/myStudyRooms/cre
 const teacherBillOfflineDialog = () => import('../dialogInjection/globalDialogs/teacherApproval/teacherBillOffline.vue');
 export default {
     components: {
+        PAYMENT_DIALOG,
+        
         auth,
         simpleToaster,
         simpleErrorToaster,
@@ -39,6 +45,9 @@ export default {
         return {
             component: {},
             componentObj: {
+                [componentConsts.PAYMENT_DIALOG]:{
+                    name: componentConsts.PAYMENT_DIALOG,
+                },
                 teacherBillOfflineDialog:{
                     name:'teacherBillOfflineDialog'
                 },

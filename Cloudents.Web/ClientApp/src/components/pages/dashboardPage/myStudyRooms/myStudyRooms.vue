@@ -140,7 +140,6 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import * as routeNames from "../../../../routes/routeNames";
-// import * as dialogNames from "../../global/dialogInjection/dialogNames.js";
 
 import iconChat from "./images/icon-chat.svg";
 import enterRoom from "./images/enterRoomGreen.svg";

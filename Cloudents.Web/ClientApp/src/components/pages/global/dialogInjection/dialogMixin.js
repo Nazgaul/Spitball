@@ -7,7 +7,6 @@ import * as dialogNames from './dialogNames.js'
 // const buyPoints = () => import('./globalDialogs/buyPoints/buyPointsWrapper.vue');
 // const teacherApproval = () => import('./globalDialogs/teacherApproval/teacherApproval.vue');
 
-// const payment = () => import('./globalDialogs/payment/paymentWrapper.vue');
 // const createStudyRoom = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue');
 
 
@@ -17,7 +16,6 @@ export default {
     //     upload,
     //     createCoupon,
     //     login,
-    //     payment,
     //     buyPoints,
     //     teacherApproval,
     //     createStudyRoom
@@ -27,7 +25,6 @@ export default {
             dialogsPremissions: {
                 login: ["notAuth"],
                 exitRegister: [],
-                payment:['notFrymo'],
                 upload: ["auth"],
                 createCoupon: ["auth","tutor"],
                 buyPoints:["auth"],
@@ -84,34 +81,15 @@ export default {
                 return 'break'   
             }
         },
-        check_notFrymo(){
-            if(this.isFrymo){
-                this.component = '';
-                this.$closeDialog()
-                return 'break'
-            } 
-        },
-        // check_payment(){
-        //     if(!this.accountUser.needPayment){
-        //         this.component = 'payment';
-        //         // TODO: do something
-        //     }
-        // },
-        // check_notPayment(){
-        //     if(this.accountUser.needPayment){
-        //         // TODO: do something
-        //         return 'break'
-        //     }
-        // }
     },
-    watch: {
-        '$route.query.dialog':function(val){
-            if(val === dialogNames.Payment){
-                setTimeout(function() {
-                    //We need this because we another dialog opened
-                    document.querySelector(".payme-popup").parentNode.style.zIndex = 999;
-                }, 1000);
-            }
-        }
-    },
+    // watch: {
+    //     '$route.query.dialog':function(val){
+    //         if(val === dialogNames.Payment){
+    //             setTimeout(function() {
+    //                 //We need this because we another dialog opened
+    //                 document.querySelector(".payme-popup").parentNode.style.zIndex = 999;
+    //             }, 1000);
+    //         }
+    //     }
+    // },
 }

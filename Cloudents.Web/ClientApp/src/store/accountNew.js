@@ -5,7 +5,7 @@ import intercomeService from '../services/intercomService';
 import insightService from '../services/insightService';
 import { dollarCalculate } from "./constants";
 import { i18n } from '../plugins/t-i18n'
-import { router } from "../main";
+import * as componentConsts from '../components/pages/global/toasterInjection/componentConsts.js'
 
 const accountInstance = axios.create({
     baseURL: '/api/account'
@@ -142,8 +142,8 @@ const actions = {
         })
     },
     signalR_SetBalance({ commit, state, dispatch, getters }, newBalance) {
-        if(router.currentRoute.query?.dialog){
-            router.push({query:{...router.currentRoute.query, dialog: undefined}})
+        if(getters.getIsComponentActiveByName(componentConsts.PAYMENT_DIALOG)){
+            commit('removeComponent',componentConsts.PAYMENT_DIALOG)
         }
         if (getters.getIsBuyPoints || state.user.balance > newBalance) {
             dispatch('updateToasterParams', {

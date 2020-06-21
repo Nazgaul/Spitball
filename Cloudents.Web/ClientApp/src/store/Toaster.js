@@ -1,4 +1,5 @@
 ﻿import { TOASTER } from './mutation-types'
+import * as componentConsts from '../components/pages/global/toasterInjection/componentConsts.js'
 
 const state = {
     toasterTypes:{
@@ -38,6 +39,10 @@ const mutations = {
         state.component = [];
     },
     addComponent(state,componentName){
+        // should be outside but for now its here...
+        if(componentName == componentConsts.PAYMENT_DIALOG && this.getters.isFrymo){
+            return // only in studyroom cuz we dont have frymo payment
+        }
         if(state.component.includes(componentName)){
             // 
         }else{
@@ -57,6 +62,7 @@ const getters = {
     getShowToasterType: state => state.params.toasterType,
     getToasterTimeout: state => state.params.toasterTimeout,
     getComponent: state => state.component,
+    getIsComponentActiveByName: (state) => (componentName) => state.component.includes(componentName),
 };
 const actions = {
     updateToasterParams({commit}, val){

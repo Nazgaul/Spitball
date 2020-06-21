@@ -7,7 +7,7 @@ import analyticsService from '../services/analytics.service';
 import insightService from '../services/insightService';
 import { i18n } from '../plugins/t-i18n'
 import intercomeService from '../services/intercomService';
-import { router } from "../main";
+import * as componentConsts from '../components/pages/global/toasterInjection/componentConsts.js'
 
 const state = {
     isUserLoggedIn:false,
@@ -134,8 +134,8 @@ const actions = {
         }
     },
     signalR_SetBalance({ commit, state, dispatch, getters }, newBalance) {
-        if(router.currentRoute.query?.dialog){
-            router.push({query:{...router.currentRoute.query,dialog:undefined}})
+        if(getters.getIsComponentActiveByName(componentConsts.PAYMENT_DIALOG)){
+            commit('removeComponent',componentConsts.PAYMENT_DIALOG)
         }
         if (getters.getIsBuyPoints || state.user.balance > newBalance) {
             dispatch('updateToasterParams', {
