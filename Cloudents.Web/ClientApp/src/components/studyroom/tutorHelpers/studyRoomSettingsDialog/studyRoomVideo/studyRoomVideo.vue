@@ -307,6 +307,9 @@ export default {
 
                 &.inCamera {
                     padding: 0 100px;
+                    @media (max-width: @screen-sm) {
+                        padding: 0;
+                    }
                     line-height: 22px;
                 }
                 .cameraBlock {
