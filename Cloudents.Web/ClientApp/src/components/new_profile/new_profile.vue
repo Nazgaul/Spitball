@@ -21,9 +21,9 @@
       />
       <profileSubscription :id="id" v-if="showProfileSubscription" ref="profileSubscription" />
       <profileLiveClasses :id="id" v-if="isTutor" @isComponentReady="val => goToLiveClasses = true" ref="profileLiveClassesElement" />
-      <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" />
+      <!-- <profileFindTutor class="mb-3 d-lg-none" /> -->
       <profileItemsBox v-if="isMyProfile || showItems" class="mt-sm-12 mt-2" />
-      <profileEarnMoney class="mt-0 mt-sm-5" v-if="showEarnMoney" />
+      <!-- <profileEarnMoney class="mt-0 mt-sm-5" v-if="showEarnMoney" />  -->
       <profileReviewsBox v-if="showReviewBox" class="mt-sm-10 mt-2" />
     </div>
   </div>
@@ -38,8 +38,8 @@ import chatService from '../../services/chatService.js';
 import profileUserBox from './components/profileUserBox/profileUserBox.vue';
 import profileDialogs from './components/profileDialogs/profileDialogs.vue';
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
-import profileEarnMoney from './components/profileEarnMoney/profileEarnMoney.vue';
-import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue';
+// import profileEarnMoney from './components/profileEarnMoney/profileEarnMoney.vue';
+// import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue';
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileLiveClasses from './components/profileLiveClasses/profileLiveClasses.vue'
 import calendarTab from '../calendar/calendarTab.vue';
@@ -54,8 +54,8 @@ export default {
         profileUserBox,
         profileDialogs,
         profileReviewsBox,
-        profileEarnMoney,
-        profileFindTutor,
+        // profileEarnMoney,
+        // profileFindTutor,
         profileItemsBox,
         profileLiveClasses,
         profileSubscription,
@@ -208,14 +208,14 @@ export default {
             }
         },
         isTutor(){
-            return !!this.getProfile && this.getProfile.user.isTutor
+            return this.getProfile?.user?.isTutor
+        },
+        isMyProfile(){
+          return this.getIsMyProfile
         },
         // isMyProfile(){
-        //   return this.getIsMyProfile
+        //     return !!this.getProfile && !!this.accountUser && this.accountUser?.id == this.getProfile?.user?.id
         // },
-        isMyProfile(){
-            return !!this.getProfile && !!this.accountUser && this.accountUser?.id == this.getProfile?.user?.id
-        },
         showEarnMoney(){
             return this.isMyProfile && this.isTutor && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
         },
@@ -230,11 +230,11 @@ export default {
         },
         showCalendarTab() {
             if(!this.isTutor) return false;
-            
             let isCalendar = this.getProfile?.user.calendarShared
             if(this.isMyProfile) {
                 return !isCalendar || (this.activeTab === 5 && isCalendar) 
             }
+            // return isCalendar
             return this.activeTab === 5 && isCalendar
         },
         showFindTutor(){
