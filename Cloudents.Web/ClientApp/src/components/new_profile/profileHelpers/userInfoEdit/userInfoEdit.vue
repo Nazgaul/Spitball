@@ -12,7 +12,7 @@
                 </v-btn>
             </v-layout>
             <v-layout class="px-3 mt-3">
-                <div class="leftSide ms-3 d-inline-block">
+                <div class="leftSide me-3 d-inline-block">
                     <uploadImage sel="photo" class="pUb_edit_img" />
                     <userAvatarNew
                         sel="avatar_image"
@@ -27,38 +27,40 @@
                         :tile="true"
                     />
                 </div>
-                <v-flex xs12 :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
-                    <v-layout column>
-                        <v-flex xs12 sm6  class="pl-2 mb-2">
-                            <span class="subtitle">{{$t('profile_personal_details')}}</span>
-                        </v-flex>
-                        <v-flex xs12>
-                            <v-text-field
-                                    :rules="[rules.required, rules.minimumChars, rules.matchFirstName]"
-                                    :label="$t('profile_firstName_label')"
-                                    class="tutor-edit-firstname"
-                                    v-model="firstName"
-                                    outlined
-                            ></v-text-field>
-                        </v-flex>
-                    </v-layout>
-                </v-flex>
-                <v-flex xs12 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'pr-2']">
-                    <v-layout column>
-                        <v-flex v-if="$vuetify.breakpoint.smAndUp" xs12 sm6  class="mb-2 pl-2" grow>
-                            <span class="subtitle" style="visibility: hidden">hidden</span>
-                        </v-flex>
-                        <v-flex>
-                            <v-text-field
-                                    :rules="[rules.required, rules.minimumChars, rules.matchLastName]"
-                                    :label="$t('profile_lastName_label')"
-                                    class="tutor-edit-lastname"
-                                    v-model="lastName"
-                                    outlined
-                            ></v-text-field>
-                        </v-flex>
-                    </v-layout>
-                </v-flex>
+                <v-layout wrap>
+                    <v-flex xs12 :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
+                        <!-- <v-layout column> -->
+                            <v-flex xs12 class="pl-2 mb-2">
+                                <span class="subtitle">{{$t('profile_personal_details')}}</span>
+                            </v-flex>
+                            <v-flex xs12>
+                                <v-text-field
+                                        :rules="[rules.required, rules.minimumChars, rules.matchFirstName]"
+                                        :label="$t('profile_firstName_label')"
+                                        class="tutor-edit-firstname"
+                                        v-model="firstName"
+                                        outlined
+                                ></v-text-field>
+                            </v-flex>
+                        <!-- </v-layout> -->
+                    </v-flex>
+                    <v-flex xs12 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'pr-2']">
+                        <!-- <v-layout column> -->
+                            <!-- <v-flex v-if="$vuetify.breakpoint.smAndUp" xs12 class="mb-2 pl-2" grow>
+                                <span class="subtitle" style="visibility: hidden">hidden</span>
+                            </v-flex> -->
+                            <v-flex>
+                                <v-text-field
+                                        :rules="[rules.required, rules.minimumChars, rules.matchLastName]"
+                                        :label="$t('profile_lastName_label')"
+                                        class="tutor-edit-lastname"
+                                        v-model="lastName"
+                                        outlined
+                                ></v-text-field>
+                            </v-flex>
+                        <!-- </v-layout> -->
+                    </v-flex>
+                </v-layout>
             </v-layout>
             <v-layout  align-center class="bottomActions px-3" :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between ' : 'justify-end']">
                 <v-flex xs5 sm2  >
@@ -224,6 +226,7 @@ export default {
             height: 46px;
             border-radius: 4px;
             background-color: #fff;
+            z-index: 1;
         }
     }
     }
