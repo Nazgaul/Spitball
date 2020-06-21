@@ -111,9 +111,10 @@ namespace Cloudents.Infrastructure.Payments
                     Interval = "month",
                 },
                 UnitAmount = tutor.SubscriptionPrice!.Value.Cents,
+                Product = product.Id
             };
 
-            options.AssignProduct(product.Id);
+           // options.AssignProduct(product.Id);
 
             var service = new PriceService();
             await service.CreateAsync(options, cancellationToken: token);
@@ -304,13 +305,13 @@ namespace Cloudents.Infrastructure.Payments
 
     }
 
-    public static class PriceCreateOptionsExtensions
-    {
-        //Product is internal - maybe they'll fix them on future versions
-        public static void AssignProduct(this PriceCreateOptions options, string productId)
-        {
-            var prop = options.GetType().GetProperty("Product", BindingFlags.NonPublic | BindingFlags.Instance);
-            prop.SetValue(options, productId);
-        }
-    }
+    //public static class PriceCreateOptionsExtensions
+    //{
+    //    //Product is internal - maybe they'll fix them on future versions
+    //    public static void AssignProduct(this PriceCreateOptions options, string productId)
+    //    {
+    //        var prop = options.GetType().GetProperty("Product", BindingFlags.NonPublic | BindingFlags.Instance);
+    //        prop.SetValue(options, productId);
+    //    }
+    //}
 }

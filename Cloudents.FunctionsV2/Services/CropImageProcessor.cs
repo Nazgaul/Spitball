@@ -7,7 +7,7 @@ using SixLabors.ImageSharp.Processing.Processors;
 
 namespace Cloudents.FunctionsV2.Services
 {
-    public sealed class CropImageProcessor<TPixel> : IImageProcessor<TPixel> where TPixel : struct, IPixel<TPixel>
+    public sealed class CropImageProcessor<TPixel> : IImageProcessor<TPixel> where TPixel : unmanaged, IPixel<TPixel>
     {
         private readonly Image<TPixel> _source;
 
@@ -17,7 +17,7 @@ namespace Cloudents.FunctionsV2.Services
             _source = source;
         }
 
-        public void Apply()
+        public void Execute()
         {
             var z = new TPixel();
             z.FromRgba32(new Rgba32(0, 0, 0, 0));
@@ -52,7 +52,7 @@ namespace Cloudents.FunctionsV2.Services
     }
 
 
-    public sealed class ChangeLogoProcessor<TPixel> : IImageProcessor<TPixel> where TPixel : struct, IPixel<TPixel>
+    public sealed class ChangeLogoProcessor<TPixel> : IImageProcessor<TPixel> where TPixel : unmanaged, IPixel<TPixel>
     {
         private readonly Image<TPixel> _source;
 
@@ -62,7 +62,7 @@ namespace Cloudents.FunctionsV2.Services
             _source = source;
         }
 
-        public void Apply()
+        public void Execute()
         {
             var z = new TPixel();
             z.FromRgba32(new Rgba32(0, 0, 0, 0));
@@ -81,7 +81,7 @@ namespace Cloudents.FunctionsV2.Services
                         continue;
                     }
 
-                    Rgba32 pixel = Rgba32.Black ;
+                    Rgba32 pixel = Rgba32.ParseHex("000000") ;
                     pixelRowSpan[x].ToRgba32(ref pixel);
 
                     pixelRowSpan[x].FromRgba32(new Rgba32(0x43, 0x42,0x5d, pixel.A));

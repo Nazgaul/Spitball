@@ -16,11 +16,5 @@ namespace Cloudents.Web.Models
 
         [StringLength(1000, MinimumLength = 15, ErrorMessage = "StringLength")]
         public string Bio { get; set; }
-
-        //[Range(Tutor.MinimumPrice, Tutor.MaximumPrice)]
-        //public int? Price { get; set; }
     }
-
-
-
 }

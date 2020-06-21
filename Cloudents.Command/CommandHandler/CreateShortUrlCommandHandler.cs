@@ -15,10 +15,10 @@ namespace Cloudents.Command.CommandHandler
             _repository = repository;
         }
 
-        public async Task ExecuteAsync(CreateShortUrlCommand message, CancellationToken token)
+        public Task ExecuteAsync(CreateShortUrlCommand message, CancellationToken token)
         {
             var shortUrl = new ShortUrl(message.Identifier, message.Destination, message.Expiration);
-            await _repository.AddAsync(shortUrl, token);
+            return _repository.AddAsync(shortUrl, token);
         }
     }
 }

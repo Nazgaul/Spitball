@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import Broadcast from './liveSession/liveSession.vue'
-import Private from './privateSession/privateSession.vue'
+const Broadcast = () => import('./liveSession/liveSession.vue');
+const Private = () => import('./privateSession/privateSession.vue');
 
 export default {
    name:'createStudyRoom',
@@ -121,10 +121,10 @@ export default {
             this.currentError = 'showErrorEmpty'
             return false
          }
-
          return {
             userId: Array.from(childComponent.selected.map(user=> user.userId)),
             name: childComponent.roomName,
+            currency: this.$store.getters.accountUser.currencySymbol,
             price: childComponent.price,
          }
       },

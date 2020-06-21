@@ -86,13 +86,10 @@ export default {
   },
   mounted() {
     let self = this;
-    this.$loadScript("https://js.stripe.com/v3/").then(() => {
-      self.stripe = window.Stripe(this.getStripeToken);
-
+    this.$loadScript("https://js.stripe.com/v3/?advancedFraudSignals=false").then(() => {
+      self.stripe = window.Stripe(this.getStripeToken);  
       self.elements = self.stripe.elements();
-      self.cardElement = self.elements.create('card', {
-
-      });
+      self.cardElement = self.elements.create('card');
       self.cardElement.mount('#card-stripe');
     })
   }

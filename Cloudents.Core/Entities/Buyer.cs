@@ -61,27 +61,4 @@ namespace Cloudents.Core.Entities
             return PaymentKey != null && PaymentKeyExpiration > DateTime.UtcNow;
         }
     }
-
-    public class StripePayment :Entity<Guid>, IPayment2
-    {
-        public StripePayment(string paymentKey)
-        {
-            PaymentKey = paymentKey;
-        }
-
-        [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate")]
-        protected StripePayment()
-        {
-        }
-
-        public virtual string PaymentKey { get; set; }
-        //public virtual DateTime PaymentKeyExpiration { get; set; }
-
-        //public virtual string CreditCardMask { get; set; }
-        public virtual IPayment2 AvoidProxy => (IPayment2)Actual;
-        public virtual bool IsValid()
-        {
-            return PaymentKey != null;// && PaymentKeyExpiration > DateTime.UtcNow;
-        }
-    }
 }
