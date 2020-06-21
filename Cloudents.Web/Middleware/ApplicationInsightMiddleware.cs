@@ -2,10 +2,9 @@
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-
-//using Microsoft.AspNetCore.Http.Internal;
 
 namespace Cloudents.Web.Middleware
 {
@@ -14,9 +13,9 @@ namespace Cloudents.Web.Middleware
     public class ApplicationInsightMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger<ApplicationInsightMiddleware> _context;
+        private readonly Lazy<TelemetryClient> _context;
 
-        public ApplicationInsightMiddleware(RequestDelegate next, ILogger<ApplicationInsightMiddleware> context)
+        public ApplicationInsightMiddleware(RequestDelegate next, Lazy<TelemetryClient> context)
         {
             _next = next;
             _context = context;
@@ -46,11 +45,11 @@ namespace Cloudents.Web.Middleware
                         request.Body.Seek(0, SeekOrigin.Begin);
                         using var stream = new StreamReader(request.Body);
                         var v = await stream.ReadToEndAsync();
-                        _context.LogError($"Log of parameters: {v}");
+                        _context.Value.TrackTrace($"Log of parameters: {v}",SeverityLevel.Error);
                     }
                     catch (ObjectDisposedException)
                     {
-                        _context.LogError("Cant log parameters");
+                        _context.Value.TrackTrace("Cant log parameters",SeverityLevel.Error);
                     }
                 }
             }
@@ -61,56 +60,4 @@ namespace Cloudents.Web.Middleware
             }
         }
     }
-
-    //public class RequestBodyInitializer : ITelemetryInitializer
-    //{
-    //    private readonly IHttpContextAccessor _httpContextAccessor;
-
-    //    public RequestBodyInitializer(IHttpContextAccessor httpContextAccessor)
-    //    {
-    //        _httpContextAccessor = httpContextAccessor;
-    //    }
-
-    //    public void Initialize(ITelemetry telemetry)
-    //    {
-    //        if (!(telemetry is RequestTelemetry requestTelemetry) ||
-    //            (_httpContextAccessor.HttpContext.Request.Method != HttpMethods.Post &&
-    //             _httpContextAccessor.HttpContext.Request.Method != HttpMethods.Put) ||
-    //            !_httpContextAccessor.HttpContext.Request.Body.CanRead) return;
-    //        const string jsonBody = "JsonBody";
-
-    //        if (requestTelemetry.Properties.ContainsKey(jsonBody))
-    //        {
-    //            return;
-    //        }
-
-    //        //Allows re-usage of the stream
-    //        try
-    //        {
-    //            _httpContextAccessor.HttpContext.Request.EnableBuffering();
-
-    //            if (_httpContextAccessor.HttpContext.Request.Body.CanRead)
-    //            {
-    //                using (var stream = new StreamReader(_httpContextAccessor.HttpContext.Request.Body))
-    //                {
-    //                    var body = stream.ReadToEndAsync().Result;
-    //                    _httpContextAccessor.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
-    //                    requestTelemetry.Properties.Add(jsonBody, body);
-    //                }
-    //            }
-    //        }
-    //        catch (ObjectDisposedException)
-    //        {
-    //            //Do nothing
-    //        }
-    //    }
-    //}
-
-    //public class InputStreamAlwaysBufferedPolicySelector : WebHostBufferPolicySelector
-    //{
-    //    public override bool UseBufferedInputStream(object hostContext)
-    //    {
-    //        return true;
-    //    }
-    //}
 }

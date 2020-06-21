@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 namespace Cloudents.Core.EventHandler
 {
     public class SyncSearchDocumentEventHandler : IEventHandler<DocumentCreatedEvent>,
-        IEventHandler<DocumentDeletedEvent>, IEventHandler<DocumentUndeletedEvent>,
+        IEventHandler<DocumentDeletedEvent>,
+        //IEventHandler<DocumentUndeletedEvent>,
         IEventHandler<DeleteUserEvent>
     {
         private readonly IQueueProvider _queueProvider;
@@ -38,20 +39,20 @@ namespace Cloudents.Core.EventHandler
 
 
 
-        public Task HandleAsync(DocumentUndeletedEvent eventMessage, CancellationToken token)
-        {
-            var doc = new DocumentSearchDto
-            {
-                Country = eventMessage.Document.User.Country?.ToUpperInvariant(),
-                Course = eventMessage.Document.Course.Id.ToUpperInvariant(),
-                DateTime = eventMessage.Document.TimeStamp.UpdateTime,
-                ItemId = eventMessage.Document.Id,
-                Name = eventMessage.Document.Name,
-                Type = eventMessage.Document.DocumentType,
-                SbCountry = eventMessage.Document.User.SbCountry
-            };
-            return _queueProvider.InsertMessageAsync(new DocumentSearchMessage(doc, true), token);
-        }
+        //public Task HandleAsync(DocumentUndeletedEvent eventMessage, CancellationToken token)
+        //{
+        //    var doc = new DocumentSearchDto
+        //    {
+        //        Country = eventMessage.Document.User.Country?.ToUpperInvariant(),
+        //        Course = eventMessage.Document.Course.Id.ToUpperInvariant(),
+        //        DateTime = eventMessage.Document.TimeStamp.UpdateTime,
+        //        ItemId = eventMessage.Document.Id,
+        //        Name = eventMessage.Document.Name,
+        //        Type = eventMessage.Document.DocumentType,
+        //        SbCountry = eventMessage.Document.User.SbCountry
+        //    };
+        //    return _queueProvider.InsertMessageAsync(new DocumentSearchMessage(doc, true), token);
+        //}
 
         public Task HandleAsync(DocumentDeletedEvent eventMessage, CancellationToken token)
         {
