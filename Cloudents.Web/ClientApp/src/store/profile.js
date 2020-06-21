@@ -47,6 +47,7 @@ const mutations = {
                //TODO remove this
                pendingSessionsPayments: objInit.tutor.pendingSessionsPayments || null,
                description: objInit.description || '',
+               //TODO remove this
                contentCount: objInit.contentCount,
                   //TODO remove this
                hasCoupon: objInit.tutor.hasCoupon,

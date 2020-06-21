@@ -40,7 +40,7 @@ namespace Cloudents.Core.DTOs.Users
 
         public int Lessons { get; set; }
 
-        public int ContentCount { get; set; }
+        //public int ContentCount { get; set; }
         public int Students { get; set; }
 
         public Money? SubscriptionPrice { get; set; }
