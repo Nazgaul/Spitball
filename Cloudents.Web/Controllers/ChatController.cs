@@ -15,13 +15,13 @@ namespace Cloudents.Web.Controllers
         // GET
 
         [Route("download/{chatRoomId:guid}/{chatId:guid}", Name = "ChatDownload")]
-        public async Task<IActionResult> Download(Guid chatRoomId, Guid chatId, [FromServices] IChatDirectoryBlobProvider blobProvider,
+        public async Task<IActionResult> Download(Guid chatRoomId, Guid chatId,
+            [FromServices] IChatDirectoryBlobProvider blobProvider,
             CancellationToken token)
         {
-            var files = await blobProvider.FilesInDirectoryAsync("file-", $"{chatRoomId}/{chatId}", token);
-            var uri = files.First();
+            var uri = await blobProvider.FilesInDirectoryAsync("file-", $"{chatRoomId}/{chatId}", token).FirstAsync(token);
 
-            var url = blobProvider.GenerateDownloadLink(uri, TimeSpan.FromMinutes(30));
+            var url = await blobProvider.GenerateDownloadLinkAsync(uri, TimeSpan.FromMinutes(30));
             return Redirect(url.AbsoluteUri);
         }
     }
