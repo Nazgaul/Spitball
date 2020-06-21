@@ -31,7 +31,7 @@ namespace Cloudents.Infrastructure.Storage
            
             if (!MimeTypeMapping.ContainsKey(contentType))
             {
-                throw new ArgumentException();
+                throw new ArgumentException($"content type not supported {contentType}");
             }
 
             var extension = Path.GetExtension(file);
