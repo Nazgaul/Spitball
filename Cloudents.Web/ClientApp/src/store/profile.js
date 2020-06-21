@@ -33,26 +33,33 @@ const mutations = {
             coursesString: objInit.courses.toString().replace(/,/g, ", "),
             online: objInit.online || false,
             calendarShared: objInit.calendarShared || false,
+            //TODO REMOVE THIS
             isTutor: objInit.hasOwnProperty('tutor') || false,
             followers: objInit.followers || '',
             isFollowing: objInit.isFollowing,
             cover: objInit.cover || '',
             tutorData: {
-               price: objInit.tutor.price || 0,
-               bio: objInit.tutor.bio || '',
-               lessons: objInit.tutor.lessons || 0,
-               discountPrice: objInit.tutor.discountPrice,
+               price: objInit.price || 0,
+               bio: objInit.bio || '',
+               lessons: objInit.lessons || 0,
+               //TODO remove this
+               discountPrice: objInit.discountPrice,
+               //TODO remove this
                pendingSessionsPayments: objInit.tutor.pendingSessionsPayments || null,
-               description: objInit.tutor.description || '',
-               contentCount: objInit.tutor.contentCount,
+               description: objInit.description || '',
+               contentCount: objInit.contentCount,
+                  //TODO remove this
                hasCoupon: objInit.tutor.hasCoupon,
+                  //TODO remove this
                rate: objInit.tutor.rate || 0,
-               reviewCount: objInit.tutor.reviewCount || 0,
-               firstName: objInit.tutor.firstName || '',
-               lastName: objInit.tutor.lastName || '',
-               students: objInit.tutor.students || 0,
-               subscriptionPrice: objInit.tutor.subscriptionPrice,
-               isSubscriber : objInit.tutor.isSubscriber
+               reviewCount: objInit.reviewCount || 0,
+                //TODO remove this - duplicate
+               firstName: objInit.firstName || '',
+               //TODO remove this - duplicate
+               lastName: objInit.lastName || '',
+               students: objInit.students || 0,
+               subscriptionPrice: objInit.subscriptionPrice,
+               isSubscriber : objInit.isSubscriber
             }
          }
       }
