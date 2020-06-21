@@ -60,7 +60,7 @@ namespace Cloudents.Core.DTOs
       //  public decimal? CouponValue { get; set; }
 
         public Money TutorPrice { get; set; }
-        public string Jwt { get; set; }
+        public string? Jwt { get; set; }
 
         public DateTime? BroadcastTime { get; set; }
 
