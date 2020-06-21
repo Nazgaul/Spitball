@@ -41,7 +41,7 @@ namespace Cloudents.Infrastructure.Storage
             {
                 TypeNameHandling = TypeNameHandling.All
             });
-            return queue.SendMessageAsync(json,delay, cancellationToken: token);
+            return queue.SendMessageAsync(ConvertToBase64(json),delay, cancellationToken: token);
         }
 
         public Task InsertMessageAsync(ISystemQueueMessage obj, CancellationToken token)
@@ -52,7 +52,7 @@ namespace Cloudents.Infrastructure.Storage
         public Task InsertBlobReprocessAsync(long id)
         {
             var queue = GetQueueReference("generate-blob-preview");
-            return queue.SendMessageAsync(id.ToString());
+            return queue.SendMessageAsync(ConvertToBase64(id.ToString()));
         }
 
         public Task InsertMessageAsync(ISystemQueueMessage obj, TimeSpan delay, CancellationToken token)
@@ -60,9 +60,17 @@ namespace Cloudents.Infrastructure.Storage
             var queue = GetQueueReference(QueueName.BackgroundQueue.Name);
 
             var json = _jsonSerializer.Serialize(obj);
-            return queue.SendMessageAsync(json, delay, cancellationToken: token);
+            return queue.SendMessageAsync(ConvertToBase64(json), delay, cancellationToken: token);
+        }
+
+        private string ConvertToBase64(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return Convert.ToBase64String(plainTextBytes);
         }
 
       
     }
+
+   
 }

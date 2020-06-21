@@ -18,6 +18,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure.Storage.Queues;
 using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Command.Documents.PurchaseDocument;
@@ -143,8 +144,16 @@ namespace ConsoleApp
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
-            var t = Container.Resolve<IQueueProvider>();
-            await t.InsertBlobReprocessAsync(51657);
+            
+            var t = Container.Resolve<IConfigurationKeys>();
+
+
+            var z = new QueueClient(t.Storage,"ram-test");
+            await z.CreateIfNotExistsAsync();
+            
+            await z.SendMessageAsync("sjkfhskjfhsdkjfhsdjkfsd");
+
+           // await t.InsertBlobReprocessAsync(51657);
             //await Dbi();
         }
 
