@@ -35,7 +35,7 @@
                             </v-flex>
                             <v-flex xs12>
                                 <v-text-field
-                                        :rules="[rules.required, rules.minimumChars, rules.matchFirstName]"
+                                        :rules="[rules.required, rules.minimumChars]"
                                         :label="$t('profile_firstName_label')"
                                         class="tutor-edit-firstname"
                                         v-model="firstName"
@@ -51,7 +51,7 @@
                             </v-flex> -->
                             <v-flex>
                                 <v-text-field
-                                        :rules="[rules.required, rules.minimumChars, rules.matchLastName]"
+                                        :rules="[rules.required, rules.minimumChars]"
                                         :label="$t('profile_lastName_label')"
                                         class="tutor-edit-lastname"
                                         v-model="lastName"
@@ -100,8 +100,8 @@ export default {
             rules: {
                 required:(value)=> validationRules.required(value),
                 minimumChars: (value) => validationRules.minimumChars(value, 2),
-                matchFirstName: value => value !== this.firstName ? true : this.$t('change'),
-                matchLastName: value => value !== this.lastName ? true : this.$t('change')
+                // matchFirstName: value => value !== this.firstName ? true : this.$t('change'),
+                // matchLastName: value => value !== this.lastName ? true : this.$t('change')
             },
             validUserForm: false,
             btnLoading: false,
