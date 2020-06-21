@@ -71,7 +71,7 @@ namespace Cloudents.Query.Users
                         TutorCountry = s.User.SbCountry,
                         // Rate = s.Rate.GetValueOrDefault(),
                         // ReviewCount = s.RateCount,
-                        Bio = s.Bio,
+                        Bio = s.Paragraph2,
                         // Lessons = s.Lessons,
 
                         ContentCount = _session.Query<Document>()
@@ -82,7 +82,7 @@ namespace Cloudents.Query.Users
                             .Where(w => w.Room.Tutor.Id == query.Id).Select(s2 => s2.User.Id).Distinct().Count(),
                         SubscriptionPrice = s.SubscriptionPrice,
                         //Subjects = s.Subjects,
-                        Description = s.User.Description
+                        Description = s.Title
                     }).ToFutureValue();
 
 
