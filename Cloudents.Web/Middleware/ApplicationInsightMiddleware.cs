@@ -2,6 +2,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
@@ -14,9 +16,9 @@ namespace Cloudents.Web.Middleware
     public class ApplicationInsightMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger<ApplicationInsightMiddleware> _context;
+        private readonly Lazy<TelemetryClient> _context;
 
-        public ApplicationInsightMiddleware(RequestDelegate next, ILogger<ApplicationInsightMiddleware> context)
+        public ApplicationInsightMiddleware(RequestDelegate next, Lazy<TelemetryClient> context)
         {
             _next = next;
             _context = context;
@@ -46,11 +48,11 @@ namespace Cloudents.Web.Middleware
                         request.Body.Seek(0, SeekOrigin.Begin);
                         using var stream = new StreamReader(request.Body);
                         var v = await stream.ReadToEndAsync();
-                        _context.LogError($"Log of parameters: {v}");
+                        _context.Value.TrackTrace($"Log of parameters: {v}",SeverityLevel.Error);
                     }
                     catch (ObjectDisposedException)
                     {
-                        _context.LogError("Cant log parameters");
+                        _context.Value.TrackTrace("Cant log parameters",SeverityLevel.Error);
                     }
                 }
             }

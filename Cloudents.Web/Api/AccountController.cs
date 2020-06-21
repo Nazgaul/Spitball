@@ -179,18 +179,13 @@ namespace Cloudents.Web.Api
         [HttpPost("settings")]
         public async Task<IActionResult> ChangeSettingsAsync(
             [FromBody]UpdateSettingsRequest model,
-            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new UpdateUserSettingsCommand(userId, model.FirstName, model.LastName,
                 model.Description, model.Bio);
             await _commandBus.DispatchAsync(command, token);
-            //var culture = CultureInfo.CurrentCulture.ChangeCultureBaseOnCountry(profile.Country);
-            return Ok(new
-            {
-                //newPrice = model.Price?.ToString("C0", culture)
-            });
+            return Ok();
         }
 
         [HttpGet("content")]
