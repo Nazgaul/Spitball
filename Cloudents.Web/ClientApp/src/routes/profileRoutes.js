@@ -40,6 +40,9 @@ export const profileRoutes = [
                     id: route.params.id
                 }
             }
+        },
+        meta: {
+            tutorHeaderSlot: true,
         }
     },
 ]

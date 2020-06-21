@@ -123,6 +123,7 @@ const getters = {
    getShowEditDataDialog: state => state.showEditDataDialog,
    getProfileCoverImage: state => state.profile?.user?.cover || '',
    getProfileTutorSubscription: state => state.profile?.user?.tutorData?.subscriptionPrice,
+   getProfileTutorName: state => state.profile?.name || 'this is a test',
    getIsSubscriber: state => {
       return state.profile?.user?.tutorData?.isSubscriber
    },

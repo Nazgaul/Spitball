@@ -4,9 +4,13 @@
         <v-btn v-if="showHamburgerIcon" class="d-sm-none" :class="[{'d-block': classChangeHamburgerTutorMenu}]" :ripple="false" icon @click="$root.$emit('openSideMenu')">
             <hamburgerIcon class="ml-2 hamburgerIcon"/>
         </v-btn>
-        <router-link @click.prevent="resetItems()" to="/" class="globalHeader_logo">
+        <router-link @click.prevent="resetItems()" to="/" :class="{'globalHeader_logo': !$route.meta.tutorHeaderSlot}">
             <logoComponent/>
         </router-link>
+        <template v-if="$route.meta.tutorHeaderSlot" class="tutorNameSlot">
+            <v-divider class="mx-8" vertical inset max-height="10"></v-divider>
+            <div class="tutorName text-truncate">{{$store.getters.getProfileTutorName}}</div>
+        </template>
         <div class="globalHeader_items">
             <div class="globalHeader_items_left" v-if="!isMobile && showSearch">
                 <searchCMP :placeholder="searchPlaceholder"/>
