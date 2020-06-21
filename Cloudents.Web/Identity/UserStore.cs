@@ -282,13 +282,12 @@ namespace Cloudents.Web.Identity
             return Task.CompletedTask;
         }
 
-        public async Task AddLoginAsync(User user, UserLoginInfo login, CancellationToken cancellationToken)
+        public Task AddLoginAsync(User user, UserLoginInfo login, CancellationToken cancellationToken)
         {
             var command =
                 new AddUserLoginCommand(user, login.LoginProvider, login.ProviderKey, login.ProviderDisplayName);
 
-            await _bus.DispatchAsync(command, cancellationToken);
-
+            return _bus.DispatchAsync(command, cancellationToken);
         }
 
         public Task RemoveLoginAsync(User user, string loginProvider, string providerKey, CancellationToken cancellationToken)

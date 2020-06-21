@@ -171,7 +171,7 @@ namespace Cloudents.Web.Api
                 .UploadStreamAsync(fileName, file.OpenReadStream(), file.ContentType, TimeSpan.FromSeconds(60 * 24), token);
 
             var uri = blobProvider.GetBlobUrl(fileName);
-            var link = blobProvider.GeneratePreviewLink(uri, TimeSpan.FromDays(1));
+            var link =  await blobProvider.GeneratePreviewLinkAsync(uri, TimeSpan.FromDays(1));
 
             return Ok(new
             {
@@ -208,8 +208,8 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new CreateStudyRoomSessionCommand(id, userId);
-            var result = await _commandBus.DispatchAsync<CreateStudyRoomSessionCommand, CreateStudyRoomSessionCommandResult>(command, token);
-            return new CreateStudyRoomSessionResponse(result.JwtToken);
+            await _commandBus.DispatchAsync(command, token);
+            return new CreateStudyRoomSessionResponse(command.JwtToken);
 
         }
 

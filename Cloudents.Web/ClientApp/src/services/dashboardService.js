@@ -56,17 +56,19 @@ const Item = {
       this.url = `/profile/${objInit.tutorId}/${this.name}`
    },
    StudyRoom:function(objInit){
-     // this.online = objInit.online;
       this.id = objInit.id;
       this.conversationId = objInit.conversationId;
       this.lastSession = objInit.lastSession;
       this.name = objInit.name;
       this.date = objInit.dateTime;
-      // this.students = objInit.amountOfUsers;
       this.amountStudent = objInit.userNames.length
       this.userNames = objInit.userNames
       this.scheduled = objInit.scheduled;
       this.type = objInit.type;
+      this.price = {
+         price: objInit.price.amount,
+         currency: objInit.price.currency
+      };
       this.showChat = this.type ==='Private';
    },
    BuyPoints: function(objInit){

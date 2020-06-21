@@ -1,23 +1,35 @@
-﻿using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Auth;
-using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage.Queue;
+﻿
+
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using Azure.Storage;
+using Azure.Storage.Blobs;
 
 namespace Cloudents.Infrastructure.Storage
 {
     public class CloudStorageProvider : ICloudStorageProvider, Autofac.IStartable
     {
-        private CloudStorageAccount CloudStorage { get; }
+        //private CloudStorageAccount CloudStorage { get; }
+        private string _connectionString { get; }
 
         public CloudStorageProvider(string connectionString)
         {
-            CloudStorage = CloudStorageAccount.Parse(connectionString);
+            _connectionString = connectionString;
         }
 
-        public CloudBlobClient GetBlobClient(/*IStorageContainer container*/)
+
+       
+
+        //public string AccountKey() => ParseConnectionString(_connectionString)["AccountKey"];
+
+
+        
+        public BlobServiceClient GetBlobClient(/*IStorageContainer container*/)
         {
-            var blobClient = GetCloudBlobClient();
-            return blobClient;
+          
+           return  new BlobServiceClient(_connectionString);
+         //   return blobClient;
             //var att = ExtractContainerData(container);
             // var con = blobClient.GetContainerReference(container.Container.Name.ToLowerInvariant());
 
@@ -29,23 +41,19 @@ namespace Cloudents.Infrastructure.Storage
         //    return container.GetType().GetField(container.ToString()).GetCustomAttribute<StorageAttribute>();
         //}
 
-        private CloudBlobClient GetCloudBlobClient()
-        {
-            var blobClient = CloudStorage.CreateCloudBlobClient();
-            //var att = container.GetType().GetField(container.ToString()).GetCustomAttribute<StorageAttribute>();
-            //var con = blobClient.GetContainerReference(att.Name.ToLowerInvariant());
-            return blobClient;
-        }
+        //private CloudBlobClient GetCloudBlobClient()
+        //{
+        //    var blobClient = CloudStorage.CreateCloudBlobClient();
+            
+        //    //var att = container.GetType().GetField(container.ToString()).GetCustomAttribute<StorageAttribute>();
+        //    //var con = blobClient.GetContainerReference(att.Name.ToLowerInvariant());
+        //    return blobClient;
+        //}
 
-        public CloudQueueClient GetQueueClient()
-        {
-            return CloudStorage.CreateCloudQueueClient();
-        }
-
-        public StorageCredentials GetCredentials()
-        {
-            return CloudStorage.Credentials;
-        }
+        //public StorageCredentials GetCredentials()
+        //{
+        //    return CloudStorage.Credentials;
+        //}
 
         public void Start()
         {

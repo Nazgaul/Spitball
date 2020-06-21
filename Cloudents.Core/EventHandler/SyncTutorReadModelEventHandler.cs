@@ -68,11 +68,6 @@ namespace Cloudents.Core.EventHandler
             return SubmitAsync(eventMessage.Session.StudyRoom.Tutor.Id, token);
         }
 
-        //private Task AddAsync(long userId, CancellationToken token)
-        //{
-        //    return UpdateAsync(userId, _repository.AddAsync, token);
-        //}
-
         private async Task SubmitAsync(long tutorId, CancellationToken token)
         {
 
@@ -85,12 +80,7 @@ namespace Cloudents.Core.EventHandler
             await _repository.AddOrUpdateAsync(tutor, token);
             await _unitOfWork.CommitAsync(token);
         }
-
-        //private Task UpdateAsync(long userId, CancellationToken token)
-        //{
-        //    return SubmitAsync(userId, token);
-        //}
-
+      
         public void Dispose()
         {
             _unitOfWork.Dispose();
@@ -142,7 +132,11 @@ namespace Cloudents.Core.EventHandler
 
         public  Task HandleAsync(UserChangeNameEvent eventMessage, CancellationToken token)
         {
-            return SubmitAsync(eventMessage.UserId, token);
+            if (eventMessage.User.Tutor == null)
+            {
+                return Task.CompletedTask;
+            }
+            return SubmitAsync(eventMessage.User.Id, token);
         }
     }
 }

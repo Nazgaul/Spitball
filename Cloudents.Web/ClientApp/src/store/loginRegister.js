@@ -55,6 +55,19 @@ const actions = {
         _analytics(['Registration', 'Resend Email']);
         return registrationService.emailforgotPasswordResend()
     },
+    changePassword({commit,dispatch},params) {
+        let {id, code, password, confirmPassword} = params;
+        registrationService.updatePassword(password, id, code, confirmPassword)
+            .then(() => {
+                dispatch('updateLoginStatus',true)
+                _analytics(['Forgot Password', 'Updated password']);
+                router.push(state.toUrl);
+            }, (error) => {
+                commit('setErrorMessages',{
+                    password: error.response.data["Password"] ? error.response.data["Password"][0] : error.response.data["ConfirmPassword"][0],
+                });
+            });
+    },
 };
 
 export default {

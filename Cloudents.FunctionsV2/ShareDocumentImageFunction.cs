@@ -22,7 +22,6 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using SixLabors.Primitives;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 
@@ -92,7 +91,7 @@ namespace Cloudents.FunctionsV2
                     logoPointX = context.GetCurrentSize().Width - 24 - logoImage.Width;
                 }
                 // ReSharper disable AccessToDisposedClosure mutation happens right await
-                context.DrawImage(logoImage, new Point(logoPointX, 24), GraphicsOptions.Default);
+                context.DrawImage(logoImage, new Point(logoPointX, 24),new GraphicsOptions());
             });
             if (dbResult.Type == DocumentType.Document)
             {
@@ -110,7 +109,7 @@ namespace Cloudents.FunctionsV2
                 {
                     context.DrawText(dbResult.Name, 30, "#FFFFFF", new Size(860, 40), new Point(170, 66));
                     context.DrawText(dbResult.CourseName, 26, "#ffffff", new Size(860, 40), new Point(170, 107));
-                    context.DrawImage(documentImage, new Point(170, 159), GraphicsOptions.Default);
+                    context.DrawImage(documentImage, new Point(170, 159), new GraphicsOptions());
                 });
             }
             else
@@ -128,8 +127,8 @@ namespace Cloudents.FunctionsV2
                 {
                     
                     // ReSharper disable AccessToDisposedClosure mutation happens right await
-                    context.DrawImage(documentImage, new Point(305, 62), GraphicsOptions.Default);
-                    context.DrawImage(playerImage, new Point(520, 159), GraphicsOptions.Default);
+                    context.DrawImage(documentImage, new Point(305, 62), new GraphicsOptions());
+                    context.DrawImage(playerImage, new Point(520, 159), new GraphicsOptions());
                     // ReSharper restore AccessToDisposedClosure
 
                 });

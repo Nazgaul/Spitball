@@ -60,7 +60,7 @@ namespace Cloudents.Core.DTOs
       //  public decimal? CouponValue { get; set; }
 
         public Money TutorPrice { get; set; }
-        public string Jwt { get; set; }
+        public string? Jwt { get; set; }
 
         public DateTime? BroadcastTime { get; set; }
 
@@ -81,8 +81,8 @@ namespace Cloudents.Core.DTOs
     public class UserStudyRoomDto
     {
         public UserStudyRoomDto(string name, Guid id, DateTime dateTime,
-            string conversationId, DateTime? lastSession, StudyRoomType type, 
-            DateTime? scheduled, IEnumerable<string> userNames)
+            string conversationId, DateTime? lastSession, StudyRoomType type,
+            DateTime? scheduled, IEnumerable<string> userNames, Money money)
         {
             Name = name;
             Id = id;
@@ -92,6 +92,7 @@ namespace Cloudents.Core.DTOs
             Type = type;
             Scheduled = scheduled;
             UserNames = userNames;
+            Price = money;
 
         }
 
@@ -111,6 +112,7 @@ namespace Cloudents.Core.DTOs
         public DateTime? Scheduled { get; set; }
 
         public IEnumerable<string> UserNames { get; set; }
+        public Money Price { get; }
 
     }
 
