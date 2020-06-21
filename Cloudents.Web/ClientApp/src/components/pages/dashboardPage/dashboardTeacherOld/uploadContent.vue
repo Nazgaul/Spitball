@@ -10,14 +10,8 @@
 </template>
 <script>
 
-import * as dialogNames from '../../global/dialogInjection/dialogNames.js'
 export default {
   name: "uploadContent",
-  data() {
-    return {
-      uploadDialog: dialogNames.Upload
-    }
-  },
   methods: {
     openDialog() {
       this.$store.commit('setComponent', 'upload')
@@ -26,7 +20,6 @@ export default {
       //       this.$router.push({name: "addCourse"})
       //       return
       //     }
-      //     // this.$openDialog(this.uploadDialog)
       // })
     }
   }

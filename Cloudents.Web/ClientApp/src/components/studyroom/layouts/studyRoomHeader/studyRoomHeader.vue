@@ -7,14 +7,6 @@
       <v-toolbar-title class="white--text mr-7">
          <span class="liveText">{{$t('studyRoom_live')}}</span>
          </v-toolbar-title>
-      <!-- <v-divider class="ml-3 divider" vertical inset color="white"></v-divider> -->
-
-      <!-- <v-btn-toggle v-if="isRoomTutor" mandatory :value="getIsCurrentMode(currentEditorMode)" :ripple="false" active-class="editorActive"  borderless group class="editors">
-         <v-btn v-for="(navTab, objectKey) in navTabs" :key="objectKey" 
-                :value="objectKey" text @click="actionHandler(objectKey)">
-            <span><v-icon class="mr-2">{{navTab.icon}}</v-icon>{{navTab.text}}</span>
-         </v-btn>
-      </v-btn-toggle> -->
       <template v-if="isRoomTutor" >
          <template v-for="(navTab, objectKey) in navTabs">
             <v-divider :key="`${objectKey}_1`" height="33px" class="divider" vertical inset color="white"></v-divider>
@@ -41,6 +33,9 @@
          </button>
       </template>
       <v-spacer></v-spacer>
+      <div class="net mr-4 mt-3" v-if="$store.getters.getRoomNetworkQuality">
+         <div v-for="(item, index) in 5" :key="index" :class="['bar',{'barFull':$store.getters.getRoomNetworkQuality <= index}]"></div>
+      </div>
       <template v-if="isRoomTutor">
          <v-btn class="mb-2" :ripple="false" text @click="muteAll()">
             <div class="muteAllBtn">
@@ -223,17 +218,9 @@ export default {
             min-width: initial;
          }
 
-         // padding: 0 28px;
-         // width: 130px;
-
-         // display: flex;
-         // flex-wrap: wrap;
-         // justify-content: center;
-         // @screen-md
          &.tutorNavTab-active{
             border-radius: initial;
             color: #4c59ff;
-            // margin-left: 26px;
             background: white;
             border-top-right-radius: 6px;
             border-top-left-radius: 6px;
@@ -272,15 +259,45 @@ export default {
             background-color: #4c59ff;
          }
       }
-      .editors{
-         button{
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 0 !important;
-         }
-         .editorActive{
-            background: white !important;
-            color: #4c59ff !important;
+      .net{
+         @barWidth : 5px;
+         width: @barWidth * 5;
+         position: relative;
+         height: 10px;
+         .bar{
+            position: absolute;
+            bottom: 0;
+            width: @barWidth;
+            &:nth-child(1){
+               background: white;
+               height: 10px;
+               left: @barWidth * 0 + 3px;
+            }
+            &:nth-child(2){
+               background: white;
+               height: 15px;
+               left: @barWidth * 1 + 6px
+            }
+            &:nth-child(3){
+               background: white;
+               height: 20px;
+               left: @barWidth * 2 + 9px
+            }
+            &:nth-child(4){
+               background: white;
+               height: 25px;
+               left: @barWidth * 3 + 12px
+            }
+
+            &:nth-child(5){
+               background: white;
+               height: 30px;
+               left: @barWidth * 4 + 15px
+            } 
+            &.barFull{
+               background: rgb(108 117 253);
+               z-index: 2;
+            }
          }
       }
             

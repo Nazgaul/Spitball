@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.DTOs.Documents;
-using Cloudents.Core.DTOs.Feed;
+﻿using Cloudents.Core.DTOs.Feed;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -29,16 +28,13 @@ namespace Cloudents.Web.Api
     public class FeedController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
-        private readonly IUrlBuilder _urlBuilder;
         private readonly IFeedService _feedService;
 
 
         public FeedController(UserManager<User> userManager,
-              IUrlBuilder urlBuilder,
              IFeedService feedService)
         {
             _userManager = userManager;
-            _urlBuilder = urlBuilder;
             _feedService = feedService;
         }
 

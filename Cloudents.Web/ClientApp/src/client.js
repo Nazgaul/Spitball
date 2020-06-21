@@ -1,5 +1,5 @@
 ﻿import "../publicPath";
-import { GetDictionary, GetVersion } from './services/language/languageService'
+import {  GetVersion } from './services/language/languageService'
 import analyticsService from './services/analytics.service'
 // get dictionary before we load the website
 //TODO we can improve that
@@ -35,7 +35,6 @@ function errorHandling(err) {
     body.appendChild(el);
 }
 
-let dicPromise = GetDictionary();
 let mainComponenet = new Promise((resolve) => {
     import("./main").then((component) => {
         //component.router.onReady(() => {
@@ -57,9 +56,9 @@ let mainComponenet = new Promise((resolve) => {
 
 
 
-Promise.all([dicPromise, mainComponenet]).then((val) => {
+Promise.all([ mainComponenet]).then((val) => {
     try {
-        let app = val[1];
+        let app = val[0];
         // component.router.onReady(() => {
         //     const matchedComponents = component.router.getMatchedComponents();
         //     // no matched routes, reject with 404

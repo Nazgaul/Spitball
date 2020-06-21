@@ -1,7 +1,9 @@
 ﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
@@ -58,13 +60,13 @@ namespace Cloudents.Core.DTOs
       //  public decimal? CouponValue { get; set; }
 
         public Money TutorPrice { get; set; }
-        public string Jwt { get; set; }
+        public string? Jwt { get; set; }
 
         public DateTime? BroadcastTime { get; set; }
 
         public string Name { get; set; }
 
-
+        public StudyRoomTopologyType TopologyType { get; set; }
         public StudyRoomType Type { get; set; }
     };
 
@@ -78,6 +80,26 @@ namespace Cloudents.Core.DTOs
 
     public class UserStudyRoomDto
     {
+        public UserStudyRoomDto(string name, Guid id, DateTime dateTime,
+            string conversationId, DateTime? lastSession, StudyRoomType type,
+            DateTime? scheduled, IEnumerable<string> userNames, Money money)
+        {
+            Name = name;
+            Id = id;
+            DateTime = dateTime;
+            ConversationId = conversationId;
+            LastSession = lastSession;
+            Type = type;
+            Scheduled = scheduled;
+            UserNames = userNames;
+            Price = money;
+
+        }
+
+        public UserStudyRoomDto()
+        {
+        }
+
         public string Name { get; set; }
         public Guid Id { get; set; }
         public DateTime DateTime { get; set; }
@@ -87,8 +109,10 @@ namespace Cloudents.Core.DTOs
 
         public StudyRoomType Type { get; set; }
 
-        public int AmountOfUsers { get; set; }
         public DateTime? Scheduled { get; set; }
+
+        public IEnumerable<string> UserNames { get; set; }
+        public Money Price { get; }
 
     }
 
@@ -103,5 +127,7 @@ namespace Cloudents.Core.DTOs
         public bool Enrolled { get; set; }
 
         public string? Description { get; set; }
+
+        public bool IsFull { get; set; }
     }
 }

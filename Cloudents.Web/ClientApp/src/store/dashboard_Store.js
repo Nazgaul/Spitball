@@ -82,7 +82,7 @@ const actions = {
       });
    },
    updateStudyRoomItems({commit}, type){
-      dashboardService.getStudyRoomItems(type).then(items=>{
+      return dashboardService.getStudyRoomItems(type).then(items=>{
          commit('setStudyRoomItems', items);
       });
    },

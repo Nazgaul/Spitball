@@ -30,6 +30,7 @@ const getters = {
     getAccountId: state => state.user?.id,
     getAccountName: state => state.user?.name,
     getAccountImage: state => state.user?.image,
+    getIsAccountChat: state => state.user?.chatUnread !== null && state.user?.chatUnread !== undefined,
 };
 
 const mutations = {

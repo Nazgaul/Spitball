@@ -102,7 +102,7 @@ namespace Cloudents.Core.Entities
             Tutor = new Tutor(this);
         }
 
-     
+
 
 
         public virtual void ApplyCoupon(Coupon coupon, Tutor tutor)
@@ -176,22 +176,6 @@ namespace Cloudents.Core.Entities
         }
 
 
-
-        //public virtual void BecomeTutor(string bio, decimal? price, string description, string firstName, string lastName)
-        //{
-
-        //    Tutor = new Tutor(bio, this, price);
-        //    Description = description;
-        //    //SetUserType(UserType.Teacher);
-        //    ChangeName(firstName, lastName);
-        //    foreach (var userCourse in UserCourses)
-        //    {
-        //        userCourse.CanTeach();
-        //    }
-        //}
-
-
-
         [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]
         private readonly ICollection<StudyRoomUser> _studyRooms = new List<StudyRoomUser>();
 
@@ -255,6 +239,7 @@ namespace Cloudents.Core.Entities
             {
                 Name = $"{Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0]}";
             }
+            AddEvent(new UserChangeNameEvent(this));
         }
 
         public virtual void ChangeEmail(string email)
@@ -295,9 +280,9 @@ namespace Cloudents.Core.Entities
             Transactions.UpdateBalance(balance);
         }
 
-        public virtual void UpdateUserImage(string image, string imageName)
+        public virtual void UpdateUserImage(string imageName)
         {
-            Image = image;
+            //Image = image;
             ImageName = imageName;
             AddEvent(new UpdateImageEvent(Id));
         }

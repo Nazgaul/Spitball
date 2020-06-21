@@ -49,6 +49,8 @@ namespace Cloudents.Query.Users
                     }).ToFutureValue();
                 
              
+                var unreadMessages = _session.Query<ChatUser>().Where(w => w.User.Id == query.Id)
+                    .ToFutureValue(f => f.Sum(s => (int?)s.Unread));
 
                 //var haveDocsFuture = _session.Query<Document>()
                 //    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
@@ -126,6 +128,8 @@ namespace Cloudents.Query.Users
                 }
                 result.IsSold = (await isSoldDocumentFuture.GetEnumerableAsync(token)).Any()
                                 || (await isSoldSessionFuture.GetEnumerableAsync(token)).Any();
+
+                result.ChatUnread = unreadMessages.Value;
 
                 return result;
             }

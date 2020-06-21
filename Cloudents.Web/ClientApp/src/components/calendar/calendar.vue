@@ -712,10 +712,7 @@ export default {
       border: 2px solid #fff;
       font-size: 16px;
       font-weight: bold;
-      font-style: normal;
-      font-stretch: normal;
-      line-height: normal;
-      letter-spacing: normal;
+
       text-align: center;
       color: #dddddd;
       @media (max-width: @screen-xs) {
@@ -733,10 +730,7 @@ export default {
       border: 2px solid #fff;
       font-size: 16px;
       font-weight: bold;
-      font-style: normal;
-      font-stretch: normal;
-      line-height: normal;
-      letter-spacing: normal;
+
       text-align: center;
       color: #5158af;
       @media (max-width: @screen-xs) {
@@ -756,10 +750,7 @@ export default {
       border: 2px solid #fff;
       font-size: 16px;
       font-weight: bold;
-      font-style: normal;
-      font-stretch: normal;
-      line-height: normal;
-      letter-spacing: normal;
+
       text-align: center;
       color: #dddddd;
       @media (max-width: @screen-xs) {

@@ -76,10 +76,7 @@ namespace Cloudents.Query.Users
 
                 var newSessionFuture = _session.Query<StudyRoomPayment>()
                     .Fetch(f=>f.StudyRoomSessionUser)
-                    //.Fetch(f=>f.StudyRoomSession)
-                    //.ThenFetch(f=>f.StudyRoom)
                     .Where(w=>w.User.Id == query.Id) // && w.StudyRoomSession.Ended != null)
-                   // .Where(w=>w. > StudyRoomSession.BillableStudyRoomSession)
                     .Select(s => new PurchasedSessionDto()
                     {
                         Date = s.Created,
@@ -109,7 +106,7 @@ namespace Cloudents.Query.Users
                 var documentResult = await documentFuture.GetEnumerableAsync(token);
                 var sessionResult = await sessionFuture.GetEnumerableAsync(token);
                 var buyPointsResult = await buyPointsFuture.GetEnumerableAsync(token);
-                var newSession = newSessionFuture.GetEnumerable();
+                var newSession = await newSessionFuture.GetEnumerableAsync(token);
                 return documentResult.Union(sessionResult).Union(newSession).Union(buyPointsResult).OrderByDescending(o => o.Date);
             }
         }
