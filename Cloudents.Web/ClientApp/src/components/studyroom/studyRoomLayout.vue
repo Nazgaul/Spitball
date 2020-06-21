@@ -8,7 +8,6 @@
     <!-- <template v-else> -->
       <studyRoomDrawer/>
       <studyRoomHeader/>
-      <studyRoomDrawer/>
       <v-content>
         <studyRoomWrapper style="height:100%"/>
       </v-content>
