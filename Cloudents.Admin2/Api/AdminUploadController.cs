@@ -86,7 +86,7 @@ namespace Cloudents.Admin2.Api
             }
         }
 
-        
+
         private Task<UploadStartResponse> Upload(UploadRequestStart model, CancellationToken token)
         {
 
@@ -135,9 +135,9 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Uri>> GetBlobsAsync(CancellationToken token)
+        public IAsyncEnumerable<Uri> GetBlobsAsync(CancellationToken token)
         {
-            return await _blobProvider.FilesInContainerAsync(token);
+            return _blobProvider.FilesInContainerAsync(token);
         }
 
     }
