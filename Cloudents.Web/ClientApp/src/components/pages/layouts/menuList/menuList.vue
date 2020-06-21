@@ -153,14 +153,11 @@ export default {
     }
   },
   methods: {           
-    ...mapActions(['updateReferralDialog', 'logout']),
+    ...mapActions(['updateReferralDialog']),
 
-    //TODO: Account new store clean @idan
-    // logout change to mutations, uncomment when change
-    // to new account store and clean logout from mapActions
-    // logout() {
-    //   this.$store.commit('logout')
-    // },
+    logout() {
+      this.$store.commit('logout')
+    },
     changeLanguage(id) {
       this.$store.dispatch('changeLanguage', id)
     },

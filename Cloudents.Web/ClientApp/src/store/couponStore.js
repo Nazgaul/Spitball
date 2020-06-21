@@ -1,5 +1,8 @@
-import accountService from '../services/accountService.js';
-import couponService from '../services/couponService.js'
+import axios from 'axios'
+
+const couponInstance = axios.create({
+    baseURL: '/api/coupon'
+})
 
 const state = {
     couponError: false,
@@ -20,8 +23,11 @@ const mutations = {
 };
 
 const actions = {
-    updateCoupon({commit, getters}, couponObj){
-        return accountService.applyCoupon(couponObj).then(({data}) => {
+    createCoupon(context, params){
+        return couponInstance.post('', params)
+    },
+    updateCoupon({commit, getters}, params){
+        return couponInstance.post('/apply', params).then(({data}) => {
             let tutorUser = getters.getRoomTutor;
             tutorUser.tutorPrice.amount = data.price;
             
@@ -34,14 +40,18 @@ const actions = {
             return Promise.reject()
         });
     },
-    updateCouponDialog({commit}, val) {
-        commit('setCouponDialog', val);
-    },
-    createCoupon(context,paramObj){
-        return couponService.createCoupon(paramObj)
-    },
     getUserCoupons() {
-        return accountService.getCoupons();
+        return couponInstance.get().then(({data}) => {
+            function Coupon(objInit) {
+                this.code = objInit.code;
+                this.couponType = objInit.couponType;
+                this.value = objInit.value;
+                this.createTime = objInit.createTime;
+                this.expiration = objInit.expiration;
+                this.amountOfUsers = objInit.amountOfUsers;
+            }
+            return data.map(coupon => new Coupon(coupon))
+        })
     }
 };
 
