@@ -15,6 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
@@ -25,6 +26,7 @@ using Cloudents.Core.Event;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure;
 using Cloudents.Query;
+using Cloudents.Query.Tutor;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using NHibernate.Linq;
 
@@ -149,54 +151,55 @@ namespace ConsoleApp
         private static async Task Dbi()
         {
             var session = Container.Resolve<ISession>();
-            var result = session.Query<StudyRoom>()
-                .Where(w => w.OldPrice == null).Select(s => s.Id).ToList();
 
-            foreach (var guid in result)
+
+            List<long> users;
+            do
             {
-                using var uow = Container.Resolve<IUnitOfWork>();
-                var studyRoom = session.Get<StudyRoom>(guid);
-                var x = studyRoom.Sessions.FirstOrDefault();
-                if (x != null)
+                users =  await session.Query<User>()
+                    .Where(w => w.FirstName == null && w.LastName == null)
+                    .Take(100).Select(s=>s.Id).ToListAsync();
+
+                foreach (var userId in users)
                 {
-                    //TODO
-                    //if (x.Price.HasValue)
-                    //{
-                    //    studyRoom.SetPrice(x.Price.Value);
-                    //    session.Flush();
-                    //    await uow.CommitAsync();
-                    //    continue;
-                    //}
+                    using var uow = Container.Resolve<IUnitOfWork>();
+                    var user = await session.GetAsync<User>(userId);
+                    var name = user.Name;
+                
+                    var value = name.Split(" ");
+                    if (value.Length == 2)
+                    {
+                        value[1] = Regex.Replace(value[1], @"[\d-]", string.Empty).Replace(".",string.Empty);
+                        user.ChangeName(value[0], value[1]);
+                        await uow.CommitAsync();
+                        continue;
 
+                    }
+
+                    if (value.Length == 1)
+                    {
+                        if (value.Contains("."))
+                        {
+                            value = value[0].Split(".");
+                            if (int.TryParse(value[1], out var _))
+                            {
+
+                                user.ChangeName(value[0], null);
+                                await uow.CommitAsync();
+                                continue;
+
+                            }
+                        }
+                        user.ChangeName(value[0], null);
+                        await uow.CommitAsync();
+                        continue;
+                    }
+
+                    Console.WriteLine("no");
                 }
+            } while (users.Count > 0);
 
-                var price = session
-                    .CreateSQLQuery(
-                        "Select price from sb.TutorHistory where BeginDate < :xxx and :xxx < EndDate and id =  :Id")
-                    .SetInt64("Id", studyRoom.Tutor.Id)
-                    .SetDateTime("xxx", studyRoom.DateTime.CreationTime)
-                    .List<decimal?>().FirstOrDefault();
-                if (price == null)
-                {
-                    price = session
-                         .CreateSQLQuery(
-                             "Select price from sb.Tutor where id =  :Id")
-                         .SetInt64("Id", studyRoom.Tutor.Id)
-                         .List<decimal>().First();
-                }
-                studyRoom.SetPrice(price.Value);
-                await uow.CommitAsync();
-            }
-            var result2 = session.Query<StudyRoom>()
-                .Where(w => w.Price == null).Select(s => s.Id).ToList();
-            foreach (var guid in result2)
-            {
-                using var uow = Container.Resolve<IUnitOfWork>();
-                var studyRoom = session.Get<StudyRoom>(guid);
-                studyRoom.SetPrice(studyRoom.OldPrice);
-                await uow.CommitAsync();
-            }
-
+            await DeleteOldStuff.ResyncTutorRead();
         }
 
         private static async Task UpdateTwilioParticipants()

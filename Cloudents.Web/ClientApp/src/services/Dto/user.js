@@ -12,7 +12,6 @@ export const User = {
     },
     TutorDefault: function(objInit){
         this.price = objInit.price || 0;
-        // this.currency = objInit.currency;
         this.bio = objInit.bio || '';
         this.lessons = objInit.lessons || 0;
         this.discountPrice = objInit.discountPrice;
@@ -23,11 +22,9 @@ export const User = {
     Tutor: function (objInit) {
         return{
                 price : objInit.price || 0,
-                // currency: objInit.currency,
                 bio: objInit.bio || '',
                 lessons: objInit.lessons || 0,
                 discountPrice: objInit.discountPrice,
-                // subjects: objInit.subjects.toString().replace(/,/g, ", "),
                 pendingSessionsPayments: objInit.pendingSessionsPayments || null,
                 description: objInit.description || '',
                 contentCount: objInit.contentCount,
@@ -72,6 +69,7 @@ export const User = {
             isTutor: _createIsTutorState(objInit.isTutor),
             isSold: objInit.isSold,
             pendingSessionsPayments: objInit.pendingSessionsPayments,
+            chatUnread: objInit.chatUnread,
         }        
     },
     Stats: function(objInit){

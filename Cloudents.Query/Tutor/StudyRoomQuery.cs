@@ -27,9 +27,9 @@ namespace Cloudents.Query.Tutor
         {
             private readonly IStatelessSession _statelessSession;
 
-            public StudyRoomQueryHandler(QuerySession repository)
+            public StudyRoomQueryHandler(IStatelessSession repository)
             {
-                _statelessSession = repository.StatelessSession;
+                _statelessSession = repository;
             }
 
             public async Task<StudyRoomDto?> GetAsync(StudyRoomQuery query, CancellationToken token)
@@ -53,6 +53,7 @@ namespace Cloudents.Query.Tutor
                          TutorId = s.Tutor.Id,
                          BroadcastTime = ((BroadCastStudyRoom)s).BroadcastTime,
                          Type = s is BroadCastStudyRoom ? StudyRoomType.Broadcast : StudyRoomType.Private,
+                         TopologyType = s.TopologyType,
                          Name = s.Name,
                          TutorPrice = s.Price,
                          TutorName = s.Tutor.User.Name,

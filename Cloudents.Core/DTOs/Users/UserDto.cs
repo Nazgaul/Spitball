@@ -35,7 +35,7 @@ namespace Cloudents.Core.DTOs.Users
         public string? LastName { get; set; }
 
         public string? Image { get; set; }
-
+        public int? ChatUnread { get; set; }
         public ItemState? IsTutor
         {
             get
@@ -67,7 +67,6 @@ namespace Cloudents.Core.DTOs.Users
 
         public bool IsSold { get; set; }
        
-        public int PendingSessionsPayments { get; set; }
 
 
         public string CurrencySymbol => (Country ?? Country.UnitedStates).RegionInfo.ISOCurrencySymbol;

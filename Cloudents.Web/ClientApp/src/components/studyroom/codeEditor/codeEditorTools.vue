@@ -10,7 +10,7 @@
                         <v-icon>{{ show ? 'sbf-arrow-up' : 'sbf-arrow-down' }}</v-icon>
                     </v-btn>
                <!-- </template> -->
-                <!-- <span v-language:inner="'tutor_tooltip_code_langauge'"/> -->
+                <!-- <span v-t="'tutor_tooltip_code_langauge'"/> -->
             <!-- </v-tooltip>
             <v-tooltip bottom> -->
                 <!-- <template v-slot:activator="{on}"> -->

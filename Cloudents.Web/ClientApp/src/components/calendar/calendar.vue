@@ -43,9 +43,7 @@
               v-t="'calendar_add_event_payment'"
             />
             <span
-              v-if="!isEventSent && !isNeedPayment"
-              v-html="$Ph('calendar_add_event_title',[tutorName])"
-            />
+              v-if="!isEventSent && !isNeedPayment">{{$t('calendar_add_event_title',[tutorName])}}</span>
             <span
               v-if="isEventSent && !isNeedPayment"
               v-t="'calendar_add_event_thank'"
@@ -75,9 +73,7 @@
               rounded
               :class="[!isEventSent? 'cncl-btn': 'donebtn']"
             >
-              <span
-                v-t="!isEventSent? 'calendar_add_event_cancel':'calendar_add_event_ok'"
-              />
+              <span>{{addEventText}}</span>
             </v-btn>
 
             <v-btn
@@ -89,9 +85,7 @@
               color="#4452fc"
               class="calbtn"
             >
-              <span
-                v-t="isNeedPayment? 'calendar_add_event_ok' :'calendar_add_event_btn'"
-              />
+              <span>{{needPaymentText}}</span>
             </v-btn>
           </div>
         </v-card>
@@ -171,6 +165,18 @@ export default {
       "accountUser",
       "getNeedPayment"
     ]),
+    addEventText() {
+      if(!this.isEventSent){
+        return this.$t('calendar_add_event_cancel')
+      }
+      return this.$t('calendar_add_event_ok')
+    },
+    needPaymentText() {
+      if(this.isNeedPayment){
+        return this.$t('calendar_add_event_ok')
+      }
+      return this.$t('calendar_add_event_btn')
+    },
     tutorName() {
       return this.getProfile.user.firstName.replace(/(?:^|\s)\S/g, function(a) {
         return a.toUpperCase();
@@ -706,10 +712,7 @@ export default {
       border: 2px solid #fff;
       font-size: 16px;
       font-weight: bold;
-      font-style: normal;
-      font-stretch: normal;
-      line-height: normal;
-      letter-spacing: normal;
+
       text-align: center;
       color: #dddddd;
       @media (max-width: @screen-xs) {
@@ -727,10 +730,7 @@ export default {
       border: 2px solid #fff;
       font-size: 16px;
       font-weight: bold;
-      font-style: normal;
-      font-stretch: normal;
-      line-height: normal;
-      letter-spacing: normal;
+
       text-align: center;
       color: #5158af;
       @media (max-width: @screen-xs) {
@@ -750,10 +750,7 @@ export default {
       border: 2px solid #fff;
       font-size: 16px;
       font-weight: bold;
-      font-style: normal;
-      font-stretch: normal;
-      line-height: normal;
-      letter-spacing: normal;
+
       text-align: center;
       color: #dddddd;
       @media (max-width: @screen-xs) {

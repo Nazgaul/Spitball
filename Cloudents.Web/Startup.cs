@@ -304,6 +304,10 @@ namespace Cloudents.Web
             services.Configure<PayMeCredentials>(Configuration.GetSection("PayMe"));
             services.AddSingleton<WebPackChunkName>();
 
+            services.AddAuthorization(o =>
+            {
+                 o.AddPolicy("Tutor",x=>x.RequireClaim(AppClaimsPrincipalFactory.TutorClaim,bool.TrueString));
+            });
 
 
         }

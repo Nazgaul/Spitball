@@ -69,7 +69,7 @@ namespace Cloudents.Core.Entities
 
         private readonly IList<Answer> _answers = new List<Answer>();
 
-        public virtual IReadOnlyList<Answer> Answers => _answers.ToList();
+        public virtual IEnumerable<Answer> Answers => _answers.ToList();
 
         public virtual Answer AddAnswer(string text, User user)
         {

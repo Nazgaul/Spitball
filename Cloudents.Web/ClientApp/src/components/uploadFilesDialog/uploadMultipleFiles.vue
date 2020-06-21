@@ -134,12 +134,17 @@ export default {
                             showToaster: true
                         });
                         this.closeUpload()
-                    },
-                        () => {
-                            fileObj.error = true;
-                            self.loading = false;
-                            fileObj.errorText = self.$t("upload_multiple_error_upload_something_wrong");
-                        }).finally(()=>{
+                    }).catch(error => {
+                        fileObj.errorText = self.$t("upload_multiple_error_upload_something_wrong");
+
+                        if(error.response?.data?.Name) {
+                            fileObj.errorText = error.response.data.Name[0];
+                        }
+
+                        fileObj.error = true;
+                        self.loading = false;
+                        })
+                        .finally(()=>{
                             this.lock = false;
                         });
                 })

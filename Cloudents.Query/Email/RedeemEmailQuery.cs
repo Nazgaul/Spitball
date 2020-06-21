@@ -23,9 +23,9 @@ namespace Cloudents.Query.Email
         {
             private readonly IStatelessSession _session;
 
-            public RedeemEmailQueryHandler(QuerySession session)
+            public RedeemEmailQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             public async Task<RedeemEmailDto> GetAsync(RedeemEmailQuery query, CancellationToken token)

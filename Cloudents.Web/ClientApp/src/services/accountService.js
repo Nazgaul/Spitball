@@ -1,3 +1,5 @@
+// TODO: REMOVE when new account store ready
+
 import axios from 'axios'
 import { User } from './Dto/user.js';
 import { Coupon } from './Dto/coupon.js';
@@ -33,6 +35,7 @@ export default {
     async uploadCover(params) {
         return await accountInstance.post('/cover', params)
     },
+    // move to coupon store
     async applyCoupon(params) {
         return await couponInstance.post('/apply', params)
     },
@@ -40,10 +43,12 @@ export default {
         let { data } = await accountInstance.get('/stats', { params: { days } })
         return data.map(stats => new User.Stats(stats))
     },
+    // move to coupon store
     async getCoupons() {
         let { data } = await couponInstance.get();
         return data.map(coupon => new Coupon.Default(coupon))
     },
+    // TODO: remove api was used in answerStudent.vue
     async getQuestions() {
         let { data } = await accountInstance.get('/questions')
         return data.map(question => searchService.createQuestionItem(question))

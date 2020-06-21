@@ -18,9 +18,9 @@ namespace Cloudents.Query.Tutor
         internal sealed class GetPhoneNumberQueryHandler : IQueryHandler<GetPhoneNumberQuery, string>
         {
             private readonly IStatelessSession _statelessSession;
-            public GetPhoneNumberQueryHandler(QuerySession session)
+            public GetPhoneNumberQueryHandler(IStatelessSession session)
             {
-                _statelessSession = session.StatelessSession;
+                _statelessSession = session;
             }
 
             public async Task<string> GetAsync(GetPhoneNumberQuery query, CancellationToken token)

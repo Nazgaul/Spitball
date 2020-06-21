@@ -58,7 +58,8 @@ namespace Cloudents.Infrastructure.Cache
                         .WithExpiration(ExpirationMode.Absolute, TimeSpan.FromSeconds(5))
                         .And
                         .WithRedisConfiguration("redis", _multiplexer)
-                        .WithRedisCacheHandle("redis"));
+                        .WithRedisBackplane("redis")
+                        .WithRedisCacheHandle("redis",true));
                 _failedInit = false;
             }
             catch (InvalidOperationException e)

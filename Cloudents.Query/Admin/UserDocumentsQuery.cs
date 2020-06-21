@@ -11,25 +11,22 @@ namespace Cloudents.Query.Admin
 {
     public class UserDocumentsQuery : IQueryAdmin2<IEnumerable<UserDocumentsDto>>
     {
-        public UserDocumentsQuery(long userId, int page, Country? country)
+        public UserDocumentsQuery(long userId, Country? country)
         {
             UserId = userId;
-            Page = page;
             Country = country;
         }
         private long UserId { get; }
-        private int Page { get; }
         public Country? Country { get; }
         internal sealed class UserDocumentsQueryHandler : IQueryHandler<UserDocumentsQuery, IEnumerable<UserDocumentsDto>>
         {
             private readonly IStatelessSession _session;
 
 
-            public UserDocumentsQueryHandler(QuerySession session)
+            public UserDocumentsQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
-            private const int PageSize = 25;
 
             public async Task<IEnumerable<UserDocumentsDto>> GetAsync(UserDocumentsQuery query, CancellationToken token)
             {
@@ -52,8 +49,6 @@ namespace Cloudents.Query.Admin
                     Created = s.TimeStamp.CreationTime,
 
                 }).OrderBy(o => o.Id)
-                     .Take(PageSize)
-                     .Skip(PageSize * query.Page)
                      .ToListAsync(token);
             }
         }

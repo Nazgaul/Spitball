@@ -27,9 +27,9 @@ namespace Cloudents.Query.Documents
         {
             private readonly IStatelessSession _session;
 
-            public DocumentsQueryHandler(QuerySession session)
+            public DocumentsQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             public async Task<IEnumerable<DocumentFeedDto>> GetAsync(IdsDocumentsQuery query, CancellationToken token)

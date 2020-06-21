@@ -26,9 +26,9 @@ namespace Cloudents.Query.Documents
         {
             private readonly IStatelessSession _statelessSession;
 
-            public ShareDocumentImageQueryHandler(QuerySession statelessSession)
+            public ShareDocumentImageQueryHandler(IStatelessSession statelessSession)
             {
-                _statelessSession = statelessSession.StatelessSession;
+                _statelessSession = statelessSession;
             }
 
             [Cache(TimeConst.Minute * 10, "share-document", false)]

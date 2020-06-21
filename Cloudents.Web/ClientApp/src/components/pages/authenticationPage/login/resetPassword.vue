@@ -15,7 +15,7 @@
             :errorMessage="errorMessages.confirmPassword"
             v-model="confirmPassword"
             class="mt-4 widther"
-            placeholder="loginRegister_resetpass_input_confirm"  
+            :placeholder="$t('loginRegister_resetpass_input_confirm')"  
             :bottomError="true" 
             type="password" name="pass"
             :autofocus="false"/>

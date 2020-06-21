@@ -4,7 +4,7 @@
             <div class="leftSide mr-sm-6 mb-2 mb-sm-0 d-flex justify-center">
                 <div class="pUb_dot" sel="online_icon" v-if="isOnline"></div>
                 <uploadImage sel="photo" class="pUb_edit_img" v-if="isCurrentProfileUser" />
-                <userAvatarRect sel="avatar_image"
+                <!-- <userAvatarRect sel="avatar_image"
                     class="pUb_dS_img"
                     :userName="currentProfileUser.name"
                     :userImageUrl="currentProfileUser.image"
@@ -13,6 +13,18 @@
                     :userId="currentProfileUser.id"
                     :fontSize="36"
                     :borderRadius="8"
+                /> -->
+                <userAvatarNew
+                    sel="avatar_image"
+                    class="pUb_dS_img"
+                    :userName="currentProfileUser.name"
+                    :userImageUrl="currentProfileUser.image"
+                    :width="isMobile? 130: 190"
+                    :height="isMobile? 161 : 235"
+                    :userId="currentProfileUser.id"
+                    :fontSize="36"
+                    :borderRadius="8"
+                    :tile="true"
                 />
             </div>
             <div class="rightSide flex-grow-1">
@@ -70,7 +82,9 @@
                             <div>{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}</div>
                             <div class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</div>
                         </div>
-                        <span sel="bio_more" @click="isOpen = !isOpen" class="readMore" v-t="isOpen ? 'profile_read_less' : 'profile_read_more'"></span>
+                        <span sel="bio_more" @click="isOpen = !isOpen" class="readMore">
+                            {{readMoreText}}
+                        </span>
                     </div>
 
                     <!-- Courses Student -->
@@ -113,7 +127,9 @@
                             rounded
                         >
                             <calendarSVG width="20" class="profileUserSticky_btn_icon"/>
-                            <div class="profileUserSticky_btn_txt" v-t="calendarBtnResource"/>
+                            <div class="profileUserSticky_btn_txt">
+                                {{calendarBtnResource}}
+                            </div>
                         </v-btn>
                     </div>
                 </div>
@@ -132,7 +148,7 @@
                 <onlineLessonSVG class="icon" width="17" />
                 <div class="ml-3">
                     <div class="number text-left">{{currentProfileTutor.lessons || 0}}</div>
-                    <div class="type" v-t="''">{{$tc('profile_session', currentProfileTutor.lessons)}}</div>
+                    <div class="type" >{{$tc('profile_session', currentProfileTutor.lessons)}}</div>
                 </div>
             </v-col>
             <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-3 pa-sm-0">
@@ -166,7 +182,7 @@ import calendarSVG from '../profileUserSticky/images/calendarIcon.svg';
 
 import * as routeNames from '../../../../routes/routeNames'
 
-import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
+// import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
 import uploadImage from '../../profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue';
 import followBtn from '../followBtn/followBtn.vue';
 
@@ -177,7 +193,7 @@ export default {
         studentsSVG,
         onlineLessonSVG,
         followersSvg,
-        userAvatarRect,
+        // userAvatarRect,
         uploadImage,
         editSVG,
         followBtn,
@@ -195,6 +211,9 @@ export default {
     },
     computed: {
         ...mapGetters(['getProfile','accountUser','getUserStatus', 'getUserLoggedInStatus']),
+        readMoreText() {
+            return this.isOpen ? this.$t('profile_read_less') : this.$t('profile_read_more')
+        },
         isLogged() {
             return this.getUserLoggedInStatus
         },
@@ -249,7 +268,7 @@ export default {
         //     return 0;
         // },
         calendarBtnResource() {
-            return this.isCurrentProfileUser ? 'profile_my_book_session' : 'profile_book_session'
+            return this.isCurrentProfileUser ? this.$t('profile_my_book_session') : this.$t('profile_book_session')
         }
     },
     methods: {

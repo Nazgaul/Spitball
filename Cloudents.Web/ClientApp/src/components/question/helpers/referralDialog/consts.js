@@ -1,4 +1,3 @@
-// import { LanguageService } from "../../../../services/language/languageService";
 import { i18n } from '../../../../plugins/t-i18n'
 function getReferallMessages(type, url) {
     let types = {

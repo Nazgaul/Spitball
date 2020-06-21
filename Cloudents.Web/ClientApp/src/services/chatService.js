@@ -90,10 +90,6 @@ function createMessage(objInit, id, fromSignalR){
     }
 }
 
-const getAllConversations = () => {
-    return connectivityModule.http.get(`Chat`);
-};
-
 const getChatById = (id) => {
     if(!id) return Promise.reject();
     return connectivityModule.http.get(`Chat/conversation/${id}`);
@@ -119,7 +115,6 @@ const uploadCapturedImage = (formData)=>{
 };
 
 export default {
-    getAllConversations,
     getChatById,
     createConversation,
     getMessageById,

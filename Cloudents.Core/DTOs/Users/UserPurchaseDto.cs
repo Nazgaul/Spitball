@@ -34,7 +34,7 @@ namespace Cloudents.Core.DTOs.Users
 
         public bool ShouldSerializeDuration() => false;
 
-        public string TutorImage { get; set; }
+        public string? TutorImage { get; set; }
         public long TutorId { get; set; }
         public override ContentType Type => ContentType.TutoringSession;
         public double Price => _price ?? (double) _oldPrice;

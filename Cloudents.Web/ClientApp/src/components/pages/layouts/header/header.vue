@@ -18,16 +18,16 @@
                 </div>
                 <router-link v-show="!isMobile && shouldShowFindTutor" :to="{name:'tutorLandingPage'}" class="gH_i_r_findTutor" >
                     <findSVG/>
-                    <span v-language:inner="'header_find_tutors'"/>
+                    <span v-t="'header_find_tutors'"/>
                 </router-link>
                 <template v-if="!isMobile" >
                     <v-tooltip bottom>
                         <template v-slot:activator="{on}">
                             <helpIcon @click="startIntercom" v-on="on" v-if="!$vuetify.breakpoint.smAndDown" class="gH_i_r_intercom" :class="{'gH_i_r_intercom--margin': !loggedIn}" />
                         </template>
-                        <span v-language:inner="'header_tooltip_help'"/>
+                        <span v-t="'header_tooltip_help'"/>
                     </v-tooltip>
-                    <template v-if="Object.keys($store.getters.getConversations).length">
+                    <template v-if="showChat">
                         <v-tooltip bottom v-if="loggedIn">
                             <template v-slot:activator="{on}">
                                 <div v-on="on" class="gH_i_r_chat">
@@ -35,13 +35,13 @@
                                     <span @click="openChatWindow" class="unread_circle_nav" v-show="totalUnread > 0" :class="[totalUnread > 9 ? 'longer_nav' :'']">{{totalUnread}}</span>
                                 </div>
                             </template>
-                            <span v-language:inner="'header_tooltip_chat'"/>
+                            <span v-t="'header_tooltip_chat'"/>
                         </v-tooltip>
                     </template>
                 </template>
                 <template v-if="!$vuetify.breakpoint.smAndDown && !loggedIn">
-                    <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$store.commit('setComponent', 'login')" v-language:inner="'tutorListLanding_topnav_btn_login'"/>
-                    <button class="gH_i_r_btns gH_i_r_btn_up mr-4" @click="$store.commit('setComponent', 'registerType')" v-language:inner="'tutorListLanding_topnav_btn_signup'"/>
+                    <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$store.commit('setComponent', 'login')" v-t="'tutorListLanding_topnav_btn_login'"/>
+                    <button class="gH_i_r_btns gH_i_r_btn_up mr-4" @click="$store.commit('setComponent', 'registerType')" v-t="'tutorListLanding_topnav_btn_signup'"/>
                     <a class="gH_i_lang" @click="changeLanguage()" v-if="showChangeLanguage" sel="language" v-html="currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''"/>
                 </template>
                 <v-menu fixed close-on-content-click bottom offset-y :content-class="getBannerParams? 'fixed-content-banner':'fixed-content'">
@@ -100,7 +100,6 @@
 
 <script>
 import {mapGetters} from 'vuex';
-import {LanguageChange } from "../../../../services/language/languageService";
 import languagesLocales from "../../../../services/language/localeLanguage";
 import * as routeNames from '../../../../routes/routeNames.js';
 
@@ -150,6 +149,9 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
         },
         totalUnread(){
             return this.getTotalUnread;
+        },
+        showChat(){
+            return this.$store.getters.getIsAccountChat
         },
         isShowBorderBottom(){
             let filteredRoutes = [routeNames.Profile, routeNames.Document];
@@ -204,15 +206,7 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
             intercomService.showDialog();
         },
         changeLanguage() {
-        LanguageChange.setUserLanguage(this.languageChoisesAval.id).then(
-            resp => {
-            console.log("language responce success", resp);
-            global.location.reload(true);
-            },
-            error => {
-            console.log("language error error", error);
-            }
-        );
+            this.$store.dispatch('changeLanguage', this.languageChoisesAval.id)
         },
     },
     created() {

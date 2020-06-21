@@ -22,9 +22,9 @@ namespace Cloudents.Query.Admin
             private readonly IStatelessSession _session;
 
 
-            public FlaggedDocumentEmptyQueryHandler(QuerySession session)
+            public FlaggedDocumentEmptyQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             public async Task<IList<FlaggedDocumentDto>> GetAsync(FlaggedDocumentQuery query, CancellationToken token)

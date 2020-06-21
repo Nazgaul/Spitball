@@ -1,6 +1,6 @@
 <template>
    <div class="mySales">
-      <div class="mySales_title" v-language:inner="'dashboardPage_my_sales_title'"/>
+      <div class="mySales_title" v-t="'dashboardPage_my_sales_title'"/>
       <v-layout wrap class="mySales_wallet mb-1 mb-md-7 mb-sm-4" v-if="!!accountUser && accountUser.id">
          <v-flex sm12 md6>
             <v-data-table
@@ -71,11 +71,19 @@
                   </v-avatar>
                </router-link>
                <router-link v-if="item.sessionId" :to="{name: 'profile',params: {id: item.id, name: item.name}}">
-                  <user-avatar :user-id="item.userId" 
+                  <!-- <user-avatar :user-id="item.userId" 
                   :user-image-url="item.image" 
                   :size="'40'" 
                   :user-name="item.name" >
-                  </user-avatar>
+                  </user-avatar> -->
+                  <userAvatarNew
+                     class="mySalesUserAvatar"
+                     :userImageUrl="item.image"
+                     :user-name="item.name"
+                     :width="40"
+                     :height="40"
+                     :fontSize="14"
+                  />
                </router-link>
             </template>
             <template v-slot:item.info="{item}">
@@ -100,7 +108,7 @@
                   width="120"
                   depressed
                   rounded
-                  v-if="pendingPayments && item.paymentStatus === 'PendingTutor' && item.type === 'TutoringSession'"
+                  v-if="item.paymentStatus === 'PendingTutor' && item.type === 'TutoringSession'"
                   @click="$openDialog('teacherApproval', {item: item})">
                      {{$t('dashboardPage_btn_approve')}}
                </v-btn>
@@ -160,9 +168,9 @@ export default {
       balancesItems(){
          return this.getBalancesItems;
       },
-      pendingPayments() {
-         return this.$store.getters.getPendingPayment
-      }
+      // pendingPayments() {
+      //    return this.$store.getters.getPendingPayment
+      // }
    },
    methods: {
       ...mapActions(['updateSalesItems']),
@@ -270,6 +278,15 @@ export default {
          .v-data-footer__pagination {
             font-size: 14px;
             color: #43425d;
+         }
+      }
+   }
+   .mySalesUserAvatar {
+      .user-avatar-image-wrap {
+         margin: 0 auto;
+
+         .v-lazy {
+            display: flex;
          }
       }
    }

@@ -169,6 +169,12 @@ namespace Cloudents.Core
             return builder.Uri;
         }
 
+        public string BuildStudyRoomEndPoint(Guid id)
+        {
+            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"StudyRoom/{id}" };
+            return builder.ToString();
+        }
+
 
         private const string ImageFunctionUserProfileShareRoute = "share/profile/{id}";
 

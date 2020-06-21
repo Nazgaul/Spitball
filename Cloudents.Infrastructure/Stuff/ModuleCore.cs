@@ -27,31 +27,33 @@ namespace Cloudents.Infrastructure.Stuff
                 .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<>)))
                 .Select(i => new KeyedService("handler", i)));
 
-            builder.RegisterAssemblyTypes(typeof(ICommandHandler<,>).Assembly).As(o => o.GetInterfaces()
-                .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<,>)))
-                .Select(i => new KeyedService("handler2", i)));
+            //builder.RegisterAssemblyTypes(typeof(ICommandHandler<,>).Assembly).As(o => o.GetInterfaces()
+            //    .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<,>)))
+            //    .Select(i => new KeyedService("handler2", i)));
 
 
-            builder.RegisterAssemblyTypes(typeof(IQueryHandler<,>).Assembly, Assembly.GetExecutingAssembly()).As(o => o.GetInterfaces()
-                .Where(i => i.IsClosedTypeOf(typeof(IQueryHandler<,>)))
-                .Select(i => new KeyedService("handler", i)));
+            builder.RegisterAssemblyTypes(typeof(IQueryHandler<,>).Assembly, Assembly.GetExecutingAssembly()).As(o => o
+                .GetInterfaces()
+                .Where(i => i.IsClosedTypeOf(typeof(IQueryHandler<,>))));
 
             
-
+            //https://alexmg.com/posts/upcoming-decorator-enhancements-in-autofac-4-9
+            builder.RegisterGenericDecorator(
+                typeof(TransactionQueryDecorator<,>),
+                typeof(IQueryHandler<,>));
             builder.RegisterGenericDecorator(
                 typeof(CacheQueryHandlerDecorator<,>),
-                typeof(IQueryHandler<,>),
-                fromKey: "handler");
+                typeof(IQueryHandler<,>));
 
             builder.RegisterGenericDecorator(
                 typeof(CommitUnitOfWorkCommandHandlerDecorator<>),
                 typeof(ICommandHandler<>),
                 fromKey: "handler");
 
-            builder.RegisterGenericDecorator(
-                typeof(CommitUnitOfWorkCommandHandlerDecorator2<,>),
-                typeof(ICommandHandler<,>),
-                fromKey: "handler2");
+            //builder.RegisterGenericDecorator(
+            //    typeof(CommitUnitOfWorkCommandHandlerDecorator2<,>),
+            //    typeof(ICommandHandler<,>),
+            //    fromKey: "handler2");
 
             builder.RegisterAssemblyTypes(typeof(IEventHandler<>).Assembly).AsClosedTypesOf(typeof(IEventHandler<>));
 

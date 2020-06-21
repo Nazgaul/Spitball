@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
-import axios from 'axios'
-import messages from '../locales/en.json'
+//import messages from '../locales/en.json'
 Vue.use(VueI18n)
 
 // function loadLocaleMessages () {
@@ -120,11 +119,11 @@ const supportedLanguges = ['en', 'en-US', 'en-IN', 'he'];
 export const i18n = new VueI18n({
   locale: lang,
   //fallbackLocale: 'en',
-  fallbackLocale: {
-    'he-IL': 'he',
-    default: 'en'
-  },
-  messages: messages,
+  // fallbackLocale: {
+  //   'he-IL': 'he',
+  //   default: 'en'
+  // },
+  //messages: messages,
   numberFormats,
   dateTimeFormats
   //messages: loadLocaleMessages()
@@ -141,6 +140,10 @@ const loadedLanguages = [] // our default language that is preloaded
 // }
 
 export async function loadLanguageAsync() {
+  let isFrymo = global.location.hostname.toLowerCase();
+  
+  // https://www.frymo.com/
+  
   let lang = `${global.lang}-${global.country}`;
   // eslint-disable-next-line no-constant-condition
   while (true) {
@@ -152,6 +155,10 @@ export async function loadLanguageAsync() {
       lang = 'en';
       break;
     }
+    if(isFrymo === 'www.frymo.com') {
+      lang = 'en-IN'
+      break
+    }
     lang = lang2;
 
   }
@@ -159,25 +166,22 @@ export async function loadLanguageAsync() {
   if (loadedLanguages.includes(lang)) {
     return;
   }
-  var messages;
+
+  var messages2;
   try {
     let xxx = await import(/* webpackChunkName: "lang-[request]" */ `../locales/${lang}.json`);
-    messages = xxx.default;
-    //i18n.setLocaleMessage(lang, messages.default);
-    //oadedLanguages.push(lang);
+    messages2 = xxx;
+    // i18n.setLocaleMessage(lang, messages);
+    // oadedLanguages.push(lang);
   } catch (error) {
     console.error("no resource", lang, error);
   }
 
   //return connectivityModule.http.get(`/Locale${dictionaryType}`).then((dictionary)=>{
-  var { data } = await axios.get('/locale', {
-    params: {
-      v: global.version,
-      culture: lang
-    }
-  });
-  messages = { ...messages,...data};
-  i18n.setLocaleMessage(lang, messages)
+ 
+ // messages = { ...messages,...data};
+ //let x = {...messages , ...{}};
+  i18n.setLocaleMessage(lang,messages2)
 
   i18n.locale = lang;
   loadedLanguages.push(lang)

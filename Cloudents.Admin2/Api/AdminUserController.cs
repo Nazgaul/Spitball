@@ -284,15 +284,15 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet("documents")]
-        public async Task<IEnumerable<UserDocumentsDto>> GetUserInfo(long id, int page, [FromServices] IBlobProvider blobProvider,
+        public async Task<IEnumerable<UserDocumentsDto>> GetUserInfo(long id, [FromServices] IBlobProvider blobProvider,
              CancellationToken token)
         {
             var country = User.GetSbCountryClaim();
-            var query = new UserDocumentsQuery(id, page, country);
+            var query = new UserDocumentsQuery(id,  country);
 
 
             var retVal = (await _queryBus.QueryAsync(query, token)).ToList();
-            var tasks = new Lazy<List<Task>>();
+            var tasks = new List<Task>();
 
             foreach (var document in retVal)
             {
@@ -309,10 +309,12 @@ namespace Cloudents.Admin2.Api
                 else
                 {
                     var t = _queueProvider.InsertBlobReprocessAsync(document.Id);
-                    tasks.Value.Add(t);
+                    tasks.Add(t);
                 }
 
             }
+
+            await Task.WhenAll(tasks);
 
             return retVal;
         }

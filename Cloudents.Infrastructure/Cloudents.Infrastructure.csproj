@@ -47,10 +47,4 @@
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
     <ProjectReference Include="..\Cloudents.Query\Cloudents.Query.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Google\Resources\CalendarResources.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
-  </ItemGroup>
 </Project>

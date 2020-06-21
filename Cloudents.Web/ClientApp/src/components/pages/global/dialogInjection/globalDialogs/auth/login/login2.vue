@@ -59,8 +59,7 @@
                     </div>
                 </div>
             </template>
-            <!-- <span class="helpLinks" @click="linksAction" v-t="remmberForgotLink" v-if="component !== 'resetPassword'"></span> -->
-            <span class="helpLinks" @click="linksAction" v-if="isLoginDetails" v-t="remmberForgotLink"></span>
+            <span class="helpLinks" @click="linksAction" v-if="isLoginDetails">{{remmberForgotLink}}</span>
             <v-btn
                 type="submit"
                 depressed
@@ -70,7 +69,7 @@
                 class="btns white--text mt-6"
                 color="#4452fc"
             >
-                <span v-t="btnResource"></span>
+                <span>{{btnResource}}</span>
             </v-btn>
             
             <div class="getStartedBottom mt-2" v-if="isLoginDetails">
@@ -93,8 +92,7 @@ const verifyPhone = () => import('../register/verifyPhone.vue');
 import phoneCall from '../images/phoneCall.svg'
 import changeNumber from '../images/changeNumber.svg'
 
-// const forgotPassword = () => import('./forgotPassword.vue')
-// const resetPassword = () => import('./resetPassword2.vue')
+
 import gIcon from '../images/g-icon.svg'
 
 export default {
@@ -106,8 +104,7 @@ export default {
         verifyPhone,
         phoneCall,
         changeNumber
-        // forgotPassword,
-        // resetPassword
+       
     },
     data() {
         return {
@@ -121,16 +118,14 @@ export default {
         },
         btnResource() {
             let resource = {
-                loginDetails: 'loginRegister_setemail_btn',
-                setPhone2: 'loginRegister_setemailpass_btn',
-                verifyPhone: 'loginRegister_setemailpass_btn_verify'
-                // forgotPassword: 'loginRegister_forgot_btn',
-                // resetPassword: 'loginRegister_resest_btn',
+                loginDetails: this.$t('loginRegister_setemail_btn'),
+                setPhone2: this.$t('loginRegister_setemailpass_btn'),
+                verifyPhone: this.$t('loginRegister_setemailpass_btn_verify')
             }
             return resource[this.component]
         },
         remmberForgotLink() {
-            return this.isLoginDetails ? 'loginRegister_setpass_forgot' : 'loginRegister_forgot_remember'
+            return this.isLoginDetails ? this.$t('loginRegister_setpass_forgot') : this.$t('loginRegister_forgot_remember')
         }
     },
     methods: {
@@ -151,55 +146,13 @@ export default {
                     case 'verifyPhone':
                         this.verifyPhone()
                         break;
-                    // case 'forgotPassword':
-                    //     this.forgotPassword()
-                    //     break;
-                    // case 'resetPassword':
-                    //     this.resetPassword()
-                    //     break;
+                   
                     default:
                         return                        
                 }
             }
         },
-        // forgotPassword() {
-        //     let self = this
-        //     registrationService.resetPassword({email: this.email})
-        //         .then(() =>{
-        //             analyticsService.sb_unitedEvent('Forgot Password', 'Reset email send');
-        //             // TODO: what is the next step @idan
-        //         }).catch(error => {
-        //             let { response: { data } } = error
-
-        //             self.errors.email = data["ForgotPassword"] ? data["ForgotPassword"][0] : data["Email"][0]
-        //             // if(data.Password) {
-        //             //     self.errors.password = self.$t('loginRegister_error_forgot_password')
-        //             // }
-        //             // if(data.Email) {
-        //             //     self.errors.email = self.$t('loginRegister_error_forgot_email')
-        //             // }
-        //             self.$appInsights.trackException({exception: new Error(error)})
-        //         })
-        // },
-        // resetPassword() {
-        //     let childComp = this.$refs.childComponent
-        //     let passwordObj = {
-        //         id: childComp.id,
-        //         code: childComp.code,
-        //         password: childComp.password
-        //     }
-            
-        //     let self = this
-        //     registrationService.updatePassword(passwordObj)
-        //         .then(() => {
-        //             console.log();
-        //         }).catch(error => {
-        //             let { response: { data } } = error
-
-        //             self.errors.password = data["Password"] ? data["Password"][0] : data["ConfirmPassword"][0]
-        //             self.$appInsights.trackException({exception: new Error(error)})
-        //         })
-        // },
+        
         updateEmail(email) {
             this.email = email
         },

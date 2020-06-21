@@ -1,7 +1,7 @@
 <template>
   <button :class="['followBtn',getProfile.user.isFollowing?'following':'follow']" @click="followToggler">
     <followSVG width="20" v-if="!getProfile.user.isFollowing" class="mr-1" />
-    <span v-language:inner="getProfile.user.isFollowing? 'profile_following' :'profile_follow'"/>
+    <span>{{followingText}}</span>
   </button>
 </template>
 
@@ -16,7 +16,14 @@ export default {
   },
   components: { followSVG },
   computed: {
-    ...mapGetters(['getProfile','getUserLoggedInStatus'])
+    ...mapGetters(['getProfile','getUserLoggedInStatus']),
+
+    followingText() {
+      if(this.getProfile.user.isFollowing) {
+        return this.$t('profile_following')
+      }
+      return this.$t('profile_follow')
+    }
   },
   methods: {
     ...mapActions(['toggleProfileFollower']),

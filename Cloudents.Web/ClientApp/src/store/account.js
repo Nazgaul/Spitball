@@ -1,3 +1,6 @@
+//TODO: Account new store clean @idan
+
+import axios from 'axios';
 import accountService from "../services/accountService";
 import { dollarCalculate } from "./constants";
 import analyticsService from '../services/analytics.service';
@@ -60,6 +63,7 @@ const getters = {
     getAccountId: state => state.user?.id,
     getAccountName: state => state.user?.name,
     getAccountImage: state => state.user?.image,
+    getIsAccountChat: state => state.user?.chatUnread !== null && state.user?.chatUnread !== undefined,
 };
 
 const actions = {
@@ -105,7 +109,7 @@ const actions = {
         intercomeService.startService(userAccount);
         commit("updateUser", userAccount);
         // dispatch("syncUniData", userAccount); // uni
-        dispatch("getAllConversations");
+        commit('updateTotalUnread',userAccount.chatUnread || 0)
         analyticsService.sb_setUserId(userAccount.id);
         insightService.authenticate.set(userAccount.id);
         dispatch('updateLoginStatus',true);
@@ -152,6 +156,14 @@ const actions = {
     updateLoginStatus({commit},val){
         commit("changeLoginStatus", val);
     },
+    changeLanguage(context, locale) {
+        axios.post("/Account/language", { culture: locale }).then(resp => {
+            console.log("language response success", resp);
+            global.location.reload(true);
+        }).catch(ex => {
+            console.log("language error error", ex);
+        })
+    }
     // subscribeNow(context, id) {
     //     commit("subscribeToTutor", id);
     //     //return accountService.subscribe(id)

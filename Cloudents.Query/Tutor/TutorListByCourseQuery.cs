@@ -45,10 +45,10 @@ namespace Cloudents.Query.Tutor
             private readonly IStatelessSession _session;
             private readonly IUrlBuilder _urlBuilder;
 
-            public TutorListByCourseQueryHandler(QuerySession session, IUrlBuilder urlBuilder)
+            public TutorListByCourseQueryHandler(IStatelessSession session, IUrlBuilder urlBuilder)
             {
                 _urlBuilder = urlBuilder;
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             public async Task<IEnumerable<TutorCardDto>> GetAsync(TutorListByCourseQuery query, CancellationToken token)

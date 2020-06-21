@@ -1,7 +1,7 @@
 <template>
   <router-link class="tutor-result-card-mobile justify-space-between" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
       <div class="card-mobile-header">
-          <user-avatar-rect
+          <userAvatarNew
             :userName="tutorData.name"
             :userImageUrl="tutorData.image"
             class="mr-2"
@@ -10,6 +10,7 @@
             :height="116"
             :fontSize="24"
             :borderRadius="4"
+            :tile="true"
           />
           <div class="card-mobile-header-content">
               <div>
@@ -32,11 +33,11 @@
       <div class="card-mobile-center">{{tutorData.bio}}</div>
 
       <div class="courses text-truncate" v-if="subjects">
-          <div class="courses-title font-weight-bold" v-language:inner="'resultTutor_study-area'"></div>
+          <div class="courses-title font-weight-bold" v-t="'resultTutor_study-area'"></div>
           <div class="text-truncate">{{subjects}}</div>
       </div> 
       <div class="courses text-truncate" v-else>
-          <div class="courses-title font-weight-bold" v-language:inner="'resultTutor_courses'"></div>
+          <div class="courses-title font-weight-bold" v-t="'resultTutor_courses'"></div>
           <div class="text-truncate">{{courses}}</div>
       </div> 
 
@@ -58,7 +59,6 @@ import chatService from '../../../../services/chatService';
 import analyticsService from "../../../../services/analytics.service";
 import * as routeNames from '../../../../routes/routeNames.js'
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
-import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
 
 import iconChat from '../icon-chat.svg';
 import star from '../stars-copy.svg';
@@ -67,7 +67,6 @@ export default {
   name: "tutorCard",
   components: {
     userRating,
-    userAvatarRect,
     iconChat,
     star
   },

@@ -13,6 +13,6 @@ namespace Cloudents.Command.StudyRooms
         public Guid StudyRoomId { get; }
         public long UserId { get;  }
 
-        public string JwtToken { get; set; }
+        public string? JwtToken { get; set; }
     }
 }

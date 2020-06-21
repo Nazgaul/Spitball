@@ -70,7 +70,7 @@ namespace Cloudents.Core.Entities
                 }
             }
 
-            AddEvent(new UpdateTutorSettingsEvent(Id));
+            AddEvent(new TutorSubscriptionEvent(Id));
         }
 
         public virtual bool HasSubscription()
@@ -80,23 +80,12 @@ namespace Cloudents.Core.Entities
 
         public virtual void UpdateSettings(string bio)
         {
-            //if (price.HasValue)
-            //{
-            //    if (price < MinimumPrice || price > MaximumPrice) throw new ArgumentOutOfRangeException(nameof(price));
-
-            //    Price = new TutorPrice(price.Value);
-            //}
+        
             Bio = bio;
             AddEvent(new UpdateTutorSettingsEvent(Id));
         }
 
-        //public virtual void AdminChangePrice(decimal newPrice)
-        //{
-        //    if (newPrice < 0) throw new ArgumentOutOfRangeException(nameof(newPrice));
-
-        //    Price = new TutorPrice(newPrice);
-        //    AddEvent(new UpdateTutorSettingsEvent(Id));
-        //}
+     
 
         public virtual void Approve()
         {

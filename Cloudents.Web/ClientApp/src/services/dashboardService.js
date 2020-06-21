@@ -56,15 +56,19 @@ const Item = {
       this.url = `/profile/${objInit.tutorId}/${this.name}`
    },
    StudyRoom:function(objInit){
-     // this.online = objInit.online;
       this.id = objInit.id;
       this.conversationId = objInit.conversationId;
       this.lastSession = objInit.lastSession;
       this.name = objInit.name;
       this.date = objInit.dateTime;
-      this.students = objInit.amountOfUsers;
+      this.amountStudent = objInit.userNames.length
+      this.userNames = objInit.userNames
       this.scheduled = objInit.scheduled;
       this.type = objInit.type;
+      this.price = {
+         price: objInit.price.amount,
+         currency: objInit.price.currency
+      };
       this.showChat = this.type ==='Private';
    },
    BuyPoints: function(objInit){
@@ -189,7 +193,7 @@ function getFollowersItems(){
    return connectivityModule.http.get('/Account/followers').then(createFollowersItems).catch(ex => ex);
 }
 function getTutorActions(){
-   return connectivityModule.http.get('/Account/tutorActions').then(createTutorActions).catch(ex => ex);
+   return connectivityModule.http.get('/dashboard/tutorActions').then(createTutorActions);
 }
 function getSpitballBlogs(){
    return connectivityModule.http.get('/blog').then(createBlogs).catch(ex => ex);

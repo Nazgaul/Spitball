@@ -135,7 +135,4 @@
   <data name="purchases" xml:space="preserve">
     <value>My Purchases</value>
   </data>
-  <data name="study" xml:space="preserve">
-    <value>My Study rooms</value>
-  </data>
 </root>

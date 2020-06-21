@@ -9,43 +9,6 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("Cloudents.Persistence")]
 namespace Cloudents.Core.Entities
 {
-    public class BroadCastStudyRoom : StudyRoom
-    {
-        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public BroadCastStudyRoom(Tutor tutor,
-            IEnumerable<User> users, string onlineDocumentUrl,
-            string name, decimal price, DateTime broadcastTime, string? description) 
-            : base(tutor, users, onlineDocumentUrl, name, price)
-        {
-            Identifier = Guid.NewGuid().ToString();
-            ChatRoom = ChatRoom.FromStudyRoom(this);
-            BroadcastTime = broadcastTime;
-            TopologyType = StudyRoomTopologyType.GroupRoom;
-            Description = description;
-        }
-
-        protected BroadCastStudyRoom(): base()
-        {
-        }
-
-        public virtual DateTime BroadcastTime { get; protected set; }
-
-
-        public virtual string? Description { get; protected set; }
-
-        public override void AddUserToStudyRoom(User user)
-        {
-           
-                var studyRoomUser = new StudyRoomUser(user, this);
-                _users.Add(studyRoomUser);
-                ChatRoom.AddUserToChat(user);
-                Tutor.User.AddFollower(user);
-            
-        }
-
-        public override StudyRoomType Type => StudyRoomType.Broadcast;
-    }
-
     public class PrivateStudyRoom : StudyRoom
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
@@ -166,7 +129,7 @@ namespace Cloudents.Core.Entities
             return result.SingleOrDefault(w => w.Ended == null);
         }
 
-        public virtual StudyRoomTopologyType? TopologyType { get; protected set; }
+        public virtual StudyRoomTopologyType TopologyType { get; protected set; }
 
         public virtual void AddSession(string sessionName)
         {

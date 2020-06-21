@@ -16,13 +16,13 @@ namespace Cloudents.Infrastructure.Stuff
 
         private readonly ILifetimeScope _container;
 
-        public async Task<TCommandResult> DispatchAsync<TCommand, TCommandResult>(TCommand command, CancellationToken token) where TCommand : ICommand where TCommandResult : ICommandResult
-        {
-            using var child = _container.BeginLifetimeScope();
-            var obj = child.Resolve<ICommandHandler<TCommand, TCommandResult>>();
-            return await obj.ExecuteAsync(command, token);
+        //public async Task<TCommandResult> DispatchAsync<TCommand, TCommandResult>(TCommand command, CancellationToken token) where TCommand : ICommand where TCommandResult : ICommandResult
+        //{
+        //    using var child = _container.BeginLifetimeScope();
+        //    var obj = child.Resolve<ICommandHandler<TCommand, TCommandResult>>();
+        //    return await obj.ExecuteAsync(command, token);
 
-        }
+        //}
 
         public async Task DispatchAsync<TCommand>(TCommand command, CancellationToken token) where TCommand : ICommand
         {

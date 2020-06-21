@@ -55,11 +55,10 @@ export default {
               title2: this.$t('marketing_createOffer_title2'),
               image: require('./images/specialOffer.png'),
               buttonText: this.$t('marketing_get_started'),
-              route: {name: routeNames.Marketing, query: {dialog:"createCoupon"}}
+              // route: {name: routeNames.Marketing, query: {dialog:"createCoupon"}}
+              route: {name: routeNames.MyCoupons}
           }
       },
-      // marketingRoute: routeNames.Marketing,
-      // couponRoute: routeNames.MyCoupons,
     }
   }
 }
