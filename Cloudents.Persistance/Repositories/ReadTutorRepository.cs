@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using NHibernate;
 using NHibernate.Linq;
@@ -30,11 +29,11 @@ namespace Cloudents.Persistence.Repositories
                     s.User.Id,
                     s.User.Name,
                     s.User.ImageName,
-                   // s.User.Image,
-                    s.Bio,
+                    // s.User.Image,
+                    Bio = s.Paragraph2,
                     s.User.SbCountry,
                     s.User.Country,
-                    s.User.Description,
+                    Description = s.Title,
                     s.SubscriptionPrice,
                     s.State
                 }).ToFutureValue();

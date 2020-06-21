@@ -11,7 +11,12 @@ namespace Cloudents.Persistence.Maps
             Id(x => x.Id).GeneratedBy.Foreign("User");
            
             HasOne(x => x.User).Constrained().Cascade.None();
-            Map(x => x.Bio).Length(1000);
+            
+
+            Map(x => x.Title);
+            
+            Map(x => x.Paragraph3).Length(1000);
+            Map(x => x.Paragraph2).Column("Bio").Length(1000);
             //Component(x => x.Price, y2 =>
             //{
             //    y2.Map(z => z.Price).CustomSqlType("smallMoney");

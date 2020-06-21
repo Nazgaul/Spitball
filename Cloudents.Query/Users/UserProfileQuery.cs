@@ -39,22 +39,6 @@ namespace Cloudents.Query.Users
 
             public async Task<UserProfileDto?> GetAsync(UserProfileQuery query, CancellationToken token)
             {
-
-                //var userFuture = _session.Query<BaseUser>()
-                //      .Where(w => w.Id == query.Id)
-                //      .Select(s => new UserProfileDto()
-                //      {
-                //          Id = s.Id,
-                //          Image = s.ImageName,
-                //          Online = ((User)s).Online.GetValueOrDefault(),
-                //          CalendarShared = _session.Query<GoogleTokens>().Any(w => w.Id == query.Id.ToString()),
-                //          FirstName = ((User)s).FirstName,
-                //          LastName = ((User)s).LastName,
-                //          Cover = ((User)s).CoverImage,
-                //          Followers = _session.Query<Follow>().Count(w => w.User.Id == query.Id),
-
-                //      }).ToFutureValue();
-
                 var tutorFuture = _session.Query<Core.Entities.Tutor>()
                     .Fetch(f => f.User)
                     .Where(w => w.Id == query.Id)
@@ -62,37 +46,43 @@ namespace Cloudents.Query.Users
                     {
                         Id = s.Id,
                         Image = s.User.ImageName,
-                        //Online = ((User)s).Online.GetValueOrDefault(),
                         CalendarShared = _session.Query<GoogleTokens>().Any(w => w.Id == query.Id.ToString()),
                         FirstName = s.User.FirstName,
                         LastName = s.User.LastName,
                         Cover = s.User.CoverImage,
                         Followers = _session.Query<Follow>().Count(w => w.User.Id == query.Id),
                         TutorCountry = s.User.SbCountry,
-                        // Rate = s.Rate.GetValueOrDefault(),
-                        // ReviewCount = s.RateCount,
-                        Bio = s.Bio,
-                        // Lessons = s.Lessons,
-
-                        ContentCount = _session.Query<Document>()
-                                           .Count(w => w.Status.State == ItemState.Ok && w.User.Id == query.Id) +
-                                       _session.Query<Question>().Count(w =>
-                                           w.Status.State == ItemState.Ok && w.User.Id == query.Id),
+                        Bio = s.Paragraph2,
+                        //ContentCount = _session.Query<Document>()
+                        //                   .Count(w => w.Status.State == ItemState.Ok && w.User.Id == query.Id) +
+                        //               _session.Query<Question>().Count(w =>
+                        //                   w.Status.State == ItemState.Ok && w.User.Id == query.Id),
                         Students = _session.Query<StudyRoomUser>()
                             .Where(w => w.Room.Tutor.Id == query.Id).Select(s2 => s2.User.Id).Distinct().Count(),
                         SubscriptionPrice = s.SubscriptionPrice,
-                        //Subjects = s.Subjects,
-                        Description = s.User.Description
+                        Description = s.Title
                     }).ToFutureValue();
 
 
                 var lessonsQuery = _session.Query<StudyRoomSession>()
-                    .Fetch(f => f.StudyRoom).Where(w => w.StudyRoom.Tutor.Id == query.Id)
+                    .Fetch(f => f.StudyRoom)
+                    .Where(w => w.StudyRoom.Tutor.Id == query.Id)
                     .ToFutureValue(f => f.Count());
+
+
+                //TODO
+                //Lessons => Total hours
+                //Students => Amount of files
 
                 var rateQuery = _session.Query<TutorReview>()
                     .Where(w => w.Tutor.Id == query.Id)
-                    .ToFutureValue(f => f.Count());
+                    .GroupBy(g=>1)
+                    .Select(f =>new
+                    {
+                        Count = f.Count(),
+                        Total = f.Sum(s=>(float?)s.Rate)
+                    })
+                    .ToFutureValue();
 
                 //var couponQuery = _session.Query<UserCoupon>()
                 //      .Where(w => w.User.Id == query.UserId)
@@ -134,7 +124,8 @@ namespace Cloudents.Query.Users
                 var isFollowing = isFollowingFuture.Value;
                 result.IsFollowing = isFollowing != null;
                 result.Lessons = lessonsQuery.Value;
-                result.ReviewCount = rateQuery.Value;
+                result.ReviewCount = rateQuery.Value.Count;
+                result.Rate = rateQuery.Value.Total.GetValueOrDefault() / rateQuery.Value.Count;
                 //result.Tutor.Subjects = futureSubject.Value;
                 //if (couponResult != null)
                 //{

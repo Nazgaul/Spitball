@@ -26,7 +26,7 @@ namespace Cloudents.Core.DTOs.Users
         public Country? TutorCountry { get; set; }
 
 
-       // public double Rate { get; set; }
+        public double Rate { get; set; }
         public int ReviewCount { get; set; }
 
         //public bool HasCoupon { get; set; }
@@ -40,7 +40,7 @@ namespace Cloudents.Core.DTOs.Users
 
         public int Lessons { get; set; }
 
-        public int ContentCount { get; set; }
+        //public int ContentCount { get; set; }
         public int Students { get; set; }
 
         public Money? SubscriptionPrice { get; set; }

@@ -15,33 +15,56 @@ const state = {
 const mutations = {
    setProfile(state, data) {
       let profile = new Profile(data)
+
       function Profile(objInit) {
-         
          this.questions = [];
          this.answers = [];
          this.documents = [];
          this.purchasedDocuments = [];
-         this.id = objInit.id;
-         this.firstName = objInit.firstName;
-         this.lastName = objInit.lastName;
-         this.name = `${objInit.firstName} ${objInit.lastName}`;
-         this.bio = objInit.bio;
-         this.contentCount = objInit.contentCount;
-         this.cover = objInit.cover;
-         this.description = objInit.description;
-         this.documentCourses = objInit.documentCourses;
-         this.image = objInit.image;
-         this.isFollowing = objInit.isFollowing;
-         this.isSubscriber = objInit.isSubscriber;
-         this.lessons = objInit.lessons;
-         this.followers = objInit.followers;
-         this.reviewCount = objInit.reviewCount;
-         this.students = objInit.students;
-         this.subscriptionPrice = objInit.subscriptionPrice;
-         this.calendarShared = objInit.calendarShared;
-         this.tutorCountry = objInit.tutorCountry;
+         this.user = {
+            id: objInit.id,
+            firstName: objInit.firstName,
+            lastName: objInit.lastName,
+            name: `${objInit.firstName} ${objInit.lastName}`,
+            image: objInit.image || '',
+            documentCourses: objInit.documentCourses,
+            // courses: objInit.courses,
+            coursesString: objInit.documentCourses.toString().replace(/,/g, ", "),
+            online: objInit.online || false,
+            calendarShared: objInit.calendarShared || false,
+            //TODO REMOVE THIS
+            // isTutor: objInit.hasOwnProperty('tutor') || false,
+            followers: objInit.followers || '',
+            isFollowing: objInit.isFollowing,
+            cover: objInit.cover || '',
+            tutorCountry: objInit.tutorCountry,
+            tutorData: {
+               // price: objInit.price || 0,
+               bio: objInit.bio || '',
+               lessons: objInit.lessons || 0,
+               //TODO remove this
+               // discountPrice: objInit.discountPrice,
+               //TODO remove this
+               // pendingSessionsPayments: objInit.tutor.pendingSessionsPayments || null,
+               description: objInit.description || '',
+               //TODO remove this
+               contentCount: objInit.contentCount,
+                  //TODO  this
+               // hasCoupon: objInit.tutor.hasCoupon,
+               //TODO - Obselete - will be  remove next version
+               rate: objInit.tutor.rate || 0,
+               reviewCount: objInit.reviewCount || 0,
+                //TODO remove this - duplicate
+               // firstName: objInit.firstName || '',
+               //TODO remove this - duplicate
+               // lastName: objInit.lastName || '',
+               students: objInit.students || 0,
+               subscriptionPrice: objInit.subscriptionPrice,
+               isSubscriber : objInit.isSubscriber
+            }
+         }
       }
-
+      console.log(profile);
       state.profile = profile;
    },
    setPorfileDocuments(state, val) {
