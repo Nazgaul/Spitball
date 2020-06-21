@@ -1,9 +1,9 @@
 <template>
-  <div class="profilePage">
+  <div class="profilePage" :key="componentRenderKey" >
     <cover></cover>
     <profileDialogs />
     <div class="profilePage_main profile-page-container">
-      <profileUserBox :globalFunctions="globalFunctions" :key="componentRenderKey" />
+      <profileUserBox :globalFunctions="globalFunctions"/>
       <shareContent
         sel="share_area"
         :link="shareContentParams.link"
@@ -282,6 +282,33 @@ export default {
           }
         }
     },
+    // beforeRouteUpdate(to, from, next) {
+    //     let old = Number(from.params.id, 10)
+    //     let newVal = Number(to.params.id, 10)
+    //     this.activeTab = 1;
+    //     this.componentRenderKey += 1;
+    //     if (newVal !== old) {
+    //       this.$store.commit('resetProfile');
+    //       let self = this
+    //       let syncObj = {
+    //           id: to.params.id,
+    //           type:'documents',
+    //           params:{
+    //               page: 0,
+    //               pageSize: this.$vuetify.breakpoint.xsOnly ? 3 : 8,
+    //           }
+    //       }
+    //       this.syncProfile(syncObj).then(({user}) => {
+    //         if(user.isTutor) return next()
+
+    //         let previousLink = from.fullPath || '/';
+    //         next(previousLink);
+    //       }).catch((ex) => {
+    //           console.error(ex);
+    //           self.$router.push({name: routeNames.notFound})
+    //       })
+    //     }
+    // },
     beforeRouteLeave(to, from, next) {
         this.updateToasterParams({
             showToaster: false
@@ -290,7 +317,7 @@ export default {
         next();
     },
     created() {
-      this.fetchData()
+      // this.fetchData()
         if(this.$route.params.openCalendar) {
             this.openCalendar();
         }
