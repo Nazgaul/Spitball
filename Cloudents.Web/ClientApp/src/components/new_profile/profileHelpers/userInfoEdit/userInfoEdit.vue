@@ -2,61 +2,76 @@
     <v-dialog :value="true" :content-class="'edit-dialog'" persistent max-width="760px" :fullscreen="$vuetify.breakpoint.xsOnly">
     <v-card class="user-edit-wrap pb-4">
         <v-form v-model="validUserForm" ref="formUser" @submit.prevent>
-        <v-layout class="header pa-4 pt-3 mb-4">
-            <v-flex>
-                <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
-                <span>{{$t('profile_edit_user_profile_title')}}</span>
-            </v-flex>
-            <v-btn :to="{name: courseRoute}" @click="$store.commit('setComponent', '')" icon small>
-                <editSVG />
-            </v-btn>
-        </v-layout>
-        <v-layout class="px-3 mt-3" wrap>
-            <v-flex xs12 sm6 :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
-                <v-layout column>
-                    <v-flex xs12 sm6  class="pl-2 mb-2">
-                        <span class="subtitle">{{$t('profile_personal_details')}}</span>
-                    </v-flex>
-                    <v-flex xs12>
-                        <v-text-field
-                                :rules="[rules.required, rules.minimumChars, rules.matchFirstName]"
-                                :label="$t('profile_firstName_label')"
-                                class="tutor-edit-firstname"
-                                v-model="firstName"
-                                outlined
-                        ></v-text-field>
-                    </v-flex>
-                </v-layout>
-            </v-flex>
-            <v-flex xs12 sm6 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'pr-2']">
-                <v-layout column>
-                    <v-flex v-if="$vuetify.breakpoint.smAndUp" xs12 sm6  class="mb-2 pl-2" grow>
-                        <span class="subtitle" style="visibility: hidden">hidden</span>
-                    </v-flex>
-                    <v-flex>
-                        <v-text-field
-                                :rules="[rules.required, rules.minimumChars, rules.matchLastName]"
-                                :label="$t('profile_lastName_label')"
-                                class="tutor-edit-lastname"
-                                v-model="lastName"
-                                outlined
-                        ></v-text-field>
-                    </v-flex>
-                </v-layout>
-            </v-flex>
-        </v-layout>
-        <v-layout  align-center class="bottomActions px-3" :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between ' : 'justify-end']">
-            <v-flex xs5 sm2  >
-                <v-btn class="shallow-blue ml-0" rounded outlined primary @click="$store.commit('setComponent', '')">
-                    <span>{{$t('profile_btn_cancel')}}</span>
+            <v-layout class="header pa-4 pt-3 mb-4">
+                <v-flex>
+                    <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
+                    <span>{{$t('profile_edit_user_profile_title')}}</span>
+                </v-flex>
+                <v-btn :to="{name: courseRoute}" @click="$store.commit('setComponent', '')" icon small>
+                    <editSVG />
                 </v-btn>
-            </v-flex>
-            <v-flex xs5 sm2  :class="{'mr-4': $vuetify.breakpoint.smAndUp}">
-                <v-btn class="blue-btn  ml-0" rounded @click="saveChanges()" :loading="btnLoading">
-                    <span>{{$t('profile_btn_save_changes')}}</span>
-                </v-btn>
-            </v-flex>
-        </v-layout>
+            </v-layout>
+            <v-layout class="px-3 mt-3">
+                <div class="leftSide ms-3 d-inline-block">
+                    <uploadImage sel="photo" class="pUb_edit_img" />
+                    <userAvatarNew
+                        sel="avatar_image"
+                        class="pUb_dS_img"
+                        :userName="$store.getters.getAccountName"
+                        :userImageUrl="$store.getters.getAccountImage"
+                        :width="isMobile ? 130: 160"
+                        :height="isMobile ? 161 : 200"
+                        :userId="$store.getters.getAccountId"
+                        :fontSize="36"
+                        :borderRadius="8"
+                        :tile="true"
+                    />
+                </div>
+                <v-flex xs12 :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
+                    <v-layout column>
+                        <v-flex xs12 sm6  class="pl-2 mb-2">
+                            <span class="subtitle">{{$t('profile_personal_details')}}</span>
+                        </v-flex>
+                        <v-flex xs12>
+                            <v-text-field
+                                    :rules="[rules.required, rules.minimumChars, rules.matchFirstName]"
+                                    :label="$t('profile_firstName_label')"
+                                    class="tutor-edit-firstname"
+                                    v-model="firstName"
+                                    outlined
+                            ></v-text-field>
+                        </v-flex>
+                    </v-layout>
+                </v-flex>
+                <v-flex xs12 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'pr-2']">
+                    <v-layout column>
+                        <v-flex v-if="$vuetify.breakpoint.smAndUp" xs12 sm6  class="mb-2 pl-2" grow>
+                            <span class="subtitle" style="visibility: hidden">hidden</span>
+                        </v-flex>
+                        <v-flex>
+                            <v-text-field
+                                    :rules="[rules.required, rules.minimumChars, rules.matchLastName]"
+                                    :label="$t('profile_lastName_label')"
+                                    class="tutor-edit-lastname"
+                                    v-model="lastName"
+                                    outlined
+                            ></v-text-field>
+                        </v-flex>
+                    </v-layout>
+                </v-flex>
+            </v-layout>
+            <v-layout  align-center class="bottomActions px-3" :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between ' : 'justify-end']">
+                <v-flex xs5 sm2  >
+                    <v-btn class="shallow-blue ml-0" rounded outlined primary @click="$store.commit('setComponent', '')">
+                        <span>{{$t('profile_btn_cancel')}}</span>
+                    </v-btn>
+                </v-flex>
+                <v-flex xs5 sm2  :class="{'mr-4': $vuetify.breakpoint.smAndUp}">
+                    <v-btn class="blue-btn  ml-0" rounded @click="saveChanges()" :loading="btnLoading">
+                        <span>{{$t('profile_btn_save_changes')}}</span>
+                    </v-btn>
+                </v-flex>
+            </v-layout>
         </v-form>
     </v-card>
     </v-dialog>
@@ -67,11 +82,13 @@ import * as routeName from '../../../../routes/routeNames'
 import accountService from '../../../../services/accountService';
 import { validationRules } from "../../../../services/utilities/formValidationRules";
 import editSVG from '../../components/profileUserBox/images/edit.svg';
+import uploadImage from '../../profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue';
 
 export default {
     name: "userInfoEdit",
     components: {
-        editSVG
+        editSVG,
+        uploadImage
     },
     data() {
         return {
@@ -89,7 +106,9 @@ export default {
         }
     },
     computed: {
-
+        isMobile() {
+            return this.$vuetify.breakpoint.xsOnly
+        },
         firstName:{
             get(){
                 return this.$store.getters.getAccountFirstName
@@ -187,6 +206,26 @@ export default {
         .bottomActions {
             margin-top: 60px;
         }
+        .leftSide {
+            position: relative;
+        @media (max-width: @screen-xs) {
+            padding: 8px 6px;
+            background: #fff;
+            border-radius: 8px;
+        }
+        .pUb_dS_img{
+            pointer-events: none !important;
+        }
+        .pUb_edit_img{
+            position: absolute;
+            right: 4px;
+            text-align: center;
+            width: 36px;
+            height: 46px;
+            border-radius: 4px;
+            background-color: #fff;
+        }
+    }
     }
 
 
