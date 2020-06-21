@@ -69,6 +69,11 @@ namespace Cloudents.Query.Users
                     .Where(w => w.StudyRoom.Tutor.Id == query.Id)
                     .ToFutureValue(f => f.Count());
 
+
+                //TODO
+                //Lessons => Total hours
+                //Students => Amount of files
+
                 var rateQuery = _session.Query<TutorReview>()
                     .Where(w => w.Tutor.Id == query.Id)
                     .GroupBy(g=>1)
