@@ -15,53 +15,31 @@ const state = {
 const mutations = {
    setProfile(state, data) {
       let profile = new Profile(data)
-
       function Profile(objInit) {
-
+         
          this.questions = [];
          this.answers = [];
          this.documents = [];
          this.purchasedDocuments = [];
-         this.user = {
-            id: objInit.id,
-            firstName: objInit.firstName,
-            lastName: objInit.lastName,
-            name: `${objInit.firstName} ${objInit.lastName}`,
-            image: objInit.image || '',
-            documentCourses: objInit.documentCourses,
-            courses: objInit.courses,
-            coursesString: objInit.courses.toString().replace(/,/g, ", "),
-            online: objInit.online || false,
-            calendarShared: objInit.calendarShared || false,
-            //TODO REMOVE THIS
-            isTutor: objInit.hasOwnProperty('tutor') || false,
-            followers: objInit.followers || '',
-            isFollowing: objInit.isFollowing,
-            cover: objInit.cover || '',
-            tutorData: {
-               price: objInit.price || 0,
-               bio: objInit.bio || '',
-               lessons: objInit.lessons || 0,
-               //TODO remove this
-               discountPrice: objInit.discountPrice,
-               //TODO remove this
-               pendingSessionsPayments: objInit.tutor.pendingSessionsPayments || null,
-               description: objInit.description || '',
-               contentCount: objInit.contentCount,
-                  //TODO remove this
-               hasCoupon: objInit.tutor.hasCoupon,
-                  //TODO remove this
-               rate: objInit.tutor.rate || 0,
-               reviewCount: objInit.reviewCount || 0,
-                //TODO remove this - duplicate
-               firstName: objInit.firstName || '',
-               //TODO remove this - duplicate
-               lastName: objInit.lastName || '',
-               students: objInit.students || 0,
-               subscriptionPrice: objInit.subscriptionPrice,
-               isSubscriber : objInit.isSubscriber
-            }
-         }
+         this.id = objInit.id;
+         this.firstName = objInit.firstName;
+         this.lastName = objInit.lastName;
+         this.name = `${objInit.firstName} ${objInit.lastName}`;
+         this.bio = objInit.bio;
+         this.contentCount = objInit.contentCount;
+         this.cover = objInit.cover;
+         this.description = objInit.description;
+         this.documentCourses = objInit.documentCourses;
+         this.image = objInit.image;
+         this.isFollowing = objInit.isFollowing;
+         this.isSubscriber = objInit.isSubscriber;
+         this.lessons = objInit.lessons;
+         this.followers = objInit.followers;
+         this.reviewCount = objInit.reviewCount;
+         this.students = objInit.students;
+         this.subscriptionPrice = objInit.subscriptionPrice;
+         this.calendarShared = objInit.calendarShared;
+         this.tutorCountry = objInit.tutorCountry;
       }
 
       state.profile = profile;
@@ -130,6 +108,7 @@ const getters = {
    getShowEditDataDialog: state => state.showEditDataDialog,
    getProfileCoverImage: state => state.profile?.user?.cover || '',
    getProfileTutorSubscription: state => state.profile?.user?.tutorData?.subscriptionPrice,
+   getIsMyProfile: (state, _getters) => _getters.getUserLoggedInStatus && (state.user?.id === _getters.getProfile?.id),
    getProfileTutorName: state => state.profile?.name || 'this is a test',
    getIsSubscriber: state => {
       return state.profile?.user?.tutorData?.isSubscriber
@@ -139,7 +118,6 @@ const getters = {
 const actions = {
    syncProfile({commit, dispatch, state}, { id, type, params }) {
       return profileInstance.get(`${id}`).then((res) => {
-         if(!res.data.tutor) return { user: { isTutor: false } }
          commit('setProfile', res.data)
          dispatch('updateProfileItemsByType', { id, type, params });
 
@@ -149,6 +127,8 @@ const actions = {
             commit('setProfileReviews', res2.data)
             return profileUserData
          })
+      }).catch(ex => {
+         return ex
       })
    },
    updateProfileItemsByType({ state, commit }, { id, type, params }) {

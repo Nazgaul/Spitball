@@ -136,18 +136,22 @@ export default {
                 }
             }
             let self = this
-            this.syncProfile(syncObj).then(({user}) => {
-              let currentRoute = self.$store.getters.getRouteStack[self.$store.getters.getRouteStack.length - 2] // check if there is last route that user come from
-              if(!user.isTutor) {
+            let currentRoute = self.$store.getters.getRouteStack[self.$store.getters.getRouteStack.length - 2] // check if there is last route that user come from
+            this.syncProfile(syncObj).then(() => {
+              // if(!user.isTutor) {
+                // if(currentRoute) {
+                //   self.$router.go(-1)
+                //   return
+                // }
+                // self.$router.push('/')
+              // }
+            }).catch((ex) => {
+                console.error(ex);
                 if(currentRoute) {
                   self.$router.go(-1)
                   return
                 }
                 self.$router.push('/')
-              }
-            }).catch((ex) => {
-                console.error(ex);
-                self.$router.push({name: routeNames.notFound})
             })
         },
         openCalendar() {
