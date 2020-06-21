@@ -171,7 +171,7 @@ namespace Cloudents.Web.Api
                 .UploadStreamAsync(fileName, file.OpenReadStream(), file.ContentType, TimeSpan.FromSeconds(60 * 24), token);
 
             var uri = blobProvider.GetBlobUrl(fileName);
-            var link = blobProvider.GeneratePreviewLinkAsync(uri, TimeSpan.FromDays(1));
+            var link =  await blobProvider.GeneratePreviewLinkAsync(uri, TimeSpan.FromDays(1));
 
             return Ok(new
             {
