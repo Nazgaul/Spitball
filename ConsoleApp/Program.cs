@@ -199,7 +199,7 @@ namespace ConsoleApp
                 }
             } while (users.Count > 0);
 
-            await DeleteOldStuff.ResyncTutorRead();
+            await DeleteOldStuff.ResyncTutorReadAsync();
         }
 
         private static async Task UpdateTwilioParticipants()
