@@ -37,15 +37,11 @@ namespace Cloudents.Infrastructure.Storage
         public Task InsertMessageAsync(BaseEmail obj, TimeSpan delay, CancellationToken token)
         {
             var queue = new QueueClient(_connectionString, QueueName.EmailQueue.Name);
-            //var queue = _queueClient.GetQueueReference(QueueName.EmailQueue.Name);
             var json = JsonConvert.SerializeObject(obj, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.All
             });
-            //var cloudMessage = new CloudQueueMessage(json);
             return queue.SendMessageAsync(json,delay, cancellationToken: token);
-            //return queue.AddMessageAsync(cloudMessage, null, delay, new QueueRequestOptions(),
-            //    new OperationContext(), token);
         }
 
         public Task InsertMessageAsync(ISystemQueueMessage obj, CancellationToken token)
