@@ -46,4 +46,5 @@ export default {
     resendCode: () => authInstance.post("/sms/resend"),
     forgotPasswordReset: email => authInstance.post("ForgotPassword", {email}),
     emailforgotPasswordResend: () => authInstance.post("ForgotPassword/resend"),
+    updatePassword: (password, id, code, confirmPassword) => authInstance.post("ForgotPassword/reset", {id, code, password, confirmPassword}),
 }

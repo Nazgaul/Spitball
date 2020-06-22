@@ -35,7 +35,7 @@ export const landingRoutes = [
                 next({name: nextRoute.name,query: to.query});
                 return;
             }
-            next();
+            next("/");
         },
     },
     {

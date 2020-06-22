@@ -25,19 +25,19 @@
     <!--<PackageReference Include="Autofac.Extras.DynamicProxy" Version="4.5.0" />-->
     <PackageReference Include="CacheManager.Serialization.Json" Version="1.2.0" />
     <PackageReference Include="CacheManager.StackExchange.Redis" Version="1.2.0" />
-    <PackageReference Include="Dapper" Version="2.0.30" />
-    <PackageReference Include="Google.Apis.Calendar.v3" Version="1.44.1.1893" />
-    <PackageReference Include="Google.Apis.Docs.v1" Version="1.44.1.1894" />
-    <PackageReference Include="Google.Apis.Drive.v3" Version="1.44.1.1888" />
+    <PackageReference Include="Dapper" Version="2.0.35" />
+    <PackageReference Include="Google.Apis.Calendar.v3" Version="1.46.0.1984" />
+    <PackageReference Include="Google.Apis.Docs.v1" Version="1.46.0.1988" />
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.46.0.1975" />
     <PackageReference Include="GoogleMeasurementProtocol" Version="2.1.0" />
     <PackageReference Include="Nager.Country" Version="1.0.4" />
     <PackageReference Include="protobuf-net" Version="2.4.0" />
-    <PackageReference Include="Stripe.net" Version="36.9.0" />
+    <PackageReference Include="Stripe.net" Version="37.10.0" />
     <PackageReference Include="Twilio" Version="5.37.1" />
     <PackageReference Include="protobuf-net" Version="2.4.4" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.0" />
     <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.Face" Version="2.5.0-preview.1" />
-    <PackageReference Include="Microsoft.Azure.Management.Media" Version="2.0.4" />
+    <PackageReference Include="Microsoft.Azure.Management.Media" Version="2.0.5" />
     <PackageReference Include="System.ServiceModel.Syndication" Version="4.7.0" />
     <PackageReference Include="System.Net.Http.Json" Version="3.2.0" />
   </ItemGroup>

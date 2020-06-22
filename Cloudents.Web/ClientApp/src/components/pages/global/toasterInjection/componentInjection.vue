@@ -9,15 +9,19 @@ const auth = () => import('../../global/dialogInjection/globalDialogs/auth/auth.
 const simpleToaster = () => import('./simpleToaster.vue');
 const simpleErrorToaster = () => import('./simpleErrorToaster.vue')
 const errorLinkToaster = () => import('./errorLinkToaster.vue')
+const buyPointsTransaction = () => import('./buyPointsTransaction.vue')
 
 const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue')
+
 const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
+const applyCoupon = () => import('./applyCoupon.vue')
+
+const editStudentInfo = () => import('../../../new_profile/profileHelpers/userInfoEdit/userInfoEdit.vue')
 
 const verifyPhone = () => import('../dialogInjection/globalDialogs/auth/register/verifyPhone.vue')
-
-const applyCoupon = () => import('./applyCoupon.vue')
 const studRoomSettings = () => import('../../../studyroom/tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue')
 const createStudyRoomDialog = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue')
+
 const teacherBillOfflineDialog = () => import('../dialogInjection/globalDialogs/teacherApproval/teacherBillOffline.vue');
 export default {
     components: {
@@ -25,9 +29,11 @@ export default {
         simpleToaster,
         simpleErrorToaster,
         errorLinkToaster,
+        buyPointsTransaction,
         upload,
         createCoupon,
         verifyPhone,
+        editStudentInfo,
         applyCoupon,
         studRoomSettings,
         createStudyRoomDialog,
@@ -62,6 +68,13 @@ export default {
                     name:'errorLinkToaster',
                     params: {
                         text: this.$t('studyRoom_premission_denied',['https://support.apple.com/en-il/guide/mac-help/mchld6aa7d23/mac']),
+                        timeout: 30000,
+                    }
+                },
+                buyPointsTransaction:{
+                    name:'buyPointsTransaction',
+                    params: {
+                        text: this.$t('buyTokens_success_transaction'),
                         timeout: 30000,
                     }
                 },
@@ -132,6 +145,9 @@ export default {
                 },
                 applyCoupon: {
                     name: 'applyCoupon'
+                },
+                editStudentInfo: {
+                    name: 'editStudentInfo'
                 }
             }
         }

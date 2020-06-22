@@ -49,6 +49,9 @@ export default {
             }
             this.$store.dispatch('subscribeToTutor', this.id)
         }
+    },
+    mounted() {
+        this.$loadScript("https://js.stripe.com/v3/?advancedFraudSignals=false")
     }
 }
 </script>

@@ -1,9 +1,11 @@
 ﻿using Cloudents.Core.Storage;
-using Microsoft.WindowsAzure.Storage;
 using System;
+using System.IO;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure.Storage
 {
@@ -11,14 +13,13 @@ namespace Cloudents.Infrastructure.Storage
     {
 
 
-        public FilesBlobProvider(ICloudStorageProvider storageProvider) : base(storageProvider, StorageContainer.File)
+        public FilesBlobProvider(IConfigurationKeys storageProvider) : base(storageProvider, StorageContainer.File)
         {
         }
 
         public Uri GetPreviewImageLink(long id, int i)
         {
-            var destinationDirectory = BlobDirectory.GetDirectoryReference(id.ToString());
-            var blob = destinationDirectory.GetBlobReference($"preview-{i}.jpg");
+            var blob = GetBlob($"{id}/preview-{i}.jpg");
             return blob.Uri;
         }
 
@@ -26,14 +27,14 @@ namespace Cloudents.Infrastructure.Storage
         {
             try
             {
-                var destinationDirectory = BlobDirectory.GetDirectoryReference(directory);
-                var blob = destinationDirectory.GetBlockBlobReference(name);
-
-                return await blob.DownloadTextAsync();
+                var blob = GetBlob($"{directory}/name");
+                var x = await blob.DownloadAsync(token);
+                using var streamReader = new StreamReader(x.Value.Content);
+                return await streamReader.ReadToEndAsync();
             }
-            catch (StorageException e)
+            catch (RequestFailedException e)
             {
-                if (e.RequestInformation.HttpStatusCode == (int)HttpStatusCode.NotFound)
+                if ( e.Status == (int)HttpStatusCode.NotFound)
                 {
                     return null;
                 }

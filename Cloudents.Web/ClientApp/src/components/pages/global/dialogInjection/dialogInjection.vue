@@ -5,7 +5,6 @@
 <script>
 
 const exitRegister = () => import('../../authenticationPage/login/exitRegisterDialog.vue');
-const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue');
 const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
 const login = () => import('./globalDialogs/login/login.vue');
 const buyPoints = () => import('./globalDialogs/buyPoints/buyPointsWrapper.vue');
@@ -19,7 +18,6 @@ export default {
     mixins: [dialogMixin],
      components: {
         exitRegister,
-        upload,
         createCoupon,
         login,
         payment,

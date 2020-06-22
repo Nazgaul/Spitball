@@ -16,8 +16,6 @@ using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using SixLabors.Primitives;
-using SixLabors.Shapes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,6 +25,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.FunctionsV2.Extensions;
+using SixLabors.ImageSharp.Drawing;
+using SixLabors.ImageSharp.Drawing.Processing;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using Path = System.IO.Path;
 
@@ -257,16 +257,17 @@ namespace Cloudents.FunctionsV2
                 };
                 if (mutation.CenterCords.HasValue)
                 {
-                    v.CenterCoordinates = new[]
-                        {mutation.CenterCords.Value.x / image.Width, mutation.CenterCords.Value.y / image.Height};
+                    v.CenterCoordinates = new PointF(mutation.CenterCords.Value.x / image.Width, mutation.CenterCords.Value.y / image.Height);
+                    //v.CenterCoordinates = new[]
+                    //    {mutation.CenterCords.Value.x / image.Width, mutation.CenterCords.Value.y / image.Height};
                 }
-                else
-                {
-                    v.CenterCoordinates = new float[]
-                    {
-                        0,0
-                    };
-                }
+                //else
+                //{
+                //    v.CenterCoordinates = new PointF
+                //    {
+                //        0,0
+                //    };
+                //}
 
 
 
@@ -279,7 +280,7 @@ namespace Cloudents.FunctionsV2
             });
             if (mutation.Background != null)
             {
-                image.Mutate(x => x.BackgroundColor(Color.FromHex(mutation.Background)));
+                image.Mutate(x => x.BackgroundColor(Color.ParseHex(mutation.Background)));
             }
 
             //image.Mutate(x => x.BackgroundColor(Rgba32.White));
@@ -294,23 +295,24 @@ namespace Cloudents.FunctionsV2
                     image.Mutate(x => x.BoxBlur(5));
                     break;
             }
+            
 
             return image;
 
         }
 
-        private static readonly Rgba32[] Colors = {
-            Rgba32.FromHex("64A9F8"),
-            Rgba32.FromHex("ff9853"),
-            Rgba32.FromHex("e775ce"),
-            Rgba32.FromHex("10b2c1"),
-            Rgba32.FromHex("848fa6"),
-            Rgba32.FromHex("f36f6e"),
-            Rgba32.FromHex("f76446"),
-            Rgba32.FromHex("73b435"),
-            Rgba32.FromHex("a55fff"),
-            Rgba32.FromHex("a27c22"),
-            Rgba32.FromHex("4faf61"),
+        private static readonly Color[] Colors = {
+            Color.ParseHex("64A9F8"),
+            Color.ParseHex("ff9853"),
+            Color.ParseHex("e775ce"),
+            Color.ParseHex("10b2c1"),
+            Color.ParseHex("848fa6"),
+            Color.ParseHex("f36f6e"),
+            Color.ParseHex("f76446"),
+            Color.ParseHex("73b435"),
+            Color.ParseHex("a55fff"),
+            Color.ParseHex("a27c22"),
+            Color.ParseHex("4faf61"),
         };
 
         private static string GetTwoLetters(string text)
@@ -351,8 +353,7 @@ namespace Cloudents.FunctionsV2
 
             var v = text.Select(Convert.ToInt32).Sum() % Colors.Length;
             img.Mutate(i => i.BackgroundColor(Colors[v]));
-
-            img.Mutate(i => i.Fill(new GraphicsOptions(true), Rgba32.White, glyphs));
+            img.Mutate(i => i.Fill(Color.White, glyphs));
             return img;
         }
 

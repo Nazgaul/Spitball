@@ -1,8 +1,8 @@
 <template>
   <div class="d-flex">
     <!--Should be nice to have quiet attribute-->
-    <img v-resize="onResize" sel="cover_image" class="coverPhoto" :src="getCoverImage" />
-    <div class="coverupload" v-if="isCurrentProfileUser">
+    <img v-resize.quiet="onResize" sel="cover_image" class="coverPhoto" :src="getCoverImage" />
+    <div class="coverupload" v-if="$store.getters.getIsMyProfile">
       <input sel="edit_cover_image"
         class="profile-upload"
         type="file"
@@ -35,13 +35,13 @@ export default {
       "getProfile",
       "getUserLoggedInStatus"
     ]),
-    isCurrentProfileUser() {
-      let profileUser = this.getProfile?.user;
-      if (profileUser && this.getUserLoggedInStatus) {
-        return profileUser.id == this.accountUser?.id;
-      }
-      return false;
-    },
+    // isCurrentProfileUser() {
+    //   let profileUser = this.getProfile?.user;
+    //   if (profileUser && this.getUserLoggedInStatus) {
+    //     return profileUser.id == this.accountUser?.id;
+    //   }
+    //   return false;
+    // },
     getCoverImage() {
       //https://github.com/vuejs/vue/issues/214
       this.currentTime;

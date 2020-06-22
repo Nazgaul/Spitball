@@ -1,9 +1,9 @@
 <template>
-  <div class="profilePage">
+  <div class="profilePage" :key="componentRenderKey" >
     <cover></cover>
     <profileDialogs />
     <div class="profilePage_main profile-page-container">
-      <profileUserBox :globalFunctions="globalFunctions" :key="componentRenderKey" />
+      <profileUserBox :globalFunctions="globalFunctions"/>
       <shareContent
         sel="share_area"
         :link="shareContentParams.link"
@@ -21,9 +21,9 @@
       />
       <profileSubscription :id="id" v-if="showProfileSubscription" ref="profileSubscription" />
       <profileLiveClasses :id="id" v-if="isTutor" @isComponentReady="val => goToLiveClasses = true" ref="profileLiveClassesElement" />
-      <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" />
+      <!-- <profileFindTutor class="mb-3 d-lg-none" /> -->
       <profileItemsBox v-if="isMyProfile || showItems" class="mt-sm-12 mt-2" />
-      <profileEarnMoney class="mt-0 mt-sm-5" v-if="showEarnMoney" />
+      <!-- <profileEarnMoney class="mt-0 mt-sm-5" v-if="showEarnMoney" />  -->
       <profileReviewsBox v-if="showReviewBox" class="mt-sm-10 mt-2" />
     </div>
   </div>
@@ -38,16 +38,14 @@ import chatService from '../../services/chatService.js';
 import profileUserBox from './components/profileUserBox/profileUserBox.vue';
 import profileDialogs from './components/profileDialogs/profileDialogs.vue';
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
-import profileEarnMoney from './components/profileEarnMoney/profileEarnMoney.vue';
-import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue';
+// import profileEarnMoney from './components/profileEarnMoney/profileEarnMoney.vue';
+// import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue';
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileLiveClasses from './components/profileLiveClasses/profileLiveClasses.vue'
 import calendarTab from '../calendar/calendarTab.vue';
 import profileSubscription from './components/profileSubscription/profileSubscription.vue';
 import cover from "./components/cover.vue";
 import * as routeNames from '../../routes/routeNames.js';
-
-
 
 const shareContent = () => import(/* webpackChunkName: "shareContent" */'../pages/global/shareContent/shareContent.vue');
 export default {
@@ -56,14 +54,13 @@ export default {
         profileUserBox,
         profileDialogs,
         profileReviewsBox,
-        profileEarnMoney,
-        profileFindTutor,
+        // profileEarnMoney,
+        // profileFindTutor,
         profileItemsBox,
         profileLiveClasses,
         profileSubscription,
         calendarTab,
         cover,
-        // sbDialog,
         shareContent,
     },
     props: {
@@ -78,18 +75,13 @@ export default {
                 sendMessage: this.sendMessage,
                 openCalendar: this.openCalendar,
                 closeCalendar: this.closeCalendar,
-                // openCoupon: this.openCoupon
             },
-            // coupon: '',
-            // disableApplyBtn: false,
             activeTab: 1,
             componentRenderKey: 0
         };
     },
     methods: {
         ...mapActions([
-            // 'updateCouponDialog',
-            // 'updateCoupon',
             'updateCurrTutor',
             'setTutorRequestAnalyticsOpenedFrom',
             'updateRequestDialog',
@@ -97,37 +89,6 @@ export default {
             'syncProfile',
             'updateToasterParams'
         ]),
-        // closeCouponDialog() {
-        //     this.coupon = ''
-        //     this.updateCouponDialog(false);
-        // },
-        // openCoupon(){
-        //     if(this.getUserLoggedInStatus) {
-        //     if(this.accountUser) {          
-        //         if(this.$route.params.id != this.accountUser.id) {
-        //             this.updateCouponDialog(true)
-        //             analyticsService.sb_unitedEvent('Tutor_Engagement', 'Click_Redeem_Coupon', `${this.$route.path}`);
-        //         }
-        //     }
-        //     } else {
-        //         this.$store.commit('setComponent', 'register')
-        //     }
-        // },
-        // applyCoupon() {
-        //     if(this.isTutor) {
-        //         this.disableApplyBtn = true;
-        //         let tutorId = this.getProfile.user.id;
-        //         let coupon = this.coupon;
-        //         let self = this
-        //         this.updateCoupon({coupon, tutorId}).finally(() => {
-        //         self.coupon = ''
-        //         self.disableApplyBtn = false;
-        //         if(!self.getCouponError) {
-        //             analyticsService.sb_unitedEvent('Tutor_Engagement', 'Redeem_Coupon_Success', `${this.$route.path}`);
-        //         }
-        //         })
-        //     }
-        // },
         sendMessage(){
             if(this.isMyProfile) {return}
             if(this.accountUser == null) {
@@ -171,10 +132,23 @@ export default {
                 type:'documents',
                 params:{
                     page: 0,
-                    pageSize:this.$vuetify.breakpoint.xsOnly? 3 : 8,
+                    pageSize: this.$vuetify.breakpoint.xsOnly ? 3 : 8,
                 }
             }
-            this.syncProfile(syncObj);
+            let self = this
+            this.syncProfile(syncObj).then(({user}) => {
+              let currentRoute = self.$store.getters.getRouteStack[self.$store.getters.getRouteStack.length - 2] // check if there is last route that user come from
+              if(!user.isTutor) {
+                if(currentRoute) {
+                  self.$router.go(-1)
+                  return
+                }
+                self.$router.push('/')
+              }
+            }).catch((ex) => {
+                console.error(ex);
+                self.$router.push({name: routeNames.notFound})
+            })
         },
         openCalendar() {
             if(!!this.accountUser) {
@@ -196,8 +170,6 @@ export default {
     computed: {
         ...mapGetters([
             "accountUser",
-            // 'getCouponDialog',
-            // 'getCouponError',
             "getProfile",
             'getBannerParams',
             'getUserLoggedInStatus',
@@ -236,7 +208,7 @@ export default {
             }
         },
         isTutor(){
-            return !!this.getProfile && this.getProfile.user.isTutor
+            return this.getProfile?.user?.isTutor
         },
         isMyProfile(){
           return this.getIsMyProfile
@@ -244,44 +216,29 @@ export default {
         // isMyProfile(){
         //     return !!this.getProfile && !!this.accountUser && this.accountUser?.id == this.getProfile?.user?.id
         // },
-        showEarnMoney(){
-            return this.isMyProfile && this.isTutor && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
-        },
         showItemsEmpty(){
             return !this.isMyProfile && this.isTutor && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
         },
         showItems(){
             if(!!this.getProfile){
-                // if(this.isTutor) {
-                //     return true;
-                // }else{
-                    return this.uploadedDocuments?.result?.length
-                // }
+              return this.uploadedDocuments?.result?.length
             }
             return false
         },
         showCalendarTab() {
             if(!this.isTutor) return false;
-            
             let isCalendar = this.getProfile?.user.calendarShared
             if(this.isMyProfile) {
                 return !isCalendar || (this.activeTab === 5 && isCalendar) 
             }
+            // return isCalendar
             return this.activeTab === 5 && isCalendar
         },
-        // isTutorPending(){
-        //     return this.isMyProfile && (!!this.accountUser && this.accountUser.isTutorState === "pending")
-        // },
-        // showBecomeTutor(){
-        //     return this.isMyProfile && !this.isTutor && !this.isTutorPending;
-        // },
         showFindTutor(){
             return (!this.isMyProfile && !this.isTutor)
         },
         profileData() {
-            //if (!!this.getProfile) {
-                return this.getProfile;
-            //}
+          return this.getProfile;
         },
         uploadedDocuments() {
             if(this.profileData && this.profileData.documents) {
@@ -301,11 +258,6 @@ export default {
                 this.fetchData();
             }
         },
-        // coupon(val) {
-        //     if(val && this.getCouponError) {
-        //         this.$store.commit('setCouponError', false)
-        //     }
-        // },
         showProfileSubscription(val) {
           if(val) {
             this.$nextTick(() => {
@@ -327,6 +279,33 @@ export default {
           }
         }
     },
+    // beforeRouteUpdate(to, from, next) {
+    //     let old = Number(from.params.id, 10)
+    //     let newVal = Number(to.params.id, 10)
+    //     this.activeTab = 1;
+    //     this.componentRenderKey += 1;
+    //     if (newVal !== old) {
+    //       this.$store.commit('resetProfile');
+    //       let self = this
+    //       let syncObj = {
+    //           id: to.params.id,
+    //           type:'documents',
+    //           params:{
+    //               page: 0,
+    //               pageSize: this.$vuetify.breakpoint.xsOnly ? 3 : 8,
+    //           }
+    //       }
+    //       this.syncProfile(syncObj).then(({user}) => {
+    //         if(user.isTutor) return next()
+
+    //         let previousLink = from.fullPath || '/';
+    //         next(previousLink);
+    //       }).catch((ex) => {
+    //           console.error(ex);
+    //           self.$router.push({name: routeNames.notFound})
+    //       })
+    //     }
+    // },
     beforeRouteLeave(to, from, next) {
         this.updateToasterParams({
             showToaster: false
@@ -334,18 +313,8 @@ export default {
         this.$store.commit('resetProfile');
         next();
     },
-    // beforeDestroy(){
-    //     this.closeCouponDialog();
-    //     storeService.unregisterModule(this.$store, 'couponStore');
-    //  },
     created() {
-        this.fetchData();
-        // storeService.registerModule(this.$store, 'couponStore', couponStore);
-        // if(!!this.$route.query.coupon) {
-        //     setTimeout(() => {
-        //         this.openCoupon();
-        //     },200)
-        // }
+      // this.fetchData()
         if(this.$route.params.openCalendar) {
             this.openCalendar();
         }
