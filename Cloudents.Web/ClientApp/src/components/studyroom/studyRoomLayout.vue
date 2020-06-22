@@ -8,7 +8,6 @@
     <!-- <template v-else> -->
       <studyRoomDrawer/>
       <studyRoomHeader/>
-      <studyRoomDrawer/>
       <v-content>
         <studyRoomWrapper style="height:100%"/>
       </v-content>
@@ -29,7 +28,7 @@ const studyRoomHeader = () => import('./layouts/studyRoomHeader/studyRoomHeader.
 import * as dialogNames from '../pages/global/dialogInjection/dialogNames.js';
 import chatService from "../../services/chatService";
 import { mapGetters } from 'vuex';
-const studyRoomMobile = () => import('./studyRoomMobile.vue');
+// const studyRoomMobile = () => import('./studyRoomMobile.vue');
 const studyRoomWrapper = () => import('./windows/studyRoomWrapper.vue');
 const studyRoomSettingsDialog = () => import("./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue");
 const studyRoomDialogs = () => import('./studyRoomDialogs.vue');
@@ -46,7 +45,7 @@ export default {
     studyRoomFooter,
     studyRoomHeader,
 
-    studyRoomMobile,
+    // studyRoomMobile,
     studyRoomWrapper,
     studyRoomSettingsDialog,
     studyRoomDialogs,
