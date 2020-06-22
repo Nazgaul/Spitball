@@ -105,27 +105,27 @@ export default {
         student: 'menuListStudent',
       },
       menuListNotLogged: [
-        { title: 'header_find_tutors', icon: 'sbf-account-group', route: { name: routeNames.TutorList } },
-        { title: 'profile_become_title', icon: 'sbf-find', url: 'https://teach.spitball.co/', notShowFrymo: true },
-        { title: 'menuList_help', icon: 'sbf-help', url: satelliteService.getSatelliteUrlByName('faq') },
-        { title: 'menuList_about_spitball',  icon: 'sbf-about', url: satelliteService.getSatelliteUrlByName('about') },
-        { title: 'menuList_terms_of_service', icon: 'sbf-terms', url: satelliteService.getSatelliteUrlByName('terms') },
-        { title: 'menuList_privacy_policy', icon: 'sbf-privacy', url: satelliteService.getSatelliteUrlByName('privacy') }
+        { title: this.$t('header_find_tutors'), icon: 'sbf-account-group', route: { name: routeNames.TutorList } },
+        { title: this.$t('profile_become_title'), icon: 'sbf-find', url: 'https://teach.spitball.co/', notShowFrymo: true },
+        { title: this.$t('menuList_help'), icon: 'sbf-help', url: satelliteService.getSatelliteUrlByName('faq') },
+        { title: this.$t('menuList_about_spitball'),  icon: 'sbf-about', url: satelliteService.getSatelliteUrlByName('about') },
+        { title: this.$t('menuList_terms_of_service'), icon: 'sbf-terms', url: satelliteService.getSatelliteUrlByName('terms') },
+        { title: this.$t('menuList_privacy_policy'), icon: 'sbf-privacy', url: satelliteService.getSatelliteUrlByName('privacy') }
       ],
       menuListTeacher:[
-        { title: 'menuList_help', icon: 'sbf-help', url: satelliteService.getSatelliteUrlByName('faq') },
-        { title: 'menuList_about_spitball', icon: 'sbf-about', url: satelliteService.getSatelliteUrlByName('about') },
-        { title: 'menuList_terms_of_service', icon: 'sbf-terms', url: satelliteService.getSatelliteUrlByName('terms') },
-        { title: 'menuList_privacy_policy', icon: 'sbf-privacy', url: satelliteService.getSatelliteUrlByName('privacy') },
-        { title: 'menuList_referral_spitball', icon: 'sbf-user', action: this.openReferralDialog },
-        { title: 'menuList_feedback', icon: 'sbf-feedbackNew', action: this.startIntercom }
+        { title: this.$t('menuList_help'), icon: 'sbf-help', url: satelliteService.getSatelliteUrlByName('faq') },
+        { title: this.$t('menuList_about_spitball'), icon: 'sbf-about', url: satelliteService.getSatelliteUrlByName('about') },
+        { title: this.$t('menuList_terms_of_service'), icon: 'sbf-terms', url: satelliteService.getSatelliteUrlByName('terms') },
+        { title: this.$t('menuList_privacy_policy'), icon: 'sbf-privacy', url: satelliteService.getSatelliteUrlByName('privacy') },
+        { title: this.$t('menuList_referral_spitball'), icon: 'sbf-user', action: this.openReferralDialog },
+        { title: this.$t('menuList_feedback'), icon: 'sbf-feedbackNew', action: this.startIntercom }
       ],
       menuListStudent: [
-        { title: 'menuList_account_setting', icon: 'sbf-settings', route: routeNames.Profile },
-        { title: 'menuList_my_purchases', icon: 'sbf-cart', route: routeNames.MyPurchases },
-        { title: 'menuList_my_studyroom', icon: 'sbf-studyroom-icon', route: routeNames.MyStudyRooms },
-        { title: 'menuList_my_sales', icon: 'sbf-my-sales', route: routeNames.MySales },
-        { title: 'menuList_help', icon: 'sbf-help', url: satelliteService.getSatelliteUrlByName('faq') }
+        { title: this.$t('menuList_account_setting'), icon: 'sbf-settings', action: this.openEditInfo },
+        { title: this.$t('menuList_my_purchases'), icon: 'sbf-cart', route: routeNames.MyPurchases },
+        { title: this.$t('menuList_my_studyroom'), icon: 'sbf-studyroom-icon', route: routeNames.MyStudyRooms },
+        { title: this.$t('menuList_my_sales'), icon: 'sbf-my-sales', route: routeNames.MySales },
+        { title: this.$t('menuList_help'), icon: 'sbf-help', url: satelliteService.getSatelliteUrlByName('faq') }
       ]
     }
   },
@@ -181,6 +181,10 @@ export default {
     },
     openRegisterTypeDialog() {
       this.$store.commit('setComponent', 'registerType');
+      this.$emit('closeMenu')
+    },
+    openEditInfo() {
+      this.$store.commit('setComponent', 'editStudentInfo');
       this.$emit('closeMenu')
     }
   },

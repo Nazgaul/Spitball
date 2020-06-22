@@ -28,6 +28,8 @@ const getters = {
     getIsTutorSubscription: state => state.user?.subscription,
     getIsMyProfile: (state, _getters) => _getters.getUserLoggedInStatus && (state.user?.id === _getters.getProfile?.user.id),
     getAccountId: state => state.user?.id,
+    getAccountFirstName: state => state.user?.firstName,
+    getAccountLastName: state => state.user?.lastName,
     getAccountName: state => state.user?.name,
     getAccountImage: state => state.user?.image,
     getIsAccountChat: state => state.user?.chatUnread !== null && state.user?.chatUnread !== undefined,
@@ -74,6 +76,11 @@ const mutations = {
         }
         
         state.user = user
+    },
+    setStudentInfo(state, studentInfo) {
+        state.user.name = `${studentInfo.firstName} ${studentInfo.lastName}`
+        state.user.firstName = studentInfo.firstName
+        state.user.lastName = studentInfo.lastName
     }
 };
 
