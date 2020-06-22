@@ -6,7 +6,7 @@
                 :hint="passHint"
                 :class="[hintClass,'widther']"
                 v-model="password"
-				placeholder="loginRegister_resetpass_input"
+				:placeholder="$t('loginRegister_resetpass_input')"
 				:bottomError="true"
 				:autofocus="true" 
 				name="pass" type="password"/>

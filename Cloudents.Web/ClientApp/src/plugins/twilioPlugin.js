@@ -93,18 +93,13 @@ function _twilioListeners(room,store) {
    })
    room.localParticipant.on('networkQualityLevelChanged', (networkQualityLevel,networkQualityStats) => {
       let params = {
+         participant: room.localParticipant.identity,
          level:networkQualityLevel,
-         audio: networkQualityStats?.audio? {
-            recv: networkQualityStats.audio.recv,
-            send: networkQualityStats.audio.send,
-         } : undefined,
-         video: networkQualityStats?.video? {
-            recv: networkQualityStats.video.recv,
-            send: networkQualityStats.video.send,
-         } : undefined
+         audio: networkQualityStats?.audio? 'recv:'+networkQualityStats.audio.recv+' send:'+networkQualityStats.audio.send : undefined,
+         video: networkQualityStats?.video? 'recv:'+networkQualityStats.video.recv+' send:'+networkQualityStats.video.send : undefined,
       }
       store.commit(studyRoom_SETTERS.ROOM_NETWORK_QUALITY,networkQualityLevel || 0)
-      _insightEvent('networkQuality',JSON.stringify(params))
+      _insightEvent('networkQuality',params,null)
    });
    room.localParticipant.on('trackPublished',(track)=>{
       store.commit(studyRoom_SETTERS.ROOM_ACTIVE,true)

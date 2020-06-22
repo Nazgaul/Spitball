@@ -34,12 +34,12 @@ namespace Cloudents.Admin2.Controllers
             [FromServices] IBlobProvider blobProvider2,
             CancellationToken token)
         {
-            var files = await blobProvider.FilesInDirectoryAsync("file-", id.ToString(), token);
-            var file = files.First();
+            var file = await blobProvider.FilesInDirectoryAsync("file-", id.ToString(), token).FirstAsync(token);
+            //var file = files.First();
 
             //blob.core.windows.net/spitball-files/files/6160/file-82925b5c-e3ba-4f88-962c-db3244eaf2b2-advanced-linux-programming.pdf
             var extension = Path.GetExtension(file.Segments.Last());
-            var url = blobProvider2.GenerateDownloadLink(file, TimeSpan.FromMinutes(30), "Temp" + extension);
+            var url = await blobProvider2.GenerateDownloadLinkAsync(file, TimeSpan.FromMinutes(30), "Temp" + extension);
             return Redirect(url.AbsoluteUri);
         }
 

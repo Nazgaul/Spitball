@@ -164,11 +164,11 @@ namespace Cloudents.Core.Entities
             Status = Public;
         }
 
-        public virtual void UnDelete()
-        {
-            Status = Public;
-            AddEvent(new DocumentUndeletedEvent(this));
-        }
+        //public virtual void UnDelete()
+        //{
+        //    Status = Public;
+        //    AddEvent(new DocumentUndeletedEvent(this));
+        //}
 
 
 

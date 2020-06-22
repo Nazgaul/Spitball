@@ -33,7 +33,7 @@ namespace Cloudents.Query.Tutor
             {
                 return await _session.Query<StudyRoom>()
                      .Where(w => w.Tutor.Id == query.UserId || w.Users.Any(a => a.User.Id == query.UserId))
-                     .Where(w => (((BroadCastStudyRoom)w).BroadcastTime != null ? ((BroadCastStudyRoom)w).BroadcastTime : DateTime.UtcNow.AddDays(1)) > DateTime.UtcNow)
+                     .Where(w => (((BroadCastStudyRoom)w).BroadcastTime != null ? ((BroadCastStudyRoom)w).BroadcastTime : DateTime.UtcNow.AddDays(1)) > DateTime.UtcNow.AddHours(-1))
                      .OrderByDescending(o => o.DateTime.CreationTime)
                      .Select(s => new UserStudyRoomDto(
                          s.Name,

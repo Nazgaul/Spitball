@@ -1,7 +1,5 @@
 import dashboardService from '../services/dashboardService.js';
 import walletService from '../services/walletService.js';
-//TODO: Account new store clean @idan
-import accountService from '../services/accountService';
 import salesService from '../services/salesService.js';
 
 const state = {
@@ -84,7 +82,7 @@ const actions = {
       });
    },
    updateStudyRoomItems({commit}, type){
-      dashboardService.getStudyRoomItems(type).then(items=>{
+      return dashboardService.getStudyRoomItems(type).then(items=>{
          commit('setStudyRoomItems', items);
       });
    },
@@ -121,16 +119,6 @@ const actions = {
          });
          return;
       }
-   },
-   //TODO: Account new store clean @idan
-   updateStudentsAnswersQuestion() {
-      return accountService.getQuestions().then((data) => {
-         return data;
-      }, (err) => {
-         return Promise.reject(err);
-      }).finally(()=>{
-         return
-      });
    },
    updateTutorActions() {
       return dashboardService.getTutorActions()

@@ -216,9 +216,6 @@ export default {
         // isMyProfile(){
         //     return !!this.getProfile && !!this.accountUser && this.accountUser?.id == this.getProfile?.user?.id
         // },
-        showEarnMoney(){
-            return this.isMyProfile && this.isTutor && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
-        },
         showItemsEmpty(){
             return !this.isMyProfile && this.isTutor && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
         },

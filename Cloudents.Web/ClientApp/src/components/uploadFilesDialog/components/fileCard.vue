@@ -7,14 +7,13 @@
             <v-col cols="12" sm="7" class="pa-0 pr-sm-4">
                 <v-text-field
                     v-model="item.name"
-                    :rules="[rules.required]"
+                    :rules="[rules.required, rules.minimumChars, rules.maximumChars]"
                     :label="$t('upload_file_title_label')"
                     placeholder=" "
                     color="#4c59ff"
                     height="44"
                     dir="ltr"
                     outlined
-                    readonly
                     dense
                 >
                 </v-text-field>
@@ -108,7 +107,9 @@ export default {
                 matchCourse:() => ((this.getSelectedClasses.length && this.getSelectedClasses.some(course=>course.text === this.selectedCourse)
                         ) || this.isFromQuery) || this.$t("tutorRequest_invalid"),
                 maximum: (value) => validationRules.maxVal(value, 1000),
-                minimum: (value) => validationRules.minVal(value,0)
+                minimum: (value) => validationRules.minVal(value,0),
+                minimumChars: value => validationRules.minimumChars(value, 4),
+                maximumChars: value => validationRules.maximumChars(value, 150)
             }
         }
     },
