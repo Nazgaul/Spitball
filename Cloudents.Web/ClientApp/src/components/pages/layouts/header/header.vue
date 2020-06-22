@@ -7,8 +7,8 @@
         <router-link @click.prevent="resetItems()" to="/" :class="{'globalHeader_logo': !$route.meta.tutorHeaderSlot}">
             <logoComponent/>
         </router-link>
-        <template v-if="$route.meta.tutorHeaderSlot" class="tutorNameSlot">
-            <v-divider class="mx-8" vertical inset max-height="10"></v-divider>
+        <template v-if="$route.meta.tutorHeaderSlot">
+            <div class="dividerName mx-8" vertical inset></div>
             <div class="tutorName text-truncate">{{$store.getters.getProfileTutorName}}</div>
         </template>
         <div class="globalHeader_items">
@@ -264,7 +264,19 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
             margin-right: 34px;
         }
         
-    }    
+    }
+        .dividerName {
+            height: 28px;
+            width: 4px;
+            font-weight: bold;
+            background: #000;
+        }
+        .tutorName {
+            width: 100%;
+            color: #363637;
+            font-weight: bold;
+            font-size: 22px;
+        }
     .mobileHeaderSearch{
         width: 100%;
         height: 40px;
