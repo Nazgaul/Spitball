@@ -132,8 +132,8 @@ export default {
             if(this.$refs.formUser.validate()) {
                 this.btnLoading = true;
                 let studentInfo = {
-                    firstName: this.editedFirstName,
-                    lastName: this.editedLastName
+                    firstName: this.editedFirstName || this.firstName,
+                    lastName: this.editedLastName || this.lastName
                 };
                 //TODO: Account new store clean @idan
                 this.$store.dispatch('saveUserInfo', studentInfo).then(() => {
