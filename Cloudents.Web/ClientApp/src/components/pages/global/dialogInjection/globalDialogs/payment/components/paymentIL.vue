@@ -29,6 +29,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import * as componentConsts from '../../../../toasterInjection/componentConsts.js';
 
 import * as routeNames from '../../../../../../../routes/routeNames';
 export default {
@@ -49,9 +50,10 @@ export default {
                 let isExit = confirm(this.$t("payme_are_you_sure_exit"))
                 if(isExit){
                     this.$router.push('/');
+                    this.$store.commit('removeComponent',componentConsts.PAYMENT_DIALOG)
                 }
             }else{
-                this.$closeDialog()
+                this.$store.commit('removeComponent',componentConsts.PAYMENT_DIALOG)
             }
         }
     },
@@ -63,7 +65,7 @@ export default {
                     showToaster: true,
                     toasterTimeout: 5000
                 });
-            self.$closeDialog()
+            self.$store.commit('removeComponent',componentConsts.PAYMENT_DIALOG)
         })
     },
     beforeDestroy() {

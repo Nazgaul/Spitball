@@ -2,9 +2,9 @@ import axios from 'axios'
 
 import analyticsService from '../services/analytics.service';
 import intercomeService from '../services/intercomService';
+import * as componentConsts from '../components/pages/global/toasterInjection/componentConsts.js'
 import insightService from '../services/insightService';
 import { dollarCalculate } from "./constants";
-import { router } from "../main";
 
 const accountInstance = axios.create({
     baseURL: '/api/account'
@@ -151,9 +151,8 @@ const actions = {
         })
     },
     signalR_SetBalance({ commit, state, getters }, newBalance) {
-
-        if(router.currentRoute.query?.dialog){
-            router.push({query:{...router.currentRoute.query, dialog: undefined}})
+        if(getters.getIsComponentActiveByName(componentConsts.PAYMENT_DIALOG)){
+            commit('removeComponent',componentConsts.PAYMENT_DIALOG)
         }
         if (getters.getIsBuyPoints || state.user.balance > newBalance) {
             commit('setComponent', 'buyPointsTransaction')

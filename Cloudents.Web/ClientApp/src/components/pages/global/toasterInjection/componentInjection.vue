@@ -1,8 +1,14 @@
 <template>
-    <component :is="component.name" :params="component.params"></component>
+    <div>
+        <component v-for="(item, index) in componentsList" :key="index" :is="item.name" :params="item.params"></component>
+    </div>
 </template>
 
 <script>
+import * as componentConsts from './componentConsts.js';
+
+const PAYMENT_DIALOG = () => import('../dialogInjection/globalDialogs/payment/paymentWrapper.vue');
+
 
 const auth = () => import('../../global/dialogInjection/globalDialogs/auth/auth.vue')
 
@@ -25,6 +31,8 @@ const createStudyRoomDialog = () => import('../../dashboardPage/myStudyRooms/cre
 const teacherBillOfflineDialog = () => import('../dialogInjection/globalDialogs/teacherApproval/teacherBillOffline.vue');
 export default {
     components: {
+        PAYMENT_DIALOG,
+        
         auth,
         simpleToaster,
         simpleErrorToaster,
@@ -43,6 +51,9 @@ export default {
         return {
             component: {},
             componentObj: {
+                [componentConsts.PAYMENT_DIALOG]:{
+                    name: componentConsts.PAYMENT_DIALOG,
+                },
                 teacherBillOfflineDialog:{
                     name:'teacherBillOfflineDialog'
                 },
@@ -153,17 +164,17 @@ export default {
         }
     },
     watch: {
-        "$store.getters.getComponent":{
+        componentsList:{
+            deep:true,
             immediate:true,
-            handler(newVal){
-                this.showComponent(newVal)
-            }
+            handler(){}
         },
     },
-    methods: {
-        showComponent(componentName = "") {
-            let componentInject = this.componentObj[componentName] || {name: '', params: ''};
-            this.component = componentInject;
+    computed: {
+        componentsList(){
+            return this.$store.getters.getComponent.map(cmp=>{
+                return this.componentObj[cmp] || {name: '', params: ''};
+            })
         }
     }
 }
