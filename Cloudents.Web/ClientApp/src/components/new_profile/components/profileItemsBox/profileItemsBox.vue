@@ -119,7 +119,7 @@ export default {
          return this.getProfile?.user.firstName? this.getProfile.user.firstName : this.getProfile.user.name;
       },
       userCourses(){
-         return this.getProfile?.user.courses;
+         return this.getProfile?.user.documentCourses;
       }
    },
    methods: {

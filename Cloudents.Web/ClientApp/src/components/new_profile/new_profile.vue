@@ -3,8 +3,8 @@
     <cover></cover>
     <profileDialogs />
     <div class="profilePage_main profile-page-container">
-      <profileUserBox :globalFunctions="globalFunctions"/>
-      <shareContent
+      <!-- <profileUserBox :globalFunctions="globalFunctions"/> -->
+      <!-- <shareContent
         sel="share_area"
         :link="shareContentParams.link"
         :twitter="shareContentParams.twitter"
@@ -12,7 +12,7 @@
         :email="shareContentParams.email"
         class="mb-2 mb-sm-3 shareContentProfile"
         v-if="getProfile"
-      />
+      /> -->
       <calendarTab
         ref="calendarTab"
         v-if="showCalendarTab"
@@ -20,7 +20,8 @@
         :globalFunctions="globalFunctions"
       />
       <profileSubscription :id="id" v-if="showProfileSubscription" ref="profileSubscription" />
-      <profileLiveClasses :id="id" v-if="isTutor" @isComponentReady="val => goToLiveClasses = true" ref="profileLiveClassesElement" />
+      <profileBroadcasts :id="id" @isComponentReady="val => goToLiveClasses = true" ref="profileLiveClassesElement" />
+      <!-- <profileLiveClasses :id="id" @isComponentReady="val => goToLiveClasses = true" ref="profileLiveClassesElement" /> -->
       <!-- <profileFindTutor class="mb-3 d-lg-none" /> -->
       <profileItemsBox v-if="isMyProfile || showItems" class="mt-sm-12 mt-2" />
       <!-- <profileEarnMoney class="mt-0 mt-sm-5" v-if="showEarnMoney" />  -->
@@ -32,36 +33,37 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
-import analyticsService from '../../services/analytics.service';
 import chatService from '../../services/chatService.js';
 
-import profileUserBox from './components/profileUserBox/profileUserBox.vue';
+// import profileUserBox from './components/profileUserBox/profileUserBox.vue';
 import profileDialogs from './components/profileDialogs/profileDialogs.vue';
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
 // import profileEarnMoney from './components/profileEarnMoney/profileEarnMoney.vue';
 // import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue';
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
-import profileLiveClasses from './components/profileLiveClasses/profileLiveClasses.vue'
+import profileBroadcasts from './components/profileLiveClasses/profileBroadcasts.vue'
+// import profileLiveClasses from './components/profileLiveClasses/profileLiveClasses.vue'
 import calendarTab from '../calendar/calendarTab.vue';
 import profileSubscription from './components/profileSubscription/profileSubscription.vue';
 import cover from "./components/cover.vue";
 import * as routeNames from '../../routes/routeNames.js';
 
-const shareContent = () => import(/* webpackChunkName: "shareContent" */'../pages/global/shareContent/shareContent.vue');
+// const shareContent = () => import(/* webpackChunkName: "shareContent" */'../pages/global/shareContent/shareContent.vue');
 export default {
     name: "new_profile",
     components: {
-        profileUserBox,
+        // profileUserBox,
         profileDialogs,
         profileReviewsBox,
         // profileEarnMoney,
         // profileFindTutor,
         profileItemsBox,
-        profileLiveClasses,
+        // profileLiveClasses,
+        profileBroadcasts,
         profileSubscription,
         calendarTab,
         cover,
-        shareContent,
+        // shareContent,
     },
     props: {
         id: {
@@ -92,7 +94,7 @@ export default {
         sendMessage(){
             if(this.isMyProfile) {return}
             if(this.accountUser == null) {
-               analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
+               this.$ga.event('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
                let profile = this.getProfile
                this.updateCurrTutor(profile.user)    
                this.setTutorRequestAnalyticsOpenedFrom({
@@ -101,7 +103,7 @@ export default {
                });
                this.updateRequestDialog(true);
             } else {
-               analyticsService.sb_unitedEvent('Request Tutor Submit', 'Send_Chat_Message', `${this.$route.path}`);
+               this.$ga.event('Request Tutor Submit', 'Send_Chat_Message', `${this.$route.path}`);
                let currentProfile = this.getProfile;
                let conversationObj = {
                   userId: currentProfile.user.id,
@@ -136,17 +138,11 @@ export default {
                 }
             }
             let self = this
-            let currentRoute = self.$store.getters.getRouteStack[self.$store.getters.getRouteStack.length - 2] // check if there is last route that user come from
             this.syncProfile(syncObj).then(() => {
-              // if(!user.isTutor) {
-                // if(currentRoute) {
-                //   self.$router.go(-1)
-                //   return
-                // }
-                // self.$router.push('/')
-              // }
+
             }).catch((ex) => {
                 console.error(ex);
+                let currentRoute = self.$store.getters.getRouteStack[self.$store.getters.getRouteStack.length - 2] // check if there is last route that user come from
                 if(currentRoute) {
                   self.$router.go(-1)
                   return
@@ -189,7 +185,7 @@ export default {
         },
         shareContentParams(){
             let urlLink = `${global.location.origin}/p/${this.$route.params.id}?t=${Date.now()}` ;
-            let userName = this.getProfile.user?.name;
+            let userName = this.getProfile?.user?.name;
             let paramObJ = {
                 link: urlLink,
                 twitter: this.$t('shareContent_share_profile_twitter',[userName,urlLink]),
@@ -201,30 +197,18 @@ export default {
             }
             return paramObJ
         },
-        // isShowCouponDialog(){
-        //     return this.getCouponDialog;
-        // },
         showReviewBox(){
-            if((!!this.getProfile && this.getProfile.user.isTutor) && (this.getProfile.user.tutorData.rate)){
-                return true;
+            if(this.getProfile?.user?.tutorData?.rate){
+              return true;
             }else{
-                return false
+              return false
             }
-        },
-        isTutor(){
-            return this.getProfile?.user?.isTutor
         },
         isMyProfile(){
           return this.getIsMyProfile
         },
-        // isMyProfile(){
-        //     return !!this.getProfile && !!this.accountUser && this.accountUser?.id == this.getProfile?.user?.id
-        // },
-        showEarnMoney(){
-            return this.isMyProfile && this.isTutor && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
-        },
         showItemsEmpty(){
-            return !this.isMyProfile && this.isTutor && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
+            return !this.isMyProfile && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
         },
         showItems(){
             if(!!this.getProfile){
@@ -233,16 +217,12 @@ export default {
             return false
         },
         showCalendarTab() {
-            if(!this.isTutor) return false;
-            let isCalendar = this.getProfile?.user.calendarShared
+            let isCalendar = this.getProfile?.user?.calendarShared
             if(this.isMyProfile) {
                 return !isCalendar || (this.activeTab === 5 && isCalendar) 
             }
             // return isCalendar
             return this.activeTab === 5 && isCalendar
-        },
-        showFindTutor(){
-            return (!this.isMyProfile && !this.isTutor)
         },
         profileData() {
           return this.getProfile;

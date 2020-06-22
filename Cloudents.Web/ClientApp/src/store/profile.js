@@ -12,6 +12,19 @@ const state = {
    showEditDataDialog: false,
 }
 
+const getters = {
+   getProfile: state => state.profile,
+   getProfileReviews: state => state.profileReviews,
+   getShowEditDataDialog: state => state.showEditDataDialog,
+   getProfileCoverImage: state => state.profile?.user?.cover || '',
+   getProfileTutorSubscription: state => state.profile?.user?.tutorData?.subscriptionPrice,
+   getIsMyProfile: (state, _getters) => _getters.getUserLoggedInStatus && (state.profile?.user?.id === _getters.accountUser?.id),
+   getProfileTutorName: state => state.profile?.user?.name || 'this is a test',
+   getIsSubscriber: state => {
+      return state.profile?.user?.tutorData?.isSubscriber
+   },
+}
+
 const mutations = {
    setProfile(state, data) {
       let profile = new Profile(data)
@@ -28,43 +41,26 @@ const mutations = {
             name: `${objInit.firstName} ${objInit.lastName}`,
             image: objInit.image || '',
             documentCourses: objInit.documentCourses,
-            // courses: objInit.courses,
             coursesString: objInit.documentCourses.toString().replace(/,/g, ", "),
             online: objInit.online || false,
             calendarShared: objInit.calendarShared || false,
-            //TODO REMOVE THIS
-            // isTutor: objInit.hasOwnProperty('tutor') || false,
             followers: objInit.followers || '',
             isFollowing: objInit.isFollowing,
             cover: objInit.cover || '',
             tutorCountry: objInit.tutorCountry,
             tutorData: {
-               // price: objInit.price || 0,
                bio: objInit.bio || '',
                lessons: objInit.lessons || 0,
-               //TODO remove this
-               // discountPrice: objInit.discountPrice,
-               //TODO remove this
-               // pendingSessionsPayments: objInit.tutor.pendingSessionsPayments || null,
                description: objInit.description || '',
-               //TODO remove this
-               contentCount: objInit.contentCount,
-                  //TODO  this
-               // hasCoupon: objInit.tutor.hasCoupon,
                //TODO - Obselete - will be  remove next version
-               rate: objInit.tutor.rate || 0,
+               rate: objInit.rate || 0,
                reviewCount: objInit.reviewCount || 0,
-                //TODO remove this - duplicate
-               // firstName: objInit.firstName || '',
-               //TODO remove this - duplicate
-               // lastName: objInit.lastName || '',
                students: objInit.students || 0,
                subscriptionPrice: objInit.subscriptionPrice,
                isSubscriber : objInit.isSubscriber
             }
          }
       }
-      console.log(profile);
       state.profile = profile;
    },
    setPorfileDocuments(state, val) {
@@ -124,18 +120,6 @@ const mutations = {
    setCoverPicture(state,imageUrl) {
       state.profile.user.cover = imageUrl;
    }
-}
-const getters = {
-   getProfile: state => state.profile,
-   getProfileReviews: state => state.profileReviews,
-   getShowEditDataDialog: state => state.showEditDataDialog,
-   getProfileCoverImage: state => state.profile?.user?.cover || '',
-   getProfileTutorSubscription: state => state.profile?.user?.tutorData?.subscriptionPrice,
-   getIsMyProfile: (state, _getters) => _getters.getUserLoggedInStatus && (state.user?.id === _getters.getProfile?.id),
-   getProfileTutorName: state => state.profile?.name || 'this is a test',
-   getIsSubscriber: state => {
-      return state.profile?.user?.tutorData?.isSubscriber
-   },
 }
 
 const actions = {
