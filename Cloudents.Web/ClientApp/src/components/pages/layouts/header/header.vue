@@ -8,10 +8,10 @@
             <logoComponent/>
         </router-link>
         <template v-if="$route.meta.tutorHeaderSlot">
-            <div class="dividerName mx-8" vertical inset></div>
+            <div class="dividerName mx-8" v-show="!isMobile"></div>
             <div class="tutorName text-truncate">{{$store.getters.getProfileTutorName}}</div>
         </template>
-        <div class="globalHeader_items">
+        <div class="globalHeader_items" :class="{'tutorProfile': $route.name === profileRoute}">
             <div class="globalHeader_items_left" v-if="!isMobile && showSearch">
                 <searchCMP :placeholder="searchPlaceholder"/>
             </div>
@@ -124,6 +124,7 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
     data() {
         return {
             drawer: false,
+            profileRoute: routeNames.Profile,
             currentRoute: this.$route.name,
             languageChoisesAval: [],
             currLanguage: document.documentElement.lang,
@@ -332,6 +333,9 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
         justify-content: space-between;
         @media (max-width: @screen-mds) {
             margin-left: 32px; 
+        }
+        &.tutorProfile {
+            width: unset
         }
         .globalHeader_items_left{
             width: 100%;
