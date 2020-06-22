@@ -31,6 +31,7 @@ const getters = {
     getAccountName: state => state.user?.name,
     getAccountImage: state => state.user?.image,
     getIsAccountChat: state => state.user?.chatUnread !== null && state.user?.chatUnread !== undefined,
+    
 };
 
 const mutations = {
@@ -69,6 +70,7 @@ const mutations = {
             this.isTutor = objInit.isTutor && objInit.isTutor.toLowerCase() === 'ok'
             this.isSold = objInit.isSold
             this.pendingSessionsPayments = objInit.pendingSessionsPayments
+            this.chatUnread = objInit.chatUnread;
         }
         
         state.user = user
@@ -76,7 +78,7 @@ const mutations = {
 };
 
 const actions = {
-    userStatus({state, commit, dispatch, getters}) {
+    userStatus({state, commit,  getters}) {
         if(state.user !== null && state.user.hasOwnProperty('id')){
             return Promise.resolve()
         }
@@ -89,7 +91,8 @@ const actions = {
                 analyticsService.sb_setUserId(userAccount.id);
                 intercomeService.startService(userAccount);
                 insightService.authenticate.set(userAccount.id);
-                dispatch("getAllConversations");
+                //dispatch("getAllConversations");
+                commit('updateTotalUnread',userAccount.chatUnread || 0)
                 commit("changeLoginStatus", true);
     
                 return Promise.resolve(userAccount)
