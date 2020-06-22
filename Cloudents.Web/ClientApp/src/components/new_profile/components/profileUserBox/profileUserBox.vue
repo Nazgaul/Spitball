@@ -4,16 +4,6 @@
             <div class="leftSide mr-sm-6 mb-2 mb-sm-0 d-flex justify-center">
                 <div class="pUb_dot" sel="online_icon" v-if="isOnline"></div>
                 <uploadImage sel="photo" class="pUb_edit_img" v-if="isCurrentProfileUser" />
-                <!-- <userAvatarRect sel="avatar_image"
-                    class="pUb_dS_img"
-                    :userName="currentProfileUser.name"
-                    :userImageUrl="currentProfileUser.image"
-                    :width="isMobile? 130: 190"
-                    :height="isMobile? 161 : 235"
-                    :userId="currentProfileUser.id"
-                    :fontSize="36"
-                    :borderRadius="8"
-                /> -->
                 <userAvatarNew
                     sel="avatar_image"
                     class="pUb_dS_img"
@@ -31,42 +21,40 @@
                 <div class="detailsWrap d-flex d-sm-block">
                     <div class="d-flex justify-space-between text-center text-sm-left">
                         <h1  sel="username_title" class="userName text-truncate mr-sm-2">
-                            <!-- <span v-if="currentProfileUser.isTutor" class="mr-1" v-t="'profile_tutor'"></span> -->
                             <span>{{currentProfileUser.name}}</span>
                         </h1>
-
                         <div class="profileUserSticky_pricing flex-shrink-0 text-center" v-if="!isMobile">
-                            <template v-if="currentProfileUser.isTutor">
-                                <v-btn @click="openEditInfo" v-ripple="false" icon text v-if="isCurrentProfileUser && currentProfileUser.isTutor">
-                                    <editSVG />
-                                </v-btn>
+                            <!-- <template> -->
+                            <v-btn @click="openEditInfo" v-ripple="false" icon text v-if="isCurrentProfileUser">
+                                <editSVG />
+                            </v-btn>
                                 <!-- <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" v-if="currentProfileUser.isTutor" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/> -->
-                            </template>
-                            <div v-else>
+                            <!-- </template> -->
+                            <!-- <div v-else>
                                 <v-btn @click="openEditInfo" v-ripple="false" icon text v-if="isCurrentProfileUser && !currentProfileUser.isTutor">
                                     <editSVG class="mr-1" />
                                 </v-btn>
                                 <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="isCurrentProfileUser && !currentProfileUser.isTutor">
                                     <editSVG class="mr-1" />
                                 </v-btn>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
                     <!-- Rate And Follower -->
                     <div class="rateWrap d-flex my-2 justify-center justify-sm-start">
-                        <template v-if="currentProfileUser.isTutor">
-                            <div  class="pUb_dS_c_rating">
-                                <v-rating
-                                    v-model="currentProfileTutor.rate"
-                                    color="#ffca54"
-                                    background-color="#ffca54"
-                                    :length="currentProfileTutor.reviewCount > 0  ? 5 : 1"
-                                    :size="18" readonly
-                                />
-                                <span  span @click="scrollToReviews" class="pUb_dS_c_r_span ml-1">{{$tc('resultTutor_review_one',currentProfileTutor.reviewCount)}}</span>
-                            </div>
-                        </template>
+                        <!-- <template> -->
+                        <div  class="pUb_dS_c_rating">
+                            <v-rating
+                                v-model="currentProfileTutor.rate"
+                                color="#ffca54"
+                                background-color="#ffca54"
+                                :length="currentProfileTutor.reviewCount > 0  ? 5 : 1"
+                                :size="18" readonly
+                            />
+                            <span  span @click="scrollToReviews" class="pUb_dS_c_r_span ml-1">{{$tc('resultTutor_review_one',currentProfileTutor.reviewCount)}}</span>
+                        </div>
+                        <!-- </template> -->
                         <div class="ml-3">
                             <followBtn sel="follow_btn" class="followBtnNew mr-sm-2" v-if="!isCurrentProfileUser"/>
                         </div>
@@ -82,21 +70,19 @@
                             <div>{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}</div>
                             <div class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</div>
                         </div>
-                        <span sel="bio_more" @click="isOpen = !isOpen" class="readMore">
-                            {{readMoreText}}
-                        </span>
+                        <span sel="bio_more" @click="isOpen = !isOpen" class="readMore">{{readMoreText}}</span>
                     </div>
 
                     <!-- Courses Student -->
-                    <div class="course mt-2 text-truncate" v-if="!currentProfileUser.isTutor && currentProfileUser.courses.length">
+                    <!-- <div class="course mt-2 text-truncate" v-if="!currentProfileUser.isTutor && currentProfileUser.courses.length">
                         <span class="profileUserBox_bottom_title mr-1" v-t="'profile_my_courses_student'"></span>
                         <span v-for="(course, index) in currentProfileUser.courses" :key="index">
                             {{course}}{{index + 1 == currentProfileUser.courses.length ? '' : ', '}}
                         </span>
-                    </div>
+                    </div> -->
                 </div>
 
-                <div class="profileUserSticky_btns d-block d-sm-flex align-end text-center mt-sm-1" :class="{'student': !currentProfileUser.isTutor && isCurrentProfileUser}">
+                <div class="profileUserSticky_btns d-block d-sm-flex align-end text-center mt-sm-1">
                     <template v-if="isMobile">
                         <!-- <div class="profileUserSticky_pricing mb-4" v-if="currentProfileUser.isTutor">
                             <button sel="coupon" :class="{'isMyProfileCoupon': isCurrentProfileUser}" class="profileUserSticky_coupon text-center mt-1" @click="globalFunctions.openCoupon" v-t="'coupon_apply_coupon'"/>
@@ -104,11 +90,11 @@
                         <div class="text-sm-right text-center mb-2" v-if="isCurrentProfileUser">
                             <editSVG sel="edit" class="pUb_edit_user" @click="openEditInfo"/>
                         </div>
-                        <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="isLogged && !currentProfileUser.isTutor">
+                        <!-- <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="isLogged && !currentProfileUser.isTutor">
                             <editSVG v-if="isCurrentProfileUser" />
-                        </v-btn>
+                        </v-btn> -->
                     </template>
-                    <v-btn sel="send" height="42" :width="isMobile ? 286 : 220" :disabled="isCurrentProfileUser" v-if="currentProfileUser.isTutor" class="profileUserSticky_btn white--text mr-sm-4" :class="{'isMyProfile': isCurrentProfileUser}" depressed rounded color="#4c59ff" @click="globalFunctions.sendMessage">
+                    <v-btn sel="send" height="42" :width="isMobile ? 286 : 220" :disabled="isCurrentProfileUser" class="profileUserSticky_btn white--text mr-sm-4" :class="{'isMyProfile': isCurrentProfileUser}" depressed rounded color="#4c59ff" @click="globalFunctions.sendMessage">
                         <chatSVG class="profileUserSticky_btn_icon"/>
                         <div class="profileUserSticky_btn_txt" v-t="'profile_send_message'"/>
                     </v-btn>
@@ -127,16 +113,14 @@
                             rounded
                         >
                             <calendarSVG width="20" class="profileUserSticky_btn_icon"/>
-                            <div class="profileUserSticky_btn_txt">
-                                {{calendarBtnResource}}
-                            </div>
+                            <div class="profileUserSticky_btn_txt">{{calendarBtnResource}}</div>
                         </v-btn>
                     </div>
                 </div>
             </div>
         </div>
 
-        <v-row class="bottom text-center pt-3" dense v-if="currentProfileTutor">
+        <v-row class="bottom text-center pt-3" dense>
             <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-0">
                 <followersSvg class="icon" width="24" />
                 <div class="ml-3" @click="isMobile ? scrollToReviews():''" >
@@ -182,7 +166,6 @@ import calendarSVG from '../profileUserSticky/images/calendarIcon.svg';
 
 import * as routeNames from '../../../../routes/routeNames'
 
-// import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
 import uploadImage from '../../profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue';
 import followBtn from '../followBtn/followBtn.vue';
 
@@ -193,7 +176,6 @@ export default {
         studentsSVG,
         onlineLessonSVG,
         followersSvg,
-        // userAvatarRect,
         uploadImage,
         editSVG,
         followBtn,
@@ -214,9 +196,9 @@ export default {
         readMoreText() {
             return this.isOpen ? this.$t('profile_read_less') : this.$t('profile_read_more')
         },
-        isLogged() {
-            return this.getUserLoggedInStatus
-        },
+        // isLogged() {
+        //     return this.getUserLoggedInStatus
+        // },
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
         },
@@ -412,20 +394,20 @@ export default {
                         font-size: 12px !important;
                         margin-top: 2px;
                     }
-                    .pUb_dS_c_rating_star {
-                        width: 18px;
-                        vertical-align: sub !important;
-                    }
-                    .c_rating{
-                        flex: 0 0 auto;
-                        &.rating-container{
-                            .v-rating{
-                                .v-icon{
-                                    padding-right: 1px;
-                                }
-                            }
-                        }
-                    }
+                    // .pUb_dS_c_rating_star {
+                    //     width: 18px;
+                    //     vertical-align: sub !important;
+                    // }
+                    // .c_rating{
+                    //     flex: 0 0 auto;
+                    //     &.rating-container{
+                    //         .v-rating{
+                    //             .v-icon{
+                    //                 padding-right: 1px;
+                    //             }
+                    //         }
+                    //     }
+                    // }
                     .pUb_dS_c_r_span{
                         cursor: pointer;
                         color:#43425d;
@@ -460,13 +442,13 @@ export default {
             flex-direction: column;
         }
         .profileUserSticky_btns{
-            &.why_learn_user_btn{
-                margin-top: 34px !important;
-            }
-            &.student {
-                margin: 0 0 0 auto;
-                cursor: pointer;
-            }
+            // &.why_learn_user_btn{
+            //     margin-top: 34px !important;
+            // }
+            // &.student {
+            //     margin: 0 0 0 auto;
+            //     cursor: pointer;
+            // }
             .pUb_edit_user{
                 cursor: pointer;
             }
@@ -505,51 +487,51 @@ export default {
                         visibility: hidden;
                         color: white !important;
                         border: none !important;
-                    svg{
-                        path{
-                            fill: #4c59ff !important;
+                        svg {
+                            path {
+                                fill: #4c59ff !important;
+                            }
                         }
                     }
-                    }
                 }
-                &.profileUserSticky_btn_find{
-                    .v-btn__content{
-                        justify-content: center;
-                    }
-                }
+                // &.profileUserSticky_btn_find{
+                //     .v-btn__content{
+                //         justify-content: center;
+                //     }
+                // }
             }
         }
         .profileUserSticky_pricing{
-            .profileUserSticky_pricing_price{
-                .profileUserSticky_pricing_price_hour{
-                    font-size: 16px;
-                    font-weight: 600;
-                }
-                .profileUserSticky_pricing_price_currency{
-                    font-size: 18px;
-                    font-weight: bold;
-                }
-                .profileUserSticky_pricing_price_number{
-                    font-size: 26px;
-                    font-weight: bold;
-                }
-            }
-            .profileUserSticky_pricing_discount{
-                font-size: 20px;
-                color: #b2b5c9;
-                text-decoration: line-through;
-            }
+            // .profileUserSticky_pricing_price{
+            //     .profileUserSticky_pricing_price_hour{
+            //         font-size: 16px;
+            //         font-weight: 600;
+            //     }
+            //     .profileUserSticky_pricing_price_currency{
+            //         font-size: 18px;
+            //         font-weight: bold;
+            //     }
+            //     .profileUserSticky_pricing_price_number{
+            //         font-size: 26px;
+            //         font-weight: bold;
+            //     }
+            // }
+            // .profileUserSticky_pricing_discount{
+            //     font-size: 20px;
+            //     color: #b2b5c9;
+            //     text-decoration: line-through;
+            // }
         }
-        .profileUserSticky_coupon{
-            outline: none;
-            font-weight: 600;
-            font-size: 12px;
-            color: @global-purple;
-            &.isMyProfileCoupon{
-                color: #c5c8cf;
-                cursor: initial;
-            }
-        }
+        // .profileUserSticky_coupon{
+        //     outline: none;
+        //     font-weight: 600;
+        //     font-size: 12px;
+        //     color: @global-purple;
+        //     &.isMyProfileCoupon{
+        //         color: #c5c8cf;
+        //         cursor: initial;
+        //     }
+        // }
         // move to followBtn.vue style insted if we dont need anymore for old version of profile
         .followBtnNew {
             outline: none;
@@ -560,33 +542,35 @@ export default {
         }
     }
 
-    .pUb_edit_user_top{
-        position: absolute;
-        right: 0;
-    }
-    .pUb_top_defaultState{
+    // .pUb_edit_user_top{
+    //     position: absolute;
+    //     right: 0;
+    // }
+    // .pUb_top_defaultState{
 
-        .pUb_edit_user{
-            cursor: pointer;
-            position: absolute;
-            top: 0;
-            right: 0;
-        }
-    }
+    //     .pUb_edit_user{
+    //         cursor: pointer;
+    //         position: absolute;
+    //         top: 0;
+    //         right: 0;
+    //     }
+    // }
 
-    .pUb_middle_AboutMe{
-        font-size: 18px;
-        font-weight: 600;
-        font-stretch: normal;
-        font-style: normal;
-        letter-spacing: normal;
-            word-break: break-word;
-        @media (max-width: @screen-xs) {
-            font-size: 16px;
-            line-height: 1.4;
-        }
-        padding-bottom: 12px;
-    }
+    // .pUb_middle_AboutMe{
+    //     font-size: 18px;
+    //     font-weight: 600;
+    //     font-stretch: normal;
+    //     font-style: normal;
+    //     letter-spacing: normal;
+    //         word-break: break-word;
+    //     @media (max-width: @screen-xs) {
+    //         font-size: 16px;
+    //         line-height: 1.4;
+    //     }
+    //     padding-bottom: 12px;
+    // }
+
+    
     .bottom {
         border-top: 1px solid #ddd;
         @media (max-width: @screen-xs) {
