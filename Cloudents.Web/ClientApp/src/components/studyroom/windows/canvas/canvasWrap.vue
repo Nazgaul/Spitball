@@ -1,5 +1,6 @@
 <template>
   <v-sheet color="#f5f5f5" height="100%" width="100%" class="flex-column d-flex canvas-window">
+    <canvas style="display:none;width:1920px;height:950px" id="dummyCanvas"></canvas>
     <div class="d-flex flex-grow-1">
       <whiteBoard></whiteBoard>
       <whiteBoardFloatingTools/>

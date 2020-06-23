@@ -103,8 +103,17 @@ const init = function(optionName){
 };
 
 const getContext = function(){
-    let canvas = document.getElementById('canvas');
-    return canvas.getContext("2d");
+    if(window.innerWidth < 960){
+        let canvas = document.getElementById('dummyCanvas');
+        canvas.width = 1920
+        canvas.height = 950
+        return canvas.getContext("2d");
+    }else{
+        let canvas = document.getElementById('canvas');
+        return canvas.getContext("2d");
+    }
+    // let canvas = document.getElementById('canvas');
+    // return canvas.getContext("2d");
 };
 
 const redraw = function(canvasData){

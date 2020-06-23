@@ -3,6 +3,7 @@
       <div class="studyRoomMobileContent flex-column d-flex justify-space-between align-center">
       <v-content style="width: 100%;">
          <component style="width:100%" :is="currentMode"></component>
+         <studyRoomWrapper v-show="false" style="width:100%"/>
       </v-content>
          <!-- <component style="width:100%" :is="currentMode"></component> -->
          <div class="studyRoomMobileChatHeader mt-4">
@@ -46,9 +47,9 @@ export default {
       },
       currentMode(){
          switch(this.currentEditor) {
-            case this.roomModes.WHITE_BOARD:
-               return 'studyRoomWrapper'
-               break;
+            // case this.roomModes.WHITE_BOARD:
+            //    return 'studyRoomMobileVideo'
+            //    break;
             case this.roomModes.TEXT_EDITOR:
                return 'studyRoomWrapper'
                break;
