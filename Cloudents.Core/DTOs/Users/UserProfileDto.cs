@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.DTOs.Users
@@ -26,22 +27,11 @@ namespace Cloudents.Core.DTOs.Users
         public Country? TutorCountry { get; set; }
 
 
-        public double Rate { get; set; }
         public int ReviewCount { get; set; }
-
-        //public bool HasCoupon { get; set; }
-
-        //  public decimal? CouponValue { get; set; }
-        //  public CouponType? CouponType { get; set; }
 
         public string? Bio { get; set; }
 
-        // public IEnumerable<string>? Subjects { get; set; }
-
-        public int Lessons { get; set; }
-
-        //public int ContentCount { get; set; }
-        public int Students { get; set; }
+        public int ContentCount { get; set; }
 
         public Money? SubscriptionPrice { get; set; }
 
@@ -49,6 +39,13 @@ namespace Cloudents.Core.DTOs.Users
 
         public string? Description { get; set; }
 
+        public string? Paragraph =>
+            "International accredited online yoga teacher. \r\nI have tougth more than 1,000 hours of yoga.  A solid foundation for teaching yoga and an in-depth exploration of how to deepen your own yoga personal practice … read more. ";
+
+
+        [NonSerialized] public long SessionTaughtTicks;
+
+        public long HoursTaught => SessionTaughtTicks / TimeSpan.TicksPerHour;
         public IEnumerable<string>? DocumentCourses { get; set; }
         //public IEnumerable<string>? Courses { get; set; }
 
