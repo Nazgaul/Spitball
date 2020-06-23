@@ -1,7 +1,10 @@
 <template>
    <div class="studyRoomMobile">
       <div class="studyRoomMobileContent flex-column d-flex justify-space-between align-center">
+      <v-content style="width: 100%;">
          <component style="width:100%" :is="currentMode"></component>
+      </v-content>
+         <!-- <component style="width:100%" :is="currentMode"></component> -->
          <div class="studyRoomMobileChatHeader mt-4">
             <div class="px-4 headerTitle mb-5 text-truncate">{{$store.getters.getRoomName}}</div>
             <div class="px-4 headerInfo d-flex justify-space-between mb-2">
