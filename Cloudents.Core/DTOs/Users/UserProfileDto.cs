@@ -29,17 +29,8 @@ namespace Cloudents.Core.DTOs.Users
 
         public int ReviewCount { get; set; }
 
-        //public bool HasCoupon { get; set; }
-
-        //  public decimal? CouponValue { get; set; }
-        //  public CouponType? CouponType { get; set; }
-
         public string? Bio { get; set; }
 
-        // public IEnumerable<string>? Subjects { get; set; }
-
-
-        //public int ContentCount { get; set; }
         public int ContentCount { get; set; }
 
         public Money? SubscriptionPrice { get; set; }
