@@ -2,7 +2,7 @@
     <div class="menuListStudent">
         <v-list-item
             v-for="(link, index) in menuListStudentFilter"
-            :to="link.route || ''"
+            :to="link.route ? {name: link.route} : ''"
             :href="link.url || ''"
             @click="link.action ? link.action() :  ''"
             :key="index"

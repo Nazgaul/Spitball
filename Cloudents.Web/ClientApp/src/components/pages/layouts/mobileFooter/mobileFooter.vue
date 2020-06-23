@@ -27,7 +27,7 @@
                     <span class="mF_chat_unread" v-show="totalUnread > 0">{{totalUnread}}</span>
                 </span>
             </v-btn>
-            <v-btn :ripple="false" class="mF_btns" text value="profile" @click="changeActiveTab('profile')">
+            <v-btn v-if="isTutor" :ripple="false" class="mF_btns" text value="profile" @click="changeActiveTab('profile')">
                 <span class="mF_title" v-t="'mobileFooter_btn_profile'"/>
                 <v-icon class="mF_icon" v-html="'sbf-account'"/>
             </v-btn>

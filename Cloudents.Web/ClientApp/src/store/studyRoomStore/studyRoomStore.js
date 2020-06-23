@@ -66,7 +66,7 @@ const state = {
    studyRoomDrawerState:true,
    studyRoomFooterState:true,
    isBrowserNotSupport:false,
-   roomNetworkQuality: 0,
+   roomNetworkQuality: null,
 }
 
 const mutations = {
@@ -110,7 +110,7 @@ const mutations = {
       state.isBrowserNotSupport = false;
       state.roomParticipants = {};
       state.roomTopologyType = 'PeerToPeer';
-      state.roomNetworkQuality = 0;
+      state.roomNetworkQuality = null;
    },
    [studyRoom_SETTERS.DIALOG_USER_CONSENT]: (state, val) => state.dialogUserConsent = val,
    [studyRoom_SETTERS.DIALOG_SNAPSHOT]: (state, val) => state.dialogSnapshot = val,
@@ -313,8 +313,11 @@ const actions = {
          let newStudyRoomParams = {
             date: params.date || new Date().toISOString(),
             id: data.studyRoomId,
+            currency: params.currency || '',
             name: params.name,
+            price: params.price,
             conversationId: data.identifier,
+            lastSession: params.date || new Date().toISOString()
          }
          let myStudyRooms = getters.getStudyRoomItems;
          myStudyRooms.unshift(newStudyRoomParams);

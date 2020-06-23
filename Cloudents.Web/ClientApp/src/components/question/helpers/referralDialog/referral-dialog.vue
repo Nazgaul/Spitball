@@ -244,8 +244,6 @@
             }
         },
         created() {
-            //TODO: Account new store clean @idan
-            // clean becuase no used id 
             if(this.referralType != 'uploadReffer'){
                 this.getRefferedUsersNum()
             }

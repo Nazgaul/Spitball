@@ -32,10 +32,10 @@ export default {
             hasData: false
         };
     },
-    beforeRouteLeave(to, from, next) {
-        this.resetQuestion();
-        next();
-    },
+    // beforeRouteLeave(to, from, next) {
+    //     this.resetQuestion();
+    //     next();
+    // },
     methods: {
         ...mapActions([
             "resetQuestion",

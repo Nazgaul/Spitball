@@ -156,6 +156,9 @@ export default {
         this.isLoading = true
         this.$store.dispatch('buyPointsUS', {Points: this.transactionId})
     }
+  },
+  mounted() {
+    this.$loadScript("https://js.stripe.com/v3/?advancedFraudSignals=false")
   }
 };
 </script>

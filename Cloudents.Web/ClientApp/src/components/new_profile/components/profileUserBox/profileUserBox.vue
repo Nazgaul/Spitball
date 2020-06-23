@@ -338,6 +338,7 @@ export default {
             height: 16px;
             border-radius: 50%;
             background-color: #6aff70;
+            z-index: 1;
             @media (max-width: @screen-xs) {
                 left: 10px;
                 top: 10px;
@@ -345,7 +346,7 @@ export default {
                 height: 12px;
             }
         }
-        .pUb_dS_img{
+        .pUb_dS_img {
             pointer-events: none !important;
         }
         .pUb_edit_img{
@@ -356,6 +357,7 @@ export default {
             height: 46px;
             border-radius: 4px;
             background-color: #fff;
+            z-index: 1;
         }
     }
 

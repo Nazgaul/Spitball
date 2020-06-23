@@ -21,13 +21,13 @@
 const studyRoomDrawer = () => import('./layouts/studyRoomDrawer/studyRoomDrawer.vue');
 const studyRoomFooter = () => import('./layouts/studyRoomFooter/studyRoomFooter.vue');
 const studyRoomHeader = () => import('./layouts/studyRoomHeader/studyRoomHeader.vue');
-import * as dialogNames from '../pages/global/dialogInjection/dialogNames.js';
 import chatService from "../../services/chatService";
 import { mapGetters } from 'vuex';
 const studyRoomMobile = () => import('./studyRoomMobile.vue');
 const studyRoomWrapper = () => import('./windows/studyRoomWrapper.vue');
 const studyRoomSettingsDialog = () => import("./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue");
 const studyRoomDialogs = () => import('./studyRoomDialogs.vue');
+import * as componentConsts from '../pages/global/toasterInjection/componentConsts.js';
 
 export default {
   data() {
@@ -76,11 +76,8 @@ export default {
   methods: {
     handleNeedPayment(needPayment){
       if(needPayment){
-        this.$openDialog(dialogNames.Payment)
+        this.$store.commit('addComponent',componentConsts.PAYMENT_DIALOG)
         return;
-      }
-      if(this.$route.query.dialog === dialogNames.Payment){
-        this.$closeDialog()
       }
       this.setStudyRoom(this.id);
     },

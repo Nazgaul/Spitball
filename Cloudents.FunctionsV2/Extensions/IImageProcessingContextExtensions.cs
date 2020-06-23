@@ -6,11 +6,15 @@ using System.Drawing.Text;
 using System.IO;
 using Cloudents.FunctionsV2.Services;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing;
+using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using SixLabors.Shapes;
+using Color = SixLabors.ImageSharp.Color;
 using Image = SixLabors.ImageSharp.Image;
-using Size = SixLabors.Primitives.Size;
+using Point = SixLabors.ImageSharp.Point;
+using Size = SixLabors.ImageSharp.Size;
+
 
 namespace Cloudents.FunctionsV2.Extensions
 {
@@ -22,7 +26,7 @@ namespace Cloudents.FunctionsV2.Extensions
             int fontSize,
             string color,
             Size size,
-            SixLabors.Primitives.Point location)
+            Point location)
         {
             if (text == null)
             {
@@ -58,7 +62,7 @@ namespace Cloudents.FunctionsV2.Extensions
                 g.DrawString(textToDraw,
                     new Font("Calibri", fontSize, FontStyle.Regular, GraphicsUnit.Pixel),
                     brush,
-                    new RectangleF(0, 0, size.Width, size.Height),
+                    new System.Drawing.RectangleF(0, 0, size.Width, size.Height),
                     new StringFormat()
                     {
                         Alignment = StringAlignment.Center,
@@ -71,7 +75,8 @@ namespace Cloudents.FunctionsV2.Extensions
             myBitmap.Save(ms, ImageFormat.Png);
             var image = Image.Load(ms.ToArray());
 
-            return source.DrawImage(image, location, GraphicsOptions.Default);
+            
+            return source.DrawImage(image, location, new GraphicsOptions());
         }
 
         public static IImageProcessingContext CropBottomEdge(this IImageProcessingContext ctx)
@@ -82,18 +87,23 @@ namespace Cloudents.FunctionsV2.Extensions
 
         public static IImageProcessingContext ApplyRoundedCorners(this IImageProcessingContext ctx, float cornerRadius)
         {
-            Size size = ctx.GetCurrentSize();
+            var size = ctx.GetCurrentSize();
             IPathCollection corners = BuildCorners(size.Width, size.Height, cornerRadius);
 
-            var graphicOptions = new GraphicsOptions(true)
+           
+            ctx.SetGraphicsOptions(new GraphicsOptions()
             {
-                AlphaCompositionMode =
-                    PixelAlphaCompositionMode
-                        .DestOut // enforces that any part of this shape that has color is punched out of the background
-            };
+                Antialias = true,
+                AlphaCompositionMode = PixelAlphaCompositionMode.DestOut // enforces that any part of this shape that has color is punched out of the background
+            });
             // mutating in here as we already have a cloned original
             // use any color (not Transparent), so the corners will be clipped
-            return ctx.Fill(graphicOptions, Rgba32.LimeGreen, corners);
+            //ctx.ApplyProcessor()
+            foreach (var c in corners)
+            {
+                ctx = ctx.Fill(Color.Red, c);
+            }
+            return ctx;//.Fill(Color.LimeGreen, corners);
         }
 
         private static IPathCollection BuildCorners(int imageWidth, int imageHeight, float cornerRadius)

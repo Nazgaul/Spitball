@@ -81,7 +81,6 @@
 
 <script>
 import * as routeName from '../../../../routes/routeNames'
-import accountService from '../../../../services/accountService';
 import { validationRules } from "../../../../services/utilities/formValidationRules";
 import editSVG from '../../components/profileUserBox/images/edit.svg';
 import uploadImage from '../../profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue';
@@ -133,11 +132,11 @@ export default {
             if(this.$refs.formUser.validate()) {
                 this.btnLoading = true;
                 let studentInfo = {
-                    firstName: this.editedFirstName,
-                    lastName: this.editedLastName
+                    firstName: this.editedFirstName || this.firstName,
+                    lastName: this.editedLastName || this.lastName
                 };
                 //TODO: Account new store clean @idan
-                accountService.saveUserInfo(studentInfo).then(() => {
+                this.$store.dispatch('saveUserInfo', studentInfo).then(() => {
                     this.btnLoading = false;
                     this.$store.commit('setStudentInfo', studentInfo)
                     this.$store.commit('setComponent', '')
