@@ -36,6 +36,7 @@ export default {
                let video = element.querySelector('video');
                video.srcObject = stream;
             })
+            return null
          }else{
             return this.getRoomTutorParticipant?.screen || this.getRoomTutorParticipant?.video
          }

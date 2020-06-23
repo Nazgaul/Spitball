@@ -52,10 +52,10 @@ export default {
             //    break;
             case this.roomModes.TEXT_EDITOR:
                return 'studyRoomWrapper'
-               break;
+               // break;
             case this.roomModes.CODE_EDITOR:
                return 'studyRoomWrapper'
-               break;
+               // break;
             default:
                return 'studyRoomMobileVideo'
          }
