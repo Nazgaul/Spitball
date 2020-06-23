@@ -1,5 +1,5 @@
 <template>
-   <div class="studyRoomWrapper">
+   <div class="studyRoomWrapper" style="height:100%">
       <component :is="activeWindow" style="height:100%"></component>
       <floatingVideoContainer v-if="!isRoomTutor"/>
    </div>
