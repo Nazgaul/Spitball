@@ -53,21 +53,18 @@ namespace Cloudents.Query.Users
                         Followers = _session.Query<Follow>().Count(w => w.User.Id == query.Id),
                         TutorCountry = s.User.SbCountry,
                         Bio = s.Paragraph2,
-                        //ContentCount = _session.Query<Document>()
-                        //                   .Count(w => w.Status.State == ItemState.Ok && w.User.Id == query.Id) +
-                        //               _session.Query<Question>().Count(w =>
-                        //                   w.Status.State == ItemState.Ok && w.User.Id == query.Id),
-                        Students = _session.Query<StudyRoomUser>()
-                            .Where(w => w.Room.Tutor.Id == query.Id).Select(s2 => s2.User.Id).Distinct().Count(),
+
+                        SessionTaughtTicks = _session.Query<StudyRoomSession>()
+                            .Where(w=>w.StudyRoom.Tutor.Id == query.Id)
+                            .Sum(s=>s.DurationTicks!.Value),
+                        ContentCount = _session.Query<Document>()
+                                           .Count(w => w.Status.State == ItemState.Ok && w.User.Id == query.Id),
+                                     
+                        
                         SubscriptionPrice = s.SubscriptionPrice,
                         Description = s.Title
                     }).ToFutureValue();
 
-
-                var lessonsQuery = _session.Query<StudyRoomSession>()
-                    .Fetch(f => f.StudyRoom)
-                    .Where(w => w.StudyRoom.Tutor.Id == query.Id)
-                    .ToFutureValue(f => f.Count());
 
 
                 //TODO
@@ -80,7 +77,6 @@ namespace Cloudents.Query.Users
                     .Select(f =>new
                     {
                         Count = f.Count(),
-                        Total = f.Sum(s=>(float?)s.Rate)
                     })
                     .ToFutureValue();
 
@@ -118,45 +114,17 @@ namespace Cloudents.Query.Users
                     return null;
                 }
 
-                //var tutorValue = tutorFuture.Value;
-                // result.Tutor = tutorValue;
-                //  var couponResult = couponQuery.Value;
                 var isFollowing = isFollowingFuture.Value;
                 result.IsFollowing = isFollowing != null;
-                result.Lessons = lessonsQuery.Value;
                 result.ReviewCount = rateQuery.Value.Count;
-                result.Rate = rateQuery.Value.Total.GetValueOrDefault() / rateQuery.Value.Count;
-                //result.Tutor.Subjects = futureSubject.Value;
-                //if (couponResult != null)
-                //{
-                //    result.Tutor.CouponType = couponResult.TypeEnum;
-                //    result.Tutor.CouponValue = couponResult.Value;
-
-                //}
-
                 result.IsSubscriber = isFollowing?.Subscriber ?? false;
 
-
                 result.DocumentCourses = await documentCoursesFuture.GetEnumerableAsync(token);
-                //result.Courses = await userCoursesFuture.GetEnumerableAsync(token);
                 result.Image = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Image);
                 result.Cover = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Cover);
-
-                //if (result.Tutor?.CouponValue != null && result.Tutor?.CouponType != null)
-                //{
-                //    result.Tutor.HasCoupon = true;
-                //    //result.Tutor.DiscountPrice = Coupon.CalculatePrice(result.Tutor.CouponType.Value, result.Tutor.Price,
-                //    //    result.Tutor.CouponValue.Value);
-                //}
                 return result;
             }
         }
-
-        //private class CouponDto
-        //{
-        //    public CouponType TypeEnum { get; set; }
-        //    public decimal Value { get; set; }
-        //}
-
+    
     }
 }
