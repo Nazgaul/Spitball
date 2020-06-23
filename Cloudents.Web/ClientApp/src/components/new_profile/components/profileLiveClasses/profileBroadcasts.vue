@@ -1,91 +1,108 @@
 <template>
-    <div class="profileBroadcast">
-        <div class="mainTitle text-center mb-8" v-t="'my_live_classes'"></div>
-
-        <div class="broadcastList mb-6" v-for="(session, index) in sessionsList" :key="index">
-            <div class="d-flex wrapper">
-                <div class="leftSide d-flex me-6">
-                    <img src="./live-banner.png" alt="">
-                </div>
-                <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 ps-0">
-
-                    <div class="header d-flex justify-space-between mb-4">
+    <div>
+        <div class="profileBroadcast pa-4 pa-sm-0">
+            <div class="mainTitle text-sm-center mb-8" v-t="'my_live_classes'"></div>
+            <div 
+                v-for="session in sessionsList"
+                class="broadcastList"
+                :class="{'expandLastChild': isExpand}"
+                :key="session.id">
+                <template v-if="isMobile">
+                    <div class="sessionTitle mb-sm-2 mb-3">{{session.name}}</div>
+                    <div class="header d-flex justify-space-between mb-2">
                         <div>
                             <v-icon size="20" color="#3b3b3c">sbf-dateIcon</v-icon>
-                            <span class="dateTime ms-2">{{$d(session.created, 'tableDate')}}</span>
+                            <span class="dateTime ms-1">{{$d(session.created, 'tableDate')}}</span>
                         </div>
                         <div>
                             <v-icon size="20" color="#3b3b3c">sbf-clockIcon</v-icon>
-                            <span class="dateTime ms-2">{{$d(session.created, 'broadcastHour')}}</span>
+                            <span class="dateTime ms-1">{{$d(session.created, 'broadcastHour')}}</span>
                         </div>
                     </div>
+                </template>
 
-                    <div class="center">
-                        <div class="sessionTitle mb-2">{{session.name}} {{session.isOpen}}</div>
-                        <template>
-                            <div class="description">
-                                {{session.description | truncate(session.isOpen, '...', textLimit)}}
+                <div class="d-sm-flex wrapper">
+                    <div class="leftSide d-flex me-sm-6">
+                        <img :src="liveImage" alt="">
+                    </div>
+                    <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pe-0 ps-0">
+
+                        <div class="header d-flex justify-space-between mb-4" v-if="!isMobile">
+                            <div>
+                                <v-icon size="20" color="#3b3b3c">sbf-dateIcon</v-icon>
+                                <span class="dateTime ms-1">{{$d(session.created, 'tableDate')}}</span>
                             </div>
-                            <div class="d-none">
-                                {{session.description | restOfText(session.isOpen, '...', textLimit)}}
+                            <div>
+                                <v-icon size="20" color="#3b3b3c">sbf-clockIcon</v-icon>
+                                <span class="dateTime ms-1">{{$d(session.created, 'broadcastHour')}}</span>
                             </div>
-                            <span sel="bio_more" @click="readMoreOrLess(session)" class="readMore">{{readBtnText}}</span> 
-                        </template>
-                    </div>
-
-                    <div class="bottom d-flex align-end justify-space-between mt-6">
-                            <v-btn
-                                v-if="isMyProfile || session.enrolled"
-                                @click="enterRoom(session.id)"
-                                class="white--text"
-                                rounded
-                                depressed
-                                color="#ff6f30"
-                                height="40"
-                                width="220"
-                            >
-                                <enterIcon class="enterIcon mr-sm-2" width="18" />
-                                <span :class="{'flex-grow-1 pl-2': isMobile}" v-t="'enter'"></span>
-                            </v-btn>
-                            <v-btn
-                                v-else-if="session.isFull"
-                                disabled
-                                class="white--text"
-                                rounded
-                                depressed
-                                color="#ff6f30"
-                                height="40"
-                                width="220"
-                            >
-                                <span :class="{'flex-grow-1 pl-2': isMobile}" v-t="'full'"></span>
-                            </v-btn>
-                            <v-btn
-                                v-else
-                                @click="enrollSession(session.id)"
-                                class="white--text"
-                                rounded
-                                depressed
-                                color="#ff6f30"
-                                height="40"
-                                width="220"
-                            >
-                                <span v-t="'enroll'"></span>
-                            </v-btn>
-                        <div>
-                            <span v-t="'regular'"></span>
-                            <span class="number">{{$price(session.price.amount, session.price.currency, true)}}</span>
                         </div>
-                        <div>
-                            <span v-t="'subscriber'"></span>
-                            <span class="number">{{$price(0, session.price.currency, true)}}</span>
-                        </div>
-                    </div>
 
+                        <div class="center">
+                            <div class="sessionTitle mb-3" v-if="!isMobile">{{session.name}}</div>
+                            <input type="checkbox" value="false" class="toggleCheckbox" :id="session.index" />
+                            <template>
+                                <div class="description">
+                                    {{session.description | truncate(isOpen, '...', textLimit)}}
+                                </div>
+                                <label :for="session.index" v-if="session.description && session.description.length >= textLimit" sel="bio_more" class="readMore">{{readBtnText}}</label>
+                                <div class="restOfText">
+                                    {{session.description}}
+                                </div>
+                            </template>
+                        </div>
+
+                        <div class="bottom d-flex align-end justify-space-between text-center" :class="{'mt-6': session.description}">
+                                <v-btn
+                                    v-if="isMyProfile || session.enrolled"
+                                    @click="enterRoom(session.id)"
+                                    class="white--text btn"
+                                    rounded
+                                    depressed
+                                    color="#ff6f30"
+                                    height="40"
+                                >
+                                    <enterIcon class="enterIcon mr-sm-2" width="18" />
+                                    <span :class="{'flex-sm-grow-1 pl-2': isMobile}" v-t="'enter'"></span>
+                                </v-btn>
+                                <v-btn
+                                    v-else-if="session.isFull"
+                                    disabled
+                                    class="white--text btn"
+                                    rounded
+                                    depressed
+                                    color="#ff6f30"
+                                    height="40"
+                                >
+                                    <span :class="{'flex-sm-grow-1 pl-2': isMobile}" v-t="'full'"></span>
+                                </v-btn>
+                                <v-btn
+                                    v-else
+                                    @click="enrollSession(session.id)"
+                                    class="white--text btn"
+                                    rounded
+                                    depressed
+                                    color="#ff6f30"
+                                    height="40"
+                                >
+                                    <span v-t="'enroll'"></span>
+                                </v-btn>
+                            <div class="subscription">
+                                <span v-t="'regular'"></span>
+                                <span class="number text-left ms-sm1">{{$price(session.price.amount, session.price.currency, true)}}</span>
+                            </div>
+                            <div class="subscription">
+                                <span v-t="'subscriber'"></span>
+                                <span class="number text-left ms-sm-1">{{$price(0, session.price.currency, true)}}</span>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <div class="showMore text-center pb-3" v-if="liveSessions.length > 3">
+
+        <div class="showMore text-center pb-3" v-if="liveSessions.length > 2">
             <arrowDownIcon class="arrowIcon" :class="{'exapnd': isExpand}" width="26" @click="isExpand = !isExpand"/>
         </div>
 
@@ -125,10 +142,13 @@ export default {
             showSnack: false,
             color: '',
             toasterText: '',
-            isExpand: false
+            isExpand: false,
         }
     },
     computed: {
+        liveImage() {
+            return this.isMobile ? require('./live-banner-copy@3x.png') : require('./live-banner.png')
+        },
         readBtnText() {
             return this.isOpen ? this.$t('profile_read_less') : this.$t('profile_read_more')
         },
@@ -149,7 +169,7 @@ export default {
             if(this.isExpand) {
                 return liveList
             }
-            return liveList.slice(0, 3)
+            return liveList.slice(0, 2)
         },
         tutorFirstName() {
             return this.$store.getters.getProfile?.user?.firstName
@@ -164,7 +184,7 @@ export default {
             return this.$vuetify.breakpoint.xsOnly
         },
         textLimit(){
-            return this.isMobile ? 30 : 260;
+            return this.isMobile ? 110 : 260;
         },
         isOpen :{
             get(){
@@ -201,7 +221,7 @@ export default {
                 })
         },
         enterRoom(studyRoomId) {
-            this.$router.push({name: routeNames.StudyRoom, params: {id: studyRoomId} })
+            this.$router.push({name: routeNames.StudyRoom, params: { id: studyRoomId } })
         },
         getLiveSessions() {
             let self = this;
@@ -213,10 +233,6 @@ export default {
                     self.$appInsights.trackException(ex);
                 })
         },
-        readMoreOrLess(session) {
-            this.$set(session, 'isOpen', true);
-            
-        }
     },
     filters: {
         truncate(val = '', isOpen, suffix, textLimit){
@@ -228,14 +244,14 @@ export default {
             }
             return val;
         },
-        restOfText(val = '', isOpen, suffix, textLimit){
-            if (val.length > textLimit && !isOpen) {
-                return val.substring(textLimit) ;
-            }
-            if (val.length > textLimit && isOpen) {
-                return '';
-            }
-        }
+        // restOfText(val = '', isOpen, suffix, textLimit){
+        //     if (val.length > textLimit && !isOpen) {
+        //         return val.substring(textLimit) ;
+        //     }
+        //     if (val.length > textLimit && isOpen) {
+        //         return '';
+        //     }
+        // }
     },
     created() {
         this.getLiveSessions()
@@ -256,39 +272,76 @@ export default {
         margin: 8px auto;
         background: transparent;
     }
-
+    
     .mainTitle {
         font-size: 36px;
-        padding: 0 270px;
+        // padding: 0 270px;
+        max-width: 400px;
+        margin: 0 auto;
         font-weight: 600;
         color: #363637;
+        
+        @media(max-width: @screen-xs) {
+            padding: 0;
+            font-size: 30px;
+            text-align: left;
+            max-width: 350px;
+            margin: 0;
+        }
     }
-
+    .toggleCheckbox[type=checkbox] {
+        display: none;
+    }
+    .restOfText {
+        height: 0;
+        visibility: hidden;
+        transition: all .3s;
+    }
+    .toggleCheckbox[type=checkbox]:checked  {
+        & ~.description {
+            display: none !important;
+        }
+        & ~ .restOfText {
+        //label
+            line-height: 1.5;
+            height: auto;
+            visibility: visible;
+        }
+        & ~label {
+            display: none;
+        }
+    }
     .broadcastList {
-
+        margin-bottom: 28px;
+        &:nth-child(3) {
+            margin-bottom: 20px;   
+        }
+        &.expandLastChild {
+            &:nth-child(3) {
+                margin-bottom: 28px;   
+            }
+            &:last-child{
+                margin-bottom: 20px;
+            }
+            
+        }
         .wrapper{
             border-top: 2px solid #ff6f30;
             border-bottom: 2px solid #ebecef;
             .leftSide {
                 height: 100%;
                 img { 
+                    @media(max-width: @screen-xs) {
+                        width: 100%;
+                    }
                 }
             }
             .rightSide {
-                .header {
-                    .dateTime {
-                        color: #363637;
-                        font-weight: 600;
-                        font-size: 15px;
-                    }
-                }
                 .center {
                     color: #363637;
-                    .sessionTitle {
-                        font-size: 19px;
-                        font-weight: 600;
-                    }
+
                     .description {
+                        line-height: 1.5;
                         display: contents;
                     }
                     .readMore {
@@ -297,21 +350,40 @@ export default {
                 }
                 .bottom {
                     color: #363637;
-
+                    .btn {
+                        width: 40%;
+                        max-width: 220px;
+                    }
                     .number {
                         font-size: 18px;
                         font-weight: 600;
+                        @media(max-width: @screen-xs) {
+                            display: block;
+                        }
+                    }
+                    .subscription {
+                        padding: 0 10px;
                     }
                 }
             }
         }
     }
-    .showMore {
-        .arrowIcon {
-            cursor: pointer;
-            &.exapnd {
-                transform: scaleY(-1);
-            }
+    .dateTime {
+        color: #363637;
+        font-weight: 600;
+        font-size: 15px;
+        vertical-align: middle;
+    }
+    .sessionTitle {
+        font-size: 19px;
+        font-weight: 600;
+    }
+}
+.showMore {
+    .arrowIcon {
+        cursor: pointer;
+        &.exapnd {
+            transform: scaleY(-1);
         }
     }
 }

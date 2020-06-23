@@ -193,8 +193,7 @@ const actions ={
         commit('setNeedPayment',val);
     },
     updateCalendarStatus({state,getters,dispatch}){
-        let isSharedCalendar = getters.getProfile.user.calendarShared;
-
+        let isSharedCalendar = getters.getProfile?.user?.calendarShared;
 
             if(isSharedCalendar){
                 let tutorId = router.history.current.params.id;
