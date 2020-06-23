@@ -1,7 +1,6 @@
 import walletService from '../services/walletService.js';
-import * as dialogNames from '../components/pages/global/dialogInjection/dialogNames.js'
 
-import { router } from '../main.js';
+import * as componentConsts from '../components/pages/global/toasterInjection/componentConsts.js'
 
 const state = {
     paymentURL: null,
@@ -46,7 +45,7 @@ const actions = {
         return walletService.buyTokens(points).then(({ data }) => {
             dispatch('updatePaymentLink',data.link)
             commit('setIsBuyPoints',true)
-            router.push({query:{...router.currentRoute.query,dialog: dialogNames.Payment}})
+            commit('addComponent',componentConsts.PAYMENT_DIALOG);
         }).catch(() => {
             global.localStorage.setItem("sb_transactionError", points);
             return Promise.reject()
@@ -67,15 +66,15 @@ const actions = {
     signalR_ReleasePaymeStatus({getters,dispatch,commit}){
         let isStudyRoom = getters.getRoomIdSession;
         commit('setIsBuyPoints',false)
-        if(isStudyRoom){
+        if(isStudyRoom){ // studyroom payment
             let isRoomNeedPayment = getters.getRoomIsNeedPayment;
             if(isRoomNeedPayment){
                 dispatch('updateRoomIsNeedPayment',false)
-                router.push({query:{...router.currentRoute.query,dialog:undefined}})
+                commit('removeComponent',componentConsts.PAYMENT_DIALOG)
             }
-        } else{
+        } else{ // i think calendar payment... have to check
             dispatch('updateNeedPayment',false);
-            router.push({query:{...router.currentRoute.query,dialog:undefined}})
+            commit('removeComponent',componentConsts.PAYMENT_DIALOG)
         }
     },
     updatePaymentLink({commit},link){

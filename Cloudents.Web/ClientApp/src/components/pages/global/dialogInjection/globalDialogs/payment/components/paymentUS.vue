@@ -31,6 +31,7 @@
 
 <script>
 import * as routeNames from "../../../../../../../routes/routeNames";
+import * as componentConsts from '../../../../toasterInjection/componentConsts.js';
 export default {
   name: "paymentUS",
   data() {
@@ -54,9 +55,10 @@ export default {
         let isExit = confirm(this.$t("payme_are_you_sure_exit"));
         if (isExit) {
           this.$router.push("/");
+          this.$store.commit('removeComponent',componentConsts.PAYMENT_DIALOG)
         }
       } else {
-        this.$closeDialog();
+        this.$store.commit('removeComponent',componentConsts.PAYMENT_DIALOG)
       }
     },
     stripePay() {
@@ -74,6 +76,7 @@ export default {
             }
             if (result.setupIntent.status === 'succeeded') {
               self.$store.dispatch('updateRoomIsNeedPayment',false)
+              self.$store.commit('removeComponent',componentConsts.PAYMENT_DIALOG)
             }
         }).finally(() => {
           self.isLoading = false

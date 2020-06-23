@@ -1,8 +1,14 @@
 <template>
-    <component :is="component.name" :params="component.params"></component>
+    <div>
+        <component v-for="(item, index) in componentsList" :key="index" :is="item.name" :params="item.params"></component>
+    </div>
 </template>
 
 <script>
+import * as componentConsts from './componentConsts.js';
+
+const PAYMENT_DIALOG = () => import('../dialogInjection/globalDialogs/payment/paymentWrapper.vue');
+
 
 const auth = () => import('../../global/dialogInjection/globalDialogs/auth/auth.vue')
 
@@ -12,15 +18,21 @@ const errorLinkToaster = () => import('./errorLinkToaster.vue')
 const buyPointsTransaction = () => import('./buyPointsTransaction.vue')
 
 const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue')
+
 const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
+const applyCoupon = () => import('./applyCoupon.vue')
+
+const editStudentInfo = () => import('../../../new_profile/profileHelpers/userInfoEdit/userInfoEdit.vue')
 
 const verifyPhone = () => import('../dialogInjection/globalDialogs/auth/register/verifyPhone.vue')
-const applyCoupon = () => import('./applyCoupon.vue')
 const studRoomSettings = () => import('../../../studyroom/tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue')
 const createStudyRoomDialog = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue')
+
 const teacherBillOfflineDialog = () => import('../dialogInjection/globalDialogs/teacherApproval/teacherBillOffline.vue');
 export default {
     components: {
+        PAYMENT_DIALOG,
+        
         auth,
         simpleToaster,
         simpleErrorToaster,
@@ -29,6 +41,7 @@ export default {
         upload,
         createCoupon,
         verifyPhone,
+        editStudentInfo,
         applyCoupon,
         studRoomSettings,
         createStudyRoomDialog,
@@ -38,6 +51,9 @@ export default {
         return {
             component: {},
             componentObj: {
+                [componentConsts.PAYMENT_DIALOG]:{
+                    name: componentConsts.PAYMENT_DIALOG,
+                },
                 teacherBillOfflineDialog:{
                     name:'teacherBillOfflineDialog'
                 },
@@ -140,22 +156,25 @@ export default {
                 },
                 applyCoupon: {
                     name: 'applyCoupon'
+                },
+                editStudentInfo: {
+                    name: 'editStudentInfo'
                 }
             }
         }
     },
     watch: {
-        "$store.getters.getComponent":{
+        componentsList:{
+            deep:true,
             immediate:true,
-            handler(newVal){
-                this.showComponent(newVal)
-            }
+            handler(){}
         },
     },
-    methods: {
-        showComponent(componentName = "") {
-            let componentInject = this.componentObj[componentName] || {name: '', params: ''};
-            this.component = componentInject;
+    computed: {
+        componentsList(){
+            return this.$store.getters.getComponent.map(cmp=>{
+                return this.componentObj[cmp] || {name: '', params: ''};
+            })
         }
     }
 }

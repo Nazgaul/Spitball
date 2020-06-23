@@ -2,8 +2,9 @@
     <div class="menuListStudent">
         <v-list-item
             v-for="(link, index) in menuListStudentFilter"
-            :to="link.route ? { name: link.route, params: { id: user.id, name: user.name } } : ''"
+            :to="link.route ? {name: link.route} : ''"
             :href="link.url || ''"
+            @click="link.action ? link.action() :  ''"
             :key="index"
             class="link"
             color="#fff"
@@ -14,7 +15,7 @@
                 <v-icon class="userMenu_icons" size="18" color="#69687d">{{link.icon}}</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-                <v-list-item-title class="userMenu_titles" v-t="link.title"></v-list-item-title>
+                <v-list-item-title class="userMenu_titles">{{link.title}}</v-list-item-title>
             </v-list-item-content>
         </v-list-item>
     </div>
