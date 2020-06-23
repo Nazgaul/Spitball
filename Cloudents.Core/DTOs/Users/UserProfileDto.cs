@@ -48,6 +48,9 @@ namespace Cloudents.Core.DTOs.Users
 
         public string? Description { get; set; }
 
+        public string? Paragraph =>
+            "International accredited online yoga teacher. \r\nI have tougth more than 1,000 hours of yoga.  A solid foundation for teaching yoga and an in-depth exploration of how to deepen your own yoga personal practice … read more. ";
+
 
         [NonSerialized] public long SessionTaughtTicks;
 
