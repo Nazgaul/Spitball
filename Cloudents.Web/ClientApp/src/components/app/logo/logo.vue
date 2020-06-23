@@ -31,12 +31,12 @@ export default {
 <style lang="less">
 @import '../../../styles/mixin.less';
     .logo {
-        width: 120px;
+        // width: 120px;
         height: 30px;
         fill: #43425D;
         vertical-align: bottom;
         @media (max-width: @screen-xs) {
-            width: 94px;
+            // width: 94px;
             height: 22px;
             margin-top: 8px;
             margin-left: 10px;

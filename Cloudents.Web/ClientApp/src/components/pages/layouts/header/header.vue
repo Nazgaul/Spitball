@@ -9,7 +9,7 @@
         </router-link>
         <template v-if="$route.meta.tutorHeaderSlot">
             <div class="dividerName mx-8" v-show="!isMobile"></div>
-            <div class="tutorName text-truncate">{{$store.getters.getProfileTutorName}}</div>
+            <div class="tutorName text-truncate text-center text-sm-left">{{$store.getters.getProfileTutorName}}</div>
         </template>
         <div class="globalHeader_items" :class="{'tutorProfile': $route.name === profileRoute}">
             <div class="globalHeader_items_left" v-if="!isMobile && showSearch">
@@ -277,6 +277,10 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
             color: #363637;
             font-weight: bold;
             font-size: 22px;
+
+            @media(max-width: @screen-xs) {
+                font-size: 18px;
+            }
         }
     .mobileHeaderSearch{
         width: 100%;
@@ -335,7 +339,10 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
             margin-left: 32px; 
         }
         &.tutorProfile {
-            width: unset
+            @media (max-width: @screen-mds) {
+                width: unset;
+                margin-left: 0; 
+            }
         }
         .globalHeader_items_left{
             width: 100%;
