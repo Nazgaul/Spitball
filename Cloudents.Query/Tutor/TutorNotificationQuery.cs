@@ -2,10 +2,8 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs.Tutors;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using NHibernate;
 using NHibernate.Linq;
 
@@ -63,11 +61,11 @@ namespace Cloudents.Query.Tutor
                     .ToFutureValue(f => f.Count());
 
 
-                var unAnsweredQuestion = _session.Query<Question>()
-                    .Where(w => w.Status.State == ItemState.Ok)
-                    .Where(w => followersQueryable.Contains(w.User.Id))
-                    .Where(w => w.Answers.All(a => a.User.Id != query.TutorId))
-                    .ToFutureValue(f => f.Count());
+                //var unAnsweredQuestion = _session.Query<Question>()
+                //    .Where(w => w.Status.State == ItemState.Ok)
+                //    .Where(w => followersQueryable.Contains(w.User.Id))
+                //    .Where(w => w.Answers.All(a => a.User.Id != query.TutorId))
+                //    .ToFutureValue(f => f.Count());
 
                 var result = new TutorNotificationDto
                 {
@@ -75,7 +73,7 @@ namespace Cloudents.Query.Tutor
                     UnreadChatMessages = unreadMessages.Value ?? 0,
                     LiveClassRegisteredUser = enrolledStudents.Value,
                     FollowerNoCommunication = noChat.Value,
-                    UnansweredQuestion = unAnsweredQuestion.Value
+                    UnansweredQuestion = 0
                 };
 
                 return result;

@@ -37,7 +37,7 @@ export const SetCourse = 'setCourse';
 export const Profile = 'profile';
 
 // Feed:
-export const Feed = 'feed';
+//export const Feed = 'feed';
 
 // Document:
 export const Document = 'document';
@@ -52,7 +52,7 @@ export const StudyRoom = 'tutoring';
 export const Question = 'question';
 
 // Tutor List:
-export const TutorList = 'tutorLandingPage';
+//export const TutorList = 'tutorLandingPage';
 
 // Message Center:
 export const MessageCenter = 'messages';

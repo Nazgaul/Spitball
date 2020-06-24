@@ -8,18 +8,11 @@
             <logoComponent/>
         </router-link>
         <div class="globalHeader_items">
-            <div class="globalHeader_items_left" v-if="!isMobile && showSearch">
-                <searchCMP :placeholder="searchPlaceholder"/>
-            </div>
-            <v-spacer v-else></v-spacer>
+            <v-spacer></v-spacer>
             <div class="globalHeader_items_right">
                 <div>
                     <component :is="$route.meta.headerSlot"/>
                 </div>
-                <router-link v-show="!isMobile && shouldShowFindTutor" :to="{name:'tutorLandingPage'}" class="gH_i_r_findTutor" >
-                    <findSVG/>
-                    <span v-t="'header_find_tutors'"/>
-                </router-link>
                 <template v-if="!isMobile" >
                     <v-tooltip bottom>
                         <template v-slot:activator="{on}">
@@ -76,11 +69,11 @@
                 </v-menu>
             </div>
         </div>
-        <template v-slot:extension v-if="isMobile && showSearch">
+        <!-- <template v-slot:extension v-if="isMobile && showSearch">
             <div class="mobileHeaderSearch">
                 <searchCMP :placeholder="searchPlaceholder"/>
             </div>
-        </template>
+        </template> -->
     </v-app-bar>
         <v-navigation-drawer
             temporary
@@ -103,7 +96,6 @@ import {mapGetters} from 'vuex';
 import languagesLocales from "../../../../services/language/localeLanguage";
 import * as routeNames from '../../../../routes/routeNames.js';
 
-const searchCMP = () => import('../../global/search/search.vue');
 import menuList from '../menuList/menuList.vue';
 import intercomService from "../../../../services/intercomService";
 import logoComponent from '../../../app/logo/logo.vue';
@@ -116,7 +108,7 @@ const phoneNumberSlot = () => import('./headerSlots/phoneNumberSlot.vue');
 // const becomeTutorSlot = () => import('./headerSlots/becomeTutorSlot.vue');
 
 export default {
-components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,arrowDownIcon,hamburgerIcon},
+components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,arrowDownIcon,hamburgerIcon},
     data() {
         return {
             drawer: false,
@@ -157,27 +149,17 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
             let filteredRoutes = [routeNames.Profile, routeNames.Document];
             return filteredRoutes.indexOf(this.$route.name) > -1 && this.$vuetify.breakpoint.xsOnly;
         },
-        searchPlaceholder(){
-            return this.isTablet ? this.$t(`header_placeholder_search`) : this.$t(`header_placeholder_search_m`);
-        },
-        showSearch(){
-            let showRoutes = [routeNames.Feed,routeNames.Dashboard];
-            return showRoutes.includes(this.currentRoute)
-        },
+      
         isHomePage(){
             let showRoutes = [routeNames.Learning,routeNames.HomePage];
             return showRoutes.indexOf(this.currentRoute) !== -1
         },
-        shouldShowFindTutor(){ 
-            if(this.accountUser?.isTutor) return false
-            let hiddenRoutes = [routeNames.TutorList, routeNames.HomePage]
-            return !hiddenRoutes.includes(this.currentRoute)
-        },
+     
         showChangeLanguage() {
             return global.country === 'IL' && this.isHomePage;
         },
         showHamburgerIcon() {
-            let showRoutes = [routeNames.Profile, routeNames.TutorList, routeNames.Document];
+            let showRoutes = [routeNames.Profile, routeNames.Document];
             return this.getIsTeacher && showRoutes.indexOf(this.currentRoute) === -1
         },
         classChangeHamburgerTutorMenu() {
@@ -396,23 +378,7 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
                     background-color: transparent;
                 }
             }
-            .gH_i_r_findTutor{
-                margin-right: 26px;
-                background: #69687d;
-                border-radius: 8px;
-                padding: 2px 10px 3px 4px;
-                svg{
-                    fill: white !important;
-                    vertical-align: middle;
-                }
-                span{
-                    font-size: 14px;
-                    font-weight: normal;
-                    color: white;
-                    vertical-align: middle;
-                    padding-left: 2px;
-                }
-            }
+          
             .gH_i_r_intercom{
                 cursor: pointer;
                 fill: #bdc0d1;

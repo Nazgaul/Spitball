@@ -74,10 +74,10 @@ Vue.use(VueAnalytics, {
     router,
     autoTracking: {
         pageviewOnLoad: false,
-        pageviewTemplate(route) {
+        pageviewTemplate(route2) {
             return {
-                page: route.path,
-                title: route.name ? route.name.charAt(0).toUpperCase() + route.name.slice(1) : '',
+                page: route2.path,
+                title: route2.name ? route2.name.charAt(0).toUpperCase() + route2.name.slice(1) : '',
                 location: window.location.href
             };
         },

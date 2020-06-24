@@ -222,7 +222,7 @@ namespace Cloudents.Core.Entities
 
         //This is only for video
         public virtual TimeSpan? Duration { get; set; }
-        public virtual bool? IsShownHomePage { get; protected set; }
+       // public virtual bool? IsShownHomePage { get; protected set; }
 
         public virtual string? Md5 { get; set; }
 

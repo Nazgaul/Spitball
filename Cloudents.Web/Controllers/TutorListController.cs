@@ -14,7 +14,7 @@ namespace Cloudents.Web.Controllers
             _tutorListLocalizer = tutorListLocalizer;
         }
 
-        [Route("tutor-list/{term?}", Name = SeoTypeString.TutorList)]
+        [Route("learn/{term?}", Name = SeoTypeString.TutorList)]
         public IActionResult Index([FromRoute]string term,
             [FromQuery(Name = "term")]string oldTerm)
         {

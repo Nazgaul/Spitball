@@ -373,7 +373,7 @@ export default {
             showToaster: true
           });
           if (this.$route.name === routeNames.Document) {
-            this.$router.replace({name: routeNames.Feed});
+            this.$router.replace("/");
             return
           }
           this.removeItemFromList(id);

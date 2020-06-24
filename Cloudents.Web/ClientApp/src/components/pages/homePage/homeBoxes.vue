@@ -29,7 +29,7 @@
             </div>
             <h3 class="desc mt-6 mb-3" v-t="'homePage_find_relevant'"></h3>
             <div class="d-flex justify-center align-center">
-                <router-link :to="{ name: routeNames.TutorList }" class="link relevant mr-3" target="_blank"  v-t="'homePage_find_relevant_link'"></router-link>
+                <router-link :to="{ name: routeNames.Learning }" class="link relevant mr-3" target="_blank"  v-t="'homePage_find_relevant_link'"></router-link>
                 <arrow class="arrow yellowArrow" />
             </div>
         </div>

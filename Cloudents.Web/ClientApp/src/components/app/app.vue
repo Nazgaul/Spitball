@@ -214,23 +214,7 @@ export default {
     removeCookiesPopup: function() {
       this.setCookieAccepted();
     },
-    // tryBuyTokens(transactionObjectError) {
-    //   walletService.buyTokens(transactionObjectError).then(
-    //     () => {
-    //       this.updateToasterParams({
-    //         toasterText: this.$t("buyToken_success"),
-    //         showToaster: true
-    //       });
-    //     },
-    //     error => {
-    //       global.localStorage.setItem(
-    //         "sb_transactionError",
-    //         transactionObjectError.points
-    //       );
-    //       console.log(error);
-    //     }
-    //   );
-    // }
+    
   },
   created() {
     if (!!this.$route.query && this.$route.query.requesttutor) {
