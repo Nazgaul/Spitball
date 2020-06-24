@@ -125,7 +125,10 @@ namespace Cloudents.Query.Users
                 result.IsFollowing = isFollowing != null;
                 result.Lessons = lessonsQuery.Value;
                 result.ReviewCount = rateQuery.Value.Count;
-                result.Rate = rateQuery.Value.Total.GetValueOrDefault() / rateQuery.Value.Count;
+                if (rateQuery.Value.Count > 0)
+                {
+                    result.Rate = rateQuery.Value.Total.GetValueOrDefault() / rateQuery.Value.Count;
+                }
                 //result.Tutor.Subjects = futureSubject.Value;
                 //if (couponResult != null)
                 //{
