@@ -146,7 +146,7 @@ export default {
          return {
             date: userChooseDate,
             name: childComponent.liveSessionTitle,
-            about: childComponent.sessionAboutText,
+            description: childComponent.sessionAboutText,
             price: childComponent.currentVisitorPriceSelect.value === 'free' ? 0 : childComponent.price,
          }
       },

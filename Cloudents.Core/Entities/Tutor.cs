@@ -10,26 +10,11 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
     public class Tutor : Entity<long>
     {
-        //public const int MaximumPrice = 214748;
-        //public const int MinimumPrice = 35; // also on client side
         public Tutor(User user) : this()
         {
             User = user ?? throw new ArgumentNullException(nameof(user));
             State = ItemState.Pending;
             Created = DateTime.UtcNow;
-            //Bio = bio;
-            //if (user.SbCountry == Country.India)
-            //{
-            //    Price = new TutorPrice(100, 0);
-            //}
-            //else
-            //{
-            //    if (price is null)
-            //    {
-            //        throw new ArgumentException("Price is null");
-            //    }
-            //    Price = new TutorPrice(price.Value);
-            //}
             AddEvent(new TutorCreatedEvent(this));
 
         }
@@ -38,13 +23,15 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]
         protected Tutor()
         {
-            //Price = Price ?? new TutorPrice();
         }
-        public virtual string Bio { get; protected set; }
+
+        public virtual string Paragraph2 { get; protected set; }
+
+        public virtual string Title { get;protected set; }
+
+        public virtual string Paragraph3 { get; protected set; }
 
         public virtual User User { get; protected set; }
-
-        //public virtual TutorPrice? Price { get; protected set; }
 
         public virtual Money? SubscriptionPrice { get; protected set; }
 
@@ -78,10 +65,12 @@ namespace Cloudents.Core.Entities
             return SubscriptionPrice != null;
         }
 
-        public virtual void UpdateSettings(string bio)
+        public virtual void UpdateSettings(string bio, string title, string paragraph)
         {
         
-            Bio = bio;
+            Paragraph2 = bio;
+            Paragraph3 = Paragraph3;
+            Title = title;
             AddEvent(new UpdateTutorSettingsEvent(Id));
         }
 

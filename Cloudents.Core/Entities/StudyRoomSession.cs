@@ -117,7 +117,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
             Ended = DateTime.UtcNow;
-            CalculatePriceAndDuration();
+            Duration = Ended - Created;
             AddEvent(new EndStudyRoomSessionEvent(this));
         }
         

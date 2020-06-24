@@ -119,7 +119,7 @@ export default {
          return this.getProfile?.user.firstName? this.getProfile.user.firstName : this.getProfile.user.name;
       },
       userCourses(){
-         return this.getProfile?.user.courses;
+         return this.getProfile?.user.documentCourses;
       }
    },
    methods: {
@@ -191,6 +191,9 @@ export default {
       max-width: 960px;
       margin: 0 auto;
    }
+   @media(max-width: @screen-xs) {
+      background: #E6E6E6;
+   }
    .profileItemsBox_title{
       .responsive-property(font-size, 18px, null, 16px);
       font-weight: 600;
@@ -238,7 +241,9 @@ export default {
             .responsive-property(height, 36px, null, 42px);
             .v-input__slot{
                border-radius: 8px;
-               box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+               border: 1px solid #ddd;
+               box-shadow: none;
+               // box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
                margin: 0;
                @media (max-width: @screen-xs) {
                   box-shadow: none;
@@ -291,7 +296,8 @@ export default {
       grid-template-columns: repeat(auto-fill, 230px);
       margin-top: 18px;
       .itemCarouselCard{
-         border: 1px solid #e0e1e9;
+         border: 1px solid #ddd;
+         box-shadow: none;
          flex: 0 0 32%;
          width: 230px;
          height: 100%;

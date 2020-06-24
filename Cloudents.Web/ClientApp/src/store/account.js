@@ -26,7 +26,7 @@ const getters = {
     getUserBalance: state =>  state.user?.balance.toFixed(0) || 0,
     getIsSold: state => state.user?.isSold,
     getIsTutorSubscription: state => state.user?.subscription,
-    getIsMyProfile: (state, _getters) => _getters.getUserLoggedInStatus && (state.user?.id === _getters.getProfile?.user.id),
+    // getIsMyProfile: (state, _getters) => _getters.getUserLoggedInStatus && (state.user?.id === _getters.getProfile?.user.id),
     getAccountId: state => state.user?.id,
     getAccountFirstName: state => state.user?.firstName,
     getAccountLastName: state => state.user?.lastName,

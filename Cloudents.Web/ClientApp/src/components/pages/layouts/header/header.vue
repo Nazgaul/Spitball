@@ -4,10 +4,17 @@
         <v-btn v-if="showHamburgerIcon" class="d-sm-none" :class="[{'d-block': classChangeHamburgerTutorMenu}]" :ripple="false" icon @click="$root.$emit('openSideMenu')">
             <hamburgerIcon class="ml-2 hamburgerIcon"/>
         </v-btn>
-        <router-link @click.prevent="resetItems()" to="/" class="globalHeader_logo">
+        <router-link @click.prevent="resetItems()" to="/" :class="{'globalHeader_logo': !$route.meta.tutorHeaderSlot}">
             <logoComponent/>
         </router-link>
-        <div class="globalHeader_items">
+        <template v-if="$route.meta.tutorHeaderSlot">
+            <div class="dividerName mx-8" v-show="!isMobile"></div>
+            <div class="tutorName text-truncate text-center text-sm-left">{{$store.getters.getProfileTutorName}}</div>
+        </template>
+        <div class="globalHeader_items" :class="{'tutorProfile': $route.name === profileRoute}">
+            <!-- <div class="globalHeader_items_left" v-if="!isMobile">
+                <searchCMP :placeholder="searchPlaceholder"/>
+            </div> -->
             <v-spacer></v-spacer>
             <div class="globalHeader_items_right">
                 <div>
@@ -112,6 +119,7 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
     data() {
         return {
             drawer: false,
+            profileRoute: routeNames.Profile,
             currentRoute: this.$route.name,
             languageChoisesAval: [],
             currLanguage: document.documentElement.lang,
@@ -242,7 +250,23 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
             margin-right: 34px;
         }
         
-    }    
+    }
+        .dividerName {
+            height: 28px;
+            width: 4px;
+            font-weight: bold;
+            background: #000;
+        }
+        .tutorName {
+            width: 100%;
+            color: #363637;
+            font-weight: bold;
+            font-size: 22px;
+
+            @media(max-width: @screen-xs) {
+                font-size: 18px;
+            }
+        }
     .mobileHeaderSearch{
         width: 100%;
         height: 40px;
@@ -298,6 +322,12 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
         justify-content: space-between;
         @media (max-width: @screen-mds) {
             margin-left: 32px; 
+        }
+        &.tutorProfile {
+            @media (max-width: @screen-mds) {
+                width: unset;
+                margin-left: 0; 
+            }
         }
         .globalHeader_items_left{
             width: 100%;

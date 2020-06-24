@@ -24,14 +24,12 @@ export const profileRoutes = [
                     pageSize: vuetify.framework.breakpoint.xsOnly ? 3 : 8,
                 }
             }
-            store.dispatch('syncProfile', option).then(({user}) => {
-                if(user.isTutor) return next()
-
-                let previousLink = from.fullPath || '/';
-                next(previousLink);
+            store.dispatch('syncProfile', option).then(() => {
+                next()
             }).catch(ex => {
                 console.error(ex);
-                next({name: routeName.notFound})
+                let previousLink = from.fullPath || '/';
+                next(previousLink);
             })
         },
         props: {
@@ -40,6 +38,9 @@ export const profileRoutes = [
                     id: route.params.id
                 }
             }
+        },
+        meta: {
+            tutorHeaderSlot: true,
         }
     },
 ]

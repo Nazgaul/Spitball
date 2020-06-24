@@ -70,7 +70,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
             var country = FromCountry(countryStr);
             var query = new PendingTutorsQuery(country);
-            await _fixture.QueryBus.QueryAsync(query, default);
+            var x = await _fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Theory]
