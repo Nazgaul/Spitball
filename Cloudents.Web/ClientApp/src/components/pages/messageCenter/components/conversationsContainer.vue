@@ -28,7 +28,7 @@
             <v-flex v-if="isTutor" class="flex-grow-0 flex-shrink-0">
                <v-btn @click="updateCreateGroupDialogState(true)" class="createBtn pl-2 pr-3" height="40" color="#4452fc" rounded outlined>
                   <v-icon class="pr-1" size="16">sbf-plus-regular</v-icon>
-                  <span>{{$t(isMobile?'chat_create_mobile':'chat_create')}}</span>
+                  <span>{{$t('chat_create')}}</span>
                </v-btn>
             </v-flex>
          </div>

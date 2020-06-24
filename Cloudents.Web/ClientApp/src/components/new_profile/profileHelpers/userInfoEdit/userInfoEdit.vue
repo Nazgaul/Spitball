@@ -99,8 +99,6 @@ export default {
             rules: {
                 required:(value)=> validationRules.required(value),
                 minimumChars: (value) => validationRules.minimumChars(value, 2),
-                // matchFirstName: value => value !== this.firstName ? true : this.$t('change'),
-                // matchLastName: value => value !== this.lastName ? true : this.$t('change')
             },
             validUserForm: false,
             btnLoading: false,

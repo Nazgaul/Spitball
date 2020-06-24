@@ -50,8 +50,7 @@ namespace Cloudents.Core
 
         public string BuildCourseEndPoint(string courseName)
         {
-            var builder = new UriBuilder(_webSiteEndPoint) { Path = "feed" };
-            builder.AddQuery(new { Course = courseName });
+            var builder = new UriBuilder(_webSiteEndPoint);
             return builder.ToString();
         }
 

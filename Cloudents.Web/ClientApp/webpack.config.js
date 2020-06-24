@@ -261,10 +261,11 @@ module.exports = (env) => {
                
                 new UnusedWebpackPlugin({
                     // Source directories
-                    directories: [path.join(__dirname,'.src')],
+                    directories: [path.join(__dirname,'src')],
                     // Exclude patterns
                     exclude: ['*.test.js', 'font-icon/*','*.spec.js'],
-                   // failOnUnused : true
+                    root: __dirname,
+                    failOnUnused : true
                     // Root directory (optional)
                    // root: path.join(__dirname, 'ClientApp'),
                 }),

@@ -12,7 +12,7 @@ export const landingRoutes = [
         },
         beforeEnter: (to, from, next) => {    
             if(store.getters.getUserLoggedInStatus){
-                let nextRoute = {name: routeNames.Feed};
+                let nextRoute = {name: routeNames.Learning};
                 if(store.getters.getIsTeacher){
                     nextRoute = {name: routeNames.Dashboard};
                 }
@@ -28,7 +28,7 @@ export const landingRoutes = [
         name: routeNames.LoginRedirect,
         beforeEnter: (to, from, next) => {
             if(store.getters.getUserLoggedInStatus){
-                let nextRoute = {name: routeNames.Feed};
+                let nextRoute = {name: routeNames.Learning};
                 if(store.getters.getIsTeacher){
                     nextRoute = {name: routeNames.Dashboard};
                 }
@@ -38,31 +38,36 @@ export const landingRoutes = [
             next("/");
         },
     },
-    {
-        path: "/learn",
-        name: routeNames.Learning,
-        components: {
-            default: () => import(`../components/landingPage/learn.vue`),
-            ...staticComponents(['banner', 'header', 'footer']),
-        },
-        beforeEnter: (to, from, next) => {
-            if(store.getters.getUserLoggedInStatus){
-                let nextRoute = {name: routeNames.Feed};
-                if(store.getters.getIsTeacher){
-                    nextRoute = {name: routeNames.Dashboard};
-                }
-                next({name: nextRoute.name,query: to.query});
-                return;
-            }
-            next();
-        },
-        // meta:{
-        //     headerSlot: (global.siteName === 'frymo')? '': 'becomeTutorSlot',
-        // },
-    },
+    // {
+    //     path: "/learn",
+    //     name: routeNames.Learning,
+    //     components: {
+    //         default: () => import(`../components/landingPage/learn.vue`),
+    //         ...staticComponents(['banner', 'header', 'footer']),
+    //     },
+    //     beforeEnter: (to, from, next) => {
+    //         if(store.getters.getUserLoggedInStatus){
+    //             let nextRoute = {name: routeNames.Feed};
+    //             if(store.getters.getIsTeacher){
+    //                 nextRoute = {name: routeNames.Dashboard};
+    //             }
+    //             next({name: nextRoute.name,query: to.query});
+    //             return;
+    //         }
+    //         next();
+    //     },
+        
+    // },
     {
         path: "/tutor-list/:course?",
-        name: routeNames.TutorList,
+        name: "tutorLandingPage",
+        beforeEnter: (to, from, next) => {
+            next({name: routeNames.Learning, params : to.params});
+        }
+    },
+    {
+        path: "/learn/:course?",
+        name: routeNames.Learning,
         components: {
             default: () => import(`../components/tutorLandingPage/tutorLandingPage.vue`),
             ...staticComponents(['banner', 'header', 'footer']),

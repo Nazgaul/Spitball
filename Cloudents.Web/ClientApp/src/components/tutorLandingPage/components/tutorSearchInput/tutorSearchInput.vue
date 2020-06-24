@@ -14,7 +14,6 @@
                           :placeholder="$t('tutorListLanding_search_placeholder')"
                           prepend-icon="sbf-search">
             </v-text-field>
-            <!-- <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div> -->
                 <v-list class="search-menu" v-show="showSuggestions">
                     <template v-for="(item, index) in suggests">
                         <v-list-item class="suggestion" @click="selectors(item)" :key="index" :class="{'list__tile--highlighted': index === focusedIndex}">
@@ -348,7 +347,6 @@ export default {
       }
 
       .v-list__tile__action {
-        min-width: 0;
         padding-right: 16px;
         min-width: 40px;
 
@@ -389,20 +387,20 @@ export default {
   }
 }
 
-.uni-field .search-menu {
-  .v-list__tile {
-    height: 56px;
-    .suggestion-image {
-      width: 40px;
-      height: 40px;
-    }
-  }
-  .v-list__tile__title {
-    color: black;
+// .uni-field .search-menu {
+//   .v-list__tile {
+//     height: 56px;
+//     .suggestion-image {
+//       width: 40px;
+//       height: 40px;
+//     }
+//   }
+//   .v-list__tile__title {
+//     color: black;
 
-    .highlight {
-      color: #302eb5;
-    }
-  }
-}
+//     .highlight {
+//       color: #302eb5;
+//     }
+//   }
+// }
 </style>

@@ -145,13 +145,7 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             
-            var t = Container.Resolve<IConfigurationKeys>();
-
-
-            var z = new QueueClient(t.Storage,"ram-test");
-            await z.CreateIfNotExistsAsync();
-            
-            await z.SendMessageAsync("sjkfhskjfhsdkjfhsdjkfsd");
+            ResourcesMaintenance.DeleteStuffFromJs();
 
            // await t.InsertBlobReprocessAsync(51657);
             //await Dbi();

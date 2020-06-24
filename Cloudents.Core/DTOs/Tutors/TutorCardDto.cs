@@ -6,7 +6,7 @@ using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.DTOs.Tutors
 {
-    public class TutorCardDto : FeedDto
+    public class TutorCardDto //: FeedDto
     {
         public long UserId { get; set; }
         public string Name { get; set; } = null!;
@@ -15,7 +15,7 @@ namespace Cloudents.Core.DTOs.Tutors
         public IEnumerable<string>? Subjects { get; set; }
 
         //public decimal TutorPrice { get; set; }
-        public override FeedType Type => FeedType.Tutor;
+        //public override FeedType Type => FeedType.Tutor;
 
 
         //Document by id need to have nullable

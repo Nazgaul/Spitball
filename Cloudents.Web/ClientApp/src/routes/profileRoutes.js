@@ -6,7 +6,7 @@ import vuetify from '../plugins/vuetify';
 export const profileRoutes = [
     {
         path: "/profile",
-        redirect: { name: routeName.Feed }
+        redirect: "/"
     },
     {
         path: "/profile/:id/:name",
