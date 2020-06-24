@@ -105,7 +105,7 @@ export default {
   height: 572px;
   @media (max-width: @screen-xs) {
     position: static;
-    // height: 594px;
+    height: auto;
   }
 }
 .coverupload {
