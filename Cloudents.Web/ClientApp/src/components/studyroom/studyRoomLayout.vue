@@ -7,11 +7,11 @@
 
     <!-- <template v-else> -->
       <studyRoomDrawer/>
-      <studyRoomHeader/>
+      <studyRoomHeader :class="{'mobileContent':isMobile}" v-if="!isMobile"/>
       <v-content>
         <studyRoomWrapper style="height:100%"/>
       </v-content>
-      <studyRoomFooter v-if="isShowFooter"/>
+      <studyRoomFooter v-if="!isMobile && isShowFooter"/>
     <!-- </template> -->
 
     <studyRoomAudio/>
@@ -61,7 +61,7 @@ export default {
       return this.$store.getters.getActiveNavEditor 
     },
     isShowFooter(){
-      return !this.isMobile && this.currentEditor !== 'class-mode' && this.currentEditor !== 'class-screen'
+      return this.currentEditor !== 'class-mode' && this.currentEditor !== 'class-screen'
     },
     isRoomActive(){
       return this.$store.getters.getRoomIsActive;
@@ -116,3 +116,8 @@ export default {
   },
 };
 </script>
+<style lang="less">
+  .mobileContent{
+    max-height: 50vh;
+  }
+</style>

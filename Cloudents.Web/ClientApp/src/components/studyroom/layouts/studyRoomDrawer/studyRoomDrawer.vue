@@ -1,12 +1,12 @@
 <template>
-   <v-navigation-drawer v-if="!isMobile"
+   <v-navigation-drawer
          mobile-break-point="960" app right clipped
          class="studyRoomDrawer" :width="drawerExtend ? 300 : 12">
-   <button @click="drawerExtend = !drawerExtend" class="collapseBtnDrawer">
+   <button v-if="!isMobile" @click="drawerExtend = !drawerExtend" class="collapseBtnDrawer">
       <v-icon class="pa-1" color="#7a798c" size="16" v-text="drawerExtend? 'sbf-arrow-right-carousel': 'sbf-arrow-left-carousel'"></v-icon>
    </button>
    <div :class="[{'hiddenDrawer':!drawerExtend}]" class="drawerContent flex-column d-flex justify-space-between align-center">
-      <drawerVideoContainer :isShowVideo="isShowVideo" class="mt-3 d-flex flex-grow-0 flex-shrink-0 elevation-0"/>
+      <drawerVideoContainer v-if="!isMobile" :isShowVideo="isShowVideo" class="mt-3 d-flex flex-grow-0 flex-shrink-0 elevation-0"/>
       <div class="drawerChatHeader mt-3">
          <div class="headerTitle mb-5 text-truncate">{{$store.getters.getRoomName}}</div>
          <div class="headerInfo d-flex justify-space-between mb-2">
@@ -62,6 +62,14 @@ export default {
 
 <style lang="less">
    .studyRoomDrawer {
+      @import '../../../../styles/mixin.less';
+      @media(max-width: @screen-sm){
+         width:100% !important;
+         height: 50vh !important;
+         transform:none !important;
+         position: fixed !important;
+         top: 50vh !important;
+      }
       overflow: initial; // to let the collapse btn to show
       box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.11);
       &.v-navigation-drawer{
