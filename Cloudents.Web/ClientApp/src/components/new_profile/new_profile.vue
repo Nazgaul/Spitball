@@ -28,6 +28,7 @@
       <!-- <profileEarnMoney class="mt-0 mt-sm-5" v-if="showEarnMoney" />  -->
       <profileReviewsBox class="mt-sm-10 mt-2" />
     </div>
+    <profileFooter />
     <profileDialogs />
   </div>
 </template>
@@ -35,6 +36,7 @@
 <script>
 import { mapGetters } from 'vuex';
 
+import cover from "./components/cover.vue";
 import profileCoverActions from './components/profileCoverActions/profileCoverActions.vue';
 import profileDialogs from './components/profileDialogs/profileDialogs.vue';
 import profileStats from './components/profileStats/profileStats.vue';
@@ -44,16 +46,16 @@ import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileBroadcasts from './components/profileLiveClasses/profileBroadcasts.vue'
 import calendarTab from '../calendar/calendarTab.vue';
 import profileSubscription from './components/profileSubscription/profileSubscription.vue';
-import cover from "./components/cover.vue";
+import profileFooter from './components/profileFooter/profileFooter.vue';
 
 // import profileUserBox from './components/profileUserBox/profileUserBox.vue';
 // import profileEarnMoney from './components/profileEarnMoney/profileEarnMoney.vue';
 // import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue';
 // import profileLiveClasses from './components/profileLiveClasses/profileLiveClasses.vue'
-// const shareContent = () => import(/* webpackChunkName: "shareContent" */'../pages/global/shareContent/shareContent.vue');
 export default {
     name: "new_profile",
     components: {
+        cover,
         profileDialogs,
         profileCoverActions,
         profileStats,
@@ -63,7 +65,7 @@ export default {
         profileBroadcasts,
         profileSubscription,
         calendarTab,
-        cover,
+        profileFooter
         // profileUserBox,
         // profileEarnMoney,
         // profileFindTutor,
@@ -132,20 +134,20 @@ export default {
             }
             return false
         },
-        shareContentParams(){
-            let urlLink = `${global.location.origin}/p/${this.$route.params.id}?t=${Date.now()}` ;
-            let userName = this.getProfile?.user?.name;
-            let paramObJ = {
-                link: urlLink,
-                twitter: this.$t('shareContent_share_profile_twitter',[userName,urlLink]),
-                whatsApp: this.$t('shareContent_share_profile_whatsapp',[userName,urlLink]),
-                email: {
-                    subject: this.$t('shareContent_share_profile_email_subject',[userName]),
-                    body: this.$t('shareContent_share_profile_email_body',[userName,urlLink]),
-                }
-            }
-            return paramObJ
-        },
+        // shareContentParams(){
+        //     let urlLink = `${global.location.origin}/p/${this.$route.params.id}?t=${Date.now()}` ;
+        //     let userName = this.getProfile?.user?.name;
+        //     let paramObJ = {
+        //         link: urlLink,
+        //         twitter: this.$t('shareContent_share_profile_twitter',[userName,urlLink]),
+        //         whatsApp: this.$t('shareContent_share_profile_whatsapp',[userName,urlLink]),
+        //         email: {
+        //             subject: this.$t('shareContent_share_profile_email_subject',[userName]),
+        //             body: this.$t('shareContent_share_profile_email_body',[userName,urlLink]),
+        //         }
+        //     }
+        //     return paramObJ
+        // },
         showReviewBox(){
             if(this.getProfile?.user?.tutorData?.rate){
               return true;
@@ -262,7 +264,7 @@ export default {
 @import "../../styles/mixin.less";
 .profilePage {
   position: relative;
-  margin-bottom: 30px;
+  // margin-bottom: 30px;
   @media (max-width: @screen-md) {
     justify-content: center;
   }

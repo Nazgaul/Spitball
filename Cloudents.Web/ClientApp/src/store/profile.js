@@ -26,7 +26,7 @@ const getters = {
    getProfileCoverImage: state => state.profile?.user?.cover || '',
    getProfileTutorSubscription: state => state.profile?.user?.tutorData?.subscriptionPrice,
    getIsMyProfile: (state, _getters) => _getters.getUserLoggedInStatus && (state.profile?.user?.id === _getters.accountUser?.id),
-   getProfileTutorName: state => state.profile?.user?.name || 'this is a test',
+   getProfileTutorName: state => state.profile?.user?.name,
    getIsSubscriber: state => {
       return state.profile?.user?.tutorData?.isSubscriber
    },

@@ -1,6 +1,6 @@
 <template>
   <div class="shareContent"  :class="{'marketingBtn': large, 'shareContentDefault':defaultStyle}">
-    <span class="pr-1" v-if="!large && !roomSetting">{{$t('shareContent_title')}} |</span>
+    <span class="pr-1" v-if="!large && !roomSetting && !profileRoute">{{$t('shareContent_title')}} |</span>
 
     <div class="d-flex align-center btnWrapper">
       <v-btn
@@ -71,6 +71,7 @@
 </template>
 
 <script>
+import { Profile } from '../../../../routes/routeNames.js'
 import emailSVG from "./images/email.svg";
 import facebookSVG from "./images/facebook.svg";
 import whatsappSVG from "./images/whatsapp.svg";
@@ -81,6 +82,7 @@ export default {
   name: "shareContent",
   data() {
     return {
+      profileRoute: Profile,
       showCopyToolTip: false
     };
   },
