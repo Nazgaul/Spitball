@@ -22,7 +22,8 @@
       <profileSubscription :id="id" v-if="showProfileSubscription" ref="profileSubscription" />
       <profileBroadcasts :id="id" @isComponentReady="val => goToLiveClasses = true" ref="profileLiveClassesElement" />
       <profileItemsBox v-if="isMyProfile || showItems" class="mt-sm-12 mt-2" />
-      <profileReviewsBox v-if="showReviewBox" class="mt-sm-10 mt-2" />
+      <!-- <profileEarnMoney class="mt-0 mt-sm-5" v-if="showEarnMoney" />  -->
+      <profileReviewsBox class="mt-sm-10 mt-2" />
     </div>
     <profileDialogs />
   </div>
@@ -128,18 +129,12 @@ export default {
             }
         },
         fetchData() {
-            let syncObj = {
-                id: this.id,
-                type:'documents',
-                params:{
-                    page: 0,
-                    pageSize: this.$vuetify.breakpoint.xsOnly ? 3 : 8,
-                }
+            let options = {
+              id: this.id,
+              pageSize: this.$vuetify.breakpoint.xsOnly ? 3 : 8
             }
             let self = this
-            this.syncProfile(syncObj).then(() => {
-
-            }).catch((ex) => {
+            this.syncProfile(options).catch((ex) => {
                 console.error(ex);
                 let currentRoute = self.$store.getters.getRouteStack[self.$store.getters.getRouteStack.length - 2] // check if there is last route that user come from
                 if(currentRoute) {
