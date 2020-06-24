@@ -3,8 +3,8 @@
     <cover></cover>
     <profileDialogs />
     <div class="profilePage_main profile-page-container">
-      <!-- <profileUserBox :globalFunctions="globalFunctions"/> -->
-      <!-- <shareContent
+      <profileUserBox :globalFunctions="globalFunctions"/>
+      <shareContent
         sel="share_area"
         :link="shareContentParams.link"
         :twitter="shareContentParams.twitter"
@@ -12,7 +12,7 @@
         :email="shareContentParams.email"
         class="mb-2 mb-sm-3 shareContentProfile"
         v-if="getProfile"
-      /> -->
+      />
       <calendarTab
         ref="calendarTab"
         v-if="showCalendarTab"
@@ -35,7 +35,7 @@ import { mapActions, mapGetters } from 'vuex';
 
 import chatService from '../../services/chatService.js';
 
-// import profileUserBox from './components/profileUserBox/profileUserBox.vue';
+import profileUserBox from './components/profileUserBox/profileUserBox.vue';
 import profileDialogs from './components/profileDialogs/profileDialogs.vue';
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
 // import profileEarnMoney from './components/profileEarnMoney/profileEarnMoney.vue';
@@ -48,11 +48,11 @@ import profileSubscription from './components/profileSubscription/profileSubscri
 import cover from "./components/cover.vue";
 import * as routeNames from '../../routes/routeNames.js';
 
-// const shareContent = () => import(/* webpackChunkName: "shareContent" */'../pages/global/shareContent/shareContent.vue');
+const shareContent = () => import(/* webpackChunkName: "shareContent" */'../pages/global/shareContent/shareContent.vue');
 export default {
     name: "new_profile",
     components: {
-        // profileUserBox,
+        profileUserBox,
         profileDialogs,
         profileReviewsBox,
         // profileEarnMoney,
@@ -63,7 +63,7 @@ export default {
         profileSubscription,
         calendarTab,
         cover,
-        // shareContent,
+        shareContent,
     },
     props: {
         id: {

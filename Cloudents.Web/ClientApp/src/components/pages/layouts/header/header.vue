@@ -12,10 +12,10 @@
             <div class="tutorName text-truncate text-center text-sm-left">{{$store.getters.getProfileTutorName}}</div>
         </template>
         <div class="globalHeader_items" :class="{'tutorProfile': $route.name === profileRoute}">
-            <div class="globalHeader_items_left" v-if="!isMobile && showSearch">
+            <!-- <div class="globalHeader_items_left" v-if="!isMobile">
                 <searchCMP :placeholder="searchPlaceholder"/>
-            </div>
-            <v-spacer v-else></v-spacer>
+            </div> -->
+            <v-spacer></v-spacer>
             <div class="globalHeader_items_right">
                 <div>
                     <component :is="$route.meta.headerSlot"/>
