@@ -1,6 +1,6 @@
 <template>
     <v-layout class="calendar-section">
-        <v-icon v-if="!isMyProfile" @click="globalFunctions.closeCalendar()" class="close-btn">sbf-close</v-icon>
+        <!-- <v-icon v-if="!isMyProfile" @click="globalFunctions.closeCalendar()" class="close-btn">sbf-close</v-icon> -->
         <v-flex xs12 class="">
             <v-progress-circular class="progress-calendar" v-show="!isReady && !studentEmptyState" indeterminate :size="150" width="3" color="info"/>
             <v-card class="caltab" v-if="isReady">
@@ -23,11 +23,6 @@ export default {
     components:{
         calendar,
         calendarEmptyState
-    },
-    props:{
-        globalFunctions:{
-            type: Object,
-        }
     },
     data() {
         return {
