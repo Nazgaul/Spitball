@@ -1,7 +1,10 @@
 <template>
-  <div class="profilePage" :key="componentRenderKey" >
-    <cover />
-    <profileCoverActions />
+  <div class="profilePage" :key="componentRenderKey">
+    <div class="coverWrapper">
+      <cover />
+      <profileCoverActions />
+    </div>
+    <!-- <profileStats /> -->
     <div class="profilePage_main profile-page-container">
       <!-- <profileUserBox :globalFunctions="globalFunctions"/> -->
       <!-- <shareContent
@@ -17,7 +20,6 @@
         ref="calendarTab"
         v-if="showCalendarTab"
         class="mt-sm-12 mt-2 mx-auto calendarSection"
-        :globalFunctions="globalFunctions"
       />
       <profileSubscription :id="id" v-if="showProfileSubscription" ref="profileSubscription" />
       <profileBroadcasts :id="id" @isComponentReady="val => goToLiveClasses = true" ref="profileLiveClassesElement" />
@@ -30,18 +32,17 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
-import chatService from '../../services/chatService.js';
 import profileCoverActions from './components/profileCoverActions/profileCoverActions.vue';
 import profileDialogs from './components/profileDialogs/profileDialogs.vue';
+// import profileStats from './components/profileStats/profileStats.vue';
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileBroadcasts from './components/profileLiveClasses/profileBroadcasts.vue'
 import calendarTab from '../calendar/calendarTab.vue';
 import profileSubscription from './components/profileSubscription/profileSubscription.vue';
 import cover from "./components/cover.vue";
-import * as routeNames from '../../routes/routeNames.js';
 
 // import profileUserBox from './components/profileUserBox/profileUserBox.vue';
 // import profileEarnMoney from './components/profileEarnMoney/profileEarnMoney.vue';
@@ -53,6 +54,7 @@ export default {
     components: {
         profileDialogs,
         profileCoverActions,
+        // profileStats,
         profileReviewsBox,
         profileItemsBox,
         profileBroadcasts,
@@ -73,68 +75,18 @@ export default {
     data() {
         return {
             goToLiveClasses: false,
-            globalFunctions:{
-                sendMessage: this.sendMessage,
-                openCalendar: this.openCalendar,
-                closeCalendar: this.closeCalendar,
-            },
             activeTab: 1,
             componentRenderKey: 0
         };
     },
     methods: {
-        ...mapActions([
-            'updateCurrTutor',
-            'setTutorRequestAnalyticsOpenedFrom',
-            'updateRequestDialog',
-            'setActiveConversationObj',
-            'syncProfile',
-            'updateToasterParams'
-        ]),
-        sendMessage(){
-            if(this.isMyProfile) {return}
-            if(this.accountUser == null) {
-               this.$ga.event('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
-               let profile = this.getProfile
-               this.updateCurrTutor(profile.user)    
-               this.setTutorRequestAnalyticsOpenedFrom({
-                  component: 'profileContactBtn',
-                  path: this.$route.path
-               });
-               this.updateRequestDialog(true);
-            } else {
-               this.$ga.event('Request Tutor Submit', 'Send_Chat_Message', `${this.$route.path}`);
-               let currentProfile = this.getProfile;
-               let conversationObj = {
-                  userId: currentProfile.user.id,
-                  image: currentProfile.user.image,
-                  name: currentProfile.user.name,
-                  conversationId: chatService.createConversationId([currentProfile.user.id, this.accountUser.id]),
-               }
-              let isNewConversation = !(this.$store.getters.getIsActiveConversationTutor(conversationObj.conversationId))
-              if(isNewConversation){
-                let tutorInfo = {
-                  id: currentProfile.user.id,
-                  name: currentProfile.user.name,
-                  image: currentProfile.user.image,
-                  calendar: currentProfile.user.calendarShared,
-                }
-                this.$store.commit('ACTIVE_CONVERSATION_TUTOR',{tutorInfo,conversationId:conversationObj.conversationId})
-              }
-              
-
-               let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
-               this.setActiveConversationObj(currentConversationObj);
-               this.$router.push({name:routeNames.MessageCenter,params:{id:currentConversationObj.conversationId}})
-            }
-        },
         fetchData() {
             let options = {
               id: this.id,
               pageSize: this.$vuetify.breakpoint.xsOnly ? 3 : 8
             }
             let self = this
-            this.syncProfile(options).catch((ex) => {
+            this.$store.dispatch('syncProfile', options).catch((ex) => {
                 console.error(ex);
                 let currentRoute = self.$store.getters.getRouteStack[self.$store.getters.getRouteStack.length - 2] // check if there is last route that user come from
                 if(currentRoute) {
@@ -144,22 +96,22 @@ export default {
                 self.$router.push('/')
             })
         },
-        openCalendar() {
-            if(!!this.accountUser) {
-                this.activeTab = 5;
-                this.$nextTick(() => {
-                    this.$vuetify.goTo(this.$refs.calendarTab)
-                })
-            } else {
-                this.$store.commit('setComponent', 'register')
-                setTimeout(()=>{
-                    document.getElementById(`tab-${this.activeTab}`).lastChild.click();
-                },200);
-            }
-        },
-        closeCalendar(){
-            this.activeTab = null
-        }
+        // openCalendar() {
+        //     if(!!this.accountUser) {
+        //         this.activeTab = 5;
+        //         this.$nextTick(() => {
+        //             this.$vuetify.goTo(this.$refs.calendarTab)
+        //         })
+        //     } else {
+        //         this.$store.commit('setComponent', 'register')
+        //         setTimeout(()=>{
+        //             document.getElementById(`tab-${this.activeTab}`).lastChild.click();
+        //         },200);
+        //     }
+        // },
+        // closeCalendar(){
+        //     this.activeTab = null
+        // }
     },
     computed: {
         ...mapGetters([
@@ -288,18 +240,18 @@ export default {
     //     }
     // },
     beforeRouteLeave(to, from, next) {
-        this.updateToasterParams({
+        this.$store.dispatch('updateToasterParams', {
             showToaster: false
         });
         this.$store.commit('resetProfile');
         next();
     },
-    created() {
-      // this.fetchData()
-        if(this.$route.params.openCalendar) {
-            this.openCalendar();
-        }
-    },
+    // created() {
+    //   // this.fetchData()
+    //     if(this.$route.params.openCalendar) {
+    //         this.openCalendar();
+    //     }
+    // },
 }
 </script>
 
@@ -315,52 +267,55 @@ export default {
     margin: 0;
     display: block;
   }
-  .profile-sticky {
-    position: sticky;
-    height: fit-content;
-    top: 80px;
-    &.profileUserSticky_bannerActive {
-      top: 150px;
-    }
+  .coverWrapper {
+    position: relative;
   }
+  // .profile-sticky {
+  //   position: sticky;
+  //   height: fit-content;
+  //   top: 80px;
+  //   &.profileUserSticky_bannerActive {
+  //     top: 150px;
+  //   }
+  // }
   .profilePage_main {
     max-width: 1920px;
-    padding-top: 550px;
+    // padding-top: 550px;
     margin: 0 20px;
     @media (max-width: @screen-xs) {
       margin: 0;
     }
     &.profile-page-container {
-      &.content-center {
-        margin: 0 auto;
-      }
+      // &.content-center {
+      //   margin: 0 auto;
+      // }
       @media (max-width: @screen-xs) {
         margin-left: 0;
         padding: 0;
       }
-      .question-container {
-        margin: unset;
-      }
-      .back-button {
-        transform: none /*rtl:rotate(180deg)*/;
-        position: absolute;
-        top: 32px;
-        left: 10px;
-        z-index: 99;
-        outline: none;
-      }
-      .limit-width {
-        max-width: 500px;
-      }
-      .bio-wrap {
-        align-items: flex-start;
-        @media (max-width: @screen-xs) {
-          align-items: unset;
-        }
-      }
-      .limited-760 {
-        max-width: 760px;
-      }
+      // .question-container {
+      //   margin: unset;
+      // }
+      // .back-button {
+      //   transform: none /*rtl:rotate(180deg)*/;
+      //   position: absolute;
+      //   top: 32px;
+      //   left: 10px;
+      //   z-index: 99;
+      //   outline: none;
+      // }
+      // .limit-width {
+      //   max-width: 500px;
+      // }
+      // .bio-wrap {
+      //   align-items: flex-start;
+      //   @media (max-width: @screen-xs) {
+      //     align-items: unset;
+      //   }
+      // }
+      // .limited-760 {
+      //   max-width: 760px;
+      // }
     }
 
     .shareContentProfile {

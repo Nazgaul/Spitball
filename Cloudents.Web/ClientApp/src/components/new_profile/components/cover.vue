@@ -99,7 +99,6 @@ export default {
 <style lang="less" scoped>
 @import "../../../styles/mixin";
 .coverPhoto {
-  position: absolute;
   left: 0;
   right: 0;
   width: 100%;
@@ -110,6 +109,7 @@ export default {
   }
 }
 .coverupload {
+  position: absolute;
   padding: 4px;
   z-index: 2;
   border: 1px solid black;

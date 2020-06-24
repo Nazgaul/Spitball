@@ -18,6 +18,10 @@ const getters = {
    getProfile: state => state.profile,
    getProfileReviews: state => state.profileReviews,
    getProfileLiveSessions: state => state.profileLiveSessions,
+   getProfileStatsHours: state => state.profile?.user?.hoursTaught,
+   getProfileStatsReviews: state => state.profile?.user?.reviewCount,
+   getProfileStatsFollowers: state => state.profile?.user?.followers,
+   getProfileStatsResources: state => state.profile?.user?.contentCount,
    getShowEditDataDialog: state => state.showEditDataDialog,
    getProfileCoverImage: state => state.profile?.user?.cover || '',
    getProfileTutorSubscription: state => state.profile?.user?.tutorData?.subscriptionPrice,
@@ -26,6 +30,8 @@ const getters = {
    getIsSubscriber: state => {
       return state.profile?.user?.tutorData?.isSubscriber
    },
+   getProfileDescription: state => state.profile?.user?.tutorData?.description,
+   getProfileBio: state => state.profile?.user?.tutorData?.bio,
 }
 
 const mutations = {
@@ -68,7 +74,7 @@ const mutations = {
       }
       state.profile = profile;
    },
-   setPorfileDocuments(state, data) {
+   setProfileDocuments(state, data) {
       let documents = new Document(data)
 
       function Document(objInit) {
@@ -222,11 +228,11 @@ const actions = {
 
             return profileInstance.get(`${id}/documents`, { params, cancelToken : axiosSource.token })
                .then(({data}) => {
-                  commit('setPorfileDocuments', data);
+                  commit('setProfileDocuments', data);
                });
 
             // return profileService.getProfileDocuments(id, params).then(documents => {
-            //    commit('setPorfileDocuments', documents);
+            //    commit('setProfileDocuments', documents);
             // });
          // }
       // }
