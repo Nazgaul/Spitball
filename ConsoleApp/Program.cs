@@ -159,7 +159,7 @@ namespace ConsoleApp
             {
                 users = await session.Query<Tutor>()
                     .Fetch(f => f.User)
-                    .Where(w => w.Id  == 160634)
+                    .Where(w => w.Id  > i)
                     .Take(100).ToListAsync();
 
                 foreach (var user in users)
