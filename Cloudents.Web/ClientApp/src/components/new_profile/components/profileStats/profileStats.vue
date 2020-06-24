@@ -22,11 +22,6 @@
 <script>
 export default {
     name: 'profileStats',
-    // data() {
-    //     return {
-
-    //     }
-    // },
     computed: {
         hours() {
             return this.$store.getters.getProfileStatsHours
@@ -45,6 +40,9 @@ export default {
 </script>
 
 <style lang="less">
+@import '../../../../styles/mixin.less';
+// @import '../../../../styles/colors.less';
+
 .profileStats {
     position: relative;
     color: #363637;
@@ -61,6 +59,10 @@ export default {
         position: relative;
         padding: 0 90px;
         font-weight: 600;
+        @media(max-width: @screen-xs) {
+            padding: 0;
+            flex: 1;
+        }
         &::after {
             content: '';
             position: absolute;
@@ -74,6 +76,17 @@ export default {
         &:last-child {
             &::after {
                 border-right: none;
+            }
+            // max-width: 374 by shiran design
+            @media(max-width: @screen-xss - 1) {
+                display: none;
+            }
+        }
+        &:nth-child(3) {
+            &::after {
+                @media(max-width: @screen-xss - 1) {
+                    border-right: none;
+                }                
             }
         }
         .number {
