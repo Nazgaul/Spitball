@@ -49,11 +49,18 @@ export default {
     @media (max-width: @screen-xs) {
         background: #f8f8f8;
     }
-    color: #000000;
+    color: #363637;
     font-size: 16px;
     font-weight: bold;
+    .shareContentProfile { 
+        .btnWrapper {
+            .option {
+                fill: #363637;
+            }
+        }
+    }
     @media (max-width: @screen-xs) {
-        .shareContentProfile {
+        .shareContentProfile { 
             height: auto;
             padding: 0;
         }
