@@ -1,7 +1,7 @@
 <template>
   <div class="profilePage" :key="componentRenderKey" >
-    <cover></cover>
-    <profileDialogs />
+    <cover />
+    <profileCoverActions />
     <div class="profilePage_main profile-page-container">
       <!-- <profileUserBox :globalFunctions="globalFunctions"/> -->
       <!-- <shareContent
@@ -21,12 +21,11 @@
       />
       <profileSubscription :id="id" v-if="showProfileSubscription" ref="profileSubscription" />
       <profileBroadcasts :id="id" @isComponentReady="val => goToLiveClasses = true" ref="profileLiveClassesElement" />
-      <!-- <profileLiveClasses :id="id" @isComponentReady="val => goToLiveClasses = true" ref="profileLiveClassesElement" /> -->
-      <!-- <profileFindTutor class="mb-3 d-lg-none" /> -->
       <profileItemsBox v-if="isMyProfile || showItems" class="mt-sm-12 mt-2" />
       <!-- <profileEarnMoney class="mt-0 mt-sm-5" v-if="showEarnMoney" />  -->
-      <profileReviewsBox v-if="showReviewBox" class="mt-sm-10 mt-2" />
+      <profileReviewsBox class="mt-sm-10 mt-2" />
     </div>
+    <profileDialogs />
   </div>
 </template>
 
@@ -34,35 +33,36 @@
 import { mapActions, mapGetters } from 'vuex';
 
 import chatService from '../../services/chatService.js';
-
-// import profileUserBox from './components/profileUserBox/profileUserBox.vue';
+import profileCoverActions from './components/profileCoverActions/profileCoverActions.vue';
 import profileDialogs from './components/profileDialogs/profileDialogs.vue';
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
-// import profileEarnMoney from './components/profileEarnMoney/profileEarnMoney.vue';
-// import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue';
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileBroadcasts from './components/profileLiveClasses/profileBroadcasts.vue'
-// import profileLiveClasses from './components/profileLiveClasses/profileLiveClasses.vue'
 import calendarTab from '../calendar/calendarTab.vue';
 import profileSubscription from './components/profileSubscription/profileSubscription.vue';
 import cover from "./components/cover.vue";
 import * as routeNames from '../../routes/routeNames.js';
 
+// import profileUserBox from './components/profileUserBox/profileUserBox.vue';
+// import profileEarnMoney from './components/profileEarnMoney/profileEarnMoney.vue';
+// import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue';
+// import profileLiveClasses from './components/profileLiveClasses/profileLiveClasses.vue'
 // const shareContent = () => import(/* webpackChunkName: "shareContent" */'../pages/global/shareContent/shareContent.vue');
 export default {
     name: "new_profile",
     components: {
-        // profileUserBox,
         profileDialogs,
+        profileCoverActions,
         profileReviewsBox,
-        // profileEarnMoney,
-        // profileFindTutor,
         profileItemsBox,
-        // profileLiveClasses,
         profileBroadcasts,
         profileSubscription,
         calendarTab,
         cover,
+        // profileUserBox,
+        // profileEarnMoney,
+        // profileFindTutor,
+        // profileLiveClasses,
         // shareContent,
     },
     props: {
@@ -129,18 +129,12 @@ export default {
             }
         },
         fetchData() {
-            let syncObj = {
-                id: this.id,
-                type:'documents',
-                params:{
-                    page: 0,
-                    pageSize: this.$vuetify.breakpoint.xsOnly ? 3 : 8,
-                }
+            let options = {
+              id: this.id,
+              pageSize: this.$vuetify.breakpoint.xsOnly ? 3 : 8
             }
             let self = this
-            this.syncProfile(syncObj).then(() => {
-
-            }).catch((ex) => {
+            this.syncProfile(options).catch((ex) => {
                 console.error(ex);
                 let currentRoute = self.$store.getters.getRouteStack[self.$store.getters.getRouteStack.length - 2] // check if there is last route that user come from
                 if(currentRoute) {
@@ -331,7 +325,7 @@ export default {
   }
   .profilePage_main {
     max-width: 1920px;
-    padding-top: 260px;
+    padding-top: 550px;
     margin: 0 20px;
     @media (max-width: @screen-xs) {
       margin: 0;

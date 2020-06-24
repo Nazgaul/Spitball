@@ -18,6 +18,7 @@
         <span class="image-edit-text" v-t="'profile_edit_image_text'"></span>
       </label>
     </div>
+    <div class="imageLinear"></div>
   </div>
 </template>
 
@@ -50,8 +51,8 @@ export default {
       if (profileUser) {
         if (this.getProfileCoverImage) {
           let size = isMobile
-            ? [window.innerWidth, 178]
-            : [window.innerWidth, 430];
+            ? [window.innerWidth, window.innerHeight - this.headerHeight]
+            : [window.innerWidth, 572];
           return utilitiesService.proccessImageURL(
             this.getProfileCoverImage,
             ...size
@@ -64,7 +65,8 @@ export default {
   },
   data() {
     return {
-      currentTime: Date.now()
+      currentTime: Date.now(),
+      headerHeight: 60
     }
   },
   methods: {
@@ -96,16 +98,15 @@ export default {
 
 <style lang="less" scoped>
 @import "../../../styles/mixin";
-
 .coverPhoto {
   position: absolute;
   left: 0;
   right: 0;
   width: 100%;
-  height: 350px;
+  height: 572px;
   @media (max-width: @screen-xs) {
     position: static;
-    height: 178px;
+    // height: 594px;
   }
 }
 .coverupload {
@@ -116,5 +117,13 @@ export default {
   @media (max-width: @screen-xs) {
     position: absolute; // temporary for mobile version till new design
   }
+}
+.imageLinear {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 100%;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0.89));
 }
 </style>

@@ -254,7 +254,6 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateEditDialog']),
         // currencySymbol(amount) {
         //     let options = { style: 'currency', currency: this.currentProfileUser.tutorData.currency, minimumFractionDigits: 0 };
         //     let numberFormat = new Intl.NumberFormat('he-IL', options);
@@ -262,7 +261,7 @@ export default {
         //     return numberFormat.format(amount)
         // },
         openEditInfo() {
-            this.updateEditDialog(true);
+            this.$store.commit('setEditDialog', true);
         },
         scrollToReviews(){
             if(!this.currentProfileTutor.reviewCount > 0){
