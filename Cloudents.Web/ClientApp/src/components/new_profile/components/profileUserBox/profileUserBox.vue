@@ -154,7 +154,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 import starSVG from './images/star.svg';
 import studentsSVG from './images/students.svg';

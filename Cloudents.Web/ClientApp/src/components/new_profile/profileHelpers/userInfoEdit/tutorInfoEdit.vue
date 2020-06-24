@@ -104,7 +104,7 @@
 
 <script>
     import accountService from '../../../../services/accountService';
-    import { mapActions, mapGetters } from 'vuex';
+    import { mapGetters } from 'vuex';
     import { validationRules } from '../../../../services/utilities/formValidationRules';
 
     export default {
