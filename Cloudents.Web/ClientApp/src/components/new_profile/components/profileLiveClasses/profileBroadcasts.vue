@@ -1,6 +1,6 @@
 <template>
     <div v-if="liveSessions.length">
-        <div class="profileBroadcast pa-4 pa-sm-0">
+        <div class="profileBroadcast pa-4 pb-0 pa-sm-0">
             <div class="mainTitle text-sm-center mb-8" v-t="'my_live_classes'"></div>
             <div 
                 v-for="session in sessionsList"
