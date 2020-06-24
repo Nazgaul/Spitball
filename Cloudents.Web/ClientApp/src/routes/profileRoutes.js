@@ -16,18 +16,13 @@ export const profileRoutes = [
             ...staticComponents(['banner', 'header'])
         },
         beforeEnter(to, from, next) {
-            let option = {
+            let options = {
                 id: to.params.id,
-                type: 'documents',
-                params:{
-                    page: 0,
-                    pageSize: vuetify.framework.breakpoint.xsOnly ? 3 : 8,
-                }
-            }
-            store.dispatch('syncProfile', option).then(() => {
+                pageSize: vuetify.framework.breakpoint.xsOnly ? 3 : 8
+            }            
+            store.dispatch('syncProfile', options).then(() => {
                 next()
-            }).catch(ex => {
-                console.error(ex);
+            }).catch(() => {
                 let previousLink = from.fullPath || '/';
                 next(previousLink);
             })

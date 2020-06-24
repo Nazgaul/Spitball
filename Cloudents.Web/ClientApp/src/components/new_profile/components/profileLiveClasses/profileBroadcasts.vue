@@ -55,7 +55,7 @@
                         <div class="bottom d-flex align-end justify-space-between text-center" :class="{'mt-6': session.description}">
                                 <v-btn
                                     v-if="isMyProfile || session.enrolled"
-                                    @click="enterRoom(session.id)"
+                                    @click="$router.push({name: studyroomRoute, params: { id: session.id } })"
                                     class="white--text btn"
                                     rounded
                                     depressed
@@ -102,7 +102,7 @@
             </div>
         </div>
 
-        <div class="showMore text-center pb-3" v-if="liveSessions.length > 2">
+        <div class="showMore text-center pb-3" v-if="broadcastSessions.length > 2">
             <arrowDownIcon class="arrowIcon" :class="{'exapnd': isExpand}" width="26" @click="isExpand = !isExpand"/>
         </div>
 
@@ -120,10 +120,11 @@
 </template>
 
 <script>
-import * as routeNames from '../../../../routes/routeNames'
+import { StudyRoom } from '../../../../routes/routeNames'
 
 import enterIcon from './enterRoom.svg'
 import arrowDownIcon from './group-3-copy-12.svg'
+
 export default {
     name: 'profileLiveClasses',
     components: {
@@ -137,22 +138,30 @@ export default {
     },
     data() {
         return {
+            studyroomRoute: StudyRoom,
             defOpen:false,
-            liveSessions: [],
             showSnack: false,
             color: '',
             toasterText: '',
             isExpand: false,
         }
     },
+    watch: {
+        isExpand(val) {
+            if(!val) {
+                this.$vuetify.goTo(this.$parent.$refs.profileLiveClassesElement)
+            }
+        }
+    },
     computed: {
         liveImage() {
-            return this.isMobile ? require('./live-banner-copy@3x.png') : require('./live-banner.png')
+            return this.isMobile ? require('./live-banner-mobile.png') : require('./live-banner-desktop.png')
         },
         readBtnText() {
             return this.isOpen ? this.$t('profile_read_less') : this.$t('profile_read_more')
         },
         isTutorSubscription() {
+            // TODO:
             return this.$store.getters.getProfileTutorSubscription
         },
         sessionsList() {
@@ -164,15 +173,15 @@ export default {
                 }
             })
         },
+        broadcastSessions() {
+            return this.$store.getters.getProfileLiveSessions
+        },
         liveSessionsList() {
-            let liveList = this.liveSessions
+            let liveList = this.broadcastSessions
             if(this.isExpand) {
                 return liveList
             }
             return liveList.slice(0, 2)
-        },
-        tutorFirstName() {
-            return this.$store.getters.getProfile?.user?.firstName
         },
         isMyProfile(){
             return this.$store.getters.getIsMyProfile
@@ -201,7 +210,6 @@ export default {
                 this.$store.commit('setComponent', 'register')
                 return
             }
-
             let session = {
                 userId: this.id,
                 studyRoomId
@@ -210,7 +218,7 @@ export default {
             this.$store.dispatch('updateStudyroomLiveSessions', session)
                 .then(() => {
                     self.toasterText = this.$t('profile_enroll_success')
-                    let currentSession = self.liveSessions.filter(s => s.id === studyRoomId)[0]
+                    let currentSession = self.broadcastSessions.filter(s => s.id === studyRoomId)[0]
                     currentSession.enrolled = true
                 }).catch(ex => {
                     self.color = 'error'
@@ -219,20 +227,7 @@ export default {
                 }).finally(() => {
                     self.showSnack = true
                 })
-        },
-        enterRoom(studyRoomId) {
-            this.$router.push({name: routeNames.StudyRoom, params: { id: studyRoomId } })
-        },
-        getLiveSessions() {
-            let self = this;
-            this.$store.dispatch('getStudyroomLiveSessions', this.id)
-                .then(res => {
-                    self.liveSessions = res
-                    self.$emit('isComponentReady')
-                }).catch(ex => {
-                    self.$appInsights.trackException(ex);
-                })
-        },
+        }
     },
     filters: {
         truncate(val = '', isOpen, suffix, textLimit){
@@ -243,18 +238,10 @@ export default {
                 return val + ' ';
             }
             return val;
-        },
-        // restOfText(val = '', isOpen, suffix, textLimit){
-        //     if (val.length > textLimit && !isOpen) {
-        //         return val.substring(textLimit) ;
-        //     }
-        //     if (val.length > textLimit && isOpen) {
-        //         return '';
-        //     }
-        // }
+        }
     },
     created() {
-        this.getLiveSessions()
+        this.$store.dispatch('getStudyroomLiveSessions', this.id)
     }
 }
 </script>
@@ -275,7 +262,6 @@ export default {
     
     .mainTitle {
         font-size: 36px;
-        // padding: 0 270px;
         max-width: 400px;
         margin: 0 auto;
         font-weight: 600;
@@ -294,16 +280,18 @@ export default {
     }
     .restOfText {
         height: 0;
+        opacity: 0;
         visibility: hidden;
-        transition: all .3s;
+        transition: all .6s;
     }
     .toggleCheckbox[type=checkbox]:checked  {
         & ~.description {
             display: none !important;
         }
         & ~ .restOfText {
-        //label
+            //label
             line-height: 1.5;
+            opacity: 1;
             height: auto;
             visibility: visible;
         }

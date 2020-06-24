@@ -173,7 +173,6 @@
             }
         },
         methods: {
-            ...mapActions(['updateEditedProfile','updateEditDialog']),
             saveChanges() {
                 if(this.$refs.formTutor.validate()) {
                     let firstName = this.editedFirstName || this.firstName;
@@ -201,9 +200,8 @@
                     accountService.saveUserInfo(serverFormat)
                         .then(() => {
                             //update profile store
-                            this.updateEditedProfile(editsData);
+                            this.$store.commit('updateEditedData',editsData);
                             this.closeDialog();
-                            this.updateEditDialog(false)
                         }, (error) => {
                             console.log('Error', error);
                             //TODO : error callback
@@ -214,7 +212,7 @@
                 }
             },
             closeDialog() {
-                this.updateEditDialog(false);
+                this.$store.commit('setEditDialog', true);
             }
         },
         created() {
