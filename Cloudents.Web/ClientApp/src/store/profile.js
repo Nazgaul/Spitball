@@ -134,8 +134,6 @@ const actions = {
             commit('setProfileReviews', res2.data)
             return profileUserData
          })
-      }).catch(ex => {
-         return ex
       })
    },
    updateProfileItemsByType({ state, commit }, { id, type, params }) {
