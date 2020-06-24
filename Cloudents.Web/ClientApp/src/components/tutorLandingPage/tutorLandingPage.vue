@@ -21,9 +21,6 @@
         </v-layout>
 
         <div class="tutor-landing-page-body">
-            <!-- <div class="tutor-landing-page-empty-state" v-if="items.length === 0 && query.term && showEmptyState" >
-                <suggestCard/>
-            </div> -->
             <div class="tutor-landing-card-container" v-for="(item, index) in items" :key="index">
                 <tutor-result-card v-if="!isMobile" class="mb-4 " :fromLandingPage="true" :tutorData="item"></tutor-result-card>
                 <tutor-result-card-mobile v-else class="mb-2 " :fromLandingPage="true" :tutorData="item"/>
@@ -56,12 +53,13 @@
 <script>
 const tutorResultCard = () => import(/* webpackChunkName: "tutorResultCard" */ '../results/tutorCards/tutorResultCard/tutorResultCard.vue');
 const tutorResultCardMobile = () => import(/* webpackChunkName: "tutorResultCardMobile" */ '../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue');
-const tutorSearchComponent = () => import('./components/tutorSearchInput/tutorSearchInput.vue');
+import tutorSearchComponent from './components/tutorSearchInput/tutorSearchInput.vue'
 const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */'../sbCarousel/sbCarousel.vue');
 
 import testimonialCard from '../carouselCards/testimonialCard.vue'; // cant make it async ASK MAOR
 import tutorLandingPageService from './tutorLandingPageService';
 import courseService from '../../services/courseService.js';
+import * as routeName from "../../routes/routeNames.js";
 
 import { mapActions,mapGetters } from 'vuex'
 export default {
@@ -145,7 +143,7 @@ export default {
         goSelected(){
             this.showEmptyState = false;
             this.$router.push({
-                path: `/tutor-list/${this.query.term}`,
+                name: routeName.Learning,
                 query: {
                     page: this.pagination.current -1,
                 },

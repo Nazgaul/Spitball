@@ -1,7 +1,7 @@
 <template>
     <v-form class="loginForm pa-4" @submit.prevent="submit" ref="form">
         <div class="top">
-            <div class="closeIcon">
+            <div class="closeIcon" v-if="!isStudyRoomRoute">
                 <v-icon size="12" color="#aaa" @click="closeRegister">sbf-close</v-icon>
             </div>
 
@@ -91,7 +91,6 @@ const verifyPhone = () => import('../register/verifyPhone.vue');
 
 import phoneCall from '../images/phoneCall.svg'
 import changeNumber from '../images/changeNumber.svg'
-
 
 import gIcon from '../images/g-icon.svg'
 

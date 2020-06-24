@@ -105,7 +105,6 @@ export default {
         student: 'menuListStudent',
       },
       menuListNotLogged: [
-        { title: this.$t('header_find_tutors'), icon: 'sbf-account-group', route: { name: routeNames.TutorList } },
         { title: this.$t('profile_become_title'), icon: 'sbf-find', url: 'https://teach.spitball.co/', notShowFrymo: true },
         { title: this.$t('menuList_help'), icon: 'sbf-help', url: satelliteService.getSatelliteUrlByName('faq') },
         { title: this.$t('menuList_about_spitball'),  icon: 'sbf-about', url: satelliteService.getSatelliteUrlByName('about') },
@@ -153,14 +152,11 @@ export default {
     }
   },
   methods: {           
-    ...mapActions(['updateReferralDialog', 'logout']),
+    ...mapActions(['updateReferralDialog']),
 
-    //TODO: Account new store clean @idan
-    // logout change to mutations, uncomment when change
-    // to new account store and clean logout from mapActions
-    // logout() {
-    //   this.$store.commit('logout')
-    // },
+    logout() {
+      this.$store.commit('logout')
+    },
     changeLanguage(id) {
       this.$store.dispatch('changeLanguage', id)
     },

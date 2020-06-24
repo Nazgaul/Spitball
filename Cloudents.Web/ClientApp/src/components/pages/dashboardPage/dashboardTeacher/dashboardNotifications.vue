@@ -64,11 +64,7 @@ export default {
                     amount: notifylist[constants.FOLLOWERS]
                     // routeName: routeName.MyFollowers
                 },
-                [constants.QUESTIONS]: {
-                    text: this.$tc('dashboardTeacher_notify_question', notifylist[constants.QUESTIONS]),
-                    amount: notifylist[constants.QUESTIONS]
-                    // routeName: routeName.MyContent
-                },
+             
                 [constants.PAYMENTS]: {
                     text: this.$tc('dashboardTeacher_notify_payments', notifylist[constants.PAYMENTS]),
                     amount: notifylist[constants.PAYMENTS]

@@ -1,0 +1,3 @@
+
+// DIALOGS:
+export const PAYMENT_DIALOG = 'PAYMENT_DIALOG';

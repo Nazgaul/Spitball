@@ -2,7 +2,6 @@
     <div class="canvas-container" id="canvasDiv">
         <div id="canvas-wrapper" class="canvas-wrapper" style="position:relative; overflow: auto;" :style="`width:${windowWidth}px;height:${windowHeight}px;`">
             <canvas id="canvas" :class="{'select-object': canvasData.objDetected}"></canvas>
-            <!-- <whiteBoardLayers v-if="false" :canvasData="canvasData"></whiteBoardLayers> -->
              <v-skeleton-loader v-if="getImgLoader" class="loader-img-canvas"
                 max-width="300" min-width="300"
                 type="image"></v-skeleton-loader>

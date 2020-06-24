@@ -12,10 +12,10 @@
                 <span class="mF_title" v-t="'mobileFooter_btn_home'"/>
                 <v-icon class="mF_icon" v-html="'sbf-home-tab'"/>
             </v-btn>
-            <v-btn v-if="!isTutor" :ripple="false" class="mF_btns" text value="tutorLandingPage" @click="changeActiveTab('tutorLandingPage')">
+            <!-- <v-btn v-if="!isTutor" :ripple="false" class="mF_btns" text value="tutorLandingPage" @click="changeActiveTab('tutorLandingPage')">
                 <span class="mF_title" v-t="'mobileFooter_btn_tutors'"/>
                 <v-icon class="mF_icon" v-html="'sbf-account-group'"/>
-            </v-btn>
+            </v-btn> -->
             <v-btn v-if="isTutor" :ripple="false" class="mF_btns" text value='upload' @click="$store.commit('setComponent', 'upload')">
                 <span class="mF_title" v-t="'mobileFooter_btn_upload'"/>
                 <v-icon class="mF_icon" v-html="'sbf-button-add'" />
@@ -27,7 +27,7 @@
                     <span class="mF_chat_unread" v-show="totalUnread > 0">{{totalUnread}}</span>
                 </span>
             </v-btn>
-            <v-btn :ripple="false" class="mF_btns" text value="profile" @click="changeActiveTab('profile')">
+            <v-btn v-if="isTutor" :ripple="false" class="mF_btns" text value="profile" @click="changeActiveTab('profile')">
                 <span class="mF_title" v-t="'mobileFooter_btn_profile'"/>
                 <v-icon class="mF_icon" v-html="'sbf-account'"/>
             </v-btn>
@@ -92,13 +92,10 @@ export default {
     methods: {
         changeActiveTab(tabName){
             if(tabName === 'feed' && this.activeTab !== tabName){
-                this.$router.push({name:routeNames.Feed})
+                this.$router.push("/")
                 return
             }
-            if(tabName === 'tutorLandingPage' && this.activeTab !== tabName){
-                this.$router.push({name:routeNames.TutorList});
-                return
-            }
+           
             if(tabName === 'profile' && this.activeTab !== tabName){
                 if(this.accountUser == null) {
                     this.$store.commit('setComponent', 'register')

@@ -54,10 +54,15 @@
 
 
         <v-dialog v-model="permissionDialogState" width="512" :fullscreen="$vuetify.breakpoint.xsOnly" persistent content-class="premissionDeniedDialog text-center pa-6 pb-4">
-            <div class="mb-4 mainTitle" v-t="'studyRoomSettings_block_title'"></div>
-            <i18n path="studyRoomSettings_block_permission" tag="div" class="blockPermission mb-6">
-                <cameraBlock class="cameraBlock mx-1 mt-1" width="20" />
-            </i18n>
+            <template v-if="$vuetify.breakpoint.xsOnly">
+                <video playsinline @loadeddata="playVideo" ref="permissionDialogVideo" loop autoplay muted class="dialogPermissionVideo mb-2" :src="getPermissionBlockedVideo()"></video>
+            </template>
+            <template v-else>
+                <div class="mb-4 mainTitle" v-t="'studyRoomSettings_block_title'"></div>
+                <i18n path="studyRoomSettings_block_permission" tag="div" class="blockPermission mb-6">
+                    <cameraBlock class="cameraBlock mx-1 mt-1" width="20" />
+                </i18n>
+            </template>
             <div class="text-center">
                 <v-btn
                     @click="permissionDialogState = false"
@@ -125,6 +130,25 @@ export default {
         ...mapGetters(['getVideoDeviceId','getAudioDeviceId'])
     },
     methods:{
+        getPermissionBlockedVideo(){
+            // eslint-disable-next-line no-undef
+            let isSafari = navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0;
+            if(isSafari){
+                return require('./ISO_VIDEO.mp4').default
+            }else{
+                return require('./ANDROID_VIDEO.mp4').default
+            }
+        },
+        playVideo(){
+            let playPromise = this.$refs.permissionDialogVideo.play()
+            let self = this
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {}).catch(error => {
+                    self.$appInsights.trackException(error)
+                });
+            }
+        },
         createVideoPreview(deviceId){
             let videoParams = {
                 audio: false,
@@ -232,7 +256,7 @@ export default {
     },
     created(){
         this.startPreview()
-        navigator.mediaDevices.ondevicechange = this.startPreview
+        navigator.mediaDevices.ondevicechange = this.startPreview;
     },
     beforeDestroy() {
         this.MIXIN_cleanStreams(this.streamsArray)
@@ -283,6 +307,9 @@ export default {
 
                 &.inCamera {
                     padding: 0 100px;
+                    @media (max-width: @screen-sm) {
+                        padding: 0;
+                    }
                     line-height: 22px;
                 }
                 .cameraBlock {
@@ -369,6 +396,9 @@ export default {
 .premissionDeniedDialog {
     background: #fff !important;
     border-radius: 8px;
+    .dialogPermissionVideo{
+        max-height: calc(~"100% - 46px");
+    }
     .mainTitle {
         color: @global-purple;
         font-weight: 600;

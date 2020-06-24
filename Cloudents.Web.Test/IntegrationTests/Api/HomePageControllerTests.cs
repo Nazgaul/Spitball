@@ -18,11 +18,11 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("api/HomePage/version")]
-        [InlineData("api/HomePage/tutors")]
+       // [InlineData("api/HomePage/tutors")]
         [InlineData("api/HomePage/banner")]
         [InlineData("api/HomePage/reviews")]
         [InlineData("api/HomePage")]
-        [InlineData("api/Homepage/documents")]
+        //[InlineData("api/Homepage/documents")]
         public async Task GetAsync_HomePage_OkAsync(string uri)
         {
             var response = await _client.GetAsync(uri);

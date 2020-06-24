@@ -77,7 +77,6 @@ import { mapActions, mapGetters } from "vuex";
 import analyticsService from "../../../../services/analytics.service";
 import chatService from '../../../../services/chatService';
 import * as routeNames from '../../../../routes/routeNames.js'
-// import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
 
 import iconChat from '../icon-chat.svg';
 import clock from './clock.svg';
@@ -87,7 +86,6 @@ export default {
   components: {
     clock,
     iconChat,
-    // userAvatarRect
   },
   props: {
     tutorData: {},

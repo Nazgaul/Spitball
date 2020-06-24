@@ -118,6 +118,18 @@ namespace Cloudents.Query.Users
                 var isFollowing = isFollowingFuture.Value;
                 result.IsFollowing = isFollowing != null;
                 result.ReviewCount = rateQuery.Value.Count;
+                if (rateQuery.Value.Count > 0)
+                {
+                    result.Rate = rateQuery.Value.Total.GetValueOrDefault() / rateQuery.Value.Count;
+                }
+                //result.Tutor.Subjects = futureSubject.Value;
+                //if (couponResult != null)
+                //{
+                //    result.Tutor.CouponType = couponResult.TypeEnum;
+                //    result.Tutor.CouponValue = couponResult.Value;
+
+                //}
+
                 result.IsSubscriber = isFollowing?.Subscriber ?? false;
 
                 result.DocumentCourses = await documentCoursesFuture.GetEnumerableAsync(token);

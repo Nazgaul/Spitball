@@ -13,6 +13,7 @@ export default {
     },
     data() {
         return {
+            studyroomRoute: routeNames.StudyRoom,
             googleLoaded:false,
             googleLoading: false,
             googleFailed: false,
@@ -29,6 +30,9 @@ export default {
         };
     },
     computed: {
+        isStudyRoomRoute() {
+            return this.$route.name === this.studyroomRoute
+        },
         isVerifyPhone() {
             return this.component === 'verifyPhone'
         },

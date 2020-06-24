@@ -7,6 +7,7 @@
             loop
             autoplay
             muted
+            playsinline 
         >
             <source src="https://az32006.vo.msecnd.net/spitball-user/home-page/websitemovie_Trim.mp4" type="video/mp4">
         </video>

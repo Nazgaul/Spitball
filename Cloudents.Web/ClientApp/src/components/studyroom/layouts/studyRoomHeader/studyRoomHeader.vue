@@ -33,9 +33,19 @@
          </button>
       </template>
       <v-spacer></v-spacer>
-      <div class="net mr-4 mt-3" v-if="$store.getters.getRoomNetworkQuality">
-         <div v-for="(item, index) in 5" :key="index" :class="['bar',{'barFull':$store.getters.getRoomNetworkQuality <= index}]"></div>
-      </div>
+      <template v-if="roomNetworkQualityLevel">
+         <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+               <div v-on="on" class="net mr-4 mt-3" >
+                  <div v-for="(item, index) in 5" :key="index" :class="['bar',{'barFull':roomNetworkQualityLevel <= index}]"></div>
+               </div>
+            </template>
+            <div dir="auto" v-if="roomNetworkQualityStats.localAudioSend" v-text="$t('localAudioSend',{0:roomNetworkQualityStats.localAudioSend})"/>
+            <div dir="auto" v-if="roomNetworkQualityStats.localVideoSend" v-text="$t('localVideoSend',{0:roomNetworkQualityStats.localVideoSend})"/>
+            <div dir="auto" v-if="roomNetworkQualityStats.remoteAudioReceive" v-text="$t('remoteAudioReceive',{0:roomNetworkQualityStats.remoteAudioReceive})"/>
+            <div dir="auto" v-if="roomNetworkQualityStats.remoteVideoReceive" v-text="$t('remoteVideoReceive',{0:roomNetworkQualityStats.remoteVideoReceive})"/>
+         </v-tooltip>
+      </template>
       <template v-if="isRoomTutor">
          <v-btn class="mb-2" :ripple="false" text @click="muteAll()">
             <div class="muteAllBtn">
@@ -91,6 +101,12 @@ export default {
    },
    computed: {
       ...mapGetters(['getIsRecording']),
+      roomNetworkQualityLevel(){
+         return this.$store.getters.getRoomNetworkQuality?.level;
+      },
+      roomNetworkQualityStats(){
+         return this.$store.getters.getRoomNetworkQuality?.stats;
+      },
       isRoomTutor(){
          return this.$store.getters.getRoomIsTutor;
       },

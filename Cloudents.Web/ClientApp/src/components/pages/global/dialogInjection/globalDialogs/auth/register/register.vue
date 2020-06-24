@@ -2,7 +2,7 @@
     <div class="registerDialog">
         <v-form @submit.prevent="submit" ref="form" class="registerForm pa-4">  
             <div>
-                <div class="closeIcon" v-if="!isSetPhoneStep">
+                <div class="closeIcon" v-if="!isSetPhoneStep && !isStudyRoomRoute">
                     <v-icon size="12" color="#aaa" @click="closeRegister">sbf-close</v-icon>
                 </div>
 

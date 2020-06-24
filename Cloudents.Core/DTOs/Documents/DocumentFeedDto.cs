@@ -7,12 +7,12 @@ using System;
 
 namespace Cloudents.Core.DTOs.Documents
 {
-    public class DocumentFeedDto : FeedDto
+    public class DocumentFeedDto //: FeedDto
     {
         [EntityBind(nameof(Document.Id))]
         public long Id { get; set; }
         private TimeSpan? _duration;
-        public override FeedType Type => FeedType.Document;
+        //public override FeedType Type => FeedType.Document;
         public string Course { get; set; }
         public string? Snippet { get; set; }
         public string Title { get; set; }

@@ -103,7 +103,6 @@
 </template>
 
 <script>
-    import accountService from '../../../../services/accountService';
     import { mapGetters } from 'vuex';
     import { validationRules } from '../../../../services/utilities/formValidationRules';
 
@@ -196,8 +195,7 @@
                         bio,
                         description,
                     };
-                    //TODO: Account new store clean @idan
-                    accountService.saveUserInfo(serverFormat)
+                    this.$store.dispatch('saveUserInfo', serverFormat)
                         .then(() => {
                             //update profile store
                             this.$store.commit('updateEditedData',editsData);
@@ -207,7 +205,6 @@
                             //TODO : error callback
                         }).finally(() => {
                             this.btnLoading = false;
-
                         });
                 }
             },

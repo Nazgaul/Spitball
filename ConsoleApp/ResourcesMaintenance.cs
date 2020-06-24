@@ -104,7 +104,7 @@ namespace ConsoleApp
                     }
                     if (!occurrence)
                     {
-                        //Console.WriteLine($"file path: {resourceFile}, element name: {name}");
+                        Console.WriteLine($"file path: {key}");
                         values.Remove(key);
                         //var p = dataElement[i].ParentNode;
                         //p.RemoveChild(dataElement[i]);

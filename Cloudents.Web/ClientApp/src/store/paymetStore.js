@@ -1,8 +1,6 @@
 import walletService from '../services/walletService.js';
-import * as dialogNames from '../components/pages/global/dialogInjection/dialogNames.js'
 
-import { router } from '../main.js';
-import { loadStripe } from '@stripe/stripe-js';
+import * as componentConsts from '../components/pages/global/toasterInjection/componentConsts.js'
 
 const state = {
     paymentURL: null,
@@ -27,29 +25,27 @@ const getters = {
 const actions = {
     buyPointsUS({getters}, points) {
         walletService.stripeTransaction(points).then(async ({data}) => {
-            const stripePromise = loadStripe(getters.getStripeToken);
+            const stripePromise = window.Stripe(getters.getStripeToken);
             const stripe = await stripePromise;
-            //TODO - investigate error
             await stripe.redirectToCheckout({
                sessionId:  data.sessionId,
             });
         })
     },
     async subscribeToTutor({getters}, id) {
-       var data =  await walletService.subscribe(id);
-       const stripePromise = loadStripe(getters.getStripeToken);
-       const stripe = await stripePromise;
-           //TODO - investigate error
-       await stripe.redirectToCheckout({
-           sessionId: data.sessionId,
-       });
-        //var {data} =  await axios.post(`/Tutor/${id}/subscribe`);
+        let data = await walletService.subscribe(id);
+        const stripePromise = window.Stripe(getters.getStripeToken);
+        const stripe = await stripePromise;
+
+        await stripe.redirectToCheckout({
+            sessionId: data.sessionId,
+        });
     },
     buyToken({dispatch ,commit}, points) {
         return walletService.buyTokens(points).then(({ data }) => {
             dispatch('updatePaymentLink',data.link)
             commit('setIsBuyPoints',true)
-            router.push({query:{...router.currentRoute.query,dialog: dialogNames.Payment}})
+            commit('addComponent',componentConsts.PAYMENT_DIALOG);
         }).catch(() => {
             global.localStorage.setItem("sb_transactionError", points);
             return Promise.reject()
@@ -70,15 +66,15 @@ const actions = {
     signalR_ReleasePaymeStatus({getters,dispatch,commit}){
         let isStudyRoom = getters.getRoomIdSession;
         commit('setIsBuyPoints',false)
-        if(isStudyRoom){
+        if(isStudyRoom){ // studyroom payment
             let isRoomNeedPayment = getters.getRoomIsNeedPayment;
             if(isRoomNeedPayment){
                 dispatch('updateRoomIsNeedPayment',false)
-                router.push({query:{...router.currentRoute.query,dialog:undefined}})
+                commit('removeComponent',componentConsts.PAYMENT_DIALOG)
             }
-        } else{
+        } else{ // i think calendar payment... have to check
             dispatch('updateNeedPayment',false);
-            router.push({query:{...router.currentRoute.query,dialog:undefined}})
+            commit('removeComponent',componentConsts.PAYMENT_DIALOG)
         }
     },
     updatePaymentLink({commit},link){

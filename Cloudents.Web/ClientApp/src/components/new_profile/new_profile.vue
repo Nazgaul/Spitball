@@ -6,8 +6,8 @@
     </div>
     <profileStats />
     <div class="profilePage_main profile-page-container">
-      <!-- <profileUserBox :globalFunctions="globalFunctions"/> -->
-      <!-- <shareContent
+      <profileUserBox :globalFunctions="globalFunctions"/>
+      <shareContent
         sel="share_area"
         :link="shareContentParams.link"
         :twitter="shareContentParams.twitter"
@@ -15,7 +15,7 @@
         :email="shareContentParams.email"
         class="mb-2 mb-sm-3 shareContentProfile"
         v-if="getProfile"
-      /> -->
+      />
       <calendarTab
         ref="calendarTab"
         v-if="showCalendarTab"

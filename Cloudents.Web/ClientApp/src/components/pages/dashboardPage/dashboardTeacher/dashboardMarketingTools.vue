@@ -2,43 +2,17 @@
     <div class="marketingTools mb-2 mb-sm-4">
 
     <marketingAction :resource="resource" />
-        <!-- <div class="headerTools pa-0 mb-4 mb-sm-2 d-block d-sm-none">
-            <div class="titleTools" v-t="'marketing_title'"></div>
-        </div>
-
-        <div class="wrapper d-flex text-center">
-            <div class="sharePost me-2 py-4">
-              <shareIcon width="92" />
-              <div class="text1 mt-4 mb-1" v-t="'marketing_tools_share_title1'"></div>
-              <div class="text2 mb-4" v-t="'marketing_tools_share_title2'"></div>
-              <v-btn color="#4c59ff" rounded outlined depressed :to="{name: marketingRoute}">
-                <span class="btnText" v-t="'marketing_tools_share_btn'"></span>
-              </v-btn>
-            </div>
-
-            <div class="createCoupon ms-2 py-4">
-              <createCouponIcon width="125" />
-              <div class="text1 mt-4 mb-1" v-t="'marketing_tools_coupon_title1'"></div>
-              <div class="text2 mb-4" v-t="'marketing_tools_coupon_title2'"></div>
-              <v-btn color="#4c59ff" rounded outlined depressed :to="{name: marketingRoute, query: {dialog: 'createCoupon'}}">
-                <span class="btnText" v-t="'marketing_tools_coupon_btn'"></span>
-              </v-btn>
-            </div>
-        </div> -->
+      
     </div>
 </template>
 <script>
 import * as routeNames from '../../../../routes/routeNames'
 import marketingAction from '../../marketing/marketingActions/marketingActions.vue'
-// import shareIcon from './images/share.svg';
-// import createCouponIcon from './images/createCoupon.svg';
 
 export default {
   name: "marketingTools",
   components: {
     marketingAction,
-    // shareIcon,
-    // createCouponIcon,
   },
   data() {
     return {

@@ -17,7 +17,6 @@
                     <span :class="['payme-content-txt',{'pt-2':!isMobile}]" v-t="'payme_content_txt_hands'"/>
                 </v-flex>
             </v-layout>
-            <!-- <div class="payme-top-desc pb-4" v-t="'payme_top_desc'"/> -->
         </div>
         <iframe :class="['payment-iframe',{'mt-4':getIsBuyPoints}]" width="100%" height="475" :src="paymentUrl"></iframe>
         <div class="payme-popup-bottom">
@@ -29,6 +28,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import * as componentConsts from '../../../../toasterInjection/componentConsts.js';
 
 import * as routeNames from '../../../../../../../routes/routeNames';
 export default {
@@ -49,9 +49,10 @@ export default {
                 let isExit = confirm(this.$t("payme_are_you_sure_exit"))
                 if(isExit){
                     this.$router.push('/');
+                    this.$store.commit('removeComponent',componentConsts.PAYMENT_DIALOG)
                 }
             }else{
-                this.$closeDialog()
+                this.$store.commit('removeComponent',componentConsts.PAYMENT_DIALOG)
             }
         }
     },
@@ -63,7 +64,7 @@ export default {
                     showToaster: true,
                     toasterTimeout: 5000
                 });
-            self.$closeDialog()
+            self.$store.commit('removeComponent',componentConsts.PAYMENT_DIALOG)
         })
     },
     beforeDestroy() {

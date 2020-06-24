@@ -9,7 +9,9 @@
     "plugin:vue/essential",
     "plugin:vue/recommended",
     "plugin:css-modules/recommended",
-    "plugin:vue-i18n/recommended"
+    "plugin:vue-i18n/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings"
   ],
     "parser": "vue-eslint-parser",
   "globals": {
