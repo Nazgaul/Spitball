@@ -4,7 +4,7 @@
       <cover />
       <profileCoverActions />
     </div>
-    <!-- <profileStats /> -->
+    <profileStats />
     <div class="profilePage_main profile-page-container">
       <!-- <profileUserBox :globalFunctions="globalFunctions"/> -->
       <!-- <shareContent
@@ -36,7 +36,7 @@ import { mapGetters } from 'vuex';
 
 import profileCoverActions from './components/profileCoverActions/profileCoverActions.vue';
 import profileDialogs from './components/profileDialogs/profileDialogs.vue';
-// import profileStats from './components/profileStats/profileStats.vue';
+import profileStats from './components/profileStats/profileStats.vue';
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileBroadcasts from './components/profileLiveClasses/profileBroadcasts.vue'
@@ -54,7 +54,7 @@ export default {
     components: {
         profileDialogs,
         profileCoverActions,
-        // profileStats,
+        profileStats,
         profileReviewsBox,
         profileItemsBox,
         profileBroadcasts,

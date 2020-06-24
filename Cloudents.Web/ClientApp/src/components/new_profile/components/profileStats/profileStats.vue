@@ -46,8 +46,17 @@ export default {
 
 <style lang="less">
 .profileStats {
-    border-bottom: 1px solid #a4a7ab;
+    position: relative;
     color: #363637;
+    &::after {
+        content: '';
+        position: absolute;
+        opacity: 0.4;
+        border-bottom: 1px solid #a4a7ab;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
     .stats {
         position: relative;
         padding: 0 90px;
