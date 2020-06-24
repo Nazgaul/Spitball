@@ -40,6 +40,7 @@
   "rules": {
     "no-extra-boolean-cast": "off",
     "no-useless-escape": "off",
+    "no-unused-vars":"error",
     "no-prototype-builtins": "off",
     "require-atomic-updates": "off",
     "vue/html-indent": "off",

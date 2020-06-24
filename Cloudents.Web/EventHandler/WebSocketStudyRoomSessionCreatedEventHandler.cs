@@ -29,7 +29,7 @@ namespace Cloudents.Web.EventHandler
             await DoProcessAsync(studyRoomSession, token);
         }
 
-        private async Task DoProcessAsync(StudyRoomSession studyRoomSession, CancellationToken token)
+        private Task DoProcessAsync(StudyRoomSession studyRoomSession, CancellationToken token)
         {
             var users = studyRoomSession.StudyRoom.Users;
             var session = studyRoomSession.SessionId;
@@ -43,7 +43,7 @@ namespace Cloudents.Web.EventHandler
                     token);
                 tasks.Add(t);
             }
-            await Task.WhenAll(tasks);
+            return Task.WhenAll(tasks);
         }
     }
 }
