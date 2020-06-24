@@ -5,9 +5,10 @@
       <profileCoverActions />
     </div>
     <profileStats />
+    <profileParagraph />
     <div class="profilePage_main profile-page-container">
-      <profileUserBox :globalFunctions="globalFunctions"/>
-      <shareContent
+      <!-- <profileUserBox :globalFunctions="globalFunctions"/> -->
+      <!-- <shareContent
         sel="share_area"
         :link="shareContentParams.link"
         :twitter="shareContentParams.twitter"
@@ -15,7 +16,7 @@
         :email="shareContentParams.email"
         class="mb-2 mb-sm-3 shareContentProfile"
         v-if="getProfile"
-      />
+      /> -->
       <calendarTab
         ref="calendarTab"
         v-if="showCalendarTab"
@@ -37,6 +38,7 @@ import { mapGetters } from 'vuex';
 import profileCoverActions from './components/profileCoverActions/profileCoverActions.vue';
 import profileDialogs from './components/profileDialogs/profileDialogs.vue';
 import profileStats from './components/profileStats/profileStats.vue';
+import profileParagraph from './components/profileParagraph/profileParagraph.vue';
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileBroadcasts from './components/profileLiveClasses/profileBroadcasts.vue'
@@ -55,6 +57,7 @@ export default {
         profileDialogs,
         profileCoverActions,
         profileStats,
+        profileParagraph,
         profileReviewsBox,
         profileItemsBox,
         profileBroadcasts,

@@ -32,6 +32,7 @@ const getters = {
    },
    getProfileDescription: state => state.profile?.user?.tutorData?.description,
    getProfileBio: state => state.profile?.user?.tutorData?.bio,
+   getProfileParagraph: state => state.profile?.user?.tutorData?.paragraph,
 }
 
 const mutations = {
