@@ -238,8 +238,8 @@ export default {
                     data: {
                         ...data,
                         sizes:{
-                            width: this.canvas.width,
-                            height: this.canvas.height,
+                            width: window.innerWidth,
+                            height: window.innerHeight,
                         }
                     }
                 };

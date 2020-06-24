@@ -15,14 +15,6 @@ import helper from './utils/helper'
 
 let dragData = [];
 
-function getNewPosX(remoteCanvasWidth,localCanvasWidth,posX){
-    let posXpres = posX*100/remoteCanvasWidth;
-    return localCanvasWidth / 100 * posXpres
-}
-function getNewPosY(remoteCanvasHeight,localCanvasHeight,posY){
-    let posYpres = posY*100/remoteCanvasHeight;
-    return localCanvasHeight / 100 * posYpres
-}
 const getDragData = function(){
     return store.getters['getDragData'];
 };
@@ -175,41 +167,20 @@ const passData = function(canvasData, changedDragData,canvasSizes){
         tab: tabToDraw,
         data: changedDragData
     };
-    let ctx; 
-    if(Object.keys(canvasData.context).length === 0){
-        ctx = getContext();
-    }else{
-        ctx = {...canvasData.context}
-    }
     let remoteCanvasWidth = canvasSizes.width;
     let remoteCanvasHeight = canvasSizes.height;
 
     let remoteRatio = remoteCanvasWidth / remoteCanvasHeight;
 
 
-    // function getNewPosX(remoteCanvasWidth,localCanvasWidth,posX){
-    //     let posXpres = posX*100/remoteCanvasWidth;
-    //     return localCanvasWidth / 100 * posXpres
-    // }
-    // function getNewPosY(remoteCanvasHeight,localCanvasHeight,posY){
-    //     let posYpres = posY*100/remoteCanvasHeight;
-    //     return localCanvasHeight / 100 * posYpres
-    // }
-    let localCanvasWidth = ctx.canvas.width;
+    let localCanvasWidth = window.innerWidth;
     const localCanvasHeight = localCanvasWidth /remoteRatio;
-
-    //let localCanvasHeight = ctx.canvas.height;
-
-  //  let scaleFactor =localCanvasWidth / remoteCanvasWidth;
-   // ctx.scale(scaleFactor,scaleFactor);
     data.data.points.forEach(p=>{
-         p.mouseX =  p.mouseX / remoteCanvasWidth *localCanvasWidth //getNewPosX(remoteCanvasWidth, localCanvasWidth,p.mouseX)
-         p.mouseY = p.mouseY / remoteCanvasHeight * localCanvasHeight  //getNewPosY(remoteCanvasHeight,localCanvasHeight,p.mouseY)
+         p.mouseX =  p.mouseX / remoteCanvasWidth *localCanvasWidth 
+         p.mouseY = p.mouseY / remoteCanvasHeight * localCanvasHeight
         if(p.width){
-            p.width =  p.width / remoteCanvasWidth *localCanvasWidth //getNewPosX(remoteCanvasWidth, localCanvasWidth,p.mouseX)
+            p.width =  p.width / remoteCanvasWidth *localCanvasWidth 
             p.height = p.height / remoteCanvasHeight * localCanvasHeight 
-            //p.width =// getNewPosX(remoteCanvasWidth, localCanvasWidth,p.width)
-           // p.height = //getNewPosX(remoteCanvasWidth, localCanvasWidth,p.height)
         }
      })
     store.dispatch('updateDragData', data);
