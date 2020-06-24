@@ -62,7 +62,8 @@ namespace Cloudents.Query.Users
                                      
                         
                         SubscriptionPrice = s.SubscriptionPrice,
-                        Description = s.Title
+                        Description = s.Title,
+                        Paragraph = s.Paragraph3
                     }).ToFutureValue();
 
 

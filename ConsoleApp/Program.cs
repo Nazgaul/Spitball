@@ -159,7 +159,7 @@ namespace ConsoleApp
             {
                 users = await session.Query<Tutor>()
                     .Fetch(f => f.User)
-                    .Where(w => w.Id > i)
+                    .Where(w => w.Id  == 160634)
                     .Take(100).ToListAsync();
 
                 foreach (var user in users)
@@ -167,7 +167,24 @@ namespace ConsoleApp
                     i = user.Id;
                     using var uow = Container.Resolve<IUnitOfWork>();
 
-                    user.UpdateSettings(user.Paragraph2, user.User.Description, null);
+                    var title = user.Title;
+                    var p2 = user.Paragraph2;
+                    var p3 = user.Paragraph3;
+
+                    if (p2?.Length > 80)
+                    {
+                        p3 = p2;
+                        p2 = null;
+                    }
+
+                    if (title?.Length > 25)
+                    {
+                        p3 = p2;
+                        p2 = title;
+                        title = null;
+                    }
+
+                    user.UpdateSettings(p2, title, p3);
                     await uow.CommitAsync();
 
                     Console.WriteLine("no");
