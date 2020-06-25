@@ -5,13 +5,13 @@
       <profileCoverActions />
     </div>
     <profileStats />
-    <div class="profileEdit text-right pa-2">
+    <div class="profileEdit text-right pa-2" v-if="isMyProfile">
       <v-btn @click="openTutorEditInfo" width="122" color="#e6e8e9" height="40" depressed>
         <editSVG class="editIcon" />
         <span class="text ms-2" v-t="'edit'"></span>
       </v-btn>
     </div>
-    <profileParagraph />
+    <!-- <profileParagraph /> -->
     <div class="profilePage_main profile-page-container">
       <calendarTab
         ref="calendarTab"
@@ -29,14 +29,14 @@
 </template>
 
 <script>
-import * as componentConsts from '../pages/global/toasterInjection/componentConsts.js'
+// import * as componentConsts from '../pages/global/toasterInjection/componentConsts.js'
 import { mapGetters } from 'vuex';
 
 import cover from "./components/cover.vue";
 import profileCoverActions from './components/profileCoverActions/profileCoverActions.vue';
 import profileDialogs from './components/profileDialogs/profileDialogs.vue';
 import profileStats from './components/profileStats/profileStats.vue';
-import profileParagraph from './components/profileParagraph/profileParagraph.vue';
+// import profileParagraph from './components/profileParagraph/profileParagraph.vue';
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileBroadcasts from './components/profileLiveClasses/profileBroadcasts.vue'
@@ -53,7 +53,7 @@ export default {
         profileDialogs,
         profileCoverActions,
         profileStats,
-        profileParagraph,
+        // profileParagraph,
         profileReviewsBox,
         profileItemsBox,
         profileBroadcasts,
@@ -92,7 +92,8 @@ export default {
             })
         },
         openTutorEditInfo() {
-          this.$store.commit('addComponent', componentConsts.TUTOR_EDIT_PROFILE)
+          this.$store.commit('setEditDialog', true)
+          // this.$store.commit('addComponent', componentConsts.TUTOR_EDIT_PROFILE)
           // removeComponent
         }
     },
@@ -156,14 +157,18 @@ export default {
                 this.fetchData();
             }
         },
-        showProfileSubscription(val) {
+        showProfileSubscription: {
+          deep: true,
+          immediate: true,
+          handler(val) {
           if(val) {
             this.$nextTick(() => {
               let profileSubscriptionElement = this.$refs.profileSubscription
               if(profileSubscriptionElement && this.$route.hash === '#subscription') {
-                this.$vuetify.goTo(this.$route.hash)
+                this.$vuetify.goTo(this.$route.hash, {offset: 20})
               }
             })
+          }
           }
         },
         goToLiveClasses(val) {
@@ -183,7 +188,7 @@ export default {
         });
         this.$store.commit('resetProfile');
         next();
-    },
+    }
 }
 </script>
 
