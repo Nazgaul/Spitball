@@ -2,9 +2,7 @@
   <div class="profilePage" :key="componentRenderKey">
     <div class="coverWrapper">
       <cover />
-      <profileCoverActions 
-        @setCalendarActive="val => calendarActive = val"
-      />
+      <profileCoverActions @setCalendarActive="val => calendarActive = val" />
     </div>
     <profileStats />
     <div class="profileEdit text-right pa-2" v-if="isMyProfile">

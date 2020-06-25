@@ -34,7 +34,8 @@ const getters = {
    getProfileDescription: state => state.profile?.user?.tutorData?.description,
    getProfileBio: state => state.profile?.user?.tutorData?.bio,
    getProfileParagraph: state => state.profile?.user?.tutorData?.paragraph,
-   getAverageRate: state => ( state.amountOfReviews/state.profile?.user?.reviewCount) || 0
+   getAverageRate: state => ( state.amountOfReviews/state.profile?.user?.reviewCount) || 0,
+   getProfileIsCalendar: state => state.profile?.user?.calendarShared
 }
 
 const mutations = {

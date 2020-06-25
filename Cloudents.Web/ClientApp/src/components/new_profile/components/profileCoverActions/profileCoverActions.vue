@@ -4,11 +4,11 @@
         <h2 class="subTitle white--text">{{bio}}</h2>
 
         <div class="mt-5">
-            <v-btn class="btn white--text me-3" @click="sendMessage" rounded depressed color="#ff6927" width="200" height="46" :block="isMobile">
+            <v-btn class="btn white--text me-3" @click="sendMessage" :disabled="isMyProfile" rounded depressed color="#ff6927" width="200" height="46" :block="isMobile">
                 <chatIcon class="me-2" width="23" />
                 <span v-t="'message_me'"></span>
             </v-btn>
-            <v-btn class="btn white--text" @click="openCalendar" rounded depressed color="#4c59ff" width="200" height="46" :block="isMobile">
+            <v-btn class="btn white--text" @click="openCalendar" :disabled="!IsCalendar" rounded depressed color="#4c59ff" width="200" height="46" :block="isMobile">
                 <calendarIcon class="me-2" width="23" />
                 <span v-t="'book_lesson'"></span>
             </v-btn>
@@ -30,6 +30,12 @@ export default {
         calendarIcon
     },
     computed: {
+        IsCalendar() {
+            return this.$store.getters.getProfileIsCalendar
+        },
+        isMyProfile() {
+            return this.$store.getters.getIsMyProfile
+        },
         description() {
             return this.$store.getters.getProfileDescription
         },
@@ -124,6 +130,11 @@ export default {
     .btn {
         font-size: 16px;
         font-weight: 600;
+        &:disabled {
+            color: #fff !important;
+            background-color: blue !important;
+            pointer-events: none;
+        }
     }
 }
 </style>
