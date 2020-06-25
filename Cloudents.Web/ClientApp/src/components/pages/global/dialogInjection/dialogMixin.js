@@ -79,14 +79,5 @@ export default {
             }
         },
     },
-    // watch: {
-    //     '$route.query.dialog':function(val){
-    //         if(val === dialogNames.Payment){
-    //             setTimeout(function() {
-    //                 //We need this because we another dialog opened
-    //                 document.querySelector(".payme-popup").parentNode.style.zIndex = 999;
-    //             }, 1000);
-    //         }
-    //     }
-    // },
+  
 }

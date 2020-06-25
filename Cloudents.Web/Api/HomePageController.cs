@@ -1,14 +1,11 @@
 ﻿using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.DTOs.Documents;
-using Cloudents.Core.DTOs.Tutors;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Query;
 using Cloudents.Query.HomePage;
 using Cloudents.Web.Binders;
-using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Mvc;

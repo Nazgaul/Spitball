@@ -39,9 +39,9 @@ const state = {
 };
 
 const mutations = {
-    StudyDocuments_filterDocument(state, data) {
-        state.items.data = data;
-    },
+    // StudyDocuments_filterDocument(state, data) {
+    //     state.items.data = data;
+    // },
     StudyDocuments_updateDocumentVote(state, {docs, id, type}) {
         if (docs && docs.length) {
             docs.forEach((document) => {                

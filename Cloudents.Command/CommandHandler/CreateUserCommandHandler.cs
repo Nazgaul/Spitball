@@ -1,5 +1,4 @@
 ﻿using Cloudents.Command.Command;
-using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
