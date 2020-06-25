@@ -2,7 +2,9 @@
   <div class="profilePage" :key="componentRenderKey">
     <div class="coverWrapper">
       <cover />
-      <profileCoverActions />
+      <profileCoverActions 
+        @setCalendarActive="val => calendarActive = val"
+      />
     </div>
     <profileStats />
     <div class="profileEdit text-right pa-2" v-if="isMyProfile">
@@ -71,6 +73,7 @@ export default {
         return {
             goToLiveClasses: false,
             activeTab: 1,
+            calendarActive: false,
             componentRenderKey: 0
         };
     },
@@ -133,8 +136,7 @@ export default {
             if(this.isMyProfile) {
                 return !isCalendar || (this.activeTab === 5 && isCalendar) 
             }
-            return isCalendar
-            // return this.activeTab === 5 && isCalendar
+            return isCalendar && this.calendarActive
         },
         profileData() {
           return this.getProfile;

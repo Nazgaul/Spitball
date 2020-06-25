@@ -84,6 +84,7 @@ export default {
         },
         openCalendar() {
             if(this.isLogged) {
+                this.$emit('setCalendarActive', true)
                 // this.activeTab = 5;
                 this.$nextTick(() => {
                     this.$vuetify.goTo(this.$parent.$refs.calendarTab)
