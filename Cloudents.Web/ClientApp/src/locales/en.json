@@ -1,4 +1,5 @@
 {
+  "Short paragraph": "Short paragraph",
   "addQuestion_add_button": "Post",
   "addQuestion_ask_your_question_placeholder": "My question is…",
   "addQuestion_cancel_button": "Cancel",
@@ -511,6 +512,7 @@
   "profile_subscribe_price_month": "/ Month",
   "profile_subscribe_subtitle": "access to all of {0}'s content and Live Lessons",
   "profile_subscribe_title": "Subscribe and get",
+  "profile_title": "Upload Images to your site",
   "profile_title1": "When you feel good, it shows",
   "profile_title2": "Join me for live class or use some of my online recorded classes to get in shape and feel great. ",
   "profile_tutor": "",

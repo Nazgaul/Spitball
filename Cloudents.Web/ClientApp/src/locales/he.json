@@ -1,4 +1,5 @@
 {
+  "Short paragraph": "",
   "addQuestion_add_button": "שליחת שאלה",
   "addQuestion_ask_your_question_placeholder": "...",
   "addQuestion_cancel_button": "ביטול",
@@ -511,6 +512,7 @@
   "profile_subscribe_price_month": "/ לחודש",
   "profile_subscribe_subtitle": "גישה חופשית לכל התכנים של {0}",
   "profile_subscribe_title": "מנוי חודשי",
+  "profile_title": "",
   "profile_title1": "",
   "profile_title2": "",
   "profile_tutor": "",

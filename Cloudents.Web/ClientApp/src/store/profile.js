@@ -71,7 +71,7 @@ const mutations = {
                rate: objInit.rate || 0,
                subscriptionPrice: objInit.subscriptionPrice,
                isSubscriber : objInit.isSubscriber,
-               paragraph: objInit.paragraph,
+               paragraph: objInit.paragraph || '',
             }
          }
       }
