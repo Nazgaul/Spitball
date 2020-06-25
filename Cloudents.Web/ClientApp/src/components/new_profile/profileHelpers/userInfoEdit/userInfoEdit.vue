@@ -82,7 +82,7 @@
 <script>
 import * as routeName from '../../../../routes/routeNames'
 import { validationRules } from "../../../../services/utilities/formValidationRules";
-import editSVG from '../../components/profileUserBox/images/edit.svg';
+import editSVG from '../../images/edit.svg';
 import uploadImage from '../../profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue';
 
 export default {

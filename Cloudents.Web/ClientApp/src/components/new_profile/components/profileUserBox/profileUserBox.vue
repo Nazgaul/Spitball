@@ -160,7 +160,7 @@ import starSVG from './images/star.svg';
 import studentsSVG from './images/students.svg';
 import onlineLessonSVG from './images/onlineLesson.svg';
 import followersSvg from './images/followers.svg';
-import editSVG from './images/edit.svg';
+// import editSVG from './images/edit.svg';
 import chatSVG from '../profileUserSticky/images/chatIcon_mobile.svg';
 import calendarSVG from '../profileUserSticky/images/calendarIcon.svg';
 
@@ -177,7 +177,7 @@ export default {
         onlineLessonSVG,
         followersSvg,
         uploadImage,
-        editSVG,
+        // editSVG,
         followBtn,
         chatSVG,
         calendarSVG

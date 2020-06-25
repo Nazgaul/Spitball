@@ -5,18 +5,14 @@
       <profileCoverActions />
     </div>
     <profileStats />
+    <div class="profileEdit text-right pa-2">
+      <v-btn @click="openTutorEditInfo" width="122" color="#e6e8e9" height="40" depressed>
+        <editSVG class="editIcon" />
+        <span class="text ms-2" v-t="'edit'"></span>
+      </v-btn>
+    </div>
     <profileParagraph />
     <div class="profilePage_main profile-page-container">
-      <!-- <profileUserBox :globalFunctions="globalFunctions"/> -->
-      <!-- <shareContent
-        sel="share_area"
-        :link="shareContentParams.link"
-        :twitter="shareContentParams.twitter"
-        :whatsApp="shareContentParams.whatsApp"
-        :email="shareContentParams.email"
-        class="mb-2 mb-sm-3 shareContentProfile"
-        v-if="getProfile"
-      /> -->
       <calendarTab
         ref="calendarTab"
         v-if="showCalendarTab"
@@ -25,7 +21,6 @@
       <profileSubscription :id="id" v-if="showProfileSubscription" ref="profileSubscription" />
       <profileBroadcasts :id="id" @isComponentReady="val => goToLiveClasses = true" ref="profileLiveClassesElement" />
       <profileItemsBox v-if="isMyProfile || showItems" class="mt-sm-12 mt-2" />
-      <!-- <profileEarnMoney class="mt-0 mt-sm-5" v-if="showEarnMoney" />  -->
       <profileReviewsBox class="mt-sm-10 mt-2" />
     </div>
     <profileFooter />
@@ -34,6 +29,7 @@
 </template>
 
 <script>
+import * as componentConsts from '../pages/global/toasterInjection/componentConsts.js'
 import { mapGetters } from 'vuex';
 
 import cover from "./components/cover.vue";
@@ -48,10 +44,8 @@ import calendarTab from '../calendar/calendarTab.vue';
 import profileSubscription from './components/profileSubscription/profileSubscription.vue';
 import profileFooter from './components/profileFooter/profileFooter.vue';
 
-// import profileUserBox from './components/profileUserBox/profileUserBox.vue';
-// import profileEarnMoney from './components/profileEarnMoney/profileEarnMoney.vue';
-// import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue';
-// import profileLiveClasses from './components/profileLiveClasses/profileLiveClasses.vue'
+import editSVG from './images/edit.svg';
+
 export default {
     name: "new_profile",
     components: {
@@ -65,12 +59,8 @@ export default {
         profileBroadcasts,
         profileSubscription,
         calendarTab,
-        profileFooter
-        // profileUserBox,
-        // profileEarnMoney,
-        // profileFindTutor,
-        // profileLiveClasses,
-        // shareContent,
+        profileFooter,
+        editSVG
     },
     props: {
         id: {
@@ -101,32 +91,16 @@ export default {
                 self.$router.push('/')
             })
         },
-        // openCalendar() {
-        //     if(!!this.accountUser) {
-        //         this.activeTab = 5;
-        //         this.$nextTick(() => {
-        //             this.$vuetify.goTo(this.$refs.calendarTab)
-        //         })
-        //     } else {
-        //         this.$store.commit('setComponent', 'register')
-        //         setTimeout(()=>{
-        //             document.getElementById(`tab-${this.activeTab}`).lastChild.click();
-        //         },200);
-        //     }
-        // },
-        // closeCalendar(){
-        //     this.activeTab = null
-        // }
+        openTutorEditInfo() {
+          this.$store.commit('addComponent', componentConsts.TUTOR_EDIT_PROFILE)
+          // removeComponent
+        }
     },
     computed: {
         ...mapGetters([
-            "accountUser",
             "getProfile",
-            'getBannerParams',
-            'getUserLoggedInStatus',
             'getIsSubscriber',// profile isSubscriber
             'getProfileTutorSubscription',
-            'getIsMyProfile'// is my profile
         ]),
         showProfileSubscription() {
             if(this.getProfileTutorSubscription && Object.keys(this.getProfileTutorSubscription).length > 0 && !this.getIsSubscriber) {
@@ -134,20 +108,6 @@ export default {
             }
             return false
         },
-        // shareContentParams(){
-        //     let urlLink = `${global.location.origin}/p/${this.$route.params.id}?t=${Date.now()}` ;
-        //     let userName = this.getProfile?.user?.name;
-        //     let paramObJ = {
-        //         link: urlLink,
-        //         twitter: this.$t('shareContent_share_profile_twitter',[userName,urlLink]),
-        //         whatsApp: this.$t('shareContent_share_profile_whatsapp',[userName,urlLink]),
-        //         email: {
-        //             subject: this.$t('shareContent_share_profile_email_subject',[userName]),
-        //             body: this.$t('shareContent_share_profile_email_body',[userName,urlLink]),
-        //         }
-        //     }
-        //     return paramObJ
-        // },
         showReviewBox(){
             if(this.getProfile?.user?.tutorData?.rate){
               return true;
@@ -156,7 +116,7 @@ export default {
             }
         },
         isMyProfile(){
-          return this.getIsMyProfile
+          return this.$store.getters.getIsMyProfile
         },
         showItemsEmpty(){
             return !this.isMyProfile && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
@@ -217,33 +177,6 @@ export default {
           }
         }
     },
-    // beforeRouteUpdate(to, from, next) {
-    //     let old = Number(from.params.id, 10)
-    //     let newVal = Number(to.params.id, 10)
-    //     this.activeTab = 1;
-    //     this.componentRenderKey += 1;
-    //     if (newVal !== old) {
-    //       this.$store.commit('resetProfile');
-    //       let self = this
-    //       let syncObj = {
-    //           id: to.params.id,
-    //           type:'documents',
-    //           params:{
-    //               page: 0,
-    //               pageSize: this.$vuetify.breakpoint.xsOnly ? 3 : 8,
-    //           }
-    //       }
-    //       this.syncProfile(syncObj).then(({user}) => {
-    //         if(user.isTutor) return next()
-
-    //         let previousLink = from.fullPath || '/';
-    //         next(previousLink);
-    //       }).catch((ex) => {
-    //           console.error(ex);
-    //           self.$router.push({name: routeNames.notFound})
-    //       })
-    //     }
-    // },
     beforeRouteLeave(to, from, next) {
         this.$store.dispatch('updateToasterParams', {
             showToaster: false
@@ -251,12 +184,6 @@ export default {
         this.$store.commit('resetProfile');
         next();
     },
-    // created() {
-    //   // this.fetchData()
-    //     if(this.$route.params.openCalendar) {
-    //         this.openCalendar();
-    //     }
-    // },
 }
 </script>
 
@@ -264,7 +191,6 @@ export default {
 @import "../../styles/mixin.less";
 .profilePage {
   position: relative;
-  // margin-bottom: 30px;
   @media (max-width: @screen-md) {
     justify-content: center;
   }
@@ -275,64 +201,29 @@ export default {
   .coverWrapper {
     position: relative;
   }
-  // .profile-sticky {
-  //   position: sticky;
-  //   height: fit-content;
-  //   top: 80px;
-  //   &.profileUserSticky_bannerActive {
-  //     top: 150px;
-  //   }
-  // }
+  .profileEdit {
+    .editIcon {
+      //temporary solution till new icon
+      path:first-child {
+        fill: #131415;
+      }
+    }
+    .text {
+      font-size: 16px;
+      font-weight: 600;
+      color: #131415;
+    }
+  }
   .profilePage_main {
     max-width: 1920px;
-    // padding-top: 550px;
     margin: 0 20px;
     @media (max-width: @screen-xs) {
       margin: 0;
     }
     &.profile-page-container {
-      // &.content-center {
-      //   margin: 0 auto;
-      // }
       @media (max-width: @screen-xs) {
         margin-left: 0;
         padding: 0;
-      }
-      // .question-container {
-      //   margin: unset;
-      // }
-      // .back-button {
-      //   transform: none /*rtl:rotate(180deg)*/;
-      //   position: absolute;
-      //   top: 32px;
-      //   left: 10px;
-      //   z-index: 99;
-      //   outline: none;
-      // }
-      // .limit-width {
-      //   max-width: 500px;
-      // }
-      // .bio-wrap {
-      //   align-items: flex-start;
-      //   @media (max-width: @screen-xs) {
-      //     align-items: unset;
-      //   }
-      // }
-      // .limited-760 {
-      //   max-width: 760px;
-      // }
-    }
-
-    .shareContentProfile {
-      background: #fff;
-      max-width: 292px;
-      margin: 0 auto 0;
-      border-radius: 8px;
-      justify-content: center;
-      @media (max-width: @screen-xs) {
-        padding-bottom: 20px;
-        max-width: 100%;
-        border-radius: 0;
       }
     }
   }
