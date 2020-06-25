@@ -1,11 +1,11 @@
 <template>
-    <v-layout class="calendar-section">
+    <v-layout class="calendar-section" v-if="showCalendarTab">
         <!-- <v-icon v-if="!isMyProfile" @click="globalFunctions.closeCalendar()" class="close-btn">sbf-close</v-icon> -->
         <v-flex xs12 class="">
             <v-progress-circular class="progress-calendar" v-show="!isReady && !studentEmptyState" indeterminate :size="150" width="3" color="info"/>
             <v-card class="caltab" v-if="isReady">
                 <calendar v-if="getShowCalendar"/>
-                <calendarEmptyState v-if="showEmptyState && !getShowCalendar"/>
+                <!-- <calendarEmptyState v-if="showEmptyState && !getShowCalendar"/> -->
             </v-card>
             <v-card class="caltab" v-show="studentEmptyState">
                 <span v-t="'calendar_empty_state_student'"></span>
@@ -17,12 +17,15 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 const calendar = () => import('./calendar.vue');
-const calendarEmptyState = () => import('./calendarEmptyState.vue');
+// const calendarEmptyState = () => import('./calendarEmptyState.vue');
 
 export default {
+    props: {
+        showCalendarTab: {}
+    },
     components:{
         calendar,
-        calendarEmptyState
+        // calendarEmptyState
     },
     data() {
         return {

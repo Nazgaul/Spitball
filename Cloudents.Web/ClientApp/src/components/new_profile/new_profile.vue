@@ -16,6 +16,7 @@
       <calendarTab
         ref="calendarTab"
         v-if="showCalendarTab"
+        :showCalendarTab="calendarActive"
         class="mt-sm-12 mt-2 mx-auto calendarSection"
       />
       <profileSubscription :id="id" v-if="showProfileSubscription" ref="profileSubscription" />
