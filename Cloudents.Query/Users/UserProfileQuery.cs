@@ -118,10 +118,10 @@ namespace Cloudents.Query.Users
                 var isFollowing = isFollowingFuture.Value;
                 result.IsFollowing = isFollowing != null;
                 result.ReviewCount = rateQuery.Value.Count;
-                if (rateQuery.Value.Count > 0)
-                {
-                    result.Rate = rateQuery.Value.Total.GetValueOrDefault() / rateQuery.Value.Count;
-                }
+                // if (rateQuery.Value.Count > 0)
+                // {
+                //     result.Rate = rateQuery.Value.Total.GetValueOrDefault() / rateQuery.Value.Count;
+                // }
                 //result.Tutor.Subjects = futureSubject.Value;
                 //if (couponResult != null)
                 //{
