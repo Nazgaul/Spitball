@@ -12,6 +12,7 @@ const state = {
    profileReviews: null,
    profileLiveSessions: [],
    showEditDataDialog: false,
+   amountOfReviews :0
 }
 
 const getters = {
@@ -33,6 +34,7 @@ const getters = {
    getProfileDescription: state => state.profile?.user?.tutorData?.description,
    getProfileBio: state => state.profile?.user?.tutorData?.bio,
    getProfileParagraph: state => state.profile?.user?.tutorData?.paragraph,
+   getAverageRate: state => ( state.amountOfReviews/state.profile?.user?.reviewCount) || 0
 }
 
 const mutations = {
@@ -40,8 +42,8 @@ const mutations = {
       let profile = new Profile(data)
 
       function Profile(objInit) {
-         this.questions = [];
-         this.answers = [];
+         //this.questions = [];
+         //this.answers = [];
          this.documents = [];
          this.purchasedDocuments = [];
          this.user = {
@@ -154,9 +156,16 @@ const mutations = {
                date: review.created,
             }
          }) : null
+        let amountOfRevies = 0;
          this.rates = new Array(5).fill(undefined).map((val, key) => {
-            return !!objInit.rates[key] ? objInit.rates[key] : { rate: 0, users: 0 };
+            const temp =  !!objInit.rates[key] ? objInit.rates[key] : { rate: 0, users: 0 };
+            amountOfRevies += temp.rate*temp.users;
+            return temp;
          })
+         state.amountOfReviews = amountOfRevies;
+         //let x=[];
+         
+        
       }
 
       state.profileReviews = profileReviews;
@@ -211,6 +220,7 @@ const actions = {
 
          const profileUserData = state.profile
          dispatch('setUserStatus', profileUserData.user);
+         //TODO - why are we waiting for the first one
          return profileInstance.get(`${id}/about`).then((res2) => {
             commit('setProfileReviews', res2.data)
          })
