@@ -157,7 +157,7 @@ export default {
                               padding-right: 4px;
                               &.sbf-star-rating-half{
                                  padding-right: 4px/*rtl:4px*/;
-                                 padding-left: 0px/*rtl:0px*/;
+                                 padding-left: 0 /*rtl:0px*/;
                                  height: auto;
                               }
                               &:last-child{

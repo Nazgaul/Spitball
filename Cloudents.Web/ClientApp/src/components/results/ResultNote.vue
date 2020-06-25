@@ -147,6 +147,7 @@
                 :minus="false"
                 :min="0"
                 :precision="2"
+                :max="2147483647"
                 :currency-symbol-position="'suffix'"
                 separator=","
                 v-model="newPrice"

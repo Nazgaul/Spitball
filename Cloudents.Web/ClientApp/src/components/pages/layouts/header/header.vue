@@ -329,55 +329,55 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
                 margin-left: 0; 
             }
         }
-        .globalHeader_items_left{
-            width: 100%;
-            max-width: 564px;
-            height: 38px;
-            border: solid 1px #c1c3ce;
-            border-radius: 8px;
-            margin-right: 18px;
-            .searchCMP{
-                border-radius: 7px;
-                .v-input__icon{
-                    i{
-                        color: #43425d !important;
-                    }
-                } 
-                .searchCMP-btn{
-                    max-width: 72px;
-                    font-size: 14px;
-                }
-                .v-input__slot{
-                    padding-left: 8px;
-                }
-                ::placeholder {
-                    color: #6a697f !important;
-                    font-weight: normal;
-                    font-stretch: normal;
-                    font-style: normal;
-                    letter-spacing: normal;
-                    font-size: 14px;
-                }
-                .v-text-field{
-                    input{
-                        padding: initial;
-                    }
-                }
-                .v-text-field__slot{
-                    color: #6a697f !important;
-                    font-size: 14px;
-                }
-            .searchCMP-input{
-                .v-text-field__slot{
-                    line-height: 18px;
-                    //margin-bottom: 2px;
-                    // height: 18px;
-                    //align-items: normal;
-                }
+        /*.globalHeader_items_left{*/
+        /*    width: 100%;*/
+        /*    max-width: 564px;*/
+        /*    height: 38px;*/
+        /*    border: solid 1px #c1c3ce;*/
+        /*    border-radius: 8px;*/
+        /*    margin-right: 18px;*/
+        /*    .searchCMP{*/
+        /*        border-radius: 7px;*/
+        /*        .v-input__icon{*/
+        /*            i{*/
+        /*                color: #43425d !important;*/
+        /*            }*/
+        /*        } */
+        /*        .searchCMP-btn{*/
+        /*            max-width: 72px;*/
+        /*            font-size: 14px;*/
+        /*        }*/
+        /*        .v-input__slot{*/
+        /*            padding-left: 8px;*/
+        /*        }*/
+        /*        ::placeholder {*/
+        /*            color: #6a697f !important;*/
+        /*            font-weight: normal;*/
+        /*            font-stretch: normal;*/
+        /*            font-style: normal;*/
+        /*            letter-spacing: normal;*/
+        /*            font-size: 14px;*/
+        /*        }*/
+        /*        .v-text-field{*/
+        /*            input{*/
+        /*                padding: initial;*/
+        /*            }*/
+        /*        }*/
+        /*        .v-text-field__slot{*/
+        /*            color: #6a697f !important;*/
+        /*            font-size: 14px;*/
+        /*        }*/
+        /*    .searchCMP-input{*/
+        /*        .v-text-field__slot{*/
+        /*            line-height: 18px;*/
+        /*            //margin-bottom: 2px;*/
+        /*            // height: 18px;*/
+        /*            //align-items: normal;*/
+        /*        }*/
 
-            } 
-            }
-        }
+        /*    } */
+        /*    }*/
+        /*}*/
         .globalHeader_items_right{
             .flexSameSize();
             display: flex;
@@ -433,7 +433,7 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
                 }
                 .unread_circle_nav{
                     position: absolute;
-                    top: 0px;
+                    top: 0;
                     right: 12px;
                     background: #ce3333;
                     color: white;

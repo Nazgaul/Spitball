@@ -86,7 +86,7 @@ export default {
 
 <style lang="less">
 .myMessageContainer{
-   border-radius: 8px 8px 0px 8px;
+   border-radius: 8px 8px 0 8px;
    max-width: 70%;
    width: fit-content;
    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);

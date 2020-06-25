@@ -134,7 +134,7 @@ export default {
       .collapseIcon {
          width: 32px;
 
-         border-radius: 0%; //vuetify override
+         border-radius: 0; //vuetify override
          border-top-left-radius: 8px;
          border-bottom-left-radius: 8px;
       }

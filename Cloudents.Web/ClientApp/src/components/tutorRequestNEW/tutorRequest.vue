@@ -53,7 +53,7 @@ export default {
         background-color: #ffffff;
         border-radius: 6px;
         box-shadow: 0 13px 21px 0 rgba(0, 0, 0, 0.51);
-        padding: 0px 18px 10px 18px;
+        padding: 0 18px 10px 18px;
         //display: flex;
         //flex-direction: column;
         //align-items: center;

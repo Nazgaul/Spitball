@@ -186,7 +186,7 @@ export default {
       background: linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
       }
       .v-stepper__label {
-        text-shadow: 0px 0px 0px black;
+        text-shadow: 0 0 0 black;
       }
     }
 
@@ -198,7 +198,7 @@ export default {
         cursor: pointer;
       }
       .active {
-        text-shadow: 0px 0px 0px black;
+        text-shadow: 0 0 0 black;
     }
     .fontLabel {
       font-size: 12px;

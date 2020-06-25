@@ -234,7 +234,7 @@ export default {
     padding-right: 16px;
     color: #b8c0d1;
       @media (max-width: @screen-xs) {
-        padding-top: 0px;
+        padding-top: 0;
         padding-right: 10px;
       }
   }

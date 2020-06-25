@@ -105,7 +105,7 @@
       
       display: flex;
       align-items: center;
-      padding: 0px 10px;
+      padding: 0 10px;
       font-weight: 600;
       letter-spacing: -.2px;
       color: rgba(0,0,0,.87);
@@ -161,7 +161,7 @@
       align-items: flex-end;
       margin-right: 8px;
       @media (max-width: 599px) {
-        margin-right: 0px;
+        margin-right: 0;
       }
     }
 
@@ -184,7 +184,7 @@
     justify-content: flex-end;
     @media (max-width: @screen-xs) {
       flex: 0 auto;
-      margin-right:0px;
+      margin-right:0;
       min-width: 165px;
       max-width: 165px;
     }
@@ -201,42 +201,42 @@
         }
       }
     }
-    .header-login {
-      height: 32px;
-      font-weight: 400;
-      margin-right: 10px;
-      border-radius: 26px;
-      border: solid 1px @systemBackgroundColor;
-      font-size: 16px;
-      outline: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: @color-main-purple;
-      letter-spacing: -0.5px;
-      padding: 0 20px;
-      background-color: @systemBackgroundColor;
-      .widthMinMax(100%, 104px, 104px);
-      @media (max-width: @screen-xs) {
-        display: none;
-      }
-      &:first-child {
-        background: @color-main-purple;
-        color: @color-white;
-        margin-right: 24px;
-        .transition (all .2s ease-in-out);
-        &:hover {
-          background: lighten(@color-main-purple, 10%);
-        }
-
-      }
-      &:last-child {
-        .transition (all .2s ease-in-out);
-        &:hover {
-          background: darken(@color-white, 10%);
-        }
-      }
-    }
+    //.header-login {
+    //  height: 32px;
+    //  font-weight: 400;
+    //  margin-right: 10px;
+    //  border-radius: 26px;
+    //  border: solid 1px @systemBackgroundColor;
+    //  font-size: 16px;
+    //  outline: none;
+    //  display: flex;
+    //  align-items: center;
+    //  justify-content: center;
+    //  color: @color-main-purple;
+    //  letter-spacing: -0.5px;
+    //  padding: 0 20px;
+    //  background-color: @systemBackgroundColor;
+    //  .widthMinMax(100%, 104px, 104px);
+    //  @media (max-width: @screen-xs) {
+    //    display: none;
+    //  }
+    //  &:first-child {
+    //    background: @color-main-purple;
+    //    color: @color-white;
+    //    margin-right: 24px;
+    //    .transition (all .2s ease-in-out);
+    //    &:hover {
+    //      background: lighten(@color-main-purple, 10%);
+    //    }
+    //
+    //  }
+    //  &:last-child {
+    //    .transition (all .2s ease-in-out);
+    //    &:hover {
+    //      background: darken(@color-white, 10%);
+    //    }
+    //  }
+    //}
   }
 
   form {
