@@ -133,8 +133,8 @@ export default {
             if(this.isMyProfile) {
                 return !isCalendar || (this.activeTab === 5 && isCalendar) 
             }
-            // return isCalendar
-            return this.activeTab === 5 && isCalendar
+            return isCalendar
+            // return this.activeTab === 5 && isCalendar
         },
         profileData() {
           return this.getProfile;
