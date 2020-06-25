@@ -49,8 +49,9 @@ export default {
         this.$store.dispatch('resetCalendar')
     },
     created() {
+        debugger;
         let self = this;
-        this.$loadScript("https://apis.google.com/js/api.js").then(() => {
+        //this.$loadScript("https://apis.google.com/js/api.js").then(() => {
             self.updateCalendarStatus().then(()=>{
                 self.isReady = true
             },()=>{
@@ -58,7 +59,7 @@ export default {
                     self.studentEmptyState = true;
                 }
             })
-        })
+        //})
     },
 }
 </script>

@@ -145,11 +145,11 @@ const actions ={
             return Promise.reject(err);
         });
     },
-    initCalendar({state,commit,dispatch},tutorId){
+    initCalendar({state,commit},tutorId){
         commit('setTutorId',tutorId);
         let ourDate = new Date();
         commit('setToDate',ourDate.AddDays(60));
-        return dispatch('gapiLoad',state.scope).then(()=>{
+      
             let paramsObj = {
                 from: state.fromDate,
                 to: state.toDate,
@@ -164,7 +164,7 @@ const actions ={
 
                 return Promise.reject(err);
             });
-        });
+       
     },
     signInCalendar({commit},authResult){
         if (authResult['code']) {
@@ -202,9 +202,10 @@ const actions ={
                },(err)=>{
                     return Promise.reject(err);
                });
-            }else{
-                dispatch('gapiLoad',state.scope);
             }
+            // else{
+            //     dispatch('gapiLoad',state.scope);
+            // }
     },
     updateCalendarStatusDashboard({dispatch,commit,state}){
         return calendarService.getAccountAvailabilityCalendar().then(res=>{
