@@ -13,21 +13,21 @@ export default {
         let { data } = await Api.get.balance()
         return data.map(item=> new Wallet.Balance(item))
     },
-    async getPaymeLink() {
-        return await Api.get.paymentLink()
+    getPaymeLink() {
+        return Api.get.paymentLink();
     },
-    async redeem(amount) {
-        return await Api.post.redeem(amount)
+    redeem(amount) {
+        return Api.post.redeem(amount);
     },
-    async buyTokens(points) {
-        return await Api.post.buyTokens(points)
+    buyTokens(points) {
+        return Api.post.buyTokens(points);
     },
-    async paypalBuyTokens(id){ 
-        return await walletInstance.post('PayPal/buyTokens',{id})
-    },
-    async paypalStudyRoom(model){ 
-        return await walletInstance.post('PayPal/StudyRoom',model)
-    },
+    // async paypalBuyTokens(id){
+    //     return await walletInstance.post('PayPal/buyTokens',{id})
+    // },
+    // async paypalStudyRoom(model){
+    //     return await walletInstance.post('PayPal/StudyRoom',model)
+    // },
     async stripeTransaction(points) {
         return await walletInstance.post('/stripe', points);
     },

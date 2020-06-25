@@ -235,7 +235,7 @@ namespace Cloudents.Core.Entities
 
     public class DocumentPrice
     {
-        public const decimal PriceLimit = 1000M;
+        //public const decimal PriceLimit = 1000M;
         public DocumentPrice(in decimal price, PriceType priceType, Tutor tutor)
         {
             if (tutor == null) throw new ArgumentNullException(nameof(tutor));
@@ -266,10 +266,10 @@ namespace Cloudents.Core.Entities
             get => _price;
             protected set
             {
-                if (value > PriceLimit || value < 0)
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
+                //if (value > PriceLimit || value < 0)
+                //{
+                //    throw new ArgumentOutOfRangeException();
+                //}
                 _price = decimal.Round(value, 2);
             }
         }

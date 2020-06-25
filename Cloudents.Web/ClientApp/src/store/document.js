@@ -73,9 +73,9 @@ const mutations = {
     setRelatedDocs(state, payload) {
         state.itemsList = payload;
     },
-    setNewDocumentPrice(state, price){
-        state.document.details.price = price;
-    },
+    // setNewDocumentPrice(state, price){
+    //     state.document.details.price = price;
+    // },
     setBtnLoading(state, payload) {
         state.btnLoading = payload;
     },
@@ -133,11 +133,11 @@ const actions = {
             commit('setRelatedDocs', items);
         });
     },
-    setNewDocumentPrice({ commit }, price) {
-        if(!!state.document && !!state.document.details){
-            commit('setNewDocumentPrice', price);
-        }
-    },
+    // setNewDocumentPrice({ commit }, price) {
+    //     if(!!state.document && !!state.document.details){
+    //         commit('setNewDocumentPrice', price);
+    //     }
+    // },
     clearDocument({commit}){
         commit('resetState');
     },

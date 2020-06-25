@@ -45,10 +45,10 @@ export const Profile = {
    },
    ProfileUserData: function (objInit) {
       this.user = new Profile.Profile(objInit);
-      this.questions = [];
+      //this.questions = [];
       this.answers = [];
       this.documents = [];
-      this.purchasedDocuments = [];
+      //this.purchasedDocuments = [];
    },
    BroadCastSessions: function(objInit) {
       this.id = objInit.id;

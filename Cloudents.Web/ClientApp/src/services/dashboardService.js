@@ -192,9 +192,9 @@ function getStudyRoomItems(type){
 function getFollowersItems(){
    return connectivityModule.http.get('/Account/followers').then(createFollowersItems).catch(ex => ex);
 }
-function getTutorActions(){
-   return connectivityModule.http.get('/dashboard/tutorActions').then(createTutorActions);
-}
+// function getTutorActions(){
+//    return connectivityModule.http.get('/dashboard/tutorActions').then(createTutorActions);
+// }
 function getSpitballBlogs(){
    return connectivityModule.http.get('/blog').then(createBlogs).catch(ex => ex);
 }
@@ -214,7 +214,7 @@ export default {
    getPurchasesItems,
    getStudyRoomItems,
    getFollowersItems,
-   getTutorActions,
+   //getTutorActions,
    getSpitballBlogs,
    getMarketingBlogs,
    removeStudyRoomSession

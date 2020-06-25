@@ -39,7 +39,7 @@
                     v-model="currentPrice"
                     v-else
                     type="number"
-                    :rules="[rules.required,rules.integer,rules.maximum,rules.minimum]"
+                    :rules="[rules.required,rules.integer,rules.minimum]"
                     :label="$t('upload_file_price_label')"
                     :suffix="currentPrice ? $t('upload_uf_price_pts') :''"
                     placeholder=" "
@@ -98,7 +98,7 @@ export default {
                     this.getSelectedClasses.some(course=> course.text === this.courseForAll?.text)
                 )) || this.$t("tutorRequest_invalid"),
                 integer: (value) => validationRules.integer(value),
-                maximum: (value) => validationRules.maxVal(value, 1000),
+              //  maximum: (value) => validationRules.maxVal(value, 1000),
                 minimum: (value) => validationRules.minVal(value,0),
             },
         }

@@ -135,9 +135,9 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
         loggedIn() {
             return this.getUserLoggedInStatus;
         },
-        isTablet(){
-            return this.$vuetify.breakpoint.smAndDown;
-        },
+        // isTablet(){
+        //     return this.$vuetify.breakpoint.smAndDown;
+        // },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
