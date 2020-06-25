@@ -151,15 +151,15 @@ function createFollowersItems({data}) {
    return followersItems;
 }
 
-function TutorActions(objInit) {
-   this.calendarShared = objInit.calendarShared;
-   this.haveHours = objInit.haveHours;
-   this.bookedSession = objInit.bookedSession;
-}
+// function TutorActions(objInit) {
+//    this.calendarShared = objInit.calendarShared;
+//    this.haveHours = objInit.haveHours;
+//    this.bookedSession = objInit.bookedSession;
+// }
 
-function createTutorActions({data}) {
-   return new TutorActions(data);
-}
+// function createTutorActions({data}) {
+//    return new TutorActions(data);
+// }
 
 function createBlogs({data}) {
    return data.map(item => new Blogs.Default(item))

@@ -1,7 +1,7 @@
 
 import searchService from "../services/searchService";
 import reportService from "../services/cardActionService";
-const emptyStateSelection = {key:'Empty',value:''};
+//const emptyStateSelection = {key:'Empty',value:''};
 const state = {
     queItems: [],
     items: {},

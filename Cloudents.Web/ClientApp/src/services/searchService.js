@@ -5,9 +5,9 @@ const getFeeds = (params) => {
     return connectivityModule.http.get("/feed", { params });
 };
 
-const getNextPage = ({ url }) => {
-    return connectivityModule.http.get(url, { baseURL: "" });
-};
+// const getNextPage = ({ url }) => {
+//     return connectivityModule.http.get(url, { baseURL: "" });
+// };
 
 
 function FirstAnswerItem(objInit) {
