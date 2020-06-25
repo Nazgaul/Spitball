@@ -1,8 +1,6 @@
 ﻿using Autofac;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Google;
-using Cloudents.Infrastructure.Interceptor;
-using Cloudents.Infrastructure.Search.Document;
 using System.Diagnostics.CodeAnalysis;
 using Module = Autofac.Module;
 
@@ -13,15 +11,15 @@ namespace Cloudents.Infrastructure
         [SuppressMessage("Microsoft.Design", "RCS1163:Unused parameter")]
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<DocumentSearch>().As<IDocumentSearch>();
-            builder.RegisterType<FeedService>().As<IFeedService>();
+           // builder.RegisterType<DocumentSearch>().As<IDocumentSearch>();
+           // builder.RegisterType<FeedService>().As<IFeedService>();
 
 
-            builder.RegisterType<DocumentFeedService>().AsSelf().Keyed<IFeedTypeService>(Core.Enum.FeedType.Document);
-            builder.RegisterType<TutorFeedService>().AsSelf().Keyed<IFeedTypeService>(Core.Enum.FeedType.Tutor);
-            builder.RegisterType<QuestionFeedService>().Keyed<IFeedTypeService>(Core.Enum.FeedType.Question);
-            builder.RegisterType<DocumentFeedService>().AsSelf().Keyed<IFeedTypeService>(Core.Enum.FeedType.Video);
-            builder.RegisterType<AggregateFeedService>().Keyed<IFeedTypeService>(Core.Enum.FeedType.All);
+            //builder.RegisterType<DocumentFeedService>().AsSelf().Keyed<IFeedTypeService>(Core.Enum.FeedType.Document);
+           // builder.RegisterType<TutorFeedService>().AsSelf().Keyed<IFeedTypeService>(Core.Enum.FeedType.Tutor);
+            //builder.RegisterType<QuestionFeedService>().Keyed<IFeedTypeService>(Core.Enum.FeedType.Question);
+            //builder.RegisterType<DocumentFeedService>().AsSelf().Keyed<IFeedTypeService>(Core.Enum.FeedType.Video);
+           // builder.RegisterType<AggregateFeedService>().Keyed<IFeedTypeService>(Core.Enum.FeedType.All);
 
           //.EnableInterfaceInterceptors()
             //    .InterceptedBy(typeof(CacheResultInterceptor));

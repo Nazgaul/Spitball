@@ -41,7 +41,8 @@ const mutations = {
             this.CHAT = objInit.unreadChatMessages
             this.BROADCAST = objInit.liveClassRegisteredUser
             this.FOLLOWERS = objInit.followerNoCommunication
-            this.QUESTIONS = objInit.unansweredQuestion
+            //TODO always 0
+            // this.QUESTIONS = objInit.unansweredQuestion
             this.PAYMENTS = objInit.pendingPayment
         }
         state.tutorNotificationsActions = notifications

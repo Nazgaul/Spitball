@@ -11,7 +11,7 @@ const state = {
 
 const getters = {
     getCouponError: state => state.couponError,
-    getCouponDialog: state => state.couponDialog,
+    //getCouponDialog: state => state.couponDialog,
 };
 
 const mutations = {

@@ -4,7 +4,7 @@
     <router-view name="banner"></router-view>
     <router-view v-if="showHeader" name="header"></router-view>
     <router-view name="sideMenu" v-if="isDrawer"></router-view>
-    <v-content :class="[{'site-content': $route.path !== '/'}, {'hidden-sideMenu': drawerPlaceholder}]">
+    <v-content :class="[{'site-content': $route.path !== '/' && $route.name !== profileRoute}, {'hidden-sideMenu': drawerPlaceholder}]">
         <router-view class="main-container"></router-view>
 
 
@@ -83,6 +83,7 @@ export default {
   },
   data() {
     return {
+      profileRoute: routeNames.Profile,
       hideFooter: false,
       toasterTimeoutObj: null
     };
@@ -128,14 +129,14 @@ export default {
     isMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
-    cookiesShow() {
-      if (global.country === "IL") return true;
-      if (!this.accountUser) {
-        return this.getCookieAccepted();
-      } else {
-        return true;
-      }
-    },
+    // cookiesShow() {
+    //   if (global.country === "IL") return true;
+    //   if (!this.accountUser) {
+    //     return this.getCookieAccepted();
+    //   } else {
+    //     return true;
+    //   }
+    // },
     showMobileFooter() {
       return this.$vuetify.breakpoint.xsOnly && this.getMobileFooterState && !this.hideFooter && this.$route.name !== 'tutorLandingPage';
     },
@@ -206,31 +207,15 @@ export default {
       "fireOptimizeActivate",
       "updateBannerStatus"
     ]),
-    ...mapGetters(["getCookieAccepted"]),
+//    ...mapGetters(["getCookieAccepted"]),
 
     closeReferralDialog() {
       this.updateReferralDialog(false);
     },
-    removeCookiesPopup: function() {
-      this.setCookieAccepted();
-    },
-    // tryBuyTokens(transactionObjectError) {
-    //   walletService.buyTokens(transactionObjectError).then(
-    //     () => {
-    //       this.updateToasterParams({
-    //         toasterText: this.$t("buyToken_success"),
-    //         showToaster: true
-    //       });
-    //     },
-    //     error => {
-    //       global.localStorage.setItem(
-    //         "sb_transactionError",
-    //         transactionObjectError.points
-    //       );
-    //       console.log(error);
-    //     }
-    //   );
-    // }
+    // removeCookiesPopup: function() {
+    //   this.setCookieAccepted();
+    // },
+    
   },
   created() {
     if (!!this.$route.query && this.$route.query.requesttutor) {
@@ -246,7 +231,7 @@ export default {
     }
     this.updateBannerStatus(true);
 
-    this.acceptedCookies = this.getCookieAccepted();
+    //this.acceptedCookies = this.getCookieAccepted();
     if (global.isMobileAgent) {
       global.addEventListener("resize", () => {
         if (

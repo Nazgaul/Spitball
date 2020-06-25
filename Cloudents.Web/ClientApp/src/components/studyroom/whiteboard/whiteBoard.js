@@ -10,7 +10,6 @@ const iinkDrawer = () => import("./innerComponents/iinkDrawer.vue");
 import imageDraw from './options/imageDraw';
 import pencilSVG from '../images/noun-edit-684936.svg';
 import uploadSVG from '../images/outline-open-in-browser-24-px.svg';
-// import whiteBoardLayers from './innerComponents/whiteBoardLayers.vue'
 
 const HeaderHeight = 62;
 const tabsHeight = 30;
@@ -22,7 +21,6 @@ export default {
         uploadSVG,
         iinkDrawer,
         VueMathjax
-        // whiteBoardLayers
     },
     data() {
         return {

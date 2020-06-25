@@ -1,14 +1,11 @@
 ﻿using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.DTOs.Documents;
-using Cloudents.Core.DTOs.Tutors;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Query;
 using Cloudents.Query.HomePage;
 using Cloudents.Web.Binders;
-using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -46,28 +43,21 @@ namespace Cloudents.Web.Api
 
 
 
-        /// <summary>
-        /// Get tutor for home page
-        /// </summary>
-        /// <param name="count">The amount of tutors</param>
-        /// <param name="profile">Ignore</param>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        [HttpGet("tutors")]
-        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Day, VaryByQueryKeys = new[] { "count" })]
-        public async Task<IEnumerable<TutorCardDto>> GetTopTutorsAsync(int count,
-            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
-            CancellationToken token)
-        {
-            var query = new TopTutorsQuery(profile.CountryRegion, count);
-            var result = await _queryBus.QueryAsync(query, token);
-            return result.Select(s =>
-            {
-                s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
-                return s;
-            });
+        //[HttpGet("tutors")]
+        //[ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Day, VaryByQueryKeys = new[] { "count" })]
+        //public async Task<IEnumerable<TutorCardDto>> GetTopTutorsAsync(int count,
+        //    [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
+        //    CancellationToken token)
+        //{
+        //    var query = new TopTutorsQuery(profile.CountryRegion, count);
+        //    var result = await _queryBus.QueryAsync(query, token);
+        //    return result.Select(s =>
+        //    {
+        //        s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
+        //        return s;
+        //    });
            
-        }
+        //}
 
         /// <summary>
         /// Get banner for home page
@@ -125,25 +115,25 @@ namespace Cloudents.Web.Api
         /// <param name="profile">Ignore</param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpGet("documents")]
-        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Day, VaryByQueryKeys = new[] { "count" })]
+        //[HttpGet("documents")]
+        //[ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Day, VaryByQueryKeys = new[] { "count" })]
 
-        public async Task<IEnumerable<DocumentFeedDto>> GetTopDocumentsAsync(int count,
-            [FromServices] IUrlBuilder urlBuilder,
-            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
-            CancellationToken token)
-        {
-            var query = new TopDocumentsQuery(profile.CountryRegion, count);
-            var result = await _queryBus.QueryAsync(query, token);
+        //public async Task<IEnumerable<DocumentFeedDto>> GetTopDocumentsAsync(int count,
+        //    [FromServices] IUrlBuilder urlBuilder,
+        //    [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
+        //    CancellationToken token)
+        //{
+        //    var query = new TopDocumentsQuery(profile.CountryRegion, count);
+        //    var result = await _queryBus.QueryAsync(query, token);
 
-            return result.Select(item =>
-            {
-                item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
-                item.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(item.Id);
-                item.Url = Url.DocumentUrl(item.Course, item.Id, item.Title);
-                return item;
-            });
+        //    return result.Select(item =>
+        //    {
+        //        item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
+        //        item.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(item.Id);
+        //        item.Url = Url.DocumentUrl(item.Course, item.Id, item.Title);
+        //        return item;
+        //    });
            
-        }
+        //}
     }
 }

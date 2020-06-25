@@ -17,7 +17,6 @@ export const Item = {
       this.votes = !!objInit.vote ? objInit.vote.votes : null;
       this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
       //TODO REMOVE THIS
-      this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
       this.price = objInit.price ? objInit.price.toFixed(0) : 0;
 
       this.priceType =  objInit.priceType || 'Free'; //Free,HasPrice,Subscriber

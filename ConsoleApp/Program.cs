@@ -144,14 +144,8 @@ namespace ConsoleApp
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
-            
-            var t = Container.Resolve<IConfigurationKeys>();
-
-
-            var z = new QueueClient(t.Storage,"ram-test");
-            await z.CreateIfNotExistsAsync();
-            
-            await z.SendMessageAsync("sjkfhskjfhsdkjfhsdjkfsd");
+            await Dbi();
+            //ResourcesMaintenance.DeleteStuffFromJs();
 
            // await t.InsertBlobReprocessAsync(51657);
             //await Dbi();
@@ -161,54 +155,25 @@ namespace ConsoleApp
         {
             var session = Container.Resolve<ISession>();
 
-
-            List<long> users;
+            List<PrivateStudyRoom> users;
             do
             {
-                users =  await session.Query<User>()
-                    .Where(w => w.FirstName == null && w.LastName == null)
-                    .Take(100).Select(s=>s.Id).ToListAsync();
+                users = await session.Query<PrivateStudyRoom>()
+                    .Where(w => w.TopologyType == StudyRoomTopologyType.PeerToPeer)
+                    .Take(100).ToListAsync();
 
-                foreach (var userId in users)
+                foreach (var user in users)
                 {
                     using var uow = Container.Resolve<IUnitOfWork>();
-                    var user = await session.GetAsync<User>(userId);
-                    var name = user.Name;
-                
-                    var value = name.Split(" ");
-                    if (value.Length == 2)
-                    {
-                        value[1] = Regex.Replace(value[1], @"[\d-]", string.Empty).Replace(".",string.Empty);
-                        user.ChangeName(value[0], value[1]);
-                        await uow.CommitAsync();
-                        continue;
-
-                    }
-
-                    if (value.Length == 1)
-                    {
-                        if (value.Contains("."))
-                        {
-                            value = value[0].Split(".");
-                            if (int.TryParse(value[1], out var _))
-                            {
-
-                                user.ChangeName(value[0], null);
-                                await uow.CommitAsync();
-                                continue;
-
-                            }
-                        }
-                        user.ChangeName(value[0], null);
-                        await uow.CommitAsync();
-                        continue;
-                    }
+                    user.ChangeTopologyDbi();
+                  
+                    await uow.CommitAsync();
 
                     Console.WriteLine("no");
                 }
             } while (users.Count > 0);
 
-            await DeleteOldStuff.ResyncTutorReadAsync();
+           // await DeleteOldStuff.ResyncTutorRead();
         }
 
         private static async Task UpdateTwilioParticipants()

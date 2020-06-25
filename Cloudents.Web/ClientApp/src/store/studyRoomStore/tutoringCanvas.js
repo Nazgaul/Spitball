@@ -31,8 +31,8 @@ const state = {
 const getters = {
     getDragData: state => state.dragData[state.currentSelectedTab.id],
     getZoom: state => state.zoom,
-    getPanX: state => state.pan.x,
-    getPanY: state => state.pan.y,
+    //getPanX: state => state.pan.x,
+    //getPanY: state => state.pan.y,
     selectedOptionString: state => state.selectedOptionString,
     getShapesSelected: state => state.shapesSelected,
     getCurrentSelectedTab: state => state.currentSelectedTab,
@@ -180,9 +180,9 @@ const actions = {
     resetDragData({commit}, tab){
         commit('resetDragDataMutation', tab);
     },
-    replaceDragData({commit}, val){
-        commit('replaceDragDataMutation', val);
-    },
+    // replaceDragData({commit}, val){
+    //     commit('replaceDragDataMutation', val);
+    // },
     popDragData({state}, tab){
         let tabToPop = !!tab ? tab : state.currentSelectedTab.id;
         return Promise.resolve(state.dragData[tabToPop].pop());
@@ -217,9 +217,9 @@ const actions = {
     setShowPickColorInterface({commit}, val){
         commit('setShowPickColorInterface', val);
     }, 
-    setCanvasDataStore({commit}, val){
-        commit('setCanvasDataStore', val);
-    },
+    // setCanvasDataStore({commit}, val){
+    //     commit('setCanvasDataStore', val);
+    // },
     setUndoClicked({commit}){
         commit('setUndoClicked');
     },

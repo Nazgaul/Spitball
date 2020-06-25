@@ -15,12 +15,12 @@ const getters = {
             return false;
         }
     },
-    showLeaderBoard: (state) => {
-        return state.stater === state.statesEnum['earners'];
-    },
-    showMobileFeed: (state) => {
-        return state.stater === state.statesEnum['feed'];
-    }
+    // showLeaderBoard: (state) => {
+    //     return state.stater === state.statesEnum['earners'];
+    // },
+    // showMobileFeed: (state) => {
+    //     return state.stater === state.statesEnum['feed'];
+    // }
 };
 
 export default {

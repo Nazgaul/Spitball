@@ -60,7 +60,7 @@ export default {
         text-align: center;
         padding-bottom: 20px;
         p {
-         margin: 0 10px 0 0px;
+         margin: 0 10px 0 0;
          padding: 0 72px;
        }
        @media screen and (min-width: 325px) and (max-width: 425px) {

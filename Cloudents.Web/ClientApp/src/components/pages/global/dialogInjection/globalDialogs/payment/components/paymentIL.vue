@@ -17,7 +17,6 @@
                     <span :class="['payme-content-txt',{'pt-2':!isMobile}]" v-t="'payme_content_txt_hands'"/>
                 </v-flex>
             </v-layout>
-            <!-- <div class="payme-top-desc pb-4" v-t="'payme_top_desc'"/> -->
         </div>
         <iframe :class="['payment-iframe',{'mt-4':getIsBuyPoints}]" width="100%" height="475" :src="paymentUrl"></iframe>
         <div class="payme-popup-bottom">

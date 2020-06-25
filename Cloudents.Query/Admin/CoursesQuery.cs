@@ -2,6 +2,7 @@
 using Cloudents.Core.Enum;
 using Dapper;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
@@ -32,6 +33,7 @@ namespace Cloudents.Query.Admin
             _dapper = dapper;
         }
 
+        [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting", Justification = "Using")]
         public async Task<IEnumerable<PendingCoursesDto>> GetAsync(CoursesQuery query, CancellationToken token)
         {
             var sql = @"Select @Term = case when @Term is null then '""""' else '""*' + @Term + '*""' end 

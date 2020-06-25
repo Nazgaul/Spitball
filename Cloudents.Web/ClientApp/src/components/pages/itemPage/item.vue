@@ -170,13 +170,11 @@ import * as dialogNames from "../global/dialogInjection/dialogNames.js";
 
 //store
 import storeService from "../../../services/store/storeService";
-import document from "../../../store/document";
 import studyDocumentsStore from "../../../store/studyDocuments_store";
 
 // components
 import mainItem from "./components/mainItem/mainItem.vue";
 import resultNote from "../../results/ResultNote.vue";
-// const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */'../../sbCarousel/sbCarousel.vue');
 import itemCard from "../../carouselCards/itemCard.vue";
 const tutorResultCard = () =>
   import(
@@ -195,7 +193,6 @@ export default {
   name: "itemPage",
   components: {
     resultNote,
-    // sbCarousel,
     tutorResultCard,
     tutorResultCardMobile,
     itemCard,
@@ -448,8 +445,6 @@ export default {
   },
   beforeDestroy() {
     this.clearDocument();
-    //TODO missing unresister
-    storeService.unregisterModule(this.$store, "document");
   },
   mounted() {
     this.documentRequest(this.id);
@@ -464,7 +459,7 @@ export default {
       "studyDocumentsStore",
       studyDocumentsStore
     );
-    storeService.registerModule(this.$store, "document", document);
+   // storeService.registerModule(this.$store, "document", document);
   }
 };
 </script>

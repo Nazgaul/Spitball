@@ -4,22 +4,22 @@
         <v-btn v-if="showHamburgerIcon" class="d-sm-none" :class="[{'d-block': classChangeHamburgerTutorMenu}]" :ripple="false" icon @click="$root.$emit('openSideMenu')">
             <hamburgerIcon class="ml-2 hamburgerIcon"/>
         </v-btn>
-        <router-link @click.prevent="resetItems()" to="/" class="globalHeader_logo">
+        <router-link @click.prevent="resetItems()" to="/" :class="{'globalHeader_logo': !$route.meta.tutorHeaderSlot}">
             <logoComponent/>
         </router-link>
-        <div class="globalHeader_items">
-            <div class="globalHeader_items_left" v-if="!isMobile && showSearch">
+        <template v-if="$route.meta.tutorHeaderSlot">
+            <div class="dividerName mx-8" v-show="!isMobile"></div>
+            <div class="tutorName text-truncate text-center text-sm-left">{{$store.getters.getProfileTutorName}}</div>
+        </template>
+        <div class="globalHeader_items" :class="{'tutorProfile': $route.name === profileRoute}">
+            <!-- <div class="globalHeader_items_left" v-if="!isMobile">
                 <searchCMP :placeholder="searchPlaceholder"/>
-            </div>
-            <v-spacer v-else></v-spacer>
+            </div> -->
+            <v-spacer></v-spacer>
             <div class="globalHeader_items_right">
                 <div>
                     <component :is="$route.meta.headerSlot"/>
                 </div>
-                <router-link v-show="!isMobile && shouldShowFindTutor" :to="{name:'tutorLandingPage'}" class="gH_i_r_findTutor" >
-                    <findSVG/>
-                    <span v-t="'header_find_tutors'"/>
-                </router-link>
                 <template v-if="!isMobile" >
                     <v-tooltip bottom>
                         <template v-slot:activator="{on}">
@@ -76,11 +76,11 @@
                 </v-menu>
             </div>
         </div>
-        <template v-slot:extension v-if="isMobile && showSearch">
+        <!-- <template v-slot:extension v-if="isMobile && showSearch">
             <div class="mobileHeaderSearch">
                 <searchCMP :placeholder="searchPlaceholder"/>
             </div>
-        </template>
+        </template> -->
     </v-app-bar>
         <v-navigation-drawer
             temporary
@@ -103,7 +103,6 @@ import {mapGetters} from 'vuex';
 import languagesLocales from "../../../../services/language/localeLanguage";
 import * as routeNames from '../../../../routes/routeNames.js';
 
-const searchCMP = () => import('../../global/search/search.vue');
 import menuList from '../menuList/menuList.vue';
 import intercomService from "../../../../services/intercomService";
 import logoComponent from '../../../app/logo/logo.vue';
@@ -116,10 +115,11 @@ const phoneNumberSlot = () => import('./headerSlots/phoneNumberSlot.vue');
 // const becomeTutorSlot = () => import('./headerSlots/becomeTutorSlot.vue');
 
 export default {
-components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,arrowDownIcon,hamburgerIcon},
+components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,arrowDownIcon,hamburgerIcon},
     data() {
         return {
             drawer: false,
+            profileRoute: routeNames.Profile,
             currentRoute: this.$route.name,
             languageChoisesAval: [],
             currLanguage: document.documentElement.lang,
@@ -135,9 +135,9 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
         loggedIn() {
             return this.getUserLoggedInStatus;
         },
-        isTablet(){
-            return this.$vuetify.breakpoint.smAndDown;
-        },
+        // isTablet(){
+        //     return this.$vuetify.breakpoint.smAndDown;
+        // },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
@@ -157,27 +157,17 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
             let filteredRoutes = [routeNames.Profile, routeNames.Document];
             return filteredRoutes.indexOf(this.$route.name) > -1 && this.$vuetify.breakpoint.xsOnly;
         },
-        searchPlaceholder(){
-            return this.isTablet ? this.$t(`header_placeholder_search`) : this.$t(`header_placeholder_search_m`);
-        },
-        showSearch(){
-            let showRoutes = [routeNames.Feed,routeNames.Dashboard];
-            return showRoutes.includes(this.currentRoute)
-        },
+      
         isHomePage(){
             let showRoutes = [routeNames.Learning,routeNames.HomePage];
             return showRoutes.indexOf(this.currentRoute) !== -1
         },
-        shouldShowFindTutor(){ 
-            if(this.accountUser?.isTutor) return false
-            let hiddenRoutes = [routeNames.TutorList, routeNames.HomePage]
-            return !hiddenRoutes.includes(this.currentRoute)
-        },
+     
         showChangeLanguage() {
             return global.country === 'IL' && this.isHomePage;
         },
         showHamburgerIcon() {
-            let showRoutes = [routeNames.Profile, routeNames.TutorList, routeNames.Document];
+            let showRoutes = [routeNames.Profile, routeNames.Document];
             return this.getIsTeacher && showRoutes.indexOf(this.currentRoute) === -1
         },
         classChangeHamburgerTutorMenu() {
@@ -260,7 +250,23 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
             margin-right: 34px;
         }
         
-    }    
+    }
+        .dividerName {
+            height: 28px;
+            width: 4px;
+            font-weight: bold;
+            background: #000;
+        }
+        .tutorName {
+            width: 100%;
+            color: #363637;
+            font-weight: bold;
+            font-size: 22px;
+
+            @media(max-width: @screen-xs) {
+                font-size: 18px;
+            }
+        }
     .mobileHeaderSearch{
         width: 100%;
         height: 40px;
@@ -317,55 +323,61 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
         @media (max-width: @screen-mds) {
             margin-left: 32px; 
         }
-        .globalHeader_items_left{
-            width: 100%;
-            max-width: 564px;
-            height: 38px;
-            border: solid 1px #c1c3ce;
-            border-radius: 8px;
-            margin-right: 18px;
-            .searchCMP{
-                border-radius: 7px;
-                .v-input__icon{
-                    i{
-                        color: #43425d !important;
-                    }
-                } 
-                .searchCMP-btn{
-                    max-width: 72px;
-                    font-size: 14px;
-                }
-                .v-input__slot{
-                    padding-left: 8px;
-                }
-                ::placeholder {
-                    color: #6a697f !important;
-                    font-weight: normal;
-                    font-stretch: normal;
-                    font-style: normal;
-                    letter-spacing: normal;
-                    font-size: 14px;
-                }
-                .v-text-field{
-                    input{
-                        padding: initial;
-                    }
-                }
-                .v-text-field__slot{
-                    color: #6a697f !important;
-                    font-size: 14px;
-                }
-            .searchCMP-input{
-                .v-text-field__slot{
-                    line-height: 18px;
-                    //margin-bottom: 2px;
-                    // height: 18px;
-                    //align-items: normal;
-                }
-
-            } 
+        &.tutorProfile {
+            @media (max-width: @screen-mds) {
+                width: unset;
+                margin-left: 0; 
             }
         }
+        /*.globalHeader_items_left{*/
+        /*    width: 100%;*/
+        /*    max-width: 564px;*/
+        /*    height: 38px;*/
+        /*    border: solid 1px #c1c3ce;*/
+        /*    border-radius: 8px;*/
+        /*    margin-right: 18px;*/
+        /*    .searchCMP{*/
+        /*        border-radius: 7px;*/
+        /*        .v-input__icon{*/
+        /*            i{*/
+        /*                color: #43425d !important;*/
+        /*            }*/
+        /*        } */
+        /*        .searchCMP-btn{*/
+        /*            max-width: 72px;*/
+        /*            font-size: 14px;*/
+        /*        }*/
+        /*        .v-input__slot{*/
+        /*            padding-left: 8px;*/
+        /*        }*/
+        /*        ::placeholder {*/
+        /*            color: #6a697f !important;*/
+        /*            font-weight: normal;*/
+        /*            font-stretch: normal;*/
+        /*            font-style: normal;*/
+        /*            letter-spacing: normal;*/
+        /*            font-size: 14px;*/
+        /*        }*/
+        /*        .v-text-field{*/
+        /*            input{*/
+        /*                padding: initial;*/
+        /*            }*/
+        /*        }*/
+        /*        .v-text-field__slot{*/
+        /*            color: #6a697f !important;*/
+        /*            font-size: 14px;*/
+        /*        }*/
+        /*    .searchCMP-input{*/
+        /*        .v-text-field__slot{*/
+        /*            line-height: 18px;*/
+        /*            //margin-bottom: 2px;*/
+        /*            // height: 18px;*/
+        /*            //align-items: normal;*/
+        /*        }*/
+
+        /*    } */
+        /*    }*/
+        /*}*/
         .globalHeader_items_right{
             .flexSameSize();
             display: flex;
@@ -396,23 +408,7 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
                     background-color: transparent;
                 }
             }
-            .gH_i_r_findTutor{
-                margin-right: 26px;
-                background: #69687d;
-                border-radius: 8px;
-                padding: 2px 10px 3px 4px;
-                svg{
-                    fill: white !important;
-                    vertical-align: middle;
-                }
-                span{
-                    font-size: 14px;
-                    font-weight: normal;
-                    color: white;
-                    vertical-align: middle;
-                    padding-left: 2px;
-                }
-            }
+          
             .gH_i_r_intercom{
                 cursor: pointer;
                 fill: #bdc0d1;
@@ -437,7 +433,7 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,c
                 }
                 .unread_circle_nav{
                     position: absolute;
-                    top: 0px;
+                    top: 0;
                     right: 12px;
                     background: #ce3333;
                     color: white;

@@ -5,9 +5,9 @@ const getFeeds = (params) => {
     return connectivityModule.http.get("/feed", { params });
 };
 
-const getNextPage = ({ url }) => {
-    return connectivityModule.http.get(url, { baseURL: "" });
-};
+// const getNextPage = ({ url }) => {
+//     return connectivityModule.http.get(url, { baseURL: "" });
+// };
 
 
 function FirstAnswerItem(objInit) {
@@ -106,9 +106,9 @@ let transferResult = ({data}) => {
     };
 };
 
-let transferNextPage = (res) => {
-    return transferResult(res);    
-};
+// let transferNextPage = (res) => {
+//     return transferResult(res);
+// };
 
 export default {
     activateFunction: {
@@ -116,14 +116,14 @@ export default {
             return getFeeds(params).then(transferResult);
         },
     },
-    nextPage: (params) => {
-        return getNextPage(params).then(transferNextPage);
-    },
+    // nextPage: (params) => {
+    //     return getNextPage(params).then(transferNextPage);
+    // },
     getFeedCourses() {
         return connectivityModule.http.get("feed/courses")
     },
     createQuestionItem,
-    createAnswerItem,
+    //createAnswerItem,
     createTutorItem,
     createDocumentItem,
 }

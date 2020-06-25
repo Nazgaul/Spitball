@@ -17,7 +17,7 @@ export const StudyRoom = {
       this.jwt = objInit.jwt || null;
       this.broadcastTime = objInit.broadcastTime || null;
       // TODO: check if we still need those:
-      this.allowReview = true;
+      //this.allowReview = true;
       this.studentId = objInit.studentId;
       this.studentImage = objInit.studentImage || null;
       this.studentName = objInit.studentName;

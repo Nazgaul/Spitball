@@ -64,6 +64,7 @@ export default {
 @import '../../../../styles/mixin.less';
 
 .studyRoomSettingDialog {
+  background: #fff;
   .settings {
      height: 100%;
     .settingsHeader {

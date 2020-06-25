@@ -25,15 +25,15 @@ import utils_Store from './utils_Store'
 import banner_Store from './banner_Store.js'
 import dashboard_Store from './dashboard_Store.js'
 import tutorDashboard from './tutorDashboard.js'
-import feed from './feedStore.js'
+//import feed from './feedStore.js'
 import profile from './profile.js';
+import document from "./document.js";
 
 import studyRoomStore from './studyRoomStore/studyRoomStore.js'
 import signalRPlugin from '../plugins/signalRPlugin';
 import componentPlugin from '../plugins/componentPlugin';
 import twilioPlugin from '../plugins/twilioPlugin';
 import twilioStore from './studyRoomStore/twilioStore.js'
-// import registerStore from '../plugins/registerStore'; 
 import codeEditor_store from './studyRoomStore/codeEditor_store.js'
 import tutoringCanvas from './studyRoomStore/tutoringCanvas.js'
 import roomRecording_store from './studyRoomStore/roomRecording_store.js'
@@ -42,7 +42,6 @@ const plugins = [
     signalRPlugin({hubPath:'/sbhub'}), 
     componentPlugin(),
     twilioPlugin(),
-    // registerStore()
 
 ]
 
@@ -84,8 +83,8 @@ const store = new Vuex.Store({
         newQuestionDialog,
         University,
         uploadFiles,
-        feed,
-        // document,
+       // feed,
+        document,
         // homeLanding,
         // homeworkHelpStore,
         // studyDocumentsStore,

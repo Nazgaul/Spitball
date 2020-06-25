@@ -9,7 +9,9 @@
     "plugin:vue/essential",
     "plugin:vue/recommended",
     "plugin:css-modules/recommended",
-    "plugin:vue-i18n/recommended"
+    "plugin:vue-i18n/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings"
   ],
     "parser": "vue-eslint-parser",
   "globals": {
@@ -38,6 +40,7 @@
   "rules": {
     "no-extra-boolean-cast": "off",
     "no-useless-escape": "off",
+    "no-unused-vars":"error",
     "no-prototype-builtins": "off",
     "require-atomic-updates": "off",
     "vue/html-indent": "off",

@@ -48,6 +48,9 @@ const numberFormats = {
 
 const dateTimeFormats = {
   'en': {
+    broadcastHour: {
+      hour: 'numeric', minute: 'numeric'
+    },
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
     },
@@ -69,6 +72,9 @@ const dateTimeFormats = {
     }
   },
   'en-IL': {
+    broadcastHour: {
+      hour: 'numeric', minute: 'numeric'
+    },
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
     },
@@ -81,6 +87,9 @@ const dateTimeFormats = {
     }
   },
   'he-IL': {
+    broadcastHour: {
+      hour: 'numeric', minute: 'numeric'
+    },
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
     },
@@ -99,6 +108,9 @@ const dateTimeFormats = {
     }
   },
   'en-IN': {
+    broadcastHour: {
+      hour: 'numeric', minute: 'numeric'
+    },
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
     },

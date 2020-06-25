@@ -105,7 +105,6 @@ export default {
         student: 'menuListStudent',
       },
       menuListNotLogged: [
-        { title: this.$t('header_find_tutors'), icon: 'sbf-account-group', route: { name: routeNames.TutorList } },
         { title: this.$t('profile_become_title'), icon: 'sbf-find', url: 'https://teach.spitball.co/', notShowFrymo: true },
         { title: this.$t('menuList_help'), icon: 'sbf-help', url: satelliteService.getSatelliteUrlByName('faq') },
         { title: this.$t('menuList_about_spitball'),  icon: 'sbf-about', url: satelliteService.getSatelliteUrlByName('about') },

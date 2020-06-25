@@ -2,34 +2,34 @@ import { connectivityModule } from "../connectivity.module";
 
 //global dictionary obj
 //global.dictionary = {}
-var locale = {};
+//var locale = {};
 
-const LanguageService = {
-    getValueByKey: (key) => {
-        if(!key) return key;
+// const LanguageService = {
+//     getValueByKey: (key) => {
+//         if(!key) return key;
+//
+//         if(!locale.hasOwnProperty(key)){
+//             console.error("dictionary couldnot find key: " + key);
+//             return `###${key}`;
+//         }
+//         return locale[key];
+//     },
+//     changePlaceHolders: (rawKey, arrPlaceholders)=>{
+//         let key = rawKey;
+//         arrPlaceholders.forEach((placeHolder, index)=>{
+//             //placeholder numbers starts with 1
+//             let placeHolderNum = index + 1;
+//             key = key.replace(`{${placeHolderNum}}`, placeHolder);
+//         });
+//         return key;
+//     }
+// };
 
-        if(!locale.hasOwnProperty(key)){
-            console.error("dictionary couldnot find key: " + key);
-            return `###${key}`;
-        }
-        return locale[key];
-    },
-    changePlaceHolders: (rawKey, arrPlaceholders)=>{
-        let key = rawKey;
-        arrPlaceholders.forEach((placeHolder, index)=>{
-            //placeholder numbers starts with 1
-            let placeHolderNum = index + 1;
-            key = key.replace(`{${placeHolderNum}}`, placeHolder);
-        });
-        return key;
-    }    
-};
-
-const LanguageChange = {
-    setUserLanguage: (locale) => {
-        return connectivityModule.http.post("/Account/language", {culture: locale});
-    },
-};
+// const LanguageChange = {
+//     setUserLanguage: (locale) => {
+//         return connectivityModule.http.post("/Account/language", {culture: locale});
+//     },
+// };
 
 // const GetDictionary = (type) => {
 //     let dictionaryType = `?v=${global.version}&culture=${global.lang}-${global.country}`;
@@ -60,24 +60,24 @@ const GetVersion = () => {
 };
 
 //debug purposes
-global.dictionaryFindKey = function(value){
-    for(let key in locale){
-        if(locale[key] === value){
-            console.log(key);
-        }
-    }
-};
-global.dictionaryContainsKey = function(value){
-    for(let key in locale){
-        if(locale[key].indexOf(value) > -1){
-            console.log(key);
-        }
-    }
-};
+// global.dictionaryFindKey = function(value){
+//     for(let key in locale){
+//         if(locale[key] === value){
+//             console.log(key);
+//         }
+//     }
+// };
+// global.dictionaryContainsKey = function(value){
+//     for(let key in locale){
+//         if(locale[key].indexOf(value) > -1){
+//             console.log(key);
+//         }
+//     }
+// };
 
 export{
-    LanguageService,
-    LanguageChange,
+  //  LanguageService,
+  //  LanguageChange,
    // GetDictionary,
     GetVersion,
 }
