@@ -101,6 +101,9 @@ export default {
             'getShowBoxHelper',
             'getShapesSelected',
             'getFontSize']),
+        isReadOnly(){
+            return window.innerWidth < 960
+        },
         equationSizeX(){
             return (window.innerWidth / 2) - 300;
         },
