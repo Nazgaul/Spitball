@@ -26,7 +26,7 @@ export default {
     },
     data() {
         return {
-            canvasElementId: window.innerWidth < 960 ? 'dummyCanvas' :'canvas',
+            canvasElementId: 'canvas',
             windowWidth: this.getWindowWidth(),
             windowHeight: this.getWindowHeight(),
             canvas: null,
@@ -185,22 +185,6 @@ export default {
     },
     methods: {
         ...mapActions(['updateShowBoxHelper','updateImgLoader','resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString', 'setCurrentOptionSelected', 'setShowPickColorInterface', 'setFontSize']),
-        getCanvasWidth(){
-            if(window.innerWidth < 960){
-                return 1920
-            }else{
-                return this.windowWidth;
-            }
-
-        },
-        getCanvasHeight(){
-            if(window.innerWidth < 960){
-                return 950
-            }else{
-                return this.windowHeight;
-            }
-        },
-
         uploadImage(){
             this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, 'imageDraw')());
             this.setSelectedOptionString('imageDraw');
@@ -252,7 +236,13 @@ export default {
                 };
                 let transferDataObj = {
                     type: "passData",
-                    data: data
+                    data: {
+                        ...data,
+                        sizes:{
+                            width: window.innerWidth,
+                            height: window.innerHeight,
+                        }
+                    }
                 };
                 let normalizedData = JSON.stringify(transferDataObj);
                 this.$store.dispatch('sendDataTrack',normalizedData)
@@ -322,11 +312,8 @@ export default {
             ctx.setTransform(1, 0, 0, 1, 0, 0);
             this.windowWidth = this.getWindowWidth();
             this.windowHeight = this.getWindowHeight();
-            this.canvas.width = this.getCanvasWidth();
-            // this.canvas.width = this.windowWidth;
-            this.canvas.height = this.getCanvasHeight();
-            // this.canvas.width = this.windowWidth;
-            // this.canvas.height = this.windowHeight;
+            this.canvas.width = this.windowWidth;
+            this.canvas.height = this.windowHeight;
             whiteBoardService.redraw(this.canvasData);
         },
         injectToTextArea(textToInject) {
@@ -341,7 +328,7 @@ export default {
         // },
         registerCanvasEvents(canvas, canvasWrapper) {
             let self = this;
-            // global.addEventListener('resize', this.resizeCanvas, false);
+            global.addEventListener('resize', this.resizeCanvas, false);
             let dropArea = canvas;
             dropArea.addEventListener('dragenter', () =>{
             }, false);
@@ -472,13 +459,10 @@ export default {
     mounted() {
         this.windowChangeEvent()
         
-        // this.canvas = document.querySelector('canvas');
-        this.canvas = document.getElementById(this.canvasElementId);
+        this.canvas = document.querySelector('canvas');
         let canvasWrapper = document.querySelector('.canvas-wrapper');
-        this.canvas.width = this.getCanvasWidth();
-        // this.canvas.width = this.windowWidth;
-        this.canvas.height = this.getCanvasHeight();
-        // this.canvas.height = this.windowHeight;
+        this.canvas.width = this.windowWidth;
+        this.canvas.height = this.windowHeight;
         // this.canvas.width = this.canvasWidth;
         // this.canvas.height = this.canvasHeight;
         this.canvasData.context = this.canvas.getContext("2d");

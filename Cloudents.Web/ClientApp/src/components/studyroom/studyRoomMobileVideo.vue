@@ -1,5 +1,5 @@
 <template>
-   <div :id="elementId" :class="[{'canvasVideo':isCanvasMode},'d-flex','align-center','flex-grow-0','flex-shrink-0']">
+   <div :id="elementId" class="d-flex align-center flex-grow-0 flex-shrink-0">
       <span class="tutorName">{{roomTutorName}}</span>
       <div class="videoLiner">
          <v-btn icon @click="toggleAudio" sel="audio_enabling"
@@ -8,7 +8,6 @@
             <v-icon v-else size="30" color="white">sbf-mic-ignore</v-icon>
          </v-btn>
       </div>
-      <video autoplay="" playsinline=""></video>
    </div>  
 </template>
 
@@ -23,23 +22,8 @@ export default {
    },
    computed: {
       ...mapGetters(['getRoomTutorParticipant']),
-      isCanvasMode(){
-         return this.$store.getters.getRoomModeConsts.WHITE_BOARD == this.$store.getters.getActiveNavEditor;
-      },
       tutorVideoTrack(){
-         if(this.isCanvasMode && this.$store.getters.getRoomIsActive){
-            let self = this;
-            this.$nextTick(()=>{
-               let canvas = document.getElementById('dummyCanvas');
-               let stream = canvas.captureStream(25);
-               let element = document.getElementById(self.elementId)
-               let video = element.querySelector('video');
-               video.srcObject = stream;
-            })
-            return null
-         }else{
-            return this.getRoomTutorParticipant?.screen || this.getRoomTutorParticipant?.video
-         }
+         return this.getRoomTutorParticipant?.screen || this.getRoomTutorParticipant?.video
       },
       roomTutorName(){
          return this.$store.getters.getRoomTutor.tutorName;
@@ -84,14 +68,6 @@ export default {
 <style lang="less">
 @import '../../styles/mixin.less';
          #studyRoomMobileVideo{
-            &.canvasVideo{
-               video {
-                  background: white;
-                  @media (max-width: @screen-sm) and (orientation: landscape) {
-                     background: white;
-                  }
-               }
-            }
             width: 100%;
             min-height: 280px;
             background: black;

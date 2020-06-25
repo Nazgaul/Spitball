@@ -103,17 +103,8 @@ const init = function(optionName){
 };
 
 const getContext = function(){
-    if(window.innerWidth < 960){
-        let canvas = document.getElementById('dummyCanvas');
-        canvas.width = 1920
-        canvas.height = 950
-        return canvas.getContext("2d");
-    }else{
-        let canvas = document.getElementById('canvas');
-        return canvas.getContext("2d");
-    }
-    // let canvas = document.getElementById('canvas');
-    // return canvas.getContext("2d");
+    let canvas = document.getElementById('canvas');
+    return canvas.getContext("2d");
 };
 
 const redraw = function(canvasData){
@@ -167,7 +158,7 @@ const cleanCanvas = function(ctx){
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clears the canvas
 };
 
-const passData = function(canvasData, changedDragData){
+const passData = function(canvasData, changedDragData,canvasSizes){
     if(changedDragData.isGhost){
         ghostByAction[changedDragData.actionType](changedDragData.actionObj);
     }
@@ -176,6 +167,22 @@ const passData = function(canvasData, changedDragData){
         tab: tabToDraw,
         data: changedDragData
     };
+    let remoteCanvasWidth = canvasSizes.width;
+    let remoteCanvasHeight = canvasSizes.height;
+
+    let remoteRatio = remoteCanvasWidth / remoteCanvasHeight;
+
+    let localCanvasWidth = window.innerWidth;
+    const localCanvasHeight = localCanvasWidth /remoteRatio;
+    
+    data.data.points?.forEach(p=>{
+         p.mouseX =  p.mouseX / remoteCanvasWidth *localCanvasWidth 
+         p.mouseY = p.mouseY / remoteCanvasHeight * localCanvasHeight
+        if(p.width){
+            p.width =  p.width / remoteCanvasWidth *localCanvasWidth 
+            p.height = p.height / remoteCanvasHeight * localCanvasHeight 
+        }
+     })
     store.dispatch('updateDragData', data);
     redraw(canvasData);
 };

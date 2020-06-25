@@ -1,7 +1,7 @@
 <template>
    <div class="studyRoomWrapper" style="height:100%">
       <component :is="activeWindow" style="height:100%"></component>
-      <floatingVideoContainer v-if="!isRoomTutor"/>
+      <floatingVideoContainer v-if="!isMobile && !isRoomTutor"/>
    </div>
 </template>
 
@@ -24,6 +24,9 @@ export default {
       floatingVideoContainer,
    },
    computed: {
+      isMobile(){
+         return this.$vuetify.breakpoint.smAndDown;
+      },
       activeWindow(){
          if(this.$store.getters.getActiveNavEditor === 'white-board'){
          return 'canvasWrap'
