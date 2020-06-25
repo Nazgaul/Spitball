@@ -294,14 +294,16 @@ const actions = {
       })
       return Promise.resolve();
    },
-   updateEndTutorSession({ commit, state ,getters}) {
+   updateEndSession({ commit, state ,getters}){
       commit(studyRoom_SETTERS.ROOM_ACTIVE, false);
       if(getters.getIsRecording){
          studyRoomRecordingService.stopRecord();
       }
-      studyRoomService.endTutoringSession(state.studyRoomId).then(() => {
-         commit(studyRoom_SETTERS.DIALOG_END_SESSION, false)
-      })
+      if(getters.getRoomIsTutor){
+         studyRoomService.endTutoringSession(state.studyRoomId).then(() => {
+            commit(studyRoom_SETTERS.DIALOG_END_SESSION, false)
+         })
+      }
    },
    updateResetRoom({dispatch, commit }) {
       commit(studyRoom_SETTERS.ROOM_ACTIVE, false);

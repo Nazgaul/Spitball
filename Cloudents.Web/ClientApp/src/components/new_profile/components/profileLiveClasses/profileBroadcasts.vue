@@ -22,7 +22,7 @@
                 </template>
 
                 <div class="d-sm-flex wrapper">
-                    <div class="leftSide d-flex me-sm-6">
+                    <div class="leftSide d-sm-flex me-sm-6">
                         <img :src="liveImage" alt="">
                     </div>
                     <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pe-0 ps-0">
@@ -330,7 +330,8 @@ export default {
             border-bottom: 2px solid #ebecef;
             .leftSide {
                 height: 100%;
-                img { 
+                img {
+                    object-fit: contain;
                     @media(max-width: @screen-xs) {
                         width: 100%;
                     }
