@@ -42,7 +42,7 @@ const mutations = {
             this.BROADCAST = objInit.liveClassRegisteredUser
             this.FOLLOWERS = objInit.followerNoCommunication
             //TODO always 0
-            this.QUESTIONS = objInit.unansweredQuestion
+            // this.QUESTIONS = objInit.unansweredQuestion
             this.PAYMENTS = objInit.pendingPayment
         }
         state.tutorNotificationsActions = notifications

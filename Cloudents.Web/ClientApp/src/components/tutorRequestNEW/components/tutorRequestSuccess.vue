@@ -177,7 +177,7 @@ export default {
             }
             min-width: 140px;
             height: 40px !important;
-            padding: 0px 32px !important;
+            padding: 0 32px !important;
             text-transform: capitalize  !important;
             font-weight: 600;
         }

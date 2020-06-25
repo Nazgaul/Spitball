@@ -49,9 +49,9 @@ const mutations = {
     clearClassesCahce(state) {
         state.selectedClassesCache.length = 0;
     },
-    setSelectedClassesCahce(state, val) {
-        state.selectedClassesCache = [].concat(val);
-    },
+    // setSelectedClassesCahce(state, val) {
+    //     state.selectedClassesCache = [].concat(val);
+    // },
     updateCachedList(state, val) {
         state.selectedClassesCache.push(val);
     },
@@ -59,12 +59,12 @@ const mutations = {
         let index = state.selectedClassesCache.indexOf(val);
         state.selectedClassesCache.splice(index, 1);
     },
-    openResultLockForSchoolNameChange(state) {
-        state.resultLockForSchoolNameChange = true;
-    },
-    openResultLockForClassesChange(state) {
-        state.resultLockForClassesChange = true;
-    },
+    // openResultLockForSchoolNameChange(state) {
+    //     state.resultLockForSchoolNameChange = true;
+    // },
+    // openResultLockForClassesChange(state) {
+    //     state.resultLockForClassesChange = true;
+    // },
     setReflectChangeToPage(state) {
         state.reflectChangeToPage++;
     },
@@ -93,16 +93,16 @@ const actions = {
     clearClassesCahce({commit}){
         commit('clearClassesCahce');
     },
-    syncUniData({dispatch},{courses}) {
-        dispatch('setLock_selectedClass', true);
-        dispatch('setSelectedClasses', courses);
-        dispatch('assignSelectedClassesCache', courses);
-
-        setTimeout(() => {
-            dispatch('releaseResultLock', "uni");
-            dispatch('releaseResultLock', "class");
-        }, 2000);
-    },
+    // syncUniData({dispatch},{courses}) {
+    //     dispatch('setLock_selectedClass', true);
+    //     dispatch('setSelectedClasses', courses);
+    //     dispatch('assignSelectedClassesCache', courses);
+    //
+    //     setTimeout(() => {
+    //         dispatch('releaseResultLock', "uni");
+    //         dispatch('releaseResultLock', "class");
+    //     }, 2000);
+    // },
     createCourse({dispatch}, courseToCreate) {
         courseService.createCourse(courseToCreate).then((course) => {
             dispatch('pushClassToSelectedClasses', course);
@@ -127,9 +127,9 @@ const actions = {
             });
         }
     },
-    clearClasses({commit}) {
-        commit('setClasses', []);
-    },
+    // clearClasses({commit}) {
+    //     commit('setClasses', []);
+    // },
     deleteClass({commit}, val) {
         return courseService.deleteCourse(val).then((resp) => {
             commit('deleteCourse', val);
@@ -156,9 +156,9 @@ const actions = {
             Promise.resolve(true);
         });
     },
-    assignSelectedClassesCache({commit, state}) {
-        commit("setSelectedClassesCahce", state.selectedClasses);
-    },
+    // assignSelectedClassesCache({commit, state}) {
+    //     commit("setSelectedClassesCahce", state.selectedClasses);
+    // },
     addToCachedClasses({commit}, val) {
         commit("updateCachedList", val);
     },
@@ -167,14 +167,14 @@ const actions = {
             dispatch('setSelectedClasses', [].concat(state.selectedClassesCache));
         }
     },
-    releaseResultLock({commit}, val) {
-        if(val === "uni") {
-            commit('openResultLockForSchoolNameChange');
-        } else if(val === "class") {
-            commit('openResultLockForClassesChange');
-        }
-
-    },
+    // releaseResultLock({commit}, val) {
+    //     if(val === "uni") {
+    //         commit('openResultLockForSchoolNameChange');
+    //     } else if(val === "class") {
+    //         commit('openResultLockForClassesChange');
+    //     }
+    //
+    // },
     changeCreateDialogState({commit}, val) {
         commit('updateCreateDialogState', val);
     },

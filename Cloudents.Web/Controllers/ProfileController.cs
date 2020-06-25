@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.Enum;
 using Cloudents.Query;
 using Cloudents.Query.Users;

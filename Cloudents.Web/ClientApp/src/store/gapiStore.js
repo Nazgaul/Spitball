@@ -7,7 +7,7 @@ const state = {
 };
 
 const getters = {  
-    getAuth2: state => state.auth2,
+   // getAuth2: state => state.auth2,
     getIsFaliure : state => state.auth2faliure != null,
     getFaliureReason: state =>{
         if(state.auth2faliure?.details) {

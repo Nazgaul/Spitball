@@ -19,7 +19,7 @@ namespace Cloudents.Web.Models
         public string Course { get; set; }
 
 
-        [Range(0, (int)DocumentPrice.PriceLimit)]
+        [Range(0, int.MaxValue)]
         public decimal? Price { get; set; }
 
         public string? Description { get; set; }

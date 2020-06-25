@@ -1,15 +1,15 @@
 // Login:
 export const Login = 'login';
-export const LoginSetEmail = 'setEmail';
-export const LoginSetPassword = 'setPassword';
+//export const LoginSetEmail = 'setEmail';
+//export const LoginSetPassword = 'setPassword';
 export const LoginEmailConfirmed = 'emailConfirmed';
 export const LoginForgotPassword = 'forgotPassword';
 export const LoginResetPassword = 'resetPassword';
 
 // Marketing:
 export const Marketing = 'marketing';
-export const MarketingPromote = 'promote';
-export const MarketingPromoteStepper = 'promoteStepper';
+//export const MarketingPromote = 'promote';
+//export const MarketingPromoteStepper = 'promoteStepper';
 export const MySales = 'mySales';
 export const MyFollowers = 'myFollowers';
 export const MyPurchases = 'myPurchases';
@@ -30,8 +30,8 @@ export const Learning = 'Learning';
 
 // Course:
 export const EditCourse = 'editCourse';
-export const AddCourse = 'addCourse';
-export const SetCourse = 'setCourse';
+//export const AddCourse = 'addCourse';
+//export const SetCourse = 'setCourse';
 
 // Profile:
 export const Profile = 'profile';

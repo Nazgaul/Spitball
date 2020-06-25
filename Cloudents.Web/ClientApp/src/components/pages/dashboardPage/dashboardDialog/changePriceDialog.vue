@@ -13,7 +13,7 @@
                :minus="false"
                :min="0"
                :precision="2"
-               :max="1000"
+               :max="2147483647"
                :currency-symbol-position="'suffix'"
                separator=","
                v-model="editedPrice"
@@ -49,7 +49,7 @@ export default {
          title: this.$t('resultNote_change_price'),
          rules:{
             integer: (value) => validationRules.integer(value),
-            maximum: (value) => validationRules.maxVal(value, 1000),
+            maximum: (value) => validationRules.maxVal(value, 2147483647),
          }
       }
    },

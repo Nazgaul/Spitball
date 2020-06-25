@@ -129,14 +129,14 @@ export default {
     isMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
-    cookiesShow() {
-      if (global.country === "IL") return true;
-      if (!this.accountUser) {
-        return this.getCookieAccepted();
-      } else {
-        return true;
-      }
-    },
+    // cookiesShow() {
+    //   if (global.country === "IL") return true;
+    //   if (!this.accountUser) {
+    //     return this.getCookieAccepted();
+    //   } else {
+    //     return true;
+    //   }
+    // },
     showMobileFooter() {
       return this.$vuetify.breakpoint.xsOnly && this.getMobileFooterState && !this.hideFooter && this.$route.name !== 'tutorLandingPage';
     },
@@ -207,14 +207,14 @@ export default {
       "fireOptimizeActivate",
       "updateBannerStatus"
     ]),
-    ...mapGetters(["getCookieAccepted"]),
+//    ...mapGetters(["getCookieAccepted"]),
 
     closeReferralDialog() {
       this.updateReferralDialog(false);
     },
-    removeCookiesPopup: function() {
-      this.setCookieAccepted();
-    },
+    // removeCookiesPopup: function() {
+    //   this.setCookieAccepted();
+    // },
     
   },
   created() {
@@ -231,7 +231,7 @@ export default {
     }
     this.updateBannerStatus(true);
 
-    this.acceptedCookies = this.getCookieAccepted();
+    //this.acceptedCookies = this.getCookieAccepted();
     if (global.isMobileAgent) {
       global.addEventListener("resize", () => {
         if (

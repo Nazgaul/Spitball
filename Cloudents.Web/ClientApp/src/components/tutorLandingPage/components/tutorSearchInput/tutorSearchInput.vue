@@ -289,7 +289,7 @@ export default {
     }
 
     .suggestion {
-      margin: 15px 0px;
+      margin: 15px 0;
       &.list__tile--highlighted {
         background: rgba(48, 46, 181,.1);
       }

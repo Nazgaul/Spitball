@@ -12,9 +12,9 @@ const mutations = {
     updateQuestion(state, data){
         state.question = data;
     },
-    addAnswer(state, answer){
-        state.question.answers.push(answer);
-    },
+    // addAnswer(state, answer){
+    //     state.question.answers.push(answer);
+    // },
     removeAnswer(state, answerId){
         let answerIndex = -1;
         state.question.answers.forEach((answer, index) => {
@@ -27,10 +27,10 @@ const mutations = {
             state.question.answers.splice(answerIndex, 1);
         }
     },
-    markAsCorrect(state, answerId){
-        state.question.hasCorrectAnswer = true;
-        state.question.correctAnswerId = answerId;
-    },
+    // markAsCorrect(state, answerId){
+    //     state.question.hasCorrectAnswer = true;
+    //     state.question.correctAnswerId = answerId;
+    // },
 };
 const getters = {
     getCorrectAnswer: (state) => {
@@ -40,7 +40,7 @@ const getters = {
             return false;
         }
     },
-    isDeletedAnswer: (state) => state.deletedAnswer,
+    // isDeletedAnswer: (state) => state.deletedAnswer,
     getQuestion: (state) => state.question,
     isCardOwner: (state, {accountUser}) =>{
         if(!accountUser) return false;
@@ -63,9 +63,9 @@ const actions = {
             }
         });
     },
-    correctAnswer(context, id) {
-        return questionService.markAsCorrectAnswer(id);
-    },
+    // correctAnswer(context, id) {
+    //     return questionService.markAsCorrectAnswer(id);
+    // },
     setQuestion({commit}, id){
         return questionService.getQuestion(id)
         .then((response) => {

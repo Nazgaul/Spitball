@@ -20,9 +20,9 @@ const mutations = {
 };
 
 const getters = {
-    getIsTouchStarted: state=>state.touchState.isTouchStarted,
+   // getIsTouchStarted: state=>state.touchState.isTouchStarted,
     getIsTouchMove: state=>state.touchState.isTouchMove,
-    getIsTouchEnd: state=>state.touchState.isTouchEnd,
+ //   getIsTouchEnd: state=>state.touchState.isTouchEnd,
 };
 
 const actions = {

@@ -63,7 +63,7 @@ export default {
 @import '../../../../styles/mixin.less';
 
 .conversation-container {
-  padding: 12px 0px 12px 16px;
+  padding: 12px 0 12px 16px;
   border-bottom: solid 1px rgba(238, 238, 238, 0.8);
   height: 76px;
   display: flex;
@@ -81,7 +81,7 @@ export default {
       height: 12px;
       background-color: #2dfe14;
       border-radius: 50%;
-      bottom: 0px;
+      bottom: 0;
       right: 0;
     }
   }
