@@ -144,8 +144,8 @@ namespace ConsoleApp
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
-            
-            ResourcesMaintenance.DeleteStuffFromJs();
+            await Dbi();
+            //ResourcesMaintenance.DeleteStuffFromJs();
 
            // await t.InsertBlobReprocessAsync(51657);
             //await Dbi();
@@ -154,22 +154,19 @@ namespace ConsoleApp
         private static async Task Dbi()
         {
             var session = Container.Resolve<ISession>();
-            long i = 0;
 
-            List<Tutor> users;
+            List<PrivateStudyRoom> users;
             do
             {
-                users = await session.Query<Tutor>()
-                    .Fetch(f => f.User)
-                    .Where(w => w.Id > i)
+                users = await session.Query<PrivateStudyRoom>()
+                    .Where(w => w.TopologyType == StudyRoomTopologyType.PeerToPeer)
                     .Take(100).ToListAsync();
 
                 foreach (var user in users)
                 {
-                    i = user.Id;
                     using var uow = Container.Resolve<IUnitOfWork>();
-
-                    user.UpdateSettings(user.Paragraph2, user.User.Description, null);
+                    user.ChangeTopologyDbi();
+                  
                     await uow.CommitAsync();
 
                     Console.WriteLine("no");
