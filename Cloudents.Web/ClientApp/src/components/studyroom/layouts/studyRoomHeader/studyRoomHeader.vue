@@ -33,19 +33,20 @@
          </button>
       </template>
       <v-spacer></v-spacer>
-      <template v-if="isRoomTutor">
-         <v-btn class="mb-2" :ripple="false" text @click="muteAll()">
-            <div class="muteAllBtn">
-               <v-icon v-if="$store.getters.getIsAudioParticipants" size="16">sbf-microphone</v-icon>
-               <v-icon v-else size="16">sbf-mic-ignore</v-icon>
-               <span>{{$t($store.getters.getIsAudioParticipants?'tutor_mute_room':'tutor_unmute_room')}}</span>
-            </div>
-         </v-btn>
-         <button class="endBtn mb-2" @click="endSession()">
-            <div class="btnIcon"></div>
-            <span>{{$t('studyRoom_end')}}</span>
-         </button>
-      </template>
+
+      <v-btn v-if="isRoomTutor" class="mb-2" :ripple="false" text @click="muteAll()">
+         <div class="muteAllBtn">
+            <v-icon v-if="$store.getters.getIsAudioParticipants" size="16">sbf-microphone</v-icon>
+            <v-icon v-else size="16">sbf-mic-ignore</v-icon>
+            <span>{{$t($store.getters.getIsAudioParticipants?'tutor_mute_room':'tutor_unmute_room')}}</span>
+         </div>
+      </v-btn>
+
+      <button :class="['endBtn','mb-2',{'ml-2':!isRoomTutor}]" @click="endSession()">
+         <div class="btnIcon"></div>
+         <span>{{$t(isRoomTutor?'studyRoom_end':'studyRoom_end_student')}}</span>
+      </button>
+
       <template v-if="roomNetworkQualityLevel">
          <v-tooltip bottom>
             <template v-slot:activator="{ on }">
@@ -179,8 +180,12 @@ export default {
          this.$store.dispatch('updateActiveNavEditor',this.roomModes.SCREEN_MODE)
       },
       endSession() {
-            this.$ga.event("tutoringRoom", "endSession");
+         this.$ga.event("tutoringRoom", "endSession");
+         if(this.isRoomTutor){
             this.$store.dispatch('updateEndDialog',true)
+         }else{
+            this.$store.dispatch('updateEndSession')
+         }
       },
       actionHandler(editorType){
          let actionsOptions = {

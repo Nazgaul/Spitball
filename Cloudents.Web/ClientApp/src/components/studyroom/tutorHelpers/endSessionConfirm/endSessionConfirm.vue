@@ -54,7 +54,7 @@
                 this.$store.dispatch('updateEndDialog',false)
             },
             endSession(){
-                this.$store.dispatch('updateEndTutorSession');
+                this.$store.dispatch('updateEndSession');
             }
         },
     };
