@@ -7,12 +7,27 @@
                     <span v-t="'profile_edit_user_profile_title'"></span>
                 </v-flex>
             </v-layout>
-            <v-layout class="px-3 mt-4" wrap>
-                <v-flex xs12 sm6  :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
+            <v-layout class="px-3 mt-4">
+                <div class="leftSide me-3 d-inline-block">
+                    <uploadImage sel="photo" class="pUb_edit_img" />
+                    <userAvatarNew
+                        sel="avatar_image"
+                        class="pUb_dS_img"
+                        :userName="$store.getters.getAccountName"
+                        :userImageUrl="$store.getters.getAccountImage"
+                        :width="isMobile ? 130: 160"
+                        :height="isMobile ? 161 : 200"
+                        :userId="$store.getters.getAccountId"
+                        :fontSize="36"
+                        :borderRadius="8"
+                        :tile="true"
+                    />
+                </div>
+                <v-flex xs12 :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
+                    <v-flex xs12 sm6 class="pl-2 mb-2">
+                        <span class="subtitle" v-t="'profile_personal_details'"></span>
+                    </v-flex>
                     <v-layout column>
-                        <v-flex xs12 sm6  class="pl-2 mb-2">
-                            <span class="subtitle" v-t="'profile_personal_details'"></span>
-                        </v-flex>
                         <v-flex xs12>
                             <v-text-field
                                     :rules="[rules.required, rules.minimumChars]"
@@ -23,12 +38,12 @@
                             ></v-text-field>
                         </v-flex>
                     </v-layout>
-                </v-flex>
-                <v-flex xs12 sm6 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'pr-2']">
-                    <v-layout column>
-                        <v-flex v-if="$vuetify.breakpoint.smAndUp" xs12 sm6  class="mb-2 pl-2" grow>
+                <!-- </v-flex>
+                <v-flex xs12 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'pr-2']"> -->
+                    <!-- <v-layout column> -->
+                        <!-- <v-flex v-if="$vuetify.breakpoint.smAndUp" xs12 sm6  class="mb-2 pl-2" grow>
                             <span class="subtitle" style="visibility: hidden">hidden</span>
-                        </v-flex>
+                        </v-flex> -->
                         <v-flex>
                             <v-text-field
                                     :rules="[rules.required, rules.minimumChars]"
@@ -38,30 +53,11 @@
                                     outlined
                             ></v-text-field>
                         </v-flex>
-                    </v-layout>
+                    <!-- </v-layout> -->
                 </v-flex>
-                <!-- <v-flex xs12 sm4 :class="{'mt-4': $vuetify.breakpoint.xsOnly}" v-if="!isFrymo">
-                    <v-layout column>
-                        <v-flex xs12 sm6  class="mb-2 pl-2">
-                            <span class="subtitle" v-t="'profile_pricing'"></span>
-                        </v-flex>
-                        <v-flex>
-                            <v-text-field 
-                                        :rules="[rules.required, rules.minimum, rules.maximum,rules.integer]"
-                                        :label="$t('profile_price_label')"
-                                        v-model="price"
-                                        outlined
-                                       // :prefix="accountUser.currencySymbol"
-                                        class="tutor-edit-pricing"
-                                        type="number"
-                                        :hide-details="$vuetify.breakpoint.xsOnly"
-                            ></v-text-field>
-                        </v-flex>
-                    </v-layout>
-                </v-flex> -->
             </v-layout>
 
-            <v-layout class="px-3" column :class="[$vuetify.breakpoint.xsOnly ? 'mt-4' : '']">
+            <v-layout class="px-3 mt-4 mt-sm-0" column>
                 <v-flex class="mb-2 pl-2">
                     <span class="subtitle" v-t="'profile_aboutme'"></span>
                 </v-flex>
@@ -70,10 +66,25 @@
                         rows="2"
                         outlined
                         v-model="description"
-                        :rules="[rules.maximumChars, rules.descriptionMinChars]"
+                        :rules="[rules.descriptionMaxChars]"
+                        counter="25"
                         class="tutor-edit-description"
                         name="input-about"
                         :label="$t('profile_description_label')"
+                    ></v-textarea>
+                </v-flex>
+            </v-layout>
+            <v-layout class="px-3 mt-2 mt-sm-0" column>
+                <v-flex>
+                    <v-textarea
+                        rows="2"
+                        outlined
+                        v-model="shortParagraph"
+                        :rules="[rules.shortParagraphMaxChars]"
+                        counter="80"
+                        class="tutor-edit-description"
+                        name="input-about"
+                        :label="$t('Short paragraph')"
                     ></v-textarea>
                 </v-flex>
             </v-layout>
@@ -82,7 +93,7 @@
                     <v-textarea
                         rows="5"
                         outlined
-                        :rules="[rules.maximumChars, rules.descriptionMinChars]"
+                        :rules="[rules.maximumChars]"
                         v-model="bio"
                         class="tutor-edit-bio"
                         name="input-bio"
@@ -105,13 +116,17 @@
 <script>
     import { mapGetters } from 'vuex';
     import { validationRules } from '../../../../services/utilities/formValidationRules';
-
+    import uploadImage from '../../profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue'
     export default {
         name: "tutorInfoEdit",
+        components: {
+           uploadImage 
+        },
         data() {
             return {
                 editedBio: '',
                 editedDescription: '',
+                editShortParagraph: '',
                 editedFirstName: '',
                 editedLastName: '',
                 rules: {
@@ -120,7 +135,9 @@
                     maximum: (value) => validationRules.maxVal(value, 1000),
                     maximumChars: (value) => validationRules.maximumChars(value, 1000),
                     minimumChars: (value) => validationRules.minimumChars(value, 2),
-                    descriptionMinChars: (value) => validationRules.minimumChars(value, 15),
+                    // descriptionMinChars: (value) => validationRules.minimumChars(value, 2),
+                    descriptionMaxChars: (value) => validationRules.maximumChars(value, 25),
+                    shortParagraphMaxChars: (value) => validationRules.maximumChars(value, 80),
                     integer: (value) => validationRules.integer(value)
                 },
                 valid: false,
@@ -129,6 +146,17 @@
         },
         computed: {
             ...mapGetters(['getProfile','accountUser', 'isFrymo']),
+            isMobile() {
+                return this.$vuetify.breakpoint.xsOnly
+            },
+            shortParagraph: {
+                get() {
+                    return this.$store.getters.getProfileParagraph
+                },
+                set(newVal) {
+                    this.editShortParagraph = newVal;
+                }
+            },
             bio: {
                 get() {
                     return this.getProfile.user.tutorData.bio
@@ -137,14 +165,6 @@
                     this.editedBio = newVal;
                 }
             },
-            // price: {
-            //     get() {
-            //         return this.getProfile.user.tutorData.price;
-            //     },
-            //     set(newVal) {
-            //         this.editedPrice = newVal;
-            //     }
-            // },
             firstName: {
                 get() {
                     return this.getProfile.user.firstName;
@@ -155,7 +175,6 @@
             },
             lastName: {
                 get() {
-                    // return this.getProfile.user.lastName
                     return this.getProfile.user.lastName;
                 },
                 set(newVal) {
@@ -164,7 +183,7 @@
             },
             description: {
                 get() {
-                    return this.getProfile.user.tutorData.description;
+                    return this.$store.getters.getProfileDescription;
                 },
                 set(newVal) {
                     this.editedDescription = newVal;
@@ -176,14 +195,14 @@
                 if(this.$refs.formTutor.validate()) {
                     let firstName = this.editedFirstName || this.firstName;
                     let lastName = this.editedLastName || this.lastName;
-                    //let price = this.editedPrice || this.price;
+                    let shortParagraph = this.editShortParagraph || this.shortParagraph;
                     let bio = this.editedBio || this.bio;
                     let description = this.editedDescription || this.description;
                     let editsData = {
                         name: `${firstName} ${lastName}`,
                         lastName,
                         firstName,
-                        //price,
+                        shortParagraph,
                         bio,
                         description,
                     };
@@ -191,7 +210,7 @@
                     let serverFormat = {
                         firstName,
                         lastName,
-                       // price,
+                        shortParagraph,
                         bio,
                         description,
                     };
@@ -209,7 +228,7 @@
                 }
             },
             closeDialog() {
-                this.$store.commit('setEditDialog', true);
+                this.$store.commit('setEditDialog', false);
             }
         },
         created() {
@@ -230,6 +249,27 @@
         .disabled-background {
             .v-input__slot {
                 background-color: #f5f5f5 !important;
+            }
+        }
+        .leftSide {
+            position: relative;
+            @media (max-width: @screen-xs) {
+                padding: 8px 6px;
+                background: #fff;
+                border-radius: 8px;
+            }
+            .pUb_dS_img{
+                pointer-events: none !important;
+            }
+            .pUb_edit_img{
+                position: absolute;
+                right: 4px;
+                text-align: center;
+                width: 36px;
+                height: 46px;
+                border-radius: 4px;
+                background-color: #fff;
+                z-index: 1;
             }
         }
         .shallow-blue {
@@ -263,17 +303,6 @@
             color: @global-purple;
             font-size: 18px;
         }
-        // .v-text-field--outline > .v-input__control > .v-input__slot {
-        //     border: 1px solid rgba(0, 0, 0, 0.19);
-        //     &:hover {
-        //         border: 1px solid rgba(0, 0, 0, 0.19) !important;
-        //     }
-        // }
-        // .tutor-edit-pricing, .tutor-edit-firstname, .tutor-edit-lastname, .tutor-edit-description, .tutor-edit-bio {
-        //     .v-messages__message {
-        //         line-height: normal;
-        //     }
-        // }
     }
 
 
