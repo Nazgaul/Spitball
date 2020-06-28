@@ -137,7 +137,23 @@ const actions = {
         })
     },
     saveUserInfo(context, params) {
-        return accountInstance.post('/settings', params)
+
+        /*
+        bio: "I am a very greate3 tutor yayyayayayay"
+description: "A very get tutor"
+firstName: "Ram"
+lastName: "Ya"
+shortParagraph: "1`11121"
+        */ 
+       let passData =  {
+           firstName : params.firstName,
+           lastName: params.lastName,
+           title: params.description,
+           shortParagraph: params.shortParagraph,
+           p3:params.bio
+       }
+       
+        return accountInstance.post('/settings', passData)
     },
     updateUserStats(context, days) {
         return accountInstance.get('/stats', { params: { days } }).then(({data}) => {
