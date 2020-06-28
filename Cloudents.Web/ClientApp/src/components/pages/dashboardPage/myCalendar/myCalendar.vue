@@ -185,18 +185,18 @@ export default {
          text-transform: capitalize;
       }
    }
-   .myCalendar_calendar{
-      max-width: 700px;
-      &.calendar-container{
-         margin: unset;
-         .calendar-header{
-            display: none;
-         }
-         .my-event{
-            pointer-events: none;
-         }
-      }
-   }
+   /*.myCalendar_calendar{*/
+   /*   max-width: 700px;*/
+   /*   &.calendar-container{*/
+   /*      margin: unset;*/
+   /*      .calendar-header{*/
+   /*         display: none;*/
+   /*      }*/
+   /*      .my-event{*/
+   /*         pointer-events: none;*/
+   /*      }*/
+   /*   }*/
+   /*}*/
    
 }
 </style>

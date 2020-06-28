@@ -1,20 +1,22 @@
 <template>
-    <div class="profileStats d-flex align-center justify-center pa-2 text-center">
-        <div class="stats">
-            <div class="number">{{hours}}</div>
-            <div class="text">{{$tc('stats_teachs', hours)}}</div>
-        </div>
-        <div class="stats">
-            <div class="number">{{reviews}}</div>
-            <div class="text">{{$tc('stats_reviews', reviews)}}</div>
-        </div>
-        <div class="stats">
-            <div class="number">{{followers}}</div>
-            <div class="text">{{$tc('stats_followers', followers)}}</div>
-        </div>
-        <div class="stats">
-            <div class="number">{{resources}}</div>
-            <div class="text">{{$tc('stats_resources', resources)}}</div>
+    <div class="profileStats">
+        <div class="wrapper d-flex align-center justify-center pt-2 pb-3 text-center">
+            <div class="stats">
+                <div class="number">{{hours}}</div>
+                <div class="text">{{$tc('stats_teachs', hours)}}</div>
+            </div>
+            <div class="stats">
+                <div class="number">{{reviews}}</div>
+                <div class="text">{{$tc('stats_reviews', reviews)}}</div>
+            </div>
+            <div class="stats">
+                <div class="number">{{followers}}</div>
+                <div class="text">{{$tc('stats_followers', followers)}}</div>
+            </div>
+            <div class="stats">
+                <div class="number">{{resources}}</div>
+                <div class="text">{{$tc('stats_resources', resources)}}</div>
+            </div>
         </div>
     </div>
 </template>
@@ -55,45 +57,51 @@ export default {
         left: 0;
         right: 0;
     }
-    .stats {
-        position: relative;
-        padding: 0 90px;
-        font-weight: 600;
-        @media(max-width: @screen-xs) {
-            padding: 0;
+    .wrapper {
+        max-width: 960px;
+        margin: 0 auto;
+        .stats {
+            position: relative;
             flex: 1;
-        }
-        &::after {
-            content: '';
-            position: absolute;
-            border-right: 1px solid #a4a7ab;
-            opacity: 0.4;
-            border-width: 2px;
-            height: 40px;
-            right: 0;
-            top: 8px;
-        }
-        &:last-child {
-            &::after {
-                border-right: none;
+            @media(max-width: @screen-xs) {
+                padding: 0;
             }
-            // max-width: 374 by shiran design
-            @media(max-width: @screen-xss - 1) {
-                display: none;
-            }
-        }
-        &:nth-child(3) {
             &::after {
-                @media(max-width: @screen-xss - 1) {
+                content: '';
+                position: absolute;
+                border-right: 1px solid #a4a7ab;
+                opacity: 0.2;
+                border-width: 2px;
+                height: 40px;
+                right: 0;
+                top: 8px;
+            }
+            &:last-child {
+                &::after {
                     border-right: none;
-                }                
+                }
+                @media(max-width: @screen-xs) {
+                    display: none;
+                }
             }
-        }
-        .number {
-            font-size: 26px;
-        }
-        .text {
-            font-size: 14px;
+            &:nth-child(3) {
+                &::after {
+                    @media(max-width: @screen-xss - 1) {
+                        border-right: none;
+                    }                
+                }
+            }
+            .number {
+                font-size: 26px;
+                font-weight: 600;
+            }
+            .text {
+                font-weight: 500;
+                font-size: 14px;
+                @media(max-width: @screen-xs) {
+                    font-size: 13px;
+                }   
+            }
         }
     }
 }

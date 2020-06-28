@@ -90,9 +90,9 @@ const getters ={
     getNeedPayment:state => paymentService.getIsCalendarNeedPayment() && state.needPayment,
     getShowCalendar:state => state.showCalendar,
     getCalendarsList: state => state.calendarsList,
-    getSelectedCalendarList: state => state.selectedCalendarList,
+    //getSelectedCalendarList: state => state.selectedCalendarList,
     getIntervalFirst: state => state.intervalFirst,
-    getCalendarAvailabilityIsValid: state => (state.tutorDailyHours.length),
+    //getCalendarAvailabilityIsValid: state => (state.tutorDailyHours.length),
     getCalendarAvailabilityState: state => state.tutorDailyHoursState,
     getIsCalendarShared:state => state.isCalendarShared,
 };
@@ -192,7 +192,7 @@ const actions ={
     updateNeedPayment({commit},val){
         commit('setNeedPayment',val);
     },
-    updateCalendarStatus({state,getters,dispatch}){
+    updateCalendarStatus({getters,dispatch}){
         let isSharedCalendar = getters.getProfile?.user?.calendarShared;
 
             if(isSharedCalendar){

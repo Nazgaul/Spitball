@@ -84,7 +84,7 @@ export default {
         border-radius: 4px;
       }
       .answer{
-        bottom: 0em;
+        bottom: 0;
       }
       textarea {
         resize: none;

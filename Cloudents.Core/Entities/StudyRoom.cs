@@ -21,9 +21,9 @@ namespace Cloudents.Core.Entities
             }
             Identifier = ChatRoom.BuildChatRoomIdentifier(
                 _users.Select(s => s.User.Id).Union(new[] { tutor.Id }));
-            if (_users.Count < 10 && _users.Count > 0)
+            if (_users.Count < 4 && _users.Count > 0)
             {
-                TopologyType = StudyRoomTopologyType.PeerToPeer;
+                TopologyType = StudyRoomTopologyType.SmallGroup;
             }
             else
             {
@@ -130,6 +130,18 @@ namespace Cloudents.Core.Entities
         }
 
         public virtual StudyRoomTopologyType TopologyType { get; protected set; }
+
+        public virtual void ChangeTopologyDbi()
+        {
+            if (_users.Count() < 4 && _users.Count() > 0)
+            {
+                TopologyType = StudyRoomTopologyType.SmallGroup;
+            }
+            else
+            {
+                TopologyType = StudyRoomTopologyType.GroupRoom;
+            }
+        }
 
         public virtual void AddSession(string sessionName)
         {

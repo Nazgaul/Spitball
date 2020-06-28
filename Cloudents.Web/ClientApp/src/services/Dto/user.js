@@ -10,15 +10,15 @@ export const User = {
         this.lastName = objInit.lastName;
         this.image = objInit.image || '';
     },
-    TutorDefault: function(objInit){
-        this.price = objInit.price || 0;
-        this.bio = objInit.bio || '';
-        this.lessons = objInit.lessons || 0;
-        this.discountPrice = objInit.discountPrice;
-        this.subjects = objInit.subjects.toString().replace(/,/g, ", ");
-        this.pendingSessionsPayments = objInit.pendingSessionsPayments || null;
-        this.description = objInit.description || '';
-    },
+    // TutorDefault: function(objInit){
+    //     this.price = objInit.price || 0;
+    //     this.bio = objInit.bio || '';
+    //     this.lessons = objInit.lessons || 0;
+    //     this.discountPrice = objInit.discountPrice;
+    //     this.subjects = objInit.subjects.toString().replace(/,/g, ", ");
+    //     this.pendingSessionsPayments = objInit.pendingSessionsPayments || null;
+    //     this.description = objInit.description || '';
+    // },
     Tutor: function (objInit) {
         return{
                 price : objInit.price || 0,
@@ -39,21 +39,21 @@ export const User = {
         }
         
     },
-    TutorItem: function(objInit){
-        return Object.assign(
-            new User.Default(objInit),
-            new User.TutorDefault(objInit),
-            {
-                courses: objInit.courses || [],
-                country: objInit.country,
-                rating:  objInit.rate ? Number(objInit.rate.toFixed(2)): null,
-                reviews: objInit.reviewsCount || 0,
-                template: 'tutor-result-card',
-                classes: objInit.classes || 0,
-                isTutor: true,
-            }
-        )
-    },
+    // TutorItem: function(objInit){
+    //     return Object.assign(
+    //         new User.Default(objInit),
+    //         new User.TutorDefault(objInit),
+    //         {
+    //             courses: objInit.courses || [],
+    //             country: objInit.country,
+    //             rating:  objInit.rate ? Number(objInit.rate.toFixed(2)): null,
+    //             reviews: objInit.reviewsCount || 0,
+    //             template: 'tutor-result-card',
+    //             classes: objInit.classes || 0,
+    //             isTutor: true,
+    //         }
+    //     )
+    // },
     Account: function(objInit){
         return {
             id: objInit.id,
@@ -72,10 +72,10 @@ export const User = {
             chatUnread: objInit.chatUnread,
         }        
     },
-    Stats: function(objInit){
-        this.revenue = objInit.revenue
-        this.sales = objInit.sales
-        this.views = objInit.views
-        this.followers = objInit.followers
-    }
+    // Stats: function(objInit){
+    //     this.revenue = objInit.revenue
+    //     this.sales = objInit.sales
+    //     this.views = objInit.views
+    //     this.followers = objInit.followers
+    // }
 }

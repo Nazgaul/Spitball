@@ -9,12 +9,12 @@ const mutations = {
     }
 };
 const getters = {
-    getCookieAccepted: (state, getters, {route}) => {
-        if(route.name === 'tutoring'){
-            return true
-        }
-        return state.cookieAccepted
-    },
+    // getCookieAccepted: (state, getters, {route}) => {
+    //     if(route.name === 'tutoring'){
+    //         return true
+    //     }
+    //     return state.cookieAccepted
+    // },
 };
 const actions = {
     setCookieAccepted({ commit }){

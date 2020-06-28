@@ -98,7 +98,7 @@ export default {
                     this.getSelectedClasses.some(course=> course.text === this.courseForAll?.text)
                 )) || this.$t("tutorRequest_invalid"),
                 integer: (value) => validationRules.integer(value),
-                maximum: (value) => validationRules.maxVal(value, 1000),
+                maximum: (value) => validationRules.maxVal(value, 2147483647),
                 minimum: (value) => validationRules.minVal(value,0),
             },
         }

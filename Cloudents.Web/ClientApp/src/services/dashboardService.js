@@ -151,15 +151,15 @@ function createFollowersItems({data}) {
    return followersItems;
 }
 
-function TutorActions(objInit) {
-   this.calendarShared = objInit.calendarShared;
-   this.haveHours = objInit.haveHours;
-   this.bookedSession = objInit.bookedSession;
-}
+// function TutorActions(objInit) {
+//    this.calendarShared = objInit.calendarShared;
+//    this.haveHours = objInit.haveHours;
+//    this.bookedSession = objInit.bookedSession;
+// }
 
-function createTutorActions({data}) {
-   return new TutorActions(data);
-}
+// function createTutorActions({data}) {
+//    return new TutorActions(data);
+// }
 
 function createBlogs({data}) {
    return data.map(item => new Blogs.Default(item))
@@ -192,9 +192,9 @@ function getStudyRoomItems(type){
 function getFollowersItems(){
    return connectivityModule.http.get('/Account/followers').then(createFollowersItems).catch(ex => ex);
 }
-function getTutorActions(){
-   return connectivityModule.http.get('/dashboard/tutorActions').then(createTutorActions);
-}
+// function getTutorActions(){
+//    return connectivityModule.http.get('/dashboard/tutorActions').then(createTutorActions);
+// }
 function getSpitballBlogs(){
    return connectivityModule.http.get('/blog').then(createBlogs).catch(ex => ex);
 }
@@ -214,7 +214,7 @@ export default {
    getPurchasesItems,
    getStudyRoomItems,
    getFollowersItems,
-   getTutorActions,
+   //getTutorActions,
    getSpitballBlogs,
    getMarketingBlogs,
    removeStudyRoomSession

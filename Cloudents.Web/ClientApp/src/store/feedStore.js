@@ -1,7 +1,7 @@
 
 import searchService from "../services/searchService";
 import reportService from "../services/cardActionService";
-const emptyStateSelection = {key:'Empty',value:''};
+//const emptyStateSelection = {key:'Empty',value:''};
 const state = {
     queItems: [],
     items: {},
@@ -10,123 +10,123 @@ const state = {
 };
 
 const getters = {
-    Feeds_getIsLoading: state => state.isFeedLoading,
+    // Feeds_getIsLoading: state => state.isFeedLoading,
     Feeds_getItems: (state) => {
         return (state.isFeedLoading) ? state.dataLoaded : state.items.data;
     },
-    Feeds_getFilters: (state) => {
-        let x = state.items.filters || [];
-        let filters = x || [];
-        if(filters){
-            filters = filters.map(filter=>{
-                return {key: filter,value: filter}
-            })
-            filters.unshift(emptyStateSelection)
-        }
-        return filters;
-    },
-    Feeds_getCurrentQuery (state, getters, rootState) {
-        let route = rootState.route;
-        function getFilter(){
-            if(route.query.filter === 'Question' && route.query.term){
-                return emptyStateSelection
-            }else{
-                return route.query.filter || emptyStateSelection
-            }
-        }
-        return {
-            filter : getFilter(),
-            course : route.query.course,
-            term: route.query.term
-        };
-    }
+    // Feeds_getFilters: (state) => {
+    //     let x = state.items.filters || [];
+    //     let filters = x || [];
+    //     if(filters){
+    //         filters = filters.map(filter=>{
+    //             return {key: filter,value: filter}
+    //         })
+    //         filters.unshift(emptyStateSelection)
+    //     }
+    //     return filters;
+    // },
+    // Feeds_getCurrentQuery (state, getters, rootState) {
+    //     let route = rootState.route;
+    //     function getFilter(){
+    //         if(route.query.filter === 'Question' && route.query.term){
+    //             return emptyStateSelection
+    //         }else{
+    //             return route.query.filter || emptyStateSelection
+    //         }
+    //     }
+    //     return {
+    //         filter : getFilter(),
+    //         course : route.query.course,
+    //         term: route.query.term
+    //     };
+    // }
 };
 
 const mutations = {
-    Feeds_SetLoading(state, data){
-        state.isFeedLoading = data;
-    },
-    Feeds_SetItems(state, data) {
-        state.items = data;
-    },
-    Feeds_setDataLoaded(state, data){
-        state.dataLoaded = data;
-    },
-    Feeds_UpdateItems(state, data) {
-        state.items.data = state.items.data.concat(data.data);
-    },
-    Feeds_ResetQue(state) {
-        state.queItems = [];
-    },
-    Feeds_AddQuestion(state, questionObj) {
-        if (!!state.items && !!state.items.data && state.items.data.length > 0) {
-            if (!!questionObj.user) {
-                let authorId = questionObj.question.userId;
-                let currentUser = questionObj.user;
-                let questionToAdd = questionObj.question;
-                if (currentUser.id === authorId) {
-                    state.items.data.unshift(questionToAdd);
-                } else {
-                    state.queItems.unshift(questionToAdd);
-                }
-            } else {
-                state.queItems.unshift(questionObj.question);
-            }
-        }
-    },
+    // Feeds_SetLoading(state, data){
+    //     state.isFeedLoading = data;
+    // },
+    // Feeds_SetItems(state, data) {
+    //     state.items = data;
+    // },
+    // Feeds_setDataLoaded(state, data){
+    //     state.dataLoaded = data;
+    // },
+    // Feeds_UpdateItems(state, data) {
+    //     state.items.data = state.items.data.concat(data.data);
+    // },
+    // Feeds_ResetQue(state) {
+    //     state.queItems = [];
+    // },
+    // Feeds_AddQuestion(state, questionObj) {
+    //     if (!!state.items && !!state.items.data && state.items.data.length > 0) {
+    //         if (!!questionObj.user) {
+    //             let authorId = questionObj.question.userId;
+    //             let currentUser = questionObj.user;
+    //             let questionToAdd = questionObj.question;
+    //             if (currentUser.id === authorId) {
+    //                 state.items.data.unshift(questionToAdd);
+    //             } else {
+    //                 state.queItems.unshift(questionToAdd);
+    //             }
+    //         } else {
+    //             state.queItems.unshift(questionObj.question);
+    //         }
+    //     }
+    // },
     Feeds_removeQuestion(state, questionIndex) {
         state.items.data.splice(questionIndex, 1);
     },
     Feeds_removeDocItem(state, itemIndex) {
         state.items.data.splice(itemIndex, 1);
     },
-    Feeds_markQuestionAsCorrect(state, questionObj) {
-        state.items.data[questionObj.questionIndex].hasCorrectAnswer = true;
-        state.items.data[questionObj.questionIndex].correctAnswerId = questionObj.answerId;
-    },
-    Feeds_updateAnswersCounter(state, {counter,questionIndex}) {
-        state.items.data[questionIndex].answers += counter;
-    },
+    // Feeds_markQuestionAsCorrect(state, questionObj) {
+    //     state.items.data[questionObj.questionIndex].hasCorrectAnswer = true;
+    //     state.items.data[questionObj.questionIndex].correctAnswerId = questionObj.answerId;
+    // },
+    // Feeds_updateAnswersCounter(state, {counter,questionIndex}) {
+    //     state.items.data[questionIndex].answers += counter;
+    // },
 };
 
 const actions = {
-    Feeds_UpdateLoading({commit},loadingStatus){
-        commit('Feeds_SetLoading',loadingStatus)
-    },
-    Feeds_nextPage({dispatch}, {url}) {
-        return searchService.nextPage({url}).then((data) => {
-            dispatch('Feeds_updateData', data);
-            return data;
-        });
-    },
-    Feeds_updateDataLoaded({commit}, data){
-        commit('Feeds_setDataLoaded', data);
-    },
-    Feeds_setDataItems({commit}, data) {
-        commit('Feeds_SetItems', data);
-    },
-    Feeds_updateData({commit}, data) {
-        commit('Feeds_UpdateItems', data);
-    },
-    Feeds_fetchingData({commit, dispatch}, {params}) {
-        dispatch('Feeds_updateDataLoaded', false);
-        dispatch('Feeds_UpdateLoading',true)
-        commit('Feeds_ResetQue');
-        let paramsList = {...params};
-        if(paramsList.filter?.key || paramsList.filter === 'Question' && paramsList.term){
-            delete paramsList.filter;
-        }
-        return searchService.activateFunction.feed(paramsList).then((data) => {
-            dispatch('Feeds_updateDataLoaded', true)
-            dispatch('Feeds_setDataItems', data);
-            return data;
-        }, (err) => {
-            return Promise.reject(err);
-        }).finally(()=>{
-            dispatch('Feeds_UpdateLoading',false)
-            return
-        });
-    },
+    // Feeds_UpdateLoading({commit},loadingStatus){
+    //     commit('Feeds_SetLoading',loadingStatus)
+    // },
+    // Feeds_nextPage({dispatch}, {url}) {
+    //     return searchService.nextPage({url}).then((data) => {
+    //         dispatch('Feeds_updateData', data);
+    //         return data;
+    //     });
+    // },
+    // Feeds_updateDataLoaded({commit}, data){
+    //     commit('Feeds_setDataLoaded', data);
+    // },
+    // Feeds_setDataItems({commit}, data) {
+    //     commit('Feeds_SetItems', data);
+    // },
+    // Feeds_updateData({commit}, data) {
+    //     commit('Feeds_UpdateItems', data);
+    // },
+    // Feeds_fetchingData({commit, dispatch}, {params}) {
+    //     dispatch('Feeds_updateDataLoaded', false);
+    //     dispatch('Feeds_UpdateLoading',true)
+    //     commit('Feeds_ResetQue');
+    //     let paramsList = {...params};
+    //     if(paramsList.filter?.key || paramsList.filter === 'Question' && paramsList.term){
+    //         delete paramsList.filter;
+    //     }
+    //     return searchService.activateFunction.feed(paramsList).then((data) => {
+    //         dispatch('Feeds_updateDataLoaded', true)
+    //         dispatch('Feeds_setDataItems', data);
+    //         return data;
+    //     }, (err) => {
+    //         return Promise.reject(err);
+    //     }).finally(()=>{
+    //         dispatch('Feeds_UpdateLoading',false)
+    //         return
+    //     });
+    // },
     removeQuestionItemAction({commit, state}, notificationQuestionObject) {
         if (!!state.items && !!state.items.data && state.items.data.length > 0) {
             for (let questionIndex = 0; questionIndex < state.items.data.length; questionIndex++) {

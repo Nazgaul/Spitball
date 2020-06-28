@@ -3,7 +3,6 @@ using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

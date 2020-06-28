@@ -1,15 +1,15 @@
     <template>
     <div class="profileCoverActions text-sm-center px-4">
-        <h1 class="mainTitle mb-4 white--text">{{description}}</h1>
-        <h2 class="subTitle white--text">{{bio}}</h2>
-        <div class="mt-5">
+        <h1 class="mainTitle mb-3 white--text">{{description}}</h1>
+        <h2 class="subTitle white--text">{{paragraph}}</h2>
+        <div class="mt-5 mb-sm-5">
             <v-btn class="btn white--text me-3" @click="sendMessage" rounded depressed color="#ff6927" width="200" height="46" :block="isMobile">
                 <chatIcon class="me-2" width="23" />
-                <span v-t="'message_me'"></span>
+                <span class="flex-grow-1 flex-sm-grow-0 pe-7 pe-sm-0" v-t="'message_me'"></span>
             </v-btn>
-            <v-btn class="btn white--text" @click="openCalendar" v-if="$store.getters.getProfileIsCalendar" rounded depressed color="#4c59ff" width="200" height="46" :block="isMobile">
+            <v-btn class="btn white--text mt-4 mt-sm-0" @click="openCalendar" v-if="$store.getters.getProfileIsCalendar" rounded depressed color="#4c59ff" width="200" height="46" :block="isMobile">
                 <calendarIcon class="me-2" width="23" />
-                <span v-t="'book_lesson'"></span>
+                <span class="flex-grow-1 flex-sm-grow-0 pe-7 pe-sm-0" v-t="'book_lesson'"></span>
             </v-btn>
         </div>
     </div>
@@ -41,8 +41,8 @@ export default {
         user() {
             return this.$store.getters.getProfile
         },
-        bio() {
-            return this.$store.getters.getProfileBio
+        paragraph() {
+            return this.$store.getters.getProfileParagraph
         },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
@@ -112,6 +112,8 @@ export default {
 </script>
 
 <style lang="less">
+@import '../../../../styles/mixin.less';
+
 .profileCoverActions {
     position: absolute;
     left: 0;
@@ -126,6 +128,9 @@ export default {
         margin: 0 auto;
         font-size: 16px;
         font-weight: 500;
+        @media (max-width: @screen-xs) {
+            font-size: 15px;
+        }
     }
     .btn {
         font-size: 16px;
