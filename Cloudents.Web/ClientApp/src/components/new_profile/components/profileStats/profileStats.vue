@@ -2,19 +2,19 @@
     <div class="profileStats d-flex align-center justify-center pa-2 text-center">
         <div class="stats">
             <div class="number">{{hours}}</div>
-            <div class="text">{{$tc('stats_teachs')}}</div>
+            <div class="text">{{$tc('stats_teachs', hours)}}</div>
         </div>
         <div class="stats">
             <div class="number">{{reviews}}</div>
-            <div class="text">{{$tc('stats_reviews')}}</div>
+            <div class="text">{{$tc('stats_reviews', reviews)}}</div>
         </div>
         <div class="stats">
             <div class="number">{{followers}}</div>
-            <div class="text">{{$tc('stats_followers')}}</div>
+            <div class="text">{{$tc('stats_followers', followers)}}</div>
         </div>
         <div class="stats">
             <div class="number">{{resources}}</div>
-            <div class="text">{{$tc('stats_resources')}}</div>
+            <div class="text">{{$tc('stats_resources', resources)}}</div>
         </div>
     </div>
 </template>
