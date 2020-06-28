@@ -65,10 +65,9 @@
                     <v-textarea
                         rows="2"
                         outlined
-                        v-model="description"
+                        v-model="title"
                         :rules="[rules.descriptionMaxChars]"
                         counter="28"
-                        class="tutor-edit-description"
                         name="input-about"
                         :label="$t('profile_description_label')"
                     ></v-textarea>
@@ -82,7 +81,6 @@
                         v-model="shortParagraph"
                         :rules="[rules.shortParagraphMaxChars]"
                         counter="96"
-                        class="tutor-edit-description"
                         name="input-about"
                         :label="$t('Short paragraph')"
                     ></v-textarea>
@@ -114,119 +112,105 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import { validationRules } from '../../../../services/utilities/formValidationRules';
-    import uploadImage from '../../profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue'
-    export default {
-        name: "tutorInfoEdit",
-        components: {
-           uploadImage 
-        },
-        data() {
-            return {
-                editedBio: '',
-                editedDescription: '',
-                editShortParagraph: '',
-                editedFirstName: '',
-                editedLastName: '',
-                rules: {
-                    required: (value) => validationRules.required(value),
-                    minimum: (value) => validationRules.minVal(value, 35),
-                    maximum: (value) => validationRules.maxVal(value, 1000),
-                    maximumChars: (value) => validationRules.maximumChars(value, 1000),
-                    minimumChars: (value) => validationRules.minimumChars(value, 2),
-                    // descriptionMinChars: (value) => validationRules.minimumChars(value, 2),
-                    descriptionMaxChars: (value) => validationRules.maximumChars(value, 28),
-                    shortParagraphMaxChars: (value) => validationRules.maximumChars(value, 96),
-                    integer: (value) => validationRules.integer(value)
-                },
-                valid: false,
-                btnLoading: false
-            };
-        },
-        computed: {
-            ...mapGetters(['getProfile','accountUser', 'isFrymo']),
-            isMobile() {
-                return this.$vuetify.breakpoint.xsOnly
-            },
-            shortParagraph: {
-                get() {
-                    return this.$store.getters.getProfileBio
-                },
-                set(newVal) {
-                    this.editShortParagraph = newVal;
-                }
-            },
-            bio: {
-                get() {
-                    return this.$store.getters.getProfileParagraph
-                },
-                set(newVal) {
-                    this.editedBio = newVal;
-                }
-            },
-            firstName: {
-                get() {
-                    return this.getProfile.user.firstName;
-                },
-                set(newVal) {
-                    this.editedFirstName = newVal;
-                }
-            },
-            lastName: {
-                get() {
-                    return this.getProfile.user.lastName;
-                },
-                set(newVal) {
-                    this.editedLastName = newVal;
-                }
-            },
-            description: {
-                get() {
-                    return this.$store.getters.getProfileDescription;
-                },
-                set(newVal) {
-                    this.editedDescription = newVal;
-                }
-            }
-        },
-        methods: {
-            saveChanges() {
-                if(this.$refs.formTutor.validate()) {
-                    let firstName = this.editedFirstName || this.firstName;
-                    let lastName = this.editedLastName || this.lastName;
-                    let shortParagraph = this.editShortParagraph || this.shortParagraph; //2
-                    let bio = this.editedBio || this.bio; //3
-                    let description = this.editedDescription || this.description; //TITLE
-                    this.btnLoading = true;
-                    let serverFormat = {
-                        firstName,
-                        lastName,
-                        shortParagraph,
-                        bio,
-                        description,
-                    };
-                    this.$store.dispatch('saveUserInfo', serverFormat)
-                        .then(() => {
-                            this.closeDialog();
-                        }, (error) => {
-                            console.error(error);
-                            //TODO : error callback
-                        }).finally(() => {
-                            this.btnLoading = false;
-                        });
-                }
-            },
-            closeDialog() {
-                this.$store.commit('setEditDialog', false);
-            }
-        },
-        created() {
-            this.editedBio = this.getProfile.user.tutorData.bio || '';
-            this.editedDescription = this.getProfile.user.description || '';
-        }
+import { validationRules } from '../../../../services/utilities/formValidationRules';
+import uploadImage from '../../profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue'
 
-    };
+export default {
+    name: "tutorInfoEdit",
+    components: {
+        uploadImage 
+    },
+    data() {
+        return {
+            editedBio: '',
+            editTitle: '',
+            editShortParagraph: '',
+            editedFirstName: '',
+            editedLastName: '',
+            valid: false,
+            btnLoading: false,
+            rules: {
+                required: (value) => validationRules.required(value),
+                minimum: (value) => validationRules.minVal(value, 35),
+                maximum: (value) => validationRules.maxVal(value, 1000),
+                maximumChars: (value) => validationRules.maximumChars(value, 1000),
+                minimumChars: (value) => validationRules.minimumChars(value, 2),
+                descriptionMaxChars: (value) => validationRules.maximumChars(value, 28),
+                shortParagraphMaxChars: (value) => validationRules.maximumChars(value, 96)
+            }
+        };
+    },
+    computed: {
+        isMobile() {
+            return this.$vuetify.breakpoint.xsOnly
+        },
+        shortParagraph: {
+            get() {
+                return this.$store.getters.getProfileBio
+            },
+            set(newVal) {
+                this.editShortParagraph = newVal;
+            }
+        },
+        bio: {
+            get() {
+                return this.$store.getters.getProfileParagraph
+            },
+            set(newVal) {
+                this.editedBio = newVal;
+            }
+        },
+        firstName: {
+            get() {
+                return this.$store.getters.getProfileFirstName;
+            },
+            set(newVal) {
+                this.editedFirstName = newVal;
+            }
+        },
+        lastName: {
+            get() {
+                return this.$store.getters.getProfileLastName;
+            },
+            set(newVal) {
+                this.editedLastName = newVal;
+            }
+        },
+        title: {
+            get() {
+                return this.$store.getters.getProfileTitle;
+            },
+            set(newVal) {
+                this.editTitle = newVal;
+            }
+        }
+    },
+    methods: {
+        saveChanges() {
+            if(this.$refs.formTutor.validate()) {
+                this.btnLoading = true;
+                let serverFormat = {
+                    firstName: this.editedFirstName || this.firstName,
+                    lastName: this.editedLastName || this.lastName,
+                    shortParagraph: this.editShortParagraph || this.shortParagraph,
+                    bio: this.editedBio || this.bio,
+                    title: this.editTitle || this.title
+                };
+                this.$store.dispatch('saveUserInfo', serverFormat)
+                    .then(() => {
+                        this.closeDialog();
+                    }, (error) => {
+                        console.error(error);
+                    }).finally(() => {
+                        this.btnLoading = false;
+                    });
+            }
+        },
+        closeDialog() {
+            this.$store.commit('setEditDialog', false);
+        }
+    }
+};
 </script>
 
 <style lang="less">

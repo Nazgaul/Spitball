@@ -1,6 +1,6 @@
     <template>
     <div class="profileCoverActions text-sm-center px-4">
-        <h1 dir="auto" class="mainTitle mb-3 white--text">{{description}}</h1>
+        <h1 dir="auto" class="mainTitle mb-3 white--text">{{title}}</h1>
         <h2 dir="auto" class="subTitle white--text">{{paragraph}}</h2>
         <div class="mt-5 mb-sm-5">
             <v-btn class="btn white--text me-3" @click="sendMessage" rounded depressed color="#ff6927" width="200" height="46" :block="isMobile">
@@ -35,8 +35,8 @@ export default {
         isMyProfile() {
             return this.$store.getters.getIsMyProfile
         },
-        description() {
-            return this.$store.getters.getProfileDescription
+        title() {
+            return this.$store.getters.getProfileTitle
         },
         user() {
             return this.$store.getters.getProfile

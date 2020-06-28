@@ -38,7 +38,7 @@ export default {
         @media (max-width: @screen-xs) {
             // width: 94px;
             height: 22px;
-            margin-top: 8px;
+            // margin-top: 8px;
             margin-left: 10px;
         }  
     }

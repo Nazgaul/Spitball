@@ -78,8 +78,6 @@ export default {
             {name: this.$t('profile_select_item_type_all'),value:''},
             {name: this.$t('profile_select_item_type_docs'),value:0},
             {name: this.$t('profile_select_item_type_videos'),value:1},
-            // {name:'Answer',value:'answers'},
-            // {name:'Question',value:'questions'},
          ],
          selectedModel:{
             itemType:{name: this.$t('profile_select_item_type_all'),value:''},
@@ -114,13 +112,12 @@ export default {
       },
       items(){
          return this.$store.getters.getProfileDocuments?.result
-         // return this.getProfile?.documents.result;
       },
       userName(){
-         return this.getProfile?.user.firstName? this.getProfile.user.firstName : this.getProfile.user.name;
+         return this.getProfile?.user?.firstName ? this.getProfile?.user?.firstName : this.getProfile?.user?.name;
       },
       userCourses(){
-         return this.getProfile?.user.documentCourses;
+         return this.getProfile?.user?.documentCourses || [];
       }
    },
    methods: {

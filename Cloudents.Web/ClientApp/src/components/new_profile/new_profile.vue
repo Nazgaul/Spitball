@@ -21,7 +21,7 @@
       />
       <profileSubscription :id="id" v-if="showProfileSubscription" ref="profileSubscription" />
       <profileBroadcasts :id="id" @isComponentReady="val => goToLiveClasses = true" ref="profileLiveClassesElement" />
-      <profileItemsBox v-if="isMyProfile || showItems" class="mt-sm-12 mt-8" />
+      <profileItemsBox v-if="showItems" class="mt-sm-12 mt-8" />
       <profileReviewsBox class="my-10 mt-2" />
     </div>
     <profileFooter />
@@ -111,21 +111,11 @@ export default {
             }
             return false
         },
-        showReviewBox(){
-            if(this.getProfile?.user?.tutorData?.rate){
-              return true;
-            }else{
-              return false
-            }
-        },
         isMyProfile(){
           return this.$store.getters.getIsMyProfile
         },
         showItems(){
-            if(!!this.getProfile){
-              return this.uploadedDocuments?.result?.length
-            }
-            return false
+            return this.$store.getters.getProfileDocuments?.result?.length
         },
         showCalendarTab() {
             let isCalendar = this.getProfile?.user?.calendarShared
@@ -133,12 +123,6 @@ export default {
                 return !isCalendar || (this.activeTab === 5 && isCalendar) 
             }
             return isCalendar && this.calendarActive
-        },
-        profileData() {
-          return this.getProfile;
-        },
-        uploadedDocuments() {
-          return this.$store.getters.getProfileDocuments
         },
     },
     watch: {
