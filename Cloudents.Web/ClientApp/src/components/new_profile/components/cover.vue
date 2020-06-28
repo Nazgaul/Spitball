@@ -14,7 +14,7 @@
         v-show="false"
       />
       <label for="profile-cover-upload">
-        <v-icon class="attach-icon">sbf-camera</v-icon>
+        <v-icon class="attach-icon" size="16" color="#fff">sbf-camera</v-icon>
         <span class="image-edit-text" v-t="'profile_edit_image_text'"></span>
       </label>
     </div>
@@ -110,10 +110,13 @@ export default {
 }
 .coverupload {
   position: absolute;
-  padding: 4px;
+  margin: 6px;
+  padding: 4px 8px 6px;
   z-index: 2;
-  border: 1px solid black;
-  background-color: #fff;
+  color: #fff;
+  // border: 1px solid black;
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.6);
   @media (max-width: @screen-xs) {
     position: absolute; // temporary for mobile version till new design
   }

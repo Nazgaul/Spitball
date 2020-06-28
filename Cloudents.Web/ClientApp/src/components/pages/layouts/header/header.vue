@@ -9,7 +9,7 @@
         </router-link>
         <template v-if="$route.meta.tutorHeaderSlot">
             <div class="dividerName mx-8" v-show="!isMobile"></div>
-            <div class="tutorName text-truncate text-center text-sm-left">{{$store.getters.getProfileTutorName}}</div>
+            <div class="tutorName text-truncate text-center text-sm-left pb-1">{{tutorName}}</div>
         </template>
         <div class="globalHeader_items" :class="{'tutorProfile': $route.name === profileRoute}">
             <!-- <div class="globalHeader_items_left" v-if="!isMobile">
@@ -132,6 +132,9 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
     },
     computed: {
         ...mapGetters(['accountUser','getTotalUnread','getBannerParams','getUserLoggedInStatus','getUserBalance', 'getIsTeacher']),
+        tutorName() {
+            return this.$store.getters.getProfileTutorName
+        },
         loggedIn() {
             return this.getUserLoggedInStatus;
         },

@@ -1,6 +1,6 @@
     <template>
-    <div class="profileCoverActions text-center">
-        <h1 class="mainTitle mb-2 white--text">{{description}}</h1>
+    <div class="profileCoverActions text-sm-center px-4">
+        <h1 class="mainTitle mb-4 white--text">{{description}}</h1>
         <h2 class="subTitle white--text">{{bio}}</h2>
         <div class="mt-5">
             <v-btn class="btn white--text me-3" @click="sendMessage" rounded depressed color="#ff6927" width="200" height="46" :block="isMobile">
@@ -116,7 +116,7 @@ export default {
     position: absolute;
     left: 0;
     right: 0;
-    top: 350px;
+    bottom: 16px;
     .mainTitle {
         font-size: 44px;
         font-weight: 600;
@@ -125,7 +125,7 @@ export default {
         max-width: 450px;
         margin: 0 auto;
         font-size: 16px;
-        font-weight: 600;
+        font-weight: 500;
     }
     .btn {
         font-size: 16px;

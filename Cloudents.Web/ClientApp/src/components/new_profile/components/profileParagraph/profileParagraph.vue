@@ -1,5 +1,5 @@
 <template>
-  <div class="profileParagraph mt-12">
+  <div class="profileParagraph text-left text-sm-center pa-2 pa-sm-0" :class="{'mt-9': !isMyProfile}">
       <span class="paragraph">
         {{paragraph}}
       </span>
@@ -10,6 +10,9 @@
 export default {
     name: 'profileParagraph',
     computed: {
+        isMyProfile(){
+            return this.$store.getters.getIsMyProfile
+        },
         paragraph() {
             return this.$store.getters.getProfileParagraph
         }
@@ -19,11 +22,10 @@ export default {
 
 <style lang="less">
 .profileParagraph {
-    text-align: center;
     max-width: 960px;
     margin: 0 auto;
     color: #363637;
-    white-space: break-spaces; // for now
+    // white-space: break-spaces; // for now
     .paragraph {
         line-height: 1.7;
         font-size: 20px;

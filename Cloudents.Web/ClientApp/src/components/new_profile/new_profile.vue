@@ -6,12 +6,12 @@
     </div>
     <profileStats />
     <div class="profileEdit text-right pa-2" v-if="isMyProfile">
-      <v-btn @click="openTutorEditInfo" width="122" color="#e6e8e9" height="40" depressed>
+      <v-btn @click="openTutorEditInfo" :block="$vuetify.breakpoint.xsOnly" width="122" color="#e6e8e9" height="40" depressed>
         <editSVG class="editIcon" />
         <span class="text ms-2" v-t="'edit'"></span>
       </v-btn>
     </div>
-    <!-- <profileParagraph /> -->
+    <profileParagraph />
     <div class="profilePage_main profile-page-container">
       <calendarTab
         ref="calendarTab"
@@ -37,7 +37,7 @@ import cover from "./components/cover.vue";
 import profileCoverActions from './components/profileCoverActions/profileCoverActions.vue';
 import profileDialogs from './components/profileDialogs/profileDialogs.vue';
 import profileStats from './components/profileStats/profileStats.vue';
-// import profileParagraph from './components/profileParagraph/profileParagraph.vue';
+import profileParagraph from './components/profileParagraph/profileParagraph.vue';
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileBroadcasts from './components/profileLiveClasses/profileBroadcasts.vue'
@@ -54,7 +54,7 @@ export default {
         profileDialogs,
         profileCoverActions,
         profileStats,
-        // profileParagraph,
+        profileParagraph,
         profileReviewsBox,
         profileItemsBox,
         profileBroadcasts,

@@ -262,7 +262,6 @@ export default {
     
     .mainTitle {
         font-size: 36px;
-        max-width: 400px;
         margin: 0 auto;
         font-weight: 600;
         color: #363637;
