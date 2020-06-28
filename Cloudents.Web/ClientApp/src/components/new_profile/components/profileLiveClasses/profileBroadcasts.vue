@@ -1,7 +1,7 @@
 <template>
     <div v-if="broadcastSessions.length">
         <div class="profileBroadcast pa-4 pb-0 pa-sm-0">
-            <div class="mainTitle text-sm-center mb-8" v-t="'my_live_classes'"></div>
+            <div class="mainTitle text-sm-center mb-6" v-t="'my_live_classes'"></div>
             <div 
                 v-for="session in sessionsList"
                 class="broadcastList"
@@ -25,7 +25,7 @@
                     <div class="leftSide d-sm-flex me-sm-6">
                         <img :src="liveImage" alt="">
                     </div>
-                    <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pe-0 ps-0">
+                    <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pt-1 pe-0 ps-0">
 
                         <div class="header d-flex justify-space-between mb-4" v-if="!isMobile">
                             <div>
@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="center">
-                            <div class="sessionTitle mb-3" v-if="!isMobile">{{session.name}}</div>
+                            <div class="sessionTitle mb-2" v-if="!isMobile">{{session.name}}</div>
                             <input type="checkbox" value="false" class="toggleCheckbox" :id="session.index" />
                             <template>
                                 <div class="description">
@@ -52,7 +52,7 @@
                             </template>
                         </div>
 
-                        <div class="bottom d-flex align-end justify-space-between text-center" :class="{'mt-6': session.description}">
+                        <div class="bottom d-flex align-end justify-space-between text-center" :class="{'mt-5': session.description}">
                                 <v-btn
                                     v-if="isMyProfile || session.enrolled"
                                     @click="$router.push({name: studyroomRoute, params: { id: session.id } })"
@@ -89,7 +89,7 @@
                                 </v-btn>
                             <div class="subscription">
                                 <span v-t="'regular'"></span>
-                                <span class="number text-left ms-sm1">{{$price(session.price.amount, session.price.currency, true)}}</span>
+                                <span class="number text-left ms-sm-1">{{$price(session.price.amount, session.price.currency, true)}}</span>
                             </div>
                             <div class="subscription">
                                 <span v-t="'subscriber'"></span>
@@ -101,10 +101,14 @@
                 </div>
             </div>
         </div>
-
-        <div class="showMore text-center pb-3" v-if="broadcastSessions.length > 2">
-            <arrowDownIcon class="arrowIcon" :class="{'exapnd': isExpand}" width="26" @click="isExpand = !isExpand"/>
+        <div class="showMore text-center mt-n2" v-if="broadcastSessions.length > 2" @click="isExpand = !isExpand">
+            <!-- TODO: add text for less -->
+            <span>{{buttonShowMore}}</span>
         </div>
+
+        <!-- <v-btn class="showMore text-center" v-if="broadcastSessions.length > 2" depressed fab small color="#ff6f30">
+            <arrowDownIcon class="arrowIcon" fill="#fff" :class="{'exapnd': isExpand}" width="24" @click="isExpand = !isExpand"/>
+        </v-btn> -->
 
         <v-snackbar
             absolute
@@ -123,13 +127,13 @@
 import { StudyRoom } from '../../../../routes/routeNames'
 
 import enterIcon from './enterRoom.svg'
-import arrowDownIcon from './group-3-copy-12.svg'
+// import arrowDownIcon from './group-3-copy-12.svg'
 
 export default {
     name: 'profileLiveClasses',
     components: {
         enterIcon,
-        arrowDownIcon  
+        // arrowDownIcon  
     },
     props: {
         id: {
@@ -154,6 +158,9 @@ export default {
         }
     },
     computed: {
+        buttonShowMore() {
+            return !this.isExpand ?  this.$t('See all live classes') : this.$t('See less live classes')
+        },
         liveImage() {
             return this.isMobile ? require('./live-banner-mobile.png') : require('./live-banner-desktop.png')
         },
@@ -351,6 +358,9 @@ export default {
                     }
                     .subscription {
                         padding: 0 10px;
+                        @media(max-width: @screen-xs) {
+                            font-size: 13px;
+                        }
                     }
                 }
             }
@@ -367,12 +377,27 @@ export default {
         font-weight: 600;
     }
 }
+// .showMore {
+//     .arrowIcon {
+//         cursor: pointer;
+//         &.exapnd {
+//             transform: scaleY(-1);
+//         }
+//     }
+// }
+
 .showMore {
-    .arrowIcon {
-        cursor: pointer;
-        &.exapnd {
-            transform: scaleY(-1);
-        }
+    max-width: max-content;
+    margin: 0 auto;
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    font-weight: 600;
+    border-radius: 6px;
+
+    @media (max-width: @screen-xs) {
+        margin: 0 16px;
+        padding: 12px;
+        max-width: 100%;
     }
 }
 </style>

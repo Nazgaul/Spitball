@@ -5,7 +5,7 @@
       <profileCoverActions @setCalendarActive="val => calendarActive = val" />
     </div>
     <profileStats />
-    <div class="profileEdit text-right pa-2" v-if="isMyProfile">
+    <div class="profileEdit text-right pa-3 px-sm-3 px-4" v-if="isMyProfile">
       <v-btn @click="openTutorEditInfo" :block="$vuetify.breakpoint.xsOnly" width="122" color="#e6e8e9" height="40" depressed>
         <editSVG class="editIcon" />
         <span class="text ms-2" v-t="'edit'"></span>
@@ -21,8 +21,8 @@
       />
       <profileSubscription :id="id" v-if="showProfileSubscription" ref="profileSubscription" />
       <profileBroadcasts :id="id" @isComponentReady="val => goToLiveClasses = true" ref="profileLiveClassesElement" />
-      <profileItemsBox v-if="isMyProfile || showItems" class="mt-sm-12 mt-2" />
-      <profileReviewsBox class="mt-sm-10 mt-2" />
+      <profileItemsBox v-if="isMyProfile || showItems" class="mt-sm-12 mt-8" />
+      <profileReviewsBox class="my-10 mt-2" />
     </div>
     <profileFooter />
     <profileDialogs />

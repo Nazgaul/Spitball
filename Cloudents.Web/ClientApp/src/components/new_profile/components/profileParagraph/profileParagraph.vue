@@ -1,34 +1,79 @@
 <template>
-  <div class="profileParagraph text-left text-sm-center pa-2 pa-sm-0" :class="{'mt-9': !isMyProfile}">
-      <span class="paragraph">
-        {{paragraph}}
-      </span>
+  <div class="profileParagraph text-left text-sm-center pa-2 px-4" :class="{'mt-2': !isMyProfile}">
+    <div class="paragraph">
+        {{bio | truncate(isOpen, '...', textLimit)}}
+    </div>
+    <div class="d-none">{{bio | restOfText(isOpen, '...', textLimit)}}</div>
+    <span sel="bio_more" @click="isOpen = !isOpen" class="readMore">{{readMoreText}}</span>
   </div>
 </template>
 
 <script>
 export default {
     name: 'profileParagraph',
+    data() {
+        return {
+            defOpen:false,
+        }
+    },
     computed: {
+        readMoreText() {
+            return this.isOpen ? this.$t('profile_read_less') : this.$t('profile_read_more')
+        },
         isMyProfile(){
             return this.$store.getters.getIsMyProfile
         },
-        paragraph() {
-            return this.$store.getters.getProfileParagraph
+        bio() {
+            return this.$store.getters.getProfileBio
+        },
+        isOpen :{
+            get(){
+                return this.defOpen
+            },
+            set(val){
+                this.defOpen = val
+            }
+        },
+        textLimit(){
+            return this.isMobile ? 76 : 130;
+        },
+    },
+    filters: {
+        truncate(val, isOpen, suffix, textLimit){
+            if (val.length > textLimit && !isOpen) {
+                return val.substring(0, textLimit) +  suffix + ' ';
+            } 
+            if (val.length > textLimit && isOpen) {
+                return val + ' ';
+            }
+            return val;
+        },
+        restOfText(val, isOpen, suffix, textLimit){
+            if (val.length > textLimit && !isOpen) {
+                return val.substring(textLimit) ;
+            }
+            if (val.length > textLimit && isOpen) {
+                return '';
+            }
         }
-    }
+    },
 }
 </script>
 
 <style lang="less">
+@import '../../../../styles/mixin.less';
+
 .profileParagraph {
-    max-width: 960px;
+    max-width: 830px;
     margin: 0 auto;
     color: #363637;
-    // white-space: break-spaces; // for now
     .paragraph {
+        display: contents;
         line-height: 1.7;
         font-size: 20px;
+        @media (max-width: @screen-xs) {
+            font-size: 16px;
+        }
     }
 }
 </style>
