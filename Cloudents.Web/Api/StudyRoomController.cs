@@ -121,7 +121,7 @@ namespace Cloudents.Web.Api
         /// <param name="profile">No use in swagger</param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpGet("{id:guid}")]
+        [HttpGet("{id:guid}"), AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
@@ -130,15 +130,20 @@ namespace Cloudents.Web.Api
             [ProfileModelBinder(ProfileServiceQuery.Subscribers)] UserProfile profile,
             CancellationToken token)
         {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new EnterStudyRoomCommand(id, userId);
-            try
+            string jwtToken = null;
+            if (_userManager.TryGetLongUserId(User, out var userId))
             {
-                await _commandBus.DispatchAsync(command, default);
-            }
-            catch (InvalidOperationException)
-            {
-                return NotFound();
+
+                try
+                {
+                    var command = new EnterStudyRoomCommand(id, userId);
+                    await _commandBus.DispatchAsync(command, default);
+                    jwtToken = command.JwtToken;
+                }
+                catch (InvalidOperationException)
+                {
+                    return NotFound();
+                }
             }
 
             var query = new StudyRoomQuery(id, userId);
@@ -155,7 +160,7 @@ namespace Cloudents.Web.Api
                 result.TutorPrice = result.TutorPrice.ChangePrice(0);
             }
             result.TutorImage = urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
-            result.Jwt = command.JwtToken;
+            result.Jwt = jwtToken;
             return result;
         }
 
