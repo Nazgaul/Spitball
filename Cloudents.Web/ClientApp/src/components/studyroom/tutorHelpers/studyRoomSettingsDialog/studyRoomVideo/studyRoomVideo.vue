@@ -14,29 +14,6 @@
                     <microphoneImage :class="{'audioIconVisible': !microphoneOn}" width="14" /> 
                     <div id="audio-input-meter" class="ml-2"></div>
                 </div>
-                <!-- <div class="centerIcons d-flex align-center">
-                    <v-btn
-                        class="mx-2"
-                        :class="{'noBorder': !microphoneOn}"
-                        :color="microphoneOn ? 'transparent' : '#cb4243 !important'" @click="toggleMic"
-                        depressed
-                        fab
-                    >
-                        <microphoneImage width="14" v-if="microphoneOn" />
-                        <microphoneImageIgnore width="18" v-else />
-                    </v-btn>
-                    <v-btn 
-                        :loading="cameraInitLoader"
-                        class="mx-2"
-                        :class="{'noBorder': !cameraOn}"
-                        :color="cameraOn ? 'transparent' : '#cb4243 !important'" @click="toggleCamera"
-                        depressed
-                        fab 
-                    >
-                        <videoCameraImage class="videoIcon" width="22" v-if="cameraOn" />
-                        <videoCameraImageIgnore width="18" v-else />
-                    </v-btn>
-                </div> -->
                 <v-icon class="settingIcon" color="#fff" @click="settingDialogState = true" size="22">sbf-settings</v-icon>
             </div>
 
@@ -86,9 +63,6 @@ import studyRoomAudioSettingService from '../studyRoomAudioVideoDialog/studyRoom
 import studyRoomAudioVideoDialog from '../studyRoomAudioVideoDialog/studyRoomAudioVideoDialog.vue'
 
 import microphoneImage from '../../../images/outline-mic-none-24-px-copy-2.svg'
-// import microphoneImageIgnore from '../../../images/mic-ignore.svg';
-// import videoCameraImage from '../../../images/video-camera.svg';
-// import videoCameraImageIgnore from '../../../images/camera-ignore.svg';
 import cameraBlock from '../images/cameraBlock.svg'
 import { mapGetters } from 'vuex';
 import settingMixin from '../settingMixin.js'
@@ -96,10 +70,7 @@ import settingMixin from '../settingMixin.js'
 export default {
     components: {
         studyRoomAudioVideoDialog,
-        // videoCameraImage,
-        // videoCameraImageIgnore,
         microphoneImage,
-        // microphoneImageIgnore,
         cameraBlock
     },
     data(){
@@ -177,19 +148,9 @@ export default {
                     self.cameraOn = false
                     insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoSettings_getVideoInputdevices', err, null);
                 })
-                .finally(()=>{
-                    self.cameraInitLoader = false;
-                })
             self.cameraOn = false
         },
-        getAudioDevices(){
-            let self = this;
-            navigator.mediaDevices.enumerateDevices()
-                .then(devices => {
-                    let audioDevice = devices.find(device => device.kind === 'audioinput' && device.label.toLowerCase().includes('default'));
-                    self.checkAudio(audioDevice.deviceId);
-                });
-        },
+        // 'audioinput'.includes('default'));
         checkAudio(deviceId){
             let audioParams = {
                 audio: {deviceId},
@@ -221,33 +182,6 @@ export default {
             this.placeholder = false
             this.$store.commit('settings_setIsVideo',false)
             this.MIXIN_cleanStreams(this.streamsArray)
-        },
-        toggleMic() {
-            if(this.audioBlockPermission) return
-
-            this.microphoneOn = !this.microphoneOn   
-            if(!this.microphoneOn) {
-                studyRoomAudioSettingService.stopAudioContext()
-                this.$store.dispatch('updateAudioDeviceId',null)
-                return
-            }else{
-                this.checkAudio() 
-            }
-
-        },
-        toggleCamera() {
-            if(this.videoBlockPermission) return
-
-            this.cameraOn = !this.cameraOn
-
-            if(!this.cameraOn) {
-                this.clearVideoTrack()
-                this.$store.dispatch('updateVideoDeviceId',null)
-                return
-            }else{
-                this.cameraInitLoader = true;
-                this.createVideoPreview(this.getVideoDeviceId)
-            }
         },
         startPreview(){
             this.createVideoPreview(this.getVideoDeviceId)
@@ -328,20 +262,6 @@ export default {
                 position: absolute;
                 .audioIconVisible {
                     visibility: hidden;
-                }
-            }
-            .videoIcon {
-                fill: #fff;
-            }
-            .centerIcons {
-                width: 100%;
-                text-align: center;
-                justify-content: center;
-                button {
-                     background-color: rgba(0, 0, 0, 0.15) !important;
-                    &.noBorder {
-                        border: none !important;
-                    }
                 }
             }
             .settingIcon {
