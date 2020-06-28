@@ -150,7 +150,7 @@ shortParagraph: "1`11121"
            lastName: params.lastName,
            title: params.description,
            shortParagraph: params.shortParagraph,
-           p3:params.bio
+           Paragraph:params.bio
        }
        
         return accountInstance.post('/settings', passData)

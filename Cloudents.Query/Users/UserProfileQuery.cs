@@ -52,7 +52,6 @@ namespace Cloudents.Query.Users
                         Cover = s.User.CoverImage,
                         Followers = _session.Query<Follow>().Count(w => w.User.Id == query.Id),
                         TutorCountry = s.User.SbCountry,
-                        Bio = s.Paragraph2,
 
                         SessionTaughtTicks = _session.Query<StudyRoomSession>()
                             .Where(w=>w.StudyRoom.Tutor.Id == query.Id)
@@ -62,8 +61,9 @@ namespace Cloudents.Query.Users
                                      
                         
                         SubscriptionPrice = s.SubscriptionPrice,
-                        Description = s.Title,
-                        Paragraph = s.Paragraph3
+                        Title = s.Title,
+                        Paragraph2 = s.Paragraph2,
+                        Paragraph3 = s.Paragraph3
                     }).ToFutureValue();
 
 

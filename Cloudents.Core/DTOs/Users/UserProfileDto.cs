@@ -29,7 +29,7 @@ namespace Cloudents.Core.DTOs.Users
 
         public int ReviewCount { get; set; }
 
-        public string? Bio { get; set; }
+        public string? Paragraph2 { get; set; }
 
         public int ContentCount { get; set; }
 
@@ -37,9 +37,9 @@ namespace Cloudents.Core.DTOs.Users
 
         public bool IsSubscriber { get; set; }
 
-        public string? Description { get; set; }
+        public string? Title { get; set; }
 
-        public string? Paragraph { get; set; }
+        public string? Paragraph3 { get; set; }
 
 
         [NonSerialized] public long SessionTaughtTicks;

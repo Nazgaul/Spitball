@@ -65,14 +65,14 @@ const mutations = {
             online: objInit.online || false,
             tutorCountry: objInit.tutorCountry,
             tutorData: {
-               bio: objInit.bio || '',
+               bio: objInit.paragraph2 || '',
                lessons: objInit.lessons || 0,
-               description: objInit.description || '',
+               description: objInit.title || '',
                students: objInit.students || 0,
                rate: objInit.rate || 0,
                subscriptionPrice: objInit.subscriptionPrice,
                isSubscriber : objInit.isSubscriber,
-               paragraph: objInit.paragraph || '',
+               paragraph: objInit.paragraph3 || '',
             }
          }
       }

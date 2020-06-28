@@ -151,7 +151,7 @@
             },
             shortParagraph: {
                 get() {
-                    return this.$store.getters.getProfileParagraph
+                    return this.$store.getters.getProfileBio
                 },
                 set(newVal) {
                     this.editShortParagraph = newVal;
@@ -159,7 +159,7 @@
             },
             bio: {
                 get() {
-                    return this.getProfile.user.tutorData.bio
+                    return this.$store.getters.getProfileParagraph
                 },
                 set(newVal) {
                     this.editedBio = newVal;
