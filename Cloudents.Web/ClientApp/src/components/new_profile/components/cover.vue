@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex">
     <!--Should be nice to have quiet attribute-->
-    <img v-resize.quiet="onResize" sel="cover_image" class="coverPhoto" :src="getCoverImage" />
+    <img v-resize.quiet="onResize" :width="coverImageSize.width" :height="coverImageSize.height" sel="cover_image" class="coverPhoto" :src="getCoverImage" />
     <div class="coverupload" v-if="$store.getters.getIsMyProfile">
       <input sel="edit_cover_image"
         class="profile-upload"
@@ -31,34 +31,36 @@ export default {
   computed: {
     ...mapGetters([
       "getProfileCoverImage",
-      "currentProfileUser",
-      "accountUser",
       "getProfile",
-      "getUserLoggedInStatus"
     ]),
-    // isCurrentProfileUser() {
-    //   let profileUser = this.getProfile?.user;
-    //   if (profileUser && this.getUserLoggedInStatus) {
-    //     return profileUser.id == this.accountUser?.id;
-    //   }
-    //   return false;
-    // },
+    isMobile() {
+      return this.$vuetify.breakpoint.xsOnly
+    },
+    coverImageSize() {
+      let height = 572
+      if(this.isMobile) {
+        height = window.innerHeight - this.headerHeight
+      }
+      return {
+        width: window.innerWidth,
+        height
+      }
+    },
     getCoverImage() {
       //https://github.com/vuejs/vue/issues/214
       this.currentTime;
-      let isMobile = this.$vuetify.breakpoint.xsOnly;
       let profileUser = this.getProfile?.user;
       if (profileUser) {
         if (this.getProfileCoverImage) {
-          let size = isMobile
-            ? [window.innerWidth, window.innerHeight - this.headerHeight]
-            : [window.innerWidth, 572];
+          let size = this.coverImageSize
           return utilitiesService.proccessImageURL(
             this.getProfileCoverImage,
-            ...size
+            size.width,
+            size.height
           );
         }
-        return `${require("./cover-default.png")}`;
+        return this.isMobile ? require("./profile-default.jpg") : require("./cover-default.png")
+        // return `${require("./cover-default.png")}`;
       }
       return "";
     }
@@ -102,10 +104,8 @@ export default {
   left: 0;
   right: 0;
   width: 100%;
-  height: 572px;
   @media (max-width: @screen-xs) {
     position: static;
-    height: auto;
   }
 }
 .coverupload {
@@ -114,7 +114,6 @@ export default {
   padding: 4px 8px 6px;
   z-index: 2;
   color: #fff;
-  // border: 1px solid black;
   border-radius: 6px;
   background-color: rgba(0, 0, 0, 0.6);
   @media (max-width: @screen-xs) {
