@@ -189,12 +189,13 @@ const mutations = {
       state.profileLiveSessions = broadcastSession;
    },
    updateEditedData(state, newData) {
+      debugger;
       state.profile.user.name = `${newData.firstName} ${newData.lastName}`;
       state.profile.user.firstName = newData.firstName;
       state.profile.user.lastName = newData.lastName;
-      state.profile.user.tutorData.bio = newData.bio;
+      state.profile.user.tutorData.bio =  newData.shortParagraph;
       state.profile.user.tutorData.description = newData.description;
-      state.profile.user.tutorData.paragraph = newData.shortParagraph;
+      state.profile.user.tutorData.paragraph = newData.bio;
    },
    setProfilePicture(state, imageUrl) {
       if (state.profile && state.profile.user) {

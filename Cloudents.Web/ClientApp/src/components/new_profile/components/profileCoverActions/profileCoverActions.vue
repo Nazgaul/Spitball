@@ -42,7 +42,7 @@ export default {
             return this.$store.getters.getProfile
         },
         paragraph() {
-            return this.$store.getters.getProfileParagraph
+            return this.$store.getters.getProfileBio
         },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly

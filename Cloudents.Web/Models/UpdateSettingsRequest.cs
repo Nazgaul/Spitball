@@ -13,10 +13,10 @@ namespace Cloudents.Web.Models
         [StringLength(25, MinimumLength = 0, ErrorMessage = "StringLength")]
         public string Title { get; set; }
 
-        [StringLength(80, MinimumLength = 10, ErrorMessage = "StringLength")]
+        [StringLength(80, MinimumLength = 0, ErrorMessage = "StringLength")]
         public string ShortParagraph { get; set; }
 
-        [StringLength(1000, MinimumLength = 15, ErrorMessage = "StringLength")]
+        [StringLength(1000, MinimumLength = 0, ErrorMessage = "StringLength")]
         public string Paragraph { get; set; }
     }
 }

@@ -24,7 +24,7 @@ export default {
             return this.$store.getters.getIsMyProfile
         },
         bio() {
-            return this.$store.getters.getProfileBio
+            return this.$store.getters.getProfileParagraph
         },
         isOpen :{
             get(){

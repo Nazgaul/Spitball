@@ -193,11 +193,12 @@
         methods: {
             saveChanges() {
                 if(this.$refs.formTutor.validate()) {
+                    debugger;
                     let firstName = this.editedFirstName || this.firstName;
                     let lastName = this.editedLastName || this.lastName;
-                    let shortParagraph = this.editShortParagraph || this.shortParagraph;
-                    let bio = this.editedBio || this.bio;
-                    let description = this.editedDescription || this.description;
+                    let shortParagraph = this.editShortParagraph || this.shortParagraph; //2
+                    let bio = this.editedBio || this.bio; //3
+                    let description = this.editedDescription || this.description; //TITLE
                     let editsData = {
                         name: `${firstName} ${lastName}`,
                         lastName,
