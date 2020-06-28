@@ -176,7 +176,7 @@ export default {
    }
    .myPurchases_action{
       outline: none;
-      padding: 10px 0px;
+      padding: 10px 0;
       width: 100%;
       max-width: 140px;
       border: 1px solid black;

@@ -83,12 +83,12 @@ const actions = {
     updateIsBuyPoints({commit},val){
         commit('setIsBuyPoints',val)
     },
-    updatePaypalBuyTokens(context,id){
-        return walletService.paypalBuyTokens(id)
-    },
-    updatePaypalStudyRoom(context,model){
-        return walletService.paypalStudyRoom(model)
-    },
+    // updatePaypalBuyTokens(context,id){
+    //     return walletService.paypalBuyTokens(id)
+    // },
+    // updatePaypalStudyRoom(context,model){
+    //     return walletService.paypalStudyRoom(model)
+    // },
     getStripeSecret() {
         return walletService.getStripeSecret()
     }

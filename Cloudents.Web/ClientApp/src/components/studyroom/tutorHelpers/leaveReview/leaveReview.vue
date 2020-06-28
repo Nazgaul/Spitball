@@ -6,7 +6,7 @@
             <div class="review_title text-center font-weight-bold mx-auto">{{reviewsTitle}}</div>
         </div>
         <div class="review_sub_title text-center mt-1" :class="{'mb-6': !showNextStep}">
-            <span v-if="!showNextStep"> {{$t('leaveReview_sub_title_step1', [tutorName])}}"></span>
+            <span v-if="!showNextStep"> {{$t('leaveReview_sub_title_step1', [tutorName])}}"</span>
             <span class="review_sub_title_step2" v-else v-t="'leaveReview_sub_title_step2'"></span>
         </div>
         <div class="review_user_rate" v-if="!showNextStep">

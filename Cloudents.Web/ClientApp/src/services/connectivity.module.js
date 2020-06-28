@@ -1,6 +1,6 @@
 import axios from "axios";
 import qs from "query-string";
-import * as signalR from '@microsoft/signalr';
+//import * as signalR from '@microsoft/signalr';
 import analyticsService from './analytics.service'
 
 axios.defaults.paramsSerializer = params => qs.stringify(params, {indices: false});
@@ -110,18 +110,18 @@ export const connectivityModule = {
 
     //todo add error handler
     sr: {
-        createConnection: function (url) {
-            const connection = new signalR.HubConnectionBuilder()
-                .withUrl(url)
-                .build();
-            return connection;
-        },
-        reconnect: function (connection) {
-            connection.connection.stopConnection().then(()=>{
-                connection.start();
-            });
-            //connection.start();
-        },
+        // createConnection: function (url) {
+        //     const connection = new signalR.HubConnectionBuilder()
+        //         .withUrl(url)
+        //         .build();
+        //     return connection;
+        // },
+        // reconnect: function (connection) {
+        //     connection.connection.stopConnection().then(()=>{
+        //         connection.start();
+        //     });
+        //     //connection.start();
+        // },
         on: function (connection, message, callback) {
             if (!callback) {
                 console.error(`A callback function must be provided to handle the registered event`);

@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace Cloudents.Command.Command.Admin
 {
     public class MigrateCourseCommand : ICommand

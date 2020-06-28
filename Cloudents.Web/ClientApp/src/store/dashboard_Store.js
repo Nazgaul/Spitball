@@ -120,9 +120,9 @@ const actions = {
          return;
       }
    },
-   updateTutorActions() {
-      return dashboardService.getTutorActions()
-   },
+   // updateTutorActions() {
+   //    return dashboardService.getTutorActions()
+   // },
    updateSpitballBlogs() {
       return dashboardService.getSpitballBlogs()
    },

@@ -12,7 +12,7 @@ const state = {
 const getters = {
     getReviewDialogState: state => state.reviewDialog,
     getReview: state => state.review,
-    getAllowReview: state => state.allowReview
+   // getAllowReview: state => state.allowReview
 };
 
 const mutations = {
@@ -32,9 +32,9 @@ const mutations = {
 };
 
 const actions = {
-    updateAllowReview({commit}, val){
-        commit('setAllowReview', val);
-    },
+    // updateAllowReview({commit}, val){
+    //     commit('setAllowReview', val);
+    // },
     updateReviewDialog({commit}, val) {
         commit('changeReviewDialogState', val);
     },

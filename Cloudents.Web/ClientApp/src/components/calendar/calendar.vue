@@ -583,7 +583,7 @@ export default {
         .v-btn {
           min-width: 140px;
           height: 40px !important;
-          padding: 0px 32px !important;
+          padding: 0 32px !important;
           margin: 6px 8px;
         }
         .cncl-btn {
@@ -603,7 +603,7 @@ export default {
           font-size: 16px;
           font-weight: 600;
           letter-spacing: -0.3px;
-          padding: 0px 50px !important;
+          padding: 0 50px !important;
         }
       }
     }

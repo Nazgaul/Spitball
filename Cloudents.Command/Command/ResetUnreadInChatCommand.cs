@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Cloudents.Command.Command
+﻿namespace Cloudents.Command.Command
 {
     public class ResetUnreadInChatCommand : ICommand
     {

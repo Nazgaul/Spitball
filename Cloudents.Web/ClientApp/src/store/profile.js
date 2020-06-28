@@ -43,10 +43,10 @@ const mutations = {
       let profile = new Profile(data)
 
       function Profile(objInit) {
-         //this.questions = [];
-         //this.answers = [];
-         this.documents = [];
-         this.purchasedDocuments = [];
+         // this.questions = [];
+         // this.answers = [];
+         // this.documents = [];
+         // this.purchasedDocuments = [];
          this.user = {
             id: objInit.id,
             firstName: objInit.firstName,

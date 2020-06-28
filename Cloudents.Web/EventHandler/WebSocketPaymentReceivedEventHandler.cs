@@ -23,12 +23,6 @@ namespace Cloudents.Web.EventHandler
 
             var message = new SignalRTransportType(SignalRType.User,
                 SignalREventAction.PaymentReceived, new object());
-            //foreach (var roomId in eventMessage.User.StudyRooms.Select(s => s.Room.Id))
-            //{
-            //    var t = _studyRoomHubContext.Clients.Group(roomId.ToString())
-            //        .SendAsync(SbHub.MethodName, message, token);
-            //    list.Add(t);
-            //}
 
             await _hubContext.Clients.User(eventMessage.User.Id.ToString())
                 .SendAsync(SbHub.MethodName, message, token);

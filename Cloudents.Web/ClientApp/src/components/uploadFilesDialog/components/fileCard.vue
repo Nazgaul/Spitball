@@ -70,7 +70,7 @@
                     v-else
                     type="number"
                     :label="$t('upload_file_price_label')"
-                    :rules="[rules.integer,rules.maximum,rules.minimum]"
+                    :rules="[rules.integer,rules.minimum,rules.maximum]"
                     placeholder=" "
                     :suffix="item.price ? $t('upload_uf_price_pts') : ''"
                     color="#4c59ff"
@@ -106,7 +106,7 @@ export default {
                 integer: (value) => validationRules.integer(value),
                 matchCourse:() => ((this.getSelectedClasses.length && this.getSelectedClasses.some(course=>course.text === this.selectedCourse)
                         ) || this.isFromQuery) || this.$t("tutorRequest_invalid"),
-                maximum: (value) => validationRules.maxVal(value, 1000),
+                maximum: (value) => validationRules.maxVal(value, 2147483647),
                 minimum: (value) => validationRules.minVal(value,0),
                 minimumChars: value => validationRules.minimumChars(value, 4),
                 maximumChars: value => validationRules.maximumChars(value, 150)

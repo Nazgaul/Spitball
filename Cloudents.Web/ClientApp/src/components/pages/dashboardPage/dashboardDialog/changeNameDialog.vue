@@ -97,7 +97,7 @@ export default {
       }
 
       .v-text-field {
-         margin-top: 0px !important;
+         margin-top: 0 !important;
          padding-top: 8px !important;
          padding-left: 12px;
          padding-right: 12px;
