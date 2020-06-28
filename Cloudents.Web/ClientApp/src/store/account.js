@@ -137,13 +137,11 @@ const actions = {
         })
     },
     saveUserInfo(context, params) {
-
         /*
-        bio: "I am a very greate3 tutor yayyayayayay"
-description: "A very get tutor"
-firstName: "Ram"
-lastName: "Ya"
-shortParagraph: "1`11121"
+            description: "A very get tutor"
+            firstName: "Ram"
+            lastName: "Ya"
+            shortParagraph: "1`11121"
         */ 
        let passData =  {
            firstName : params.firstName,

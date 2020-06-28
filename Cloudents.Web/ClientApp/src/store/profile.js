@@ -194,7 +194,7 @@ const mutations = {
       state.profile.user.lastName = newData.lastName;
       state.profile.user.tutorData.bio = newData.bio;
       state.profile.user.tutorData.description = newData.description;
-      state.profile.user.tutorData.paragraph = newData.paragraph;
+      state.profile.user.tutorData.paragraph = newData.shortParagraph;
    },
    setProfilePicture(state, imageUrl) {
       if (state.profile && state.profile.user) {
