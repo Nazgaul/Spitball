@@ -110,10 +110,11 @@ export default {
          return this.$t('profile_study_materials',[this.userName]);
       },
       pageCount(){
-         return Math.ceil(this.getProfile.documents.count / this.query.pageSize);
+         return Math.ceil(this.$store.getters.getProfileDocuments?.count / this.query.pageSize);
       },
       items(){
-         return this.getProfile?.documents.result;
+         return this.$store.getters.getProfileDocuments?.result
+         // return this.getProfile?.documents.result;
       },
       userName(){
          return this.getProfile?.user.firstName? this.getProfile.user.firstName : this.getProfile.user.name;

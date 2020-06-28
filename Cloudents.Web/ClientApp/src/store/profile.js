@@ -1,6 +1,5 @@
 import profileService from "../services/profileService";
 import axios from 'axios'
-
 const profileInstance = axios.create({
     baseURL:'/api/profile'
 })
@@ -9,6 +8,7 @@ let cancelTokenList;
 
 const state = {
    profile: null,
+   documents: [],
    profileReviews: null,
    profileLiveSessions: [],
    showEditDataDialog: false,
@@ -35,7 +35,8 @@ const getters = {
    getProfileBio: state => state.profile?.user?.tutorData?.bio,
    getProfileParagraph: state => state.profile?.user?.tutorData?.paragraph,
    getAverageRate: state => ( state.amountOfReviews/state.profile?.user?.reviewCount) || 0,
-   getProfileIsCalendar: state => state.profile?.user?.calendarShared
+   getProfileIsCalendar: state => state.profile?.user?.calendarShared,
+   getProfileDocuments: state => state.documents,
 }
 
 const mutations = {
@@ -123,7 +124,11 @@ const mutations = {
        //  this.purchased = objInit.purchased;
       }
 
-      state.profile.documents = documents;
+      // this update the items
+      // https://stackoverflow.com/questions/48949807/dynamically-creating-a-reactive-array-in-the-vuexs-state
+      // Vue.set(state.profile, 'documents', documents)
+      // state.profile.documents = documents;
+      state.documents = documents
    },
    resetProfile(state) {
       state.profile = null;

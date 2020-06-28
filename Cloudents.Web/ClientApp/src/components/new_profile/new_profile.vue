@@ -121,9 +121,6 @@ export default {
         isMyProfile(){
           return this.$store.getters.getIsMyProfile
         },
-        showItemsEmpty(){
-            return !this.isMyProfile && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
-        },
         showItems(){
             if(!!this.getProfile){
               return this.uploadedDocuments?.result?.length
@@ -141,10 +138,7 @@ export default {
           return this.getProfile;
         },
         uploadedDocuments() {
-            if(this.profileData && this.profileData.documents) {
-                return this.profileData.documents;
-            }
-            return [];
+          return this.$store.getters.getProfileDocuments
         },
     },
     watch: {
