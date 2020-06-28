@@ -136,7 +136,6 @@ export default {
                 //TODO: Account new store clean @idan
                 this.$store.dispatch('saveUserInfo', studentInfo).then(() => {
                     this.btnLoading = false;
-                    this.$store.commit('setStudentInfo', studentInfo)
                     this.$store.commit('setComponent', '')
                 })
             }

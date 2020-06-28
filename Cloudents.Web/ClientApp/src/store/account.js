@@ -136,7 +136,7 @@ const actions = {
             console.error(ex);
         })
     },
-    saveUserInfo(context, params) {
+    saveUserInfo({getters, commit}, params) {
         /*
             description: "A very get tutor"
             firstName: "Ram"
@@ -150,8 +150,14 @@ const actions = {
            shortParagraph: params.shortParagraph,
            Paragraph:params.bio
        }
-       
-        return accountInstance.post('/settings', passData)
+        return accountInstance.post('/settings', passData).then(() => {
+            if(getters.getIsTeacher) {
+                commit('updateEditedData', params)
+                return
+            }
+            commit('setStudentInfo', params)
+            return
+        })
     },
     updateUserStats(context, days) {
         return accountInstance.get('/stats', { params: { days } }).then(({data}) => {
