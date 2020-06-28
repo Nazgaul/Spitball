@@ -67,7 +67,7 @@
                         outlined
                         v-model="description"
                         :rules="[rules.descriptionMaxChars]"
-                        counter="25"
+                        counter="28"
                         class="tutor-edit-description"
                         name="input-about"
                         :label="$t('profile_description_label')"
@@ -81,7 +81,7 @@
                         outlined
                         v-model="shortParagraph"
                         :rules="[rules.shortParagraphMaxChars]"
-                        counter="80"
+                        counter="96"
                         class="tutor-edit-description"
                         name="input-about"
                         :label="$t('Short paragraph')"
@@ -136,8 +136,8 @@
                     maximumChars: (value) => validationRules.maximumChars(value, 1000),
                     minimumChars: (value) => validationRules.minimumChars(value, 2),
                     // descriptionMinChars: (value) => validationRules.minimumChars(value, 2),
-                    descriptionMaxChars: (value) => validationRules.maximumChars(value, 25),
-                    shortParagraphMaxChars: (value) => validationRules.maximumChars(value, 80),
+                    descriptionMaxChars: (value) => validationRules.maximumChars(value, 28),
+                    shortParagraphMaxChars: (value) => validationRules.maximumChars(value, 96),
                     integer: (value) => validationRules.integer(value)
                 },
                 valid: false,
@@ -198,14 +198,6 @@
                     let shortParagraph = this.editShortParagraph || this.shortParagraph; //2
                     let bio = this.editedBio || this.bio; //3
                     let description = this.editedDescription || this.description; //TITLE
-                    let editsData = {
-                        name: `${firstName} ${lastName}`,
-                        lastName,
-                        firstName,
-                        shortParagraph,
-                        bio,
-                        description,
-                    };
                     this.btnLoading = true;
                     let serverFormat = {
                         firstName,
@@ -216,11 +208,9 @@
                     };
                     this.$store.dispatch('saveUserInfo', serverFormat)
                         .then(() => {
-                            //update profile store
-                            this.$store.commit('updateEditedData',editsData);
                             this.closeDialog();
                         }, (error) => {
-                            console.log('Error', error);
+                            console.error(error);
                             //TODO : error callback
                         }).finally(() => {
                             this.btnLoading = false;
