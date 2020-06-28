@@ -4,7 +4,7 @@
         {{bio | truncate(isOpen, '...', textLimit)}}
     </div>
     <div class="d-none">{{bio | restOfText(isOpen, '...', textLimit)}}</div>
-    <span sel="bio_more" @click="isOpen = !isOpen" class="readMore">{{readMoreText}}</span>
+    <span sel="bio_more" v-if="bio && bio.length >= textLimit" @click="isOpen = !isOpen" class="readMore">{{readMoreText}}</span>
   </div>
 </template>
 
@@ -26,6 +26,9 @@ export default {
         bio() {
             return this.$store.getters.getProfileParagraph
         },
+        isMobile() {
+            return this.$vuetify.breakpoint.xsOnly
+        },
         isOpen :{
             get(){
                 return this.defOpen
@@ -35,7 +38,7 @@ export default {
             }
         },
         textLimit(){
-            return this.isMobile ? 76 : 130;
+            return this.isMobile ? 68 : 250;
         },
     },
     filters: {
