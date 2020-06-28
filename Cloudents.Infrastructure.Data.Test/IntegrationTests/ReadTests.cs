@@ -262,6 +262,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(0)]
         [InlineData(638)]
         [InlineData(160634)]
+        [InlineData(161777)]
         public async Task UserProfileTutorQuery_Ok(long userId)
         {
             var id = await fixture.StatelessSession.Query<Tutor>()
