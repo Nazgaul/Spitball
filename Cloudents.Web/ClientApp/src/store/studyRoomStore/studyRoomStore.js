@@ -73,7 +73,7 @@ const mutations = {
    [studyRoom_SETTERS.ACTIVE_NAV_EDITOR]: (state, navEditor) => state.activeNavEditor = navEditor,
    [studyRoom_SETTERS.ROOM_PROPS](state, props) {
       state.roomOnlineDocument = props.onlineDocument;
-      state.roomIsTutor = this.getters.accountUser.id == props.tutorId;
+      state.roomIsTutor = this.getters.accountUser?.id == props.tutorId;
       state.roomTutor = {
          tutorId: props.tutorId,
          tutorName: props.tutorName,

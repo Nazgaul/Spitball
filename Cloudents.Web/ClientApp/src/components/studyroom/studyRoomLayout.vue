@@ -75,6 +75,9 @@ export default {
   },
   methods: {
     handleNeedPayment(needPayment){
+      if(!this.$store.getters.getUserLoggedInStatus){
+        return
+      }
       if(needPayment){
         this.$store.commit('addComponent',componentConsts.PAYMENT_DIALOG)
         return;
@@ -90,7 +93,6 @@ export default {
     },
   },
   created() {
-    if(this.$store.getters.accountUser?.id){
       this.$store.dispatch('updateStudyRoomInformation',this.id).catch((err)=>{
           if(err?.response){
             this.$router.push('/')
@@ -99,7 +101,6 @@ export default {
       global.onbeforeunload = function() {     
         return "Are you sure you want to close the window?";
       };
-    }
   },
   beforeDestroy() {
     this.$store.dispatch('updateResetRoom');
