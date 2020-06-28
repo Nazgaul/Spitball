@@ -31,15 +31,10 @@
 
 
         <v-dialog v-model="permissionDialogState" width="512" :fullscreen="$vuetify.breakpoint.xsOnly" persistent content-class="premissionDeniedDialog text-center pa-6 pb-4">
-            <template v-if="$vuetify.breakpoint.xsOnly">
-                <video playsinline @loadeddata="playVideo" ref="permissionDialogVideo" loop autoplay muted class="dialogPermissionVideo mb-2" :src="getPermissionBlockedVideo()"></video>
-            </template>
-            <template v-else>
-                <div class="mb-4 mainTitle" v-t="'studyRoomSettings_block_title'"></div>
-                <i18n path="studyRoomSettings_block_permission" tag="div" class="blockPermission mb-6">
-                    <cameraBlock class="cameraBlock mx-1 mt-1" width="20" />
-                </i18n>
-            </template>
+            <div class="mb-4 mainTitle" v-t="'studyRoomSettings_block_title'"></div>
+            <i18n path="studyRoomSettings_block_permission" tag="div" class="blockPermission mb-6">
+                <cameraBlock class="cameraBlock mx-1 mt-1" width="20" />
+            </i18n>
             <div class="text-center">
                 <v-btn
                     @click="permissionDialogState = false"
@@ -53,6 +48,7 @@
                 </v-btn>
             </div>
         </v-dialog>
+        <mobilePermissionDialog @onClose="mobilePermissionDialogState = false" v-if="$vuetify.breakpoint.xsOnly && mobilePermissionDialogState"></mobilePermissionDialog>
     </div>
 </template>
 
@@ -66,12 +62,14 @@ import microphoneImage from '../../../images/outline-mic-none-24-px-copy-2.svg'
 import cameraBlock from '../images/cameraBlock.svg'
 import { mapGetters } from 'vuex';
 import settingMixin from '../settingMixin.js'
+import mobilePermissionDialog from './mobilePermissionDialog.vue';
 
 export default {
     components: {
         studyRoomAudioVideoDialog,
         microphoneImage,
-        cameraBlock
+        cameraBlock,
+        mobilePermissionDialog
     },
     data(){
         return {
@@ -84,6 +82,8 @@ export default {
             audioDeviceNotFound: false,
             permissionDialogState: false,
             settingDialogState: false,
+
+            mobilePermissionDialogState:false,
         }
     },
     mixins: [settingMixin],
@@ -101,24 +101,46 @@ export default {
         ...mapGetters(['getVideoDeviceId','getAudioDeviceId'])
     },
     methods:{
-        getPermissionBlockedVideo(){
-            // eslint-disable-next-line no-undef
-            let isSafari = navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0;
-            if(isSafari){
-                return require('./ISO_VIDEO.mp4').default
-            }else{
-                return require('./ANDROID_VIDEO.mp4').default
-            }
-        },
-        playVideo(){
-            let playPromise = this.$refs.permissionDialogVideo.play()
-            let self = this
-            
-            if (playPromise !== undefined) {
-                playPromise.then(() => {}).catch(error => {
-                    self.$appInsights.trackException(error)
-                });
-            }
+        createTracks(){
+            let videoDevices = [];
+            let audioDevices = []
+            let self = this;
+            navigator.mediaDevices.enumerateDevices().then(devices=>{
+                devices.forEach(device=>{
+                    if(device.kind == 'audioinput'){
+                        audioDevices.push(device)
+                    }else{
+                        videoDevices.push(device)
+                    }
+                })
+                let params = {
+                    audio: audioDevices.length?{deviceId:self.getAudioDeviceId}:false,
+                    video: videoDevices.length?{deviceId:self.getVideoDeviceId}:false,
+                }
+
+                self.MIXIN_getMediaTrack(params)
+                    .then(stream=>{
+                        if(params.audio){
+                            let audioTrack = new MediaStream()
+                            audioTrack.addTrack(stream.getAudioTracks()[0])
+                            self.connectAudioTrack(audioTrack)
+                        }
+                        if(params.video){
+                            let videoTrack = new MediaStream()
+                            videoTrack.addTrack(stream.getVideoTracks()[0])
+                            self.connectVideoTrack(videoTrack)
+                        }
+                        return
+                    })
+                    .catch(err=>{
+                        if(err.code === 0) {
+                            self.mobilePermissionDialogState = true;
+                        }
+                        self.$store.dispatch('updateVideoDeviceId',null)
+                        self.cameraOn = false
+                        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoSettings_getVideoInputdevices', err, null);
+                    })
+            })
         },
         createVideoPreview(deviceId){
             let videoParams = {
@@ -128,15 +150,7 @@ export default {
             let self = this;
             this.MIXIN_getMediaTrack(videoParams)
                 .then(stream=>{
-                    self.MIXIN_addStream(self.streamsArray,stream)
-                    self.$refs.videoEl.srcObject = stream;
-                    self.cameraOn = true
-                    self.placeholder = true
-                    self.videoBlockPermission = false
-                    self.permissionDialogState = false
-                    deviceId = stream.getVideoTracks()[0].getSettings().deviceId
-                    self.$store.dispatch('updateVideoDeviceId',deviceId)
-                    self.$store.commit('settings_setIsVideo',true)
+                    self.connectVideoTrack(stream)
                     return
                 })
                 .catch(err=>{
@@ -146,11 +160,11 @@ export default {
                     }
                     self.$store.dispatch('updateVideoDeviceId',null)
                     self.cameraOn = false
+                    self.microphoneOn = false;
                     insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoSettings_getVideoInputdevices', err, null);
                 })
             self.cameraOn = false
         },
-        // 'audioinput'.includes('default'));
         checkAudio(deviceId){
             let audioParams = {
                 audio: {deviceId},
@@ -159,9 +173,7 @@ export default {
             let self = this;
             this.MIXIN_getMediaTrack(audioParams)
                 .then((stream)=>{
-                    deviceId = stream.getAudioTracks()[0].getSettings().deviceId 
-                    self.microphoneOn = true
-                    self.validateMicrophone(deviceId);
+                    self.connectAudioTrack(stream)
                 })
                 .catch(err=>{
                     if(err.code === 0) {
@@ -184,9 +196,33 @@ export default {
             this.MIXIN_cleanStreams(this.streamsArray)
         },
         startPreview(){
-            this.createVideoPreview(this.getVideoDeviceId)
-            this.checkAudio(this.getAudioDeviceId) 
-        }
+            let isMobile = this.$vuetify.breakpoint.xsOnly;
+            if(isMobile){
+                this.createTracks()
+            }else{
+                this.createVideoPreview(this.getVideoDeviceId)
+                this.checkAudio(this.getAudioDeviceId) 
+            }
+        },
+        connectVideoTrack(videoTrack){
+            let deviceId;
+            this.MIXIN_addStream(this.streamsArray,videoTrack)
+            this.$refs.videoEl.srcObject = videoTrack;
+            this.cameraOn = true
+            this.placeholder = true
+            this.videoBlockPermission = false
+            this.permissionDialogState = false
+            deviceId = videoTrack.getVideoTracks()[0].getSettings().deviceId
+            this.$store.dispatch('updateVideoDeviceId',deviceId)
+            this.$store.commit('settings_setIsVideo',true)
+            return
+        },
+        connectAudioTrack(audioTrack){
+            let self = this;
+            let deviceId = audioTrack.getAudioTracks()[0].getSettings().deviceId 
+            self.microphoneOn = true
+            self.validateMicrophone(deviceId);
+        },
     },
     created(){
         this.startPreview()
@@ -316,9 +352,6 @@ export default {
 .premissionDeniedDialog {
     background: #fff !important;
     border-radius: 8px;
-    .dialogPermissionVideo{
-        max-height: calc(~"100% - 46px");
-    }
     .mainTitle {
         color: @global-purple;
         font-weight: 600;
