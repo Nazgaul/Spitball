@@ -193,7 +193,6 @@
         methods: {
             saveChanges() {
                 if(this.$refs.formTutor.validate()) {
-                    debugger;
                     let firstName = this.editedFirstName || this.firstName;
                     let lastName = this.editedLastName || this.lastName;
                     let shortParagraph = this.editShortParagraph || this.shortParagraph; //2

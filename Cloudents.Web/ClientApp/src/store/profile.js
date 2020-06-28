@@ -189,7 +189,6 @@ const mutations = {
       state.profileLiveSessions = broadcastSession;
    },
    updateEditedData(state, newData) {
-      debugger;
       state.profile.user.name = `${newData.firstName} ${newData.lastName}`;
       state.profile.user.firstName = newData.firstName;
       state.profile.user.lastName = newData.lastName;
