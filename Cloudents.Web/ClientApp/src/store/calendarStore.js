@@ -192,7 +192,7 @@ const actions ={
     updateNeedPayment({commit},val){
         commit('setNeedPayment',val);
     },
-    updateCalendarStatus({state,getters,dispatch}){
+    updateCalendarStatus({getters,dispatch}){
         let isSharedCalendar = getters.getProfile?.user?.calendarShared;
 
             if(isSharedCalendar){
