@@ -133,6 +133,7 @@ export default {
         }
     }
     .btn {
+        text-transform: none;
         font-size: 16px;
         font-weight: 600;
         // &:disabled {
