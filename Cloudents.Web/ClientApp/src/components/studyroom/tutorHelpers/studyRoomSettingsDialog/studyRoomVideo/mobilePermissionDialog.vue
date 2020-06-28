@@ -3,19 +3,20 @@
    <v-dialog
     :value="true"
     persistent
-    :maxWidth="'500'"
+    :maxWidth="'296'"
     :content-class="'mobilePermissionDialog'">
+      <v-icon size="12" class="closeIcon">sbf-close</v-icon>
       <template v-if="!isShowMeHow">
-         <div class="mb-5 mt-3 content">
+         <div class="mb-6 content">
             {{$t('spitballAccess')}}
             </div>
-         <v-btn @click="onShowMeHow" block x-large color="#4c59ff" depressed class="white--text mb-5 btnText">
+         <v-btn @click="onShowMeHow" rounded block height="44" color="#4c59ff" depressed class="white--text mb-3 btnText">
             {{$t('showMe')}}
          </v-btn>
-         <v-btn @click="onClose" block x-large color="#4c59ff" depressed class="white--text mb-5 btnText">
+         <v-btn @click="onClose" rounded block height="44" outlined color="#4c59ff" depressed class="mb-3 btnText">
             {{$t('knowhow')}}
          </v-btn>
-         <v-btn @click="onClose" color="#4c59ff" block x-large depressed class="white--text btnText">
+         <v-btn @click="onClose" color="#4c59ff" rounded block height="44" outlined depressed class="btnText">
             {{$t('continue_tracks')}}
          </v-btn>
       </template>
@@ -71,17 +72,29 @@ export default {
 <style lang="less">
 .mobilePermissionDialog{
    background: white;
-   padding: 14px 30px;
+   border-radius: 6px;
+   padding: 16px;
+   padding-top: 34px;
    text-align: center;
+   position: relative;
+   width: 100%;
+  box-shadow: 0 13px 21px 0 rgba(0, 0, 0, 0.51);
+   .closeIcon{
+      position: absolute;
+      width: auto;
+      right: 10px;
+      top: 10px;
+   }
    .content{
-      font-size: 20px;
-      font-weight: 600;
       color: #43425d;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.44;
    }
    .btnText{
-      font-size: 16px;
-      font-weight: 600;
       white-space: initial;
+      font-size: 14px;
+      font-weight: 600;
       .v-btn__content{
          flex: auto;
       }
