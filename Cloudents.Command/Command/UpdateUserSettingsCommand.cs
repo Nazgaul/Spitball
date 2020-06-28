@@ -4,20 +4,22 @@
     {
         public UpdateUserSettingsCommand(long userId, 
             string firstName, string lastName,
-            string description,
-            string bio)
+            string title,
+            string shortParagraph, string paragraph)
         {
             UserId = userId;
             FirstName = firstName;
             LastName = lastName;
-            Description = description;
-            Bio = bio;
+            Title = title;
+            ShortParagraph = shortParagraph;
+            Paragraph = paragraph;
         }
         public long UserId { get; }
         public string FirstName { get; }
         public string LastName { get; }
-        public string Description { get; }
+        public string Title { get; }
 
-        public string Bio { get; }
+        public string ShortParagraph { get; }
+        public string Paragraph { get; }
     }
 }
