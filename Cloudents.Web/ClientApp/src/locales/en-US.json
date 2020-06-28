@@ -1,4 +1,6 @@
 {
+  "See all live classes": "See all live classes",
+  "See less live classes": "See less live classes",
   "Short paragraph": "Short paragraph",
   "addQuestion_add_button": "Post",
   "addQuestion_ask_your_question_placeholder": "My question is…",
@@ -664,6 +666,7 @@
   "shareContent_share_profile_whatsapp": "Hey I found a great teacher on Spitball check out {0}’s site {1}",
   "shareContent_title": "Share",
   "stats_followers": "No Followers | Follower | Followers",
+  "stats_resources": "No Resources | Resource | Resources ",
   "stats_reviews": "No Reviews | Review | Reviews",
   "stats_teachs": "No Hour Taught | Hour Taught | Hours Taught",
   "study room price": "Price",
