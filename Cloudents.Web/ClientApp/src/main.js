@@ -8,7 +8,6 @@ import VueAnalytics from "vue-analytics";
 import LoadScript from 'vue-plugin-load-script';
 import VueClipboard from 'vue-clipboard2';
 import VueAppInsights from 'vue-application-insights';
-import VueFlicking from "@egjs/vue-flicking";
 import {i18n, loadLanguageAsync } from './plugins/t-i18n';
 import Moment from 'moment';
 
@@ -59,7 +58,6 @@ const router = new VueRouter({
     }
 });
 
-Vue.use(VueFlicking);
 Vue.use(VueRouter);
 Vue.use(LoadScript);
 Vue.use(VueClipboard);
