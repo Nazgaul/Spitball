@@ -81,10 +81,10 @@ namespace Cloudents.Core.Interfaces
     //{
     //    Task<int> GetReferUserCountAsync(long userId, CancellationToken token);
     //}
-    public interface ICourseSubjectRepository : IRepository<CourseSubject>
-    {
-        Task<CourseSubject?> GetCourseSubjectByNameAsync(string name, CancellationToken token);
-    }
+    //public interface ICourseSubjectRepository : IRepository<CourseSubject>
+    //{
+    //    Task<CourseSubject?> GetCourseSubjectByNameAsync(string name, CancellationToken token);
+    //}
 
     public interface ILeadRepository : IRepository<Lead>
     {
@@ -116,7 +116,7 @@ namespace Cloudents.Core.Interfaces
 
     public interface ICourseRepository : IRepository<Course>
     {
-        Task<IEnumerable<Course>> GetCoursesBySubjectIdAsync(long subjectId, CancellationToken token);
+       // Task<IEnumerable<Course>> GetCoursesBySubjectIdAsync(long subjectId, CancellationToken token);
         Task MigrateCourseAsync(string courseToKeepId, string courseToRemoveId, CancellationToken token);
         Task RenameCourseAsync(string courseName, string newName, CancellationToken token);
     }

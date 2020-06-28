@@ -11,13 +11,13 @@ namespace Cloudents.Query.Admin
 {
     public class CoursesQuery : IQueryAdmin2<IEnumerable<PendingCoursesDto>>
     {
-        public CoursesQuery(ItemState state, Country? country, string? term)
+        public CoursesQuery( Country? country, string? term)
         {
-            State = state;
+          //  State = state;
             Country = country;
             Term = term;
         }
-        public ItemState State { get; }
+     //   public ItemState State { get; }
         public Country? Country { get; }
         public string? Term { get; }
     }
@@ -43,8 +43,8 @@ namespace Cloudents.Query.Admin
                         on c.Name = uc.CourseId
                         left join sb.[User] u
                         on uc.UserId = u.Id
-                    where c.State = @State
-                    and (@Term = '""""' or CONTAINS(c.Name, @Term))";
+                    where 
+                     (@Term = '""""' or CONTAINS(c.Name, @Term))";
 
             if (query.Country != null)
             {
@@ -56,7 +56,7 @@ namespace Cloudents.Query.Admin
                  sql,
                  new
                  {
-                     State = query.State.ToString(),
+                     
                      Country = query.Country?.Id,
                      query.Term
                  }
