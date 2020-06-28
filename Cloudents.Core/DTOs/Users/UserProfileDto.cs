@@ -42,9 +42,9 @@ namespace Cloudents.Core.DTOs.Users
         public string? Paragraph3 { get; set; }
 
 
-        [NonSerialized] public long SessionTaughtTicks;
+        [NonSerialized] public long? SessionTaughtTicks;
 
-        public long HoursTaught => SessionTaughtTicks / TimeSpan.TicksPerHour;
+        public long HoursTaught => SessionTaughtTicks.GetValueOrDefault() / TimeSpan.TicksPerHour;
         public IEnumerable<string>? DocumentCourses { get; set; }
         //public IEnumerable<string>? Courses { get; set; }
 
