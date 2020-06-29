@@ -131,7 +131,7 @@ export default {
             btnLoading: false,
             rules: {
                 required: (value) => validationRules.required(value),
-                minimum: (value) => validationRules.minVal(value, 10),
+                minimum: (value) => validationRules.minimumChars(value, 10),
                 maximum: (value) => validationRules.maxVal(value, 1000),
                 maximumChars: (value) => validationRules.maximumChars(value, 1000),
                 minimumChars: (value) => validationRules.minimumChars(value, 2),
