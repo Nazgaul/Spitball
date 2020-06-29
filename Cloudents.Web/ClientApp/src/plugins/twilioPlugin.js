@@ -319,21 +319,7 @@ export default () => {
             if (mutation.type === twilio_SETTERS.SCREEN_SHARE_BROADCAST_TOGGLE){
                if(mutation.payload && !_localScreenTrack){ 
                   navigator.mediaDevices.getDisplayMedia({video:true,audio: false}).then(stream=>{
-                     _localScreenTrack = new twillioClient.LocalVideoTrack(stream.getTracks()[0],{
-                        name:SCREEN_TRACK_NAME,
-                        video: document.body.clientWidth < 960 ?
-                        {
-                            height: 480,
-                            frameRate: 15,
-                            width: 640 
-                        } 
-                           : 
-                        { height: 720,
-                          frameRate: 15,
-                          width: 1280 
-                        },
-
-                     });
+                     _localScreenTrack = new twillioClient.LocalVideoTrack(stream.getTracks()[0],{name:SCREEN_TRACK_NAME});
                      let isRoomStudent = !store.getters.getRoomIsTutor;
                      if(isRoomStudent && _localVideoTrack){
                         _unPublishTrack(_localVideoTrack);
