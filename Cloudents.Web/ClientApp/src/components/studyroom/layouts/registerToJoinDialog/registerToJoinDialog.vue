@@ -1,5 +1,6 @@
 <template>
   <v-dialog
+    overlay-opacity="0.8"
     :value="true"
     persistent
     :maxWidth="'296'"
