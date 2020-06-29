@@ -28,7 +28,7 @@ namespace Cloudents.Core.Interfaces
         string? BuildUserImageEndpoint(long id, string? imageName);
         Uri BuildTwilioWebHookEndPoint(Guid id);
 
-        string BuildStudyRoomEndPoint(Guid id);
+        string BuildStudyRoomEndPoint(Guid id, object? parameters = null);
     }
 
 }
