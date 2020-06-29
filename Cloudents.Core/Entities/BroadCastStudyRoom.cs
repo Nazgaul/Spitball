@@ -32,13 +32,14 @@ namespace Cloudents.Core.Entities
 
         public override void AddUserToStudyRoom(User user)
         {
+            ChatRoom.AddUserToChat(user);
             if (Tutor.Id == user.Id)
             {
                 return;
             }
             var studyRoomUser = new StudyRoomUser(user, this);
-           var z =  _users.Add(studyRoomUser);
-            ChatRoom.AddUserToChat(user);
+            _users.Add(studyRoomUser);
+           
              Tutor.User.AddFollower(user);
             AddEvent(new AddUserBroadcastStudyRoomEvent(this, user));
         }
