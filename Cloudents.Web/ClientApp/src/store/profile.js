@@ -1,6 +1,4 @@
-import profileService from "../services/profileService";
 import axios from 'axios'
-
 const profileInstance = axios.create({
     baseURL:'/api/profile'
 })
@@ -9,6 +7,7 @@ let cancelTokenList;
 
 const state = {
    profile: null,
+   documents: [],
    profileReviews: null,
    profileLiveSessions: [],
    showEditDataDialog: false,
@@ -27,15 +26,16 @@ const getters = {
    getProfileCoverImage: state => state.profile?.user?.cover || '',
    getProfileTutorSubscription: state => state.profile?.user?.tutorData?.subscriptionPrice,
    getIsMyProfile: (state, _getters) => _getters.getUserLoggedInStatus && (state.profile?.user?.id === _getters.accountUser?.id),
+   getProfileFirstName:  state => state.profile?.user?.firstName,
+   getProfileLastName:  state => state.profile?.user?.lastName,
    getProfileTutorName: state => state.profile?.user?.name,
-   getIsSubscriber: state => {
-      return state.profile?.user?.tutorData?.isSubscriber
-   },
-   getProfileDescription: state => state.profile?.user?.tutorData?.description,
+   getIsSubscriber: state => state.profile?.user?.tutorData?.isSubscriber,
+   getProfileTitle: state => state.profile?.user?.tutorData?.title,
    getProfileBio: state => state.profile?.user?.tutorData?.bio,
    getProfileParagraph: state => state.profile?.user?.tutorData?.paragraph,
    getAverageRate: state => ( state.amountOfReviews/state.profile?.user?.reviewCount) || 0,
-   getProfileIsCalendar: state => state.profile?.user?.calendarShared
+   getProfileIsCalendar: state => state.profile?.user?.calendarShared,
+   getProfileDocuments: state => state.documents,
 }
 
 const mutations = {
@@ -43,10 +43,6 @@ const mutations = {
       let profile = new Profile(data)
 
       function Profile(objInit) {
-         // this.questions = [];
-         // this.answers = [];
-         // this.documents = [];
-         // this.purchasedDocuments = [];
          this.user = {
             id: objInit.id,
             firstName: objInit.firstName,
@@ -67,7 +63,7 @@ const mutations = {
             tutorData: {
                bio: objInit.paragraph2 || '',
                lessons: objInit.lessons || 0,
-               description: objInit.title || '',
+               title: objInit.title || '',
                students: objInit.students || 0,
                rate: objInit.rate || 0,
                subscriptionPrice: objInit.subscriptionPrice,
@@ -103,27 +99,8 @@ const mutations = {
          if (this.price == 0 ) {
             this.priceType = 'Free'
          }
-
-         //On profile page we do not pass user type
-         // if (objInit.user) {
-         //    this.user = {
-         //       id: objInit.id || objInit.userId,
-         //       name: objInit.name,
-         //       firstName: objInit.firstName,
-         //       lastName: objInit.lastName,
-         //       image: objInit.image || ''
-         //    };
-         // }
-        // this.views = objInit.views;
-        // this.downloads = objInit.downloads;
-         // this.votes = !!objInit.vote ? objInit.vote.votes : null;
-         // this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
-         //TODO REMOVE THIS
-         // this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
-       //  this.purchased = objInit.purchased;
       }
-
-      state.profile.documents = documents;
+      state.documents = documents
    },
    resetProfile(state) {
       state.profile = null;
@@ -164,9 +141,6 @@ const mutations = {
             return temp;
          })
          state.amountOfReviews = amountOfRevies;
-         //let x=[];
-         
-        
       }
 
       state.profileReviews = profileReviews;
@@ -188,12 +162,12 @@ const mutations = {
       }
       state.profileLiveSessions = broadcastSession;
    },
-   updateEditedData(state, newData) {
+   setProfileTutorInfo(state, newData) {
       state.profile.user.name = `${newData.firstName} ${newData.lastName}`;
       state.profile.user.firstName = newData.firstName;
       state.profile.user.lastName = newData.lastName;
       state.profile.user.tutorData.bio =  newData.shortParagraph;
-      state.profile.user.tutorData.description = newData.description;
+      state.profile.user.tutorData.title = newData.title;
       state.profile.user.tutorData.paragraph = newData.bio;
    },
    setProfilePicture(state, imageUrl) {
@@ -210,7 +184,6 @@ const actions = {
    syncProfile({commit, dispatch, state}, { id, pageSize }) {
       let option = {
          id,
-         // type: 'documents',
          params: {
             page: 0,
             pageSize,
@@ -229,13 +202,7 @@ const actions = {
       })
    },
    updateProfileItemsByType({ commit }, { id, params }) {
-      // if (!!state.profile && !!state.profile.user) {
-         // if (type == "documents") {
-
             cancelTokenList?.cancel();
-            // cancelTokenList.forEach(f=> {
-            //    f.cancel();
-            // });
             const axiosSource = axios.CancelToken.source();
             cancelTokenList = axiosSource;
 
@@ -243,22 +210,16 @@ const actions = {
                .then(({data}) => {
                   commit('setProfileDocuments', data);
                });
-
-            // return profileService.getProfileDocuments(id, params).then(documents => {
-            //    commit('setProfileDocuments', documents);
-            // });
-         // }
-      // }
    },
    toggleProfileFollower({ state, commit, getters }, val) {
-      let tutorId = getters.getCurrTutor?.id || state.profile?.user?.id    
+      let id = getters.getCurrTutor?.id || state.profile?.user?.id    
       if (val) {
-         return profileService.followProfile(tutorId).then(() => {
+         return profileInstance.post('follow',{ id }).then(() => {
             commit('setProfileFollower', true)
             return Promise.resolve()
          })
       } else {
-         return profileService.unfollowProfile(tutorId).then(() => {
+         return profileInstance.delete(`unfollow/${id}`).then(() => {
             commit('setProfileFollower', false)
             return Promise.resolve()
          })

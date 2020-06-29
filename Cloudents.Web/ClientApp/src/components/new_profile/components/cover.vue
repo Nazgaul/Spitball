@@ -37,9 +37,9 @@ export default {
       return this.$vuetify.breakpoint.xsOnly
     },
     coverImageSize() {
-      let height = 572
+      let height = 594
       if(this.isMobile) {
-        height = window.innerHeight - this.headerHeight
+        height = window.innerHeight - this.headerHeight - this.statsHeight
       }
       return {
         width: window.innerWidth,
@@ -56,7 +56,8 @@ export default {
           return utilitiesService.proccessImageURL(
             this.getProfileCoverImage,
             size.width,
-            size.height
+            size.height,
+            'anchorPosition=center'
           );
         }
         return this.isMobile ? require("./profile-default.jpg") : require("./cover-default.png")
@@ -68,7 +69,8 @@ export default {
   data() {
     return {
       currentTime: Date.now(),
-      headerHeight: 60
+      headerHeight: 60,
+      statsHeight: 50
     }
   },
   methods: {

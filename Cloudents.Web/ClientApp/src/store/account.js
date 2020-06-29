@@ -1,5 +1,4 @@
 import axios from 'axios'
-
 import analyticsService from '../services/analytics.service';
 import intercomeService from '../services/intercomService';
 import * as componentConsts from '../components/pages/global/toasterInjection/componentConsts.js'
@@ -17,7 +16,6 @@ const state = {
 };
 
 const getters = {
-    //TODO need to change this to accountretive
     getUserLoggedInStatus: state => state.isUserLoggedIn || global.isAuth,
     getIsTeacher: (state, _getters) => _getters.getUserLoggedInStatus && state.user?.isTutor,
     usersReffered: state => state.usersReferred,
@@ -26,7 +24,6 @@ const getters = {
     getUserBalance: state =>  state.user?.balance.toFixed(0) || 0,
     getIsSold: state => state.user?.isSold,
     getIsTutorSubscription: state => state.user?.subscription,
-    // getIsMyProfile: (state, _getters) => _getters.getUserLoggedInStatus && (state.user?.id === _getters.getProfile?.user.id),
     getAccountId: state => state.user?.id,
     getAccountFirstName: state => state.user?.firstName,
     getAccountLastName: state => state.user?.lastName,
@@ -77,10 +74,15 @@ const mutations = {
         
         state.user = user
     },
-    setStudentInfo(state, studentInfo) {
-        state.user.name = `${studentInfo.firstName} ${studentInfo.lastName}`
-        state.user.firstName = studentInfo.firstName
-        state.user.lastName = studentInfo.lastName
+    setAccountStudentInfo(state, { firstName, lastName }) {
+        state.user.name = `${firstName} ${lastName}`
+        state.user.firstName = firstName
+        state.user.lastName = lastName
+    },
+    setAccountTutorInfo(state, { firstName, lastName }) {
+        state.user.name = `${firstName} ${lastName}`
+        state.user.firstName = firstName
+        state.user.lastName = lastName
     }
 };
 
@@ -137,25 +139,20 @@ const actions = {
         })
     },
     saveUserInfo({getters, commit}, params) {
-        /*
-            description: "A very get tutor"
-            firstName: "Ram"
-            lastName: "Ya"
-            shortParagraph: "1`11121"
-        */ 
        let passData =  {
-           firstName : params.firstName,
+           firstName: params.firstName,
            lastName: params.lastName,
-           title: params.description,
+           title: params.title,
            shortParagraph: params.shortParagraph,
-           Paragraph:params.bio
+           paragraph: params.bio
        }
         return accountInstance.post('/settings', passData).then(() => {
             if(getters.getIsTeacher) {
-                commit('updateEditedData', params)
+                commit('setProfileTutorInfo', params)
+                commit('setAccountTutorInfo', params)
                 return
             }
-            commit('setStudentInfo', params)
+            commit('setAccountStudentInfo', params)
             return
         })
     },
