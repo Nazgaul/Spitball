@@ -18,6 +18,7 @@ using Cloudents.Query.Questions;
 using Cloudents.Query.General;
 using Cloudents.Core.DTOs.Feed;
 using Cloudents.Query.Session;
+using Cloudents.Query.StudyRooms;
 using Cloudents.Query.Sync;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
@@ -722,6 +723,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new ChatConversationDetailQuery(identifier,638);
             var result = await fixture.QueryBus.QueryAsync(query, default);
 
+        }
+
+        [Fact]
+        public async Task LiveClassesReminderQuery_Ok()
+        {
+            var query = new LiveClassesReminderQuery();
+            var result = await fixture.QueryBus.QueryAsync(query);
         }
 
 
