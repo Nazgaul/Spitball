@@ -1,5 +1,6 @@
 <template>
   <v-dialog
+    overlay-opacity="0.8"
     :value="true"
     persistent
     :maxWidth="'296'"
@@ -24,7 +25,7 @@ export default {
       },
       onRegister(){
          this.onClose()
-         this.$store.commit('setComponent',componentConts.LOGIN)
+         this.$store.commit('setComponent',componentConts.REGISTER)
       }
    },
 };
