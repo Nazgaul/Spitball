@@ -19,8 +19,8 @@
         :showCalendarTab="calendarActive"
         class="mt-sm-12 mt-2 mx-auto calendarSection"
       />
-      <profileSubscription :id="id" v-if="showProfileSubscription" ref="profileSubscription" />
-      <profileBroadcasts :id="id" @isComponentReady="val => goToLiveClasses = true" ref="profileLiveClassesElement" />
+      <profileSubscription id="subscription" :userId="id" v-if="showProfileSubscription" ref="profileSubscription" />
+      <profileBroadcasts id="broadcast" :userId="id" ref="profileLiveClassesElement" />
       <profileItemsBox v-if="showItems" class="mt-sm-12 mt-8" />
       <profileReviewsBox class="my-10 mt-2" />
     </div>
@@ -70,8 +70,6 @@ export default {
     },
     data() {
         return {
-            goToLiveClasses: false,
-            activeTab: 1,
             calendarActive: false,
             componentRenderKey: 0
         };
@@ -120,46 +118,41 @@ export default {
         showCalendarTab() {
             let isCalendar = this.getProfile?.user?.calendarShared
             if(this.isMyProfile) {
-                return !isCalendar || (this.activeTab === 5 && isCalendar) 
+                return !isCalendar
             }
             return isCalendar && this.calendarActive
         },
     },
     watch: {
-        "$route.params.id": function(val, oldVal){
+        "$route.params.id": function(val, oldVal) {
             let old = Number(oldVal,10);
             let newVal = Number(val,10);
-            this.activeTab = 1;
             this.componentRenderKey += 1;
             if (newVal !== old) {
                 this.$store.commit('resetProfile');
                 this.fetchData();
             }
         },
-        showProfileSubscription: {
-          deep: true,
+        "$route.hash": {
           immediate: true,
           handler(val) {
-          if(val) {
-            this.$nextTick(() => {
-              let profileSubscriptionElement = this.$refs.profileSubscription
-              if(profileSubscriptionElement && this.$route.hash === '#subscription') {
-                this.$vuetify.goTo(this.$route.hash, {offset: 20})
+            if(val) {
+              let hashes = {
+                broadcast: '#broadcast',
+                subscription: '#subscription'
               }
-            })
-          }
+              let self = this
+              this.$nextTick(() => {
+                // added time out for component that load after getting data from server and not immediate live
+                setTimeout(() => {
+                  if(self.$route.hash === hashes[self.$route.hash.slice(1)]) {
+                    self.$vuetify.goTo(self.$route.hash, {offset: 20})
+                  }                
+                }, 400)
+              })
+            }
           }
         },
-        goToLiveClasses(val) {
-          if(val) {
-            this.$nextTick(() => {
-              let profileLiveClassesElement = this.$refs.profileLiveClassesElement
-              if(profileLiveClassesElement && this.$route.hash === '#broadcast') {
-                this.$vuetify.goTo(this.$route.hash, {offset: 20})
-              }
-            })
-          }
-        }
     },
     beforeRouteLeave(to, from, next) {
         this.$store.dispatch('updateToasterParams', {

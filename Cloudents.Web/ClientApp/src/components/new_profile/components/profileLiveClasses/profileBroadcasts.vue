@@ -136,7 +136,7 @@ export default {
         // arrowDownIcon  
     },
     props: {
-        id: {
+        userId: {
             required: true
         }
     },
@@ -218,7 +218,7 @@ export default {
                 return
             }
             let session = {
-                userId: this.id,
+                userId: this.userId,
                 studyRoomId
             }
             let self = this
@@ -248,7 +248,7 @@ export default {
         }
     },
     created() {
-        this.$store.dispatch('getStudyroomLiveSessions', this.id)
+        this.$store.dispatch('getStudyroomLiveSessions', this.userId)
     }
 }
 </script>
