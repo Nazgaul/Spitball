@@ -168,9 +168,11 @@ namespace Cloudents.Core
             return builder.Uri;
         }
 
-        public string BuildStudyRoomEndPoint(Guid id)
+        public string BuildStudyRoomEndPoint(Guid id, object? parameters = null)
         {
             var builder = new UriBuilder(_webSiteEndPoint) { Path = $"StudyRoom/{id}" };
+            builder.AddQuery(parameters);
+            builder.AddQuery(new {channel = CommunicationChannel.Email.ToString("G")});
             return builder.ToString();
         }
 

@@ -11,7 +11,7 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public BroadCastStudyRoom(Tutor tutor,
             IEnumerable<User> users, string onlineDocumentUrl,
-            string name, decimal price, DateTime broadcastTime, string? description) 
+            string name, decimal price, DateTime broadcastTime, string? description)
             : base(tutor, users, onlineDocumentUrl, name, price)
         {
             Identifier = Guid.NewGuid().ToString();
@@ -21,7 +21,7 @@ namespace Cloudents.Core.Entities
             Description = description;
         }
 
-        protected BroadCastStudyRoom(): base()
+        protected BroadCastStudyRoom() : base()
         {
         }
 
@@ -32,14 +32,18 @@ namespace Cloudents.Core.Entities
 
         public override void AddUserToStudyRoom(User user)
         {
+            if (Tutor.Id == user.Id)
+            {
+                return;
+            }
             var studyRoomUser = new StudyRoomUser(user, this);
-            _users.Add(studyRoomUser);
+           var z =  _users.Add(studyRoomUser);
             ChatRoom.AddUserToChat(user);
-            Tutor.User.AddFollower(user);
-            AddEvent(new AddUserBroadcastStudyRoomEvent(this,user));
+             Tutor.User.AddFollower(user);
+            AddEvent(new AddUserBroadcastStudyRoomEvent(this, user));
         }
 
-       
+
 
         public override StudyRoomType Type => StudyRoomType.Broadcast;
     }
