@@ -13,7 +13,7 @@
             </v-layout>
             <v-layout class="px-3 mt-3">
                 <div class="leftSide me-3 d-inline-block">
-                    <uploadImage sel="photo" class="pUb_edit_img" />
+                    <uploadImage sel="photo" class="editImage" />
                     <userAvatarNew
                         sel="avatar_image"
                         class="pUb_dS_img"
@@ -206,26 +206,34 @@ export default {
         }
         .leftSide {
             position: relative;
-        @media (max-width: @screen-xs) {
-            padding: 8px 6px;
-            background: #fff;
-            border-radius: 8px;
-        }
-        .pUb_dS_img{
-            pointer-events: none !important;
-        }
-        .pUb_edit_img{
-            position: absolute;
-            right: 4px;
-            text-align: center;
-            width: 36px;
-            height: 46px;
-            border-radius: 4px;
-            background-color: #fff;
-            z-index: 1;
+            width: max-content;
+            margin: 0 auto;
+            @media (max-width: @screen-xs) {
+                padding: 8px 6px;
+                background: #fff;
+                border-radius: 8px;
+            }
+            .pictureTitle {
+                .responsive-property(font-size, 18px, null, 16px);
+                font-weight: 600;
+                color: #131415;
+            }
+            .pUb_dS_img{
+                pointer-events: none !important;
+            }
+            .editImage{
+                position: absolute;
+                text-align: center;
+                border-radius: 3px;
+                background-color: rgba(0,0,0,.6);
+                z-index: 1;
+            }
+            .user-avatar-image-wrap {
+                width: auto !important;
+                .user-avatar-rect-img {
+                    border-radius: 3px !important;
+                }
+            }
         }
     }
-    }
-
-
 </style>

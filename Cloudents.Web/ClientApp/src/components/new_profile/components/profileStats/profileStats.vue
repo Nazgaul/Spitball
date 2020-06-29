@@ -1,6 +1,6 @@
 <template>
     <div class="profileStats">
-        <div class="wrapper d-flex align-center justify-center pt-2 pb-3 text-center">
+        <div class="statsWrapper d-flex align-center justify-center pt-2 pb-3 text-center">
             <div class="stats">
                 <div class="number">{{hours}}</div>
                 <div class="text">{{$tc('stats_teachs', hours)}}</div>
@@ -57,7 +57,7 @@ export default {
         left: 0;
         right: 0;
     }
-    .wrapper {
+    .statsWrapper {
         max-width: 960px;
         margin: 0 auto;
         .stats {

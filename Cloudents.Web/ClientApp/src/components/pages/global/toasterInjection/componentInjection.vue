@@ -8,7 +8,7 @@
 import * as componentConsts from './componentConsts.js';
 
 const PAYMENT_DIALOG = () => import('../dialogInjection/globalDialogs/payment/paymentWrapper.vue');
-const TUTOR_EDIT_PROFILE = () => import('../../../new_profile/components/profileTutorEditInfo/profileTutorEditInfo.vue');
+const TUTOR_EDIT_PROFILE = () => import('../../../new_profile/profileHelpers/userInfoEdit/tutorInfoEdit.vue');
 
 const auth = () => import('../../global/dialogInjection/globalDialogs/auth/auth.vue')
 

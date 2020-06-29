@@ -18,7 +18,7 @@
         <span class="image-edit-text" v-t="'profile_edit_image_text'"></span>
       </label>
     </div>
-    <div class="imageLinear"></div>
+    <slot></slot>
   </div>
 </template>
 
@@ -121,13 +121,5 @@ export default {
   @media (max-width: @screen-xs) {
     position: absolute; // temporary for mobile version till new design
   }
-}
-.imageLinear {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    height: 100%;
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0.89));
 }
 </style>

@@ -2,15 +2,17 @@
     <div class="profile-upload-wrap align-start justify-center">
         <!--Upload Image-->
         <div class="profile-image-input-container align-center justify-center column">
-            <input class="profile-upload"
-                   type="file" name="File Upload"
-                   @change="uploadProfilePicture"
-                   id="profile-picture"
-                   accept="image/*"
-                   ref="profileImage" v-show="false"/>
-            <label for="profile-picture" >
-                <v-icon class="attach-icon">sbf-camera</v-icon>
-                <span class="image-edit-text" v-t="'profile_edit_image_text'"></span>
+            <input
+                class="profile-upload"
+                type="file" name="File Upload"
+                @change="uploadProfilePicture"
+                id="profile-picture"
+                accept="image/*"
+                ref="profileImage" v-show="false"
+            />
+            <label for="profile-picture">
+                <v-icon class="attach-icon" color="#fff">sbf-cameraNew</v-icon>
+                <!-- <span class="image-edit-text" v-t="'profile_edit_image_text'"></span> -->
             </label>
         </div>
     </div>

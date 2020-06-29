@@ -1,7 +1,9 @@
 <template>
   <div class="profilePage" :key="componentRenderKey">
     <div class="coverWrapper">
-      <cover />
+      <cover>
+        <div class="imageLinear"></div>
+      </cover>
       <profileCoverActions @setCalendarActive="val => calendarActive = val" />
     </div>
     <profileStats />
@@ -30,7 +32,7 @@
 </template>
 
 <script>
-// import * as componentConsts from '../pages/global/toasterInjection/componentConsts.js'
+import * as componentConsts from '../pages/global/toasterInjection/componentConsts.js'
 import { mapGetters } from 'vuex';
 
 import cover from "./components/cover.vue";
@@ -92,15 +94,13 @@ export default {
             })
         },
         openTutorEditInfo() {
-          this.$store.commit('setEditDialog', true)
-          // this.$store.commit('addComponent', componentConsts.TUTOR_EDIT_PROFILE)
-          // removeComponent
+          this.$store.commit('addComponent', componentConsts.TUTOR_EDIT_PROFILE)
         }
     },
     computed: {
         ...mapGetters([
             "getProfile",
-            'getIsSubscriber',// profile isSubscriber
+            'getIsSubscriber',
             'getProfileTutorSubscription',
         ]),
         showProfileSubscription() {
@@ -177,6 +177,14 @@ export default {
   }
   .coverWrapper {
     position: relative;
+   .imageLinear {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      height: 100%;
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0.89));
+    }
   }
   .profileEdit {
     .editIcon {
