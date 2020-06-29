@@ -24,7 +24,7 @@ export default {
       },
       onRegister(){
          this.onClose()
-         this.$store.commit('setComponent',componentConts.LOGIN)
+         this.$store.commit('setComponent',componentConts.REGISTER)
       }
    },
 };
