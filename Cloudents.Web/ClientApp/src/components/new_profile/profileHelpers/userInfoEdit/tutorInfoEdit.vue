@@ -66,7 +66,7 @@
                         rows="2"
                         outlined
                         v-model="title"
-                        :rules="[rules.descriptionMaxChars]"
+                        :rules="[rules.minimum, rules.descriptionMaxChars]"
                         counter="28"
                         name="input-about"
                         :label="$t('profile_description_label')"
@@ -79,7 +79,7 @@
                         rows="2"
                         outlined
                         v-model="shortParagraph"
-                        :rules="[rules.shortParagraphMaxChars]"
+                        :rules="[rules.minimum, rules.shortParagraphMaxChars]"
                         counter="96"
                         name="input-about"
                         :label="$t('Short paragraph')"
@@ -91,7 +91,7 @@
                     <v-textarea
                         rows="5"
                         outlined
-                        :rules="[rules.maximumChars]"
+                        :rules="[rules.minimum, rules.maximumChars]"
                         v-model="bio"
                         class="tutor-edit-bio"
                         name="input-bio"
@@ -131,10 +131,11 @@ export default {
             btnLoading: false,
             rules: {
                 required: (value) => validationRules.required(value),
-                minimum: (value) => validationRules.minVal(value, 35),
+                minimum: (value) => validationRules.minVal(value, 10),
                 maximum: (value) => validationRules.maxVal(value, 1000),
                 maximumChars: (value) => validationRules.maximumChars(value, 1000),
                 minimumChars: (value) => validationRules.minimumChars(value, 2),
+
                 descriptionMaxChars: (value) => validationRules.maximumChars(value, 28),
                 shortParagraphMaxChars: (value) => validationRules.maximumChars(value, 96)
             }
