@@ -25,7 +25,8 @@ namespace Cloudents.Persistence.Maps
                 .Inverse().Cascade.AllDeleteOrphan();
 
 
-            HasMany(x => x.Users).Access.CamelCaseField(Prefix.Underscore).ExtraLazyLoad()
+            //TODO do not extra lazy load on set
+            HasMany(x => x.Users).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse().Cascade.AllDeleteOrphan().AsSet();
 
             Map(x => x.OldPrice).Column("Price").CustomType(nameof(NHibernateUtil.Currency));
