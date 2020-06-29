@@ -1,11 +1,10 @@
 <template>
-   <!-- :fullscreen="$vuetify.breakpoint.xsOnly" -->
    <v-dialog
     :value="true"
     persistent
     :maxWidth="'296'"
     :content-class="'mobilePermissionDialog'">
-      <v-icon size="12" class="closeIcon">sbf-close</v-icon>
+      <v-icon @click="onClose" size="12" class="closeIcon">sbf-close</v-icon>
       <template v-if="!isShowMeHow">
          <div class="mb-6 content">
             {{$t('spitballAccess')}}

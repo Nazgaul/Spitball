@@ -8,18 +8,19 @@
                     <cameraBlock class="cameraBlock" width="20" />
                 </i18n>
             </div>
-
-            <div class="bottomIcons d-flex align-end justify-space-between">
-                <div class="micIconWrap d-flex align-center" v-if="microphoneOn">
-                    <microphoneImage :class="{'audioIconVisible': !microphoneOn}" width="14" /> 
-                    <div id="audio-input-meter" class="ml-2"></div>
+            <template v-if="isLoggedIn">
+                <div class="bottomIcons d-flex align-end justify-space-between">
+                    <div class="micIconWrap d-flex align-center" v-if="microphoneOn">
+                        <microphoneImage :class="{'audioIconVisible': !microphoneOn}" width="14" /> 
+                        <div id="audio-input-meter" class="ml-2"></div>
+                    </div>
+                    <v-icon class="settingIcon" color="#fff" @click="settingDialogState = true" size="22">sbf-settings</v-icon>
                 </div>
-                <v-icon class="settingIcon" color="#fff" @click="settingDialogState = true" size="22">sbf-settings</v-icon>
-            </div>
 
-            <div id="localTrackEnterRoom" :class="{'videoPlaceholderWrap': !cameraOn || !placeholder}">
-                <video ref="videoEl" autoplay playsinline></video>
-            </div>
+                <div id="localTrackEnterRoom" :class="{'videoPlaceholderWrap': !cameraOn || !placeholder}">
+                    <video ref="videoEl" autoplay playsinline></video>
+                </div>
+            </template>
             <div class="videoOverlay" :class="{'videoPlaceholderWrap': !cameraOn || !placeholder}"></div>
         </v-row>
     </v-responsive>
@@ -98,7 +99,10 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getVideoDeviceId','getAudioDeviceId'])
+        ...mapGetters(['getVideoDeviceId','getAudioDeviceId']),
+        isLoggedIn(){
+            return this.$store.getters.getUserLoggedInStatus
+        }
     },
     methods:{
         createTracks(){
@@ -225,6 +229,7 @@ export default {
         },
     },
     created(){
+        if(!this.isLoggedIn) return ;
         this.startPreview()
         navigator.mediaDevices.ondevicechange = this.startPreview;
     },
