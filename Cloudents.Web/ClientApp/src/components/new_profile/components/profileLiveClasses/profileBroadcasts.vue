@@ -21,7 +21,7 @@
                     </div>
                 </template>
 
-                <div class="d-sm-flex wrapper">
+                <div class="d-sm-flex listWrapper">
                     <div class="leftSide d-sm-flex me-sm-6">
                         <img :src="liveImage" alt="">
                     </div>
@@ -325,7 +325,7 @@ export default {
             }
             
         }
-        .wrapper{
+        .listWrapper{
             border-top: 2px solid #ff6f30;
             border-bottom: 2px solid #ebecef;
             .leftSide {
