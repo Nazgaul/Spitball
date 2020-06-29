@@ -64,13 +64,21 @@ namespace Cloudents.Query.Tutor
                          TutorCountry = s.Tutor.User.SbCountry
                      }).ToFutureValue();
 
-                var futureCoupon = _statelessSession.Query<UserCoupon>()
-                    .Where(w => w.User.Id == query.UserId)
-                    .Where(w => w.Tutor.Id == _statelessSession.Query<StudyRoom>().Where(w2 => w2.Id == query.Id)
-                        .Select(s => s.Tutor.Id).First())
-                    .Where(w => w.UsedAmount < 1)
-                    .Select(s => new { s.Coupon.CouponType, s.Coupon.Value })
-                    .ToFutureValue();
+                IFutureValue<CouponTemp>? futureCoupon = null;
+                if (query.UserId > 0)
+                {
+                    futureCoupon  = _statelessSession.Query<UserCoupon>()
+                        .Where(w => w.User.Id == query.UserId)
+                        .Where(w => w.Tutor.Id == _statelessSession.Query<StudyRoom>().Where(w2 => w2.Id == query.Id)
+                            .Select(s => s.Tutor.Id).First())
+                        .Where(w => w.UsedAmount < 1)
+                        .Select(s => new CouponTemp()
+                        {
+                            CouponType = s.Coupon.CouponType,
+                           Value = s.Coupon.Value
+                        })
+                        .ToFutureValue();
+                }
 
 
 
@@ -89,7 +97,7 @@ namespace Cloudents.Query.Tutor
                 result.UserId = query.UserId;
 
 
-                var coupon = futureCoupon.Value;
+                var coupon = futureCoupon?.Value;
                 if (coupon is null)
                 {
                     //no coupon
@@ -99,17 +107,15 @@ namespace Cloudents.Query.Tutor
 
                 var newPrice = Coupon.CalculatePrice(coupon.CouponType,
                     result.TutorPrice.Amount, coupon.Value);
-                result.TutorPrice = new Money(newPrice,result.TutorPrice.Currency);
-
-
-
-                //if (result.TutorPrice.CompareTo(0) == 0)
-                //{
-                //    result.NeedPayment = false;
-                //}
+                result.TutorPrice = new Money(newPrice, result.TutorPrice.Currency);
 
                 return result;
             }
+        }
+        internal class CouponTemp
+        {
+            public CouponType CouponType { get; set; }
+            public decimal Value { get; set; }
         }
     }
 }

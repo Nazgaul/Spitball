@@ -42,7 +42,7 @@ namespace Cloudents.Search.Tutor
                     new[]
                     {
                         nameof(Entities.Tutor.Name), nameof(Entities.Tutor.Prefix),
-                        nameof(Entities.Tutor.Courses), nameof(Entities.Tutor.Subjects)
+                        nameof(Entities.Tutor.Courses) //, nameof(Entities.Tutor.Subjects)
                     },
                 ScoringProfile = TutorSearchWrite.ScoringProfile,
                 IncludeTotalResultCount = true,
@@ -61,10 +61,8 @@ namespace Cloudents.Search.Tutor
                     {
                         s.Document.Data.Image = _urlBuilder.BuildUserImageEndpoint(tutor.UserId, tutor.Image);
                     }
-
-                    //s.Document.Data.SbCountry = s.Document.SbCountry;
                     s.Document.Data.Courses = courses;
-                    s.Document.Data.Subjects = s.Document.Data.Subjects?.Take(3);
+                   // s.Document.Data.Subjects = s.Document.Data.Subjects?.Take(3);
                     return s.Document.Data;
                 }),
                 Count = result.Count
