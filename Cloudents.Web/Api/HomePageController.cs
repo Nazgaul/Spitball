@@ -84,7 +84,7 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("reviews")]
-        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Day, VaryByQueryKeys = new []{"count"})]
+        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Week, VaryByQueryKeys = new []{"count"})]
 
         public async Task<IEnumerable<ReviewDto>> GetReviewsAsync(int count,
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
