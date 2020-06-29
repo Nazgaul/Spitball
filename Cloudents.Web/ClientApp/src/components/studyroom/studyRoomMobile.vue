@@ -149,6 +149,7 @@ export default {
                   border-radius: 4px !important;
             }
             height: 100vh;
+            height: -webkit-fill-available !important; //safari
             //height: ~"calc(100vh - 8px)";
             @media (max-width: @screen-xs) {
                //height: ~"calc(100vh - 56px)";

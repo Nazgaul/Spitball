@@ -27,6 +27,9 @@ html {
   background-color: #2196f3 !important;
   border-color: #2196f3 !important;
 }
+.v-application--wrap {
+  min-height: -webkit-fill-available !important; //safari ios - studyroom
+}
  //we have an issue with fieldset and labels on input on vuetify on rtl - this solve the issue
 html[dir="rtl"] {
   .v-text-field__slot >  label, .v-select__slot > label { 
