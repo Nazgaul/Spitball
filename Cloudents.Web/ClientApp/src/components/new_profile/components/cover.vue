@@ -36,32 +36,21 @@ export default {
     isMobile() {
       return this.$vuetify.breakpoint.xsOnly
     },
-    coverImageSize() {
-      let height = 594
-      if(this.isMobile) {
-        height = window.innerHeight - this.headerHeight - this.statsHeight
-      }
-      return {
-        width: window.innerWidth,
-        height
-      }
-    },
+
     getCoverImage() {
       //https://github.com/vuejs/vue/issues/214
       this.currentTime;
       let profileUser = this.getProfile?.user;
       if (profileUser) {
-        if (this.getProfileCoverImage) {
-          let size = this.coverImageSize
-          return utilitiesService.proccessImageURL(
-            this.getProfileCoverImage,
-            size.width,
-            size.height,
-            'anchorPosition=center'
-          );
-        }
-        return this.isMobile ? require("./profile-default.jpg") : require("./cover-default.png")
-        // return `${require("./cover-default.png")}`;
+        let size = this.coverImageSize()
+        let coverImage = this.getProfileCoverImage
+        return utilitiesService.proccessImageURL(
+          coverImage,
+          size.width,
+          size.height,
+          'anchorPosition=center',
+          'cover'
+        );
       }
       return "";
     }
@@ -74,6 +63,16 @@ export default {
     }
   },
   methods: {
+    coverImageSize() {
+      let height = 594
+      if(this.isMobile) {
+        height = window.innerHeight - this.headerHeight - this.statsHeight
+      }
+      return {
+        width: window.innerWidth,
+        height
+      }
+    },
     onResize() {
       clearTimeout(typeingTimer);
       let self = this;
