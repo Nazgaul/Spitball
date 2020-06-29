@@ -148,9 +148,10 @@ export default {
                   background: #bdc0d1 !important;
                   border-radius: 4px !important;
             }
-            height: ~"calc(100vh - 8px)";
+            height: 100vh;
+            //height: ~"calc(100vh - 8px)";
             @media (max-width: @screen-xs) {
-               height: ~"calc(100vh - 56px)";
+               //height: ~"calc(100vh - 56px)";
             }
          #studyRoomMobileVideo{
             width: 100%;

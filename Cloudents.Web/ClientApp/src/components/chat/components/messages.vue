@@ -202,12 +202,12 @@ export default {
                       }
                     }
                 }
-                @media(max-width: @screen-xs) {
-                    position: absolute;
-                    bottom: 0;
-                    top: auto;
-                    width: 100%;
-                }
+                // @media(max-width: @screen-xs) {
+                //     position: absolute;
+                //     bottom: 0;
+                //     top: auto;
+                //     width: 100%;
+                // }
             }
         }
     }
