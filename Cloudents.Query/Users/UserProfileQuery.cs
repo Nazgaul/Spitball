@@ -134,7 +134,7 @@ namespace Cloudents.Query.Users
 
                 result.DocumentCourses = await documentCoursesFuture.GetEnumerableAsync(token);
                 result.Image = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Image);
-                result.Cover = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Cover);
+                result.Cover = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Cover ?? "default.jpg");
                 return result;
             }
         }
