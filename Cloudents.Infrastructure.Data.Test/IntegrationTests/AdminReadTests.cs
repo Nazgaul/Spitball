@@ -304,19 +304,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         //}
 
         [Theory]
-        [InlineData(ItemState.Ok, null, null)]
-        [InlineData(ItemState.Pending, null, null)]
-        [InlineData(ItemState.Ok, "IL", null)]
-        [InlineData(ItemState.Pending, "IL", null)]
-        [InlineData(ItemState.Ok, null, "V")]
-        [InlineData(ItemState.Pending, null, "V")]
-        [InlineData(ItemState.Ok, "IL", "V")]
-        [InlineData(ItemState.Pending, "IL", "V")]
-
-        public async Task AdminCoursesQuery_Ok(ItemState state, string countryStr, string search)
+        [InlineData( null, null)]
+        [InlineData( "IL", null)]
+        [InlineData( null, "V")]
+        [InlineData( "IL", "V")]
+        public async Task AdminCoursesQuery_Ok( string countryStr, string search)
         {
             var country = FromCountry(countryStr);
-            var query = new CoursesQuery(state, country, search);
+            var query = new CoursesQuery( country, search);
             var result = await _fixture.QueryBus.QueryAsync(query, default);
 
 
@@ -417,17 +412,17 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await _fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Theory]
-        [InlineData("US")]
-        [InlineData("In")]
-        [InlineData("IL")]
-        [InlineData(null)]
-        public async Task SubjectsTranslationQuery_Ok(string countryStr)
-        {
-            var country = FromCountry(countryStr);
-            var query = new SubjectsQuery(country);
-            var _ = await _fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Theory]
+        //[InlineData("US")]
+        //[InlineData("In")]
+        //[InlineData("IL")]
+        //[InlineData(null)]
+        //public async Task SubjectsTranslationQuery_Ok(string countryStr)
+        //{
+        //    var country = FromCountry(countryStr);
+        //    var query = new SubjectsQuery(country);
+        //    var _ = await _fixture.QueryBus.QueryAsync(query, default);
+        //}
 
 
     }

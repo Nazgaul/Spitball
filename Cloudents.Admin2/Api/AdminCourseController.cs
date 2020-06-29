@@ -2,7 +2,6 @@
 using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Query;
@@ -56,7 +55,7 @@ namespace Cloudents.Admin2.Api
         {
 
             var query = new CoursesQuery(
-                model.State.GetValueOrDefault(ItemState.Ok),
+                
                 User.GetSbCountryClaim(),
                 model.Search);
             var retVal = await _queryBus.QueryAsync(query, token);

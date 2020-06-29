@@ -48,7 +48,7 @@ namespace Cloudents.FunctionsV2
                     updateOccur = true;
                     var courses = update.Courses?.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct().ToArray() ??
                                   Array.Empty<string>();
-                    var subjects = update.Subjects?.Where(w => !string.IsNullOrWhiteSpace(w)).ToArray() ?? Array.Empty<string>();
+                    //var subjects = update.Subjects?.Where(w => !string.IsNullOrWhiteSpace(w)).ToArray() ?? Array.Empty<string>();
 
                     // ReSharper disable once ConditionIsAlwaysTrueOrFalse - Temp
                    
@@ -64,17 +64,17 @@ namespace Cloudents.FunctionsV2
                             Rate = update.Rate,
 
                             InsertDate = DateTime.UtcNow,
-                            Prefix = courses.Union(subjects).Union(new[] { update.Name })
+                            Prefix = courses.Union(new[] { update.Name })
                             .Distinct(StringComparer.OrdinalIgnoreCase).ToArray(),
                             ReviewCount = update.ReviewsCount,
-                            Subjects = subjects.ToArray(),
+                           // Subjects = subjects.ToArray(),
                             OverAllRating = update.OverAllRating,
                             Data = new TutorCardDto()
                             {
                                 UserId = update.UserId,
                                 Name = update.Name,
                                 Courses = courses.Take(3),
-                                Subjects = subjects.OrderBy(o => o).Take(3),
+                              //  Subjects = subjects.OrderBy(o => o).Take(3),
                                 ReviewsCount = update.ReviewsCount,
                                 Rate = (float)update.Rate,
                                 Lessons = Math.Max(update.LessonsCount, update.ReviewsCount),
