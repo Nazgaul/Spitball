@@ -81,6 +81,18 @@ function _twilioListeners(room,store) {
             _addParticipantTrack(track,participant)
          }
       });
+      participant.on('trackSubscriptionFailed',(error, trackPublication)=>{
+         // this participant publish a track the local participant couldn't subscribe
+         let params = {
+            errorCode: error?.code,
+            errorMessage: error?.message,
+            publisher: participant?.identity,
+            subscriber: room.localParticipant?.identity,
+            priority: trackPublication?.publishPriority,
+            kind: trackPublication?.trackName,
+         }
+         _insightEvent('trackSubscriptionFailed', params, null);
+      })
    });
    // local participant events
    room.localParticipant.on('trackStopped',(track)=>{
@@ -192,7 +204,19 @@ function _twilioListeners(room,store) {
    // room connections events:
    room.on('participantConnected', (participant) => {
       store.commit(studyRoom_SETTERS.ADD_ROOM_PARTICIPANT,participant);
-      store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,room.participants.size)
+      store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,room.participants.size);
+      participant.on('trackSubscriptionFailed',(error, trackPublication)=>{
+         // this participant publish a track the local participant couldn't subscribe
+         let params = {
+            errorCode: error?.code,
+            errorMessage: error?.message,
+            publisher: participant?.identity,
+            subscriber: room.localParticipant?.identity,
+            priority: trackPublication?.publishPriority,
+            kind: trackPublication?.trackName,
+         }
+         _insightEvent('trackSubscriptionFailed', params, null);
+      })
       if(store.getters.getRoomIsTutor){
          store.commit('setComponent', 'simpleToaster_userConnected');
          participant.on('trackSubscribed',(track)=>{
