@@ -1,6 +1,5 @@
 <template>
   <div class="d-flex">
-    <!--Should be nice to have quiet attribute-->
     <img v-resize.quiet="onResize" :width="coverImageSize.width" :height="coverImageSize.height" sel="cover_image" class="coverPhoto" :src="getCoverImage" />
     <div class="coverupload" v-if="$store.getters.getIsMyProfile">
       <input sel="edit_cover_image"
@@ -23,27 +22,40 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
 import utilitiesService from "../../../services/utilities/utilitiesService";
 var typeingTimer;
 export default {
   name: "uploadCover",
+    data() {
+    return {
+      currentTime: Date.now(),
+      headerHeight: 60,
+      statsHeight: 50,
+      windowWidth: window.innerWidth
+    }
+  },
   computed: {
-    ...mapGetters([
-      "getProfileCoverImage",
-      "getProfile",
-    ]),
     isMobile() {
       return this.$vuetify.breakpoint.xsOnly
     },
+    coverImageSize() {
+      let height = 594;
+      if(this.isMobile) {
+        height = window.innerHeight - this.headerHeight - this.statsHeight
+      }
 
+      return {
+        width: this.windowWidth,
+        height
+      }
+    },
     getCoverImage() {
       //https://github.com/vuejs/vue/issues/214
       this.currentTime;
-      let profileUser = this.getProfile?.user;
+      let profileUser = this.$store.getters.getProfile?.user;
+      let size = this.coverImageSize
       if (profileUser) {
-        let size = this.coverImageSize()
-        let coverImage = this.getProfileCoverImage
+        let coverImage = this.$store.getters.getProfileCoverImage
         return utilitiesService.proccessImageURL(
           coverImage,
           size.width,
@@ -55,47 +67,29 @@ export default {
       return "";
     }
   },
-  data() {
-    return {
-      currentTime: Date.now(),
-      headerHeight: 60,
-      statsHeight: 50
-    }
-  },
   methods: {
-    coverImageSize() {
-      let height = 594
-      if(this.isMobile) {
-        height = window.innerHeight - this.headerHeight - this.statsHeight
-      }
-      return {
-        width: window.innerWidth,
-        height
-      }
-    },
     onResize() {
       clearTimeout(typeingTimer);
       let self = this;
+      this.windowWidth = window.innerWidth
       typeingTimer = setTimeout(() => {
          self.currentTime = Date.now()
         }, 1000);
     },
-    ...mapActions(["uploadCoverImage", "updateToasterParams"]),
     uploadCoverPicture() {
       let self = this;
       let formData = new FormData();
       let file = self.$refs.profileImage.files[0];
       formData.append("file", file);
-      self.uploadCoverImage(formData).then(() => {
+      self.$store.dispatch('uploadCoverImage', formData).then(() => {
         // this.updateToasterParams({
         //    // toasterText: this.$t("chat_file_error"),
         //     showToaster: true
         // });
       });
       this.$refs.profileImage.value = "";
-      //document.querySelector('#profile-picture').value = ''
     }
-  }
+  },
 };
 </script>
 
