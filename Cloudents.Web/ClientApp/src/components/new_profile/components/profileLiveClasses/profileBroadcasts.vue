@@ -25,7 +25,7 @@
                     <div class="leftSide d-sm-flex me-sm-6">
                         <img :src="liveImage" alt="">
                     </div>
-                    <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pt-1 pe-0 ps-0">
+                    <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pt-1 pt-sm-3 pe-0 ps-0">
 
                         <div class="header d-flex justify-space-between mb-4" v-if="!isMobile">
                             <div>
