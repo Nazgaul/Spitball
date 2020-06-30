@@ -39,7 +39,7 @@ import userSoldItems from './components/userMainView/userSoldItems/userSoldItems
 import userNotes from './components/userMainView/userNotes/userNotes.vue';
 
 import management from './components/management/Management.vue';
-import coursesPending from './components/management/coursesPending/coursesPending.vue';
+//import coursesPending from './components/management/coursesPending/coursesPending.vue';
 import shortUrl from './components/management/shortUrl/shortUrl.vue';
 
 import conversation from './components/conversation/conversation.vue';
@@ -54,7 +54,7 @@ import studyRoomSession from './components/studyRoom/studyRoomComponents/session
 
 import leads from './components/leads/leads.vue';
 import coupon from './components/coupon/coupon.vue';
-import subjects from './components/subjects/subjects.vue';
+//import subjects from './components/subjects/subjects.vue';
 import upload from './components/upload/upload.vue';
 
 import tutorList from './components/tutor/tutorList/tutorList.vue';
@@ -291,12 +291,12 @@ export const routes = [
         children: [
             {
                 path: '',
-                redirect: 'coursesPending'
+                redirect: 'shortUrl'
             },
-            {
-                path: 'coursesPending',
-                component: coursesPending
-            },
+            // {
+            //     path: 'coursesPending',
+            //     component: coursesPending
+            // },
             {
               path: 'shortUrl',
               component: shortUrl
@@ -352,11 +352,11 @@ export const routes = [
       name: 'coupon',
       component: coupon
     },
-    {
-      path: '/subjects',
-      name: 'subjects',
-      component: subjects
-    },
+    // {
+    //   path: '/subjects',
+    //   name: 'subjects',
+    //   component: subjects
+    // },
     {
       path: '/upload',
       name: 'upload',
