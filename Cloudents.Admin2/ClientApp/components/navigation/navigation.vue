@@ -89,7 +89,7 @@
                             path: '/management'
                         },
                         childrens: [
-                            { name: 'Pending Courses', link: '/management/coursesPending', icon: 'people_outline' },
+                           // { name: 'Pending Courses', link: '/management/coursesPending', icon: 'people_outline' },
                             { name: 'Short Url', link: '/management/shortUrl', icon: 'people_outline' }
                         ]
                     },
@@ -138,12 +138,12 @@
                             { name: 'Create', link: '/coupon', icon: 'ticket-percent' },
                         ]
                     },
-                    {
-                        setting: {
-                            title: 'Subjects',
-                            path: '/subjects',
-                        }
-                    },
+                    // {
+                    //     setting: {
+                    //         title: 'Subjects',
+                    //         path: '/subjects',
+                    //     }
+                    // },
                     {
                         setting: {
                             title: 'Upload',

@@ -1,9 +1,5 @@
 ﻿using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
-using FluentAssertions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Cloudents.Core.Test.Entities
@@ -28,19 +24,19 @@ namespace Cloudents.Core.Test.Entities
             _ = new Course(str);
         }
 
-        [Fact]
-        public void NewCourseStateTest()
-        {
-            Course course = new Course("test");
-            course.State.Should().Be(ItemState.Pending);
-        }
+        //[Fact]
+        //public void NewCourseStateTest()
+        //{
+        //    Course course = new Course("test");
+        //    course.State.Should().Be(ItemState.Pending);
+        //}
 
-        [Fact]
-        public void ApproveCourseTest()
-        {
-            Course course = new Course("test");
-            course.Approve();
-            course.State.Should().Be(ItemState.Ok);
-        }
+        //[Fact]
+        //public void ApproveCourseTest()
+        //{
+        //    Course course = new Course("test");
+        //    course.Approve();
+        //    course.State.Should().Be(ItemState.Ok);
+        //}
     }
 }

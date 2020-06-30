@@ -1,16 +1,30 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Net;
+using Microsoft.ApplicationInsights;
 
 namespace Cloudents.Web.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     public class ErrorController : Controller
     {
-        [ActionName("NotFound")]
-        public ActionResult Error404()
+        private readonly TelemetryClient _telemetryClient;
+
+        public ErrorController(TelemetryClient telemetryClient)
         {
+            _telemetryClient = telemetryClient;
+        }
+
+        [ActionName("NotFound")]
+        public ActionResult Error404(
+            [FromHeader(Name = "referer")] string referer)
+        {
+            _telemetryClient.TrackTrace("Reaching 404 page", new Dictionary<string, string>()
+            {
+                ["referer"] = referer,
+            });
             Response.StatusCode = 404;
             return View("NotFound");
         }
@@ -26,11 +40,16 @@ namespace Cloudents.Web.Controllers
             {
                 return RedirectToAction("NotFound");
             }
-
+            _telemetryClient.TrackTrace("Reaching error page", new Dictionary<string, string>()
+            {
+                ["path"] = x.OriginalPath,
+                ["query"] = x.OriginalQueryString
+            });
             // For API errors, responds with just the status code (no page).
             if (x.OriginalPath.StartsWith("/api/", StringComparison.OrdinalIgnoreCase))
                 return StatusCode((int)statusCode);
 
+         
             // Creates a view model for a user-friendly error page.
             switch (statusCode)
             {

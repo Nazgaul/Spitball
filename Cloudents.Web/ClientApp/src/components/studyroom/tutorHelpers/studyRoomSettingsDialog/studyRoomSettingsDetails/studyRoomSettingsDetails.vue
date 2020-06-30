@@ -13,7 +13,7 @@
                         <td class="ps-4 d-flex">
                             <span class="pe-2" v-if="roomPrice">{{roomPrice}}</span>
                             <span v-else v-t="'studyRoomSettings_free'"></span>
-                            <button v-if="roomPrice" class="couponBtn" v-t="'studyRoomSettings_apply_coupon'" @click="$store.commit('setComponent', 'applyCoupon')"></button>
+                            <button v-if="isLoggedIn && roomPrice" class="couponBtn" v-t="'studyRoomSettings_apply_coupon'" @click="$store.commit('setComponent', 'applyCoupon')"></button>
                         </td>
                     </tr>
                     <tr>
@@ -45,7 +45,7 @@
 
         <template>
             <v-btn :loading="loadings.student" v-if="!isRoomTutor" @click="studentEnterRoom()" class="joinNow white--text px-8"
-                :disabled="isRoomDisabled" height="50" block color="#5360FC" rounded depressed>
+                :disabled="isJoinButton" height="50" block color="#5360FC" rounded depressed>
                 {{$t('studyRoomSettings_join_now')}}
             </v-btn>
 
@@ -78,10 +78,12 @@
                 </div>
             </div>
         </template>
+        <registerToJoinDialog @closeRegisterToJoin="isRegisterToJoinDialog = false" v-if="isRegisterToJoinDialog"/>
     </div>
 </template>
 
 <script>
+import registerToJoinDialog from '../../../layouts/registerToJoinDialog/registerToJoinDialog.vue';
 import sessionStartCounter from '../../sessionStartCounter/sessionStartCounter.vue'
 import shareContent from '../../../../pages/global/shareContent/shareContent.vue'
 
@@ -95,7 +97,8 @@ export default {
         shareContent,
         whiteboardSvg,
         presentSvg,
-        fullviewSvg
+        fullviewSvg,
+        registerToJoinDialog
     },
     props: {
         isRoomActive: {
@@ -105,6 +108,7 @@ export default {
     },
     data() {
         return {
+            isRegisterToJoinDialog:false,
             waitingForTutor:false,
             clickOccur: false,
             loadings:{
@@ -127,6 +131,16 @@ export default {
         }
     },
     computed: {
+        isLoggedIn(){
+            return this.$store.getters.getUserLoggedInStatus;
+        },
+        isJoinButton(){
+            if(!this.isLoggedIn){
+                return false;
+            }else{
+                return this.isRoomDisabled
+            }
+        },
         isWaiting(){
             if(!this.isRoomTutor){
                 return (this.isRoomDisabled && this.waitingForTutor) || (this.isRoomDisabled && !this.isRoomBroadcast)
@@ -193,8 +207,12 @@ export default {
     },
     methods: {
         studentEnterRoom(){
-            this.loadings.student = true;
-            this.$store.dispatch('updateRoomIsJoined',true)
+            if(!this.isLoggedIn){
+                this.isRegisterToJoinDialog = true;
+            }else{
+                this.loadings.student = true;
+                this.$store.dispatch('updateRoomIsJoined',true)
+            }
         },
         tutorActions(roomMode){
         if(Object.values(this.loadings).some(loader=>loader)){
