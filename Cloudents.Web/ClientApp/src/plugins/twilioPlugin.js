@@ -206,7 +206,11 @@ function _twilioListeners(room,store) {
       if(store.getters.getRoomIsTutor){
          store.commit('setComponent', 'simpleToaster_userLeft');
       }
-      _insightEvent('TwilioParticipantDisconnected', participant, null);
+      let params = {
+         participant: participant.identity,
+         networkQualityLevel:participant.networkQualityLevel
+      }
+      _insightEvent('TwilioParticipantDisconnected', params, null);
       _detachTracks(Array.from(participant.tracks.values()),store)
    })
    room.on('reconnecting', () => {
