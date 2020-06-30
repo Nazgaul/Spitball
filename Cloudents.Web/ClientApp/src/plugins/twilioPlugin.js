@@ -213,8 +213,12 @@ function _twilioListeners(room,store) {
       _insightEvent('TwilioParticipantDisconnected', params, null);
       _detachTracks(Array.from(participant.tracks.values()),store)
    })
-   room.on('reconnecting', () => {
-      _insightEvent('reconnecting', null, null);
+   room.on('reconnecting', (error) => {
+      let params = {
+         errorCode: error?.code,
+         errorMessage: error?.message
+      }
+      _insightEvent('reconnecting', params, null);
    })
    room.on('disconnected', (dRoom, error) => {
       if (error?.code) {
