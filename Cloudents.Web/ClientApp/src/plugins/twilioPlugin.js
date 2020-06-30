@@ -507,6 +507,12 @@ export default () => {
             if(value){
                track.enable()
             }
+            let params = {
+               participant: track?.identity,
+               kind: track?.name,
+               status: track?.isEnabled
+            }
+            _insightEvent('toggleTrack', params, null);
          }
       }
       function _getRoomConfigByTopologyType(roomTopologyType){
