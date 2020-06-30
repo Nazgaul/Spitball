@@ -11,6 +11,11 @@
                     <editSVG />
                 </v-btn>
             </v-layout>
+            <v-layout class="px-3" v-if="allowedToBecomeTutor">
+                <v-btn depressed color="blue" @click="becomeTutor">
+                    <span class="white--text" v-t="'become tutor'"></span>
+                </v-btn>
+            </v-layout>
             <v-layout class="px-3 mt-3">
                 <div class="leftSide me-3 d-inline-block">
                     <uploadImage sel="photo" class="pUb_edit_img" />
@@ -105,6 +110,9 @@ export default {
         }
     },
     computed: {
+        allowedToBecomeTutor() {
+            return global.country !== "IL"
+        },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
         },
@@ -140,6 +148,9 @@ export default {
                     this.$store.commit('setComponent', '')
                 })
             }
+        },
+        becomeTutor() {
+            this.$store.dispatch('becomeTutor')
         }
     }
 }

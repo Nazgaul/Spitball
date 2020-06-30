@@ -136,6 +136,10 @@ const actions = {
             console.error(ex);
         })
     },
+    becomeTutor({ state }) {
+        let params = { id: state.user.id }
+        return accountInstance.post('/becomeTutor', params)
+    },
     saveUserInfo(context, params) {
         return accountInstance.post('/settings', params)
     },
