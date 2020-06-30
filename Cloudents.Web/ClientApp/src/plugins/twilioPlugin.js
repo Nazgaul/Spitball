@@ -186,7 +186,6 @@ function _twilioListeners(room,store) {
    // room connections events:
    room.on('participantConnected', (participant) => {
       store.commit(studyRoom_SETTERS.ADD_ROOM_PARTICIPANT,participant);
-
       store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,room.participants.size)
       if(store.getters.getRoomIsTutor){
          store.commit('setComponent', 'simpleToaster_userConnected');
@@ -198,7 +197,7 @@ function _twilioListeners(room,store) {
             }
          })
       }
-      _insightEvent('TwilioParticipantConnected', participant, null);
+      _insightEvent('TwilioParticipantConnected', {participant: participant.identity}, null);
    })
    room.on('participantDisconnected', (participant) => {
       store.commit(studyRoom_SETTERS.DELETE_ROOM_PARTICIPANT,participant)
