@@ -3,14 +3,14 @@
         <v-form v-model="valid" ref="formTutor">
             <v-layout class="header pa-4 mb-4">
                 <v-flex>
-                    <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
+                    <v-icon class="edit-icon me-2">sbf-edit-icon</v-icon>
                     <span v-t="'profile_edit_user_profile_title'"></span>
                 </v-flex>
             </v-layout>
             <v-layout class="px-3 mt-4" wrap>
-                <v-flex xs12 sm6  :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
+                <v-flex xs12 sm6  :class="{'pe-2': $vuetify.breakpoint.smAndUp}">
                     <v-layout column>
-                        <v-flex xs12 sm6  class="pl-2 mb-2">
+                        <v-flex xs12 sm6  class="ps-2 mb-2">
                             <span class="subtitle" v-t="'profile_personal_details'"></span>
                         </v-flex>
                         <v-flex xs12>
@@ -24,9 +24,9 @@
                         </v-flex>
                     </v-layout>
                 </v-flex>
-                <v-flex xs12 sm6 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'pr-2']">
+                <v-flex xs12 sm6 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 me-0' : 'pe-2']">
                     <v-layout column>
-                        <v-flex v-if="$vuetify.breakpoint.smAndUp" xs12 sm6  class="mb-2 pl-2" grow>
+                        <v-flex v-if="$vuetify.breakpoint.smAndUp" xs12 sm6  class="mb-2 ps-2" grow>
                             <span class="subtitle" style="visibility: hidden">hidden</span>
                         </v-flex>
                         <v-flex>
@@ -42,7 +42,7 @@
                 </v-flex>
                 <!-- <v-flex xs12 sm4 :class="{'mt-4': $vuetify.breakpoint.xsOnly}" v-if="!isFrymo">
                     <v-layout column>
-                        <v-flex xs12 sm6  class="mb-2 pl-2">
+                        <v-flex xs12 sm6  class="mb-2 ps-2">
                             <span class="subtitle" v-t="'profile_pricing'"></span>
                         </v-flex>
                         <v-flex>
@@ -62,7 +62,7 @@
             </v-layout>
 
             <v-layout class="px-3" column :class="[$vuetify.breakpoint.xsOnly ? 'mt-4' : '']">
-                <v-flex class="mb-2 pl-2">
+                <v-flex class="mb-2 ps-2">
                     <span class="subtitle" v-t="'profile_aboutme'"></span>
                 </v-flex>
                 <v-flex>
@@ -91,10 +91,10 @@
                 </v-flex>
             </v-layout>
             <v-layout align-center class="px-3" :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between' : 'justify-end']">
-                <v-btn :disabled="btnLoading" width="120" depressed color="#4452fc" class="shallow-blue ml-0" rounded outlined primary @click="closeDialog">
+                <v-btn :disabled="btnLoading" width="120" depressed color="#4452fc" class="shallow-blue ms-0" rounded outlined primary @click="closeDialog">
                     <span v-t="'profile_btn_cancel'"></span>
                 </v-btn>
-                <v-btn class="blue-btn ml-sm-4" width="120" depressed color="#4452fc" rounded @click="saveChanges()" :loading="btnLoading">
+                <v-btn class="blue-btn ms-sm-4" width="120" depressed color="#4452fc" rounded @click="saveChanges()" :loading="btnLoading">
                     <span v-t="'profile_btn_save_changes'"></span>
                 </v-btn>
             </v-layout>

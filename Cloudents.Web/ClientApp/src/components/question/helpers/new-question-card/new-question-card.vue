@@ -4,9 +4,9 @@
             <div class="question-header-container">
                 <div class="question-header-large-sagment">
                     <div class="rank-date-container">
-                        <!-- <user-avatar class="mr-1" size="34" :userImageUrl="cardData.user.image" :user-name="cardData.user.name" :user-id="cardData.user.id"/> -->
+                        <!-- <user-avatar class="me-1" size="34" :userImageUrl="cardData.user.image" :user-name="cardData.user.name" :user-id="cardData.user.id"/> -->
                         <userAvatarNew 
-                            class="mr-1"
+                            class="me-1"
                             :userImageUrl="cardData.user.image"
                             :user-name="cardData.user.name"
                             :user-id="cardData.user.id"
@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            <div class="question-body-container" :class="{'ml-12': !$vuetify.breakpoint.xsOnly}">
+            <div class="question-body-container" :class="{'ms-12': !$vuetify.breakpoint.xsOnly}">
                 <div class="question-right-body-container">
                     <div class="question-body-content-container mt-2 mb-1" :class="{'question-ellipsis': $route.name === 'feed'}">
                         <div class="question-text">{{cardData.text}}</div>
@@ -72,7 +72,7 @@
                     <img :src="selectedImage" alt="" height="auto" width="100%" class="zoomed-image">
                 </v-dialog>
             </div>
-            <div class="question-footer-container" :class="{'ml-12': !$vuetify.breakpoint.xsOnly}">
+            <div class="question-footer-container" :class="{'ms-12': !$vuetify.breakpoint.xsOnly}">
                 <div class="answer-display-container">
                     <div class="user_answer_wrap" v-if="answers">
                         <div class="user_answer_body mb-1">
@@ -98,8 +98,8 @@
             </div>
             <div v-if="!hideAnswerInput" class="question-bottom-section" :class="[{'mx-12': !$vuetify.breakpoint.xsOnly}, answersCount > 1 ? 'mt-0' : 'mt-6']">
                 <div class="question-input-container d-flex">
-                    <user-avatar class="avatar-area mr-2" :user-name="accountUser.name" :userImageUrl="accountUser.image" :user-id="accountUser.id" v-if="accountUser" />
-                    <user-avatar class="avatar-area mr-2" :user-name="'JD'" :userImageUrl="''" v-else />
+                    <user-avatar class="avatar-area me-2" :user-name="accountUser.name" :userImageUrl="accountUser.image" :user-id="accountUser.id" v-if="accountUser" />
+                    <user-avatar class="avatar-area me-2" :user-name="'JD'" :userImageUrl="''" v-else />
                     <input class="question-input" :placeholder="$t('questionCard_Answer_placeholder')" type="text">
                     <questionNote class="question-input-icon"/>
                 </div>

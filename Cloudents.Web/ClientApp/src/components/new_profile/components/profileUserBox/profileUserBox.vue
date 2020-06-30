@@ -1,7 +1,7 @@
 <template>
     <div class="profileUserBox pa-4 pa-sm-5" v-if="currentProfileUser">
         <div class="profileUserBox_top d-block d-sm-flex justify-space-between">
-            <div class="leftSide mr-sm-6 mb-2 mb-sm-0 d-flex justify-center">
+            <div class="leftSide me-sm-6 mb-2 mb-sm-0 d-flex justify-center">
                 <div class="pUb_dot" sel="online_icon" v-if="isOnline"></div>
                 <uploadImage sel="photo" class="pUb_edit_img" v-if="isCurrentProfileUser" />
                 <userAvatarNew
@@ -20,7 +20,7 @@
             <div class="rightSide flex-grow-1">
                 <div class="detailsWrap d-flex d-sm-block">
                     <div class="d-flex justify-space-between text-center text-sm-left">
-                        <h1  sel="username_title" class="userName text-truncate mr-sm-2">
+                        <h1  sel="username_title" class="userName text-truncate me-sm-2">
                             <span>{{currentProfileUser.name}}</span>
                         </h1>
                         <div class="profileUserSticky_pricing flex-shrink-0 text-center" v-if="!isMobile">
@@ -32,10 +32,10 @@
                             <!-- </template> -->
                             <!-- <div v-else>
                                 <v-btn @click="openEditInfo" v-ripple="false" icon text v-if="isCurrentProfileUser && !currentProfileUser.isTutor">
-                                    <editSVG class="mr-1" />
+                                    <editSVG class="me-1" />
                                 </v-btn>
                                 <v-btn :to="{name: routeNames.EditCourse}" v-ripple="false" icon text v-if="isCurrentProfileUser && !currentProfileUser.isTutor">
-                                    <editSVG class="mr-1" />
+                                    <editSVG class="me-1" />
                                 </v-btn>
                             </div> -->
                         </div>
@@ -52,11 +52,11 @@
                                 :length="currentProfileTutor.reviewCount > 0  ? 5 : 1"
                                 :size="18" readonly
                             />
-                            <span  span @click="scrollToReviews" class="pUb_dS_c_r_span ml-1">{{$tc('resultTutor_review_one',currentProfileTutor.reviewCount)}}</span>
+                            <span  span @click="scrollToReviews" class="pUb_dS_c_r_span ms-1">{{$tc('resultTutor_review_one',currentProfileTutor.reviewCount)}}</span>
                         </div>
                         <!-- </template> -->
-                        <div class="ml-3">
-                            <followBtn sel="follow_btn" class="followBtnNew mr-sm-2" v-if="!isCurrentProfileUser"/>
+                        <div class="ms-3">
+                            <followBtn sel="follow_btn" class="followBtnNew me-sm-2" v-if="!isCurrentProfileUser"/>
                         </div>
                     </div>
 
@@ -75,7 +75,7 @@
 
                     <!-- Courses Student -->
                     <!-- <div class="course mt-2 text-truncate" v-if="!currentProfileUser.isTutor && currentProfileUser.courses.length">
-                        <span class="profileUserBox_bottom_title mr-1" v-t="'profile_my_courses_student'"></span>
+                        <span class="profileUserBox_bottom_title me-1" v-t="'profile_my_courses_student'"></span>
                         <span v-for="(course, index) in currentProfileUser.courses" :key="index">
                             {{course}}{{index + 1 == currentProfileUser.courses.length ? '' : ', '}}
                         </span>
@@ -94,12 +94,12 @@
                             <editSVG v-if="isCurrentProfileUser" />
                         </v-btn> -->
                     </template>
-                    <v-btn sel="send" height="42" :width="isMobile ? 286 : 220" :disabled="isCurrentProfileUser" class="profileUserSticky_btn white--text mr-sm-4" :class="{'isMyProfile': isCurrentProfileUser}" depressed rounded color="#4c59ff" @click="globalFunctions.sendMessage">
+                    <v-btn sel="send" height="42" :width="isMobile ? 286 : 220" :disabled="isCurrentProfileUser" class="profileUserSticky_btn white--text me-sm-4" :class="{'isMyProfile': isCurrentProfileUser}" depressed rounded color="#4c59ff" @click="globalFunctions.sendMessage">
                         <chatSVG class="profileUserSticky_btn_icon"/>
                         <div class="profileUserSticky_btn_txt" v-t="'profile_send_message'"/>
                     </v-btn>
-                    <div class="calendarBtnWrap align-center align-sm-end" :class="{'ml-3': !getProfile.user.calendarShared}">
-                        <!-- <editSVG sel="edit" class="pUb_edit_user mr-1" v-if="isCurrentProfileUser && !isMobile" @click="openEditInfo"/> -->
+                    <div class="calendarBtnWrap align-center align-sm-end" :class="{'ms-3': !getProfile.user.calendarShared}">
+                        <!-- <editSVG sel="edit" class="pUb_edit_user me-1" v-if="isCurrentProfileUser && !isMobile" @click="openEditInfo"/> -->
                         <v-btn
                             @click="globalFunctions.openCalendar"
                             class="profileUserSticky_btn profileUserSticky_btn_book white--text mt-sm-2 mt-4"
@@ -123,28 +123,28 @@
         <v-row class="bottom text-center pt-3" dense>
             <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-0">
                 <followersSvg class="icon" width="24" />
-                <div class="ml-3" @click="isMobile ? scrollToReviews():''" >
+                <div class="ms-3" @click="isMobile ? scrollToReviews():''" >
                     <div class="number text-left">{{currentProfileUser.followers || 0}}</div>
                     <div class="type">{{$tc('profile_tutor_follower', currentProfileUser.followers)}}</div>
                 </div>
             </v-col>
             <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-0">
                 <onlineLessonSVG class="icon" width="17" />
-                <div class="ml-3">
+                <div class="ms-3">
                     <div class="number text-left">{{currentProfileTutor.lessons || 0}}</div>
                     <div class="type" >{{$tc('profile_session', currentProfileTutor.lessons)}}</div>
                 </div>
             </v-col>
             <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-3 pa-sm-0">
                 <studentsSVG class="icon" width="25" />
-                <div class="ml-3">
+                <div class="ms-3">
                     <div class="number text-left">{{currentProfileTutor.students || 0}}</div>
                     <div class="type">{{$tc('profile_student', currentProfileTutor.students)}}</div>
                 </div>
             </v-col>
             <v-col cols="6" sm="3" class="bottomBox d-flex align-center justify-center pa-2 pa-sm-0">
                 <starSVG class="icon" width="22" />
-                <div class="ml-3">
+                <div class="ms-3">
                     <div class="number text-left">{{currentProfileTutor.reviewCount || 0}}</div>
                     <div class="type">{{$tc('profile_reviews',currentProfileTutor.reviewCount)}}</div>
                 </div>

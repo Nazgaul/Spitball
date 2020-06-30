@@ -4,7 +4,7 @@
             <v-flex grow :class="isFromRegister ? 'xs12' : 'xs6'">
                 <div class="d-inline-flex justify-center shrink add-courses-wrap-title">
                     <slot name="fromRegisterBtn">
-                        <v-icon @click="goToEditCourses()" class="course-back-btn mr-4">sbf-arrow-back</v-icon>
+                        <v-icon @click="goToEditCourses()" class="course-back-btn me-4">sbf-arrow-back</v-icon>
                     </slot>
                     <slot name="fromRegisterTitle">
                         <span class="font-weight-bold" v-t="'courses_join'"></span>
@@ -44,12 +44,12 @@
                     <div class="class-list selected-classes-list pa-4"
                          ref="listCourse">
                         <div 
-                            class="selected-class-item d-inline-flex text-truncate font-weight-bold align-center justify-center pl-4 pr-1 py-1 mr-2"
+                            class="selected-class-item d-inline-flex text-truncate font-weight-bold align-center justify-center ps-4 pe-1 py-1 me-2"
                             v-for="(selectedClass, index) in localSelectedClasses"
                             :key="index"
                         >
                             <span class="text-truncate">{{selectedClass.text}}</span>
-                            <span class="delete-class cursor-pointer pr-4" @click="deleteSelectedClass(selectedClass, selectedClasses)">
+                            <span class="delete-class cursor-pointer pe-4" @click="deleteSelectedClass(selectedClass, selectedClasses)">
                                 <v-icon color="white">sbf-close</v-icon>
                             </span>
                         </div>
@@ -70,7 +70,7 @@
                          :key="index"
                          @click="singleClass.isSelected ? deleteSelectedClass(singleClass, selectedClasses) : submitCourse(singleClass)"
                     >
-                        <v-layout column class="pl-4 limit-width">
+                        <v-layout column class="ps-4 limit-width">
                             <v-flex shrink class="course-name-wrap">
                                 <div v-html="$options.filters.boldText(singleClass.text, search)">
                                     {{ singleClass.text }}
@@ -85,23 +85,23 @@
                         <v-layout align-center justify-end class="minimize-width">
                             <div v-if="!singleClass.isFollowing">
                                 <v-flex shrink v-if="singleClass.isSelected" class="d-flex align-center">
-                                    <span class="light-purple caption font-weight-medium mr-2" v-t="'courses_joined'"></span>
+                                    <span class="light-purple caption font-weight-medium me-2" v-t="'courses_joined'"></span>
                                     <span><v-icon class="checked-icon">sbf-check-circle</v-icon></span>
                                 </v-flex>
                                 <v-flex shrink v-else class="d-flex align-center">
-                                    <span class="light-purple caption font-weight-medium mr-2" v-t="'courses_join'"></span>
+                                    <span class="light-purple caption font-weight-medium me-2" v-t="'courses_join'"></span>
                                     <span><v-icon class="cursor-pointer add-sbf-icon">sbf-plus-circle</v-icon></span>
                                 </v-flex>
                             </div>
                             <v-flex v-else shrink class="d-flex align-end">
-                                <span class="light-purple caption font-weight-medium mr-2" v-t="'courses_joined'"></span>
+                                <span class="light-purple caption font-weight-medium me-2" v-t="'courses_joined'"></span>
                             </v-flex>
                         </v-layout>
                     </div>
                     <!--create new course-->
                     <v-flex class="text-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer" @click="openCreateDialog(true)">
                         <span v-t="'courses_cant_find'"></span>
-                        <span class="pl-1 add-item" v-t="'courses_create_new'"></span>
+                        <span class="ps-1 add-item" v-t="'courses_create_new'"></span>
                     </v-flex>
                 </div>
             </v-flex>

@@ -12,21 +12,21 @@
 
             <v-expansion-panels class="panels d-block px-0 px-sm-8">
                 <v-expansion-panel class="panel panel_student mb-5" @click="$emit('goTo', 'register')">
-                    <v-expansion-panel-header class="pl-0 py-0" expand-icon="">
+                    <v-expansion-panel-header class="ps-0 py-0" expand-icon="">
                         <span class="panelImage flex-grow-0 px-4">
                             <studentIcon />
                         </span>
-                        <v-divider class="mr-4 my-2" vertical></v-divider>
+                        <v-divider class="me-4 my-2" vertical></v-divider>
                         <span class="panel_title text-center" v-t="'loginRegister_student'"></span>
                     </v-expansion-panel-header>
                 </v-expansion-panel>
 
                 <v-expansion-panel class="panel panel_teacher">
-                    <v-expansion-panel-header class="pl-0 py-0" @click="updateTeacherType" >
+                    <v-expansion-panel-header class="ps-0 py-0" @click="updateTeacherType" >
                         <span class="panelImage flex-grow-0 px-4">
                             <teacherIcon />
                         </span>
-                        <v-divider class="mr-4 my-2" vertical></v-divider>
+                        <v-divider class="me-4 my-2" vertical></v-divider>
                         <span class="panel_title text-center" v-t="'loginRegister_teacher'"></span>
                     </v-expansion-panel-header>
                 </v-expansion-panel>

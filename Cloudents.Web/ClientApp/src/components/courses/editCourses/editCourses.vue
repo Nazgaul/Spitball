@@ -1,7 +1,7 @@
 <template>
     <div class="courses-list-wrap">
         <div>
-            <v-layout class="py-6 pl-6 pr-4" align-center justify-center>
+            <v-layout class="py-6 ps-6 pe-4" align-center justify-center>
                 <v-flex grow>
                     <div class="d-inline-flex justify-center shrink courses-list-wrap-title">
                         <span class="font-weight-bold">{{$t('courses_my_courses')}}</span>
@@ -13,9 +13,9 @@
                 </v-flex>
                 <v-flex shrink class="d-flex justify-start">
                     <v-btn sel="add_courses_button" rounded color="#4452FC" class="add-btn py-1 my-0 elevation-0"
-                           :class="{'mr-2': $vuetify.breakpoint.xsOnly }"
+                           :class="{'me-2': $vuetify.breakpoint.xsOnly }"
                            @click="goToAddMore()">
-                        <v-icon class="mr-1 vicon">sbf-plus-regular</v-icon>
+                        <v-icon class="me-1 vicon">sbf-plus-regular</v-icon>
                         <span>{{$t('courses_add')}}</span>
                     </v-btn>
                 </v-flex>
@@ -25,34 +25,34 @@
                     <div class="class-list search-classes-list">
                         <div class="list-item search-class-item py-2 mx-2 justify-space-between align-center font-weight-regular"
                              v-for="(singleClass, index) in classesSelected" :key="index">
-                            <v-layout column class="pl-6 limit-width">
+                            <v-layout column class="ps-6 limit-width">
                                 <v-flex shrink class="text-truncate course-name-wrap">
                                     {{ singleClass.text }}
                                 </v-flex>
                                 <v-flex class="label-text pt-1" v-if="singleClass.isPending">
                                     <span>{{$t('courses_pending')}}</span>
-                                    <span class="d-inline-flex badge font-weight-bold px-2 align-center justify-center ml-1">{{$t('courses_new')}}</span>
+                                    <span class="d-inline-flex badge font-weight-bold px-2 align-center justify-center ms-1">{{$t('courses_new')}}</span>
                                 </v-flex>
                                 <v-flex class="label-text  pt-1" v-else>
                                     {{singleClass.students}}
                                     <span class="label-text">{{$t('courses_students')}}</span>
                                 </v-flex>
                             </v-layout>
-                            <v-layout align-center justify-end class="pr-2 grow">
+                            <v-layout align-center justify-end class="pe-2 grow">
                                 <v-flex shrink class="d-flex align-center" v-if="!singleClass.isLoading">
                                     <div v-show="isUserTutor">
                                         <v-btn v-if="!singleClass.isTeaching" rounded @click="teachCourseToggle(singleClass)"
                                             :loading="singleClass.isLoading && teachingActive"
                                             class="outline-btn elevation-0 text-none align-center justify-center rounded-btn">
                                             <span>
-                                                <v-icon color="#a3a0fb" class="btn-icon mr-1">sbf-face-icon</v-icon>
+                                                <v-icon color="#a3a0fb" class="btn-icon me-1">sbf-face-icon</v-icon>
                                                 <span class="purple-text caption" v-t="'courses_teach'"></span>
                                             </span>
                                         </v-btn>
                                         <v-btn v-else rounded @click="teachCourseToggle(singleClass)"
                                             class="solid-btn elevation-0 text-none align-center justify-center rounded-btn">
                                             <span>
-                                                <v-icon class="btn-icon mr-1">sbf-checkmark</v-icon>
+                                                <v-icon class="btn-icon me-1">sbf-checkmark</v-icon>
                                                 <span class="caption" v-t="'courses_teaching'"></span>
                                             </span>
                                         </v-btn>

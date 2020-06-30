@@ -1,11 +1,11 @@
 <template>
    <v-flex xs12 sm6 md5 lg6 class="currentConversationContainer">
       <div class="cMessagesHeader d-flex flex-grow-0 flex-shrink-0 align-center ">
-         <v-icon @click="$emit('toggleTeacherInfo')" :style="isRtl?'transform: scaleX(-1)':''" class="openTeacherInfoIcon ml-4 d-flex d-md-none" size="24" :color="isMobile? '#ffffff' : '#69687d'">sbf-read-more</v-icon>
-         <v-icon @click="backToChatList" class="ml-4 d-flex d-sm-none" size="16" color="#ffffff">{{isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'}}</v-icon>
-         <user-avatar class="ml-4" :size="'40'" :userImageUrl="currentAvatar" :user-name="currentConversationObj.name"/>
-         <div class="pl-3 pr-12 pr-md-7 text-truncate">
-            <div class="chatName text-truncate pr-6 pr-sm-3 pr-md-0">{{currentName}}</div>
+         <v-icon @click="$emit('toggleTeacherInfo')" :style="isRtl?'transform: scaleX(-1)':''" class="openTeacherInfoIcon ms-4 d-flex d-md-none" size="24" :color="isMobile? '#ffffff' : '#69687d'">sbf-read-more</v-icon>
+         <v-icon @click="backToChatList" class="ms-4 d-flex d-sm-none" size="16" color="#ffffff">{{isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'}}</v-icon>
+         <user-avatar class="ms-4" :size="'40'" :userImageUrl="currentAvatar" :user-name="currentConversationObj.name"/>
+         <div class="ps-3 pe-12 pe-md-7 text-truncate">
+            <div class="chatName text-truncate pe-6 pe-sm-3 pe-md-0">{{currentName}}</div>
          </div>
       </div>
       <v-sheet class="currentMessages d-flex flex-grow-1">

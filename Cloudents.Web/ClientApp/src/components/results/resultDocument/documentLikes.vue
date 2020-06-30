@@ -11,7 +11,7 @@
                 <span>{{ $tc('resultNote_purchased',docPurchased)}}</span>
             </span> -->
         </div>
-        <span class="right ml-2 ml-sm-0" style="cursor:pointer">
+        <span class="right ms-2 ms-sm-0" style="cursor:pointer">
             <likeFilledSVG v-if="isLiked" @click.stop.prevent="upvoteDocument" width="18" class="likeSVG" />
             <likeSVG v-if="!isLiked" @click.stop.prevent="upvoteDocument" width="18" class="likeSVG" />
             <span v-if="item.votes>0">{{item.votes}}</span>

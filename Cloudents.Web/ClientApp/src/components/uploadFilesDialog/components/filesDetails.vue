@@ -17,7 +17,7 @@
                     dense
                 />
             </v-col>
-            <v-col cols="6" sm="3" class="pa-0 pl-sm-4">
+            <v-col cols="6" sm="3" class="pa-0 ps-sm-4">
                 <!-- :placeholder="$t('upload_uf_price')" -->
                 <v-select
                     v-model="currentPrice"
@@ -51,7 +51,7 @@
                 >
                 </v-text-field>
             </v-col>
-            <v-col cols="6" sm="3" class="pl-4">
+            <v-col cols="6" sm="3" class="ps-4">
                 <v-btn @click="applyAll" class="uf-sEdit-top-btn" color="#4c59ff" height="44" block depressed rounded outlined>
                     <span v-t="'upload_uf_sEdit_top_btn'"/>
                 </v-btn>

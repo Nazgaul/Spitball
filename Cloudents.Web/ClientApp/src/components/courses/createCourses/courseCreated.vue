@@ -2,7 +2,7 @@
     <v-card class="course-created-wrap pt-4">
 
             <v-layout class="close-toolbar"  :class="[$vuetify.breakpoint.xsOnly ? 'column align-center pb-4 mx-3 shrink': 'mx-4 pb-4']">
-                <v-flex xs12 sm1  order-xs2 order-sm1  class="mr-2" :class="{'mb-4 mr-0': $vuetify.breakpoint.xsOnly}">
+                <v-flex xs12 sm1  order-xs2 order-sm1  class="me-2" :class="{'mb-4 me-0': $vuetify.breakpoint.xsOnly}">
                     <v-icon class="check-icon">sbf-check-circle</v-icon>
                 </v-flex>
                 <v-flex d-flex xs12 order-xs3 order-sm2 >
@@ -32,7 +32,7 @@
         <v-layout align-center justify-center class="mt-4 mb-4" column :class="{'shrink mt-5 pt-2': $vuetify.breakpoint.xsOnly}">
             <v-flex xs6  sm12 class="text-center pb-2">
                 <button @click="copyClassLink()" class="min-width solid d-flex align-center justify-center">
-                    <v-icon class="pr-0" color="white" transition="fade-transition"
+                    <v-icon class="pe-0" color="white" transition="fade-transition"
                             v-show="isCopied">sbf-checkmark
                     </v-icon>
                     <span class="font-weight-bold btn-text text-capitalize" v-show="!isCopied" v-t="'courses_copy_link'"></span>

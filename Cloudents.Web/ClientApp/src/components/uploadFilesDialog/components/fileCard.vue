@@ -4,7 +4,7 @@
             <v-icon v-if="!isLastItem" class="uf-sEdit-close" color="#adadba" size="12" @click="deleteFile()">sbf-close</v-icon>
         </div>
         <v-row dense class="pa-0 ma-0">
-            <v-col cols="12" sm="7" class="pa-0 pr-sm-4">
+            <v-col cols="12" sm="7" class="pa-0 pe-sm-4">
                 <v-text-field
                     v-model="item.name"
                     :rules="[rules.required, rules.minimumChars, rules.maximumChars]"
@@ -35,7 +35,7 @@
                 >
                 </v-combobox>
             </v-col>
-            <v-col cols="12" sm="9" class="uf_desc pa-0 pr-sm-4" order="4" order-sm="3">
+            <v-col cols="12" sm="9" class="uf_desc pa-0 pe-sm-4" order="4" order-sm="3">
                 <v-text-field
                     v-model="item.description"
                     :placeholder="$t('upload_uf_desc')"

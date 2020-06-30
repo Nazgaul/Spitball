@@ -8,7 +8,7 @@
                <v-tooltip top>
                   <template v-slot:activator="{ on }">
                      <v-btn v-on="on" icon class="fullScreenBtn" text @click="openFullScreen">
-                        <v-icon size="22" class="ml-1" color="white">sbf-exp</v-icon>
+                        <v-icon size="22" class="ms-1" color="white">sbf-exp</v-icon>
                      </v-btn>
                   </template>
                   <span v-text="$t('tutor_tooltip_fullscreen')"/>
@@ -17,7 +17,7 @@
             <v-tooltip top>
                <template v-slot:activator="{ on }">
                   <v-btn v-on="on" :class="['drawerControlsBtn',{'btnIgnore':!isVideoActive}]" icon @click="toggleVideo" sel="video_enabling">
-                     <v-icon v-if="isVideoActive" size="14" class="ml-1" color="white">sbf-video-camera</v-icon>
+                     <v-icon v-if="isVideoActive" size="14" class="ms-1" color="white">sbf-video-camera</v-icon>
                      <v-icon v-else size="22" color="white">sbf-camera-ignore</v-icon>
                   </v-btn>
                </template>
@@ -26,7 +26,7 @@
 
             <v-tooltip top>
                <template v-slot:activator="{ on }">
-                  <v-btn v-on="on" :class="['drawerControlsBtn',{'btnIgnore':!isAudioActive},'ml-2']" icon @click="toggleAudio" sel="audio_enabling">
+                  <v-btn v-on="on" :class="['drawerControlsBtn',{'btnIgnore':!isAudioActive},'ms-2']" icon @click="toggleAudio" sel="audio_enabling">
                      <v-icon v-if="isAudioActive" size="22" color="white">sbf-microphone</v-icon>
                      <v-icon v-else size="22" color="white">sbf-mic-ignore</v-icon>
                   </v-btn>

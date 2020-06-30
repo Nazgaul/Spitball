@@ -3,7 +3,7 @@
    <div class="profileItemsBox-header mb-sm-8">
       <div class="profileItemsBox_title text-truncate">{{profile_study_materials}}</div> 
       <div class="profileItemsBox_filters">
-         <v-flex xs2 sm4 class="pr-0 pr-sm-4 d-flex d-sm-block" :class="{'filterbox':$vuetify.breakpoint.xsOnly}" justify-end>
+         <v-flex xs2 sm4 class="pe-0 pe-sm-4 d-flex d-sm-block" :class="{'filterbox':$vuetify.breakpoint.xsOnly}" justify-end>
             <v-menu offset-y sel="filter_type">
                <template v-slot:activator="{ on }">
                   <v-btn icon v-on="on" class="filters_menu_btn d-block d-sm-none">
@@ -27,7 +27,7 @@
                :height="$vuetify.breakpoint.xsOnly? 42 : 36" hide-details solo>
             </v-select>
          </v-flex>
-         <v-flex v-if="userCourses.length" xs10 sm9 class="pr-4 pr-sm-0" :class="{'filtercourse':$vuetify.breakpoint.xsOnly}">
+         <v-flex v-if="userCourses.length" xs10 sm9 class="pe-4 pe-sm-0" :class="{'filtercourse':$vuetify.breakpoint.xsOnly}">
             <v-select class="profileItemsBox_filters_select"
                sel="filter_course"
                :append-icon="'sbf-arrow-fill'"

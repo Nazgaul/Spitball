@@ -82,14 +82,14 @@
 
       <template v-slot:item.action="{item}">
         <div class="actionsWrapper d-flex align-center justify-center">
-          <div v-if="item.showChat" class="mr-9">
+          <div v-if="item.showChat" class="me-9">
             <v-btn icon @click="sendMessage(item)" :title="$t('schoolBlock_SendMessageTooltip')">
               <iconChat fill="#4c59ff" />
             </v-btn>
             <div v-t="'schoolBlock_SendMessageTooltip'"></div>
           </div>
 
-          <div v-else class="copyLink mr-8 flex-shrink-0">
+          <div v-else class="copyLink me-8 flex-shrink-0">
             <v-tooltip :value="currentItemId === item.id" top transition="fade-transition">
               <template v-slot:activator="{}">
                 <linkSVG
@@ -116,7 +116,7 @@
 
           <v-menu v-model="showMenu" offset-overflow>
             <template v-slot:activator="{ on }">
-              <div class="dotsIcon mr-2 ml-4 pb-5 pr-5 pr-sm-0" v-if="isTutor && isStudyroomLive">
+              <div class="dotsIcon me-2 ms-4 pb-5 pe-5 pe-sm-0" v-if="isTutor && isStudyroomLive">
                 <v-icon
                   color="#bbb"
                   v-on="on"
@@ -126,7 +126,7 @@
                   icon
                 >sbf-3-dot</v-icon>
               </div>
-              <div class="dotsIcon mr-2 ml-2 pb-5" v-else>
+              <div class="dotsIcon me-2 ms-2 pb-5" v-else>
                 <!-- <v-icon color="#bbb" v-on="on" @click="openDeleteMenu(item.id)" slot="activator" small icon>sbf-3-dot</v-icon> -->
               </div>
             </template>

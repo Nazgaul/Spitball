@@ -62,8 +62,8 @@
                                     color="#ff6f30"
                                     height="40"
                                 >
-                                    <enterIcon class="enterIcon mr-sm-2" width="18" />
-                                    <span :class="{'flex-sm-grow-1 pl-2': isMobile}" v-t="'enter'"></span>
+                                    <enterIcon class="enterIcon me-sm-2" width="18" />
+                                    <span :class="{'flex-sm-grow-1 ps-2': isMobile}" v-t="'enter'"></span>
                                 </v-btn>
                                 <v-btn
                                     v-else-if="session.isFull"
@@ -74,7 +74,7 @@
                                     color="#ff6f30"
                                     height="40"
                                 >
-                                    <span :class="{'flex-sm-grow-1 pl-2': isMobile}" v-t="'full'"></span>
+                                    <span :class="{'flex-sm-grow-1 ps-2': isMobile}" v-t="'full'"></span>
                                 </v-btn>
                                 <v-btn
                                     v-else

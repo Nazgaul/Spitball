@@ -20,7 +20,7 @@
                         color="#da6156"
                         class="btns white--text mb-6"
                     >
-                        <gIcon class="mr-2" />
+                        <gIcon class="me-2" />
                         <span class="googleBtnText" v-t="'loginRegister_getstarted_btn_google_signup'"></span>
                     </v-btn>
 
@@ -57,11 +57,11 @@
                         <div class="methods d-flex justify-space-between">
                             <div class="linkAction d-flex" @click="phoneCall">
                                 <phoneCall />
-                                <div class="ml-2" v-t="'loginRegister_change_number'"></div>
+                                <div class="ms-2" v-t="'loginRegister_change_number'"></div>
                             </div>
                             <div class="linkAction d-flex">
                                 <changeNumber />
-                                <div @click="goStep('setPhone2')" class="ml-2" v-t="'loginRegister_change_numb'"></div>
+                                <div @click="goStep('setPhone2')" class="ms-2" v-t="'loginRegister_change_numb'"></div>
                             </div>
                         </div>
                     </div>

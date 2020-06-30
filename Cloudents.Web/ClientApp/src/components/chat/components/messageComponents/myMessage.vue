@@ -9,7 +9,7 @@
       </div>
       <v-card-actions class="messageBottom d-flex align-baseline justify-end px-0 pb-0 pt-2">
          <span class="messageDate">{{messageDate}}</span>
-         <v-icon :color="message.unreadMessage? '#00000077':'#4fc3f7'" class="ml-1" size="10">sbf-readIcon</v-icon>
+         <v-icon :color="message.unreadMessage? '#00000077':'#4fc3f7'" class="ms-1" size="10">sbf-readIcon</v-icon>
       </v-card-actions>
    </v-card>
 </template>
