@@ -91,7 +91,7 @@
                                 <span v-t="'regular'"></span>
                                 <span class="number text-left ms-sm-1">{{$price(session.price.amount, session.price.currency, true)}}</span>
                             </div>
-                            <div class="subscription">
+                            <div class="subscription" v-if="isTutorSubscription">
                                 <span v-t="'subscriber'"></span>
                                 <span class="number text-left ms-sm-1">{{$price(0, session.price.currency, true)}}</span>
                             </div>
@@ -168,7 +168,6 @@ export default {
             return this.isOpen ? this.$t('profile_read_less') : this.$t('profile_read_more')
         },
         isTutorSubscription() {
-            // TODO:
             return this.$store.getters.getProfileTutorSubscription
         },
         sessionsList() {
