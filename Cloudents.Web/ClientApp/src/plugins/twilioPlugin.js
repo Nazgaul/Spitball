@@ -151,7 +151,13 @@ function _twilioListeners(room,store) {
       _insightEvent('dominantSpeakerChanged', {participant: participant?.identity}, null);
     });
    room.on('trackUnsubscribed', (track,trackPublication,participant) => {
-      _insightEvent('TwilioTrackUnsubscribed', track, null);
+      let params = {
+         kind: track?.name,
+         unSubscriber: room.localParticipant.identity,
+         publisher: participant?.identity,
+         priority: trackPublication?.publishPriority,
+      }
+      _insightEvent('TwilioTrackUnsubscribed', params, null);
       _deleteParticipantTrack(track,participant)
       _detachTracks([track],store);
    })
