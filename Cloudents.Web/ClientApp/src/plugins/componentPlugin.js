@@ -11,12 +11,13 @@ export default () => {
           store.commit('setComponent', auth_SETTER.register)
         }
       }
-      if(mutation.type === 'setRouteStack') {
-        let { name, hash } = mutation.payload
+      
+      if(mutation.type === 'route/ROUTE_CHANGED') {
+        let { name, hash, params } = store.state.route
         if(name === Profile) {
           if(hash === '#tutorEdit') {
-            let isMyProfile = store.getters.getIsMyProfile
-            if(isMyProfile) {
+            let userId = store.getters.accountUser?.id
+            if(params.id == userId) {
               store.commit('addComponent', TUTOR_EDIT_PROFILE)
             }
           }
