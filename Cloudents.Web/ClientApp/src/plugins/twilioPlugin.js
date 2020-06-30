@@ -159,7 +159,6 @@ function _twilioListeners(room,store) {
    // room tracks events: 
    room.on('trackMessage', (message) => {
       let data = JSON.parse(message);
-      _insightEvent('trackMessage', data, null);
       if (data.type === CURRENT_STATE_UPDATE) {
          if(data.fullScreen){
             store.dispatch('updateFullScreen',data.fullScreen)
