@@ -33,7 +33,7 @@ export default {
     .logo {
         // width: 120px;
         height: 30px;
-        fill: #43425D;
+        fill: #43425D !important; // vuetify upgrade to 2.3.2 add svg:not([fill]) to svg element
         vertical-align: bottom;
         @media (max-width: @screen-xs) {
             // width: 94px;

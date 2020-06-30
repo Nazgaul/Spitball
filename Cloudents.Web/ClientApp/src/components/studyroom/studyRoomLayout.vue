@@ -6,9 +6,9 @@
     <template v-else>
       <studyRoomDrawer/>
       <studyRoomHeader/>
-      <v-content>
+      <v-main>
         <studyRoomWrapper style="height:100%"/>
-      </v-content>
+      </v-main>
       <studyRoomFooter v-if="isShowFooter"/>
     </template>
     <studyRoomSettingsDialog v-if="!isRoomActive"/>
