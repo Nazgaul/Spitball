@@ -34,20 +34,20 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         //}
 
 
-        [Theory]
-        [InlineData(false)]
-        [InlineData(true)]
-        public async Task GetAsyncWithCourse_ReturnResult_OKAsync(bool logIn)
-        {
-            if (logIn)
-            {
-                await _client.LogInAsync();
-            }
-            var response = await _client.GetAsync("api/tutor?course=Economics");
-            response.EnsureSuccessStatusCode();
-            var str = await response.Content.ReadAsStringAsync();
-            str.IsValidJson().Should().BeTrue();
-        }
+        //[Theory]
+        //[InlineData(false)]
+        //[InlineData(true)]
+        //public async Task GetAsyncWithCourse_ReturnResult_OKAsync(bool logIn)
+        //{
+        //    if (logIn)
+        //    {
+        //        await _client.LogInAsync();
+        //    }
+        //    var response = await _client.GetAsync("api/tutor?course=Economics");
+        //    response.EnsureSuccessStatusCode();
+        //    var str = await response.Content.ReadAsStringAsync();
+        //    str.IsValidJson().Should().BeTrue();
+        //}
         
 
         [Theory]

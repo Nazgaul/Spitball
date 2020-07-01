@@ -6,7 +6,7 @@
             <span class="change-title">&nbsp;"{{dialogData.name}}"</span>
          </div>
          <div class="input-wrap d-flex align-center justify-center">
-            <div :class="['price-wrap']">
+            <div class="price-wrap">
             <vue-numeric
                :currency="currentCurrency"
                class="sb-input-upload-price"

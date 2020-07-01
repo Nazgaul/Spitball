@@ -28,13 +28,13 @@ select distinct uc.UserId, case when uc.UserId in (select UserId from sb.UsersCo
 from sb.Course c
 join sb.UsersCourses uc
 	on uc.CourseId = c.Name
-		WHERE (c.SubjectId in (select SubjectId from sb.Course where Name = :Course) or c.Name = :Course) and CanTeach = 1 
+		WHERE (c.Name = :Course) and CanTeach = 1 
 			and exists (
 						SELECT uc1.CanTeach
 						FROM sb.UsersCourses uc1
 						inner join sb.[Course] c 
 						on uc1.CourseId=c.Name 
-						WHERE uc1.CanTeach = 1 and c.[State] = 'Ok' 
+						WHERE uc1.CanTeach = 1
 						and (
 							c.Name = :Course 
 							or c.SubjectId = (SELECT c1.SubjectId as y0_ 
