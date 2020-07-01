@@ -45,6 +45,7 @@ namespace Cloudents.FunctionsV2
                     );
 
                 message.SetSubject("Your Live Class is about to start");
+                log.LogInformation($"Sending email to {reminderDto.StudentEmail}");
                 await emailProvider.AddAsync(message, token);
             }
 
@@ -66,6 +67,7 @@ namespace Cloudents.FunctionsV2
                 );
 
                 message.SetSubject($"Your Live Class {reminderDto.StudyRoomTitle} is coming up tomorrow");
+                log.LogInformation($"Sending email to {reminderDto.StudentEmail}");
                 await emailProvider.AddAsync(message, token);
             }
             
