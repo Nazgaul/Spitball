@@ -14,8 +14,14 @@
         v-show="false"
       />
       <label for="profile-cover-upload">
-        <v-icon class="attach-icon" size="16" color="#fff">sbf-camera</v-icon>
-        <span class="image-edit-text" v-t="'profile_edit_image_text'"></span>
+        <div class="profileEdit text-right pa-3 px-sm-3 px-4" v-if="$store.getters.getIsMyProfile">
+          <v-btn @click="openTutorEditInfo" width="122" color="rgba(0,0,0,.6)" height="40" depressed>
+            <editSVG class="editIcon" />
+            <span class="text ms-2" v-t="'edit'"></span>
+          </v-btn>
+        </div>
+        <!-- <v-icon class="attach-icon" size="16" color="#fff">sbf-camera</v-icon>
+        <span class="image-edit-text" v-t="'profile_edit_image_text'"></span> -->
       </label>
     </div>
     <slot></slot>
@@ -23,11 +29,17 @@
 </template>
 
 <script>
+import * as componentConsts from '../../pages/global/toasterInjection/componentConsts.js'
 import { mapActions, mapGetters } from "vuex";
 import utilitiesService from "../../../services/utilities/utilitiesService";
+import editSVG from '../images/edit.svg';
+
 var typeingTimer;
 export default {
   name: "uploadCover",
+  components: {
+    editSVG
+  },
   computed: {
     ...mapGetters([
       "getProfileCoverImage",
@@ -95,6 +107,9 @@ export default {
       });
       this.$refs.profileImage.value = "";
       //document.querySelector('#profile-picture').value = ''
+    },
+    openTutorEditInfo() {
+      this.$store.commit('addComponent', componentConsts.TUTOR_EDIT_PROFILE)
     }
   }
 };
@@ -112,14 +127,27 @@ export default {
 }
 .coverupload {
   position: absolute;
-  margin: 6px;
-  padding: 4px 8px 6px;
+  // margin: 6px;
+  // padding: 4px 8px 6px;
   z-index: 2;
-  color: #fff;
-  border-radius: 6px;
-  background-color: rgba(0, 0, 0, 0.6);
+  // color: #fff;
+  // border-radius: 6px;
+  // background-color: rgba(0, 0, 0, 0.6);
   @media (max-width: @screen-xs) {
     position: absolute; // temporary for mobile version till new design
+  }
+}
+.profileEdit {
+  .editIcon {
+    //temporary solution till new icon
+    path:first-child {
+      fill: #fff;
+    }
+  }
+  .text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
   }
 }
 </style>

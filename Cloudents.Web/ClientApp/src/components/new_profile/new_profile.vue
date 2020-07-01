@@ -7,12 +7,6 @@
       <profileCoverActions @setCalendarActive="val => calendarActive = val" />
     </div>
     <profileStats />
-    <div class="profileEdit text-right pa-3 px-sm-3 px-4" v-if="isMyProfile">
-      <v-btn @click="openTutorEditInfo" :block="$vuetify.breakpoint.xsOnly" width="122" color="#e6e8e9" height="40" depressed>
-        <editSVG class="editIcon" />
-        <span class="text ms-2" v-t="'edit'"></span>
-      </v-btn>
-    </div>
     <profileParagraph />
     <div class="profilePage_main profile-page-container">
       <calendarTab
@@ -47,7 +41,6 @@ import calendarTab from '../calendar/calendarTab.vue';
 import profileSubscription from './components/profileSubscription/profileSubscription.vue';
 import profileFooter from './components/profileFooter/profileFooter.vue';
 
-import editSVG from './images/edit.svg';
 
 export default {
     name: "new_profile",
@@ -63,7 +56,6 @@ export default {
         profileSubscription,
         calendarTab,
         profileFooter,
-        editSVG
     },
     props: {
         id: {
@@ -184,19 +176,6 @@ export default {
       left: 0;
       height: 100%;
       background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0.89));
-    }
-  }
-  .profileEdit {
-    .editIcon {
-      //temporary solution till new icon
-      path:first-child {
-        fill: #131415;
-      }
-    }
-    .text {
-      font-size: 16px;
-      font-weight: 600;
-      color: #131415;
     }
   }
   .profilePage_main {
