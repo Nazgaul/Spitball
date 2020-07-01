@@ -20,14 +20,14 @@
          </v-btn>
       </template>
 
-      <v-card v-if="isShowMeHow" class="elevation-0">
-         <video width="100%" playsinline @loadeddata="playVideo" ref="permissionDialogVideo" 
+      <div v-if="isShowMeHow" class="elevation-0 videoCard">
+         <video  playsinline @loadeddata="playVideo" ref="permissionDialogVideo" 
          loop autoplay muted class="dialogPermissionVideo mb-2" 
          :src="getPermissionBlockedVideo()"></video>
          <v-btn @click="onClose" rounded color="#4c59ff" depressed class="white--text">
             {{$t('got_it')}}
          </v-btn>
-      </v-card>
+      </div>
     </v-dialog> 
 </template>
 
@@ -98,8 +98,15 @@ export default {
          flex: auto;
       }
    }
-   .dialogPermissionVideo{
-      border: 1px solid black;
+   .videoCard{
+      .dialogPermissionVideo{
+         max-width: 100%;
+         border: 1px solid black;
+      }
+      video{
+         width: 100%;
+         max-height: calc(~"100vh - 150px");
+      }
    }
 }
 </style>
