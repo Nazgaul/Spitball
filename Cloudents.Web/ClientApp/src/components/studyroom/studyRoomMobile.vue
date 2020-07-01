@@ -154,7 +154,7 @@ export default {
             left: 0;
             right: 0;
             top: 0;
-            bottom: 0;
+            //bottom: 0;
             //height: ~"calc(100vh - 8px)";
             @media (max-width: @screen-xs) {
                //height: ~"calc(100vh - 56px)";
