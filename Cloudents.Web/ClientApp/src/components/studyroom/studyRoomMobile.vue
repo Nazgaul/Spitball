@@ -30,7 +30,7 @@
          </v-sheet>
       </div>
       <!-- hotfix for mobile audios -->
-      <div v-show="false" v-if="roomParticipants">
+      <div style="display:none" v-if="roomParticipants">
          <div v-for="participant in roomParticipants" :key="Object.values(participant)[0].id">
             <userPreview :participant="Object.values(participant)[0]" class="classRoomCards mx-1"/>
          </div>
@@ -149,11 +149,11 @@ export default {
                   border-radius: 4px !important;
             }
             height: 100vh;
-            height: -webkit-fill-available; //safari
-            position: fixed;
-            left: 0;
-            right: 0;
-            top: 0;
+            //height: -webkit-fill-available; //safari
+            //position: fixed;
+            //left: 0;
+            //right: 0;
+            //top: 0;
             //bottom: 0;
             //height: ~"calc(100vh - 8px)";
             @media (max-width: @screen-xs) {
@@ -255,10 +255,10 @@ export default {
             }
             .messages-body{
                padding-bottom: 0;
-               margin-bottom: 0;
+               margin-bottom: 14px + 50px;
                .message_wrap{
                   &:last-child{
-                     margin-bottom: 14px;
+                     margin-bottom: 0; //override
                   }
                }
             }
@@ -289,6 +289,14 @@ export default {
                      }
                   } 
                } 
+
+
+               @media (max-width: @screen-sm) and (orientation: portrait) {
+                     position: fixed;
+                     bottom: 0;
+                     left: 0;
+                     right: 0;
+               }
 
             }
          }

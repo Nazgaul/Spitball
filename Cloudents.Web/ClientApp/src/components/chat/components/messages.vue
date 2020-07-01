@@ -152,7 +152,7 @@ export default {
                 flex-direction: row-reverse;
                 box-shadow: 0px -3px 0px 0px rgba(240,240,247,1);
                 background: #efefef;
-                top: 6px;
+                //top: 6px;
                 // padding-right: 54px;
                 .responsive-property(padding-right, 54px, null, 64px);                
                 position: relative;
