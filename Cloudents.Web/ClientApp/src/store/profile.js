@@ -181,35 +181,28 @@ const mutations = {
 }
 
 const actions = {
-   syncProfile({commit, dispatch, state}, { id, pageSize }) {
-      let option = {
-         id,
-         params: {
-            page: 0,
-            pageSize,
-         }
-      }
-      return profileInstance.get(`${id}`).then((res) => {
-         commit('setProfile', res.data)
-         dispatch('updateProfileItemsByType', option);
-
-         const profileUserData = state.profile
-         dispatch('setUserStatus', profileUserData.user);
-         //TODO - why are we waiting for the first one
-         return profileInstance.get(`${id}/about`).then((res2) => {
-            commit('setProfileReviews', res2.data)
-         })
+   syncProfile({commit, dispatch, state}, id) {
+      if(state.profile?.id == id) return Promise.resolve()
+      return profileInstance.get(`${id}`).then(({data}) => {
+         commit('setProfile', data)
+         dispatch('setUserStatus', state.profile.user);
+         return
       })
    },
-   updateProfileItemsByType({ commit }, { id, params }) {
-            cancelTokenList?.cancel();
-            const axiosSource = axios.CancelToken.source();
-            cancelTokenList = axiosSource;
+   updateProfileReviews({commit}, id) {
+      return profileInstance.get(`${id}/about`).then(({data}) => {
+         commit('setProfileReviews', data)
+      })
+   },
+   updateProfileItemsByType({ commit }, {id, params}) {
+      cancelTokenList?.cancel();
+      const axiosSource = axios.CancelToken.source();
+      cancelTokenList = axiosSource;
 
-            return profileInstance.get(`${id}/documents`, { params, cancelToken : axiosSource.token })
-               .then(({data}) => {
-                  commit('setProfileDocuments', data);
-               });
+      return profileInstance.get(`${id}/documents`, { params, cancelToken : axiosSource.token })
+         .then(({data}) => {
+            commit('setProfileDocuments', data);
+         });
    },
    toggleProfileFollower({ state, commit, getters }, val) {
       let id = getters.getCurrTutor?.id || state.profile?.user?.id    

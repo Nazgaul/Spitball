@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import * as componentConsts from '../pages/global/toasterInjection/componentConsts.js'
 import { mapGetters } from 'vuex';
 
 import cover from "./components/cover.vue";
@@ -70,23 +69,33 @@ export default {
     },
     methods: {
         fetchData() {
-            let options = {
-              id: this.id,
+            let self = this
+            this.$store.dispatch('syncProfile', this.id)
+              .then(() => {
+                this.getProfileData()
+              }).catch((ex) => {
+                  console.error(ex);
+                  let currentRoute = self.$store.getters.getRouteStack[self.$store.getters.getRouteStack.length - 2] // check if there is last route that user come from
+                  if(currentRoute) {
+                    self.$router.go(-1)
+                    return
+                  }
+                  self.$router.push('/')
+              })
+        },
+        getProfileData() {
+          let options = {
+            id: this.id,
+            params: {
+              page: 0,
               pageSize: this.$vuetify.breakpoint.xsOnly ? 3 : 8
             }
-            let self = this
-            this.$store.dispatch('syncProfile', options).catch((ex) => {
-                console.error(ex);
-                let currentRoute = self.$store.getters.getRouteStack[self.$store.getters.getRouteStack.length - 2] // check if there is last route that user come from
-                if(currentRoute) {
-                  self.$router.go(-1)
-                  return
-                }
-                self.$router.push('/')
-            })
-        },
-        openTutorEditInfo() {
-          this.$store.commit('addComponent', componentConsts.TUTOR_EDIT_PROFILE)
+          }
+          let items = this.$store.dispatch('updateProfileItemsByType', options)
+          let reviews = this.$store.dispatch('updateProfileReviews', this.id)
+          Promise.all([items, reviews]).catch(ex => {
+            console.error(ex);
+          })
         }
     },
     computed: {
@@ -152,6 +161,9 @@ export default {
         });
         this.$store.commit('resetProfile');
         next();
+    },
+    created() {
+      this.getProfileData()
     }
 }
 </script>

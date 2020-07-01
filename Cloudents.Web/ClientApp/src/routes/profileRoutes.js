@@ -1,7 +1,6 @@
 import { staticComponents } from './routesUtils.js';
 import * as routeName from "./routeNames.js";
 import store from '../store'
-import vuetify from '../plugins/vuetify';
 
 export const profileRoutes = [
     {
@@ -15,12 +14,8 @@ export const profileRoutes = [
             default: () => import(`../components/new_profile/new_profile.vue`),
             ...staticComponents(['banner', 'header'])
         },
-        beforeEnter(to, from, next) {
-            let options = {
-                id: to.params.id,
-                pageSize: vuetify.framework.breakpoint.xsOnly ? 3 : 8
-            }            
-            store.dispatch('syncProfile', options).then(() => {
+        beforeEnter(to, from, next) {          
+            store.dispatch('syncProfile', to.params.id).then(() => {
                 next()
             }).catch(() => {
                 let previousLink = from.fullPath || '/';
