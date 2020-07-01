@@ -48,7 +48,8 @@ namespace Cloudents.Web.Controllers
             //}
             if (user.EmailConfirmed)
             {
-                return RedirectToRoute(RegisterController.Signin);
+                return Redirect("/");
+                //return RedirectToRoute(RegisterController.Signin);
 
                 //return await GoToStepAsync(user, RegistrationStep.RegisterSetPhone, model.ReturnUrl);
             }
@@ -56,12 +57,13 @@ namespace Cloudents.Web.Controllers
             if (!result.Succeeded)
             {
                 _logger.Error($"Error confirming email for user with ID '{model.Id}': {result}, User: {user}");
-                return RedirectToRoute(RegisterController.RegisterRouteName,
-                    new
-                    {
-                        //There was an extra step in here
-                        page = RegistrationStep.RegisterSetEmailPassword
-                    });
+                return Redirect("/");
+                //return RedirectToRoute(RegisterController.RegisterRouteName,
+                //    new
+                //    {
+                //        //There was an extra step in here
+                //        page = RegistrationStep.RegisterSetEmailPassword
+                //    });
             }
 
             //TempData[HomeController.Referral] = model.Referral;
