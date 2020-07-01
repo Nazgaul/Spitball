@@ -1,8 +1,26 @@
 <template>
   <div class="d-flex">
-    <!--Should be nice to have quiet attribute-->
-    <img v-resize.quiet="onResize" :width="coverImageSize.width" :height="coverImageSize.height" sel="cover_image" class="coverPhoto" :src="getCoverImage" />
-    <div class="coverupload" v-if="$store.getters.getIsMyProfile">
+    <v-skeleton-loader
+      v-if="!isLoaded"
+      class="skeletonAvatar"
+      :class="{'fixedHeight': fixedHeight}"
+      type="image"
+      :min-width="fixedHeight ? coverImageSize.width : '100%'"
+      :height="fixedHeight ? coverImageSize.height : '100%'"
+    >
+    </v-skeleton-loader>
+    <img
+      v-show="isLoaded"
+      v-resize.quiet="onResize"
+      :src="getCoverImage" 
+      :width="coverImageSize.width"
+      :height="coverImageSize.height"
+      @load="loaded"
+      class="coverPhoto"
+      sel="cover_image"
+    />
+    <slot></slot>
+    <!-- <div class="coverupload" v-if="$store.getters.getIsMyProfile">
       <input sel="edit_cover_image"
         class="profile-upload"
         type="file"
@@ -14,11 +32,13 @@
         v-show="false"
       />
       <label for="profile-cover-upload">
+        {{getProfileCoverImage}}
         <v-icon class="attach-icon" size="16" color="#fff">sbf-camera</v-icon>
         <span class="image-edit-text" v-t="'profile_edit_image_text'"></span>
       </label>
-    </div>
-    <slot></slot>
+    </div> -->
+    <!-- <slot name="linear"></slot> -->
+    <div class="imageLinear" :class="{'noImage': !isLoaded}"></div>
   </div>
 </template>
 
@@ -28,6 +48,12 @@ import utilitiesService from "../../../services/utilities/utilitiesService";
 var typeingTimer;
 export default {
   name: "uploadCover",
+  props: {
+    fixedHeight: {
+      type: Boolean,
+      required: false
+    }
+  },
   computed: {
     ...mapGetters([
       "getProfileCoverImage",
@@ -68,12 +94,14 @@ export default {
   },
   data() {
     return {
+      isLoaded: false,
       currentTime: Date.now(),
       headerHeight: 60,
       statsHeight: 50
     }
   },
   methods: {
+    ...mapActions(["uploadCoverImage", "updateToasterParams"]),
     onResize() {
       clearTimeout(typeingTimer);
       let self = this;
@@ -81,21 +109,24 @@ export default {
          self.currentTime = Date.now()
         }, 1000);
     },
-    ...mapActions(["uploadCoverImage", "updateToasterParams"]),
-    uploadCoverPicture() {
-      let self = this;
-      let formData = new FormData();
-      let file = self.$refs.profileImage.files[0];
-      formData.append("file", file);
-      self.uploadCoverImage(formData).then(() => {
-        // this.updateToasterParams({
-        //    // toasterText: this.$t("chat_file_error"),
-        //     showToaster: true
-        // });
-      });
-      this.$refs.profileImage.value = "";
-      //document.querySelector('#profile-picture').value = ''
-    }
+    loaded() {
+      this.isLoaded = true
+      this.$emit('setLoading')
+    },
+    // uploadCoverPicture() {
+    //   let self = this;
+    //   let formData = new FormData();
+    //   let file = self.$refs.profileImage.files[0];
+    //   formData.append("file", file);
+    //   self.uploadCoverImage(formData).then(() => {
+    //     // this.updateToasterParams({
+    //     //    // toasterText: this.$t("chat_file_error"),
+    //     //     showToaster: true
+    //     // });
+    //   });
+    //   this.$refs.profileImage.value = "";
+    //   //document.querySelector('#profile-picture').value = ''
+    // }
   }
 };
 </script>
@@ -120,6 +151,13 @@ export default {
   background-color: rgba(0, 0, 0, 0.6);
   @media (max-width: @screen-xs) {
     position: absolute; // temporary for mobile version till new design
+  }
+}
+.skeletonAvatar {
+  &.fixedHeight {
+    .v-skeleton-loader__image {
+      height: 594px;
+    }
   }
 }
 </style>

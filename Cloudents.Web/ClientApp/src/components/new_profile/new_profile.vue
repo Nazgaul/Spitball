@@ -1,10 +1,8 @@
 <template>
   <div class="profilePage" :key="componentRenderKey">
     <div class="coverWrapper">
-      <cover>
-        <div class="imageLinear"></div>
-      </cover>
-      <profileCoverActions @setCalendarActive="val => calendarActive = val" />
+      <profileCover @setLoading="() => coverImageLoading = true" />
+      <profileCoverActions @setCalendarActive="val => calendarActive = val" v-if="coverImageLoading" />
     </div>
     <profileStats />
     <div class="profileEdit text-right pa-3 px-sm-3 px-4" v-if="isMyProfile">
@@ -35,7 +33,7 @@
 import * as componentConsts from '../pages/global/toasterInjection/componentConsts.js'
 import { mapGetters } from 'vuex';
 
-import cover from "./components/cover.vue";
+import profileCover from './components/profileCover/profileCover.vue';
 import profileCoverActions from './components/profileCoverActions/profileCoverActions.vue';
 import profileDialogs from './components/profileDialogs/profileDialogs.vue';
 import profileStats from './components/profileStats/profileStats.vue';
@@ -52,9 +50,9 @@ import editSVG from './images/edit.svg';
 export default {
     name: "new_profile",
     components: {
-        cover,
-        profileDialogs,
+        profileCover,
         profileCoverActions,
+        profileDialogs,
         profileStats,
         profileParagraph,
         profileReviewsBox,
@@ -72,6 +70,7 @@ export default {
     },
     data() {
         return {
+            coverImageLoading: false,
             calendarActive: false,
             componentRenderKey: 0
         };
@@ -184,6 +183,9 @@ export default {
       left: 0;
       height: 100%;
       background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0.89));
+      &.noImage {
+        background-image: none
+      }
     }
   }
   .profileEdit {
