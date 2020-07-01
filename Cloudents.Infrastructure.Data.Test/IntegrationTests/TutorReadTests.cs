@@ -22,24 +22,24 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         }
 
-        [Theory]
-        [InlineData("xxx", 0, "IL", 5)]
-        [InlineData("Economics", 638, "IL", 5)]
-        [InlineData("Economics", 0, "IL", 100)]
-        [InlineData("Economics", 638, "IN", 5)]
-        [InlineData("xxx", 0, "IN", 5)]
+        //[Theory]
+        //[InlineData("xxx", 0, "IL", 5)]
+        //[InlineData("Economics", 638, "IL", 5)]
+        //[InlineData("Economics", 0, "IL", 100)]
+        //[InlineData("Economics", 638, "IN", 5)]
+        //[InlineData("xxx", 0, "IN", 5)]
 
-        public async Task TutorListByCourseQuery_Ok(string course, long userId, string countryStr, int count)
-        {
-            var country = Country.FromCountry(countryStr);
-            var query = new TutorListByCourseQuery(course, userId, country, count);
-            var result = await _fixture.QueryBus.QueryAsync(query, default);
-            foreach (var tutorCardDto in result)
-            {
-                //var test = Country.FromCountry(countryStr);
-                //tutorCardDto.SbCountry.Should().BeEquivalentTo(test);
-            }
-        }
+        //public async Task TutorListByCourseQuery_Ok(string course, long userId, string countryStr, int count)
+        //{
+        //    var country = Country.FromCountry(countryStr);
+        //    var query = new TutorListByCourseQuery(course, userId, country, count);
+        //    var result = await _fixture.QueryBus.QueryAsync(query, default);
+        //    foreach (var tutorCardDto in result)
+        //    {
+        //        //var test = Country.FromCountry(countryStr);
+        //        //tutorCardDto.SbCountry.Should().BeEquivalentTo(test);
+        //    }
+        //}
 
 
         [Theory]

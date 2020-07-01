@@ -46,8 +46,6 @@ select Name,
                             left join sb.UsersCourses uc
 	                            on c.Name = uc.CourseId and uc.UserId = @Id
                              where Contains(Name,  @Term)
-							and State = 'OK'
-							
                             order by case when uc.CourseId is not null
                                     then 1 else null end desc,
 									c.count desc

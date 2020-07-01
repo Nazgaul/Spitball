@@ -54,15 +54,13 @@ select Name,
 from sb.Course c
 join sb.UsersCourses uc
 	on c.Name = uc.CourseId and uc.UserId = @Id
-where State = 'OK'
 union all
 select Name,
 	0 as IsFollowing,
 	c.count as Students
 from sb.Course c
-where State = 'OK'
 
-and exists (select CourseId from cte where CourseId = c.Name)
+where exists (select CourseId from cte where CourseId = c.Name)
 and not exists (select uc.CourseId from sb.UsersCourses uc where c.Name = uc.CourseId and uc.UserId = @Id)
 and (c.Country is null or c.Country = @Country)
 order by IsFollowing desc,

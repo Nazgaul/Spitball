@@ -247,7 +247,7 @@ namespace Cloudents.Core.Entities
         {
             if (UserLogins.Count > 0)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("User is registered though 3rd party - cant change email");
             }
             Email = email;
         }
