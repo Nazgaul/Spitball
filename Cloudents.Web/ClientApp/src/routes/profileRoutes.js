@@ -24,7 +24,10 @@ export const profileRoutes = [
             }
             let options = {
                 id: to.params.id,
-                pageSize: vuetify.framework.breakpoint.xsOnly ? 3 : 8
+                params:{
+                    page: 0,
+                    pageSize: vuetify.framework.breakpoint.xsOnly ? 3 : 8,
+                }
             }            
             store.dispatch('syncProfile', options).then(() => {
                 next()

@@ -136,14 +136,14 @@ const actions = {
          })
       })
    },
-   updateProfileItemsByType({ state, commit }, { id, type, params }) {
-      if (!!state.profile && !!state.profile.user) {
-         if (type == "documents") {
+   updateProfileItemsByType({ commit }, { id, params }) {
+      // if (!!state.profile && !!state.profile.user) {
+         // if (type == "documents") {
             return profileService.getProfileDocuments(id, params).then(documents => {
                commit('setPorfileDocuments', documents);
             });
-         }
-      }
+         // }
+      // }
    },
    toggleProfileFollower({ state, commit, getters }, val) {
       let tutorId = getters.getCurrTutor?.id || state.profile?.user?.id    
