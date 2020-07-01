@@ -54,8 +54,8 @@
                         rows="2"
                         outlined
                         v-model="title"
-                        :rules="[rules.minimum, rules.descriptionMaxChars]"
-                        counter="28"
+                        :rules="[rules.minimum, rules.titleMaxChars]"
+                        :counter="TITLE_MAX"
                         :label="$t('profile_description_label')"
                     ></v-textarea>
                 </v-col>
@@ -65,7 +65,7 @@
                         outlined
                         v-model="shortParagraph"
                         :rules="[rules.minimum, rules.shortParagraphMaxChars]"
-                        counter="96"
+                        :counter="SHORTPARAGRAPG_MAX"
                         :label="$t('Short paragraph')"
                         :placeholder="$t('shortParagraph placeholder')"
                     ></v-textarea>
@@ -109,6 +109,8 @@ export default {
     },
     data() {
         return {
+            TITLE_MAX: 52,
+            SHORTPARAGRAPG_MAX: 100,
             editedBio: '',
             editTitle: '',
             editShortParagraph: '',
@@ -122,8 +124,8 @@ export default {
                 maximum: (value) => validationRules.maxVal(value, 1000),
                 maximumChars: (value) => validationRules.maximumChars(value, 1000),
                 minimumChars: (value) => validationRules.minimumChars(value, 2),
-                descriptionMaxChars: (value) => validationRules.maximumChars(value, 28),
-                shortParagraphMaxChars: (value) => validationRules.maximumChars(value, 96)
+                titleMaxChars: (value) => validationRules.maximumChars(value, this.TITLE_MAX),
+                shortParagraphMaxChars: (value) => validationRules.maximumChars(value, this.SHORTPARAGRAPG_MAX)
             }
         };
     },
@@ -189,8 +191,8 @@ export default {
                 this.$store.dispatch('saveUserInfo', serverFormat)
                     .then(() => {
                         this.closeDialog();
-                    }, (error) => {
-                        console.error(error);
+                    }).catch(ex => {
+                        console.error(ex);
                     }).finally(() => {
                         this.btnLoading = false;
                     });
@@ -198,7 +200,6 @@ export default {
         },
         closeDialog() {
             this.$store.commit('removeComponent', TUTOR_EDIT_PROFILE)
-            // this.$store.commit('setEditDialog', false);
         }
     }
 };
@@ -274,12 +275,19 @@ export default {
                 color: #a4a7ab;
                 font-size: 14px;
             }
-            .v-input__slot {
-                fieldset {
-                    border: 1px solid #b8c0d1;
+            .v-textarea {
+                .v-input__slot {
+                    fieldset {
+                        border: 1px solid #b8c0d1;
+                    }
+                    .v-label {
+                        color: @global-purple;
+                    }
                 }
-                .v-label {
-                    color: @global-purple;
+                &.error--text {
+                    fieldset {
+                        border: 2px solid #ff5252;
+                    }
                 }
             }
         }
