@@ -12,6 +12,9 @@ export const profileRoutes = [
             ...staticComponents(['banner', 'header'])
         },
         beforeEnter(to, from, next) {
+<<<<<<< Updated upstream
+            let option = {
+=======
             if (to.params.id == null) {
                 if (store.getters.getUserLoggedInStatus) {
                     let id = store.getters.getAccountId
@@ -23,10 +26,15 @@ export const profileRoutes = [
                 return
             }
             let options = {
+>>>>>>> Stashed changes
                 id: to.params.id,
-                pageSize: vuetify.framework.breakpoint.xsOnly ? 3 : 8
-            }            
-            store.dispatch('syncProfile', options).then(() => {
+                type: 'documents',
+                params:{
+                    page: 0,
+                    pageSize: vuetify.framework.breakpoint.xsOnly ? 3 : 8,
+                }
+            }
+            store.dispatch('syncProfile', option).then(() => {
                 next()
             }).catch(ex => {
                 console.error(ex);
