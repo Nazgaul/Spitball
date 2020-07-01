@@ -31,7 +31,7 @@
         </v-layout>
         <v-layout align-center justify-center class="mt-4 mb-4" column :class="{'shrink mt-5 pt-2': $vuetify.breakpoint.xsOnly}">
             <v-flex xs6  sm12 class="text-center pb-2">
-                <button @click="copyClassLink()" class="min-width solid d-flex align-center justify-center">
+                <!-- <button @click="copyClassLink()" class="min-width solid d-flex align-center justify-center">
                     <v-icon class="pr-0" color="white" transition="fade-transition"
                             v-show="isCopied">sbf-checkmark
                     </v-icon>
@@ -39,7 +39,7 @@
                     <span class="font-weight-bold btn-text text-capitalize" v-show="isCopied" v-t="'courses_link_copied'"></span>
 
 
-                </button>
+                </button> -->
             </v-flex>
             <v-flex xs12  sm12 class="text-center">
                 <span @click="goToCoursesList()" class="caption blue-text cursor-pointer" v-t="'courses_back_to_list'"></span>
@@ -75,17 +75,17 @@
                 this.$router.push({name: 'editCourse'});
                 this.closeDialog();
             },
-            copyClassLink() {
-                let url = `${global.location.origin}/feed/?Course=${this.courseName}`;
-                let self = this;
-                self.$copyText(url).then(() => {
-                    self.isCopied = true;
-                });
-                setTimeout(() => {
-                    self.isCopied = false;
-                }, 2000);
+            // copyClassLink() {
+            //     let url = `${global.location.origin}/feed/?Course=${this.courseName}`;
+            //     let self = this;
+            //     self.$copyText(url).then(() => {
+            //         self.isCopied = true;
+            //     });
+            //     setTimeout(() => {
+            //         self.isCopied = false;
+            //     }, 2000);
 
-            },
+            // },
             closeDialog(){
                 this.changeCreateDialogState(false);
                 this.$root.$emit('courseDialogClosed', true);

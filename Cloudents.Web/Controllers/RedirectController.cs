@@ -10,5 +10,11 @@ namespace Cloudents.Web.Controllers
         {
             return Redirect("/");
         }
+
+        [Route("api/locale")]
+        public IActionResult Locale()
+        {
+            return Ok();
+        }
     }
 }
