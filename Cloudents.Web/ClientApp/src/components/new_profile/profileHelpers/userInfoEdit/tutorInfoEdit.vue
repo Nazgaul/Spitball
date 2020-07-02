@@ -278,6 +278,9 @@ export default {
             .coverupload {
                 background: rgba(0,0,0,.6)
             }
+            .imageLinear {
+                display: none;
+            }
         }
         .profileInfo {
             .infoTitle {

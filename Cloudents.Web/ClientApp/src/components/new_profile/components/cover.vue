@@ -21,7 +21,7 @@
     />
 
     <slot>
-      <div class="coverupload" v-if="$store.getters.getIsMyProfile">
+      <div class="coverupload" v-if="$store.getters.getIsMyProfile && isLoaded">
         <input sel="edit_cover_image"
           class="profile-upload"
           type="file"
@@ -109,7 +109,7 @@ export default {
       let formData = new FormData();
       let file = self.$refs.profileImage.files[0];
       formData.append("file", file);
-      self.$store.dispatch('uploadCoverImage', formData).then(() => {
+      this.$store.dispatch('uploadCoverImage', formData).then(() => {
         // this.updateToasterParams({
         //    // toasterText: this.$t("chat_file_error"),
         //     showToaster: true
