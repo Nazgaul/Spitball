@@ -8,7 +8,7 @@
                     <span>{{$t('profile_edit_user_profile_title')}}</span>
                 </v-flex>
                 <v-btn :to="{name: courseRoute}" @click="$store.commit('setComponent', '')" icon small>
-                    <editSVG />
+                    <editSVG class="editSvg" width="15" />
                 </v-btn>
             </v-layout>
             <v-layout class="px-3 mt-3">
@@ -184,6 +184,12 @@ export default {
             font-size: 18px;
             font-weight: bold;
             letter-spacing: -0.5px;
+
+            .editSvg {
+                path {
+                    fill: @global-purple;
+                }
+            }
         }
         .subtitle{
             font-size: 16px;
