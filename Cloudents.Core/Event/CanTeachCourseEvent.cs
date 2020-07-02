@@ -13,15 +13,15 @@ namespace Cloudents.Core.Event
         public UserCourse UserCourse { get; private set; }
     }
 
-    public class CourseChangeSubjectEvent : IEvent
-    {
-        public CourseChangeSubjectEvent(Course course)
-        {
-            Course = course;
-        }
+    //public class CourseChangeSubjectEvent : IEvent
+    //{
+    //    public CourseChangeSubjectEvent(Course course)
+    //    {
+    //        Course = course;
+    //    }
 
-        public Course Course { get;  }
-    }
+    //    public Course Course { get;  }
+    //}
 
     public class RemoveCourseEvent : IEvent
     {

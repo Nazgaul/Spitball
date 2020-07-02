@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Microsoft.Azure.WebJobs;
@@ -7,6 +8,7 @@ using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 namespace Cloudents.FunctionsV2
 {
+    [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
     public static class ChatFunction
     {
 

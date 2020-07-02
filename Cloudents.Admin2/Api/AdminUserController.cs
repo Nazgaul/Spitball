@@ -369,9 +369,13 @@ namespace Cloudents.Admin2.Api
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
-            catch (ArgumentException)
+            catch (ArgumentException e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
+            }
+            catch (DuplicateRowException)
+            {
+                return BadRequest("this email belongs to someone else");
             }
         }
 

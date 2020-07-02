@@ -1,5 +1,5 @@
 <template>
-  <div class="profileParagraph text-left text-sm-center pa-2 px-4" :class="{'mt-2 mt-sm-8': !isMyProfile}">
+  <div class="profileParagraph text-left text-sm-center pa-2 mt-sm-6 px-4" :class="{'mt-2 mt-sm-8': !isMyProfile}">
     <div class="paragraph">
         {{bio | truncate(isOpen, '...', textLimit)}}
     </div>
@@ -38,7 +38,7 @@ export default {
             }
         },
         textLimit(){
-            return this.isMobile ? 68 : 250;
+            return this.isMobile ? 145 : 250;
         },
     },
     filters: {

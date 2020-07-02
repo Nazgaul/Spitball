@@ -101,14 +101,19 @@
                 </div>
             </div>
         </div>
-        <div class="showMore text-center mt-n2" v-if="broadcastSessions.length > 2" @click="isExpand = !isExpand">
-            <!-- TODO: add text for less -->
-            <span>{{buttonShowMore}}</span>
-        </div>
+        <div class="showMore text-center mt-n2" v-if="broadcastSessions.length > 2">
 
-        <!-- <v-btn class="showMore text-center" v-if="broadcastSessions.length > 2" depressed fab small color="#ff6f30">
-            <arrowDownIcon class="arrowIcon" fill="#fff" :class="{'exapnd': isExpand}" width="24" @click="isExpand = !isExpand"/>
-        </v-btn> -->
+            <v-btn class="showBtn" color="#fff" fab depressed small dark @click="isExpand = !isExpand">
+              <arrowDownIcon class="arrowIcon" :class="{'exapnd': isExpand}" width="22"/>
+            </v-btn>
+
+            <!-- TODO: add text for less -->
+            <!-- <span>{{buttonShowMore}}</span> -->
+
+            <!-- <button class="showBtn" v-if="broadcastSessions.length > 2">
+                <arrowDownIcon class="arrowIcon" :class="{'exapnd': isExpand}" width="24"/>
+            </button> -->
+        </div>
 
         <v-snackbar
             absolute
@@ -127,13 +132,13 @@
 import { StudyRoom } from '../../../../routes/routeNames'
 
 import enterIcon from './enterRoom.svg'
-// import arrowDownIcon from './group-3-copy-12.svg'
+import arrowDownIcon from './group-3-copy-16.svg'
 
 export default {
     name: 'profileLiveClasses',
     components: {
         enterIcon,
-        // arrowDownIcon  
+        arrowDownIcon  
     },
     props: {
         userId: {
@@ -158,9 +163,9 @@ export default {
         }
     },
     computed: {
-        buttonShowMore() {
-            return !this.isExpand ?  this.$t('See all live classes') : this.$t('See less live classes')
-        },
+        // buttonShowMore() {
+        //     return !this.isExpand ?  this.$t('See all live classes') : this.$t('See less live classes')
+        // },
         liveImage() {
             return this.isMobile ? require('./live-banner-mobile.png') : require('./live-banner-desktop.png')
         },
@@ -376,27 +381,18 @@ export default {
         font-weight: 600;
     }
 }
-// .showMore {
-//     .arrowIcon {
-//         cursor: pointer;
-//         &.exapnd {
-//             transform: scaleY(-1);
-//         }
-//     }
-// }
-
 .showMore {
-    max-width: max-content;
-    margin: 0 auto;
-    padding: 8px 16px;
-    border: 1px solid #ddd;
-    font-weight: 600;
-    border-radius: 6px;
-
-    @media (max-width: @screen-xs) {
-        margin: 0 16px;
-        padding: 12px;
-        max-width: 100%;
+    .showBtn {
+        border: 1px solid #d4d6da !important;
+    }
+    .arrowIcon {
+        cursor: pointer;
+        &.exapnd {
+            transform: scaleY(-1);
+        }
+        path {
+            fill: #ff6f30;
+        }
     }
 }
 </style>
