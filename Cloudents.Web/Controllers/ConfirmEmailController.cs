@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Text.Encodings.Web;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Models;
@@ -27,8 +26,15 @@ namespace Cloudents.Web.Controllers
         // GET
         public async Task<IActionResult> IndexAsync(ConfirmEmailRequest model, CancellationToken token)
         {
+            _logger.Info("ConfirmEmailController - getting request");
             if (!ModelState.IsValid)
             {
+                
+                _logger.Info("ConfirmEmailController - model not valid", new Dictionary<string, string>()
+                {
+                    ["id"] = model.Id.ToString(),
+                    ["code"] = model.Code
+                });
                 return Redirect("/");
             }
 
@@ -37,7 +43,11 @@ namespace Cloudents.Web.Controllers
             var user = await _userManager.FindByIdAsync(model.Id.ToString());
             if (user is null)
             {
-                _logger.Error("Confirm user email is null");
+                _logger.Info("ConfirmEmailController - no user", new Dictionary<string, string>()
+                {
+                    ["id"] = model.Id.ToString(),
+                    ["code"] = model.Code
+                });
                 return Redirect("/");
             }
 
@@ -51,7 +61,7 @@ namespace Cloudents.Web.Controllers
             if (!result.Succeeded)
             {
                 
-                _logger.Error($"Error confirming email {model.Id}",new Dictionary<string, string>()
+                _logger.Error($"ConfirmEmailController - Error confirming email {model.Id}",new Dictionary<string, string>()
                 {
                     ["UserId"] = model.Id.ToString(),
                     ["result"] = code,
