@@ -146,7 +146,7 @@ const actions = {
       // }
    },
    toggleProfileFollower({ state, commit, getters }, val) {
-      let tutorId = getters.getCurrTutor?.id || state.profile?.user?.id    
+      let tutorId = getters.getCurrTutor?.userId || state.profile?.user?.id    
       if (val) {
          return profileService.followProfile(tutorId).then(() => {
             commit('setProfileFollower', true)
