@@ -1,5 +1,5 @@
 <template>
-  <div class="profileParagraph text-left pa-2 mt-sm-6 px-4" :class="{'mt-2 mt-sm-8': !isMyProfile}">
+  <div class="profileParagraph text-left pa-2 mt-sm-6 px-4">
     <div class="paragraph">
         {{bio | truncate(isOpen, '...', textLimit)}}
     </div>
@@ -20,9 +20,9 @@ export default {
         readMoreText() {
             return this.isOpen ? this.$t('profile_read_less') : this.$t('profile_read_more')
         },
-        isMyProfile(){
-            return this.$store.getters.getIsMyProfile
-        },
+        // isMyProfile(){
+        //     return this.$store.getters.getIsMyProfile
+        // },
         bio() {
             return this.$store.getters.getProfileParagraph
         },

@@ -305,6 +305,9 @@ export default {
       padding-bottom: 10px;
       padding-bottom: 50px;
       text-align: center;
+      @media (max-width: @screen-xs) {
+         padding-bottom: 12px;
+      }
       .v-pagination__item{
          background-color: initial !important;
          box-shadow: none !important;
