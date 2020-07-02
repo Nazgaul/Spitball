@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Identity;
 
 namespace Cloudents.Web.Controllers
 {
@@ -14,11 +13,11 @@ namespace Cloudents.Web.Controllers
     [Route("[controller]", Name = "ConfirmEmail")]
     public class ConfirmEmailController : Controller
     {
-        private readonly SbUserManager _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly ILogger _logger;
 
 
-        public ConfirmEmailController(SbUserManager userManager, ILogger logger)
+        public ConfirmEmailController(UserManager<User> userManager, ILogger logger)
         {
             _userManager = userManager;
             _logger = logger;

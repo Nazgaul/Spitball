@@ -20,7 +20,6 @@ using System.Net.Http;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Identity;
 using Microsoft.AspNetCore.Authorization;
 using SbSignInManager = Cloudents.Web.Identity.SbSignInManager;
 
@@ -29,7 +28,7 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]"), ApiController]
     public class RegisterController : Controller
     {
-        private readonly SbUserManager _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly SbSignInManager _signInManager;
 
         private readonly IQueueProvider _queueProvider;
@@ -41,7 +40,7 @@ namespace Cloudents.Web.Api
         private const string Email = "email2";
         private const string EmailTime = "EmailTime";
 
-        public RegisterController(SbUserManager userManager, SbSignInManager signInManager,
+        public RegisterController(UserManager<User> userManager, SbSignInManager signInManager,
              IQueueProvider queueProvider, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger, ICountryService countryProvider)
         {
             _userManager = userManager;
