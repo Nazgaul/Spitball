@@ -14,7 +14,7 @@ namespace Cloudents.Web.Identity
     public sealed class SbUserManager : UserManager<User>
     {
         private readonly IPhoneValidator _smsProvider;
-        private readonly IQueryBus _queryBus;
+        //private readonly IQueryBus _queryBus;
 
 
         public SbUserManager(IUserStore<User> store, IOptions<IdentityOptions> optionsAccessor,
@@ -26,7 +26,7 @@ namespace Cloudents.Web.Identity
                 keyNormalizer, errors, services, logger)
         {
             _smsProvider = smsProvider;
-            _queryBus = queryBus;
+           // _queryBus = queryBus;
         }
 
         public async Task<IdentityResult> SetPhoneNumberAndCountryAsync(User user, string phoneNumber, string countryCallingCode, CancellationToken cancellationToken)
@@ -56,7 +56,12 @@ namespace Cloudents.Web.Identity
                 });
             }
 
-            return await SetPhoneNumberAsync(user, result.phoneNumber);
+            user.PhoneNumber = phoneNumber;
+            user.PhoneNumberConfirmed = false;
+            //await Store.SetPhoneNumberAsync(user, phoneNumber, CancellationToken);
+            //await Store.SetPhoneNumberConfirmedAsync(user, false, CancellationToken);
+            return await UpdateAsync(user);
+            //return await SetPhoneNumberAsync(user, result.phoneNumber);
         }
 
         //public Task<User> FindByPhoneAsync(string phoneNumber, string countryCallingCode)
