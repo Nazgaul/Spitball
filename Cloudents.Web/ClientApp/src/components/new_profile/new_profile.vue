@@ -1,10 +1,8 @@
 <template>
   <div class="profilePage" :key="componentRenderKey">
     <div class="coverWrapper">
-      <cover>
-        <div class="imageLinear"></div>
-      </cover>
-      <profileCoverActions @setCalendarActive="val => calendarActive = val" />
+      <profileCover @setLoading="() => coverImageLoading = true" />
+      <profileCoverActions @setCalendarActive="val => calendarActive = val" v-if="coverImageLoading" />
     </div>
     <profileStats />
     <profileParagraph />
@@ -28,7 +26,7 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import cover from "./components/cover.vue";
+import profileCover from './components/profileCover/profileCover.vue';
 import profileCoverActions from './components/profileCoverActions/profileCoverActions.vue';
 import profileDialogs from './components/profileDialogs/profileDialogs.vue';
 import profileStats from './components/profileStats/profileStats.vue';
@@ -44,9 +42,9 @@ import profileFooter from './components/profileFooter/profileFooter.vue';
 export default {
     name: "new_profile",
     components: {
-        cover,
-        profileDialogs,
+        profileCover,
         profileCoverActions,
+        profileDialogs,
         profileStats,
         profileParagraph,
         profileReviewsBox,
@@ -63,6 +61,7 @@ export default {
     },
     data() {
         return {
+            coverImageLoading: false,
             calendarActive: false,
             componentRenderKey: 0
         };
@@ -188,6 +187,9 @@ export default {
       left: 0;
       height: 100%;
       background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0.89));
+      &.noImage {
+        background-image: none
+      }
     }
   }
   .profilePage_main {

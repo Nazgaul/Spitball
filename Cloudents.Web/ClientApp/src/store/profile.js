@@ -40,7 +40,7 @@ const getters = {
 
 const mutations = {
    setProfile(state, data) {
-      let profile = new Profile(data)
+      state.profile = new Profile(data)
 
       function Profile(objInit) {
          this.user = {
@@ -72,10 +72,9 @@ const mutations = {
             }
          }
       }
-      state.profile = profile;
    },
    setProfileDocuments(state, data) {
-      let documents = new Document(data)
+      state.documents = new Document(data)
 
       function Document(objInit) {
          this.result = objInit.result.map(objData => new DocumentItem(objData));
@@ -100,7 +99,47 @@ const mutations = {
             this.priceType = 'Free'
          }
       }
-      state.documents = documents
+   },
+   setProfileReviews(state, data) {
+      state.profileReviews = new ProfileReviews(data)
+
+      function ProfileReviews(objInit) {
+         this.reviews = objInit.reviews ? objInit.reviews.map(review => {
+            return {
+               id : review.id || objInit.userId,
+               name : review.name,
+               firstName : review.firstName,
+               lastName : review.lastName,
+               image : review.image || '',
+               reviewText: review.reviewText,
+               rate: review.rate,
+               date: review.created,
+            }
+         }) : null
+         let amountOfRevies = 0;
+         this.rates = new Array(5).fill(undefined).map((val, key) => {
+            const temp =  !!objInit.rates[key] ? objInit.rates[key] : { rate: 0, users: 0 };
+            amountOfRevies += temp.rate*temp.users;
+            return temp;
+         })
+         state.amountOfReviews = amountOfRevies;
+      }
+   },
+   setLiveSession(state, data) {
+      state.profileLiveSessions = data.map(broadcast => new BroadcastSession(broadcast))
+
+      function BroadcastSession(objInit) {
+         this.id = objInit.id;
+         this.name = objInit.name;
+         this.price = {
+            amount: objInit.price.amount,
+            currency: objInit.price.currency
+         }
+         this.isFull= objInit.isFull
+         this.created = objInit.dateTime ? new Date(objInit.dateTime) : '';
+         this.enrolled = objInit.enrolled;
+         this.description = objInit.description;
+      }
    },
    resetProfile(state) {
       state.profile = null;
@@ -117,50 +156,6 @@ const mutations = {
    },
    setEditDialog(state, val) {
       state.showEditDataDialog = val;
-   },
-   setProfileReviews(state, data) {
-      let profileReviews = new ProfileReviews(data)
-
-      function ProfileReviews(objInit) {
-         this.reviews = objInit.reviews ? objInit.reviews.map(review => {
-            return {
-               id : review.id || objInit.userId,
-               name : review.name,
-               firstName : review.firstName,
-               lastName : review.lastName,
-               image : review.image || '',
-               reviewText: review.reviewText,
-               rate: review.rate,
-               date: review.created,
-            }
-         }) : null
-        let amountOfRevies = 0;
-         this.rates = new Array(5).fill(undefined).map((val, key) => {
-            const temp =  !!objInit.rates[key] ? objInit.rates[key] : { rate: 0, users: 0 };
-            amountOfRevies += temp.rate*temp.users;
-            return temp;
-         })
-         state.amountOfReviews = amountOfRevies;
-      }
-
-      state.profileReviews = profileReviews;
-   },
-   setLiveSession(state, data) {
-      let broadcastSession = data.map(broadcast => new BroadcastSession(broadcast))
-
-      function BroadcastSession(objInit) {
-         this.id = objInit.id;
-         this.name = objInit.name;
-         this.price = {
-            amount: objInit.price.amount,
-            currency: objInit.price.currency
-         }
-         this.isFull= objInit.isFull
-         this.created = objInit.dateTime ? new Date(objInit.dateTime) : '';
-         this.enrolled = objInit.enrolled;
-         this.description = objInit.description;
-      }
-      state.profileLiveSessions = broadcastSession;
    },
    setProfileTutorInfo(state, newData) {
       state.profile.user.name = `${newData.firstName} ${newData.lastName}`;

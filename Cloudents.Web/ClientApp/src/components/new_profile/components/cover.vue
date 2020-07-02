@@ -1,7 +1,26 @@
 <template>
   <div class="d-flex">
-    <img v-resize.quiet="onResize" :width="coverImageSize.width" :height="coverImageSize.height" sel="cover_image" class="coverPhoto" :src="getCoverImage" />
-    <div class="coverupload" v-if="$store.getters.getIsMyProfile">
+    <v-skeleton-loader
+      v-if="!isLoaded"
+      class="skeletonAvatar"
+      :class="{'fixedHeight': fixedHeight}"
+      type="image"
+      :min-width="fixedHeight ? coverImageSize.width : '100%'"
+      :height="fixedHeight ? coverImageSize.height : '100%'"
+    >
+    </v-skeleton-loader>
+    <img
+      v-show="isLoaded"
+      v-resize.quiet="onResize"
+      :src="getCoverImage" 
+      :width="coverImageSize.width"
+      :height="coverImageSize.height"
+      @load="loaded"
+      class="coverPhoto"
+      sel="cover_image"
+    />
+    <slot></slot>
+    <!-- <div class="coverupload" v-if="$store.getters.getIsMyProfile">
       <input sel="edit_cover_image"
         class="profile-upload"
         type="file"
@@ -13,37 +32,35 @@
         v-show="false"
       />
       <label for="profile-cover-upload">
-        <div class="profileEdit text-right pa-3 px-sm-3 px-4" v-if="$store.getters.getIsMyProfile">
-          <v-btn @click="openTutorEditInfo" width="122" color="rgba(0,0,0,.6)" height="40" depressed>
-            <editSVG class="editIcon" />
-            <span class="text ms-2" v-t="'edit'"></span>
-          </v-btn>
-        </div>
-        <!-- <v-icon class="attach-icon" size="16" color="#fff">sbf-camera</v-icon>
-        <span class="image-edit-text" v-t="'profile_edit_image_text'"></span> -->
+        {{getProfileCoverImage}}
+        <v-icon class="attach-icon" size="16" color="#fff">sbf-camera</v-icon>
+        <span class="image-edit-text" v-t="'profile_edit_image_text'"></span>
       </label>
-    </div>
-    <slot></slot>
+    </div> -->
+    <!-- <slot name="linear"></slot> -->
+    <div class="imageLinear" :class="{'noImage': !isLoaded}"></div>
   </div>
 </template>
 
 <script>
-import * as componentConsts from '../../pages/global/toasterInjection/componentConsts.js'
 import utilitiesService from "../../../services/utilities/utilitiesService";
-import editSVG from '../images/edit.svg';
 
 var typeingTimer;
 export default {
   name: "uploadCover",
-  components: {
-    editSVG
+  props: {
+    fixedHeight: {
+      type: Boolean,
+      required: false
+    }
   },
-    data() {
+  data() {
     return {
+      isLoaded: false,
       currentTime: Date.now(),
       headerHeight: 60,
       statsHeight: 50,
-      windowWidth: window.innerWidth
+      // windowWidth: 0
     }
   },
   computed: {
@@ -55,9 +72,10 @@ export default {
       if(this.isMobile) {
         height = window.innerHeight - this.headerHeight - this.statsHeight
       }
-
+      console.log(this.windowWidth);
+      
       return {
-        width: this.windowWidth,
+        width: window.innerWidth,
         height
       }
     },
@@ -83,29 +101,30 @@ export default {
     onResize() {
       clearTimeout(typeingTimer);
       let self = this;
-      this.windowWidth = window.innerWidth
+      // this.windowWidth = window.innerWidth
       typeingTimer = setTimeout(() => {
          self.currentTime = Date.now()
         }, 1000);
     },
-    uploadCoverPicture() {
-      let self = this;
-      let formData = new FormData();
-      let file = self.$refs.profileImage.files[0];
-      formData.append("file", file);
-      self.$store.dispatch('uploadCoverImage', formData).then(() => {
-        // this.updateToasterParams({
-        //    // toasterText: this.$t("chat_file_error"),
-        //     showToaster: true
-        // });
-      });
-      this.$refs.profileImage.value = "";
-      //document.querySelector('#profile-picture').value = ''
+    loaded() {
+      this.isLoaded = true
+      this.$emit('setLoading')
     },
-    openTutorEditInfo() {
-      this.$store.commit('addComponent', componentConsts.TUTOR_EDIT_PROFILE)
-    }
-  },
+    // uploadCoverPicture() {
+    //   let self = this;
+    //   let formData = new FormData();
+    //   let file = self.$refs.profileImage.files[0];
+    //   formData.append("file", file);
+    //   self.uploadCoverImage(formData).then(() => {
+    //     // this.updateToasterParams({
+    //     //    // toasterText: this.$t("chat_file_error"),
+    //     //     showToaster: true
+    //     // });
+    //   });
+    //   this.$refs.profileImage.value = "";
+    //   //document.querySelector('#profile-picture').value = ''
+    // }
+  }
 };
 </script>
 
@@ -142,6 +161,13 @@ export default {
     font-size: 16px;
     font-weight: 600;
     color: #fff;
+  }
+}
+.skeletonAvatar {
+  &.fixedHeight {
+    .v-skeleton-loader__image {
+      height: 594px;
+    }
   }
 }
 </style>
