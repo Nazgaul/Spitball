@@ -70,13 +70,14 @@ export default {
     max-width: 830px;
     margin: 0 auto;
     color: #363637;
+    .responsive-property(font-size, 18px, null, 16px);
     .paragraph {
         display: contents;
         line-height: 1.7;
-        font-size: 20px;
-        @media (max-width: @screen-xs) {
-            font-size: 16px;
-        }
+    }
+    .readMore {
+      font-weight: 600;
+      cursor: pointer;
     }
 }
 </style>

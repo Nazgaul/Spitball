@@ -70,7 +70,7 @@ export default {
     coverImageSize() {
       return {
         width: this.windowWidth,
-        height: this.isMobile ? 480 : 594
+        height: this.isMobile ? 420 : 594
       }
     },
     getCoverImage() {

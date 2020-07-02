@@ -1,7 +1,7 @@
 <template>
     <div v-if="broadcastSessions.length">
         <div class="profileBroadcast pa-4 pb-0 pa-sm-0">
-            <div class="mainTitle text-sm-center mb-6" v-t="'my_live_classes'"></div>
+            <div class="mainTitle text-sm-center mb-5">{{broadCastTitle}}</div>
             <div 
                 v-for="session in sessionsList"
                 class="broadcastList"
@@ -25,7 +25,7 @@
                     <div class="leftSide d-sm-flex me-sm-6">
                         <img :src="liveImage" alt="">
                     </div>
-                    <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pt-1 pt-sm-3 pe-0 ps-0">
+                    <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pt-2 pt-sm-3 pe-0 ps-0">
 
                         <div class="header d-flex justify-space-between mb-4" v-if="!isMobile">
                             <div>
@@ -52,7 +52,7 @@
                             </template>
                         </div>
 
-                        <div class="bottom d-flex align-end justify-space-between text-center" :class="{'mt-5': session.description}">
+                        <div class="bottom d-flex align-end justify-space-between text-center" :class="{'mt-4': session.description}">
                                 <v-btn
                                     v-if="isMyProfile || session.enrolled"
                                     @click="$router.push({name: studyroomRoute, params: { id: session.id } })"
@@ -163,6 +163,9 @@ export default {
         }
     },
     computed: {
+        broadCastTitle() {
+            return this.isMobile ? this.$t('my_live_classes_mobile') : this.$t('my_live_classes')
+        },
         // buttonShowMore() {
         //     return !this.isExpand ?  this.$t('See all live classes') : this.$t('See less live classes')
         // },
@@ -279,7 +282,7 @@ export default {
         
         @media(max-width: @screen-xs) {
             padding: 0;
-            font-size: 30px;
+            font-size: 23px;
             text-align: left;
             max-width: 350px;
             margin: 0;
@@ -338,12 +341,13 @@ export default {
             .rightSide {
                 .center {
                     color: #363637;
-
                     .description {
+                        font-size: 16px;
                         line-height: 1.5;
                         display: contents;
                     }
                     .readMore {
+                        font-weight: 600;
                         cursor: pointer;
                     }
                 }
@@ -357,13 +361,14 @@ export default {
                         font-size: 18px;
                         font-weight: 600;
                         @media(max-width: @screen-xs) {
+                            font-size: 16px;
                             display: block;
                         }
                     }
                     .subscription {
                         padding: 0 10px;
                         @media(max-width: @screen-xs) {
-                            font-size: 13px;
+                            font-size: 14px;
                         }
                     }
                 }

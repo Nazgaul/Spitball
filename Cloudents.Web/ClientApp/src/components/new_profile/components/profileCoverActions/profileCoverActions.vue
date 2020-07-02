@@ -120,17 +120,14 @@ export default {
     right: 0;
     bottom: 16px;
     .mainTitle {
-        font-size: 44px;
         font-weight: 600;
+        .responsive-property(font-size, 50px, null, 30px);
     }
     .subTitle {
         max-width: 450px;
         margin: 0 auto;
-        font-size: 16px;
         font-weight: 500;
-        @media (max-width: @screen-xs) {
-            font-size: 15px;
-        }
+        .responsive-property(font-size, 20px, null, 15px);
     }
     .btn {
         text-transform: none;
