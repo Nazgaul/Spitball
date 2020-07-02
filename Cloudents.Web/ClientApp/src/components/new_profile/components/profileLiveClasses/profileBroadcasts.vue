@@ -383,11 +383,6 @@ export default {
     font-weight: 600;
     border-radius: 50%;
 
-    @media (max-width: @screen-xs) {
-        margin: 0 16px;
-        padding: 12px;
-        max-width: 100%;
-    }
     .showBtn {
         outline: none;
     }
