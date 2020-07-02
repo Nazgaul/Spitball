@@ -161,7 +161,6 @@ export default {
                     }
 
                     if(self.presetRouting()) return
-                    console.log("fsda;klfmasdkl; gfsdjagjklsgjklsgjkls");
                     
 					// dispatch('userStatus').then(() => {
                     //     self.$router.push({name: self.routeNames.LoginRedirect})
@@ -195,7 +194,6 @@ export default {
 
             this.$store.dispatch('updateRequestDialog', true);
             this.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
-            this.$store.dispatch('toggleProfileFollower', true)
         },
         fromStudyRoom() {
             if(this.$route.name === this.routeNames.StudyRoom){
