@@ -2,31 +2,24 @@
     <cover :fixedHeight="true" @setLoading="loaded">
         <template v-if="loading">
             <div class="coverupload" v-if="$store.getters.getIsMyProfile">
-            <input sel="edit_cover_image"
-                class="profile-upload"
-                type="file"
-                name="File Upload"
-                @change="uploadCoverPicture"
-                accept="image/*"
-                ref="profileImage"
-                id="profile-cover-upload"
-                v-show="false"
-            />
-            <label for="profile-cover-upload">
-                <v-icon class="attach-icon" size="16" color="#fff">sbf-camera</v-icon>
-                <span class="image-edit-text" v-t="'profile_edit_image_text'"></span>
-            </label>
+                <v-btn class="white--text" color="rgba(0,0,0,.6)" @click="openEdit" depressed>
+                    <editIcon class="editIcon" width="20" />
+                    <span class="image-edit-text" v-t="'profile_edit_image_text'"></span>
+                </v-btn>
             </div>
         </template>
     </cover>
 </template>
 
 <script>
+import { TUTOR_EDIT_PROFILE } from '../../../pages/global/toasterInjection/componentConsts'
+import editIcon from '../../images/edit.svg'
 import cover from "../../components/cover.vue";
 export default {
     name: 'profileCover',
     components: {
-        cover
+        cover,
+        editIcon
     },
     data() {
         return {
@@ -34,24 +27,33 @@ export default {
         }
     },
     methods: {
+        openEdit() {
+            this.$store.commit('addComponent', TUTOR_EDIT_PROFILE)
+        },
         loaded() {
             this.loading = true
             this.$emit('setLoading')
         },
-        uploadCoverPicture() {
-        let self = this;
-        let formData = new FormData();
-        let file = self.$refs.profileImage.files[0];
-        formData.append("file", file);
-        self.$store.dispatch('uploadCoverImage', formData).then(() => {
-            // this.updateToasterParams({
-            //    // toasterText: this.$t("chat_file_error"),
-            //     showToaster: true
-            // });
-        });
-        this.$refs.profileImage.value = "";
-        //document.querySelector('#profile-picture').value = ''
-        }
     }
 }
 </script>
+
+<style lang="less">
+@import "../../../../styles/mixin";
+
+.coverupload {
+  position: absolute;
+  padding: 6px;
+  z-index: 2;
+  color: #fff;
+  border-radius: 6px;
+  @media (max-width: @screen-xs) {
+    position: absolute; // temporary for mobile version till new design
+  }
+  .editIcon {
+      path {
+        fill: #fff;
+      }
+  }
+}
+</style>

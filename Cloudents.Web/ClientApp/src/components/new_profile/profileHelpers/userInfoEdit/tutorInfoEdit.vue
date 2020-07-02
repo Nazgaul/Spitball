@@ -263,6 +263,10 @@ export default {
             }
             .coverPhoto {
                 height: 212px;
+                border-radius: 3px;
+            }
+            .coverupload {
+                background: rgba(0,0,0,.6)
             }
         }
         .profileInfo {

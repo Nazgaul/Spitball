@@ -19,25 +19,23 @@
       class="coverPhoto"
       sel="cover_image"
     />
-    <slot></slot>
-    <!-- <div class="coverupload" v-if="$store.getters.getIsMyProfile">
-      <input sel="edit_cover_image"
-        class="profile-upload"
-        type="file"
-        name="File Upload"
-        @change="uploadCoverPicture"
-        accept="image/*"
-        ref="profileImage"
-        id="profile-cover-upload"
-        v-show="false"
-      />
-      <label for="profile-cover-upload">
-        {{getProfileCoverImage}}
-        <v-icon class="attach-icon" size="16" color="#fff">sbf-camera</v-icon>
-        <span class="image-edit-text" v-t="'profile_edit_image_text'"></span>
-      </label>
-    </div> -->
-    <!-- <slot name="linear"></slot> -->
+    <slot>
+      <div class="coverupload" v-if="$store.getters.getIsMyProfile">
+        <input sel="edit_cover_image"
+          class="profile-upload"
+          type="file"
+          name="File Upload"
+          @change="uploadCoverPicture"
+          accept="image/*"
+          ref="profileImage"
+          id="profile-cover-upload"
+          v-show="false"
+        />
+        <label for="profile-cover-upload">
+          <v-icon class="attach-icon" color="#fff">sbf-cameraNew</v-icon>
+        </label>
+      </div>
+    </slot>
     <div class="imageLinear" :class="{'noImage': !isLoaded}"></div>
   </div>
 </template>
@@ -72,8 +70,6 @@ export default {
       if(this.isMobile) {
         height = window.innerHeight - this.headerHeight - this.statsHeight
       }
-      console.log(this.windowWidth);
-      
       return {
         width: window.innerWidth,
         height
@@ -110,20 +106,20 @@ export default {
       this.isLoaded = true
       this.$emit('setLoading')
     },
-    // uploadCoverPicture() {
-    //   let self = this;
-    //   let formData = new FormData();
-    //   let file = self.$refs.profileImage.files[0];
-    //   formData.append("file", file);
-    //   self.uploadCoverImage(formData).then(() => {
-    //     // this.updateToasterParams({
-    //     //    // toasterText: this.$t("chat_file_error"),
-    //     //     showToaster: true
-    //     // });
-    //   });
-    //   this.$refs.profileImage.value = "";
-    //   //document.querySelector('#profile-picture').value = ''
-    // }
+    uploadCoverPicture() {
+      let self = this;
+      let formData = new FormData();
+      let file = self.$refs.profileImage.files[0];
+      formData.append("file", file);
+      self.$store.dispatch('uploadCoverImage', formData).then(() => {
+        // this.updateToasterParams({
+        //    // toasterText: this.$t("chat_file_error"),
+        //     showToaster: true
+        // });
+      });
+      this.$refs.profileImage.value = "";
+      //document.querySelector('#profile-picture').value = ''
+    }
   }
 };
 </script>
@@ -138,31 +134,18 @@ export default {
     position: static;
   }
 }
-.coverupload {
-  position: absolute;
-  // margin: 6px;
-  // padding: 4px 8px 6px;
-  z-index: 2;
-  // color: #fff;
-  // border-radius: 6px;
-  // background-color: rgba(0, 0, 0, 0.6);
-  @media (max-width: @screen-xs) {
-    position: absolute; // temporary for mobile version till new design
-  }
-}
-.profileEdit {
-  .editIcon {
-    //temporary solution till new icon
-    path:first-child {
-      fill: #fff;
-    }
-  }
-  .text {
-    font-size: 16px;
-    font-weight: 600;
-    color: #fff;
-  }
-}
+// .coverUpload {
+//     .editImage{
+//       position: absolute;
+//       // right: 4px;
+//       text-align: center;
+//       // width: 36px;
+//       // height: 46px;
+//       border-radius: 3px;
+//       background-color: rgba(0,0,0,.6);
+//       z-index: 1;
+//   }
+// }
 .skeletonAvatar {
   &.fixedHeight {
     .v-skeleton-loader__image {
