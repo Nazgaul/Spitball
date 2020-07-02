@@ -250,6 +250,7 @@ export default {
             .user-avatar-image-wrap {
                 width: auto !important;
                 .user-avatar-rect-img {
+                    border: solid 1px #c6cdda;
                     border-radius: 3px !important;
                 }
             }
@@ -264,6 +265,7 @@ export default {
             .coverPhoto {
                 height: 212px;
                 border-radius: 3px;
+                border: solid 1px #c6cdda;
             }
             .coverupload {
                 background: rgba(0,0,0,.6)
