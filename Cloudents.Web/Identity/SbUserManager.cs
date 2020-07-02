@@ -5,12 +5,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Infrastructure;
 using Cloudents.Query;
-using Cloudents.Query.Users;
 
 namespace Cloudents.Web.Identity
 {
@@ -62,13 +59,13 @@ namespace Cloudents.Web.Identity
             return await SetPhoneNumberAsync(user, result.phoneNumber);
         }
 
-        public Task<User> FindByPhoneAsync(string phoneNumber, string countryCallingCode)
-        {
-            var phoneNumberWithCallingCode = TwilioProvider.BuildPhoneNumber(phoneNumber, countryCallingCode);
-            Expression<Func<User, bool>> expression = s => s.PhoneNumber == phoneNumberWithCallingCode;
-            return _queryBus.QueryAsync(new UserDataExpressionQuery(expression), CancellationToken.None);
+        //public Task<User> FindByPhoneAsync(string phoneNumber, string countryCallingCode)
+        //{
+        //    var phoneNumberWithCallingCode = TwilioProvider.BuildPhoneNumber(phoneNumber, countryCallingCode);
+        //    Expression<Func<User, bool>> expression = s => s.PhoneNumber == phoneNumberWithCallingCode;
+        //    return _queryBus.QueryAsync(new UserDataExpressionQuery(expression), CancellationToken.None);
 
-        }
+        //}
 
         public override async Task<IdentityResult> ChangePhoneNumberAsync(User user, string phoneNumber, string token)
         {
