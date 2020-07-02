@@ -58,7 +58,7 @@ export default {
       currentTime: Date.now(),
       headerHeight: 60,
       statsHeight: 50,
-      // windowWidth: 0
+      windowWidth: window.innerWidth
     }
   },
   computed: {
@@ -71,7 +71,7 @@ export default {
         height = window.innerHeight - this.headerHeight - this.statsHeight
       }
       return {
-        width: window.innerWidth,
+        width: this.windowWidth,
         height
       }
     },
@@ -97,10 +97,10 @@ export default {
     onResize() {
       clearTimeout(typeingTimer);
       let self = this;
-      // this.windowWidth = window.innerWidth
       typeingTimer = setTimeout(() => {
-         self.currentTime = Date.now()
-        }, 1000);
+        self.windowWidth = window.innerWidth
+        self.currentTime = Date.now()
+      }, 1000);
     },
     loaded() {
       this.isLoaded = true
