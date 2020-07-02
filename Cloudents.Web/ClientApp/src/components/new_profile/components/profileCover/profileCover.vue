@@ -4,7 +4,7 @@
             <div class="coverupload" v-if="$store.getters.getIsMyProfile">
                 <v-btn class="white--text" color="rgba(0,0,0,.6)" @click="openEdit" depressed>
                     <editIcon class="editIcon" width="20" />
-                    <span class="image-edit-text" v-t="'profile_edit_image_text'"></span>
+                    <span class="image-edit-text" v-t="'edit'"></span>
                 </v-btn>
             </div>
         </template>
