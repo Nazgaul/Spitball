@@ -233,7 +233,7 @@ namespace Cloudents.Web.Api
         private async Task GenerateEmailAsync(User user, CancellationToken token)
         {
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            code = UrlEncoder.Default.Encode(code);
+            code = System.Net.WebUtility.UrlEncode(code);
 
             TempData[EmailTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
 

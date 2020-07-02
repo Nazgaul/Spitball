@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Entities;
+﻿using System.Text.Encodings.Web;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
@@ -41,7 +42,7 @@ namespace Cloudents.Web.Controllers
                 _logger.Error("Confirm user email is null");
                 return Redirect("/");
             }
-
+            
             //if (user.PhoneNumberConfirmed)
             //{
             //    return RedirectToRoute(RegisterController.Signin);
@@ -56,12 +57,13 @@ namespace Cloudents.Web.Controllers
             if (!result.Succeeded)
             {
                 _logger.Error($"Error confirming email for user with ID '{model.Id}': {result}, User: {user}");
-                return RedirectToRoute(RegisterController.RegisterRouteName,
-                    new
-                    {
-                        //There was an extra step in here
-                        page = RegistrationStep.RegisterSetEmailPassword
-                    });
+                return Redirect("/");
+                //return RedirectToRoute(RegisterController.RegisterRouteName,
+                //    new
+                //    {
+                //        //There was an extra step in here
+                //        page = RegistrationStep.RegisterSetEmailPassword
+                //    });
             }
 
             //TempData[HomeController.Referral] = model.Referral;
