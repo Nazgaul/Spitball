@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
@@ -39,7 +38,7 @@ namespace Cloudents.Web.Api
         private readonly ILogger _logger;
         private readonly ICountryService _countryProvider;
 
-        internal const string Email = "email2";
+        private const string Email = "email2";
         private const string EmailTime = "EmailTime";
 
         public RegisterController(SbUserManager userManager, SbSignInManager signInManager,
@@ -102,7 +101,7 @@ namespace Cloudents.Web.Api
         {
 
             if (user.PhoneNumber != null)
-            {
+            { 
                 if (isExternal)
                 {
                     await _signInManager.SignInAsync(user, false);
@@ -233,11 +232,21 @@ namespace Cloudents.Web.Api
         private async Task GenerateEmailAsync(User user, CancellationToken token)
         {
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            code = System.Net.WebUtility.UrlEncode(code);
+           var encodedCode = System.Net.WebUtility.UrlEncode(code);
 
             TempData[EmailTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
-
-            var link = Url.Link("ConfirmEmail", new { user.Id, code, referral = TempData[HomeController.Referral] });
+            _logger.Info("generate Email",new Dictionary<string, string>()
+            {
+                ["userId"] = user.Id.ToString(),
+                ["code"] = code,
+                ["encoded"] = encodedCode
+            });
+            var link = Url.Link("ConfirmEmail", new
+            {
+                user.Id,
+                encodedCode,
+                referral = TempData[HomeController.Referral]
+            });
             TempData[Email] = user.Email;
             var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link), CultureInfo.CurrentUICulture);
             await _queueProvider.InsertMessageAsync(message, token);
@@ -286,31 +295,6 @@ namespace Cloudents.Web.Api
 
             TempData[EmailTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
             await GenerateEmailAsync(user, token);
-            return Ok();
-        }
-
-        [HttpPost("userType"), Authorize]
-        public IActionResult SetUserTypeAsync()
-        {
-            //var command = new SetUserTypeCommand(userId, model.UserType);
-            //await commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
-
-
-        [HttpPost("childName"), Authorize]
-        public IActionResult SetChildNameAsync()
-        {
-            //var userId = _userManager.GetLongUserId(User);
-            //var command = new SetChildNameCommand(userId, model.Name, model.Grade);
-            //await commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
-
-        [HttpPost("grade")]
-        public IActionResult SetUserGradeAsync()
-        {
-
             return Ok();
         }
     }

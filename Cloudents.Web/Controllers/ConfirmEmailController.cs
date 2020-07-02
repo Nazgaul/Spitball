@@ -1,4 +1,5 @@
-﻿using System.Text.Encodings.Web;
+﻿using System.Collections.Generic;
+using System.Text.Encodings.Web;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Models;
@@ -31,56 +32,39 @@ namespace Cloudents.Web.Controllers
                 return Redirect("/");
             }
 
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    return Redirect("/");
-            //}
-            model.Code = System.Net.WebUtility.UrlDecode(model.Code);
+            //  var code = model.Code;
+            var code = System.Net.WebUtility.UrlDecode(model.Code);
             var user = await _userManager.FindByIdAsync(model.Id.ToString());
             if (user is null)
             {
                 _logger.Error("Confirm user email is null");
                 return Redirect("/");
             }
-            
-            //if (user.PhoneNumberConfirmed)
-            //{
-            //    return RedirectToRoute(RegisterController.Signin);
-            //}
+
+
             if (user.EmailConfirmed)
             {
-                return RedirectToRoute(RegisterController.Signin);
-
-                //return await GoToStepAsync(user, RegistrationStep.RegisterSetPhone, model.ReturnUrl);
+                return View("ConfirmEmail");
             }
-            var result = await _userManager.ConfirmEmailAsync(user, model.Code);
+
+            var result = await _userManager.ConfirmEmailAsync(user, code);
             if (!result.Succeeded)
             {
-                _logger.Error($"Error confirming email for user with ID '{model.Id}': {result}, User: {user}");
+                
+                _logger.Error($"Error confirming email {model.Id}",new Dictionary<string, string>()
+                {
+                    ["UserId"] = model.Id.ToString(),
+                    ["result"] = code,
+                    ["Encoded"] = model.Code
+                }); 
                 return Redirect("/");
-                //return RedirectToRoute(RegisterController.RegisterRouteName,
-                //    new
-                //    {
-                //        //There was an extra step in here
-                //        page = RegistrationStep.RegisterSetEmailPassword
-                //    });
+
             }
 
-            //TempData[HomeController.Referral] = model.Referral;
 
             return View("ConfirmEmail");
         }
 
-        //private async Task<RedirectToRouteResult> GoToStepAsync(User user, RegistrationStep step, string returnUrl)
-        //{
-        //    await _signInManager.TempSignIn(user);
-        //    var v =  RedirectToRoute(RegisterController.RegisterRouteName,
-        //        new
-        //        {
-        //            page = step.RoutePath,
-        //            returnUrl = Url.IsLocalUrl(returnUrl) ? returnUrl : null
-        //        });
-        //    return v;
-        //}
+
     }
 }
