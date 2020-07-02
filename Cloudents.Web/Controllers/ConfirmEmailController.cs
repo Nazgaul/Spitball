@@ -35,7 +35,8 @@ namespace Cloudents.Web.Controllers
                     ["id"] = model.Id.ToString(),
                     ["code"] = model.Code
                 });
-                return Redirect("/");
+                return View("ConfirmEmail");
+             //   return Redirect("/");
             }
 
             //  var code = model.Code;

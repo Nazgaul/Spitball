@@ -235,17 +235,19 @@ namespace Cloudents.Web.Api
            var encodedCode = System.Net.WebUtility.UrlEncode(code);
 
             TempData[EmailTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
-            _logger.Info("generate Email",new Dictionary<string, string>()
-            {
-                ["userId"] = user.Id.ToString(),
-                ["code"] = code,
-                ["encoded"] = encodedCode
-            });
+            
             var link = Url.Link("ConfirmEmail", new
             {
                 user.Id,
                 encodedCode,
                 referral = TempData[HomeController.Referral]
+            });
+            _logger.Info("generate Email",new Dictionary<string, string>()
+            {
+                ["userId"] = user.Id.ToString(),
+                ["code"] = code,
+                ["encoded"] = encodedCode,
+                ["link"] = link
             });
             TempData[Email] = user.Email;
             var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link), CultureInfo.CurrentUICulture);
