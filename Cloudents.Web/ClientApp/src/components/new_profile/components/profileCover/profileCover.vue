@@ -2,8 +2,8 @@
     <cover :fixedHeight="true" @setLoading="loaded">
         <template v-if="loading">
             <div class="coverupload" v-if="$store.getters.getIsMyProfile">
-                <v-btn class="white--text" color="rgba(0,0,0,.6)" @click="openEdit" depressed>
-                    <editIcon class="editIcon" width="20" />
+                <v-btn class="white--text" color="rgba(0,0,0,.6)" @click="openEdit" depressed v-ripple="false">
+                    <editIcon class="editIcon me-2" width="20" />
                     <span class="image-edit-text" v-t="'edit'"></span>
                 </v-btn>
             </div>

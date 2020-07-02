@@ -101,12 +101,18 @@
                 </div>
             </div>
         </div>
-        <div class="showMore text-center mt-n2" v-if="broadcastSessions.length > 2" @click="isExpand = !isExpand">
+        <div class="showMore text-center mt-n2" v-if="broadcastSessions.length > 2">
+
+            <v-btn class="showBtn" color="#fff" fab depressed small dark @click="isExpand = !isExpand">
+              <arrowDownIcon class="arrowIcon" :class="{'exapnd': isExpand}" width="22"/>
+            </v-btn>
+
             <!-- TODO: add text for less -->
             <!-- <span>{{buttonShowMore}}</span> -->
-            <button class="showBtn" v-if="broadcastSessions.length > 2">
+
+            <!-- <button class="showBtn" v-if="broadcastSessions.length > 2">
                 <arrowDownIcon class="arrowIcon" :class="{'exapnd': isExpand}" width="24"/>
-            </button>
+            </button> -->
         </div>
 
         <v-snackbar
@@ -376,15 +382,8 @@ export default {
     }
 }
 .showMore {
-    max-width: max-content;
-    margin: 0 auto;
-    padding: 8px;
-    border: 1px solid #d4d6da;
-    font-weight: 600;
-    border-radius: 50%;
-
     .showBtn {
-        outline: none;
+        border: 1px solid #d4d6da !important;
     }
     .arrowIcon {
         cursor: pointer;

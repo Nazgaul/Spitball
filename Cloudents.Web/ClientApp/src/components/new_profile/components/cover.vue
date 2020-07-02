@@ -19,6 +19,7 @@
       class="coverPhoto"
       sel="cover_image"
     />
+
     <slot>
       <div class="coverupload" v-if="$store.getters.getIsMyProfile">
         <input sel="edit_cover_image"
@@ -36,6 +37,7 @@
         </label>
       </div>
     </slot>
+    
     <div class="imageLinear" :class="{'noImage': !isLoaded}"></div>
   </div>
 </template>
@@ -66,13 +68,9 @@ export default {
       return this.$vuetify.breakpoint.xsOnly
     },
     coverImageSize() {
-      let height = 594;
-      if(this.isMobile) {
-        height = window.innerHeight - this.headerHeight - this.statsHeight
-      }
       return {
         width: this.windowWidth,
-        height
+        height: this.isMobile ? 480 : 594
       }
     },
     getCoverImage() {
