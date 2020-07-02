@@ -27,7 +27,7 @@
                     </div>
                     <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pt-2 pt-sm-3 pe-0 ps-0">
 
-                        <div class="header d-flex justify-space-between mb-4" v-if="!isMobile">
+                        <div class="header d-flex justify-space-between mb-3" v-if="!isMobile">
                             <div>
                                 <v-icon size="20" color="#3b3b3c">sbf-dateIcon</v-icon>
                                 <span class="dateTime ms-1">{{$d(session.created, 'tableDate')}}</span>
@@ -52,7 +52,7 @@
                             </template>
                         </div>
 
-                        <div class="bottom d-flex align-end justify-space-between text-center" :class="{'mt-4': session.description}">
+                        <div class="bottom d-flex align-end justify-space-between text-center" :class="{'mt-5': session.description}">
                                 <v-btn
                                     v-if="isMyProfile || session.enrolled"
                                     @click="$router.push({name: studyroomRoute, params: { id: session.id } })"
@@ -387,6 +387,10 @@ export default {
     }
 }
 .showMore {
+    margin-bottom: 60px;
+    @media (max-width: @screen-xs) {
+        margin-bottom: unset;
+    }
     .showBtn {
         border: 1px solid #d4d6da !important;
     }

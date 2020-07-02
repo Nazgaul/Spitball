@@ -1,15 +1,16 @@
     <template>
     <div class="profileCoverActions text-sm-center px-4">
         <h1 dir="auto" class="mainTitle mb-3 white--text">{{title}}</h1>
-        <h2 dir="auto" class="subTitle white--text">{{paragraph}}</h2>
-        <div class="mt-5 mb-sm-5">
-            <v-btn class="btn white--text me-3" @click="sendMessage" rounded depressed color="#ff6927" width="200" height="46" :block="isMobile">
+        <h2 dir="auto" class="subTitle white--text mb-sm-7 mb-5">{{paragraph}}</h2>
+        <div class="mb-sm-5 actionWrapper text-center">
+            <!-- mb-4 on both buttons, no Exception-->
+            <v-btn class="btn white--text me-sm-4 mb-4 mb-sm-0" @click="sendMessage" rounded depressed color="#ff6927" :width="isMobile ? '166' : '200'" height="46">
                 <chatIcon class="me-2" width="23" />
-                <span class="flex-grow-1 flex-sm-grow-0 pe-7 pe-sm-0" v-t="'message_me'"></span>
+                <span class="flex-grow-1 flex-sm-grow-0 pe-sm-0" v-t="'message_me'"></span>
             </v-btn>
-            <v-btn class="btn white--text mt-4 mt-sm-0" @click="openCalendar" v-if="$store.getters.getProfileIsCalendar" rounded depressed color="#4c59ff" width="200" height="46" :block="isMobile">
+            <v-btn class="btn white--text mt-sm-0 mb-4 mb-sm-0" @click="openCalendar" v-if="$store.getters.getProfileIsCalendar" rounded depressed color="#4c59ff" :width="isMobile ? '166' : '200'" height="46">
                 <calendarIcon class="me-2" width="23" />
-                <span class="flex-grow-1 flex-sm-grow-0 pe-7 pe-sm-0" v-t="'book_lesson'"></span>
+                <span class="flex-grow-1 flex-sm-grow-0 pe-sm-0" v-t="'book_lesson'"></span>
             </v-btn>
         </div>
     </div>
@@ -120,24 +121,24 @@ export default {
     right: 0;
     bottom: 16px;
     .mainTitle {
+        max-width: 753px;
+        line-height: 1.2;
+        margin: 0 auto;
         font-weight: 600;
         .responsive-property(font-size, 50px, null, 30px);
     }
     .subTitle {
-        max-width: 450px;
+        max-width: 565px;
         margin: 0 auto;
         font-weight: 500;
-        .responsive-property(font-size, 20px, null, 15px);
+        .responsive-property(font-size, 20px, null, 18px);
     }
-    .btn {
-        text-transform: none;
-        font-size: 16px;
-        font-weight: 600;
-        // &:disabled {
-        //     color: #fff !important;
-        //     background-color: blue !important;
-        //     pointer-events: none;
-        // }
+    .actionWrapper {
+        .btn {
+            text-transform: none;
+            font-size: 16px;
+            font-weight: 600;
+        }
     }
 }
 </style>

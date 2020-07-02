@@ -58,7 +58,7 @@ export default {
         right: 0;
     }
     .statsWrapper {
-        max-width: 960px;
+        max-width: 800px;
         margin: 0 auto;
         .stats {
             position: relative;
