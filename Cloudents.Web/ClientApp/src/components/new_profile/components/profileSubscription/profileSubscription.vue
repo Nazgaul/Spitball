@@ -65,7 +65,7 @@ export default {
 .profileSubscription {
     max-width: 960px;
     background: #fff;
-    margin: 54px auto 0;
+    margin: 38px auto 0;
     border-radius: 8px;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
     

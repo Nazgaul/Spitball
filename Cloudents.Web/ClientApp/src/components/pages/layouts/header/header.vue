@@ -9,7 +9,7 @@
         </router-link>
         <template v-if="$route.meta.tutorHeaderSlot">
             <div class="dividerName mx-8" v-show="!isMobile"></div>
-            <div class="tutorName text-truncate text-center text-sm-left">{{tutorName}}</div>
+            <div class="tutorName text-truncate text-center text-sm-left mb-1">{{tutorName}}</div>
         </template>
         <div class="globalHeader_items" :class="{'tutorProfile': $route.name === profileRoute}">
             <!-- <div class="globalHeader_items_left" v-if="!isMobile">

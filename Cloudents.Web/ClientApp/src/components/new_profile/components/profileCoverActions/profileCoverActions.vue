@@ -1,14 +1,23 @@
     <template>
     <div class="profileCoverActions text-sm-center px-4">
-        <h1 dir="auto" class="mainTitle mb-3 white--text">{{title}}</h1>
+        <h1 dir="auto" class="mainTitle mb-4 white--text">{{title}}</h1>
         <h2 dir="auto" class="subTitle white--text mb-sm-7 mb-5">{{paragraph}}</h2>
         <div class="mb-sm-5 actionWrapper text-center">
             <!-- mb-4 on both buttons, no Exception-->
-            <v-btn class="btn white--text me-sm-4 mb-4 mb-sm-0" @click="sendMessage" rounded depressed color="#ff6927" :width="isMobile ? '166' : '200'" height="46">
+            <v-btn
+                class="btn white--text me-sm-4  mb-sm-0"
+                :class="{'mb-4': !isMyProfile}"
+                @click="sendMessage"
+                rounded
+                depressed
+                color="#ff6927"
+                :width="isMobile ? '166' : '200'"
+                height="46"
+            >
                 <chatIcon class="me-2" width="23" />
                 <span class="flex-grow-1 flex-sm-grow-0 pe-sm-0" v-t="'message_me'"></span>
             </v-btn>
-            <v-btn class="btn white--text mt-sm-0 mb-4 mb-sm-0" @click="openCalendar" v-if="$store.getters.getProfileIsCalendar" rounded depressed color="#4c59ff" :width="isMobile ? '166' : '200'" height="46">
+            <v-btn class="btn white--text mt-sm-0 mb-4 mb-sm-0" @click="openCalendar" v-if="isCalendar" rounded depressed color="#4c59ff" :width="isMobile ? '166' : '200'" height="46">
                 <calendarIcon class="me-2" width="23" />
                 <span class="flex-grow-1 flex-sm-grow-0 pe-sm-0" v-t="'book_lesson'"></span>
             </v-btn>
@@ -30,7 +39,7 @@ export default {
         calendarIcon
     },
     computed: {
-        IsCalendar() {
+        isCalendar() {
             return this.$store.getters.getProfileIsCalendar
         },
         isMyProfile() {
@@ -121,6 +130,7 @@ export default {
     right: 0;
     bottom: 16px;
     .mainTitle {
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.21);
         max-width: 753px;
         line-height: 1.2;
         margin: 0 auto;

@@ -193,7 +193,7 @@ export default {
       background: #E6E6E6;
    }
    .profileItemsBox_title{
-      .responsive-property(font-size, 18px, null, 16px);
+      .responsive-property(font-size, 24px, null, 16px);
       font-weight: 600;
       @media (max-width: @screen-xs) {
          padding: 10px 14px;
@@ -303,6 +303,7 @@ export default {
    }
    .profileItemBox_pagination{
       padding-bottom: 10px;
+      padding-bottom: 50px;
       text-align: center;
       .v-pagination__item{
          background-color: initial !important;

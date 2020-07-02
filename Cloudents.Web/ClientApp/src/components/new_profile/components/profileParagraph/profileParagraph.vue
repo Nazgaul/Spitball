@@ -1,5 +1,5 @@
 <template>
-  <div class="profileParagraph text-left text-sm-center pa-2 mt-sm-6 px-4" :class="{'mt-2 mt-sm-8': !isMyProfile}">
+  <div class="profileParagraph text-left pa-2 mt-sm-6 px-4" :class="{'mt-2 mt-sm-8': !isMyProfile}">
     <div class="paragraph">
         {{bio | truncate(isOpen, '...', textLimit)}}
     </div>
@@ -38,7 +38,7 @@ export default {
             }
         },
         textLimit(){
-            return this.isMobile ? 145 : 250;
+            return this.isMobile ? 145 : 320;
         },
     },
     filters: {
@@ -67,7 +67,7 @@ export default {
 @import '../../../../styles/mixin.less';
 
 .profileParagraph {
-    max-width: 830px;
+    max-width: 753px;
     margin: 0 auto;
     color: #363637;
     .responsive-property(font-size, 18px, null, 16px);

@@ -144,6 +144,20 @@ export default {
 //       z-index: 1;
 //   }
 // }
+.imageLinear {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 17%, rgba(0, 0, 0, 0.41) 50%, #000000);
+  @media (max-width: @screen-xs) {
+    // background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 97%, rgba(0, 0, 0, 0.65) 50%, rgba(0, 0, 0, 0.94) 18%);
+  }
+  &.noImage {
+    background-image: none
+  }
+}
 .skeletonAvatar {
   &.fixedHeight {
     .v-skeleton-loader__image {

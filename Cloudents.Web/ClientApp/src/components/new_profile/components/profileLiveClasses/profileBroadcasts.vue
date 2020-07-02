@@ -25,7 +25,7 @@
                     <div class="leftSide d-sm-flex me-sm-6">
                         <img :src="liveImage" alt="">
                     </div>
-                    <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pt-2 pt-sm-3 pe-0 ps-0">
+                    <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pt-2 pt-sm-2 pe-0 ps-0 pr-sm-4">
 
                         <div class="header d-flex justify-space-between mb-3" v-if="!isMobile">
                             <div>
@@ -101,18 +101,11 @@
                 </div>
             </div>
         </div>
-        <div class="showMore text-center mt-n2" v-if="broadcastSessions.length > 2">
 
-            <v-btn class="showBtn" color="#fff" fab depressed small dark @click="isExpand = !isExpand">
-              <arrowDownIcon class="arrowIcon" :class="{'exapnd': isExpand}" width="22"/>
+        <div class="showMore text-center mt-n2">
+            <v-btn class="showBtn" color="#fff" fab depressed small dark @click="isExpand = !isExpand"  v-if="broadcastSessions.length > 2">
+                <arrowDownIcon class="arrowIcon" :class="{'exapnd': isExpand}" width="22" />
             </v-btn>
-
-            <!-- TODO: add text for less -->
-            <!-- <span>{{buttonShowMore}}</span> -->
-
-            <!-- <button class="showBtn" v-if="broadcastSessions.length > 2">
-                <arrowDownIcon class="arrowIcon" :class="{'exapnd': isExpand}" width="24"/>
-            </button> -->
         </div>
 
         <v-snackbar
@@ -207,7 +200,7 @@ export default {
             return this.$vuetify.breakpoint.xsOnly
         },
         textLimit(){
-            return this.isMobile ? 110 : 260;
+            return this.isMobile ? 110 : 214;
         },
         isOpen :{
             get(){
@@ -314,16 +307,16 @@ export default {
     }
     .broadcastList {
         margin-bottom: 28px;
-        &:nth-child(3) {
-            margin-bottom: 20px;   
-        }
+        // &:nth-child(3) {
+        //     margin-bottom: 20px;   
+        // }
         &.expandLastChild {
             &:nth-child(3) {
                 margin-bottom: 28px;   
             }
-            &:last-child{
-                margin-bottom: 20px;
-            }
+            // &:last-child{
+            //     margin-bottom: 20px;
+            // }
             
         }
         .listWrapper{
@@ -366,7 +359,7 @@ export default {
                         }
                     }
                     .subscription {
-                        padding: 0 10px;
+                        padding: 0 0 0 10px;
                         @media(max-width: @screen-xs) {
                             font-size: 14px;
                         }
@@ -395,12 +388,10 @@ export default {
         border: 1px solid #d4d6da !important;
     }
     .arrowIcon {
+        padding-top: 1px;
         cursor: pointer;
         &.exapnd {
             transform: scaleY(-1);
-        }
-        path {
-            fill: #ff6f30;
         }
     }
 }

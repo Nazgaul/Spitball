@@ -97,7 +97,7 @@ export default {
   margin: 0 auto;
 //   height: 512px;
   border-radius: 8px;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+//   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
   background-color: #ffffff;
   padding: 14px;
   padding-top: 12px;
@@ -113,7 +113,7 @@ export default {
   }
   .profileReviewsBox_state{
       .profileReviewsBox_state_title{
-         font-size: 18px;
+         font-size: 24px;
          font-weight: 600;
          padding-bottom: 12px;
          text-transform: capitalize;

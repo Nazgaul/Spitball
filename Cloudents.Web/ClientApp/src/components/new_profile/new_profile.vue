@@ -180,17 +180,6 @@ export default {
   }
   .coverWrapper {
     position: relative;
-   .imageLinear {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      height: 100%;
-      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0.89));
-      &.noImage {
-        background-image: none
-      }
-    }
   }
   .profilePage_main {
     max-width: 1920px;
