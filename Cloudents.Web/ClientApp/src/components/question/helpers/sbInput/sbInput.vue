@@ -63,7 +63,7 @@
             hint:{
                 default: '',
                 required: false,
-                type: ''
+                type: String
             }
         },
         data: function () {
