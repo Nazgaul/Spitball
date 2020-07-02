@@ -37,15 +37,19 @@
                         class="me-sm-5"
                         :rules="[rules.required, rules.minimumChars]"
                         :label="$t('profile_firstName_label')"
+                        dense
+                        height="44"
                         v-model.trim="firstName"
                         outlined
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6">
                     <v-text-field
+                        v-model.trim="lastName"
                         :rules="[rules.required, rules.minimumChars]"
                         :label="$t('profile_firstName_label')"
-                        v-model.trim="lastName"
+                        dense
+                        height="44"
                         outlined
                     ></v-text-field>
                 </v-col>
@@ -57,6 +61,8 @@
                         :rules="[rules.minimum, rules.titleMaxChars]"
                         :counter="TITLE_MAX"
                         :label="$t('profile_description_label')"
+                        dense
+                        height="44"
                     ></v-textarea>
                 </v-col>
                 <v-col cols="12">
@@ -68,6 +74,8 @@
                         :counter="SHORTPARAGRAPG_MAX"
                         :label="$t('Short paragraph')"
                         :placeholder="$t('shortParagraph placeholder')"
+                        dense
+                        height="44"
                     ></v-textarea>
                 </v-col>
                 <v-col>
@@ -277,11 +285,7 @@ export default {
                 font-weight: 600;
                 color: #43425d;
             }
-            textarea::placeholder {
-                color: #a4a7ab;
-                font-size: 14px;
-            }
-            .v-textarea {
+            .v-textarea, .v-input {
                 .v-input__slot {
                     fieldset {
                         border: 1px solid #b8c0d1;
@@ -294,6 +298,13 @@ export default {
                     fieldset {
                         border: 2px solid #ff5252;
                     }
+                }
+            }
+            textarea {
+                margin-top: 10px !important;
+                &::placeholder {
+                    color: #a4a7ab;
+                    font-size: 14px;
                 }
             }
         }
