@@ -25,11 +25,11 @@ namespace Cloudents.Core.Entities
         {
         }
 
-        public virtual string Paragraph2 { get; protected set; }
+        public virtual string? Paragraph2 { get; protected set; }
 
-        public virtual string Title { get;protected set; }
+        public virtual string? Title { get;protected set; }
 
-        public virtual string Paragraph3 { get; protected set; }
+        public virtual string? Paragraph3 { get; protected set; }
 
         public virtual User User { get; protected set; }
 
@@ -65,7 +65,7 @@ namespace Cloudents.Core.Entities
             return SubscriptionPrice != null;
         }
 
-        public virtual void UpdateSettings(string shortParagraph, string title, string paragraph)
+        public virtual void UpdateSettings(string? shortParagraph, string? title, string? paragraph)
         {
         
             Paragraph2 = shortParagraph;
