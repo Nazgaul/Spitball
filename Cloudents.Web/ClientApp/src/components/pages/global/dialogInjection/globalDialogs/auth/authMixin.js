@@ -161,7 +161,6 @@ export default {
                     }
 
                     if(self.presetRouting()) return
-                    console.log("fsda;klfmasdkl; gfsdjagjklsgjklsgjkls");
                     
 					// dispatch('userStatus').then(() => {
                     //     self.$router.push({name: self.routeNames.LoginRedirect})

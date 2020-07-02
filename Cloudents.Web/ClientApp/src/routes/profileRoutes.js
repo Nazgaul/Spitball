@@ -5,26 +5,31 @@ import vuetify from '../plugins/vuetify';
 
 export const profileRoutes = [
     {
-        path: "/profile",
-        redirect: "/"
-    },
-    {
-        path: "/profile/:id/:name",
+        path: "/profile/:id?/:name?",
         name: routeName.Profile,
         components: {
             default: () => import(`../components/new_profile/new_profile.vue`),
             ...staticComponents(['banner', 'header'])
         },
         beforeEnter(to, from, next) {
-            let option = {
+            if (to.params.id == null) {
+                if (store.getters.getUserLoggedInStatus) {
+                    let id = store.getters.getAccountId
+                    let name = store.getters.getAccountName
+                    next({name:routeName.Profile, params : {id, name}})
+                } else {
+                    next('/')
+                }
+                return
+            }
+            let options = {
                 id: to.params.id,
-                type: 'documents',
                 params:{
                     page: 0,
                     pageSize: vuetify.framework.breakpoint.xsOnly ? 3 : 8,
                 }
-            }
-            store.dispatch('syncProfile', option).then(() => {
+            }            
+            store.dispatch('syncProfile', options).then(() => {
                 next()
             }).catch(ex => {
                 console.error(ex);
