@@ -11,7 +11,8 @@ const state = {
    profileReviews: null,
    profileLiveSessions: [],
    showEditDataDialog: false,
-   amountOfReviews :0
+   amountOfReviews: 0,
+   profileCoverLoading: false
 }
 
 const getters = {
@@ -36,6 +37,7 @@ const getters = {
    getAverageRate: state => ( state.amountOfReviews/state.profile?.user?.reviewCount) || 0,
    getProfileIsCalendar: state => state.profile?.user?.calendarShared,
    getProfileDocuments: state => state.documents,
+   getProfileCoverLoading: state => state.profileCoverLoading,
 }
 
 const mutations = {
@@ -170,8 +172,11 @@ const mutations = {
          state.profile.user.image = imageUrl;
       }
    },
-   setCoverPicture(state,imageUrl) {
+   setCoverPicture(state, imageUrl) {
       state.profile.user.cover = imageUrl;
+   },
+   setProfileCoverLoading(state, val) {
+      state.profileCoverLoading = val;
    }
 }
 

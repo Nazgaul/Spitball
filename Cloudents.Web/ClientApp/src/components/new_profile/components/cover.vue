@@ -102,10 +102,15 @@ export default {
     },
     loaded() {
       this.isLoaded = true
-      this.$emit('setLoading')
+      this.$store.commit('setProfileCoverLoading', true)
+    },
+    unLoaded() {
+      this.isLoaded = false
+      this.$store.commit('setProfileCoverLoading', false)
     },
     uploadCoverPicture() {
       let self = this;
+      this.unLoaded()
       let formData = new FormData();
       let file = self.$refs.profileImage.files[0];
       formData.append("file", file);
@@ -132,18 +137,22 @@ export default {
     position: static;
   }
 }
-// .coverUpload {
-//     .editImage{
-//       position: absolute;
-//       // right: 4px;
-//       text-align: center;
-//       // width: 36px;
-//       // height: 46px;
-//       border-radius: 3px;
-//       background-color: rgba(0,0,0,.6);
-//       z-index: 1;
-//   }
-// }
+.coverupload {
+  position: absolute;
+  padding: 6px;
+  z-index: 2;
+  color: #fff;
+  border-radius: 6px;
+  .editIcon {
+    path {
+      fill: #fff;
+    }
+  }
+  .editText {
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
 .imageLinear {
   position: absolute;
   bottom: 0;

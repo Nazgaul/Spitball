@@ -1,8 +1,8 @@
 <template>
   <div class="profilePage" :key="componentRenderKey">
     <div class="coverWrapper">
-      <profileCover @setLoading="() => coverImageLoading = true" />
-      <profileCoverActions @setCalendarActive="val => calendarActive = val" v-if="coverImageLoading" />
+      <profileCover  />
+      <profileCoverActions @setCalendarActive="val => calendarActive = val" v-if="isCoverImageLoaded" />
     </div>
     <profileStats />
     <profileParagraph />
@@ -122,6 +122,9 @@ export default {
             }
             return isCalendar && this.calendarActive
         },
+        isCoverImageLoaded() {
+          return this.$store.getters.getProfileCoverLoading
+        }
     },
     watch: {
         "$route.params.id": function(val, oldVal) {
@@ -153,6 +156,12 @@ export default {
             }
           }
         },
+        isCoverImageLoaded(val) {
+          // render for cover image skeletong to trigger when update new cover image from tutorEditInfo
+          if(!val) {
+            this.componentRenderKey +=1
+          }
+        }
     },
     beforeRouteLeave(to, from, next) {
         this.$store.dispatch('updateToasterParams', {
