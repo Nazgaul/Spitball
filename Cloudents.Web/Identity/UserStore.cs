@@ -183,6 +183,7 @@ namespace Cloudents.Web.Identity
 
         public Task SetPhoneNumberAsync(User user, string phoneNumber, CancellationToken cancellationToken)
         {
+            //DO NOT USE THIS SINCE ITS UPDATE THE SECURITY TOKEN - WELCOME EMAIL WILL NOT WORK
             user.PhoneNumber = phoneNumber;
             return Task.CompletedTask;
         }
