@@ -101,7 +101,7 @@ namespace Cloudents.Web.Api
         {
 
             if (user.PhoneNumber != null)
-            { 
+            {
                 if (isExternal)
                 {
                     await _signInManager.SignInAsync(user, false);
@@ -178,7 +178,7 @@ namespace Cloudents.Web.Api
                 var country = await _countryProvider.GetUserCountryAsync(cancellationToken);
                 user = new User(result.Email,
                     result.FirstName, result.LastName,
-                    result.Language, country,model.UserType == UserType.Tutor)
+                    result.Language, country, model.UserType == UserType.Tutor)
                 {
                     EmailConfirmed = true
                 };
@@ -198,7 +198,7 @@ namespace Cloudents.Web.Api
                             var uri = await blobProvider.UploadImageAsync(user.Id, result.Picture, sr,
                                 mimeType.ToString(), cancellationToken);
                             var fileName = uri.AbsolutePath.Split('/').Last();
-                            user.UpdateUserImage( fileName);
+                            user.UpdateUserImage(fileName);
                         }
                         catch (ArgumentException e)
                         {
@@ -232,17 +232,17 @@ namespace Cloudents.Web.Api
         private async Task GenerateEmailAsync(User user, CancellationToken token)
         {
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-           var encodedCode = System.Net.WebUtility.UrlEncode(code);
+            var encodedCode = System.Net.WebUtility.UrlEncode(code);
 
             TempData[EmailTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
-            
+
             var link = Url.Link("ConfirmEmail", new
             {
                 user.Id,
-                encodedCode,
+                code = encodedCode,
                 referral = TempData[HomeController.Referral]
             });
-            _logger.Info("generate Email",new Dictionary<string, string>()
+            _logger.Info("generate Email", new Dictionary<string, string>()
             {
                 ["userId"] = user.Id.ToString(),
                 ["code"] = code,
