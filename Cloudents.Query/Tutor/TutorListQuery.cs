@@ -53,13 +53,7 @@ CASE
 				select uc.courseId from sb.UsersCourses uc where rt.Id = uc.UserId and uc.CanTeach = 1
    INTERSECT
 				select uc2.CourseId from sb.UsersCourses uc2 where uc2.UserId = @userid) THEN 2
-   WHEN exists (
-				select c.subjectId from sb.UsersCourses uc  join sb.Course c on uc.CourseId = c.Name
-				where rt.Id = uc.UserId and uc.CanTeach = 1
-   intersect
-				select c2.SubjectId from sb.UsersCourses uc2 join sb.Course c2 on uc2.CourseId = c2.Name 
-				where uc2.UserId = @userid
-				) THEN 1
+ 
    else 0
    end  desc, rt.Rating desc
 OFFSET @PageSize * (@PageNumber) ROWS

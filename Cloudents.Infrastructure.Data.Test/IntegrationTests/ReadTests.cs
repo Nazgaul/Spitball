@@ -18,6 +18,7 @@ using Cloudents.Query.Questions;
 using Cloudents.Query.General;
 using Cloudents.Core.DTOs.Feed;
 using Cloudents.Query.Session;
+using Cloudents.Query.StudyRooms;
 using Cloudents.Query.Sync;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
@@ -627,14 +628,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Theory]
-        [InlineData("Economics")]
-        [InlineData("31010-אנגלית רמה A למדעי הרוח")]
-        public async Task CourseSubjectQuery_Ok(string courseName)
-        {
-            var query = new CourseSubjectQuery(courseName);
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Theory]
+        //[InlineData("Economics")]
+        //[InlineData("31010-אנגלית רמה A למדעי הרוח")]
+        //public async Task CourseSubjectQuery_Ok(string courseName)
+        //{
+        //    var query = new CourseSubjectQuery(courseName);
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         [Fact]
         public async Task AdminFictivePendingQuestionEmptyQuery_Ok()
@@ -723,6 +724,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new ChatConversationDetailQuery(identifier,638);
             var result = await fixture.QueryBus.QueryAsync(query, default);
 
+        }
+
+        [Fact]
+        public async Task LiveClassesReminderQuery_Ok()
+        {
+            var query = new LiveClassesReminderQuery();
+            var result = await fixture.QueryBus.QueryAsync(query);
         }
 
 

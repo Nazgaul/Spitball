@@ -120,32 +120,7 @@ namespace Cloudents.Web.Api
 
 
 
-        /// <summary>
-        /// Return relevant tutors base on user course - on specific course tab - feed
-        /// </summary>
-        /// <param name="course">The course name</param>
-        /// <param name="profile"></param>
-        /// <param name="count">Number of tutor result</param>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Any, VaryByQueryKeys = new[] {"*"})]
-        public async Task<IEnumerable<TutorCardDto>> GetTutorsAsync([RequiredFromQuery] string course,
-            [ProfileModelBinder(ProfileServiceQuery.Country)]
-            UserProfile profile,
-            int? count,
-            CancellationToken token)
-        {
-            _userManager.TryGetLongUserId(User, out var userId);
-            var query = new TutorListByCourseQuery(course, userId, profile.CountryRegion, count.GetValueOrDefault(10));
-            var retVal = await _queryBus.QueryAsync(query, token);
-            return retVal.Select(item =>
-            {
-                item.Image = _urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
-                return item;
-            });
 
-        }
 
         [HttpPost("request"), ValidateRecaptcha("6LfyBqwUAAAAALL7JiC0-0W_uWX1OZvBY4QS_OfL"), ValidateEmail]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -159,86 +134,6 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            //if (!_userManager.TryGetLongUserId(User, out var userId))
-            //{
-            //    if (model.Email == null)
-            //    {
-            //        ModelState.AddModelError("error", _stringLocalizer["Need to have email"]);
-
-            //        client.TrackTrace("Need to have email 1");
-            //        return BadRequest(ModelState);
-            //    }
-
-            //    if (model.Phone == null)
-            //    {
-            //        ModelState.AddModelError("error", _stringLocalizer["Need to have phone"]);
-            //        client.TrackTrace("Need to have phone 2");
-            //        return BadRequest(ModelState);
-            //    }
-
-
-            //    var query = new CountryByIpQuery(HttpContext.GetIpAddress().ToString());
-            //    var location = await _queryBus.QueryAsync(query, token);
-
-            //    var user = await _userManager.FindByEmailAsync(model.Email);
-            //    if (user != null)
-            //    {
-            //        if (user.PhoneNumber == null)
-            //        {
-
-            //            var result =
-            //                await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode,
-            //                    token);
-            //            if (result != IdentityResult.Success)
-            //            {
-            //                if (string.Equals(result.Errors.First().Code, "Duplicate",
-            //                    StringComparison.OrdinalIgnoreCase))
-            //                {
-            //                    client.TrackTrace("Invalid Phone number");
-            //                    ModelState.AddModelError("error", _stringLocalizer["Phone number Already in use"]);
-            //                    return BadRequest(ModelState);
-            //                }
-
-            //                client.TrackTrace("Invalid Phone number");
-            //                ModelState.AddModelError("error", _stringLocalizer["Invalid Phone number"]);
-            //                return BadRequest(ModelState);
-            //            }
-            //        }
-
-            //        userId = user.Id;
-            //    }
-            //    else
-            //    {
-            //        user = await _userManager.FindByPhoneAsync(model.Phone, location?.CallingCode);
-            //        if (user != null)
-            //        {
-            //            userId = user.Id;
-            //        }
-            //        else
-            //        {
-            //            var country = await countryService.GetUserCountryAsync(token);
-
-            //            user = new User(model.Email, model.Name, null, CultureInfo.CurrentCulture, country);
-
-            //            var createUserCommand = new CreateUserCommand(user, model.Course);
-            //            await _commandBus.DispatchAsync(createUserCommand, token);
-
-            //            var result =
-            //                await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode,
-            //                    token);
-            //            if (result != IdentityResult.Success)
-            //            {
-            //                ModelState.AddModelError("error", _stringLocalizer["Invalid Phone number"]);
-
-            //                client.TrackTrace("Invalid Phone number 2");
-            //                return BadRequest(ModelState);
-            //            }
-
-            //            userId = user.Id;
-            //        }
-            //    }
-            //}
-
             try
             {
                 var queryString = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(referer.Query);
