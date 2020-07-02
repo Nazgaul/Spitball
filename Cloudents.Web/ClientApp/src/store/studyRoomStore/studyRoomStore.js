@@ -1,6 +1,7 @@
 import studyRoomService from '../../services/studyRoomService.js';
 import {studyRoom_SETTERS} from '../constants/studyRoomConstants.js';
 import {twilio_SETTERS} from '../constants/twilioConstants.js';
+import Vue from 'vue';
 
 import studyRoomRecordingService from '../../components/studyroom/studyRoomRecordingService.js'
 function _getRoomParticipantsWithoutTutor(roomParticipants,roomTutor){
@@ -17,10 +18,6 @@ function _getIdFromIdentity(identity){
 }
 function _getNameFromIdentity(identity){
    return identity.split('_')[1]
-}
-function _newObjectPointer(obj){
-   // object assign cuz we need to create new object to vuex listen to
-   return Object.assign({}, obj);
 }
 function _checkPayment(context) {
    let isTutor = context.getters.getRoomIsTutor;
@@ -123,35 +120,31 @@ const mutations = {
          name: _getNameFromIdentity(participant.identity),
          id: participantId
       }
-      state.roomParticipants[participantId] = participantObj;
-      state.roomParticipants = _newObjectPointer(state.roomParticipants)
+      Vue.set(state.roomParticipants, participantId, participantObj);
    },
    [studyRoom_SETTERS.DELETE_ROOM_PARTICIPANT]: (state, participant) => {
       let participantId = _getIdFromIdentity(participant.identity)
-      delete state.roomParticipants[participantId];
-      state.roomParticipants = _newObjectPointer(state.roomParticipants)
+      Vue.delete(state.roomParticipants, participantId)
    },
    [studyRoom_SETTERS.ADD_ROOM_PARTICIPANT_TRACK]: (state, track) => {
       if(track.attach){
          let participantId = _getIdFromIdentity(track.identity);
          let isParticipantTutor = (participantId == state.roomTutor.tutorId)
          if(track.name == 'screenTrack' && isParticipantTutor){
-            state.roomParticipants[participantId].screen = track;
+            Vue.set(state.roomParticipants[participantId], 'screen', track);
          }else{
-            state.roomParticipants[participantId][track.kind] = track;
+            Vue.set(state.roomParticipants[participantId], track.kind, track);
          }
-         state.roomParticipants = _newObjectPointer(state.roomParticipants)
       }
    },
    [studyRoom_SETTERS.DELETE_ROOM_PARTICIPANT_TRACK]: (state, track) => {
       let participantId = _getIdFromIdentity(track.identity);
       let isParticipantTutor = (participantId == state.roomTutor.tutorId);
       if(track.name == 'screenTrack' && isParticipantTutor){
-         state.roomParticipants[participantId].screen = undefined;
+         Vue.delete(state.roomParticipants[participantId], 'screen')
       }else{
-         state.roomParticipants[participantId][track.kind] = undefined;
+         Vue.delete(state.roomParticipants[participantId], track.kind)
       }
-      state.roomParticipants = _newObjectPointer(state.roomParticipants)
    },
    toggleAudioVideoDialog(state,val){
       state.audioVideoDialog = val;
