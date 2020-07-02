@@ -49,26 +49,26 @@ export default {
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
-        limitedCardAnswers() {
-            if (typeof  this.cardData.answers === "number") {
-                if (this.cardData.answers > 3) {
-                    return 3;
-                } else {
-                    return this.cardData.answers;
-                }
-            } else if (!!this.cardData && !!this.cardData.answers) {
-                return this.cardData.answers.length > 3 ? this.cardData.answers.slice(0, 3) : this.cardData.answers.slice();
-            }
-        },
+        // limitedCardAnswers() {
+        //     if (typeof  this.cardData.answers === "number") {
+        //         if (this.cardData.answers > 3) {
+        //             return 3;
+        //         } else {
+        //             return this.cardData.answers;
+        //         }
+        //     } else if (!!this.cardData && !!this.cardData.answers) {
+        //         return this.cardData.answers.length > 3 ? this.cardData.answers.slice(0, 3) : this.cardData.answers.slice();
+        //     }
+        // },
         isSold() {
             return !this.cardData.hasCorrectAnswer && !this.cardData.correctAnswerId;
         },
-        cardTime() {
-            return this.cardData.dateTime || this.cardData.create;
-        },
-        cardAnswers() {
-            return this.cardData.answers;
-        },
+        // cardTime() {
+        //     return this.cardData.dateTime || this.cardData.create;
+        // },
+        // cardAnswers() {
+        //     return this.cardData.answers;
+        // },
         date() {           
             return timeAgoService.timeAgoFormat(this.cardData.create);
         }
