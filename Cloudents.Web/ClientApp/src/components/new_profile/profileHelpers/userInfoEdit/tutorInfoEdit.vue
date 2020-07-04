@@ -5,22 +5,30 @@
                 <div class="mainTitle" v-t="'upload images'"></div>
                 <v-icon class="closeIcon" size="12" @click="closeDialog">{{$vuetify.icons.values.close}}</v-icon>
             </div>
-
             <div class="profilePicture mb-5">
                 <div class="pictureTitle text-center mb-2" v-t="'profile picture'"></div>
-                <uploadImage sel="photo" class="editImage" />
-                <userAvatarNew
-                    sel="avatar_image"
-                    class="pUb_dS_img"
-                    :userName="$store.getters.getAccountName"
-                    :userImageUrl="$store.getters.getAccountImage"
-                    :width="isMobile ? 130: 160"
-                    :height="isMobile ? 161 : 200"
-                    :userId="$store.getters.getAccountId"
-                    :fontSize="36"
-                    :borderRadius="8"
-                    :tile="true"
-                />
+                <div class="profileEditAvatarWrap">
+                    <uploadImage
+                        sel="photo"
+                        class="editImage"
+                        v-show="avatarLoading || !$store.getters.getAccountImage"
+                        @setProfileAvatarLoading="val => avatarLoading = val"
+                    />
+                    <userAvatarNew
+                        sel="avatar_image"
+                        class="pUb_dS_img"
+                        :userName="$store.getters.getAccountName"
+                        :userImageUrl="$store.getters.getAccountImage"
+                        :width="isMobile ? 130: 160"
+                        :height="isMobile ? 161 : 200"
+                        :userId="$store.getters.getAccountId"
+                        :fontSize="36"
+                        :borderRadius="8"
+                        :tile="true"
+                        :loading="avatarLoading"
+                        @setAvatarLoaded="val => avatarLoading = val"
+                    />
+                </div>
             </div>
 
             <div class="profileCover mb-12">
@@ -126,6 +134,7 @@ export default {
             editedLastName: '',
             valid: false,
             btnLoading: false,
+            avatarLoading: false,
             rules: {
                 required: (value) => validationRules.required(value),
                 minimum: (value) => validationRules.minimumChars(value, 10),
@@ -138,9 +147,6 @@ export default {
         };
     },
     computed: {
-        coverImage() {
-            return this.$store.getters.getProfileCoverImage
-        },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
         },
@@ -242,24 +248,26 @@ export default {
                 font-weight: 600;
                 color: #131415;
             }
-            .pUb_dS_img{
-                pointer-events: none !important;
-            }
-            .editImage{
-                position: absolute;
-                // right: 4px;
-                text-align: center;
-                // width: 36px;
-                // height: 46px;
-                border-radius: 3px;
-                background-color: rgba(0,0,0,.6);
-                z-index: 1;
-            }
-            .user-avatar-image-wrap {
-                width: auto !important;
-                .user-avatar-rect-img {
-                    border: solid 1px #c6cdda;
-                    border-radius: 3px !important;
+            .profileEditAvatarWrap {
+                .pUb_dS_img{
+                    pointer-events: none !important;
+                }
+                .editImage{
+                    position: absolute;
+                    // right: 4px;
+                    text-align: center;
+                    // width: 36px;
+                    // height: 46px;
+                    border-radius: 3px;
+                    background-color: rgba(0,0,0,.6);
+                    z-index: 1;
+                }
+                .user-avatar-image-wrap {
+                    width: auto !important;
+                    .user-avatar-rect-img {
+                        border: solid 1px #c6cdda;
+                        border-radius: 3px !important;
+                    }
                 }
             }
         }
@@ -311,13 +319,13 @@ export default {
                 }
             }
         }
-        .shallow-blue {
-            border: 1px solid @global-blue;
-            color: @color-blue-new;
-            @media (max-width: @screen-xs) {
-                padding: 0 16px ;
-            }
-        }
+        // .shallow-blue {
+        //     border: 1px solid @global-blue;
+        //     color: @color-blue-new;
+        //     @media (max-width: @screen-xs) {
+        //         padding: 0 16px ;
+        //     }
+        // }
         // .blue-btn {
         //     @media (max-width: @screen-xs) {
         //         padding: 0 16px ;

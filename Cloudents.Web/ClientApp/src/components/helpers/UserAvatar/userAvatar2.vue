@@ -7,7 +7,7 @@
     >
         <div v-if="userImageUrl" class="user-avatar-image-wrap" :style="{width: `${width}px`}">
             <v-skeleton-loader
-                v-if="!isLoaded"
+                v-if="!loading && !isLoaded"
                 class="skeletonAvatar"
                 :type="tile ? 'image' : 'avatar'"
                 :width="width"
@@ -16,7 +16,8 @@
             >
             </v-skeleton-loader>
             <intersection>
-                <img 
+                <img
+                    v-show="isLoaded"
                     draggable="false"
                     @load="loaded"
                     @error="onImgError"
@@ -79,6 +80,10 @@ export default {
             type: Number,
             required: false,
             default: 0
+        },
+        loading: {
+            type: Boolean,
+            required: false
         }
     },
     data(){
@@ -87,9 +92,17 @@ export default {
             imgError: false,
         }
     },
+    watch: {
+        loading(val) {
+            if(!val) {
+                this.isLoaded = false
+            }
+        }
+    },
     methods:{
         loaded() {
             this.isLoaded = true;
+            this.$emit('setAvatarLoaded', true)
         },
         onImgError(){
             this.userImageUrl = null;

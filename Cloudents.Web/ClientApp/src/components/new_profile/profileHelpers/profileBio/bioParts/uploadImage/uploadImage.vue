@@ -27,6 +27,10 @@
             ...mapActions(['uploadAccountImage', 'updateToasterParams']),
             uploadProfilePicture() {
                 let self = this;
+                // will trigger in tutorInfoEdit and userInfoEdit skeleton loader
+                this.$emit('setProfileAvatarLoading', false)
+                // will trigger in header component to make skeleton loader
+                this.$root.$emit('avatarUpdate', false)
                 let formData = new FormData();
                 let file = self.$refs.profileImage.files[0];
                 formData.append("file", file);
