@@ -102,7 +102,10 @@ export default {
     methods:{
         loaded() {
             this.isLoaded = true;
-            this.$emit('setAvatarLoaded', true)
+            // trigger for loading render in parent component
+            if(typeof this.$listeners.setAvatarLoaded === "function") {
+                this.$emit('setAvatarLoaded', true)
+            }
         },
         onImgError(){
             this.userImageUrl = null;
