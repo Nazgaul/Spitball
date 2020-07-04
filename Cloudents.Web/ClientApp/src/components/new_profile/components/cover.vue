@@ -96,7 +96,10 @@ export default {
       clearTimeout(typeingTimer);
       let self = this;
       typeingTimer = setTimeout(() => {
-        self.windowWidth = window.innerWidth
+        // prevent duplicate request on switch to mobile, coverImageSize computed is already listen to isMobile changes
+        if(!this.isMobile) {
+          self.windowWidth = window.innerWidth
+        }
         self.currentTime = Date.now()
       }, 1000);
     },
@@ -151,6 +154,9 @@ export default {
   .editText {
     font-size: 16px;
     font-weight: 600;
+  }
+  .attach-icon {
+    cursor: pointer;
   }
 }
 .imageLinear {
