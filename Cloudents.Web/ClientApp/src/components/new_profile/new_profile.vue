@@ -1,57 +1,51 @@
 <template>
-  <div class="profilePage" :key="componentRenderKey">
-    <div class="coverWrapper">
-      <profileCover  />
-      <profileCoverActions @setCalendarActive="val => calendarActive = val" v-if="isCoverImageLoaded" />
+    <div class="profilePage" :key="componentRenderKey">
+        <div class="coverWrapper">
+            <profileCover  />
+            <profileCoverActions @setCalendarActive="val => calendarActive = val" v-if="isCoverImageLoaded" />
+        </div>
+        <profileStats />
+        <profileParagraph />
+        <div class="profilePage_main mx-0 mx-sm-5">
+            <profileCalendarTab
+              ref="calendarTab"
+              v-if="showCalendarTab"
+              :showCalendarTab="calendarActive"
+              class="mt-sm-12 mt-2 mx-auto"
+            />
+            <profileSubscription id="subscription" :userId="id" v-if="showProfileSubscription" ref="profileSubscription" />
+            <profileBroadcasts id="broadcast" :userId="id" ref="profileLiveClassesElement" />
+            <profileItemsBox v-if="showItems" class="mt-sm-12 mt-8" />
+            <profileReviewsBox class="my-10 mt-2" />
+        </div>
+        <profileFooter />
     </div>
-    <profileStats />
-    <profileParagraph />
-    <div class="profilePage_main profile-page-container">
-      <calendarTab
-        ref="calendarTab"
-        v-if="showCalendarTab"
-        :showCalendarTab="calendarActive"
-        class="mt-sm-12 mt-2 mx-auto calendarSection"
-      />
-      <profileSubscription id="subscription" :userId="id" v-if="showProfileSubscription" ref="profileSubscription" />
-      <profileBroadcasts id="broadcast" :userId="id" ref="profileLiveClassesElement" />
-      <profileItemsBox v-if="showItems" class="mt-sm-12 mt-8" />
-      <profileReviewsBox class="my-10 mt-2" />
-    </div>
-    <profileFooter />
-    <profileDialogs />
-  </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 import profileCover from './components/profileCover/profileCover.vue';
 import profileCoverActions from './components/profileCoverActions/profileCoverActions.vue';
-import profileDialogs from './components/profileDialogs/profileDialogs.vue';
 import profileStats from './components/profileStats/profileStats.vue';
 import profileParagraph from './components/profileParagraph/profileParagraph.vue';
-import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
-import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
-import profileBroadcasts from './components/profileLiveClasses/profileBroadcasts.vue'
-import calendarTab from '../calendar/calendarTab.vue';
+import profileCalendarTab from '../calendar/calendarTab.vue';
 import profileSubscription from './components/profileSubscription/profileSubscription.vue';
+import profileBroadcasts from './components/profileLiveClasses/profileBroadcasts.vue'
+import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
+import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
 import profileFooter from './components/profileFooter/profileFooter.vue';
-
 
 export default {
     name: "new_profile",
     components: {
         profileCover,
         profileCoverActions,
-        profileDialogs,
         profileStats,
         profileParagraph,
-        profileReviewsBox,
-        profileItemsBox,
-        profileBroadcasts,
+        profileCalendarTab,
         profileSubscription,
-        calendarTab,
+        profileBroadcasts,
+        profileItemsBox,
+        profileReviewsBox,
         profileFooter,
     },
     props: {
@@ -61,7 +55,6 @@ export default {
     },
     data() {
         return {
-            coverImageLoading: false,
             calendarActive: false,
             componentRenderKey: 0
         };
@@ -71,7 +64,7 @@ export default {
             let self = this
             this.$store.dispatch('syncProfile', this.id)
               .then(() => {
-                this.getProfileData()
+                this.getProfileDataItems()
               }).catch((ex) => {
                   console.error(ex);
                   let currentRoute = self.$store.getters.getRouteStack[self.$store.getters.getRouteStack.length - 2] // check if there is last route that user come from
@@ -82,7 +75,7 @@ export default {
                   self.$router.push('/')
               })
         },
-        getProfileData() {
+        getProfileDataItems() {
           let options = {
             id: this.id,
             params: {
@@ -98,16 +91,10 @@ export default {
         }
     },
     computed: {
-        ...mapGetters([
-            "getProfile",
-            'getIsSubscriber',
-            'getProfileTutorSubscription',
-        ]),
         showProfileSubscription() {
-            if(this.getProfileTutorSubscription && Object.keys(this.getProfileTutorSubscription).length > 0 && !this.getIsSubscriber) {
-              return true
-            }
-            return false
+            let profileTutorSubscription = this.$store.getters.getProfileTutorSubscription
+            let isTutorSubscription = profileTutorSubscription && Object.keys(profileTutorSubscription).length > 0
+            return isTutorSubscription && !this.$store.getters.getIsSubscriber
         },
         isMyProfile(){
           return this.$store.getters.getIsMyProfile
@@ -116,7 +103,7 @@ export default {
             return this.$store.getters.getProfileDocuments?.result?.length
         },
         showCalendarTab() {
-            let isCalendar = this.getProfile?.user?.calendarShared
+            let isCalendar = this.$store.getters.getProfileIsCalendar
             if(this.isMyProfile) {
                 return !isCalendar
             }
@@ -171,7 +158,7 @@ export default {
         next();
     },
     created() {
-      this.getProfileData()
+      this.getProfileDataItems()
     }
 }
 </script>
@@ -179,33 +166,11 @@ export default {
 <style lang="less">
 @import "../../styles/mixin.less";
 .profilePage {
-  position: relative;
-  @media (max-width: @screen-md) {
-    justify-content: center;
-  }
-  @media (max-width: @screen-xs) {
-    margin: 0;
-    display: block;
-  }
   .coverWrapper {
     position: relative;
   }
   .profilePage_main {
     max-width: 1920px;
-    margin: 0 20px;
-    @media (max-width: @screen-xs) {
-      margin: 0;
-    }
-    &.profile-page-container {
-      @media (max-width: @screen-xs) {
-        margin-left: 0;
-        padding: 0;
-      }
-    }
-  }
-  .calendarSection {
-    max-width: 960px;
-    border-radius: 8px !important;
   }
 }
 </style>

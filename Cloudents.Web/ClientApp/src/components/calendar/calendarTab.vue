@@ -1,11 +1,9 @@
 <template>
     <v-layout class="calendar-section" v-if="showCalendarTab">
-        <!-- <v-icon v-if="!isMyProfile" @click="globalFunctions.closeCalendar()" class="close-btn">sbf-close</v-icon> -->
         <v-flex xs12 class="">
             <v-progress-circular class="progress-calendar" v-show="!isReady && !studentEmptyState" indeterminate :size="150" width="3" color="info"/>
             <v-card class="caltab" v-if="isReady">
-                <calendar v-if="getShowCalendar"/>
-                <!-- <calendarEmptyState v-if="showEmptyState && !getShowCalendar"/> -->
+                <calendar v-if="showCalendar"/>
             </v-card>
             <v-card class="caltab" v-show="studentEmptyState">
                 <span v-t="'calendar_empty_state_student'"></span>
@@ -15,9 +13,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
 const calendar = () => import('./calendar.vue');
-// const calendarEmptyState = () => import('./calendarEmptyState.vue');
 
 export default {
     props: {
@@ -25,7 +21,6 @@ export default {
     },
     components:{
         calendar,
-        // calendarEmptyState
     },
     data() {
         return {
@@ -34,19 +29,15 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getProfile','accountUser','getShowCalendar']),
         isMyProfile(){
-            if(!!this.getProfile && !!this.accountUser){
-                return (this.getProfile.user.id == this.accountUser.id)
-            }
-               return false;
+            return this.$store.getters.getIsMyProfile
+        },
+        showCalendar() {
+            return this.$store.getters.getShowCalendar
         },
         showEmptyState(){
-            return (this.isMyProfile && !this.getShowCalendar)
+            return (this.isMyProfile && !this.showCalendar)
         },
-    },
-    methods: {
-        ...mapActions(['updateCalendarStatus'])
     },
     beforeDestroy() {
         this.$store.dispatch('resetCalendar')
@@ -54,54 +45,55 @@ export default {
     created() {
         let self = this;
         //this.$loadScript("https://apis.google.com/js/api.js").then(() => {
-            self.updateCalendarStatus().then(()=>{
-                self.isReady = true
-            },()=>{
-                if(!self.isMyProfile){
-                    self.studentEmptyState = true;
-                }
-            })
+        this.$store.dispatch('updateCalendarStatus').then(()=>{
+            self.isReady = true
+        },()=>{
+            if(!self.isMyProfile){
+                self.studentEmptyState = true;
+            }
+        })
         //})
     },
 }
 </script>
 
 <style lang="less">
-    @import '../../styles/mixin.less';
-    .calendar-section {
-        
-        .close-btn{
-            cursor: pointer;
-            position: absolute;
-            font-size: 12px !important;
-            z-index: 6;
-            right: 0;
-            padding-right: 16px;
-            padding-top: 16px;
-        }
-
+@import '../../styles/mixin.less';
+.calendar-section {
+    position: relative;
+    max-width: 960px;
+    border-radius: 8px !important;
+    @media (max-width: @screen-xs) {
+        box-shadow: none;
+        border-radius: 4px;
+    }
+    .close-btn {
+        cursor: pointer;
+        position: absolute;
+        font-size: 12px !important;
+        z-index: 6;
+        right: 0;
+        padding-right: 16px;
+        padding-top: 16px;
+    }
+    .progress-calendar {
+        position: absolute;
+        z-index: 5;
+        top: 38%;
+        left: 38%;
+    }
+    .caltab{
+        // ask shiran for box shadow
+        box-shadow: none;
+        // box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+        padding: 40px 22px;
+        border-radius: 8px;
         @media (max-width: @screen-xs) {
-            box-shadow: none;
-            border-radius: 4px;
-            
-        }
-          position: relative;
-  .progress-calendar{
-    position: absolute;
-    z-index: 5;
-    top: 38%;
-    left: 38%;
-  }
-        .caltab{
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
-            padding: 40px 22px;
-            border-radius: 8px;
-            @media (max-width: @screen-xs) {
-                  box-shadow: none;
-                padding: 10px;
-                // margin-bottom: 40px;
-            }
+                box-shadow: none;
+            padding: 10px;
+            // margin-bottom: 40px;
         }
     }
+}
 
 </style>
